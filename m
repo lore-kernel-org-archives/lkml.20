@@ -1,161 +1,52 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E56381AFB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E01378822;
+	Mon, 28 Sep 2026 18:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619463; cv=none; b=JT0zs9B+iTQBeYsDDB0q6qm4P5lO1xYnfK4sP+vXIn8I66X4Dlqcg1/f0xQTYg3BS9AdODyBIEr2kVrCqpjk958AORw12RHvly48Y73prsTvI86F0U1z8+G+XwkmN5YE6ZQdL3avk7NIe7KWM5v6ttFoxqJIPC/8UMbBBtQacHw=
+	t=1790619491; cv=none; b=Gzzl/Pfn3DHtFHB7xOITXj0x9fGq8csUFfy+xw6dxOS9S5fGdmIFpBbfO8vBZfOnpo0G1K5RHc0vyc7VVw+T2QUrwjcd2s//FjJH/pjAbLEgxCqQ1fWN9cnZIiD2ZjQXeeUQACI5wyobnC1UVd9ZAAjG56MUB3YxaX5ApTAFmag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619463; c=relaxed/simple;
-	bh=t7wnAbQo9fhp75YDIZ8Di2uLMxtaqNgTQQQgRgB2y7Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WvZBWFzpZVOFJhKRlkBfyqux3QS+IKYG9exZXCBx9ZADiYtRMLkGBxka+z3kw5OnylHIAltwqLwx1FJNkfoE/ntXGZBmPMXra3hzMHhE0liUH5+kHZgX7I2dCGuEJBPOCSqfPj391RTwOsnnG5V7f6/wDsG9a+UDygZsKx2qveY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbLERrcq; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790619491; c=relaxed/simple;
+	bh=X/Cc78gAQahQyXm3IPkvdrRrtpsk1g7IHxtR357Cg/0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=fttVjLkmvCf7ob1B09nkeUhAAZYrhGZV9BOZC6Q6TDnxzB85fzGMq7jJi8knkYkbpt9J46kA4RK283pI8AXmLJTdHAihS20Po2VSA1vGJubtfsar6MeegVD5lopK4jLvXZTbXmkfEryBEbc74jwEGN2fzN2uI4jjpmr+N7Zt7+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3iKWuTB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbLERrcq"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so32128205e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790619460; x=1791224260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7P4n65OS1muIcpC3FLPM1Cf6wgXMdF30weAgyrooSwc=;
-        b=cbLERrcqKD/iOx0zNL9szerynmLpYRmAEg0WAk2cgUSNgqaSYG4iE/hkL5Meo8zWZk
-         l6AuMPOzBoTZTosFX6LNrPtQ372ff3ATLSqxr+Udv2PeFJmRoyS+4en3Zhc/A7pIT3CQ
-         +BOV9ypIyujKFzljQPwviI3CYGPJ7BoBNv/JdhDizZVBzyT5ib6P4vEw/SVDAKm2zyl7
-         LEWs66oHgK4DVjGIbuVbWkJO34NM42NXS/sTrQevGaqXILZFAMKhydVefE/UycrGgftZ
-         VA+lhwc7CIjNrmIL9Jjpx5Sy9yTqxzMci/bTEFzFKFmxz29IKm0Wn6lh9QMFrnlUT1R3
-         lBnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790619460; x=1791224260;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7P4n65OS1muIcpC3FLPM1Cf6wgXMdF30weAgyrooSwc=;
-        b=QjbuI8MjTVwT629Mgy6b7aG4a4mKAT220zefU6XMhAODSVazgJQ7tTeu+X3QqqevOs
-         bvcuP0eGeumXIr7T/VFgHMGDlQWYHvlA1lUOLRfS87ULa3MIG/RziAnOSdAA2FgCQWKf
-         3eTit35GabWht1tyi15u/u1tlj66nZ+DutBogZXO7i6YBSRd9h6UoAM58L7VlYx2W3Zd
-         KoJqZhSg/PUaRDJ3BrmrBgpxEANwdkODLap5xWFcQ0ew7xGfr+99IbNR9vxoVV/UqwJP
-         7bPVVa3lEzoBOlClJZ3M8t4ucruTwAheJA/J2Uq4maacxACiYYWTEooCYWDbOjrVEpgA
-         RqHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoO3D+SOrQ/CFD3iMhb4SORFHBxMEB7PmF7V1aZU39xKmhz/TVPh8pSYnkTAlNcBTAD/WS/rZjRrYsWb0=@vger.kernel.org
-X-Gm-Message-State: AFuF++noaxIYVutADWVEYlatDJFibURUcoki0XOWoV0QUPiLQYk55QWn
-	nDLW1KTHDwfFNcvtYmfrVris4hVUa/mtEa4FAVw71jP7mImUUxyrCDj6
-X-Gm-Gg: AYBFou22DzFWw3tE+IQdYuCQqZI1vB687gZQdYXwRgF1CPlSt+wZHe0M9OVx2Ditu1g
-	KoVweKrQPExRCX0f1137zrURag8LZnT6LlHsbGKMexeNvGz0d9OW5l66GlSXdgcO/TM+NGk+p03
-	u61xR7Lm20VxId8f4jESlBOMZNKSMeyjDViblTR88JPgIc3DnuaqvVcFxhtHJ6pkZ+9+aZ2B/qF
-	mMa6vYK4CNy4iPNfCu8KuMyL3QssRq9zU6zTte6oN/cJDlNcqon9SNfrHxmV3g8Oi9FI6fHsZ48
-	JkPQ8cl2BO0rOrxvUU7NTzW+UKc1nD+e1rRGhCaIqCnpp5AdkRWzr0cgfeV7H03ObqSbBwEtpT5
-	LNjWR/Adq3zAdqLum7DLi+2HJh3fJiQmpXzwfROhbgBik4Hh26to21bJ9RAJweFHaMJ9tOqWje6
-	SnxuoqtyvaYF4OUYGSRC4kIenYCjNgukOyQp953xpZsAvYh5hGgmzJuuid3+kf6CvMM3tD4nHDk
-	hbjFwg6nexwKewByJXanToy5DVbBNOPtNY=
-X-Received: by 2002:a05:600c:3511:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49fe66fca74mr225174635e9.23.1790619459558;
-        Mon, 28 Sep 2026 11:17:39 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm14819315e9.9.2026.09.28.11.17.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 11:17:39 -0700 (PDT)
-Date: Mon, 28 Sep 2026 19:17:37 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>, bhelgaas@google.com,
- linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] PCI: sysfs: Reject unaligned resource I/O port
- accesses
-Message-ID: <20260928191737.20c8a985@pumpkin>
-In-Reply-To: <fd1753ec-020b-b90d-ec1a-9d21ab2fa9a4@linux.intel.com>
-References: <20260928123036.7902-1-kartikey406@gmail.com>
-	<fd1753ec-020b-b90d-ec1a-9d21ab2fa9a4@linux.intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3iKWuTB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797211F000FF;
+	Mon, 28 Sep 2026 18:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790619489;
+	bh=oQMT0tgMlck/BnOo41rrb4EM1bVWDftPddjn+lNZEec=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h3iKWuTBZG2unj674vSrhxZVEH+hee50hehyNjbuXw6/DwbbyibnvEIJ0PTXWphnU
+	 VvyUTY8FTPsKDVblq65XzeUHMDy6hKFcDQK4eYNogc79owIiyUfvvV2qKkZ36Qj5j5
+	 4XoWeaL+1fqxU8HHa0o3MgPv5QqZ7vv4dWTqfeh/ksc7Jd/+m9g0ELZzn+pYVIIer8
+	 gk/zgXQzu58s2fBuRC76aPW8hSfqCtGgmc7ItHwNtng9LojLCuY+hDibSH3oEd8XEe
+	 TFnSccDYbNtTpPf8YAKH7xtgblDEJE35yWAx4LfKRghkrLMyhN3VLhBBfZz1gmkMqH
+	 f9SprEudHGbyg==
+Date: Mon, 28 Sep 2026 08:18:08 -1000
+Message-ID: <fb7e9f1936f7b77418d05d4f2a263213@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] workqueue: Fix NULL current_pwq deref in chained work
+ check
+In-Reply-To: <20260928-wq_chain_fix-v1-1-e2f1f117d1f7@oss.qualcomm.com>
+References: <20260928-wq_chain_fix-v1-1-e2f1f117d1f7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sep 2026 15:57:23 +0300 (EEST)
-Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+Applied to wq/for-7.3-fixes with the Fixes tag updated to the commit that
+added the unguarded deref:
 
-> On Mon, 28 Sep 2026, Deepanshu Kartikey wrote:
->=20
-> > pci_resource_io() validates that the requested port lies within the
-> > BAR but never checks that it is aligned to the access size. A
-> > pwrite64()/pread64() on a resourceN file with an odd offset and
-> > count=3D2 or count=3D4 reaches outw()/outl() with a misaligned address.
-> > On arm64 this becomes a store/load to a Device-memory mapping
-> > (PCI_IOBASE + port), which architecturally requires natural
-> > alignment, causing an alignment fault and kernel oops.
-> >=20
-> > Reject misaligned 2- and 4-byte accesses before they reach the
-> > low-level accessor. With natural alignment enforced, an access that
-> > starts inside the BAR cannot extend past its end, so drop the
-> > port + count - 1 range check.
-> >=20
-> > Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D7134530b25073b4ef373
-> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > ---
-> > v2: Check alignment per access size in the case 2/case 4 branches
-> >     instead of using IS_ALIGNED() with a user-controlled count, and
-> >     drop the now-redundant port + count - 1 range check.
-> >     (Bjorn, David, sashiko)
-> > ---
-> >  drivers/pci/pci-sysfs.c | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-> > index 1f21856aac8a..8118cc6b3a61 100644
-> > --- a/drivers/pci/pci-sysfs.c
-> > +++ b/drivers/pci/pci-sysfs.c
-> > @@ -1209,9 +1209,6 @@ static ssize_t pci_resource_io(struct file *filp,=
- struct kobject *kobj,
-> >  	if (port > pci_resource_end(pdev, bar))
-> >  		return 0;
-> > =20
-> > -	if (port + count - 1 > pci_resource_end(pdev, bar))
-> > -		return -EINVAL;
-> > -
-> >  	switch (count) {
-> >  	case 1:
-> >  		if (write)
-> > @@ -1220,12 +1217,16 @@ static ssize_t pci_resource_io(struct file *fil=
-p, struct kobject *kobj,
-> >  			*(u8 *)buf =3D inb(port);
-> >  		return 1;
-> >  	case 2:
-> > +		if (port & 1)
-> > +			return -EINVAL;
-> >  		if (write)
-> >  			outw(*(u16 *)buf, port);
-> >  		else
-> >  			*(u16 *)buf =3D inw(port);
-> >  		return 2;
-> >  	case 4:
-> > +		if (port & 3) =20
->=20
-> Why fon't these use !IS_ALIGNED() anymore? You can use e.g. sizeof() to=20
-> connect it to the natural alignment of the type so you don't have to use=
-=20
-> literals at all.
+  Fixes: 8d03ecfe4718 ("workqueue: reimplement is_chained_work() using current_wq_worker()")
 
-That just obfuscates what is going on....
+Thanks.
 
-David
-
->=20
-> > +			return -EINVAL;
-> >  		if (write)
-> >  			outl(*(u32 *)buf, port);
-> >  		else
-> >  =20
->=20
-
+--
+tejun
