@@ -1,99 +1,106 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD4E64AA4
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA5964AA4;
+	Mon, 28 Sep 2026 05:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790573301; cv=none; b=szdauJvwL2SBwuMtNhJ2gKdgGFRQVZYCaYxYamEkMmb8PpPXPbYO3BEf9CRzqnAa/+9R2znrTFYSffPaZBw4NruF8Y2HA07websNY/Uq9wSlQfz1tzV3qGXfGZcpPEHBWrISKuEJwD3rOSemcOZx0Q7P9HVnrxVQic8UP+Jf3Gg=
+	t=1790573316; cv=none; b=mvXaUD+N2ffpg2trMg3MJUZ2eK3/U36T4WjhuXIqtVx4zRNvi5x4A05eBy0/b+V2bfVrMF9zHCucajgqOntOTvi4L6Ba9fkgL2KpwHVi3d/i4Kr/+MY0L21xXBgpdFWzkgI+N5dCWz75EJTsNKi4RxcKawZM9Bu5h1369+GuGu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790573301; c=relaxed/simple;
-	bh=OOn0xZ7VgwYJFiGdKoUynLwL5WCaLjCsrzuDl3/CzZE=;
+	s=arc-20240116; t=1790573316; c=relaxed/simple;
+	bh=KfanDVMBEpz7PobdM4FbjMTBPN6BSOZFsal9qjNuiIY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VPZ3r0iA6RuPvrhATcW5oeSSMAqxu8p02cnJbosI3Gu0vr26ComvC4Wz/yblXTZ0OW4gn8tl4QJqmjMeDLcv9o7MJTCsnpgb/ezEOrU5rKisek5TH8OY/vgV3BxQsdxHJvNfS4U7ApJfh6VDnzynu5PTGHJvasdtCDJKUN6nQqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQOOgtEr; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kfvzGd+NNeHN63HxmiyGENrMIP1z0Utxpxt+8Nv15Lzk1kpRMEqZ/vxBDhOsldIdTkgv5B3GOdCK0I1P9WIpd5BpW6ayMDReM/iFLEsxMtnctOzkSgrQZynsdslXSgDDETRH5jBQk6gHWjUNww+EGqP33s6QLkC3vaCJXxZ9MHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=CQZoSMsS; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQOOgtEr"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3413069aa25so1650916eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790573299; x=1791178099; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ygv/KFDM/0BHrtQ7A8PLOkcBlFsBYDEx0B6l5c8Mm3A=;
-        b=YQOOgtErbRh1QNWOOMOpYHx/WcqXVmRy6lISlfxctRtVngmxggTNTvr2A5xUdL0tp/
-         c8u9SYo2/5TLZ992tSck3po8R+2bdmcCELtlTNKgf5Wlmsh74UKtSOdx4Hw7Mui2w4dY
-         s/bHIeqhLVpSOj/sB40mllArv+fg5isq/d7KUrJWqF5tocIXtINIvBTh0v9DXggH1v1A
-         97uJ90zj+gOsFH2Yafekf2L5d7+aGVeqCpPv9UffCKFQHUXR8CMWJ0Lu6mZ3V2SC7wef
-         gwwZ85m/dPDiL6nipVIghUnBZ5wlMRFbVakq+OdXp5Sh0HsgjadVSrZBzXIN1GTYLsf5
-         77hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790573299; x=1791178099;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ygv/KFDM/0BHrtQ7A8PLOkcBlFsBYDEx0B6l5c8Mm3A=;
-        b=GKIqXsxl1PIRVkjpA//0L895sRRi4tX07K64kXxS+536xXiW8j75Xs0iiJwTM5yQsN
-         /KoLXNf9avx/MaRpzSy2AFqM01EXQBUSS+bTECRitf5OgXpry0ThdChjNllv2wjHx6zU
-         dscfG9zhQsq1tJCYHsIvnWdQJ6DRjjfOPkdbkdli8kulgTlJIBQOm41H0slyeeaSEFu4
-         lusXkvc2gaO849i4jz7vr2yIfoiFxQVFVr4VDpRCWg9t+zA6fyvGv2HUn9uZuRRd51+b
-         JGEoBWwl+9C98JxKfIu1M63dMmiHElHQNUXa6I91f4U8q8vBk59DniqPpOnY6JTUNG4k
-         onXw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWSd8Rkr7aydZ4zo/Rnj2G7Y6FVC23yGBKfdVNDaXR6BmGwp0cGNlUDpB8jlMclSlI3Tps2iIK+EAOjTw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1QMe4dYj2VQsfydTou2KbZrQLyUG6Eg9vrKf0IQPqK9QVwqWx
-	HhLGUUDWy7cwQjL9HFI2QidHEoEsdezZMk8gSmgJKHMRt3jREygwPJLa
-X-Gm-Gg: AYBFou0mHnFjfG1CGZ3Tao3VWlH5J3RVOBS1WKCCPJPrszH2UPQ5qCu2PJ83BrBUNAl
-	/8yQZg8q1fLUKa18hjoDHPeMlzR7rgDdg1cQYwsKxRMq+4Oaj27xPjWhGrHLABDD7XDEj522d7U
-	K1ZW2pwbbZq7FUS/vXcHrOIG1vVJzQ/EMbavwqlXAUs+WlJV2OiIeOQR3m9j5riD5jaWLrWb09N
-	DJmDE59/tJpR+2FaRQPOCn55auJImHP+e2HZcGiyDHbH4iQOQG0ImBewYXiRsfkmVtf7/4xKNJF
-	0whqHmjNh6ggjEuG2V9eoGfK42Od6Fli8jr6m+uk2vXjBm3EHob0HlHDb7qq9Qn230ZRnHlaRpY
-	ZIhy9u/w9JtV44NAZM6eT/K10Cd8usnir438NAlwiJnuAkboTqlboNSgvzpudf4zsbAOL20n/YG
-	LlCW3jcemrfb03IqKqZPAVX017MmG2t5LiukJ+Kwmo8SaRlp0QC2HnklqjxRhqOMPUAcA369NpD
-	Jq1jBNUTFPbt41hVPNHPgqDpyrtPjjNyg8pn2GS
-X-Received: by 2002:a05:7300:3081:b0:343:ff9f:26f3 with SMTP id 5a478bee46e88-343ff9f3572mr7944608eec.9.1790573299211;
-        Sun, 27 Sep 2026 22:28:19 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:526d:2f94:503b:aada])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3475546c982sm3458936eec.5.2026.09.27.22.28.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 22:28:18 -0700 (PDT)
-Date: Sun, 27 Sep 2026 22:28:15 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] sh: mach-x3proto: convert gpio-keys to software nodes
-Message-ID: <arn6r3RohRPJrk0_@google.com>
-References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
- <20260704-sh-x3proto-swnode-v1-2-0c039549dc46@gmail.com>
- <d3a2875ba34bf10ddae3626b77da071cd4624348.camel@physik.fu-berlin.de>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="CQZoSMsS"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 26D9340E01CD;
+	Mon, 28 Sep 2026 05:28:31 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id QQCsejbX304O; Mon, 28 Sep 2026 05:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790573300; bh=+iVFUA39JHknLIhtudusL84r2zNhDeEBcA/pCHTPHnA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CQZoSMsSB09uP7uke2TeZqS0pG/eqc+xZy0HXF8DxasKhwpM64ERKplm43eH/1GTP
+	 EA7E4b5fk8tdkh4YzQYD+9WynVrdEepZlti22NapA2BCBXB9xelGttU4wKv2c2lz+P
+	 dP1VpVtM+AnwYtQmSAO0l1/3GsLKHnlr9TRP1JXd5xRG/anTiC7tM5OhymmwUNxNNc
+	 n82EUno1wHRw+9hpUS4vJyr09Ep7w5yMl6Hf1JHQMOLTimcI0zdTkSUlfMRDRqYdIz
+	 fVyzZKUPYaJaCJ5TYyw0CJIWgmcOTDMdEybkDo3SvpoSOtw5aBIT0z03qN0hjOdbcU
+	 x41/DYYwCvH5vzOsKsk2sQL9IY5uxtDZdc6T5sHJA6jyf5l1m3LGeegb2tp0Dtla9B
+	 vvsmZR8PH7W4g03ESabDsJi461BF4a6BtKb0DFeym4Pm1/FDH1N1pWoM6C8uwUJmnZ
+	 uHjx6nMwjLs10uDY7/l3fUPmQWHGFtdV/tH5nwbQigLgbv2iaS9mMTX8piU04Hm9Ak
+	 Mbd6rTRC3hdoG6FWXRMVvKyaWJCVSyUHud6UX1CI/+Vzfs5pFet2BjclPmphwVnWyC
+	 981ZZ0Cg55EEEZX0A419WvJwc3a0Ntj/n80MGf+jfQZvqdnFTSsQHnZTSrsiUORp0Z
+	 yR/kx6Gdj+8PJLMSeJvcDrcQ=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 789C440E00E8;
+	Mon, 28 Sep 2026 05:28:10 +0000 (UTC)
+Date: Sun, 27 Sep 2026 22:28:07 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Rui Qi <qirui.001@bytedance.com>
+Cc: Yazen Ghannam <Yazen.Ghannam@amd.com>, Tony Luck <tony.luck@intel.com>,
+	Kees Cook <kees@kernel.org>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	muralidhara.mk@amd.com, naveenkrishna.chatradhi@amd.com,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] RAS/AMD/FMPM: Fix spurious BUG when ERST record
+ enumeration fails
+Message-ID: <20260928052807.GBarn656Cjchv-qbhE@fat_crate.local>
+References: <20260925030918.3428029-1-qirui.001@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <d3a2875ba34bf10ddae3626b77da071cd4624348.camel@physik.fu-berlin.de>
+In-Reply-To: <20260925030918.3428029-1-qirui.001@bytedance.com>
 
-Hi John,
-
-On Thu, Sep 17, 2026 at 08:49:15PM +0200, John Paul Adrian Glaubitz wrote:
+On Fri, Sep 25, 2026 at 11:09:18AM +0800, Rui Qi wrote:
+> When erst_get_record_id_begin() returns an error, get_saved_records()
+> jumps to the out_end label and unconditionally calls
+> erst_get_record_id_end(). But begin() only bumps the
+> erst_record_id_cache refcount on success, so calling end() after a
+> failed begin() underflows it.
 > 
-> It took me some time to fully grasp the rewrite, but I think this should work as expected.
+> This is reachable when fmpm is built as a module: if the cache lock
+> is contended (by pstore, erst-dbg, or apei_read_mce) and a signal
+> arrives, mutex_lock_interruptible() in begin() returns -EINTR without
+> incrementing the refcount. end() then takes the lock, decrements the
+> refcount below zero, and BUG_ON() fires while still holding it. The
+> loader dies with the mutex held, so every later ERST user blocks
+> indefinitely.
+
+This sounds like this is something you can trigger. If so, how exactly?
+
+> Built-in fmpm is not affected, since its initcall runs before
+> userspace and mutex_lock_interruptible() can never see a signal.
 > 
-> Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Fix it by jumping to the out label on begin() failure, skipping
+> erst_get_record_id_end(). kfree(old) moves to that shared label so
+> it still runs on every path.
 
-Sorry for bothering you but I do not see it in next. Just want to make
-sure this (and others) is not stalled.
+Do not explain the patch in your commit message.
 
-Thanks.
+> Fixes: 6f15e617cc99 ("RAS: Introduce a FRU memory poison manager")
+> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+
+Because if you can trigger it with the upstream kernel, then this needs to go
+to stable.
 
 -- 
-Dmitry
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
