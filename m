@@ -1,99 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A1231AABC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19D6347C6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790572893; cv=none; b=UgG5fV12rhSffeJw/001941D8Qux9EbEK4LX1mx1Titt9g5Caj8czYEGjswm9j0rluejWhbExLu9qmzGyzQPn5u82YaSWgwmVg1Yr2RfsnY7ok7RLNuHQuKB7lw+Ljnw4w6qNJHBYEVeLbJvr11a6r0LXVFR4aj9QAEbTgmb+Bo=
+	t=1790572914; cv=none; b=WbQgCPl20mH6FBs417C0WJqzZINzUQyTXQR8WwxkflukUMKmeQt/mq21jiyqsmRP/dNsIBTg7EGeBxwTOB5966hMs8K4UuJ2oP3IBfoKJeXaNxdQReopE1GhgrjkTy6h0QmuF96m0IwuKtxOiQzvhvwTv3aGYjMo5kf7U1HICoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790572893; c=relaxed/simple;
-	bh=kfwsWCeBCc6CpVXq49BlyyFOotTaRhwbGUrliVBhwlo=;
+	s=arc-20240116; t=1790572914; c=relaxed/simple;
+	bh=NSgjgIxlZWIP91WRA68CtWz6iKTotqGWktSzB7+lfPw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oy3RmTUj6Lk5oaMr3Pv8NLW1jELlwJuhznVJ6Ex32wQ8kYicENCeorfi2vYittjyQT6FvltOylI4Vh8bR1hGt32DnIeEilnZiC4h/ACFFyBMicACRoZ33li3uu77X5hX8v+JJ9/Xj1sybUZWpOriDRAjLxRdYt/U4LDkUHRnAe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fr/1K0GT; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Oof4TqLxk+X7HhPH35NZsokRi4ECB4MLxweZaPl3cD2BG449aVW1S+c5IEOEuCr7nlquOwGC7f+CUzuFueOPiUBo5P/ioeqxQV20s/4h3duLuzV7dH5PGrJNGRwrP3U/NusvuvPKz80Zvb8vZwxt2llGnSKvXWXpx6uNjOKPBuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=h6tzgx8q; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fr/1K0GT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0938B1F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790572892;
-	bh=lv49VszNXO1u4Ah+gG4wn7WA6kBQ6WLyLdJDnQRaxUo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fr/1K0GTFe1uxTyi2fx0f/EYT7zxQ4nli5d/xD/rES7oyuVsAMFX+8Qb2ypV78Qxw
-	 qGGymosuh9ibFFCnu68kO4gJqZYBII5aBJgzPFwgZumDuLypvhqKf9IhStQWOJ/zFK
-	 UwtUh33jHvd/KnHkC84mLmbbphkB0KEkqTBN+kzzHweux2y95M99oF/XNyz4Ok3ap0
-	 jnQ2xFYNSLWiKTpFEEWehaBbY8MJj7WumGLPFnygNuGPYFP1iAcfTmd1ocPeXh/P2R
-	 R0LTNb1dDZbvynE/UAAkBOjuO+hBisIw4XYi+qyJ9ovNUsjEUzKcD1fz7pemoYQOxD
-	 DRKoQ3GxDNxsg==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2cd04e72f6so203190366b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:21:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByd54djK9ptVwGyszzYLw8BOkD0cWT2+XGEUBsLBUIG9kXLU3hh+Jzo8lMqUmFfs7e+wnq9zfnzSCASuhs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzGRh9dwSkj1nsbri4MPN2+JHd3Xid4IJUfmLQRcdpsDxm8CqH
-	gJAxL4ABj4VYjeyu4tyTlkPkwQMV6nKYC80wW/Y5+K/MjQHCYNHTbjWuqhOjI34+JqpbdNCALZa
-	SeLuwve7yaHvncO5i8df+FzNnlWdCn0g=
-X-Received: by 2002:a17:907:6e88:b0:c2a:b1cc:158d with SMTP id
- a640c23a62f3a-c2ac24d3eb6mr1066458966b.32.1790572890660; Sun, 27 Sep 2026
- 22:21:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="h6tzgx8q"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
+	:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
+	Reply-To:Content-ID:Content-Description;
+	bh=NSgjgIxlZWIP91WRA68CtWz6iKTotqGWktSzB7+lfPw=; b=h6tzgx8qZTPckLfOqRI7EEubF3
+	6GL77s+pNOiJtc1K+lkLJjnRUrqM9D5UB39t3RF+kAwbWL9LszJF7J3BCsjmJm6xTkDWKMsxH4x2t
+	9gH9fZ/CFfvqz2RlefvY8WEKlOiwee/2i/di5odjviFVDyVd1y4tF1bo6Kz1gaqkPSSOqyd7FaLc6
+	jv6eCwwAsZGiewidIA5/C6EvIG4yqY/ITE3GtoB37xYS87SJdACpXzK307NDLcNq0CiKl1aDK/HGk
+	bqe3RuRjc5kWsh39ej+UJKI9H6DTg/yuRUGStpxX5RVhCuAVD7jdUuuWe3cp/wWLwtvcqit8QjDGh
+	j+5fpVoQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
+	(Exim 4.96)
+	(envelope-from <domibel@debian.org>)
+	id 1xB3o9-007OdB-04
+	for linux-kernel@vger.kernel.org;
+	Mon, 28 Sep 2026 05:21:45 +0000
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so341493b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:21:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwN2hMgym4XeDij4iO+Cn+hlLYCnL3ka8Rzh+A1/am4+R9FOK4JMIjvIKPGSTMUKUi6iv1tMczckh8e7DY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldskL+Ff9GQ/fbdmHxaqWH5b1YlVNOWmX56DITB35lgOwYS/Tj
+	WQ/uuqUTPm1qY+91n8BO+noKYhxf7FBKGrHy38qbKCyoDNFmG3TiVIsGRFADngUF6P3I5vyvOmY
+	QCmwHKuuHQ1NrSbIK0j6X5NFsdfmoMKQ=
+X-Received: by 2002:a05:6a00:7096:b0:880:dfaa:a6d5 with SMTP id
+ d2e1a72fcca58-880dfaaa996mr4280850b3a.33.1790572901657; Sun, 27 Sep 2026
+ 22:21:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923123300.1626723-1-anmuxixixi@gmail.com> <20260923123300.1626723-4-anmuxixixi@gmail.com>
-In-Reply-To: <20260923123300.1626723-4-anmuxixixi@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 28 Sep 2026 14:21:17 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-mfrPQvnXXE-SOmwY-Vr1mZgi1B=qoFnO0sfFYdzqqiw@mail.gmail.com>
-X-Gm-Features: AclHuK87QM7Bjcs8cJ0sbqrQSsIPDE5dPT6ielVvjeU9GS7lSEs89ZLqaYnJ41Q
-Message-ID: <CAKYAXd-mfrPQvnXXE-SOmwY-Vr1mZgi1B=qoFnO0sfFYdzqqiw@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] exfat: reclaim name filters under memory pressure
-To: Yang Wen <anmuxixixi@gmail.com>
-Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
-	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260505042631.1916555-1-domibel@debian.org> <8d1e3735c40b452f7ab89228ad5a0040f5f41b35.camel@iscas.ac.cn>
+In-Reply-To: <8d1e3735c40b452f7ab89228ad5a0040f5f41b35.camel@iscas.ac.cn>
+From: Dominique Belhachemi <domibel@debian.org>
+Date: Mon, 28 Sep 2026 01:21:30 -0400
+X-Gmail-Original-Message-ID: <CAAvaLCy7jC-jFM5ZpPVeg7gKpweAW4nPKn4HXR+xpqUHD2soXQ@mail.gmail.com>
+X-Gm-Features: AclHuK_UWybYUev4CCs0rM775Ij7Xct5Xij80ErUW_bz9ilg74HVWT_ebZnQGS8
+Message-ID: <CAAvaLCy7jC-jFM5ZpPVeg7gKpweAW4nPKn4HXR+xpqUHD2soXQ@mail.gmail.com>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Simona Vetter <simona@ffwll.ch>, 
+	Paul Cercueil <paul@crapouillou.net>, Michal Wilczynski <m.wilczynski@samsung.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, ganboing@gmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Debian-User: domibel
 
-> +static unsigned long
-> +exfat_name_filter_scan_objects(struct shrinker *shrinker,
-> +                              struct shrink_control *sc)
-> +{
-> +       struct exfat_sb_info *sbi = shrinker->private_data;
-> +       unsigned long freed = 0;
-> +
-> +       /* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
-> +       if (!mutex_trylock(&sbi->s_lock)) {
-> +               sc->nr_scanned = 0;
-> +               return SHRINK_STOP;
-> +       }
-> +
-> +       while (freed < sc->nr_to_scan) {
-> +               struct exfat_inode_info *ei;
-> +               unsigned long *filter;
-> +
-> +               spin_lock(&sbi->name_filter_lock);
-> +               if (list_empty(&sbi->name_filter_lru)) {
-> +                       spin_unlock(&sbi->name_filter_lock);
-> +                       break;
-> +               }
-> +
-> +               ei = list_first_entry(&sbi->name_filter_lru,
-> +                                     struct exfat_inode_info,
-> +                                     name_filter_lru);
-> +               filter = exfat_name_filter_detach_locked(sbi, ei);
-> +               spin_unlock(&sbi->name_filter_lock);
-> +
-> +               kvfree(filter);
-> +               freed++;
-> +               cond_resched();
-> +       }
-> +
-> +       mutex_unlock(&sbi->s_lock);
-> +       sc->nr_scanned = freed;
-When the LRU becomes empty before nr_to_scan is satisfied, this
-reports nr_scanned == 0. do_shrink_slab() subtracts only nr_scanned
-from total_scan and retries while total_scan >= freeable. For example,
-with one filter and reclaim priority 0, the first scan frees the
-filter, but the next scan makes no progress and the loop can run
-forever. Could the empty-list path return SHRINK_STOP or otherwise
-ensure the remaining scan budget is consumed?
+On Fri, Sep 11, 2026 at 11:33=E2=80=AFAM Icenowy Zheng <zhengxingda@iscas.a=
+c.cn> wrote:
+>
+> I am still thinking how to decide whether to use dirty-tracking-based
+> cache coherent maintenance or writecombine/uncached mapping.
+>
+Hi Icenowy,
+
+I looked into this again and writecombine/uncached mapping is the way to go=
+.
+I used Bo Gan's XPbmtUC series and Michal Wilczynski's jh7110 display
+series and finally got the integrated BXE-4-32 GPU to work.
+
+https://lore.kernel.org/all/20260316060328.1173634-1-ganboing@gmail.com/
+https://lore.kernel.org/all/20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@sa=
+msung.com/
+https://github.com/domibel/visionfive2_gpu_bringup
+
+Best
+-Dominique
