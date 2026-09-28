@@ -1,177 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012035.outbound.protection.outlook.com [40.93.195.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3720433A02B;
-	Mon, 28 Sep 2026 07:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580841; cv=none; b=gPw9rgZLV9yNmpyBdT0i0HAd4iHkPcWGAv7znc0ajchVZ1AcDWVXtSV7kIhOh4441dEuVrQ/pTGYhPCMXNzou2Yw+q9f37i7KiCgY4+Iw89/bGns9jUz59ETyyTY6v2S6oLsKVUAcrdgO9sFdIC6HA+gQcGbYbz+SJyDzIr9tkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580841; c=relaxed/simple;
-	bh=EXxtTa5Npxg0/+Ir2ZMCc+dSE/qjPl4GsR04C5bWDic=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TMYXP+FsEN79tc/lgh4Lq87AmFwuw4W+1DqMrllEV3iXGzdB5VwfMjIeRYT+tEMMB69GwxA/FAYNLBKxIQb98rbTUDVThWNOyk9H5ii0hyeApg3LPR9gm7StYCUUHJcGsVmLSVnqLNw70ev8osox2FjeBDts0bv5QOlA7UdhVKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYClZZp+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF1D33A02B;
+	Mon, 28 Sep 2026 07:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790580879; cv=fail; b=PYVeyPankRkMDbDPQzq3+Fa3bylgi/QnqIig85tgBu99f5ROJZNZHSfUCFV1xVXXmtIVD3vd18kx6sFuyezs3/xttwP9QOuFCti/fzmgWzoeB8EPfWRctbmGLyK4Ncv4OPMzDxlCpCoSpG9hVwrSki4+m8Ut4wNxiwpwJFq/WDo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790580879; c=relaxed/simple;
+	bh=9qhk302YiLTVxxDYYxM3jymFSt8D0+vJhd99/wdAU5U=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jZ6N2FRqIp8n6vkml4/Q7ck1ykouu3XLvPBSNnF8GrSpzWUtYYi3jxmxQzSPuiIjdjAr8Bkz1LyDus2xVCSbTkvw6zfku3MXxaG8lHel1kg+EZNgeC4vBo8cOL/6sXb+3aM+WY0bp6TbKb2b+8ThONXr2OYXfPQNlpYBb3XeKxY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wRzUEunb; arc=fail smtp.client-ip=40.93.195.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYClZZp+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EED11F000FF;
-	Mon, 28 Sep 2026 07:33:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790580839;
-	bh=2kX1y+gkrcsHHcC9E2KZtg+MuiBNf/N48bFwpnhYoeM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NYClZZp+TxfnsyUx916D9XME2TBcY4THXSWp934cmknZE3QLC7GiCo6WydU2MbRrh
-	 BxYwMW7MeqRlcVd5ectlj6nWVemjXUix+NQ8WzqmyXc1Q8RUnkSX6f3jIHfUFoJqNY
-	 UBWkvaWQTUqY+w3UkirD8kYeoKrpohE1kwc1aPEY6+Y6VHg9hadGnzdS4c8gJWq7tc
-	 RuHpXbENaz5kcqoTiKDBoFcqWOg8/SqUP0zsGKAhMojDN9DylQnt5dNKO+GyaJvh7d
-	 saYjYQQ/k+DjVtCtcwnAGFvtPZCWI+rGm3lXeH6xO5AKWDgeT9AwD3HB0Ah6EhlJq0
-	 5C109zjzLL11A==
-Message-ID: <2782f081-b569-4be2-8649-832eca7b0475@kernel.org>
-Date: Mon, 28 Sep 2026 09:33:51 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wRzUEunb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L0hQNyGCl8TwjmLKXjaReKI81rvuWXb0AcIamK3RezxQWjy1KEmeYYu5iWtPbh3JBtrCqeL8yqYAQlaYAYNUjFL+OPvKqRapk+IHv/4BIScZuurLhevA6Z5m7QHHiBhyPs08vBeexG7GkSHvJaPXLp6vJHuToiGBgzoHJRimfhI7ExGh5YSXuc8IS5X/tCjwEW6zoNi4qPRXDKfEcxs4m8P+Pt15r5b6l30kXtHfL4aogl7+q9c0+bAsklrgs7d4sCA+KsT0+UV4n1mQqNXLuj+i4MIOjz4OE7ZPoxqdZY//YytVmByoxqRM0roV1VMKqyH34b+YWVzNEGpeIO+QVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i7fd9/7f1bfoOBHRuGumIR49NyJ1p7LL5GWiYZiQaXk=;
+ b=AzC5Fl3wz9RleM1mJPPOf/pyWomY5PW24KqCfjiliCqn6vSTrDWqH2T/XWTC6+w1fdBZMC1aMUesFAxGCXAkdwUW2Rd6euyOwBzH7zLGXuSbOaRLwBiily2Hj++0n7vCJsoVUcCKdwm7pCjHzdHBLaf38DZQU3u/31c+KPoWUTqi+UqTC7mup2eMtXBm3GdW4xYeJCg8F2CjPgi33+uUoBmNUfEd0PAVzeayJSGkUQkua1Kc3NFocXoeCPBjFePvNMANeRfICZ+0H2qLaPGwf34J0JfaNC5HaUlWaD28O1QODt35DMGN/yLwqMg97FF73ZMQKelJo8kPmou2RCxqKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i7fd9/7f1bfoOBHRuGumIR49NyJ1p7LL5GWiYZiQaXk=;
+ b=wRzUEunbqhGozniCqmsrv+4Mu5Nx3AneINIlgjEuMiz0d8TDFkot+2xhHJbbUzQ3STdvkB/Z2XNpqa2kSvA2p0WQgtL6OOcT57nhtdA3S4XlrnFnBFuwrJvqyt54tnfstu/53gzmRGhA1/0+g83caCgD4XlHclwYxpFqX7Ni/o4=
+Received: from CH0PR03CA0363.namprd03.prod.outlook.com (2603:10b6:610:119::32)
+ by IA1PR12MB9063.namprd12.prod.outlook.com (2603:10b6:208:3a9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Mon, 28 Sep
+ 2026 07:34:34 +0000
+Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::83) by CH0PR03CA0363.outlook.office365.com
+ (2603:10b6:610:119::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 07:34:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 07:34:34 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 02:34:30 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 02:34:30 -0500
+Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 02:34:28 -0500
+From: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
+To: <linux-i2c@vger.kernel.org>
+CC: <michal.simek@amd.com>, <andi.shyti@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <git@amd.com>, Shubhrajyoti Datta
+	<shubhrajyoti.datta@amd.com>, Vasantha Likitha T
+	<vasanthalikitha.tandra@amd.com>
+Subject: [PATCH v2] i2c: xiic: Rework dynamic-mode RX FIFO drain in xiic_read_rx
+Date: Mon, 28 Sep 2026 13:04:25 +0530
+Message-ID: <20260928073425.2597782-1-vasanthalikitha.tandra@amd.com>
+X-Mailer: git-send-email 2.44.4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] userfaultfd: clear the inherited uffd bit in
- move_swap_pte()
-To: Andrew Morton <akpm@linux-foundation.org>,
- Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: rppt@kernel.org, peterx@redhat.com, surenb@google.com,
- aarcange@redhat.com, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- mhocko@suse.com, shuah@kernel.org, kirill@shutemov.name, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260926124145.2878520-1-donggeunyoo.kernel@gmail.com>
- <20260926124145.2878520-2-donggeunyoo.kernel@gmail.com>
- <20260927135439.094d75bc42414879a6e21c79@linux-foundation.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260927135439.094d75bc42414879a6e21c79@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|IA1PR12MB9063:EE_
+X-MS-Office365-Filtering-Correlation-Id: 472f69e7-5277-48f6-92bb-08df1d32f141
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LFlKDiWPM7ezS0CAnEDa79gjrq7sDEiwoGEe5DCRUq4YUv2KpBbWyxo6fWfIonbaT2i82crNKW+MRnMY1HMyFzV2LNWjkFqC1IDE0DcDyzZ7jkHMIaAGhM4JoMmWN116OC1WzYuDAJDvU1t1HWPo8vvwpPr14rEUuDt+fLOl4Yw8SfAePRpItxEX7DC52wVmf44g51zNcClgzyFOptFOY+pi5aw7728wIIaNl4eTYwMmz/EDBgUAXnSwmUdPaQD2ca/rumU40ZaO5uC7mE5a7shWNwVMJtgEV4llJfuH+9CIOTaQR31a4Acl8z1SjgLRIhGxifIRgWdYLXY0gaiMgVKWezu8hYC8Ouqg12GahNqOAFK56s0mYLNTaSTVeGmB6tICgf4a17lcMh57DZzZwDnDVGy2stdHo/jHyriscLYIasUonw739fP6EuFLu14tfeOWj/na41CoSfwawn+CtIOoY7xgY85xD6HLjZfZYY/b3ufqOdPLVqhukednyty041nLPzD9+NwSIpPj5MdRhFOYPc6pIvzD91USu6O9VVbmlzDsoh42fRB5So0idtyFCtS9inuJlGY2qV8PJshyhqcC+7PPrR8aiUx38McRbSuSmCnasoLstTpDFPSSK6FUmbWbEnZkOu2sMuxOMwVG+SoBtey7bNSCDyS2iBxnW8W7hIzPySSdrCGkRnufEoHCsi8V+Dgr2rUWdmjfxo+OJA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9Yd2teZ5C9XAvc1I1/CjgTwKW7w9sELN6XIa+2N3Cm6p9NJ+K+GQtQ+Z8zFjOznwW1D+nevATonT+SE7rrkkDrChh6IU7XPwaPs3d67YNOx0SJm0pNWqms/O2QnwAlJPC3zkzSnPO5YEzlsZwflmYoDcc403xHU0QH8EzhgOSYTa1FAFitbhJC4t0qXQuBkSKgWtvHcuk/tUx5fPM0lDY/fNBZC8hy9mUV0ps1R8ofa18mcz1ecUpXL/epvUOsfTtrukXxHaviFQ2FzRvxilOhJUYtihpLZoEqpm1zXnUrLoQGVnoNnrnmEh2In01ZQ89ZMhKdn7Ibu5GmLdtEoBnsGg0jMCWxbhlx752sxX7LqHLk7tGbEfMxdmWd2CZMiNGZmCoYInhD2UlT10uqPojMJCEE60zPhZiOxdoATvp7LzJ2819LHKBZLeUp5OgqF2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 07:34:34.2709
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 472f69e7-5277-48f6-92bb-08df1d32f141
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD78.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9063
 
-On 9/27/26 22:54, Andrew Morton wrote:
-> On Sat, 26 Sep 2026 21:41:44 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
-> 
->> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
->> destination unchanged, so a uffd bit set on a write-protected or
->> RWP-protected source lands in a destination VMA that was never
->> registered for either.  Nothing clears it there, and userspace sees:
->>
->>  - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
->>    while it is swapped out and after it is faulted back in.
->>  - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
->>    collapse scan bails on a swap entry with the uffd bit set.
->>  - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
->>    do_swap_page() carries the bit into the present PTE and, since the
->>    destination isn't WP-registered, also makes it writable:
->>
->>    WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
->>    Call Trace:
->>     set_ptes+0x67/0xc0
->>     do_swap_page+0x990/0xfe0
->>     __handle_mm_fault+0x7d0/0xeb0
->>     handle_mm_fault+0x9c/0x250
->>     do_user_addr_fault+0x207/0x650
->>     exc_page_fault+0x65/0x150
->>     asm_exc_page_fault+0x26/0x30
->>
->> Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into
->> one that isn't, on a page that is swapped out at the time.  It hasn't
->> been seen in practice.
->>
->> A resident page doesn't carry the bit, because move_present_ptes() builds
->> the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
->> swap entry as well, then re-arm it if the destination is RWP-registered.
->>
->> The WP case has been there since v6.8, where UFFDIO_MOVE was added.
-> 
-> Thanks.  This is triggerable by unprivileged userspace, so can
-> reviewers please prioritize.
+From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-I assume most production kernels don't have CONFIG_PAGE_TABLE_CHECK enabled in
-the config. And if enabled, not active at runtime.
+Programming the RFD (RX FIFO depth) threshold at runtime causes a
+spurious SCL clock pulse which results in the STOP condition being
+missed.
 
-I'd assume mostly only debug kernels have that config ever enabled. So it might
-be less problematic than it seems at first. (at least the WARNING bit)
+Fix this by programming RFD once, when the receive transfer starts, and
+handling the final-byte sequencing in software: select how many bytes to
+drain from the RX FIFO on each RX_FULL interrupt instead of
+reprogramming RFD after every read.
 
-> 
->> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
->> Cc: <stable@vger.kernel.org>
-> 
-> This should be whizzed into 7.3-rcX pretty promptly.
-> 
-> It's not really appropriate to give the selftest such treatment - I'm
-> never really sure how to handle that.  I guess I'll keep things as you
-> presented them - both for current -rc, [1/2] gets backported, [2/2]
-> does not.
+RX_FULL is then always raised at the same threshold. When fewer bytes
+remain to be received after the current FIFO contents are accounted for,
+drain only that remaining count and retain the other bytes in the FIFO.
+The retained bytes together with the bytes still arriving restore the
+FIFO occupancy to the fixed threshold. Otherwise, drain the FIFO
+completely.
 
-Make sense.
+Fixes: e1d5b6598cdc ("i2c: Add support for Xilinx XPS IIC Bus Interface")
+Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Co-developed-by: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
+Signed-off-by: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
+---
+Changes in v2:
+- Updated commit message and Fixes tag
+- Removed dead code
+- Reused cached rx_space
+- Improved comment wording
+---
+ drivers/i2c/busses/i2c-xiic.c | 39 ++++++++++++++++++++++-------------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
 
-> 
->> --- a/mm/userfaultfd.c
->> +++ b/mm/userfaultfd.c
->> @@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
->>  	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
->>  	if (pgtable_supports_soft_dirty())
->>  		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
->> +	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
->>  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
->>  	if (userfaultfd_rwp(dst_vma))
->>  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
->> -- 
->> 2.53.0
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
+index 3e7735e1dae0..474540d4d611 100644
+--- a/drivers/i2c/busses/i2c-xiic.c
++++ b/drivers/i2c/busses/i2c-xiic.c
+@@ -578,7 +578,8 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
+ static void xiic_read_rx(struct xiic_i2c *i2c)
+ {
+ 	u8 bytes_in_fifo, cr = 0, bytes_to_read = 0;
+-	u32 bytes_rem = 0;
++	u32 bytes_rem;
++	u32 rx_space;
+ 	int i;
+ 
+ 	bytes_in_fifo = xiic_getreg8(i2c, XIIC_RFO_REG_OFFSET) + 1;
+@@ -590,13 +591,32 @@ static void xiic_read_rx(struct xiic_i2c *i2c)
+ 			xiic_getreg8(i2c, XIIC_SR_REG_OFFSET),
+ 			xiic_getreg8(i2c, XIIC_CR_REG_OFFSET));
+ 
+-	if (bytes_in_fifo > xiic_rx_space(i2c))
+-		bytes_in_fifo = xiic_rx_space(i2c);
++	rx_space = xiic_rx_space(i2c);
++
++	/* Do not read more bytes than are still expected for this message */
++	if (bytes_in_fifo > rx_space)
++		bytes_in_fifo = rx_space;
+ 
+ 	bytes_to_read = bytes_in_fifo;
+ 
+-	if (!i2c->dynamic) {
+-		bytes_rem = xiic_rx_space(i2c) - bytes_in_fifo;
++	if (i2c->dynamic) {
++		/*
++		 * RFD is set by xiic_start_recv() and must not be changed during
++		 * a transfer, because reprogramming it may generate a spurious
++		 * SCL pulse and cause the STOP condition to be missed.
++		 */
++		bytes_rem = rx_space - bytes_in_fifo;
++
++		/*
++		 * If fewer bytes remain to arrive than are currently in the FIFO,
++		 * drain only that remaining count. The retained FIFO bytes together
++		 * with the bytes still arriving restore the FIFO occupancy to the
++		 * fixed threshold. Otherwise, drain the FIFO completely.
++		 */
++		if (bytes_rem && bytes_rem < bytes_in_fifo)
++			bytes_to_read = bytes_rem;
++	} else {
++		bytes_rem = rx_space - bytes_in_fifo;
+ 
+ 		/* Set msg length if smbus_block_read */
+ 		if (i2c->rx_msg->flags & I2C_M_RECV_LEN) {
+@@ -636,15 +656,6 @@ static void xiic_read_rx(struct xiic_i2c *i2c)
+ 		i2c->rx_msg->buf[i2c->rx_pos++] =
+ 			xiic_getreg8(i2c, XIIC_DRR_REG_OFFSET);
+ 	}
+-
+-	if (i2c->dynamic) {
+-		u8 bytes;
+-
+-		/* Receive remaining bytes if less than fifo depth */
+-		bytes = min_t(u8, xiic_rx_space(i2c), IIC_RX_FIFO_DEPTH);
+-		bytes--;
+-		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, bytes);
+-	}
+ }
+ 
+ static bool xiic_error_check(struct xiic_i2c *i2c)
 -- 
-Cheers,
+2.44.4
 
-David
