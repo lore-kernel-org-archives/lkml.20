@@ -1,547 +1,155 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com [209.85.217.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21F83988E2
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3F37C0E6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620009; cv=none; b=Li6uIRyIpSKz5XmhrAve58LxSeZXsxDS+kSiVi99k2jup4jXNjPZAS17vJXxL+73fsZrecNV7P7QUc51gInwaSPlVqkEH6kSavD3LI9sYkCgEXh1a67zi29JgEbAyUDzVM0w8h4th8nXF2BiI1HFdzD6WLrwwxo7Y67/6blJN94=
+	t=1790620015; cv=none; b=EdJVwNyRjcBM8BmEUZF9V7N6ZGQ8fWqdSwlXPTSL9sL198t4jiq2GVbSXy50uDOj1rgth84yB3BSuW1IAQQlA0gToAFiVZ2wQMI6lbGDckByYV9Q6TCspRVl8nXV6Gvf7dLrimDRhu1zVefwpoIWcIT0aCKW2k6eAkfCixJ4Z/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620009; c=relaxed/simple;
-	bh=lYZr/EA2hUmhDvjtNm2j9PZJYkJo8XB22TsOTzXZc94=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GWLn+eojZ4GqLZp7qX+/x/vTq9dhddnlveRK48HYR8eBeY8h1AKJIfv23TmqVNJ4Ue/ypgJPP24qJ+FoqRI36+wqLV/o8fNphUWw9LxM7wx3jk0FCBtk9YBL0xQZN7ePBA5m1a+oSQXsTZNb1u+/VQrO4Fb8dHAzpMfkcIuU8ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aVcGP4ev; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1790620015; c=relaxed/simple;
+	bh=EpikG7Z0U6spB0qXKcgHsc68xeElTBeYTJAUVsrk9Fg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HNGkv2WINweJ1TPgijtW9LvGQjYv5mlKw0ikwDJhkiDPq8zyUoEcH2nYh2vztbVsrupVohKYkjYOhZsk4XpX5AalMoycg6tsXi8ebNAYOBxZVvn4eQUsvbeG4VPsnm372Fu+UJmesdjkXrqN0T28PJ4Ha09dkaQRhbaCRpjNEHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ATExPRya; arc=none smtp.client-ip=209.85.217.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aVcGP4ev"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5666610eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790620007; x=1791224807; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aC6HcIxYCaALM/aeyHEKGMakkZuS/lIvvdcSprT8dV0=;
-        b=aVcGP4evTcISuWB6ztz0DSmsRopMMwBF5QP1pZ8FOd7LrIhhA3LpHqhqwvkDwpg3ca
-         IxFEFYOiluiKuRX6A0wC0KFC/5KGCjHGBctmxeYKXjWinH4gFXCWDrhS5dGWAk7l4PDu
-         grZ7wwhTgv6N/31t/N1CQRxhzPIbpBDB9x7FGBk+8XZKAaBzYS/ogmpaVoOJmUUy+8Uv
-         3UIoZlItxtkmUCorNTrgIEecexuQjf/fDCwzuxkNZiTc9Op5RdckPi6IistgHUWpyaUv
-         MXlUds1v6yrw1X6PNkF3b8Onop7pcu4iQxM2/f1fTKtTBTELuDvkiEf3p2IoeEDV2mLJ
-         NYBw==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ATExPRya"
+Received: by mail-vs1-f98.google.com with SMTP id ada2fe7eead31-7b23925a307so93001137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790620007; x=1791224807;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aC6HcIxYCaALM/aeyHEKGMakkZuS/lIvvdcSprT8dV0=;
-        b=AAdT4qLXzV7Fj4xuz143hd1itlJfuX3SLClTI5NUNMbGfnarG76ZTn4sfhp0Uzr3n1
-         G8UVylijUGgLl7mF4vVM/LzBQUq53uef5tdG4mxZAhdnX6Z9GAL8im1E/hzOJIb7C3Xf
-         7m0qRmB8d3s+pt4xTokoUwtjzZQ9Qt4cq0aHNs0Menq4AD3r1pu3MWJgcjtrf6+0ew91
-         NhpsW1HzHZbCQf10eW11f3NJ0mH0xso+0jDXEw6x9lPkLIULozbWyAYE2S/dSxCf+nQN
-         7/dnH2ip5Bww5eTTVHgNNU8VFg+J7gbdh8y7D5JseawnQRP0IVAybwNjPmNyq2GdaTa3
-         WkTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFgfcj0hF4UfogpT3qbYZYW7YliM4iO4pQB1HxeG3gy0d0eJvAET1CgOb+bxaO5e59Ol3bY7/+yk4OknU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nW5Bfr9wbsHUCoLCUpKLOLPGtbYj/IMimMvwb8NTAeOM0HEVCF
-	gJIBnLvT6y67hrco+cIBGVeW7i2gxNmeXpseNbPUWJkT6/IrGCiaf+hR4xUDCsxKXDSSuB1gRiq
-	J91wn3SUTrQ==
-X-Received: from dlbpt2.prod.google.com ([2002:a05:7022:e802:b0:144:db95:4a56])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4514:20b0:143:8274:1697
- with SMTP id a92af1059eb24-146cfcd7051mr9953662c88.29.1790620006517; Mon, 28
- Sep 2026 11:26:46 -0700 (PDT)
-Date: Mon, 28 Sep 2026 11:25:54 -0700
-In-Reply-To: <20260928182605.3649015-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1790620012; x=1791224812;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=FuQw+B0kSq5FJU56nD6/IW5lKXSJDgEpfGuGLprZ8a4=;
+        b=M0qIpm7wJS9+38UKAYG77IsHEAKNJ+uJKNgkDjzoXWW3yA9/uWYBi9zyHa5fBCZuzA
+         CNVlBVyZXapYdd1ppO5NfSBKNPAOhKjkecKKkBxlvSP+eSNDRJGruH+i9EhfgHzKCt47
+         P2+ycqoXkh86pkH4BSQ+lrWwCM1Xn0GhVaXvar+d2lMrvt9U2+EvkJueEQcgVoOoedlP
+         1XIxEzR1XutW4aAZjdSL2eMobK1ZHY/TuXLWZhW1aT4bH+uJVTmHZCprmOB10pDu3yy1
+         09D0SBOWKWQzkgXpHhIy5ePyeMCJkFPHG7CQPgEaCTR+ciTkzoZFhUfuPawHE/59FzDZ
+         VMTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwseoDVd9DRcS4/5wMuY6IdJqb2IqrKe8G/9tjjLEpCfp3o1jbqL+C8DHxGdEK6QRVR768nJsh1WD1q+9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAfCwwOgsJVh1VjGA/S57PtKRjEmoQ/yCa7hh3EZUhYUgEtykv
+	9g3HFEkNXpIavi8lCKHfy0xy4v7wWQEIJ/aqvj/ia6Zv4Wq80d7e4HN6061GL8LLxL449XYpHvb
+	knMzHB+QZGxrB/NPo8+Ot9aE0rnC26+way5uGt47wV3DWFwlY3aK4iJQHMkVSq6lBlEp7Z3lFL5
+	+9Tw2vcecGOc9BlEr55Irx4lVICk0vIzUPkZ9/qrEMkhfAAotWbU2WErjsA/jd/l0Fn+8Sx/YrA
+	DIFQn7o1dQiLwZAq7I3ntbf
+X-Gm-Gg: AYBFou25a1vs85WfJTVzNdb20NCToP/k1ycrmRxTtYwNMxvjuVPpAdL5MhPhSXrEd1I
+	sEd3oOzE8JX/3rfHcyZhcqFbaYDLHp0WakvyLer/ANH5XfnRdSyhA2RorkKxjZeXPJeqE5a/BDg
+	dnHmVRVKvrCEwXwss8PSq2L0GnxCajLLtfxQ3/aY6vebcSpnibN/gkwiBAxs6BQJgCtYmA2d4Rh
+	4qkps1r8muQNiVK7dGHnDRFSaG0W5778xzyl14rzPI0XsnyRSYruiP/42XpAwIexedpv6WM0uu3
+	xHo/J6f32D74PkWZ9huEQCQOnBqFSrGvdV9Bplj9R8jRvyNF73HfweBLNTUzfkKCmk5f+rQbjPe
+	9EECfSB2Yj+nZknHe4A4G9lsEyRjYOZ7Q0RgiSoNUlpWmGXIMGGlWEWdAUQbrzvO4WTuAG3Haoz
+	rJbAae2TDYV2iz2v9oTNfoB3TyeHIKDOp4fRIhJbzl
+X-Received: by 2002:a05:6122:3285:b0:5c9:a60d:327d with SMTP id 71dfb90a1353d-5cc9765142emr3711541e0c.17.1790620011869;
+        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5cde684ac11sm1590356e0c.6.2026.09.28.11.26.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c58ee2116so541090985a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790620011; x=1791224811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FuQw+B0kSq5FJU56nD6/IW5lKXSJDgEpfGuGLprZ8a4=;
+        b=ATExPRyaDht0WtqZ2QsNQcnY2tq2Kgg50WdgjI18aMJUB4mRwWqitgTDr3jmOmCooQ
+         Wu//AYPDsXPT/c6jsa4yMEGSG1HqcEFceVlN4EY8mBB0Z9DgMBempwGRAFO6Sh+SIfVe
+         AhpcPj4oX8y2vjbXWD4as35dlpkywVZGRXcUs=
+X-Forwarded-Encrypted: i=1; AKwUvByXQsitcHrIIRWAonAdZuDJVkpn/AW6krxcRY+FJvkrULF5/VINZB8o5xHF20oJXk2zkZdTR5KNg1WaHzk=@vger.kernel.org
+X-Received: by 2002:a05:620a:7117:b0:93c:2c15:e51d with SMTP id af79cd13be357-93c474ff392mr2182136885a.46.1790620011084;
+        Mon, 28 Sep 2026 11:26:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:7117:b0:93c:2c15:e51d with SMTP id af79cd13be357-93c474ff392mr2182130685a.46.1790620010447;
+        Mon, 28 Sep 2026 11:26:50 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c8147c4desm205669385a.39.2026.09.28.11.26.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 11:26:49 -0700 (PDT)
+Message-ID: <6b61fc5d-1f4c-4634-8d61-2f090f0f7c3d@broadcom.com>
+Date: Mon, 28 Sep 2026 11:26:47 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790145937.git.irogers@google.com> <20260928182605.3649015-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928182605.3649015-16-irogers@google.com>
-Subject: [PATCH v6 15/26] perf trace: Filter the target's tasks in BPF
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: Howard Chu <howardchu95@gmail.com>, Jakub Brnak <jbrnak@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/6] Add support for Broadcom BCM2712 IOMMU driver
+ (Raspberry Pi 5)
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, dan@reactivated.net
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com, james.quinlan@broadcom.com,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
+ <arojDdPH1o2ckB5x@8bytes.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <arojDdPH1o2ckB5x@8bytes.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The augmented syscalls BPF programs are attached to raw_syscalls system
-wide, so they run for every task. To make the bpf-output event system
-wide, and so augment the target's children, they need to know which
-tasks are the target's.
+On 9/28/26 01:19, Joerg Roedel (AMD) wrote:
+> On Sun, Sep 27, 2026 at 02:08:59PM +0100, Daniel Drake via B4 Relay wrote:
+>> Daniel Drake (6):
+>>        iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
+>>        dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+>>        dt-bindings: display: brcm,bcm2835-hvs: Document iommus property
+>>        iommu/generic_pt: Add Broadcom BCM2712 page table format
+>>        iommu: Add Broadcom BCM2712 IOMMU driver
+>>        arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
+> 
+> Applied patches 1-5, thanks.
 
-Add a pids_to_trace map, seeded from the target's thread map, that
-sys_enter and sys_exit check, leaving other tasks' events alone. tp_btf
-programs add children on fork when inheriting, remove exited tasks and
-follow a thread that exec gives the leader's pid. Tasks that don't fit
-in the map, including when seeding, are counted and reported as lost.
-Other forks drop any entry for the child's pid, seeded for a task that
-had exited, such as a zombie. A workload waits for its exec, like
-enable_on_exec.
-
-When inheriting, unless given threads with -t, key the map by tgid,
-like off-cpu's task_filter, so a process's threads share its entry. New
-threads are then traced with their process, which is forgotten when its
-last thread exits, and exec keeps the key.
-
-The sched programs attach when the skeleton loads and the map is seeded
-before the events are opened, so the forks and exits that follow are
-seen. sys_enter and sys_exit now attach once the maps are populated,
-rather than at load where the empty prog arrays made them veto every
-raw_syscalls event.
-
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-trace.c                    |  36 ++++++-
- .../bpf_skel/augmented_raw_syscalls.bpf.c     | 100 ++++++++++++++++++
- tools/perf/util/bpf_skel/vmlinux/vmlinux.h    |   9 ++
- tools/perf/util/bpf_trace_augment.c           |  75 ++++++++++++-
- tools/perf/util/trace_augment.h               |  24 +++++
- 5 files changed, 239 insertions(+), 5 deletions(-)
-
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 17e482ae02c9..81d660bc87b9 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4488,6 +4488,22 @@ static int trace__set_filter_pids(struct trace *trace)
- 	return err;
- }
- 
-+/* The BPF programs see every task, tell them which are the target's. */
-+static void trace__set_target_pids(struct trace *trace)
-+{
-+	struct perf_thread_map *threads = evlist__core(trace->evlist)->threads;
-+	struct target *target = &trace->opts.target;
-+	bool inherit = !trace->opts.no_inherit;
-+	/* Key by process when inheriting, unless given threads, noting -p also sets tid. */
-+	bool uses_tgid = inherit && (target->pid || !target->tid);
-+
-+	if (perf_thread_map__pid(threads, 0) == -1)
-+		return;
-+
-+	augmented_syscalls__set_target_pids(threads, inherit, uses_tgid,
-+					    target__enable_on_exec(target));
-+}
-+
- static int __trace__deliver_event(struct trace *trace, union perf_event *event)
- {
- 	struct evlist *evlist = trace->evlist;
-@@ -4695,7 +4711,7 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- {
- 	struct evlist *evlist = trace->evlist;
- 	struct evsel *evsel, *pgfault_maj = NULL, *pgfault_min = NULL;
--	int err = -1, i;
-+	int err = -1, i, lost_tasks;
- 	unsigned long before;
- 	const bool forks = argc > 0;
- 	bool draining = false;
-@@ -4798,6 +4814,9 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 		workload_pid = evlist__workload_pid(evlist);
- 	}
- 
-+	/* Seed before opening, so BPF follows new tasks as inherit would. */
-+	trace__set_target_pids(trace);
-+
- 	err = evlist__open(evlist);
- 	if (err < 0)
- 		goto out_error_open;
-@@ -4825,6 +4844,10 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 		}
- 	}
- 
-+	err = augmented_syscalls__attach();
-+	if (err < 0)
-+		goto out_error_bpf;
-+
- 	/*
- 	 * If the "close" syscall is not traced, then we will not have the
- 	 * opportunity to, in syscall_arg__scnprintf_close_fd() invalidate the
-@@ -4941,6 +4964,12 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	if (trace->sort_events)
- 		ordered_events__flush(&trace->oe.data, OE_FLUSH__FINAL);
- 
-+	lost_tasks = augmented_syscalls__lost_tasks();
-+	if (lost_tasks)
-+		color_fprintf(trace->output, PERF_COLOR_RED,
-+			      "LOST the syscalls of %d tasks, too many to trace at once!\n",
-+			      lost_tasks);
-+
- 	if (!err) {
- 		if (trace->summary) {
- 			if (trace->summary_bpf)
-@@ -4997,6 +5026,11 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 		"Failed to set filter \"%s\" on event %s: %m\n",
- 		evsel->filter, evsel__name(evsel));
- 	goto out_put_evlist;
-+
-+out_error_bpf:
-+	fprintf(trace->output, "Failed to set up the augmented syscalls BPF programs: %s\n",
-+		str_error_r(-err, errbuf, sizeof(errbuf)));
-+	goto out_put_evlist;
- }
- out_error_mem:
- 	fprintf(trace->output, "Not enough memory to run!\n");
-diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-index 18835c7512ac..d9284a5c030d 100644
---- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-+++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-@@ -9,6 +9,7 @@
- #include "vmlinux.h"
- 
- #include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
- #include <linux/limits.h>
- 
- #define PERF_ALIGN(x, a)        __PERF_ALIGN_MASK(x, (typeof(x))(a)-1)
-@@ -114,6 +115,22 @@ struct pids_filtered {
- 	__uint(max_entries, 64);
- } pids_filtered SEC(".maps");
- 
-+/* With a target only its tasks are traced, those set false from their next exec. */
-+struct pids_to_trace {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__type(key, pid_t);
-+	__type(value, bool);
-+	__uint(max_entries, 16384);
-+} pids_to_trace SEC(".maps");
-+
-+bool has_pids_to_trace;
-+/* Also trace the children of traced tasks. */
-+bool inherit;
-+/* Key pids_to_trace by tgid, so a process's threads share an entry. */
-+bool uses_tgid;
-+/* Tasks not traced as pids_to_trace was full. */
-+int lost_tasks;
-+
- struct augmented_args_payload {
- 	struct syscall_enter_args args;
- 	struct augmented_arg arg, arg2; // We have to reserve space for two arguments (rename, etc)
-@@ -457,6 +474,19 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
- 	return bpf_map_lookup_elem(pids, &pid) != NULL;
- }
- 
-+static bool task_traced(void)
-+{
-+	u64 pid_tgid = bpf_get_current_pid_tgid();
-+	pid_t pid = uses_tgid ? pid_tgid >> 32 : (pid_t)pid_tgid;
-+	bool *traced;
-+
-+	if (!has_pids_to_trace)
-+		return true;
-+
-+	traced = bpf_map_lookup_elem(&pids_to_trace, &pid);
-+	return traced && *traced;
-+}
-+
- u64 ZERO = 0;
- 
- /*
-@@ -608,6 +638,9 @@ int sys_enter(struct syscall_enter_args *args)
- 	 * initial, non-augmented raw_syscalls:sys_enter payload.
- 	 */
- 
-+	if (!task_traced())
-+		return 1;
-+
- 	if (pid_filter__has(&pids_filtered, getpid()))
- 		return 0;
- 
-@@ -634,6 +667,9 @@ int sys_exit(struct syscall_exit_args *args)
- {
- 	struct syscall_exit_args exit_args;
- 
-+	if (!task_traced())
-+		return 1;
-+
- 	if (pid_filter__has(&pids_filtered, getpid()))
- 		return 0;
- 
-@@ -650,4 +686,68 @@ int sys_exit(struct syscall_exit_args *args)
- 	return 0;
- }
- 
-+/* Trace the children of traced tasks, added before they can run. */
-+SEC("tp_btf/sched_process_fork")
-+int BPF_PROG(sched_process_fork, struct task_struct *parent, struct task_struct *child)
-+{
-+	pid_t parent_pid = parent->pid, child_pid = child->pid;
-+	bool *traced = NULL, val;
-+
-+	if (uses_tgid) {
-+		/* A new thread is traced with its process. */
-+		if (child->tgid != child_pid)
-+			return 0;
-+		parent_pid = parent->tgid;
-+	}
-+	if (inherit)
-+		traced = bpf_map_lookup_elem(&pids_to_trace, &parent_pid);
-+	if (traced) {
-+		val = *traced;
-+		/* Not __sync_fetch_and_add(), as its fetch needs a 5.12 kernel. */
-+		if (bpf_map_update_elem(&pids_to_trace, &child_pid, &val, BPF_ANY))
-+			__atomic_fetch_add(&lost_tasks, 1, __ATOMIC_RELAXED);
-+	} else {
-+		/* A new pid, so any entry was seeded for an exited task, e.g. a zombie. */
-+		bpf_map_delete_elem(&pids_to_trace, &child_pid);
-+	}
-+	return 0;
-+}
-+
-+/* Forget exited tasks, as their pid may be reused. */
-+SEC("tp_btf/sched_process_exit")
-+int BPF_PROG(sched_process_exit, struct task_struct *task)
-+{
-+	pid_t pid = task->pid;
-+
-+	if (uses_tgid) {
-+		/* A process exits with its last thread. */
-+		if (task->signal->live.counter)
-+			return 0;
-+		pid = task->tgid;
-+	}
-+	bpf_map_delete_elem(&pids_to_trace, &pid);
-+	return 0;
-+}
-+
-+/* Start tracing waiting tasks, and follow a thread given the leader's pid by exec. */
-+SEC("tp_btf/sched_process_exec")
-+int BPF_PROG(sched_process_exec, struct task_struct *task, pid_t old_pid)
-+{
-+	pid_t pid = task->pid;
-+	bool traced = true;
-+
-+	/* A process keeps its tgid, which pid now is. */
-+	if (uses_tgid)
-+		old_pid = pid;
-+	if (!bpf_map_lookup_elem(&pids_to_trace, &old_pid))
-+		return 0;
-+
-+	if (pid != old_pid)
-+		bpf_map_delete_elem(&pids_to_trace, &old_pid);
-+	/* A fork may have taken old_pid's entry, leaving the map full. */
-+	if (bpf_map_update_elem(&pids_to_trace, &pid, &traced, BPF_ANY))
-+		__atomic_fetch_add(&lost_tasks, 1, __ATOMIC_RELAXED);
-+	return 0;
-+}
-+
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/perf/util/bpf_skel/vmlinux/vmlinux.h b/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
-index a59ce912be18..94e42b022ab1 100644
---- a/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
-+++ b/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
-@@ -47,6 +47,10 @@ enum {
- 	NR_SOFTIRQS
- };
- 
-+typedef struct {
-+	int	counter;
-+} __attribute__((preserve_access_index)) atomic_t;
-+
- typedef struct {
- 	s64	counter;
- } __attribute__((preserve_access_index)) atomic64_t;
-@@ -67,6 +71,10 @@ struct sighand_struct {
- 	spinlock_t siglock;
- } __attribute__((preserve_access_index));
- 
-+struct signal_struct {
-+	atomic_t live;
-+} __attribute__((preserve_access_index));
-+
- struct rw_semaphore {
- 	atomic_long_t owner;
- } __attribute__((preserve_access_index));
-@@ -103,6 +111,7 @@ struct task_struct {
- 	pid_t		      pid;
- 	pid_t		      tgid;
- 	char		      comm[16];
-+	struct signal_struct  *signal;
- 	struct sighand_struct *sighand;
- 	struct css_set	      *cgroups;
- } __attribute__((preserve_access_index));
-diff --git a/tools/perf/util/bpf_trace_augment.c b/tools/perf/util/bpf_trace_augment.c
-index daa79a55c795..e590eb7a3d91 100644
---- a/tools/perf/util/bpf_trace_augment.c
-+++ b/tools/perf/util/bpf_trace_augment.c
-@@ -1,12 +1,15 @@
- #include <assert.h>
- #include <bpf/libbpf.h>
-+#include <errno.h>
- #include <internal/xyarray.h>
-+#include <perf/threadmap.h>
- #include <string.h>
- 
- #include "bpf_skel/augmented_raw_syscalls.skel.h"
- #include "debug.h"
- #include "evlist.h"
- #include "parse-events.h"
-+#include "thread_map.h"
- #include "trace_augment.h"
- 
- static struct augmented_raw_syscalls_bpf *skel;
-@@ -25,11 +28,13 @@ int augmented_syscalls__prepare(void)
- 	}
- 
- 	/*
--	 * Disable attaching the BPF programs except for sys_enter and
--	 * sys_exit that tail call into this as necessary.
-+	 * Attach just the programs maintaining pids_to_trace now. sys_enter and
-+	 * sys_exit wait for augmented_syscalls__attach(), the rest are tail called.
- 	 */
- 	bpf_object__for_each_program(prog, skel->obj) {
--		if (prog != skel->progs.sys_enter && prog != skel->progs.sys_exit)
-+		if (prog != skel->progs.sched_process_fork &&
-+		    prog != skel->progs.sched_process_exit &&
-+		    prog != skel->progs.sched_process_exec)
- 			bpf_program__set_autoattach(prog, /*autoattach=*/false);
- 	}
- 
-@@ -41,7 +46,30 @@ int augmented_syscalls__prepare(void)
- 		return err;
- 	}
- 
--	augmented_raw_syscalls_bpf__attach(skel);
-+	err = augmented_raw_syscalls_bpf__attach(skel);
-+	if (err < 0) {
-+		libbpf_strerror(err, buf, sizeof(buf));
-+		pr_debug("Failed to attach augmented syscalls BPF skeleton: %s\n", buf);
-+		augmented_syscalls__cleanup();
-+		return err;
-+	}
-+	return 0;
-+}
-+
-+/* Attach sys_enter and sys_exit, once the maps they use are populated. */
-+int augmented_syscalls__attach(void)
-+{
-+	if (skel == NULL)
-+		return 0;
-+
-+	skel->links.sys_enter = bpf_program__attach(skel->progs.sys_enter);
-+	if (skel->links.sys_enter == NULL)
-+		return -errno;
-+
-+	skel->links.sys_exit = bpf_program__attach(skel->progs.sys_exit);
-+	if (skel->links.sys_exit == NULL)
-+		return -errno;
-+
- 	return 0;
- }
- 
-@@ -100,6 +128,45 @@ int augmented_syscalls__set_filter_pids(unsigned int nr, pid_t *pids)
- 	return err;
- }
- 
-+/* Trace just the target's tasks, or their processes, from their next exec if on_exec. */
-+void augmented_syscalls__set_target_pids(struct perf_thread_map *threads, bool inherit,
-+					 bool uses_tgid, bool on_exec)
-+{
-+	bool traced = !on_exec;
-+	pid_t last = -1;
-+
-+	if (skel == NULL)
-+		return;
-+
-+	skel->bss->uses_tgid = uses_tgid;
-+	/* Before seeding, so the forks of tasks already added are followed. */
-+	skel->bss->inherit = inherit;
-+	for (int i = 0; i < perf_thread_map__nr(threads); i++) {
-+		pid_t pid = perf_thread_map__pid(threads, i);
-+
-+		/* A process's threads are adjacent, add it once, skipping exited threads. */
-+		if (uses_tgid) {
-+			pid = thread_map__tgid(threads, i);
-+			if (pid < 0 || pid == last)
-+				continue;
-+			last = pid;
-+		}
-+		/* Count a lost task atomically, as the BPF programs do too. */
-+		if (bpf_map__update_elem(skel->maps.pids_to_trace, &pid, sizeof(pid),
-+					 &traced, sizeof(traced), BPF_ANY))
-+			__atomic_fetch_add(&skel->bss->lost_tasks, 1, __ATOMIC_RELAXED);
-+	}
-+	skel->bss->has_pids_to_trace = true;
-+}
-+
-+int augmented_syscalls__lost_tasks(void)
-+{
-+	if (skel == NULL)
-+		return 0;
-+
-+	return skel->bss->lost_tasks;
-+}
-+
- int augmented_syscalls__get_map_fds(int *enter_fd, int *exit_fd, int *beauty_fd)
- {
- 	if (skel == NULL)
-diff --git a/tools/perf/util/trace_augment.h b/tools/perf/util/trace_augment.h
-index 9c91e2569890..423f16221963 100644
---- a/tools/perf/util/trace_augment.h
-+++ b/tools/perf/util/trace_augment.h
-@@ -2,17 +2,23 @@
- #define TRACE_AUGMENT_H
- 
- #include <linux/compiler.h>
-+#include <stdbool.h>
- #include <sys/types.h>
- 
- struct bpf_program;
- struct evlist;
-+struct perf_thread_map;
- 
- #ifdef HAVE_BPF_SKEL
- 
- int augmented_syscalls__prepare(void);
-+int augmented_syscalls__attach(void);
- int augmented_syscalls__create_bpf_output(struct evlist *evlist);
- void augmented_syscalls__setup_bpf_output(void);
- int augmented_syscalls__set_filter_pids(unsigned int nr, pid_t *pids);
-+void augmented_syscalls__set_target_pids(struct perf_thread_map *threads, bool inherit,
-+					 bool uses_tgid, bool on_exec);
-+int augmented_syscalls__lost_tasks(void);
- int augmented_syscalls__get_map_fds(int *enter_fd, int *exit_fd, int *beauty_fd);
- struct bpf_program *augmented_syscalls__find_by_title(const char *name);
- struct bpf_program *augmented_syscalls__unaugmented_enter(void);
-@@ -26,6 +32,11 @@ static inline int augmented_syscalls__prepare(void)
- 	return -1;
- }
- 
-+static inline int augmented_syscalls__attach(void)
-+{
-+	return 0;
-+}
-+
- static inline int augmented_syscalls__create_bpf_output(struct evlist *evlist __maybe_unused)
- {
- 	return -1;
-@@ -41,6 +52,19 @@ static inline int augmented_syscalls__set_filter_pids(unsigned int nr __maybe_un
- 	return 0;
- }
- 
-+static inline void
-+augmented_syscalls__set_target_pids(struct perf_thread_map *threads __maybe_unused,
-+				    bool inherit __maybe_unused,
-+				    bool uses_tgid __maybe_unused,
-+				    bool on_exec __maybe_unused)
-+{
-+}
-+
-+static inline int augmented_syscalls__lost_tasks(void)
-+{
-+	return 0;
-+}
-+
- static inline int augmented_syscalls__get_map_fds(int *enter_fd __maybe_unused,
- 						  int *exit_fd __maybe_unused,
- 						  int *beauty_fd __maybe_unused)
+And applied patch 6 to devicetree-arm64/next, thanks!
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Florian
