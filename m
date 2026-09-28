@@ -1,75 +1,107 @@
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110594A8A16;
-	Mon, 28 Sep 2026 11:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CD24A92DF;
+	Mon, 28 Sep 2026 11:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595201; cv=none; b=GUyK5bkJt2p9cwI+nOnLHZLrk5QrmKLf16HsnTUsXgqXyo4cZW3i0zzTXwGg+dNT1XgDQ2SMmVJLhWtaAlOMTtVOQypAY0aGu2ZrTOqHF5biWBdBRE1t8LbZG7d24hqf2XylqlI8P/7LdytIBYH7eEzx5Uv8LzMI34vsbBczfDo=
+	t=1790595203; cv=none; b=SheTuhxdAg4VGPBv/YYu2jqQ0EK6MuwZLlr5vhnTd8KYUVKFNgRgCVejqA7Rmch0LZqe6iQRuYVu2EJxisRYX8O8PMozVu555EoAFgcdUI/4N2fLHHsqEsE95AlbrHpwGwzSoWWWgUpqJjctAS4Lj4wzLxrhk86onFQes1QT4j4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595201; c=relaxed/simple;
-	bh=d6u7qpkzmGSp38SZaYn+ONC2V9vsQtbqwn0wMcVb0cI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tpN62sgMt4jtyAAQlSE0U16fO1zdkJfAQz7NzRCwSZ49uT+kbLLbzwmso81f2DvlFLNySoyhwk60X2ikvs2uKGhHPvNF3+UQIEF7OOCZfQcjvlrwobJ1jdDXGL5cTP+VxxaOVPU253lxuTrQnorQ45gIKdLTXzV7fscunp8n+eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=TjstszXO; arc=none smtp.client-ip=212.27.42.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1790595203; c=relaxed/simple;
+	bh=v/PlDSqTFONWylnxTRDwCMzFJYe24WF91onEl0USYc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XfWdxXiuCDtd81Py2HA/Odz22y0mHzcKldTAuUCcLpDuNJWbzuj66i1OdQmW9BPoxXvk+bugMYcx5vnULFiEpv/jDHYMRuFceYAg0/T8GTckQdcPT24qtVTczffykHNbsDxrSZgLlZAl1wj5Hp7R7bCx2IZovEobxJkZnDsZWzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvqzSNxG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="TjstszXO"
-Received: from L30177.local (unknown [78.240.193.235])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 54C2019F72F;
-	Mon, 28 Sep 2026 13:33:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1790595198;
-	bh=d6u7qpkzmGSp38SZaYn+ONC2V9vsQtbqwn0wMcVb0cI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TjstszXO1KLJWGNq9m1cYa1NLRv/qIYigXS6/VSVbrLargGULeVI0YuLLpiveZR0H
-	 D5sbn5+TOV9ED+daNxzLaDcS+TSobqg5zIdsNEeU63FRgJSQLmxjtv2HJqFO4Spe16
-	 wf7eY906hfqs+1OtegGbr371c2mLeTNWx1pbrHT5PMf8oeb15jzhUre/K3+nDN5fB9
-	 bKcfyeqNpTZn/Em8HZiTI83iNyWqZf6t2M5eaqROgQRtjY41iAh4MAP7WRWAb1NOI+
-	 5aBQz6xtmeMMhprPZ8bZnpgJSip7SriMkyh9Js4rkOA/Od1feSCyK3eWwwOIuIPqD4
-	 MhWIyBFUvF+Ag==
-Date: Mon, 28 Sep 2026 13:33:05 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, ioana.ciornei@nxp.com,
-	vladimir.oltean@nxp.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] dpaa2-eth: DPNIs without a DPMAC should be
- virtual devlink ports
-Message-ID: <arpQcc3pSDwiYKwE@L30177.local>
-References: <20260923-for-upstream-dpaa2_ports-v1-2-b59c865edd00@free.fr>
- <179051507094.2160803.2316498936147241429@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvqzSNxG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF91F000FF;
+	Mon, 28 Sep 2026 11:33:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790595202;
+	bh=MEn2qOFsUitkYJQilaVJgyMN2FnlykwebahY3dRB+B4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JvqzSNxGJwtWtuIDki8UTCKrxrFWAAqRHKz07+scX8scMJ4yEPSAKDj9s6TetnlMj
+	 YjFjiom/mup+haINQtfE2XdNu4qe8itQwUSbc7DuYk8cejZi1rrpk8iW/M+sONMVKp
+	 yzdNQSJc/5/t6d8osOBN/lyZUZ5R4LLWE/63xZrlypCQ+Fn0NoL0abXrIerokawnQa
+	 Uu0wGgpNThUj8Qrzu9NoH1nLYEmJvNz1eQjcoXp2Gi3etdOnGn7N4iOCNjtXKh9Bhx
+	 6RGY/UQ9vijAj9a3tUJsLRKgC7JJWsCNRUUzwbtbdjqf3q7ac/mhcEYC/bOMnXWsh1
+	 sZvn8+HwXcNww==
+Message-ID: <5ad6b296-a336-457b-bcbd-31680c79c6d2@kernel.org>
+Date: Mon, 28 Sep 2026 13:33:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179051507094.2160803.2316498936147241429@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] media: uvcvideo: Do not parse bmVideoStandards
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+ <20260911-uvc-version-v3-4-604328d8a0dd@chromium.org>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260911-uvc-version-v3-4-604328d8a0dd@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mr Bot,
+Hi,
 
-> [Severity: Medium]
-> Can this race with the endpoint changed IRQ thread during probe?
+On 11-Sep-26 15:22, Ricardo Ribalda wrote:
+> bmVideoStandards is write only, so there is no need to parse it.
+> 
+> Remove it.
+> 
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-Yes, see v2, patch 1/2.
+Thanks, patch looks good to me:
 
-> [Severity: Low]
-> Is this still true when the topology changes after probe?
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-No, let's focus on the DPNIs for DPMAC.
+Regards,
 
-> [Severity: Low]
-> Is the warning that follows still accurate for a virtual port?
+Hans
 
-Yes, but with an edit based on Ioana's reviews.
 
-pw-bot: cr
+> ---
+>  drivers/media/usb/uvc/uvc_driver.c | 7 -------
+>  drivers/media/usb/uvc/uvcvideo.h   | 1 -
+>  2 files changed, 8 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index ca75f8d1ec46..adec9d1aa653 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -1187,13 +1187,6 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>  		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+>  		memcpy(unit->processing.bmControls, &buffer[8], n);
+>  
+> -		/*
+> -		 * We are not using bmVideoStandards, so there is no need to
+> -		 * warn the user if it is missing.
+> -		 */
+> -		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+> -			unit->processing.bmVideoStandards = buffer[9+n];
+> -
+>  		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+>  
+>  		list_add_tail(&unit->list, &dev->entities);
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index 8d99e857a69f..65f232de7821 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -228,7 +228,6 @@ struct uvc_entity {
+>  			u16 wMaxMultiplier;
+>  			u8  bControlSize;
+>  			u8  *bmControls;
+> -			u8  bmVideoStandards;
+>  		} processing;
+>  
+>  		struct {
+> 
 
-best regards,
-  Vincent
