@@ -1,133 +1,117 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC98E330D29;
-	Mon, 28 Sep 2026 12:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C27330D29
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598373; cv=none; b=gQv8UCs31mBnv+Lo80CU+1q7wOYPGq2e3AeWmsZoq44RorHoPXtXHle1CYO9yr3d/jv29StXJru250JCkgK3nS71yXvYjTO1ECQJqJxsWOlMWmxVhrhfS00caokyEd5isq2ikBnMTBpOeFTNrIvfoHyMauoUwibL9MRXa+W8vFg=
+	t=1790598381; cv=none; b=YpX1gDEeLtgmeu+kTC4F2PxbVgk6a8AoTFD/bQB5MXE87nIvOtIlvW+N+Vqk3G01ft3Lf5iKjllxOj/PlqF8d8mNXq3/dKwe3nuE9C6XshXENG7Ahqs/gUcINDk1BKP8fQFwGs9ECzFTN9Hv6reAu5y5o7nTSdcLF4fELDrrkYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598373; c=relaxed/simple;
-	bh=PsRS7lbjhGZsnuQ+kIBFx7G/+ambGWMhbQ76SU1fVaA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fljKdDbW6CS0HPaCf5njPRRj8rcsJnpkkSqqnGxT0H8tmrGzBYO417185F792hU6l+BD+vXpiFL2dCM7G1PGqQ+4J4l/yX6ktPcB2NCPEnPGCtuy68JtAlAMMBEELZznnNyleBfc/3p17Og5oc1DCO2UajccTmWDuMlJVU8WlIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0CzaZzBq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ThP1e33O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eec2ZnTy; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IAXN4Y6O; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790598381; c=relaxed/simple;
+	bh=oz+qnBneuNzgbgcPeVN/yZFP9YuMrQDJ//Xl7DWeReo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pDrwy08qtTLcg/bHg69X/toqLdxY4RR4jD9aTWKkTUheqRt6SJ6BxRKPDXVURmU0EXinFZVVqaKTSgaQL+WZRMkezpJjw/VLVCmDOIojmwmSCEaWAVsXiw/4TjW6xnaRdGIODcgK4fYcy+FCqRxgN29Q1tRIaKfCXEUNr+3JkKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m/XgSONT; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0CzaZzBq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ThP1e33O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eec2ZnTy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IAXN4Y6O"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9421A22333;
-	Mon, 28 Sep 2026 12:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NwL/ChBojr86+9jhZ+jJKgCkYqRWcLVX74aSOtziWVU=;
-	b=0CzaZzBqW0zKjH/3lFO/6++Qh7rb0hGxkU8nokJ8bNDGNTvdbZy54Ct6Sl6fKA/Cirp1Gx
-	n9SBqNjm1BmWZbxnSIvA5nbjMwx1iDduyimfRyVxExA6EPt2+aQx+eeEndHPxcKoMwsjnL
-	MDUwI00aIZGg6zvLwNKc3m2G/1WutHw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598365;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NwL/ChBojr86+9jhZ+jJKgCkYqRWcLVX74aSOtziWVU=;
-	b=ThP1e33OnDJMFx3h0OxZXCmPlwmBqUNnfNrHiV4fTNmR364Km9JwZc71mnokylmXbgfXWx
-	zfU1pOpEKR2qRwCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NwL/ChBojr86+9jhZ+jJKgCkYqRWcLVX74aSOtziWVU=;
-	b=eec2ZnTySJNeim7AWUtTm57VbnKaUe8pSEiOFQHYbcSCd/KgeHWLxaFdvH0ssDWtLvACre
-	fAI09rpKyrw9HIo49Whhzo9mdHAEdPTvz6V5E6BUB1SYXyfKkbZxq+Fgp7R5PjnWmy7bb4
-	jCvq3y+ZFGQfTz21TIw0SmLBjNiaFL4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598361;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NwL/ChBojr86+9jhZ+jJKgCkYqRWcLVX74aSOtziWVU=;
-	b=IAXN4Y6Ox1EVpFMrQ4PTr1CwIl0psCPpv3UGPEgVMPQ0zVSyebcZ1V3UX3p09uJG7IT1U/
-	D3Y20kQVh1W3efCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 40B05133F1;
-	Mon, 28 Sep 2026 12:26:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id rbDKBtlcumoBeAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:26:01 +0000
-Date: Mon, 28 Sep 2026 14:26:00 +0200
-Message-ID: <87ik3p5zqf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m/XgSONT"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1800764a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:26:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790598379; x=1791203179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CUjbO+I4hM4lCPUnf5SJ9NB/2+aftjjp44Cv82ayP0Q=;
+        b=m/XgSONTEwxPmWu9uY2rh/c1mYIdTb6sYJP1Kj+HoOV1YyCsrHglRHbVZezImybIuG
+         kglqEJeiJLVrsmIYp5MlWSSMJMaoM0UfQbpHOBCUh5Kz/uVGqusALgy2Qwvd6DT+X4Sb
+         4CFeNoo8YZpoVLTZjM5mfrdpqiYRerMvTXg2cJ3/sxulFohI71lcEuu+amtUoSmT02JK
+         /mHeA9Jd02vB8kE+syIm0EKDVJCAzgZU7VWGHoJtz/Yws6hwMeqlR8rtv995dpoBMhBZ
+         sQaOVFaiw6SkoUWpt9erif/cnGEX3LJ43H33TUNOliaQKUxlqFHrZIuss2Ab4mmLm3GH
+         24gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790598379; x=1791203179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CUjbO+I4hM4lCPUnf5SJ9NB/2+aftjjp44Cv82ayP0Q=;
+        b=kWf7N/qnPpACGfneZVJJA/VEq+yxQCOyyjgJoolwLbj6Y5d+zYaXklWSKjmh2vVvYQ
+         9XVVwOtVeiR3x3ata+YGp80HGpTRPDdIH6MS3v8D7e3k62IHfzFtmKdNsQG2XOrZ5L/4
+         EYVTC/Ensx9hju1TTLTnausmPHLhdUo8fxA0zT0DbVyGk7DGB8GNkgvNQ4igkPwcAMII
+         V2XJVaY+RN5bMjnsBaKu7nU9gsJGaShqXo61bkkPt3EYozoaWKI/Z1W6mbojd6lcTsiS
+         NgY2kukQ6kztzw8otOC+HhPW/+xq9f2gPAHhY/NokHi4HU9afAFsqVXteYl0S0x0bpBl
+         Zsrg==
+X-Forwarded-Encrypted: i=1; AKwUvByjfqQOiXo3EEKisaIywl02QpE3rCjXbbxXXkrqgKJL+LIEsiVeHJ6UVxyaghJEcZ6hfbeQBStmbGQlmxw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLi3nrH0CiCKZ3nB/ZSh+md2zcRtRKBZS8w8u69nvq9e3XvjiiX
+	xC1sUpH/dy4XCLPNNMRtY3KwwPveYnwQMx5ZEN7kmdWZZpQjNgI71RDZ
+X-Gm-Gg: AYBFou0Ag9IVJl6AStSUMGFOoP/EpyymUk7WXKnET7gVX/rMJ4LkWxMZl6UM7T0J1e2
+	HqC7VWcKmnRC3loKQ9DV5usuI91E15Nm44PfOmju9+B54K/FvKnTyjX94F21WxHP4UnvRw3Rzj5
+	s6YKjcw8XrrXjfksjLroCOnIcoI4h2/7mk9f86bsr9xEiPngbDqgqV7obuzcCyKobdiMs+tUXqx
+	MeFU/T/REgO+BtdbS4VYajTknGyaJJ8kupWsWdS0/zlyY3oS+x0a3PVafLLzWDKmoNAmMMYbDje
+	0X3LaoWnRYZJUdRV11hiN/RkGaAmt6UtUxsuKIQE3FYjTLsR19pnyFvTs6DooVQfzPWlzvTwnud
+	3l0wQJcRXck0WbFzTMZ1DlI0y2NsaOjP8NsaJD4E9QniSO3nlkcII38qxgWaTf8I8dzaJ63iXCy
+	6NsWULoIvAetgqAnpvu/mcw7lQxqsDKqu+Cp7YBSr+n8q5PKujgk/D5xz+YY3m47IejQYo2y40N
+	87kz5Habehem1xIFdPNRGyXukg02dyD37gti5mkqfiQCcYYVvu81PhzcDHSjyRU1jIlCGKYK41K
+	8MsMGiAGhwoXE3TgQX2d
+X-Received: by 2002:a17:903:26cb:b0:2df:34c0:7302 with SMTP id d9443c01a7336-2df7e3a01c3mr67555875ad.39.1790598379324;
+        Mon, 28 Sep 2026 05:26:19 -0700 (PDT)
+Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2006-1fb9-8409-0195-705e-5b47.dynamic-ip6.hinet.net. [2001:b011:2006:1fb9:8409:195:705e:5b47])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbc951sm40485615ad.8.2026.09.28.05.26.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 05:26:18 -0700 (PDT)
+From: Yiwei Lin <s921975628@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Yiwei Lin <s921975628@gmail.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: oxygen: use helper to activate the SPDIF PCM control
-In-Reply-To: <20260927121709.742840-1-runyu.xiao@seu.edu.cn>
-References: <20260927121709.742840-1-runyu.xiao@seu.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH 0/3] rbtree: fix rb_add_augmented_cached() descent and exercise rb_add*() helpers in rbtree_test
+Date: Mon, 28 Sep 2026 20:26:08 +0800
+Message-Id: <20260928122611.336351-1-s921975628@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,seu.edu.cn:email,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 14:17:09 +0200,
-Runyu Xiao wrote:
-> 
-> oxygen_open() and oxygen_close() modify the SPDIF PCM control access
-> flags while holding chip->mutex. Direct access changes bypass the control
-> core locking and notification path.
-> 
-> Move the access transition outside the driver mutex and use
-> snd_ctl_activate_id(), which serializes the control update with the control
-> core.
-> 
-> Fixes: d0ce9946c52e ("[ALSA] add CMI8788 driver")
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+rbtree_test open-codes the insertion of every flavour of rbtree it
+exercises, while the generic rb_add*() helpers have been the way most
+users insert nodes for years now.  Patches 1 and 3 make the test use the
+helpers where the helper does exactly what the test did, so the helpers
+themselves get covered.
 
-Applied to for-next branch.  Thanks.
+Converting the cached augmented test exposed the cost of the
+"suboptimal" propagate-from-parent path in rb_add_augmented_cached():
+2-3% on a Raspberry Pi 4 and 5-7% on an x86-64 KVM guest on the
+augmented insert+delete benchmark, against the documented
+update-on-the-way-down pattern.  Patch 2 adds a ->merge() callback to
+struct rb_augment_callbacks and uses it during the descent, which gets
+the helper to parity before the test starts relying on it.
+sched/eevdf, its only user, supplies the callback from its existing
+per-field helpers; the resulting kernel boots and runs on the Pi.
 
+The augmented invariant checks pass at every step.
 
-Takashi
+Yiwei Lin (3):
+  rbtree_test: use rb_add() and rb_add_cached() for the basic tests
+  rbtree: update augmented data on the way down in
+    rb_add_augmented_cached()
+  rbtree_test: use rb_add_augmented_cached() for the cached augmented
+    test
+
+ Documentation/core-api/rbtree.rst | 27 ++++++++++++--
+ include/linux/rbtree_augmented.h  | 40 +++++++++++++++++---
+ kernel/sched/fair.c               | 13 ++++++-
+ lib/rbtree_test.c                 | 62 +++++--------------------------
+ 4 files changed, 80 insertions(+), 62 deletions(-)
+
+-- 
+2.34.1
+
