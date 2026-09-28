@@ -1,136 +1,134 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE553C276E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF0E43C7A4;
+	Mon, 28 Sep 2026 19:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624353; cv=none; b=k3RrHlPGO8ztUddj8iziWWPq9/G+Fi/cSTyye+yJgMdDQkyc+DL8m/L9dp7W2U8eMWA1FeKQd8Z91dQw0gh3wZH7PvHdsuRar533Ss5y1DH7mjLBPiWmZhOWQd4t7SjElI0t2pNGodvp9Y/Tv+UXb+AmZlG8n2SE39J5XkCxhhQ=
+	t=1790624367; cv=none; b=i/M5uhxnn+inip8LXrXX9WaZtoaESO5vABWmmSs/rFRjqFFywMM/ZbrgbdefaHz2DKLMq2k1guhWMtVBLUXCW8n70DJlH8XF8Z0qEMlFe8KsAGUEOQOZLl6ELeyozj9eknujeJOC1WJsW6lkviVO5f1FiHV3RE5/qCoikjakNlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624353; c=relaxed/simple;
-	bh=gKwT7S4M/cDKQNhW4/ej6WZYopzIgCAgm7ZN76dmvxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dKbjNlyHOUrzcFd8Q9X0hoFgY/cIJkpdriKP1VAypvnNSAqZLalOwW43oWN1p4iygq6FIc0yduTJOBY+1jzR6vROLmyzVDEqiT+wpx4+ryEJPB9UgSTSLVERsEVoIpDOreX7u/7NFaK/zKBVTQuYY0nX+3Pq53i1U04/BlsUaCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWVd8RZA; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790624367; c=relaxed/simple;
+	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G5DXESqhkYNgCIN4uTBHAzkXcqDxBin51QGCuNJMmo1xuCYzcNFv3VobZz+U0VFvIGjx86ZEWp7E1yVY1kfGooL5lAukzauS/wkSHSLmvuGrAj1dGlcGwjwWFdC08I7BF1RIYLKPR4CiEl+IZc9JSIq7n3NU5CPvE5YYGY/jdjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HYVBYBjj; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWVd8RZA"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so2839291f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790624349; x=1791229149; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
-        b=dWVd8RZAwK07BgHovpIEtRipSeTKwAFsGsx3PC1Oxblfd6F0tXGBNThm8jsXXMQF1f
-         mbX9IweCyk6n40FE5HlqAb2mayw+hT0dIQ6ObzGZJYh4PPsXj6AUo6iA3mBl58zG2MuS
-         9XmKe6Iev37AztI/HwUvBeDjj5+f1XfjfOJW8LR6ptNgkMskj77IFG1X0sFPyp8DS74I
-         5Xd7iNUn9v7/J8zHIdMfzz8g6clQi1ExoTSGQ+N5yu2/Qij5qzuaBi+4T4/myq/LF2B8
-         drJ832SZzCSkVJiAbnLNFEO15k4QcML3cJXMuimSOkVId5ZdMDInxSNV8e9uzvwBxQjw
-         mgdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790624349; x=1791229149;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
-        b=q4nNQFrLAPeNcekzXk/PgrTpsfKIV4MstenvsPwKMlbGEDKvbBThGvMerZ16JI/JHP
-         ukuHAh/Iajfi8dQTz7Kt/GgMjC2KB6NifQlQJzJWb2xuYG8rsDvAs32LYFSxHwwA4QeB
-         6Xc4S0F+ZeNZXFey5IfV1ObPmkhGQdmiLNr3yWsoIvObdHqiqFaBpUTcO5asPrlw6Wgk
-         aEh9hVBdQXcApa+QXJkUfQLKWYtj51kIUgev7wDHaRWejF00K5SBfMuMVxbRxR/CgVCW
-         nIzXXD2fcB+kIZIsqy8tyiRQlSQG+cyRX6klB7ak6KSkCA5Z70vNgemAQ6Iy3eTiQP5k
-         1elw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdjBdSP39DdmrWdJHR8iM5YE5SH6Ibm1LKXDeNvpmE4nd5+5Yy+UCh77MK40YpCm3dDggPCyl/+iQcRUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2pJGnDlEHM9Q0w7hTBqkRTPRH2jfXgFVoZAInnpPnbzRmTV3W
-	JkmiS9UrV0RV6S9sS7oZmX6j0pwfLEf0SiwAnpJ2N1V0oW1QXX9ym73V
-X-Gm-Gg: AYBFou0iK/lwG7EiwXbEAMZ8DJlpPlj55j2JWeR3s7wOdp/L+NfInCkknExSez/hBCF
-	Y7Q2UDKKgr6jSe8iTEuOCboHyZ4VtVDvVFHixdFcm1tA7pfUiPbSnuYyaOGgDaXLWba1/BxaDEW
-	iNjjXh7S5lNdisDoArXkiq5qcnZNvgTzkWe5FGOMQIbbQm9LTYvyRPYo2Gxykul3O3FPRh5w7D2
-	m07Jd5LhJ2tOb/3MP5YZW9DN5Z9kUjxXMHuFSeKaXndcLk7DKNYCD8KBe+UBFBXsCnUULeDfqnB
-	4UQ2G2vlqKSpzzeMgvuqz3ASS/G6L/r0ycEWoVcdN4W1MV0uL8VYWdlaVoyWGgnQp+N+zxnE6P7
-	OAv8K3o2ieBP9LhtcJtXaQX0V8EmCUWeUX9gtf+sc/F5HZwrGl8+3Iy7EYDnAVmrmMhf/0aQsh4
-	Rmz8hq8RI4xkWZS3gkdI/iDNPBGHEoQD405pjKAiomF6U6zhF2ERcLuGS6YBpuiP/cPZkq903O3
-	tjJIKrGRd3k/3JSH2fcBsGY0OxEl3u8EopPtMTEkjOzKipujI9v2A0aHJcOEEaXtvpa8hEQ0sAv
-	srxT5gCRM/soWUo6mvr9T5VSfhocXno5PnKKM5sWNGHoqCN5rb8f3cN9QZ1wfREPe3i2tSd3XA=
-	=
-X-Received: by 2002:a05:6000:3104:b0:48a:eff0:c31d with SMTP id ffacd0b85a97d-48aeff0c6e7mr1174394f8f.38.1790624348461;
-        Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6456f8sm29487793f8f.26.2026.09.28.12.39.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
-Date: Mon, 28 Sep 2026 21:39:05 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Bryan O'Donoghue <bod.linux@nxsw.ie>, Dmitry Baryshkov <lumag@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on
- DEBUG_KERNEL kernels"
-Message-ID: <arrAvk4aYQ4sDEzN@gmail.com>
-References: <20260926022026.10539-1-liujianfeng1994@gmail.com>
- <17bf71c6-2442-4eaa-847d-29ef625870bd@amd.com>
- <CACSVV02WCQwQy9BpUUqziQTtKV7QyJruiM+iTiLE_SEVKtpVNQ@mail.gmail.com>
- <50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com>
- <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HYVBYBjj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790624364;
+	bh=+AAewgXDMIVVNyVEa+zV6e/mgsri0skjz0hNShpnhDg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=HYVBYBjjuj9EqjMBnBn4CvDnQ58LVJvWBlOUfJS1Ga/XmiCzQJDRrqHtTBbH3g3bB
+	 2zrWFStAS9/v8fF5tm/gQHvEBv7QN5xyAZfce7OBPvXFdgpRc6E2y/jnW//3APo897
+	 nXBHYrmArPHcRhS9vYbSxBUreSMfOT+t5yZ2bPw2H4ybgiKIlYkiqzqM4uuyPVoG6I
+	 rd1WC5Ocb5NWg7bOGzl3zpcNvxh8kFp7ZqJEEONrCkn+zqjQ/JqW/p4RuNerQUxb46
+	 bHVJfFTAzvvhqjjLsIpysgPNDaA0U0qg6Nd2KKESaFBQwXdzS+gy5LLEr9Z2BOIC+b
+	 XfbyD8kw2EsWw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D049D17E006F;
+	Mon, 28 Sep 2026 21:39:22 +0200 (CEST)
+Message-ID: <54bdf44f368e90bce879dab51475230726a630e0.camel@collabora.com>
+Subject: Re: [PATCH RFC 2/2] media: amphion: Add
+ V4L2_FMT_FLAG_DYN_RESOLUTION for VC1L
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Ming Qian <ming.qian@oss.nxp.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>, Frank
+ Li	 <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:39:21 -0400
+In-Reply-To: <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
+References: <20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com>
+	 <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-M4XvjIAAQre3ge1Vefte"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
 
-On Mon, Sep 28, 2026 at 04:21:41AM +0100, Rob Clark wrote:
-> On Mon, Sep 28, 2026 at 3:48 AM Christian König
-> > What I can offer is to set it to default N for another few month to give you more time to fix things.
-> 
-> If it is disabled by default in distro kernels, that sounds fine.
 
-Another option is to restore the earlier DMABUF_DEBUG default for now,
-although off by default is also fine with me:
+--=-M4XvjIAAQre3ge1Vefte
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-	default y if DMA_API_DEBUG
+Hi,
 
-I would like to help fix the affected importers, and have started work
-on several of them. Beyond msm, my LLM agent found paths that use the
-page or CPU-length fields of imported attachment tables in:
+Le lundi 08 juin 2026 =C3=A0 12:56 +0900, Ming Qian a =C3=A9crit=C2=A0:
+> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
+> event after parsing the resolution from the stream header for VC1 Annex
+> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
+> GStreamer) cannot determine that the driver will signal the initial
+> resolution, causing it to skip waiting for the event and fail to set up
+> the CAPTURE queue properly.
+>=20
+> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
+> indicate that the decoder will emit the source change event during
+> initialization, consistent with other coded formats supported by this
+> driver.
+>=20
+> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence star=
+tcode for vc1l format")
+> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
 
-  - rockchip, tegra, rcar-du/VSP, omapdrm and xen_drm_front;
-  - tegra-vde, staging ipu3, pxa_camera and sur40;
-  - fastrpc's SECUREMAP path;
-  - the IIO dmaengine buffer, USB FunctionFS and UVC gadget DMABUF paths.
 
-The host1x imported-buffer gather path also looks susceptible. There
-are less severe cases too: amdxdna rejects the affected import, while
-mali-dp loses MMU prefetch.
+Can you send a non RFC version of this.
 
-For sur40, IIO, FunctionFS and UVC gadget, I have reproduced failures
-and tested local fixes in QEMU using local device models. The other
-entries above are findings from source inspection, not hardware tests.
-Some failures depend on the architecture and configuration, in
-particular whether NEED_SG_DMA_LENGTH is enabled.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Unfortunately, I don't have hardware for most of these drivers...
+> ---
+>  drivers/media/platform/amphion/vdec.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platfo=
+rm/amphion/vdec.c
+> index a9f0521f2e1a..75808482d090 100644
+> --- a/drivers/media/platform/amphion/vdec.c
+> +++ b/drivers/media/platform/amphion/vdec.c
+> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] =3D {
+>  		.mem_planes =3D 1,
+>  		.comp_planes =3D 1,
+>  		.type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+> -		.flags =3D V4L2_FMT_FLAG_COMPRESSED
+> +		.flags =3D V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
+>  	},
+>  	{
+>  		.pixfmt =3D V4L2_PIX_FMT_MPEG2,
 
-I think the drivers managing their own IOMMU mappings also need a
-clearer supported path here. Simply switching from physical addresses
-to DMA addresses is not generally sufficient, since the latter belong
-to the attachment device's address space.
+--=-M4XvjIAAQre3ge1Vefte
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-I also have a draft warning-only mode for DMABUF_DEBUG that I can post
-as an RFC. It preserves the CPU fields and logs suspect accesses
-instead of deliberately breaking importers. Coverage is incomplete
-and the underlying bugs still need fixing; strict mode would remain
-available.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Karl
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarrCaQAKCRDZQZRRKWBy
+9CYCAPsFveAaWChcZQDCXyLHHs+vulfT1yzF5GrpP/nbumEvAwD+PIpjMxcHbLmi
+mmV7vNw7LQoqmoTk7u/pflIvWwXjfwk=
+=8PXW
+-----END PGP SIGNATURE-----
+
+--=-M4XvjIAAQre3ge1Vefte--
