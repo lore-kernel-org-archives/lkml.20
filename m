@@ -1,63 +1,81 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F5EF481643
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E997481A91
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584695; cv=none; b=mTorWyt3NG0a545zZpLS93+TC+2m1XyZ3/sOoX6ELzv3IwqwtZjeQZtQuvCkSpDdL7EXl9nPaxc01eP0M0pCtw5fO/TTFEW3xb5XclCSU1k3V6NlyhpAIDM/vq8WpxdGT6wlIlLDP5thxe4d5PoPz5EHYV9PceWyAIy9LQRyhQA=
+	t=1790584707; cv=none; b=J2r8LG3VBWFrGW41s7Kcxd7JIRmYmv4QGC9zU5vkxF0cDJ9cueAqr0YdGUc2yA8XPZRoDQqXkbOXRYTG0iUnreFJogceyIG/S3LaTSJ3eY+OtsTN2RlwRgI1YlvEQe60jA6HXMON2ewkL/vVVQJJ0099zBsKck93RvR4PFyWF1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584695; c=relaxed/simple;
-	bh=w0pjlC9s2ArhYjQY1ae0MzGnNdrjLVGIM+GY+diDyYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SiHmR764qOGo3pHg49A7tOOvxFkdcUf7AJzSMf10jJQ1rVUAC3SbpzxnckzqxFzWqDShLC12Y8ea0pMLB9jKuDNfQRgfqNpSixaXIAdO2DXJenhTlXP/VoQ7VRHeJIt1XMi1nreZdLCF2L0fxr4vKsgr9+gXh5IoMiJu5zgKIgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LGfBwdWd; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790584707; c=relaxed/simple;
+	bh=KzmtaBx/W7Qo6eJlSIglcMY97ok4d4GtoRfvLF0hscI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VnqL/jSTxylOKRgWa9omLeni5pq/n2rUly3Tm2up4D9thR8lIFFi5g2BZfPEiaXkLU/sZJzmrVkdYtk4wFSXKNxFMyq34xQHOu6zNKnpV42B5us3dBc/voxMUvwwFOvgIcAXqcJ0dlETapdEMT9EPWG4A62kzwG8BTFX1sTLa1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fk3TfVQ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LGfBwdWd"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 30A011570;
-	Mon, 28 Sep 2026 01:38:08 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 474163F86F;
-	Mon, 28 Sep 2026 01:38:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790584691; bh=w0pjlC9s2ArhYjQY1ae0MzGnNdrjLVGIM+GY+diDyYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LGfBwdWdd4BK9b9ZKua51uLgASRtHck2xx2qZ3pOBeN7oSUS2hPM7X9B7akmdo6Jj
-	 759Ti9E7kSVVuXbAvtq/m8JZpdU2ONuY4llhKT18v/phPVM5KLnbVlcJDRin/CCeE/
-	 OtxvkP+PN/F+91foYbOxKyoUDqzwB50Lhm1B26JI=
-Date: Mon, 28 Sep 2026 09:38:09 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: yingchao deng <dengyingchao@kylinsec.com.cn>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	qinyungao@kylinsec.com.cn
-Subject: Re: [PATCH v2 1/1] coresight: syscfg: fix deadlock on device
- registration failure
-Message-ID: <20260928083809.GC14479@e132581.arm.com>
-References: <B16F90D29FAA2B3E+20260914074524.1694-1-dengyingchao@kylinsec.com.cn>
- <6CC680FFAC60931F+20260914074900.1711-1-dengyingchao@kylinsec.com.cn>
- <20260924162404.GN200420@e132581.arm.com>
- <E6F9385348472E5C+1794efa3-5320-412a-ae81-cfcc4969b76a@kylinsec.com.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fk3TfVQ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20481F00898
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790584705;
+	bh=KzmtaBx/W7Qo6eJlSIglcMY97ok4d4GtoRfvLF0hscI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=fk3TfVQ8MwNrWU6IzYBQXGVhC+7X8nYQZRYw+k3Yoy5mHGBU5bsNSttCLOn4tIcf6
+	 alM50OyxM2mXVJpsTVzS0j8N4MhabhzahjBjUpa77Lr2VzbbC0MPDef8EPEsa1zqQf
+	 27EY3yixr6k0zTBpNh6+HLvn3ATCMb47fylmkf1oStT9Z+N4SO0XLMAyzdptmYGOSQ
+	 WMyb2fXIyw/tYnaqM2N+emPTnuAuj+NAYgE6L0y7VBunrm8/IIqV433U+3aQVTcILL
+	 d8mKJCXoh3WoDHK0RRMTxhaSae9ZsSgrIUs9YbFGjYYcWka8e5T5LCUxBQU8JoFq2s
+	 jdGTbhUN0h73g==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e93611e7so2757908e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:38:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw9WOxPv+Bci+zpx3tF3WnGxpJSJ5KuLP1AnXmJyEGpUmObw+ipg4PJw/BDxX+x5p4q+PGIxNMnW/53j74=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK50V8zd8Oa77bdZdhBOeEVsrpA3tRLSfykzCQxV5VB31dHzcRT
+	z5Y45bnCESAf4z2sqHGmY49LwbxGC/6J5ZUatC7ugDxAF01hqFuqnJOwgSwHitogIxh8/ak5hGY
+	vh8PW35ROznXTDEeajIifbpkWL4lfaVK9grIvC0Ia1A==
+X-Received: by 2002:a05:6512:2c86:b0:5b8:9978:a2bc with SMTP id
+ 2adb3069b0e04-5b8e6d91f8cmr2796693e87.23.1790584703696; Mon, 28 Sep 2026
+ 01:38:23 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 03:38:21 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 03:38:21 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260924-ipq5018-pwm-functions-v1-1-8990a4e85b2f@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <E6F9385348472E5C+1794efa3-5320-412a-ae81-cfcc4969b76a@kylinsec.com.cn>
+References: <20260924-ipq5018-pwm-functions-v1-1-8990a4e85b2f@outlook.com>
+Date: Mon, 28 Sep 2026 03:38:21 -0500
+X-Gmail-Original-Message-ID: <CAMRc=MeJcYezVbqVq4cM2RuAtP3mxCuKKLMS3z+XqyS4DEa5qA@mail.gmail.com>
+X-Gm-Features: AclHuK9pVuYMjJOL3S9OWFCVZ-No99gs9AaKgirufX3RDkqpWzOUGcwSuUMSUDU
+Message-ID: <CAMRc=MeJcYezVbqVq4cM2RuAtP3mxCuKKLMS3z+XqyS4DEa5qA@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: qcom: ipq5018: add required gpios and missing
+ PWM functions
+To: george.moussalem@outlook.com
+Cc: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 25, 2026 at 10:40:22AM +0800, yingchao deng wrote:
+On Thu, 24 Sep 2026 14:22:11 +0200, George Moussalem via B4 Relay
+<devnull+george.moussalem.outlook.com@kernel.org> said:
+> From: George Moussalem <george.moussalem@outlook.com>
+>
+> On multiple Linksys routers, GPIO 1, 30, and 46 are used to drive the
+> PWM led on PWM1, PWM3, and PWM0 channels respectively, so let's update
+> the pwm# and pingroups accordingly.
+>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
 
-[...]
+Are we *updating* or *adding missing*? Depending on the answer, this can be
+interpreted as a fix that should be backported or a new feature that should
+be queued for v7.4.
 
-> > @Yingchao, do you mind to work out a formal patch for this?
+If this is a fix, can you add a Fixes tag?
 
-> Happy to. I'll send the patch.
-
-Thanks!
+Bart
