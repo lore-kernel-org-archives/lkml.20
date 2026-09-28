@@ -1,217 +1,198 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail-m49229.qiye.163.com (mail-m49229.qiye.163.com [45.254.49.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F414AE8A9;
-	Mon, 28 Sep 2026 11:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A34AC170;
+	Mon, 28 Sep 2026 11:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595870; cv=none; b=NHLLFzWdgBWhrGucnGpzlqUuFhHApcsjKOZaWw4MgxW1o1Tq56IwR+ge3+CnIYDUVfAAa2+w+FFIhDs3g0Hf4VgxEwbfzKw7ZTiK0pYfd3b8f4F+PZilF/d4OvnPDaNnFZnnOqAildrVxfrQJDPPdlKy/4h+SRJ2a9ioY3QYHZQ=
+	t=1790595874; cv=none; b=WjuS7M4qMgNvIqb4Kf5r0dw7abY0ooQC9MbMa10QmUiTwhoZlYVK2fgD/jQiT2Z5q+n/+0OVxLzLCnfNS1hWod3ZZpdZoqG1m/7gXc3hcv1/jF2vDNoagI2d250/MHISDZnArKyBrEOCaxErdtwe4JxHXoz9NeccYd+PO1rb6M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595870; c=relaxed/simple;
-	bh=hA3C+SE4gTmuEA2wSp6ivN7V1PdWDili25FnhTiFZZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MBzIg1+AVC8CvA5xHuOc04MeB/5KpT1HdH6Cua79qVnqDuxxu1uwRBjMO9SeRYtGIKwALFL0bYm4mAAOHB4zX8JIUB4bWaqCYbhtKCRjXQjkaK3txAElBcZeL68N/stygh+TtFe68wMnZ4snIaU5Gb6xOn9cvJydZgeAqLMpfvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bqOlIj0Y; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790595874; c=relaxed/simple;
+	bh=Y0MsiQrYJDDSuydp8+WFnjB9TUx6dfjNvmhwJzV3kMQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=TrAj/r1IkBWy1lt+RJaHpYT8099XsZjHe9GY26ksKGni8ZuI0kHIlSu+q6wIclPe+fyzkpdNIh7r8jV91hH2L4W3BmHjcK3nNRXPPxXqSAB4/CNHSGXo+23RG0ec27Cr5fWcHRJKhfbNuS7Ny5P2QwDX4FHGoJJstT950pzpOhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e9rUnIUn; arc=none smtp.client-ip=45.254.49.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bqOlIj0Y"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 05369B07;
-	Mon, 28 Sep 2026 13:42:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790595755;
-	bh=hA3C+SE4gTmuEA2wSp6ivN7V1PdWDili25FnhTiFZZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bqOlIj0YIiqJFcyGvFO2E4UU5UFH7p9QP4cReaFKZIzu4kFyKDxXYMpzSmk2SUqO1
-	 /njT9hqi/hPINFWT8R79F1j/0KLz0QYwkpaldwQP35naMuxY/7yflSpOvHWAGqP7a1
-	 J7zNLR94mEcd8SVo944mHjf4wnrE68y0Qd3WwFQg=
-Date: Mon, 28 Sep 2026 14:44:23 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] media: uvcvideo: generalise the XU flags fixup to
- all controls
-Message-ID: <20260928114423.GB157191@killaraus.ideasonboard.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-3-jordan.mymail@gmail.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e9rUnIUn"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e40;
+	Mon, 28 Sep 2026 16:15:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 01/14] drm/bridge: analogix_dp: Return bitmask from analogix_dp_get_irq_type()
+Date: Mon, 28 Sep 2026 16:14:05 +0800
+Message-Id: <20260928081418.3605775-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902002553.34839-3-jordan.mymail@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0e714eaeb03a8kunm323e2b5437cf01
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUlIVkJCT0pPHx1IHkJIS1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	JDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=e9rUnIUnggVntlM+VCCn3Pgkdao9uZAva/eyhDYkS+mpJG9kvFVs+UQiHBHj9uanrY95E6qMpW1TWQN2yXUCRx3lCupYRaGdilL+QImZUX58j6Nf8p1gib6hDpwyGY27P3ZS378dJuT2MjFTMCcmDRplArlaJ9yRXcHWo+75Yjw=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=fTbtcGZ0NiXRdk++xUkHW9KoNxxGSWE+RUMF8C782Oc=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, Sep 01, 2026 at 08:25:52PM -0400, Michael Jordan wrote:
-> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
-> GET_INFO reply is wrong, and overrides the flags for them. It only runs
-> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
-> controls, but standard controls suffer from the same class of firmware
-> bug: a device can report a wrong capability byte for a Camera Terminal
-> or Processing Unit control just as easily.
-> 
-> Rename it to uvc_ctrl_fixup_flags() and call it at the start of
-> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for
-> every control, standard and XU alike. The fixup replaces the flags
-> wholesale, so when the table covers a control there is no point in
-> querying a device we already know gives a wrong answer: return early
-> and skip the GET_INFO request altogether. The call in
-> uvc_ctrl_fill_xu_info() is dropped, as uvc_ctrl_get_flags() now handles
-> the fixup for XU controls too.
-> 
-> No functional change for the devices already in the table: their
-> entries are XU controls, matched by entity and selector before as they
-> are now, and their flags come from the table either way. The only
-> difference is one GET_INFO request no longer issued per fixed-up
-> control.
+Analogix DP controllers support two sets of interrupts for hotplug
+detection: HOTPLUG_CHG, and the pair PLUG / HPD_LOST. The current
+driver logic relies on PLUG/HPD_LOST and does not consume HOTPLUG_CHG,
+nor does it check for INT_HPD for IRQ_HPD events.
 
-That's a long commit message for such a simple change. Is it
-LLM-generated ? If so, you need an Assisted-by tag on this patch series.
+The existing analogix_dp_get_irq_type() returns on the first matched
+interrupt flag. This causes the hardirq handler to unconditionally mute
+all HPD interrupts, including HOTPLUG_CHG and INT_HPD, creating a
+limitation for future extensions.
 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
->  1 file changed, 50 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index aceb26310..64c90c380 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->   * Dynamic controls
->   */
->  
-> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
-> +				 const struct uvc_control *ctrl,
-> +				 struct uvc_control_info *info)
-> +{
-> +	struct uvc_ctrl_fixup {
-> +		struct usb_device_id id;
-> +		u8 entity;
-> +		u8 selector;
-> +		u8 flags;
-> +	};
-> +
-> +	static const struct uvc_ctrl_fixup fixups[] = {
-> +		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> +			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +	};
-> +
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> +		if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> +			continue;
-> +
-> +		if (fixups[i].entity == ctrl->entity->id &&
-> +		    fixups[i].selector == info->selector) {
-> +			info->flags = fixups[i].flags;
-> +			return true;
-> +		}
-> +	}
+To prepare fine-grained interrupt handling, convert the return type
+from enum dp_irq_type to a u32 bitmask. Accumulate all pending
+interrupt flags instead of returning early, and add detection for
+DP_IRQ_TYPE_IRQ_HPD. Remove DP_IRQ_TYPE_UNKNOWN sentinel; use zero
+to indicate no pending interrupts, which simplifies code and
+facilitates future extension for additional interrupt types.
 
-The O(n*m) complexity isn't nice, but it's not a new issue. It can be
-addressed separately.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c |  8 ++++----
+ .../gpu/drm/bridge/analogix/analogix_dp_core.h |  4 ++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 ++++++++++--------
+ 3 files changed, 16 insertions(+), 14 deletions(-)
 
-The code change looks fine.
-
-> +
-> +	return false;
-> +}
-> +
->  /*
->   * Retrieve flags for a given control
->   */
-> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->  	u8 *data;
->  	int ret;
->  
-> +	/*
-> +	 * Some devices report bogus capabilities through GET_INFO. If the
-> +	 * fixup table covers this control, take the flags from the table and
-> +	 * skip the query altogether.
-> +	 */
-> +	if (uvc_ctrl_fixup_flags(dev, ctrl, info))
-> +		return 0;
-> +
->  	data = kmalloc(1, GFP_KERNEL);
->  	if (data == NULL)
->  		return -ENOMEM;
-> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->  	return ret;
->  }
->  
-> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
-> -	const struct uvc_control *ctrl, struct uvc_control_info *info)
-> -{
-> -	struct uvc_ctrl_fixup {
-> -		struct usb_device_id id;
-> -		u8 entity;
-> -		u8 selector;
-> -		u8 flags;
-> -	};
-> -
-> -	static const struct uvc_ctrl_fixup fixups[] = {
-> -		{ { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -			UVC_CTRL_FLAG_AUTO_UPDATE },
-> -		{ { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -			UVC_CTRL_FLAG_AUTO_UPDATE },
-> -		{ { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> -			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -			UVC_CTRL_FLAG_AUTO_UPDATE },
-> -	};
-> -
-> -	unsigned int i;
-> -
-> -	for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> -		if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> -			continue;
-> -
-> -		if (fixups[i].entity == ctrl->entity->id &&
-> -		    fixups[i].selector == info->selector) {
-> -			info->flags = fixups[i].flags;
-> -			return;
-> -		}
-> -	}
-> -}
-> -
->  /*
->   * Query control information (size and flags) for XU controls.
->   */
-> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
->  		goto done;
->  	}
->  
-> -	uvc_ctrl_fixup_xu_info(dev, ctrl, info);
-> -
->  	uvc_dbg(dev, CONTROL,
->  		"XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
->  		info->entity, info->selector, info->size,
-
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..079f2f01f33b 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -701,10 +701,10 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ {
+ 	struct analogix_dp_device *dp = arg;
+ 	irqreturn_t ret = IRQ_NONE;
+-	enum dp_irq_type irq_type;
++	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+-	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
++	if (irq_type) {
+ 		analogix_dp_mute_hpd_interrupt(dp);
+ 		ret = IRQ_WAKE_THREAD;
+ 	}
+@@ -715,7 +715,7 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ {
+ 	struct analogix_dp_device *dp = arg;
+-	enum dp_irq_type irq_type;
++	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+@@ -725,7 +725,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 			drm_helper_hpd_irq_event(dp->drm_dev);
+ 	}
+ 
+-	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
++	if (irq_type) {
+ 		analogix_dp_clear_hotplug_interrupts(dp);
+ 		analogix_dp_unmute_hpd_interrupt(dp);
+ 	}
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 4560597604ad..3f40d95757c5 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -120,7 +120,7 @@ enum dp_irq_type {
+ 	DP_IRQ_TYPE_HP_CABLE_IN  = BIT(0),
+ 	DP_IRQ_TYPE_HP_CABLE_OUT = BIT(1),
+ 	DP_IRQ_TYPE_HP_CHANGE    = BIT(2),
+-	DP_IRQ_TYPE_UNKNOWN      = BIT(3),
++	DP_IRQ_TYPE_IRQ_HPD      = BIT(3),
+ };
+ 
+ struct video_info {
+@@ -195,7 +195,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp);
+ void analogix_dp_force_hpd(struct analogix_dp_device *dp);
+-enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
++u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
+ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
+ void analogix_dp_reset_aux(struct analogix_dp_device *dp);
+ void analogix_dp_init_aux(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index c1344a3f013a..49c1961e4326 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -412,8 +412,9 @@ void analogix_dp_force_hpd(struct analogix_dp_device *dp)
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+ }
+ 
+-enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
++u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp)
+ {
++	u32 irq_type = 0;
+ 	u32 reg;
+ 
+ 	if (dp->hpd_gpiod) {
+@@ -425,17 +426,18 @@ enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
+ 	} else {
+ 		/* Parse hotplug interrupt status register */
+ 		reg = readl(dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
+-
+ 		if (reg & PLUG)
+-			return DP_IRQ_TYPE_HP_CABLE_IN;
+-
++			irq_type |= DP_IRQ_TYPE_HP_CABLE_IN;
+ 		if (reg & HPD_LOST)
+-			return DP_IRQ_TYPE_HP_CABLE_OUT;
+-
++			irq_type |= DP_IRQ_TYPE_HP_CABLE_OUT;
+ 		if (reg & HOTPLUG_CHG)
+-			return DP_IRQ_TYPE_HP_CHANGE;
++			irq_type |= DP_IRQ_TYPE_HP_CHANGE;
++
++		reg = readl(dp->reg_base + ANALOGIX_DP_INT_STA);
++		if (reg & INT_HPD)
++			irq_type |= DP_IRQ_TYPE_IRQ_HPD;
+ 
+-		return DP_IRQ_TYPE_UNKNOWN;
++		return irq_type;
+ 	}
+ }
+ 
 -- 
-Regards,
+2.34.1
 
-Laurent Pinchart
