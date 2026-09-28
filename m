@@ -1,193 +1,302 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9379A4E50D7
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608157; cv=pass; b=YkMN3nhJuf8f75CnJu31Pg6XUHEEW0O/5XvosS9Mx3XJ54B/T3dYZzCFXLAGTjjZAL3N3EiX0ZhuGz4h+1UBCd3IN60LSnF/ACGrSf6ObeEMSvhdIggi5lxOqON29nuz9kUcmR4kiBFgZA2YfXDiAb9A97SefJqAwAtAY6On94c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608157; c=relaxed/simple;
-	bh=tf/lMLnfEkd4XBBYB0HDsWtgBfU2mvcJMYwKWgwYVE0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xp/cKKjLnNNN5wfJEL4mbiNE0KVzIx+XX0CsvCSNKyfBS/9wUP3qeTLzWor82HUzreFp+kBuVL5HDf0EvEmplRN/LsdO2S/Fp3Pc9pt+B+i7YhuHv2g9jvLPNcG5f1g+hvUoMgS3TgTRHpQdOCJXuGIOc2SPobMhT0MbEOggwr4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cKbbKIZH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZS44mltT; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4A54E50D5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790608165; cv=none; b=ETYVbC8zQHuLH8RSVtDjLG30KccZGdUA2nT7NJxtOIkZ9T+6azp4GmTdhSjSZy7Todxxd4gO3lhNvsd5mYL27SmTAoCFIo153WZRVtj1ytkVcyx4yfOWjVUR9FIcQC1pDYeKK/1SbRw1qE4CYKwfmBibZY3scgVIhk0wd9guQLg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790608165; c=relaxed/simple;
+	bh=V128fD04ij55ZxJr3/qfR5fWUCfstwSbaVgWF34gnn8=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=daR5iRadFg2OC+7FT9TvdA0Ir8I3dyDezxAQ4VFUHi8gT8o1eLdjUg3pebdfWDj/0JWs+JSv8bifsHaL+TP2XvlIjWTqxEjoioNt5yYhitrQHPniTrjZCFYpbMfDH9vZV1Ww9Cdm6oEFxQKVEghWzN9JSu7lLPFx+g3hBa7q0AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSfTL2b5; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cKbbKIZH";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZS44mltT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790608154;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7JzwIQlJou2cKoXFRlxragLvVGFjjNACZv+ODl0Exo0=;
-	b=cKbbKIZHpZwAH8xn+7V79o5tlYaqZ98mPmJJg4E56uwebLgsJhwpXnxhFacbIUdDWODvQ9
-	h74iQY2/XDIddfpAUQbn4xSRWqyMVjsJFimn/6wtyzC/W2MG6G0AoCT3rIcAbUdWivMZO6
-	vxhzHdlT/jpInlbpYnqAW+7IKtEGQ+Y=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-ZqYryYWUNR-87rdVwSMA-w-1; Mon, 28 Sep 2026 11:09:13 -0400
-X-MC-Unique: ZqYryYWUNR-87rdVwSMA-w-1
-X-Mimecast-MFC-AGG-ID: ZqYryYWUNR-87rdVwSMA-w_1790608152
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4870af30a85so2481843f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:09:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790608152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mwEvlY1U59rKh6I9SScxOjsEtQK6lCwzgv1n/HlMjKX3Bc3dKDEzvb6qyZMhqCdixv
-         esXlikVCAR5s2J+hOynJZD43ads9tTBpKWG+e4+GrWXSwsmwwKEl9Hs+1turNrN84cyT
-         ARfi2PO+EB4R+siJuCaVfSKhFsh88I0/vXtPoU9TeiQQXl61+zRzc7937BT4ecjQEFaG
-         5Mguow9pXGvnq+fSj3oiqjMDxdkDHhyA3p5wRA15bOMP9h1vYdn/R4W2wEu7cuZnwscf
-         qRy4WxKFsXiThMJZ2NaXG84Hw8qcCclJW2rKf3nmRTmHKWKpPlgIDZ1QCr7Bhsb5Og7p
-         tGRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7JzwIQlJou2cKoXFRlxragLvVGFjjNACZv+ODl0Exo0=;
-        fh=FEAOSo4AxnKXPcqNyJ8YMLyGOm//VHU/8BMzWyQBSr8=;
-        b=N/FQZtbfxp3gvcHlClBTH9TVyKyyWNg8yzVvZueJW3XVQdnH2xk0rnQpDH0mgI66Cx
-         cMUKNkSz0K7ulRApmJ26QXpHlKJxySHya5u2UpPqLbke+rZMZ6LNPjr4FZehDACqJqB7
-         8Vf8WniFfJjFucGOMoDnOyn23nacHt/KTDJNWk9aaKWVjj+xYhWZitTU4oMRDIMaUWpN
-         n6/nF1ywXVHJcB1j39hi/fj/nNvIF0ywZoBzwsmZp9tmLkNjOQ5fHx17Qvn83Akr6FHD
-         EVWdLlnasRFMfuVJBBIPNQmnKni4AcNQcDJFP/zbmRl7l3MujnHNFJisj+EXTE7g/TiN
-         MJnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSfTL2b5"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso324561266b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:09:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790608152; x=1791212952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7JzwIQlJou2cKoXFRlxragLvVGFjjNACZv+ODl0Exo0=;
-        b=ZS44mltTmMf0SyNxMZyeKj2hlI1jstoJYS3HkeryJ83V+5l7tCNohVRT/AQt3rpA9C
-         sIQCirdNUtuQLy6nN7+uGDH9K14nxGz3UJe08tUBpuGEreNiLnjxf79QrS9jB12LttT+
-         ZbL/BL2pP3g8GLWRr3NBm7SztBKA+77LG8fHLIMQWEqxDZsKdjSccbXQFBMxTtTXtYIQ
-         cgMGptMREIzj2YovrtJbRrSfIcznsk5IF2uf1R5+z/I2tX3qhNyd/2wEvO1+vVaHjX7a
-         6OQMGtUV6yWsS490D+EhkKYUmv0kF0czjUAk8ZJLxW+sfeBV0Z91zDMTtQtdlXheijhd
-         o8Aw==
+        d=gmail.com; s=20251104; t=1790608161; x=1791212961; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
+        b=HSfTL2b5KQ+6ZIkApzMXSqRHvMcHEhRbILvfNcEJDpptYcJ8RDebTZjLyi/Wu+a1Q8
+         nGjTcp0dFfHqjzkJIann+OD5Pmyk4pd0YAygbIOJS9LqWOg96m/hLnFG0fACfOhiWoIk
+         WQcXMNKbCR/vMnHe/dBKF01UqN+IPUtZxex8DsHebepjNZm7RsTBL4OluB+4R6BEMyeT
+         SflCyzexbVh2F0bpB9tH+LeWmVC4r6YZU/6UjfBtC4vZduLj4daDdlcCZ0XTcsIL4f/L
+         ot1U4xxeLguh60AaICyWOIehp89YVvja7wPqLsIj3DeAYuGAUoi2GFdEEXVOLgWhiW6e
+         kORw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790608152; x=1791212952;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7JzwIQlJou2cKoXFRlxragLvVGFjjNACZv+ODl0Exo0=;
-        b=J/ScgYyfJhD4UyOVxLHMx6i9RYsvvkXgAGqQbNqisoIIGRlAUNYBCDsbSae9/Z9o20
-         mQ4tz1W1t4ScFr5gYeSmtP0I1YPMJ6iDkMsvDYPixLxujIfuTdnLZiwXWvAL8xirVKX5
-         aB7GVquCNb5dDiiJqKB6kpinRmHaHiCJ30ZxBMecVF+su0lba9p37TFncH4VCXHIKS3U
-         KYMODleEhmHPHcLak81wBciQ3wqUeVbVSPa4LdWiyoCh6InawZEDdQAcqEXdk/V30fB+
-         ofwsUkc7cdip/+f3omJfIBXZ6RPJwo0ZOuXTX8oIWYmwCKktr0I4hiOEi5NOXWsq8DoQ
-         3fQg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6h/3FbZx4qCMWUwpSshOmkOSjRoYus/oO+N/IuzULzo66w7OKt/OpKmWb6o147yW+/cDDkhnLJnwdAcU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbKBmIcnqVmfPQ5qbD025onATAXTOUC1rHhpKSkJH1XBHT8OXm
-	tonkmdtnbg1LlolMcXieoj0ww3F7btbd8svoCEMZds78IILotGcuyid0tsDidjlnRjuggMBnsSf
-	7yqwljzU4fBnfCCjZfA0KR1gsMRpMG2njPP684/UeSQTkp9Jc/JRvIzhXSlLr2XR9kQqHzTGwUv
-	vMlLjEWDi3A9JhXuAcCTKUGQS/irWeWYnTv7HQSgvP
-X-Gm-Gg: AYBFou3VpuBw4BA1QD6JdOg9G/efiMkPPil1XWreNBtjYDWLCMw6Jhm5bu6h/0/yq9O
-	ms8D35ZHg4+dsb5aQST7MEeEFcCaYfd5+ePkxmGIllS22Sa+RKPv3Ap8tCslAOjNIW8EihprvUj
-	vfqVNrzaIk1z8s0jbTJ+ABFIJSxR4uqCROB126jFM0ZSMOXcWpeLTS9Nn0by3VasoKiPKERGKdA
-	583uLhKEO6OVZWAHw==
-X-Received: by 2002:a05:6000:2083:b0:487:342:eb28 with SMTP id ffacd0b85a97d-488716f2354mr27611169f8f.24.1790608151758;
-        Mon, 28 Sep 2026 08:09:11 -0700 (PDT)
-X-Received: by 2002:a05:6000:2083:b0:487:342:eb28 with SMTP id
- ffacd0b85a97d-488716f2354mr27611104f8f.24.1790608151341; Mon, 28 Sep 2026
- 08:09:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790608161; x=1791212961;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7ePUtRIIdzKxmcepIuM7i9rcIIVMHWU1yVMYxV/ojck=;
+        b=zTVv6LwTmhy9ZPE5WDtFtqwmJSdP/3QYlRn3QbBN3QJLou3I6HfMZBExN30CSl1M2L
+         jVHOxXbIz4XWrU7MkLhE2H1tpjrpexV3jrSqwndPCwrlNfEVkVnnE4yDBMrWIRCjI5aN
+         e9sJgda54vKkOvnfBaknpMHWS2kqa0+mdpvmGzapjeYJvj2G/BysagRzrDrV2uNWJaqa
+         7BthQDYDj7TwpzotvmctOPuq2eI2U64uh9+C6UVpxR0a+CZIfzfz8wOV0PXmS1SVoifH
+         0AHb2wzWE/aj3BGluxrXaZHgJizfLmgGUhN1XS1hJvpuY3jaL79cEfGk+KomM28DOY2o
+         2BIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9ZxTyjH0D5k0pUQmbJcpgQFj7XDXha7Zeg2ratSm08tFECLmqle8m4g+QA+ThGf/iHzLzlQiQ7fUml7M=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndXlddiFicK2BiBUisnKh9juM4kzJlSCBfJ8tCsufPPvVDBfWY
+	/U1LX5wCTLkquF8IZl9Ee5FhE2ywIeDN1qsgY7wVgPHJbW9vWu5b3k55
+X-Gm-Gg: AYBFou23fz8SF/QQmAQ07Fp5xZubPlwaAa9BtN/LH+zmxHGs2htMd2bxyoquf7EeOoJ
+	eKZl1OK6+4KrUQ+wOTYn6YjJxInjuqVUk3lzOV0yl5gUi2gHJTYDBZ1CcwqOLQFW0qsjMquJGLp
+	OYVS+GL9/9v0whE8bNQ5GcR2EvRXT7cN6APUa7rBljxNBS8FLJQDDOOxX5hOLVcUr+irLtQGHtd
+	jvBJQ1PzDAiiPaTSu+dsWzOs5WHp4biywV61ufMLj0dxdggzW2xHXLiTkNP8dcgNyhEPOrm9Vgp
+	XoRJPARyxMGz3P8nxbSMpUQLk196IxURRu6K/JipiZE8G+hbDohjNW0tyAcPAaE1iL9wAEXs+bb
+	A4CAV0y+PlhXwTqjj1jVcZj01UpD7j2YPlgrGUYC8n+++sB4PTE/02/Y5QDBGXTB9s/EuCHuQQY
+	cJFNU8Jov5JZeUNyJeEb3/v9L5Zv2XbueKgig=
+X-Received: by 2002:a17:907:c602:10b0:c2b:4142:2db1 with SMTP id a640c23a62f3a-c2b41424722mr392606866b.40.1790608160979;
+        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbfde3194sm297220266b.4.2026.09.28.08.09.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 08:09:20 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 28 Sep 2026 17:09:18 +0200
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-modules@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+Message-ID: <arqDHnBFGKQZm7VU@milan>
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
+ <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+ <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+ <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+ <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
+ <arpK2bQrrUMvEvTP@milan>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902200547.184734-1-jtaubepe@redhat.com> <20260902200547.184734-8-jtaubepe@redhat.com>
- <ab97f32b-31dd-4975-a8b2-b445110ae3a9@suse.de> <CADRr4bePoiDnWX_XrMWtQe=1g4Yrw1_dK86EV2k9XZR0HnL+UQ@mail.gmail.com>
- <d4879e78-2735-4f86-beab-8aa319e9162c@suse.de> <CADRr4bcSvLwzfSiV0LTxnhZR7oo3F1b2XEo+wwqi668Gr2BBQA@mail.gmail.com>
- <a7a60b61-24b4-429b-8ccb-ee5b6f06a5ed@suse.de>
-In-Reply-To: <a7a60b61-24b4-429b-8ccb-ee5b6f06a5ed@suse.de>
-From: Jesse Taube <jtaubepe@redhat.com>
-Date: Mon, 28 Sep 2026 11:08:59 -0400
-X-Gm-Features: AclHuK8rEa0dRLnGnsUacjiVX3fDsEVHWVQeb9zJZDMDBAnfAXNWF2dGmvnsVw0
-Message-ID: <CADRr4bfJtQOKYFjDoR+khaPvQW6-UzN70pZ-nfGJnQ22nUkskw@mail.gmail.com>
-Subject: Re: [PATCH v2 7/7] nvme: fcloop: Add set_marginal_rport to sysfs
-To: Hannes Reinecke <hare@suse.de>
-Cc: linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Justin Tee <justin.tee@broadcom.com>, 
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, Paul Ely <paul.ely@broadcom.com>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Nilesh Javali <njavali@marvell.com>, 
-	GR-QLogic-Storage-Upstream@marvell.com, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, John Meneghini <jmeneghi@redhat.com>, 
-	Bryan Gurney <bgurney@redhat.com>, Chris Leech <cleech@redhat.com>, 
-	"Ewan D . Milne" <emilne@redhat.com>, shinichiro.kawasaki@wdc.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arpK2bQrrUMvEvTP@milan>
 
-On Fri, Sep 25, 2026 at 1:10=E2=80=AFAM Hannes Reinecke <hare@suse.de> wrot=
-e:
->
-> On 9/23/26 6:16 PM, Jesse Taube wrote:
-> > On Wed, Sep 23, 2026 at 11:34=E2=80=AFAM Hannes Reinecke <hare@suse.de>=
- wrote:
-> >>
-> >> On 9/23/26 4:56 PM, Jesse Taube wrote:
-> >>> On Mon, Sep 21, 2026 at 10:03=E2=80=AFAM Hannes Reinecke <hare@suse.d=
-e> wrote:
-> >>>>
-> [ .. ]
-> >>>>> @@ -1671,6 +1719,7 @@ static DEVICE_ATTR(del_remote_port, 0200, NUL=
-L, fcloop_delete_remote_port);
-> >>>>>     static DEVICE_ATTR(add_target_port, 0200, NULL, fcloop_create_t=
-arget_port);
-> >>>>>     static DEVICE_ATTR(del_target_port, 0200, NULL, fcloop_delete_t=
-arget_port);
-> >>>>>     static DEVICE_ATTR(set_cmd_drop, 0200, NULL, fcloop_set_cmd_dro=
-p);
-> >>>>> +static DEVICE_ATTR(set_marginal_rport, 0200, NULL, fcloop_set_marg=
-inal_rport);
-> >>>>>
-> >>>>>     static struct attribute *fcloop_dev_attrs[] =3D {
-> >>>>>         &dev_attr_add_local_port.attr,
-> >>>>> @@ -1680,6 +1729,7 @@ static struct attribute *fcloop_dev_attrs[] =
-=3D {
-> >>>>>         &dev_attr_add_target_port.attr,
-> >>>>>         &dev_attr_del_target_port.attr,
-> >>>>>         &dev_attr_set_cmd_drop.attr,
-> >>>>> +     &dev_attr_set_marginal_rport.attr,
-> >>>>>         NULL
-> >>>>>     };
-> >>>>>
-> >>>> Please don't make it a fabrics option.
-> >>>
-> >>> What do you mean by fabrics option? How should I fix this?
-> >>>
-> >> Your patch does two things; one is to modify the parser in
-> >> fcloop_parse_options, and the other is to implement a new
-> >> sysfs rport attribute 'set_marginal_rport()'.
-> >> My suggestion is to drop the first part;
-> >
-> > You want to drop the parser?
-> >
-> Yes. 'set_marginal_rport()' sets a boolean value.
-> You don't really need a parser for that.
+On Mon, Sep 28, 2026 at 01:09:13PM +0200, Uladzislau Rezki wrote:
+> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
+> > Hi Suren、David、Lorenzo
+> > 
+> > On 2026/9/17 09:12, Hao Ge wrote:
+> > > Hi Suren
+> > > 
+> > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
+> > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
+> > >>>
+> > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
+> > >>>>
+> > >>>> Hi Suren
+> > >>>>
+> > >>>> Thanks for you review.
+> > >>>>
+> > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+> > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+> > >>>>>>
+> > >>>>>> The reservation is already stored in the maple tree when
+> > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
+> > >>>>>> module, so nothing releases the entry. Release it and roll
+> > >>>>>> module_tags.size back. Without the rollback a concurrent load that
+> > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
+> > >>>>>> vm_module_tags_populate() and write to unmapped memory.
+> > >>>>>>
+> > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
+> > >>>>>> retry to populate the same range would BUG on them, so undo them,
+> > >>>>>> but only if vmap actually ran.
+> > >>>>>>
+> > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+> > >>>>>
+> > >>>>> If a patch fixes two other patches, it likely needs to be split so
+> > >>>>> that each part fixes one patch only. But read on please. I'm not sure
+> > >>>>> if one of the fixes is correct.
+> > >>>>>
+> > >>>>
+> > >>>> Kept them in one patch because they only make sense together.
+> > >>>>
+> > >>>> After a failed populate the reservation is released and the
+> > >>>> size rolled back, so the next load takes the same gap and calls
+> > >>>> vm_module_tags_populate() again, and that retry would trip over
+> > >>>> the PTEs the failed vmap left behind.
+> > >>>>
+> > >>>> Without the rollback a load that already passed needs_section_mem()
+> > >>>> just reuses the gap, skips populate and writes to unmapped memory.
+> > >>>> So splitting them leaves each half broken.
+> > >>>
+> > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
+> > >>> completely separate patch with vmap_pages_range() doing cleanup
+> > >>> itself.
+> > >>>
+> > > 
+> > > I think I get where you're coming from now.
+> > > Thanks for taking the time to explain.
+> > > 
+> > >>>>
+> > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > >>>>>> Cc: stable@vger.kernel.org
+> > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > >>>>>> ---
+> > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
+> > >>>>>>  1 file changed, 10 insertions(+)
+> > >>>>>>
+> > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
+> > >>>>>> --- a/mm/alloc_tag.c
+> > >>>>>> +++ b/mm/alloc_tag.c
+> > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+> > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
+> > >>>>>>                         release_pages_arg arg = { .pages = next_page };
+> > >>>>>>
+> > >>>>>> +                       /*
+> > >>>>>> +                        * vmap_pages_range() only runs once all pages were
+> > >>>>>> +                        * allocated, and it may have installed some mappings
+> > >>>>>> +                        * before failing. Undo them.
+> > >>>>>
+> > >>>>> If vmap_pages_range() failed to map the range, why should we need to
+> > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
+> > >>>>> would argue that vmap_pages_range() should be undoing these partial
+> > >>>>> mappings itself before returning the error.
+> > >>>>>
+> > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
+> > >>>
+> > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
+> > >>> only possible reason I can think of is performance but I can't imagine
+> > >>> a failure to map is a performance-critical case.
+> > >>>
+> > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+> > >>
+> > >> Huh, my gmail thinks you are still at your previous companies :)
+> > >>
+> > > 
+> > > I manually fixed it on the mailing list for this thread.
+> > > 
+> > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
+> > >>> mapping when it fails?
+> > >>>
+> > >>>
+> > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
+> > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+> > >>>> so I did the same here.
+> > >>>>
+> > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
+> > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
+> > >>>> the current behaviour for now.
+> > >>>
+> > >>> Yeah, I understand it would require a deeper cut but if that's the
+> > >>> right way to handle this we might as well do that. Let's see what MM
+> > >>> folks think.
+> > >>>
+> > > 
+> > > Sounds good to me. Let's wait and hear what the MM folks say.
+> > > 
+> > 
+> > I just looked into the call sites for __vmap_pages_range.
+> > And I found there's a bug in one vmalloc caller [1].
+> > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
+> > __vmap_pages_range. If there are leftover PTE mappings,
+> > this can trigger a BUG(); [2]
+> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
+> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+> > 
+> Indeed the below code is incomplete:
+> 
+> <snip>
+> 	/*
+> 	 * page tables allocations ignore external gfp mask, enforce it
+> 	 * by the scope API
+> 	 */
+> 	flags = memalloc_apply_gfp_scope(gfp_mask);
+> 	do {
+> 		ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+> 				page_shift, nested_gfp);
+> 		if (nofail && (ret < 0))
+> 			schedule_timeout_uninterruptible(1);
+> 	} while (nofail && (ret < 0));
+> 	memalloc_restore_scope(flags);
+> <snip>
+> 
+> and it should be fixed. As the __vmap_pages_range() can actually fail
+> and leave some installed mappings, we have to perform some cleanups
+> on failure or on repeat(if nofail is true).
+> 
+> Below code:
+> 
+> +			/*
+> +			 * vmap_pages_range() only runs once all pages were
+> +			 * allocated, and it may have installed some mappings
+> +			 * before failing. Undo them.
+> +			 */
+> +			if (nr == more_pages)
+> +				vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
+> 
+> we can use but we need to check if partially mapped space is not an
+> issue for the vunmap_range(). And it looks like it is not.
+> 
+> <snip>
+> @@ -3953,8 +3990,15 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+>         do {
+>                 ret = __vmap_pages_range(addr, addr + size, prot, area->pages,
+>                                 page_shift, nested_gfp);
+> -               if (nofail && (ret < 0))
+> -                       schedule_timeout_uninterruptible(1);
+> +               if (ret < 0) {
+> +                       /*
+> +                        * __vmap_pages_range() may have installed some mappings
+> +                        * before failing. Undo them before returning or retrying.
+> +                        */
+> +                       vunmap_range(addr, addr + size);
+> +                       if (nofail)
+> +                               schedule_timeout_uninterruptible(1);
+> +               }
+>         } while (nofail && (ret < 0));
+>         memalloc_restore_scope(flags);
+> <snip>
+> 
+And looking further. If the __vmap_pages_range()/__vmap_pages_range_noflush()
+and friends fail, a proper cleanups should be done inside, IMO.
 
-Yes, but we need the parser to get the WWPN and WWNN.
+But i am checking callers and see that some do some not:
 
-Thanks,
-Jesse Taube
->
-> Cheers,
->
-> Hannes
-> --
-> Dr. Hannes Reinecke                  Kernel Storage Architect
-> hare@suse.de                                +49 911 74053 688
-> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 N=C3=BCrnberg
-> HRB 36809 (AG N=C3=BCrnberg), GF: I. Totev, A. McDonald, W. Knoblich
->
+<snip hooks.c>
+	__vunmap_range_noflush(
+		vmalloc_shadow(start),
+		vmalloc_shadow(start + clean * PAGE_SIZE));
+	__vunmap_range_noflush(
+		vmalloc_origin(start),
+		vmalloc_origin(start + clean * PAGE_SIZE));
+<snip hooks.c>
 
+kmsan_ioremap_page_range() it does clean ups;
+kmsan_vmap_pages_range_noflush() looks like does not care in shadow.c;
+__vmalloc_area_node() as noted, it is broken as there is a BUG() on next try if nofail;
+pcpu_map_pages() it does cleanups.
+...
+
+and so on.
+
+--
+Uladzislau Rezki
