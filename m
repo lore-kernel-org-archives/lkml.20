@@ -1,133 +1,98 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C20645D925;
-	Mon, 28 Sep 2026 07:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580516; cv=none; b=q6jfGWmQIiU/VcGltA12153oL+xi7EPrxni3BF2LfbYZwV/4A7l83WsMBdFTupXyWft5YxzoICSf+/AWGFwIUCJBAj0/lgSUkGnCg8kyPNZmoKW7EJq9Vl+sbcAxEljjlnIHM4jMxydmTKTToDcKNRCgRvsDL/3OUH3brAXThxA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580516; c=relaxed/simple;
-	bh=m1u8QkGLW0KIqQ+GoIAPkeqJktyRU9Kn3cqAXDDFtFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k4ePiaMKHSrk/Ayx6VP7PIOaM6jAzXOLA4VQgMKE5BFlbLHEaWbIz1LUrQswCKH5rLZt8dDGMvG6DB69binPDHEL5l0InDyCidlkdarWWOxgvGN445fmuiubLKKeFdqtVQ+BfRIFTaEkdbvz8jQIpr0pH8poEiWTqSDkiJjMN4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l5Wi5KkV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XBMuDDRQ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152A04503FB;
+	Mon, 28 Sep 2026 07:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790580542; cv=pass; b=jDWpPAoTnNuEF4XdUn/EhrzCdt9npmgbpNAk7qhLiFKmf24TheSMl3I061vOq1MnGQk9mvFmf/86lZpqeyrGTxfZBULrpFDMI5WP+4zfITRRixBnsVYcYxhac/Y8h3b0N06XtRXiLPqSXJRPVczpOSWdVBNU4+zUUkQBRGAmOuE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790580542; c=relaxed/simple;
+	bh=qQ+wkOzeHNyM57nSul7YmRy/aNPxKWQliQukKQfWXHs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Yd1TZ+NPd2TMO2nKQq8MWYIMQ61sjzkXCYnuNgJfGkIzwoXq2QSKppwwWgmsv2snOWS788hjyhV2VnDDdJw1kiQ765rujObi3U2P6UysIxvFEQBMRMJFKCQnqZZzDuDZeYKBhQHxKqlmAsd8vpzOa7YfP7VEyoGWBiZYRvEjLZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=TxqEjZEG; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l5Wi5KkV";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XBMuDDRQ"
-Date: Mon, 28 Sep 2026 09:28:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790580510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
-	b=l5Wi5KkV34SIYibgi7B1IIstb/CHwUtXk9ntnhluuJEfQl1OT9Jea26ThlOFLanwk8jFDB
-	Zti8t4ScB5D0u77XW0o4XoikwtgWgBxJ58pMV+VwObaKQ7b81scqrrMQi1/+NINz2GF6nz
-	Hu/hsGc6nTil/mW7lKd5RZyMj2NFmiSXl9IGyaZmDVNgg/ObHdBpsyZGXOLbiRFo6l+bgH
-	rDk5p6ciBzOm2XFphPfOtHtExMARfCs4l2HjIfP0v27qG18/QrsT3MdsWgNwv2W1FIc/67
-	ysOcpAqywlSDq3HwzpDmYFTi5kg59oiQlSONUWpHPMOMo6uBKSvzDrtGQjaGYQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790580510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
-	b=XBMuDDRQqjW8J464HX5I9r7EJFwcjgmNayJJ5ouWzp00LpyydwKh3mImP13GgXqwP0h/RO
-	s6R4E0RpBI0IHRAw==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>
-Cc: linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/4] firmware: raspberrypi: Add support for the
- tryboot mode
-Message-ID: <stvm3nzpcde6ukl35wfnukyztp7r2n2yuzjwu4brrumomzemfa@kazuwkb75e77>
-References: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="TxqEjZEG"
+ARC-Seal: i=1; a=rsa-sha256; t=1790580503; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Jy+gdPpOvbttocgYqvQFWHsCT63CS+8NcC3CaY3Hgkt5iQR+5NWtGds2xRe/RmfeU3/7doB7i84KFYzIO+alvkQf3fiBKIguZAPwJxvXy5HVKMMrznpxG9RJ+fMTE2hW8QKYAqjXYJZ6DsNmho/JtIIFpu/2oAfx7v3OUpvlI4k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790580503; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qQ+wkOzeHNyM57nSul7YmRy/aNPxKWQliQukKQfWXHs=; 
+	b=hZa6oVL6IRlZ4EsQqAOLknfLGs2ruIgWh9aDZCQciY2Viqv+6a1gyoHgB+XxsG5HcsCDUEDwK9OrAd+2GUVZTe0hM5cuH6ANdP+oMWlkZwBrwci6612cqyfYAQjy2cGsGRJoACwe8ZA0VIks8RRjPUW9NM9ULrZ0zZw3UTU22+Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790580503;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=qQ+wkOzeHNyM57nSul7YmRy/aNPxKWQliQukKQfWXHs=;
+	b=TxqEjZEGRsuygd3NwRjtGHrFIk2d1ohm3jbR43kD06NZaNrZv9yQRTOD0hxwGHGp
+	GF60LiRGQ4yHogwunVMkgGUlrQv4VqqyQGSU9X3U1bVDITUAw9D2AkF7Et2p7qv6HL6
+	2mP9xDjjdh8od2uJW+2hjESsw81u6Mbjrlwd6jUlHveTOq7X7DBDXdjprd4J8Hl8L9D
+	QjFkbw+aJvMi9Wr0KsCv+RoIobryk3BMRO9nnEjuKnSMi4d757GOhTJcGRuScgHDoYS
+	WD54YKoIRzX9vFSuYSNSgceQSdhLXiUAXaqYdE+BtHzr8RdIQSLT+ZosOQ+DQc51HCc
+	OZBSFTRScA==
+Received: by smtp.zohomail.com with SMTPS id 1790580502126809.1352746111535;
+	Mon, 28 Sep 2026 00:28:22 -0700 (PDT)
+Message-ID: <ef09da01179a1ec707ae33b7e6aa5252ebe4fa69.camel@icenowy.me>
+Subject: Re: [PATCH 0/2] drm/bridge: th1520-dw-hdmi: Two fixes
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Felix Gu <ustc.gu@gmail.com>, Drew Fustini <fustini@kernel.org>, Guo Ren
+	 <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Andrzej Hajda	
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:28:13 +0800
+In-Reply-To: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+References: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
+X-ZohoMailClient: External
 
-Hi,
+=E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 03:12 +0800=EF=BC=8CFelix Gu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 
-Just a gentle ping on this series.
+Sorry for forgetting this patchset. I'm going to apply it.
 
-Are there any outstanding comments, or is there anything else needed from my
-side to move this forward? I would ideally like to get this picked up before the
-next merge window.
+This patchset should be now:
 
-On Fri, Sep 04, 2026 at 09:46:48AM +0200, Gregor Herburger wrote:
-> This adds support for the tryboot mode on Raspberry Pis. As there is no
-> documentation other than the downstream implementation [0] the
-> implementation is based on this.
-> 
-> I tested this on Raspberry Pi 5 and therefore I only added the
-> properties to this devicetree. But afaik this should work on all
-> Raspberry Pis. I will add it to the correspondings dts if I get some
-> hardware to test it.
-> 
-> [0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
-> 
+Cc: stable@vger.kernel.org
+
+Thanks,
+Icenowy
+
 > ---
-> Changes in v4:
-> - fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
-> - Rebase onto v7.3-rc1
-> - Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
-> 
-> Changes in v3:
-> - fix use-after-free error by using devm_add_action_or_reset
-> - ensure endianness of magic byte
-> - refactor reboot mode registration into separate function
-> - Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
-> 
-> Changes in v2:
-> - Remove unnecessary reboot_mode_unregister().
-> - dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
-> - Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
-> 
+> Felix Gu (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix error chec=
+k on dw_hdmi_probe()
+> return value
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix remove() c=
+allback
+>=20
+> =C2=A0drivers/gpu/drm/bridge/th1520-dw-hdmi.c | 8 ++++----
+> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
 > ---
-> Gregor Herburger (4):
->       firmware: raspberrypi: reorder rpi_firmware_property_tag enum
->       dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
->       firmware: raspberrypi: Add reboot mode support
->       arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
-> 
->  .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
->  .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
->  drivers/firmware/Kconfig                           |  2 ++
->  drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
->  include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
->  5 files changed, 60 insertions(+), 15 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260623-rpi-tryboot-4292c92b0727
-> 
-
-Best regards,
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
-
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
-
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+> base-commit: b5d083a3ed1e2798396d5e491432e887da8d4a06
+> change-id: 20260321-th1520-f4326138c9bf
+>=20
+> Best regards,
