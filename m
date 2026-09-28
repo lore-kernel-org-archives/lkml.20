@@ -1,145 +1,104 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AA543FD3F;
-	Mon, 28 Sep 2026 08:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583182; cv=pass; b=lccEVVNRDFhi3SAEQSnO4r0W5ab1dwXV/wIlz/AV02Bk/SuKeZHHXr4s73sZs7pvoKPv99B/D+L1qj/qQ9MiBMgCATjq7PY5UiNCq4QCZkCYJbX9wVapUOadH58NBmh+J1iw2Y6sRdJRe2sGLOP4z9Q2vHN+z9C7T9dqaoCT+7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583182; c=relaxed/simple;
-	bh=bOKRBP31qsazQzx5vzWjPlNFB/k297+F6F9MoUx6M0o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G2CHedAUJXfPHpQ3X0d4UzOuHhNYcwGm3fvlHzDU8Z0cBN5NDufiIsGHPY2BxqGglUjpBroQ6/aEPNTFOoHj8zLItKl5KoZTwEG+Bmg2cbR5KX50lY6S9DlKzgjIJtp4l5FT9/ahiFiHtkZpKjczNJhUmpShg01bmGFRoAoqb98=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=XviXRgAX; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0105946EF75;
+	Mon, 28 Sep 2026 08:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790583196; cv=none; b=YbWd6CzQxrCJa9yTkLSiGU0qRcjvTQErYFLQ8Kxb9pzs5XNEWMcMFN8+R7bkBovMI9XRrqVhCxknAKolBkZQegEh7kdLlF0FnRNFnw8JZCI9UlNUEN1w46v9me8e8MW0EPZonom0UZfUTGmJ7BOHqkEKUXkzqBbahREf5qkHUpA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790583196; c=relaxed/simple;
+	bh=WPsNvAvqg8vhI8zzc//qW9WbhUe4lVNYZ4Eno5ypewM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JWE3HZUpjtCHaHLuwG/y3I8so+8tyyh91JhiIukvcWpo7EzWoVccMAV6o6qLcNlItb6/PsrTOdQK2X31XEhM8f6qYj1WW40tc09fU+4eiPfTu97nWY9sIi4Sy5X1hRGCG4nVCTz2pg02BIPPiqreswe64FRwMq4sruOA/A18ELM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iOZvP4NM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="XviXRgAX"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E10DD2018B6;
-	Mon, 28 Sep 2026 10:12:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790583176;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1EnO2TDwxSS3PzHlA/S4kFWqaJE8d5xyWfASI+Sa6Jk=;
-	b=XviXRgAXIpsVWYq1RfR98Nt1lQwEBstF+qB9QRTaGIfRwvzGQm6/4o2fNmeEznNXvLxkJF
-	O5fxSSRvRgd2rrpY92ytsVpoqGnyFVlgw6Cut5oUSuaoy2g1YAr1b63Xc3CkSeVnpwecaK
-	xLJvVKD5OktWVbnZbQrkzaPFEk2Zv93/QnwuuoMkFeueSLogc2SLyJSfJN72AErkziGLkQ
-	70lz/1ozFiryvwICm09+OqHGYeZEkWN1/y/0fScTq+jJjMxp+1RvgaiLu/WyYI1A8+B2DL
-	08nAMy/VOo87fVZM5Rel+nJOYJi6Gchg8HIYwuj2cvNjzvwsQY3M9EKmqf2/lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790583176;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1EnO2TDwxSS3PzHlA/S4kFWqaJE8d5xyWfASI+Sa6Jk=;
-	b=J9A6Hbr7cm+ioZH4FrzUyBDckT3JRqmrk4Hzf1qMVnDa2RtRFQDGo7IJoepbONB8DlxxHe
-	B3Nla6vtpw12yJTqSyKBJTADz77w4qroYIBWtN9omILxX7k3Ls2HUssaCOghcyNcScd1Ey
-	802yKYoBOBuC75qy3kuQLcLLPHcWqkw1fnqCvpsA3JQConE0ymOcyrzLb3i1cUEUNhnu9x
-	1d+ZRjFZbBrtqK0HXlZ2BxnLbbbdE/5BOkocT5/JtWptMMmZTwYoJUnl802QZkMJxpomq4
-	al+nQa3x5KxIuhaj1WTQZS9jH857uB0SRPs05dC+J7WQ4tqDTVpUmmvhafYhEQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790583176; a=rsa-sha256;
-	cv=none;
-	b=H1b23b4oiLyJOR6i/1CwxsxzG3SiNhiMt8EoJrIGvnDPDAdSIwUs/JOIkCdPmb/vhfyW+a
-	uncsnHI2nE9sqPoHtC2UXOpPDqIubmPs4LEgpUTSe8yvU+8BwRoMQvdHd4RexOp5L8wvHn
-	qG84wd+g9yChw42l+Ose/sNvlP7HBwE9QSPpt45pxL2cuQeMEV10EIQ/pIzS36CJKha0at
-	w0jglaqttll/MiIInMlyWmqXBIwdITh1Fqdl3E58iiT/nknADrgHcvmXdBdIC4Kg/NPLnK
-	2RJn0Y/9maIomrqboYJJANUlw1QDb5MMIV/n4BlnXU1UKCkSh0URlzAHBUHdNQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <838cc8f7099bfc5ee1cac9d3aca7a87aa7dfd17d.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/6] peci: controller: Add StarFive JHB100 PECI driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Rob Herring	
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Iwona Winiarska <iwona.winiarska@intel.com>, Guenter
- Roeck <linux@roeck-us.net>
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-Date: Mon, 28 Sep 2026 10:12:56 +0200
-In-Reply-To: <20260928075956.62298-3-changhuang.liang@starfivetech.com>
-References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
-	 <20260928075956.62298-3-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iOZvP4NM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF46B1692;
+	Mon, 28 Sep 2026 01:13:10 -0700 (PDT)
+Received: from [10.57.12.79] (unknown [10.57.12.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7EE4C3F86F;
+	Mon, 28 Sep 2026 01:13:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790583194; bh=WPsNvAvqg8vhI8zzc//qW9WbhUe4lVNYZ4Eno5ypewM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iOZvP4NMl30vWU5Lqmr7s+xMn1mwl56R/TOdnVKw8skmeTKUUs/4iTPO6zUeezNuh
+	 XXNrVLaKC9r6XO1DXTxyxf09PwHbXMzYRHE7a5vCAj38rwWFunIuBYTvnOy+264YZA
+	 2ACgAlSG9yCd0UTWaM9fHAUo4RIvzG5gDxgUrkVo=
+Message-ID: <3bd74dc2-d057-4f63-8a3d-b6337953c047@arm.com>
+Date: Mon, 28 Sep 2026 09:13:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2 MMU
+ operations
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+ <20260920212845.707-10-suzuki.poulose@arm.com>
+ <647ae455-4175-4070-a40e-d2d89f18971f@redhat.com>
+ <df7e9870-1176-4679-bd79-807c0d87a4f2@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <df7e9870-1176-4679-bd79-807c0d87a4f2@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mo, 2026-09-28 at 00:59 -0700, Changhuang Liang wrote:
-> Add PECI controller driver for StarFive JHB100 SoC. The driver supports
-> PECI protocol communication for CPU thermal management.
->=20
-> For this controller, the special clock and reset operation sequence is:
->   probe: clk_prepare_enable() then reset_control_deassert()
->   remove: clk_disable_unprepare() then reset_control_assert()
->=20
-> Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
-> Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  MAINTAINERS                             |   8 +
->  drivers/peci/controller/Kconfig         |  17 ++
->  drivers/peci/controller/Makefile        |   1 +
->  drivers/peci/controller/peci-starfive.c | 376 ++++++++++++++++++++++++
->  4 files changed, 402 insertions(+)
->  create mode 100644 drivers/peci/controller/peci-starfive.c
->=20
-[...]
-> diff --git a/drivers/peci/controller/peci-starfive.c b/drivers/peci/contr=
-oller/peci-starfive.c
-> new file mode 100644
-> index 000000000000..6004cb27a774
-> --- /dev/null
-> +++ b/drivers/peci/controller/peci-starfive.c
-> @@ -0,0 +1,376 @@
-[...]
-> +static int starfive_peci_init_clk_rst(struct starfive_peci *priv)
-> +{
-> +	int ret;
-> +
-> +	priv->clk =3D devm_clk_get(priv->dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return dev_err_probe(priv->dev, PTR_ERR(priv->clk),
-> +				     "Failed to get peci clock\n");
-> +
-> +	priv->rst =3D devm_reset_control_get(priv->dev, NULL);
+On 28/09/2026 02:25, Gavin Shan wrote:
+> On 9/28/26 11:09 AM, Gavin Shan wrote:
+>> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
+>>> Add VM type specific S2 MMU operation backends which can be 
+>>> initialized per
+>>> VM flavor, to keep the handling cleaner.
+>>>
+>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>> ---
+>>>   arch/arm64/include/asm/kvm_host.h |  15 ++++
+>>>   arch/arm64/kvm/mmu.c              | 137 +++++++++++++++++++++++++-----
+>>>   2 files changed, 131 insertions(+), 21 deletions(-)
 
-Please use devm_reset_control_get_exclusive() directly.
+...
 
-> +	if (IS_ERR(priv->rst))
-> +		return dev_err_probe(priv->dev, PTR_ERR(priv->rst),
-> +				     "Failed to get reset control\n");
-> +
-> +	ret =3D clk_prepare_enable(priv->clk);
-> +	if (ret)
-> +		return dev_err_probe(priv->dev, ret,
-> +				     "Failed to enable peci clock\n");
-> +
-> +	ret =3D reset_control_deassert(priv->rst);
-> +	if (ret) {
-> +		clk_disable_unprepare(priv->clk);
-> +		return dev_err_probe(priv->dev, ret,
-> +				     "Failed to deassert reset control\n");
-> +	}
-> +
-> +	return devm_add_action_or_reset(priv->dev, starfive_peci_clk_reset_rele=
-ase,
-> +					priv);
+>>> +int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+>>> +                     gfn_t gfn, u64 nr_pages)
+>>> +{
+>>> +    if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
+>>> +        return 1;
+>>> +
+>>
+>> Realm would the only case where vm_s2_ops->vm_flush_remote_{tlbs, 
+>> tlbs_range)
+>> are NULL. On request to flush remote TLBs by 
+>> kvm_flush_remote_tlbs_range(), it
+>> ends up with event KVM_REQ_TLB_FLUSH queued for each vCPU. How this 
+>> queued event
+>> is linked to a remote TLB flush for realm? The problem is TLBs are 
+>> owned by EL2
+>> realm and there are no RMI calls for the management. So I'm wandering 
+>> we should
+>> return 0 here?
+>>
+> 
+> vm_s2_ops->vm_flush_remote_{tlbs, tlbs_range} are added in PATCH[14] 
+> where 0 is
+> returned for both function. So I guess needn't this check at all?
+> 
+>       if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
 
-This could be simplified with devm_clk_get_enabled() and
-devm_reset_control_get_exclusive_deasserted().
+I would leave that check as they are. The only callback that
+is mandatory is the vm_mem_abort and we do enforce it at init.
 
-regards
-Philipp
+Cheers
+Suzuki
+
