@@ -1,281 +1,133 @@
-Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936A048C8B9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D732FD1B3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588143; cv=none; b=lV9NaQBlvdw/pxpD2wpXZAvk43YGPWXTnIjzXwv+LviX1K2Z9+Y93hUHTsRBv+N9X3FFwU0Kl7FdNF0iY8yJdjCYuChaPFVqvwx3k4Q8bwenwvd9jbdk2iLAqSav7LpLpI377rnLPAp2Yde8S2o9EEbUPueomGWUBO6vXVhUcSM=
+	t=1790588162; cv=none; b=XuvtwQTSL+Q901EqgQKpoa27I6eGYQYArlNzCktQXYTBVbMDfYBzBnG7CVl39k2/jXcZa2hY0nLWnanuzpJHXR/KMvrq0qJk7B4LX8pX0PaLwrXrGkuDKEHAD+uQWjXBEdaf/WwZDnnx8UFh5NLVH8dERhI2YVCczNz66RKvKyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588143; c=relaxed/simple;
-	bh=43dZCg58dMILR3vgkjmwNdQV11XqU4A288rUAQkby84=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q4XnSgUpdyEfb6n3YMS8pr/glLWCbxAXW7rf+md7R6fPiwH5jCw3ZA8LdxzswADqJS9vzD6Lk1VT31IuTw9pMaXU60UI9M4VCHUg9FfJmsz566zfR3Vko6GKjy/HB4vejr25lmw12NpfiWmT8XLHlHMdRkMY0TPRLDCGUtZMuM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vaSmv1Jp; arc=none smtp.client-ip=91.218.175.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790588162; c=relaxed/simple;
+	bh=k9YCAPqaKjXX4GNCCsVVvYnITx3IgopI3KXUorJ383A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMKN4qH7NIOsLBFZNpFV0+Equxk5Qvbbao3AN5ZHLIRN8+liiKa5nSmp4JRZuH6rEhrt/v0jkeieJ3AqV/foaL09evimXQrhFq5qulIeQNHzWonz4p66lKyUmzxJiMVe5+3E3wkB3V9RMR+7y6/iVr1KxwexkqssKghKB5yHotQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKl0PJO3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vaSmv1Jp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=43dZCg58dMILR3vgkjmwNdQV11XqU4A288rUAQkby84=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790588139; v=1; x=1791192939;
- b=vaSmv1JpklyYH/aPygnibnmOJrNB+HLC/v4vykkhUAnkOgB2Tc/SSQd7RjdE0SeZgbaOVrYH
- lu8nUm3LuCOjGAHxt0K8k33e76CMfYA0LVskD/I86UjxVliLI+182vsymbaEzmnMfPGS1Td5tJZ
- WmbXCO3pHOq2yFjwfuntTgVk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 934e24e1a4cbc90c;
-	Mon, 28 Sep 2026 09:35:26 +0000
-X-Mizu-Trace-ID: 934e24e1a4cbc90c
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: Bart Van Assche <bvanassche@acm.org>,
-	axboe@kernel.dk,
-	hch@lst.de,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: cuitao@kylinos.cn,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev
-Subject: [PATCH v6] loop: defer the queue limits clear to a workqueue
-Date: Mon, 28 Sep 2026 17:35:12 +0800
-Message-ID: <20260928093512.3153646-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKl0PJO3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBF51F000FF;
+	Mon, 28 Sep 2026 09:36:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790588161;
+	bh=dVWhvUZ4udNzzI2O+Z+Zp7X6fuO5kTVJSnc0EFUOojg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kKl0PJO3Kd8yidrW8+oG8RxS3SiOONtIcHgHWTk8fvYeKkjsOq1adODKvC5ITUbv5
+	 fYxsaUrLOdE3rGmTxyzaxYeh5hJnkbeFI60iRnF8nJ0itf3Pq5rZHPqkFdokbO+V/8
+	 f3+bEks3DamUmvHa7GioTnbmlDTWg11AxCdcj5t7iKNWgWHl8PaFGuQnRpTo7GAA4R
+	 n4b9tp4Y9dx3w5AMMAQdc6yqyx5kR2REr9T44Lo589kOuMI7iDeUrEFGFL9+IrJV0Y
+	 tVlxlu4S7BwDUAo94xwRm73Ej1Nw9u6Y9ogU4EdszFI2WTfPGM99GG2XnGQGmYMBXq
+	 tDm3Vv6Fs/6ow==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id E1D27F40067;
+	Mon, 28 Sep 2026 05:35:59 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 28 Sep 2026 05:35:59 -0400
+X-ME-Sender: <xms:_zS6asOdb8b08MWWdLBI4KHdi22UssM-6kTsMukeoLjNYnf937hgtw>
+    <xme:_zS6ao_VCSht2o4ZXBPhCue0--PkP9SCKh8-H2Yw2DLxDxTcymSYOmX6ZQvepNMSD
+    N-wn7mUJKgtKrDuMFeZnD9_SK9otEXtATQHBYfkCgSantuY5V3B8Ss>
+X-ME-Received: <xmr:_zS6auHQoleAzMi1t3XXD0FIHSRRNjP9C0UZ6owG4hLBvgqp_iIfrXFStStQ>
+X-ME-Proxy-Cause: dmFkZTGIi4FnZLUxgFpbg7YF5Kghr5zfaTQEvVZcql5H2Vx1ZYBZOiREELxiJ7q8aYSf6U
+    viDB9SDRpfhCubXLFiZ7R2iS/cbCNO9H/ZNfpAU08R8DrRDqkd4u3R1sbtadXYDY342P2Q
+    tSo84GdOMiAQ54Cck4ZRi/Obnn+9dMkRpz+myK4e13uDh8MUnwnjoCAUte4WmSyuV72lAp
+    w1Sf2FcPmeQz2VIf+24l7+TntyoOYQWS2D0qRJ12rXBCsI/HGCvO8a9RGf9I7VCzzazVuH
+    qR1Pn7+Xqg90TjFVmpOKBeAdCoLJYuttUGl3K3raAuzbVJayq8Pa2SWd3osfS05GsYaxiT
+    zkyHhnGDb1+rOOfE44hxlW1GmRm6uYZwWyDsT2sNjccXgE5+SJ988Kk8qcHOy82qZO9/Xq
+    PtzBY3oR+6rM9bygBPkVd+GWx6eWPIxoR450zTKLqS7rim6mSWBf5XP3ek8pQd8N7+WpfB
+    PEAygqnjF34ubHdLM9tzzgyH9tQ6pEw3xocvAgYyEIeQ9TECMbgFUMraxXaldkMuDS6u6Z
+    xO9XLJ/vaRTfO/15Wh2HsyBzkOS+VK3lFAKrpZtLhPd7Ucx0jJwfaKzQkrg+yNQXoCfmLq
+    OX/+hNHGCuvxiXqb3XEQyEd+5XEpVoyM0ZObwEbpGwvfWISsccXQ7R8xLX4w
+X-ME-Proxy: <xmx:_zS6angm2wcOIQtFxGNanog0eys2jbOErhsdG0ZbKsbSUN1FwowQmA>
+    <xmx:_zS6ajvz-UwI-7fcIcglxgQaOr9fs30RqjgqbdtlIsU-OSL9tifrNQ>
+    <xmx:_zS6aisY0B1v-1EcfK6tJz7_V4yXv-NR-B94Sgnf5wPsLMKhMmGxCQ>
+    <xmx:_zS6agEwQzB82Z84-5q5HqAWdirIUPcR8X2jt7IszFPGRyy6suUEeA>
+    <xmx:_zS6alMpjf8BRI_zOgVX8DVB7tOZRmA785C8TMd8R-G2Ks3ua_vG88y5>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 05:35:59 -0400 (EDT)
+Date: Mon, 28 Sep 2026 11:35:58 +0200
+From: Boqun Feng <boqun@kernel.org>
+To: Kuan-Wei Chiu <visitorckw@gmail.com>
+Cc: tglx@kernel.org, peterz@infradead.org, lyude@redhat.com,
+	radu@rendec.net, jserv@ccns.ncku.edu.tw, marscheng@google.com,
+	eleanor15x@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] irq: Make refcount_interrupt kunit test selectable
+Message-ID: <aro0_tA4jfEaPb-r@MacBook-0RXW5>
+References: <20260823171721.3059733-1-visitorckw@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260823171721.3059733-1-visitorckw@gmail.com>
 
-From: Tao Cui <cuitao@kylinos.cn>
+On Sun, Aug 23, 2026 at 05:17:21PM +0000, Kuan-Wei Chiu wrote:
+> Currently, refcount_interrupt_test is built unconditionally when
+> CONFIG_KUNIT is enabled, causing it to run unexpectedly during boot.
+> 
+> Fix this by introducing CONFIG_REFCOUNT_INTERRUPT_KUNIT_TEST so the
+> test can be configured independently, following standard kunit
+> practices.
+> 
+> Fixes: 07a88e2bcd5b ("irq: Add KUnit test for refcounted interrupt enable/disable")
+> Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 
-loop_clear_limits() calls queue_limits_commit_update() directly from
-the loop workqueue that processes the request.  That does a
-non-atomic struct assignment to q->limits without freezing the queue,
-which races with lockless readers of q->limits on other CPUs - bio
-splitting reads max_hw_sectors, the discard path reads
-max_hw_discard_sectors - and can let them observe torn values.  The
-trigger is a discard or write-zeroes request on a loop device whose
-backing file does not support the corresponding fallocate operation.
+Thomas & Peter, gentle ping on this, thank you!
 
-The code already has an XXX comment saying this should move to a
-workqueue.  Do that: schedule a work item on the system workqueue, where
-it is safe to freeze the queue around the limits update.  The pending
-modes live under a new mutex, lo->clear_limits_lock.
-loop_change_fd() and __loop_clr_fd() cancel the work item before
-changing or dropping the backing file, and loop_assign_backing_file()
-resets the modes, so a stale clear cannot hit the new backing file.
-The work item is also cancelled before the device is freed.
+If you rather let me send a PR to tip for v7.4. Please let me know.
 
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Regards,
+Boqun
 
----
-Changes since v5:
-
-- Drop the rebind generation counters and instead cancel the work
-  item from loop_change_fd() after the queue freeze and from
-  __loop_clr_fd(), as suggested by Bart.  This leaves no work item
-  behind when the backing file changes, and the mutex now only
-  protects clear_limits_mode.
-
-Changes since v4:
-
-- Rebase onto the current block tree as a single commit.
-
-- Hold clear_limits_lock over the limits commit in the work item.
-  The queue freeze is counted, not mutually exclusive, so
-  loop_change_fd() could rebind between the generation check and
-  the commit, and a stale clear could disable discard and write
-  zeroes on the new backing file.
-
-Changes since v3:
-
-- Replace the three atomic variables (clear_limits_mode, rebind_gen,
-  clear_limits_gen) with plain variables protected by a new
-  clear_limits_lock mutex, as suggested by Bart.  The mutex is taken
-  after the queue freeze in the work item, which keeps the same
-  freeze -> mutex ordering as loop_change_fd(), the only rebinding
-  path that freezes the queue.
-
-Changes since v2:
-
-- Skip the clear when the device was rebound since the work item
-  was scheduled: the modes used to be captured before the freeze,
-  so a LOOP_CHANGE_FD completing in between could apply the old
-  modes to the new backing file.  The rebind generation is now
-  checked with the queue frozen, which excludes loop_change_fd()
-  because it assigns the new backing file under the same freeze,
-  so a rebind cannot slip in between the check and the commit.
-
-- Also bump the rebind generation from __loop_clr_fd(): unbinding
-  does not go through loop_assign_backing_file(), so a work item
-  scheduled before the last close could otherwise commit a stale
-  clear to the queue limits of the unbound device.
-
-Changes since v1:
-
-- Reset clear_limits_mode when assigning a new backing file, so
-  stale modes do not clear limits of the new file.
-
-- Cancel the work item from loop_remove() before del_gendisk():
-  the queue can already be in RCU-delayed freeing when
-  lo_free_disk() cancels it.
-
-Tested on x86-64 (qemu, vfat-backed loop device): a 30s discard and
-reconfigure loop exercises the clear path 287 times, no torn sysfs
-reads, no difference against the unpatched kernel.
-
-Link: https://lore.kernel.org/r/20260828072004.273519-1-cui.tao@linux.dev/
----
- drivers/block/loop.c | 72 ++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 63 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 758c20678bf6c..92f3ae7324751 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -67,6 +67,9 @@ struct loop_device {
- 	struct list_head        rootcg_cmd_list;
- 	struct list_head        idle_worker_list;
- 	struct rb_root          worker_tree;
-+	struct work_struct      clear_limits_work;
-+	struct mutex		clear_limits_lock;
-+	unsigned int		clear_limits_mode;
- 	struct timer_list       timer;
- 	bool			sysfs_inited;
- 
-@@ -222,9 +225,25 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
- 		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
- }
- 
--static void loop_clear_limits(struct loop_device *lo, int mode)
-+static void loop_clear_limits_workfn(struct work_struct *work)
- {
-+	struct loop_device *lo =
-+		container_of(work, struct loop_device, clear_limits_work);
- 	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
-+	unsigned int memflags;
-+	int mode = 0;
-+
-+	/*
-+	 * A rebind cannot race with this work item: loop_change_fd()
-+	 * and __loop_clr_fd() cancel it, loop_configure() only runs on
-+	 * an unbound device, on which no work item can be pending, and
-+	 * loop_assign_backing_file() resets the accumulated modes.
-+	 */
-+	memflags = blk_mq_freeze_queue(lo->lo_queue);
-+	mutex_lock(&lo->clear_limits_lock);
-+	mode = lo->clear_limits_mode;
-+	lo->clear_limits_mode = 0;
-+	mutex_unlock(&lo->clear_limits_lock);
- 
- 	if (mode & FALLOC_FL_ZERO_RANGE)
- 		lim.max_write_zeroes_sectors = 0;
-@@ -233,15 +252,16 @@ static void loop_clear_limits(struct loop_device *lo, int mode)
- 		lim.max_hw_discard_sectors = 0;
- 		lim.discard_granularity = 0;
- 	}
--
--	/*
--	 * XXX: this updates the queue limits without freezing the queue, which
--	 * is against the locking protocol and dangerous.  But we can't just
--	 * freeze the queue as we're inside the ->queue_rq method here.  So this
--	 * should move out into a workqueue unless we get the file operations to
--	 * advertise if they support specific fallocate operations.
--	 */
- 	queue_limits_commit_update(lo->lo_queue, &lim);
-+	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
-+}
-+
-+static void loop_clear_limits(struct loop_device *lo, int mode)
-+{
-+	mutex_lock(&lo->clear_limits_lock);
-+	lo->clear_limits_mode |= mode;
-+	mutex_unlock(&lo->clear_limits_lock);
-+	schedule_work(&lo->clear_limits_work);
- }
- 
- static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
-@@ -518,6 +538,14 @@ static int loop_validate_file(struct file *file, struct block_device *bdev)
- static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
- {
- 	lo->lo_backing_file = file;
-+	/*
-+	 * Discard any modes recorded against the old backing file.  The
-+	 * paths that can race with a pending work item cancel it before
-+	 * they get here.
-+	 */
-+	mutex_lock(&lo->clear_limits_lock);
-+	lo->clear_limits_mode = 0;
-+	mutex_unlock(&lo->clear_limits_lock);
- 	lo->old_gfp_mask = mapping_gfp_mask(file->f_mapping);
- 	mapping_set_gfp_mask(file->f_mapping,
- 			lo->old_gfp_mask & ~(__GFP_IO | __GFP_FS));
-@@ -602,6 +630,12 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
- 	/* and ... switch */
- 	disk_force_media_change(lo->lo_disk);
- 	memflags = blk_mq_freeze_queue(lo->lo_queue);
-+	/*
-+	 * The freeze drained the in-flight requests, so any clear they
-+	 * scheduled is pending or running now; cancelling here leaves
-+	 * no clear behind for the new backing file.
-+	 */
-+	cancel_work_sync(&lo->clear_limits_work);
- 	mapping_set_gfp_mask(old_file->f_mapping, lo->old_gfp_mask);
- 	loop_assign_backing_file(lo, file);
- 	loop_update_dio(lo);
-@@ -1148,6 +1182,16 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	lo->lo_backing_file = NULL;
- 	spin_unlock_irq(&lo->lo_lock);
- 
-+	/*
-+	 * Invalidate any clear that was scheduled against the old backing
-+	 * file.  Unbinding cannot race with in-flight I/O, so cancelling
-+	 * here leaves no work item behind.
-+	 */
-+	cancel_work_sync(&lo->clear_limits_work);
-+	mutex_lock(&lo->clear_limits_lock);
-+	lo->clear_limits_mode = 0;
-+	mutex_unlock(&lo->clear_limits_lock);
-+
- 	lo->lo_device = NULL;
- 	lo->lo_offset = 0;
- 	lo->lo_sizelimit = 0;
-@@ -1783,7 +1827,9 @@ static void lo_free_disk(struct gendisk *disk)
- 		destroy_workqueue(lo->workqueue);
- 	loop_free_idle_workers(lo, true);
- 	timer_shutdown_sync(&lo->timer);
-+	cancel_work_sync(&lo->clear_limits_work);
- 	mutex_destroy(&lo->lo_mutex);
-+	mutex_destroy(&lo->clear_limits_lock);
- 	kfree(lo);
- }
- 
-@@ -2102,6 +2148,8 @@ static int loop_add(int i)
- 	spin_lock_init(&lo->lo_lock);
- 	spin_lock_init(&lo->lo_work_lock);
- 	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
-+	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
-+	mutex_init(&lo->clear_limits_lock);
- 	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
- 	disk->major		= LOOP_MAJOR;
- 	disk->first_minor	= i << part_shift;
-@@ -2140,6 +2188,12 @@ static int loop_add(int i)
- 
- static void loop_remove(struct loop_device *lo)
- {
-+	/*
-+	 * Cancel early: the queue may already be in RCU-delayed freeing
-+	 * by the time lo_free_disk() cancels the work item.
-+	 */
-+	cancel_work_sync(&lo->clear_limits_work);
-+
- 	/* Make this loop device unreachable from pathname. */
- 	del_gendisk(lo->lo_disk);
- 	blk_mq_free_tag_set(&lo->tag_set);
--- 
-2.43.0
-
+> ---
+>  kernel/irq/Kconfig  | 12 ++++++++++++
+>  kernel/irq/Makefile |  2 +-
+>  2 files changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/irq/Kconfig b/kernel/irq/Kconfig
+> index 05cba4e16dad..6923f37eaab4 100644
+> --- a/kernel/irq/Kconfig
+> +++ b/kernel/irq/Kconfig
+> @@ -150,6 +150,18 @@ config IRQ_KUNIT_TEST
+>  
+>  	  If unsure, say N.
+>  
+> +config REFCOUNT_INTERRUPT_KUNIT_TEST
+> +	tristate "Test refcounted interrupt enable/disable" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  This builds the kunit tests for the refcounted interrupt
+> +	  infrastructure. It verifies the correctness of single, nested,
+> +	  and multiple interrupt enable/disable state changes and ensures
+> +	  that the underlying reference counting mechanisms work as expected.
+> +
+> +	  If unsure, say N.
+> +
+>  endmenu
+>  
+>  config GENERIC_IRQ_MULTI_HANDLER
+> diff --git a/kernel/irq/Makefile b/kernel/irq/Makefile
+> index 44c4d6fc502a..0e5df962a149 100644
+> --- a/kernel/irq/Makefile
+> +++ b/kernel/irq/Makefile
+> @@ -16,4 +16,4 @@ obj-$(CONFIG_SMP) += affinity.o
+>  obj-$(CONFIG_GENERIC_IRQ_DEBUGFS) += debugfs.o
+>  obj-$(CONFIG_GENERIC_IRQ_MATRIX_ALLOCATOR) += matrix.o
+>  obj-$(CONFIG_IRQ_KUNIT_TEST) += irq_test.o
+> -obj-$(CONFIG_KUNIT) += refcount_interrupt_test.o
+> +obj-$(CONFIG_REFCOUNT_INTERRUPT_KUNIT_TEST) += refcount_interrupt_test.o
+> -- 
+> 2.55.0.766.g2966f0265a-goog
+> 
