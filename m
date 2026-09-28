@@ -1,112 +1,132 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6883BB9F3
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B23A3D0C07;
+	Mon, 28 Sep 2026 12:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600249; cv=none; b=dZUMzd6kpeM9f8O4ajjc+GR0zpf5nnvT/fFN65tKyVz4L0kcpEUzBB7q2saxCK00t/Fjh+fbdsRR4ALpVGsRU08V0hpCImRLNpos2pzEz8WwP2f4JknRvuKl1Z6jN22YcVyQP7jLTY2O6JTi0t/drVemJfk/I8osjBhWRR2SF4A=
+	t=1790600251; cv=none; b=VHuq0Y9OC3cgH/JNoEegxk4aQ6bSKIce1m9P83Tr/SVBbBW0dAiDu24xA0NkKEVctG2hsQaLYkXDm4/uXzOn8jqkXWYL2qd6/sCA3EtQ84Afq0TAl3kY4WlRiPTYn8FYRQ2kgcaRwl9qCVNttZbK9mApqSSlcSFC1mFy7c0HX4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600249; c=relaxed/simple;
-	bh=OX2VQ2se07Cq1rUKoXo3Px8pIIB6/flUHCfxWWariDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XFUKvczJnCC2I/gRSUB7zXy8QoI/pIcSX0EfhMzd2Y8w3osu+sxhXbwyvI68+5B4w7PY0P9mhGTjgpxYUqngEBFuJMvIwZ0oB6pNyrQSEUFZf0F14WcW6JoytnUiQoVzp3mnyvbyEC7fvAUX1M0Vs9Kxvbc0k6ZIMhD9P+/b2eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=2MI6qpRj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tAw5z39A; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790600251; c=relaxed/simple;
+	bh=NO3m05+MVb9sGRkEEQQ9zeN9rgKnk3WgXbm9hzLVRfM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=RG6yS2+JXCStQDBPkMtCiD4QFrkXl/CLG+hpC+b6RSXIOA1CDc1dmGRY8V7E9cJRr+z4yQIQeIz6B/g+Wt7FACv7P1VAX4KOTB+Nv9PdmYxnMLpg3Is6Ea2Y5Lwk5MlYqZru5krK3M3g/vEnnQ7lTl5ofLM+bcdJS59ClRw7jTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZfB/F5jK; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="2MI6qpRj";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tAw5z39A"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.phl.internal (Postfix) with ESMTP id CD2E9EC0187;
-	Mon, 28 Sep 2026 08:57:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Mon, 28 Sep 2026 08:57:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790600246; x=
-	1790686646; bh=5MAHbyXQ1YyIgb7pURvvzaIpNOyYegvnkrRr9RZyu5M=; b=2
-	MI6qpRj8qi0Bx80buV2bMW62V2UbeJZpyFYQMq4zXUdQ7llm8AKW63+BxSJWHYag
-	WqYny5x5Pp0WZBnvJBujURkhIyWKW208tak/lMpBSizaabvRrxfnoGAFguRXwSzO
-	NfG79RV39J/ck4ICRm1IiT6mX2ZPx2Dyblgxxh2LtaBk29tYiyzznNpjSQShz4tW
-	u8SIufY0otdRqy/6M7bJYxy+Wc4QtfA5zzhnJMCKOu3cCS3HwBDWPWkTsdZAczcF
-	epInX2AXyFX/XyveiAr6i2vywdiRu2cL+GUwMAPniutzcr50PL2yXsc9eO0AXlZR
-	slsIGRwuBqneYS6yq0iKA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790600246; x=1790686646; bh=5
-	MAHbyXQ1YyIgb7pURvvzaIpNOyYegvnkrRr9RZyu5M=; b=tAw5z39AtYgnCOrUp
-	6LhulSjibksnuP+BRdl56QqZSVfPdjwPaOdsCJrOvjLbvEAQmcU0HhmCit3G116c
-	O0V64b2KG00pNHowhyvD9uiGewGZaaeSE19UHia4jh+7zwPP1pHqkQsiV6qpg5IS
-	lvJCGQxuurojHGw7WnyXcDdmJdFVFxhNXeCET3giX7bCP7UAtWsM402II5vlwG26
-	6mEL0DVbgPhDiDMbPrQ8DYdG1QZAaaCozOlu64KVTyrHL1AjRrfRKxnaPLXJ7Ghm
-	WTPJG8kbGjYE1aCwwNpUy5CLHdUbVuvlCmcA8knCj4sLstmdPlg9Dz8Xirlt77sL
-	oVLQQ==
-X-ME-Sender: <xms:NmS6aiLb2mtA2hHFvimyRVfpDTDo6u7Z0XXBkTxoWCKhRm4bAN8Nyw>
-    <xme:NmS6aoEiQjQw-XHZVeps2lFdRsEc1xXcJnRgfMSQx4ZbJGYolKElXRFeOWlV2f5VT
-    vtG1w1HX3rIgpfP-npewozRNGq38XB-dRoR9qa5V8aYYDvzyDXA6sdI>
-X-ME-Received: <xmr:NmS6aqQU20GyX61mqO0kGVpqt2FDIeBXMSLZVG5_nQ5ApqXvKdfZLzFcNfqlqVUIReVoIz54LzXJZONS6jMSbVwx-9Mq15zS-PsYqzwfq0F5xfQ>
-X-ME-Proxy-Cause: dmFkZTEYPQEAqe7gPFHjplnO60tfuhjhLdOmqwPZBkw/sSX3x33K2ucn9ekowdHZ8vN8Ce
-    YG5E3bsJ1R8Ji+09oOAUkFItFE58O4sD/8UfqKzqOHSTlT/QJ2ZZ/+lfSG8WUwpRWVEFxC
-    +A25lxNWJTBn3Lf6y78WP9m8S0fo8FFZLSIi0lbmp1xWWT465YZxl4JH88g9yVS/HqC/Ks
-    eOUF5UiIk9KzXfA9VNpGLTq1vgq3O7bPrwmvHF5vnJNGYLYqUl/PJ1LWyByERcUanUfe4K
-    +FHR+Gqq3U4x537MgadHpxXMimkv35U/ETJ3HWHvviY/8f25uMv+qzDxmQgW+ETy0Z+Rjt
-    dW3iqcH/amhjxp2tN8JheQqB2GPGn0bAbtSQKgHp2Tav/w+4qbuLDTNvKu2dPTxa4JS8kB
-    m0DOeZAvPhVVdAGJGdQmri1MDpm2bwdKeHJNDQoWwGdCXUthQsDZaV/dKzHL2e5TPEWyzJ
-    1Hy639s1EzeZ0/roVPPfcQpnlxd0VP5hTasb4wmnk5M2HgTHII+PGzxvLD6X91JSUT5Tgi
-    8Sjp0OMQS8ZQ7sFLqCywLf2MbXt6JhPW3RzBsVDeSCbb2CJKqundLelBgpnHeaGudImSfu
-    GwsuXUO97Q4yp+QgurnUQ+xnkIKzQd5j63eIQsQHK5qI/H857PHFZorOm8XQ
-X-ME-Proxy: <xmx:NmS6akENm7sozNOfelkwH0a7WLwoOrnSks1hg75BpzMZfAB8Hv0VoQ>
-    <xmx:NmS6am-9baCBauX8VpkfSEQhWtGHe3fzf_T9vrTJbZKMfZv7oQSHVQ>
-    <xmx:NmS6auJZEX1Oee7W2iIJRwx5BYUQ7WW4gi00vxKRStJc0csrjgbcag>
-    <xmx:NmS6apZZ-uP-oUqF1xwe4x_ZMu-HnkbZcq5c547q98c6_szzJ1WYCg>
-    <xmx:NmS6ano8jznWGvrLFi-KDZeyLf7yYWtR93v9Z_GaA3MpQ7JCCDyGtDZh>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 08:57:25 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] firewire: cdev: use kzalloc_flex() to allocate structure with byte array
-Date: Mon, 28 Sep 2026 21:57:17 +0900
-Message-ID: <20260928125718.50974-4-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928125718.50974-1-o-takashi@sakamocchi.jp>
-References: <20260928125718.50974-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZfB/F5jK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790600250; x=1822136250;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=NO3m05+MVb9sGRkEEQQ9zeN9rgKnk3WgXbm9hzLVRfM=;
+  b=ZfB/F5jKpf0McRc27Djpsv7XGak+JYzrO0+EqGnXlHqjsx2wBBhR6Rr+
+   tf4msmTpub6sQk39dT3bD7MbkU2JKaXeE1gJxbDxQhQBwEn8flY1TfcGu
+   8rnjNit5zEbTPtf3M2HnLPG+ZQ2M7cNvXVSWn4emIeeGpkCFhWqtK9ZCW
+   jh49XuDuatPrGQdqqT70gOTk7rAKlTUxjJ0ylCX7AQGCDChSBoBEJoSaU
+   BECvFBeKzA6ati1KzLQESwSVPFMXcfclCZlOVrJC9UeD6WUMk8LSNHMXT
+   KCSUhCzfRDUS1s74IVatsOVhS4K8nDl7gCSBmOG2BxX1uTXwNas8UXEon
+   g==;
+X-CSE-ConnectionGUID: qVfpZFQ0TmSJw1Vf4zdH9Q==
+X-CSE-MsgGUID: aKb+Df1UQYWkhHCHLogXjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101466244"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="101466244"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:57:30 -0700
+X-CSE-ConnectionGUID: tskufYWuSWqrGgDCV3n1NA==
+X-CSE-MsgGUID: Z13anqShQyCagxvJjJ2+Ww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="279772219"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.109])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:57:27 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 28 Sep 2026 15:57:23 +0300 (EEST)
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+cc: bhelgaas@google.com, david.laight.linux@gmail.com, 
+    linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] PCI: sysfs: Reject unaligned resource I/O port
+ accesses
+In-Reply-To: <20260928123036.7902-1-kartikey406@gmail.com>
+Message-ID: <fd1753ec-020b-b90d-ec1a-9d21ab2fa9a4@linux.intel.com>
+References: <20260928123036.7902-1-kartikey406@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Some event structures have a trailing flexible array member of bytes to
-store event-specific data. Use kzalloc_flex() to allocate the structure
-together with storage for the flexible array member.
+On Mon, 28 Sep 2026, Deepanshu Kartikey wrote:
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/core-cdev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> pci_resource_io() validates that the requested port lies within the
+> BAR but never checks that it is aligned to the access size. A
+> pwrite64()/pread64() on a resourceN file with an odd offset and
+> count=2 or count=4 reaches outw()/outl() with a misaligned address.
+> On arm64 this becomes a store/load to a Device-memory mapping
+> (PCI_IOBASE + port), which architecturally requires natural
+> alignment, causing an alignment fault and kernel oops.
+> 
+> Reject misaligned 2- and 4-byte accesses before they reach the
+> low-level accessor. With natural alignment enforced, an access that
+> starts inside the BAR cannot extend past its end, so drop the
+> port + count - 1 range check.
+> 
+> Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=7134530b25073b4ef373
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+> v2: Check alignment per access size in the case 2/case 4 branches
+>     instead of using IS_ALIGNED() with a user-controlled count, and
+>     drop the now-redundant port + count - 1 range check.
+>     (Bjorn, David, sashiko)
+> ---
+>  drivers/pci/pci-sysfs.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+> index 1f21856aac8a..8118cc6b3a61 100644
+> --- a/drivers/pci/pci-sysfs.c
+> +++ b/drivers/pci/pci-sysfs.c
+> @@ -1209,9 +1209,6 @@ static ssize_t pci_resource_io(struct file *filp, struct kobject *kobj,
+>  	if (port > pci_resource_end(pdev, bar))
+>  		return 0;
+>  
+> -	if (port + count - 1 > pci_resource_end(pdev, bar))
+> -		return -EINVAL;
+> -
+>  	switch (count) {
+>  	case 1:
+>  		if (write)
+> @@ -1220,12 +1217,16 @@ static ssize_t pci_resource_io(struct file *filp, struct kobject *kobj,
+>  			*(u8 *)buf = inb(port);
+>  		return 1;
+>  	case 2:
+> +		if (port & 1)
+> +			return -EINVAL;
+>  		if (write)
+>  			outw(*(u16 *)buf, port);
+>  		else
+>  			*(u16 *)buf = inw(port);
+>  		return 2;
+>  	case 4:
+> +		if (port & 3)
 
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index caabaaf99cb7..60067c5b1973 100644
---- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -1020,7 +1020,7 @@ static void iso_callback(struct fw_iso_context *context, u32 cycle,
- 	struct client *client = data;
- 	struct iso_interrupt_event *e;
- 
--	e = kmalloc(sizeof(*e) + header_length, GFP_KERNEL);
-+	e = kzalloc_flex(*e, interrupt.header, header_length);
- 	if (e == NULL)
- 		return;
- 
+Why fon't these use !IS_ALIGNED() anymore? You can use e.g. sizeof() to 
+connect it to the natural alignment of the type so you don't have to use 
+literals at all.
+
+> +			return -EINVAL;
+>  		if (write)
+>  			outl(*(u32 *)buf, port);
+>  		else
+> 
+
 -- 
-2.53.0
+ i.
 
