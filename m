@@ -1,46 +1,44 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B955C4C10E8;
-	Mon, 28 Sep 2026 13:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77DE3DB620;
+	Mon, 28 Sep 2026 13:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602537; cv=none; b=S+naq5GxQnq6/xR+D+BeIvPIEf+ohhA8XJOqSIzRtdK6hTmElwYbwFKm1auzQmKtqFdbyZik3fjr/vzMNbWDivLVsYtvMn+yF8dflIb1K/X24G1CgfPM+NWritfh80j+dCF0QRXln5ufd+BZs+QOBpnAdXPnvF1Jpnck96HhD2w=
+	t=1790602622; cv=none; b=hP+mUDRKJvEVzab7Boc2ozFr2GXkOmtjVp016AC/BBDI/ydlTQ2tRKlY2N+rB4HstJYAYcSi3xQaM+g9U0deWgTkHCjUaMGD0XWsYioZjOd7PRRMhMLp1mCNu9eRJw/M2nOAQXKWx/MHaU7kVljDlrCBNqGbCBdA09i0KbsK6D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602537; c=relaxed/simple;
-	bh=x4oGipWQcl/7PjvCjm0VIb8vWQvvk9oVz8GXsWvq74Y=;
+	s=arc-20240116; t=1790602622; c=relaxed/simple;
+	bh=uCJMNYRb0dJ23inpUSyXpDCAf6+VNJdEgZrUczNCgSI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EmX27C/R6D47Jj6zEIrO+fErXspuUlSxt0eVA0tA2LZHleYktgqlhUcewmbiM9fshuVjIhom5MUcZemTJM/yu+Jdg4zSXUV+IjDPMme6xkNpqaZlQoAEZlYhIr4vvw0/FgmEOw8R7iuM+GtZxtORFJxJaZl4ohLfnWst2FKTYlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=J+7Nmpv/; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=liLE1157X718862ohXsliWf3lmug+1R7fbzpG0AvluiJhTN3adUFtXGzJB6wVb6ywzSpWB3pJx/zd/nUndEmn7UvOg+WNZ80Qc7imFBCVwwlEFKTnbLnwBjYS5Bay+i/0kGl0jEjHEzkulNlWPvJTwm9SvKIR8spwcWplHaWE3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fyI8Owps; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="J+7Nmpv/"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9A79BB07;
-	Mon, 28 Sep 2026 15:33:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790602422;
-	bh=x4oGipWQcl/7PjvCjm0VIb8vWQvvk9oVz8GXsWvq74Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J+7Nmpv/mjmvjBlYuWTqZJrjkLplA+Bn3jb+zwtfZzliOwzsambXvjRVRcJG5Xx4/
-	 mzGKvaUFwLHy862VBLZpdq2615mv5kVz41HB3D4jTae6hS4AHT8Zj2VExQ3cGw2450
-	 x7fyxLsA+U7vG55qJr5f1kiVqDArmrOLLdHEyB34=
-Date: Mon, 28 Sep 2026 16:35:31 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Edwin Gatier <edwin.gatier@protonmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras
- with invalid uvc_version
-Message-ID: <20260928133531.GH4406@killaraus.ideasonboard.com>
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
- <20260928125242.GE4406@killaraus.ideasonboard.com>
- <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fyI8Owps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769AE1F000FF;
+	Mon, 28 Sep 2026 13:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790602620;
+	bh=o/h3Dk4bf2evwqsJUapzbYALe6zUA6ekei+vUYpPNBI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fyI8OwpsALSIH6r/7hxbSH8k9OaHdqLXD13rEcdHhjU1LCvKZHDOHavjUG9yDFUEV
+	 +G4NpbENoKXxi7usBHp+XTYh2MKdTTk4TyNlnvJzemf4p+4lERynVAHY0wQ35wzVIe
+	 sAss3PzUofyBM/JjpCpzMP36Il96vFEBfLCQGLvwnPiWg3x8k/1+me6FT8bNIHzj6I
+	 xplERgfMxifsJt5+7zybiH+P0kHDOOWwE4MVh0sCzPPiRO8kqtJ4tQ9KvpeNJNb62t
+	 GElWukl2jDALOQMMYeT/qePI+qc7RbnwxikHDVk+J1Yq1IT7RhPYykrOFUAE96IL7j
+	 8J2e5RKyyEPnQ==
+Date: Mon, 28 Sep 2026 14:36:54 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: florian.fainelli@broadcom.com, netdev@vger.kernel.org,
+	opendmb@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, zakkemble@gmail.com,
+	ryotkkr98@gmail.com, linux-kernel@vger.kernel.org, nb@tipi-net.de
+Subject: Re: [PATCH net 3/6] net: bcmasp: validate minimum RX packet size in
+ bcmasp_rx_poll()
+Message-ID: <20260928133654.GS13925@horms.kernel.org>
+References: <20260922221630.3864427-4-florian.fainelli@broadcom.com>
+ <179027136939.2160803.15243672598361037469@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,318 +47,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CANiDSCtb9-LVTuhwdLYdTzNMbrq_TYCjKYOxc5TxhCqaWg2NCQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179027136939.2160803.15243672598361037469@kernel.org>
 
-On Mon, Sep 28, 2026 at 03:22:15PM +0200, Ricardo Ribalda wrote:
-> On Mon, 28 Sept 2026 at 14:52, Laurent Pinchart wrote:
-> > On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
-> > > Currently, the driver expects that cameras properly implement the spec
-> > > version that they announce, and if they fail to do so, we do not continue
-> > > probing the driver.
-> > >
-> > > To make drivers more fun, some vendors decided to announce that they are
-> > > a UVC version that they are not. Until now, we handled those cameras via
-> > > quirks.
-> > >
-> > > Unfortunately, reality has shown us that there are more cameras out
-> > > there with an invalid uvc_version than we initially predicted.
-> >
-> > As far as I understand, this was triggered by the Avermedia GC515. Have
-> > you received other reports ?
+On Thu, Sep 24, 2026 at 05:36:09PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
 > 
-> I have not, but we can agree that not that many people does the extra
-> mile to report to this mailing list.
+> Critical: 0 · High: 1 · Medium: 1 (2) · Low: 1
 > 
-> If multiple cameras, from different ISPs have this issue it makes me
-> think that Windows is handling this uvc_version more naively than us,
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The new minimum-size check in bcmasp_rx_poll()
+>   (bcmasp_intf.c:526) is `len < 2 + (intf->crc_fwd ?
+> - [Medium] The commit message overstates the impact.
+> - [Low] The new runt/invalid-length drop branch in bcmasp_rx_poll()
+>   (lines 526-530) increments `stats->rx_dropped`.
+> 
+> Pre-existing issues:
+> - [Medium] bcmasp_rx_poll() never checks desc->size or
+>   DESC_ADDR(desc->buf) against an upper limit.
+> - [Medium] One `struct u64_stats_sync` (`intf->stats64.syncp`) is written
+>   by several contexts that are not mutually exclusive: - `rx_napi`…
+> 
+> --
+> 
+> net: bcmasp: validate minimum RX packet size in bcmasp_rx_poll()
+> 
+> This patch adds a lower bound check on desc->size in bcmasp_rx_poll().
+> Descriptors smaller than the 2-byte alignment pad plus the optional FCS
+> are counted in rx_dropped and skipped before an skb is built.
+> 
+> > If the hardware reports a descriptor size smaller than the pad and CRC
+> > lengths (e.g. runt or corrupted frames), len -= 2 or len - ETH_FCS_LEN
+> > underflows u32 len, leading to out-of-bounds trimming and memory
+> > corruption.
+> 
+> [Severity: Medium]
+> Is "out-of-bounds trimming and memory corruption" accurate here? Both
+> helpers used by bcmasp_rx_poll() appear to guard against the underflowed
+> values:
+> 
+> include/linux/skbuff.h:skb_pull_inline() {
+> 	return unlikely(len > skb->len) ? NULL : __skb_pull(skb, len);
+> }
+> 
+> net/core/skbuff.c:skb_trim() {
+> 	if (skb->len > len)
+> 		__skb_trim(skb, len);
+> }
+> 
+> If desc->size is below 2, skb_pull() returns NULL and pulls nothing. If
+> len - ETH_FCS_LEN wraps to a value near 4G, skb_trim() does nothing.
+> 
+> Before this patch, the visible effects seem to be two:
+> 
+>   - a 0-3 byte skb reaches eth_type_trans() and GRO
+>   - the wrapped len is added to rx_bytes, about 4 GiB per frame:
+> 
+> 	u64_stats_add(&stats->rx_bytes, len);
+> 
+> Neither of these is an out-of-bounds write.
+> 
+> The driver also never sets UMC_CMD_RUNT_FILTER_DIS, so the UniMAC runt
+> filter should stay enabled. That leaves misbehaving or corrupted
+> descriptors as the only way to reach this path.
+> 
+> This carries a Fixes: tag, so it will go to stable. Could the commit
+> message describe the actual impact, and say whether such descriptors have
+> been seen on real hardware?
 
-That's likely a fair assumption. Who would have thought that we would
-still suffer from Microsoft's bad design decisions today ?
+Hi Florian,
 
-> and unfortunately it is what most vendors use to validate their
-> cameras.
-> 
-> I'd rather support more cameras than fewer.
-> 
-> > > This patch tries to handle these cameras with an identity crisis
-> > > automatically. We still shame them in dmesg. But now they will work.
-> >
-> > If the vendors ignored the fact that those cameras didn't work at all on
-> > Linux, do you think they will read dmesg ?
-> 
-> They wont, but distros might look into logs and keep track of warnings/logs.
+While tightening up the wording of the patch description might be nice
+I'm more concerned about the point made in the last paragraph.
 
-It was meant as a joke.
+And I think that if this is more hardening than fixing a bug
+that can manifest then it would be best sent via net-next
+without a Fixes tag or CCing stable.
 
-> > Jokes aside, UVC version override was added in November 2020, and the
-> > Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
-> > see if there are any drawbacks in the implementation below that can be
-> > justified by such a small number of devices.
-> >
-> > > Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
-> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > ---
-> > >  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
-> > >  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
-> > >  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
-> > >  3 files changed, 35 insertions(+), 18 deletions(-)
-> > >
-> > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> > > index e289cc71ba98..ca75f8d1ec46 100644
-> > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
-> > >
-> > >       case UVC_VC_PROCESSING_UNIT:
-> > >               n = buflen >= 8 ? buffer[7] : 0;
-> > > -             p = dev->uvc_version >= 0x0110 ? 10 : 9;
-> > > -
-> > > -             if (buflen < p + n) {
-> > > +             if (buflen < 9 + n) {
-> > >                       uvc_dbg(dev, DESCR,
-> > >                               "device %d videocontrol interface %d PROCESSING_UNIT error\n",
-> > >                               udev->devnum, alts->desc.bInterfaceNumber);
-> > > @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
-> > >               unit->processing.bControlSize = buffer[7];
-> > >               unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
-> > >               memcpy(unit->processing.bmControls, &buffer[8], n);
-> > > -             if (dev->uvc_version >= 0x0110)
-> > > +
-> > > +             /*
-> > > +              * We are not using bmVideoStandards, so there is no need to
-> > > +              * warn the user if it is missing.
-> >
-> > There's value in warning the user about UVC non-compliance though. I'd
-> > like to see a warning that indicates the device reports an incorrect UVC
-> > version.
-> >
-> > If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
-> > field. This change is therefore not needed for any devices we know
-> > about, right ?
 > 
-> We do not know if it includes the bmVideoStandards or not.
+> > diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c b/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
+> > index 9ad5a982542f5..2ad8a7eac8888 100644
+> > --- a/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
+> > +++ b/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
+> > @@ -523,6 +523,12 @@ static int bcmasp_rx_poll(struct napi_struct *napi, int budget)
+> >  					DMA_FROM_DEVICE);
+> >  
+> >  		len = desc->size;
+> > +		if (unlikely(len < 2 + (intf->crc_fwd ? ETH_FCS_LEN : 0))) {
+> 
+> [Severity: High]
+> Should this threshold also include ETH_HLEN?
+> 
+> With crc_fwd set, any desc->size from 6 to 19 passes this check. With
+> crc_fwd clear, the range is 2 to 15. After the pad pull and the FCS trim,
+> the skb holds 0-13 bytes. With desc->size == 6 and crc_fwd set,
+> skb->len == 0.
+> 
+> That skb still goes to eth_type_trans(), and eth_skb_pull_mac() ignores
+> the failed pull:
+> 
+> include/linux/etherdevice.h:eth_skb_pull_mac() {
+> 	struct ethhdr *eth = (struct ethhdr *)skb->data;
+> 
+> 	skb_pull_inline(skb, ETH_HLEN);
+> 	return eth;
+> }
+> 
+> eth_skb_pkt_type() then reads h_dest, and eth_type_trans() reads
+> h_proto, from bytes past skb->len. The memcpy() never wrote those bytes.
+> They are stale page_pool page contents, or the stripped CRC, and they
+> decide skb->pkt_type and skb->protocol.
+> 
+> The frame is then passed to napi_gro_receive(). If a packet socket
+> receives it, eth_header_parse() copies h_source into sll_addr. Can that
+> leak 6 stale bytes to userspace?
+> 
+> Sizes just above the new limit still reach this path for the runt or
+> corrupted descriptors the commit message describes. bcmasp_xmit() already
+> uses ETH_ZLEN + ETH_FCS_LEN as the minimum frame size.
+> 
+> Would 2 + ETH_HLEN + (crc_fwd ? ETH_FCS_LEN : 0), or a bound based on
+> ETH_ZLEN, be more appropriate here?
 
-Don't we ? The descriptors show a 13-bytes PU with bControlSize set to
-3, so there's 10 bytes for the fixed parts, compatible with UVC 1.10 and
-newer.
+This does seem to be a legitimate concern.
 
-> Wihout
-> https://lore.kernel.org/linux-media/20260928124109.GF157191@killaraus.ideasonboard.com/T/#t
-> it might leaking the next control.
+> 
+> > +			u64_stats_update_begin(&stats->syncp);
+> > +			u64_stats_inc(&stats->rx_dropped);
+> 
+> [Severity: Low]
+> Is rx_dropped the right counter for a length error? The page_pool and
+> napi_build_skb() allocation failures also use it, and
+> bcmasp_get_stats64() exports it directly:
+> 
+> 	stats->rx_dropped = u64_stats_read(&lstats->rx_dropped);
+> 	stats->rx_crc_errors = u64_stats_read(&lstats->rx_crc_errs);
+> 	stats->rx_frame_errors = u64_stats_read(&lstats->rx_sym_errs);
+> 	stats->rx_errors = stats->rx_crc_errors + stats->rx_frame_errors;
+> 
+> include/uapi/linux/if_link.h describes the two counters differently:
+> 
+>   - rx_dropped: "e.g. due to lack of resources or unsupported protocol"
+>   - rx_length_errors: "Number of packets dropped due to invalid length",
+>     which is also counted in rx_errors
+> 
+> As written, ip -s link can't tell these drops apart from allocation
+> failures, and they never show up in rx_errors or rx_length_errors.
+> 
+> > +			u64_stats_update_end(&stats->syncp);
+> 
 
-It would then use the next byte of the next control, which is the
-bLength field, equal to 0x29. lsusb reports bmVideoStandards 0x00.
+Likewise, the analysis above does seem to be correct.
 
-> (this is how I started working on
-> the other patch).
+> [Severity: Medium]
+> This is a pre-existing issue, but intf->stats64.syncp seems to have
+> several writers that are not mutually exclusive:
 
-It makes sense now :-)
+I'm skipping over the issues that are flagged pre-existing.
+I'd appreciate it if you could look over them.
+And likewise for the AI-generated review for the remaining
+patches of this patch-set.
 
-> Luckily for us bmVideoStandards is not used.
-> 
-> > > +              */
-> > > +             if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
-> > >                       unit->processing.bmVideoStandards = buffer[9+n];
-> > >
-> > >               uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
-> > > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > > index 2a3b7431cc68..2f3daa920ffa 100644
-> > > --- a/drivers/media/usb/uvc/uvc_video.c
-> > > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > > @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
-> > >       }
-> > >  }
-> > >
-> > > +#define UVC_VIDEO_CTRL_MIN_SIZE 26
-> > > +
-> > >  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> > >  {
-> > >       /*
-> > > @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> > >        * on the protocol version.
-> > >        */
-> > >       if (stream->dev->uvc_version < 0x0110)
-> > > -             return 26;
-> > > +             return UVC_VIDEO_CTRL_MIN_SIZE;
-> > >       else if (stream->dev->uvc_version < 0x0150)
-> > >               return 34;
-> > >       else
-> > > @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
-> > >  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >       struct uvc_streaming_control *ctrl, int probe, u8 query)
-> > >  {
-> > > -     u16 size = uvc_video_ctrl_size(stream);
-> > >       u8 *data;
-> > >       int ret;
-> > >
-> > > @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >                       query == UVC_GET_DEF)
-> > >               return -EIO;
-> > >
-> > > -     data = kmalloc(size, GFP_KERNEL);
-> > > +     data = kmalloc(stream->ctrl_size, GFP_KERNEL);
-> > >       if (data == NULL)
-> > >               return -ENOMEM;
-> > >
-> > >       ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
-> > >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> > > -             size, uvc_timeout_param);
-> > > +             stream->ctrl_size, uvc_timeout_param);
-> > >
-> > >       if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
-> > >               /*
-> > > @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >               ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
-> > >               ret = 0;
-> > >               goto out;
-> > > -     } else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
-> > > +     } else if (query == UVC_GET_DEF && probe == 1 &&
-> > > +                ret < UVC_VIDEO_CTRL_MIN_SIZE) {
-> > >               /*
-> > >                * Many cameras don't support the GET_DEF request on their
-> > >                * video probe control. Warn once and return, the caller will
-> > > @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >                       "Enabling workaround.\n");
-> > >               ret = -EIO;
-> > >               goto out;
-> > > -     } else if (ret != size) {
-> > > +     } else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
-> > >               dev_err(&stream->intf->dev,
-> > >                       "Failed to query (%s) UVC %s control : %d (exp. %u).\n",
-> > >                       uvc_query_name(query), probe ? "probe" : "commit",
-> > > -                     ret, size);
-> > > +                     ret, stream->ctrl_size);
-> > >               ret = (ret == -EPROTO) ? -EPROTO : -EIO;
-> > >               goto out;
-> > >       }
-> > >
-> > > +     if (ret != stream->ctrl_size) {
-> > > +             uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
-> > > +                           "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
-> > > +                           uvc_query_name(query),
-> > > +                           probe ? "probe" : "commit", ret,
-> > > +                           stream->ctrl_size);
-> > > +             stream->ctrl_size = ret;
-> > > +     }
-> >
-> > There are two other locations where uvc_version is used:
-> >
-> > - In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
-> >   devices that don't report dwMaxVideoFrameSize
-> >
-> > - In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
-> >   control on pre-1.50 devices
-> >
-> > None of those are handled in this patch. Furthermore, more usage of
-> > uvc_version may be needed in the future. This patch seems a bit fragile
-> > to me in that regard. Could we instead detect the version and update the
-> > uvc_version field ?
-> 
-> Will send a follow-up to fix dwMaxVideoFrameSize.
-> 
-> uvc_ctrl_filter_plf_mapping properly handes devices with invalid
-> uvc_version. It automatically probes the control.
-> 
-> I though about parsing the uvc_version, but then I realised that some
-> devices might implement video_ctrl_size correctly but not filter_plf
-> (or the other way around).
-> So I decided that this was better.
-
-So you're thinking that the driver should implement some sort of hybrid
-version support ? That makes me fear for security as such a scheme is
-much more difficult to reason about.
-
-> > Another option, given the small number of affected devices, is to just
-> > merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
-> 
-> I'd argue that 4/5 is also a nice to have.
-> 
-> > > +
-> > >       ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
-> > >       ctrl->bFormatIndex = data[2];
-> > >       ctrl->bFrameIndex = data[3];
-> > > @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >       ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
-> > >       ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
-> > >
-> > > -     if (size >= 34) {
-> > > +     if (ret >= 34) {
-> > >               ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
-> > >               ctrl->bmFramingInfo = data[30];
-> > >               ctrl->bPreferedVersion = data[31];
-> > > @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
-> > >  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> > >       struct uvc_streaming_control *ctrl, int probe)
-> > >  {
-> > > -     u16 size = uvc_video_ctrl_size(stream);
-> > >       u8 *data;
-> > >       int ret;
-> > >
-> > > -     data = kzalloc(size, GFP_KERNEL);
-> > > +     data = kzalloc(stream->ctrl_size, GFP_KERNEL);
-> > >       if (data == NULL)
-> > >               return -ENOMEM;
-> > >
-> > > @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> > >       put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
-> > >       put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
-> > >
-> > > -     if (size >= 34) {
-> > > +     if (stream->ctrl_size >= 34) {
-> > >               put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
-> > >               data[30] = ctrl->bmFramingInfo;
-> > >               data[31] = ctrl->bPreferedVersion;
-> > > @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
-> > >
-> > >       ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
-> > >               probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> > > -             size, uvc_timeout_param);
-> > > -     if (ret != size) {
-> > > +             stream->ctrl_size, uvc_timeout_param);
-> > > +     if (ret != stream->ctrl_size) {
-> > >               dev_err(&stream->intf->dev,
-> > >                       "Failed to set UVC %s control : %d (exp. %u).\n",
-> > > -                     probe ? "probe" : "commit", ret, size);
-> > > +                     probe ? "probe" : "commit", ret, stream->ctrl_size);
-> > >               ret = -EIO;
-> > >       }
-> > >
-> > > @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
-> > >
-> > >       atomic_set(&stream->active, 0);
-> > >
-> > > +     stream->ctrl_size = uvc_video_ctrl_size(stream);
-> > > +
-> > >       /*
-> > >        * Alternate setting 0 should be the default, yet the XBox Live Vision
-> > >        * Cam (and possibly other devices) crash or otherwise misbehave if
-> > > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> > > index abcafd929c9e..8d99e857a69f 100644
-> > > --- a/drivers/media/usb/uvc/uvcvideo.h
-> > > +++ b/drivers/media/usb/uvc/uvcvideo.h
-> > > @@ -461,6 +461,7 @@ struct uvc_streaming {
-> > >       struct usb_interface *intf;
-> > >       int intfnum;
-> > >       u32 maxpsize;
-> > > +     unsigned int ctrl_size;
-> >
-> > That should be called video_ctrl_size, ctrl_size is ambiguous.
-> 
-> Ack
-> 
-> > >
-> > >       struct uvc_streaming_header header;
-> > >       enum v4l2_buf_type type;
-> > > @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
-> > >  #define UVC_WARN_PROBE_DEF   1
-> > >  #define UVC_WARN_XU_GET_RES  2
-> > >  #define UVC_WARN_QUERY_CTRL  3
-> > > +#define UVC_WARN_CTRL_SIZE   4
-> > >
-> > >  extern unsigned int uvc_clock_param;
-> > >  extern unsigned int uvc_no_drop_param;
+...
 
 -- 
-Regards,
-
-Laurent Pinchart
+pw-bot: changes-requested
