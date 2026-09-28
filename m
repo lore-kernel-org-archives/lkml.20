@@ -1,103 +1,93 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED45502779
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A120502D52
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633632; cv=none; b=Cru9VEvOUbbaRmPCUjmunHtpLtXahOGPjrN4Lhe1d9MT7StWR6rznjr8PiFYE+sOQtvF7XDYOL++DgRDmVoNq3iSWlqJIJMD+xgCHfx05CUPgGgpAeA1PQnV9xR3lht7jzz92u73ASyUCTLC0GbERhe1pUAve3Jv0rXroTNmaTs=
+	t=1790633664; cv=none; b=TsCOdWsKgthEy9Nq+3e4j1rAokUOPktVapS10/3ZGTQ3/hyrCs4JrP/p/rh6KiKaFmozQypWtaZ6TWMGy+mQcCurqt5UKX8v4Gm4gClrd83bCblibIDqHs9abDH7gPppSa7ngPSwhIAcFp+lqybsAVjg6BUDW27nuXZ0CISNsvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633632; c=relaxed/simple;
-	bh=LhPr/3N5CT4HP3diIFgEUTiiw9QHBmCdPdCTJgVnTTM=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=tfxTRbjorx1AOy49xMoAGv/4fsYfHW4WzDWPGfG5yTNvZrNbdrEwVw4c4uWYPuIQZLnN8QCR8kqXBwm3OpZfcbkj3CcX9NTTMxUOdrVZa2k6nfol3Yuqrx/KApOk0vALbi6hNS+agDKktQopooQyg9ZJaAujG0xVfu0V75uQI6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=xMqpEhE5; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1790633664; c=relaxed/simple;
+	bh=aCLapVh/orO0cgLznT150hK/QFDCCG13haG83K/faZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EkxWDdEh38G5fFKwz3hjykvZrG74dabTm39t3KFGifwS/kCfl6m1lITj2q2MazaL5GHv7ahJNPBQgtX0U3ggAnCRHNFOxJMDOZ8wcLR8jzXjq1S8drTh18Ls8JA8jExOIEO8T4Ew6moWwsZE2A+BX3d9DW04tQ2pvJPuhzY5KkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DgqFVtMa; arc=none smtp.client-ip=95.215.58.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="xMqpEhE5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
-	s=s1; t=1790633630;
-	bh=LhPr/3N5CT4HP3diIFgEUTiiw9QHBmCdPdCTJgVnTTM=;
-	b=xMqpEhE5onvhmJUwCGRu0ueRhvnCyFfpSqVbzGhcC5+thgrQXTKMsshRzAxSO674H8GQ
-	DlhWReUDbIZyOL34PQpjyiggwg2v7AyUl2a5zK84bPO7nrhTfgB0r/LhRqDdPjBB+RzSmP
-	+G2Fl/768QVVZisel2lvZ8ypwMdx4SCKCIGuQBVIE9kRf7+UPNdGe1Yn3Hi3z7o1TD1xoW
-	/XIoZrKn+/35VQ0cc65Ydgv/UXJPEWHVC4ERWIw77M3EcayT7GBZES5x/ECUrFxPmpFZxh
-	gzGCHx2yocdZP5qWnKHUdh2O8WEkEWa1OF6R3l1b+i8vHbFeZ6ybaMlhcmtsiOMA==
-Received: by recvd-canary-7bc664d96-rr7cp with SMTP id recvd-canary-7bc664d96-rr7cp-1-6ABAE69E-A
-	2026-09-28 22:13:50.058278031 +0000 UTC m=+354514.976073350
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-13 (SG)
-	with ESMTP
-	id GsnC_o2GSBmkpLj7FchG8A
-	Mon, 28 Sep 2026 22:13:50.000 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH] writeback: let foreign flushes reach dying cgwbs
-Date: Mon, 28 Sep 2026 22:13:50 +0000 (UTC)
-Message-ID: <20260928221349.1443179-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ee85445f60194cfbc78897cb6fe744c7@kernel.org>
-References: <20260926-wb-dying-cgwb-flush-v1-1-a8d898085a3a@honeycomb.io> <ee85445f60194cfbc78897cb6fe744c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DgqFVtMa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aCLapVh/orO0cgLznT150hK/QFDCCG13haG83K/faZI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790633659; v=1; x=1791238459;
+ b=DgqFVtMazqFU8xgM37TtwAGBRVlfxCdsjEx15iD0owInlWw6EsJEUxxO0AbXHkINUNi+mXsn
+ f2pRixGJ3Z6H1J6yk48sC0xgX05+46NSodg9253dIbniWLVgWWFJHXxoiKjSnfVE/pqTWZqBKik
+ 4NvKecyYkUMRXqbfbqDdJgQQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id bec94aa221f2e130;
+	Mon, 28 Sep 2026 22:14:19 +0000
+X-Mizu-Trace-ID: bec94aa221f2e130
+X-Migadu-Flow: FLOW_OUT
+From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+To: ilya.gladyshev@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org,
+	qby140326@gmail.com,
+	W_Armin@gmx.de,
+	uselessfire@gmail.com,
+	vlku.milos.fun@gmail.com
+Subject: [PATCH v1] platform/x86: redmi-wmi: add display-switch key binding
+Date: Tue, 29 Sep 2026 01:14:17 +0300
+Message-ID: <20260928221417.37875-1-ilya.gladyshev@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeUC5kvTHBdlB?=
- =?us-ascii?Q?Y0OEXhZWKcE3XqZx=2F9VWoKqLYD00fyqtReTCMYv?=
- =?us-ascii?Q?qGuChLBBTQO4UfKoiNfWejExKSbUBMct5f6M6wM?=
- =?us-ascii?Q?BkqGqWHdQ3yblbzIXtlHq88w8BY9OWq25XKOefc?=
- =?us-ascii?Q?pk35g9VPExyC315VluAUplzo1tRdaipV9C6=2FQV+?=
- =?us-ascii?Q?cM=2Fa?=
-To: Tejun Heo <tj@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
-	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
-	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ian@honeycomb.io, stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Tejun,
+As reported on the mailing list [1], on the Xiaomi Redmi Book Pro 16
+2024, the display-switch key emits 0x101 as a WMI payload. Add a
+mapping for it to the keymap.
 
-On Mon, Sep 28, 2026 at 09:19:37AM -1000, Tejun Heo wrote:
-> Instead of walking bdi->wb_list, can't we update the lifetime rule so that
-> a wb stays on bdi->cgwb_tree until it's actually released? That is, remove
-> it from the tree in cgwb_release_workfn() instead of cgwb_kill() and have
-> the creation paths skip dying wbs. cgroup_writeback_by_id() would then
-> find the dying wb through the regular lookup.
+[1]: https://lore.kernel.org/all/CAFsq4KBXCB=aK8ENHx__6+RcC-ybT7eKjcgsa3TgcJ54x-PLEg@mail.gmail.com/
 
-Yes, that's cleaner, thanks for the suggestion. Implemented in v2:
-https://lore.kernel.org/all/20260928-wb-dying-cgwb-flush-v2-1-56b54cda74f2@honeycomb.io/
+Reported-by: Антон Карасев <uselessfire@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222062
+Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+---
 
-One edge case: a live memcg whose blkcg association changes needs a new
-wb in the same slot while the killed one is still there, so
-cgwb_create() takes over a dying wb's slot and cgwb_release_workfn()
-uses radix_tree_delete_item() to only remove a wb that still owns it.
-cgwb_bdi_unregister() skips dying wbs so they aren't killed twice.
+This patch conflicts with the unification of redmi-wmi and
+bitland-mifs-wmi [2]. However, that patch appears to be stuck for now,
+so updating a single mapping in the old driver seems acceptable.
 
-> Note that the blkcg association check in wb_get_lookup() would have to
-> move to the creation side.
+Cc its author, Mingyou Chen.
 
-Done, along with a wb_tryget_live() for the creation paths, including
-wb_get_create_current().
+Also, I can only test that it doesn't break on my hardware, so any
+additional testing is highly welcome.
 
-> I don't think this qualifies as a fix. Can you drop the Fixes: and stable
-> tags?
+[2]: https://lore.kernel.org/all/20260816100813.300450-1-qby140326@gmail.com/
+---
+ drivers/platform/x86/redmi-wmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Dropped in v2. I'd tagged it because foreign flushes can't reach the
-owning wb in exactly the case where its memcg has gone away, which
-looked like a bug in the original implementation. But we avoided it in
-userspace by syncing after the old container's last write, so agreed, it
-doesn't need to go to stable.
+diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/redmi-wmi.c
+index cc82ef502002..155777bf90f3 100644
+--- a/drivers/platform/x86/redmi-wmi.c
++++ b/drivers/platform/x86/redmi-wmi.c
+@@ -22,6 +22,7 @@ static const struct key_entry redmi_wmi_keymap[] = {
+ 	{KE_KEY, 0x00000301,	{KEY_ALL_APPLICATIONS}},
+ 	{KE_KEY, 0x00001b01,	{KEY_CONFIG}},
+ 	{KE_KEY, 0x00011b01,	{KEY_CONFIG}},
++	{KE_KEY, 0x00000101,	{KEY_SWITCHVIDEOMODE}},
+ 	{KE_KEY, 0x00010101,	{KEY_SWITCHVIDEOMODE}},
+ 	{KE_KEY, 0x00001a01,	{KEY_REFRESH_RATE_TOGGLE}},
+ 
+-- 
+2.55.0
 
-Thanks,
-Liz
