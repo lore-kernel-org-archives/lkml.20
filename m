@@ -1,215 +1,327 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442B84A8A13;
-	Mon, 28 Sep 2026 11:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595166; cv=fail; b=eccw6HAh5eD7yM/bVwdbzc5t9YT7WoRF1BStc4nD5DMm813+inweI3dE+O22twVduUcDeaPkbfdzoiPfQBGcqJUUHLbU+taMF1ccE1kCAjb3nYbo/eseqrl4eju4GUoDNqlFuFcdAk6yP4mQfJeF/A7UqHcOXBRu5+o2KPOGS0M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595166; c=relaxed/simple;
-	bh=XenCRvhRb2d6m4vh8EoFixTTf8sYDt2QVUPh6Eh831k=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=GGZZbMhEdXOYlRCo0zijUynJMZXVam+sA/CN0NtqJIyqAZcV8+XwMZtTRhiIkltUT4QK3+39H54/PqZ9ba3CYOrp5CyMlZFJynEs9Iak15k4gPyFwmKssLFavx857IbDaWOrsaKsMj+tmyDQHV6NG4sz8t0yxF8G2Aa5zuJkldM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWknQT5Q; arc=fail smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFBC4A7CA4;
+	Mon, 28 Sep 2026 11:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790595183; cv=none; b=OqiF4ERpW1m2h1SR+LOB/L+ZdYtkK/D6ApfCYDyflCIVWKijXnos7IYmAQUnAMLYvV84Zdv3dLfyWGAkzUfb39WsqlrOWDs+11WfOhEwG2lPn9SBJ49pLVlAw0Jy1ZyUjfniTW4DGoE9w/z+MCJ0VjFyP43aJxtGQkNCs/soxKQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790595183; c=relaxed/simple;
+	bh=BcK3JmHuZIvQ0oDLBUN9X2B5rxyXqVjo7wMzF/ein/Y=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=VYpIdOB277x7J4TRWo+Ah6wqQdbUfF1Fn3QsbZzoRTcdeP0gt4r1pu33KxsoT+HLDyAzdF+m7MOTWpLSrphKELmEHm2SY2Qxmw8+DX2HkletVPNGgDf+PO5Kh0n+2hEsxnoui54XqcPN4CyFt0Acj8ZE71Z1R/uBosahKZXqq7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OxYw3tIc; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWknQT5Q"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OxYw3tIc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790595164; x=1822131164;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=XenCRvhRb2d6m4vh8EoFixTTf8sYDt2QVUPh6Eh831k=;
-  b=kWknQT5QECDpIpGIBep4OlUIt0fXryuHst4xJQTYzQE8piN88aGmtO/n
-   VTaqp/U0uE62B1ys3YVuzoWINyB2wkfJV7fqlkc6yTh/jtng8ajTBo5sk
-   DL28FWP1191Cx8sQrL8MxYKFBCBD7SK9aTxaLuU2akyev4oR5nHH2isNx
-   1X8Z8dFIGeACg1OdBU0mdFAIolEjaKGYbxp8I3VXPXdvyfHqAzeLAbPxE
-   ZhXVi0pU/jEIJI0e/cJRy6jme1ZPG71O+mDK9D6qfEJIY560xES5pVhsU
-   jW5Sd4aakaf/53YVXVcq8B2zOV5g13OAEo8BXLz3G4wZmP3fvnpOg8WkD
-   A==;
-X-CSE-ConnectionGUID: 3KPc+BdhSDqZ5eSb/qekKQ==
-X-CSE-MsgGUID: J1DxL+yBQJ6sIFMkxxMV1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108780639"
+  t=1790595181; x=1822131181;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=BcK3JmHuZIvQ0oDLBUN9X2B5rxyXqVjo7wMzF/ein/Y=;
+  b=OxYw3tIca/kh1pN5JRLyKqntCY1DmfygRCp12tgqeHePzYt8MX/Zw1g4
+   ydYBTtJ8qXVNfRf+kqdqT4sMscXouhU/JaC4IOSDQe2FSLUOKdfe7xnF2
+   hY/BG/phAHqzkwcGh5yd/ICOkVnxBo83N/qAQxGtUihFcVo6NErCljye2
+   cSTBdZFahBotboCHFZR5C5FT6dYhSjrufd/PB0ITe9lftxOt/9LjLtkr+
+   LGHfqpcxpA2iDaAXDAaCAy1H6hE5sWP6ItzcGEzBKGq4pIzyhu489pLpn
+   /x6fdmb3pMQmIrxSx/RtvpQvw+atheD+1odDYEv6oAlgg4ckzy73aMrqL
+   g==;
+X-CSE-ConnectionGUID: ls2stXsvRx6MDXx99q5NOw==
+X-CSE-MsgGUID: AYEeky7QSTGyKie57cNmbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="102663306"
 X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="108780639"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:32:44 -0700
-X-CSE-ConnectionGUID: XkjwBktGRfeEXHfabv+Cig==
-X-CSE-MsgGUID: q++BxPaDR5WwNK/QcxgUSQ==
+   d="scan'208";a="102663306"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:32:54 -0700
+X-CSE-ConnectionGUID: uUBZeTZ7TZKNTiBcAVm+Tg==
+X-CSE-MsgGUID: Ovm3y2DHTayHTlVkG3w3CQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278395058"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:32:43 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 04:32:43 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 28 Sep 2026 04:32:43 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.50) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 04:32:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xfIHFJnIXaLj1gFZki65j0hRgyF5fFdPO6GmvJ6mg2inU2+0BkuMdTPIQcpU1C3oWHSWS17Efy+sHBHWSbz9m4I3vyK3VtvdVY+w1PFff7RVdSFDaG3YEBNVXP1tQPmZHFXQZcgTkRz4MRQNYCvi27ZzKkw9wZdmdkknXUqaUZuy3mTEoxlhbafhEEtp/Hi16+7jViNZIvmHqh0iD7PGjMyKaJPFbVPVG7tOHBJT2kTos8vkoIpm8LnG1RXowP5epkM1nfK5P8up0dj9f4fpf/I8kemdCL4MhlXk64MggV1v08vecQCibaEgyS47eqpp6wDcQr7uDNmVkhoO0bqmMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EOa35spZpw4Fh0d1XPY2IkSOFqqG14Iub+meG7hSoNg=;
- b=pJwAehfEUIG74yEeBc+MHBHkYQ+qIAiuhKka3xvYp1tOn/dAqRRLznYNqbZf2rUTZBvYI34EuzQwMv8L0ipozpnQbnZsmYYFfeB1mfW0GLKgcHtvdsnO1Pdof993Ncx1XXMWwu553ec3wklZ79J8smenBVW7ydi3RBkvxwPEKaVrHAyicVJyodTQNcaKVB42vwWbH2u538X9FXV4lytPtbHZbrzUJvXbZr7QBV8GfvmWnuBrySSJQZ/VzO2ogKHhSuoslkss/vUk7dv0PzgaLoM9/Ury45Ww+iVMPLUUcwJxW02DD/cAP4z7mJSUX84+7S/ANAkwvdv0ZltL9p15Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
- by DS6PR11MB943645.namprd11.prod.outlook.com (2603:10b6:8:499::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 11:32:34 +0000
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d%2]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 11:32:34 +0000
-Date: Mon, 28 Sep 2026 19:32:21 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: Dave Hansen <dave.hansen@intel.com>
-CC: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "kvm@vger.kernel.org"
-	<kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "bp@alien8.de" <bp@alien8.de>,
-	"x86@kernel.org" <x86@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
-	"hpa@zytor.com" <hpa@zytor.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>, "mingo@redhat.com" <mingo@redhat.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>
-Subject: Re: [RFC PATCH v2 02/10] x86/virt/tdx: Convert the version metadata
- reader
-Message-ID: <arpQReaF8q8ENnhv@intel.com>
-References: <20260918132946.76533-1-chao.gao@intel.com>
- <20260918132946.76533-3-chao.gao@intel.com>
- <390fc4d56769f87d91949e900262640b52b505b7.camel@intel.com>
- <arS6D6KoPbqVBtPl@intel.com>
- <2042fa92-0b33-4ce2-a288-8eebda2b7305@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <2042fa92-0b33-4ce2-a288-8eebda2b7305@intel.com>
-X-ClientProxiedBy: SI1PR02CA0054.apcprd02.prod.outlook.com
- (2603:1096:4:1f5::13) To IA0PR11MB8380.namprd11.prod.outlook.com
- (2603:10b6:208:485::21)
+   d="scan'208";a="274255192"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.109])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 04:32:52 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 28 Sep 2026 14:32:48 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and
+ non-ASCII truncation in hp_get_string_from_buffer()
+In-Reply-To: <20260926205708.384308-2-meatuni001@gmail.com>
+Message-ID: <1d04a020-bd2a-4f77-b9d9-cf3b80115743@linux.intel.com>
+References: <20260926205708.384308-1-meatuni001@gmail.com> <20260926205708.384308-2-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|DS6PR11MB943645:EE_
-X-MS-Office365-Filtering-Correlation-Id: 598e990b-3f38-47af-0b87-08df1d5430aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|11063799006|3023799007|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: svHi35fEuBMv97n1lyXiLP4T/zVZMVIDXBLkDXTKqvEONkR43H7pL7V+GTI+SkFroq7ZJUkdaGAn2/ms51+Y9Ee69KqqFYEqNapFue4ZBkK/QY+6Bwzpn7FzGAuZhMSJbpiL8y0EZRMA7U6CZzidqckVXnoOB4LmSjcIF18Q+mrOUEMOQia7he8uP1HKTuBYByEQyQpaEACmCQZCgl7FEa4akM/J2dmGJbhEwXzWcfGo8IeegjPFNZTQ1kYFB2ZNRzjLqgwDB8AkJiriwY3V8kyjONQMmLnIn2wik63cWCHzEyO/h7GIQDRZQ0xnLHrJXG5LIjJmNsdsX6vMG4wqVNMA4glPrKGyhGGy6dvmRL7OXyzOxHfyoZUfS+wYg0H85uEZ5vmwj+ZORwE4ymAhL1RoOT888SogRNVx+UOfQFNOMtzmePxRpzYkgXUpiYdWvnez46Gyl/jvg4ZoceEGH5uG+6LyrXmdPqdMR/25lo13EsNlSdNZDgjbDw5sZU3ylKaCMyN0Xpcg5xd/08C25Oew4AjpnFjACxz5dI0m7/jQUf04TxqdtqRlNbrNsyREFTzcSbbVw1cxS0lNN20A+CAZOqBo787shOT0oRYnHnBF4GeqGgQW11P3BgCCpkxpB5u43et6+A89Qd7Jvy0BKaU3ylgcivLS0/osYJgT68E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H+5rrZ7MD07kpg7fSi7lYscsCwiqCf+RMjeCm5giifKM5UG0g1bN+WSVUBi+?=
- =?us-ascii?Q?wvLmMk/1tt6gxMJ4o0p2YZtrjuYAReDao4GluLjfeE4JpUuFG7BsylM4adUA?=
- =?us-ascii?Q?GLDZyI9cgrEqHRli3OAAuT/0HoAJoQ2glEaj3UNuQQ7YPWdoW2TUInHVTILA?=
- =?us-ascii?Q?OCcRb1T24K8ptaFoy1llJrDNNjs1HhPSF9GSYt4UEkSlOi2Vp7gidsw6vXVk?=
- =?us-ascii?Q?elz67iLr8iEvl0L/S6ayIqQdmEtwiJRY+kb5aui5B8oYn20/iqsNM0hE7oU5?=
- =?us-ascii?Q?RrwYbHvY5T00PtMNLBVG2hVdrdvFcUApBNNAQMropP3Zz+rgZ1t0cH2XWMrd?=
- =?us-ascii?Q?p63+alP2VIZIg7WEQm9P8ERrjwMxquxcFJLjs0lRvmcYtcqAFCJZHgpEUT3G?=
- =?us-ascii?Q?4tJ4fdIipFLGU1+tmsf53dWLS1Gl3cuwRe2BUUMB68k2ZSQbMBAUmKsLBmwq?=
- =?us-ascii?Q?xW2Dae6m8Ks3d5+ZNsTvCOZjU4DTWzt23h69ii40K/kiYgz7p7NvMsMvEWKi?=
- =?us-ascii?Q?xjzxSLg8d3IfgBy9OQRLRo4T5oDTcNOv2MSBJWV/cxmsagvR4YZ6k/MVzUz9?=
- =?us-ascii?Q?WsVqI+JFtPNRgkRMp3K2H/SZfnB3zbmEd1RJRXXMt4evQqPWUAN5fX0vnAnu?=
- =?us-ascii?Q?4o+mrli0iLgxZBmoVQjB6CgFh41kBJ2bSrq062I8AwQnmZAg3TL5JQ0CMcpT?=
- =?us-ascii?Q?S0Dt0uJZ8UGC6e9dNx1HwwucwCcyQ32M68J08sVcSslU9yivl4E1Pma7DGIq?=
- =?us-ascii?Q?f82rfLDEmI4KCfZo4s97pDX92tzi53ysv9OTzwyDARERd88MWJU/73HSngOs?=
- =?us-ascii?Q?cML8Rk0Zv7rk7yxrSNpXZDHBV1f48kVvlKT5z6zfYkXAPqIlYmjQJa7sT//9?=
- =?us-ascii?Q?yQwksZpegkTNWZqtKw5kbpkit3n228xY7e851XGfoBS5wjOsXzezNmVktYBl?=
- =?us-ascii?Q?PDrSlGZp12R6sMXl2Hy3TuseUkONbkqnt0aZqIPYeOR4RJkJOXM0iEP9Qha1?=
- =?us-ascii?Q?fZpmDZMckTjRHM2qKpdvHTgLtPPfCM0yiQ95QIqDr/iphsPgTiFYsktA0UYX?=
- =?us-ascii?Q?oXqW4dSLjDQPKzLB/JVh6ce8Ve2CmvVLRaJ8ReyovT3UtRnkotuyQNsmjUr6?=
- =?us-ascii?Q?fSlBPWUrU0QoWzOIiJrPu5NDcumWdq4xpuKL7xhRSq+iqHq/ABMQWBno/eaI?=
- =?us-ascii?Q?DSDUzXIXTL4Ut+WbVQfhvULFRjpCQcflnMQz/kVBYjtPoKu7aB7h+50h8oFN?=
- =?us-ascii?Q?WZfuC6ddbHzTpVVYFxDKLYlnOxckm225rafIb9qljyavFsuYSBGIqxqCLXYs?=
- =?us-ascii?Q?RgZSonvNP4ux3B0nDYx10KrYqVu/rO8PbbHjCGTXSU3/sOMjJpp9p1oRzLAQ?=
- =?us-ascii?Q?g4SK++yYxpLk/X9OEMIKbUtRAqU1PByQEaXQ1URj8PwuPNjbt5B6Q4huyKEA?=
- =?us-ascii?Q?aLwWkdoyN2t/Qb++3L63VDuUzELYd03j8xaCMUJ/Ozggie5WkU+3XHebhFHh?=
- =?us-ascii?Q?UuLjNW2yoMq9xC7XHm0PqBXaCUijtaX3u2M7WZ443L4pOwdx2BVCfEDuezR5?=
- =?us-ascii?Q?knexgbmk88jXk8TCPCFw1zgTc28X2MhldCEUmSSBrU0Xi1Qm9OqRCzvvUrR0?=
- =?us-ascii?Q?SUk+5SWpAlYqtH/GbJRELtjt1zhXWKODLfUjAkZHwyb2AuWrGhKztIlVo/1y?=
- =?us-ascii?Q?rr4CblMdSljtn8s8E1+mNOKw9Hl910ogh4EgFz7jtTJw/5IjNBFV6PqRIzP4?=
- =?us-ascii?Q?Fvot1eZGBg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: XC0A4WkpdiFoSGW6fqNlh+4zsgIEBQqpUn4GtJkgz1PKvuR6UEjStTKflSn0VyqFP4Bvne0pI6i23cfCMvHpCqoBvl+K6hZ/CS1/V/+js0Xc8cv31W/5cKRB5I7dRBzqa/aj8Re0PSZkBNbqN3tQMP1mHFZ+6szRbWwHQz/0YRge44HZIoxWtALP3nqvruptrLfPdJpwqu3d6Z75uTDB5Ntpy66bb5BIMgy4xRPuMWiLn32S0Wgi5/xu/vnhFdne7AHfvThKAyHGbONIzBurPw2BCqKs7MuqvcEoFvts3is88xPbunDnPY38b103UKSdPjkXl6Z92KbjLO4EeFmY7Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 598e990b-3f38-47af-0b87-08df1d5430aa
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:32:34.2195
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lRxgu4zi9m22BkC2Dw0A+6TlMkGxvx0qn4bcKmKDilYxOihGXyaWV73WAYMHFm4SWHlVNu7481Era2H7easxzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB943645
-X-OriginatorOrg: intel.com
+Content-Type: multipart/mixed; BOUNDARY="8323328-1967676766-1790593284=:1168"
+Content-ID: <0da0b184-598b-5495-0b65-ec4ec16dad77@linux.intel.com>
 
-On Thu, Sep 24, 2026 at 12:12:11PM -0700, Dave Hansen wrote:
->On 9/23/26 22:50, Chao Gao wrote:
->>>> +static int get_tdx_sys_info_version(struct tdx_sys_info_version *version)
->>>> +{
->>>> +	return read_sys_metadata_table(version_mappings, version);
->>>> +}
->>> I'm not sure we need all of these helpers that are each only called once?
->> I'd prefer to keep them, for a few reasons:
->> 
->> 1. This one is actually called twice: from get_tdx_sys_info() and from
->>    tdx_module_run_update().
->
->Neither has any real space constraints, I'll note.
->
->> 2. The helper name describes what is being read better than a bare
->>    read_sys_metadata_table() call.
->
->What part? that it comes from "sys_info" as opposed to it being
->"metadata". Meh. Why does it matter?
->
->> 3. Some helpers do more than read a table (see get_tdx_sys_info_td_conf()).
->>    Without per-class helpers, get_tdx_sys_info() would open-code
->>    read_sys_metadata_table() for some classes and call a helper for
->>    others, which looks inconsistent. With one helper per metadata class,
->>    every class is read the same way.
->
->I value lower levels of abstraction over naming consistency.
->
->Remove the helper, please.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Sure, will do.
+--8323328-1967676766-1790593284=:1168
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <6a5e1535-133e-98fc-62e3-d2a333480540@linux.intel.com>
 
-Then I would go one step further and move the mapping table into
-get_tdx_sys_info() too, so it sits next to its only use. Using the
-"features" metadata class as an example:
+On Sun, 27 Sep 2026, Muhammad Bilal wrote:
 
+> hp_get_string_from_buffer() has three problems.
+>=20
+> First, the loop that counts how many characters will need
+> backslash-escaping uses the same variable as both the accumulator and
+> the loop bound, so once an escape character is found near the end of
+> the valid range the loop keeps going past the buffer's true character
+> count, reading out of bounds.
+>=20
+> Second, the bounds check 'if (*buffer_size < src_size)' runs after
+> src has already stepped over the 2-byte length prefix, so if
+> *buffer_size equals src_size, reading src_size bytes reads 2 bytes
+> past the end of the input buffer. The pointer and remaining size are
+> then advanced using the escape-inflated count rather than the actual
+> number of bytes consumed, desyncing subsequent property parsers.
+>=20
+> Third, found during review of the fix for the first two:
 
-static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
-{
-	static const struct field_mapping feature_mappings[] __initconst = {
-		TDX_SYSINFO_MAP_FEATURES(TDX_FIELD_TDX_FEATURES0, tdx_features0),
-	};
-	int ret = 0;
+This kind of notes (how the patch came to be) are not content that should=
+=20
+be put into changelog. Generally (there may be some exceptions), just=20
+explain what the problem is, not focusing on how it was found. The=20
+reporter can be credited with Reported-by or Suggested-by tag depending on=
+=20
+which of them is more suitable for the particular case.
 
-	ret = ret ?: read_sys_metadata_table(version_mappings, &sysinfo->version);
-	...
-	ret = ret ?: read_sys_metadata_table(feature_mappings, &sysinfo->features);
+> utf16s_to_utf8s() takes src by value, so the real UTF-16-to-UTF-8
+> conversion it performs never reaches dst.
 
+While true from the end result point of view that nothing of the=20
+intermediate write remains, "never reaches dst" doesn't sound correct=20
+description of what happens here.=20
 
-version_mappings[] will be the exception and stay at file scope because
-tdx_module_run_update() reads it as well.
+> A second loop immediately
+> overwrites dst by re-walking the same src position and copying each
+> UTF-16 code unit with a truncating cast (dst[i] =3D *src), escaping
+> '\\', '\r', '\n', '\t' and turning '"' into '\''. Any character above
+> 0x7f is truncated to its low byte instead of being encoded, so the
+> function is ASCII-only in practice. For example, given the
+> two-character UTF-16 string 'eA' with the first character U+00E9
+> (e-acute),
 
-Let me know if you disagree.
+Nit, it's actually possible to include non-ascii characters in the=20
+changelog. It might be still be useful to retain the textual explanation=20
+if something manages to mangle the character despite everything but=20
+normally it just works. (My surname has been mangled countless of times,=20
+but much less these days. In the early days when git tools were not as=20
+mature as today, one could even count how many times it got mangled while=
+=20
+getting passed from person/tool to another :-D).
+
+> the function currently writes the two raw bytes 0xe9 0x41
+> into dst, an invalid, truncated sequence, instead of the three bytes
+> 0xc3 0xa9 0x41, the correct UTF-8 encoding of U+00E9 followed by 'A'.
+>=20
+> Fix all three by keeping the true character count separate from the
+> escape-inflated one, checking *buffer_size against the full prefix
+> plus string length before reading, and replacing the redundant
+> conversion with a real one: convert into a fixed-size scratch buffer
+> with utf16s_to_utf8s(), then escape that UTF-8 into dst with
+> string_escape_mem(). The scratch buffer is sized to MAX_BUFF_SIZE
+> rather than to src_size, since src_size comes straight from the WMI
+> buffer and dst_size is MAX_BUFF_SIZE at every caller in this file.
+
+It's preferrable, if possible, to fix the problems one by one. If it's=20
+strictly impossible for some reason I cannot see, only then combine what=20
+has to be combined.
+
+This applies also to cases where something new comes up during a review of=
+=20
+a patch, if the newly found problem is separate from what the commented=20
+patch was fixing, it should appear in own patch because it's logically a=20
+separate problem.
+
+Normally we aim to do logically minimal patches, and as many patches as=20
+needed in a series to fix all logically disjoint problems one by one.
+This allows more focused (and shorter) changelog per patch, and normally=20
+makes review much simpler than one bigger spaghetti change where it's=20
+hard for the reviewer to see what relates to which problem.
+
+> string_escape_mem() has no flag that escapes only a backslash without
+> also touching '"', so this depends on a separate patch that adds
+> ESCAPE_BACKSLASH to string_escape_mem().
+
+Not true anymore because you fixed that in the first patch ;-) so don't=20
+write stale information into the subsequent changelogs. There's also no=20
+need to tell something like "feature x was added to y" (in case you're=20
+tempted to change the wording towards something along those lines).
+
+We work in very much present time when writing a changelog, so if the=20
+previous patch fixed a problem, we assume in the next patch's changelog=20
+the problem no longer exists so there's no need to even mention it.
+
+(There may be exceptions in case of very complex, interjoining problems=20
+but that's not relevant here.)
+
+> ESCAPE_SPACE together with
+> ESCAPE_BACKSLASH escapes '\\', '\f', '\n', '\r', '\t' and '\v'; '\v'
+> and '\f' were not escaped before, matching Ilpo's comment that this
+> was likely an oversight rather than intentional. The existing
+> substitution of '"' for '\'' is kept as an explicit strreplace()
+> afterward, since string_escape_mem() has no substitution concept and
+> switching '"' handling to backslash-escaping was ruled out in review.
+>=20
+> string_escape_mem()'s return value can exceed the destination size
+> when the input does not fit, so the NUL terminator position is
+> clamped to dst_size - 1 before use; writing dst[<return value>] =3D 0
+> unconditionally would reintroduce a heap OOB write of exactly the
+> kind this patch fixes.
+>=20
+> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+
+As this series is small, I suggest you send the next version of the entire=
+=20
+series to all interest parties. Those looking at patch 1 would want to=20
+know about this change so to understand the use case, therefore make it=20
+easy to find for the reviewers by including them.
+
+I didn't look much into the diff itself as I believe it gets cleaner once=
+=20
+you split the change logically into a series of patches.
+
+--=20
+ i.
+
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 78 ++++++++------------
+>  1 file changed, 31 insertions(+), 47 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platf=
+orm/x86/hp/hp-bioscfg/bioscfg.c
+> index 309634c..82c228c 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/printk.h>
+>  #include <linux/string.h>
+> +#include <linux/string_helpers.h>
+>  #include <linux/wmi.h>
+>  #include "bioscfg.h"
+>  #include "../../firmware_attributes_class.h"
+> @@ -55,72 +56,55 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffe=
+r_size, char *dst, u32 dst_
+>  {
+>  =09u16 *src =3D (u16 *)*buffer;
+>  =09u16 src_size;
+> -
+> -=09u16 size;
+> -=09int i;
+> +=09u16 orig_size;
+> +=09char utf8_buf[MAX_BUFF_SIZE];
+> +=09int utf8_len;
+>  =09int conv_dst_size;
+> +=09int escaped_len;
+> =20
+>  =09if (*buffer_size < sizeof(u16))
+>  =09=09return -EINVAL;
+> =20
+> -=09src_size =3D *(src++);
+> -=09/* size value in u16 chars */
+> -=09size =3D src_size / sizeof(u16);
+> +=09src_size =3D *src;
+> =20
+>  =09/* Ensure there is enough space remaining to read and convert
+>  =09 * the string
+>  =09 */
+> -=09if (*buffer_size < src_size)
+> +=09if (*buffer_size < sizeof(u16) + src_size)
+>  =09=09return -EINVAL;
+> =20
+> -=09for (i =3D 0; i < size; i++)
+> -=09=09if (src[i] =3D=3D '\\' ||
+> -=09=09    src[i] =3D=3D '\r' ||
+> -=09=09    src[i] =3D=3D '\n' ||
+> -=09=09    src[i] =3D=3D '\t')
+> -=09=09=09size++;
+> +=09src++;
+> +=09/* size value in u16 chars */
+> +=09orig_size =3D src_size / sizeof(u16);
+> =20
+>  =09/*
+> -=09 * Conversion is limited to destination string max number of
+> -=09 * bytes.
+> +=09 * Convert from UTF-16 to UTF-8 into a scratch buffer first, then
+> +=09 * escape the result into dst. utf16s_to_utf8s() is capped at
+> +=09 * sizeof(utf8_buf) regardless of orig_size: orig_size comes
+> +=09 * straight from the WMI buffer, and dst_size is MAX_BUFF_SIZE at
+> +=09 * every caller in this file.
+>  =09 */
+> -=09conv_dst_size =3D size;
+> -=09if (size >=3D dst_size)
+> -=09=09conv_dst_size =3D dst_size - 1;
+> +=09utf8_len =3D utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN,
+> +=09=09=09=09   utf8_buf, sizeof(utf8_buf));
+> +
+> +=09conv_dst_size =3D dst_size - 1;
+> +=09escaped_len =3D string_escape_mem(utf8_buf, utf8_len, dst, conv_dst_s=
+ize,
+> +=09=09=09=09=09ESCAPE_SPACE | ESCAPE_BACKSLASH, NULL);
+> +=09if (escaped_len > conv_dst_size)
+> +=09=09escaped_len =3D conv_dst_size;
+> +=09dst[escaped_len] =3D 0;
+> =20
+>  =09/*
+> -=09 * convert from UTF-16 unicode to ASCII
+> +=09 * string_escape_mem() has no equivalent of the original quote
+> +=09 * substitution; keep turning '"' into a plain single quote instead
+> +=09 * of escaping it, to match existing behaviour.
+>  =09 */
+> -=09utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size)=
+;
+> -=09dst[conv_dst_size] =3D 0;
+> -
+> -=09for (i =3D 0; i < conv_dst_size; i++) {
+> -=09=09if (*src =3D=3D '\\' ||
+> -=09=09    *src =3D=3D '\r' ||
+> -=09=09    *src =3D=3D '\n' ||
+> -=09=09    *src =3D=3D '\t') {
+> -=09=09=09dst[i++] =3D '\\';
+> -=09=09=09if (i =3D=3D conv_dst_size)
+> -=09=09=09=09break;
+> -=09=09}
+> -
+> -=09=09if (*src =3D=3D '\r')
+> -=09=09=09dst[i] =3D 'r';
+> -=09=09else if (*src =3D=3D '\n')
+> -=09=09=09dst[i] =3D 'n';
+> -=09=09else if (*src =3D=3D '\t')
+> -=09=09=09dst[i] =3D 't';
+> -=09=09else if (*src =3D=3D '"')
+> -=09=09=09dst[i] =3D '\'';
+> -=09=09else
+> -=09=09=09dst[i] =3D *src;
+> -=09=09src++;
+> -=09}
+> +=09strreplace(dst, '"', '\'');
+> =20
+> -=09*buffer =3D (u8 *)src;
+> -=09*buffer_size -=3D size * sizeof(u16);
+> +=09*buffer +=3D sizeof(u16) + src_size;
+> +=09*buffer_size -=3D sizeof(u16) + src_size;
+> =20
+> -=09return size;
+> +=09return escaped_len;
+>  }
+> =20
+>  int hp_get_common_data_from_buffer(u8 **buffer_ptr, u32 *buffer_size,
+>=20
+--8323328-1967676766-1790593284=:1168--
