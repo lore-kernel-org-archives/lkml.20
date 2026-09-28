@@ -1,172 +1,213 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189124F93B5;
-	Mon, 28 Sep 2026 17:22:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616136; cv=none; b=c1uwFbkUa83IwLQGeYzJF3n78ZtM+/hShB5ukcWlJoBajKHCLW8bzmCd8BVnRWC8SOqm4OcqCvd5LdEglIHq+NNVU8vOJAWvcoc1otHB+gurOUE9MKJD5XoNpY893bDrCyB1q9VCNcJe2YhFp/XDwp83cQccQ8yP2U8duSLr3TM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616136; c=relaxed/simple;
-	bh=5RvctZUCAf0FL3NxVqZcjM6pEbtTPWL0VQnh4iXuH+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZTGEpkiTLBfZUCK8X4EMlYcLtYgEzeNtI69BuRuWj9OIUwGAzFOiC3pAlCJTXq6Bi9vhMQO1SOZIftDVW442WfZsFq3hR4TMrkdVbBoWNOuyqV743adqd58vow0p3hSqeSQ/OE0ixkOBkxPnf4EOrkMemyT6H+edy1rO/SedYGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20DB4F85B2;
+	Mon, 28 Sep 2026 17:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790616132; cv=fail; b=PgJ+e9n498NYSWiJDnzWrY16Khk6cRJfy6L2YNm0j2tEm2gailxaF92I9Gyg1Yvpllj66MZ9Lh/128OixtcmHSwzdGl6lIyScHl5mastOtuKOxwYPZEcH8wdaR3P8WXDG6gEMpfjEA6PsCjQmMjvrkg24q5X1MZxZFNeVaJpQTo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790616132; c=relaxed/simple;
+	bh=MjAyRjHBNfjh+Jjd+2FwNI2WsRc1cI4M8c8igUqlZEA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I98VnXRJfKA0W7TaHmAT5ud7wbAHhU1v87yG5IYkEH/0grkxmtX/3yh0Dt96Nd0P86A9sxBlGCbE6Q0VBrque8v8fO+MMYAJrNWjdUUgnB4RotecPpNLwwv/9Jsz1S0dunLrkzQmEFSi2XF6A3aqaIDUjVmRX77btuvjFmkDTOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=RVTD/q1U; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=fbG9ZHwh; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="i0Ea0Jti"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 474B032C;
-	Mon, 28 Sep 2026 17:22:48 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=i0Ea0Jti;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E181C2187;
-	Mon, 28 Sep 2026 17:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="RVTD/q1U";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="fbG9ZHwh"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SFJx812095011;
+	Mon, 28 Sep 2026 12:21:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2h
+	M0=; b=RVTD/q1UbGEDixwKwYMlGFn2xQS2KF7pwYu98gxN2k1DPvpVcbB4SAGzm
+	vnE1+oRU0ksDbUESFGzqYM5TvqYDazN529PdthYgBhbbmh4q2iUpEFbn1xIqVQBC
+	fvLkMVn0lQ6hAtiBOUNg2JhBShhu4yIswYdkZCL7oaZsIdLnTi0+APoQrLkS93Td
+	bv0FQ9koLGvohoceGLAErDetgToH4CRQvrAnrBthxHDo2b7L4tzwo+VXtX1rdFSS
+	BioVmVUZKlCLPCkTJAybNr4YHYhBHneZq9yhUyuVf+Lzrgxh7dU+ucEqqlsIHcpl
+	6p+DZftVClVvTPK9uWOz83bjKlGeQ==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013003.outbound.protection.outlook.com [40.93.201.3])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2nqd8e-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:21:31 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ybeuEZnDolFPegyBb1vCMNHQx0YGO5UZcZniX/0rNlEANkG4tNFg97LAKO0wxWzvaudATtflQ20WlRNAudTm3BTtOJzIJmqvmPPTGM2NUyKTdIoh8qU1LFU4SKFlNYsuJK+Q14hwAP8d6uyD7/Z5PUaxwntEqmKdIg61TpwKsNLeZSbJ9bTnWcHrspp+/+g2pqBF34/Tf4yn+JIoTlfSo9FqLm9pG3n4hVUAwWGAGgi8D8Hxqml41SrqUXJ/NKu6vbRQ9+LZrdJ/q/+KYA7zMZTG8a4KMYG2X2D57LY+o2uxHqRLxWYetY7ab4S/280WGRiyslmMk3n58UWLdcTxDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2hM0=;
+ b=Sw8Czcr5kvi8SDr+be4x4ASkajiVCKVcmczQFfg6v1xRNAAqzEJtMieGQ257bHIMgdij0m+6zPRm1jb6O9y9TBkzzKhpXw0ZJuf9OpcviRHcPKFDHCZVfJB+PAdXWVXMfOVzjHv0Yg2g7PTrf/tFJWtu8ax3iYpVj9ZlnTiY3Qlcth8CLc/mdE+KXI3a0vOL2OtPYl2KAFEw4zvoeUEBjOTqr7CYdL0krHXLM+IqEF+6JBTFTdb6hiGCKp+XHLIWrokk9W8co5R/Fphi27dE9xbHg7awoE029/x4SrevEVOdeo2zA9BLRw22dML/wGXbEMhei8keOiQuUWwZxibiUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1790616114;
-	bh=igqSE9WbsAuz84abPqqeKEyX2eYBhV8g04lvS+mTwlY=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=i0Ea0JtiWMbn+Avk+U9Uze5gRhKzKQFL9TYG8rKrh7lzQjFvxbFVkWIZOGU42qeaZ
-	 e5cvOu/NQSde8Vh5VSALwwaqqZoIwEuIij7uK1Pv2gdduSGxL3C+5WwNpWmVwoAluZ
-	 uSMDLEtfzzb8v+EaiKrykCNffdny06U07qmsTPu8=
-Received: from [192.168.95.128] (172.30.20.196) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 28 Sep 2026 20:21:53 +0300
-Message-ID: <7feaa304-022b-4e50-b20a-de72fb16fd9a@paragon-software.com>
-Date: Mon, 28 Sep 2026 19:21:52 +0200
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5cJ4SrlHJSznoqbF0rUkWPtl+MuPVPHJN7YIGLY2hM0=;
+ b=fbG9ZHwhI48tmf4kx16GnBpi5TrFWO+mQzwMQjM90R75akKmoav4R4inXN6+RfRbyVKyo/QDgu3VDIPqKUIZvUhNyZC+3lPOGnPb1i2DGkzWOb15TlBQejF4RAJHzKHbHaSoXuW3YjUriw0FvbznM9eFxxEzjdcHLwACya2YhAE=
+Received: from MN2PR07CA0016.namprd07.prod.outlook.com (2603:10b6:208:1a0::26)
+ by LV0PR10MB998146.namprd10.prod.outlook.com (2603:10b6:408:391::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Mon, 28 Sep
+ 2026 17:21:29 +0000
+Received: from BN3PEPF00022BC4.namprd05.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::69) by MN2PR07CA0016.outlook.office365.com
+ (2603:10b6:208:1a0::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
+ 28 Sep 2026 17:21:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN3PEPF00022BC4.mail.protection.outlook.com (10.167.248.216) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 17:21:28 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 12:21:07 -0500
+Received: from DLEE203.ent.ti.com (157.170.170.78) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 12:21:07 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE203.ent.ti.com
+ (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 28 Sep 2026 12:21:07 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SHL7gp290518;
+	Mon, 28 Sep 2026 12:21:07 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Francesco Dolcini <francesco@dolcini.it>
+CC: Nishanth Menon <nm@ti.com>,
+        Francesco Dolcini
+	<francesco.dolcini@toradex.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 0/2] arm64: dts: ti: k3-am62-verdin-[ivy|zinnia]: fix main_gpio0/main_gpio1 line names size
+Date: Mon, 28 Sep 2026 12:21:06 -0500
+Message-ID: <179061605886.2961362.11967994887250931454.b4-ty@b4>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260922152551.270845-1-francesco@dolcini.it>
+References: <20260922152551.270845-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: fix integer overflow in find_log_rec() causing
- OOB read
-To: Ibrahim Hashimov <security@auditcode.ai>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260708224618.1328-1-security@auditcode.ai>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260708224618.1328-1-security@auditcode.ai>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC4:EE_|LV0PR10MB998146:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66a23331-a5f6-46ec-7912-08df1d84eed7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	lJdze6OlAALBmF60eyPXaV8/aWOf0I7fxTRrGIEqUWPhz/COJavNxOO5ENHhrpCr6q3poBTaGMPWgK0h45uTmZwTI59UsQTrzzc2VkuwWV6CD8eMxxqTKP16ByyIAzn/JcUbV21IPiOjpiGSMfGTRcO++q2HLNfBu2GRkV5dtl34VNKpzVYldWzWdH3wIbzvrjo+BSG3SVzTA/BVocEjQLJBKn2jzYnaQi/UxA79OtxhacT5dg2/7kgGqPtsSNaXR3ztAFqkKsrClS2l3+BosBXnpuYuL9xf8PbQyfGg3G/UXiD+c0GXpp5cC79UHRjzgtxLOMh8TrOyk7AQbscO+Oztd3OFf0/+pzugdsf0a+1RyB5ceT+I2aGk16hMEsAICqPt19rJV2X4Aao9pkKRpG34fXf28/iL3XkBf4K65YjzlV8SIAPV+WwbyfbjlBAml1pVrLN//r1sALodPMQes8ZVDdFeUBrr5qvR5MudfP5BsV6AsrKjhai5J8eICh5jtPNiVHcCKHMGCkiRWXdvcX1HUeVOPTbpvlGqWjO2vPUPEcYalgBb5To7EB11/XtMC8Qs/l6ieLw0nnQ4B0I668kq3H2/Wy3UfGkoyB0gm/b+dxpjiWvMfFg6NGJf5ReZDyfQ2rjaGdJ5vFw66JEtUg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	UH2KhqB9m6C8hTi869Oh74Re/AKCMoDi1wDXRTwtu05yA0zGbzTIfcMCHzSgAdddVAPHv1X1m1O4HadjUF98YtMhar7Oa1MyxW4XQ6Ah2PERs1qkJluszE9FaHpMEcmO4q5Dckm03mLYK+HrMBaSgRV0yHX+7gka8fFIgzd9vB1jpM02lGQylpE8W2PsQDg8//pr3f0XF2GftFz7nRMn4x5oLoJ+LVHZiWxE4gj0NO0wIS9jBTAxJUXSdlIyDhM3IlvduFKj7dMLhUgnAZiNxIT6pwqottAr5evThZ4owrCzwxGirbNmDK+x/68QS0ShrnCEULqNeiajyPeeKCmbOTEgArRZ86RkInU13+5A3CxHTeuJuUsuFCJFxwUiDkA67UQYYOdCrK+SMZJUiaAD1j7pIc5DeK+qA+bM5+q+wOTezumVtiDpH64IuFK4sk0o
+X-Exchange-RoutingPolicyChecked:
+	2/JNcv2zO6UZGx44nnCqbtbEqMAbUyY0iIS29jT9ea9GC2Jo50/hoflxHP6RiTYsX5XJXlv7GxnQdIDi6oEo9T3HA6dMxRbaz2M3QAElETOOxkm/YxVPyyFjqpAacpSBBV9Tu/2J6llVixMXAF+363IMo3t4/BnyuLJJjaP3klaiDYcivaQZzmui5vn6XaB5oAyMpd8Wc/4Ffb7mudkXpIDfrmIRcLhpkGxljEmAlVsKyU+/flggffBu/VP7SD0064MLtrWZ7vZau3IYYu9i+aK1I4lXyRgOOiZ+0mPBemtCM3v+gMa2tXginOW/TRCbbEyHfgdBzEnpVZLct5JLkQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:21:28.8639
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66a23331-a5f6-46ec-7912-08df1d84eed7
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR10MB998146
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfX/Ky+4eyxpKE4
+ 5PiGOgyQDAU8UGYGNTV6gpWrcas5ekXR2aTUHaEDBom6pvzRZaJh493ohjc8bWonBJrz8Tpcx7B
+ 68VpdD+PNKSELrvaFo8auq0NB7jYcQA=
+X-Proofpoint-ORIG-GUID: 90xeyXWfpAGWklAMC0GoJpmfWEuqIES5
+X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6abaa21b cx=c_pps
+ a=9JMNuyHA4Bc1wrbCcMLwMw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=m8ToADvmAAAA:8 a=o1kACPpZKAZCWsj7fAYA:9 a=QEXdDO2ut3YA:10
+ a=kCrBFHLFDAq2jDEeoMj9:22
+X-Proofpoint-GUID: 90xeyXWfpAGWklAMC0GoJpmfWEuqIES5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfXzOsUtUjEYqSO
+ abeC9deUONeWvv/6f0a2wAIM3cTr41OcU2b9p4XVpGnBoLA/YJbm+XiMNV8AFjq5z4fnhTwvKB2
+ fNqMhxpFoVVxHnpQKMygSrrIqK82Qxrjdb72eX2plD9QGd7fgU6+rHeDETnJZMIyv7b25xevzRa
+ 2to+Pr+TzZjUZvn9hgoOvNIRrappFpRP9FP0dkiMkuprB2t/HZSesMTE5m4WB4EYnxS0IV5ZZN5
+ S7LCNnwKixdUbgkMw9Q3tAKCqNH6A6WBqE5q7bt3LK0hbgcgdhpYN/AFlR+82jVFYZ5bfbF6m2L
+ wxtcJ1hiPb1ACE6i/AXQbrZy+Ky7mC2dEbAUpvxnEqvR+SoZqun0bhhBaQ3RF32qg/+LFDDazVO
+ dQUxzSM6CN3hJ+Mo7aT3W/X34UtWv9rxkEtER/P5bnFB/nip5/uuQJTVF2cxqphE13YYYWY4sw2
+ uOBIEhmAfsaVtS6ywVw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280069
 
-On 7/9/26 00:46, Ibrahim Hashimov wrote:
+Hi Francesco Dolcini,
 
-> find_log_rec() validates the on-disk LFS_RECORD_HDR.client_data_len
-> field (`len`, a raw u32 read straight from a mounted $LogFile page)
-> against the log's total available space:
->
->      len = le32_to_cpu(rh->client_data_len);
->      rec_len = len + log->record_header_len;
->      if (rec_len >= log->total_avail)
->              return -EINVAL;
->
-> The addition is unchecked. For len in [0xffffffd0, 0xffffffff] (i.e.
-> log->record_header_len away from UINT_MAX), `rec_len` wraps to a small
-> u32 value that trivially clears the `rec_len >= log->total_avail`
-> guard, so a record whose declared length is actually ~4 GiB is
-> reported as valid and in-page.
->
-> Because find_log_rec() wrongly accepts the record, its caller
-> read_log_rec_lcb() hands it back to log_replay() as good. On the
-> transaction-table replay leg, log_replay() re-derives the record
-> length directly from the same raw, still-unclamped client_data_len
-> field and uses it to size the restart-table blob:
->
->      rec_len = le32_to_cpu(frh->client_data_len);   /* ~0xffffffff */
->      ...
->      t16 = le16_to_cpu(lrh->redo_off);
->      rt  = Add2Ptr(lrh, t16);
->      t32 = rec_len - t16;                            /* still ~4 GiB */
->      if (!check_rstbl(rt, t32))
->              return -EINVAL;
->
-> check_rstbl()'s own `bytes < ts` bounds guard is defeated because the
-> caller-supplied `bytes` (t32) is itself the poisoned ~4 GiB value, so
-> the guard can never trigger. The subsequent entry-validation loop then
-> walks `rt->used` (also attacker-controlled) entries of
-> sizeof(struct RESTART_TABLE) == 0x18 bytes each straight past the end
-> of the kmalloc(log->page_size) log-page buffer allocated in
-> read_log_page(), producing an out-of-bounds read that is reachable
-> simply by mounting a crafted $LogFile (no genuine dirty-page /
-> crash-recovery state is required). Confirmed via KASAN as a
-> slab-out-of-bounds read in check_rstbl(), called from log_replay() ->
-> ntfs_loadlog_and_replay() -> ntfs_fill_super() -> mount(2).
->
-> Fix the root cause instead of hardening every downstream consumer of
-> the poisoned length: make the addition in find_log_rec() overflow-safe
-> with check_add_overflow(), mirroring the pattern fs/ntfs3/run.c
-> already uses to validate other attacker-controlled on-disk
-> length/offset arithmetic decoded from MAPPING_PAIRS runs, e.g.:
->
->      if (check_add_overflow(vcn64, len, &next_vcn))
->              return -EINVAL;
->      ...
->      if (check_add_overflow(lcn, len, &lcn_end))
->              return -EINVAL;
->
-> (fs/ntfs3/run.c, run_unpack()).
->
-> With the overflow rejected instead of silently wrapped, `rec_len` is
-> only ever a true, non-wrapped sum, so the existing
-> `rec_len >= log->total_avail` check now correctly rejects any
-> oversized record up front. log_replay()'s transaction-table leg then
-> never gets a chance to re-read the poisoned client_data_len, and
-> check_rstbl() is never invoked with an attacker-inflated `bytes` for
-> this path.
->
-> Verified on a v6.19 KASAN build: mounting a crafted $LogFile whose
-> client_data_len overflows trips a KASAN slab-out-of-bounds-read
-> report in check_rstbl() before this fix; with check_add_overflow()
-> applied, the same image is cleanly rejected during log replay and no
-> KASAN report fires.
->
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-> ---
->   fs/ntfs3/fslog.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index f038c799e7ac..e5b63a02b827 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -7,6 +7,7 @@
->
->   #include <linux/blkdev.h>
->   #include <linux/fs.h>
-> +#include <linux/overflow.h>
->   #include <linux/random.h>
->   #include <linux/slab.h>
->
-> @@ -2424,7 +2425,8 @@ static int find_log_rec(struct ntfs_log *log, u64 lsn, struct lcb *lcb)
->           * Check that the length field isn't greater than the total
->           * available space the log file.
->           */
-> -       rec_len = len + log->record_header_len;
-> +       if (check_add_overflow(len, log->record_header_len, &rec_len))
-> +               return -EINVAL;
->          if (rec_len >= log->total_avail)
->                  return -EINVAL;
->
-> --
-> 2.50.1 (Apple Git-155)
+On Tue, 22 Sep 2026 17:25:47 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> zinnia and ivy redefines gpio-line-names for main_gpio0/main_gpio1, sized
+> 87/88 entries instead of the SoC's actual 92/52 ti,ngpio. Resize both
+> arrays to match, keeping every existing label at its original index.
+> 
+> missed from previous https://lore.kernel.org/all/20260914190943.50843-1-francesco@dolcini.it/
+> 
+> [...]
 
-Hello,
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
 
-Your patch was applied, thanks.
+[1/2] arm64: dts: ti: k3-am62-verdin-ivy: fix main_gpio0/main_gpio1 line names size
+      commit: a74db73609d6e307bfcb6ef8073be2c47fb5bd9e
+[2/2] arm64: dts: ti: k3-am62-verdin-zinnia: fix main_gpio0/main_gpio1 line names size
+      commit: 9dd7a67b29e0d49c66c4785014ac3befb086fbfc
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+-- 
 Regards,
-Konstantin
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
 
