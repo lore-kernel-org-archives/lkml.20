@@ -1,30 +1,29 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1866A1E7660;
-	Mon, 28 Sep 2026 12:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F882FD7D3;
+	Mon, 28 Sep 2026 12:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599870; cv=none; b=DizLo8RMLWESgSCwdnLcnXr9DkIxSC5IK/LG/s3d3vXiiXv5NZJhg1ffdMXJGFNQBIahbshTvZ8+HU6ijZ/ID1WPfGTAtcgmzL3R5Sly/J1yig41kHNYd6/8Tmd0RUyVWXYHqbqIY7bTjYX9Gclwn6oAVsy/g0Al/QAIml+igKQ=
+	t=1790599952; cv=none; b=r14Ub5nG1AZ0XtNC5AYHn0X9EvP7ofUzsu+/B5DdKAQI6XuWMSZ6BMOgblYlB/s8WxpvS2Qp07yCf+KuttStvlSRkDyQDDlqTot6A2yy+6ChppIOMx9BlS3rWfydAPpJqhMQi5HsO4ZuC3Tls+ab9tqNQv5pg37lUdDj7vvMFR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599870; c=relaxed/simple;
-	bh=jqBOi8RadvRg8zGzldieQe2C78fCScYRODmweJs9DpA=;
+	s=arc-20240116; t=1790599952; c=relaxed/simple;
+	bh=sJTvNC7eTsOZIfYAtlpGFUfYRVo00biUkNxLqcDdZg8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wf1ATlvKlv5tY+dwCnxal8RWOC7+KNOYbJ+vU2j/D9UFdVRreDGGc8QgYg0eTWPGyTukDKfMcbLK15QZ8PITgdJr5mvmlz9ZReIM9UZH+jWHTixt9Bf40lvADXyzLUVceUfsbineSv2P8GzAEPGT/hcdq6SeV/2ZgMYmW29oewY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hth4D3fkYzYQtqf;
-	Mon, 28 Sep 2026 20:50:36 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 0CAAA408D5;
-	Mon, 28 Sep 2026 20:51:02 +0800 (CST)
-Received: from [10.174.176.179] (unknown [10.174.176.179])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCHVimzYrpqZYAACA--.5312S3;
-	Mon, 28 Sep 2026 20:51:01 +0800 (CST)
-Message-ID: <6bff4ccc-1a0c-402e-af98-4f6fef94b0a9@huaweicloud.com>
-Date: Mon, 28 Sep 2026 20:50:59 +0800
+	 In-Reply-To:Content-Type; b=s18ZO+dXAOSZWQTGhbCjLtOC8GiUg1NFifSd8YbI5LXgbQ56zzHfG9YXIuv008Dfz4/S8PebtIByLcf6VWMMnPc1+lL8UUopUTksaEYvA5L0t2Toc2/ZYPc0hTOUt8DKA+946rmIeopZnFmy94bj0npslPweJ377v/3mu5ahAQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=in8AMUEI; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="in8AMUEI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=DTPIj+A/kdxPu3UNXQlL6Hsn+maL+UgLjUd7u23pb2U=;
+	b=in8AMUEIsjWOJ7MpIDhT/wxSAhUAmg+wKdqWDfD1kzYmTC4E/0W0ICSgmeRgmZ
+	dAAxodCUyDee3xouXqLlVeChEJfg4ymQVaEb4e2n8mkx9a8bt+CJkjLLzqJ/asxM
+	ZmCQ7UjzxYHLISuB8IpqhZ71WC6Po1phw8n5Kp+KTQvgw=
+Message-ID: <382899bd-1502-4e65-8c38-67924def204b@126.com>
+Date: Mon, 28 Sep 2026 20:51:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,108 +31,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vt: skip screen update for DEC alignment test on
- backgroup consoles
-To: Zizhi Wo <wozizhi@huaweicloud.com>, gregkh@linuxfoundation.org,
- jirislaby@kernel.org, npitre@baylibre.com, linux-serial@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, yangerkun@huawei.com,
- chengzhihao1@huawei.com
-References: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-In-Reply-To: <20260905064337.3083103-1-wozizhi@huaweicloud.com>
+Subject: Re: [PATCH net v4] net: stmmac: do not keep the new TSO MSS cached on
+ mapping failures
+To: netdev-bot+sinfo@kernel.org
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260928123422.1698785-1-xiaolinkui@126.com>
+ <179059916708.31693.15841769312205825846@kernel.org>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <179059916708.31693.15841769312205825846@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgCHVimzYrpqZYAACA--.5312S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxZw4DZr18tr1fAF15uryDKFg_yoW5AF1rpa
-	yFk3Wvvw1vgr4kZa1qya13XFy8CwsFqr1UurZ3AF17ZF1UZr1kuasrJa4DGrZ7X392kryf
-	A3W5Xr9Y9F1093DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
-	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:PykvCgDXv8a+Yrpq6_ltAg--.55804S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFyrGw15ZFW3Xw4kAFWkJFb_yoW8uF48pF
+	Z0k3yqkF9xJF1Syr4vvw40va4rtrs3GF45Gr4UKryYyws8GF1agrsIgr15uasrGr97Za4F
+	9w4qq34qvryDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQAS6Gq6YsCWTgAA35
 
-friendly ping...
+Hi,
 
-在 2026/9/5 14:43, Zizhi Wo 写道:
-> From: Zizhi Wo <wozizhi@huawei.com>
+Thanks for the reminder. Here is the missing information:
+
+How discovered:
+The original issue was found by code inspection of the error paths in
+stmmac_tso_xmit(). The v3 regression - deferring tx_q->mss = mss until
+the context descriptor OWN bit is set - was raised by the Sashiko AI
+review of v3, which noted that a concurrent stmmac_tx_err() could reset
+and clear tx_q->mss before the deferred store republished it. v4 avoids
+that by keeping the store in place and clearing tx_q->mss on the DMA
+mapping failure paths instead.
+
+Triggered:
+Not triggered on real hardware. This is a code-inspection/review finding.
+The ring-wedge part requires a DMA mapping failure in the TSO transmit
+path; the stale-MSS part then requires a later TSO frame with the same
+gso_size to take the mss == tx_q->mss path and skip the context
+descriptor. No stack trace, error message or syzbot report is available.
+
+Testing:
+Not tested on real hardware. No hardware test was performed.
+
+On 2026/9/28 20:39, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
 > 
-> [BUG]
-> Recently, we encountered a KASAN warning as follows:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> BUG: KASAN: slab-out-of-bounds in fb_pad_aligned_buffer+0x11f/0x140
-> Read of size 1 at addr ff1100015fd9f6a4 by task tty_fbcon_oob/1239
-> CPU: 7 UID: 0 PID: 1239 Comm: tty_fbcon_oob Not tainted 7.3.0-rc1 #100 PREEMPT(full)
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-4.fc41 04/01/2014
-> Call Trace:
->   <TASK>
->   ...
->   kasan_report+0xf0/0x120
->   fb_pad_aligned_buffer+0x11f/0x140
->   ccw_putcs+0x86c/0xa80
->   fbcon_putcs+0x338/0x410
->   do_update_region+0x21d/0x450
->   do_con_write+0x1e0e/0x4880
->   con_write+0x13/0x80
->   n_tty_write+0x374/0x1010
->   file_tty_write.isra.0+0x404/0x7a0
->   ...
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
 > 
-> reproduce:
-> 1) open /dev/tty0, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
-> op.width = 8 and op.height = 16 (visible VC1)
-> 2) open /dev/tty1, set a KDFONTOP ioctl with op.op = KD_FONT_OP_SET,
-> op.width = 28 and op.height = 24 (invisible VC2)
-> 3) echo 3 > /sys/devices/virtual/graphics/fbcon/rotate_all
-> 4) write EShash8(esc hash8) to tty1
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
 > 
-> [CAUSE]
-> All VCs render to the framebuffer. setfont only modifies the target VC's
-> font without resizing the framebuffer backing buffer (par->rotated.buf);
-> the buffer is only resized for the visible VC
-> (fbcon_do_set_font -> ... -> vc_do_resize -> update_screen). This relies on
-> the con_should_update() check performed before every update_region().
+>   - What hardware the change was tested on. For driver fixes please
+>     mention the device (and if relevant firmware version) used for
+>     testing, or say that the change was not tested on real hardware.
 > 
-> However, the ESC # 8 path (do_con_trol -> do_update_region) omits the
-> con_should_update() check. After changing the font size of an invisible VC,
-> do_update_region() fills using the new font size against a buffer that was
-> never resized, causing an out-of-bounds access.
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 > 
-> [FIX]
-> Only push the update when the console is visible and not blanked, add
-> the con_should_update() check in the do_con_trol() like every other call
-> site of do_update_region() (update_region(), invert_screen(), ...).
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
-> ---
->   drivers/tty/vt/vt.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-> index 8f467b22b799..901bb2ce01dc 100644
-> --- a/drivers/tty/vt/vt.c
-> +++ b/drivers/tty/vt/vt.c
-> @@ -2858,11 +2858,12 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
->   			vc->vc_video_erase_char =
->   				(vc->vc_video_erase_char & 0xff00) | 'E';
->   			csi_J(vc, CSI_J_VISIBLE);
->   			vc->vc_video_erase_char =
->   				(vc->vc_video_erase_char & 0xff00) | ' ';
-> -			do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
-> +			if (con_should_update(vc))
-> +				do_update_region(vc, vc->vc_origin, vc->vc_screenbuf_size / 2);
->   		}
->   		return;
->   	case ESsetG0:	/* ESC ( */
->   		vc_setGx(vc, 0, c);
->   		vc->vc_state = ESnormal;
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
