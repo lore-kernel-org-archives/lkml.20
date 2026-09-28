@@ -1,254 +1,123 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6CB4848AA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1426C5013AE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790632488; cv=none; b=GnQ7IC621UBv01vBaA/VoGlrmiP+X6YntbhruZaC6yFVwyirskLhLezIsFTPXVHjBzIl8GUoy93V0kxwObmBAozGfwnYH4AvBVquowg7ltV9ZlQX8EmEHLvsKR9CdgFacjUb7AzDQF0vRBRG9csoQc7SqQzTY/tvHPdsBP/SKJA=
+	t=1790632497; cv=none; b=JwyHT7PVtifuiGnvrQhtmEkretzQQMkprJpBfS6P3/QYdCh57b6MkT2xLaPRA//7jGpq3p9SsjUruI2j8Sz1CwrFucDySOnaNKBqAmSO8yEAxplYvcK9qJYv3fLFm3znn4n+rRpGWH/I5G39A2Mgf+/yCIYFJY90mv9wZNX/SmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790632488; c=relaxed/simple;
-	bh=F/lYJq93HE3KTkDMJDD1Xx9Dsvnevs2QAzx6ZjMsIA0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gaKlzIdByWypOeJohdb4wmoG3O0QAsCUvMYiC/kKikJ26+dDhh8TTXbhcryTls9wpmFIZPks+OGedBp1eDEli4N7wBzrr7wxhPAXMy5g6JftkQlTU0oOqWmrO4//LY/DJb8WlSsnEb1ZK4edP35IcL846NoHqMfBo6EcL4DncMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso5887913b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:54:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790632486; x=1791237286;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ck1aEFhy8Ab2Jarz1ZL0rFiozc8SHcmEaFtnwSHvuZU=;
-        b=Pf1KwDtwazuHfSi1tJrhId9Ij3I14dLwAvcJfwv99UXqDHyD8LHcXT31OTJm4nW2s3
-         L0griHi2N01bQc9i3qHO6Mf4Vl3DMKoOwJiBibrEWvBz332n43zbmShziVeFLezFIWFj
-         E95CYl5DNWLcLUbflygoCqpRan29uH+5XGlhz4iU7D9PZr4kCmr6T3U2hNUGQenm/kJC
-         rbtbjlWm9yRfBAeFVVsAn6JuWgO8w/xQM3hfjp8j/n6EGzaoGPenOv253UL6mn0Nl8Pb
-         A/IJtgOEI7yp+XHf1ZxhaWqLff7wc5J0NHfA0mZirqV5Xy/FfantiXIzHe4uDEs+R1mn
-         kgNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxpUPr3KkqdDSSQDLJrnlVHrdjyYvmWRAjRC0XfOizZSdPM61lZk2EVsI0ptZvX3S86bxZ9rsfOBz/cPyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTSEa4AojYZzyl79f65lH7RBTlFt6dzKcLD5panm2oLDgQ2Nzu
-	8KKNbrqQfDu229O7RMOB7Yamoc8ViOqW+ScldSuyK0ba+Yb4E9ywBWB8cFxp+4W5cKalO5pdRRT
-	VReh3yITm5JNW1PR8oZXwzshuI0hqntMIST6d6JozBoNnkQJWuYHWjsmOn0c=
+	s=arc-20240116; t=1790632497; c=relaxed/simple;
+	bh=jCL4z3TqXM8kEezxfX4y2YEX2K7cxLQC5MpNZiieyno=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=U104WofkbBuiT9rxUNZGWBTsfnqa8QrwTSoqOQOG63dG9BcnfcfgwBNsxOdpaUmbGAj7LsLQ0A0maX7IUnMfyCKeWq59n3JOI9fg4Y9/n39e7Hj+E/EwoFsWaUnsLZAnmi24SnITWPcz77+pG2S4zRINOr4pnBKxVrA+GahNCrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=OKynxuW+; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="OKynxuW+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790632491; bh=zO5q4LkqU9FGSgnhhTg/0N9HuMtDades8t3AQLFFfCI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=OKynxuW+wBRX9cQ39oE+03ybphcQH6/5yJQ5APWbVQqzHBVrcgW0GHpFgsyxUjT3GrtWjSS9D5fcWSfVN6o81y/bZaj1okZyLSPjKHCbIw8FqYa91tES+OXkUJKU1+9mq0fR4Wvp0H0j2wz7q3lSdveMkFKUWoKBkQD3msmRYw9+stv/Jf9RuGXq6ll4co+OTg6iQwGdBAOTBj1TbdRaT4zflOp7mud9M36myLo+fZI3HQ9BKYCi9SVTzN/DLc12uiIJNDHmf/d1KlT3ye+TbtzDEpWyxtWn8ss6xtC/exzVhrG70UW21Y1UMZzGzij53nUhX6+e3ceu/4O9OoWrUQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790632491; bh=Cnx9IoA8YsoWFYObYmBbbjthH5LUXDOW+qGCM8TIoxZ=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=N1a7LQ7lEQOPCyM6OZIe+7roqdyBk/WSPtOMd59q1Ne3Dhu4L/N4GxejSv/XDKVjR9eCR3baQ7VkgJQKzqgPsodPPnlTdqhxa4nP9xv4OSMxKPbhxFUn5OIQnqAckzsncdRdVWSrlYW2DsO0Q/RNOHqhtoNETn8jqA6Hn26ch3htMje0bR2EtCU0qyYSSJQfqV9uhNwFfLR92IIxxwqQshvbzXOaDG1MoBthevnWpJLQKAKyO/lQ73R5vglxhCFODs/fqUvT86UDxVI/emyv+w4GrafqcCeHQPFlzkoQQ1dggHdumuIEr9uTX/kPYc3Iqw165j0OGQM44IZXCs7nZA==
+X-YMail-OSG: aOYKTKYVM1lcMskE9FR4cSeG_dSVaLo.GDeuGvOcus1mP_A3brvWve7YZFCFoNp
+ Rdqps.ILl_LMvoG7IUrbm4ELF6joC2aMObWg6pX1xYCg5mzlFl3.JZ0LWeIN55ntX1lYO4I6gHbS
+ iW9SWB3tnA2iA2AtdG8FGxW50Z6AQKWXmbxcgQxGIf_xwl7FyRR.qtAgZOAPFHr1d6mmXMSxmCyq
+ P1PT6jpKEqTTcP.BsLV6eWagmMLDahyILVjHkSTS3m8XDMDSDGaCSp4RH9_eTbNpWWQ7zOw8D.Y.
+ 9ei0kqN.2xbhurA9uUfV2pF5B81VpbPUjP9MHhwUvJMWwRnfTgXhI_Pl.202VUCsbYin27kB9NwK
+ UA07kfLJKTGMd4KKCjk0pcsxaHFXDMDO1pCGU5Pd8avgdmBAWmZtzFbzeG4eAacVJFhJ.S3BSLPJ
+ ytPiAi0XwayS0hiGJR4nO_JizMRoNzuRJBzWCk_rCRLINPDGopKAXDclUDWk06hMsK5UoTwsBPik
+ I3.3nnvAu5OzttZcte5Uu60zJBsHD8mWHe2kmphDQUG_Fqeo57iexvE2WKi1NfX89NltMwVKPoym
+ STERXQDFiLTGiPGQoBGtSTyKpQ94RYqtTyVMrv9wJgglXgwPwSD9dJjfeDPaLqv314Plt69GVHBa
+ bDyNlL.TaO0gGOJ4v8V7c_X40QyaoufBSsWXfLTqONkusUEnv7eLOJrwMqYUGjP13stftNCdIOYM
+ Mv5oHeb1QzjtUvs.wfMKxxq0wyrFlrqwdJgVdlVlV8YZ.7zN8rOfSJj4n1LRfMQmAdEwwB4W6qS2
+ V9yJZkflZDZUROcsek29FqENROpH3tNidji6gntWhhDsHA9hJgGGvL8o1ifUYSMJO3wgrf8B4Ihl
+ 7Yg26TFZufNbhRlM3v9mfqfkidPk3wUPh3CDEH5CLUIqA555tT88wI9uDsZxY7ksMUoN3vrGne5l
+ 6jeG_c.j.PIqGnaPVhSyLhlYuJ8VdGoAc_uXxuMBGEHTzmZAv_AdVHXkDuuUmK96gyECYRbef6x7
+ ih2nKV154lHSgZSK4Rg8ziFmQw_.oYJucTTUirxINr_UfP9kn0VDrSDARUsnqOp6qyJCFreRczvr
+ _rNwlftcwkze7GMKlckOnYu_4qRTPv8bWDU.Si5dhSrW8QxKlds0f204cZQp_Ele3S5X3Esa0pWj
+ YJOYRL9i6mJqLZfX4rM1tHDples79BSu3CYDGA2aKICFjBE24eeeAw7WDkQi.0kCGBhoJSuCuqiq
+ OCAa.85eysZlV.3PX3u94f9tDvPC2VtvJTTnfBvubmv8kfoGneXdJOXYf23KEOOBnkpPHYdbrc0F
+ nqZrgRZ_g9ZqI9b1bOX5KG.nrOx.l.VbE1BbUZzzRfmFCdHkJdDw2ZyVcQFVMQbA8FZKl0iNORQX
+ qDNA_QaTAwzOOT3JJTx333ALnxtRwp9FGYlDXzMcsDyjEd51xRwZmZfPOE0QeplFRstghx0kWxx6
+ e_lRr6vUtFhZseQ2UrdW_jairz0PkBpgIZkOxfJ6Bvq42eJ1kdvmTEf0X_kpLdPn2YnNfGnTlZUf
+ _C0Y95cc9VcCNHmejyBsog3fWMr92MKb0njUeAQg4Kf14J.kWBDXizMiJrwIYIjnd8VtmBPk8ENB
+ 8gVCWcmuY82OKwUQFLniTczIoxMNepF1v1pZ2LiFNJUclYwYoBad82Ai1TeG99bCKuLN5QGOcTJK
+ ODa6j4P_vnfYIYluvryVHqOcoXrlaQTbw94HxZIBZfNhP7l8H3mb3xd8DbLa1o.X1aaJqUvaq5rO
+ OCFfOscHpoURrgBODpFjy6Vt5JTaL0i61ReO9BneF.AxXD6Z5qBBpjvr3LgtpQHI3ifg8gj9RuxJ
+ Yb1OAQF8yjEJlnoSR3QXKbPNR9tohDwN3PCJocmk93W1mRvae_4Z9Y3cszB7h75W1HD.Rh6LlIfv
+ kOKYMqmpRITGsk1PKOkmmyGfu1FGgeXLFwlDOWzrGIpVSZ89nk7aRl9tGTK4ybLmZN606uQD2Ogo
+ h700sfyTpO.NN8GbtRfcutDGO9Z3bWiIJi.VuCl1M.cJ9JMdakojlQL8V
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: 4587f15b-2661-4a40-a739-321f1891aa3a
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-101 with HTTP; Mon, 28 Sep 2026 21:54:51 +0000
+Received: from dip75.lsn.bf1.yahoo.com ([67.195.177.84])
+          by hello (SMTP) with SMTP ID 76ff639862f4e2dcd2f1f2eb210a11ab;
+          Mon, 28 Sep 2026 21:54:45 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.abubakar365@yahoo.com
+Subject: [PATCH v4 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Tue, 29 Sep 2026 02:54:20 +0500
+Message-ID: <20260928215422.3720-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:50a9:b0:4b9:e65b:8c34 with SMTP id
- 5614622812f47-4d72aa5b00dmr16932936b6e.34.1790632485787; Mon, 28 Sep 2026
- 14:54:45 -0700 (PDT)
-Date: Mon, 28 Sep 2026 14:54:45 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abae225.69bd487b.a6f8c.0009.GAE@google.com>
-Subject: [syzbot] [block?] possible deadlock in blk_revalidate_disk_zones
-From: syzbot <syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+References: <20260928215422.3720-1-m.abubakar365.ref@yahoo.com>
 
-Hello,
+This series adds support for the Sensirion SDP3x family of differential
+pressure sensors (SDP31, SDP32 and SDP33), I2C devices that also report
+temperature.
 
-syzbot found the following issue on:
+The SDP3x uses a completely different I2C command protocol from the
+already supported SDP500, so extending the sdp500 driver does not make
+sense.
 
-HEAD commit:    f5f84daefcd9 Add linux-next specific files for 20260925
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1630ce05580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=be00179930e43a43
-dashboard link: https://syzkaller.appspot.com/bug?extid=b0910be96b7c31314822
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=168dcac9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15627605580000
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum. The scale factor is read from the sensor at runtime, so
+the SDP31, SDP32 and SDP33 (which differ only in range) are all supported.
+Tested on an SDP31 wired to the I2C bus of a Raspberry Pi 4.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e42cbc7060af/disk-f5f84dae.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e80a7ee494ac/vmlinux-f5f84dae.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/f41cc55a1308/bzImage-f5f84dae.xz
+Changes since v3:
+- dt-bindings: support the whole SDP3x family (sdp31/sdp32/sdp33) and
+  describe the optional interrupt line.
+- driver: for a normal measurement read only the pressure and temperature
+  words (6 bytes); read the scale factor once at probe.
+- driver: add sdp32/sdp33 to the match tables and report the matched part
+  name.
+- driver: add a file header with the datasheet link and drop comments that
+  only restated the code.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b0910be96b7c31314822@syzkaller.appspotmail.com
+v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
+v2: https://lore.kernel.org/linux-iio/20260920164533.31988-1-m.abubakar365@yahoo.com/
+v3: https://lore.kernel.org/linux-iio/20260926154118.5471-1-m.abubakar365@yahoo.com/
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kworker/u8:10/3352 is trying to acquire lock:
-ffff88801fae6450 (&disk->zone_revalidate_mutex){+.+.}-{4:4}, at: blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
 
-but task is already holding lock:
-ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
-ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
+ .../iio/pressure/sensirion,sdp31.yaml         |  48 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 241 ++++++++++++++++++
+ 5 files changed, 307 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
 
-which lock already depends on the new lock.
+-- 
+2.43.0
 
-
-the existing dependency chain (in reverse order) is:
-
--> #3 (&q->q_usage_counter(io)#75){++++}-{0:0}:
-       blk_alloc_queue+0x544/0x690 block/blk-core.c:504
-       __blk_alloc_disk+0xe3/0x1d0 block/genhd.c:1527
-       nvme_mpath_alloc_disk+0x5c2/0x8b0 drivers/nvme/host/multipath.c:769
-       nvme_alloc_ns_head drivers/nvme/host/core.c:4049 [inline]
-       nvme_init_ns_head drivers/nvme/host/core.c:4153 [inline]
-       nvme_alloc_ns drivers/nvme/host/core.c:4267 [inline]
-       nvme_scan_ns+0x2e22/0x46c0 drivers/nvme/host/core.c:4483
-       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #2 (fs_reclaim){+.+.}-{0:0}:
-       __fs_reclaim_acquire mm/page_alloc.c:4365 [inline]
-       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4379
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4673 [inline]
-       slab_alloc_node mm/slub.c:5011 [inline]
-       __kmalloc_cache_node_noprof+0x66/0x620 mm/slub.c:5695
-       _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
-       alloc_worker kernel/workqueue.c:2853 [inline]
-       init_rescuer+0x167/0x530 kernel/workqueue.c:6002
-       workqueue_init+0x214/0x680 kernel/workqueue.c:8517
-       kernel_init_freeable+0x26b/0x3e0 init/main.c:1658
-       kernel_init+0x22/0x1d0 init/main.c:1563
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (wq_pool_mutex){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       __alloc_workqueue+0xe8d/0x21d0 kernel/workqueue.c:6201
-       alloc_workqueue_va kernel/workqueue.c:6253 [inline]
-       alloc_workqueue_noprof+0xe3/0x210 kernel/workqueue.c:6269
-       disk_alloc_zone_resources block/blk-zoned.c:2101 [inline]
-       blk_revalidate_disk_zones+0x8d1/0x1650 block/blk-zoned.c:2575
-       null_add_dev+0x12b8/0x1d70 drivers/block/null_blk/main.c:2056
-       nullb_device_power_store+0x240/0x380 drivers/block/null_blk/main.c:511
-       flush_write_buffer fs/configfs/file.c:207 [inline]
-       configfs_write_iter+0x337/0x430 fs/configfs/file.c:229
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x612/0xba0 fs/read_write.c:687
-       ksys_write+0x150/0x270 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&disk->zone_revalidate_mutex){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
-       nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
-       nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2620
-       nvme_alloc_ns drivers/nvme/host/core.c:4293 [inline]
-       nvme_scan_ns+0x34c1/0x46c0 drivers/nvme/host/core.c:4483
-       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  &disk->zone_revalidate_mutex --> fs_reclaim --> &q->q_usage_counter(io)#75
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&q->q_usage_counter(io)#75);
-                               lock(fs_reclaim);
-                               lock(&q->q_usage_counter(io)#75);
-  lock(&disk->zone_revalidate_mutex);
-
- *** DEADLOCK ***
-
-locks held by kworker/u8:10/3352: 4, last CPU#0:
- #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
- #0: ffff88801c29b948 ((wq_completion)async){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
- #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
- #1: ffffc9000f277c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
- #2: ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
- #2: ffff88802ac3a5a0 (&q->q_usage_counter(io)#75){++++}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
- #3: ffff88802ac3a5d8 (&q->q_usage_counter(queue)#58){+.+.}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
- #3: ffff88802ac3a5d8 (&q->q_usage_counter(queue)#58){+.+.}-{0:0}, at: nvme_update_ns_info+0x3ac/0x1200 drivers/nvme/host/core.c:2583
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 3352 Comm: kworker/u8:10 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: async async_run_entry_fn
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
- blk_revalidate_disk_zones+0x1c5/0x1650 block/blk-zoned.c:2560
- nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
- nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2620
- nvme_alloc_ns drivers/nvme/host/core.c:4293 [inline]
- nvme_scan_ns+0x34c1/0x46c0 drivers/nvme/host/core.c:4483
- async_run_entry_fn+0x9d/0x430 kernel/async.c:129
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-nvmet: Created nvm controller 9 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 14 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 33 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 35 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 36 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 38 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 48 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-nvmet: Created nvm controller 68 for subsystem testsubsys for NQN nqn.2014-08.org.nvmexpress:uuid:5dcefdd2-eda3-4d66-a2a4-c36f6ffd95da.
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
