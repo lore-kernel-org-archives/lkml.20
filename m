@@ -1,141 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8033CC334;
-	Mon, 28 Sep 2026 10:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592496; cv=none; b=U7In8aDwaKXAui7K5P0fcvHbx/tDzsXBr0k8nxeGKJQPYKzeg6WbOeaBrF1cRTVfCLqf6HSVtkPXgEhVBWVpmbK0BEo2vM8f7J2Z+8n/Vjr/osDCMuwj5Uw4SHpbunU9kqxSbbQICMyZtrk/pWQcGerJaB0flpra8+hBhM6IE8E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592496; c=relaxed/simple;
-	bh=+Bz5ZeKI9p9R4K5LDmd15LdmSkiP+x186YnkCdjn8kQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g7iGv8Tgls5lsFZTK6aW4P/ED6TEMqb8NcumSsCdXbVow918otaOiuhrFhSwfjkAqROaIDl38Jk/MMSyMvGXNfLZUW7utbbzdaxUjc41wlWYykaAYcUDUxDhSJzZg9Vcz2NfAmpZ/e5ndZ7Mu0J4BGSmWBkjUKdN+BC4wdLhqAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaYuW3r7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E2F48989F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790592502; cv=pass; b=lqe5FqjV53bDM3LTpWzazez4cR+TCTwEMsgdOsDqPJLYY6f2eKlg2PhmE8RXKycOPOUbeJ9VJ0dEiGKI8SdJ5yx6MTs13EHabfH+x47SmlSpfIy/QvHK31QvAhlsSCg2iAN7xbKUp7ku+sv3Z7kA6pUZHph7DKfEkU7P6Ua6tbw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790592502; c=relaxed/simple;
+	bh=sUo91pSuaQ2x0OPtDMUB+dNEhNgWYHB2Csjpd3LjUMU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=miBX5KpzvwTZB+P3lrRTr4TN5eMZ4I+0nTmnTgGMaVwJJWLcvQYx1z1KbMrRbT173bNRv13IxLlyvuIPi/MI2rqA+EL9CAfYuIpTu9iW7U+Ejsei/8mEXrOfHYUJfxJDk+Nyl2lXwNb06ohQBh5VyRNdU2EiKId3q0oFAE6Tllk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rMCdmA9V; arc=pass smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaYuW3r7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F9E1F00893;
-	Mon, 28 Sep 2026 10:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592494;
-	bh=o0g1CTOhWsATgMjJJ9x3ioR0OzxIZWhzc5jdJqF125k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aaYuW3r7P81i1FZlPVggltd7iVCSBNe48IAgpPH3sq6vWALUuZ3HdfvzPlKVbAKL1
-	 yZxhZPFBJm3JaF7lhvHDuFXihH5qPS42+gpQd9pVQxMnVwgWKaSAm9H6BVTXlPf6G1
-	 eweXZdXJSQelEK8epp7QmdhAhlzMqUbit6LH+7b55U0VFdqEbtM1d8rUwEAkiESSWB
-	 Xzgt1johJzWOECXLdUTR7sQgrDF7kwASnNcUueE1mAOC7ktUhZRO7iTwJT23Lv8UBF
-	 s2HS1xiqTitu6/ScNRbl1f8ukLMpf2VmujI5LNvGqusvrG6ln41tVO9efPQqp5/ynP
-	 FAIMHHgYIbVTw==
-Date: Mon, 28 Sep 2026 11:48:09 +0100
-From: Simon Horman <horms@kernel.org>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3] nfc: nci: avoid unbounded skb allocation when
- max_pkt_payload_len is zero
-Message-ID: <20260928104809.GQ13925@horms.kernel.org>
-References: <20260927115940.3817019-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rMCdmA9V"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d07so2372570c88.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:48:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790592501; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OdWc1EZOglpn07AKDDgDsV2ZSWIJ55UaEuuAv/tt/HZHiUvlBPdCsPrGm/sIq7Jhr3
+         QN/4ZlATGBCgmBe58c8gQ9C44QwFUp5HOeYv5i1D51k0/pCU2FaKe5TpfxEYUHxboMKq
+         JmdZBUVrexJx3x9Asp+UDnlljmjIANMWVCr/9jSGjIn5q705ycmP1qDEDcNrfckpuR9N
+         ajXkmkv/16TcHZ2iYLnRvRPrvHfGztgrV4XOOuTYun+Fcbdw8Rkop+aH2p4WiM/wU3qC
+         xQfsPPzt8xfR1LS5jn1G8iIuEAUcWl250Pp/iioXMfiZcgPUjvbA6xN03Q4+LPwgUG/S
+         dezw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Knqn5twxYaRHsXIbqCPfgf4Fy1uK557FouFumzF16VM=;
+        fh=4WhjEDvAbAivkvuNLUghp3OQOWVe1z/ugNiXmFjJty8=;
+        b=PB11mzOtMIoF344N+9WGJ0BBQxzNP4z11NEUicTzcbLWvBAU7/VrNyYZBduHfUnPz3
+         5/tpESBrp/dhFwGDpY9t6c/3mjYv/MAsBYs820cu0r1zO3Qi20tiYJp4ufISBDP1TJ4Q
+         HNFT0CkUClw+9feqwI2vKNfXHRb3ibodfZzxK9wpdSkVoFC6Uk0nOAtlCQlUwVEh3oQZ
+         Y+eyB/bldCKBfJDlEHm/uIZcE5+/L1VX6o9PcxkNP4yLKJ61Vzi1EwaeQvVcbYAc73JL
+         fp/oUiQBFnYD7xs/f5ZYMEVFro1XqzNP8pRc4jJaErKKTtpAMXSteBH0CmT5Fcmpqqg8
+         /nhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790592501; x=1791197301; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Knqn5twxYaRHsXIbqCPfgf4Fy1uK557FouFumzF16VM=;
+        b=rMCdmA9VrtP4W21yWmP8Fh5CYiKodP0o5VQQyVMurRGwWotZkJzS8tYD7lU3nFo5z0
+         DgLvRMmOFcIH8GUG0ZK5vsaiZJNpu1u3R+EU8IwFO4iJfP995jprrryTr3Jaus8JzSFg
+         iAYTDrICn8A2gX/1heSe5fptTaV3LR+ZD/4U8WbQjkmYDhnixNt4gPU15v0DbQNQF5OY
+         OMQ4+pUoEaVL9iZEtftZreRiMt6EZkH4EAzIK8LpAjFuOSd7aezfCw5M1mBbeG9l6A89
+         Krm2+suUSWNAKPksOnGO2sT28nNH6pyC5a5J3DADIGEPVwmf8zXOkzRwpbfYQzJgD7wl
+         EGJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790592501; x=1791197301;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Knqn5twxYaRHsXIbqCPfgf4Fy1uK557FouFumzF16VM=;
+        b=xQjs9SaBuiwSSf7VONYFoeP8Xr8+KMR6X/H87jufLCXw2wqeWcq1mO5mqrzphtZx6z
+         aOr4NeTOELaX1oiwf5AfpmBuKKMMfHQy+TthdtsT6UbpBNdrDBKnTuhNkWm2ktQXqmf6
+         u43PAjKfyE2GVH3O+CnbUupcCfc3GEVfBTvRDiJOcNFOkjUrkjLeKvd+gbHriNedpk6+
+         M5to5CsXhTZppz3rwobf8v1AEQydHIT7Zi1xuiBgw+bkSfzSr/0dbYYxuBgQ9N6bcESI
+         oeVFY+/W21Qm+BDjYc3+rLtSZuZuyDfvw5oooKX57ORMkuXrDNuJ1UZ2EUgldWY8ftCs
+         5Ftw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcfb3EA425rwsED7oQQ4elgMnoMTnn6AXagvmjvtQuGQgA7dS7DD+tQwaf4fy1WaccY1dsnBXgy5xKx2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++md/uDoHErqbjGnu3HMHqE0JcPP2eWZvvfIxcXn+iU4fM8ujmAW
+	hSiLWUVryAGJAICvDe2FJ2hWWQjBNrvOL2EcC+Na8CnyDoZUHgBkpp7roOYoOyQ5+w4Ug0Yjjpq
+	9l5fSqs7AMObNqP7cLqRudAywS4y1kPGC2pqDao9c
+X-Gm-Gg: AYBFou1+BOubCSGriIUwHLVzQfL607+6eCfiHY48dp4vmItIEqFZmzrSt/fHchBmJ26
+	oU58dlkxq8bh+w50RyAvowtxf5ucvreidhjiad4Vg3BYbDCswOrlR3JUV8GFTKskgcsJC6bRrFP
+	WMaGKX9FF12kfS1C5nGwVOGdTdqJYYv/oopMw1FCto/LKeqxz1OB05FaRg7f/f/mQdhuYgbNOKh
+	y9IoBuh5Z0fmShb11hLYyCsA6RMaDzKgODPBZNU17NQtk4KcsP7/c1GikV3+nx4VoCm4J0TaHFV
+	C2PLyAZJm6I30YKjMYf2Z2xvrXD3y9cGB0Z/YcYd2ZMb/uAE5j+9Ae0K0q3E2YpjqMmI5Tlwa/7
+	nvm8cMqNCl7U=
+X-Received: by 2002:a05:7022:ea8b:b0:13f:c02f:60b1 with SMTP id
+ a92af1059eb24-146ce67f53amr9443650c88.15.1790592499770; Mon, 28 Sep 2026
+ 03:48:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927115940.3817019-1-liuc63@xiaopeng.com>
+References: <5315b896-e496-4020-9e46-77ffb942ea37@acm.org> <20260926095405.56438-1-emmaonana18@gmail.com>
+ <87o6dk3uwy.fsf@trenco.lwn.net> <c13f6823-a304-42e9-8876-5b8e8e3569f4@infradead.org>
+In-Reply-To: <c13f6823-a304-42e9-8876-5b8e8e3569f4@infradead.org>
+From: Marco Elver <elver@google.com>
+Date: Mon, 28 Sep 2026 12:47:42 +0200
+X-Gm-Features: AclHuK-uVZla7B_L_aK897Glrjo5LeY8TZ8za-E08uwUhBk0Dyp5Zhwe5M8VU3I
+Message-ID: <CANpmjNPE698Quk_+thwRf9kK_xnCQ5_CzaYHJW+dBM0iqXAwow@mail.gmail.com>
+Subject: Re: [PATCH] docs: kdoc: parse context_lock_struct() as struct declaration
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>, bvanassche@acm.org, 
+	peterz@infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	skhan@linuxfoundation.org, mchehab@kernel.org, aleksandr.loktionov@intel.com, 
+	kees@kernel.org, tudor.ambarus@linaro.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 27, 2026 at 07:59:40PM +0800, Liu Chao wrote:
-> nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
-> fragment size.  When that value is zero, frag_len is always zero and
-> total_len never decreases.  The loop then allocates skbs without bound:
-> none of them are freed inside the loop, they accumulate on frags_q, and
-> there is no cond_resched() in the loop body.  A single sendmsg() can
-> therefore consume all allocatable memory, and on CONFIG_PREEMPT_NONE it
-> occupies the CPU long enough to trip the softlockup watchdog:
-> 
->   watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
->   Workqueue: events rawsock_tx_work [nfc]
->   Call Trace:
->    nci_send_data+0x1ca/0x6b0 [nci]
->    nci_transceive+0xbb/0x170 [nci]
->    rawsock_tx_work+0xb5/0x1a0 [nfc]
-> 
-> max_pkt_payload_len comes straight from controller-supplied fields with
-> no check for zero, and it is read several times along the TX path while
-> the rx workqueue can update it without any lock held against this path.
-> 
-> Take a single READ_ONCE() snapshot of the limit in nci_send_data(),
-> reject a zero limit there, and pass the snapshot down to
-> nci_queue_tx_data_frags().  The fragmentation decision and the
-> fragmentation loop then consume the same value, so the loop cannot spin
-> on a limit that differs from the one just validated, and no plain read
-> of the field is left in nci_send_data() or nci_queue_tx_data_frags().
-> 
-> Rejecting the zero limit at the entry of the TX data path covers the RF
-> connection as well: ndev->rf_conn_info is allocated with devm_kzalloc(),
-> so its max_pkt_payload_len is zero from the moment the object exists and
-> only becomes usable when an activation notification assigns a
-> controller-supplied value.  Checking where the value is consumed catches
-> every producer of a zero limit -- the initial state, the notification,
-> and any future writer.
-> 
-> The two producers of the field are annotated with WRITE_ONCE() to match
-> the snapshot read; the remaining plain accesses on the HCI path are
-> untouched here, since nci_hci_send_data() loops over a different
-> conn_info instance (ndev->hci_dev->conn_info) and needs its own fix,
-> which is sent separately.
-> 
-> The "failed to fragment tx data packet" print sits on a data path driven
-> by controller/remote data and can fire on every transmit once
-> fragmentation keeps failing.  Rate-limit it so a misbehaving controller
-> cannot flood the log.  Note that with the zero-limit rejection moved into
-> nci_send_data(), a rejected zero limit returns before this print, so the
-> per-sendmsg flood does not occur through that path.
-> 
-> No legitimate configuration is affected: where the NCI spec does mandate
-> a zero Max Data Packet Payload Size -- the NFCEE Direct RF Interface --
-> nci_rf_intf_activated_ntf_packet() takes the "goto listen" shortcut,
-> bypassing the assignment entirely.
-> 
-> While at it, drop the conn_info lookup in nci_queue_tx_data_frags():
-> the caller has already validated the connection, the function now takes
-> everything it needs as arguments, and the lookup was the only use of
-> conn_info left in it.
-> 
-> Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
-> Changes in v3:
->   - Snapshot max_pkt_payload_len once in nci_send_data() with
->     READ_ONCE() and pass it down to nci_queue_tx_data_frags(), as
->     suggested by Simon Horman, so the fragmentation decision and the
->     fragmentation loop consume the same value and no plain read of the
->     field remains on this path (review:
->     https://lore.kernel.org/netdev/20260925155040.GP13925@horms.kernel.org/)
->   - Move the zero-limit rejection from nci_queue_tx_data_frags() into
->     nci_send_data(), so the check runs on the same snapshot the loop
->     consumes; this also means a rejected zero limit returns before the
->     "failed to fragment" print rather than triggering it per sendmsg
->   - Annotate the two producers of the field (RF activation NTF and
->     CORE_CONN_CREATE_RSP) with WRITE_ONCE() to match the snapshot read
->   - Drop the now-redundant conn_info lookup in nci_queue_tx_data_frags();
->     the caller already validated the connection
->   - Rate-limit the "failed to fragment tx data packet" print, which sits
->     on a data path driven by remote data, as discussed in the review of
->     the v2 series
->   - Keep the v1/v2 subject so the revision is tracked as the same fix
-> 
-> Changes in v2:
->   - READ_ONCE() snapshot of max_pkt_payload_len in
->     nci_queue_tx_data_frags(): with the check and the loop reading the
->     field independently, a store from the rx workqueue in between
->     could let the loop spin on a value the check had just rejected
+On Sat, 26 Sept 2026 at 20:41, Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+>
+>
+> On 9/26/26 8:16 AM, Jonathan Corbet wrote:
+> > Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> writes:
+> >
+> >>> +context_lock_struct(debugfs_cancellation);
+> >>> ...
+> >>> -context_lock_struct(debugfs_cancellation) {
+> >>> +struct debugfs_cancellation {
+> >>
+> >> I still think the tool-side fix is the better route: `debugfs_cancellation`
+> >> is the only one with a kernel-doc comment today, but the next comment
+> >> added above any of the others would hit the same error, and we'd be
+> >> fixing the same warning again.
+> >>
+> >> The part that really sold me on changing the tool was a general ordering
+> >> issue in `dump_struct()`: unlike `dump_var()` and `dump_function()`, it
+> >> applied the transforms only to the members after `split_struct_proto()`,
+> >> so they could never repair the declaration line itself. Moving the
+> >> transform earlier fixes that, and a full-tree A/B test removes the
+> >> existing warning without adding any new ones.
+> >>
+> >> Would you and Marco prefer the tool-side fix, or should I respin with the
+> >> `debugfs.h` change?
+> >
+> > I think that making the docs tools more robust, and avoiding the forcing
+> > of code changes to make the tools happy, are good things, so I am
+> > inclined to accept this change.
+> >
+> > Omokefe, I have to ask: did you write this patch yourself, or was there
+> > LLM assistance as well?  In the latter case, it needs an Assisted-by
+> > tag.
+>
+> While Bart's patch could work as a short-term/stopgap/workaround solution,
+> I also prefer the longer term solution of fixing the tools.
 
-Thanks for the updates.
+Having more robust tools would be my preference, too. I'd like both
+styles to be properly supported.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-
+Acked-by: Marco Elver <elver@google.com>
