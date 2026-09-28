@@ -1,235 +1,392 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB713B774D;
-	Mon, 28 Sep 2026 20:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626577; cv=none; b=pqF2pSgqXxg3gRJQIOIVtk86Lm1rkaiITRYr9tnlGSHGrFANoJujZfXfpZAxEQflA1HYJDFdtbxOtdGbsS6G6YpB/P7rBjUrc0D0uLwbt56cjVZBLwO3yQkYOOHLymyvX9wHC2B46daMhorJGvV/JCLDY04oXmagy5bA06ZZ2JI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626577; c=relaxed/simple;
-	bh=laWMqDwKNyVHhN/CJ9050mBI5WkmEpnHUc0KpFpy9Ms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oNvhJ8JnfFwhyCXy37Gw1W78P7YpYQVWLDpofwzN/8eVTH+1+i5Hb9QPv8SAIxkXSj5ocYN/pfUnpvJfPL8yCYWkQlGNtWVHQ2eKLzVnWg8DR6AydKl86JbQJfiVvVuBU+bLPfCdgE13PkltyviXGgWMKPSz9fbzmPTUQoqL/TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BoXY1HQB; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0B43CAE84
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790626598; cv=fail; b=aQIzkmnXQZz4a9GvwX4BKqI4XRuuPZhExybcAtHX4+vXCmCQFhh16cwYjNoUopEehhJrYZFFvnpfaB0YX1JMcFUQADF9Vjp77CAfsG/AufNf7dpq7LOneJfdnYNMUGB1zzoqjJU+jfoLkjJ+OPnYcJOepU9v9znGC+Usug8SQ2M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790626598; c=relaxed/simple;
+	bh=SX4792UfkegXXlMYJyPHJvT4TMZTSVmvtuTaCeeD9vA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=MydABXajvRClq2WG8H0nEZCjHO7keLXxjrPQDukhJFegdE0wX9XoC7RoAXHCxGiua9Fd9tsiJyfAonm5F9BwQ2vQJBGbYBBBOnb9jbom0D2bBN1KARfas89wwgYVWl0RMWG5dqw4s9I8g8j6dFklb7Dk9Unyw0xK2fenzf/AI78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tMiTnwAT; arc=fail smtp.client-ip=52.101.56.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BoXY1HQB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790626575; x=1822162575;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=laWMqDwKNyVHhN/CJ9050mBI5WkmEpnHUc0KpFpy9Ms=;
-  b=BoXY1HQBVBkHinaHq38CB466tkvtGUboJL+o43zGZiEZHHzlcMfHnyFO
-   aPe4qMw6Kw4GlHclTCAQgtRUGVhxp1edAZ2oA4KyrbKOKami6D9cLXnjd
-   saAUktpB2wP1wxyhjcJagdzQFQ7J3Q/HZmbmQMl0eE2XacvPFgkVpOteR
-   3pL6VLgc0YMvBhyfq3svpYsemoNijUsoSg49TLIm1j6e81vMwi2hwrDNI
-   6mEpW06330V7X/7rEbrbpa/2NdxygTzSoFnDog+MMLhGvTTbRNgHTeXc9
-   ga9cvmJo1cOFC0fYjZMuUh+BZNaDLuGswxk2cUDxPFJQkpWNKQRuRA64b
-   A==;
-X-CSE-ConnectionGUID: fpFc46vjS6yUSJEnkL1zLQ==
-X-CSE-MsgGUID: 20S6vZJBRfyrnwmIupzTFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90464121"
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="90464121"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 13:16:14 -0700
-X-CSE-ConnectionGUID: lENdmf/XTF2I3brpvOpvTA==
-X-CSE-MsgGUID: +oQCzvnwSlSOl1ubXbFAsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="274690778"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 13:16:15 -0700
-Message-ID: <bf7e44c9-7a94-4771-9afa-d4bb513ffd32@linux.intel.com>
-Date: Mon, 28 Sep 2026 13:16:14 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tMiTnwAT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qgcdqre5BvK9MrjH86YfVYGhP4wpCvT0+hSv1FeNX4A2ChS43ECxkd37KfS1ezPZBzoctqLNiNFzU8m1AaZeBZ4A/JKH3wZRsSbIGP8FssJUxCOo6q+OJIGTnoG1rFIlqpOsxxS15s+0mZRlpzCaRvtDqIzapvyKiCJxK25OTw22Jq81MezaRi1I/ajRc3C91izA2z+hHR4LdUvZEF9rYOhd8loFsPvZ5RsKINiVCCRBvVD/4pOi+x/kpNUUKjJzNlsNJJyIaa9QDKvwUtshyZCr27C7WXce2+FWR1g2l8v5ujabasOP8UscTsJt3ZayM+s5yUYZp8Ocq49BkKtzFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZQFRJDoeC2Wktn0aYBsFycxD/jFdQQYMVqSnAWFLcAo=;
+ b=GryqdSZSAmdRQYar1JayOFxxbb+vR8+4J+vrfhwPon8Lumy8nEBmWRNeV28IlCikP8oZD/Rldoww2D+99PkXyFSDHecIgpAuuyfeHOANRV+Hz3Hfg9rIFLTr9KyvdqXvio43TcbvjbOiPoxwLfvrki/Atp4E8Kn5tVMUqvxDqapjy0CPhgz9w0V6z4BMDdk5AuDejrfelS05fK7g+cVTEyp3qZsPDVmhpvpHDfHRf/TzHSgvLnuidBzre7HA26VZEYyuqScsEMiqrphS3hKkAe6uUcjUrQhyLJE8R2jIE5qB3Vb3yauRLMXY622sxFV+SGGb9FNcSLhqMqcef2ZH3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZQFRJDoeC2Wktn0aYBsFycxD/jFdQQYMVqSnAWFLcAo=;
+ b=tMiTnwATr6gq9/knr5QZVl5reXVH1nFqQ2sINhHonWqhrd0hZVub9LE3sFyj7Tb7mfw2tBdiDJ3ab9B69l5sf5MWFNsnu1DdsnQ5JvmuSGInXvLphxx4U1i4tnuOgkP/7dkpEr5tW2V4nqFKLCNR50HCjrBfcCW/WLjF7d7nDEs=
+Received: from BN9PR03CA0239.namprd03.prod.outlook.com (2603:10b6:408:f8::34)
+ by CH9PR12MB167381.namprd12.prod.outlook.com (2603:10b6:610:314::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 20:16:32 +0000
+Received: from BN3PEPF00022BBC.namprd04.prod.outlook.com
+ (2603:10b6:408:f8:cafe::80) by BN9PR03CA0239.outlook.office365.com
+ (2603:10b6:408:f8::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
+ 28 Sep 2026 20:16:32 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BBC.mail.protection.outlook.com (10.167.248.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 20:16:31 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 15:16:31 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 28 Sep 2026 15:16:30 -0500
+Message-ID: <ebd56ccf-e7df-beb2-57ff-6fdf34b29a97@amd.com>
+Date: Mon, 28 Sep 2026 13:16:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] virt: tdx-guest: Give the Quote buffer an explicit
- type
-To: Peter Fang <peter.fang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260928100913.2265687-1-peter.fang@intel.com>
- <20260928100913.2265687-3-peter.fang@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V0 12/21] accel/amdxdna: Decouple AIE4 doorbell and MSI-X
+ notification transport hooks
 Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20260928100913.2265687-3-peter.fang@intel.com>
-Content-Type: text/plain; charset=UTF-8
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Wendy Liang
+	<wendy.liang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20260926013448.3840921-1-yidong.zhang@amd.com>
+ <20260926013448.3840921-13-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260926013448.3840921-13-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBC:EE_|CH9PR12MB167381:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87722223-8657-4015-d734-08df1d9d6311
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|56012099006|6133799003|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9hV8K5F39kCp39LRXvDyiSJPcgjB7Xn8tdPh0L7qbrJcgE2Q2vWLzh33jg41aUHBTeAxX0xk1c0Zupy4ak+Hf0M872x3qj6hJfvQqEhgxJ4Dhx8F4eWnQ4aGY2a/zClhFOc7uJC27zVHDsvaxSPPfOzvqocSV2lieDzSIl4uXEfMKQRj/7kgWJx5pU3byw+qcACKVKeYX87jNs2pmTXfe1GpWoyrQh/JKXt2Ck5KuD8QmON01LquHcjWkQLrX3Sys6K+lhzwkw6gO5C8SPO02iXglwnGcoP1oE7umYaJ9wNEi1rbVPS6Zrug4P3kmEevNPXJN2d4DEAi9NjedE0ySzZ880jAtTG2nZGIJpNitawpcQWCzk4TFgHljLi74zuh49XArkeO02Cd2n/x6gMRa3cgqnzH6D74aoGC42Nxj20R8NA2mUKvver9rHu43TXlec/SBRpp2VCtdxA/fSq15lSjnraSRaybBRfWQjsTbKN0k+U6NweYaVTGmqVgwHYmHIvdiOi8M/55KtnfUTy7npRT54PUJpvahbpU7XXFpQ7TNtEcDQhKYY85cMdIXTYFQYKExGZjyqJvRV6l6gQr/opiv/2GKlbTLkEMbLCDCcB4upsGUlAnZKvpHq4uTrXlaKWOZeiR0vI322OT8a9eBbgOnNHcCeBWUlxUJD08YKJ7m8U2cLmgJzZ6SYMzLhWBQHP83hEqmUA7Jw8/YfB9oQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(56012099006)(6133799003)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xW365nNrMFL07cASYSg3av7edB/TjJR28Y7xmhMCblwINxN9wQbuSvZJ62I05zift0UXTapyhpmu1n+3bDmh08Ttlk7IwJsOdK5hUvp2Zhs4e5eNxgf4MaOZSkS7/nuWxM9iComuED6vV1DhHJAjf/iK8rTbi58BTWdOn9XIHJJMDx5f7SkWfHvMnsTqyufeCt8B5FL/N3r8Z/oXPCdlq92wKMGpqvPCCKvnTFV+/MxsUnHeM5sz3vfxygbCI6Rn+TEMlq1KhA5FopA4yP3bHqNXlL5A8Qdz6jdr7CuvarwNZg2Xz1Qmli5Lul9R5uMJCr5u9IOnBD0Zj+U5bWeo+TznAkPtJlmnV7y6chDP/rJ8No1ShX4Huf5XCYIps0Royh0Nmu8nHx+RrY9fUDWJ2ktOfE9CCVrTEJjhQ/0JGTv13T3FV7IKVQ5mmJZNcaWP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 20:16:31.8607
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87722223-8657-4015-d734-08df1d9d6311
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB167381
 
-Hi,
 
-On 9/28/2026 3:08 AM, Peter Fang wrote:
-> The Quote buffer is always a "struct tdx_quote_buf", but its global
-> pointer is a "void *". A function would have to convert it back to make
-> sense of it.
-> 
-> Declare the global with its actual type, and give it a better name.
-> 
-> This creates variable shadowing in wait_for_quote_completion(), so
-> rename its parameter for clarity.
-> 
-> AI was used under supervision to collect/apply feedback, review code and
-> workshop logs.
-> 
-> Signed-off-by: Peter Fang <peter.fang@intel.com>
+On 9/25/26 18:34, David Zhang wrote:
+> Separate PCI-specific doorbell and interrupt notification handling from
+> the transport-neutral context code:
+> - Move MSI-X ISR and registration out of aie4_ctx.c into transport hooks
+>    aie4_request_notification() and aie4_free_notification() in aie4_pci.c.
+> - Add transport hooks aie4_doorbell_setup() and aie4_doorbell_ring() to
+>    validate the doorbell offset against the mapped doorbell BAR and ring
+>    the hardware doorbell.
+> - Map the doorbell BAR (BAR 2) via pcim_iomap() in aie4m_pcidev_init()
+>    and record ndev->doorbell_base. The doorbells are used exclusively by
+>    kernel submit driver on VF and classic devices. PF devices only perform
+>    management functions, and never host hardware contexts, thus never use
+>    the doorbells.
+>
+> Co-developed-by: Wendy Liang <wendy.liang@amd.com>
+> Signed-off-by: Wendy Liang <wendy.liang@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
 > ---
+>   drivers/accel/amdxdna/aie4_ctx.c    | 29 +++--------
+>   drivers/accel/amdxdna/aie4_pci.c    | 79 +++++++++++++++++++++++++++++
+>   drivers/accel/amdxdna/aie4_pci.h    | 18 +++++++
+>   drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
+>   4 files changed, 107 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+> index 90da4e8c4f54..fba4ef25ffbe 100644
+> --- a/drivers/accel/amdxdna/aie4_ctx.c
+> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+> @@ -21,18 +21,9 @@
+>   #include "amdxdna_mailbox_helper.h"
+>   #include "amdxdna_pci_drv.h"
+>   
+> -static irqreturn_t cert_comp_isr(int irq, void *p)
+> -{
+> -	struct cert_comp *cert_comp = p;
+> -
+> -	wake_up_all(&cert_comp->waitq);
+> -	return IRQ_HANDLED;
+> -}
+> -
+>   static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
+>   {
+>   	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> -	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>   	struct cert_comp *cert_comp;
+>   	int ret;
+>   
+> @@ -50,32 +41,27 @@ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32
+>   
+>   	cert_comp->ndev = ndev;
+>   	cert_comp->msix_idx = msix_idx;
+> +	cert_comp->irq = -ENOENT;
+>   	init_waitqueue_head(&cert_comp->waitq);
+>   	kref_init(&cert_comp->kref);
+>   
+> -	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
+> -	if (ret < 0) {
+> -		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
+> -		goto free_cert_comp;
+> -	}
+> -	cert_comp->irq = ret;
+> -
+> -	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
+> +	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
+> +	ret = aie4_request_notification(cert_comp);
+>   	if (ret) {
+> -		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
+> +		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
+>   		goto free_cert_comp;
+>   	}
+>   
+>   	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
+>   	if (ret) {
+> -		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
+> +		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
+>   		goto free_irq;
+>   	}
+>   
+>   	return cert_comp;
+>   
+>   free_irq:
+> -	free_irq(cert_comp->irq, cert_comp);
+> +	aie4_free_notification(cert_comp);
+>   free_cert_comp:
+>   	kfree(cert_comp);
+>   	return NULL;
+> @@ -89,7 +75,7 @@ static void cert_comp_release(struct kref *kref)
+>   	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
+>   
+>   	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
+> -	free_irq(cert_comp->irq, cert_comp);
+> +	aie4_free_notification(cert_comp);
+>   	kfree(cert_comp);
+>   }
+>   
+> @@ -99,6 +85,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
+>   
+>   	ndev = cert_comp->ndev;
+>   	guard(mutex)(&ndev->cert_comp_lock);
+> +
+>   	kref_put(&cert_comp->kref, cert_comp_release);
+>   }
+>   
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 1e2b120c4972..7b36bd001b64 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -14,6 +14,7 @@
+>   
+>   #include "aie.h"
+>   #include "aie4_msg_priv.h"
+> +#include "amdxdna_ctx.h"
+>   #include "aie4_pci.h"
+>   #include "amdxdna_mailbox.h"
+>   #include "amdxdna_mailbox_helper.h"
+> @@ -110,6 +111,82 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
+>   	ndev->mbox = NULL;
+>   }
+>   
+> +static irqreturn_t cert_comp_isr(int irq, void *p)
+> +{
+> +	struct cert_comp *cert_comp = p;
+> +
+> +	wake_up_all(&cert_comp->waitq);
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +/*
+> + * Transport hook: wire the per-cert completion notification.  PCI maps the
+> + * firmware-provided MSI-X index to a Linux irq and registers cert_comp_isr;
+> + * the platform build registers an IPI mailbox callback instead.
+> + */
+> +int aie4_request_notification(struct cert_comp *comp)
+> +{
+> +	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
+> +	int ret;
+> +
+> +	ret = pci_irq_vector(pdev, comp->msix_idx);
+> +	if (ret < 0)
+> +		return ret;
+> +	comp->irq = ret;
+> +
+> +	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
+> +	if (ret) {
+> +		comp->irq = -ENOENT;
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/* Transport hook: tear down the completion notification wired by the hook above. */
+> +void aie4_free_notification(struct cert_comp *comp)
+> +{
+> +	if (comp->irq >= 0)
+> +		free_irq(comp->irq, comp);
+> +}
+> +
+> +/*
+> + * Transport hook: take what this transport needs from the create-context
+> + * response.  PCI validates the firmware-provided doorbell offset against the
+> + * mapped doorbell BAR and stores this context's kick target.
+> + */
+> +int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
+> +			const struct aie4_msg_create_hw_context_resp *resp)
+> +{
+> +	struct amdxdna_dev *xdna = hwctx->client->xdna;
+> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+> +	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+> +	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
+> +
+> +	/*
+> +	 * doorbell_base is a pcim_iomap() of the whole doorbell BAR.  The offset
+> +	 * comes from firmware (or, on a VF, the PF/hypervisor); reject one that
+> +	 * would place the u32 doorbell write past the mapped BAR before
+> +	 * aie4_doorbell_ring() ever dereferences priv->doorbell_addr.
+> +	 */
+> +	if (db_off + sizeof(u32) >
+> +	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
+> +		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
+> +		return -EINVAL;
+> +	}
+> +
+> +	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
+> +			      resp->doorbell_offset;
+> +	return 0;
+> +}
+> +
+> +/* Transport hook: ring this context's doorbell (kick CERT). */
+> +void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
+> +{
+> +	writel(0, hwctx->priv->doorbell_addr);
+> +}
+> +
+>   static int aie4_irq_init(struct amdxdna_dev *xdna)
+>   {
+>   	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+> @@ -634,6 +711,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+>   		set_bit(SMU_REG_BAR(ndev, i), &bars);
+>   	set_bit(xdna->dev_info->mbox_bar, &bars);
+>   	set_bit(xdna->dev_info->sram_bar, &bars);
+> +	set_bit(xdna->dev_info->doorbell_bar, &bars);
+>   
+>   	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
+>   		if (!test_bit(i, &bars))
+> @@ -647,6 +725,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+>   
+>   	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
+>   	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
+> +	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
+>   
+>   	pci_set_master(pdev);
+>   
+> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+> index 063cedfe3c9d..c6e7f6a80f69 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.h
+> +++ b/drivers/accel/amdxdna/aie4_pci.h
+> @@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
+>   
+>   	struct cert_comp                *cert_comp;
+>   	u32                             hw_ctx_id;
+> +
+> +	void                    __iomem *doorbell_addr;
+>   };
+>   
+>   struct amdxdna_dev_priv {
+> @@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
+>   	const struct amdxdna_dev_priv	*priv;
+>   	void			__iomem *mbox_base;
+>   	void			__iomem *rbuf_base;
+> +	void			__iomem *doorbell_base;
+>   
+>   	struct mailbox			*mbox;
+>   	u32				partition_id;
+> @@ -114,6 +117,21 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+>   /* aie4_pci.c */
+>   int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
+>   
+> +/*
+> + * Transport hooks: one definition per build (aie4_pci.c for PCI; a future
+> + * OF/platform transport provides its own), selected at compile time.  aie4_ctx.c is
+> + * transport-neutral and reaches the doorbell kick and the completion interrupt
+> + * only through these.  The cert_comp object itself (allocation/xarray/kref/
+> + * waitq) is firmware-driven and stays neutral in aie4_ctx.c; only the notification
+> + * wiring (PCI MSI-X vs platform IPI callback) is transport-specific.
+> + */
+> +struct aie4_msg_create_hw_context_resp;
+> +int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
+> +			const struct aie4_msg_create_hw_context_resp *resp);
+> +void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
+> +int aie4_request_notification(struct cert_comp *comp);
+> +void aie4_free_notification(struct cert_comp *comp);
+> +
+>   /* aie4_sriov.c */
+>   #if IS_ENABLED(CONFIG_PCI_IOV)
+>   int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+> index 6e78bab8a02c..1529e7507fed 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+> @@ -6,9 +6,11 @@
+>   #ifndef _AMDXDNA_CTX_H_
+>   #define _AMDXDNA_CTX_H_
+>   
+> +#include <drm/gpu_scheduler.h>
+>   #include <linux/bitfield.h>
+>   
+>   #include "amdxdna_gem.h"
+> +#include "drm/amdxdna_accel.h"
 
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+#include <drm/amdxdna_accel.h>
 
 
-> v5:
->  - New patch. [Dave]
-> ---
->  drivers/virt/coco/tdx-guest/tdx-guest.c | 35 ++++++++++++-------------
->  1 file changed, 17 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
-> index d0303e31e816..896eb0a09c4a 100644
-> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
-> @@ -192,7 +192,7 @@ struct tdx_quote_buf {
->  };
->  
->  /* Quote data buffer */
-> -static void *quote_data;
-> +static struct tdx_quote_buf *quote_buf;
->  
->  /* Lock to streamline quote requests */
->  static DEFINE_MUTEX(quote_lock);
-> @@ -209,7 +209,7 @@ static long tdx_get_report0(struct tdx_report_req __user *req)
->  			     USER_SOCKPTR(req->tdreport));
->  }
->  
-> -static void free_quote_buf(void *buf)
-> +static void free_quote_buf(struct tdx_quote_buf *buf)
->  {
->  	size_t len = PAGE_ALIGN(GET_QUOTE_BUF_SIZE);
->  	unsigned int count = len >> PAGE_SHIFT;
-> @@ -222,25 +222,25 @@ static void free_quote_buf(void *buf)
->  	free_pages_exact(buf, len);
->  }
->  
-> -static void *alloc_quote_buf(void)
-> +static struct tdx_quote_buf *alloc_quote_buf(void)
->  {
->  	size_t len = PAGE_ALIGN(GET_QUOTE_BUF_SIZE);
->  	unsigned int count = len >> PAGE_SHIFT;
-> -	void *addr;
-> +	struct tdx_quote_buf *buf;
->  
-> -	addr = alloc_pages_exact(len, GFP_KERNEL | __GFP_ZERO);
-> -	if (!addr)
-> +	buf = alloc_pages_exact(len, GFP_KERNEL | __GFP_ZERO);
-> +	if (!buf)
->  		return NULL;
->  
-> -	if (set_memory_decrypted((unsigned long)addr, count))
-> +	if (set_memory_decrypted((unsigned long)buf, count))
->  		return NULL;
->  
-> -	return addr;
-> +	return buf;
->  }
->  
->  /*
->   * wait_for_quote_completion() - Wait for Quote request completion
-> - * @quote_buf: Address of Quote buffer.
-> + * @buf: Address of Quote buffer.
->   * @timeout: Timeout in seconds to wait for the Quote generation.
->   *
->   * As per TDX GHCI v1.0 specification, sec titled "TDG.VP.VMCALL<GetQuote>",
-> @@ -249,7 +249,7 @@ static void *alloc_quote_buf(void)
->   * or error code after processing is complete. So wait till the status
->   * changes from GET_QUOTE_IN_FLIGHT or the request being timed out.
->   */
-> -static int wait_for_quote_completion(struct tdx_quote_buf *quote_buf, u32 timeout)
-> +static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
->  {
->  	int i = 0;
->  
-> @@ -257,7 +257,7 @@ static int wait_for_quote_completion(struct tdx_quote_buf *quote_buf, u32 timeou
->  	 * Quote requests usually take a few seconds to complete, so waking up
->  	 * once per second to recheck the status is fine for this use case.
->  	 */
-> -	while (quote_buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
-> +	while (buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
->  		if (msleep_interruptible(MSEC_PER_SEC))
->  			return -EINTR;
->  	}
-> @@ -268,7 +268,6 @@ static int wait_for_quote_completion(struct tdx_quote_buf *quote_buf, u32 timeou
->  static int tdx_report_new_locked(struct tsm_report *report, void *data)
->  {
->  	u8 *buf;
-> -	struct tdx_quote_buf *quote_buf = quote_data;
->  	struct tsm_report_desc *desc = &report->desc;
->  	u32 out_len;
->  	int ret;
-> @@ -285,7 +284,7 @@ static int tdx_report_new_locked(struct tsm_report *report, void *data)
->  	if (desc->inblob_len != TDX_REPORTDATA_LEN)
->  		return -EINVAL;
->  
-> -	memset(quote_data, 0, GET_QUOTE_BUF_SIZE);
-> +	memset(quote_buf, 0, GET_QUOTE_BUF_SIZE);
->  
->  	/* Update Quote buffer header */
->  	quote_buf->version = GET_QUOTE_CMD_VER;
-> @@ -296,7 +295,7 @@ static int tdx_report_new_locked(struct tsm_report *report, void *data)
->  	if (ret)
->  		return ret;
->  
-> -	err = tdx_hcall_get_quote(quote_data, GET_QUOTE_BUF_SIZE);
-> +	err = tdx_hcall_get_quote(quote_buf, GET_QUOTE_BUF_SIZE);
->  	if (err) {
->  		pr_err("GetQuote hypercall failed, status:%llx\n", err);
->  		return -EIO;
-> @@ -417,8 +416,8 @@ static int __init tdx_guest_init(void)
->  	if (ret)
->  		goto deinit_mr;
->  
-> -	quote_data = alloc_quote_buf();
-> -	if (!quote_data) {
-> +	quote_buf = alloc_quote_buf();
-> +	if (!quote_buf) {
->  		pr_err("Failed to allocate Quote buffer\n");
->  		ret = -ENOMEM;
->  		goto free_misc;
-> @@ -431,7 +430,7 @@ static int __init tdx_guest_init(void)
->  	return 0;
->  
->  free_quote:
-> -	free_quote_buf(quote_data);
-> +	free_quote_buf(quote_buf);
->  free_misc:
->  	misc_deregister(&tdx_misc_dev);
->  deinit_mr:
-> @@ -444,7 +443,7 @@ module_init(tdx_guest_init);
->  static void __exit tdx_guest_exit(void)
->  {
->  	tsm_report_unregister(&tdx_tsm_ops);
-> -	free_quote_buf(quote_data);
-> +	free_quote_buf(quote_buf);
->  	misc_deregister(&tdx_misc_dev);
->  	tdx_mr_deinit(tdx_attr_groups[0]);
->  }
+Lizhi
 
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
-
+>   
+>   struct amdxdna_hwctx_priv;
+>   
