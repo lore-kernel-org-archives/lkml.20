@@ -1,72 +1,74 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97A84C8FFE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523504D17BE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604288; cv=none; b=Nsz5RvljHNAIPmVeWoGWVEPL8qxwtcEUaQD8e+02ZQxVIqxbl9CtgslIkjZ+vXhtFDz+rCNJZJ1QZEmzlMLIDEO5c99xX/SXO2cyoRhwdSVFrKyP+2sPU8ccPPU1lIPBNjB7kJXAZQiXFx5Bx/cj7iOoVfUnhvbDN6CiTZw5kO0=
+	t=1790604304; cv=none; b=Sl3iGAk/aYk+MgBpk++Mc12WJIuyEydjVgZy8eJ6UPqmumkrzFCCaFrFWrftcxh/ATjHupK0t9zMCxvzaS0KiRUDhprBxZpjmkzlDK5AHjUBGySnz2hemV3Z4Plu0VktrS1anCO/DJkLgWZqCkKEJOX4PIzN5YNPCLAvFwd+8WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604288; c=relaxed/simple;
-	bh=jASAzubG3/1Ohs8axuhKUesKhQPmDAaQp2vTWGVMH3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=utji7uKEOUO9GQ2yiHA1/EdyL9DUuEiEODo6EAstLn12tBGNuG5Pg7WRsMD90/948WAqo8+SYn196yJzTH/lYVPncj/VNXTCZSF33F947bJZnxjaig/H7jmWPEftau/Hpo93SFwsPlqYtsKCB6JhAMIS8eF3UpwAO3OaFnrBdHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ATsYI9Ni; arc=none smtp.client-ip=74.125.228.170
+	s=arc-20240116; t=1790604304; c=relaxed/simple;
+	bh=e7sZyGlmDt4oF5STQeiaE91HwY1PMEfx+7YPGsgDjQw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J8qydMJUBN4GGSQbSzrL4ZO1s+eHVN9moP2Sz153ywGy8DX9rphLCLc7YFIAvvFbKY0n/vHAPl2UGwD4Ib1SuZG9Lr1o10rwl4kdwy07CBXuni98Fe/ogpTtXdSZj9AvzMUw1D6W0f3LoJo6hTbdhJD2/1BjWg616uvxb0K39Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiGorfGa; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ATsYI9Ni"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2bf3cc16baso260332866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:04:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiGorfGa"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-882c2bcef77so844590b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:04:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790604282; x=1791209082; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790604297; x=1791209097; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yyby6O267E21VPls7mPdTMnZ7y58yWOOybub5QTr35o=;
-        b=ATsYI9NivXJRCcHDRh48QqOLCcLrNnDSGjkWnctqcCbtc83z6kW5gJK//8LcePMDbQ
-         ikY+Xee8ExBIW8vyb9ufYBqeIlh6zuHeF9paUW9/p00pG00oe/oWI0Tt8rtLVw/zC5pR
-         rrruCU/FOMOfqEJ7rRgYGSdUKXXzJAXh/0PyA/oAPhyXHIw5li+r2itcYPs13Xt7YZv6
-         04BolMswg4LbQjyFAPPHzICIprpHXgUzyoavoyFuBCRTINKmgOaNYKri2z11p+CGOKhe
-         dd6TNpts6kFVn3iwuOEkqVggjqKy+kB2PjgGXA7vAeFc8Rk71HD52xDypsVXuIShSFY8
-         fGtg==
+        bh=t52BXxF23LF5E87Y4H/VQEPcHdWpBGQRCV4phQgDzGs=;
+        b=AiGorfGaw9QPrHyCEcUq8Rk3eMCbZ69NfyamC4NWykeKHhBc3pDD4D54eLHNTraH0I
+         4caXslqeesgxDhci/DX1wkzY0s57gWAi25v/WJp65ENNR/zKFaX7Dh3+24f885IFsr9J
+         s69M39M36/jhnKvIeR5OBrZt/oTBeGlqebNHqR/iIQ9qh//1QPhSgkpKkL2VOrrO8Ydo
+         6TgWk53NoJznZob7P2F+AlPj1oKBY886pPmmZGX4MwbLvEWBi5+GVMophH/NT+8jMmyz
+         pb8w1p9JEm+eIpivyftp+4LHVYQnSX6hkYmKpxviCrIy03Kl24wy9bBnZGw7um4I+u+5
+         JibA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790604282; x=1791209082;
+        d=1e100.net; s=20260707; t=1790604297; x=1791209097;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yyby6O267E21VPls7mPdTMnZ7y58yWOOybub5QTr35o=;
-        b=CnQOU2ERWM4ZhKclqZVZa1TqYOCxYwax0QhhAxp+Tx5qgVGZnfkh1gc0PEKF/3cOoB
-         lN05k767A1dZhd//mrjYUTidA3S//Czu+yvGvpLNfWEt2/yzewbs64WZ8UgjcdTKDma4
-         aKtn/wooSdgn3YNL7DZ3348zleeu6Fxs7yy1FC92BdFvAXsH0HuZCbMgO4MVpA3PayGN
-         okS1bfN0cLQ8nI3eTGzKOisDCy8jzdh1TFNsD0/UWNUZljHCs2gy2H08gY3Rgjl2S0P+
-         gGhXCyS5mSLp74n9gFwFZXaMN4CdtCTBkUfKDk117HqD0sWDXqTulKes+KEtbXB99eO2
-         iNHQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKPq3VY6RPQqTerR8w5ZTJ34Ns1l7fkAjUbAyFecXDSVVPgOqkDdCz1U//0bccGQJUF4ksytSGqaBF86w=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3X9QT4/qqEwpe+mHMUeC+QH4GUucWlO0SSa/Owp1LlJX5sLUZ
-	YvW/D8cF8BqdzbWMScdEtl3w+Hxx0DecwUgueTd3QZvLHJJV8G1amKAe
-X-Gm-Gg: AYBFou2XKZ1vhFfUCywkPOJf8Prb+35tGfz9SqbIbr85BZNbDCVG3WBRQtwN523sjB/
-	XDJMj4+jkGNK6PtWZ5MLRalAmlElTCQ04pwMhDSBDdxmcf8/iE8CRmEnUsuSfh94LMXTVi5JwXX
-	i4v++y1FOusRwT9XgMVSsqfQmBiJUF0vG/jlI/yGbLSe6BTIXj9gucW/nrdoKIBF/ei+hEQi5Pm
-	CGgt91heNsNGPcwQXiPKKB7VszIy/UbRavz+rB/MgJ4siFRaIIAeemMv4Z/Xmg7Pp/4HjIrWQnE
-	G2+zx0xPj+sEDq27eUeVNyYBW9k20HK6jxa1D2nffulS0o0uJDXQd9cGkMV8UIu4n9fKTHT8kZr
-	fb5XynuqY1XOFBulTDUj73T0FChGxKrqsN5sR8hAlo7mGVI+EqdAJ8vAYqWX3spkL90wPv3YdMQ
-	ER0MKybnN7C3lstk8bU0MhLpmt6EKareag4Wo0V/fEwScwCr5ZHuyejnLdQ/qdgIlmL81VIfhrC
-	oY=
-X-Received: by 2002:a17:907:c0e:b0:c2a:fd19:8fa5 with SMTP id a640c23a62f3a-c2afd19cdccmr542265366b.34.1790604282009;
-        Mon, 28 Sep 2026 07:04:42 -0700 (PDT)
-Received: from home.powerhub ([2a0a:ef40:1484:7a01:a8cc:a863:c2a1:d5cd])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dd68a6f18sm179642666b.52.2026.09.28.07.04.40
+        bh=t52BXxF23LF5E87Y4H/VQEPcHdWpBGQRCV4phQgDzGs=;
+        b=e6idqnpqeChAscCDzQesdtGeW4HKxH7ixR4YikFr+AVr3uNbyq1jcmSdSNy5qDLU1i
+         moTZK8jWPyyLp43l9jny+DcJmRXEe/iKZ4aZ+4yQsVYL4OI+W6J3AX6rUESEQ6DBK7i3
+         wf1BrnzTVK7U+bmBCrRcAi4QC128l2eOVE3xHR64xOaGBkI0lyXUIEX3ioDPu2Xk+Ui/
+         pfzQSkMpqWTbeFgLTggeY+/ESpP+wp6eX/s2sYOu0BjoGyNQz/KWpzSJsTZEfg6vvcei
+         NNCMIQEnP9A7I4XMGHTQ88BAV02zgLWMJ5jYvdGl9ClS2t1wCYacZkPFA3xWMn3kF1/k
+         GS7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxNssB4PVb8NsG1rayJEAMc7kaBGjbOoMcr35lXw/dJT05cHWdnAbmMm27PonBiSXD6AXaIVn6JY099ASk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3g6hiLJLpClG3z4MIUrll+oQ7KqnUpNAfMmF4zibXEsMgN1i3
+	ALgDDQabgoDi1YkR/n4npD42VKf9oBEt3HacWcG9+BCnRJeaY59zlBzQ
+X-Gm-Gg: AYBFou0HTYc1idRG3ayWjFneQ8/k3Z2rIS8sgAF0ocv5OYsCRhy/yiZVznNgzh4vtmx
+	l+ezZ259YvOwkxuUvGyfhVYsWmTqtBdW1J9dLyzS1bFLFgDOgtf1EFKNeJHynqx2qA2b8IdZUDP
+	lH0bnPyNsSGTLDqHG6cLscxgveVqNcz8b8KcwxCmyStOcPfdGADx/K4ASzsWDwUmea8QKaw57I9
+	rvHxYMOBNoR0RMD03GVb1rdzmm66kPxrszrSctckN9JG1IR1yb1qCOXZcPoSYzZVQhKv5cf9F/g
+	gzhQDcfcICFAckNMTvcHHS38j4iNsX3KDBO/0JSU7Dw15glvh3BwaKV8h9KhJ7MEFu5/0n3NMTY
+	+6WHDsaGdIIF/dX22q29L+IdCg+YzQ29F8Wc2h4uNQOFYete0SZAX3HE46CgeUptnvhngfI7If7
+	5tMLkzKLzYzgYbgLXxDgNKSwb7G7uwmOq41PzINQ+/jL+gJATzKcYx8c7twm5GS+CLW03byhUmE
+	Xoyqp4Ufr/ktgaS
+X-Received: by 2002:a05:6a00:4107:b0:881:c561:a088 with SMTP id d2e1a72fcca58-881c561afdbmr4799959b3a.4.1790604296856;
+        Mon, 28 Sep 2026 07:04:56 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87ff354d854sm4129901b3a.2.2026.09.28.07.04.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:04:40 -0700 (PDT)
-From: Quentin Strydom <qstrydom0@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Quentin Strydom <qstrydom0@gmail.com>
-Subject: [PATCH] wifi: ath10k: fix Bluetooth RX on ASUS QCA6174 when WLAN is down
-Date: Mon, 28 Sep 2026 15:03:56 +0100
-Message-ID: <20260928140356.13247-1-qstrydom0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 28 Sep 2026 07:04:56 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shawn Tu <shawnx.tu@intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov2740: fix power leak on remove while runtime-active
+Date: Mon, 28 Sep 2026 21:04:48 +0700
+Message-Id: <20260928140448.2404694-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,78 +77,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On an ASUS QCA6174 PCI device with subsystem ID 1043:8751,
-Bluetooth receive sensitivity is severely reduced when the WLAN
-interface is left down. This is particularly visible when Ethernet is
-used for network connectivity and the WLAN interface is never started.
+ov2740_remove() calls pm_runtime_disable() and nothing else -- it
+never calls ov2740_suspend(), which actually powers the sensor down
+(asserts reset/powerdown gpios, disables the clock, disables the bulk
+regulators). pm_runtime_disable() only blocks future auto suspend/
+resume, it doesn't force a final one.
 
-With WLAN down, a nearby BLE advertiser is received at roughly -95 dBm
-instead of the expected -60 dBm. Bringing the WLAN interface up restores
-normal Bluetooth sensitivity.
+If unbound while the device is genuinely runtime-active (streaming,
+or an open subdev fd holding a PM reference), the regulators, clock
+and gpios stay in their active state with no code path left to ever
+release them.
 
-Tracing and register-level testing showed that the QCA6174 warm reset
-performed from ath10k_pci_hif_stop() causes the Bluetooth sensitivity
-drop. In particular, asserting SOC_RESET_CONTROL_CPU_WARM_RST_MASK
-reproduces the bad state. Conversely, asserting SOC_GLOBAL_RESET during
-a QCA6174 cold reset restores normal Bluetooth reception.
+Call ov2740_suspend() in that case, guarded by
+pm_runtime_status_suspended() so the common already-suspended case
+isn't suspended twice -- same guard sibling imx412.c's remove() uses.
 
-Perform an additional cold reset after the normal hif_stop safe reset
-for the affected ASUS subsystem. Scope the workaround to 1043:8751 to
-avoid changing reset behaviour for other QCA6174 and ath10k devices.
+Moved remove() after suspend()/resume()'s definitions since it now
+calls them directly.
 
-The workaround was tested with Bluetooth enabled and disabled during
-cold boot, with WLAN left down, through repeated WLAN up/down cycles
-while associated to a Wi-Fi access point with traffic. Bluetooth receive
-sensitivity remained normal and WLAN could subsequently be started and
-stopped normally.
-
-Tested-on: QCA6174 hw3.2 PCI WLAN.RM.4.4.1-00309-
-
-Signed-off-by: Quentin Strydom <qstrydom0@gmail.com>
+Fixes: 866edc895171 ("media: i2c: Add ov2740 image sensor driver")
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
- drivers/net/wireless/ath/ath10k/pci.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/media/i2c/ov2740.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath10k/pci.c b/drivers/net/wireless/ath/ath10k/pci.c
-index 335bc7c488e4..4a3c5ce63733 100644
---- a/drivers/net/wireless/ath/ath10k/pci.c
-+++ b/drivers/net/wireless/ath/ath10k/pci.c
-@@ -2069,10 +2069,20 @@ void ath10k_pci_flush(struct ath10k *ar)
- 	ath10k_pci_buffer_cleanup(ar);
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index fb590dfadda1..fc3710cf3c0e 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -1198,17 +1198,6 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
+ 	return ret;
  }
  
-+static bool ath10k_pci_needs_bt_cold_reset(struct ath10k_pci *ar_pci)
+-static void ov2740_remove(struct i2c_client *client)
+-{
+-	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+-
+-	v4l2_async_unregister_subdev(sd);
+-	media_entity_cleanup(&sd->entity);
+-	v4l2_subdev_cleanup(sd);
+-	v4l2_ctrl_handler_free(sd->ctrl_handler);
+-	pm_runtime_disable(&client->dev);
+-}
+-
+ static int ov2740_nvmem_read(void *priv, unsigned int off, void *val,
+ 			     size_t count)
+ {
+@@ -1323,6 +1312,19 @@ static int ov2740_resume(struct device *dev)
+ 	return 0;
+ }
+ 
++static void ov2740_remove(struct i2c_client *client)
 +{
-+	struct pci_dev *pdev = ar_pci->pdev;
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 +
-+	return pdev->device == QCA6174_2_1_DEVICE_ID &&
-+	       pdev->subsystem_vendor == PCI_VENDOR_ID_ASUSTEK &&
-+	       pdev->subsystem_device == 0x8751;
++	v4l2_async_unregister_subdev(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_subdev_cleanup(sd);
++	v4l2_ctrl_handler_free(sd->ctrl_handler);
++	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev))
++		ov2740_suspend(&client->dev);
 +}
 +
- static void ath10k_pci_hif_stop(struct ath10k *ar)
+ static int ov2740_probe(struct i2c_client *client)
  {
- 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
- 	unsigned long flags;
-+	int ret;
- 
- 	ath10k_dbg(ar, ATH10K_DBG_BOOT, "boot hif stop\n");
- 
-@@ -2096,6 +2106,14 @@ static void ath10k_pci_hif_stop(struct ath10k *ar)
- 	 */
- 	ath10k_pci_safe_chip_reset(ar);
- 
-+	if (ath10k_pci_needs_bt_cold_reset(ar_pci)) {
-+		ret = ath10k_pci_cold_reset(ar);
-+		if (ret)
-+			ath10k_warn(ar,
-+				    "failed to cold reset after hif stop: %d\n",
-+				    ret);
-+	}
-+
- 	ath10k_pci_flush(ar);
- 
- 	spin_lock_irqsave(&ar_pci->ps_lock, flags);
+ 	struct device *dev = &client->dev;
 -- 
-2.43.0
+2.25.1
 
