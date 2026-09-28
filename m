@@ -1,117 +1,146 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7998D30566D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2B4A28505E;
+	Mon, 28 Sep 2026 04:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790568755; cv=none; b=bjlA3zhRkR3bHGe4rOdLSPdOHeeqUO7tNo5p5CFyYdpRFt2NiX9kF9of/bknpAJxVAbUiaS62kBnNA1811PlrikP7hX5NpNOoDUNIwzNxHuw3jikaOcdm6YPe7cY9Zbg17NSEYjhUOp3ncwczhxAs0WRfKK0N2xYgCziZ2jqHT4=
+	t=1790568810; cv=none; b=flaa+HjwvLihqyI4p2O1pK1/y5ncU7/axReBekOyV7g2P0na28DVilQ6g7RFrqFcjHdAxpdsJawZaaqlSCpC9KgYnGDSwR3+wWPfTQivmfXkg6zvDSJ5/CcdqpRoST0XMRvk/xLqwZE3FGxWv+zWZLSpg1UUOkFWUqcFZk0m3ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790568755; c=relaxed/simple;
-	bh=/sOtv+Jy0VfC/zdAlOtrQTC1fDfCRtKdJKUcnFIpFsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q+Vnfym3aMztj/Kq6KRPLIzS6dH9ZiRNuXU8tbep9PC8izyH4UamFd3h1cr45Rky33WAmPnsbIMoAjbqUU4zEYWO72qw3j3FoCzaUtHMBeGGGwc3ZqhhReIGwpKNUK3Ns4mgrBP5vG9sNAbjVhYhhZcnItfMw0IrF6cDYQqnyfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KEIR3m9W; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KEIR3m9W"
-Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e22e123350so2407515ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:12:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790568753; x=1791173553; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bXDScwdKbt28kFhjEDV73RhbSo3l7UPBxj8GidcV6Ck=;
-        b=KEIR3m9WIJGGxbDxu5WT7d1D8pdjysg2u6EOJPP2gwFE4OJjvQnJ287pxIflD0w4Cg
-         3KRo1HxvqGoz0UssGc+2rSuTUyOtycuRzbtmoCDu1UD7mwkHfhAOWZum2XbziBA9oVWv
-         jJBljzLhKQzGV32PJczj1FgBrq2QfJL1amKgE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790568753; x=1791173553;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bXDScwdKbt28kFhjEDV73RhbSo3l7UPBxj8GidcV6Ck=;
-        b=UQ6bw5C7ZEfiEj+hxICP5bfSiSeeGXqiN7Lq7Dx6yzVj1jikhEcj9ARLOnOBomutpy
-         hHxb5zGIhH6aynTjmnZLBs3GiyM2AO8rUag9dHZGCxmA3BGJb03QMim432pgjKWNUhP3
-         Y4SxTNruMTYJVpdmixA7fJ9wUrg0R7zi3r+hwfV3RP3q3hhpgSfQVkjFpmvDy7gL7xRV
-         xYhN70ihUjS1mZb9LqhdUeQ5mngDdQd9Rg/uJMGVENXw/+0uGlKFJc1xMrHV4lbPvtSj
-         eYrgplTn8gE2es/W641ua0fbacQXRbSrd7uct4AhOJRXlhYa1nnJgGnW/DgkM25R0RUB
-         ed5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByKBPMDoNGEX1r+aqr/XTsKlQFfUqI0zoUvyz5FnC0rfPpeipkYEIIf1GBCHpDNbHWy3L2L+kpRmg3imfs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzuwrBJPdfiBR19u/6FasngKM0EQSv2zLJFvQYs0k1jwIbadRs
-	aKjSnXF0GCo1ytYOlztd/Vksg2jw+F/o9FfaZnbXHVqGSEL5AUSDWSkn/2bPNSwI0Q==
-X-Gm-Gg: AYBFou282xqKgy9OR784sVqKybn/CKOJWXKW4NafrzMswQlXNggyQODkcKcN16SkufV
-	6CgU9VnCxylmUBmfBUxh4SIxVKU1XmM0Tjase50E3sKGuc/H7dfL1fMlPITunb4nfZ7t5qqsiaF
-	bCcjGS/lwpjLE4GPU9QDvsBOoIJ9flXqAF0yy82vMcSXDU7Lmb2jPM8fHD7GlAv1XL60xnHVoZF
-	b9m7FAwBPHg+/4aTwCX3AhBilV5w3QBtRBBPyc555cGZhWVzOdr9rHXzVXs3m8U1VCosxk46N2m
-	O+4tM73ioZDVh8OJEoQwbCGGpf7joy7dOidWRtmmIaaVcFGA+LpI/gxHWtcAwACknNxC0oc53QQ
-	K72PP0OYwrq3n+kHys5pElZxXwpgE6+SqE/f1YlqcPj8tafW02Acy/H6SyUvRC+YKxjppE/C3WE
-	6GMGcdWkYzR1Qrop2FoWp/B96KVzHvxL6d4BP/PhQ02yBV+B4yoGgSmuj5HzKKV3f0ONDBlNiXU
-	vTZ4sYKeuRRKK7Hoe2EO3ZUSbQVWx7zx0XHaEY=
-X-Received: by 2002:a17:90b:1c82:b0:3a0:7d97:37c1 with SMTP id 98e67ed59e1d1-3a098aaba1dmr10891588a91.59.1790568752817;
-        Sun, 27 Sep 2026 21:12:32 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:fdbe:318b:98fe:bd96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bec30aaasm17381254a91.15.2026.09.27.21.12.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 21:12:32 -0700 (PDT)
-Date: Mon, 28 Sep 2026 13:12:24 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
-	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, 
-	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH RFC 1/9] lib/lz4: import upstream LZ4 sources verbatim
-Message-ID: <arnosKlQYVIdmTR7@google.com>
-References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
- <CGME20260925113452eucas1p170bfdb34dfbf670a14a6f8f0c2f5094a@eucas1p1.samsung.com>
- <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
+	s=arc-20240116; t=1790568810; c=relaxed/simple;
+	bh=93DNEAwvSiql5tVYyRBz+VAReMoXOj1afxbwYmmDDR4=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=b8Or97Nd4oDS4xRPCE9lZhYmdX79zjiWtsgQfaGMbU3xdi5nj9tDEsHoOlf/gHDq4YliGww542K5mxXJJp3bvhLdxDGG0SgY/pXCvlrE7VzbRbr2Yppkm285twTWuz4I0xsfDCQhwQheYjj6/l9K2Tx3fYIu0Ck2/nODIU53238=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxPtNm6blqG2AQAA--.47762S3;
+	Mon, 28 Sep 2026 12:13:26 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJAxX89l6blqB_AlAA--.15177S2;
+	Mon, 28 Sep 2026 12:13:25 +0800 (CST)
+Subject: Re: [PATCH 2/6] LoongArch: KVM: Guard against NULL irqchip in irq
+ injection
+To: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn
+Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260927075240.3007947-1-cui.tao@linux.dev>
+ <20260927075240.3007947-3-cui.tao@linux.dev>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <4b4aba4a-c609-93f5-51e8-3b70a8baf6ad@loongson.cn>
+Date: Mon, 28 Sep 2026 12:14:50 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
+In-Reply-To: <20260927075240.3007947-3-cui.tao@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxX89l6blqB_AlAA--.15177S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWry5WFW7Jry7urW7ZFW5Arc_yoW5CFy8pF
+	W3C390kr4rXryUJr92ga1DWw47Z3s3Xr1SgFy29FyxCFn0qF1rJF18Ar9rZFyUKw48GrWI
+	9F4fW3s0v3WDAacCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+	1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jz2NtUUUUU=
 
-On (26/09/25 13:27), Michal Wilczynski wrote:
-[..]
-> +#ifndef LZ4_FAST_DEC_LOOP
-> +#  if defined __i386__ || defined _M_IX86 || defined __x86_64__ || defined _M_X64
-> +#    define LZ4_FAST_DEC_LOOP 1
-> +#  elif defined(__aarch64__) && defined(__APPLE__)
-> +#    define LZ4_FAST_DEC_LOOP 1
-> +#  elif defined(__aarch64__) && !defined(__clang__)
-> +     /* On non-Apple aarch64, we disable this optimization for clang because
-> +      * on certain mobile chipsets, performance is reduced with clang. For
-> +      * more information refer to https://github.com/lz4/lz4/pull/707 */
-> +#    define LZ4_FAST_DEC_LOOP 1
-> +#  else
-> +#    define LZ4_FAST_DEC_LOOP 0
-> +#  endif
-> +#endif
 
-I just checked https://github.com/lz4/lz4/pull/707 and it seems that
-LZ4_FAST_DEC_LOOP is enabled on aarch64 now, but we still disable it.
-Am I missing something?
+
+On 2026/9/27 下午3:52, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
+> 
+> The irqfd injection path dispatches through the irq routing table
+> without the kvm_arch_irqchip_in_kernel() gate that protects
+> KVM_IRQ_LINE: kvm_set_pic_irq() and kvm_arch_set_irq_inatomic() call
+> pch_pic_set_irq(kvm->arch.pch_pic, ...) and pch_msi_set_irq() calls
+> eiointc_set_irq(kvm->arch.eiointc, ...) directly, so a routing entry
+> that outlives the corresponding in-kernel irqchip dereferences a NULL
+> (or, before the previous patch, a freed) device.
+> 
+> Make pch_pic_set_irq(), eiointc_set_irq() and dmsintc_set_irq()
+> tolerate a NULL device.
+> 
+> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>   arch/loongarch/kvm/intc/dmsintc.c | 3 +++
+>   arch/loongarch/kvm/intc/eiointc.c | 5 ++++-
+>   arch/loongarch/kvm/intc/pch_pic.c | 3 +++
+>   3 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
+> index 63072595c01b..e27f448bb54f 100644
+> --- a/arch/loongarch/kvm/intc/dmsintc.c
+> +++ b/arch/loongarch/kvm/intc/dmsintc.c
+> @@ -70,6 +70,9 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
+>   	unsigned int irq, cpu;
+>   	struct kvm_vcpu *vcpu;
+>   
+> +	if (!kvm->arch.dmsintc)
+> +		return -EINVAL;
+> +
+There is kvm->arch.dmsintc checking in its caller function 
+pch_msi_set_irq().
+
+>   	irq = (addr >> AVEC_IRQ_SHIFT) & AVEC_IRQ_MASK;
+>   	cpu = (addr >> AVEC_CPU_SHIFT) & kvm->arch.dmsintc->cpu_mask;
+>   	if (cpu >= KVM_MAX_VCPUS)
+> diff --git a/arch/loongarch/kvm/intc/eiointc.c b/arch/loongarch/kvm/intc/eiointc.c
+> index fe0a1918f26f..c68f9033638a 100644
+> --- a/arch/loongarch/kvm/intc/eiointc.c
+> +++ b/arch/loongarch/kvm/intc/eiointc.c
+> @@ -112,8 +112,11 @@ static inline void eiointc_update_sw_coremap(struct loongarch_eiointc *s,
+>   void eiointc_set_irq(struct loongarch_eiointc *s, int irq, int level)
+>   {
+>   	unsigned long flags;
+> -	unsigned long *isr = (unsigned long *)s->isr;
+> +	unsigned long *isr;
+>   
+> +	if (!s)
+> +		return;
+When is it possible that parameter s is NULL? There is 
+kvm_arch_irqchip_in_kernel() checking in kvm_send_userspace_msi().
+
+> +	isr = (unsigned long *)s->isr;
+>   	spin_lock_irqsave(&s->lock, flags);
+>   	level ? __set_bit(irq, isr) : __clear_bit(irq, isr);
+>   	eiointc_update_irq(s, irq, level);
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+> index 62c09b5f3937..88666425d800 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -48,6 +48,9 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
+>   {
+>   	u64 mask = BIT(irq);
+>   
+> +	if (!s)
+> +		return;
+> +
+When is it possible that parameter s is NULL? I think that when in 
+kernel irqchip is removed, there is no way to inject line IRQ in kernel 
+side.
+
+Regards
+Bibo Mao
+>   	spin_lock(&s->lock);
+>   	if (level)
+>   		s->irr |= mask; /* set irr */
+> 
+
