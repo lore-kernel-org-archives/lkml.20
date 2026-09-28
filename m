@@ -1,166 +1,262 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010066.outbound.protection.outlook.com [52.101.85.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A25495AEA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589322; cv=none; b=L2x0qW6oVkCGvMoj1R7ByUkte8gxrIbINX3x3iyPh8wLB03MIo9HMg//h0YagH3IghFdTwedRNPkcO79t6+9+chR6n6+kaRy2kY/gFldga2n7EdKz1u9vuINMaVUjB3mOJnHSUfFYK7yXqFJLnINf3UCiAtjhugs2awSkBkKyMw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589322; c=relaxed/simple;
-	bh=wMTPtytnOc8jIsxHXNi1ap0yoWR96B9OCFiIwwooZsA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WoilGfnwcLWV+GO+or412qTnBy1QsrpdTozEXIMlNIc7AT4ncYr+LotZB3OZ/q2D0Tt8gxfC8Ldw9ZFVLLjC3N6TW4Utl3IH+nx+ngzPsgxE1dYVVHO/sIqzHsouYfKqyt4T9DtWjqGvQW2Arkm5EQv10ln5zDVg+3kF/dQjgn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HKYrUY40; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LNve5NR0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE73847AF68
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790589380; cv=fail; b=H7FCedj39CYMD7QmIQzHqci55Rb1dVsFNB54V/XMf61I2Rb+Idap7PSBm7tp3fMSPY2WzekqlvJ25l3iEnXGTQpfzhVyJFRklF0COiFiKlnqk53L+b5Z/QbtjhKqBb/rCb9+0bawIygiDQIJpSF4U++/P8jxMAJcl09ID2It0pI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790589380; c=relaxed/simple;
+	bh=QIqHklMevGe6ODzyeExUqSVH1uPq527fdYPC11RiK8s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=DCvHtiK7zlefztrRi3idiijQSXPdzhUnghhSLp7GA8NZWN9J12A1fGgHGbsLyJCzfnVBurUsw/aGK6HyzJ5s5v7fg2hj6XlZ5w3jsWEtvX2vpAnHPPg1OXYjrJ9hcWQbYdxwnyqkUfsF1UqJ2dazPOS4DAJhcept4evvQiskRpk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oaFQPmk9; arc=fail smtp.client-ip=52.101.85.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HKYrUY40";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LNve5NR0"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9MPk9246425
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:55:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=; b=HKYrUY40AFmTtqqX
-	FqKVfb8C9dmvT9wsDKolwyZBhZc+aGxlI7QCFERkqk3sQSYXHJHHKeTSt3qQTDNE
-	OEO3KkzR1BdOdHW2xq8QZxb/gG3Ud7oDT7RQSReB4zFDLaHRPDm+TE6rDJRedukz
-	Yc/Djuiym1TVcvlFEV32fJnbnzRmuEciP1qLbKLxv/rcn7aCYHCB8UVyV5Rk9WZB
-	o5qH+JZ6tU41jMkZHm7vz+45PGRSmXa4uy2lhAafLOfGjYxkQGSHtaliqUhamPjX
-	Jwyrp4oAmuCsmhEija0sxeFGYlRdNqv/QV1s4zWKDojNYuic3a96DawtvvT1+s8H
-	OewdEg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt10tsp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:55:20 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6f7ac3e51so5565175ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790589319; x=1791194119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=;
-        b=LNve5NR0BrevMQb3tHH9i7MVt31PXJXdgTwZG2WsgaX+akZAJQmqzpsLnFIZDUmY0b
-         GUD+roYCEXVdlZ4BsYxDRMtHqUdPx6yw2g82HlzUDVnc5/RhZp/I6TIiW+IKix69lB49
-         5OeBzLPlk9CfALP+N/RsnwHYDYZ+muybOHDy0rGzn63QVBoiY7fR+VkJdIWuOP5X14xl
-         TZCNbCuvPOVrAwqM71k1kNFyHqZkleiC1S4HqHk5ihj2VZafcchc19BjwM2T+O4faR1q
-         y+s2OW7UllcPehv0oHVKFB3K1dZTVuz6qMPh1j/Ftiuxu9Q71tM+TbITtzjgf8v+uwUl
-         Kjbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790589319; x=1791194119;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=;
-        b=lymIuJ5NCkpT47TPFFdIgfnxV8EoPW9BCtdvNlB/LxtVmH8nWsmiK8TWYalbyOjR/3
-         hGpm6/d56ZmR4WhnPBv/ZgjNwemprlvgDBYFOpezVeZeIPbADU7MAl13Ho00r9mF0s3c
-         wLdjTsqiab0x4sCdfOTiAdFybuyFx3NXXKOyRAmly+nt/zf6XCcUpLLbDuXZ4Ctbllw6
-         PVGCUn4/uj987an1x+H7ubNB0dEf5K+OrmykKmUjjWep+QHf9+iJvH71x5DRO+z6gnSV
-         yRivtOizEXdZFBsdk3Tuc8NmtwcVlAzT42z9waQyLPRidAnXmZBox7b6OYmMdBkvRyMl
-         4lug==
-X-Forwarded-Encrypted: i=1; AKwUvBzDdnbXIIoEmZyvjpu75LfyKiUMp96DthSJYetK048aCd40UWdTOxSpDYK85ovxOlWIDL9pfQN90zw+piA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlVz/lBYHg9+G6eQC1m5DmQNviw4bkbkp2bWx9fmeWfmTxxFeH
-	fQqeiAjEvdgjKyrs0xtaM8vBblaFrAQ/t/ZbBU4R1bvHM8KAgoSOT0IsES6IRY0vcguVydAKFqS
-	SsP2q+6aEMopcH61MoDfLdViewpABBmfMBBORbbnTzeVr9i//ceBoOwcmJvTwVe2qB/A=
-X-Gm-Gg: AYBFou2atOhMH5wlVFxfYz9JwcraxpGhACRhrTmrUkez9PT7hlJOVK8oHUr/l/1bBR1
-	GOzG0M2+/ZCYeFCQu8eAXJ7LgMyaCFFSHHSt1KOPAsnZv42uDvPJt2ZBXVPvtn9870juhUM5DaR
-	PQT+mP22yUVbYlm/4izja4vH1PhWpVau47iAKTjZkL/5Dn8qfqJ6ZvOKKB31ubOQs0xIeoaTGUf
-	KDgAZiSudrLRLdSGXBHrCNjd8Y+9zWPWV6ymCxuN9BJozaFCuNjjxUwjykX6RGHyh+Nebb2JfhX
-	VN8Q+AbdiD+3szwDuxkCQcyHa9LbAV1SBs3FmELGfzHUgoy5Bwym8veSSy1rMuSYezLUkNfGsj7
-	CBCMCKMtfqQirUyr+sFUcy69q
-X-Received: by 2002:a17:902:e74e:b0:2dd:b52d:e838 with SMTP id d9443c01a7336-2df8e3a959bmr120106135ad.0.1790589319260;
-        Mon, 28 Sep 2026 02:55:19 -0700 (PDT)
-X-Received: by 2002:a17:902:e74e:b0:2dd:b52d:e838 with SMTP id d9443c01a7336-2df8e3a959bmr120105815ad.0.1790589318682;
-        Mon, 28 Sep 2026 02:55:18 -0700 (PDT)
-Received: from [10.239.132.150] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90c03890sm39086075ad.0.2026.09.28.02.55.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 02:55:18 -0700 (PDT)
-Message-ID: <28e20553-8c1b-4b2f-9839-1fbae1fda59e@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 17:55:12 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oaFQPmk9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bMra+uG0qCDlSxl6QQYKO/legceqsh+tMQE5jqv/3o6mf54xHxjiNAwHyBG7iKsw5lzs/HKHrqq+XVZkMQA3EWCrcLBmr4pCsuez1N2Y5wpJwJ43QtZ5ZtRaFCXOX4wx6iL03mEbCNo82Ud1HpZuaCzxVVICMALN43AOQqQlNhR/00tYwm+Id8F6ITEzkntRq+VbW5vwfiSzlDmM/aYUk0X02MuFOfzlhwajyNlZZEiz2sHwMBGv6k/ZRgy9YdGC1LrTVa0MTKFAfHw9s21WN+OaA4imMpfdYg1UlL2KOWyMKPCTvAkgWM4YsgyP1n0LMZkfdwPT0y9qmx+w76kcWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eWspZCSM2x0jTQdvEHBYdwfoQs+bQFMjCN0vfqifdcI=;
+ b=nqSoTmLV+weYsu18jrlchPWyOGKTbxiObvye0T7Ml3suAudLIrbTsuX9kvY52FqSl7zgkM6HEGpfZDk3SYcIxZkGOJmxGVSfVa5NjkqfZCB32dP2Zqix+3tM/aG1DIdd3Jnyw0coD6mnLS3jSXq9lll/s6oql5ROiAL39yudweojvQeN00GGXMi0E4Uox6Tho0B/+SpgJKH3wBH61kdQEblnzag+eQ6QT2wqJ2udtQltW3BPQWwb/QlarcFlyR5Ckl4Uua00mzWAx8Njnaogsl7l8JjtrW1o+I5/aw8eePbkTMD6fUK4bRyYP2TGP4ZE1KgcD53JHPWubLsYHwk/lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eWspZCSM2x0jTQdvEHBYdwfoQs+bQFMjCN0vfqifdcI=;
+ b=oaFQPmk9BgaECos7gOk5UwNwqU7nOIeQoWghUah3XFpOw+6mhjmHHpBQfF2zCeDqzdm3VJKa9ST2WGqL/ywa74sJm5f5hy/oMI5fwrP4yCDETy5dXZkRHTT/eXHc6k4b0EK0vTP0BZDZkunREoQ0o4VKYprStMnkXSjTFXr8YjkZp6EGszgZkRVgsUYi3nnRFUNeBJQbpIX0/g3any+fIjs+s1j989IPn+or/L3eaP8AXfDdVx2mbDBOl8oRe2Uk0mEm8sVXNyUUcwx1wvAHL7S0tpYrx8Jql76HaX6wluG6vKeA5R4BwDGWeBjjcuBg9F+pKrxNtjsfSQiWY5mh0Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by LV3PR12MB9259.namprd12.prod.outlook.com (2603:10b6:408:1b0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 09:56:14 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 09:56:14 +0000
+Date: Mon, 28 Sep 2026 11:56:05 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, Alap Mohan <mohaalap@meta.com>,
+	Joonwoo Park <joonwoo@meta.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix CPU hotplug hang
+ when a dying CPU's tasks sit in the BPF scheduler
+Message-ID: <aro5tQ5gsoOdHeyO@gpd4>
+References: <20260923223825.734003-1-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923223825.734003-1-tj@kernel.org>
+X-ClientProxiedBy: ZR0P278CA0214.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:6a::9) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add
- compatible for Qualcomm Maili SoC
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Yijie Yang <yijie.yang@oss.qualcomm.com>
-References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
- <31a59040-bb20-4cb9-9dad-a62b90a16c6f@oss.qualcomm.com>
- <27997939-f39a-43aa-a287-44c9f70b8a51@oss.qualcomm.com>
-From: "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <27997939-f39a-43aa-a287-44c9f70b8a51@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzOSBTYWx0ZWRfX3cRgHwfA4utv
- dxH5sz4rpZqvszPjeDl3/Lyez0vjvMlllqVZnZbUwkLJKZs7m8PRr1HKTDwS5gdUvIxt0hol64N
- q9OaoRBuWP6ApgzY1lcngGD6q/u+D4RqawZHrAbf2C25Zrvy+Qob9AJ6vjjhNfiJiQ6hhExsPu3
- wAEMKQiq/UjPSQzAJIc32ATZlbWfwxqHi6yl18+vGomLbP0rX2HEtPJ5LyX4zHAkU/ANBIPlZug
- b8lAfnVGwqXanXc27kGNyIFnR4UZi16NQ5H3yFsI/BpSxNZ1Yjo56KIQALyw7fH4grMF3lM/6JM
- HFvYzSXzWVtwIrvq2FYbI+3pXX2N2edYTB4+VRp49n3RvH8wecVXEek52MZ5kgGeq5EIn3zZlo1
- OzFplPTyCRrTgujIckvrmgQ3d1IxFt3iINRR3yF460tb2NVdNA/G2+gPeYWZSxSmOe6whD8BeLJ
- aQH0zhLNWIIbbQ95bSw==
-X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba3988 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TxdeD5nNe1Y8hkKaguEA:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10 a=zZCYzV9kfG8A:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: gmsAjgQapFsYz5Q8tmLEKIfrRtXLCI7t
-X-Proofpoint-GUID: gmsAjgQapFsYz5Q8tmLEKIfrRtXLCI7t
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzOSBTYWx0ZWRfX7qTwA/VTkaVh
- y5tgt6sWH6LKC+PUyzJJG/Usvdxpr4fj/FLtBg16JrMlvkcFAPzB9IotDODDfPvMU3vThN4X6AI
- 67hZBDj0q24CnhWqCe6o1/1UtC2V4qM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280039
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|LV3PR12MB9259:EE_
+X-MS-Office365-Filtering-Correlation-Id: 377dad82-9c6e-4de8-29b6-08df1d46bb65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|18002099003|22082099003|10067099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	SOHtTD7QHsgjkVGXrJatScnAYcDzJnB+PYRMOZcWQcJhgyfxFUsnw9H0BMHSki8samitax59Sk5cZhOHRsrNNllGQ8UWed0i824CEbPGrs5j0TEmYpBqNAHHgE5p0AMmV88dpTPwlxXEKgWf53DnWDooP/QZIqCL7D6OWgowaL0fcGMk4HvcljDewZcQMcqeH54PppUtRhTwoOaRhkNdM9etD1rBKuf/dQdHIvVzc4/3TCDpJc+G450vpegBWmt67koiBPzOSTKnHDSibXHSqdW0bA9jjVrJaL08DXgLVHCjEp/prFsmHEk5iUWOeFaBicsSi0uxh+0VzPIn3XJvAaOyx8NEJou7unCY6FyhlkKzCl1QW8y2reO4sMYyckoZs8zHP3dF284HPuX/zhT0B1Qc7laLQqBUXbuPbn9g1qYtdf5ArSxif+PxXl5X6zmFw3qisy5qlNnr7i8gIpd8io2HDrVVgesw9508E9jmRGLD4ZBwtSdDS12C/Ahf5avstsEc+bBrHlXNoLbx2EH60+n6wccB1Frg/ezeJKUsPdK693dSWWm9HVSPM2+8isA2Si44nZU3ZVlEYV8P0ojm9hIyNoa/YSqtNlK/kwpLmBFG1IJk7M8mrXQecNndVQ2x/CbIh/8chgkNQ+KdvpzhLlvpvM4RCFdNPfnNy4SyZYM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9UNTUpg5PeV5ZAvFY0BmEuvVnhjXw9jgt9JegidaZyGhCRpsjxrkbbwNUBsO?=
+ =?us-ascii?Q?zlZhMPBk/PCryLv8u2n7gN6mvQtD3CyR3XmOSYJ/xElaiL8oQ+oL02hvYeu5?=
+ =?us-ascii?Q?ixDJcOHIGvjF3JXJC97CEdLpOIAiV0SJ2mCQGqWnicwMajWi/ULdXE+gVeOc?=
+ =?us-ascii?Q?uUyp4cFS3Bl4i/gxFMvkUiWR//4VZCbpuymX7zLWk+1xiYoxJXlHwDRj8Xyh?=
+ =?us-ascii?Q?oos3kQdfwn7fz5XCUiaDJE2tTB/Yfjg7vsMMHsveWgb7SWDU0+t3lyNg59sJ?=
+ =?us-ascii?Q?FP8anavEvNn3gv0pqXpc5di2p8FIn5NbG1GRjynXLl3avOvjUQ+/qHhQDfGo?=
+ =?us-ascii?Q?C5Xad/rITVRmG4ETq+wwAFRJHyk72UDX8o2BbpUdAfx3BLijKt6szQrPZ3VD?=
+ =?us-ascii?Q?pfuOhxW/4eb+Go+wcQMlWCpXgX3E/i48EITHkP1hS3OgL2NhJCqOmPhzqU7B?=
+ =?us-ascii?Q?9PLBNk8Do0m6i6N7svvz3/9X17ji7MT+DEHb1eCWGqMHvk5JV/BSIzW2CFZ4?=
+ =?us-ascii?Q?dkIMiidOxbUmtQz9BFIiS4Zqkr++YgCODF3lf/CthMlJ2CX7HirZTwdG5fYk?=
+ =?us-ascii?Q?zqQkCTfbr1nHsdHSoYbBI/85dI+9M3ObIuAkEWJ1w+l0B5jOiuCL8OLRvUsZ?=
+ =?us-ascii?Q?VCDvFtYKf626o9tT4E9eRBBcFWSNVdgMdiodocumtHQOwBrU5zkpaAxJFyxg?=
+ =?us-ascii?Q?qh8gTKZKmeikjNyXYCATO8JSNbaZ4TC86YSNjkKFOpZMVuySY6AqSlElgkgQ?=
+ =?us-ascii?Q?5E/VV4ola/WWh4oiaR8pfiOLgVye8zcvqgHFqRhJVysCO7PgdRK/I0EJDU6b?=
+ =?us-ascii?Q?e6i+dFngKUPgMSP+QH4Y+d83BFZCyBot/kZ4E0KdrkHGl+m4hWXQ2W0ooJry?=
+ =?us-ascii?Q?dbBkjS39XmUtgMw365y9ZCg5meIts+SlPvNVMtI/Pswex64ZOe6uiyYlon3r?=
+ =?us-ascii?Q?Uedqgtju2t3hdlmEAWqnvTxJjGRQtfEWuDwwy9EouqfqylfxKJw7OPLE60rx?=
+ =?us-ascii?Q?msP3ya5eTCzSluPfFsvfGzGEFLyBy7VoUmJTYydsu+Bkd5fJ+SkTtFH6onit?=
+ =?us-ascii?Q?DeE7pWW1YrUTffDgFxithZ4R8L6mdQVnT/lyWXSxPZ26xqajtlUknHVtI2AJ?=
+ =?us-ascii?Q?q+f0P+/hRI3XTmaNAqHZm9ulQCdflXgfwyQqE7+vNiwLFiTJea6bTxl7l37K?=
+ =?us-ascii?Q?vDY/VpH70gtbOUSeRwIB1RXpj+f3ZAxmFQaupujkOEb0CC3RweUV1saVCNMN?=
+ =?us-ascii?Q?2IhghjW7QiMJmPQfJKiVPLctn3mSHbowtS0dmO5PK6a4xuFy5HCe8nDLomFM?=
+ =?us-ascii?Q?ZhG0wPd9RwxAHsvuax5QUBw9pNd4Lw6IeJJNkqYogG4MF2Tjo7BBl9ChpZJW?=
+ =?us-ascii?Q?kr1JENu2dgxjp72ZzCwLM1Sdd4CRn6MROjYhBwz2U7vDXdUbE91ntf3lzOeO?=
+ =?us-ascii?Q?b928dvncngl9Yv5QJbOySnoArdJEVdeyI6JcAk/X4w8N2D+yCnEzfMW9OGTj?=
+ =?us-ascii?Q?dIL2UGXp+SBrCx08swWlhEU+UYf7ksiYgHbBVbm0Zpkb7GY7wMcHViO3kV9N?=
+ =?us-ascii?Q?F/KwBqVROyBGFm/2SnW8XHM0IKBxmPt9kRJraFl77g5b2pdq8550d90q41gS?=
+ =?us-ascii?Q?UbB57eiwM14v/SvzMYX51WEb4XknNPIQAlyrgmrC6uw91Ry5b6uUk2ct2SW5?=
+ =?us-ascii?Q?lWab4/5R/1p/krpPcGsNazYA1SXBbOAOoVnu1NcUzi0+OpDUvGh4Q2H7N0IM?=
+ =?us-ascii?Q?wtQs9AliHw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 377dad82-9c6e-4de8-29b6-08df1d46bb65
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 09:56:14.0680
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eFoPdCKEi3HEIfX/P3rnVC2FsyN6FJHHmYpWSEx3hQYqcSF9wduTU8pYY/tthgjK/VPNeJFWhY6OzNhaf/H7Hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9259
 
-On 9/28/2026 4:23 PM, Krzysztof Kozlowski wrote:
-> On 28/09/2026 09:19, Jingyi Wang wrote:
->> Tested-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Hi Tejun,
+
+On Wed, Sep 23, 2026 at 12:39:20PM -1000, Tejun Heo wrote:
+> A CPU going down has to empty its own rq. Its hotplug thread waits in
+> sched_cpu_wait_empty() until nothing else is left, and the only thing that
+> wakes it is balance_push(), which runs from __schedule() on the dying CPU
+> and pushes off the migratable tasks the CPU picks.
 > 
-> NAK
+> sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
+> scheduler is still counted on its rq, but an inactive CPU no longer calls
+> ops.dispatch() and can't pull the task back. The dying CPU goes idle with
+> the task still counted, and one of two things happens:
 > 
-> You cannot test it. Otherwise explain me how did you execute this code.
-
-Jingyi is posting the Maili device tree from [1] and get dtb checking
-using this binding. And with a newer linux-next tag like 0916.
-
-pls have more details of what kind of verification that you needed for
-the Tested-by and remove the NAK.
-[1]
-https://lore.kernel.org/all/20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com/
-
+> - Another CPU consumes the task. The rq empties without a __schedule() on
+>   the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
+>   holding cpu_hotplug_lock.
+> - The task is affine only to the dying CPU. Nothing can move it, and the
+>   offline stalls until the watchdog ejects the BPF scheduler.
 > 
-> Best regards,
-> Krzysztof
+> When the rq goes offline, re-enqueue every task on it that isn't already on
+> the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
+> dying CPU itself picks the tasks and balance_push() pushes them off, the
+> same as for the other sched classes. From then on no sched_ext path on
+> another CPU can pull a task off the rq.
 > 
+> ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
+> hotplug then waits for an RCU grace period before taking the rq offline. A
+> BPF-held task affine only to the dying CPU and preempted inside an RCU
+> read-side critical section would block that grace period, and the rq would
+> never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
+> running until the rq goes offline. Only the dying CPU's own hotplug thread
+> clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
+> other rqs' tasks off the CPU.
 > 
+> Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+> Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
+> Cc: stable@vger.kernel.org # v6.12+
+> Reported-by: Alap Mohan <mohaalap@meta.com>
+> Reported-by: Joonwoo Park <joonwoo@meta.com>
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
+This makes sense to me.
 
--- 
-Thx and BRs,
-Aiqun(Maria) Yu
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+
+Thanks,
+-Andrea
+
+> ---
+>  kernel/sched/ext/ext.c     |   22 ++++++++++++++++++++--
+>  kernel/sched/ext/inlines.h |    8 +++++++-
+>  kernel/sched/ext/sub.c     |    4 ----
+>  kernel/sched/sched.h       |    5 +++--
+>  4 files changed, 30 insertions(+), 9 deletions(-)
+> 
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -2123,8 +2123,8 @@ static void set_task_runnable(struct rq
+>  	}
+>  
+>  	/*
+> -	 * list_add_tail() must be used. scx_bypass() depends on tasks being
+> -	 * appended to the runnable_list.
+> +	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
+> +	 * depend on tasks being appended to the runnable_list.
+>  	 */
+>  	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
+>  
+> @@ -3731,8 +3731,26 @@ static void rq_online_scx(struct rq *rq)
+>  
+>  static void rq_offline_scx(struct rq *rq)
+>  {
+> +	struct task_struct *p, *n;
+> +
+>  	rq->scx.flags &= ~SCX_RQ_ONLINE;
+> +
+> +	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+> +	if (cpu_active(cpu_of(rq)))
+> +		return;
+> +
+>  	scx_rescue_flush(rq);
+> +
+> +	/*
+> +	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
+> +	 * onto the local DSQ so that they run here and balance_push() moves
+> +	 * them off.
+> +	 */
+> +	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
+> +		if (p->scx.dsq == &rq->scx.local_dsq)
+> +			continue;
+> +		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
+> +	}
+>  }
+>  
+>  static bool check_rq_for_timeouts(struct rq *rq)
+> --- a/kernel/sched/ext/inlines.h
+> +++ b/kernel/sched/ext/inlines.h
+> @@ -70,7 +70,13 @@ scx_dispatch_sched(struct scx_sched *sch
+>  #endif	/* CONFIG_EXT_SUB_SCHED */
+>  	}
+>  
+> -	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
+> +	/*
+> +	 * scx_rq_online() can't be used. Its cpu_active() test goes false
+> +	 * before CPU hotplug waits for an RCU grace period, and
+> +	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
+> +	 * the wait. The grace period can depend on those tasks running.
+> +	 */
+> +	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
+>  		return SCX_DSP_NONE;
+>  
+>  	dspc->rq = rq;
+> --- a/kernel/sched/ext/sub.c
+> +++ b/kernel/sched/ext/sub.c
+> @@ -585,10 +585,6 @@ void scx_rescue_flush(struct rq *rq)
+>  
+>  	lockdep_assert_rq_held(rq);
+>  
+> -	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+> -	if (cpu_active(cpu_of(rq)))
+> -		return;
+> -
+>  	/* end the current rescue */
+>  	if (rq->scx.rescue.curr)
+>  		scx_task_slice_ended(rq, rq->scx.rescue.curr);
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -4205,8 +4205,9 @@ extern void balance_callbacks(struct rq
+>   * after which it is enqueued again.
+>   *
+>   * Typically this must be called while holding task_rq_lock, since most/all
+> - * properties are serialized under those locks. There is currently one
+> - * exception to this rule in sched/ext which only holds rq->lock.
+> + * properties are serialized under those locks. There are currently two
+> + * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
+> + * and rq_offline_scx().
+>   */
+>  
+>  /*
