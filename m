@@ -1,38 +1,96 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AB1E366DA3
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694473644C5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790559105; cv=none; b=p5USsCyPiGOFChV1pErhW4PgA3QvyWlzSviIjq5y8r3fUeQuEGHzfEDue+3yX0wC4YKoXJ+VSdT+RKE43HG3D3iWlZrG1KGe2yzNxfwMrQW+7tokuV0zn6AnoTC/aRduOGvkE6y+MM5vCwL6uvKP3FyrpmVhyW/VqOlW25RlPzY=
+	t=1790559104; cv=none; b=lggjAG2mCXW+5ld4JjWqlDMn3hHXonM4OQvCmbDeNakOUrxujcqHNe1VeADc4I+SCBkELQalh9wKtdUeWFCnMkCqO5muRk4QrWF7GGoXS12Kh2dB3xBd3k2ROl/zdHSiI2qha70cKFaeisW0hHD4KzZYokTjB/ngdgeUr101tAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790559105; c=relaxed/simple;
-	bh=ME/oQC1qHMKyd1QCUbHtgGNPDJyvxohJC0SRAwHDKaM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ucOLrG0UZS2LULB7Lb4uKpAYi7rqdrnUEWeBoh9vHsIS/9ywdX72MdRz+6KsmI4yf2GJ1zXn+U0TLBsH4VYFQ5fLoHl2EsBvHuPM1sXNKoi8euYJmnzMZNIiWHs409zRlVNVy2ADWhCRAls5qPvyTpSGkevbAcZ3VTGHfiV/fWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDngzxxw7lqQME_AQ--.18158S3;
-	Mon, 28 Sep 2026 09:31:29 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with UTF8SMTPA id zS_KCgAX+6dxw7lq4NIaAA--.23320S2;
-	Mon, 28 Sep 2026 09:31:29 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: lucas.demarchi@intel.com
-Cc: raag.jadav@intel.com,
-	matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	s=arc-20240116; t=1790559104; c=relaxed/simple;
+	bh=dYwkjAg9+owsT1rlev5yvf7o5Iv/qhN5PaHBspFONRs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CAkyB2eI3b4E4snNj21ZGRzLa3gU5m2RlBE+f+FQsTFYB3ylDvk7T99pHvbHzcbMcEocrpbq+maTyOat4OMRM7APRu8AugiczrnuK/lL3RmMhz5wwIybNfWZi67XAz1foXjakbg0U07Ra0IpCE38OwHY06pCWpPur+bIzcos9i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ch5S8KcJ; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ch5S8KcJ"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so1342106a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790559101; x=1791163901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1BTUtz+ZG/2ayv7b8VSD8LMcB/N3Z789fLpe/5tgLu8=;
+        b=Ch5S8KcJaTBnzPmAYFD6GVPOpyCuPPxfcFnRJEUhV4w9lRvrn8UHhSZ9I7WpXDe55y
+         9o+aLLYg32bSS7WBXnC2JdKp6WFtwjlzhlmPsStJoyhI+6Uxc57Am0i7obNu0QP+NOsp
+         y6Gqc8xIOWokmFuwocKKs65YoDh6ZTgXJUBMDdoXJIkKzg20Abu7vX+Ek5kQsy42qUrQ
+         L7KBbTIlvmQArYUhLyXMVT2hW2WTxOIYUqmrA9TycV+3Sg0FLVL4uIOnR26ohvpN8qXr
+         mXw03Q6rcYcbKVs3S55MwjBC3ZlhVljwJqhmUngNkCq0B/PJ5eVzKFHeqJWMBYC0F4iR
+         Fw3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790559101; x=1791163901;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1BTUtz+ZG/2ayv7b8VSD8LMcB/N3Z789fLpe/5tgLu8=;
+        b=oCGKMB0I3q8w/3A3gU7//NZsc4q6BxIEiLNUxIgrN/0c8sXVOLLTVf88nCXhOkNFr0
+         +ofzFr/2t213EejrJ89pi2XOtU3HFYjSLNAx6YaSRrKDIHuPn5U45NPADxahF/IW3H2J
+         5rfYPV6YjlnDNjmXIocDbZEFeUsVKYDs4hqjAS7RAw1woJko2YVlM3hqdkYsojRXxOV4
+         K16wqaibIrxwKBNuCSZ/Rmi1ABpNBZzKeZyNUHR3YQ9DuJBTlS7G+KmMQBxvYCWY0NyZ
+         Pc/s3zfT5sNTOn3zGWBdWdKPiSJDvy34pzZPbJh02UCr8HJOyVlEaD43SRbasIKxBMfT
+         6l7g==
+X-Forwarded-Encrypted: i=1; AKwUvBwIZTv73LByoIRIHtt9u+adUv6NhGX+Nn6awuonEdmS6ML+h+c2Q4Oc43CifuPbE4R1/roDHgak70O3Wuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUI+rRHi0VDJVPfjjmRLDO2uGWJx2SJvAqnFAYR+kAPujT76lX
+	DmDDOSEL3bT9eGYYlP95fC07tyaDYyJ72z3Q4SYOju6RIBy2foKk40V8
+X-Gm-Gg: AYBFou1G2QXgfcXKSd5hkmOgMam85yHFT/WHunZHxdkCOzH+HexFRVRBxu0yvV0pJWd
+	LDxC08v1T0ee2fRi5LXcaAeJGXvOI4SJKWN4tAWF478asoux7hskWnfCVKoR2pfg+/yv5bxjknf
+	OWLH115y6KhY+zbN4naDGwuoOAEatNsCA8pAM9eLZD9dDFcBqAi2tP8EUuiAsvOj3EsbZoITU5v
+	MKC35H69euFoUW1jJG06Jw5Vo3zYsjXdku/XxmwqUlSWVh429W7gJbGukhu1SipBdAlv1pJfSOr
+	LVMbMUzDZSpDREYIAiFajJwV1WIeXow4nS4j6NIT2Sl4qwNXvy6miIYron4n5QoQA3OSHoyTNmk
+	P6hXs6Y+g7gQS5s9U8tEHioxid80wQThsj/HJOza6FTJ+PXjVYa2Ehvqy7SWu7Ba68xWzVHUnj6
+	5FnpHdRcmuFsN6TNlP8taFJhPu876iIfqOZLkTLoR7vJRXEVPMH8O2h0uNXlH/gtZk1nguYvBVD
+	pCFrIcA8rksQ3L2kV2bSSzCpJ8=
+X-Received: by 2002:a17:90b:4d91:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3a0bb60e3a4mr6742393a91.41.1790559101350;
+        Sun, 27 Sep 2026 18:31:41 -0700 (PDT)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm14951084a91.7.2026.09.27.18.31.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 18:31:40 -0700 (PDT)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: djbw@kernel.org,
+	linux-pci@vger.kernel.org,
+	bhelgaas@google.com,
 	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v3] drm/xe/i2c: cancel the client work on remove
-Date: Mon, 28 Sep 2026 01:30:30 +0000
-Message-Id: <20260928013030.612592-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Jonathan.Cameron@huawei.com,
+	rust-for-linux@vger.kernel.org,
+	lukas@wunner.de,
+	akpm@linux-foundation.org,
+	jic23@kernel.org,
+	alistair@alistair23.me,
+	linux-cxl@vger.kernel.org
+Cc: aliceryhl@google.com,
+	gregkh@linuxfoundation.org,
+	benno.lossin@proton.me,
+	a.hindborg@kernel.org,
+	boqun.feng@gmail.com,
+	ojeda@kernel.org,
+	alistair23@gmail.com,
+	bjorn3_gh@protonmail.com,
+	gary@garyguo.net,
+	tmgross@umich.edu,
+	wilfred.mallawa@wdc.com,
+	alex.gaynor@gmail.com
+Subject: [PATCH v4 20/22] lib: rspdm: Support SPDM certificate validation
+Date: Mon, 28 Sep 2026 11:31:21 +1000
+Message-ID: <20260928013123.566184-2-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928013123.566184-1-alistair.francis@wdc.com>
+References: <20260928011123.450800-1-alistair.francis@wdc.com>
+ <20260928013123.566184-1-alistair.francis@wdc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,109 +98,241 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgAX+6dxw7lq4NIaAA--.23320S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xPWWJQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnbfYAegEspJ+qccDMUwRutu124ZyaTE3EU4k7BkgWOWCX6PgIqM1qRe4CLMsMP4/CcYP
-	q5WdbJ2wszwILaV1EN/N5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxCFWrZrW3AF1UuFy7XF15KFX_yoW5tFyxp3
-	90gFW5GFWvqay2gw42va1xCFy8Ca1fJrWfCr17J3y3u3ZIkr17KrZxtFW5ZFyjyr4kZa4Y
-	vrn0q3y29FWUAFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwmiiDUUUU
 
-To: lucas.demarchi@intel.com
-Cc: raag.jadav@intel.com,
-    matthew.brost@intel.com,
-    thomas.hellstrom@linux.intel.com,
-    rodrigo.vivi@intel.com,
-    airlied@gmail.com,
-    simona@ffwll.ch,
-    intel-xe@lists.freedesktop.org,
-    dri-devel@lists.freedesktop.org,
-    linux-kernel@vger.kernel.org
+From: Alistair Francis <alistair@alistair23.me>
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+Support validating the SPDM certificate chain. This only performs basic
+sanity checks on the chain before we continue on. This does not ensure
+that the root CA is trusted, we leave that for userspace to check and
+enforce. Instead we just make sure that the chain is correct, uses
+supported signatures and that it isn't blacklisted in the kernel.
 
-xe_i2c_remove() tears down the AMC, unregisters the client devices,
-the bus notifier and the adapter platform device, but it never drains
-i2c->work. A work item that is still queued or running when the
-adapter is unregistered dereferences i2c->adapter in
-i2c_new_client_device() after platform_device_unregister() has
-released the adapter. The work item is also embedded in the
-devm-allocated struct xe_i2c, so a work item still queued after the
-drm device devm unwind frees that allocation runs its callback on
-freed memory.
+We then store the first leaf certificate for use later.
 
-The bus notifier is the only thing that schedules this work, and it is
-unregistered after the client devices. An instance that is still queued
-when the teardown runs can therefore write
-i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-clearing the same array, and an AMC client it instantiates late is only
-cleaned up by the adapter's own child sweep in i2c_del_adapter().
-
-Move bus_unregister_notifier() in front of the client teardown loop
-and cancel the work right after it, so no new instance can be
-scheduled and a queued instance is drained before the client array is
-touched. A running instance still finds a live adapter, since the
-adapter is unregistered later.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Alistair Francis <alistair@alistair23.me>
 ---
+ lib/rspdm/lib.rs                |  12 +++
+ lib/rspdm/state.rs              | 147 +++++++++++++++++++++++++++++++-
+ rust/bindings/bindings_helper.h |   2 +
+ 3 files changed, 160 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
-- discussion: Link: above points at the v2 thread
-- unregister the bus notifier before the client teardown loop and
-  cancel the work before the loop as well: v2 cancelled the work only
-  after the loop, so an event arriving during the loop could still
-  schedule the work to race with the array teardown and leak a freshly
-  instantiated AMC client
- drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index f4f3819..b82caaf 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
- 	xe_i2c_irq_reset(xe);
- 	xe_amc_exit(i2c);
+diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
+index ee17f4818aeb..50ff92741086 100644
+--- a/lib/rspdm/lib.rs
++++ b/lib/rspdm/lib.rs
+@@ -124,6 +124,18 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
+         provisioned_slots &= !(1 << slot);
+     }
  
-+	/* Stop the notifier from arming the client work before teardown. */
-+	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
++    let mut provisioned_slots = state.provisioned_slots;
++    while (provisioned_slots as usize) > 0 {
++        let slot = provisioned_slots.trailing_zeros() as u8;
 +
- 	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
- 		i2c_unregister_device(i2c->client[i]);
- 		i2c->client[i] = NULL;
- 	}
- 
--	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe->i2c = NULL;
++        if let Err(e) = state.validate_cert_chain(slot) {
++            pr_err!("Certificate in slot {slot} failed to verify: {e:?}\n");
++            return e.to_errno() as c_int;
++        }
++
++        provisioned_slots &= !(1 << slot);
++    }
++
+     -(EPROTONOSUPPORT as i32)
  }
+ 
+diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
+index 780b9d459abf..9f7f6d0ffac6 100644
+--- a/lib/rspdm/state.rs
++++ b/lib/rspdm/state.rs
+@@ -117,7 +117,8 @@
+ ///  H in SPDM specification.
+ /// @certs: Certificate chain in each of the 8 slots. Empty KVec if a slot is
+ ///  not populated. Prefixed by the 4 + H header per SPDM 1.0.0 table 15.
+-#[expect(dead_code)]
++/// @leaf_key: Public key portion of leaf certificate against which to check
++///  responder's signatures.
+ pub(crate) struct SpdmState<'a> {
+     pub(crate) dev: *mut bindings::device,
+     pub(crate) transport: bindings::spdm_transport,
+@@ -146,10 +147,20 @@ pub(crate) struct SpdmState<'a> {
+ 
+     // Certificates
+     pub(crate) certs: [KVec<u8>; SPDM_SLOTS],
++    pub(crate) leaf_key: Option<*mut bindings::public_key>,
+ }
+ 
+ impl Drop for SpdmState<'_> {
+     fn drop(&mut self) {
++        if let Some(leaf_key) = self.leaf_key.take() {
++            // SAFETY: `leaf_key` was extracted from a x509 certificate
++            // in `validate_cert_chain()` so it is valid to pass to
++            // `public_key_free()`.
++            unsafe {
++                bindings::public_key_free(leaf_key);
++            }
++        }
++
+         self.free_desc();
+ 
+         unsafe {
+@@ -186,6 +197,7 @@ pub(crate) fn new(
+             desc: core::ptr::null_mut(),
+             hash_len: 0,
+             certs: [const { KVec::new() }; SPDM_SLOTS],
++            leaf_key: None,
+         }
+     }
+ 
+@@ -762,4 +774,137 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
+ 
+         Ok(())
+     }
++
++    pub(crate) fn validate_cert_chain(&mut self, slot: u8) -> Result<(), Error> {
++        let cert_chain_buf = &self.certs[slot as usize];
++        let cert_chain_len = cert_chain_buf.len();
++        // We skip over the RootHash
++        let header_len = 4 + self.hash_len;
++
++        let mut offset = header_len;
++        let mut prev_cert: Option<*mut bindings::x509_certificate> = None;
++
++        if offset >= cert_chain_len {
++            return Err(EPROTO);
++        }
++
++        while offset < cert_chain_len {
++            // SAFETY: `cert_chain_buf[offset..]` is a non-empty slice of
++            // bytes valid for at least `cert_chain_len` bytes.
++            let cert_len = unsafe {
++                bindings::x509_get_certificate_length(
++                    &cert_chain_buf[offset..] as *const _ as *const u8,
++                    cert_chain_len - offset,
++                )
++            };
++
++            if cert_len < 0 {
++                pr_err!("Invalid certificate length\n");
++
++                if let Some(prev) = prev_cert {
++                    // SAFETY: `prev_cert` is the previously parsed
++                    // certificate from a prior loop iteration.
++                    unsafe { bindings::x509_free_certificate(prev) };
++                }
++
++                to_result(cert_len as i32)?;
++            }
++
++            // SAFETY: `cert_chain_buf[offset..]` is a non-empty slice of
++            // bytes valid for at least `cert_len` bytes.
++            let cert_ptr = unsafe {
++                match from_err_ptr(bindings::x509_cert_parse(
++                    &cert_chain_buf[offset..] as *const _ as *const c_void,
++                    cert_len as usize,
++                )) {
++                    Err(e) => {
++                        if let Some(prev) = prev_cert {
++                            // SAFETY: `prev_cert` is the previously parsed
++                            // certificate from a prior loop iteration.
++                            bindings::x509_free_certificate(prev);
++                        }
++                        return Err(e);
++                    }
++                    Ok(c) => c,
++                }
++            };
++            // SAFETY: Cast the `struct x509_certificate` to a Rust binding
++            let cert = unsafe { *cert_ptr };
++
++            if cert.unsupported_sig || cert.blacklisted {
++                pr_err!("Certificate was rejected\n");
++
++                if let Some(prev) = prev_cert {
++                    // SAFETY: `prev_cert` is the previously parsed
++                    // certificate from a prior loop iteration.
++                    unsafe { bindings::x509_free_certificate(prev) };
++                }
++                // SAFETY: `cert_ptr` was just returned by
++                // `x509_cert_parse()`.
++                unsafe { bindings::x509_free_certificate(cert_ptr) };
++
++                return Err(EKEYREJECTED);
++            }
++
++            if let Some(prev) = prev_cert {
++                // SAFETY: `prev_cert` is the previously parsed
++                // certificate from a prior loop iteration.
++                let rc = unsafe { bindings::public_key_verify_signature((*prev).pub_, cert.sig) };
++
++                if rc < 0 {
++                    pr_err!("Signature validation error\n");
++
++                    // SAFETY: `prev_cert` is the previously parsed
++                    // certificate from a prior loop iteration.
++                    unsafe { bindings::x509_free_certificate(prev) };
++
++                    // SAFETY: `cert_ptr` was just returned by
++                    // `x509_cert_parse()`.
++                    unsafe { bindings::x509_free_certificate(cert_ptr) };
++
++                    to_result(rc)?;
++                }
++            }
++
++            if let Some(prev) = prev_cert {
++                // SAFETY: `prev_cert` is the previously parsed
++                // certificate from a prior loop iteration.
++                unsafe { bindings::x509_free_certificate(prev) };
++            }
++
++            prev_cert = Some(cert_ptr);
++            offset += cert_len as usize;
++        }
++
++        if let Some(prev) = prev_cert {
++            if let Some(validate) = self.validate {
++                // SAFETY: Call the `validate` function provided.
++                let rc = unsafe { validate(self.dev, slot, prev) };
++                if let Err(e) = to_result(rc) {
++                    // SAFETY: `prev_cert` is the previously parsed
++                    // certificate from a prior loop iteration.
++                    unsafe { bindings::x509_free_certificate(prev) };
++                    return Err(e);
++                }
++            }
++
++            // The leaf key is the same for all slots (MULT_KEY_CAP == 0),
++            // so just store the first one.
++            if self.leaf_key.is_none() {
++                // SAFETY: `prev_cert` is the previously parsed
++                // certificate from a prior loop iteration.
++                self.leaf_key = unsafe { Some((*prev).pub_) };
++                // SAFETY: `prev_cert` is the previously parsed
++                // certificate from a prior loop iteration. We are setting
++                // the `pub` key to null so it isn't freed below
++                unsafe { (*prev).pub_ = core::ptr::null_mut() };
++            }
++
++            // SAFETY: `prev_cert` is the previously parsed
++            // certificate from a prior loop iteration.
++            unsafe { bindings::x509_free_certificate(prev) };
++        }
++
++        Ok(())
++    }
+ }
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index d2781c27794b..5cc71552b524 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -38,6 +38,8 @@
+ #include <drm/drm_gem_shmem_helper.h>
+ #include <drm/drm_gpuvm.h>
+ #include <drm/drm_ioctl.h>
++#include <keys/asymmetric-type.h>
++#include <keys/x509-parser.h>
+ #include <kunit/test.h>
+ #include <linux/auxiliary_bus.h>
+ #include <linux/bitmap.h>
+-- 
+2.55.0
 
