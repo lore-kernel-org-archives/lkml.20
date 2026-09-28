@@ -1,221 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2357932695F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6FB30F7FB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790554774; cv=none; b=hAPXmbF+30jacGeRVZQQxRxyXf1+mnJPUKY7QFqxzv9aOq2ExkSep8p9rjqt1YMiLLvKKmF4zrPPOB5lR+d275wtvK+5daCMkynX1N0/IF+YKoZoKCw1/6v7gWlqsAptwby5s8YCOSpg6qOCRtZZQBPF+SQHp52fzUnWHVI19NA=
+	t=1790554792; cv=none; b=QgeA4yl8HvHCQU/1R4U4DBos/lnUrOUsqQtWVXntJXtrcZD4v2Q3fnZQtPvKpnfc+Zp5HRUod60Aihpcj53Vnqu5RuklIzqgvz53Vy6W6R6k17v5LeuUJ5dSied5z5k/7PL7Ay/70CdE8FcfnB0ag0yvUpyT6+24G3hhKJLKoN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790554774; c=relaxed/simple;
-	bh=HEgF2P+1+y5g+ATlOPzavhWaPRyRERUoCblxXCR8tVk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DSDG9mNomvJp6AUCwZxIf9Y8BlniTIVC9xLP70Oa6XKZzU9ltbZTbeCgapoXmK28sIzMZB3iEDOH5uKTSs6UaCCvFxW3ca5PCsy+ZxxbdXmHx7BAhBFMCKgvyxKn5+uhnTbVx6f5Rw+dHZ4uxQHe1CfjAXGoLSDuRLd/1EYNXIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8TZD+Kc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790554792; c=relaxed/simple;
+	bh=NoPlYYdvriRynUszPSql8w3mlOghDAEFvgvI94lPEmM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WVCPHP+Euk2xe7QCwG+jtxs4WZwpdsXPpuu0M162/+aH6GKhcaV99bVgoVrhfo/pjyH5d8DdI2dFJfNd6/Cg2UqcHuAflkg8Xp8rV5oKKDwClat2qdjsaMBXEDMi3AMiGwPKwFGJl5J7dk6j7N3De/tqKcbOwoU6g0KRZF0TkVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQF5K2w2; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8TZD+Kc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1D91F008A2
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790554771;
-	bh=QP6xyVeWK0fjKYOX13CdCHacAmA58q94pWWFU7WezpA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Q8TZD+KcqH7MAX6dUpS/JSAVMhLxLCz/zKjss7NWuWteWhn4UPDXrNDTw4/3wJkzu
-	 s0A7Sjr9iUneoZmNMS6n41xk58hMloD6szVNGTpPcNlvLwtWtHe1zI1SpzYUY71fs0
-	 euQ8yCgYZj0M5Pn++1NUZ+XhF4WZhkFhpQxcN3QLWTc78ucAx0zfGa9u1CwhoSql9K
-	 MMJlEK18oXfl81axHE7227Mf2OPzIvDCuz0iKyckAoqhel+s+dk+sHdJIY8Yzng8LM
-	 4ct4VucEoZlYQzCkk6Ywu0aMBNgxbDnfAC8Wi+uM/UaM0qE8+qPddtXDjHc6Y7OXR+
-	 CnAKxfVBpSEAw==
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso233439566b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:19:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJ77yZ1uqSra+NlmrkJiDpiL3rGFEGZ17+fZLvVj1eYpz9zCkmzsAge4ixtChwYczeP5KjpJGMGj6+9fs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nalgPFCv4mquTDI3HZeqzhO7Y6KoBJQPW7zITGNKbDJmpSpeTt
-	FIT7snORfLGY6jbujIz+9pxOxvY2Ju5shGJXxAD4J0UpFrr0tMNbsdfQAwyhAOEXywrXeCHYCKh
-	oi0BoEoRpQHQLTA91T9dCl7SxZaqW7GFWhQ+vyMgUlg==
-X-Received: by 2002:a17:907:3f91:b0:c21:450d:cd88 with SMTP id
- a640c23a62f3a-c2ae979e5eamr638636266b.6.1790554770310; Sun, 27 Sep 2026
- 17:19:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQF5K2w2"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso6698465e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790554789; x=1791159589; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tIprfReE5iUA2iuf2MpnGwQ14qWaMzX9pXzLu8I3APE=;
+        b=FQF5K2w2Kj3IK4CabPCIvYCA2UPPdAYO5UJVETlBDvWjasv4n7vpk7jgaXCs5XZErc
+         kZFkTwW2hk++zpRbomCPNZYM4bubQuG8cGWcJFjbxk0IgPLbWtUvMKAj9yD3zJNrpMBX
+         Pw1SIwZysc+fZdUlKksAXo+krz2IrGar09xC3Q6c1bquS0zxcJ9fJPSrN/PbUZzlC2qQ
+         waVP3O8opjT8lEozdY0Ch9Z0C6y5A2RyZ6vAJC+xMppVkXqFNgS+K8hTi7YVuWNy0YLg
+         0X9/1aIbRoGnxIprCwciSfb7MijFTMK4b64JEp9Bmz/VolZ1KebzldBSrQAH8Zbel5XC
+         iJyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790554789; x=1791159589;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tIprfReE5iUA2iuf2MpnGwQ14qWaMzX9pXzLu8I3APE=;
+        b=cJXPISy6KcSThGKvSfkkr2iuJrgM2+WuuuYGCFcMaMC1NGwsYsOlEsq9cujAOfASTt
+         xI8O7IgpDEBnzyRlQD6lh378hs9DuwTv/vnJMWQ5KSYSzcNhgz1epa/kdISBv5i/F27R
+         VlfkOS1omhI6woIs9jX03RBBq2lQCiF7S91xzahkIYThuHq7NCxYThtIhA8bUXqE+4yI
+         RQSnXTvBjaMLy8aYdvZO8Rzqv2j6bHxghTQ7EntXZSyeU64U2ScmTbLWy/9oeztSs4ad
+         um/vLNaURg/9xEpl18f0HOuTSQG+RcmVa72rVO21BFNZRcqyKSpZjVJSKv2q/7CmJWq3
+         pf4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxMQTxo9NbZNpoa0YQejC/aSnY2t+tMlAPfyJTQPbDFLvkzDCTIktFgFKnNQj4lfzmRSpAwHHBT1rPxHio=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuuAZq3/to/SFuNH8+Wj1T+zO61tO3Ppp/cUb8pfgkNDdXVqAB
+	cT7EtBA4wsn7DYXzrcztbmYLjEhE4p1mwHi1f+9GwPlnT15WwIbdPKJW
+X-Gm-Gg: AYBFou2EpvDuRZ8tzZXwW8NMnXPOPlIiT2/SKwu6IK/CIxqI98DLcOlu4GzUkob+RgG
+	4XsDAULIwOsxEhGi03IbaDttsz4/1CXuRE8R3vwiHu11tB1RObr0NHQl7J22DCmI8cEGSrc4tYz
+	5hCtNpYhotGoY75rbmMQSzFAPTrF4Jy16TdtgDoLQfFCvahi5JXHjM5o0BvO0/1DYJRwk5OGkWj
+	Cl7Vy82mai7e2vCR3wX03QgrKSygfLBvC9+Yim02W1OXubJG6vJDNMEDFR4ER6PXDDrzSCV4lvo
+	KqDYBN6p0KKGYotcLN0tCSyrnUGfBCTVf7y94mj2srfqNJQx4lP3sxY8WrUiG5ZYre6aPt/jXzA
+	C85M3ez+IU7xa9ZTlqFvejVPpokml+RjShetpot9WCzkU35hS2j8PBdQhpzSXjRA6RtkpIcyFRJ
+	lrEHoVYsoHsaOQcuvY7R3WBvBhbmE1v5j/53vBBkNvfCfnueR8ehI1CduSrmWXoIq8/AcvCttAZ
+	f0F6OH1GrL4UR6mlWupW3/Bz7Ec01p21Ucpy4Tp3fxEAOapid+Cqo7QgStnnYr0tTCPXeRgLGO0
+	Ruf3PHeYAn5ttFkgST2ze1clQwnQW/jW9smbmAp3gJHDA50VVwoSiwwdIKTz8BrXTNFlncG3YaQ
+	zE+15iA==
+X-Received: by 2002:a05:600c:4685:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-49ffd2d25bcmr81836465e9.27.1790554789143;
+        Sun, 27 Sep 2026 17:19:49 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2e6-5301-2072-0420-f831-ed4e.310.pool.telefonica.de. [2a02:3100:b2e6:5301:2072:420:f831:ed4e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0029203absm79014865e9.6.2026.09.27.17.19.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 27 Sep 2026 17:19:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Yoshinori Sato <yoshinori.sato@nifty.com>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Peter Xu <peterx@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sh: mm: fix double mmap_lock release on SIGBUS and SIGSEGV faults
+Date: Mon, 28 Sep 2026 02:19:37 +0200
+Message-Id: <20260928001937.12793-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 27 Sep 2026 14:19:18 -1000
-X-Gmail-Original-Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
-X-Gm-Features: AclHuK_Emqiw5PPDnEui2wzXu2lByLHdjYDOsTY-4bLEBoChvn9DrfIUdVmpewI
-Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
-	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>, 
-	util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> This RFC adds offload-only swap areas for deliberate cold-page offload to
-> backends unsuitable for pressure reclaim. ZFS zvol swap has documented
-> deadlocks under memory pressure [3]; compressed swap is another target
-> because writes may need memory despite free logical slots.
+Since commit fb027ada051a ("sh/mm: use helper fault_signal_pending()"),
+mm_fault_error() releases mmap_lock itself for every fault result
+without VM_FAULT_RETRY. Before that, the VM_FAULT_SIGBUS and
+VM_FAULT_SIGSEGV branches relied on do_sigbus() and bad_area() to
+release it, and both still do. So a fault that ends in SIGBUS or
+SIGSEGV releases mmap_lock twice.
 
-What is the high-level user-visible impact of this series?
+A process that survives the signal keeps an mm with a corrupted
+mmap_lock. With CONFIG_DEBUG_RWSEMS and lockdep, stress-ng --msync
+(which catches SIGBUS) reports within a minute:
 
-I am curious: if we never run out of swap file space on the
-non-offload swap area, does that mean we don't need this patch series?
+  WARNING: bad unlock balance detected!
+  stress-ng-msync/54 is trying to release lock (&mm->mmap_lock) at:
+  mm_fault_error+0xd0/0x16c
+  ...
+  DEBUG_RWSEMS_WARN_ON(tmp < 0): count = 0xffffff00, ...
 
-The series discusses proactive reclaim and direct reclaim. The
-offload-only swap area is for proactive reclaim. However, direct
-reclaim can use both types of swap areas. Wouldn't using the
-non-offload case cause memory allocation which you want to avoid?
+and without them, find_vma() warns that mmap_lock is not held right
+after it was taken. Seen on a custom QEMU model of the SH7785LCR, in
+both 29-bit and 32-bit mode.
 
-I was wondering if we should actually flip things around. Mark the
-type of swap device that avoids memory allocation during swap out.
-Then direct reclaim prioritizes using those.That would make the happy
-path allocate less memory during direct reclaim. Right now this series
-does not seem to guarantee that direct reclaim stays away from the
-area that allocates memory.
+Drop the release from do_sigbus(), whose only caller is
+mm_fault_error(), and use bad_area_nosemaphore() for VM_FAULT_SIGSEGV.
+bad_area() has no users left and goes away.
 
-Chris
+Fixes: fb027ada051a ("sh/mm: use helper fault_signal_pending()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
 
->
-> Explicit proactive reclaim can use these areas alongside conventional
-> swap, ordered by priority. Ordinary reclaim cannot initiate non-zero
-> writes to them, including through retained swap entries. Conventional
-> capacity is not reserved for emergencies. Operators choose the policy;
-> the kernel does not measure headroom or make an allocating backend safe.
->
-> TMO/Senpai [4] and DAMON_RECLAIM [5] are related cold-page reclaim
-> approaches. This RFC admits offload-only swap through memory.reclaim and
-> per-node reclaim, but not DAMON. Other related work includes per-cgroup
-> zswap writeback control [6], Virtual Swap Space v4 [1] and swap tiers v10
-> [2].
->
-> The util-linux companion [8] proposes swapon --offload-only and an fstab
-> option. Older swapon silently ignores the fstab token, so persistent
-> activation needs discussion. Apply the separate i915 fix [9] first to avo=
-id
-> a pre-existing folio-lock leak when shmem writeback is skipped.
->
-> The series fixes zram selftest device tracking and error reporting, adds
-> the swap policy with DRM eligibility checks, and tests routing, workingse=
-t
-> activation and retained-entry write refusal. It is based on mm-new at
-> 995829088503.
->
-> Feedback is particularly welcome on:
->
-> - Activation-time eligibility versus backend placement or migration:
->   is retained-entry refusal, with possible reclaim churn or OOM,
->   acceptable without migration?
-> - Eligible-capacity accounting, including overcommit limits and OOM
->   scoring; cache recovery, cluster invalidation and workingset activation=
-.
-> - Persistent activation and visibility: current swap listings do not
->   expose the policy.
->
-> Validation includes x86 builds, affected arm64 MTE objects and builds
-> without swap or memory cgroups. QEMU tests covered routing, retained-entr=
-y
-> recovery, data integrity and cleanup, with negative controls for write
-> refusal and teardown failure.
->
-> I have also been using this policy on my own machine with experimental
-> bcachefs swap support, with no problems observed so far. Deliberate stres=
-s
-> testing is confined to VMs; I do not deliberately stress-test this machin=
-e.
->
-> Changes since v1, incorporating Sashiko's public review [7]:
->
-> - Improve selftest isolation, retained-swap measurement and memlock skips=
-.
-> - Track allocated zram devices, wait for udev probes and report cleanup
->   errors without deleting data through a mount that could not be released=
-.
-> - Clarify activation, capacity reporting and conventional fallback limits=
-.
->
-> [1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
-> [2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.c=
-om/
-> [3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.=
-html#using-a-zvol-for-a-swap-device-on-linux
-> [4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent=
--memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
-> [5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.h=
-tml
-> [6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
-> [7] https://sashiko.dev/#/patchset/20260914104501.3960616-1-matthias.goer=
-gens@gmail.com
-> [8] https://github.com/util-linux/util-linux/pull/4633
-> [9] https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergen=
-s@gmail.com/
->
-> v1: https://lore.kernel.org/all/20260914104501.3960616-1-matthias.goergen=
-s@gmail.com/
->
-> Matthias Goergens (4):
->   selftests: zram: track owned devices and report cleanup failures
->   mm: restrict offload-only swap to proactive reclaim
->   selftests: zram: cover offload-only swap policy
->   selftests: zram: cover retained offload-only entries
->
->  Documentation/mm/swap.rst                     | 105 ++++
->  drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
->  .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
->  drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
->  drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
->  drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
->  drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
->  include/linux/swap.h                          |  29 +-
->  include/linux/vm_event_item.h                 |   1 +
->  mm/memcontrol.c                               |  20 +-
->  mm/page_io.c                                  |  24 +-
->  mm/swapfile.c                                 | 123 ++++-
->  mm/vmscan.c                                   |  31 +-
->  mm/vmstat.c                                   |   1 +
->  tools/testing/selftests/zram/.gitignore       |   2 +
->  tools/testing/selftests/zram/Makefile         |   4 +-
->  tools/testing/selftests/zram/README           |  20 +-
->  tools/testing/selftests/zram/config           |  10 +-
->  tools/testing/selftests/zram/settings         |   1 +
->  tools/testing/selftests/zram/swap_offload.c   | 425 +++++++++++++++++
->  .../selftests/zram/workingset_offload.c       | 207 ++++++++
->  tools/testing/selftests/zram/zram.sh          |   9 +
->  tools/testing/selftests/zram/zram01.sh        |   9 +-
->  tools/testing/selftests/zram/zram02.sh        |   9 +-
->  tools/testing/selftests/zram/zram03.sh        | 174 +++++++
->  tools/testing/selftests/zram/zram04.sh        | 164 +++++++
->  tools/testing/selftests/zram/zram05.sh        | 447 ++++++++++++++++++
->  tools/testing/selftests/zram/zram_lib.sh      | 189 ++++++--
->  28 files changed, 1926 insertions(+), 94 deletions(-)
->  create mode 100644 tools/testing/selftests/zram/settings
->  create mode 100644 tools/testing/selftests/zram/swap_offload.c
->  create mode 100644 tools/testing/selftests/zram/workingset_offload.c
->  create mode 100755 tools/testing/selftests/zram/zram03.sh
->  create mode 100755 tools/testing/selftests/zram/zram04.sh
->  create mode 100755 tools/testing/selftests/zram/zram05.sh
->
-> --
-> 2.55.0
->
+Notes:
+    Tested in QEMU on a custom SH7785LCR model, not on hardware.
+    Reproducer: Debian sh4 stress-ng 0.22.01 --msync
+
+    Unpatched:
+    - debug kernel: lockdep "bad unlock balance", DEBUG_RWSEMS count
+      0xffffff00
+    - 29-bit and 32-bit non-debug kernels: find_vma() mmap_lock warnings
+
+    Patched (debug kernel):
+    - stress-ng --msync passes, no lock reports
+    - stress-ng run with 48 stressors: no kernel reports
+
+    Testing on real hardware is welcome.
+
+ arch/sh/mm/fault.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/arch/sh/mm/fault.c b/arch/sh/mm/fault.c
+index 06e6b49529245..138fc577a4c13 100644
+--- a/arch/sh/mm/fault.c
++++ b/arch/sh/mm/fault.c
+@@ -281,12 +281,6 @@ __bad_area(struct pt_regs *regs, unsigned long error_code,
+ 	__bad_area_nosemaphore(regs, error_code, address, si_code);
+ }
+ 
+-static noinline void
+-bad_area(struct pt_regs *regs, unsigned long error_code, unsigned long address)
+-{
+-	__bad_area(regs, error_code, address, SEGV_MAPERR);
+-}
+-
+ static noinline void
+ bad_area_access_error(struct pt_regs *regs, unsigned long error_code,
+ 		      unsigned long address)
+@@ -297,11 +291,6 @@ bad_area_access_error(struct pt_regs *regs, unsigned long error_code,
+ static void
+ do_sigbus(struct pt_regs *regs, unsigned long error_code, unsigned long address)
+ {
+-	struct task_struct *tsk = current;
+-	struct mm_struct *mm = tsk->mm;
+-
+-	mmap_read_unlock(mm);
+-
+ 	/* Kernel mode? Handle exceptions or die: */
+ 	if (!user_mode(regs))
+ 		no_context(regs, error_code, address);
+@@ -347,7 +336,7 @@ mm_fault_error(struct pt_regs *regs, unsigned long error_code,
+ 		if (fault & VM_FAULT_SIGBUS)
+ 			do_sigbus(regs, error_code, address);
+ 		else if (fault & VM_FAULT_SIGSEGV)
+-			bad_area(regs, error_code, address);
++			bad_area_nosemaphore(regs, error_code, address);
+ 		else
+ 			BUG();
+ 	}
+-- 
+2.53.0
+
