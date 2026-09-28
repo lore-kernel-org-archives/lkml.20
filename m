@@ -1,33 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5273923394A;
-	Mon, 28 Sep 2026 12:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6484264F80;
+	Mon, 28 Sep 2026 12:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599060; cv=none; b=IJrEKuLPndtltEoILGVhkeLodNgpxzALk37w7FmqO1ZZ7Ixx0UxpvXtFoN/Z0pTnRImr/8WpmBkFRBuzJUvkjZpctHweThngZIUl5iMG+nmAN5uG906LY7MVZv6tqnlJdxcn0C+zAaqMu2d6Zp9xJgFvi6EIwTlbKgBBDj5UfBI=
+	t=1790599088; cv=none; b=A8b97njXL4x6NkAHdh6o4EjMcumRIDzo2kcjVcn5i8sm4QU5d4lwyT2N7PKLgfK4aU8dhZGQOVjSP8FAIJ6WCNDQMLiCVXRYxWtFH7fyLg9ftIa67kfFxp2+4SxzhDjZONM4DXIBR3rXr+F1LsyhzmkmWWMTh3RuCXyS21M9qZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599060; c=relaxed/simple;
-	bh=SoXoOpTq7BBQSeAI/QQRRJMSXNBW9/qJPbLw6NnYeAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tsa5u/btX/jTZuLQLQtLXq5obx9dg587n2evkEHbnbZvjcrLG+5yc9BdG/K2fGvIM4fkl9wFiNt32FBa8J1Gsw1NjQBlPHUO54+2IVkFjljdLVdR/jqNQBseuvOryglnL+IWTPIb5bj67yJK079W0ATUCDaBBXGOFlMwdNu8tgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4vojdj9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790599088; c=relaxed/simple;
+	bh=0pgowuY40jVfehX7LGtml0cr8DPDl/k+8dIUn294QtQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Om1OdvCIbndSpcRnAvlsAqmT7epRwfX2qNAOmnMcT+664d4nqwPzyLHEtThWlJaUQZDB4QXCg+mSD6GqyJrjXwV6NoLure/3I9EOVTKKx5p/RJsEmOv60/uAf9fH1wDbH1yRKV5xkTwpSZGVCYwPNyV4Ydo+EbuSYnU4Qi/cSec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TAWjSW/O; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4vojdj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368BE1F000FF;
-	Mon, 28 Sep 2026 12:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790599057;
-	bh=mg/q5Uf4qDaXSLUHElUdbcsQbRByHYyfDRviKvolrD0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X4vojdj9/y2HEuT/FpflZXZ62rrypMdKmUzD9FVTF6mRpcrML2e9k1LS8IcAauDws
-	 owQeYlIkxvXQG1iZQFo7cjJJKcpWZxqMDc6RT6lppsYzGej1dS4VdfQ0Yk0SrmrhuH
-	 ZoJZliaNd8HQKYOYg8G2gRNz+1+W3W3Tojh+7QUDp/RapGUKDCISEp1Ty9Up5d+HLO
-	 U02MleYYmGX42NertyRZx7jsaSsmttSdkwRq30zHIAQ5QDCuRN/mdEaH30lJYaLKQw
-	 6HUKWO8Fx3n5gTWyDLI0301C8BifCh/b6OUdb2KI2hUS4B1lkpC0ZLJYaKn/fsdlY0
-	 s4LfxKSSmE7bQ==
-Message-ID: <8b12d25a-84de-42fa-8536-9ff74fece4e6@kernel.org>
-Date: Mon, 28 Sep 2026 14:37:35 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TAWjSW/O"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=jK3h+BbU8ClSed/mgUyAV7nEFnlFEpmB8MPlSGvpo00=;
+	b=TAWjSW/OlIFTZQ04ktxIEM0ah2bJeG7+uj9AbkrWKbTy5xkTpeExCCKnIfeaE2G+4ChdhDg+3
+	1gkavizXuuCWBjBnsmM4JWpf97b3O1eVPRnQHQDNcsEmLNq1nFlslRKj3RCLrHX31OYMm+NCoWl
+	PvkwBzVPkgpyjDhHP1zMj2o=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4htgWc4HMTzKm6K;
+	Mon, 28 Sep 2026 20:25:48 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7EF464055B;
+	Mon, 28 Sep 2026 20:38:00 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 28 Sep 2026 20:37:59 +0800
+Message-ID: <2d086f02-5638-4673-83e1-53d3640e3d3d@huawei.com>
+Date: Mon, 28 Sep 2026 20:37:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,724 +42,348 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] media: uvcvideo: Force UVC version for Avermedia
- GC515
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, stable@vger.kernel.org
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260911-uvc-version-v3-5-604328d8a0dd@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH] security: Allow dropping bounding set process-wide
+To: "Andrew G. Morgan" <morgan@kernel.org>, "Serge E. Hallyn"
+	<serge@hallyn.com>
+CC: <paul@paul-moore.com>, <jmorris@namei.org>, <pjw@kernel.org>,
+	<tglx@kernel.org>, <peterz@infradead.org>, <debug@rivosinc.com>,
+	<broonie@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>
+References: <20260922095816.1191799-1-ruanjinjie@huawei.com>
+ <arK0cT7CGb3Khy69@hallyn.com>
+ <7f0c935f-2c3f-4511-924f-822c3acf93da@huawei.com>
+ <arZ0TfXSLjmDtyRy@hallyn.com>
+ <CACmP8UL0SEZxMn4XkByVPtKbRuc_mWQLafwgPZ_=dOFUzo5HKQ@mail.gmail.com>
+ <araIUXjOOQ9KuXki@hallyn.com>
+ <CACmP8ULzE-m2d+76AdyQ7nsVj=t6kWvyed05KCc2=99EOr+6Yw@mail.gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <CACmP8ULzE-m2d+76AdyQ7nsVj=t6kWvyed05KCc2=99EOr+6Yw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi,
 
-On 11-Sep-26 15:22, Ricardo Ribalda wrote:
-> The device announces itself as UVC 1.5, but it only accepts UVC 1.1
-> controls.
+
+在 2026/9/27 23:31, Andrew G. Morgan 写道:
+> My point is as follows.
 > 
-> The camera can probably be handled by the automatic uvc_version handler,
-> but it is more correct to add a quirk and keep some tracking of what
-> vendors are more or less compliant. Also it might be more robust if we
-> introduce more UVC version-dependent code.
+> - Let's say proc p1 contains threads t1, t2, t3.
+> - Both t1 and t2 call this new system call at the same time with
+> different target states.
+> - All while t3 is calling clone (creating t4 at some point).
 > 
-> Bus 003 Device 021: ID 07ca:1515 AVerMedia Technologies, Inc. X'tra Go GC515
-> Negotiated speed: High Speed (480Mbps)
-> Device Descriptor:
->   bLength                18
->   bDescriptorType         1
->   bcdUSB               2.00
->   bDeviceClass          239 Miscellaneous Device
->   bDeviceSubClass         2 [unknown]
->   bDeviceProtocol         1 Interface Association
->   bMaxPacketSize0        64
->   idVendor           0x07ca AVerMedia Technologies, Inc.
->   idProduct          0x1515 X'tra Go GC515
->   bcdDevice            0.10
->   iManufacturer           1 AVerMedia
->   iProduct                2 X'tra Go GC515
->   iSerial                 3 5313180000221
->   bNumConfigurations      1
->   Configuration Descriptor:
->     bLength                 9
->     bDescriptorType         2
->     wTotalLength       0x03fd
->     bNumInterfaces          4
->     bConfigurationValue     1
->     iConfiguration          0
->     bmAttributes         0xc0
->       Self Powered
->     MaxPower              500mA
->     Interface Association:
->       bLength                 8
->       bDescriptorType        11
->       bFirstInterface         0
->       bInterfaceCount         2
->       bFunctionClass         14 Video
->       bFunctionSubClass       3 Video Interface Collection
->       bFunctionProtocol       0
->       iFunction               0
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        0
->       bAlternateSetting       0
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      1 Video Control
->       bInterfaceProtocol      1
->       iInterface              0
->       VideoControl Interface Descriptor:
->         bLength                13
->         bDescriptorType        36
->         bDescriptorSubtype      1 (HEADER)
->         bcdUVC               1.50
->         wTotalLength       0x0059
->         dwClockFrequency       30.000000MHz
->         bInCollection           1
->         baInterfaceNr( 0)       1
->       VideoControl Interface Descriptor:
->         bLength                18
->         bDescriptorType        36
->         bDescriptorSubtype      2 (INPUT_TERMINAL)
->         bTerminalID             1
->         wTerminalType      0x0201 Camera Sensor
->         bAssocTerminal          0
->         iTerminal               0
->         wObjectiveFocalLengthMin      0
->         wObjectiveFocalLengthMax      0
->         wOcularFocalLength            0
->         bControlSize                  3
->         bmControls           0x00000000
->       VideoControl Interface Descriptor:
->         bLength                 9
->         bDescriptorType        36
->         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
->         bTerminalID             2
->         wTerminalType      0x0101 USB Streaming
->         bAssocTerminal          0
->         bSourceID               4
->         iTerminal               0
->       VideoControl Interface Descriptor:
->         bLength                 7
->         bDescriptorType        36
->         bDescriptorSubtype      4 (SELECTOR_UNIT)
->         bUnitID                 3
->         bNrInPins               1
->         baSource( 0)            1
->         iSelector               0
->       VideoControl Interface Descriptor:
->         bLength                13
->         bDescriptorType        36
->         bDescriptorSubtype      5 (PROCESSING_UNIT)
->         bUnitID                 4
->         bSourceID               3
->         wMaxMultiplier          0
->         bControlSize            3
->         bmControls     0x00000000
->         iProcessing             0
->         bmVideoStandards     0x00
->       VideoControl Interface Descriptor:
->         bLength                29
->         bDescriptorType        36
->         bDescriptorSubtype      6 (EXTENSION_UNIT)
->         bUnitID                 5
->         guidExtensionCode         {55be8e1c-2fdb-4f7a-bd8d-b9b1108d20c3}
->         bNumControls           24
->         bNrInPins               1
->         baSourceID( 0)          4
->         bControlSize            4
->         bmControls( 0)       0xff
->         bmControls( 1)       0xff
->         bmControls( 2)       0xff
->         bmControls( 3)       0x00
->         iExtension              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x85  EP 5 IN
->         bmAttributes            3
->           Transfer Type            Interrupt
->           Synch Type               None
->           Usage Type               Data
->         wMaxPacketSize     0x0040  1x 64 bytes
->         bInterval               1
->         VideoControl Endpoint Descriptor:
->           bLength                 5
->           bDescriptorType        37
->           bDescriptorSubtype      3 (EP_INTERRUPT)
->           wMaxTransferSize       64
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       0
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      1
->       iInterface              0
->       VideoStreaming Interface Descriptor:
->         bLength                            16
->         bDescriptorType                    36
->         bDescriptorSubtype                  1 (INPUT_HEADER)
->         bNumFormats                         3
->         wTotalLength                   0x0303
->         bEndpointAddress                 0x81  EP 1 IN
->         bmInfo                              0
->         bTerminalLink                       2
->         bStillCaptureMethod                 1
->         bTriggerSupport                     0
->         bTriggerUsage                       0
->         bControlSize                        1
->         bmaControls( 0)                     4
->         bmaControls( 1)                     4
->         bmaControls( 2)                     0
->       VideoStreaming Interface Descriptor:
->         bLength                            28
->         bDescriptorType                    36
->         bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
->         bFormatIndex                        1
->         bNumFrameDescriptors                8
->         guidFormat                            {34363248-0000-0010-8000-00aa00389b71}
->         bBitsPerPixel                      24
->         bDefaultFrameIndex                  1
->         bAspectRatioX                       0
->         bAspectRatioY                       0
->         bmInterlaceFlags                 0x00
->           Interlaced stream or variable: No
->           Fields per frame: 2 fields
->           Field 1 first: No
->           Field pattern: Field 1 only
->         bCopyProtect                        1
->         bVariableSize                     1
->       VideoStreaming Interface Descriptor:
->         bLength                            62
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         1
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  9
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)             83333
->         dwFrameInterval( 1)             83416
->         dwFrameInterval( 2)            166666
->         dwFrameInterval( 3)            166833
->         dwFrameInterval( 4)            200000
->         dwFrameInterval( 5)            333333
->         dwFrameInterval( 6)            333667
->         dwFrameInterval( 7)            400000
->         dwFrameInterval( 8)            416666
->       VideoStreaming Interface Descriptor:
->         bLength                            42
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         2
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           3840
->         wHeight                          2160
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  4
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            333333
->         dwFrameInterval( 1)            333667
->         dwFrameInterval( 2)            400000
->         dwFrameInterval( 3)            416666
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         3
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           2560
->         wHeight                          1440
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         4
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1280
->         wHeight                           800
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                            38
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         5
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1280
->         wHeight                           720
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  3
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->         dwFrameInterval( 2)            200000
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         6
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            720
->         wHeight                           576
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         200000
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            200000
->         dwFrameInterval( 1)            400000
->       VideoStreaming Interface Descriptor:
->         bLength                            42
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         7
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            720
->         wHeight                           480
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  4
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->         dwFrameInterval( 2)            333333
->         dwFrameInterval( 3)            333667
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         8
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            640
->         wHeight                           480
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                             6
->         bDescriptorType                    36
->         bDescriptorSubtype                 13 (COLORFORMAT)
->         bColorPrimaries                     0 (Unspecified)
->         bTransferCharacteristics            0 (Unspecified)
->         bMatrixCoefficients                 0 (Unspecified)
->       VideoStreaming Interface Descriptor:
->         bLength                            28
->         bDescriptorType                    36
->         bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
->         bFormatIndex                        2
->         bNumFrameDescriptors                8
->         guidFormat                            {43564548-0000-0010-8000-00aa00389b71}
->         bBitsPerPixel                      24
->         bDefaultFrameIndex                  1
->         bAspectRatioX                       0
->         bAspectRatioY                       0
->         bmInterlaceFlags                 0x00
->           Interlaced stream or variable: No
->           Fields per frame: 2 fields
->           Field 1 first: No
->           Field pattern: Field 1 only
->         bCopyProtect                        1
->         bVariableSize                     1
->       VideoStreaming Interface Descriptor:
->         bLength                            62
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         1
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  9
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)             83333
->         dwFrameInterval( 1)             83416
->         dwFrameInterval( 2)            166666
->         dwFrameInterval( 3)            166833
->         dwFrameInterval( 4)            200000
->         dwFrameInterval( 5)            333333
->         dwFrameInterval( 6)            333667
->         dwFrameInterval( 7)            400000
->         dwFrameInterval( 8)            416666
->       VideoStreaming Interface Descriptor:
->         bLength                            42
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         2
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           3840
->         wHeight                          2160
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  4
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            333333
->         dwFrameInterval( 1)            333667
->         dwFrameInterval( 2)            400000
->         dwFrameInterval( 3)            416666
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         3
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           2560
->         wHeight                          1440
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         4
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1280
->         wHeight                           800
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                            38
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         5
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1280
->         wHeight                           720
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  3
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->         dwFrameInterval( 2)            200000
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         6
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            720
->         wHeight                           576
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         200000
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            200000
->         dwFrameInterval( 1)            400000
->       VideoStreaming Interface Descriptor:
->         bLength                            42
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         7
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            720
->         wHeight                           480
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  4
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->         dwFrameInterval( 2)            333333
->         dwFrameInterval( 3)            333667
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
->         bFrameIndex                         8
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                            640
->         wHeight                           480
->         dwMinBitRate                 33554432
->         dwMaxBitRate                268435456
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  2
->         dwBytesPerLine                      0
->         dwFrameInterval( 0)            166666
->         dwFrameInterval( 1)            166833
->       VideoStreaming Interface Descriptor:
->         bLength                             6
->         bDescriptorType                    36
->         bDescriptorSubtype                 13 (COLORFORMAT)
->         bColorPrimaries                     0 (Unspecified)
->         bTransferCharacteristics            0 (Unspecified)
->         bMatrixCoefficients                 0 (Unspecified)
->       VideoStreaming Interface Descriptor:
->         bLength                            11
->         bDescriptorType                    36
->         bDescriptorSubtype                  6 (FORMAT_MJPEG)
->         bFormatIndex                        3
->         bNumFrameDescriptors                1
->         bFlags                              0
->           Fixed-size samples: No
->         bDefaultFrameIndex                  1
->         bAspectRatioX                       0
->         bAspectRatioY                       0
->         bmInterlaceFlags                 0x00
->           Interlaced stream or variable: No
->           Fields per frame: 1 fields
->           Field 1 first: No
->           Field pattern: Field 1 only
->         bCopyProtect                        1
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         1
->         bmCapabilities                   0x01
->           Still image supported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                314572800
->         dwMaxBitRate                314572800
->         dwMaxVideoFrameBufferSize     4147200
->         dwDefaultFrameInterval         166666
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            166666
->       VideoStreaming Interface Descriptor:
->         bLength                             6
->         bDescriptorType                    36
->         bDescriptorSubtype                 13 (COLORFORMAT)
->         bColorPrimaries                     0 (Unspecified)
->         bTransferCharacteristics            0 (Unspecified)
->         bMatrixCoefficients                 0 (Unspecified)
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            2
->           Transfer Type            Bulk
->           Synch Type               None
->           Usage Type               Data
->         wMaxPacketSize     0x0200  1x 512 bytes
->         bInterval               0
->     Interface Association:
->       bLength                 8
->       bDescriptorType        11
->       bFirstInterface         2
->       bInterfaceCount         2
->       bFunctionClass          1 Audio
->       bFunctionSubClass       2 Streaming
->       bFunctionProtocol       0
->       iFunction               0
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        2
->       bAlternateSetting       0
->       bNumEndpoints           0
->       bInterfaceClass         1 Audio
->       bInterfaceSubClass      1 Control Device
->       bInterfaceProtocol      0
->       iInterface              0
->       AudioControl Interface Descriptor:
->         bLength                 9
->         bDescriptorType        36
->         bDescriptorSubtype      1 (HEADER)
->         bcdADC               1.00
->         wTotalLength       0x0026
->         bInCollection           1
->         baInterfaceNr(0)        3
->       AudioControl Interface Descriptor:
->         bLength                12
->         bDescriptorType        36
->         bDescriptorSubtype      2 (INPUT_TERMINAL)
->         bTerminalID             1
->         wTerminalType      0x0602 Digital Audio Interface
->         bAssocTerminal          0
->         bNrChannels             2
->         wChannelConfig     0x0003
->           Left Front (L)
->           Right Front (R)
->         iChannelNames           0
->         iTerminal               0
->       AudioControl Interface Descriptor:
->         bLength                 9
->         bDescriptorType        36
->         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
->         bTerminalID             2
->         wTerminalType      0x0101 USB Streaming
->         bAssocTerminal          0
->         bSourceID               3
->         iTerminal               0
->       AudioControl Interface Descriptor:
->         bLength                 8
->         bDescriptorType        36
->         bDescriptorSubtype      6 (FEATURE_UNIT)
->         bUnitID                 3
->         bSourceID               1
->         bControlSize            1
->         bmaControls(0)       0x03
->           Mute Control
->           Volume Control
->         iFeature                0
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        3
->       bAlternateSetting       0
->       bNumEndpoints           0
->       bInterfaceClass         1 Audio
->       bInterfaceSubClass      2 Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        3
->       bAlternateSetting       1
->       bNumEndpoints           1
->       bInterfaceClass         1 Audio
->       bInterfaceSubClass      2 Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       AudioStreaming Interface Descriptor:
->         bLength                 7
->         bDescriptorType        36
->         bDescriptorSubtype      1 (AS_GENERAL)
->         bTerminalLink           2
->         bDelay                  1 frames
->         wFormatTag         0x0001 PCM
->       AudioStreaming Interface Descriptor:
->         bLength                11
->         bDescriptorType        36
->         bDescriptorSubtype      2 (FORMAT_TYPE)
->         bFormatType             1 (FORMAT_TYPE_I)
->         bNrChannels             2
->         bSubframeSize           2
->         bBitResolution         16
->         bSamFreqType            1 Discrete
->         tSamFreq[ 0]        48000
->       Endpoint Descriptor:
->         bLength                 9
->         bDescriptorType         5
->         bEndpointAddress     0x83  EP 3 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x00c4  1x 196 bytes
->         bInterval               4
->         bRefresh                0
->         bSynchAddress           0
->         AudioStreaming Endpoint Descriptor:
->           bLength                 7
->           bDescriptorType        37
->           bDescriptorSubtype      1 (EP_GENERAL)
->           bmAttributes         0x01
->             Sampling Frequency
->           bLockDelayUnits         0 Undefined
->           wLockDelay         0x0000
+> Without serialization, what state results? The state t1 wants or the
+> state t2 wants? If a loop around is included for t4, what happens if
+> t1, having set its own thread state and "returned" immediately calls
+> this syscall again? What state will the threads end up with?
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: b400b6f28af0 ("media: uvcvideo: Force UVC version to 1.0a for 1bcf:0b40") # When version overwritte was added
-> Reported-by: Edwin Gatier <edwin.gatier@protonmail.com>
-> Closes: https://lore.kernel.org/linux-media/CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com/T/#me584c35c4b523ac455925a1590a3de8efc354349
-> Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> Serialization, for me, is that one of t1 and t2 wins the first race,
+> and its will is enforced on every thread (including t4) before t2's
+> intent can take effect. That intent may, indeed, not be attainable, if
+> t1 has denied something t2 wants and that attempt should fail.
 
-Thanks, patch looks good to me:
+I completely agree with your point: when cloning between different
+threads of the same process, or when calling this new prctl, there needs
+to be a fully deterministic ordering; otherwise, it will be chaos.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
 > 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index adec9d1aa653..bbfc409c5167 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -2847,6 +2847,17 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= (kernel_ulong_t)&uvc_quirk_fix_bandwidth },
-> +	/* Avermedia GC515 */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x07ca,
-> +	  .idProduct		= 0x1515,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= UVC_PC_PROTOCOL_15,
-> +	  .driver_info		= (kernel_ulong_t)&(const struct uvc_device_info){
-> +		.uvc_version = 0x0110,
-> +	  } },
->  	/* ViMicro Vega */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
+> Cheers
 > 
+> Andrew
+> 
+> On Fri, Sep 25, 2026 at 7:42 AM Serge E. Hallyn <serge@hallyn.com> wrote:
+>>
+>> Also (not sure whether this is what Andrew is referring to here), in your
+>> code below, what keeps one thread from doing a clone in between the
+>> task harvesting loop and the task_work_add() loop?  It seems like you'd
+>> need to do another loop after to make sure you didn't miss any new
+>> tasks?
+>>
+>> And of course we'd need a more robust solution to
+>>
+>>>>>>> +          /* Out of memory: bounding set drop failed silently for this thread. */
+>>
+>> -serge
+>>
+>> On Fri, Sep 25, 2026 at 07:28:08AM -0700, Andrew G. Morgan wrote:
+>>> I don't see a race condition in the (*cap.IAB).Set() code. The
+>>> semantics of this sort of thing can't be allowed to include a race;
+>>> otherwise, back-to-back calls to this "system call" might generate
+>>> divergent thread state. How you do that without some serialization
+>>> isn't clear to me.
+>>>
+>>> Cheers
+>>>
+>>> Andrew
+>>>
+>>> On Fri, Sep 25, 2026 at 6:17 AM Serge E. Hallyn <serge@hallyn.com> wrote:
+>>>>
+>>>> On Thu, Sep 24, 2026 at 04:05:59PM +0800, Jinjie Ruan wrote:
+>>>>>
+>>>>>
+>>>>> 在 2026/9/23 1:01, Serge E. Hallyn 写道:
+>>>>>> On Tue, Sep 22, 2026 at 05:58:16PM +0800, Jinjie Ruan wrote:
+>>>>>>> The capability bounding set is per-thread: PR_CAPBSET_DROP only affects
+>>>>>>> the calling thread, since its bounding set lives in the per-task struct
+>>>>>>> cred.  User space that wants to drop capabilities for a whole process
+>>>>>>> must therefore invoke PR_CAPBSET_DROP once per capability per thread,
+>>>>>>> which on a many-threaded process is expensive, and from a Go runtime
+>>>>>>> requires stopping the world and signalling every thread.
+>>>>>>>
+>>>>>>> Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
+>>>>>>> capabilities, given as a 64-bit mask in arg2 (low 32 bits) and arg3
+>>>>>>> (high 32 bits), from the bounding set of every thread of the calling
+>>>>>>> thread group in a single call.
+>>>>>>>
+>>>>>>> The calling thread drops the capabilities synchronously, last; every
+>>>>>>> sibling that still holds any of them is asked to drop them through a
+>>>>>>> task_work item, so that it applies the drop in its own context.  This
+>>>>>>> avoids racing with a sibling's concurrent credential updates such as
+>>>>>>> setuid() or capset().  The call does not wait for the siblings: a
+>>>>>>> sibling may be parked in a wait that is not woken by TIF_NOTIFY_SIGNAL
+>>>>>>> (e.g. futex), so waiting could block for an unbounded time.  This is
+>>>>>>> still safe, because TIF_NOTIFY_SIGNAL is handled on the way out to user
+>>>>>>> mode, so a sibling applies the drop before executing any further
+>>>>>>> userspace code.  It does not synchronize against a sibling that is
+>>>>>>> concurrently creating threads, so callers must keep the thread group
+>>>>>>> quiescent while dropping.
+>>>>>>>
+>>>>>>> Measured with gVisor's "bounding set trimmed" boot phase on an arm64 KVM
+>>>>>>> guest (medians over repeated boots):
+>>>>>>>   - 8 vCPUs:  ~1.6ms  -> ~0.10ms
+>>>>>>>   - 32 vCPUs: ~3.5ms  -> ~0.11ms
+>>>>>>>   - 64 vCPUs: ~10.1ms -> ~0.1-0.6ms
+>>>>>>>   - cost goes from O(capabilities * threads) stop-the-world prctls to a
+>>>>>>>     single thread-group walk.
+>>>>>>
+>>>>>> That is impressive, but please do detail the specific use case where
+>>>>>> you need to drop from the bounding set after the go scheduler has started.
+>>>>>> I can imagine some cases where you need to do some early setup and then
+>>>>>> want to drop privileges, but you could also do that by re-exec'ing, so
+>>>>>> I'd like to hear specifics.
+>>>>>
+>>>>> Hi Serge,
+>>>>>
+>>>>> Thanks for the review.
+>>>>>
+>>>>> The use case is gVisor's sentry: a long-lived, pure-Go process that
+>>>>> starts a sandbox per container/pod. The final capability set depends on
+>>>>> the spec, the platform (ptrace requires CAP_SYS_PTRACE),
+>>>>> directfs/networking, and the capabilities granted to the runtime's user
+>>>>> namespace.
+>>>>>
+>>>>> It is therefore only known after the runtime and gVisor's own threads
+>>>>> are already up — the trim happens multi-threaded. We do have a re-exec
+>>>>> path, but it re-loads a ~100 MB binary and re-runs Go init, so we only
+>>>>> take it when forced.
+>>>>>
+>>>>>>
+>>>>>> This makes me nervous, reminding me of the 'sendmail capabilities bug'.
+>>>>>> If some program specifically locks down one thread, I could imagine the
+>>>>>> locked down thread forcing wrong behavior from the privileged threads
+>>>>>> by calling this.
+>>>>>
+>>>>> Fair concern. This new prcoess-wide drop is also a drop — it only
+>>>>> removes capabilities from all threads, and requires CAP_SETPCAP. But it
+>>>>
+>>>> Good point, CAP_SETPCAP requirement might mitigate my concern.  I'll look
+>>>> at this a bit more, thanks.
+>>>>
+>>>>> must actually reach every thread, so the thread-creation race still
+>>>>> needs to be addressed.
+>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>> Cc: Serge Hallyn <serge@hallyn.com>
+>>>>>>> Cc: Paul Moore <paul@paul-moore.com>
+>>>>>>> Cc: James Morris <jmorris@namei.org>
+>>>>>>> Cc: Paul Walmsley <pjw@kernel.org>
+>>>>>>> Cc: Thomas Gleixner <tglx@kernel.org>
+>>>>>>> Cc: Zong Li <zong.li@sifive.com>
+>>>>>>> Cc: Deepak Gupta <debug@rivosinc.com>
+>>>>>>> Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+>>>>>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>>>>>>> ---
+>>>>>>>  include/uapi/linux/prctl.h |   1 +
+>>>>>>>  security/commoncap.c       | 129 +++++++++++++++++++++++++++++++++++++
+>>>>>>>  2 files changed, 130 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+>>>>>>> index b6ec6f693719..750a7824d3bc 100644
+>>>>>>> --- a/include/uapi/linux/prctl.h
+>>>>>>> +++ b/include/uapi/linux/prctl.h
+>>>>>>> @@ -70,6 +70,7 @@
+>>>>>>>  /* Get/set the capability bounding set (as per security/commoncap.c) */
+>>>>>>>  #define PR_CAPBSET_READ 23
+>>>>>>>  #define PR_CAPBSET_DROP 24
+>>>>>>> +#define PR_CAPBSET_DROP_MASK 83
+>>>>>>>
+>>>>>>>  /* Get/set the process' ability to use the timestamp counter instruction */
+>>>>>>>  #define PR_GET_TSC 25
+>>>>>>> diff --git a/security/commoncap.c b/security/commoncap.c
+>>>>>>> index 3399535808fe..ae7ce50a8151 100644
+>>>>>>> --- a/security/commoncap.c
+>>>>>>> +++ b/security/commoncap.c
+>>>>>>> @@ -19,7 +19,14 @@
+>>>>>>>  #include <linux/hugetlb.h>
+>>>>>>>  #include <linux/mount.h>
+>>>>>>>  #include <linux/sched.h>
+>>>>>>> +#include <linux/cred.h>
+>>>>>>> +#include <linux/rcupdate.h>
+>>>>>>> +#include <linux/sched/signal.h>
+>>>>>>> +#include <linux/sched/task.h>
+>>>>>>> +#include <linux/slab.h>
+>>>>>>> +#include <linux/task_work.h>
+>>>>>>>  #include <linux/prctl.h>
+>>>>>>> +#include <linux/printk.h>
+>>>>>>>  #include <linux/securebits.h>
+>>>>>>>  #include <linux/user_namespace.h>
+>>>>>>>  #include <linux/binfmts.h>
+>>>>>>> @@ -1283,6 +1290,123 @@ static int cap_prctl_drop(unsigned long cap)
+>>>>>>>    return commit_creds(new);
+>>>>>>>  }
+>>>>>>>
+>>>>>>> +/*
+>>>>>>> + * Structure used to queue process-wide bounding set drops via task_work.
+>>>>>>> + */
+>>>>>>> +struct cap_bset_drop_work {
+>>>>>>> +  struct callback_head work;
+>>>>>>> +  struct task_struct *task;
+>>>>>>> +  kernel_cap_t mask;
+>>>>>>> +  struct cap_bset_drop_work *next;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +static void cap_bset_drop_work_fn(struct callback_head *work)
+>>>>>>> +{
+>>>>>>> +  struct cap_bset_drop_work *w = container_of(work, struct cap_bset_drop_work, work);
+>>>>>>> +  struct cred *new = prepare_creds();
+>>>>>>> +
+>>>>>>> +  if (!new) {
+>>>>>>> +          /* Out of memory: bounding set drop failed silently for this thread. */
+>>>>>>> +          pr_warn_ratelimited("capability bounding set drop failed for pid %d (%s)\n",
+>>>>>>> +                              task_pid_nr(current), current->comm);
+>>>>>>> +          goto out;
+>>>>>>> +  }
+>>>>>>> +
+>>>>>>> +  new->cap_bset = cap_drop(new->cap_bset, w->mask);
+>>>>>>> +  commit_creds(new);
+>>>>>>> +
+>>>>>>> +out:
+>>>>>>> +  put_task_struct(w->task);
+>>>>>>> +  kfree(w);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +/*
+>>>>>>> + * cap_bset_drop_process - Drop capabilities from all threads in the group.
+>>>>>>> + * @mask: Mask of capabilities to drop from the bounding set.
+>>>>>>> + *
+>>>>>>> + * Drops @mask from the calling thread synchronously, and queues a task_work
+>>>>>>> + * item for each sibling thread to safely apply the drop in its own context.
+>>>>>>> + *
+>>>>>>> + * The caller must hold CAP_SETPCAP. Thread group must be quiescent to avoid
+>>>>>>> + * racing with concurrent thread creation.
+>>>>>>> + *
+>>>>>>> + * Returns 0 on success, or -ENOMEM if allocations fail (all-or-nothing).
+>>>>>>> + */
+>>>>>>> +static int cap_bset_drop_process(kernel_cap_t mask)
+>>>>>>> +{
+>>>>>>> +  struct cap_bset_drop_work *list = NULL, *w, *next;
+>>>>>>> +  struct task_struct *thread;
+>>>>>>> +  struct cred *new = NULL;
+>>>>>>> +  int ret = 0;
+>>>>>>> +
+>>>>>>> +  rcu_read_lock();
+>>>>>>> +  for_each_thread(current, thread) {
+>>>>>>> +          const struct cred *cred;
+>>>>>>> +
+>>>>>>> +          if (thread == current || (thread->flags & PF_EXITING))
+>>>>>>> +                  continue;
+>>>>>>> +
+>>>>>>> +          cred = __task_cred(thread);
+>>>>>>> +          if (cap_isclear(cap_intersect(cred->cap_bset, mask)))
+>>>>>>> +                  continue;
+>>>>>>> +
+>>>>>>> +          w = kmalloc_obj(*w, GFP_ATOMIC);
+>>>>>>> +          if (!w) {
+>>>>>>> +                  ret = -ENOMEM;
+>>>>>>> +                  break;
+>>>>>>> +          }
+>>>>>>> +
+>>>>>>> +          w->task = get_task_struct(thread);
+>>>>>>> +          w->mask = mask;
+>>>>>>> +          w->next = list;
+>>>>>>> +          list = w;
+>>>>>>> +  }
+>>>>>>> +  rcu_read_unlock();
+>>>>>>> +
+>>>>>>> +  if (!ret) {
+>>>>>>> +          new = prepare_creds();
+>>>>>>> +          if (!new)
+>>>>>>> +                  ret = -ENOMEM;
+>>>>>>> +  }
+>>>>>>> +
+>>>>>>> +  if (ret) {
+>>>>>>> +          while (list) {
+>>>>>>> +                  next = list->next;
+>>>>>>> +                  put_task_struct(list->task);
+>>>>>>> +                  kfree(list);
+>>>>>>> +                  list = next;
+>>>>>>> +          }
+>>>>>>> +          return ret;
+>>>>>>> +  }
+>>>>>>> +
+>>>>>>> +  for (w = list; w; w = next) {
+>>>>>>> +          next = w->next;
+>>>>>>> +          init_task_work(&w->work, cap_bset_drop_work_fn);
+>>>>>>> +          if (task_work_add(w->task, &w->work, TWA_SIGNAL)) {
+>>>>>>> +                  put_task_struct(w->task);
+>>>>>>> +                  kfree(w);
+>>>>>>> +          }
+>>>>>>> +  }
+>>>>>>> +
+>>>>>>> +  new->cap_bset = cap_drop(new->cap_bset, mask);
+>>>>>>> +  commit_creds(new);
+>>>>>>> +
+>>>>>>> +  return 0;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static int cap_prctl_drop_mask(unsigned long low, unsigned long high)
+>>>>>>> +{
+>>>>>>> +  kernel_cap_t mask = mk_kernel_cap((u32)low, (u32)high);
+>>>>>>> +
+>>>>>>> +  if (cap_isclear(mask))
+>>>>>>> +          return 0;
+>>>>>>> +
+>>>>>>> +  if (!ns_capable(current_user_ns(), CAP_SETPCAP))
+>>>>>>> +          return -EPERM;
+>>>>>>> +
+>>>>>>> +  return cap_bset_drop_process(mask);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>  /**
+>>>>>>>   * cap_task_prctl - Implement process control functions for this security module
+>>>>>>>   * @option: The process control function requested
+>>>>>>> @@ -1313,6 +1437,11 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
+>>>>>>>    case PR_CAPBSET_DROP:
+>>>>>>>            return cap_prctl_drop(arg2);
+>>>>>>>
+>>>>>>> +  case PR_CAPBSET_DROP_MASK:
+>>>>>>> +          if (arg4 || arg5)
+>>>>>>> +                  return -EINVAL;
+>>>>>>> +          return cap_prctl_drop_mask(arg2, arg3);
+>>>>>>> +
+>>>>>>>    /*
+>>>>>>>     * The next four prctl's remain to assist with transitioning a
+>>>>>>>     * system from legacy UID=0 based privilege (when filesystem
+>>>>>>> --
+>>>>>>> 2.34.1
+>>>>>
+>>>>> --
+>>>>> Best regards,
+>>>>> Jinjie
+
+-- 
+Best regards,
+Jinjie
 
