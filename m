@@ -1,189 +1,167 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B224B7A4A;
-	Mon, 28 Sep 2026 11:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCDE4B7A59
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596638; cv=none; b=soEi/JQRVeC/V87DkelVbLGW0eAO+AklkeTqkrA9ElDJKj4fU74iD1+MLALi6VXshoqUZziPrSPohb/XT2Eo4xbyDmR8uYzOcdCXejPvRAqWyStbWMmB8K+Yd2Iy7zcHe6KLqtBZiGGJPXnfAxat38YSLCUgY2td3pWdQIGihvo=
+	t=1790596664; cv=none; b=IRvCIlVuOfQKCDibQG6lro5PgwCTsMA07J7IPf1YZS3/HGtPfKJZZizlsU6l8XQ6Owe4Mhpsp8/rsqm3i9d7mNU0mOQYs2DPYUH0UG3IT8/wqEnY4lwB6jnp71Draa/HRCCIJFSqQZH1xw6ke+WmG/88rxiQwQtDT0UR8wDTaqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596638; c=relaxed/simple;
-	bh=+M7TscWUN5UeQ7Nu4hIt+KoBPgO1Y9PqXzblGG5u1jg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FfSoW1bqhWNEHF/2H+Eykja0RpZe/PJYF8Jd2WyO95fIPG6U+zIa2BJrR0+iVtceku0MnagQw5P9IKQA4Pi8fwq2/kPkXUgo2AUatGdkFxDug0en3wE27C2fYgLKLEtkuhVmHUCA3Mhi98lQ/2fesxiHR0CvZPqNIqWwIddMprM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vLOibIK6; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790596664; c=relaxed/simple;
+	bh=r3puRPhMmBtKKfqB3F2kZ+pMBLHUDRnlSFFiHevX7BM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IYME836Psuu93WZnC9HYkczx7e6zhORFuYzIUXO6VbfGE5MxqK3hA/YVGjU1ni+wzNrXfUac+fhW99QVwhG03S7VJfTsbG+zMuZ+7Op/eQQWxDREegNd4lvcUNVcpk8h3s+gVZV9mFrxC21rZZTsG4kmRPPTcp2MkR0L7ltU8CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJhlIgvm; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vLOibIK6"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 89DDEB07;
-	Mon, 28 Sep 2026 13:55:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790596524;
-	bh=+M7TscWUN5UeQ7Nu4hIt+KoBPgO1Y9PqXzblGG5u1jg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vLOibIK67YftPZBWITN3XEbV/RH34RhIJClXn9Ui/0ohd5DZzs/ZAtbySVdytYlTr
-	 JZD/u1OtOZEPyKtp04118SxBaZx1DtwH8szy6KwO3PUG9HjJnrJjYUf+cKsNAJQEqT
-	 gYa6bjsQu+jUA/ARdeCiRMjhmeednh3wXbtg7BNs=
-Date: Mon, 28 Sep 2026 14:57:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on
- the OBSBOT Tiny 2
-Message-ID: <20260928115713.GD157191@killaraus.ideasonboard.com>
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
- <20260902002553.34839-4-jordan.mymail@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJhlIgvm"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7a15ba46fso484483a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790596662; x=1791201462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uznnGClxpoNxhfkd79ZikolqPxxdalAG+z6oc7/n6sw=;
+        b=nJhlIgvmMM6qT8Rn+B/S3jByqrCvylSpJWrbeVoYGvYQL4hXRq5tKVN01FO6SFVOUS
+         O6BPMo58k+SA+PJGrOC/2/LUyUt5eXvJpgCJEwgFb0uNPuC7X8zqTq5V0//kMQMNqRKI
+         pVOF58DkFPDrPq2uKIPd3AL56DehROE75ACnRU7aPVzXcQAJgHgpdFDW+G5Gm0AvN5hi
+         vjjmjPbhtTOuDz6RN/0eCs9NgxWKygYX6QUw9obJzazw4s2EDswQsgKUIJ3WEtGY4b6k
+         hoYSaa/uXvGDxgGcL7TYYUQ8bw35NkPAmEc70PENBfePsejaG+SUrTMVMideE1Ed4RNc
+         nuRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790596662; x=1791201462;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uznnGClxpoNxhfkd79ZikolqPxxdalAG+z6oc7/n6sw=;
+        b=tQ6vXzyJsK8ZG5+xGFeMuUYeiZLvjE1rWMzL/467iwOuyEo7c/lr088WRnVaD+46C7
+         49sO0DX5mfCmYiUiFFBDKGy0o6aEopiTDRFimBXSLJPC+RiLRcGZQEE13HU0rZPMxPeB
+         75ehyafNS+rEoqeSkQ/QisrmvHAXLKxRPS99IWIYDiBx6DbZSJuYbycpiL1Bk3OKsowh
+         lkMY2nqJ03yCCI937GEZFDGzLVmwNoUyILScaiSxGvBRXjxRriEBTb9wEARNQ1XaBJWT
+         Bhdd1FHqC2FGb/CnQZlkGzHx9riWDMhBWndlK7Xac6a38TisYEajrSufhB23hSS58ewy
+         tDlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZpUxLmLXcLOiwfodG6apHRojKvHGieGLWSDMx2DAiw9KIKQbwtMOHg+EucP/PDsYezYqcWR1F1C4z5L4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWFyCzX388dSiG1M6hbFoEwAnhT5IMWBL+TQ4kenPkyOQbffEa
+	ABybE2fgEsX8qOUyAEQHGwPjr5boFbSKLfRAAL8s79lCdVf31KatJgo3
+X-Gm-Gg: AYBFou1r+SYhqLnHSyxIZ+dw0Crs9mTOSL1sSgKSydKFimqscgQoirLFiMaDOokpsYr
+	Jp2rexRXKlpZ+583pUHbAMTS1GDaaOJQNP3/iJRCzAsImHYqdkdY0aEhVxq9N99qBJ4hXTMkEUQ
+	dddJHMRabyMX7NW0OFug3YQPSISZd7W4mefhERlQAagxB4Eu778+wU0AqppqFiHTcEzx1A6bYpj
+	wXQIA3+XHXO8Br2a9V2hYCzIrJcTdbBUURtr1yf3io3wldP313AkQ2FWAk1NIPEgXhdX5cEpc0t
+	eHRnomfnkrp6GJJHDh0HTzqyR4ppvX4WwjCyPs+/cEInwApm19hE2/JZvQ7xfwPOucAZXdrEwtE
+	Fqv+q3wy0Cg/8Pb0JK7FknWG/WFd841wvuXYksXRc8wqL3t4mXcX8PwtBIz/aMjJYbxazJtp5Kg
+	m6wB64qRGGa2rFWZ7XJJmXJyLRjLFDjYDB67Puj7E1wuPlVhDGEAiBrqmtR4LmWoBuXOuXJo/4b
+	9LBOpi2CqzzhdzGsKY=
+X-Received: by 2002:a17:90b:53cc:b0:39e:6c6a:2096 with SMTP id 98e67ed59e1d1-3a098970bd7mr10676652a91.55.1790596662346;
+        Mon, 28 Sep 2026 04:57:42 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5711sm19979522a91.17.2026.09.28.04.57.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 04:57:42 -0700 (PDT)
+Message-ID: <214177f4-11d1-47f9-94fc-2fc679911b13@gmail.com>
+Date: Mon, 28 Sep 2026 19:57:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902002553.34839-4-jordan.mymail@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 08/31] ext4: avoid unnecessary transaction in
+ ext4_map_blocks() for unwritten extents
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>, Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+ djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+ chengzhihao1@huawei.com, yangerkun@huawei.com, wangkefeng.wang@huawei.com,
+ yukuai@fnnas.com
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-9-yi.zhang@huaweicloud.com>
+ <aro_npJ95b4Nf978@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <aro_npJ95b4Nf978@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 08:25:53PM -0400, Michael Jordan wrote:
-> The OBSBOT Tiny 2 (3564:fef8) computes its GET_INFO capability byte per
-> control, but gets it wrong for the controls that matter most on a
-> motorised PTZ camera: CT_PANTILT_ABSOLUTE, CT_PANTILT_RELATIVE and
-> CT_ZOOM_ABSOLUTE all answer 0x03 -- GET and SET capable, with the
-> AUTOUPDATE bit clear. (The byte is not a constant stub: CT_ZOOM_RELATIVE
-> correctly reports 0x0f, CT_ROLL_ABSOLUTE reports 0x01.)
-> uvc_ctrl_get_flags() takes the flags from that byte, so it clears the
-> UVC_CTRL_FLAG_AUTO_UPDATE that the static uvc_ctrls[] entries set for
-> all three controls. Without AUTO_UPDATE nothing clears ctrl->loaded
-> after the first read, so uvcvideo serves them from its cache
-> indefinitely: VIDIOC_G_CTRL returns the last value the host commanded,
-> never the live one.
+On 9/28/2026 6:21 PM, Ojaswin Mujoo wrote:
+> On Thu, Sep 03, 2026 at 08:35:20PM +0800, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> When ext4_map_blocks() finds an unwritten extent in the extent cache and
+>> the caller is willing to accept unwritten extents without conversion,
+>> there is no need to start a journal transaction since no metadata update
+>> is required. This avoids unnecessary transaction overhead in the
+>> upcoming iomap writeback path when overwriting already-allocated
+>> unwritten extents.
+>>
+>> One thing to be careful about, as the comment in ext4_map_blocks()
+>> states, if the flags contain EXT4_GET_BLOCKS_CREATE, the function will
+>> mark @map as mapped.
+>>
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 > 
-> All three controls were verified on the hardware to change autonomously
-> and to report the live value on GET_CUR:
-
-The device implements an interrupt endpoint. Does it report control
-change events for those controls ?
-
-> - pan/tilt position keeps changing for the seconds a commanded gimbal
->   move takes, and changes on its own under the camera's autonomous
->   subject tracking;
-> - zoom follows the subject under the camera's AI framing (observed
->   0-71% with the host issuing no zoom request, matching the vendor
->   status protocol's zoom report);
-> - the pan/tilt speed control reports the actual current speed during a
->   relative move (a commanded 80 reads back as 78, then the deceleration
->   ramp, then 0 once the gimbal reaches the end stop). Without
->   AUTO_UPDATE the cache would report the written speed forever.
+> Yeahh, I had something similar in one of my WIP branches :)
 > 
-> Add fixup entries restoring AUTO_UPDATE, alongside the flags each
-> control already has in uvc_ctrls[], for these three controls. The fixup
-> replaces info->flags wholesale rather than OR-ing, so each entry spells
-> out the full flag set.
+> Thanks for taking care of this. Feel free to add:
 > 
-> The camera's other AUTO_UPDATE-flagged controls were checked and
-> deliberately left alone: exposure, white balance and focus have working
-> autos, but their GET_CUR just echoes the last SET_CUR (the firmware
-> never reports the auto-chosen value), so AUTO_UPDATE would add USB
-> traffic for no benefit; there is no auto-hue; CT_ZOOM_RELATIVE already
-> reports AUTOUPDATE; CT_ROLL_ABSOLUTE is read-only and unmapped.
+> Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 > 
-> The vendor has been asked to fix the firmware (support ticket #8220,
+> Regards,
+> ojaswin
 
-Any public link ?
+Hi ojaswin,
 
-> 2026-08-04); no fix is available at the time of writing.
+Thank you for the review! The fast path implemented in the current
+version is missing check_block_validity(), I'll add it in the next
+iteration.
+
+Thanks,
+Yi.
+
 > 
-> lsusb -v (device descriptor and the Camera Terminal):
-> 
->   Bus 003 Device 006: ID 3564:fef8 Remo Tech Co., Ltd. OBSBOT Tiny 2
->   Device Descriptor:
->     bLength                18
->     bDescriptorType         1
->     bcdUSB               2.10
->     bDeviceClass          239 Miscellaneous Device
->     bDeviceSubClass         2 [unknown]
->     bDeviceProtocol         1 Interface Association
->     bMaxPacketSize0        64
->     idVendor           0x3564 Remo Tech Co., Ltd.
->     idProduct          0xfef8 OBSBOT Tiny 2
->     bcdDevice            4.09
->     iManufacturer           1 Remo Tech Co., Ltd.
->     iProduct                2 OBSBOT Tiny 2
->     iSerial                 0
->     bNumConfigurations      1
->   [...]
->       VideoControl Interface Descriptor:
->         bLength                18
->         bDescriptorType        36
->         bDescriptorSubtype      2 (INPUT_TERMINAL)
->         bTerminalID             1
->         wTerminalType      0x0201 Camera Sensor
->         bAssocTerminal          0
->         iTerminal               0
->         wObjectiveFocalLengthMin      0
->         wObjectiveFocalLengthMax      0
->         wOcularFocalLength            0
->         bControlSize                  3
->         bmControls           0x00023e3e
->           Auto-Exposure Mode
->           Auto-Exposure Priority
->           Exposure Time (Absolute)
->           Exposure Time (Relative)
->           Focus (Absolute)
->           Zoom (Absolute)
->           Zoom (Relative)
->           PanTilt (Absolute)
->           PanTilt (Relative)
->           Roll (Absolute)
->           Focus, Auto
-> 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 64c90c380..74f6e8039 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2876,6 +2876,26 @@ static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
->  			UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
->  			UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
->  			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		/*
-> +		 * OBSBOT Tiny 2: GET_INFO reports GET|SET without AUTOUPDATE
-> +		 * for the pan/tilt and zoom controls, clearing the AUTO_UPDATE
-> +		 * the driver's own control table sets for them. The device
-> +		 * moves all three on its own (gimbal moves take seconds, and
-> +		 * its autonomous subject tracking pans, tilts and zooms with
-> +		 * no host involvement) and reports the live values on GET_CUR.
-> +		 */
+>> ---
+>>   fs/ext4/inode.c | 19 ++++++++++++++-----
+>>   1 file changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+>> index c9dea4ca5caf..7a5c74af8ff3 100644
+>> --- a/fs/ext4/inode.c
+>> +++ b/fs/ext4/inode.c
+>> @@ -809,14 +809,23 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>>   	 * Note that if blocks have been preallocated
+>>   	 * ext4_ext_map_blocks() returns with buffer head unmapped
+>>   	 */
+>> -	if (retval > 0 && map->m_flags & EXT4_MAP_MAPPED)
+>> +	if (retval > 0) {
+>>   		/*
+>> -		 * If we need to convert extent to unwritten
+>> -		 * we continue and do the actual work in
+>> -		 * ext4_ext_map_blocks()
+>> +		 * If we need to convert written extent to unwritten or
+>> +		 * convert unwritten extent to written, continue and do
+>> +		 * the actual work in ext4_ext_map_blocks().
+>>   		 */
+>> -		if (!(flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN))
+>> +		if (map->m_flags & EXT4_MAP_MAPPED &&
+>> +		    !(flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN))
+>>   			goto out_handle;
+>> +		if (map->m_flags & EXT4_MAP_UNWRITTEN &&
+>> +		    (flags & EXT4_GET_BLOCKS_UNWRIT_EXT) &&
+>> +		    !(flags & EXT4_GET_BLOCKS_CONVERT)) {
+>> +			/* Contains EXT4_GET_BLOCKS_CREATE - mark mapped. */
+>> +			map->m_flags |= EXT4_MAP_MAPPED;
+>> +			goto out_handle;
+>> +		}
+>> +	}
+>>   
+>>   	if (!handle) {
+>>   		handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS,
+>> -- 
+>> 2.52.0
+>>
 
-This belongs to the commit message.
-
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_PANTILT_ABSOLUTE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_PANTILT_RELATIVE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_AUTO_UPDATE },
-> +		{ { USB_DEVICE(0x3564, 0xfef8) }, 1,
-> +			UVC_CT_ZOOM_ABSOLUTE_CONTROL,
-> +			UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
-> +			UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
->  	};
->  
->  	unsigned int i;
-
--- 
-Regards,
-
-Laurent Pinchart
