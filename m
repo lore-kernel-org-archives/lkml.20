@@ -1,110 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2B83CAA2F;
-	Mon, 28 Sep 2026 12:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A60932D0E3;
+	Mon, 28 Sep 2026 12:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600026; cv=none; b=dvX/VrvzolJfI46i7dCM+rP6qwZOcyzbVRj7NR3MTDmdP7EdPSmAz8PB8Q/SkMo9G1MKDShVFixrwU2Q73tRFb2EgG2biz2MVpIkobpGon3FHkPakbKlSRx467VcHlhN+Sb6bOoYys5aRLFAvs/tUK5Gveqy6z1EYJrj+/vdrW8=
+	t=1790600085; cv=none; b=FgjTUVUVFOV1HDtnLShg5kzzc0GFVBfdT7YfV7j+qjxsirGXL3JHv5sKLwDDLCrxT5JwwlNbyGKDoK5Kgt54/StEvxz3LccI8tFg/g7pN8Up02dDEgFY/d/iQcFw6s3/LQZGMNSiEhGHD+lRKw+n2jjPB3pOMwb21zu2mtEtLQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600026; c=relaxed/simple;
-	bh=2tS3MczwPj42PWO3FAUfVUyYTR3S8sDgpalVZFYNROk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gTCWMthMKknQxjpcXaTjtteuVKlzqqjt8+m9fbX1OnfQY2LeZ4TCnRyvL2CeMvcm76R1kfYKzq61p3tmkYlOrBw14wc7wnHPrhf+wABj4tCwFxjmeiwqZbpwhjb6pZS8m2W69e72Mn6J4umkD4z+vNIKuTXbDxg0mvO8iyyonDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rx6pXc/Z; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790600085; c=relaxed/simple;
+	bh=FtPF0jlK7n5A8uvjWk+8XDvBVmKogvhDJviTeXC5RkY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BHpLvM5uju9wN7pdUNFYsB9AskJePsenjcjoJV4h/xglhkVyaeqHKPQIQqQSLzTfxDRJLnP8KSGrjPYW/nSpSEqnntPTx2jyUUufjoSrp/WzIu7tPIbNTREOWOLQRLDd4tgLtYO6OkEzDy8ZICtcAsun/BTH/peewLeQvqflnGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=x27Iwipx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BU7j299S; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HYGvz1l9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=uznDgfIm; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rx6pXc/Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790600024; x=1822136024;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2tS3MczwPj42PWO3FAUfVUyYTR3S8sDgpalVZFYNROk=;
-  b=Rx6pXc/ZXK0WiqlOeTuNM/Pfa76ThZRczMfgOMvY9ArcXeZPpQ5Oiayt
-   pyCQv4nI5V7quewqtLaEnkZoSwO9T7aeh+xRoxgYwPyBJOKn0i8APE/qs
-   WE+6gEQMDRTbQOxkpYB/AFiGLh7pZqnzj3biWUO924xD9tS5dPouyGc1C
-   obzKgTkXlU9rGB4zWvZNr330pV8A7K33WvFQh6SacAu86IgOq/BemYUAB
-   ZIgbvZEZRKc5Hdd3u7cgRzs7JP3q1XfzkZHV1EVc14LtMJd2LsCTK8YAf
-   /6hvl7A0Pq1AKx+tCEqk3sUE9dvD2lB+uSPDA6InCQINlLcVP6r51BxL6
-   w==;
-X-CSE-ConnectionGUID: Jb/VSg6bRau41kdVyW29zg==
-X-CSE-MsgGUID: T+Amhz81SZuzz8bAYpcVeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90349316"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90349316"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:53:43 -0700
-X-CSE-ConnectionGUID: Gl1DAGKuQ72sQ7VZUK7+Hg==
-X-CSE-MsgGUID: 179CtxMER2ugTVWL4w6T7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="275168739"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa008.fm.intel.com with ESMTP; 28 Sep 2026 05:53:42 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1669299; Mon, 28 Sep 2026 14:53:41 +0200 (CEST)
-Date: Mon, 28 Sep 2026 14:53:41 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Song Li <songl@zju.edu.cn>
-Subject: Re: [PATCH] usb: typec: altmodes/displayport: Disable work before dp
- is freed
-Message-ID: <arpjVXg8DdgCv6Yh@black.igk.intel.com>
-References: <20260923024637.403624-1-fanwu01@zju.edu.cn>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="x27Iwipx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BU7j299S";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HYGvz1l9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uznDgfIm"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F285B1FB9C;
+	Mon, 28 Sep 2026 12:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790600077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZcO2BcnU/F0JYKbCua2H+EdObpPHo/snveE2sZvh2A8=;
+	b=x27IwipxcA8rcmw9dIqSlmMYFBzyqoeSdwDbzgIYc3DY+C1Rov8PwypYNxMzg1TThCd49G
+	1nK8Yl13LytdXa3fmPK89Hy02uNZVra0de1iqbW1v+uEtaXvdv0u7+/npPuF/kHZUexME4
+	4cgO0pN+MzKZyBR0u65h9dDtXtz6Mfw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790600077;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZcO2BcnU/F0JYKbCua2H+EdObpPHo/snveE2sZvh2A8=;
+	b=BU7j299SaZhTyLdcxERGw8tgaJ67FOsZZzOlON2vm4Ly0t9pRrtQaGzK+W9V/8tvnO90Rs
+	W+3z/u2iX//wP9BA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HYGvz1l9;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uznDgfIm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790600072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZcO2BcnU/F0JYKbCua2H+EdObpPHo/snveE2sZvh2A8=;
+	b=HYGvz1l9wOW80yvaXD3Z33qCQMK2P0cCLOXvrl5HJXF+yTwfCv363Fr2dAZgsCp5Pve8p3
+	EpDRfwfQSr6L+MbX5brKmQ/Dh4WMIZMWmcQhiajevazr6b/D9/7pbbJWhecB7xys0sx+LQ
+	Si7K4FeAYTWFPMLzaLjSHreWdtytMbs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790600072;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZcO2BcnU/F0JYKbCua2H+EdObpPHo/snveE2sZvh2A8=;
+	b=uznDgfImZx/E6r5e0f8iJRrEHZuzVxE3ydOjfB+St8XdmvncFuxrwt4XmQ7or80/qQh9cO
+	FzIa0mC6AyiBonCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 99B27133F1;
+	Mon, 28 Sep 2026 12:54:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dWPFG4hjumpHFwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:54:32 +0000
+Date: Mon, 28 Sep 2026 14:54:32 +0200
+Message-ID: <871pad5yev.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: ymfpci: avoid changing control access under spinlock
+In-Reply-To: <20260927135301.777475-1-runyu.xiao@seu.edu.cn>
+References: <20260927135301.777475-1-runyu.xiao@seu.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923024637.403624-1-fanwu01@zju.edu.cn>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: F285B1FB9C
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,seu.edu.cn:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Wed, Sep 23, 2026 at 02:46:37AM +0000, Fan Wu wrote:
-> dp_altmode_remove() cancels dp->work with cancel_work_sync(), but the
-> typec bus clears alt->ops only after ->remove() has returned, so the
-> dp_altmode_vdm(), dp_cable_altmode_vdm() and dp_altmode_attention()
-> callbacks can still call schedule_work(&dp->work) after the cancel. dp
-> is devm-allocated on the partner altmode device and is freed once the
-> unbind completes; a re-queued dp_altmode_work() may then run on freed
-> memory.
+On Sun, 27 Sep 2026 15:53:01 +0200,
+Runyu Xiao wrote:
 > 
-> Fix this by disabling the work instead of only cancelling it.
-> disable_work_sync() drains an in-flight dp_altmode_work() and keeps the
-> work item disabled, so the late schedule_work() calls are rejected. The
-> work is still drained before the plug reference is dropped.
+> The YMFPCI playback trigger changes a mixer control's access flags while
+> holding reg_lock. Direct access changes are not serialized with the control
+> core, and snd_ctl_activate_id() cannot be called under the spinlock because
+> it may sleep.
 > 
-> A later probe initializes a new work item, and the remove path holds no
-> lock that dp_altmode_work() takes, so waiting cannot deadlock.
+> Track the desired control state under reg_lock and update it from a work
+> item. Use a generation counter to serialize prepare with a pending stop.
+> Cancel the work before the PCM private data is released.
 > 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 0e3bb7d6894d ("usb: typec: Add driver for DisplayPort alternate mode")
-> Cc: stable@vger.kernel.org # v6.10+
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Assisted-by: LLM
+> Fixes: 177a7cdbd1d8 ("[ALSA] ymfpci: fix volume handling of the 44.1 kHz slot")
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Although the intention is clear, this is just an overkill.  There is
+no real race, and introducing the offloading work just for using
+snd_ctl_activate_id() makes little sense for this old code.
 
-> ---
-> 1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
-> index d96ab106a980..f7b3566d4029 100644
-> @@ -815,7 +815,7 @@
->  {
->  	struct dp_altmode *dp = typec_altmode_get_drvdata(alt);
->  
-> -	cancel_work_sync(&dp->work);
-> +	disable_work_sync(&dp->work);
->  	typec_altmode_put_plug(dp->plug_prime);
->  
->  	if (dp->connector_fwnode) {
+If any, we should rather make snd_ctl_activate_id() to be callable
+from the irq context, instead.  But this would need a redesign of the
+control-led layer implementation -- that's the very reason of being
+sleepable context.
 
--- 
-heikki
+
+thanks,
+
+Takashi
