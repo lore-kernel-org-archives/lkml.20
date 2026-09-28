@@ -1,136 +1,155 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8CA848033B;
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4988472540;
 	Mon, 28 Sep 2026 10:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590431; cv=none; b=mlo9zmOhYIyLOsaA+cz9GLPeGhXpgeFqtozpwyWUDU+I8MbCQzfKoFjFHEUYV7Daoq+y1K5Lj7xAr2LXBKBXe6DCzh4vmkRBU61eTon213i0KzeIGOHL4L5Whi57ZwE+j24/j51oKA+uRZSAaHk+TPE/IHfP0uXsTb7o2EHK/s0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590431; c=relaxed/simple;
-	bh=L4rj5sebU0MgVvbIqYSRSR7LTOTUxoD15WXyP2ljPok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ckaujv0NF8Du1ThoddQ3PWA2z+PWpX5nGv9LcSu785L1o5lolhyhaiHYIOWUGZU5kxCFHLCzzv/47QIpw+2EVMbx21XfaQe/ay2zytBoT9otsRIMNQqQn75OSurTChKL4ivoOO3UkMrB0VoMXyoz/8MAlZrBGCkPku23bpfSlow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FtXcuGe5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790590433; cv=pass; b=bAqvxsW8pC6N8/YxjozIJ8gvmS3B6cTPx+EmYwOR/xwiMsduPH4dgSZJJqqwSDkvC2Yeu0RLZbdA2svRCZedqI1fSjZfKjZSbDNanD7+M9d+jKuO1t9Hm6lfPXQBPqMbmPHX3HrKShJDN2MXPijdr2xdSrx7TJmhpyXJKhTegoE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790590433; c=relaxed/simple;
+	bh=jb4Yjp77spcxaZG05WUt+Kpo8YcP4gPOy4InyaCqEoI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fejvezUcAXjXgdqrVZ2xMcI20d2iUYU1ZnUf7G6JE1geJ49u8xTmmSjqah11T/3GIEwpQ+B1na43Eco2Ri37Vj6GVNLnVf4Jym5bNey1z5GmKr6P32FooPuHMWUcMiMvJdZNwSFgq8KNWZCIOuB94YA1lqDSrzpd7t+o4TfC+6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=fLN0afyl; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FtXcuGe5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 83A0D1595;
-	Mon, 28 Sep 2026 03:13:40 -0700 (PDT)
-Received: from [10.57.12.79] (unknown [10.57.12.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F3253F86F;
-	Mon, 28 Sep 2026 03:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790590424; bh=L4rj5sebU0MgVvbIqYSRSR7LTOTUxoD15WXyP2ljPok=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FtXcuGe5Bf9/0/FkzKwLKEy+JoJg8ovzaYSX2D2/AliXaV5Mu/9pP37XIhE5v6fV3
-	 zwG/SPm1X9FHl8h9u4+rG242LQ2Y7sNXNJEj09s0mPMYE1rl1NvyZRqzOeDT+hBKCE
-	 BAvBPp1hyT7DyFZ0607j5nyKtRA6XXRnoD1oNYF4=
-Message-ID: <4fabad44-280f-40e6-95bb-49011cd2f185@arm.com>
-Date: Mon, 28 Sep 2026 11:13:39 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="fLN0afyl"
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C1A0D201E1B;
+	Mon, 28 Sep 2026 12:13:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790590422;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jb4Yjp77spcxaZG05WUt+Kpo8YcP4gPOy4InyaCqEoI=;
+	b=fLN0afyl965GjHtSUa5LvtibpPJmi4e3DbShK2yJHivuTGwCcnaLHZpLa7677wE7CDiNm8
+	6QrDBzKS5CGThJCVY1aXUTg/tES59iZguMVybaXZVot0y90UI6LvA1+I2paqBA0wN//RQT
+	IbXAd/VGkNSywAad02h3+9n48l4YJhTYWRm4wBsKV1jsZ1IBkOYV1cddXIi7biTGYh8iCw
+	LkE4fVdyKmsMdsa8Y+ejs96QjWsXk7SXaEVju5y+CgQmi/GfzTKy7shW6u7RyeKC7fvIGf
+	mOPZadsnrdmdYzVAqP09MvfKwknkzk9pAD8FHiw5+gMWdw+zMNakNrII59iDyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790590422;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jb4Yjp77spcxaZG05WUt+Kpo8YcP4gPOy4InyaCqEoI=;
+	b=bKPLf/TcFtT0sjO4Y4zOVA6k44EAPZt5jpZBprNIGQcsX3vRSyQiZ5s315qFr+wolEGGfE
+	+CEoew5hiG80vK6lnrfwVW1cOPYZiQenbSlPj4SfXT9GPvvdUHmDvKrif5b6s4afvnaPzn
+	6r9e/nPGgfL6qYcTkZEvyGs5srYXOOc8aeRtnqhEK4Kd78y9WK0V1u8WnN0BnpJbo2/nOu
+	qQgsG43J1aZGRpiwMWV2LuBc0ehdlOAvoGF0PYeuKAaD2/5xozUFjbsTP2TZEuYuafsDQf
+	NH5f9BslrIxjiGPiST/XEXVxAi1wHb9lPZ/lizQD2PpNKMm4i7uijbl7kvxIeA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790590422; a=rsa-sha256;
+	cv=none;
+	b=RZRS7nTJZI3pXBaimWS7dy23Gxapcoh7fEX+RqRppwGJD0V6oeXOBVqFeoXbsqZbRg8BXe
+	XxYM1EmZqqTz4FMxO7s2kNwREHBDQ21PtIaa/9/+26RSLTzHBSReOZDSYAkrq7zz/2+2gu
+	rv+vzFNTRd9q/gO8U9Cbb12NPdPzPlMABSidWfm6lBfsO9O13aIymMZ+wz3ewAyxxupg0C
+	J0vhPN79gMiG6OmR2Jqdnk8fXcDwATJatmSN+HM+s8Rfw+ON1yqqpqJF8CTXaLnElo7Bif
+	fqYBPfWu/iTi9sb+8Azu/hcAfAe9pW7PsrLpIMKBCvxSlzvGTnC7rP67036nsQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <d924369a2f907aa796d7eba692001593ef1e6d0d.camel@pengutronix.de>
+Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c
+ bridge
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: vishnu.saini@oss.qualcomm.com, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Marek
+ Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Yi Zhang <zhanyi@qti.qualcomm.com>, Nilesh
+ Laad	 <nilesh.laad@oss.qualcomm.com>, Gopi Botlagunta	
+ <venkata.botlagunta@oss.qualcomm.com>, venkata.valluru@oss.qualcomm.com, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+Date: Mon, 28 Sep 2026 12:13:42 +0200
+In-Reply-To: <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+		 <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+	 <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 4/7] firmware: arm_rmm: Add support for SRO
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
- Gareth Stockwell <Gareth.Stockwell@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-5-suzuki.poulose@arm.com> <arozNIQ-fQ0XQViI@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <arozNIQ-fQ0XQViI@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 28/09/2026 10:28, Catalin Marinas wrote:
-> On Thu, Sep 24, 2026 at 02:51:58PM +0100, Suzuki K Poulose wrote:
->> +long rmi_sro_memxfer_execute(struct rmi_sro_state *sro, gfp_t gfp)
->> +{
->> +	struct arm_smccc_1_2_regs *regs = &sro->regs;
->> +	bool cancelled = false;
->> +	unsigned long sro_handle;
->> +
->> +	rmi_smccc_invoke(regs);
->> +
->> +	sro_handle = regs->a1;
->> +	while (RMI_RESULT_STATUS(regs->a0) == RMI_INCOMPLETE) {
->> +		bool can_cancel = RMI_RESULT_CAN_CANCEL(regs->a0) == RMI_OP_CAN_CANCEL;
->> +		int ret = 0;
->> +
->> +		switch (RMI_RESULT_MEMREQ(regs->a0)) {
->> +		case RMI_OP_MEM_REQ_NONE:
->> +			rmi_op_continue(sro_handle, RMI_CONTINUE_KEEP_GOING,
->> +					regs);
->> +			break;
->> +		case RMI_OP_MEM_REQ_DONATE:
->> +			ret = rmi_sro_donate(sro, sro_handle, regs->a2, regs,
->> +					     gfp);
->> +			break;
->> +		case RMI_OP_MEM_REQ_RECLAIM:
->> +			ret = rmi_sro_reclaim(sro, sro_handle, regs);
->> +			break;
->> +		default:
->> +			WARN_ON_ONCE(1);
->> +			ret = -ENXIO;
->> +			break;
->> +		}
-> 
-> Another thing I came across while looking whether we can defer the
-> activation. It seems that the spec (I_JVYCH) lists some SROs as
-> PE-bound. Nothing here or in rmi_sro_execute() disables migration and
-> the memory allocation paths can even sleep with GFP_KERNEL.
+On Fr, 2026-09-25 at 15:23 +0200, Philipp Zabel wrote:
+> On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> > From: Yi Zhang <zhanyi@qti.qualcomm.com>
+> >=20
+> > LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> > Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> > Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> > bridge configuration by detecting and handling both LT9211 and LT9211C
+> > variants from a single driver.
+> >=20
+> > Chip detection in lt9211_read_chipid() is extended to identify the
+> > LT9211C by its distinct chip ID registers, and cross-checked against
+> > the chip type requested by the DT compatible string to catch a
+> > mismatched board/compatible combination.
+> >=20
+> > Add LT9211C-specific regmap support and use lt9211_chip_data with
+> > i2c_get_match_data() to provide per-chip configuration.
+> >=20
+> > Five new functions implement the LT9211C DSI-to-LVDS initialisation
+> > sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
+> > lt9211c_configure_timing(), lt9211c_configure_plls() and
+> > lt9211c_configure_tx().
+> >=20
+> > Defer the remaining LT9211C initialization to a work item scheduled
+> > from atomic_enable(), since RX auto-detection requires an active DSI
+> > stream.
+>=20
+> This is still wrong, and I don't understand why you need it.
+>=20
+> All scheduling initialization as a work item should allow is for
+> downstream bridges and/or panels to be atomic_enabled while
+> lt9211_work_func() is waiting for a vblank interrupt.
+> They expect the LVDS signal to be active at this point. If LVDS is
+> enabled at some unknown later point in time by the work item, any
+> startup timing requirements the panel might have can not be applied
+> correctly.
+>=20
+> Also, deferring initialization as a work item shouldn't have any
+> influence on the upstream DSI signal. That should already be active
+> when lt9211c atomic_enable is called. Could it be that there is a bug
+> in your display controller or DSI bridge driver that causes the DSI
+> signal to still not be completely active at this point?
+>=20
+> > Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> > Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+>=20
+> I have not tested this version (yet).
 
-No, this is not required. I agree this is confusing. I will get it
-clarified.
+I have now retested this on RK3576 - both as-is and with the
+"drm/bridge: lt9211: drop delayed work" patch I just sent.
 
-So, there are two different sources for the SRO contexts. One is a 
-global pool and the other an Object.
+I still think we have to figure out why the DSI signal doesn't appear
+to be streaming as it should when lt9211_atomic_enable is called in
+your setup.
 
-e.g., For an RMI operation on an Object, SRO context can be the object
-itself (e.g., REC_CREATE, REALM_ACTIVATE etc.)
+When enabling the lt9211c synchronously, is there any error?
+Is just the Sot/RX: debug output incorrect?
+Which display controller / DSI bridge drivers are used to send the DSI
+signal?
 
-However, when there is no reliable object for the command (e.g., 
-RMI_GRANULE_RANGE_DELEGATE), the RMM must allocate a context from
-the global pool. Now, the "PE" in there comes from a recommendation
-to the RMM implementations, that the global pool size must depend on
-the number of PEs on the system. This doesn't mean that the SRO
-handles are only bound to those PEs. I will get this clarified
-in the RMM spec.
-
-Cheers
-Suzuki
-
-
-
-> 
-> Do we need to disable preemption (only for rmi_sro_execute()) or at
-> least migration (the memxfer path)? We did something similar for the RSI
-> attestation token loop, commit 24f55f511b9e ("virt: arm-cca-guest: use
-> migrate_disable() for attestation token requests").
-> 
-> With only migration disabled, another thread on the same CPU
-> issuing a PE-bound SRO would get RMI_BLOCKED (R_NDXSG). In theory, we
-> can get a priority inversion case (maybe this doesn't happen with the
-> current implementation, just looking at the API design). The RMI_BLOCKED
-> fix not to loop forever probably saves us but the caller would have to
-> actively sleep or give up before retrying (i.e. don't move the busy loop
-> higher app the call stack).
-> 
-> Another option is to have a per-CPU mutex here and serialise the SROs
-> which are PE-bound (there are some precedents for per-CPU mutexes in the
-> kernel).
-> 
-
+regards
+Philipp
