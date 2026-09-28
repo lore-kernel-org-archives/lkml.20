@@ -1,87 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB8F4DA9DD;
-	Mon, 28 Sep 2026 14:52:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F154D1793;
+	Mon, 28 Sep 2026 14:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607175; cv=none; b=hITYvkHzpcqGKRG2eRaySNuMRO1pEJl2aAPQbDhPoc26Keg4Atjz0FHE/EYHWABif98BgIigeIlmGB5Wu7RtzVJ/l3dqaq0vBny85SLRdusF0EI0QmHj0fY/gysXvI5JAU5VJO9Pm0KyPTS1LyADNglfWLgj594zq0gREWHnhVo=
+	t=1790607184; cv=none; b=XOuKZGchFN6WZItd7u+CwjoDo4HcpVFgbpRwCGBy1jUw8recWUO1G9Smn/Jtzr/TyoZH2YZfHwjvKiH9IcR1H0khzUJexSdL+JD1JOaktYusjcRP5OPekavaaxHmiQ8FP0V6tp4gGcZyTG3dNIeWCrlnqOfSixQXTsX9fb/8tp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607175; c=relaxed/simple;
-	bh=UK9vZCiOqB7sk6Kg3Zl89deyHumgB7ltsBKk1BcFN9w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j8IjSpNIP8l7nuw3Kh/y3I2De46+qgUxFFYJ0Htyw6StqtBQPBAYZLTdmEQNF9cKfWs5fm2EKP7E0z50Xu8KSzZ3KaP1kzPJHC6Lu1gdcmNonpWR0sj4gqny0jzx5Lr5kN9fD6O0AoqkDkks2Nz06fb2N2yiTZTSPvAiCRPmwUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBNfZrXJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790607184; c=relaxed/simple;
+	bh=a/jsc/xq5Agts61sHn5pJxm1EPhrLCwXq8yATvBL2zs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZQ8+Jja/6rZ0eQsmNjQmcQoNGCp0cDe1NaXRnUh0sPKY7BhReMeQgOJ3zjYoqcuQURHwyeAtPxhzh5Cc+WB1e9p4cH7CJksizkWNb8vOFZF+u+apaTxYToqrxNlloKCBOSMq+EFKf0nKvkPWjUDO+Sr+dj6N4eTH/rBNYicsuQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QdXRz2DE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBNfZrXJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B391F000FF;
-	Mon, 28 Sep 2026 14:52:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QdXRz2DE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C22D1F000FF;
+	Mon, 28 Sep 2026 14:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790607174;
-	bh=7OG8mKM3HIqF4/4n3d6/Cn4qbfvPJXAe2w6ruSGlb/4=;
-	h=From:To:Cc:Subject:Date;
-	b=bBNfZrXJufzZo8QKJo7ZIudugXSZyZkHYUQuJnwy4+stVV8lr7GsIPkomyie9nO2P
-	 zRtVvJbRYVzkFOXl0UP/Xhz7ZHDs5CluRkuqxafN/sFauckepMmUCXY5gbnhnGtgJF
-	 w1wWTeLmndNHaX5TxPT6i0xTaC4ZjroOH4WG4NI9G3/QxJSfRrY2Jo8XA2iPBlb8yC
-	 1UPNlwi9/txnMC3tXomL6T8EEaIzxGmT1rrAJZnWcMjznPkW3svehlWi34WpojuHxi
-	 +ww+yNzJIuT9tQ+vOKc8MfmSZTa6x3LD/kmFILToJO3IqBO8ukCBkD84LBl/aWPjkp
-	 wM6Q9KSJj3vQA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Pan Chuang <panchuang@vivo.com>,
-	Kees Cook <kees@kernel.org>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/mellanox: mlxbf-tmfifo: fix building with CONFIG_SMP=n
-Date: Mon, 28 Sep 2026 16:52:42 +0200
-Message-ID: <20260928145249.3177085-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790607183;
+	bh=QR6GezIDvFHdYOKISOF8W1B781j0J/OKViYYdAjnthI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QdXRz2DEElDzT260hgGcl9iIljs7rS6VJp8/JaXbUgDahUBpuagGDm1c6XtlilAHY
+	 A+MsZWKOrR2J2HImbAm22KmB3s1pq6fuR2fQ/abbKmlt4xlZIUF0CqIaeDVohruoBO
+	 gQfM2bnGvzr4HkvDuZZpxtRmnNfMgoQaxyTphNXfKh/ztUkeV8geK/u0WbqDnXbt5e
+	 jEoqz6bzqlpATcFyZbmL4EdG8FAMcYjbZijhdQ+vVY7u3naGeZ2Xm/IWY60ouzlie3
+	 9TvWyAkBpqzYNz00ODjpnr+kTeLcm8xkdPWAkIADXRybcBXan+cVofQSy6IkhkJnCQ
+	 l/bf+SxgpQoRQ==
+From: Mark Brown <broonie@kernel.org>
+To: Simon Trimmer <simont@opensource.cirrus.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, codemender-patching+linux@google.com
+In-Reply-To: <20260928044513.1330392-1-morbo@google.com>
+References: <20260928044513.1330392-1-morbo@google.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl
+ with __counted_by_ptr
+Message-Id: <179059773213.139547.5313569313368617305.b4-ty@b4>
+Date: Mon, 28 Sep 2026 13:15:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1163; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=a/jsc/xq5Agts61sHn5pJxm1EPhrLCwXq8yATvBL2zs=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqun9K5Ac+W6gjLRpcJh4WH83SIltzARzPQZJ0x
+ Mh/0e9K472JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarp/SgAKCRAk1otyXVSH
+ 0OpUB/kBYlWtHF89wsfc/QisM8KWxBCBflMFaoPP3i28byPb0GvIWlzOhEv9Z4XM5WeXMKDhMPq
+ sPCALgXaJo0IPIGgr3Pp12LNnuQGDd2UtZX3hyWWXhRH1ayxbwNq/hqxmYZQmi5wAh11rH96Iu+
+ YyrNtqX2PfZKnu5F5BehXXw7P4fb8yhwXANbaFXRHDaqOeXQ+LyYeRO97z4nsrlpqT09vagyg01
+ Q6fpuZivxOXzSkqHyOE/LOPm5WdQnpgJQFH+quZfIygywhSWlud0wSbZdX4yUGwImki3nbpUQhA
+ c9jVT85dXmBARmnbKgDJz21GPWbFnpbt0iQDlQzR+F75XFVp
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Mon, 28 Sep 2026 04:45:13 +0000, Bill Wendling wrote:
+> firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl with __counted_by_ptr
 
-spinlock_t is an empty struct, which makes ARRAY_SIZE() on an
-array of them undefined:
+Applied to
 
-drivers/platform/mellanox/mlxbf-tmfifo.c: In function 'mlxbf_tmfifo_virtio_synchronize_cbs':
-include/linux/array_size.h:11:38: error: division by zero [-Werror=div-by-zero]
-   11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-      |                                      ^
-drivers/platform/mellanox/mlxbf-tmfifo.c:1146:25: note: in expansion of macro 'ARRAY_SIZE'
- 1146 |         for (i = 0; i < ARRAY_SIZE(fifo->spin_lock); i++) {
-      |                         ^~~~~~~~~~
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-Open-code the size of the array here as is done explicitly elsewhere.
+Thanks!
 
-Fixes: 961d62a3c153 ("platform/mellanox: mlxbf-tmfifo: implement synchronize_cbs()")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/platform/mellanox/mlxbf-tmfifo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[1/1] firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl with __counted_by_ptr
+      https://git.kernel.org/broonie/sound/c/3e71ea6dca1d
 
-diff --git a/drivers/platform/mellanox/mlxbf-tmfifo.c b/drivers/platform/mellanox/mlxbf-tmfifo.c
-index d67215df7371..dc4060c720f8 100644
---- a/drivers/platform/mellanox/mlxbf-tmfifo.c
-+++ b/drivers/platform/mellanox/mlxbf-tmfifo.c
-@@ -1143,7 +1143,7 @@ static void mlxbf_tmfifo_virtio_synchronize_cbs(struct virtio_device *vdev)
- 	unsigned long flags;
- 	int i;
- 
--	for (i = 0; i < ARRAY_SIZE(fifo->spin_lock); i++) {
-+	for (i = 0; i < 2; i++) {
- 		spin_lock_irqsave(&fifo->spin_lock[i], flags);
- 		spin_unlock_irqrestore(&fifo->spin_lock[i], flags);
- 	}
--- 
-2.53.0
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
