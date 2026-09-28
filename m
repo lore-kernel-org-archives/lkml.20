@@ -1,191 +1,213 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011041.outbound.protection.outlook.com [52.101.65.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755CA484228;
-	Mon, 28 Sep 2026 08:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585720; cv=fail; b=ssWqKXfp8n+ASwM0szgAsAq3sT/Ut1wl/ls97QmHiiUe6carvyQ4hA6M57Ll59mC7cwS0LGmW/LfvF4Dx7HRgd1/ti3td2elw27+SupLq8nCfweAjVLme5XQ0utrpZrBj/8NJu3uZL7x+Ws6i5IgFAfzMIc+5zJdLBRiTKRqxNs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585720; c=relaxed/simple;
-	bh=EpfPZAolpL5eXhwCFzMzcXUziD25HpGLs2vW9TaJ/1Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rGdHHX+bJoon6yxVCIKy3YFdNv2lk+7BFkFReaDUvI4QFV1i9ZU63Rh9OlN0NNVTDxGjrwmx9CCgVD2cQMtCCPQE2tgr2iuQlMuarZLsvFWggR14jYFSmKXevgY34A3u2LByASvgqqceAhWqKygBh6RM8tKAGn+3nb0SUDSzCPs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=VMjuFjvh; arc=fail smtp.client-ip=52.101.65.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DD848C3E3;
+	Mon, 28 Sep 2026 08:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790585721; cv=none; b=XsHRQ96XS9NeGGTIFy1S1ZIuAH6alwaLWbXJOtHDUaru5EuP4MHB9YdP+OQ7InZa9bZEl25GkDI+VuqWj/ZDN2pvZGUuoy5MoLbz/3xzzrPkW2GugcXIRu0eRrmJY+kikY2wX/48DPY6qZMke/ymxiCDQxWZJUTrEmVk5YC99mA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790585721; c=relaxed/simple;
+	bh=BejUaPxsDy0O3y0sul9PpSaHuCqa5MKNadmq3C0PI7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=snbUEkLVwr2YXVvIlN8ZVCopCrgQYosi7ygwuyRogoR3O+Z87FumyUZUdf8Tjl3yVFaKnRUaXKQ8vC5KC26W/VDDD1hmMj7yKCaaTL5WbMOwixOyjlVTgCt6gWFROPuR0RdJMGBM20Y48wLVWqmq2mZWJKQz/DEU32IyhEERu9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=duofqA/s; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="VMjuFjvh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YOCV0ePoZu+ouglXXdpt1/TPm2Jd8LYnWPcVJC68L39YtOOfWfiNuvaqrzKEBvOnmeEvhG+iBiK+QVInz7wqp6WktdXV3zk0Tu5eq92TTcTzJn2nshqI7Kdi4gyLkxLYTF+Alz+0CZXVQXbkqDDsG9Di9UC0fPYlVMhM+wKDsRDRVoEsAzPByEHHMJsOtvP8GSGl+KMBHU5P2Kma46PvKeRTBcY9YrWjAzK87VUi9O4ai3AIMulV19MEY4gnjNYZ/yMWzaN+Eu8BdCWsESv7IosTrVcgEr3Pegh3JFLHJhw2egObhnMigXNnuaeBi+FMPdidN1l3kfYiK6Lo4U9dJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EpfPZAolpL5eXhwCFzMzcXUziD25HpGLs2vW9TaJ/1Y=;
- b=iLjx6/SzaYji5zuTcLTGaIb4/+DDLOKAhb8wMNGXhSoEdougVlyyMv0+3GZF+LGOojvsP2esGtY7J4jlfoJmF0pxRE/FZjftbAExLjPSGGa7dJmyvjNfReQh/6Mrc5qdDpPYMWk5H/8zJZ5dIYnCpT5p4Hl+HZTQLxyZuPP+oYzoNdW5/hbr0YDqgbSjJKXCm+3EDbHxey1/V4hwH0ntzoefvgubC4fcjpR6tGWwlOa681zxKWnqS9b54eooqpgwE7VeXUGGzvksobyTvKAiOAtP8ESE6wjbcsEUwv7Uxk16oGYrntbP3bsMGR0X7v+U2ZINwKWp0n8RaafxCs0y/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpfPZAolpL5eXhwCFzMzcXUziD25HpGLs2vW9TaJ/1Y=;
- b=VMjuFjvhKes/1e1wbnM0t1i2GTWbMSbCzN6X4U3EIrdWRgdKb5e2ugix+Ko8f+LULI+ha9vkLd0Vo731J5vusm7FJDlDUIeDXkxh29r0BhT9FugFJzKwAaN11KFz7yLD0TdKHiHGqbYDhPGZQ2yJgj6U4NonIcw7L1NEvu+21V4=
-Received: from GV2PR02MB8434.eurprd02.prod.outlook.com (2603:10a6:150:ab::8)
- by VI1PR02MB6349.eurprd02.prod.outlook.com (2603:10a6:800:198::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 08:55:13 +0000
-Received: from GV2PR02MB8434.eurprd02.prod.outlook.com
- ([fe80::a2fa:a7a3:b6ad:9e4d]) by GV2PR02MB8434.eurprd02.prod.outlook.com
- ([fe80::a2fa:a7a3:b6ad:9e4d%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 08:55:13 +0000
-From: Kanak Shilledar <Kanak.Shilledar@axis.com>
-To: "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>
-CC: "dlechner@baylibre.com" <dlechner@baylibre.com>,
-	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>, Henrik Grimler
-	<Henrik.Grimler@axis.com>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
-	"robh@kernel.org" <robh@kernel.org>, "jic23@kernel.org" <jic23@kernel.org>,
-	"andy@kernel.org" <andy@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "macromorgan@hotmail.com" <macromorgan@hotmail.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, Kernel <Kernel@axis.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 1/5] dt-bindings: Add InvenSense ICM-42370-p
- accelerometer
-Thread-Topic: [PATCH v4 1/5] dt-bindings: Add InvenSense ICM-42370-p
- accelerometer
-Thread-Index: AQHdRqnUrxOUwV+GnkCI62/RU5CWVbbXgVuAgAw/bgA=
-Date: Mon, 28 Sep 2026 08:55:12 +0000
-Message-ID: <3ab2ba81a38d4da84d4e3ebc147aa956728e96bc.camel@axis.com>
-References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
-	 <20260917-b4-inv_icm42370p-v4-1-fd9373f123c9@axis.com>
-	 <aq_lObgrI7uAi0K1@debian-BULLSEYE-live-builder-AMD64>
-In-Reply-To: <aq_lObgrI7uAi0K1@debian-BULLSEYE-live-builder-AMD64>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR02MB8434:EE_|VI1PR02MB6349:EE_
-x-ms-office365-filtering-correlation-id: a74ce492-b26d-497a-9103-08df1d3e356d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|6049299003|23010399003|4053099003|38070700021|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- M46bEAtQrmRusoPQpAKEF9juZFznyX9FJsxsCzmU1PglC6cUkMkvMBnqo6eJeoT75Phk8FatLDcs5QZol4azglokBwueJxhpDTwqo1qgtJwrP79s2YgFUPF1yUaJ9KnHnfjfJltO6yB1XYnfT3u+NPcmMkx8GbPFUKbbR+5aKTG6jO0tgYNZVkmrh3lpIxM0Qb7OmbrPf6OjrVCySwhDJJDEMHhtaSNh1v+r8x7ukz6LjnBUA4GWUu9Bu6NQCV6SUftOOX7WKQlUshbQmbJmNMACVMA8YxnyAH75Ir0BaMFcSw7BylCCFNaWbk/OCj7mKFoZDXQxZF9mDsB31nSsHntuwjBeS0dpNIGanCRPF7CA//rls44rQylxbvMniTMXaHlAt+yO6wQ/5x54chqDZqgGOz+38xXhCC1q7NgIntfqTNU4qFuQ6eKxNs+RNPRG0brKDtaqctgKPqjGBS4VKIZnOLHVvuYYMzZkmsECpzsp/qKG9oUOPdbPWk7gh+Tonsg2zxp35n1yzEMIKgbG0MirpU5PqYJflc8dvw2JRuIn5efRPaImr7MsQM1pUu021P5rzTnJL9eKzLjmWrrCXkqfanm+JGYPHr4GRJfNP0xsnUUKqMaZQ8Se+GYjQlatZr7+RU3CWhdRX3goDuiW6zGbb2gP0HLJBsW2TuR6iFTpkTSfkFAfe1Mhbs+KE+fsr+BJwXe44luhEcqdF4wRTUgozIFotnymlgX3Ktx83JE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR02MB8434.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(6049299003)(23010399003)(4053099003)(38070700021)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?R3FMUHVJVzJrdnkwTEZmckliYW14STQyL2pra0dtV3VrVGRHTVAyTHIyS21i?=
- =?utf-8?B?dTJ1Z3Zsb3h4eUhxOUY3NG9OU25sUmNjUVlObHo1RVF5enk1SGFqR2M1eDN1?=
- =?utf-8?B?dUJsUlBCT3hyb3dyVFNRYW0rblpwSkliM0N4bUdrRDlUOWI2QmhNSUsxUlJT?=
- =?utf-8?B?ZG9wUmhYV0d3ZG9vSEhENmxIcm9ueTV1MTg1dDIvV2NEdUtlcUJaNFU1MnBK?=
- =?utf-8?B?THZBOUJKaGVtTVlIT1BOWkc3bWJrZ09wZGNXaUtPTURlMTZhQjkyQ1ozeXdJ?=
- =?utf-8?B?SE4rYXpSNFhqVGhyQ3YxNHBKRVU0OTFoVGtSd21EOExhdUw4R0pYZkttUnA5?=
- =?utf-8?B?OEJsUmdUaUNWVEcwdGt0TmVjODNaZloxbTRQL01YRi9HdmNUc0x0QS9UZFc0?=
- =?utf-8?B?ZHlyNGhJcEJHZmlueUdwT25HOXFZTTlsR0Y1Sjg1NEovR1JheXpFZUJUTWQv?=
- =?utf-8?B?RFFpMCtwaVZObEIrVzJQcDcvU1N3R2FNZzBtR3BvK3dtWm8rdVdMNXJlQ3Rv?=
- =?utf-8?B?YkNmeS9taVJmN3kyTTZEQjY1R3JRZy9XU2JnUVpzKzcvN04wbjlBV3NJcmJC?=
- =?utf-8?B?Tko3NFFBQlZQcGtDdlVDR2crVWo0WUYyS25aa2YzbGpia3pnRk10ZkZpZUth?=
- =?utf-8?B?eTZ1N2tOc3RIc1VGTGQ5dGdlVkdjdXF0a2lmMCtHRkZqQU5jNUkxa05MNjJX?=
- =?utf-8?B?ZzBSWVZxSUlDb2QzcTVGTXh1YTVleUZlcW1YOGxuL2NvdlVkcFAvZHRCbmk1?=
- =?utf-8?B?SUdOM1NNL1loYk8vckRCWEJnaExYb1RSZytySmlEcG1uMTBTTExKUU1HcitP?=
- =?utf-8?B?ZUFzWVFvYTE5dk1ualNEU1AyVmhITzcveXRNWFVsL3JHdzN4dXZhT3pjS3ZR?=
- =?utf-8?B?V1diYWxVYWxnYW1iSlZNQzNGMXFaVFBsSzhFWGtSdEkzWUZ6Q3dyK2V4YS9L?=
- =?utf-8?B?MDZnVWwxalRPL3FyTUlsNjI3ODVVdVhVZnFORnhiM0xlNS9xcmoyWVpBNmRm?=
- =?utf-8?B?RE9sbTFDZjlTWDRKN2xFL1JtTlVuY2FpMjlIK1dvMDN4SWpjQ3JxSUVtb1ZG?=
- =?utf-8?B?OFZXRHlBSEdYaFpiekJ4NnRLT1hLeTB2WkNSVWJqRGlnSEVOcndVTUZsOUgw?=
- =?utf-8?B?aTRpQTFFOUt3a0NJYXREQi81ZUZDTG9DSnA4Vkt4YmRONXFHVWVqS0FyOWtB?=
- =?utf-8?B?MkhSMXFkTG5xZjNvWjZ3NVFkNlFWalQzYjRXUWR5ZTNvUzhRbVpKY1lsV2Js?=
- =?utf-8?B?ZHZQL1RuTkMzRlBVZVgxTnZmbWhxUkdVOGFoN0FYN1N0UXJ4ZWxiYzVza0w2?=
- =?utf-8?B?ZVVDeHhFNlF1ak5aWjRCN0VYTktLRzRpejlNeUhGdW1nV281UDFSemMwQ0x1?=
- =?utf-8?B?M2E4V2xqWHFTTUVvYUs0NUZwK09yL1RNcHlBMXlDYksvRFExVUM1WkdoRVJ4?=
- =?utf-8?B?T1h1WHN4cWJqMUhXWDI1bXFFYzZCTy9mRERsdUdDQUF2SDVSTklMdzZHVUt2?=
- =?utf-8?B?MFhUS011UE9sTStFTHJxN0xuQ3ZncGVlS0RoOXpSdnNsZmVIaENvdWdCQ3NH?=
- =?utf-8?B?eW5IbjV3YzhKeEg0ZG1UU2djTVR0VDJlUFJ4K1J6WFdCYVZmT3dmS2YvNmpa?=
- =?utf-8?B?TE45Y1lqK3N4T3ZOTmovZVFSaURjVHg3QnNVcWp1dDQ3d0RDL29XRzVPcjFt?=
- =?utf-8?B?cWhBOWp1NzFUcGQzSDEvNktWbDF3Ry9MU0pmNElETXBEZ3VHYkMxQWdzakdu?=
- =?utf-8?B?dnQ0Y2Z4em9kTllEdk1WNGs0OWhyWWpPZktOV3dPRThWSFg3QVljRUIxYnJm?=
- =?utf-8?B?bE8xMEI1STlkc2ZJSnM4cWxtdHVpOWtPeEdjR1k3bStWUmJwZ3ROZHpWZkxS?=
- =?utf-8?B?WlpVS1F0cGJCNlRYdzZOWjVGeDNaY0hBNEx3ZkNKZ2h3bDBFVVRWSDFZTWt2?=
- =?utf-8?B?dkdBWmo3ektsalBQWGJYM1l2enlqRTZSNDFkZ3ExRnhSNmVLemc2eFlUY2hG?=
- =?utf-8?B?SkxMM3RSNE5OUHYrOVRJS294QUE1KzFUKzFZSkdSR0d2U0JEWmFpNkhYNVRZ?=
- =?utf-8?B?cjlZQ29JV2lhQXBqeFgyMi8rdkQrUzd1VmpJTStCcmdMWmVHajB2TWQvTnUw?=
- =?utf-8?B?RzlFdGdSR0Zoc1hBSEZ0OTlOeG1weWl0L3pINHF3M1BNMEFwV3NPU29GOWNB?=
- =?utf-8?B?U055Yzg0bDdIdndITm96a1JlaVNESHd5N1hJQmpjdzRPSWsvRnhZeVBobXVR?=
- =?utf-8?B?Y25Gd0gxVVZHT1BybjZnWXhDbFU1ckRmdXVLVW8zbjBMTFYxaStsNjF1c09S?=
- =?utf-8?B?ZkFBVzBodnZrUTNJSnFMSittVHhKK0pKWXliVFd6TXRVOTdiK1o2QT09?=
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="=-jJt87xtu365NV58mqTCt"
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="duofqA/s"
+Received: from aerhardt-tuxedo.buero.augsburg.tuxedo.de (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id C8FB92FC006B;
+	Mon, 28 Sep 2026 10:55:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1790585708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jb1ytheJH2SEgY5Vdakg7HtZqlAPdJhQ9KePAFDHa0U=;
+	b=duofqA/sVA8aUoV+IHdAuwWK305mHp93+sHzkVwMJh/mJJ7Fx6RuwyfTqkZaLjwc81HWL9
+	vIlwmNXIGArhZLSQ/XuIvprErmG+GCiM91MANB9KK6rkunvaOt4yczRbhJQnZS0uhQj6lx
+	idNSUAG2RZ20D/UxU252nXl7498QsMg=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+To: Werner Sembach <wse@tuxedocomputers.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Aaron Erhardt <aer@tuxedocomputers.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 5/6] platform/x86/tuxedo: Update and extend documentation
+Date: Mon, 28 Sep 2026 10:36:30 +0200
+Message-ID: <20260928085448.9024-6-aer@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928085448.9024-1-aer@tuxedocomputers.com>
+References: <20260928085448.9024-1-aer@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR02MB8434.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a74ce492-b26d-497a-9103-08df1d3e356d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 08:55:13.1256
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YxLEAtvwYYfTmrW88YxtHcEqB8li3z8kp5vZWy/wjYF+/IYee9nYIXPFCGa1r9v3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR02MB6349
+Content-Transfer-Encoding: 8bit
 
---=-jJt87xtu365NV58mqTCt
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Remove an incorrect comment about the Microsoft MacroPad reference
+implementation allegedly deviating from the spec and add more
+information about the module and some other minor improvements.
 
-Hi Marcelo,
+Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+---
+ drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 51 ++++++++++++-----------
+ 1 file changed, 27 insertions(+), 24 deletions(-)
 
-On Sun, 2026-09-20 at 10:52 -0300, Marcelo Schmitt wrote:
-> Hello Kanak,
->=20
-> On 09/17, Kanak Shilledar wrote:
-> > ICM42370P is a 3-axis accelerometer. The device can support I2C,
-> > SPI
-> > and I3C. Add the supporting devicetree documentation for the
-> > device.
-> > The device supports VDD and VDDIO operating range of 1.71V to 3.6V.
-> >=20
-> Patch 3 says ICM-42370-P is almost identical to the existing
-> Invensense ICM-42607-P.
-> Instead of creating a new doc, could we have similar properties for
-> ICM-42370-P
-> by extending
-> Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml?
-> The updates on the other patches keep supporting both ICM-42370-P and
-> ICM-42370-P with the same device driver.
+diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+index 2b985b030197..3e5ba524fe58 100644
+--- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
++++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+@@ -1,9 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * This driver implements the WMI AB device found on TUXEDO notebooks with board
+- * vendor NB04.
++ * vendor NB04. This enables keyboard backlight control via a virtual HID
++ * LampArray device.
++ *
++ * The device will be available through the regular HID interfaces, such as
++ * hidraw and can be used by any userspace program that implements the HID
++ * LampArray standard.
+  *
+  * Copyright (C) 2024-2025 Werner Sembach <wse@tuxedocomputers.com>
++ * Copyright (C) 2026 Aaron Erhardt <aer@tuxedocomputers.com>
+  */
+ 
+ #include <linux/dmi.h>
+@@ -488,12 +494,14 @@ static int handle_lamp_array_attributes_report(struct hid_device *hdev,
+ 	struct tux_hdev_driver_data_t *driver_data = hdev->driver_data;
+ 
+ 	rep->lamp_count = driver_data->lamp_count;
++
++	// Physical dimensions of the Sirius 16 keyboard
+ 	rep->bounding_box_width_in_micrometers = 368000;
+ 	rep->bounding_box_height_in_micrometers = 266000;
+ 	rep->bounding_box_depth_in_micrometers = 30000;
+ 	/*
+ 	 * LampArrayKindKeyboard, see "26.2.1 LampArrayKind Values" of
+-	 * "HID Usage Tables v1.5"
++	 * "HID Usage Tables v1.7"
+ 	 */
+ 	rep->lamp_array_kind = 1;
+ 	// Some guessed value for interval microseconds
+@@ -547,7 +555,7 @@ static int handle_lamp_attributes_response_report(struct hid_device *hdev,
+ 	rep->update_latency_in_microseconds = 100;
+ 	/*
+ 	 * LampPurposeControl, see "26.3.1 LampPurposes Flags" of
+-	 * "HID Usage Tables v1.5"
++	 * "HID Usage Tables v1.7"
+ 	 */
+ 	rep->lamp_purpose = 1;
+ 	rep->red_level_count = 0xff;
+@@ -560,8 +568,8 @@ static int handle_lamp_attributes_response_report(struct hid_device *hdev,
+ 		rep->input_binding = driver_data->kbl_map[lamp_id].code;
+ 	} else {
+ 		/*
+-		 * Everything bigger is reserved/undefined, see
+-		 * "10 Keyboard/Keypad Page (0x07)" of "HID Usage Tables v1.5"
++		 * Everything bigger than 0xe8 is reserved/undefined, see
++		 * "10 Keyboard/Keypad Page (0x07)" of "HID Usage Tables v1.7"
+ 		 * and should return 0, see "26.8.3 Lamp Attributes" of the same
+ 		 * document.
+ 		 */
+@@ -606,10 +614,7 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+ 	u8 key_id, key_id_j, intensity_i, red_i, green_i, blue_i;
+ 	int ret;
+ 
+-	/*
+-	 * Catching misformatted lamp_multi_update_report and fail silently
+-	 * according to "HID Usage Tables v1.5"
+-	 */
++	// Catch bad reports and fail silently according to "HID Usage Tables v1.7"
+ 	for (unsigned int i = 0; i < rep->lamp_count; ++i) {
+ 		if (rep->lamp_id[i] > driver_data->lamp_count) {
+ 			hid_dbg(hdev, "Out of bounds lamp_id in lamp_multi_update_report. Skipping whole report!\n");
+@@ -624,6 +629,7 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+ 		}
+ 	}
+ 
++	// Fill kbl_set_multiple_keys_in update buffer
+ 	for (unsigned int i = 0; i < rep->lamp_count; ++i) {
+ 		key_id = driver_data->kbl_map[rep->lamp_id[i]].code;
+ 
+@@ -632,6 +638,8 @@ static int handle_lamp_multi_update_report(struct hid_device *hdev,
+ 		     ++j) {
+ 			rgb_configs_j = &next->kbl_set_multiple_keys_in.rgb_configs[j];
+ 			key_id_j = rgb_configs_j->key_id;
++
++			// Search for existing or empty entry
+ 			if (key_id_j != 0x00 && key_id_j != key_id)
+ 				continue;
+ 
+@@ -691,10 +699,7 @@ static int handle_lamp_range_update_report(struct hid_device *hdev,
+ 	struct lamp_rgbi_tuple_t *update_channels_j;
+ 	int ret;
+ 
+-	/*
+-	 * Catching misformatted lamp_range_update_report and fail silently
+-	 * according to "HID Usage Tables v1.5"
+-	 */
++	// Catch bad reports and fail silently according to "HID Usage Tables v1.7"
+ 	if (rep->lamp_id_start > rep->lamp_id_end) {
+ 		hid_dbg(hdev, "lamp_id_start > lamp_id_end in lamp_range_update_report. Skipping whole report!\n");
+ 		return sizeof(*rep);
+@@ -706,8 +711,8 @@ static int handle_lamp_range_update_report(struct hid_device *hdev,
+ 	}
+ 
+ 	/*
+-	 * Break handle_lamp_range_update_report call down to multiple
+-	 * handle_lamp_multi_update_report calls to easily ensure that mixing
++	 * Break handle_lamp_range_update_report call down into multiple
++	 * handle_lamp_multi_update_report calls to ensure that mixing
+ 	 * handle_lamp_range_update_report and handle_lamp_multi_update_report
+ 	 * does not break things.
+ 	 */
+@@ -750,15 +755,12 @@ static int handle_lamp_array_control_report(struct hid_device *hdev __always_unu
+ 					    struct lamp_array_control_report_t *rep)
+ {
+ 	/*
+-	 * The keyboards firmware doesn't have any built in controls and the
+-	 * built in effects are not implemented so this is a NOOP.
+-	 * According to the HID Documentation (HID Usage Tables v1.5) this
++	 * The keyboard's firmware doesn't have any built-in controls and the
++	 * built-in effects are not implemented so this is a NOOP.
++	 * According to the HID Documentation (HID Usage Tables v1.7) this
+ 	 * function is optional and can be removed from the HID Report
+ 	 * Descriptor, but it should first be confirmed that userspace respects
+-	 * this possibility too. The Microsoft MacroPad reference implementation
+-	 * (https://github.com/microsoft/RP2040MacropadHidSample 1d6c3ad)
+-	 * already deviates from the spec at another point, see
+-	 * handle_lamp_*_update_report.
++	 * this possibility too.
+ 	 */
+ 
+ 	return sizeof(*rep);
+@@ -894,8 +896,8 @@ static struct wmi_driver tuxedo_nb04_wmi_tux_driver = {
+ };
+ 
+ /*
+- * We don't know if the WMI API is stable and how unique the GUID is for this
+- * ODM. To be on the safe side we therefore only run this driver on tested
++ * We don't know whether the WMI API is stable and how unique the GUID is for
++ * this ODM. To be on the safe side we therefore only run this driver on tested
+  * devices defined by this list.
+  */
+ static const struct dmi_system_id tested_devices_dmi_table[] __initconst = {
+@@ -933,4 +935,5 @@ module_exit(tuxedo_nb04_wmi_tux_exit);
+ 
+ MODULE_DESCRIPTION("Virtual HID LampArray interface for TUXEDO NB04 devices");
+ MODULE_AUTHOR("Werner Sembach <wse@tuxedocomputers.com>");
++MODULE_AUTHOR("Aaron Erhardt <aer@tuxedocomputers.com>");
+ MODULE_LICENSE("GPL");
+-- 
+2.43.0
 
-ICM-42370-P is very similar to ICM-42607-P but it's an accelerometer as
-it does not have gyro. As dt-bindings should describe the hardware I
-think it should be inside the iio/accel/ directory although it is using
-the same driver of IMU. If you think it should be in the same file, I
-will move it and update the binding description.
-
-Thanks and Regards,
-Kanak Shilledar
-
-
---=-jJt87xtu365NV58mqTCt
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTOMrdbv2P+LZwbQtLEY9j7t8KaZwUCaroragAKCRDEY9j7t8Ka
-Z/XfAQCUszRM2vDSx8Vp34qXAKxRJAsP00xFl7FEF01e6tL1bwD/X//G1i32si28
-rUIdrPlm9glPfVLsgfexKUru4BgnDgw=
-=dlA6
------END PGP SIGNATURE-----
-
---=-jJt87xtu365NV58mqTCt--
