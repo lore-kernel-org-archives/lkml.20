@@ -1,51 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A2139733E;
-	Mon, 28 Sep 2026 19:48:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA01353A7F;
+	Mon, 28 Sep 2026 19:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624885; cv=none; b=ZYtDw5CV7TxDHPGloTHnwM4vbHnW7QR1yqOV1zoVvTtTbbhai4ztnTs+pOgr6U5Ggn4DDFqlce1zaIfjmDeFNx2n2BcxxmhAWx4Z0RcnoH2vLpZ310/cCMp1RPji8wNLSBHDpzDnUPsT0OmjL3oFlQZG64aCm9HuFrBBh4sJxFw=
+	t=1790624949; cv=none; b=Y2ZMWy0w7bD3XjWrnei81/ix8l/Ou547lY1rMvQZYeVEzqMdnvU38z/s+mYrzS9UeWmK2jCUeOGA1VmdSe0h4JRiD8gaxePqq8U7WjdnKtE985Wa/xM3PGe7igNCn+Z8RNoZ2rSSHy6Or/mJk6mAQuKY2R3jNbMKMWT3kq9ACTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624885; c=relaxed/simple;
-	bh=q86d9jgRZikGjVflNfaBvoUEHbKTTsEfz/kaHycH2OE=;
+	s=arc-20240116; t=1790624949; c=relaxed/simple;
+	bh=+n0gYPk+JRkIbFK1wIkwVMj03UuedrHR7yRES1xA1fs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NXPG7E4MPv5C9Lh7XCAkG9JYJ9+/Mvd65yK4HeCNT0i12xDUIytb9COPaRatOPGwcoNWipJvy7kLPZSykrTvSmyuYHVr7O1SSADwuYzEyr3mAg+nH8RWkYFRbCQHW3NHX7oOQeRWO28mqlEykPypqWveEbhKxgXxVIO+FSgtpu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IzCOqkhg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HG/U3AAx5RchT9ukSC0Qvv5CQucFUO4Ln8pfeeJFZi9rP4+PkrrotGe6tq7x4STcZxc6wM/ek2vRiJUl5ymqtxSdHttrROwSk0XeW/Jyy7VMODkD7pZdkvhVyFUGd+rwIW6FiDfNnBW7lJgxB4QRoCVdpr646AGBCIUArGC8t48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1UpVHdb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IzCOqkhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A3A1F00899;
-	Mon, 28 Sep 2026 19:48:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1UpVHdb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9F91F000FF;
+	Mon, 28 Sep 2026 19:49:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790624883;
-	bh=Nn6UfohwSZWRhwAdtoNPetXC5ALQ2NXtXpw/s08SktE=;
+	s=k20260515; t=1790624947;
+	bh=jdHpFCmsfbMWILh+4zQbXzTgvExVPPbHVQNyp37fwu8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IzCOqkhg8LxCQ4KjVQb6fAYDokRLujyVNJ6c6bpkmkacZpNNWh/hM4JIh8fovtsN+
-	 4RI6zkyWeS56IW52DJyhfE1ZeSWQcMTfPx64culbNnplwntlnLFuX8FtLJUx24d0mA
-	 E5ldYkYjFIso10gIXNdEn33F/0ilEoARtWZG9IDxP0Y5dietY5nPIV+JiTHOIESf3K
-	 24tYLPPBYSeF5/OBVPseKR5U8pNGodXZr71dYf67xN2g/RyeTvC3VBpJ4/nMAseg7+
-	 eJ/ix37aXs3ePZeeoZhOTkTqZ2RTBH1jE5BDNwAPNDeqDb0jJQhRi86pibEIwveNqB
-	 WElxUZ5Vom/Fw==
-Date: Mon, 28 Sep 2026 14:48:01 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>, devicetree@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: mfd: pm8008: Add qcom,pm8010-i2c
- compatible
-Message-ID: <179062487989.455878.4686687002936770689.robh@kernel.org>
-References: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
- <20260918-pm8010_i2c_support-v1-1-de33d78fad9d@oss.qualcomm.com>
+	b=K1UpVHdbtKLuk0b6PGJwnkcMiQQc3FOtgp5i3jPSjc03nPPVWKJdRDDdCcoeo/JYz
+	 ab6rp54bO+xE+cQVGENaJOpeQHykZTq08O5djVbP1x6QarrPDCUT6usoart9BrVN8P
+	 exFxTaGfz1qKavaskz0rXWSPeg8og50p0Yd/s1iUTGKI0czkfywCXDWKIZQH9p/Kyb
+	 U+SNhQ4ngEIfBnXPjoH1p7KE++RQn4cu3SYKv52+Aud9Gjy8+4689hKOj+Xw1S4OAy
+	 KbiSdHV0nazW5sHdc5wG7ljabqYltoksk0H4xkxQGCHQwgr1RlxClJ9oaGn3DC6olh
+	 jRna+5Lr3DITQ==
+Date: Mon, 28 Sep 2026 21:48:58 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <arrAqg5n87INTHE6@beelink>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,24 +59,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918-pm8010_i2c_support-v1-1-de33d78fad9d@oss.qualcomm.com>
+In-Reply-To: <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
 
-
-On Fri, 18 Sep 2026 22:12:45 +0530, Jishnu Prakash wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sep 28 2026, Neil Armstrong wrote:
+> On 9/28/26 19:24, Benjamin Tissoires wrote:
+> > On Sep 28 2026, Neil Armstrong wrote:
+> > > Hi,
+> > > 
+> > > On 9/28/26 18:22, Maxime Ripard wrote:
+> > > > Hi,
+> > > > 
+> > > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > > difficult to support and require pretty much a panel driver for each
+> > > > panel produced. Most of them are pretty simple, and require an opaque
+> > > > initialization sequence that is usually poorly documented.
+> > > > 
+> > > > This creates a tension between OEMs and distros because OEMs will
+> > > > typically get a new panel to react to a sourcing issue during
+> > > > production, and thus need some swift turnaround between getting their
+> > > > new panel and it being operational in the OS. Distributions on the other
+> > > > hand can take years to ship a kernel with that new panel driver.
+> > > > 
+> > > > To solve this, I followed the example of HID-BPF and wrote a panel
+> > > > driver that will rely on BPF programs to perform the panel
+> > > > initialization. That way, we can ship the programs separately from the
+> > > > kernel, and with a different lifecycle. If this driver is accepted, the
+> > > > plan is to have a userspace component started by udev to identify and
+> > > > load the right BPF program for the panels found on the device.
+> > > 
+> > > This is kind of late for serious applications except if we manage to
+> > > solve the bootloader to Linux display engine transition.
+> > > 
+> > > > 
+> > > > This driver is fully functional and works with both 5" and 7" Touch
+> > > > Display 2 panels for the RaspberryPi. However, it breaks away from the
+> > > > typical panel driver in multiple ways:
+> > > > 
+> > > > - BPF programs can only be loaded by userspace. This leaves us with two
+> > > >     choices:
+> > > > 
+> > > >     * We prevent the driver from loading until the script itself is
+> > > >       loaded. This has the side effect of preventing any other output to
+> > > >       be used until the initramfs is ran at the earliest, and possibly
+> > > >       ever if the loader isn't installed for example.
+> > > 
+> > > This adds a dependency on user-space behavior and if somehow the
+> > > initramfs doesn't load for a reason we won't have a way to display
+> > > an error.
+> > > 
+> > > > 
+> > > >     * Or we probe the driver all the time, but only report it as connected
+> > > >       once a program has been registered. This is somewhat unconventional,
+> > > >       but allows the other outputs to be functional, *and* allows the user
+> > > >       to force the output if their panel doesn't require any
+> > > >       initialization or during debugging. I chose this solution.
+> > > 
+> > > Both options are not really great...
+> > > 
+> > > > 
+> > > > - It's not a panel driver, but a bridge one, which is also pretty
+> > > >     unconventional. This is required because panel drivers don't have
+> > > >     access to a detect callback that is required for the above, but I also
+> > > >     think that the recent work from Luca blurs the line from panels and
+> > > >     bridges and we'll end up going that road anyway.
+> > > 
+> > > On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+> > > the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+> > > a proper way to describe the display/panel/monitor independently of the DDIC.
+> > > 
+> > > At first glance it's a nice driver, but moving the timings into a blob moves something
+> > > into possible proprietary binaries with possible closed licence and distribution
+> > > restriction so it's a downgrade for the same of bringing up a panel faster.
+> > 
+> > Quick answer on this, because I had the very same questions regarding
+> > HID-BPF:
+> > - in BPF, you can require (and by default it does) that only GPL
+> > 	compatible BPF programs are loaded, closing the argument of "closed
+> > 	licence and distribution restriction"
+> > - also, a BPF program can be disassembled much easier than a binary
+> > 	blob, and I remember Alexei showing me an example where you get almost
+> > 	the source code from the BPF object in just one pass.
 > 
-> The PM8010 can communicate over both SPMI and I2C, based on whether
-> GPIO1 is pulled high or low respectively. Since the qcom,pm8010
-> compatible is already taken in the SPMI PMIC bindings and that set of
-> properties is heavily tailored towards SPMI, introduce a secondary
-> compatible to handle the I2C case.
+> Right, it "solve" one of my question, but doesn't really solve the issue
+> of vendors providing "GPL" bpf programs with source available "somewhere".
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> Another big issue is the API, I don't want to keep the current API as-is,
+> we plan to support more advanced panel features and use try to use the
+> atomic states to support rate switching for example, and I'm not confident
+> it's a good idea since there's no "simple" and "forever valid" API
+> to initialize panels...
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+That's exactly where BPF shines. The simple rule of thumb is: there is
+no API stability guaranteed. Basically, thanks to the verifier and CORE
+(Compile Once Run Everywhere), you don't need to keep the API stable and
+available forever. There are multiple ways of dealing with it, but the
+gist is that if a BPF is trying to load an "old" API, it will be
+rejected by the verifier.
 
+Then it's a matter of being nice enough in the kernel and provide ways
+to deal with those.
+
+To give you a few examples:
+
+- in HID-BPF, in userspace, we keep old versions of APIs in separate
+	compiled objects. Each is incremented (by 10 so we have a little bit
+	of room in the middle). Then the loader tries first
+	0020-device-with-new-api.bpf.o, and if it fails, it tries
+	0010-device-with-old-api.bpf.o
+
+	I'm not saying we should do the same here, but that's one idea
+
+- recently, a BPF commit broke the ABI of a function while removing
+	implicits: bpf_wq_set_callback_impl() was replaced by
+	bpf_wq_set_callback() with a different number of arguments. I simply
+	had to add a new function in my header which basically does:
+
+	static inline int
+	hid_bpf_wq_set_callback(struct bpf_wq *wq,
+	                        int (*callback_fn)(void *, int *, void *),
+	                        unsigned int flags)
+	{
+      if (bpf_ksym_exists(bpf_wq_set_callback))
+              return bpf_wq_set_callback(wq, callback_fn, flags);
+      if (bpf_ksym_exists(bpf_wq_set_callback_impl))
+              return bpf_wq_set_callback_impl(wq, callback_fn, flags, NULL);
+  }
+
+  And then I changed the bpf.c to use hid_bpf_wq_set_callback() and the
+  bpf is compatible with both APIs
+
+- with CORE, struct fields are relocated on the fly when you load the BPF
+ 
+  So for instance, if my BPF only accesses fields .name, .phys and .id
+  in the BPF, I can define:
+  struct hid_device {
+    char                       name[128];
+    char                       phys[64];
+    unsigned int               id;
+  }
+
+  Then when loading the bpf, the verifier replaces all offset to the
+  ones actually used by the running kernel, and the program loads
+  transparently, even if you add fields before/after or change the
+  fields order in the kernel.
+
+Changing the mindset is the hardest part of it. But once you are making
+the shift, it's actually much better to work with. It doesn't mean you
+can go yolo. You still need to be careful in your choices knowing the
+impact on your users. But the API at version 0 is not frozen and you
+don't need to maintain it forever, especially if you control the loader
+and the headers used to compile the BPFs.
+
+Cheers,
+Benjamin
