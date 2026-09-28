@@ -1,137 +1,124 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78BE48BD3B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587911; cv=pass; b=hKbBdSJKnybyhDJgRwma6GFg/Wg+Op4H2kjwC+Cj6sOypY4gZ5s4KFsf125ez8p64fcG7k6FyB3dgsXTeSNE2oSqaokL7jTgCGfjRVQfpE2ZxOusdk1WHYt+ENtuDWodpYyS3Q3ynNqMFwSrD01P4V36fRoFKu1FV6PmqxspVW8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587911; c=relaxed/simple;
-	bh=8bjgfdeQqI2IU+pfMdd1CQBiBYTPKG3YxVTrgK+MF0I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lGkBnkKHGF8oaVnAVOBk0Pzi7HCJ0YdUbMIlcEaoFklKcACEhUH2GVzLviTa56mRh0dGIiGE7faHpPNyTHgFsKfQ8ld6cGGE09LxA5aUrKyI45rhgatut4D+SPe8UQIPCh3vpapJbxJMXCUJMmOAElEmN+EGPKPIyVQI4LbeX6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h7lRS1yu; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A2B48F82D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790587934; cv=none; b=PN0LghxOzBMOWA4LGFDcAWsFN3RVoWJ0nXLAR4Bs2uwqaDtBcu12Vq784IvhAEwdll3oSzPaKZr4WQ8IdzrICsuHZZLvTPqKbdU4vHIgAnfsBVrEP6VAcMLnnE4Uvso8nTW/tOw0FQBEyb4+Foso8JU6o+UI6K1L7oTeXqGKnSM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790587934; c=relaxed/simple;
+	bh=/bSK2lubDnXPJRJMBandZLUxr2bVf/nnBoaIn65kMWE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=AY5CDfNl/cPdodXQ6kjXocKLI6aWXRJ+4rjKpMCPyVFXvabVhV2dmvez1FqdpF27y4LRdTigClReH2khL/F3rq7EK+dDTIioHtn1ezo37NwLkup3DHvj4Vbiz3SFnoJQMseMm12gJ3rd7GKg794W5jFatX+rWfwUUzsoXxq62ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D9EE97Ud; arc=none smtp.client-ip=95.215.58.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h7lRS1yu"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so106583eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:31:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790587909; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kR6cLXT3GCgAEOX/aBT0eu6gVfCaGUVYEfwdgYrnlHg5gEItQQDDtwq/K/DZ3GBlDM
-         IDEhEqnpXmMD0YKjOJcidS0C7FTVNtKT/Y5d66g1ZQ95n1hUmiJKvMenjwtYtlPDt8ne
-         FZSVAW54Yj2HDFIsKBuOQh7tmQD6a3dRAakHXEmcnQeOvmf27Bxjgg+egfbDfZrNGdCc
-         UG0RVwpUGrJqD07UBMzWm8d9UWBdcbnvGH8x9fHeWoL1cCMZol8S0nF/EodixRpk0XfF
-         wCrOe5VtZZdq1eiAC8Q8+LPurENRPN3rj+APVZspnAEP7RNQcapaS6YZHaoVdQGktqER
-         ZtHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
-        fh=WFHykVOUKi/kpY7wrV67pYycAveOlegMIxx8Xl1y434=;
-        b=Wo+DJWFpxtds9pxH23bbCgqdqnifL+GNXs3XXp5U5AxWlaxPPo/JIjNcw4sZ+cOcM6
-         unmxm34lY6eiVBkgluhfi+jXFAKh55RMrLpbraljhlnpaRL5u2N75O9BxElmzgk70031
-         UDNGpPYFpHH1+TFxaHvMzKxItuckO22A0W+sZHqHRW8StOzwxSAdTyKal0wPbNYu+h7y
-         kVgdVGK/i5inVhqeG2CB+HvF3EcE/DOk7ceax8R2KdnCRJl34wStgMZLHWRmG8v0DzcF
-         s13c5LzrvNqOGQQKfFt7PoDDYU6z8LWOMW3natg0zpMzdteSzyIhH0DpvMcV0n9vJguo
-         D2cA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790587909; x=1791192709; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
-        b=h7lRS1yug0s0CyXl1DG0U/dn/Fo1Wite3QMYnhPaWxf158B/Rh2Wue2Sj6ivRtfAGk
-         NHjghB8yjwBWlWzEU9e5afBIB4A1gKHybgiNbLXC1LTNKH68C9dEV4ubC5X1nP0Z+dxJ
-         ogIGtPMR65VIxo85lKvEDhh5IC1ZzH7JCnXVkRr77Uc67HG4JqV7oseCTSNgOGYP5azD
-         3u+CpNSowIVMFo4c+U/TTmuTtiojPQSFJcgQwKYTo3Xe8IO2dvFAh6M/ehUXTnwahDij
-         LqwCAQ9nBWu50lvyBXCAZF2BR7WnLR5cdnPc/3osFDNSDMI4ikw5dboNFNRR6UNMZKm3
-         SfLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790587909; x=1791192709;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
-        b=N+m4wj04Ti4j6XlY0gBdEaKRxnl2jrsDDLS7CgLrHhbfJ0gwdON6YoGZlmvF5hvw65
-         6UirF7uISRlWro6AnQv34BHGwDr5UoT7cJHSsHFv/S1093hgDziGcFIaSDqencjYg8UW
-         f/qurcCBFNin4c01+9LtVv77TG34k5TVLNMr3xnzc8x59NgHKFiOUlC/rZML1DXCDkzh
-         ZHHYQ2Foc/OPzWsWKLIoTNXNLGnAbZRUmjnW4byANx+Yzw9WER014l1KYwAAIvsLf1Hb
-         aXwM0/cN+WoW+ekpF8xBoXjWg0u0ZiOdmBZMsoW5ScnR3/tVaLP2ODxfXluZL5xaeIwC
-         jCSw==
-X-Forwarded-Encrypted: i=1; AKwUvByMCyYGNrZLhrl/07ofF6N67tpSG0U9sNpwncpKzMNjifWUewO77regBBIl2YwXcImgcKy3ZJRPKBxyqD4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2lWS26LnDhfJEHYVdmFMGU5HOkQG8Rl2mSlFKjtdC9nT+rp3T
-	cA+DK5UYNWJoa5zSigJ2di/wEQOejsh0fDMVqBJbIQ9OGsyrI+rZJ4L5jo8CqDrNR8+FhVjrk3d
-	eCiLEDq6Ac1FBGNObG9053JTyEBzas4Y=
-X-Gm-Gg: AYBFou044tMGegWsUub9UboN95tLGL6a5BSa+UTdl3MXtdS8con+nXv1KqbaYcEpRzg
-	Jh8XJPVpYQrotyz3Qnvu1m/i1vsmr5sJpp8P6WOQzpQHMPx9MR41Kv2w9Tj9SZawdv8o0lDwbpc
-	C0TqvZ5X0pYDwwekfGodeCYeR83JtOy5eH0a6T5z7RpVFzFjZZfAHBVfmCmEf09JrlvByjUJHtM
-	cP8u6+kGDjIAcJvSvtjfdm2Jv92SbC7oJz/zrQ3i7UrppxSs+hC8uJp7+1MQSFJhPP7pT3uResh
-	Y0TfGr1byDu4TW2fDUOZYYZbds4nxok97KK2MPtVb/D2o+POqYpwQdBhC2oV6YsfkpsVuB9OOwR
-	5Fjr2qVbO7IOsRtSYVWij/d/Xy0/DR/KumiRR7VayeTjRoKrMQ/hk5LtakEibJOiRtUvyRvDQqW
-	RphWCk/r8TJPEvTDy/Nww5a0wI5RM5qb49TreIegm4v0Bd8vRQQi8=
-X-Received: by 2002:a05:7301:4d08:b0:343:fdea:9a0 with SMTP id
- 5a478bee46e88-343fdea25bemr10256179eec.2.1790587908057; Mon, 28 Sep 2026
- 02:31:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D9EE97Ud"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/bSK2lubDnXPJRJMBandZLUxr2bVf/nnBoaIn65kMWE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790587929; v=1; x=1791192729;
+ b=D9EE97UdixMUET/nixv4jdFGpn4lsz2vp6DJHF7I9olzEJvLDeX0XhZ1rTflBKupJ68p+2ay
+ j/Ux1HrX8vhlZ9pXvMhqEMQd/x35HBYHzbJYuZbgUbJMZuXZReKliRoUqwKkDwy8DCO1nr3JFRF
+ b2LpAzYyJ3nmxJqpjdKQw320=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a440adeeebd7c28e;
+	Mon, 28 Sep 2026 09:32:09 +0000
+X-Mizu-Trace-ID: a440adeeebd7c28e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <feee55e3-6425-4a00-9622-b809ec4f5021@linux.dev>
+Date: Mon, 28 Sep 2026 17:31:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921115708.4009754-1-gary@kernel.org>
-In-Reply-To: <20260921115708.4009754-1-gary@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 28 Sep 2026 11:31:35 +0200
-X-Gm-Features: AclHuK_5UnWgzOwmLK9oqngFyj2kXH-LQPWosQXOUVyycWaI9jdAOOJ-IBnfSXI
-Message-ID: <CANiq72nR-QzR3zOiV=RL4je4U8m_hCsPhOD3SxAcjc+4VCrMsw@mail.gmail.com>
-Subject: Re: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 6/6] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Bibo Mao <maobibo@loongson.cn>, gaosong@loongson.cn,
+ zhaotianrui@loongson.cn
+References: <20260927075240.3007947-1-cui.tao@linux.dev>
+ <20260927075240.3007947-7-cui.tao@linux.dev>
+ <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <d3a560db-f4f2-6cfe-6742-ca5de9f5719c@loongson.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 1:57=E2=80=AFPM Gary Guo <gary@kernel.org> wrote:
->
-> Miguel, please let me know if you're okay with the proc-macro2
-> modification.
->
-> I'd like to take this via pin-init-next if possible.
 
-If you think the diagnostics improvements are worth it, then I guess
-it is fine. The ones in the commit message do not seem like a big
-deal, but I assume the upcoming ones you mention in pin-init are
-bigger improvements?
 
-(I would also probably had shown the improved example outputs in the
-commit message for comparison; and especially one of the upcoming ones
-if those are more important to get right)
+在 2026/9/28 16:01, Bibo Mao 写道:
+> 
+> 
+> On 2026/9/27 下午3:52, Tao Cui wrote:
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+>> invocation: every call overwrites pch_pic_base and registers the same
+>> kvm_io_device on the MMIO bus at the new address, while
+>> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
+>> init, MMIO to the stale ranges computes its register offset against the
+>> new base and silently reads 0 / drops writes, and the leftover bus
+>> entries persist until the VM is destroyed.
+>>
+>> Reject a repeated init with -EBUSY, a null address with -EINVAL, and
+>> only set pch_pic_base after the bus registration succeeds so a failed
+>> init does not leave the device half-initialized.  The registration
+>> error is propagated instead of being replaced with -EFAULT.
+>>
+>> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>> ---
+>>   arch/loongarch/kvm/intc/pch_pic.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+>> index 136211f154d4..2baf9ecf0c8a 100644
+>> --- a/arch/loongarch/kvm/intc/pch_pic.c
+>> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+>> @@ -285,7 +285,10 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>>       struct kvm_io_device *device;
+>>       struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
+>>   -    s->pch_pic_base = addr;
+>> +    if (!addr)
+>> +        return -EINVAL;
+> To detect repeated init, I think it will be better add a BOOL type variable such ready/has_init for this. In theory device with physical address 0 is possible.
+> 
+Thanks for the review.
 
-If so, then please feel free to pick it up, thanks! The change itself
-looks good.
+Good point. Using `pch_pic_base == 0` as the initialization state mixes the device state with the configured address, a separate boolean is clearer.
 
-Link: https://github.com/rust-lang/rust/issues/54725
+>> +    if (s->pch_pic_base)
+>> +        return -EBUSY;
+> -EEXIST or 0 if it is created already?
+> 
 
-I would also wrap the `README.md` like
+I also agree that `-EEXIST` is a better fit than `-EBUSY` for repeated initialization. I'll update the patch accordingly.
 
-  identifiers, to remove the `unicode-ident` dependency, and to build
-  with 1.85 with nightly features enabled.
+Thanks,
+Tao> Regards
+> Bibo Mao
+>>       device = &s->device;
+>>       /* init device by pch pic writing and reading ops */
+>>       kvm_iodevice_init(device, &kvm_pch_pic_ops);
+>> @@ -293,8 +296,11 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
+>>       /* register pch pic device */
+>>       ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
+>>       mutex_unlock(&kvm->slots_lock);
+>> +    if (ret < 0)
+>> +        return ret;
+>>   -    return (ret < 0) ? -EFAULT : 0;
+>> +    s->pch_pic_base = addr;
+>> +    return 0;
+>>   }
+>>     /* used by user space to get or set pch pic registers */
+>>
+> 
 
-to keep it like the previous lines.
-
-Nit: "a overall" -> "an overall"
-
-Cheers,
-Miguel
