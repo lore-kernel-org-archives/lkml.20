@@ -1,102 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9268348BD5B;
-	Mon, 28 Sep 2026 09:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790F04915A4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588522; cv=none; b=gabbJ7u9YThXbq55EgCVqsBXirtGS6h0SHN9ldDOqINufomq+IWxdd8xJURo3r2t+kXcpdxTnSC+8B7B8Uh8rL2vHGT9oQd5JfKT8WZjlFlqj6mvbmk0D/tlljp20F7ZVO94NpHCHk4wd1h+RSdJTN6Q5xXSQS2G/XCWryXuCNg=
+	t=1790588527; cv=none; b=EiMHyC0jg1dA9tAwTLe+8vNuOR0jCBOeQ6kUe8SpK3lT0U0g3HSgU7WFcJrQg4SQ/6hLwk5VVrzeOUz3jh9aGX7+lZntQfMs0a7QbkjZJloLNkdl/XdmCOJQc23vkhJ8FGldIx6U+eNiOgVg8etCY6aY3bO96l1MWtHIKbFAy1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588522; c=relaxed/simple;
-	bh=u/7ok1URphFvd0R1Kj9k7YkKWqpAOEXGIJcbB2FPtzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ELw2StTtCEbdvMABTbtWSeHjd/GJ6sRaHVcFg1vklm4D2SpeRGbq/zcZo7jM2W8YahZv5TPgWvDCRcRi4wX6CzBg5sdTWXcJEoqOXRF3VPJMQgoPswbfhH4opPR5Ov0TMBmCQOURH0Hw5JV/LI31anUyFAK5/4G37RQIueQlV2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wrb1RJhf; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790588527; c=relaxed/simple;
+	bh=h0g2cSklYj+E8R4yu0B0K9XX41R3rWf4QX9cI+EMJpI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KI+loh+QhHEYCXTQ3AbCHFmdqPaPfU4kvZABmN8u/jGvwHk5q7SYnruPhGqzwnyKttPdhQDdRErOo9NaIKnkVZLIo3OCMeA1nAWivlvgqi5xcC16lSG0+0GghkHp9VijcmB95sBUXQ+QreiurK6DBIhkQcEqr3GSh2/6JdoNTIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TSCzZJ8I; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wrb1RJhf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790588520; x=1822124520;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=u/7ok1URphFvd0R1Kj9k7YkKWqpAOEXGIJcbB2FPtzM=;
-  b=Wrb1RJhfop2nlNqBkH2jWXUCCqeclatmMj+5zlL5JznHdWmat5/F0Ins
-   AX6BapA66qM7Z2w1Wsh31hUUGgYumtMjaiGYf2Y3pMqwB/t8+sbXgQbxq
-   pew86xm0vIvm6mK8PP4fVzL8eRjLrcyTK7sc/sg/SpWwXueh9XanA5lkx
-   XR607m8OAClj5xaLdKun8wgq23BTenx4MNnMMwwySxuiKdYD5UWSGmyFH
-   cTSMlJUHtw9WrkjYXfKqSNHAnWaDyVT+k0J5sGKshjxIXxmJtdy0uQBqc
-   Ak4uMqGZmgm6Nb6PoqEin7T3mslZ98ofFSAffBTo52j+f6YOVa4KqtpRJ
-   Q==;
-X-CSE-ConnectionGUID: ehfSdM/uRpWbZt4ScGPyWg==
-X-CSE-MsgGUID: axkT5WUvRM6iuiLarywB9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90151882"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90151882"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:42:00 -0700
-X-CSE-ConnectionGUID: lchMWD7GTHefn9ax3cPCjg==
-X-CSE-MsgGUID: ddnefMPfRSqY5+LjVd9Qwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="301286089"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 28 Sep 2026 02:41:58 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id CBAD999; Mon, 28 Sep 2026 11:41:56 +0200 (CEST)
-Date: Mon, 28 Sep 2026 11:41:56 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Bartu Alev <bartualev@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Mario Limonciello <superm1@kernel.org>,
-	Hans de Goede <hdegoede@redhat.com>, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: acpi: Ignore AC adapter wakeup on ASUS FA507
-Message-ID: <20260928094156.GG106095@black.igk.intel.com>
-References: <20260927014212.302743-1-bartualev@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TSCzZJ8I"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48436686a40so321776f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790588523; x=1791193323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jK0+4urBdoRm24BPDR63lzQtxeAkYMsHmBmlA17MxT8=;
+        b=TSCzZJ8ItIRInkzo6x6UAZw1KeCgliKJQXRJfHjwSb9Tdx3+QQmdUflLjEDQpXALRf
+         OGpnh0S9EqgXiMhbsICR+K7ZpZ0tJavqaGuaonmCn7IzrjyykwkuavU45fpTIRFqgq8U
+         P4RlNzUJYmOVeZmn5IF6Nd9kSWWkHKQ4NaUUjdifWugqHgcLwCSkdMtKwvBV/JloaS7W
+         gRkexk5yaVN+6ZM+bw8pauFSfr0qvfVpdX3BtREN8JmGUtfajaf+irhi3MQS+ovMRZ6z
+         d538oF1vx3xi/Vy3nAv2NhQkiehFvGa5KBNfAzL3Yq+a/gPfv3ucdL8rb8C5zI8MNeaw
+         FtYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790588523; x=1791193323;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jK0+4urBdoRm24BPDR63lzQtxeAkYMsHmBmlA17MxT8=;
+        b=ipeBjmVtL/TeiJ+hCWcPDs+rvhIN1D7qbvE3dKFbzthGv8k3m6/cTs3M+UmqM1NAAN
+         stWmwct/A0Jw2NyAXlrGjXqhLIp+p38YuziMAZWoyvjx70DjK11gw8Yu0aGS9JD2z4Lc
+         HSb8BWzYiwq/EbqhnIAEWBFim6zVsTF1zieK4vKp4+uBHEmB2soapN3bAkbLJpMCFC9D
+         feiAEO2hIP1ytsqXMxsyFOEE5unlJ66H3msIISLOxhWoCKowuEpvlre67KcT1ayYux11
+         73wWKBFZ4qVGpYr08RtoPvf6WgGjOKsxadzLuYt2CMZ7b3Kuge58tEVHY0FM+7lHdT63
+         89eg==
+X-Forwarded-Encrypted: i=1; AKwUvBwjsjfFT/5UfBwsQ1FbgvkqSC54QskiCEkGVbCS4xfQaQESDYnj7xJ55jkNRfL9tUqFWsuvqG6ARNZSvu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++moF0mbS/DfaaFg4B5gd/lKnHTED1boDNkkxlSpfJ/GzcZKuVRs
+	ZbDUlrXZ58rVVFMITOKButv18USboaAxnEa78IrYLwMDXXWo4oTFyKNK
+X-Gm-Gg: AYBFou2jjvBlYVBnxC69agjHm7GU/LqTuVLjp00DQziOpI0IHXJOKIBlUYNvGQWZ1Mz
+	zhgTLF+TTxQmJB2AJzX4g2vX9La16is/u9EWkAEg8cSQx861XJMeoesJl8p1cg3rxOGezrzyDn5
+	uI5VJnc9O4Tc1Ghb9Q7i+osHy48yzvExtK1es9GJqUxvBl5Gm5MemKa8rGuEA4v18dSq7yUn7PT
+	Y2y4pVGB4AYkqdkRe26j2KgS+I0Bg9WDga8xRaCrZP4/ACKXiGf89C5tz5mSbZfoBTMhbhhuf1R
+	sQBWror832CIwPJWzx0oYO9XxHDc2w+obi+M5xak8B2gh1h0USZitnI2oo1TVt2IspjxxNVn5v0
+	jgKU0lOZuLCV9c//ACZuFLPerKS660lCUBi52NU1VB9jhtfvIR8tcZtgEUVfAPGzZcaCVo1IUAV
+	fxD7GTCeiohS2r3YL9EVCc7f0qKyTIrcHNleqKhmSCWw1OjUGHKtxmazrzSlll9SkULyU0/qqlG
+	ZemaBPUWFmmUzB8k+BBnT3JNhWCmKShNkVMbgoVUsSRoj2bphfL8pYvPAO9GedlEi8OSj/9Q9nL
+	6hfueXkNjMbZQsMUaP98QKqlPWITYWyQmLJEg0Fo3CSGohQ3G2x4QfM+gGZmN2gOcSOPGq/i/vF
+	02gttR7Mmb7dDBxMGtA==
+X-Received: by 2002:a05:600c:548e:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fede023d8mr167183535e9.2.1790588523350;
+        Mon, 28 Sep 2026 02:42:03 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:5d04:affc:2501:4248:c28:faa9? (dynamic-2a02-3100-5d04-affc-2501-4248-0c28-faa9.310.pool.telefonica.de. [2a02:3100:5d04:affc:2501:4248:c28:faa9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349fa1sm37984144f8f.8.2026.09.28.02.42.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 02:42:02 -0700 (PDT)
+Message-ID: <52f4d7a6-6bbe-41fb-863c-5c71644e20d4@gmail.com>
+Date: Mon, 28 Sep 2026 11:42:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260927014212.302743-1-bartualev@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] net: hsr: unfold GSO super-packets at the forward
+ entry
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
+ stable@vger.kernel.org, sdf.kernel@gmail.com
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-4-xiexinet@gmail.com>
+ <20260923104346.ur63K3h2@linutronix.de>
+ <2cf54664-c07d-471f-af6d-4b70e09626b4@gmail.com>
+ <20260925082954.MYDugnDU@linutronix.de>
+ <21bfa8a9-c488-49aa-b2a1-4d282fd51c42@gmail.com>
+ <20260928063824.0E3LO1vu@linutronix.de>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20260928063824.0E3LO1vu@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+> So veth. The test suite is using veth I don't remember that it was (is)
+> a problem there. But then there is no TCP.
+> Wouldn't it be also a problem if you attach veth interface to a bridge
+> and that large TCP skb would have to leave the bridge via a physical
+> port?
 
-On Sun, Sep 27, 2026 at 04:42:12AM +0300, Bartu Alev wrote:
-> The ASUS TUF Gaming A15 FA507 wakes from s2idle whenever the AC
-> adapter is plugged in or unplugged.
-> 
-> In the CPMGPIO0 SSDT, GPIO pin 23 (0x0017) is declared in the
-> \_SB.GPIO._AEI resource template as:
-> 
->     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullNone, 0x0000,
->              "\\_SB.GPIO", 0x00, ResourceConsumer, ,)
->              { 0x0017 }
-> 
-> and the corresponding \_SB.GPIO._EVT handler issues a device wake
-> notification for the AC adapter on pin 23 events:
-> 
->     Case (0x17)
->     {
->         Notify (\_SB.ACAD, 0x02) // Device Wake
->         Sleep (0x05)
->         Notify (\_SB.ACAD, 0x80) // Status Change
->     }
-> 
-> Both AC plug and unplug transitions therefore trigger a spurious
-> wakeup from s2idle. Add an ignore_wake quirk for this pin.
+When a bridge forwards a GSO skb from veth to a physical port, the
+outgoing TX path handles segmentation. validate_xmit_skb() checks
+whether software segmentation is needed. The networking core performs
+software segmentation as needed and can use hardware segmentation
+offload when available for that skb.
 
-I would think this is by design like that.
+The software HSR/PRP path needs to split the GSO skb earlier. Each
+segment needs its own sequence number and HSR tag or PRP trailer.
+We add these before calling dev_queue_xmit() on the lower device.
+The normal TX segmentation code cannot create these per-frame
+HSR/PRP fields for us.
 
-What is the issue? You unplug the device from AC with lid closed and it
-wakes up? Userspace should put it back to sleep in these cases. In Windows
-and ChromeOS there is something called "dark resume" that deals with this
-but I'm not sure if generic distros have that yet.
+TCP is the case I reproduced, but this is not limited to TCP. UDP
+GSO skbs can also pass through veth without being segmented.
+Passing normal PROFINET RT or GOOSE frames through veth does not
+make them GSO skbs. Patch 3 skips segmentation for these frames.
+They still follow the normal HSR/PRP forwarding path.
+
+> This does not sound like it is limited to hsr. I think it deserves a
+> helper similar to skb_linearize().
+
+Patch 3 already uses the common __skb_gso_segment() helper, then
+passes each segment through normal HSR/PRP forwarding. Do you mean
+a new common wrapper around this helper?
+
+-- 
+Xin
