@@ -1,203 +1,165 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012024.outbound.protection.outlook.com [40.93.195.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D26284880
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790569271; cv=none; b=iYIA6Vsn0rEjt3KBiKpdongl8LveE4aOe2VrzbbKUEp6J57ZuvZrEmpt0k8PYBhsEEY3RR2A7rwomPAuphYlSowFWCYREHyc+vuK2Hcbpk3NeQ7OY+efw1CU4kyxWfM1koCjXYonfNpdcvUU9A+OmD8GdtnijUleLCTw4p9OsrM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790569271; c=relaxed/simple;
-	bh=rHtAJu9myEVWaon00JtyR1KPg4HvRBlo/nQFJYHAa/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LsMzd+fbETAjblX2lWf+8qZMkjJ/uzP2DACuDVATePqBYNZBzSge8ocF7DjT6+y9aXBA5J0jbiq5H1SmMwNj5tSKzIFCtvfbF9UoISg151i/h7rSHBHHA0m/Km0GeOoVptW0jRspOU5w/b6WmWy5UtkSw8PYSYP6awT69xqNZuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Od+fhAJI; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262BB14F70;
+	Mon, 28 Sep 2026 04:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790569561; cv=fail; b=VeZA1vKcvKv2dkGsF3fI+UTHYqgi12Z2ijS659GzgA9yLV4Q7s6p6ir8iHQhDnOhyXGUyh1bk3Xybskj4GFoa91NA/fqsvr/25hhP/h4cpialMSU1pyx/whrblsI4WwLbmUc4VYchSq9CuYYgkZiP22CmBcqfXInhvlte4kgNl8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790569561; c=relaxed/simple;
+	bh=6CukcseP0aC6jqXN649AEo1z40fgyDOb5b7d34pbgIk=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=AkzBWg8a8rgTnbBsV7D06CF0a0cOfH5i2Ok32/TiLV6qZd35lmT5DaHJE7akopEl9PD6XBlMgzeit79+Sjkzk94vvIZOPRy/WRzP7XF5gjAUH02Zh7Yhg28T+vkBF8jpLl3DlZPMzGsJ7qlHGGP1QQCxcq/v3vb3n2WhWi4Xzwg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=okoWWk32; arc=fail smtp.client-ip=40.93.195.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Od+fhAJI"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0b6200eb0so1913294a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790569269; x=1791174069; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lbEpdPOy/URT06FWkQkW8rQL9Hp6kxZwEK3QU+C5YWY=;
-        b=Od+fhAJIPIoc86eC7LBryeoQfwqHGG26YQWTRj+hoPrB0MpJKlgxJry5v/T8wmp/ly
-         grFSAybQNv+EK5dIGux2FTO8m3TXAbjySJIN7ZOavma9i6aJhIJaKLb74ztkqys+PWrx
-         z0nvuBRtwYmva0huynCvE3sw7h8mfkFRuYgDatx6MpabwAhMSBg7fl14vn4iFwJkVbNr
-         noh/mjtBoeLT6iJJEPl4w0pjpknclnoyHm8ahK7iJax70iv74eXeIC9sgJW07JZVEUPn
-         Mbq0LgomK83ZpmZuRfwxfvxe4NtgaTjJZtqaLhTFRiuOZtugaNvSyUekbiJDb3cUpVH+
-         EyOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790569269; x=1791174069;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lbEpdPOy/URT06FWkQkW8rQL9Hp6kxZwEK3QU+C5YWY=;
-        b=M9Yt2qpc+Rqb2780x72ltSRyc7Z3B8d/6CRQQLrRKCEUltTUDq2bF4c/aUE1Ei65f6
-         1pOoLW7BOptI0z9JBJ2TNL2Tgmo1vTroMxVUmEO9gCk/cNPp2j9jX13lyY2m/VkHDTUb
-         JjYWbKvh36W9j9fh+GqkjnSik/3Fc6Frg7RYRQpcZEMIgWiROCZsasC3oqbbZOdUrNgp
-         rvDfNiUO55CrI2Zo932Su4Sg7mXh3s8rf8kkni+6wpmCvVt+oXFmB0ZgMkutSGIQiN0d
-         mnw4AnqLaKOSuSOB5zf9PHpv++ZkRNrk+Y/7DMRiuheCoR9sceJXAIW6FcVyTD00bVWT
-         qSWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKLx3wKGtkx0AB4bdca5uCFgI99tXfYrblC9HzTT0HhdIDNOmHws3cl/eJSRmNFmBByNH7ewNEdTm9hnQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAXk836/O+hmSTVWtbOHMwRET8+hF2RFs/HmtdY5pk4xke110I
-	eGO0EshcYEfuG0/wLXm2gcOXyBVeeSGGrL4KH48NdZ8sBrEhkcTBZLpi
-X-Gm-Gg: AYBFou0va+GGcGZrxzB9nbrIFZ9MoG5znUMHeRWHoYq5TQxJnZ22Iq9ePg8ae42nAxK
-	oyOvTY8oKxlYDlWUBvxjfd/VM2oHKR1IzeEZgrNxdHXCjbGkGv4Q9pn3uZA8cvtBvOZMhf+x6u0
-	4lHUfcvjlRp2WJIu/7mPxWkKDX92z0N8HMWhYZNcw7SHIW3PAGc0BHC6cAlgNg2COijprzyLdU9
-	SvBaJq/m6qAJRRFTw5T4QW5Lc0ornnZ7Esn2+9ZkrZvd1ysjjoYU+idCFsBt4YyrwGU4ZobM6V9
-	QgjoIXfLH5jvbkznfxbXRd+Ndw9e/25jLQdqm2DhSRs6sSDBrHxvqZZX3twVnLss/u2HS0lCmkj
-	fh7xI/yzFYMwNf9b8JcHDw9pKBnmaluCkJZzmRAK39ACpzseZm2n8qOepKBFo43Ee7mD1oul9i9
-	KVIMAVgErStu+55Rut8amYA6tn2O0L9LNCoX9ryfKqtl7kgM56KC3Fi4i/hoWE0yAFe9wkffKCy
-	cPrcZZ6HrBgOg==
-X-Received: by 2002:a17:90a:d40b:b0:39d:f2a1:3a with SMTP id 98e67ed59e1d1-3a0bb573f4amr7292011a91.15.1790569268815;
-        Sun, 27 Sep 2026 21:21:08 -0700 (PDT)
-Received: from localhost.localdomain ([167.71.204.91])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm18252804a91.6.2026.09.27.21.21.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 21:21:08 -0700 (PDT)
-From: Jemmy Wong <jemmywong512@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] sched/fair: Rename sgc->imbalance to sgc->pinned_task
-Date: Mon, 28 Sep 2026 12:20:18 +0800
-Message-ID: <20260928042018.10618-4-jemmywong512@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260928042018.10618-1-jemmywong512@gmail.com>
-References: <20260928042018.10618-1-jemmywong512@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="okoWWk32"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SmymbuySJVw+y7kNEbXZclHxVuBucxhcEXFVOOYfGXPYw/yVGs7nUjCG1UC1PpHZ+rKTfAEy4naWSnpazF1PVl4ry7Cvg8EbdKTAUlsLtTgvQJNrINSkBTow3hoUDpAP3Hal6pDbUdorKjnJO85x1ETtuDuJAGIi77n+JdJJFGtHMM8PLXMGzKqcY939tmSQhJlZL6j/HFyyEhYbPwCXE6+HCj3ew7JTgUOsXJq3xFUoAzfPbz12PFfs+WRpg9RdqkyNQyedMk0diyI33mnJRTbPuIK4hmoaOHqBqZFiKcjThsWH+DvX/I55/ET2X+YPlPsttZq2b7OsQU1t9RJTIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6CukcseP0aC6jqXN649AEo1z40fgyDOb5b7d34pbgIk=;
+ b=wtDrnnTbmKs07FQf0b2g2fQQN795e9YNctnvnO9Fz+bBfKGw4JZR8wtgFuoppJRsRV7qWojEom+toVdxuxnaHo3IHQiIZZ32lQtZc2F7WBhrDMQhBHSh3rtl1uSRXxK7E4idcVRriRnyBzpC3r6rtL9l1AyrLr94ECgiYWB5h3VGOw22GwFqw+IYi3mmxChBpgdJosdNgRdWokaARzOi5drrnk6QGVvjbMQOTD6HifpH/xLDgDWTjXhzQ4KdiCya4IPUw47MetdNZhld2isaFJH7LIlxZ9bc0+q1B9kc2kLieFQvl/ml9KVhtvSMd23YVOfIuyoLkQE9VG3gGQeTYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6CukcseP0aC6jqXN649AEo1z40fgyDOb5b7d34pbgIk=;
+ b=okoWWk327HVkFljXRQwt41h4JC0W1qgrnqCNl29Hkb4leMJb1pvECQKwgd95vNt2Xy9mXf/jqk8riHFa4NdfYorrvCRgWLhkUE88fCdvRLpBHxYedxxBy/4AnDgOA4dg+ZbMOdj4YNYMIQJfKmZATFkUscn9ZJJwc1+K9yrXkXxlFW8p7QWM3EiPChQTbGcWxFn6809PKKq/JPTLM9naFb2fGnw+7Y+c4y1/u61dkF1scrOae9I3gfhoa8asdXkWrLDvlgEzc/QDJTgOTP1kgAOa2laq8FI7JdKskUXwnB1u1Nt/DXvW3tJDnTPcnAmXe6FuOgX3RH0Pgv8M1ttFpA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DS7PR12MB6336.namprd12.prod.outlook.com (2603:10b6:8:93::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.23; Mon, 28 Sep 2026 04:25:56 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 04:25:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 13:25:52 +0900
+Message-Id: <DLQNXKFGJHZ1.SGPZQQPQ6BT9@nvidia.com>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 1/9] gpu: nova-core: gsp: cmdq: validate checksum
+ earlier on receive
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-1-c3f66ae73be4@nvidia.com>
+In-Reply-To: <20260927-cmdq-rpc-v2-1-c3f66ae73be4@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0010.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:386::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS7PR12MB6336:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc9eed63-144e-4a2f-a452-08df1d1896c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|10070799003|7416014|366016|1800799024|11063799006|56012099006|4143699003|10067099003|22082099003|11062099010|18002099003|7136999003;
+X-Microsoft-Antispam-Message-Info:
+	7r8vUoxIE7xkG6EKjI75+ul8OXAIay8NCucDUsWr3+XYUfWhvfLj1B0FUBPWwkU1u63KxMEVOdfz3T/c5y4ixDEP4MrGX2vB/846vyGezoodyblL9eqQf98dIbs1D0HXAg7UbaQC/Dj7dloejEXEQobRg6byhigcW/zPp0J8jXjWQgvTLPivcZiKqU23q0LuTryHuqzHZrr92a10hV358oCBq9sgk/ok9Xfql/YtGznYBmxPmTNj0NUwVvuYHd+PGR4gBTyOg+o7GJdgOBxvP6BGPHlYC7Z2DYYQ/x1Lo0JjhwRRo13ZxjnVbXIulYmLzjYiwIYIqFYvA5Ugas98MtAxmlCqgwEJB0mBAtUnHS9tqCpFotX+a4yoNQxlFLZaI+n+HbPayGpiEFCmKjRoJRaD135E2DtFPh+JedA+9q+3DqgUS34xuPAz5O+wNqpq8HkuxBYe2SQm0lzWBd4OrQTsN6aswRFb8u5ayuFm6yetOnsboel16WiQTcq/otyk9YDzRRul05VldD65jmseL9Np814hR+vzRfkKcSX4Co++TrBO+dkAiTSwJ/XWMMiZ0TP93Uot3x+6u6kkHrpR3htOwAT8lMGbSir1ln7ZuYrzw5dwAmcTGocGLNjcu8QX0m9Xx3ShyI+oqoJ3WHxOLHdD2pmmwooqDtJIbmHpcDc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(10070799003)(7416014)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(11062099010)(18002099003)(7136999003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OHV0YzF1UU1wNmVnNWc5bzI0bFlxVTRDU0R4MVFEeHlrcTZWd3dubUxGTDZx?=
+ =?utf-8?B?OVhTVjZPbXlSTlo5Nk1BOW9KK1RKWVdaY1pLMHdyc1F3M0NDYUdVOGdzUk1F?=
+ =?utf-8?B?L0ZMZWlZSm5qeFY5Qm5EWWJiNlpuSVIrcnFYVDM4WDh6bTBEMldQVnA0UjZI?=
+ =?utf-8?B?NGI3YzJrL01Na3gzazlKL0JZKzNDQVl1cGpSb2pWZU1CeEk4c0NyaTZuM3pG?=
+ =?utf-8?B?ZWZMVVBLYnhzM2JpRldxWEFZY25NYm9pcmY4VisvdCt0RXVZS3NPK1p2Y0pi?=
+ =?utf-8?B?b1VpOW82U2M2K1JJK0Znbkx4Z2ltc2R2Y2x2S20rWm9UTGE4WDczeklxcXoz?=
+ =?utf-8?B?Q0x1T0dtekpUUzVQSlpNeklBdm1KWXFxRDBTUkpISWNteFVnaUtraVdKR3Fj?=
+ =?utf-8?B?K216ekVDSngrby9HQlJYY1BmaVh0WXRReXM2dDkzelg3VExDNWsrYktiWnJ6?=
+ =?utf-8?B?cHZxZC9Qa1FQMzZxTG50bFpDRlJGRlZZYjYzU3RHRExCNFhCWmI4MHR1UFRs?=
+ =?utf-8?B?a0dBS1YyOStJeVo2aG1CN25XdUFGRU03a1gwdlZPODZSemZLNmhxNzRxSk1v?=
+ =?utf-8?B?NFdyOWJGYi8xL0dSalhLTCs3VWxGaFQ4OEU5azByTHZKQVFMcTlhUnJCdWp6?=
+ =?utf-8?B?UGU4SW1kSGIzZ0dnSHJ5V0FnbURWKzRIUkV2ZHFYNmtzMHZmU3dwcS85V3ZL?=
+ =?utf-8?B?YUJialkxRmZjbHNVSThlQlRtSjFFdzgyQ0FSdWZvT3lacHdadFpqR3UzOXA5?=
+ =?utf-8?B?Y0tyVllvcWpuRWhLa3FlcUNndXVVNnRiYm8rTFBqdDI1SlFGeGVlNnQ0RG5v?=
+ =?utf-8?B?REtyOGg3NDRJQmhJTkxSRlRjUk5Hc0NrVW9teFQraktQeWlPZ1dldDFqaHhB?=
+ =?utf-8?B?UUZhM2pnb0NCMWc4RjhGay9EZk45MTJCcEhibXNvSHhPSkl2aFFqb0RicGw1?=
+ =?utf-8?B?eVowMWxUUVlUTFlHRk4xK25BeG5EZ1kwS1hoVG41Q0l0aldqdlZmSDhyWGgw?=
+ =?utf-8?B?eUhqenQ1L3R3UDZhN1l1ek93NXIxczMyd2IrOEp6VVBwVDI2ZTVodVcvVStk?=
+ =?utf-8?B?empacnMvVGtZTGNBeG16Ujc4eDhldlNnQmdiUlVtWkZSZDQwdHpZaTZWMkox?=
+ =?utf-8?B?NDl0QThWTk9EU0wyeVpJbmRldnZVajRHb2I0MU5xWG03SkRsNWZ6M09BR2dp?=
+ =?utf-8?B?R2JoQUdTM1Z0RmZRZnFIQlpaaHJ1aFAwSFBRZTRoVk8yRDlSV21LOE9nUEI4?=
+ =?utf-8?B?NDVOUFcwVGpWUlI0dXRNMmdtQWN1Q0pNNk1OSnhmNklmVU9DVDkxMDBaQmJL?=
+ =?utf-8?B?aXU3MGVoNzZva2xUUFhtWlM2MjhvekJyWm1aUHlRcnI5NUFjdUF1V1YrdmNl?=
+ =?utf-8?B?NW9ubFZMZ0pEVUV2VERzbUZFeEIwUWdFWDc3QjdGNzBOaWFXblozRHVKWTBD?=
+ =?utf-8?B?dmZVTzc4UWRLdmgvM0RTZnlzTVZQQmFRZUpveWxacGJ4U01oKzlOSUwyYVRK?=
+ =?utf-8?B?cjEyRTNQalJtMk5Bc2FXSTJrOVpaV1lWN2RPSWV0L2Q1RG9mTG05K2poWWVY?=
+ =?utf-8?B?UEZnT3cydk5YQkRObkhHOWtlSWF2bk9XejNlSktyQnJISk9xZUN0RmdYUmFl?=
+ =?utf-8?B?UXMvTjVrZDRxdVB4eTQyYk5RME1sNzViVlhocnUwUVl3bk83NENtcUxiK1VZ?=
+ =?utf-8?B?emVaN2tibnhEdWU3MjJFdnpWbkNWdDZqYmN5TzBDUXc5WWdJU1hleWYwM2p1?=
+ =?utf-8?B?QzlaM3NQZGx6V0hnMUwyNi9TM0h3Skx0dXZpVzU1blpxMnRPd25SZkdIbkRT?=
+ =?utf-8?B?RFA1aGhpS3RmZG1vZmZ6UmVMMlBPazdyVDM4dHZCWll0REhkRm5MdmNPSGJM?=
+ =?utf-8?B?MGVmZTN1ekNlbUtBQ0FLWithUGY3NEtDRmUzMlBpeHJKbkFZM1Vvb0VMTFM3?=
+ =?utf-8?B?Z0JFckgyWHNmQzVaVXlLSSszUUpwdzRuOGhmekV2OUg5dnJwWDlrV0RRTVRV?=
+ =?utf-8?B?WXNXdzNlOHFzSXRRZHN5SW5iRmx0M0ZNdklvQndJY1RnNjk2YW84QjF5SU1s?=
+ =?utf-8?B?Tm44OSszbjV3VGRVZ2JOZW5DV2NhbExVQnY0cTNjbFdGazJxSVQyN2U4WkFw?=
+ =?utf-8?B?WVRHZFRqVmxIZVVFb3BuNUtVSmZ4T0Z6cUtxUkhBc0pFZlArNWFQN1BZUDhE?=
+ =?utf-8?B?bnlyanc0cXY1eHNwUUk1UWdHYUt6ZHF3VGxhbkU2Uktzem80MnRUdEhaN3Jl?=
+ =?utf-8?B?ejUwbGxmVUgwVS9XRlhBbXA5NW5EbStHR0l5K1lGTHgxMWxDL2pHdW9GL1lX?=
+ =?utf-8?B?MnFhU09wdVVvRmZYKzVTOWIrcFZXUmZhZXdWNk5CUjNDOHdDZENIVkJIYU56?=
+ =?utf-8?Q?6+HpUUq8/sWliIa1FiF0fpp9Mzs36vmBbrT5UXAFBnAGH?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1vU0gnWCmhz8kw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc9eed63-144e-4a2f-a452-08df1d1896c7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 04:25:55.7608
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UdwepX6Q08mcUN5GaUa0WmrXld/99V57JG61zDeKBsdj75X216+uv2rXJjjB+Pvp+Lj57di0y/xWfu0KF5ABKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6336
 
-sgc->imbalance does not describe a load skew either. It is set only
-when a child domain failed to balance because some tasks were pinned by
-cpus_ptr, and the parent then classifies the group as group_pinned_task
-so that it can force a migration.
+On Sun Sep 27, 2026 at 10:46 PM JST, Alexandre Courbot wrote:
+> The checksum validation error message of `wait_for_msg` prints the
+> message's sequence number before validating the checksum.
+>
+> But the checksum is part of the transport layer, and it not validating
+> indicates a corruption that could very well be in the RPC message
+> header, meaning the value of this field cannot be trusted.
+>
+> Furthermore, the transport layer is not supposed to know the kind of
+> message it transports, and it accessing the RPC header is a layering
+> violation.
+>
+> Thus, move the checksum validation before we start looking at the
+> message header, and drop that information from the error message.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-The old name also collides with env->imbalance, the amount of load
-still to move, and with imbalance_pct. And after the previous rename,
-sg_imbalanced() returns group_pinned_task, so the helper and the group
-type no longer agree.
+N.B. this means that checking the length of the message (which uses the
+payload length) almost always gets replaced with a bad checksum error.
+But since we can't distinguish between corrupted data and something
+wrong with the lengths, we can't do anything about it anyway so lgtm.
+It also means we don't know which message had the bad checksum, but
+again I think this fine too.
 
-Rename the field to pinned_task and its reader to sg_pinned_task().
-
-No functional change.
-
-Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
----
- kernel/sched/fair.c  | 24 ++++++++++++------------
- kernel/sched/sched.h |  6 +++++-
- 2 files changed, 17 insertions(+), 13 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index aa63950976aa..43bdca636461 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11595,7 +11595,7 @@ static inline bool check_misfit_status(struct rq *rq)
- }
- 
- /*
-- * Group imbalance indicates (and tries to solve) the problem where balancing
-+ * sgc->pinned_task indicates (and tries to solve) the problem where balancing
-  * groups is inadequate due to ->cpus_ptr constraints.
-  *
-  * Imagine a situation of two groups of 4 CPUs each and 4 tasks each with a
-@@ -11623,9 +11623,9 @@ static inline bool check_misfit_status(struct rq *rq)
-  * subtle and fragile situation.
-  */
- 
--static inline int sg_imbalanced(struct sched_group *group)
-+static inline int sg_pinned_task(struct sched_group *group)
- {
--	return group->sgc->imbalance;
-+	return group->sgc->pinned_task;
- }
- 
- /*
-@@ -11700,7 +11700,7 @@ group_type group_classify(unsigned int imbalance_pct,
- 	if (sgs->group_llc_balance)
- 		return group_llc_balance;
- 
--	if (sg_imbalanced(group))
-+	if (sg_pinned_task(group))
- 		return group_pinned_task;
- 
- 	if (sgs->group_asym_packing)
-@@ -13619,10 +13619,10 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- 		 * We failed to reach balance because of affinity.
- 		 */
- 		if (sd_parent) {
--			int *group_imbalance = &sd_parent->groups->sgc->imbalance;
-+			int *pinned_task = &sd_parent->groups->sgc->pinned_task;
- 
- 			if ((env.flags & LBF_SOME_PINNED) && env.imbalance > 0)
--				*group_imbalance = 1;
-+				*pinned_task = 1;
- 		}
- 
- 		/* All tasks on this runqueue were pinned by CPU affinity */
-@@ -13722,21 +13722,21 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- out_balanced:
- 	/*
- 	 * We reach balance although we may have faced some affinity
--	 * constraints. Clear the imbalance flag only if other tasks got
-+	 * constraints. Clear the pinned flag only if other tasks got
- 	 * a chance to move and fix the imbalance.
- 	 */
- 	if (sd_parent && !(env.flags & LBF_ALL_PINNED)) {
--		int *group_imbalance = &sd_parent->groups->sgc->imbalance;
-+		int *pinned_task = &sd_parent->groups->sgc->pinned_task;
- 
--		if (*group_imbalance)
--			*group_imbalance = 0;
-+		if (*pinned_task)
-+			*pinned_task = 0;
- 	}
- 
- out_all_pinned:
- 	/*
- 	 * We reach balance because all tasks are pinned at this level so
--	 * we can't migrate them. Let the imbalance flag set so parent level
--	 * can try to migrate them.
-+	 * we can't migrate them. Let the pinned flag stay set so the parent
-+	 * level can try to migrate them.
- 	 */
- 	schedstat_inc(sd->lb_balanced[idle]);
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..b64966dde395 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2257,7 +2257,11 @@ struct sched_group_capacity {
- 	unsigned long		min_capacity;		/* Min per-CPU capacity in group */
- 	unsigned long		max_capacity;		/* Max per-CPU capacity in group */
- 	unsigned long		next_update;
--	int			imbalance;		/* XXX unrelated to capacity but shared group state */
-+	/*
-+	 * Set when a child domain cannot balance pinned tasks.
-+	 * XXX unrelated to capacity, but it is shared group state.
-+	 */
-+	int			pinned_task;
- 
- 	int			id;
- 
--- 
-2.54.0 (Apple Git-157)
-
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
