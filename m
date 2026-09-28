@@ -1,205 +1,289 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194524A689C
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461F24A386D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597573; cv=none; b=AFXYqD2YXuJlUrc8Ec62h79NnFRWMuquaGetILHPIZpBltVCjsEWctLpOq1Iulx2bldbObEuEJM5x7PyhaHjKrl5cpHDA2AuUKGhqrerj7+aQqW9EgwsmtcJN0R3SGUUz/War87Ppkq2E9Tzardxjl1tbBwfWOghW5VgB6qpu4E=
+	t=1790597592; cv=none; b=Jz77pRYlFes5lgoXzIw6uV39tPYYlR19MitAabDjqSgUWptrgC1Oc1gU1Iss8l3IdRUiqQMp7dklZ6kdREyNs/HmxrScmh9ukfQkVCDDB1glBTZCQoFeCvWkQl1ez4UnjZeIbLY4vMRLZsF+G3HUq0Gv8qgFYxnHnzEX+La7zXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597573; c=relaxed/simple;
-	bh=A8WQjby6bYLoQXrcT6w7S9TK7OfFS8eOPE8WAN4eFRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=saXVj6fRNYEt48cB5RzijfeYmExB5+Z4uSCPLRsxPyCU/aeu+/pRSMdzhHQDTkqrfs5S7YbF1yIa+RkAMm22fvAhKj0rHN08+dXg5zqfHdbf/UCPT2evipZqP0tYL+s0Y9XL1YzTJj4yGPrvl5bxnNU5p8hWO5uHoCoFvs1mzhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EM2ykc2s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790597592; c=relaxed/simple;
+	bh=pAjRehj8F2j7YLpJBXjI5H4PFUnfO1AJMSx44eoRbVk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=pihm6J22+PH8oLXxfNUWD24n+T4B4Py6gmZI0BWCZwhvXD1XVhJVE+VCvi9mVLQDLppYHja0ojk/xjzp+FIZFDg13e7uhGUfLY2rHXuAHc/ziGxOVSCQx5/LkLGT4p8rfQKQ+qmNXwSHq7I9sMLlB7ep0RfH63FkG6amgFOAu2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pG531J3D; arc=none smtp.client-ip=74.125.230.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EM2ykc2s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03C81F000FF;
-	Mon, 28 Sep 2026 12:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597571;
-	bh=NbUJiBdpcS0GzzmqNyFIkdeNdQt2pSr1lbMMC4G4AE4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EM2ykc2sM19KUh3ECVkSBtjYmF1T/YD422txRparDWpIGchUyfu0bytpEKHETTBr5
-	 yUYEcTH1X3HLe+PqbcVI/+dICbEoRpmgiPWApitwbfuBy5hXFbYulC0VAXVJIy1Yi4
-	 ChJaV9rq33xfDxawCarfPUAEmeYUekEgN2kvUBjhOm4lQF0f6p+BAl0Q+WLbNdbNf/
-	 JPqIKWyFFZDCtb9qgI6o5h0tLF8FEKyLWtRMAlFanVX0Bg2OS0WWwL4vjgbJ4uB8as
-	 Zl/isFqpW7Z6FL3tOqgju/5R6d752QxK/jZ8kZhxr0mo1AhZumzVGMPIK1dU/M/UpW
-	 KIsD3dKSupsVg==
-Message-ID: <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
-Date: Mon, 28 Sep 2026 14:12:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pG531J3D"
+Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-93c632d5d42so117073585a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:13:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790597589; x=1791202389; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bxl5WCUMMfk8Oam1N+6ZJljVTjYwuVFvrDnpSkfKV00=;
+        b=pG531J3D1AnTLru/UdUfCK82CNJ1HPIz3WdkCnYwlTF4hlJn3KI/KimUkzsocGHY+S
+         kgBWsVMsMdIYze0wPFK5MZzVdudTcyORwMRBm9v9jkgAqr57W4+QDexRLeu9OVzbchB+
+         vVnGTLcU5lCBWcNhSK7wAX0oLk41YJ+RAdo73506IK1fj40fkOsoeqeJ//KipD5XmYIS
+         UcP2FqbZq7U5QShfnd+SmbksEIT/ROOZuVObR/do4+dAAtH8gnvCtlnRsjZhWRBsDUVh
+         x4r1HkAQHcD7RFSUSEr2Gm0HRgIue9UjLXszXezqDbMMf44K3LqP1rUTS+xiLolwfAdQ
+         eYfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790597589; x=1791202389;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bxl5WCUMMfk8Oam1N+6ZJljVTjYwuVFvrDnpSkfKV00=;
+        b=GFOqisV3xYhI8nHmBGBY/k6Dv4MqS/9reUb5oe1pD0C02Gxf1oePhMWwi/Ag6r6fU9
+         buJPycIYyKsze9C3EZt920hPgyeZJCckuJBRTHzITnbShOAE/tNI36zVtqpr2aB9lfzm
+         S6yGv6rqmiOuMKKLSbnO75YwXFNEn6qoMJH6bhi5jlspkpIVU3PaJ45wZ2fJm3JBBxyD
+         3ojq4WegndtzF726/dirLkqdDsf5mRC2O9AIGDGCeww01Hs6Jjz7yGAIHpst0rLNPVNG
+         mr7H3U/OWRRfUlqGGjMnywLhraOcWRlBKKuBRNYWcz+2QEeeVaKX92k89sd/TfiGkwV7
+         1UMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWT/x9S013fdg7V8dRg45fxxKkT0MCLNt7zX/6t/3FpLfhqt2iNzpVds85YItXRbEYzXVW6QTiXnlbaGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHvoxsh0Mmsh5hc0UMPFLpw2XiYKAJ8hrm/93inDtPSQJoXgU9
+	F3S2YiW8tpBYAUNVkEsSEVLKQjoyGhgeVq9xVcdkUoZTJEigI8Zg8yjY
+X-Gm-Gg: AYBFou1jhvCl4obsGIE0qu8q/ZrH3IOPR0KdvzzvNEODcfOhM3D2WKkWniaN8Q0urIl
+	ZsZ2f+rcVI41keS5sF0EXprU4lpeN0YhaH1Dy6lShEN89NzDBnIBOtcI7OfF7Rr8Ia9v13n+np3
+	7CAVzWebVExZKkMc7MaVW8BHyVUWGnvysMW9lwqPS2GR4+WNzBglTpMEonJOtktBCXihDb0X484
+	7oHwpmw8Q2PNYHm739HodpP3jdiq99aXwb7BR1foBFRMswvJViK1y2Z8id9hCBHAj42AIPBj4hy
+	R1pXAIKhVNlPOYrP7xjZxoMcoIjO34l0UHhWTyGsT6hFMiBfqWO/lwwdyswAxmZ9/cxcFJzEiAf
+	5yJ3fBK/Py6V6UknaoqTRx8PGc4IbSBBFJGJMOLylP/3xT8noNZ02UWTolGGloBLwKaOXLHIvem
+	RjQwFoVnPaqnFAZm/h0kZsKIqMzCEcm34h63nCHYIuoY0NR5zeDJSiqHdhITr+00Pt9fftXPBmx
+	gg9h+erqq9DRg==
+X-Received: by 2002:a05:620a:404b:b0:93c:8544:6ad8 with SMTP id af79cd13be357-93c85446bcemr165910085a.28.1790597588505;
+        Mon, 28 Sep 2026 05:13:08 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813a4587sm130752085a.7.2026.09.28.05.13.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 05:13:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
- pages
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org
-Cc: vbabka@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
- ziy@nvidia.com, ying.huang@linux.alibaba.com, wangkefeng.wang@huawei.com,
- tujinjiang@huawei.com, mgorman@techsingularity.net, kaitao.cheng@linux.dev,
- chengkaitao@kylinos.cn, muchun.song@linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
- <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 28 Sep 2026 08:13:07 -0400
+Message-Id: <DLQXVBJ05DI0.3CGZJGFQTFXRU@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 1/8] eth: mpnic: add scaffolding for Meta
+ Platforms NIC
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260924-linux-mpnic-v2-1-4badc9b58b9e@gmail.com>
+ <179055369730.3145.8922011696640547930@kernel.org>
+In-Reply-To: <179055369730.3145.8922011696640547930@kernel.org>
 
-On 9/28/26 12:58, Yuanhe Shu wrote:
-> memory_failure() sets PG_hwpoison on the error page before it manages
-> to pin the folio via get_hwpoison_page().  Compaction running on
-> another CPU can isolate that same folio in the meantime, so
-> HWPoisonHandlable() then fails on !PageLRU(), the retry loop in
-> get_any_page() exhausts itself and memory_failure() gives up with
-> MF_IGNORED - while compaction still has the folio on its
-> migratepages list, flagged PG_hwpoison.
-> 
-> Nothing stops compaction from migrating such a folio afterwards.
-> The corrupted data is copied into a fresh folio that carries no
-> poison marker, and no hwpoison PTE entry is installed on the way
-> back: the userspace mapping is silently redirected to the corrupted
-> copy and no SIGBUS is ever delivered.
-> 
-> Note that a large folio with a PG_hwpoisoned subpage can also sit on
-> the LRU without any race at all, via the THP-split-failure path of
-> memory_failure() (kill_procs_now() + MF_MSG_UNSPLIT_THP).  Guarding
-> compaction is therefore needed regardless of how the race in
-> memory_failure() itself might be addressed.
-> 
-> folio_mc_copy() does not close this hole: it only detects corruption
-> at copy time and only where ARCH_HAS_COPY_MC is implemented (x86_64
-> and PPC64; elsewhere copy_mc_highpage() degrades to a plain copy).
+On Sun Sep 27, 2026 at 8:01 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] eth: mpnic: missing PCI BAR0 length validation leads to out-of-
+>   bounds MMIO access
+>
+> --
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/e=
+thernet/meta/mpnic/mpnic_pci.c
+>> --- /dev/null
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+>> @@ -0,0 +1,147 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+>> +
+>> +#include <linux/dma-mapping.h>
+>> +#include <linux/err.h>
+>> +#include <linux/module.h>
+>> +#include <linux/pci.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/types.h>
+>> +
+>> +#include "mpnic.h"
+>> +
+>> +#define PCI_DEVICE_ID_META_MPNIC	0x0014
+>> +
+>> +static void mpnic_mmio_err(struct mpnic_dev *mpd, u32 reg)
+>> +{
+>> +	/* Hardware is giving us all 1's reads, assume it is gone */
+>> +	WRITE_ONCE(mpd->uc_addr0, NULL);
+>> +
+>> +	dev_err(mpd->dev,
+>> +		"Failed read (idx 0x%x AKA addr 0x%x), disabled CSR access, awaiting =
+reset\n",
+>> +		reg, reg << 2);
+>> +}
+>> +
+>> +u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg)
+>> +{
+>> +	u32 __iomem *csr =3D READ_ONCE(mpd->uc_addr0);
+>> +	u64 value;
+>> +
+>> +	if (!csr)
+>> +		return ~0ULL;
+>> +
+>> +	value =3D readq(csr + reg);
+>> +
+>> +	/* If any bits are 0 value should be valid */
+>> +	if (~value)
+>> +		return value;
+>> +
+>> +	/* All ones can be a valid value, so confirm against a register
+>> +	 * which never reads that way on a live device.
+>> +	 */
+>> +	if (reg !=3D MPNIC_BDQ_SPARE && ~readq(csr + MPNIC_BDQ_SPARE))
+>> +		return value;
+>> +
+>> +	mpnic_mmio_err(mpd, reg);
+>> +
+>> +	return ~0ULL;
+>> +}
+>> +
+>> +static struct mpnic_dev *mpnic_alloc(struct pci_dev *pdev)
+>> +{
+>> +	struct mpnic_dev *mpd;
+>> +
+>> +	mpd =3D kzalloc_obj(*mpd);
+>> +	if (!mpd)
+>> +		return NULL;
+>> +
+>> +	pci_set_drvdata(pdev, mpd);
+>> +	mpd->dev =3D &pdev->dev;
+>> +
+>> +	return mpd;
+>> +}
+>> +
+>> +/**
+>> + * mpnic_probe - Device initialization routine
+>> + * @pdev: PCI device information struct
+>> + * @ent: entry in mpnic_pci_tbl
+>> + *
+>> + * Return: 0 on success, negative on failure
+>> + **/
+>> +static int mpnic_probe(struct pci_dev *pdev, const struct pci_device_id=
+ *ent)
+>> +{
+>> +	void __iomem *uc_addr0;
+>> +	struct mpnic_dev *mpd;
+>> +	int err;
+>> +
+>> +	if (pdev->error_state !=3D pci_channel_io_normal) {
+>> +		dev_err(&pdev->dev,
+>> +			"PCI device still in an error state. Unable to load...\n");
+>> +		return -EIO;
+>> +	}
+>> +
+>> +	err =3D pcim_enable_device(pdev);
+>> +	if (err) {
+>> +		dev_err(&pdev->dev, "PCI enable device failed: %d\n", err);
+>> +		return err;
+>> +	}
+>> +
+>> +	err =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(46));
+>> +	if (err) {
+>> +		dev_err(&pdev->dev, "DMA configuration failed: %d\n", err);
+>> +		return err;
+>> +	}
+>> +
+>> +	mpd =3D mpnic_alloc(pdev);
+>> +	if (!mpd)
+>> +		return -ENOMEM;
+>> +
+>> +	uc_addr0 =3D pcim_iomap_region(pdev, 0, MPNIC_DRV_NAME);
+>> +	if (IS_ERR(uc_addr0)) {
+>> +		err =3D PTR_ERR(uc_addr0);
+>> +		dev_err(&pdev->dev, "Mapping the register file failed: %d\n",
+>> +			err);
+>> +		goto err_free_mpd;
+>> +	}
+>> +	mpd->uc_addr0 =3D uc_addr0;
+>> +
+>> +	pci_set_master(pdev);
+>> +	pci_save_state(pdev);
+>> +
+>> +	return 0;
+>> +
+>> +err_free_mpd:
+>> +	kfree(mpd);
+>> +
+>> +	return err;
+>> +}
+>> +
+>> +/**
+>> + * mpnic_remove - Device removal routine
+>> + * @pdev: PCI device information struct
+>> + **/
+>> +static void mpnic_remove(struct pci_dev *pdev)
+>> +{
+>> +	struct mpnic_dev *mpd =3D pci_get_drvdata(pdev);
+>> +
+>> +	kfree(mpd);
+>> +}
+>> +
+>> +static const struct pci_device_id mpnic_pci_tbl[] =3D {
+>> +	{ PCI_VDEVICE(META, PCI_DEVICE_ID_META_MPNIC) },
+>> +	/* required last entry */
+>> +	{}
+>> +};
+>> +MODULE_DEVICE_TABLE(pci, mpnic_pci_tbl);
+>> +
+>> +static struct pci_driver mpnic_driver =3D {
+>> +	.name		=3D MPNIC_DRV_NAME,
+>> +	.id_table	=3D mpnic_pci_tbl,
+>> +	.probe		=3D mpnic_probe,
+>> +	.remove		=3D mpnic_remove,
+>> +};
+>> +
+>> +module_pci_driver(mpnic_driver);
+>> +
+>> +MODULE_DESCRIPTION("Meta Platforms Network Interface Controller");
+>> +MODULE_LICENSE("GPL");
+>>
+>
+> [Severity: High]
+> mpnic_probe() maps BAR0 with pcim_iomap_region() but never checks
+> pci_resource_len(pdev, 0) against the register file size the driver
+> expects. pcim_iomap_region() maps whatever length the device
+> advertises. A device exposing a small BAR0, including a spoofed one
+> behind Thunderbolt, ends up with a mapping much shorter than the CSR
+> indices in mpnic_csr.h assume.
+>
+> mpnic_rd64() and mpnic_wr64() compute csr + reg with no bounds check.
+> The all-ones fallback in mpnic_rd64() also unconditionally does a
+> readq() at csr + MPNIC_BDQ_SPARE. That is byte offset 0x10804f8,
+> roughly 16.5MiB into the BAR.
+>
+> Nothing calls the accessors in this patch yet. Once the follow-ups
+> start touching CSRs from probe, a short BAR plus a single all-ones
+> read would run past the end of the ioremap. That would fault, or hit
+> whatever else happens to be mapped there.
+>
+> Could you reject the device in probe when BAR0 is too small to hold
+> the register file? For example, compare pci_resource_len(pdev, 0)
+> with the end of the highest CSR the driver touches (at least
+> MPNIC_BDQ_SPARE * 4 + 8) and fail with -ENODEV. What is the
+> architected size of BAR0 on this device?
 
-Then they should implement it.
-
-> Software-injected poison - what MADV_HWPOISON and the hwpoison-inject
-> interface produce, and what tests and fuzzers exercise - never traps
-> during the copy on any architecture.  
-
-And these are debug interfaces, why do we care?
-
-> An isolation-time check avoids
-> the migration entirely, on all architectures and for both real and
-> simulated poison.
-
-It's racy. See the link below.
-
-> The check itself is two flag tests on the head page (PG_hwpoison
-> and the folio-level has_hwpoisoned marker), not a walk over
-> subpages.
-> 
-> Neither page reclaim nor memory hotplug lets such a folio be
-> copied into a fresh one: reclaim unmaps the poisoned order-0 page,
-> and skips the hwpoisoned large folios it cannot safely unmap, in
-> shrink_folio_list()
-> commit 1b0449544c64 ("mm/vmscan: don't try to reclaim hwpoison folio")
-> commit 9f1e8cd0b7c4 ("mm/vmscan: fix hwpoisoned large folio handling in shrink_folio_list")
-> while memory hotplug refuses to migrate them in do_migrate_range()
-> commit 5f5ee52d4f58 ("mm/hwpoison: introduce folio_contain_hwpoisoned_page() helper").
-> Skip them in compaction as well, for the same reason reclaim settled
-> on skipping: the UCE is rare and a race with compaction is rarer
-> still, so skipping is enough, and a later memory_failure() will
-> handle the folio if the UCE is triggered again - while a migrated
-> folio would silently propagate the corruption instead.
-> 
-> Deterministic validation on v7.3-rc4-75-g62f4c998b297: order-4
-> mTHP folios were brought into the stable "large, on LRU,
-> PG_hwpoisoned subpage" state by pinning a sibling subpage with
-> vmsplice and injecting MADV_HWPOISON on another subpage, which
-> makes memory_failure() take the THP-split-failure path; after
-> triggering compaction, /proc/kpageflags shows which poisoned
-> folios moved.  The unpatched kernel migrated 16/16 poisoned
-> folios and 16/16 clean controls in the same pageblocks; with
-> this patch, 0/16 poisoned folios were migrated while their
-> controls still migrated 16/16.
-
-
-Was any of this written by an LLM?
-
-> 
-> Soft offline is not affected: it only sets the poison marker after
-> its own migration has succeeded.
-> 
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> ---
->  mm/compaction.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index a049415512c6..491adcbc5313 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -1093,6 +1093,14 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
->  		if (unlikely(!folio))
->  			goto isolate_fail;
->  
-> +		/*
-> +		 * Migrating would copy the corrupted data into a fresh
-> +		 * folio with no poison marker; skip, as memory hotplug
-> +		 * refuses to migrate such folios for the same reason.
-> +		 */
-> +		if (folio_contain_hwpoisoned_page(folio))
-> +			goto isolate_fail_put;
-> +
->  		/*
->  		 * Migration will fail if an anonymous page is pinned in memory,
->  		 * so avoid taking lru_lock and isolating it unnecessarily in an
-
-See
-
-https://lore.kernel.org/linux-mm/20260707090136.52904-1-kaitao.cheng@linux.dev/
-
--- 
-Cheers,
-
-David
+This complaint was addressed in v1. For a pci device, we are assuming a
+malicious or spoofed device is out of scope.
