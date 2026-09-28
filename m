@@ -1,271 +1,275 @@
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D824E9C06
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D14973AA;
+	Mon, 28 Sep 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611329; cv=none; b=YgiA+eeSOsCdR8h2fMqd43eVqlEv5RHMYM3Pe6fCgEPxrw4ZmZWBZWBVMN7fjuvIVXxsT/iLmeHRNyA7k/bl/aIrIPfxeqTb+P+09F3Web/I9fNcjdMAnQxH4TzGaqlVxzPNkXIE0P1gayYfa5nbrNz/zkUrBFcxgp7/pXLIX40=
+	t=1790611351; cv=none; b=cUm6sTFU0RnDEXFUY6W2qFzw70iLhnfn4habXSBQF6bNH85faTWwMVczk6LU7DRtiKQnPnzYe1YYsKrAB6OG1z+k7x/aVv4mK14dwvEMbZIRH4T7o6DAPQ+vSfToKfmlzJaXU1nRo7dJda4c45/YK252Or/ZNFe3DWGOPdovFjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611329; c=relaxed/simple;
-	bh=73MGnpW2ieFcj+uF2YtDviAE85P/tXgPYLJC2bt+zfk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DVqarW1rCNKRxTJOE1B5n2/zVwW2QXSKM1WbfU3SGpX2yvOBYJBZ0OLpGByFpA6QU4lyhsIDGQYLOdOBv5cmhiIMLzGFVyBwoH4fHQJn7Y5PQKp2eVo24+iGQ+ko9IF8B0z16htPuGLRnEqy62FyS7yUgrgZ5xU7TlbBdWEb5MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=L2E1jlz9; arc=none smtp.client-ip=74.125.230.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790611351; c=relaxed/simple;
+	bh=kB2Grr9IfR5u5AI9gvycM4xtP0qy6KezVqhWqRj5hZM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QVYXe6zbwusvOcjpk0bLf0dEYm72A/QQd1autrdhg/97NW+J480tUHO6dSWBZuDif2MBThlnh+n4dW69Pyb9fpb0oX1cniAplu9d5SjMxi0DjQVplH/F66yPU2EMxh7uDlgHFNBS1Ma+cnzGUY85Yeh3bNSbj5MRuKhz3PlWL00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k1kmipKc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="L2E1jlz9"
-Received: by mail-qk2-f39.google.com with SMTP id d75a77b69052e-5332f3092eeso15151031cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:02:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790611326; x=1791216126; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yOR/7ZSeKreos8H7lYmMhOMWjlsRJzWvEJBuLJrOJv0=;
-        b=L2E1jlz9EiDSmIqhqprP+fxhaQveTrJjokHbK6S3mWT0mHI8qWRR9OFRVQLaCZxUT5
-         LMPy8867HFuJOFJhpr0j8tL7xCyyyd6ZF2nedX5RciCxwW4YDI/KH8srqxtYtita91XG
-         ZLNWWViW353EZasWgqF2teGF3T5jnaSs5WNzVBfufqAbD/Wh9Ry2OuYvz5UaJkP6GfrR
-         8IZ4KasSPx6kxnY5MXYFONUgC4UrbT8kDmz+5vZ3AsmE0//3I9CwNrVCambLzMb0H8MS
-         aPKxKmtxgfSuYbFMyfqFDITEzay2jgbDGbD+vc+m/iBbbmpuXvkz1Rh+QpFKFns1tF9x
-         ApXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790611326; x=1791216126;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yOR/7ZSeKreos8H7lYmMhOMWjlsRJzWvEJBuLJrOJv0=;
-        b=jI2stRyqfz67ffzMJk0VjDBATdzQ3jbdY5pn/5s2QPHwotbwLPuOJgHjpZwEUPXMrh
-         q0V2sA8QExXe2JaezwNzhVErW8sG3P/iHRmVPy5a57iTVNZnXGa9E1uvRn8Rn3m5xTpR
-         psxtU9itGQh19oFj3cBxhWMJeSaUHnDql86TcRAKZ1d40F5HdPrM+AQZNIjF1iKrVJo1
-         7SvI0UKZ1I4wHWxEsdDOchP7VjHJj3j77slBp+Lwy/NjssPZ3DqLMgz6mlwPul/9PtB3
-         hK90EjO/kL4HeopkJM8LNXYu6x4m4m86SKcWwg0rbyt1zh2Qozek7J9K3Idn06zLc3Zc
-         jYNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysCaOVTCOcn1XpUUkAY8PQk2Hh1gQ6OFc6g/pi4j6l9XOqbyEYdF1clQ3mXHNy5JUaLiVz0pYeTOIxJNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvb4L+2Zo8yOM3tIN8PKjQP7BbbFrYW/e2DmRgiP6t5ip6aams
-	w5FMLWrraNGclrYRrwBt67j2LZhyPjIRoOowJXziJd7x/73Y/PxCNrV7LPfmjIH39Z4=
-X-Gm-Gg: AYBFou1d82St4iqo0/G4ofd71qBL0gdbwgd7C45PxvTEtjgPvN/4ajQwHtXj88DTQfp
-	9054ttQMBFYHLT6/CUjdKwqWvndZGQW/WfGjuSrfpq5h782P7tTjouSo9EcOxeDaDXQ0KaZRZEO
-	B7zVdJROxaphRT7h1WYgQYe1677WKD70xJ294n2QHI2nMCtyMz7aydJcckPZWdFij4kh9DZ5sJ3
-	JzfeyDrRvd4FajX1j1gWh85yZ2OXjoo4J6uEKgfFh2GxqfTO+QLZ63Rhpa4u2AQfhNlrC3shYpM
-	USphaVyNyNAqsY0cb6VTFELKkRO2/AkyGIDCC0p4QKROHrCDHoMoDpwq8nCrFQrP0Flh8SXLEhS
-	/+A8Q9NuocLDzOj0eODPVuegj812QpC0q/TviVslCL4dluGMhZnY1nsaMyS1nwhhxRfYJ2njLY9
-	TDEFGv4IJxV67MPUICXBXRT5jNrvK0je1RJ9e/nzUpF1aYBEjbgv2ooEuzuwShni66JdtAtiyVV
-	zZ3ZSTmcfS3zrA=
-X-Received: by 2002:a05:622a:1393:b0:530:faa8:a51c with SMTP id d75a77b69052e-5330b68e2bamr204863121cf.34.1790611325711;
-        Mon, 28 Sep 2026 09:02:05 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322132696sm67048711cf.9.2026.09.28.09.02.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:02:04 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 28 Sep 2026 16:00:37 +0000
-Subject: [PATCH 1/9] ublk: keep queue canceling over canceled commands
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k1kmipKc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 33ECE1A0FDE;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 05597601BD;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C436103295A7;
+	Mon, 28 Sep 2026 18:02:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790611340; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=z+FTNcI1ZVOGKwAwbJoRaB+RsZ8LwvDolH15T9JS/r0=;
+	b=k1kmipKcbgZK4+GJAxsjcIf58jtCIK8Ge5m2VLrsc5Ogh51sBKvy57GnvRupbQn/aowVH2
+	fOZWSMGi/T29Rq3hzIXs3g4wpdEXw/wRKJnRbqcBGGHbCNHV96L/dj3wcE0IL47TJ4v0Xb
+	xdMqzefAm1ro38v6E4yIyy7npBFsltDigNYgMXI+MHxvIKkvcG1f2sued4say67tUtepFn
+	f0hyPinq8oEPPnPg7iossaiTuyf5ByO1x+gWYi11ELovX+eZlhvBig0Zy9iTgB3iWkQhqW
+	NYGugVv040UixzMO5+G0wm3W39CO4fPWo520T9ocP2ddYAJeM6E11rffaUMMcQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] clk: nuvoton: ma35d1: Use clk_hw pointers as mux
+ parents
+In-Reply-To: <1jeceeaaug.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Sun, 27 Sep 2026 19:00:07 +0200")
+References: <20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com>
+	<20260925-perso-ma35d1-upstream-clk-v4-5-f3697553391f@bootlin.com>
+	<1jeceeaaug.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 28 Sep 2026 18:02:12 +0200
+Message-ID: <87h5j974aj.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-ublk-cancel-stop-v1-1-4a4360232a46@toxicpanda.com>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-In-Reply-To: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com>
-To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
- Caleb Sander Mateos <csander@purestorage.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790611253; l=6903;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=73MGnpW2ieFcj+uF2YtDviAE85P/tXgPYLJC2bt+zfk=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QOOdBKQ97O44K8Ny2WCuJDHgD27SGq0h6IagqYgCGbR8yWxIRLgqtAvh84jBZ8SPnVyIKjL1XSO
- TuwFgY2JgaAM=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-ublk_queue_rq() dispatches a request to a NULL io->cmd and the kernel
-oopses when a queue got ready over commands which were canceled after
-being fetched. ublk_mark_io_ready() clears the queue's ->canceling once
-q_depth commands got fetched, and that count does not go down when a
-fetched command is canceled:
+On 27/09/2026 at 19:00:07 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-    task A                          task B
-    FETCH part of the queue
-    exits, its commands get
-    canceled
-    ublk_uring_cmd_cancel_fn()
-      queues marked canceling
-      io->cmd = NULL, command done
-                                    FETCH the rest of the queue
-                                    ublk_mark_io_ready()
-                                      queue is ready
-                                      ->canceling = false
+> On ven. 25 sept. 2026 at 17:10, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>
+>> The MA35D1 clock provider registers its muxes with parent data
+>> structures filling .fw_name. This is not the ideal approach since that
+>> would require a massive amount of internal clock names declaration in
+>> the DT. Since the DT does not play the game of exposing all these names,
+>> none of the parent lookups performed when instantiating the muxes
+>> succeed. As a result, these muxes get registered as root clocks, leading
+>> to a sadly flat clock tree and no frequency assigned to most of the
+>> peripheral clocks:
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              0       0        0        180000000
+>>  lirc                                0       0        0        32000
+>>     lirc_gate                        0       0        0        32000
+>>  hirc                                0       0        0        12000000
+>>     gtmr_gate                        0       0        0        12000000
+>>     hirc_gate                        0       0        0        12000000
+>>  lxt                                 0       0        0        32768
+>>     rtc_gate                         0       0        0        32768
+>>     lxt_gate                         0       0        0        32768
+>>  hxt                                 0       0        0        24000000
+>>     vpll                             0       0        0        1224000000
+>>        dcup_div                      0       0        0        612000000
+>>     epll                             0       0        0        6000000000
+>>        epll_div8                     0       0        0        750000000
+>>
+>>        epll_div4                     0       0        0        1500000000
+>>        epll_div2                     0       0        0        3000000000
+>>           emac1_gate                 0       0        0        3000000000
+>>
+>>           emac0_gate                 0       0        0        3000000000
+>>
+>>     apll                             0       0        0        6048000000
+>>     ddrpll                           0       0        0        266460000
+>>        ddr_gate                      0       0        0        266460000
+>>        ddr6_gate                     0       0        0        266460000
+>>        ddr0_gate                     0       0        0        266460000
+>>     capll                            0       0        0        2400000000
+>>     hxt_gate                         0       0        0        24000000
+>>  clk_hxt                             0       0        0        24000000
+>>  spi3_mux                            0       0        0        0
+>>     spi3_gate                        0       0        0        0
+>>  spi2_mux                            0       0        0        0
+>>     spi2_gate                        0       0        0        0
+>>  spi1_mux                            0       0        0        0
+>>     spi1_gate                        0       0        0        0
+>>  spi0_mux                            0       0        0        0
+>>     spi0_gate                        0       0        0        0
+>>  i2s1_mux                            0       0        0        0
+>>     i2s1_gate                        0       0        0        0
+>>  i2s0_mux                            0       0        0        0
+>>     i2s0_gate                        0       0        0        0
+>> ...
+>>
+>> Apart from the wrong clock tree representation, it means that none of
+>> the device drivers (spi & i2c in the excerpt above) can actually query
+>> their clock rate, or they would get 0Hz.
+>>
+>> Instead of declaring the parents in the clk_parent_data structure, use
+>> the actual HW clocks to lookup the parents directly: parents are
+>> described by an array of indices into the controller's main clock table
+>> (like in other clock controller drivers), which the "new" mux helper now
+>> resolves.
+>>
+>> The WDT and WWDT muxes list the /4096 children of PCLK3 and PCLK4 among
+>> their possible parents. Those two clocks are now registered by the
+>> previous commit, so their entries in the parent tables are restored
+>> instead of being turned into invalid slots.
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              1       1        0        180000000
+>>     dbg_mux                          0       0        0        180000000
+>>     sdh1_mux                         0       0        0        180000000
+>>        sdh1_gate                     0       0        0        180000000
+>>     sdh0_mux                         0       0        0        180000000
+>>        sdh0_gate                     0       0        0        180000000
+>>     sysclk1_mux                      2       2        0        180000000
+>>        pclk4                         0       0        0        90000000
+>>        pclk3                         0       0        0        90000000
+>>           sspcc_gate                 0       0        0        90000000
+>>           ssmcc_gate                 0       0        0        90000000
+>>        hclk3                         0       0        0        90000000
+>>        pclk2                         0       0        0        180000000
+>>           eadc_div                   0       0        0        90000000
+>>              eadc_gate               0       0        0        90000000
+>>           qei1_gate                  0       0        0        180000000
+>>           ecap1_gate                 0       0        0        180000000
+>>           spi3_mux                   0       0        0        180000000
+>>              spi3_gate               0       0        0        180000000
+>>           spi1_mux                   0       0        0        180000000
+>>              spi1_gate               0       0        0        180000000
+>>           epwm1_gate                 0       0        0        180000000
+>>           i2c5_gate                  0       0        0        180000000
+>>           i2c2_gate                  0       0        0        180000000
+>>        pclk1                         0       0        0        180000000
+>>           qei2_gate                  0       0        0        180000000
+>>           qei0_gate                  0       0        0        180000000
+>>           ecap2_gate                 0       0        0        180000000
+>>           ecap0_gate                 0       0        0        180000000
+>>           spi2_mux                   0       0        0        180000000
+>>              spi2_gate               0       0        0        180000000
+>>           spi0_mux                   0       0        0        180000000
+>>              spi0_gate               0       0        0        180000000
+>>           epwm2_gate                 0       0        0        180000000
+>>           epwm0_gate                 0       0        0        180000000
+>>           i2c4_gate                  0       0        0        180000000
+>>           i2c1_gate                  0       0        0        180000000
+>>        pclk0                         1       1        0        180000000
+>>           adc_div                    0       0        0        90000000
+>>              adc_gate                0       0        0        90000000
+>>           qspi1_mux                  0       0        0        180000000
+>>              qspi1_gate              0       0        0        180000000
+>>           qspi0_mux                  1       1        0        180000000
+>>              qspi0_gate              1       1        0        180000000
+>>
+>>           i2c3_gate                  0       0        0        180000000
+>>           i2c0_gate                  0       0        0        180000000
+>>
+>> Fixes: f50a000b4219 ("clk: nuvoton: Use clk_parent_data instead of strin=
+g for parent clock")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>> ---
+>>  drivers/clk/nuvoton/clk-ma35d1.c | 626 +++++++++++---------------------=
+-------
+>>  1 file changed, 177 insertions(+), 449 deletions(-)
+>>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
+ma35d1.c
+>> index c914079cee2d..1a857f28310f 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>> @@ -63,300 +63,49 @@ static DEFINE_SPINLOCK(ma35d1_lock);
+>>  #define PLL_MODE_FRAC           1
+>>  #define PLL_MODE_SS             2
+>>=20=20
+>> -static const struct clk_parent_data ca35clk_sel_clks[] =3D {
+>> -	{ .fw_name =3D "hxt", },
+>> -	{ .fw_name =3D "capll", },
+>> -	{ .fw_name =3D "ddrpll", },
+>> -};
+>> +#define MA35D1_MUX_MAX_PARENTS	10
+>
+> I'm bit puzzled how this was supposed to work before. Most of those
+> inputs are not present in binding doc. The controller was supposed get
+> clocks from itself through DT ???
 
-During recovery the disk is attached at that point. Before the first
-start START_DEV adds it afterwards.
+No idea why it has been written like that. Just to keep things clear, my
+re-write is a fix, not a cleanup. Without it, the SPI controller does
+not probe and I care about the SPI controller being fixed in this cycle.
 
-The UBLK_IO_FLAG_CANCELED left from an earlier round is dropped after
-the command is published, and ublk_cancel_dev() does not hold
-ub->mutex, so a cancel coming in between loses its flag again.
+> There is one input documented though. It seems to be hxt, so you should
+> probably continue to use fw_name for this one at least.
 
-A UBLK_F_BATCH_IO queue has no per-io flag for this, but STOP_DEV and
-QUIESCE_DEV set its ->force_abort when they cancel its fetch commands,
-so key on that for such a queue. ->force_abort is only cleared once the
-queue is ready again, by ublk_queue_reset_io_flags() after this check
-has read it, so one left set by the quiesce of a server which is gone
-would keep the queue of the next server canceling. Clear it in
-ublk_ch_release_work_fn() once the old server is gone, under ub->mutex
-since ublk_stop_dev_unlocked() sets the flag under that mutex and needs
-it set until del_gendisk() returns. From then on until the queue is
-ready again, requests for a UBLK_F_USER_RECOVERY device are requeued
-through ->canceling instead of failed through ->force_abort, as they
-are on a queue without UBLK_F_BATCH_IO.
+"documented" is maybe a bit strong. There is one reference to a phandle
+named clk_hxt, that's it? I don't think it qualifies as a validated
+binding :)
 
-Fix by keeping ->canceling at the ready transition while a command of
-the queue carries UBLK_IO_FLAG_CANCELED, or while ->force_abort is set
-on a UBLK_F_BATCH_IO queue, and by dropping the stale flag and
-publishing a fetched command in one cancel_lock section.
+> That being said, the bindings doc seems wrong. Looking at the driver you
+> should have 4 inputs (hxt, lxt, hirc, lirc), unless those are actually
+> generated on SoC ? Since there is already a DT using these, I suppose it
+> is too late for the last 3 and you'll be stuck pretending they are
+> generated in this controller :/
 
-Fixes: 728cbac5fe21 ("ublk: move device reset into ublk_ch_release()")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- drivers/block/ublk_drv.c | 59 +++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 48 insertions(+), 11 deletions(-)
+The TRM identifies:
+- HXT and LXT as external crystal oscillators
+- HIRC and LIRC as internal RC oscillators
+So we want an accurate description, HXT/LXT are worth declaring, but not
+HIRC/LIRC.
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 66eb55e7162e..183de080e008 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2603,6 +2603,16 @@ static void ublk_ch_release_work_fn(struct work_struct *work)
- 		}
- 	}
- unlock:
-+	/*
-+	 * A ->force_abort left set here was set against the server which is
-+	 * gone, clear it so that ublk_queue_reset_io_flags() does not count
-+	 * it against the next one, whose requests ->canceling holds back
-+	 * until its queues are ready.  Do it under ub->mutex, under which
-+	 * ublk_stop_dev_unlocked() sets the flag and relies on it until
-+	 * del_gendisk() returns.
-+	 */
-+	for (i = 0; i < ub->dev_info.nr_hw_queues; i++)
-+		WRITE_ONCE(ublk_get_queue(ub, i)->force_abort, false);
- 	mutex_unlock(&ub->mutex);
- 	ublk_put_disk(disk);
- 
-@@ -3015,27 +3025,44 @@ static void ublk_stop_dev(struct ublk_device *ub)
- 	ublk_cancel_dev(ub);
- }
- 
--static void ublk_reset_io_flags(struct ublk_queue *ubq, struct ublk_io *io)
-+static bool ublk_queue_has_canceled_io(const struct ublk_queue *ubq)
-+	__must_hold(&ubq->cancel_lock)
- {
--	/* UBLK_IO_FLAG_CANCELED can be cleared now */
--	spin_lock(&ubq->cancel_lock);
--	io->flags &= ~UBLK_IO_FLAG_CANCELED;
--	spin_unlock(&ubq->cancel_lock);
-+	u16 i;
-+
-+	/*
-+	 * The ios of a UBLK_F_BATCH_IO queue are not canceled one by one,
-+	 * canceling the queue sets ->force_abort instead.
-+	 * ublk_ch_release_work_fn() clears the flag when a server goes away,
-+	 * so one seen here was not left behind by an earlier server.
-+	 */
-+	if (ublk_support_batch_io(ubq))
-+		return READ_ONCE(ubq->force_abort);
-+
-+	for (i = 0; i < ubq->q_depth; i++) {
-+		if (ubq->ios[i].flags & UBLK_IO_FLAG_CANCELED)
-+			return true;
-+	}
-+	return false;
- }
- 
- /* reset per-queue io flags */
- static void ublk_queue_reset_io_flags(struct ublk_queue *ubq)
- {
- 	spin_lock(&ubq->cancel_lock);
--	ubq->canceling = false;
-+	/*
-+	 * A command canceled after being fetched is still counted as ready
-+	 * but can't take requests, so the queue has to stay canceling.
-+	 */
-+	if (!ublk_queue_has_canceled_io(ubq))
-+		ubq->canceling = false;
- 	spin_unlock(&ubq->cancel_lock);
- 	ubq->fail_io = false;
- 	ubq->force_abort = false;
- }
- 
- /* device can only be started after all IOs are ready */
--static void ublk_mark_io_ready(struct ublk_device *ub, u16 q_id,
--	struct ublk_io *io)
-+static void ublk_mark_io_ready(struct ublk_device *ub, u16 q_id)
- 	__must_hold(&ub->mutex)
- {
- 	struct ublk_queue *ubq = ublk_get_queue(ub, q_id);
-@@ -3044,7 +3071,6 @@ static void ublk_mark_io_ready(struct ublk_device *ub, u16 q_id,
- 		ub->unprivileged_daemons = true;
- 
- 	ubq->nr_io_ready++;
--	ublk_reset_io_flags(ubq, io);
- 
- 	/* Check if this specific queue is now fully ready */
- 	if (ublk_queue_ready(ubq)) {
-@@ -3269,6 +3295,8 @@ static int ublk_check_fetch_buf(const struct ublk_device *ub, __u64 buf_addr)
- static int __ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
- 			struct ublk_io *io, u16 q_id)
- {
-+	struct ublk_queue *ubq = ublk_get_queue(ub, q_id);
-+
- 	/* UBLK_IO_FETCH_REQ is only allowed before dev is setup */
- 	if (ublk_dev_ready(ub))
- 		return -EBUSY;
-@@ -3279,7 +3307,16 @@ static int __ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
- 
- 	WARN_ON_ONCE(io->flags & UBLK_IO_FLAG_OWNED_BY_SRV);
- 
-+	/*
-+	 * ublk_cancel_dev() runs without ub->mutex, publish the command under
-+	 * cancel_lock so that a cancel either misses the io or finds it whole,
-+	 * and drop a stale UBLK_IO_FLAG_CANCELED in the same section first so
-+	 * that one set from now on stays.
-+	 */
-+	spin_lock(&ubq->cancel_lock);
-+	io->flags &= ~UBLK_IO_FLAG_CANCELED;
- 	ublk_fill_io_cmd(io, cmd);
-+	spin_unlock(&ubq->cancel_lock);
- 
- 	if (ublk_dev_support_batch_io(ub))
- 		WRITE_ONCE(io->task, NULL);
-@@ -3306,7 +3343,7 @@ static int ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
- 		ret = __ublk_fetch(cmd, ub, io, q_id);
- 	if (!ret) {
- 		ublk_apply_io_buf(ub, io, cmd, buf_addr, &auto_buf, NULL);
--		ublk_mark_io_ready(ub, q_id, io);
-+		ublk_mark_io_ready(ub, q_id);
- 	}
- 	mutex_unlock(&ub->mutex);
- 	return ret;
-@@ -3723,7 +3760,7 @@ static int ublk_batch_prep_io(struct ublk_queue *ubq,
- 	ublk_io_unlock(io);
- 
- 	if (!ret)
--		ublk_mark_io_ready(data->ub, ubq->q_id, io);
-+		ublk_mark_io_ready(data->ub, ubq->q_id);
- 
- 	return ret;
- }
+There is no way to fix this without a breaking change.
 
--- 
-2.55.0
+My approach for these clocks:
+- Describe lxt like hxt in the DT. In the driver, I will take it from
+  DT, or fallback to a known base rate otherwise (so no breaking
+  change). This is possible since the TRM itself forces the rate of the
+  two oscillators. I will also ask for clock names in the binding.
+- Fix the name of the output clocks to match the driver (use "hxt"
+  instead of "clk_hxt" in the DT). I could fix the driver instead, but
+  all other clocks would be named differently, which would be
+  strange. So since we anyway *need* a DT update, let's go for a clean
+  naming.
 
+The other patches can still go like they are.
+
+Thanks,
+Miqu=C3=A8l
