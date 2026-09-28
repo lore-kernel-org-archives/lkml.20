@@ -1,60 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5260376A16;
-	Mon, 28 Sep 2026 10:00:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E2B48CD47
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:00:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589646; cv=none; b=uDQtBio9TrVSbY//PqApHvorqqtotZtauZkQg6gQ/iSo49S9+2TcxI7bhLyXnmfJKUQ6iLri/VwL3PX998v9oRQ2lg3VeR3rsBOHLVM68PObuN3HuJibkYwBai6S0xUqgwVi2nRrJXMaPiFdSE8YVS6vbj0HXNu8SwsBaXCDJkg=
+	t=1790589648; cv=none; b=DN01v+Sx8QV9RoUNKk1XiKPC/h41fQvjYp9o+0UR2VrhsI0H72cw+FRCbE2vgHRJAeBBM8mas+xKJbXpYB5fx4GW/uQjVBzYG+Gs+Q7LCxeBYucbkTGUTXxL2QCi4OT72qS7tdG5WB6ceKer+ajShuuwXDGdd1bP7SFhKRk0Mnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589646; c=relaxed/simple;
-	bh=op5mtiZAkT1L91chaYCYFcpf/NrcuO6G0vmvkj2IDlo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I6u0+udKOhKJtN7x4A8GKt/q3RPqp9/9NXDz6q5Qv+x6NauGRrmgN626rU59vEbWRFLsgBFeGBJg5EGkKcQUn/sANEuf5P12i4pPAt2LlQpror/X9A+oVCnuzcVf8Qs84Op0Z2uUN2e+71SB3saNvtwUms13RKuKumQTsCISqCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l7IDN0fx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589648; c=relaxed/simple;
+	bh=jlWOIlCkIqLzMmYFrdtwH+WjSBtI3Ecdu4ZVJh9P79U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mbD4q/hXO6PORFp0q7wicnhvksUmYhkjlsGFybY+MC+qdK+WzaBNh6xyfy/FD/hTb1W7VksQ5K7HoOsqenE80eHeb5Kp8xgVMXwLlv6DyN+pvM3Sg7c8YQczra0z4043vK7hlDXMajULP1os72v2MPkveVSo38pql6jW5n2hySY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jz0ZqvTM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l7IDN0fx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46691F000FF;
-	Mon, 28 Sep 2026 10:00:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jz0ZqvTM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895AD1F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:00:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589645;
-	bh=F6NMInjal7rd7k40HeV9UzP6zM87fQBAHH/KtpxQDp4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l7IDN0fx/CUVhBYtHM03mQinaLrm5+pJVY4y92CH9Gs5hzeKkGHtxFTUVAwcKXfke
-	 vHWcxgK3v082RPtUsOHMIdGHCyLU0/EVBqpu28vuXjxH+xvjttU5UrIe8QF9eeJHPw
-	 H/4rc3HOyj087iv8yrifZWmOuySkqfvh4D1Dor/o4fokYPy5fIGtoKUuiWa+jWP5lu
-	 kY023oIeOxb6f3rlbHkUSjjIrVp+ft31rvOTDYr1Jz6oaIuslGleFjsyQesUKHxf++
-	 1JoZjS/fpX9H8CYqfkZ04mnItqrmyFRRbo5+4QPp247+IUlgXwFhZ0SmbhNRZnq3T8
-	 3kjXskol3w0Rg==
-Date: Mon, 28 Sep 2026 12:00:42 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, 
-	Gregory CLEMENT <gregory.clement@bootlin.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 07/11] dt-bindings: i2c: mv64xxx: add Allwinner B288
-Message-ID: <aro6uf6VJEtLYdOq@zenone.zhora.eu>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-8-pmazzini@gmail.com>
+	s=k20260515; t=1790589646;
+	bh=2eSTN8EsiyBW/45DC1J5UHI+mfuj00H8nR2ssWjPAUw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jz0ZqvTM4VWPMGjWay6gx0R43hl2NLHM2VPPBfQwlhSmjA04xstgTCxfvFNkKTzgQ
+	 01bVmHXwRQZgKY6ZMAoTiRdNYH89mhACXJFh5/QpD7v5uV9AUCxLXbkHNpOUhJrf81
+	 mjyikxkRWq4k7TFyobJt1fRiULOC2IuJrGoAg+9vcE8q4ZqQcBOhzoImlOPUrgiesC
+	 eozwmApCe6WT+p3OZfn7Owdur+K62l9lHEZNXm1ZK6rWGdFvm9oi8GU34Lc/UKKyLz
+	 lzjHGzzv9OIJCS2kTw3FvTQmQmdTkuXEnbcJBhiq0Lkh/A8DJH0x8R4DhQwDtvr8Tg
+	 /xQAaoJ5Xk9KA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8ede3ab7aso459603e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:00:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxiVezxg/9CP6a7uYUIcfSmHUdAChyJ+0R36fw1O7JPJFqqXHXgtHNRPR5IfT1tGAHMsEwF8nxX1A7Mguo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrGOIIKhkhYwghr0le+OHCTKt5vHebFPDEmiD9/sWlFcF8xn4e
+	kCJt/oxo36H1msyRNLrcpSDDW2Ez09j8QNaDpTJHvAQ3b9wFjdCLQVx7uQrQnRVa4PXbFTY6PqR
+	w/NZRTxyPn9wEe86xOLDQD6zj3Qgxk54=
+X-Received: by 2002:a05:6512:10c3:b0:5b8:cc2e:300d with SMTP id
+ 2adb3069b0e04-5b8df2129d3mr4313943e87.61.1790589644896; Mon, 28 Sep 2026
+ 03:00:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927151016.186493-8-pmazzini@gmail.com>
+References: <20260928074329.853637-1-johan@kernel.org>
+In-Reply-To: <20260928074329.853637-1-johan@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 28 Sep 2026 11:59:02 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jar1t0kNF+oHkC7xC5BL_0dC7erh663W5414AV1R1pQA@mail.gmail.com>
+X-Gm-Features: AclHuK-NQbc49kZTCSnPRw57dsHBQPg0xqtJFFdPVwGAQoMSasa5-njcbltRhs8
+Message-ID: <CAJZ5v0jar1t0kNF+oHkC7xC5BL_0dC7erh663W5414AV1R1pQA@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: add myself as driver core maintainer
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Pablo,
+On Mon, Sep 28, 2026 at 9:45=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
+te:
+>
+> I will be helping out with maintaining driver core.
+>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-On Sun, Sep 27, 2026 at 04:10:12PM +0100, Pablo Mazzini wrote:
-> The B288 controller follows the existing Allwinner variant.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-Acked-by: Andi Shyti <andi.shyti@kernel.org>
-
-Thanks,
-Andi
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 72294ddfa5b7..2a39b302f77a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7957,6 +7957,7 @@ DRIVER CORE, KOBJECTS, DEBUGFS AND SYSFS
+>  M:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>  M:     "Rafael J. Wysocki" <rafael@kernel.org>
+>  M:     Danilo Krummrich <dakr@kernel.org>
+> +M:     Johan Hovold <johan@kernel.org>
+>  L:     driver-core@lists.linux.dev
+>  S:     Supported
+>  T:     git git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/dri=
+ver-core.git
+> --
+> 2.55.0
+>
