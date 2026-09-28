@@ -1,64 +1,64 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16DB4F6473
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93C54052A2
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626129; cv=none; b=J6lp2gJiAc+h4rSyCGDl5/wbBwEfNfdyrer16hAYFgmC1UGxbVlt6TpNA4OWVbGtPBl4MoVzl1cjvv5d9CvDxZaxt36ZtkbY2Z2CRCS7ycabBHNC/kWJZMp33pp1oc128jV8B6J+nNYDDr6Orv/G+wSvcOYm8CZJmd0+nFHKU3Q=
+	t=1790626130; cv=none; b=ggLoaE9jBQACZHco4u81cUcIuuSlD1qvJtWhcSVGUa7jnUBShijMOhX8C+qejSYLc4Vi7YEew0tvJOl3Cz9DEMKrp3k6st7spiT0RZ/K/YYBelPyuaHJWC4kBfO2ekdCa5UH8oJbyAk8DNweDiLp9zlgf0CKYjRykD3UW9krzRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626129; c=relaxed/simple;
-	bh=d2MUplHsS8U4FJAMDoym0CNaIjbOWLHpN+BVoJXXMdE=;
+	s=arc-20240116; t=1790626130; c=relaxed/simple;
+	bh=AzdGodhxKE7DykxVHyS0xooKhsrpCAjLMp0Dm5wVvZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rEHdZ/h4Kfbdpo0O0N6e25jOvS7I04FacwQ7LEr3x7Tly1OYCbUr/OnSk/ONlMd8PzAMoWHC0sSx0xvr7ObssjEMaXeFs3DqqjCaOadIMt82wiNaxSzVYcMFF1o8mtnOmgedksJaDU9skW5tBAi14uQgorJihohSDn3th4hzdLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pgQgfz1C; arc=none smtp.client-ip=74.125.228.170
+	 MIME-Version; b=gJkk/amIv34mgD5PQ3IxbMdepR/dQt8WuYM5nGbkbafL4pMgflTJii5QXlULI9eDmZ+fJI39QOpSzbrLbTKVQUy/KwnLb6NYNQ1oI/9YMGz2GIvpxivJovQtTZzhXLV3nl6F6jzTJm/kRaDpOFo20fm1uoLELNEtLRw3gwAoi6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RqoUdbVo; arc=none smtp.client-ip=74.125.228.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pgQgfz1C"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2da4eea067so282748566b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:08:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqoUdbVo"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6f5c507fso2281069a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:08:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790626126; x=1791230926; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790626127; x=1791230927; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZmSflQBXftp4HXe4zrTMF1QW5LZc3st1xkIXknkEjYs=;
-        b=pgQgfz1CGdfgc5nOYb0VXubQ35hGbzuEGpEbcKvrjScIOHRHpLn67jGjoHIkJl3pP7
-         LHqzNqG+DGuNUvTMqrjYNrEeT79QOG17nz1uqRK/6rHtf51ihXWt06gXPjQ5V/f9uAE3
-         bo6H7yJopSGCtA6as4mXuEghPR6mowA09xYCiJO0pEUVZQbKeptpSOVgwbC3r5sI+4gy
-         7pQKdZW6mKeWvZPfMacJHwRLF/8qnYtpLCvCoKd1Lgq5dBSs3F9t9vkZgwUoNw14jE2K
-         BfVc6tJQJFgsI31k4sVhFyzUAjTNHb0futW7TAWn4OlhPXn1t5ThWEL/5SEcciDj8JBC
-         F5Nw==
+        bh=CE3tEgZ4a44KtqLZ+CTK+zzBvwh13usPnMe5fmHTEY0=;
+        b=RqoUdbVo0WMwpRDmK1sdxvJydGhZJijtpBo/xOFGBn2FJj8VoPxhcVYHZ0H5e0QRJS
+         z5Vv4V9czbSK52bApuVIfJhd3w5JGkE97qH9TKgptHRJQHJ09Gja+XKRCCgRcNDAfsnJ
+         lfY7jEBY1yZtopfhlcb+aexUzPjFHn4GJ6t/TsHI5KnYvGdaZd2U/6dBc65Jd/B52ReF
+         qcAOMOPsQLM9y76c4aVuYnTz4DA/DbOUPXjshVXGkHAVayLrRxyKYJwWU01I0K8/+KfX
+         2iybwoOtYE3i+jRKmqji6uUDQclchT6kN02DCGkctTAwnwe4G2Kuacsi2nzyK+lcTdfj
+         Jm1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790626126; x=1791230926;
+        d=1e100.net; s=20260707; t=1790626127; x=1791230927;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZmSflQBXftp4HXe4zrTMF1QW5LZc3st1xkIXknkEjYs=;
-        b=xNzOjNc1T2PZcj63DARU8H5FLHt2EJR628+3utKNMVfEKs9659vq9PSmRSdkwBxibL
-         5VMZirQKuICQ0SWmhgEYreYT/JII+xDAeAr2P+oOzLcJbCQ3wNGDMgeHvKtm8qvMCeDF
-         6PdnYjMxYkny4fxQGQdiWK/m4x6cWr712OHrtnIl4Y92RfjvmwrgEy4+l7keBSYIr3Z6
-         nH6sr4LhHHTn/3zAu6hlw5DJiZnMFveYeBMhslIzuxgpLcrwr0sP79DE8fjExsEqg8H5
-         g3fJxJpxiiQh+i8aevOeyTwWXNITuko+wpsgqGPvz5eKSMECjfzqntHUnfyNPPrNUV+R
-         AsVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlwUUQ1nHG0GJA9iWLMH+KZoo/+JmOcaicfmFyVfHHQMZFMCWKQUXURoDkPTPf7wPuZbDUuj1GIUmvIug=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJAn/xp5ZiuVsS3L/wCdlSyQAl2Gz01jEJ6GHNxqJaUvJbxwaE
-	dq1ELCR0xaC8yHmQ3RmHqGvyy4khdtvpiebEDbUHNRXhofa2vp1bYGv+
-X-Gm-Gg: AYBFou1Hz7/OosRSOEAb/QhrRx+cvIav/+sRIGe8TZd/OAvNXLShZrpD1sino0py4C2
-	MbzMKEud+ucdTeX+CGiHe56sTd/Umf6LtWmqK3vIomts000NCsvKKnXm7/BejYHdyJ0oRWF1YsN
-	YpWbjox0PFS3rOB9suLIcVBco8bz0ID0JVmneb5IiuOJkEO77oCtY2ht9OjVNdLTm+Ojl3DgXsU
-	mH2KXiXpuIAkcKA3glG+jln74Y+mwaDXBpaipU4aVY7RdxK21b+MOafUYLQdJqw69tAl0MT70Ey
-	hGXHD20DSAGAB1Zb+9a4OhVHEeVAhGnFka52GBr7vRaBgj+uAhTfh1D1AWr5tiUxuvIrFgHLL8o
-	YU2zaZdinSFpB9NPwY4HQTBeEAPZDxD2AAZGB3iuwuqFmCbWgP6ZHYNxaJqDvHa+ke2xzx9pIJF
-	1nr783gH0H5V1H274Iyvi0gYgCmfpLs3iy5i3p32G0xIL3nI7T0MmSw1F33CfRewIBBHX8q9YMd
-	5wpZEPDq31ObiAg18wnSdalRUXPQ/P8gvGeb2Vj
-X-Received: by 2002:a17:907:9487:b0:c25:cb7a:12d6 with SMTP id a640c23a62f3a-c2ac528c69amr987383166b.14.1790626125962;
-        Mon, 28 Sep 2026 13:08:45 -0700 (PDT)
+        bh=CE3tEgZ4a44KtqLZ+CTK+zzBvwh13usPnMe5fmHTEY0=;
+        b=vHeLOZtdDbp1PDEquaehbFGtklO7SSsWnEGnpmkalhbd7NwjZPHmM3dgR6sngm1V1G
+         1TrDct02qiFEd9bZx4Lghyd53d4l3580gTNTsYIvqA8y0Y2DlhIoxZHBWDgWxvjfHhZ1
+         UYPWw44vCN/rcBVzeWN5Eq3vJ+1p/eIRtfZ956UqA/RN28/cDEVct/AFjDYA+rpkU3MP
+         Kg2rXVAlCjgW8cJTz9rKQMwF6EgIeVwJkSmohdS/I1BWAReLWvMhtB+TsFU2edZRHPY9
+         M6qv2qnIhJ/S5Pm4vvYIv/uiS3p22GhPxNzRWzDxd7Qqz8Ik9mA4tPgNf69HRDJgn+2n
+         a8ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxnxoLMATDVock7oQ7PoGM5c7U4cxp5BftHeLCYk0zcorlYwcvT2ZCkoxzrd7vSsW669HvHT7VhNj6SzLk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQDibf2pjBQbea5tw9omWn3iT0o4bBTfxvanFLFzLOB0HT2FmH
+	4tuXeh12j+xC5tgGTvg+KDqTUHRVXCS28Q/wlGqH4Of/xcJjoxZ8x76t
+X-Gm-Gg: AYBFou2RLXBWFQg3hl6ZNot49MmLgS+VCnos9It7XoYhlaJhw69cj3k9YCqrvUYOYiH
+	hfPI9bFWMKB+j7C4s+ve9o3Wnal38DqZTt0RbmCtF1cA7bqE8ETjDDbytF33AxxEje1FkHsk4sx
+	a2UelNNfZbj5rp4l8b5Nip+bVSvPUyPGkiec0aCjkKE5x51ilrC6NqOi6d6bjJpE0eI6krQ9baf
+	nBROukLdlpZ1/jdJq8AKeoWSuBRZe8BDWJyihaWKYVSt+zDFmarNEOFuIq8MlOrWWxub+6VLf0w
+	DQWwtVOnl+PnPvscc80KxZKfOhCJNp+y9FdaTyMAVQ3IRkrefz98/8cIf+G+G3rDfOnnqrmPtMK
+	no9Pvo4gD37cEwNtEpR3+1i81tofp9H90jrp5+DfMpX/IPWCxtinzwRe7eGqc7YaaCABv+bNIB8
+	190NrFzVSCMRfJZ8gzI8w/Gj1aF5/UWN6V+nGtGP+IAZZYL9Prquj3TpmEE+D9L3QmN5K/HBfZg
+	wAIkrtWxVa9iVzilNGUkh42nfInGAF0RIgG7LU0dVu4uqgctTKC
+X-Received: by 2002:a17:907:1888:b0:c29:286e:2e3e with SMTP id a640c23a62f3a-c2ac25ef36fmr1148656566b.38.1790626126915;
+        Mon, 28 Sep 2026 13:08:46 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76abc3asm509778166b.37.2026.09.28.13.08.45
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76abc3asm509778166b.37.2026.09.28.13.08.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:08:45 -0700 (PDT)
+        Mon, 28 Sep 2026 13:08:46 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
@@ -66,9 +66,9 @@ Cc: linmag7@gmail.com,
 	sam@ravnborg.org,
 	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] sparc32: derive phys_base from the PAGE_OFFSET mapping
-Date: Mon, 28 Sep 2026 22:06:23 +0200
-Message-ID: <9c8c84ffde99dbf747922ef93c1a73438c846e08.1790548064.git.linmag7@gmail.com>
+Subject: [PATCH v3 3/3] sparc32: advertise relocatable kernel with HdrS 0x0300
+Date: Mon, 28 Sep 2026 22:06:24 +0200
+Message-ID: <2ed67cfac2dd3847de19eeba566254593a661e93.1790548064.git.linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790548064.git.linmag7@gmail.com>
 References: <cover.1790548064.git.linmag7@gmail.com>
@@ -80,111 +80,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-setup_arch() computes phys_base as the base of the lowest sp_banks[]
-entry, that is, where RAM starts, and assumes the kernel image was loaded
-there. That holds for the traditional boot path, where SILO places the
-image at physical 0x4000 and PAGE_OFFSET is mapped to physical 0.
+HdrS version 0x0300 tells the boot loader that the kernel supports being
+located somewhere other than physical 0x4000, which is where SILO places
+the image on the traditional path. Anything older is copied back down
+there, and refused outright when it no longer fits.
 
-It stops holding once the image no longer fits there. SILO loads a kernel
-between physical 0x4000 and its own text at 0x280000, a window of 2605056
-bytes; a current sparc32 kernel is roughly twice that. The loader must
-then place the image elsewhere in physical memory and map PAGE_OFFSET to
-it, at which point phys_base describes where RAM begins rather than what
-PAGE_OFFSET maps to, and the two disagree.
-
-phys_base is the offset __pa() and __va() are defined in terms of, so once
-it is wrong every early translation is wrong by the difference, including
-the physical addresses written into page table descriptors. The
-tablewalker then follows pointers into pages that hold nothing while the
-same tables read back correctly through the nocache view. The failure
-surfaces as a hang right after the context table pointer is installed and
-the TLB flushed, with nothing on the console to explain it, since the PROM
-mappings the early console depends on have become just as unreachable.
-
-Ask the MMU what PAGE_OFFSET actually translates to and adopt that.
-__get_phys() already implements this probe for sun4m and sun4d and returns
-zero elsewhere. Restrict the probe and diagnostic to these supported
-platforms so that LEON does not report a bogus kernel address. No new
-low level MMU access is introduced.
-
-Memory below the kernel cannot be reached through the linear map, which
-runs upward from PAGE_OFFSET, so drop the banks that fall below it rather
-than leave entries that __va() would translate to below PAGE_OFFSET.
-
-With this a 6MB kernel loaded at physical 0x03000000 boots on sun4m: the
-context table lands at its true physical address,
-srmmu_inherit_prom_mappings() preserves the PROM console mappings, and
-srmmu.c needs no change at all, since map_kernel() already handles a
-non-zero phys_base via do_large_mapping().
-
-The cost is the RAM below the load address the loader chose. SILO's
-memory_find() picks 48MB on machines with 64MB or more.
+sparc32 could not make that claim before, because setup_arch() took
+phys_base from the lowest memory bank rather than from what PAGE_OFFSET
+maps to. It can now, so say so.
 
 Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Message-ID: <20260928002035.1-3-linmag7@gmail.com>
+Message-ID: <20260928002035.1-4-linmag7@gmail.com>
 ---
- arch/sparc/kernel/setup_32.c | 40 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ arch/sparc/kernel/head_32.S | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/sparc/kernel/setup_32.c b/arch/sparc/kernel/setup_32.c
-index 1b0db16cd37b..6d7d6fb5c49d 100644
---- a/arch/sparc/kernel/setup_32.c
-+++ b/arch/sparc/kernel/setup_32.c
-@@ -254,6 +254,30 @@ static __init void leon_patch(void)
- 
- struct tt_entry *sparc_ttable;
- 
-+/* Drop RAM below the kernel; the linear map runs upward from phys_base
-+ * and cannot reach it.
-+ */
-+static void __init trim_sp_banks_below(unsigned long base)
-+{
-+	int i, j = 0;
-+
-+	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
-+		unsigned long start = sp_banks[i].base_addr;
-+		unsigned long end = start + sp_banks[i].num_bytes;
-+
-+		if (end <= base)
-+			continue;		/* wholly below - drop it */
-+		if (start < base)
-+			start = base;		/* straddles - trim the front */
-+
-+		sp_banks[j].base_addr = start;
-+		sp_banks[j].num_bytes = end - start;
-+		j++;
-+	}
-+	sp_banks[j].base_addr = 0;
-+	sp_banks[j].num_bytes = 0;
-+}
-+
- /* Called from head_32.S - before we have setup anything
-  * in the kernel. Be very careful with what you do here.
+diff --git a/arch/sparc/kernel/head_32.S b/arch/sparc/kernel/head_32.S
+index 8c320fa25a67..11a1746829a4 100644
+--- a/arch/sparc/kernel/head_32.S
++++ b/arch/sparc/kernel/head_32.S
+@@ -69,7 +69,7 @@ sun4e_notsup:
   */
-@@ -332,6 +356,22 @@ void __init setup_arch(char **cmdline_p)
- 		if (highest_paddr < top)
- 			highest_paddr = top;
- 	}
-+
-+	/* phys_base must describe what PAGE_OFFSET maps to, not where RAM starts. */
-+	if (sparc_cpu_model == sun4m || sparc_cpu_model == sun4d) {
-+		unsigned long real_base = __get_phys(PAGE_OFFSET);
-+
-+		prom_printf("phys_base: RAM starts at 0x%lx, kernel is at 0x%lx\n",
-+			    phys_base, real_base);
-+
-+		if (real_base && real_base != phys_base) {
-+			phys_base = real_base;
-+			trim_sp_banks_below(phys_base);
-+			prom_printf("phys_base: adopted 0x%lx, RAM below it dropped\n",
-+				    phys_base);
-+		}
-+	}
-+
- 	pfn_base = phys_base >> PAGE_SHIFT;
- 
- 	if (!root_flags)
+ 	.ascii	"HdrS"
+ 	.word	LINUX_VERSION_CODE
+-	.half	0x0203		/* HdrS version */
++	.half	0x0300		/* HdrS version */
+ root_flags:
+ 	.half	1
+ root_dev:
 -- 
 2.43.0
 
