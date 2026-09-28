@@ -1,39 +1,34 @@
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64474D17A6
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:41:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E074C4CDDC2;
+	Mon, 28 Sep 2026 13:41:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602913; cv=none; b=tG4jnAcOQzIikGHbxqeoYq6cZWv7PBIk9FVi/nnMou8Wmrcy98GvY/mnVWG3PEWOcg21DDSpcbMmLOS8PwS3dsIjekZ5yGK6C8Cxeb/8S6ClGZVR/610dUoDOJi4nbDvjOW+hyFfYuB0OtaiEiqmKYnLAReUiTcznvZn+z147lQ=
+	t=1790602916; cv=none; b=aWblP2CfE8dRC6dnZzxpTkAxTTdce2hm1N9O8wuXNmBLzenNtO6vZcbfqxnGpILAeRvS41umREnPDTJtpVo5SbWzVHEj3QnmnhsNfm8O5QqYCUD1Zza5kiQd2tGILgYRGL6VygU/u3TFgZXyX6nYdUbWxw2bLU6YOqFcM+Rh1no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602913; c=relaxed/simple;
-	bh=Y09vJTDEXPfq9naYYg8q8U3uk8RPTw2LEDdYX2fo2fE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jmDXW1C3eIWS9wpH42qefg+A3Ptwv26+PRgJEfWDZp8xf4iOAaugT0DnGboNEKdgDwA35JMMINZCieI+TyOiqSdRhMOst0XZGafDeHOtEe+TmmciiL8xrlsOPyiQ5mqSz29CYvaqJ5MTpJpJ5DUlLBwo26o+VH6suYU9stHTiMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=jWDbdQe4; arc=none smtp.client-ip=45.254.49.197
+	s=arc-20240116; t=1790602916; c=relaxed/simple;
+	bh=fTFH+Vdm73mkawdS6OJGPgA6eVO5byA4vIWzzFAJlXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PmTiIfkzpjkj6zFhFw+PFsUr4kbgUxW9HH434AEW5KRru0zYP3bZsviZNsu5zwP88eDIS0N9kEZuwqglKoc8vaZLyMlDcgeNb6qrWpZUYSysfMetm7ZztEjCNdCQWKIyZcjSoWCW1NBN8GM4n7pJp62xfF1qziGzDwpMLCAGOEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Bo90kISQ; arc=none smtp.client-ip=45.254.49.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="jWDbdQe4"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Bo90kISQ"
 Received: from LAPTOP-99KJFSET (unknown [36.153.54.109])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f439;
-	Mon, 28 Sep 2026 21:41:44 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f43c;
+	Mon, 28 Sep 2026 21:41:49 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au
-Cc: npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	kees@kernel.org,
-	thorsten.blum@linux.dev,
-	linuxppc-dev@lists.ozlabs.org,
+To: dennis.dalessandro@cornelisnetworks.com,
+	jgg@nvidia.com
+Cc: leonro@nvidia.com,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	jianhao.xu@seu.edu.cn,
 	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] powerpc/fsl: drain MPIC wakeup work before replacing timer
-Date: Mon, 28 Sep 2026 21:41:41 +0800
-Message-ID: <20260928134141.452-1-getshell@seu.edu.cn>
+Subject: [PATCH] RDMA/hfi1: quiesce SDMA asynchronous cleanup on exit
+Date: Mon, 28 Sep 2026 21:41:48 +0800
+Message-ID: <20260928134148.977-1-getshell@seu.edu.cn>
 X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -42,118 +37,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e84000e303a1kunmfdfc7f6e2001fd
+X-HM-Tid: 0aa0e84013e803a1kunm4e34150e200217
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSE1MVh5ISh5CS0sdS0MfTlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHRkaVksfThkdHUlMQk1ISlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VSktCWVdZFhoPEhUdFFlBWU9LSFVKS0hKT0
 	hMVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=jWDbdQe4b4KDrrysDoN4qA8dv7vYAqE5gmjZ8GIfWOzN3OsIorRYFJjM/Y2c9Qtc6n0miYwlYN9oiEWfoiSKm0rckGmlLXpvSVsPf3+SRzzVRnBWc6dQacpw/bfykAgL6mefNR/Gb3BwMcdcLcv4vIKuXtlws8OHjHXOsQauKGA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=WpuPXXwYLspgMxJce0coNH0SvQ6W/DJKv68dWucdqPA=;
+	b=Bo90kISQJESs9Auc7gPoYdmFVtWFPeH9TNB2TGUPA5gDzEqNgUr0oojUTnBgljVBQo3vlVk7lmJ4OdifDEP1ytsUSEdInwUno8/mulN9G1tjkoUuHP6OiAW4KMAIWx3Xge5AbUvEN4RK6jjz4CdNXXfPLBU7mb/lFQeUn0T5/oc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=/sgbB/iwatg5GYJX/+EMY9ymnSr9dagViaeQDJdgqvY=;
 	h=date:mime-version:subject:message-id:from;
 
-The timer interrupt queues free_work. mpic_free_timer() synchronizes the
-interrupt, but it does not drain work queued before the IRQ was freed.
-Module exit can therefore free fsl_wakeup before the worker uses it.
+The SDMA state reference and completion cover the software cleanup
+tasklet, but not the hardware cleanup tasklet, err_halt_worker, or
+flush_worker. Queued instances can therefore access an SDMA engine after
+per_sdma is released.
 
-The same race exists when a sysfs write replaces the timer. A stale
-worker can wait on sysfs_lock while the store path frees the old timer
-and publishes a new one, then wake and free the new timer instead.
+After the state machine has stopped, cancel err_halt_worker first
+because it can publish the hardware cleanup tasklet. Then kill that
+tasklet and drain the remaining flush work.
 
-Serialize stores and exit with timer_store_lock. Clear the old timer under
-sysfs_lock, drop that lock, drain free_work, and only then publish a new
-timer. Dropping sysfs_lock before cancel_work_sync() avoids deadlocking a
-worker already waiting for that lock.
-
-Fixes: a63b3bc7db32 ("powerpc/fsl: add MPIC timer wakeup support")
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
 Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c | 28 +++++++++++++++------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/infiniband/hw/hfi1/sdma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c b/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
-index f63b89adf9f3..51710c7cdaf5 100644
---- a/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
-+++ b/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
-@@ -23,6 +23,7 @@ struct fsl_mpic_timer_wakeup {
- 
- static struct fsl_mpic_timer_wakeup *fsl_wakeup;
- static DEFINE_MUTEX(sysfs_lock);
-+static DEFINE_MUTEX(timer_store_lock);
- 
- static void fsl_free_resource(struct work_struct *ws)
- {
-@@ -76,32 +77,43 @@ static ssize_t fsl_timer_wakeup_store(struct device *dev,
- 	if (kstrtoll(buf, 0, &interval))
- 		return -EINVAL;
- 
--	guard(mutex)(&sysfs_lock);
-+	guard(mutex)(&timer_store_lock);
-+
-+	mutex_lock(&sysfs_lock);
- 
- 	if (fsl_wakeup->timer) {
- 		disable_irq_wake(fsl_wakeup->timer->irq);
- 		mpic_free_timer(fsl_wakeup->timer);
- 		fsl_wakeup->timer = NULL;
+diff --git a/drivers/infiniband/hw/hfi1/sdma.c b/drivers/infiniband/hw/hfi1/sdma.c
+index f253c8ee182d..a71fc8f2d37e 100644
+--- a/drivers/infiniband/hw/hfi1/sdma.c
++++ b/drivers/infiniband/hw/hfi1/sdma.c
+@@ -1569,6 +1569,9 @@ void sdma_exit(struct hfi1_devdata *dd)
+ 		 * it is not running.
+ 		 */
+ 		sdma_finalput(&sde->state);
++		cancel_work_sync(&sde->err_halt_worker);
++		tasklet_kill(&sde->sdma_hw_clean_up_task);
++		cancel_work_sync(&sde->flush_worker);
  	}
-+	mutex_unlock(&sysfs_lock);
-+
-+	cancel_work_sync(&fsl_wakeup->free_work);
- 
- 	if (!interval)
- 		return count;
- 
-+	mutex_lock(&sysfs_lock);
- 	fsl_wakeup->timer = mpic_request_timer(fsl_mpic_timer_irq,
- 						fsl_wakeup, interval);
--	if (!fsl_wakeup->timer)
--		return -EINVAL;
-+	if (!fsl_wakeup->timer) {
-+		ret = -EINVAL;
-+		goto unlock;
-+	}
- 
- 	ret = enable_irq_wake(fsl_wakeup->timer->irq);
- 	if (ret) {
- 		mpic_free_timer(fsl_wakeup->timer);
- 		fsl_wakeup->timer = NULL;
--		return ret;
-+		goto unlock;
- 	}
- 
- 	mpic_start_timer(fsl_wakeup->timer);
-+	ret = count;
- 
--	return count;
-+unlock:
-+	mutex_unlock(&sysfs_lock);
-+	return ret;
  }
  
- static struct device_attribute mpic_attributes = __ATTR(timer_wakeup, 0644,
-@@ -139,16 +151,18 @@ static void __exit fsl_wakeup_sys_exit(void)
- 		put_device(dev_root);
- 	}
- 
-+	guard(mutex)(&timer_store_lock);
- 	mutex_lock(&sysfs_lock);
- 
- 	if (fsl_wakeup->timer) {
- 		disable_irq_wake(fsl_wakeup->timer->irq);
- 		mpic_free_timer(fsl_wakeup->timer);
-+		fsl_wakeup->timer = NULL;
- 	}
- 
--	kfree(fsl_wakeup);
--
- 	mutex_unlock(&sysfs_lock);
-+	cancel_work_sync(&fsl_wakeup->free_work);
-+	kfree(fsl_wakeup);
- }
- 
- module_init(fsl_wakeup_sys_init);
 -- 
 2.50.1.windows.1
 
