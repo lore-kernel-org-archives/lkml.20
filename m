@@ -1,63 +1,67 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3A7547046
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0F04E3222
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617894; cv=none; b=axsK/7OBEsNGZ4gUVznz6U+hYz3/VYayT709EbxFGfpTn+VHFfZhEzKcct4bVKf/qI2xaL+/sI7H3JWDmHgfiUKHZp6O7m2M6Yb+bocxn1oomriLXfkaHgxk9rSFH3V2XT/N20hDs/XzuoZ3qZTXzCckKlwsQdSVonkKi4gzuf4=
+	t=1790617895; cv=none; b=DMwIg0noLNAOzNU3AC2XXv+Ja6tc8msri9f1ooklRttCk0r8ocR8sLeT/9WqnbIRINaSZsEXbA8meZjGnAv/W+xXK7LzkztonUVoGYVswYbLzA2GNBLExK3yV8a4tnM4rquSJPoe3nQoPkW6YuromED1J8fAxgtC3yUuVd23O+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617894; c=relaxed/simple;
-	bh=VNMwxQxppRW3tdbwoKdNviu76yr1Zn6jW74zhNLGCQI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=GfV+mFMtSL27aCBKBJwpXCTdlYZcp4+zBjmTYRHbFnrVDgEeNj0o1Hd4m1ZaBH/dJF1zvhzKGggZiCxDTJCIB09ajKXa9DuGfYaYMVuWr5fdYblHOHYIf8UiXwL9NbD46LHQeHu6KRx2GQ1QTLN6hTKFZoClV8Hra7+pfF4qhKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GU3EXJXc; arc=none smtp.client-ip=209.85.210.200
+	s=arc-20240116; t=1790617895; c=relaxed/simple;
+	bh=/COI9v1Zgdw6CM9J/+iiDztdxC0ARcUlvTfApyjAlrE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=IrQYh5Fh277rygLma3FjJgnpxFg2DBlJAFuvDsY5ymqAx++Nk8cazcqAACtUlCZia2JaktZchBDtC0RZ5qAN5qVqR6eE/1CGObkWBzvnG0Ju2PKyJMeddGzdkgV1j4q8gjKHROZFBLHkbYIERlERNhVZreQzSzqW3NP0H7SlhEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Gd0EY/bZ; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GU3EXJXc"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-870ec29b035so994979b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:51:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Gd0EY/bZ"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so9393328a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:51:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790617892; x=1791222692; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wSrqJvLhBkyJhZH2O6UR1pCUMv15qswDfL8SIgUikoA=;
-        b=GU3EXJXcBnaxeucfn2RKSY02Gw2B4+ENSVUYWd2PLroZU4R1srK/KAFi2hZFUIVQTW
-         EbiBjKF+sonTTows7YuW6qs42vtUI7cxGq6xZex+1nH9q4F+1v6ezZUtqpuHNizKhJaJ
-         Tq6VgMVXONnPStaUu0i4BpH33lnEN1HRTo8t8NVlxpAO/lpyqjeDpXmnIJ6HktN/MNvU
-         Tx7oTMsyYL7D4U3smog3JX52qruQJlPPe8Q5hWLDEzvl/0yP4lVlvZRJ+qCCo2R+mBWP
-         IpXZuvSLDCvCjL5ylWZd/+6pZjiGoWUfGd6Voc04iYySWJgpzN+tFvMzZ3gHiqUU7KjI
-         F02Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617892; x=1791222692;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790617893; x=1791222693; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wSrqJvLhBkyJhZH2O6UR1pCUMv15qswDfL8SIgUikoA=;
-        b=iC62wdjOIQi5wBCCcUlS58IItAheJda39Yyy5aUgHbYYdLQrC8biMD7W4HDFcYNOzC
-         VS/GHEDXI0m6zlIIINEiuCshLVwhIEBgfh4A573iZtAkIV+/ih48ppTEw2HbcVQgog4U
-         Er4howp/yYsBVWTnFPiwNuuTzbEiSjZOX5KlMvAnIG+I2HRnBtpOA59PMTGDcEIimm4F
-         72uEAlZXhNYeHQjHP8y6vNa4Bk+7EKJDv0HFFl1ojq/xNvuTSP2289GbQegJo/ZdObnn
-         m78N8dKkQzzaWCkNA4g/O9rbhZ9kalGiz2PjR0UNKbC5TXEnhNM2lepfF39Hop2sJSTm
-         4zyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjWHgC3AMdWEQtx8idkSgtBekEdO19y/dbMooMkeLS2ZDa4pE0eQ+sg7wJDqaUL8f2lFcTdjYobzVRR2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGgdT4U1HCTxCsZT5cf9q27RzogrqMMCA9bVe5wMn0rwIilkhl
-	yJnsIo7E9QQN0w6NzjCZ3YYOxCR0j4rdNhgukuiUqkmZbJJBtsYp2KDLAp2BZamjuXraGYipYlR
-	2y4dLew==
-X-Received: from pfbdn2.prod.google.com ([2002:a05:6a00:4982:b0:884:c5c5:57c1])
- (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:807:b0:881:e626:74b7
- with SMTP id d2e1a72fcca58-881e6268a39mr4686351b3a.49.1790617891690; Mon, 28
- Sep 2026 10:51:31 -0700 (PDT)
-Date: Mon, 28 Sep 2026 10:51:25 -0700
+        bh=YT8fSaf2iy6BbHJSTRJh91pzph8T4TLe8Lu1aCY2oBs=;
+        b=Gd0EY/bZRyKBdUN2luHhtjN2NietFk4uY/+x6etBmbragAAUpGI9gAlYQ7PJ7BiZH3
+         TbRPyYRDJU6/umuN2lP4Yo8PC9BSHUuPztxhwEC1/7Y+mXJZ12mXGTYxpBIJ7iYHV0Si
+         dmNSAScvr1UTMVU/BYLIUD7+5Po1LVgCLiheV1fZneQqTDDMUiFrqmxGdHkpR1j9ZdC0
+         elru1RIWdKYeT7PbVcz1kyT5Ui7okroWr+3nB/2WxZtUTx7K2HNGWjwj6q6BRA/Ict7n
+         N2k8FCo5fkh4YQrOtoF7X9RSYJ1tVLd+MrdlujZWn8F7JY72YrkiMt1V4W0LD2OesSBQ
+         M+xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617893; x=1791222693;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YT8fSaf2iy6BbHJSTRJh91pzph8T4TLe8Lu1aCY2oBs=;
+        b=imgxnjZC1B7nmpZCXyyecuFtahvCcg+cDWaTCibv/fC7mGxtWNL28QDl6wuu3dTE/V
+         2uINYBvD+w90WHy1xX/MjQ0y7bqEkYRFS5RG1ObijPzsy7s4qrckEwNh5RBOpgRok2Ci
+         mZV4VcwMfAYj2KxiGwIg3T1TfLS77Rl9CnnITuXsK++8erJfgkVoFXWivwwNKsaTZT5d
+         AsTkvvxY59JS8KgubjUkDYb1oR1zGGQmncXxVFDF19+8VzHwhHqkmmr7sCYPRoXZpHx9
+         KmfnDHghIqU8nOhag/6kNyFQN7VqH9Lmw/OXyTKxf3g8tBc+ZvAmD9vRUG08FMsxix/L
+         ik+A==
+X-Forwarded-Encrypted: i=1; AKwUvBww27pQUjnlYrLcS9c4u2hsUtyR5xXUOi7jYdvDBGJC6I+KLv/s5VL+hdhdIRozIisv5AEqWHGXP0XLx4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLczceOyBlErIIKnJBSSy4sD8Redfsu4AkEd6O7qry63IB1py4n
+	E8BzQPa2B5JcK9hExuV8blGUkpAHXkca8TKVUKVmRSVkQRSj3TJDmy0pp8J28W5lquMawtHkZJO
+	L+BkwYw==
+X-Received: from pjbne20.prod.google.com ([2002:a17:90b:3754:b0:3a4:89dc:ed26])
+ (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1d03:b0:3a0:e89c:b989
+ with SMTP id 98e67ed59e1d1-3a0e89cba0dmr5901692a91.36.1790617892740; Mon, 28
+ Sep 2026 10:51:32 -0700 (PDT)
+Date: Mon, 28 Sep 2026 10:51:26 -0700
+In-Reply-To: <20260928175127.1032535-1-ctshao@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260928175127.1032535-1-ctshao@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928175127.1032535-1-ctshao@google.com>
-Subject: [PATCH 0/2] perf jevents: Add NVIDIA Tegra410 uncore DDR and PCIe metrics
+Message-ID: <20260928175127.1032535-2-ctshao@google.com>
+Subject: [PATCH 1/2] perf jevents: Add NVIDIA Tegra410 uncore DDR metrics
 From: Chun-Tse Shao <ctshao@google.com>
 To: acme@kernel.org, namhyung@kernel.org, irogers@google.com
 Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, 
@@ -67,53 +71,169 @@ Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com,
 	Chun-Tse Shao <ctshao@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add DDR bandwidth/latency and PCIe bandwidth metrics for the NVIDIA
-Tegra410 SoC to arm64_metrics.py. The metrics use the sysfs events of
-the Tegra410 UCF, CMEM latency and PCIE PMUs, and follow the formulas in
-Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst.
+Add DDR bandwidth and latency metrics for the NVIDIA Tegra410 SoC. The
+formulas follow Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst:
 
-Patch 1 adds the DDR metrics and makes pmu-events/Build also run
-arm64_metrics.py for the nvidia vendor models. Patch 2 adds the PCIe
-metrics, in total and per PCIe Root Complex (RC).
+  AVG_MEM_READ_BANDWIDTH_IN_GBPS = MEM_BYTES_RD / ELAPSED_TIME_IN_NS
+  AVG_MEM_WRITE_BANDWIDTH_IN_GBPS = MEM_BYTES_WR / ELAPSED_TIME_IN_NS
 
-Tested on a 2-socket Tegra410 system:
+  FREQ_IN_GHZ = CYCLES / ELAPSED_TIME_IN_NS
+  AVG_LATENCY_IN_CYCLES = RD_CUM_OUTS / RD_REQ
+  AVERAGE_LATENCY_IN_NS = AVG_LATENCY_IN_CYCLES / FREQ_IN_GHZ
 
- - memcpy with multiload (from multichase) on socket 0 CPUs and memory:
-   lpm_ddr_bw is 740-744 GB/s at steady state (perf stat -I 2000),
-   multiload reports 708063 MiB/s (742 GB/s).
- - Read only (stream-sum) and write only (memset) loads on socket 1:
-   lpm_ddr_rd_bw is 608 GB/s with 2.4 GB/s of writes, lpm_ddr_wr_bw is
-   628 GB/s with 1.1 GB/s of reads.
- - memcpy on socket 0 CPUs with memory on socket 1: socket 0's
-   lpm_ddr_rem_rd_bw and socket 1's lpm_ddr_rd_bw count nearly the same
-   bytes (258.03 vs 258.73 GB).
- - lpm_ddr_lat idle is 150 ns in the default aggregation, and 132 ns and
-   194 ns for socket 0 and 1 with --per-socket. Under the memcpy load it
-   is 555 ns by default and 563 ns for socket 0 with --per-socket, and
-   stays at 551-558 ns per interval with -I 1000.
- - 8 GiB O_DIRECT dd read from an NVMe drive behind RC 0 of socket 0:
-   lpm_pcie_wr_bw_0 counts the 8 GiB at 8.7 GB/s (dd: 8.7 GB/s). With
-   the buffer on node 0 it shows up in lpm_pcie_loc_wr_bw_0, with the
-   buffer on node 1 in lpm_pcie_rem_wr_bw_0. With --per-socket, socket 0
-   shows the same and no metric of either socket is nan.
- - With the nvidia_t410 metrics forced on a machine without these PMUs
-   (PERF_CPUID=0x000000004e0f0100 on an x86 JEVENTS_ARCH=all build), the
-   PCIe metrics read 0 rather than failing to parse, also with
-   --per-socket.
- - "perf test 10" (PMU JSON event tests) passes on the Tegra410 system
-   and with the x86 JEVENTS_ARCH=all build.
+The bandwidth metrics use the mem_bytes_rd/mem_bytes_wr events of the
+Unified Coherence Fabric (UCF) PMU with source/destination filters:
 
-Chun-Tse Shao (2):
-  perf jevents: Add NVIDIA Tegra410 uncore DDR metrics
-  perf jevents: Add NVIDIA Tegra410 uncore PCIe metrics
+  lpm_ddr_bw, lpm_ddr_rd_bw, lpm_ddr_wr_bw: all sources to local CMEM.
+  lpm_ddr_loc_rd_bw, lpm_ddr_loc_wr_bw: local CPU and non-CPU sources to
+    local CMEM.
+  lpm_ddr_rem_rd_bw, lpm_ddr_rem_wr_bw: local CPU and non-CPU sources to
+    remote memory.
 
- tools/perf/pmu-events/Build            |   2 +-
- tools/perf/pmu-events/arm64_metrics.py | 126 ++++++++++++++++++++++++-
- tools/perf/pmu-events/metric.py        |   2 +-
- 3 files changed, 126 insertions(+), 4 deletions(-)
+The latency metrics use the CPU Memory (CMEM) latency PMU:
 
+  lpm_ddr_lat, lpm_ddr_rd_lat: average DDR read latency in ns.
+  lpm_ddr_wr_lat: the PMU only measures reads, so this is always 0.
 
-base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
---
+There is one CMEM latency PMU per socket and perf sums the counts of the
+PMUs in an aggregation, e.g. of both sockets in the default aggregation
+mode. Use aggr_nr() to divide the summed cycles by the number of PMUs,
+otherwise the frequency is too high and the latency too low by that
+factor.
+
+The events are sysfs events of the nvidia_ucf_pmu_<socket-id> and
+nvidia_cmem_latency_pmu_<socket-id> PMUs rather than json events, so add
+the "nvidia" PMU prefix to the prefixes that skip the named json event
+check in metric.py.
+
+pmu-events/Build only runs arm64_metrics.py for the "arm" vendor models,
+so also run it for the "nvidia" vendor models to generate the Tegra410
+metrics.
+
+Signed-off-by: Chun-Tse Shao <ctshao@google.com>
+Assisted-by: Gemini:gemini-3.1-pro-preview
+---
+ tools/perf/pmu-events/Build            |  2 +-
+ tools/perf/pmu-events/arm64_metrics.py | 66 +++++++++++++++++++++++++-
+ tools/perf/pmu-events/metric.py        |  2 +-
+ 3 files changed, 66 insertions(+), 4 deletions(-)
+
+diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
+index 1ac067be9d34..8dc8cfcb8b04 100644
+--- a/tools/perf/pmu-events/Build
++++ b/tools/perf/pmu-events/Build
+@@ -78,7 +78,7 @@ endif
+ 
+ ifeq ($(JEVENTS_ARCH),$(filter $(JEVENTS_ARCH),arm64 all))
+ # Generate ARM Json
+-ARMS := $(shell ls -d pmu-events/arch/arm64/arm/*|grep -v cmn)
++ARMS := $(shell ls -d pmu-events/arch/arm64/arm/* pmu-events/arch/arm64/nvidia/*|grep -v cmn)
+ ARM_METRICS = $(foreach x,$(ARMS),$(OUTPUT)$(x)/extra-metrics.json)
+ ARM_METRICGROUPS = $(foreach x,$(ARMS),$(OUTPUT)$(x)/extra-metricgroups.json)
+ GEN_JSON += $(ARM_METRICS) $(ARM_METRICGROUPS)
+diff --git a/tools/perf/pmu-events/arm64_metrics.py b/tools/perf/pmu-events/arm64_metrics.py
+index 4ecda96d11fa..b0d0651fec12 100755
+--- a/tools/perf/pmu-events/arm64_metrics.py
++++ b/tools/perf/pmu-events/arm64_metrics.py
+@@ -2,14 +2,75 @@
+ # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+ import argparse
+ import os
+-from metric import (JsonEncodeMetric, JsonEncodeMetricGroupDescriptions, LoadEvents,
+-                    MetricGroup)
++from typing import Optional
++from metric import (aggr_nr, d_ratio, Event, JsonEncodeMetric,
++                    JsonEncodeMetricGroupDescriptions, LoadEvents, Metric, MetricGroup)
+ from common_metrics import Cycles
+ 
+ # Global command line arguments.
+ _args = None
+ 
+ 
++def NvidiaT410Uncore() -> Optional[MetricGroup]:
++    """Uncore metrics for the NVIDIA Tegra410 SoC.
++
++    The formulas follow Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst.
++    """
++    assert _args is not None
++    if _args.vendor != "nvidia" or _args.model != "t410":
++        return None
++
++    interval_sec = Event("duration_time")
++    mb_per_sec = f"{1/1e6}MB/s"
++
++    def DdrBw() -> MetricGroup:
++        # Unified Coherence Fabric (UCF) PMU:
++        # AVG_MEM_{READ,WRITE}_BANDWIDTH = MEM_BYTES_{RD,WR} / ELAPSED_TIME
++        loc_src = "src_loc_cpu=0x1,src_loc_noncpu=0x1"
++        rd = Event("nvidia_ucf_pmu/mem_bytes_rd,dst_loc_cmem=0x1/")
++        wr = Event("nvidia_ucf_pmu/mem_bytes_wr,dst_loc_cmem=0x1/")
++        loc_rd = Event(f"nvidia_ucf_pmu/mem_bytes_rd,{loc_src},dst_loc_cmem=0x1/")
++        loc_wr = Event(f"nvidia_ucf_pmu/mem_bytes_wr,{loc_src},dst_loc_cmem=0x1/")
++        rem_rd = Event(f"nvidia_ucf_pmu/mem_bytes_rd,{loc_src},dst_rem=0x1/")
++        rem_wr = Event(f"nvidia_ucf_pmu/mem_bytes_wr,{loc_src},dst_rem=0x1/")
++        return MetricGroup("lpm_ddr_bw", [
++            Metric("lpm_ddr_bw", "Total DDR bandwidth",
++                   d_ratio(rd + wr, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_rd_bw", "DDR read bandwidth",
++                   d_ratio(rd, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_wr_bw", "DDR write bandwidth",
++                   d_ratio(wr, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_loc_rd_bw", "Local DDR read bandwidth",
++                   d_ratio(loc_rd, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_loc_wr_bw", "Local DDR write bandwidth",
++                   d_ratio(loc_wr, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_rem_rd_bw", "Remote DDR read bandwidth",
++                   d_ratio(rem_rd, interval_sec), mb_per_sec),
++            Metric("lpm_ddr_rem_wr_bw", "Remote DDR write bandwidth",
++                   d_ratio(rem_wr, interval_sec), mb_per_sec),
++        ], description="NVIDIA Tegra410 DDR bandwidth")
++
++    def DdrLat() -> MetricGroup:
++        # CPU Memory (CMEM) latency PMU, one per socket:
++        # AVERAGE_LATENCY_IN_NS = (RD_CUM_OUTS / RD_REQ) / (CYCLES / ELAPSED_TIME_IN_NS)
++        rd_cum_outs = Event("nvidia_cmem_latency_pmu/rd_cum_outs/")
++        rd_req = Event("nvidia_cmem_latency_pmu/rd_req/")
++        cycles = Event("nvidia_cmem_latency_pmu/cycles/")
++        # perf sums the counts of the PMUs in an aggregation, e.g. both sockets
++        # by default, so divide cycles by their number to get the frequency.
++        rd_lat = d_ratio(1e9 * interval_sec * rd_cum_outs * aggr_nr(cycles), rd_req * cycles)
++        return MetricGroup("lpm_ddr_lat", [
++            Metric("lpm_ddr_lat", "Average DDR read latency in ns", rd_lat, "1ns"),
++            Metric("lpm_ddr_rd_lat", "DDR read latency in ns", rd_lat, "1ns"),
++            # The CMEM latency PMU only measures reads, write latency is always 0.
++            Metric("lpm_ddr_wr_lat", "DDR write latency in ns",
++                   rd_cum_outs - rd_cum_outs, "1ns"),
++        ], description="NVIDIA Tegra410 DDR latency")
++
++    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat()],
++                       description="NVIDIA Tegra410 uncore metrics")
++
++
+ def main() -> None:
+     global _args
+ 
+@@ -37,6 +98,7 @@ def main() -> None:
+ 
+     all_metrics = MetricGroup("", [
+         Cycles(),
++        NvidiaT410Uncore(),
+     ])
+ 
+     if _args.metricgroups:
+diff --git a/tools/perf/pmu-events/metric.py b/tools/perf/pmu-events/metric.py
+index f5d81eccd5c3..6fb69024d1fd 100644
+--- a/tools/perf/pmu-events/metric.py
++++ b/tools/perf/pmu-events/metric.py
+@@ -91,7 +91,7 @@ def CheckEveryEvent(*names: str) -> None:
+       name = name[:name.find(':')]
+     elif '/' in name:
+       name = name[:name.find('/')]
+-      if any([name.startswith(x) for x in ['amd', 'arm', 'cpu', 'msr', 'power', 'cha', 'uncore']]):
++      if any([name.startswith(x) for x in ['amd', 'arm', 'cpu', 'msr', 'power', 'cha', 'uncore', 'nvidia']]):
+         continue
+     if name not in all_events_all_models:
+       raise ValueError(f"Is {name} a named json event?")
+-- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
