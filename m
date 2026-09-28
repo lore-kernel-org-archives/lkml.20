@@ -1,181 +1,125 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E284848BB
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586433; cv=pass; b=JwcqfFzWpkg+MCDUujJai7pyfQ8/+3dapiKuIGNctSqsxbKLv9W1F1PXTMGHiYvJPCs+QFYk4XQN1r7Vj0rnoL4P+RMN5Wq28sV9mZg56yfxLqzr5mVyDNQ+zsPS78AIdsfpH3/FHASAnFnXV2H2hWV1qS9c+NR0Ek+5b+6+Nz4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586433; c=relaxed/simple;
-	bh=s2Enupyeibtnt7iImD86TsDrfkpy6GFHBVU2jucmNWs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eYQv5ceV3wFqMfWcmd6NLeoS5WqCWAIe38jULFU26+nMzLasEojbAMN+jp1W9A5d7TBpy3LdsadCvU/b3a+rVLtkhlVHZTrW7omNcM6kquxKGbiji+lnDxacvuUmq+MfSSnvDDS3VYnGKd/Pp28FNGQtCs0141rgmO5yb7vuhys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IROmiQzM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BRgV31EC; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C30D48A2BF
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790586448; cv=none; b=Jz/F+Ttzwpykb57GviP/2t6FjLDGUC+xsAF7U0gV8UP5f5XfHYoMWamH1QUqoQT6RPCGFQjSMaDPsd+Oe5xbkU+vqv/PsIKCYPLFZ1o/UQrv9qWKouWzGBaAhq41LyX7fEMgrnSs3lO0Mo184/lfAcnqe8o9RARQ8e3zFtfGneE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790586448; c=relaxed/simple;
+	bh=jkafQPvENBXIRN4pWLUuazsdW6dxF1NR2ozZZ699IpU=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fbIqZc9ewYJNkAI2Wgcuh0qRdXuxfndfQ+z4EzjUFBzUBB2uY84n1HJl/640Sc5CHLoZdjmXTd77ErWllYOULsq7oRpoktxxGo7hpLoiHfmRseQzjHp0HO1/VgHWzui0rZtaEIK6TLX56AJU4L8xcHN+zT8idik0Cd9JlzK3khI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5SyCBq2; arc=none smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IROmiQzM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BRgV31EC"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S7xNUO1982085
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:07:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=n19NZ2DZer6lB8ryYO/o4o4W
-	WUSxviNywHDQ+d++mko=; b=IROmiQzMOCN35QWrXMKhPyYSyMmuA6jkxAyjmPhC
-	0UETZgfIDwCqiu4QPlZUilAG1nVma42171hArilj2c7EALEaPO5jZc65CbeUadU9
-	V9Q31Ks1rNu0G+K8HpRwd+cR1xTDB3VwgE+k2ieRVXXmzwWn2X7MITPKN74sC5sw
-	ZQxAQ4aDFePZX4BB7nMOYUJiAdd8f/I6EJ2HsZdZadi7hSE35qV9t1cEIKDCSeml
-	eK7v6lV8WzUmVpJyx+z9bOf9YA6EXyBYTqwGRw3U9/tadcoaOYG29myWOTpoMNd6
-	kBGF8GMBR0iUv68rTTsWx+vGkZmb0ZzCxIOdPfLng6zgYg==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj6t0s12-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:07:10 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-88322409239so39007967b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:07:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790586430; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PHubdCyz22E2Kxd9vo5CRLTSQFIJNEWWoY/uYSfucHJFw7IV2CND4L3kbgUs/ex02V
-         r5TFlZxXsRQPA8w0nFI74oviWC1+d+7ta8CcOsme0dir/w20/yc+leOrWBnw7x+gZiTd
-         fcAnr+4Yd81MkZeD7evpEo85LeoS8fvi3B5g28GvrTDhL6xZgQvYAv4Sj1iEwmOuZmIa
-         BsXkVFUmSCHVPimI/7i5QqDNabMl3YwpbOrAa6MrblSts1toXBHt3aImKjMCIISUASq3
-         lBhsaGLu75KxZj3KDuXv/zXs1y+gSvPNWnKdWAdi+XzpD4Do3zkpHAPfQQyN3phL5VDI
-         fxGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=n19NZ2DZer6lB8ryYO/o4o4WWUSxviNywHDQ+d++mko=;
-        fh=y8peunqpXM1roRlGQj4r2l2ZWOmnaHLoEkrez/j24z8=;
-        b=JSdezI2WYYaV3p7T17O9ycIBmO3hV8j09lF+VPUVectlE+nkJUD1xoG2ey6zPayBU5
-         CFvotyXtuezw5JcoCTagsHcgurpeWXPPOwp6d1LcEuAiDsJT4T3kEPFSQ/u+yfyiStKD
-         BO+n67OdfiyVJJaf6VYXpSLkRWBb+EyGjFHDfoijeiH/WPnTNttS8LD3L50yAMoKnu/X
-         IAtpWO9lhEBuyFyISAXnvK3IfJvOQ1w/zCOdGg7WucdtFOZnrr+twZYQ208rN1xAXC0J
-         wqtAZVzuYSTN5Ckim6a5JPq0+72Rt9uMSW4YQVC0l9s5pEOpb7QKiUFeltSskdc/vH8X
-         QHLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5SyCBq2"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2b4138d3deso252040266b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:07:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790586430; x=1791191230; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n19NZ2DZer6lB8ryYO/o4o4WWUSxviNywHDQ+d++mko=;
-        b=BRgV31EC1wVDSY3eTEaG2gDR2V2Ay7vsWbRTpcni1sjY2fL9fzScoaX7ysyKzql+xS
-         ypST2GZCO8b3W1RhJg1xkUx1Vx2cUsYyuqv+8g+vTQ033yLG1POBVWMtXWDn+6pEbVPR
-         Y7lYUhKFVIVBZtlg/EoDnXedpATqN4A2qShCxKOB53bRzkwLseG6TBWGt8EM5Sn6Y7Ot
-         QIlBhukufru7wyEb9g0RFQ7tgu4VvaNWfUbolBBdZEon0MhdjopYcWY49YPPjyYsVL2w
-         +9TVS6oXT1/5e1SajbZQ3uS1eiNkD7aAIzOZ0NWUOgQVbjVcSNhl1WQCx3z6vPjRf9oB
-         eNHQ==
+        d=gmail.com; s=20251104; t=1790586444; x=1791191244; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rz4A9u2HwDkmyVBaHthqdE81Vhdpzal2brNiQu6Y4JM=;
+        b=R5SyCBq2k8P4zh29OEtgeqGhoEeRTnix+BFk6bwbyHdRan9o6ouipRvoFCumnuRkIS
+         9tOi4WCbabSVM3sZK7Unq4QNh/Grv7mA4n3KtWDG3VpFydA7JY7JqGLTV12phtQuHZ6e
+         N9J8FvScqKrCVOfw+TLCLp+DAafFDqY5pDJ3Dvpt5h7QHsPZjLtzusYWJxXKbP0PxX7D
+         vWBQWSBM6pFzAm9Bqv2GD1015b3dOPJfq0O09xx/YId6D+RyWV5ZdJXgwp4rxoXy8b1M
+         fzfAuPoRVmaUAH8BMBVlGZW+2ThsqH889q9WQiJQu8WvQaBBRT5jtKMgGIkuDOt0ndlG
+         tYyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790586430; x=1791191230;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=n19NZ2DZer6lB8ryYO/o4o4WWUSxviNywHDQ+d++mko=;
-        b=zfwwC06RY/wDjqrAgnziRGk2+0L+XZmW96jJMs+fiF9JGOmL7zVPwKOFZIoL6ci2Rt
-         905s0pW6OxATtDFFrqKmNha+Gk+SdikW09aqDvyYijAjrovL7dzSLei93d5HwTth83Rk
-         mCooDhlgiHGNWQ7xCZMqnuQhT+Hnieqe2vi8tSzzH1sIhTcAFpyXov3aPKwijsXUVhUN
-         FuXrKxQhvEjuOlc5TbbE9x6GI/7BjDMEbjs7r2wmGRPOVt1XDSLsezXxSd7rzVXFT46s
-         7LJMNphstLCnTuwubnPIh5/+puSfk9h6wsB70teDGroq60kc0ZQn/K4OL+CzSUTHfttD
-         BNLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaguAUqAv1RvZSmGfZmg9412LkyC1+Pz9H+Ow9uSqxSYrGmaH7BsfEOi/bLCj2A8C6Zbcn+pDl+xCBPao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrqXpNi/jSAvHtO1mjlPLPq7ey4MzimBhJ1JO2eX43S2uA8c0+
-	BWxkBD14gzZf5Xq5NdUF8+bFptXfS3hptFS5GXbwOvvf50u8JletyQHz2VIok8JoOJI3f1p1HYn
-	NEzycGWQx7PqRR2hwgvEF+Gd8rXntSDGZEMR0xpQhE2z0J5tZNYdkKaU99jqGiG6DDm9jbnl5P8
-	eMJgN9gqyYiRIKdmD/4Q6fdK4S5nvPtNQIP2JhPlMuTQ==
-X-Gm-Gg: AYBFou14eEyZUNjh+z8qjtlHZAGVKxdOg0bBT0ZHD7CH9UPULqLglFTzT+2MrBl90Om
-	SyZWX+BGs1J27PRrbmv/fRWAHOyJU3AJdwLx24eGVRp97Gfy4kFHEeRGHmSVPCgct9DmO0SgfoI
-	zL+kA78Q4NH8koQupvvIPkbQqTTci1fdfqX5oktECqIw13flINN/PSExGnIvE=
-X-Received: by 2002:a05:690c:281:b0:8a8:8f62:e92 with SMTP id 00721157ae682-8a88f6217a1mr34619207b3.55.1790586430083;
-        Mon, 28 Sep 2026 02:07:10 -0700 (PDT)
-X-Received: by 2002:a05:690c:281:b0:8a8:8f62:e92 with SMTP id
- 00721157ae682-8a88f6217a1mr34618987b3.55.1790586429555; Mon, 28 Sep 2026
- 02:07:09 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790586444; x=1791191244;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rz4A9u2HwDkmyVBaHthqdE81Vhdpzal2brNiQu6Y4JM=;
+        b=Dbme6lt8xqVULJViseHMWWvothmzoRa2ZF3VveqM91qm0RLwmuIwCxPzMlixDr2aYg
+         Ome6eMQ64qYtv0+hV6bBu2J7zDmknegerFeTIKHVPt4MT509a1+2mZVYgtyZRReja/3k
+         LAdbH3kagtxzCIku3Ekwjs4B5ivMJh7qyBUlfQoUtTCjxT3kKR5eWsAr6tbKfS0+KEn1
+         Yr5rhbXKPjdOKWA5G0dvb5kV8QYoMCSzVUjWn7QXJqBG35y1F8UkA3zpHs1zHQfVH11q
+         FkFd0LkFjifZ49RPE9Kv7FEqSZqcV/sDs4w9TKej8G8Sp0w50EObbWE18oe3aQptH4HT
+         d3qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzL5F7ER0knVhKcINoor9wvE54vq5oMDcwWMODn7VA20XX85fwMusGod8ZdNaoiZWT/EZyYwENf5NuXhHk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbOH8bNOwHuQdh2ZhUQreF7h50rUGEeK9YtxZH/tFYcf7vgeCH
+	9S6LBR1vpS76HO6btaoaA9kEQBvX+y1DemXjrbfybkNR0lBDNen/wJj5
+X-Gm-Gg: AYBFou0tYoMhdUpRtZIiqWB748Xeup1EkwyYcyh44ntG85reejJN9VoaRCBfc7eA+b/
+	SEFKMQww2UvadSVuq2bmU959qbx5KJ8Fkodq27cw1wzS/Ou5CDY+CbUW26Jy5FfJWlLSFVo3Bpr
+	drhcRutRypk+bkIhGFv6bufrMSo7NBDIL3gyFZEh54av+F3k9yE59Q1MD/tEa7iL4OKiL1Zj5D7
+	nH1yPIhLSfLQk/DOnna5JF3q56EA2GH/SpVSZLfwPIoHBIu1ZwNTAK/U0XXYbkHnMxSTPt51i+b
+	t2jH89wVapjRUA0stpqvJnK0nrQqhhQEOVN7x4kePh+bEiU51s2JBFrfXYZ3bqe4wZQTSfH8nJH
+	PzrZN9poR159n9EDgKzFM8uUCInGB0dPmaLAj6SnoWTBHrCwUEZNhepKfW0lNQT3pnM6Yt+9h1s
+	0tV3npNI1tV5IpcJCl+K/AnSAF3KETlhxYbdI=
+X-Received: by 2002:a17:907:6091:b0:c16:4df6:176b with SMTP id a640c23a62f3a-c2ac23d6040mr1043044966b.20.1790586443621;
+        Mon, 28 Sep 2026 02:07:23 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757ac8dsm438371866b.25.2026.09.28.02.07.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 02:07:23 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 28 Sep 2026 11:07:21 +0200
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+Subject: Re: [PATCH v4 0/2] mm/vmalloc: fix vmalloc_dump_obj VA lookup
+Message-ID: <arouSec6y9oVau10@milan>
+References: <20260928-vmalloc_dump_obj-v4-0-6f288a431edc@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
- <20260923-b4-qaif-shikra-audio-v7-7-d5b6f056568e@oss.qualcomm.com> <arOfufqav6zRT_Rd@sirena.co.uk>
-In-Reply-To: <arOfufqav6zRT_Rd@sirena.co.uk>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 14:36:56 +0530
-X-Gm-Features: AclHuK-5ndE__5TsHzpVHEV0m6dGW20Hk6VWjJY3Bt2Guaa4yktx6YOghplq7oM
-Message-ID: <CAC-tS8BscYoSU41qHTC9_8Ajq-MuyfOHWzt4p6v6NN8HzsRVaQ@mail.gmail.com>
-Subject: Re: [PATCH v7 07/10] ASoC: qcom: Add QAIF PCM operations
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfXwcipDoY9grq5
- uu5En/Phr/ODSAvjTbvUl2yDJI+om1TRF+l6O4kFqzMyht84c1usQ43D+QVcCWz5fzhnXgIfwxA
- bRIWZcQ/2bgvhOqMJBd9El1g+Uz1/XUK9EcZRY3GXtlNxYsEY3Yjb8JuLpR1DoeM3apqFySLG2y
- 6lHanBq9sXhOTWnQly5OPmyd6fKQXjNeIfNB0ODLDiUKXdWpM0AXm41IOL3MFTrZ+2hb4PuN+AH
- B/VS2kmhWrSqn/v9Q8REaMbHP1QCW8fu7CBDOvU1K9xGjzd7x/SI+UcYEWpw2PaUfRn/ZuT7UIU
- 2mAphC9hYVHAls47O42XNWL1KY8eGXQ+AzDsup14upp0Mr2/mgK5KFrqkSg1QaNTkfbtcOAoJbi
- jcJR3F8pvqN+QW4Akd5Rs6/9TZ491khQNCw70giNlDkDI0HakhZ+tQ42+Xi1c+4kBtUN5jaIIOg
- e1asR7mQsHdjoICCWuw==
-X-Proofpoint-ORIG-GUID: NdjHnXmleZXJdNQCIeaV6f8cx4zEfN6J
-X-Authority-Analysis: v=2.4 cv=dZkVTnXe c=1 sm=1 tr=0 ts=6aba2e3e cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=r2ZyNpLy9wB0e1xT6XIA:9 a=QEXdDO2ut3YA:10
- a=kLokIza1BN8a-hAJ3hfR:22
-X-Proofpoint-GUID: NdjHnXmleZXJdNQCIeaV6f8cx4zEfN6J
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNiBTYWx0ZWRfX2wp4tOnq/cT/
- jvDxaufVQ1Qbt5QHTPHywSSCsC4nGToqQsMI3w28ngbWVnKKW3A4JkArG2pihofUfGbiiYEemBZ
- Q5zDgTJsf1HsXLYA5jVszhmt1boEhmo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280036
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-vmalloc_dump_obj-v4-0-6f288a431edc@linux.dev>
 
-> > +     dma_mem_info->vaddr = dma_alloc_coherent(component->dev,
-> > +                                              dma_mem_info->alloc_size,
-> > +                                              &dma_mem_info->dma_addr,
-> > +                                              GFP_KERNEL);
->
->
-> snd_pcm_set_managed_buffer().
-Thanks for the suggestion. Will switch to
-snd_pcm_set_fixed_buffer_all() in a .pcm_new callback in the next
-version.
->
-> > +static int qaif_platform_copy(struct snd_soc_component *component,
-> > +                           struct snd_pcm_substream *substream,
-> > +                           int channel, unsigned long pos,
-> > +                           struct iov_iter *buf, unsigned long bytes)
-> > +{
-> > +     struct snd_pcm_runtime *rt = substream->runtime;
-> > +     size_t buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
-> > +     size_t channel_bytes = buffer_bytes / rt->channels;
-> > +     unsigned long offset;
-> > +     void *dma_buf;
-> > +     size_t copied;
->
-> If the buffers are already memory mapped why do we need a copy()
-> operation?
-With snd_pcm_set_fixed_buffer_all() in .pcm_new the buffer will be
-coherent and directly mmap-able, making copy() redundant. Will drop it
-in the next version.
--Harendra
+On Mon, Sep 28, 2026 at 04:15:53PM +0800, Ye Liu wrote:
+> vmalloc_dump_obj() has two bugs that cause it to miss vmalloc
+> allocations.
+> 
+>   1. PAGE_ALIGN() rounds up, pushing last-page addresses to va_end
+>      and outside the VA lookup range.
+> 
+>   2. The function searches only one vmap node, but allocations
+>      larger than 64 KiB may span multiple vmap zones whose VA
+>      is stored in a different node's rb-tree.
+> 
+> Patch 1 fixes the alignment, patch 2 fixes the cross-zone search.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+> Changes in v4:
+> - Patch2: Simplify find_vmap_area() to return va directly.
+> - Patch2: Simplify locked_vn initialization in find_vmap_area_lock().
+> - Link to v3: https://lore.kernel.org/r/20260924-vmalloc_dump_obj-v3-0-5bdee3da37b3@linux.dev
+> 
+> Changes in v3:
+> - Patch3 drop.
+> - Patch2 Extract find_vmap_area_lock as a helper to simplify the code.
+> - Link to v2: https://lore.kernel.org/r/20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev
+> 
+> Changes in v2:
+> - Use is_vmalloc_or_module_addr() instead of is_vmalloc_addr() to
+>   avoid filtering module/BPF/execmem addresses. (sashiko-bot)
+> - Link to v1: https://lore.kernel.org/r/20260916-vmalloc_dump_obj-v1-0-7aa402d224df@linux.dev
+> 
+> ---
+> Ye Liu (2):
+>       mm/vmalloc: fix vmalloc_dump_obj address alignment for last-page lookups
+>       mm/vmalloc: fix vmalloc_dump_obj cross-zone VA lookup
+> 
+Both look good to me.
+
+Thank you.
+
+--
+Uladzislau Rezki
