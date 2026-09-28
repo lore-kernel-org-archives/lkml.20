@@ -1,316 +1,191 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A43F390C88
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE1F38AC7C;
+	Mon, 28 Sep 2026 05:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790573969; cv=none; b=dY962Azu/6C9n37/C94w96zInBRvnDZMLK/NZM06YlYL2XHycvGlAY71VtXw9MPTt1GllggoBWv/6jHtq3d9pd7YwmY6GGHIvDUs3r4k1Ab9wNzwK9828hifDOI1jyT9bnef4NPHUsmygOshsUBuBceq6161BhQoSve38oqnpKE=
+	t=1790573970; cv=none; b=Oq35AjyWsKskqafXPXCrIBCs5KSw9QkMCwGilxGzqeKajlYxZrVSb5NeR46B+XfLQmQTD3PIArlGmyghLHXCvmxNwN+46fZo96rEdcYFCJDZSDPYNQzNVPqemvAC7KNRvSy8LX5SbYTTqHqwHMBwwGOM/bRprIIzBbkseV2FQgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790573969; c=relaxed/simple;
-	bh=vU3G+Dpf20aZ+9WW19yBDyvOCi9xmow7DgGMoyE68S0=;
+	s=arc-20240116; t=1790573970; c=relaxed/simple;
+	bh=KRcnPZxJ3TxjYbvZ/ffwiydMHYyd7oDraGjHWCGvvcs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BuZF3VvElFrmZ4t3PPQssTnQCAMhRLRb/E/NwJIp3rjf/103G09Wtjg5mn9HguQMZLUZWogMqIDlhhXqhJJYKI6UTC9d2gsPciDmrL40xwbtFiecUjVctnW9LEomYGnNCTJCmmq4GGhWDOTSsWvsMRu/rhrBIoREJtZPMAy4CGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+TNqcIU; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=LZNxCnM+Kzc/rI6GKtWam/4qzQkEhSoas1idXuPQuAJMkSSUNCEcI9O2fSopdfGLH3wF0NuFxY6A1GGAAVn/mePI545bxABfz/YpMmZExZQf5/gXtrZibOMBC6XNLCkC2bHy3/2M22Z7SVLdc2GQQ7M/8WtFPoZTHtGt/eb3Rq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ev73wQAE; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+TNqcIU"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86b51649c7eso53387b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:39:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790573959; x=1791178759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x+ooTTX9f0Dee2MM//tZyofUwOPATbbov9mICSl7hdg=;
-        b=N+TNqcIUeslpBd6SZHB0o3v/bYT9mKWQBC4J8LS0j+fHA7YwK1zMZsO+e4wmxjGSYG
-         SfEsPD69g6KjE94zcv9GPhmx8rnD5POErVStUKRvA5MA7xkKaklmKAdRrB7N4vX1G5cF
-         tDVKBSvTgLD2UUKlzFxrURm21k8YL3uJkdQ0gNiTvLowGYrOrN+xVCtP84KR2ta3Z0nu
-         CqSnMY9g1WkDXgRUR1e8gRTPiavSsoEMSwqNM+IFzMgDSK3FIw8Ii3OcwLdNyAQm175i
-         W48CGSVzDmw48ELcl0MK0iNNMws9U3NTM91lAeW/1hIoYnlU+mwO/A2dm24vSBLDLC2W
-         JZVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790573959; x=1791178759;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x+ooTTX9f0Dee2MM//tZyofUwOPATbbov9mICSl7hdg=;
-        b=n+Sdki/u6V0wPMqbyQfxwPkx5HtJx+ihR1rW5l7NBTIQPzDbwJZUru+vfFp+JrgFbH
-         lcql8C2Wh0tyx/waEYrFyNbpvaci0RlzqsODuT+Dk+eliZATt1h/5Mizwls33QHaT63L
-         ZfWb6//4VspWG+lGNR9XWYZq1IU2i4BwMnlDt1Uqrz0N+Vp+fh8aoUdEwp4iMIUkDK/D
-         9uK5yA6aBujaGNrzH8gWizV2sY7mmvTT7vPYBhNfJDv3dVIou5cOZq+eBg8/hjMT3kgG
-         w0xKdJsEyOTSTC91k/fk+PWtN3v5kzkRrHhDfu1cyKjcxfNb0SUqDGhO/cqCms0lI16S
-         LswQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDmuCKQPK/0NnV+e3ERDaQi0mPKhiHADw9tpD2c3syDMBUv3cCoERy2dobVDnzVBgPXkyuGyp/FfwRpFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhnkJASEWVvyACsuCIVxLFdvc2a23V3G617RMGGPEmidHajcrG
-	yRQrd2eESOlhVVeoBaQU3L7bBw+LVpbx3vnZM8iJVtOBGTFNYyu5VkdZGKMAx5+L
-X-Gm-Gg: AYBFou2belWiGZm09EsSMMKbtZptQwHquFBRgURy/I1NRFOMKZNKWw5jsLY6p/E/5q1
-	aHXj0Rv4mf3ElFL8Z9MMpf2iOw5Wy2+jSb1OTMxZLnVwuWQKyoo+Eb4jyOCRTHyImfF9urt3Waa
-	tCpPQqT5Mfu3hLJ2AZ/DXahD9pym1mIvTn1bavEW7AtclqhScWnZ3ZCV1udPNw5PaXE95onUgDA
-	EcuA9TD7KAOh4bGyoYodOEFRd72FRFjYIEzaLG99D//pqzHmeo4QsLzZxskUhEccI9prRuSOkHm
-	K+PyGLpEjdEN6I8NVHl1ZHEA2B4n4feuVCwfb3yR4sdC0SLuB7gf+Scl16n1yEaIGBlfMEcJQod
-	wWQTEL9KIR2xYP7dLZS8f4zZ9nWGF13NZYPWi1k+865VohV8ibpG0lu/Q2am+3XRK5c8o27YMRM
-	DE6+DTAYEDHVZIOw2V8cS9Lbt4hin3JRx8vkeGSqHBbT4SQnYwzASTrXmgiUr86J4UZ901qW7VE
-	5Z7LOWH1G7ENQ==
-X-Received: by 2002:aa7:9193:0:b0:880:4b51:af11 with SMTP id d2e1a72fcca58-8804b51b2e5mr8040887b3a.2.1790573959042;
-        Sun, 27 Sep 2026 22:39:19 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87febb82357sm3591121b3a.61.2026.09.27.22.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 22:39:18 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	freedreno@lists.freedesktop.org,
-	iommu@lists.linux.dev,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	linux-media@vger.kernel.org,
-	Bryan O'Donoghue <bod.linux@nxsw.ie>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	David Airlie <airlied@gmail.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Sean Paul <sean@poorly.run>,
-	Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v1 2/2] drm/msm: map page-less imported sg_tables from their DMA addresses
-Date: Mon, 28 Sep 2026 13:38:51 +0800
-Message-ID: <20260928053901.7270-3-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260928053901.7270-1-liujianfeng1994@gmail.com>
-References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ev73wQAE"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68R807O7188598;
+	Mon, 28 Sep 2026 05:38:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=zmk93sQzf03EanZhV
+	Bee2OYiiS4IEVygsO5Vm1CSPyc=; b=ev73wQAEY0tAJyDFdwYMAaxjttJ4hNWY2
+	mqPM+ekX/FT4NqnjcFXa5YgORH8ZmeVr4tkNYD1pulrz4QyxYXmrrFL28yfCwnCR
+	7/FJ4jVsl5sti9vSBy+rhefV3Xsh63asHDf2MY9fXRGHP4duOHxjv3ke3n6o5kLw
+	WQtVSBUzKyFlGwb+ieh/MvBAW/snyYni+pxqyCajhxv+nezeB2BJKaRqOax86ssa
+	nB3HdI+LZLwJ/jLz79pNH5JnE87oV4iJA9j3qoNJ55YT8wH5nwxzaf27MEnsBhZ8
+	B/MyUDc7MgBKzk5dNvvBQUNz+3DEazXRM8SvdEZqJbRCobaOtJOfQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qqyg2d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 05:38:49 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68S559ld2234289;
+	Mon, 28 Sep 2026 05:38:48 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y3jq9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 05:38:48 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68S5cjWV43254188
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 05:38:45 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id ED2422004B;
+	Mon, 28 Sep 2026 05:38:44 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B24E620040;
+	Mon, 28 Sep 2026 05:38:33 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.213.68])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 28 Sep 2026 05:38:33 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org,
+        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
+Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
+        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
+        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
+        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
+        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
+        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
+        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
+        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
+        linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: [PATCH v14 05/13] sysfs: Add preferred CPU file
+Date: Mon, 28 Sep 2026 11:07:20 +0530
+Message-ID: <20260928053728.797539-6-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260928053728.797539-1-sshegde@linux.ibm.com>
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyMiBTYWx0ZWRfX7xFTp9VID2sD
+ ugFI+h2NoziYQ4xvB7Sx8N/QD7pyxmJHGyuGRwoUx7RMsaFwmCgtwCeOq8yWEwJpoHrFISMBvQm
+ ePFoq+6Vsrk4syejEuyI4qAubc83uheWkxOwQJXUoxrQCfgCtKB3BmKM07xY25868BNrBm9Coxg
+ H+Ev+L/yb4k0Ge4EKdBMj9CUKf5Afm+MSF95iKT1y5rJRS0DgNtjZCQdUJt6BMgV2eAZfYi1m7r
+ jhg85CM5nfeMi/lgxFhHwYS7ARpBUoVb+ED6X51Y9f4Szt68Wu+1/LcyHZeWZaDT3Q7JYqjKixW
+ CujGCZQ+bRdgv64XTemfEYFntYuhn27fQB+tn7y7u7UoIL0Cd19w/oUVNDrjmV8I7p8fHjBfRaM
+ YQkIPE4auUooTjUMXE7jrqu0NLsfxLgkAwiz2oBzaJqAmCE/T3b4iDi6wPw/LEjbzPwKuGcrKEW
+ VCyS3q14Vpm5vR3EDtA==
+X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6ab9fd6a cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
+ a=94fVmjRkuoLjN79_KVgA:9
+X-Proofpoint-ORIG-GUID: LDgFbdq6Iw3tcR86z6Y-HPL8SsDbHBpb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyMiBTYWx0ZWRfX5QxeX2hYV26N
+ N7jY2DBNBPqDPQXLcLitbmghpYteZDAD/XEH8r/+wtZk7XUGzxDtD7lAYIOT0rTOXdMP2QzRTgB
+ YDzmn8oebjWaDfoc7ljgjnIbO/lReTg=
+X-Proofpoint-GUID: 1NwaQPwEnR1PVlFsllFh9HrN5BFwmDhx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280022
 
-With CONFIG_DMABUF_DEBUG=y, dma_buf_map_attachment() hands importers a
-copy of the attachment sg_table with the struct page pointers stripped
-and sg->length zeroed; only sg_dma_address()/sg_dma_len() are carried
-over.  msm consumes sg->length and sg_phys() in both of its map paths:
+Add a "preferred" file in /sys/devices/system/cpu/ when kernel is
+built with CONFIG_PREFERRED_CPU=y.
 
- - msm_iommu_pagetable_map() (userspace managed, per-process GPU
-   pagetables) walks the sg_table with sg->length and sg_phys()
+This would help
+- Users to quickly check which CPUs are marked as preferred.
+- Userspace daemons such as irqbalance to use this mask to
+  route irqs into preferred CPUs.
 
- - msm_iommu_map() (kernel managed mappings: display, and TTBR1 for the
-   GPU), via iommu_map_sgtable(), which consumes sg->length and
-   sg_phys() as well
+For example:
+cat /sys/devices/system/cpu/online
+0-719
+cat /sys/devices/system/cpu/preferred
+0-599        <<< Implies 0-599 are preferred for workloads and 600-719
+                 should be avoided at this moment.
 
-With a page-stripped sg_table both paths silently map nothing and
-return success.  Userspace then observes arm-smmu translation faults
-once the GPU first touches the mapping, e.g. during hardware video
-decode:
+cat /sys/devices/system/cpu/preferred
+0-719        <<< All CPUs are usable. There is no preference.
 
-  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
-  type=TRANSLATION source=UCHE
-
-and __arm_lpae_unmap() WARNs for the never-mapped ranges when the GEM
-handles are closed (a WARN storm of ~470 traces within a minute of
-video playback on my x1e78100 laptop).
-
-For sg entries that still carry a struct page (native objects, and
-imports without the DMABUF_DEBUG wrapper) keep using sg_phys(), so
-native objects which msm never dma-maps itself (non-MSM_BO_WC) are
-unaffected.  For page-less entries, recover the physical address from
-the DMA address instead: dmabuf attachments are dma-mapped against
-the msm drm device, so the dma_addr -> phys lookup can be done with
-iommu_iova_to_phys() in that device's DMA-API domain, cached per VM
-in struct msm_mmu::dma_domain at msm_gem_vm_create() time.  If the
-drm device is direct mapped the DMA address already is a physical
-address and the lookup degenerates to the identity.
-
-Applied on top of "drm/msm/gem: Drop use of pages for imported
-dma-bufs" [1], which removes the remaining struct page consumers for
-imported buffers.  With both, hardware video decode works with
-DMABUF_DEBUG=y, tested with clapper and chromium on x1e78100
-(Snapdragon X1E78100): zero arm-smmu faults, zero io-pgtable WARNs,
-correct frames.  Without this patch, the same system logs a WARN
-trace per unmap and falls back to a copy path for video playback.
-
-[1] <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
-
-Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-
-Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 ---
+ Documentation/ABI/testing/sysfs-devices-system-cpu | 14 ++++++++++++++
+ drivers/base/cpu.c                                 | 12 ++++++++++++
+ 2 files changed, 26 insertions(+)
 
- drivers/gpu/drm/msm/msm_gem_vma.c |  9 ++++
- drivers/gpu/drm/msm/msm_iommu.c   | 90 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_mmu.h     | 13 +++++
- 3 files changed, 110 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index f687a629629d3..322b96e0e07ec 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -840,6 +840,15 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
- 		goto err_free_vm;
- 	}
- 
-+	/*
-+	 * dma-buf imports attach against the msm drm device, and their
-+	 * sg_dma_address() lives in that device's DMA-API domain.  Keep it
-+	 * so the map paths can translate page-less sg_table entries (the
-+	 * DMABUF_DEBUG wrapper) back to physical addresses.
-+	 */
-+	if (device_iommu_mapped(drm->dev))
-+		mmu->dma_domain = iommu_get_dma_domain(drm->dev);
+diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+index 82d10d556cc8..8f250b8693b8 100644
+--- a/Documentation/ABI/testing/sysfs-devices-system-cpu
++++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+@@ -806,3 +806,17 @@ Date:		Nov 2022
+ Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+ Description:
+ 		(RO) the list of CPUs that can be brought online.
 +
- 	if (!managed) {
- 		struct drm_sched_init_args args = {
- 			.ops = &msm_vm_bind_ops,
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index da6782fca6bd2..8407a37f9efee 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -140,6 +140,24 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
- 	return ret;
++What:		/sys/devices/system/cpu/preferred
++Date:		Sep 2026
++Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
++Description:
++		(RO) the list of preferred CPUs applicable in
++		paravirtualized environments.
++
++		The steal governor driver dynamically adjusts this mask
++		based on observed steal time. Scheduling tasks on
++		CPUs outside of this list may lead to performance
++		degradations due to underlying physical CPU contention.
++
++		See Documentation/scheduler/sched-paravirt.rst for more details.
+diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
+index 69e52fed4241..747915ff974f 100644
+--- a/drivers/base/cpu.c
++++ b/drivers/base/cpu.c
+@@ -391,6 +391,15 @@ static int cpu_uevent(const struct device *dev, struct kobj_uevent_env *env)
  }
+ #endif
  
-+/**
-+ * msm_mmu_dma_to_phys() - recover the physical address of a dma address
-+ *
-+ * dma-buf attachments are dma-mapped against the msm drm device, so the
-+ * DMA domain of that device (msm_mmu::dma_domain) holds the mapping.
-+ * For a direct-mapped drm device the DMA address already is a physical
-+ * address.
-+ */
-+static phys_addr_t msm_mmu_dma_to_phys(struct msm_mmu *mmu, dma_addr_t dma_addr)
++#ifdef CONFIG_PREFERRED_CPU
++static ssize_t preferred_show(struct device *dev,
++			      struct device_attribute *attr, char *buf)
 +{
-+	struct iommu_domain *dma_domain = mmu->dma_domain;
-+
-+	if (!dma_domain)
-+		return (phys_addr_t)dma_addr;
-+
-+	return iommu_iova_to_phys(dma_domain, dma_addr);
++	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_preferred_mask));
 +}
++static DEVICE_ATTR_RO(preferred);
++#endif
 +
- static int msm_iommu_pagetable_map_prr(struct msm_mmu *mmu, u64 iova, size_t len, int prot)
- {
- 	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-@@ -184,8 +202,35 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
- 
- 	for_each_sgtable_sg(sgt, sg, i) {
--		size_t size = sg->length;
--		phys_addr_t phys = sg_phys(sg);
-+		size_t size;
-+		phys_addr_t phys;
-+
-+		if (sg_page(sg)) {
-+			/* CPU-view entry: native objects, and imported
-+			 * sg_tables that still carry struct page
-+			 */
-+			size = sg->length;
-+			phys = sg_phys(sg);
-+		} else {
-+			/*
-+			 * Page-less entry, e.g. the sg_table wrapper
-+			 * that dma_buf_map_attachment() hands out when
-+			 * CONFIG_DMABUF_DEBUG=y (page pointers stripped,
-+			 * sg->length zeroed, only the DMA fields carried
-+			 * over).  Recover the physical address by
-+			 * translating the DMA address through the drm
-+			 * device's DMA-API domain.
-+			 */
-+			size = sg_dma_len(sg);
-+			phys = msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-+
-+			if (!size || !phys) {
-+				dev_err(mmu->dev,
-+					"cannot map page-less sg entry: dma=%pad len=%zu\n",
-+					&sg_dma_address(sg), size);
-+				return -EINVAL;
-+			}
-+		}
- 
- 		if (!len)
- 			break;
-@@ -697,6 +742,47 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
- 	if (iova & BIT_ULL(48))
- 		iova |= GENMASK_ULL(63, 49);
- 
-+	/*
-+	 * With CONFIG_DMABUF_DEBUG=y, imported sg_tables carry no struct
-+	 * page and sg->length is zeroed; iommu_map_sgtable() would consume
-+	 * zero length and silently map nothing.  Map from the (translated)
-+	 * DMA addresses instead.
-+	 */
-+	if (!sg_page(sgt->sgl)) {
-+		struct scatterlist *sg;
-+		size_t mapped = 0;
-+		unsigned int i;
-+
-+		for_each_sgtable_dma_sg(sgt, sg, i) {
-+			phys_addr_t phys =
-+				msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-+			size_t size = sg_dma_len(sg);
-+
-+			if (!phys || !size) {
-+				ret = -EINVAL;
-+				goto err_unmap;
-+			}
-+
-+			ret = iommu_map(iommu->domain, iova + mapped, phys,
-+					size, prot, GFP_KERNEL);
-+			if (ret)
-+				goto err_unmap;
-+
-+			mapped += size;
-+		}
-+
-+		if (mapped != len) {
-+			ret = -EINVAL;
-+			goto err_unmap;
-+		}
-+
-+		return 0;
-+
-+err_unmap:
-+		iommu_unmap(iommu->domain, iova, mapped);
-+		return ret;
-+	}
-+
- 	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
- 	if (ret < 0)
- 		return ret;
-diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-index 8915662fbd4d0..116daf6ce47cb 100644
---- a/drivers/gpu/drm/msm/msm_mmu.h
-+++ b/drivers/gpu/drm/msm/msm_mmu.h
-@@ -64,6 +64,19 @@ struct msm_mmu {
- 	 * msm_gem_vm::mmu_lock.
- 	 */
- 	struct msm_mmu_prealloc *prealloc;
-+
-+	/**
-+	 * @dma_domain: DMA-API domain of the msm drm device
-+	 *
-+	 * dma-buf attachments are dma-mapped against the msm drm device,
-+	 * so this domain holds the mapping dma_addr -> phys for imported
-+	 * buffers.  Used to recover the physical address of sg_table
-+	 * entries which carry no struct page (e.g. the page-stripped
-+	 * sg_table wrapper that dma_buf_map_attachment() hands out when
-+	 * CONFIG_DMABUF_DEBUG=y).  NULL if the drm device is direct
-+	 * mapped, in which case DMA addresses are physical addresses.
-+	 */
-+	struct iommu_domain *dma_domain;
+ const struct bus_type cpu_subsys = {
+ 	.name = "cpu",
+ 	.dev_name = "cpu",
+@@ -531,6 +540,9 @@ static struct attribute *cpu_root_attrs[] = {
+ #endif
+ #ifdef CONFIG_GENERIC_CPU_AUTOPROBE
+ 	&dev_attr_modalias.attr,
++#endif
++#ifdef CONFIG_PREFERRED_CPU
++	&dev_attr_preferred.attr,
+ #endif
+ 	NULL
  };
- 
- static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
 -- 
-2.47.3
+2.52.0
 
