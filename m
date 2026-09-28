@@ -1,171 +1,245 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020097.outbound.protection.outlook.com [52.101.229.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE9C4915BE;
-	Mon, 28 Sep 2026 08:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9A548488F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.97
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585468; cv=fail; b=gPkkgt1EAv/CFcO6RNOM8mtBoSqe2xm4WnG5/57TDxdH+uUf72jnep8rN/d5lGQB7w/PaQFxDimx9JCY2YWVCsxp0x771qHN39Dl4lacuEE4sBPOQB1R4xpYnDtIH27GGm6mTa3flGRpAkcXc3sjba2/MeOquc9XgCGut2rj23k=
+	t=1790585482; cv=fail; b=nAhsLQn6z9lh7kW0+rBBVQo1dOIvyS1PCWtmrMJ+HojzUbcNk6nnh+RBnD30BAQYhZ9+eZQA1H0yHvmG6alpfTmEz0Rl6mlZC7gIP4pigE+hc687YtqVW8Npx3rEu8xYM5AxsA7mP0utCrb1RvbwtRTTxxwvbdOmm98OFlY891w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585468; c=relaxed/simple;
-	bh=wuwVv4HovOPZx5aaSkogkGyZKzDEY5Ajt49E5zbkwxE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SH1AyxgRGWLpC5WS4PdyiZ/97z8XWtqCkzfBgu9DiCYwd0kvbaLTlXTvPO8z/b1Qzhmx4gJGMscU0W6T/p4994HSB19UJgT6B3WmGr26YPn4VlkJKuUqk0/FJPKjmwww7rOGT+Z37mKDhx2DVvOQKC5TXfQKrB9aAQZI9SNbmX8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=hv0fP8D8; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=xYt9xy3/; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	s=arc-20240116; t=1790585482; c=relaxed/simple;
+	bh=l11zCsc+O5w8Faed+sXxnJGwH1Srswx5rvuR+H4WQW4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BTe8OUqBxcDaJLOpMDiMta4w0pLdxqkIlH8GQ1jD2C1mBJq1XJVqx2lPjXCQjVC6nsUoxP0daBDlwH1wOa1n53QQV8by6b4QX/QMB+wOtjCE/O2bV5sWRWVflDYmOehgtSx267RRGJqy5H3spVqcyQ4WyfNQUFSXm09x1aPux0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=DCswLbqq; arc=fail smtp.client-ip=52.101.229.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="hv0fP8D8";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="xYt9xy3/"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S81uNF1053068;
-	Mon, 28 Sep 2026 03:51:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=XQIxiaSOjUgNtcLoHTGN5+tHcfhROsqUkK8EAUOZz1I=; b=
-	hv0fP8D8JJ2CuyMFHhpD4lUSEAJCH0qVy9h9oevIuqMfWzV8BqHp7qPHW/cqG202
-	jy3m+dSlYeUiMaYPXlYpWHEispKfkmCyjHF4oM8dAUoQfbtfAb0wzmtyQdN9mLff
-	Lhaz6WouCTrmP96EbHEU0tAZbfaOSKsZG5q0bmnenk0mfk4yicIOj9CYch4aS/g/
-	eoKQxU0J0KVpcmNBZHxcJS/1D26pUBxHgsQppCGvJGeR63FKJzs9JYJZHFX+Yc4C
-	g3uwv4SadadrXl1402nhV1LCb8lEA7Pw1dEbeCQtHtlSu4Mh1Vg942JchGlsGn1j
-	bNVJcXtOOUhqVYir7+q8UA==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020109.outbound.protection.outlook.com [52.101.85.109])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gxafj9ksu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 03:51:02 -0500 (CDT)
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="DCswLbqq"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YmQibscmDFcOtPbn27889qn5HIJS3fSW2BiQYutQdgNItif6nSy++Yyr9I56WptfQd0wTu7MABUz3+INYIOvRvcW8T6d97EfIh8Q5A5Bf8m1j+yODH8fvBxSQNgwaKkt27XT875Bvc7Xnep6pT4+yAC7/fh4dYvUbDHekcCQeZP0+8DoKIvmN5majG0dpce8rwzLmEe7YKTIhBLrniszuyOelTLAJfbhxxW3nTIWt/zylehfieuceklbkGhDubW01cthG+mlby0zRhbF8bnEPtWcH6XsO/CZSMLLCIKdARGlIHx8sZ5HzXw4UXLsdju//JVDW5e9bFG6qVjni/fn+Q==
+ b=iuJWh444G2IT/cGV1t/g9hZoZVQb6Rgw2Uq/E9KhdeegukIMVcKZuoMHTOvJqVREE1HbakWIUBa8o8N4cAa4fSLYd9ykX8JOhQzWXM5ril9y3rf5vNZ0IU+SN3xQaRRgPznxJQRt2YSrIhqOuWRVbRgV0XxACbcz30CEjygBCujSWprX3nKlwC087t7LXIA/kiLC1/Mb0l5dEqhNAMqcyrHIjF5m1BOpvmi11yTtzl+uhAziGriTXnaISAuGf7g8Knbi4DM/7rpM3pLqiV4IKdt/xUgMfhON0AvTrt/s1lStjAmj7qR+51q368yn9VjFE5GE2j6lFJPZHugVFLjjnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XQIxiaSOjUgNtcLoHTGN5+tHcfhROsqUkK8EAUOZz1I=;
- b=AwptnpBokbbUue2Cwvm1KaUjM3zzcYQCqTSg7Z0iV7UJQYHpUW+1+ZNAiLLnGkpPr/TbbxIJfwndgOEHXAmlMrkhoD8ZPU34nBSjQRLMmN822Qh5pIE3lfmRmAQn2KiPkmT9voWzYCs56+uYsySRQGNcFKc0aXBbQrzyEM+BH/I31Lj0L+K/3Vkeaxo3M6Wgo+5l0yCm1kqQrMKRTkuu5OzD26kJQabDxQrdJPx9OyCjsEKk0aGtzj5yRaA6AG09qjjdgeqGFiybFR9aVibSVmt6BctNW7rEkknvSvhnjPplLa2G9xAInwqOQxnfqOlQ2B4qIWPurOq59PbrWv4FnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=wbrqdBnKXeyfxFaBHcC6DudDb6fKMW1VkQYUfFRTHIM=;
+ b=LeDgQiR5jP66PcgFUaiix0DYQ8MG3Po89QfQQ+KGHP16Q1BIn8dqEyiHkwI2SLZg3+/SvVpAr8TrszoclZTRoVWD0p6RQ+4eD2LYh3IeVWZV6d0xU5wtGM5qKc92yhhoJ5QE3uBF52M+WEI9hZjtH3QMOOox0grElcKHeVwflBn8NOOlEeLWCpM8UoJ6loZ7sJeO6Ev8tQMBZiA6zeSA9KKEi/uF+ad4mxIUuu8q5oTQ1RKk2EcxjDhsw3UT88Cs3sJ+TgISMZ88m0XY43/5bE4USkKf3IftMG2TIbtdlqsivjULd4JGVUigJHGLL8zLIu1wa7QMb8Lq0zy5yl45xQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XQIxiaSOjUgNtcLoHTGN5+tHcfhROsqUkK8EAUOZz1I=;
- b=xYt9xy3/tMJfQGY9dLfl/Ik9ecXPYWul0u4Jvi+Z0oCRKYG5aWwIoXtYss56vsNJ7067ESoY4bHszJrWFLU7cc6UwGxwceYqMEcVurrSWT5WaqSVvCBuqbMA6jSTQ5FDrfFeSCyWpFZ5ftc5rlaTv08tPX4yqi1NYNepA0Q6oJc=
-Received: from MW4P223CA0011.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::16)
- by DS7PR19MB6230.namprd19.prod.outlook.com (2603:10b6:8:9a::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.18; Mon, 28 Sep 2026 08:50:58 +0000
-Received: from BY1PEPF0001AE1C.namprd04.prod.outlook.com
- (2603:10b6:303:80:cafe::60) by MW4P223CA0011.outlook.office365.com
- (2603:10b6:303:80::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 08:50:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BY1PEPF0001AE1C.mail.protection.outlook.com (10.167.242.105) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Mon, 28 Sep 2026 08:50:56 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 0E484406540;
-	Mon, 28 Sep 2026 08:50:55 +0000 (UTC)
-Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E0B6F82254B;
-	Mon, 28 Sep 2026 08:50:54 +0000 (UTC)
-Message-ID: <fb409745-856d-44c6-b9a9-387bb7499811@opensource.cirrus.com>
-Date: Mon, 28 Sep 2026 09:50:54 +0100
+ bh=wbrqdBnKXeyfxFaBHcC6DudDb6fKMW1VkQYUfFRTHIM=;
+ b=DCswLbqqr10AvhXaTEHJNrjMZR5SuV0GlC3+k+797IHBA54GJ/idkbw4rmlMJAfiHj88ayNcorBQewto4PppRX7amBY7xo14tB09FZa6JVSyu223Q4mnGRhktx7xDNzMh3HipkrM/sC3MxoTIP7HGIcmz17b/At8canZ5u3tkfE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSZP286MB2396.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:15d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 08:51:17 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 08:51:17 +0000
+Date: Mon, 28 Sep 2026 17:51:15 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Dave Jiang <dave.jiang@intel.com>
+Cc: Jon Mason <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>, 
+	Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>, 
+	fuyuanli <fuyuanli0722@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Nicholas Bellinger <nab@linux-iscsi.org>, Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/14] NTB: ntb_transport: Prepare remote RX info
+ accesses for MW teardown
+Message-ID: <hkrizcxjisnrkedwzycnkvhxynncgj66oj7crozf5ynuz4ys6c@7i7tixcnt2oa>
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-12-den@valinux.co.jp>
+ <11a47b77-b140-46df-bee6-3484e18ad62e@intel.com>
+ <879429f5-b209-49ef-be1c-184eb7d5783b@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <879429f5-b209-49ef-be1c-184eb7d5783b@intel.com>
+X-ClientProxiedBy: TY4P301CA0093.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37a::11) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] firmware: cs_dsp: Annotate struct cs_dsp_coeff_ctl with
- __counted_by_ptr
-To: Bill Wendling <morbo@google.com>,
-        Simon Trimmer <simont@opensource.cirrus.com>,
-        Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva"
- <gustavoars@kernel.org>,
-        patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org, codemender-patching+linux@google.com
-References: <20260928044513.1330392-1-morbo@google.com>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20260928044513.1330392-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1C:EE_|DS7PR19MB6230:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73349ffb-8223-4cea-fd9f-08df1d3d9ca0
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSZP286MB2396:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2bb4b815-3689-4637-8a59-08df1d3da8c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|61400799027|36860700016|6133799003|10067099003|11063799006|56012099006|18002099003|16102099003|22082099003;
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|10070799003|4143699003|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	4Gx+9/FwGwr0snyOsNzL5geGTGFdUR3Mcnrmi3nyG5IeJKE0lkuaoBo7bQSsJQtXgg1b6ViC2sgHLUCQ4dqMTZXmdfa3RdV3yHeos/jc9+vtvSbMh4lIQdgvyZ0xaVFJ2eBF7VFXsaytWjp9URc+2EpCDh5Zy8xEoeBfeIvVbogV1+2wCi+IrKE3T91i7qNIO/iNRVtSUg991i3ZNwjGgxZqoShTW+iEeHnZ1VJ7M9AA0kQvDqhzwkLAUurOLYnK1AXp0bg9Dip06U8oJYoUu3lLLc9Jjm/00Lcop1asqiZKsBoHuXAmJcHddDXVoiY2ThMOUVf/LwxLziMHzdo6X7YpuzctWQmbqBVVQwCdroitgpoYwR1pjnf0I7SYVcW/VrFgER3sbQV8OAIu7Lt1WT8V0edMOcauo8t5hczGcJ0y3H2MeMJkwJ2LYwwPhZXXiKwh5eBP0i9rMABeSmzvBZ1PDLL7CIFv1O012zjxp7bg6m6teJW+30ykMvXcDmFuy5Ci0y4mIghj2Mvy8/N5EY8C/Ie3m4VO+6Gp4q6wC1Kd9OM9fsphl6+WAA9LsuMO+Wmlf6a/UJBAbCzZH4umnbEu5oyaUR0f2DW6N+l/zTM5XzMxWQ38JG7n48rVJPqg/a2J3SebF9VWZ0ZtSQV2KOg0heKE0+5x0w5BKBrU1zuo/2YtRMR7kWWXngxYpKbCKhkLqXVir8qimfVeQcUIEg==
+	TPEQZOZJPR7DjBXtrneBEXwlXz7oK0TsdX3PDkBJQT5xjsULPL9DAMYqP7c36ooGP81cqFNow3Uik9lCvNkc7CIxFnhX4YnJ7+GocfXFssJxwgzGkXDtCWyVI21tOkwbncdkcbOF2N9pTiiHOf62ebdkhSKjtcP803uaEDIMvwqkfFT4bJ7BAgrVQiZRgx2ANDMHI2RMgEh3aWWcsqxLZK88GxxTR0l2VVmQuwbU1B9Qv8a5mLN/xreV9mE72MfPfMDUL47A98TuLG3JpqWB83T4ZYd9tN0uxUiTNv0fsIBormG7ZaMpaIzBRliIxZJc24tOIISLcVnowzTQnCXxozf3jEZRYR3VCfVO2qxrmAEFokVZ693JK1vYGSQknfhGFE619gHV8zSDOdJ8kc8wQlkmIAVgqtZq/O+DzCkxQ37wQXYQWHWinRfV+Ls70bj9umDGT/37y2Kqob4J48/RhHv4GMMzDMzunR6KsYKyIVWaw3FdfdbezlPLvaVqBAnBrEqn6e/tvU/F5p+tPD8eBjG8RE4m5hr8Towy9mZGQEO8U80BYpiGH9ZZxk/HCFM0DsAHBao4dCQZPAOsDaqHPQB4sF14YDXiuWho62nEwjizG3E3Sd9NbKxI6Ov29HjGIIgj/WjchVvn/845L1lxctfgsEhgEa+3p6XJAobXPVQ=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(61400799027)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(16102099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(10070799003)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	w7oyFP4DisjC40NuKek1nLUDrK44YeGbOb0cFgxfCXBC5kaohRYgePeas0+63PkQV1zNH2rgzRz1tt/WjLDf9eR3z2ANBywmdpClYOv8sCyH4Qq4RqBSy5mCqlD1Qxsmx/xXP8GYxLpqhODbOGNqW8nZwG7SaLpB+PcpbPjTFlXXFaS8cipxk4DjqNfspjZ47YuuMf3+jrDj4YgZJgQonNEAOvEdOzket/VGVTZhNTYX83tSs+68tdRfDqP3n49wdO21jtjXxtrF1m9+mnsFThdc0elmI1Ps+FCe9IQFVXuRCKQD3yMBfLswxpGu7vyntqRzVR6+zdRxFHosaD8StM76sezC1TuqtuqBRuiXYiy0RQRFFs4uQYvqpOR3j/P/+yRkn79pMnYlTSSnCIccHxQ/X6qlmIIM+YAlPx5zHQFII9kGGivMH61ofdM/XDIA
-X-Exchange-RoutingPolicyChecked:
-	VEbRWchIJ2V6LlsPFVBp7sxP1jjA7YEPEUlK66XenUpgWrRkKhErQvkQNbSa6QlgG3T1OzuPkYYhNHOZiQd2BAmoFdq0OZK10XukAMRNRooK0U/erm+o02+sHTj/nkCP9JD+CwnrczDupg255qmpq17cR+aX6Bnac51fu9LNpEwF3DJFoOGJMoq418M09/qtupy7VeqWZWYczoe5QLnYyFMpPtI60n8YlLBY5oZlQJ9GURADdwL6aRsfyo4JnkXBfJYByFpWZ805Uzmb8LTB9GUzGwRQK5QvzEo3xDAzUudMoAxQROFQyxviPUFHIBjG/dllDIKjk108GgZy0a1qZw==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:50:56.4660
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73349ffb-8223-4cea-fd9f-08df1d3d9ca0
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+	=?us-ascii?Q?dXwNH0q9sTSe30vwSHmjHuNZj3NF9Ywn9O2xPi+kPt/vl1z6q3MnPGQ62j2s?=
+ =?us-ascii?Q?uk8wYV0oZffj9KKgFgwu26HXzL7yE4hMHZ32l+k1vDcvn9pGuKY7u2aP1UnI?=
+ =?us-ascii?Q?cFkRuoLxbJ2S6qPoiW1KofBY7Y4UsZuDV8Jeto6ml86q2Nf/ptgzKhoJQYUG?=
+ =?us-ascii?Q?ArFNs1MwSXh4NggedpvfdftrG9yXuz3iZK6tXEzRndJ9BTJfybL6+lsu/du4?=
+ =?us-ascii?Q?lHqW7gO7Jzqh7XFz956/7aXdtfzzQ37OyTpI/AmH4QH7+IzSY0nt/a6u+a5T?=
+ =?us-ascii?Q?GS+yelbl+nx6n1RrJWjwHk4wjS2aIt6myIbjN4NbbiySGLBLDyxf3Y/2zLAR?=
+ =?us-ascii?Q?CMGequqDgO1PI679yeO1gAkbAw5nKdJGx8dMFx1ZjvVuD8KxRL7kSfXjJHds?=
+ =?us-ascii?Q?d4otJl6mg5sJbMdl7rDBotdwVEWSnJcVi9LnbQJMLumOKTsPzUrDr+Wei6Yn?=
+ =?us-ascii?Q?OTJTXBVSBIbDd/wZkzZoYL1C7vutZfL2/bw2DH+mPms1/2FsSOZJDZ2vvZ40?=
+ =?us-ascii?Q?u1aficUynuKHpXG/5DG+JACCdDje8Aehc4aI77RwJrN3nXztqrbAWajMr1NU?=
+ =?us-ascii?Q?sDm+Ea0g5NPt0NHLhrIAXfYKu6AvhGlSESy0aDqUJ3W+OL5hWSQRZgVR749C?=
+ =?us-ascii?Q?C4Beg2KLp13m0e5pzI9TJ9tUF/XOUGlTguYNTA5VtEEu69Tx6rhgWZQst695?=
+ =?us-ascii?Q?+6aIX95o+Eis8BQo4Fvbt+9uTCiBzy/SY71mbrtzpxgNpth9AquCn73kil9I?=
+ =?us-ascii?Q?gY4jT7LdoeJJLAU+EGj4IVhegdRMq79sRibmYPlVTltrS65AiZ39pIdgDQ+J?=
+ =?us-ascii?Q?oVyD+IicTcddCRkEElmkUM3QyCPJlMYVVLTNeQiYq+NagTTcH8IIiDN8IRle?=
+ =?us-ascii?Q?jCtuPm1sq+8li0k6hr4fpuJXS08A7isZo/ZrFWBM7kdmspa8qkx1TMYByrzl?=
+ =?us-ascii?Q?XbUsJcUvNzPc4hxyDEsFt5VYMyRvOQdZhAZn1w6yIeBN7LKZxXlp08i3ZNt+?=
+ =?us-ascii?Q?a78ceNXOtL2sRbUli0+oVhciNSnQW8FaKUkkTVa/puQaLX0GZpKiNDEU/dQa?=
+ =?us-ascii?Q?7PRb6CrilYFDeg/AzsdnZUNIn34Qf4MiP0zEBuMfvr36o1TDnP4L7Umzdi6A?=
+ =?us-ascii?Q?WXoN6Ju5oRqk5ye0UCVEQg9gmEoRLvIRoQX56M7NA5v/gDCPWVMUi1lW8e2t?=
+ =?us-ascii?Q?Wb6eRHLDzqBIOaVq5mfkV/NF8ym4D7xSFTrQL5KXdBMQrkWf7cvQXbiXtE/R?=
+ =?us-ascii?Q?2pzpMIAsOHKaBXQRmJtkKPvC2GFr3zxFXmDRQbdrn1abnMDv6jwxh9eoD6xA?=
+ =?us-ascii?Q?6l7UxI98hq/eW4UuoxJDZnUldCJ22vZSF1tzoPKuFLF72CWDGPMCIlfEcM0m?=
+ =?us-ascii?Q?9LA8mSalG5FcJhC3FIyU5Z62Ib1sIjLttQdQTp+1RwHbKSep5ePltBPvz0eQ?=
+ =?us-ascii?Q?35Bx5YzrO7rmFi2VAYc8Hez+7s/ue9FBoXut7LiJEGJy5HZ+AsIVmmzjU6jp?=
+ =?us-ascii?Q?KSXVHA2X32SE6wINVf2LJ4/EWezWefU00qAiE6GuZwZi/Sh6ubUeXtKh2qHT?=
+ =?us-ascii?Q?0R9vrP6+hnJWGzfoWTXSrHkJHGNWqvwH8cLoBE00nONUlOR1mAngqjAGSEzn?=
+ =?us-ascii?Q?7ploGDvbXoppKcpJPl9i3beIaEB44X32wMF5n859F/oaNkXulTMp4hRb293i?=
+ =?us-ascii?Q?PRgDKSI7xcSmQVTbxHhQyFdyMlth/KuWss9MIMl+8+U01OJfB2F/iVQQ+dBm?=
+ =?us-ascii?Q?iGTYCe2XJLtReWIQK5oXs5usf0zwJc3Sg4uNikPHM1PFJ6A7qLjF?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb4b815-3689-4637-8a59-08df1d3da8c7
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BY1PEPF0001AE1C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR19MB6230
-X-Authority-Analysis: v=2.4 cv=GtLXaU1C c=1 sm=1 tr=0 ts=6aba2a76 cx=c_pps
- a=zEwEPAIedI49nOb3SM4JYA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=jtjyibz1FnmDeDUDwVcA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=ZXulRonScM0A:10 a=zZCYzV9kfG8A:10 a=0lgtpPvCYYIA:10
-X-Proofpoint-ORIG-GUID: Dkd2AETn8mmeNcvj6hBIg0xpegHA43oA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzNSBTYWx0ZWRfX1WuWR1UG7kqF
- xhkrs5av0ymsRIqMyPXwcyFNIm692YEQIHkyq9DJp1YZlfLREUXSba4TgoinezvknXeGfhUNNUj
- kMTetVc+NOvdZqfYanJ4Nd+oNmfO/TlowbzTRo4KWzFTo2eqFGyOW6w0Nedf9nre/vCTfdqso8+
- Nze3FzFwru4zEIo9TM46lOhZq6yL/cLS9k7HlEwhWau2l2Z4H2KbXDzAfZBxbAdvxtfJfD+q7/V
- cBTa6UNT6cuT+cmJdnN3nhs/Gh0swnrm+9896hKSz9XIItNdKIwAzH2nJfgEPLkgeA4pukTAWdH
- T/LB7O2vn5uhAbG2EpELmv4I3csAOSUPKEbgsSqcGC5atEUOZNW5UklHvI8beZXpH1MW/OI79HA
- NnRMmzm9TD4Nywr0zdpUQi43Yswn5VxzN10LIXNVE+pBPiwwF4ekE6KI8XfNet3RYOoWyDBIOFU
- KmbM8DJX3kO8Ur8Mr5A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzNSBTYWx0ZWRfX65sO3mg+MeJ4
- 287UJ8aJUzVKz0HPSBHspPUR/Ab69/+fBj4EWyIbiHNIQstZlnpjAurGD6vpMdu0wkpAh9PmBoU
- TPq1ab40AxomF7XZccXRgFM4JIfkRFY=
-X-Proofpoint-GUID: Dkd2AETn8mmeNcvj6hBIg0xpegHA43oA
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:51:17.3221
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qr1m70oaDsn27IRBJ/QXkGbw/EKjcvZjOW+VQeC46dDQRRDRnZTJyUDHs+fa2I6hm84mspyInCdkPPvL8y1vNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB2396
 
-On 28/09/2026 5:45 am, Bill Wendling wrote:
-> Annotate the 'cache' pointer member of 'struct cs_dsp_coeff_ctl' with
-> the '__counted_by_ptr' attribute. This allows the compiler and KASAN
-> to perform run-time bounds checking on accesses to the 'cache' buffer,
-> preventing potential out-of-bounds reads or writes.
+On Thu, Sep 24, 2026 at 08:57:49AM -0700, Dave Jiang wrote:
 > 
-> The 'cache' pointer points to a buffer of size 'len' bytes, allocated
-> to hold the cached value of a DSP coefficient control. The 'cache' and
-> 'len' are initialized in 'cs_dsp_create_control()'.
 > 
-> Every subsequent access to 'ctl->cache' is strictly validated to
-Is that true?
-When I last looked at these __counted_by they were only checked by
-a subset of library functions (which was documented) so I was still
-able to write code that overran the buffer.
+> On 9/24/26 8:56 AM, Dave Jiang wrote:
+> > 
+> > 
+> > On 9/9/26 9:08 PM, Koichiro Den wrote:
+> >> The next patch clears remote_rx_info when freeing its MW.
+> >> ntb_transport_tx_free_entry() and debugfs stats reads can run during
+> >> link cleanup, so make them handle a NULL pointer.
+> >>
+> >> The pointer is accessed locklessly. Use READ_ONCE() and WRITE_ONCE()
+> >> to prevent compiler-induced tearing, and retain the read value so
+> >> the NULL check and dereference use the same pointer.
+> >>
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > 
+> > Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> 
+> Probably should take a look at the sashiko raised issue.
 
-However, recent compilers might do more checking now.
+I looked into it and thought we might as well fix the TX/MW teardown race too.
+In fact, with patch 14, transport removal stops netdev TX and its timer before
+freeing MWs, but ordinary link-down cleanup doesn't wait for them.
+I gave this a try locally, but it all ended up being quite a rework..
 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+So for this series, I'd just drop WARN_ON_ONCE(!ntb_transport_tx_free_entry(qp))
+from ntb_async_tx().
+
+The caller already checks for space. Clean-up can clear remote_rx_info before
+this second check, which now returns 0 and trips the WARN. The WARN doesn't stop
+TX anyway.
+
+This won't fix the existing lifetime race, but it does remove the new warning
+Sashiko pointed out. I'd leave the broader fix for separate work. Still,
+returning 0 when we see a cleared pointer seems at least better than
+dereferencing a stale one.
+
+I'm planning to send v3 with this one-line deletion, but if you have a better
+idea, please let me know.
+
+Best regards,
+Koichiro
+
+> 
+> > 
+> >> ---
+> >> Changes in v2:
+> >>   - No changes.
+> >>
+> >>  drivers/ntb/ntb_transport.c | 22 +++++++++++++++++-----
+> >>  1 file changed, 17 insertions(+), 5 deletions(-)
+> >>
+> >> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> >> index 7ccba2c04f54..b949f36a4f2d 100644
+> >> --- a/drivers/ntb/ntb_transport.c
+> >> +++ b/drivers/ntb/ntb_transport.c
+> >> @@ -489,6 +489,7 @@ EXPORT_SYMBOL_GPL(ntb_transport_unregister_client);
+> >>  static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
+> >>  {
+> >>  	struct ntb_transport_qp *qp = s->private;
+> >> +	struct ntb_rx_info *remote_rx_info;
+> >>  
+> >>  	if (!qp || !qp->link_is_up)
+> >>  		return 0;
+> >> @@ -516,7 +517,9 @@ static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
+> >>  	seq_printf(s, "tx_err_no_buf - %llu\n", qp->tx_err_no_buf);
+> >>  	seq_printf(s, "tx_mw - \t0x%p\n", qp->tx_mw);
+> >>  	seq_printf(s, "tx_index (H) - \t%u\n", qp->tx_index);
+> >> -	seq_printf(s, "RRI (T) - \t%u\n", qp->remote_rx_info->entry);
+> >> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
+> >> +	if (remote_rx_info)
+> >> +		seq_printf(s, "RRI (T) - \t%u\n", remote_rx_info->entry);
+> >>  	seq_printf(s, "tx_max_entry - \t%u\n", qp->tx_max_entry);
+> >>  	seq_printf(s, "free tx - \t%u\n", ntb_transport_tx_free_entry(qp));
+> >>  	seq_putc(s, '\n');
+> >> @@ -611,7 +614,7 @@ static int ntb_transport_setup_qp_mw(struct ntb_transport_ctx *nt,
+> >>  	qp->rx_buff = mw->virt_addr + rx_size * (qp_num / mw_count);
+> >>  	rx_size -= sizeof(struct ntb_rx_info);
+> >>  
+> >> -	qp->remote_rx_info = qp->rx_buff + rx_size;
+> >> +	WRITE_ONCE(qp->remote_rx_info, qp->rx_buff + rx_size);
+> >>  
+> >>  	/* Due to housekeeping, there must be atleast 2 buffs */
+> >>  	qp->rx_max_frame = min(transport_mtu, rx_size / 2);
+> >> @@ -934,9 +937,12 @@ static void ntb_qp_link_context_reset(struct ntb_transport_qp *qp)
+> >>  
+> >>  static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
+> >>  {
+> >> +	struct ntb_rx_info *remote_rx_info;
+> >> +
+> >>  	ntb_qp_link_context_reset(qp);
+> >> -	if (qp->remote_rx_info)
+> >> -		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
+> >> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
+> >> +	if (remote_rx_info)
+> >> +		remote_rx_info->entry = qp->rx_max_entry - 1;
+> >>  }
+> >>  
+> >>  static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
+> >> @@ -2558,8 +2564,14 @@ EXPORT_SYMBOL_GPL(ntb_transport_max_size);
+> >>  
+> >>  unsigned int ntb_transport_tx_free_entry(struct ntb_transport_qp *qp)
+> >>  {
+> >> +	struct ntb_rx_info *remote_rx_info = READ_ONCE(qp->remote_rx_info);
+> >>  	unsigned int head = qp->tx_index;
+> >> -	unsigned int tail = qp->remote_rx_info->entry;
+> >> +	unsigned int tail;
+> >> +
+> >> +	if (!remote_rx_info)
+> >> +		return 0;
+> >> +
+> >> +	tail = remote_rx_info->entry;
+> >>  
+> >>  	return tail >= head ? tail - head : qp->tx_max_entry + tail - head;
+> >>  }
+> > 
+> 
