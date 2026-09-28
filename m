@@ -1,106 +1,98 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15D24B827A;
-	Mon, 28 Sep 2026 12:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046BB4B828A;
+	Mon, 28 Sep 2026 12:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596978; cv=none; b=Wv3CKhyobObRYIJlSDTAUD46K6dF+AEXn1+4lBrO4WvWZYRRf38bo9xTlrVT/gvF66EPcINALZdaY45/ELIHHt260Xezy7wIRyYknh4Il7azPNSJ+1iXepffbsHFB6AMSb6yW9YibLxqk0MW6e+PtHgWqFz6WTAEoGttXRAGv1M=
+	t=1790597005; cv=none; b=o7V0DPDo6T0arQoB86KezKOrQkSQQE67/iBPTaNnnPBLMpGpIXMXxA5zKF0LG32jt7toGWQzGQpsFUIZdxYUiWG2Vz3LdbO6yHUA7LpkZxIGUuQUJrg32d8kVadG2V/ZJxRgoXYPkRIQ7lPkCE16F6ZVdTt5RMIvkh9Cdg7DEJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596978; c=relaxed/simple;
-	bh=sHiFuAgIrzDmApValHknsaNy8FJJYWo/uqBLxF0S+/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jbsRax37jvC8gDM3eivSfdv9gO9HqMqsUJVAn1UTEeK939qdQsWievpJtg0jihxb5yDQE7b7zRYTnsTm/QjLSdHtXvVtmoMZ/o8rB7XmLXIJysvxtgEMT17hRX2tGB0dSv2K9nkriVZQB6ZjCC04XffFEnKo3JBH/NfGHqdTyTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=srdDpZO3; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790597005; c=relaxed/simple;
+	bh=hIgXNSb+1LdNPzFyrPiOIc71YpY2oZSEoljN4A2bK/I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cCXit6eFZz60TKr+oDDpL6nXXve3Vf1l1PAIcx2/ijV0XVJ/NF3j6Cn7Lbt2JdK/Hlu/EqOz6gL95hB/IXpUdM7hYrQrMOZ6Q9/C1yTXWhEMPIauhQ6UD8qAPQz5OLCkQeiBeBpQOr9c4MAhTOaPAXk7/+slgTNQGUT/ErUEYKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ECHJ3cZw; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="srdDpZO3"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0C6E413D9;
-	Mon, 28 Sep 2026 14:01:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790596864;
-	bh=sHiFuAgIrzDmApValHknsaNy8FJJYWo/uqBLxF0S+/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=srdDpZO3SCn8FcDmnMxNdyNCL5bEPjxJSh3PQOR7zXP60gyfUkwfyQohWA8D07fhM
-	 ICzVjFd33rzWZqz0G3YDFxshOdB3WeTer5PlFHN/0J1XPse5lmEEo/lrV1D00H0295
-	 z9dd3sUQ9yjfTUX/BeHbPJNjOsjUb36MFl2GWLpw=
-Date: Mon, 28 Sep 2026 15:02:52 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@skynet.be>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
-Message-ID: <20260928120252.GB4406@killaraus.ideasonboard.com>
-References: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ECHJ3cZw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=JS5dd5f9mWNpybqKgfuEd/QJ8IUXo+CpfbvRDEoiIGk=; b=ECHJ3cZwUWSupvEzyzR1mPXOLK
+	VK19JixYTDfT7fybYoFw9vuFW0SbnORD4Y9j8GdDG9U0x9ll+cMggmyyksZSibgyPky0jIZd9+52W
+	0htIfPxgQIkqF1zy95076+JaRF1wxQO8It9j4Ch+hEUzB/qGtobQbbooz+Of3zfmBVp9BCNTCcS5f
+	oZ/fo1tAlJA8vAJQG+hv1+g2hi8sxj6JDQmpbtgP6RN9UCZa2dRfAR4rfB4nuQ/Itfbs3LLphZKk8
+	UjHJNwa39/cTltFE+yjkzF6teFeYb8PsICQ/fTQpmq2Zx1djAdWIYGQsCxAErGU/HHsafXnccJO4L
+	ocKRP2tA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v3 00/14] Add HPD support for Rockchip Analogix DP
+Date: Mon, 28 Sep 2026 14:02:34 +0200
+Message-ID: <3772572.AiC22s8V5E@diego>
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Ricardo,
+Hi Damon,
 
-Thank you for the patch.
+Am Montag, 28. September 2026, 10:14:04 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Damon Ding:
+> Rebase after the following two patch series:
+> [0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-=
+0-30401d9406f3@bootlin.com/
+> [1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83af=
+b4f1a707@bootlin.com/
+>=20
+> This series improves the HPD (Hotplug Detect) interrupt handling in
+> the Analogix DP driver to enable reliable native HPD pin detection on
+> Rockchip platforms, and introduces platform-specific HPD detection
+> schemes with fine-grained interrupt control.
 
-On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
-> uvc_parse_control() passes descriptor by descriptor to
-> uvc_parse_standard_control() with the number of bytes remaining in the
-> buffer, not the number of bytes of that descriptor.
-> 
-> Because of this, malformed descriptors could leak over the next
-> descriptor, leaving malformed data in our structures.
 
-What issue does this fix in practice ?
+on my eDP panel with gpio-hotplug via the dp-connector as before, I get
+a successful display output even on boot.
 
-> Change the code so we pass the actual length of the descriptor to the
-> parser.
-> 
-> Note that this makes the existing check more strict and some devices
-> that are wrongly parsed today will not be probed now.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..429f1ab19a2a 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
->  	 */
->  
->  	while (buflen > 2) {
-> -		if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-> +		if (buflen < buffer[0] || buffer[0] < 3)
-> +			return -EINVAL;
-> +
-> +		if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
->  		    buffer[1] != USB_DT_CS_INTERFACE)
->  			goto next_descriptor;
->  
-> -		ret = uvc_parse_standard_control(dev, buffer, buflen);
-> +		ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
->  		if (ret < 0)
->  			return ret;
->  
-> 
-> ---
-> base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+=2D plugged in on boot - display works / reported as connected
+    - plugged out - correctly reported as disconnected
+    - plugged in again - display works / reported as connected
 
--- 
-Regards,
+=2D unplugged on boot - correctly reported as disconnected
+    - plugged in - display works / reported as connected
 
-Laurent Pinchart
+Multiple plugin/plugout operations afterwards also worked nicely.
+
+So
+Tested-by: Heiko Stuebner <heiko@sntech.de>
+
+Will do reviewing of patches now ;-)
+
+
+Thanks for working on that
+Heiko
+
+
