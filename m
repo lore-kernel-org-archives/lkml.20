@@ -1,73 +1,185 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B710361969;
-	Mon, 28 Sep 2026 13:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFCE3033E1;
+	Mon, 28 Sep 2026 13:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603208; cv=none; b=k1uyQxhxrKdh86IgQoGXvdHTSSRQSeFbGEBmrI1SBdoSvCgoBP2vDzS02ETaY/Cca2oyGtuKXqa5EXc4QGE7vqwu0t/Oc71M5ZAmbZf0s+GNMRq38F0H3KogtarYJTtZIZgXXzifoiwDIw3s4TNt94YoqUWwXth0Hx6oLOpbAdI=
+	t=1790603264; cv=none; b=RxAB68KZPhd36bLrp+9HdnMPKdWrlCN/fwClO9Pm5cNC2syy4b2Am3raPP6t0vjovpplHc+qnFz0+aa6FcQDUknBOoT5qrIYGTWVqWTEw0p2Q2is3zoa8UyjNLWm/Ok0ljoXao1i7BaANap3cRQml/xtXJQIzQQBVv9DuMagexc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603208; c=relaxed/simple;
-	bh=sTVxuhoSvKxNBjF/1eg2TBMulwNMhs0StMT/hGBGSHE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=POtBiX4C9MEIFvFvB1FqEuf55CqeZzwTPCs5Qz2Np4Rgi+sMz9vj1Mn8g6+A/ktBED55ybO15RPyC2j+lPYlJV/Tz2TvLfb8G06TLPi0lye+qTDmArzfdIbRBq5yJHWXUBjyWFlLPBcjiDPaWZbu2W9QrTtyg/2IeD2ZShbpVBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TEvqXttS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790603264; c=relaxed/simple;
+	bh=TdVrV+XoStnJHbbdcVolHs0UuEHkirus5Mdxuy/jvY8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=rjiGUBEoo4b2FtEdCYlSFEI9huaJ8fM0zGFtNAVcKzQs/taQqP6g8JzoXWvRo+HcanKg1mPEh/QXJj7jA8vgNcg4fhbg5O1ZcZ/S9EiN2M8gRpvrxJl8mAVjVaADbblDVyU2oZDWkTOdOvv+ci4nw1uasv1ua7JG4a/W8mi+i94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=tXESBM8Y; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TEvqXttS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0832D1655;
-	Mon, 28 Sep 2026 06:46:42 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0DC683F763;
-	Mon, 28 Sep 2026 06:46:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790603205; bh=sTVxuhoSvKxNBjF/1eg2TBMulwNMhs0StMT/hGBGSHE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TEvqXttSJhu1lMMlyftjQZaNh0zvqISl3fqIXfSCJ9XFkXJENHNngCrePikbezNyZ
-	 tajrAApMn0r/TxxHeujrvKoLECy+AVG/730jfY7eWJtvqlSYa2+lrBxuARt3sKnpl2
-	 LhsE7hAyHqvHJgLrBl/8+TS0YZT1V2Oa1IPSprf4=
-Date: Mon, 28 Sep 2026 14:46:42 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf python: Fix arm-cs-trace-disasm type error
-Message-ID: <20260928134642.GE14479@e132581.arm.com>
-References: <20260928-james-perf-mypy-cs-disasm-v1-1-1bda909475ce@linaro.org>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="tXESBM8Y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=WaPXt9W8ERF/Z/EHBhvmEv9MDXT+s5lvbmV4Y5KaIMo=; b=tXESBM8YW0rRFBU9XH/usc/ipN
+	9PDFH0HnDTj8lY4vQBrYf45bbJ0w2VVIZmLwN0ao2Wd/CTsAGTKk5aFUTsKvWvSlfpjbs2CRfI/k6
+	74XLbTMKWm7kGlWqF6vfijKMp66rGiZ9uDJFSalld6blD9ihd2ZDkQj3xcWFq0rP5eqs=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xBBhe-000000006c9-1WVR;
+	Mon, 28 Sep 2026 09:47:34 -0400
+Date: Mon, 28 Sep 2026 09:47:33 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+Cc: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
+ <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <tobias.gannert@ziehl-abegg.de>, <joachim.knorr@ziehl-abegg.de>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v2 RESEND] serial: sc16is7xx: fix TX gap caused by kfifo
+ circular buffer wrap-around
+Message-Id: <20260928094733.09482cd6d6565588e2ecd267@hugovil.com>
+In-Reply-To: <20260928085559.3341419-1-paultyson.mbewe@ziehl-abegg.de>
+References: <418f9ae5-8827-475c-b465-1271a784fbf1.bc56e27e-ecd8-43ae-bb87-75bfd472a28d.58f59cf9-4c99-4e79-8e3b-28e6fccd454d@emailsignatures365.codetwo.com>
+	<20260928085559.3341419-1-paultyson.mbewe@ziehl-abegg.de>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-james-perf-mypy-cs-disasm-v1-1-1bda909475ce@linaro.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On Mon, Sep 28, 2026 at 01:58:09PM +0100, James Clark wrote:
-> The perf sample dso_bid getter returns a string or None, matching its
-> Optional[str] annotation. Attempting to decode it as bytes causes mypy
-> to report union-attr errors, even though this was behind a conditional
-> that checked for bytes type.
+Hi Paul,
+
+On Mon, 28 Sep 2026 10:55:59 +0200
+Paul Mbewe <paultyson.mbewe@ziehl-abegg.de> wrote:
+
+> kfifo_out_linear_ptr() returns only one contiguous linear segment of the
+> xmit kfifo. When transmit data wraps around the end of the kfifo, only
+> the first segment up to the buffer end is sent. The remaining data at
+> the start of the kfifo is not sent until the next TX interrupt fires,
+> resulting in a visible mid-frame TX gap on the wire.
 > 
-> Use the string directly, retaining the fallback for an unknown build ID.
+> The resulting gap is unintended: data remains queued in the xmit kfifo,
+> but the hardware TX FIFO drains empty before the remaining segment is
+> sent. Such gaps can break timing-sensitive serial protocols such as
+> Modbus RTU.
 > 
-> This fixes the following build error:
+> Modbus RTU requires a message to be transmitted as a continuous stream.
+> For baud rates above 19200, the Modbus Serial Line guide recommends a
+> fixed 750 us inter-character timeout. On the tested 115200-baud system,
+> oscilloscope measurements showed mid-frame gaps exceeding that value.
+> Receivers using the recommended timeout may therefore discard the
+> incomplete message.
 > 
->   python/arm-cs-trace-disasm.py:266: error: Item "None" of "str | None" has no attribute "decode"  [union-attr]
+> The incomplete transfer also causes unnecessary TX interrupts: instead
+> of using all available hardware TX FIFO space in one go, the driver
+> requires an extra interrupt to send the remaining segment after the
+> wrap.
 > 
-> Fixes: 279b402e5143 ("perf python: Port arm-cs-trace-disasm to perf module")
-> Assisted-by: Codex:GPT-6-Astra
-> Signed-off-by: James Clark <james.clark@linaro.org>
+> After the tty xmit buffer was converted to a kfifo, the driver used
+> uart_fifo_out() to copy data into a linear staging buffer, allowing a
+> transfer to span the kfifo wrap-around boundary. Commit 133f4c00b8b2
+> ("serial: sc16is7xx: fix TX fifo corruption") replaced uart_fifo_out()
+> with a single kfifo_out_linear_ptr() call to remove the shared TX/RX
+> buffer. Since kfifo_out_linear_ptr() exposes only one contiguous
+> segment, that change lost the wrap-around handling.
+> 
+> Fix this by calling kfifo_out_linear_ptr() in a loop, advancing through
+> all contiguous segments until the available hardware TX FIFO space is
+> exhausted or the xmit kfifo is empty.
+> 
+> This fixes the kfifo wrap-around gap independently of the stale-TXLVL
+> refill issue.
+> 
+> Tested on SC16IS752 over SPI driving RS-485 at 115200 baud 8N1 on an
+> i.MX6ULL-based board. Oscilloscope measurements confirmed mid-frame
+> breaks at the kfifo wrap-around boundary before the fix; no such breaks
+> were observed afterward.
+> 
+> Fixes: 133f4c00b8b2 ("serial: sc16is7xx: fix TX fifo corruption")
+> Cc: stable@vger.kernel.org
+> Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
+> Reviewed-by: Joachim Knorr <joachim.knorr@ziehl-abegg.de>
+> Link: https://lore.kernel.org/linux-serial/20260623112225.82386-2-paultyson.mbewe@ziehl-abegg.de/
+> Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+> ---
+> Changes in v2:
+>   - Corrected the Modbus RTU timing description for baud rates above 19200
+>   - Distinguished the xmit kfifo from the hardware TX FIFO
+>   - Clarified that this fixes one independent TX gap source
+>   - Corrected the introducing-commit history for direct kfifo access
+>   - Removed the max310x comparison
+>   - Addressed Hugo Villeneuve's review: clarified that multiple segments
+>     are sent, scoped tail to the loop, and added the requested blank line
+> 
+>  drivers/tty/serial/sc16is7xx.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+> index 7107a0fb1e7b..fa7805d2cde2 100644
+> --- a/drivers/tty/serial/sc16is7xx.c
+> +++ b/drivers/tty/serial/sc16is7xx.c
+> @@ -652,7 +652,6 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
+>          struct tty_port *tport = &port->state->port;
+>          unsigned long flags;
+>          unsigned int txlen;
+> -       unsigned char *tail;
+>  
+>          if (unlikely(port->x_char)) {
+>                  sc16is7xx_port_write(port, SC16IS7XX_THR_REG, port->x_char);
+> @@ -677,9 +676,19 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
+>                  txlen = 0;
+>          }
+>  
+> -       txlen = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
+> -       sc16is7xx_fifo_write(port, tail, txlen);
+> -       uart_xmit_advance(port, txlen);
+> +       /* Handle circular buffer wrap-around by sending multiple segments */
+> +       while (txlen > 0 && !kfifo_is_empty(&tport->xmit_fifo)) {
+> +               unsigned char *tail;
+> +               unsigned int to_send;
+> +
+> +               to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
+> +               if (!to_send)
+> +                       break;
+> +
+> +               sc16is7xx_fifo_write(port, tail, to_send);
+> +               uart_xmit_advance(port, to_send);
+> +               txlen -= to_send;
+> +       }
+>  
+>          uart_port_lock_irqsave(port, &flags);
+>          if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
+> --
+> 2.43.0
+> 
+> _______________________________________ 
+> 
+> ZIEHL-ABEGG 
+> 
+> Executive Board: Joachim Ley (Chairman), Marco Altherr, Wolfgang Mayer
+> Supervisory Board: Dennis Ziehl (Chairman) 
+> 
+> Court of Registry: District Court Stuttgart HRB 746188
+> Company Seat: K&#xFC;nzelsau, Germany 
+> 
+> Der Inhalt dieser E-Mail und/oder jegliche Anh&#xE4;nge k&#xF6;nnen vertrauliche Mitteilungen enthalten und sind ausschlie&#xDF;lich f&#xFC;r den bezeichneten Adressaten bestimmt.
+> Wenn Sie nicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein sollten, so beachten Sie bitte, dass jede Form der Kenntnisnahme, Ver&#xF6;ffentlichung,
+> Vervielf&#xE4;ltigung oder Weitergabe des Inhalts dieser E-Mail einschlie&#xDF;lich Anh&#xE4;ngen unzul&#xE4;ssig ist.
+> Wir bitten Sie, sich in diesem Fall mit dem Absender der E-Mail in Verbindung zu setzen. 
+> 
+> The content of this e-mail and/or attachments may contain confidential information and is intended solely for the named recipient.
+> If you are not the intended recipient of this e-mail or on its distribution list, please note that any type of disclosure, publication,
+> copying or distribution of the content of this e-mail including attachments is strictly forbidden.
+> In this case, we would kindly ask you to notify the sender of the e-mail.
 
-Thanks for the fix:
+It seems you keep sending your patches with that signature, which you
+can't do on public kernel mailing lists, and that is why Greg deleted
+your previous patch submission.
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-
-Just curious, have you run this script and compare the result with old
-one? Seems to me, the build pass is insufficient, we should run a small
-test to ensure the result to keep same.
-
-Thanks,
-Leo
+-- 
+Hugo Villeneuve
