@@ -1,138 +1,199 @@
-Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com [209.85.208.193])
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB20470429
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCBB495032
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790638985; cv=pass; b=ig7FAUwx7Wm6u4dijpW+kJRcyidiGarsnzKcvHkrxQvLx2+Qz4U5/CpurHnKnniDuJ19R6h8osX+0xZXY+YO03go77kho5tVoviTH+NoVc4jYhBHUnoK3jDTRF72ALYon78K2nlLraw815DF4tl+RmDZdTPQ2i/T/1IFS6UAOyw=
+	t=1790639001; cv=pass; b=M7zv6xAwuG9gHFLdfCLpIoaMLulsWxqp3lYt4qh3N1eNtBv9qehtZjgTcsMUDHED2WAXmWH1v84Qu8L0XACImGoMzsOVVUjuKslRTX7OqDgqyjw/yo2EnOdRRWExIjazHF6RRu59s0HkZpMBSlAaXlucd7k5xWWNzJD1QAFesCw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790638985; c=relaxed/simple;
-	bh=Jeh+2Xd4AG2I2O0hzKDIItKZ7vv+hHcdVOBN2BJoRoI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=qMCdqXjTShNpJ2fo/UG7y6RvkE3f8Lc1fUHf4aAMPlQ75qyJkG/Ak9U1sgwGeT71Za8nP6H4G3Y2LD11gLkJJhSuJA9uWEZGlaGW/qosEJ3palkFttoarv4C9JB5EGg9TGTxdy0Pk9cZAlqgnJ4H9T6hDQR8WlPM7vOvNTYbYjM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/aaww2x; arc=pass smtp.client-ip=209.85.208.193
+	s=arc-20240116; t=1790639001; c=relaxed/simple;
+	bh=5ynqZFtARzy4/UiXIBasA48ciZPqgZS98dfTbePs/AA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OlezEp+Py0+LCB/lUBOZ7Dmi+UaPrqIBlNfaEvp+9GNLfmDWeDSpWf7nr0VPVs4h/BMMOEn7shHlvbLB6trqvjN+ZqIu62U90X1GBrI8AvnhK96IbEbx3kaf5lBUVzBRwZIjirzKczel8ATMIY6GUcvW92bJr0y6pZvEVlrUPhA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UIkM73rj; arc=pass smtp.client-ip=74.125.224.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/aaww2x"
-Received: by mail-lj1-f193.google.com with SMTP id 38308e7fff4ca-3a652a638c8so2696091fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:43:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790638982; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UIkM73rj"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-66e4ab2029eso3188083d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:43:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790638999; cv=none;
         d=google.com; s=arc-20260327;
-        b=iUDhkkmi9LfAbAnuEhAXgBeq7mpeHy8oJo+unMhNgew6tjmePGBuFNHFh0ZZKpHfCr
-         hBNKFceio/Q1vvP+o8WAqLIzdkEmQS5wv/TaBs/FqTkWpLLFFK8iaqVjkPGo8JzHHKET
-         i/yTBickbyRazUjdJGlfeDpGG+tss0G7uNdqzCy2mdcIc0YqrTAlGjcoVVWaAd0kWc4d
-         YLuT5BZO2uBXCZMI6hCXxjTro5406PMDaGHNeksso0yf9LINTp7cLZZe3LkfQ0NqWXIs
-         nlqjFHp9xoyr9Ux3xY5b2fbOG/e39pjnO2MXqNfAKsFTk++OZCVwuPz1O7UuZfsC8LXw
-         x8yg==
+        b=PE2q/tPb3EBBDSPFq00YFNyQu+h7uh3HIGZk/oOMVFEY2ESJGci8HNQ73YFbocefmF
+         6dIHCWowg7p0LP3FwjCVD/6Tnz86BXaUnAriFr1pRGAO40oPKQ2wUWoAeiQR06LwrgjY
+         M4qHlsUN/BVsZfHWOXbRPs/PZ5tW0hQfb3aq6xZ4t7hea6ArObDFWIc4K66u79Ea8tQU
+         G4VfW86Tb3aLMxptDbTA9BSnB+3prkb0WmV+T2uPD7plWslADiaj6rp7WruZpXLMc9XZ
+         K/kScEaIgB8xMLPBgVBai1jOCVac5uGbAPXUsii79tuUVvYw8qcL2m60yI04q3scbKau
+         rf8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=55HPJl5SBbsItKpLLMuAZDA3mfNkU/nrSg5Ddo58dAY=;
-        fh=kHuNC+wtxSgjemV5xsfPBZja7STGSP65B/ALuhSEFzo=;
-        b=H2WLAdZ2p1dMBsd8JdgEtfvsoZXTvLov3WUdU/hgv8eNJo61nerkIMpDJpEVb73lgE
-         wFUJz6HZojYab6NAiZDZ9u1rIi1wOr8BN70rwX8JtMuI7Tw5CwGHJSge0oxYnnQ+Th7j
-         3ItyQNFLr1ScMCUOkwPrmLJTrjD8uB9/uN2wb/NBv5O6TQu+86M5v/Tx+dtbjUNq5kKN
-         4HlKBFJiGJlLgCB5Gvh9J9CNj849XWt4D1Xt1ivVlC2Vnw7tmvzco9XDrGF2ZkI6HyZ9
-         VMMrHA8NMd4jHmUcm0m3Wn0y2B4BdH7Ol3nKWifuP7SoqU+5B+zbRa8qPTcPu5P7hqzh
-         DlZA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3stsNDX4Bh3Ny6i8aR14gWuGQnZxgXq7uTLEco9N880=;
+        fh=L2Rr8JQk9gUrXV7EkxapJjNpbu9vPVucA6H4WIPtxGo=;
+        b=F3gj0/j3NiTN+dXCDS8vyGDZr4lAByupHyKDwY2NfLrLP0S7EzWdi9lby+LtwA8J6H
+         zKF2DXEw5ixAAO9RbHcCxz16lfVUf0DUDkxFrkMi3A7a7XU7SX7DvhqPIHIzua27HBLQ
+         C+PCGXXyuUdlgsY0cCeHj6StGvtNDY0UAHk1TJC24vGKTEDTqdg20bjzIEKWd6VLB9r5
+         ClD5rg0IeXJd0N2/kaGxaay1hd+WI5us+pYDtfhUDZMvyUlKZ6zT+IMm8WWXmNn6L2y4
+         4nyQQXCb0phJ9Ghng7EqScBd0xZ1Fn9ECaFlRQZsqb+qSaY60VqtUoiNNAppkJLC0hGS
+         cVEg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790638982; x=1791243782; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=55HPJl5SBbsItKpLLMuAZDA3mfNkU/nrSg5Ddo58dAY=;
-        b=X/aaww2xIuWwZlHP7m7rDBRIiFEJcCTLVNt5mjripvMxDicTcv9oPrIxZXXgjAZn1g
-         NExbjGXVPHQGNNoe0S768MLJ3onby4gmeEeX5+gyLfmxMuTK5jwhI9pmT17qnmuHPlnW
-         67RKNEpHsF20aInDO4bE4Nd9cBfjXgKZbKS5SSut2eNoqw0Sq6hIWoQlL8sZCqgIGNPb
-         kFwWKMtDg1P7AoiO3TWBsPcon/1PrNDFir6sU45ScEMX+EHJeBldcmIvWKF8ol7vq3NS
-         DAT2yFQyVLmMzbtWMJfocizVeQTUVAJyrDL8DdhYM4TaKJgSmCjOEFKoCjNTWqSESGWw
-         qrEA==
+        d=gmail.com; s=20251104; t=1790638999; x=1791243799; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3stsNDX4Bh3Ny6i8aR14gWuGQnZxgXq7uTLEco9N880=;
+        b=UIkM73rjMY14YaYU5nBkwCfY1h/Rz4ZGVyEJyLF9/+bGiJMLIHxAWATxH+tKhzxcua
+         wh9eJRkvbfsO7bmZmDckkGe2ladyNnCrsVqjmFBeNmrJ7aC0im0idjWq6TyLVZPDaPw4
+         JiP+wVw0yxLEwCzPJUAaxf7nCRdTJew7QsfvSp4PHX5YW9bcRHPB65DRRFlU6F/nMbvs
+         jZFxj6om7Tl8Jn/oUKVZVGTM0azW6IGpcelbMbX58OgS+5v3B37S7eilXkZNIuXVy1yZ
+         j/K6zahTiFVbt3DZ2hLqOhAnMIlId+mo/7aoz5C4mUmP426ub3pUSfcvp48gDDDzkraG
+         MVLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790638982; x=1791243782;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=55HPJl5SBbsItKpLLMuAZDA3mfNkU/nrSg5Ddo58dAY=;
-        b=iK+VVvuVI8SY2y6kJhIfrqaTUN0Ew9qxl7QkhOJFsA3paoDm9VDj2ggTozYL6zs5np
-         LQgSDMBLVhLBnqak93rli2xGmaXJ6QjNbws8ORd6HkUBN6QzyynnFBU67DYmsIftGPYS
-         p0wk2Id7uHst8yZgFecD90TFPcGmXyQR1+++vIZnx42GNlc7ysL6RcSJIN9ReUXp43kG
-         hn7bW+sk1SXvxKPi5BPOlgCBsXP6eenPk5Y+URF3/3UPmRv1cv/uudNOy1BAKAnfg6lH
-         9WT54O8wjYiOcunFbxBqFlUo70+R22iJWCfSfbGRAnZN9Xk8gGsVPWGBH/JVAZEPjs9x
-         xfDA==
-X-Forwarded-Encrypted: i=1; AKwUvByUp5uKvCUU4bs51D8o2O54RRVV7NYY7Wf3aOHOG4vl/qh0x2NySqjhVZXmDa/Diw7biZatKYhDj+77k2o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBcN/5FSK2ZxuNjkMj3iXfZgyPRBTk4SLyjNFDgTI2kK/YGxjj
-	BXwpeicBUt9+nMCJo9XviufFmfiMqEkuGYvFRHbu2SO6BkNu6AvFM4M1aQWj0cJP1SbaUA7Im3K
-	gRN+2h5kdbkWnngCAL74+kRwblwlgee0=
-X-Gm-Gg: AYBFou2f6O21G0sDBVidtkWBr48MB2OD9IKKHzJ3Zz7bQXbp1ZVKXozXHOOe/xmaGIs
-	O5oMsMaSM6yz/VgBXEVLmHd+P7NkWmEBY9d3330L5pjrwckNEsOGsk+dVEaVVFIQ4t+OOuBgkWL
-	Vb90gdAgmexwYk+YlrHlK60EsHi1me+dLBeOBceuCPDfsmig0TXc5nigfa5PQxHbkGV6NGqqYZ2
-	ePuP5CTsiwAwJiv+Hv6zo8da4l79uojyfbE9NFs1t12RVOJogMcXRibtG/fIPEwHNXjMetGPfO1
-	6Taas4EdQdBshQo1S26gCJyMfFf+AvaFLkChr+dN1TzhbtFP8pQbakELPuRIayPA/mW25eC9vil
-	9MDM66NR00QhClI/uZp2Pn7IPWkokgJ1dchNnU06F9UZzkPrypqosZFHUkNGbuvj26P5Kmt8=
-X-Received: by 2002:a2e:be1e:0:b0:3a3:61ec:43c0 with SMTP id
- 38308e7fff4ca-3a76478c099mr1912061fa.17.1790638981384; Mon, 28 Sep 2026
- 16:43:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790638999; x=1791243799;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3stsNDX4Bh3Ny6i8aR14gWuGQnZxgXq7uTLEco9N880=;
+        b=r9eXGVdIxR1GPSjuYtrup2kyQL3x5lXk337TZqxTKEPy4EJPVWZJAsey4kTBvintDq
+         WeEINVVN5oEQI2ysLqaNV57nBgJAB7s9zBEuAHF2vZe4501hiPvdhgLmL1XKavz2h2cm
+         JnPZhMGcn/JZYYyCDYvHgJmpfXC837PMJbWJsggRtGAIkh6NReHJUtrXwxOaxNR3ke3I
+         036yZ5aRfHU65CkgHhHY9FNlBF23ZBlluN0Xb3+X1KSFXGsVbAZ3dbeTPWZaZdz8ippI
+         ha1RrFFOc5/9FtPqf2VWsCzM42W/rgmzlSkzX63qGJXwDCoXhClNu8PXCVW2AIdyn83G
+         vAEg==
+X-Forwarded-Encrypted: i=1; AKwUvByvZDNFd3s+SnFGTUbXqVWUqiwRMI/hrAtfryRJqF7SaT8QO+IjTuMHVGnuvUam/e4TLoLUB1/sabEZLIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAwJopyFZyx06y5JGmocwbVfbSE4hrXd4wqPz4LdJLaxXLn7Ra
+	kM8rJxUGEZkW6tAm4JcHUqK5JR+3osW4iMCMuPb+6uCdTdzy3aWM5MLGTn3bZv569tBzlHAIyPC
+	yFciaNSWp3YV6uaVzqmk8TtthAV18d54=
+X-Gm-Gg: AYBFou07oWi5q7IeOhzRwJ6/dvB6DWVIY8YlCGp18q13L9GZdr32QI13BZcs3Q5LajO
+	cMOx5INxUqbI11NkZTcuGxUuYMrw88eu+sqscyIryv/xeosICcs300S2LD/WYCCSmCMKWkhRM0R
+	qQo/hdAOVvXTATgT11REAMyNfiM5H47qlTSzBeujjWBZ2gth85wlmIggCL/1UfStEFgLS4ET8qw
+	XSUkHSuafWZAU/40RhJp2tISRFcEuXMusM1+cjA5FK+h75weewRuPbyz7b1D/IUFTS/zeKX1GY5
+	ZyCx+YVKMzAIZoiN3cg7V4BF+OHlTC5LwB9pCAng/M5XgnTK9+iIBf0bi3Qy2EJE2owBOVN8lDB
+	PTJqhSOl5bQzvT4xlene8i0IcBk2apPVhiRBdssJ6AoU7+fNj1rgILKCojB9KZMvpGy4HrXSFn+
+	05VkAU/jr9pCP5tysPX61Pi3i0cHZR8IMR4lY58vf1NkWzmoO63UfbRA==
+X-Received: by 2002:a05:690e:262a:b0:672:99e1:11cf with SMTP id
+ 956f58d0204a3-672ed49377cmr4145065d50.108.1790638998596; Mon, 28 Sep 2026
+ 16:43:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: omer zalman <omerzalman42@gmail.com>
-Date: Mon, 28 Sep 2026 19:42:49 -0400
-X-Gm-Features: AclHuK-LcPc0U-LZeaKAexhC5sKfPBVUMEBBoK5mBcQvRj8Elz1BvEaJ3mu56SM
-Message-ID: <CAGLNFZeWAftbDfXj3Rmb_nu206+_vSzzGoEDoQGw2=h5uc8oNA@mail.gmail.com>
-Subject: [PATCH] check-uapi: preserve failure status for 256 broken headers
-To: akpm@linux-foundation.org
-Cc: arnd@arndb.de, quic_johmoo@quicinc.com, linux-api@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000681e61065c93a001"
-
---000000000000681e61065c93a001
+References: <202609261313.kgFtkz2t-lkp@intel.com>
+In-Reply-To: <202609261313.kgFtkz2t-lkp@intel.com>
+From: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>
+Date: Tue, 29 Sep 2026 09:43:02 +1000
+X-Gm-Features: AclHuK-09VUyswb_ykHWdQTzYGpKAOWq2dd5z6j8JhQoovFv5Wwllc3aL0t0vX0
+Message-ID: <CAN5rfbReCmhwCdRjXD6SXQp__Zy-HgXi4EG2PuMGhKgAqBCKyw@mail.gmail.com>
+Subject: Re: drivers/video/fbdev/atafb.c:2457:17: sparse: sparse: cast removes
+ address space '__iomem' of expression
+To: kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Helge Deller <deller@gmx.de>, Michael Schmitz <schmitzmic@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-check_uapi_files() returns the count of failed headers. Shell exit
-statuses are limited to eight bits, so 256 failures become status
-zero. The caller then exits successfully despite reporting an ABI
-break. Return the documented FAIL_ABI status whenever at least one
-header fails, and SUCCESS otherwise.
+Helge,
 
-Signed-off-by: Omer Zalman <omerzalman42@gmail.com>
+if I read this correctly, your patch fixed the two other warnings (the
+dead atafb_ioctl and pclock = 0). Since you mentioned "Fixes:
+d463633d63e6" pointing at my commit, maybe you can take a look at the
+line 2457, too? I'm too unfamiliar with the whole process but since I
+got the warning email, I just wanted to point your attention to it.
 
-The exact git-format-patch file is attached because Gmail's web
-composer removes tabs from inline diffs.
+Thanks,
+Miro
 
---000000000000681e61065c93a001
-Content-Type: application/octet-stream; 
-	name="01-check-uapi-failure-status.patch"
-Content-Disposition: attachment; 
-	filename="01-check-uapi-failure-status.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mulw6ufo0>
-X-Attachment-Id: f_mulw6ufo0
+On Sat, 26 Sept 2026 at 15:09, kernel test robot <lkp@intel.com> wrote:
+>
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   5fc5768c7ca92895ccd1de94dc521e5a55ae7896
+> commit: d463633d63e6aa10384683bf39971a4b00780c56 fbdev: atafb: Add support for SuperVidel's SuperBlitter
+> date:   5 weeks ago
+> config: m68k-randconfig-r1308-20260926 (https://download.01.org/0day-ci/archive/20260926/202609261313.kgFtkz2t-lkp@intel.com/config)
+> compiler: m68k-linux-gcc (GCC) 16.1.0
+> sparse: v0.6.5-rc1
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609261313.kgFtkz2t-lkp@intel.com/reproduce)
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202609261313.kgFtkz2t-lkp@intel.com/
+>
+> sparse warnings: (new ones prefixed by >>)
+>    drivers/video/fbdev/atafb.c:2824:9: sparse: sparse: switch with no cases
+>    drivers/video/fbdev/atafb.c:1092:34: sparse: sparse: Using plain integer as NULL pointer
+> >> drivers/video/fbdev/atafb.c:2457:17: sparse: sparse: cast removes address space '__iomem' of expression
+>    drivers/video/fbdev/atafb.c:2641:27: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected char [noderef] __iomem *screen_base @@     got void * @@
+>    drivers/video/fbdev/atafb.c:2641:27: sparse:     expected char [noderef] __iomem *screen_base
+>    drivers/video/fbdev/atafb.c:2641:27: sparse:     got void *
+>    drivers/video/fbdev/atafb.c:2815:32: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void *dst @@     got char [noderef] __iomem *screen_base @@
+>    drivers/video/fbdev/atafb.c:2815:32: sparse:     expected void *dst
+>    drivers/video/fbdev/atafb.c:2815:32: sparse:     got char [noderef] __iomem *screen_base
+>    drivers/video/fbdev/atafb.c:3353:38: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void *static [toplevel] external_screen_base @@     got void [noderef] __iomem * @@
+>    drivers/video/fbdev/atafb.c:3353:38: sparse:     expected void *static [toplevel] external_screen_base
+>    drivers/video/fbdev/atafb.c:3353:38: sparse:     got void [noderef] __iomem *
+>    drivers/video/fbdev/atafb.c:3424:33: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __iomem *addr @@     got void *static [toplevel] external_screen_base @@
+>    drivers/video/fbdev/atafb.c:3424:33: sparse:     expected void [noderef] __iomem *addr
+>    drivers/video/fbdev/atafb.c:3424:33: sparse:     got void *static [toplevel] external_screen_base
+>    drivers/video/fbdev/atafb.c:3428:34: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __iomem *addr @@     got void * @@
+>    drivers/video/fbdev/atafb.c:3428:34: sparse:     expected void [noderef] __iomem *addr
+>    drivers/video/fbdev/atafb.c:3428:34: sparse:     got void *
+>
+> vim +/__iomem +2457 drivers/video/fbdev/atafb.c
+>
+>   2436
+>   2437  static void svblit_fillrect(struct fb_info *info,
+>   2438                              const struct fb_fillrect *rect)
+>   2439  {
+>   2440          u32 bytespp = info->var.bits_per_pixel / 8;
+>   2441          u32 pitch = info->fix.line_length;
+>   2442          u8 *line;
+>   2443          u32 pix;
+>   2444
+>   2445          svblit_wait();          /* the CPU is about to touch the fb */
+>   2446
+>   2447          if (rect->rop != ROP_COPY || rect->height <= 1 ||
+>   2448              rect->height > 4096) {
+>   2449                  cfb_fillrect(info, rect);
+>   2450                  return;
+>   2451          }
+>   2452
+>   2453          pix = (info->fix.visual == FB_VISUAL_TRUECOLOR) ?
+>   2454                  ((u32 *)info->pseudo_palette)[rect->color] : rect->color;
+>   2455
+>   2456          /* draw the first line with the CPU ... */
+> > 2457          line = (u8 *)info->screen_base + rect->dy * pitch +
+>   2458                 rect->dx * bytespp;
+>   2459          switch (bytespp) {
+>   2460          case 1:
+>   2461                  memset(line, pix, rect->width);
+>   2462                  break;
+>   2463          case 2:
+>   2464                  memset16((u16 *)line, pix, rect->width);
+>   2465                  break;
+>   2466          default:
+>   2467                  memset32((u32 *)line, pix, rect->width);
+>   2468                  break;
+>   2469          }
+>   2470
+>   2471          /* ... and let the blitter replicate it into the other lines */
+>   2472          svblit_copy(external_addr + rect->dy * pitch + rect->dx * bytespp,
+>   2473                      external_addr + (rect->dy + 1) * pitch +
+>   2474                      rect->dx * bytespp,
+>   2475                      rect->width * bytespp, 0, pitch, rect->height - 1);
+>   2476  }
+>   2477
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
 
-RnJvbSA4NTcwMTQyYzY4MTIzNTlhZGJlZDQzMWY1OTBkMGQzN2Y2NWVjNzkxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBPbWVyIFphbG1hbiA8b21lcnphbG1hbjQyQGdtYWlsLmNvbT4K
-RGF0ZTogU3VuLCAyNyBTZXAgMjAyNiAwODo0MToxMCAtMDQwMApTdWJqZWN0OiBbUEFUQ0hdIGNo
-ZWNrLXVhcGk6IHByZXNlcnZlIGZhaWx1cmUgc3RhdHVzIGZvciAyNTYgYnJva2VuIGhlYWRlcnMK
-VG86IEFuZHJldyBNb3J0b24gPGFrcG1AbGludXgtZm91bmRhdGlvbi5vcmc+CkNjOiBBcm5kIEJl
-cmdtYW5uIDxhcm5kQGFybmRiLmRlPiwgSm9obiBNb29uIDxxdWljX2pvaG1vb0BxdWljaW5jLmNv
-bT4sIGxpbnV4LWFwaUB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
-cmcKCkZyb206IE9tZXIgWmFsbWFuIDxvbWVyemFsbWFuNDJAZ21haWwuY29tPgoKY2hlY2tfdWFw
-aV9maWxlcygpIHJldHVybnMgdGhlIGNvdW50IG9mIGZhaWxlZCBoZWFkZXJzLiBTaGVsbCBleGl0
-CnN0YXR1c2VzIGFyZSBsaW1pdGVkIHRvIGVpZ2h0IGJpdHMsIHNvIDI1NiBmYWlsdXJlcyBiZWNv
-bWUgc3RhdHVzCnplcm8uIFRoZSBjYWxsZXIgdGhlbiBleGl0cyBzdWNjZXNzZnVsbHkgZGVzcGl0
-ZSByZXBvcnRpbmcgYW4gQUJJCmJyZWFrLiBSZXR1cm4gdGhlIGRvY3VtZW50ZWQgRkFJTF9BQkkg
-c3RhdHVzIHdoZW5ldmVyIGF0IGxlYXN0IG9uZQpoZWFkZXIgZmFpbHMsIGFuZCBTVUNDRVNTIG90
-aGVyd2lzZS4KClNpZ25lZC1vZmYtYnk6IE9tZXIgWmFsbWFuIDxvbWVyemFsbWFuNDJAZ21haWwu
-Y29tPgotLS0KIHNjcmlwdHMvY2hlY2stdWFwaS5zaCB8IDUgKysrKy0KIDEgZmlsZSBjaGFuZ2Vk
-LCA0IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9zY3JpcHRzL2No
-ZWNrLXVhcGkuc2ggYi9zY3JpcHRzL2NoZWNrLXVhcGkuc2gKaW5kZXggYzhiZWVjNS4uZTM0OWQx
-ZiAxMDA2NDQKLS0tIGEvc2NyaXB0cy9jaGVjay11YXBpLnNoCisrKyBiL3NjcmlwdHMvY2hlY2st
-dWFwaS5zaApAQCAtMjk1LDcgKzI5NSwxMCBAQCBjaGVja191YXBpX2ZpbGVzKCkgewogCQkJIiR0
-b3RhbCIgIiRBUkNIIgogCWZpCiAKLQlyZXR1cm4gIiRmYWlsZWQiCisJaWYgWyAiJGZhaWxlZCIg
-LWd0IDAgXTsgdGhlbgorCQlyZXR1cm4gIiRGQUlMX0FCSSIKKwlmaQorCXJldHVybiAiJFNVQ0NF
-U1MiCiB9CiAKICMgQ2hlY2sgYW4gaW5kaXZpZHVhbCBmaWxlIGZvciBVQVBJIGNvbXBhdGliaWxp
-dHkK
---000000000000681e61065c93a001--
+
+
+-- 
+http://mikro.atari.org
