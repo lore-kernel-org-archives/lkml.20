@@ -1,121 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4684DF4B9;
-	Mon, 28 Sep 2026 14:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E424E2F35
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607139; cv=none; b=jZjIetwoa4zlHALqnU5Ij3q+/BYWhXFys+fo9qv9ZmukTXsf2qLgkqWKlBsUcHcDtC7Rz/WtEGER7kiv2gNXBQCKqP8JBFTqpNlaFfXtGNmXP8wSPyqYsa/hVUP1JEOBY/tbA3kVWyOb82zc9DJQnxoIMmS4ambMjwOROShVwAE=
+	t=1790607144; cv=none; b=hFezTrlEBft/olexC6ixSjQHwCW0WZ9y3baPGcb96u+/A+dvMhNstQxz5wngT/1Vu8EBvzbIH+kfU+UyNFiAm4RXCLY+7GGghIOh+xJG7r6FcOs/1/3FKOwybk4LO5Ki3n3KTDEFQuThQp9F2RTSoepPnahfBwRR7Y4/CriOtIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607139; c=relaxed/simple;
-	bh=eCKmarELPP+tkmgPLsxqei9z0l7o8F47blhbFo6PLGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yqb30pWuyzEFAblEt+JkSPCL4SHlrDXAqO3sgZr8ZjoWI5HR/qH4rlgOXAuhT+BpZRjGWhzKDP2/TE9+wevYYcQ9ZRM/K9ORBiDFBnHhqj2fogzqoVpQB+6AuLUjEg9CHK4dyObxPJHO3i44qWC8wWAhDesIb3PKka8fVdQ42go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5/6Vexf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790607144; c=relaxed/simple;
+	bh=gbzmEAe7Yh7EOMgc4+9QLCGtiswt+t1xIkHm6+slPpI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BPwbHdJ3oTuCERKmmuLr88zpvJ9u89SekKbmHB6096LREHnCOR7bu1O2geref+pAWXG4yIdmMt+0G1uCq5hpJfnXqb25XBFpkXGmzj8JfNPgV/kVEERzee6xZYTVebutRaXiQ1HyFttyw2fxpgHYLxk4cSyb+PxzuwxlTR8Svt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=FDqWuNjA; arc=none smtp.client-ip=74.125.230.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5/6Vexf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD52F1F00893;
-	Mon, 28 Sep 2026 14:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790607138;
-	bh=iyr4NlLoxv6GaNC3SrdEUGuR321vIy25LjTkZeQG1eg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H5/6VexfmD1YPlou6xloCimV9QRguPtrF8QRjrw4xjAOGvd+KkOUeCenFHqpRBt/Q
-	 07Ia7DlGUiF7CQj+W7TMbGQYlRWEzPfNXbVGSgFP4VCwveBDoJWD8ZmXe6sdAhjGH9
-	 5Fc54nBFZsPn+WRjq5JRUplNI5ex8Ptt8Z9D6oLfCVJQBIOHa5cOQ6k85USeYjLYqO
-	 vsNU+K93+LmFmgZSBYBVkdw9/MvE0dyb8CqfdLR4AhhvY5n5L8Ac65O0rZ2MVAiO3q
-	 bCrTpCt/k0biI8TnpMBoe1hpHOZDU1F1fWdtBeaervXCJWzrBodrgBtEm76g5Zh35b
-	 6SCx+iwrmCGKw==
-Date: Mon, 28 Sep 2026 15:52:12 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Peter Maydell <peter.maydell@linaro.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] KVM: arm64: ID register finalisation fixes
-Message-ID: <arp-IPET_HWSE85u@gremlin>
-References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="FDqWuNjA"
+Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5333a59e20cso10617751cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:52:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790607141; x=1791211941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D0iK2V+cwCYdpmdm6x/CD7QqyYK9DucF2a2Yc6LfV+Q=;
+        b=FDqWuNjABukzKRzw9j9AeENfk+VdW4d2IKIKeLY04RhkHrcLodVa5vzu2ayPZTFmU2
+         YgIEpNt5aF3CKv+Lm3vdZv93zh6cJEFRXAQ37eJjQP6vEl6AOEUpxaPmb0DpDshytg15
+         Qr8FWveyXbsvOWq2IfQmmtp7wVQS/c5aYvDf9xVrJz8iGMT/wpC8vR6ybDTqR2ht1Z/1
+         siKsBv1Osf3StVEg5eEJ0arAf0xGky4mT8zBINXsEzB1FhmrTDycNpkolr/Ml8PSoTmW
+         hnGI+zBsWq23+ggECpMcKOHeymUmhe1R+ctciyl5dfo+TFcOUIkZHSdYupCUW/1hr2QE
+         lDMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790607141; x=1791211941;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D0iK2V+cwCYdpmdm6x/CD7QqyYK9DucF2a2Yc6LfV+Q=;
+        b=Lmj2yQ7Mkw18kBVyrJ4zwChSQCUBgK+y9+x4JY355TMGz1y0/4Ov+hapkL67An8Gjd
+         tJLar/BiLJfzJfIwZfsEvke8TvNS4vgpcc6OpljK0hh0akCUJy/2TovD+ankyWVZIufk
+         KVEkIHcN3oKAroaXorGbqOJZHtrOIIwEu3n7d8gYDYBuhpyruwKTqvZMm8jyd32xOQ4x
+         fXLGgIlwSGFj7kpkX7m/j44YPRdK80Plob8mbGQ4d0Wt4qSkd36qLThzoaZtni2nVx0k
+         1BmhjMb4Yw+kbaij+o9/jso1zVzczWfLYxBpGiMzC/saZRP48oQ5yAlE0kZqKWjKNcdo
+         kOwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrIUMgYiFet9SM4pEDrTqYCl9AAbx36Tc+JFsa5w9nUJAKk8bXa3b+3/GShvvw8VVhxKYWly5fLcoF3P0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2DvG0UIzohwe7UhD1V+h8KYd/cvAjC4FfEy6NArittoALNhhN
+	p7OBQMaOjnGjHVJuJ9nqotoqL+cHOjlL3Hqy2eXNKYfZD3Xq+Tj9xAY/QurQK84Yvgs=
+X-Gm-Gg: AYBFou2XvA0b4mCO/VnSauY5e5U4AC1bPM7gmwJtD78DQm7cBUd2+dcDGlrp4OlcDHF
+	Ey2cMttic3zAXqjDGXapMgIb3l+T0KstJzaWn4ATA59u40Iw9spjrBmY/SVqIvLHsZ/iLmt8jrF
+	HJYYe9maVW3o65TXuTI+/9HFhFhmIrCQ38o3vicBTdAY1RRm00onrj09/JJxJOioXkaSHY2s3wk
+	wzCR2NKUhTAG+Bmr5npUsvGHIxzgZsYV799LsTKGt96NwJv72LA/3QqK7CuDr1gcHQ81ZP9AMgz
+	LplMkpzcKgFPX4kwM3VHXkBkq30Roam/bk03U53CtGFmWSndBRKpDdnRjUzqTY4gk6sAiLA6z0E
+	vZsVd6jSwnrZjdIePuYpAvhpG/spTZ/ASXbpcSDZ9faqI7m1sdUYXhcC0TatJl0vksUraZhX0/V
+	p7ZXlHjJDCqWebYeTB/MxVA91o3Liri7LsLYqc+Gp64EZXvHDVHKQK5jUgIYmODOQPhURrr7bop
+	a0aWJveru8X8Q==
+X-Received: by 2002:a05:622a:13c8:b0:530:e52a:8ef1 with SMTP id d75a77b69052e-5330b5dff3dmr218288981cf.26.1790607141221;
+        Mon, 28 Sep 2026 07:52:21 -0700 (PDT)
+Received: from [10.211.55.5] ([199.59.119.56])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322388d06sm64157141cf.16.2026.09.28.07.52.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 07:52:20 -0700 (PDT)
+Message-ID: <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
+Date: Mon, 28 Sep 2026 09:52:18 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
+User-Agent: Mozilla Thunderbird
+From: Alex Elder <elder@riscstar.com>
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
+ <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+ <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+ <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
+ <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
+Content-Language: en-US
+In-Reply-To: <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 07:18:47PM +0100, Mark Brown wrote:
-> While looking at some feature enablement I noticed that there are some
-> scenarios where we can end up with an inconsistently configured vCPU due
-> to finalizing configuration based on ID registers before we have blocked
-> writes to the ID registers. This series aims to clean up these issues.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+On 9/23/26 2:25 AM, Krzysztof Kozlowski wrote:
+> I think nothing behind PCI EP should be described in DT, because
+> everything is internal to the device and implied by compatible (or
+> vid/pid). We do describe internals of devices in DT usually for complex
+> devices (like some display blocks with multiple subblocks) or when they
+> are used outside of that device. That's why I asked how are all these
+> clocks and resets exposed to the host. If the syscon is used only by the
+> device itself, I don't quite get the benefits of describing it in DT.
 
-Ran the 3/3 test locally and confirmed the test fails without 2/3, passes
-with it.
+You say you think "nothing behind PCI EP should be described in DT".
+However the mere existence of the PCI endpoint bus as an option
+contradicts that statement, by providing a means of doing *exactly*
+that:  using devicetree to describe things behind a PCI endpoint.
+This is the model we are using.
 
-Also got our AI overloads to test 1/3 locally by flipping
-ID_AA64PFR0_EL1.GIC after vGIC creation:
+In June we switched over to using the pci-ep-bus model based on a
+suggestion from Rob Herring (and Mani Sadhasivam).  Rob felt our
+previous auxiliary device approach wasn't right for the peripherals
+found within the SoC, given we were accessing them via PCI BARs.
+   https://lore.kernel.org/lkml/20260605144032.GA3659201-robh@kernel.org/
 
-Before:
-	GIC field after vGIC create: 1
-	GIC field after userspace write: 0
-	GIC field after first run:     1
-	HFGRTR_EL2 written 0000008000000000 read back 0000000000000000
-	RESULT: FAIL - ICC_IGRPENn_EL1 forced RES0 (NV masks computed with GIC=0)
+We found that using pci-ep-bus provided a very natural and familiar
+way of representing the organization of the TC9564 SoC, and used
+it to represent all of the peripherals (including XGMAC).  It
+nicely partitions the hardware design, as well as providing a
+well-understood connection with the software.
 
-After:
-	GIC field after vGIC create: 1
-	GIC field after userspace write: 0
-	GIC field after first run:     1
-	HFGRTR_EL2 written 0000008000000000 read back 0000008000000000
-	RESULT: PASS - ICC_IGRPENn_EL1 writable (NV masks match GIC=IMP)
+The switch involved quite a bit of work, and the result is a set
+of basically independent platform drivers that are modular and
+easily reviewed.  I really would rather not go back to to what
+we had before.
 
-So for the whole series:
+Do you have criteria for what in a chip/SoC is sufficiently
+"complex" to warrant allowing devicetree to describe some of
+its internal details?
 
-Tested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+I believe the TC9564 *is* such a "complex" SoC.  And in any case,
+anywhere pci-ep-bus is used, it implies that some chip internals
+would be described using devicetree.
 
-> ---
-> Changes in v3:
-> - Rebase onto v7.3-rc1.
-> - Explain why KVM_ARCH_FLAG_ID_REGS_INITIALIZED is not reused.
-> - Pull in Fuad's test cases.
-> - Link to v2: https://patch.msgid.link/20260803-kvm-arm64-idreg-final-v2-0-d7d7e4efc640@kernel.org
->
-> Changes in v2:
-> - Also replace the kvm_vm_has_ran_once() usage in kvm_set_vm_id_rg() and
->   kvm_vm_finalize_sys_regs() with kvm_id_regs_final().
-> - Link to v1: https://patch.msgid.link/20260731-kvm-arm64-idreg-final-v1-0-3de2a5616dc6@kernel.org
->
-> ---
-> Fuad Tabba (1):
->       KVM: arm64: selftests: Check ID regs are immutable after a failed run
->
-> Mark Brown (2):
->       KVM: arm64: Finalize guest-wide sysregs prior to per-vCPU sysregs
->       KVM: arm64: Block ID register changes after we rely on the values
->
->  arch/arm64/include/asm/kvm_host.h               |   8 ++
->  arch/arm64/kvm/arm.c                            |   2 +-
->  arch/arm64/kvm/sys_regs.c                       |  57 ++++++++-----
->  arch/arm64/kvm/sys_regs.h                       |   2 +-
->  arch/arm64/kvm/vgic/vgic-init.c                 |   6 +-
->  tools/testing/selftests/kvm/arm64/set_id_regs.c | 106 +++++++++++++++++++++++-
->  6 files changed, 153 insertions(+), 28 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260729-kvm-arm64-idreg-final-77cbc46b558a
->
-> Best regards,
-> --
-> Mark Brown <broonie@kernel.org>
->
->
+Would incorporating the chip internals in a devicetree *overlay*
+have any effect on your opinion on this?  I.e., the "main"
+devicetree nodes would simply define the PCI device hierarchy,
+but anything behind an endpoint would be described in an overlay.
+This way, pci-ep-bus on a PCI endpoint just provides an external
+interface onto which a very complex device could be "mounted"
+(and described in an overlay).
 
---
-Cheers, Lorenzo
+I'd like to continue to move ahead with upstreaming support for
+this SoC, but to me it seems you have basic doubts about
+pci-ep-bus and I'd like to get past that.
+
+Thanks.
+
+					-Alex
