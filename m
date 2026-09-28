@@ -1,162 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3A24F052B;
-	Mon, 28 Sep 2026 16:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9D04BCABA
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790614144; cv=none; b=pOkPim3ZnuV87s2MZg0M8a2Hbw8UK4TTb591wBkrjo8pQABnI6Q8nzbMtffqP+YPbDJLb9F/WN7Ru0R0Tu7meHWZxcg2/NIvWlzosCgwWcBJUetVj9AaA/s6r0pdwvHjCMU9xD+cYuSqj8jI3xXp2TV0U8MiJBAgplAgauUcdJk=
+	t=1790614168; cv=none; b=bixTxqoTpIW2L9/HW1DkwpdNYU0LliG4Ob+63VcuKO+ildlxP7K1Pd20KvlT/VuGSPkI8NQVkCqh+Jb8mrVYzamyqY+A7QLcRCDbtax6/8kZ1a2z/ak/SZyep8yzJNq8yXRna3y0pI677VIVJBQSurx1P24cAF9QzYQ0YRfnsAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790614144; c=relaxed/simple;
-	bh=p6Z2HiR7wy1TjKUzDRhsOJ75b9wzxmwqrB147Z3fti0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bEaqDI2/wccvzHa4LXeHGX9Yr1PpmDiijx5GsLLWdzzE8KydVS/jIQL7r6YThlsnKwA7JDbjfDGxNeoXRQqDWNCVp+5V6KX4Ox81zSCcTbwnqfye5RsKD45j2mS6mba4RFmbmTfQihL7gfUNBRbdrDO1W6vlLjIpwwYzlwX6+ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAKD5Ifo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790614168; c=relaxed/simple;
+	bh=bp+qWhqWaR9Lz830v75yldw0X9URi4cGTw7lByuKNn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gSyFWVuK21uyi0nNxQ8G4JkIkdEcvsNcpqbiOcnFt/ZNcAA09mUpT8lVYgow1wophtv3H/utZvSBKSxuKJ6f5i2WY/GN4FQ8R8ki4psN5XIlW41EguTw7ve3VH5cSW3cYhKE9na+eTXxFrh7vCGxmUmXkfv5oHSsFA9x0dOtVG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HfKPSmhL; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAKD5Ifo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9311F000FF;
-	Mon, 28 Sep 2026 16:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790614143;
-	bh=mUWct8aizjZm3FpdazTy05+paU2XtXuaVqE657SoQPQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JAKD5Ifo+jsV4cHgODTZ42PB6SQvPN6UZaZFjvPM9pxqyidjxwFQY1MzGBoQJC0Gg
-	 60gu8qqhP1Fh/AepHjj0X3yMaCqhBNEk8m831xRnjjhj6HFGOtb8R9O2S9ssyRgvGC
-	 0uPk0dfQapjZtX7pMogZoGfI8csxOpdDxXo9Qo9wAA2UJrEJNCS8lDKo8qkuNqYS0f
-	 QUhqned/V5UkjOVMMCfp9wXjq6Z7vRXe3rdSp1gfMct8kKCUcGwdoQm5BN07tz4ozc
-	 a5S9qC7LzJ/9LO/PmIHCD1H7+cbjRkIg4Ck2FCvg+mryclbnlQ1gOhsD5ODI+XOcjn
-	 75nD3GC6JRqzg==
-Date: Mon, 28 Sep 2026 17:48:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: V.Yurkov.EXT@bruker.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Jyri Sarha <jsarha@ti.com>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	Vyacheslav Yurkov <uvv.mail@gmail.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
- compatible string
-Message-ID: <20260928-disarm-unshackle-6cfc9c31f40a@spud>
-References: <20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com>
- <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HfKPSmhL"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6aaf28a86b9so72610a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:49:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790614165; x=1791218965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xejTefUm/OK3UUWyW9Ph3jbUHFaoxjGvqLJqChvouko=;
+        b=HfKPSmhL1mSfI/omSQRd3bzq9EcoUjfM0sq964iCCu4bnn3RktFWcxWd9DP0ru0yhK
+         kcXGxY1m7TX8z3oMnS/YdM5QSMC6OXuJj2EsZXIQtXo+SngOQ6lP5PT0EQwtAh3CLO6+
+         7oMxOPqnvOG4dfb9JBUpJinWnuepar3GEH4EcRZdLyvqiCYpcnOGS90pvb+emSBO8dg/
+         T8h5gxwQaWZWzQP2bSeW7sYkMML9BqQI15uwuZv18lQf5SQngSqP/WmGga9TsLe25Fm+
+         0V8WvYZ+iGa7bmH7vtv0gSQCjYQW+vA4I725Kz4L6l/fSzBcJZ/CJ0kbMgVukTzR4W0V
+         yk6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790614165; x=1791218965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xejTefUm/OK3UUWyW9Ph3jbUHFaoxjGvqLJqChvouko=;
+        b=VBM2pseKujR4e/oDveY9F7VBU5i1A3JpZPk55OK41J0fGSL3dwZJ8+3fl8aADJvyhu
+         sEqVOnXQNFhZbkYy9dH/x24vvawlrM+tUUbDuVQYyZyg56Pz2HxGO59CqWipv1WOjbXw
+         MymOQjXiAUw66/TStc1Ao4ERPlaf+QvI3mtDWbCacepwmHwODdaV+3YeNtA+i+9NRCGN
+         GH3vTazz4KskgcL9qnnar5swhjiUboO/J4RMZPqQHugi7TSKevh5ewM8gy92ljBU3o93
+         9VY0ymKBDGCdGl4J/yPriyobs/RqYP2tpTxS8tnAI+tM8zB4/ex8zwkDzoQ1TOglEjRu
+         hnLg==
+X-Forwarded-Encrypted: i=1; AKwUvByHqZlPOw2MnbxXwnR+gcfXgrUGcyEwO9Bg/EXiSP1Ft2SjVfDr7RpH3Y9JC1WgriHJaRCIN+fSVFhPdcs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtBXr/V5iyXNRZiGxdzQHxP1nRXWLVNdnIpcU3k1d+/oKyUlCv
+	tLDAHr00/2GaTKnkRAYyYuOhwRmjDIhOfAQFMwR4YPfGVZHzQv0H7CU1
+X-Gm-Gg: AYBFou3EznJoyqHKBg+AUHW63JM2Y3HnSZVECA90jGLMBl9NoG8ahpzuYYilp4eyQbJ
+	fBMF1vBd7AMZd631xyPpjFeeNQTKtghSWTaIbRjdcZWJtNU4jteDkwNfOgf99Luna7yNHaYBTEb
+	TWDdH0SrxXMhbdnuRm5RQCLUoeUSD0etslsq1XQQOjE6ID7mg0FDHy976onwFRMZxqM834DSF1N
+	/tU3NXO1iLii1wnvewBVw+pNEO7JWCOHBtfKkbWdYAvf1GuhJgMJ2Y10dF1QngXZxPx4Q0/S4Kv
+	iuj0UY9BodXjJZ7DjENPY7xUFM93wF7UfoElFgNbdiak142rv1pTzHyOor3KWrUgcQxlkR5YIOr
+	qpndbzahe7sL3fbfECiHCBE0QHbyASaWovfS/sby7xT51G2l/z3x4nIpSLqNxgyH/i6IPJwRDAd
+	LHh69gYxc49Wlu2kMQLaE6KyoMxL/gx7QAsOud6flMu7rWwm4inS+8oaCV2yVA/kkwTDdJmrVWr
+	ztBoSR1G35wIRFg38PECBT8b8SwX7H9n8P2k34Hc4mH8mT9cktjU/69DQeQZZ89RShw0J0ROntl
+	EhRDOGLWXOk=
+X-Received: by 2002:aa7:d1c8:0:b0:6aa:f83e:1da7 with SMTP id 4fb4d7f45d1cf-6aaf83e1fedmr5025670a12.0.1790614164665;
+        Mon, 28 Sep 2026 09:49:24 -0700 (PDT)
+Received: from localhost.localdomain (84-216-182-59.customers.ownit.se. [84.216.182.59])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ab5be57b13sm3066998a12.33.2026.09.28.09.49.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 09:49:24 -0700 (PDT)
+From: Pooyan Azad <pooyan.azadparvar@gmail.com>
+To: Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] zram: fix short reads from block_state
+Date: Mon, 28 Sep 2026 18:48:26 +0200
+Message-ID: <20260928164826.24858-1-pooyan.azadparvar@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANC3H+LdtoydSp+o2ecErAw7k6R2+gRf9LyxcaoHv_mGhJmyQQ@mail.gmail.com>
+References: <CANC3H+LdtoydSp+o2ecErAw7k6R2+gRf9LyxcaoHv_mGhJmyQQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="L1+02ogUpUOAI+8n"
-Content-Disposition: inline
-In-Reply-To: <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
+Content-Transfer-Encoding: 8bit
 
---L1+02ogUpUOAI+8n
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+read_block_state() formats each entry directly into the buffer supplied
+by read(). If the remaining buffer is too small for one complete record,
+snprintf() returns the full record length and the function stops without
+copying data or advancing the file position. A read smaller than a record
+therefore returns zero at a non-EOF position and cannot make progress.
 
-On Sun, Sep 27, 2026 at 02:00:00PM +0000, Vyacheslav Yurkov via B4 Relay wr=
-ote:
-> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->=20
-> Extend the binding to be used also for gpio-locked-fixed-clock.
-> A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
-> availability depends on one or more GPIO lock-status signals.
->=20
-> Some hardware designs provide fixed-frequency clocks generated outside
-> software control, such as by FPGA-resident PLLs. While the clock rate is
-> fixed, a separate GPIO signal indicates whether the clock source is
-> locked and producing a valid output.
->=20
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Convert block_state to seq_file so formatted records are buffered
+independently of the userspace read size. Keep dev_lock held across each
+seq_file iteration and continue to protect individual entries with their
+slot locks.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
+Closes: https://lore.kernel.org/r/CANC3H+LdtoydSp+o2ecErAw7k6R2+gRf9LyxcaoHv_mGhJmyQQ@mail.gmail.com/
+Signed-off-by: Pooyan Azad <pooyan.azadparvar@gmail.com>
+---
+Compile-tested with:
 
-> ---
->  .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 ++++++++++++++++=
-++++--
->  1 file changed, 30 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml=
- b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> index d09d0e3f0c6e..1ad87c8b36b9 100644
-> --- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> +++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> @@ -11,7 +11,9 @@ maintainers:
-> =20
->  properties:
->    compatible:
-> -    const: gpio-gate-clock
-> +    enum:
-> +      - gpio-gate-clock
-> +      - gpio-locked-clock
-> =20
->    clocks:
->      maxItems: 1
-> @@ -23,10 +25,29 @@ properties:
->      description: GPIO reference for enabling and disabling the clock.
->      maxItems: 1
-> =20
-> +  enabled-gpios:
-> +    description: GPIO that indicates whether the clock is enabled or dis=
-abled.
-> +    maxItems: 1
-> +
->  required:
->    - compatible
->    - '#clock-cells'
-> -  - enable-gpios
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: gpio-gate-clock
-> +    then:
-> +      required:
-> +        - enable-gpios
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: gpio-locked-clock
-> +    then:
-> +      required:
-> +        - enabled-gpios
-> =20
->  additionalProperties: false
-> =20
-> @@ -40,3 +61,10 @@ examples:
->          #clock-cells =3D <0>;
->          enable-gpios =3D <&gpio 1 GPIO_ACTIVE_HIGH>;
->      };
-> +
-> +    clk_gpio_locked {
-> +        compatible =3D "gpio-locked-clock";
-> +        #clock-cells =3D <0>;
-> +        clocks =3D <&pll>;
-> +        enabled-gpios =3D <&gpio0 4 GPIO_ACTIVE_HIGH>;
-> +    };
->=20
-> --=20
-> 2.34.1
->=20
->=20
+  make O=/tmp/zram-build W=1 -j$(nproc) \
+       drivers/block/zram/zram_drv.o
 
---L1+02ogUpUOAI+8n
-Content-Type: application/pgp-signature; name=signature.asc
+No runtime testing of the patched kernel was performed.
 
------BEGIN PGP SIGNATURE-----
+ drivers/block/zram/zram_drv.c | 101 ++++++++++++++++++----------------
+ 1 file changed, 53 insertions(+), 48 deletions(-)
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarqaegAKCRB4tDGHoIJi
-0qkgAPwLbnGmHMqfHyLBulYb5hGC1OUAB4zwxyfSelk4McM9egEA2ZKdn80e2nzx
-ozh36yl5udmVC+2QUEb6cHqGivbo5wU=
-=+wSo
------END PGP SIGNATURE-----
-
---L1+02ogUpUOAI+8n--
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index a9b3bb1d3bef..66a2fdb1274b 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1542,68 +1542,73 @@ static void zram_debugfs_destroy(void)
+ 	debugfs_remove_recursive(zram_debugfs_root);
+ }
+ 
+-static ssize_t read_block_state(struct file *file, char __user *buf,
+-				size_t count, loff_t *ppos)
++static void *zram_block_state_start(struct seq_file *seq, loff_t *pos)
+ {
+-	char *kbuf;
+-	unsigned long index;
+-	ssize_t written = 0;
+-	struct zram *zram = file->private_data;
++	struct zram *zram = seq->private;
+ 	unsigned long nr_pages;
+ 
+-	kbuf = kvmalloc(count, GFP_KERNEL);
+-	if (!kbuf)
+-		return -ENOMEM;
+-
+-	guard(rwsem_read)(&zram->dev_lock);
+-	if (!init_done(zram)) {
+-		kvfree(kbuf);
+-		return -EINVAL;
+-	}
++	down_read(&zram->dev_lock);
++	if (!init_done(zram))
++		return ERR_PTR(-EINVAL);
+ 
+ 	nr_pages = zram->disksize >> PAGE_SHIFT;
++	if (*pos >= nr_pages)
++		return NULL;
+ 
+-	for (index = *ppos; index < nr_pages; index++) {
+-		int copied;
++	return &zram->table[*pos];
++}
+ 
+-		slot_lock(zram, index);
+-		if (!slot_allocated(zram, index))
+-			goto next;
++static void *zram_block_state_next(struct seq_file *seq, void *v, loff_t *pos)
++{
++	struct zram *zram = seq->private;
++	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+ 
+-		copied = snprintf(kbuf + written, count,
+-			"%12lu %12u.%06d %c%c%c%c%c%c\n",
+-			index, zram->table[index].attr.ac_time, 0,
+-			test_slot_flag(zram, index, ZRAM_SAME) ? 's' : '.',
+-			test_slot_flag(zram, index, ZRAM_WB) ? 'w' : '.',
+-			test_slot_flag(zram, index, ZRAM_HUGE) ? 'h' : '.',
+-			test_slot_flag(zram, index, ZRAM_IDLE) ? 'i' : '.',
+-			get_slot_comp_priority(zram, index) ? 'r' : '.',
+-			test_slot_flag(zram, index,
+-				       ZRAM_INCOMPRESSIBLE) ? 'n' : '.');
+-
+-		if (count <= copied) {
+-			slot_unlock(zram, index);
+-			break;
+-		}
+-		written += copied;
+-		count -= copied;
+-next:
++	++*pos;
++	if (*pos >= nr_pages)
++		return NULL;
++
++	return &zram->table[*pos];
++}
++
++static void zram_block_state_stop(struct seq_file *seq, void *v)
++{
++	struct zram *zram = seq->private;
++
++	up_read(&zram->dev_lock);
++}
++
++static int zram_block_state_show(struct seq_file *seq, void *v)
++{
++	struct zram *zram = seq->private;
++	struct zram_table_entry *entry = v;
++	unsigned long index = entry - zram->table;
++
++	slot_lock(zram, index);
++	if (!slot_allocated(zram, index)) {
+ 		slot_unlock(zram, index);
+-		*ppos += 1;
++		return SEQ_SKIP;
+ 	}
+ 
+-	if (copy_to_user(buf, kbuf, written))
+-		written = -EFAULT;
+-	kvfree(kbuf);
++	seq_printf(seq, "%12lu %12u.%06d %c%c%c%c%c%c\n",
++		   index, zram->table[index].attr.ac_time, 0,
++		   test_slot_flag(zram, index, ZRAM_SAME) ? 's' : '.',
++		   test_slot_flag(zram, index, ZRAM_WB) ? 'w' : '.',
++		   test_slot_flag(zram, index, ZRAM_HUGE) ? 'h' : '.',
++		   test_slot_flag(zram, index, ZRAM_IDLE) ? 'i' : '.',
++		   get_slot_comp_priority(zram, index) ? 'r' : '.',
++		   test_slot_flag(zram, index, ZRAM_INCOMPRESSIBLE) ? 'n' : '.');
++	slot_unlock(zram, index);
+ 
+-	return written;
++	return 0;
+ }
+ 
+-static const struct file_operations proc_zram_block_state_op = {
+-	.open = simple_open,
+-	.read = read_block_state,
+-	.llseek = default_llseek,
++static const struct seq_operations zram_block_state_sops = {
++	.start = zram_block_state_start,
++	.next = zram_block_state_next,
++	.stop = zram_block_state_stop,
++	.show = zram_block_state_show,
+ };
++DEFINE_SEQ_ATTRIBUTE(zram_block_state);
+ 
+ static void zram_debugfs_register(struct zram *zram)
+ {
+@@ -1613,7 +1618,7 @@ static void zram_debugfs_register(struct zram *zram)
+ 	zram->debugfs_dir = debugfs_create_dir(zram->disk->disk_name,
+ 						zram_debugfs_root);
+ 	debugfs_create_file("block_state", 0400, zram->debugfs_dir,
+-				zram, &proc_zram_block_state_op);
++				zram, &zram_block_state_fops);
+ }
+ 
+ static void zram_debugfs_unregister(struct zram *zram)
+-- 
+2.43.0
