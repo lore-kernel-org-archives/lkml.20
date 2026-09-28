@@ -1,114 +1,128 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA2D2F9D85
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.203
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599514; cv=pass; b=u0y8DKj1sJVOCHZv1u0YUKpxr6KoAtU1zeS+6mfatNSlIyOvWgAZnexPK2Ob1Kx/se/Bv3QOwh8eDoA9bgl9njtIEQrO+DMJzRn5KavLJj2miX0aKMKSh/L2yhvK3mVWG0MysAiPBmYOw23CsbkJZwo+T0yydBNin6J5TUHjZlE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599514; c=relaxed/simple;
-	bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oJPTZB7/obUidwLfgP4ZqeTm9veTML2GpB6GUNEPsTuZM8sljg91SHfh+TxVgMCVhvrONCvpSvl8FQRFIuNlRMvgpPkhKACN2K+xDLEXLuM1HXWh1CqCa+2W9qk7zxUYL4BZ1xIcXqE6lAKUEreELdQ1wqXipbC8USPEZuGKhyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCCMf4u2; arc=pass smtp.client-ip=74.125.231.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCCMf4u2"
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c1e3be1093so1250820b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:45:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790599511; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qS5s5YTSbzxMFUuXFKuLTiO4GeC8veRZ8uChKvzPNuEh4bw++R93JdZwJzt1HSKjgK
-         2jmaksiV9wzbfHMfuW5B0/FLa2w5fvKH6T+CEsfo+CmpCGzPu/F0Em1jvohNTGAmTIFG
-         dPYOw1yh4hMOrfczwxIG5iGFktvfPSg69hHeLIqeR6uevqgYtkAPz8FXKKela+Jax8YB
-         rZ6fAWZ/PVg9eFUwsnozsETX35RXfaRpd79Azuxg1erGMlsfkEVkEYu2fuwTvh3MtdrW
-         kfLVNpolEL0GPLbwYf+rUzOVa46GIunM/gWhI7otXTNt6yFsGdZ39ihsOAEsFQBaXtXT
-         kFsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
-        fh=lD7r8qNwh+p4PQAgKf5KsCcH5Z5lK+8yrzEtxPazWlk=;
-        b=NqbChxf1WtUOYFEzJioeD5v2x6FHlgPJobXlhttDOcR5Spej2XKB5QQVtwvSwZm3b/
-         zXFDDNwHNxAFyHw8KQAouM94U6J9lL/XRwYUjxcTO44SqrvXLU/ipD0mp7NZLTpRNRg+
-         KDV7MoausJRFGc4Kgf5Qj67Uq8ihgmeoKFnrPJEu+18Bd/zxa0Yi2ij0cQp80e5j67d9
-         7+SBVyUdReOreuX5W2rIWG+ATkW+xK9N64CrJ/Ub8/9jbIueYBoksZiI9B+ZyKQ2qeLS
-         VzBAebpqOEyqPZ/xYuHxBtGZ0MQnXO8QVL866E3dQCl8MPOWWxNBuhCAWTLnJVQdOfn3
-         ZT7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790599511; x=1791204311; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
-        b=WCCMf4u2AjHud1qCNQ0sC5XzY75zPL+xRzdxVkKDRUooLOnn/6Fi59ETIN+zeXyXK4
-         0Uej8Q+ZarRRRnTVJoBUY4TRiDBFGkFvvXOrzCIdPG4c2MHYlpMYsrcOhZofI40Rt8qj
-         2gs0KQY6ycDs1pH8vy96JlRoAO8nSl++eOpJUojuIrlJyj668PCdaZ+bwuMw/gElBT4q
-         tUuKVEVhNvDWZDOuaYeoYKui09K2oKxKLxLtHe6vY/HMtKnQaE+QkW9e/IYjCjccN2rL
-         SDIExMwB7ajK6iSCjdPdw/aNyDErSpvwFMt4P8szLZiv4fioYzoFIRtWJqfUNXK2oVNs
-         cLaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790599511; x=1791204311;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uml54LJdPXLb9Lj9vOwlme7Ptb7ND54ckXVmhxSLoVg=;
-        b=x1otOkOEzCH8oe2uOY+o55dGHkhxFLfVdaTeibFh8LMXqKoKGw/Jk3Q0YgQPA8IEGL
-         a2y2SuDxB7qbO6UwOxAmqa7y4OAKykeZzdLCL8KDAqS2zJVvGcfG80zliM603WsMnG/F
-         qwjWMYl36yxb0U0PWa8zBGiDnX4te1gcS/NJhqmNqvqhNppO3LO97A7R/PZ8zrPcr8oi
-         FK1U6doc+n+ZiLz3yLbaGE3OvjjXKkFLrBqyb3rOEgOPXvXquijxX8RxXHJNKI3qtkvG
-         m5VXC0h8A8b+1uqVZipo88c2cInpnSfsyptlcYtYUNqVprjxiBqC8uIhOLstm2P8894N
-         Jj9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7nvajtcomF042VYpo6ORronxMKeHbJjaWi9hz4Cbe6GiqHLs/Ilvji2/f6+Ud9byZEnqdLdLAQDr2r6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgUsYd/IVgVL4/VVAMhGhU1nl1pH/XinYFH6o6Ydnj+YqbikIu
-	RZpAP3tC7LAyBFoONpKyKxROK49J9WaeAwhLGsA1uOvmt9Jpjhfom8Jg62GRU/rrSmLiPmSc4QL
-	CLHoWUCVV16d9SLIhEMjhIL7Z4aWtqFwJsTHV6zsR0GtxbrALxw==
-X-Gm-Gg: AYBFou3iLEFdwp9/aGz1yIz383lkH6ftoZoT+k/9iuChx+tLDauuCXuvOANxtggOyEP
-	yAYHICbUkHPUdWldDeK1e2alfrHy1tFjQsWUZOMVRPd4NFwX0HBfabgPjQDkNqrpODwy99l2fpy
-	3uq6nhwXhFL5JPxuJ3OREEFDChvpR5Gc8pquiRJNU20VxZ3gKyQrEejhE7X7x5FUSQvN0uL3QuP
-	WauxRKL+WjEnF1msG8ZamPW4Le2Rpcrm1BppRPoFUj4FGR6cQ50p8wPX8ufTBjYlzro9Oxw9Wlw
-	XMfsOAl41Q256vjt2QvAyxn8zsC4FtvjTHVs3myBcdybtVXZ8m2CGYV2IVV8IAMkyabx0ieJG62
-	tpvzSda6EqzvEjKjjBUzL
-X-Received: by 2002:a05:6808:4f2a:b0:4e8:92e5:db3b with SMTP id
- 5614622812f47-4e8930466c9mr5061632b6e.35.1790599511413; Mon, 28 Sep 2026
- 05:45:11 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21FD2E8B83;
+	Mon, 28 Sep 2026 12:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790599598; cv=none; b=flXKW2gvzitiaCT+MKv6vCo6yefF/dcUiH7DpbxORQHxtMp0wiNOx1atv/nbg1fF+YzL9PQ+VACOngAEHZRwLkjcHBzDR7UeoiiejmB5CokJwfWoggrsXWylMDvzne0buR+DE1CkOh0sIyA1VQwreVudi561x0nefkB3nUmzINA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790599598; c=relaxed/simple;
+	bh=4hCYLJkTGUQETROtL5OWvDslbHodh0mVKtdF088gnQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WIcTAM19PgSPupxsnA2UCMtemIJ7bt9A14yulN6Uo46CfRYp11xPdYpETn9c3yQr2rQ3y9tQb+M6m6Gvxnf3XBEXXgu0P2LUPd9Agx2Mi1Hi/SNZsQBEsLiwyPvDc0s+gmmcqnGDEWPL45nrHMRrhfQEs+Fq48xxx1ugPzHbPkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4htgyr20FMzKHMRh;
+	Mon, 28 Sep 2026 20:45:56 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 53AC5406C2;
+	Mon, 28 Sep 2026 20:46:30 +0800 (CST)
+Received: from [10.174.178.176] (unknown [10.174.178.176])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBXdCekYbpqBR0ACA--.8279S3;
+	Mon, 28 Sep 2026 20:46:30 +0800 (CST)
+Message-ID: <168ab288-39d2-48e5-9b2d-59441102c728@huaweicloud.com>
+Date: Mon, 28 Sep 2026 20:46:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
- <CANOyQmGkGwSkwUj-NOKzhQ_mgapoqqoOLaqXaGAjWK8jiknarQ@mail.gmail.com> <20260928122822.JdtAHH3g@linutronix.de>
-In-Reply-To: <20260928122822.JdtAHH3g@linutronix.de>
-From: Jason Mike <jm5905938@gmail.com>
-Date: Mon, 28 Sep 2026 20:44:59 +0800
-X-Gm-Features: AclHuK85xEilyaFEaA6Ff-fETSVKq3q1FX0B6TRO8Aa1XTtbukC6Oiy0wX_0q1I
-Message-ID: <CANOyQmGkfZs8z2fcDa0fN508MV2aahvq4Gg41BCxUOeMqCLONg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] HID: picolcd: Move output requests out of spinlocked sections
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
-	linux-rt-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/4] mm/truncate: align truncation boundaries to
+ mapping minimum folio order
+To: sashiko-reviews@lists.linux.dev, linux-mm@kvack.org
+Cc: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ linux-ext4@vger.kernel.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260928120833.3440834-1-yi.zhang@huaweicloud.com>
+ <20260928120833.3440834-2-yi.zhang@huaweicloud.com>
+ <20260928123136.2D6891F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20260928123136.2D6891F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgBXdCekYbpqBR0ACA--.8279S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFy3CFykKrWUGr1UZFy7Wrg_yoW5JF1UpF
+	WDXFWruw48Ww4xuFy093WDAr1fWa48Kay5AF1xK393Jwn3WwnF9r4Utay0gw4Iqr4xAF10
+	yF1jyr9rWr4jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7
+	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
+	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
+	IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+	wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFIxCjY7AvzIIF6xkI1cIj4wC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUIl
+	1vDUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On 2026-09-28 14:28:22 +0200, Sebastian Andrzej Siewior wrote:
+On 9/28/2026 8:31 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Critical] mm: integer overflow in round_up() during truncation causes complete file data loss
+> --
 
-> This is not limited to PREEMPT_RT.
+As mentioned in the cover litter,  this is a pre-existing issue related
+to the file system that needs to be addressed separately.
 
-Right, thanks for the correction. PREEMPT_RT was only the configuration
-where I reproduced and tested the issue; the bug itself is not
-PREEMPT_RT-specific.
-
-> picolcd_data::lock. The important part is that the lock is a spinlock_t.
-> Non-PREEMPT_RT builds should complain here, too.
-
-Agreed. I'll update the commit message in v2 to make that explicit.
 Thanks,
-Aveline
+Yi.
+
+> 
+> commit 583804d300760dcf60e3ec5aab6503a560ad3e7e
+> Author: Zhang Yi <yi.zhang@huawei.com>
+> 
+> mm/truncate: align truncation boundaries to mapping minimum folio order
+> 
+> When the mapping has a non-zero minimum folio order, this patch changes
+> folio_split() in truncate_inode_partial_folio() to stop at min_order instead
+> of order 0. It also aligns both start and end to the mapping minimum folio
+> order so they always fall on a folio boundary, preventing valid out-of-range
+> tails from being dropped.
+> 
+> Link: https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AYsy=OWzVRgD4202y1g@mail.gmail.com/
+> 
+>> diff --git a/mm/truncate.c b/mm/truncate.c
+>> index b58ba940be474..8a28f4a212677 100644
+>> --- a/mm/truncate.c
+>> +++ b/mm/truncate.c
+> [ ... ]
+>> @@ -395,6 +397,10 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>>  	else
+>>  		end = (lend + 1) >> PAGE_SHIFT;
+>>  
+>> +	start = round_up(start, min_nrpages);
+> 
+> [Severity: Critical]
+> Could this round_up() result in an integer overflow that changes a very large
+> start index to 0 on 32-bit architectures?
+> 
+> When an unprivileged user issues fallocate(PUNCH_HOLE) or truncate at an offset
+> near ULONG_MAX << PAGE_SHIFT (e.g., 16TB on 32-bit systems) on a filesystem with
+> min_nrpages > 1 (like ext4 with large folio/iomap), start approaches
+> ULONG_MAX (e.g., 0xFFFFFFFF on 32-bit x86).
+> 
+> The macro round_up(start, min_nrpages) performs 32-bit arithmetic. With
+> start approaching 0xFFFFFFFF, start + min_nrpages - 1 can overflow to a value
+> less than min_nrpages, causing round_up to evaluate to 0.
+> 
+> This would corrupt the start index to 0 in truncate_inode_pages_range(), and
+> the subsequent loop would unintentionally truncate the entire page cache from
+> index 0 to end, causing complete data loss of unwritten data.
+> 
+>> +	if (end != (pgoff_t)-1)
+>> +		end = round_down(end, min_nrpages);
+>> +
+>>  	folio_batch_init(&fbatch);
+>>  	index = start;
+>>  	while (index < end && find_lock_entries(mapping, &index, end - 1,
+> 
+
