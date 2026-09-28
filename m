@@ -1,144 +1,100 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32715363C73;
-	Mon, 28 Sep 2026 05:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EE237D110
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790575053; cv=none; b=kLzLWIsiqLje+KN+nJ3I+tyob294zkQI7Jokxlk4HyrCnJvg9TBJCj3bt95OpjrJVf3X456wWDAXlbvJvFKSrYwKC4UjWOdFBgQ3ciu0BI3X8izBpcR5K6Skn32En0wQFdBQAOjuER7Qj36FnnzbFdrGgqN9Q9F0TApoRNxojiE=
+	t=1790575133; cv=none; b=FFrgmX9zz/cI+o95R2mpD8ty5nbnrvRhJuGrhyJXEhuOVQZW+bG8USdwXiqHAAcolkeNVRJXCfi56bPWyDX9lrbe2rLZ8yZTvQTznT6QFlYLsDT9iFs+QaVeVK/jNMMl6qpaZGuTXryCopOm7r4qQZR7RDuRcO8enlgklINobJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790575053; c=relaxed/simple;
-	bh=U2GROJJTUnj7Hm7DAM8RbMohqr9lonHcwiRKkk22vE0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JiM+dJ3Yk1OpfvXXEtaVBXYSpRcD62yRCo2/OXnGDIaCcqhvuRFAl6E+7fiGehj7HawKWIKfQFn43Ih13zVqzfoDra8xNJxxg+aDy4lkOxEDzrp2pWfYENajtw05YKiNXW3IH77IxINvGmApBnWmB1BaX4iZZIx12mPDFfXLwXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=oZaOeUQl; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790575133; c=relaxed/simple;
+	bh=b2SOxY6IlRw72YGf7IGDV0f1H0AvrYKkaImEuwoiuNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oBW8nObnO9fLhoXYMnatVUuv1ZQ6nKNA+mN58YQMCj8foaOiV5cnuXUltt4Jd6KAAgVNzRzxqmL/9C5MrrOCKqeA0xdmc9x9ZjyjT4KpGEo9iXLjyjfdv7GZYhK2SnvMzByeuCWQ1/Xt5Z1Z4sSSYLTm9vrPWUf8OXaBmXPep94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6H60ywS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="oZaOeUQl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=serHbvY0qU3fAdcG56bcrNqBZELdIJ9RhLiJ7Pbgx+o=; t=1790575051;
-	x=1791179851; b=oZaOeUQlULMQF/grkSffCGw9X8Vfg/yoQ7F0111VeiyYjx6x1BdJ+SkpN7Yry
-	vohFe+TCIQQGdEe8NdEhHNI/XJ/iY0ovpdsFk+Nbg+xAxHB0MsBXjxpYog7a6/I0SC+5TFnT/rvOq
-	6IC0eck02HTvw26N1zB68P3Ray1ecdvR8T8gtNaCRdro032xp3LJsX3F9Slwln4GItAMF5YHPhbfu
-	AIyfh4VQHX/zbH6d7P7FvAq5BTEzZ8hzcWU3if+gVwSuSeZ8Qtf14FsYIHQhI3fF+KW1caYxwxAU9
-	KVjdZvRehzP2KDtoLd6na+BfEqfwopCa+pLmDoFK05flElqTYg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xB4Mi-00000001crB-2kob; Mon, 28 Sep 2026 07:57:28 +0200
-Received: from dynamic-077-191-243-001.77.191.pool.telefonica.de ([77.191.243.1] helo=[192.168.178.50])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xB4Mi-0000000004u-1puw; Mon, 28 Sep 2026 07:57:28 +0200
-Message-ID: <92e110eef6dac0c6ddceb6ddda1658aeeaf1f0ec.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] irqchip/jcore-aic: Fix lost IPIs on SMP
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Thomas Gleixner
- <tglx@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Radu Rendec <radu@rendec.net>, Artur
- Rojek	 <contact@artur-rojek.eu>, Rich Felker <dalias@libc.org>, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 07:57:27 +0200
-In-Reply-To: <20260928035408.25871-1-kmehltretter@gmail.com>
-References: <20260928035408.25871-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6H60ywS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FC41F008A1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:58:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790575132;
+	bh=srfQqHtFz8qMgjHgFSb/Ele5F879D92XNe4pdLC/vrE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=E6H60ywSuN/2sAFIcIxAUdPMZAiZE06BrzymPjID8yGUFso2aOFQ5k0t0MUU9hRp9
+	 itAW8DxYkJapAKCmagEuE0pxpOvIJ03MBuJEH3IuKZ11OKfqAN0fNi8w4e8gpCc8XF
+	 GJtj00SX/Fzz3MEwmXFtzLMrdSDkxVp1iUbCX8j6TE5ZLkcKpzcr2jV+lpNjgNLfsX
+	 7fR1LZonKIIrQqfCNK0MTsKQU5L/ulq5hGwcTSIR42NJ8tpMJ4eh6Z/UEkKC5xsWC7
+	 IPjKU3CK8iF6WXs/emFI60D1rjzYENy90uqDPwmo8Yo6a5TuO9kJ4tPhTHhx56Sx/a
+	 A1Axd42G3oYtA==
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ff2313so166136866b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:58:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqq9lA2j5tRLTDyiMlOdeUVJ52TsgrBtqilc3poPVplAALqUCh+PQUV0ppYblqZL6iVDqytFnWbKVKhr0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJseRtqNnhnf0m3FszMpxXBak49RlssOI5cWtiPjv9CxiRGFG25
+	Sf9DgIgkOz4AM69QA4bJFmRP1YPGMBjzO7FJlXCUf5UeLAC58XVMiDaoTg3UPuEBHklSi2XH6qR
+	Rdp2O4lbzGxinmjnU2WT6Vr/Hae/n6SixvakJ+r6P4Q==
+X-Received: by 2002:a17:907:960d:b0:c25:f7db:4bf0 with SMTP id
+ a640c23a62f3a-c2ac238a8d0mr1079000666b.22.1790575130941; Sun, 27 Sep 2026
+ 22:58:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-11-hebaoquan@kylinos.cn>
+ <CACePvbUn4xBNkKBjyniG0TLb5bA8wGNBiJ77JTF8FDGN9EgCWQ@mail.gmail.com>
+In-Reply-To: <CACePvbUn4xBNkKBjyniG0TLb5bA8wGNBiJ77JTF8FDGN9EgCWQ@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 19:58:39 -1000
+X-Gmail-Original-Message-ID: <CACePvbU9PfTuVqzsJisa3S9DX7AssaUCRT2qk=tj83ACGUobXA@mail.gmail.com>
+X-Gm-Features: AclHuK8Nttla48_gCpAztfqY5DyhHBX_oGqq8i1YtMK7SH7KobM-TpczZoxSPGE
+Message-ID: <CACePvbU9PfTuVqzsJisa3S9DX7AssaUCRT2qk=tj83ACGUobXA@mail.gmail.com>
+Subject: Re: [PATCH v3 10/14] mm, swap: refactor swapoff and add xswap_destroy
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Karl,
+On Sun, Sep 27, 2026 at 7:40=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+>
+> Here you relocate the swapoff function and causing a lot of diff
+> context due to the code movement.
+>
+> I move your swapoff code back, right after
+> flush_percpu_swap_cluster(). Then the diff is much cleaner around
+> swapoff.
+>
+> For example, here is what the new diff showed:
 
-On Mon, 2026-09-28 at 05:54 +0200, Karl Mehltretter wrote:
-> Since commit bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for
-> non-overlapping affinities"), handle_percpu_devid_irq() only runs an
-> action whose affinity mask contains the current CPU. Only actions set up
-> through the percpu_devid request functions have such a mask.
->=20
-> handle_jcore_irq() passes every per-CPU interrupt to
-> handle_percpu_devid_irq(). The J2 IPI is not a percpu_devid interrupt.
-> j2_prepare_cpus() requests it with request_irq() and IRQF_PERCPU, so its
-> action has no affinity mask and cpumask_test_cpu() reads through a NULL
-> pointer. J2 has no MMU to catch this. The read returns whatever is at
-> address 0, the action is not found, and IPIs are dropped as spurious
-> ("Spurious percpu IRQ20 on CPU1", printed once).
->=20
-> Pass only percpu_devid interrupts (the PIT) to handle_percpu_devid_irq()
-> and the other per-CPU interrupts to handle_percpu_irq() again, as before
-> commit d7e3fd658248f ("irqchip/jcore-aic, clocksource/drivers/jcore: Fix
-> jcore-pit interrupt request").
->=20
-> Found with a two-CPU J2 model simulated from the J-Core RTL. Without
-> this change the boot stalls with both CPUs idle shortly after
-> "smp: Brought up 1 node, 2 CPUs". With it, the boot reaches userspace.
->=20
-> Fixes: bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for non-ov=
-erlapping affinities")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->=20
-> Notes:
->     Tested on a two-CPU J2 model simulated from the J-Core RTL with
->     Verilator (J2 CPUs, caches, bus mux and AIC1 from jcore-cpu/jcore-soc=
-),
->     kernel v7.3-rc4 j2_defconfig with SMP=3Dy:
->    =20
->     - unpatched: "Spurious percpu IRQ20 on CPU1", pending IPI messages ar=
-e
->       never cleared (the message word of CPU1 grows to 0x6), boot stalls
->       with both CPUs idle after SMP bring-up
->     - patched: IPIs are handled, boot reaches userspace on both CPUs
->    =20
->     Not tested on J-Core hardware. Testing on real hardware is welcome.
->=20
->  drivers/irqchip/irq-jcore-aic.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/irqchip/irq-jcore-aic.c b/drivers/irqchip/irq-jcore-=
-aic.c
-> index 94c05cf974be8..b4fee02997eee 100644
-> --- a/drivers/irqchip/irq-jcore-aic.c
-> +++ b/drivers/irqchip/irq-jcore-aic.c
-> @@ -37,8 +37,10 @@ static struct irq_chip jcore_aic;
-> =20
->  static void handle_jcore_irq(struct irq_desc *desc)
+I am sorry I messed up. Please ignore my last email comment for this
+part. It is still benificial to have the swapoff function move after
+flush_percpu_swap_cluster() from the diff point of view. II messed up
+my patch by relocating the `pweroff` function in the wrong patch.
+
+
+> SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
 >  {
-> -	if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-> +	if (irq_is_percpu_devid(irq_desc_get_irq(desc)))
->  		handle_percpu_devid_irq(desc);
-> +	else if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-> +		handle_percpu_irq(desc);
->  	else
->  		handle_simple_irq(desc);
->  }
+>         struct swap_info_struct *p =3D NULL;
+> @@ -3391,6 +3393,11 @@ SYSCALL_DEFINE1(swapoff, const char __us
+>         spin_unlock(&p->lock);
+>         spin_unlock(&swap_lock);
+>
+> +#ifdef CONFIG_XSWAP
+> +       if (p->flags & SWP_XSWAP)
+> +               cancel_work_sync(&p->xswap_shrink_work);
+> +#endif
+> +
+>         wait_for_allocation(p);
+>
+>         set_current_oom_origin();
+>
+> It means we will need some swap_ops->swapoff() for handling the async
+> workqueue canceling.
 
-Can you tell me what toolchain you used to build the kernel for J2?
+Never mind the above comment.
 
-Last time I tried to use the one provided by Rob Landley, the build
-failed due to an internal compiler error so I couldn't actually build
-a kernel to test it on my J2 Turtleboard.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Chris
