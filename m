@@ -1,131 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779A44DD3D4
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611034; cv=pass; b=RbInUrKTznfYCaBwXQhtKZUlybFvwzatgTikLJFMMkK9WSWodf2EXRj+WlL3SEkUY7Sih9DCw63Aeh+9S/EuVKmFPSzgFhbXF/AG5qM0m+MVVcNhGtl5xKvy4usj+c8S3RGrq57VXCx/U2HnuZBaHFb21MQzczSEUA+aBiaDdK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611034; c=relaxed/simple;
-	bh=QqOHndixwXTfbKcazOrogEdBF1Lh5VPxTHmhor2BS+8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aduSy3kiwo7//Ia8m7IiXZ2nCtKHKHTDxv2ITC5AXnJ/VCS8KnmioxAcYo+4gHZP4/OO2g6r/Ilw8sTKeIJ1C9c1ATTX9hRiK76QAPhZa4aVIWZyWJ/XWMUKpd/JvOht9iKjj8hk/lLxTkcD+10gCj1CWK8a6n7j5pqa47VK7ZY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cWeh1Vaz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FjeO9ox2; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257744E0202;
+	Mon, 28 Sep 2026 15:57:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790611060; cv=none; b=W8LNJWNXHrCpPXvfYaM/FSsREJqz6RHRRZGiAtZtccMC3pJF3DVPUOh7tQcaTGW75HnSXweH9SJIuP7eBF+GjAc2iqAWoctznDAlfQm73XDO3wHadUYjmLF4blqPEGfXhmAc15Pb1e51fzj+BmlClC4zT9BCrqjns7eBVw1+Hh8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790611060; c=relaxed/simple;
+	bh=+/ARVIPj4f56djx3Ezh4ZToCMNPoyd7Ue0tRG/g2D/Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Nquokkqcbwr5ZS/rPwyyjp3mcmWqoM/Wc87kOSnD25M2II8GBCFJNGMa8bczMX8S31v0WUkJHrwyEgK5D/o4ER/I6fF6UKAjUq0mWeWz9KH0lu0tQMEDQSYvSTqvUO24O1TFUB+GcWl6x0jdrK3ig2+MzRQFl7xl8i1tKHeXQaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMMSbLs5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cWeh1Vaz";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FjeO9ox2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790611032;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0/ZTD2VeOCjUPPogrc+Mc/r0VX3g+O7Z3MtGT/sljKA=;
-	b=cWeh1Vaz7q3eZnkqonoVOPF1YF/RVgC+7FcGRYlv0t5jT63KddeguL0DBpszp2rEC8iClu
-	rmNVnzFy0CC1ytXmXAciWd1tFqtEDklO8kRB1RFiIu9TjSUxxkdwlJ6mzruOUOblqxc54B
-	1e4lBux0rga3YEOD59YOegY73vs/mQY=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-241-OvIh6ykOPjakuPAaQKuH5w-1; Mon, 28 Sep 2026 11:57:11 -0400
-X-MC-Unique: OvIh6ykOPjakuPAaQKuH5w-1
-X-Mimecast-MFC-AGG-ID: OvIh6ykOPjakuPAaQKuH5w_1790611030
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a0bcf8b74cso3287465a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:57:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790611030; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IbMrzaoCGbxl/KjqVavVV5JgTdqbspIywHbLzLkAPxdIn/IKG2DvvrdNLpUX7tXuKD
-         n+2h3ND3kHBshvIOYDFIBdYWU0ZEAzAW7bnsk8CGYKuB5KtRe4Egcwg2Ksfe54OchVN2
-         a2zaRv8EWm6lXmpYXMIDqp47AX1aOs+l/X5HQwZUxfYrvOkwE/jIWr6UVjThTj4CWtX9
-         +nZBu8+Oq3OFXorOtms+zAXDFAg6GoEQnHYs3JgieUchlw+SRioMUvMYtPvu/oXBtvZQ
-         l3YjS7s+Ijds6oyfTCpaAof9RyGMHK8mLnEvQ1sxe8w0HTl0/hWYJURnjei1E8iXqfk3
-         sPYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0/ZTD2VeOCjUPPogrc+Mc/r0VX3g+O7Z3MtGT/sljKA=;
-        fh=L+3TdEZrD9y6s2Fco5fltuTKfQrBvkMU5ZbmHUvHIfg=;
-        b=gGPvf63lvaEO06nTvmNMTtrXX/DoyJ/yz3f/Jcg8+hwe0k4En/p1E/mMLDSUyfpKT9
-         X+bHtAZwrzvjX0F2AZJU0wYorlVsIYLOAhmmFFV2DPiu3irx+ZhTsisbz7g4Zo+1/hPC
-         qss2rbiNBShjgWjcrowX2BJ/dsyhTKIlsQQjYF0H8aPAyI/VVIAYaI+1rmk+icAlcqFR
-         lJCPaL6bVwCSZjRrRacXvXVFunkxWETA/XHN2yeaVhK+umG5MHjTgDpBMp9fY8E3tddc
-         Ul5WU7IPb5+VOBiCrZcBu8G0ty2E0sQ0THhyN4/DBPgdDa9lhEnkyrRTZ3jCHOCncnzC
-         RQVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790611030; x=1791215830; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0/ZTD2VeOCjUPPogrc+Mc/r0VX3g+O7Z3MtGT/sljKA=;
-        b=FjeO9ox2H1n5hhCeNlVaE7A6A4aSQ85LY6/jLva50w4642KxT/NkxrW3UJAAkfvLbg
-         LeqEhL2ufzQEWsjjXU/yhwK5aDM3ksxtc7NUSqZHSr1f17Yaj7GIMaAVeOkQqx8N5033
-         O5NTUPr8/s1rwFn3TylEea9OQn5X1JdRxp4ConZ3RpJZo7T0o4iIY1Ujy09OZTXfdIkt
-         a8K8zAm9ZUbe73YxHZJVptqxAkanhx56RVwRXa/KUj44h/ij5/ZjSpGgBpQOO0udHuXY
-         LzD3TK1G7LpV3zEC3rQ2bAcMqVMt1diI2k0ycyolAvTVNMAVCeTAFU1LHLepzzentOnY
-         crCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790611030; x=1791215830;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0/ZTD2VeOCjUPPogrc+Mc/r0VX3g+O7Z3MtGT/sljKA=;
-        b=OyUsGX1/BEXTf0yCnRrE2lRebQFlBjlOTD9p4SPaDwy6n5h0nv+vyDxnIISeGBgbFu
-         9y+tgX2XWPGtvDzvsoYfHPOnSYhejzW57SOzOja/1aS6Ex9V8jBcGvAjad0prl24XvEh
-         GFdjqw+gNId1UoxFSBfQY8WNaskiO5xonEDj+Ba3ehjn7bYncAFY33wqOA+1pUDTWZwf
-         75aQWdxBYxLMHBgzD0Moihb9L4vRCfy2o/PeJ8OTjFQfZbSDXRYQ+GKMdufyY3DamioY
-         sObgCtTyaIA7YD8mncg5PufnP3QTy7kg77AzEyuzHNXENBuJqahyl4NYDQX8woqHO57U
-         oC/w==
-X-Forwarded-Encrypted: i=1; AKwUvByyi+HCGulk9U/lsM+yup8NNjGu1OEMnP0DVx1rfMuDgdCx7kkN4Bh46rjUMLJzkiqr1QjnYf/gUUJWUCs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDISS3zsO9z9K/a680VqIwg8MkGfXZd6kVzPqRrhtpDwd8uuhE
-	XbvvnG2ferr1NreJhzc4pVAmCdg9Qu6SxOVKVkf9/qNkX8qrWxuhPrqF9VHqbROTHwb2np8PptC
-	lOLItW9/tMZnR48ajFkitczd78ILZfg4TRj7UGKmLwMRmVeKRXfN8r6NK28mzK/hbWWukEH4vOE
-	Zj1W1XivNMjSB/shSu4oypwhU3botOd2RLAEgbu37WRWQafWhR
-X-Gm-Gg: AYBFou0FoSiif58hqXYl/JO2Rc5j92x1oY3oWp+obI/gzaCK/0xLD5qtg7xkpql+n2m
-	jFcCAFXLOauhYYfZDkpdZpIkKWYWXe58UuQvor5oM+6Px15f39vr8na4l+s/PMJSnYR5Bl0iZU+
-	+xqF7mLtKArTORxdF4myH87ygRuyLqyb26TvOZ9sXVbTtGbN7fl1/RrVQAk2ElJXS4A1yRfPpR+
-	Tjk8Z4r29xOnl462BFT+cukkk4sZbcc4yLZu6A4vHQWH5Xss0nAm1gpw0VUaA==
-X-Received: by 2002:a17:90b:2e50:b0:39e:6a81:5a97 with SMTP id 98e67ed59e1d1-3a098e3e987mr11638009a91.43.1790611029676;
-        Mon, 28 Sep 2026 08:57:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:2e50:b0:39e:6a81:5a97 with SMTP id
- 98e67ed59e1d1-3a098e3e987mr11637997a91.43.1790611029099; Mon, 28 Sep 2026
- 08:57:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMMSbLs5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D5428C4AF12;
+	Mon, 28 Sep 2026 15:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790611059;
+	bh=+/ARVIPj4f56djx3Ezh4ZToCMNPoyd7Ue0tRG/g2D/Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=YMMSbLs5YhQkXSElJ5Meo1yHeg0MTSWlzZL8Wbrq/HOU3MrvO063sTBRbhNeHXsPd
+	 OInz47JNdExxqygksL1tVJnNiKoFqo9EF2uif+fZDAKuwAo9FpfArPc3GwZUKfq1oc
+	 NZDgWUFmS9GycmLtOhvSebXSyW6Be8iPtosCrvwQqxbFfEG5TVK0qJHVZ0nTXaWOhK
+	 96xhfrejewY3/0N7p8+pk4Nr5UIX2yng+eTKoMshs2fym1Pe52vQwAPDicI5cyjRRV
+	 ApS/fi+3Kz55yZXbi53slTdFi0gNEzB/o3JwJ0Va11SMEpWt60zWI8mV4ao9XL/g3x
+	 raO/Mg564nvBg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6E31CA5FA1;
+	Mon, 28 Sep 2026 15:57:39 +0000 (UTC)
+From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
+Date: Mon, 28 Sep 2026 21:27:38 +0530
+Subject: [PATCH v9 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
+ HeartBeat pulse clock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925233321.2381319-1-seanjc@google.com> <CABgObfZeA_q_prxJhbdNqYpE8quPD360LhVBQv8ypcPpLA-Mhg@mail.gmail.com>
- <arqKrvYupBpAM2WI@google.com>
-In-Reply-To: <arqKrvYupBpAM2WI@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 28 Sep 2026 17:56:55 +0200
-X-Gm-Features: AclHuK-7CM2Is7844IC-ONgeUbRSTmzwlEMShQq7MFNhnttTE_XpGhhHS1k5ziQ
-Message-ID: <CABgObfYBt61rn2RjSP2DQqNUN-eBK6NToW34va+1x=K-sQD4VA@mail.gmail.com>
-Subject: Re: [GIT PULL] KVM: Fixes for 7.3-rcN
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-master-v9-1-2277f09f9a09@oss.qualcomm.com>
+References: <20260928-master-v9-0-2277f09f9a09@oss.qualcomm.com>
+In-Reply-To: <20260928-master-v9-0-2277f09f9a09@oss.qualcomm.com>
+To: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, 
+ srinivas.kandagatla@oss.qualcomm.com, sarath.ganapathiraju@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ prasad.kumpatla@oss.qualcomm.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790611058; l=2671;
+ i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
+ h=from:subject:message-id;
+ bh=EqcShn4lKqnUcEIX4DZ2sa+EOeN9w3AEP1mmSm22Vj0=;
+ b=TM1SJBp7tH2hiudoY6cxOGN8Yw7u22o1dRULwet6bK+mW7NneRBOWhaNU2KCyJucBLZ1GONOR
+ JVCTUtNDf01BvkG2eJUpH7xEZtBrYMGYwUmu7vm+a70ud3GwAiHzJuV
+X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
+ pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
+X-Endpoint-Received: by B4 Relay for
+ sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
+X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reply-To: sarath.ganapathiraju@oss.qualcomm.com
 
-On Mon, Sep 28, 2026 at 5:41=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
-> > Pulled, thanks. I added on top the SEV cache writeback patches which
-> > are not present here.
->
-> Heh, because they're buggy.  Sashiko pointed out flaws in both[1][2].
+From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
 
-Ouch... I have just now noticed that Sashiko only replies to kvm@ and
-not reply-to-all (including LKML), so depending on which duplicate an
-email search took me to, I was or was not seeing its replies. Of
-course for my patches I was specifically looking for those replies and
-therefore not seeing the issue. Fixed now. :(
+Add a binding for the Qualcomm LPASS VA CSR rate generator node that
+exposes the lpass_heartbeat_pulse clock on Hawi.
 
-Paolo
+The HeartBeat Pulse, also known as RateGen Pulse, synchronizes the
+start of DMAs and Codec Interfaces for the audio usecase and can serve
+as a periodic wakeup source for the DSP.
+
+Require the LPASS LPR and audio vote clocks to access VA CSR register
+space safely.
+
+Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 62 ++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+new file mode 100644
+index 000000000000..601da83add2b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,hawi-lpass-va-csr.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
++  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
++
++description:
++  The Hawi LPASS (Low Power Audio Subsystem) VA CSR block contains a
++  rate generator that produces a periodic HeartBeat Pulse, also known
++  as the RateGen Pulse. This pulse synchronizes the start of DMAs and
++  Codec Interfaces for audio usecases and can serve as a periodic wakeup
++  source for the DSP.
++
++properties:
++  compatible:
++    enum:
++      - qcom,hawi-lpass-va-csr
++
++  reg:
++    maxItems: 1
++    description: Address and size of the VA CSR register block.
++
++  clocks:
++    items:
++      - description: LPASS LPR (Low Power Resource) voting clock
++      - description: LPASS Audio voting clock
++
++  clock-names:
++    items:
++      - const: lpr
++      - const: audio
++
++  "#clock-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++
++    clock-controller@7ee0000 {
++      compatible = "qcom,hawi-lpass-va-csr";
++      reg = <0x07ee0000 0xe000>;
++      clocks = <&q6prmcc LPASS_HW_LPR_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++               <&q6prmcc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++      clock-names = "lpr", "audio";
++      #clock-cells = <0>;
++    };
+
+-- 
+2.34.1
+
 
