@@ -1,91 +1,77 @@
-Received: from mail.nearlyone.de (mail.nearlyone.de [49.12.199.46])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBCE3546D6;
-	Mon, 28 Sep 2026 08:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.12.199.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB07478842;
+	Mon, 28 Sep 2026 08:30:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584244; cv=none; b=ZRBPzojCZ2A3DMXl6hYfXQWUeTs1Hsq3DHmqOJ6owRN9jaDXskppBJzj2F/eINrKXD+SLuzTcHSRgQd8rA9UMI0sqojMQ+R1r15JmzZcM0hi1GS+vJ31Qegx9ya6Utet/spSNpLCagh1bATfdLi+vlKxDjxVgaQfwP7h55FbkQE=
+	t=1790584265; cv=none; b=On33tL4EJ+7aiDiwa25S4P4I5GUseYuFhlS+cIfLlpvZC8KmvcmNzNSYqwb6jrIkCb486mNC4TZvJxW1WJPDERfbzcE4vpMuaf31B1Q7CZPnz32GEEdgNPF10ss4ciDp5jiezHT2mvdr0YDfbxGtMFGGOvguze1rBUGTAhHqU44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584244; c=relaxed/simple;
-	bh=oQjHm7sEy+oh7SJWSJZ8N5kBh62Zvmh2K4EEsJpmSDQ=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=IlGAhprRIIKH+YHk0wG8WQj0LKIiw/MxFuM3iDkG8X7l0sV6vn0CgU/qRcsl1jW3U81xuVV8Roi2+RxRtPcG3YqaA45DAPvg7WMi+PCiWTfwF1mosoLg2P1z7gUJkyEoPAiPdlkTCrO0t3ZW7dkd3Fip1s91JLcKOv3geEuXSE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=monom.org; spf=pass smtp.mailfrom=monom.org; dkim=permerror (0-bit key) header.d=monom.org header.i=@monom.org header.b=VwnbiQF5; dkim=pass (2048-bit key) header.d=monom.org header.i=@monom.org header.b=y4WwN7GG; arc=none smtp.client-ip=49.12.199.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=monom.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=monom.org
+	s=arc-20240116; t=1790584265; c=relaxed/simple;
+	bh=C/TzPf/qbsxjybdQpJhCXH/4GQXEgN8uIr2/1O5Kl/Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=EuIA4kO2ODEiYCySbYsDjjbxuwmYlFqegkFUdEly4mSS7SRbIhHsjmJSWvL0dPlwyb1vM5sx3GOhpSbrXM5lxz/JDfSQIgNPaWwjeOwcCh/ZD5UAdDReHfZzZJmLHtEc2G/DJNhYc8DUE3sDIdjQkr5zQ1+VtHWFTEr6SrDppYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=B5MuTM7K; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=monom.org header.i=@monom.org header.b="VwnbiQF5";
-	dkim=pass (2048-bit key) header.d=monom.org header.i=@monom.org header.b="y4WwN7GG"
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260726; d=monom.org; c=relaxed/relaxed; r=y;
-	h=Message-ID:Subject:To:From:Date; t=1790584229; bh=Z+E1mFhW1QTgJSUbNOSCRFP
-	vFVqJS8RcT7jrbS3GYek=; b=VwnbiQF5X21M3/oU488sXwZm/b6eaY1OTKFuGz3ESi0bREhwf9
-	yusv5uzf/QFTW2GzIJIS+zzT1LgnBVh+bxBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260726; d=monom.org; c=relaxed/relaxed; r=y;
-	h=Message-ID:Subject:To:From:Date; t=1790584229; bh=Z+E1mFhW1QTgJSUbNOSCRFP
-	vFVqJS8RcT7jrbS3GYek=; b=y4WwN7GG0PjPYB2Z1i0I9oi3YdSxtyPq9fyw17sD6TFcxOGAzs
-	73Sb9MTFk5C+gNUxNUkdArYMRb4urHRYUSxD8RGHfMgyp3QOei42fXTIQwZkerQ2rJHTYDzhY7l
-	iF+Kn+gjAeL2gpTd9InbuiXIwdiabEX66LNa2kPvlnApm+pkgl59MZSLQOJmbfuU7uo+0ykTYbQ
-	WfTQBKr/qK53mbl4Up/y24FoJQ1q/n3MQskKVJeGzAifY9D/jFTbuVQSvxetBCzgs35aIn+IOro
-	kjcIt7FOwYEbe8Rg7itud7tvimR2MYeI77KBZ2bvuVW0pW5YXHmR1tOW1joTLEunUgA==;
-Date: Mon, 28 Sep 2026 10:30:28 +0200
-From: Daniel Wagner <wagi@monom.org>
-To: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org, 
-	stable-rt@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <williams@redhat.com>
-Subject: [ANNOUNCE] v6.12.111-rt21
-Message-ID: <f2e55011-72d3-48fd-b680-68421d77239c@monom.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="B5MuTM7K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=C/TzPf/qbsxjybdQpJhCXH/4GQXEgN8uIr2/1O5Kl/Y=; b=B
+	5MuTM7KRoTauYLOG845zIh2GZpAPrN2wk+o/oNCMpHbqRxQRof/L1kFnlEas0aQe
+	XBv1AkEjxyxrOUkto/ekSgrF+MCGxSmPz6zdornpEeEpgQM4nsPWHVskMbv59GAY
+	koXqFK+oIZsbyv6axBKS4r99j9OSBAOIN/IymMeprw=
+Date: Mon, 28 Sep 2026 16:30:02 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>,
+	"David Lechner" <dlechner@baylibre.com>,
+	=?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+	"Andy Shevchenko" <andy@kernel.org>,
+	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>,
+	"Takashi Sakamoto" <o-takashi@sakamocchi.jp>,
+	"Siratul Islam" <email@sirat.me>,
+	"Maxwell Doose" <maxwell@maxwelld.cc>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] iio: imu: kmx61: reject duplicate event disable
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260927182031.6d490331@jic23-hlaptop>
+References: <20260925141006.2255067-1-yaojiale02@163.com>
+ <araCxIGnZK0zuUSS@ashevche-desk.local>
+ <20260927182031.6d490331@jic23-hlaptop>
+X-NTES-SC: AL_Qu2SAvmTu0or5CaaZOkcn08ShO49XMOyvfoi2YFTc+gGmTzU3j0if1JyFELowOyzNySDujGrVSdF5ct2e7h6clEtY5e7xIvwOXm4AgBdQg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Message-ID: <1024d805.7930.1a0e722a587.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:iCgvCgDHZziKJbpq9Y5PAA--.50958W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQq07mq6JYoxxQAA3W
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hello RT-list!
-
-I'm pleased to announce the 6.12.111-rt21 stable release. This is just
-an update on top of the latest upstream stable release. There are no
-RT specific changes.
-
-There is a bit of churn due to upstream backporting a couple of paches:
-
- 9482507381c7 ("powerpc: Add preempt lazy support")
- 6421a07d2ff2 ("ARM: ensure interrupts are enabled in __do_user_fault()")
-
-and some updates on the patch context/hunk. Nothing serious.
-
-In my test lab, I see that x86 seem to hit higher cyclictest values
-than usual. armhf and aarch64 have reasonable numbers. I suspect,
-the stable tree introduced it but it might just be my test box.
-
-You can get this release via the git tree at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
-
-  branch: v6.12-rt-patches
-  Head SHA1: c49530ec12e3772dd6e6d7e5cc23d3512e1fdd73
-
-Or to build 6.12.111-rt21 directly, the following patches should be applied:
-
-  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.12.tar.xz
-
-  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.12.111.xz
-
-  https://www.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.111-rt21.patch.xz
-
-Signing key fingerprint:
-
-  5BF6 7BC5 0826 72CA BB45  ACAE 587C 5ECA 5D0A 306C
-
-All keys used for the above files and repositories can be found on the
-following git repository:
-
-   git://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git
-
-Enjoy!
-Daniel
-
+QXQgMjAyNi0wOS0yOCAwMToyMDozMSwgIkpvbmF0aGFuIENhbWVyb24iIDxqaWMyM0BrZXJuZWwu
+b3JnPiB3cm90ZToKPk9uIEZyaSwgMjUgU2VwIDIwMjYgMTc6MTg6NDQgKzAzMDAKPkFuZHkgU2hl
+dmNoZW5rbyA8YW5kcml5LnNoZXZjaGVua29AaW50ZWwuY29tPiB3cm90ZToKPgo+PiBPbiBGcmks
+IFNlcCAyNSwgMjAyNiBhdCAxMDoxMDowNVBNICswODAwLCBKaWFsZSBZYW8gd3JvdGU6Cj4+ID4g
+VGhlIElJTyBjb3JlIGRvZXMgbm90IGZpbHRlciBkdXBsaWNhdGUgd3JpdGVzIHRvIHRoZSBldmVu
+dCBlbmFibGUKPj4gPiBhdHRyaWJ1dGUuIGtteDYxX3dyaXRlX2V2ZW50X2NvbmZpZygpIGFscmVh
+ZHkgaWdub3JlcyByZXBlYXRlZCBlbmFibGUKPj4gPiByZXF1ZXN0cywgYnV0IGEgcmVwZWF0ZWQg
+ZGlzYWJsZSByZXF1ZXN0IHN0aWxsIGNhbGxzCj4+ID4ga214NjFfc2V0X3Bvd2VyX3N0YXRlKGRh
+dGEsIGZhbHNlLCBLTVg2MV9BQ0MpLCBkcm9wcGluZyBhIHJ1bnRpbWUgUE0KPj4gPiByZWZlcmVu
+Y2UgdGhhdCB3YXMgbm90IGFjcXVpcmVkIGZvciB0aGlzIHJlcXVlc3QuIFRoaXMgY2FuIHVuZGVy
+ZmxvdyB0aGUKPj4gPiBydW50aW1lIFBNIHVzYWdlIGNvdW50IGFuZCB0cmlnZ2VyIGEgIlJ1bnRp
+bWUgUE0gdXNhZ2UgY291bnQgdW5kZXJmbG93Igo+PiA+IHdhcm5pbmcuCj4+ID4gCj4+ID4gUmV0
+dXJuIGVhcmx5IHdoZW4gdGhlIHJlcXVlc3RlZCBzdGF0ZSBhbHJlYWR5IG1hdGNoZXMgZXZfZW5h
+YmxlX3N0YXRlLiAgCj4+IAo+PiBTYW1lIGNvbW1lbnRzIGFzIHBlciBwcmV2aW91cyBwYXRjaGVz
+IG9mIHRoZSBzYW1lIHRvcGljLgo+PiAKPkZpeGVzIHRhZyBuZWVkZWQuCgpGaXhlczogZmQzYWU3
+YTlmMjFjICgiaWlvOiBpbXU6IGtteDYxOiBBZGQgc3VwcG9ydCBmb3IgYW55IG1vdGlvbiB0cmln
+Z2VyIikK
