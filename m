@@ -1,209 +1,82 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6F4478842;
-	Mon, 28 Sep 2026 22:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA7620D4FC;
+	Mon, 28 Sep 2026 22:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633881; cv=none; b=fZ3mfQUxJsRRl2Kh74wdVVndWcxQ4CRSRJG2c5bfySFVRfuey1MQ6QLb6AhrY1j9UZ/eUE70GW3d38W8xQdkWK9tWizZufHWQmECvzsmkWMVyD19FMkl01DErNPPTtFo2ZQpyyIulp35iJsfFb4WPAtOUvIPyeQ9SlMqtPjgpis=
+	t=1790633889; cv=none; b=uVvyjtol981PfDRItNrvJUGFNmyEp9Vo2NVNgLHRF1eMbHAS5XYyxHCZvg9zZyZkQZ5P2bTi1EUza1E8g7D77jt6fw9IAUzLK5w6bY0a+pcUQYud3B8e46+k1cJ1tQyxbyF5nrakoyU6PQbhyIPwG4pHHrlXLY1bhEpBN0+ivi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633881; c=relaxed/simple;
-	bh=z3cD18dfRRxJBzxxLMbV7wKOYV85Yje2YDlaAf0/JiE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sYRNC3IqsCTqdabVJWcDDWtfkYi328kdQRGxRDVweRYKK754Ly/O8c6Tg4suUdkGxcFp6L9fxpG/UITe05L+wWYMlKJD1Wsd2FWtp7v88KEzpOHLgliVUPz2mAnzo7+IxzpyDBcwEIiPljUAgFKO1I2IGtHF0wTaLAwC605Qla4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=EARQgv6T; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1790633889; c=relaxed/simple;
+	bh=8R3/BbhrDMmvNHH76fn5GwLsTMpqwHu1f3r2mdLQfXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hI53gOjX33saRzA3sLfBf8LuiOwMbg5Tsv79IFJCzufNlNcfenn0DUnwVQ9aHcWyekD5RCusxg4nGgX6jbJ04WOWUKtibXj7JCO3lfWCJ7aeMlK01s03uCSDAR29+2i5wztqvfnTkPR3cCyn9tnxKShbZjzmpFVlrH67WH5Y6IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eyOf9mY2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="EARQgv6T"
-Message-ID: <a1e1a8c88161894c8fcd4514900cf3a14232aa47.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1790633870;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=57P7JFPpwMerIO3+pWerd46p4Ojio7Wq8LO1VeNWTLw=;
-	b=EARQgv6T5ULGs2S7nheXWP05DIkXzdGB9wVbuz1ZL7Gu71Lfd5+9c0YEcQBq2V1d6eWo7R
-	pWNTM74u7eYtAf0fHeT4LDshbQfZ9XwDV5baPSSzHcN2v5AbfwVXs+3DqTzei7fm0r5hNK
-	7t1kPeAeeqlSKbQobZL6DXM3SJHU5FA=
-Subject: Re: [PATCH v3] sparc64: Fix comparator problem with timer interrupts
-From: Stian Halseth <stian@itx.no>
-To: tglx@kernel.org, andreas@gaisler.com, davem@davemloft.net, 
-	sparclinux@vger.kernel.org
-Cc: Tony Rodriguez <unixpro1970@gmail.com>, linux-kernel@vger.kernel.org, 
- thomas.weissschuh@linutronix.de, regressions@lists.linux.dev, 
- glaubitz@physik.fu-berlin.de, linux@leemhuis.info,
- torvalds@linux-foundation.org
-Date: Tue, 29 Sep 2026 00:17:49 +0200
-In-Reply-To: <20260831180728.3097740-1-stian@itx.no>
-References: <20260519022421.5978-1-unixpro1970@gmail.com>
-	 <20260831180728.3097740-1-stian@itx.no>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-SGTUVnu+6H4b+MUMUot/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eyOf9mY2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D991F000FF;
+	Mon, 28 Sep 2026 22:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790633888;
+	bh=Y5njVTOmYr+X0yyc6IPDazh9pfwPlRrvD2EpwW79+6w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eyOf9mY28UPgiDqEMYs96aVfi0epPdGLf4MrlL933PScyAN37kECV9Uda7IREN3UA
+	 azMmRZFdshY3RtnwcddPcE+aABaU9RZyfhfsF3bfOOfVFrWaNZWV7+VYFNS3+MiU0+
+	 mxXzNVa6dvUy+d76IKyWlRdranl43068/+9ScQfLBEiefTcicyTH7Id0vbz3PEkNBw
+	 hHZrUph3xJ85ZIlSJe4BBZkwCxowG05gNJ5bTt1ODvH5JIcdgRkiN3iUK2Abu8KLd5
+	 M6rXWMyrcerb6D4EZPjTAjZhRcv58MQuBh+1TxZTZuTk1hafBukUnctf5J0qdcSP5E
+	 Cg0ANitDfcpZA==
+Date: Mon, 28 Sep 2026 17:18:04 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>, 
+	Anandu Krishnan E <anandu.e@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 6/6] arm64: dts: qcom: Add initial support for Nord
+ Ride Embedded board
+Message-ID: <arrnd5wzif1ALS_z@zenbook>
+References: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
+ <20260920084920.2201418-7-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920084920.2201418-7-shengchao.guo@oss.qualcomm.com>
 
+On Sun, Sep 20, 2026 at 04:49:20PM +0800, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[..]
+> diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> new file mode 100644
+> index 000000000000..09ee525764ef
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> @@ -0,0 +1,442 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> +
+> +#include "nord-embedded.dtsi"
+> +#include "pmau0102-nord.dtsi"
+> +#include "pmm8650au-nord.dtsi"
+> +
+> +/ {
+> +	model = "Qualcomm Technologies, Inc. SA8797P Ride Embedded";
 
---=-SGTUVnu+6H4b+MUMUot/
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+What is the actual name of this board?
 
-Hi,
-
-I just got a SPARC T7-1 and have independent reproduction and
-confirmation of the fix.
-
-Without the patch the system is not really usable. I can just bring
-down a network interface and that alone triggers a hang.=20
-Hung on 3 out of 3 boots unpatched:
-
-  task:ip              state:D
-   [<0000000000cfebc4>] wait_for_completion+0x64/0x180
-   [<0000000000509c30>] synchronize_rcu_normal+0x150/0x280
-   [<0000000010079060>] ixgbe_down+0x1a0/0x460 [ixgbe]
-   [<000000001007a4c8>] ixgbe_close+0xe8/0x100 [ixgbe]
-   [<0000000000af1cf8>] netif_change_flags+0x18/0x80
-   [<0000000000b08618>] rtnl_newlink+0x758/0xaa0
-
-A second caller hit the same stall under kernel build load, from
-network namespace teardown rather than any driver path:
-
-  task:kworker/u1024:0 state:D
-   Workqueue: netns cleanup_net
-   [<0000000000cfebc4>] wait_for_completion+0x64/0x180
-   [<0000000000504ab4>] rcu_barrier+0x214/0x480
-   [<0000000000af3f88>] netdev_run_todo+0x48/0x600
-   [<0000000000ad99c8>] cleanup_net+0x1c8/0x360
-
-Both are plain RCU waits:
-
-  rcu: rcu_sched kthread timer wakeup didn't happen for 6002 jiffies!
-       g193 f0x0 RCU_GP_WAIT_FQS(5) ->state=3D0x402
-  rcu:     Possible timer handling issue on cpu=3D20 timer-softirq=3D107
-  rcu: rcu_sched kthread starved for 6004 jiffies! ->cpu=3D20
-
-
-With the patch applied: 3 boots with a clean first ifdown on each, plus
-6 consecutive interface down/up cycles within one boot, and no stall or
-hung-task messages in any of them.
-
-Tested-by: Stian Halseth <stian@itx.no>
-
-
-On Mon, 2026-08-31 at 20:07 +0200, Stian Halseth wrote:
-> From: Tony Rodriguez <unixpro1970@gmail.com>
->=20
-> The tick/stick/hbtick add_compare() implementations program the
-> comparator and then check whether the write took effect in time:
->=20
-> 	exp =3D read_cnt() + delta_ticks;
-> 	write_cmp(exp);
-> 	return (read_cnt() - exp) > 0;
->=20
-> A nonzero return value means the expiry time was already reached
-> before the comparator write could take effect, so the interrupt may
-> never fire, and the caller retries with a new expiry:
->=20
-> 	return tick.add_compare(delta_ticks) ? -ETIME : 0;
->=20
-> The check only fails the write when the counter has advanced past the
-> expiry time, but not when it is equal to it. In the equal case it is
-> unknown whether the comparator write took effect before or after the
-> counter reached the expiry value, so the compare match - and with it
-> the timer interrupt - may have been missed. add_compare() then
-> reports success, the caller does not retry, and the CPU is left with
-> no pending timer interrupt.
->=20
-> This results in stalled hrtimers and RCU stalls / hangs under load,
-> observed on SPARC S7-2 and T7-1 systems:
->=20
-> =A0=A0=A0 rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
-> =A0=A0=A0 rcu: rcu_sched kthread timer wakeup didn't happen for 5259
-> jiffies!
-> =A0=A0=A0 rcu:=A0=A0=A0=A0 Possible timer handling issue on cpu=3D100 tim=
-er-
-> softirq=3D15
->=20
-> Treat counter =3D=3D expiry as failure as well, so the caller retries
-> with a new expiry time. After this change S7-2 and T7-1 systems no
-> longer hang.
->=20
-> Diagnosed-by: Thomas Gleixner <tglx@kernel.org>
-> Link: https://lore.kernel.org/all/87tssb6olo.ffs@tglx/
-> Link: https://lore.kernel.org/all/871pfcznw0.ffs@tglx/
-> Link:
-> https://lore.kernel.org/all/20260519022421.5978-1-unixpro1970@gmail.com/
-> Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
-> [stian: rewrote the changelog per review of v2, retested]
-> Signed-off-by: Stian Halseth <stian@itx.no>
-> ---
-> v3:
-> =A0- rewrite the changelog: describe the write/readback ordering and
-> the
-> =A0=A0 direction of the equal-compare case per Thomas Gleixner's review
-> =A0=A0 https://lore.kernel.org/all/878q9fxywc.ffs@tglx/
-> =A0=A0 (the code change is identical to v2)
-> =A0- add the Link: tags to the original debugging discussion
-> =A0- picked up with Tony's agreement after v2 stalled
-> =A0=A0
-> https://lore.kernel.org/all/10382506-3f57-4b33-8356-34f23fb5f153@gmail.co=
-m/
->=20
-> Tested on an UltraSPARC T4-1 (sun4v, stick variant): 9.1M hrtimer
-> reprograms in 90s across 32 threads with 10-500us expiries, no
-> stalls, no lost wakeups (worst oversleep 657us).
->=20
-> =A0arch/sparc/kernel/time_64.c | 6 +++---
-> =A01 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/arch/sparc/kernel/time_64.c
-> b/arch/sparc/kernel/time_64.c
-> --- a/arch/sparc/kernel/time_64.c
-> +++ b/arch/sparc/kernel/time_64.c
-> @@ -146,7 +146,7 @@
-> =A0			=A0=A0=A0=A0 : "=3Dr" (new_tick));
-> =A0	new_tick &=3D ~TICKCMP_IRQ_BIT;
-> =A0
-> -	return ((long)(new_tick - (orig_tick+adj))) > 0L;
-> +	return ((long)(new_tick - (orig_tick+adj))) >=3D 0L;
-> =A0}
-> =A0
-> =A0static unsigned long tick_add_tick(unsigned long adj)
-> @@ -277,7 +277,7 @@
-> =A0			=A0=A0=A0=A0 : "=3Dr" (new_tick));
-> =A0	new_tick &=3D ~TICKCMP_IRQ_BIT;
-> =A0
-> -	return ((long)(new_tick - (orig_tick+adj))) > 0L;
-> +	return ((long)(new_tick - (orig_tick+adj))) >=3D 0L;
-> =A0}
-> =A0
-> =A0static unsigned long stick_get_frequency(void)
-> @@ -411,7 +411,7 @@
-> =A0
-> =A0	val2 =3D __hbird_read_stick() & ~TICKCMP_IRQ_BIT;
-> =A0
-> -	return ((long)(val2 - val)) > 0L;
-> +	return ((long)(val2 - val)) >=3D 0L;
-> =A0}
-> =A0
-> =A0static unsigned long hbtick_get_frequency(void)
-> --
-> 2.53.0
-
---=-SGTUVnu+6H4b+MUMUot/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCarrnjQAKCRDoeAEuJe36
-VqZvAQDk5SX53KefiP3+481kGr9gFkYSS9HS41YB1+91UXUUuwEA2CPwV+rv7hG+
-Ogwcp9C1kq7hE3cQ+cUBuRVXM79CAQc=
-=M+os
------END PGP SIGNATURE-----
-
---=-SGTUVnu+6H4b+MUMUot/--
+Regards,
+Bjorn
