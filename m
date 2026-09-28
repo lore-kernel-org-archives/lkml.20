@@ -1,153 +1,147 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0640445FFA8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECE63C342B;
+	Mon, 28 Sep 2026 07:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790581387; cv=none; b=cJjqV1ptyqEFWTK24E/CZyZSgfSI6YnZm6jz6UWnxXD2z5nmSYP9H9EQtR6i8FP5Z2ciIyFclgBS/lvK4XiN6SRr8nvbl8OdO6lTNM+p6bc3DAClr5AukEWONhry2/sqvvabFDD6qNm9sOE4sgY2zetYylMI2QYtaNXgqJfNmrc=
+	t=1790581419; cv=none; b=LQ1LDfj+2ytUIyzNLibfvZbFjMLb4UwNNvYAVBnaiHv60VtzX21K4pV1hOy3brX6yN2Z6RWmJzw+2BBFrd9ypb28rDu1PvmdDPPmdBq18mSx0witr3Z7Nng/jPmUMBM1b8RUZ8Yi5HPddiMA5WXTeVnOjXOOAlQmL7f/YGZ20/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790581387; c=relaxed/simple;
-	bh=zIseMialRAIP5msDcZwe8wtbMcXGt98E5kq4ccyMaf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LHBfuHUU0RhcxPiplt+0ep5Vkpjm7uMv9ofl3b638z14XFAflYdeNGKwhhhyrTrPDtQo3sGFNVEUPLTfpu8n3lfAqtMSSxY2yjv2EdObDmvJ8nS0eoJWQ5kXHFGn2By0ytIast6P/M8LXBNxztlbyUDxMdpv7PnEJXmCVXxd/cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDVGQ7kh; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790581419; c=relaxed/simple;
+	bh=v5xkypmjVIwI+h3qsJYOVW2FyoXQyyhdhrWAy4f92Po=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FxbIq+RrWASZtjWl6UGc9Ech+F8h+IOKV9CYIyU326o80/1uam/TIBhc7wmQeuDOH2Kmalo+mBuRgmmuArAuvahAcbTKM7eKXkw2r3DnV6w56PYIV8kxPhAnYj74hgkQI8cBqtlqTfYcDlz4kSLdEPlDmYKi89WrLgbSDeE8Hx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mW0lLWC9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDVGQ7kh"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso259161566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:43:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790581384; x=1791186184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=evTcyLTV/DIVnWXmZiMlgrVrf4ZyYkEgFr0T8VwAZ/U=;
-        b=QDVGQ7khKQLaY30FsSzYFE3yCA8BC5bohueF5gtbDmyYwP+NPL9E7Tb67mT3fZKq+b
-         deLWUgmw/NJ40NfuwKgf0/b2FnOhNmsSO9IOD5ZO4oDvfsgLCRidBP84kZTVgjIKFxud
-         mumM8isPEV6xYymT4nE3gz7YxL6d3PJDD+W4dUN1RW5GPBOEJgSqvRXGrfgbnf9eTk4D
-         BiHX8wVO1/cBmvWJxufbRpOvvRz+wHV1JgUyfzRODqMhsD/ItvF1XAGSIVYITnIrKOhN
-         s5+JkALvelMHs19+1ZsuWDKe7T+LWKsr36/pCVcvDbhY8PJk3bjldsolewIivbPV0viW
-         cNhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790581384; x=1791186184;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=evTcyLTV/DIVnWXmZiMlgrVrf4ZyYkEgFr0T8VwAZ/U=;
-        b=NPhbYHwLLzFbDa8718mIVcGdO7nkIr1Feyc55Q6C5nIK0dTaI4dpZt8meDI92pSvJm
-         1D5LVL7VH788FkIAhoinK3CoXINHvxPK25UosZCYwyaLgmssEdY26L1Xj4sPIWKNTFXS
-         SQVYCwS9cyybnSAeqHyvzFX7GGeUshprZ0mWX3GmYrL3FzJy7EVJuIBl4vLgw/usj4lb
-         bY0qjZCPipGaulOc4IBEm2G/80MLzP1LsBezFcKEIDEvVQGUbE5bbQOET7wLCqlfA5Fd
-         gWw3gl+UinzAItF3Xk/leS8s9ThSZztkHB1YNpwxE1gRC6gqfRazK3IYn+Uhb3XEXb1/
-         onEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxE0QBpV20ZVEpVbJ5u5XqjzZ1HUY2zNPwZfZDuSYNPMPWOo78uoI91u6zqW+6HBbx6qOu2pq+NF9ofuB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kny8ysuy6nrneIs7k5A7Rj6nfvbzcLVOwNWQk+c2sqI9gvyj+m
-	6sQe1vJU9QRznX8g6OKAoxhKXcW0hZxbChFUtRuio13q4g2F8UhRcK7A
-X-Gm-Gg: AYBFou12HWIA2alcctHxaThOtgNq7Py/0bW+/in1KjgrsiP0XEqPXdZa4ZwZCGFeK3q
-	9E+AoX/flM6SjlHGaY9DibY3Z7u5fM4kcEXBa7feVu5jc51WGICCr9y0szjqB6LE4kgJXNVHbjX
-	2StobqIsUBe24FEK48V1s9sWN66iDCy+yhKreBKprRHBy362MPBI0f4vZRVYvryT8hZlfdrIU9z
-	SGzXGlUFrNqjkj4PEW5yqU3WKrR3b3NuH7WfrMcs1V+1f+QJshn18XyVhHMxTXvuPG9FM0AVFUu
-	wqnjzldp5Og4nzSWWnF+7KLJoOVdrqF+sS6ufnIrxDoBB5PgEfkhRxBo2K4+myev53mrYP+DImB
-	/QZGyosP7YESi4NUvpeIbBGQbq5s2q3TJQwfMYPqkJ34R8bLpJq8BgFpdkolbhMYAu+sp4DZCV0
-	L5X5wDdcPQzxywUhrkjBpQJNEX/w8iRiE4c90SC98dmCYbKFYLwRiFiyj8wZl66KoMlgPfQZlPu
-	Z8cM4ogr/J6yu9dHACdU9e2JsBIXc4LRUZP5pPg
-X-Received: by 2002:a17:907:db02:b0:c26:19de:9acd with SMTP id a640c23a62f3a-c2aea0622b1mr662289866b.37.1790581384140;
-        Mon, 28 Sep 2026 00:43:04 -0700 (PDT)
-Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76ac760sm419415166b.39.2026.09.28.00.43.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 00:43:03 -0700 (PDT)
-From: Sagi Maimon <maimon.sagi@gmail.com>
-To: netdev@vger.kernel.org
-Cc: radhey.shyam.pandey@amd.com,
-	michal.simek@amd.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux@armlinux.org.uk,
-	vadim.fedorenko@linux.dev,
-	richardcochran@gmail.com,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next v2 2/2] net: axienet: add a MODULE_ALIAS for platform instantiation
-Date: Mon, 28 Sep 2026 10:42:56 +0300
-Message-ID: <20260928074256.462345-3-maimon.sagi@gmail.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260928074256.462345-1-maimon.sagi@gmail.com>
-References: <20260928074256.462345-1-maimon.sagi@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mW0lLWC9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC17E1F000FF;
+	Mon, 28 Sep 2026 07:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790581418;
+	bh=HrWmya2BbGZvSwijVjwf4Mdm9vx7MdcATLhRM6SO8m4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mW0lLWC92Hqe7B3S+WdkF8UlfU5I6RB4+uHTXcgv6fM5XjlwPMcTqiZZBdRjAplI6
+	 h4mGQCBGU2F/q4MAJUlDW+UgKxxBBZ/KcdP7m7SGZLX0URBRPpYlphDlo2wR0pO7wX
+	 JYkl1DsoStVdRHKs/ZVHsubihFrYrJjijUjXK07CzY9zMQ50SA8uGpu2axgVrM3uDL
+	 DuxD0yRU7V8QWYO1luBLD9hcs934U+J/667xUbHvp1Qq4EzVAJ5QiGhJJyZlFnamew
+	 SnKYacceHyy4PAE6toH38LIsy1Rue+JgMZnJDNxcIJWalC1MPCC/tLMoUZfvIqAUTV
+	 69tGKG8xPeDJQ==
+Subject: Re: [PATCH net v2 2/2] af_unix: skip consumed OOB skb and pull
+ consumed bytes in unix_stream_read_skb()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: kuniyu@amazon.com, edumazet@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 07:43:37 +0000
+Message-ID: <179058141737.3145.8100394961059840159@kernel.org>
+In-Reply-To: <20260924071629.2683160-3-benquike@gmail.com>
+References: <20260924071629.2683160-3-benquike@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The module is built as xilinx_emac.ko while the platform driver it
-registers is named xilinx_axienet.  For a device tree instantiation that
-mismatch does not matter, because the OF match table supplies the
-modalias udev uses to load the module.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-A device registered by name from another driver has no OF node and so no
-OF modalias.  It advertises platform:xilinx_axienet, which matches
-nothing, and the device is created but never bound.  ptp_ocp is going to
-register the AXI Ethernet MAC of the ADVA TimeCard X2 this way, as a
-child platform device described by a software node.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Add the corresponding MODULE_ALIAS so name-based instantiation can
-autoload the driver, and give the name a define now that it is used in
-more than one place.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on the X2 with a local ptp_ocp change: with this patch the module
-is loaded and binds when ptp_ocp registers the device; without it the
-device stays unbound until xilinx_emac is loaded by hand.
+- [High] The patch adds a pskb_pull() call to unix_stream_read_skb()
+  (net/unix/af_unix.c:2924-2930).
 
-Assisted-by: LLM sparse
-Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
----
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+--
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 0f2170af9b10..ae8ed4495ea0 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -48,6 +48,7 @@
- #include "xilinx_axienet.h"
- 
- /* Descriptors defines for Tx and Rx DMA */
-+#define AXIENET_DRIVER_NAME		"xilinx_axienet"
- #define TX_BD_NUM_DEFAULT		128
- #define RX_BD_NUM_DEFAULT		1024
- #define TX_BD_NUM_MIN			(MAX_SKB_FRAGS + 1)
-@@ -3223,7 +3224,7 @@ static struct platform_driver axienet_driver = {
- 	.remove = axienet_remove,
- 	.shutdown = axienet_shutdown,
- 	.driver = {
--		 .name = "xilinx_axienet",
-+		 .name = AXIENET_DRIVER_NAME,
- 		 .pm = &axienet_pm_ops,
- 		 .of_match_table = axienet_of_match,
- 	},
-@@ -3231,6 +3232,13 @@ static struct platform_driver axienet_driver = {
- 
- module_platform_driver(axienet_driver);
- 
-+/* The module is named xilinx_emac, the platform driver xilinx_axienet.  A
-+ * device registered by name rather than from firmware advertises a
-+ * platform:xilinx_axienet modalias, which without this matches no module:
-+ * udev cannot autoload the driver and the device stays unbound.
-+ */
-+MODULE_ALIAS("platform:" AXIENET_DRIVER_NAME);
-+
- MODULE_DESCRIPTION("Xilinx Axi Ethernet driver");
- MODULE_AUTHOR("Xilinx");
- MODULE_LICENSE("GPL");
+af_unix: skip consumed OOB skb and pull consumed bytes in unix_stream_read_skb()
+
+This patch makes unix_stream_read_skb() free zero-length consumed skbs
+(for example an OOB skb already read with recv(MSG_OOB)). It also makes
+it pull UNIXCB(skb).consumed bytes before handing the skb to
+recv_actor(). The goal is to stop sockmap from re-delivering data that a
+normal recv() has already consumed.
+
+> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+> index 0903bd587696..a1c06b9995c7 100644
+> --- a/net/unix/af_unix.c
+> +++ b/net/unix/af_unix.c
+
+[ ... ]
+
+> @@ -2913,6 +2921,14 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
+>  
+>  	mutex_unlock(&u->iolock);
+>  
+> +	if (UNIXCB(skb).consumed) {
+> +		if (!pskb_pull(skb, UNIXCB(skb).consumed)) {
+> +			kfree_skb(skb);
+> +			return -ENOMEM;
+> +		}
+
+[Severity: High]
+If pskb_pull() fails here, is the unread part of the stream silently
+lost?
+
+unix_stream_sendmsg() often builds non-linear skbs. The normal path uses
+sock_alloc_send_pskb(sk, size - data_len, data_len, ...), which caps the
+linear head and puts the rest in frags. The MSG_SPLICE_PAGES path uses
+sock_alloc_send_pskb(sk, 0, 0, ...), so headlen is 0.
+
+After a partial recv(), unix_stream_read_generic() does:
+
+    UNIXCB(skb).consumed += chunk;
+
+and leaves the skb on the queue. That means consumed can be larger than
+skb_headlen(skb), in which case pskb_pull() takes the allocating path:
+
+    pskb_pull()
+      pskb_may_pull_reason()
+        __pskb_pull_tail(skb, consumed - headlen)
+          pskb_expand_head(skb, 0, eat + 128, GFP_ATOMIC)
+
+This is an atomic allocation, possibly high order, sized by the prefix
+that was already consumed. On success, that prefix is copied out of the
+frags only to be discarded.
+
+If the allocation fails, kfree_skb(skb) frees the whole skb, including
+the unix_skb_len(skb) bytes nobody has read yet. By then u->inq_len has
+already been reduced:
+
+    WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
+
+The only caller, sk_psock_verdict_data_ready() in net/core/skmsg.c,
+only acts on non-negative returns:
+
+    copied = ops->read_skb(sk, sk_psock_verdict_recv);
+    if (copied >= 0) {
+
+So the -ENOMEM is dropped: nothing retries, sk_err is not set, and the
+skb is already off sk_receive_queue. Before this patch, this spot had no
+allocation-failure path.
+
+The commit message says pskb_pull() "safely handles both linear and
+non-linear paged skbs". That is true in that it avoids the BUG() in
+__skb_pull(), but it can still fail and drop data.
+
+Could the consumed bytes be skipped without allocating instead? Two
+options: trim the head and frags in place, as TCP's __pskb_trim_head()
+does, or pass an offset to the actor.
+
+> +		UNIXCB(skb).consumed = 0;
+> +	}
+> +
+>  	return recv_actor(sk, skb);
+>  }
+
 -- 
-2.47.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924071629.2683160-1-benquike%40gmail.com
