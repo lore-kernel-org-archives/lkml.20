@@ -1,96 +1,135 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F433515F9;
-	Mon, 28 Sep 2026 12:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFED3515F9;
+	Mon, 28 Sep 2026 12:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598133; cv=none; b=Kpv2oMrl6VpVna0p34X5H9kRCyAtXUhXlIB7A3glRUlyreN8EyOeAlGjzmUUj2xvdAaGlqLOjiItBhZvcxlEo0UoTr4GwhkDbblMF8HtPC4TfIXja2C6d6eywKqtTKOt04k37zV6Sn8rL8N8V12TWgLFeF4p/GWW2TUqRHARrbQ=
+	t=1790598139; cv=none; b=hAiFk3NfsG7NN4fqrhuT7nwm+0q29YV5jAxonIahdL8FL//MDD1W15MUpRxZnMzBkl1lm/R17eo3/Qi1yGQW4b/I2PEPrMudMQ66pjy8HZAX0wHOeOy1lh2LHUTlz3CKlFEmUN3ukX9a5bxsmboDTF/RDujnd/w/0nQ3eURwavc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598133; c=relaxed/simple;
-	bh=SLg1FxE9ics1/cs2ysnZ8Au0HCU8e3CEW8rQfydklFs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gboVU77Uzbc0Tm8oULQtYxjeVRK3pJH2LVnw/eLO8/VhuIOfhKYd7HcKdWlei3p/irTEMcwkdJSt57WrSYEnvOChVjkhRsQ3c+KcWEgQKx6GZk8C6tC4ke5BWDAIGqwVpBRXhJzKznG/KvfOZE1pXvHObmQ5AcCioKMcF4YGsn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=N56iEFcy; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790598139; c=relaxed/simple;
+	bh=BrsBM5b+jhrtkW9EbuXBMTCH/6ologB5CM38m+YZG2w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iKGaHi72WQU7VGU3VUqDIVZ6b3lSx2DPzJZ/LQk1es01MAM+LPeI8Ezc37/TgiB7iM/pMtxAXQ76dRGxHwq1juc2tHS26VemO5dI+ZLPijR5tp04V0ozAQ0W2YPtoqAt6AysKpcEI3BMUhYM/5qfONXOJsyrpaCje5kLb5eaN/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=p0Rjsju8; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mTC4KTg6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hj1gGLkK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EndqyVQe; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="N56iEFcy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790598130;
-	bh=SLg1FxE9ics1/cs2ysnZ8Au0HCU8e3CEW8rQfydklFs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=N56iEFcyK3O5kuum5nmqg4Cd/C5G7EW4puEpnAR+quXdLDBZXhnBN5/5oA/fPKLk9
-	 B9YhrUZ1gOL51X1saKAQIU8z8GboH0PEZ6yOrASK+FcE1TEI7PQu6811ltUwwPiTRs
-	 rr45UUjsIKFmnj1pbkpfXKjzTmyA8UPkx+luhKjHcbnLWkDyWo/JtEPLuHsCIWqJIH
-	 eTma1HXVFtNHWdD7nXGCZyFcFrX4MQbFsAI7VQpuTGCu05M3ZDgOY4p8vIRnag8tdf
-	 1Vtwbs25pKKXvCxPeKbkfNZKMNIJt2IT4f+AsCZkZpIgHWiLPgG1XFIZ95Fxrel1yN
-	 4SxCTfO6rgObw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="p0Rjsju8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mTC4KTg6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hj1gGLkK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EndqyVQe"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 94BC017E007D;
-	Mon, 28 Sep 2026 14:22:09 +0200 (CEST)
-Message-ID: <12e0953c-5181-45f2-b409-05163ab2a031@collabora.com>
-Date: Mon, 28 Sep 2026 14:22:09 +0200
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2057222321;
+	Mon, 28 Sep 2026 12:22:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
+	b=p0Rjsju8vF9zzn/yv9s6ELPU1dA7Cz9QprB6LiG5lF3VJJtH5uhZrjNxjCeUaPSeZ4aNWt
+	WH7apr+6IWgaDWgdbCNoTPKac3NqfZgWq3jcIESDwmL3dv4sCM3zwZKrEu361zcWvLs0B4
+	x+mgIfRxmq/Ef6lnwhbsdW+nl0Gshbs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598132;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
+	b=mTC4KTg6eQ8OQwv0GkCfHeITV9tHBQC/pYBnqU8blnjYk1rO1pRYYSeVBR+ZAm9SbiMNQe
+	w+Bb6JpUcP/dwjAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
+	b=Hj1gGLkKYDE2kGs23yJZb9Tob1m3Y7SyxBygyuvFxl+LReGy5MuhrKcrwBFKaUV79zoqLr
+	nClZq+FyXWoJFJuZ+dAjUuqWEfyCWUZj9aZdpxTOcmYVfnVKBwyU6AFsR4cNMvZBqjiv8q
+	Q1WLiyostUTtXmbQYdINACi2Oz6a/ss=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598128;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
+	b=EndqyVQeo7iPULFsoCY+VlskdquWuPrymGWTjK5BY8C207AnbeIYuCkDylmmxz7nbY41LG
+	BLWuc7AEK7BthCCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BC40A133F1;
+	Mon, 28 Sep 2026 12:22:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HlSmI+9bumpPdAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:22:07 +0000
+Date: Mon, 28 Sep 2026 14:22:07 +0200
+Message-ID: <87ld8l5zww.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] selftests: ALSA: Skip timer tests when device is unavailable
+In-Reply-To: <20260927064430.2112688-1-arfa79lg@gmail.com>
+References: <20260927064430.2112688-1-arfa79lg@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] clk: mediatek: mt6795: fix the FHCTL DDS mask width
-To: Jerome Brunet <jbrunet@baylibre.com>, Ryan Brue <ryanbrue.dev@gmail.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260912-mt8173-fix-dds-mask-width-v1-0-3d0c0292c85c@gmail.com>
- <20260912-mt8173-fix-dds-mask-width-v1-2-3d0c0292c85c@gmail.com>
- <88272aca-2a9e-4a75-b7f2-4f7aac8b6d18@collabora.com>
- <1j33ux8of7.fsf@starbuckisacylon.baylibre.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <1j33ux8of7.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-On 9/25/26 15:13, Jerome Brunet wrote:
-> On lun. 14 sept. 2026 at 10:16, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
+On Sun, 27 Sep 2026 08:44:30 +0200,
+Alireza Feyzabadi Farahani wrote:
 > 
->> On 9/12/26 08:40, Ryan Brue wrote:
->>> All eight PLLs in mt6795's pllfhs[] have pcwbits = 21, so the FHCTL DDS
->>> field is bits 20:0, but _FH() declares .dds_mask = GENMASK(21, 0). As on
->>> MT8173, new_dds from mtk_pll_calc_values() is always 21-bit, so admitting
->>> bit 21 of FHCTL_MON into the poll in hopping_hw_flow() can only make it
->>> time out. The same mask feeds the CON1 write-back and fhctl_set_ssc_regs().
->>>
->>> Unlike MT8173 this path has a user: mt6795-sony-xperia-m5.dts switches
->>> FHCTL on for mainpll, mpll and msdcpll, with SSC.
->>>
->>> Found by inspection while fixing MT8173. I have no MT6795 hardware, so
->>> this one is untested.
->>>
->>> Fixes: f222a1baec5f ("clk: mediatek: mt6795: Add support for frequency hopping through FHCTL")
->>> Assisted-by: LLM
->>> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
->>
->> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> When CONFIG_SND is disabled, opening /dev/snd/timer fails and the
+> userspace timer tests report failures even though the test environment
+> does not support ALSA timers.
 > 
-> Hey Angelo,
+> Skip the affected tests when opening the timer device fails because the
+> device is unavailable. Continue to report unexpected open failures as
+> test failures.
 > 
-> Will you collect the MTK changes yourself and send us a PR or should
-> we collect the changes you've reviewed for this cycle ?
-> 
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218479
+> Signed-off-by: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
 
-Please collect the changes that I've reviewed for this cycle... I'll start
-sending PRs from the next one.
+Applied to for-next branch.  Thanks.
 
-Thanks!
 
-Cheers,
-Angelo
+Takashi
