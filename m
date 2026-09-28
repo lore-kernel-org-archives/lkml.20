@@ -1,148 +1,146 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26313290C5;
-	Mon, 28 Sep 2026 12:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598069; cv=none; b=eUvJRWeWvSg2CSmnVB6/3BnZI3KhjLe8W2e1UlARW7duGP2+N47LGxwEBc06yjslYmf7CA+80yerZ7ftvIiDINtj9h7NPD5Qiu+EVNGY4aatQZhNf7n7+fgw+ipbxQAqDymu3TbdOkKZOOAisKiZ40hYnZ3ZjMyRQE9Den7p+3Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598069; c=relaxed/simple;
-	bh=VFbdGv6qoaxx3AOT+9F1nUvXzKOOnHG/+a9PavEM9b0=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=n2lClR1N4ZbNBOpizSwao6Cy4ynR0zJDiOMS+ZfBAmDPLUDYssGX/6KSpKBvVsg8WVkmGdva3wtuSs9hcVjzH3k0NdAfyv+NSz0saZR0j8Ak8gGEpN2ayzmUSTQ32mMfCrUCMkIbhf/aJOZBuwwtFbSofsPTgJ1EcOhn6Ro046I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4htgQ84hTcz5BNRf;
-	Mon, 28 Sep 2026 20:21:04 +0800 (CST)
-Received: from njy2app01.zte.com.cn ([10.40.12.136])
-	by mse-fl2.zte.com.cn with SMTP id 68SCKuI8062458;
-	Mon, 28 Sep 2026 20:20:57 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njb2app06[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Mon, 28 Sep 2026 20:20:59 +0800 (CST)
-X-Zmail-TransId: 2afe6aba5babcb3-135a7
-X-Mailer: Zmail v1.0
-Message-ID: <20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn>
-Date: Mon, 28 Sep 2026 20:20:59 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB69329C40
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598099; cv=pass; b=BH8Pi5fu/1bihaS0Yl19FjAcYE97CXOc4t9cUKmJeWG3S5kJjhEMNJyVsi9kcloDDE5VlISqviWch4iquBfdKy3gou4g0UI2w3Wv3m7tPWbgLyfZXwFFpdNTMfyiBR+korKzlSQbvzMfLzMhly3puNj+pQsUDJ6jpgwZsS7h8/s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598099; c=relaxed/simple;
+	bh=oiOJzAh5GCDekkxzmiAyZpk6ok4wyCpJnQb5vZtuPkY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pJ/nnau/eic1f/M939BueJ268hEVMtHGCBh8oALWhM1pkcTpyxm2I4GKUkq6dO3E622VEF7VmEGI/d4ivzUgr3rJlo+HOubBKTtscB5V6qlgVzabpxy+yTPC5G6WveCjVTYLMrIMNcdg4tocrJ0mzvgcyTfwmVAYqSoF26xj6aE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WcPL6Cu9; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WcPL6Cu9"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-347746b3664so73146eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790598097; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h8R6ayJt7f2KsPtWwjaBHY9EzMFTFj9gvyU/uCAiq9uYMw1hgEXKtCGI9lSuz0Vrd3
+         CnFC8/nLIijw4CkIMj75VZXTiJfNoPvQ3eKZa3F2k6LPU0KraPRQL/gY6N+OJlEITvLx
+         BCJoCPFTJeOXokizLJN+3G51155jsTezql4DKvbWXFM53U63vzpAccJ6UV5GpNeHj+ew
+         be6yJl05giO14NamAgIKtlrdU6llXgZQIGIdCIuCwsrgV6C5CJoa7rc+kdfh3Gjr+awG
+         iNlzj1TTgQzkk4HNnwbXxeHuVCzn9YnNi51NC7PMAxktn69iFWOvgrZQOcVxhZ4inmy8
+         873Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wW+kBA+Cpt1SUepJVoW2nRQFXA7jpL9oUIIw6VJqh7A=;
+        fh=8MWmFnC9WWm3FtC6K/oEKD87kFqBcy9nr3zyF/x1P0U=;
+        b=npg2dQBiSJ1bgnw+/e7uw1ATuWC/txzNLCjl4Ol72mhUh6NTVmrf6+Ez93fY5ztKtx
+         SccnTymk6i93WTcq6ZECSdWv7xNcafkYnjGYt3nspV3TL+Cb5sOHnZVfK3WoXNy71VzS
+         uBAvUmlVZYc65yLiDHrWguzndNoetJzJ/XYO1FyXHb1RTM++XYT6wNmpSin9DA47FeTM
+         0qRp+FPr9IA8IgtNe+iizSP6Vhw7B+cXHADv5gceFVEN5u8oSdkyc3wWyQBcKxvGS1mL
+         xB4T9ejdF8WPzT0k21rF4P+OzRq1g1/lI6/UmMiv0XRbouWvvxWGvz6YNDkLOip8CWz9
+         dpNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790598097; x=1791202897; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wW+kBA+Cpt1SUepJVoW2nRQFXA7jpL9oUIIw6VJqh7A=;
+        b=WcPL6Cu9bX/LnWKrsZLXNf8mPSu108d3o/GU3x3DkUJZFg18ImlqT5L4oxTmKUgx3a
+         lEGTJVITxQZSYRdEsz9PjFbdPPrsliiFp3ega2TCsZ17mwp/b9et+gu0AlEL60hoFNjW
+         POtgGDpBxkQRnd4+6A5ISpcE15VQMQSyJVfT+vw8GPp5IL0jE63z+7YybFjvdnhPNozs
+         Tc5ygh8tvfQt7u2A17e+A/2um5x3ISgeW23PXznrCYiU9oMuA03QXmfU1xW2X3cKtIOG
+         fA/wYIght0Abp93x+7tT9DX/Ews35D1SewsQL+I4ZhRu/f/dyyRdatWo2BVC4vEDg18W
+         31bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790598097; x=1791202897;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wW+kBA+Cpt1SUepJVoW2nRQFXA7jpL9oUIIw6VJqh7A=;
+        b=As6EQy70czMTfPk/7Ok/TNEeFNiWD8b7Z80vVUBaM4r38gV/jVgwnP91GwkmFS1r37
+         4Gb8Dz1bj/ccmIby88oJc7B683a+FRqmN+cykA8EnWrwwBKq/F9JDNOqxlQSmdxwiBEo
+         9qnvA7v1Mwex/KeReHAzfcmf4Ug7sIFHex0wIiPpb4Kgz+tQYIAumWMDPL0oBkbRgwDv
+         f63+8FrL2CF+6v1NkOWTYyLWKv4RQGdmLrL7zjZqllMSMW9T/OEbdD1FV0EQValGKPoV
+         aBkE9Og/YtumTANulM7cFY91k5b08Z9VHA89uHGZ+n/imff6tj2YEXy4EI4DOmpg7U6F
+         6UmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiXZcneQEUu6NKW9DkrS2Svuypqi3flmUtfIJwcVwRwrybeiv+MJwc1WsO8WiNAFOOp3YvEUPWM8N6Xmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7za2VLSRNt7nVzAAQdgUORA68Cj8RPtbF+A0kD81IvPa3huRI
+	LNfn8wrsN4zExhEr6b/4JIMOcfdF/SaralxmhQTlH5+0lOPpI7MjsrCOyD7bzM4CXTl2XY/BTdA
+	vtp8QndgsmRS56VOZK90rwpoCrXyedf4=
+X-Gm-Gg: AYBFou07pKEB93MacU94V+1kpOGtVunmVw7dg3XJe6IZ/RK1o4c7g7QLz2ezMNyspsl
+	kI/OHbD0nBlaIoynwWFAogNAQKL8IXnsFeqTjvv4RkSlpUzItp9t3PWJhsczjtYPbqwBm2ncawM
+	X2Mj5XJHdEW/yXy38L55B7puj4OghZ63TX4sNv4A+TLnUhP2Lkc9vbOAeL0ypgHo7o7pqi5Lt3c
+	wAeHKo/zZbxMjtfdbFU9kEfQ2x/B94u7m18PB3raU1TczCUV0S/YEoiY/B4eVFW0uqU6toAeBjq
+	3/Njl8NYivmSknfg0m/5fLgkMtN5bmE0sY2+gpm4Gf3sTS78gR5olt4ClxPbd3orr2VuJu0AGz0
+	H+HuLrLk0rndOvZBQRq8prL2uF6xw89XHW7sDALz+ZzhSkLYAXq36ddEoFjbJclWe9j5UHtpVhU
+	gTTKzdrWTu1prsLxoSr22s5jsjp/UJ5fsKQoGTIaVKc27YPdQts7Y=
+X-Received: by 2002:a05:7300:de0b:b0:341:f4d6:d9a5 with SMTP id
+ 5a478bee46e88-3427169be76mr15164074eec.1.1790598095923; Mon, 28 Sep 2026
+ 05:21:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY0IDAvM10gZGluZ2hhaTogZmlybXdhcmUgaGFuZHNoYWtlLCBNU0ktWCBwb29scyBhbmQgYXN5bmMgZXZlbnQgcXVldWVz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68SCKuI8062458
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 28 Sep 2026 20:21:04 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ABA5BB0.000/4htgQ84hTcz5BNRf
+MIME-Version: 1.0
+References: <20260921115708.4009754-1-gary@kernel.org> <CANiq72nR-QzR3zOiV=RL4je4U8m_hCsPhOD3SxAcjc+4VCrMsw@mail.gmail.com>
+ <DLQWWUKZ61KN.1X8VCC2YLPD53@garyguo.net>
+In-Reply-To: <DLQWWUKZ61KN.1X8VCC2YLPD53@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 28 Sep 2026 14:21:22 +0200
+X-Gm-Features: AclHuK8ncUNTbZ31O7I8Q9x8vu3w0Yp2ed77b6bv8_kyDXsORDHq3MTG00hhWhM
+Message-ID: <CANiq72mOC_-6hzd=dG3YJoaLi=fYCZ620CaSXZv1Oo4ja2v5gQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
+To: Gary Guo <gary@garyguo.net>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Junyang Han <han.junyang@zte.com.cn>
+On Mon, Sep 28, 2026 at 1:28=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> Another thing is that pin-init's diagnostics test suite is built with Car=
+go,
+> and the build script of proc-macro2 will probe if the nightly feature is
+> available and enable proc_macro_span automatically. So if this is not ena=
+bled on
+> RfL side, the diagnostics can diverge from what we expect.
 
-This series continues the DingHai (ZXDH) PF driver bring-up: after PCI
-probing, it verifies the firmware version contract, waits for the
-RISC-V management core to become ready, sets up the MSI-X interrupt
-pools, and creates the async event queues through which the firmware
-will report events.
+Doesn't sound fun...
 
-Some notes on the IRQ design:
+> I think the self-ref one is the main motivating factor, because the diagn=
+ostics
+> with that can be confusing in general. That said, I have improved it much=
+ over
+> the last week, it seems that it is not *that* needed anymore.
 
-The vector space is partitioned into per-purpose pools (async, RDMA,
-vq). Event queues share a vector through an atomic notifier chain
-attached to the IRQ, and the sharing degree is governed by pool
-thresholds. The IRQ table hangs off a void *priv in the shared core
-device: the PF, MPF and SF core devices each carry a different pool
-layout behind that pointer, so a type-specific struct in en_pf.c keeps
-the shared header free of PF-only details.
+Yeah, that one looks more important to have indeed.
 
-Changes in v4:
-- Fold the irq and eq table create() steps into their init()
-  counterparts and route every probe error path through the same
-  destroy() functions remove() uses, so cleanup has a single
-  authority from the start (review feedback on v3).
-- Give the pool name a buffer bound of its own (16 bytes) instead of
-  sharing the 100-byte IRQ name buffer, so W=1 builds stay clean of
-  -Wformat-truncation (review feedback on v3).
-- Lower the compat region wait from 200 s to 20 s: the firmware
-  publishes the block within 10 s of boot, so twice that leaves
-  margin, and the wait now sits far below the 180 s udev event
-  window raised on the thread (review feedback on v3).
-- Wait for the compat block with a per-field readiness check instead
-  of only the first dword: the firmware fills the fields one by one,
-  and a dword-granular check can read a half-populated block (the
-  "single write" justification given in v3 was wrong).
-- Log the legacy-firmware assumption when the compat region wait
-  times out, making the intentionally ignored timeout visible.
+> So, none of these are really big deals and that can be said to diagnostic=
+s in
+> general. But I think the change needed here is small enough that any impr=
+ovement
+> can be used to justify that. I also submitted the proc-macro2 change upst=
+ream
+> too: https://github.com/dtolnay/proc-macro2/pull/542; if that is merged a=
+nd we
+> later update proc-macro2, we should get down to just a single Makefile li=
+ne
+> change.
 
-Changes in v3:
-- Unmap the modern config MMIO regions on the probe error paths added
-  in this series; they used to leak when the fw compat check or the
-  RISC-V readiness wait failed.
-- Skip the RISC-V readiness wait for firmware without the compat
-  region: the erased patch field read as 0xffff and defeated the skip.
-- Make fw_minor unsigned so firmware minor versions >= 128 are not
-  rejected through sign wrap.
-- Balance the per-CPU IRQ accounting on release, so pool teardown does
-  not trip its leftover WARN; set the IRQ affinity for real with
-  irq_set_affinity_and_hint() instead of only updating the hint; name
-  IRQs after their pool instead of a hardcoded prefix; assert that the
-  pool is empty at free instead of force-releasing leftovers.
-- Clear eq->irq when the async IRQ request fails, so teardown does not
-  treat the ERR_PTR as a live IRQ.
+Ok, in that case (plus what you mention above and the examples --
+thanks for those, by the way), I think it is fine either way.
 
-Review findings not taken:
+I added it preemptively to the "nice to have" section in #2:
 
-- xa_alloc() with a NULL entry does not fail: __xa_alloc() turns a
-  NULL entry into the internal zero entry as a reservation
-  (lib/xarray.c), which is the reservation semantics the pool relies
-  on.
-- BAR 0 length checks against a truncated bar: the bar layout is part
-  of the board firmware contract and the driver does not defend
-  against a broken device, as settled during the review of the
-  earlier device bring-up series (Andrew Lunn).
+  https://github.com/Rust-for-Linux/linux/issues/2
 
-Changes in v2:
-- Convert both firmware readiness polls to readx_poll_timeout()
-  (Andrew Lunn).
-- Read the fw compat block field by field through ioread*() accessors
-  instead of an ioread32_rep() bulk copy, which misplaces the u8/u16
-  fields on big-endian; no __le annotations are needed since each
-  accessor converts from little-endian (Andrew Lunn).
-- Use kref for the IRQ reference count (Andrew Lunn).
-
-Junyang Han (3):
-  dinghai: add firmware version check and RISC-V readiness polling
-  dinghai: add MSI-X interrupt pools
-  dinghai: add async event queue for firmware notifications
-
- drivers/net/ethernet/zte/dinghai/Makefile   |   2 +-
- drivers/net/ethernet/zte/dinghai/en_pf.c    | 223 ++++++++++
- drivers/net/ethernet/zte/dinghai/en_pf.h    | 56 +++
- drivers/net/ethernet/zte/dinghai/zxdh_eq.c  | 137 +++++++
- drivers/net/ethernet/zte/dinghai/zxdh_eq.h  | 60 +++
- drivers/net/ethernet/zte/dinghai/zxdh_irq.c | 406 ++++++++++++++++++++
- drivers/net/ethernet/zte/dinghai/zxdh_irq.h | 73 ++++
- 7 files changed, 956 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.c
- create mode 100644 drivers/net/ethernet/zxdh_eq.h
- create mode 100644 drivers/net/ethernet/zxdh_irq.c
- create mode 100644 drivers/net/ethernet/zxdh_irq.h
-
---
-2.27.0
+Cheers,
+Miguel
