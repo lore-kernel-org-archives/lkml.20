@@ -1,145 +1,161 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2F24F68A5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790626105; cv=pass; b=Agm4YMDBRiFLBAk7CO+14YrbLS3SUMTy8qluX9itr78wbZny53owcoMh5GPQzY8rk73WdAPIRW4JyTLXZixTYwkhEZlWwO+xzOnc96rqQee2u4CGhcGSm4XPHsOmqgjeVt2J5zis9z8bcrPTgf6h1qW7AoWSx4OrnpPAq+rHmRg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790626105; c=relaxed/simple;
-	bh=m350LjJY1jMyPBq9Hw+vpamww10TMqgLodWqNEeWjYM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lMvwhEDk2CxBSqC7AdpshuuHGQM+ZZCuCEkZN1z7IlHL+wcZYgwVCHsohDiwqGsHbfW9ysdu02/L6uWooVIF463lJhyLqwuIn/r0ebMSHk7LAm0rMtSWSnNvE6uNXxwHUzVhrDTWhSDql4LBMiGg2kWQ1Wov1bOZ4HGM56uSTZU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fAJYSs75; arc=pass smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A5745D910
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790626128; cv=none; b=VsCAhe03+ZGt74JKZyFHUs0Q9ZEGIuYM33bdrY6HXOZzjgschApPxK9rDBOscY/XQPC8AwRXIPeCVu10nV6h3ALGKa4cgIynmiff3EGYQy4QWXSmaf0btSA25dgKV7G2O0zbGkgJhRkfvpHeUCOOl6QQVLGYr63Vn9w9vumgNKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790626128; c=relaxed/simple;
+	bh=xMWE88EbzMyp3i07QnNwiRf7SNDo2VhNoPqT6IdwHB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kTKMazWzPOw2J1JNKB9FPZVLYwPWery4hjMcbWjNYz3naI9mR/ki3EIG0GCdergOb47pP/4JB7Vt9g3dvaP4fYQRvqSilPA9yp/xmCuwKBaZ81Ia8ZylwT+Eh15i3EdyieVvxtnK0ru4nv0dGuYo0Gu/J5bMD5Or+TyuzA8S63Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kn8aR9QH; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fAJYSs75"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2bf3cc16baso317451666b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:08:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790626100; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nqOKUnYRWqWeWYM3xisu6sUZd70Y9QaAP3bd1wg1Ir1hD7j0TdPtpvQ1p/SG44es9d
-         HMsueshm4DHzJ05ESyc7ZznrNBqUunyxaB9VJbLrJMl7m0adiGNg1lj0UZ54H0qmB9b3
-         jsYp+sXqrTaKJyKrvnvf9OtUzeJnoEZNVwKv8mqWMjF47x3Pefq0SWhY9NZV8p7hcAuA
-         iy/MwuBq+tfZUCrvoWlRVUFRfaEpN8ohJdB7n9w+xgWcbmMe6ITDECf+X1CYI0eqXi8d
-         krU6jhpg3tIMil/+yHKHqNlUKfXgBad2sLa8inCAQvgMqh/JvGeJrNSuLlLsldIuVkZH
-         ooaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m350LjJY1jMyPBq9Hw+vpamww10TMqgLodWqNEeWjYM=;
-        fh=4eJSIv2ZOFqFe0wa+yt1hpccRS2Cv/ZyRcetIk+iQlA=;
-        b=lAsDPkhq8G7RRy07NNLH2IGlIC266Nodekjc+hWgzlq2UcIE9p0xvi6j33yh7R3qWc
-         75+A0qOmjwp5CTTndidlyZxpDYl0wMuw0I4IlGFSv0PnOh8Wc8OBnY2lmW8kj4M/Ex1T
-         njTb/oMBInZNg79XdpZTRsROjQIGaopWe3LagnKz1MkbMGvETKm/8W9qWdFkXScm3Fgu
-         63ubdGzVlQTiMwkAcUfj5qsgWLqNtV/crNrH9WE4ignLZR7pWCwIO1vMH8Dq1GHv3oiI
-         cT730zH0iNBqIYtkU+8X1qo3Jp19LUReCJ1H41MP9kh0HGbE+qaDPH196X+IKGYoOq8l
-         aQCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kn8aR9QH"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so506994066b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:08:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790626100; x=1791230900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m350LjJY1jMyPBq9Hw+vpamww10TMqgLodWqNEeWjYM=;
-        b=fAJYSs75iromDJD4CPUyHGgpigqiwDvYfHnt6nLap9gIvaKZhvZEGM6iPtAxsoWiU/
-         w82KAJ9yfKDL2/DXhE5aNUlTn3a08g4cO18XSIMiWjn02ZuCTpFeBzcsfwU/RnEWrFkz
-         7KRJCvSnDICCAW3+wv50G/ny9sgBRfYOOn5OcDBeLrAQYVZnHLTYrtP4VNQjT5ShJId1
-         6uDll6qEG6cSFUVYO7jt2E0czwGy1I9yYUyCNtFdfdhnaaZGTU+9Xm4ySeDW05zEuyFN
-         YEuXzl03sieSzVIkR6ePAs6rXuzgloy1AfGoDD1nsPp1KaJHIj4sDX7r0sQKPdcugnwL
-         vEMg==
+        d=gmail.com; s=20251104; t=1790626124; x=1791230924; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SMEvPxogfuA8v3y1GN0ADmILypPDhBWYOLVdDbor458=;
+        b=Kn8aR9QHwlX/PPM4AFCtOx+aFt9IRN6RBi/boeXdFsql0XlilKedWIaHMmCxikdzdF
+         6GG2wb0bNNUZc6x5QWdyPefsRx17H7MLfxjWBbnpuexc7moLb4xF4XYx950Gzg5195bj
+         s54arJWNOHUisd17edqnMrcq9zjRY2nM+i6hzcr9LZtFlS4r4ybriLQRXZ7DTwWtzLtM
+         j4aG5oxHEZb1qqV6YAYkr6gPTipI2fAuw9C9LrrP1GnX3idKqMav6V8dgJ2roZKZY8Fi
+         NPb+ZrR6OFvAEXeW0xY60KAaW9/0jrwhPZV+lWahjHv2jwEK9kR3N398E6a7Mozr69XI
+         nWCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790626100; x=1791230900;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m350LjJY1jMyPBq9Hw+vpamww10TMqgLodWqNEeWjYM=;
-        b=myIq7BJQE4dbMu8Uw4uW3Fb7CDIbIQtsmJcPjUfxdahAr8dv9ub3Tkfbe9fP0Hfn8z
-         7eoQcPlQh6Mttg0GVktFj1qXw/Ovb5RI03jgTikCboIZn4sYPUiUuFP+iOXmjHSYOcrP
-         bjdFLM4QK+KBbh7qH/xg97b05uRDUxqLUhPaA1DHYJn6onkv/2KRUvE/74L0XTzqjVLx
-         9LA+k4j9drmwqIK8aq+uvMBwb9RcA0OyQYb0NUsxmNMEpbo5eWygRl1g8HPfj/Q3ySTs
-         Yz3jwaJalHRGkA2IItXHmClnUIolCStdXtqNE9pkMeimG0aLhrrV/18JJfpd7sTAYNiU
-         oBHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJLkVnKJscmpfpS6+LKy8J773qdA+A1of9c4YAxYC687D1MLi3b9SILvijMzPkBTfbiAiWmX6BXhRehIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mu2WC7PjZorPMbf5p/eJ+DnKUG29ZUVIcQc77sf5wDjPkzG/Oo
-	CZVqLstGIwFRzeLdlXWGxdysgP9G9p+xuqylAUzov4bv4QOwBDgHweS+FUrtziPxwbGubUpW1Wt
-	MzeFHiMuOH9R02feNkFnVSOAmfmon8co=
-X-Gm-Gg: AYBFou3hz9GbEroi2Ggbc3lvboDZBGpE8cW0VtfhXmeu5KGCm/auNrZ+Mk+7xao+hHm
-	XHaJV7nHI8S168qef27CyGCjsUL78PiUYnBNkDBCipSLPneIjhUddDPbNhHA5lWnTYdSf3NqnND
-	Ynzih1eoq4f599tHP3rWyDLPvCvWS1VRHoOyHeb7eQH8xsrd0dTt6KET61+T0y/Zm7ofOm4pQzx
-	Yx471aDGYwlt6oIQqKup2gpqEToi8tE3pdHu1be+2UC+7Q5384iPAkGOUPsQdCyEOoU8EXogDCr
-	0JgTzhavcS+wQ8w6o4nawUTbFWkNdbcS9Cbzt6IoN31WvNWLtauD6vY40p9DZVqUhH9n8m5l/dI
-	jmt5PeSq3hTLxI12guwbKr0xn9L2sIAR6DUsKEiA=
-X-Received: by 2002:a17:906:7947:b0:c26:1649:47ad with SMTP id
- a640c23a62f3a-c2ac53c3f15mr1023459966b.35.1790626100273; Mon, 28 Sep 2026
- 13:08:20 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790626124; x=1791230924;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SMEvPxogfuA8v3y1GN0ADmILypPDhBWYOLVdDbor458=;
+        b=tkjnXyJ8pz6+XO0EeriR9juUv7IIa2mXbgX/Mxu4xNgavTz6uMZfErCzHIsTMvqm26
+         z3cHsmWBNqeH5BJPz3MDlihSZIksmcMea/BGGX7mpKn+Bp41Q6OcXMUNPuB1R4gBSBQS
+         gRVddbICSu0Rc5NUL04X10ymhPsqsAnhLUzjbg/bzed6TsvXpi645G256Fcoi2Mlgu2E
+         OXKfUpJq9bpZKhHkFra2PeCwdpdROx5rMvyoaVUSRySZHfD/7idqaVQCi4HId3mb15Is
+         VgZ3CakcoElJPUxfJmbYFZdYmgyb04FxpEEu0cd1x/GrA/jj9QqDH3eg1CVKsVffM/4R
+         B7rg==
+X-Forwarded-Encrypted: i=1; AKwUvByh1HKUBkPGgPXwIigrbFnp5nJJ5EnOMtVxtH+0KvMzab2VaSdKY4ruIjpMeId2U0HH5Ao1AXUqKi/wEgM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljj3tEURNMm0bpPubj+eBtD1MvZF2ln2ksouF3Izm/iVpad5nk
+	ZaJhcsxz2x+L+nSNxSBQBhk+h1iIExiWnmoHw7e00fK3oZwjAO4i+bX9
+X-Gm-Gg: AYBFou0oV4cKLe0lh0GVXVtndEFmlb46Jt1wegcAcu5X6dbQgsbz87CYK6BnTf+kSY+
+	s2QQXHt5/zhnT+pPerqdGBVofQ0YXApLgid6Qlbeu7JhJdDXD9u5DGHs9pih/BMzoCPlRobywAH
+	4sRhV+IlVXOjZ6ekX0FiDmDWaQug/Td1rvOiRgrU4vBfULMmhEW2SH1XaGfRKb/pNDX4VH7KnsE
+	EpcNx/3Kb+x0WhW3ZPu8Yrr1WoRV3/NwFXqqwxYpDG4yiSo/rF5yCUpyl6PD5LV16xn2IxFaZQu
+	fok0KO+p3sxobr1aFytXLxH2nwf/+ql2GNcBZcP0wT4f/H/fVaojohO8vR2UHSkpH5DgdRLu3Wi
+	nIV+7BkmXRSqmVyH6N7q2DQygvVQWmsJBNU3l3I3bRRKfrxXwopjq7Hzr5nnAMhb2r8fZpoQBth
+	+91XFRgfFTGkDBDOHnX6zSmUVBKEMEIlF6dbC40+eoljxKrmJNF4lBQ4h3lIzXrs4VWe2/URXte
+	cQaUP2KX1QmqdEbCzRjT1tTb/Qy00ohxlvvcxpj
+X-Received: by 2002:a17:907:e918:b0:c26:19de:913a with SMTP id a640c23a62f3a-c2ac2674c23mr1124875866b.45.1790626124156;
+        Mon, 28 Sep 2026 13:08:44 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae76abc3asm509778166b.37.2026.09.28.13.08.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 13:08:43 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: linmag7@gmail.com,
+	sam@ravnborg.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] sparc32: allow a kernel loaded away from the start of RAM
+Date: Mon, 28 Sep 2026 22:06:21 +0200
+Message-ID: <cover.1790548064.git.linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926205708.384308-1-meatuni001@gmail.com> <CAHp75Vdj8qVY-hCoCxxd1Pg2JaaDjc+QgAK-G=w+Cb=FTYYJEQ@mail.gmail.com>
- <a2687bd9-8cf7-1d08-41fc-9d6e69b5ca17@linux.intel.com> <CAHp75VffMOx6q1JKHFz6-_rByiC=1xTqn8Aw47i1KvWPBLCPkw@mail.gmail.com>
-In-Reply-To: <CAHp75VffMOx6q1JKHFz6-_rByiC=1xTqn8Aw47i1KvWPBLCPkw@mail.gmail.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 29 Sep 2026 01:08:08 +0500
-X-Gm-Features: AclHuK8Oh9UkHwUDmlyUtQldOGulqAb8nqp7O-XzzhJedDF5xraB1nxETnbeFgk
-Message-ID: <CADqcGB=zbkRHHxPmMwi3y24NPH=fwBSELwUWE1b-CTLofuusMg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] lib/string_helpers: add ESCAPE_BACKSLASH flag to string_escape_mem()
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, linux-hardening@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thanks for review.
+Many years ago I ran Linux on my SPARCstation hardware and tried to keep
+up with new releases, but somewhere around 3.x I hit a wall, sooner for
+SMP builds since they are larger. As the kernel grew it simply became too
+big for SILO to load. On this machine the last one that fit was 2.6.32,
+at 2598956 bytes against a 2605056 byte window: six kilobytes to spare.
+3.12 was 184KB over. Fixing it turned out to need more than SILO changes,
+the kernel side needed work too, and I never got around to giving it
+serious thought. I recently dusted off my old SPARCs and picked the
+journey back up.
 
-I've send v2.[1]
+Link to SILO repo containing fixes:
+https://github.com/linmag7/silo/tree/release
 
-Link : https://lore.kernel.org/all/20260928200318.63383-1-meatuni001@gmail.=
-com/
-[1]
+A current sparc32 kernel no longer fits in the window SILO loads into:
+0x4000 up to SILO's own text at 0x280000, about 2.5MB. Loading it higher
+instead exposes two places that assume the kernel sits at the start of
+RAM.
 
-On Mon, Sep 28, 2026 at 6:39=E2=80=AFPM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
->
-> On Mon, Sep 28, 2026 at 3:59=E2=80=AFPM Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com> wrote:
-> > On Mon, 28 Sep 2026, Andy Shevchenko wrote:
-> > > On Sat, Sep 26, 2026 at 11:57=E2=80=AFPM Muhammad Bilal <meatuni001@g=
-mail.com> wrote:
->
-> ...
->
-> > > > Add ESCAPE_BACKSLASH, which escapes only '\\'. It can be combined w=
-ith
-> > > > ESCAPE_SPACE, or used on its own, without pulling in ESCAPE_SPECIAL=
-'s
-> > > > quote and control-character handling.
-> > >
-> > > But why? I believe it can be done in the current implementation using
-> > > the last argument @only (id est use the list of the characters you
-> > > want to escape).
-> >
-> > Ah, that's my fault for suggesting this and not noticing there was way =
-to
-> > negatively filter them.
->
-> No problem, not a big issue :-)
->
-> I think here is the list of those 4 characters that we want to escape
-> should be passed along with ESCAPE_SPACE | ESCAPE_SPECIAL. This will
-> get exact code behaviour as of today. In current patch 2/2 AFAICS the
-> additional SPACE-class characters might have also been escaped which
-> was not in the original implementation (not sure if it's desired
-> change or not).
->
-> --
-> With Best Regards,
-> Andy Shevchenko
+Patch 1 is an independent pre-existing bug. viking_flush_page() and
+viking_mxcc_flush_page() compute a physical address as vaddr -
+PAGE_OFFSET, which is __pa() without phys_base. It is wrong regardless of
+the rest of this series; it simply cannot be observed while phys_base is
+zero. When it is not, iommu_flush_iotlb() flushes the wrong page, the
+IOMMU walks stale IOPTEs and every DMA transfer fails. It comes first so
+that no commit in the series leaves Viking DMA broken.
+
+Patch 2 makes setup_arch() discover a non-zero phys_base. It takes it from
+the lowest sp_banks[] entry today, and phys_base is the offset __pa() and
+__va() are defined in terms of, so once the kernel is loaded elsewhere
+every early translation is wrong by the difference, including the physical
+addresses written into page table descriptors. The tablewalker then
+follows pointers into pages holding nothing, while the same tables read
+back correctly through the nocache view, and the machine stops right after
+the context table pointer is installed with no console left to say why.
+The probe is the architecture's existing __get_phys(), which already
+implements it for sun4m and sun4d. The probe and diagnostic are limited
+to those platforms, avoiding a bogus kernel address on LEON.
+
+Patch 3 sets HdrS to 0x0300, the protocol level that tells a boot loader
+the kernel supports being located somewhere other than physical 0x4000.
+
+No change in behaviour when phys_base is zero.
+
+Changes since v2:
+ - restrict the PAGE_OFFSET probe and diagnostic to sun4m and sun4d,
+   avoiding a bogus kernel address on LEON (Andreas Larsson)
+ - fix the diagnostic wording to "RAM starts at" (Andreas Larsson)
+
+Patches 1 and 3 are unchanged from v2.
+
+Changes since v1:
+ - drop the (unsigned int) casts and print with %lx (Sam Ravnborg)
+ - always report RAM start and kernel start, not only when they differ
+   (Sam Ravnborg); in v3 this reporting is limited to sun4m and sun4d
+ - collect Reviewed-by from Sam Ravnborg on patches 1 and 3
+
+Patches 1 and 3 are unchanged from v1 apart from the collected tag.
+
+The v2 series was tested on a SPARCstation 20 booting from SCSI to a
+full userspace, with and without an initramfs, using a SILO carrying the
+matching loader changes. Also boot tested under qemu-system-sparc -M
+SS-5, and build tested for LEON and plain sparc32_defconfig. Each commit
+builds on its own. 
+The v3 version has been build and boot-tested on the SS-20. Emulation
+cannot exercise patch 1: microSPARC-II takes a different cache flush
+path, and qemu models no write-back cache, so a missed flush has no
+consequence there.
+
+The cost is the RAM below the load address, which the loader chooses.
+
+Magnus Lindholm (3):
+  sparc32: honour phys_base in the viking cache flush routines
+  sparc32: derive phys_base from the PAGE_OFFSET mapping
+  sparc32: advertise relocatable kernel with HdrS 0x0300
+
+ arch/sparc/kernel/head_32.S  |  2 +-
+ arch/sparc/kernel/setup_32.c | 40 ++++++++++++++++++++++++++++++++++++
+ arch/sparc/mm/viking.S       |  6 ++++++
+ 3 files changed, 47 insertions(+), 1 deletion(-)
+
+-- 
+2.43.0
+
