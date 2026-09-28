@@ -1,119 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD2D485934;
-	Mon, 28 Sep 2026 10:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3744973AA
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591228; cv=none; b=deUXAEmo5XMJEXMvv3e0p4QmoieQi52HuWzH0jqVlERPVLdDcYvul9cWHsdhJRhiJxs4RCvPs/PA1hj6feKSccdyA3w70pH+ibLh0/GZxVzAsxaYUXOmYK35Ok+G0G7dDx3iKR1qoDaRw9G7WGIeircvhwgqU6ByRj47kCy8lJ0=
+	t=1790591232; cv=none; b=YI6n3wB5WydvA6nGVwG8Q7ZtzRM5ujXWF3gMVcFNlp39CbAhG/CXzzNHArhDAw+RWumJ86sbSxx9ewmWbG9bMu6A8DAsmryIah1ukjDY5ld2+NoOUpPf0yaISYfTSGkcuRm9JrClfBpqwN2y6uJap5WIzfUwJ8jrHH3Pf+hTh6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591228; c=relaxed/simple;
-	bh=eoXq/oLSHuCPDrPWJPQSwkvnM66MhYTZKVQyqeNxKiE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=tWFdQ0DHKMJmJKo7u1qr4kJBEKTgwx/LBFIepuSUv6cjjftdkKRXHjse50G9LopBzO5vQha2wb3TrnzP8ugNNXTrTBq9pBNGmZWPhgwWtC6CqpN3gSk7kZJILgKfFKYlch4LJ6zbZRNsgajl1+HC0HnLUo5G9C/ng/LCTOeX6bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oysJU+0i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790591232; c=relaxed/simple;
+	bh=lfw5A0uXAuhjAZYX/T8OzUkOdY60W+ytkN54QbMhIRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qfweN9GCg0K54Db+GUwDt4j0ACkSXAlFzeFZ6jFTteYPinkh2YkTwMvZzN0HvPRbCVowVZpcXBEFiqWdn2LHTKSGuuC1YnrEjf+sstCR4JmGL85UocPCpTMDQGMA7AU8NDSyowBKdq4WgwpaxPqqnP28Yeg3airZugZsxAQPGgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=URUNnOml; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oysJU+0i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992BA1F000FF;
-	Mon, 28 Sep 2026 10:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790591226;
-	bh=e+qhVAMalbtU0yEbXgv5MHjbc/emkTxmbQsqrHHXBS4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=oysJU+0iav0MTCP4jHRSgI13chDW0LXmmFs3IeSxWF9RM2UdA9BLAArXcQkBMuvKP
-	 iobzSJkmXItQSBQzMXszqsuBc30MeG5aKoVt0iEveFmn15RUUUpRAfrveYkn3e352G
-	 OMbYCL5dB86X3egrkDfl4lCIBLVn0IxxqedZ1njoA82oq6YkwB4WdiHQRaaBqbX2Oh
-	 XlUmshGjFiTPJVLcSNgXmDlJANnBYgXekyvXQPE0tzaawpaZIWFWDRGBaBh1Q70TgE
-	 QloaXo4iybnpCOcXnHdAcXzo+CZO3iXg3s9wxV5FP1BgRp/qES7OgYQmQnVR8CyDJQ
-	 BG51F5PWUgGQw==
-Message-ID: <6fd97cfd-9b14-43af-acc0-b3c5a155c79f@kernel.org>
-Date: Mon, 28 Sep 2026 12:26:59 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="URUNnOml"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f2baso433724f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:27:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790591228; x=1791196028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pOMrGoe0MJA+5JRUzHhpj1OGWu27WePfFyfzZS0Xvg0=;
+        b=URUNnOmlGSsz1Q0YUjhWskzhtgq6nKyuGOZkSsW5DDvmi2iAYJXvRguk5163n/jiuN
+         89TZX9j3KQW9JEiaYyeXBUh0wK4NyR/lxPTRTiILgsEi23oWOjGlU5I8iYgeyLT4Nz/o
+         P44sIbG64giveTAPBc+AHicIJKtmzTUlwFk4z1gaSKR3ra2MOBjUfM+hMgnws0FSbsb8
+         NxMspionauswC1Rj4f1pi03imYg78eC53acTEVAI2ShguTx3jLWf8F2pNEetGaErAaNH
+         rPVmn4Ku3+YoIeoy4CVOn5ix16TwYcoQkI5z2NHC0kzdURHO/UrUxvnPc7FWg391W4GC
+         LpAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790591228; x=1791196028;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pOMrGoe0MJA+5JRUzHhpj1OGWu27WePfFyfzZS0Xvg0=;
+        b=VqVZZ26bOPlnJProUgY/8/Fl9xUBhhtBMUQC6s0ZzWuv/zmhtvqu70lL/qD8lHaQod
+         2nfXntQ9+vFPIMMO919w7nImsP1xZs8JYwmzIgOeQgpfcIvzbAAcbU366Odr30UoLvx/
+         VZ7uCaDBofRGUY5Ox5Xz8PLKVg0dCD5Xb9dKWaNGY1kNmc//kEWZ9O+rSYPzThWe4auG
+         Zun6lm4hTEvJkxUTMVZiKV4gyI675romjJVz04JtKZR2o34qFFCuzdchYc3wP+dhHWXK
+         LX3jeR3Wc1XfR6Y72F37pGlWmLD56WGB8CtoPZyjQq7u0WzjXPqcE61TlxsyDYYz79V5
+         eGSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpyEXz/UULmcgtpMIsJ4qDiglEnWmjHsOFIqe6gReC174XeTeW683aAFg1zyh4A05t7AojthoEWkjDvbs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYNdFMXiKN2Vf3YWX8oFt1AwNCF9jRYr3D247OlMWFKko9hT9P
+	VBmCZtXYoYGAzb1wVIFVgFJ+aSv1urUmzbF3MnXN5jxN8vWEoSmFbNM2
+X-Gm-Gg: AYBFou2dMubTZ2GbH8PQVUImfOB2Bf4lgojq25iOndNfU/GFlEyYH1kbw8zxpcuQyUO
+	lFwgo07zNnrYFhealsdPPJs4SGr104IDAkiiTO495riSfKMG6Vf/ul9phkJwUlFR+Cj/HZWW041
+	q5LyGU5SOBlasimKTB08/AhaH7EIDLwpQ/eD0OdqUHTzMUv427ZPWIrEALdbxlj1UCXt1HDtgaN
+	reIV/iU1mzIcgeCf1BDJ1kPJcNreMS5puBupEbeB2HVj1BS1B9Lpfkj/J4HbLh6eTQT8KXGw0Or
+	JEHHtBNbA8udlWHWitWns5Tra90fhnUaS+wqVmEf5sA9Vh2wSW/HKvZLE29MD1d9ImEbHS9/Fjd
+	ATJWGfi5ivmmWY5F/zBMHDqYBmuApUH60tRCAurP3xFUKXLmBMgolBAXVj2yBSVsK8OM3DUbd/X
+	/IZjLLAEuNxiK5vduvkKR9UgOkbwOFS1JCSP1H1vvqKydsKK1W20nGQlqOWiAY3T/CDCqfsrT0k
+	9bi8a4DKq7rppwE/ylTyaQAgUZGovv5xW6SiLohzhI/cFyfHKcLqQNQj7tEeSfHZhdshGZ5y946
+	t9BoELF3+pfD6ChNP7eVrOJR4W3+t7Hfd9H4rbTAXr2J2wJklPpu8EbWMu177WCdbd8gRHc1nnr
+	0W1yz6e29l2t8vkr4ZNdmcZBvdEJN7MRu89rmr7LElQ==
+X-Received: by 2002:a05:6000:461e:b0:488:8a5d:ffcf with SMTP id ffacd0b85a97d-4888a5e01b1mr8368802f8f.19.1790591227919;
+        Mon, 28 Sep 2026 03:27:07 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcc4sm27549105f8f.1.2026.09.28.03.27.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 03:27:07 -0700 (PDT)
+Date: Mon, 28 Sep 2026 12:27:04 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Esben Haabendal <esben@geanix.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
+ <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, Christoph
+ Muellner <christoph.muellner@theobroma-systems.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt
+ sharing
+Message-ID: <20260928122704.03df4e7e@systembl0wer>
+In-Reply-To: <aroytGH8u-gGFYvq@ashevche-desk.local>
+References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
+	<20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
+	<aroytGH8u-gGFYvq@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
- Nord compatible
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
- <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
- <20260928-gregarious-deft-boar-e776ae@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260928-gregarious-deft-boar-e776ae@quoll>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 28/09/2026 12:16, Krzysztof Kozlowski wrote:
-> On Wed, Sep 23, 2026 at 05:34:17AM +0530, Mohd Ayaan Anwar wrote:
->> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
->> SGMII PHY binding.
-> 
-> Why random order? Why not enum with existing part? Why not even
-> compatible with existing device?
-> 
-> So many questions, yet commit msg copies subject.
-> 
+On Mon, 28 Sep 2026 12:26:12 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-And seeing two other Qualcomm people providing here Acks and Review (and
-third giving Tested-by!) I am losing any trust there. Well, to be fair
-ack was the only correct one, since this does not mean code was really
-reviewed.
+> On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:
+> > Adding support for sharing interrupt line with other device requires the
+> > interrupt handler to handle runtime PM suspension properly, ignoring the
+> > irq if the device is suspended (maybe even off). And while at it, we use
+> > the PM reference to ensure we do not get suspended while processing an irq.
+> > 
+> > In order to prevent the chip from raising irq while suspended (that is when
+> > using fixed regulator, where suspend just means setting the device in
+> > STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
+> > then restores the value again when resuming.
+> > 
+> > The scoped_guard in mma8452_runtime_suspend() is changed to a plain
+> > mutex_lock() instead, both to prevent mixing guards and goto, but also to
+> > ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
+> > way up to disabling the device as much as possible.
+> > 
+> > With that in place, it is safe to add the IRQF_SHARED flag.
+> > 
+> > Keep in mind that the device by default is using push-pull for the irq pin,
+> > which might require additional hardware design to allow interrupt sharing.  
+> 
+> ...
+> 
+> > +	pm_status = pm_runtime_get_if_active(dev);
+> > +	if (pm_status == 0)
+> > +		/* device is powered down */
+> > +		return IRQ_NONE;  
+> 
+> > +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
+> > +		/* runtime PM was disabled, possibly suspending */
+> > +		return IRQ_HANDLED;  
+> 
+> This is very interesting part. I bet this will be the first driver using this.
+> A big question "why?"
+> 
+> > +	/*
+> > +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
+> > +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
+> > +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
+> > +	 * not enabled), and we can/must assume device is active.
+> > +	 */
+> > +
+> >  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+> >  	if (src < 0)
+> > -		return IRQ_NONE;
+> > +		goto out_runtime_put;
+> >  
+> >  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
+> > -		return IRQ_NONE;
+> > +		goto out_runtime_put;
+> >  
+> >  	if (src & MMA8452_INT_DRDY) {
+> >  		iio_trigger_poll_nested(indio_dev->trig);
+> > @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+> >  		ret = IRQ_HANDLED;
+> >  	}
+> >  
+> > +out_runtime_put:
+> > +	if (pm_status > 0)
+> > +		pm_runtime_put_autosuspend(dev);
+> > +
+> >  	return ret;
+> >  }  
+> 
+> ...
+> 
+> > +	pm_runtime_enable(dev);
+> > +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
+> > +	pm_runtime_use_autosuspend(dev);  
+> 
+> I don't see the respective _dont_use_autosuspend() call anywhere.
 
-Best regards,
-Krzysztof
+FWIW, starting Linux 7.4 you won't need to add _dont_use_autosuspend()
+calls, driver core will just handle it on unbind [1].
+
+If anyone would like to join me in purging the kernel of redundant
+dont_use_autosuspend() calls once the patch hits mainline, feel free
+to do so :)
+
+[1] https://lore.kernel.org/all/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com/
+
+-- 
+Kind regards,
+Joshua Crofts
