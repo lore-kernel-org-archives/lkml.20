@@ -1,133 +1,155 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03384CB8A4
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602760; cv=pass; b=ns9xeHUvRjgGOAmd3iSdOyXwSR0c3/3oCEJyBK7W/MWsw9BrpcWadgy6FQ3JIjesPqSOMttklEA3DwvWg7kRiNsaVAqtViGc+q/nYfT+m2Ep+ia6sGON6NzwBZ/psoUbZ9RMToEs7jNDYGz++f921BYGbpbhL6QDHQRZcdXu+0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602760; c=relaxed/simple;
-	bh=kkoVXtyBSbX/hlAjoM5EXYeotLKKyXHsImySYu3kOBI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H2s6MFBScElaoLC1YamCK0Anq86iUw4zPLWHDvl3pDGIFYuLv9Xl0zi1d41h9K95yXZO7l6SfHOU1VB9xxpXTiesJ4Xh0WM2aanHNxAQlchPlNdqPHwqHx5W2FGyn4Wqemclo1tBE7GVSxB4tx7ll1iH4u+DTx2MU/fWmmFMu48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4a7I3Nw; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D1A214812;
+	Mon, 28 Sep 2026 13:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790602857; cv=none; b=LKcW+qHxb6VF7Ez9P0V4M4GyEp1HCpD4pItiaXqxlp4yQCbdHNm+UOWTLi4ssL69ThkWWBLbPUVwPuFIKKGnuvqUmZP7iPCLCJ5+xxKlvNGu21hCb0HLZg74L9n2iH8OySirbiI8WIf1x0cNTyY5sfbRmcWKiBUTKfTu/oWDm80=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790602857; c=relaxed/simple;
+	bh=AyEQUNFzGVG3v1QC2gd/Jejdh/wwpRbMgUUXybHlNAI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t0yiruILW7+efij9tlb9Ts40qqNSPQ938D35vJUq2KcQ51tro12rHIPGcow4Oojw4YCbq5xkEbZC5hs9e3JnKI3w6cz+446SiYLc2XaZfYz84zMr84Meq35682U88DYo1DhPWpaHpCmAJtcpz+taKwa5KPyJSSKc6jZpvTWPSGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=CRxEqUGW; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4a7I3Nw"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so468698466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:39:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790602757; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iXK75/ZXuZk/XnhuwWcHObAYBXdC1aIfG1RZTA5LmH/5ov7BG0cmbf6ulDQBom9B7f
-         1IvmlqvIXEsc9OKM35IayJFCmghtLNfO0XQ21uz0lV2IjCmF4uxTMwz4zo/iFIX1E/pQ
-         SuMyf7OWK0HaRma3go3NVLhR4DYQ1U1WWy8fvgRWbSQTxcijwhMWrN/KKuMMtcH2JGt/
-         gDPJqWKgcEhbzYH5digxC6F1YW7tGV5Q/DeF+xLEz7JXOde99gWBfrHCF2jZJvkgJzif
-         +fEExbE39CZEAjVgMB+BMzF+NAqBlH39Fk1pvgmaHbDx5cYOVqSN4wuB4AS5eHD722hL
-         ibmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kkoVXtyBSbX/hlAjoM5EXYeotLKKyXHsImySYu3kOBI=;
-        fh=fT6rrR/bDGjsvYcji/TJQ8FeHXe+ISlZaibXyfIRor0=;
-        b=geZxlC4POvXlNuWnIoTUJ6QCfhwRG60gb3NGEM9wIZ7tLBFcFt+yR0bU+K6YEyG2ks
-         hlEouEB/WeqqIuffBQls3l0JGHucwJeIsRrHcnGPIpKIm4VXKERDps/j0t6DTVQuu0kj
-         VQ84oXaTlRP/VERCD8k19fb0Zkz/bDD+GtKO/3Tuo/mekDshgxRf1kRyAcKZ7VYIItZj
-         6Fe3NOnlrp9V1OMCri7DyIDxUC9ewY3vhit0cPv+Ody4etx4nWbPencVeR9tTfRXdoEk
-         Rj8fs3fFlte1Sz/WgWuvHeor2SIhhE7QeyTr/z4QjiyxjnCza3JVyDGZ4v0VKP1N8Qe7
-         HYlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602757; x=1791207557; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kkoVXtyBSbX/hlAjoM5EXYeotLKKyXHsImySYu3kOBI=;
-        b=b4a7I3NwDQFNBCVAgiuFBdB8iqEB/ceqqZU7HZgl4Ui9HCN7vyf464/O2tDbS1tM+V
-         wYTPLVfmT69ave9jcWzKXMqpJCcXiClzHvs2WHwDLkpBdu0xR6MqqHKARH9tVhZfZREK
-         XwpzfqVX/CWpe3ukPYxpJtin15QCDBenvUcLtCiN//iWL5uea4Zh8FpA6czm8cRi8vDF
-         LJSjlJYnjHxBDWz/FEW+qngUVNIifdervUPxzjb25wqwYyyOZVu0dghWXCFOKkjIS5BT
-         5Q7ffuxv31zLnvI6ldNWcSBBEDCOEmlZpRvPrradtlBDsHtsrjyd+C3oc2K6S4/ZEqpc
-         XabQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602757; x=1791207557;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kkoVXtyBSbX/hlAjoM5EXYeotLKKyXHsImySYu3kOBI=;
-        b=MnFeHY6oA7j7VistnZ0VPQN4aXClkSEGWgkVHoJDB8PlmLiPv52h+v+a/AsY8G9zWN
-         VwzdZE574A34E/4dU9W7DtBQhMBKMDBdcDQR9mbttZgGC0Dgz/nkYOT0vI4dtPAVyrqD
-         l2Hvw9f4Vh/Y3obO1EuE3O7m7A4fvYJ2o3vMajpe23dJ1M2/haM7tfHrz+qAzmL7uIwo
-         bcqBxtmb2jq4CqFp0OZFnyQMNQ2E0TMhYuN12f8oA61YI9S0kpLz+G5FvYP33Dij/WER
-         V90yPyw51NHu9z3WhkWNROhbrgaem69tON1DWxTySzkup/IsFOkqajOjxwThthUec5Hh
-         HzxQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJvoNn9id5KUlxtbi6tAss0iXOuTmX72+cS+QyxMoOC5XpJLeL4uuTkI4wR1U3DLFFpOQKKDpytAMy30E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nl41XEqBtORqiSMbk7LM4hdOd+pZ+uZJyxYMtzdUgxegJpTDlx
-	/C3I1qVBZ4f3P7U1QcUw2MVdwL7mKkQZF99U3eHeOK3gOIKIBD18Wrdq2aEvX1D2N49taiyEQ3O
-	MzmypkQi9xBlAsa/d9AWuR0js7Gc6SWw=
-X-Gm-Gg: AYBFou32LMpHwApRGPnQCvDWlSusAOgypLOgwbN33zik8ItmT7hSFxWr1sHaqt1q3Ii
-	azeBYZOufqMRXtVkxS1NNa4pad9J67uVf9sUuCWqtOZ+6OFQHcu74gS9Yj5dMWFfiNA8J0pF+P3
-	oXcxjKhyMqg/JQnF2rRiUKMUF+Y20leAZY8WREebdMvu6QJC/3yhUTosTVOBBQInglQlSe4d4Oj
-	NVOYImIQsdbsJ6kSj9kAoj7X/jlTXtqxZ7m6AFnGpPdrEqlqrv5yY0rpmYY5m7xDTQ/KCyKr7hf
-	bi0fvBeCBN65IE9meqQ9dfpdnz//zn9Z5gFzm3BI/utyj+g89rNM2RY3jkwj9kvOjzUtbmphB4S
-	pOQMKm+6BeSGMCnQr4bT668ySfT8qfPhZZTtG6ZM54SqVgdDc/761jjl9bYLYG5zJ66B4Ghz+Hb
-	RZwMfAHqtH4kq0MyTi6XZwSJ6KeWU2nPuRPTKgCBBR
-X-Received: by 2002:a17:907:7b8d:b0:c2d:c800:d797 with SMTP id
- a640c23a62f3a-c2dc800ea64mr422085366b.6.1790602756657; Mon, 28 Sep 2026
- 06:39:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="CRxEqUGW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=ubVjlN3WVXmRTCS3GorW+ViEnBshXa04RKr4r58KOUw=; t=1790602855;
+	x=1791207655; b=CRxEqUGWnAa4HOOKo0wi8MIAzUXgGlOoe4Bt7qWTzbYO/qqYB5lVyGsOoHq0F
+	nIdSoHIEgxi7QzsIX+V0gIciDBnQsWcBloPae4nJAKOhONAyVdJnylnB6ZUI9Z9fH0dfJfpb/712Q
+	qSxmvevPUpjTdNgWO5M+H0Fs1I4Z56NYn2ZwL9azN7dGrEZsFsFYVr3dRyCVCLdZqbpBmBSmM6uyr
+	9j1mId3jxMx8Zq4Y5l8mAhPFpH1EWkMq9/swnjPQkFA5fQHzS3qRSBRtiSJyd8bdCpOM9OH3y2xUc
+	A9nYmYeQId56bt6D/DCl1Y13jrvOEEYVzHptE6vttsZtcNSrww==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xBBbA-0000000073n-1jYz; Mon, 28 Sep 2026 15:40:52 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xBBbA-000000020Fb-0ld7; Mon, 28 Sep 2026 15:40:52 +0200
+Message-ID: <78fd8ec13658259036e32f36814270a242e5eca6.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] irqchip/jcore-aic: Fix lost IPIs on SMP
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <maz@kernel.org>, Radu
+ Rendec <radu@rendec.net>, Artur Rojek <contact@artur-rojek.eu>, Rich Felker
+ <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:40:51 +0200
+In-Reply-To: <aroDuGZBLsAw7tMS@gmail.com>
+References: <20260928035408.25871-1-kmehltretter@gmail.com>
+	 <92e110eef6dac0c6ddceb6ddda1658aeeaf1f0ec.camel@physik.fu-berlin.de>
+	 <aroDuGZBLsAw7tMS@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926205708.384308-1-meatuni001@gmail.com> <CAHp75Vdj8qVY-hCoCxxd1Pg2JaaDjc+QgAK-G=w+Cb=FTYYJEQ@mail.gmail.com>
- <a2687bd9-8cf7-1d08-41fc-9d6e69b5ca17@linux.intel.com>
-In-Reply-To: <a2687bd9-8cf7-1d08-41fc-9d6e69b5ca17@linux.intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 28 Sep 2026 16:38:40 +0300
-X-Gm-Features: AclHuK_yar-ZYML8PKehmtqFyK3Su6decS3wuti4NDLvEmj_PsHR7tuGCThvPLs
-Message-ID: <CAHp75VffMOx6q1JKHFz6-_rByiC=1xTqn8Aw47i1KvWPBLCPkw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] lib/string_helpers: add ESCAPE_BACKSLASH flag to string_escape_mem()
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Muhammad Bilal <meatuni001@gmail.com>, Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, linux-hardening@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Mon, Sep 28, 2026 at 3:59=E2=80=AFPM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
-> On Mon, 28 Sep 2026, Andy Shevchenko wrote:
-> > On Sat, Sep 26, 2026 at 11:57=E2=80=AFPM Muhammad Bilal <meatuni001@gma=
-il.com> wrote:
+Hi Karl,
 
-...
+On Mon, 2026-09-28 at 08:07 +0200, Karl Mehltretter wrote:
+> On Mon, Sep 28, 2026 at 07:57:27AM +0100, John Paul Adrian Glaubitz wrote=
+:
+> > Can you tell me what toolchain you used to build the kernel for J2?
+> >=20
+> > Last time I tried to use the one provided by Rob Landley, the build
+> > failed due to an internal compiler error so I couldn't actually build
+> > a kernel to test it on my J2 Turtleboard.
+> >=20
+>=20
+> Hi Adrian,
+>=20
+> musl.cc's sh2eb-linux-muslfdpic toolchain (GCC 11.2.1, binutils 2.37):
+>=20
+>   https://musl.cc/sh2eb-linux-muslfdpic-cross.tgz
+>=20
+> Your ICE is probably the one in kernel/nstree.c. Since listns() went in
+> (v6.19), every GCC I tried ICEs there with j2_defconfig. The 64-bit
+> put_user() asm prints %T (address + 4) of an "m" operand, and GCC can
+> pick an indexed address that cannot be offset. The asm needs "o".
+> GCC should still error out instead of crashing, so I filed a GCC bug
+> too:
+>=20
+>   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D127639
+>=20
+> Fix below, formal patch follows. With it, j2_defconfig with SMP=3Dy
+> builds fine with the musl.cc toolchain.
+>=20
+> Would be great if you could test on your Turtleboard!
+>=20
+> Karl
+>=20
+> -- >8 --
+> diff --git a/arch/sh/include/asm/uaccess_32.h b/arch/sh/include/asm/uacce=
+ss_32.h
+> index 5d7ddc092afd7..879d262489219 100644
+> --- a/arch/sh/include/asm/uaccess_32.h
+> +++ b/arch/sh/include/asm/uaccess_32.h
+> @@ -92,7 +92,7 @@ __asm__ __volatile__( \
+>  	".long	1b + 2, 3b\n\t" \
+>  	".previous" \
+>  	:"=3D&r" (err), "=3D&r" (x) \
+> -	:"m" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+> +	: "o" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+>  #else
+>  #define __get_user_u64(x, addr, err) \
+>  ({ \
+> @@ -116,7 +116,7 @@ __asm__ __volatile__( \
+>  	".long	1b + 2, 3b\n\t" \
+>  	".previous" \
+>  	:"=3D&r" (err), "=3D&r" (x) \
+> -	:"m" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+> +	: "o" (__m(addr)), "i" (-EFAULT), "0" (err)); })
+>  #endif
+> =20
+>  #define __put_user_size(x,ptr,size,retval)		\
+> @@ -196,7 +196,7 @@ __asm__ __volatile__( \
+>  	".long	1b, 3b\n\t" \
+>  	".previous" \
+>  	: "=3Dr" (retval) \
+> -	: "r" (val), "m" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+> +	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+>          : "memory"); })
+>  #else
+>  #define __put_user_u64(val,addr,retval) \
+> @@ -218,7 +218,7 @@ __asm__ __volatile__( \
+>  	".long	1b, 3b\n\t" \
+>  	".previous" \
+>  	: "=3Dr" (retval) \
+> -	: "r" (val), "m" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+> +	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
+>          : "memory"); })
+>  #endif
+> =20
 
-> > > Add ESCAPE_BACKSLASH, which escapes only '\\'. It can be combined wit=
-h
-> > > ESCAPE_SPACE, or used on its own, without pulling in ESCAPE_SPECIAL's
-> > > quote and control-character handling.
-> >
-> > But why? I believe it can be done in the current implementation using
-> > the last argument @only (id est use the list of the characters you
-> > want to escape).
->
-> Ah, that's my fault for suggesting this and not noticing there was way to
-> negatively filter them.
+That patch indeed fixes the build issue and the ICE and I can finally
+build a kernel image using Toybox for my J2 board again. Let me see
+if the kernel also boots.
 
-No problem, not a big issue :-)
+Unless your patch is identical to Florian's, you can post yours later.
 
-I think here is the list of those 4 characters that we want to escape
-should be passed along with ESCAPE_SPACE | ESCAPE_SPECIAL. This will
-get exact code behaviour as of today. In current patch 2/2 AFAICS the
-additional SPACE-class characters might have also been escaped which
-was not in the original implementation (not sure if it's desired
-change or not).
+Adrian
 
 --=20
-With Best Regards,
-Andy Shevchenko
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
