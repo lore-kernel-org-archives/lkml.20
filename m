@@ -1,323 +1,261 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011066.outbound.protection.outlook.com [52.101.62.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21EDC40E8FC;
-	Mon, 28 Sep 2026 06:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577777; cv=fail; b=jSNpW5fvHj5nvIdWJR9y/kxjW3nzKcUwxQkDL8NRYznO/R2X3sACqQ0YYhDDofrKQFocP1H4yrLcoGTAOV2iVU6dEauTaTiw0zlKNaagldBgfX63OSz7uuyUouRp7dL7+0J4vssW9qHDtnyLcB/pCVT09PXhlbGR+Q+fm/m7fMo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790577777; c=relaxed/simple;
-	bh=LlscrbfqtwC4eiCHycR1KhSQgwJ7FZfNLxDW2e8wvK4=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=MubLSsglSaz1+pko44EC5YBBSTpnLZqKWjc57AHj+/uh1E4QZDcHli2NRdFrogNvPVHUcAj09YS2Jy4yD0fWsVj7945Rj9A1+buy59jKTciYWVwb8uV8SRBLe67ei8Az2fU8uR0Z1LCIHGF+fU+6ROQDJE5gaZUSkpK5t8MqWLA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QghSC15Z; arc=fail smtp.client-ip=52.101.62.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DA43B71A1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790577780; cv=none; b=cZh8j80UsDYlZsExLMsaODdE4nyNjlUSR3JUkPsiL9hG5tPTVS7xnBiNAR3nePcZT+WGKhfO9QImt5sqzHgYLzJg0BwTfdTXiD4YJC76DmQ5TWX0zSrAseyQmtaKnfchbA2gSoWGdGT+noOG20nCueoBo5h50ARqkQRscZFBw1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790577780; c=relaxed/simple;
+	bh=MyorId+LNXDQ3tBXVrKOG34/XwgfgE8q2c/oj8aOYQ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=j75pkqOovzXv6CBObkci8B+JhAep+6+0TjiH2QDgMkrabXyJ2KpmAlYYEUhYDdu6RlYSakYXuyP5rQ0qRvKpFoNvrjAID6TWlsG1mEMsVMBdEq+TO+Mi4CJ0yvtpRTd35oZV2KuhtwUp1kP+KKAXFR6CyxcM9FlsvMqsgtX063Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHTim2KB; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QghSC15Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hAHK5pI0f5ReOqcZGrRFcju6pVyVbzYnW0QmynGbz1EunrBp+Lj2WSi3hK9+YEjomBmZwQWSI1ODKlcBbDyVXmjqv8J6eUVZ496iBFdfy4mfg6TCayePRQjUX6yb0YT2100CJrFVn2FrBrtqujh8eTV4kD5A7TK1v3PcW5a+Z6HmBv4+uhNNReFxCBbT06FNZ2NY3noeubiLjHdjOV54S8l9a7Gebqxd6+wF368q+llopHG6HEvFut/zOKTEOEjbcZE/+hMJ+UoRpRibRMyJbPnNoVrZyM8rIwRL+YIHmYc+hWJ9hJgOoeEnHvl6ksBykZDL0JK43YR/macBkScM8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C4LTSZWMKxCxrSZVc1n43vX0ZJfJlK7OPaNWx9ZGoiI=;
- b=gT9xMD3tc/KvpWn/vBo1uk3eG4jyVED61+hLON1jjZL3yBteRsKdDTaWn49HlUGMnAQsbxzX0Qoy06DyXakhtwlm1GtUVk0wwLsLMprYCF2Ny3GI2T5Fb4Qc0bd1inhQFbyFNsSWNVU4LEkB3SsTu76HdMAVdeu9OmIdVsS42Sazw/jqhYVt5tbRVleK7J4qQsuikgiqWMehlXGsE4ykzhUQR6yPuIZZiZXjlW9zDCPFu4suMPYid6RsO7tT4ZZb7UMYgtXi3BaTOcPt3uXc33nYSxbr3wuYbGb5GnYExXtWK/hCAR8r+SLuCmobqvHr5Aus+G3bDIYqSRRbe579kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C4LTSZWMKxCxrSZVc1n43vX0ZJfJlK7OPaNWx9ZGoiI=;
- b=QghSC15ZqQJXNBOwoPVCZ11oaumn40mDk/XzqzwyN0c36WENiHpMkg48zqetFWbhDwv4HLJtKnnUbcnF/Dwt/miiPxQRg52uG0kNj9TrjeKHScycSsqOxLOeTz8kDNJp9T6VIFTuSatdxzqzWKU5IvxWy5ooi81lKxyGa5m9FNJK9Yg5HencD3Vj6QdeFXWx8H0j7c1dTOwUECvkdCKCFCLqroVE4n9MvINXWh8N9YPMcWebP5xAwerj+JqURk2kgxpBq4G6N69tZgdcqTMoiy1EYXWVVMAIzAPmfhRZ27+zqmoZKWfkAeLt37F8+jjpAHU3lly3CpFr/bSy+K3ZzA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.23; Mon, 28 Sep 2026 06:40:40 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 06:40:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 15:40:35 +0900
-Message-Id: <DLQQSPX5V4GY.8G8ZVQXV6WQ8@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 4/9] gpu: nova-core: gsp: cmdq: split the transport
- part of the send path
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
- <20260927-cmdq-rpc-v2-4-c3f66ae73be4@nvidia.com>
- <DLQP0I37RZTD.4C52AA74ID18@nvidia.com>
- <DLQQCJRLIWXA.32C5JK2QOGGTW@nvidia.com>
-In-Reply-To: <DLQQCJRLIWXA.32C5JK2QOGGTW@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0256.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:455::14) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHTim2KB"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b0219bso992738f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790577776; x=1791182576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nf3oV330ckZwsw/LTGlRTnwET/Uw246suYw2VNp67Og=;
+        b=YHTim2KBMbvqW33SiIfC8KTjygBmq5593rctZM1E5bnqhT8BRn2lOE0yHsky3OSOvi
+         Q0+F3KqiIv7BpOy44YhbEScQZKi+EGf4sgwErJaJV+uPLvyw13Z8o2HnwptR2gk/P85r
+         uzE5iUETSYMae9NBVmqBDlt9UNlal72/Us+VJJJHTZtEaGSmXt2lNEv6LLRIZc1uWSlh
+         PpZw+I9C2bcJsuhCwNsxNAHDnnpBkZZNlKozqopOCZBaJuKNm10grlCwnlgRXioU0jwB
+         BSi+zJjMx+3UdwWHHwWliySPJGOjVGYUwNx14q86FlpPo4J+Ydu2Xk6bNPqnhTYXjh7d
+         Q3Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790577776; x=1791182576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nf3oV330ckZwsw/LTGlRTnwET/Uw246suYw2VNp67Og=;
+        b=JTTxSfSMrXJYn/pcHchjjeSONg8+BuO8G2mvO8V91Jxy9AxuhCgFKQ4EIOtpi5qFjk
+         nUJiDznVHAlyxxhqEef3AGQD4ZIwVmNoMIdkVnydN7lXpxboGGm4D2MleeTvNQ9jTszx
+         aGLQPG9jbTK86mnaDDTF1AwewFRrqduhyiaFSd36G9XvDDVa/fVX4hLk+r2PQwNgEDKt
+         B0SOwxMe4s0BHtdVx59aqzqmKxBgkO46s/hDl2mskSkeWUDzJ3kGcZTC5+hAXQ0QeMhz
+         ad1CgkNMEym0rBgBj/RzTHn9PLIKp8/2RvOhrBE/MhO+RCp0e4rCKWequzfeb6pGSDqd
+         xx3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwh16n3CzULIQDe85bEv/fEd/g3Y+ktygOBrmOyPbvKnZ3bqu6Wd4Xa9oSJ/FqoRY6TjfgoPLAY/e1mckk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgqbllDnNiYQdPpiWtwxU9/22Kd0LOtyMCRNI7lo63OJa1CGwZ
+	nzRn15Ds6PL/9uWJhcrMD/+K/3Da+rMiKw8GsXVvJf7llr3V8aDJ76kU
+X-Gm-Gg: AYBFou1n7+q3/AcfNCN4zaPK7nVC6BC+jBCJSb59bLvxajRPI6K2kdOFfEmGyLZiTC7
+	lMXZmpixWLl1eJBPqAKZBOVGnzM2toWGF9JPqREZmng4HT+7xaLTwGjngNxQ+wgW5mYwd3jMKyG
+	txPMkS86uo+MJIQD6CVExMc9eEXKL/DoAKHk/I7ZpdDEKOld2ua4OPTevTqpVja0pGM/MhKfVns
+	vXvbIwRMvs8L5qMNdvEIqMfb9ZZEGJK4qBKzn0DPSPkrDzLBo6Gm/hmgUakgzCWaiEV9+EE0XHd
+	2PBy80b/YBkOHi3acZApJRrPUbnUhMdwtjotEiMynzPZiUKO1QIYZEhIgPxv1o9T5e1risVE/V1
+	g0UqzyZVXMWhLt/Xg1ynZvXcVorpmO19E3xeIsrE27SE+4Cb5c+PGDiErjsC9PbDr/jTXFdneHv
+	QDqm54xBd3V52arHs/alxKd4XQPJOFfzHD81CBfngYQlMZpHVMR9bEDSzOhxkyxGZc4KuLr0mGw
+	EUJkkhnp34A2SOL2bojNKThJiyXw8nbvZogmrWHyL86mEjdu8QejhdLADEkyW9Dbv+6uRv5meLr
+	xRgo3Uxv1VLvgUcWgRalkBfgxvrnd9zjF95C9/2TSn5DsC7ckiH0Vqwk3/3EnTV5A4XKCPAeIRP
+	w/rb3RA==
+X-Received: by 2002:a05:6000:2909:b0:487:ff2:14f5 with SMTP id ffacd0b85a97d-4887d9fa53dmr18309491f8f.4.1790577775945;
+        Sun, 27 Sep 2026 23:42:55 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm26283196f8f.4.2026.09.27.23.42.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 27 Sep 2026 23:42:55 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/2] netpoll: use a raw lock for the deferred transmit queue
+Date: Mon, 28 Sep 2026 08:42:38 +0200
+Message-Id: <20260928064239.32456-2-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260928064239.32456-1-kmehltretter@gmail.com>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL1PR12MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b478ddb-247a-4f86-2de8-08df1d2b68d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|3023799007|6133799003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	dLH9lYwqIy2W/9ayFygRJNyr/LqxFxttsHTP/hCJghO53saYGThUTZ6WWlTg9+pR1O8bUrDzkgy06n2BTcxRh7erhPEqoPipebtcbLwahJddq69kthbS68Uv5tkTedNl/EMOkfnXV7S2uZDFHFhYxP+Nr+TEXFk37MeXJaoHsb4oDDBMJX5oqelBKylPz7ccUmu01ipq3yIS8A7LCV8EaiHZYesnJ3+e3QnZYdCQY+ZpETNb+ryHRbtXOnHCiE0XkjlzZ5Vwyreur5d29kOaCKKWeT6IuSi9XU8Itt9/G1iBP8ZkEZUK9Kcbl4NktYmwhwmXUjC3vLQ2NztMA6qpqq+V7axneitffeTMAuqJKjiKucffkAMe5bkS/WP3Yf25U0xzfWsSItM8gwoQ2axNzJUteU4sqn8uKHsAFCKCYeUiRvexgJrkuthjdQyNugg2zCmxhbhmaTBx9ZxMNBoUs87gRzIsCJAxQMoK3nYcnPcw+5w00YbTtSdG7lOgEU7sD0ETDoCNWVgbQR0o8iiyXpzanFHtHxJhYdxs+8QHTXAq46ULv0E+c6mVV6uS8ScoYPJHGUvERAOoRryXLXEGJMMf1hskErU5IrTpd210HARrNHIadCLzqcX11u+bmoDcQQUx3NNu3D6l5imyA/4zon+mUwD25zTZuEJVbXsmMRA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(3023799007)(6133799003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RDN0K3RGNWxSMHJHTXZ0RktLZlM4amNCS1VIQUVjeFRqdkhTenFEZlgySWNX?=
- =?utf-8?B?Nlpxdy9nTnhrU2hDQmhNS0p5OWlEUVl3S1I0bXBJN0UwbEJSbmtNUEpzZThP?=
- =?utf-8?B?QjR2TzJPN3kyd2tFMVN1b09tVlkzYUhWbXIwTzlTSjR5eUhEN1c4bkh4RFNo?=
- =?utf-8?B?NGJmVTBqQ1RWajVvZkxpUTJCUURkekVrZm9uOEkzcUo1UHNGTWthNzZvWGVy?=
- =?utf-8?B?L016VmFNeTN1c2YzYzNDa2t6c0piQUNOYS82d2lSTnVBY2pYdFFpVFlQZk5R?=
- =?utf-8?B?bTZ5SjhBOTNzSTFTaUc1YWZsR25PaU9NY2c4TTNVWmw4UzZ4akdvbXpKSDBv?=
- =?utf-8?B?cjUvSjJ0dTNFMnhWcXh3T2c3WTRKY2tTaHU2UVoxUlhub1VQQUxod2NKOHRX?=
- =?utf-8?B?MTcyeXU3bWhYaGZobkEvMEd3Yk54WnMwUDhlNXE5eFArMk8yZjBlVGJBV2Qr?=
- =?utf-8?B?VGVnL0F3QkJtM1VES0w0V2NBcU1nUGxhUWtMc01vWUxBLzgwNGZnREpyZ2RY?=
- =?utf-8?B?U2N2bzhaK3RYTGVJVldVMjBZMWM3aWtyU2VIc2EzdXdTTUxoR3daUzZscElV?=
- =?utf-8?B?V2Z3TldEU0dHdE96QTFHaVYwOHhuZS9EdjFreHZsZk9Kby85YTd4dGlGVlJ4?=
- =?utf-8?B?blFoOTBoQnRXTVNXL2xrdEROakU2T3lDVTRNM3lBVEY2dXlCS1lwRSsrRisr?=
- =?utf-8?B?UTV4cG1Za0lZaTFXYmhsNDdpbVJCdEF4MVVVeS8rWlVmL0VHbHQxMVpaT3pG?=
- =?utf-8?B?RmNJRWJKc3FYdG5QM0FmRDREbmVNd2RpelhDRFBsREFrZ1krV1ZTYlV3YmR5?=
- =?utf-8?B?UGExcUQrTW5Va20vRWF6dWJLTG93OStwaFNWclZuckxVWUxMSGpoSjhqNDlU?=
- =?utf-8?B?RVRweVMxbVhkcy8rN2lka3p3VlhQeG10QTVRZ3FnaEVTK29LN1p3UEF5L1c2?=
- =?utf-8?B?TUxpMk96UGdveDdSejRqTUlabDBDUzlhdWhOL0t2cXFPLytYbE1UTGN0T09V?=
- =?utf-8?B?NFc0dkdhYzF0YW85aGdsejVYYXRWMVVza1hFVVgxNGxBVHFQZWhMeWtjSUNB?=
- =?utf-8?B?V25oZmZuZ1dURzMxQnJ5MSt3U3haZHFha2QweHRPUFdVTnFJU3p2ZEppclRO?=
- =?utf-8?B?SnFhQTVkMFhQaGxnTDZJa3lreW8zNU9KdEdqaG44dVI5eVNTZkFXK3drK2Fs?=
- =?utf-8?B?Z0hTS0M1ZkN2eUtGdVR1UDRyd0tDVlVkZ3A3VnZsbC90c2ZhSW84TnZtVXhR?=
- =?utf-8?B?ajBzbDNrK1ZpbDIxUC9mOVpPQnhXMUhJQi8zWlJJbURkNktRZ0x4RTU4OVZY?=
- =?utf-8?B?VHFwU2lGNW50dE9SSHVUQXBubWZjanZQWmhGSWFQWFI4L0psNVJWQkhYSDhu?=
- =?utf-8?B?MU94dDEwYjFPTklZUzcybnJ0S1ZrUEFpMElyTFVpeVRiSnFMYWs5cm5zZ3VT?=
- =?utf-8?B?RlhTRmVXRmJGdldpL2loTU5hVlBSWHl1cVBUSmdJUjF5Mnc3RDJvbmIvRTVl?=
- =?utf-8?B?em9qQVd0bnhCZ28xbUNNcWpsbFNVL3EwM01XTTlaZEFITDNzMW1xTHFUSThO?=
- =?utf-8?B?QjBjVkNaSXhjaStUSXdJcDY3OWc4bmp4MmF0QS8yeWVYUTB3NGc0Ykp3Z2VR?=
- =?utf-8?B?a0E1aXl6T2ZRUWdkY3hoYWljTTNsNHhIMkVFL3JDZFdYQ3JhNkRWM2trM2pq?=
- =?utf-8?B?UUNJMDByTWk1U21JZ3Z3Q21TSzVucndjWXZiYjNXNDRpaWZIaVV1WnhhcTRh?=
- =?utf-8?B?NHkwazZlbWNqTGJxZksySUcrbGE4WXRmUFJ0akx4QUJGekYxTSs1OTVLWWJx?=
- =?utf-8?B?NDRKSDcxbjZ5dGJUc3RYZG9zbnYxMk0wYWhwWTNRRTdjUnhLNFNsR3lNUlAy?=
- =?utf-8?B?OTlMUjRDNmV3eGlZOTMwMjFmb1pad2VpRU8vYnRUV3dHYzViOVRQWitYcWN3?=
- =?utf-8?B?MVkrWGd1eUY5cFBvY0NKWFBtMnI5SVl0SEhrcFpSTkJUQnl5NEMydEVxU0NC?=
- =?utf-8?B?NXdZTE9neFM0eGxhS2k3RUV6WjYrQ2hWR3NidEY5MTd4NC9uYzA1QVB1SUM3?=
- =?utf-8?B?WUJvbVNNRStRV2ZOQXhCaEVleFU1QldCUU5Nb0M1MzUyYktxdUhneXpqOFIz?=
- =?utf-8?B?QS9FL1JBSDdNTFE3eHphSElDVjJRSGRHRmw0ZzBISGhaem1PZjEvZUFjZ2N2?=
- =?utf-8?B?SmMrYVUzVGUxKy8yWGQ5amt4b1lXQWxvY1Z2SCtHWm1XcFZuNGQyRkhObEZq?=
- =?utf-8?B?TWovNzVaZHRtQjFLcENIWjZXbEJEYitHMW1sZkZRemk5R0w0bGtsMmJiZVZR?=
- =?utf-8?B?Qk1vYkVrQktGVytIZGdUT0JzaVZrQW5KRVdiUlVBTk1rekpNK2gxRVdYak9l?=
- =?utf-8?Q?C7dapsErrqI2Y3qkCKSo6VWSdDi4cT2Ps6s1REG/gZp6/?=
-X-MS-Exchange-AntiSpam-MessageData-1: +ugUFcrj/+OPRA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b478ddb-247a-4f86-2de8-08df1d2b68d3
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:40:39.3684
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pk18b9QbMuIEEa1skfUKS4zWnHw+MJOF6Eh4fapPCgMDvJxqVwoZsRcirBJkhSFSMtko7QazR8iIFo+FW/28vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
+Content-Transfer-Encoding: 8bit
 
-On Mon Sep 28, 2026 at 3:19 PM JST, Alexandre Courbot wrote:
-> On Mon Sep 28, 2026 at 2:16 PM JST, Eliot Courtney wrote:
->> On Sun Sep 27, 2026 at 10:46 PM JST, Alexandre Courbot wrote:
->>> Move the transport part of `send_single_command` into
->>> `send_command_element`, which allocates the queue slots, writes the
->>> element header, calls a closure to fill the remainder of the command,
->>> then computes the checksum, advances the write pointer and rings the
->>> doorbell.
->>>
->>> The RPC part of `send_single_command` (writing the RPC header and the
->>> command payload) is passed as a closure, unchanged apart from its
->>> indentation. This sets things up for moving the RPC code into its own
->>> sub-module, leaving the transport agnostic of the message type.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>> ---
->>>  drivers/gpu/nova-core/gsp/cmdq.rs | 118 ++++++++++++++++++++++++------=
---------
->>>  1 file changed, 74 insertions(+), 44 deletions(-)
->>>
->>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/=
-gsp/cmdq.rs
->>> index 07e8e32c3d57..b6d50b0bd039 100644
->>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->>> @@ -638,65 +638,35 @@ impl CmdqInner<'_> {
->>>      /// Timeout for waiting for space on the command queue.
->>>      const ALLOCATE_TIMEOUT: Delta =3D Delta::from_secs(1);
->>> =20
->>> -    /// Sends `command` to the GSP, without splitting it.
->>> +    /// Allocates enough send slots to store a command of `sizes_in_by=
-tes` length, initialize them
->>> +    /// using `command_init`, and send the command to the GSP.
->>>      ///
->>>      /// # Errors
->>>      ///
->>>      /// - `EMSGSIZE` if the command exceeds the maximum queue element =
-size.
->>>      /// - `ETIMEDOUT` if space does not become available within the ti=
-meout.
->>> -    /// - `EIO` if the variable payload requested by the command has n=
-ot been entirely
->>> -    ///   written to by its [`CommandToGsp::init_variable_payload`] me=
-thod.
->>>      ///
->>> -    /// Error codes returned by the command initializers are propagate=
-d as-is.
->>> -    fn send_single_command<M>(&mut self, command: M) -> Result
->>> -    where
->>> -        M: CommandToGsp,
->>> -        // This allows all error types, including `Infallible`, to be =
-used for `M::InitError`.
->>> -        Error: From<M::InitError>,
->>> -    {
->>> -        let size_in_bytes =3D command.size();
->>> -        let dst =3D self
->>> +    /// Error codes returned by `command_init` are returned as-is.
->>> +    fn send_command_element(
->>> +        &mut self,
->>> +        size_in_bytes: usize,
->>> +        command_init: impl FnOnce(&mut GspCommand<'_>) -> Result,
->>> +    ) -> Result {
->>> +        let mut dst =3D self
->>>              .gsp_mem
->>>              .allocate_command(size_in_bytes, Self::ALLOCATE_TIMEOUT)?;
->>> =20
->>> +        let seq =3D self.seq;
->>
->> nit: this local reads noisily to me
->>
->>> +
->>>          // Fill the header.
->>> -        let msg_element_init =3D GspMsgElement::init(self.seq, size_in=
-_bytes);
->>> +        let msg_element_init =3D GspMsgElement::init(seq, size_in_byte=
-s);
->>>          // SAFETY: `msg_header` is a valid reference, and not touched =
-if the initializer fails.
->>>          unsafe {
->>>              pin_init::raw_try_init(core::ptr::from_mut(dst.header), ms=
-g_element_init)?;
->>>          }
->>> =20
->>> -        // Extract area for the command itself. The GSP message header=
- and the command header
->>> -        // together are guaranteed to fit entirely into a single page,=
- so it's ok to only look
->>> -        // at `dst.contents.0` here.
->>> -        let (cmd, payload_1) =3D M::Command::from_bytes_mut_prefix(dst=
-.contents.0).ok_or(EIO)?;
->>> -        let rpc_header_init =3D RpcMessageHeader::init(size_in_bytes, =
-M::FUNCTION);
->>> -        // SAFETY: `rpc_header_mut()` and `cmd` are valid references, =
-and not touched if the
->>> -        // initializer fails.
->>> -        unsafe {
->>> -            pin_init::raw_try_init(
->>> -                core::ptr::from_mut(dst.header.rpc_header_mut()),
->>> -                rpc_header_init,
->>> -            )?;
->>> -            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.i=
-nit())?;
->>> -        }
->>> -
->>> -        // Fill the variable-length payload, which may be empty.
->>> -        let mut sbuffer =3D SBufferIter::new_writer([&mut payload_1[..=
-], &mut dst.contents.1[..]]);
->>> -        command.init_variable_payload(&mut sbuffer)?;
->>> -
->>> -        if !sbuffer.is_empty() {
->>> -            return Err(EIO);
->>> -        }
->>> -        drop(sbuffer);
->>> -
->>> -        dev_dbg!(
->>> -            &self.dev,
->>> -            "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\=
-n",
->>> -            self.seq,
->>> -            M::FUNCTION,
->>> -            size_in_bytes,
->>> -        );
->>> +        // Initialize the message payload.
->>> +        command_init(&mut dst)?;
->>> =20
->>>          // Compute checksum now that the whole message is ready.
->>>          dst.header
->>> @@ -715,6 +685,66 @@ fn send_single_command<M>(&mut self, command: M) -=
-> Result
->>>          Ok(())
->>>      }
->>> =20
->>> +    /// Sends `command` to the GSP, without splitting it.
->>> +    ///
->>> +    /// # Errors
->>> +    ///
->>> +    /// - `EMSGSIZE` if the command exceeds the maximum queue element =
-size.
->>> +    /// - `ETIMEDOUT` if space does not become available within the ti=
-meout.
->>> +    /// - `EIO` if the variable payload requested by the command has n=
-ot been entirely
->>> +    ///   written to by its [`CommandToGsp::init_variable_payload`] me=
-thod.
->>> +    ///
->>> +    /// Error codes returned by the command initializers are propagate=
-d as-is.
->>> +    fn send_single_command<M>(&mut self, command: M) -> Result
->>> +    where
->>> +        M: CommandToGsp,
->>> +        // This allows all error types, including `Infallible`, to be =
-used for `M::InitError`.
->>> +        Error: From<M::InitError>,
->>> +    {
->>> +        let dev =3D self.dev;
->>> +        let seq =3D self.seq;
->>> +        let size_in_bytes =3D command.size();
->>
->> I suspect if we pass dev and seq into the closure below, we can
->> further split the RPC layer from the transport layer. That means the
->> patches after this won't have to impl on CmdqInner for e.g.
->> `send_single_command` and instead we can just define a trait that writes
->> in the message layer data (so send_single_command could e.g. instead
->> take an impl RpcCommandWriter or whatever, and we can impl
->> RpcCommandWriter for anything that impls CommandToGsp, inserting the
->> message layer protocol stuff in there).
->
-> That sounds like a much better design indeed - I was contemplating
-> introducing traits and thought it might be better to keep things simple
-> and revisit until r000 is completed, but it probably won't be limiting
-> us in any way, and removes the unneeded mirror methods in `CmdqInner`.
->
-> The same pattern can probably also be applied on the receiving side, so
-> I'll try and do it there as well.
+netpoll_send_skb() calls __netpoll_send_skb() with hard interrupts
+disabled. When direct transmission cannot complete, the latter queues
+the skb with skb_queue_tail(). The sk_buff_head lock may sleep on
+PREEMPT_RT:
 
-Yerp I think it can be. I also don't think it's bad to keep the trait
-around even after we remove r570. If we are passing in closures anyway
-to cmdq to do message layer stuff, that's kinda like an unnamed trait
-anyway. Thanks!
+  BUG: sleeping function called from invalid context
+  in_atomic(): 0, irqs_disabled(): 1, non_block: 0
+  rt_spin_lock
+  skb_queue_tail
+  netpoll_send_skb
+
+The delayed transmit worker has the same problem when it requeues a busy
+skb with skb_queue_head() after disabling interrupts.
+
+Add a dedicated raw spinlock and use the unlocked skb queue helpers under
+it. Keep raw critical sections limited to queue operations. During
+cleanup, splice the queue to a private list before freeing its skbs.
+
+Fixes: b6cd27ed3388 ("netpoll per device txq")
+Cc: stable@vger.kernel.org # 6.12+
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/linux/netpoll.h |  1 +
+ net/core/netpoll.c      | 75 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 70 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/netpoll.h b/include/linux/netpoll.h
+index 1c6b1eec5efd6..e20e0592e9349 100644
+--- a/include/linux/netpoll.h
++++ b/include/linux/netpoll.h
+@@ -47,6 +47,7 @@ struct netpoll_info {
+ 	struct semaphore dev_lock;
+ 
+ 	struct sk_buff_head txq;
++	raw_spinlock_t txq_lock;
+ 
+ 	struct delayed_work tx_work;
+ 
+diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+index fe1e0cda5d6bf..e0cfcb05468e2 100644
+--- a/net/core/netpoll.c
++++ b/net/core/netpoll.c
+@@ -79,6 +79,68 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
+ 	return status;
+ }
+ 
++/*
++ * Transmit paths can access txq with hard IRQs disabled. Use a raw lock
++ * because the skb queue lock may sleep on PREEMPT_RT.
++ */
++static bool netpoll_txq_empty(struct netpoll_info *npinfo)
++{
++	unsigned long flags;
++	bool empty;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	empty = skb_queue_empty(&npinfo->txq);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	return empty;
++}
++
++static struct sk_buff *netpoll_txq_dequeue(struct netpoll_info *npinfo)
++{
++	unsigned long flags;
++	struct sk_buff *skb;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	skb = __skb_dequeue(&npinfo->txq);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	return skb;
++}
++
++static void netpoll_txq_queue_head(struct netpoll_info *npinfo,
++				   struct sk_buff *skb)
++{
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	__skb_queue_head(&npinfo->txq, skb);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++}
++
++static void netpoll_txq_queue_tail(struct netpoll_info *npinfo,
++				   struct sk_buff *skb)
++{
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	__skb_queue_tail(&npinfo->txq, skb);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++}
++
++static void netpoll_txq_purge(struct netpoll_info *npinfo)
++{
++	struct sk_buff_head purge;
++	unsigned long flags;
++
++	__skb_queue_head_init(&purge);
++
++	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
++	skb_queue_splice_init(&npinfo->txq, &purge);
++	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
++
++	__skb_queue_purge(&purge);
++}
++
+ static void queue_process(struct work_struct *work)
+ {
+ 	struct netpoll_info *npinfo =
+@@ -86,7 +148,7 @@ static void queue_process(struct work_struct *work)
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+ 
+-	while ((skb = skb_dequeue(&npinfo->txq))) {
++	while ((skb = netpoll_txq_dequeue(npinfo))) {
+ 		struct net_device *dev = skb->dev;
+ 		struct netdev_queue *txq;
+ 		unsigned int q_index;
+@@ -107,7 +169,7 @@ static void queue_process(struct work_struct *work)
+ 		HARD_TX_LOCK(dev, txq, smp_processor_id());
+ 		if (netif_xmit_frozen_or_stopped(txq) ||
+ 		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
+-			skb_queue_head(&npinfo->txq, skb);
++			netpoll_txq_queue_head(npinfo, skb);
+ 			HARD_TX_UNLOCK(dev, txq);
+ 			local_irq_restore(flags);
+ 
+@@ -282,7 +344,7 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	}
+ 
+ 	/* don't get messages out of order, and no recursion */
+-	if (skb_queue_len(&npinfo->txq) == 0 && !netpoll_owner_active(dev)) {
++	if (netpoll_txq_empty(npinfo) && !netpoll_owner_active(dev)) {
+ 		struct netdev_queue *txq;
+ 
+ 		txq = netdev_core_pick_tx(dev, skb, NULL);
+@@ -314,7 +376,7 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
+ 	}
+ 
+ 	if (!dev_xmit_complete(status)) {
+-		skb_queue_tail(&npinfo->txq, skb);
++		netpoll_txq_queue_tail(npinfo, skb);
+ 		schedule_delayed_work(&npinfo->tx_work,0);
+ 	}
+ 	ret = NETDEV_TX_OK;
+@@ -362,7 +424,8 @@ int __netpoll_setup(struct netpoll *np, struct net_device *ndev)
+ 		}
+ 
+ 		sema_init(&npinfo->dev_lock, 1);
+-		skb_queue_head_init(&npinfo->txq);
++		__skb_queue_head_init(&npinfo->txq);
++		raw_spin_lock_init(&npinfo->txq_lock);
+ 		INIT_DELAYED_WORK(&npinfo->tx_work, queue_process);
+ 
+ 		refcount_set(&npinfo->refcnt, 1);
+@@ -397,7 +460,7 @@ static void rcu_cleanup_netpoll_info(struct rcu_head *rcu_head)
+ 	struct netpoll_info *npinfo =
+ 			container_of(rcu_head, struct netpoll_info, rcu);
+ 
+-	skb_queue_purge(&npinfo->txq);
++	netpoll_txq_purge(npinfo);
+ 	kfree(npinfo);
+ }
+ 
+-- 
+2.53.0
