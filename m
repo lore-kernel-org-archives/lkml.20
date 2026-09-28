@@ -1,66 +1,66 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57D04908A8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:36:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C7D48FF76
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588174; cv=none; b=riwbO860gLhFD0GlRDduszPFR/8o5tCr+D0KNaa5kvU0rIb+T7GL0Av0NT2wZag34ZL7e29qXEFsRsnYZP0ENDGrZRMEgdgibv71Jn4lgYC2F6AjLhpDx9Xy1kxBMwDcSYcsUVDm3goURU6LWLGJdZ9Up+GWrkzrzJAk3VgOA2w=
+	t=1790588177; cv=none; b=VHMigCEiIl808nV0HFPIXeQ7bAub93mv9EzWN0NfMZ77RxlkLZWHSOAiTktQRFYwAJhdkPLXQ4+RdyjcEuJXEiGBsBcrK14MMxfuQkU6VrmRca3DAAyvNEQZQ3cj8/ZkTA/rmGddENneTBA5FBAnc5WJ9ccGRwO+bosKyT3/hrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588174; c=relaxed/simple;
-	bh=tIr0qQGMz8tkxEgwyXCLC9RUmUeMrlVXDf6JB9RltTo=;
+	s=arc-20240116; t=1790588177; c=relaxed/simple;
+	bh=PGT7LUJhNlIXxf24gKbbhICpLO9Jlio8+ef1uOPt6pM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qfjTUFv9VZkNVtSHWrG2UhjFM5PtN9t2PWaeDm58ZckMMMm2+tGPv68ltKjR1biFKfa8dWkaUpJ7FnPwgUZCo7NAE0uFaX2Z2UVjBGbdERhwcxi3+IV8dc4/PSnjRwRMELgkuX25+YzI+rvpS5q9XbgbdLh3Kuo7dripQI6oCno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FOJGEYjX; arc=none smtp.client-ip=74.125.229.43
+	 MIME-Version; b=QtF5Q4XS+BFS92fR1IpeGtgxzuq2ZL4HRNegvPt8w58BVIEpBbxlZ9Qo9oE6/Hn9TV5NL7vj6x3KE7pY/fFHQAsW9ffuv5KxTY50/CEkMiGp0oIA+Zh/Pq/IfvAJlFB9fRPHqFerYweeXtxhqG+unt02vXxFveP6VYWuafdJS/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AnO3KiTI; arc=none smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FOJGEYjX"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340f56c44b0so989374eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:36:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AnO3KiTI"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34346932d93so1181295eec.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:36:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790588171; x=1791192971; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790588174; x=1791192974; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GDZKF+tHXj8L0jV/brn3WQoevc8uK2OmlwAkvyezCMo=;
-        b=FOJGEYjX/nE97NtrKkrSYCGsaioWx9teIx42Hvd71F1PheY9rI0usfokejPt46gew0
-         W8UHNP0xBWtzjC/NRm9v3vJrHaEYBRHnlS33/oD9Pyn/GvM0x0wod2MGrpuOd1GLWK3C
-         rDHUCJlYi1d1RLXRjb9VwfL/SOZuTnjxDaOAmucrcLAlS2MdaT4uNtJVbIsEGSiijBJ0
-         O2NfyR3AhM31vu8D6LD83FsNlcVlQ3+RI6GUfctboVVnAlYj9+ymBroKw1g0gYXbkd7E
-         jdbvST1O/+wPJ1KxXOiH56yi3xV2xAPGl1gn3E89Ol0TEdcay58rlSe9KyPZpwejkGtY
-         Q/Uw==
+        bh=kiVahB4Rxru6sjg2pkpTDslHHzWfM++l3bxz3pEhprs=;
+        b=AnO3KiTISt8mshj/aHuh9/2Z10ocIZLaztx8mCBoLKL32x5zhksF7HUGKsmKbfTWw9
+         HTyjYdlHqS85XB4TJ6KW81MjfuRzfSm4Xt7Ud/SHbSf/3c/ueA+QRidXgvY1zpERsFz8
+         4yjAOTFIBtcwtxksYmepzTJaXwjBO5cTJOsO9BTXX+uGRhpzFXKNne/vMn6+ZQg2WaMd
+         29H7Gdt35FUkoLrv5Sxe3yAQkR5DQV5HOMLwP0wfQIGZ5n7ZVkBT8RMtJn909B2vPaCq
+         VpMgEQkKjXJEJPnKg5YXSwbiCpOZVKXfeNICTPmHsM+U6z6JIGjkJGwa4rljxvdIE5Yx
+         oyPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790588171; x=1791192971;
+        d=1e100.net; s=20260707; t=1790588174; x=1791192974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GDZKF+tHXj8L0jV/brn3WQoevc8uK2OmlwAkvyezCMo=;
-        b=dxcBNBEoP0OBcpC88uEJFnNnaVAuObot7MIBj+4AEL73TAsf11PFa596efgB/se0hK
-         kYsd63cJuj7Rl69LnEXh7F/eKC3+ARr9SGWKpR1o3Nu0/zvzXaApyF+SIAJzBQFjtKO6
-         vZEIb0cbGbTydUkMMAMJRbT0DlQ/KSok6ZkvtfYpjQMLxcTuxVONKV8DHrRhq8r29N6/
-         wRkp1ruuyGmzRX8yfsM26NkPN0QFlvakxNzlYMHpHtmPZdvE5uLhxROjRllfRz8MZN8Y
-         lyuk0mj3E0q4hTtwGMwqD87ODLlaz2DoCSACJC+O6OtTBSzuosI/o3VAi1CHIra+3mvo
-         5fIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlMbP3Vhikaye/drZ03tFTe4WC5KG3JGh1SktHE4dmjtphEI+oi56ia7o9sobheqpZDJU6g75zfrbyu7M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFkqkyfvsdHuryfXgGxuX5b9ncQW57t9oIsTkbFsbhWS2Jw17+
-	lQY/3VYDLkPGVhlc521o7NLir9ZP6EoBlaPVXhQ4Sn/55Pnd3zsk1tBI
-X-Gm-Gg: AYBFou2CfS0lu20QS/iOZxBC69tdJYIcYlDVtdCZ7XKvLrPtLXS33T3STWTTQjhGYUE
-	GIwWVkQHjfq6ayx/yfWoVQ+M3922xhJp0GoJAGcUTdwq1cAwlSbxsCibwjmCPrQavLH5hWy/3Ty
-	3FQ+Ys4GYvEo6fKNGoJ+f+F104ebQDBf2Yd1NdcXBTnfiFkxtNKiI2DiRdq3uQIXh2Acte7+n4c
-	6zSLvwUC4PDWAyPwGoVWQrOMiA58DSQ7X+hGn7mfv6zMoLHixkCWzV0M1HYKlyToTz1F/7fzcfk
-	rF64AJGQ17dqCvtl0pucT891bnKkgjrZMrMdOFBAWX80hch5j5hw1by6W/ropVsdk/5TPsVOKzW
-	LBala0iZK/pJkwYrkA02Oo2N4drncCEAaX4Q2WbzCXFgJgCwlLA8lPNxtEEE4mtmAgCiKDAFmL0
-	0w2CxDS3jx1y+cL28WIlWlIIFqojuPk9zvH6JEMdRZQFZr9Muuy+3KAXZvtC/yd44zocCsbBQ/P
-	YMxgGx3PUVg42Bu+LcjhlW6aelMd9bQFzSEvYD8aPzYFPTQif7mU6sml9keE5nka98Z8woYiXLc
-	XUC4ACAzQkScIMUOzqUtNflqphr67G1k1APAoTkESJLy9Z4pHRYZ2NjEF4u9SxEX7zsn4A+jUA=
+        bh=kiVahB4Rxru6sjg2pkpTDslHHzWfM++l3bxz3pEhprs=;
+        b=cCvMqY0a5muSbegroHOyjEixZmzN5egivxRwDBtcdBUqFSBL3xg0Vc+K7wg4oNcE70
+         dEowm+O0x1v9qunSCC1bdYFeSrAWAjaRbC640FF9gg589qtb5HrEsLEtJ8SwV2MQzz2+
+         Tzgu0WbA7s3fHjg2g6V3F1V+APEX5+k1qIVvFnt9lQunxZnpZLFepVOvv1zUashb4P5C
+         IxtTi+4FKFMLEGHjxw1Uv3TNRu5u2HsBnIXfT5nodadJdoxY0H9v40JlBcWRK0pIMdwr
+         TYQLa3Gj2FuCtwn0/+skOV4TBuz/yXbJFv9RQ9WMKSlSja61P4eDrFMoy8AeTMtlwWpc
+         KO7w==
+X-Forwarded-Encrypted: i=1; AKwUvByFPslWVeLJFRsJgCiHVWVmP2xGSKLLsxjeDuy8TwWSvifMhp8gcK69nCatVa6gE3NDIYVCwlL9GQZqKqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnxZduT8SB0Zdfa0VG1IUzb4CKi8DwTjeUg/3i392g+k1C6u2O
+	AkwSCpCOkI/1hjOdn15iHM/HiVytah1QJrcdvb/KlluDiBufzeXF8rSyd2jsM0pl
+X-Gm-Gg: AYBFou2fiMELSPkFK7WUv4o/JJRRjc1p9KqlVutaQIA0K1Lza6jCU1Ya3IHGucu5FqI
+	7HBo6UZYnNrh9Dc//Bu+fe6MStFwDBksZEo+AXP1RA9ByMPB2/27nBxXYREJ0eyhdHcGL23Ue+e
+	1lUg7WzeEEgYrVM9QzUuVJ81lbQ2bdf7q4ezhERlhmN/tJTlpSwneOd8e2rG1Nq6cDNaL/lEfLM
+	Sp9o7PSMjMiTs+0DgbeDd8FJAFRhsmkYqtxNmhyB7ArLlNyPDzQQQ7uXW2rALj73e6Hs3d/38N/
+	bOsr1cQqizwoLHIDLvX2CvVeDtCRAX71SiigPVTaHroAsqAzn4nCUS8TA7Y+92IyId4wIUntdOj
+	Qp8QWuGFVzPzLyjjnxayNnuHFDwJ6hBD8xBqroEWtBZPZ2/U2uGE3C5/EVR1scOwZAHgPGjSCju
+	ggOcOW4rsxf1zlQGi740yxSChx3L6xUuYK8SpfK4ogF1Gm0bWqxMYQjbhnPxDFIFXN4xYpxMlOS
+	HXhNDUI/XnvAtRZX9TGUuzhAM7mWOwNy3nr7LoXAw14uCW5xexrzrlVjKbblpuswQ2Rakfs8gC2
+	OkB6KxsNGt2Y9HaQVKMmOuz/gQQrJA0DtxDk6WhJkw6QVA4XmyAsQHXq9ekyOpJZcHCLNAsf1w=
 	=
-X-Received: by 2002:a05:693c:87d7:10b0:343:8685:d8f5 with SMTP id 5a478bee46e88-343868677bfmr7686722eec.29.1790588170569;
-        Mon, 28 Sep 2026 02:36:10 -0700 (PDT)
+X-Received: by 2002:a05:7301:fd05:b0:33b:ae55:7dc7 with SMTP id 5a478bee46e88-342702bdf40mr8537067eec.11.1790588173865;
+        Mon, 28 Sep 2026 02:36:13 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.116.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343539989casm19014358eec.14.2026.09.28.02.36.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343539989casm19014358eec.14.2026.09.28.02.36.10
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 02:36:10 -0700 (PDT)
+        Mon, 28 Sep 2026 02:36:13 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
 To: John Stultz <jstultz@google.com>,
 	Thomas Gleixner <tglx@kernel.org>
@@ -69,9 +69,9 @@ Cc: Stephen Boyd <sboyd@kernel.org>,
 	Eric Dumazet <edumazet@google.com>,
 	Joel Granados <joel.granados@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] time/jiffies: Don't saturate usecs_to_jiffies() on a truncated limit
-Date: Mon, 28 Sep 2026 15:05:59 +0530
-Message-ID: <20260928093601.79224-2-jain.sm@gmail.com>
+Subject: [PATCH 2/3] time/jiffies: Use the exact HZ ratio in jiffies_to_clock_t()
+Date: Mon, 28 Sep 2026 15:06:00 +0530
+Message-ID: <20260928093601.79224-3-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260928093601.79224-1-jain.sm@gmail.com>
 References: <20260928093601.79224-1-jain.sm@gmail.com>
@@ -83,138 +83,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usecs_to_jiffies() and __usecs_to_jiffies() return MAX_JIFFY_OFFSET, an
-effectively infinite timeout, when
+When TICK_NSEC is not a multiple of NSEC_PER_SEC / USER_HZ,
+jiffies_to_clock_t() and jiffies_64_to_clock_t() convert with
 
-	u > jiffies_to_usecs(MAX_JIFFY_OFFSET)
+	div_u64((u64)x * TICK_NSEC, NSEC_PER_SEC / USER_HZ)
 
-but jiffies_to_usecs() returns an unsigned int, so the limit is
-MAX_JIFFY_OFFSET microseconds truncated to 32 bits, an arbitrary value.
-With HZ=300 the out-of-line jiffies_to_usecs() also overflows 64 bits in
-j * HZ_TO_USEC_NUM, and the limit ends up at 1431649098 us on 64-bit and
-1431649781 us on 32-bit. Every timeout between about 23.9 and 71.6
-minutes then becomes infinite: usecs_to_jiffies(2000000000) returns
-MAX_JIFFY_OFFSET instead of 600000. For instance, a PIE tupdate or a
-DAMOS watermark interval of 30 minutes never fires at HZ=300. With
-HZ=100, 250 and 1000 the limit is 4294947296, 4294959296 and 4294965296
-us, so there only the top 19999, 7999 and 1999 values are affected.
+TICK_NSEC is NSEC_PER_SEC / HZ rounded to the nearest nanosecond. When
+HZ does not divide NSEC_PER_SEC it is slightly short (3333333 ns at
+HZ=300), so a number of jiffies that is exactly a whole number of clock
+ticks converts to just below it and is truncated to one tick less. With
+HZ=300 and USER_HZ=100, jiffies_to_clock_t(300) is 99, and every
+multiple of 3 jiffies is one tick short.
 
-The check is not needed at all. MAX_JIFFY_OFFSET is at least 2^30 - 2
-jiffies and HZ is below 12288, so UINT_MAX microseconds are far below
-MAX_JIFFY_OFFSET jiffies for every supported HZ. Drop it, update the
-kernel-doc, and add a static_assert() for the assumption.
+The tick does advance jiffies every TICK_NSEC, so as a measure of
+elapsed time the old result is accurate to about 1e-7. But intervals
+that userspace sets in clock ticks are stored with clock_t_to_jiffies(),
+which uses the nominal HZ ratio, as do jiffies_to_msecs() and
+jiffies_to_usecs(), and they no longer read back. With HZ=300 the bridge
+defaults read as forward_delay 1499, hello_time 199, max_age 1999 and
+ageing_time 29999 through sysfs and netlink, and each read-modify-write
+through sysfs loses one more tick (1500 -> 1499 -> 1498). The neighbour
+sysctls that use proc_dointvec_userhz_jiffies() behave the same way:
+net.ipv4.neigh.*.retrans_time, anycast_delay and locktime read 99
+instead of 100, proxy_delay reads 79 instead of 80, and
+net.ipv6.neigh.*.anycast_delay reads 99. Inside the kernel, IPv6 route
+lifetimes from router advertisements and netlink go through
+jiffies_to_clock_t() and back through clock_t_to_jiffies(), so at
+HZ=300 those routes expire 3 jiffies early.
 
-The bogus limit was also hiding a wrap: when HZ divides USEC_PER_SEC,
-_usecs_to_jiffies() rounds up with (u + USEC_PER_SEC / HZ - 1) in
-unsigned int, which wraps for u close to UINT_MAX (usecs_to_jiffies(
-UINT_MAX) would become 0 at HZ=100). Round up with a remainder test
-instead. The reciprocal multiplication used for the other HZ values is
-done in 64 bits and does not wrap for any 32-bit input.
+Convert with the nominal ratio, x * USER_HZ / HZ, like
+clock_t_to_jiffies() does. With USER_HZ=100 the result does not change
+where TICK_NSEC is exact (e.g. HZ=250). On alpha, where USER_HZ is 1024,
+NSEC_PER_SEC / USER_HZ is itself truncated and the old code returned one
+tick too many for large values (jiffies_to_clock_t(976562) == 976563
+with HZ=1024); that is fixed too. The value returned by times() now
+advances by exactly USER_HZ ticks per HZ jiffies. The product also
+overflows much later than x * TICK_NSEC did in jiffies_64_to_clock_t().
 
-Values above the old limit, including UINT_MAX, now give a finite
-timeout (at most about 71.6 minutes) with every HZ. No caller uses
-UINT_MAX as an "infinite" marker; the callers that clamp to UINT_MAX or
-range-check the result (TCP_RTO_MIN_US, TCP_DELACK_MAX_US) keep working.
-
-When HZ does not divide USEC_PER_SEC, jiffies_to_usecs() is out of line,
-so the check also defeated the constant folding: every
-usecs_to_jiffies(<constant>) compiled to a call to jiffies_to_usecs()
-and a compare. Those now fold to a constant.
+The TICK_NSEC based conversion predates git. It made sense while
+TICK_NSEC was the tick length measured from CLOCK_TICK_RATE, when x86
+returned 99 for 300 jiffies at HZ=300 and for 1000 jiffies at HZ=1000.
+Commit b3c869d35b9b ("jiffies: Remove compile time assumptions about
+CLOCK_TICK_RATE") made TICK_NSEC exact for HZ values that divide
+NSEC_PER_SEC, but left the others rounded.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: LLM
 Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
 ---
-Checked in userspace over all 2^32 inputs, with the current code and
-the code from this patch both extracted verbatim from the tree and
-built with the generated timeconst.h, for every Kconfig HZ value (24,
-32, 48, 64, 100, 128, 200, 250, 256, 300, 500, 1000, 1024, 1200),
-32- and 64-bit. The KUnit test in patch 3 fails without this patch on
-UML x86_64 (HZ=100) and on qemu x86_64 and i386 with HZ=300, and passes
-with it. Prepared with Claude Code (Anthropic), model Claude Opus 5.5
+The KUnit test in patch 3 fails without this patch on qemu x86_64 and
+i386 with HZ=300 and passes with it; UML (HZ=100) is unaffected. It
+also passes on UML x86_64 with HZ/USER_HZ temporarily edited to
+1200/100 and 1024/1024, both of which fail without the series. In
+userspace, with the code extracted verbatim, both functions equal
+floor(x * USER_HZ / HZ) for every x below 5e7 and invert
+clock_t_to_jiffies() for every whole-jiffy clock_t value below 2e7, for
+every Kconfig HZ value with USER_HZ 100 and 1024, 32- and 64-bit. The
+bridge and neighbour values above were read back on an x86_64 HZ=300
+kernel in qemu, before and after this series.
+
+Possible follow-up, not part of this series:
+tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c and bpf_iter_tcp6.c
+carry a copy of the old TICK_NSEC formula so that they print the same
+values as /proc/net/tcp. The test only does a dummy read, so nothing
+breaks, but at HZ=300 the copies no longer match the kernel.
+
+Prepared with Claude Code (Anthropic), model Claude Opus 5.5
 (claude-opus-5-5).
 
- include/linux/jiffies.h | 22 ++++++++--------------
- kernel/time/time.c      | 10 +++++++---
- 2 files changed, 15 insertions(+), 17 deletions(-)
+ kernel/time/time.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/jiffies.h b/include/linux/jiffies.h
-index bbd57061802c..d3f2663e4435 100644
---- a/include/linux/jiffies.h
-+++ b/include/linux/jiffies.h
-@@ -575,7 +575,8 @@ extern unsigned long __usecs_to_jiffies(const unsigned int u);
- #if !(USEC_PER_SEC % HZ)
- static inline unsigned long _usecs_to_jiffies(const unsigned int u)
- {
--	return (u + (USEC_PER_SEC / HZ) - 1) / (USEC_PER_SEC / HZ);
-+	/* Round up without overflowing for u close to UINT_MAX */
-+	return u / (USEC_PER_SEC / HZ) + !!(u % (USEC_PER_SEC / HZ));
- }
- #else
- static inline unsigned long _usecs_to_jiffies(const unsigned int u)
-@@ -589,14 +590,10 @@ static inline unsigned long _usecs_to_jiffies(const unsigned int u)
-  * usecs_to_jiffies: - convert microseconds to jiffies
-  * @u:	time in microseconds
-  *
-- * conversion is done as follows:
-- *
-- * - 'too large' values [that would result in larger than
-- *   MAX_JIFFY_OFFSET values] mean 'infinite timeout' too.
-- *
-- * - all other values are converted to jiffies by either multiplying
-- *   the input value by a factor or dividing it with a factor and
-- *   handling any 32-bit overflows as for msecs_to_jiffies.
-+ * conversion is done by either multiplying the input value by a factor
-+ * or dividing it with a factor, rounding up. Any unsigned int number of
-+ * microseconds is far below MAX_JIFFY_OFFSET jiffies for every supported
-+ * HZ, so, unlike msecs_to_jiffies(), there is no 'infinite timeout' case.
-  *
-  * usecs_to_jiffies() checks for the passed in value being a constant
-  * via __builtin_constant_p() allowing gcc to eliminate most of the
-@@ -611,13 +608,10 @@ static inline unsigned long _usecs_to_jiffies(const unsigned int u)
-  */
- static __always_inline unsigned long usecs_to_jiffies(const unsigned int u)
- {
--	if (__builtin_constant_p(u)) {
--		if (u > jiffies_to_usecs(MAX_JIFFY_OFFSET))
--			return MAX_JIFFY_OFFSET;
-+	if (__builtin_constant_p(u))
- 		return _usecs_to_jiffies(u);
--	} else {
-+	else
- 		return __usecs_to_jiffies(u);
--	}
- }
- 
- extern unsigned long timespec64_to_jiffies(const struct timespec64 *value);
 diff --git a/kernel/time/time.c b/kernel/time/time.c
-index 079ab34f61db..470195e88ca0 100644
+index 470195e88ca0..f19e742c9562 100644
 --- a/kernel/time/time.c
 +++ b/kernel/time/time.c
-@@ -591,16 +591,20 @@ unsigned long __msecs_to_jiffies(const unsigned int m)
+@@ -684,7 +684,11 @@ clock_t jiffies_to_clock_t(unsigned long x)
+ 	return x / (HZ / USER_HZ);
+ # endif
+ #else
+-	return div_u64((u64)x * TICK_NSEC, NSEC_PER_SEC / USER_HZ);
++	/*
++	 * Use the nominal HZ ratio like clock_t_to_jiffies(); TICK_NSEC is
++	 * rounded when HZ does not divide NSEC_PER_SEC.
++	 */
++	return div_u64((u64)x * USER_HZ, HZ);
+ #endif
  }
- EXPORT_SYMBOL(__msecs_to_jiffies);
- 
-+/*
-+ * UINT_MAX microseconds are far less than MAX_JIFFY_OFFSET jiffies for every
-+ * supported HZ, so usecs_to_jiffies() never needs to saturate.
-+ */
-+static_assert((u64)UINT_MAX * HZ / USEC_PER_SEC < MAX_JIFFY_OFFSET);
-+
- /**
-  * __usecs_to_jiffies: - convert microseconds to jiffies
-- * @u:	time in milliseconds
-+ * @u:	time in microseconds
-  *
-  * Return: jiffies value
-  */
- unsigned long __usecs_to_jiffies(const unsigned int u)
- {
--	if (u > jiffies_to_usecs(MAX_JIFFY_OFFSET))
--		return MAX_JIFFY_OFFSET;
- 	return _usecs_to_jiffies(u);
+ EXPORT_SYMBOL(jiffies_to_clock_t);
+@@ -729,12 +733,8 @@ notrace u64 jiffies_64_to_clock_t(u64 x)
+ 	/* Nothing to do */
+ # endif
+ #else
+-	/*
+-	 * There are better ways that don't overflow early,
+-	 * but even this doesn't overflow in hundreds of years
+-	 * in 64 bits, so..
+-	 */
+-	x = div_u64(x * TICK_NSEC, (NSEC_PER_SEC / USER_HZ));
++	/* Nominal HZ ratio, see jiffies_to_clock_t() */
++	x = div_u64(x * USER_HZ, HZ);
+ #endif
+ 	return x;
  }
- EXPORT_SYMBOL(__usecs_to_jiffies);
 -- 
 2.43.0
 
