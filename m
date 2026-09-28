@@ -1,202 +1,407 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2F049D59B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591580; cv=none; b=cmWVO364JoNbRquTVG19MKSs/BPwodxnMNP3W8W9tuOZfew9OOkaV/QBR5N1J1yba1GHYAkqhw5gBInfjqPSQeoVWTVlU0MnvqzAsAYBu7gvpIJSpLys7eEaux+jkSmYCANolPe5v6t7waebP36ueJy0QxLQnH8/Zihfdbb4RS0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591580; c=relaxed/simple;
-	bh=2XNAhu9CxceJI8vwdqpOVTsl9oWO7hi2cpJ1xfPfc28=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ep2GHmJqz6FqS+/5w2LUsDgOqEkEaSezOb5ELIfnUOjWA5zjvlFvFxGjqcjBYCajWNq7I7yfgatBNeEIux1SFO5gohlW1rCMX1hIvyI2KsEYDuiJqQ4vhT6Y1ssanIEKJ8R0reYfwTb5Hcr8Zm3Japazu4gTOCWdxuIE+NY76VA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M7ZuDK+7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i0q8xq0q; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C28249B465
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790591589; cv=fail; b=cT63uTToWwhzxTSZh7kf4QXBJr+bXeTZqQLndqX3ahmnMsKpu8EdbYbpjbVetCdaffJV5MJ8iqYYJaE6CFFK/5nuihSyMP88ktcQ1v+Jc0YX9OYT3/luHQtsPye1Az8iR7YeQL9zXvDUIuNbOKEjudzG63wsPVKcz4yrcSAxjUU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790591589; c=relaxed/simple;
+	bh=fTVS94wK0CjPQXBks2VnvbZTCfLz2SPZL4Yt5O9xKok=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZCBf2H/G5wvji70Oa6zVaAZOAqGDSlOqS0QEIn+KdEIpgIhvjMJa2aZSn+uQmQmK5tWNA2nC9DYjE28Yz4b1Tu57OztLuGt/8HqMhTawbukLg5YEQSjEfJ+kj/N13x8nZ7Qw/1oe5/klcWuxPptr5hqZfZTBA3SK8WRPzYkHokw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G7CY2SR1; arc=fail smtp.client-ip=52.101.52.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M7ZuDK+7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i0q8xq0q"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9M44j322560
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vxstwlbKuBUJawkY+2kMsXbkr7mK4XNxlqUWYk9+Y44=; b=M7ZuDK+7COYZxi0/
-	Ix6tg4JvaZXPRQcI7YYJjAMW9atxYiiEaKdJheVVdQsM0/ONof3w3FfaH2K1U5Ks
-	d7aFhL/jQOVGrZryfFZROOA74sAQO7G7KA/5/78eeazdV5E3e8EZ5W5VzvH60hL0
-	Q4VdKsIfuUxGTf34swjxvZEbyauWo5uqx4niqQKFCBJPfB2iXBfxSjn31GdsHEeg
-	ISBBzhX1ZHjRsdgZ183v72vbCLFLljmudOUSeELEEA1S9EkWK4x4dD6hBSsl/s7R
-	bJhMmKL4gVN2WuU3sgiFDXzS04m9U1Lavjd0/DyGdAneJbaPAZ9ANy9M90hU5aq9
-	ZbYnrA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq1qfy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:55 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a2639398cso4207802b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790591575; x=1791196375; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vxstwlbKuBUJawkY+2kMsXbkr7mK4XNxlqUWYk9+Y44=;
-        b=i0q8xq0q5FrEoEKlkdovtSj5HmwBMAHx4ZlRjVuB+NUeAdlJXLuCBV7RkODmbRr1Rn
-         0zIrOnMJEWARzEEy6QajnbScGP8251JqYZJtSkjdeKycq7ahG/WJPiSaV5wCzd/SB4jv
-         +VEC/eJjMZ6m585hXIv6y1YeLbgxsWIEO+NQX/5Ij4897TkwH2ZTQz0st/8swuu8rnY/
-         WqUqeHZISJ/KqxbJfbaqMGsTd2YpSYiQUbEoI7cu0DNT1TO7aghCSx8srtsKTdckrqib
-         BJNPNW27zSL+P3a3QaUYfmY9zHbSjWx9CdtdW5souQj9ZLebJujAtRbXRMTqyhhYvS1x
-         sL6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790591575; x=1791196375;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vxstwlbKuBUJawkY+2kMsXbkr7mK4XNxlqUWYk9+Y44=;
-        b=Kai26KT2kDyiUkDMa5ynFctvXuAFdDhkWbqJ3mRAr3GhEBLwYI90nLJTUM9CH1H1yc
-         sYh8GKj1cok48Mj2Mw/lgbFOBXJv7nQVCGOmJ9Mp/LbMC4cmkVtvOh5fAqD0d4dd0edF
-         Goo1OiFWP3jTYcqApY44oMB1oOFaMdV8+KLAgyK/1dc77CQqiJRemAWOEvrhdCUzNe++
-         Zn3Uk1dN2pD+mRraYBGWxtLF+WtRzDSIH7zDDgW6ReJhzGZSbGFath66EOxhTlv/qxXw
-         EvGgk/QCMjMZkbQuMjat3MVJC2cgnPBstM5s/5NeZAsH18HIAehKO25fyMWIqkwuskxE
-         NBwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLXiabQFOO+pm9OeRbllAwWxPqVZ5mty46kQVvjC3Ljv89xzU3iUYlEn4sirEM5vf5yXLXhMYTPAWkUZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7lgBHPMiITazOHG0I847fksjiWeorc2xNYzAuXhvDfZKA9PWg
-	oSgDvVCkGIfZOxtDmiuUOQDRwS+xQeyaHLr5Mh2Zumd+0WPrcLiwuop9jG3VaGDfbbOG0QE1vKp
-	01/KnznR6n03lBRJfLq8DxxShzZBRR9Cu3xZC/GKvSabqMH/PPEaMYmY9kUAzrY5xW5eSgDQewa
-	E=
-X-Gm-Gg: AYBFou2nM00nELECmHNlMysr0gfP+Z3uARwL1FGVphIH5rIIOZFJSvgpg+qTlrc561c
-	ZHv8gWo0S1dnCS37UjnadTdU4cejv/qrrjxyjQWQ/6cBamSz2kKURu4sA3aEM/i+TxCZ9s22E6q
-	YwVF8KDYZ6Egz3Sq47fe6vnRXYkN6oSAXqWOaDnmd3cHJiZ+4fT1tqbI6eqAyrrel1xgLRo/6zW
-	ggrE2Te5xtoo3acOIzPJ/2SNK0REglYZCpjL+SN7eZoiaHbz0DdVSs9x6pa4PbrssPptMWccDj7
-	Mdwc8TO6AuSpP+yoyQrrFC5q0hMFlfjp91eQ+ZnHyBfXvBrMHA9dMNvQAUsUV2MHjhtUZ454bNC
-	G+sD8wNufiSqpQN0TfeJ+0GDAPaNuJMSF
-X-Received: by 2002:a05:6a00:9095:b0:857:7337:5dba with SMTP id d2e1a72fcca58-8802a7ad603mr6283594b3a.24.1790591574572;
-        Mon, 28 Sep 2026 03:32:54 -0700 (PDT)
-X-Received: by 2002:a05:6a00:9095:b0:857:7337:5dba with SMTP id d2e1a72fcca58-8802a7ad603mr6283581b3a.24.1790591574117;
-        Mon, 28 Sep 2026 03:32:54 -0700 (PDT)
-Received: from [10.218.31.237] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea88a1a2sm3854645b3a.25.2026.09.28.03.32.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 03:32:53 -0700 (PDT)
-Message-ID: <ca3c86b6-c837-4298-a1ab-4fc61a2f8a0a@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 16:02:47 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G7CY2SR1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l1/Ra+CbubH9uwcuhgVmMxC1QRJ+iu4Pj4Pm5/qMzO1WzIxA0Z3LAiPYAHZDkp4t6Ot+IZAJX33ZEk/ucRLy2BH2LEiabC30UmboZvQdykVxjRhJhwuPZC54PwKwtbhZ001GRPrl3vJWWWT/0JsrJ/YBv7wtz0GJ2ozOy4gDSx6mOL0qTKmDyMF7OEPZakIHbMwBt7rUjTFqZO7k6w226w8K2of9DTbB/RHuWT9etIkI6+8tPdVi6LtevfEDA+cfaYfqc/XNd7U+yK3Ja7BeQFanQ4C0Y2mtaGul6QRuJUBJSG26breHPNnZoT+FISWhmpvKVXxAzqWkGYsynGZ6Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+a7B5hxG8Nnl6NtXAWYtbJBZSIAIc/LOk8mpMJnOBCY=;
+ b=CwkFLW1SrA4CupE2umXxHeFfRdlxkN0eJIbF9pLE22CZGuYQhokW92mEi4N6rwkmnBNJKmiLnrotRln8vQZxbstBauxlu5HEwS84oCnNC38DX8LNihXxGrwRHBg9C4ku7IS4s4LBCBocg1ZyWAkTN/ILtMHc5BhYANVqwWzMKqeSy4nP3HIGzVPP81oKtDF6w8EYaULWShUhtlESaimOn0nKYLfj8eU0XtKRXUEJpp+LvqPZRATJSQObhnbz01aAML9DOfe+ElIdcePPD7GbNtaLpSpYguh6grft7Yly1W/QkyD2UaOdMg0xaToK2L09G6vXmOJ7AJDwNte5HijezQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+a7B5hxG8Nnl6NtXAWYtbJBZSIAIc/LOk8mpMJnOBCY=;
+ b=G7CY2SR16iECUyJnSrllsyOViyKzSSmadqVx3ytgchR+FCLKnUTIdfELStr4C8qIUJ37+jukttzE6BaNxmG2Lah5gpp4uld9qMW90K/k/Z3rawBLdV7yzuO2X6036T0U+XxFyEjWBL099TAzR/D3X6G+g2+DseDEudZ4pki2P5BAWlTef2zyDSnFyb4vs7lQnCoauG3e2AwK1882E1M4h56BwWaoIJlQZLAqBgr5SOCVfrrVtnuQ/5XRp59VNXNgBMcHq+fBN0Yg+s2q1s+Azq8LnnLNM3TMmc2+KnMFj+8YGacwsO24E/GxDxHzSqYGN+KRlhpLpq+QCEBO3SJbVw==
+Received: from BY1P220CA0046.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::8)
+ by PH7PR12MB6609.namprd12.prod.outlook.com (2603:10b6:510:213::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 10:32:51 +0000
+Received: from MWH0EPF000C6193.namprd02.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::7a) by BY1P220CA0046.outlook.office365.com
+ (2603:10b6:a03:59e::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 10:32:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000C6193.mail.protection.outlook.com (10.167.249.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:32:51 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 03:32:34 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
+ 2026 03:32:33 -0700
+Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
+ Sep 2026 03:32:25 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>
+Subject: [PATCH v3 26/31] gpu: nova-core: vgpu: send GSP plugin configuration parameters
+Date: Mon, 28 Sep 2026 13:28:29 +0300
+Message-ID: <bce58d597d03e212398fde58eb935c2aed560cd3.1790580105.git.zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
+References: <cover.1790580105.git.zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 0/2] net: wwan: qcom_bam_dmux: Add restricted
- DMA pool support
-To: Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn
- <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: -gnUNGgfyRkWiw-SPiyEpdHFNJ1-OhEg
-X-Proofpoint-GUID: -gnUNGgfyRkWiw-SPiyEpdHFNJ1-OhEg
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX8LsW0XFwULXZ
- AMWXZ8dPlq/JVBM/mzHr2y97sSMmRwhqCCQyWaWwLjPK6PemtWVCA+vWldD4OYv6s0Y2KDDVZNh
- lvMWK1QG9xktjecgZGHG4dJ92VPgB6w=
-X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba4257 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=farQdCg5IzuLFFoMD6QA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX7jjlAmv+cauP
- 2AZ/B43pAIRjr8KRHEG7V6uMSW3NKxCsA2cC3fUInktr0nbHi7Yy7TKGBWK8rzFMD51fgxjn7Hw
- S41gp1e0T+3rVNXoo83x5tF8ogYEdf0ipTBlIvTANA3vFOZSHQvfYCfRp79OIeSP1UjjZXPE5wn
- iwZbKMru3VmctCMi/WiXBsO5qRhWtUcjD1qOlLtx98t3gX2H6L8u3HFxRlrctW3S09cEri17l7D
- ZnjEPYrUOfh7w9B2wthPxlkRDtz+6ZIWXcLk5TwzK3bvhstNkoY9F+UCf9XlyGyKC3aZvzqM3CN
- 6IVk7O1URT5QGRlJaTo6Cyn/QVFvKUaTZzRmmTSQ4tLA6LWh/en5gI3EdclXEy4E4zECm5mcBJX
- GHYWnGvau9eacV4ViNynQrnJc8cV7EJRvS7eG056K5sQCQ7c2iDxfzX0UMfN5dJ67dXvDHe+hsW
- lY1yRxm1pV74W9G3tDg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280041
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6193:EE_|PH7PR12MB6609:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7abb5729-8075-4679-7e06-08df1d4bd939
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|23010399003|36860700016|3023799007|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	0QhspRyINaWfp9sAOASyuMn+2nkD74omvpc2HazYNkXOZaVaB3hJFS5XbmsZm3PDDr00vskaNjev3QgPAn5Zc2h1W5YxAaCmVYU2TGdQ0IuQz601mU1sdS3jwtcYqp+347Fjl5Q7iR3z2w47KKVpIx0x1SribjmR8I2kj3Ocuo28CJMgYnO1/rQlpwvMBX7ogALrtmMLIDB8Oz0q0tN14YL8pyAcy5eCQ08jMHukY9nRE/nwCooK3+Gor8ELZb8mE3Fyx9+pZWnYNWQRYTHziltI/SlaieeAOxI5vaG/j4S/odZow7JOQPaLLNPoR0Wulkg9hrPu5/KRZuCPsc/ZXNMLVYN/uBA5S2Xoe5vZeTVS5YRVplGDOu/QM76N1lt2UbfXa48w/tRt0oLZdSHUAJOV68s7jULjIv6Mg9EFYG4GkwGh1jPovtRf0iAYslbJX0OTH+T5giyX1D/Q93hN89o8/ff99ZWhaeZPJj0y6REiDQDNRHc23WTdrreGkMFC3o4h/yspGox93RPAKLDw/gofNR6qg5qUCw0pAZBqJRlipy0X0G1C2FJUKYplehdQKIK82UNJTk6m8EbXbGqFaucSZeFlZFV8c0RYH+UWfaIEgU1nIjxI3EHhO9+aJ0Gp8YsDsH0uwd6KumIHZ/6pl891Nv0LZ5bvZevUwiH6BBWwnKdzEeWQAMHRiqWD/bYds7AxLNpEqHMvEeCOAdSy7A==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(23010399003)(36860700016)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	2EGSnSStWA3MhJK8wKXw1wEi3JKLhxn9REEdIZrFMHdHRBy9hdS9s2RnQw7f1GT8Y93NCrpPinQKP6RdTnEJaS0EblR0u6CcFmMEPDTDG4xKZaee9PjJRRgUYFF/GqWQ9yWKFpO5lfXvXLH1d/ahGSkU1G8k9MdyBofOOONPKGH2SmD9dQ06VdVjUrbvOHIBz9l8+qZzrAf1UhNXSAKkr3FVYvi1nsHBhO05QYm4OLyVHwdZcEEpG5C0BUr3edzLwIR6nc7lypoUDKHZUAZ8vJ9hOdZvlMhtsng0le2qXDhkXU1gLp0mTi630MmG9aHztwbnvI1A+o21iSNhLfZKgR7NWQpPs8wWCxOiPRC4jnjRuK4RTwtWToElq4+GTpd6xk9n4bSeEgsksCIeGgr4e2A6suIhTGGagDQ4LhCwkQZseGFIUCu8hNJqQMfJILtU
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:32:51.3163
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7abb5729-8075-4679-7e06-08df1d4bd939
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6193.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6609
 
+The GSP plugin needs instance identity, channel allocation and host
+parameters before it can serve guest requests.
 
-On 20-09-2026 08:32 am, Vishnu Santhosh wrote:
-> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
-> domain with restricted access to system memory. BAM-DMUX DMA mappings
-> and BAM descriptor FIFOs must therefore be constrained to a designated
-> memory region that can be shared with the modem. Accesses outside that
-> region can trigger an XPU violation.
->
-> Add memory-region and qcom,vmid properties to the BAM-DMUX binding.
-> When qcom,vmid is present, the driver SCM-assigns the entire restricted
-> DMA pool to the local and remote execution environments before requesting
-> the DMA channels.
->
-> The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
-> controller references the same pool, its descriptor FIFOs are covered by
-> the assignment as well.
->
-> A related binding change allows the BAM DMA controller to use the same
-> restricted pool for descriptor FIFO allocations:
->
-> https://lore.kernel.org/all/20260920-qcom-bam-dma-vmid-ext-v2-1-4dbbff0e57c8@oss.qualcomm.com/
-> ("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
->
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Replace the Shikra-specific compatible and coherent RX allocation with
->    memory-region and qcom,vmid properties.
-> - Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
-> - SCM-assign the complete pool before requesting the DMA channels.
-> - Validate the remote VMID and restricted DMA pool configuration.
-> - Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
->
-> ---
-> Vishnu Santhosh (2):
->        dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
->        net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
->
->   .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 +++++++++
->   drivers/net/wwan/Kconfig                           |  1 +
->   drivers/net/wwan/qcom_bam_dmux.c                   | 95 ++++++++++++++++++++++
->   3 files changed, 134 insertions(+)
-> ---
-> base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
-> change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
->
-> Best regards,
+Encode the configuration as an NVKV stream, prefix it with its word
+count and send SETUP_CONFIG_PARAMS_AND_INIT after protocol negotiation
+through the instance's PluginRpc channel.
 
-Hi Stephan,
+Derive the host's opaque device identity from the VF DBDF within the
+supported 16-bit PCI segment namespace. This identifies the local device
+without imposing a migration-persistent identity.
 
-I followed your suggestion and updated v2 to use the restricted DMA pool.
+Describe the supported whole-GPU configuration and distinguish the
+optional VMM capability bitmap from the separately reported migration
+features. Encode the host page size with the kernel's infallible
+conversion.
 
-Please let me know if this approach and the implementation look reasonable and
-meets your expectations.
+Co-developed-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/gpu/nova-core/vgpu/commands.rs       |   9 ++
+ drivers/gpu/nova-core/vgpu/fw/commands.rs    | 135 +++++++++++++++++++
+ drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs |  17 +++
+ drivers/gpu/nova-core/vgpu/instance.rs       |  16 +++
+ 4 files changed, 177 insertions(+)
 
-Thanks,
-Vishnu
-
+diff --git a/drivers/gpu/nova-core/vgpu/commands.rs b/drivers/gpu/nova-core/vgpu/commands.rs
+index 268c3043d88b..ec40a960069b 100644
+--- a/drivers/gpu/nova-core/vgpu/commands.rs
++++ b/drivers/gpu/nova-core/vgpu/commands.rs
+@@ -169,3 +169,12 @@ pub(super) fn negotiate_plugin_version(
+ ) -> Result {
+     rpc.rpc_call(dev, RpcMessage::VersionNegotiation, &[])
+ }
++
++/// Send an instance's encoded configuration to the GSP plugin.
++pub(super) fn send_plugin_config(
++    dev: &device::Device<device::Bound>,
++    rpc: &mut PluginRpc<'_, '_>,
++    config: &[u64],
++) -> Result {
++    rpc.rpc_call_nvkv(dev, RpcMessage::SetupConfigParamsAndInit, config)
++}
+diff --git a/drivers/gpu/nova-core/vgpu/fw/commands.rs b/drivers/gpu/nova-core/vgpu/fw/commands.rs
+index 915585706174..e3b5198e9c80 100644
+--- a/drivers/gpu/nova-core/vgpu/fw/commands.rs
++++ b/drivers/gpu/nova-core/vgpu/fw/commands.rs
+@@ -9,6 +9,7 @@
+ use kernel::{
+     alloc::ArrayVec,
+     bitfield,
++    num::casts::usize_as_u64,
+     prelude::*, //
+ };
+ 
+@@ -35,6 +36,7 @@
+ #[repr(u32)]
+ pub(crate) enum RpcMessage {
+     VersionNegotiation = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION,
++    SetupConfigParamsAndInit = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT,
+ }
+ 
+ bitfield! {
+@@ -263,3 +265,136 @@ pub(crate) struct VgpuProperties {
+ impl VgpuProperties {
+     const STRING_LEN: usize = 64;
+ }
++
++#[derive(Clone, Copy)]
++#[repr(u32)]
++enum HypervisorType {
++    Unknown = 4,
++}
++
++impl From<HypervisorType> for u32 {
++    fn from(value: HypervisorType) -> Self {
++        // CAST: `HypervisorType` uses the wire field's `u32` representation.
++        value as u32
++    }
++}
++
++#[derive(Clone, Copy)]
++#[repr(u32)]
++enum CpuArch {
++    Aarch64 = 1,
++    X86_64 = 2,
++}
++
++impl CpuArch {
++    fn host() -> Result<Self> {
++        if cfg!(target_arch = "x86_64") {
++            Ok(Self::X86_64)
++        } else if cfg!(target_arch = "aarch64") {
++            Ok(Self::Aarch64)
++        } else {
++            Err(EOPNOTSUPP)
++        }
++    }
++}
++
++impl From<CpuArch> for u32 {
++    fn from(value: CpuArch) -> Self {
++        // CAST: `CpuArch` uses the wire field's `u32` representation.
++        value as u32
++    }
++}
++
++#[derive(Clone, Copy)]
++struct MigrationFeature(u32);
++
++impl MigrationFeature {
++    const PRESERVE_CTX_BUF: Self = Self(0x4000);
++}
++
++impl From<MigrationFeature> for u32 {
++    fn from(value: MigrationFeature) -> Self {
++        value.0
++    }
++}
++
++bitfield! {
++    struct FeatureFlags(u64) {
++        3:3 enable_uvm => bool;
++        5:5 vmm_migration => bool;
++    }
++}
++
++nvkv_encode! {
++    struct PluginConfigParamsRequest {
++        uuid: Key<[u8; 16], { Self::UUID_KEY }>,
++        dbdf: Key<Dbdf, { Self::DBDF_KEY }, u32>,
++        device_instance_id: Key<u32, { Self::DEVICE_INSTANCE_ID_KEY }>,
++        vgpu_type: Key<u32, { Self::VGPU_TYPE_KEY }>,
++        vm_pid: Key<u32, { Self::VM_PID_KEY }>,
++        swizz_id: Key<SwizzId, { Self::SWIZZ_ID_KEY }, u32>,
++        num_channels: Key<u32, { Self::NUM_CHANNELS_KEY }>,
++        num_plugin_channels: Key<u32, { Self::NUM_PLUGIN_CHANNELS_KEY }>,
++        vmm_cap: Key<u32, { Self::VMM_CAP_KEY }>,
++        migration_feature: Key<MigrationFeature, { Self::MIGRATION_FEATURE_KEY }, u32>,
++        hypervisor_type: Key<HypervisorType, { Self::HYPERVISOR_TYPE_KEY }, u32>,
++        cpu_arch: Key<CpuArch, { Self::CPU_ARCH_KEY }, u32>,
++        page_size: Key<u64, { Self::PAGE_SIZE_KEY }>,
++        feature_flags: Key<FeatureFlags, { Self::FEATURE_FLAGS_KEY }, u64>,
++    }
++}
++
++impl PluginConfigParamsRequest {
++    const UUID_KEY: KeyId = 0x0001;
++    const DBDF_KEY: KeyId = 0x0002;
++    const DEVICE_INSTANCE_ID_KEY: KeyId = 0x0004;
++    const VGPU_TYPE_KEY: KeyId = 0x0005;
++    const VM_PID_KEY: KeyId = 0x0006;
++    const SWIZZ_ID_KEY: KeyId = 0x0010;
++    const NUM_CHANNELS_KEY: KeyId = 0x0011;
++    const NUM_PLUGIN_CHANNELS_KEY: KeyId = 0x0012;
++    const VMM_CAP_KEY: KeyId = 0x0020;
++    const MIGRATION_FEATURE_KEY: KeyId = 0x0021;
++    const HYPERVISOR_TYPE_KEY: KeyId = 0x0022;
++    const CPU_ARCH_KEY: KeyId = 0x0023;
++    const PAGE_SIZE_KEY: KeyId = 0x0024;
++    const FEATURE_FLAGS_KEY: KeyId = 0x0030;
++}
++
++/// Encodes plugin configuration parameters using the typed NVKV schema.
++pub(crate) fn encode_plugin_config_params(
++    uuid: [u8; 16],
++    dbdf: Dbdf,
++    vgpu_type: u32,
++    vm_pid: u32,
++    num_channels: u32,
++    num_plugin_channels: u32,
++) -> Result<EncodedStream> {
++    let request = PluginConfigParamsRequest {
++        uuid: uuid.into(),
++        dbdf: dbdf.into(),
++        // The full host PCI address distinguishes VFs within a VM, including VFs
++        // from different PFs. This opaque identity lasts for the host device lifetime.
++        device_instance_id: dbdf.into_raw().into(),
++        vgpu_type: vgpu_type.into(),
++        vm_pid: vm_pid.into(),
++        swizz_id: SwizzId::WHOLE_GPU.into(),
++        num_channels: num_channels.into(),
++        num_plugin_channels: num_plugin_channels.into(),
++        // Advertise no optional VMM capabilities (vmioplugin.h VMM_CAP_*),
++        // independently of the plugin feature_flags and migration_feature below.
++        vmm_cap: 0.into(),
++        migration_feature: MigrationFeature::PRESERVE_CTX_BUF.into(),
++        hypervisor_type: HypervisorType::Unknown.into(),
++        cpu_arch: CpuArch::host()?.into(),
++        page_size: usize_as_u64(kernel::page::PAGE_SIZE).into(),
++        feature_flags: FeatureFlags::zeroed()
++            .with_enable_uvm(false)
++            .with_vmm_migration(true)
++            .into(),
++    };
++
++    let mut encoder = Encoder::new();
++    request.encode(&mut encoder)?;
++    Ok(encoder.finish())
++}
+diff --git a/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs b/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
+index 696127c7169f..48977cd67792 100644
+--- a/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
++++ b/drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
+@@ -19,6 +19,7 @@
+ 
+ use kernel::{
+     device,
++    num::casts::usize_as_u64,
+     prelude::*,
+     time::{
+         delay::fsleep,
+@@ -26,6 +27,7 @@
+         Instant,
+         Monotonic, //
+     },
++    transmute::AsBytes, //
+ };
+ 
+ use crate::{
+@@ -105,6 +107,21 @@ pub(super) fn rpc_call(
+         self.wait_response(dev, sequence)
+     }
+ 
++    /// Send an NVKV stream prefixed by its word count.
++    pub(super) fn rpc_call_nvkv(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        message_type: RpcMessage,
++        encoded: &[u64],
++    ) -> Result {
++        let word_count = usize_as_u64(encoded.len());
++        let mut payload = KVec::new();
++        payload.extend_from_slice(&word_count.to_le_bytes(), GFP_KERNEL)?;
++        payload.extend_from_slice(AsBytes::as_bytes(encoded), GFP_KERNEL)?;
++
++        self.rpc_call(dev, message_type, &payload)
++    }
++
+     fn wait_response(&self, dev: &device::Device<device::Bound>, expected_sequence: u32) -> Result {
+         let start = Instant::<Monotonic>::now();
+         let timeout = Delta::from_secs(120);
+diff --git a/drivers/gpu/nova-core/vgpu/instance.rs b/drivers/gpu/nova-core/vgpu/instance.rs
+index 445d7f513fdc..247e88bdc82f 100644
+--- a/drivers/gpu/nova-core/vgpu/instance.rs
++++ b/drivers/gpu/nova-core/vgpu/instance.rs
+@@ -34,10 +34,12 @@
+         negotiate_plugin_version,
+         send_bootload,
+         send_cleanup,
++        send_plugin_config,
+         send_shutdown,
+         Dbdf, //
+     },
+     fw::commands::{
++        encode_plugin_config_params,
+         encode_vgpu_bootload,
+         BootloadInfo,
+         ChannelMapEntry, //
+@@ -159,6 +161,7 @@ fn activate(&mut self, vgpu: &VgpuManager<'gpu>) -> Result {
+         self.bootload(dev, vgpu.cmdq, &vgpu.fifo_engine_list)?;
+         self.plugin_rpc.init_rpc()?;
+         negotiate_plugin_version(dev, &mut self.plugin_rpc)?;
++        self.configure_plugin(dev)?;
+ 
+         Ok(())
+     }
+@@ -230,6 +233,19 @@ fn bootload(
+         Ok(())
+     }
+ 
++    fn configure_plugin(&mut self, dev: &device::Device<device::Bound>) -> Result {
++        let config = encode_plugin_config_params(
++            [0; 16],
++            self.dbdf,
++            self.vgpu_type.vgpu_type_id,
++            self.vm_pid,
++            u32::try_from(self.chids.len()).map_err(|_| EOVERFLOW)?,
++            self.num_plugin_channels,
++        )?;
++
++        send_plugin_config(dev, &mut self.plugin_rpc, &config)
++    }
++
+     /// Stop the plugin when firmware may own instance resources.
+     fn shutdown(&mut self, dev: &device::Device<device::Bound>, cmdq: &Cmdq<'_>) -> Result {
+         if self.needs_teardown {
