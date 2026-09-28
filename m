@@ -1,144 +1,185 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC36F5FDA7
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790567660; cv=none; b=LqpVBq32TceR7cFUIyLJKC9Ec0cv72yaxW1TNNd2wzatmsSHY0SGEY3doiaEbw6V4lKxeEa9aQ39KhZ1Oa+fC9R2+8jkVLRR1vFXSx/9pt7ksxnGgtC81zH7bGNAcOenVbvhaJsgaF1i6vK4Q7GzVCSgHlPdAd8AKOXWn57bPao=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790567660; c=relaxed/simple;
-	bh=7eF32BAwWvHa46hCkMDvszKhaveU1FL/Fi8VoTSqenk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Fw8q3n5OlzaNa8KnMhKYtGDpbee5TxktSyzITwhH1gP2EVBV+ub3M00fg0Cq/UEpEvJvHfxCEsbPQp0b1X21271mjyGgNQhhyR6Hd7knl6LKtgeW/RGcxB2pOLBGak3HR5l1Xk8CHaeCRF903ik3l/Tgckxy3tQNHjDrNXW05fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ltGbGnUs; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552335FDA7;
+	Mon, 28 Sep 2026 03:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790567714; cv=fail; b=tLLWkpTBwlXeZstNXPqt4frbaGrj8bhjgUytcvfhmoKPz+x3w4bfiSImuplsHCSCTOgBmKtXRN2H7UofdvUfXD8NcQ1Q+3I139fcIwVMH2mtNQX2pxWs0UaNKwwvEUbNDHAGdb2vgC7s/PQ1o+W2tMIjIsbUZJL5ohFI1UDQZoY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790567714; c=relaxed/simple;
+	bh=S8wUOIITyRW9MGe32A6wwFaQ77T7rIW9ipLbk1IDT5U=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=I9GxR9zZafDJkzYFDFJHhundrqOIyTprdU41D5B6LTciLIobb+7BEv8QVAn8PfmbdfFLEe6srrr53tuugtSaJSvPTB67dwzhEIcpzsZ5JXeevisE3/fv1bthSH/WZTvCbRQFHzF5WVyaxXHdQQH2FfKU9PX4YOfloQKkn4c5ELY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B7fsOdc8; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ltGbGnUs"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so24432375e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:54:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790567657; x=1791172457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5xVcdOiOb9J5e1Z54m87jRi8taiPSd14uPnyeRFY4qQ=;
-        b=ltGbGnUsIcIYrnoLDVo15KOqWB0ydJFmGe7kj5SRbVnQQpCWqj0YaPvHugO0UofGzg
-         0y5dR3t+QpN1628LK/1QQHaIPM5dytEUkG7asO1sv1ZJ12wt7VTB0nWGV/R+ZBeZob2P
-         UTf/WNeMhuOwk9TZLxIV8W0VlOhyvXBo9jFkIHUPxsniOEjvBYVJ7LLZXdNptFOWLp9a
-         AgtotddM/0elAAa1c+uivLF/H0bTSzvYyzqO2EXSZP0grTWi14KNoCKcfB0hVc3VjyEy
-         NPzH32WVNKl7t8Kf9EcoqFK82jzwVaYzOMycYNuBHcnNQGFtB5WRP/iHuFluGdk6ykke
-         cZiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790567657; x=1791172457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5xVcdOiOb9J5e1Z54m87jRi8taiPSd14uPnyeRFY4qQ=;
-        b=RKFDba1eK6a6cKCnjh32vmenGqBAabqM5WisG8Ze4Ul2G5jW30NHMpSVuhKk7GDZYx
-         JCwba8HE7DckLpIYGMf0xLdiuGB+faqF//gQsDSy1OXlVanZpHqScN734SV69vR4hyoX
-         HqpM5oY0MstOirQetss9/rtTSPyiAiw+ql2AHmpkmVQR3tyOuBpPOGEDRUGt0KVgdeA0
-         XpGJ9jTDLK3zi43fx2+vTU8zxiQqKS+Gx7KUe92yFIPJyQJA/FBn5yLPhwgaGcB7qf9x
-         jC1t62ZxFBfrypo0s/x8Gtd7b23JPdTJS6ZV5XCiK1prTSlXSfmUD/96zaSZ2U0Wed4w
-         F9IA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwoRnYJsg9mU82Z38kTkOUPNnyNArt5Jgl8Src1IJy9x8B3UeMp1Eiq2yi1knKcRHCfW7bp4KXLQeqXv0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcA6DZJTSTuhsZN0+lfZOXGlLKKK1GvOnMhPDCYRNKKvnqjpee
-	AQwLgiiVjxv2XThmgAm/82A/ZHDB8v3R0N4Z5eMfgvEEkubzdv/Mg76Q
-X-Gm-Gg: AYBFou3/fxGSrfnXs+6+icbmOqBounLEhRl5RnfZX0UVCU/RSJj5DmYKxAphe4ARoSW
-	N1RhBE5ly6hNDY+zxGcfQFkgc9zhM3xFIiABnlukwdosaUjtDQK5pbKOs29dIau13ryIZXNAn5k
-	w9mKSuSzHdhs4zQ7UszMYZTGaJpXCNSHtOYUMW0XM6WFPymSyIh53K5qJsifA6bCWSp1qC47h8v
-	5C3BwOWXjUWrZusGKdeymn4p6Tko2egKc2OS04WP0dAnOxbA2kA07Z2NipDhmcWwgHDQtz7qeYB
-	tkREcwffwFtt3KZAttAEB56pc9Lq26NUoQiDIBUgeP0VJLNw3eW7f+EzKojJCSJF7F+y3SAYFGu
-	R0mBvDupmZaagYHIAFtGbqUk+8QWck1nLb95Nd9JI2XTrO1NURDH3cF3RSuZOTgF6pr3cQrlVH1
-	Rh1lgbmNt3AHrDBrFIW9JiDGVZlg6SR2gF3odBAtyoFdMPfCblvzjLGW4n7dG68TBNsfAGXKRfv
-	E9rsXJtElOfwIiBowRbCSbrB9H33AEswobAZwWuj6JhhDuwHjmt+EL0CtGPmOIQMJELKB2WXCs+
-	dfNwD/wPCK3NbvwNJH5jG570XUwuSURe5cJ/jiplL9EM69nd/+tqgDTunvVr7DlO8XlIvQJJVuv
-	RPXgRMQ==
-X-Received: by 2002:a05:600c:4583:b0:49f:d087:6526 with SMTP id 5b1f17b1804b1-49fe670d05bmr227822225e9.34.1790567656854;
-        Sun, 27 Sep 2026 20:54:16 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de. [2a02:3100:acba:a601:4494:3582:465b:eab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a007be0761sm6697185e9.3.2026.09.27.20.54.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 20:54:15 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Artur Rojek <contact@artur-rojek.eu>,
-	Rich Felker <dalias@libc.org>,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] irqchip/jcore-aic: Fix lost IPIs on SMP
-Date: Mon, 28 Sep 2026 05:54:08 +0200
-Message-Id: <20260928035408.25871-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B7fsOdc8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790567713; x=1822103713;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=S8wUOIITyRW9MGe32A6wwFaQ77T7rIW9ipLbk1IDT5U=;
+  b=B7fsOdc8Crsg+S0oI+xQgNJ00cfiXmt6B//c0OzAGNvOzK5HbkETra9u
+   RIkioYqjFyjU3AWzgXJaiFsUobnyRpcCKbXAg8DJYl5NJh/sm5rGV4fzg
+   69CnvRMdaKdmJdOxeONzz3FcxfgpuaoPU/dgTD2f+mPAxTF1rRgkzQZ04
+   74eF7KkG/1xxDWAf6He46UTXi4AF0S1GlCjQqq6fr7+Cmd5CuGzh+8NJ9
+   9YBzeUJiRXH+I4b6+6vO4DqZfoRWvZdGFCoLvjM+wzOaEZ++Sc/8mnDO8
+   ZUVy1q1zuwwUDuAKFKZ5ivCjmgOkwHhUyCaDjR1IhuLsybpILRqB7b7kO
+   w==;
+X-CSE-ConnectionGUID: 3uK6PHB0S22370XpyzuQPg==
+X-CSE-MsgGUID: 2yx4N3lGS7ahsaMCsw8xKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="78820240"
+X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
+   d="scan'208";a="78820240"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 20:55:12 -0700
+X-CSE-ConnectionGUID: cQGM5ApaQYmL/xyvay3TJA==
+X-CSE-MsgGUID: /0pWgvn6QaOq472MS7Mahw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
+   d="scan'208";a="273549442"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 20:55:12 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 27 Sep 2026 20:55:11 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Sun, 27 Sep 2026 20:55:11 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.27) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 27 Sep 2026 20:55:11 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bW4EhQw0B5YZvOT13Tjr0SbKb55FF1rhmFVUvhih297lfj0JM6ULyBe7/5euGCxEtO7FrDHs+C5u/shzAd97XTPnIVffRmUEnMu3uMHVLV2R1yMGzddzhGP6+mWQOEMqHNAtnDeUTIVf2ZPP8iBXkui4qrwLahCOIWInBcO/vNZoawo+cpND9oXaYDWyVj8tbjss6OA6t+Rxw1RL4eq0bxRFu03q/lEBUh12q2Whhd8a7K69NJ5hAVGMvmpUKQR0YeIxikgruAQNlAk+BtuX7NKi3ILChl05949+WAKk5jCk4wB513ihBsEPTa3ddMX+cqOUxFEtoSPg51JHvuZBPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S8wUOIITyRW9MGe32A6wwFaQ77T7rIW9ipLbk1IDT5U=;
+ b=bamAqIhFQRxqkmQ3BG1ii+VBqaSdNNryl+KxnsLn9+D0OAnE9yi025tIQT5YN6605SDyPTozD28wI7iix6Uyb9X1gn01D12p3rLgMRHIYN6HspxtqeM4EtO/zAW0zBKUExobx+1/NC1EOMcmdADBSPHdWvHfG91cw93eUNpdyNq36LzJqJLqjyiN8550RejU+s0HWrQvn9/vGRpEoyQrEwyv0Z8UImD0xYq8gK4sNB1Fif4V6HR7ne9lDzXwTOZ4Zl5mlr2Qhsi4CpUVAH6+r6mAg9Q/bPhIqbSNGoxLfCAgFlHjsiOwpmtUZt1RHqG3kni2fQRmTzeY73bWLxyPLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
+ by IA0PR11MB7744.namprd11.prod.outlook.com (2603:10b6:208:409::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 03:55:08 +0000
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225%4]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 03:55:08 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>, Aneesh Kumar K.V
+	<aneesh.kumar@kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
+CC: Jason Gunthorpe <jgg@ziepe.ca>, Alexey Kardashevskiy <aik@amd.com>, "Bjorn
+ Helgaas" <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>, "Jonathan
+ Cameron" <jic23@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
+	<sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
+	<Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
+	<yilun.xu@linux.intel.com>, Shameer Kolothum
+	<shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>
+Subject: RE: [RFC PATCH v6 00/11] iommufd: Infrastructure for vIOMMU creation
+ for confidential guests and guest TSM requests
+Thread-Topic: [RFC PATCH v6 00/11] iommufd: Infrastructure for vIOMMU creation
+ for confidential guests and guest TSM requests
+Thread-Index: AQHdRq07BOB130WWqEurUaVXxg4wX7bdXiywgAGkk4CABGTTkIAABK2A
+Date: Mon, 28 Sep 2026 03:55:08 +0000
+Message-ID: <CO1PR11MB4835427396755B996E325A058C8D2@CO1PR11MB4835.namprd11.prod.outlook.com>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <CO1PR11MB48358E3116CC6CF34E6437658C812@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <yq5a33uxka2g.fsf@kernel.org>
+ <CO1PR11MB48350079E4B431ABAA358ADA8C8D2@CO1PR11MB4835.namprd11.prod.outlook.com>
+In-Reply-To: <CO1PR11MB48350079E4B431ABAA358ADA8C8D2@CO1PR11MB4835.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|IA0PR11MB7744:EE_
+x-ms-office365-filtering-correlation-id: f3e46fbd-63b8-441f-f90d-08df1d14498d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003|38070700021;
+x-microsoft-antispam-message-info: ZETm4EwAEarwcSxl+spQpykx5akvoMp7TLBoGeyj/j8G35kUy+aUcxGkQ04xNG+OGusvWekbf/NJO91usqqZwWMilqKli9fnO/fU47cqvtsUmLpvUxOfPkwc0TcAwR5r51J4sriNRGjf0eF0dFoA+fVACk/XFFUdt7NUl/7FE6pV5UCKbZfGWCb8aCMxny8dUGLAx72ZwDnv4BumPD/N/zdZVVXrW5XRJyOcfHmt+u530DpYwpdzqXjSmIhjUDYRRK3RogUNBSIfMU3SVFPigs8PfgMO3Jw675ZWEeVeVgcSTjR6cZ7kaduCvJ0w7h6Vg+mMNdY6tsh1kZOh9q18e8JMMSta+FI7Ur/oFvyKng8s60FoBkjKUX5B97uhKPBKXVQGF7peRv09rnBpDb75Hy2uKYdN+qiBtdD5zm0DTi6Wz8c7WGqdu6/4IexzcxHDOH84bH+Q9xLhhR6p50TmVMSlT/aCY8jsAB0iBBlSlCp9xAmL08uTTQDdWGSIQ1loQkOaVTwMaSJODzr2lWjErL11fsOeM89sAsQqJAbKaaXNhswaJknBcCQEFS4PeQUSCZ0itzMumlZKfVcLtZ30pvgxcrmClO5utBHKVuCYUcAaE39ZYkT6AvGCF/Grx7fEeuRDPxhr5ou2UqEE6ocipc6srdOFkH++1UKdNaM8Xas9OE6GWhNYpOXQeLIoiQPqh29o/XlxDv9xNk6zvnxskvYAjXG99wMESpbVPviq5H8=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?o5fsX+rbTtG12oRw+PYpjkCMiEb+0NedwLWNNF22a2EjDeeN5HOIC9W3+iAV?=
+ =?us-ascii?Q?6Xf8lUzp2XRwaXoLAeTc2tZ3WsuUsPizmYHuUOtDQjBMW+t0FSHf4YHzO6LB?=
+ =?us-ascii?Q?RpOpZI/i3mXAvNnnvawO7X2N0Gk+y0CEWXK6nfRPwacvdj1EQqcR9jd12hfn?=
+ =?us-ascii?Q?46c4qNuiKM1YqeoqGCG4a3DExi7RuVWdoaglwB6HU0DpRqEven2GgUbmB/uf?=
+ =?us-ascii?Q?A121XB5XE9buwI4GTZ8GzdNudDNdeoQoQghIhXGdEjlIr6qWtNmZ19Ptw8Ss?=
+ =?us-ascii?Q?CdXKhzES7hKlqha0b2xRMvPimO2EJsMPKIkIJXWsRMs88HABcfwyhI3Jln5y?=
+ =?us-ascii?Q?JDCxyEB4q0JXSScPRcUCOHFCszZT4pUuSpKCXJ4K6BjUgeK7tsX21XbO+bv/?=
+ =?us-ascii?Q?FgWR6xJArztrtY6aQ4w/5asoxDJwTTv4MkyKD0x53+fVq0Tx+oeEk5+sHEOt?=
+ =?us-ascii?Q?z6OY71rgEGtfCK9T9fSR/BqjAdmOTqKLUTaqkdDt8NEC2mBKsGc1wY1BKVcv?=
+ =?us-ascii?Q?fRVrKo7KtV9dlhQf6ZNZdiWPFqV+OCBPfho4pjLgmC82zMsOWaqMo5pvMze1?=
+ =?us-ascii?Q?1Dq+jFqBfpbwhhUrt7uCZdaGGpAtsUuO/wVyHqvPtEyrRr3BnHiK3kGa+WBa?=
+ =?us-ascii?Q?WG7hTVjDg2v4YXUN2SYFXzDZxTdVUY5zjd1qnG6tBcFZvFr/9dj97+Ejghib?=
+ =?us-ascii?Q?5eVGGAntr+sjYEmurtBHD1zTcsrmLD9sWJsvDs3/as0qlVHpL560vdI4JFPZ?=
+ =?us-ascii?Q?GadNl6rfU+Drfnnevl6KLGlgWiUiWt9l9B07A7gj8H7PaQZy0M+XF+hPMXMl?=
+ =?us-ascii?Q?Ow2oUeDpPilz44sZ9qmjGyj4SzMANY3OoSMWm0uPHkjeaXFP89WiAg6pkksO?=
+ =?us-ascii?Q?Ld/RlnY77OcPVsJkK/5Hg0HJesLhSSRVwzvAm1YWZB/tX/yDupY6vrsdQwvo?=
+ =?us-ascii?Q?tH4IgehHBLaINaxSieAVFvg4Tl4le2KzM6oFIYDViye2UFXv+kz6Ck9EMCxR?=
+ =?us-ascii?Q?90VMiTpXpxH8HM2ZCoX36soxsTDffWENi6aNOX96XZVhJ02d7V6FDYl43Gry?=
+ =?us-ascii?Q?t94csqaa656cXoJpGoezxs8rlmEK9z14AvqIqylO+3OUtFLUd9kN5+yOb4/S?=
+ =?us-ascii?Q?sarWGG8OzqxGI5LaSVMszUgWGFYbYAwT/vL8V4VlOEQSiwwPb4bT84Z6nRmt?=
+ =?us-ascii?Q?BKv3nJXUADMT0j81FtzIqI1qu0EODhHNU0Bsboclgi9OysVyCa8ivN+sdyPs?=
+ =?us-ascii?Q?KOdLyan3f4UIizhn5+Z4bl2NLvAZVuZb+SlXIx/VT+mfPyej3H/OTSWmqAv7?=
+ =?us-ascii?Q?t00PmJaWGV7rNAg3TuCuCf5Ors7LwRal9aAtMjSvzFHOqe+6x6pAwB/ajIGJ?=
+ =?us-ascii?Q?XCnaAINz+YCrCIvsZQ1+blwUFNHv1AAnAIhudPAgC32/r6I28xBCajlidpFo?=
+ =?us-ascii?Q?tB7YrYgvEh6vmvP6sm9nQDzwwpJXHjV2cbwe97/hkt1ka02qOOg7nrbcvjY+?=
+ =?us-ascii?Q?oDHz4taf+apLb0SCKBXRXdIC9ojNbFnt2xIU5KDwz5sJX23e+rxCIxhKKM4l?=
+ =?us-ascii?Q?LPIlWo9jnKXAnRE0OLDf8aFOJR5KtexA+NT+4OcrmeFYXA5EmjlMffRKe/Aq?=
+ =?us-ascii?Q?L2BnymC1LGcur15yy0IA6Z11+YranuH72pCVuJpcz7nWV3sBtRc8/9LIeqh2?=
+ =?us-ascii?Q?1LBlLeEKtg/JmxjCMui6CTLXtYEzQubFHoYjSCznsBO4yk0k?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: 0QBNNf5V9EMiu0soYKMOoesp/v6amLLcCaKF+zQ1xdAYINiWE+9rlrI1kxwQVxlE/bi33oSuJVMkhRrKk1R5EfcEWZpLw07JS4EDGnHoEI8URYhVX/+WwM1pzJNjdHmZFh261Wik9uskXZgOSuqbx9S/0tpJAvxHvBWIdvZNSRc6HY+DLtr3xYFi3h5rCzNRCo0mudyJhc5NY6+BQ11ANjW1zUDNbSv9YE0lNzBkQ2c+cGKVHp+ETchHMglFA31UVBP/8zmxtWhburXiv3oQK5YJvJQSfDonHjYYxgyQDJdq1EMOQeYN1qENRmKOOtBd1f++VNnl8889LBBhpNDD4Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3e46fbd-63b8-441f-f90d-08df1d14498d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 03:55:08.0420
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: deTDPIjiXO+H2nE2dbTcLJ6Ibp/ra8Pjrjh2rylwIcyxvw/I+aq6U4Zq5TMG5t5No+klifKejema3SPjwII/Ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7744
+X-OriginatorOrg: intel.com
 
-Since commit bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for
-non-overlapping affinities"), handle_percpu_devid_irq() only runs an
-action whose affinity mask contains the current CPU. Only actions set up
-through the percpu_devid request functions have such a mask.
+> From: Tian, Kevin <kevin.tian@intel.com>
+> Sent: Monday, September 28, 2026 11:41 AM
+>=20
+> > From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+> > Sent: Friday, September 25, 2026 4:30 PM
+> >
+> > "Tian, Kevin" <kevin.tian@intel.com> writes:
+> > > There may also be further vendor-specific interactions between
+> > > the IOMMU and TSM drivers.
+> > >
+> >
+> > This is an important point. Can you identify those interactions so we
+> > can determine whether an iommu_ops callback is the right abstraction?
+>=20
+> will do. Hopefully they are all about the TSM driver calling some
+> IOMMU driver helpers, then would be less a concern to abstract.
+>=20
 
-handle_jcore_irq() passes every per-CPU interrupt to
-handle_percpu_devid_irq(). The J2 IPI is not a percpu_devid interrupt.
-j2_prepare_cpus() requests it with request_irq() and IRQF_PERCPU, so its
-action has no affinity mask and cpumask_test_cpu() reads through a NULL
-pointer. J2 has no MMU to catch this. The read returns whatever is at
-address 0, the action is not found, and IPIs are dropped as spurious
-("Spurious percpu IRQ20 on CPU1", printed once).
-
-Pass only percpu_devid interrupts (the PIT) to handle_percpu_devid_irq()
-and the other per-CPU interrupts to handle_percpu_irq() again, as before
-commit d7e3fd658248f ("irqchip/jcore-aic, clocksource/drivers/jcore: Fix
-jcore-pit interrupt request").
-
-Found with a two-CPU J2 model simulated from the J-Core RTL. Without
-this change the boot stalls with both CPUs idle shortly after
-"smp: Brought up 1 node, 2 CPUs". With it, the boot reaches userspace.
-
-Fixes: bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for non-overlapping affinities")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-
-Notes:
-    Tested on a two-CPU J2 model simulated from the J-Core RTL with
-    Verilator (J2 CPUs, caches, bus mux and AIC1 from jcore-cpu/jcore-soc),
-    kernel v7.3-rc4 j2_defconfig with SMP=y:
-    
-    - unpatched: "Spurious percpu IRQ20 on CPU1", pending IPI messages are
-      never cleared (the message word of CPU1 grows to 0x6), boot stalls
-      with both CPUs idle after SMP bring-up
-    - patched: IPIs are handled, boot reaches userspace on both CPUs
-    
-    Not tested on J-Core hardware. Testing on real hardware is welcome.
-
- drivers/irqchip/irq-jcore-aic.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/irqchip/irq-jcore-aic.c b/drivers/irqchip/irq-jcore-aic.c
-index 94c05cf974be8..b4fee02997eee 100644
---- a/drivers/irqchip/irq-jcore-aic.c
-+++ b/drivers/irqchip/irq-jcore-aic.c
-@@ -37,8 +37,10 @@ static struct irq_chip jcore_aic;
- 
- static void handle_jcore_irq(struct irq_desc *desc)
- {
--	if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-+	if (irq_is_percpu_devid(irq_desc_get_irq(desc)))
- 		handle_percpu_devid_irq(desc);
-+	else if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-+		handle_percpu_irq(desc);
- 	else
- 		handle_simple_irq(desc);
- }
--- 
-2.53.0
-
+Correction - I meant "less need for a general abstraction". :)
