@@ -1,120 +1,165 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9052E34887B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617381; cv=pass; b=mOuhvAzRzqe3ERmKJQlhmpnIGWgOaywkXEMPEaTIW5zb9fZj/abS/wDGHOSfZ9ZRu27nI0FY6Qd7wCT6mHFgEhgtvb0weI3v/FkhumfsAPakiL8RmDh+i5j7JPuQdfnv57mqcr9ip5OXvcL6VWSGoqExdcCJ5fU7p+sxjxXMdJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617381; c=relaxed/simple;
-	bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qFiP3W5+4GjfscyByt2gp5cTjtmh0IEwQHpH7bRJoIqMWaIoLJ/+Br2+PfHZ0y2bEesufsbBLV5Eb5JJIUBnYDgKecICntPrG9s0NLhmqCG2K8JVA+F/6/U2mV9wc7Ow4G2HEQ7rx6tW1X72i5K9VGC8Tzz8THhYdqgZoCjH/vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BiydTQbP; arc=pass smtp.client-ip=74.125.230.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C163A3E9A;
+	Mon, 28 Sep 2026 17:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790617403; cv=none; b=mHVYaemzEEVgd5/vuFBW5ZaywA7TvYtyYO2yqwENGJZ9C8zxFiJb9TC5BFlpHrgGSUpYCUp+3tDKI/SUiPXzGGdIdq+OqbgliN1wUWILB+ptPne6MJcE4DTX7qnvVBJum497k728l7iC5NNq+8EqJLVO9uEdxQLduBt+CKGdPXk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790617403; c=relaxed/simple;
+	bh=ryb09pFPeF7Togyu5rRGmyyzNr+3gn9WfSykpvsACBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uVS3VKFpDmcAgBnzE5uLrRNNDYgIPTObc+/GlNWs+PE1Ib4M7Nj/6+z/tS8me3KYyRqkNY6LAN0S8CJW38Wu+vKie1Qw7KeCLu17t4YkLwYowuZfee1WyorSGBzCwXn4/k67n5ob3ywUx7bJHqsLlVEYDUZzNrERAy9cpqBb6JM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YDZaOmmx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BiydTQbP"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91782a91a3aso2641036d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:43:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790617379; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kJuE7xpJj10hF4GNaPCJOARtSW+rS66LKU8eDDXOhG8M2TnoQZWEmG1ezP+ekgb27V
-         USSCTZKgMErEYHXXbKhZltzc8yfeBzb+9JXmpSO5hXriYvtcdFYVBylEnGhAxxMY138p
-         akULxvn1JqjIdPQiXX6wKiq9WCrUu3XIiYvsVcPR4kmurhwuXRNM7MwNXWOXMV2YYIa5
-         /HwUAgDoKhNCgVzC83EaUl8J4EAzER5HRe8wDY0T7fR8jovdTF9wb0UheHpUBVBsDe0W
-         /66frMvvL6PG45ooWdjMpvvHTfpnunAVK80QTYVwsdc9GrjnbQfi4uHMhoiOkAIpAS7o
-         cM7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
-        fh=03GyLBFPTvrx+1IX489GAp64BkfSusc6EyiTsvFP4OU=;
-        b=JFNcqgLhNMHvNU/7/7AMwm3KlFjuYiMVrFTOJ1HeiN/efgnSNlx4RflJpYBwuwW7X7
-         2l+yLJo3bTBbyCVbfytHv9sU2V6bxH0IkNsvPipGTH7TcN0EuThxSwAD5xPZhLw7x4aD
-         1XtvcRM4kYJNrfx1ShHQHo2XLIANUtyYKjulqSAdpXTuh6ycGQH01BX/IvmQ4jsB7ABC
-         krFZa3YtorXspOQ7L+/pxkG/8dhRrt7awsAxLpgU/njTPcCqKmoPoiVJmN26gHgH2YF6
-         B61RgcoyROP22/WGKMhOjSK4reFBo8fkwjx7MmEH0zSU4byCwylc9++iHFw0j57VC6F2
-         ad+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790617379; x=1791222179; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
-        b=BiydTQbPOeAdEz0U+bzGEnx/hSE1k6ewf4aMRoMI/2XZlXpRXLQclvnvxsqPdEQG/l
-         h00rCmCFEAO7p6193k7t3r5BZ1/uO5vFJ5jRnNpc6euCKQQlYo9cFwDBrPle58+YUDCs
-         RnFFe7BesbeSIbde3fl4loiPTl6ckapSOxjdF/Hm62pwMLuubtuuu0w/cUqYRZwH4RkB
-         WAnf4uaBNuRDmMPQ4pP7M7m6qetqPjewMQqqtS5yhRLeQp0p+0YmTq8SVNnDv20jZdL7
-         9rJ1N8jll8Y1mcwGYYgd4ydjInK4EFedd6RZAYWyRalLFLG9X01Vmslp3yvMjQCC+VDS
-         /rYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617379; x=1791222179;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tBMm4XuAu0hAMOVLllg1YwkUSfbdG6RXoepaWP9ckQU=;
-        b=2Hudry1yUJVjfBYK4oejDIxZleh7TBZhYI0mVw/U7QHobGzbpN5DOhYln35tOfHcc1
-         CxFZ0NPPRcAxX7IDNt+OR8qTLeZrKpFxF+kiWf3ugE6cqJSU+Z5icA4OH+Xf0OJJ869U
-         rJLZOgr5uMZrqND4MKSYAMpciCS6tpgRnPmyno5U5FpPku+3Plvvbtc90Cuk8Ha1J2YP
-         7qZnKEZ6gF5jNAvy5IpsA5TJpYrv7cCUfxmumPn4fH30ZzBpoeAQivWAMdNo8MWk+wAV
-         a85up0nIUQ/4ZBJ6N7TR/pdC+Mg6HuNN2cTYOP6jC3fAhtUxYw98sOnA1Gyq5EfWgq5+
-         /v3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxB5vcHwyu5fxxKbz1j7Ueehk9DoTvxZBtNdEyuhPYFyzXN3ZQRj22DA9oZUtSI8HNMPuCu2LyOEeftdW4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVyYdHKpX3O06Ea4oVJF/u6hWJj7vM8rjB5v+pVeLz8s1fzOzn
-	njNKhk7p16Q2BNNpB4s9+V6O27SFL99Rftpuu68fRN0HFdD/112MQ2Z7BtWuPfY7BH5UC0PX7N7
-	BzqremtADUFSfUKte/0nkmcahP4rmaQ4JHamA+W4B
-X-Gm-Gg: AYBFou1fVvcTknm6LPRABsPbBBrr7MzTuEVcdNpokOO0uP5ff8xI3yPkRiD0LjN7sni
-	zFIkjD9OXD3G5xZI+fGVF+ymy7mkPoZBZ4uR/A1GNUmcu7TZLmy50mnsNQy5oX9tmoeJ/9x4rwc
-	UE3uNJnpRwibnnCzoW6WLw0uacZJcEFghoL9HMi8esQOGLR16ynDRDv9NDzB8oGbEgQqbqO0dRp
-	bO+0W8QMbTCNtRtNES6AndmQ/CMQu3zxH2hHjO7lb0OJEYtYYzbplhDHTCJzSQuuVfmPasWpbxA
-	Pp0Gb5XFrLr2rftGwkRtCpF2rzARtmBdgc92v33/q2S4Xu0XLLLOv1tGsCRYEJDhQl/Eqv/GpuD
-	Ght6zzReKUNzXcUaWAeBXdqutgIk4TSUnGBohVYmOyg==
-X-Received: by 2002:a05:6214:21a9:b0:910:2f02:8c46 with SMTP id
- 6a1803df08f44-9143222edc2mr218567806d6.14.1790617378675; Mon, 28 Sep 2026
- 10:42:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YDZaOmmx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7931F00898;
+	Mon, 28 Sep 2026 17:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790617402;
+	bh=NibMVE7Rbn2cdnnpH1xf5xfPMGYhh0V3wESIcQR4aeo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YDZaOmmxHJXOWadrXzSHq/NQ/dFDVhU5C7NAIXSJhc2bQw0sYfa6SBvN06c0mAVVv
+	 CJxyZee1xtwuTOmqYBArhJd1BMk/Gppm/hpRzQXMwQuR1M2Dzu9MfvGoEnJclIfo8i
+	 huXHCrDypq7pbOfVivklwZVeLm/RIM3YEJISTqSQFqyRUjTZnlfq4P6kZOPgY4ePL2
+	 Z1MgMcMUvAnNalNF9vKMr/2ecIxIuLLeogTTdRtfFLHU4HGZ/eYR5MXVR9AteFHdxE
+	 r3ewUNRtIFz9kRKumZS74j3UDVgZUS7lydu83Us71rYCtW2q3gDNuKjixKTMlg+cRY
+	 KmzghmITPakHw==
+Date: Mon, 28 Sep 2026 18:43:15 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ankit Agrawal <ankita@nvidia.com>
+Cc: Richard Cheng <icheng@nvidia.com>, "Lucero Palau, Alejandro"
+ <alejandro.lucero-palau@amd.com>, "dave@stgolabs.net" <dave@stgolabs.net>,
+ "dave.jiang@intel.com" <dave.jiang@intel.com>, "alison.schofield@intel.com"
+ <alison.schofield@intel.com>, "vishal.l.verma@intel.com"
+ <vishal.l.verma@intel.com>, "djbw@kernel.org" <djbw@kernel.org>,
+ "iweiny@kernel.org" <iweiny@kernel.org>, "ming.li@zohomail.com"
+ <ming.li@zohomail.com>, "gourry@gourry.net" <gourry@gourry.net>,
+ "rrichter@amd.com" <rrichter@amd.com>, "linux-cxl@vger.kernel.org"
+ <linux-cxl@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Newton Liu <newtonl@nvidia.com>, Kristin
+ Chuang <kristinc@nvidia.com>, Kai-Heng Feng <kaihengf@nvidia.com>, Koba Ko
+ <kobak@nvidia.com>
+Subject: Re: [RFC PATCH 0/3] cxl: Auto-create a region for Type-2 memdev
+ attach
+Message-ID: <20260928184315.05038feb@jic23-hlaptop>
+In-Reply-To: <SAWPR12MB9992678E92777730BE483F6511B08D2@SAWPR12MB999267.namprd12.prod.outlook.com>
+References: <20260805074042.30173-1-icheng@nvidia.com>
+	<a3978557-59d5-49bc-bdb3-9ef2dfa025d3@amd.com>
+	<aobIoBYBACGlJ-OD@MWDK4CY14F>
+	<53689d31-3707-4c15-9eb9-eb6c77ab3ca0@amd.com>
+	<apU6tyyxSIGvzSs6@MWDK4CY14F>
+	<20260922022518.1002b083@jic23-hlaptop>
+	<SAWPR12MB9992678E92777730BE483F6511B08D2@SAWPR12MB999267.namprd12.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6a73d174.5aeeccc9.207e63.000c.GAE@google.com> <6ab29768.514bccd6.255447.001e.GAE@google.com>
- <6ab8c8cb.e548f532.1ca396.0037.GAE@google.com> <arjO9qbNdbvdi7ao@gmail.com>
-In-Reply-To: <arjO9qbNdbvdi7ao@gmail.com>
-From: Pimyn Girgis <pimyn@google.com>
-Date: Mon, 28 Sep 2026 13:42:47 -0400
-X-Gm-Features: AclHuK-qpUM45iPuLgTgCnMsb-qo1Qn6VReor2uYb0e5oZPZ4T_26Jl9lysMnJ4
-Message-ID: <CAJWNTGzZ5=bBUzsAhaLLqNE0J3a_tj9BB0OvHhOaaWR8xn9S3g@mail.gmail.com>
-Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
- (2)
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>, 
-	davem@davemloft.net, dhowells@redhat.com, edumazet@google.com, 
-	horms@kernel.org, kuba@kernel.org, linux-afs@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, marc.dionne@auristor.com, 
-	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 27, 2026 at 4:14=E2=80=AFAM Jose A. Perez de Azpillaga
-<azpijr@gmail.com> wrote:
->
-> I just don't understand why it is failing... :(
+On Mon, 28 Sep 2026 05:37:45 +0000
+Ankit Agrawal <ankita@nvidia.com> wrote:
 
-Hi Jose,
+> >> >=20
+> >> >=20
+> >> > <snip> =20
+> >> > > I think you are right that this RFC doesn't currently have a produ=
+ction platform
+> >> > > where the system FW publishes a Type-2 CFMWS but leaves the EP dec=
+oder
+> >> > > uncommitted.
+> >> > >=20
+> >> > > However, the config appears to be permitted by the CXL model. A CF=
+MWS describes
+> >> > > a FW-established root HPA window and the restrictions governing it=
+s use,
+> >> > > including Type-2 v.s. Type-3 and volatile v.s. PMEM. The CFMWS def=
+ also
+> >> > > describes OSPM assigning HPA ranges from those windows to discover=
+ed CXL.mem
+> >> > > devices [1].=C2=A0  =20
+> >> >=20
+> >> >=20
+> >> > Right. I'm not saying this should not be supported, just pointing ou=
+t the
+> >> > use case does not make sense with current BIOS functionality. I thin=
+k BIOS
+> >> > will/could support a config option for just leaving a Type2 HDM unco=
+mmitted,
+> >> > but then why the kernel should do the same a default BIOS config wou=
+ld do?
+> >> >=C2=A0  =20
+> >>=20
+> >> Agreed. The kernel shouldn't recreate the config that BIOS would norma=
+lly provide. =20
+> >
+> > I'm a bit lost. Both BIOS doing nothing beyond cfmws as a design decisi=
+on and
+> > hotplug (where bios isn't in the loop) require this sort of flow.
+> >
+> > Sure both might not be what you happen to have today but they are both
+> > very much real usecases!
+> >
+> > Jonathan =20
+>=20
+> So, can we consider doing both in 2 phases..
+> 1. Autocreate a default region that is sized to the device's DVSEC report=
+ed
+> DPA capacity when the platform signals it (applicable only to CFMWS prese=
+nt
+> Type-2 CXL.mem-capable, decoder uncommitted case?). I suppose this could
+> cover the use cases suggested by Jonathan?
+> 2. Let the driver explicitly replace/override it with a different sized r=
+egion
+> once bound per its own policy.
 
-For future reference, you can send the patch as a text file attachment
-with the `#syz test:` command instead, which will avoid any parsing
-issues.
+I don't see a reason for 1.  The bios has to have provided a CFMWS that will
+work or option 2 will fail - if it supports hotplug or indeed doesn't want =
+to
+do config of devices on cold plug it just provides 'enough space'.  Whether=
+ it
+does that by hard coded big number, bios menu option or otherwise doesn't
+matter to us.
 
---=20
-=E2=B2=A0=E2=B2=9F=E2=B2=93=E2=B2=99=E2=B2=8F=E2=B2=9B =E2=B2=84=E2=B2=89=
-=E2=B2=B1=E2=B2=A3=E2=B2=85=E2=B2=93=E2=B2=9F=E2=B2=A5 - Pimyn Girgis
-Software Engineer
-Kernel Dynamic Analysis
-pimyn@google.com
+But in general a driver should bind before we create anything (assuming we
+are in a host OS managed flow).  Why would we want to do anything before th=
+at
+as we have no idea if a driver will ever bind - or if there is flexibility
+in size exposed that can't be known until driver bind.
+
+>=20
+> >> And that's why I think we should move region createion out of devm_cxl=
+_probe_mem().
+> >> That helper should discover and attach to an already committed region.
+> >>=20
+> >> If FW leaves the decoders unconfigured intentionally , a driver may ex=
+plicitly request a region
+> >> and provide the size it needs.
+> >>=20
+> >> In my mind the new model should be
+> >> - FW-committed config is only discovered and attached
+> >> - an uncommitted config remains untouched unless a driver explicitly r=
+equests it
+> >> - CXL core supplieds the allocation, validation, programming, accounti=
+ng and teardown mechnism
+> >> - the requesting driver owns the policy and the use of the region =20
+>=20
+> Is there going to be a custom non-default size to commit be communicated
+> to the vendor driver? AIU currently the size is only driver-internal cons=
+tant.
+
+Given it is potentially a contended resource, we may need a way to clamp
+the maximum a particular instances is allowed to request. For now maybe
+first come, first served is good enough? No idea.=20
+
+Jonathan
+
+>=20
+> Thanks
+> Ankit Agrawal
+
