@@ -1,77 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B54031AABC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A1231AABC
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790572877; cv=none; b=FqHLwMogWsUzl+hez2LqIeoI+QNs5sd6P0Zu9vHyvni8AYOhlgXoAgMiR4aZJVCClIpZVwZHAB9H08CdJG9Feq2jalZQcnOuoyuYJge1xFtCdJLmbT3IM+dbJSI5JXCe3Gj2G0Dv/t3Bm7D2RHHs3D5e3sAzp07yX6ZikfCdyn4=
+	t=1790572893; cv=none; b=UgG5fV12rhSffeJw/001941D8Qux9EbEK4LX1mx1Titt9g5Caj8czYEGjswm9j0rluejWhbExLu9qmzGyzQPn5u82YaSWgwmVg1Yr2RfsnY7ok7RLNuHQuKB7lw+Ljnw4w6qNJHBYEVeLbJvr11a6r0LXVFR4aj9QAEbTgmb+Bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790572877; c=relaxed/simple;
-	bh=ALjE8j/sEm2NpV1PKK5gDwyyOuL563JYDIDI3ocqvDc=;
+	s=arc-20240116; t=1790572893; c=relaxed/simple;
+	bh=kfwsWCeBCc6CpVXq49BlyyFOotTaRhwbGUrliVBhwlo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o3EbUiyvzyzFpimqnMASKepp2RU9uSFsqQhtxlleSiLWyux0WurCIDLQ4s9ZzEfLGLqbi8o3UseCjx05L43SW7kIT9SwohPialDY5uJaAuUbjRc2KaprM8i4g7N2LBVVpRwm2o8dnJRUJ5kYOuHVPrM4ba93lBqqv9dYGEh9jIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTIE/HSD; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=oy3RmTUj6Lk5oaMr3Pv8NLW1jELlwJuhznVJ6Ex32wQ8kYicENCeorfi2vYittjyQT6FvltOylI4Vh8bR1hGt32DnIeEilnZiC4h/ACFFyBMicACRoZ33li3uu77X5hX8v+JJ9/Xj1sybUZWpOriDRAjLxRdYt/U4LDkUHRnAe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fr/1K0GT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTIE/HSD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B9C1F000FF
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fr/1K0GT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0938B1F00898
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790572876;
-	bh=ALjE8j/sEm2NpV1PKK5gDwyyOuL563JYDIDI3ocqvDc=;
+	s=k20260515; t=1790572892;
+	bh=lv49VszNXO1u4Ah+gG4wn7WA6kBQ6WLyLdJDnQRaxUo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nTIE/HSD0C7Of0j+8OWcS/M8l1cqAEcO2NetsRee4dDKIU7rH9ONulUcTqgGxWFHw
-	 2hWcHPFSQ1MyAK3Fge5Qesewfzyv4fmkVoxBUEecc77nTZc3OHq97WGSF4A28AFmF3
-	 eyxELYQT9eFhP0aUPWVaXk7+IOndct6DFU2P8jbOh3xs+/R9vPv858KAayCUJ9YDw2
-	 sFYYGbXSstFctGps7HsN1BMHHhL5BjcBIvYnzFp7xuzVlx0vWssE5rfVIg8qlR2+QM
-	 NZJ/aKZo/j3gwtW5Zaov8KDNQupt2caeYQ7dfpeW8UUcsPpzOG+qOVe11KkC/2LkbT
-	 9gFfVhJ1aa/xw==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570f6f36so192486866b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:21:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxWzxxFSRn96OKAighsKeQb38ApYup0jKFOf45bTbP6jHZohFmKv+x/e0b0muwOYSNlxAIXT1pnbg97btc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHqhL9cREaiL6WsxWXGJcrr6r+RTs52Uj7KVs0+OdQyFMEPXEK
-	1Qz22/EY3xze61UvayrgjJFVdZuljJFUt2c1u8KDx+xuPeIr9DFgIruZHzlqlC+v6/jO7nySHf0
-	MCYUUwgV1KEQ9wgjimCAFhr/CDe79vyo=
-X-Received: by 2002:a17:907:6a16:b0:c2b:eb1:ac01 with SMTP id
- a640c23a62f3a-c2b0eb2a6e0mr494153366b.41.1790572874851; Sun, 27 Sep 2026
- 22:21:14 -0700 (PDT)
+	b=fr/1K0GTFe1uxTyi2fx0f/EYT7zxQ4nli5d/xD/rES7oyuVsAMFX+8Qb2ypV78Qxw
+	 qGGymosuh9ibFFCnu68kO4gJqZYBII5aBJgzPFwgZumDuLypvhqKf9IhStQWOJ/zFK
+	 UwtUh33jHvd/KnHkC84mLmbbphkB0KEkqTBN+kzzHweux2y95M99oF/XNyz4Ok3ap0
+	 jnQ2xFYNSLWiKTpFEEWehaBbY8MJj7WumGLPFnygNuGPYFP1iAcfTmd1ocPeXh/P2R
+	 R0LTNb1dDZbvynE/UAAkBOjuO+hBisIw4XYi+qyJ9ovNUsjEUzKcD1fz7pemoYQOxD
+	 DRKoQ3GxDNxsg==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2cd04e72f6so203190366b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 22:21:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByd54djK9ptVwGyszzYLw8BOkD0cWT2+XGEUBsLBUIG9kXLU3hh+Jzo8lMqUmFfs7e+wnq9zfnzSCASuhs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzGRh9dwSkj1nsbri4MPN2+JHd3Xid4IJUfmLQRcdpsDxm8CqH
+	gJAxL4ABj4VYjeyu4tyTlkPkwQMV6nKYC80wW/Y5+K/MjQHCYNHTbjWuqhOjI34+JqpbdNCALZa
+	SeLuwve7yaHvncO5i8df+FzNnlWdCn0g=
+X-Received: by 2002:a17:907:6e88:b0:c2a:b1cc:158d with SMTP id
+ a640c23a62f3a-c2ac24d3eb6mr1066458966b.32.1790572890660; Sun, 27 Sep 2026
+ 22:21:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923123300.1626723-1-anmuxixixi@gmail.com> <20260923123300.1626723-2-anmuxixixi@gmail.com>
-In-Reply-To: <20260923123300.1626723-2-anmuxixixi@gmail.com>
+References: <20260923123300.1626723-1-anmuxixixi@gmail.com> <20260923123300.1626723-4-anmuxixixi@gmail.com>
+In-Reply-To: <20260923123300.1626723-4-anmuxixixi@gmail.com>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 28 Sep 2026 14:21:02 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9YFErC-L6-P53VUZx=AL123buhHy7yOtxJuCJf03N9QA@mail.gmail.com>
-X-Gm-Features: AclHuK9kJGHJw4ejTrv9m83d8HxXuwR5IrNSw9lqwzIWFvegaPGeZPQnjCUGAnw
-Message-ID: <CAKYAXd9YFErC-L6-P53VUZx=AL123buhHy7yOtxJuCJf03N9QA@mail.gmail.com>
-Subject: Re: [PATCH v6 1/3] exfat: add a Bloom filter for negative name lookups
+Date: Mon, 28 Sep 2026 14:21:17 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-mfrPQvnXXE-SOmwY-Vr1mZgi1B=qoFnO0sfFYdzqqiw@mail.gmail.com>
+X-Gm-Features: AclHuK87QM7Bjcs8cJ0sbqrQSsIPDE5dPT6ielVvjeU9GS7lSEs89ZLqaYnJ41Q
+Message-ID: <CAKYAXd-mfrPQvnXXE-SOmwY-Vr1mZgi1B=qoFnO0sfFYdzqqiw@mail.gmail.com>
+Subject: Re: [PATCH v6 3/3] exfat: reclaim name filters under memory pressure
 To: Yang Wen <anmuxixixi@gmail.com>
 Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
 	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 9:33=E2=80=AFPM Yang Wen <anmuxixixi@gmail.com> wro=
-te:
->
-> Negative name lookups scan a directory from the beginning. Repeating this
-> scan before creating each file makes bulk creation approach O(N^2).
->
-> Add a 64 KiB per-directory Bloom filter. Build it lazily after a director=
-y
-> reaches 1024 on-disk entries. A definite miss skips the directory scan,
-> while a possible match follows the normal lookup path so hash collisions
-> cannot affect correctness.
-A fixed size of 64 KiB is excessive for a directory with 1024 dentries
-(roughly 340 files). Conversely, for very large directories (1M+
-files), the false-positive rate approaches nearly 100%. Because
-deleted names are never removed, the structure only keeps filling up,
-so shouldn=E2=80=99t the size be adjusted to the directory or regenerated o=
-n
-saturation?
-
-Thanks.
+> +static unsigned long
+> +exfat_name_filter_scan_objects(struct shrinker *shrinker,
+> +                              struct shrink_control *sc)
+> +{
+> +       struct exfat_sb_info *sbi = shrinker->private_data;
+> +       unsigned long freed = 0;
+> +
+> +       /* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
+> +       if (!mutex_trylock(&sbi->s_lock)) {
+> +               sc->nr_scanned = 0;
+> +               return SHRINK_STOP;
+> +       }
+> +
+> +       while (freed < sc->nr_to_scan) {
+> +               struct exfat_inode_info *ei;
+> +               unsigned long *filter;
+> +
+> +               spin_lock(&sbi->name_filter_lock);
+> +               if (list_empty(&sbi->name_filter_lru)) {
+> +                       spin_unlock(&sbi->name_filter_lock);
+> +                       break;
+> +               }
+> +
+> +               ei = list_first_entry(&sbi->name_filter_lru,
+> +                                     struct exfat_inode_info,
+> +                                     name_filter_lru);
+> +               filter = exfat_name_filter_detach_locked(sbi, ei);
+> +               spin_unlock(&sbi->name_filter_lock);
+> +
+> +               kvfree(filter);
+> +               freed++;
+> +               cond_resched();
+> +       }
+> +
+> +       mutex_unlock(&sbi->s_lock);
+> +       sc->nr_scanned = freed;
+When the LRU becomes empty before nr_to_scan is satisfied, this
+reports nr_scanned == 0. do_shrink_slab() subtracts only nr_scanned
+from total_scan and retries while total_scan >= freeable. For example,
+with one filter and reclaim priority 0, the first scan frees the
+filter, but the next scan makes no progress and the loop can run
+forever. Could the empty-list path return SHRINK_STOP or otherwise
+ensure the remaining scan budget is consumed?
