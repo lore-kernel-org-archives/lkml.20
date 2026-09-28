@@ -1,201 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B68A37269B;
-	Mon, 28 Sep 2026 18:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687863783BE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619531; cv=none; b=Kf3Q8omYobh72rfJtlKiqvtdjmR9H7WCyvyEoEmW3QI3fVkX8ocFj4qm4lBbJAkfgLzYVrlMD8H5OCYl5f9bzSw6CCEu/yCKzIe2fal3Yx8kIaKoMJhmVOsYAgOld9zrfczdBqoh4Rcg+vjc/VcZxUnVhKuhHx+qPyujRpArPbc=
+	t=1790619564; cv=none; b=HM7vnDJroMtHO9kKAW8kMBYO9q9Q6jB1AiR58WCI7bK4YyI2fGOi5kJ0Mdb/S4OxPTDixVQq+OT3DsZjuXf4d7HKzDUzlCuXzaV3NRb3a6YiafCTRIjvMhI4D08JiLg3bWnHE4SOHEVSuz4m3z0OxdTqdQ0e8boLa8EcMoANuLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619531; c=relaxed/simple;
-	bh=K+gm/+Cc9qAPK0prI75QXEUR81iMnLHYkECUNXcg+H0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HIltLqfplqUZdCRkEx7vDc7fBnPpeRBuvrzdtH6t0B3nfZH29P61kjmFCquutQpV/nc1uO4nZLAsXRPrc/la9CQz0iUTV34WyPU/bl0UdfNbwfQIMKcpPPSSzvQygs4eT76bJu94g1nI+ddpYd8gyICrynEZ72t9p/cNlqUKcTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDahCbPk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790619564; c=relaxed/simple;
+	bh=XsCb/1wYBwtWgfl2wTDX4hMMs6EhaI7tcx3nu9Rxru8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=rhPeldoY3TCc+jXh/HWTzviH/f6F4sbM+3yFkZdtOlP8hhHnHSh1JQYm4Cw1zGscVc5C87YodQ6JejF2IzysvdRWJCmFe7l+fqMq0Oj/aBmc4xgtdcy7YIix3qh/BXf7QNaW5N6Oat6e9zlD4uGXCMTbvg4vTIu+luu4HrXUrFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KyQd02Yg; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDahCbPk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91C51F000FF;
-	Mon, 28 Sep 2026 18:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790619529;
-	bh=IngvfdjDTuMxuKWaiC5XQNkdziiuEHqoUpcP04yDirI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VDahCbPkV+RSr4vSZ1HWmkwUpQ/kplhol52IB+WLXyrnPMar5mgI7cZhss+Ge7G17
-	 go6E0RRqYMg0QqKIiMnQgb5vOpVDpsh9YGKDXc60lR2r5WMPXbKC0dr4AjCw9rIfgj
-	 yNzICd4YdTMd0dcx4wh2BbxmbTUVThYBNlXVqq5iF+cQI8wIgK03FE27niBRpoKOJL
-	 DN6TTpxi1FyykohiU1CIcPfEA9siwthZ2XQ8FZw/WHPqDBlBo8CKTQmHN3cjaQcneR
-	 Le+tNHmx2qpKojmC561RZeS+UTHSJ/q0Wnyt7hlPO6A9HoE9jiQSISLLwBLycEdKGV
-	 mTdaWVAHDVOMg==
-Date: Mon, 28 Sep 2026 13:18:48 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alex Ousherovitch <aousherovitch@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
-	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
-	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thi Nguyen <thin@rambus.com>
-Subject: Re: [PATCH v5 01/19] dt-bindings: crypto: add Rambus CryptoManager
- Hub
-Message-ID: <20260928181848.GA150882-robh@kernel.org>
-References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-2-aousherovitch@rambus.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KyQd02Yg"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2df8d1e91c9so49725465ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790619563; x=1791224363; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mq+zT7TlYlSrRa6VHL2crDPLB8rmFnZ6Km6oi1RUCxQ=;
+        b=KyQd02YgDhQERi4525T5uoU6AcvCJ0ZblVxrlgn6BWCDh4COrJCMV2AjSR1jWwVVhy
+         AawMYp2hA/s151+Hq8NEm4BvSrhjQR0+hZgg7am7nZ2N0PWIc3uQENzW/jhULL1Nf7Xz
+         NnTGAmk7RJA/QzFp4g0zf/SgSXMJ0SzhWWvuZ3b3KbtJs7m+/YIanKHDMzsQ9YRBTiRf
+         jd1Igarg0eh9/M9249jkTd0hzJXB2zGRt/aMAeHx4fZxgCoKx3MAaU8gpW2ksEDXfkRL
+         zj/LmAfigRqmbxjbX7oFaQUUi3ygl28PLoMYuRxwEeMDjKH5NfWKonDXNHe0KU2Qso4b
+         9ycg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790619563; x=1791224363;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mq+zT7TlYlSrRa6VHL2crDPLB8rmFnZ6Km6oi1RUCxQ=;
+        b=qUhd4B6ghKk1qZ1836JkfQ1sHNVuv9/mRVXD301JLkOnQQ+HSOzg2iEWsNXlJJOGuU
+         H3oMR6rsOOcm5DyIRTJZ6sn3ibeZjXCQ/CRBzMqLvyFd3hqlhRRpS2gm1OnEr6vgsWxy
+         hhZRru1N1wFtYHDQGznoO/CyV2pnqtD26//5CXWq80jz+Q1dJ4xFGemakEYh0SY/gwgv
+         XwIo3tt1hU9XbUqJkiVZrJWXBjYXS7Wqr/R9B3Q+1eh5cyvFD5WfGEjB2SXGOFmP8QZ6
+         DekG84gVRQvF8//tIZOJRSZB/9kMKwamVHePYE4BvOmgGHwfHiy7NTAiOsRWeJfj5KB5
+         F1cg==
+X-Forwarded-Encrypted: i=1; AKwUvBzf/G6ijlCI7ctV1bbGt6tqiVfofbNkaTkz+F7F3ecjUANZnRGbRUiQ3uKjtmS+c02MWTVzvlpfbcgl438=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+Tb/tOv6w1xYc5MCWUEDqqX4CpJuXJKe6s7smIj7cTI9IS+wH
+	C1yrKLvexhkUMDfAEKvjCheHfPcY6M3evRgxd+gsirBr9A5MlKxLxSSdU/kPrFZ7j9GADDoeO2F
+	em/BuMQ==
+X-Received: from plld5.prod.google.com ([2002:a17:902:7285:b0:2df:aa58:22a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d60f:b0:2df:aed3:2ac0
+ with SMTP id d9443c01a7336-2dfaed33785mr46039165ad.10.1790619562342; Mon, 28
+ Sep 2026 11:19:22 -0700 (PDT)
+Date: Mon, 28 Sep 2026 11:19:21 -0700
+In-Reply-To: <20260928174243.GA3705413@liuwe-devbox-debian-v2.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917225929.2494111-2-aousherovitch@rambus.com>
+Mime-Version: 1.0
+References: <20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com>
+ <20260928072534.1987-1-odys.yuan@gmail.com> <20260928174243.GA3705413@liuwe-devbox-debian-v2.local>
+Message-ID: <arqvqW7g72AnVsLK@google.com>
+Subject: Re: [PATCH] KVM: x86: Clear CR3[63:32] on SMM entry from long mode
+From: Sean Christopherson <seanjc@google.com>
+To: Wei Liu <wei.liu@kernel.org>
+Cc: Qiliang Yuan <odys.yuan@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>, 
+	Long Li <longli@microsoft.com>, linux-hyperv@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, Sep 17, 2026 at 03:59:10PM -0700, Alex Ousherovitch wrote:
-> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
-> hardware crypto accelerator.  The binding describes the parent
-> SoC-level node with its SIC register region and one queue@N child
-> node per mailbox the host owns, each carrying a reg (mailbox instance
-> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
-> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
-> crypto cores are present is discovered from the SIC CORE_ENABLE
-> register at probe, not described in the device tree.
+On Mon, Sep 28, 2026, Wei Liu wrote:
+> Hi Qiliang
 > 
-> Register the 'rambus' vendor prefix for Rambus Inc.
+> On Mon, Sep 28, 2026 at 03:25:34PM +0800, Qiliang Yuan wrote:
+> > +Cc Hyper-V folks and linux-hyperv, since the failure is triggered by
+> > Hyper-V's handling of VMRUN for a nested (L1) hypervisor, i.e. KVM
+> > running on WSL2.
+> > 
+> > For the Hyper-V side: the VMRUN is rejected when the guest state has
+> > CR0.PG=0, EFER.LMA=0 and CR3[63:32] != 0, a combination that bare-metal
+> > SVM does not reject.  Is that check intentional?  If it is not, a
+> > Hyper-V fix would help older KVM versions as well; either way the patch
+> > avoids creating that state in the first place.
+> > 
+> > The full patch is here:
+> > https://lore.kernel.org/r/20260928-kvm-smm-cr3-upper-bits-v1-1-138f52dd531e@gmail.com
 > 
-> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
-> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> ---
->  .../bindings/crypto/rambus,cmh-v1030.yaml     | 151 ++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  2 files changed, 153 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> Please share the Windows version from `winver`.
 > 
-> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> new file mode 100644
-> index 000000000000..a0df35bdc371
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> @@ -0,0 +1,151 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/crypto/rambus,cmh-v1030.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Rambus CryptoManager Hub (CMH) Hardware Crypto Accelerator
-> +
-> +maintainers:
-> +  - Alex Ousherovitch <aousherovitch@rambus.com>
-> +  - Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> +  - Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-> +
-> +description: |
-> +  The Rambus CryptoManager Hub (CMH) is a hardware cryptographic accelerator
-> +  accessed via a mailbox-based VCQ (Virtual Command Queue) interface.  The
-> +  host writes VCQ command sequences into per-mailbox DMA queue buffers and
-> +  rings a doorbell; the CMH eSW processes them and signals completion via
-> +  interrupt.
-> +
-> +  The management host statically partitions the hardware mailboxes across
-> +  the SoC's host interfaces at integration time; the set of mailboxes a
-> +  given host owns is therefore fixed and not runtime-discoverable (a
-> +  mailbox locked to a host reads as unavailable in the SIC availability
-> +  register).  Each owned mailbox is described by a child node.  Which
-> +  crypto cores are present is a fixed silicon-build property indicated by
-> +  the SIC CORE_ENABLE register, so cores are not described in the device
-> +  tree.  Clock and reset are owned by the management host; a node
-> +  describing a non-management host has no clock or reset provider of its
-> +  own, so clocks and reset-gpios are optional.
-> +
-> +  CMH gates access to a locked mailbox by a hardware HOST ID presented on
-> +  the bus with every access, permitting only the owning host's ID.  An
-> +  integration must present a single, stable HOST ID for all accesses to a
-> +  given mailbox, independent of the issuing CPU (relevant on SMP hosts
-> +  whose interconnect encodes the issuing CPU in the HOST ID).
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - not: {}
-> +        description: SoC-specific compatible, e.g. vendor,soc-cmh
-> +      - const: rambus,cmh-v1030
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description:
-> +      SIC (System Interface Controller) MMIO region.  The registers of
-> +      mailbox instance N are at offset N * 0x1000 within this region.
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 3
-> +    description:
-> +      The "core" functional clock, and optionally the half-rate "core-div2"
-> +      clock (present only on configurations with side-channel-protected
-> +      cores) and/or the "rt" real-time tick clock.  See clock-names for the
-> +      valid combinations.
-> +
-> +  clock-names:
-> +    oneOf:
-> +      - items:
-> +          - const: core
-> +      - items:
-> +          - const: core
-> +          - const: core-div2
-> +      - items:
-> +          - const: core
-> +          - const: rt
-> +      - items:
-> +          - const: core
-> +          - const: core-div2
-> +          - const: rt
+> My colleague said that it had been fixed. Maybe the change needs to be ported.
 
-Can be simplified to:
-
-items:
-  - const: core
-  - enum: [ core-div2, rt ]
-  - const: rt
-
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Host-controlled reset for the CryptoManager Hub.  The hub has two
-> +      external, active-low reset inputs -- a power-on reset and a hard
-> +      reset; where a board routes one of them to a host GPIO, that line is
-> +      described here.
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^queue@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      One node per hardware mailbox (VCQ command queue) this host owns.
-> +      The set of owned mailboxes is fixed by the management host at
-> +      integration time and enumerated here.
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description:
-> +          0-based mailbox instance index.  The instance's registers are
-> +          at reg * 0x1000 within the SIC region.
-
-Is there a maximum number of instances? If so, 'maximum: N'.
-
-Rob
+Ya, I'd much prefer to get this fixed in Hyper-V.  If we need to carry a KVM hack,
+then at the very least it should be limited to when KVM detects that it's running
+on Hyper-V. 
