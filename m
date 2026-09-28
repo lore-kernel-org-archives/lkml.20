@@ -1,178 +1,174 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FD92D29C8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6172F326D4A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:58:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790567756; cv=none; b=DzmseHayJc6yxMwciKY++ys4y+Aph0xoxVrYl15F9hJmw/obG+1iZ0EykQCTGTDdOrMw7XmI6CIIgcXhU//icajWvoKLdfsyluDqpwIX8kXe0O6g0rcIWZ0y45Vi3zoJs+UtHnxNHNPX5cOJNV8eRV4sfBYzTuTdmmv6ygsJj34=
+	t=1790567884; cv=none; b=d/AyBntSm8LzY5KHRWQZGlvRqdFJe7Xrr9oJOGheHdR6vk9DmVg0WfarVahs1D/8lSboSFkcWAUlTZdb0cFESpxmn6r5io1VPTmgczqH51KgQOHnkuk0XipL2LRyHqJR6W1qJ1XoRIVcsE63rRajqB3w3mq2YL4lCi8v+xFd8jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790567756; c=relaxed/simple;
-	bh=IZcAabwyeorI+PfxCVfb1Pf5iolJwcSyaAM/XpwMu8k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OU/1LPiD30WfMGsGtm7oKbsRzDNKklAuEmuNC1HAVTnCxGsyWaPotyVWq9waiWw5l5CIih8BiuJAEhgdHaxnyK8CDShhzLFw83WlbC1zR9WI4e/eakMNtuVTOajmaIianPOqnHiX0Tzvdyvgc5rn3vPXACAMnIZGwX72shua/tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jEckSgdj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bxx7E1Wu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790567884; c=relaxed/simple;
+	bh=RCb84R1Ilbqk/brMo0ozsD4weTDX3UUsJYqs8fer/vM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mOT50B+VZsg5tiXCdlJ7R1Rjj4Ag9W0vstl5ndjFeTNRtuic0Vcw7mffkGm5yaK1g1tlG9LORaMeADIbssa7/fAT3goFyML+U6ocQ83ku3efR/MMRCxNRyrB9ierAOl58QjSUjsU+iYqxOl+YvEqTkkBSpPe4PoKubdqYB5pb/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CE+5RxAk; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jEckSgdj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bxx7E1Wu"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S1BAT23455871
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:55:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=GYkc7pMuPhIl7WUzz6I9Wd
-	3ehyVSsbYAi6I2/mvmKK0=; b=jEckSgdjx3Efmthto+jOd6LOdlWzACow6NXQz6
-	sDFSEGoGe5vEz2iOS33n4BuuTq54WEATNmO7kTQtci2lHokxELgt+DhaDcTB5mIg
-	7/G7wIHCabPnR10yBOXPv2cTTUPj5MypxZcIlaxsRLY0DjdjfThI1c7jqsqmpo8m
-	lH7N4DRbPzmR8ihlBVC1Wz9A1CMzoJlU/vMBOro4Ha7NL/cf9KO7NSE0UpJcZngB
-	HnruJ48MtJ9FhLsruGmFWXEUAmAl34viCNcYtMcXjGfwvjkib1T3cOmsioznzHFq
-	xT4MhWWOO/4GgSBCg1x36ZpjCbV1IimkQ2APLtM8m+BJRS5A==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq0cx3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:55:53 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34344599f01so2584396eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:55:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CE+5RxAk"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-790b4aeb66bso1318026137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 20:58:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790567753; x=1791172553; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GYkc7pMuPhIl7WUzz6I9Wd3ehyVSsbYAi6I2/mvmKK0=;
-        b=Bxx7E1WuAIKiS5NZTvOtNmex4Y6Y1LAt9G1Ib07H4TozBy/rMT8vHhUsohzxcC6LwG
-         TR5OGZbjhRc3ucyHR251CIVg92cIKY2NWs+7IUZNTujWZU0WbPY8MOfox3nK1UCbhJBN
-         F6dtpr/FwYK4ZLSMDEyg00wLxyo0bIkHknD6jaHHC9AbGThjPNcv1bySvqmsG0eQQMxk
-         Pn/drhaXrg04A4I2XJ1CNtDADW/0WGumkMXTco62+gvVFQp3k+9lVmettGrl+xw7B+ZP
-         qeEe/qF+DobDhYZKamzghNc71NujVWaY44ZuR2CvEwwbiDAdvvSW6meVi4hmWuE9Pq9+
-         RFiw==
+        d=gmail.com; s=20251104; t=1790567882; x=1791172682; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8PRQtLnkGcQLLad/iSnwkqrL/4wKHSNHecCDuETOGrQ=;
+        b=CE+5RxAkoZPF2ZDyvTb4nIJQXt18JC74S5W5fHZRCroLzNEnPs11sUoEz23V/sT3Z8
+         SVhKP+SJOvXap51n1nPCYIk92nSJ52oJMKqJPcKWpK2GQwxguKxijjjHd6/azrnwnmkM
+         Q2hOTulTf7+QyEUR2CGdNKcbuKfSBh6c0A+X3X/NPcY6h0zP1fWMe7h23OFZIl2gymI/
+         ayxf4a8x9I09g9E1PEv4xgQAVbQryQ6Rk9/r0/SlbaMcqe/D1Wrr+nfcrZrT6ih/oGMB
+         8dskjENNoAK3R9kQUmjMBNV9e+GBQYXGDdYuK7XUj63GnU+U0oou6DIakZPLGORJOKcR
+         py4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790567753; x=1791172553;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GYkc7pMuPhIl7WUzz6I9Wd3ehyVSsbYAi6I2/mvmKK0=;
-        b=MsHioet7OYuSXe7rmahDcNh+gsxi3Vi6KW+AcrMKBW9CkdArCNMKAJoBUvSWUb3jjo
-         FZzbKhewXYlaJwsv2M6Bx2/WRSEvfwsKNSIXHoRqEy3gQTxz1x/U0NTFJcT0Z3xrrceV
-         HQBCkHTZnxhAggz3tImRc0+QhdBSZsw2ZAGznwFAhso6OwFTEBWrkWQUtC+l/XbHaAs7
-         1hu7yPUoBkcW+kFbAISiSfbX9i06NbnvMbyJlDLsQ7oNHcws2fM5yHy8+QzbXQULOeJg
-         TGFW1Rci/bdFhgdNVjiE8owBDgskpzSeQ3gCuFVdlaq7qg+RWFy88vqbZ2h51qZrlEMC
-         etUQ==
-X-Gm-Message-State: AFq9FYIVwtx5vVO2zbVmDyO+/L1LGepO21MT74WiAWHWWaVcJTOqWQtE
-	VQC3kUyyM5FgU8bkCm7Oa/SxNfUdvBUvO0OjxpFqH1+cgf6QLw65721GV24zK/BYvEmncR8TT12
-	IIGzNNYC9/kwAZOJHpWFuKrqvwaytxvcqTU3WTwVAzweNAG/Kb7ReIYnUgx4Ej4piS1U=
-X-Gm-Gg: AYBFou1k1Lz+muM64YQk8OIZuFkVH5zIk3E3JTdRlDHgBZQ6OJlm4tQJyQy6PkQDJ6z
-	Td685i/5oiB3TgWRgXKIvDsGTfc3SkV5sNkV/iI/LfoXUVYLeOpDu2W12lTTdncf8UgxTDjn5rA
-	1phlmjHUrlQgcU2u4iYLLiy+PBq5ciOk7Bi/w4zMCJEcgYRp3cph8M3QKd8Q/jwCEBJ5tu1nUu4
-	ghm9tVkqZ3qHECZLch0gFVJg0L7gg2ykCMnyYn14hywRn+yYDk7tB0FJqDKlnayI5t76FhVsoVH
-	lbqffbNm13KWi5ILCFOkYy6roomnrTxLm06OHDVAu+tNgryj4Lh+HbKFCPMoQIZ2RbqngYFZmjN
-	IFl7YxFpAEduZb8o+S3s10kAi3zfkDcuq
-X-Received: by 2002:a05:7301:1a3:b0:33b:dd20:f78c with SMTP id 5a478bee46e88-34272e5e6aemr9183641eec.34.1790567752964;
-        Sun, 27 Sep 2026 20:55:52 -0700 (PDT)
-X-Received: by 2002:a05:7301:1a3:b0:33b:dd20:f78c with SMTP id 5a478bee46e88-34272e5e6aemr9183610eec.34.1790567752371;
-        Sun, 27 Sep 2026 20:55:52 -0700 (PDT)
-Received: from hu-pkondeti-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm20863251eec.10.2026.09.27.20.55.49
+        d=1e100.net; s=20260707; t=1790567882; x=1791172682;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8PRQtLnkGcQLLad/iSnwkqrL/4wKHSNHecCDuETOGrQ=;
+        b=mgeqc0GZGs6SU/Ioo43yLrE8/EqqRuyOR89L9+PaPrYSjBXLH9vKllGOLHt8jlHgMx
+         aOyGBLIjBhmUv5T4ZjHZR/JxC2Lip9iuL529XQ24VEKhgUD3n25ShhSkt2ppx5lZmITY
+         OvPGCIbe5BJI6K2k6ezXchjDf+z/InRH2iVnTSjGxx//Ued08n5tJNePR8PDOoxghOFm
+         5SJKNUfXUUZNW8aPtxRLT07TLcjzsb+aU9IySs6ADGEqWP5lJZ5hvIisgh+zksDGKQYR
+         u5Sduop9UNkKs+XkG68bcGL2nZ/1JS5aXBkf+yQZ/pVXvnopIk1UbM3ZNAR6culMq+Br
+         peIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLGSOt+AfOl/YiRooebn76xCQSJaVRDqld+ndrAh6fp2hoQyr/EKW3Muu+qxrEE6D4t9UHPhATWB7rGkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjrCsOFLbkXLxoO+EtEMInnGu1uxYqXU+0caj9HCb5wWDLaXu7
+	AIp3rGeVrlOgQjxeFtj5awj80lXhK7ySo5U7vOd9ao9q/TUXETADdHVH
+X-Gm-Gg: AYBFou0WJtz97YlDFNsirnFSp8v7dlfaoVewdn+axWuJu061HwWUFQBnmlpb/FLy2bK
+	RhSFrLqoZhSZiStXhHVOBhBhMWcgd53tMXebI3MmzCU2aH27OwyKCFRnEzbS118OFYQ22gPjBkk
+	z/YCNqPS7XqzrqcF5jnnk71kGFUNGS1N27jU3sK0odB1m7bwDjz3tmxNZhwpIskVc1PRVJ3EXql
+	9OVGFSlOoMQfyjNSYnTdGwUcud1K25VwujKBzvfZjdiexOmdmsWq5d2D5fnYXlO4gpaJkohUr5m
+	MlTcuwEee7iQdWjcwj7w/AKeUxZVw+tVpjcq4aWMOj76xfvZfzZYRsHUyyZDrA30Y7Q600vlldx
+	r/+t4Ue3qpFDrJ3mj0CtojwROquoR60RyDiXhnywq48TQ/HAgYIeBZt68UF9FhWX1KgWO0EltEh
+	qM9zj540YN7ixYLG+v9wd3b8hHNntb/fpcXsTmH4+JhERr8kvt42kq9Vs3nk9f59M=
+X-Received: by 2002:a05:6102:358d:b0:79e:2b00:b4da with SMTP id ada2fe7eead31-7af1c692c06mr4663990137.6.1790567882180;
+        Sun, 27 Sep 2026 20:58:02 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b15808esm8107452137.5.2026.09.27.20.57.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 20:55:52 -0700 (PDT)
-From: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 09:25:46 +0530
-Subject: [PATCH] workqueue: Fix NULL current_pwq deref in mem-reclaim
- helper
+        Sun, 27 Sep 2026 20:58:01 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+ci3c472c63e196fe9e@syzkaller.appspotmail.com,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net v3] nfc: llcp: prevent resource leak on repeated connect after DM
+Date: Mon, 28 Sep 2026 00:57:49 -0300
+Message-ID: <20260928035749.2305913-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260925184857.357926-1-qwe.aldo@gmail.com>
+References: <20260925184857.357926-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-wq_mem_reclaim_fix-v1-1-0dd37125cf47@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAEHluWoC/x2MWwqAIBAArxL7nWD27ioRYrrWQvZQqCC6e9LnD
- Mw8ENATBuiSBzyeFGhbI2RpAnpW64SMTGQQXFS8FQ27DunQSY96UeSkpZvl7ZiXtbGqsBxiuHu
- M+p/2w/t+WWZ/DGQAAAA=
-X-Change-ID: 20260928-wq_mem_reclaim_fix-39b357dfa4f0
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-        Trond Myklebust <trond.myklebust@hammerspace.com>,
-        Mike Snitzer <snitzer@hammerspace.com>
-Cc: linux-kernel@vger.kernel.org,
-        Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790567749; l=1539;
- i=pavan.kondeti@oss.qualcomm.com; s=20260311; h=from:subject:message-id;
- bh=IZcAabwyeorI+PfxCVfb1Pf5iolJwcSyaAM/XpwMu8k=;
- b=dGCWUDos1qxLYOGsA3K7uh5VxvgtO/VKbrQKK7Ek/En2iSxphnDOiAzKZmYeXm17lzcuQbRjq
- 2z0ydHV7z4kDUv9SF/Phgjm/JrzXvSeXES9l06JHSsnHbL5kPIjC2Xi
-X-Developer-Key: i=pavan.kondeti@oss.qualcomm.com; a=ed25519;
- pk=Pdl9NnQpMlqbYaAGGkgBGpURTnZFe2de5LRZSGHkbHY=
-X-Proofpoint-ORIG-GUID: 1GshTRKRk2s1dFsURpslguM03T1RHtQL
-X-Proofpoint-GUID: 1GshTRKRk2s1dFsURpslguM03T1RHtQL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAxNSBTYWx0ZWRfX/cuoo/YfTR6V
- IBFdHW2RoYGmdyO8ypR8CMAByOztqQjvmnFd8Hb2YOLjCHwPvbrKsfJOmx35SwYr+D4B75WX+63
- u9SC1VosNKTT+5ApTuO4S8ABTHj4r10=
-X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6ab9e549 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=deh_Qxz_fmYwX0_qHPQA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAxNSBTYWx0ZWRfXw5sBOKNfeqLy
- AOVncbt8rxlNVxSHQ/PGtBffB2ji62257y4E8L6/479y3DST8LNNK27/k7hlrcTf/mIMqr0/Yf9
- fMvc/dmk82iy00QEQIi+ClGo3gO1jIU/EbVsGjCtZDGZmFP2mhHo3TILbcDQ7m8ey/LUKExtQAf
- g4MV34NriheSb6SkDKDwFrynOdLvb6oa7yaYBJBwA841brHJRb/FlLQnJ+aOV6wyiBek+rwpgWz
- Bm3oLT2u5ctQb0Xnl5PCEY1df0NT9Zyl9mwsbn3CmnB5iInf22/Qy4jeLEhSxgyupysKqsId1x1
- jFZT1sOTWX/zXQPERIo1fsJR5K3HpE6c1Hj2y6bS+L6f/c2kSJT3/9dagEZET05GTC9hcKGMwwK
- tILFXacFkflDeEhQokKTjDdk0KyrI+t8f7HkPl8F4939xmFsKPPNBKSXNTFgTXOFM/pZqKLI8hb
- d9llfJnI4CEvlOQPw1w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280015
+Content-Transfer-Encoding: 8bit
 
-current_is_workqueue_mem_reclaim() uses current_wq_worker() to decide
-whether %current is a workqueue worker and then checks the current
-workqueue flags. However, current_wq_worker() only implies that %current
-is a kworker; it does not imply that the worker is currently executing a
-work item.
+A rejected asynchronous connect leaves a local reference, SAP allocation,
+service name and device reference on a closed socket. Release them before
+retrying connect.
 
-worker->current_pwq is set while process_one_work() runs the work
-function and cleared afterwards. A kworker outside work-item execution can
-therefore have PF_WQ_WORKER set with current_pwq cleared.
+The device pointer alone does not prove ownership: bind() puts its
+temporary device reference while retaining the pointer. When device
+teardown closes a bound socket, the retry cleanup would put that device
+again. Clear the pointer when a bound or listening socket becomes closed,
+and after a connected socket's device reference is put. Do the same when
+DM closes a bound or listening socket. A DM rejected connect keeps its
+device reference until the retry cleanup, so retain that put there.
 
-Guard the flag check with worker->current_pwq. Without a current_pwq, the
-worker is not executing on a WQ_MEM_RECLAIM workqueue, so the helper
-should return false.
-
-Fixes: da729ddd4a1b ("NFS/localio: issue IO inline when not in a memory-reclaim context")
-Signed-off-by: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://ci.syzbot.org/findings/64002827-5231-4183-bfca-0d91bded8543/syz_repro
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- kernel/workqueue.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3: Clear non-owning or already released device pointers on close, while
+    preserving the device put for rejected asynchronous connects.
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 959525393739..3d0497639e79 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -6320,7 +6320,7 @@ bool current_is_workqueue_mem_reclaim(void)
- {
- 	struct worker *worker = current_wq_worker();
+ net/nfc/llcp_core.c | 12 +++++++++++-
+ net/nfc/llcp_sock.c | 17 +++++++++++++++++
+ 2 files changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index 199543c47eef..6382aacca69a 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -95,8 +95,14 @@
  
--	return worker &&
-+	return worker && worker->current_pwq &&
- 		((worker->current_pwq->wq->flags &
- 		  (WQ_MEM_RECLAIM | __WQ_LEGACY)) == WQ_MEM_RECLAIM);
- }
-
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260928-wq_mem_reclaim_fix-39b357dfa4f0
-
-Best regards,
+ 		nfc_llcp_socket_purge(llcp_sock);
+ 
+-		if (sk->sk_state == LLCP_CONNECTED)
++		if (sk->sk_state == LLCP_CONNECTED) {
+ 			nfc_put_device(llcp_sock->dev);
++			llcp_sock->dev = NULL;
++		} else if (sk->sk_state == LLCP_BOUND ||
++			   sk->sk_state == LLCP_LISTEN) {
++			/* bind() already dropped its temporary device reference. */
++			llcp_sock->dev = NULL;
++		}
+ 
+ 		if (sk->sk_state == LLCP_LISTEN) {
+ 			struct nfc_llcp_sock *lsk, *n;
+@@ -1330,6 +1336,10 @@
+ 	if (connecting)
+ 		nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+ 
++	/* Bound and listening sockets do not own a device reference. */
++	if (sk->sk_state == LLCP_BOUND || sk->sk_state == LLCP_LISTEN)
++		llcp_sock->dev = NULL;
++
+ 	sk->sk_err = ENXIO;
+ 	sk->sk_state = LLCP_CLOSED;
+ 	sk->sk_state_change(sk);
+diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+index 1e5ee4bcde68..9d76c12aee01 100644
+--- a/net/nfc/llcp_sock.c
++++ b/net/nfc/llcp_sock.c
+@@ -713,6 +713,23 @@
+ 	if (sk->sk_state == LLCP_CONNECTING) {
+ 		ret = -EINPROGRESS;
+ 		goto error;
++	}
++
++	if (sk->sk_state == LLCP_CLOSED) {
++		/* Release resources retained by a previous failed connection. */
++		if (llcp_sock->local) {
++			if (llcp_sock->reserved_ssap < LLCP_SAP_MAX)
++				nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
++			nfc_llcp_local_put(llcp_sock->local);
++		}
++		if (llcp_sock->dev)
++			nfc_put_device(llcp_sock->dev);
++		kfree(llcp_sock->service_name);
++		llcp_sock->local = NULL;
++		llcp_sock->dev = NULL;
++		llcp_sock->service_name = NULL;
++		llcp_sock->service_name_len = 0;
++		llcp_sock->reserved_ssap = LLCP_SAP_MAX;
+ 	}
+ 
+ 	dev = nfc_get_device(addr->dev_idx);
 -- 
-Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
-
+2.43.0
