@@ -1,196 +1,305 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E199D37206F;
-	Mon, 28 Sep 2026 12:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6B1330D29;
+	Mon, 28 Sep 2026 12:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598261; cv=none; b=jRlFFR2vl7YasDlmwSbN2JFhifHtCwIIb5d/8phz3cighZq+muCILXNcCj3YinZPmbrctax+Q9RLVaVHVuAHKkqPu7WdOUYnFyzkRa34yBo3GOQX/5Zvd9fMO+PVBLqxuDXhiUf7HrkMHzeteb/dlsx2CjA3Fs+jqOvtXJ1f6dw=
+	t=1790598277; cv=none; b=K1F1IYQRJHg1mxr7t0FGVFu23oyj2u8fLfE4s/qMzPypyzj4xVGr8hlVTXNDXzq1//OOs4Ndg1dCHQDaCi070ptiNzXTR9ATa8VWTEURwanDEZuCc/zkARNQX9lkz21i9tYJcXu5UiBDx+ul/mOGWcEOaJ97nCIwP7E3lJdr98w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598261; c=relaxed/simple;
-	bh=qcyJyBseXbZS90zaOng45prybqLv9ZAZSjFBw+qb4Qk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=glfvpGzwghp6k3vlXRAacmRtqOjEvWrXcpYS/0yyHoHaqduTAOcZyHBjSp0/XNW3B8+n5RQFmm9OTgvz8v6QpWMZyvkyDH+5WnhnVQ+15IZE50E7lEy8qFwQz+DP66rdep5qyU30mvRx9XjO8SDQUstit+hBHb6BdUPSF/CBQN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLRpJa7i; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLRpJa7i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE86F1F00893;
-	Mon, 28 Sep 2026 12:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790598259;
-	bh=XrvuQ5S7vUig/3iGGMMV/FCD0w6ruETLjU2iIyssM5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QLRpJa7ihe8BNoFi0vwJrxl93TUD/Y2GHFKJv9EZpkAA4ypzjyuZwg9Vp9WGJ/tMz
-	 yUywzyXXA2WUcgAxgZRntBsGwVrs72XaWlatZ6yJEZ/+JHnzXuRiwxfHumQHIRE7K9
-	 iUNoRiLAXQwuXZl8Fgn9snkloAK5dKCjZbtGkgTzANsrH90SVosilLNChjexSETemE
-	 akNF7SyXnho96J4elepwaYMd4sXTgC8HUvnQ0TbUFWDmrt2c5t+QeT461ij8tt7xkC
-	 TSrdlfCxsAYNwjV7+xVDUoXqt91X+3+u/VKxxvlde1iYsd+iI3ymosiypnKRzFnFut
-	 X5SloFiPx8uxQ==
-Date: Mon, 28 Sep 2026 14:24:16 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Zi-Yu Chen <zychennvt@gmail.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jacky Huang <ychuang3@nuvoton.com>, 
-	Shan-Chun Hung <schung@nuvoton.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@codeconstruct.com.au>
-Subject: Re: [PATCH v10 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-Message-ID: <aro-QitaRwK87gdO@zenone.zhora.eu>
-References: <20260921083753.1109826-1-zychennvt@gmail.com>
- <20260921083753.1109826-3-zychennvt@gmail.com>
+	s=arc-20240116; t=1790598277; c=relaxed/simple;
+	bh=EpG3og2O4gczajFRcDdYkud2oB20AySKbSQIpqmWPHo=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=beqgPTt5e1JyC3pqIrP9HCMQupZb2hWcz/hqOotgyTrsAMMrwT/8kuVqxUSairNd/daB4BRsKuzVaWMbJuwJSJorgSouDe4b7Aqp7ECJgDuUUs70f2+GpH21nngzFo2uXq3NubTg/ONF5kjFBkmvahjQqqNmk2buUasfyRwuDHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4htgV92ksYz5B0xY;
+	Mon, 28 Sep 2026 20:24:33 +0800 (CST)
+Received: from njy2app01.zte.com.cn ([10.40.12.136])
+	by mse-fl1.zte.com.cn with SMTP id 68SCOOC0072489;
+	Mon, 28 Sep 2026 20:24:24 +0800 (+08)
+	(envelope-from han.junyang@zte.com.cn)
+Received: from mapi (njb2app07[null])
+	by mapi (Zmail) with MAPI id mid204;
+	Mon, 28 Sep 2026 20:24:27 +0800 (CST)
+X-Zmail-TransId: 2aff6aba5c7bca8-17598
+X-Mailer: Zmail v1.0
+Message-ID: <202609282024273579VUWteKdnnbvWlyjERLQ-@zte.com.cn>
+In-Reply-To: <20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn>
+References: 20260928202059763e9xqxhTwFe4DHa6a2wq0L@zte.com.cn
+Date: Mon, 28 Sep 2026 20:24:27 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921083753.1109826-3-zychennvt@gmail.com>
+Mime-Version: 1.0
+From: <han.junyang@zte.com.cn>
+To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
+        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHY0IDEvM10gZGluZ2hhaTogYWRkIGZpcm13YXJlIHZlcnNpb24gY2hlY2sgYW5kIFJJU0MtVgogcmVhZGluZXNzIHBvbGxpbmc=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68SCOOC0072489
+X-TLS: YES
+X-ENVELOPE-SENDER: han.junyang@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 28 Sep 2026 20:24:33 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6ABA5C81.000/4htgV92ksYz5B0xY
 
-Hi Zi-Yu,
+From: Junyang Han <han.junyang@zte.com.cn>
 
-...
+The DingHai firmware publishes a version compatibility block and a
+RISC-V health buffer at fixed offsets within BAR 0.
 
-> +/* Constants */
-> +#define MA35_CLKDIV_MSK		GENMASK(9, 0)
-> +#define I2C_PM_TIMEOUT_MS	5000
-> +#define STOP_TIMEOUT_MS		50
+After the PCI capabilities are mapped, poll the compatibility block
+until the firmware populates it (the region reads as all ones until
+then) and verify the driver/firmware version contract. Then wait for
+the RISC-V management core to set its power-on flag in the health
+buffer before the rest of the probe continues.
 
-these two defines are the only ones without the MA35 prefix.
+Firmware images that support neither self-healing (health version
+other than 1) nor hot-plug interrupts (patch level below
+ZXDH_HPIRQ_PATCH) do not report the power-on flag and skip the
+readiness wait.
 
-...
+Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
+---
+ drivers/net/ethernet/zte/dinghai/en_pf.c | 130 +++++++++++++++++++++++
+ drivers/net/ethernet/zte/dinghai/en_pf.h |  46 ++++++++
+ 2 files changed, 176 insertions(+)
 
-> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
-> +					     unsigned long i2c_status)
-> +{
-> +	unsigned char byte = 0;
-> +
-> +	switch (i2c_status) {
-> +	case MA35_S_RECE_ARB_LOST:
-> +		/*
-> +		 * Arbitration lost during address transmission phase.
-> +		 * The hardware switches to Target Transmitter mode when
-> +		 * our own SLA+W is detected on the bus.
-> +		 */
-> +		i2c->err = -EAGAIN;
-> +		ma35d1_i2c_controller_complete(i2c);
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
+index 86d437408820..ddff9b0438fb 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.c
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
+@@ -6,6 +6,8 @@
 
-All the return values of these i2c_slave_event()'s are ignored.
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
+ #include <net/devlink.h>
+ #include <linux/dma-mapping.h>
+ #include "en_pf.h"
+@@ -369,6 +371,120 @@ int zxdh_pf_modern_cfg_init(struct zxdh_core_dev *zxdh_dev)
+ 	return ret;
+ }
 
-> +		break;
-> +
-> +	case MA35_S_RECE_ADDR_ACK:
-> +		/* Own SLA+W has been receive; ACK has been return */
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
-> +		break;
-> +
-> +	case MA35_S_TRAN_DATA_NACK:
-> +	case MA35_S_RECE_DATA_NACK:
-> +		/*
-> +		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
-> +		 * or previously addressed with own SLA address and NACK returned.
-> +		 */
-> +		break;
-> +
++/* The firmware fills the compatibility block field by field, so it is
++ * only ready to be read once every field we consume has lost its
++ * erased value.
++ */
++static bool zxdh_pf_fw_compat_ready(struct zxdh_fw_compat __iomem *compat)
++{
++	return ioread8(&compat->module_id) != 0xffU &&
++	       ioread8(&compat->major) != 0xffU &&
++	       ioread8(&compat->fw_minor) != 0xffU &&
++	       ioread8(&compat->drv_minor) != 0xffU &&
++	       ioread16(&compat->patch) != 0xffffU;
++}
++
++/* Read the firmware version block and verify the driver/firmware
++ * version contract.
++ */
++static int zxdh_pf_fw_compat_check(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
++	struct zxdh_fw_compat __iomem *compat;
++	struct zxdh_fw_compat *fw_compat;
++	bool ready;
++	int err;
++
++	fw_compat = &pf_dev->fw_compat;
++	compat = pf_dev->pci_ioremap_addr[0] + ZXDH_FW_COMPAT_OFFSET;
++
++	/* The firmware publishes the block within 10 s of boot; wait twice
++	 * that to leave margin.
++	 */
++	err = readx_poll_timeout(zxdh_pf_fw_compat_ready, compat, ready,
++				 ready, USEC_PER_SEC,
++				 ZXDH_FW_COMPAT_TIMEOUT_SEC * USEC_PER_SEC);
++	if (err)
++		dev_info(zxdh_dev->device,
++			 "compat region not populated, assuming legacy firmware\n");
++
++	/* Firmware predating the compatibility region keeps the erased
++	 * pattern, which fails the module id check below and defers the
++	 * decision to the readiness wait.
++	 */
++	fw_compat->module_id = ioread8(&compat->module_id);
++	fw_compat->major = ioread8(&compat->major);
++	fw_compat->fw_minor = ioread8(&compat->fw_minor);
++	fw_compat->drv_minor = ioread8(&compat->drv_minor);
++	fw_compat->patch = ioread16(&compat->patch);
++
++	if (fw_compat->module_id != ZXDH_MODULE_ID) {
++		dev_info(zxdh_dev->device,
++			 "unknown module id %u, skip fw compat check\n",
++			 fw_compat->module_id);
++		/* Unknown firmware is treated as predating the HPIRQ
++		 * patch, so that the readiness wait is skipped.
++		 */
++		fw_compat->patch = 0;
++		return 0;
++	}
++
++	if (fw_compat->major != ZXDH_MAJOR) {
++		dev_err(zxdh_dev->device,
++			"driver major %u incompatible with firmware major %u\n",
++			ZXDH_MAJOR, fw_compat->major);
++		return -EINVAL;
++	}
++
++	if (fw_compat->fw_minor < ZXDH_FW_MINOR) {
++		dev_err(zxdh_dev->device,
++			"firmware fw_minor %u older than required %u\n",
++			fw_compat->fw_minor, ZXDH_FW_MINOR);
++		return -EINVAL;
++	}
++
++	if (fw_compat->drv_minor > ZXDH_DRV_MINOR) {
++		dev_err(zxdh_dev->device,
++			"driver drv_minor %u older than required by firmware %u\n",
++			ZXDH_DRV_MINOR, fw_compat->drv_minor);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++/* Wait for the RISC-V management core of the firmware to finish
++ * booting, so that later probe steps can talk to it.
++ */
++static int zxdh_pf_wait_riscv_ready(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
++	struct zxdh_health_buffer __iomem *hb;
++	u8 health_version;
++	u8 power_on;
++	int err;
++
++	hb = pf_dev->pci_ioremap_addr[0] + ZXDH_RISCV_HB_OFFSET;
++	health_version = ioread8(&hb->health_version);
++
++	/* Firmware that supports neither self-healing nor hot-plug
++	 * interrupts does not report the power-on flag.
++	 */
++	if (health_version != 1 &&
++	    pf_dev->fw_compat.patch < ZXDH_HPIRQ_PATCH)
++		return 0;
++
++	err = readx_poll_timeout(ioread8, &hb->riscv_power_on, power_on,
++				 power_on == 1, USEC_PER_SEC,
++				 ZXDH_RISCV_READY_TIMEOUT_SEC * USEC_PER_SEC);
++	if (err) {
++		dev_err(zxdh_dev->device, "timed out waiting for riscv power on\n");
++		return err;
++	}
++
++	return 0;
++}
++
+ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ {
+ 	struct zxdh_core_dev *zxdh_dev;
+@@ -405,10 +521,24 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto err_cfg_init;
+ 	}
 
-...
++	ret = zxdh_pf_fw_compat_check(zxdh_dev);
++	if (ret) {
++		dev_err(&pdev->dev, "zxdh_pf_fw_compat_check failed: %d\n", ret);
++		goto err_modern_cfg;
++	}
++
++	ret = zxdh_pf_wait_riscv_ready(zxdh_dev);
++	if (ret) {
++		dev_err(&pdev->dev, "zxdh_pf_wait_riscv_ready failed: %d\n", ret);
++		goto err_modern_cfg;
++	}
++
+ 	devlink_register(devlink);
 
-> +	default:
-> +		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
-> +			i2c_status);
-> +		ma35d1_i2c_restore_idle(i2c);
-> +		return IRQ_NONE;
-> +	}
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
+ 	return 0;
 
-As far as I understood, this this is an unconditional ACK enabled
-for the next bytes received, right? In that case are we ignoring
-failed communications as above where we are supposed to send
-NACKs?
++err_modern_cfg:
++	zxdh_pf_modern_cfg_uninit(zxdh_dev);
+ err_cfg_init:
+ 	zxdh_pf_pci_close(zxdh_dev);
+ err_pci_init:
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
+index 7373dee8d1a9..7733f41c57f1 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.h
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
+@@ -29,6 +29,51 @@
+ #define ZXDH_PF_ALIGN2			2
+ #define ZXDH_PF_MAP_MINLEN2		2
 
-> +	return IRQ_HANDLED;
-> +}
++/* Fixed offsets of the firmware interface regions within BAR 0. */
++#define ZXDH_RISCV_HB_OFFSET	0x5300
++#define ZXDH_FW_COMPAT_OFFSET	0x5400
++
++/* Driver/firmware version contract. The firmware publishes its side of
++ * the contract in the region at ZXDH_FW_COMPAT_OFFSET.
++ */
++#define ZXDH_MODULE_ID		1
++#define ZXDH_MAJOR		1
++#define ZXDH_FW_MINOR		0
++#define ZXDH_DRV_MINOR		0
++/* Firmware patch level that introduced hot-plug IRQ support. */
++#define ZXDH_HPIRQ_PATCH	4
++
++#define ZXDH_FW_COMPAT_TIMEOUT_SEC	20
++#define ZXDH_RISCV_READY_TIMEOUT_SEC	40
++
++/* Firmware version compatibility block at ZXDH_FW_COMPAT_OFFSET.
++ * Fields are read through ioread*(), which converts from little-endian.
++ */
++struct zxdh_fw_compat {
++	u8 module_id;
++	u8 major;
++	u8 fw_minor;
++	u8 drv_minor;
++	u16 patch;
++	u16 rsv;
++} __packed;
++
++/* Health buffer at ZXDH_RISCV_HB_OFFSET, maintained by the RISC-V
++ * management core of the firmware. Fields are read through ioread*().
++ */
++struct zxdh_health_buffer {
++	u32 synd;		/* Bitmask of active syndrome flags. */
++	u32 health_counter;	/* Incremented heartbeat counter. */
++	u8 status;
++	u8 rfr;
++	u8 fw_exception;
++	u8 riscv_power_on;	/* Set to 1 once the core finished booting. */
++	u8 fw_version[32];
++	u8 pf_status[5];
++	u8 health_version;	/* 1 when the firmware supports self-healing. */
++	u8 rsv1[30];
++} __packed;
++
+ struct zxdh_core_dev {
+ 	struct device *device;
+ 	struct pci_dev *pdev;
+@@ -54,6 +99,7 @@ struct zxdh_pf_dev {
+ 	s32 modern_bars;
+ 	void __iomem *pci_ioremap_addr[6];
+ 	u32 dev_cfg_bar_off;
++	struct zxdh_fw_compat fw_compat;
+ };
 
-...
-
-> +	i2c->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(i2c->regs))
-> +		return PTR_ERR(i2c->regs);
-> +
-> +	i2c->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> +	if (IS_ERR(i2c->rst))
-> +		return dev_err_probe(dev, PTR_ERR(i2c->rst),
-> +				     "failed to get reset control\n");
-> +
-> +	ret = reset_control_deassert(i2c->rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
-> +
-> +	/* Setup info block for the I2C core */
-> +	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
-> +	i2c->adap.owner = THIS_MODULE;
-> +	i2c->adap.algo = &ma35d1_i2c_algorithm;
-> +	i2c->adap.quirks = &ma35d1_i2c_quirks;
-> +	i2c->adap.retries = 2;
-> +	i2c->adap.algo_data = i2c;
-> +	i2c->adap.dev.parent = &pdev->dev;
-> +	i2c->adap.dev.of_node = pdev->dev.of_node;
-> +	i2c_set_adapdata(&i2c->adap, i2c);
-> +
-> +	if (!device_property_read_u32(dev, "clock-frequency", &val)) {
-> +		if (val != 0 && val <= MEGA)
-> +			busfreq = val;
-> +	}
-> +	/* Calculate divider based on the current peripheral clock rate */
-> +	clkdiv = DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
-> +	if (clkdiv < 0 || clkdiv > 0x3ff)
-> +		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
-> +				     clkdiv);
-> +
-> +	i2c->irq = platform_get_irq(pdev, 0);
-> +	if (i2c->irq < 0)
-> +		return dev_err_probe(dev, i2c->irq, "failed to get irq\n");
-> +
-> +	platform_set_drvdata(pdev, i2c);
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, I2C_PM_TIMEOUT_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, ma35d1_i2c_pm_cleanup, dev);
-> +	if (ret)
-> +		return ret;
-
-you are printing an error message everywhere, except of here.
-
-> +
-> +	writel(MA35_CTL_I2CEN | MA35_CTL_INTEN, i2c->regs + MA35_CTL0);
-> +	writel(FIELD_PREP(MA35_CLKDIV_MSK, clkdiv), i2c->regs + MA35_CLKDIV);
-> +
-> +	ret = devm_request_irq(dev, i2c->irq, ma35d1_i2c_irq, 0, dev_name(dev),
-> +			       i2c);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "cannot claim IRQ %d\n", i2c->irq);
-> +		return ret;
-> +	}
-> +
-> +	ret = devm_i2c_add_adapter(dev, &i2c->adap);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to add bus to i2c core\n");
-> +		return ret;
-
-return dev_err_probe(...)
-
-Thanks,
-Andi
-
-> +	}
-> +
-> +	dev_info(&i2c->adap.dev, "%pa MA35D1 I2C adapter registered\n",
-> +		 &res->start);
-> +	return 0;
-> +}
+ void *zxdh_core_alloc_priv(struct zxdh_core_dev *zxdh_dev, size_t size);
+-- 
+2.27.0
