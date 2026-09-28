@@ -1,95 +1,121 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553564C33C0;
-	Mon, 28 Sep 2026 13:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF42C4BEE38
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602306; cv=none; b=q00D6aUWDMuXMtgUOYNEGvHLKzJwQJKd0dTxWRxkf7+GIiLRYQCf39T5WpLeJ0nu5ULq36Kzo6401iDFSc6qFtOCyDRwXe+j9rptkZxBqhyJesDkWXd3UyVtBtyclVAIefExFDqI86SicTz7qMRxlLKVp5OY/l2NKdihGMe4EWo=
+	t=1790602330; cv=none; b=SPVdt9lG86LyjAB4Rfu+9HI0EjWaMNba1OxkmlfOIagDkJzTYBfxiW1nuXCbkZ2CP2fg8gQH3vuER57FyePMRvDMU4i1MKP+fr+QT3tc+6HI3QyZMAQFNelN/Z3YnksKCohVXlfrR01dgZoyUC+6pIc+obh6sx3SjqVw+eB423U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602306; c=relaxed/simple;
-	bh=Anp+d4iytFWmOtXv0rIR4DTLJrKXL5QPGp7XUZOBfGw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=GPSHwNJLSx6fkvDz23Wjq8gXt3TJEKCo6gwvo5HpS0RB5HRD4RdyNa7wDEIJFFuFjyg8PprkOeTKLTZDLyzcc+Jx33HciEKcec8F78hN2zJinCLZy8p0+LHcVOguco988ZSFqyFl3MAiPB7er3Df3C6V1eVtAdxm50JJBor+19w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=q5dLX0v5; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790602330; c=relaxed/simple;
+	bh=cRBiTAX8sUcFRk5xwhqKvWV37dgGuNWlRNcie5a2MCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n8Ol6N7ZxPErVABKGPmViaG8pphtEKkzf08py9uaE4nf9ZqZ8Vb/ll5/PLfQ1WDEpKlAOuBr+9kSAqIzIcC30+LsYwtD/pD4GZxi077Fth2dPfUbXmpFFcJop/O/8CmpRvph90R8P/aV/9WwfSAIoAR82Eqda8vl7zpApzKbszo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=benedikt.niedermayr@siemens.com header.b=CHeIT+jQ; arc=none smtp.client-ip=185.136.64.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="q5dLX0v5"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8CF49A4AB3;
-	Mon, 28 Sep 2026 15:31:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790602297; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SJP6etaw9jl2gowaKw+escruuLCz6tvXBCsjd9MCEdI=;
-	b=q5dLX0v5oLB5F2pq2fdieoerGlDmse0/dvqy7M0PfVpcnMvycHYy9JaIITlH6j53H6Tn+Y
-	Fup5+lASq2hKch94304YIspXH0Ji7vQHVlv6LccP2hwNJrwD3+zxKA1drEz3Vp8yHg4DHy
-	MtmpKOvwJtbJzrY80RCH3cAymGK7G+0d5BUHmB3uq3Pj02W27IvE6I9N0vSVhZz4WVTzlP
-	IYtik7V4hDJbR/Pip6snh1CtYoZwXX1hh9M4DevmKdqgeROfioicPhv4b8iCCJT1c1nSSf
-	XGR8R3SRSX/t4Lnt01byuBla9e4Mg7GPFw1nXRm0yeB7tUdgih4eK209YvnmFQ==
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=benedikt.niedermayr@siemens.com header.b="CHeIT+jQ"
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 202609281331570e67eedbe80002076c
+        for <linux-kernel@vger.kernel.org>;
+        Mon, 28 Sep 2026 15:31:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=benedikt.niedermayr@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=qgiJK1A/bzYz7KUdCuSnEMBXjiHNUiMcAAe7ng8RjSA=;
+ b=CHeIT+jQsFPJfq+D/oKWWwjLWE8c2teszUPpK9z06anCvdV5kvYaxhy8PpDxpRbpQ7J8Yk
+ foHWhj0UR5MtN8N/O+tVQ6FMCYsynvDHlNHYPWDi+lG6xhhy4szW9fS0s135FfIa4prpfXXE
+ sMXxOlEszAHR0s50fIPCdNdyDhOppUbgL4npfYx/u0BodSOOMGDSWBmK24PHdFE75xiTAhjS
+ okNOtzYhN/68T2DwVa1Qtuq89rdCDFkcTCUvkAE2VNCJOIAPcLfhWkkZAC8JQn9PjCbqxTJq
+ h5TUnya1F1KjcU0o9bwgexwORA6evucQeASRZ6n3j7LbxmaqRvnVQ/BA==;
+From: Benedikt Niedermayr <benedikt.niedermayr@siemens.com>
+To: andi.shyti@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: baocheng.su@siemens.com,
+	tobias.schaffner@siemens.com,
+	linux-kernel@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: [PATCH v2 2/2] platform/x86/siemens: simatic-ipc: add fan monitoring support for BX-59A
+Date: Mon, 28 Sep 2026 15:31:56 +0200
+Message-ID: <20260928133156.817479-3-benedikt.niedermayr@siemens.com>
+In-Reply-To: <20260928133156.817479-1-benedikt.niedermayr@siemens.com>
+References: <20260928133156.817479-1-benedikt.niedermayr@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 28 Sep 2026 15:31:35 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Eric Dumazet <edumazet@google.com>
-Cc: Doug Berger <opendmb@gmail.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Justin Chen
- <justin.chen@broadcom.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: bcmgenet: complete Tx NAPI after one
- reclaim pass
-In-Reply-To: <CANn89iK5RTtZLPAY+rJKCeUpLkCge+PFqfN-g_M184S9fyzSsg@mail.gmail.com>
-References: <20260928121454.901306-1-nb@tipi-net.de>
- <CANn89iK5RTtZLPAY+rJKCeUpLkCge+PFqfN-g_M184S9fyzSsg@mail.gmail.com>
-Message-ID: <d63f546d8a580cdec58d91ad06ecc26a@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1323861:519-21489:flowmailer
 
-On 28.9.2026 15:14, Eric Dumazet wrote:
+Some fans on the BX59-A are connected to the ADT7475 fan controller
+which is connected to the NCT6126D Super I/O chip's SMBus interface
+(supported by the i2c-nct6126 driver).
 
-> [...]
+Other fans on the BX59-A are connected to the NCT6126Ds hwmon interface
+which is controlled by the nct6775 driver.
 
-> Reviewed-by: Eric Dumazet <edumazet@google.com>
-> 
-> As a follow-up, you can get rid of ring->lock in the TX
-> fastpath altogether (it looks like a leftover from before TX reclaim
-> was moved to NAPI in commit 4092e6acf5cb ("net: bcmgenet: use NAPI for
-> Tx completion")).
+This patch enables the required drivers.
 
-Thanks Eric, makes sense. I'll sent a follow up along with some some 
-other findings.
+Signed-off-by: Benedikt Niedermayr <benedikt.niedermayr@siemens.com>
+---
+ drivers/platform/x86/siemens/simatic-ipc.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-> bcmgenet_xmit() is already serialized by the netdev queue lock, and
-> bcmgenet_tx_poll() by NAPI. To make them lockless with respect to each
-> other:
-> 
-> 1. Drop ring->free_bds and compute available space from
->    (READ_ONCE(ring->prod_index) - READ_ONCE(ring->c_index)) & 
-> DMA_C_INDEX_MASK.
-> 2. Use the lockless queue stop/wake helpers from <net/pkt_sched.h>
->    (netif_txq_maybe_stop() and __netif_txq_completed_wake()).
-> 3. Ensure proper memory barriers between populating tx_cb_ptr /
->    writing TDMA_PROD_INDEX in bcmgenet_xmit() and reading
->    TDMA_CONS_INDEX / freeing tx_cbs in __bcmgenet_tx_reclaim() (since
->    bcmgenet uses readl_relaxed/writel_relaxed).
-> 4. Avoid sharing ring->stats64.syncp between bcmgenet_add_tsb()
->    (tx_dropped) and __bcmgenet_tx_reclaim(), and serialize
->    bcmgenet_timeout() with napi_disable() + __netif_tx_lock_bh().
+diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
+index 7039874d8f11..132a899c8752 100644
+--- a/drivers/platform/x86/siemens/simatic-ipc.c
++++ b/drivers/platform/x86/siemens/simatic-ipc.c
+@@ -33,7 +33,7 @@ static const struct dmi_system_id simatic_ipc_whitelist[] = {
+ 
+ static struct simatic_ipc_platform platform_data;
+ 
+-#define SIMATIC_IPC_MAX_EXTRA_MODULES 2
++#define SIMATIC_IPC_MAX_EXTRA_MODULES 5
+ 
+ static struct {
+ 	u32 station_id;
+@@ -53,10 +53,10 @@ static struct {
+ 		{ "emc1403", NULL }},
+ 	{SIMATIC_IPC_IPC227G,
+ 		SIMATIC_IPC_DEVICE_227G, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_227G,
+-		{ "nct6775", "w83627hf_wdt" }},
++		{ "nct6775", "w83627hf_wdt", NULL }},
+ 	{SIMATIC_IPC_IPC277G,
+ 		SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_227G,
+-		{ "nct6775", "w83627hf_wdt" }},
++		{ "nct6775", "w83627hf_wdt", NULL }},
+ 	{SIMATIC_IPC_IPC277E,
+ 		SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_227E, SIMATIC_IPC_DEVICE_227E,
+ 		{ "emc1403", NULL }},
+@@ -71,19 +71,19 @@ static struct {
+ 		{ "emc1403", NULL }},
+ 	{SIMATIC_IPC_IPCBX_39A,
+ 		SIMATIC_IPC_DEVICE_227G, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_BX_39A,
+-		{ "nct6775", "w83627hf_wdt" }},
++		{ "nct6775", "w83627hf_wdt", NULL }},
+ 	{SIMATIC_IPC_IPCPX_39A,
+ 		SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_BX_39A,
+-		{ "nct6775", "w83627hf_wdt" }},
++		{ "nct6775", "w83627hf_wdt", NULL }},
+ 	{SIMATIC_IPC_IPCBX_21A,
+ 		SIMATIC_IPC_DEVICE_BX_21A, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_BX_21A,
+ 		{ "emc1403", NULL }},
+ 	{SIMATIC_IPC_IPCBX_56A,
+ 		SIMATIC_IPC_DEVICE_BX_59A, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_BX_59A,
+-		{ "emc1403", "w83627hf_wdt" }},
++		{ "emc1403", "w83627hf_wdt", NULL }},
+ 	{SIMATIC_IPC_IPCBX_59A,
+ 		SIMATIC_IPC_DEVICE_BX_59A, SIMATIC_IPC_DEVICE_NONE, SIMATIC_IPC_DEVICE_BX_59A,
+-		{ "emc1403", "w83627hf_wdt" }},
++		{ "i2c-nct6126", "nct6775", "adt7475", "emc1403", "w83627hf_wdt"  }},
+ };
+ 
+ static int register_platform_devices(u32 station_id)
+-- 
+2.43.0
 
-The timeout path needs rework anyway. It currently resets the ring
-while TDMA is still running, which it definitely shouldn't.
-
-> [...]
-
-Regards,
-Nicolai
