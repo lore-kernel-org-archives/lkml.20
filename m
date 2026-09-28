@@ -1,211 +1,283 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+Received: from mail-qk2-f3.google.com (mail-qk2-f3.google.com [74.125.230.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EABE39B48D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541AC4FB9B5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629025; cv=none; b=FrsLJrd/b8cHcobr/xSvf9yGm6fA1nLtTqsPc5ysggV3hVBfWeNZ1TB0zbB34Mpt7ZCLC19bcyQCcQXRBQiZyIGpQik9z129KVrTBBcQBwOqnsVf6XjVEaw8/txUe3W2zM41LljQpmT9CUHDxh2ZKYsOZAB78eWiRnQUpsRTVeo=
+	t=1790629049; cv=none; b=Jse9rrUkIj5AX4B7MLVQAJ3bn0W3xAi5WcF4pYxG8AI/K7+r9Gl/KymSalxY6bXs6I4glgXH98u25C8Fo2PcK4gpd5oYlYtbIUGWMr6Y5kVw33Tm2ONRM3Idi3DquU5ZsjKN+IMHz1R+A7mnk+zJK+F9VlaeaOrWdS8pk7SRjSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629025; c=relaxed/simple;
-	bh=zpC1ExKteyur5CkRIV5diCeaDt5y/APvhpo27XSbxjY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=i4tnLTJjMM9Ey0eXof8ypJMO6btcC0A4qy5TWAbTrZCJm9Alq6ktV89ulg3qBH1/J5DdWXecEXzlfqQWuaAomJ4uhPM8qjjCFNrIkrgL4GW7/PYhidjQ5qxHSi/OymeAvUjACYVebwdUmCN+mvG9w7J41zJEqhThhrFIR/G+r/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ZSbFc+5F; arc=none smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790629049; c=relaxed/simple;
+	bh=X7rWD2jzzHbsWFfZ3PsGJIz721WPwrvFp+KPtPDgD9g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UWLx6vs0F+CIYor6CraWNp44uQPqsbgYLpZhM7wslGSTYzaYYm5HpHHDVwoUSZmx4HiMeJ8hMHyC/7HbMJFybGzseSuvad+pJ0/NT5t1gFijZrp4za2dL+pQc3rCPGXQyFFxcZTXC36hjM9RUKTKDR4CHFI4HHwN+sav5yfEJ7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIsUeUDb; arc=none smtp.client-ip=74.125.230.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ZSbFc+5F"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-6755aad8a98so626585d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIsUeUDb"
+Received: by mail-qk2-f3.google.com with SMTP id d75a77b69052e-5330918daeaso6928441cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790629023; x=1791233823; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QU+Dw9OV8hXvUAg+6qx9gdzK2zTaZ+3agVUM3ninEK4=;
-        b=ZSbFc+5FSaazAp5vkAGJlw/4f2ubI9ADRpqF6e/r36IAPOOODbXHw/ehTdH3tws7bZ
-         Zmn+yqA6qYIm96EWoDUvIf+P4i2G9GYclgCF6crI59mYCgBAdIBziNwumYLKOI7EUdxi
-         KN/M6gtTkJclYGq0G615cFlpKOOJuzndshSYiyfm+ttAN33Bm+LnUsYpat/k5rfB1wxk
-         SvA+Pi+Z3VQn4xAYHdcdXcLHPCK07q+9Kf2M0H82gfiy3GANybGS3M9IIeXnjaVTGJLQ
-         nIStUhACWkx2Llp1h1jvJ8ttjb4LdZdqKVjffunrkYwci+hP64RY1JlDrAR9uylT7nIV
-         CYIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629023; x=1791233823;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1790629046; x=1791233846; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=QU+Dw9OV8hXvUAg+6qx9gdzK2zTaZ+3agVUM3ninEK4=;
-        b=vOwg0vqmApJ2VcrZ9155UCQpWMq6SZb21E5gYzvRmCB4rWEHEVs55sHtctgy/qkycw
-         QfuFGU3JZvzY8dLNK4PhHeOqjQP0cUjvF5omT0dhpB6yzRryrRqrtGN6smyuuPIGi+hw
-         JhBG+Ty9MctT2w23Tptq7xpA9lNz69KSnvdgmsZsrRJuGdH3pnrLx0kLBMi1430rU0UY
-         t7cZHDzZChTySTVz3Vann+Kl/y/5rwH3m75J9vwOdDdOhunDx7bD7aJCh7LNLmHsFZt/
-         LuFqDiCp4TArW0F59unRFA1MmlrQ10sYJWpj4GP2yNkTDFEF+qMYZCimq2+8ky7nqWsj
-         OxaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzF+UmCShSGpk3JRhhYlb/l6rQJZ0xs86gW3nhc1oYqgUg4Yi7J+ev9KBSb1ywOY7nsEKzUsz1F2E37tnM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpofLxPAYdi7Pfui05HWxKbL/aYGgXL4eB49XKRv5Z0vCbn7Lx
-	sDIu1aa+DkIW42wpLnfH5B/XQla12J1w5zPwxFKxwGi4qaN4CHnecyjS9oDNbdDz6JE=
-X-Gm-Gg: AYBFou28boQVGiKmiNo4CceQWguUX7i2cqhsRYEwFuv9iPsr9VAnV8r0A6gDsIqLvch
-	UsEs6b71f1h2rg6dGKgmTNYIpbGPGhqrQSyTmtjUgFnLbBokZgSDN4jZop3bn21a5Q+L0+jYqhc
-	wssLN75mWjjigK/OOmhjIXnxPr9iJ0u3yDPXDkm81zfs+5MatQ6dR2sUv6WfAOouEYLj18ccCjb
-	4YBp0MvY0yScHi+38b0C5eUaPQ03zKjmsY+6n8vr7YZb4AdUa/4L8nyfEEHVJp7HVknRpWYUC6P
-	jTXhn5I8OxDgqlysutpEY6eID4syIT7/+rfGTL6ye0f3eKKEWlDvFGW+2GzdoZgELXJ5VCrgi/N
-	ib1RMrMIX0LV09Cihq5phGSrMMxwwxF9veQwAEta7XZOtp6R86NXXFzNOsGyWli4Yr7GQK1iCgz
-	APA2HOgcwuPCuFCVmFerJV40tf+bebCzx/UiB7VBsYNYYwDywu01gXH4TBxo5YQTWLKGVz/Cd1W
-	iliE1ABZocts4nEILDH20S6TeiQKrC2YVy/khqCYhhgvW9YVW72T8J9o9ryIdRrx6pjcborx11Y
-	RmqWctq9ZBthLjaz4LsC7UdoSZIguaIbfzp8EUPEG1SZIRrzC+Aon/RH/uPPFWq3js5TP5En
-X-Received: by 2002:a05:690e:d89:b0:674:2095:58dc with SMTP id 956f58d0204a3-674209582a9mr4161618d50.86.1790629022900;
-        Mon, 28 Sep 2026 13:57:02 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:9da4:6df:559d:f4cd? ([2600:1700:6476:1430:9da4:6df:559d:f4cd])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef87db6sm5265370d50.17.2026.09.28.13.57.01
+        bh=W7dESHL0vifQnHIeAhXaCrb7JvaI9KDwDeR5hQlydKw=;
+        b=MIsUeUDbL7hyl2GTqvU9p0p7/s+gAdMCfmLswfNJXQRQcXQAB3Vp4Kxc30lub3dJXs
+         oXSmgKnuX2gHXzT85jJy2aHp8ZfcDs4PNoZQdG3Z/BQgVxQamAqpPJP32AHh7Oo6VZnN
+         Oj/6j/5uk+ofs7ZEvi2pSWrqQwZmllEXNq98Dh+eeLvZPD6DyTWUCxQzDuQxECVc4YQX
+         eRw5hhDOQdHR8NKsCzXrxD3pqk2POk1TOVOOSwJz71qxu0cxKwH9Om2AXXPbez4zzvSt
+         8R0tDdHu0Djrf3jABRmoCwlHYlEvM7VsJrNxulMLcYnoFBdRwB+CqtMc/PTeSkajdyTf
+         O4UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790629046; x=1791233846;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=W7dESHL0vifQnHIeAhXaCrb7JvaI9KDwDeR5hQlydKw=;
+        b=CyHEPvoDjg1uAC/tHMyT9U84YWUxg9YrhuYgyn9UFZnzHjzg1fbeTA0I7QuSvDfNaq
+         sJSilMPRgIbAdR2xJVOAvVWX0zy75WXY6vPjuOALW0Z+eAmPLgBGpBgJ3kKcEv2DK9zt
+         tIQnY3pTtOm7mHO6bPcunlihB3IRvyBt65GfwGFIzIWY7XyKpX4shUNVMDn6w5wf/KNY
+         71scc24zuHeLU2j2ZZg+SiO95QlPtvSnFpmYRGNrNUjjG71n+KidJU68mKtR7Vr+HyTu
+         bK7GkTr9GbEHFdkqaovfcQVDoHUQd5nBpaiforciJvEU0ATaHDWNbnvJndO20R7TMxAg
+         TDRw==
+X-Forwarded-Encrypted: i=1; AKwUvByWNc0jxmjFQiJfQLxBW8iQ74tjC/DFcukBzmClRXUv0jU+/Ntr9f6eG32LXTFYAd13UisD+IwtHW2Zebs=@vger.kernel.org
+X-Gm-Message-State: AFuF++khncP731bkzRWQR6DWjvF9z3QA7sH7OiMAp2uwmJ9628f7gvgc
+	U+AYSAdrtZJqFPT2xSIwOAMGTxZNd9nR8i/rPEHx7kWhyzVCh/XBW8qG
+X-Gm-Gg: AYBFou3aLTbOhVsNgkaj9MvWZxE5kZwDY9ooduK3D+MNTkH2SwP14HWaOgu48OoTuCb
+	dzmsc3mKGSuNPnakMIDa52Yal8nJ33xrauFiP6aOHbtNNzmOHMNNrqrv7HNE2nGYWAJn4V81wNv
+	GeBSlPmlKSKp6cd1XX3PPFBgpnHha+4f8p22vCYfP3JAeLbrlEqDMM00sgWiPD4ibqJ8svsn/Vs
+	8CQVtKPpBtTB+4TO/uEEJJXxM7c4eXhjhkFwn+vRP4Rel/1SeGwIk4C+SIoKDCLd7NZufUoT6x7
+	OgNRzHaQAb+pfeybDLwgopWUHzio3JJp8C4DqiXJBS978maIbibrdGV2WsKzTDqTXwHBS7YrYze
+	xux15oGPLpZ1ZDo5+VSHqWkB8tpET2Ilj9xi0X/KSGOoXzAHoPCov1+pVu0iYHd1/xR+ArHPaDG
+	yOLA4c+zixV5jSPRVYhUSCIbUjKiZ5GSD0LIX5pXT5RgmKH92vi2R5TKJH6SZJGhCTCloogQviy
+	RdvvJCmZqbjRD0PIJIV1QLePehk18qLOqfO6/7kDG5ENaxUrlPjENzVKmxoLRFm
+X-Received: by 2002:a05:622a:491:b0:532:a2ba:c3d with SMTP id d75a77b69052e-5330b5572c9mr235921541cf.10.1790629046042;
+        Mon, 28 Sep 2026 13:57:26 -0700 (PDT)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223c6d82sm71443421cf.21.2026.09.28.13.57.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:57:02 -0700 (PDT)
-Message-ID: <a30d61829abae665aec2faf5db93ab6e59bf1c3c.camel@dubeyko.com>
-Subject: Re: [PATCH 1/2] hfs: bound the partition-table hop in hfs_mdb_get()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 13:57:01 -0700
-In-Reply-To: <20260926084010.569552-2-matthias.goergens@gmail.com>
-References: <20260926084010.569552-1-matthias.goergens@gmail.com>
-	 <20260926084010.569552-2-matthias.goergens@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Mon, 28 Sep 2026 13:57:25 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH v4 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Date: Mon, 28 Sep 2026 15:57:18 -0500
+Message-Id: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NywrCMBCF4VeRrB2ZTppYXfke4iJNxhqwF5K2e
+ KHvbioIBTddnrP4/reIHDxHcdy8ReDRR982aeTbjbA301QM3qUtCEnjIcshlGFgiAO/YOhiH9j
+ Uvqmg7rU87MEMD+MsKM6ICiRlFYpEdYGv/vHNnC9p33zs2/D8Vsdsfn8BtS4wZoDgpHJkrHT6i
+ qeqNv6+s20t5sBIS3S/EqUZLaUqCjIaiz9ULlDClahMqEVkZ2zJrPMlOk3TBxPKj3SCAQAA
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790629044; l=9791;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=X7rWD2jzzHbsWFfZ3PsGJIz721WPwrvFp+KPtPDgD9g=;
+ b=LzhRpY3f7y28sCPo1w0Dus+9fZPfV+dyY5AItrh98GZKaCBTgm1Pv4YK8Cq15vaV472K18L7H
+ bGtxQrr4LU1DbeLBNEoIlL0TZSEf/H/z9I2MioA8eyebWad/veuCsvR
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Sat, 2026-09-26 at 16:40 +0800, Matthias Goergens wrote:
-> hfs_mdb_get() loops "while (1)" around hfs_part_find(), rereading the
-> volume header wherever the partition table points.=C2=A0 A partition entr=
-y
-> with a zero start (pdStart or pmPyPartStart) leaves part_start where
-> it
-> was, and the loop reads the same blocks forever.
->=20
-> An Apple partition map sits at the start of the raw device: the boot
-> ROM
-> reads it from block 1 (TN1189), and nothing Apple documents nests one
-> inside a partition.=C2=A0 Follow at most one partition-table hop and fail
-> with -EIO after that, as for a table that cannot be parsed.=C2=A0 A zero
-> start is caught on the second pass, when the loop comes round again.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> A partition entry pointing at its own table hangs the mount forever
-> without this patch and fails at once with it:
->=20
-> =C2=A0 img=3Dhfs-partmap-loop.img
-> =C2=A0 put() { printf "$2" | dd of=3D$img bs=3D1 seek=3D$1 conv=3Dnotrunc
-> status=3Dnone; }
-> =C2=A0 truncate --size=3D64K $img
-> =C2=A0 put $((512+0x00)) '\x50\x4d'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 # pmSig 'PM'
-> =C2=A0 put $((512+0x04)) '\x00\x00\x00\x01'=C2=A0 # pmMapBlkCnt 1
-> =C2=A0 put $((512+0x08)) '\x00\x00\x00\x00'=C2=A0 # pmPyPartStart 0 (self=
-)
-> =C2=A0 put $((512+0x0c)) '\x00\x00\x00\x64'=C2=A0 # pmPartBlkCnt 100
-> =C2=A0 put $((512+0x30)) 'Apple_HFS'=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 # pmPartType
-> =C2=A0 mount -o ro,loop -t hfs $img /mnt
-> ---
-> =C2=A0fs/hfs/mdb.c | 10 +++++++++-
-> =C2=A01 file changed, 9 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
-> index 277de712f9d4..1704f332e28d 100644
-> --- a/fs/hfs/mdb.c
-> +++ b/fs/hfs/mdb.c
-> @@ -134,6 +134,7 @@ int hfs_mdb_get(struct super_block *sb)
-> =C2=A0	sector_t part_start, part_size;
-> =C2=A0	loff_t off;
-> =C2=A0	__be16 attrib;
-> +	bool part_hop_done =3D false;
-> =C2=A0
-> =C2=A0	/* set the device driver to 512-byte blocks */
-> =C2=A0	size =3D sb_min_blocksize(sb, HFS_SECTOR_SIZE);
-> @@ -152,11 +153,18 @@ int hfs_mdb_get(struct super_block *sb)
-> =C2=A0			break;
-> =C2=A0		brelse(bh);
-> =C2=A0
-> -		/* check for a partition block
-> +		/*
-> +		 * check for a partition block
-> =C2=A0		 * (should do this only for cdrom/loop though)
-> +		 *
-> +		 * The partition map is at the start of the device:
-> follow
-> +		 * it once, or an entry pointing at itself loops
-> forever.
-> =C2=A0		 */
-> +		if (part_hop_done)
-> +			return -EIO;
-> =C2=A0		if (hfs_part_find(sb, &part_start, &part_size))
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
 
-If I understood the problem correctly, then we  have issue in
-hfs_part_find(). This method should have the proper sanity check.
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver, patch 3 the MFD cell
+that instantiates it. The cell comes last so that no commit in between
+registers a child no driver can claim.
 
-Thanks,
-Slava.
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
 
-> =C2=A0			return -EIO;
-> +		part_hop_done =3D true;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	HFS_SB(sb)->alloc_blksz =3D size =3D be32_to_cpu(mdb-
-> >drAlBlkSiz);
->=20
-> base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's
+array and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
+
+One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
+Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
+4/9 [1]. Whichever of the two lands second needs a respin. Mine would
+become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
+first.
+
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads
+817 counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it. The error paths are driven by injecting a
+regmap failure into each helper in turn. The read returns the injected
+error, and every bit is cleared again. The teardown writes were also made
+to fail, one at a time. When one write fails, the others still run, and
+only the failed write's bits are left set. The next read clears them
+anyway. Run the same way, v3 stopped at the first failed write and left the
+later bits set.
+
+A new driver was created here, instead of modifying an existing driver such
+as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+
+ - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+
+ - For mt6323-auxadc, which is the closest I could find to the mt6397
+   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+   It uses CON22 for its request register, and reads the result value
+   from the same register as the ready bit. We don't do that - the mt6397
+   has a factory-calibrated value for each channel at 0x16 higher than the
+   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+   we have 1200 mV / 10 bits. We also have some per-channel preparation
+   that we have to do before the burst, that the mt6323 doesn't have to
+   do.
+
+ - For mt6359-auxadc, it has a more generic framework for describing the
+   AUXADC, but it assumes requests are channel-per-bit, and so we would
+   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+
+ - We also have our own software sampling, which the vendor does too
+   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+   sampling callback to do it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again.
+   Both ADC input enables are clear when idle, unless a teardown write
+   itself fails: the rest of the teardown still runs, and the next read of
+   the channel clears whatever was left set.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: in one interleaved run,
+   0.92 LSB standard deviation for one conversion against 0.67 for sixteen,
+   where independent samples would have given 0.23. Conversions in a burst
+   are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+[1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Changes in v4:
+- Attempt every teardown write even if a previous one fails, so a failed
+  write doesn't leave the buffer, bias, or input powered. Reverses the v3
+  change. The teardown neither checks nor logs errors for failed writes,
+  similar to mt6358_stop_imp_conv(). The next read will rewrite those bits
+  anyway. (Angelo, sashiko-bot, Andy)
+- Move teardown into mt6397_auxadc_release(), keep error paths out of line
+  with goto, and use mutex_lock() / mutex_unlock() rather than guard().
+  (Jonathan)
+- Reword the comment above the BATSNS disable prior to ISENSE enable.
+  (Jonathan)
+- Collect tags.
+- Link to v3: https://patch.msgid.link/20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com
+
+Changes in v3:
+- Move the sample loop into its own function, so read_channel() is setup,
+  then a conditional burst, then an unconditional teardown, with no goto
+  mixed with guard(). (Andy, sashiko-bot)
+- battemp_bias_off() and isense_disable() now return on the first failed
+  write, as mt6323_auxadc_release() does, and twelve other teardowns in
+  drivers/iio that I could find. A failed write can leave the later bits
+  set; the teardown runs at the end of every read, so the next read of that
+  channel clears them. (Andy)
+- Drop the "if (!ret) ret = err;" accumulators with it. A teardown failure
+  now goes to dev_err() rather than being returned, since the caller cannot
+  act on it, and read_channel() takes the iio_dev so no struct device * is
+  stored. (Andy)
+- Split battemp_bias(adc, bool on) into battemp_bias_on() and
+  battemp_bias_off(), and drop the bool. (Andy)
+- Make the SCALE case an if-else. (Andy)
+- Move the "why a new driver" rationale below the --- marker in patch 2,
+  out of the commit message. (Andy)
+- Reduce the CHSEL regmap_update_bits() call from four lines to two. (Andy)
+- Drop the comment above guard(mutex). (Andy)
+- Say in a comment why lowering START needs no settling delay. The ready
+  bit survives the fall and is cleared by the rise before the next
+  transaction on the PMIC wrapper can observe it. I measured this, and the
+  details are in the reply on 2/3. (Andy)
+- Cc Luca Leonardo Scorcia with a trailer rather than in prose. (Andy)
+- Link to v2: https://patch.msgid.link/20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com
+
+Changes in v2:
+- Add justification for this being a new driver rather than folded into
+  mt6323-auxadc.c or mt6359-auxadc.c, in the cover letter and patch 2.
+- Drop the "ret = ret ?: ..." chains, and let teardown fall through on
+  errors, allowing the chance for all bits to be properly torn down. The
+  errors are now held rather than discarded. (Andy and sashiko-bot)
+- Run teardown even when per-channel setup fails part-way through, so we
+  don't leave bits enabled that would have been cleared. (sashiko-bot)
+- Set ISENSE settle time to (1 * USEC_PER_MSEC). (Andy)
+- Write the two channel descriptors out instead of using a macro. Also
+  gets rid of the padded column. (Andy, Jonathan)
+- Move the MAINTAINERS entry for the dt-bindings header into patch 1, as
+  the mt6323 series does.
+- Declare the sample loop counter in the loop, instead of with sum, and
+  split the declaration of sample and ret. (Andy)
+- Keep the two CHR_CON16 ADCIN bits as BIT()s rather than turning them
+  into values of a GENMASK field. Fix OR operator on the bits, treat them
+  as mutually exclusive. (Jonathan)
+- The rest of Jonathan's v1 review: two-space indent separating a register's
+  fields from the register, a blank line before the settle times, a lock
+  comment that says why the lock is held, the two CON1 START writes on one
+  line each, the single-call init helper inlined into probe, and { } for the
+  of_device_id sentinel.
+- Add the additional three CHR_CON16 ADCIN defines that make up the 5
+  single-bit enables. These are currently unused.
+- Link to v1: https://patch.msgid.link/20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com
+
+---
+Ryan Brue (3):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+      mfd: mt6397-core: Add mt6397 AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 377 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 7 files changed, 409 insertions(+)
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
