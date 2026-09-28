@@ -1,57 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64837381EAB;
-	Mon, 28 Sep 2026 18:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2B838330E;
+	Mon, 28 Sep 2026 18:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619499; cv=none; b=fcsrZVoP33y7F1rWj1xHeRCYIRizvKKjvq/h0hgMU67e3BggOIFxmQm2VIkD+klg1X8xjGddCJ8ujmXK0avgOn+3o9GzjPDjM7W4tS+Wb0E8yQcw2VfGGZ1kN0uTGQLJy3naAKpa/sHnKUVwm2Gr7jiHlwGmnKG5D4VWnY5uuNU=
+	t=1790619500; cv=none; b=GEjKIYWqpXW4PCO0khnqPGWO+5ONCWaD7KFUBu8K6Sbq3M837snNq8qlpW6fAeRo6hmDTzY+xjzGi1hqY1OjKFrNwpLjlKBxjNwQbfusMUSYnC3WhhihOivxSSwuxo+f54RDh8yOk7IMgpMJNrAgTefT4txWI0n6erxeYCvNat8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619499; c=relaxed/simple;
-	bh=oKRUTW5pmzhVUOKB+aDYelAGP4LU7bGPiiH1Cdn7NpY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=aXKyIJxL6iKKli4StIxaZDDssYHKFkEbFBs05478lYqFUVqBSiVEgn/oQLL5BGU4RaMBLCeG9sfUScgwTp3gMoT6vDYwHvCTSt67NcfQCKpA1o4X2rukBUmBL6XzaZtqpmrVZhbgohVg9YM/z3M4esCLL2E1nAio4CKYePaZHP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZkZSvvf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790619500; c=relaxed/simple;
+	bh=uIpNBjpxlxtp6Hw3rA8EnDDra3j3MpyLt2/hD+Pirm0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jb9Tvhm8EvFxRFdFb6ucZehh4ZEMQGDRhFi0e0Y/ygnINZmPGjh50nmsPmW8AQZ+PFFQFoOzWt8jv56eKwBJP+d0GYbgnrE9reLPCOOPSZyl++MKNKvM+DQ1oWGyYPLSLMaxHcGg6p2iOM+P5R8v5FIT+G+l9g/h8xON8HfxtW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k1xJ/Ras; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZkZSvvf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7DFF1F000FF;
-	Mon, 28 Sep 2026 18:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790619498;
-	bh=oKRUTW5pmzhVUOKB+aDYelAGP4LU7bGPiiH1Cdn7NpY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DZkZSvvfFawE6n9y+sPZvsexhoAmqgjew+Gi6hOE1CG2FpjUyuptcp7BjjAtTMzKb
-	 NVgrKq4Vsro5sO4Z5hBp6m2mwZOYBON4zsmRFQyH0QMPuUcfKexGZSWfJg5ttLioDD
-	 Gha5pn2k/xo8kpLHIyaVhN3WY1c9pbDfafnJnlOlCj1EWjE40R+EGZeb6vdJUse7Gr
-	 rid0N6B2lnTrXa3b+CUypbmQ0/rh+p1xEelwy85kCUuzxiuz1SFjACSyNdz4waTv7v
-	 dJreM02Ej1RAQQ8JLaUf1ilrqx42rqVCyMbwga/RQIF14audbeJogieFDqjSj4XeWn
-	 Qyk4PQ9MgW7TA==
-Date: Mon, 28 Sep 2026 08:18:17 -1000
-Message-ID: <0f2c83b1f2f7ee28c0f479ca53bccc84@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
-Cc: Mike Snitzer <snitzer@hammerspace.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Anna Schumaker <anna@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] workqueue: Fix NULL current_pwq deref in mem-reclaim
- helper
-In-Reply-To: <20260928-wq_mem_reclaim_fix-v1-1-0dd37125cf47@oss.qualcomm.com>
-References: <20260928-wq_mem_reclaim_fix-v1-1-0dd37125cf47@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k1xJ/Ras"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 14357C4AF13;
+	Mon, 28 Sep 2026 18:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790619500;
+	bh=uIpNBjpxlxtp6Hw3rA8EnDDra3j3MpyLt2/hD+Pirm0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=k1xJ/Rasxiu4LyMUobySKp/oSDHrdW42S6wcaI6Sc+HmOMdr2F0qrOcUBxp5xNokP
+	 6GBwmElDwzQeuoGphl0VEhTbMV67GQF9QZlM/mUDAEdgZCbZJA+NFJgEUKpRc1OQbE
+	 tiUUWSrN07MS+BkDJq2RraQsTqxQ8eUf9h+nO/XBPLmryuRFPlHAizUPbNdxf3+/2I
+	 q1gJ03WOUNnYyB4B/61Q3MjO8+ncJ+IVHxhGt1B7hw8ohYmdcRUQBahelgpGhQ9yYt
+	 5yfI5TSH/hgxE48h5rwU6bj5XhXr/v2wRvHcbtsTgXVswUQIrYaCbA8Mb2uT9oiYAa
+	 vUXQnE50OGJNg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E69D9CA5FA2;
+	Mon, 28 Sep 2026 18:18:19 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Mon, 28 Sep 2026 15:18:18 -0300
+Subject: [PATCH] usb: gadget: u_serial: Dequeue the console request only
+ when queued
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-u-serial-console-dequeue-v1-1-b44d68585632@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CIBBG4as0s3YSZNGCVzEukP7VMQ0oU4xJ0
+ 7tLdfkt3ltJUQRKp26lgreo5NRwPHQU7yHdwDI2kzW2N946rrwXYeaYk+YZPOJVUcGTH7wJDm6
+ IPbX8WTDJ57c+X/7Wen0gLvuPtu0LxLjKyXwAAAA=
+X-Change-ID: 20260928-u-serial-console-dequeue-f9790a8e87c6
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790619498; l=1876;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=fYSSKxWo4cvdv0GSj8x4J42jvlxzYa8GyKyi29GrCkU=;
+ b=bsDc+1HXYM3ECxb7lUwL+CDe3HmLJcVOsd+vimHG3xgpT2UNF7fb/WVAeAgGqpYRM1JydtKYs
+ WbqqLlNxybsCe2iL9BGQ5A1AmrZp+6j0B3bu+ETSpCvbd1uAlG6EEcF
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-current_is_workqueue_mem_reclaim() came in through the NFS tree with
-da729ddd4a1b ("NFS/localio: issue IO inline when not in a memory-reclaim
-context"). Can you please take this fix through the NFS tree too?
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Acked-by: Tejun Heo <tj@kernel.org>
+gs_console_disconnect() dequeues the console request even when it is
+idle, which dwc3 reports as "request ... was not queued" on every
+disconnect. Dequeue it only while req->length marks it as queued.
 
-Thanks.
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+---
+Tested on a Motorola Moto X4 (XT1900-6, SDM630) with the sdm660-mainline
+7.2.3 tree and the gadget serial console in use: "request ... was not
+queued to ep3in" is logged on every system suspend without this patch,
+and not over three consecutive cycles with it. The path where the
+request is still queued at disconnect was not exercised. Applies
+unchanged to next-20260928.
+---
+ drivers/usb/gadget/function/u_serial.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
---
-tejun
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc666c4..53a56ddec08a 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -1055,6 +1055,7 @@ static void gs_console_disconnect(struct gs_port *port)
+ 	struct gs_console *cons = port->console;
+ 	struct usb_request *req;
+ 	struct usb_ep *ep;
++	bool was_queued;
+ 
+ 	if (!cons)
+ 		return;
+@@ -1063,6 +1064,8 @@ static void gs_console_disconnect(struct gs_port *port)
+ 
+ 	req = cons->req;
+ 	ep = cons->console.data;
++	/* A non-zero length marks the request as queued. */
++	was_queued = req && req->length;
+ 	cons->req = NULL;
+ 
+ 	spin_unlock(&cons->lock);
+@@ -1070,7 +1073,8 @@ static void gs_console_disconnect(struct gs_port *port)
+ 	if (!req)
+ 		return;
+ 
+-	usb_ep_dequeue(ep, req);
++	if (was_queued)
++		usb_ep_dequeue(ep, req);
+ 	gs_free_req(ep, req);
+ }
+ 
+
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260928-u-serial-console-dequeue-f9790a8e87c6
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
+
+
