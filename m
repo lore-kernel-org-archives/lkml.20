@@ -1,69 +1,68 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2FE36F8E5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6094E4DDB4F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617234; cv=none; b=YCJf2dbqpshkBpQqT8mtT1Ue2YLINMFT3niN4v25aGGTpviYfZPeypreOJQvvK1/MHAivevqoP2DDorH83vSxo/33zDzC5ROp54x5bCyzVownMg74LnQ0OzI5pKzYO6344ydPkY+w/qNtdGpt+LBicW25Z0mWiuJEO66Nk3z67g=
+	t=1790617235; cv=none; b=Bt9V8YGy4NyL3oKp9Ty06b3d/hbh4gMktJVLxk1WdKRI3ZOCuEvTI5/2Y7d84PtHwgGeie7DMPUpGaFTIrSsl4qDJvak2Pm4wmmFj8fcpuXk/WiD9Mbri1UGhBN4W1SRAmqRe1pZ8kiPpS3D804vxwwWcRzCl/tTBoBZ2x8ssFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617234; c=relaxed/simple;
-	bh=nPAqJ4uD5RYEM12wOUBT/UCW6qyyWcMP/dCf/ibr9Ws=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=sOoYpKJNsB/y3iGM3DSfE+45Plx7SEDqakOj25sfxZcXfn/ERkiGPfQ1apKwr5Gfm7FkohRrtuc6QKuWGwyYLq8RqXdIaL0r1DX0eSJfj4IeDD2qp36AuWgA22SCWmsl9oXmZQ2CdfO86ajqE471jmXBxyhSiRYrGmhUpx5feOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gUioNVFq; arc=none smtp.client-ip=209.85.215.199
+	s=arc-20240116; t=1790617235; c=relaxed/simple;
+	bh=bhpyAU15yC6QPGadz4JxsbfOGUa1ye2WK8iafRoSRFc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Gv2dJK7D0JtOum04yUXd79oVpHwdDc2tjcBcqLsh61Z9Ozm4iHS5LmqiGrAbFhAk+ua3NNiZjz8WykCN73cxfs64hUaTIhNZHsayQHaAnI9TrHDFe4DeWVmJiovICfwCNUAXBiat99531R5d6Dhhdom16DKBZnnR+e8wCLgEgEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oFFw/qtm; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gUioNVFq"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so54438a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:40:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oFFw/qtm"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a470ead068so882015a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:40:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790617233; x=1791222033; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fYPTVor7lW3r9SolJqGFaqIvM2+F+nxKkoRVuMrFoD0=;
-        b=gUioNVFqCpsN6pr1xXNikPn1cja1lW7izMXnswQ+46Y1/XkIo8+jGIUeUVlNH9oGLj
-         6gdnYFrxE2VOTDEdO3wsbIULlOH0bD6lb7aIq+egctc5Q0gmEkOrs4SUvKkUnGcRbB7c
-         /9+yIrbsA9kstOH9NGmRCznE+wH1v+yZBHASp2fg6G4EKcd63heXwd88ze9zlRr0K2uL
-         IbeL+2iHxrJAuqAZ9MeRszkAPm/RHyEUBTV/EoRGVqL2u1whoHIuW7TWL1qS1MuT4oCW
-         +cn/os+1cz9r6Z6CnAGRcZJ7V162YZQgQskGN5ZNwqNW97UtW64o1UZyICx+ndxmDntM
-         +FdA==
+        d=google.com; s=20251104; t=1790617234; x=1791222034; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sw50tyOgJDy5SizTNDQpXrNC0JD8AqhCQeUwJLrCoro=;
+        b=oFFw/qtmkPcaAdDhrUT5O3OKP1pPiLdlkXUnQWEkCnpfSnvmQ4mKhOQTryU1BlQYUh
+         WvSCFj5VZVY6FQr7ftU2w4p9LC2JMiew04+IT97ZsM+M8Ab0ESNZ+vbgdDbvgBQS6JnV
+         S9djDEag7sU7dmZD14OmkRvzAlgtWNepeV7HjC3sAZGJLCzRjD2Mq544g1HvQT/oVIGO
+         i/2M9RBU8xL03m8QLIhxQ2juNBWO75WGenLWGMPOy1ZrGrOJzFZGyWz1juvnoMq7o7yo
+         xGOAsnVMheqlCu8Tuf/NQ59bBfeSGVqSzBSzT3Ef97qPTzMKQrWJPdu/OIkvhg1OF4Cd
+         PYsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790617233; x=1791222033;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fYPTVor7lW3r9SolJqGFaqIvM2+F+nxKkoRVuMrFoD0=;
-        b=utEWEoFlM1kn98ZwTLGfC5ZSB2rR8auLCIF1DDgaDbewYovSAkE0hPoigznSet8qAd
-         y0idBhZAY/iR9ar5m2LwBSfbZK2zKWmtXXjJEYbOI3WNhf7cgQH/9CDyVta52WZQcBug
-         HS4sg6Xm1/d+KOmIhvLRstRZy67VDHQ+6bk7ysopORzuYm4l/wCs1WIn4ye5M8X0BwsF
-         PGOhg7Lz59ZvyOtGIpWivOJPqKoSCx9fQrkLrM6UlwfsjJ+qFxea8fuStaBJOa1ScPiQ
-         H5yfdmt6F24rlwmu3Wa5NZBHgRNBjFA6kzsBWjxw+GzgcwxYU9LlZCfVVxxsD02zYE+J
-         DOkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRpdEbQa0PiFSDPcylAHS/LOQhf6eslekQz1GuCnic36/2Y0C02eJftuVO9RPXNs+EslH5uRdPkvQs5Ng=@vger.kernel.org
-X-Gm-Message-State: AFuF++mywO8MQW4dFXQ6lHHs3DI55PZQvhWdPEtbQdn8+N2opOtVg36O
-	fzY8LR2jlkp58mS1miwq3eGwXvctsI5RHgmht7VHyPPN8wwK//S0/ZV44SFhmmUvVY52Efh3LFO
-	4DUcpCDcUUy/EKQeaeOGTdp7gvchOx2KHxg==
-X-Received: from pgbgj4.prod.google.com ([2002:a05:6a02:4944:b0:cc7:9801:78ce])
+        d=1e100.net; s=20260707; t=1790617234; x=1791222034;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sw50tyOgJDy5SizTNDQpXrNC0JD8AqhCQeUwJLrCoro=;
+        b=OXZvpZAZBWa0JI0xEXWyCtgIEpwmKCrGPYhV3X+f5Yn4k3zhNwR+NTR/ytylKdgaG9
+         pQ8eE074NhgPJHX0Pq6N788Xm9r4h4k8aX0mXhqQC3/333K9WM08txe/yGzOkVtikueu
+         3lQ+yiPfFNPlpf/zmL0jB7jKUPShA59T2/B4Y3ZR3Tfety3Ud+21P8ZiZBQ/fcivjj90
+         ApAK6nJmY6JX1OT7p9pGEv3YNf8sf1TrKwrunFpQRVRUGk7xh/kohz2w2MJaWW77WhJ2
+         4rdf6f62wxkPVWDsuwzQWeJzCbMo6f/8YaqV9Jhw9+m2SBYHYqXE/netNPz2VKWLkC0X
+         PfEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXLC++rEsCP5Y9oZx4ZzOh/WvXV+kci7IigdhAv2LaY0+v/jasSioEeKBO7Y8kFm9abs+0HH0Ye9szKZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsEMe97H/k6TFdmATL6hSCz4GqRQarsw6lc2KZdnuH3lUL0apj
+	URLkK9CP/Cebr0xk6Crc6CY/bnK8rQ8SUzhaxzdQskNYZO5Q7vq8+53I1qIoezKryHPXDg5u5Ca
+	2ojb55xrwSxUjiagw1NC72FUzs73U2F5iNg==
+X-Received: from pjyo13.prod.google.com ([2002:a17:90a:eb8d:b0:3a0:dfb1:6c07])
  (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:790b:b0:3db:887:7868 with SMTP id adf61e73a8af0-3de7cd46233mr58280637.15.1790617232335;
- Mon, 28 Sep 2026 10:40:32 -0700 (PDT)
-Date: Mon, 28 Sep 2026 17:40:11 +0000
+ 2002:a17:90b:3a46:b0:3a2:b04e:8086 with SMTP id 98e67ed59e1d1-3a2b04e8389mr2449084a91.44.1790617233471;
+ Mon, 28 Sep 2026 10:40:33 -0700 (PDT)
+Date: Mon, 28 Sep 2026 17:40:12 +0000
+In-Reply-To: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAHumumoC/43OQY7CMAwF0KugrDGKnQSSWc090CzSxm0jaIMSV
- IFQ7z6BxYwQLFh+y//ZN1E4Ry7ia3UTmedYYppqMOuVaAc/9Qwx1CxI0lZaqaDR0MULeM4w8nh
- kfyhgSHtsgmFrrajNU+a681D3PzUPsZxTvj6OzHif/nlolTVqoxVp44Ag+/OQwinHq58O331K/
- ZE3bRrF3Znpqfv2l5kAoQvoXCNxh114QdQHiKoI2x0at0V0Sr0g+h9xaN8jGiR00lNLyAEDPiH LsvwC0WDYiX0BAAA=
-X-Change-Id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
+References: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
-Subject: [PATCH v5 0/3] PCI/AER: Fix ghes_estatus_pool memory leaks in error handling
+Message-ID: <20260928-b4-fix-aer-memleaks-v5-1-ba6b94c9c9a6@google.com>
+Subject: [PATCH v5 1/3] PCI/AER: Fix memory leak in aer_recover_queue() on
+ kfifo buffer overflow
 From: Priyank Rathod <rathodpriyank@google.com>
 To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
 	Bjorn Helgaas <bhelgaas@google.com>
@@ -76,107 +75,54 @@ Cc: Lukas Wunner <lukas@wunner.de>,
 	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-When firmware reports PCIe Advanced Error Reporting (AER) events via ACPI
-APEI GHES (ghes_handle_aer()), it allocates a snapshot buffer from
-ghes_estatus_pool to store the aer_capability_regs registers before
-enqueuing the error record into aer_recover_ring.
+When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
+for aer_capability_regs (aer_regs) from ghes_estatus_pool and passes it
+to aer_recover_queue() to be enqueued into aer_recover_ring.
 
-aer_recover_queue() returns void, so ghes_handle_aer() cannot release that
-buffer itself; ownership is handed to the AER code, which until now freed
-it only on the fully successful path. If the record cannot be enqueued, or
-if a dequeued record cannot be mapped to a pci_dev, the allocation is
-silently leaked. Under a sustained error storm this exhausts
-ghes_estatus_pool, which then breaks GHES hardware error reporting
-system-wide.
+If kfifo_in_spinlocked() fails due to a buffer overflow,
+aer_recover_queue() logged an error message but returned without freeing
+aer_regs. Because the entry was rejected and never inserted into the
+queue, aer_recover_work_func() could never dequeue or free it, leaking
+the allocated ghes_estatus_pool memory.
 
-This series fixes both leak paths and documents the ownership rule:
+aer_recover_queue() returns void, so the caller ghes_handle_aer() cannot
+free the buffer itself: ownership is transferred to the AER code, which
+until now only released it on the success path.
 
-Patch 1: aer_recover_queue() when kfifo_in_spinlocked() fails because
-         aer_recover_ring (capacity 16) is full. The rejected entry is
-         freed immediately via ghes_estatus_pool_region_free().
+Free aer_regs via ghes_estatus_pool_region_free() when
+kfifo_in_spinlocked() fails on buffer overflow.
 
-Patch 2: aer_recover_work_func() when a dequeued entry cannot be mapped to
-         an active PCI device (pdev is NULL). The loop is restructured so
-         ghes_estatus_pool_region_free() runs unconditionally for every
-         dequeued item.
-
-Patch 3: Add a kernel-doc comment stating that aer_recover_queue() takes
-         ownership of @aer_regs, which must be allocated from
-         ghes_estatus_pool. This is documentation only, so unlike
-         patches 1 and 2 it has no Fixes: or Cc: stable tag.
-
+Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
+Cc: stable@vger.kernel.org
+Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
 ---
-Changes in v5:
-- Add patch 3, a kernel-doc comment on aer_recover_queue() stating that
-  it takes ownership of @aer_regs, which must come from ghes_estatus_pool
-  (suggested by Kuppuswamy Sathyanarayanan). It is a separate patch so
-  that the two fixes stay minimal for stable backports, and because the
-  comment is only accurate once patch 2 is applied.
-- Add Kuppuswamy's Reviewed-by to patches 1 and 2. Their code is
-  unchanged from v4.
-- Still applies cleanly to pci/next (94e8d4e94266), before or after
-  Lukas' "Error reporting for AER-incapable devices" series:
-  https://lore.kernel.org/r/cover.1790531238.git.lukas@wunner.de
-- Cc Kuppuswamy Sathyanarayanan, Jonathan Cameron, Ilpo J=C3=A4rvinen and
-  Dave Jiang, plus Shiju Jose and Rafael J. Wysocki as the author and
-  committer of the commit in Fixes:.
-- Link to v4: https://lore.kernel.org/r/20260918-b4-fix-aer-memleaks-v4-0-f=
-0a2c21ed1d1@google.com
+ drivers/pci/pcie/aer.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Changes in v4:
-- Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as
-  well. No conflicts with the Advisory Non-Fatal Error support that landed
-  in the meantime.
-- Added missing Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption
-  when error status data has multiple sections") and Cc: stable to both
-  patches; that commit (v6.7-rc1) introduced the ghes_estatus_pool
-  allocation whose ownership these paths drop.
-- Patch 1: use braces on both arms of the if/else and fix the continuation
-  alignment (checkpatch --strict).
-- Both patches now build warning-free with W=3D1 and CONFIG_ACPI_APEI_PCIEA=
-ER=3Dy
-  (earlier revisions were only build-tested with APEI disabled, which
-  compiles neither of the modified functions).
-- Explained in both commit messages why the caller cannot free the buffer,
-  and when the missing-pci_dev path is reachable.
-- Cc: Lukas Wunner, who has been active in this code.
-- Link to v3: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v3-1-e=
-87159611933@google.com
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index d8dcd238fda1..b013b853b555 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -1415,11 +1415,14 @@ void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
+ 	};
+ 
+ 	if (kfifo_in_spinlocked(&aer_recover_ring, &entry, 1,
+-				 &aer_recover_ring_lock))
++				 &aer_recover_ring_lock)) {
+ 		schedule_work(&aer_recover_work);
+-	else
++	} else {
+ 		pr_err("buffer overflow in recovery for %04x:%02x:%02x.%x\n",
+ 		       domain, bus, PCI_SLOT(devfn), PCI_FUNC(devfn));
++		ghes_estatus_pool_region_free((unsigned long)aer_regs,
++					      sizeof(struct aer_capability_regs));
++	}
+ }
+ EXPORT_SYMBOL_GPL(aer_recover_queue);
+ #endif
 
-Changes in v3:
-- Resent to fix threading of the series.
-- Link to v2: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v2-1-f=
-d199b0171fd@google.com
-
-Changes in v2:
-- Refactored aer_recover_work_func() to ensure ghes_estatus_pool_region_fre=
-e()
-  is called unconditionally for every dequeued record.
-- Added Patch 1 to fix related memory leak in aer_recover_queue() on kfifo
-  buffer overflow.
-- Link to v1: https://lore.kernel.org/r/20260803183853.432459-2-rathodpriya=
-nk@google.com
-
----
-Priyank Rathod (3):
-      PCI/AER: Fix memory leak in aer_recover_queue() on kfifo buffer overf=
-low
-      PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is m=
-issing
-      PCI/AER: Document that aer_recover_queue() takes ownership of aer_reg=
-s
-
- drivers/pci/pcie/aer.c | 48 +++++++++++++++++++++++++++++++++++-----------=
---
- 1 file changed, 35 insertions(+), 13 deletions(-)
----
-base-commit: f259f446f5198d98e13756d2cd531812a0ad3064
-change-id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
-
-Best regards,
---=20
-Priyank Rathod <rathodpriyank@google.com>
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
