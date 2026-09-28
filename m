@@ -1,323 +1,169 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68064E0B8E;
-	Mon, 28 Sep 2026 16:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612498; cv=pass; b=fSDJJ2BWF8y6q672SGTyIYpeNhHMjjW3L1VKUNYlJQssqr9IMWa5xRovhYUasyFqsQjVYIDrWwpk1asJQFsV8cSBG4inMhCEWftHX7i1ArxpPqUGF7JMhURaTzEW9D3SnzTMYBRrz77312l84wTuQgg/0M/sknDXXrRN9anu/1U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612498; c=relaxed/simple;
-	bh=6j0Pr3nzGjSxjTbY11W/IX5BFBufvKFbBB1QeYR9PQs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=k5zzlkZ6JJB7D72Q/EBy2j46R/gfbfzWKBgpW3ZnWfWTmiuzWnTOfNmFennc9Vjm5Fln5DulQ0gU/cCIbykDZb/CbHMjh6ZkdNFtGGyw1Vgs75qs7S6xSQG6Xu8bINjOgXbpNW8hfGGx3KIvbbWfqmNUH1XpotRZx3x9oARklG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=N/GMy69y; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74562415B79
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612534; cv=none; b=WEn71Ds+uHWR7sG9ZS5IXjJI78LIt7NjB67GeTnh61yFPnOK5Euc0rMiYVrlt0j29CmegiJeGsnN9IrJRxtJDwntfCsIFMKl8gwv3xpX7t/SusXNe6Xq08/9uFUsxqUttn8D4H7eDw6oumLsutpS4W6DOwm9dMIDF0hihQwrCDQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612534; c=relaxed/simple;
+	bh=WBUMNLsirzlSTr+A8TJzMQ3GDuiW6bCNowDjytQerEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=merUIS1qiQ0c2i3QdQcLdGUOq/po01P1FgA2tZWR9G/7rve3YB3nnNEqKdQpmlOuDD0JnVW82sJFTW4IO3Ik1kOhDRH0hbF/cEXWKInWPD2386+8vM1MuFlo6mfmqYY8KuchIsrylMM8mb78WCi7sclgoB93pswulpiQqA2hKX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com; spf=pass smtp.mailfrom=brivo.com; dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b=Jnkv73Lx; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="N/GMy69y"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4BA78201E7F;
-	Mon, 28 Sep 2026 18:21:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790612489;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/pm32GAMojZQt+fD7Lcf5AQpWBX16gia7idQ1sM+6SM=;
-	b=N/GMy69y2AVN+Pu21pLLzbX8ul5bHqZlA3mNTI6acWjEu3iPpjbin6ip7l0cd/IGpZm01p
-	tKBWaRwkZC/tdpvrDDJyfKFRd9ZxlE/xw1T2mnx8j7xIATTdVlszZp5fpck8eYL0uJ02s7
-	7vER9metWmgTYO9WdXOLfV8c3XHJhspsL+ouITmDKEYPioKn/ymkB1xv+P3uOAiw5zcPam
-	h7mw/wPN1fXzMjsc8BQAEOJAra9vUI4ji0Ba8Y9hPZzF963Tj8WpwGJkiVqEIIwM8Jnj+T
-	Fsuj1wvhduW2VGjOyFzB1Y2ONae0cgor1LVeAEdVhvCYyVAIX3lurd3BwYn6MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790612489;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/pm32GAMojZQt+fD7Lcf5AQpWBX16gia7idQ1sM+6SM=;
-	b=Fsp2GBnTVImOffHhxBoCyp5TaPXAggAmSYsxTDUq5sx4M40ppaBkMYM7bEnVus8slgsQTQ
-	D9I6WcQjQdlFYND+kvvIGolN9KY7AD5MmvsvzXf2K1zqwG34+BuJvan2zT7wFzDULl89Bk
-	N8HmivaonMDNF9/2QeEtIAitJaURUKDk8cfH1ITIq1C+BgybxXqnXyGjE1Naaea42T3NIY
-	HgbwnHT19VxYtKSjdTqawU1xWdozGBKF6wJ0kSG4TiQm7cFFZLfXSJC+nkI8L2yHcZ5viL
-	u3+wIpbXShkH5D9fHSlKm6GotSdoahflzwdKNXHOWK/jB+9mGsKtImow8ynIMA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790612489; a=rsa-sha256;
-	cv=none;
-	b=f6PUAOGJY4t5e/AlSkIaYdfsQDRdNacvjk3Q9aLiBJOjP+tk2EYyDM0UP4nr0jnENjVv2H
-	03H+yFLdYxCtLnn5hC8IGjEj4GyuAUBeFhCABhR+/l2JhcXtXYUVR98NlRwZ1o7gq8piMn
-	qNukqk1HTbIIKqL773EqQGWBArmkZXb1Nz2eDPV3lYS8vTOx589ixZ49rraIfEnYUgZyMB
-	WRTowq6lt8KBjn1d1JeASQLdUnPmJoo9u/l+KX6DMH1cDpqoWFJCCWynDj2HgEhlBpBgkR
-	E3u8AVEKpKenMcuG2gEikpH1683agv56+KqHriD4ZzF+VE5rVzL7jz5OROsvNw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBE6b-003Fsj-0d;
-	Mon, 28 Sep 2026 18:21:29 +0200
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id E670F5B130D;
-	Mon, 28 Sep 2026 16:21:28 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Mon, 28 Sep 2026 18:21:24 +0200
-Subject: [PATCH can] can: gs_usb: add workarounds for HScanT USB to CAN
- adapter
+	dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b="Jnkv73Lx"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09f3so22507901cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:22:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brivo.com; s=google; t=1790612532; x=1791217332; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I9iZ745V3O9TQK90r+cmJTPJh5uGbsz3PptJMxIgYsU=;
+        b=Jnkv73LxNJNzjx3EXUAL6KNN1W+3BJ7cdjqY3jqMgrTtmtK4K/jYk2DU1xxvuUlu5y
+         zKCAu2A3nyUvHDg/z2LU6GyEhqD3hAajw4egLCoz/3w0nxY9CZMv9QLYvLd10FCkY+zl
+         T3vGGn+b5Td5JTAc+ga3tmWP3VvX2nCpjIpDZ57I/NeDM9TL5XfqgZk7zH4a1kjJAxWj
+         hJAme6lNT7RXlYX0opuZEgT0CgZQz7lM+VTOQTLLFRm3Do7EmTywGu3HSkNZyNHjNTuH
+         ojETuwKMZA3uOsWoGh0tBz9YEsprRy/7G73SfZIZHg9N0dcoTPiOVQbaH3pNyVxjWd2x
+         14ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612532; x=1791217332;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I9iZ745V3O9TQK90r+cmJTPJh5uGbsz3PptJMxIgYsU=;
+        b=e4+3S91Y6eOE/TimpYqfoiOC3iCwLKB0C00ejhaNe1vftAUCbd9mcWBbsC62TFISuS
+         0HRwubyCNsy1S8GSHuy74ZydO2BZ0NyA7dyxz4JDogaar1qMs89ZyxMetaJQgx9q4qQB
+         XjCmbHg4Um4qe2us6AMYpjvFoYvdsGwh7MwHLUUHqr+cl0isiag/HZOba7Dx2ATcntB0
+         srra2cy8LzKSrdUglh5hx4uzfs4wN9cfbxcwc/bJ26OjMwuWmqgAdV2gJx1QP7dFERPt
+         RHS003uC7G1MWh/zN0wJrrh5Y0snL2sTtNChcCY5rS6yAnMe9mqS19HolqV7FCbuyzd2
+         E7sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSaB5xoHdQD2f8g+2lneuC5D1eO4rMYYqHJ9qnStD1AJqXFGcdeklvu28v0CF4bNAfJqvvwIUfARFpcEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyh/KiZJdpI5S/fbKSuQtCTG2AIAAn5KXq1spfmPh6nj3DP5Fz
+	dPDJuTBibToXNGw7XgXDYILM5Y4hilBOSvP1Mu8/exWKjQWkYZ8WRPGGgLxEJxcq+7S43BJvayO
+	k3nRobhmESp1EdzVcDl5GIV8GejCFLPVqrZ/qpcy75C75NRz8TnFzEcyGz8o=
+X-Gm-Gg: AYBFou1RQrd1m5hfDM0dcyJItR0toyONrNTmQCb7Rgxaa1iMyQVgOPa40D+TOtXlia3
+	4MYrvMBp8CpzB0sd/9snqJEgaSdZpwtuBIl8nLdyWPngsU38jXRJMzzG3+zv7ooLllCSqxqevON
+	7cdZ0DY2ZnIo0sctRwV2r3n01P47Nytfu2HWaMUR/ShSeGi+UvBoqN21f0+uBagWUbVyUfOBJFv
+	jx6bSnGDPSDdIdhgWbQ8WcBvBvvqb8tQKI/+EbH8+9hRSUyOLMo8hSsCnJwF02rE6CjPVhVv+8S
+	ceSeolFNuteAVmcJ4S360xKezuRpoFTG8xhWzJYumhjgHfAYI1QV5Yal0mA8vFPBz0kh4pmhxzO
+	7f+ddoVeFXRlwmLmzpImlX3LA3DO5RuBKvAFYKGydPPDZIFfUUV2OTGBkXxQZAkq09kKTWw/wNf
+	dnemNJfWLvmn05iBaTBpTIuUcgcjRaLRc7LpXroUq6g9P2X1e5NiunCOlymVc2PiIb1Wo9gwEbZ
+	W4=
+X-Received: by 2002:ac8:5c8d:0:b0:533:33c6:e63c with SMTP id d75a77b69052e-53333c6fec4mr122429221cf.16.1790612531895;
+        Mon, 28 Sep 2026 09:22:11 -0700 (PDT)
+Received: from [10.200.233.210] ([66.193.28.125])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223cad4esm65860381cf.24.2026.09.28.09.22.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 09:22:11 -0700 (PDT)
+Message-ID: <e5a5dccc-46c4-497c-ab8b-b3f7fe5e316d@brivo.com>
+Date: Mon, 28 Sep 2026 12:22:11 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-gs_usb-hscant-v1-1-42638ca0f85f@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QqDMBAEf0X2uQENoo2/IqV46anXhyg5LYL47
- 0b7OMvO7FCOwoom2xH5JypTSFA8MvixCwMb+SSGzW2VO1uaQd+rkhnVd2Ex1HPlnjW5miySM0f
- uZbt7LdIDr/+oK33ZL1cJx3ECNX+jF3YAAAA=
-X-Change-ID: 20260924-gs_usb-hscant-bfe6987b97b2
-To: Vincent Mailhol <mailhol@kernel.org>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7815; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=6j0Pr3nzGjSxjTbY11W/IX5BFBufvKFbBB1QeYR9PQs=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsjaNYV1Jdv6l2cm8KTH/LoYZP9ynYO1euGyTxFpFvqPQ
- lLK1I53dZSyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAiZl6MDGe7yrzOXL1SmXlB
- /1CmjXePbpjYf1Gz9V2HBF63pXW/KmBk2CrVlHB6xmldk9MzpnRKK5bVOIo6NYSYNey91BZWkGz
- BAwA=
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mmc: meson-gx: Convert host->lock to raw spinlock
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
+References: <20260921191326.2146363-1-sanderson@brivo.com>
+ <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
+Content-Language: en-US
+From: Sean Anderson <sanderson@brivo.com>
+In-Reply-To: <CAPx+jO8g-y+uc4YXUeZ3yOH6s44WFpytNu3-f6iLSjtHAVPd+A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The HScanT [1] is a RISC-V based USB to 4 channels CAN-FD adapter, which is
-compatible with the gs_usb protocol.
 
-The device is shipped with firmware version 0x00010007 and needs several
-quirks to work properly.
 
-The HScanT FW announces 5 channels, but the hardware has only 4. Workaround
-the problem by changing the struct gs_device_config::icount to 3, which
-corresponds to 4 channels.
+On 9/28/26 12:17 PM, Ulf Hansson wrote:
+> On Mon, Sep 21, 2026 at 9:14 PM Sean Anderson <sanderson@brivo.com> wrote:
+>>
+>> The primary handler for IRQF_ONESHOT interrupts is always run without
+>> threading, even on PREEMPT_RT. Therefore, we must use a raw spinlock,
+>> which will never sleep (even on PREEMPT_RT).
+> 
+> Sorry, but I don't quite understand the above. Are you saying that
+> IRQF_ONESHOT only works with raw spinlocks?
 
-The HScanT FW always sends USB In URB with length 512 bytes. Add quirk
-GS_CAN_FEATURE_QUIRK_HSCANT_URB_LENGTH to allocate URBs of that length.
+The primary handler of an IRQF_ONESHOT handler must use raw spinlocks.
 
-This driver supports up to 256 channels per USB Interface. The HScanT
-device has 4 channels, but the FW requires each channels to be bound to a
-USB interface using the GS_USB_BREQ_HSCANT_SET_INTERFACENUMBER_ENDPOINT USB
-request. Add quirk to GS_CAN_FEATURE_QUIRK_HSCANT_BIND_CHANNEL to bind the
-CAN channel to the USB Interface 0 during gs_can_open()
+https://www.kernel.org/doc/html/latest/core-api/real-time/differences.html#interrupt-handling
 
-Link: https://github.com/cherry-embedded/HSCanT-hardware
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- drivers/net/can/usb/gs_usb.c | 110 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 106 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 3b9b2f104d86..ec8256b46646 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -72,6 +72,7 @@ enum gs_usb_breq {
- 	GS_USB_BREQ_SET_TERMINATION,
- 	GS_USB_BREQ_GET_TERMINATION,
- 	GS_USB_BREQ_GET_STATE,
-+	GS_USB_BREQ_HSCANT_SET_INTERFACENUMBER_ENDPOINT = 17,
- };
- 
- enum gs_can_mode {
-@@ -188,6 +189,18 @@ struct gs_device_termination_state {
- 
- /* internal quirks - keep in GS_CAN_FEATURE space for now */
- 
-+/* HScanT firmware version 0x00010007:
-+ * - FW requires the binding of CAN channels to USB Interfaces
-+ * - Route all CAN channels to USB Interface 0
-+ */
-+#define GS_CAN_FEATURE_QUIRK_HSCANT_BIND_CHANNEL BIT(29)
-+
-+/* HScanT firmware version 0x00010007:
-+ * - FW requires bulk In URBs with >= 512 bytes.
-+ * - Use struct quirk_hscant sized (512 bytes) In URBs as a workaround.
-+ */
-+#define GS_CAN_FEATURE_QUIRK_HSCANT_URB_LENGTH BIT(30)
-+
- /* CANtact Pro original firmware:
-  * BREQ DATA_BITTIMING overlaps with GET_USER_ID
-  */
-@@ -261,6 +274,10 @@ struct canfd_quirk {
- 	u8 quirk;
- } __packed;
- 
-+struct quirk_hscant {
-+	u8 quirk[512];
-+} __packed;
-+
- /* struct gs_host_frame::echo_id == GS_HOST_FRAME_ECHO_ID_RX indicates
-  * a regular RX'ed CAN frame
-  */
-@@ -284,6 +301,7 @@ struct gs_host_frame {
- 		DECLARE_FLEX_ARRAY(struct canfd, canfd);
- 		DECLARE_FLEX_ARRAY(struct canfd_ts, canfd_ts);
- 		DECLARE_FLEX_ARRAY(struct canfd_quirk, canfd_quirk);
-+		DECLARE_FLEX_ARRAY(struct quirk_hscant, quirk_hscant);
- 	};
- } __packed;
- /* The GS USB devices make use of the same flags and masks as in
-@@ -812,6 +830,18 @@ static int gs_usb_set_data_bittiming(struct gs_can *dev)
- 				    GFP_KERNEL);
- }
- 
-+static int gs_usb_hscant_bind_channel_to_interface(const struct gs_can *dev)
-+{
-+	const u16 interface_number = 0;
-+
-+	/* Bind dev->channel to interface_number */
-+	return usb_control_msg_send(dev->udev, 0, GS_USB_BREQ_HSCANT_SET_INTERFACENUMBER_ENDPOINT,
-+				    USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_INTERFACE,
-+				    dev->channel, interface_number,
-+				    NULL, 0, 1000,
-+				    GFP_KERNEL);
-+}
-+
- static void gs_usb_xmit_callback(struct urb *urb)
- {
- 	struct gs_tx_context *txc = urb->context;
-@@ -1069,6 +1099,16 @@ static int gs_can_open(struct net_device *netdev)
- 		}
- 	}
- 
-+	if (dev->feature & GS_CAN_FEATURE_QUIRK_HSCANT_BIND_CHANNEL) {
-+		rc = gs_usb_hscant_bind_channel_to_interface(dev);
-+		if (rc) {
-+			netdev_err(netdev,
-+				   "failed to bind Channel to Interface: %pe\n",
-+				   ERR_PTR(rc));
-+			goto out_usb_kill_anchored_urbs;
-+		}
-+	}
-+
- 	/* finally start device */
- 	dev->can.state = CAN_STATE_ERROR_ACTIVE;
- 	dm.flags = cpu_to_le32(flags);
-@@ -1314,6 +1354,49 @@ static const u16 gs_usb_termination_const[] = {
- 	GS_USB_TERMINATION_ENABLED
- };
- 
-+static bool gs_usb_is_hscant(const struct usb_device *udev,
-+			     const struct gs_device_config *dconf,
-+			     const u32 sw_version)
-+{
-+	if (udev->descriptor.idVendor != cpu_to_le16(USB_GS_USB_1_VENDOR_ID) ||
-+	    udev->descriptor.idProduct != cpu_to_le16(USB_GS_USB_1_PRODUCT_ID))
-+		return false;
-+
-+	if (strcmp(udev->manufacturer, "HScanT") ||
-+	    strcmp(udev->product, "HScanT USB to CAN adapter"))
-+		return false;
-+
-+	if (dconf->sw_version != cpu_to_le32(sw_version))
-+		return false;
-+
-+	return true;
-+}
-+
-+static void
-+gs_usb_make_candev_get_feature(struct gs_can *dev, const struct gs_device_config *dconf,
-+			       const struct gs_device_bt_const *bt_const)
-+{
-+	const struct usb_device *udev = dev->udev;
-+	const u32 feature = le32_to_cpu(bt_const->feature);
-+
-+	dev->feature = FIELD_GET(GS_CAN_FEATURE_MASK, feature);
-+
-+	if (!udev->manufacturer || !udev->product)
-+		return;
-+
-+	/* HScanT firmware version 0x00010007:
-+	 * - FW doesn't advertise GS_CAN_FEATURE_BT_CONST_EXT,
-+	 *   but implements GS_USB_BREQ_BT_CONST_EXT, fixup.
-+	 * - FW requires binding of CAN channel to USB Interface, add quirk.
-+	 * - FW requires bulk In URBs with >= 512 bytes, add quirk.
-+	 */
-+	if (gs_usb_is_hscant(udev, dconf, 0x00010007)) {
-+		dev->feature |= GS_CAN_FEATURE_BT_CONST_EXT |
-+			GS_CAN_FEATURE_QUIRK_HSCANT_BIND_CHANNEL |
-+			GS_CAN_FEATURE_QUIRK_HSCANT_URB_LENGTH;
-+	}
-+}
-+
- static struct gs_can *gs_make_candev(unsigned int channel,
- 				     struct usb_interface *intf,
- 				     struct gs_device_config *dconf)
-@@ -1385,8 +1468,9 @@ static struct gs_can *gs_make_candev(unsigned int channel,
- 
- 	dev->can.ctrlmode_supported = CAN_CTRLMODE_CC_LEN8_DLC;
- 
--	feature = le32_to_cpu(bt_const.feature);
--	dev->feature = FIELD_GET(GS_CAN_FEATURE_MASK, feature);
-+	gs_usb_make_candev_get_feature(dev, dconf, &bt_const);
-+	feature = dev->feature;
-+
- 	if (feature & GS_CAN_FEATURE_LISTEN_ONLY)
- 		dev->can.ctrlmode_supported |= CAN_CTRLMODE_LISTENONLY;
- 
-@@ -1514,6 +1598,20 @@ static void gs_destroy_candev(struct gs_can *dev)
- 	free_candev(dev->netdev);
- }
- 
-+static void gs_usb_probe_quirks(const struct usb_device *udev, struct gs_device_config *dconf)
-+{
-+	if (!udev->manufacturer || !udev->product)
-+		return;
-+
-+	/* HScanT firmware version 0x00010007:
-+	 * - FW has an icount of 4, which corresponds to 5 CAN interfaces.
-+	 *   The hardware has only 4 interfaces, fixup.
-+	 */
-+	if (gs_usb_is_hscant(udev, dconf, 0x00010007) &&
-+	    dconf->icount == 4)
-+		dconf->icount = 3;
-+}
-+
- static int gs_usb_probe(struct usb_interface *intf,
- 			const struct usb_device_id *id)
- {
-@@ -1560,6 +1658,8 @@ static int gs_usb_probe(struct usb_interface *intf,
- 		return rc;
- 	}
- 
-+	gs_usb_probe_quirks(udev, &dconf);
-+
- 	icount = dconf.icount + 1;
- 	dev_info(&intf->dev, "Configuring for %u interfaces\n", icount);
- 
-@@ -1604,10 +1704,12 @@ static int gs_usb_probe(struct usb_interface *intf,
- 		}
- 		parent->canch[i]->parent = parent;
- 
--		/* set RX packet size based on FD and if hardware
-+		/* set RX packet size based on quirks, FD and if hardware
- 		 * timestamps are supported.
- 		 */
--		if (parent->canch[i]->can.ctrlmode_supported & CAN_CTRLMODE_FD) {
-+		if (parent->canch[i]->feature & GS_CAN_FEATURE_QUIRK_HSCANT_URB_LENGTH) {
-+			hf_size_rx = struct_size(hf, quirk_hscant, 1);
-+		} else if (parent->canch[i]->can.ctrlmode_supported & CAN_CTRLMODE_FD) {
- 			if (parent->canch[i]->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
- 				hf_size_rx = struct_size(hf, canfd_ts, 1);
- 			else
-
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20260924-gs_usb-hscant-bfe6987b97b2
-
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
+> 
+>>
+>> Fixes: 066ecde6d826 ("mmc: meson-gx: add SDIO interrupt support")
+>> Signed-off-by: Sean Anderson <sanderson@brivo.com>
+>> ---
+>>
+>>   drivers/mmc/host/meson-gx-mmc.c | 12 ++++++------
+>>   1 file changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
+>> index 694bb443d5f3f..d5365c0404cb9 100644
+>> --- a/drivers/mmc/host/meson-gx-mmc.c
+>> +++ b/drivers/mmc/host/meson-gx-mmc.c
+>> @@ -176,7 +176,7 @@ struct meson_host {
+>>
+>>          bool needs_pre_post_req;
+>>
+>> -       spinlock_t lock;
+>> +       raw_spinlock_t lock;
+>>   };
+>>
+>>   #define CMD_CFG_LENGTH_MASK GENMASK(8, 0)
+>> @@ -953,10 +953,10 @@ static irqreturn_t meson_mmc_irq(int irq, void *dev_id)
+>>          cmd = host->cmd;
+>>
+>>          if (status & IRQ_SDIO) {
+>> -               spin_lock(&host->lock);
+>> +               raw_spin_lock(&host->lock);
+>>                  __meson_mmc_enable_sdio_irq(host->mmc, 0);
+>>                  sdio_signal_irq(host->mmc);
+>> -               spin_unlock(&host->lock);
+>> +               raw_spin_unlock(&host->lock);
+>>                  status &= ~IRQ_SDIO;
+>>                  if (!status)
+>>                          return IRQ_HANDLED;
+>> @@ -1112,9 +1112,9 @@ static void meson_mmc_enable_sdio_irq(struct mmc_host *mmc, int enable)
+>>          struct meson_host *host = mmc_priv(mmc);
+>>          unsigned long flags;
+>>
+>> -       spin_lock_irqsave(&host->lock, flags);
+>> +       raw_spin_lock_irqsave(&host->lock, flags);
+>>          __meson_mmc_enable_sdio_irq(mmc, enable);
+>> -       spin_unlock_irqrestore(&host->lock, flags);
+>> +       raw_spin_unlock_irqrestore(&host->lock, flags);
+>>   }
+>>
+>>   static void meson_mmc_ack_sdio_irq(struct mmc_host *mmc)
+>> @@ -1225,7 +1225,7 @@ static int meson_mmc_probe(struct platform_device *pdev)
+>>          if (ret)
+>>                  goto err_init_clk;
+>>
+>> -       spin_lock_init(&host->lock);
+>> +       raw_spin_lock_init(&host->lock);
+>>
+>>          if (host->dram_access_quirk) {
+>>                  /* Limit segments to 1 due to low available sram memory */
+>> ---
+>> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+>> branch: meson_mmc_raw
+>>
+>> --
+>> 2.53.0
+>>
 
