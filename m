@@ -1,57 +1,57 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737BE4E1C96
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1E34E80C3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790610412; cv=none; b=HWkZCIGJ37XsMoPQawpcw5XokjPfFTHOCz0GyqnhXq0Q8aZxJvBCQyhuJEiHw18TuKjiBqrYLgEbLOz7UzROg4kkmt0jk2SyNXtAqN70r1kqTE3MFqK6zWNt8qM2TOP9N83PZQOLBmSz8H7/jr9IXpEqMy/t/vFyQ7DVqsNNqPk=
+	t=1790610412; cv=none; b=J3WgyboIikp4cMu0ORL9GVK/G+7WJ5OHg+vIafAgYnQlfPfpTEFcuNo9ehN/pax5BX0m/F7iahAxK3Fg+6oSUpeEw8u70pOXR3a0KouxYHHIFxFsYoiL8q54a6rJ36TsQhxv+C/hUQ5pcV6kYmJkVKE5mmz06j3RuvlzSlpYWVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790610412; c=relaxed/simple;
-	bh=Sbs4Xf0e9m7SoerfEp1EvKViUdAxyyqIdBhnAmQZ/rY=;
+	bh=tWFx7aDNJvGxi9DWbSYvH///da1frNHlvHoMsxVjCPE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eMWDg4t/Tz5b+S4y3XaGsC9/mbOz1fHMThe8erMDris2avXaxBDx+GYfUw/al1fa5fIv8d7J61uWC8l/yCBxIJUhiXUXkK6Rr3DbK2DZddCnIoH9NIujSLLKLwiSD8hQKmcQJy1d3vyMk46yQk80Lq3GFcBF6iBEH8W4QaSBK5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pf6m1f0X; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=cn2Y/qTiz1Y64HFu1WdKnM8ec/4kV3Laru/2m326ftcfuiFXDUBgMMd+15XNjOqFeC0EjCsbvH3cL6DGqqIqW55Avo8VTCOxLRIp8tlx8DEpbky9EJpIJ+6c6lzL9uQq/b6mIRgF5EpntrEOQHGHy3hjWavdJ4n/B5A94EiVVZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VhusoiYL; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pf6m1f0X"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca8aee88725so1532384a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:46:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VhusoiYL"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d001671a54so32528345ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:46:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790610408; x=1791215208; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790610410; x=1791215210; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=TEqwe7dtJN15PbJBz8C+RfbeR3PLAduy8H3fTioMshQ=;
-        b=pf6m1f0XO2aVPsDhevJrCaPuU23XWj9DKrU3wS/a5BVgFXEYwcppLEcaU5n5M8/oYg
-         bev6VoVTr5pBNWIbUpvck/pUFojhTrxJOdT3IrCgWV9TqqxH2ndazZLcQWRRmdQBBtXT
-         nkCprV0AfiZZH64roUCxbb1J/8qiEH9sBhK//Qlfrlv9HVhvaEYy5TfVX6kAJgPd/GUl
-         FGboZxMvO66WBRJD3NuiJTKAenzo6//EbIvuvwUw7G1qjyvCrfvdyixfm5JqP8s45ZMY
-         1BeVW7ZF5oTKzS0EFbsUtn0v1foXJrItUrfXJzVD7tJVH7tAX6vQ/Qvs0hv4e7g5iAgC
-         WwoA==
+        bh=taY2XbcgHMoS37yddUCoy3Y7+YiSTg0c+FIA7gSyzbU=;
+        b=VhusoiYL16GBCDdpPy94c/dPLzVHK13svU6mAP0Kc66NzUrCmblgIiD/mHzFx1F2/4
+         66I5Mvk9v9PE+w+rsprcWoQhpQanZ1LnzpZCelxIph/mX4fRSQs1sd+l/zjMbk0uSFR6
+         3Iohk41sjTnbR0FFCtT9U81KJYFkKOu0iU+HJQhneKE6eECqMutfqhgKqi7zSi0ZNW1M
+         dlGR9EYXxwCz79lpfur1dBHxI2GuF48sedB/7x+HUgxC2Ow0PZX956JoxwNSnYV5xunk
+         MsGb05XspD+mtRUPkH0VMNXOr8h2+MblgoTkju/6MY4m9Q0Q5TH+wrzzbU0EOdL6L3jH
+         DxqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790610408; x=1791215208;
+        d=1e100.net; s=20260707; t=1790610410; x=1791215210;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TEqwe7dtJN15PbJBz8C+RfbeR3PLAduy8H3fTioMshQ=;
-        b=uHDf7d98W28C/UmlLAdwZi1eJz8prIOeqrECP8rFzT+cba04QPAuG81vtMHur3hPRV
-         0BU6pvzQS4ZHGfK+F9Ol1QwLiWlEDsOvKZH3zw7/wmXBl2H43bKPQ0AAgu10h9wSyBi/
-         KaazuS5uMFLcx/JznqM2SHRvnlC5tXrupGhDDz/eZAUK73R7Kcxw9QwnA/1mjuetE/pD
-         UWhKxae4RtRVROeNpDNUUrfen7YwI9YOHr0AICJ8zlgY/Bz05rS/cIYQT2K2Uv6cibGK
-         s6ly9nwi9OmcV7iEc89l5PRBeMV/GBhWm2p0WLxHFu8wYswFwD9EpEQQ7KpNgWtCVDsB
-         AiPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzV8/AZsFNryQg2mQBCQud1agHnUF6iW8w8ONv3DNpFhVsWOivMNeA5ExL94icpNrpfWgv5c4a4zuYWBAw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbVpyzvKm2RIYHtfrv9jwDDQwvRHfnW5JdkClw+PKJbIh6v8B6
-	V4T7Nzcx+Plx3kgvqFKu9PAPlX1lHZ/xIPVahrx3W8VDvPXNNRa3Asy7XLOAn2TWNZ85S23+8ar
-	iIlh15w==
-X-Received: from pgdj8.prod.google.com ([2002:a05:6a02:5208:b0:cc7:9685:757a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:b78a:b0:3dd:85a8:4c67
- with SMTP id adf61e73a8af0-3de0e88d225mr10746033637.46.1790610407869; Mon, 28
- Sep 2026 08:46:47 -0700 (PDT)
+        bh=taY2XbcgHMoS37yddUCoy3Y7+YiSTg0c+FIA7gSyzbU=;
+        b=G4cMPyNmCKme2k3tyHSij0AvEg1bxBzxJcseeg2zKNSfgiNpbUYCclYzNbW56JdY4F
+         vNUzg+mTq8xASxpO1o71aWUhvSvt3Mexr9yCS+rRtx4w3xEe1BSZ1dHj0rhVgyBS3a/r
+         3RL/fi+2dpkZCDqeQQsll+ndHYBBZ51/AmnDmLcSMEAuLrwhBZMahgrjNPWhHrgONMSW
+         0HXZaJMDFSIcyQ46OPRIutieBdBSO5yTS95cok+cUkobeR3KBn8VD1qUhuqaeZH+ZvJw
+         asX7MktGIhGLQIkg/QpqRYaxZ8BS+45bGpZX0yT2jjx5l46KBIoeskbX67BGt6to/8aC
+         WFfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrjLCIom2cKmGXVwKT2rrA6WQ4QJ2rw+72+4nnGORi8BC5LOkHXvKpZIoa5mJRKV8nNDQR91qV5gh4sxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHmD/0zESZ7gxvBul7Xbs+HQaO3nuaW4p8BOICpvGA1HtvauRc
+	v85ht+nhsyQfDz77jD+Upydk9sregKMZf4tI/ctTFxgDS60XBsMCWPo4EDpuFDkv9zkD2YBAoJD
+	ebKNFHg==
+X-Received: from plov13.prod.google.com ([2002:a17:902:8d8d:b0:2df:806f:7687])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c40b:b0:2df:84e0:902f
+ with SMTP id d9443c01a7336-2df84e098a5mr96176425ad.9.1790610409666; Mon, 28
+ Sep 2026 08:46:49 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 28 Sep 2026 08:46:43 -0700
+Date: Mon, 28 Sep 2026 08:46:44 -0700
 In-Reply-To: <20260928154644.2559454-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,124 +61,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260928154644.2559454-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928154644.2559454-2-seanjc@google.com>
-Subject: [PATCH 1/2] KVM: SEV: Nullify "have run CPUs" mask pointer when
- freeing it
+Message-ID: <20260928154644.2559454-3-seanjc@google.com>
+Subject: [PATCH 2/2] KVM: SEV: Do cache maintenance on the source VM *before*
+ clearing SEV state
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Nullify have_run_cpus when freeing the mask, particularly in the error path
-of __sev_guest_init(), so that KVM doesn't have to subtly use sev->active
-to track whether or not the mask has been freed.  As pointed out by Sashiko,
-blindly freeing the mask in sev_vm_destroy() results in a double-free if
-the mask is freed if __sev_guest_init() fails.
+Explicitly flush caches after intra-host migration before clearing "SEV
+active" on the source VM, as doing cache maintenance afterwards creates a
+tiny window where memory reclaim could return memory to the host without
+performing a cache flush, e.g. as pointed out by Sashiko:
 
-Throw the logic in a helper as nullifying the pointer is frustratingly
-difficult and weird due to have_run_cpus being a single-entry array when
-CPUMASK_OFFSTACK=n.  Deliberately don't use CPUMASK_VAR_NULL, as it's not
-directly assignable when the cpumask is on-stack, e.g. requires using a
-local variable and a memcpy(), which is beyond ridiculous.  Furthermore,
-while clearing the on-stack bitmask is an unnecessary and arguably unwanted
-side effect, KVM absolutely relies on '0' being the "null" value given that
-the struct is zero-allocated.
+  CPU1 in sev_migrate_from():
+    src->active = false;
 
-Opportunistically add an alloc() helper to pair with free(); there are just
-enough call sites to make doing so worthwhile.
+  CPU2 running concurrent unmap:
+    Since active is false, the automatic cache flush in
+    sev_guest_memory_reclaimed is skipped.
+    The host frees and reallocates the page.
 
-Fixes: 12c1f6e03f94 ("KVM: SEV: Free have_run_cpus during VM destruction even if VM is no longer SEV")
+  CPU1 in sev_migrate_from():
+    sev_writeback_caches(src_kvm);
+    Executes a hardware cache flush (wbnoinvd), which writes the guest's old
+    dirty ciphertext over the new page owner's data.
+
+Fixes: 93de2a6a4b91 ("KVM: SEV: Do cache maintenance on the source VM during intra-host migration")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260923165349.CAAF01F000FF@smtp.kernel.org
+Closes: https://lore.kernel.org/all/20260923165304.1662E1F000FF@smtp.kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/svm/sev.c | 33 ++++++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 11 deletions(-)
+ arch/x86/kvm/svm/sev.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 3448d56520c6..d3a2e6a51efc 100644
+index d3a2e6a51efc..0c1ebb16cec6 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -488,6 +488,20 @@ static void snp_guest_req_cleanup(struct kvm *kvm)
- 	sev->guest_resp_buf = NULL;
- }
+@@ -2045,6 +2045,13 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	struct kvm_sev_info *mirror;
+ 	unsigned long i;
  
-+static int sev_alloc_have_run_cpus(struct kvm_sev_info *sev)
-+{
-+	if (!zalloc_cpumask_var(&sev->have_run_cpus, GFP_KERNEL_ACCOUNT))
-+		return -ENOMEM;
++	/*
++	 * Do cache maintenance on the source VM *before* clearing "SEV active",
++	 * as memory reclaim flows won't trigger cache maintenance on the VM
++	 * once it's no longer an SEV VM.
++	 */
++	sev_writeback_caches(src_kvm);
 +
-+	return 0;
-+}
-+
-+static void sev_free_have_run_cpus(struct kvm_sev_info *sev)
-+{
-+	free_cpumask_var(sev->have_run_cpus);
-+	memset(&sev->have_run_cpus, 0, sizeof(sev->have_run_cpus));
-+}
-+
- static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
- 			    struct kvm_sev_init *data,
- 			    unsigned long vm_type)
-@@ -545,10 +559,9 @@ static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
- 	if (ret)
- 		goto e_free_asid;
+ 	dst->active = true;
+ 	dst->asid = src->asid;
+ 	dst->handle = src->handle;
+@@ -2058,12 +2065,6 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	src->pages_locked = 0;
+ 	src->es_active = false;
  
--	if (!zalloc_cpumask_var(&sev->have_run_cpus, GFP_KERNEL_ACCOUNT)) {
--		ret = -ENOMEM;
-+	ret = sev_alloc_have_run_cpus(sev);
-+	if (ret)
- 		goto e_free_asid;
--	}
+-	/*
+-	 * Do cache maintenance on the source VM as it is no longer an SEV VM,
+-	 * i.e. memory reclaim flows won't trigger cache maintenance on the VM.
+-	 */
+-	sev_writeback_caches(src_kvm);
+-
+ 	list_cut_before(&dst->regions_list, &src->regions_list, &src->regions_list);
  
- 	/* This needs to happen after SEV/SNP firmware initialization. */
- 	if (snp_active) {
-@@ -566,7 +579,7 @@ static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
- 	return 0;
- 
- e_free:
--	free_cpumask_var(sev->have_run_cpus);
-+	sev_free_have_run_cpus(sev);
- e_free_asid:
- 	argp->error = init_args.error;
- 	sev_asid_free(sev);
-@@ -2191,10 +2204,9 @@ int sev_vm_move_enc_context_from(struct kvm *kvm, unsigned int source_fd)
- 	 * does not, i.e. KVM could skip flushes if memory is reclaimed from
- 	 * the old VM but not the new VM.
- 	 */
--	if (!zalloc_cpumask_var(&dst_sev->have_run_cpus, GFP_KERNEL_ACCOUNT)) {
--		ret = -ENOMEM;
-+	ret = sev_alloc_have_run_cpus(dst_sev);
-+	if (ret)
- 		goto out_source_vcpu;
--	}
- 
- 	sev_migrate_from(kvm, source_kvm);
- 	kvm_vm_dead(source_kvm);
-@@ -2888,10 +2900,9 @@ int sev_vm_copy_enc_context_from(struct kvm *kvm, unsigned int source_fd)
- 	}
- 
- 	mirror_sev = to_kvm_sev_info(kvm);
--	if (!zalloc_cpumask_var(&mirror_sev->have_run_cpus, GFP_KERNEL_ACCOUNT)) {
--		ret = -ENOMEM;
-+	ret = sev_alloc_have_run_cpus(mirror_sev);
-+	if (ret)
- 		goto e_unlock;
--	}
- 
- 	/*
- 	 * The mirror kvm holds an enc_context_owner ref so its asid can't
-@@ -2984,7 +2995,7 @@ void sev_vm_destroy(struct kvm *kvm)
- 	 * Free the mask even if the VM is not *currently* an SEV VM, as it may
- 	 * have been an SEV VM prior to intra-host migration.
- 	 */
--	free_cpumask_var(sev->have_run_cpus);
-+	sev_free_have_run_cpus(sev);
- 
- 	if (!sev_guest(kvm))
- 		return;
+ 	mutex_lock(&sev_mirror_lock);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
