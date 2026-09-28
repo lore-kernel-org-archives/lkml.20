@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E29F49D591;
-	Mon, 28 Sep 2026 11:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA714489FB9;
+	Mon, 28 Sep 2026 11:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593276; cv=none; b=HwZUyc+Q++EZg2SYT9GNNCJJBAJNVJ37gWLRZV2PZEFeai/4Hm+ULsfW2PiNngnJ2lubT/8m39XbJT8xmfH0lVfgftL1+FXYjxtHVKZfXxS7JKlAOwiLxmdOdNqjWIv7rhhaZZNWvyWsFRw26I6qIO21iVAvYoPwsMMK6YiD+6A=
+	t=1790593285; cv=none; b=nEckSyc57s5oRUAxuVotdcAdrZHyTGix/2UcRwOugs3mqNTlCbTwkwRGdQp7KEsTCeV5uGtH3KyePs1EOhwfadAL2arI/QFFlpI0YlNqaSTZIETjWWy5PM805iBLMHkj5NfuqIBCeCVYpBqeBeFFvQByDaOu0IkavcIRQhi73TE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593276; c=relaxed/simple;
-	bh=H5GJo30dYhNz75snjmBEb0ElTlWtvvb4awXplYQPNAE=;
+	s=arc-20240116; t=1790593285; c=relaxed/simple;
+	bh=OPgOww627zD19BL+U//itmZv8dXx28KLUtom1uWHtxo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oHO7zoKPRgUHdnRlfhPpRtYDEn0m3kCUCb4jcxu4NdlPg1bSjwNXMZ/2eQ2v7gQKC9btaq31a4ZlfLDKWXlmjn8JrQsT9JSD+ST5BLpazP9KIXRNmlcjiGoK9Ka1kqgPCWvVYJQmLBCiN+/j8k2Qkx+phCA8fGL3RW/wcTcMKsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeOkvjpU; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=asqUvpU1HBKv9fJp0nLZWxAinCLS9TuA0l/EvH+O8zkzeByQ35b17UjpdPAd44X2WPcua/WSYYJAUEwCd7Sqt8h4ii7wcXxucnet79mcpkwwzKIuiPQmbxGOU1qapP8LRQ4wASq1s44iALoMwILE/DnF7OFqYLE8bshYwgFayts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tKg2YA0R; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeOkvjpU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92861F000FF;
-	Mon, 28 Sep 2026 11:01:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593275;
-	bh=Z1dV9FCQly0CWHqQuaTSa7O+l6RmeTF0onjzPx6pDUo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oeOkvjpU6728sz4DkNmIeIls8bKV/Ws+XCVHOy5FHbvZ+RwxW+gF8gqG8ecYdiPjh
-	 IUjl66/weJ/BQ+Comj1vyA0bjwBJ9ER9GYVlmMRxbcwUmdlB+f8BESu/w1nilUt49t
-	 Qg3v4xzeX0W03fkT3AwjD4vQKuCej2rfoHO9BP0swe0+hTeZXpEHdU1Uv4k3Zl3zDg
-	 7vcaWCrSru2MznYWgqWRPu3HJCHACZ93O0t7IjIaABAciH0niMVc5K99BUKFlOWZ/d
-	 gYzYbnhsus52iiGp5spQUzA6Pvn4A1i/tskOeaAeN1Ux0VLVU6rUysNUyPb7MOzeB2
-	 vD7w0NbkpbU3w==
-Message-ID: <f8134f74-9f32-4c98-96b3-ceeb978abb11@kernel.org>
-Date: Mon, 28 Sep 2026 13:01:11 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tKg2YA0R"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3ED81595;
+	Mon, 28 Sep 2026 04:01:19 -0700 (PDT)
+Received: from [10.57.12.79] (unknown [10.57.12.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B95943F86F;
+	Mon, 28 Sep 2026 04:01:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790593283; bh=OPgOww627zD19BL+U//itmZv8dXx28KLUtom1uWHtxo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tKg2YA0RHPuzdmRwV0lPGoDlgCUybqftje3GGS1BYH9CKtDCPS2NkvtEfCoAcTdbL
+	 ggVP7QGb7VEoJkplTGJTVfZVKoE56b1IVaD/Hu4bXFFzuEw+HScrzYRvw5CHvILr8y
+	 oMAmklYeDEboPJMEJeAx1kRbKYe4TFF0mFie7dms=
+Message-ID: <4e315360-5b7a-4a0e-99c0-679a0271e625@arm.com>
+Date: Mon, 28 Sep 2026 12:01:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,89 +35,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] media: uvcvideo: live pan/tilt/zoom readback on
- the OBSBOT Tiny 2
-To: Michael Jordan <jordan.mymail@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Ricardo Ribalda <ribalda@chromium.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902002553.34839-1-jordan.mymail@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260902002553.34839-1-jordan.mymail@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
+ <aqvCwM_73qMpqzvV@arm.com> <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
+ <arKVcjCOJf8p9rWL@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <arKVcjCOJf8p9rWL@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi All,
+Hi Catalin
 
-On 2-Sep-26 02:25, Michael Jordan wrote:
-> The OBSBOT Tiny 2's GET_INFO strips the AUTOUPDATE bit from its pan,
-> tilt and zoom controls, so uvcvideo caches them and userspace can never
-> observe the actuator's live state. This series reports AUTO_UPDATE
-> controls as volatile to userspace, generalises the existing XU flags
-> fixup table to all controls, and adds entries for the three affected
-> controls on this camera.
+On 22/09/2026 15:49, Catalin Marinas wrote:
+> On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
+>> I had another look and we could handle this via kvm_fault_is_gmem_abort()
+>> see in arch/arm64/kvm/mmu.c:
+>>
+>>
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 87e49251e0447..af5a4bf961aae 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
+>> *s2fd)
+>>          gfn_t gfn;
+>>          int ret;
+>>
+>> +       if (!kvm_slot_has_gmem(s2fd->memslot))
+>> +               return -EINVAL;
 > 
-> Changes in v2 (following Ricardo's review of v1 [1]):
+> I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
+> changes, we should never get in this situation. Well, to be revisited
+> for private devices.
 > 
-> - Patch 1: unchanged; picked up Ricardo's Reviewed-by.
-> - Patch 2: uvc_ctrl_fixup_flags() now returns bool and runs at the
->   start of uvc_ctrl_get_flags(), before the allocation, skipping the
->   GET_INFO query entirely for controls the table covers (Ricardo).
-> - Patch 3: as asked, I checked whether the camera's other
->   AUTO_UPDATE-flagged controls suffer the same bug. Two more do:
->   CT_PANTILT_RELATIVE and CT_ZOOM_ABSOLUTE, both verified on hardware
->   to change autonomously and report live values on GET_CUR; entries
->   added for both. Exposure, white balance and focus turned out to be
->   write-only on this firmware (their autos work, but GET_CUR echoes the
->   last SET_CUR), so they gain nothing from AUTO_UPDATE and were left
->   alone; details in the commit message. The commit message also no
->   longer claims the capability byte is the same for every control --
->   probing every control showed it is computed per control, just wrong
->   for the PTZ ones. Dropped Ricardo's Reviewed-by since the patch
->   changed materially.
+> Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
+> kvm_fault_is_gmem_abort(). Something like:
 > 
-> The full lsusb -v output was posted in reply to v1's patch 3, in the
-> thread at [1].
+> 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
+> 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
+> 		return -EIO;
 > 
-> [1] https://lore.kernel.org/linux-media/20260828152557.653475-1-jordan.mymail@gmail.com/
-
-Michael, thank you for the patch. Patches 1/2 look good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Ricardo (and Michael, I wonder, in the light of Michael already having
-found a second camera with the same issue and also in the light of your
-"media: uvcvideo: Automatically handle invalid uvc_versions" series
-if it would not be better to try to fix this up automatically instead
-of relying on device quirks?
-
-Specifically the UVC_CTRL_FLAG_AUTO_UPDATE flag is already there
-in the default flags for these controls (and a bunch of others)
-in uvc_ctrls[].
-
-I wonder if we should simply always honor UVC_CTRL_FLAG_AUTO_UPDATE
-from uvc_ctrls[] even when we do get a valid GET_INFO request and
-simply or in the UVC_CTRL_FLAG_AUTO_UPDATE from uvc_ctrls[] if it
-is there?
-
-That avoids needing to adding more and more quirks for this.
-
-Regards,
-
-Hans
-
-
-
-
-> Michael Jordan (3):
->   media: uvcvideo: report AUTO_UPDATE controls as volatile
->   media: uvcvideo: generalise the XU flags fixup to all controls
->   media: uvcvideo: fix up missing AUTO_UPDATE on the OBSBOT Tiny 2
+> To me it makes more sense for gmem_abort() to be called only *if* it's a
+> gmem slot. So any inconsistency, avoiding user_mem_abort() for private
+> memory, should be done in the caller. I assume the caller will also have
+> to route the private device path as well rather than rely on
+> gmem_abort().
 > 
->  drivers/media/usb/uvc/uvc_ctrl.c | 122 ++++++++++++++++++++-----------
->  1 file changed, 81 insertions(+), 41 deletions(-)
-> 
+>> +
+>>          if (!perm_fault) {
+>>                  memcache = get_mmu_memcache(vcpu);
+>>                  ret = topup_mmu_memcache(vcpu, memcache);
+>> @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
+>> phys_addr_t fault_ipa);
+>>   static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
+>>                                      const struct kvm_s2_fault_desc *s2fd)
+>>   {
+>> -       if (!kvm_slot_has_gmem(s2fd->memslot))
+>> -               return false;
+>>          if (kvm_memslot_is_gmem_only(s2fd->memslot))
+>>                  return true;
+>> +       /*
+>> +        * For Realms, all private faults must be backed by GMEM.
+>> +        * TODO: Handle Trusted device private memory mappings.
+>> +        */
+>>          if (private_ipa_fault(kvm, s2fd->fault_ipa))
+>>                  return true;
+>>          return false;
+>>
+>>
+>> Also, I have the following hunk for preventing memslot modifications.
+>> I will add this to v20 integration branch, which is almost ready ;-)
+>>
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 582b48e34486b..87e49251e0447 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
+>>          }
+>>   }
+>>
+>> +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
+>> +{
+>> +       /* Cannot modify memslots once a pVM has run or Realm created */
+>> +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
+>> +               return false;
+>> +
+>> +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
+>> +            kvm_realm_is_created(kvm))
+>> +               return true;
+>> +       return false;
+>> +}
+>> +
+
+This needs to be tweaked for Realm to support non-secure device 
+assignment. Aneesh reports that the Device assignment fails now,
+because the Device BAR reset deletes the memory slot and re-registers
+it, which the above change prevents.
+
+I will modify that to
+1. Prevent "Guest-memfd" backed memory slot deletion. Makes sure that
+    nothing can replace a private memory slot.
+2. Allow non-Guest-memfd backed memory slots to be created
+   after the Realm is created. We anyways prevent "private" memory
+   to be mapped from a non-Guest-memfd memslot.
+
+Suzuki
 
