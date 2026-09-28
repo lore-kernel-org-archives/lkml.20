@@ -1,400 +1,295 @@
-Received: from mail-pz2-f32.google.com (mail-pz2-f32.google.com [74.125.228.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111DB35674F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40EA2877DE
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790558027; cv=none; b=fo5SA+9G1zmnLrvWHrbbtQwwRbLk5YTM9V3J8glj0Ua7qgsg9MSxg6CLOglPXapOwKfGuWH6+IOVHjkMgmQlxfEd9VM1t/h6L/rx0cBNzcB14BV12oQhu0ifxmaKdGmT4WElcWipkKvx2/eaYyroR+vtcuRDqRjQWTkgHeV/nKI=
+	t=1790558072; cv=none; b=P/bu5ncmGNJLRp36xrbjdB6THrsE/ffyMp1xs1411U+m4ay5fN4itBuSrCMwBcXy/Wo1e1VKD4ZGgtdf7onilZLpf05J7Ccr4FQ+rNNsrM0n1K9Bf45Obnbe8/g4+zCE1D+wsbGMa+caZZrgNclcUEOclkIZHzL/OVFw3Sy+0CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790558027; c=relaxed/simple;
-	bh=f9ZhtYSlrwFJfmTSOBai7MB1cph32op5FRcZer33uNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=doP+w5c/GbVZqrUbmo9g/kbs4QDZaHFQ4ldnR5k1oFOiiaQvfF2ev670a6wbdMZBfLTyFl1KXK7ep7Cwa3VzOLErucMZac/jsDp6oBgbGbWAeeF+dG9OuAvqzGd2eYkUrRaZYvNLeVDOGbJaDpBHNIggvwuC5XdwXDey649QLfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aM7+sfLF; arc=none smtp.client-ip=74.125.228.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790558072; c=relaxed/simple;
+	bh=a6NSIjs6hF/leTO0jwwQw+H46Ks+qwQ2YrWK/sPHAPA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P+xjPlWUAkekA2hvWT9cFxRAxKUUdghHK/Bf3xtDzWTVbRD0teU/5e/HMG63ritLMtSTc3vSyC1nY1ktcSsHQTW8pVh/2PMzATc+nVXCcnLAlpNX7U05HXvH3YK3RUAbzB7nZ+5EdSkWYpw7S3kaDH2cYlL5DkZohk9CRR12kiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLCw3fgG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aM7+sfLF"
-Received: by mail-pz2-f32.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so812241a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790558025; x=1791162825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9p8DnBZJKeBguPKZaL9Uo6YvWl4RWzdFx0DNOjIPErs=;
-        b=aM7+sfLFGoPyg1OV+ICDFURdrHjfKsiYs4TFyFEsTtAhi8loLlhqlgFScBeVdr8MK1
-         kvRTFP8SOR2bD6Z/LGpSt275pcRdOhYTOmOp2EOl9LafHAvR5da8XyarZLKehC6Bu+Ww
-         jh2MRf+K9gq4Ifvk05CFVHrwcVkjcY/+AJGq4j5qigx42DF/0/zKtnyS8ERRc0VLvm1i
-         l6alD7hItGcbK3/P63j3IYCqanGdEKZOqKLkhFy7G7fWctDJlwbeiToSzTOc/1Fn/0cH
-         cISsgDROPmq1az1c22i9IW2/aXjopK5segTfZwN/cAviEQwrllG2XTcdBL10Y3gLhmeF
-         YSpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790558025; x=1791162825;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9p8DnBZJKeBguPKZaL9Uo6YvWl4RWzdFx0DNOjIPErs=;
-        b=N4HC0FAXFBKZOt3A/og2RRpDqUK+iyMHBVfKOEDlDl1hM8jeqraFd0TQ3Dc1hGxMFN
-         lD9xb7detrWYBT36lGtwkD9flFupD4cWzZjPN7yoB+X6czqRwDHZgCN0cQ4duShy3rLX
-         19H6pHq8vWtPvDaqk2TC+noNn5TUuUx2icRSUkcWsx277BiChfSA2D0ARS+gxSmH7Hfz
-         NxTvMqwk5yJgSIlfQdFw5nsik1HYwD01kPerMuxHWsfgeMnLnVnzMZiJYN+J0RKWOzHC
-         IhNjymn32TnzhTNhZxkbuQSBVi6NgbQRDMDIuM2doAUVoHGpZcqvcJjKvcCh5+pwS8tT
-         MbmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzThU51rdKcZbrZ5jqcYnX9DAn9muNtUJcnzGv7dQxAIou95EvCDmikzG91gkWz6cT/MptC6oe0qT8aOoM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIHGJfQ/t8KqEMijUlLrEdoHtqOjkKcZ769Q8O6zExBjAKi4kQ
-	NLKIDHtkpRU5qk5E9Ha7K0AeyMuWy+U10D2dR9PtbH0AHDH1JpMcd2Ea
-X-Gm-Gg: AYBFou1zurodYRz00oyGu27RBeY7altrym3eqCAqXzxZ7KFAaHyNBUlTnY6IIfJWHdj
-	fy73cR5hJC1JaPDFMbfSFVIEzoRuGNXkJSblOYvekBMFl8Fzi3fIb2xp80QXRID3twpsQChy3+6
-	8WgTeXW5GiFOsF/4gjkSwOmH7sChvYZ3CxQL2cl7/9RDECy+/RBv2G4Z7HmY3wYC/jpDSfLTdda
-	IVebfqzF6jm5ZQ1Fr6Ssjq4iifdcVpy1eIN7UPFgx4//gLXTNzLd8q2V6GQ/J6xs73BWRwTZfu5
-	Nvl3+/Vzhc5RP9Ob8jT37VfxfnG+a8sjtrKl2WS9aBjw2266+vHCDwNcIqXsv62LZualvt2n1wX
-	gX1bchIk6bxs3NUUtyLytwDrbcQxCLVKR5lsx7B9Yuxg7S4E8rjU/c4ywylNxKt9PUJGuRWKh/S
-	RBTccxn5h9O46gp67+Z/oTFweMlHVYQYRRVsCvePFRSAGZrbh1vdqlJs7Pn0Ue0FLT4eVkSEhB5
-	TyAnxEtxW1pN5GCVvrsgO1X1is=
-X-Received: by 2002:a17:90b:35c4:b0:3a2:b16d:928b with SMTP id 98e67ed59e1d1-3a2b16da167mr1695774a91.46.1790558025044;
-        Sun, 27 Sep 2026 18:13:45 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0e7036e3bsm10425773a91.13.2026.09.27.18.13.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 18:13:44 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: lukas@wunner.de,
-	linux-cxl@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Jonathan.Cameron@huawei.com,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	bhelgaas@google.com,
-	alistair@alistair23.me,
-	djbw@kernel.org,
-	linux-pci@vger.kernel.org
-Cc: wilfred.mallawa@wdc.com,
-	a.hindborg@kernel.org,
-	gregkh@linuxfoundation.org,
-	alex.gaynor@gmail.com,
-	alistair23@gmail.com,
-	aliceryhl@google.com,
-	benno.lossin@proton.me,
-	boqun.feng@gmail.com,
-	bjorn3_gh@protonmail.com,
-	tmgross@umich.edu,
-	gary@garyguo.net,
-	ojeda@kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH v4 18/22] lib: rspdm: Support SPDM get_digests
-Date: Mon, 28 Sep 2026 11:11:19 +1000
-Message-ID: <20260928011123.450800-19-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928011123.450800-1-alistair.francis@wdc.com>
-References: <20260928011123.450800-1-alistair.francis@wdc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLCw3fgG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0741F00893
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790558070;
+	bh=EyC72KWxqDJlbXy+hKU7j6uBzgNXP3yzZ3b3YBNMi7A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QLCw3fgG6q/kDHGYx4lHt+MrSUfstHkF0ztBYLEPnlZPSGbxTDekAXN+eXBnndUJL
+	 oW6HhlSsSNs5WiJPbnRCTizdTReW+4jgqebmckTMndCBIRpJu5laZ0bcH5q7h2FBIF
+	 Ae5gIHNxsZwYPAss4VjubqamHU4r+63w7W3OcvVi/fqEfLmtBkHVjVBJQSEJ7oqnj5
+	 BWLKlnf+jX6VhDxGWeTNO9A6mjGue66KL9IRwruaTm9itXuVoqwGddt6PjQFoEfroA
+	 A27kxghPj9WL1YYgjtZzrWYfYDVc5LL7MN+rk1uYi3DBf0fHCXuvH/qZsGS3ZyvLU9
+	 zG3qbj4jsWTLA==
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaea1cb2e4so2863463a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 18:14:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByEoPRI3SRazmY/siucGxRq2oFAydXOFpxcA4QxvK/x8GsMn/6rW9IETeR2e/73WWnmR6IVR0QkeiTLlnA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMjRUj2X0fY86FxtmHjkcSl18H9FwnP7lD189UtXISMwl0r629
+	1YJ92PAcqv/dBdY/zPoxtDvSA0AKgvbCe98jHp9NE8nO6Q0jUvfEtlUqX8nvMBQDh6vu7cyywrt
+	wSsZlVLcHRHu9yAtKqKVY0H1gXnNQCVhQ1OwHhroj/w==
+X-Received: by 2002:a05:6402:a0ca:b0:6aa:9f93:e991 with SMTP id
+ 4fb4d7f45d1cf-6aac8f40750mr7984598a12.3.1790558069240; Sun, 27 Sep 2026
+ 18:14:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-2-hebaoquan@kylinos.cn>
+In-Reply-To: <20260916101929.149106-2-hebaoquan@kylinos.cn>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 15:14:18 -1000
+X-Gmail-Original-Message-ID: <CACePvbVrd+e6FAK6m8PuoD_Lcen13SeYus=gbQxXCm10AZm1ZA@mail.gmail.com>
+X-Gm-Features: AclHuK-AO377KDisb_ZyQ54ljtndVAy04GqfAKOJ8KfE0jbtV5rzs_avyITVamQ
+Message-ID: <CACePvbVrd+e6FAK6m8PuoD_Lcen13SeYus=gbQxXCm10AZm1ZA@mail.gmail.com>
+Subject: Re: [PATCH v3 01/14] mm: xswap support for zswap
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Alistair Francis <alistair@alistair23.me>
+On Wed, Sep 16, 2026 at 12:19=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
+wrote:
+>
+> From: Chris Li <chrisl@kernel.org>
+>
+> Introduce extendable swap device support - xswap.
+>
+> An xswap device has no backing storage and no swap data section, so
+> it wastes no disk space. Creation is via a sysfs interface added in a
+> later patch.
+>
+> Zswap writeback is gated on whether a real (non-xswap) swap device is
+> active. nr_real_swapfiles counts such devices and is maintained at
+> swapon/swapoff only, so the gate reflects "a device exists to write
+> back to" rather than "a device currently has free slots". This keeps
+> writeback working even when the real swap device is full, and avoids
+> a double decrement when a full device is swapped off.
+>
+> Co-developed-by: Baoquan He <hebaoquan@kylinos.cn>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+> Signed-off-by: Chris Li <chrisl@kernel.org>
 
-Support the GET_DIGESTS SPDM command.
+Reviewed-by: Chris Li <chrisl@chrisli.org>
 
-Signed-off-by: Alistair Francis <alistair@alistair23.me>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
----
- lib/rspdm/consts.rs    |  5 ++-
- lib/rspdm/lib.rs       |  4 ++
- lib/rspdm/state.rs     | 56 +++++++++++++++++++++++-
- lib/rspdm/validator.rs | 99 +++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 161 insertions(+), 3 deletions(-)
+Chris
 
-diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
-index d51b6eb06f81..11e080815aa6 100644
---- a/lib/rspdm/consts.rs
-+++ b/lib/rspdm/consts.rs
-@@ -19,10 +19,11 @@
- pub(crate) const SPDM_VER_10: u8 = 0x10;
- pub(crate) const SPDM_VER_11: u8 = 0x11;
- pub(crate) const SPDM_VER_12: u8 = 0x12;
--#[expect(dead_code)]
- pub(crate) const SPDM_VER_13: u8 = 0x13;
- pub(crate) const SPDM_VER_14: u8 = 0x14;
- 
-+pub(crate) const SPDM_SLOTS: usize = 8;
-+
- pub(crate) const SPDM_MIN_VER: u8 = SPDM_VER_10;
- pub(crate) const SPDM_MAX_VER: u8 = SPDM_VER_14;
- 
-@@ -145,6 +146,8 @@ fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
- pub(crate) const SPDM_HASH_SHA_384: u32 = bit_u32(1);
- pub(crate) const SPDM_HASH_SHA_512: u32 = bit_u32(2);
- 
-+pub(crate) const SPDM_GET_DIGESTS: u8 = 0x81;
-+
- // If the crypto support isn't enabled don't offer the algorithms
- // to the responder
- #[cfg(CONFIG_CRYPTO_RSA)]
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 63db5da8aa7a..92035b1070d1 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -105,6 +105,10 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
-         return e.to_errno() as c_int;
-     }
- 
-+    if let Err(e) = state.get_digests() {
-+        return e.to_errno() as c_int;
-+    }
-+
-     -(EPROTONOSUPPORT as i32)
- }
- 
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index 51055ea521d7..502d99eb13a6 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -43,13 +43,17 @@
-     SPDM_OPAQUE_DATA_FMT_GENERAL,
-     SPDM_REQ,
-     SPDM_RSP_MIN_CAPS,
-+    SPDM_SLOTS,
-     SPDM_VER_10,
-     SPDM_VER_11,
--    SPDM_VER_12, //
-+    SPDM_VER_12,
-+    SPDM_VER_13, //
- };
- use crate::validator::{
-     GetCapabilitiesReq,
-     GetCapabilitiesRsp,
-+    GetDigestsReq,
-+    GetDigestsRsp,
-     GetVersionReq,
-     GetVersionRsp,
-     NegotiateAlgsReq,
-@@ -91,6 +95,10 @@
- ///  Selected by responder during NEGOTIATE_ALGORITHMS exchange.
- /// @meas_hash_alg: Hash algorithm for measurement blocks.
- ///  Selected by responder during NEGOTIATE_ALGORITHMS exchange.
-+/// @supported_slots: Bitmask of responder's supported certificate slots.
-+///  Received during GET_DIGESTS exchange (from SPDM 1.3).
-+/// @provisioned_slots: Bitmask of responder's provisioned certificate slots.
-+///  Received during GET_DIGESTS exchange.
- /// @base_asym_enc: Human-readable name of @base_asym_alg's signature encoding.
- ///  Passed to crypto subsystem when calling verify_signature().
- /// @sig_len: Signature length of @base_asym_alg (in bytes).
-@@ -102,6 +110,8 @@
- /// @desc: Synchronous hash context for @base_hash_alg computation.
- /// @hash_len: Hash length of @base_hash_alg (in bytes).
- ///  H in SPDM specification.
-+/// @certs: Certificate chain in each of the 8 slots. Empty KVec if a slot is
-+///  not populated. Prefixed by the 4 + H header per SPDM 1.0.0 table 15.
- #[expect(dead_code)]
- pub(crate) struct SpdmState<'a> {
-     pub(crate) dev: *mut bindings::device,
-@@ -116,6 +126,8 @@ pub(crate) struct SpdmState<'a> {
-     pub(crate) base_asym_alg: u32,
-     pub(crate) base_hash_alg: u32,
-     pub(crate) meas_hash_alg: u32,
-+    pub(crate) supported_slots: u8,
-+    pub(crate) provisioned_slots: u8,
- 
-     /* Signature algorithm */
-     base_asym_enc: &'a CStr,
-@@ -126,6 +138,9 @@ pub(crate) struct SpdmState<'a> {
-     pub(crate) shash: *mut bindings::crypto_shash,
-     pub(crate) desc: *mut bindings::shash_desc,
-     pub(crate) hash_len: usize,
-+
-+    // Certificates
-+    pub(crate) certs: [KVec<u8>; SPDM_SLOTS],
- }
- 
- impl Drop for SpdmState<'_> {
-@@ -157,12 +172,15 @@ pub(crate) fn new(
-             base_asym_alg: 0,
-             base_hash_alg: 0,
-             meas_hash_alg: 0,
-+            supported_slots: 0,
-+            provisioned_slots: 0,
-             base_asym_enc: unsafe { CStr::from_bytes_with_nul_unchecked(b"\0") },
-             sig_len: 0,
-             base_hash_alg_name: unsafe { CStr::from_bytes_with_nul_unchecked(b"\0") },
-             shash: core::ptr::null_mut(),
-             desc: core::ptr::null_mut(),
-             hash_len: 0,
-+            certs: [const { KVec::new() }; SPDM_SLOTS],
-         }
-     }
- 
-@@ -600,4 +618,40 @@ pub(crate) fn negotiate_algs(&mut self) -> Result<(), Error> {
- 
-         Ok(())
-     }
-+
-+    pub(crate) fn get_digests(&mut self) -> Result<(), Error> {
-+        let mut request = GetDigestsReq::default();
-+        request.header.version = self.version;
-+
-+        let rsp_sz = core::mem::size_of::<SpdmHeader>() + SPDM_SLOTS * self.hash_len;
-+
-+        let mut request_buf = request.to_bytes()?;
-+
-+        let mut response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
-+
-+        let len =
-+            self.spdm_exchange(request_buf.as_mut_slice(), response_vec.as_mut_slice())? as usize;
-+        response_vec.truncate(len);
-+
-+        let response: GetDigestsRsp = Untrusted::new(response_vec.as_slice()).validate(&*self)?;
-+
-+        let mut deprovisioned_slots = self.provisioned_slots & !response.header.param2;
-+        while (deprovisioned_slots.trailing_zeros() as usize) < SPDM_SLOTS {
-+            let slot = deprovisioned_slots.trailing_zeros() as usize;
-+            self.certs[slot].clear();
-+            deprovisioned_slots &= !(1 << slot);
-+        }
-+
-+        self.provisioned_slots = response.header.param2;
-+
-+        let supported_slots = if self.version >= SPDM_VER_13 {
-+            response.header.param1
-+        } else {
-+            0xFF
-+        };
-+
-+        self.supported_slots = supported_slots;
-+
-+        Ok(())
-+    }
- }
-diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
-index 58f6a3d436a8..c058dde31440 100644
---- a/lib/rspdm/validator.rs
-+++ b/lib/rspdm/validator.rs
-@@ -26,6 +26,7 @@
-     SPDM_CAP_SUPPORTED_ALGORITHMS,
-     SPDM_CTEXPONENT,
-     SPDM_GET_CAPABILITIES,
-+    SPDM_GET_DIGESTS,
-     SPDM_GET_VERSION,
-     SPDM_HASH_ALGOS,
-     SPDM_MEAS_SPEC_DMTF,
-@@ -33,9 +34,11 @@
-     SPDM_MIN_VER,
-     SPDM_NEGOTIATE_ALGS,
-     SPDM_REQ_CAPS,
-+    SPDM_SLOTS,
-     SPDM_VER_10,
-     SPDM_VER_11,
--    SPDM_VER_12, //
-+    SPDM_VER_12,
-+    SPDM_VER_13, //
- };
- 
- #[repr(C, packed)]
-@@ -697,3 +700,97 @@ fn validate(unvalidated: &[u8], context: &'c SpdmState<'c>) -> Result<Self, Self
-         })
-     }
- }
-+
-+pub(crate) struct GetDigestsReq {
-+    pub(crate) header: SpdmHeader,
-+}
-+
-+impl GetDigestsReq {
-+    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-+        self.header.to_bytes()
-+    }
-+}
-+
-+impl Default for GetDigestsReq {
-+    fn default() -> Self {
-+        GetDigestsReq {
-+            header: SpdmHeader::new(SPDM_GET_DIGESTS),
-+        }
-+    }
-+}
-+
-+#[expect(dead_code)]
-+pub(crate) struct GetDigestsRsp {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) digests: [KVec<u8>; SPDM_SLOTS],
-+
-+    // KeyPairIDs, added in 1.3
-+
-+    // CertificateInfo, added in 1.3
-+
-+    // KeyUsageMask, added in 1.3
-+    /// Size of the response, not public
-+    length: usize,
-+}
-+
-+impl GetDigestsRsp {
-+    #[expect(dead_code)]
-+    pub(crate) fn len(&self) -> usize {
-+        self.length
-+    }
-+}
-+
-+impl<'a, 'c> Validate<'c, Untrusted<&'a [u8]>> for GetDigestsRsp {
-+    type Err = Error;
-+
-+    type Context = &'c SpdmState<'c>;
-+
-+    fn validate(unvalidated: &[u8], context: &'c SpdmState<'c>) -> Result<Self, Self::Err> {
-+        let header: SpdmHeader =
-+            Untrusted::new(unvalidated.get(0..4).ok_or(EIO)?).validate(context)?;
-+
-+        if header.code != SPDM_GET_DIGESTS - 0x80 {
-+            return Err(EINVAL);
-+        }
-+
-+        if header.version != context.version {
-+            pr_err!("Invalid version response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        if header.param2 == 0 {
-+            pr_err!("No certificates provisioned\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let mut digests: [KVec<u8>; SPDM_SLOTS] = [const { KVec::new() }; SPDM_SLOTS];
-+        let mut offset = mem::size_of::<SpdmHeader>();
-+        let mut slot_mask = header.param2;
-+
-+        while (slot_mask.trailing_zeros() as usize) < SPDM_SLOTS {
-+            let slot = slot_mask.trailing_zeros() as usize;
-+
-+            digests[slot].extend_from_slice(
-+                unvalidated
-+                    .get(offset..(offset + context.hash_len))
-+                    .ok_or(EIO)?,
-+                GFP_KERNEL,
-+            )?;
-+            offset += context.hash_len;
-+
-+            slot_mask &= !(1 << slot);
-+        }
-+
-+        if context.version >= SPDM_VER_13 && (header.param2 & !header.param1 != 0) {
-+            pr_err!("Malformed digests response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        Ok(GetDigestsRsp {
-+            header,
-+            digests,
-+            length: offset,
-+        })
-+    }
-+}
--- 
-2.55.0
-
+> ---
+>  include/linux/swap.h |  2 ++
+>  mm/page_io.c         | 19 +++++++++++++++++++
+>  mm/swap_state.c      |  4 ++++
+>  mm/swapfile.c        | 28 ++++++++++++++++++++++++----
+>  mm/zswap.c           |  7 ++++++-
+>  5 files changed, 55 insertions(+), 5 deletions(-)
+>
+> diff --git a/include/linux/swap.h b/include/linux/swap.h
+> index 43155e122b5c..b4331ca4759a 100644
+> --- a/include/linux/swap.h
+> +++ b/include/linux/swap.h
+> @@ -201,6 +201,7 @@ enum {
+>         SWP_STABLE_WRITES =3D (1 << 11),  /* no overwrite PG_writeback pa=
+ges */
+>         SWP_SYNCHRONOUS_IO =3D (1 << 12), /* synchronous IO is efficient =
+*/
+>         SWP_HIBERNATION =3D (1 << 13),    /* pinned for hibernation */
+> +       SWP_XSWAP       =3D (1 << 14),    /* extendable swap device */
+>                                         /* add others here before... */
+>  };
+>
+> @@ -375,6 +376,7 @@ void free_folio_and_swap_cache(struct folio *folio);
+>  void free_pages_and_swap_cache(struct encoded_page **, int);
+>  /* linux/mm/swapfile.c */
+>  extern atomic_long_t nr_swap_pages;
+> +extern atomic_t nr_real_swapfiles;
+>  extern long total_swap_pages;
+>  extern atomic_t nr_rotate_swap;
+>
+> diff --git a/mm/page_io.c b/mm/page_io.c
+> index 1da4ff484f09..d685c2e2429a 100644
+> --- a/mm/page_io.c
+> +++ b/mm/page_io.c
+> @@ -248,6 +248,15 @@ int swap_writeout(struct swap_io_ctx *ctx, struct fo=
+lio *folio)
+>         }
+>         rcu_read_unlock();
+>
+> +       /*
+> +        * xswap has no backing store: keep the folio.  ctx->sis is not s=
+et
+> +        * yet, so look the device up from the entry.
+> +        */
+> +       if (unlikely(__swap_entry_to_info(folio->swap)->flags & SWP_XSWAP=
+)) {
+> +               folio_mark_dirty(folio);
+> +               return AOP_WRITEPAGE_ACTIVATE;
+> +       }
+> +
+>         __swap_writeout(ctx, folio);
+>         return 0;
+>  out_unlock:
+> @@ -482,6 +491,16 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct=
+ folio *folio)
+>         if (zswap_load(folio) !=3D -ENOENT)
+>                 goto finish;
+>
+> +       if (unlikely(sis->flags & SWP_XSWAP)) {
+> +               /*
+> +                * An xswap entry only ever lives in zswap, so zswap_load=
+()
+> +                * must have found it.  Unlock and let the caller retry.
+> +                */
+> +               WARN_ON_ONCE(1);
+> +               folio_unlock(folio);
+> +               goto finish;
+> +       }
+> +
+>         /* We have to read from slower devices. Increase zswap protection=
+. */
+>         zswap_folio_swapin(folio);
+>         swap_add_folio(ctx, folio, READ);
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index 625c185a1ca4..8bba3e533b28 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -837,6 +837,10 @@ struct folio *swap_cluster_readahead(swp_entry_t ent=
+ry, gfp_t gfp_mask,
+>         struct blk_plug plug;
+>         swp_entry_t ra_entry;
+>
+> +       /* xswap entries live only in zswap; readahead does not help. */
+> +       if (si->flags & SWP_XSWAP)
+> +               goto skip;
+> +
+>         mask =3D swapin_nr_pages(offset) - 1;
+>         if (!mask)
+>                 goto skip;
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 280dd906eb18..13ae681acf07 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -66,6 +66,7 @@ static void move_cluster(struct swap_info_struct *si,
+>  static DEFINE_SPINLOCK(swap_lock);
+>  static unsigned int nr_swapfiles;
+>  atomic_long_t nr_swap_pages;
+> +atomic_t nr_real_swapfiles;
+>  /*
+>   * Some modules use swappable objects and may try to swap them out under
+>   * memory pressure (via the shrinker). Before doing so, they may wish to
+> @@ -733,7 +734,8 @@ static void free_cluster(struct swap_info_struct *si,=
+ struct swap_cluster_info *
+>         /*
+>          * If the swap is discardable, prepare discard the cluster
+>          * instead of free it immediately. The cluster will be freed
+> -        * after discard.
+> +        * after discard.  xswap has no bdev and never sets
+> +        * SWP_PAGE_DISCARD, so it always takes the free path below.
+>          */
+>         if ((si->flags & (SWP_WRITEOK | SWP_PAGE_DISCARD)) =3D=3D
+>             (SWP_WRITEOK | SWP_PAGE_DISCARD)) {
+> @@ -1216,6 +1218,9 @@ static void del_from_avail_list(struct swap_info_st=
+ruct *si, bool swapoff)
+>                  */
+>                 lockdep_assert_held(&si->lock);
+>                 si->flags &=3D ~SWP_WRITEOK;
+> +               /* Count active devices, not merely those on the avail li=
+st. */
+> +               if (!(si->flags & SWP_XSWAP))
+> +                       atomic_sub(1, &nr_real_swapfiles);
+>                 atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
+>         } else {
+>                 /*
+> @@ -1273,6 +1278,8 @@ static void add_to_avail_list(struct swap_info_stru=
+ct *si, bool swapon)
+>         }
+>
+>         plist_add(&si->avail_list, &swap_avail_head);
+> +       if (swapon && !(si->flags & SWP_XSWAP))
+> +               atomic_add(1, &nr_real_swapfiles);
+>
+>  skip:
+>         spin_unlock(&swap_avail_lock);
+> @@ -3266,7 +3273,8 @@ SYSCALL_DEFINE1(swapoff, const char __user *, speci=
+alfile)
+>
+>         destroy_swap_extents(p, p->swap_file);
+>
+> -       if (!(p->flags & SWP_SOLIDSTATE))
+> +       if (!(p->flags & SWP_XSWAP) &&
+> +           !(p->flags & SWP_SOLIDSTATE))
+>                 atomic_dec(&nr_rotate_swap);
+>
+>         mutex_lock(&swapon_mutex);
+> @@ -3376,6 +3384,19 @@ static void swap_stop(struct seq_file *swap, void =
+*v)
+>         mutex_unlock(&swapon_mutex);
+>  }
+>
+> +static const char *swap_type_str(struct swap_info_struct *si)
+> +{
+> +       struct file *file =3D si->swap_file;
+> +
+> +       if (si->flags & SWP_XSWAP)
+> +               return "xswap\t";
+> +
+> +       if (S_ISBLK(file_inode(file)->i_mode))
+> +               return "partition";
+> +
+> +       return "file\t";
+> +}
+> +
+>  static int swap_show(struct seq_file *swap, void *v)
+>  {
+>         struct swap_info_struct *si =3D v;
+> @@ -3395,8 +3416,7 @@ static int swap_show(struct seq_file *swap, void *v=
+)
+>         len =3D seq_file_path(swap, file, " \t\n\\");
+>         seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
+>                         len < 40 ? 40 - len : 1, " ",
+> -                       S_ISBLK(file_inode(file)->i_mode) ?
+> -                               "partition" : "file\t",
+> +                       swap_type_str(si),
+>                         bytes, bytes < 10000000 ? "\t" : "",
+>                         inuse, inuse < 10000000 ? "\t" : "",
+>                         si->prio);
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 507f2d19fd2a..96fb993d18cb 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1018,6 +1018,11 @@ static int zswap_writeback_entry(struct zswap_entr=
+y *entry,
+>         if (IS_ERR_OR_NULL(si))
+>                 return -ENOENT;
+>
+> +       if (si->flags & SWP_XSWAP) {
+> +               put_swap_device(si);
+> +               return -EINVAL;
+> +       }
+> +
+>         mpol =3D get_task_policy(current);
+>         folio =3D swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NU=
+LL, mpol,
+>                                        NO_INTERLEAVE_INDEX);
+> @@ -1567,7 +1572,7 @@ bool zswap_store(struct folio *folio)
+>         zswap_pool_put(pool);
+>  put_objcg:
+>         obj_cgroup_put(objcg);
+> -       if (!ret && zswap_pool_reached_full)
+> +       if (!ret && zswap_pool_reached_full && atomic_read(&nr_real_swapf=
+iles))
+>                 queue_work(shrink_wq, &zswap_shrink_work);
+>  check_old:
+>         /*
+> --
+> 2.54.0
+>
+>
