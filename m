@@ -1,351 +1,598 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023102.outbound.protection.outlook.com [40.107.162.102])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0FA4DB567;
-	Mon, 28 Sep 2026 14:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.102
-ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606433; cv=fail; b=t+NFafapdUV426umYgPqe3HXeq1dEC+fFhyIMmfi1NCyQelam9QuvJj2B/DjnPWytcERoCQXmhQKDZaQ0Gl7qpIpwlGsrW+GVd8hHet27m8cG6GuVnJlf5BHw6OAWPXkTf9aGtPFwQd7JJEYERwfdZ6FbHgQ4JJN6E1vc40MHz4=
-ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606433; c=relaxed/simple;
-	bh=0XUQo8sILVb8aDnbSVKmka9Q9HBnj5VHPTrk/yUYxE0=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Bm4WDM+EOFc0OQL9hkJ3OW/oYHLmX3c9YxaYtl6g+gDBaS/70x30hu3FwjaRv/TTWMRQOnubWnIcz3iqi8dz3C15RiK0VNwO6N5TZ771aC5DtO3GnG9wJh2OTEqGa3f4m88WzfbEBR+qwrr+A7mGoIElvGmikRfh/xdjLWp7boc=
-ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=MF9mmpqm; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=MF9mmpqm; arc=fail smtp.client-ip=40.107.162.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7F4DE718;
+	Mon, 28 Sep 2026 14:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790606438; cv=fail; b=P5cSTzcyjvLBG92kGtx7eViVT0cz+/xCYoqQ726Bs5CMrALUvh4h321pF9GWLFTNEbs0S4n3u/AYIKX4/xS4rWWtUjqb89DOihycV6ud0098b+AYNRgz01J3X02IiX+dov1KIJHXvdZwNEtA3CkvoDq1PQUvb7sxJy2SatkiT6k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790606438; c=relaxed/simple;
+	bh=ojPtGmtpM5KF/CuXANAnDhQN4uJ/5+kN23HbDhIy38E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=QEpS6ZF7xc0hRC5eDayrxcJr58bgdcUW6qS29GdLkrsav8ZfoB5GoMLOV+D+t9aYL6r3G5+foQgZDf0tSkYM8m29URp6jnX1eSuB3/icbptD8jDxfyCzQEP1MA8h2iERek+KR6753jljuEUaFCoYD2+83Wm6YWb/3IPwi/skFT0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=aztRpbAu; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=BmNpwaoL; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="MF9mmpqm";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="MF9mmpqm"
-ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=sjBUohotsyS17gbRvtZs4USsnj7SyeGjyETo7IDcrTDCQMZlcHPSVhxVSrr6OrZnU8x1YRIz7Wtv7jFeLmzG9TozaTbOVxUB3dc6K6Jz3+lwbYgm0Lwi1EuK42pQIz4Phuwtw/YLmTnnqmtlxrBzgO8k3kzFqxNEmMNKJhv6wO6dKa1bbGldkSN3X+amXiKCbMzXTFwl7KPTOw/zXrtRUjyeElx+2uUPdwJSCdhh+ZViZag1C++nCwBbAvCQlFMWq5audabksAFJSBVGf3pLozqb1sZHo1nbIfH8pTyg/ADZWkv0BJtRelKdgD/MJUaZm0DpdZ9QuVLV2wd+sy/HGA==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="aztRpbAu";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BmNpwaoL"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SBAgOn1608470;
+	Mon, 28 Sep 2026 09:40:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=GAd6pns19h4FsA8pYOdxNQPmhgW4DV1VFhRL5350s
+	ZU=; b=aztRpbAukxquoxt2td2uYSqPOdIYoBipIJQNNdw5WLI60imQsME2ZfENJ
+	++0rxaICcyMRpI66fbqmFhUNwFLxIwc0fF1ucf2vBEDdSkPAb/dR9I5+WHKRdBgw
+	BQaZgIOmYk8cGQGX27ozeHXRbJoS9NUpGx2d/pOvySZTKkewHdtsNtL4D1NB8x0u
+	irbjuCLTKQpm0LZjvBdCg6WuaEIkqApPOpEy1ssQOtncaNxePpbGlmzkTI32l1xz
+	UL0WrGQtsM/QGEn8PS+FmJITZ/UNXdbodHR/QfqkKz95Kp7dEr/ut/JYOr7mdo3r
+	nnoNXpfNkHNheGCSxjKIG2TfSGpOQ==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012070.outbound.protection.outlook.com [52.101.53.70])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2npe0a-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 09:40:13 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UIetQThJQqhWhymUXjiAapgNSXOWYdpiSwTS2uGlLVmFcXkHLCOzrj1YWQPmXScxX7cXKyv6wWCaW8fk7VTleHBg/mgKr41KJYnIqUBcEonC0Fzfk+FoehIXcSq2dr8sHPR9Bc1o0ZAClu55M65vurHw8VuH6GE/yKx3/pELo8ItTq5DsC3Te6dQz1MJvA5ioDnmt3jS3iQFfCK/pyQlnoV9aqDK4jI3SZX/m3wYRArRuIXMOqeejTVQ56+sVrn2a2xRdUN88yNNJ3HkQB4tQFXxI8ePYTQdYXWnLi9dxWj0BJ5FEb39aK/rhb52xEr26vWtl0ciB5yXjNpTCkWZ3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cw0OvfO8xMATeUQV8l2AtTa5Y5ejY04vNKdFl+GgrbU=;
- b=akCpPTk5GrhJBhJFR/3LZMwKLVHD1IrNC59HhAwMqR5/mPgoHC19ikxuzUXu2JzdL28kNMceWURBPxY+BIh6SPhTch7jZOcZZ4mDy9AtF9dmRBIWhmjqQnL7EEnsIvyjSNvaYu/jEiNTn4J1xLboLJ6z0Xkm/naDq94WA2h5YUqBAz0LtOIzrhMIEcBmujzBuE5460t+GYRj308cwlRo0OsNjpyLm+/Q7uSEvzTrIYRhDJTQ1BOUhMGyOYgZH8xY7aH26EUNhuF9LzEUfBqi56Iu6F0N/NhjUPYV5A5enkgvI+Hczm7PeqFvEEtkzFP+hFVHzKwlRRYk4As0kgZdCQ==
-ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,2,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
+ bh=GAd6pns19h4FsA8pYOdxNQPmhgW4DV1VFhRL5350sZU=;
+ b=S5x7yuh+ZBnloyMcMrHvTe10ZonWyxLKSEJNAlRQ2QKbLvcZmt5JSnhKSS+am6/Xux+0zSdNOZRX1ltl65dPdtGSk2i7TXpJqaXfl4pquYATuFB58sda+O17ce36oiYWys7rft6q5zsrFPd3ECY4v0TzgnxA32ZBYxcReuB32msoN9EC8B7Mmrn8OJrXG7EAu4r9Rz4joQ6uQmBtGm9B1SrjTkVQkk1LU8LLPrBB06sMoi4S+O+AZl6poPEytizuaSFZVQYFFj26TY77ZCkHmGx6QoctBot9F97Mlb10kyNq/QOqOOj/iXpzK6buV9A1yt7xXVvRwF7o+H3ANebQWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cw0OvfO8xMATeUQV8l2AtTa5Y5ejY04vNKdFl+GgrbU=;
- b=MF9mmpqmuVkNj9blbgiRRNZCBK9kWJH5VdxtDPmOyE55bhn6uqv6CBpqR+51qjUd3lDFROlIh85PmAA7h8oIA2Ar6ehiUY4aBTGbjLeM6b3EHncyEysTv/gd2Rh6CO6zhPGHmZDySzSMGplVy8cfwtDeGKF+Bvp038x/8oq2QCkhhwKMkbgmRcygrnL079t+L13bdhsBWeSACsl5QoXoGz4tIyLtX63/szKdq7qA7ZX5agCJHg/unSD3YL0gVJJ92oOgoS7U2ooB+qolzemoypIYpVxyntVBdPopbzgXjclO9wTxizbFhOrgKFmn+PrJNApqdCGB2pAHppBzD4mXuQ==
-Received: from DUZP191CA0048.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::8) by
- MMZPR04MB353905.eurprd04.prod.outlook.com (2603:10a6:190:51::15) with
+ bh=GAd6pns19h4FsA8pYOdxNQPmhgW4DV1VFhRL5350sZU=;
+ b=BmNpwaoLJZX6c2KpNJ43MYXStfbpbYdzcg70O5B5RjALej7DEO3pU9nCWluuUoNBonfzeOYJew0Ax5kalhpyhIf2oFQDtCnQSLtZJUZbmZSv/BPQqxMSfOTr5YPA0/iJicwowGvJst9lalYQGPdGbKZFkbXDe36bA1ApKeHoGYA=
+Received: from BY5PR04CA0011.namprd04.prod.outlook.com (2603:10b6:a03:1d0::21)
+ by CY8PR10MB6611.namprd10.prod.outlook.com (2603:10b6:930:55::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 14:40:08 +0000
-Received: from MAD0EPF000008BA.eurprd04.prod.outlook.com
- (2603:10a6:10:4f8:cafe::10) by DUZP191CA0048.outlook.office365.com
- (2603:10a6:10:4f8::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 14:40:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 52.17.62.50) smtp.mailfrom=solid-run.com; dkim=pass (signature was
- verified) header.d=solid-run.com;dmarc=pass action=none
- header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- MAD0EPF000008BA.mail.protection.outlook.com (10.167.241.169) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Mon, 28 Sep 2026 14:40:07 +0000
-Received: from emails-2845607-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-124.eu-west-1.compute.internal [10.20.6.124])
-	by mta-outgoing-dlp-517-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 6B979802F2;
-	Mon, 28 Sep 2026 14:40:07 +0000 (UTC)
-ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
- s=arcselector01; t=1790606407;
- b=DaieG/cAcccZe2Y4awx0WZZqj38nQM0XJakFLNJqGUUPDmeQrrwrGW6JC4D1S7hT70vpH
- RpOEj/J67TnYyAW89tUAeAQZ+Krv5wa82zk63ndMHuSceRbseagtTkaTdqJxR+5Zf9jpZo8
- 9PpC1xI68TRU28duLCtnTSkjL1Ni0+s=
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
- d=checkpointcloudsec.com; s=arcselector01; t=1790606407; h=from : to :
- subject : date : message-id : content-type : mime-version;
- bh=Cw0OvfO8xMATeUQV8l2AtTa5Y5ejY04vNKdFl+GgrbU=;
- b=RY/nx6T9Uk2uUQ3wGLSZsUO/5VEwED/NOZJHWDV/S+m585Gy/OTD8H00z1Xc03eGUgr6K
- LxsRDbCQtYpPUcW/Si+PhrGmHuzHEjK8XaoKdhmHLmXU/tGYd7i2/SGHWecGAKPReSE69i8
- ikiNt8yRZFocpl4kbJogwmB107lJRYM=
-ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
- arc=pass;
- dkim=pass header.d=solid-run.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cw0OvfO8xMATeUQV8l2AtTa5Y5ejY04vNKdFl+GgrbU=;
- b=MF9mmpqmuVkNj9blbgiRRNZCBK9kWJH5VdxtDPmOyE55bhn6uqv6CBpqR+51qjUd3lDFROlIh85PmAA7h8oIA2Ar6ehiUY4aBTGbjLeM6b3EHncyEysTv/gd2Rh6CO6zhPGHmZDySzSMGplVy8cfwtDeGKF+Bvp038x/8oq2QCkhhwKMkbgmRcygrnL079t+L13bdhsBWeSACsl5QoXoGz4tIyLtX63/szKdq7qA7ZX5agCJHg/unSD3YL0gVJJ92oOgoS7U2ooB+qolzemoypIYpVxyntVBdPopbzgXjclO9wTxizbFhOrgKFmn+PrJNApqdCGB2pAHppBzD4mXuQ==
-Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
- dkim=pass header.d=solid-run.com
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
- by AM0PR04MB12098.eurprd04.prod.outlook.com (2603:10a6:20b:743::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 14:39:50 +0000
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 14:39:50 +0000
-From: Josua Mayer <josua@solid-run.com>
-Subject: [PATCH v9 00/11] arm64: dts: renesas: Add various SolidRun RZ/G2
- based boards
-Date: Mon, 28 Sep 2026 16:39:28 +0200
-Message-Id: <20260928-rzg2-sr-boards-v9-0-5901e0fc9e44@solid-run.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACB8umoC/23R3U7EIBAF4FfZcC0GBhjAK9/DeEH52SXRrQFt1
- E3fXdrEtFl6eSaZL2cyN1JjybGSp9ONlDjlmsdrC/bhRPzFXc+R5tAyAQbIFANafs9Aa6HD6Eq
- oVOigFCIaB4G0pY8SU/5ewZfXli+5fo7lZ/Unvkz/KXFPTZwyapRUqHWywrvnOr7lQMvX9dGP7
- 2ThJtgRnHcELAS4OAwBtLH8iBB7ojtoEo1ITIjkLXrL8IiQG6EF6wjZCGYGL5VV2gR/RKiNMMx
- 2hGoEtx4RhDJRHLbAHcH7FtgIyZNzAnxwaTgi9EbY/rnrIdK1jzgJkGI8IsyekB1hGmGll6ilB
- R3NPTHP8x/iT4bQhQIAAA==
-X-Change-ID: 20260502-rzg2-sr-boards-37d556668a2d
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Benjamin Bara <benjamin.bara@skidata.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: Jon Nettleton <jon@solid-run.com>, 
- Mikhail Anikin <mikhail.anikin@solid-run.com>, 
- Yazan Shhady <yazan.shhady@solid-run.com>, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Josua Mayer <josua@solid-run.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-ClientProxiedBy: FR4P281CA0439.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::20) To MMZPR04MB400504.eurprd04.prod.outlook.com
- (2603:10a6:190:28::8)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.21; Mon, 28 Sep
+ 2026 14:40:02 +0000
+Received: from BY1PEPF00026965.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::80) by BY5PR04CA0011.outlook.office365.com
+ (2603:10b6:a03:1d0::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 14:40:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BY1PEPF00026965.mail.protection.outlook.com (10.167.244.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 14:40:00 +0000
+Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 09:39:06 -0500
+Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 09:39:06 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
+ (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 28 Sep 2026 09:39:06 -0500
+Received: from [10.249.33.243] ([10.249.33.243])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SEd6xT3322617;
+	Mon, 28 Sep 2026 09:39:06 -0500
+Message-ID: <8cc7301a-653f-4a8a-85e7-41bdc9d9abd6@ti.com>
+Date: Mon, 28 Sep 2026 09:39:06 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	MMZPR04MB400504:EE_|AM0PR04MB12098:EE_|MAD0EPF000008BA:EE_|MMZPR04MB353905:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ef53241-0db4-43f9-14c1-08df1d6e6482
-X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] remoteproc: Add ti_sci_dev_ops abstraction
+To: Siddharth Karanam <sid9.karanam@gmail.com>, <andersson@kernel.org>,
+        <mathieu.poirier@linaro.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>
+References: <20260922191453.324983-1-sid9.karanam@gmail.com>
+ <20260922191453.324983-2-sid9.karanam@gmail.com>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20260922191453.324983-2-sid9.karanam@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026965:EE_|CY8PR10MB6611:EE_
+X-MS-Office365-Filtering-Correlation-Id: b153717f-ad8e-4983-b87c-08df1d6e606a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|10070799003|23010399003|52116014|1800799024|376014|7416014|3023799007|6133799003|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- vay5OkeEIXXk3uGgxPAqPbhz52eI9n32s7rNNeMLYrGjWVaqE7cDG2r74SANN4OH3IQW6y4gX0ct753WbM1uDeygGrtIqPZR81iolnZen4cXokE/3d9rTvxxsSKoITJH6DE0URUdJCPsFE8ILm4xpjy0Yz8UQTdiEi5GbmZaLsSzPoHKl+B7YD9/Z6WfHPCDG0DG7S6Nm92BMldtQbc6nB827huwg2ZMXMkVcIRZc1Yw7QNL/z5epis2Vlu2NlC4CZp3EXeWYTrOmqEfx+ibJ640V0eRaQk2cMEArxeCEffblclqrtE0DMIC2VD/snSUgMUS/BI6yTzafOrrFnVPOpwZY/bSVT+3dKs2Pinmqy+Xh/Cf4ASrs9e3SxvK6EMndYDKIbj/8dRO7TSMzW6YyhqxbWzjtITsPnuk00ocOfGgcPvSsXaXHzfNHJZSI+rBS3CqyEZUlQBnv8SjDGSMetWVxYq8+jlxPEgaPNk0LlD0VItMHP/oZqMNqwxE6Tbu7nujVieNpWTzwm4HA66Byw0C7Wp2MFuXVRLQ4JoadEqx+Ep7vG9luBOH08UNV2HOHtKGLVHPw5ItjBTzoSpDPMNK/Abd5nuqo07ZL8bXZCrx+ylCLQt+SVgHhTI5hWt9
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(52116014)(1800799024)(376014)(7416014)(3023799007)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked:
- jUnjcNcohGkD+6xDBXkzOvaUndFOf56IqHlMh8mnI71+dDIr0jemPUjCJZmh4Fj+N1MkD4O1JJlb1i9gsXzcsVRhCj4dTCpepWzZ2GQtwpMiwnPPtOajBs3an8dp9mhrfDxLDOx9EonGrN+YkiROiI7oYXfReJF9dhYqtk3/Zon7DX/PIqeqwSpOVLJHQzAVsTVIEMLpAgfYNRG8NhKNPLoTsRsWJrPZs1v0MY2htJNNMP7h5JuMFzFoxdVgD5XZiKke0emgQy8LsWW4Bfnsuh9GW5Ijgaw9iiBTHzJ3PGgjWwIE4l32q7/Hsosal2dEvjKT3sAVr5v2wvBUQcGHmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12098
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: a35ed883db6d4cf9b1d1b0dc75e30df1:solidrun,office365_emails,sent,inline:bb7aee3ce0155fc133e2b467b7daba00
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gvbv978c5DcmXYdKGp05xawjhDuhUnwP5AeTj0yTLwYv+C1rPuv099unRmGz4OJDm3sAycZIvj1EY3/JE+vPh/R42trahDlIbyJJGaUo45BgI+R2RzVlxcqZkNSK/XuR1EhqU0mZXk+fE5QOR3AdMtqA1cSbZX3dNy06GPS6jTtqUx+Uae41RTa+FoK6PVNjaagzQcPVYiTay+DiuL6Moh+u4nQn1B08exESqMfVm16u4ufGoKENfxjK2b+Z5UnKD6/AZ1x2MuEDVxoSlM1lR1iYV6SqoEdJrUhOUfIBO4H+s+8t9SJFJW4Y9Im60byRLeWK1NAd5/rItAQHGYSlyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cw0OvfO8xMATeUQV8l2AtTa5Y5ejY04vNKdFl+GgrbU=;
- b=J1Lk25hqO2zNqJX0M1xt9WZY/SszQl+n/Xbdba6sfAbMbtaYSx1bkgM3E/5Od7ObU8IdbWuaVFqPv59lFO6r1jugOXIJMvWfz7t5tPwZ6HYo0x9rG+gZIVxM4r57HONJExM7UMN8HgMyaBGS8RkE8HzIgv0HDQK0CsvcIsyQPng904MytLSfXGPieMq/qB/kxYunJPqr9qq6nJhq7uJX1NZpLLTfJ2M4EViYtMLFvyMcQDDZsw9Ie0z3BxgDNyNCM0SG+I3Fk9i686XskWqWqS9abOdaN45k1BK9fmcDw4Eiel7wU9zYOxeUzigk/mMV1u6FsyfRxwYN0uV/WzGe9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MAD0EPF000008BA.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	92f649fc-790c-4a58-f413-08df1d6e59f7
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|35042699022|82310400026|14060799003|23010399003|36860700016|6133799003|18002099003|3023799007|56012099006|10067099003;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|3023799007|10067099003|56012099006|4143699003|6133799003|18002099003|22082099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	d152yFZRs8kSjAw9SDER3tPFZdY62JV2gGMHQQMiAsnIGrlkaBklpK1SxrFHWGc+qLznA2tMutROETzYh18NI0/BrypQrZgN6tESdj6PUvMXjct72JlDvOW8OoJzqnqzDMS933AW1suZ+31HNxFHd+24qHvuSZrmH0cPOc7S5QANDGUvFnr8BsG7zKnsStwY4xuMpnYJteMRUGkst52uPggTb8Y77nL5wtzzpXBUSRujNt6oiAPfeRe04WbBIhwx9/sWiOeoxMzpTNKfa70Z+TqEPtgFDJ2Yx6l06NUL6sVWSP5egq/l8LzN2VxxgFF02ROg4O/0EZXfIYSAjiUdymdux2+n/2dtCTgw9aRQSuTjiBH0t16iDbsrtC3jIknaR39MhZ4YNJ5bDjcsMEKSDboL/m83L4j81RogzTCZ2i1F404lu0NatizblPOBUlplsKTu6AqvfugFtx/+ew7vZkQttMKTztWG5rfATTbB6tuGZ9ewjdXRHjxf6G2vtxbei90sLM3HCQaPFclNBOZ7thHBSzXy700gs3mVG7DcqFj129KzrOYONxc/KYtjVUtKwN2xBxNi01Sp8hxCGfZI2YafzWtr1CPmnyOn46c3pUWTZGKCjbrTQBY/3Z9OOncSRV0N2VFJNaQUmzMHMYCbLg==
+	cVNx+01qsJaq8S1bGgp+w9c1fHlRSxiPTUgCVWdjc40Abj9vqt/KDMBeU01Iz5wa2g/nKstL1F8w0hLZhh5x/teiuJiuBTqYJfl0MxD+w5PDyhD69kjEPS8xSVfMKBaancyEGmmyQXvP2SO6H18EsxXxC44LLbVcwF3CQKTPXTicoKFo1w7mk+O+cwlCzjmoPjQRD6jyu1BoUc4I6KQj1BDu62HXy8Q6Z1vVukhqiFxpSCw4PV7r1saqWYUxR1baJOQslv90pAmERVw10WT4JpzagfHt7FTAOJR7JXw+/N7/0PxLLGsNmOlihr/QjkxeRAN7Qm06TioQ592QU0OUza2g5eOMWsnCYGNWIgZNyX8yPtXEQel1rjJQMGTksaDu8vgQv79k/wZYdQtMbhJv3EIQiogY4vTDfJxYQK7Z4M/YzWF3k2gKnR5i1rx+U3n0QOUWJdCBIqdb/IRh2WK60ZHyXxSRZ9UrN+SKUqP55qkYD8RjWO4vEn/dOnt+U8hWA9fg5KInIPSnh+6tH0IpQJEheRtBR3QgP8gM18+NiKD32phttkCKdpWTqLtvSswLiMOI5UUNR2ZT6loMFA4yaqHONMxIozfWXQKLhX1FEKHqEsZLtIV5HjMTc7/cWL3wbycds30xiv2dptOrB/WIJg==
 X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(35042699022)(82310400026)(14060799003)(23010399003)(36860700016)(6133799003)(18002099003)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(3023799007)(10067099003)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	o9/T476IB6PDJFt2QcuG6/Rn9Nte5v6GHStxl8pN4uHsPpgFa0LL7Gy4XkKkQUTkERCAgo3FWQB+2WELMaImMD7r/UDB4H55tfp8lDQ2BYwc9fFoY9UDZsPpw5fAF/SXzznnnj+f6q1Z3+5ZCJ3k0tXVwitYL0rlfD2hO8NG0U/v5ggHVlwSHYueSu3f915GJViX9oSdfhc2yRILG528fDiM693hOR+pqj5WhYHVIK028cVYRSF1X6R6jLWlU3jZFJOJAnXZWbxDBwd7MzNhmAx9whe06X4mxUxuB7MHKI82nGj44MDb9clYZ6d9UZUvDARGeHAG2M6buXIQsHfIiGvLwiI4CIUTvqGkKGdk4j+dcXOU4tiOjyHPkdMcZtD6e+RlF4PT0o6hXA6XBYaixUl/gVIqvMgJiHc/R+VT+kNthoZLtCeArAUWOSClpSlE
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 14:40:07.8361
+	we2680FoI3HEs49PV0PgePMUowEWaW0JzOhjzGpods+9sNYvemj3UNPF4CYO2iqeGjlB2D/8QZw/B/FF4VyzTDhvFjl2CkQo+pRQAr3HNUp6cFJljIho8mgHqaKOwXSLiHYF0EpbTKDAuAo4j7xDS0dNIClTSVkwLJ8bpLN/SGDd9AndL/3Wls8oM5EJy0+8pdNxTw0hWhV7GmqAIaklisBMhNTXgap70yCBv1IsUAPAeKV/Gw+CoZx7J2yjoqJUeVD06p5nKwKDmrvKczvatWDd59y4m5H6/NuKrN5O/O+uzyXqmf8fH2suNi+DV1ATxGEFyCuSZvLdBZdLcjoP0QAtlJekI5CxRsRgJV8ulP+MGwBy31OHeTQBXhZY8sdys2r0yrKtzl9azWS1VT4ZhUjDd1QFmNL9YDFKCZDYI1Vi8P7anJdYLiNnvDlTa1O+
+X-Exchange-RoutingPolicyChecked:
+	Q/WkDVQrZxJUdT9+PfoRpQEckLwJgyNiPPEZhzTx5syuWAr79celzPQArWjowqqpNqIrbzAwhz9S9XO0XuxILWUu4l9oWvFQ/qCtLDvNpAw0YCW7/ZxTQzpTvsx8g2ULll5sWnNSMfVmdruiE2aNYthiuHofy5FccOFpELEsKVKcbsJI/sVEClbC4T+lmHUoBNWKn2rrNn9H3SFc41mPRI8MyAHwrwy6vOcc72xR5J1gpcGlp6MrqDZzYwuZM/lKDLwgAae5Ki7mxre77ttTbU3z8oR/1vM3U5s5D9+6Y3mBLvL98mZPIcmioec8AAObwb32FKRlUwM4nCaOA3ifoQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 14:40:00.9768
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ef53241-0db4-43f9-14c1-08df1d6e6482
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: b153717f-ad8e-4983-b87c-08df1d6e606a
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008BA.eurprd04.prod.outlook.com
+	BY1PEPF00026965.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB353905
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6611
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfX3pElatC3khvP
+ OH2XPFnbdy6iljxnj1if9HL5N/JFZP8dnB5SfUIMyjS5ac5WBHjP3wiq1RPEmsdY6rJR8H31fuV
+ EOcMkp6qdAOexZ4abara4MucSJlsTtA=
+X-Proofpoint-ORIG-GUID: L5-WTr4EgzC1f9l6bZLg__FP-SCuOgZV
+X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6aba7c4d cx=c_pps
+ a=beY4+7vfl+OHeoikwBMclQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8
+ a=9xkm5mRPVq_RN2qXlsEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: L5-WTr4EgzC1f9l6bZLg__FP-SCuOgZV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfXxEUK9P+aK1nz
+ sJmHgC2NVIEE5KG1MPaayW1mjilXrcyiUa1+4QcB28kNKhpD53PF50ZtYFH1XG/rAJsdbNG8t6W
+ E7NOWu7JrBAHUbwyINqT1vhiMP2YscsFN3to7M0VtDjGbJZsykpfbxrqO57DIV4I1VnvnsP+BE1
+ TDfnGuC3+ZWX2BISekNMWyJ7gM1FRdtQLy6LObMY5yFZ8qB+AqHiagW80shV71i3+ehUz0tlC/E
+ xE8a2kNZkkXYq4oKkILvSOQkPsaBw+2O8gbBJKlCCtwtSMRg8Bm/Jxt3rN46W5y2LTCN/EZ2xNJ
+ 2LCDvW/RRpUGxr84RBymHwn+pTYvW2+CFGKCKrHYKt4LD+X+EtyKHHTTgcAwndxvamMyFcFSEfg
+ MFW18Jd51Od1jgnPydOsNOKxjFq77jucnqDTf96OpTCVZmZNqLmvgt83liJhAtFh7GvX6yLNW7Y
+ RYzYJOZObV5Q+M1ImqA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1011 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280058
 
-Add support for a variety of SolidRun RZ/G2 based SoMs and both
-HummingBoard IIoT and HummingBoard Ripple Evaluation boards.
+On 9/22/26 2:14 PM, Siddharth Karanam wrote:
+> Instead of invoking ti_sci_handle's ti_sci_dev_ops member directly
+> in the driver code, this abstracts the property read of
+> "ti,sci-dev-id" and the function pointers supported by
+> ti_sci_dev_ops such as is_on, get_device and put_device.
+> 
+> The goal of the patch is to maintain a single source
+> of origin for all ti_sci_dev_ops call sites. Any stray calls
+> to any dev_ops function pointer members in driver code should
+> eventually be abstracted through this header.
+> 
+> Signed-off-by: Siddharth Karanam <sid9.karanam@gmail.com>
+> ---
 
-Bindings are added for all SolidRun RZ/G2 SoMs:
+The concept looks fine to me as it mostly just mirrors the same
+abstraction we did for ti_sci_proc_ops in ti_sci_proc.h.
 
-- RZ/G2L SYSTEM ON MODULE
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
-- RZ/V2L SYSTEM ON MODULE
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
-- RZ/G2LC SYSTEM ON MODULE
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
-- RZ/G2UL SYSTEM ON MODULE
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2ul-som/
+So my question is why not instead just extend `struct ti_sci_proc`
+with the extra ops and dev_id, then add these helper functions
+to that header?
 
-And each supported carrier board:
+Andrew
 
-- HUMMINGBOARD RZ/G2L IIOT
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
-- HUMMINGBOARD RZ/G2L PRO
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
-- HUMMINGBOARD RZ/G2LC BASE (Ripple)
-  https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
-
-Device-tree are only added for the IIOT and BASE boards to reduce
-initial effort.
-
-Signed-off-by: Josua Mayer <josua@solid-run.com>
----
-Changes in v9:
-- Drop gpio aliases not supported by drivers.
-- Added missing include for hb-ripple micro-hdmi common dtsi on G2L/V2L.
-- Moved hb-ripple led bindings include to common dtsi.
-- Use preferred regulator naming "regulator-1v1" (instead of 1-1).
-- Fixed inconsistent capitalisation of RZ/rz.
-- Collected reviews by Geert.
-- Link to v8: https://lore.kernel.org/r/20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com
-
-Changes in v8:
-- Added RZ/G2UL SoM.
-- Added HummingBoard Ripple.
-- Added SoM Bluetooth nodes.
-- Fixed renesas pinctrl binding commit message logical inversion.
-  (Reported-by: Linus Walleij <linusw@kernel.org>)
-- Changed memory start address as suggested by sashiko,
-  and clarified reasoning with comments.
-- Dropped invalid fixed-clock from g2l som.
-- Sorted reserved-mem nodes by address.
-- Split eMMC pinconf nodes supporting input-enable only on data pins,
-  not on clk. Tested both microSD and eMMC overlays (v7 only tested
-  microSD).
-- Made capitalisation of "HummingBoard" consistent in commit messages.
-- Clarified G2LC SoM has 100Mbps ethernet only.
-- Added reg property to dsi panel overlay port node, reported by
-  sashiko.
-- Collected review tags.
-- Extended rzg2l-pinctrl to allow both input-enable and output-enable as
-  requested by Geert, kept Linus' Reviewed-by from previous version.
-- v7 was sent with "v4" subject by mistake, resolved with v8.
-- Link to v7: https://lore.kernel.org/r/20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com
-
-Changes in v7:
-- rebased and tested on v7.3-rc1
-- updated explanation for edge-triggered interrupt between SoC and gpio
-  expander.
-- set interrupt for ethernet phys to falling-edge because SoC does not
-  support level interrupts on its gpios, only on dedicated irq pins.
-- Fixed sd data4-7 pinconf nodes trying to avoid cross 1.8V/3.3V domain
-  conflicts when data0-3 are muxed to SD and 4-7 still hard-wired to
-  eMMC. RZ/G2 family does not support bias-disable property, and
-  power-source property applies to all pins of SD0 as a group.
-  Instead added input-disable as the only feasible measure on
-  fixed-function pins.
-- Update dt-binding for rzg2l pinctrl to allow setting input-disable
-  property.
-
-Changes in v6:
-- Drop currently unused usb-vbus pinctrl nodes from som dtsi, reported
-  by sashiko.
-- Fix duplicate pin config mistakes in split dat0-3/dat4-7, reported by
-  sashiko.
-- Link to v5: https://patch.msgid.link/20260809-rzg2-sr-boards-v5-0-19c662358e36@solid-run.com
-
-Changes in v5:
-- Clarified sdhi mux dt comment on mux and gpio states.
-- Added microsd & emmc dtbos to Makefile targets explicitly for V2L SoC
-  too. Reported by Sashiko.
-- split 8-bit and 4-bit sdhi pinctrl to avoid theoretical overvoltage on
-  hardwired eMMC DAT4-7 pins. Reported by sashiko.
-- Moved dr_mode from usb phy to controller. Reported by sashiko.
-- Collected acks.
-- Link to v4: https://patch.msgid.link/20260730-rzg2-sr-boards-v4-0-08bc459578dc@solid-run.com
-
-Changes in v4:
-- Rebased on v7.2-rc1.
-- Addresed sashiko comments for g2l som & hb-iiot:
-  gpio dt property -> plural, irq levels, memory size, usb-3.0 hub.
-  The usb hub ids however are correct, 6502 and 6506 are usb-2.0.
-- Addressed sashiko comments for g2lc som & hb-iiot:
-  gpio dt property -> plural, vmmc gpio polarity.
-- Link to v3: https://patch.msgid.link/20260512-rzg2-sr-boards-v3-0-f033fc96c906@solid-run.com
-
-Changes in v3:
-- Added explanatory comments on won't-fix sashiko findings.
-- Added cap-sdio-irq to sdhi controllers used for WiFi.
-- Drop redundant addition of common device-tree overlays to install
-  targets of G2L(C) SoC.
-- Add common device-tree overlays to install targets of both G2L and V2L
-  SoCs.
-- Assign kbuild composie variables with := operator.
-- Link to v2: https://lore.kernel.org/r/20260511-rzg2-sr-boards-v2-0-82aebbd27891@solid-run.com
-
-Changes in v2:
-- Added relevant product page links to each commit description.
-- Added product page links to cover letter, thanks Geert.
-- Link to v1: https://lore.kernel.org/r/20260503-rzg2-sr-boards-v1-0-8545677f93ca@solid-run.com
-
----
-Josua Mayer (11):
-      dt-bindings: soc: renesas: Add various SolidRun RZ/G2 based boards
-      dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow input-/output-disable
-      dt-bindings: usb: cypress,hx3: make peer-hub property optional
-      arm64: dts: renesas: add support for solidrun rzg2l som and hb-iiot evb
-      arm64: dts: renesas: add support for solidrun rzv2l som and hb-iiot evb
-      arm64: dts: renesas: add support for solidrun rzg2lc som and hb-iiot evb
-      arm64: dts: renesas: rzg2l(c)/rzv2l hb-iiot: add dsi panel dt overlay
-      arm64: dts: renesas: add support for solidrun hb-ripple with rzg2l som
-      arm64: dts: renesas: add support for solidrun hb-ripple with rzv2l som
-      arm64: dts: renesas: add support for solidrun hb-ripple with rzg2lc som
-      arm64: dts: renesas: add support for solidrun rzg2ul som on hb-ripple
-
- .../bindings/pinctrl/renesas,rzg2l-pinctrl.yaml    |   2 +
- .../devicetree/bindings/soc/renesas/renesas.yaml   |  37 ++
- .../devicetree/bindings/usb/cypress,hx3.yaml       |   1 -
- arch/arm64/boot/dts/renesas/Makefile               |  73 ++-
- .../renesas/r9a07g043u12-hummingboard-ripple.dts   |  89 ++++
- .../dts/renesas/r9a07g044c2-hummingboard-iiot.dts  |  20 +
- .../renesas/r9a07g044c2-hummingboard-ripple.dts    |  93 ++++
- .../dts/renesas/r9a07g044l2-hummingboard-iiot.dts  |  16 +
- .../renesas/r9a07g044l2-hummingboard-ripple.dts    |  17 +
- .../dts/renesas/r9a07g054l2-hummingboard-iiot.dts  |  16 +
- .../renesas/r9a07g054l2-hummingboard-ripple.dts    |  17 +
- .../renesas/rzg2l-hummingboard-iiot-common.dtsi    | 560 +++++++++++++++++++++
- .../renesas/rzg2l-hummingboard-iiot-microsd.dtso   |  26 +
- ...hummingboard-iiot-panel-dsi-WJ70N3TYJHMNG0.dtso |  79 +++
- .../renesas/rzg2l-hummingboard-iiot-rs485-a.dtso   |  17 +
- .../renesas/rzg2l-hummingboard-iiot-rs485-b.dtso   |  17 +
- .../boot/dts/renesas/rzg2l-hummingboard-iiot.dtsi  |  49 ++
- .../renesas/rzg2l-hummingboard-pulse-common.dtsi   | 116 +++++
- .../rzg2l-hummingboard-pulse-micro-hdmi.dtsi       |  79 +++
- .../dts/renesas/rzg2l-hummingboard-ripple.dtsi     | 125 +++++
- arch/arm64/boot/dts/renesas/rzg2l-sr-som-emmc.dtso |  44 ++
- arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi      | 479 ++++++++++++++++++
- .../renesas/rzg2lc-hummingboard-pulse-leds.dtso    |  48 ++
- arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi     | 442 ++++++++++++++++
- .../renesas/rzg2ul-hummingboard-pulse-leds.dtso    |  48 ++
- arch/arm64/boot/dts/renesas/rzg2ul-sr-som.dtsi     | 437 ++++++++++++++++
- 26 files changed, 2945 insertions(+), 2 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260502-rzg2-sr-boards-37d556668a2d
-
-Best regards,
--- 
-Josua Mayer <josua@solid-run.com>
+>   drivers/remoteproc/ti_k3_common.c         | 16 ++---
+>   drivers/remoteproc/ti_k3_common.h         |  4 +-
+>   drivers/remoteproc/ti_k3_dsp_remoteproc.c | 14 ++--
+>   drivers/remoteproc/ti_k3_m4_remoteproc.c  | 13 ++--
+>   drivers/remoteproc/ti_k3_r5_remoteproc.c  | 40 +++++------
+>   drivers/remoteproc/ti_sci_dev.h           | 82 +++++++++++++++++++++++
+>   6 files changed, 120 insertions(+), 49 deletions(-)
+>   create mode 100644 drivers/remoteproc/ti_sci_dev.h
+> 
+> diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+> index 3cb8ae5d72f6..befa9a9bea3a 100644
+> --- a/drivers/remoteproc/ti_k3_common.c
+> +++ b/drivers/remoteproc/ti_k3_common.c
+> @@ -32,6 +32,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -120,8 +121,7 @@ int k3_rproc_reset(struct k3_rproc *kproc)
+>   		if (ret)
+>   			dev_err(dev, "local-reset assert failed (%pe)\n", ERR_PTR(ret));
+>   	} else {
+> -		ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_put_device(kproc->tsd);
+>   		if (ret)
+>   			dev_err(dev, "module-reset assert failed (%pe)\n", ERR_PTR(ret));
+>   	}
+> @@ -140,13 +140,11 @@ int k3_rproc_release(struct k3_rproc *kproc)
+>   		ret = reset_control_deassert(kproc->reset);
+>   		if (ret) {
+>   			dev_err(dev, "local-reset deassert failed, (%pe)\n", ERR_PTR(ret));
+> -			if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -								  kproc->ti_sci_id))
+> +			if (ti_sci_dev_put_device(kproc->tsd))
+>   				dev_warn(dev, "module-reset assert back failed\n");
+>   		}
+>   	} else {
+> -		ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_get_device(kproc->tsd);
+>   		if (ret)
+>   			dev_err(dev, "module-reset deassert failed (%pe)\n", ERR_PTR(ret));
+>   	}
+> @@ -223,8 +221,7 @@ int k3_rproc_prepare(struct rproc *rproc)
+>   		}
+>   	}
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_get_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(dev, "could not deassert module-reset for internal RAM loading\n");
+>   		return ret;
+> @@ -253,8 +250,7 @@ int k3_rproc_unprepare(struct rproc *rproc)
+>   	if (rproc->state == RPROC_DETACHED)
+>   		return 0;
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_put_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(dev, "module-reset assert failed\n");
+>   		return ret;
+> diff --git a/drivers/remoteproc/ti_k3_common.h b/drivers/remoteproc/ti_k3_common.h
+> index aee3c28dbe51..7ba0903ebe0a 100644
+> --- a/drivers/remoteproc/ti_k3_common.h
+> +++ b/drivers/remoteproc/ti_k3_common.h
+> @@ -72,8 +72,8 @@ struct k3_rproc_dev_data {
+>    * @reset: reset control handle
+>    * @data: pointer to DSP-specific device data
+>    * @tsp: TI-SCI processor control handle
+> + * @tsd: TI-SCI device control handle
+>    * @ti_sci: TI-SCI handle
+> - * @ti_sci_id: TI-SCI device identifier
+>    * @mbox: mailbox channel handle
+>    * @client: mailbox client to request the mailbox channel
+>    * @priv: void pointer to carry any private data
+> @@ -88,8 +88,8 @@ struct k3_rproc {
+>   	struct reset_control *reset;
+>   	const struct k3_rproc_dev_data *data;
+>   	struct ti_sci_proc *tsp;
+> +	struct ti_sci_dev *tsd;
+>   	const struct ti_sci_handle *ti_sci;
+> -	u32 ti_sci_id;
+>   	struct mbox_chan *mbox;
+>   	struct mbox_client client;
+>   	void *priv;
+> diff --git a/drivers/remoteproc/ti_k3_dsp_remoteproc.c b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> index d6ceea6dc920..b6042fe7bae7 100644
+> --- a/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> @@ -19,6 +19,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -69,7 +70,6 @@ static const struct rproc_ops k3_dsp_rproc_ops = {
+>   static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+> -	struct device_node *np = dev->of_node;
+>   	const struct k3_rproc_dev_data *data;
+>   	struct k3_rproc *kproc;
+>   	struct rproc *rproc;
+> @@ -110,10 +110,6 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->ti_sci),
+>   				     "failed to get ti-sci handle\n");
+>   
+> -	ret = of_property_read_u32(np, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "missing 'ti,sci-dev-id' property\n");
+> -
+>   	kproc->reset = devm_reset_control_get_exclusive(dev, NULL);
+>   	if (IS_ERR(kproc->reset))
+>   		return dev_err_probe(dev, PTR_ERR(kproc->reset),
+> @@ -124,6 +120,11 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->tsp),
+>   				     "failed to construct ti-sci proc control\n");
+>   
+> +	kproc->tsd = ti_sci_dev_of_get_tsd(dev, kproc->ti_sci);
+> +	if (IS_ERR(kproc->tsd))
+> +		return dev_err_probe(dev, PTR_ERR(kproc->tsd),
+> +				     "failed to construct ti-sci dev control\n");
+> +
+>   	ret = ti_sci_proc_request(kproc->tsp);
+>   	if (ret < 0) {
+>   		dev_err_probe(dev, ret, "ti_sci_proc_request failed\n");
+> @@ -141,8 +142,7 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "reserved memory init failed\n");
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       NULL, &p_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, NULL, &p_state);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "failed to get initial state, mode cannot be determined\n");
+>   
+> diff --git a/drivers/remoteproc/ti_k3_m4_remoteproc.c b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> index 3a11fd24eb52..ddf8cb9974ca 100644
+> --- a/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> @@ -18,6 +18,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -70,10 +71,6 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->ti_sci),
+>   				     "failed to get ti-sci handle\n");
+>   
+> -	ret = of_property_read_u32(dev->of_node, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "missing 'ti,sci-dev-id' property\n");
+> -
+>   	kproc->reset = devm_reset_control_get_exclusive(dev, NULL);
+>   	if (IS_ERR(kproc->reset))
+>   		return dev_err_probe(dev, PTR_ERR(kproc->reset), "failed to get reset\n");
+> @@ -83,6 +80,11 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->tsp),
+>   				     "failed to construct ti-sci proc control\n");
+>   
+> +	kproc->tsd = ti_sci_dev_of_get_tsd(dev, kproc->ti_sci);
+> +	if (IS_ERR(kproc->tsd))
+> +		return dev_err_probe(dev, PTR_ERR(kproc->tsd),
+> +				     "failed to construct ti-sci dev control\n");
+> +
+>   	ret = ti_sci_proc_request(kproc->tsp);
+>   	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "ti_sci_proc_request failed\n");
+> @@ -98,8 +100,7 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "reserved memory init failed\n");
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       &r_state, &p_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, &r_state, &p_state);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret,
+>   				     "failed to get initial state, mode cannot be determined\n");
+> diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> index b1d04d082e44..a387848ac400 100644
+> --- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> @@ -25,6 +25,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -140,8 +141,7 @@ static int k3_r5_split_reset(struct k3_rproc *kproc)
+>   		return ret;
+>   	}
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_put_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(kproc->dev, "module-reset assert failed, ret = %d\n",
+>   			ret);
+> @@ -156,8 +156,7 @@ static int k3_r5_split_release(struct k3_rproc *kproc)
+>   {
+>   	int ret;
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_get_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(kproc->dev, "module-reset deassert failed, ret = %d\n",
+>   			ret);
+> @@ -168,8 +167,7 @@ static int k3_r5_split_release(struct k3_rproc *kproc)
+>   	if (ret) {
+>   		dev_err(kproc->dev, "local-reset deassert failed, ret = %d\n",
+>   			ret);
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(kproc->dev, "module-reset assert back failed\n");
+>   	}
+>   
+> @@ -196,8 +194,7 @@ static int k3_r5_lockstep_reset(struct k3_r5_cluster *cluster)
+>   	/* disable PSC modules on all applicable cores */
+>   	list_for_each_entry(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_put_device(kproc->tsd);
+>   		if (ret) {
+>   			dev_err(core->dev, "module-reset assert failed, ret = %d\n",
+>   				ret);
+> @@ -210,8 +207,7 @@ static int k3_r5_lockstep_reset(struct k3_r5_cluster *cluster)
+>   unroll_module_reset:
+>   	list_for_each_entry_continue_reverse(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(core->dev, "module-reset assert back failed\n");
+>   	}
+>   	core = list_last_entry(&cluster->cores, struct k3_r5_core, elem);
+> @@ -233,8 +229,7 @@ static int k3_r5_lockstep_release(struct k3_r5_cluster *cluster)
+>   	/* enable PSC modules on all applicable cores */
+>   	list_for_each_entry_reverse(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_get_device(kproc->tsd);
+>   		if (ret) {
+>   			dev_err(core->dev, "module-reset deassert failed, ret = %d\n",
+>   				ret);
+> @@ -264,8 +259,7 @@ static int k3_r5_lockstep_release(struct k3_r5_cluster *cluster)
+>   unroll_module_reset:
+>   	list_for_each_entry_from(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(core->dev, "module-reset assert back failed\n");
+>   	}
+>   
+> @@ -827,8 +821,7 @@ static int k3_r5_rproc_configure_mode(struct k3_rproc *kproc)
+>   
+>   	core0 = list_first_entry(&cluster->cores, struct k3_r5_core, elem);
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       &r_state, &c_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, &r_state, &c_state);
+>   	if (ret) {
+>   		dev_err(cdev, "failed to get initial state, mode cannot be determined, ret = %d\n",
+>   			ret);
+> @@ -1023,7 +1016,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   	struct device *dev = &pdev->dev;
+>   	struct k3_rproc *kproc;
+>   	struct k3_r5_core *core, *core1;
+> -	struct device_node *np;
+>   	struct device *cdev;
+>   	const char *fw_name;
+>   	struct rproc *rproc;
+> @@ -1032,7 +1024,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   	core1 = list_last_entry(&cluster->cores, struct k3_r5_core, elem);
+>   	list_for_each_entry(core, &cluster->cores, elem) {
+>   		cdev = core->dev;
+> -		np = dev_of_node(cdev);
+>   		ret = rproc_of_parse_firmware(cdev, 0, &fw_name);
+>   		if (ret) {
+>   			dev_err(dev, "failed to parse firmware-name property, ret = %d\n",
+> @@ -1067,12 +1058,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   			goto out;
+>   		}
+>   
+> -		ret = of_property_read_u32(np, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -		if (ret) {
+> -			dev_err(cdev, "missing 'ti,sci-dev-id' property\n");
+> -			goto out;
+> -		}
+> -
+>   		kproc->reset = devm_reset_control_get_exclusive(cdev, NULL);
+>   		if (IS_ERR(kproc->reset)) {
+>   			ret = dev_err_probe(cdev, PTR_ERR(kproc->reset),
+> @@ -1087,6 +1072,13 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   			goto out;
+>   		}
+>   
+> +		kproc->tsd = ti_sci_dev_of_get_tsd(cdev, kproc->ti_sci);
+> +		if (IS_ERR(kproc->tsd)) {
+> +			ret = dev_err_probe(cdev, PTR_ERR(kproc->tsd),
+> +					    "failed to construct ti-sci dev control\n");
+> +			goto out;
+> +		}
+> +
+>   		ret = k3_r5_core_of_get_internal_memories(to_platform_device(cdev), kproc);
+>   		if (ret) {
+>   			dev_err(cdev, "failed to get internal memories, ret = %d\n",
+> diff --git a/drivers/remoteproc/ti_sci_dev.h b/drivers/remoteproc/ti_sci_dev.h
+> new file mode 100644
+> index 000000000000..897998a97d7f
+> --- /dev/null
+> +++ b/drivers/remoteproc/ti_sci_dev.h
+> @@ -0,0 +1,82 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Texas Instruments TI-SCI Device Controller Helper Functions
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
+> + */
+> +
+> +#ifndef REMOTEPROC_TI_SCI_DEV_H
+> +#define REMOTEPROC_TI_SCI_DEV_H
+> +
+> +#include <linux/soc/ti/ti_sci_protocol.h>
+> +#include <linux/pm_runtime.h>
+> +
+> +/**
+> + * struct ti_sci_dev - structure representing a device control client
+> + * @sci: cached TI-SCI protocol handle
+> + * @ops: cached TI-SCI device ops
+> + * @dev: cached client device pointer
+> + * @dev_id: TI-SCI device id for the consumer remoteproc device
+> + */
+> +struct ti_sci_dev {
+> +	const struct ti_sci_handle *sci;
+> +	const struct ti_sci_dev_ops *ops;
+> +	struct device *dev;
+> +	u32 dev_id;
+> +};
+> +
+> +static inline
+> +struct ti_sci_dev *ti_sci_dev_of_get_tsd(struct device *dev,
+> +					 const struct ti_sci_handle *sci)
+> +{
+> +	struct ti_sci_dev *tsd;
+> +	int ret;
+> +
+> +	tsd = devm_kzalloc(dev, sizeof(*tsd), GFP_KERNEL);
+> +	if (!tsd)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ret = of_property_read_u32(dev_of_node(dev), "ti,sci-dev-id",
+> +				   &tsd->dev_id);
+> +	if (ret < 0)
+> +		return ERR_PTR(ret);
+> +
+> +	tsd->dev = dev;
+> +	tsd->sci = sci;
+> +	tsd->ops = &sci->ops.dev_ops;
+> +
+> +	return tsd;
+> +}
+> +
+> +static inline int ti_sci_dev_is_on(struct ti_sci_dev *tsd, bool *r_state,
+> +				   bool *c_state)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->is_on(tsd->sci, tsd->dev_id, r_state, c_state);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device is_on failed: %d\n", ret);
+> +	return ret;
+> +}
+> +
+> +static inline int ti_sci_dev_get_device(struct ti_sci_dev *tsd)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->get_device(tsd->sci, tsd->dev_id);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device get failed: %d\n", ret);
+> +	return ret;
+> +}
+> +
+> +static inline int ti_sci_dev_put_device(struct ti_sci_dev *tsd)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->put_device(tsd->sci, tsd->dev_id);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device put failed: %d\n", ret);
+> +	return ret;
+> +}
+> +
+> +#endif /* REMOTEPROC_TI_SCI_DEV_H */
 
