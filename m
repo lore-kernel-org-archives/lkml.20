@@ -1,68 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4066837DEA8;
-	Mon, 28 Sep 2026 06:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3338E3ACF02
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790577093; cv=none; b=TiM4peAR9XtrNjNT4YGO2zzuaMY9msZskEzYU6NCjEwTX8CJOjEYDMdebVGWdy1Xra5N01Pmpnt/vePlq5YXx2nQpiTNcZq9pgy43GprcLlKGmShWzF1Te939JDwKho58yZ/UDhB3H2T4EXBtyR0nzK/DZ7fME9fYVXBmqDGvxw=
+	t=1790577093; cv=none; b=T6X4NUiFlhWuMJMG0FjKlzq5GHIEz9sQlm+iemfhumE3Z8zVuJabk5POKZ11hb8P+sAdeIbKXYiBuhNmQQC5te7Mh778xL3MWaxcgB2+RQRZocNhg3GHBCLr+w6tEJ45bHiUTL5E5n5zkKHJTTfLUaHDn6dGV7gw6Ad8HrJBylE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790577093; c=relaxed/simple;
-	bh=eMuDvW+NBTXeL78n09F+UAoO8LRYA+eyqEsukEvtpMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OQnElJhLH+0Vwgd+d8mntxrOVq1QWMsTPmTsMw4u8+zZuWm9XPo6Zj480eTKhvu1WAurF4VCjV0Q6xg5hq7RWjnrO9ASJa4HnuZWnED+pDn+efIutBZFE053m2Uxor/mluKZLlKIi99YDHof6eGqCVQdzfavcQ7AbsDE2nbf8us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVhHomUK; arc=none smtp.client-ip=100.103.45.18
+	bh=MOM6rh/VxJomDENxVfQZur4f9xuvpadnAtBuvABwyE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O4wrihrmcKVBFQ5+6exKnocLZov5lC0oVOtiAlCCkiDSs6GiL6RFv8rrR+S9EHLQWHdX80vht4xDIEQSQXMY13Sa/2hVr3C+0UzCAn/RVgNZBVUEenyr4SirtYmcFT6wZ73T1fnxCxelUvmXU+yCqb7uHh0BWPkvOaBbzendgLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MNd9Xezb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EJxSSPHS; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVhHomUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFFFA1F000FF;
-	Mon, 28 Sep 2026 06:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790577091;
-	bh=yC564v6T+1ylPjBK8wy5FnaiuP6oylmuWTbwzI+MHy8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jVhHomUKNN+Hn7QgJXt9jyJVQFd+0Q55Z1nei6tb6QUdy74Zr+LomHqwVvStxnS+0
-	 1Kms7t5MFYHhdRMKbSAIz5LoHtu3UcjmulnIH0IGSmd56ZlKIVF8Q5ICEBY0haxonK
-	 Brxag9sHNaTxezrU/lU8WVzYZ6BzuzLeGv+fPK1R1oJ78Rtb+E2/E7sosXYTt+IqQH
-	 8iPtMU4iFtqeJ+BK4OuPka/Jw2Ae6Qns4gpyesg1R3ruLEmoyR0heMdvbHgZGACBKI
-	 x5Z0H7qXOnTGJEiQLDJkVaPsZ1xgamJ6G5ldadY1bmFUEyj/vLEwySDoYzm1Lp6g5/
-	 C+aR9lG2gGm6w==
-Date: Mon, 28 Sep 2026 08:31:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,coresight-ctcu: add Nord
-Message-ID: <20260928-lucky-loon-of-acceptance-789cba@quoll>
-References: <20260922100850.527109-1-shengchao.guo@oss.qualcomm.com>
- <20260922100850.527109-2-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MNd9Xezb";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EJxSSPHS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790577090;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
+	b=MNd9XezbQaZMqJrmMWhoavDRmqVILpkvdNXQYIoWYXfYsdCXBCtQAclA0IEEkzdsgB2l6Y
+	Jx8ssdP2DBI2rr1yi8lrYmOhUrm0rCS+CtAZQw+wgWVTKGUvyZOw+W0FE0Zlus75U2qKKX
+	JapxM1gvrP38/IeIWyCT50RyRbIq+Oc=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-1-HkpdfJmCMd6sM3e3FuM_4w-1; Mon, 28 Sep 2026 02:31:28 -0400
+X-MC-Unique: HkpdfJmCMd6sM3e3FuM_4w-1
+X-Mimecast-MFC-AGG-ID: HkpdfJmCMd6sM3e3FuM_4w_1790577087
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4888382a9e9so1352416f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790577087; x=1791181887; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
+        b=EJxSSPHStMa9+bvS3vTz2+/esNzdKte7p++b8ozRIb1wSbLv0G6TrmOY2J9Wc6vGpF
+         9w4SnP1UJ8bbGXjkLeFnTDl2+6rks36HRs5ZLHTb9kICYsYwKfQJ8oCGzBwurcz9EjF7
+         D6JJlO9TgcYA7jYG44Su394ufnvGsAFjoRAYRA5KLpbDctFVg7Ii4t8ToSt2+/OE4ziR
+         w0CIPUL0otglsyXHj1g9UiF1+N4EHnlHqIww0/isBEgGYrB6D1pKi7uo2ST6Jp3BzOrx
+         SeUNRnNzxLN80wFsCTh8HEZ7WK69XohfOcnTBMTJq01EplU4l2CSUWg8wUcq1oV1AyoO
+         jtDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790577087; x=1791181887;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=am4FV5zPzLpIgyayecCc1N4MqLF1/2ADTO13ltna5uY=;
+        b=nEm6AYzdpzTX2tEXz2R0XUajGwiS4Nw3+sSOFZOFik2R5ILNlTUHaaGqJGtUtsvzMV
+         RGTRkLC32RmUHou3kZYekkpoARjagCSgUttkIEvK0qO0QhvYeYCVOtzM2KLD0zCf3Ixa
+         fPNZHkwisrWt/OvWnldUyOKfZwqDDmWQVQIpd7DgPY3urEfEYImi03m4zKV1BuA+X5vd
+         hfPvT9GHB4N7ojz9hxkfLQMrS7YNvQ2ubLZkR2zrPhhG+VW/yH7I0JDxfegACOVMBjOr
+         cMTRshONlxHvX8axD8VE8XChuA8J2joOBFQfqrV6Xba6wv1uOGxKyS5E0LVKUJEceFL3
+         qqgA==
+X-Forwarded-Encrypted: i=1; AKwUvBygO0o/6sGixI1FxTm/Nnb7pH1owDMV7pnwnQn+p3hfLu2goZwdwJNXBY0nZVqX4zRNn9JtJC9dDnh7JrE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJSGkVeWmMkr1CXcEp8VkNED0cf98c5rO+pckemv8XT3XriqRU
+	cZZhxopKTrQqrerMM3UIp//k1UAFaw3TP3xw8LsWIQtRlJ0fdOG7iMM/TL/da1gZQeGb2uqgOpy
+	KMs7GMXwEjQlpUb7Wmd1fPSzwEP/7M86FZDsoKWzk6xiurl5wfoe1RIk9R3Vl5TAvug==
+X-Gm-Gg: AYBFou3RWPYbsNjtP12kw3rqG1HpvDidPPZPFRELUm26atqjqYEVOLjNUeKxzQ9Fw/+
+	L92IislxJR5ntYFRwBubTkTLO9eJvsAKGxJx9QamLldX07nv8OcyVSP5GhZzeCTlqCuWzbu5wux
+	bzt+xwtIkSgqvmwsGz9VLGelPbltP1j7hMID0ZwqC36OJCItfZkqYk1pzeMN9de/vxFFhdsQlsD
+	+ndMwXLM1KopxJk8pm2LsfHcXZ1KkMyhocX677IORB52ZBsNgr2xQcDkIRnHBDYMt2NgQpU3oiQ
+	fyb96oQruBy3tj+sWD/6hW/BY/wU0qdmImPBdAGm9HQDNUxYMBySQhNrgKUPI8zcJe0I2XaU01I
+	y5flspGDHnSSfkgoVSXHrtkxMSNqVs93BChq4mGgtc28=
+X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr64209905e9.18.1790577086651;
+        Sun, 27 Sep 2026 23:31:26 -0700 (PDT)
+X-Received: by 2002:a05:600c:3494:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-49fff7399f4mr64209625e9.18.1790577086278;
+        Sun, 27 Sep 2026 23:31:26 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:e10:ef90:d92c:7e4a:47e6:1b23? ([2a01:e0a:e10:ef90:d92c:7e4a:47e6:1b23])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017656cesm110644755e9.3.2026.09.27.23.31.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 27 Sep 2026 23:31:25 -0700 (PDT)
+Message-ID: <f49cbe7d-79b1-44a3-bc26-9182284a74d6@redhat.com>
+Date: Mon, 28 Sep 2026 08:31:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922100850.527109-2-shengchao.guo@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwrng: virtio - use snprintf() in probe_common()
+To: Thorsten Blum <blum@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: virtualization@lists.linux.dev, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260926055853.4868-3-blum@kernel.org>
+ <20260926055853.4868-4-blum@kernel.org>
+Content-Language: en-US
+From: Laurent Vivier <lvivier@redhat.com>
+Autocrypt: addr=lvivier@redhat.com; keydata=
+ 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
+In-Reply-To: <20260926055853.4868-4-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 06:08:49PM +0800, Shawn Guo wrote:
-> From: Jie Gan <jie.gan@oss.qualcomm.com>
+On 9/26/26 07:58, Thorsten Blum wrote:
+> While the current code works correctly, replace the unbounded sprintf()
+> with the safer snprintf() to follow secure coding best practices.
 > 
-> The CTCU device for nord shares the same configurations as SA8775p. Add
-> a fallback to enable the CTCU for nord to utilize the compatible of the
-> SA8775p.
-> 
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 > ---
->  Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>   drivers/char/hw_random/virtio-rng.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+> index 5b1b23b5596a..f9982217247d 100644
+> --- a/drivers/char/hw_random/virtio-rng.c
+> +++ b/drivers/char/hw_random/virtio-rng.c
+> @@ -162,7 +162,7 @@ static int probe_common(struct virtio_device *vdev)
+>   		err = index;
+>   		goto err_ida;
+>   	}
+> -	sprintf(vi->name, "virtio_rng.%d", index);
+> +	snprintf(vi->name, sizeof(vi->name), "virtio_rng.%d", vi->index);
+>   	init_completion(&vi->have_data);
+>   
+>   	vi->hwrng = (struct hwrng) {
+> 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+Reviewed-by: Laurent Vivier <lvivier@redhat.com>
 
