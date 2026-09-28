@@ -1,64 +1,80 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360284A8FF1;
-	Mon, 28 Sep 2026 11:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DE94AA1F7
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594526; cv=none; b=FAeRt1rM9GqdKYFxea601J10dXU2hCmrwfcHHurqT9THTqLDZfBn+CZklFfi5PI5o0jbHH8U9wvCtArihkgMjkpFzSduJnfbM45URhCwiuleaxh6vZ3Xkhd74gYihmFNWbTWD6tt/8NUbDdRD87dfCAFHngGdRO6AGxXRksuPEQ=
+	t=1790594555; cv=none; b=a2lucgKecfsFupP5SNqJYjl565Rith7ECRbD8vyy7vJ0+CTuECeXG6bdMIt7IEqbUwKZh/V5TOAzwkxy3rmBeHDHs+57kJ+MJAVGx6FfB2AlifVuDmpDrtGr4qlJOZienHgkM5ieI109ltpmwdY38/Ylyk2lPxtft6y0JjwkIXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594526; c=relaxed/simple;
-	bh=b6WX1LpMYtQYcZDgz8q1+fzkJWvOO1o/cr3VmDwwdmY=;
+	s=arc-20240116; t=1790594555; c=relaxed/simple;
+	bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGgNqF1Dd9Fng/FMz5fx1wehvL+cS4CR4hZZ67O9A7cjJmujmxYtm6cv2Q0o5jSJ5s1OA9venCh3tCyn0tMhDv9IXBQnh2BmmYeiDSu4jhYwb70nJ9244JfJV4JkulB/WGM1/CHid9XbEDI1xRX/llz11pWzSC6z2+yIXV1QP/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=q9dVdBUL; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	 MIME-Version; b=K+2pGDs7f/4h6Zf7wRAPMRXnNx+VUWFsH20W5wpaIhynyAZK6EzhoQmURS5JdAqO8sBn6Ve3xD4t3NflK+AKZKWF1olenGivEocBuq5HjdGklVLf8+Z0xP9I/auuJH572/kXU7Jd1HlJ1W/Swle3JzWicGjZqgqYVpvDRokPw7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VB6Sqw7/; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="q9dVdBUL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=pKdYDG9ZIYreeX+6zz4OdEIf0QBdQg4dPUWI4TSogo4=; b=q9dVdBULcJU9xTntkOEVgyhvRk
-	WP8wTStXxIMuUwZGJArqEN9cc0S0sVoTReRZ9rz7DP3RRv2sLTQh5ShvL+hhjKIpqy/bLUZI3iWUB
-	dsjakAc56PPR6/TTKZFgmk9WLhKDC04PxXyYLd6Me5i1ByEM8twoi7Vs2+69kaLjaJaJN0V5RiGFI
-	HqGH4JCscY6x9LxN4DJVyP64pe4sx31r4WYMeYMbxURwjUA2NNG8kKnATRDHf0oeqvPtr5iiAuHDn
-	DxSuj01n0Txa4KY+Vj3iRh+KaT1tlKDTsfCTeDtQjiN70YkycdG2QwiWJdjbiQVkzEgJPAP+AF40S
-	iAR3EcGw==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9Qk-000GDI-13;
-	Mon, 28 Sep 2026 13:21:58 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9Qj-0006Dd-14;
-	Mon, 28 Sep 2026 13:21:57 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VB6Sqw7/"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so117529eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790594547; x=1791199347; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
+        b=VB6Sqw7/Z8GTAJ4kFlLJPwzaUQU0aEfmiFRiB8Fd1HtHmAZWNQHTzJEOFHS1A3fFfz
+         0XkA5w0i3P/oigOeczsctzo+3eRrYpfe0RyBekSt7JmbpLyylp6UnYzfFap0N+2mn90/
+         7uDf71wCAvXjLFxSpt1JKUbgQ5GJ1Ejy81ztIDkJEhTFKgKZDI47wlXJHVpf8onPIHaG
+         74sXtp0BzOOXT50F/yMwMMissMNgagu8fJmEVpFSm9xWCrvu7W8QPyUp7ycb3LB4UyKz
+         Afi37QxraaYdQr1B22WR9nP2G9VTYU8pB68FRDLPFOhKCfly/45MZnfFhXkTvPzsIR+R
+         hD6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790594547; x=1791199347;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
+        b=so79FjyYRVFKWxVwG4c1v86l9pUCRzDyxbqRxjgV8iY2MH2mOkp1ZbhnrepM1vaT5R
+         6G6flaQIYSLgBRGu6Vh3KFs+XcbNKMD2M9mWzxPhnXqQMFbkpdqAmvvIwNVj3eTT1rtU
+         G+XiEdRBlg5sXRxsDVXuHMEqw9KDn3pt5A+W3ppMkcVeotYjhvovYtFPJPPYZJO1nfdh
+         kkGYLoBFMj9RK+z6UhlSO+SnCIi2lkUSsGAN5BwfXFCkIARfmefYELdy4kCcQACRaFNB
+         TyJf/h4blCApaQppvNNULz5bXjMw2WwjZvUB4bEInVOoWxn1vYxJH0LEuOo0k6RTuGo+
+         7OhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBHudYTO4bwxfuKe8dF+2+t+3MDgSIsN3bdX1AUGYn8pQsGzV4fP/wUulgLF/OsfZ/bwg1oXMkv1zBIgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n60i9X4fL+ttZANV0ZI+AkK7kzRwhW684Qq2WuuPHFzGJIBOWj
+	XxGdcd8W58dSbNAen9Md0TZgb7WKUwsbpckXSyDkZhXCD21PiAFVXjCN5hNQtgHm
+X-Gm-Gg: AYBFou2L958jAleuyXuC3OkNxaodorZ2vV9Y2Iy6gwWSOE+OaFET0Q8MllBvzd6MoNw
+	cXcUVl0d7obIioAtiedo0bKlilqmQnNm26jYQp4Vz90XDARYp9iUGoiPgSs7F/sVROMGpsoOgKy
+	uUhUK/ytxa7CsajGSup/xY4b9m7rhz1LdR2ZZeOO8rS+bEVTSJ1djN+0O8JaBYlQZY1p7lv2hgN
+	Gv6hPKHsPxZtJWuFHc+CiCb4QjWQ4WeGmsqcpc9ushClyMPvITfVP2i5u6JMUKM6mcH22DK8qaF
+	0wP+/1NfJz2MEi1HXFWkKicV/qVUSGn3qep0tpZQhrzGsYVakFXJ/koNZXlDibO26utpiee6y2k
+	8a56MxXB2VqfQBxQsbXphMGGSHsjL+yNT0Hw8Gsn5MAm/9QMRV0FR/zJjsOdiU1umGbPm80H1Ql
+	mVdOxyx7h04znKm1YP9BHfYvrUStHFE18F0kHF6rnnmtYkaLox4fQgZPOI/RP1VHjWM3+oddhtO
+	TvDqqyr0oqtZ6mLOHqB/LrHyv0RBwch8mdJ/b4G6LF1TKnNP+5oVxOOFZrrQgQPmm6ErkAKOOLk
+	O18UUVPtdpNKnS6fGc0=
+X-Received: by 2002:a05:7022:29c:20b0:12d:c389:ae54 with SMTP id a92af1059eb24-146cfdd1a65mr15123488c88.2.1790594546278;
+        Mon, 28 Sep 2026 04:22:26 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm20689853c88.17.2026.09.28.04.22.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:22:25 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: rf@opensource.cirrus.com,
+	david.rhodes@cirrus.com,
+	broonie@kernel.org,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: imx95-tqma9596sa: Add thermal zones
-Date: Mon, 28 Sep 2026 13:21:42 +0200
-Message-ID: <20260928112143.294091-2-alexander.stein@ew.tq-group.com>
+Subject: Re: ALSA: hda/cs35l56: same calibration condition logged at dev_info() and dev_err()
+Date: Mon, 28 Sep 2026 16:52:19 +0530
+Message-ID: <20260928112219.713777-1-navonjohnlukose@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928112143.294091-1-alexander.stein@ew.tq-group.com>
-References: <20260928112143.294091-1-alexander.stein@ew.tq-group.com>
+In-Reply-To: <87jyo57ifo.wl-tiwai@suse.de>
+References: <20260914000308.108995-1-navonjohnlukose@gmail.com> <87jyo57ifo.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,102 +82,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
 
-These PMIC sensors are provided by the SCMI firmware and are independent
-from the mainboard.
+On Mon, 28 Sep 2026 12:56:43 +0200, Takashi Iwai wrote:
+> The actual patch is missing?
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- .../boot/dts/freescale/imx95-tqma9596sa.dtsi  | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
+Hi Takashi,
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi b/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-index 456129f4a6825..6ed810733ff2d 100644
---- a/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-@@ -458,6 +458,81 @@ &scmi_bbm {
- 	linux,code = <KEY_POWER>;
- };
- 
-+&thermal_zones {
-+	pf09-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 2>;
-+
-+		trips {
-+			pf09_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf09_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53arm-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 4>;
-+
-+		cooling-maps {
-+			map0 {
-+				trip = <&pf5301_alert>;
-+				cooling-device =
-+					<&A55_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+			};
-+		};
-+
-+		trips {
-+			pf5301_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5301_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53soc-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 3>;
-+
-+		trips {
-+			pf5302_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5302_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+};
-+
- &tpm3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_tpm3>;
--- 
-2.55.0
+There is no patch, sorry for the confusion. This was a report about
+the cs35l56 documentation rather than a code change, and I should have
+made that clearer in the subject. Richard replied in this thread and
+will reword the doc text.
 
+Thanks,
+Navon
