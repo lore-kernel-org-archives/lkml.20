@@ -1,33 +1,25 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D45485501;
-	Mon, 28 Sep 2026 09:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1087B485501;
+	Mon, 28 Sep 2026 09:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586058; cv=none; b=nEC/Me71nwmQ4ITAdytK3jl5Q/e832dY89MY6Fz50Z0c2jPlFNVK3RgVVbnqWD0QEpVCy5bGIQGS4DIvowY7zxXB9LnVMlSqClsBOGkdGHQHQX4x8wMYjjiKyaJus7cwFAC6CMH7lMT8GZiuq+SiOBlVuHq0vtEkafM7s62tC9M=
+	t=1790586115; cv=none; b=GiF5DuEk+ZuGijBaKiaMgpEGTucfcEdKXC0l9h3ccTstY29QitWpinSMSr0wuXHEHfYR8UCQfQ9dRn4CB+XRh2XnstQxT9AhDz6npboTxsaMMOo8xA2ppc194BbHLCdDY++g3FYFA3aCvdEVVo8fuLgBkA6Hv1ma2k8CcKx7Hv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586058; c=relaxed/simple;
-	bh=b+FkB6VJP0LX+X0YtlNiUZHBkfBYXUZk8WfmQo9B0pY=;
+	s=arc-20240116; t=1790586115; c=relaxed/simple;
+	bh=Q2dUjmWUllHeALB2Hqv98IUS9jgKssXe8msAxnVRy2U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JU4FToHFqi0hqdI2pjjT9ei+oqINJyndiCI7bj85rwBEF0y86iPIGvE1lduQF4S0RAeGHtcxuN2Wg/Ar7Df/HNY4QlXcEDsN+xPwlGDa/q4DczDVxt3U9CTuuGFjOw0sSOLNuB7JS8lcAu9PS0g6L0yo1itIyU5vzQ7MO6MaGXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vc9FA6OO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vc9FA6OO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9331F000FF;
-	Mon, 28 Sep 2026 09:00:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790586057;
-	bh=x450XlcjIL1p7LFEC3Tf+NE6Fbnndr/8bL+TDaQA93g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Vc9FA6OOXax+HTWehEVc8scEkVzDkEYpkCJmMjtZEGm0pEDwZhGMoPX/JRahcuGTj
-	 jZ28zJgxBMiNHCGquf5E5k834oO7gJLejtP3dPTnrZbD2aV599wsb9RlapsLJgdRIH
-	 yHzPx+bIOedPC0PnqTwdFz2dBUrtnYFr9qvpXPfVZHeKQ40Qp8OQTF4rMSlDWE7/z2
-	 F6DqvhUmpz/92a8VzqCsmYgCm5HnaylhVjBvGpoMvTetJ7MnVaW5EtOrDOPAzpiZTi
-	 2sDoOC/SktSOpNE/B47Y/m1xi/Sks5aP4xeD8ZJhydj0qgdTUmiTDdXnsB1aD4nv1j
-	 NAAnAToQDRnEA==
-Message-ID: <f2e718cd-92eb-4127-84fc-23f29396ccb6@kernel.org>
-Date: Mon, 28 Sep 2026 11:00:51 +0200
+	 In-Reply-To:Content-Type; b=s2YbvUmLetqit/atYfM5TopPFhm3r1HhVM9Dr7hs1rLLcvNe6mh287jB4Gxee1ebDqZDwexwEP2mR5SGHZp/1RQdJRTLW4KHfbwP+tP1cyPNpcm571KFSzIN3zaxTSSktRoFr8lq0HVJsirJ/FQ3rFXS6rkmg3XpSVbzYgwH3n4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMA2Xnf0LLpq7FIeAA--.41612S2;
+	Mon, 28 Sep 2026 17:01:40 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDn39byLLpq7h4RAA--.867S2;
+	Mon, 28 Sep 2026 17:01:38 +0800 (CST)
+Message-ID: <7047abdc-1c40-4792-85ec-57db62fbe32b@hust.edu.cn>
+Date: Mon, 28 Sep 2026 17:01:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,102 +27,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] hibernation, KFENCE: explicitly map/unmap KFENCE
- pages
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org
-References: <20260926-hibernation-v2-0-235f69f3ab2a@kernel.org>
- <20260926-hibernation-v2-4-235f69f3ab2a@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260926-hibernation-v2-4-235f69f3ab2a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] docs/zh_CN: add Chinese translation for usb/ohci.rst
+To: Jiaming Ouyang <jiamingouyang13@gmail.com>, linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org, alexs@kernel.org, corbet@lwn.net,
+ si.yanteng@linux.dev, skhan@linuxfoundation.org,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ rdunlap@infradead.org, baikefan@leap-io-kernel.com
+References: <CAMnqnYwKwb5oTFOXNJyTJk2JEL6bnq+7yENm8v8RnovBYsFVGA@mail.gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <CAMnqnYwKwb5oTFOXNJyTJk2JEL6bnq+7yENm8v8RnovBYsFVGA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMA2Xnf0LLpq7FIeAA--.41612S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWxZr1kWFy3Xr1kWF18Xw1rtFb_yoW5Cw1UpF
+	Z7KFyfGF4rAr10yFn7Cr1UtF18AF1xKa17J3srJ3Z5JrZ7Ja4IvrnrtFWagrWxWry8Cay0
+	vFn8KFyfCa42y3DanT9S1TB71UUUUjJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02
+	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0P73PUUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On 9/26/26 11:26, Mike Rapoport (Microsoft) wrote:
-> The pages protected by KFENCE are removed from the direct map.
-> 
-> safe_copy_page() temporarily maps and unmaps them using set_direct_map
-> APIs, or, when the stars align, even using debug_pagealloc_map_pages().
-> 
-> Neither of these APIs cares whether it is a KFENCE page and both blindly
-> perform the update of the kernel page table for any non-present page.
-> 
-> Ability to use debug_pagealloc_map_pages() to remap KFENCE pages when both
-> KFENCE and debug_pagealloc are enabled is an amusing coincidence.
-> 
-> But with increasing appetite for using set_direct_map for hardening
-> purposes, it becomes too big of a hammer to enable saving any non-present
-> page in the hibernation image.
-> 
-> Another gotcha is that loongarch that does not have a direct map at all
-> advertises ARCH_HAS_SET_DIRECT_MAP to allow coexistence of KFENCE and
-> hibernation.
-> 
-> Extend KFENCE with a bitmap that tracks which pages are protected and
-> provide kfence_force_mapping() and kfence_reset_mapping() APIs that allow
-> forced mapping and unmapping of KFENCE pages.
-> 
-> Use these APIs in hibernate_{map,unmap}_pages() for KFENCE pages.
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+
+On 9/28/26 4:52 PM, Jiaming Ouyang wrote:
+> [PATCH v2] docs/zh_CN: add Chinese translation for usb/ohci.rst
+>
+> Translate Documentation/usb/ohci.rst into Chinese Simplified.
+>
+> The translation covers OHCI driver overview, hardware protocol
+> differences (OHCI vs UHCI), improvements since 2.4 kernel,
+> queueable interrupt transfers, and non-PCI support.
+
+Before formal review, I am curious why you delete 
+Documentation/translations/zh_CN/usb/index.rst in this v2 patch.
+
+Dongliang Mu
+
+>
 > ---
+> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+>
+> ---
+> Changes in v2:
+> - Correct the date
+> - Correct the layout
+> - Add specific details for it's contributors
+> ---
+>   Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
+>   1 file changed, 38 insertions(+)
+>   create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
+>
+> diff --git a/Documentation/translations/zh_CN/usb/ohci.rst
+> b/Documentation/translations/zh_CN/usb/ohci.rst
+> new file mode 100644
+> index 000000000000..5e36831bf370
+> --- /dev/null
+> +++ b/Documentation/translations/zh_CN/usb/ohci.rst
+> @@ -0,0 +1,38 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +:Original: Documentation/usb/ohci.rst
+> +
+> +:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
+> +
+> +========
+> +OHCI驱动
+> +========
+> +
+> +2002年8月23日
+> +
+> +“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-ohci”
+> +驱动程序。“usb-ohci”代码主要由 Roman Weissgaerber <weissg@vienna.at>编写但也获
+> +得了来自David Brownell <dbrownell@users.sourceforge.net>，Linus Torvalds
+> +和Gregory P. Smith的支持。
+> +
+> +它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
+> +硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多只能功能
+> +注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
+> +
+> +自2.4内核以来的更改包括
+> +
+> +         - 提高了健壮性; 修复了错误; 减少了开销
+> +         - 支持更新和简化的usbcore API
+> +         - 中断传输可以更大，并且可以排队
+> +         - 通过使用上层“hcd”框架，减少代码量
+> +         - 支持一些非PCI的OHCI实现
+> +         - ... 以及更多
+> +
+> +“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohci”
+> +中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
+> +失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
+> +处理，来最大限度的降低这些风险。
+> +
+> +- David Brownell
+> +  <dbrownell@users.sourceforge.net>
+> +
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
-
-
-
--- 
-Cheers,
-
-David
