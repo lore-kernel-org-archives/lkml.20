@@ -1,182 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261594E3ED9;
-	Mon, 28 Sep 2026 16:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612154; cv=none; b=kKHK3Cc0J6Qk4kvQ2nis3OxjN0S+fKrSrCYidn5KnRKfwmccwD4RwqoWof3iqAhfou0ATD2t0HjZ7G1S/XtHishzpXU/qAqhFsdPKlWTuPnKCnarBbOujkEGr9gaR0lYLwFxs8iHwegUv9LfZgc90mOgWjo6EYYUlYXaQidJZRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612154; c=relaxed/simple;
-	bh=NBi35zgVWB8MqkxkWlsVFiB0wIq4HnqVXz0vrvfr3U4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pyxLxBx8QxSk4Lfn3Tn53BYCSyw8tJQD5dBeRWKipGgMHcmjJi35hr4e9WbS2B6fLf8kv/cqhVMWaJG71eqh9teBOyuPJxPYm4EqNGGif9xQ3+ZvIF5fmq+3+X1J1TSKJaqngNBHqX+YeFZU71pY7dKqSarGN9+q11sUEL6RSFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7TBTail; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EF74EB84E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.203
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612160; cv=pass; b=iAItcX8KuuGk7SrJhxdIt7UBpKVGLz9r9W8/HvexJ3tC57wspDrV9MHhNQAkDGTROqsC4+R9H0Ex5MTQAdo2+OIhy2uC9hXXcmBAldpZwLkBkNPhkDjPhykPqWkxOnkeACY1Bk5gH49GA6rAM/0AnXZ5QuV0CzAN3DOCg1m29uQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612160; c=relaxed/simple;
+	bh=5zhxTTDmIVJyF7gRnQGI1x1uORVwq6Xhxto6tH0D/wQ=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=l992z6uD1eC5dP3eljamBwdIQeEtCTgcd51oIKCUh8rRy0qFwjrPFKFaff+JF0U5W+HYDzniCCAfa6izDTgho/lVHMx/s9/fZgUC6fp869TWLgomToz9YcQaW88racO67m9HjW3xarY9zYul2tbtOBdiprlWnT/4nan5ZVPw+e8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZlOhyslV; arc=pass smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7TBTail"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B11C1F000FF;
-	Mon, 28 Sep 2026 16:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790612145;
-	bh=l63NqOrmYS7OWhnyJ46rzvQOga2GpeIrimZGoJ6BZws=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E7TBTailbJXOF3b09WyFbluQXA60619reCTcV7CQ8hJeZCyDd6THls1fDs19vu297
-	 rR8SB4jBUdSOQTOpSseq0eWB41RvN0qZxgmRWpVKttlRSOeEIH2zcQaW2s1qEQs69+
-	 7GHhCbXYaYZwxllF7ZgNBetbO0b5OTBSLiFcOwWXoZ70fNgQIn9EVOG7QvsjSN86h9
-	 bR9/gaur1nLKsyx/xu1xCgSsZcueblotdLbcBhLHDeKYXMNEY3/kvd0/mYVIRkENTn
-	 OTrF6qIVtKG2xPxWS4ltlL1jAN4ULI0HH5IKQvP7EWRacMLtO9t5xcrqInQ+Ur/f3K
-	 t5632UFq8n2PQ==
-Date: Mon, 28 Sep 2026 18:15:37 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-Message-ID: <arqSqcoWAkhy-8do@red-moon>
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
- <arZDwutoadki7tiZ@ashevche-desk.local>
- <arZNL9BnTGK0Klwc@red-moon>
- <arZS4vwxps01dGb7@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZlOhyslV"
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c1e3be1093so1323649b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:15:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790612145; cv=none;
+        d=google.com; s=arc-20260327;
+        b=adCs7J9B3KXkNaP9ViuCVyqhkcgCedWVE2Rw/p/AwVwmi/dN/FfpBGAMF6raQk3iyY
+         XHwJB+uEcqwrsQhL/I5i38/eniQzS2XsMtrsnTEBmIAQJA87UgGh+dF5D/IVjOBMc6pP
+         wbv9K/sldgwtlaP3NIMsV+slQMSbRhR1B1at9bx+uBKPlAhYfWusGW1bzs45KVFr6qlG
+         IIbtTa6xjGB1f9kbRbxHT2gYTfVzAMhZvOWlGJMklfkdOTDfbj9LBjPHeBJfUVlcmkk4
+         GASnELGH8HU6K51oYTZnqHzPQ/bMXP4PzsDt/MJz3Wh35nbUTvYAPb+m9C8H5KK53y8W
+         uomg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=0A5INQy7dX8LBqGciPLMu7YdS8AMK7M47XwobBkMymc=;
+        fh=okYkAfqpbrinrAE3Ra6iQ+ubbZ/JWLbzTDrYah8Ld0A=;
+        b=Z1GWnwxwxlrCUxGk9qe1+w3jNhM9ldzhlEMhpuZBcMtncLgW2XFlv6FNkKPINQc4uV
+         7w+zaMioTVt0T+MNCJoFe0ozunMFEYoy0IDLcdC8d6GxQOUGtChbmhq3qPoUBvarhvjT
+         Yd3+UJhALBHy6VgCjll5sehynSnm8i6v7+MSzC3FmNJyvzNLiMZlvoM2/E2rZR4pERHF
+         hJydw2kbKnrcQfZWMI9HHFbpQ9wBOWLDoZ3sEVU/qdaswU72/xjnX5VUDZoOz0APqlfs
+         LUwqray31RLZw7Fsjweca0EKgF6QMUhvh4fhirUHyvF9PoA4y+zXBVh24YxO3Fh2xMbj
+         RFNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790612145; x=1791216945; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0A5INQy7dX8LBqGciPLMu7YdS8AMK7M47XwobBkMymc=;
+        b=ZlOhyslVUrlWymcuC/MqPbxr4onRVzChOjkIPIgTGWjevHlLxpftjx9So4kGgay9TJ
+         I1e0qyo36WrHA7CrVVzULjLmP41bpz1dbXrPO3oH3v3nCeEwlpJ7ctpgOKwNry3cP4lm
+         EucllAX1KO++yYuDTC5kpHW/nv+i5kyZ3ssIavSSPgraGgJeo4XW8jWJULZv46eIRI2P
+         c/lAhgZ+rQSD4Pr2aLFtxo+JiIQ5pxA5huBRQLGhn8L3iOOx+1fMpm8aDk7Xj6du4W4G
+         c51aMVXxbAszP4ySV1HTYxr2bQhKi3c7KWKZ8oKF5ZPIcL4T9C8fbyWZPwKQKiIW4WBm
+         qHtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612145; x=1791216945;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0A5INQy7dX8LBqGciPLMu7YdS8AMK7M47XwobBkMymc=;
+        b=bwFdD6DhLI5CRy4yYoxxbP8U0WOKLb8VzqlU9UvNyLzDT9vxEgO3J4SdTfOMuqMfhL
+         UW9cvra4UzBL2vT1eqaTBLh+2P/YtElwH4xnYqjcQZBFAuYf6w3lByhuH4UoSaljm+tV
+         /n3qb64GL5qVGOfy2N2SKugYn7uWYXAx29dnTCVTszYCvKH4pywCnehuN3+HaylVTJ4x
+         Cqje641jsPEy52lx5uwBYyHAwoRvFB36edQIVKn3KeYMZwUtQWP2ltM2jw21AsD9yECt
+         9i1701L+WiEhnN9tBWGhIldn1d0tEUxBdI/aX2CDbJFEL0b2SJYCXwP5wryIfwDukxus
+         s5Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvwapZQC/OjVPkScbm3mQsXuzRtnVDioh6+NVr1IYIYj3qeuvIOvP0rMzFEXAGlKAZZFE+xrXKB/qEr2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqlxkJ6xu0WQR6lP4oYS2p6Q8WTVQVGaxxkbjTK4Xu3ATKfOqd
+	gA2hmrnfoS/5VxixBGJiW/II4n5fECwROpPIMUF2QlyAPBh+mUXAqktEOY8muPJ/5GCNcNqytuv
+	FGCBC9An/d7PoMVyVZ3gF/j6cYEyMrZJSmF/z3ugiFWFkUyk=
+X-Gm-Gg: AYBFou0Blwqhqc0aEmLL6P3BXC+KKxFw2OYr/ENV5WskU6Bf2PeZyD+KHqvuUN0u6l9
+	UZAGt7EO/osRJc5ArgmcJiArNKeJxyf5qqn2CDAeCBfckAF5gYuzTcvUOoKSokQF81PbBZTPnxz
+	1xRDzT12YnFZhDc9ZXtgVonOpqKyefS/6NCHv/SHTfTVM9UBjzdy3OAeOV/k0vwjegoU3lIIgaG
+	tGeg3v0zfMprSG3iZEDY5e6G3lYgAa4qCcRPfqge7EughQwLi4rGFJQR25FCtRSN+ntdVKTS871
+	XBcJLZikn2qRW0Df5b9pEzLa1aztUoNHiiCAkFXP2mo1LOC+im7OSfQx0fV4rxWfPggkAf7Thwz
+	n6+Q6PkVofA==
+X-Received: by 2002:a05:6808:198e:b0:4d6:90f4:48ba with SMTP id
+ 5614622812f47-4d72ac45eacmr14395634b6e.44.1790612144676; Mon, 28 Sep 2026
+ 09:15:44 -0700 (PDT)
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 18:15:44 +0200
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 18:15:44 +0200
+From: Aveline Noir <jm5905938@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arZS4vwxps01dGb7@ashevche-desk.local>
+Date: Mon, 28 Sep 2026 18:15:44 +0200
+X-Gm-Features: AclHuK9iPdog26wVV94AzoDOB6Ecnbo54mNzfsBz7HWPWdsxEbSKehYuy5Lt6Js
+Message-ID: <CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=xkA9acsL9TSQ@mail.gmail.com>
+Subject: [PATCH v2 0/2] HID: picolcd: Fix output-request and framebuffer locking
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, bigeasy@linutronix.de, 
+	linux-rt-devel@lists.linux.dev, deller@gmx.de, simona@ffwll.ch, 
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 25, 2026 at 01:54:26PM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 25, 2026 at 12:30:07PM +0200, Lorenzo Pieralisi wrote:
-> > On Fri, Sep 25, 2026 at 12:49:54PM +0300, Andy Shevchenko wrote:
-> > > On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wrote:
-> 
-> ...
-> 
-> > > > +static int acpi_static_fwnode_read_u32_prop_index(const struct fwnode_handle *fwnode,
-> > > > +						  const char *propname,
-> > > > +						  unsigned int index, u32 *value)
-> > > > +{
-> > > > +	u32 *values;
-> > > > +	int ret, count;
-> > > > +
-> > > > +	count = fwnode_property_count_u32(fwnode, propname);
-> > > > +	if (count < 0)
-> > > > +		return count;
-> > > > +
-> > > > +	if (index >= count)
-> > > > +		return -ENOENT;
-> > > > +
-> > > > +	values = kcalloc(count, sizeof(*values), GFP_KERNEL);
-> > > > +	if (!values)
-> > > > +		return -ENOMEM;
-> > > > +
-> > > > +	ret = fwnode_property_read_u32_array(fwnode, propname, values, count);
-> > > > +	if (!ret)
-> > > > +		*value = values[index];
-> > > 
-> > > Use standard pattern, id est
-> > > 
-> > > 	if (ret)
-> > > 		...
-> > > 
-> > > > +	kfree(values);
-> > > 
-> > > You want to use __free()
-> > > 
-> > > > +	return ret;
-> > > > +}
-> > > 
-> > > I believe the whole approach is suboptimal, if you wish get indexed value (but why?)
-> > 
-> > Why what (that's what the irq_get() interface requires ?) I agree it is
-> > suboptimal - the whole point of the series is an RFC on using properties
-> > to store GSI number/flags, then how to read them we will optimize it
-> > when/if we agree that's the approach to be taken.
-> 
-> Why to have indexed APIs. The callers usually do not want a single item from an
-> array, they want all of them or a big pile (exception is the array of strings,
-> but we have matching functions for that).
-> 
-> As per approach, this patch is against device property and I don't think we are
-> going to agree on the approach taken in *this* patch.
+This series fixes two PicoLCD locking problems. The first moves output
+requests into sleepable context and serializes LED state updates. The
+second breaks the last-close/deferred-worker lock dependency using a
+private framebuffer update mutex.
 
-Coming back to this, what is needed here is a way to stash the GSI number,
-flags and name in stardard storage (like OF nodes IRQ properties, ACPI objects
-_CRS, etc).
+The first patch was tested separately with the original syzkaller C
+reproducer and bounded concurrent sysfs/UHID-destroy workloads on
+PREEMPT_RT. The complete series additionally passed repeated framebuffer
+open/write/close and persistent-open framebuffer tests. Pre-fix modules
+reproduced the respective failures. Physical hardware, prolonged stress
+and suspend/resume have not been tested.
 
-To give you some background, I thought about adding an array of:
+Patch 2's Fixes tag identifies the fbdev change that began draining
+deferred work from fb_release() while holding info->lock. Patch 1's Fixes
+tag was checked against the upstream transport-conversion diff.
 
-GSI [number, flags, name]
+Changes in v2:
+- Address Sebastian Andrzej Siewior's feedback: clarify that the issue
+  is not specific to PREEMPT_RT and identify picolcd_data::lock as a
+  spinlock_t in patch 1. The code changes are identical to v1.
 
-to the ACPI static fwnode itself. Then basically the irq_get() API has got
-all the information it needs from the primary fwnode; while doing that I
-thought that this might have been a bit like reinventing software nodes
-(granted, software node properties are ways more general that what I suggest
-above and I don't expect any other property to be ever added to static fwnodes)
-that's why I put together the series as it is, precisely to understand what's
-best.
+Aveline Noir (2):
+  HID: picolcd: Move output requests out of spinlocked sections
+  HID: picolcd: Avoid framebuffer last-close deadlock
 
-When you say "against device property", what do you mean precisely ?
+ drivers/hid/hid-picolcd.h           |  4 +++
+ drivers/hid/hid-picolcd_backlight.c |  7 ++--
+ drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
+ drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
+ drivers/hid/hid-picolcd_lcd.c       |  7 ++--
+ drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
+ 6 files changed, 93 insertions(+), 58 deletions(-)
 
-I suppose you mean that this approach goes against software node properties
-usage guidelines ?
 
-Anyway, again, it is just to provide some context, we are talking about
-a bunch of platform devices, it is nice to have a generic solution but
-it has to be simple enough too given its scope, I understand very well
-your concern with this approach as-is - it is there to find a way
-forward together and show what the problem is.
-
-Thanks,
-Lorenzo
-
-> > > it needs to be retrieved as that in the guts of ACPI. Allocating memory for the whole
-> > > array to retrieve a single element is simply wrong.
-> 
-> ...
-> 
-> > > > +#define ACPI_IRQ_PROP_GSI		"linux,acpi-gsi"
-> > > > +#define ACPI_IRQ_PROP_GSI_TRIGGER	"linux,acpi-gsi-trigger"
-> > > > +#define ACPI_IRQ_PROP_GSI_POLARITY	"linux,acpi-gsi-polarity"
-> > > 
-> > > Oh... This sounds like a big ugly hack.
-> > 
-> > That does not help much I am afraid.
-> > 
-> > What's a ugly hack ? Property names ? Using properties for this purpose ?
-> 
-> Yes, properties started with "linux," for some core functionality.
-> Yes, using properties for this also doesn't sound right. I think the problem
-> here is in the table specifications or somewhere that deep. That's why we
-> ended up in this series.
-> 
-> > Again, it is an RFC for this specific reason and I mentioned that in the
-> > cover letter, thank you for your inputs.
-> 
-> And here we have a discussion started :-)
-> 
-> P.S. Looks like I was too quick to jump into this thread. I will wait for
-> others to share their view on all this.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
