@@ -1,107 +1,173 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE742C11F3
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F828373BE0
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618112; cv=none; b=buuCePQN80LPY5mLUGzh5hIUxoXCxsGoM6AnpKXXSxa0+bpMUwm05u49XFS2BxRHqE9R6GhrnOiJj0viGJpTKeFqgTBlQVXSLnGCNF/mQYNBBjanH+VwnnZbwrK9D9fbz1GlCBVwgeoEds8G+0YfplCFwCSbNI8PJWrsn2FoYQk=
+	t=1790618168; cv=none; b=S0pQJHmBsQiegq29+wRQnYyVNQGyu+5mjkRwNQvotS9UmUuc8ampoHE2SZq8/ANOpp1qee2v98RUPeo7RLC9ugAzYU9vMeu5AxhGdFL54PYAkvS3XMU8u2Sff1JWTmyxR1U7ZhjLuNh1tvPYaX9kBKwmwvIBzv/mKz+lAkeCPhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618112; c=relaxed/simple;
-	bh=zs9gberxS0wRfNF8TSFnYf/aqe/VTj9M6kyeSUqMODA=;
-	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=Up5VYHQG6/uupbL/mX2vvb58IJ8FZp+tPNCKpYvl6AyUyfsNRimQtkOrWUINFWV76t9sFIRzXBsT9BrpG476wLFNIQKtQbw6NRW4boC+z6AzNaKik2kHqro9IZv8MtUqSdv9M2xtMmuKFJu8UXn18h1phCoEhKvVj4iVKHD555c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfXSF6Z6; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790618168; c=relaxed/simple;
+	bh=qHuvSTbzKTQ99mPQxhPgubTCtOl/pceEwTRUqIC9LiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DQwjCBShYsiorLlyTJrqh++4Q9USRlNmY9RCgwxS4HiQ9whMugA0n+ZwZvThI06pjL2N+qc2UhBSv6V1mlOlFU67Jw3DU+UFYlCQgA/lsK9vCW5Gza3TCYZzKR3y7zgYNMDEjGGWNaoxnV/3qLLJ1mjIWxFPPiQFIp7+m5HDBVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=AMSyqTvg; arc=none smtp.client-ip=209.85.222.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfXSF6Z6"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab18so3687674c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:55:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790618110; x=1791222910; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wPllDjkKaargAUH1bmacsEz66q2/WWpXsBXhzb2KnrI=;
-        b=TfXSF6Z68VG1U3zTE0gSKk7aGui+JEgUU3E7lV79LOS2MX74ZU3LQOZDKVYO7pVnS6
-         DcG2Nwo2YSmbyUuVxQW/PSTDX9vgD6YCY/k4HbZD64UYjwFDmLLBL7p/P6yVRCXcicWD
-         U1wRGuLPHnsizDkXSx+KaobPBx7gb8MDcQcBrjLfCmCxezWF+sLg6MrRcHdOcKKvfEtL
-         m9Os/TLdEYuwUt12ysepaMZNQckBcFev87XVe/X18HxWO8tEtc9QB7j43PcCzaeMw1hZ
-         ahN3OiWiB831/wxGLfgaYmxNlN3ArUepv8gGOsSZbx5mR9bf0ohOAKeLAlEfHwcN0t7V
-         kVEQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="AMSyqTvg"
+Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-93a40a9a01aso10358085a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:56:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790618110; x=1791222910;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1790618166; x=1791222966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=wPllDjkKaargAUH1bmacsEz66q2/WWpXsBXhzb2KnrI=;
-        b=yGT49B/BE/XHYRGPl0mICUn/SghptqY9M90mPpWQf4kVwBSg7LeA1zAtTiubKA2Sxl
-         Qvg4KAWeHBG+V6A7HNTZkOjULZ3VwvN0ce0cIr+UXkIAgamF0tIiEyq9Qpmcbk9l68m/
-         1/iIahiu1CxbYAJTbC0cMI0zyBlewkxYHYpgK6mE0aImGW8EzVYA/WbGVwjKBkEWpCyj
-         E6Ss/HxSpz8uqpZLA4no4z7nFawnQ9AgDNGpQ0OuIJXy7ioFiHeTO6nNJApK8Okyb9B5
-         nEcD/VGw+cqdos1KSWr0tEGw66Ej1mPS3lyPOnpUgjryeQyUvde7r3aAjlONMP33mriC
-         6gXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlwCdw+zOJiTdREAkxorLQuOuz/73cRrMcVQa5yzr0Ff5kW92JK1XXJcnTR9FQa9EPWXVfT2XHNt/xSmY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjceIYcny7DaZB49cELXy/TElKGOeHrWEmmAz15RXT31K4vpK/
-	QhLsMgYcvpgjrji7YqiQ1lLGTiTugYpoIeAYshQo712ILSD12dUX+VEnl0OQMIU4
-X-Gm-Gg: AYBFou1IW2jjtF+dxUofSVjz/6bH14WFak8MQcbpeJ0+y24y0zaJxze2iIF5OrZ+BnS
-	VssKmY4dQIFyqr4eKpm6Nz9NdjGREtERBQ7afERhaVH6vND0rvFpSfpcBCzAIhiAL4Z1/zn4WOZ
-	QGXYJoN8OotitbFc4NSKdTpFhf30h3qOfBHfIHnSV7twxGaGt9g6J2N4C/l44zoEdAiQ6rbnacO
-	bwN5KZkhCIayo8nymJCHQAjBGlzS9CFJAGeb9skdlVaiXwxwurZihJQDN56rzuN9NknzSX63Xth
-	6E7vOZcG6Cye3hBmEAeSmNlzYhgZrM72h+z5PM0xLDVNnUmnG1O96GS3WfJxCywAXgWpkMNdGV1
-	xNsYC1n0KMbHhesr99kpHfAsx1t4HcN8NKOdWgeO7yoqn2nSY6q7Ea/5eJIXePWzU3/wwI38OFM
-	kyq9UTBFgY6P8OkWJak7lNm7bVMIbERfFvzf34TkMDoDOWb3XLUhqkqILPYqKw5wGh6alZsisw9
-	Jr4n2uC3Ah0vsa/VUFWQhEHKtmaIN9VnusdJiKL4zpQsApQhq5yJr87EU4BOrm0iEfQsNSqOrft
-	wg==
-X-Received: by 2002:a05:701b:455b:20b0:149:49c:21b with SMTP id a92af1059eb24-149049c0391mr5721949c88.20.1790618110171;
-        Mon, 28 Sep 2026 10:55:10 -0700 (PDT)
-Received: from manush ([2406:7400:94:b571:88c4:97ae:bb47:4040])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-146bb6551d9sm18462130c88.9.2026.09.28.10.55.08
+        bh=KmmJxySPwG38CbqK+KUDBFApZhpWarF4JpRDp51PqIc=;
+        b=j45L6NIrMaR1Osb5vnzGceYWBjqEBI0sz79DDYsQRJJxdWDID5Nsuks/Q8ODjKAQ2a
+         33PwGp+T+eqmKSFn2rcJfzJ/hTn9/SdYNhkJOC+qDlVd1oJSgdoMaiKM13suk7QxGeN0
+         /KSYqat0sS29QpOLHmO7tY13md7Yyj4o2ICimpS0DhnrAdXARO3fZsB07FFswBX4guhE
+         z+q50Bmdq5n/2CU2gTWNLHC926g+a6oeBmGDgDKL7N0vU/xY2pRW/Cuvs1V3ZLxxIZPH
+         Oeu5iCozMAWn6XvV4/wYKEyhJXPW5wZ79sBRaOm8Dj3CWSHRCoe3jsVTTkAvHygeMGNw
+         xOZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhTAs2zf96MHAlmBFhf5ij2fBewb/GJ18Mi4Zkab3ivVbv0GLIGGJVBYBWRkcrigqS0RNWbOyaWOQ8ddw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGLr7/G548CNq4ahGUSS9v6GZ067saeuIDYgesjOD2V4Gm0gTK
+	6df5Fmq3tnO6NC4m+0UHUiKR6RLh1fM7fgUbOklxvuKDcbvz2HTtB+DODggCaXgLy7aI6+gHN1s
+	gbGx75Kk08HfzRYWkDnJ71k8OZF35cdOkbZX0dZWDCjRGJ+t/5PGMB+kTDnFTHqPRy9YE8pmyGU
+	yGIFiBDtamONpV++AUGdHilvxjur5K6cB3+WqS2LEB0QZCVzkP42HjZ2UQiuXzN5S3PVFWh0k1N
+	lPbEo1jGekBO83x
+X-Gm-Gg: AYBFou2jy4Qz35TcQWYHk51Syno7mX8cIYLaL46c7TUVAvtdenN7B0Rfl0JGUEFOmCo
+	mYWp3Wlm7ynZyBCqCUjoq6BGOn6I4klCcRRhBQbfv29dR4h4HBrD1mNyfBtU2z6ZnD8vwdJb+lM
+	kViQixQh6Ea7uc/UmymrxfBGhdlYGC6u0+twXU6o88fs0hrazdWShKrZ5SIYelFqieOjXkYbCuT
+	dCStYx2UlQ7523O7s/q7IzSq74FaUSf/zsIQdhrlG/ZQs7DbEJLMEdRv5gtrWQrsX/rKawhDp8y
+	qLGFLzuYJmYdMzGUaVgECCbepcDrIpL4yC2RW/MAicW97QeQ+i0i/0c+uNaSZD/7hfByCj1Br/+
+	p/XTilhbmq+2acGmUD1moAsuHINSv4ydUQhVIjTQIxPRlMZ8x8Qq8eZzgcvcYBJMpHjna3wtB+i
+	a8yOtS/+JW59R5UunTXderdmqXZvfyrbeg
+X-Received: by 2002:a05:620a:240f:10b0:93c:58bb:7214 with SMTP id af79cd13be357-93c8be4fa31mr20760085a.31.1790618160601;
+        Mon, 28 Sep 2026 10:56:00 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-18.dlp.protect.broadcom.com. [144.49.247.18])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93c813fb37esm65496985a.7.2026.09.28.10.56.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 28 Sep 2026 10:56:00 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-342b66c0b06so119070eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:56:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790618159; x=1791222959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KmmJxySPwG38CbqK+KUDBFApZhpWarF4JpRDp51PqIc=;
+        b=AMSyqTvg7YOAaOo4sIAY0pcRYwHSW0cH09GjKbqzO4apiMMUre94O+4j1U12+P2RKc
+         thNFz4BDgQu1JWPb2Prmfj0x/3+gp1f5TNhwJdRBccsEH9Kg8d61iKzddQPkLXzvvA2Y
+         czPVjFz5/L4SBh9PoEC0hHpQAKBZzbU0jsBOo=
+X-Forwarded-Encrypted: i=1; AKwUvBxzVz9PVlT6Wen3WeWA491SttGtwWRDd2KW21vTd1bB9IZyKT+ZuVahnncK4Z+qdallQ5m8Wn0gL0Nedmg=@vger.kernel.org
+X-Received: by 2002:a05:7022:ff49:b0:13c:e1e2:fc86 with SMTP id a92af1059eb24-14b2d993e47mr201600c88.4.1790618159196;
+        Mon, 28 Sep 2026 10:55:59 -0700 (PDT)
+X-Received: by 2002:a05:7022:ff49:b0:13c:e1e2:fc86 with SMTP id a92af1059eb24-14b2d993e47mr201547c88.4.1790618158548;
+        Mon, 28 Sep 2026 10:55:58 -0700 (PDT)
+Received: from vertex.localdomain ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm26076069eec.10.2026.09.28.10.55.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:55:09 -0700 (PDT)
-Message-ID: <6abaa9fd.8a95a640.187520.71d6@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+        Mon, 28 Sep 2026 10:55:57 -0700 (PDT)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>
+Cc: Borislav Petkov <bp@alien8.de>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	x86@kernel.org,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Kees Cook <kees@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Bo Gan <bo.gan@broadcom.com>,
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
+	kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Stephen Brennan <stephen.s.brennan@oracle.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Ian Forbes <ian.forbes@broadcom.com>
+Subject: [PATCH v2 0/6] panic, x86/vmware: Preserve crash logs before kdump
+Date: Mon, 28 Sep 2026 13:55:34 -0400
+Message-ID: <cover.1790014793.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: ukleinek@kernel.org
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: 28 Sep 2026 23:25:09 +0530
-Subject: [PATCH] pwm: tiehrpwm: fix copy-paste error in obsolete DT binding
- fallback
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-ehrpwm_pwm_probe() attempts to provide backward compatibility for=
- older=0D=0Adevice trees where the functional clock "fck" was sup=
-plied by the parent=0D=0APWMSS device rather than within the PWM =
-child node itself.=0D=0A=0D=0AHowever, when devm_clk_get() for "f=
-ck" fails, the fallback checks:=0D=0A=0D=0A	if (of_device_is_comp=
-atible(np, "ti,am33xx-ecap")) {=0D=0A		dev_warn(&pdev->dev, "Bind=
-ing is obsolete.\n");=0D=0A		clk =3D devm_clk_get(pdev->dev.paren=
-t, "fck");=0D=0A	}=0D=0A=0D=0ABecause this logic was copied from =
-pwm-tiecap.c, it mistakenly checks for=0D=0A"ti,am33xx-ecap" inst=
-ead of "ti,am33xx-ehrpwm". An eHRPWM node matches=0D=0Aehrpwm_of_=
-match ("ti,am3352-ehrpwm" or "ti,am33xx-ehrpwm") and will never=0D=0A=
-be compatible with "ti,am33xx-ecap". Consequently, for any device=
- tree=0D=0Ausing the obsolete "ti,am33xx-ehrpwm" binding, the fal=
-lback never triggers=0D=0Aand probe fails with "Failed to get fck=
-".=0D=0A=0D=0AFix the check to test for "ti,am33xx-ehrpwm" as int=
-ended.=0D=0A=0D=0ASigned-off-by: Manush Prajwal <manushprajwal555=
-@gmail.com>=0D=0A---=0D=0A drivers/pwm/pwm-tiehrpwm.c | 2 +-=0D=0A=
- 1 file changed, 1 insertion(+), 1 deletion(-)=0D=0A=0D=0Adiff --=
-git a/drivers/pwm/pwm-tiehrpwm.c b/drivers/pwm/pwm-tiehrpwm.c=0D=0A=
-index 3a53489f0..40166c5c8 100644=0D=0A--- a/drivers/pwm/pwm-tieh=
-rpwm.c=0D=0A+++ b/drivers/pwm/pwm-tiehrpwm.c=0D=0A@@ -426,7 +426,=
-7 @@ static int ehrpwm_pwm_probe(struct platform_device *pdev)=0D=0A=
- =0D=0A 	clk =3D devm_clk_get(&pdev->dev, "fck");=0D=0A 	if (IS_E=
-RR(clk)) {=0D=0A-		if (of_device_is_compatible(np, "ti,am33xx-eca=
-p")) {=0D=0A+		if (of_device_is_compatible(np, "ti,am33xx-ehrpwm"=
-)) {=0D=0A 			dev_warn(&pdev->dev, "Binding is obsolete.\n");=0D=0A=
- 			clk =3D devm_clk_get(pdev->dev.parent, "fck");=0D=0A 		}=0D=0A=
--- =0D=0A2.46.2.windows.1=0D=0A
+A VMware guest may have no persistent storage or working userspace after
+a crash. Preserve its newest kernel log tail in the host's vmware.log
+before entering kdump, without enabling every panic notifier by default.
 
+Following Petr's suggestion, add one generic panic_pre_kdump_list with
+VMware as its first client. A set-once helper covers panic() and direct
+crash-kexec entry. Fatal oopses can reach kdump without calling panic(),
+so patch 2 adds that call after capturing the original registers under
+the existing kexec lock. The late panic call follows sys_info() and
+precedes the kmsg dumpers.
+
+Patch 3 adds Guilherme's suggested escape hatch for debugging kdump
+failures involving early callbacks. With panic_pre_kdump_postpone set,
+the list runs before kdump only when crash_kexec_post_notifiers is also
+set. This can omit hypervisor crash handling as well as diagnostics.
+The late panic call remains eligible. This policy is a separate patch;
+I can omit patch 3 if it is not wanted.
+
+The logger preallocates an 8 KiB buffer and bounds its register-based
+RPC transfer and retries. Michael suggested increasing the buffer
+because 4 KiB can omit useful stack-trace context. Ordinary guests
+enable logging by default; encrypted guests must opt in. Use
+bool/proc_dobool for the sysctl as Joel requested. The potentially
+terminating REPORTGUESTCRASH event remains a separate late dumper,
+suppressed whenever a crash image is loaded. The v1 assignment to
+crash_kexec_post_notifiers is dropped.
+
+Tested on VMware Workstation and ESXi with ordinary guests, and on
+ESXi with SEV-SNP and TDX guests.
+
+v1:
+https://lore.kernel.org/r/cover.1788414671.git.zack.rusin@broadcom.com
+
+Zack Rusin (6):
+  panic: Add a notifier chain for pre-kdump callbacks
+  crash: Notify pre-kdump callbacks before switching kernels
+  panic: Allow postponing pre-kdump notifiers
+  x86/vmware: Add a bounded pre-kdump log sender
+  x86/vmware: Add the vmware_record_panic_msg sysctl
+  x86/vmware: Report guest crashes after kmsg dumpers
+
+ .../admin-guide/kernel-parameters.txt         |  14 +
+ Documentation/admin-guide/sysctl/kernel.rst   |  20 ++
+ arch/x86/include/asm/vmware.h                 |   2 +
+ arch/x86/kernel/cpu/vmware.c                  | 250 ++++++++++++++++++
+ include/linux/panic_notifier.h                |   4 +
+ kernel/crash_core.c                           |   3 +
+ kernel/panic.c                                |  28 ++
+ 7 files changed, 321 insertions(+)
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
