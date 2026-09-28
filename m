@@ -1,262 +1,101 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430824963A6
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DEF54A3F33;
+	Mon, 28 Sep 2026 11:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594678; cv=none; b=hiod4AHU16etE7zh1dZS3HmqK/losqp2f2npzGN7vgVPHbpyNnB5BgYnrcXMySJPex1cvbvPhKmx3PAU4IDJa43JScAxTykLEQpRJl82gqpzrRTomZ5dWdZvoi5DQ3+20EGzu2I2DfwmyHP/slFO0bN2QwK0gd6QordD/b+8TMQ=
+	t=1790594780; cv=none; b=UKxVBM6O1H9D3PjrL6NjQf4vfIjhYnIrEPqu4IqJCBRXA5s+IzZh6Xt2uu1Ry32dDy5mMXBFUfEOukAE2q8usA1rsY9yPlxnfJu3yaAs9sxz7+Gb+EWTOsT+63e3wgpW5hu/gUMRwZj4g83VUNLLPMBnYLu0iBeULq+MhHRGjhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594678; c=relaxed/simple;
-	bh=WnGWhNvaH7q5bzvu7KMH/yNAVi0tmobq4UUzPbUO7yM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bVPEwx34r+cZpoS3r9fUrUBc9RzIlJPEpZAgMLT3CBLBwulbgmtTbkJKzoS7MtrBVs0Q2AJyVMjTvQ54+BonPVoIOOjdRrm1RPZbXenOsvkH7JB8VSoseuukhI+Aw6ldWCT4olnVNIb18OsTlN1WJXfFYzzGpE4oBTN629gS/Rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DXG5HE5o; arc=none smtp.client-ip=91.218.175.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790594780; c=relaxed/simple;
+	bh=7/AMTqVC3MySC6YP56SSfAfMueyYBMWAxyiEfjrQuIg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZLLYtdncpdvKCHDgnCxABwx/918dLD/WxvoifWiiU6b0K+L/zvd8PcBgvvkfmqBGHWqbOaFCClH+Ofnp4LbHMEzdrceGwRjUHYsscURJ+T15vuq5D7CrLZk7Wswm9N3rHjx/mjnqFjF6abdEgwMONZhd8eL++tpFQqoYnoto/J4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OV6a/ktM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DXG5HE5o"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WnGWhNvaH7q5bzvu7KMH/yNAVi0tmobq4UUzPbUO7yM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790594673; v=1; x=1791199473;
- b=DXG5HE5oM+IT1wOrce2Q1snF7LIbuokVOv0khbcmrrkvdYUvaUhlw3MYr1jXxgRCHTeGX0G/
- N/43ysFgZz64B2wYE8a71x2E7wA5/dP8y/412yrq60BFAO5VvJdIbgf50eP8EjOR+qezbveajLt
- VgzPMUW4Dw9sf0N79XdUwYEs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 93c82698bd379aea;
-	Mon, 28 Sep 2026 11:24:32 +0000
-X-Mizu-Trace-ID: 93c82698bd379aea
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 13:24:24 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
- time calculation
-Message-ID: <arpOBwuJJvt-UMa3@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
- <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
- <aronEaoCLJo0h2Ni@bombadil>
- <CAPY8ntAUQY_kFRVKGUZJzOD3ygPQqtirTAC21giKuLmBaph5zw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OV6a/ktM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0F4B153B;
+	Mon, 28 Sep 2026 04:26:14 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F7B53F763;
+	Mon, 28 Sep 2026 04:26:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790594778; bh=7/AMTqVC3MySC6YP56SSfAfMueyYBMWAxyiEfjrQuIg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OV6a/ktMgcixkd4gu++FtkOypRSqjrAqTH8439eWB8VGMp/uqTVjAFRVl2AqtfC9P
+	 nvet8kZ2FD5ur9efuc4sG2wsl0gjGRmaOiKn/xml0z/SqtTtSQgy4sr4VYgc5QDdh1
+	 KOFj0rvczbAJLTpEaSNlKUBIol0mJct1+irn8cUc=
+Message-ID: <47bf9a4c-2a47-4e93-bcdf-8d953c9a5ab8@arm.com>
+Date: Mon, 28 Sep 2026 12:26:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPY8ntAUQY_kFRVKGUZJzOD3ygPQqtirTAC21giKuLmBaph5zw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] iommu: export iommu_get_dma_domain()
+To: Jianfeng Liu <liujianfeng1994@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ Bryan O'Donoghue <bod.linux@nxsw.ie>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>
+References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
+ <20260928053901.7270-2-liujianfeng1994@gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260928053901.7270-2-liujianfeng1994@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 12:02:18PM +0100, Dave Stevenson wrote:
-> Hi Richard
+On 28/09/2026 6:38 am, Jianfeng Liu wrote:
+> drm/msm needs to recover the physical address behind a DMA address of
+> imported dma-bufs: with CONFIG_DMABUF_DEBUG=y the attachment sg_table
+> it hands to importers carries no struct page, and msm has to translate
+> sg_dma_address() back to a physical address through the attaching
+> device's DMA-API domain to map such buffers into its own pagetables
+> (see the follow-up drm/msm patch).
 > 
-> On Mon, 28 Sept 2026 at 09:56, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > Hi Dave,
-> >
-> > thanks for your feedback!
-> >
-> > On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
-> > > Hi Richard
-> > >
-> > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > <richard.leitner@linux.dev> wrote:
-> > > >
-> > > > ov9282_exposure_to_us() divided the line length by the pixel rate control,
-> > > > which is the MIPI rate and not the clock HTS is counted in.
-> > >
-> > > It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
-> > > the MIPI rate. Many drivers do conflate the two.
-> > >
-> > > However I did notice a couple of weeks back that pixel_rate is
-> > > incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
-> > > readout).
-> > >
-> > > <quote> Actually I see the problem. In the hardware the pixel rate for 8 bit
-> > > is scaled by the change of PLL2 multiplier from 0x50 to 0x60 = x1.2.
-> > > The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =
-> > > 0.96, so my 96% of speed would be spot on. The use of link frequency
-> > > in computing pixel rate is totally bogus as they are on independent
-> > > PLLs </quote>
-> >
-> > So I guess I should also get rid of the pixel rate pre-processor
-> > calculation which depends on the link frequency?
-> >
-> > Is it OK with you to just hard-code them?
-> >
-> > #define OV9282_PIXEL_RATE_10BIT   160000000
-> > #define OV9282_PIXEL_RATE_8BIT    192000000
-> >
-> > AFAICT it should be possible to calculate the PLL1 pix clk from the input
-> > clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
-> > would prefer to not add this to this series. If it's desired and possible
-> > from your point of view, I can tackle this in a future series.
-> 
-> I'm happy for them to be hard coded, possibly with a comment that the
-> pixel rate is derived from the PLL2 clock tree. For 10bit readout, the
-> whole PLL config is exactly the same as the sample PLL configuration
-> given in the datasheet (table 2-10 for me with datasheet v1.53). 8bit
-> readout changes the PLL2 multiplier.
-> 
-> The registers initially looked pretty close to the CCS standard and so
-> possible to use the ccs-pll helpers, except the dividers support /1.5
-> and /2.5 in places so I don't think it can be used as-is (PLL1 prediv
-> is set to /1.5 in the current setup).
-> 
-> Whilst feasible, if no one has had a use case needing an alternate
-> input clock rate in 5 years since the ov9282 driver was merged (Aug
-> 2021), then there's little point in jumping through hoops to
-> accommodate a theoretical future user who may never surface. I'd save
-> yourself the effort.
+> Export the helper so modularized drivers can use it.
 
-That's of course fine with me ;-) Thanks for the quick response.
+NAK. Read the comment - this is an internal helper for iommu-dma 
+(currently the only IOMMU_DOMAIN_DMA implementation) and is definitely 
+not for random drivers to abuse. In fact it should really move to 
+iommu-priv.h now that we have that.
 
-Then I'll add a comment and will likely send v2 later today.
+If you want to do sketchy things with your device's DMA domain then use 
+the public iommu_get_domain_for_dev() interface like everyone else.
 
-regards;rl
+Thanks,
+Robin.
 
 > 
-> > >
-> > > If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
-> > > the current 200000000), does that solve your problem without
-> > > recomputing things?
-> >
-> > Thanks for the explanation above. I guess you're right, the link freq/mipi
-> > rate should not be in there. I've just ran a quick test and it should be
-> > fine with that change.
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: iommu@lists.linux.dev
 > 
-> Great. If just correcting the pixel rate solves the problem, then it's
-> better not to complicate the calculations in other places
-> unnecessarily.
+> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+> ---
 > 
-> > As i would like to keep the ov9282_line_time_ns() function, what's your
-> > take on the following implementation? Would that be OK for a v2?
-> >
-> > static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-> > {
-> >         u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> >         return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
-> > }
+>   drivers/iommu/iommu.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> I have no issue with having a helper for the flash calculations.
-> 
->   Dave
-> 
-> > thanks!
-> >
-> > regards;rl
-> >
-> > >
-> > >   Dave
-> > >
-> > > [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-> > > The original reporter did come back to me and acknowledge he was using
-> > > the downstream Rockchip driver which is doing the wrong thing.
-> > >
-> > > > The right
-> > > > clock is PLL2's system clock. With the PLL2 dividers left at their reset
-> > > > values the chain
-> > > >
-> > > > SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
-> > > >         =    24  /    1     /    3    * loop_div /     4       /    2
-> > > >
-> > > > collapses to SYS_CLK = loop_div MHz.
-> > > >
-> > > > Fix this by introducing a new static function to calculate the current
-> > > > line time and use it in ov9282_exposure_to_us().
-> > > >
-> > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > ---
-> > > >  drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
-> > > >  1 file changed, 37 insertions(+), 9 deletions(-)
-> > > >
-> > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > index c10b2e205834e..3f83a6cf338d8 100644
-> > > > --- a/drivers/media/i2c/ov9282.c
-> > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > @@ -10,10 +10,12 @@
-> > > >  #include <linux/delay.h>
-> > > >  #include <linux/i2c.h>
-> > > >  #include <linux/math.h>
-> > > > +#include <linux/math64.h>
-> > > >  #include <linux/module.h>
-> > > >  #include <linux/pm_runtime.h>
-> > > >  #include <linux/regmap.h>
-> > > >  #include <linux/regulator/consumer.h>
-> > > > +#include <linux/time64.h>
-> > > >
-> > > >  #include <media/v4l2-cci.h>
-> > > >  #include <media/v4l2-ctrls.h>
-> > > > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
-> > > >         return container_of(subdev, struct ov9282, sd);
-> > > >  }
-> > > >
-> > > > +/**
-> > > > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
-> > > > + * @ov9282: pointer to ov9282 device
-> > > > + *
-> > > > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
-> > > > + * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
-> > > > + * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
-> > > > + *
-> > > > + * Return: line time in nanoseconds.
-> > > > + */
-> > > > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-> > > > +{
-> > > > +       u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > > > +       u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
-> > > > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
-> > > > +
-> > > > +       /*
-> > > > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
-> > > > +        */
-> > > > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
-> > > > +}
-> > > > +
-> > > > +/**
-> > > > + * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-> > > > + * @ov9282: pointer to ov9282 device
-> > > > + * @exposure: exposure register value to convert
-> > > > + *
-> > > > + * Return: microsecond represenation of the given exposure register value.
-> > > > + */
-> > > > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> > > > +{
-> > > > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-> > > > +                      NSEC_PER_USEC);
-> > > > +}
-> > > > +
-> > > >  /**
-> > > >   * ov9282_update_controls() - Update control ranges based on streaming mode
-> > > >   * @ov9282: pointer to ov9282 device
-> > > > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-> > > >                                         mode->vblank_max, 1, mode->vblank);
-> > > >  }
-> > > >
-> > > > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> > > > -{
-> > > > -       /* calculate exposure time in µs */
-> > > > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > > > -       u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
-> > > > -
-> > > > -       return exposure * trow_us;
-> > > > -}
-> > > > -
-> > > >  /**
-> > > >   * ov9282_update_exp_gain() - Set updated exposure and gain
-> > > >   * @ov9282: pointer to ov9282 device
-> > > >
-> > > > --
-> > > > 2.53.0
-> > > >
-> > > >
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index cd1bca7ede9af..330f9a79248bd 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -2327,6 +2327,7 @@ struct iommu_domain *iommu_get_dma_domain(struct device *dev)
+>   {
+>   	return dev->iommu_group->default_domain;
+>   }
+> +EXPORT_SYMBOL_GPL(iommu_get_dma_domain);
+>   
+>   static void *iommu_make_pasid_array_entry(struct iommu_domain *domain,
+>   					  struct iommu_attach_handle *handle)
+
