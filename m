@@ -1,592 +1,180 @@
-Received: from mail-qk2-f2.google.com (mail-qk2-f2.google.com [74.125.230.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104E04FC355
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.194
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629058; cv=none; b=kAaGfgQERZlHY290JzmZa0VO4uHCiuRfzEvGVC5TKJqa1G1ynDBmb8gik6+sGUKKWydO7TEYcBQ4YfJYsj2C2RRtY57n/au/OXazSSGjzRPURjoxaGaBNrrIM41VdqFb6dDOOPFeFmb0UOE69t/oEnCZ1LzEfNV6yN7cjY1JO44=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629058; c=relaxed/simple;
-	bh=PeaPssOcLq6rmmUwXstMV/bMoZzVRdhCCPuKpYzSTG8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nncCWrjvoFfH5/nbR6zCnD25i/Pr1InWg4VuHAqSaEeJWrDzXpGUz46DMQQdiM/I5woScsCxG5FaygS1zY6dmBwd/Bn7sw+plDUkBK2jXoNfwPJQ0IvSfps+1Ftq1h6b4B7+kWhMhbaxytTufv3gB3d587ac0ZNGtCX3dmxjIk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0IG/5KX; arc=none smtp.client-ip=74.125.230.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278FB472774;
+	Mon, 28 Sep 2026 20:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790629152; cv=fail; b=Fg5UYFZzj7brhc5Br6r+4QqD0lwews6oiVIfCUFT4M5xF3i0WtV08DvTaCqELMDweAY+k85n4NO4e7TytnNF1oRN+XlU04obDtUPWr+AtBvw4qDzQCNeLaPFxgexxBZoC4Nx0dKpxX1ER7u1MNsuarEQ6ts9eIlK4Uv4NjWq5lE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790629152; c=relaxed/simple;
+	bh=wlOdRt4RVSG+ySU9JVbH0KUn2i9UK+SSVsYTSbCrWbc=;
+	h=Message-ID:Date:Subject:To:References:Cc:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dhjtRr8obJYiK3wfdAnLdzFabJiT47rWvSEmAtkLyrEqh/OzTC8jZKyRdXgjHLtSZC86XPrxd0yIlfdVLgIeyIeRJo0PRC7sF5VeE62/wlbElI4WQcJaUXqjXOlzznEbU39swd4n2SQ6oDNu6iYXoPBvqnbQa6yM3ez3hIwGABc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lbYEL/ln; arc=fail smtp.client-ip=52.101.53.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0IG/5KX"
-Received: by mail-qk2-f2.google.com with SMTP id d75a77b69052e-533239e6e1fso16112781cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:57:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790629052; x=1791233852; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GxH2kWLA46LLxQoALtYVXdvyTmVLLZllL9llUYcqwnw=;
-        b=K0IG/5KX3p2jlP2LN18iUKy/Qh+QdzLFVS7GbGvR3xk+0m9XynK9EfvYc3l2l1hnfc
-         ZBiemaXgxeowI+pKY+Jb9XZq9cHbN+pNDdGKPu62eoGazel6lvPCrfXq5CosGyDpIbxB
-         chYt4WSt0YV0BiR2tpfWXvWxC1bNZtOVFRgk/aIr5WHf3cb6x3qYhHLoFX8Y4DIN05QG
-         Pb0flwCcmOP7N+Sy/v/l7PzqFfImbXVI5OMe+ncKqclrRit/7UcVk2i5VeUBr34bNNXO
-         NM0mVLWFlLDnM1wKTtm/z77DSnQTBwO4R30OSUiuAHZJm6ZHl/uq2x3Gmh3PTCs8no4w
-         sZog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790629052; x=1791233852;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GxH2kWLA46LLxQoALtYVXdvyTmVLLZllL9llUYcqwnw=;
-        b=DCzF2Ij4gFnB1CuRWmGgjnRb3QZSTEJYiL2/Ckcwdk1p5YKZtjbDZxJ4T7f4S6k50i
-         HUNNDZwIIpaXElcjuaCKzmp0JnfuiGuO86bKYYS7r9qtr94MIFCGgNPuMmhWTnSNPUAp
-         CQe8xSPcZaft87Pm0uf7pZPygu9HUpGS2z1gFUfIUlD1VeXOvsC8DEyWnoRVkBobXwkb
-         BeiemVi0jgsoQeH5nZVdmV9dJsnEWCxcpnCXn+NA3wStFFcoWKZXh9Gj8u+1XBk/77Py
-         /gVvg5ibryUz9c1Q1IYm4ZlxHTNVI3jxx54A/A4DJYGTEZrQiN4MqrD+auMH+6AxgDPp
-         5QvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwC5j24Dl9asEAQwAailk8e9GOIOcUe+Q85stoweeBz9/XlJBAIPS1Bp5cb4kzN0iXYJ4u3p451AsRNjbQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3HjxUt9o1rpOVzLqAj2YKgHgtTXxfGq6JL4/EYAHtc2rAtYxf
-	5pqE7Wxj+wvKf9CciCz5M2FiA3BnsOYJuvDdZrEhlzVi+a4yv1smUeXg
-X-Gm-Gg: AYBFou0ZTpMQLOhht4Y3gctxxyNzp2fJ+FGlInBxMKRH87ozeWbrmaD58NVhB3PIYGo
-	hgh3V4cqYL0orKafKOqDNa+7TYlmNsOadbW0yzR9xTXmTMfdknJfk04CLuP955L/UENhunhxsVJ
-	YXZ8FdEDZQVVAmY/NvMItVqu72x6CxTMpMGPcDlEX8Irs5kc/5AtbBvWU2WYAORGz9hf6xTzdgG
-	zA6a3argvp5T6azvX11XkD1yRllIP0XO26n2B1ulrAv7Zmr0Zd+g701PqJPQT9uNqqot32KBqz5
-	ck8PIO1VGRUR7tHI2vDM6udtb7KVtoWumc0VuFzpCxmYtjOOdze2HL2sjFG+lAK8wXizEBQ+k3O
-	nO9tFR/WKKH+1YvcbHX28U4itYMujuABATUzbupsJGfkqZeKHu8gvqFy4Lhv0h6GxqL5v0E3QQh
-	lfA0UyAgVSG7WstRc3kXaj8n2N7oWkTw6Yu6pRu7FmRSxjrI/UN7DLl5KZbKCkmseGvQkibHy3J
-	7w/08hviHb8YFMGn6Dh4acU3klDr8QBEpLxGUn+gIDwCOSs30e12zkqucxe4GNt
-X-Received: by 2002:a05:622a:8c8:b0:533:415f:4290 with SMTP id d75a77b69052e-533415f4748mr101624841cf.25.1790629052200;
-        Mon, 28 Sep 2026 13:57:32 -0700 (PDT)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223c6d82sm71443421cf.21.2026.09.28.13.57.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:57:31 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 28 Sep 2026 15:57:20 -0500
-Subject: [PATCH v4 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
- driver
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lbYEL/ln"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WxA8/mwNFJwxNOjKeG2IIXTszlMow8s89rpSreSDQv5G45NBoTBTZIkm9ayhiEmegIn956xGA5rRydvUqQWe1m/olxjid9JQzHQ9m/Nsq+RoCc/Zbyf8qIwSmKHiCbRvNT/YNBEZN3OF3U0flIIbG69OaP+03cQoK6j3+FqoqiDvpQUJEof8K/ZXNnx28JwgQjxxALMCATu4GJXQ9vVIPlgfP0W8E0K6EwBJ7pOSm1i87wCk5EPXTQ1QCPuaS9oWH9YXWqMPZ90ypLcT61SfGNiSmjOnLTtz73FOJppZ8yjANZUr4GMNgYRgkuruLpYxMQXhFLz33BvJZJgXYX30cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=23/p8uYz4oVdzVmWAtyQt/c85l8CAtrNdTerwclM7gc=;
+ b=uGKi4HmP0WuM3vUM85kAG51+j4lW04Z0Ytxv98rRqKnnQSLCeWH7STE57ivyg10dElPkPgjLAld6OtszthdA45sYLWaT80+6bqdUuoBChE1X+ZP7mTrRpiFtsNECQlS4Uw4SGWtywY8BnhcgHcWiC/b0+sBS/Vy4WfbUgF2KVy6Meo564PEDJUUIq6Gcse0MzQbPEoTVZVF/bEUGqyHLCFmEu4HynvfP9rL22KmdlSpGYylfQWFJlu0aQ6jn4kJKxODrx4MmD8Do1364awc3fyQ+oW5RnbpnboCZxuUhara9g6sBXi5diqyMkxfeCnhmSkVPsdGkpBwo+Lc0k8Zo9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=23/p8uYz4oVdzVmWAtyQt/c85l8CAtrNdTerwclM7gc=;
+ b=lbYEL/lnVB7qPw1jKUZTCSc2qglIOmJkfHqawLuwjGDU3A28WNbu3W+6OdGAtWDxtJY3fLV2sUeMXmobmvYr1Oi9n5jIo97TIr63ZQYWWaqTPM0ZfWbyxkkyV3+nxRaM4l1RgLAk6K1ghGIHUI0Lv1w2QNGSMyJoATjIhmnndsc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Mon, 28 Sep
+ 2026 20:59:07 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 20:59:07 +0000
+Message-ID: <83294b60-a371-43b8-be01-2ff122df2b5f@amd.com>
+Date: Mon, 28 Sep 2026 15:59:04 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: amd-pstate: Update Zen6 client EPP tuning values
+Content-Language: en-US
+To: Vishal Badole <Vishal.Badole@amd.com>
+References: <20260928203523.1290623-1-Vishal.Badole@amd.com>
+Cc: ray.huang@amd.com, rafael@kernel.org, viresh.kumar@linaro.org,
+ perry.yuan@amd.com, kprateek.nayak@amd.com, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260928203523.1290623-1-Vishal.Badole@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0009.namprd03.prod.outlook.com
+ (2603:10b6:610:b0::14) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-2-23533a0d30e3@gmail.com>
-References: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
-In-Reply-To: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
- Roman Vivchar <rva333@protonmail.com>, 
- Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790629044; l=16373;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=PeaPssOcLq6rmmUwXstMV/bMoZzVRdhCCPuKpYzSTG8=;
- b=5uionmJ6VVoOIF7aYTtjebxO4Pku4QTiQXgC8W9nmHxpm5M2CpKt4hzXLsUbhbH42DBHqdUWX
- jc/rIh+VGvzDNxWI9aPISb22t0ZszIR2fOIUI/wO+5TcUBX+Cp/sJGK
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|MW4PR12MB7334:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bf332f3-684f-4909-6294-08df1da355dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	aH/WQR6MEH/de7msPKmUSlrbhtt3+wAXzWTrXNFTRB7yRRBZqY29coGPQGJTqfLWvpSTAyo5kN1+biTuFCl/4OogCzFxXtPu4ZAVi3wupZ7+wS3L7+L/oFweklz85qAQjjDsBJdmXLlp9bOy3vS/CACYTLMj0icQPjAy012NWpu65Bli05U9xel22AV8QG+yRB3whIpqE2swPCgx/TS4hHSFn4mtNSggeKczmCfqdv4Z1PhArpexnU5J4N11Scn+s+cvovGhIjcYnyD44C8GD9WXZhBBIqXZpLJ/Yd1Ww6L/ewIJqKNtLmkPlHDFe+45xcSfNAo/N9c4PKF8n45lLk7RAt5HPWHjFG8c0uTWKCOGawXDHShkjjui1sSGuheENGKbxUiNo7/2/KUnL+zwcs4PkW6JuGdNtAb9brU86y05AmbJkORwxX9KP7bY08har75s9btJGNmtLvzEVYNocbxBpaPAq52AP3o9ug6k3U2LNPf7TpgggNCjZ4BA13q2HO/2f1QHa0wqwfTLQaulfar9d0CRVs120DR1d9ELEYodSdWacc+LW1NYL/JUEzLqUjlQzdQtzy7UwTQJEXhqacQ2HWLKp1MDrz+SeONFJ8/sLX+2hgYpiD4RVNFZaVmEBoe10Q3sw/LTq+l/xoR+4VOwj0IcX/Jql4jfBddORSs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVNaSVBFTGErazVaUml5S0orT2xWMzRjMm1Obkp2NXRiZzZGMEtNL2lYT2Y4?=
+ =?utf-8?B?M0pGVmJ4RDc1bWNOTzI1WUNqSlJQSVhMQXkxVUJrR29nRkcwckJDSHhwWHM5?=
+ =?utf-8?B?YU5SdTFGQXltSHNNeHRQcTdKcStyK3k4MEo4S1kwbXpEb0MvMjNzVTZpempQ?=
+ =?utf-8?B?NGNoUXIrem1TQU1zenFHUGp0T0owYzc4cTY0R0FjTjJ6NE90MEZ0QVEwZE1u?=
+ =?utf-8?B?UXNTQnorV3lKNC96V2JxYUhaTDFUaTdWYXNHaXNLb2Fwa2ZiOWdFQVhVM1hm?=
+ =?utf-8?B?Tzg2ZW5kZW1waG9sWGphVTVMelFrbnBuMXJHQ3NpdGtpQlB5aGtMSXZUS2lr?=
+ =?utf-8?B?eDdFbUR2aUxxS2Z0RFZWUTczL21XYWg3SVF4UkxqbjllTlRpUkptYVErK0JK?=
+ =?utf-8?B?WXZUemRpR0plQTZkclFsOWN0cVVXakxHa3paSkkvbkFIQjNsZ1ZlVTUyRlJL?=
+ =?utf-8?B?ZmxGMVJYTWQrdEJ3WGRlaks5M00vUjRBY2Y2aURkUTJJeWFHR2MxaU9iekJJ?=
+ =?utf-8?B?YXNFclhPS3RWWXRMNnhpR3h3dEJnRVFTSFc4NkhVN3B0eTdvd1BHQllqNFIy?=
+ =?utf-8?B?SXppK24vTmFLZlRHQ1l6RkUrUkFrVWJWL0ZtNnlUYU9hUTJwQUNaaWRZSzZs?=
+ =?utf-8?B?YkE4MXB3eUo1S0tienFRT3NxbUNtTTNRZE5wdlprRFc0NGk5UUs3TFljMTd5?=
+ =?utf-8?B?THpZL3pvTldXNnMwTzNCSWpYZ04xRDg0SEtqRnlwcTlIZzU1L2kvQ1N3VVZx?=
+ =?utf-8?B?eUNHZTZXUHczYTNLV3NpMDVOZDEwT1NDbEUreWpxU3VwdGUrdlpWWU5QTFFz?=
+ =?utf-8?B?UlRQVVIrZFRWaUJJR0xlS1dSYklkVVJJRng5NDl2QjZoc3Z2TXBBYWFkdXIz?=
+ =?utf-8?B?WTU2dkJ2NnU2VnoyVnFlaEd0ekdtNDFveVVsbHBIRmVVdVNsR3dvaGI3VFlG?=
+ =?utf-8?B?eit0N2JST1lMcW5VYi9RdUcyb1h3eTk1aXN3VHFpMlpGbjRBWklNdWVDUDFm?=
+ =?utf-8?B?WFJoRFJZclQxemtIbnJRbnlvK3gzcTRyRi9FS0trMFI3eXRVRDBPYnRKeFUy?=
+ =?utf-8?B?Y0tIc2Q5VXV6QUdhSWREMXhHcm5oSjZ6NkhWR0xkQThaY2o4ZzFJa2lZZU8r?=
+ =?utf-8?B?WU90VUlxb1FGdXlwQ1VuR3l2UzdUdXhaYVlzK3lxNjh1anhFWGZOVEwwZmY0?=
+ =?utf-8?B?K0hBdzQyUEpaUkw5SDZWQWlFTE04WlBTZnZWNU15bzBNZGkyUHNHQjdNVmZn?=
+ =?utf-8?B?eDV6TjlrdjhWRGdCWDFRcm9pSTFid2pjam5yZEpzL3F0YUJReUNLNzgrRnV5?=
+ =?utf-8?B?SzFvcTJZNWlBVnhqUkRBaWFiUDAwZTVWbVJEbWhhalNsWDI3V3ArL1hNVThW?=
+ =?utf-8?B?MTVtQ24zNkppNXlGQzZWbmVGVms4amdSYW9oTlE4U29nMVVjR0hldjVuTmti?=
+ =?utf-8?B?ZlY4aUF2UEN0VjBYaHkvMlBJUzNubHlRMndPaHlwWGJLazVUMEJvbCthMmYw?=
+ =?utf-8?B?M2dtUnQ0UzU5YUZzNDlRMGtYTk0rbjRhbkljQ2NBNW1IK1JONC9nR3JlaWx2?=
+ =?utf-8?B?bEVUbjN5Rm85a014bDVmSTFkSm4zZ3k5VlpFK1cxdUVwKzdiVWNUNVJhZm8x?=
+ =?utf-8?B?TE1LaTlyN0lHRWcrazk0Z1RrSDVmK0oxcEs3NWFtOEhtdzZHN3R1Y09uTFlC?=
+ =?utf-8?B?N1dtNU5NQ3ZNSXlrMWpLZ1lMcTg1dDNhVi9SR1NEejVjejFpSXlRVXhKVGpL?=
+ =?utf-8?B?MUV4SkRndVpLWk5ZQnMvSmkvRHRZWkNibVIrVlhPRHZrQkF1OWJLNVhGZERH?=
+ =?utf-8?B?MXZpZWdIeEZhbUVJdmhuYWlSSkpvZS9jUlgwNkVyY0swT0Erdk56ai8xZk9s?=
+ =?utf-8?B?VlJXbG03dkllNVJsSE4wb2JPeDRQUVN3Q0JaMG9nbERsY3c5cUd6SjRwTjlH?=
+ =?utf-8?B?TjhiYkhkNTdGUkw0NmliWlJHdU5VdUJpSTlnVnBydS93RFJOT3RkUmU5V0ZE?=
+ =?utf-8?B?ZzZpRkkyUFJyWmR0cDMwYVIxdCtDQWJ1dmViaTNZdkEvNGR4K0N4V21IaTgy?=
+ =?utf-8?B?SXd0QkNQM1R5ekVtb3VwMDViZVM1SWFrSzcwdDJXTE9iVXdPb1NxODAxL1Er?=
+ =?utf-8?B?UFhvZHNaMnc1Q0xvOWFWUllPUko2anBPREZmTDRrRUZmeWRvRVVVcTBNbDVx?=
+ =?utf-8?B?MDd3cDJxVUhJcDRlY2tWd2kzLzFidXZocTh6L0ZyaWdRelpodEFGUmN2ZFg4?=
+ =?utf-8?B?S1E3WjZzcDdUeDg0cnpFZ0QvajRHUUNycWtEVllmdy9FSDhqZ0pYTkdxWnRP?=
+ =?utf-8?B?VDVVd3RBd1NRaGhnU2ViUGNhVk1qRnhtbnFIVUh4WVBlY3pNMzhWdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bf332f3-684f-4909-6294-08df1da355dc
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 20:59:06.9336
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ENn/iOF9/A9+UDTqQL/fN1XgutbG98A2G43a9E9mmH0WVN1+QAzg/LJcdNADDY0pKjpfJDlnPl/2RBy25zcd4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7334
 
-The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
-built around this PMIC it is the only way to read the battery: the SoC's
-AUXADC is wired to board thermistors and the charger ICs these boards use
-have no ADC of their own.
 
-Add a driver exposing the battery voltage and battery temperature
-channels. Only those two are described, so a channel ID in the device tree
-indexes the driver's channel array rather than the PMIC's channel number,
-as mt6323-auxadc does. The ready bit lives in a channel's raw result
-register, but the value comes from the chip's factory-calibrated copy.
 
-The battery voltage is measured through ISENSE, because a board with a
-switching charger in the power path leaves BATSNS on the charger's system
-rail instead of on the pack. The thermistor only reads correctly with the
-PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
-settle. Both are switched back off afterwards.
+On 9/28/26 15:35, Vishal Badole wrote:
+> The per-CPU-type EPP values for the Zen6 client platform are further
+> tuned based on platform characterization. Adjust the performance and
+> low-power core entries so each core type uses its intended EPP settings.
+> 
+> Reviewed-by: Mario Limonciello <Mario.Limonciello@amd.com>
+> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+> ---
+> This patch is based on Mario Limonciello's:
+>    "cpufreq/amd-pstate: Add EPP tunings for Zen6 client platforms"
+>    https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/commit/?id=114a157e8d30601d024b53564a0fe54202f6567f
+> 
 
-Reads average sixteen conversions in software; the chip's sample
-accumulator makes no measurable difference at any setting, so it is left
-at one sample per conversion.
+Appreciated.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Applied to superm1/linux.git bleeding-edge.
 
----
+I'll include this in my last PR for 7.4.
 
-A new driver was created here, instead of modifying an existing driver such
-as mt6323-auxadc or mt6359-auxadc, for the following reasons:
-
- - Both mt6323-auxadc and mt6359-auxadc select channels through a request
-   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
-   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
-
- - For mt6323-auxadc, which is the closest I could find to the mt6397
-   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
-   It uses CON22 for its request register, and reads the result value
-   from the same register as the ready bit. We don't do that - the mt6397
-   has a factory-calibrated value for each channel at 0x16 higher than the
-   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
-   we have 1200 mV / 10 bits. We also have some per-channel preparation
-   that we have to do before the burst, that the mt6323 doesn't have to
-   do.
-
- - For mt6359-auxadc, it has a more generic framework for describing the
-   AUXADC, but it assumes requests are channel-per-bit, and so we would
-   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
-
- - We also have our own software sampling, which the vendor does too
-   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
-   sampling callback to do it.
----
- MAINTAINERS                     |   1 +
- drivers/iio/adc/Kconfig         |  11 ++
- drivers/iio/adc/Makefile        |   1 +
- drivers/iio/adc/mt6397-auxadc.c | 377 ++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 390 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c8cef3bcb7de..50647e725eca 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16719,6 +16719,7 @@ MEDIATEK MT6397 PMIC AUXADC DRIVER
- M:	Ryan Brue <ryanbrue.dev@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
-+F:	drivers/iio/adc/mt6397-auxadc.c
- F:	include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
- 
- MEDIATEK MT6735 CLOCK & RESET DRIVERS
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 415e519ad4eb..9a1d36ed53cb 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1233,6 +1233,17 @@ config MEDIATEK_MT6370_ADC
- 	  This driver can also be built as a module. If so, the module
- 	  will be called "mt6370-adc".
- 
-+config MEDIATEK_MT6397_AUXADC
-+	tristate "MediaTek MT6397 PMIC AUXADC driver"
-+	depends on MFD_MT6397
-+	help
-+	  Say yes here to enable support for MediaTek MT6397 PMIC Auxiliary ADC.
-+	  This driver provides the battery voltage and battery temperature
-+	  channels used by the fuel gauge on boards built around this PMIC.
-+
-+	  This driver can also be built as a module. If so, the module will be
-+	  called mt6397-auxadc.
-+
- config MEDIATEK_MT6577_AUXADC
- 	tristate "MediaTek AUXADC driver"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index dcec0abb03b7..13cb4206bdb7 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -105,6 +105,7 @@ obj-$(CONFIG_MEDIATEK_MT6323_AUXADC) += mt6323-auxadc.o
- obj-$(CONFIG_MEDIATEK_MT6359_AUXADC) += mt6359-auxadc.o
- obj-$(CONFIG_MEDIATEK_MT6360_ADC) += mt6360-adc.o
- obj-$(CONFIG_MEDIATEK_MT6370_ADC) += mt6370-adc.o
-+obj-$(CONFIG_MEDIATEK_MT6397_AUXADC) += mt6397-auxadc.o
- obj-$(CONFIG_MEDIATEK_MT6577_AUXADC) += mt6577_auxadc.o
- obj-$(CONFIG_MEN_Z188_ADC) += men_z188_adc.o
- obj-$(CONFIG_MESON_SARADC) += meson_saradc.o
-diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
-new file mode 100644
-index 000000000000..8d1702658876
---- /dev/null
-+++ b/drivers/iio/adc/mt6397-auxadc.c
-@@ -0,0 +1,377 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * MediaTek MT6397 PMIC AUXADC IIO driver
-+ *
-+ * Copyright (c) 2026 Ryan Brue <ryanbrue.dev@gmail.com>
-+ *
-+ * Based on drivers/iio/adc/mt6323-auxadc.c
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/iio/iio.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+
-+#include <linux/mfd/mt6397/core.h>
-+
-+#include <dt-bindings/iio/adc/mediatek,mt6397-auxadc.h>
-+
-+/* The ready bit is in the raw result register, the value in the trimmed one. */
-+#define MT6397_AUXADC_ADC(n)			(0x0514 + 2 * (n))
-+#define   MT6397_AUXADC_ADC_RDY			BIT(15)
-+#define   MT6397_AUXADC_ADC_VAL			GENMASK(9, 0)
-+/* The trimmed copy of ADC(n), which is ADC11 + n. */
-+#define MT6397_AUXADC_ADC_TRIM(n)		(0x052a + 2 * (n))
-+
-+/* The thermistor needs the battery-detect bias and the input buffer on. */
-+#define MT6397_AUXADC_CON0			0x0542
-+#define   MT6397_AUXADC_CON0_BUF_PWD_B		BIT(1)
-+#define   MT6397_AUXADC_CON0_BUF_PWD_ON		BIT(3)
-+/* Samples accumulated per conversion; the chip's accumulator is left at one. */
-+#define   MT6397_AUXADC_CON0_SPL_NUM		GENMASK(11, 7)
-+#define MT6397_CHR_CON7				0x000e
-+#define   MT6397_CHR_CON7_BATON_TDET_EN		BIT(2)
-+
-+#define MT6397_AUXADC_BATTEMP_SETTLE_US		(20 * USEC_PER_MSEC)
-+
-+#define MT6397_AUXADC_CON1			0x0544
-+#define   MT6397_AUXADC_CON1_CHSEL		GENMASK(10, 7)
-+#define   MT6397_AUXADC_CON1_START		BIT(0)
-+
-+/*
-+ * CHR_CON16 and the two SOURCE_CH0 selects route either BATSNS or ISENSE onto
-+ * the battery channel. Only ISENSE is used: with a switching charger in the
-+ * power path BATSNS sits on the system rail rather than on the pack. All five
-+ * ADCIN bits are written out because they are one enable per analog input
-+ * and not a select field; the driver touches only the two it needs.
-+ */
-+#define MT6397_CHR_CON16			0x0020
-+#define   MT6397_CHR_CON16_ADCIN_VCHR_EN	BIT(12)
-+#define   MT6397_CHR_CON16_ADCIN_VSEN_EN	BIT(11)
-+#define   MT6397_CHR_CON16_ADCIN_VBAT_EN	BIT(10)
-+#define   MT6397_CHR_CON16_ADCIN_VSEN_EXT_BATON_EN	BIT(9)
-+#define   MT6397_CHR_CON16_ADCIN_VSEN_MUX_EN	BIT(8)
-+#define MT6397_AUXADC_CON14			0x055e
-+#define   MT6397_AUXADC_CON14_CH0_NORM_SEL	BIT(2)
-+#define   MT6397_AUXADC_CON14_CH0_LBAT_SEL	BIT(0)
-+
-+#define MT6397_AUXADC_ISENSE_SETTLE_US		(1 * USEC_PER_MSEC)
-+
-+/* Conversions averaged in software per read. */
-+#define MT6397_AUXADC_SAMPLES			16
-+
-+/* Hardware limitation: the result is not ready for this long after START. */
-+#define MT6397_AUXADC_START_US			30
-+
-+/* The battery channel is divided down by 4; the thermistor is not divided. */
-+#define MT6397_AUXADC_ISENSE_DIVIDER		4
-+
-+/* The PMIC's channel numbers, as the CON1 select field takes them. */
-+#define MT6397_AUXADC_HWCHAN_BATSNS		0
-+#define MT6397_AUXADC_HWCHAN_BAT_TEMP		3
-+
-+struct mt6397_auxadc {
-+	struct regmap *regmap;
-+	/*
-+	 * A read is a multi-register sequence: analog setup, then a channel
-+	 * select and an edge-triggered start per conversion. Interleaving two
-+	 * of them steals the select and tears down the setup, so a read holds
-+	 * this for its whole burst.
-+	 */
-+	struct mutex lock;
-+};
-+
-+/*
-+ * A device tree channel ID indexes this array; .address holds the PMIC channel
-+ * number. The thermistor reports as a voltage because that is all the PMIC
-+ * measures: the divider across an NTC whose curve belongs to the board.
-+ */
-+static const struct iio_chan_spec mt6397_auxadc_channels[] = {
-+	{
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = MT6397_AUXADC_ISENSE,
-+		.address = MT6397_AUXADC_HWCHAN_BATSNS,
-+		.datasheet_name = "isense",
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+	}, {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = MT6397_AUXADC_BAT_TEMP,
-+		.address = MT6397_AUXADC_HWCHAN_BAT_TEMP,
-+		.datasheet_name = "bat_temp",
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+	},
-+};
-+
-+static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
-+				   const struct iio_chan_spec *chan, int *val)
-+{
-+	struct regmap *map = adc->regmap;
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_update_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_CHSEL,
-+				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL, chan->address));
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * START is edge triggered: lower it before raising it again. No delay
-+	 * is needed in between -- the ready bit survives the fall and is
-+	 * cleared by the rise, before the next transaction on this bus can
-+	 * observe it, so a ready bit seen by the poll can only be this
-+	 * conversion's.
-+	 */
-+	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(MT6397_AUXADC_START_US);
-+
-+	ret = regmap_read_poll_timeout(map, MT6397_AUXADC_ADC(chan->address),
-+				       reg, reg & MT6397_AUXADC_ADC_RDY,
-+				       100, 100 * USEC_PER_MSEC);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(map, MT6397_AUXADC_ADC_TRIM(chan->address), &reg);
-+	if (ret)
-+		return ret;
-+
-+	*val = FIELD_GET(MT6397_AUXADC_ADC_VAL, reg);
-+
-+	return 0;
-+}
-+
-+static int mt6397_auxadc_battemp_bias_on(struct mt6397_auxadc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	int ret;
-+
-+	ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
-+			      MT6397_AUXADC_CON0_BUF_PWD_ON);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
-+			      MT6397_AUXADC_CON0_BUF_PWD_B);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_set_bits(map, MT6397_CHR_CON7,
-+			       MT6397_CHR_CON7_BATON_TDET_EN);
-+}
-+
-+static void mt6397_auxadc_battemp_bias_off(struct mt6397_auxadc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+
-+	regmap_clear_bits(map, MT6397_CHR_CON7, MT6397_CHR_CON7_BATON_TDET_EN);
-+	regmap_clear_bits(map, MT6397_AUXADC_CON0, MT6397_AUXADC_CON0_BUF_PWD_B);
-+	regmap_clear_bits(map, MT6397_AUXADC_CON0, MT6397_AUXADC_CON0_BUF_PWD_ON);
-+}
-+
-+static int mt6397_auxadc_isense_enable(struct mt6397_auxadc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	int ret;
-+
-+	/*
-+	 * Each ADCIN bit connects one input to the battery channel. BATSNS is
-+	 * disconnected before ISENSE is connected, so that the two are never
-+	 * connected at the same time.
-+	 */
-+	ret = regmap_clear_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VBAT_EN);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VSEN_EN);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_set_bits(map, MT6397_AUXADC_CON14,
-+			       MT6397_AUXADC_CON14_CH0_NORM_SEL |
-+			       MT6397_AUXADC_CON14_CH0_LBAT_SEL);
-+}
-+
-+static void mt6397_auxadc_isense_disable(struct mt6397_auxadc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+
-+	regmap_clear_bits(map, MT6397_AUXADC_CON14,
-+			  MT6397_AUXADC_CON14_CH0_NORM_SEL |
-+			  MT6397_AUXADC_CON14_CH0_LBAT_SEL);
-+	regmap_clear_bits(map, MT6397_CHR_CON16,
-+			  MT6397_CHR_CON16_ADCIN_VSEN_EN |
-+			  MT6397_CHR_CON16_ADCIN_VBAT_EN);
-+}
-+
-+/*
-+ * One burst on a channel that is already prepared: the caller owns the lock,
-+ * the analog setup and the teardown.
-+ */
-+static int mt6397_auxadc_read_burst(struct mt6397_auxadc *adc,
-+				    const struct iio_chan_spec *chan, int *val)
-+{
-+	unsigned int sum = 0;
-+	int sample;
-+	int ret;
-+
-+	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
-+		ret = mt6397_auxadc_read_once(adc, chan, &sample);
-+		if (ret)
-+			return ret;
-+
-+		sum += sample;
-+	}
-+
-+	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
-+
-+	return 0;
-+}
-+
-+static void mt6397_auxadc_release(struct mt6397_auxadc *adc,
-+				  const struct iio_chan_spec *chan)
-+{
-+	/* Lowering START leaves the converter unarmed between reads. */
-+	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
-+
-+	if (chan->channel == MT6397_AUXADC_ISENSE)
-+		mt6397_auxadc_isense_disable(adc);
-+	else
-+		mt6397_auxadc_battemp_bias_off(adc);
-+}
-+
-+static int mt6397_auxadc_read_channel(struct iio_dev *indio_dev,
-+				      const struct iio_chan_spec *chan,
-+				      int *val)
-+{
-+	struct mt6397_auxadc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	mutex_lock(&adc->lock);
-+
-+	if (chan->channel == MT6397_AUXADC_ISENSE) {
-+		ret = mt6397_auxadc_isense_enable(adc);
-+		if (ret)
-+			goto out_release;
-+
-+		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
-+	} else {
-+		ret = mt6397_auxadc_battemp_bias_on(adc);
-+		if (ret)
-+			goto out_release;
-+
-+		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
-+	}
-+
-+	ret = mt6397_auxadc_read_burst(adc, chan, val);
-+
-+out_release:
-+	mt6397_auxadc_release(adc, chan);
-+	mutex_unlock(&adc->lock);
-+
-+	return ret;
-+}
-+
-+static int mt6397_auxadc_read_raw(struct iio_dev *indio_dev,
-+				  const struct iio_chan_spec *chan,
-+				  int *val, int *val2, long mask)
-+{
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = mt6397_auxadc_read_channel(indio_dev, chan, val);
-+		if (ret)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		/* 1200 mV full range with 10-bit resolution. */
-+		if (chan->channel == MT6397_AUXADC_ISENSE)
-+			*val = 1200 * MT6397_AUXADC_ISENSE_DIVIDER;
-+		else
-+			*val = 1200;
-+
-+		*val2 = 10;
-+
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info mt6397_auxadc_info = {
-+	.read_raw = mt6397_auxadc_read_raw,
-+};
-+
-+static int mt6397_auxadc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mt6397_chip *chip = dev_get_drvdata(dev->parent);
-+	struct mt6397_auxadc *adc;
-+	struct iio_dev *indio_dev;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	adc = iio_priv(indio_dev);
-+	adc->regmap = chip->regmap;
-+
-+	ret = devm_mutex_init(dev, &adc->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(adc->regmap, MT6397_AUXADC_CON0,
-+				 MT6397_AUXADC_CON0_SPL_NUM,
-+				 FIELD_PREP(MT6397_AUXADC_CON0_SPL_NUM, 1));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize auxadc\n");
-+
-+	indio_dev->name = "mt6397-auxadc";
-+	indio_dev->info = &mt6397_auxadc_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = mt6397_auxadc_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(mt6397_auxadc_channels);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct of_device_id mt6397_auxadc_of_match[] = {
-+	{ .compatible = "mediatek,mt6397-auxadc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, mt6397_auxadc_of_match);
-+
-+static struct platform_driver mt6397_auxadc_driver = {
-+	.driver = {
-+		.name = "mt6397-auxadc",
-+		.of_match_table = mt6397_auxadc_of_match,
-+	},
-+	.probe = mt6397_auxadc_probe,
-+};
-+module_platform_driver(mt6397_auxadc_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Ryan Brue <ryanbrue.dev@gmail.com>");
-+MODULE_DESCRIPTION("MediaTek MT6397 PMIC AUXADC Driver");
-
--- 
-2.55.0
+>   drivers/cpufreq/amd-pstate.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+> index 83960a6336b9..2529cee9a6cc 100644
+> --- a/drivers/cpufreq/amd-pstate.c
+> +++ b/drivers/cpufreq/amd-pstate.c
+> @@ -211,7 +211,7 @@ static const struct amd_pstate_epp_soc epp_soc_zen6_client __initconst = {
+>   		.performance		= 25,
+>   		.balance_performance	= 51,
+>   		.balance_power		= 64,
+> -		.power			= 64,
+> +		.power			= 115,
+>   	},
+>   	.efficiency_core = {
+>   		.performance		= 25,
+> @@ -221,9 +221,9 @@ static const struct amd_pstate_epp_soc epp_soc_zen6_client __initconst = {
+>   	},
+>   	.low_power_core = {
+>   		.performance		= 25,
+> -		.balance_performance	= 51,
+> +		.balance_performance	= 64,
+>   		.balance_power		= 64,
+> -		.power			= 115,
+> +		.power			= 64,
+>   	},
+>   };
+>   
 
