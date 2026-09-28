@@ -1,79 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DE9347BC6;
-	Mon, 28 Sep 2026 10:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9C946EC9F
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592800; cv=none; b=uPjKIUHwKmBBGIiwjolli4UM+oB92m1qt9D3fxjm4QebnHYgIFHmIqbe54GrUJVtkxeat53wxYuS5ncicIqNch3fKzhjBL4aIKysbP7cOXHXa97+5M1fUXrhiJpaCNJ6/fkjpzdy6s5JZTwc+AsTqxzXYqEqGSoAc//o02DqxqA=
+	t=1790592817; cv=none; b=geT/SPUphnKIby3NlS3i/747K1LRpAaNhhrQjNTysBV7XifZ85KPnJnrV3jFZN6uDkuzrxB34VI4cL9MVXiGgQ4CpKl7O+u9Zr0r1IfGfSglLKCW+V3yFalUkhSHS2FUvLaKrOZ3FNSORrUcdErMVwbjq46HudBU1Sb8NpW6+CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592800; c=relaxed/simple;
-	bh=lRnGRmTIK4eCxRJqWaqBj5lTEM2b3uoBnMuiP1tCOP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s28XVUqei6RX6AhtfPLOJywFqBCa/qMJKi0aoFMa3tpENjdbqKIyogPcqNqIfq+K2TCsEluA94FAR+AgtrXTR4URtAzxUweu74hA8+KLk3o3EcdlF1w4JvnA0+5DUyUBk/OtZwS6ANjMH9pL7fJ+88zuGAjAYh0vm1FuDVlsufA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=famf3kER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790592817; c=relaxed/simple;
+	bh=qkT9OCgkqr2UDi/9gAsgUINV/x1Hovd7tkcNjOTA37g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WIZ03XggE625mj+G6NhgGSkZUKUizC/0GfSs25P6WycLdlmk3O4ZC6fZy8xUh24uLxprPNZ/j5QXPJOSsuEJqoo8w0C5Ir6h6DhGTdAP2kpWpny3EXd9oIDrvtsZBzFQfxY32C20fusUmyau43npFfDut+gA4/zNrcpBpqh4K6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+uRVMMw; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="famf3kER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A93B1F000FF;
-	Mon, 28 Sep 2026 10:53:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592798;
-	bh=6D098QPVSwWqNBpArd/Me/az4SDZX0zwpAQXNcTfI+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=famf3kER+GkxLgEogwc7UzWg6j4FmsvuKVnURgfMYXi+JENjk4lphACWxOq771lKk
-	 G1uyaoKtQeJlk8OGnpfFgyG8Iv4MdUgogcEKRMbb9eJOAkBrsxTzfTywFBgPgWL2bn
-	 I7z/DT6S7KtkixVwQQ7zJYpL1YNGnpNKriefMHgnnN11JK+ZjMA+dR6hfl5FEQulDB
-	 fGzq7fEgOm/RfvOp8rfkWQzMtv+MFn5E7ePFwESsCKzDeCvtKnaHw0TlKUCmWpbItD
-	 3duiEV1W/1cqvRRq1GBD9A04aIixYjb06cO4dwuRAi/xsLitE4AyWZbbdqFzo1Q2Mv
-	 L4+Qx6v01G7ww==
-Date: Mon, 28 Sep 2026 12:53:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: clock: qcom: document the Nord DPRX
- Clock Controller
-Message-ID: <20260928-vanilla-rottweiler-of-might-94ea7b@quoll>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+uRVMMw"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c7a1aeecso2555531e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790592814; x=1791197614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3R0NzwRxoc+Dqyc5P5ehqvEdn0d2HKNjoedIzM2Hkbo=;
+        b=l+uRVMMwoZK5ViEMJzEbSwA0WeIi0H4c79/jX7mSAMJ/e7y632SQogFEpf/+kh6cdA
+         PFKFibcA4Zws5+AT4eYoEG3LK00v/P+qrJIO9Pbl6FkYO4LlI+Mio2Hpw/hTI2lq4SxT
+         czhb5XcxGo8cTgxgfOC+OQZg4+pdIO2rGnDbUrYTnMNjO+tEv1S9PBjOUx9Hquc3IYZY
+         NZnakVg5u1O+sI6cZ+fgx9SlDUgfG5yTavoeyA+QruVgAMqk35NxdLD4Tpc3mKTbCcv4
+         JvP9laNfk6vEoWfJtabMvmXzqUYsA5Do4S3uPYs7oyBUEs0qYABx/q95DUkFAaHKSZJb
+         hBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790592814; x=1791197614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3R0NzwRxoc+Dqyc5P5ehqvEdn0d2HKNjoedIzM2Hkbo=;
+        b=DsV4+ix219AH3CvRRg31S+wb5qSkkK8oTOQR7q/p7KbbCgXUguvTq6+35d/+ods3xR
+         l65nIv0huB5gICIT1YMW8e8DRlC66cOvBCWEpqUNJWAyERsmwkEUzfIe+AOvatWN/dRJ
+         5x1UzU/voDXtCvtMA3az43c6P5VlqBIdBOzHTop6Bef2KZNdv4UtuTdidXowsAibKCou
+         Nry0/icwHFBBQosGDxUfELAoUuNIPUluGEORxC4TNy7ynilo9YYzp0HIGmEczrMOIVSY
+         A+Rob66PTyvNoQN3FDR2WHJwtcwM9MVK0FhfNE5iFJdjZ4uChfbXhaV3X2lgjjm6a91+
+         bPeA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuvDmqmtHuALKgeEZffG82R3ar4nDkFC37khl8u6NrVyGuJTYYtUyebahOr1rmD6aDrs2m2AyXT+Uutvs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgqdIDlztHDwGJweG6m4zPb/VRZ25CCKhNpS0IJQBwtPgen4Hq
+	lnXUzHTC+VSeACoQoTurnBUd8OVaRokz2lHFgWSr3EaY6GsB8YCNQdzk
+X-Gm-Gg: AYBFou1MXVoTV+eublRsstEFls9DtbhyvixT+vg5fed1Ffc7yCHND4EpsY9Vn/CYXkQ
+	8TRNH0rk1wuGtlfKqIcu3KU0bzg26O53keoZUhs9/RRBJKnT9/TYoV0gN9tC8Cf15/8Oal8AUG9
+	v6tER9Qo9emy7GKh09Y1p+SerdB908I5ezB6YvBIrScIb2kboKep5PTKNEAP3dhcJD34NJpU+he
+	kqW1yx29QkCr6cRepyhtxzzS5j16Z7j/u78pjAp+0H+OXvQotTZ43/vn6NE3mB2zj6mbUPz65L7
+	y2YdAXbYQiVAGaOxBVYwz3TVL+Wj+0PxE6jgvITnK0SAq43Gf3KM2FoU8W6l/L9+I+YZRnKFHw6
+	e7W5PN794mggUOuvI0f7Nhp9hsEuBZpRniQuJdIxx/zu/RxhHATCXu1uy+W4xsknq0qjdOZdlsQ
+	TARrlEBQAILmCtFQsLQSQth9MmKt47FHuldjCbaJ3RggWmVnYfcIstASwTIWpdNZRHYkcGWGzIH
+	8fiitYc1eM/ranfrMiy/6GefY7yLZRpMIh5YE9iiQlkNTI1
+X-Received: by 2002:a05:6512:3c94:b0:5b4:97db:b740 with SMTP id 2adb3069b0e04-5b8df0db4e5mr4566165e87.20.1790592813333;
+        Mon, 28 Sep 2026 03:53:33 -0700 (PDT)
+Received: from sc-mac-012.corp.sbercloud.ru ([188.191.29.26])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb04f5sm402819e87.35.2026.09.28.03.53.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 03:53:32 -0700 (PDT)
+From: Dmitry Kandybka <d.kandybka@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kbuild: Makefile.lib: fix offsets generation with debug info
+Date: Mon, 28 Sep 2026 13:53:29 +0300
+Message-ID: <20260928105330.25427-1-d.kandybka@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 12:51:32AM +0530, Taniya Das wrote:
-> +
-> +  clocks:
-> +    items:
-> +      - description: XO clock source
-> +      - description: DPRX CFG AHB clock from NWGCC
-> +      - description: Sleep clock source
-> +
-> +  power-domains:
-> +    description:
-> +      MMCX power domain.
-> +    maxItems: 1
+When debug information is enabled (e.g. -ggdb3), the assembler
+output file (e.g. kernel/sched/rq-offsets.s) contains additional
+directives such as .ascii with offset info and debug metadata.
 
-Preferred is the simpler:
+For example:
 
-  items:
-    - description: MMCX power domain
+    .ascii "->RQ_nr_pinned $3048 offsetof(struct rq, nr_pinned)"  #
+    ...
+    .ascii "->func); __data = (it_func_ptr)->data; ((void(*)(void *, pro"
 
-but no need to resend just for that.
+The current sed-offsets macro uses [^ ]* to match constant names,
+which is too permissive and can match unexpected characters when
+debug directives are present. Additionally, the fallback command
+'s:->::; p;' strips '->' from any unmatched line and prints it,
+which causes debug metadata to leak into the generated header
+file (include/generated/rq-offsets.h), breaking the build.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Replace [^ ]* with [[:alnum:]_]* to match only valid C identifiers,
+and remove the fallback 's:->::' command so that only successfully
+transformed lines are emitted into the generated header.
 
-Best regards,
-Krzysztof
+Fixes: 7dd47b95b0f5 ("kbuild: consolidate redundant sed script ASM offset generation")
+Signed-off-by: Dmitry Kandybka <d.kandybka@gmail.com>
+---
+ scripts/Makefile.lib | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 0a4fdd8bd975..32251eb6ca33 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -493,9 +493,8 @@ quiet_cmd_zstd22_with_size = ZSTD22  $@
+ # the .ascii directive whereas GCC keeps the <space> as-is.
+ define sed-offsets
+ 	's:^[[:space:]]*\.ascii[[:space:]]*"\(.*\)".*:\1:; \
+-	/^->/{s:->#\(.*\):/* \1 */:; \
+-	s:^->\([^ ]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:; \
+-	s:->::; p;}'
++	/^->/{s:->#\(.*\):/* \1 */:p; \
++	s:^->\([[:alnum:]_]*\) [\$$#]*\([^ ]*\) \(.*\):#define \1 \2 /* \3 */:p;}'
+ endef
+ 
+ # Use filechk to avoid rebuilds when a header changes, but the resulting file
+-- 
+2.54.0
 
