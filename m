@@ -1,72 +1,140 @@
-Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA153749EE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.236
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB96A344021;
+	Mon, 28 Sep 2026 22:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790632996; cv=none; b=UiuL+6px4CPdFm7/n2kr6+qUzZaN3T4ly5aZk/HS7Cj9Jl0BVtpy2xl70ZBG9VzEAwj6MbmYfarugivSMSdIo6LvPpc8CBm+na9r1N/J2336FwAUGS/1PY6w5r2RLft2y9JYVh6V0Xiyiid5bgeDpgFYDPVMNlgLCfCh5FaS5ks=
+	t=1790633063; cv=none; b=TW/zowEyn3heZLd+aGy3qk9RS7zEqp+l5TptoY6aYdOuhNxKYNot5ieGJaGSDwaUpXYSxliADxAD9N4T2ScFNeyRPo5YxRj4/YmScF6QDKJHtfvCA5V8b+2SPUBmZP+15MZoRHVc7MUdwhsRw+NlzJWLuI0TQ/F4Nk2uGWAekJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790632996; c=relaxed/simple;
-	bh=UfqEC0hvhzksIoWD3A2UB8R/0PLC23wCy5su2X5T2VU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WIiObs3FIiWMZCKt9P8kerPcAP3ZOJGJaLXUlMvtv6ER1SX5NMuYu61yT6zIJdpFfUAXNEBkkHbFuQC8vK4DMMYqyDzQc7vNNPS7d/rZsQ8bbwaLeigbtAzOVGk/KJ2t72zH0xkc69Kq33Kl4dJH/91n8UqYSqv9c+yWnZ21uOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=M7DaofgO; arc=none smtp.client-ip=95.215.58.236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790633063; c=relaxed/simple;
+	bh=BwsjGz6iUh59cLgLUFJKdhLkOfQobRfo4RrxZOTVLJw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fLLiBKIQ19l8a3iSSUFeW5ux36kbrR17YzBPHxaQZ1yehIQLmzw43Bnvfl5g79zV89R0EZ1ZdaE7CnsluAkqzUlcOKRN66vDLUxTiMShHcACZ9x9lgwteZzuHRXh4urDey+iiNfD9vLxp9ovLgSoTXHqd5ku05kl5Ig8cATGTgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWTWbsW9; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="M7DaofgO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UfqEC0hvhzksIoWD3A2UB8R/0PLC23wCy5su2X5T2VU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790632992; v=1; x=1791237792;
- b=M7DaofgOtoKMtSSdvroZMBRl+UNaj42CsHtvUtYjmkRqeLidM/TZoVWO004pVnTJz6nwczZT
- 2Rh0QGOtX73tMtxg+aoLQpwxui37CY2XHFjGnqAZq80KWW54vzz6w3vYibLor7abaMTabvXlLY0
- qdKNPWA5VxIhbmFCV/TS3PlE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 538580cffdbed75c;
-	Mon, 28 Sep 2026 22:03:11 +0000
-X-Mizu-Trace-ID: 538580cffdbed75c
-X-Migadu-Flow: FLOW_OUT
-From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-To: ilya.gladyshev@linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Subject: [PATCH v1] MAINTAINERS: update Ilya Gladyshev's email address
-Date: Tue, 29 Sep 2026 01:03:10 +0300
-Message-ID: <20260928220310.34883-1-ilya.gladyshev@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWTWbsW9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790633062; x=1822169062;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BwsjGz6iUh59cLgLUFJKdhLkOfQobRfo4RrxZOTVLJw=;
+  b=kWTWbsW945It6wCjqnGHXPKJnQ9D76mTKUkyEyYWZrChYXA6e6oPgHpl
+   yCzw+nfQECsiMflIXb1ucTkMiXyodauFzCVfpxKetI0E/eYa4+NG5BcGp
+   aXUqpMl9P6R0lFI/vpu8kegLLu8ILTon76zKPXPhPSavCXfctyGcKBSkq
+   e0yYP1X1NhBf9iWJPT9rNlSVFxawGecwiXb1qlUy2whLPtKeNTtuHmbWb
+   V5l9TX9w6iCQ5zJiMoxgTav3C35NmLEnQoIuPe0dMyIwI4vOrEnayVbbH
+   B97uMgn03jxrbfyAJorjfnKCKaZtNQpQLK/3JfLaXAK0gknhQBTCuHvk/
+   A==;
+X-CSE-ConnectionGUID: qvu2TkIsTby6dP+zrEh3DQ==
+X-CSE-MsgGUID: UT5IMSR9Rk2A/67G9lhNxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90563416"
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="90563416"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:04:22 -0700
+X-CSE-ConnectionGUID: YR79f9dTSi2hW8CeEJUDag==
+X-CSE-MsgGUID: xr+Z/rNgS2yClAwIheWc2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="278539058"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:04:19 -0700
+Date: Tue, 29 Sep 2026 01:04:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <arrkYNNlD6_bCgiO@ashevche-desk.local>
+References: <20260928215422.3720-1-m.abubakar365@yahoo.com>
+ <20260928215422.3720-3-m.abubakar365@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928215422.3720-3-m.abubakar365@yahoo.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-For stability and availability reasons, use my @linux.dev address
-instead of the one at my personal domain. While at it, fix the name
-order.
+On Tue, Sep 29, 2026 at 02:54:22AM +0500, Muhammad Abu Bakar wrote:
+> Add an IIO driver for the Sensirion SDP3x family of differential pressure
+> sensors (SDP31, SDP32 and SDP33). The devices are accessed over I2C and
+> report differential pressure and temperature. Each measurement is
+> validated using the sensor's CRC-8 checksum. The scale factor is read
+> from the sensor at runtime, so all three parts are supported.
+> 
+> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
 
-Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+...
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 72294ddfa5b7..16d0deafa723 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23037,7 +23037,7 @@ T:	git https://github.com/pkshih/rtw.git
- F:	drivers/net/wireless/realtek/rtw89/
- 
- REDMIBOOK WMI DRIVERS
--M:	Gladyshev Ilya <foxido@foxido.dev>
-+M:	Ilya Gladyshev <ilya.gladyshev@linux.dev>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	drivers/platform/x86/redmi-wmi.c
+> +#include <linux/cleanup.h>
+> +#include <linux/crc8.h>
+> +#include <linux/delay.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/once.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/unaligned.h>
+
+Follow IWYU principle.
+At least types.h, err.h or errno.h are absent.
+
+...
+
+> +static int sdp31_read_measurement(struct sdp31_data *data, s16 *pressure,
+> +				  s16 *temp)
+> +{
+> +	u8 rx[6];
+> +	int ret;
+> +
+> +	ret = sdp31_trigger_read(data, rx, sizeof(rx));
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (sdp31_check_crc(&rx[0]) || sdp31_check_crc(&rx[3]))
+> +		return -EIO;
+
+> +	*pressure = (s16)get_unaligned_be16(&rx[0]);
+> +	*temp = (s16)get_unaligned_be16(&rx[3]);
+
+And casting is for...?
+
+> +	return 0;
+> +}
+
+...
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_PRESSURE:
+> +			*val = 1;
+> +			*val2 = data->dp_scale * 1000;
+
+KILO?
+
+> +			return IIO_VAL_FRACTIONAL;
+> +		case IIO_TEMP:
+> +			/* raw / 200 = degC, so raw * 5 = milli-degC */
+> +			*val = 5;
+> +			return IIO_VAL_INT;
+> +		default:
+> +			return -EINVAL;
+> +		}
+
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
