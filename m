@@ -1,247 +1,312 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E976379C42
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85E92EEE8A;
+	Mon, 28 Sep 2026 12:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790597984; cv=none; b=P7Et2S+TNkQX29obOR3v1qC7SfYMcA4pzUTug5DnaLNB8Y8zSnKwMO390SU7xhCT0TX1Hz8CyhYDLpUwqIVJ/tM7kwmFPqpSKrPg89r3i4/h2z8LK0sNrx1VTnQiRVUGuyZfTL8rj7bTGFraJHplhu1YWUt62qJU/k5YoKCigi0=
+	t=1790598024; cv=none; b=N0lcq7EKmFg0AokrBytpPRoq0hOa5e6w2nYzZIx6P+Erx7jaPtXASdxl2V7eadZvIAmBSOUQiVCNMdHoPl7f4HX0E23bx3WkTxIVg8TilJoa1m7ZqBYbiUSrYQvB9PcN5ZHSgCwbmqdFjQZpIQ+F4lkPo/jopa69ylpXM0emwtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790597984; c=relaxed/simple;
-	bh=+odSPGHMvNELUkeAuN53FWH8WbosA6kggeCd89bJGhc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LLGlnoQpTCTVYmlQ7exCvpszrmg5zRancrtOQdR6NitHjwgy4GRTs2qLslHmEwyeJYZnwdncMEsPGIoGoEBiUfRqe5i2leCTT4YoUwcrv8pUIzSWbbNtEXouDcjVkMRieEljrCb5j0h+VghKQ37WF0cnnhXipI//+OJXOAHkngU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdzZPRu9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790598024; c=relaxed/simple;
+	bh=IqVJtSxvndDoIrS4uMSlsy6uU4K9s1TyAHP1lklzmws=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=TIAodcxTF8soDi8D9/a8Cxmt+yhA4M1gJgVgbHxIf6GevPOzCh+MuqlcwTXf8myauMiv068RVAsQtSECtSWEPMpwxHvvRH1QfPWfy4sqjkFSOIsUzIAGJOcZCf6DOWfX9fOn7DNDF0m9MXT9eMRW1KCdNq816XT2c6fxMXe02e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WOrMg2n9; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdzZPRu9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63181F000FF;
-	Mon, 28 Sep 2026 12:19:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790597982;
-	bh=Ohwros3KJBzi0jPBOqdA6bXPhNWwE/XNWT6NGKqiiJQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YdzZPRu9Nn0yBypW8uscTyI+AB2opAITNSPrdORh14BQox3KliXHTMyLZ4Wz+B6+q
-	 1C5kScmdm4wfBDFaiKHL45jdU/6w8SaNSwndJvzeUkMK+KAhlnBCHWuaD1fMn5Zs5F
-	 khkw5V70JKFEQzQxfgRzkarMvRCPP1ZAGEvxP/EfQhqMy48Woofn8hrdotzix5/xf0
-	 I8bqdgjebm8rMHCn2sxnURIKQ3wrGD9Q2DmqPtIDUWk9dnrfrXi2Tw1LxCCTZLlQtf
-	 A7194sOUxY85lTZBouNzAO69mlSBlkGZBRNxPSWiMwiHfng1cxXzHwVn8r6gg8QDWY
-	 r83xww0IIyJHg==
-Message-ID: <e72f2134-94d8-41c8-a859-b12357222d95@kernel.org>
-Date: Mon, 28 Sep 2026 14:19:35 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WOrMg2n9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790598022; x=1822134022;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=IqVJtSxvndDoIrS4uMSlsy6uU4K9s1TyAHP1lklzmws=;
+  b=WOrMg2n9tTNMnXwjWAsG7iw3c6FziQeZK9mCjVdShBFsqQKJi8Rkk6PO
+   KHWji6l+N3+gFr0tzmXbMA7gdFe0ToRfiQ7MA3Ls1rAUX0lcpjgclfb+R
+   2uB/0YbaRMUXWfGIVSisYn3PlmzQuW0SpuX2NLLmaC2QYH0WzKz4tGekp
+   sNX5mdDOf4yBZ8esDJsDN95Rr7RHB28FYQx813VSF6lKaZdpkAKL5kyYE
+   PDv+PTE8fEp5COXj0T5AaU3XX+iolblCITTo+jeUxulgBRhIsCnPupclY
+   mp6uAAbKeKAH/gUuEq/8mmV7nIDAhgXESCqqjXsj6X5TRM7WiTyRN7cxM
+   Q==;
+X-CSE-ConnectionGUID: z6ZzJMmkR8qqGFfr0DL42A==
+X-CSE-MsgGUID: 9GiUf5N6R3GSMcOuMQuqgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="102666360"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="102666360"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:20:21 -0700
+X-CSE-ConnectionGUID: dHwe5PAaQiqslwYr6ibPYg==
+X-CSE-MsgGUID: tTqibLsQQhmOeMZLuqZojA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="278854551"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.109])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:20:17 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 28 Sep 2026 15:20:13 +0300 (EEST)
+To: Bjorn Helgaas <helgaas@kernel.org>, 
+    "Rafael J. Wysocki" <rafael@kernel.org>
+cc: Maciej Grochowski <Maciej.Grochowski@sony.com>, 
+    Nikolas Joshua Britton <nbritton@exabit.io>, 
+    Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, 
+    Alexey Fomenko <alexey.fomenko@intel.com>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+    Rob Herring <robh@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
+    linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 5/5] PCI/quirks: Avoid certain BAR 0 address with igb
+In-Reply-To: <20260924202056.GA2001522@bhelgaas>
+Message-ID: <447e3daa-c8a5-2b0c-2c6d-3f3eb92e94cc@linux.intel.com>
+References: <20260924202056.GA2001522@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [patch v4] mm: vmstat_kunit: add synthetic benchmark for vm stats
-To: David Rientjes <rientjes@google.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>
-References: <cfc1edae-8aaa-8fd0-95de-af3d4774c6dd@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <cfc1edae-8aaa-8fd0-95de-af3d4774c6dd@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; BOUNDARY="8323328-1456378754-1790282591=:1187"
+Content-ID: <2c59d2a7-2d05-5890-49d7-cdf39f721eac@linux.intel.com>
 
-On 9/18/26 22:39, David Rientjes wrote:
-> From: Christoph Lameter <cl@gentwo.org>
-> 
-> Add a synthetic benchmark that can be used to measure performance of VM
-> statistics.  This is used to analyze any improvements or regressions in
-> functions that are frequently used in hot code paths.
-> 
-> The test is run by KUnit or doing modprobe vmstat_kunit directly.
-> 
-> Sample output:
->  KTAP version 1
->  1..1
->  KTAP version 1
->  # Subtest: vmstat
->  # module: vmstat_kunit
->       1..3
->       # vmstat_test_inc_dec_zone_page_state: 10000 ops: inc_zone_page_state -> 8 cycles (4 ns/op), dec_zone_page_state -> 9 cycles (4 ns/op)
->       ok 1 vmstat_test_inc_dec_zone_page_state
->       # vmstat_test_interleaved_zone_page_state: 10000 ops: inc/dec pair -> 17 cycles (8 ns/op)
->       ok 2 vmstat_test_interleaved_zone_page_state
->       # vmstat_test_count_vm_event: 10000 ops: count_vm_event -> 4 cycles (2 ns/op)
->       ok 3 vmstat_test_count_vm_event
->  # vmstat: pass:3 fail:0 skip:0 total:3
->  # Totals: pass:3 fail:0 skip:0 total:3
->  ok 1 vmstat
-> 
-> Assisted-by: Gemini:gemini-3.8-flash
-> Signed-off-by: Christoph Lameter <cl@gentwo.org>
-> Signed-off-by: David Rientjes <rientjes@google.com>
-> ---
-> v4:
->  - included sample output in the commit description
->  - switched to NR_MLOCK which is display only so no side effects
->  - remove unnecessary "rem" variable
-> 
-> Once we're happy with this change, I'll apply the same treatment to the
-> proposed pgalloc and slab tests.
-> 
->  MAINTAINERS             |   1 +
->  mm/Kconfig              |  11 +++
->  mm/Makefile             |   1 +
->  mm/tests/vmstat_kunit.c | 157 ++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 170 insertions(+)
->  create mode 100644 mm/tests/vmstat_kunit.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3b2eb2a7a89a..de09076d91b9 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17161,6 +17161,7 @@ F:	mm/ptdump.c
->  F:	mm/sparse-vmemmap.c
->  F:	mm/sparse.c
->  F:	mm/sparse.h
-> +F:	mm/tests/vmstat_kunit.c
->  F:	mm/util.c
->  F:	mm/vmpressure.c
->  F:	mm/vmstat.c
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index 604c58199acb..2d021fb5ace6 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1511,6 +1511,17 @@ config LAZY_MMU_MODE_KUNIT_TEST
->  
->  	  If unsure, say N.
->  
-> +config VMSTAT_KUNIT_TEST
-> +	tristate "KUnit test for VM statistics" if !KUNIT_ALL_TESTS
-> +	depends on KUNIT
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +	  Enable this option to test and benchmark the performance of VM
-> +	  statistics updates (zone page state and VM event counters), which
-> +	  are used frequently in hot memory management code paths.
-> +
-> +	  If unsure, say N.
-> +
->  source "mm/damon/Kconfig"
->  
->  endmenu
-> diff --git a/mm/Makefile b/mm/Makefile
-> index e7245cb88c66..3d4f2c43b8d3 100644
-> --- a/mm/Makefile
-> +++ b/mm/Makefile
-> @@ -147,4 +147,5 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
->  obj-$(CONFIG_EXECMEM) += execmem.o
->  obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
->  obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
-> +obj-$(CONFIG_VMSTAT_KUNIT_TEST) += tests/vmstat_kunit.o
->  obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
-> diff --git a/mm/tests/vmstat_kunit.c b/mm/tests/vmstat_kunit.c
-> new file mode 100644
-> index 000000000000..899c957091d1
-> --- /dev/null
-> +++ b/mm/tests/vmstat_kunit.c
-> @@ -0,0 +1,157 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * KUnit synthetic performance benchmark for VM statistics.
-> + *
-> + * (C) 2009 Linux Foundation, Christoph Lameter <cl@gentwo.org>
-> + * (C) 2026 Google LLC, David Rientjes <rientjes@google.com>
-> + */
-> +#include <kunit/test.h>
-> +#include <linux/mm.h>
-> +#include <linux/vmstat.h>
-> +#include <linux/timex.h>
-> +#include <linux/ktime.h>
-> +#include <linux/math64.h>
-> +
-> +#define TEST_COUNT 10000
-> +
-> +static void vmstat_test_free_page(void *arg)
-> +{
-> +	__free_page((struct page *)arg);
-> +}
-> +
-> +/*
-> + * Test 1: Sequential inc_zone_page_state() followed by dec_zone_page_state().
-> + * Net change to zone counters is 0.
-> + */
-> +static void vmstat_test_inc_dec_zone_page_state(struct kunit *test)
-> +{
-> +	struct page *page;
-> +	cycles_t time1, time2, time;
-> +	u64 t1_ns, t2_ns;
-> +	u64 inc_cycles, dec_cycles;
-> +	u64 inc_ns, dec_ns;
-> +	unsigned int i;
-> +
-> +	page = alloc_page(GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, page);
-> +	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, vmstat_test_free_page, page), 0);
-> +
-> +	/* Benchmark inc_zone_page_state() */
-> +	time1 = get_cycles();
-> +	t1_ns = ktime_get_ns();
-> +	for (i = 0; i < TEST_COUNT; i++)
-> +		inc_zone_page_state(page, NR_MLOCK);
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Just curious, could some compiler optimizations here change the picture, and
-doing the average would not actually be representative? Not sure if a barrier()
-would reliably avoid that.
+--8323328-1456378754-1790282591=:1187
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <9f8bebdd-4519-7111-ee8d-93c4893f67b5@linux.intel.com>
 
-Maybe not relevant today, but I do wonder if we should take care that it stays
-that way.
+On Thu, 24 Sep 2026, Bjorn Helgaas wrote:
 
-Applies to all cases below where we loop.
-This looks much cleaner to me, thanks!
+> [+cc Rafael, ACPI resource question]
+>=20
+> On Wed, Sep 23, 2026 at 04:17:55PM +0300, Ilpo J=E4rvinen wrote:
+> > While testing the resource placement changes, my tests hit a case where
+> > igb fails to probe when BAR 0 is placed at 0x9c000000:
+> >=20
+> >    90000000-9cffffff : PCI Bus 0000:a0
+> >   -  90000000-902fffff : PCI Bus 0000:a1
+> >   -    90000000-900fffff : 0000:a1:00.0
+> >   -      90000000-900fffff : igb
+> >   -    90100000-901fffff : 0000:a1:00.0
+> >   -    90200000-90203fff : 0000:a1:00.0
+> >   -      90200000-90203fff : igb
+> >   +  9be00000-9c0fffff : PCI Bus 0000:a1
+> >   +    9be00000-9befffff : 0000:a1:00.0
+> >   +    9bf00000-9bf03fff : 0000:a1:00.0
+> >   +    9c000000-9c0fffff : 0000:a1:00.0
+> >      9c100000-9c17ffff : amd_iommu
+> >      9c180000-9c1803ff : IOAPIC 8
+> >=20
+> >   -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=
+=3D1M]
+> >   -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=
+=3D16K]
+> >   -       Expansion ROM at 90100000 [disabled] [size=3D1M]
+> >   +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=
+=3D1M]
+> >   +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=
+=3D16K]
+> >   +       Expansion ROM at 9be00000 [disabled] [size=3D1M]
+> >=20
+> > igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
+> > ------------[ cut here ]------------
+> > igb: Failed to read reg 0x18!
+> > WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold=
++0x3c/0x4f [igb], CPU#32: kworker/32:1/706
+> > ...
+> >  igb_get_invariants_82575+0xff/0xf00 [igb]
+> >  igb_probe+0x3c8/0x1190 [igb]
+> >  local_pci_probe+0x3b/0x80
+> >=20
+> > Apparently, the igb driver bails out, after its initial sanity check
+> > detects an unexpected ~0 read. Hacking around the sanity check just
+> > results in more failures down the road so the sanity check itself is no=
+t
+> > the cause for the failure.
+> >=20
+> > The resource placement looks valid so the actual placement patches seem
+> > to work normally.
+> >=20
+> > All other possible 1M address I could test (with a hack patch) did work=
+=2E
+>=20
+> Super weird.  Is it possible there's some other device there?  It's
+> conceivable ACPI might have a _CRS method describing it.  I think
+> there are ACPI devices for which we don't reserve space mentioned in
+> _CRS.  Maybe Rafael knows a debug option to log everything in _CRS?
 
--- 
-Cheers,
+Now that you mentioned it, there certainly something going on with=20
+that address:
 
-David
+[    0.000000] BIOS-e820: [mem 0x0000000070000000-0x000000008fffffff]  devi=
+ce reserved
+[    0.000000] BIOS-e820: [gap 0x0000000090000000-0x000000009bffffff]
+[    0.000000] BIOS-e820: [mem 0x000000009c000000-0x000000009cffffff]  devi=
+ce reserved
+[    0.000000] BIOS-e820: [gap 0x000000009d000000-0x00000000a8ffffff]
+[    0.000000] BIOS-e820: [mem 0x00000000a9000000-0x00000000a9ffffff]  devi=
+ce reserved
+=2E..
+[    0.000000] efi: Remove mem48: MMIO range=3D[0x80000000-0x8fffffff] (256=
+MB) from e820 map
+[    0.000000] e820: remove [mem 0x80000000-0x8fffffff] device reserved
+[    0.000000] efi: Remove mem49: MMIO range=3D[0x9c000000-0x9cffffff] (16M=
+B) from e820 map
+[    0.000000] e820: remove [mem 0x9c000000-0x9cffffff] device reserved
+[    0.000000] efi: Remove mem50: MMIO range=3D[0xa9000000-0xa9ffffff] (16M=
+B) from e820 map
+[    0.000000] e820: remove [mem 0xa9000000-0xa9ffffff] device reserved
+
+But given the comment above efi_remove_e820_mmio() it sounds like this is=
+=20
+a red herring.
+
+In any case, the address is inside the provided root bus resource:
+
+[    4.854840] ACPI: PCI Root Bridge [PC05] (domain 0000 [bus a0-bf])
+=2E..
+[    4.854848] PCI host bridge to bus 0000:a0
+[    4.854848] pci_bus 0000:a0: root bus resource [io  0x6000-0x6fff window=
+]
+[    4.854848] pci_bus 0000:a0: root bus resource [mem 0x90000000-0x9cfffff=
+f window]
+[    4.854848] pci_bus 0000:a0: root bus resource [mem 0x71d60000000-0x7fcf=
+fffffff window]
+[    4.854848] pci_bus 0000:a0: root bus resource [bus a0-bf]
+
+> Does igb seem sensitive about this exact address on a variety of
+> machines?  If so I would expect some kind of igb hardware erratum for
+> it.
+
+I've not heard anything to that effect.
+
+But existance of the sanity check itself in the igb driver looks almost=20
+like a smoking gun so I don't know what to think of it.
+
+I'm also inclined to think that the placement approaches out there so far=
+=20
+might not have covered that many addresses but used the left edge of the=20
+window. So this series, when it often moves resources to right edge of the=
+=20
+window, goes to what might not be on well-charted territory.
+
+> Do other non-igb devices work at that address?
+
+Unfortunately there are not other devices underneath the RP so I might not=
+=20
+be able to test this.
+
+> > Add quirk to reshuffle igb resources, use BAR 3 to block the problemati=
+c
+> > address.
+> >=20
+> > Signed-off-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> > ---
+> >=20
+> > I know this is ugly and I don't like it either but do not know better
+> > way to avoid the regression.
+> >=20
+> > I've tried with iommu=3Doff and that did not resolve the issue.
+> >=20
+> > I also managed to prove igb works with the same resource layout in
+> > another system. So identifying the case should probably be tightened
+> > by matching with more devices than the one used by igb. This is open
+> > to discussion.
+>=20
+> I guess this answers one of my questions above.
+
+Yeah.
+
+But then there's the sanity check in igb which hints otherwise.
+
+> > ---
+> >  drivers/pci/quirks.c | 56 ++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 56 insertions(+)
+> >=20
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index de9bbccda21f..e6f3e2ab1fd4 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -6288,6 +6288,62 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1=
+536, rom_bar_overlap_defect);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1537, rom_bar_overlap_d=
+efect);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1538, rom_bar_overlap_d=
+efect);
+> > =20
+> > +/*
+> > + * The igb driver probe (due to reads returning ~0 unexpected) when BA=
+R 0
+> > + * appears at 0x9c000000. The cause is unknown.
+>=20
+> I suppose this is missing "fails"?  "igb driver probe fails"?
+
+Obviously, thanks.
+
+--=20
+ i.
+=20
+> > + * Use BAR 3 to block 0x9c000000 address.
+> > + */
+> > +static void bar0_address_breakage(struct pci_dev *dev)
+> > +{
+> > +=09struct resource *bar0 =3D pci_resource_n(dev, 0);
+> > +=09struct resource *bar3 =3D pci_resource_n(dev, 3);
+> > +=09resource_size_t broken_addr =3D 0x9c000000;
+> > +=09struct resource *res;
+> > +=09int i, ret;
+> > +
+> > +=09if (bar0->start !=3D broken_addr)
+> > +=09=09return;
+> > +
+> > +=09/*
+> > +=09 * HW BAR sizes seems to vary. Exclude non-1M BAR 0 case and
+> > +=09 * sanity check BAR 0 & 3 before attempting this quirk.
+> > +=09 */
+> > +=09if (resource_type(bar0) !=3D IORESOURCE_MEM ||
+> > +=09    resource_size(bar0) !=3D SZ_1M ||
+> > +=09    resource_type(bar3) !=3D IORESOURCE_MEM)
+> > +=09=09return;
+> > +
+> > +=09pci_info(dev, "%pR: relocating BAR\n", bar0);
+> > +
+> > +=09pci_dev_for_each_resource(dev, res, i) {
+> > +=09=09if (!resource_assigned(res) ||
+> > +=09=09    resource_type(res) !=3D IORESOURCE_MEM)
+> > +=09=09=09continue;
+> > +
+> > +=09=09pci_release_resource(dev, i);
+> > +=09}
+> > +
+> > +=09resource_set_range(bar3, broken_addr, resource_size(bar3));
+> > +=09bar3->flags &=3D ~IORESOURCE_UNSET;
+> > +=09pci_claim_resource(dev, 3);
+> > +=09if (!resource_assigned(bar3)) {
+> > +=09=09bar3->flags |=3D IORESOURCE_UNSET;
+> > +=09=09pci_warn(dev, "resource relocation failed\n");
+> > +=09}
+> > +
+> > +=09pci_dev_for_each_resource(dev, res, i) {
+> > +=09=09if (resource_assigned(res) ||
+> > +=09=09    resource_type(res) !=3D IORESOURCE_MEM)
+> > +=09=09=09continue;
+> > +
+> > +=09=09ret =3D pci_assign_resource(dev, i);
+> > +=09=09if (ret)
+> > +=09=09=09pci_warn(dev, "resource relocation failed\n");
+> > +=09}
+> > +}
+> > +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x1533, bar0_address_brea=
+kage);
+> > +
+> >  #ifdef CONFIG_PCIEASPM
+> >  /*
+> >   * Several Intel DG2 graphics devices advertise that they can only tol=
+erate
+> > --=20
+> > 2.47.3
+> >=20
+>=20
+--8323328-1456378754-1790282591=:1187--
