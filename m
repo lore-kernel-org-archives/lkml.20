@@ -1,247 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E84485501;
-	Mon, 28 Sep 2026 10:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D61949A3CC;
+	Mon, 28 Sep 2026 10:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592944; cv=none; b=rraKNFRUL+yXwXXHfTo38TFmwFAMtH29Fd98IYgPGr1oIUvXspSpd3TsjdWfG/axZ/P+pw+DHYZvt5K8zT2bangXOtwujSr/pqoNGp/Crn7UsghDjAIqY+uFSuUGZGmaprbyczUnLJRidq/T9WCVxn9xNsO4WiJgNg26vHLWbD0=
+	t=1790592988; cv=none; b=CN//rAeBc2q/1NVAsIg6C+uXxdpl9Jngy1Hr397mB0cX/IEqkCbEJ4X3iXcx9/sXATcOuHhzlFpEIq0I+0TMA4TDRFl/+MChOQJ1Yxw++bCDvGa8U4Zi9pARohM6IBL9zmKO17Wy7zNfDdIp+GvliWr9SLHFDUIAK38SCnf2Ioc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592944; c=relaxed/simple;
-	bh=k2qltfQuAoZi3AGmJdybrRH9sbX0btd0g+se7aWhKNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RjzbdZSMFpcoM63AF35z4V2i6euMNOtr90QpObvLiJ8ZDlA8w8ysHAi94Hvl5mrd/Svgp7IudZ/jw1Vi3j6YgxRUk9qNzwz43OEhhX8FuDV6eyxQjb5ZJgUcMQZiVUGlmBli4K5YKyBRHV/cQ6OuGETg62ZkE5zcGnTpfBsLwgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0ryfBYL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790592988; c=relaxed/simple;
+	bh=n5qCbEXulhnzKpIIeOqPBoOTno0U1+oSB2fFl8KmI4A=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OjG2eNTZjamDQcJwIbko4NxRYa2wmSQsPWDS24HszkxVAg8/AoL1wveMg1ri2lEqYMVO92v/yxZ8X9euq+m4YMu72+0oxn+xNJ1AGqEOgCkf6S//tgu4YxMIBk5XKbt4VPZrgk/wjN/N7si7dNUCXgyJKMnNUCpOWUaa9YCm6kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VK+T/3DB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6CL9FF/Q; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XILyU7VO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HUgP4LBe; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0ryfBYL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F3ED1F00898;
-	Mon, 28 Sep 2026 10:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592942;
-	bh=BNirgXH/aTMcKqGO2u604noXZU+mbKKvf6CCUw9ZJNU=;
-	h=From:To:Cc:Subject:Date;
-	b=Y0ryfBYL98DZHk6BuEVJZ30L0BkNUZRPRyW24gLZ3pvaoB/yT8HYGHkKMyUlnRoU+
-	 ok8UR+3F1EqP8zJbqP+LKWh55ysmz9gUpFktce8j5qwjxpap0oKxzOZLyF57QYQ1nK
-	 Vr0s4oOA7T/XMDzYWadsy2dHf8R+N+upBPxW2GWbsHjLc3zV1B5Fm/q2PoIz6FRe1R
-	 U6IhE9FDFBSP4jN/X88KTGA1YUxmZZuqyMOJwJb74BDwTx+KWmJlxJxKdzMORZBxSQ
-	 i5PadwksIwEZ1sxvDEdo+Lj3M0vSl4HPxzz7eL63o4Cv0IWqFpj2wnsWTJ90WLsJ5h
-	 ekjqhUorDwZow==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiexun Wang <wangjiexun2025@gmail.com>,
-	Michal Luczaj <mhal@rbox.co>,
-	Jann Horn <jannh@google.com>,
-	Cong Wang <cong.wang@bytedance.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jiang Wang <jiang.wang@bytedance.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Jakub Sitnicki <jakub@cloudflare.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Xingyu Jin <xingyuj@google.com>
-Subject: [STABLE v6.6-v6.1 1/1] af_unix: Drop all SCM attributes for SOCKMAP.
-Date: Mon, 28 Sep 2026 10:55:11 +0000
-Message-ID: <20260928105513.3555368-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VK+T/3DB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6CL9FF/Q";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XILyU7VO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HUgP4LBe"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B04D9226E2;
+	Mon, 28 Sep 2026 10:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790592978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EnfeABNCaT2B7EM/i7I36qnR6ZUPTQ5UXG0Isu4aaS0=;
+	b=VK+T/3DBuPbINqxhHCC7k7EHrtSuONa1KZM8f5Sc0gf8NEHywn1B/wiZv5wM+0RlNhSYJJ
+	9rkuL4d1NsckjtrcOtDkDtgAUqDxWLnaDuRyYrPBeXMqEmYtyIKiZtrAqqP1+GK05agKQK
+	kUkPtUt2KeoS1gnQYuVFQzmQSQ6amgw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790592978;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EnfeABNCaT2B7EM/i7I36qnR6ZUPTQ5UXG0Isu4aaS0=;
+	b=6CL9FF/QYEsOhirfpZV3TjK4lju4HrtsdyUGhXRBUTx9RzdbJRqdSrqxXGoqtRegFAcT0E
+	rXPldGIC0wsI40Ag==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790592974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EnfeABNCaT2B7EM/i7I36qnR6ZUPTQ5UXG0Isu4aaS0=;
+	b=XILyU7VOH8AqXwbv7V05dIPPEw4VoUvR+aCSoPFshK8xpnIoTpKwmLg1l9ys/N1K7Jvekn
+	YGmfJF+6QU0FEF3Rd1+dLAZND275t9hb1+/OCMQRAu0tzRudYXuEepaMgHQzXA4n8DNASK
+	gQmsoTKhNibXAECF4/CSkoj8XsHXlks=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790592974;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EnfeABNCaT2B7EM/i7I36qnR6ZUPTQ5UXG0Isu4aaS0=;
+	b=HUgP4LBes5LLNyws9Ael7aDREulJyfKMT9x5/tLPPTVx7OtsUrdTdmKiulfZEyXC+Y+r/Q
+	befSRLtsdNFTgnCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 756C8133F1;
+	Mon, 28 Sep 2026 10:56:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GBdDE85HumqYHAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 10:56:14 +0000
+Date: Mon, 28 Sep 2026 12:56:13 +0200
+Message-ID: <87ld8l7igi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2] ALSA: seq: Mark OSS sequencer emulation as deprecated
+In-Reply-To: <20260912124951.416761-1-tiwai@suse.de>
+References: <20260912124951.416761-1-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.995];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
+X-Spam-Flag: NO
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+On Sat, 12 Sep 2026 14:49:45 +0200,
+Takashi Iwai wrote:
+> 
+> OSS sequencer API emulation has been implemented as a client of ALSA
+> sequencer, decades ago, at the time where OSS was still use.  But the
+> API itself became very niche, and almost noone using it for a real
+> purpose any longer -- only exceptions are AI and fuzzers, who have
+> been causing significant maintenance burden for issues they hit &
+> found.
+> 
+> Meanwhile, the most features of OSS sequencer API emulation can be
+> achieved in user-space, either by ALSA-OSS layer (aoss) or oss-seq-emu
+> program:
+>   https://github.com/alsa-project/alsa-oss
+>   https://github.com/tiwai/oss-seq-emu
+> where the former is LD_PRELOAD wrapper and the latter is a CUSE-based
+> daemon.  So we can drop the stuff from the kernel sooner or later.
+> 
+> Now, let's mark the OSS sequencer emulation as deprecated and give a
+> warning when loaded, so that we can drop it later actually.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 965dc93481d1b80d341bdd16c27b16fe197175ee ]
+Since there has been no objection, I'm going to queue this for 7.4.
 
-SOCKMAP can hide inflight fd from AF_UNIX GC.
 
-When a socket in SOCKMAP receives skb with inflight fd,
-sk_psock_verdict_data_ready() looks up the mapped socket and
-enqueue skb to its psock->ingress_skb.
+thanks,
 
-Since neither the old nor the new GC can inspect the psock
-queue, the hidden skb leaks the inflight sockets.  Note that
-this cannot be detected via kmemleak because inflight sockets
-are linked to a global list.
-
-In addition, SOCKMAP redirect breaks the Tarjan-based GC's
-assumption that unix_edge.successor is always alive, which
-is no longer true once skb is redirected, resulting in
-use-after-free below. [0]
-
-Moreover, SOCKMAP does not call scm_stat_del() properly,
-so unix_show_fdinfo() could report an incorrect fd count.
-
-sk_msg_recvmsg() does not support any SCM attributes in the
-first place.
-
-Let's drop all SCM attributes before passing skb to the
-SOCKMAP layer.
-
-[0]:
-BUG: KASAN: slab-use-after-free in unix_del_edges (net/unix/garbage.c:118 net/unix/garbage.c:181 net/unix/garbage.c:251)
-Read of size 8 at addr ffff888125362670 by task kworker/56:1/496
-
-CPU: 56 UID: 0 PID: 496 Comm: kworker/56:1 Not tainted 7.0.0-rc7-00263-gb9d8b856689d #3 PREEMPT(lazy)
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-Workqueue: events sk_psock_backlog
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:122)
- print_report (mm/kasan/report.c:379)
- kasan_report (mm/kasan/report.c:597)
- unix_del_edges (net/unix/garbage.c:118 net/unix/garbage.c:181 net/unix/garbage.c:251)
- unix_destroy_fpl (net/unix/garbage.c:317)
- unix_destruct_scm (./include/net/scm.h:80 ./include/net/scm.h:86 net/unix/af_unix.c:1976)
- sk_psock_backlog (./include/linux/skbuff.h:?)
- process_scheduled_works (kernel/workqueue.c:?)
- worker_thread (kernel/workqueue.c:?)
- kthread (kernel/kthread.c:438)
- ret_from_fork (arch/x86/kernel/process.c:164)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:258)
- </TASK>
-
-Allocated by task 955:
- kasan_save_track (mm/kasan/common.c:58 mm/kasan/common.c:78)
- __kasan_slab_alloc (mm/kasan/common.c:369)
- kmem_cache_alloc_noprof (mm/slub.c:4539)
- sk_prot_alloc (net/core/sock.c:2240)
- sk_alloc (net/core/sock.c:2301)
- unix_create1 (net/unix/af_unix.c:1099)
- unix_create (net/unix/af_unix.c:1169)
- __sock_create (net/socket.c:1606)
- __sys_socketpair (net/socket.c:1811)
- __x64_sys_socketpair (net/socket.c:1863 net/socket.c:1860 net/socket.c:1860)
- do_syscall_64 (arch/x86/entry/syscall_64.c:?)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-
-Freed by task 496:
- kasan_save_track (mm/kasan/common.c:58 mm/kasan/common.c:78)
- kasan_save_free_info (mm/kasan/generic.c:587)
- __kasan_slab_free (mm/kasan/common.c:287)
- kmem_cache_free (mm/slub.c:6165)
- __sk_destruct (net/core/sock.c:2282 net/core/sock.c:2384)
- sk_psock_destroy (./include/net/sock.h:?)
- process_scheduled_works (kernel/workqueue.c:?)
- worker_thread (kernel/workqueue.c:?)
- kthread (kernel/kthread.c:438)
- ret_from_fork (arch/x86/kernel/process.c:164)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:258)
-
-Fixes: c63829182c37 ("af_unix: Implement ->psock_update_sk_prot()")
-Fixes: 77462de14a43 ("af_unix: Add read_sock for stream socket types")
-Reported-by: Xingyu Jin <xingyuj@google.com>
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260415184830.3988432-1-kuniyu@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[Lee: Drop skb_orphan() from unix_destruct_scm() and omit the
-      unix_stream_read_skb() / unix_dgram_read_skb() hunks as
-      69bbe2bcbe8c and d92fbaccd09a are not present]
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- net/unix/af_unix.c | 42 ++++++++++++++++++++++++++++++++----------
- 1 file changed, 32 insertions(+), 10 deletions(-)
-
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index 8bd78cad69e7..e1f798af1a8a 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -1854,16 +1854,19 @@ static void unix_peek_fds(struct scm_cookie *scm, struct sk_buff *skb)
- 
- static void unix_destruct_scm(struct sk_buff *skb)
- {
--	struct scm_cookie scm;
-+	struct scm_cookie scm = {};
-+
-+	swap(scm.pid, UNIXCB(skb).pid);
- 
--	memset(&scm, 0, sizeof(scm));
--	scm.pid  = UNIXCB(skb).pid;
- 	if (UNIXCB(skb).fp)
- 		unix_detach_fds(&scm, skb);
- 
--	/* Alas, it calls VFS */
--	/* So fscking what? fput() had been SMP-safe since the last Summer */
- 	scm_destroy(&scm);
-+}
-+
-+static void unix_wfree(struct sk_buff *skb)
-+{
-+	unix_destruct_scm(skb);
- 	sock_wfree(skb);
- }
- 
-@@ -1879,7 +1882,7 @@ static int unix_scm_to_skb(struct scm_cookie *scm, struct sk_buff *skb, bool sen
- 	if (scm->fp && send_fds)
- 		err = unix_attach_fds(scm, skb);
- 
--	skb->destructor = unix_destruct_scm;
-+	skb->destructor = unix_wfree;
- 	return err;
- }
- 
-@@ -1940,6 +1943,13 @@ static void scm_stat_del(struct sock *sk, struct sk_buff *skb)
- 	}
- }
- 
-+static void unix_orphan_scm(struct sock *sk, struct sk_buff *skb)
-+{
-+	scm_stat_del(sk, skb);
-+	unix_destruct_scm(skb);
-+	skb->destructor = sock_wfree;
-+}
-+
- /*
-  *	Send AF_UNIX data.
-  */
-@@ -2516,10 +2526,16 @@ static int unix_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 	int err;
- 
- 	mutex_lock(&u->iolock);
-+
- 	skb = skb_recv_datagram(sk, MSG_DONTWAIT, &err);
--	mutex_unlock(&u->iolock);
--	if (!skb)
-+	if (!skb) {
-+		mutex_unlock(&u->iolock);
- 		return err;
-+	}
-+
-+	unix_orphan_scm(sk, skb);
-+
-+	mutex_unlock(&u->iolock);
- 
- 	return recv_actor(sk, skb);
- }
-@@ -2673,10 +2689,16 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
- 		return -ENOTCONN;
- 
- 	mutex_lock(&u->iolock);
-+
- 	skb = skb_recv_datagram(sk, MSG_DONTWAIT, &err);
--	mutex_unlock(&u->iolock);
--	if (!skb)
-+	if (!skb) {
-+		mutex_unlock(&u->iolock);
- 		return err;
-+	}
-+
-+	unix_orphan_scm(sk, skb);
-+
-+	mutex_unlock(&u->iolock);
- 
- #if IS_ENABLED(CONFIG_AF_UNIX_OOB)
- 	if (unlikely(skb == READ_ONCE(u->oob_skb))) {
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Takashi
