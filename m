@@ -1,140 +1,145 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAE8156661;
-	Mon, 28 Sep 2026 11:36:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AFA4AA58E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595381; cv=none; b=KoeAgSHvbwEm20CMxvyRqrqGHmQ89krJ+iuylI+bAQwMmkm0Mxio0TTK7LTxPgJRIgIgaub2evEnp5GSTFQIAB9WjTfCBp5EIRBJiewvHKq7eiO1Fq3wrTFICfuOTf42nuUWkkkkjNGOahNT5CNYrihdc0FGafi6mnzzI0osVfM=
+	t=1790595391; cv=none; b=fYKbQzBPfb84vDw3UHl7BheriE++eLnf8YtuV/yZVVt9/e1dxwRe4yzfWKgY9otglmHdV7dNowoRRUwE3m0JvO+DcuBCMrwOZplry9peyBnpriq4p8vIsNAckyX1k6RXa37NPkQ/REGAb9NDA6yTwih1dVc0EdHss6Bbzv6HRBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595381; c=relaxed/simple;
-	bh=+LwjN+4N0qy5ur3uKeuz7fDqVrpsYM5o6p8p72k1kEo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T1D3nzaJB95NeKV+GUh3Vu9sIzMQIRH+iLQ2OJKvruYiGCRdIAoNkgPL28McOcRbvHL3quTAhDg60da6bnC9XWj6mAj68X1/xgBKocHx6JmAQ180H5vlkpfWECzVELOYm2qU2VIb8hhw6cUZOlhTcxWlAN/cnIwQLXqFe0SuXVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j7EzHeMv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EJuuAaQv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cT4r18FK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=h7KPH6mC; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790595391; c=relaxed/simple;
+	bh=ehKSWvL0hxT5BEnXgdVsXrbsUARCc1Wn1UwZt+x7T8E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TCN/tT42JHo1jWc3uUgPqy6pTnw9fDcJZ0aDqV0xsrr1OTZdO6gNagf9dQYgagHaCOoNtZc9hTfLud4jVKhRmiVzY+4pzEM1+ALvoVCg2N3IKWHa9c15uV2eevosECCT0fOEqJj0yJRTvHwy5BQ5+gfMlTAwWpUowplG8ewEDBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D8uy+MKQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LyrxlphV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j7EzHeMv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EJuuAaQv";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cT4r18FK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="h7KPH6mC"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1E8D21F86A;
-	Mon, 28 Sep 2026 11:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790595374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vd0hw8L3uIu7JvjfnIdQURpeWTGFsQp/Tl/85mT9804=;
-	b=j7EzHeMv/dAsOi8qHEtU0TKVE0Y4uZhcOy9t7tTIvbO9JWtDCQrN5LMcYF9JazbDGkiLoH
-	7Or/JwSZEH8jSds9bcdrXSwEQ315cDZaNR2to2x323/Y2QMMmkGFC4x62IkEW6eCNbd3yc
-	qDlqdCm1cNvFAPGEzOM3qNrQ2cjH/wc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790595374;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vd0hw8L3uIu7JvjfnIdQURpeWTGFsQp/Tl/85mT9804=;
-	b=EJuuAaQvDXwffT37VyPytbtXTkheYdPunEl9gfCvquLObKepf8qHPkWT/RmKh/fPxVCS4+
-	f6M7T7m/DwQUeTDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790595370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vd0hw8L3uIu7JvjfnIdQURpeWTGFsQp/Tl/85mT9804=;
-	b=cT4r18FKVJkWDo+Q6E2sr08D5KqgULrdqA6S/bH6gEuCL3Nyd66b99wAj8T94TpYu4y4PK
-	aO5VIMnY7stKiEZliE/3ztS8RMuEy9NP2mH0TxzWaWhVD9d9jTM20GxnB60KI6Q3REysiP
-	GjYAREz/4AknkuZ8o+TzyrOSYqqfOxQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790595370;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vd0hw8L3uIu7JvjfnIdQURpeWTGFsQp/Tl/85mT9804=;
-	b=h7KPH6mCMd+FlMTTQR1g82jdbbdsC2e9S0gTv8BaakddZweb4hzcV+w8oYubbA/+ZuVNiw
-	vBQmst7xQGWeOmBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8020133F3;
-	Mon, 28 Sep 2026 11:36:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id s1q4JylRumrPRAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:36:09 +0000
-Date: Mon, 28 Sep 2026 13:36:09 +0200
-Message-ID: <87wls5621i.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Roman Bolotov <hadros@ikeepitoblique.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirk flag for ASUS SupremeFX Hi-Fi
-In-Reply-To: <20260923064527.434441-1-hadros@ikeepitoblique.com>
-References: <20260923064527.434441-1-hadros@ikeepitoblique.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D8uy+MKQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LyrxlphV"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAViq4115792
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:36:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=46+rz0Sh2HfpjIWSfCxKOuxQ
+	neQiiSNP8Sg0b+IGsVI=; b=D8uy+MKQ0+DsEdIvquSifssaWhQ9hOiEX3kYkuDM
+	M9jjZsh3ZBZAM5kFZmbUf5bxyv8yFaY5M3sUxI+VYkbiMCpCk46EnN/f6xzgigP2
+	fv7lg1ubUIxw+KoyHnxeFahyTD64f3g3app4f7Y2MMg7CokmHMnzy1jv/iMnQW68
+	4oqvXvqLaR8+CfGHNDLowr3r/mllw47dZm795VNvnLrQcHVAHd7wyQVRApJCdaK/
+	n8t7JjxG1RLcIC896SLfSDyWDiLStCynwcbSRmYOPe0RBlw5oD184+CZYQDjkdUC
+	mawMb9Q+q6wVGvyIGzbl9UIWEFVZjF0AY4jSCwa86as53g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx77jwt30-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:36:29 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93bfb2da664so873713585a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:36:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790595389; x=1791200189; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=46+rz0Sh2HfpjIWSfCxKOuxQneQiiSNP8Sg0b+IGsVI=;
+        b=LyrxlphVc7UURQOhkYXsS3lWyJuDEcln1fNJwMsmxsgt3rvINtfuZu0MrOc9nDQHS3
+         osDAaEsy0fPirQYpeipR5WiVmmjir7/AKzLx2e0z3kiYtpLkKoHr50ZDsKIR3fQFrJW+
+         xULnnTO8tZAJ/fR6HDZIZs83lco/jAIvloyj3IKZ33VpRaEk8fCq4pzdChbS+uCbtdXP
+         Eqp08qLV2uprIxBXkNzk20qY65btSrSODjqVfLgepPXNJW+kU1B4BSKNddxzYRcaS7Dv
+         C0it3/aZKeLpuLNn+9Q6+DYk9OkmT4PbC2Wg99xUlnM4EwoT6mzzEHmWvOa52dOCwuKH
+         K4uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790595389; x=1791200189;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=46+rz0Sh2HfpjIWSfCxKOuxQneQiiSNP8Sg0b+IGsVI=;
+        b=Itwg0MUU3c6Mi1dLTO/ivL7tCCJ3Mxmn7fKedFcm1uHIpPmh7VCyWckAzWrLLtI6VB
+         V5gIdTOrDPV9q1aZdcpfxTRDFeO1WZWtyq2THpJ/7vr8SKd4Dl370OFxoYTfQYZez9jc
+         Si4hiTKkcRqKBmqEg1CQ+ENTc0xarLbKW3RO6cevOWw5JEQPynIqq5LChwqBYW170dBS
+         8K5m5hadCnQlt2stYsYRnhoi+jw7vUPVs8VHcAICwiWe+b6pfdeQzlnigCpldzAsD/GQ
+         j4kRbzqbt6Ql1qs2eSn0eiKrT4EfzE5KxDmkXpnjVSlAZefFikrYME6nY14Bjfmt7aRr
+         0/og==
+X-Forwarded-Encrypted: i=1; AKwUvBxT1kjghIeqvVwQs+ELV5Usc5jj+eftqLLYhchYbKuF5+dmjxvwgb4kRdQkYHlYPGtH+Fz7zu1JeB7gfng=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltIZkDQke4zPop+KbulE6LTLJRllL91rU+wMWu1CRsTHCqb0he
+	AveCcSkjDAC2sKcOtQxvcIPKMvhvm8ut/MKHVl2HB1mhXoUSWtfB71G3iAx1zF2a5QsLuWEeMgp
+	U99SWHg68wc2raJbjNFGjiLzejXlhXnmBlesiYWXSaVa5XP0xuOfQKUUyDJda5btuTP0=
+X-Gm-Gg: AYBFou0FwhpLRZqxsuZWGfxFPB+9HTwAhjOw0rGiUV28Zp5GrsG4DH7zRDl314r1C31
+	Iv6NMApL860cSMU76kHEzUnAHz+W35XRens+n4HZvfpHRdPchZ9XNcQIkeEnx3cJH/L5EL6sE/u
+	TcfJ1DC2ZGJTKq/80X1xtxmWB3S87zN1VEP4HG9U1FdcuIUJItQ6RpGX28Gud1UTbuQ4XKgtL8x
+	4vfun3TJJG2aVgrBtBhv/tYaO39Jx0kiBavMuxs1tb9cs/wSSa1JW0U5vpAHV5irW+SiMe0Wj8W
+	qAhltOFk5J1RNt22ExYbHWkACGJuGChRsyi+q6SmBgb1I6wZX7SslKWRrV1d02L1pWZiOlNspil
+	28ststhQWLPFW/bU=
+X-Received: by 2002:a05:620a:4809:b0:939:6de8:43dd with SMTP id af79cd13be357-93c47511ed9mr1785438085a.49.1790595388397;
+        Mon, 28 Sep 2026 04:36:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:4809:b0:939:6de8:43dd with SMTP id af79cd13be357-93c47511ed9mr1785431185a.49.1790595387711;
+        Mon, 28 Sep 2026 04:36:27 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a008f7f1c2sm43908035e9.1.2026.09.28.04.36.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:36:26 -0700 (PDT)
+Date: Mon, 28 Sep 2026 14:36:25 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Yijie Yang <yijie.yang@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add
+ compatible for Qualcomm Maili SoC
+Message-ID: <cjxdoxqc7744q7gbgkbarcuaujkesa5sd4zhwhi4vzlhy2s4i4@zzfalkwc54qs>
+References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfXzpm6+W3IeOZP
+ DhC2B0rCpKrT/rgY04CiQjAKqKnaaEGqr0WPl2giy0CjCNvwtv/+FMXTpfAFOZg4RxsGS00+zM4
+ GKVmyGQpCn1RmCSTMynVwaYFoN0Kuuw=
+X-Proofpoint-GUID: dOiD-6IWVysnwQ6N9xyn4uz4AhKFKAMo
+X-Proofpoint-ORIG-GUID: dOiD-6IWVysnwQ6N9xyn4uz4AhKFKAMo
+X-Authority-Analysis: v=2.4 cv=J8U/fwnS c=1 sm=1 tr=0 ts=6aba513d cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=LJH_WNpccHY5IcrVEfcA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NiBTYWx0ZWRfX6gT5QeTBk7Eo
+ tRBDPvmYOl8vPaZvtkN37WCokaYv85Na/1KxtAHOKq9puU6Hig9GU5j2+6umbdbJTeAkm23e/5K
+ lKiqbn/AbXmG1E9yAvJfQ7BCYYMOU6wJoIX5hFmhnFqDN2kXbmdFxfF+a4lJPZSZbpAt+QlLEFT
+ E7kwWiXABihA87DV060LMzkQAS79lCaV9Qq8usaBAyi7LiSKTVWt6723FAfkRJPNa0pYdLnAkQd
+ qsae0FzMK7b+MloHuwwQy9hHhm7zN4lv8qGyDxwY8guL6TIHTsvoNQvIKB0oVNgkeUwPkZatzQB
+ 5poESzJ67ypOfpLZes2dmFXvwCe7OXFuXDkq4mKFO0uVhGvnNJW0pVuKQo44M7xjBu0TMLoTkdC
+ erd5z+H8XcH0Rxt72ZQTNH/46xEXy6vIQLw8D7+l7ErsgSUc3EJqKt2yOHDe+8pJ1R2NLIGCWPR
+ 4r4n/afQT7qRpP0tFuQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 spamscore=0 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280046
 
-On Wed, 23 Sep 2026 08:45:27 +0200,
-Roman Bolotov wrote:
+On 26-08-31 20:53:44, Fenglin Wu wrote:
+> The PMIC arbiter in the Qualcomm Maili SoC is version v8.5, which
+> is the same with Hawi and compatible with Glymur. Hence, add a string
+> for "qcom,maili-spmi-pmic-arb" as a compatible entry for
+> "qcom,glymur-spmi-pmic-arb".
 > 
-> The ASUS SupremeFX Hi-Fi (0b05:1826, 0b05:1827) does not survive USB
-> autosuspend.  After a suspend/resume cycle the firmware degrades: HID
-> probes begin to fail and the descriptors it returns become corrupted,
-> until the device stops responding entirely and needs a physical power
-> cycle to recover.
-> 
-> Add QUIRK_FLAG_DISABLE_AUTOSUSPEND for both product IDs.
-> 
-> Verified on 7.2.6 through the quirk_flags module parameter, with no
-> code change, and with the local udev rules that had been forcing
-> power/control commented out, so the parameter was the only mechanism
-> in play.  Both IDs were passed as
-> 
->   0b05:1827:disable_autosuspend;0b05:1826:disable_autosuspend
-> 
-> The device then stayed awake across 2.5 hours (runtime_suspended_time
-> remained 0), survived a system suspend/resume cycle, and continued to
-> work afterwards with no failed probes and no power cycle needed.
-> 
-> Signed-off-by: Roman Bolotov <hadros@ikeepitoblique.com>
+> Reviewed-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-Applied now.  Thanks.
-
-
-Takashi
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
