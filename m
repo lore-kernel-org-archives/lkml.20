@@ -1,310 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3858044E650;
-	Mon, 28 Sep 2026 09:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5AF46F4AB
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589229; cv=none; b=RtW/i5vPuEz4auoK6N3X2/OhxCyuFLeVQ5ITyY+1mHpjeJB+vFc0WxrjB1bleiEw+WOR3b6VSa09XokcK1kirXIHrbJsAobhkiy+oke/Oi4cuwoXB2Z1KE3GTr7DReByN9xYhtIn37SNxQAC7+GqiCKSPuuBesyASZSRI6ftNPg=
+	t=1790589237; cv=none; b=et4g+U8w42sWUP+flDUS/HfBy/Ds6YBxQ8GNJxvpuaTWNrJWr3MksriKiypYXRL9de2i9+p/VoOAL9twefdf8K4s8EbfxkILJjxSsPt5EfX1r4ShReSsyjxp7ZaxLovRxk9xdG+KJacl9XtRPRXTLHljBVmq1acOvS+9d/tpNVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589229; c=relaxed/simple;
-	bh=+xb9xcIMrr5OJsLec1M/O2inJ9NcaKtqScgVIVaKxu4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NG+GlFHmIOrLUIVZOE2ian2wNBXz63vrXpGvQOLcV0vhA1Qv5Qra1eU5Jdn0abDEqlyUoKq4IrGGymsw2GPl5V/LSNmzruVCA0bnDZKWa1i7h9cueQGJmPN6U2RbzAynHcqUhUa8SdNICA2HQkE5/jPjROJAtBfWDb5jLXIUJIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtll7qva; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589237; c=relaxed/simple;
+	bh=mXlMxmlL0FCNrGyBpcyx+dWJuiW6H8zzigvVTYrhlCM=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n/57n5+3f9ox02pGe5Y2cu90jPJDoRrWygFS4rvQEBUX6d0iCiMzjt19rATVjDB6QXWgSaOo+6Uf0jwolIeERvogOyg0qO17z9w/SEjNAepFe6wKpGS6/Y1F/V+sg4OVKmnQNJ7kCs9sm+tVauiu9N+8CUjp2/DUO5618eE8eGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Io3Jzd7m; arc=none smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtll7qva"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171431F000FF;
-	Mon, 28 Sep 2026 09:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589227;
-	bh=LuWhIMowI39Sw9VUbrs0SpvHgk8NlyRSj5QWrKqGrhU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jtll7qva6lDmxuAdmKyWYcxH5sgpT19wKG3TPR+3+T/d5Ii+5OSa0evt+ytfX8hZT
-	 dnTSCpofI/iyDf0ySV19BKCw22OyfFp4UrT2vo+yiYnFCm1sq4NYheW0nY4CbJi0Wb
-	 7fPpcnInvGIuddgQ0E8i+1HjOPjMb0a2n3LvZXMM/wxuRMuVhRtZBJNf8ax45GRAGl
-	 RbidUH0I67F7uTfL8LxNF4aObEYD6AqZiSX8I2NOkUxmC8IJCJ/22aNp0Su0TYOUiF
-	 gB9CLBLnO5Ys3Om4m7VkUI0oWy8xtTxJ85fANwY9rymxXbwW3yLBRHK4E9LH1GoKNU
-	 /cjVVlahkVZ/w==
-Subject: Re: [PATCH net v2] nfc: llcp: prevent resource leak on repeated
- connect after DM
-From: netdev-bot+sashiko@kernel.org
-To: qwe.aldo@gmail.com
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- sashiko-bot@kernel.org
-Date: Mon, 28 Sep 2026 09:53:46 +0000
-Message-ID: <179058922656.3145.17540746696102333949@kernel.org>
-In-Reply-To: <20260925184857.357926-1-qwe.aldo@gmail.com>
-References: <20260925184857.357926-1-qwe.aldo@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Io3Jzd7m"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570a3030so200432666b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790589233; x=1791194033; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mJTLKL9T8vepgzmrMMl9hUBXjorXrkUQap53+72PCy8=;
+        b=Io3Jzd7mvaFarYjW7U9ipoUHvYm1LRy/ccwrHinacxEgYa/Xksk+57zZ7yYH0AtB9F
+         GyHwI/VMuiEFdTFmFr3TJZvovaPS4o9rAzlikv8Bl23dGV4/Zw0TjKxshaHc7WAhNvE0
+         nt6+lCyyjplPFh4ix30GD9ZjlCOv1ZIi7XJI8aH/2n0tCfJ5OuCidSBidd12q7EV5+2U
+         cJ+dO4pxxW21NEXrKcte93rgeX1Pm2QX1KX5WN45QhA+z6uqpNPXvBe2Ip0DYmPWf7+X
+         3+8pqphySp8b2oCSGCRaORkgkz2TVZxGW3xWWy17h1YyhZqmXI/Ip5ykVP4iRMp9W5Nd
+         Xh5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790589233; x=1791194033;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mJTLKL9T8vepgzmrMMl9hUBXjorXrkUQap53+72PCy8=;
+        b=VuwlGlyWlaZwQ5aE9QrO5+qO5qUKWxRppYRl4i5ZvwXUpsOtjkiVTTXFM8/p4pGuHV
+         mtiNTAKYgCB2pJWeC6oiGpp0gSg9aXj0qF+0/KsWa6R9QqzODJPnERmXyVhc42VIsegD
+         /2IOzNhS/UbB126bOg/0X5XzBOuHdIkFjC8UHgc1ovtFUMa11x1w9xl5tJyz6ssJaYje
+         CghY59fO/gRxrmszfeiTB0u64xzRwccx/BgaikP15GXkoZOeqIfIvjVpBltFxDmej9+X
+         xlDbUTWOZjv4O4b1GZKP6g+MjMsTzK+PIP2hk8LUklR6Vhu6HKcp7tJMxa1HNRSw1wOn
+         PmmA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1Gxq/pclP4hyD+DSNi28o27DkPTPMWArIzuolupt+Grqi4FhdqTweT0k98lg/+71hw1wr1M88f8sZLLs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo3M3j0GzRZ1HgUNFaqbrHar90uYz2Wv3SUXpw6g67f/JjjWcY
+	8onCFHT80IfNvLmMdUWih4lTjYNJCNDK1mgFMQgdYDVfssLBBU37y2Xw
+X-Gm-Gg: AYBFou2WxMoaKIznbK6bTPkcTN64R6XOSL8u27C4vw7KKCi3Z6xrYbMzGwVdQEAtAxE
+	3gNv4FWiKRBXcNNLKYFE6ctQT9HNrMZG/tPKvXKnMY3r9bzpdUKRXRPIUpFGfIkkgjGccDjRkjF
+	uf7caCY1K4iR5L0Y4bkuHjoEomaJzqHMwDHGUsVOIwztuOv6Mcs6ysctCHlWOuRnk2/NeHNXtPk
+	k6/B21/6cTKIYiYO4onf7iZ6T347hETHhAS1wkLVT3UWpvFeRIpeNDeqCEx9iRZD+BJiCn5y/73
+	VMMz5g73Up3pui8jBH7IK/fnKmc/+2evylTGEbJrdMeaNeSAy5i7d0RRTSjD9jrLUjogFTLNcJK
+	Iu9b5dD5Eeo4NB88pwT5BWEsh85tbDcdkSxclAq3gCaNGHB4ifT5S+Cry4c7cs38E9eW/jFGv3/
+	S8PYwbx58UW48WoYhqIVnblZB+7fhWUI1jwU8=
+X-Received: by 2002:a17:906:2083:b0:c2d:5ce0:1061 with SMTP id a640c23a62f3a-c2d5ce01e9cmr243001866b.21.1790589233412;
+        Mon, 28 Sep 2026 02:53:53 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678c90csm466121166b.6.2026.09.28.02.53.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 02:53:53 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 28 Sep 2026 11:53:51 +0200
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-modules@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+Message-ID: <aro5L-W-439tTICi@milan>
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
+ <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+ <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+ <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+ <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
+ <aq1noAdz9U3tXH_Y@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aq1noAdz9U3tXH_Y@gremlin>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 2 · High: 2 (1) · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Critical] The new LLCP_CLOSED cleanup in llcp_sock_connect()
-  (net/nfc/llcp_sock.c:725-726, `if (llcp_sock->dev)…
-- [Critical] The new cleanup can release resources that a sleeping
-  blocking connect() still owns.
-- [High] Two paths close a socket but leave it hashed on local->sockets:
-  nfc_llcp_recv_disc() (llcp_core.c:1221-1224), and the default branch…
-- [High] The leak this patch targets is still reachable through bind().
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the retry
-  scenario the patch targets can crash the kernel.
+On Fri, Sep 18, 2026 at 05:35:02PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Looping in Ulad who is best placed to respond on this.
+> 
+> Ulad could you look at the below? Thanks! :)
+> 
+> On Thu, Sep 17, 2026 at 10:32:48AM +0800, Hao Ge wrote:
+> > Hi Suren、David、Lorenzo
+> >
+> > On 2026/9/17 09:12, Hao Ge wrote:
+> > > Hi Suren
+> > >
+> > > On 2026/9/17 03:07, Suren Baghdasaryan wrote:
+> > >> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
+> > >>>
+> > >>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
+> > >>>>
+> > >>>> Hi Suren
+> > >>>>
+> > >>>> Thanks for you review.
+> > >>>>
+> > >>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+> > >>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+> > >>>>>>
+> > >>>>>> The reservation is already stored in the maple tree when
+> > >>>>>> vm_module_tags_populate() fails. A failed load never unloads the
+> > >>>>>> module, so nothing releases the entry. Release it and roll
+> > >>>>>> module_tags.size back. Without the rollback a concurrent load that
+> > >>>>>> already passed needs_section_mem() can reuse the freed gap, skip
+> > >>>>>> vm_module_tags_populate() and write to unmapped memory.
+> > >>>>>>
+> > >>>>>> vmap_pages_range() may have installed some PTEs before failing. A
+> > >>>>>> retry to populate the same range would BUG on them, so undo them,
+> > >>>>>> but only if vmap actually ran.
+> > >>>>>>
+> > >>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> > >>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+> > >>>>>
+> > >>>>> If a patch fixes two other patches, it likely needs to be split so
+> > >>>>> that each part fixes one patch only. But read on please. I'm not sure
+> > >>>>> if one of the fixes is correct.
+> > >>>>>
+> > >>>>
+> > >>>> Kept them in one patch because they only make sense together.
+> > >>>>
+> > >>>> After a failed populate the reservation is released and the
+> > >>>> size rolled back, so the next load takes the same gap and calls
+> > >>>> vm_module_tags_populate() again, and that retry would trip over
+> > >>>> the PTEs the failed vmap left behind.
+> > >>>>
+> > >>>> Without the rollback a load that already passed needs_section_mem()
+> > >>>> just reuses the gap, skips populate and writes to unmapped memory.
+> > >>>> So splitting them leaves each half broken.
+> > >>>
+> > >>> Yeah, that's why I think vmap_pages_range() cleanup should be a
+> > >>> completely separate patch with vmap_pages_range() doing cleanup
+> > >>> itself.
+> > >>>
+> > >
+> > > I think I get where you're coming from now.
+> > > Thanks for taking the time to explain.
+> > >
+> > >>>>
+> > >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > >>>>>> Cc: stable@vger.kernel.org
+> > >>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > >>>>>> ---
+> > >>>>>>  mm/alloc_tag.c | 10 ++++++++++
+> > >>>>>>  1 file changed, 10 insertions(+)
+> > >>>>>>
+> > >>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> > >>>>>> index 2070e682fe10..95ddf5b743d0 100644
+> > >>>>>> --- a/mm/alloc_tag.c
+> > >>>>>> +++ b/mm/alloc_tag.c
+> > >>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+> > >>>>>>                                      next_page, PAGE_SHIFT) < 0) {
+> > >>>>>>                         release_pages_arg arg = { .pages = next_page };
+> > >>>>>>
+> > >>>>>> +                       /*
+> > >>>>>> +                        * vmap_pages_range() only runs once all pages were
+> > >>>>>> +                        * allocated, and it may have installed some mappings
+> > >>>>>> +                        * before failing. Undo them.
+> > >>>>>
+> > >>>>> If vmap_pages_range() failed to map the range, why should we need to
+> > >>>>> undo it? If it indeed leaves some partial mapping when failing then I
+> > >>>>> would argue that vmap_pages_range() should be undoing these partial
+> > >>>>> mappings itself before returning the error.
+> > >>>>>
+> > >>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
+> > >>>
+> > >>> Hmm. I wonder if this behavior is intentional or requires a fix. The
+> > >>> only possible reason I can think of is performance but I can't imagine
+> > >>> a failure to map is a performance-critical case.
+> > >>>
+> > >>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+> > >>
+> > >> Huh, my gmail thinks you are still at your previous companies :)
+> > >>
+> > >
+> > > I manually fixed it on the mailing list for this thread.
+> > >
+> > >>> guys think? Shouldn't vmap_pages_range() undo its possible partial
+> > >>> mapping when it fails?
+> > >>>
+> > >>>
+> > >>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
+> > >>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+> > >>>> so I did the same here.
+> > >>>>
+> > >>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
+> > >>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
+> > >>>> the current behaviour for now.
+> > >>>
+> > >>> Yeah, I understand it would require a deeper cut but if that's the
+> > >>> right way to handle this we might as well do that. Let's see what MM
+> > >>> folks think.
+> > >>>
+> > >
+> > > Sounds good to me. Let's wait and hear what the MM folks say.
+> > >
+> >
+> > I just looked into the call sites for __vmap_pages_range.
+> > And I found there's a bug in one vmalloc caller [1].
+> > When gfp_mask has __GFP_NOFAIL, the code keeps retrying
+> > __vmap_pages_range. If there are leftover PTE mappings,
+> > this can trigger a BUG(); [2]
+> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
+> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+> 
+> I think best person to look at this is Ulad as vmalloc is his baby :)
+> 
+> Ulad, what do you think?
+> 
+> Thread is at
+> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/ for
+> context.
+> 
+Uh.. I missed this. Let me check!
 
 --
-
-nfc: llcp: prevent resource leak on repeated connect after DM
-
-Before llcp_sock_connect() takes new resources, this patch releases the
-local reference, reserved SAP, service name and device reference still
-held by an LLCP socket in LLCP_CLOSED. It targets a nonblocking connect
-that a DM PDU rejects and that is then retried.
-
-Link: https://lore.kernel.org/all/20260923133339.2518641-1-qwe.aldo@gmail.com/
-
-> diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-> index 1e5ee4bcde684..9d76c12aee011 100644
-> --- a/net/nfc/llcp_sock.c
-> +++ b/net/nfc/llcp_sock.c
-> @@ -715,6 +715,23 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
->  		goto error;
->  	}
->  
-> +	if (sk->sk_state == LLCP_CLOSED) {
-> +		/* Release resources retained by a previous failed connection. */
-> +		if (llcp_sock->local) {
-> +			if (llcp_sock->reserved_ssap < LLCP_SAP_MAX)
-> +				nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
-> +			nfc_llcp_local_put(llcp_sock->local);
-> +		}
-
-[Severity: Critical]
-Can this release resources that a blocking connect() on the same socket
-still owns?
-
-While sock_wait_state() sleeps it drops the socket lock. The first caller
-keeps local and dev in its own stack frame:
-
-Thread A (blocking connect)
-llcp_sock_connect()
-  sock_wait_state()
-    release_sock(sk);
-    timeo = schedule_timeout(timeo);
-
-rx worker
-nfc_llcp_recv_dm()
-  sk->sk_err = ENXIO;
-  sk->sk_state = LLCP_CLOSED;
-  sk->sk_state_change(sk);
-
-Thread B (same fd, wins lock_sock first)
-llcp_sock_connect()
-  sk_state == LLCP_CLOSED, so:
-    nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
-    nfc_llcp_local_put(llcp_sock->local);
-    nfc_put_device(llcp_sock->dev);
-  nfc_get_device(addr->dev_idx) fails with -ENODEV
-
-Thread A
-  lock_sock(sk);
-  err = sock_error(sk);   /* still -ENXIO */
-  goto sock_unlink
-    nfc_llcp_put_ssap(local, llcp_sock->ssap);
-    nfc_llcp_local_put(local);
-    nfc_put_device(dev);
-
-Thread B clears ->local, ->dev and ->reserved_ssap but not ->ssap. Thread
-A then frees the same SAP again, which may already belong to another
-socket. It also drops the local and dev references a second time.
-
-Could the nfc_llcp_local and nfc_dev refcounts underflow here? That would
-free local while it is still on llcp_devices, and free the nfc_dev while
-it is still registered.
-
-Without this patch, thread B's failed connect() left the socket unchanged,
-so each resource was released only once.
-
-> +		if (llcp_sock->dev)
-> +			nfc_put_device(llcp_sock->dev);
-
-[Severity: Critical]
-Does a CLOSED socket with a non-NULL llcp_sock->dev always own an nfc_dev
-reference? That seems true only after a nonblocking connect that a
-DM(REJ/NOBOUND) rejected.
-
-Several existing paths leave the socket in LLCP_CLOSED with llcp_sock->dev
-still set, but with the reference already dropped or never taken.
-
-nfc_llcp_recv_disc() already drops the reference for a connected socket:
-
-	if (sk->sk_state == LLCP_CONNECTED) {
-		nfc_put_device(local->dev);
-		sk->sk_state = LLCP_CLOSED;
-
-nfc_llcp_socket_release() runs from
-nfc_dep_link_down()->nfc_llcp_mac_is_down(), and from local_cleanup() on
-unregister. It drops dev for CONNECTED sockets. It then moves every
-socket, BOUND and LISTEN ones included, to LLCP_CLOSED without clearing
-->dev.
-
-llcp_sock_bind() keeps ->dev as a pointer without holding a reference:
-
-	sk->sk_state = LLCP_BOUND;
-	nfc_put_device(dev);
-
-Child sockets accepted in nfc_llcp_recv_connect() also take a reference.
-DISC or link down later drops it.
-
-connect() only rejects LLCP_CONNECTED and LLCP_CONNECTING, and this
-cleanup runs before the dev_idx lookup. So bind(), then a dep link down,
-then connect() (even with a bogus dev_idx) would call nfc_put_device() on
-a reference the socket does not own.
-
-Doing this on several sockets looks like it can underflow the nfc_dev
-refcount and free the device while it is still registered.
-
-The commit message says:
-
-  "Bound sockets do not hold the device reference, so release it only
-  when reconnecting from LLCP_CLOSED."
-
-Bound sockets do reach LLCP_CLOSED on link down, though.
-llcp_sock_destruct() also assumes the reference is owned only in
-LLCP_CONNECTED:
-
-	if (sk->sk_state == LLCP_CONNECTED)
-		nfc_put_device(llcp_sock->dev);
-
-Would it be safer to drop the reference and clear llcp_sock->dev in
-nfc_llcp_recv_dm(), at the CONNECTING to CLOSED transition, instead of
-guessing ownership from the state here?
-
-> +		kfree(llcp_sock->service_name);
-> +		llcp_sock->local = NULL;
-
-[Severity: High]
-Is the socket always off local->sockets at this point?
-
-nfc_llcp_recv_disc() moves a connected socket to LLCP_CLOSED but leaves it
-on local->sockets. The default branch of nfc_llcp_recv_dm() (any reason
-other than NOBOUND/REJ) also closes the socket without unlinking it.
-
-For such a socket, this block frees the SAP, drops the local reference and
-sets llcp_sock->local = NULL. The rx worker can still find the socket
-through nfc_llcp_sock_get(), and the SAP can be given to another socket.
-
-If connect() then fails early (bad dev_idx, nfc_llcp_find_local()
-failure, dep link down, or target_idx mismatch), llcp_sock_release()
-returns before it unlinks anything:
-
-	local = llcp_sock->local;
-	if (local == NULL) {
-		err = -ENODEV;
-		goto out;
-	}
-
-Wouldn't the orphaned socket stay on local->sockets until a link down or
-unregister? Before this patch, ->local was still set on those early error
-paths, so close() unlinked the socket.
-
-If connect() goes ahead instead, it reaches:
-
-	nfc_llcp_sock_link(&local->connecting_sockets, sk);
-
-At that point sk_node is still linked in local->sockets. Two different
-rwlocks protect the two lists, and both hlists look like they would be
-corrupted.
-
-That double link existed before this patch. Since this change prepares
-CLOSED sockets for reuse, should it also unlink the socket here?
-
-> +		llcp_sock->dev = NULL;
-> +		llcp_sock->service_name = NULL;
-> +		llcp_sock->service_name_len = 0;
-> +		llcp_sock->reserved_ssap = LLCP_SAP_MAX;
-> +	}
-> +
-
-[Severity: High]
-Can the same leak still happen through bind()?
-
-After a DM(REJ/NOBOUND) rejects a nonblocking connect(), the socket is in
-LLCP_CLOSED. It still holds a local reference, a reserved local SAP, the
-kmemdup'd service_name and a dev reference.
-
-llcp_sock_bind() accepts that state:
-
-	if (sk->sk_state != LLCP_CLOSED) {
-		ret = -EBADFD;
-		goto error;
-	}
-
-It then overwrites llcp_sock->dev, ->local, ->service_name, ->ssap and
-->reserved_ssap without releasing the old values. close() later releases
-only what bind() took.
-
-If connect(O_NONBLOCK) -> DM -> bind() -> close() is repeated about 32
-times, wouldn't the local SAPs still run out, so that
-nfc_llcp_get_local_ssap() fails for every client connect on the device?
-
-Could this cleanup become a helper that llcp_sock_bind() also calls?
-
-llcp_raw_sock_bind() has the same pattern of accepting CLOSED and
-overwriting the fields. Raw sockets cannot reach this DM state, though,
-because they use sock_no_connect.
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. Still, the
-retry path this patch is meant to support can oops the kernel.
-
-nfc_llcp_recv_dm() sets sk->sk_err = ENXIO. Neither connect() nor this
-new cleanup clears it. On a blocking retry, sock_wait_state() checks for a
-pending error before it checks the state again:
-
-	err = sock_error(sk);
-	if (err)
-		break;
-
-Suppose the wakeup came from nfc_llcp_recv_cc(). The socket has already
-moved to local->sockets and is set to LLCP_CONNECTED, but connect() sees
-the stale -ENXIO and takes the sock_unlink path.
-
-That path unlinks the socket from local->sockets while holding the
-connecting_sockets lock. It frees the SAP, sets ->local and ->dev to NULL
-and drops their references. It leaves sk_state at LLCP_CONNECTED.
-
-On close(), llcp_sock_release() sees local == NULL and jumps to out. Then
-llcp_sock_destruct() runs:
-
-	if (sk->sk_state == LLCP_CONNECTED)
-		nfc_put_device(llcp_sock->dev);
-
-At this point llcp_sock->dev is NULL. Doesn't that make put_device()
-dereference a near-NULL address?
-
-Should the stale sk_err be cleared when reconnecting from LLCP_CLOSED?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925184857.357926-1-qwe.aldo%40gmail.com
+Uladzislau Rezki
