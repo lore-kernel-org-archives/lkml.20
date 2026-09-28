@@ -1,81 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A36538F624;
-	Mon, 28 Sep 2026 06:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E70E315D32
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576343; cv=none; b=B0lEx5x0Oo5cGmhP1Of9t6Kijso0AtMwgRLBvgkn+FyVXmBcICwfTbSBa3Fyd9kq2cdK0m98cnb3FPLUo2X5mwCifXdxAti2V9DTS5ieWLV//gyV1kGxAdiOy7z7cyi/PqWmLwpXPtyRLEqfrngS2ICEABjv1Gq00CkWcMC76lw=
+	t=1790576359; cv=none; b=qqAbFimpTUP9j4kBST82tZlFIZjXetutqirur4bjwDrj1h+wK8rloGQa02Eb73RvFEUAmgadkBmCXrxKRWnvj3pQFMfhRAxwKqqWhw10sQKrp/1yYvhEWpFlJ09fKPfygzhatnn0ZX1QMu7vb5KVM40wzfNaM0mLhKbTgYZpiXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576343; c=relaxed/simple;
-	bh=WBoPDWVDL/gBHGItDHKxbRlJJolO/NR6aH1US9Af/6k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOa6HY836QAruWpEx1W55nEiNMYNr4iWvOlAO2DfYbq5EGH8ZN/nGNtTig8SHlDCZkKQxV/p6CQ8Du9ZewI2VKqRwPiyD4fJPnLriFExRHLKalSAA01ovzo02aUooWSs9145b4tRlY4Awn/+7A8jIqs0ZJGJg15Mlx7OwK2Su4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgdO79uk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790576359; c=relaxed/simple;
+	bh=XWmi0TMvzgLGuBdC+lH2Ux/lKUBYrXJnZQkH/ilCwHI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EiQPazzlPhPwkN5w0GntILICN29Rz93iqDei7PtJp9oQHrkaOoPVomnW+f1ZtTUHgxF7kCzPfBK0H2moo9++l13TrWu1J4oBB7UhAM1yDwyfcEC9JHCgOt0ZlLgt6TxDTR6mAZhJqkO6QRP5kUArqLlVT/cPLnC0O3j3GHrxJy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFN1+q95; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgdO79uk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C591F00893;
-	Mon, 28 Sep 2026 06:19:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFN1+q95"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3A41F008A0
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790576342;
-	bh=pmMCxK5aRATey9e6Ws3o06FK77/2EVv4XDkxI4d8T+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JgdO79ukEpfimSw3nMlru8E4PJVFRO2utaKrjfGF3TWotnydmbUAqdLGRoz7arBcs
-	 SH9UY5od1xK7YdQzWUFKiWjXZ4IOWA3DwZR0APXfnEUAI8Rt/yg7BfwA6j8mE41IWy
-	 yR7C3xBtJ1LH5YYaBaLUcJeh13++iRU3DQmmrgSawhHQjykIZbuIzTAfKXREH0QV+G
-	 pu0+9OSdz75fH5ZqzM6YcbZH7Rqy/iqAlVk8vx+bsH6jc2V0plA8oznxvo0TOQC86H
-	 DdVR7EUjAy+aXaN3idLFA04pqT/PqVu92XTKEdo1yrqZK+ggdNL0jp3g2PLq6saiPH
-	 gLng5BSHFiosA==
-Date: Mon, 28 Sep 2026 08:18:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: dongsheng liu <2509730023@qq.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Daniel Mack <daniel@zonque.org>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: leds: Convert leds-lt3593.txt to yaml format
-Message-ID: <20260928-voracious-shiny-swallow-2dbee5@quoll>
-References: <tencent_67B8796B733C275D1EF565D0D2CDB9B48306@qq.com>
+	s=k20260515; t=1790576358;
+	bh=P+Ketq9+++QF/K7tY+yWeVcoA9YiGM/e1Warfti0y6c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hFN1+q95+zKRDJujGn/4KF5W47EcA0+P2dzDTFpxB1AfBMrGkrnx+Sj5aDj5uTjk6
+	 PX/tk31iWZMy6IYADNID/W7fT7mfTT4lrySE/5j03o69EWTn8tDzUJJmg5oVA5ihuA
+	 8FaZnMV0Ix/4IILIS87IbDE8Y2z5FSqGav1kaJvXnhSC4+fMEvlujdFq88JHkL4Ntp
+	 6vBlI6YzhWvjxhtp3IA+LD3KgFB/WYSsKQxFIXtdRmZVXEVO6fwk8bNvmEinqi4Gsq
+	 vXOjBG74leR2IqU5V5YlHOOBHclqt8Es2ByC2EhbVWw/Oow8GMrvAO7RxhAMD57rbj
+	 UUGIHqOZJ+z3g==
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so363866466b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:19:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxCAvs+vyecFTN44nOtidm3rETBCmriare51Je0zdGdV3hbfXhTYleisciBE4Ij9XvfptA2lWaKB66NP1Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTB00XBF93klAhVaC08DaDI7YVMIyHwiktA8nQBYpB1VjuBwrQ
+	sLQDT3W1u1tvzM28teTRgUnaDu1q7jYO886/hPrYO2EeRTx8a+8xnsz2h04kgeGBXizxw7wJs7+
+	9vMKHdKZOPiSLUIxDEM7uP2SKDEd1D8yvhNjn9xG0Yg==
+X-Received: by 2002:a17:907:3e98:b0:c29:f5d5:5a98 with SMTP id
+ a640c23a62f3a-c2ac241bd31mr1017028266b.34.1790576357244; Sun, 27 Sep 2026
+ 23:19:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <tencent_67B8796B733C275D1EF565D0D2CDB9B48306@qq.com>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <20260916101929.149106-15-hebaoquan@kylinos.cn>
+In-Reply-To: <20260916101929.149106-15-hebaoquan@kylinos.cn>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 20:19:05 -1000
+X-Gmail-Original-Message-ID: <CACePvbUdDWaWA_YZW4yZ_k0zyp3iF3RzusPKO2ZOyJONh0dCrg@mail.gmail.com>
+X-Gm-Features: AclHuK_T6ZaUqFOjQXs6aCMZvy5UZhShRk7BXR6yvGcUDbFTt35WUL9ktZOL7vs
+Message-ID: <CACePvbUdDWaWA_YZW4yZ_k0zyp3iF3RzusPKO2ZOyJONh0dCrg@mail.gmail.com>
+Subject: Re: [PATCH v3 14/14] mm, swap: shrink xswap to the ceiling when it drops
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, kasong@tencent.com, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 01:00:12PM +0800, dongsheng liu wrote:
-> Convert binding doc leds-lt3593.txt to yaml format, so that nodes using
-> the "lltc,lt3593" compatible are no longer reported by dtbs_check as:
-> 
->   failed to match any schema with compatible: ['lltc,lt3593']
-> 
-> Additional change:
-> - reference common.yaml for the LED sub-node properties.
-> - require the sub-node, matching the driver's check for exactly one child.
-> 
-> The schema was written with the help of an LLM coding assistant, based on
-> the previous binding text and drivers/leds/leds-lt3593.c. It is validated
-> with make dt_binding_check, and against the "lltc,lt3593" node in
-> arch/arm/boot/dts/intel/pxa/pxa300-raumfeld-controller.dts.
+On Wed, Sep 16, 2026 at 12:21=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> =
+wrote:
+>
+> Make xswap_try_shrink() shrink down to the ceiling when the ceiling is
+> lowered below the mapped range, and trigger the shrink directly from a
+> limit write instead of waiting for the next free cluster.
 
-Drop paragraph from commit msg.
+Again, I suspect we can move the shrink into the later phase if needed
+so I have less code to review.
 
-> 
-> Assisted-by: LLM dtschema yamllint
+Chris
 
-And dtschema and yamllint here. These are not LLM tools.
-
-Regardless, I discourage usage of LLM for conversion by beginners - you
-learn not much and you repeat what we already did (these files were
-converted with LLM by Rob). If this is part of any mentorship or GSoC
-program, then it is actually forbidden in these to use LLM for
-conversions.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+> ---
+>  mm/swapfile.c | 59 ++++++++++++++++++++++++++++++++-------------------
+>  1 file changed, 37 insertions(+), 22 deletions(-)
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 0fcbaf1cf0e2..ab64bfc4e0f7 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -4190,8 +4190,9 @@ static void xswap_shrink_work_fn(struct work_struct=
+ *work)
+>   */
+>  static void xswap_try_shrink(struct swap_info_struct *si)
+>  {
+> +       unsigned long nr_mapped, nr_ceiling, nr_tail, nr_unmap;
+> +       unsigned long start_idx, i;
+>         struct swap_cluster_info *ci;
+> -       unsigned long nr_mapped, nr_tail, nr_unmap, start_idx, i;
+>
+>         if (!(si->flags & SWP_XSWAP))
+>                 return;
+> @@ -4203,35 +4204,45 @@ static void xswap_try_shrink(struct swap_info_str=
+uct *si)
+>                 goto out_unlock;
+>
+>         nr_mapped =3D READ_ONCE(si->nr_clusters_mapped);
+> +       nr_ceiling =3D READ_ONCE(si->nr_clusters);
+> +
+>         if (nr_mapped <=3D 1)     /* keep cluster 0 */
+>                 goto out_unlock;
+>
+>         /*
+> -        * Reclaim on our own, but only once the mapped range is at most
+> -        * half in use: growth is demand driven, so reclaiming on a small=
+er
+> -        * dip would only map the same clusters again, and every unmap co=
+sts
+> -        * an RCU grace period.
+> +        * A cap below the mapped range shrinks on its own.  Otherwise wa=
+it
+> +        * until the range is at most half in use: growth follows demand,=
+ so
+> +        * shrinking above that would only map the same clusters again.
+>          */
+> -       if (swap_usage_in_pages(si) * 2 > nr_mapped * SWAPFILE_CLUSTER)
+> +       if (nr_ceiling >=3D nr_mapped &&
+> +           swap_usage_in_pages(si) * 2 > nr_mapped * SWAPFILE_CLUSTER)
+>                 goto out_unlock;
+>
+> -       /*
+> -        * Count the free clusters at the tail of the mapped range.  Scan=
+ned,
+> -        * not tracked: the count must be exact to size the unmap, and an
+> -        * incremental count falls behind on out-of-order frees.
+> -        */
+> -       nr_tail =3D 0;
+> -       while (nr_mapped - nr_tail > 1) {
+> -               ci =3D &si->cluster_info[nr_mapped - nr_tail - 1];
+> -               if (READ_ONCE(ci->count) ||
+> -                   READ_ONCE(ci->flags) !=3D CLUSTER_FLAG_FREE)
+> -                       break;
+> -               nr_tail++;
+> -       }
+> -       if (nr_tail < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
+> -               goto out_unlock;
+> +       if (nr_ceiling < nr_mapped) {
+> +               /* Take the excess exactly; rounding could zero a small c=
+ap. */
+> +               nr_unmap =3D nr_mapped - nr_ceiling;
+> +               /*
+> +                * Keep cluster 0: it always holds the header slot, so it=
+ is
+> +                * never free and must not be unmapped.
+> +                */
+> +               nr_unmap =3D min(nr_unmap, nr_mapped - 1);
+> +       } else {
+> +               /* Count the free tail; scanned, not tracked. */
+> +               nr_tail =3D 0;
+> +               while (nr_mapped - nr_tail > 1) {
+> +                       ci =3D &si->cluster_info[nr_mapped - nr_tail - 1]=
+;
+> +                       if (READ_ONCE(ci->count) ||
+> +                           READ_ONCE(ci->flags) !=3D CLUSTER_FLAG_FREE)
+> +                               break;
+> +                       nr_tail++;
+> +               }
+>
+> -       nr_unmap =3D rounddown(nr_tail - XSWAP_SHRINK_SLACK, XSWAP_GROW_C=
+LUSTERS);
+> +               if (nr_tail < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
+> +                       goto out_unlock;
+> +
+> +               nr_unmap =3D rounddown(nr_tail - XSWAP_SHRINK_SLACK,
+> +                                    XSWAP_GROW_CLUSTERS);
+> +       }
+>         if (!nr_unmap)
+>                 goto out_unlock;
+>         start_idx =3D nr_mapped - nr_unmap;
+> @@ -4507,6 +4518,10 @@ static ssize_t xswap_limit_store(struct kobject *k=
+obj,
+>
+>         spin_unlock(&swap_lock);
+>
+> +       /* Enforce a lowered ceiling at once; raising needs no shrink. */
+> +       if (clusters < READ_ONCE(si->nr_clusters_mapped))
+> +               xswap_try_shrink(si);
+> +
+>         return count;
+>  }
+>
+> --
+> 2.54.0
+>
