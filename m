@@ -1,118 +1,51 @@
-Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7844EFFA1;
-	Mon, 28 Sep 2026 16:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453A84EFFC3;
+	Mon, 28 Sep 2026 16:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613901; cv=none; b=MoTjBXp+46EjRjpwhnZMVooAcEv0PbBPBV6J4zJSsi/YFpwI74qrC/ZBahvDaaprDcIsO/I3yWFChdZifu5uzJ0GdHRUTx0Vyg0daiSkR6fizIGmBXl8BtyqojxKx+ObkTndWlp68NQPmNftSoNBbZnis3j0oNvG+ChW/Ck27d8=
+	t=1790613901; cv=none; b=Mdk9z47MOlZpmgPzF5YgwOFhmWiB3YUt0H5SQqOGsVyvLGUObWiLG+9X8KZtwb773+wns40qFdJIkiLLC9vnBs3/Fh6fqA6mQtqXvd1WVbHbd7Qj0AgwvDKD8tds4IRhJgH3fQkQBn9YY4xvY4zQbHeFaI8nMQlDZgQDYoNPJMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790613901; c=relaxed/simple;
-	bh=gU7mKCF4ndVimPuYWiBcGni9Vlt1BnjFuzNikL6iBM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c64vsrc55p1pyFt4f97uxwzM/olmJTpFxutkvItfAJrKn+MBnnJtDNu6ngJl97RG3FD5LpDih3+u4vmis4QZ1cEHylqAaUlixpiJgnWQlEdmuCXiw/wJBywE4crEQCTamgIfWIMiG5u8nPdD9hrAus9J8Ysxjylk/WuRgsimngo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=cA6GogPv; arc=none smtp.client-ip=133.167.8.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
+	bh=6Y7vYf/xc/TsRZfeinhAcNhu9VUF65Y4YoGWlsYueBI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=iqZ+H6/w6yvnzv9pnVXgrY5VKpVOrXNEgsEvdvuMKFa+j4T7ncQx+dg70Pr/E2+3ONDxpjozMYDQOYbwCBg1hOUXoOjufE2qDSMaE3CU/KtuiU7TDZBdRmIMEIzgg+GONNvYs6hAtlHw5Xj+H8nqgTKdnGlyZ76qRlNJebhoh/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFYbQqY1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="cA6GogPv"
-Received: from fedora ([104.28.225.80])
-	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNw080644
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Tue, 29 Sep 2026 01:44:52 +0900 (JST)
-	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=0RtqvQnXRlzup5U56AlUezVCKpIVl16iMqy6Ka5mpWw=;
-        c=relaxed/relaxed; d=mgml.me;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250315; t=1790613892; v=1;
-        b=cA6GogPveTE3F5oeyFoPGwIP0cyH5uCdG0ezyjWeaoZcAIl5z6MG6BVezP7c4HK/
-         5qWdd5AcN/nFPcs0WFkxSZEna46LPaRR5Gg9Kou5Y+wcASE3NLQQzBoDOqaz8U7y
-         p3jx+nc930uX18ZvRxv3QueZtPtZOWcjD/0C73IYCo0MgB3YggtX3pl3bJNWfrxk
-         7N4Q9H3f/PSxA0jByDewriKu8FPWvL7mbqOTJVXuMjBbQv1Gk/DZTKWwsBPc+dUa
-         AEPF70KEFeiiWY3JMVnvCeMMRzM3ZuUkuHoKwTkhaEBUdSXUwE7GNVFewtJGo323
-         QYIhxS7WGPyyusm5Gv/S9A==
-From: Kenta Akagi <k@mgml.me>
-To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Hyunwoo Kim <imv4bel@gmail.com>,
-        Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v4 11/11] KVM: x86: Fix shadow paging use-after-free due to unexpected role
-Date: Tue, 29 Sep 2026 01:44:27 +0900
-Message-ID: <20260928164427.4699-12-k@mgml.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260928164427.4699-1-k@mgml.me>
-References: <20260928164427.4699-1-k@mgml.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFYbQqY1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873ED1F000FF;
+	Mon, 28 Sep 2026 16:44:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790613899;
+	bh=6Y7vYf/xc/TsRZfeinhAcNhu9VUF65Y4YoGWlsYueBI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iFYbQqY1nO6r0HPbUr3Oau2LbYvcu5XpusxrbeNNY/43NE1iGkndbi/IcYbtlU5oo
+	 HOo67AEAQbWVWWNo+WSYgO9ja0u6OEpMGe78KEXNGOnU8sKdLrUX3nmTanUDVsaazI
+	 2YvGD5uRwL3sjgc5ZMzmhMj9sk3cpyb3gEUBx788nRLgn9O6fiEaGgddq1k4qOJfMK
+	 t+oJGwpDyTpjR7qEMSW5gR89qaZoNBGracKFx4H0S3ocJr+l1R02F+Uw4fX18NJ3P6
+	 GMoHP1TlRYERjH/7Eebo+kAzela7HTmTvE77yQ6V7p0a1+fRlPEzpILfG6s42TPNXN
+	 e6oN8GMFISlpw==
+Date: Mon, 28 Sep 2026 06:44:58 -1000
+Message-ID: <658555bf88cfc140f55ef862571be996@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
+	Alap Mohan <mohaalap@meta.com>, Joonwoo Park <joonwoo@meta.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix CPU hotplug
+ hang when a dying CPU's tasks sit in the BPF scheduler
+In-Reply-To: <20260923223825.734003-1-tj@kernel.org>
+References: <20260923223825.734003-1-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+Applied to sched_ext/for-7.3-fixes.
 
-[ Upstream commit 81ccda30b4e83d8f5cc4fd50503c44e3a33abfeb ]
+Thanks.
 
-Commit 0cb2af2ea66ad ("KVM: x86: Fix shadow paging use-after-free due
-to unexpected GFN") fixed a shadow paging mismatch between stored and
-computed GFNs; the bug could be triggered by changing a PDE mapping from
-outside the guest, and then deleting a memslot.  The rmap_remove()
-call would miss entries created after the PDE change because the GFN
-of the leaf SPTE does not match the GFN of the struct kvm_mmu_page.
-
-A similar hole however remains if the modified PDE points to a non-leaf
-page.  In this case the gfn can be made to match, but the role does not
-match: the original large 2MB page creates a kvm_mmu_page with direct=1,
-while the new 4KB needs a kvm_mmu_page with direct=0.  However,
-kvm_mmu_get_child_sp() does not compare the role, and therefore reuses
-the page.
-
-The next step is installing a leaf (4KB) SPTE on the new path which
-records an rmap entry under the gfn resolved by the walk.  But when
-that child is zapped its parent kvm_mmu_page has direct=1 and
-kvm_mmu_page_get_gfn() computes the gfn for the 4KB page as
-sp->gfn + index instead of using sp->shadowed_translation[] (or sp->gfns[]
-in older kernels).  It therefore fails to remove the recorded entry.
-
-When the memslot is dropped the shadow page is freed but the rmap
-entry survives, as in the scenario that was already fixed.  Code that
-later walks that gfn (dirty logging, MMU notifier invalidation, and
-so on) dereferences an sptep that lies in the freed page, causing the
-use-after-free.
-
-Fixes: 2032a93d66fa ("KVM: MMU: Don't allocate gfns page for direct mmu pages")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Kenta Akagi <k@mgml.me>
----
- arch/x86/kvm/mmu/mmu.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 7e2afd0b5180..b2525c38197f 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2180,13 +2180,15 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
- 						 u64 *sptep, gfn_t gfn,
- 						 bool direct, unsigned int access)
- {
--	union kvm_mmu_page_role role;
-+	union kvm_mmu_page_role role = kvm_mmu_child_role(sptep, direct, access);
- 
--	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep) &&
--	    spte_to_child_sp(*sptep) && spte_to_child_sp(*sptep)->gfn == gfn)
-+	if (is_shadow_present_pte(*sptep) &&
-+	    !is_large_pte(*sptep) &&
-+	    spte_to_child_sp(*sptep) &&
-+	    spte_to_child_sp(*sptep)->gfn == gfn &&
-+	    spte_to_child_sp(*sptep)->role.word == role.word)
- 		return ERR_PTR(-EEXIST);
- 
--	role = kvm_mmu_child_role(sptep, direct, access);
- 	return kvm_mmu_get_page(vcpu, gfn, role);
- }
- 
--- 
-2.53.0
-
+--
+tejun
