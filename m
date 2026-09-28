@@ -1,36 +1,39 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC034CDDC2;
-	Mon, 28 Sep 2026 13:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64474D17A6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 13:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602906; cv=none; b=PLFOqaz3yQvao7xxdwbvQjhaS6PpO/LlpTLd9K/tGc207ZTOPllejvAcSaWuD24MXVzRkWCL+WyMw/5M1+Vy2fMnoS+qXPIT+mUz4muwEuzRTGyBhsMoecQKg20Uj1pEDGFyv4lJVbu38zF/j7phbmjm43HoLWScUT6w+0/Hst4=
+	t=1790602913; cv=none; b=tG4jnAcOQzIikGHbxqeoYq6cZWv7PBIk9FVi/nnMou8Wmrcy98GvY/mnVWG3PEWOcg21DDSpcbMmLOS8PwS3dsIjekZ5yGK6C8Cxeb/8S6ClGZVR/610dUoDOJi4nbDvjOW+hyFfYuB0OtaiEiqmKYnLAReUiTcznvZn+z147lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602906; c=relaxed/simple;
-	bh=/2iOoMYsPzA3Df+V55vppw7WLTnw2r0wtg5wlEM0nak=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Egf4KwUwg5cKSp2CA8IIizyCWN6ClhVXn635RRbREjBTKgedg6OiTcezq64Hia38MCrbwu+/89ytDsR3zAwJ7U+19sJqrunKailOowiBKg6I8/ZwP33GKiR21vHx9KvcR3+4ktD2pVfvLSX3IYQavwYFnrXY/4g+xaI3HVtMMmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=VXl1gbDC; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1790602913; c=relaxed/simple;
+	bh=Y09vJTDEXPfq9naYYg8q8U3uk8RPTw2LEDdYX2fo2fE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jmDXW1C3eIWS9wpH42qefg+A3Ptwv26+PRgJEfWDZp8xf4iOAaugT0DnGboNEKdgDwA35JMMINZCieI+TyOiqSdRhMOst0XZGafDeHOtEe+TmmciiL8xrlsOPyiQ5mqSz29CYvaqJ5MTpJpJ5DUlLBwo26o+VH6suYU9stHTiMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=jWDbdQe4; arc=none smtp.client-ip=45.254.49.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="VXl1gbDC"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="jWDbdQe4"
 Received: from LAPTOP-99KJFSET (unknown [36.153.54.109])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f437;
-	Mon, 28 Sep 2026 21:41:37 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f439;
+	Mon, 28 Sep 2026 21:41:44 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net
-Cc: edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+To: maddy@linux.ibm.com,
+	mpe@ellerman.id.au
+Cc: npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	kees@kernel.org,
+	thorsten.blum@linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	jianhao.xu@seu.edu.cn,
 	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH net] net: plip: quiesce private work when stopping the interface
-Date: Mon, 28 Sep 2026 21:41:36 +0800
-Message-ID: <20260928134136.1213-1-getshell@seu.edu.cn>
+Subject: [PATCH] powerpc/fsl: drain MPIC wakeup work before replacing timer
+Date: Mon, 28 Sep 2026 21:41:41 +0800
+Message-ID: <20260928134141.452-1-getshell@seu.edu.cn>
 X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,88 +42,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e83fe45403a1kunmbd8064332001ea
+X-HM-Tid: 0aa0e84000e303a1kunmfdfc7f6e2001fd
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGUkZVkgeH0ofHhpDS05DGVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSE1MVh5ISh5CS0sdS0MfTlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VSktCWVdZFhoPEhUdFFlBWU9LSFVKS0hKT0
 	hMVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=VXl1gbDCpeIXAF2V0WHdoY754UKTpK0x4DHZWjDi/09Rn6Q3fPBqOrlhrr8GNNWBJMPon9cvOvmbFt8r7w1WTn61hDPD3vfwZC4fgqaiEowPeYYvbKuZEjVH007TiD4OOZiOPVyDbu5+FjRbA28pM9D08xGKRXmOUdmYeXQlZBw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=5bNsCuX0zSXm1psUbgNeXdk1Glg+yrCcYxUbte1h7ns=;
+	b=jWDbdQe4b4KDrrysDoN4qA8dv7vYAqE5gmjZ8GIfWOzN3OsIorRYFJjM/Y2c9Qtc6n0miYwlYN9oiEWfoiSKm0rckGmlLXpvSVsPf3+SRzzVRnBWc6dQacpw/bfykAgL6mefNR/Gb3BwMcdcLcv4vIKuXtlws8OHjHXOsQauKGA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=WpuPXXwYLspgMxJce0coNH0SvQ6W/DJKv68dWucdqPA=;
 	h=date:mime-version:subject:message-id:from;
 
-PLIP interrupt, transmit, and work paths schedule the immediate and
-deferred work items embedded in netdev private state. plip_close() stops
-IRQ or polling publication, but it releases the parport and pending skbs
-without draining those work items first. A callback can therefore continue
-using resources released by an ordinary interface close or device teardown.
+The timer interrupt queues free_work. mpic_free_timer() synchronizes the
+interrupt, but it does not drain work queued before the IRQ was freed.
+Module exit can therefore free fsl_wakeup before the worker uses it.
 
-Initialize both work items disabled. On open, reset protocol state before
-enabling the work and its IRQ or polling publishers. On close, stop those
-publishers and then disable and drain the work before releasing resources.
-The balanced enable and disable operations support later interface reopen.
+The same race exists when a sysfs write replaces the timer. A stale
+worker can wait on sysfs_lock while the store path frees the old timer
+and publishes a new one, then wake and free the new timer instead.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Serialize stores and exit with timer_store_lock. Clear the old timer under
+sysfs_lock, drop that lock, drain free_work, and only then publish a new
+timer. Dropping sysfs_lock before cancel_work_sync() avoids deadlocking a
+worker already waiting for that lock.
+
+Fixes: a63b3bc7db32 ("powerpc/fsl: add MPIC timer wakeup support")
 Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- drivers/net/plip/plip.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c | 28 +++++++++++++++------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/plip/plip.c b/drivers/net/plip/plip.c
-index d81163bc910a..97bbac0b95da 100644
---- a/drivers/net/plip/plip.c
-+++ b/drivers/net/plip/plip.c
-@@ -308,6 +308,8 @@ plip_init_netdev(struct net_device *dev)
- 	/* Initialize task queue structures */
- 	INIT_WORK(&nl->immediate, plip_bh);
- 	INIT_DELAYED_WORK(&nl->deferred, plip_kick_bh);
-+	disable_work(&nl->immediate);
-+	disable_delayed_work(&nl->deferred);
+diff --git a/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c b/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
+index f63b89adf9f3..51710c7cdaf5 100644
+--- a/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
++++ b/arch/powerpc/sysdev/fsl_mpic_timer_wakeup.c
+@@ -23,6 +23,7 @@ struct fsl_mpic_timer_wakeup {
  
- 	if (dev->irq == -1)
- 		INIT_DELAYED_WORK(&nl->timer, plip_timer_bh);
-@@ -1077,6 +1079,17 @@ plip_open(struct net_device *dev)
+ static struct fsl_mpic_timer_wakeup *fsl_wakeup;
+ static DEFINE_MUTEX(sysfs_lock);
++static DEFINE_MUTEX(timer_store_lock);
  
- 	nl->should_relinquish = 0;
+ static void fsl_free_resource(struct work_struct *ws)
+ {
+@@ -76,32 +77,43 @@ static ssize_t fsl_timer_wakeup_store(struct device *dev,
+ 	if (kstrtoll(buf, 0, &interval))
+ 		return -EINVAL;
  
-+	/* Initialize the state machine. */
-+	nl->rcv_data.state = PLIP_PK_DONE;
-+	nl->snd_data.state = PLIP_PK_DONE;
-+	nl->rcv_data.skb = NULL;
-+	nl->snd_data.skb = NULL;
-+	nl->connection = PLIP_CN_NONE;
-+	nl->is_deferred = 0;
+-	guard(mutex)(&sysfs_lock);
++	guard(mutex)(&timer_store_lock);
 +
-+	enable_work(&nl->immediate);
-+	enable_work(&nl->deferred.work);
-+
- 	/* Clear the data port. */
- 	write_data (dev, 0x00);
++	mutex_lock(&sysfs_lock);
  
-@@ -1088,12 +1101,6 @@ plip_open(struct net_device *dev)
- 		schedule_delayed_work(&nl->timer, 1);
+ 	if (fsl_wakeup->timer) {
+ 		disable_irq_wake(fsl_wakeup->timer->irq);
+ 		mpic_free_timer(fsl_wakeup->timer);
+ 		fsl_wakeup->timer = NULL;
+ 	}
++	mutex_unlock(&sysfs_lock);
++
++	cancel_work_sync(&fsl_wakeup->free_work);
+ 
+ 	if (!interval)
+ 		return count;
+ 
++	mutex_lock(&sysfs_lock);
+ 	fsl_wakeup->timer = mpic_request_timer(fsl_mpic_timer_irq,
+ 						fsl_wakeup, interval);
+-	if (!fsl_wakeup->timer)
+-		return -EINVAL;
++	if (!fsl_wakeup->timer) {
++		ret = -EINVAL;
++		goto unlock;
++	}
+ 
+ 	ret = enable_irq_wake(fsl_wakeup->timer->irq);
+ 	if (ret) {
+ 		mpic_free_timer(fsl_wakeup->timer);
+ 		fsl_wakeup->timer = NULL;
+-		return ret;
++		goto unlock;
  	}
  
--	/* Initialize the state machine. */
--	nl->rcv_data.state = nl->snd_data.state = PLIP_PK_DONE;
--	nl->rcv_data.skb = nl->snd_data.skb = NULL;
--	nl->connection = PLIP_CN_NONE;
--	nl->is_deferred = 0;
+ 	mpic_start_timer(fsl_wakeup->timer);
++	ret = count;
+ 
+-	return count;
++unlock:
++	mutex_unlock(&sysfs_lock);
++	return ret;
+ }
+ 
+ static struct device_attribute mpic_attributes = __ATTR(timer_wakeup, 0644,
+@@ -139,16 +151,18 @@ static void __exit fsl_wakeup_sys_exit(void)
+ 		put_device(dev_root);
+ 	}
+ 
++	guard(mutex)(&timer_store_lock);
+ 	mutex_lock(&sysfs_lock);
+ 
+ 	if (fsl_wakeup->timer) {
+ 		disable_irq_wake(fsl_wakeup->timer->irq);
+ 		mpic_free_timer(fsl_wakeup->timer);
++		fsl_wakeup->timer = NULL;
+ 	}
+ 
+-	kfree(fsl_wakeup);
 -
- 	/* Fill in the MAC-level header.
- 	   We used to abuse dev->broadcast to store the point-to-point
- 	   MAC address, but we no longer do it. Instead, we fetch the
-@@ -1141,6 +1148,9 @@ plip_close(struct net_device *dev)
- 		wait_for_completion(&nl->killed_timer_cmp);
- 	}
+ 	mutex_unlock(&sysfs_lock);
++	cancel_work_sync(&fsl_wakeup->free_work);
++	kfree(fsl_wakeup);
+ }
  
-+	disable_work_sync(&nl->immediate);
-+	disable_delayed_work_sync(&nl->deferred);
-+
- #ifdef NOTDEF
- 	outb(0x00, PAR_DATA(dev));
- #endif
+ module_init(fsl_wakeup_sys_init);
 -- 
 2.50.1.windows.1
 
