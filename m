@@ -1,198 +1,154 @@
-Received: from mail-m49229.qiye.163.com (mail-m49229.qiye.163.com [45.254.49.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A34AC170;
-	Mon, 28 Sep 2026 11:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52A24B0CBB;
+	Mon, 28 Sep 2026 11:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595874; cv=none; b=WjuS7M4qMgNvIqb4Kf5r0dw7abY0ooQC9MbMa10QmUiTwhoZlYVK2fgD/jQiT2Z5q+n/+0OVxLzLCnfNS1hWod3ZZpdZoqG1m/7gXc3hcv1/jF2vDNoagI2d250/MHISDZnArKyBrEOCaxErdtwe4JxHXoz9NeccYd+PO1rb6M4=
+	t=1790595879; cv=none; b=W4V1CdOEuWTMl9vBo4xPtcgbq52UXrfiHQHGGDq1vQgReLpZcoXRjlCNuOu0sbzm55mdAVQa+EuWJ8y+r1lyqbNCUOin5ads0Z144zsPzYwez4f7oH+oO8W+su4Olq4dX52FGxIX1mztG0yCoBHjVOhIVSnAUf3F9Eez+Ycj5/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595874; c=relaxed/simple;
-	bh=Y0MsiQrYJDDSuydp8+WFnjB9TUx6dfjNvmhwJzV3kMQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TrAj/r1IkBWy1lt+RJaHpYT8099XsZjHe9GY26ksKGni8ZuI0kHIlSu+q6wIclPe+fyzkpdNIh7r8jV91hH2L4W3BmHjcK3nNRXPPxXqSAB4/CNHSGXo+23RG0ec27Cr5fWcHRJKhfbNuS7Ny5P2QwDX4FHGoJJstT950pzpOhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e9rUnIUn; arc=none smtp.client-ip=45.254.49.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790595879; c=relaxed/simple;
+	bh=BiTmK/xF3Xf6YLJ0qA1o2cFPEoTv1djFzWRZ5SdJNJE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gzPjYg0hAxDwl0rKdjZA7sCwroJmHCIEdfNocFkVezFEh5A5M0E3lG1NS4rHYTdY+7itBpzHa1ZFgTP4cAdaQSN0zqm9OnB3Db9gLRMYk+4v2/E4v4MRAm9XlzLa6bpHfj1urZP9ne+zC1cwP2nDCCGNyryAPg7dJAFGRcjO0qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RKGX7PdZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mU8DbIEZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiayG2bu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FHFSwfs1; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e9rUnIUn"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e40;
-	Mon, 28 Sep 2026 16:15:02 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 01/14] drm/bridge: analogix_dp: Return bitmask from analogix_dp_get_irq_type()
-Date: Mon, 28 Sep 2026 16:14:05 +0800
-Message-Id: <20260928081418.3605775-2-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
-References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RKGX7PdZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mU8DbIEZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiayG2bu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FHFSwfs1"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 81F351FA8E;
+	Mon, 28 Sep 2026 11:44:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pb490YezcVolJMRhswOP+JoZfyXrapQRUUIjORQYqXc=;
+	b=RKGX7PdZLFhxZQ/PKoVDUaYnIy12FISlOqnLU0kp1HKHgv/xDy7MMHVRGQIPVwdaodAAYL
+	XfTj+Dn4II6cIIeIvbzqj9AEl2YRSdhjjguXTvVsQzPiRIJcQ4O0TKgbLn22j49b3v3yb0
+	4ADpwixVFcJYGiXddwMmRo7Tv4WVuXM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595871;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pb490YezcVolJMRhswOP+JoZfyXrapQRUUIjORQYqXc=;
+	b=mU8DbIEZ3rKbrlopMq8teRdgQ3tzeNIvWWeoT4CntJfayx36vghX09xlNGL1c47s2rwWtT
+	TCgbzm2pv0767SDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790595867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pb490YezcVolJMRhswOP+JoZfyXrapQRUUIjORQYqXc=;
+	b=LiayG2buoq7lN4BiPMTw72vhqcmOmExZYlHCU6OZqreM9hnnX9v3s4Bz1jjSRg9lHEKWOG
+	W+65FXmAE+mQCFPyPiS47GJQKy+hGKCCCvg7Sqn/9vf9cx8PQ0etuAfAVoK0lYxcEeoooq
+	+PdflQhSI34I3ohoIXS4Pa/t5m+cJ+U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790595867;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pb490YezcVolJMRhswOP+JoZfyXrapQRUUIjORQYqXc=;
+	b=FHFSwfs1DbxaKhWAYede/pFgcUgkRxwMN/6kT4QAKGIdWiUMqYrLVoG5vcD3kAiyIQYi+a
+	8DoAEk09cUI8GHDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 279A8133F3;
+	Mon, 28 Sep 2026 11:44:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id R9EYOxpTumobTQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:44:27 +0000
+Date: Mon, 28 Sep 2026 13:44:26 +0200
+Message-ID: <87pkxx61np.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Daniel Mack <zonque@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ALSA: caiaq: unregister the input device when probe fails
+In-Reply-To: <20260925170717.22462-1-ngocthang2710.1999@gmail.com>
+References: <20260925170717.22462-1-ngocthang2710.1999@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e714eaeb03a8kunm323e2b5437cf01
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUlIVkJCT0pPHx1IHkJIS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=e9rUnIUnggVntlM+VCCn3Pgkdao9uZAva/eyhDYkS+mpJG9kvFVs+UQiHBHj9uanrY95E6qMpW1TWQN2yXUCRx3lCupYRaGdilL+QImZUX58j6Nf8p1gib6hDpwyGY27P3ZS378dJuT2MjFTMCcmDRplArlaJ9yRXcHWo+75Yjw=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=fTbtcGZ0NiXRdk++xUkHW9KoNxxGSWE+RUMF8C782Oc=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -1.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,perex.cz,gmail.com,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 
-Analogix DP controllers support two sets of interrupts for hotplug
-detection: HOTPLUG_CHG, and the pair PLUG / HPD_LOST. The current
-driver logic relies on PLUG/HPD_LOST and does not consume HOTPLUG_CHG,
-nor does it check for INT_HPD for IRQ_HPD events.
+On Fri, 25 Sep 2026 19:07:17 +0200,
+Nguyen Ngoc Thang wrote:
+> 
+> setup_card() registers the input device, whose name and phys point into
+> struct snd_usb_caiaqdev, and then goes on to snd_card_register() and
+> snd_usb_caiaq_control_init(). If either fails, snd_probe() calls
+> snd_card_free(), which frees the device state but leaves the input
+> device registered: card_free() only clears the pointer, and the input
+> device is unregistered from snd_disconnect() alone. Reading its "uevent"
+> attribute afterwards dereferences freed memory:
+> 
+>   BUG: KASAN: slab-use-after-free in string+0x4a9/0x4f0
+>   Read of size 1 at addr ffff8880208f5043 by task caiaq/4967
+>    add_uevent_var+0x183/0x3a0
+>    input_dev_uevent+0x162/0x900
+>    dev_uevent+0x2f1/0x870
+>    uevent_show+0x1ca/0x3a0
+>    ...
+> 
+> Unregister the input device on the probe error path, as
+> snd_disconnect() does. snd_usb_caiaq_input_disconnect() is a no-op when
+> no input device was registered.
+> 
+> Reproduced with a raw-gadget Audio Kontrol 1 and a temporary hack that
+> makes snd_usb_caiaq_control_init() fail.
+> 
+> Fixes: 28abd224db4a ("ALSA: caiaq: Handle probe errors properly")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+2a123f6269da57ffefaa@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-The existing analogix_dp_get_irq_type() returns on the first matched
-interrupt flag. This causes the hardirq handler to unconditionally mute
-all HPD interrupts, including HOTPLUG_CHG and INT_HPD, creating a
-limitation for future extensions.
+Applied now.  Thanks.
 
-To prepare fine-grained interrupt handling, convert the return type
-from enum dp_irq_type to a u32 bitmask. Accumulate all pending
-interrupt flags instead of returning early, and add detection for
-DP_IRQ_TYPE_IRQ_HPD. Remove DP_IRQ_TYPE_UNKNOWN sentinel; use zero
-to indicate no pending interrupts, which simplifies code and
-facilitates future extension for additional interrupt types.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c |  8 ++++----
- .../gpu/drm/bridge/analogix/analogix_dp_core.h |  4 ++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 ++++++++++--------
- 3 files changed, 16 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 6df6963740d2..079f2f01f33b 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -701,10 +701,10 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
- 	irqreturn_t ret = IRQ_NONE;
--	enum dp_irq_type irq_type;
-+	u32 irq_type;
- 
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
-+	if (irq_type) {
- 		analogix_dp_mute_hpd_interrupt(dp);
- 		ret = IRQ_WAKE_THREAD;
- 	}
-@@ -715,7 +715,7 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
- static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
--	enum dp_irq_type irq_type;
-+	u32 irq_type;
- 
- 	irq_type = analogix_dp_get_irq_type(dp);
- 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
-@@ -725,7 +725,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
- 	}
- 
--	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
-+	if (irq_type) {
- 		analogix_dp_clear_hotplug_interrupts(dp);
- 		analogix_dp_unmute_hpd_interrupt(dp);
- 	}
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 4560597604ad..3f40d95757c5 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -120,7 +120,7 @@ enum dp_irq_type {
- 	DP_IRQ_TYPE_HP_CABLE_IN  = BIT(0),
- 	DP_IRQ_TYPE_HP_CABLE_OUT = BIT(1),
- 	DP_IRQ_TYPE_HP_CHANGE    = BIT(2),
--	DP_IRQ_TYPE_UNKNOWN      = BIT(3),
-+	DP_IRQ_TYPE_IRQ_HPD      = BIT(3),
- };
- 
- struct video_info {
-@@ -195,7 +195,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
- void analogix_dp_init_hpd(struct analogix_dp_device *dp);
- void analogix_dp_force_hpd(struct analogix_dp_device *dp);
--enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
-+u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
- void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
- void analogix_dp_reset_aux(struct analogix_dp_device *dp);
- void analogix_dp_init_aux(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index c1344a3f013a..49c1961e4326 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -412,8 +412,9 @@ void analogix_dp_force_hpd(struct analogix_dp_device *dp)
- 	writel(reg, dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
- }
- 
--enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
-+u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp)
- {
-+	u32 irq_type = 0;
- 	u32 reg;
- 
- 	if (dp->hpd_gpiod) {
-@@ -425,17 +426,18 @@ enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
- 	} else {
- 		/* Parse hotplug interrupt status register */
- 		reg = readl(dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
--
- 		if (reg & PLUG)
--			return DP_IRQ_TYPE_HP_CABLE_IN;
--
-+			irq_type |= DP_IRQ_TYPE_HP_CABLE_IN;
- 		if (reg & HPD_LOST)
--			return DP_IRQ_TYPE_HP_CABLE_OUT;
--
-+			irq_type |= DP_IRQ_TYPE_HP_CABLE_OUT;
- 		if (reg & HOTPLUG_CHG)
--			return DP_IRQ_TYPE_HP_CHANGE;
-+			irq_type |= DP_IRQ_TYPE_HP_CHANGE;
-+
-+		reg = readl(dp->reg_base + ANALOGIX_DP_INT_STA);
-+		if (reg & INT_HPD)
-+			irq_type |= DP_IRQ_TYPE_IRQ_HPD;
- 
--		return DP_IRQ_TYPE_UNKNOWN;
-+		return irq_type;
- 	}
- }
- 
--- 
-2.34.1
-
+Takashi
