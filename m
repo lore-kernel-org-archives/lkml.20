@@ -1,116 +1,168 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F46D30EF9A;
-	Mon, 28 Sep 2026 10:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1542B47885C;
+	Mon, 28 Sep 2026 10:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590567; cv=none; b=b6FkxRcy80cBd7camMyxFEKwbJ2ejdgC8j4IhImFBXaOBT7Rc8fSREfvWgQGpBkp4RC6a7tJ1RVVlhoxJ7hX+53Y36YegUO0wJPvn7FshFY1Wccbq1D58NLy2qVYGsxUwLj2Ep9v49AppFciU7IOZFHMevGtYHZeCO5rmLNEdKE=
+	t=1790590568; cv=none; b=H02zf+i8DzUYxXyyPOxZYI24vbxOvlpVYuBb8lrzQuEd7ItcxzHp0/fz9ZaO1VzY5TuSaDABlBhfS3gVX6lU4UMQ6liqqPgF0uGZZ/M+pfvPY6g55nqazuoJo3yn/KEYrEsQVL3k48UG4CEWeQv5h1LkLA8wxxdF0kDuYoXBd0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590567; c=relaxed/simple;
-	bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i3XuuAcMtrbBMZJMH9pUYi+c+ydBMqaRDprA6zqI0YEL707ILTipCILMSMzvhnLJ7Lndb+UB3fTtS7haOosYFAVPGTG+q4ocEEiYiiQh7gEa/hm0Zy/7MEsFSE1nHcjcbgKLCNZZB/OlqlpMLPtrGjAG33fs0/DVgjpYuD0snvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qj293lBg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790590568; c=relaxed/simple;
+	bh=JOEouGEyUwIUSQ+6E8KbBz+7jLfmhZ7J6dyROOQfk78=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YbetcoN/e+WApW0vbEf3+I8PAE1lSalB5nvO7qH9Jw2CgKrP8TTuEr/mF8Aj4ROWu68bjP9PA30RJkV1t3O8V4HJNF3LJDCVDnSdtqlCSDIL58l9dOCWLOWbVB3Kmhtb17aIsLC9XT8ro6syIMhNeCLokW9pzc3GeaA05EOuXyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Ss4FoEt/; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qj293lBg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E42F1595;
-	Mon, 28 Sep 2026 03:16:01 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C36183F86F;
-	Mon, 28 Sep 2026 03:16:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790590564; bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
-	h=From:Date:Subject:To:Cc:From;
-	b=Qj293lBg/6b843xYXIk9YO/DL5ZlcuD8zBJGerZdZts+ENqsUVJep4w+Pc6KlwNJj
-	 nyWECdxejVewrMEYaQiMLr6lXZE+ra/3nb/mQeRs+c2ubsQmD8OFwQlfyDFmFqeQrz
-	 xKnzNC2CzPiDqaIAxo9yZSeKOCIuFOPJOIzGhrzQ=
-From: Leo Yan <leo.yan@arm.com>
-Date: Mon, 28 Sep 2026 11:15:51 +0100
-Subject: [PATCH v2] perf test: Record kcore for the CoreSight callchain
- test
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Ss4FoEt/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1790590560; x=1790849760;
+	bh=VrZvQ2kXf4DgXVeEHK3zh5ari2yV1djBu4RKuh3f2Ko=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Ss4FoEt/kcSeZuD4FVj2BFCiBGZoS59cQVCnBUyLX9QjGBvwv0MwrhyR7cObAwYrU
+	 HVV233QCnA6kExyXccjEN4ITIdlWdxKfOOqO6BzbEW1oB/t9/nHoB2Qbe52B6CQDNE
+	 hvCCwE8B9LTEz8s+AvfciAwl0SCjowpUjPKv6IvVPgEHTiNbnEiJc/GLXqaA+do1ex
+	 DPk3YgtzxwN0AYVYmQBmvoLkE7dICuXN7yil7dYst0jG5iuYjmRC0WdsuAjg/XO8kA
+	 j9uDDh/nGaa0g7AgqBDAqC7Mf7DHrL/GAIjrfSKLy2HHjraw5nhGGlhdFKvOrYmD6q
+	 /LzwX/duBjhxA==
+X-Pm-Submission-Id: 4htcdp0jlZz2ScWP
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
+ Muellner" <christoph.muellner@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <aroytGH8u-gGFYvq@ashevche-desk.local>
+References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
+	<20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
+	<CNQ6_DVFGgC82FTU2GwM8v4KY2d4DUOo_b1XhhyOnysR6eWGJEsgFHlNLylYvkM6dWR3mhcGGFNDuN7qwCO1YA==@protonmail.internalid>
+	<aroytGH8u-gGFYvq@ashevche-desk.local>
+Date: Mon, 28 Sep 2026 12:15:57 +0200
+Message-ID: <87mrt1vfz6.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-perf_cs_etm_callchain_test_add_kcore-v2-1-24fff6fab009@arm.com>
-X-B4-Tracking: v=1; b=H4sIAFY+umoC/x2N0QqDMAwAf0XyvIIWJna/MkYoaaphrkpSZCD++
- 8oeD467E4xV2ODRnaB8iMlWGvhbB7TEMrOT1Bh878c++MntrBnJkOsHKa5rs6RgZasYU8I3bco
- uh5GnMOQw0B1aalfO8v1vnq/r+gGBWobudgAAAA==
-X-Change-ID: 20260928-perf_cs_etm_callchain_test_add_kcore-f96e891f91c5
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790590562; l=1896;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=TLcuAfNS5WGF0Ruj4addevBg9cjbks/F3rMnppHCpFQ=;
- b=PBLAJZQTz4UAxqKrLyv3CqWD4tY8pyLYcqZhXfLSXqr1Oaz+AT7oVouvPfS9f4nU0Vezdmpw/
- 96D3DunWinYB0n/QnueUdjkNQgEPoW4JEGspaRGqwiD5ogGg8Fr8j/Z
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain
 
-The CoreSight callchain test traces both userspace and kernel execution
-and checks the callchain across a syscall.
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-Add --kcore to perf record to save the running kernel image alongside
-the trace data so perf script can use it to decode the kernel trace.
-If kcore is not available, the test will be skipped.
+> On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:
+>> Adding support for sharing interrupt line with other device requires the
+>> interrupt handler to handle runtime PM suspension properly, ignoring the
+>> irq if the device is suspended (maybe even off). And while at it, we use
+>> the PM reference to ensure we do not get suspended while processing an irq.
+>>
+>> In order to prevent the chip from raising irq while suspended (that is when
+>> using fixed regulator, where suspend just means setting the device in
+>> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
+>> then restores the value again when resuming.
+>>
+>> The scoped_guard in mma8452_runtime_suspend() is changed to a plain
+>> mutex_lock() instead, both to prevent mixing guards and goto, but also to
+>> ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
+>> way up to disabling the device as much as possible.
+>>
+>> With that in place, it is safe to add the IRQF_SHARED flag.
+>>
+>> Keep in mind that the device by default is using push-pull for the irq pin,
+>> which might require additional hardware design to allow interrupt sharing.
+>
+> ...
+>
+>> +	pm_status = pm_runtime_get_if_active(dev);
+>> +	if (pm_status == 0)
+>> +		/* device is powered down */
+>> +		return IRQ_NONE;
+>
+>> +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
+>> +		/* runtime PM was disabled, possibly suspending */
+>> +		return IRQ_HANDLED;
+>
+> This is very interesting part. I bet this will be the first driver using this.
+> A big question "why?"
 
-Add a Fixes tag so the change can be backported to stable kernels and
-improve the test reliability.
+Because as I understood it, I needed to add this for the patch to be
+accepted [1]. It is definitely possible that I have misunderstood that.
 
-Fixes: ca0e19074bd6 ("perf test: Add Arm CoreSight callchain test")
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
-Changes in v2:
-- Add check /proc/kcore and skip test if absent.
+The technical reason I believe is that during system suspend,
+pm_runtime_force_suspend() disabled runtime PM, and if a shared
+interrupt durings this, pm_runtime_get_if_active returns -EINVAL, and we
+could therefore end up doing I2C reads on unpowered hardware.
 
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- tools/perf/tests/shell/coresight/callchain.sh | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Per that reasoning, we probably should be doing this in other drivers as
+well.
 
-diff --git a/tools/perf/tests/shell/coresight/callchain.sh b/tools/perf/tests/shell/coresight/callchain.sh
-index 13cca7dc11184002e3ddc058c0d0ffa1c458c483..43ad90bc30345efdd40ba4649ceeb435a1781a4b 100755
---- a/tools/perf/tests/shell/coresight/callchain.sh
-+++ b/tools/perf/tests/shell/coresight/callchain.sh
-@@ -30,6 +30,11 @@ skip_if_system_is_not_ready()
- 		return 2
- 	}
- 
-+	[ -e /proc/kcore ] || {
-+		echo "[Skip] /proc/kcore is not available" >&2
-+		return 2
-+	}
-+
- 	return 0
- }
- 
-@@ -43,7 +48,7 @@ record_trace()
- 
- 	mkfifo "$cf" "$af"
- 
--	perf record -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
-+	perf record --kcore -o "$data" -e cs_etm// --per-thread -D -1 --control fifo:"$cf","$af" -- \
- 		perf test --record-ctl fifo:"$cf","$af" -w callchain >/dev/null 2>&1 &&
- 
- 	# It is safe to use 'i3i' with a three-instruction interval, since the
+>> +	/*
+>> +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
+>> +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
+>> +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
+>> +	 * not enabled), and we can/must assume device is active.
+>> +	 */
+>> +
+>>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+>>  	if (src < 0)
+>> -		return IRQ_NONE;
+>> +		goto out_runtime_put;
+>>
+>>  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
+>> -		return IRQ_NONE;
+>> +		goto out_runtime_put;
+>>
+>>  	if (src & MMA8452_INT_DRDY) {
+>>  		iio_trigger_poll_nested(indio_dev->trig);
+>> @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>>  		ret = IRQ_HANDLED;
+>>  	}
+>>
+>> +out_runtime_put:
+>> +	if (pm_status > 0)
+>> +		pm_runtime_put_autosuspend(dev);
+>> +
+>>  	return ret;
+>>  }
+>
+> ...
+>
+>> +	pm_runtime_enable(dev);
+>> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
+>> +	pm_runtime_use_autosuspend(dev);
+>
+> I don't see the respective _dont_use_autosuspend() call anywhere.
 
----
-base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
-change-id: 20260928-perf_cs_etm_callchain_test_add_kcore-f96e891f91c5
+Ah. I was not aware it was attached to a usage counter as well. I will
+add a pm_runtime_dont_use_autosuspend() to the runtime_suspend: error handling.
 
-Best regards,
--- 
-Leo Yan <leo.yan@arm.com>
+> ...
+>
+> I am wondering how many of the above possible scenarios you were able
+> to test.
 
+Not enough. I haven't done any additional instrumentation to cause all
+the various error conditions that is handled here in _probe().
+
+> ...
+>
+> P.S.  I bet you can now make a presentation "PM runtime in Linux and
+> why it is so hard."
+
+LOL. I am getting there, yes. I have definitely learned a lot about how
+runtime PM works. Especially since I was mostly starting from scratch on
+that.
+
+But i fear it would easily end up being quite a chaotic presentation :)
+
+/Esben
