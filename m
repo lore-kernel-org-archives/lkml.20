@@ -1,96 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A58A2DF137;
-	Mon, 28 Sep 2026 21:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137552DF137;
+	Mon, 28 Sep 2026 21:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630371; cv=none; b=WUR5ByMkhNg1dKrFVfWzyEqnwSqCV4NldrfJjWKECBBg52BrU5UY94Ev1SybE+AOaZZT9nYPng38fD+KyJsmXcorLYdG6hVgNOoVRztwMg44FNe3Y60leYK1FRbPvQOeyCSZFDsOjkxSIwueSsUbfnbQLI+uoGFaWlQFh9baymk=
+	t=1790630418; cv=none; b=UUJ4q6CJFupcuPYmVl+/S2wfEAmvK7s/RNXSr2eS684aqNQfayOWpbJOgDMlCidHghLVfMRknYJ98zocLZfv3NFZc6WnOZbMjJqElSiihzM6eFRkg6mDI3zvZWtiRuMygvL0ntDAAs5LT/SJEWedf4K2UyIhto3sb5a5TTLbrZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630371; c=relaxed/simple;
-	bh=kfmsQ9/d/zSC1kcaKVB7j/3bdEwiblUM+SnGKNFHH9k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UKAbtjHCA3iT/wu0sU0muHvlQ87JZntu6TSh5RLsdqHmWd9ibkE5OUFO3imWH8VIZJgET8UfaQY9/K8zYmzhZ4IUBYjT7bXOEXFh3AIN6TO/i0O4x5uXBPB8/udErOBgAl3qi8wLARkgZnbLRUCqkDgInCtUwkePFKRWKKU9cFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g26diT/P; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790630418; c=relaxed/simple;
+	bh=0wSVDTCo6Cmwys7tnYEeKLwVKpVfZlfujTiInN+fmU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sHmj2tKgVKLDeKCSEJghQj6l8R5fKiGrgpsaPEBseeaA35tSLf1U+PGswZz5ZdFsb262yOsHur+o5jjw2h2Kjv8bh2ZPwcNG8qvHHLHCar4+7+RjNUmsIYzWWYkzRMq2XMp+GVqt62JgfK9FyaVV+mHoRn+iC9mYxyKHh2csZ7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n958H5Up; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g26diT/P"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B4538C4AF0B;
-	Mon, 28 Sep 2026 21:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790630370;
-	bh=kfmsQ9/d/zSC1kcaKVB7j/3bdEwiblUM+SnGKNFHH9k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=g26diT/P6t76B5rrUQrKwIJCIXJMhezkkPTfgslb0W2RxTfbQsCKcrj38SQmhEabm
-	 zk3wS0S7TYwT/+kKuqicNid4n2dtGknjJ8/B1gq1sNq+nvAavEoLqde6eGR99ycVwR
-	 G4jB6RovSKpARWmXfNuUQBR93++t0i+taXhCAPohdRPjZxoEUjs7EFHMp7XvXpX7H7
-	 bT6/wI+0K3OydbkUPSy4RY2zwn6QhJd4U114yeeUSKauRsqdTXW16sX9Y4flJdtaKv
-	 UfspCFMI7/QWOfabQVjzGkeIkr0I/8r5JCm7Fp0C7O78AoQ+aDpILImvafHk1NcBj8
-	 xIKjwwT3QzVsg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92C79CA5FA1;
-	Mon, 28 Sep 2026 21:19:30 +0000 (UTC)
-From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
-Date: Mon, 28 Sep 2026 14:19:03 -0700
-Subject: [PATCH net-next v2 1/3] net: pcs: rzn1-miic: Fix port numbering on
- RZ/T2H
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n958H5Up"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790630416; x=1822166416;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=0wSVDTCo6Cmwys7tnYEeKLwVKpVfZlfujTiInN+fmU0=;
+  b=n958H5UpR8Az89BLZVIhnjHieXggGbuXWm3PH1TBbsvvLvauCnbzChFH
+   Qw+NFOmLOegdujH6fBllP4T9qgFbQ0SzzgW+fvuvqVEosxeqvMUT9LhEJ
+   yGKgAIjMB4BjdISDo6r1XxBLEG29OLg8qilPNHuQEygvP67vSUqjm4Uhc
+   PG7QpU4YQYTGSAmyuFJhgBWdP5amM/B8EVICGg2xRrACy3DVsB1Im+Qf2
+   xAFft6CeKLbTIHaL/X5uu8gZ/C5ODdG9rVyIun1K4J5hs2oQgamoL6PMD
+   gYIIJE6bN/zX1lIK5fSlW3qkFZ2/5oMrfIuwytvlgD5O/HG/USbnyUJ5j
+   w==;
+X-CSE-ConnectionGUID: KUJ/8WjbS0aeI0uKboUm0A==
+X-CSE-MsgGUID: f6VshuGhSlSadxay0XRVZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90241512"
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="90241512"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 14:20:15 -0700
+X-CSE-ConnectionGUID: AGZ5CZMOQNOYeMPPTm7j0Q==
+X-CSE-MsgGUID: VLHkZjNMQqGymVNuLkchfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="274274161"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 14:20:12 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E9D8E11FBD1;
+	Tue, 29 Sep 2026 00:20:12 +0300 (EEST)
+Date: Tue, 29 Sep 2026 00:20:12 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>
+Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
+Message-ID: <arraDNEO5NuxgTz6@kekkonen.localdomain>
+References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
+ <arZRZfa7AmDxmwoJ@ashevche-desk.local>
+ <20260925125433.GY106095@black.igk.intel.com>
+ <araGjQoaffMhDMLz@ashevche-desk.local>
+ <20260926100727.GB106095@black.igk.intel.com>
+ <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
+ <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
+ <50a29ae4-bae1-44be-9dbe-79a1147accf0@kernel.org>
+ <CAHp75VeHupSXCBUyoUdPXY-GvBcupQ9kczhr-M3=WLkEzDKyvw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-miic-validate-dtb-v2-1-1ee3d33748e9@reliablecontrols.com>
-References: <20260928-miic-validate-dtb-v2-0-1ee3d33748e9@reliablecontrols.com>
-In-Reply-To: <20260928-miic-validate-dtb-v2-0-1ee3d33748e9@reliablecontrols.com>
-To: =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kyle Hendry <khendry@reliablecontrols.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790630370; l=911;
- i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
- bh=IeosEy2220CsO/HfUbuKH2ER3bJwKIrqImDfBfTHa5c=;
- b=44tZkjaG38VvzANRTfwqSvQcjhG8i9NeLc5hJj4t67SbtutaOTMaTg3wGFqxpuXIsIN4rq+Ub
- rxi7wE1m38uDsL/gIzqojAelmOlDbu2MjCzxB2PyUKD76PE157Ai0NA
-X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
- pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
-X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
- with auth_id=946
-X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
-Reply-To: khendry@reliablecontrols.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75VeHupSXCBUyoUdPXY-GvBcupQ9kczhr-M3=WLkEzDKyvw@mail.gmail.com>
 
-From: Kyle Hendry <khendry@reliablecontrols.com>
+Hi Andy,
 
-The port numbers on the RZ/T2H are documented as 0 to 3. Update the info
-structure to reflect this.
+On Mon, Sep 28, 2026 at 04:10:41PM +0300, Andy Shevchenko wrote:
+> On Mon, Sep 28, 2026 at 3:35 PM Hans de Goede <hansg@kernel.org> wrote:
+> > On 28-Sep-26 13:34, Andy Shevchenko wrote:
+> > > On Mon, Sep 28, 2026 at 2:13 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
+> > >> On Sat, 26 Sep 2026 12:07:27 +0200, Mika Westerberg
+> > >> <mika.westerberg@linux.intel.com> said:
+> > >>> On Fri, Sep 25, 2026 at 05:34:53PM +0300, Andy Shevchenko wrote:
+> > >>>> On Fri, Sep 25, 2026 at 02:54:33PM +0200, Mika Westerberg wrote:
+> > >>>>> On Fri, Sep 25, 2026 at 01:48:05PM +0300, Andy Shevchenko wrote:
+> > >>>>>> On Fri, Sep 25, 2026 at 12:22:15PM +0200, Bartosz Golaszewski wrote:
+> 
+> ...
+> 
+> > >>>>>>>  drivers/gpio/{ => intel}/gpio-graniterapids.c   |  0
+> > >>>>>>>  drivers/gpio/{ => intel}/gpio-novalake-events.c |  0
+> > >>>>>>
+> > >>>>>> These are interesting drivers, not sure where to put them
+> > >>>>>
+> > >>>>> IMHO they should be there too. We are maintaining them both.
+> > >>>>
+> > >>>> Do you send PRs to Bart or you just rely on him to take the patches?
+> > >>>
+> > >>> I don't expect these two drives to get too much attention, and they could
+> > >>> be contained nicely inside intel folder and that would help Bart to
+> > >>> identify that these are Intel drivers. So your bandwidth would not suffer
+> > >>> even if these two are added there. Your call.
+> > >>
+> > >> I'd like to avoid a situation where we have Andy's Intel drivers under
+> > >> drivers/gpio/intel/ and other Intel drivers under drivers/gpio/. I'd prefer
+> > >> to move all of intel GPIO drivers into drivers/gpio/intel/ and have Andy
+> > >> gather changes to them if he agrees.
+> > >
+> > > Okay, we have two parts missing:
+> > > - Nova Lake driver (I would need Adam or Mika to step in as at least a
+> > > designated reviewer for that)
+> > > - USB IO (I think we need to agree which tree it will go through, my
+> > > bet that media tree is the best), for that we need Hans' consent
+> >
+> > Routing the USBIO / LCJA GPIO drivers to the media-tree, with
+> > Sakari likely doing the merging for both works for me.
+> 
+> Sure, Sakari, would it work for you?
 
-Fixes: 08f89e42121d421b ("net: pcs: rzn1-miic: Add RZ/T2H MIIC support")
-Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
----
- drivers/net/pcs/pcs-rzn1-miic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes.
 
-diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-index cb74861e823c..df70309c2d97 100644
---- a/drivers/net/pcs/pcs-rzn1-miic.c
-+++ b/drivers/net/pcs/pcs-rzn1-miic.c
-@@ -838,7 +838,7 @@ static struct miic_of_data rzt2h_miic_of_data = {
- 	.index_to_string = rzt2h_index_to_string,
- 	.index_to_string_count = ARRAY_SIZE(rzt2h_index_to_string),
- 	.miic_port_start = 0,
--	.miic_port_max = 4,
-+	.miic_port_max = 3,
- 	.sw_mode_mask = GENMASK(2, 0),
- 	.reset_ids = rzt2h_reset_ids,
- 	.reset_count = ARRAY_SIZE(rzt2h_reset_ids),
+That being said, the USBIO driver(s) come in three parts, this one (GPIO),
+I²C and the main USB USBIO driver. Patches (or at least the set they're in)
+often touch more than one and then they're routed through the USB tree in
+practice. It'd be practical all would be merged via the media tree, unless
+there are dependencies to other parts of the respective tree.
+
+Perhaps we should still do this to GPIO first and then think about the
+rest.
+
+Also cc Miguel.
 
 -- 
-2.43.0
+Kind regards,
 
-
+Sakari Ailus
