@@ -1,62 +1,64 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DA72F8E93
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FBC14F70
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790569249; cv=none; b=srqDQWn0IVYmy8dnmwbjlKgqDLw2vk32vBgyPPE8kC2oTOdWfbvUpxSzpCstjsVGAgHxcKrwhwNPHbC9CIGu+wiaNMBSVHhtQ8+b5F5Z/N8OvrZCirbJG49+TSimFNAhYqoD8zr5A4c9sTWwS7J2BSwgZv5VKPqznM6MY2loWgg=
+	t=1790569256; cv=none; b=dJAlh4TW76Jmh9AFNbzZOyQnZzE6EHs0+X/ezhMexfEkVaOvQCSVyea7NQ9J7HXSZGB+cJzbmVd17JwGPoyi/Wzzyke/x1IEU0E2lCNkptS3aWmC4Vdno45HJjF1TdAnrcT8ANk0DpzbUjcnkhP2/7u+uzi3CldRlkv5QYm2TyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790569249; c=relaxed/simple;
-	bh=rFHanh7Ch28fVwN3jE3sxSyoAvx94S6JKqoVFn7VZSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hR/ts8xlEWRLxIOIjISKs/TZUOdbJSNJaCY7ZcIwQKtLalBaEqNvlcKOr4y4G/hEOr/n2dZnIK6jZiEazs9GpJHOeN0gNzD0E3mJ+7BcSy3/CpjCZaZuuYMGniKveMDpVFbZN55q26/U1dkvmxdToPG7DJX2IKSSJmEnmezLJI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d5ikq1N6; arc=none smtp.client-ip=74.125.228.40
+	s=arc-20240116; t=1790569256; c=relaxed/simple;
+	bh=8s5UNNxjNTgWcTEPGOXDlHQ84vTRSMiHLNfmajp9dIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KBZdmfeG73SNU2J3Alat/R/ai4Mbuwpg9yISUvSmXM39rryZGez8PKd7rX3lDbzVC446HoIUU466C+XcMMqTWeSMrH7lUMDPebWN4Xafle0s6HbID3yBT6+1fcuPON6O7KCkTMo+Ntypmg76rYaAkkllxswB2UVR3EyX9lASwWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlAKHO6R; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d5ikq1N6"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc750a1482fso1371281a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:20:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlAKHO6R"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso13783805ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790569247; x=1791174047; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vt+Fys9LPwoKj0epOmuGPS2f4bBUgX/azN8uK4mSop0=;
-        b=d5ikq1N62RJ8mvXFRvUpNn+J0xJtIYWwtEH53lMBKnNxd7Cd0Y8qooyqq/R7E5zqd0
-         tfKmCnsKHVJv9SY4yJJm450mI6MHHfrwHUo53G+mRXcMdt8UE4AXhqbSgNpCAsR4AzxV
-         0dSbkgf3pheYhT65vGQoHZRoK/VpYBa22UuMXJktrElG0GgZDoevm+VO+/VVDvlYoQ/c
-         YaKIoQ5VWINtt7dbuI/S5EFF7PHMiO2L+8YqCgR9lOmXjvO4QrVcGS80OWyWFgGxkyNk
-         nGDjcKbJ96/0b1WgHZXaazABmSHkJ/rXYyYvLBEL2W6uYJGOUSf5Ngcbgl4vxpInluCg
-         0bhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790569247; x=1791174047;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790569254; x=1791174054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vt+Fys9LPwoKj0epOmuGPS2f4bBUgX/azN8uK4mSop0=;
-        b=TBtiCvNm6zx2JTq4jC/skH246M13hZpfaSEs59SArOo4uWYZoTCDkO6CImZdJQOzXY
-         Hxaj/ZQC/0VsrIS1aCLEh7ftetIKDvCCTzkLu8Yg3ii01+6DPZ0YkMxHojJesrrw5H4l
-         IdaG5xUilFWl7fTUM99KytNNRft+3ts2HrR+fnxSKnsoGHGCZRbW9/+kV8c/undRaP5b
-         5qZurB1rPZLxF8X7j232Qo254os3Vn0UrUxuPk2X16CDbYW0O+e9TrCT8ZqH9uUneFg4
-         ToFUs08rQdTF8pubMei/QBxGoPrHQ2bUXohQfYsPcdUpeShx9QGuawQfh7xt/x6qr09B
-         1lXg==
-X-Forwarded-Encrypted: i=1; AKwUvBzMmuNOikmYD2MzHmBx/Jd9PNPjb9twqCFUWMXr4rfxvJ77fawL5gvza/3+1S8Z8uqzyrm3IRFWsB6Paec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZfuyspl+FH01bQYz0WBXRp/jWHeJHdg3/hMJhgF1u3bMQ5zUB
-	5IYHjSDdT0ROwBG47BCRZmq/u1rzhfv29Bj8CtkMNTjiH1cQjV2IWwMB
-X-Gm-Gg: AYBFou2ZraFAONd4rr/MsOZWyWC++EeI2g4GZYVThL8QaoX3jYun9EUj6G0eSAAtMyJ
-	arU4mQt2SBqf+OYb7wKE8elDioeJGSFMyDuQ8fyzpyVM+BHIS+UOiu63WXSzY7b0TVEeGsHRd0V
-	xpqfVxbAaGb1cu4fU195pjkV01cflXUs5ngL8rUJzz4Z7E1yyQiLn5q/DDzEbyNA14L8fReDPcX
-	1B9RjvWJdoT/3Rbu0aiLQBGbxe3mSzutgHSBHbRazQsfDMyH9VXlJQdBNTShZAOR6AM9kjQ0o7v
-	tq4ztNYc5wwHrpvPq3oyDaHW9WLrLx61Ncxh35rUdnKa2sVc6w5JHFi4rZmpu0+PX1hVldm5DsB
-	iIs6TcLDT8hNVt997J81t81ruUAOzyTjNlIxmjE7wf1RZL6MpInSh12bb/6Mowmg+lWBbCazqIw
-	gSYam7Y/4Usqt+HZbqwG3jNQAqcQT/ikE9Dj2jWx92XddVnRdwzYcCPsc8UII260k5oz2eixzR8
-	qERJ0A8xIzrJQfAQuV9kZcAiw==
-X-Received: by 2002:a17:90b:384c:b0:3a0:7209:fffd with SMTP id 98e67ed59e1d1-3a0bb60b32amr7375699a91.42.1790569247106;
-        Sun, 27 Sep 2026 21:20:47 -0700 (PDT)
+        bh=Vf1mL/aY04keQxVMDFJDD2jaVQO8n/7zhuRpmwsEObo=;
+        b=JlAKHO6RBAf2VM5+KTGlcHKFlOu8O5zzM77OnRVRBQywGxRim4Djh0YJYPIlZ0ad49
+         y3fU/MbCjKFHVvwPkcSDAHOtG+vgiFJFE3COhn3Vvfx6URI2d+l1AiJOxH0VJM4NUy1K
+         xYO9uIGI7br3N6gvEs/fKGmu7vFZ/ss4GoarAkSFNssGSHLUGWHBOwM5fSCgU4myR39G
+         nl6hqwxr1eevAk9LE+wPzaRXA5OMdldFIe7INPk/RbkPr3DWfDpAeOI5PL3qWQLbjATU
+         TpR8Ktp2eF9yR4DV5n+CITKlfXHwr8McdXq0FqQ5eOhhdjiAFqFJCoamDjZ9DWrL7Mx+
+         MR0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790569254; x=1791174054;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vf1mL/aY04keQxVMDFJDD2jaVQO8n/7zhuRpmwsEObo=;
+        b=lxV8W4HSDdYX9+XcfzA33qbQ+aceA8ewRHDYnGRtGbSqk8wlbbJM9CwxvGSa4oKqBs
+         gsDRZtcclFJD8cJetwC1JIlPseSG0JW30C1s9JlrWRk3HDSY0Yi0GxCtecu0rT+U273q
+         OfddRljMIu98wy7FEORoZomA7OYGIjFHr0qJKqN5YxrQeBnF4mwcZzow8Z6aQikbw4+8
+         DqzmluJQYad8TAUvYaCrYGFo2U30dn64T3tFrVx3JDLPkmxNxfc12JnqXI3ATPrB5pfs
+         /GT+npxP1gpGJA2zYiONvHbOu6pAdzSIzos70ibDkYogmh+N/pyExj0O+1vJmw86gogm
+         Eupg==
+X-Forwarded-Encrypted: i=1; AKwUvBx0Je/MXWA6Ioa+jT/ZnCA/M94wUOZKG1MXroRzqrevllI2IyhDGsZnlIWRbk2vtzvbCQmciVvxVCr9gaM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7x106HrgK9lCXepNlLmgwJ19eWeURE96fNq3/KnM5zBK5v4Te
+	nX9FHy6w61aqho7O8PKFZFH/eEm4akr1r7BZmr7UXWqpbPiaz7qJLkZC
+X-Gm-Gg: AYBFou0Ma4n/S5vcPWjhZuNe2+HKfJe78KQi2iA4XzDtQN0QtRMxA1gNaq5wAW3+3r4
+	KiZbnm98yLsQPba2jz5l7dUYp3HT35HJcBkubqRDOJ/HEPZsvVHHZUSKogF0TgrK6Kico41UTrT
+	xrtfaym3eqkLrriMkTM4w2ZmbOqHPIQo91JGTuDWAh7PX3Mxyq5Ny7I3sgjqjscaZiAvg4FmV11
+	VPr8Hx6jmTLQbLX5L663M1ZkPPCjXj36zyDx/GP+SyLv2XmfYJh5/PZGSaHi5Q6EJVp3njhVaYn
+	zP4xrkS2/Je7peS61iP1Un2oJ0LXXpS7jLsmbXIe3gpT+wMzxwP++o8kcCXzPvzd+WgBBRW1Q+U
+	+qo+0z8EgPfu/jfj3SzFaLDhB83qAXcbUhRdxnpmeAgddfDCGyPkh3LGZy9NROcCkiX7EqxhnDO
+	QIuWrO3RLuYOnxq0OMhydg/KB/AlCJEiweX6PxlbBrbHakSQ8LOpnpwhZF17UhqgPYiJiFKjSZd
+	op//nYdvR9Gq0Dr2/AEf2ln
+X-Received: by 2002:a17:90b:3888:b0:3a0:cc33:2287 with SMTP id 98e67ed59e1d1-3a0cc3324ccmr6124536a91.6.1790569254339;
+        Sun, 27 Sep 2026 21:20:54 -0700 (PDT)
 Received: from localhost.localdomain ([167.71.204.91])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm18252804a91.6.2026.09.27.21.20.41
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm18252804a91.6.2026.09.27.21.20.47
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 27 Sep 2026 21:20:46 -0700 (PDT)
+        Sun, 27 Sep 2026 21:20:53 -0700 (PDT)
 From: Jemmy Wong <jemmywong512@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -70,10 +72,12 @@ Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
 	K Prateek Nayak <kprateek.nayak@amd.com>,
 	Tim Chen <tim.c.chen@linux.intel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] sched/fair: Update decision matrix and rename pinned-task group state
-Date: Mon, 28 Sep 2026 12:20:15 +0800
-Message-ID: <20260928042018.10618-1-jemmywong512@gmail.com>
+Subject: [PATCH 1/3] sched/fair: Add smt_balance and llc_balance to the decision matrix
+Date: Mon, 28 Sep 2026 12:20:16 +0800
+Message-ID: <20260928042018.10618-2-jemmywong512@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260928042018.10618-1-jemmywong512@gmail.com>
+References: <20260928042018.10618-1-jemmywong512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,42 +86,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch 1 brings the group-type decision matrix above
-sched_balance_find_src_group() up to date. The matrix was introduced
-by Vincent Guittot in commit 0b0695f2b34a ("sched/fair: Rework
-load_balance()"). When commit fee1759e4f04 ("sched/fair: Determine
-active load balance for SMT sched groups") added group_smt_balance
-and commit f38cc2f0d8a3 ("sched/cache: Prioritize tasks preferring
-destination LLC during balancing") added group_llc_balance, neither
-author updated the matrix table.
+The group-type matrix was introduced in commit 0b0695f2b34a
+("sched/fair: Rework load_balance()"). When commit fee1759e4f04
+("sched/fair: Determine active load balance for SMT sched groups")
+added group_smt_balance and commit f38cc2f0d8a3 ("sched/cache:
+Prioritize tasks preferring destination LLC during balancing")
+added group_llc_balance, neither commit updated the matrix table.
 
-Both are only tagged on non-local groups, so their columns are N/A.
-As busiest, both go through the nr_idle checks rather than an
-unconditional force, and both are balanced against a busier local
-group.
+Both types are only tagged on non-local groups in update_sg_lb_stats(),
+so their local columns are N/A.
 
-Patches 2-3 rename the state that tracks load balancing failures caused
-by cpus_ptr-pinned tasks. The names come from the original group_imb
-heuristic, which did detect per-CPU load skew; commit 6263322c5e8f
-("sched/fair: Rewrite group_imb trigger") turned it into an affinity
-failure flag but kept the name. Today group_imbalanced is not what
-group_classify() returns for skewed load, calculate_imbalance()
-computes no imbalance for it, and sgc->imbalance collides with
-env->imbalance and imbalance_pct. They become group_pinned_task and
-sgc->pinned_task, matching the LBF_*_PINNED flags that set them.
+As busiest, group_smt_balance is only set when dst_cpu is idle and the
+SMT group runs more than one task. Against a local has_spare or
+fully_busy group it goes through the nr_idle checks, where a non-SMT
+dst group may also force the pull via smt_vs_nonsmt_groups(). Against a
+local imbalanced or overloaded group the local group is busier and the
+pair is balanced.
 
-Patch 1 does not depend on patches 2-3 and can be applied on its own.
+As busiest, group_llc_balance is not an unconditional force. A local
+overloaded group is busier and the pair is balanced; otherwise the
+nr_idle checks apply, with prefer_sibling still able to force the pull
+when the local group has spare capacity.
 
 No functional change.
 
-Jemmy Wong (3):
-  sched/fair: Add smt_balance and llc_balance to the decision matrix
-  sched/fair: Rename group_imbalanced to group_pinned_task
-  sched/fair: Rename sgc->imbalance to sgc->pinned_task
+Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+---
+ kernel/sched/fair.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
- kernel/sched/fair.c  | 66 +++++++++++++++++++++++---------------------
- kernel/sched/sched.h |  6 +++-
- 2 files changed, 39 insertions(+), 33 deletions(-)
-
---
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 7455a83a6a99..f9ddcecfd19d 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -12947,13 +12947,15 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
+ /*
+  * Decision matrix according to the local and busiest group type:
+  *
+- * busiest \ local has_spare fully_busy misfit asym imbalanced overloaded
+- * has_spare        nr_idle   balanced   N/A    N/A  balanced   balanced
+- * fully_busy       nr_idle   nr_idle    N/A    N/A  balanced   balanced
+- * misfit_task      force     N/A        N/A    N/A  N/A        N/A
+- * asym_packing     force     force      N/A    N/A  force      force
+- * imbalanced       force     force      N/A    N/A  force      force
+- * overloaded       force     force      N/A    N/A  force      avg_load
++ * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc overloaded
++ * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  balanced
++ * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
++ * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  N/A
++ * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
++ * asym_packing     force     force      N/A   N/A  N/A  force     N/A  force
++ * imbalanced       force     force      N/A   N/A  N/A  force     N/A  force
++ * llc_balance      nr_idle   nr_idle    N/A   N/A  N/A  nr_idle   N/A  balanced
++ * overloaded       force     force      N/A   N/A  N/A  force     N/A  avg_load
+  *
+  * N/A :      Not Applicable because already filtered while updating
+  *            statistics.
+-- 
 2.54.0 (Apple Git-157)
+
