@@ -1,83 +1,83 @@
 Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60533CEBA6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C312339768D
 	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790621956; cv=pass; b=o0EmOOMgy7622bDmOA8bXiAyMdiwwrseElO4aEnAFKV/u/RFCVC6BFjsMY7hXk05MBISrZBzjXwoyNhjN9lAtljlJvNiHBKgVqlkAXwiI9ThsgdZP6IJuRiPiRgWqLm7/Yo+fn8twPlZcBCuuDgQzqdm4FBlDA+o98f/03Re0g4=
+	t=1790621956; cv=pass; b=pkDCxvwM89mkqE98uCeleWm6oICgJ8h/5lB04TX5AoKGisrJXEQXtH8OYS05IHb7e6PE7+2i8s76zTXnEuaWRcyqG3+dCl24ykiXwkMWlHkOuvsO9WwhgCjeFmGrlYbDhC8cTmwcScD+O43Xhe3wKdQznw4VECQWRVuFPHSNeS0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790621956; c=relaxed/simple;
-	bh=ZckUBzuxfDct7Xtg49y5TXXNnoeTTdLGKQnVGpqLnmQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=BvQslehMV7lU6MUibsjFG7iI3qLnRsyuQUMy73Wc2rKc6rVIQ8XkmTlOBhUB6uwFtg2ITqYuBAnrGpZgeeAGRd8YYDXhJzkFj2EillFuNdAN5vOv6S5XZ/zgSKT/hnf6xlrke816GMnaDvC/VVYgL2QaF4+x8UOsOPWEufWlXtk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3SffaIu; arc=pass smtp.client-ip=74.125.229.204
+	bh=zbxh97DfahtmVFw2yx/P+OI0PpzLVE463PD6gyDR+VQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=lzvlNL5+OLeQ3+oT9friphqobN5S3Cmmto5k6dbybaSraigKovrwiPwU5dOQ6+D9DH4rCRfA+HA2HFUZBhGbCbWSU7eUnXSOS6gUp8vK0D9VlEdRxYcMUMGu804aBpx3MM207JxsedaBjmfixRN7pRmUL/+B7OLJEwyWD5uKq74=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ALNlkfXN; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3SffaIu"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e419so1179956e87.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ALNlkfXN"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f35f74caso1703291e87.0
         for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:59:12 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1790621950; cv=none;
         d=google.com; s=arc-20260327;
-        b=pOqCGCRKL6WFkU1bLdEj7A3t2NoxS22m1o8t1OtwbfcqBZkqNLLWU/y3gkcFRZP5Fy
-         /rrX5GSRRlbm6zyEbb38wHO6kQl03q7cYCfyLlu85lusZg+araX1A2uYwFLeulCHioOx
-         DXRzySeXKPwfG/Ej70+ug+kp3PfbVY6H06mr81DuZw91bxSaSBM6Sm2WWvym62CIX/8L
-         QovSahpsIAbD4ow7ze43LHyOaK/h4zNq28T8QuV0PdeM7d1fiduySZlROwnHcfbZSdXm
-         AfCmZSeGsidoCgSdntBP/HesqMYSW1535ZzGIkeZ7Ow2a8PrH63lCwjw60JfR8LPWvt6
-         fdfQ==
+        b=lVRCrsnDfDjTfRSb+IE9NvXax8Bxa1BADRbeomGdFOCPttpdO0Xid7ZBtNfW9xvJLZ
+         buGZl86dWORsFJT+/FXIC9cmVGnJiYrhXXFSOEjaDpGwp3UkrmxUB90JfnEahF3n2ncq
+         6+D8KoL+dGJy50FFlyE3NhyiPtZHCOg1ni8pynAyGP/siY0eBr7b2o43lCj2p5cDNDM1
+         S7MsBxnxz4RaLiaL8PvPsEdfqnC8tFeCM2S6OjFvnyCV41e0ZLacCoSqkYpSN2Gj5v1D
+         zJrxsagJCDziSEWcTx/g4UcnJ43kIW8gEF3gwHbG+CbwMOti/Z8VjXxCmt+EYxIqA1x4
+         ntGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:sender:mime-version
          :dkim-signature;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        fh=BN7pgEG+VSu+TQ0CXe13ckSrv82vYbbLhex025K4cDU=;
-        b=cwlSZHfxzqHN8PtcbmHPfV5ohOIHyrIqRqlgI9Fq0g48IYqRQ8c0vXzAxpeHb8luvE
-         NV7MXZvGvzRM0fQKH5AWpF7YpH6l4BmY2YaUxx4sdR+F4Sw2W5Q0WNT9q+76csxKhicV
-         WyUPp/QVOjaP0RzhGbq7uYwswMOi5UHOjfCi6Z+wrzjVae9pRSXVIQK1lGgX46pgetSg
-         YtvI94hlIvLs/jdTnBrCtSwWG1/OaRT+1Q3AIVm8O6+R6KKVlPPQPJz7mIBkHnt2lTSa
-         kVPtPE6OhZgn3JE8jGNAs4PAahVAtc62YCpCwldZ0w9mTaimlM1bhrxwHdZ2yWaAV1Bq
-         0rVA==;
+        bh=2mj3lyrm7aE/R7y/QOz0OagCVKj44YeS0Sz+Yo0D/po=;
+        fh=Ek7UGwBSeWaGsU2c73PPBmSIRCmOYYpouwuHFMeOe6c=;
+        b=JbuDZvbJlDCvo6ZNcdK7FAx0bntGmGY3jNDs1iKn3+rk1EqaBaCBq0Qs2uW62Xf/qA
+         8zrxqSF1enzOuYnwkqZPU6YR32E2mKtjenqhfI2GmiIM2X8FGrwjeopY2kqUDYG2uB2e
+         1w3907Lgj6JNmuvoNAf/zDojkTIPln7ODQlkXYl6+gRQhhSseOJrYSYanmfN0KeAb46/
+         2hpsi4UPqADux1jM+x5If0Z+1K/Qyy+vXyeSxb7Ifgo193e+Uigtqqc7IsyydYBzvXPe
+         sO39M1Gr46abFiNvtzB1fniIm/YaHgzMf6fYQsFpoepUclWtXIq9fytLQZUqWFtzYvXF
+         NHig==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790621950; x=1791226750; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        b=h3SffaIuXFZFlrN3ssHMWUrw9m8vbhLctkQmnh/rvdVVzzlksx4S5ogP1wK1h5TGAI
-         wgUF7yo0fNaktuyNZJoMC5eSIIc4tibqykGmSyVkpCCmpVbQZ173yEv6wm4D/oZjZfMa
-         HUgJkW25BBx/4ngNI5m39GxRf7pVm5kHjXAqSsx33ReLW1N4uKQK+qESkc7n/62N6pxZ
-         iDq8jbO7ge5JdBa1+TCocUuJzCYbOqF5oFo7g3LUp1Uu87AonWLkTyO39Hg7C0A+uSe8
-         fv8S5qeTXQlSYWymNgOix5a2Fr+3Oj6wp1fnhd2CmeBa/jTbmIMltZqWrGYpyNbo70wa
-         qq9g==
+        bh=2mj3lyrm7aE/R7y/QOz0OagCVKj44YeS0Sz+Yo0D/po=;
+        b=ALNlkfXNuHGvk48OfekmkexPjAHnoMbcsmSB3p+GYTqQ/2wliYgKPKzGrseWFJNf6a
+         5qOYy+y/brxPI6LgihssK3ElXOsT+OCYvaWcIgETehpKUIX/SFwoaXpkwcRNUIGDeySX
+         +1p9YXd0w7CLVCkYd2X+RVRUwm11tnWty/dnVv9uzJtFBBr7Ulin5dikMzZwJDnKzFqi
+         A8dbUJl7jQzgVOovGH2WaXL3ClgPnPimSBmDQjwv6/ECl45EfrEU6LPzPm+f8I1s+0ft
+         qXJWynVqFiJbAf6aBJX/oDRl20hV58+2IYhqihGcGvbVWIzAmyJzrRLVq1fKvz1jAPUc
+         DlqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790621950; x=1791226750;
         h=content-type:cc:to:subject:message-id:date:from:sender:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Pu/ssd8DugN/kj01xDDdGW2HkDyQcHTA/d4qIgsVPkw=;
-        b=OFhMqHSKIeLzuFCha34zLFzGLR/5tP0XMSEEg0fJI9tNDMPSqt1ySwt/MdmBSts7Sf
-         ZypZTQHasAODisRJvug5cibH1j7E2uT8UABtzEcNFU5ixJfOCGMJBW7TeKAvKigo4IV/
-         ICp2qm0kWIk6AhnQJHDR2HQSvh/WwDj/B9R92JgIwIFU6mydu434dYyQ3mrLtCBjYKhm
-         ITSNEZMkuUFwrNS54CQ+ItD3fHnmRtzIsVtenUGzH1fK0/eAk+J7WNI85UAMyLDhi6IC
-         jUfXMvx+3atdE9vlPbLJKjU0qgO+TWk7wCfZ2oeynVkRz1EQgH0AzZdMEdl77vD7lb1z
-         xucA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4UI2dy8oa1z9NcN06pZrVqK6GxFR8JIJ79tH+pHmbXV9s3GxoTqSJTFUcNnNSBVl9zeL9ZWrVgs+xVN8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+8x7oTWRyq4yynhS0O2WZnE4Bw4nq/sZebzg12+NVexLFQ4qv
-	1asiOUZnnWexhiXZ4E7mR23ZhwqQpRkXQ9aeZgieJgRNyVEGfrmzk2On0QoaMhy6wzTTrTE7XNn
-	mMo+TRnOWPBjSwwQ5kMhdIFmRyXIBJ1g=
-X-Gm-Gg: AYBFou0yWfgQvU/I5El8yl9u3GEleC3HpsB6wiClfnXFJd5f3QusAtfrdFHYIlQf3Zx
-	qe9aY3UkT68f7hL4CP6WDk0OIIKTVlUH2YnYwUmTlEABIrUkXPuFgCuu2kmrFpRoNawzPvikLxO
-	m+6zGWBQ0z7NX2Yjq59vcq89ZKzgQcbWUevqcI7z4J1Uz0QgE4tKnhqzqM8hzpSHisOQFRGs2Ea
-	3YsKJiFOVKxlBMjLW+DXGtS22wQYRddwDHCYyc/4lVot4Gn5YR6Pi9XLGOds1hqR6ETOkFXzA/V
-	O7FUCobXO65GN8qdR/Fycz0CZ4gRY9jFwdErfybFL6EdAw4acHzRpUrP2ecnKkXAjyC4QJf/vs4
-	FXBmJUJlL/PY1
-X-Received: by 2002:a05:6512:134c:b0:5b6:10bc:b864 with SMTP id
- 2adb3069b0e04-5ba2e6289cemr39499e87.18.1790621950325; Mon, 28 Sep 2026
- 11:59:10 -0700 (PDT)
+        bh=2mj3lyrm7aE/R7y/QOz0OagCVKj44YeS0Sz+Yo0D/po=;
+        b=gmfrMcA6fZ9VHZ2IFIPxGDCt0eN/vRj9p7GeMgLxVLKZ3fHqiaD5SDLzYr5hlySEt7
+         CPR2FPsD7ac0mzoHHLNrDXCG7sL7nDrUoqEccz/QFnIYxFCghTPnUAVzw8dUZTEvEep2
+         AaoGtLM6x9/brUatb3j/P1VXVwW3PkU/Qa74Uk4eKxod21IaMFWyHfk/CDwx1mljrEnq
+         jrx525+4fXHTCG9/vGjIPuK1o6BwknoPwWrhRco65c0AreQsLqrk1x/RU2RacJDHJq2h
+         amGlY8yjBB01AdsopZGt6SNyv56i7oM2Fp6fHYc14WCd3N3dBUkCaVX6+44dCjtmc0Vm
+         AoRA==
+X-Forwarded-Encrypted: i=1; AKwUvByn4ZP3Vpi644L5AIMpWxg2DH/A+LQNZdxyw1dpa+4atCGzZanYcnDKwKH2irxh3GteUn6ulbRywSxVJDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKO0MQ3LCyqoWEfUUQyy2LZcVybpuMpisz4dYg5ZRQWjlFLRRVx
+	M+EB8YeakD72ZzhFOv9q7noRYruYn+LPjsGflmBFG637JoU3+GoCj2+XPAyjWT/xmd88L+2qoNZ
+	KmFqUcGg1TyEpgiwA6gojzzENUutwiCc=
+X-Gm-Gg: AYBFou2MoL2Fd3VK6wpC00vj8hz7yPLIcRI1p1UjSOPWUm2F+iBE3OxUdb28ESkPALH
+	4Efrtbh3ZC4cINcD+lPnob6lEEgZwUVS6TKtFJWVpJrcjSF9YSKTaPnGWPz/WswFf043jflRNKC
+	BDXI85c3G30fbyZC1PfzzipUJUl3x8G7JHHN+hwA/dd8aUu3hijjgRiyFhDOMAOSlViMgSzodI8
+	4t1OXqOraAf5KQ7s5Q22Kd2x8Xe9pRRjPPPo5m9+b2YYpSeFnOYkKBJnsdL1LO2ny1doi4OrGFz
+	77iSdvBCVVesx8Nm8b9gX9zUm1lVqydYe8l1GO/sctqqaIdVuMW+E8yRX6ahpKLYB8zbko6q7BY
+	A6xSniRBAmD5u
+X-Received: by 2002:a05:6512:230f:b0:5b8:f30f:7cfe with SMTP id
+ 2adb3069b0e04-5b8f30f7de0mr2381443e87.36.1790621949786; Mon, 28 Sep 2026
+ 11:59:09 -0700 (PDT)
 Received: from 254448290189 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 11:59:09 -0700
+ HTTPREST; Mon, 28 Sep 2026 11:59:08 -0700
 Received: from 254448290189 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 11:59:09 -0700
+ HTTPREST; Mon, 28 Sep 2026 11:59:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,63 +86,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Sender: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
 From: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
-Date: Mon, 28 Sep 2026 11:59:09 -0700
-X-Google-Sender-Auth: ZwCvM-sC4hIxe8N8dJb-AWb4nUQ
-X-Gm-Features: AclHuK-2bu843UqJ0hkn0uiGUfhhfw492ZeGe05OpMyUNCkLbPWCoP_36qHDt24
-Message-ID: <CAANnmVBmovjCL0Ky4F3ay8pnmm4jp0+HyXC9QYyHo_1Bi1FucQ@mail.gmail.com>
-Subject: [PATCH] ufs: verify cylinder summary size against cylinder group count
+Date: Mon, 28 Sep 2026 11:59:08 -0700
+X-Google-Sender-Auth: yJdVTHyK8StYuaczuakEtPmSH0s
+X-Gm-Features: AclHuK-Xz52AgVCzLAZuF5oizm1zR161dvYMBuInRdqEcsrUcYBfED0bFxZLpG4
+Message-ID: <CAANnmVB6Wu+vtdmg+S5uZKkdYMA1gOSQBQ25SpSpasKG9U-1-g@mail.gmail.com>
+Subject: [PATCH] fs/adfs: check name length of big directory entries
 To: linux-fsdevel@vger.kernel.org
-Cc: brauner@kernel.org, marco.crivellari@suse.com, ali@iusegentoo.com, 
-	kees@kernel.org, jack@suse.cz, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Cc: brauner@kernel.org, rmk+kernel@armlinux.org.uk, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-The cylinder summary buffer is allocated with the on-disc fs_cssize
-value in ufs_read_cylinder_structures(), but it is indexed through
-fs_cs(i), which expands to s_csp[i], with the independent on-disc
-cylinder group count uspi->s_ncg as the only upper bound - see for
-example ufs_new_inode(), ufs_free_inode() and the block allocation
-paths.
+The F+ (big directory) entry format stores the object name length on
+disc as a 32-bit value, bigdirobnamelen.  adfs_fplus_getnext() stores
+this value in struct object_info::name_len and then copies that many
+bytes from the directory buffers into the fixed-size obj->name array
+with adfs_dir_copyfrom(), which only validates the source range, not
+the destination.
 
-Nothing requires cssize to be large enough to hold ncg entries of
-struct ufs_csum, so on a crafted filesystem image where cssize is
-small and ncg is large, every fs_cs() access is an out-of-bounds
-access: a read when scanning for free inodes, and a 32-bit
-increment or decrement past the end of the kmalloc()ed buffer when
-an inode or block is allocated or freed.
+Nothing validates bigdirobnamelen, so a corrupt or maliciously
+crafted filesystem image can specify a name length greater than
+sizeof(obj->name), causing up to 4MB of attacker-controlled data to
+be written past the end of the array.  Both callers of ->getnext()
+instantiate struct object_info on their stacks - adfs_fplus_iterate()
+via readdir() and adfs_lookup() via path resolution - so this is a
+stack buffer overflow which is trivially triggered by listing or
+stat'ing files on a crafted image.
 
-Since the summary arrays are only set up for writable mounts,
-triggering the out-of-bounds writes requires nothing more than
-mounting a crafted image read-write and then creating or deleting
-a file.
+adfs_object_fixup() also appends a four character ",xxx" filetype
+suffix to the names of non-directory objects when the ftsuffix mount
+option is enabled, so name lengths greater than ADFS_FPLUS_NAME_LEN
+could still overflow the buffer by up to four bytes even when the
+initial copy itself fits.
 
-Validate at mount time that cssize covers all ncg cylinder group
-summary entries, and reject the image otherwise.
+Reject entries whose name length exceeds the maximum defined for the
+F+ format, which also leaves room for the filetype suffix.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Vamsi Krishna Kattamuri <kattamurivamsikrishna17@gmail.com>
 ---
- fs/ufs/super.c | 5 +++++
+ fs/adfs/dir_fplus.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/fs/ufs/super.c b/fs/ufs/super.c
-index 3569ac92b065..2052d5225d03 100644
---- a/fs/ufs/super.c
-+++ b/fs/ufs/super.c
-@@ -1139,6 +1139,11 @@ static int ufs_fill_super(struct super_block
-*sb, struct fs_context *fc)
- 		uspi->s_csaddr = fs32_to_cpu(sb, usb1->fs_csaddr);
-
- 	uspi->s_cssize = fs32_to_cpu(sb, usb1->fs_cssize);
-+	if (uspi->s_cssize < (u64)uspi->s_ncg * sizeof(struct ufs_csum)) {
-+		pr_err("%s(): cylinder summary size %u is too small for %u cylinder
-groups\n",
-+		       __func__, uspi->s_cssize, uspi->s_ncg);
-+		goto failed;
+diff --git a/fs/adfs/dir_fplus.c b/fs/adfs/dir_fplus.c
+index 4a15924014da..ec663bc12a92 100644
+--- a/fs/adfs/dir_fplus.c
++++ b/fs/adfs/dir_fplus.c
+@@ -192,6 +192,11 @@ adfs_fplus_getnext(struct adfs_dir *dir, struct
+object_info *obj)
+ 	obj->indaddr  = le32_to_cpu(bde.bigdirindaddr);
+ 	obj->attr     = le32_to_cpu(bde.bigdirattr);
+ 	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
++	if (obj->name_len > ADFS_FPLUS_NAME_LEN) {
++		adfs_error(dir->sb, "object name length %u exceeds maximum",
++			   obj->name_len);
++		return -ENAMETOOLONG;
 +	}
- 	uspi->s_cgsize = fs32_to_cpu(sb, usb1->fs_cgsize);
- 	uspi->s_ntrak = fs32_to_cpu(sb, usb1->fs_ntrak);
- 	uspi->s_nsect = fs32_to_cpu(sb, usb1->fs_nsect);
+
+ 	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
+ 	offset += le32_to_cpu(bde.bigdirobnameptr);
 -- 
 2.47.3
