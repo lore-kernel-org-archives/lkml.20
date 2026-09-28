@@ -1,141 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4AA4E50AF;
-	Mon, 28 Sep 2026 17:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9C54E3222;
+	Mon, 28 Sep 2026 17:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616272; cv=none; b=ZrjK/hUiF1e68cdxAWxgXOvcdk1f/aRDVD4WUVfgYjkHFCXJ6OM5ffITzwrJaje8RgJXCeTrnm5SziD5mJ+yqZeK3A6NwYg8xdaZX3PLxFX86UAJyswPaGnM22h/HYIlc5MMmi/+t6yGF/pBGo5xKt0d27Nnm6rq+kztrLhFbmQ=
+	t=1790616330; cv=none; b=axwEiiyN86mNz5S96JFAEU1ymtmtL++AHZrt2VpIceehzRxMl9ylf8RTAu2+JpkUrtY4zC20/ZtNSDf9JyQtx1X2sa4h+vM0ubF2+ObSMshZ3cga13xNEINAFv8uqxN+fABasE7S+f7lFo/lhuBCPlf9IGFidDcbRBTZgxgLDZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616272; c=relaxed/simple;
-	bh=A4sGNxmkOrAHQZrCx4hlTt8pCr3WBaG5i7z5E4gUzm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aRq9OiulSVvmekQFbQ9G0cA6DDf4bUte2WmW3SMCeQYb3JKTgCOQ4JYE1WCaunLRw8kovIFlA4B4wTnzMqGibmHABzEJDtK/yB+tvoMhDjO/WL99BFcNYpaqbvDMlu+e0hY1wW7xGSBnD9z4ektt4wf32Gdsp0FoTtZWyjMm4rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BTTnwgHo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790616330; c=relaxed/simple;
+	bh=t7ciOat8NBAE1wVSqTyG74L/2dyyeqvgmvIccluNMoo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=h37FWNynmgf31XZkI3gjwvwJyiHuQnmwOZvqv3O7xdbb+rgJagLCgt35EOlbZgQqze/+O8FnRpenbjKMi4Jgh/MFigYrXad1+WEljcXMnm0glID9vOIojE5V1d/QVk/TVq37LO6qwZxCB6I/7v+eCTiMpm5JUvClq69opHEGboo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=A5+Cnyft; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=zm602OBl; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BTTnwgHo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A4B1F000FF;
-	Mon, 28 Sep 2026 17:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790616271;
-	bh=CzE2GE5JN/tI9+vf5ceSYktDtLDt2Ax4ATT81DGIpY4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BTTnwgHo3e7c9o0rEnQRB7ZYUXhkhD5eIFXOeC520HyCwUZwp8jntGIY9n5YsIix9
-	 /Ym50PIIpYqM37fQQXINrRbjumZpkwgpqOull3Vidwl2FElBE4K/ZGUVeOGKt8cKu4
-	 a+UKkqCjaVec32acLq750VC4ry62UJhA1lTT4gGp/y+DstTdzx6MC0BJ24rg7StUJf
-	 dgv845cDIgkefff7Lc7OjPDgek/7/hApSlYTBXj74Uhnqg/3FzAsZ6YruF/Wkt4mBa
-	 F4lCS7i9EpYsGaacidhpQDKTKg3WlYFlUrNt18dgBccYqZ94wbeGNi0MRC87EwDbH+
-	 BDQNjNC1bQU2A==
-Date: Mon, 28 Sep 2026 19:24:21 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Maxime Ripard <mripard@kernel.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <arqhwHiVf00j94J7@beelink>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="A5+Cnyft";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="zm602OBl"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790616300; bh=k126SaJbWbPm3yQDF1Bzvdo
+	RS2fDCbZch92XD1cDkQM=; b=A5+CnyftyhiIVzTrVI/LfoIQuZ4iyLIbPbzW5HLlg+3CeUf9ES
+	Wwwkx/sMv6qdfoyYjhguDmh+rtyxRkPBw/jo3VGJU3p1+zJvg9+Q62IliUEwpkfXPBvZow01IP8
+	Szj2CrJl2WQD2wuBIP4I0oEln+rcU57WhsEZdjbVCEawXxpcxSGaGVPPw+gKkz3xc2xEViEqUUl
+	Ue20Ih9Je2mZF1MqtrQ/l2e4u1P+mXVQvMU0L8WdYjIb68FykwPRphqeOscRs+vuRHrFgZy1EC+
+	y4ZpQ67mjXpIVM6K2kXeSSn6NM0Coe2Z5p5CDgcedW4fkEj6nNjn0g4wm6IL1gN55yQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790616300; bh=k126SaJbWbPm3yQDF1Bzvdo
+	RS2fDCbZch92XD1cDkQM=; b=zm602OBlU9S4vhyB9DWLQZnbUJZTaAHoy+ZYEh1EPWUhxVdHK4
+	+GySt+/tmodn0A2ILZ/wvBzCYXdUDISKOsBw==;
+Date: Mon, 28 Sep 2026 18:25:01 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: =?ISO-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_1/3=5D_docs=3A_admin-guide=3A_Handle_TAINT?=
+ =?US-ASCII?Q?=5FFORCED=5FBIND_when_parsing_/proc/sys/kernel/tainted?=
+In-Reply-To: <bf400c123ec86a7192388ad23cfe4194f536937e.1790612298.git.u.kleine-koenig@baylibre.com>
+References: <cover.1790612298.git.u.kleine-koenig@baylibre.com> <bf400c123ec86a7192388ad23cfe4194f536937e.1790612298.git.u.kleine-koenig@baylibre.com>
+Message-ID: <6551F533-E1C1-411E-8EA1-140641E1B84D@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sep 28 2026, Neil Armstrong wrote:
-> Hi,
+On 28 September 2026 17:46:02 BST, "Uwe Kleine-König"
+<u.kleine-koenig@baylibre.com> wrote:
+>tainted-kernels.rst contains a small script to check which taint bits
+>are set in /proc/sys/kernel/tainted. Add one more loop iteration to also
+>handle the newly added TAINT_FORCED_BIND bit.
+>
+>Also simplify by starting the loop at 0 and save substracting 1 for each
+>usage of the loop counter.
+>
+>Acked-by: Randy Dunlap <rdunlap@infradead.org>
+>Tested-by: Randy Dunlap <rdunlap@infradead.org>
+>Fixes: fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when userspace manually messes with devices and drivers")
+>Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+>---
+> Documentation/admin-guide/tainted-kernels.rst | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+>index abbf5e3dd749..a208811ad525 100644
+>--- a/Documentation/admin-guide/tainted-kernels.rst
+>+++ b/Documentation/admin-guide/tainted-kernels.rst
+>@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+> script, but if you need something quick you can use this shell command to
+> check
+> which bits are set::
 > 
-> On 9/28/26 18:22, Maxime Ripard wrote:
-> > Hi,
-> > 
-> > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > difficult to support and require pretty much a panel driver for each
-> > panel produced. Most of them are pretty simple, and require an opaque
-> > initialization sequence that is usually poorly documented.
-> > 
-> > This creates a tension between OEMs and distros because OEMs will
-> > typically get a new panel to react to a sourcing issue during
-> > production, and thus need some swift turnaround between getting their
-> > new panel and it being operational in the OS. Distributions on the other
-> > hand can take years to ship a kernel with that new panel driver.
-> > 
-> > To solve this, I followed the example of HID-BPF and wrote a panel
-> > driver that will rely on BPF programs to perform the panel
-> > initialization. That way, we can ship the programs separately from the
-> > kernel, and with a different lifecycle. If this driver is accepted, the
-> > plan is to have a userspace component started by udev to identify and
-> > load the right BPF program for the panels found on the device.
+>-	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
+>+	$ for i in $(seq 0 20); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i&1));done
 > 
-> This is kind of late for serious applications except if we manage to
-> solve the bootloader to Linux display engine transition.
-> 
-> > 
-> > This driver is fully functional and works with both 5" and 7" Touch
-> > Display 2 panels for the RaspberryPi. However, it breaks away from the
-> > typical panel driver in multiple ways:
-> > 
-> > - BPF programs can only be loaded by userspace. This leaves us with two
-> >    choices:
-> > 
-> >    * We prevent the driver from loading until the script itself is
-> >      loaded. This has the side effect of preventing any other output to
-> >      be used until the initramfs is ran at the earliest, and possibly
-> >      ever if the loader isn't installed for example.
-> 
-> This adds a dependency on user-space behavior and if somehow the
-> initramfs doesn't load for a reason we won't have a way to display
-> an error.
-> 
-> > 
-> >    * Or we probe the driver all the time, but only report it as connected
-> >      once a program has been registered. This is somewhat unconventional,
-> >      but allows the other outputs to be functional, *and* allows the user
-> >      to force the output if their panel doesn't require any
-> >      initialization or during debugging. I chose this solution.
-> 
-> Both options are not really great...
-> 
-> > 
-> > - It's not a panel driver, but a bridge one, which is also pretty
-> >    unconventional. This is required because panel drivers don't have
-> >    access to a detect callback that is required for the above, but I also
-> >    think that the recent work from Luca blurs the line from panels and
-> >    bridges and we'll end up going that road anyway.
-> 
-> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
-> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
-> a proper way to describe the display/panel/monitor independently of the DDIC.
-> 
-> At first glance it's a nice driver, but moving the timings into a blob moves something
-> into possible proprietary binaries with possible closed licence and distribution
-> restriction so it's a downgrade for the same of bringing up a panel faster.
+> Table for decoding tainted state
+> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Quick answer on this, because I had the very same questions regarding
-HID-BPF:
-- in BPF, you can require (and by default it does) that only GPL
-	compatible BPF programs are loaded, closing the argument of "closed
-	licence and distribution restriction"
-- also, a BPF program can be disassembled much easier than a binary
-	blob, and I remember Alexei showing me an example where you get almost
-	the source code from the BPF object in just one pass.
+Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
 
-Cheers,
-Benjamin
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
