@@ -1,62 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046443C5DA6
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA9A3F99F3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615900; cv=none; b=tTmIcyYAXCw6g5f7BLMR1n31sCb5WlTpm/S4TltYef96XY8Cql6kHNEYe7sjL+xQLmUT5eLEzdRJy9KtTYifeux0e8Myyjz8kSZBL9V9c2a2glJAb9e4SmCbTPRAd+f4RGa8YwgLxeV/AppMOmbmZpobG8KNANN/CAcfqMas/eA=
+	t=1790615905; cv=none; b=Tqcs+u2jff3sJgTLT0oaCHQwedMWraxK2eAe4QJapq3Q2NsROVBqgwWpuQfbUZhMcavGbVYec2F4SKJtowzNiUJ5tPLAWizUvmcpj7oXxOgUCywzLVbhgX8X3agyuCUfM/IFma/c0MaZbg/ms3Qk+HcBlO8FWkPCrW9LbQ1lLls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615900; c=relaxed/simple;
-	bh=0V7HIKjzuBJPAXA7qD59Iv+diAc+01mso8VLfDKT7l8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ckJHgX07+TKhTDxLluTCHca69BYc6YFy5hWfPyyofO12TA0UKKIQ8cPHg3/RIOD0mHygw1KKicZAIrFYy0QO/oM1S4Xk6xp/93V+GEb1+OuddjSbA5DdlwaBQUyVCIVjosYSxmQ+s1CKflTsn67TrOkzGt4hw0MGT9PWw0VSk4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/ellKJX; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790615905; c=relaxed/simple;
+	bh=JwhXKdW0sWNXMzo/xRevUNZiBfrNWMBNq7DnMBaw60s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X92R9RYyB+fP6nmTtfNTpnBG7vTKfWdVZRCjrZx5BUgCgp1PDdNzEBYEzgpev7E0A5pPKHSXi3xIj1RfVFZTW7lgA4JplZCovNx2fENLPWm5Bqf7IEbFQfI5Px3d6zyPC2fveRJ7xb9XxNU1UBjnepKKS7s+VCcUIDYnlG7cbYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gp2OJ3xb; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/ellKJX"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1918756a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:18:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gp2OJ3xb"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso2728550a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:18:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790615896; x=1791220696; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KelzspkcKUMw6RhGKxYOinGRydrfkw9m6HM7mkwRVGg=;
-        b=T/ellKJXS4vLApXY7fTa61xAFmrdFzMBzIjm77x0ofWnfMTxJ+BBfJH628cMAnT/5a
-         DGd2movi1UPRasG5ipAcwKRUpi1OB5iB4XZX34CY6eIpyCIIKCWpaH+cQFrctnCljFeO
-         AUJWv3H+t/Z7fsheBLIMq2dQhYZORdtEYRmIYk6XE9OhtoHbKfT0+M6R40Yk4SfUfxKo
-         96oCvxT6YcalrQr3jcEYUUuKziy8pUrPPsc9Rl46pXB1fsju56aFvVLOAAeL5P65HZRA
-         u38AtbWNmrpfQDZ3qMESYqPCpZK1jz92eOHjORrEoNpu8o6lutJ5Jgvl8zPTyLdYJLxt
-         pbXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615896; x=1791220696;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790615902; x=1791220702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KelzspkcKUMw6RhGKxYOinGRydrfkw9m6HM7mkwRVGg=;
-        b=thPSufEYnCW7bGwphw5Rfk20izZ35dcybWUNls3EPAxgWvyFB5D+nl9ykw7logjbo4
-         qZa6d3oONlKHaNOLcF2VYQsBX1/b4spV37bYPyMcrj4GfN1UsN8Nz8wIjOJKp+O66s5g
-         jgYMienzoPY6Q/hpCo8rCXLtiIpqux3x4IcOk41XEs8r2lwhmuzNyr++gZ9MR8hOxr5t
-         QB2Hd7R7MiwFD+Tf4969lnMxlc4XX0A0Fyk2z9s+8WX4zV3PIjFsiqF3a7OpsGTZ8Lsl
-         eLh1jOxMv8vMu9TtzvSolyMG690dKA+C7VhRvUHjwkF0mPxA3fUjE7Y/Y4cZVZK3a3ke
-         GoDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWCLqEN0/a/DB3b+zmMLp77ItypHP7Mb1OzFAWs9mGNd7wO2949AJLeYsgpd1MIJLwvBNZ2jF32rp5Q4c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxsAtDbANGIHaIaTHmb7Uzrr77+CHZ2zOeICFOIzQhZOPnSIu8
-	pLV+3HZ10eYYFVS62Fy1QaV+ZiWWMryAmSMXn8aE9M14Guojk0zz9fQA
-X-Gm-Gg: AYBFou1zZDwoJbIhDskE8dUUYqW6dxOFu2eLCebIVBOgm6kfY91Whlt0XgOXdlYbbDs
-	FwyBmownNixah1JJM4umiMDm6ocKqGww40phfFJ1tgI587qhJxmTpvZI111Gar8AEHmlLZf+FHr
-	zP83RzOrR0MuAt3xd6jNPxlSWRGX8IZ5YfHr3yC07xtt4GAxJQ4yZnJS0f/ILCKzbPXTxg58pcY
-	gpMUW1lsUovqhcvDLJWenzP8AOsspR6MhnNC9Js9uf4KwE29sxhXlsw+lBMF2FZ2d0265+afpSH
-	TRnMMLrGbH/WslsAUvMSj84myXrN4PZc2dAKQvDPIj+uyY031VeUjVT6ptv9f0GPkPSvWXgXYDB
-	sn/ymRuuQ0q8lhTApKXW3rG9S6Ind5BOhi19TnmoMBk156h7SSWalIwsma9p32xSzlCdLNp5P55
-	8A3XunuYewfsYZ6NfyYwodj8KFOU0N/SoH3BjNAUR128dZg1/++qZr4sMQCDZ6Xf9vrEgWDlmW6
-	4PMnBmuziWhQvS4gkot7pps
-X-Received: by 2002:a17:90b:5848:b0:39e:4c7f:7304 with SMTP id 98e67ed59e1d1-3a098b3c2f0mr11268295a91.27.1790615895911;
-        Mon, 28 Sep 2026 10:18:15 -0700 (PDT)
+        bh=E0yuxDWmpoKKj7QiZdGLRK22y9dwu371MYeCVysLizY=;
+        b=gp2OJ3xb8ZaIybKHfqornYEs8BhrBdbwtT3yrZkBNT9rbKDsaMGiP/itix7Bn3LndY
+         JbA3gIrhRu4A/Gird2ZiR92016c4tfCVpaWT7bjAPhYlbHk6d3J663V2wAdYw8Ej9u0t
+         WkDXBhpSXmTzzmxNTq5q3gM9itLp9Mj6owIcWGpQ1dq952bqa3WmRxFTxsMJixtjhYvA
+         p5/RTEgD7kA4TotYkZWOfL/HE3WV9MaI2JNyTq4u8eIAcb+tnAcYbB6aw3IyOGcearG9
+         QLKclfyfJynQw2qHueIzKiXls9z1rkH5yMXgr6c8dGuQrtiLl3wkL4TIh8XXvRAoRw3Z
+         Buag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790615902; x=1791220702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E0yuxDWmpoKKj7QiZdGLRK22y9dwu371MYeCVysLizY=;
+        b=IJdUshWGaCPT4yoleBrrOrGl2RXXiIyxIhmdSLblQ3fytgobyr3mVwUia2Y3DVBthW
+         zHTX+5KhCKSrnHg13MdIXYqwM6wXvO6sssE5BNI9fJHf3A/QnrNETU1ijO05vGUi2iKk
+         JrYS0XYaejhCzoUWVi3MNccZ+QYYBfhgIt+fylBqSWcIPTzfewzQkyrGu6znb+lKQhic
+         gTLW1mn0/T0BT7OUF6OFZtjFd2Nbj0+8CmoVvQ+UjiXTkLpK+QPS5w9T9JuASy1wfECf
+         CRZHGW5nOibkErMp3mHPjAnsBpVUN8F0c+4kqaHrVvqjOBnc7F46MUX5hbhXYXRT5NZo
+         wUXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpw05UBsYqaWYyczTpL6DW8Ed1li6EaGZWWrkmBwTdWzcEhqCUxeMeUO8zQSYT+eG49+b15oMcVeqk5EU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSlUxxUKt/SLJhZRqLVETZQQ72T8yInLA7BDw12FiraHl4bGw4
+	EaRRce7Kys+D9ulUoGZV7TVHDmKiOkvVZ9NJuEuT+fbtSkAsOopGNTAJ
+X-Gm-Gg: AYBFou0f5wWE6C5HN/deQoINkpDkcFHNu/T0OkjhRtymdl0hPhqiS0no2davy0EYckq
+	GSC2RliaCdnuY5Mt1yLjIVI5oyh93E+rVNWLv724WolcQnMkNI83y/2VcTY+9vDylRVSyrlvPff
+	jVrsL3WS0mdLZJFIiAPZ+eammqp6f2sytShvDkfGv665/Twz75LMv6k0P6/+u182ay4pLE6Hhuu
+	rj7ZG+oY91gkm4O95efP5JHTOJ+97iva2TLwYblK7TxAB5poDaia2nrCwiabimlENy4pYCFFkbz
+	RgaQnp2FrUXV01KgWRbDYkEjWnSZqPmpH3FeEVNn8EezyACyWbefDdVrnvKkFYrMGDy53WW3ZND
+	jg6Ct2yQ8GDy8JfeXdj4p3rtpNq0fblf9nZ7UD6fy8S1yDJDkso/36992yv/a2AvidBUJ9OHaiA
+	CosssTpB3Ugz4dC9Ue1ZiR9vCXe6XA1Hw7M8pBYmNGhtAVbNkZEGkawqoMGZSlOslp9o/4JAz1P
+	8JvmfIwtyztirnRVcmwnVPpZ0uwzTuyRU8=
+X-Received: by 2002:a17:90b:4b86:b0:3a0:ea9b:1e38 with SMTP id 98e67ed59e1d1-3a0ea9b31d0mr5772920a91.27.1790615902256;
+        Mon, 28 Sep 2026 10:18:22 -0700 (PDT)
 Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986bb8f6sm189139a91.0.2026.09.28.10.18.01
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986bb8f6sm189139a91.0.2026.09.28.10.18.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:18:10 -0700 (PDT)
+        Mon, 28 Sep 2026 10:18:18 -0700 (PDT)
 From: Dongliang Qin <cccccccccccc777777@gmail.com>
 To: Zhu Yanjun <zyjzyj2000@gmail.com>,
 	Jason Gunthorpe <jgg@ziepe.ca>,
@@ -66,10 +68,12 @@ Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Bob Pearson <rpearsonhpe@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/4] RDMA/rxe: Fix MW/MR lifetime races
-Date: Tue, 29 Sep 2026 01:17:52 +0800
-Message-ID: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+Subject: [PATCH v2 1/4] RDMA/rxe: Take MR reference under MW lock
+Date: Tue, 29 Sep 2026 01:17:53 +0800
+Message-ID: <20260928171756.3254016-2-cccccccccccc777777@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,63 +82,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Soft-RoCE keeps MW-to-MR bindings and type-2 MW-to-QP references across
-verbs operations and responder packets. Several paths currently assume
-those references remain stable without taking the MW lock or reserving
-the MR state. As a result, the responder can acquire a zero reference,
-a bind can race with MR invalidation or deregistration, a type-2 MW can
-outlive its QP, or the pool can force-free an object with outstanding
-references. An unprivileged user with access to an RXe device can use
-these races to corrupt kernel memory and escalate privileges.
+The responder validates an MW, drops it, then reads mw->mr and takes
+the MR reference. A bind or invalidate can swap the MR in this window,
+so the responder may acquire a zero reference or use an MR that has
+already been freed.
 
-This series fixes those races with four focused, individually revertible
-changes:
+Move the MW lookup, validation, and MR reference acquisition into
+rxe_mw_get_mr(), and perform all of them while holding mw->lock.
 
-1. Move MW lookup, validation, and MR reference acquisition under
-   mw->lock.
-2. Use num_mw as an atomic state reservation while an MR changes state.
-3. Track and invalidate type-2 MWs bound to a QP before destroying that
-   QP.
-4. Stop force-freeing sleepable pool objects after a timeout.
+Fixes: cdd0b85675ae ("RDMA/rxe: Implement memory access through MWs")
 
-Patch 4 is hardening: it prevents pool cleanup from turning an
-outstanding reference into a use-after-free, rather than fixing the
-reported bind and deregistration race directly.
+Cc: stable@vger.kernel.org
+Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
+---
+ drivers/infiniband/sw/rxe/rxe_loc.h  |  3 ++-
+ drivers/infiniband/sw/rxe/rxe_mw.c   | 34 +++++++++++++++++--------
+ drivers/infiniband/sw/rxe/rxe_resp.c | 38 +++-------------------------
+ 3 files changed, 28 insertions(+), 47 deletions(-)
 
-Before the fix, a concurrent MW bind and MR deregistration reproducer
-made KASAN report a slab use-after-free in rxe_mr_copy() from
-rxe_receiver() on the RXe responder workqueue. With this series, the
-same 120-second test no longer triggers KASAN. MW READ, WRITE, partial
-READ, invalidate, and rebind still pass.
-
-Changes in v2:
-
-- Patch 3 now tracks type-2 MWs on a per-QP list instead of scanning the
-  global MW pool. This fixes the pool-element type mismatch, avoids a
-  concurrent MW deallocation race, and eliminates the unbounded global
-  scan.
-- Patch 3 clears qp->valid and stops the send task before invalidating
-  MWs so a late bind cannot attach an MW after invalidation.
-- Patch 3 yields between MW invalidations.
-- Patches 1, 2, and 4 are unchanged.
-
-v1: https://lore.kernel.org/linux-rdma/20260928155351.3222978-1-cccccccccccc777777@gmail.com/
-
-Dongliang Qin (4):
-  RDMA/rxe: Take MR reference under MW lock
-  RDMA/rxe: Reserve MR state during MW binding
-  RDMA/rxe: Invalidate MWs on QP destroy
-  RDMA/rxe: Do not force cleanup on pool timeout
-
- drivers/infiniband/sw/rxe/rxe_loc.h   |   8 +-
- drivers/infiniband/sw/rxe/rxe_mr.c    |  70 +++++++++++++--
- drivers/infiniband/sw/rxe/rxe_mw.c    | 122 +++++++++++++++++++-------
- drivers/infiniband/sw/rxe/rxe_pool.c  |  14 +--
- drivers/infiniband/sw/rxe/rxe_qp.c    |   2 +
- drivers/infiniband/sw/rxe/rxe_resp.c  |  38 +-------
- drivers/infiniband/sw/rxe/rxe_verbs.c |  21 ++++-
- drivers/infiniband/sw/rxe/rxe_verbs.h |   3 +
- 8 files changed, 190 insertions(+), 88 deletions(-)
-
+diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
+index 64d636bf80fd2..2cbec92566f70 100644
+--- a/drivers/infiniband/sw/rxe/rxe_loc.h
++++ b/drivers/infiniband/sw/rxe/rxe_loc.h
+@@ -86,7 +86,8 @@ int rxe_alloc_mw(struct ib_mw *ibmw, struct ib_udata *udata);
+ int rxe_dealloc_mw(struct ib_mw *ibmw);
+ int rxe_bind_mw(struct rxe_qp *qp, struct rxe_send_wqe *wqe);
+ int rxe_invalidate_mw(struct rxe_qp *qp, u32 rkey);
+-struct rxe_mw *rxe_lookup_mw(struct rxe_qp *qp, int access, u32 rkey);
++struct rxe_mr *rxe_mw_get_mr(struct rxe_qp *qp, int access, u32 rkey,
++			     u64 *offset);
+ void rxe_mw_cleanup(struct rxe_pool_elem *elem);
+ 
+ /* rxe_net.c */
+diff --git a/drivers/infiniband/sw/rxe/rxe_mw.c b/drivers/infiniband/sw/rxe/rxe_mw.c
+index bddb7a2578313..04f795adacf53 100644
+--- a/drivers/infiniband/sw/rxe/rxe_mw.c
++++ b/drivers/infiniband/sw/rxe/rxe_mw.c
+@@ -291,26 +291,38 @@ int rxe_invalidate_mw(struct rxe_qp *qp, u32 rkey)
+ 	return ret;
+ }
+ 
+-struct rxe_mw *rxe_lookup_mw(struct rxe_qp *qp, int access, u32 rkey)
++struct rxe_mr *rxe_mw_get_mr(struct rxe_qp *qp, int access, u32 rkey,
++			     u64 *offset)
+ {
+ 	struct rxe_dev *rxe = to_rdev(qp->ibqp.device);
+-	struct rxe_pd *pd = to_rpd(qp->ibqp.pd);
++	struct rxe_mr *mr = NULL;
+ 	struct rxe_mw *mw;
+-	int index = rkey >> 8;
+ 
+-	mw = rxe_pool_get_index(&rxe->mw_pool, index);
++	mw = rxe_pool_get_index(&rxe->mw_pool, rkey >> 8);
+ 	if (!mw)
+ 		return NULL;
+ 
+-	if (unlikely((mw->rkey != rkey) || rxe_mw_pd(mw) != pd ||
+-		     (mw->ibmw.type == IB_MW_TYPE_2 && mw->qp != qp) ||
+-		     (mw->length == 0) || ((access & mw->access) != access) ||
+-		     mw->state != RXE_MW_STATE_VALID)) {
+-		rxe_put(mw);
+-		return NULL;
++	spin_lock_bh(&mw->lock);
++
++	if (mw->rkey == rkey && rxe_mw_pd(mw) == to_rpd(qp->ibqp.pd) &&
++	    (mw->ibmw.type != IB_MW_TYPE_2 || mw->qp == qp) &&
++	    mw->length != 0 && mw->state == RXE_MW_STATE_VALID &&
++	    (access & mw->access) == access) {
++		mr = mw->mr;
++		if (mr && mr->state == RXE_MR_STATE_VALID && rxe_get(mr)) {
++			if (offset)
++				*offset = (mw->access & IB_ZERO_BASED) ?
++					mw->addr : 0;
++		} else {
++			mr = NULL;
++		}
+ 	}
+ 
+-	return mw;
++	spin_unlock_bh(&mw->lock);
++
++	rxe_put(mw);
++
++	return mr;
+ }
+ 
+ void rxe_mw_cleanup(struct rxe_pool_elem *elem)
+diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
+index 02b16e2b49b8f..f5a957026fe87 100644
+--- a/drivers/infiniband/sw/rxe/rxe_resp.c
++++ b/drivers/infiniband/sw/rxe/rxe_resp.c
+@@ -468,7 +468,6 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
+ 				   struct rxe_pkt_info *pkt)
+ {
+ 	struct rxe_mr *mr = NULL;
+-	struct rxe_mw *mw = NULL;
+ 	u64 va;
+ 	u32 rkey;
+ 	u32 resid;
+@@ -520,26 +519,12 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
+ 	pktlen	= payload_size(pkt);
+ 
+ 	if (rkey_is_mw(rkey)) {
+-		mw = rxe_lookup_mw(qp, access, rkey);
+-		if (!mw) {
+-			rxe_dbg_qp(qp, "no MW matches rkey %#x\n", rkey);
+-			state = get_rkey_violation_state(pkt);
+-			goto err;
+-		}
+-
+-		mr = mw->mr;
++		mr = rxe_mw_get_mr(qp, access, rkey, &qp->resp.offset);
+ 		if (!mr) {
+-			rxe_dbg_qp(qp, "MW doesn't have an MR\n");
++			rxe_dbg_qp(qp, "no MW/MR matches rkey %#x\n", rkey);
+ 			state = get_rkey_violation_state(pkt);
+ 			goto err;
+ 		}
+-
+-		if (mw->access & IB_ZERO_BASED)
+-			qp->resp.offset = mw->addr;
+-
+-		rxe_get(mr);
+-		rxe_put(mw);
+-		mw = NULL;
+ 	} else {
+ 		mr = lookup_mr(qp->pd, access, rkey, RXE_LOOKUP_REMOTE);
+ 		if (!mr) {
+@@ -605,8 +590,6 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
+ 	qp->resp.mr = NULL;
+ 	if (mr)
+ 		rxe_put(mr);
+-	if (mw)
+-		rxe_put(mw);
+ 
+ 	return state;
+ }
+@@ -894,24 +877,9 @@ static struct rxe_mr *rxe_recheck_mr(struct rxe_qp *qp, u32 rkey)
+ {
+ 	struct rxe_dev *rxe = to_rdev(qp->ibqp.device);
+ 	struct rxe_mr *mr;
+-	struct rxe_mw *mw;
+ 
+ 	if (rkey_is_mw(rkey)) {
+-		mw = rxe_pool_get_index(&rxe->mw_pool, rkey >> 8);
+-		if (!mw)
+-			return NULL;
+-
+-		mr = mw->mr;
+-		if (mw->rkey != rkey || mw->state != RXE_MW_STATE_VALID ||
+-		    !mr || mr->state != RXE_MR_STATE_VALID) {
+-			rxe_put(mw);
+-			return NULL;
+-		}
+-
+-		rxe_get(mr);
+-		rxe_put(mw);
+-
+-		return mr;
++		return rxe_mw_get_mr(qp, IB_ACCESS_REMOTE_READ, rkey, NULL);
+ 	}
+ 
+ 	mr = rxe_pool_get_index(&rxe->mr_pool, rkey >> 8);
 -- 
 2.43.0
+
