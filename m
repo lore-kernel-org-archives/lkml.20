@@ -1,192 +1,112 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41848470EA5;
-	Mon, 28 Sep 2026 08:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3A443FD3F;
+	Mon, 28 Sep 2026 08:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583058; cv=none; b=tYZp3nP7d8rEejho0gZ1ir3rIJt5N8FoGhWHVd18VZ6wmMdyI49HRKLfbWzFGCUVF5Ks1pdH3R3ddLBFb632fsCWllTZGdh8TSZg7uL4lzpRwUyCEBF5TyUMEvWvRhHCJyMmsTmRr5Vl3DK7f4mZaLqBdM7fGmQamlFzdpXjALg=
+	t=1790583102; cv=none; b=WJOYoZ9R3tuQ66lEm1KFqk5AXsUdT0/8NEjHDc4s4HNQz3hQozKijFKTIs8/9FrFR7dHEfZailfEHpTFVtOyVxWeQtDvig2FUUqkYjCeS0gy55BDmHbvIm5I4BAF1BP8SP8F2AVLInDIaMflD2LuESy7czeGozSmXqBhSEW3aUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583058; c=relaxed/simple;
-	bh=iX0JHr3OaK1F907tUkdtLXi8iMAHjfLYQ9uHjk2hIIQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o536s8T2zeRzyI0W6ufWKxil6lKowu6YfHU84Gf8s30vavZr/jDanmrvc4ec2H6dYnqGBMVkQxVsB2xMfnZ7uf+yrImTXVurT91/duxc57GTtFjsXsK3X58DEcIrAD5g+7XTp5CAw9RhT4FhoflF7JUfUH72jMsQngWrfeBg/AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ItMPqOto; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790583102; c=relaxed/simple;
+	bh=oihozRlFZ7lt6GDwFed9U05sgh5zM+CW01iJD4rrReU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=pgSTcD6XuCeOtSoqFNVKElcVen7IS0hXkIcilgpVXutvZLpFt/WKtvDbR6lz+jrN+TFEkGPLnEmcYa5NkjjpFn7CW3vmb8aD0QmbR2q4LPAvHlwLmtaZSH8AOX9sNKJgQ2KV1NmHSs+mN4cV6ikK+/LDi7c8CM9PIY7Ozgi9h1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXFG54NN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ItMPqOto"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BAE01570;
-	Mon, 28 Sep 2026 01:10:50 -0700 (PDT)
-Received: from [10.57.12.79] (unknown [10.57.12.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D5A2C3F86F;
-	Mon, 28 Sep 2026 01:10:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790583053; bh=iX0JHr3OaK1F907tUkdtLXi8iMAHjfLYQ9uHjk2hIIQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ItMPqOtowS0ZHlYRac5WKIgJ9uZtyWAWWq3/qzMaPipTg35S8D4i59hxkFzWQ0PAZ
-	 MY0/f8DdQORcc2licSIabU2dBhHPp3dzpUT5etsrc/ndkO6ywv+1PRsBkvsMtYTQsJ
-	 23fq3M4L2W07KsDbGcAExLWRwXfeOQKulXsWeHms=
-Message-ID: <01361954-ad51-46ec-a9a1-89413fbb6084@arm.com>
-Date: Mon, 28 Sep 2026 09:10:48 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXFG54NN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450541F000FF;
+	Mon, 28 Sep 2026 08:11:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790583101;
+	bh=oihozRlFZ7lt6GDwFed9U05sgh5zM+CW01iJD4rrReU=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=AXFG54NN28oi8qNx/+8HghJ8/4iBl+tTWjh5BeAP3onSRThy2zn/N1FdOwcSei4tG
+	 YwRDAfKywfqDIEEmpBMNcY7xY/qZ/UrDSvKbIw5xEOVzJEohYjSkb5QGeFoN+3FrXK
+	 CWOVLe84KPfzX5QfxV2PPG2x+eKPIBcp/ER1VBC5Cs6YSGHB+Zlse696OBWVweH4E5
+	 fBitSGWnjM7hHzZ8n2M63pTUvnvZpFUwQjErotQ+xKiOv0yaTNygFdwWq7kB6baGdN
+	 SJb2L5ZmB9y0Q0Zm0+GHPr9YjNDQWI0OZWqajuKdZt3yY1CT3X9Fg0seL4k0uR6yqW
+	 lMA6pweRMAAXA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2 MMU
- operations
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-10-suzuki.poulose@arm.com>
- <647ae455-4175-4070-a40e-d2d89f18971f@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <647ae455-4175-4070-a40e-d2d89f18971f@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 10:11:35 +0200
+Message-Id: <DLQSQE8ZXLY1.1XFW8PGSDLICT@kernel.org>
+Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
+ reference
+Cc: <phasta@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Philipp Stanner" <phasta@mailbox.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260925081958.3048112-2-phasta@kernel.org>
+ <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
+ <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
+ <f0248d1529378ab8be957009a93a0a73ee74bafb.camel@mailbox.org>
+ <DLOILT0V4HCX.31L2PE7YIAKY3@kernel.org>
+ <ab1241777ac432666bb1564d875211bf142a6398.camel@mailbox.org>
+ <DLOKSGU61PUG.WSZBN04H0A2Q@kernel.org>
+ <37a2858a4687e4d9bbe0aba4c1861b96875c4ed7.camel@mailbox.org>
+In-Reply-To: <37a2858a4687e4d9bbe0aba4c1861b96875c4ed7.camel@mailbox.org>
 
-On 28/09/2026 02:09, Gavin Shan wrote:
-> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
->> Add VM type specific S2 MMU operation backends which can be 
->> initialized per
->> VM flavor, to keep the handling cleaner.
->>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   arch/arm64/include/asm/kvm_host.h |  15 ++++
->>   arch/arm64/kvm/mmu.c              | 137 +++++++++++++++++++++++++-----
->>   2 files changed, 131 insertions(+), 21 deletions(-)
->>
-> 
-> Apart from the comments from Jonathan, some nitpicks and questions below.
-> 
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->> asm/kvm_host.h
->> index 149f4582c8b6a..7664d8b8cce5a 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -155,6 +155,19 @@ struct kvm_vcpu_ops {
->>       void (*vcpu_put)(struct kvm_vcpu *vcpu);
->>   };
->> +struct kvm_gfn_range;
->> +
->> +struct kvm_vm_s2_ops {
->> +    bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
->> +    bool (*vm_test_age_gfn)(struct kvm *kvm, struct kvm_gfn_range 
->> *range);
->> +    int (*vm_flush_remote_tlbs)(struct kvm *kvm);
+On Mon Sep 28, 2026 at 9:52 AM CEST, Philipp Stanner wrote:
+> On Fri, 2026-09-25 at 19:32 +0200, Danilo Krummrich wrote:
+>> On Fri Sep 25, 2026 at 7:21 PM CEST, Philipp Stanner wrote:
+>> > I guess we agree that it would be a horrible bug if there's still a
+>> > command buffer running on the GPU that can access memory which might
+>> > have been freed once the associated fence signaled.
+>>=20
+>> Sure, but that's unrelated.
+>>=20
+>> > So I suppose what you are saying is more: there is not much value in
+>> > the case of *JobQueue*, basically because all the jobs live inside of
+>> > it anyways.
+>>=20
+>> No, I'm saying there is not much value in general. Whatever thing owns t=
+he
+>> DriverFence has to represent the "device access" of some resource, which
+>> already naturally establishes the relationship.
+>>=20
+>> IOW, whatever thing owns a DriverFence is also the thing that stops the =
+hardware
+>> in its own drop() implementation; anything else would be rather question=
+able.
+>>=20
+>> > So I suppose we agree that a warning is fine. It won't fire in JQ
+>> > anyways, but might benefit others.
+>>=20
+>> What scenario are you thinking of?
+>
+> Drivers doing "rather questionable" things, like we've seen a great
+> many times already ;)
+>
+> Note that the dma_fence backend fires a WARN_ON if a fence is freed
+> unsignaled, too, for the same reason.
+>
+> Life finds a way.
 
-...
+I'd rather you engage with the arguments I made above and give a concrete
+example of how it "might benefit others", instead of resorting to know-it-a=
+ll
+platitudes.
 
->> @@ -166,6 +168,18 @@ static bool memslot_is_logging(struct 
->> kvm_memory_slot *memslot)
->>       return memslot->dirty_bitmap && !(memslot->flags & 
->> KVM_MEM_READONLY);
->>   }
->> +static int pkvm_flush_remote_tlbs(struct kvm *kvm)
->> +{
->> +    kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
->> +    return 0;
->> +}
->> +
->> +static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
->> +{
->> +    kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
->> +    return 0;
->> +}
->> +
->>   /**
->>    * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
->>    * @kvm:    pointer to kvm structure.
->> @@ -174,26 +188,36 @@ static bool memslot_is_logging(struct 
->> kvm_memory_slot *memslot)
->>    */
->>   int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
->>   {
->> -    if (is_protected_kvm_enabled())
->> -        kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
->> -    else
->> -        kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
->> -    return 0;
->> +    if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
->> +        return 1;
-> 
-> For the return value, I'm wandering if 0 should be returned. More details
-> can be found below.
+The comparison with C does not address my point about ownership: C relies o=
+n
+explicit cleanup, whereas the Rust design I described ties cleanup to owner=
+ship
+through RAII.
 
-Answered below.
-
-> 
-
-...
-
->> +static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
->> +                     gfn_t gfn, u64 nr_pages)
->>   {
->>       u64 size = nr_pages << PAGE_SHIFT;
->>       u64 addr = gfn << PAGE_SHIFT;
->> -    if (is_protected_kvm_enabled())
->> -        kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
->> -    else
->> -        kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
->> +    kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
->>       return 0;
->>   }
->> +int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
->> +                     gfn_t gfn, u64 nr_pages)
->> +{
->> +    if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
->> +        return 1;
->> +
-> 
-> Realm would the only case where vm_s2_ops->vm_flush_remote_{tlbs, 
-> tlbs_range) 
-> are NULL. On request to flush remote TLBs by 
-> kvm_flush_remote_tlbs_range(), it
-> ends up with event KVM_REQ_TLB_FLUSH queued for each vCPU. How this 
-> queued event
-> is linked to a remote TLB flush for realm? The problem is TLBs are owned 
-> by EL2
-> realm and there are no RMI calls for the management. So I'm wandering we 
-> should
-> return 0 here?
-
-Please note that, the Realm s2 callbacks are not NULL for 
-flush_remote_tlb*. They all return 0, indicating that everything
-is taken care of. (See Patch 14/20: KVM: arm64: CCA: Add bare minimal S2 
-operations for Realm)
-...
-
->> +
->> +#define KVM_VM_S2_OPS(flavor, ops)        \
->> +        [flavor] = ops
-> 
-> Parentheses are needed, to be consistent with KVM_VCPU_OPS at least.
-> 
-> #define KVM_VM_S2_OPS(flavor, ops)        \
->          [(flavor)] = (ops)
-> 
-
-Ack
-
-
-> Actually, KVM_{VCPU, VM_S2}_OPS() can be combined to one in kvm_host.h 
-> as below.
-> 
-> #define KVM_FLAVOR_OPS() [(flavor)] = (ops)
-
-I would leave it as they are to avoid confusion.
-
-Cheers
-Suzuki
-
-
+Again, please address the arguments I've already made.
