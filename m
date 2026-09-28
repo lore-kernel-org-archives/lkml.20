@@ -1,127 +1,137 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6D22F7EE1
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC04481DD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790554474; cv=none; b=Ty2ZCPyEArB+JShMNm83gWoUfbHMVZIRcxLoVlCm8ZX2VEOxSgiFZ0+ZiRTz9HLWcp+JC1eicMlgaxqv3IyYuytrFSocVpJ5yO7PYj7GaiP04k2nYytIqSBuEgDXZBWwqEwuAmXBrWMzSce8nb1hIIAfK4e6tw2l5VbmWH7QvE8=
+	t=1790554592; cv=none; b=t3KGKkF0wYAiqJhLO41Lm9dzIerwWZApNaAmtGA4XxBI4WXcVkmghZF5gDadm9HxPbCQmiltyAX3QpWGjseQvHvhzFv803VyIj+udxO2EJoPAMJiNpW+tiUlUUt0Ne4HNMGcf+v4vaYFbADOu99uehiX0TWL8R3VrUWfO7M1RKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790554474; c=relaxed/simple;
-	bh=IWNXAcTPuVoDpaI/S3Bd3QXcIjw/fAWvlfconBsmVgQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PbU2dwn7En7x8ggVDKfqAUh56OZrBvMe3eYMzrB6vZFKN2yJ7Rv0fg/PvSe9oh36/xz2SyQat0LRiXpG+ivx+RAsA6R33qJMCDqrJSMaKfww37R0iXAr+X1Ec5uI0gI1Epxu4natS12qIIN6Dtfdw5O0OzKyvYXbKKdF3ONcXPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PbBgAn56; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hAVBn+jY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790554592; c=relaxed/simple;
+	bh=MZDwc/QrqggaDyiAlHuiFPze4Hb4NZUgzn7i1xBiLa8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PCDgpzkqwbolNK9XH1hhn9MgVca8eUryiCcbehvvtLk6mMzbpn4R3R9KRkZclXmk8uONH64TkwMrOQA8kqkoWMfaZZVTMJz3kaGsFz/tMqLeerSK99xmqJpWk+/d2mTk9Za1PevIPc69RyctyDZrR1rq/ab0zhVimT5RS+d1lFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pKRw5RV9; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PbBgAn56";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hAVBn+jY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790554466;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3pHPTXlsx3JeIcn/vypuvLo0a6E/wjvoL+H11fk+xgI=;
-	b=PbBgAn564dLOz1h5F8N6agKyxL6Ei4tZK/tUoRQrSxj6Ek1RGEXthhVuIYzCXTtk28i3iL
-	DmNPNK4N5EFj+2WLoWlRvVw19FzpvRN9T3jU4aiXOMB++VUD7lnvoJM13pdL9I9uyCr8jG
-	ade2j2UZlYThTmddQW2yE512Tysbcjo=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-600-bn5M5OOvPa6atVObbzxOAA-1; Sun, 27 Sep 2026 20:14:24 -0400
-X-MC-Unique: bn5M5OOvPa6atVObbzxOAA-1
-X-Mimecast-MFC-AGG-ID: bn5M5OOvPa6atVObbzxOAA_1790554463
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a0bce9739bso3439785a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:14:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pKRw5RV9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff23af865so18272545e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 17:16:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790554463; x=1791159263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790554587; x=1791159387; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3pHPTXlsx3JeIcn/vypuvLo0a6E/wjvoL+H11fk+xgI=;
-        b=hAVBn+jYoEiYst/qsNocz621A5GjyD/h2ek8xjPwzmI5ErATcuq72Qz1cK3soaGPwC
-         JqXCOLjzISbXZLDSw70QAKPlZtuNc+kKEVzpgWHmYATAWZvLuPtojzyQV3OhLP+pIZRM
-         YKyENxQvMsX6RVF1c3SBT7sR3afgHIkFimHtakpVpxYOgnr2FEeHe0sFj98HqMlkslUM
-         OkmCN05H6iXTC70JpNU+ira8rBWMIVPEZH/jaW1ZvaZjfnMRwqaIVv7dy8oUjV0PprE7
-         l/Xu0lYuqsd/BqNjgidjmEOzYO3uLg27axXXyYIXsGsaAeV5VZnG9qea+dOxRcXYBOk3
-         NDCw==
+        bh=i4mj/r7H0CDGSv3pfYOaU+eNcxZTUnXfXbb47i31YnE=;
+        b=pKRw5RV9+mG6CKajQysuQ5F85frCFytOJcRbtvTNI+nXxPX3mKvSKApx62Q8ok2Syb
+         DnipfTZtLSw8iSX1t2HZKG1v7c+h4q1ShHQ4i/JHT0h3HOumGncNqb0UwCIbwC421Mxx
+         MyXtZsHvAy7vKg1tMOSeQKE18OpZpcFbdc3uz0YyytIsErrEaS8lTGyH2UKx5bMUJrg8
+         UFLsMnnhaob7/Zs+Q/qCzucbmJ5HICxowLZnPaBCteh9STl8JMefz1vcBmLb6rxGu5i3
+         UVwjyYGWeLUALIzeaS/gsk5IeVLQ6RHqCS0L1KL6mQOGe2lg4folaHKhH+JVHQvCjMRF
+         9jIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790554463; x=1791159263;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3pHPTXlsx3JeIcn/vypuvLo0a6E/wjvoL+H11fk+xgI=;
-        b=ffj5sexr8bp5uhluGL+npDSwGP388zvQvDgpYc847LpTo7R3aRFddAhylftYDrMFhq
-         /q1EQfdGHLR8aCvUHf0eZg7uXMe/VvEwj289BcEGvOh2V9ke53wuIv6xz/BFnaL1S8i1
-         xDFCkyRiwJxhKmYxvbmls0m0cTi4fPdDNzKZ3+2ejTThZkEYoeYp6pZHMUdxJD71lLwY
-         4D4HssszyiEGuKj2mUYVlBNNjLB73o5EDKM0Y/tzU3K/xFUdAgKt32pNjHsfuPevMpSD
-         X3kQVrjP921SjBy4e2u/B1V+IHWc1So+jTwWNBfdp+rX8NNm0E6EEWl8B0CXXgxkplxb
-         em4A==
-X-Forwarded-Encrypted: i=1; AKwUvBw/r2t+uxpE69cLmeMbCklVxkZVF9taIl4FyH9BBbe6Xf6Ip1TYUQViQiuudwvcV8Hv81GxNmZqDx5L6+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjdjkUVnqe7jQT1kKiKpwz8GIKQP8Aaho1Zt9RXF7XiPsTNDNk
-	MlvVw+zxOkYse0gjFhXxp2C/ghcIVVaG65LqhsfBGhxFpYhxwL9f9e3nLv6FmrwWRzX1TjjQD2C
-	/t+Idw/rXUnyAqln8rfc5ynXek0M47f9AvOTfGjjAr5mlqoj35fC+fk6Ens9bLCywUQ==
-X-Gm-Gg: AYBFou3H0eNL35chxtY3Xt3/wIyT8+Nlwqt3K6WtZM8q8qr+ZyRPinVauKOkR2/V9NL
-	DzlPeYAREjORtb5M2m/TQgmBA8cdtBcEVxKG889Y25Y+jp+3f2SLSS3yKvKlik8HNIr53fglmjn
-	ZxKk85DfDUO9P74y7puvh073FHraxls9nD/cBuTxwDKENUGuUvMPnSHUsXIBpUzN+rCBmp2m85U
-	x4L1Jj2bVSVJx1B2EKxqHNdiRDpdh/BWlp97kQpTxbNjNWyYckAA+87bSfIXtqdq9+0HpaeXPoF
-	CIHq3U2Qk2Ozc0ONTyZNy++tbVIHKJTPmn1d4sgU7jSu7gJM24mzM1+uynip9i1Snj8PDTWvYP/
-	CM7pioXQxzydAI8CP2yCwvbn9qu4klJh/Hf4kTO8v9Q==
-X-Received: by 2002:a17:90b:274b:b0:39e:6ec6:f4d0 with SMTP id 98e67ed59e1d1-3a0bb553222mr5783300a91.8.1790554463408;
-        Sun, 27 Sep 2026 17:14:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:274b:b0:39e:6ec6:f4d0 with SMTP id 98e67ed59e1d1-3a0bb553222mr5783291a91.8.1790554462940;
-        Sun, 27 Sep 2026 17:14:22 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bec30aaasm16424179a91.15.2026.09.27.17.14.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2026 17:14:22 -0700 (PDT)
-Message-ID: <5987866e-92b6-41d7-87a7-ca1dee2647af@redhat.com>
-Date: Mon, 28 Sep 2026 10:14:15 +1000
+        d=1e100.net; s=20260707; t=1790554587; x=1791159387;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i4mj/r7H0CDGSv3pfYOaU+eNcxZTUnXfXbb47i31YnE=;
+        b=Bk2BT417dQrSZ6mY/lsPdVfwPRWWxRvo72z8zfVskRMy/hnMsXLY7m1851yY8rStpU
+         5Z7EKtsxYdIIj9Cs6kZUUa/KVAd1TQTcjnu5k/IKaE5ddMe17FB0WQfRfqPCcrg1wPbA
+         PPubs7n/PpQp8+siKiDLdchA403HLVR4rHeqLyaGvOhn/zkXAca5kqxZWPeXDz9hfY96
+         P0DprCep2lq/sWeegn4aPoaEk5NtlQfwKtCg4G5skeXDM0IEI9P6kTkJGUu3lEQNbMI6
+         08rq6A3/KMGTZRzIWgXYRxLq+V29SWhu88KMZbJMYsHdZ0HrR8rHWGBWdeFFoujwv/Zx
+         EagQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZPhX44nDUBTXGtuPYui/MIFQJ1IJQh+fJpBLFw9AFaNh6245R6mt6AUd31/TC3UbtWkRDWQ1mT/6DFew=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7Hc65Fd4RgU7ouuIEdN5KBRycr/ZEr0OuL9BLQiq6BQKHBFq1
+	9mG27KZvxjPBLZ1yuu4rtwDrglLjnt4hzJxtBqE+JD8f3XAkKEfcxT6H
+X-Gm-Gg: AYBFou0RlwbM1EQzxyaK/FnYCxT9fnofZKjLlT+j3xzImDT2nUYiMwrqW4qFeDd7wCw
+	2g4ZwU1pPFIYpckConIdQgai23ANKDUMRw/CLutHql9Xa4zUFIuiP/+8AP1cmkC36JVOq+3f1Ma
+	heC5ysPQKmcqLedLE49JTxusbtbgEv41aRr+djdyd9oW1+Q8aeTFCnpJjnlVWAeOa10V4Kr74gj
+	DmvWOsY8ELz68PWHscyblglRJVRYRFb9tvIBG2JGdlHUfXEj8RoL16PwU2GAmwO9TFpDhso26ZF
+	Pd2fSIUj0LwgSr0sCARn5SJF3/oHkCbeD21H50AZgBvv4rFUf8F8Ix6NWtlSe7Wep1Rrb+5s02C
+	sr4tbei0fqtexgawxfazUsIdvEjFWyw0PWStxJ0vvemEnxL6oZKHZW6nNuZmxkPKRdbxhmisCeJ
+	VB175+oAuS3DdRfSluCd5nOJzRN8nlKtwEtQKdhsJwti0Wp8go2HV2Gs7eGVzhMu0192zXnypCQ
+	bGNXog=
+X-Received: by 2002:a05:600c:310b:b0:49e:7862:c09e with SMTP id 5b1f17b1804b1-49fe66c6289mr199135805e9.14.1790554587215;
+        Sun, 27 Sep 2026 17:16:27 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0016fd7b8sm105837005e9.2.2026.09.27.17.16.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 17:16:26 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Cc: john.fastabend@gmail.com,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH bpf-next v2] bpf: Fix bpf_loop() depth check to use 32-bit max for nr_loops
+Date: Mon, 28 Sep 2026 03:15:42 +0300
+Message-ID: <20260928001609.429840-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 02/20] KVM: arm64: Disable Steal time accounting for
- protected guests
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- Fuad Tabba <fuad.tabba@linux.dev>
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-3-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260920212845.707-3-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
-> PVTIME support is advertised by KVM_CAP_STEAL_TIME, which doesn't take into
-> account the kvm instance. Even with that, a VMM could skip the CAP check
-> and proceed to configure the PVTIME as we don't do further check on the
-> DEVICE_CTRL. Tighten this up by passing the KVM instance around wherever
-> possible and catch things early.
-> 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   arch/arm64/include/asm/kvm_host.h |  2 +-
->   arch/arm64/kvm/arm.c              |  2 +-
->   arch/arm64/kvm/pvtime.c           | 14 +++++++-------
->   3 files changed, 9 insertions(+), 9 deletions(-)
->
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+The verifier compares callback_depth (u32) against reg_umax(), which
+returns the 64-bit upper bound of R1. If the upper 32 bits of R1 are
+set, reg_umax() can be U64_MAX, causing the depth check to be
+ineffective and triggering excessive push_callback_call() invocations
+until the complexity limit is hit.
+
+Use reg_u32_max() instead. The change is sound for both runtime paths:
+
+Out-of-line helper path (kernel/bpf/bpf_iter.c):
+  bpf_loop() takes nr_loops as u32 via BPF_CALL_4, so the runtime
+  always truncates R1 to 32 bits. reg_u32_max() matches this exactly.
+
+Inlined path (kernel/bpf/fixups.c, inline_bpf_loop):
+  When fit_for_inline is set, the call is replaced with inline code
+  that checks R1 against BPF_MAX_LOOPS (8M) using a 64-bit compare:
+
+    BPF_JMP_IMM(BPF_JLE, BPF_REG_1, BPF_MAX_LOOPS, 2);
+
+  Any R1 with upper 32 bits set exceeds BPF_MAX_LOOPS and returns
+  -E2BIG with zero iterations. Any R1 that passes the check fits
+  within BPF_MAX_LOOPS < U32_MAX, so (u32)R1 == R1. In both cases
+  reg_u32_max() correctly bounds the iteration count.
+
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+---
+Changes in v2:
+  - Expand commit message to cover the inlined bpf_loop() path
+    (inline_bpf_loop in fixups.c). Requested by bpf-ci bot.
+
+ kernel/bpf/verifier.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 6bc5bc56f0d3..6ef037ca18c4 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -12185,7 +12185,7 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 		err = mark_chain_precision(env, BPF_REG_1);
+ 		if (err)
+ 			return err;
+-		if (cur_func(env)->callback_depth < reg_umax(&regs[BPF_REG_1])) {
++		if (cur_func(env)->callback_depth < reg_u32_max(&regs[BPF_REG_1])) {
+ 			err = push_callback_call(env, insn, insn_idx, meta.subprogno,
+ 						 set_loop_callback_state);
+ 		} else {
+--
+2.55.0
 
