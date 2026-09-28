@@ -1,199 +1,151 @@
-Received: from mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572C34A688A
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E94A6CD1;
+	Mon, 28 Sep 2026 11:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790595091; cv=none; b=AtUSGGCG7oBQMT1GZwuN+EsveqfWi7kHC5d7tDn5oKKqkMsFKRDCHOeSTFchkj6BXsbN3wFlwnNY6o30mXgZiZcwrV1c/1IBxOCcx3Crc8Y3i1U1NWsOUAMMy+8nhyY0B9caDgQZcmZ0bdUVjpvc7YiP+H1cR/4YX9FPExprf8I=
+	t=1790595109; cv=none; b=jPhjjjCCjl4rHr5PCwh8Qt9SG6pE2yFrogS5l6iHvIDwD1yZYiA7oMpfaxTHf5Owu0VqO9ZgXAf6ipCJE9ydgJNJHJwIRFvLnwg/ygPP2Bq03EzCEfVMkLOVfVisKgmIuQK5zAaf201C+1EYBmTctdNr5JxHLAhy7+wZUgBgyvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790595091; c=relaxed/simple;
-	bh=dgWvWDnPIovk5yEYvXqTRrko64Qc5sxoiB5saCqC1gE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h0/D3t2dAAJp2l3L6yIdI0W05ade67idsATBr14kaEHCxpSi+X2d0FeslY+L0j3TrHTUJKcNdIOHHhSr5EN51tm75tPQntGjQdoii3joy0AQyOdH2sWeSke5idSKo+pSB9tNuyq+d7RU08LnBxG9m81F8IWjDckF3fnOizHA3sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mMhMEVx7; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790595109; c=relaxed/simple;
+	bh=UOqKbSPZHSOVoEXxJ2kp5L5KOcGYlTbx97YLZ0qwcP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iiT2PrEOuoQhi4soLDntOG+hluLN/e4J32OiszIqOETlybQ42KEXZXKn/V2neRAtPeoEem8f3s3ceys9KWfXrSGlanekEpfIx0MkymB7xHGXu+K2jm45Bbin8wSwsA8pDCas5NxlWCeZdmY0QZDRqkbqlHhfZLrgMFSD0rTwSZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DqcD67r3; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mMhMEVx7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dgWvWDnPIovk5yEYvXqTRrko64Qc5sxoiB5saCqC1gE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790595087; v=1; x=1791199887;
- b=mMhMEVx7X8MH/zTr6zYMjBeojVp7GSNlBjtZyY+tffCJR/cZWDjif1pHy6Hpc2R0qpqIQfu2
- nwTFmRXLy0VOjfRuoJQ7p2wNef4h5QaDVbi8hf9mL4Wudswp4PafSPcrT6q/4OQ/pAdD4wh3QQ3
- UTndXxHwY8U8SjXaCvTnACJw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id abb5d200b0d51ee6;
-	Mon, 28 Sep 2026 11:31:26 +0000
-X-Mizu-Trace-ID: abb5d200b0d51ee6
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 13:31:24 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/10] media: i2c: ov9282: fix flash duration to/from
- microseconds conversion
-Message-ID: <arpPIsMh08fEYHTx@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-3-f520af59df1b@linux.dev>
- <CAPY8ntBrN-GHT6+Nd+wu6Np2CEbsT5PGG-RjVcB2H3+8wSNoKg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DqcD67r3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cS
+	skOMhCQIMEKA2IYreR7P1RbOAEsdgbgHk3mzfeXJA=; b=DqcD67r3U0x1CIhYlE
+	tznUFoUVDu9ytZWHo1E23ysWiosSBGZM06YHMekzdRJkmqVjhpvptInXYQOh5tFN
+	oyCgVL9fJ8+e+xZFPB1w7RmPVRYBkNAglxz2j1z9MWQQnPgXcPSt3ha9jQGDMATc
+	9grP9yqETFL2mu3Iw0JWlOIKs=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3lz_8T7pqlkwmBQ--.64509S2;
+	Mon, 28 Sep 2026 19:31:09 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 net] net/packet: guard the ll header push in packet_rcv_spkt()
+Date: Mon, 28 Sep 2026 19:31:08 +0800
+Message-ID: <20260928113108.2127215-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPY8ntBrN-GHT6+Nd+wu6Np2CEbsT5PGG-RjVcB2H3+8wSNoKg@mail.gmail.com>
+X-CM-TRANSID:_____wD3lz_8T7pqlkwmBQ--.64509S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1xArykKw4xAr4rJFyDtrb_yoWrWF4rpa
+	s8KFyDtr4kGr4aqw18uF4DZFyFvF4kJa4fua48G34Yvwn8WryrKFy0krW5uFyUKa18Ga13
+	XF1DW34UAa4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piMa0PUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x1c0Wq6T-2owwAA3m
 
-On Mon, Sep 28, 2026 at 12:07:13PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > Currently the flash duration is converted to/from microseconds using a
-> > fixed OV9282_STROBE_SPAN_FACTOR constant. This is inaccurate as it was
-> > found that the "step width of shift and span" (which is not documented
-> > further in the datasheet) scales with the line, so the span is counted
-> > in lines.
-> >
-> > Fix the conversion by dropping the constant factor and using the
-> > previously introduced ov9282_line_time_ns() helper instead.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  drivers/media/i2c/ov9282.c | 66 +++++++++++++++++++++++++---------------------
-> >  1 file changed, 36 insertions(+), 30 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index 3f83a6cf338d8..90a0fe542ce4a 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -133,8 +133,6 @@
-> >  #define OV9282_REG_MIN         0x00
-> >  #define OV9282_REG_MAX         0xfffff
-> >
-> > -#define OV9282_STROBE_SPAN_FACTOR      192
-> > -
-> 
-> I'd been scratching my head over this one of where this magic number
-> had come from previously. I've now just clocked that it's the
-> (corrected) 8bit pixel rate.
-> Using the updated version of ov9282_line_time_ns we've discussed in
-> 2/10, this should therefore give the correct numbers.
+packet_rcv_spkt() restores the link layer header with
 
-This was literally introduced by me as I had no clue how to correctly
-calculate those values back then. The value was basically the result of my
-scope measurements for my specific use case. It was the best
-approximation I could find back then ;-)
+	skb_push(skb, skb->data - skb_mac_header(skb));
 
-https://lore.kernel.org/lkml/20251209-ov9282-flash-strobe-v10-0-0117cab82e2d@linux.dev/
+That subtraction is only meaningful when the device actually has a link
+layer header.  packet_rcv() and tpacket_rcv() both wrap it in
+dev_has_header(), which is also the predicate the block comment at the
+top of the file states the restore in terms of; packet_rcv_spkt() does
+not.  commit d549699048b4 ("net/packet: fix packet receive on L3
+devices without visible hard header") introduced the helper and changed
+the two call sites, and this one stayed behind.
 
-> 
-> I'll hold off on giving an R-b until I can see it in-situ with the
-> other updates, but it looks like it should be correct.
+A device without a visible ll header can leave skb->mac_header at the
+0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
+init_can_skb() sets pkt_type and ip_summed but does not reset the
+headers, and commit 9f10374bb024 ("can: remove private CAN skb
+headroom infrastructure") dropped the skb_reset_*_header() calls that
+used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
+a large negative number and skb_push() reports it through
+skb_under_panic() -- from softirq context, so it is a full system panic
+even with panic_on_oops=0:
 
-Sure. Makes sense!
+  skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
+  kernel BUG at net/core/skbuff.c:214!
+  RIP: 0010:skb_panic+0x50/0x60
+  Call Trace:
+   <IRQ>
+   skb_push+0x38/0x40
+   packet_rcv_spkt+0xe1/0x170
+   __netif_receive_skb_core.constprop.0+0x7e8/0xd30
+   ...
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-thanks!
+The socket type is reachable: packet_create() accepts SOCK_PACKET
+alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
+and neither the socket length nor a capability check keeps it away
+from a CAN interface.
 
-regards;rl
+The missing skb_reset_*_header() calls in init_can_skb() are a
+regression in their own right and are being fixed separately, but a
+packet socket should not turn a link layer that did not initialise its
+mac header into a kernel panic.  Guard the push the way the other two
+receive paths do.
 
-> 
->   Dave
-> 
-> >  static const char * const ov9282_supply_names[] = {
-> >         "avdd",         /* Analog power */
-> >         "dovdd",        /* Digital I/O power */
-> > @@ -509,6 +507,42 @@ static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> >                        NSEC_PER_USEC);
-> >  }
-> >
-> > +/**
-> > + * ov9282_us_to_flash_duration() - Convert µs to flash duration register value
-> > + * @ov9282: pointer to ov9282 device
-> > + * @value: microseconds value to convert
-> > + *
-> > + * Calculate "strobe_frame_span" increments from a given value (µs). According
-> > + * to the datasheet "The step width of shift and span is programmable under
-> > + * system clock domain.", but this is not documented further. Nonetheless the
-> > + * step width was found empirically to scale with the line length, so the span
-> > + * is counted in lines.
-> > + *
-> > + * Return: flash duration register value
-> > + */
-> > +static u32 ov9282_us_to_flash_duration(struct ov9282 *ov9282, u32 value)
-> > +{
-> > +       return div_u64((u64)value * NSEC_PER_USEC, ov9282_line_time_ns(ov9282));
-> > +}
-> > +
-> > +/**
-> > + * ov9282_flash_duration_to_us() - Convert flash duration register value to µs
-> > + * @ov9282: pointer to ov9282 device
-> > + * @value: flash duration register value to convert
-> > + *
-> > + * Convert a given "strobe_frame_span" increment value to microseconds. For an
-> > + * explanation regarding conversion factor see the documentation of
-> > + * ov9282_us_to_flash_duration. As the calculation there uses an integer
-> > + * division round up here.
-> > + *
-> > + * Return: microseconds
-> > + */
-> > +static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > +{
-> > +       return DIV_ROUND_UP_ULL((u64)value * ov9282_line_time_ns(ov9282),
-> > +                               NSEC_PER_USEC);
-> > +}
-> > +
-> >  /**
-> >   * ov9282_update_controls() - Update control ranges based on streaming mode
-> >   * @ov9282: pointer to ov9282 device
-> > @@ -585,34 +619,6 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
-> >         return ret ? ret : ret_hold;
-> >  }
-> >
-> > -static u32 ov9282_us_to_flash_duration(struct ov9282 *ov9282, u32 value)
-> > -{
-> > -       /*
-> > -        * Calculate "strobe_frame_span" increments from a given value (µs).
-> > -        * This is quite tricky as "The step width of shift and span is
-> > -        * programmable under system clock domain.", but it's not documented
-> > -        * how to program this step width (at least in the datasheet available
-> > -        * to the author at time of writing).
-> > -        * The formula below is interpolated from different modes/framerates
-> > -        * and should work quite well for most settings.
-> > -        */
-> > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > -
-> > -       return value * OV9282_STROBE_SPAN_FACTOR / frame_width;
-> > -}
-> > -
-> > -static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > -{
-> > -       /*
-> > -        * Calculate back to microseconds from "strobe_frame_span" increments.
-> > -        * As the calculation in ov9282_us_to_flash_duration uses an integer
-> > -        * divison round up here.
-> > -        */
-> > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> > -
-> > -       return DIV_ROUND_UP(value * frame_width, OV9282_STROBE_SPAN_FACTOR);
-> > -}
-> > -
-> >  static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
-> >  {
-> >         struct ov9282 *ov9282 =
-> >
-> > --
-> > 2.53.0
-> >
-> >
+Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
+the driver RX path: vcan does not reproduce it, because can_send()
+resets the headers on the way out.  One SOCK_PACKET socket bound to
+can0 and one frame written into the line discipline panics an
+unpatched kernel with the trace above; the same image with this patch
+prints no panic and powers off normally.  Both kernels are this tree,
+defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
+
+Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+
+Hello Oliver,
+
+Removed the comment block, as you suggested.  You are right that the other
+two dev_has_header() call sites do not carry one, and that the block
+comment at the top of the file already states the invariant -- so the
+comment was only restating the commit message.  The hunk is the guard
+alone now, two lines.
+
+No behaviour change from v2: same predicate, same push.  I re-ran the
+QEMU/slcan pair on this exact revision to be sure nothing else moved with
+it -- unpatched still panics with skb_under_panic len:-65455 out of
+packet_rcv_spkt+0xe1 in interrupt, patched prints no panic and powers off
+normally.  checkpatch is clean on the resulting diff.
+
+Thanks for the review,
+Quchaosheng
+ net/packet/af_packet.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 7c83e01526ed..a951a1e3c088 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1911,7 +1911,8 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
+ 
+-	skb_push(skb, skb->data - skb_mac_header(skb));
++	if (dev_has_header(dev))
++		skb_push(skb, skb->data - skb_mac_header(skb));
+ 
+ 	/*
+ 	 *	The SOCK_PACKET socket receives _all_ frames.
+-- 
+2.43.0
+
