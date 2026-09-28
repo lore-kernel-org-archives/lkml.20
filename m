@@ -1,118 +1,107 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01834FD283
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614EF4F7993;
+	Mon, 28 Sep 2026 19:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623963; cv=none; b=gTu13XCpYJSY2RevgO7aX8b3pOA4Il8ETxwlvZi2/+MIdgZMwZ0/laENak3JkplKuxnccxo/QyRI8kS3bUA0Xt2qyPm+++StZTxsVOScmQywRt8zQBu3TMMemLu7h1QSASekauG3+ugInx9MRS5m6YorNZr2NKkdUpEyfbyWAf4=
+	t=1790623985; cv=none; b=fvkUw650KILEP2wNNaV2TVDykx9nSKjKtmt4OSTiyyxfhr5IvUESZrRY6lXcaGnpyIiJkkI+fENBqeO+2eZ4BnUM2tEs7tS9vCPbtU03pGe6el4G58QL0WEB8UkVz8TVpLcFjFwmqG5HZrtGZMDFrahsF0pqvtLkKnpuxEZrilk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623963; c=relaxed/simple;
-	bh=68M+aw75dRbMgcut4KINBwcjsVRbPn9k8Ke4njHrHTE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZjpVvC38zZkMj70CdPdEQeX51w+yuKWElrlmGFkuH/tbFz7mqE+Ce9OqgqGZXV/zTCGWSnwwE5i3zDFUK9d9X3xUwoaLTZynF106X/K2AUEeZz04mCroXGsQxtWM42A71ddGzE9J9BREUUPcBIdDp1PwiyHIbuv8FBBdt7DOx9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=NY89sdfE; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790623985; c=relaxed/simple;
+	bh=u994Z1jwmZ/TKNi7Rq4rSCq8AqEEFkfuzzqzMPgbbII=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=MOkh3SOe0Ab+AX9mwHeFtbsKzphKkZlMatDyH6nwX2+z5/Gt7Ih/MNtYSzNcRkIWzyR9lE/Kulp+C+ZI2b9JOmXHkJCbqjV+3H63rCBVe5D/1ybUVaMxolm7K3b55SvD/fv9/YysLNbY9pYLIL0HvT2LukeLaPWnVdcSScEMlzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=kvNt16G7; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="NY89sdfE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=Hp/CIWuSKdq6HDFc2/B4jN9WUMT+pr0dxBBjG8+5Spw=; b=NY89sdfEq/EgbYU4aFvtuosbwC
-	k5pSvBX5EvKVh0E0wWYQmx2ne1r6uunqjaGZL3D6nyhPQhYOxjfGoKaIOvvBI8OM9ZmCkrzfamo7l
-	fQtRClBeznw3yudYQNw72nICiyLtFqgMFRiE3vVyXkhc+VOh/JOvPRT5OeI4k/irkbmHSt9ohG4OT
-	D5IZkzlKZLYeP/T0R15wt11YE+nPci/RehLV17xQrxhwvz/cGprM7NaipEao2jUOKNPlWhDuA++CY
-	91U56oXG8Orppiow1hEBoslM6IRd3P+HTn9RoXd+FamYCMMtrgjeX8LPhRisr/TBzRo7meSXYgdtX
-	536DAekQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xBH5F-008Xh1-1G; Mon, 28 Sep 2026 21:32:17 +0200
-Message-ID: <ae2f040d-f4a2-41ef-8e84-0e8e69cd4a4b@igalia.com>
-Date: Mon, 28 Sep 2026 16:32:11 -0300
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="kvNt16G7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790623983; x=1822159983;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=u994Z1jwmZ/TKNi7Rq4rSCq8AqEEFkfuzzqzMPgbbII=;
+  b=kvNt16G7lu6wS5FF//bzMgyV0nxwgdZXDAwB9lk6rpmAW1vtB/u6mqsR
+   IxzWkrspUSbU/8UWV6MvPovLlt1ZRPI4cSe6hFi6uAJ5BtReQ1/swYUpY
+   gkZtVncie1WVYfHQ4Y5iQOJZbDSAq6A8JKERh9Qy5IUf9v02Nr4ESjBv7
+   /bQZydu9uKQlBrZpYN7GwYgA7XzxwiHc5i0+6LhwZ6KkR4KVA/fnj/aM7
+   Dj+Oa8sXSI/Bd3JKEMSIj1juOANQnZ6+qFcI0Lnye3SR3Zmm0cvAFrVgM
+   LZ/o6D+isCbm2+7kPfUthJhWnbyN+RGJs0NNn3MiBOZ1wNe9SKJqXAD+H
+   Q==;
+X-CSE-ConnectionGUID: zZQhqAAsToeQadjYsZnkRQ==
+X-CSE-MsgGUID: b7zjOgIaRuK4F5aIUrMb2Q==
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="231389907"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 12:33:02 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Mon, 28 Sep 2026 12:33:02 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 28 Sep 2026 12:32:58 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Mon, 28 Sep 2026 21:32:49 +0200
+Subject: [PATCH net-next v9 01/15] MAINTAINERS: add FDMA library to Sparx5
+ SoC entry
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: drain GEM timer and work on teardown
-To: Hongyan Xu <getshell@seu.edu.cn>, mripard@kernel.org,
- dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn
-References: <20260928134100.420-1-getshell@seu.edu.cn>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260928134100.420-1-getshell@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260928-lan966x-pci-fdma-v9-1-a17caf60f89a@microchip.com>
+References: <20260928-lan966x-pci-fdma-v9-0-a17caf60f89a@microchip.com>
+In-Reply-To: <20260928-lan966x-pci-fdma-v9-0-a17caf60f89a@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>, Steen Hegelund
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
+ Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
+ Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
+	<mohsin.bashr@gmail.com>, "Simon Horman" <horms@kernel.org>
+CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+X-Mailer: b4 0.14.3
 
-Hi Hongyan,
+The FDMA library under drivers/net/ethernet/microchip/fdma/ is shared by
+the lan966x, sparx5 and lan969x drivers, but is not covered by an entry
+in the MAINTAINERS file. A subsequent patch will add new files to the
+FDMA library, so let's make sure it's covered.
 
-This issue was already addressed in [1].
+Add drivers/net/ethernet/microchip/fdma/ to the Sparx5 SoC entry, since
+I am already listed there.
 
-[1] 
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/94cf5971b1d04c6382437387c4dc3836cc7a1437
+Tested-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-Best regards,
-- Maíra
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6de1ff058db6..740f362e03f8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3214,6 +3214,7 @@ M:	UNGLinuxDriver@microchip.com
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	arch/arm64/boot/dts/microchip/sparx*
++F:	drivers/net/ethernet/microchip/fdma/
+ F:	drivers/net/ethernet/microchip/vcap/
+ F:	drivers/pinctrl/pinctrl-microchip-sgpio.c
+ N:	sparx5
 
-On 28/09/26 10:41, Hongyan Xu wrote:
-> The hangcheck timer can rearm itself or queue reset_work, while the V3D
-> interrupt queues job_done_work. vc4_gem_destroy() releases state
-> embedded in vc4_dev without first draining those asynchronous callbacks.
-> 
-> Shut down the timer so it cannot be rearmed, then cancel both work items
-> before GEM state is destroyed.
-> 
-> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> ---
->   drivers/gpu/drm/vc4/vc4_gem.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-> index e231c906709c..2443b62df89c 100644
-> --- a/drivers/gpu/drm/vc4/vc4_gem.c
-> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-> @@ -1194,6 +1194,10 @@ static void vc4_gem_destroy(struct drm_device *dev, void *unused)
->   {
->   	struct vc4_dev *vc4 = to_vc4_dev(dev);
->   
-> +	timer_shutdown_sync(&vc4->hangcheck.timer);
-> +	cancel_work_sync(&vc4->hangcheck.reset_work);
-> +	cancel_work_sync(&vc4->job_done_work);
-> +
->   	/* Waiting for exec to finish would need to be done before
->   	 * unregistering V3D.
->   	 */
+-- 
+2.34.1
 
