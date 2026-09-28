@@ -1,138 +1,212 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86D94FC335
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630810; cv=pass; b=GmcCdbxnCc1rkotNp54QQA9nnE3fr0ekyTRcboiEPVKgj3H86n3AqnlEU8yoKXvvUN3xlEV8hJj1PXddTXGthQZq3x5bcZv8PJnixLz469xGjYYyqrVytOmM496FOpLYw8qdAbzm8G4kxrqWNDgyWbPelrFb18cYQYCuirko2P4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630810; c=relaxed/simple;
-	bh=36c4/nh2QN5FJt39r4MZ1OBS2WNzMmtUQ1xAvY0uwq0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DuF2igU2dqpURK7Ni16iT3ql2R4GG5N+NPfGzJr3zLuK0laPkNpoz8vxWipS8gLqLcN2XgacTSlI4lJkI9YcXvR9pJJgPcl5ta8xdw3BaHZ10G3A3khEmfBkIzcr/hpHlTqXFQ7r5Er9G2//bL7tsLj8/w3Ki8duyfzrdRW4Ki0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BppG7JaO; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA2D4848A6;
+	Mon, 28 Sep 2026 21:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790630892; cv=none; b=rDFUwmwxMwXBpCJc7cZIlOMsUP2KDTIYoI7iW98uQyGgAAC3NDDnNaYZCnr/EftMFojlazdd/z/IIgof/kkk+51EWvG/yjC5NFwjBgTvhIgtSvT3YgNiCykYFHa7NcrKR95S0kIKqmCO7Q7Qrvr2EU2EgRFx5Tun02BeodlbcCM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790630892; c=relaxed/simple;
+	bh=5cY3Loxrz+aQoEE5dRtjAknUbuyx+/jkMLJCVs2R+0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IUcJnokf1IFfaqSDlFWHqpArYcf+sIGKsDpaSzxtXV7+BzJlNDoKofO4E8FXALQNXrl/XAB02dEvK2IPC4cveBMzUfc89VtongKZcSB4OUasLQVf8xm0eVT8GzvvU1dAe/yf4dezovlKmHAAxkH28MAk5+04ZH1R5T4UVoyXssg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LT6OLFBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BppG7JaO"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso5904512a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:26:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790630797; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ma1myNF9YCsEn+dKMq1P7KhGIju94MCgN6Tf78JavUs8JcanvWMzx4zMxQWV5MLjgV
-         GgyWNGbGXDKAag9D1zv9iwJ8Gx8qxHmHGI26PdD2bE6mllbjRIXiGXKGPH8s61DAbvbH
-         9RSB2f5YNugqw4lkpLgU4cgIQFMTJNvwdGrKlrfh48HT9CvbghWmWJQGrMaWYQC/9sUs
-         rSUzKHjcL69cvtkaNxHpS1VGsuI9TT8fmwM9DKsyLypGftgHGV2nezTDBPHfrjeBTHKv
-         iqhdo7YV+MSQJqEDkBw2njsOJ/4W0rBK8p/O+VK2m5d5H7KHTSrZSb7PqsO6Fthl9U+5
-         v0XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FF22kV1FIt0Dfmqc/IkjF4lzpEWQoZDSVBGIa/FDMM8=;
-        fh=THqs77X4RZnD1kcIIc5QHRR6rFbWNzGz/hyLk3lqrOA=;
-        b=ISIHi/Oi0o7DVVBEIG5l2T8cVH9Pwj3VPE1QhSgrS9d/ydORwoL/EJDLnRFXv1gvI5
-         3+WoRRWNAbpajOSZJ2tgXUs8Cknca+BB1RvlIf1msYBQRkyE9Am76Z1wGtzsqYE7y7Rr
-         o18eqDsoRLzm3uHY5BQ90o4ZhUFFAueSdxpp9pRJR8AquJQ0uC9Swr9PnpudEG+c7ISf
-         D5y+LF1Yl0i8SQCrsH2VBxRM5geRYN8IOHoR7eGRE6eJaDbkfvrS8mIxrPcNHzrz5MPO
-         zPJ8h1C2GcznSfJmnxQTaRNU7nqKBxixuvcTbQ8ndIxAbeoCbtTPrvVCTs4yT+KW/4zM
-         +Epg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790630797; x=1791235597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FF22kV1FIt0Dfmqc/IkjF4lzpEWQoZDSVBGIa/FDMM8=;
-        b=BppG7JaOIy3DBBzo2JOMVh1r7+oGxT4z1utaZDi3nqkqq0tUNZoZRBVDcuGvgzncMo
-         h5TcVakx8Ygi9KwyRi4ZbLphuqPYI10H83PrBK0nsBk060Tv3Kh7bm8WXUOn7lDVS3Yf
-         NYmVAsGKRRR79eIqrppwhJ0/9WiexWnkg/BzRVtqW30YiFroaBkmMbfSUwsBNKFcrje6
-         8+EFtk2sIwUCdFYpFh7N0njOzxuopnYdSFOyoUiicb2R91j7+VTweBETIza3fN50gar6
-         kDANSx/QW0UyI2tvM1fbFMO3mcoZs5p/mpv9Gi5G7zGyExg76jwKZbXy/QuR72tYYYME
-         LVlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790630797; x=1791235597;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FF22kV1FIt0Dfmqc/IkjF4lzpEWQoZDSVBGIa/FDMM8=;
-        b=bn5bshGIQema5GAxu+3S+XELEZTX1gvPqLF9WyVMnzEce7ysMVfd5NiB/8sLQPOy9l
-         AfRsBqGFPrO7GiZQyXQdJ5U1GB2v4mJNVztp5wh2pL3M44mEEnAR6oYgn5MvxIyhzMEI
-         HGAJVRb5hjWWWQMlA1lVF4DKyBpdYNXqhS5vAlbf28PlOfVIwFpU7FI2PW1Tge7jLAIe
-         MtVR0nC8hMi1waWt5uiUBgDmL7x7yj52EwN+eh/OEabyZiWqWWuf5ingrhPg0UqMjhLr
-         g8DYE09LSpHFNfUFic5+rmINJmGd0UKNo4Xhd3GP2ea9eFZqkcRDxypYK58caabUVf/r
-         ydxw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1AwLju0Jki2zjjQGp5m24t+0CCxhQips+S9zlY+LrNxuIpYOXp0zkXAYfKbhLr9bhgue/sgya+U2dOLU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCD7HnbbBB8kT1jervrxNwwtcgnC4bV+o6kUsY2AqcDcMIiBv2
-	TUFhX9Um+BepOBU13hvJJ1leE82+loDiPSitJ5gMlpFKR4N7j/NAiYf9JiXhmIBB/bIU6MsDlFB
-	TIDEs8w3q73rr4ik9PB6Rh/rPnsrcUcEkTokuEXs=
-X-Gm-Gg: AYBFou2hefRWaZGwnSdMvVfMXbXsRHN/Uu3FyRTWJNI3JcGoIZOlpBL0hWgcp4XEl5e
-	hpy3oaQR9zdYiDf3Kg0DwWrC1g0PFK3PHBvpFK3t2Sw5v3NG80niVHgrztp8nWbeJbsVfcUFG5J
-	EslCdOuEuklZ74mZWsD0fj0Zoq13chSr1WEZN34KwYRvE6afr1/GVyC30HEZcXz38JmNNpGX2f1
-	vsAenw896alw7PCwcNjjWEG692+z7Z4mH6jpxpEKYKQY+rtRCUXWc+HTeU7ajZlH8YYzZeXs+tf
-	qyLjWnVtRZierCou2blZjk1GGPPNa7rRcmRTt8skw8YTbLm4kwQ+Bttcqs1hLJA93i4h25edcwe
-	96mrryGCCKhyD1qOy7Yp/gCbO9IXM7f2iDMYisjGDLp1uf3TzMGdLfEZSN7vxMggTEXCUwvZe2t
-	33lLDNGTIQf07VTHADu8mU/xpFqYRpMoxahq/WltqX
-X-Received: by 2002:a05:6938:a085:20b0:c2d:c6e7:9e9f with SMTP id
- a640c23a62f3a-c2dc6e81bddmr310910566b.27.1790630796755; Mon, 28 Sep 2026
- 14:26:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LT6OLFBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20481F000FF;
+	Mon, 28 Sep 2026 21:28:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790630890;
+	bh=NwacZ9pPcRCMIBHxhyeWDNBEuogXcwr5zpJ51dE66kc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LT6OLFBT6h/+I1tRgEjs5NFf6ABdzzof70WqRxhgSuqYRPpEbDIbDIJH9owX2EDRd
+	 9JeKi+rDuk8EWdvrzI3/Xfe+A7KlA2niG844qWsNSYySpEOdORneodIq1rZG8fIhok
+	 KZpJotf6EbMOUiwaqoDc8vsvpia3Iv8KSVPstTBGB+ahtvpnRdsfuSerWiWZ7Gaxlq
+	 Lx7IO0nDUtmKnLnfNmP2lviN2rb8lOxjGukwDOBgbD7UKdDu9d08QHHXnirJtLtSb3
+	 wA1VP5j4btkQRLBz7Hkd8a9TdoT0B8UlEqN9fZFVfIVd4Yp8+OzpB/or0lIhx2GbHa
+	 CDtuRfJw1/2Ow==
+Date: Mon, 28 Sep 2026 16:28:09 -0500
+From: Rob Herring <robh@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	"open list:PIN CONTROL SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] dt-bindings: pinctrl: convert nsp-gpio binding
+Message-ID: <20260928212809.GA733508-robh@kernel.org>
+References: <20260927212748.123558-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928200318.63383-1-meatuni001@gmail.com> <20260928200318.63383-2-meatuni001@gmail.com>
-In-Reply-To: <20260928200318.63383-2-meatuni001@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 29 Sep 2026 00:26:00 +0300
-X-Gm-Features: AclHuK9aoydHFby8LX8BqY0ekVNNZF7gZBjCzIJJrmWtMkMRg0jStsZZ0Ski8IY
-Message-ID: <CAHp75Vd0NF_5nusyoV=25umqUKiNGynCJU1tercwMZ57c_BfRQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hdegoede@redhat.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927212748.123558-1-rosenp@gmail.com>
 
-On Mon, Sep 28, 2026 at 11:03=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.c=
-om> wrote:
->
-> The escape-prescan loop uses 'size' as both loop bound and
-> accumulator, so each match extends the bound and reads past src[]:
->
->   for (i =3D 0; i < size; i++)
->       if (src[i] =3D=3D '\\' || ...) size++;
->
-> Snapshot the real char count into orig_size and loop against that.
->
-> Also fix two adjacent issues: the bounds check omits the 2-byte
-> length prefix already consumed, and utf16s_to_utf8s() receives the
-> byte count (src_size) instead of the u16-unit count (orig_size).
->
-> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7).
+On Sun, Sep 27, 2026 at 02:27:48PM -0700, Rosen Penev wrote:
+> The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was only
+> documented in the legacy text binding, so dtbs_check reported "failed to
+> match any schema" for the gpio@20 node present in the bcm958625 and
+> related broadcom boards.
+> 
+> Convert Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt to
+> a YAML schema and drop the text binding. Keep the existing required and
+> optional properties (reg, #gpio-cells, gpio-controller, ngpios, and the
+> optional interrupt/gpio-ranges support), including the generic pinconf
+> child nodes with pin bias and drive-strength.
+> 
+> Pin configuration nodes may be direct children of the controller or
+> grouped under a "-pins" node; both forms are recognized, and each "-pins"
+> node may group further pin configuration children. Child nodes named
+> "-hog" are supported as GPIO hogs.
+> 
+> The generic pinconf and pinmux helper schemas end in
+> "additionalProperties: true" and cannot close the node from an in-place
+> applicator, so spell out the supported subset and set
+> "additionalProperties: false" in the local pin configuration node schema.
+> Without it misspelled or unsupported properties such as "bias-pullup" or
+> "slew-rate" are silently accepted.
+> 
+> Controller children are matched with "anyOf" against the pin
+> configuration node schema and against "not: { type: object }". The
+> latter keeps non-node properties such as #pinctrl-cells or clocks from
+> being forced through the pin configuration schema, while still rejecting
+> pin configuration child nodes that do not look like one. A plain
+> "additionalProperties: false" cannot be used here because it would also
+> reject the directly nested pin configuration nodes.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v3: add additionalProperties
+>  v2: don't drop gpio-hog
+>  .../bindings/pinctrl/brcm,nsp-gpio.txt        |  80 ----------
+>  .../bindings/pinctrl/brcm,nsp-gpio.yaml       | 144 ++++++++++++++++++
+>  2 files changed, 144 insertions(+), 80 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
 
-...
 
->  int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, =
-u32 dst_
+> diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+> new file mode 100644
+> index 000000000000..e5144da1bf57
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+> @@ -0,0 +1,144 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/brcm,nsp-gpio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Broadcom Northstar Plus (NSP) GPIO/PINCONF Controller
+> +
+> +maintainers:
+> +  - Ray Jui <rjui@broadcom.com>
+> +  - Scott Branden <sbranden@broadcom.com>
+> +
+> +description: |
+> +  The chipCommonA GPIO block also provides generic pin configuration for the
+> +  pins it controls: bias, pull up/down and drive strength. Pin configuration
+> +  child nodes may be direct children of the controller, or grouped under a
+> +  '-pins' node. In both cases the pin configuration nodes are referenced by
+> +  the consuming device through the standard pinctrl-0/pinctrl-names
+> +  properties. Child nodes named '*-hog' are treated as GPIO hogs.
+> +
+> +properties:
+> +  compatible:
+> +    const: brcm,nsp-gpio-a
+> +
+> +  reg:
+> +    items:
+> +      - description: GPIO base registers
+> +      - description: IO control registers
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +    description: |
+> +      The first cell is the GPIO pin number (within the controller's pin
+> +      space) and the second cell is used for the following:
+> +      bit[0]: polarity (0 for active high and 1 for active low)
+> +
+> +  gpio-controller: true
+> +
+> +  ngpios:
+> +    description: Number of GPIOs supported (58x25 supports 32 and 58x23 supports 24)
+> +    maximum: 32
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  interrupt-controller: true
+> +
+> +  gpio-ranges: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#gpio-cells"
+> +  - gpio-controller
+> +  - ngpios
+> +
+> +$defs:
+> +  nsp-gpio-pinconf:
+> +    type: object
+> +    allOf:
+> +      - $ref: pincfg-node.yaml#
+> +      - $ref: pinmux-node.yaml#
+> +
+> +    properties:
+> +      pins:
+> +        $ref: /schemas/types.yaml#/definitions/string-array
+> +        items:
+> +          pattern: '^gpio-'
+> +
+> +      bias-disable: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +
+> +      drive-strength:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
+> +
+> +    required:
+> +      - pins
+> +
+> +    additionalProperties: false
+> +
+> +patternProperties:
+> +  '-pins$':
+> +    oneOf:
+> +      - $ref: '#/$defs/nsp-gpio-pinconf'
+> +      - type: object
+> +        additionalProperties:
+> +          $ref: '#/$defs/nsp-gpio-pinconf'
+> +
+> +  '-hog(-[0-9]+)?$':
+> +    type: object
+> +    required:
+> +      - gpio-hog
+> +
+> +additionalProperties:
+> +  anyOf:
+> +    - $ref: '#/$defs/nsp-gpio-pinconf'
 
->         u16 *src =3D (u16 *)*buffer;
->         u16 src_size;
+This is a superset of what '-pins$' allows in the first oneOf entry. Not 
+much point in defining '-pins' if any name is allowed unless '-pins' is 
+only for container nodes.
 
->
+> +    - not:
+> +        type: object
 
-While at it, drop this blank line.
+sashiko comment is correct here.
 
-> +       u16 orig_size;
->         u16 size;
->         int i;
->         int conv_dst_size;
-
---
-With Best Regards,
-Andy Shevchenko
+Rob
