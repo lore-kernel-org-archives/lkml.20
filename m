@@ -1,60 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218723F7AAC;
-	Mon, 28 Sep 2026 08:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EAC47C0E4
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584580; cv=none; b=oxl2aYS85uQjEJq55tcJE4Y857RnqCb9rF8hiXI1YHOjMusqa+y7HnBLTJq5amfmhgQpEdrsOb//EEM2eQtS17TE5+YqkpZfc+YZsGJ28rdYItM+jmSWcUQU7+USWxnvPsCI4Q21EX6gl2UUFPLh4YwvPu3gAxLDZ5cOqVeNwXE=
+	t=1790584625; cv=none; b=a1BakxF5xgrprp4I8XMtzsPIc23TGYy6htXpRAurG8STTryOugczk7jFRBDRzTcE6VcsCLbX/8dHtK7Okqa5GKjNyCsNjcsgxyg1aCZv7gUDOeDYLo6Kp2zxLZIoo2a1E3iwZPtLsiX5uCHL2YSgvfIZ4dSxFoh6E+iE+T/iTt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584580; c=relaxed/simple;
-	bh=pwLgxTRQaJbAuoKRIW3dy1IbXKeQfhH90VKCp8hXN8s=;
+	s=arc-20240116; t=1790584625; c=relaxed/simple;
+	bh=bou7TJ3YkZiaKpToPQifua9CF+5Fr/E4naT+CbeWrEQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=txvh8lIctcLEqD3BJZPB+m+2uf5vF/LxkutorqjVx/0oa0PcHBIjgnzD/U1UTjuKOycJLjo8OBgs+PRaViYcZw+H3dggKmdsjuPB4DN1klH9qZgs5aGmi5tuZIdzo0GtrGB6Vd/gwQAB6n/A3oF37KPJ7HSiEbrTFSBXR3bOy1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nFahcXac; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JR0HGCb7LjayW1DFydl/CZ979NYwB67KbJ0aOhA6dMLueUxN9pYev0LW0lZRTA0VChi0mf6XNjMJnaMGehdX8fxkC3YnaBb94zt70UO5N9C7ZszpucNxEmrNVOC09HfelOXmS+bCMjiF2BdPtbRWxcDWCC4rgFbVAK2Lk1TYsIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UoKE/C4P; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nFahcXac"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790584576; x=1822120576;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pwLgxTRQaJbAuoKRIW3dy1IbXKeQfhH90VKCp8hXN8s=;
-  b=nFahcXacqmu+/qjRWvoL4wsV48VfJGJYtDO9r+W4NiRtk481o1taHkYz
-   lATsJuryA7eTN1YY/WYysgoa7wCRdBN+rK898S4k5AKvqqkIUtQGKO7xx
-   Ek1xVj3CQGRLt/740XpEpTEaUQgwUmf3OLkPrSdOfJPP+6G2Yj7Rn8hsa
-   hxH1xOSfI4GFfZQQk0PdreTmLbrgkkn2H3t0GPAzce1Q4g3JhqPEnYFku
-   E1wV91nl8bcgyO1JIrezGzde4P3xblO99ZP6lExriBpjpr40ebfcY84QK
-   4+kClTd0AeYLzY4qcrQ2Xfk00EoF6s98RhsmgUPk1DMn9DoNwOsN/UG/a
-   Q==;
-X-CSE-ConnectionGUID: FGtI81RhTy+Utlz7KfFgVA==
-X-CSE-MsgGUID: rCG4kHalR4OKgVEHcfYU8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90180917"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90180917"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:36:11 -0700
-X-CSE-ConnectionGUID: CuTZjTB9R6CR8m3nW+zr6A==
-X-CSE-MsgGUID: 3XwqWEF9QJu/lQ3auDbLLQ==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:36:08 -0700
-Date: Mon, 28 Sep 2026 11:36:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
-	Kurt Borja <kuurtb@gmail.com>
-Subject: Re: [PATCH] iio: adc: ti-ads112c14: add gpio support
-Message-ID: <arom9T0azKX9jV5m@ashevche-desk.local>
-References: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UoKE/C4P"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso978092b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:37:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790584623; x=1791189423; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L5Wm5UF55+eRvTGHYgcr5kp8lSdkEISneNj5ZBpIilg=;
+        b=UoKE/C4P3RgL1wqYnKTpzBgKth3pAhlMOpCUMZeBzpO0hLs0Kidce59jGcZnyqw9Lc
+         Q8WxcIKQVgFjYx9VL9mukzRPJiqidRgu+HXP+WlvdgQtKKEdiacuMqcF8Kg7LlzisBMj
+         YiXKvJ3+IhBMF5++3G8uPz7IImD0oTDJTAbPY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790584623; x=1791189423;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L5Wm5UF55+eRvTGHYgcr5kp8lSdkEISneNj5ZBpIilg=;
+        b=Gy8/4mjJ4fYok/5FwPbCYaC++4RBdSa5myLEN3JSlL7Vni1rYjih6k7NTNa43lgA8v
+         LScwwFLLC8xavcLYRnohwPNGN7DbguP7DxgHOP0sqs2nPG7Ar0fwLEdGBE74gKY5Y+i4
+         ATwe3jZhh74vjwMHmG+6GiKFF2fCfN5TURxHTXh/12qbKubTGIZKP1QjV6TqM1wkWv6G
+         uIIoLD/rBazIxWg8RdOyghF+aNgRpLuopKPRwSxo8XxhirN6OH1AtxpRPA8C+ZhuPMUY
+         rjbGkD8tkrqteAfDdo5Vs60P4zYOs807yaJmFxFrjZrcPYP5gInB4gmSnQ4yoe+4hrzH
+         g0sw==
+X-Forwarded-Encrypted: i=1; AKwUvBz32TPTjZDOZd9NyzerVqiGN5oHcuTrwW+VRZW1fHHyb6zUGMZDJjTLttxvs09ftx141LQ7I0GgEX1zyfc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSkyxIu1O7gditXbeYlFdr8anrxrk19FavVDvzt0MlsNetHoHo
+	To19uCwvohafVVJAyV0eELk8CYNMRGQMzARNnYBNlKpuCpwi4J6GpzIkHvahRmPsIg==
+X-Gm-Gg: AYBFou04UCiwMiB5F/kYJvAWQ7qNAk8eyBLe3MbXmGzgRrxdv9bHFaJmX0leO/bT390
+	8zJzw13eSqDBhi7p7ZhtbsdqKmdSq6dsVRla83ubst5vSdTYkYzRZPauEkzQRmIlalRKa+Ls1pm
+	vQq/Tck5bg0W8308LdEW9lKPvWpDygTtHmVqhPMYCyCnY4u++Eo53Vvq0oGOiOkNuAvLyrvfAm4
+	SXE/ETDc9Tv6pM9Gz8llv4bj3Kd0f75CRLhzf0i/FLNll2GNa81QRYOIzqquL4YhbO64b9/qwLI
+	XNMJiK9Ptx8JF88gwo95DUqn77TQI4nPX48NLc8uxYvSlFch+atq0rcvaFxlnXKogkfmK1rS75H
+	fv5u1EeuuqHiedGeSoEIKxO5LwHDTmG2lkwxJBqjo9jclSQZY6WI0/CHInhV7sBO1jNzCI5ZZDo
+	oeIR/s55uiD0A4MHcVDopcXpgHOY1U7oPyb96POsjo+PRDzmRYrqGW0sbEPGu1xIYsMdC0KqcgN
+	nQhOFyDuzrw9v8Pj4Y7Mw19By2DLE9/in9Kxq4=
+X-Received: by 2002:a05:6a00:4f90:b0:851:8bde:7873 with SMTP id d2e1a72fcca58-87e9869447cmr9941237b3a.8.1790584623017;
+        Mon, 28 Sep 2026 01:37:03 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:fdbe:318b:98fe:bd96])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb67dc92sm3768582b3a.51.2026.09.28.01.37.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 01:37:02 -0700 (PDT)
+Date: Mon, 28 Sep 2026 17:36:58 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH] fs/ext4: fix ABBA deadlock in ext4_rmdir()
+Message-ID: <aromzrxZZbjuekYs@google.com>
+References: <20260827125158.4030598-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,180 +76,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260827125158.4030598-1-senozhatsky@chromium.org>
 
-On Fri, Sep 25, 2026 at 04:50:47PM -0500, David Lechner (TI) wrote:
-> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
-> the gpio-controller property is present.
+On (26/08/27 21:50), Sergey Senozhatsky wrote:
+> We observe the following ABBA deadlock (casefolding enabled):
 > 
-> Pins that are already used for something else according to the
-> devicetree are excluded from the valid GPIO mask. This includes analog
-> inputs and excitation current outputs used by channels, REFP/REFN when
-> an external reference is used, the /FAULT and /DRDY interrupts and the
-> external clock input.
+>  INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
+>  task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
+>  Call Trace:
+>   <TASK>
+>   __schedule+0xc2c/0xe60
+>   schedule+0x40/0xe0
+>   jbd2_journal_wait_updates+0x8f/0xf0
+>   jbd2_journal_commit_transaction+0x321/0x1850
+>   kjournald2+0xa9/0x230
+>   kthread+0x226/0x2a0
+>   ret_from_fork+0x101/0x1e0
+>   ret_from_fork_asm+0x1a/0x30
 > 
-> The per-pin register field macros are replaced with parameterized ones
-> so that they can be used with the GPIO offset.
+>  INFO: task Thread-10:4161 blocked for more than 720 seconds.
+>  task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
+>  Call Trace:
+>   <TASK>
+>   __schedule+0xc2c/0xe60
+>   schedule+0x40/0xe0
+>   wait_transaction_locked+0x8c/0xd0
+>   start_this_handle+0x252/0x870
+>   jbd2__journal_start+0x120/0x280
+>   __ext4_journal_start_sb+0x11a/0x250
+>   ext4_evict_inode+0x208/0x760
+>   iput+0x222/0x5c0
+>   dput+0x293/0x690
+>   ____fput+0x145/0x2b0
+>   task_work_run+0x7a/0xb0
+>   exit_to_user_mode_loop+0xc0/0xd0
+>   do_syscall_64+0x14b/0xf10
+>   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> 
+>  NMI backtrace for cpu 0
+>  CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
+>  RIP: 0010:d_walk+0x0/0x290
+> [..]
+>  Call Trace:
+>  <TASK>
+>   shrink_dcache_parent+0xb2/0x100
+>   d_invalidate+0x50/0x110
+>   ext4_rmdir+0x3a2/0x3d0
+>   vfs_rmdir+0x9d/0x1d0
+>   do_rmdir+0xf0/0x330
+>   __x64_sys_unlinkat+0x34/0x50
+>   do_syscall_64+0x61/0xf10
+> 
+> The problem is that ext4_rmdir() calls d_invalidate() before stopping
+> the jbd2 transaction handle.  Because d_invalidate() traverses child
+> dentries it can encounter dying or in-use dentries.  If a concurrent
+> thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
+> it requests a new transaction handle via ext4_journal_start(), which
+> waits for all running handles to close.  However, the thread executing
+> ext4_rmdir() still holds its active transaction handle while looping
+> in shrink_dcache_parent() waiting for the dying child dentry to complete
+> eviction.
+> 
+> Stop transaction handle in ext4_rmdir() before calling d_invalidate().
 
-...
+Hello,
 
-> +	DECLARE_BITMAP(gpio_reserved_mask, ADS112C14_NUM_GPIO);
-
-Why not use valid_mask in GPIO chip directly?
-
-...
-
-> +static void ads112c14_reserve_gpio_for_ain(unsigned long *gpio_reserved_mask,
-> +					   u32 ain)
-> +{
-> +	if (ain >= 4 && ain <= 7)
-> +		set_bit(ain - 4, gpio_reserved_mask);
-
-Why atomic op is needed?
-
-> +}
-
-...
-
-> +static int ads112c14_gpio_init_valid_mask(struct gpio_chip *gc,
-> +					  unsigned long *valid_mask,
-> +					  unsigned int ngpios)
-> +{
-> +	struct iio_dev *indio_dev = gpiochip_get_data(gc);
-> +	struct ads112c14_data *data = iio_priv(indio_dev);
-
-> +	bitmap_fill(valid_mask, ngpios);
-
-It's already filled by GPIOLIB, isn't it?
-
-> +	bitmap_andnot(valid_mask, valid_mask, data->gpio_reserved_mask, ngpios);
-> +
-> +	return 0;
-> +}
-
-> +static int ads112c14_gpio_init(struct iio_dev *indio_dev)
-> +{
-> +	struct ads112c14_data *data = iio_priv(indio_dev);
-> +	struct device *dev = indio_dev->dev.parent;
-> +
-> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
-> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
-> +						     dev_name(&indio_dev->dev), i);
-> +		if (!data->gpio_names[i])
-> +			return -ENOMEM;
-
-Wondering if you can utilise devm_kasprintf_strarray().
-
-> +	}
-> +
-> +	data->gc = (struct gpio_chip) {
-> +		.owner = THIS_MODULE,
-> +		.label = dev_name(dev),
-> +		.parent = dev,
-> +		.base = -1,
-> +		.ngpio = ADS112C14_NUM_GPIO,
-> +		.names = data->gpio_names,
-> +		.can_sleep = true,
-> +		.init_valid_mask = ads112c14_gpio_init_valid_mask,
-> +		.get_direction = ads112c14_gpio_get_direction,
-> +		.direction_input = ads112c14_gpio_direction_input,
-> +		.direction_output = ads112c14_gpio_direction_output,
-> +		.get = ads112c14_gpio_get,
-> +		.set = ads112c14_gpio_set,
-> +	};
-> +
-> +	return devm_gpiochip_add_data(dev, &data->gc, indio_dev);
-> +}
-
-...
-
->  static int ads112c14_parse_channels(struct iio_dev *indio_dev,
-> -				    bool *need_avdd_ref, bool *need_ext_ref)
-> +				    bool *need_avdd_ref, bool *need_ext_ref,
-> +				    unsigned long *gpio_reserved_mask)
->  {
-
-> +			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
-
-> +			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
-> +			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[1]);
->  		} else {
-
-> +			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
-> +			if (measurement->iadc_count > 1)
-> +				ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[1]);
-
-Can't this be done afterwards at init_valid_mask() stage?
-
-...
-
->  static int ads112c14_probe(struct i2c_client *client)
->  {
-> +	DECLARE_BITMAP(gpio_reserved_mask, ADS112C14_NUM_GPIO);
-
-Hmm... But you have one already in the struct, why another one here?
-
-
-...
-
-> +	/* FAULT shares a pin with GPIO2. */
-> +	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "fault") >= 0)
-> +		set_bit(2, gpio_reserved_mask);
-
-Non-atomic?
-
-...
-
->  	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "drdy") >= 0) {
->  		data->drdy_irq = fwnode_irq_get_byname(dev_fwnode(dev), "drdy");
->  		if (data->drdy_irq < 0)
->  			return dev_err_probe(dev, data->drdy_irq,
->  					     "failed to get drdy interrupt\n");
->  
-> +		/* DRDY shares a pin with GPIO3. */
-> +		set_bit(3, gpio_reserved_mask);
-
-Ditto.
-
-
->  		if (clk)
->  			return dev_err_probe(dev, -EINVAL,
->  					     "cannot use both DRDY and CLK - they share the same pin\n");
-
-...
-
->  	if (clk) {
-> +		/* CLK shares a pin with GPIO3. */
-> +		set_bit(3, gpio_reserved_mask);
-
-Ditto.
-
->  		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
-> -					 ADS112C14_GPIO_CFG_GPIO3_CFG,
-> -					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
-> +					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
-> +					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
->  						    ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
->  		if (ret)
->  			return ret;
-
-...
-
-> +	if (device_property_read_bool(dev, "gpio-controller")) {
-> +		bitmap_copy(data->gpio_reserved_mask, gpio_reserved_mask,
-> +			    ADS112C14_NUM_GPIO);
-> +
-> +		ret = ads112c14_gpio_init(indio_dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-This all smells like it should be refactored to nicely have it in one place in init_valid_mask().
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I'm not sure I see this patch in linux-next, has it fell through the
+cracks?
