@@ -1,85 +1,97 @@
-Received: from smtpcmd04132.aruba.it (smtpcmd04132.aruba.it [62.149.158.132])
+Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B601A4EFFDF
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09464EC665;
+	Mon, 28 Sep 2026 16:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613886; cv=none; b=ga5bA0vVzEMFw2u1BVgsprVgLmKB2bdSTcOeCFi3cl0EtcE5xTgXM7yAoZOMu7VqYplikhjv+hccHEvcQdRJFJ7ELJIgNa9L/HxQyd+sNqeIa/468caMgnCuK1YtB+BBPMCn01hIIO62lnERC5XrAkBGSTjeFNVEhrH2AdCox5I=
+	t=1790613899; cv=none; b=GYYW8ZK//qn3Xic1LwzfMwNqm34gbISOTTeJmrzJHkkytbl4sLMKU9fK2Erv8NhUN29Nuk1iTcGb0lYWgN8oc04qjX/NTzbTqpZyWpI9rm0cbRm5J/rGmY5jp+gQpAeNS84ZPkTn1N1pSHIQQrAKo2HmaGBQvTFPsK82h7X1j0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613886; c=relaxed/simple;
-	bh=4Ebey87VEC2Sy1nN53gKuST7JmuOLoWCUaBl76N3ojQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=lm79voNivOztij3skciYEqNO2019Qw+btI6LDe9pZVvQK9KeTkdY0yr6jO3NFiu6yhmy3LI5EdicBRhidZB5absfUKbKnhACtNdmAFcQPg9Xp+Pp3WPdOtqL6U5gDGLELzXYNsAGCS9lg31k8OqcV1MMKRVbvQF9RQdP6e4nSnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=np0LPM/W; arc=none smtp.client-ip=62.149.158.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790613899; c=relaxed/simple;
+	bh=gWQFHOs73qDRXfHN/A480vDvUJBl+N73b3+Fol4Ysrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nL83KXhay10hnem8wwwBL8UFf+/WkdaZ8ffw4N7u71sQnv3Aug2QMHcoC/iqjSw/BwbdBLdycZC049Z3LOEWaAvTk5d/wBikCwWFE+Oz5IXDLZAcMoDBM8UzZXOP75dQ2Wc+AdVedK//IHkK+uy1ECVhQRRP9kIvYeZVXEpglt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=Ddia5p1V; arc=none smtp.client-ip=133.167.8.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="np0LPM/W"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id BEPxxBNV9rqLfBEQ3x8lsz; Mon, 28 Sep 2026 18:41:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790613696; bh=4Ebey87VEC2Sy1nN53gKuST7JmuOLoWCUaBl76N3ojQ=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=np0LPM/WkDSAtEezav8whPFdLtieMzaMNWxe5XDIuy59/zMxjf1uXmsx76jBHZyIU
-	 XASgZr715wy2wcTprjK+sJdaoVNLgQOJr08PVdKTkoh27NU09ZAhlPDz7bPsuxSSRB
-	 Sqgl6ZnFdpw3TfJdsnmRot61ARFJFYMamJADGYp2hilVbC0HEVBe7h3KpdbxgDiRDh
-	 ZQW30gJsDM4HGGHd0HKbjD1WRCAxMss7vDN0TSZKWURqRXPk1uZW2eNdTb49f4sH97
-	 Y/kF1wDx8WE/CRiRGNbmYNrPG32X23/bMzvzuaBcqkcYJgHwjstA627jbIFGGMC+cu
-	 U52zIX3PFjKUg==
-Message-ID: <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
-Date: Mon, 28 Sep 2026 18:41:35 +0200
+	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="Ddia5p1V"
+Received: from fedora ([104.28.225.80])
+	(authenticated bits=0)
+	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SGijNl080644
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Tue, 29 Sep 2026 01:44:50 +0900 (JST)
+	(envelope-from k@mgml.me)
+DKIM-Signature: a=rsa-sha256; bh=MbSyrRFNzJ0YeVpXN7dw5QAgzDG7WFJnFocIuRI8ccE=;
+        c=relaxed/relaxed; d=mgml.me;
+        h=From:Message-ID:To:Subject:Date;
+        s=rs20250315; t=1790613890; v=1;
+        b=Ddia5p1VV7bgaNCKXG/EMi5UHoAfMP4/Nygd7/ZmWv5U6Fwl0Fobi8XyOyiSYXah
+         mTRPDDs7jG65alNQPWDep3RF8ZckUrAgKWgNedK0b6XF0wo2crXwKRvcOoXV3mIO
+         UxwKD682dwXvItaqsM1bNTKkXOm+HNvAR0cmkpQpslc+yRFpn1CFbTOMOxbGtDEI
+         Vq+e5gKa5vKfze+WBoSG/AdD5K81tF4dfWza8u/olq2Z4lG4iy4Tu57muO011KbO
+         CK5daEbkKUONmgKSr4NXW70ugyc5zUmnIinpGAlPbD0LIf3RomlTW8w+MySko5sH
+         ERMMFfpBlpOWaIj5Wlam1Q==
+From: Kenta Akagi <k@mgml.me>
+To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kenta Akagi <k@mgml.me>
+Subject: [PATCH 5.15.y v4 00/11] KVM: fixes for CVE-2026-46113 and related issues
+Date: Tue, 29 Sep 2026 01:44:16 +0900
+Message-ID: <20260928164427.4699-1-k@mgml.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] pps: Drop the !NO_HZ_COMMON dependency from
- NTP_PPS
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260829210041.40649-1-dwmw2@infradead.org>
- <20260829210041.40649-3-dwmw2@infradead.org>
- <f6e90a49-8c68-42e6-bdff-ea9b3ecbaf7b@enneenne.com>
- <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfNDYwTfEqsC4GpI7TTFi+oSbTqe4C5mywxys7oqOfGTrjX6ZCyz7VeIGc99bxfoRmuc8ytCjWSYrAUsRAofSoZyce/2/oZ7C8orHAsynP5Bh9mv5GMvh
- DRDonXZsshHRO4ghgdRBZzzcRVFsNx5QCpCNFsjXteFdhAte+QsaxqkKa+AZKJo+JGJwP4aeNAHwjCIWbBEV6CKAf13Av5tIn0DMiyfJWR/2t3j6saUaQLqn
- xwujUylWjHyS98D1+TxF/eV7fxrP2hfwKw7rev0mQxOXHHmDxWRlMqCGOW3ZgyfmJjpy011IC9Sr6KTFcdjTVmK1XQYZ9sbHo+9CCG6/CeNJKRw9pgtJ71kZ
- IWRT26u1wkUFDlxyZK2T38rbXrbjiI6UlbH/eP0xK2E6HDm6Ua+KVSSo8i/hExgjdOFXZZWuhtC/jd0KjwlrTudarVInilJt3l09+LyIDMt9BRTTHDiNajCS
- qxmMkym16Atzvtym3u9NiG8oW0cKb67hyQEMuFc9s7F26GIwbyQIZ4DJ1f6g2mApnZ0ZNp2klXeYZR7FDIaHBsfSlsIYTQmAFV0bFu2v2mmw7BREIMrX/POt
- 83G5UwDbE5DfdeHq9cBUqSGD
 
-On Mon, 2026-09-28 at 14:37 +0100, David Woodhouse wrote:
-> But I can *simulate* it, by running a virtual machine with vmclock and
-> knowing the precise relationship of counter to real time that I'm
-> *telling* it to discipline against — then checking how it did. Your "no
-> independent reference anywhere" is my "I'm actually testing the part I
-> want to test" :)
+This is a backport of the CVE-2026-46113 and CVE-2026-53359 fixes to 5.15.y.
 
-What it cannot show is the thing this patch actually enables: hardpps
-on a tickless kernel driven by a real PPS source, with its jitter, its
-IRQ latency, and the CPU going idle between pulses. If you (or someone
-on Cc) can run it for a while with a GPS PPS on a GPIO and report how
-the offset converges compared with a tickful kernel, that is the test
-I would like to see mentioned in the commit message. If not, please at
-least state there that the validation was done with the simulated 4/4
-pulse only.
+v2: https://lore.kernel.org/all/20260626174620.1819772-1-pbonzini@redhat.com/
+v3: https://lore.kernel.org/stable/20260913155523.7423-1-k@mgml.me/
 
-Ciao,
+Changes from v3:
+- Added patches 3-6 to backport the change from gpte_is_8_bytes to has_4_byte_gpte.
+- Adjusted patches 7-8 (patches 3/7 and 4/7 in v3) accordingly.
 
-Rodolfo
+A regression has been reported in the backport of commit 0cb2af2ea66a
+("KVM: x86: Fix shadow paging use-after-free due to unexpected GFN")
+[1], but the corresponding fix has already been merged into 5.15.218 [2].
+
+[1] https://lore.kernel.org/kvm/20260630223723.83727-1-zcgao@amazon.com/
+[2] https://lore.kernel.org/stable/20260825132543.573783299@linuxfoundation.org/
+
+David Matlack (2):
+  KVM: x86/mmu: Use a bool for direct
+  KVM: x86/mmu: Stop passing "direct" to mmu_alloc_root()
+
+Lai Jiangshan (3):
+  KVM: X86: Remove useless code to set role.gpte_is_8_bytes when
+    role.direct
+  KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
+  KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the
+    direction
+
+Paolo Bonzini (5):
+  KVM: MMU: update comment on the number of page role combinations
+  KVM: x86/mmu: Derive shadow MMU page role from parent
+  KVM: x86/mmu: Always pass 0 for @quadrant when gptes are 8 bytes
+  KVM: x86/mmu: pull call to drop_large_spte() into __link_shadow_page()
+  KVM: x86: Fix shadow paging use-after-free due to unexpected role
+
+Sean Christopherson (1):
+  KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
+
+ Documentation/virt/kvm/mmu.rst  |   8 +-
+ arch/x86/include/asm/kvm_host.h |  32 +++---
+ arch/x86/kvm/mmu/mmu.c          | 184 ++++++++++++++++++++------------
+ arch/x86/kvm/mmu/mmutrace.h     |   2 +-
+ arch/x86/kvm/mmu/paging_tmpl.h  |  32 +++---
+ arch/x86/kvm/mmu/spte.h         |   5 +
+ arch/x86/kvm/mmu/tdp_mmu.c      |   2 +-
+ 7 files changed, 159 insertions(+), 106 deletions(-)
+
+-- 
+2.53.0
+
