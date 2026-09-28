@@ -1,306 +1,164 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3968B2EEE8A;
-	Mon, 28 Sep 2026 12:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D14934B1A5;
+	Mon, 28 Sep 2026 12:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599967; cv=none; b=HUx59egTdum6XoLUsbwN/TF+yxdzM2YTYHS82ZMt6wZaj3aBOZoYSX/2VZzDdLYaDw9UqslugD9Ppl17tVLlmwC/y8AUa6NPSzIaldfsXWfgQbGK+7jpLhNYXSsYUsF74A1ZIqVRWEU/JTI2Ko2qOKe4oJa7J2rCgf6CyA+ibDU=
+	t=1790599997; cv=none; b=ZSceb9qw8bt2B/38u6MIJIT2U6srkPuBofmGSd0RB39sycGbu/UOwKXg/kS43zMvMMjxadlG4R+v/xj3nEVMYdEqgnmWSdJ11jvsd0ySSLIMNbl4aTbPh8Kgs1pIyPTxi+8HwGxJ+7bZ9znWu/Ia0AuRyomOg/PDenng1+fhUgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599967; c=relaxed/simple;
-	bh=GkJjQKg8hcVtsAG7lum0KyCiRNRP66Ky5RW4z1/dyig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NIdObtBrR/2KqHzZe5RkBfidqC+iQTMZdpHuCm1Af7ShR4AIzu60hYurUVEae8f43wPMUQceatDKGLZzCsLXflSnSDAnn1P/WFQ0zdIrDgQkZ4sw1mOGY1jQCT/BtoCPVsRyAlkOG5x4IPtJHP3AS1mAcxYTX9NWwj3KiWFkyoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vnjGYG2M; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790599997; c=relaxed/simple;
+	bh=oWpbabqz3Kz92fPz78+Wjy+m7c61Kbyg4TlUhB8WFiE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FF4/p8R7XkGk1PwzFLverri1hOF002tfiZqcxsr4F/4uYK6I2C8c2o6S7eitR/vNd7RfU46bNiPryMXx/ZCJwaMITo1f1s5EIh7Nvf6/51TAlFNp38mR4Sywpty7rFh6P1FiS9KagwZXBI2C4bbIPZ6lJpsi1WjBVnw2WUpsl4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hXZFSGVx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vnjGYG2M"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A5238FD;
-	Mon, 28 Sep 2026 14:50:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790599853;
-	bh=GkJjQKg8hcVtsAG7lum0KyCiRNRP66Ky5RW4z1/dyig=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vnjGYG2MeVmSxk4O+CsnoAgb8Aa6HpUu4Uk9XN+vC2NCuF2SR90y1Rk5gGxL6RjFB
-	 qWOOWaEhwckhDeZgyg8F7SRbNB6FT5GT13GXEFlGC+8Rj9FYYMt9ZK1Ehrq0lBwDUX
-	 xL0oUh0PMXSl4wEQBjiPKqB1LJDM1QP4wz7aMJSI=
-Date: Mon, 28 Sep 2026 15:52:42 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Edwin Gatier <edwin.gatier@protonmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH v3 3/5] media: uvcvideo: Automatically handle cameras
- with invalid uvc_version
-Message-ID: <20260928125242.GE4406@killaraus.ideasonboard.com>
-References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
- <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hXZFSGVx"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBA9qa1433709;
+	Mon, 28 Sep 2026 12:53:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ohxh31+m3xa8LRXHvS8OJasJvbFkS9gXHkjtvk/qdsQ=; b=hXZFSGVxAhyc0e7w
+	DLDOVinrH/oOOIHd0Ob2PFao1b/jOIM+Vu3SHhQTlDA2R7iqBZA7+Yz1PTBrfb7J
+	AtdJsUu9vwWQ978NeICgXaq3Wch+YFgwdquuX/1P1oEhOmG9uKlU18T7z6zVcW0U
+	QSnNdjNska+zqlLAS9AB2IQtLtZNrIqmG0wFF1aLkA037kqJmWo0zjKyzPZEidYP
+	NGpQDtMHTV69QSdCiM8raD9y7gbO9xxLEFC+Ch2glEPwurPVS/5UTQDkGe2ro+LL
+	Qv278d/tAzihrYekAvvNv2Z77NhElPuyqNW6+VlkzJuEYnPxO7FT713ls9wsN3nH
+	HrDWlg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj2s1jrr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 12:53:02 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SCqwSb2080638;
+	Mon, 28 Sep 2026 12:53:00 GMT
+Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 68SCqvL32080411;
+	Mon, 28 Sep 2026 12:53:00 +0000 (GMT)
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 18:22:56 +0530
+Subject: [PATCH v8 06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to
+ snd_soc_of_xlate_dai_name()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-uvc-version-v3-3-604328d8a0dd@chromium.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-b4-qaif-shikra-audio-v8-6-ac618057fe85@oss.qualcomm.com>
+References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
+In-Reply-To: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1MSBTYWx0ZWRfX8RRJdfcQeXMN
+ XxDqJDpWsjeOiXwQlES03LKnwBVgSeHOrAXqEFsuUd8+zgpvRkuuE+jnPXAyEy/EdgkkNl2sBAJ
+ feQ3/183zJmhn2Wdxcc75tcvXuYzIKWqp1idOe5Qbj8JISh1b18FUn9H72uKYBbNw0ayPLPGqTw
+ 4R6xScsrRAvtNdCYOSiEICx0+Vk4zqKqBpubvzn2pM4FoKaT9sGSxZOYu/EFiVpH602q02ZzvGz
+ iNfoBAY/CHAKY2p+nvnCvSwW/s3swnlz/YtfdRLg9YSWx6bDs38fjwogDTehpGScVk3apq4vaMs
+ 3R3dHViA8NMXSxzkHjrb5XHXp+MNYOPtQYPoUpBC0JemzFQk2Nwlhn3oDoZHERH2w0z8PGf5fIW
+ daOrjl3uPLvLpca9esGej6EQXFNhn7ydWKj00xM0GidrWXoe9Q9FdsVrPmGU1V+BoD1brLwU3D8
+ AS3LwsU/WwCeeiS7PAA==
+X-Proofpoint-ORIG-GUID: yZti2Urksc1f1ZJ7XdceCsa06NxbxVD8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1MSBTYWx0ZWRfXxSIFZsmFbdNi
+ 47egCxZ2Q2aZpoRkLlWcOsxsj3c5ma8K/0KpMDKwZtoWr5te4I/R0F2dsJtm/QAjzWoQFPTViB5
+ vtHkdu7JZ9TeLIX/FzNjgA4Fg5MTzXE=
+X-Proofpoint-GUID: yZti2Urksc1f1ZJ7XdceCsa06NxbxVD8
+X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6aba632f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=Hfps_RfwFyUEpd0PCboA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280051
 
-On Fri, Sep 11, 2026 at 01:22:27PM +0000, Ricardo Ribalda wrote:
-> Currently, the driver expects that cameras properly implement the spec
-> version that they announce, and if they fail to do so, we do not continue
-> probing the driver.
-> 
-> To make drivers more fun, some vendors decided to announce that they are
-> a UVC version that they are not. Until now, we handled those cameras via
-> quirks.
-> 
-> Unfortunately, reality has shown us that there are more cameras out
-> there with an invalid uvc_version than we initially predicted.
+Use the new generic snd_soc_of_xlate_dai_name() helper in lpass-cpu.c
+and qaif-cpu.c, and remove the local lpass implementation.
 
-As far as I understand, this was triggered by the Avermedia GC515. Have
-you received other reports ?
+Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+---
+ sound/soc/qcom/lpass-cpu.c | 23 +----------------------
+ sound/soc/qcom/qaif-cpu.c  |  1 +
+ 2 files changed, 2 insertions(+), 22 deletions(-)
 
-> This patch tries to handle these cameras with an identity crisis
-> automatically. We still shame them in dmesg. But now they will work.
-
-If the vendors ignored the fact that those cameras didn't work at all on
-Linux, do you think they will read dmesg ?
-
-Jokes aside, UVC version override was added in November 2020, and the
-Avermedia GC515 is the fourth device we list in nearly 6 years. Let's
-see if there are any drawbacks in the implementation below that can be
-justified by such a small number of devices.
-
-> Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
->  drivers/media/usb/uvc/uvc_video.c  | 40 +++++++++++++++++++++++++-------------
->  drivers/media/usb/uvc/uvcvideo.h   |  2 ++
->  3 files changed, 35 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..ca75f8d1ec46 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
->  
->  	case UVC_VC_PROCESSING_UNIT:
->  		n = buflen >= 8 ? buffer[7] : 0;
-> -		p = dev->uvc_version >= 0x0110 ? 10 : 9;
-> -
-> -		if (buflen < p + n) {
-> +		if (buflen < 9 + n) {
->  			uvc_dbg(dev, DESCR,
->  				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
->  				udev->devnum, alts->desc.bInterfaceNumber);
-> @@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
->  		unit->processing.bControlSize = buffer[7];
->  		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
->  		memcpy(unit->processing.bmControls, &buffer[8], n);
-> -		if (dev->uvc_version >= 0x0110)
-> +
-> +		/*
-> +		 * We are not using bmVideoStandards, so there is no need to
-> +		 * warn the user if it is missing.
-
-There's value in warning the user about UVC non-compliance though. I'd
-like to see a warning that indicates the device reports an incorrect UVC
-version.
-
-If I'm not mistaken, the Avermedia GC515 includes the bmVideoStandards
-field. This change is therefore not needed for any devices we know
-about, right ?
-
-> +		 */
-> +		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
->  			unit->processing.bmVideoStandards = buffer[9+n];
->  
->  		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index 2a3b7431cc68..2f3daa920ffa 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
->  	}
->  }
->  
-> +#define UVC_VIDEO_CTRL_MIN_SIZE 26
-> +
->  static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
->  {
->  	/*
-> @@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
->  	 * on the protocol version.
->  	 */
->  	if (stream->dev->uvc_version < 0x0110)
-> -		return 26;
-> +		return UVC_VIDEO_CTRL_MIN_SIZE;
->  	else if (stream->dev->uvc_version < 0x0150)
->  		return 34;
->  	else
-> @@ -290,7 +292,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
->  static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  	struct uvc_streaming_control *ctrl, int probe, u8 query)
->  {
-> -	u16 size = uvc_video_ctrl_size(stream);
->  	u8 *data;
->  	int ret;
->  
-> @@ -298,13 +299,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  			query == UVC_GET_DEF)
->  		return -EIO;
->  
-> -	data = kmalloc(size, GFP_KERNEL);
-> +	data = kmalloc(stream->ctrl_size, GFP_KERNEL);
->  	if (data == NULL)
->  		return -ENOMEM;
->  
->  	ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
->  		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> -		size, uvc_timeout_param);
-> +		stream->ctrl_size, uvc_timeout_param);
->  
->  	if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
->  		/*
-> @@ -319,7 +320,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
->  		ret = 0;
->  		goto out;
-> -	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
-> +	} else if (query == UVC_GET_DEF && probe == 1 &&
-> +		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
->  		/*
->  		 * Many cameras don't support the GET_DEF request on their
->  		 * video probe control. Warn once and return, the caller will
-> @@ -330,15 +332,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  			"Enabling workaround.\n");
->  		ret = -EIO;
->  		goto out;
-> -	} else if (ret != size) {
-> +	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
->  		dev_err(&stream->intf->dev,
->  			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
->  			uvc_query_name(query), probe ? "probe" : "commit",
-> -			ret, size);
-> +			ret, stream->ctrl_size);
->  		ret = (ret == -EPROTO) ? -EPROTO : -EIO;
->  		goto out;
->  	}
->  
-> +	if (ret != stream->ctrl_size) {
-> +		uvc_warn_once(stream->dev, UVC_WARN_CTRL_SIZE,
-> +			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
-> +			      uvc_query_name(query),
-> +			      probe ? "probe" : "commit", ret,
-> +			      stream->ctrl_size);
-> +		stream->ctrl_size = ret;
-> +	}
-
-There are two other locations where uvc_version is used:
-
-- In uvc_fixup_video_ctrl() to implement a workaround for pre-1.10
-  devices that don't report dwMaxVideoFrameSize
-
-- In uvc_ctrl_filter_plf_mapping() to stkip the power line frequency
-  control on pre-1.50 devices
-
-None of those are handled in this patch. Furthermore, more usage of
-uvc_version may be needed in the future. This patch seems a bit fragile
-to me in that regard. Could we instead detect the version and update the
-uvc_version field ?
-
-Another option, given the small number of affected devices, is to just
-merge 5/5 (as well as 1/5 and 2/5 that are nice small improvements).
-
-> +
->  	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
->  	ctrl->bFormatIndex = data[2];
->  	ctrl->bFrameIndex = data[3];
-> @@ -351,7 +362,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
->  	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
->  
-> -	if (size >= 34) {
-> +	if (ret >= 34) {
->  		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
->  		ctrl->bmFramingInfo = data[30];
->  		ctrl->bPreferedVersion = data[31];
-> @@ -381,11 +392,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
->  static int uvc_set_video_ctrl(struct uvc_streaming *stream,
->  	struct uvc_streaming_control *ctrl, int probe)
->  {
-> -	u16 size = uvc_video_ctrl_size(stream);
->  	u8 *data;
->  	int ret;
->  
-> -	data = kzalloc(size, GFP_KERNEL);
-> +	data = kzalloc(stream->ctrl_size, GFP_KERNEL);
->  	if (data == NULL)
->  		return -ENOMEM;
->  
-> @@ -401,7 +411,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
->  	put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
->  	put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
->  
-> -	if (size >= 34) {
-> +	if (stream->ctrl_size >= 34) {
->  		put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
->  		data[30] = ctrl->bmFramingInfo;
->  		data[31] = ctrl->bPreferedVersion;
-> @@ -411,11 +421,11 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
->  
->  	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
->  		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
-> -		size, uvc_timeout_param);
-> -	if (ret != size) {
-> +		stream->ctrl_size, uvc_timeout_param);
-> +	if (ret != stream->ctrl_size) {
->  		dev_err(&stream->intf->dev,
->  			"Failed to set UVC %s control : %d (exp. %u).\n",
-> -			probe ? "probe" : "commit", ret, size);
-> +			probe ? "probe" : "commit", ret, stream->ctrl_size);
->  		ret = -EIO;
->  	}
->  
-> @@ -2231,6 +2241,8 @@ int uvc_video_init(struct uvc_streaming *stream)
->  
->  	atomic_set(&stream->active, 0);
->  
-> +	stream->ctrl_size = uvc_video_ctrl_size(stream);
-> +
->  	/*
->  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
->  	 * Cam (and possibly other devices) crash or otherwise misbehave if
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index abcafd929c9e..8d99e857a69f 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -461,6 +461,7 @@ struct uvc_streaming {
->  	struct usb_interface *intf;
->  	int intfnum;
->  	u32 maxpsize;
-> +	unsigned int ctrl_size;
-
-That should be called video_ctrl_size, ctrl_size is ambiguous.
-
->  
->  	struct uvc_streaming_header header;
->  	enum v4l2_buf_type type;
-> @@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
->  #define UVC_WARN_PROBE_DEF	1
->  #define UVC_WARN_XU_GET_RES	2
->  #define UVC_WARN_QUERY_CTRL	3
-> +#define UVC_WARN_CTRL_SIZE	4
->  
->  extern unsigned int uvc_clock_param;
->  extern unsigned int uvc_no_drop_param;
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index 242bc16da36d..61efa45376cd 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -458,30 +458,9 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops2 = {
+ };
+ EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops2);
+ 
+-static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
+-				   const struct of_phandle_args *args,
+-				   const char **dai_name)
+-{
+-	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+-	const struct lpass_variant *variant = drvdata->variant;
+-	int id = args->args[0];
+-	int ret = -EINVAL;
+-	int i;
+-
+-	for (i = 0; i  < variant->num_dai; i++) {
+-		if (variant->dai_driver[i].id == id) {
+-			*dai_name = variant->dai_driver[i].name;
+-			ret = 0;
+-			break;
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+ static const struct snd_soc_component_driver lpass_cpu_comp_driver = {
+ 	.name = "lpass-cpu",
+-	.of_xlate_dai_name = asoc_qcom_of_xlate_dai_name,
++	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
+ 	.legacy_dai_naming = 1,
+ };
+ 
+diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+index ad7268e2ace0..d34b8df83f94 100644
+--- a/sound/soc/qcom/qaif-cpu.c
++++ b/sound/soc/qcom/qaif-cpu.c
+@@ -603,6 +603,7 @@ EXPORT_SYMBOL_GPL(asoc_qcom_qaif_aif_cpu_dai_ops);
+ 
+ static const struct snd_soc_component_driver qaif_cpu_comp_driver = {
+ 	.name = "qaif-cpu",
++	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
+ };
+ 
+ static const struct regmap_config audio_qaif_regmap_config = {
 
 -- 
-Regards,
+2.34.1
 
-Laurent Pinchart
