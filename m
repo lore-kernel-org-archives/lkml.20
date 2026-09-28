@@ -1,197 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B3D48C41A;
-	Mon, 28 Sep 2026 08:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585510; cv=none; b=V6mtUz9SCdMIlc9jTZmlI+ntfpYQm+LB2iO1VsndpuQy/QGfphP//iTabDLjmEh3P+ZUUafRlW1IsbQN24+iInqoN1WBjJv7YG+oX9GYk3KvWoLbO+kriRqyubzuSiA/mOkB4lp5DvplUiD82ZHttezf0dNDhokExgA6hf3KUzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585510; c=relaxed/simple;
-	bh=3vZcqVmSQEMWNm/6wA8Q5+WJp4wzHqrnz/xnjrdBwVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jJpwdHuk0UfzCGtV5th5BWWV0BAPvq+F6K2qqXehgH5OVZAa+hhDNJROwisKL8QL/fZCJJiUVVsA3xglCe9jifwgQ6WOzMi6yuz4EHiYdQoC3rctXbqoWNqKKqDcD7JKbSec69lm4HcT2QcutBC6xGR1CrF5tkl4gKQdgjQUJQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QMEynwQy; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFA246C4AD
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.234
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790585537; cv=pass; b=ngNkCEqdac7jjrroFTPdtHIdLRNd9e4BFYwnRwj2xlrC0nZ0krIVFAP3uJbN5amccBU191F9UkX7HMNXlbBWJnLcKU0Ybi+flYgm4xhAhAFjehMzULaqVEbxaa4VHm5D+2w6mepJBnqzgnFna877AJGBgTJ8WuurmFbXHh6WbtM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790585537; c=relaxed/simple;
+	bh=xh3oqK2qOSjKBr6FpOJqg3fyRy0kINT4MUCPhAJwtJI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=iXIWRLBrvqqLHpNrXbzmz8FUOZxbsk+jI2/lxEzX+MX3vjS91NMS7Hi7DSPTUTrWYRluZ7eAGJ6AJK0m/s5WIFx9RiPB12AfmehGzU+FWRCG2ppyjxz+NFN7Gd03e43brWoa6W6c4uFo+x/5AOIWU2TqGb3grfuIedd0kjemKtU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DX4AdMVm; arc=pass smtp.client-ip=74.125.231.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QMEynwQy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790585508; x=1822121508;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3vZcqVmSQEMWNm/6wA8Q5+WJp4wzHqrnz/xnjrdBwVI=;
-  b=QMEynwQyTtzcaiRIlAhRfZYc/pTF1W/Aa4dzt+ZC5HNA917T+jOavITE
-   3KBC3c+cfSvR3yGUUGWdN0Gyf/TF5IhvSOhkmkPkEkNsd4fMqYdTWHrNJ
-   kfc8Lk94Sg0rR8+g8TLEfJFqgFy8SFTI2QlNEOkhC4JNK3B2zFyUFwQ+J
-   LxWCim3GgpwgxKmIaYyX6EZqlPRCKvHj/CEAoLH8RNz976l2rywFTIhqP
-   tbFs8Xd+wPrZtqxTmXn5q8yICKMEdyvvhc16i/nDWK5kAbiRE2iBXvJi5
-   b6Xf+DAQgOlSs3E9PMWBoRU4NWh88ZhcpudN4iznzzlf08pmTuBLkC3AF
-   w==;
-X-CSE-ConnectionGUID: 6n6ZwcuqTL6Q4U1tN9TxtA==
-X-CSE-MsgGUID: iii3wMnYQUKMdoXx28XDdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90406437"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90406437"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:51:47 -0700
-X-CSE-ConnectionGUID: /8MRxcd/TbC4s+EB6M7Flw==
-X-CSE-MsgGUID: lQNZ3QzeRLW2dSSQDoL8wg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="301275483"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 01:51:39 -0700
-Date: Mon, 28 Sep 2026 11:51:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Cunhao Lu <1579567540@qq.com>, Frank Li <Frank.Li@nxp.com>,
-	Raul E Rangel <rrangel@chromium.org>, Moteen Shah <m-shah@ti.com>,
-	Kendall Willis <k-willis@ti.com>, Dhruva Gole <d-gole@ti.com>,
-	Matthias Feser <mfe@kbsgmbhfr.onmicrosoft.com>,
-	Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Zhaoyang Yu <2426767509@qq.com>, Kees Cook <kees@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>,
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>,
-	vkoul@kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH 1/2] serial: use dmaengine_get_dma_device() instead of
- chan->device->dev
-Message-ID: <aroqmVWSPd9YVDjM@ashevche-desk.local>
-References: <20260925200850.1678179-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DX4AdMVm"
+Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e6afe2c84fso656158b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:52:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790585535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cscES6TViRNPHaUR6DwvnJ9/lU6P5i5fX6uhODJOtoDN+gs82385IKyMijXZKycUTd
+         xhFeOwRK2rGJ5lDKKCNKtPziZddXCXq9JeFAMXccShRWuwUxgdSzXdQpf/ZRVEXO0UyU
+         vp6gAv9BsuFv6PC9DqYYgK25gGAPio4mxcvZ4YN3ECLyUItqw14YWR9WGWSYCqzwNxin
+         dVK531OzB7Jz+S5bXuaJNRGSwpRSF3VQgMMzbbGCwbV9CFC62S+Ik5uBgPpGai7UfnVq
+         n4wx3bz8hhyaSPxwLeMqXLAEqzZaoWKr5ZDTIsUoalRRSLn4OUJTbwKPenAvm3CfHe9U
+         qnhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=xh3oqK2qOSjKBr6FpOJqg3fyRy0kINT4MUCPhAJwtJI=;
+        fh=9dUaSIdB+5SuQBRi7TMtTPVTIvnzGBf9OxBji8PAUKM=;
+        b=YIcyM1IEBt1A6lTeeepGYkTLWDJ7tT+D4HDolyPEivii9I8sM95HklkAjYqaGa4cGr
+         l5GFOmHh64l96q7cC0dxEEkjP6t8u8b6ZeoaX68Lbp9YUPXERx3nnIi+AepoGTamyfHc
+         IkendQ+17XZUE+oVvJNJh+VCZiAmKoKtnMn+f9/xEasaFGGAIwsgNZMvXorvQ0586sOt
+         Y3/bayOz5RH7tKQJ3k6J6J6ax6hr4PJr9yJAQpTy/eEJuEYhzWQIZohBUd32Y/ihQr13
+         6nVrfe9zqH+hSlcGgqFlkxiuqOsdU+fMDf+IBFkTpCeLVG4voqvDN4iEgC4SXHAF+dmz
+         UXbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790585535; x=1791190335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xh3oqK2qOSjKBr6FpOJqg3fyRy0kINT4MUCPhAJwtJI=;
+        b=DX4AdMVmCkzcyJvrz11sXgklVS5nvy2qdkT1slo3O+pV96xjLr8WNsyOqaorrY/c5k
+         ouNm7Vzj5e/hITkL/FcbYypaxkrS2D7/xCt7Xdr5DCJPwNNwd0ZELMcJq7+QJNJpiSIp
+         v3eeXsMib3uivtsvRISLEu63YYp6pQNz6iXxh3pzYlCtLP2TX5kKLGRQ9QF3DNn6FmBO
+         VVFPBFx0xUYx2z0VxsnK1KFmdE3mY74on5YbL9iQhzZE/KyHSBccXaqLLZ3KMRH+A6rn
+         DfZ648bsXIsvio8sdG7HQTRcSK4Cjh5CYiiRaEYqThVngHpozP3GvlVSFT8E/cccwPuz
+         vbgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790585535; x=1791190335;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xh3oqK2qOSjKBr6FpOJqg3fyRy0kINT4MUCPhAJwtJI=;
+        b=jgMxr0l70iXGVutZFVXjh0okHr3RRs2Ccain4NF3XRWel3jvdldUcyCWjZUgkTApnG
+         dvSx+Ac0BGUtJ88snJjNHaK1UKVsmwiVyRTIvZqTxG8171uOoL5tG75YqTZ2pHlIh8kr
+         ImjG1AluXFUHB1KEr3XOn2fEI5VwZO15bDE+L3AtyOzHFj1n7WHP0Rz7pgtTVYnwYnTu
+         rtg8u9FmRD8O8tQ79mMw31xezJv0/eR3yIctppP+/tMNbJn6XWKNWz06raU766Mu330O
+         x/tYONJZ2RpJGB6k2muWYSG233Sdm3OmBDgyOTQZdmdy+VL3A7eGS+oyDZ1+rNFiybSe
+         CvVA==
+X-Gm-Message-State: AFuF++kF+7cDdkHbFUh2MqJX3+BqCydl6g6wuUw5D0CaYYJAnu4r0ZNB
+	A1VYPrvAWQUC7V9DnVdJ3SRxDFyjZ1Luw6wgmFvzo4i5lhXorkyhIpunAIDABaVsSMvUeex3LX5
+	+XxPSdZpO28NIAGVvdw7P4giufN/gScSg9jdI
+X-Gm-Gg: AYBFou1dA+CfOx5mGFuSWZBti8+ODZvyVY4qTX0FL9HZ5iSk/QgF95ZBA4/DIfsdkvr
+	xoCVPylwv3/O7Wg/kUD/N86BxX3qrk1EHrNlDA0JdzUHxfrfcM/X5tB3UyLiwdUGebKmyZSkBX4
+	kjjRxtS6oCfSSPWcuYJMRvqrWdzgmb0ZIyN9M1venxDuuEzS5hNfPxJLFd2FFsKJWTbuxAb5ZKi
+	NA/juDCvFjH8/V6TjtTdRh8sxYVdc7Dp9C+we4tOyRrlE78Jo/1I52f9I3AySB23zrhKuIgM0U9
+	+gpSUNfs01peUVYpKr8MAdWFTz4RHaZAl3Mz3aWWwSXUqvsiY3aTPa9+
+X-Received: by 2002:a05:6808:5382:b0:4c3:2e7:55bb with SMTP id
+ 5614622812f47-4dc640ac63amr9147416b6e.38.1790585535007; Mon, 28 Sep 2026
+ 01:52:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925200850.1678179-1-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Date: Mon, 28 Sep 2026 10:52:04 +0200
+X-Gm-Features: AclHuK8RlujtE9PMv7u3MzNCviS8IiWUxVyLGH91_mrFpXtz3IabBnPewQsRDUI
+Message-ID: <CAMnqnYwKwb5oTFOXNJyTJk2JEL6bnq+7yENm8v8RnovBYsFVGA@mail.gmail.com>
+Subject: [PATCH v2] docs/zh_CN: add Chinese translation for usb/ohci.rst
+To: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org, alexs@kernel.org, corbet@lwn.net, 
+	Dongliang Mu <dzm91@hust.edu.cn>, si.yanteng@linux.dev, skhan@linuxfoundation.org, 
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, rdunlap@infradead.org, 
+	baikefan@leap-io-kernel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-On Fri, Sep 25, 2026 at 04:08:30PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Replace direct dma_chan::device::dev access with the proper
-> dmaengine_get_dma_device() for consumer API
-> 
-> chan->device->dev is not always the device used for DMA mapping.
-> Some DMA engines support per-channel IOMMU mappings, so different
-> channels may use different DMA devices.  dmaengine_get_dma_device()
-> returns the correct device for each channel.
-> 
-> This also prepares for making the DMA engine provider data structures
-> private. DMA consumers should not access DMA engine internals directly.
-
-...
-
->  	/* RX buffer */
->  	if (!dma->rx_size)
->  		dma->rx_size = PAGE_SIZE;
->  
-> -	dma->rx_buf = dma_alloc_coherent(dma->rxchan->device->dev, dma->rx_size,
-> +	dma->rx_buf = dma_alloc_coherent(rx_dev, dma->rx_size,
->  					&dma->rx_addr, GFP_KERNEL);
-
-Now one parameter can be moved up and positive outcome the split becomes logical
-(on a logic boundaries).
-
->  	if (!dma->rx_buf) {
->  		ret = -ENOMEM;
-
-...
-
->  	/* TX buffer */
-> -	dma->tx_addr = dma_map_single(dma->txchan->device->dev,
-> +	dma->tx_addr = dma_map_single(tx_dev,
->  					p->port.state->port.xmit_buf,
->  					UART_XMIT_SIZE,
->  					DMA_TO_DEVICE);
-
-You can fix indentation while at it.
-
-> -	if (dma_mapping_error(dma->txchan->device->dev, dma->tx_addr)) {
-> -		dma_free_coherent(dma->rxchan->device->dev, dma->rx_size,
-> +	if (dma_mapping_error(tx_dev, dma->tx_addr)) {
-> +		dma_free_coherent(rx_dev, dma->rx_size,
->  				  dma->rx_buf, dma->rx_addr);
->  		ret = -ENOMEM;
-
-...
-
->  	/* Release RX resources */
->  	dmaengine_terminate_sync(dma->rxchan);
->  	dma->rx_running = 0;
-> -	dma_free_coherent(dma->rxchan->device->dev, dma->rx_size, dma->rx_buf,
-> +	dma_free_coherent(dmaengine_get_dma_device(dma->rxchan), dma->rx_size, dma->rx_buf,
->  			  dma->rx_addr);
-
-And here the last parameter of the previous line can be moved to the next line.
-
-...
-
-> +	db->buf = dma_alloc_coherent(dmaengine_get_dma_device(chan), PL011_DMA_BUFFER_SIZE,
->  				     &db->dma, GFP_KERNEL);
-
-^^^ (1)
-
->  	if (!db->buf)
->  		return -ENOMEM;
-
-...
-
->  {
->  	if (db->buf) {
-> -		dma_free_coherent(chan->device->dev,
-> +		dma_free_coherent(dmaengine_get_dma_device(chan),
->  				  PL011_DMA_BUFFER_SIZE, db->buf, db->dma);
-
-Perhaps you want both (1) and this be consistent, either (1) be rewrapped,
-or this one
-
-		dma_free_coherent(dmaengine_get_dma_device(chan), PL011_DMA_BUFFER_SIZE,
-				  db->buf, db->dma);
-
->  	}
-
-...
-
->  	struct pch_dma_slave *param = slave;
->  
->  	if ((chan->chan_id == param->chan_id) && (param->dma_dev ==
-> -						  chan->device->dev)) {
-> +						  dmaengine_get_dma_device(chan))) {
-
-Even original code has broken indentation. What about rewrapping it?
-
-	if ((chan->chan_id == param->chan_id) &&
-	    (param->dma_dev == dmaengine_get_dma_device(chan))) {
-
->  		chan->private = param;
->  		return true;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+W1BBVENIIHYyXSBkb2NzL3poX0NOOiBhZGQgQ2hpbmVzZSB0cmFuc2xhdGlvbiBmb3IgdXNiL29o
+Y2kucnN0DQoNClRyYW5zbGF0ZSBEb2N1bWVudGF0aW9uL3VzYi9vaGNpLnJzdCBpbnRvIENoaW5l
+c2UgU2ltcGxpZmllZC4NCg0KVGhlIHRyYW5zbGF0aW9uIGNvdmVycyBPSENJIGRyaXZlciBvdmVy
+dmlldywgaGFyZHdhcmUgcHJvdG9jb2wNCmRpZmZlcmVuY2VzIChPSENJIHZzIFVIQ0kpLCBpbXBy
+b3ZlbWVudHMgc2luY2UgMi40IGtlcm5lbCwNCnF1ZXVlYWJsZSBpbnRlcnJ1cHQgdHJhbnNmZXJz
+LCBhbmQgbm9uLVBDSSBzdXBwb3J0Lg0KDQotLS0NClNpZ25lZC1vZmYtYnk6IEppYW1pbmcgT3V5
+YW5nIDxqaWFtaW5nb3V5YW5nMTNAZ21haWwuY29tPg0KDQotLS0NCkNoYW5nZXMgaW4gdjI6DQot
+IENvcnJlY3QgdGhlIGRhdGUNCi0gQ29ycmVjdCB0aGUgbGF5b3V0DQotIEFkZCBzcGVjaWZpYyBk
+ZXRhaWxzIGZvciBpdCdzIGNvbnRyaWJ1dG9ycw0KLS0tDQogRG9jdW1lbnRhdGlvbi90cmFuc2xh
+dGlvbnMvemhfQ04vdXNiL29oY2kucnN0IHwgMzggKysrKysrKysrKysrKysrKysrKw0KIDEgZmls
+ZSBjaGFuZ2VkLCAzOCBpbnNlcnRpb25zKCspDQogY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50
+YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNpLnJzdA0KDQpkaWZmIC0tZ2l0IGEvRG9j
+dW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2kucnN0DQpiL0RvY3VtZW50YXRp
+b24vdHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNpLnJzdA0KbmV3IGZpbGUgbW9kZSAxMDA2NDQN
+CmluZGV4IDAwMDAwMDAwMDAwMC4uNWUzNjgzMWJmMzcwDQotLS0gL2Rldi9udWxsDQorKysgYi9E
+b2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QNCkBAIC0wLDAgKzEs
+MzggQEANCisuLiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KKw0KKzpPcmlnaW5h
+bDogRG9jdW1lbnRhdGlvbi91c2Ivb2hjaS5yc3QNCisNCis657+76K+ROiDmrKfpmLPlrrbpk60g
+SmlhbWluZyBPdXlhbmcgPGppYW1pbmdvdXlhbmcxM0BnbWFpbC5jb20+DQorDQorPT09PT09PT0N
+CitPSENJ6amx5YqoDQorPT09PT09PT0NCisNCisyMDAy5bm0OOaciDIz5pelDQorDQor4oCcT0hD
+SS1IQ0TigJ3pqbHliqjnqIvluo/mmK/kuIDkuKpVU0LkuLvmnLrmjqfliLblmajnqIvluo/vvIhI
+Q0TvvInvvIzlroPmupDoh6oyLjTlhoXmoLjns7vliJfkuK3nmoTigJx1c2Itb2hjaeKAnQ0KK+mp
+seWKqOeoi+W6j+OAguKAnHVzYi1vaGNp4oCd5Luj56CB5Li76KaB55SxIFJvbWFuIFdlaXNzZ2Fl
+cmJlciA8d2Vpc3NnQHZpZW5uYS5hdD7nvJblhpnkvYbkuZ/ojrcNCivlvpfkuobmnaXoh6pEYXZp
+ZCBCcm93bmVsbCA8ZGJyb3duZWxsQHVzZXJzLnNvdXJjZWZvcmdlLm5ldD7vvIxMaW51cyBUb3J2
+YWxkcw0KK+WSjEdyZWdvcnkgUC4gU21pdGjnmoTmlK/mjIHjgIINCisNCivlroPmlK/mjIHigJzl
+vIDmlL7kuLvmnLrmjqfliLblmajmjqXlj6PigJ3vvIhPSENJ77yJ77yM6K+l5o6l5Y+j5qCH5YeG
+5YyW5LqG55So5LqO5LiOVVNCIDEuMeS4u+acuuaOp+WItuWZqOmAmuS/oeeahA0KK+ehrOS7tuWv
+hOWtmOWZqOWNj+iuruOAguKAnOS4juiLseeJueWwlOaXqeacn+eahOKAnOmAmueUqOS4u+acuuaO
+p+WItuWZqOaOpeWPo+KAne+8iFVIQ0nvvInnm7jmr5TvvIzlroPlsIbmm7TlpJrlj6rog73lip/o
+g70NCivms6jlhaXliLDnoazku7bkuK3jgILpmaToi7HnibnlsJTlkozlqIHnm5vkuYvlpJbnmoTl
+hbbku5bkvpvlupTllYbnmoRVU0IxLjHmjqfliLblmajpgJrluLjkvb/nlKhPSENJ44CCDQorDQor
+6IeqMi405YaF5qC45Lul5p2l55qE5pu05pS55YyF5ousDQorDQorICAgICAgICAgLSDmj5Dpq5jk
+uoblgaXlo67mgKc7IOS/ruWkjeS6humUmeivrzsg5YeP5bCR5LqG5byA6ZSADQorICAgICAgICAg
+LSDmlK/mjIHmm7TmlrDlkoznroDljJbnmoR1c2Jjb3JlIEFQSQ0KKyAgICAgICAgIC0g5Lit5pat
+5Lyg6L6T5Y+v5Lul5pu05aSn77yM5bm25LiU5Y+v5Lul5o6S6ZifDQorICAgICAgICAgLSDpgJro
+v4fkvb/nlKjkuIrlsYLigJxoY2TigJ3moYbmnrbvvIzlh4/lsJHku6PnoIHph48NCisgICAgICAg
+ICAtIOaUr+aMgeS4gOS6m+mdnlBDSeeahE9IQ0nlrp7njrANCisgICAgICAgICAtIC4uLiDku6Xl
+j4rmm7TlpJoNCisNCivigJxPSENJLWhjZOKAnempseWKqOeoi+W6j+WkhOeQhuaJgOaciVVTQiAx
+LjHkvKDovpPnsbvlnovjgILmiYDmnInnsbvlnovnmoTkvKDovpPpg73lj6/ku6XmjpLpmJ/jgILl
+nKjigJx1c2Itb2hjaeKAnQ0KK+S4reS5n+aYr+WmguatpO+8jOS9huS4reaWreS8oOi+k+mZpOWk
+luOAguS7peWJje+8jOS9v+eUqOS4gOW4p+eahOWRqOacn+S8muWboOS4uklSUeWkhOeQhueahOW8
+gOmUgOiAjOWvvOiHtOaVsOaNruS4og0KK+WkseeahOmjjumZqeOAguW9k+S4reaWreS8oOi+k+aO
+kumYn+aXtu+8jOWPr+S7pemAmui/h+ehruS/neehrOS7tuWcqOaTjeS9nOezu+e7n+WkhOeQhueb
+uOWFs0lSUeaXtuWni+e7iOacieS8oOi+k+mcgOimgQ0KK+WkhOeQhu+8jOadpeacgOWkp+mZkOW6
+pueahOmZjeS9jui/meS6m+mjjumZqeOAgg0KKw0KKy0gRGF2aWQgQnJvd25lbGwNCisgIDxkYnJv
+d25lbGxAdXNlcnMuc291cmNlZm9yZ2UubmV0Pg0KKw0KLS0gDQoyLjUzLjANCg==
