@@ -1,91 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E404F96D8
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160064FD26B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630621; cv=none; b=sXUbCjGuDVZWoX97WacdUH/25uu2OcA8IBimK7+yoGbmt9BPNDaLkgoERmo6vFhF2QejFRBjpTf0ogTH4Q4RuJFMww7hJ3yagwH3601wXDlAg5lmoxkOG4i/vVihSN1DIWa2GHL8pp3+5MDukHMzlH3KaWhb+FUXHavAv6srm7o=
+	t=1790630682; cv=none; b=U2QpdX9GyxBKB6C5ogkskYq+GnaMD4uRn0s3SEoIsQIH0d/AwTw1wbB/scsbgy2TxnVYSq1Nx/EQzT5UmA/MvzBmcbiDzkyaiTO4Vx9mcQ0/ibOmYfoX1fJ822K3k2jTBiRv7mU/xHy3afJ0iP25MU3WFZTVliLC2/NzzZhrZ4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630621; c=relaxed/simple;
-	bh=epEewSnMsd/C5Byows8lzPpFxI0hXhpnRATirts8nX8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=WuqmrSKvR+dF7WugDJXtXAuOAmdvpAcBqEWJ55We4cN2p9NgX0bPwJFU2bSDJFAPQ9VQRsL4IfWCQPYKHaQGgEptNqoplYnfSyX6dRwLElN76xcutbjDIVggnhwZUEOpkA+0sWeYIv1kxFFQ2pABEPCZjgRAx4tcGR817v9ejsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tympz9vR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790630682; c=relaxed/simple;
+	bh=tHs2sgJfmgDE85fTcx2pgBoS5JPEH/b+fF69L3ELRxk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oiobor5gSW5rup8nSolxSvw2Fcyi/Q6Gb59mUanKcSauinpwv92AI9QVO3uHlIR8KyNqufsEuA82UO343vUhcOj4BEk2kAxCGGt4PU4KLsFuKZNtYn2lWHx5zCfPjlZoIKbLRtAWKFTASIUhE2QG4yY8sfHrWr9/Ya5Fc2WqIxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=samcday.com; spf=pass smtp.mailfrom=samcday.com; dkim=pass (2048-bit key) header.d=samcday.com header.i=@samcday.com header.b=I4DsH1qX; arc=none smtp.client-ip=79.135.106.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=samcday.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samcday.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tympz9vR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4128B1F000FF;
-	Mon, 28 Sep 2026 21:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790630619;
-	bh=KPXcX47PeB1/G6r5SAEJKfY/PNsjCyhNbzJxA3X7IOI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=tympz9vREG90jSuR1uLWwOYu5BU59FiLtaT5xoUSBjDXz70SZGi1X5GKxqotL2I7N
-	 JyTEFv6nN0POCW9XSg1uw4XQ3HCvIO4sVyB8lGUdU/6AaOM5MRzbJs7crXu3hHdAfn
-	 0EuL7q7/UE7aD5OQYNy/F5kBhS//slN6gz32DA5Q=
-Date: Mon, 28 Sep 2026 14:23:38 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Dmytro Koziuk <dmytrokoziuk68@gmail.com>
-Cc: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm: kmsan: fix iounmap metadata teardown
-Message-Id: <20260928142338.1c2c2ec80631bf27d2967a4d@linux-foundation.org>
-In-Reply-To: <CAO63FDUNVzMss61+TUYCWSezo1K1PL94iAdt=kNUoWepU=nhMw@mail.gmail.com>
-References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com>
-	<20260915153542.3b9afbd00f7e6cea87a3350b@linux-foundation.org>
-	<CAO63FDVJaRzwE_z4-Yd6Z8fZNEGQyx=YbeFatBN30d9X8SYLtw@mail.gmail.com>
-	<CAO63FDUNVzMss61+TUYCWSezo1K1PL94iAdt=kNUoWepU=nhMw@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=samcday.com header.i=@samcday.com header.b="I4DsH1qX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samcday.com;
+	s=protonmail; t=1790630668; x=1790889868;
+	bh=dfXTJyp6yjbRu0qwVAwpSfhNYTOxDGjNF8A7PpynkKU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=I4DsH1qXQ2PQGDCXKZ8k2mbehlZKwgYCa3OehZLJ7ZEw3UdGr4v7+H08qJOgAcshf
+	 b3G1+7xQN9oK9BSWeF1GCjDc8nrBr/wdJaEEhoybDa9qozFH1X0KHBQ08lu+4UoxVo
+	 RRNrDKvAZtuw8npsoRgoktTTQD94JqSnp1MHU3NGcc0PS3AN+QWZWOR0hF8X87RQrK
+	 AcI8F9uEyimLyXQh74EnGlLJ9LMTVF+2/lswNkVBmE2MckBI3to9+oWGsETUGFlSFD
+	 3qVC/jRY+GH6Eo57z8bg470qaz6mKBMayLDfaCc/zK+YuALt39HkUKWTKehfIuceLM
+	 qkMnNw91c2+gg==
+Date: Mon, 28 Sep 2026 21:24:22 +0000
+To: Robin Murphy <robin.murphy@arm.com>
+From: Sam Day <me@samcday.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Joerg Roedel <jroedel@suse.de>, iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iommu/qcom: Invalidate TLB during context init
+Message-ID: <enoPRqYYUjyyM0YwlSoxShxeNJxghej7Zhq8UxzN6WtU_JZk8Vzvl0qFkczoIFpEl8y_vbytWT7A_BntCl4HtWPcHUkAi57JoKHJA64Ap1o=@samcday.com>
+In-Reply-To: <887e91bc-03a0-4977-aed6-baa2e069d9ee@arm.com>
+References: <20260928-qcom-iommu-clean-contexts-v1-1-c88fe2b4ff48@samcday.com> <887e91bc-03a0-4977-aed6-baa2e069d9ee@arm.com>
+Feedback-ID: 25366008:user:proton
+X-Pm-Message-ID: 13122422adc9c6b1bdaba4e0e81f48ea485fb758
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sep 2026 19:55:22 +0300 Dmytro Koziuk <dmytrokoziuk68@gmail.com> wrote:
+Hello Robin,
 
-> Hi Andrew,
-> 
-> Just a gentle ping on this. Is there anything else I should address?
+On Monday, 28 September 2026 at 10:22 PM, Robin Murphy <robin.murphy@arm.co=
+m> wrote:
 
-I was awaiting maintainer review before taking any action.
+> On 28/09/2026 7:27 am, Sam Day via B4 Relay wrote:
+> > From: Sam Day <me@samcday.com>
+> >
+> > qcom_iommu derives each context bank's ASID from DT data, so a kernel
+> > booted via kexec reuses the same ASIDs as its predecessor.
+> >
+> > Programming a new TTBR0 doesn't discard entries the SMMU has already
+> > cached under that ASID, so these residual and stale
+> > translations/table-walks will go into effect as soon as the context is
+> > enabled again.
+> >
+> > On MSM8916 devices (I confirmed it on both a Samsung Galaxy A5 and a
+> > DragonBoard 410c) the result is MDP5 taking context faults on
+> > framebuffer IOVAs and stuck in a continuous underrun storm during scan
+> > out, if the previous kernel had itself initialized the display and
+> > programmed the SMMU.
+> >
+> > arm-smmu invalidates the whole TLB in arm_smmu_device_reset() before
+> > enabling the SMMU. qcom_iommu can't do that on these TZ-managed devices
+> > (SMMU_SCR1.GASRAE=3D1), however.
+>
+> Can you not hit SMMU_CBn_TLBIALL in qcom_iommu_ctx_probe()? That would
+> seem like the logical equivalent.
 
-Folks, could you please take a look at these memory-leak fixes?
+That sounds much more civilized, assuming it works the way we hope :) I wil=
+l
+respin the patch and test to see if SMMU_CBn_TLBIALL behaves correctly on
+my apq8016-sbc + samsung-a5u-eur.
 
+Kind regards,
+-Sam
+
+>
 > Thanks,
-> Dima
-> 
-> ср, 16 сент. 2026 г. в 10:22, Dmytro Koziuk <dmytrokoziuk68@gmail.com>:
+> Robin.
+>
+> > Instead, qcom_iommu now invalidates each context bank by ASID whilst it
+> > is still disabled, before programming it for the new domain. Secured
+> > contexts are protected by TZ so they're skipped.
 > >
-> > >  AI review might have a found a couple of issues - please check?
+> > There's been previous discussion on the list (see link) about how to
+> > best deal with this kind of situation. This patch opts for a fix in the
+> > incoming kernel, rather than the outgoing one. This ensures newer
+> > kernels will always behave correctly, and also covers the kdump use
+> > case.
 > >
-> > I don't think the patch needs to be changed for these issues. For
-> > normal iounmap(), the
-> > caller must ensure that the mapping is no longer in use. Also,
-> > the x86 implementation keeps the virtual range reserved until after
-> > kmsan_iounmap_page_range() returns and its TLB flush completes.
+> > Fixes: 0ae349a0f33f ("iommu/qcom: Add qcom_iommu")
+> > Link: https://lore.kernel.org/all/20240319154756.GB2901@willie-the-truc=
+k/
+> > Assisted-by: LLM
+> > Signed-off-by: Sam Day <me@samcday.com>
+> > ---
+> > Tested on my DragonBoard 410c. Starting from one unpatched kernel
+> > scanning out at 640x480 and kexecing into the same kernel at 1280x720
+> > results in context faults starting at the first IOVA past the previous
+> > kernel's mapped extent, with continuous MDP5 underruns thereafter.
+> > During this time I observed an all-blue HDMI signal. With the patch
+> > applied, the same kexec hop is free of faults, and the HDMI signal is
+> > clean throughout.
 > >
-> > For the kmsan_ioremap_page_range() error path, the mapping has not yet
-> > been returned to the caller. Cleanup and the TLB flush complete before
-> > the reserved virtual range is released.
+> > Further, it was proven that kexecing into an unpatched kernel and
+> > causing the fault storm can then be resolved by subsequently kexecing
+> > into a patched kernel.
+> > ---
+> >   drivers/iommu/arm/arm-smmu/qcom_iommu.c | 32 +++++++++++++++++++++---=
+--------
+> >   1 file changed, 21 insertions(+), 11 deletions(-)
 > >
+> > diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/ar=
+m/arm-smmu/qcom_iommu.c
+> > index 21d18ce67b982..a37955cd90d5e 100644
+> > --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> > +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> > @@ -111,23 +111,26 @@ iommu_readq(struct qcom_iommu_ctx *ctx, unsigned =
+reg)
+> >   =09return readq_relaxed(ctx->base + reg);
+> >   }
 > >
-> > ср, 16 сент. 2026 г. в 01:35, Andrew Morton <akpm@linux-foundation.org>:
-> > >
-> > > On Tue, 15 Sep 2026 19:02:06 +0300 Dima Koziuk <dmytrokoziuk68@gmail.com> wrote:
-> > >
-> > > > While studying the code, I noticed that kmsan_iounmap_page_range() calls
-> > > > __vunmap_range_noflush(v_shadow, vmalloc_shadow(end)) inside its per-page
-> > > > loop, and does the same for origin. The first iteration therefore unmaps
-> > > > the entire metadata range, removing the PTEs for later pages before the
-> > > > loop can recover their backing pages.
-> > >
-> > > Thanks.
-> > >
-> > > AI review might have a found a couple of issues - please check?
-> > >
-> > > https://sashiko.dev/#/patchset/20260915160207.2952-1-dmytrokoziuk68@gmail.com
+> > +static void qcom_iommu_ctx_tlb_sync(struct qcom_iommu_ctx *ctx)
+> > +{
+> > +=09unsigned int val, ret;
+> > +
+> > +=09iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
+> > +
+> > +=09ret =3D readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, val,
+> > +=09=09=09=09 (val & 0x1) =3D=3D 0, 0, 5000000);
+> > +=09if (ret)
+> > +=09=09dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
+> > +}
+> > +
+> >   static void qcom_iommu_tlb_sync(void *cookie)
+> >   {
+> >   =09struct qcom_iommu_domain *qcom_domain =3D cookie;
+> >   =09struct iommu_fwspec *fwspec =3D qcom_domain->fwspec;
+> >   =09unsigned i;
+> >
+> > -=09for (i =3D 0; i < fwspec->num_ids; i++) {
+> > -=09=09struct qcom_iommu_ctx *ctx =3D to_ctx(qcom_domain, fwspec->ids[i=
+]);
+> > -=09=09unsigned int val, ret;
+> > -
+> > -=09=09iommu_writel(ctx, ARM_SMMU_CB_TLBSYNC, 0);
+> > -
+> > -=09=09ret =3D readl_poll_timeout(ctx->base + ARM_SMMU_CB_TLBSTATUS, va=
+l,
+> > -=09=09=09=09=09 (val & 0x1) =3D=3D 0, 0, 5000000);
+> > -=09=09if (ret)
+> > -=09=09=09dev_err(ctx->dev, "timeout waiting for TLB SYNC\n");
+> > -=09}
+> > +=09for (i =3D 0; i < fwspec->num_ids; i++)
+> > +=09=09qcom_iommu_ctx_tlb_sync(to_ctx(qcom_domain, fwspec->ids[i]));
+> >   }
+> >
+> >   static void qcom_iommu_tlb_inv_context(void *cookie)
+> > @@ -270,6 +273,13 @@ static int qcom_iommu_init_domain(struct iommu_dom=
+ain *domain,
+> >   =09=09/* Disable context bank before programming */
+> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_SCTLR, 0);
+> >
+> > +=09=09/* The TLB may still hold cached and stale entries for this
+> > +=09=09 * ASID, if a previous kernel programmed the SMMU before
+> > +=09=09 * a kexec into this kernel.
+> > +=09=09 */
+> > +=09=09iommu_writel(ctx, ARM_SMMU_CB_S1_TLBIASID, ctx->asid);
+> > +=09=09qcom_iommu_ctx_tlb_sync(ctx);
+> > +
+> >   =09=09/* Clear context bank fault address fault status registers */
+> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_FAR, 0);
+> >   =09=09iommu_writel(ctx, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
+> >
+> > ---
+> > base-commit: 3339792beb5fb1c9c423c544ba2fbc235e7d7f75
+> > change-id: 20260926-qcom-iommu-clean-contexts-3ccda804c08d
+> >
+> > Best regards,
+>
+>
