@@ -1,95 +1,125 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12332472B8;
-	Mon, 28 Sep 2026 12:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598690; cv=none; b=aircaLWHbxlzOd/qMUvBfYYuhRdbME8YJs7DDkJwRjrwAMUlaO4jJepqcyGWFOXZGzV4JMqxRv9AolGY6WRb7RtgLzJtozHJ07Sn8NA4Ly5Q6jcvxmMfa7CR6VX00P8ayXLwdsW84ZOMOUar9oiruRrXqYXbVZoL8ufrYnu2Rjk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598690; c=relaxed/simple;
-	bh=UG5SjHlGto5qqVq/s9e1BJcnSof4gZlugHBCbCMcOmI=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=VCOKwUE+E9xK43em2lA0NK0ypyDs/ra4lsfYwgnfQ1cm+M7ZHKYbNLrwCqqoP4pp5lk78RKsg2HhwTaEQGljbN0ypnCZFCBPHNfsesL2Qlhqlt6GU1sfBxq2gL9Fm9vSGhWeaFUbfRPa/RFsvvs996Iay1VJvhUFhOYRywAwtBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=sRGG4v6C; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157B82472AA
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598726; cv=pass; b=DgCxFdTMKef0AEgSW2e0OD2JtolssN1Bh311ZDZFrhgUAqMvaSLAO92uI1IBgpoNT+7LUiGWfV9vZSacbSZEYWsCgrhDEaENsRpEI7fYbDua5BE+PLFbiuBM8gSmhg0aUSRly75jA/bPbWx3t6HqgbjU175K7ixUMMc9OLTKmbk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598726; c=relaxed/simple;
+	bh=LvGdn2hkiIeEdQO/+4P0N6T1Y/jNQdIt2aZQDR7H4Vo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pYjiW0Y05js+GPbaoqSd57J3hZg7/GPka9bu5QcR0/1tTszUch98mNDfDZRSx1uVDxq+SPs+wcOnQwJKA5Za+75HqKgaz0K75Z04yAIk/K1Bw6kukkTvMFv6lNnIl80f3btYtEKGeU/kcHpPN61Yd06kuM4ctev1modoUtt5nR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VsoA/ObH; arc=pass smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="sRGG4v6C"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7E398AB00A657D4F9A1CD3C297450863@prosoftsystems.ru>
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1790598686; h=from:to:date:message-id:subject;
-	bh=UG5SjHlGto5qqVq/s9e1BJcnSof4gZlugHBCbCMcOmI=;
-	b=sRGG4v6C2jFQS6KLIOfu77Ed/iffwoZ5f9WJqc8PFP+cGeuBgf7H6q0H4d/hu1FttSm1WQGlaWy
-	NqtcAWCkgCuZjWwYJfZ+EUc8BbjtJ5AWqQiCCrDNS7TxHsGc1mFKoxc5ECnDmjYK6DyPo3eam4ztK
-	zQBFiB7f995hVR2+boCBMzlC6tdAItMQIZCtPQf1+LvJ9UHe8XUpXFJ84sVe+teo/Lw/e+q7bxpfH
-	+lfH6RL154mbOlbuHLbSnHOc4zeEgpr9PumeWYG84mTwDEbgDDaIFmikEvxoPdOf9MUFxyj82CeNd
-	gAI83edTTLfVRgOXf+DTVdYo0TaaBCvWplRw==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Mon, 28 Sep
- 2026 17:31:25 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Mon, 28 Sep 2026 17:31:17 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Mon, 28 Sep
- 2026 17:31:16 +0500
-From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-To: "andrew@lunn.ch" <andrew@lunn.ch>
-CC: "benato.denis96@gmail.com" <benato.denis96@gmail.com>, "petrm@nvidia.com"
-	<petrm@nvidia.com>, "davem@davemloft.net" <davem@davemloft.net>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"jacob.e.keller@intel.com" <jacob.e.keller@intel.com>, "pabeni@redhat.com"
-	<pabeni@redhat.com>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [PATCH net 1/3] net: fealnx: fix teardown order in remove
-Thread-Topic: [PATCH net 1/3] net: fealnx: fix teardown order in remove
-Thread-Index: AQHdTBGoaPRFHxtaVUSWHKvuDP/4n7bdm8QAgAYCyQA=
-Date: Mon, 28 Sep 2026 12:31:16 +0000
-Message-ID: <d20c94930acc066f48abb40f82bdfadaa5ca30c2.camel@prosoftsystems.ru>
-References: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
-	 <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
-In-Reply-To: <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VsoA/ObH"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-8961cca9193so40303557b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:32:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790598724; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n5+REzbMn/+FkvyhAds8F79nmhrNekRAxOUJ0QOsZXhxoWpnMEpa0Tg2tyq/ZzKkbO
+         M08woT2hWL9JwK+ZiZCFjkSpw5DPFCM54LpUpuls7mYlvJyOBaG3IXkNsjwn+SBcIvNj
+         N1st/+f1eRFby+6a/UWgLnXuQ0ki889PGqgyWuajpmeW/0bdKyXLMqnozK5d10anJy9B
+         ASkQkviZ4J4Kxc+RTJGPvxyKKuKJ9Y5TDGppYSSj15KWQYDYAk5zbZVamYlpCT+t2l4b
+         qkoaBGFQVlwQt4jsqB+oKM6UFev5E446N+4BkU4/N1xz0bDd+l8ArhRoWnDfD4Ub6sr0
+         W+8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LvGdn2hkiIeEdQO/+4P0N6T1Y/jNQdIt2aZQDR7H4Vo=;
+        fh=qsHgB8AHLMsEn0YlaU7wWvDwrELtiYeoD5whwdX23dM=;
+        b=lQXoN9GYScJ4f9COAn4iV66WsRZQtXIBe3VSFDLZ8fJ2B3KnCI3tNaFviGEueiTS+S
+         fdFe99g/3KpW9yKNSe3W1MG8BTha1Un0G3X2/VUx/RRMRWSzKG1C6SFYiBu5bP8KStOg
+         sUZLGyhr1tmnwLUfrsfKnXCr/A0FGaBmtmdQUWWvK9dTH5ONJmRLOppDE55dU1Ku253+
+         sO8S5U+g6FW8cH6k7FbvbAmhfJphrSzjhORwBbla9gx4b58mMQpRvvzk7NvDaJjyXrvo
+         GoCl2KsXI5U3e2NldgOfyWPxOH0Ft1d6x8UvLDj6M2OaE6lJcPPIuovSPeotcsf3IlyG
+         UtMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790598724; x=1791203524; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LvGdn2hkiIeEdQO/+4P0N6T1Y/jNQdIt2aZQDR7H4Vo=;
+        b=VsoA/ObHaVQQX+rJUBqac4OF7VxPSy/ydlo2HtzqPni1a/loImcDn1e6hmtfth0NwE
+         NgyaP0KUfC0ymfqqMorkSLhvOq8/fXlnz5Hc1y/RR8uFchWOsE9gbkpUFDPnbM15873K
+         fYlg7DOcxgBJU5e+1rGWr07Kl3VBbMkbt2W0bnoRLowoQWH7sIjuvGxyIuulxwqLt8LS
+         5zk8m9q44s0IDIT1kTDu5cj4vDqptBMDQm5m/1w3CTvbWIvSNF9Ea6Wm3NIzy3+2yCRu
+         qYn4dtcyGq+WdL+Fg43HwLAQjso1ENrQgDEdRhpEWb3Xf5Xl26TLCwqPIBjfOM6cntnG
+         XMPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790598724; x=1791203524;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LvGdn2hkiIeEdQO/+4P0N6T1Y/jNQdIt2aZQDR7H4Vo=;
+        b=lCRmEUuXpu6DC5NTXGXt5FPxMLxivUF5R6dwun1tgX/HTkuZxJJyqWrJCosWk2IFG1
+         +FpY+g2u4A4fO3PL9VX0mWdX7/gaKjvvXp3jICYbKouF3Jmmtlp5e9kqYV6KqjsC1qN1
+         JqJZ1OfI71SXf2ilXA+1elFX+5UABSJVdpNIX5e+BrJToc2ecGExC6GeT7VxcaQCqKb/
+         5c98CESs1rDNtUOxO3nBP9Jmoi5/+Qfu7bzjORKS0r//fx+1DXCAVDzie3C/546hCOFJ
+         prCygZ5EB56O3RNCXmPhXD92Pstqz/m8IJbNFGkTzr+1KnWVd5LgqPAcXFToH6am8grm
+         oEIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxXW1svfVHKYna2xfTIhZXROHT+RjZ8hkUpsj5q67E7v+/jf1Pj6xLknvu/fRHSdU7/t/hQu/Qi29c6R4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDypYFkxWgKpLX+ZxVQ/U3SPQKDXSgsu+2OOnpymXsp9l1izpl
+	RZlHPXY1/3q7/pLZWTjPQ1nCK0zhh872cLw/SgdgFOrc4ozgMbpbKtUPf6kJJgNP3hqzZGuMOlh
+	ZPld4TKGtP9cfDmuPI9p1RBMJDkLK/1A=
+X-Gm-Gg: AYBFou03lsXLpbFaoogHW9J5bl2HIm3X7FOWcW3SQ1h5f5CDTf+XHcHjnmIZLVEHVyb
+	/F8Jz/gtYubNvkFXhTcX3gFkTV0rdRwcbaq1NC1ptYDmR2DFInIjoPStrdahzLQMMhiiDOp54s9
+	4EOhKikf5dNjM9WU+ed2c6fHtN1zb+lq5PErLzA8UONRc/UkScXIuXWmmD20JwA2HC1b3C4vbmm
+	dZAb2k/GGCBpJpF/aeox/js5EF+HK/LP4JNMKItfo/Hp48zTWQ1+q6RfZW7EM7RKWgzFDyn5GQV
+	1P9tXIw99qyM8YsG5eQ1OE2TL24gYj3UDRWaQK7DzRIMe2gHf6eOutUGNqpCdwBKYVUM68xYIQM
+	TZqB70XYWDCs/SMfIvPMykWxXPE1oYL+BTi787BPI3nn/Bb5mb7vfPpwi
+X-Received: by 2002:a05:690e:43d7:b0:672:a098:bfa4 with SMTP id
+ 956f58d0204a3-6740bad5163mr2491644d50.90.1790598723665; Mon, 28 Sep 2026
+ 05:32:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <CADhLXY7008e4JA35T2wE8TnJnR_r82RCpfSd=aLBmDh5xAQ02A@mail.gmail.com>
+ <20260923205518.GA1941939@bhelgaas> <20260923225059.5c8cf0d7@pumpkin>
+In-Reply-To: <20260923225059.5c8cf0d7@pumpkin>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Mon, 28 Sep 2026 18:01:51 +0530
+X-Gm-Features: AclHuK8NUjREgQIAohkxNSm-52_ycxHjkhDYIqnt9K1ygKIEBhfIimWuLdHG6jE
+Message-ID: <CADhLXY65fwGS=87oOtyAi9V4oXjbr8jgJNcSc0wXkVV9OOsREw@mail.gmail.com>
+Subject: Re: [PATCH] PCI: sysfs: Reject unaligned resource I/O port accesses
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, bhelgaas@google.com, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCAyMDI2LTA5LTI0IGF0IDE4OjQzICswMjAwLCBBbmRyZXcgTHVubiB3cm90ZToNCj4g
-PiAtLS0NCj4gPiDCoGRyaXZlcnMvbmV0L2V0aGVybmV0L2ZlYWxueC5jIHwgMjkgKysrKysrKysr
-KysrKysrKy0tLS0tLS0tLS0tLS0NCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25z
-KCspLCAxMyBkZWxldGlvbnMoLSkNCj4gPiANCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQv
-ZXRoZXJuZXQvZmVhbG54LmMNCj4gPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L2ZlYWxueC5jDQo+
-ID4gaW5kZXggYmRjMzhhYWM1ODUwLi5kN2NkMTY0NGEzNzUgMTAwNjQ0DQo+ID4gLS0tIGEvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvZmVhbG54LmMNCj4gPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9mZWFsbnguYw0KPiA+IEBAIC02NzgsMjAgKzY3OCwyMyBAQCBzdGF0aWMgaW50IGZlYWxueF9p
-bml0X29uZShzdHJ1Y3QgcGNpX2Rldg0KPiA+ICpwZGV2LA0KPiA+IMKgc3RhdGljIHZvaWQgZmVh
-bG54X3JlbW92ZV9vbmUoc3RydWN0IHBjaV9kZXYgKnBkZXYpDQo+ID4gwqB7DQo+ID4gwqDCoMKg
-wqDCoCBzdHJ1Y3QgbmV0X2RldmljZSAqZGV2ID0gcGNpX2dldF9kcnZkYXRhKHBkZXYpOw0KPiA+
-ICvCoMKgwqDCoCBzdHJ1Y3QgbmV0ZGV2X3ByaXZhdGUgKm5wOw0KPiA+ICsNCj4gPiArwqDCoMKg
-wqAgaWYgKCFkZXYpIHsNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9lcnIoJnBk
-ZXYtPmRldiwgInJlbW92ZSBmb3IgdW5rbm93biBkZXZpY2VcbiIpOw0KPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuOw0KPiA+ICvCoMKgwqDCoCB9DQo+IA0KPiBJIGtub3cgeW91
-IGFyZSBqdXN0IG1vdmluZyBjb2RlIGFyb3VuZCwgYnV0IGlzIHRoYXQgcG9zc2libGU/wqAgV2Ug
-dHJ5DQo+IGF2b2lkIGRlZmVuc2l2ZSBjb2RlLiBJdCBpcyBiZXR0ZXIgdG8gYWN0dWFsbHkgdW5k
-ZXJzdGFuZCB0aGUgY29kZQ0KPiBhbmQgc3RvcCBiYWQgdGhpbmdzIGhhcHBlbmluZy4NCj4gDQo+
-IMKgwqDCoMKgIEFuZHJldw0KPiANClRoYW5rIHlvdSBmb3IgcmV2aWV3Lg0KDQpUaGlzIGlzIGFj
-dHVhbGx5IG5vdCBwb3NzaWJsZSBhcyBzdWNjZXNzZnVsIHByb2JlIGFsd2F5cyBzZXRzIHRoZSBk
-ZXYNCmFuZCBpdCB3aWxsIG5ldmVyIGJlIE5VTEwuIElmIHByb2JlIHJldHVybmVkIGVhcmx5IHdp
-dGggYW4gZXJyb3IsDQpyZW1vdmUgd29udCBiZSBjYWxsZWQgYXQgYWxsLg0KDQpJIHdpbGwgcmVt
-b3ZlIGl0IGlmIHJlZmFjdG9yaW5nIHdpbGwgYmUgYXBwcm92ZWQgaW4gcmVzdWx0IG9mIHRoaXMN
-CnRocmVhZCwgYXMgaXQgaXMgbW9yZSBjb2RlIHF1YWxpdHkgZml4LCB0aGVuIGFuIGVycm9yLg0K
+On Thu, Sep 24, 2026 at 3:21=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Wed, 23 Sep 2026 15:55:18 -0500
+> Bjorn Helgaas <helgaas@kernel.org> wrote:
+> >
+> > What do you think of the sashiko comments:
+> > https://lore.kernel.org/all/20260809051652.36BA31F000E9@smtp.kernel.org=
+?
+> >
+>
+> You could just add 'if (port & 1) return -EINVAL;' to the 'case 2:' branc=
+h,
+> and a similar '& 3' to the 'case 4:' one.
+>
+> Did it miss that loff_t is (probably) 64bit on 32bit?
+> Or do large offsets get detected earlier?
+>
+> David
+
+Thanks David for the suggestion. I have send patch v2
+
+Thanks
+
+Deepanshu
