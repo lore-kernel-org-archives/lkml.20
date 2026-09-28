@@ -1,109 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C72636194C;
-	Mon, 28 Sep 2026 01:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F50320A14
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560223; cv=none; b=Of7KFBHpB8AVyJbGS8UF9MRv56iDGozI+lmXaGPolP6OaMCZMdLPF2OR3mj+HrqX8no/xQpNoX54knZ++lKvh+ifttYokQsG/q1WXXRRarrf2aVn/JGbQedWd6PDkaHMX07WXB6MiAHM5pWSb6EnXn/Wy0BrTYRGZGoKtoeedeY=
+	t=1790560264; cv=none; b=eXz15SZCmuyWpTnEbBxe/rvWe6j25KvoD5gD4ENjFCVnjz3PupJ4wj/eOSoGTO4dUYFzYBpbwBHpvgW/PMWxULa2CExA1NiaiKMSv/lcQmRplZrOnh3bUsbcoQSoXX2iLmPWVk0HKDU6tPPGSmDexd50vxJM5gFnde1gBiM8M20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560223; c=relaxed/simple;
-	bh=jPF6GWwPpqMHR2e/0rkB/E1sLSmxzcdgG8z7Tdyu79k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gMsT+D7BZ3mo/QBtUESKfiI0XF2K6uEd3mlrb8q/MKcYytc1s9mIFc0EY2QohiU4xeY3MnTwstOwB9XqDWq7T72nQH9eOa/pHE7e/oAPMbjXMyHF+M2Sm43fck4rmqWKbOAFyz34sGuMAPUH36ONHrgLSmrZpHAtJ/gmLODEKhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e65gIvrw; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790560264; c=relaxed/simple;
+	bh=SPg8cL4kmSWA4iFpN4vF6FPr47BJmWraE4GW0BtQ1YI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=EpiZuyd6KwYHhSt3ifCRRG9LCxu8AWQAgQ4kzYOXVSQuIsTBNQkxwpPvPHYfHFXjMZ3IhsDI24kKY5BhnL1RZZPJgTSyC/Q9tqTTDrU2GbM02CT/zkOFlq06UAMJ98eUcoPS4szGbEKsmYZ8BmnMmNp3OmU/3XLG55Ej+r6ZnX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=jXAkxBob; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e65gIvrw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790560222; x=1822096222;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=jPF6GWwPpqMHR2e/0rkB/E1sLSmxzcdgG8z7Tdyu79k=;
-  b=e65gIvrwgBsmwsAutUuO00GytD969nx13ALmetwVHiarCHHe9Ve/QPDp
-   74BBFdkbLeIHyKhetlcF4HrDMEq5DLE0YV9jfG1Diwkahgb1zhoUaU/LZ
-   RoRvfCSUCuxVxAF5ZrRccDEQ0lLLT/0MTM83hqYQmrL2jLOpvQtWZV94V
-   OWcjLGrlZHxubej+YY9GxFi8omxjZ/ZME7S6a/FUpOXLDtPfxtkpCujMY
-   Xf5z2FdfKyD1i2gWtHp07+3VUJcR82Cl1pzsIg+cSD8Y2HykgVcq2TgL/
-   xKGRxvyTOMwIOod04OrY60gCY+2fa2/xSkj+nyu6phQCIpHljaxBggRMC
-   g==;
-X-CSE-ConnectionGUID: A7FDUBCCQSqKzKgty7sTRQ==
-X-CSE-MsgGUID: kSGVuqNmQGKmdLcTeDiLlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="101823440"
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
-   d="scan'208";a="101823440"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Sep 2026 18:50:21 -0700
-X-CSE-ConnectionGUID: kaShKSaXTu+iHshTOi0MFA==
-X-CSE-MsgGUID: hjoB8snsSQqQVpjOxOOHnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; 
-   d="scan'208";a="301187851"
-Received: from pankris-x299-ud4-pro.bj.intel.com ([10.238.152.122])
-  by fmviesa002.fm.intel.com with ESMTP; 27 Sep 2026 18:50:16 -0700
-From: Kris Pan <kris.pan@intel.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	atomasov@redhat.com,
-	oliver.sang@intel.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kris Pan <kris.pan@intel.com>
-Subject: [PATCH net-next] net: iterate online nodes in skb_defer_free_flush()
-Date: Mon, 28 Sep 2026 09:47:08 +0800
-Message-ID: <20260928014708.3903028-1-kris.pan@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="jXAkxBob"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=MlSvak1ZymKa4HkDZecqOMouAzwaOxw4YrsSh//cFbo=;
+	b=jXAkxBobyGxGl33CFWtPr+m5NrB0PXofrOayv7Y36nOMUwP82QgjZnHk7p82uMAqYOAKKpDKb
+	9J5LOKOsR10NLIb15FaMrOgokskOYABGrxpJOAcieGk77xYRr7Gj9MECe4Ui0VSdUVkC2O7bO9A
+	oTmpgJFlBvhiZgV2SCcwOI8=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4htP8v6cP3z1prN4;
+	Mon, 28 Sep 2026 09:38:39 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D84DF4057F;
+	Mon, 28 Sep 2026 09:50:49 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 28 Sep 2026 09:50:48 +0800
+Message-ID: <7fe9a0d5-6b82-4ae5-bbdc-f74d797b2e0e@huawei.com>
+Date: Mon, 28 Sep 2026 09:50:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
+To: Kees Cook <kees@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
+	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
+	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
+	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
+	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
+	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <202609221129.B5E13A7@keescook>
+ <927d57a4-64ab-4420-9485-5336f2ec3fd5@huawei.com>
+ <202609241703.4AF69048@keescook>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <202609241703.4AF69048@keescook>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-skb_attempt_defer_free() only queues skbs on the current CPU's node
-(numa_node_id() of a running CPU), which is always online, so the
-flush loop never needs to visit nodes that are merely possible.
 
-for_each_node() walks node_possible_map.  On machines where the
-possible map is much larger than the online map -- e.g. a POWER10
-LPAR with 32 possible but 1 online node -- the flush loop touches 31
-cold, always-empty per-node lists on every softirq pass.
 
-Use for_each_online_node() to iterate only node_online_map.  Nodes
-that go offline are drained by dev_cpu_dead() ("net: flush
-skb_defer_nodes in dev_cpu_dead()"), so the flush no longer needs to
-visit offline nodes.
+在 2026/9/25 8:05, Kees Cook 写道:
+> On Thu, Sep 24, 2026 at 05:32:14PM +0800, Jinjie Ruan wrote:
+>> 在 2026/9/23 2:29, Kees Cook 写道:
+>> I tested the rr test cases on a Kunpeng HIP09 (with minor adaptations,
+>> since Kunpeng CPUs aren't supported by default), and the results showed
+>> no regressions.
+> 
+> Great! Thank you for getting that set up.
+> 
+>>
+>> |               |    7.3-rc4 baseline     |   Patched                 |
+>>
+>> |  ------------ |------------------------ | ------------------------- |
+>> |   result      |  87% passed, 190 failed |   88% passed, 186 failed  |
+>>
+>>
+>> | Failure Mode   | 7.3-rc4 baseline |   Patched  |
+>> | ------------   | ---------------- | ---------- |
+>> | TICK_MISMATCH  |         76       |   74       |
+>> | TIMEOUT        |         68       |   65       |
+>> | GDB_SCRIPT     |         34       |   37       |
+>> | PERF_EVENT_OPEN|         3        |   2        |
+>> |   OVERSHOOT    |         1        |   0        |
+>> |    OTHER       |         8        |   8        |
+>> | -------------- |  --------------- | ---------- |
+>> |  Total         |      190         |   186      |
+> 
+> GDB_SCRIPT failures went up? Are the tests just flaky?
 
-Loopback UDP throughput in a QEMU guest with 32 possible / 1 online
-nodes (bench_udp, 8 senders, interleaved runs) improves by ~5%.
+Yes, you are right!
 
-Fixes: 5628f3fe3b16 ("net: add NUMA awareness to skb_attempt_defer_free()")
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Suggested-by: Adrian Tomasov <atomasov@redhat.com>
-Closes: https://lore.kernel.org/oe-lkp/202512112119.5b9829a-lkp@intel.com
-Signed-off-by: Kris Pan <kris.pan@intel.com>
----
- net/core/dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Those three tests failed in the baseline too — they just surfaced as
+tick mismatches then and as GDB script timeouts now, so the
+bucket boundary shifts with the race. That's flakiness, not a regression.
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index f660fccfc0dbc..807640155e649 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6927,7 +6927,7 @@ static void skb_defer_free_flush(void)
- 	struct skb_defer_node *sdn;
- 	int node;
- 
--	for_each_node(node) {
-+	for_each_online_node(node) {
- 		sdn = this_cpu_ptr(net_hotdata.skb_defer_nodes) + node;
- 		__skb_defer_free_flush(sdn, 1);
- 	}
+|     changes         |               testcase              |
+|  -----------------  |  ---------------------------------- |
+| OVERSHOOT -> TICK   | clone_interruption                  |
+| TICK -> GDB_SCRIPT  | checkpoint_prctl_name               |
+| TICK -> GDB_SCRIPT  | checkpoint_prctl_name-no-syscallbuf |
+| TICK -> GDB_SCRIPT  | clone_interruption-no-syscallbuf    |
+| PERF_OPEN -> TIMEOUT| clone_newflags                      |
+| PASS ->  TIMEOUT    | pid_ns_shutdown-no-syscallbuf       |
+| TIMEOUT -> PASS     | fstatat-no-syscallbuf               |
+| TIMEOUT -> PASS     | futex_exit_race                     |
+| TIMEOUT -> PASS     | futex_exit_race-no-syscallbuf       |
+| TIMEOUT -> PASS     | futex_exit_race_sigsegv             |
+| TIMEOUT -> PASS     | futex_exit_race_sigsegv-no-syscallbuf|
+
+> 
+>>> - MTE: I didn't see MTE in the cover letter's test list, and it seems
+>>>   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
+>>>   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
+>>>   on the reworked exit path. The MTE selftests showed no differences,
+>>>   but a third of them don't actually run for me under QEMU, so they'd
+>>>   be worth running on your hardware. (Testing MTE under QEMU saw
+>>
+>> Turns out our arm64 machines don't support MTE; I was testing it on QEMU.
+> 
+> Ah, dang. I wonder if we can find anyone with MTE hardware to test this.
+> Any volunteers? :)
+> 
+> -Kees
+> 
+
 -- 
-2.43.0
+Best regards,
+Jinjie
 
