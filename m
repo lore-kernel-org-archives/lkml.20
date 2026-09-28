@@ -1,98 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC23F44E65F;
-	Mon, 28 Sep 2026 10:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C84A497391;
+	Mon, 28 Sep 2026 10:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591812; cv=none; b=srq13U7SR/p0li9/e+tM876m8Ig/lMdeG0De5+Xa3CQgmR5BS9YjUqDX73Aoa2WV74j4TIO+5Uq6OAd3LlVmvgGzmgczbpRkJbLArIXpv+yTwvwwcqC0cMdNO2YQyogLYyAMLj3Ck1dM0wJZGAElg8Vy/J74mFPMKeUyPAEaTs4=
+	t=1790591834; cv=none; b=DKynTpRyYF45Op4P1TG5s+z4TW61VD1TtnNB27/XvZ0TCREnua7GT1EZOOVtReICBg4Sq34mlPAhF0ma6QLyGenfce6o9o/vr2U25MgaBywrp7M/ENToBIx3Rf0VayoS7muDPWwRuPOg4aqp7cmcSB+624pEWu9GXDsinsLihns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591812; c=relaxed/simple;
-	bh=+eiU14WtffpsablTSQZkeXYAVRjbhnndgQrMqpPYHgA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=duU2wTlnzkI0QM2aW/fBO6Oy7mBSxSy8BZtlEPpTVoPXez28YWrUBjs6eArgjXzkP6HCvx7SrAJCY7CwCgoPhmGVm6oXvGZm1vK8U0eVnfy6Qz/JcTbr9faIS/so0Kmwp2wT+SNHR34xsgSoq4iRdJ6bD7VL8+kkUCM4pbUepHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ex9E14LS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790591834; c=relaxed/simple;
+	bh=ljV2kENip2Jn+BCNZxVV5V5WkDRGmh/P8NY+wm23J7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qq8rZJMslNiG5/nkSJFutfGt4/E8sxS/B4aCc8GKLYi+rn9utToQl4Cs9/F4ImM6HDsr3eyPHG2G+p0yn9N93T3r8uiDjdXCw4MtQ67OORGVPNai6jJy/f2Otnl/P7A9NHIPzZDhKR2eVLl2rleT/PMjN5tyJ6+y1SaK+dauVWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4nQVKJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ex9E14LS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EFE1F000FF;
-	Mon, 28 Sep 2026 10:36:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4nQVKJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF051F000FF;
+	Mon, 28 Sep 2026 10:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790591810;
-	bh=3P2mxhk6Zs1a78JTFJDfkPQ7ymLagWRZKHkU7l2oUs0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Ex9E14LSPc2TpBUWFF4DLuttqWcWR3I5aUQkGCvGQo9fb9wZJcYjuwPo+aWKDdFBO
-	 mcB34+UNJlXcXuLBR/pWeuBR/2QN6O9xpdvhycb+A6lziTjuLJMTE6ADvc6lWQztDe
-	 YKBRfhVDM/h87MFKcJw6UR1s0s9m1fgJPbuh+ZaRfA9pVACqz41c1UUxRybOkTGMqB
-	 3SJ0Z61CJj8vxV6UBX19iRM6PaUtgiIXn6pb9EfSLOMcZQxjVL+13WluC1DQs6u76c
-	 1yOWjAIThgTYnJ8+t4vQL3BGvHVc27eiJxrrBLiDCYG1PKc1pJnSIo9AsEDBqaZyab
-	 UtCxiGoYp+dow==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
- parent
-In-Reply-To: <20260925122305.GG9354@nvidia.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-6-aneesh.kumar@kernel.org>
- <179027891416.104879.10365675178574704349.b4-review@b4>
- <yq5ald8pkhj7.fsf@kernel.org> <20260925122305.GG9354@nvidia.com>
-Date: Mon, 28 Sep 2026 16:06:42 +0530
-Message-ID: <yq5a5wzpr7b9.fsf@kernel.org>
+	s=k20260515; t=1790591832;
+	bh=GEFDwP232FyUdz85KGmfq6sYsFS8X1mJ+FDlSpNLi3E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H4nQVKJ8u4dc+kt5wYGxKwjoPNSl69ZN6KWtjNztz8yIhTcZFnsRt/KzT/iKsOuux
+	 SuPGxOpOVwAKXqLFvBywODUWWxVJnrwGYin1n2Mo5d6nZNtATAEV3HsTTlgBqXKoDf
+	 tF19+uBKGd7oBk4UnB9B2dk+HxBrCPPRFIewY8mHzPyvrzYY+hWgpexmI15ZubLtUy
+	 K33u4L0KxL2Vi07rZKlEEThMF7ErAmr5KtGlzyhe0gmu9NDSmwgf5RsV0wRKHNRKkA
+	 q3cG/i7EdvmPHICQYl1i2lnO6mH2fjXoB8X5kxXKSFrSFFvMib117sTy8AlXcNWu5j
+	 qGvD3gKxK6dxg==
+Date: Mon, 28 Sep 2026 12:37:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: embedded-controller: Add ASUS
+ Zenbook A16 EC
+Message-ID: <20260928-miniature-orthodox-ibex-d5b97f@quoll>
+References: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com>
+ <20260923-topic-asus_ec-v3-1-2bf3bb9da879@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260923-topic-asus_ec-v3-1-2bf3bb9da879@oss.qualcomm.com>
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+On Wed, Sep 23, 2026 at 12:14:13PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
+> least the Zenbook A14 and A16) expose a custom, somewhat
+> Qualcomm reference-derived EC interface. It allows for fan speed
+> reporting, keyboard backlight setting and receiving of a number of
+> miscellaneous sideband events.
+> 
+> Introduce a binding for that class of devices.
+> 
+> Two separate compatibles are maintained since the two laptops' ECs seem
+> to be generally alike, however assuming full compatibility with the
+> limited available information does not spark confidence.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  .../asus,zenbook-a16-ux3607oa-ec.yaml              | 64 ++++++++++++++++++++++
+>  1 file changed, 64 insertions(+)
 
-> On Fri, Sep 25, 2026 at 11:18:44AM +0530, Aneesh Kumar K.V wrote:
->> > The TSM viommu should use a NULL parent domain, it doesn't have an
->> > iommufd managed S2.
->> 
->> How would we assign an untrusted device? I currently follow these steps:
->
->> 1. Create an HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT.
->> 2. Allocate a vIOMMU with viommu.hwpt_id set to that hwpt_id.
->> 3. Allocate a vdevice with alloc_vdev.viommu_id set to that viommu_id.
->> 4. Use VFIO_DEVICE_ATTACH_IOMMUFD_PT with the hwpt_id.
->
-> The vmiommu.hwpt_id should be 0.
->
-> 1. Create a a HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT
-> 2. VFIO_DEVICE_ATTACH_IOMMUFD_PT with the hwpt_id to establish the T=0
->    identity S2, no T=0 vSMMU
-> 3. Create a VIOMMU with no hwpt_id and the RMM's type. This triggers
->    RMM to create the the T=1 vSMMU inside the realm
-> 4. Allocate a vdevice on the viommu_id. This triggers RMM to create
->    the VDEV inside the realm
-> 5. Setup guest ACPI tables/etc to point at the RMM's T=1 vsmmu.
->
-> Now both the T=1 VSUMM and T=0 fixed translation are setup.
->
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-ok so iommufd_viommu_alloc_ioctl() will do this based on type.
+Best regards,
+Krzysztof
 
-+	if (iommufd_viommu_type_requires_hwpt(cmd->type)) {
-+		hwpt_paging = iommufd_get_hwpt_paging(ucmd, cmd->hwpt_id);
-+		if (IS_ERR(hwpt_paging)) {
-
-
--aneesh
