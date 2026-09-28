@@ -1,205 +1,137 @@
-Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9FD4746A5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790587870; cv=none; b=BUKUZute6f39P3bqAum1DoNlM/dI3J5IaL8heDPnKCz6kTdJU+yvPtVD+In3OntBYsISR5nzHAEuANttQV9MYbAiEhfFexbJbEB7DeJAnH1kUHAqvmj1A6O7QkJwzGBH/TLiZh0MeZmTBjrZCCGakAK7Np7R4Hb0tCWC2TYMvvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790587870; c=relaxed/simple;
-	bh=oQZLrAcuT0shL2/nmge4WtwJIFfINaOZxE91IPVIIu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KiPpBN1L8/fSl3k+6FJRu5+kyfo3GfVliF8v1ReFTMkubkTdJh/fSONWZNycCBLk4BKLTUaE+G5P3MIheMrmvAinpB1sjnCN1jAdO7aBfcoz+oLuynh6zuha035gLoHmE3AEJb5pW4lveSJwE8y+h8egelY3Roziurzbl6iA3mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CkEokaQ1; arc=none smtp.client-ip=91.218.175.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78BE48BD3B
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790587911; cv=pass; b=hKbBdSJKnybyhDJgRwma6GFg/Wg+Op4H2kjwC+Cj6sOypY4gZ5s4KFsf125ez8p64fcG7k6FyB3dgsXTeSNE2oSqaokL7jTgCGfjRVQfpE2ZxOusdk1WHYt+ENtuDWodpYyS3Q3ynNqMFwSrD01P4V36fRoFKu1FV6PmqxspVW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790587911; c=relaxed/simple;
+	bh=8bjgfdeQqI2IU+pfMdd1CQBiBYTPKG3YxVTrgK+MF0I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lGkBnkKHGF8oaVnAVOBk0Pzi7HCJ0YdUbMIlcEaoFklKcACEhUH2GVzLviTa56mRh0dGIiGE7faHpPNyTHgFsKfQ8ld6cGGE09LxA5aUrKyI45rhgatut4D+SPe8UQIPCh3vpapJbxJMXCUJMmOAElEmN+EGPKPIyVQI4LbeX6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h7lRS1yu; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CkEokaQ1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oQZLrAcuT0shL2/nmge4WtwJIFfINaOZxE91IPVIIu0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790587864; v=1; x=1791192664;
- b=CkEokaQ1yZlAcXpWalhMSi2Ui3MQYrQkUmCJeRYhGq6oobLlpBgBNvNG8/hF8J6WYtiW/roR
- gOIOjEDjo3Rc7z4EDvOwrVceayuN7NWOqPDuAHE99HpOYYTNWddMM8DMsHQRKIxJ8WfXhTr6HP3
- 1GxB5Hu2cv+/dWGYTeVIQKS4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 278808f0f1c38232;
-	Mon, 28 Sep 2026 09:31:03 +0000
-X-Mizu-Trace-ID: 278808f0f1c38232
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 28 Sep 2026 11:30:58 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <aroxhe3Yy0dYCK1I@bombadil>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
- <aqpC8fxO4F3bFjF4@bombadil>
- <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
- <aqpYqrtKTY20IW_0@bombadil>
- <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
- <aqqtG31q_nNxzme1@bombadil>
- <accdb907-67ee-45ee-b06a-173e49a3ca00@kernel.org>
- <20260917084656.GA24505@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h7lRS1yu"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so106583eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:31:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790587909; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kR6cLXT3GCgAEOX/aBT0eu6gVfCaGUVYEfwdgYrnlHg5gEItQQDDtwq/K/DZ3GBlDM
+         IDEhEqnpXmMD0YKjOJcidS0C7FTVNtKT/Y5d66g1ZQ95n1hUmiJKvMenjwtYtlPDt8ne
+         FZSVAW54Yj2HDFIsKBuOQh7tmQD6a3dRAakHXEmcnQeOvmf27Bxjgg+egfbDfZrNGdCc
+         UG0RVwpUGrJqD07UBMzWm8d9UWBdcbnvGH8x9fHeWoL1cCMZol8S0nF/EodixRpk0XfF
+         wCrOe5VtZZdq1eiAC8Q8+LPurENRPN3rj+APVZspnAEP7RNQcapaS6YZHaoVdQGktqER
+         ZtHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
+        fh=WFHykVOUKi/kpY7wrV67pYycAveOlegMIxx8Xl1y434=;
+        b=Wo+DJWFpxtds9pxH23bbCgqdqnifL+GNXs3XXp5U5AxWlaxPPo/JIjNcw4sZ+cOcM6
+         unmxm34lY6eiVBkgluhfi+jXFAKh55RMrLpbraljhlnpaRL5u2N75O9BxElmzgk70031
+         UDNGpPYFpHH1+TFxaHvMzKxItuckO22A0W+sZHqHRW8StOzwxSAdTyKal0wPbNYu+h7y
+         kVgdVGK/i5inVhqeG2CB+HvF3EcE/DOk7ceax8R2KdnCRJl34wStgMZLHWRmG8v0DzcF
+         s13c5LzrvNqOGQQKfFt7PoDDYU6z8LWOMW3natg0zpMzdteSzyIhH0DpvMcV0n9vJguo
+         D2cA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790587909; x=1791192709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
+        b=h7lRS1yug0s0CyXl1DG0U/dn/Fo1Wite3QMYnhPaWxf158B/Rh2Wue2Sj6ivRtfAGk
+         NHjghB8yjwBWlWzEU9e5afBIB4A1gKHybgiNbLXC1LTNKH68C9dEV4ubC5X1nP0Z+dxJ
+         ogIGtPMR65VIxo85lKvEDhh5IC1ZzH7JCnXVkRr77Uc67HG4JqV7oseCTSNgOGYP5azD
+         3u+CpNSowIVMFo4c+U/TTmuTtiojPQSFJcgQwKYTo3Xe8IO2dvFAh6M/ehUXTnwahDij
+         LqwCAQ9nBWu50lvyBXCAZF2BR7WnLR5cdnPc/3osFDNSDMI4ikw5dboNFNRR6UNMZKm3
+         SfLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790587909; x=1791192709;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JatWv86M5tAY+wc+iIH3agFbdWx7YD2AHOeP9v9NLF0=;
+        b=N+m4wj04Ti4j6XlY0gBdEaKRxnl2jrsDDLS7CgLrHhbfJ0gwdON6YoGZlmvF5hvw65
+         6UirF7uISRlWro6AnQv34BHGwDr5UoT7cJHSsHFv/S1093hgDziGcFIaSDqencjYg8UW
+         f/qurcCBFNin4c01+9LtVv77TG34k5TVLNMr3xnzc8x59NgHKFiOUlC/rZML1DXCDkzh
+         ZHHYQ2Foc/OPzWsWKLIoTNXNLGnAbZRUmjnW4byANx+Yzw9WER014l1KYwAAIvsLf1Hb
+         aXwM0/cN+WoW+ekpF8xBoXjWg0u0ZiOdmBZMsoW5ScnR3/tVaLP2ODxfXluZL5xaeIwC
+         jCSw==
+X-Forwarded-Encrypted: i=1; AKwUvByMCyYGNrZLhrl/07ofF6N67tpSG0U9sNpwncpKzMNjifWUewO77regBBIl2YwXcImgcKy3ZJRPKBxyqD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2lWS26LnDhfJEHYVdmFMGU5HOkQG8Rl2mSlFKjtdC9nT+rp3T
+	cA+DK5UYNWJoa5zSigJ2di/wEQOejsh0fDMVqBJbIQ9OGsyrI+rZJ4L5jo8CqDrNR8+FhVjrk3d
+	eCiLEDq6Ac1FBGNObG9053JTyEBzas4Y=
+X-Gm-Gg: AYBFou044tMGegWsUub9UboN95tLGL6a5BSa+UTdl3MXtdS8con+nXv1KqbaYcEpRzg
+	Jh8XJPVpYQrotyz3Qnvu1m/i1vsmr5sJpp8P6WOQzpQHMPx9MR41Kv2w9Tj9SZawdv8o0lDwbpc
+	C0TqvZ5X0pYDwwekfGodeCYeR83JtOy5eH0a6T5z7RpVFzFjZZfAHBVfmCmEf09JrlvByjUJHtM
+	cP8u6+kGDjIAcJvSvtjfdm2Jv92SbC7oJz/zrQ3i7UrppxSs+hC8uJp7+1MQSFJhPP7pT3uResh
+	Y0TfGr1byDu4TW2fDUOZYYZbds4nxok97KK2MPtVb/D2o+POqYpwQdBhC2oV6YsfkpsVuB9OOwR
+	5Fjr2qVbO7IOsRtSYVWij/d/Xy0/DR/KumiRR7VayeTjRoKrMQ/hk5LtakEibJOiRtUvyRvDQqW
+	RphWCk/r8TJPEvTDy/Nww5a0wI5RM5qb49TreIegm4v0Bd8vRQQi8=
+X-Received: by 2002:a05:7301:4d08:b0:343:fdea:9a0 with SMTP id
+ 5a478bee46e88-343fdea25bemr10256179eec.2.1790587908057; Mon, 28 Sep 2026
+ 02:31:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917084656.GA24505@killaraus.ideasonboard.com>
+References: <20260921115708.4009754-1-gary@kernel.org>
+In-Reply-To: <20260921115708.4009754-1-gary@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 28 Sep 2026 11:31:35 +0200
+X-Gm-Features: AclHuK_5UnWgzOwmLK9oqngFyj2kXH-LQPWosQXOUVyycWaI9jdAOOJ-IBnfSXI
+Message-ID: <CANiq72nR-QzR3zOiV=RL4je4U8m_hCsPhOD3SxAcjc+4VCrMsw@mail.gmail.com>
+Subject: Re: [PATCH] rust: proc-macro2: enable `proc_macro_span` feature
+To: Gary Guo <gary@garyguo.net>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Laurent, Hi Krzysztof,
+On Mon, Sep 21, 2026 at 1:57=E2=80=AFPM Gary Guo <gary@kernel.org> wrote:
+>
+> Miguel, please let me know if you're okay with the proc-macro2
+> modification.
+>
+> I'd like to take this via pin-init-next if possible.
 
-thanks for that discussion and feedback!
+If you think the diagnostics improvements are worth it, then I guess
+it is fine. The ones in the commit message do not seem like a big
+deal, but I assume the upcoming ones you mention in pin-init are
+bigger improvements?
 
-On Thu, Sep 17, 2026 at 11:46:56AM +0300, Laurent Pinchart wrote:
-> On Thu, Sep 17, 2026 at 08:30:05AM +0200, Krzysztof Kozlowski wrote:
-> > On 16/09/2026 16:57, Richard Leitner wrote:
-> > >>>>>>> +  vcc-supply:
-> > >>>>>>> +    description: Power supply of the module (3.3V)
-> > >>>>>>> +
-> > >>>>>>> +  '#address-cells':
-> > >>>>>>> +    const: 1
-> > >>>>>>> +
-> > >>>>>>> +  '#size-cells':
-> > >>>>>>> +    const: 0
-> > >>>>>>
-> > >>>>>> No children allowed, so why these two?
-> > >>>>>
-> > >>>>> Based on your and the bot feedback I would suggest for v2 to change this
-> > >>>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
-> > >>>>> "$ref: /schemas/i2c/i2c-controller.yaml".
-> > >>>>>
-> > >>>>> This would better reflect the actual hardware, as there is only this one,
-> > >>>>> in firmware hard-coded I2C downstream bus.
-> > >>>>>
-> > >>>>> Would this be a sane approach?
-> > >>>>
-> > >>>> If the underlying I2C bus and sensor are important, then yes. But I have
-> > >>>> doubts that you need to describe the sensor if it is truly
-> > >>>> unadressable/invisible to the OS.
-> > >>>
-> > >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
-> > >>> talks (via the tunneled I2C interface) directly to the sensor.
-> > >>>
-> > >>> The separate I2C controller/bus description is necessary as the tunneled
-> > >>> I2C bus has some quirks unfortunately. Those need to be addressed as 
-> > >>> otherwise the sensor drivers do not work.
-> > >>>
-> > >>> So the idea is to not have a vc-mipi module binding per "sensor variant"
-> > >>> of the camera modules, but provide a common controller driver which
-> > >>> provides the I2C bus for the sensor driver.
-> > >>
-> > >> Bindings must accurately describe the device and so far - based on the
-> > >> website - there is no device as mipi-module-controller alone.
-> > >>
-> > >> I don't get why you assume that all of the variants are exactly
-> > >> identical, thus sensor variant is not applicable.
-> > >>
-> > >> If they are identical in all aspects, then why clock-frequency property?
-> > >> That's obviously rhetorical question, because they are not identical in
-> > >> all aspects and must produce different clock at least.
-> > > 
-> > > From that point of view, of course all variants are different.
-> > > But the interface towards the host is (according to vision components)
-> > > stable. This is why I aimed for a separate device.
-> > 
-> > What makes you think that interface is stable and the same? Is the
-> > stable aspect or its versioning documented anywhere in the docs?
-> > 
-> > I can easily imagine that FPGA synthesis actually differs on some
-> > sensors or they ship a new, updated version, thus at some point the
-> > interface might change or already changed between models.
-> 
-> Alright, let's deep that in the real life aspect of this.
-> 
-> There is no stability guarantee in the sense of a strict, publicly
-> documented commitment. What we have, instead, is direct and honest
-> discussions with the vendor, and a decade of real-life experience with
-> those modules. the result is both better and worse than I'd like. The
-> good part is that the interface is stable with no plan from the vendor
-> to change it, and we haven't noticed observable difference in behaviour
-> between modules for different sensors.
-> 
-> The bad news, on the other hand, is that bugs happen. Newly manufactured
-> versions of the same module sometimes ship with updated FPGA bitstreams
-> that fix bugs. Previous module can't be fixed as the FPGA bitstream is
-> not field-upgradable. Those updates don't affect the interface in the
-> sense that the registers exposed by the FPGA stay the same, but they
-> require different software workarounds. A sensor-specific compatible
-> string wouldn't help here.
-> 
-> So far (again over the course of about a decade) the only two bugs I've
-> observed are related to I2C access. One of the bugs require access to
-> sensor registers to be broken into single-byte read/write operations
-> (this is the job of the controller's driver that register an I2C
-> "tunnel" adapter). The other bug causes the FPGA to shift data by one
-> byte when the host reads the controller's EEPROM data. The driver posted
-> by Richard works around the bugs unconditionally. It could be nice to
-> disable the workaround that split register access into bytes as that can
-> improve performance, and the plan would be to add a DT property to
-> indicate if the module is affected as that can't be inferred from the
-> compatible string (it depends on the revision of the FPGA bitstream as
-> explained above), nor can it be queried at runtime from the controller
-> (AFAIK).
+(I would also probably had shown the improved example outputs in the
+commit message for comparison; and especially one of the upcoming ones
+if those are more important to get right)
 
-Thanks for that explanation Laurent!
+If so, then please feel free to pick it up, thanks! The change itself
+looks good.
 
-I try to get an answer from Vision Components on this. So maybe we can
-avoid the future "FPGA bug workaround DT properties" by implementing a
-FPGA bitstream identifier to quirks map.
+Link: https://github.com/rust-lang/rust/issues/54725
 
-Nonetheless this is likely not going to be in v2 (or even any version)
-of this series.
+I would also wrap the `README.md` like
 
-> 
-> > > So what's your suggestion on how to best solve this?
-> > > Provide a per sensor compatible like e.g. "vc-mipi-ov9281"?
-> > > 
-> > > Nonehteless this device must then provide a i2c sub node to place the
-> > > actual imaging sensor on.
-> > > 
-> > > If that's fine with you I'm personally fine with this approach too.
-> > 
-> > If you have certainty, like documented spec somewhere telling this, that
-> > programming interface of FPGA to the OS is the same, then go with a
-> > generic fallback compatible like you have and add front compatibles
-> > specific to the sensor.
-> > 
-> > If you do not have certainty, then I would go only with sensor-specific
-> > compatibles for both front and fallbacks, so:
-> > 
-> > vc-mipi-ov9281, vc-mipi-imx297
-> > 
-> > It does feel a bit odd, but that is usual way to handle any future
-> > differences when two vc-mipi modules turn out not to be compatible.
-> 
-> I'm not completely opposed to that, but my experience is that it will
-> create additional complexity (to update the DT binding when a module for
-> a new sensor is released) without much gain as bugs are not specific to
-> a module type.
+  identifiers, to remove the `unicode-ident` dependency, and to build
+  with 1.85 with nightly features enabled.
 
-I'm currently preparing v2 and I'm not sure on how to handle this
-compatibles topic. My suggestion would be to stick with "one generic"
-compatible due to the reasoning Laurent provided.
+to keep it like the previous lines.
 
-If we ever have sensor specific FPGA modification we need to address
-them in either case. And for now it brings no improvement to have
-separate compatibles for separate sensor types, IMHO.
+Nit: "a overall" -> "an overall"
 
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+Cheers,
+Miguel
