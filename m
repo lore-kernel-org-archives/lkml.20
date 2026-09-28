@@ -1,81 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E997481A91
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F40B481643;
+	Mon, 28 Sep 2026 08:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584707; cv=none; b=J2r8LG3VBWFrGW41s7Kcxd7JIRmYmv4QGC9zU5vkxF0cDJ9cueAqr0YdGUc2yA8XPZRoDQqXkbOXRYTG0iUnreFJogceyIG/S3LaTSJ3eY+OtsTN2RlwRgI1YlvEQe60jA6HXMON2ewkL/vVVQJJ0099zBsKck93RvR4PFyWF1k=
+	t=1790584715; cv=none; b=jbOFpteUPRPj/M21wpb874aCU1CevjPFOB2zwG7s8kYrmVez7KiH9vDhuMKtls+s0mSrnxtufj5+cGejAxCB9e85wc70F7hafQj2wxA8pMFgZLndjqN4YvE9ixkRJnFQPLJv9sd1Kwyngeg1tKwVH0wGoyktNDwIOSEfLqz4C/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584707; c=relaxed/simple;
-	bh=KzmtaBx/W7Qo6eJlSIglcMY97ok4d4GtoRfvLF0hscI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VnqL/jSTxylOKRgWa9omLeni5pq/n2rUly3Tm2up4D9thR8lIFFi5g2BZfPEiaXkLU/sZJzmrVkdYtk4wFSXKNxFMyq34xQHOu6zNKnpV42B5us3dBc/voxMUvwwFOvgIcAXqcJ0dlETapdEMT9EPWG4A62kzwG8BTFX1sTLa1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fk3TfVQ8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fk3TfVQ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20481F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790584705;
-	bh=KzmtaBx/W7Qo6eJlSIglcMY97ok4d4GtoRfvLF0hscI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=fk3TfVQ8MwNrWU6IzYBQXGVhC+7X8nYQZRYw+k3Yoy5mHGBU5bsNSttCLOn4tIcf6
-	 alM50OyxM2mXVJpsTVzS0j8N4MhabhzahjBjUpa77Lr2VzbbC0MPDef8EPEsa1zqQf
-	 27EY3yixr6k0zTBpNh6+HLvn3ATCMb47fylmkf1oStT9Z+N4SO0XLMAyzdptmYGOSQ
-	 WMyb2fXIyw/tYnaqM2N+emPTnuAuj+NAYgE6L0y7VBunrm8/IIqV433U+3aQVTcILL
-	 d8mKJCXoh3WoDHK0RRMTxhaSae9ZsSgrIUs9YbFGjYYcWka8e5T5LCUxBQU8JoFq2s
-	 jdGTbhUN0h73g==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e93611e7so2757908e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:38:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9WOxPv+Bci+zpx3tF3WnGxpJSJ5KuLP1AnXmJyEGpUmObw+ipg4PJw/BDxX+x5p4q+PGIxNMnW/53j74=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK50V8zd8Oa77bdZdhBOeEVsrpA3tRLSfykzCQxV5VB31dHzcRT
-	z5Y45bnCESAf4z2sqHGmY49LwbxGC/6J5ZUatC7ugDxAF01hqFuqnJOwgSwHitogIxh8/ak5hGY
-	vh8PW35ROznXTDEeajIifbpkWL4lfaVK9grIvC0Ia1A==
-X-Received: by 2002:a05:6512:2c86:b0:5b8:9978:a2bc with SMTP id
- 2adb3069b0e04-5b8e6d91f8cmr2796693e87.23.1790584703696; Mon, 28 Sep 2026
- 01:38:23 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 03:38:21 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 28 Sep 2026 03:38:21 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260924-ipq5018-pwm-functions-v1-1-8990a4e85b2f@outlook.com>
+	s=arc-20240116; t=1790584715; c=relaxed/simple;
+	bh=xRNO/by/2nbYzoS2n4kE6HjL3ijCoclEq0fgOfixgEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uPArhzC37GwYuiCEhnvt+I4jbkIQAsY3yRRtxBGw7FaKz/opFdIwt5vNA6SfOikjzHZ2SPaDaK3MPL0YoOmQwiKk22o55Ms4D11zBx66omRGYhShszd8kk9eEvtT1o68KdebFaX996Zr218VAw3D873KNapURZ7nOBFCRF4LARM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xB6sQ-0003sT-00; Mon, 28 Sep 2026 10:38:22 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 42272C02BE; Mon, 28 Sep 2026 10:22:07 +0200 (CEST)
+Date: Mon, 28 Sep 2026 10:22:07 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>,
+	Chao-ying Fu <cfu@wavecomp.com>,
+	Aleksandar Rikalo <arikalo@gmail.com>,
+	Paul Burton <paulburton@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/5] irqchip/mips-gic: Fix recursive acquisition of
+ gic_lock in gic_set_affinity()
+Message-ID: <arojr46BtH7FEQOS@alpha.franken.de>
+References: <20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com>
+ <20260907-sync-gic-counters-v3-2-3d891ddabdaf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924-ipq5018-pwm-functions-v1-1-8990a4e85b2f@outlook.com>
-Date: Mon, 28 Sep 2026 03:38:21 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MeJcYezVbqVq4cM2RuAtP3mxCuKKLMS3z+XqyS4DEa5qA@mail.gmail.com>
-X-Gm-Features: AclHuK9pVuYMjJOL3S9OWFCVZ-No99gs9AaKgirufX3RDkqpWzOUGcwSuUMSUDU
-Message-ID: <CAMRc=MeJcYezVbqVq4cM2RuAtP3mxCuKKLMS3z+XqyS4DEa5qA@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: qcom: ipq5018: add required gpios and missing
- PWM functions
-To: george.moussalem@outlook.com
-Cc: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907-sync-gic-counters-v3-2-3d891ddabdaf@bootlin.com>
 
-On Thu, 24 Sep 2026 14:22:11 +0200, George Moussalem via B4 Relay
-<devnull+george.moussalem.outlook.com@kernel.org> said:
-> From: George Moussalem <george.moussalem@outlook.com>
->
-> On multiple Linksys routers, GPIO 1, 30, and 46 are used to drive the
-> PWM led on PWM1, PWM3, and PWM0 channels respectively, so let's update
-> the pwm# and pingroups accordingly.
->
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+On Mon, Sep 07, 2026 at 02:46:36PM +0200, Benoît Monin wrote:
+> Commit 322a90638768 ("irqchip/mips-gic: Multi-cluster support")
+> made gic_set_affinity() call gic_set_type() when an interrupt's
+> affinity is moved between clusters. gic_set_type() takes gic_lock with
+> raw_spin_lock_irqsave(), but gic_set_affinity() holds gic_lock at that
+> point, so the same raw spinlock is acquired twice, triggering a deadlock.
+> 
+> Split gic_set_type() into a gic_set_type_locked() helper that assumes
+> gic_lock is already held. gic_set_type() takes gic_lock and calls the
+> helper, and gic_set_affinity() calls gic_set_type_locked() directly,
+> since it already holds gic_lock.
+> 
+> Fixes: 322a90638768 ("irqchip/mips-gic: Multi-cluster support")
+> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
 > ---
+>  drivers/irqchip/irq-mips-gic.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/irqchip/irq-mips-gic.c b/drivers/irqchip/irq-mips-gic.c
+> index 3b31cbcbed6f..f2ae60d39d66 100644
+> --- a/drivers/irqchip/irq-mips-gic.c
+> +++ b/drivers/irqchip/irq-mips-gic.c
+> @@ -297,14 +297,14 @@ static void gic_ack_irq(struct irq_data *d)
+>  	}
+>  }
+>  
+> -static int gic_set_type(struct irq_data *d, unsigned int type)
+> +static int gic_set_type_locked(struct irq_data *d, unsigned int type)
+>  {
+>  	unsigned int irq, pol, trig, dual;
+> -	unsigned long flags;
+> +
+> +	lockdep_assert_held(&gic_lock);
+>  
+>  	irq = GIC_HWIRQ_TO_SHARED(d->hwirq);
+>  
+> -	raw_spin_lock_irqsave(&gic_lock, flags);
+>  	switch (type & IRQ_TYPE_SENSE_MASK) {
+>  	case IRQ_TYPE_EDGE_FALLING:
+>  		pol = GIC_POL_FALLING_EDGE;
+> @@ -351,11 +351,16 @@ static int gic_set_type(struct irq_data *d, unsigned int type)
+>  	else
+>  		irq_set_chip_handler_name_locked(d, &gic_level_irq_controller,
+>  						 handle_level_irq, NULL);
+> -	raw_spin_unlock_irqrestore(&gic_lock, flags);
+>  
+>  	return 0;
+>  }
+>  
+> +static int gic_set_type(struct irq_data *d, unsigned int type)
+> +{
+> +	guard(raw_spinlock_irqsave)(&gic_lock);
+> +	return gic_set_type_locked(d, type);
+> +}
+> +
+>  #ifdef CONFIG_SMP
+>  static int gic_set_affinity(struct irq_data *d, const struct cpumask *cpumask,
+>  			    bool force)
+> @@ -407,7 +412,7 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *cpumask,
+>  	 * trigger type in the new cluster.
+>  	 */
+>  	if (cl != old_cl)
+> -		gic_set_type(d, irqd_get_trigger_type(d));
+> +		gic_set_type_locked(d, irqd_get_trigger_type(d));
+>  
+>  	/* Route the interrupt to its new VP(E) */
+>  	if (gic_irq_lock_cluster(d)) {
+> 
+> -- 
+> 2.55.0
 
-Are we *updating* or *adding missing*? Depending on the answer, this can be
-interpreted as a fix that should be backported or a new feature that should
-be queued for v7.4.
+Reviewed-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-If this is a fix, can you add a Fixes tag?
-
-Bart
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
