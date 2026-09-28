@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E170B4DDB3D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0514E36C1
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606398; cv=none; b=PrqOzPmwjj3NzoB7y4Pq82prLBMuYYxVPWN2kDj5XJx9ERBMyWgheJGcYYtYLUYL0dqgFqklRWjrDFMWmLFWNj+OvrZXm/7pt3/z53FyaDfcL/7QaMSsmMvhhCcB2C3Epgtmexi4Mvbf7MTJgQ59iwfDVklYNqp6+sy/CPmn4LM=
+	t=1790606404; cv=none; b=C2eDRnsOfiAg9peBL767LCP3t4hX+9E8yGBclZCY+/Q7T0y/R/cONS3HC6Bh7A83tcg3TznWHg0Gh4dFZfGljKS8RYoiOdpyXMPXgyp4c7zaFLHP+/RDFn1Dqi6FZAXW5WXdAIuvIhyUBHCq0qIfbEjdIFKIpTb6lcxVpL1hj+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606398; c=relaxed/simple;
-	bh=YQoFb3ZkuKXV4i+LpNA+Q+uq0lwXN/olc8Rf9LCRXSc=;
+	s=arc-20240116; t=1790606404; c=relaxed/simple;
+	bh=NhHWvvnPrKHqhuhNVk7ZQTsH1c0AommYN33kTZIBFec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oudiedE9CMwKyPn4XzzyjnRyGtthpKHkI/w47PilA+h8NquQjysII232XzamjCnUbOoJfFt43hCYm8eGWwOZkVkBhvMy4eql4EuVjOs9jNmtpnKFUqnnBz+jn2/EWU4jEw4ItAsnC0fv+9njViwtOU9lScAYQvfkxiaEsn0qlOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HIr3XliJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KRelWDzC; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=sa9bO7G8/pVhmtRPu73XSbq01+DgKQPRNFJFwJTN2NGJMPt9SjqjLioylsZIA6OHD7Jy6won0v25odxYtFFmfBujmcEaQAE/nmE80rV0lFs4uvUho7cr0PDLumZNmu4KSX6ywOzJFGRH3Fm7zWZDueU69oMjdgibbqbkNQJGWX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DQh2DnuU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d17EIRds; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HIr3XliJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KRelWDzC"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAKv41683005
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:47 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DQh2DnuU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d17EIRds"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBA8bu481586
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=S7rnZZ0yovP
-	SLbhPLQejN/m5WeyZsVkheepx4ZP4TkI=; b=HIr3XliJnfCJm0Mtc1BQqxH67pA
-	Kth9aTJwGBFN9iO46A+puwz/haBzE2mHfG6X3eKpuwOvb4EVH/SsFM/PH8Ze6ESo
-	V/LjHaOQfJUq4yH4cc7Zt7scQOogYZ6jy6hxUFMnxbkd2xxGg1cSS2RRw4Lh9o6W
-	NSWw+RguNw9FrnoiqT7Xim3hR2/sDH9uGyiwvHldGyapB1gFu+LFGIIwob377uhu
-	za9FfYrEaw5neMw/MvXCLR58qhlbSPZTds8fYHL5OQCgj0wTZUWOL7F4RPtWt8mm
-	aJ9pfsVp7pEUf8I2RFafODuOnzxYaHLvna6tlEwgb/yj12PzVbeadQQtgUg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynfks676-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=x8hihcxDh4v
+	dXDXwpEyXNTTs8PuHmt2UDYR1utBPvS8=; b=DQh2DnuUabqm9/ORt7u8x6SNgJO
+	S0gCMFqIFtppT9jcPG2Q6KRvgguxsg1JozzSSBSYi8titOZc7N9/gGHm9wQ3mLTJ
+	hxxHYX6s9abAAp6b2yAx5XO2t7NvToQBApOkiqfPF7TRHts6Dr068OABC5A7fXdy
+	4Rq22H/pscgK1b/9Jg+ccqKL7NJbKEBAprYPCbT3jFs4Y9uJfT2TKVjG+dr1Rf1U
+	7L/CEsC94Liym0yKEG1ZbW28nJTLwJVKNxPEivUuPlZVLUDVNhxK94isvVcJbEro
+	vzzM0sTIiJVQpHWx97vcuYjJBWN2MgcW54sAiuvW2EEoKviePxi24HmVJqg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt11vrm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:46 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1de6d5c3so800951185a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:39:46 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:39:51 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5332e744789so42479431cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:39:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790606386; x=1791211186; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790606391; x=1791211191; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=S7rnZZ0yovPSLbhPLQejN/m5WeyZsVkheepx4ZP4TkI=;
-        b=KRelWDzC8+1jTDGMxIfwrmQwXEuvCauVdUhmHZcSH7/FGWrqIX6LZI7II1ptD697aV
-         A3oYiNkON7FqT5SuVPiXZKo3XF8dQ40H/dvUsWW6+kJ+aMO7F/D2ET1ISDcD4VHhU7eO
-         5dbF5/1AhMyQj+Y+mbMxwSsOsHAeSqcIwwQ/9uqnQDQ3XQgnVyErJ9d1eMOSCazKAtb9
-         UdW7UipxSx3FMdmdyploTi0xay30XHI07QxHHacPujdDoRzHgTYrSV1DmVVPD14CEGzu
-         RtSFBlHTMVFg5Ex4DsSWvx6txtQMTEXWerSYPnoz039FsQmWlNDqC48eFqCzL44c9QXs
-         YBTA==
+        bh=x8hihcxDh4vdXDXwpEyXNTTs8PuHmt2UDYR1utBPvS8=;
+        b=d17EIRdsSpERXym739KirKg7WP/Qc66zcpTfd4hnRL11Ywkf3rf7K5ScFC13B7YFOt
+         wBsXvXOQcgZssdGRtYd1uHNuHbPxtoSUYWi5kQBoUb8e2UlBpuvhvxpZFcKAH2rohF1k
+         OZADuZxQCuFNKq0wteDxtcXuLAwOWj1V+RhholxuSemJ3ZR/2KWcQ3UrKwqJBhOIglPx
+         ql+NSL2gO5KGyB0m1avNdAobP5ixnJRNEGMiSE7jjJ1byX7cZe4Tb9QUSig5M/yr+sxG
+         TzDKjbLM4Wy0Rk7C42YBF/GBbQHAG/bD3+jB2kcmiS4iDdsOe08a+QoF+BWRUyuRUc9c
+         pjUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790606386; x=1791211186;
+        d=1e100.net; s=20260707; t=1790606391; x=1791211191;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S7rnZZ0yovPSLbhPLQejN/m5WeyZsVkheepx4ZP4TkI=;
-        b=CNSJnRBwC4EJBArto21FVqtd3XyVukPjLO+vZlhDlwC8D2cgMtUibkonTeP1a/fCaX
-         oLvcXqQGcBBU5cfuIrY/fvk3LfiVf0X255+li4GkfdD4SybZxoWKGdTl4jgMxeKP9zo0
-         TaWNszAUktAiDjLcnDrFvbVKBpc4+3TQx6mJ1M+nX4y+QcUMSzflqQbAsc0I6fW9Ud60
-         jmbcqTLmqfF1GwrfqnnCK/uDw1SKQDJhVbW606qMcxiOK1/OGqb+xLp119NdTu3V0AkY
-         w0KTDoSIfcnSiWaNly82ybsZ7x9MuK7SbqtJsvVdP6/3W8IBnRnYfGdVdxeagXhc11W4
-         Pl5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxLdZ67CrJQGyBXylqBNTbQIcdE51UBuKt+dRcpsAIfTuQvzi2HvByfAN0tvIPycIs/BDX5rVoBrXCxGhY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0jSeyn8i1qjORKI3iVSKdqsRSfhL0DI4ddSCy1j7ev+qA9tKp
-	WgMJv05a8rHVFX3WcL54g2tUCTnl4zmIC4sYz02uV32qMcIdyfexQj9hnd81g3dfRBjKeVXpH79
-	m/Qo2HJLqL8NfLG0JfG+RLUEJQhk6agl3u38oo/BEe6xU4QQCkJ58FKeJmh99J0q+mTZgCr98yg
-	k=
-X-Gm-Gg: AYBFou0fpos/nBnJIpmpE3XmBHQtIxxYxkdiJiK6q25aViJwj5xywTrx3bYnI6IoNmm
-	LvOKQywk2MVdkubpVvCvxCjQMjYfaycuvhmX0I9kruJsaPfrB80VGuuZe9hb83W1uHAvWtEOsQb
-	1FlNXiilH4CzIPGxke3/UFfiwhVgDMb/ZgbLlAfj22vh26u93AGoI9OZGm/jfuxwkvPv9n4Y1ZU
-	gYus/QUPMKPaIy6Serz/W6K0cb76H43EAMhHR4YHfHKj9W72vfJvlTpvJxHgZpLaZ40R2aEimkk
-	i5LQdw0J7jpvpW1tbmfm2RfgwasWDoo0SCPn/l5X6kGENLvdXrkMgLT8eO1LLJ4Pbj0mNywakNR
-	MVZUj2RUM8n+IlcyLdMjBV2yMotK6+Y9BFy12TA==
-X-Received: by 2002:a05:620a:294e:b0:93c:6d02:9d0f with SMTP id af79cd13be357-93c6d02a148mr915424685a.31.1790606386174;
-        Mon, 28 Sep 2026 07:39:46 -0700 (PDT)
-X-Received: by 2002:a05:6102:3ec5:b0:7a7:198a:c2bd with SMTP id ada2fe7eead31-7af1e2f54d4mr5353036137.37.1790605943161;
-        Mon, 28 Sep 2026 07:32:23 -0700 (PDT)
+        bh=x8hihcxDh4vdXDXwpEyXNTTs8PuHmt2UDYR1utBPvS8=;
+        b=O+6YUjBf4RGzDgn3JP5KzjCG5Nuvh5Z+02fjwpesRmh0k8tPd74f1NXB8Pbo0AltFb
+         ZNmPufqG/tPCANHhRJbGA4TEctfLcHh55SM3mxilyt3ncQqRARpp9EM3l7R/VU+K0Mqx
+         Fqk5VXvxXfmBGLJNGGPtJX5FREPlPGjj2NzZAgKi4AaupX9wd9RDmoEyBvlD7a+L2zyU
+         ujLmStC+EH9uBzcT3xoquxy9oWuEyP9S0rAyk/Bb+rso1SXRE+hKOyjPGkk1xrDHsJIO
+         8hF4ff1mXEoN8hl+7gZwK+3sbQdmXyCMYFlwcrXACXYs7vKNh8nGG2Raw0VjLnl0vRlN
+         9arg==
+X-Forwarded-Encrypted: i=1; AKwUvBzAkBxGMEpqsLZrDoP2i941LzGR70bkXdFQAtaS87vuKkH4cJ+Glw1ocyPtdxvREbew1e/2nDbAT4tJRBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/kg7bREP3ivwp0HdfQhOqMMLCG8ujCVTbIzlu2IATHi4QMKJb
+	PR+jmFQlVrVmWATGN5gWsrH+xpNgTkpMirM9yD6OCynfRUUdOh3OkJhWYap+KQMwN6dndDvhgtv
+	0UMvjSNkWRyGWxzI5sgZLGVIknGJYyoy2qvAjDdbYLiwBQLe6ouQ5t9j1S+bdRcXyd+D/zPmFLV
+	c=
+X-Gm-Gg: AYBFou3xao91wh3oHPWQ+s9entioI9Kp37PA5XP6T5eCz3E9LMJrSQ4yTQg8pGQF6X7
+	4vkrv/C/7vZlDXr+zqnO94bCClYQpR8zDhQqM9lGXnI1Vs1h9bfZf3UUbXZ+aAItYOi77QM1Ju1
+	pKAOyDId23b+INZ1KS8FSLa5mPuMQ1hpoocRnnIK3FqTq/WniXKbejbffxgbXjF8n/NSYMR/cJr
+	tZhZSgbISySfVJF2feMQjzSaiIhUKJtAQCfA54o4CZRpGc3IK0zAyK5R+gTMBz1UkdK4s1GQbAr
+	x8EJC0moco9UN5GsngWOjQcwJOh/I10bqzaFddb2KzM6Zi4lparN6ZxRz90yup6k8mTVjtzOSh6
+	tSvJBnKgyzU0ihTdELbtEZ3n5OpxmxO+gFQYG8w==
+X-Received: by 2002:a05:622a:4c8c:b0:532:969f:a6ab with SMTP id d75a77b69052e-5330b6d1528mr238462711cf.51.1790606390510;
+        Mon, 28 Sep 2026 07:39:50 -0700 (PDT)
+X-Received: by 2002:a05:6102:36d4:b0:7b1:6028:5475 with SMTP id ada2fe7eead31-7b1602862b3mr1832613137.12.1790605901953;
+        Mon, 28 Sep 2026 07:31:41 -0700 (PDT)
 Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae7358f29sm476948066b.20.2026.09.28.07.32.21
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae6069145sm488812866b.0.2026.09.28.07.31.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:32:22 -0700 (PDT)
+        Mon, 28 Sep 2026 07:31:41 -0700 (PDT)
 From: Andrew Jones <andrew.jones@oss.qualcomm.com>
 To: iommu@lists.linux.dev, kvm-riscv@lists.infradead.org, kvm@vger.kernel.org,
         linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
@@ -86,9 +86,9 @@ Cc: tomasz.jeznach@linux.dev, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
         palmer@dabbelt.com, tglx@kernel.org, anup@brainfault.org,
         atish.patra@linux.dev, fangyu.yu@linux.alibaba.com,
         zhangzhanpeng.jasper@bytedance.com, zong.li@sifive.com
-Subject: [RFC PATCH v3 14/14] iommu/riscv: Implement IRQ forwarding
-Date: Mon, 28 Sep 2026 16:31:13 +0200
-Message-ID: <20260928143113.49838-15-andrew.jones@oss.qualcomm.com>
+Subject: [RFC PATCH v3 05/14] iommu/riscv: Derive the IOMMU from the device in IODIR updates
+Date: Mon, 28 Sep 2026 16:31:04 +0200
+Message-ID: <20260928143113.49838-6-andrew.jones@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
 References: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
@@ -99,258 +99,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfX5xg/e7NXAHjt
- xUt0XkN7nfJWmvxHa56zVxM1v56nGukYozNrBO8DmjzxpnnFbCala9vkvpMgTZQ9q69xlUF3mbu
- ENf1o3fpZ1decqbki0rYgBw+UiywggFHkSLVL7TC5EyhbcGJ4uv8ZWQIMiEE2GnlNjuiyku13ws
- Ij0umCR9vvRrOK3b2Vtya/IMMNfeHFg9qeWJELmIze1Tawi78DGwjn6H9ZdZwejVv6bDZ7Xrq95
- Dgmo9QYXUiqaqQUD6Za0/AsSNgTrMBBw9Hf75oEYdY1fhwgq4R0uuRCMAsmiULDoVbFqH5jLenG
- A8BoYh8co116EOfhlIM84LF7+Tk8mwZvEw2PL5vglhNuo868MziF306+vjrL0h86UH+7TFt4Nl5
- ukuem+fjftyaDQPzhRvXq5KykCADDcgXIw4+S5GOXmIuo4fpbyDcA3TF/KZEN8tpPGIwJoiGhqn
- 4TavIRfnaT4VspI+tYQ==
-X-Authority-Analysis: v=2.4 cv=e6aT2qp/ c=1 sm=1 tr=0 ts=6aba7c32 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfXyNU5nL9ORA7H
+ OvPm4dZTo8DIHyHbrVeLQk/fvKYcjlfUcgcUwBXcMTmSrunV9y7rUqmUqePqGe0tbvYj8Vnjhcf
+ JDHOp2kvcD12fgDyI/wTPokdoPEqh7AHHiyHdCBiwm7TOvnx4bjjaTaF8gMWDZI+v6fwCTDJAKj
+ G3IBBvg7BIFevZGRPK43XGFKGNwXwfdydawSI7xIjkR4LnxZug2AklyLgz5q61DvWyi0r4bG2/7
+ ZdQcBHk7ojSq+RlIgKq+voCF35udpazQNVQn3TPV0hzpguxMjmpAr4ByjS5mr0qrOYg6oucNu9Y
+ kOrFM2Q+kcsmsPFdEOIEVdQI7WY960gMRbtas8imvPLAtom0var9Jg3/uyusS87hO5Tnr0AXkc6
+ xr76ymr1cfTbq9k/qxjUrze1UkuEyzcFQEdUWvdSBm5G8u5nrZ3uCoKbUf+GMW0X4oCdthbOWzn
+ 10DhG9a3fRyhJogNcXQ==
+X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba7c37 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=_LgjKRu_PPdaeAXRpTIA:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: sO_n2YWkLHVihB58yrP0BpJOv-G4C9fv
-X-Proofpoint-ORIG-GUID: sO_n2YWkLHVihB58yrP0BpJOv-G4C9fv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfX8vvCBAHHwqBr
- aVQKujy3fVaIte3X06y0rzAOq9I1nGusKgSv3z/PrGhx8w8aVx7j/kwbf241K50TWUwrq/bmY2P
- Ed6P8eO02up28z91k26UeZfDNx/VKfc=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=5LAesA1oWso2HGznwIcA:9 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: cPWnWfn3WEeevLMFjSbpUksKIAIvqq87
+X-Proofpoint-GUID: cPWnWfn3WEeevLMFjSbpUksKIAIvqq87
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1OCBTYWx0ZWRfX9yc9STP657a6
+ RFTasWcjQ6U0eEsG94u9tKytqS6aeH/byya4KUBB9xpV30+LDqsULKcql8KVYH6+0DjmH2H0Sjm
+ pAIXq34PaOZSZRYY/bv4vxA+UBQTQL4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280058
 
-Like DMA translation tables, MSI remapping tables are owned by the IOMMU
-domain. A single table therefore governs every device attached to the
-guest domain, which also requires those devices to share the same guest
-interrupt-file address layout. The table must become visible before the
-first IRQ is forwarded and remain active until the last forwarded IRQ
-returns to host delivery.
-
-Populate and publish the table on that first transition, and remove it
-on the last. Keep domain-wide and per-device forwarding counts so domain
-attachment can preserve the table lifetime without unnecessarily
-blocking unrelated devices in the same IOMMU group.
-
-A vCPU migration may also change a live target without changing the
-forwarding state. Update MSI PTEs with the ordering required when moving
-between basic and MRIF modes, including break-before-make when both live
-MRIF words must change.
+All callers of riscv_iommu_iodir_update() already pass the managed
+device. Derive the IOMMU instance from that device instead of requiring
+callers to pass both objects.
 
 Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
 ---
- drivers/iommu/riscv/iommu-bits.h |  27 ++++++++
- drivers/iommu/riscv/iommu-ir.c   | 114 ++++++++++++++++++++++++++++---
- 2 files changed, 131 insertions(+), 10 deletions(-)
+ drivers/iommu/riscv/iommu.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iommu/riscv/iommu-bits.h b/drivers/iommu/riscv/iommu-bits.h
-index 65d1f2250011..51a2e660b06a 100644
---- a/drivers/iommu/riscv/iommu-bits.h
-+++ b/drivers/iommu/riscv/iommu-bits.h
-@@ -702,6 +702,8 @@ struct riscv_iommu_msipte {
- /* Fields on pte */
- #define RISCV_IOMMU_MSIPTE_V		BIT_ULL(0)
- #define RISCV_IOMMU_MSIPTE_M		GENMASK_ULL(2, 1)
-+#define RISCV_IOMMU_MSIPTE_M_MRIF	1
-+#define RISCV_IOMMU_MSIPTE_M_BASIC	3
- #define RISCV_IOMMU_MSIPTE_MRIF_ADDR	GENMASK_ULL(53, 7)	/* When M == 1 (MRIF mode) */
- #define RISCV_IOMMU_MSIPTE_PPN		RISCV_IOMMU_PPN_FIELD	/* When M == 3 (basic mode) */
- #define RISCV_IOMMU_MSIPTE_C		BIT_ULL(63)
-@@ -711,6 +713,31 @@ struct riscv_iommu_msipte {
- #define RISCV_IOMMU_MSIPTE_MRIF_NPPN	RISCV_IOMMU_PPN_FIELD
- #define RISCV_IOMMU_MSIPTE_MRIF_NID_MSB	BIT_ULL(60)
- 
-+static inline void riscv_iommu_msipte_set_basic(struct riscv_iommu_msipte *msipte, u64 addr)
-+{
-+	msipte->pte = FIELD_PREP(RISCV_IOMMU_MSIPTE_M, RISCV_IOMMU_MSIPTE_M_BASIC) |
-+		      FIELD_PREP(RISCV_IOMMU_MSIPTE_PPN, addr >> 12) |
-+		      RISCV_IOMMU_MSIPTE_V;
-+	msipte->mrif_info = 0;
-+}
-+
-+static inline void riscv_iommu_msipte_set_mrif(struct riscv_iommu_msipte *msipte,
-+					       u64 mrif_addr, u64 notice_addr, u32 notice_id)
-+{
-+	msipte->pte = FIELD_PREP(RISCV_IOMMU_MSIPTE_M, RISCV_IOMMU_MSIPTE_M_MRIF) |
-+		      FIELD_PREP(RISCV_IOMMU_MSIPTE_MRIF_ADDR, mrif_addr >> 9) |
-+		      RISCV_IOMMU_MSIPTE_V;
-+	msipte->mrif_info = FIELD_PREP(RISCV_IOMMU_MSIPTE_MRIF_NPPN, notice_addr >> 12) |
-+			    FIELD_PREP(RISCV_IOMMU_MSIPTE_MRIF_NID, notice_id) |
-+			    FIELD_PREP(RISCV_IOMMU_MSIPTE_MRIF_NID_MSB, notice_id >> 10);
-+}
-+
-+static inline void riscv_iommu_msipte_clear(struct riscv_iommu_msipte *msipte)
-+{
-+	msipte->pte = 0;
-+	msipte->mrif_info = 0;
-+}
-+
- /* Helper functions: command structure builders. */
- 
- static inline void riscv_iommu_cmd_inval_vma(struct riscv_iommu_command *cmd)
-diff --git a/drivers/iommu/riscv/iommu-ir.c b/drivers/iommu/riscv/iommu-ir.c
-index 12a5d0bc77f2..b3f0a56475ed 100644
---- a/drivers/iommu/riscv/iommu-ir.c
-+++ b/drivers/iommu/riscv/iommu-ir.c
-@@ -93,6 +93,17 @@ static int riscv_iommu_ir_validate_targets(const struct riscv_iommu_ir_vcpu_info
- 	return 0;
- }
- 
-+static void riscv_iommu_ir_set_target(struct riscv_iommu_msipte *msipte,
-+				      const struct riscv_iommu_ir_target *target)
-+{
-+	if (target->type == RISCV_IOMMU_IR_TARGET_IMSIC) {
-+		riscv_iommu_msipte_set_basic(msipte, target->hpa);
-+	} else {
-+		riscv_iommu_msipte_set_mrif(msipte, target->mrif_hpa,
-+					    target->notice_hpa, target->notice_id);
-+	}
-+}
-+
- static int riscv_iommu_ir_activate(struct riscv_iommu_msi_table *msi_table,
- 				   struct riscv_iommu_device *iommu,
- 				   struct riscv_iommu_ir_vcpu_info *vcpu_info)
-@@ -134,19 +145,101 @@ static int riscv_iommu_ir_activate(struct riscv_iommu_msi_table *msi_table,
- 		return -EOPNOTSUPP;
- 	}
- 
--	return -EOPNOTSUPP;
-+	for (unsigned int i = 0; i < vcpu_info->nr_targets; i++) {
-+		const struct riscv_iommu_ir_target *target = &vcpu_info->targets[i];
-+		size_t idx = riscv_iommu_ir_extract(target->gpa >> IMSIC_MMIO_PAGE_SHIFT,
-+						    vcpu_info->msi_addr_mask);
-+		struct riscv_iommu_msipte *msipte = &msi_table->root[idx];
-+
-+		/* A populated entry in the initially clear table indicates duplicate targets. */
-+		if (msipte->pte || msipte->mrif_info) {
-+			memset(msi_table->root, 0, array_size(nr_ptes, sizeof(*msi_table->root)));
-+			return -EINVAL;
-+		}
-+
-+		riscv_iommu_ir_set_target(msipte, target);
-+	}
-+
-+	msi_table->required_caps = required_caps;
-+	msi_table->owner = vcpu_info->owner;
-+	msi_table->msi_addr_mask = vcpu_info->msi_addr_mask;
-+	msi_table->msi_addr_pattern = vcpu_info->msi_addr_pattern;
-+
-+	riscv_iommu_msi_table_inval_all(msi_table);
-+	riscv_iommu_msi_table_update(msi_table, true);
-+
-+	return 0;
- }
- 
- static int riscv_iommu_ir_deactivate(struct riscv_iommu_msi_table *msi_table)
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index d48667112cd9..2cee87ffc122 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -1265,10 +1265,10 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+  * device is not quiesced might be disruptive, potentially causing
+  * interim translation faults.
+  */
+-static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
+-				     struct device *dev, struct riscv_iommu_dc *new_dc)
++static void riscv_iommu_iodir_update(struct device *dev, struct riscv_iommu_dc *new_dc)
  {
--	return -EOPNOTSUPP;
-+	riscv_iommu_msi_table_update(msi_table, false);
-+
-+	memset(msi_table->root, 0, array_size(msi_table->nr_ptes, sizeof(*msi_table->root)));
-+	msi_table->required_caps = 0;
-+	msi_table->owner = NULL;
-+	msi_table->msi_addr_mask = 0;
-+	msi_table->msi_addr_pattern = 0;
-+
-+	return 0;
-+}
-+
-+static void riscv_iommu_ir_update_msipte(struct riscv_iommu_msi_table *msi_table,
-+					 struct riscv_iommu_msipte *msipte,
-+					 const struct riscv_iommu_ir_target *target)
-+{
-+	u64 pte = READ_ONCE(msipte->pte);
-+	u64 mrif_info = READ_ONCE(msipte->mrif_info);
-+	bool old_mrif = FIELD_GET(RISCV_IOMMU_MSIPTE_M, pte) == RISCV_IOMMU_MSIPTE_M_MRIF;
-+	bool new_mrif = target->type == RISCV_IOMMU_IR_TARGET_MRIF;
-+	struct riscv_iommu_msipte new = { 0 };
-+
-+	riscv_iommu_ir_set_target(&new, target);
-+
-+	if (pte == new.pte && mrif_info == new.mrif_info)
-+		return;
-+
-+	if (!old_mrif && new_mrif) {
-+		/* Basic mode ignores mrif_info, so prepare it before switching modes. */
-+		WRITE_ONCE(msipte->mrif_info, new.mrif_info);
-+		dma_wmb();
-+		WRITE_ONCE(msipte->pte, new.pte);
-+	} else if (old_mrif && !new_mrif) {
-+		/* Basic mode ignores mrif_info, so switch modes before clearing it. */
-+		WRITE_ONCE(msipte->pte, new.pte);
-+		dma_wmb();
-+		riscv_iommu_msi_table_inval(msi_table, target->gpa);
-+		WRITE_ONCE(msipte->mrif_info, 0);
-+		return;
-+	} else if (pte == new.pte) {
-+		WRITE_ONCE(msipte->mrif_info, new.mrif_info);
-+	} else if (mrif_info == new.mrif_info) {
-+		WRITE_ONCE(msipte->pte, new.pte);
-+	} else {
-+		/*
-+		 * Both words are active in MRIF mode, so use break-before-make.
-+		 * The UPDATE_TARGET contract requires producers to be quiesced.
-+		 */
-+		WRITE_ONCE(msipte->pte, 0);
-+		dma_wmb();
-+		riscv_iommu_msi_table_inval(msi_table, target->gpa);
-+		WRITE_ONCE(msipte->mrif_info, new.mrif_info);
-+		dma_wmb();
-+		WRITE_ONCE(msipte->pte, new.pte);
-+		return;
-+	}
-+
-+	dma_wmb();
-+	riscv_iommu_msi_table_inval(msi_table, target->gpa);
- }
- 
- static int riscv_iommu_ir_update_target(struct riscv_iommu_msi_table *msi_table,
- 					struct riscv_iommu_ir_vcpu_info *vcpu_info)
- {
- 	const struct riscv_iommu_ir_target *target = &vcpu_info->target;
-+	struct riscv_iommu_msipte *msipte;
- 	u64 required_caps = 0;
-+	size_t idx;
- 	int ret;
- 
- 	ret = riscv_iommu_ir_validate_target(vcpu_info, target, &required_caps);
-@@ -157,7 +250,15 @@ static int riscv_iommu_ir_update_target(struct riscv_iommu_msi_table *msi_table,
- 	if (!riscv_iommu_msi_table_check_caps(msi_table, required_caps))
- 		return -EOPNOTSUPP;
- 
--	return -EOPNOTSUPP;
-+	idx = riscv_iommu_ir_extract(target->gpa >> IMSIC_MMIO_PAGE_SHIFT,
-+				     msi_table->msi_addr_mask);
-+	msipte = &msi_table->root[idx];
-+	if (!(READ_ONCE(msipte->pte) & RISCV_IOMMU_MSIPTE_V))
-+		return -EINVAL;
-+
-+	riscv_iommu_ir_update_msipte(msi_table, msipte, target);
-+	msi_table->required_caps = required_caps;
-+	return 0;
- }
- 
- static int riscv_iommu_ir_irq_set_vcpu_affinity_locked(struct irq_data *data,
-@@ -182,13 +283,6 @@ static int riscv_iommu_ir_irq_set_vcpu_affinity_locked(struct irq_data *data,
- 		info->nr_forwarded_irqs--;
- 		irqd_clr_forwarded_to_vcpu(data);
- 
--		if (!msi_table->nr_forwarded_irqs) {
--			msi_table->required_caps = 0;
--			msi_table->owner = NULL;
--			msi_table->msi_addr_mask = 0;
--			msi_table->msi_addr_pattern = 0;
--		}
--
- 		return 0;
+ 	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
++	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_dc *dc;
+ 	struct riscv_iommu_command cmd;
+ 	bool sync_required = false;
+@@ -1514,7 +1514,7 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 		return -EBUSY;
  	}
+ 	riscv_iommu_bond_link(domain, bond);
+-	riscv_iommu_iodir_update(iommu, dev, &dc);
++	riscv_iommu_iodir_update(dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = domain;
+ 	riscv_iommu_msi_tables_unlock(old, iommu_domain, flags);
+@@ -1660,7 +1660,6 @@ static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
+ 					      struct device *dev,
+ 					      struct iommu_domain *old)
+ {
+-	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
+ 	struct riscv_iommu_dc dc = {0};
+ 	unsigned long flags;
+@@ -1669,7 +1668,7 @@ static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
  
+ 	/* Make device context invalid, translation requests will fault w/ #258 */
+ 	flags = riscv_iommu_msi_tables_lock(old, NULL);
+-	riscv_iommu_iodir_update(iommu, dev, &dc);
++	riscv_iommu_iodir_update(dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = NULL;
+ 	riscv_iommu_msi_tables_unlock(old, NULL, flags);
+@@ -1688,7 +1687,6 @@ static int riscv_iommu_attach_identity_domain(struct iommu_domain *iommu_domain,
+ 					      struct device *dev,
+ 					      struct iommu_domain *old)
+ {
+-	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
+ 	struct riscv_iommu_dc dc = {0};
+ 	unsigned long flags;
+@@ -1697,7 +1695,7 @@ static int riscv_iommu_attach_identity_domain(struct iommu_domain *iommu_domain,
+ 	dc.ta = RISCV_IOMMU_PC_TA_V;
+ 
+ 	flags = riscv_iommu_msi_tables_lock(old, NULL);
+-	riscv_iommu_iodir_update(iommu, dev, &dc);
++	riscv_iommu_iodir_update(dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = NULL;
+ 	riscv_iommu_msi_tables_unlock(old, NULL, flags);
 -- 
 2.43.0
 
