@@ -1,110 +1,295 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4642E4DE739
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C66F4DEC00
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605895; cv=none; b=HxTlbvyYHLDHoWFu+tqAqyhpqBpQv+T8KxEAwzh9d3+TraunStiSv+qPR/auH6m16SbpWflzt80Hb3Txv2ZSi0jMOanIG7/C8L+emNssZE6TJnmGhhuII8QBGLWTALhVDuN/buMy3uZsZBs58DsFI5/fvnha7Ip9QNfOte6R+zo=
+	t=1790605905; cv=none; b=sSnHh40TDJpegHIAgjVrNO2QRs67N6DpGDyQ/XmGeCPSDD9Qgv3Voie2OLFwN7Vn8QXJddAyUv6UUFZ8lSQ3Af8BfOh/R7Ivm6GqVju1/Z82fnil96R9kczLSJ7Ck1w20ISJu8ZbzASceaaDQEMHSfAMSlVfpuEd0vv9fX1IwWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605895; c=relaxed/simple;
-	bh=D3TXq3ux30ZNnfK6lC/HKLzji/G3Th4nc3cSemt7ugs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Qev4reIUJ4eKs6cKbqh+EMKch8w3mJiJQ5Vzou7hgKLCXFAvb2jJkf/Nyo0n0AKgJrDzU5684VlsIZLpJftypYASDWASle8Ux+T+5nJKZT/yN3SY9UBwSFaFB+CcVrhJcn7wtCL4wtnuuHt5HmdtMK4g46oO7QCJviXwuobq+B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=00aMNaGV; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790605905; c=relaxed/simple;
+	bh=yJwDlmn443Ax9kpKELDsQBpptC2XSPFpswbCdYGuVZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KFDeXeqmuJdVF4WT6eDVDRDIbwzyYYvCsNhnoTPft8C89Ukdp5JG7xWrPPUn2wzhUrYqvW0plPkGTKaIw4YSiXIj6zuRv+CGejva6E+JOotG3zXglefm1RRekbJ4+m+qKZeWaGiAm3c+yb4HaSw39JATdth6uob9/iIIdOpzw+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MOS1EdWx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IFc6fkqZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="00aMNaGV"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d07so2578026c88.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:31:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MOS1EdWx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IFc6fkqZ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAEIh2404322
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:31:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=fnEGeXO1CU+
+	HZ91pW3NLrROTKl2nGT8dwWEHiiWpE0w=; b=MOS1EdWxOybfBOix7icqGEJix+o
+	apWHm7pTzOj7QugvSyaGuoGVfeOc+UeR+lqpSg+tGWiMh2aMMz3XKdVPkzsqsDMk
+	my9Sk4Vt0vEiWx7p6ETG8/4HXQ1zN1LsisG94fc2nS+DdIKYMKz5qMnImJ3ABxER
+	4Xrb2rldPC+l/AhbGn+uNJxgvEsWv/3a6tV2pj1lssxRxQ1Hc3OS9XQrs5Q1W7aC
+	LUhrt/O4BBXYOZJr+lF+KHBcYz7ZtnbX0RcHEsBYRFPWyntcFy4Jf/l8Sd6aVUql
+	ykVBgI7Gc/Q3JsUYsqguq66kmDwoxJj89uY99wc7xzGjo0aLtkR/IqO8ljg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj6t1y37-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:31:37 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c846dd12ccso991687e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:31:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790605884; x=1791210684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1790605896; x=1791210696; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1z8ZKhhaN5u9NWisVj47vzqbZOwB7wmqGzyey1IEdyo=;
-        b=00aMNaGVqCsBfl/3kMvAjybg2Vic0g0YqY2HqJTRC6Q2Th1V1wJyLgQVmlOTsHSDb4
-         AKEa80v6S0UlWvhwrEY82BLapMF+5Lt1A5A+ucnzCQAC0zGPeXaSy2uKZs78+Kvt8pbJ
-         fb9dtu2ZNG5ZEXe45PgSkKfJUHoNqg0qNF+s0ydacdGlcQwxHxeXErNaukIeHKexvMTG
-         eHgw5rO0e0o9+rL0OTSHkc+AragEgST6rVHV5cjXDeZl3DiEfvBAMulO8gXjf9B1CAu/
-         3ZxYr/g+YMDSYPSIqm2NenDTIKVTHTZCOGsNI7Xm/h0BD9eeaVRiqZuKwvGBXlyROsd+
-         bMRg==
+        bh=fnEGeXO1CU+HZ91pW3NLrROTKl2nGT8dwWEHiiWpE0w=;
+        b=IFc6fkqZeMUIaB18a1wsQ/BvzquE7aiyVzqOYWimtPUBw/RCYwVw63wukhPCEQVMkp
+         eTf7+v2vfSCwSPxUZT7jGUhd4G8v4awddtqmjHuaqdn4InszgH8KLNsPFGcWmBgKG7ja
+         utMQVm2n5lcX6wHzSCZPGLOdXXfoti5PBkAt8zKmxQx0NSD03YIZjngOJTckz0qxbk1G
+         YTty/5128E57/Si+AVqEvbA6tFCgnGdSpM/Ji5MFYqBWmIeCowKO1FdKjrx2yIxK2K38
+         bEwVB8sSwFsxLORInoMwXhSEtMiD6PZBseBOXb4kpuxbr+BcvYJVS7P85X5AcMOEPssd
+         YH5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605884; x=1791210684;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1z8ZKhhaN5u9NWisVj47vzqbZOwB7wmqGzyey1IEdyo=;
-        b=Z26fqFDa26aGGCqf39MHmA6pcgEoUTG0dHGnX00AjcjnuQS4vwhFIprZAMmKugqtQj
-         /IZAQVtfU58wkkTCEDlJ0gtNrsi1qso/KQs6sV5PXkMQBAgk6xA05zYS6LKtRUGl/AwO
-         n9gFS43r22R5sYva1eA4f4GgxjKg4f4cAo8XdKjhP+Ijz191gsfbcyFKecND1iWHU79n
-         kWsFmjfdVUT5mfjerJWUe9croSNzqVbg6FvP6y8J5Sr8dvCzaIDFawo/fTNjnBFhTTzh
-         mL8IZPpj83f4qtibZzXvZrcjqKOZLpq7lZTNhZk3y8GbGsjqrL9mqFcV78nnlfUJp3yV
-         votQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwypeLU/R6F5zrItLYst3l/9EKV0bsr5BVVnF3MC0TSw++k+F/HVvuEa4wx/jp17o2ZnEnMKFzQ5+f2J0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHbuLjRvKyU1UHXlAdhVOyzAu46a10yeP1pu8QRokuRiFUCCK7
-	ctiooSWPV58K48nlp4D/+Mpxe/D4uY7lUtjcX1QUH5nSwgvrjiB4fnM8VtgP61NpoMo=
-X-Gm-Gg: AYBFou0w+ZWNSKG3RaX+n7yZvSbomT/kOynpgr8DN5tWJb3qE5PgjJGEmsnLuLpQxw/
-	yX0RQIrr4lX3L67/KJwzQ0kjthzauJ/5VyWDlRJ+K2mxkjZPr36f1Kgo32f19pg+EmF9xEdgecv
-	7zll5ZuFZsW/dS/4RoFHuwHuNR0hwbUqFB7gpCXunDd4Euc+aGGTQgJlHCb8geE25bXeiHeCTQ3
-	9ZdeoSquDBIq9JRiMxoVpMKH7qJmSVCUPV0qQxxW/HG0E5TGL0twhdB9ikrHJ/hzuYoxjgzGO9e
-	HATVMDYANJTwwhBx6FACZjrN9G6OmkAH870piUcAlo39b9ChI92VibRa3P6WCwc61FNVjutRfYV
-	rmb/PZwt43qG2ctlyA4HxpB4nJ065eYKK/YfHMSTEJuWvsUiuMyxofe/HeGLekbRLF3aXu3u74l
-	LqBhY67V0/p45iNUhajW6u6jVdB+YN9OQmKRxt28dVTh2NZhCU+XtLq94ZxpBc3VG+Gz7TU2380
-	+AH4nm7u5NGQX5gE32bz3YG6rWxPzdu4ifPcMdavizZkauTkwO/x6U17g==
-X-Received: by 2002:a05:701b:2616:b0:144:edc5:32d5 with SMTP id a92af1059eb24-146cfec8ddcmr8983096c88.22.1790605882718;
-        Mon, 28 Sep 2026 07:31:22 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm28616577c88.13.2026.09.28.07.31.21
+        d=1e100.net; s=20260707; t=1790605896; x=1791210696;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fnEGeXO1CU+HZ91pW3NLrROTKl2nGT8dwWEHiiWpE0w=;
+        b=xPciAU8pQxyO9dv1JKqePVmYeqN5g8PUzOwb3mq4hXwx8LWzI1V1Qr0BUfhEWWzg5G
+         /iNeMEQvny3cYONLKCzxLesPCM90ceiFyWtEFxtGKQcAuJprIgzmfgLM6FSGX+j7gooK
+         hHzqifgTONiYuIFbn6XJmLkHTaiD1VkExmrKWNUbpmcpx8xzxAEi8PvcKLy6chU6K78A
+         iq6LCLKamGMZiPd5FfVCCn0e7LKdf6PMDVK2wFo4mEMEaETde6BUfChdnqBBT5MNT3nh
+         yQOW9vrYQG0k5Y1ar0QCfqO8ajnXlJGujamKVzDc+H1v42yODFnGcaLu/xjIwlz67keW
+         ZJHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwXG7azD2FkahxwzARMI1CD+6IYNq4G1/sxqUxlpMPQTGOlmJkDx9Lt0yusK8fJVLGl36ZaGmtiH0EvKkc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZKftc7/FgGshjG+O8XgBhea88jdScIneJGQMcET3wv2l58cDl
+	Y8pBEQyr402j9OBhR+Grxs0c8DFgXXzMAfPrbxVQfee/AM3XHH1y2g2T8HD79vV4xVuNqpFJpBE
+	XOZQEaaeO8iIQHQYOjrcXx/Y3Q/U6bccKuHNiUs9barmYp6Cw+MmrTwvCuL5FWdqHaz4=
+X-Gm-Gg: AYBFou1lNXi/pZVXlinFIqhiYmjsMvxtMIAK7LaaZGecl9LXVtRcgBHdhWwyBgMFJd8
+	PZyFMcHsk7mEQsuJwIxhF0DrmiSvQ6ez1QpAkC64ofR0tR7N/Bnn1aqUobHnIYBcYoc3KOKpRtr
+	nP/heP/0xyZMozjHm15aH/69orQLn+nyfGgE4QcjPX6r8B0g/ZKfRCCDn/vCIHnGhueQ6sFCEBT
+	cUGLkmZivrgvPc+TgSF7w8fxIDMuuzp7XQvzYkVBmYnalZmDn6AiJm7E3pRboABxg0usjUIW5Aj
+	s09EJiNF0XG0yrCIFjjZDp6ahintMwBP+oFf8UsczsI0a/l3TUhxzDXuDT9+Gf2yQlJN6iUdizn
+	SbNjF4nLhBu9/0+pUkVOGHoxovY6rMJS1bl0ifg==
+X-Received: by 2002:a05:6102:3914:b0:7b3:b84b:ec61 with SMTP id ada2fe7eead31-7b3b84c1495mr1397630137.34.1790605895886;
+        Mon, 28 Sep 2026 07:31:35 -0700 (PDT)
+X-Received: by 2002:a05:6102:3914:b0:7b3:b84b:ec61 with SMTP id ada2fe7eead31-7b3b84c1495mr1397528137.34.1790605892520;
+        Mon, 28 Sep 2026 07:31:32 -0700 (PDT)
+Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bca9dsm292277066b.71.2026.09.28.07.31.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:31:21 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: lollipopkit <a@lolli.tech>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, 
- Willem de Bruijn <willemb@google.com>, io-uring@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260927074206.65427-1-a@lolli.tech>
-References: <20260927074206.65427-1-a@lolli.tech>
-Subject: Re: [PATCH] io_uring/cmd_net: end TX_TIMESTAMP multishot when the
- CQ is full
-Message-Id: <179060588158.984285.6234217255544312653.b4-ty@b4>
-Date: Mon, 28 Sep 2026 08:31:21 -0600
+        Mon, 28 Sep 2026 07:31:31 -0700 (PDT)
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+To: iommu@lists.linux.dev, kvm-riscv@lists.infradead.org, kvm@vger.kernel.org,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: tomasz.jeznach@linux.dev, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
+        palmer@dabbelt.com, tglx@kernel.org, anup@brainfault.org,
+        atish.patra@linux.dev, fangyu.yu@linux.alibaba.com,
+        zhangzhanpeng.jasper@bytedance.com, zong.li@sifive.com
+Subject: [RFC PATCH v3 01/14] iommu/riscv: Allocate MSI tables for second-stage domains
+Date: Mon, 28 Sep 2026 16:31:00 +0200
+Message-ID: <20260928143113.49838-2-andrew.jones@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
+References: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX/S9J9ZaZlzFz
+ CwJopmfoKUTKilnBNcPSyoyGcvq4Q6YhIzVDUjI17bg+RxdsGi3XqSo8zjiB/548Xoudugg+kW/
+ yjZIx/X2utPo/n19/SoT+G++Dyl+QogboiYPeNqKiFkfHmLjjlbalRFzJO5R4gBOyyuW4Q4TuSG
+ ukcuoW2sK6SuXN27UL0shsvZ2tiBRZv6t1VTxf4ak+oDky0DOvbjDqxvjZSNbCdncctm+8vS+QH
+ mlPa6pufs1CA2v9w4VDou3Kpu+jxwKWIuMigW4p50ebpN59NoXZYJmeIP3IM4SP3zrJdMxzKxwc
+ Md6C4nNxTKbp/bc9dyDsrmmjrXIs16Gw5idwwBsiI5X+nFCpGcW1q+pxuvY4eI8d9iA4IwmEsqP
+ dVhnVDEwy+SwvsHfo5P4lzik7m1Ra9jy5Oesdb4p1MGaaavqLybETFRej4PE7WjoxsZuEmwkEqk
+ fLhNnL7EPXt8QVFJ6tw==
+X-Proofpoint-ORIG-GUID: OLFxKPt4biVfU58oe0O182_nnGpc88Pq
+X-Authority-Analysis: v=2.4 cv=dZkVTnXe c=1 sm=1 tr=0 ts=6aba7a49 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=9ujTGIzx3EpO3AdiBq4A:9 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-GUID: OLFxKPt4biVfU58oe0O182_nnGpc88Pq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX5Ka3/ngEMm19
+ ZULYjj8OABj+KaBfvNWF/dnm1irFByFmDUYNmwllLxJ7/ijczZn8C/GEI8V36sdc1D0OSWdUY1E
+ s3E93yQk5doBJ4OjNf2GQpBjN1HyegY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280057
 
+IRQ bypass maps guest IMSIC addresses through a flat-mode MSI page
+table owned by the second-stage domain. Allocate the table lazily
+during device attachment when the attaching IOMMU supports MSI_FLAT,
+and free it when the domain is destroyed.
 
-On Sun, 27 Sep 2026 15:42:06 +0800, lollipopkit wrote:
-> SOCKET_URING_OP_TX_TIMESTAMP arms an EPOLLERR apoll multishot and, on
-> each error queue edge, posts one 32 byte aux CQE per timestamp skb. Aux
-> CQEs have no overflow backing, so io_uring_cmd_post_mshot_cqe32() fails
-> once the CQ ring is full. The loop then stops, splices the unprocessed
-> skbs back onto sk_error_queue and returns -EAGAIN.
-> 
-> -EAGAIN is IOU_RETRY, so the request goes idle until the next poll
-> event. io_arm_apoll() forces EPOLLET and draining the CQ does not re-run
-> the command, so the spliced-back timestamps stay queued until an
-> unrelated later timestamp produces a new edge.
-> 
-> [...]
+The required capacity depends on hypervisor support and VMM policy.
+Expose the runtime-writable riscv_iommu.nr_msi_ptes parameter to set the
+MSI table capacity of new second-stage domains. It defaults to 512
+entries (8 KiB), and zero disables MSI table allocation for new domains.
+Existing domains retain the capacity selected when they were created.
 
-Applied, thanks!
+Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+---
+ drivers/iommu/riscv/iommu.c | 61 +++++++++++++++++++++++++++++++++++++
+ drivers/iommu/riscv/iommu.h |  7 +++++
+ 2 files changed, 68 insertions(+)
 
-[1/1] io_uring/cmd_net: end TX_TIMESTAMP multishot when the CQ is full
-      commit: 3a3d93070c5ec8b8049d57025987ba313420bda9
-
-Best regards,
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index 0953aaf594cb..3bbb4d0d0a85 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -22,6 +22,8 @@
+ #include <linux/iopoll.h>
+ #include <linux/irqchip/riscv-imsic.h>
+ #include <linux/kernel.h>
++#include <linux/moduleparam.h>
++#include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/generic_pt/iommu.h>
+ 
+@@ -30,6 +32,16 @@
+ #include "iommu-bits.h"
+ #include "iommu.h"
+ 
++#undef MODULE_PARAM_PREFIX
++#define MODULE_PARAM_PREFIX "riscv_iommu."
++
++#define RISCV_IOMMU_DEFAULT_NR_MSI_PTES	512
++
++/* A zero value disables guest MSI table allocation. */
++static unsigned int riscv_iommu_nr_msi_ptes = RISCV_IOMMU_DEFAULT_NR_MSI_PTES;
++module_param_named(nr_msi_ptes, riscv_iommu_nr_msi_ptes, uint, 0644);
++MODULE_PARM_DESC(nr_msi_ptes, "Number of PTEs for new second-stage domains (default: 512)");
++
+ /* Timeouts in [us] */
+ #define RISCV_IOMMU_QCSR_TIMEOUT	150000
+ #define RISCV_IOMMU_QUEUE_TIMEOUT	150000
+@@ -847,8 +859,10 @@ struct riscv_iommu_domain {
+ 	};
+ 	struct list_head bonds;
+ 	spinlock_t lock;		/* protect bonds list updates. */
++	struct mutex mutex;		/* serialize domain state updates */
+ 	int pscid;
+ 	int gscid;
++	struct riscv_iommu_msi_table msi_table;
+ };
+ PT_IOMMU_CHECK_DOMAIN(struct riscv_iommu_domain, riscvpt.iommu, domain);
+ 
+@@ -1303,6 +1317,7 @@ static void riscv_iommu_free_paging_domain(struct iommu_domain *iommu_domain)
+ 		ida_free(&riscv_iommu_gscids, domain->gscid);
+ 
+ 	pt_iommu_deinit(&domain->riscvpt.iommu);
++	iommu_free_pages(domain->msi_table.root);
+ 	kfree(domain);
+ }
+ 
+@@ -1338,6 +1353,37 @@ static bool riscv_iommu_iohgatp_supported(struct riscv_iommu_device *iommu,
+ 	return false;
+ }
+ 
++static int riscv_iommu_msi_table_alloc(struct riscv_iommu_domain *domain,
++				       struct riscv_iommu_device *iommu)
++{
++	struct riscv_iommu_msi_table *msi_table = &domain->msi_table;
++	struct riscv_iommu_msipte *root;
++	size_t size;
++
++	if (!(iommu->caps & RISCV_IOMMU_CAPABILITIES_MSI_FLAT))
++		return 0;
++
++	guard(mutex)(&domain->mutex);
++
++	if (msi_table->root)
++		return 0;
++
++	if (!msi_table->nr_ptes)
++		return 0;
++
++	size = array_size(msi_table->nr_ptes, sizeof(*msi_table->root));
++	if (size == SIZE_MAX)
++		return -EOVERFLOW;
++
++	root = iommu_alloc_pages_node_sz(NUMA_NO_NODE, GFP_KERNEL_ACCOUNT, size);
++	if (!root)
++		return -ENOMEM;
++
++	msi_table->root = root;
++
++	return 0;
++}
++
+ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 					    struct device *dev,
+ 					    struct iommu_domain *old)
+@@ -1347,6 +1393,7 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
+ 	struct pt_iommu_riscv_64_hw_info pt_info;
+ 	struct riscv_iommu_dc dc = {0};
++	int ret;
+ 
+ 	pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
+ 
+@@ -1354,6 +1401,10 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 		if (!riscv_iommu_iohgatp_supported(iommu, pt_info.iohgatp_mode))
+ 			return -ENODEV;
+ 
++		ret = riscv_iommu_msi_table_alloc(domain, iommu);
++		if (ret)
++			return ret;
++
+ 		dc.iohgatp =
+ 			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
+ 			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_GSCID, domain->gscid) |
+@@ -1425,6 +1476,7 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
+ 
+ 	INIT_LIST_HEAD_RCU(&domain->bonds);
+ 	spin_lock_init(&domain->lock);
++	mutex_init(&domain->mutex);
+ 	iommu = dev_to_iommu(dev);
+ 	cfg.common.hw_max_oasz_lg2 = 56;
+ 	/*
+@@ -1484,6 +1536,15 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
+ 			ret = -ENOMEM;
+ 			goto err_free;
+ 		}
++
++		/*
++		 * Capture the current number of MSI PTEs now since it must remain
++		 * stable for the lifetime of the domain.
++		 */
++		kernel_param_lock(THIS_MODULE);
++		domain->msi_table.nr_ptes = riscv_iommu_nr_msi_ptes;
++		kernel_param_unlock(THIS_MODULE);
++
+ 		cfg.common.features |= BIT(PT_FEAT_RISCV_S2);
+ 		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
+ 			domain->domain.dirty_ops = &riscv_iommu_dirty_ops;
+diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
+index 6d5c70e9ac6d..6bea9da71ff3 100644
+--- a/drivers/iommu/riscv/iommu.h
++++ b/drivers/iommu/riscv/iommu.h
+@@ -68,6 +68,13 @@ struct riscv_iommu_device {
+ 	u64 *ddt_root;
+ };
+ 
++struct riscv_iommu_msi_table {
++	unsigned int nr_ptes;
++	struct riscv_iommu_msipte *root;
++	u64 msi_addr_mask;
++	u64 msi_addr_pattern;
++};
++
+ int riscv_iommu_init(struct riscv_iommu_device *iommu);
+ void riscv_iommu_remove(struct riscv_iommu_device *iommu);
+ void riscv_iommu_disable(struct riscv_iommu_device *iommu);
 -- 
-Jens Axboe
-
-
+2.43.0
 
