@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3087E4963AC
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AE547A884
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633753; cv=none; b=lLdMD595O5HLToWua3ZaxEjK1GpYaOpxS9LUmaQWBFF8gT8TRx0LE30eqq23bbad7cPU0T1sLkRMaQvtXTYEJAtvCZs7nE1IslMiWt2lfmN3QKBr1Eu0wzWyezj368ma17RcYPvzj1DfbsKFCRdWVgFD5nlh0Q247tZz3mPHQO4=
+	t=1790633753; cv=none; b=Qu1xGO8tVQRcngFVyYbI4dpWZvWMmFCD+b5MHxtSVKaUhSqAInTqi60ItcfLx6/iE8mrjwojhl6Nbs5IBDdbM7Lg69WgQf790VMto69hMsl6xVep451vN7Ceg9jSUBUxG9GUfvbIgTC5c3jAq5v8ZVpKaKx/23fEQwBhdL2cZnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790633753; c=relaxed/simple;
-	bh=DT3DfvF3f0sbQAD5c8abiTRdsPBJ8FNfyz4tDtt/JK4=;
+	bh=CrZns2872YAXZAGLZf8Ixtm78iyRWhipHBsf/gJfUR0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mKPlfvZEm7Isw9KUUxPWx7M+qzFAo/eu5A5t0//ZWjy+wlKCdEzEjugz6boX7M9QymsBncFUAbm2tgMaKuKCrpKULH13bMpQkjn1/4UJFM/+E/+K9OHrWWdKXwpTD/FtfXOdDFuGdSv3hILIZrhxTjgrNaSBR+43ZxkIH3/pc5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ShpkTqQ3; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=nXEaU/n3mX2HpdoeNvzP+3RkCPn55qLYiIFu1dt3Ckua8YUTF52yIqVaRVlCtTG5rqorsbh2VzECZlXjZ+tl242kA58uicnJ5Vwvc0TdPPzWOMb1VihY/cAY1HckKer6LGxWs8EbFumRkiSsTkJCHynVZMYOD21snyAmVzlmgTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VHTSgA1r; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ShpkTqQ3"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VHTSgA1r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790633752; x=1822169752;
+  t=1790633748; x=1822169748;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=DT3DfvF3f0sbQAD5c8abiTRdsPBJ8FNfyz4tDtt/JK4=;
-  b=ShpkTqQ30AzFIqEU1qaoBK7f1bTvbbT8rf8+sarKNW86PPvNlX7IlbKa
-   Du1sZ3TWf7uaL0XZPE5B/MeIrxLfR+dzsdlvgaKPkM2vmv2Z0SgodOjdK
-   f9KaKpjbKr4tiJevpMAH0JzBumGzZYqK88iOZ3gGrG0iITVQAuPaFwN3U
-   NBfL0WnZ7WGGRCD2o2t/dmYvOL9oqZgDx3E69R8WdOSA9bwExtEMF8jrp
-   r8hwllyR267bMN+v7VGwVy9Kcx/q4U+EOmbhpzFbaSVQ6QAPUFvxBSAZl
-   3znASxeY2oBqEt7U3MgVJLhF5UrN/QsX+NIkKsZ44aNse8Bw13dv2z/mS
-   A==;
-X-CSE-ConnectionGUID: f8QS00evRmervpERJhz2EQ==
-X-CSE-MsgGUID: ISwDbtB+SsOH2LM715Vv0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90387327"
+  bh=CrZns2872YAXZAGLZf8Ixtm78iyRWhipHBsf/gJfUR0=;
+  b=VHTSgA1rqJ0E1A62VDunnFBd/5DLtUGI3jO0dF9EStOfyGSlhaYhqXy1
+   l4NEYpqqhzQHSsEdAVVCUMVr2teojoo7mQA9OXGPNjT8/4RKvkOSvGvJG
+   U8ls/yfGA2aaX4v9Rp+QFug+HYsuIFbjkdsgpFszX9LHDHrbFWKYAnszy
+   nhY+nIEmWK7YaaZwyQPCmSHcfq78EWJehJ38UdYHiAb3zJJwI2KoMS5vg
+   tB/KqE/uY0bJhrSbchp9pmFPjKyomBQkYrneiaNwYLU7BXRsTrSvSGLNA
+   VySIqWqwFjG6gVuxgcHUuwK3vu+En5RrLYk4jL4A9huDjUWv0KcfYdjUN
+   Q==;
+X-CSE-ConnectionGUID: AcWt3JAqTEWYmZSxxdDQ0w==
+X-CSE-MsgGUID: 0NkRPJ+mRTq50F9FR1yRFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90387310"
 X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="90387327"
+   d="scan'208";a="90387310"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:15:20 -0700
-X-CSE-ConnectionGUID: J6cIuh6OQXOpygcPKy+NsQ==
-X-CSE-MsgGUID: pb/yh1xhSW6j0yGVXt+bkA==
+X-CSE-ConnectionGUID: jgSydQ6JTqCEHRIbxiYoLQ==
+X-CSE-MsgGUID: 7ughns9VSpea1YYsElzxXQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
-   d="scan'208";a="274685533"
+   d="scan'208";a="274685525"
 Received: from lstrano-mobl6.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.222.143])
   by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 15:15:19 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v13 20/25] x86/resctrl: Enforce system RMID limit on AET
-Date: Mon, 28 Sep 2026 15:15:04 -0700
-Message-ID: <20260928221509.68002-21-tony.luck@intel.com>
+Subject: [PATCH v13 18/25] x86/resctrl: Use registered function pointers for AET enumeration
+Date: Mon, 28 Sep 2026 15:15:02 -0700
+Message-ID: <20260928221509.68002-19-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928221509.68002-1-tony.luck@intel.com>
 References: <20260928221509.68002-1-tony.luck@intel.com>
@@ -73,85 +73,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-AET (Application Energy Telemetry) event groups each support a specific
-number of RMIDs. But that number may be higher than the number supported
-by the system.
+The pmt_telemetry driver registers enumeration functions with resctrl
+Application Energy Telemetry (AET) code.
 
-Ensure that info/PERF_PKG_MON/num_rmids does not display an unachievable
-value to users by capping the maximum supported RMIDs in the resource to
-the system maximum.
+Use the function pointers instead of direct function calls in preparation
+for the telemetry driver to be a loadable module.
+
+The pmt_telemetry is forced to be built-in to the kernel, so it does not matter
+at this point that there is no matching module_put() for the try_module_get()
+in intel_aet_pre_mount(). This must be resolved with additions in the file
+system unmount path before pmt_telemetry can be configured as a module.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v13:
-	Drop sentence about SNC reducing number of RMIDs as it isn't
-	relevant.
+	Replace intel_pmt_put_feature_group() call in intel_aet_exit()
+	with call via registered function pointer.
 
-	s/lower/higher/ in commit message.
-
-	s/IA32_PQR_ASSOC.RMID/MSR_IA32_PQR_ASSOC.RMID/
-
-	Changed pqr_assoc_num_rmid from static to global.
-
-	Move clamp from arch/x86/kernel/cpu/resctrl/core.c to
-	arch/x86/kernel/cpu/resctrl/intel_aet.c
+	Explain in commit comment that pmt_telemetry is built-in so the
+	try_module_get() is a no-op.
 ---
- arch/x86/kernel/cpu/resctrl/internal.h  | 2 ++
- arch/x86/kernel/cpu/resctrl/core.c      | 2 +-
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 7 +++++++
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ arch/x86/kernel/cpu/resctrl/internal.h  |  4 +--
+ arch/x86/kernel/cpu/resctrl/core.c      |  2 +-
+ arch/x86/kernel/cpu/resctrl/intel_aet.c | 37 ++++++++++++++++++++++---
+ 3 files changed, 36 insertions(+), 7 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index c66954bc01e7..1f080aad1b67 100644
+index c038b7d80ce3..8406addc05f5 100644
 --- a/arch/x86/kernel/cpu/resctrl/internal.h
 +++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -153,6 +153,8 @@ extern struct rdt_hw_resource rdt_resources_all[];
+@@ -234,15 +234,15 @@ void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
+ void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
  
- extern bool intel_rdt_mbm_need_quirk;
- 
-+extern u32 pqr_assoc_num_rmid;
-+
- void arch_mon_domain_online(struct rdt_resource *r, struct rdt_l3_mon_domain *d);
- 
- /* CPUID.(EAX=10H, ECX=ResID=1).EAX */
+ #ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
+-bool intel_aet_get_events(void);
+ void __exit intel_aet_exit(void);
++bool intel_aet_pre_mount(void);
+ int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
+ void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
+ 				struct list_head *add_pos);
+ bool intel_handle_aet_option(bool force_off, char *tok);
+ #else
+-static inline bool intel_aet_get_events(void) { return false; }
+ static inline void __exit intel_aet_exit(void) { }
++static inline bool intel_aet_pre_mount(void) { return false; }
+ static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
+ {
+ 	return -EINVAL;
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 40466f29e48e..689b9e31fe7a 100644
+index 0262174df7ad..ac67b4523b2d 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -46,7 +46,7 @@ static DEFINE_MUTEX(domain_list_lock);
- DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
+@@ -795,7 +795,7 @@ void resctrl_arch_pre_mount(void)
+ 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
+ 	int cpu;
  
- /* Number of unique RMID values that can be written to MSR_IA32_PQR_ASSOC.RMID */
--static u32 pqr_assoc_num_rmid;
-+u32 pqr_assoc_num_rmid;
- 
- static void mba_wrmsr_intel(struct msr_param *m);
- static void cat_wrmsr(struct msr_param *m);
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-index 8aa2e18a6bbb..e64e5a44511f 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -274,6 +274,12 @@ static bool enable_events(struct event_group *e, struct pmt_feature_group *p)
- 	else
- 		r->mon.num_rmid = e->num_rmid;
- 
-+	/*
-+	 * AET may claim to support more RMIDs than are permitted to be
-+	 * assigned to MSR_IA32_PQR_ASSOC.RMID. Enforce this limit.
-+	 */
-+	r->mon.num_rmid = min(r->mon.num_rmid, pqr_assoc_num_rmid);
-+
- 	if (skipped_events)
- 		pr_info("%s %s:0x%x monitoring detected (skipped %d events)\n", r->name,
- 			e->pfname, e->guid, skipped_events);
-@@ -391,6 +397,7 @@ void intel_aet_unmount(void)
- 	struct event_group **peg;
- 
- 	guard(mutex)(&aet_register_lock);
-+
- 	if (!pmt_in_use)
+-	if (!intel_aet_get_events())
++	if (!intel_aet_pre_mount())
  		return;
  
+ 	/*
+diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+index 6c4f0bf3b876..fbe0a8761bb9 100644
+--- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
++++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt)   "resctrl: " fmt
+ 
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/compiler_types.h>
+ #include <linux/container_of.h>
+ #include <linux/cpumask.h>
+@@ -25,6 +26,7 @@
+ #include <linux/io.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/printk.h>
+ #include <linux/rculist.h>
+ #include <linux/rcupdate.h>
+@@ -293,6 +295,13 @@ static enum pmt_feature_id lookup_pfid(const char *pfname)
+ 	return FEATURE_INVALID;
+ }
+ 
++/*
++ * Protects pmt_module, get_feature, put_feature against races between module
++ * load/unload of the pmt_telemetry module and mount/unmount of the resctrl
++ * file system.
++ */
++static DEFINE_MUTEX(aet_register_lock);
++
+ static struct module *pmt_module;
+ static struct pmt_feature_group *(*get_feature)(enum pmt_feature_id id);
+ static void (*put_feature)(struct pmt_feature_group *p);
+@@ -308,7 +317,7 @@ static void (*put_feature)(struct pmt_feature_group *p);
+  * struct pmt_feature_group to indicate that its events are successfully
+  * enabled.
+  */
+-bool intel_aet_get_events(void)
++static bool aet_get_events(void)
+ {
+ 	struct pmt_feature_group *p;
+ 	enum pmt_feature_id pfid;
+@@ -317,14 +326,14 @@ bool intel_aet_get_events(void)
+ 
+ 	for_each_event_group(peg) {
+ 		pfid = lookup_pfid((*peg)->pfname);
+-		p = intel_pmt_get_regions_by_feature(pfid);
++		p = get_feature(pfid);
+ 		if (IS_ERR_OR_NULL(p))
+ 			continue;
+ 		if (enable_events(*peg, p)) {
+ 			(*peg)->pfg = p;
+ 			ret = true;
+ 		} else {
+-			intel_pmt_put_feature_group(p);
++			put_feature(p);
+ 		}
+ 	}
+ 
+@@ -335,6 +344,7 @@ void intel_aet_register_enumeration(struct module *module,
+ 				    struct pmt_feature_group *(*get)(enum pmt_feature_id id),
+ 				    void (*put)(struct pmt_feature_group *p))
+ {
++	guard(mutex)(&aet_register_lock);
+ 	get_feature = get;
+ 	put_feature = put;
+ 	pmt_module = module;
+@@ -343,19 +353,38 @@ EXPORT_SYMBOL_NS_GPL(intel_aet_register_enumeration, "INTEL_PMT");
+ 
+ void intel_aet_unregister_enumeration(void)
+ {
++	guard(mutex)(&aet_register_lock);
+ 	pmt_module = NULL;
+ 	get_feature = NULL;
+ 	put_feature = NULL;
+ }
+ EXPORT_SYMBOL_NS_GPL(intel_aet_unregister_enumeration, "INTEL_PMT");
+ 
++bool intel_aet_pre_mount(void)
++{
++	guard(mutex)(&aet_register_lock);
++
++	if (!get_feature || !put_feature)
++		return false;
++
++	if (!try_module_get(pmt_module))
++		return false;
++
++	if (!aet_get_events()) {
++		module_put(pmt_module);
++		return false;
++	}
++
++	return true;
++}
++
+ void __exit intel_aet_exit(void)
+ {
+ 	struct event_group **peg;
+ 
+ 	for_each_event_group(peg) {
+ 		if ((*peg)->pfg) {
+-			intel_pmt_put_feature_group((*peg)->pfg);
++			put_feature((*peg)->pfg);
+ 			(*peg)->pfg = NULL;
+ 		}
+ 	}
 -- 
 2.55.0
 
