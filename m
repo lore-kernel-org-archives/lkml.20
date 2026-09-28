@@ -1,129 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285113546FE;
-	Mon, 28 Sep 2026 17:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5A94E020A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617810; cv=none; b=u324aXF56Pc4Lj0xk0suXS7kMne5VW7KZSdHC2/FQLoyBLuLQ+3uGQt9W9vft0VuqUblLj9SFBlq9ylkHP77Hxjr+0mZmDq4QXCTPRQmUxi+h06aWCJ3NdnnF2ECOTH+i+8JkNbM3gxXi/MNND1zd+572awL6bW6axKJPpbegZs=
+	t=1790617821; cv=none; b=fkZlJRMGxRef3uZH/N/jXmVlUBlglCLnq8zhrJiisI55CS74pH2/jUaw+nu9Havnu49wvgtBkz4HiTnsfLdLLARITa3B5YGMa0GeVj0a/OnQl+jmadwrsXYAWX6ig2QmsflszQ0yZW7qunNdNK5Pe66p9Fo1yASD6jISVQrR5uE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617810; c=relaxed/simple;
-	bh=u/E59QhchBsakfNPPqr6eKRHZdqiWw1FvCI9GEDCeFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fc/h7WXBiNx614J+45tghZv8S5GiPorXd9GsGPymd9yACZxK/j1mdZp1Ry9zxRd3ifd8EvnV0ViA8yusYieeZhyNXB4gx1x3cFvhjzVIKKWU6WBnev6q03JzoXENBbkr80Ms12XY4RNmbB7L+fXBNk5tpIc7mgLZjvUYAwK3kAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjJm0noY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790617821; c=relaxed/simple;
+	bh=Vo7tiaS4qd/hQI2D/pUUMf1JmeMr8vHttgciIKPZ3t0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LIk+arA4aGaNdeE3UW0MWMY7WaRfWQZx/93OuzrEm9K7riKU/s6eBIaojxMo830GJ1rgiY26oSUSkIOW5UfP8JM6wDBwcX29dM2aGyea/o+MvXbU6kPcyIyERiViGFThHYiRa2+0k/VkvaaeEh+pGZS2oDpk7Kkbxo/TIZSfEJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LeIbOH1m; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjJm0noY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F290B1F000FF;
-	Mon, 28 Sep 2026 17:49:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790617809;
-	bh=dJBj7jrhd8l/3+1i/MYD1Oe07SV8AbeGkY/QzpcIlXk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KjJm0noY+sn5WykpEMYX/0cqYF5OZAonPsiiMo8gsrJp3dbtWXzQ+MUuPiGJZJA0x
-	 6jLqI4XrjH/ECSiSdsjKSDEcOX8VHNjxTUmFetbOQTlOnUn092Xi9vWRpAgkcyI7cV
-	 VEdR4+s8FUt72QAhYPACB1DPHc7Kdjz2uCMGh47V7dCsVAU9tDI9stHRuVWg4VowUL
-	 wsubuRL7tSu1HVvPbp8bYrkCi5Pwl78yS8X19cLVqL1XZl7poDdf3RukkTBc6rpsfh
-	 AjjBKhJEyZefMZQzGawiz22PfrG9g5f1MlSZXvtXI+fxD2E2qzuSdugjHmvJG38tDb
-	 U9iSc28s9bD3A==
-Date: Mon, 28 Sep 2026 18:49:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Jan Sebastian =?utf-8?B?R8O2dHRl?= <linux@jaseg.de>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
-	Benjamin Marzinski <bmarzins@redhat.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>, 
-	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kexec@lists.infradead.org, driver-core@lists.linux.dev, 
-	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
-	linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
-Subject: Re: [PATCH v3 00/12] CRASH_MEMACTION: describe pages to a kdump
- kernel (was: CRASH_WIPE_SECRETS)
-Message-ID: <arqli0H0v5qPG22z@gremlin>
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LeIbOH1m"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7a15ba46fso718517a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790617819; x=1791222619; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kUOcs/vLJRWuvXVgcchrSjRSXVJyt3AuDbAQ0AxA9eE=;
+        b=LeIbOH1mJLd7K8xq17V1Nb8ISWjQ7/imlcR6yI3oiBzxS5yZROzhAE4Bqa213zhnj2
+         J/hIUQv2E6nBcSoKpX6HL7AbsBVsO/qrIpCxPQsCdccBwvRJIyPBoWx0eRzxpUMkS4Im
+         r/VEt0W4YyAxRC0MMvpmyfiub7eTh3xBM1zOA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617819; x=1791222619;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kUOcs/vLJRWuvXVgcchrSjRSXVJyt3AuDbAQ0AxA9eE=;
+        b=KQJq5FfwxNMgCE3l9lNLNSQIPDjQNkhP7McPWxk8/jPndS6fLxjcnSVuGYpjT28ygy
+         JjJJHEucXbTNcaAhTTuUu5Zk/1br0fUTITyEzLBBDQ/uDlLntyKnleY6xM9V3xm5xeLw
+         Fduvxy2dx0fhYLzT662iFEU4uYoFYPmvAxOis6F+oh54waIblyNNZ2luwtilCXn5IOJq
+         8XMR62KpsOhAkbqniGh/8lRk+4AfbFW69pKwWbRCOp629d3q5gO7hUks9qOy5GRq1iqC
+         4Lk6zMyairuBxOyz4fv9sam0EuSNlqhVON2jyhgp2c5Nelgclz13ReEXn6dp45DBwky+
+         dwDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoDu0yuRXoXVMj76Mq5htFZKBosycx51AwkB+F5G0ojfqI1DSPdYLoPOb9EmPr32ArHUdnThhmLjPdV9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmgnT5aKzaOvVK9oQaNi0V2DzS+B9fRJbMsWJgl/isVYvxZOLC
+	EgDN2T35mjA+evKvr1vNvKAA19Q/LqKd+pxproyxTbvCggmB9eEl2x5SSYxv/0Pyw76OK/nuPz1
+	Bq/iU3w==
+X-Gm-Gg: AYBFou2RUtNXhllp2w6HlL7f7R+RiNQ/qJMz+fyAq8qj5uyFesGNzQv02d6WLmC83jb
+	/2ONEsIlXQONlEniidB3kwxm2Ak6+TrRySEKflGJ87j0WTIGeusZ0GjmTcbnkFlstTLm1OD/qLG
+	z85tjNX7XnhLEu3lARZ6wc2EBB/kdzpi0znFsKVipWXipEeJZdETdJlbFHPwu4FPPB38n+8tF0L
+	8gU5JogjT0ymSl0OlaBWvITX9yZ5MGnJouTDMTYd7O5Q4Qcva6EJzGrSSvvXTpn/bRohmp57+Em
+	dx6u5AJTsmYIelPto4LXEFZ25XXUJ25UqUP/KLvuWGVM322LNJOm3ayMQ3HFJcezjbo+wVzBTjF
+	NvUaP0W4G5V1dnlCMptUeh9c74moCj73XEXdX4HZGcnGwdyIZ2j6h0H0m05vvzD1cyYy+zRR66k
+	g4yBOJKwYZdhoyUEf87KFgAJR1aZxaNOT541SEEI4ALzryrBbkl0BzJzar0ztfLonAijXDK8N/U
+	n2hGyF07cdTR1aEQuJT61APQuo20XcMkEc6
+X-Received: by 2002:a17:90b:4c50:b0:3a0:d823:c74a with SMTP id 98e67ed59e1d1-3a0d823cb89mr6771204a91.65.1790617818885;
+        Mon, 28 Sep 2026 10:50:18 -0700 (PDT)
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com. [74.125.229.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49869b9fasm695966a91.12.2026.09.28.10.50.17
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 10:50:18 -0700 (PDT)
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34abf779ac9so360525eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:50:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByiRW3/cFRMiLXjJz+NiUnEH/NqcM05C2nnloagq1ANuUpPVL0vI2YRVZEug/zUv/vInmyOY7qXOXhb7w8=@vger.kernel.org
+X-Received: by 2002:a05:7022:5f08:b0:143:2982:1043 with SMTP id
+ a92af1059eb24-146d039e75bmr8017356c88.36.1790617816308; Mon, 28 Sep 2026
+ 10:50:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+References: <20260928152416.766957-1-jordan.mymail@gmail.com> <20260928152416.766957-3-jordan.mymail@gmail.com>
+In-Reply-To: <20260928152416.766957-3-jordan.mymail@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 19:50:01 +0200
+X-Gmail-Original-Message-ID: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
+X-Gm-Features: AclHuK-Ewb6GQzGWa58AXBEImlBnO_UZyyEBA5b-FDYbjUaORX1kCvkIJxuHdec
+Message-ID: <CANiDSCv4R-ogez_NaXdx+q+ejQLKhPTqdR6Dx1-HAk6Y3EHKsQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] media: uvcvideo: generalise the XU flags fixup to
+ all controls
+To: Michael Jordan <jordan.mymail@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 28, 2026 at 07:17:48PM +0200, Jan Sebastian Götte wrote:
-> I'm using linux on an embedded target in a Hardware Security Module-like
-> application. One requirement is that I want the system to be able to
-> quickly erase its memory when it detects physical tampering. I'm
-> approaching that by using kdump to load into a small payload that
-> instead of dumping RAM, erases RAM frmo start to end. However, writing
-> all of RAM, especially on an embedded target, is rather slow. For this
-> reason, I propose a new crash_memaction mechanism that lets the old
-> kernel indicate marked memory areas to the kdump kernel at page
-> granularity.
+Hi Michael
 
-Sorry this all seems really invasive for what seems to be a very specific
-use case.
 
-In general, with big changes like this, you should send the series as an
-RFC.
+On Mon, 28 Sept 2026 at 17:24, Michael Jordan <jordan.mymail@gmail.com> wrote:
+>
+> uvc_ctrl_fixup_xu_info() overrides the flags of controls whose GET_INFO
+> reply is known to be wrong, but is only called for extension unit
+> controls. Standard controls can have the same problem.
+>
+> Rename it to uvc_ctrl_fixup_flags() and call it from
+> uvc_ctrl_get_flags(), which handles all controls. When an entry
+> matches, skip the GET_INFO request, as its result would be overridden.
+>
+> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Assisted-by: Claude:claude-fable-5
 
-Please send any future revisions of this as an RFC.
+nit: I think that the current way is to not mention the model version
 
-The bar for a new VMA flag, a new madvise() flag, etc. is really quite
-high, and I've already noticed what looks like quite buggy code glancing
-through.
+Assisted-by: LLM
 
-And again, I really don't think your case sounds all that compelling for
-general users, given how invasive the changes are, so I strongly suggest
-you rethink your approach.
+https://docs.kernel.org/process/coding-assistants.html#attribution
 
-In any case, as a newcomer to mm, we really ask that people start with
-smaller changes and build up gradually, a change like this really should
-only be done by somebody with an established reputation in the kernel.
+If you need to respin please fix it, but maybe Hans or Laurent fix it for you.
 
-In general re: AI-generated code see
-https://docs.kernel.org/process/generated-content.html
+Regards!
+> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
+>  1 file changed, 50 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index aceb263103e9..64c90c380d3d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
+>   * Dynamic controls
+>   */
+>
+> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
+> +                                const struct uvc_control *ctrl,
+> +                                struct uvc_control_info *info)
+> +{
+> +       struct uvc_ctrl_fixup {
+> +               struct usb_device_id id;
+> +               u8 entity;
+> +               u8 selector;
+> +               u8 flags;
+> +       };
+> +
+> +       static const struct uvc_ctrl_fixup fixups[] = {
+> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +       };
+> +
+> +       unsigned int i;
+> +
+> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> +                       continue;
+> +
+> +               if (fixups[i].entity == ctrl->entity->id &&
+> +                   fixups[i].selector == info->selector) {
+> +                       info->flags = fixups[i].flags;
+> +                       return true;
+> +               }
+> +       }
+> +
+> +       return false;
+> +}
+> +
+>  /*
+>   * Retrieve flags for a given control
+>   */
+> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
+>         u8 *data;
+>         int ret;
+>
+> +       /*
+> +        * Some devices report bogus capabilities through GET_INFO. If the
+> +        * fixup table covers this control, take the flags from the table and
+> +        * skip the query altogether.
+> +        */
+> +       if (uvc_ctrl_fixup_flags(dev, ctrl, info))
+> +               return 0;
+> +
+>         data = kmalloc(1, GFP_KERNEL);
+>         if (data == NULL)
+>                 return -ENOMEM;
+> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
+>         return ret;
+>  }
+>
+> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
+> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
+> -{
+> -       struct uvc_ctrl_fixup {
+> -               struct usb_device_id id;
+> -               u8 entity;
+> -               u8 selector;
+> -               u8 flags;
+> -       };
+> -
+> -       static const struct uvc_ctrl_fixup fixups[] = {
+> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
+> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> -       };
+> -
+> -       unsigned int i;
+> -
+> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
+> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
+> -                       continue;
+> -
+> -               if (fixups[i].entity == ctrl->entity->id &&
+> -                   fixups[i].selector == info->selector) {
+> -                       info->flags = fixups[i].flags;
+> -                       return;
+> -               }
+> -       }
+> -}
+> -
+>  /*
+>   * Query control information (size and flags) for XU controls.
+>   */
+> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
+>                 goto done;
+>         }
+>
+> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
+> -
+>         uvc_dbg(dev, CONTROL,
+>                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
+>                 info->entity, info->selector, info->size,
+> --
+> 2.43.0
+>
 
-	If tools permit you to generate a contribution automatically, expect
-	additional scrutiny in proportion to how much of it was generated.
 
-	As with the output of any tooling, the result may be incorrect or
-	inappropriate. You are expected to understand and to be able to defend
-	everything you submit. If you are unable to do so, then do not submit the
-	resulting changes.
-
-	If you do so anyway, maintainers are entitled to reject your series without
-	detailed review.
-
-Thanks!
-
---
-Cheers, Lorenzo
+-- 
+Ricardo Ribalda
