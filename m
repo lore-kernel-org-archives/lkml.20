@@ -1,74 +1,72 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947A33DD866
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89274BD794
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790609904; cv=none; b=dJqeCORO/r/MgyQGhLaAIgjiRZEDrMfsSOcBwM4ZyWhnE6kmVBz/9gciv4V72pLCSIqhEIFTVskaOiBlU5k8bbGuCPu4PtUwFqUcogBpxUpigFonXNL/9NHcqTyMKJaJYIimCCbG3Ify+dd0ZQMY/0TkfzuXNdPoSQgzEZ3zh7o=
+	t=1790609954; cv=none; b=uJ/RMkUTx8Ux4VHuyiM8dEl9M2AG6n3O/5jFImMs9QAWjkPfV+0cUV/brAMtmA2a+OGTYLyY5jfV4Kp77tGq6yt/F1wYFV1ad+Nahz9PpA6LumpxyljnjZTOFDPbNsQlcvnDuyUW6FE8u2PNqSgOFVaprb3wK1ZF2XIZ7Y02WPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790609904; c=relaxed/simple;
-	bh=XhEbxzOTRkAmA5AexQM2CcjEUVdr2JxncxkriFM2HX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pWLZ08PaM6J0rfHFiQ2kkOsGjJ+hl26xkvGzUlPEWjY8feOW3oll2WfIIGcHRHrm8b6m+i9EojO9O9xgRGCthJ48/5o0E7BySyGnJo6O0VLGshXA3+K/M4IO8J4whTB4aF1/EA1hUfUA3459yp9NUIfBp5ur06OUmGWwddp4L20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=s9qKBBN0; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1790609954; c=relaxed/simple;
+	bh=n1yrVw6CbTk+e2yXLvZ8PmrFY/8j/hWiTX1+fz0ByQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pdx005IeMhpOiRRRRD1A8+HnDeNIcAdTcwBlEd0mD8IHTRXhha4C6oz9TRQJN88K9+42Kil92HBA7wqjZEimQxlpb7jU3NA+AKhdVl0o7XnVYdyNjrznTPfKTAgnXPDKOXet8W9vtt3dEc1r8LoXaUqYZvaIdA9+7D7r8ffiCLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com; spf=pass smtp.mailfrom=miget.com; dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.b=DilsuCrN; arc=none smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="s9qKBBN0"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so14994495ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:38:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.b="DilsuCrN"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afd63c3e0so303071066b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:39:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790609900; x=1791214700; darn=vger.kernel.org;
+        d=miget.com; s=google; t=1790609951; x=1791214751; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
-        b=s9qKBBN0P5zcG5NxoFfmNpEfVwphwCsncEedOTPag7aJzDILn5m5itkvczaXAib0cL
-         jA3TFPk07PbKNrbAHs12Z6ISAmsizc0hQoE4oqZMW7y9Of8vDTfrVhk4SG4mx39VLPdU
-         5cPYqvx2oy4Ki2YDLhxbLxd1QQNUYamsFBBwaVqiKtalhKPG4QF046LWh8B6b3DA08FZ
-         au19WPsKQHlYNYlZEMKG04pCJOXjBo8/nUg+f/RlFE0gJx6OBGFBjb3DZWvQWlBx0HqR
-         k7kexMJOwuVWWjLsIPHOH6KKF8Di0cDTZ+COl8/uYstdDvWOQKwA5LqoV/NDpHlpBWdE
-         2aQQ==
+        bh=kWvYSe8kW5lJCuL2xTq1KXQt5geh1d6a3q69HD71LA0=;
+        b=DilsuCrNECn7/AOaQjCXOh9zdgegGHhfKcd7hL3aRvEQc+npOX2dfuKfc1eR4rSOip
+         AVu0QvroETCkSqsfrrlV2iR8Bu85Xr+7tcOi+okqUApcRF7HxTs3ahgiVLY8yJixHkW5
+         o9CgzinNNuwJjKxhsi0Cu5KX0e5pEWPDWkWp4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790609900; x=1791214700;
+        d=1e100.net; s=20260707; t=1790609951; x=1791214751;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XBU2jM7DrC1QbY7mAZYFQZnTdG21byzKYq2Cu4WLBZU=;
-        b=UHQ0q+EBKybaAT4JUXcEXf3be0WQBPT4QkQB3yb4FljhdmEqAZUc3SGQrmV8pbkyxX
-         jK0S3n4jrT0t84v5LXkna5xOP0/fSSZ1SeWeZyl8GIoLtxVgmC9xqHYTt65ertkTfFDz
-         +yHhrW2NqQW8aZ8FeZmYDFFtSp/ytx+i+TQikkTqQLQ/kZot9zUkRRsX//rYwhjczQtJ
-         MJi5umZ9cri8cflqYhkSyb+x/+C2ezZl164zHBA+Gwjmj61Z2FKhu/qBKsDTPHoNdxl8
-         rYl0hEVHRgkpY7dI/+3gJajIROEjlIN5YJCVGku5HtbtSLqub/6OjePWLHUwNd/FW9Di
-         0sxQ==
-X-Gm-Message-State: AFq9FYK+uxzWN558IRE0ULFSYCmTtTnBQt/I2i9dLg5HrrFFCmtogvBT
-	60ODMPCST/6etc4oxyrio41MBPaoZPKViVKGL/wWzHEfg19mL0r1SSoyFfvSbMI3Lgc=
-X-Gm-Gg: AYBFou1ialvVJ3nxhrYLShVSNDqK3Jk1FH3kyWTjicmJlpuEmls2f4gE+Le9znfrOqD
-	2rd86OKsr1DpuEiNdmpeSHculHHrdtFy8d7yQ8PpD06v+j2b2PWYxLawzXhfv9b2lGI1Y6nzqEW
-	4vAH3MkW0cL6t5uoCuEZTJUwjBFL2Eu51e097tSNLoS++kU47rJdPEW02zb/4wrYwx5IQCqNHcP
-	kuPcuEX2g/4X4nT7zf0yu+Vqu+8yKuZLT8+LaBxyirNXsH3DQ273bGAazo9pFjc13yfEV5eU9tu
-	w1ZxVojp1ra3zAif7u1JQXzhCsxQF7lAPHBB7WhB+mhC/GkPaUWhKDzFU6UVI71fUP/TzUbsFal
-	clyZbnUN0a8njPwO1iBkifYgV2MgT2BWu0m3CyQQ8bGiFDKtw6FfrYkOLAT9NGVZ4umt/V/1WkR
-	FdwEEUluitElRv2nc0+Gq/mXDxF089mIynT2PNeOGf43pCK5s0p83VdZVDWt+c1s3flvfsNub6m
-	ZF/NdaOj3JUCtVJrsOrBQ==
-X-Received: by 2002:a17:902:ebca:b0:2df:9e2d:8629 with SMTP id d9443c01a7336-2df9e2d8cf3mr52153435ad.16.1790609900356;
-        Mon, 28 Sep 2026 08:38:20 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d08e:5326:b1b4:da35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbc951sm44209335ad.8.2026.09.28.08.38.17
+        bh=kWvYSe8kW5lJCuL2xTq1KXQt5geh1d6a3q69HD71LA0=;
+        b=yAoiqytCStvbp2IFO3LP2/+B7ZQhjVYrSNcqIwUrGnH4J1RpvMXAHbxFJhlEtaHE/J
+         BL3WXyZcbZzqVPPR92A7ovroX4VL1xfhrq9qYhg7orJ3B3EzgVO7YUcDNJPn9FgkpkvF
+         bJAe3f3PgmSkzXhK/+0A4dfE3ySf2JzmwBaX3NB6w2YWchTit0Fj42p6qrdEB9RmB1F6
+         QGaRDLW9tOoBNwwuyWDoFHauDszNhAiTqFYujDyWFlmueYZLStls8llwLE9FjqeYdgTV
+         KRbiVnUvTliRYbGkV3CNgpiBg5KEpXSU+4TYFtU8s8HVuyvCVIyZzqdAAesJtc9vGXcq
+         XYAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoNQoO50Zy2ps5gr5tWpCUFBoI5ZbWz5b0ySWevrjY6yk8oiEJ42i/csWI+4wVD4bXZVa3vvWYy34xO24=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXLC/o626N/aKAvUDHEBHyoiwkuuKPV2NPrAL8HO/t5vlA29x7
+	XP8Yi0xzepZF/bnU+iNwJcI64HbAC8q01jJuUVaq6KqtYwDKArIufDvGjdxv1ZltmgfK+vZui1l
+	bBzjU1FspfA==
+X-Gm-Gg: AYBFou3Fv9VC2kYUaJXBVw3QIFwH+D+WfkhIqv0T4JzxTfCIfOnVzW2hpdnsMyIa9wU
+	we9laUOZpyZOE7QWlDxAk0hxqpxNIE1SkyxXCeHaJiahR3f2Jkd2A9BecbZbnPuOakabfvxp9Zw
+	dmEI50nwCNQLxDumZBhHxALaYoVhpMONY1KitrjnOVVIwzBELAyGBJ26ORsdEWyDDt6WzMd+XAP
+	ApXbH3Oo9rTN6RSpeJ67o9n+N01lU8qLWWYz+YoGmQf8HksFciPVZE6gHvH5U4lX997yjVja6EE
+	nxFp/vrmBjBYAn+YADQncBJkQ1nYjO94FEMyUrSnNBUg7VrMUW93lBZ6Rv7yfz/8MH2xsL3arnE
+	RHLfKmVLgo/jB0eN/I1xnl1YsVWUv5M2EpbqJuR83XktTmsFwHUaqMj0yYx8LpHwZ1IeOAor4+u
+	vA3ITxLS/Ls1qotEVWGZTyKrzoxrbfb2wZAdzm7CjMbRIU1ObwUIQOA49TgGCay7eDivR2AYNsQ
+	OEkxDIFuW8OLdA7z1CmiI3d2yWPI5w=
+X-Received: by 2002:a17:907:db18:b0:c21:180c:d82d with SMTP id a640c23a62f3a-c2ac242d173mr1174805466b.20.1790609950732;
+        Mon, 28 Sep 2026 08:39:10 -0700 (PDT)
+Received: from xia (user-31-175-132-26.play-internet.pl. [31.175.132.26])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2af70056bbsm415974066b.49.2026.09.28.08.39.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 08:38:19 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-nvme@lists.infradead.org,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-rdma: don't complete a request after a bogus remote invalidation
-Date: Tue, 29 Sep 2026 00:38:11 +0900
-Message-ID: <20260928153811.1466359-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        Mon, 28 Sep 2026 08:39:10 -0700 (PDT)
+From: Chris Taraszka <chris@miget.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chris Taraszka <chris@miget.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Mingyou Chen <qby140326@gmail.com>
+Subject: [PATCH] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14 platform profile values
+Date: Mon, 28 Sep 2026 17:39:02 +0200
+Message-ID: <20260928153902.139956-1-chris@miget.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,69 +75,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a remote invalidation names an rkey that is not the one we handed out
-for this request, nvme_rdma_process_nvme_rsp() logs and schedules error
-recovery, then falls through to nvme_rdma_end_request().  The request is
-completed with req->mr never invalidated, and nvme_rdma_unmap_data() hands
-it back with ib_mr_pool_put(), which only puts it on a list.  The rkey
-stays valid and still maps the pages the completed read filled, so a
-controller that sent the bogus invalidation can write into those pages
-after pread() has returned.
+The Xiaomi Book Pro 14 firmware (BIOS XMAPT4B0P0909) implements
+SystemPerMode with its own values. Its WMAA SET handler only acts on
+0x02-0x0a and silently ignores 0 and 1, and GET returns one of 0x02,
+0x03, 0x04, 0x09 or 0x0a. With the generic values:
 
-Return instead, the way the local invalidation path below already does,
-and leave the request for error recovery to cancel.
+ - balanced (0) and balanced-performance (1) are no-ops,
+ - performance (3) selects the firmware's balanced mode,
+ - reading the profile fails with -EINVAL whenever the firmware is in
+   0x04, 0x09 or 0x0a, which it often is after boot. The failed read also
+   makes bitland_mifs_wmi_suspend() abort system suspend.
 
-Fixes: 3ef0279bb0031 ("nvme-rdma: Check remotely invalidated rkey matches our expected rkey")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+The values were identified from the WMAA method in the firmware's SSDT
+and by setting each one through WMAA on AC and reading the resulting
+sustained package power limit from intel-rapl-mmio:
+
+  0x02  18 W  (quiet)
+  0x03  37 W  (balanced)
+  0x09  45 W
+  0x04  58 W  (performance)
+  0x0a  18 W
+
+Map low-power, balanced, balanced-performance and performance to 0x02,
+0x03, 0x09 and 0x04 on this model. The driver never sets 0x0a, which is
+only reached through the firmware's own mode cycling, so report it as
+low-power.
+
+Cc: Armin Wolf <W_Armin@gmx.de>
+Cc: Mingyou Chen <qby140326@gmail.com>
+Signed-off-by: Chris Taraszka <chris@miget.com>
 ---
-Reproduced on soft-RoCE (rxe), two nodes.  The target is modified to answer
-one request with the rkey of another request that is still in flight, and
-then to write 0xBD through the rkey the initiator has just reported as
-bogus.  The NVMETHOSTILE lines are that scaffolding and are not part of
-this patch.  The namespace holds 0x5A and the reader re-checks its buffer
-after pread() has returned.
 
-initiator:
-  nvme nvme0: Bogus remote invalidation for rkey 0x35f4
-target:
-  nvmet_rdma: NVMETHOSTILE forcewr POST LEAKED rkey=0x35f4 addr=0xffff88807ffdd000 len=4096 ret=0 n=1
-  nvmet_rdma: NVMETHOSTILE forcewr DONE ACCEPTED n=1
-initiator:
-  BCHECK[B] CORRUPT iter=350 poll=0ms pre_clean=1 off=0 p1_bytes=4096 p0_bytes=61440
-  BCHECK[B] DONE iters=392 clean_p0=392 ioerr=0 CORRUPT_HITS=1 POST_COMPLETION=1
+Notes:
+    Tested on the Xiaomi Book Pro 14 on AC with bitland-mifs-wmi from pdx86
+    for-next plus this patch, loaded on v7.3-rc5: all four profiles apply
+    through power-profiles-daemon and the firmware mode and PL1 follow
+    (0x03/37 W, 0x02/25 W, 0x04/56 W). The same mapping on v7.3-rc4/rc5
+    without the for-next changes was also tested on battery and across
+    s2idle suspend/resume, with the profile restored on resume.
+    
+    This explains the -EINVAL behind my earlier "platform/x86:
+    bitland-mifs-wmi: Don't abort suspend when platform profile access
+    fails" (sent 2026-09-11): the profile read failed because of the unknown
+    mode values. That patch is still useful as a safety net.
+    
+    Note that on for-next each profile change still reports -ENOMSG even
+    though the firmware applies it: this firmware's SET handlers leave the
+    function id in the response at 0, which 23cc56f6dea6 ("platform/x86:
+    bitland-mifs-wmi: Detect failed function calls") rejects. I'll send a
+    separate fix for that.
 
-pre_clean=1 is the buffer intact at the instant pread() returned, and
-p0_bytes=61440 is the remainder of it still holding 0x5A.  0x35f4 is the
-rkey the initiator reported as bogus and the rkey the target then wrote
-through.  With this patch POST_COMPLETION stayed 0 over five runs.
+ drivers/platform/x86/bitland-mifs-wmi.c | 56 +++++++++++++++++++++++--
+ 1 file changed, 52 insertions(+), 4 deletions(-)
 
-It is a race, so it is probabilistic rather than reliable, and every bogus
-invalidation also trips error recovery, so the corruption arrives together
-with a controller reset.  I only have rxe here; I have not checked how a
-real RoCE HCA responder treats a write through an MR the ULP has stopped
-using.  What I saw is an integrity violation on a buffer that is still
-mapped, not a use-after-free.
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+index dd1648b7de77..4a8e5b4e7853 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -14,6 +14,7 @@
+ #include <linux/dev_printk.h>
+ #include <linux/device.h>
+ #include <linux/device/devres.h>
++#include <linux/dmi.h>
+ #include <linux/err.h>
+ #include <linux/hwmon.h>
+ #include <linux/init.h>
+@@ -79,6 +80,29 @@ enum bitland_mifs_power_profile {
+ 	WMI_PP_FULL_SPEED	= 3,
+ };
+ 
++/*
++ * The Xiaomi Book Pro 14 firmware uses its own SystemPerMode values and
++ * ignores the ones above. Sustained package power limits (PL1) measured
++ * on AC are noted next to each mode.
++ */
++enum bitland_mifs_xiaomi_power_profile {
++	WMI_PP_XIAOMI_QUIET		= 0x02,	/* 18 W */
++	WMI_PP_XIAOMI_BALANCED		= 0x03,	/* 37 W */
++	WMI_PP_XIAOMI_PERFORMANCE	= 0x04,	/* 58 W */
++	WMI_PP_XIAOMI_SMART		= 0x09,	/* 45 W */
++	WMI_PP_XIAOMI_QUIET_ALT		= 0x0a,	/* 18 W */
++};
++
++static const struct dmi_system_id bitland_mifs_xiaomi_pp_dmi_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Xiaomi Book Pro 14"),
++		},
++	},
++	{ }
++};
++
+ enum bitland_mifs_event_id {
+ 	WMI_EVENT_RESERVED_1		= 1,
+ 	WMI_EVENT_RESERVED_2		= 2,
+@@ -161,6 +185,7 @@ struct bitland_mifs_wmi_data {
+ 	struct device *hwmon_dev;
+ 	struct device *pp_dev;
+ 	enum platform_profile_option saved_profile;
++	bool xiaomi_pp;
+ };
+ 
+ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+@@ -213,6 +238,27 @@ static int laptop_profile_get(struct device *dev,
+ 	if (ret)
+ 		return ret;
+ 
++	if (data->xiaomi_pp) {
++		switch (result.data[0]) {
++		case WMI_PP_XIAOMI_QUIET:
++		case WMI_PP_XIAOMI_QUIET_ALT:
++			*profile = PLATFORM_PROFILE_LOW_POWER;
++			break;
++		case WMI_PP_XIAOMI_BALANCED:
++			*profile = PLATFORM_PROFILE_BALANCED;
++			break;
++		case WMI_PP_XIAOMI_SMART:
++			*profile = PLATFORM_PROFILE_BALANCED_PERFORMANCE;
++			break;
++		case WMI_PP_XIAOMI_PERFORMANCE:
++			*profile = PLATFORM_PROFILE_PERFORMANCE;
++			break;
++		default:
++			return -EINVAL;
++		}
++		return 0;
++	}
++
+ 	switch (result.data[0]) {
+ 	case WMI_PP_BALANCED:
+ 		*profile = PLATFORM_PROFILE_BALANCED;
+@@ -272,22 +318,22 @@ static int laptop_profile_set(struct device *dev,
+ 
+ 	switch (profile) {
+ 	case PLATFORM_PROFILE_LOW_POWER:
+-		val = WMI_PP_QUIET;
++		val = data->xiaomi_pp ? WMI_PP_XIAOMI_QUIET : WMI_PP_QUIET;
+ 		break;
+ 	case PLATFORM_PROFILE_BALANCED:
+-		val = WMI_PP_BALANCED;
++		val = data->xiaomi_pp ? WMI_PP_XIAOMI_BALANCED : WMI_PP_BALANCED;
+ 		break;
+ 	case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
+ 		ret = bitland_check_performance_capability(data);
+ 		if (ret)
+ 			return ret;
+-		val = WMI_PP_PERFORMANCE;
++		val = data->xiaomi_pp ? WMI_PP_XIAOMI_SMART : WMI_PP_PERFORMANCE;
+ 		break;
+ 	case PLATFORM_PROFILE_PERFORMANCE:
+ 		ret = bitland_check_performance_capability(data);
+ 		if (ret)
+ 			return ret;
+-		val = WMI_PP_FULL_SPEED;
++		val = data->xiaomi_pp ? WMI_PP_XIAOMI_PERFORMANCE : WMI_PP_FULL_SPEED;
+ 		break;
+ 	default:
+ 		return -EOPNOTSUPP;
+@@ -699,6 +745,8 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+ 		return input_register_device(drv_data->input_dev);
+ 	}
+ 
++	drv_data->xiaomi_pp = dmi_check_system(bitland_mifs_xiaomi_pp_dmi_table);
++
+ 	/* Register platform profile */
+ 	drv_data->pp_dev = devm_platform_profile_register(&wdev->dev, DRV_NAME, drv_data,
+ 							  &laptop_profile_ops);
 
-Invalidating the MR locally before completing the request, which is what
-the code did before 3ef0279bb0031, also closes it and is the other way to
-go here.
-
- drivers/nvme/host/rdma.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 9cb811a2ce1f7..5b9b540693b51 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -1748,6 +1748,7 @@ static void nvme_rdma_process_nvme_rsp(struct nvme_rdma_queue *queue,
- 				"Bogus remote invalidation for rkey %#x\n",
- 				req->mr ? req->mr->rkey : 0);
- 			nvme_rdma_error_recovery(queue->ctrl);
-+			return;
- 		}
- 	} else if (req->mr) {
- 		int ret;
+base-commit: fe5030c8cc7156223f48530e9b49aa87c0305bcd
 -- 
-2.43.0
+2.55.0
 
