@@ -1,65 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C2B485501;
-	Mon, 28 Sep 2026 10:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27857496D5E;
+	Mon, 28 Sep 2026 10:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590611; cv=none; b=lPxngQ83kuIyJRIy5N13Nu9AXdo/UnBVO/rPamVRHqkn3n8YaDtgkio1t6acVfun8PhAV0lfBrR25tEN8+gQbLdSrI8iIT+lAV93amyIydVOFlqqq/DVLFjjF5Qle4BemEmUREFxaVPGWwJNt40pdlhf5gUOB1i9loJj3Twm0Mw=
+	t=1790590675; cv=none; b=FHgyVXcVOJ/rkP0HKKSTykrK2NRfEpW0mtNGBzjBgex0RX4GmJ/5zwfZyUvVZQcgnDPshQK3uzfw3PkiVXECnR18keOGQzbiPKPPdTPRimvvFo2/DppqDHjGz2t+wAY5orvx9r0MhmPU1MZYBTWFcNLO0+k/DZrQDpbHWrEQhBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590611; c=relaxed/simple;
-	bh=mK8ulxnnMyP5eYT/pg3uyc6XYyBAinaTknBXP5XtnZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M3dZaTgtg/KMdi+blljVsnaV2+lq6YEoYCwh2VSo8ilpOE0kiS6XvhmopDagxG3uOjGzB833gwfVYHobWZymTqL8dGZM1AGf14ttqUs81y3CkEK5NBfKOZeSziISA+NaWBTM/zGA43s9WJmh0sXOWRSs1BRol8Jo3W0+bW9IpCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ES/gPL16; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790590675; c=relaxed/simple;
+	bh=rIg9380cRezZenEJuRoL6hRrOBHgZBhb2pmfGNTIoMA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TsH0V+7D9ZNwuaIiR5eLMUrd2ocdm7Z1JA7TRx3FUHJu/Tpvef5aoKuQ8OEm8lBGhHjO7jGhFWLUUknooCOAoQXi9o6QTmq7vLBuwx/LM0P2DAUlI5sQ1PSJW2JPak6jjUgxQ8BAp+v0Wd8/RN1qd/CaaNjxj6cLnGV8c1Ve7lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=oOX98vLJ; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ES/gPL16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700881F00893;
-	Mon, 28 Sep 2026 10:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790590609;
-	bh=mK8ulxnnMyP5eYT/pg3uyc6XYyBAinaTknBXP5XtnZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ES/gPL16MsVcOsAJ7UHwllsLtlGfv3MBKpTIvn+xuuClTj+jY7hev4G7wJc14Pjm9
-	 aUFFlURIeqo++FJW4LCti3ieqN4hQHjjvstl2m360zskD0xfcDVzf3nSYutszbFSRt
-	 E0O6ATp3950xLbz66TBsrtNgjnmhyE9gVFl7S5y9yI++KGulhIPx9WA4uIYtCSTsKu
-	 7WP1Z1gqCxAAQWma0rYq4g2wtMfD8zO55kpbvYogdoMwQtgAmS0x+X7/7SOkvcgSNj
-	 BidbUD7uMAbyyOTnMvOAzi9M3et/JL/ip8NXXnUev1tshZyza4uffkdQ4tTNqhFGqb
-	 +T/zPb+4NNCWw==
-Date: Mon, 28 Sep 2026 12:16:45 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
- Nord compatible
-Message-ID: <20260928-gregarious-deft-boar-e776ae@quoll>
-References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
- <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="oOX98vLJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1790590670; x=1790849870;
+	bh=3zXWZcKRjA7HrYtEDUkyB4mBtf+UGGoBdFfoxKpnM3w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=oOX98vLJq3mKjvgWAkNw/BQgYohrhn4JkwDei1z/4bGfp3sQIivRciJgNw2R0tP7c
+	 DMy1du5bhTdVYuCHZzTNhP1oGcJ33r6tzYMQb71H4/M8O8NgT7gbcuWzR5D7fy6Leg
+	 IT/xIPAdDBbVuaknl1eEUG6kJnFFGZbmElB4huOF7iZoJCKT2FH9OVmgSGOsrWVYc2
+	 c3uDhCiGfQtAXUqN6QGBoUnKR4DUEiTdZYd6WlUwn7QdQsPbF3oRWJDzpo03Eba7mP
+	 NUMU6Z8hZLphSDDg90qJpv/SsfDZHq7Zj+tRZ7xeDSQUG2yWn5qymwahtRXju60+Lt
+	 QkNgGwrErYu3w==
+X-Pm-Submission-Id: 4htcgw0s44z1DDKy
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
+ Muellner" <christoph.muellner@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <87mrt1vfz6.fsf@geanix.com>
+References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
+	<20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
+	<CNQ6_DVFGgC82FTU2GwM8v4KY2d4DUOo_b1XhhyOnysR6eWGJEsgFHlNLylYvkM6dWR3mhcGGFNDuN7qwCO1YA==@protonmail.internalid>
+	<aroytGH8u-gGFYvq@ashevche-desk.local>
+	<_qpupQDTVixVhDhmNMaIip5Umv0_ddRwhfIMlE9N6FZ7_FpG4rtj-V4vKQysOm8sYjNlBSU2SqKLvEneoiJK7Q==@protonmail.internalid>
+	<87mrt1vfz6.fsf@geanix.com>
+Date: Mon, 28 Sep 2026 12:17:47 +0200
+Message-ID: <87h5j9vfw4.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Wed, Sep 23, 2026 at 05:34:17AM +0530, Mohd Ayaan Anwar wrote:
-> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
-> SGMII PHY binding.
+"Esben Haabendal" <esben@geanix.com> writes:
 
-Why random order? Why not enum with existing part? Why not even
-compatible with existing device?
+> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+>
+>> On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:
+>>> Adding support for sharing interrupt line with other device requires the
+>>> interrupt handler to handle runtime PM suspension properly, ignoring the
+>>> irq if the device is suspended (maybe even off). And while at it, we use
+>>> the PM reference to ensure we do not get suspended while processing an irq.
+>>>
+>>> In order to prevent the chip from raising irq while suspended (that is when
+>>> using fixed regulator, where suspend just means setting the device in
+>>> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
+>>> then restores the value again when resuming.
+>>>
+>>> The scoped_guard in mma8452_runtime_suspend() is changed to a plain
+>>> mutex_lock() instead, both to prevent mixing guards and goto, but also to
+>>> ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
+>>> way up to disabling the device as much as possible.
+>>>
+>>> With that in place, it is safe to add the IRQF_SHARED flag.
+>>>
+>>> Keep in mind that the device by default is using push-pull for the irq pin,
+>>> which might require additional hardware design to allow interrupt sharing.
+>>
+>> ...
+>>
+>>> +	pm_status = pm_runtime_get_if_active(dev);
+>>> +	if (pm_status == 0)
+>>> +		/* device is powered down */
+>>> +		return IRQ_NONE;
+>>
+>>> +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
+>>> +		/* runtime PM was disabled, possibly suspending */
+>>> +		return IRQ_HANDLED;
+>>
+>> This is very interesting part. I bet this will be the first driver using this.
+>> A big question "why?"
+>
+> Because as I understood it, I needed to add this for the patch to be
+> accepted [1]. It is definitely possible that I have misunderstood that.
 
-So many questions, yet commit msg copies subject.
+Sorry, forgot to add the reference.
 
-Best regards,
-Krzysztof
+[1] https://lore.kernel.org/all/20260921015115.4c7d79f3@jic23-hlaptop/
 
+>
+> The technical reason I believe is that during system suspend,
+> pm_runtime_force_suspend() disabled runtime PM, and if a shared
+> interrupt durings this, pm_runtime_get_if_active returns -EINVAL, and we
+> could therefore end up doing I2C reads on unpowered hardware.
+>
+> Per that reasoning, we probably should be doing this in other drivers as
+> well.
+>
+>>> +	/*
+>>> +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
+>>> +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
+>>> +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
+>>> +	 * not enabled), and we can/must assume device is active.
+>>> +	 */
+>>> +
+>>>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+>>>  	if (src < 0)
+>>> -		return IRQ_NONE;
+>>> +		goto out_runtime_put;
+>>>
+>>>  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
+>>> -		return IRQ_NONE;
+>>> +		goto out_runtime_put;
+>>>
+>>>  	if (src & MMA8452_INT_DRDY) {
+>>>  		iio_trigger_poll_nested(indio_dev->trig);
+>>> @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>>>  		ret = IRQ_HANDLED;
+>>>  	}
+>>>
+>>> +out_runtime_put:
+>>> +	if (pm_status > 0)
+>>> +		pm_runtime_put_autosuspend(dev);
+>>> +
+>>>  	return ret;
+>>>  }
+>>
+>> ...
+>>
+>>> +	pm_runtime_enable(dev);
+>>> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
+>>> +	pm_runtime_use_autosuspend(dev);
+>>
+>> I don't see the respective _dont_use_autosuspend() call anywhere.
+>
+> Ah. I was not aware it was attached to a usage counter as well. I will
+> add a pm_runtime_dont_use_autosuspend() to the runtime_suspend: error handling.
+>
+>> ...
+>>
+>> I am wondering how many of the above possible scenarios you were able
+>> to test.
+>
+> Not enough. I haven't done any additional instrumentation to cause all
+> the various error conditions that is handled here in _probe().
+>
+>> ...
+>>
+>> P.S.  I bet you can now make a presentation "PM runtime in Linux and
+>> why it is so hard."
+>
+> LOL. I am getting there, yes. I have definitely learned a lot about how
+> runtime PM works. Especially since I was mostly starting from scratch on
+> that.
+>
+> But i fear it would easily end up being quite a chaotic presentation :)
+>
+> /Esben
