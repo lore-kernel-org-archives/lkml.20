@@ -1,170 +1,159 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC184D37B5
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12CC4D599E;
+	Mon, 28 Sep 2026 14:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605375; cv=none; b=unnx4qInZ/RYZXhvJnkhYBQPKUmLfttW3WXXA1WCkcF04XnubMug3GssYGPqf4KAO4Qk1IHchZT+gBmFC45UAI7oBPSnk92Iv23w50di4PnYy0TCSqLU/9QX64DX7uGhJOZf+KsU/jv7wZR4HDnE021aaoOQO3bFmb89AAVFFzo=
+	t=1790605415; cv=none; b=HpqAxbs2YpGUPnIv+kq6QifhTwkv1kL5z7zHXi3oSrPR1m3oOAHbm/ijL8G3+Q4igGTRCHFvRmzyYKh8oQo2q5ZbpF/7c5hbi83YwzJeDNZsVdSHaNoCkF+gieoaRh9AGwN9fLHB16+BZ1ftt565lVTrJPUgIqN+IjQv9VK9riM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605375; c=relaxed/simple;
-	bh=YA2Wm1A4Qv7haJ3jQwkBbi+1aXa908XRcduIl6boq6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eUTNDc785wPSdj0qzAM/O60Qr4QO5T5Fx85QvoGWAGWhcxaNHLmWmXYZOXQnL0Ii4bPKBnm791sEdtrFijsSe5utwmw6kANuJ1il4YkBGJakiWCOVvkxtFtd18I7A1bpEgafHBBA9f05ru2lnADieT7VO9TyLLuHl9d9YkLKjE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M19acIDx; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790605415; c=relaxed/simple;
+	bh=P9PqO5qfr930naBjEJYBYKBsPVV2btuw00OrnlZSvyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FmEiXjfiKWMh9WEjjZFsB5VwqFHK8WzIuiU5gVYV6Z+ss9nZQ4yzp+/m6ZMLOcSJ3WmeG/OfObeeMF/6jATWQG9NZpUFm49o1Q+i6mAZtwTuIpbduAjqQl6cwG0zEr29zsPLC4M0FZNFTOfOzdCdDIGakgZ2aDPNOmLbOXgA+QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SgtpN1qA; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M19acIDx"
-Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c82bb05ddaso2025740e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:22:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790605370; x=1791210170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pn16sVzXVlIUSfu9GdAYXGnqwMg1E4Z0EatyLn9hdGg=;
-        b=M19acIDxictBHbpBjz8YQkUcl4RA+F/WD7I4MvbKtqIbceVb5raax7dm/m8yisJ+0o
-         t/tClP5tFd+0zAPYOPNP7pIgc5RO7/fNWVkY/esmEGa/1x+Ewa3oaXvyf2MeMGJOv0Da
-         lw9k1W9G/ZLSA1YzdDie2k8yfyFOhLQnh8shB4BbHr0ac4+q0NxQUtXsYs0YVAU/N4TY
-         GymmgXCt1cGQz6vVM6A6Jk0Oz/8+Uzea5yzZiTuso/QwE++jq527nks0gYtFREyLdfFL
-         l2QD3a80dCLlf/B5X+sH2SzNrD5YYunLB40BBksMLRVzqfpq/rgvA96iWDnT2raBFmyv
-         Ta2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605370; x=1791210170;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pn16sVzXVlIUSfu9GdAYXGnqwMg1E4Z0EatyLn9hdGg=;
-        b=ptBeESXFph2+wWozGrn/LosxaQ6YPG9U2a4FpMECPRve/l3xJVST3GzRBaNnz5rZ77
-         wN6UcdQACUsJNJrm9Csi2xJ3yntl2wD5ctXSZ9FP1VIadG3TTXXY0+75SVoA2hjmhMY/
-         1PC1CMBBfKmy7k6os/55KGrci/NWukksvY68KugEK/lwg1I2KqUKSbE1HSTD+NS89lZR
-         xTMdeS7vMSMT2zmV3j4TLByU3dy1orpvBAFiYfvfrxLAbqVMpq5y5URoJmLXHpo37Ua2
-         g2HFgjLxRI52ERxXAplF2ybmlG6X1jbhNPKqLIh6Iy1I9pl9buxxX4SJNWS13wk1Y9FR
-         /syw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1ZPMDhwJAFbc7uGaRA5NqdaZnVZeT4HgqPvo3S2IMOHFh/fzWEq4rEYNkWmgcioUdpVL+/s+Y4pt8Ugs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXdEkRCaIKw4OtfwGMb/d2M5kpdeNoIold8Xb/o0+DHTgpEVq5
-	WCcPs6Un8QY/LnoRNcN++ymUL2NXaXj6r2lR8l5OE7c9E6D4IRKXHvS3
-X-Gm-Gg: AYBFou0g8pZuLgae0UOa2DU5X47O7zUx4eqEyBGuXZusrwedSaZGy8dUNPoSpffq/mU
-	PRERVCRRp4ouPb/djddL6r2QAqrSwNuFAhPphbF8EFW60tAjg0D3K3+BoI2dHfdBRiuQAh9bdnu
-	Pk3YlVE6cPW29XJHGHIZq/NpjnDR9BklR9B8oSmVepQJ0ZYLia4MwUZ2r5EDjeaIcWYIh65uaQn
-	+qaMxNVCSgeFsu1R4zn4Ns6pvn5aRnQsahLk8ozERn38aspmA0Jffi3u1ZBwvNs7AvcU+oT3Ed1
-	ZDwXbYpEc63ypKtQPXG9gOoVXnZ9iAkiYdF8rlhPLFiBVbbqB1aCeNb9n2r0f/2QcwwxXxqP+2h
-	pA+7gB+KuYzV/S1XKO99SHq+WSieqg34JyGM2Y/0OgagsFtqbfvQNV/GS31xIhZfFl03JmrZuyt
-	v5pylxzQXpaQ6KbAj4cSNE819758chNa8Mvnaykap9wd3bVBz+T25+Hr4jrEimJg==
-X-Received: by 2002:a05:6122:2204:b0:5c9:c60e:5cf4 with SMTP id 71dfb90a1353d-5cb0bc5ed09mr6039888e0c.18.1790605370469;
-        Mon, 28 Sep 2026 07:22:50 -0700 (PDT)
-Received: from adriano ([179.57.100.10])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde615a356sm9019144e0c.14.2026.09.28.07.22.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:22:49 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>
-Subject: [PATCH net-next] net: sched: revert tx_queue_len on partial qdisc resize failure
-Date: Mon, 28 Sep 2026 11:22:33 -0300
-Message-ID: <20260928142233.1131459-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SgtpN1qA"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBZZVv1047082;
+	Mon, 28 Sep 2026 14:23:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=269Qr/2f+mli5iZf5LjqCG3Wsfifp4
+	/qh4IuSPn08jE=; b=SgtpN1qASY6d0PD/W/Oe9D2ym8/5/iRdQSQ2eFEdKDxVVH
+	j6H0M5X2Zyhsgvl4VyUy6p0mmA8bpfwCe6Eb3/MFepx1LTfznN21FX09qLp7krhi
+	IpbWporLsvfFTZkapCZ7CSjWSgzzAhRUwMNSzOse2Z6j65mkUzJWhS6/Fm6azY5v
+	VrTIlF8e5POPLfPhDBoZC21D3QuJcW6VF/5OC6sVdHbOQ83gsNC+iNCXxdKkphGB
+	SeCA3e4xtKDID0US2EbHCiRrqw7xYWMds29o7dxeiWY+IKDjoeMqIdVh5rjdVQDv
+	HsKmQgvgBsXLojZD8vL+2FUuu2PeWvPxlEaJsYTg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j51y8x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 14:23:13 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBHufQ076700;
+	Mon, 28 Sep 2026 14:23:12 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhdgya-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 14:23:11 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68SEN1Zh55705980
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Sep 2026 14:23:01 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 38ABC20040;
+	Mon, 28 Sep 2026 14:23:01 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5552B2004D;
+	Mon, 28 Sep 2026 14:23:00 +0000 (GMT)
+Received: from osiris (unknown [9.87.129.112])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 28 Sep 2026 14:23:00 +0000 (GMT)
+Date: Mon, 28 Sep 2026 16:22:58 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Hendrik Brueckner <brueckner@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v8 23/29] KVM: s390: Add basic arm64 kvm module
+Message-ID: <20260928142258.53077-B-seiden@linux.ibm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
+ <20260918133107.1042730-24-seiden@linux.ibm.com>
+ <arp2njz3Dro0sQ6Z@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arp2njz3Dro0sQ6Z@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NiBTYWx0ZWRfX5dsVumWdYdWF
+ AZKYtE84fjB98wl/6dKGXlvs+Ly0IWzRCQtvVYltXc1mz74v1LhjwW6iWDIHvD2yRLVeoi+m7Mu
+ yIk64PRIjmPyPlIfSdGB+VOWLJva8y4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NiBTYWx0ZWRfX1BAFPlgJV6Nv
+ OXuy0WD/1RHa0kE+XIyTFbFO0IriHeyB0GcbFKbrEk8jdJ0wmFsNwH5qPRXpsYgmjbSg+5w0LIQ
+ tcxLO+zEOA+xHAAbg1KOw+eY5rjOUvN8sHC7rD5TEMrFcGeULBy1iIklCpZ/dkV+M+UzrPLQ9+E
+ cnBqCflGGYWtjXzUZWTWpeVt6yiq+hbX/zgc1c2pgY0eUKYVn2vsJAFhZkrVqmaYBEmwCa+Nq5+
+ jOrXaFxPCoQZZjWm46w595wiEMMZkm1EvkInymRJ4ZBlGi/qDLOAJeabAu97U4X2g0vcrKKbdTQ
+ 3thPAiKwu33JqADp2A6jHwtzHwyUCz0jU+nM9gT4zH1H1a5VhJvDpf6VoTQgvEDMRXpIOYHNW90
+ 6hRy/f0GcczR20Nvqz10T/S8rpOrc80UtbSY+6nijgyTmln/Yok1fUAu5oQKbbhHcNprHz7Sy+k
+ dzmHX6gNcIvh7qwV4XA==
+X-Proofpoint-GUID: -opRUxCBQ87ofTNi4olODdbsoM2GysKf
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6aba7851 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=kmqKt6rW6CT7MOcbZeAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: QDIhRafS2tv1KtcByMsVqsVtQuv9E7le
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280056
 
-Pass the old length to dev_qdisc_change_tx_queue_len() and, when a queue
-fails to resize, use it to restore the queues already handled.
+On Mon, Sep 28, 2026 at 04:15:58PM +0200, Hendrik Brueckner wrote:
+> On Fri, Sep 18, 2026 at 03:31:00PM +0200, Steffen Eiden wrote:
+> > Add basic code for the new arm64 on s390 KVM implementation.
+> > Add kernel module boilerplate code and trivial functions.
+> > Add tracing scaffolding.
+> > 
+> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> > ---
+> >  arch/s390/kvm/arm64/arm.c   | 147 ++++++++++++++++++++++++++++++++++++
+> >  arch/s390/kvm/arm64/arm.h   |  44 +++++++++++
+> >  arch/s390/kvm/arm64/guest.c |  92 ++++++++++++++++++++++
+> >  arch/s390/kvm/arm64/trace.h |  18 +++++
+> >  4 files changed, 301 insertions(+)
+> >  create mode 100644 arch/s390/kvm/arm64/arm.c
+> >  create mode 100644 arch/s390/kvm/arm64/arm.h
+> >  create mode 100644 arch/s390/kvm/arm64/guest.c
+> >  create mode 100644 arch/s390/kvm/arm64/trace.h
+> > 
+> > diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
+> > new file mode 100644
+> > index 000000000000..8b056fc836d7
+> > --- /dev/null
+> > +++ b/arch/s390/kvm/arm64/arm.c
+> 
+> [..]
+> 
+> > +static int __init kvm_s390_arm64_init(void)
+> > +{
+> > +	if (!sclp.has_aef)
+> > +		return -ENXIO;
+> 
+> I suggest to use -ENODEV here to be consistent with s390 kvm module.
+> The arm64 module also return -ENODEV when not available.
 
-Fixes: 48bfd55e7e41 ("net_sched: plug in qdisc ops change_tx_queue_len")
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- include/net/sch_generic.h |  2 +-
- net/core/dev.c            |  2 +-
- net/sched/sch_generic.c   | 15 +++++++++------
- 3 files changed, 11 insertions(+), 8 deletions(-)
+Makes sense. Thanks
 
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index f35bd06a6bad..0ce97b4b2da1 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -720,7 +720,7 @@ void qdisc_class_hash_remove(struct Qdisc_class_hash *,
- void qdisc_class_hash_grow(struct Qdisc *, struct Qdisc_class_hash *);
- void qdisc_class_hash_destroy(struct Qdisc_class_hash *);
- 
--int dev_qdisc_change_tx_queue_len(struct net_device *dev);
-+int dev_qdisc_change_tx_queue_len(struct net_device *dev, unsigned int old_len);
- void dev_qdisc_change_real_num_tx(struct net_device *dev,
- 				  unsigned int new_real_tx);
- void dev_init_scheduler(struct net_device *dev);
-diff --git a/net/core/dev.c b/net/core/dev.c
-index f660fccfc0db..57e1fa320d53 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -10002,7 +10002,7 @@ int netif_change_tx_queue_len(struct net_device *dev, unsigned long new_len)
- 		res = notifier_to_errno(res);
- 		if (res)
- 			goto err_rollback;
--		res = dev_qdisc_change_tx_queue_len(dev);
-+		res = dev_qdisc_change_tx_queue_len(dev, orig_len);
- 		if (res)
- 			goto err_rollback;
- 	}
-diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-index 6f6a6f0d5eb0..8fd0fce23cc4 100644
---- a/net/sched/sch_generic.c
-+++ b/net/sched/sch_generic.c
-@@ -1422,13 +1422,14 @@ void dev_deactivate(struct net_device *dev, bool reset_needed)
- EXPORT_SYMBOL(dev_deactivate);
- 
- static int qdisc_change_tx_queue_len(struct net_device *dev,
--				     struct netdev_queue *dev_queue)
-+				     struct netdev_queue *dev_queue,
-+				     unsigned int len)
- {
- 	struct Qdisc *qdisc = rtnl_dereference(dev_queue->qdisc_sleeping);
- 	const struct Qdisc_ops *ops = qdisc->ops;
- 
- 	if (ops->change_tx_queue_len)
--		return ops->change_tx_queue_len(qdisc, dev->tx_queue_len);
-+		return ops->change_tx_queue_len(qdisc, len);
- 	return 0;
- }
- 
-@@ -1465,7 +1466,7 @@ void mq_change_real_num_tx(struct Qdisc *sch, unsigned int new_real_tx)
- }
- EXPORT_SYMBOL(mq_change_real_num_tx);
- 
--int dev_qdisc_change_tx_queue_len(struct net_device *dev)
-+int dev_qdisc_change_tx_queue_len(struct net_device *dev, unsigned int old_len)
- {
- 	bool up = dev->flags & IFF_UP;
- 	unsigned int i;
-@@ -1475,13 +1476,15 @@ int dev_qdisc_change_tx_queue_len(struct net_device *dev)
- 		dev_deactivate(dev, false);
- 
- 	for (i = 0; i < dev->num_tx_queues; i++) {
--		ret = qdisc_change_tx_queue_len(dev, &dev->_tx[i]);
--
--		/* TODO: revert changes on a partial failure */
-+		ret = qdisc_change_tx_queue_len(dev, &dev->_tx[i],
-+						dev->tx_queue_len);
- 		if (ret)
- 			break;
- 	}
- 
-+	while (ret && i--)
-+		qdisc_change_tx_queue_len(dev, &dev->_tx[i], old_len);
-+
- 	if (up)
- 		dev_activate(dev);
- 	return ret;
--- 
-2.51.0
-
+	Steffen
