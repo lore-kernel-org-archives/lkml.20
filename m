@@ -1,86 +1,100 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB8D3AB46F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7D33A5448
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790576079; cv=none; b=ATSbXQ58BCOZ5t93eUdDaGXHgBcPWvehof4hxsUKQsF5ZwSqVjqPf4DtiIl/PPYHW3d+SdlmYtSBSwgSMcdGIkE4dsVaOkf9zK6fvH4nnu8wFroJvWW1AfWXawrFhrs+SInw+CLD+dMRL3HHxgzvZfM2+1vmaz5yho4tJUnLUSs=
+	t=1790576082; cv=none; b=M7e/Im8jIRKTxWePmQ36WMbD9jjJp5q2i2dDZki+VISGbAJNCEqWIELQ0Of9mTQZH89yOI3Yzsm15ddtm40UxHi6xGi0k/NnUxUJluNhwBR8ivF6/WlekOS/e/EyqgATV4adQqO8/4bfXy4f91mfo6Pw9i5R0aYPXJwyuAIfGmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790576079; c=relaxed/simple;
-	bh=UCFUk147JwUFVYjXeYUCRdWoewnJvL3Q1qa2fY4mraw=;
+	s=arc-20240116; t=1790576082; c=relaxed/simple;
+	bh=UYchbdXK3Jpn8CtsTYPj3Lhmu0L5+chHl0dP6/ApjiY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R3BeMAp7e7U8kwOJVjiVz1/VAMN93tzhpdFP5iFNCNPeP2O8WQtuBg6ZMWjWExljiDPCr2TSEDvdAN2xjLRwQPkC0ZMW+t3MPyhPqU2aK4sHwgVukZog1nLfx2fjuzYkDZ7shfr6P7trxS1C1hOBPEOpVDWs8K/zo3F4dJFxZ/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aZKUbMbm; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=LZs7Ydkf5/FpkIpt0q3+iclSKPhK7icfokHNMEOFtbcFYCk+ZHtop3Boy5O2ZAuZOYRffMjKK+79aTUfJuHXd2DWW5chpt+VS/7tKWawUxrTjGPvvgstRrMEhwflQBjh+z05d3xnA7DH6tsjSHJtFc+7w5+ga1ZD9/3oe+w+wzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=iFZN+YQx; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aZKUbMbm"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso1500475a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:14:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="iFZN+YQx"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3a02551822eso1909116a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:13:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790576033; x=1791180833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y5Jyiu4cCDaLEMuXSi0yqzNnVkBmDH4wHEot6cHUGGU=;
+        b=qP2aX3gFhW9wqW5w8B/4qh9v7DTA/7r/No+il3Hzbt3UiAZwVPQYRMZyOyXTbpH52F
+         1sdQXmubU3gQFg7yW/fmLTEySq8gNuUazdFsOO9oqPY9M0gNEw/B1RNKJ/RMCm14fFxD
+         mXLH7kFLsZzXbqIYRYPgio73sPXWOos9mrIYapuXypwXxKr386f9ovhRjjV6nmNnTUjg
+         PmgqAJA0Z3ZIqiO9QHPqW8Dvr5zRQ0gwB33fswdxrVVqVxno8w4zvNAy+O5Ozg70xPwE
+         tDhBepIHmLERdFwBJl0YBugwzjwTNLpuYUEAmEorlSH29XIk0pzq8A+MjOERl4/ntikz
+         /blg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPVt1FCbiTe5iwAwDVVLe/K9MBY+aUC9UINMpx0kWU9ooSxARJgV6hZ2q89xPUl3kezatIdGoJ+gu3l5w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDxwAoUgOLA5KL39kSuhE6pv1AGFYTDfvBnJ5Px1WWW7ojGEgS
+	8nMclrQDhuRzMhFAtANZALuou5aU7ILm/vc/2iecEC0PYXhbeMT6gctuclfzSLNx7ou6EIAMy4O
+	FtyQQGI20VZjzKllrwcMxJ3ej6cSdmFRUS6rF/of85G2P+3R1ZMCeFpchcSinOh7E9WZ/HC0XCU
+	XroV0grfk7MKqX/+vO0I5+LhwQc8WXRMdq+q63CMoxMySDu2PHs6t2C4fC8AwyGUq3L8b/glqQF
+	eKMHh+as9sMon8pXg==
+X-Gm-Gg: AYBFou0rbkKd5uXf1Wk5dyZWkwEneiAmJsDEN4q8ADBXbrCNqHGCLBp7Cv/Dj4of6Tl
+	hvqqLAQ9VoHzoHM/JmbE9CWGOBdaFBUfhZdWH1SuRZfckrR1YI7ywpSvLmHd0fPgJj/gsy4mX8w
+	Ao50SheLfRJ9WnTrjiIUW51irtOuXCJg2651Uv9VzQXo+UUob2CdCjhKki/21ISZU+gn+RqFIDe
+	YBucsAmzjyDv9AjUDWdQAodbVr7EquBXBVJBxsgB+FbMIakWHpP76oni2GJouCj/IFmdOGE7aLY
+	IIeUmTOIgpbsME1IK1UjDSVifW7OBkzBvsy6aUr+cSoREQaZNx/CZjNCwAWpqgWv188bugwh30p
+	0zR0ZB+IKFU6vyZ0ZJmRVu1gZQh1itvGQNyaMO7Dtj3LF7LcXZuILfe9F9yEEGFADaCmOwlcSPX
+	Pgc/ZoLx5B2vYiHsVvPNmijNXRxv+YZZ1hEw==
+X-Received: by 2002:a17:90b:528e:b0:3a0:cc72:8d7 with SMTP id 98e67ed59e1d1-3a0cc720ebemr4699663a91.50.1790576033217;
+        Sun, 27 Sep 2026 23:13:53 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-18.dlp.protect.broadcom.com. [144.49.247.18])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc787795663sm5917422a12.8.2026.09.27.23.13.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 27 Sep 2026 23:13:53 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-342b66c0b06so2531623eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:13:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790576063; x=1791180863; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1790576032; x=1791180832; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XaC6DkyMRoZdb4oAVjU9pdXNfcIMayAmSL3fDY/VEnU=;
-        b=aZKUbMbmU7dwJ3QP/KtbaMm/fAX/Xt99c5Tmv2HrDENOkRhjovj28plhhHTjt3gbrL
-         wiA8luk/Xxw/gRt2hmdM4r/UObGxBFNtPGHmTsI81STH8ty5K7vu57KBbFxwu2WolNg/
-         UHAuVjBHjL86F0H9Sbc7NVTx2sh3FXGrMJfPwmfuyPua9FsmoYWxuE8HMlvYLe28BLKb
-         jvA4P54SGvf/APzlQjLCrn0Jxqw3uf1rxhBFKraogx5qVibybmGb1Md4j0hGHjc3BulL
-         bKSvKHtNYLrv1KQMsaE/uW1Q8Rdu84LK9HY5qlmDed+fuxJEZlvQrz4C8/YbLMWCQTah
-         LmYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790576063; x=1791180863;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XaC6DkyMRoZdb4oAVjU9pdXNfcIMayAmSL3fDY/VEnU=;
-        b=sif0o1jBgbCqIcoxwy1/GCGmIUAX2KwnJMawgHF/18O7Ctm1C5ZmiWbkPTmjvnhzwf
-         64hVGh/7DhDFHj896ePNMf81Jy2cdHIhxvRUDFMgVhi9tieCMYCW3vdahEsS9I7n5mBP
-         AYqf+vxQJrgHzVzbdcbNSsXdEWDBD3s4wOxnNarVxx9ElggIaSB0itA0y0TB8GCXs16u
-         cIN1sLbKP/CX6EDUeedPQ5Gb9w61pNqA/Tskt31M7JsKw19hr+xxk6EoDhseWkX8L/yp
-         zDoqTw9V0/SSwABgmav1c4TlWNTvPU1eMpE95zUbFg6Xa+GXaCdIvqNRLYjMXd7IpAhU
-         KIJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQQCJmWm2v3Cn8PlUjTyk2czgkuJgbWQSlK3/C4+swPJxBICBKFyUFkeWv5ro2gQfh83w9Ge0LN9keAPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+I5bMj5wUEcNAzpMyttYzuSpiE/3BL7KfOisvwY3+CxdEc5a3
-	KcpI1nmcV0ILjvDQFspIXoOGhnlrYl+2pA09EJZeQFMYysn8+wcckZgl
-X-Gm-Gg: AYBFou3IEZJ0fF/3j41EgaG1Fe03Hty0PnQfOJhZ1vg3YSoPVM7GkvqGni+dlXktzYW
-	unItV/aujy22LKIyPhECBcoUGj4MB6KL8kwJBMpp+OERtAkCYBCmRvRzfCpbVmQ/qtGTiIGwdvm
-	ZdZSETUbV7WTdsT4n9/9RY5rXKP3zTIS8Se3af4hqt9Ibt6MtUrU1s3Tm3tDtt4HVLB2g8lR93V
-	MLadfShPOPts6Cv/H0Mt3LCEfGr5o6KrD4S7Goh7j9dbnwptdOYg8lRVgHLJoOSCKBbzAT1fy+z
-	6lMQHOOk9FLWKnCJkO6+6jAl4WG/I5aHHKd5oQp2dpey2LFofz923VwR/b47/nAjw9bMeIUevvW
-	qZQRZIGDeJ6lES6q6SpQvmAMGMRM73eTeI1+j+M1QnZ9HuIN1YpCuYJq71DFY2y4osj6YYD4X7F
-	ngMh65VQ7XXNt5fWah8xTJMneJ7KDbz5OgdmzEpejhiRjp0qeoSeWhqVly3TgWry4ghRNbNMhK6
-	ntkWjut6cCTVn+wyXic6QR+mmTCShYSKLSGl9BvcP5WYI6zesnnET/IFumo22xHucmgsaJz94b8
-	0sY=
-X-Received: by 2002:a17:90b:560f:b0:3a0:9aa4:f9bf with SMTP id 98e67ed59e1d1-3a0bb552f06mr6777589a91.12.1790576062923;
-        Sun, 27 Sep 2026 23:14:22 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9892dbfsm18864088a91.11.2026.09.27.23.14.21
+        bh=Y5Jyiu4cCDaLEMuXSi0yqzNnVkBmDH4wHEot6cHUGGU=;
+        b=iFZN+YQxPQHUp8vDI9Unk+QG4kqBtBAWnPpGrzKpHSseH3hxoC+lxlTYQuctuSd3jU
+         LkEyLs4/f1mEX0s8ljDaNxDcqJw+xGlkDcOYaqQFCLC/8TpVrGHpwlGSporhAw+/uWHx
+         UUMyf35u5exdwdrM/e+VqObqQvNAkppNyMUWc=
+X-Forwarded-Encrypted: i=1; AKwUvBxBDKNo+FKjpnRHKpqL5Xo9QMAw5xFVCDg16o5bp9wh/ZRuxSINRgtPmWH9T4hd7J4G+fL3zR16NpRkQTA=@vger.kernel.org
+X-Received: by 2002:a05:701b:4354:b0:143:1bb1:b3c3 with SMTP id a92af1059eb24-146cfdd2a6bmr8678026c88.14.1790576031563;
+        Sun, 27 Sep 2026 23:13:51 -0700 (PDT)
+X-Received: by 2002:a05:701b:4354:b0:143:1bb1:b3c3 with SMTP id a92af1059eb24-146cfdd2a6bmr8677957c88.14.1790576030050;
+        Sun, 27 Sep 2026 23:13:50 -0700 (PDT)
+Received: from H5S1 ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm17355561c88.17.2026.09.27.23.13.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:14:22 -0700 (PDT)
-From: Peng Yu <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Maurizio Lombardi <mlombard@arkamax.eu>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
+        Sun, 27 Sep 2026 23:13:49 -0700 (PDT)
+From: Vikas Gupta <vikas.gupta@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v6 1/3] cgroup: track the effective css in each cgroup
-Date: Sun, 27 Sep 2026 23:14:15 -0700
-Message-ID: <20260928061417.1574676-2-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928061417.1574676-1-yupeng0921@gmail.com>
-References: <20260928061417.1574676-1-yupeng0921@gmail.com>
+	bhargava.marreddy@broadcom.com,
+	rahul-rg.gupta@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	rajashekar.hudumula@broadcom.com,
+	dharmender.garg@broadcom.com,
+	ajit.khaparde@broadcom.com,
+	Vikas Gupta <vikas.gupta@broadcom.com>
+Subject: [net-next, v4 06/10] bnge: remove refcount from L2 filter
+Date: Mon, 28 Sep 2026 11:43:03 +0530
+Message-ID: <20260928061307.1172344-7-vikas.gupta@broadcom.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260928061307.1172344-1-vikas.gupta@broadcom.com>
+References: <20260928061307.1172344-1-vikas.gupta@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,155 +102,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Track the effective css in each cgroup and make cgroup_e_css() and
-cgroup_get_e_css() use it. When a css is brought online or offline,
-update the effective css of its cgroup and of all descendants.
+A reference count was previously used under the assumption that any
+context holding the last reference could delete the L2 filter.
 
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+However, going forward, the filter will only be removed by the same
+context that created it, making refcount unnecessary.
+
+Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
+Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
 ---
- include/linux/cgroup-defs.h |  2 ++
- kernel/cgroup/cgroup.c      | 53 ++++++++++++++++++++++---------------
- 2 files changed, 34 insertions(+), 21 deletions(-)
+ .../net/ethernet/broadcom/bnge/bnge_filter.c  | 28 ++++---------------
+ .../net/ethernet/broadcom/bnge/bnge_filter.h  |  1 -
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 23 +++++++++++----
+ 3 files changed, 23 insertions(+), 29 deletions(-)
 
-diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
-index 3754d697854b..5bbe6025fc77 100644
---- a/include/linux/cgroup-defs.h
-+++ b/include/linux/cgroup-defs.h
-@@ -555,6 +555,8 @@ struct cgroup {
- 	/* Private pointers for each registered subsystem */
- 	struct cgroup_subsys_state __rcu *subsys[CGROUP_SUBSYS_COUNT];
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+index a8bb441ebef9..3b26939b0457 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
+@@ -13,8 +13,6 @@
  
-+	struct cgroup_subsys_state __rcu *e_css[CGROUP_SUBSYS_COUNT];
-+
- 	/*
- 	 * Keep track of total number of dying CSSes at and below this cgroup.
- 	 * Protected by cgroup_mutex.
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index 2d532bf2c0c7..69b0f0cf2f3e 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -548,20 +548,11 @@ static struct cgroup_subsys_state *cgroup_e_css_by_mask(struct cgroup *cgrp,
- struct cgroup_subsys_state *cgroup_e_css(struct cgroup *cgrp,
- 					 struct cgroup_subsys *ss)
+ void bnge_del_l2_filter(struct bnge_net *bn, struct bnge_l2_filter *fltr)
  {
--	struct cgroup_subsys_state *css;
--
- 	if (!CGROUP_HAS_SUBSYS_CONFIG)
- 		return NULL;
+-	if (!refcount_dec_and_test(&fltr->refcnt))
+-		return;
+ 	hlist_del_rcu(&fltr->base.hlist);
+ 	kfree_rcu(fltr, base.rcu);
+ }
+@@ -31,18 +29,17 @@ static void bnge_init_l2_filter(struct bnge_net *bn,
  
--	do {
--		css = cgroup_css(cgrp, ss);
--
--		if (css)
--			return css;
--		cgrp = cgroup_parent(cgrp);
--	} while (cgrp);
--
--	return init_css_set.subsys[ss->id];
-+	return rcu_dereference_check(cgrp->e_css[ss->id],
-+				     lockdep_is_held(&cgroup_mutex));
+ 	head = &bn->l2_fltr_hash_tbl[idx];
+ 	hlist_add_head_rcu(&fltr->base.hlist, head);
+-	refcount_set(&fltr->refcnt, 1);
  }
  
- /**
-@@ -585,17 +576,10 @@ struct cgroup_subsys_state *cgroup_get_e_css(struct cgroup *cgrp,
+-static struct bnge_l2_filter *__bnge_lookup_l2_filter(struct bnge_net *bn,
+-						      struct bnge_l2_key *key,
+-						      u32 idx)
++static struct bnge_l2_filter *bnge_lookup_l2_filter(struct bnge_net *bn,
++						    struct bnge_l2_key *key,
++						    u32 idx)
+ {
+ 	struct bnge_l2_filter *fltr;
+ 	struct hlist_head *head;
  
- 	rcu_read_lock();
+ 	head = &bn->l2_fltr_hash_tbl[idx];
+-	hlist_for_each_entry_rcu(fltr, head, base.hlist) {
++	hlist_for_each_entry(fltr, head, base.hlist) {
+ 		struct bnge_l2_key *l2_key = &fltr->l2_key;
  
--	do {
--		css = cgroup_css(cgrp, ss);
+ 		if (ether_addr_equal(l2_key->dst_mac_addr, key->dst_mac_addr) &&
+@@ -52,20 +49,6 @@ static struct bnge_l2_filter *__bnge_lookup_l2_filter(struct bnge_net *bn,
+ 	return NULL;
+ }
+ 
+-static struct bnge_l2_filter *bnge_lookup_l2_filter(struct bnge_net *bn,
+-						    struct bnge_l2_key *key,
+-						    u32 idx)
+-{
+-	struct bnge_l2_filter *fltr;
 -
--		if (css && css_tryget_online(css))
--			goto out_unlock;
--		cgrp = cgroup_parent(cgrp);
--	} while (cgrp);
-+	css = cgroup_e_css(cgrp, ss);
-+	while (!css_tryget_online(css))
-+		css = cgroup_e_css(cgroup_parent(css->cgroup), ss);
+-	rcu_read_lock();
+-	fltr = __bnge_lookup_l2_filter(bn, key, idx);
+-	if (fltr)
+-		refcount_inc(&fltr->refcnt);
+-	rcu_read_unlock();
+-	return fltr;
+-}
+-
+ static struct bnge_l2_filter *bnge_alloc_l2_filter(struct bnge_net *bn,
+ 						   struct bnge_l2_key *key,
+ 						   gfp_t gfp)
+@@ -75,9 +58,10 @@ static struct bnge_l2_filter *bnge_alloc_l2_filter(struct bnge_net *bn,
  
--	css = init_css_set.subsys[ss->id];
--	css_get(css);
--out_unlock:
- 	rcu_read_unlock();
- 	return css;
- }
-@@ -2131,12 +2115,17 @@ void init_cgroup_root(struct cgroup_fs_context *ctx)
+ 	idx = jhash2(&key->filter_key, BNGE_L2_KEY_SIZE, bn->hash_seed) &
+ 	      BNGE_L2_FLTR_HASH_MASK;
++
+ 	fltr = bnge_lookup_l2_filter(bn, key, idx);
+ 	if (fltr)
+-		return fltr;
++		return ERR_PTR(-EEXIST);
+ 
+ 	fltr = kzalloc_obj(*fltr, gfp);
+ 	if (!fltr)
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
+index ea1acefd70b4..a4a386202ac3 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
+@@ -49,7 +49,6 @@ struct bnge_l2_filter {
+ 	/* base filter must be the first member */
+ 	struct bnge_filter_base	base;
+ 	struct bnge_l2_key	l2_key;
+-	refcount_t		refcnt;
+ };
+ 
+ void bnge_del_l2_filter(struct bnge_net *bn, struct bnge_l2_filter *fltr);
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+index ac77ba813f01..29a271f50e04 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+@@ -2011,19 +2011,24 @@ static bool bnge_uc_list_updated(struct bnge_net *bn,
+ 				 const struct netdev_hw_addr_list *uc)
  {
- 	struct cgroup_root *root = ctx->root;
- 	struct cgroup *cgrp = &root->cgrp;
-+	struct cgroup_subsys *ss;
-+	int ssid;
+ 	struct bnge_vnic_info *vnic = &bn->vnic_info[BNGE_VNIC_DEFAULT];
++	struct net_device *dev = bn->netdev;
+ 	struct netdev_hw_addr *ha;
+-	int off = 0;
+-
+-	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
+-		return true;
++	int off = 0, count = 0;
  
- 	INIT_LIST_HEAD_RCU(&root->root_list);
- 	atomic_set(&root->nr_cgrps, 1);
- 	cgrp->root = root;
- 	init_cgroup_housekeeping(cgrp);
- 
-+	for_each_subsys(ss, ssid)
-+		RCU_INIT_POINTER(cgrp->e_css[ssid], init_css_set.subsys[ssid]);
-+
- 	/* DYNMODS must be modified through cgroup_favor_dynmods() */
- 	root->flags = ctx->flags & ~CGRP_ROOT_FAVOR_DYNMODS;
- 	if (ctx->release_agent)
-@@ -5856,6 +5845,22 @@ static void init_and_link_css(struct cgroup_subsys_state *css,
- 	BUG_ON(cgroup_css(cgrp, ss));
++	/* dev_addr is installed as L2 filter 0 and skipped when building
++	 * uc_list, so compare only the unicast entries that differ from it.
++	 */
+ 	netdev_hw_addr_list_for_each(ha, uc) {
++		if (ether_addr_equal(ha->addr, dev->dev_addr))
++			continue;
++		if (count >= vnic->uc_filter_count - 1)
++			return true;
+ 		if (!ether_addr_equal(ha->addr, vnic->uc_list + off))
+ 			return true;
+-
+ 		off += ETH_ALEN;
++		count++;
+ 	}
+-	return false;
++	return count != vnic->uc_filter_count - 1;
  }
  
-+static void cgroup_update_e_css(struct cgroup *cgrp, struct cgroup_subsys *ss)
-+{
-+	struct cgroup_subsys_state *d_css;
-+
-+	lockdep_assert_held(&cgroup_mutex);
-+
-+	css_for_each_descendant_pre(d_css, &cgrp->self) {
-+		struct cgroup *dsct = d_css->cgroup;
-+		struct cgroup_subsys_state *css = cgroup_css(dsct, ss);
-+
-+		if (!css)
-+			css = cgroup_e_css(cgroup_parent(dsct), ss);
-+		rcu_assign_pointer(dsct->e_css[ss->id], css);
-+	}
-+}
-+
- /* invoke ->css_online() on a new CSS and mark it online if successful */
- static int online_css(struct cgroup_subsys_state *css)
- {
-@@ -5869,6 +5874,7 @@ static int online_css(struct cgroup_subsys_state *css)
- 	if (!ret) {
- 		css->flags |= CSS_ONLINE;
- 		rcu_assign_pointer(css->cgroup->subsys[ss->id], css);
-+		cgroup_update_e_css(css->cgroup, ss);
- 
- 		atomic_inc(&css->online_cnt);
- 		if (css->parent) {
-@@ -5895,6 +5901,7 @@ static void offline_css(struct cgroup_subsys_state *css)
- 
- 	css->flags &= ~CSS_ONLINE;
- 	RCU_INIT_POINTER(css->cgroup->subsys[ss->id], NULL);
-+	cgroup_update_e_css(css->cgroup, ss);
- 
- 	wake_up_all(&css->cgroup->offline_waitq);
- }
-@@ -5966,6 +5973,7 @@ static struct cgroup *cgroup_create(struct cgroup *parent, const char *name,
- {
- 	struct cgroup_root *root = parent->root;
- 	struct cgroup *cgrp, *tcgrp;
-+	struct cgroup_subsys *ss;
- 	struct kernfs_node *kn;
- 	int i, level = parent->level + 1;
- 	int ret;
-@@ -6010,6 +6018,9 @@ static struct cgroup *cgroup_create(struct cgroup *parent, const char *name,
- 	for (tcgrp = cgrp; tcgrp; tcgrp = cgroup_parent(tcgrp))
- 		cgrp->ancestors[tcgrp->level] = tcgrp;
- 
-+	for_each_subsys(ss, i)
-+		RCU_INIT_POINTER(cgrp->e_css[i], cgroup_e_css(parent, ss));
-+
- 	/*
- 	 * New cgroup inherits effective freeze counter, and
- 	 * if the parent has to be frozen, the child has too.
+ static bool bnge_promisc_ok(struct bnge_net *bn)
+@@ -2058,6 +2063,12 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
+ 		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+ 	} else {
+ 		netdev_hw_addr_list_for_each(ha, uc) {
++			/* dev_addr is already installed as L2 filter 0; a uc
++			 * entry equal to it hashes to the same key and would be
++			 * rejected as a duplicate, so skip it here.
++			 */
++			if (ether_addr_equal(ha->addr, dev->dev_addr))
++				continue;
+ 			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
+ 			off += ETH_ALEN;
+ 			vnic->uc_filter_count++;
 -- 
-2.53.0
+2.52.0
 
