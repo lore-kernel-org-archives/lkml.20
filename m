@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662413DA5A7;
-	Mon, 28 Sep 2026 05:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E273DF019;
+	Mon, 28 Sep 2026 05:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790574665; cv=none; b=ONC1ztWnq1xDI40/HWLUpU/Qi1RXIdkn5Al9ELSHYhx9k864M1tfFEfoiqAOrndLAFgQOKghYDq+216oBiDq6iARXBilIAbpcxVaU2lGcOhMsnk2+u8BOX9JiCxiaBK5H33CrUNu35SfYt0WPlU2sZ52BrmC8mFcCRpg/AfPa8M=
+	t=1790574669; cv=none; b=gM+w7qr6UG+RVj5+y4yVH3ikw6yYf/oLZoPbkMvBl/ayniYP6fPOju0BcTSvrogfVfF0bMy0zsmnHgKgquDOsWaqd2QFuoZdhx7nrf6Zuicwn97KxnHLUmK3MukIOU43HLG96eaGcsbSkc8UqASCd5B+2q7pw+vyXVf19mrJ9bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790574665; c=relaxed/simple;
-	bh=LZwhDx+uikbckC2FMiNwDHYLXg6HrD65ANkSuirD+2k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mB33mKRZVvzdcFsPb1alLtK2RSUTbB07AZwMp7Fwd3akJ7Oybe3VPIuTKOVqRsuML4UFGNVsRZ6Sr+Onn4cnnNWUCb4Jb2p1Raxi3JgGrQuulpB8H/x132wK4IrIGJmvWMSn/ZjcjH0+RygJT60CRqE2Of1eCiwtWv9BNow3WaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxaxUYgG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790574669; c=relaxed/simple;
+	bh=0CbIrOk5tG2HV7wNOj408xolUxn6Xp6AEFGQlVNercs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yc5EhP+rFPjmZr/WSnvECbxA9bM2dXS412noO0VZ9R8frM6p4AnZkfxCWnp25Rk7pFu588SUAQqpXdTn3rOOIr/cuAAVZVgAzum4E/MCcvtiwaMPT2bbkhMQxKh8NplQi70mGQYHoLDO4o2fKwTdcXKuTb2PmNQunWJfIo5AJY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHwhpDAw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxaxUYgG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB25F1F000FF;
-	Mon, 28 Sep 2026 05:51:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHwhpDAw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114CF1F0089C;
+	Mon, 28 Sep 2026 05:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790574661;
-	bh=UtQts/xQkNQlB6qr5GQSzlErJ9SYAgRywq1BsJudLJ0=;
-	h=From:To:Cc:Subject:Date;
-	b=cxaxUYgGYpz4s/BtRL2C5BCm9mfsmG9nrtYttnVGeJ/UnH+n7U81IKIjkVs69po3q
-	 ZL4E/w4rdTAyfXJ0R2g68/UmcfuhO0jNAVIIX2XpNBPORASCAOkQMTn2PqIfe3MJxC
-	 Ivmtbt/XaScydYdKYpXUKQFzZVXkTGAe0fziPFAb07XRkG2C/qbs0XlXDA1hphlQSG
-	 y1sB24eygCwjaoVqV2D5QTkKI6z9DtK4Fqk4Ee1Yw/6H2+UBgRC4rodknGMTMPe2dk
-	 hUKtq8LWBNQ5rEa0scRl3Ynbs/86vf1KFRqwe4j9hrsaAdXMeUUmbNmppnt46XC0G6
-	 Y/fgl2Ebb0vOA==
+	s=k20260515; t=1790574666;
+	bh=FEqEl+yu4WwM3ELYUBRZjZcprK9zGOmyVdAUyYA4X58=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lHwhpDAw6e2h6Ti0BGODtDna5bYf/043p4oaKNaFfs0mAbSCnw6Har/rl+xnVFM/J
+	 iRV+VsVQsE2ruwvGAx0y6Jh2YJ6sXaSqP9CnGr/aoP+G3UiLtRjZZRDq+NKrNKhErc
+	 tHMzXf7D9VBniEbwz/GfsbZAPqfNDOWFEemM9HMZqCg6bb5dm4UGzxLGEOsizlF0bk
+	 GIr3Pmwv+aIuC8fUTvmXiaawNT/t9FVYr2luQRZj/s1dPjlDiqcnXKS9YI4Gimy5Y8
+	 +W91Lsmwgze9++SF84cHYJ3BkJ3NZXoim8Xq/FdUZL4DPnRMSzATiURIgmNARaNrD0
+	 ZytlwhS1YHBdg==
 From: Namhyung Kim <namhyung@kernel.org>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>,
 	Ian Rogers <irogers@google.com>,
@@ -36,10 +37,12 @@ Cc: Jiri Olsa <jolsa@kernel.org>,
 	LKML <linux-kernel@vger.kernel.org>,
 	linux-perf-users@vger.kernel.org,
 	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: [PATCH v1 0/8] perf tools: Cleanup dso debug info access
-Date: Sun, 27 Sep 2026 22:50:47 -0700
-Message-ID: <20260928055055.95144-1-namhyung@kernel.org>
+Subject: [PATCH v1 6/8] perf tools: Avoid repeated failing search for debuginfo
+Date: Sun, 27 Sep 2026 22:50:53 -0700
+Message-ID: <20260928055055.95144-7-namhyung@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928055055.95144-1-namhyung@kernel.org>
+References: <20260928055055.95144-1-namhyung@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,40 +51,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+If dso has no debuginfo, dso__find_dbginfo_type() may repeat the same
+search for available types.  Let's add a new field (debuginfo_searched)
+not to do it.
 
-This is a preparation for DSO file access cleanup work.  IIUC DSO
-access has three types - symbol table, binary data and debug info.
-Those information can be placed separately like stripped binaries and
-split debug files.  I've added dbginfo_type to DSO to track location
-of debug info like others.
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+---
+ tools/perf/util/dso.c |  4 ++++
+ tools/perf/util/dso.h | 11 +++++++++++
+ 2 files changed, 15 insertions(+)
 
-I'm sending this out before it grows too much.  This patchset focuses
-on debuginfo open path.  Once it looks good to others, I'll update
-other places accessing DWARF info to use this info and cleanup other
-file type accesses too.
-
-Thanks,
-Namhyung
-
-
-Namhyung Kim (8):
-  perf tools: Add dso->dbginfo_type field
-  perf tools: Factor out dso__find_dbginfo_type()
-  perf tools: Check system path when check debuginfo
-  perf tools: Export dso__get_filename() with type argument
-  perf tools: Add dso__put_filename()
-  perf tools: Avoid repeated failing search for debuginfo
-  perf tools: Looks symbol file first when check debuginfo
-  perf tools: Update debuginfo__new() to take DSO
-
- tools/perf/util/debuginfo.c   | 51 +++++++++------------
- tools/perf/util/debuginfo.h   | 13 +++++-
- tools/perf/util/dso.c         | 86 ++++++++++++++++++++++++++---------
- tools/perf/util/dso.h         | 33 ++++++++++++++
- tools/perf/util/probe-event.c |  4 +-
- 5 files changed, 133 insertions(+), 54 deletions(-)
-
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 0c76441fba82c413..c36192e7ea557b47 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -2129,6 +2129,10 @@ void dso__find_dbginfo_type(struct dso *dso)
+ 	if (dso__dbginfo_type(dso) != DSO_BINARY_TYPE__NOT_FOUND)
+ 		return;
+ 
++	if (dso__debuginfo_searched(dso))
++		return;
++	dso__set_debuginfo_searched(dso);
++
+ 	for (type = dbginfo_types; *type != DSO_BINARY_TYPE__NOT_FOUND; type++) {
+ 		path = dso__get_filename(dso, "", &decomp, *type);
+ 		if (path == NULL)
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 45c4954d5eaf9ffa..3f08d45e7f53a508 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -349,6 +349,7 @@ DECLARE_RC_STRUCT(dso) {
+ 	u8		 short_name_allocated:1;
+ 	u8		 long_name_allocated:1;
+ 	u8		 is_64_bit:1;
++	u8		 debuginfo_searched:1;
+ 	bool		 sorted_by_name;
+ 	bool		 loaded;
+ 	u8		 rel;
+@@ -1019,6 +1020,16 @@ static inline void dso__set_dbginfo_type(struct dso *dso, enum dso_binary_type b
+ 
+ void dso__find_dbginfo_type(struct dso *dso);
+ 
++static inline bool dso__debuginfo_searched(const struct dso *dso)
++{
++	return RC_CHK_ACCESS(dso)->debuginfo_searched;
++}
++
++static inline void dso__set_debuginfo_searched(struct dso *dso)
++{
++	RC_CHK_ACCESS(dso)->debuginfo_searched = 1;
++}
++
+ bool dso__is_object_file(const struct dso *dso);
+ 
+ void dso__free_a2l(struct dso *dso);
 -- 
 2.55.0
 
