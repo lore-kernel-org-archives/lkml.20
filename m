@@ -1,97 +1,115 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0061485934;
-	Mon, 28 Sep 2026 09:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2915C3B7776;
+	Mon, 28 Sep 2026 09:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790586560; cv=none; b=m5he/nPAnTzd9vAKVhbtac5pOGL+NYlVCteCCMUrRnBWcwD+9MGbfPeRGTxDa0ZD7xCYOyZcmxgiJaKF824fgOMRgf2btd9Ag+Sfde86SQ9q2ZbGewN2CkSgtWs8dxwbW0KvNCouXOERZbOtYPPJzgiFmGM/haFJAJU0AeI4vlY=
+	t=1790586593; cv=none; b=Gq00Q2f5WQn0kXkTkeCSBIhHDePy9/P1+sQ6Ob/tzwCV6rrBlIRPVwErQBRwlG2c7BSc877H2WS0kRmpx/3ncr3ubR4sN2c+qqIDIAbPAo4N3uIlINhjtobGMYPguSUD7rlIQYHiaZ/ofTwR6X4CWg73TiHkgDysOinNYJMlTc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790586560; c=relaxed/simple;
-	bh=1CHtrpq+frNOoLssI0kZZ/Blr9NHUn+Ls7VEG3RkKmI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=KBZEEWhyqP05Neh8+j5aKgbN3JupGzCYfKhCc0bzjMT7ehGBCiWVdtUIZfODb3dGaw8U7SZecEeij7wJnMo7cz4wyJ+Iq8wwxGI5wLFg0KrqgRoT4QOoOBJuigmV1XCxwEOlFrVaFBvzlsFO6aqD+DJavtxBeYJdXrpbF/ogJbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AbQejhnE; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790586593; c=relaxed/simple;
+	bh=P2sa0Vps4EqQqHHu3WNhLTSJKChchQeJKOg6ephX9QU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A5pERb5en/5QrTbvqkGMuTBjvI1m8cVrkdy29/hjv4ZuvIx0M5esZoBAlNBGiNFbo6B+UIHsR+g//Ar4NdJKKxbb+8MphkQAP5PDczarIZ1PPTGoPjPLI1DjRBW1GQUhjBZH6vJmuXNhc3eIuBfU+EtLYeGI2Zmzj+9Hd/qyy+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i85yfcug; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AbQejhnE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=1CHtrpq+frNOoLssI0kZZ/Blr9NHUn+Ls7VEG3RkKmI=; b=A
-	bQejhnE3mt7Gka0KheoqPNimkk1p5I8laO7bkeYiKX73XbhsEa7L0SFipHD+9tpC
-	O90kgPToonMdbWuDarz2AgBJlbuR+NGqHA2Gmd3AQKdgdzMGQnGjpU0ZPVyN/1eZ
-	mNXHLvLC7jUK/0kFSB8/st4yRKQ+6Fwj4gxu4BY/2k=
-Date: Mon, 28 Sep 2026 17:08:39 +0800 (CST)
-From: chenyuan  <chenyuan_fl@163.com>
-To: "Leon Hwang" <leon.hwang@linux.dev>
-Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
-	jolsa@kernel.org, linux-kernel@vger.kernel.org,
-	"Yuan Chen" <chenyuan@kylinos.cn>
-Subject: Re:Re: [PATCH bpf-next] bpf: Roll back freplace link state when
- bpf_arch_text_poke() fails
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <d675af17-6b59-44c1-b90f-8fb468cc1d63@linux.dev>
-References: <4669addf.91e8.1a0d2da9b9c.Coremail.chenyuan_fl@163.com>
- <20260925043500.28030-1-chenyuan_fl@163.com>
- <d675af17-6b59-44c1-b90f-8fb468cc1d63@linux.dev>
-X-NTES-SC: AL_Qu2SAvmTuU0q7ySdY+kdnUYWg+8/X8W3svwi2YVUc/oEhgzm1QIGWntvNmnM6cGrGzG1tB6RaRt21sRFe6l1fWtS9QD8+dUglsFBkpU9Tg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i85yfcug"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790586591; x=1822122591;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=P2sa0Vps4EqQqHHu3WNhLTSJKChchQeJKOg6ephX9QU=;
+  b=i85yfcugybDX7nuxTrnaFj5F4Rj4mtPLgFcCKubyfIw/RiRCgQYRhxtZ
+   /bnw+ZFC0gPH4GWThQQa27w12OsamRd+TzoNJjfsf8lQwdn8NRuz9Jnb4
+   aA8IpmceQ0rIYkiK4sxfuxB/JyjlyKQgY+vvrCmquLVg2oZN+cMSQ+QUZ
+   n8pzrSWEfRaRwUz9nhRTY18tqGhpyZyqCExxZ0Ak58rxnWIOcTJX/3088
+   vMEq6Wubw5u0rNVXwwofdS8tVeuA1qRKnqOUeBeQTG+cLvdcP0VfJ8Y9W
+   mo8H7gI/c3Kdcq3OrrmV0uh+pAKEk4iUU+LaHLpNv+Ue9tMlKkpo7wQ+s
+   w==;
+X-CSE-ConnectionGUID: rxXcSGOkSz+p/EQqyRSfSA==
+X-CSE-MsgGUID: AcNbM9JXTtytVQIPsg6qoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90184581"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90184581"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:09:50 -0700
+X-CSE-ConnectionGUID: ThjlGFXYTkyS4Pd3dj0ggQ==
+X-CSE-MsgGUID: eOuhlCEHTyeXwaKu7o5aRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="301280037"
+Received: from yzhao56-desk.sh.intel.com ([10.239.47.61])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 02:09:44 -0700
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@intel.com
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	x86@kernel.org,
+	rick.p.edgecombe@intel.com,
+	kas@kernel.org,
+	tabba@google.com,
+	ackerleytng@google.com,
+	michael.roth@amd.com,
+	david@kernel.org,
+	vannapurve@google.com,
+	sagis@google.com,
+	vbabka@suse.cz,
+	thomas.lendacky@amd.com,
+	nik.borisov@suse.com,
+	pgonda@google.com,
+	fan.du@intel.com,
+	jun.miao@intel.com,
+	francescolavra.fl@gmail.com,
+	jgross@suse.com,
+	xiaoyao.li@intel.com,
+	kai.huang@intel.com,
+	binbin.wu@linux.intel.com,
+	chao.p.peng@intel.com,
+	chao.gao@intel.com,
+	farrah.chen@intel.com,
+	yan.y.zhao@intel.com
+Subject: [PATCH v4 03/17] KVM: TDX: Reset private huge pages after S-EPT page removal
+Date: Mon, 28 Sep 2026 17:08:45 +0800
+Message-ID: <20260928090845.15518-1-yan.y.zhao@intel.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20260928090729.15468-1-yan.y.zhao@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <56074a5.8632.1a0e745ffa8.Coremail.chenyuan_fl@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cigvCgD3twKYLrpqzKlPAA--.3947W
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbDAhj6uGq6Lph9XAAA3f
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-ClRoYW5rcyBmb3IgdGhlIHJldmlldy7CoHYyIGFkZHMgdGhlIGJlODcwNGZmMDdkMiBGaXhlcyB0
-YWcgYW5kIGNvbGxlY3RzIHlvdXIgQWNrLgoKCgoKCgoKCgpBdCAyMDI2LTA5LTI1IDE0OjA1OjU5
-LCAiTGVvbiBId2FuZyIgPGxlb24uaHdhbmdAbGludXguZGV2PiB3cm90ZToKPk9uIDI1LzkvMjYg
-MTI6MzUsIGNoZW55dWFuX2ZsQDE2My5jb20gd3JvdGU6Cj4+IEZyb206IFl1YW4gQ2hlbiA8Y2hl
-bnl1YW5Aa3lsaW5vcy5jbj4KPj4gCj4+IEEgZnJlcGxhY2UgYXR0YWNoIGNsYWltcyB0aGUgdGFy
-Z2V0IHByb2cgYnkgYnVtcGluZwo+PiB0Z3RfcHJvZy0+YXV4LT5mcmVwbGFjZV9saW5rX2NudCBh
-bmQgc2V0dGluZyB0ci0+ZXh0ZW5zaW9uX3Byb2cuCj4+IGJwZl9hcmNoX3RleHRfcG9rZSgpIHRo
-ZW4gbWFrZXMgdGhlIGV4dGVuc2lvbiB0YWtlIGVmZmVjdC4gIElmIHRoZQo+PiBwb2tlIGZhaWxz
-LCB0aGUgY2xhaW1zIGFyZSBuZXZlciByZWxlYXNlZDogdGhlIGF0dGFjaCB1bndpbmRzCj4+IHRo
-cm91Z2ggYnBmX2xpbmtfY2xlYW51cCgpLCB3aGljaCBjbGVhcnMgbGluay0+cHJvZywgc28KPj4g
-YnBmX3RyYW1wb2xpbmVfdW5saW5rX3Byb2coKSBuZXZlciBydW5zLgo+PiAKPj4gRHJvcCB0aGUg
-bGluayBjb3VudCB1bmRlciBleHRfbXV0ZXggb24gdGhlIGVycm9yIHBhdGgsIGFuZCBzZXQKPj4g
-dHItPmV4dGVuc2lvbl9wcm9nIG9ubHkgYWZ0ZXIgdGhlIHBva2Ugc3VjY2VlZGVkLiAgVGhlIGNv
-dW50IGlzCj4+IHN0aWxsIGJ1bXBlZCBiZWZvcmUgdGhlIHBva2U6IGl0IGJsb2NrcyBwcm9nX2Fy
-cmF5IHVwZGF0ZXMgd2hpbGUKPj4gdGhlIGVudHJ5IGlzIHBhdGNoZWQuCj4+IAo+PiBGaXhlczog
-ZDYwODNmMDQwZDVkICgiYnBmOiBQcmV2ZW50IHRhaWxjYWxsIGluZmluaXRlIGxvb3AgY2F1c2Vk
-IGJ5IGZyZXBsYWNlIikKPgo+WW91ciBjb21taXQgbXNnIGFsc28gc2F5cyB0aGUgaXNzdWUgYWJv
-dXQgdHItPmV4dGVuc2lvbl9wcm9nLgo+Cj5BbiBleHRyYSBGaXhlcyB0YWcgZm9yIHRyLT5leHRl
-bnNpb25fcHJvZyBzaG91bGQgYmUgYWRkZWQuCj4KPkZpeGVzOiBiZTg3MDRmZjA3ZDIgKCJicGY6
-IEludHJvZHVjZSBkeW5hbWljIHByb2dyYW0gZXh0ZW5zaW9ucyIpCj4KPlRoZSBjaGFuZ2VzIGJl
-bG93IGxndG06Cj4KPkFja2VkLWJ5OiBMZW9uIEh3YW5nIDxsZW9uLmh3YW5nQGxpbnV4LmRldj4K
-Pgo+VGhhbmtzLAo+TGVvbgo+Cj4+IFN1Z2dlc3RlZC1ieTogTGVvbiBId2FuZyA8bGVvbi5od2Fu
-Z0BsaW51eC5kZXY+Cj4+IFNpZ25lZC1vZmYtYnk6IFl1YW4gQ2hlbiA8Y2hlbnl1YW5Aa3lsaW5v
-cy5jbj4KPj4gLS0tCj4+ICBrZXJuZWwvYnBmL3RyYW1wb2xpbmUuYyB8IDEzICsrKysrKysrKyst
-LS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+
-PiAKPj4gZGlmZiAtLWdpdCBhL2tlcm5lbC9icGYvdHJhbXBvbGluZS5jIGIva2VybmVsL2JwZi90
-cmFtcG9saW5lLmMKPj4gaW5kZXggZGE4NWJkNTgwZWYwLi5iZjRhYjBhYzI2NGUgMTAwNjQ0Cj4+
-IC0tLSBhL2tlcm5lbC9icGYvdHJhbXBvbGluZS5jCj4+ICsrKyBiL2tlcm5lbC9icGYvdHJhbXBv
-bGluZS5jCj4+IEBAIC05NzMsMTAgKzk3MywxNyBAQCBzdGF0aWMgaW50IF9fYnBmX3RyYW1wb2xp
-bmVfbGlua19wcm9nKHN0cnVjdCBicGZfdHJhbXBfbm9kZSAqbm9kZSwKPj4gIAkJZXJyID0gYnBm
-X2ZyZXBsYWNlX2xpbmtfdGd0X3Byb2codGd0X3Byb2cpOwo+PiAgCQlpZiAoZXJyKQo+PiAgCQkJ
-cmV0dXJuIGVycjsKPj4gKwkJZXJyID0gYnBmX2FyY2hfdGV4dF9wb2tlKHRyLT5mdW5jLmFkZHIs
-IEJQRl9NT0RfTk9QLAo+PiArCQkJCQkgQlBGX01PRF9KVU1QLCBOVUxMLAo+PiArCQkJCQkgbm9k
-ZS0+bGluay0+cHJvZy0+YnBmX2Z1bmMpOwo+PiArCQlpZiAoZXJyKSB7Cj4+ICsJCQkvKiBVbmRv
-IHRoZSBjbGFpbSBmcm9tIGJwZl9mcmVwbGFjZV9saW5rX3RndF9wcm9nKCkuICovCj4+ICsJCQln
-dWFyZChtdXRleCkoJnRndF9wcm9nLT5hdXgtPmV4dF9tdXRleCk7Cj4+ICsJCQl0Z3RfcHJvZy0+
-YXV4LT5mcmVwbGFjZV9saW5rX2NudC0tOwo+PiArCQkJcmV0dXJuIGVycjsKPj4gKwkJfQo+PiAg
-CQl0ci0+ZXh0ZW5zaW9uX3Byb2cgPSBub2RlLT5saW5rLT5wcm9nOwo+PiAtCQlyZXR1cm4gYnBm
-X2FyY2hfdGV4dF9wb2tlKHRyLT5mdW5jLmFkZHIsIEJQRl9NT0RfTk9QLAo+PiAtCQkJCQkgIEJQ
-Rl9NT0RfSlVNUCwgTlVMTCwKPj4gLQkJCQkJICBub2RlLT5saW5rLT5wcm9nLT5icGZfZnVuYyk7
-Cj4+ICsJCXJldHVybiAwOwo+PiAgCX0KPj4gIAllcnIgPSBicGZfdHJhbXBvbGluZV9hZGRfcHJv
-Zyh0ciwgbm9kZSwgY250KTsKPj4gIAlpZiAoZXJyKQo=
+"Resetting" TDX pages is a workaround for the TDX_PW_MCE erratum. Once a
+leaf SPTE can map to a huge page in the S-EPT, the entire huge physical
+range, rather than just the first 4KB, needs to be reset before the host
+can reuse it.
+
+Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
+---
+ arch/x86/kvm/vmx/tdx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 410c149bf776..11792a490330 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -1865,7 +1865,7 @@ static int tdx_sept_remove_leaf_spte(struct kvm *kvm, gfn_t gfn,
+ 	if (TDX_BUG_ON_2(err, TDH_MEM_PAGE_REMOVE, entry, level_state, kvm))
+ 		return -EIO;
+ 
+-	tdx_quirk_reset_paddr(PFN_PHYS(pfn), PAGE_SIZE);
++	tdx_quirk_reset_paddr(PFN_PHYS(pfn), KVM_HPAGE_SIZE(level));
+ 	tdx_pamt_put(pfn, level);
+ 	return 0;
+ }
+-- 
+2.43.2
+
