@@ -1,119 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16C93909AE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97D3A3644DE;
+	Mon, 28 Sep 2026 06:51:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.248.49.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578270; cv=none; b=Qu2SjdLgttkpCxg/iMstglb5iu+GOkoqGmxFYgNCVbE3TraZNey4IzIpDxPXNY2eT4Fl7Nd4afa7A9TXP4paeB7C66MsQ5fkOqvZVRkDy6ln3JC451J/vxADuitaiAK3nmGJI5iUBuqq4aUw5/smV7UJl+/HNQdEgx7yZa2ve9o=
+	t=1790578279; cv=none; b=SkrgAXSSMGRYhzIu7gx0Fvk5w5OPvx20w1IYSGh8ZMnD6k40EulkNAmUJhfwcXlMLSyGsCJ1NrghfoRUhojU1Eg9wAhMZv/5CmdhTWRpWbs18izLcq34tBs+kcsgoXWa0WZfpDeE6cBRuxlxb3AeuKQKe0FAzkIcQINH6R3I68w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578270; c=relaxed/simple;
-	bh=eIKla4S6a3D0MHGwhrlPCSrXWKbvb2Ko4TtW5GQrom8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HZ5GpEQ56sb4UG8Vw3RbeS58Dg7ECWEwM/34ABJuocnK7p5cUq0/eLbxCkxIAt5Tdv0OC6bIxCoQy0ajzAw1/K4IufKJnnmO/SNqm/0jqSCU+DPP+M3xqUScZVTMHDrfDNd2udEJ8otlJg9cCv8Nf7UI5m1/4o0M4iivgXAF5iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRahg4cA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRahg4cA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C261F008A3
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 06:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790578268;
-	bh=s5UI4Wy+eGiErrBzR7b2VedGpOFJDsN75qbhAxc0yzs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jRahg4cAxN6Tle2r15oJe/vmxLHt/LqsTmTxt34l9F+NJ+DReohvk6pR5vCHz2B3O
-	 pcJWUAQ6QH4Lp0CuwBlUfYDuo8LRITlBQkrUs+FWRkmUazrwaGqVihIh4IqyqQnhho
-	 SzyMTgwzEgMUZNVh1F/Zj0azGL+N+c5Ip34weRdyBiQruy5eAGdfDQpOqcJy0xC9If
-	 XninYxyuXj034C3GWnRU/6CjCPxeYVDzZ7UFgT6+ITXDEVEQGj43lpS/oBRFluKgN6
-	 GcObbZtLOxjCr5AeIQf/biJ0/q1/t08Vi+9JBBBQYwnZtkEnOC4gB+89RwY77H8Rzi
-	 ckorlts8LfjXQ==
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93bd580489dso222727585a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 23:51:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwayhBypj/SmTfXD9JLUOqdovmW2PaMnrzkPlMd445xj8QOEixvnTx9rB8WhLDrI2bJfYmy3KaFssQ2Kts=@vger.kernel.org
-X-Gm-Message-State: AFuF++l103ULUuffRL33sMfo3O57n5YIXOthYzrqNdLMTPAr0oh5joS/
-	bPLGgf/Tn3+xiY2VvvjC+wDZeHxKsxfBBB7tRBeeKvOkgXDDhXoUMouTvJzBqLvs4VtWUfIhAqN
-	Zvlplk1MxQdehXp8W0jNBMusC64KVkxE=
-X-Received: by 2002:a05:620a:6486:b0:93c:6925:dfeb with SMTP id
- af79cd13be357-93c6925e8a2mr834739185a.56.1790578267654; Sun, 27 Sep 2026
- 23:51:07 -0700 (PDT)
+	s=arc-20240116; t=1790578279; c=relaxed/simple;
+	bh=vdhUNmVV0tAGz5Sa/G9YfcZcTTk9SfHwyuBGytisO88=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pk1/KJQUQqR0UhRfoLbxUJ6XVFS+XHPIA346jXl6RDTiizZje7Kl7CQvq8higkKHoFi7hENQecxjn7FOoQRgfe6y13p2ZOGlVO0rD4wn7fXxzpLNqtPN5oayKrg9Q1gAKAcbsengZUyT96JTUPG6lbAcRyQt6atpwpEUTcDCAaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com; spf=pass smtp.mailfrom=socionext.com; arc=none smtp.client-ip=202.248.49.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
+Received: from unknown (HELO iyokan3-ex.css.socionext.com) ([172.31.9.54])
+  by mx.socionext.com with ESMTP; 28 Sep 2026 15:51:09 +0900
+Received: from mail.mfilter.local (mail-arc01.css.socionext.com [10.213.46.36])
+	by iyokan3-ex.css.socionext.com (Postfix) with ESMTP id 3ED5620914A4;
+	Mon, 28 Sep 2026 15:51:09 +0900 (JST)
+Received: from iyokan3.css.socionext.com ([172.31.9.53]) by m-FILTER with ESMTP; Mon, 28 Sep 2026 15:51:09 +0900
+Received: from [10.213.138.107] (unknown [10.213.138.107])
+	by iyokan3.css.socionext.com (Postfix) with ESMTP id E9B2310A019;
+	Mon, 28 Sep 2026 15:51:08 +0900 (JST)
+Message-ID: <faa1027c-7279-462a-9c6f-f03354b9cfd3@socionext.com>
+Date: Mon, 28 Sep 2026 15:51:09 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928063724.24008-1-hui.zhu@linux.dev>
-In-Reply-To: <20260928063724.24008-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 28 Sep 2026 14:50:55 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wrWdw+4B10K3J+sDCSjVoBs2=LtObb6MKehuYsx9pXMg@mail.gmail.com>
-X-Gm-Features: AclHuK-c7GpN5AyOOlaUnzGeJcdZoBH-1EyfOLTse_68UQXS73MXqF_7DQKjthA
-Message-ID: <CAGsJ_4wrWdw+4B10K3J+sDCSjVoBs2=LtObb6MKehuYsx9pXMg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: Add bpf_proactive_reclaim test
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <inwardvessel@gmail.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Geliang Tang <geliang@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Malathi A <malathi.a2000@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260917040511.103232-1-malathi.a2000@gmail.com>
+ <97e4ab26-b147-4cf4-97f9-307903f14e61@socionext.com>
+ <arUvJyvChXXcasSu@ashevche-desk.local>
+ <3ea1f574-ddb5-46a6-9bc1-7a8ea84c54bd@socionext.com>
+ <arZ5KxIp55qA6UA7@ashevche-desk.local>
+Content-Language: en-US
+From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+In-Reply-To: <arZ5KxIp55qA6UA7@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 2:37=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> bpf_proactive_reclaim() performs one bounded reclaim pass per call and,
-> unlike a write to memory.reclaim, does not retry until the goal is
-> reached.
->
-> Charge 32 MiB of page cache to a cgroup, ask for all of it in one call,
-> and check that the result is positive but well below the request: one
-> pass is capped at MEMCG_CHARGE_BATCH pages, far short of 32 MiB on both
-> 4K and 64K page kernels.
->
-> The test deliberately covers only the kfunc itself. A full example of
-> the intended asynchronous use, where a BPF program watches one cgroup's
-> workingset refaults and reclaims another one from bpf_wq callbacks, is
-> maintained out of tree at [1], released under GPLv2.
->
-> Add CONFIG_MEMCG to the config fragment, without which mm/bpf_memcontrol.=
-c
-> is not built at all.
->
-> [1] https://github.com/teawater/memcg-async-reclaim
->
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> ---
-[...]
-> +
-> +       /*
-> +        * Charge FILE_SIZE of page cache to the cgroup. Reading rather t=
-han
-> +        * writing keeps the pages clean, so reclaim does not have to sta=
-rt
-> +        * writeback before it can evict them.
-> +        */
-> +       if (!ASSERT_OK(ftruncate(data_fd, FILE_SIZE), "ftruncate"))
-> +               goto out;
-> +       for (off =3D 0; off < (off_t)FILE_SIZE; off +=3D sizeof(buf))
-> +               if (!ASSERT_GT(read(data_fd, buf, sizeof(buf)), 0, "read"=
-))
-> +                       goto out;
-> +
+On 2026/09/25 22:37, Andy Shevchenko wrote:
+> On Fri, Sep 25, 2026 at 08:32:20PM +0900, Kunihiko Hayashi wrote:
+>> On 2026/09/24 23:09, Andy Shevchenko wrote:
+>>> On Thu, Sep 24, 2026 at 06:07:37PM +0900, Kunihiko Hayashi wrote:
+>>>> On 2026/09/17 13:05, Malathi A wrote:
+> 
+> ...
+> 
+>>>> I'm a bit concerned about the error path in uniphier_uart_resume().
+>>>> The clock may have been disabled in uniphier_uart_suspend(), and
+>>>> clk_prepare_enable() can fail when trying to enable it again.
+>>>>
+>>>> In that case, wouldn't devres try to disable an already disabled
+>>>> clock on detach?
+>>>
+>>> Isn't there is a guarantee that the .remove() is called with PM
+> runtime on
+> 
+> After reading a code of driver core I see that this is the opposite
+> actually.
+> The PM runtime might be off.
+> 
+>>> and get, meaning it's called with the enabled clock? But if not the
+> case,
+>>> we might use PM runtime force operations (resume and suspend in the
+>>> respective cases.
+>>
+>> My concern was just the case where clk_prepare_enable() in the system
+>> resume callback fails, leaving the clock disabled before devres cleanup.
+>>
+>> This driver currently only uses SET_SYSTEM_SLEEP_PM_OPS(), so I wasn't
+>> considering runtime PM here.
+> 
+> So, in such a case how do you see the scenario when system is resumed
+> (Right?
+> Otherwise we can't do anything, like detaching driver from the device.)
+> and
+> clock is disabled?
 
-In case we might map file holes to the zero PFN someday (not sure when),
-this wouldn't necessarily give us page cache. So maybe write + fsync is
-more future-proof? In that case, you could also drop the two lines of
-comments.
+Ah, I understand your point. I was assuming that the driver could later
+be detached after uniphier_uart_resume() failed, leaving the clock disabled.
 
+If that sequence cannot happen after a failed system resume, then my concern
+doesn't apply. Thanks for pointing this out.
+
+In that case, I have no further concerns about the use of
+devm_clk_get_enabled() here.
+
+Thank you,
+
+---
 Best Regards
-Barry
+Kunihiko Hayashi
