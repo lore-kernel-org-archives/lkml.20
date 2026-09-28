@@ -1,179 +1,115 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012068.outbound.protection.outlook.com [40.93.195.68])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB6118DB26;
-	Mon, 28 Sep 2026 16:09:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611772; cv=fail; b=AEY4eLp0ofKSseKq8BgiWpBnZSZwEKYzK2h0WN0tnJQAA/nzaMMfTymbq4yHeyXuV/XzN3nNXAvAjisSJs3TdVNtdXon2WHUS9nI6MWflALmBvjK9pxeZYcSmwt9awNmVxOhgZ4ZnmCE+HDMV2DPHTFOLG3GG7DqZdNNuzT3qXI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611772; c=relaxed/simple;
-	bh=Hv1HdoM8Abvf6gFi2Kj5cuQZ6JsGEp1Fz6hZ7Bp0AX4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jJ8bbtrMwTTMnaZtAOPGPsTMWj0N9b8wlLPrcJFX0dDXJtIJSySDPThlSoar9uKGchpmF8e68zrFLRoMK/yPP0qW+vSk2tPbheHNeNgUa5PzLEQyOWtSBtwvLtXq9sjkN+RNkIPhC9GykvrM5xH+M2H+gk/SXDJ7/pWMjStL5TI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LtSra+v2; arc=fail smtp.client-ip=40.93.195.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FB0366575;
+	Mon, 28 Sep 2026 16:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790611812; cv=none; b=iY5o0Kc0Y2psCyw0iKNh9MTdMxuLosRvt1noSR+ansWr9k0cdCFJPPY46SYx4d0jzBGBd5Z/jvmZDcro6Aroakb26a5HrApqqY7uE7axKAc2iVET5+MIjnFrVecDhp2+/cKrOiTXJ1yK7+QIzGqyjssSsSmExwZmGCDsQ3asvKE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790611812; c=relaxed/simple;
+	bh=olNMz5YZQDlY1bi55VVy7KXyye4u3+GKfiXGVCkelC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fGrr92k4o8GgOJKnoBdKB08OKn7sCRNqH4vL93jHxMTg158nlKixG+DpI92OgVPmb8n89XzQH1sDU01gptkCEINACalC0+hcx3MZafvFDIoh5xL7BckcQ5Diafckowz0NIz4IKlUmI5U4gRruHNzFtDSHEDXegoqIsRrYi4XkN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICso0gr+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LtSra+v2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uj/RfQ2DcczkyuficRGSbyvpSLQQbfnN9r3PVb/tkrTOiNeAxyvtllD6YIPOEEU7DNc615XzfUFHrf+w98QicD3NBK5tk8/E1S10QHLU+hjuy6bmdTrgIEQ4B3d6h9CEI0JiNxXBcbUHL6VSPprWp6HSaNxOE/a2gkGcgiGhk5eEt9mXbTBsTBKiKSpq7hBhHBGbVkF6bDIgdH4t4iLh51rrmm6fqZNkM/OuMf7OpQQhRN7pMAWBhGNm529LPrFWXNOLMb2V+uBAHqHo+8DwVi/pMut+jfojuGb6OBOFtoh7F55VRssi8Dkm+peG2rv4A29mq4xpZqWeEuESbFMABQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GxcvQ+f9zzfaj2Cnf7TRiYJjYADSeoVH1r87Xqdcs34=;
- b=IurEJrNAGDlxJ+d1cDrTI+dBg3oQXC8FJiK5APLLBHw2vFmiie2haMDeICn/jjokR1b6IBGCrQoQStGbL0ae8pAthHy0rrASSsNcYPzVmPVQ5PtyglH1j3XuDATpmkW/0wWYrxzIJwIgqfcHj0kTgvspTt0qCN/uwNsI/d0v4YMvN4vCso3HKYyisHutsz3WXaf3rCDI8Bq68WkJvq5sgnuBf/Vtj2owMIGy8WKKrNXaXmBkiwHox+WBtFGs3gByUD+Ee68pDC3Fr9ZrStm6YOZRk3EbDyGMoCtpL1mYCFDEy/vl6VQ/Y5eZD7MwJ7fvNSHS52vlwgemoGMzH9MM1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GxcvQ+f9zzfaj2Cnf7TRiYJjYADSeoVH1r87Xqdcs34=;
- b=LtSra+v2X1c5H+TtK+2DNJ9gAKUhJA6Zy+hEAajSp8HHIqG6MoQCh0DJ7l9R4O8TPHk5uOBmgwyxyDQgqI75motfAqpo1aPSf/AlQGjxK0N+SGYHGTk0PV8i/xtr4m68W53ioPvGh5Ivn3EB/vIb0S2/fUiKDF4BBfOWSmjfBC0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH3PR12MB8880.namprd12.prod.outlook.com (2603:10b6:610:17b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 16:09:21 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 16:09:19 +0000
-Message-ID: <20c15bb0-abf3-4a34-86e5-712f8f131acb@amd.com>
-Date: Mon, 28 Sep 2026 11:09:16 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] platform/x86/amd/pmc: Add Thinkpad L14 Gen3 (21C5) to
- quirk_s2idle_bug
-Content-Language: en-US
-To: Bruno BOI <bruno.boi@bobtopus.eu>, Shyam-sundar.S-k@amd.com,
- Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928160607.679319-1-bruno.boi@bobtopus.eu>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260928160607.679319-1-bruno.boi@bobtopus.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0252.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::17) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICso0gr+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285321F000FF;
+	Mon, 28 Sep 2026 16:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790611811;
+	bh=39jJMoh2t7NHIz08n8lMVjXlTS/HZlmaisj6W0jHknw=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=ICso0gr+BVEr54WZEqW/7K+E5OkfbRgp4i22aHPIoyftRw+URJb5lWscZabIsH5CV
+	 tGxNVK9LgA+MWq/ZH6A0hxaeB2572AP2uVCBNNsNkUCml+TWwaxZHMHK8PYO7kK3P8
+	 d7n8gEw14cCge6LrkPZ5KDuVN5XRhfRGFHeEqpgbIp/5WEIolBflftwFX9FJ0ePtW1
+	 DRVgNCCQqWmFKtomDH8BfuEJmOrsph/Xposbt0K3Ld7gudxlKJk8RVY9APOrSDZvNz
+	 1Z3awJdITNWJ/xFKkSUgp4ElCIbYfFtGyAaY7PJm/XWtpUbseoV+rYxw6NokTcNU/D
+	 mmYFJ1tYkmrJQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C7551CE0832; Mon, 28 Sep 2026 09:10:10 -0700 (PDT)
+Date: Mon, 28 Sep 2026 09:10:10 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, rcu@vger.kernel.org
+Subject: Re: [PATCH] fprobe: Protect fprobe_return() with guard(rcu)()
+Message-ID: <1c2a58be-0c8d-45b1-a803-85480e976e11@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <179055575009.241711.6358052647499787191.stgit@devnote2>
+ <179055575973.241711.6618845269004184577.stgit@devnote2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH3PR12MB8880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00c1a39f-71fa-4a30-24d5-08df1d7ad9e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|13003099007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dFjoF+MpIoN3MMxc1g34+2F3QrnKIEtwmuyl13oHtyElB3hjrJ0A5mJG3xBp+nIm7ClRsz7SihjAB8RKGaFvQbYVnUab0iMYw/0vKtnXaOWmkC0oOi+QcUFHga9c4Nbkz0btqW5TjLA7K4nczceScOI15zg3cGdNCHe1zdBQj+Q1MxOVzHs/RaSJxpGUpJU01eRBZBEVtsoxiHyN2+EyBEsxlxaCIRvMxwrhPNfe24IkcmecP9Kjq8xxbI+EQyGG0+8BnfvItgvwgiVEYl2ikiwwpYDZ855u4F+qLsVXWPWjjwsAI2oPSF81BxmIvpUWUUqp3zoQqNCFIVGCmdT1c9Ql175lYXVH//+3yzq4ndx6XEGKgLfWLz42D92MYTgq/4IcHpCKIjfiifDhba/zPggU7+LQX9f6ztFAmLc8y/cGTbnVSXBdh9eT7wVS32DGKUY6nEy/TVKFVF6RAyZC36YE+AXK5IJXGeZ6zAHdOucMVCmtt3J3YWVkNNjnAXQZCjb98KpfkCuuFldkLpNrjGcx9VF+PM07HenORIXvvXXwGV5ixx6xaPWvgr6zMoZ7cZpgwj1zsILYG2lf4K+ZdTijfhEv1KcpyFDgFfHdZSs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(13003099007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?KzlxNHFzODhvRU5KcTlXRDF6dFp1ODN5Y0lLTVcxekNzazFWODBNdmRVRmhO?=
- =?utf-8?B?Umd4VlQvUU9hSjJyUDFnczlZSG1ZV2szV1pWV0ZPcDJ4OEIydSs0TWRlM1Yv?=
- =?utf-8?B?RDY4bEFRNlY4Qms1R2ZYM1FMOC9wWDBCMzBIMjJRelhremVOU0FQU1pyc0R0?=
- =?utf-8?B?MjJYc2ZWZWpVYTdTYzRKNFVoOGVuaXMyNDZhdkY2V3RLck96NTNJVDlFdHpD?=
- =?utf-8?B?UzJLYitTTFFraHRvdnh5SVVrWEJJRG14R0xDL3ZoM0NONFkrc2FyV05DWEll?=
- =?utf-8?B?eFpsWW1vcTlBQWY3RGtXK3NEcnpRNmZiTXhXam4xS2o2bFBKZGtRbElZZkNY?=
- =?utf-8?B?WS81aU5OWHRhdWRKTFpnSVpuQ1lSbTNWMmVJTGpUMGxOaUs3eXZpclpSdy9J?=
- =?utf-8?B?UUFhSkVJMmxPcmRjMUdWaEkzdDFwbk0zYmpwRzIwOHZ4bWc0K2VsVkRzd0VN?=
- =?utf-8?B?cUl4cEYzaFpOR1VUaXRFNytXZWJORmhsNWJRKzk1YlExU2dGWTNFb1JUUFFl?=
- =?utf-8?B?Wktkb0w0ZHdlSjdQZG8vZTdUdUlGVkV3RVZHUkpqSVowZHBWNnBmeTFCUkJy?=
- =?utf-8?B?aWswSks5TTdVRzVhMlhHamRQVmUrOVdLQk1VVzByZzhmY0xVenNDVEVubDZF?=
- =?utf-8?B?azBaSk9MSTBmTUtXQTlUOXBFdlZKamxpUHpWNGtPRElNOENuOWRielpQWUhv?=
- =?utf-8?B?N0t3TUhmSndQUjYzdHJlYXRQb0pqc1dsZ0FGREFvcUtrVnlqSytmQzRvUFNI?=
- =?utf-8?B?Nkk5Y2RqaEQ5R0dFa1Nkd0FmRVhMRnZBdUlFUGRseVR0cFlOQUl2WTFwZU1j?=
- =?utf-8?B?WTg5cUsrbzlTVVJUNFFpd2NwZEpxa1ZwbDhORjBnbDVCTERac2VYd3UzbGZT?=
- =?utf-8?B?eS9oVGRPL3R6ZWxPeWZ5b1ZUY2xhaGR6U3VvLzJBcERjV2I1b0FQanZycS9C?=
- =?utf-8?B?RmliWDNSWXVDd2lHeDVGTFVPYkFoYW0rODFrcVlmV2JYV05QWXJJV0w3MDhr?=
- =?utf-8?B?cUZwTWtaY3VsZmMvWVNCdW5JdmV3MmtuQkw4RG5GUGlYTVJNaTIxQlFyb3B4?=
- =?utf-8?B?SXhrUlZDampGYnR2Mm1qaGM0Slp2Y3h4Vmd6S3R2Tzd5QjJqemVseFVtQ01S?=
- =?utf-8?B?elhJZm03VnpMT0w4eHR1b29wZ25DeGUrbmVXdWZPMUVWNGxYUEpGQWhtOXk0?=
- =?utf-8?B?dFYxOGp4WlJCN2E5RmpUcm5yU3BBNzVQZ0ljU05CaUQxYW9STnUrWmZOdmor?=
- =?utf-8?B?UzZQMjE3ZFJKekJwL1diSFdadHNmdlNvQUZXVXZLSHJSeGlBUDlDY1JWNWcx?=
- =?utf-8?B?UGxMaGNIZ01ybUVwamV5dWg4Nk1tMGcvVjYrbHJtbk9tQWhxV1JlYy9iREdD?=
- =?utf-8?B?ZnBmRlo0aW1jRkdvTVp1TmRLWUR4Sm5xWDZtME9aK1F1M211NUFqc0dxSnor?=
- =?utf-8?B?UTI5aTFQYzd2V2E1QVQ0UjU2dk9XY3pyNW9SbXJYUW5EdERReC9IK09Sand4?=
- =?utf-8?B?UUo5RTVCcHBYa2s4ajZxSDI0U1FkeHppckpMMGhFN2xsZjkxai9wenlwdG9r?=
- =?utf-8?B?YXplWGRObi9RK1lQbGtrUWlPVzlqSXVlOUphZmp3bnE5ekVCV2Q1UmZ2WUd0?=
- =?utf-8?B?SXd3dGxrdFlLYlcyQTNjVE03YUdpN0lUZkN6R3BNR2ticFphYU1PT2g2dFhR?=
- =?utf-8?B?S282cDhYWms2WVhFY0ZrcWlMSDNBTFdCQ29MM2NVUjR4TjVSSWN0YlBxaWJm?=
- =?utf-8?B?L3VPZzkxeXVlQjRnZ01LRXhaSXVncUloRW0vSmRaZ2RlaGQ0NnZxelRhNE5V?=
- =?utf-8?B?bGpRNldyWUpheS84bURJTFN5Ny9aRFA3YU5oZnp4UjFFZlltbEZ6VTN6S1JN?=
- =?utf-8?B?cDFPR3JzalBuY3BxaTM5RFJ4WVNHdU9mRlprY21JRDdNT0c1UzhzTnBOV0NK?=
- =?utf-8?B?SDRGQnhLVFVXMmdJUzlodG5IUnpOTXphRGhIbm0vMU5mU2lSU2taSDAyRDVL?=
- =?utf-8?B?ZUNuSXJpcHZtNmNTSmFTZ3JrU3IwdnplMnZCNEpxanVNcmdxV2hlMEJQSkQz?=
- =?utf-8?B?UFFDY2hDZ2FnNTZYL2FEelowR2xmSFZ4R2J0V1FjTGdjTm5wOUd6cmppNmln?=
- =?utf-8?B?NEVMa0FaaTcxQnJOSENQUFpIRjlBK0szem9mSW1pTUZEVlVSVHBMUG9DazY4?=
- =?utf-8?B?NWNXQUlEQWFYZUM1MHV0QWticFpUaUxEY0dWSWZIMWNTVlVzeUJPMk0wRkJX?=
- =?utf-8?B?RWlQQWpjUVdIdTRyemdzU2FjTFlXSjJRdTVtQ1p3am9xVkEvQlJYRHVHWTU0?=
- =?utf-8?Q?oZMVvyzOrrqDeDqzkt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00c1a39f-71fa-4a30-24d5-08df1d7ad9e9
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:09:19.2236
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 01ApV1sHuntCbMkoNYeTFl56GgKrLV8Tda6/9YK3davwPJNiM+1DgFdDcrQo6cQxCVzqok3C1ujGXKTeJXJEcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8880
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179055575973.241711.6618845269004184577.stgit@devnote2>
 
-
-
-On 9/28/26 11:06, Bruno BOI wrote:
-> The Thinkpad L14 Gen3 with DMI product name 21C5 is affected by the same
-> s2idle resume stall as the already listed 21C6 variant: resuming from
-> s2idle blocks for several seconds before the kernel resumes.
+On Mon, Sep 28, 2026 at 09:35:59AM +0900, Masami Hiramatsu (Google) wrote:
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > 
-> DMI_MATCH() performs substring matching, so a "21C5" entry also covers
-> SKUs such as 21C5S05800. Add the 21C5 model to the existing
-> quirk_s2idle_bug table.
+> In fprobe_return(), the shadow-stack iteration and exit_handler
+> invocations were protected by preempt_disable_notrace().
+> However, unregister_fprobe() and unregister_fprobe_async() (used
+> by BPF kprobe-multi) rely on standard RCU grace periods (synchronize_rcu()
+> and call_rcu()) to wait until the fprobe is no longer in use before
+> freeing it.
 > 
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222070
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221273
-> Signed-off-by: Bruno BOI <bruno.boi@bobtopus.eu>
+> In preemptible kernels (CONFIG_PREEMPT_RCU=y), standard RCU grace
+> periods do not wait for pure preempt_disable_notrace() critical
+> sections. Consequently, an unregistered fprobe may be freed while
+> a concurrent CPU executing fprobe_return() is still running
+> fp->exit_handler(), causing a use-after-free.
+
+Actually, standard RCU grace periods wait for preemption-disabled regions
+of code regardless of kernel configuration.  So if the original code
+below was broken, that indicates a bug in RCU.
+
+So do you have a reproducer for this?
+
+							Thanx, Paul
+
+> To resolve this, protect fprobe_return() with guard(rcu)() matching
+> fprobe_fgraph_entry(). This ensures both synchronous unregister_fprobe()
+> and asynchronous unregister_fprobe_async() safely wait for in-flight
+> exit_handlers to complete via standard RCU grace periods.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-e46bcd68-4a56-4f19-a255-e3772980e5e3
+> Fixes: 657b594b2084 ("fprobe: Fix unregister_fprobe() to wait for RCU grace period")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > ---
-> Changes in v2: resent with the correct sender address; the patch
-> content is unchanged from v1.
->   drivers/platform/x86/amd/pmc/pmc-quirks.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-
-Mark,
-
-Since it uses prefixes rather than a new entry how would you feel about:
-
-DMI_MATCH(DMI_PRODUCT_NAME, "21C"),
-
-On the 21C6 existing entry.
+>  kernel/trace/fprobe.c |    3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> index 74ddf1d..c3fabc9 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> @@ -246,6 +246,15 @@ static const struct dmi_system_id fwbug_list[] = {
->   			DMI_MATCH(DMI_PRODUCT_NAME, "21C6"),
->   		}
->   	},
-> +	/* https://bugzilla.kernel.org/show_bug.cgi?id=221273 */
-> +	{
-> +		.ident = "Thinkpad L14 Gen3",
-> +		.driver_data = &quirk_s2idle_bug,
-> +		.matches = {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "21C5"),
-> +		}
-> +	},
->   	/* https://gitlab.freedesktop.org/drm/amd/-/issues/4434 */
->   	{
->   		.ident = "Lenovo Yoga 6 13ALC6",
-
+> diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+> index 9f2d98181779..c3e1580bc648 100644
+> --- a/kernel/trace/fprobe.c
+> +++ b/kernel/trace/fprobe.c
+> @@ -671,7 +671,7 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+>  	size_words = SIZE_IN_LONG(size);
+>  	ret_ip = ftrace_regs_get_instruction_pointer(fregs);
+>  
+> -	preempt_disable_notrace();
+> +	guard(rcu)();
+>  
+>  	curr = 0;
+>  	while (size_words > curr) {
+> @@ -687,7 +687,6 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+>  		}
+>  		curr += size;
+>  	}
+> -	preempt_enable_notrace();
+>  }
+>  NOKPROBE_SYMBOL(fprobe_return);
+>  
+> 
