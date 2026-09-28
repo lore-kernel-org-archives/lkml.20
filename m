@@ -1,97 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB43329E4B;
-	Mon, 28 Sep 2026 02:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790563208; cv=none; b=WZcU+4+ucwlrDJ17MzSz2wCvpaSbYOP6vWOcTWquomJyrbRU57VE7jBDbfIlL9Gb36dvBfLh1bwWMSxcX1JGwfxSRpiTo9vmxn2ewreJWEgewtXhOa47HlWyIK7E6j6TdPpWaKtEadkoBQYSEmvF2IBlchGe6egz9leoq7nljlY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790563208; c=relaxed/simple;
-	bh=gIYgvCAT33uGsXxmtXdJLRQsYOlRYUJ9+xztLqWDSZs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FVDZjAU3vA38zWkhpG+PEykc6shQE+JocNzYZUN2nunE4CjpXV8QITuhs1eslY3IaHo1bf7KVfsSUmjN4zhR4c6ksUlKbgkjpLqRz7K9eIe4xWNiuMwXI7FFklGerMYcL7MsCxp7e27el/R7ttc8ZXlHrvPDLdM2BJL9wg9cSfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGr2WhW2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8E354705E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 02:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790563361; cv=pass; b=dmDLfxXcddKbrykDz9IZvlq8Y6ODLpb2xEyvJd+NdW1iwje7I4j71dpjE9rgdILJoWOrSfkMQK9PMBBiBRza/tWACeyYJhut6nRy+wiixcMvepraCeGDJKqaAsh7RDOSUxe5CGEu/eMaqgvFRTfRoMPeYKMie7nWb3F2gR2ERFs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790563361; c=relaxed/simple;
+	bh=bXqGGGHvRX+DxVfURuCOZN27dzuqLCZs9c/rSc6OWcg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jcJ+l9Ss5VAfYIhJNjq+05pRFcgVRvkP+yF65l3OmlYRwx/5lEbLp/NKLsZBEaiwdhi9TIqCxPYCxX6ucdeFUA/oi+p8r+5fsd+xyvVx6sAgZ8kVCDgHlOCCcChGYRnww4R2BC9atbz0sdIHYyaziIIGGT6y4VZbKbRP9cyEtmU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fA1DmN9t; arc=pass smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGr2WhW2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5D81F000FF;
-	Mon, 28 Sep 2026 02:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790563206;
-	bh=LDjkTaw420ertubegWm220eZKiu4uuw5cWFVc9oA6uY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QGr2WhW2WEUAwM3aHRJliMiYDcrXq4joIi7Nca5Rasl3buOs9w77iMKaHXBPmcmzq
-	 +OYWvRRuwCfpVo3FvpHFxXDqOKUjvmjFw/DL3Lq5kEajbhB0hFYe4EC/8VfXEhjCaB
-	 QsqGdq6M8ceow4CoUFoZxXCnAW8vfE42RncxVFPrn7zWhYLsLUJo8TcXR31r45M6SY
-	 Bt9aJlCgUzFLGlZPIsG+FCfFgcS1k788P+6PPQtANHCMa4EMYsJ06I/q7zD3I0MdhB
-	 SWVADjBmtoe+ZctJQg0+0zy1VkvOXxP2uW3sHQ47woMWzhynOEyun26plVyvp/Xeaf
-	 /l46pwikFdUqA==
-Date: Sun, 27 Sep 2026 21:40:02 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH 1/5] dt-bindings: display/msm/gmu: Fix Glymur's compatible
-Message-ID: <arnTH0_tjrspIymm@zenbook>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
- <20260925-mahua-gpu-v1-1-0fa0bfd8d315@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fA1DmN9t"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48434392b02so2117309f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 19:42:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790563358; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h9dDWMLmrrsHK8/C6yVhAW5fneZVnhZR3NaWmFP5y+bdITSHuAgLMKrYhZCQfUUnhi
+         /4CjnSxr5qlUEtDUldYwgYAZ3mgDNYsCVMtHr8EWgRe8rnBIyLbwZ8t2/4hdE378kKkq
+         M4qsm11HGWjP8mN6RYJC//DEAhMsv2kfqao7rOEfiTMlAvAmT3vvazPpId5+VrNx8Y/u
+         M+FQ0nD+9FWo4dcMkrlnLybJ0W0EsdAli0nhnluATUnm5ynMezzwaIKRAR7OpCkcGevF
+         BUZDsYfz+4NDgl2y6Be8O7x25Np90o9r3e65+N7ui3ZR1Ayc8PYrn+qKyy+7e4nYmLq7
+         Aa9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YZjJVun8xN7GDkHYEL3bXr/VlWpA2YfoNARMcoM9xVw=;
+        fh=U7XioR7oegYtIRPkbXGhDU5r8kYPiqByrpQWT4G9paU=;
+        b=rHxwKR9V0ZUnCEURtb8q/agxYUwY5G+EO7Vxc1Pff8rvy3OxgC/30YYOFC4cPhNeFo
+         egbyqw/IaiEHQpM2f/YijmcxdstM/364SlbbH6opkO2YPdi97D94FYupNg9e+JrjPdPv
+         XW9LZkNG0EXlqi+bRDYnRSO9/vi00o4gwH3qtnLT1Lw3OAfCC70J6zyM47ol0xAMhj03
+         HCtNMf4FYtuBXRCjNVZom6zY3tRqsbLoEKPfOQvLpbxXd+ISoDDRF+lIznh6ItFaQ6MC
+         S2GyUuWywLslg3Jp4gYRoxNSpOOl0V5Dck20qK349OdQ8ffPJccU3nRIwkNy8LXofMsj
+         HxEw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790563358; x=1791168158; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YZjJVun8xN7GDkHYEL3bXr/VlWpA2YfoNARMcoM9xVw=;
+        b=fA1DmN9tfr8+fR4X5OT7c0dJELozpc9ekg7gIU6+yoo9zLw2ubj5dJOpnjwjXsnAJq
+         sSFmr2LQfJqrg0c7ahyPvsf4Vdr+VlYyUrQq0PppRcWyToTYpLrXerR6SSs934kaYGwJ
+         85TNctz0JxTzyMPeL9jrfQ1liQDzPydxrCb/602B/1UtavnwaIiltdzXJ/rviPvDEVRk
+         IZIX+dvGyWdse7gEwEne0aCrAXM6Y4rXLGJXed34kZkWuz3kK+B5/b1QmatRg26pFC1t
+         1LE05y/usvC3+iZClX2AclmnaslzpV4a4p22bL7As9e4Zvu40zlr7vQP4tUT5dVi/Udg
+         uCKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790563358; x=1791168158;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YZjJVun8xN7GDkHYEL3bXr/VlWpA2YfoNARMcoM9xVw=;
+        b=v3KrO26EvSd7M3YKDZVItAYcpxg9fA8FoqeZb/HUGTLU4k/evOJvdalziTBy5/Wp7I
+         qK+3kQsFB29IcL2STCD9bRfz1R9ueZMsLG/Xjf816oA1jQNh90o3tnype05YyCVVzzWT
+         UHZLfXfcloKgtSGa+CXsBCJqwbZ9fAiqbNMT4xtmaEbj0eaqu4y9b9oc2OrK1RziwKAQ
+         b3prDmnS4z+4EqLTPNisaP9KY/3H523N+XEIEWIyStBB/6CLuTAzj1yZCPxdu0mYiWC3
+         fdOeoGb0yVKuYJMCG89GvDQJiy07Sh91OPnaHtSHjsIYYv8wLGQPKIGk9/ScPOovRcxx
+         7gAA==
+X-Forwarded-Encrypted: i=1; AKwUvByMv+g5b3ToJBQ3GcCJoCBaRXTADgU0K+/VoStRMlkKSVQ2Zw6CVjcfX0Warv9/tNnlOd+soc1vLx1fSvc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe1ziaE8AlRcPAbRHCKG3wa8fXqY56dxzCNW2N2eb8JYf2epMr
+	rHFwkWTXnwlYK3De0Y67OOatlGsfM01EfeOk1//mftrDSuFULHs63Z+qhZ81YUjFU/bv74gIOE7
+	FWooFIWNCmQoyqEVC7MU3VXrg230WWCI=
+X-Gm-Gg: AYBFou2XSkK1qE1+Z1KsL6Tp75/Re3iajOtm+IMU1fvuQ334NlzWqoyIwBMxk/+uS84
+	N6g22zCVx14h+IevWmO+tEkTCXQvLKrK1qEyvLLauydbJkCzQE06LyYWQOsNKbvls6+bkbRikmZ
+	J3nc27eybWBfq91gQan3JXjw11XT7v4F/U5ZxbM7DPHw6vJMN9ALmT+SfUhIIZgU6geIfEaGd8s
+	0wRlVl/KXQtTIKCl3Sv+QTaIELVo0Mzvr8YaNEWYoBQBY1db6JTEissWSdfCDBWzsHPx9hwAKdN
+	JODBbbmNixTmD6JK6oQdf3KCj5yt1vc8vrsZ17bCLG0wQyS/ogqqrQdW
+X-Received: by 2002:a05:6000:385:b0:488:8cde:aaf5 with SMTP id
+ ffacd0b85a97d-4888cdead77mr6051154f8f.2.1790563357707; Sun, 27 Sep 2026
+ 19:42:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-mahua-gpu-v1-1-0fa0bfd8d315@oss.qualcomm.com>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com> <20260923062832.479455-2-jiangwen6@xiaomi.com>
+ <CAGsJ_4xQhmRigaV_2G3pdOgk5mvC6HNzqCyUdRY3RSG8-QNC-Q@mail.gmail.com>
+In-Reply-To: <CAGsJ_4xQhmRigaV_2G3pdOgk5mvC6HNzqCyUdRY3RSG8-QNC-Q@mail.gmail.com>
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+Date: Mon, 28 Sep 2026 10:42:26 +0800
+X-Gm-Features: AclHuK-tj6RxDkR8fHhPZoG4i4S4CyEDCcJlFwKY4ZUdtlHJk_F2XqaylhywMI4
+Message-ID: <CAHKocdFUw3BDjKwGhE+gMxyVXmMWtX4pP8brY3dBOhYhYoCgdg@mail.gmail.com>
+Subject: Re: [PATCH v9 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, chleroy@kernel.org, 
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 02:44:32AM +0530, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> 
-> The Glymur GMU compatible string was incorrectly documented as
-> qcom,adreno-gmu-x285.1. Fix it to use the correct string
-> qcom,adreno-gmu-x290.1.
-> 
-> Fixes: 7bc29d5fb6fa ("dt-bindings: display/msm/gmu: Add Adreno X2-85 GMU")
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/gmu.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> index 9e459f12ce3f..f22661447e7c 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> @@ -363,7 +363,7 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: qcom,adreno-gmu-x285.1
-> +            const: qcom,adreno-gmu-x290.1
+On Thu, 24 Sept 2026 at 05:30, Barry Song <baohua@kernel.org> wrote:
+>
+> On Wed, Sep 23, 2026 at 2:28=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmail.c=
+om> wrote:
+> >
+> > vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
+> > set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
+> > helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
+> > unavailable on CONFIG_HUGETLB_PAGE=3Dn kernels and couples mm/vmalloc.c=
+ to
+> > HugeTLB internals it does not otherwise need.
+> >
+> > Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
+> > pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
+> > __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
+> > depend on CONFIG_HUGETLB_PAGE.
+> >
+> > There is no caller yet: mm/vmalloc.c is converted later in this series,
+> > once the generic fallbacks are in place.
+> >
+> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+>
+> LGTM. Please see the comment below.
+>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+>
+> [...]
+>
+> > +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> > +                 pgprot_t prot, unsigned long size)
+> > +{
+> > +       unsigned long pfn =3D __phys_to_pfn(phys);
+> > +       pte_t pte =3D pte_mkcont(pfn_pte(pfn, prot));
+> > +       unsigned int nr =3D size >> PAGE_SHIFT;
+> > +
+> > +       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+> > +       VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
+> > +       VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
+> > +
+> > +       __set_ptes(&init_mm, addr, ptep, pte, nr);
+>
+> You have patch 4 to revert the `clear_flush()` modification from
+> 06fc959fcff ("arm64/mm: Support huge pte-mapped pages in vmap").
+>
+> I guess you may still need to guard against the case I mentioned in my
+> reply to patch 4:
+> https://lore.kernel.org/linux-mm/CAGsJ_4xiLScr2PrPu7Eem73GvPCtsuYd3J05kW3=
+SC4QSs5Q4aQ@mail.gmail.com/
+>
+> Something like this:
+> VM_WARN_ON (pte_valid(__ptep_get(ptep)));
+>
 
-It would be preferrable if you add the new compatible and then once the
-dts has moved you remove the old one (i.e. after next -rc1) - that way
-my dtbs_check doesn't light up while we're trying to dance these patches
-into the different branches.
+Hi Barry,
 
-Regards,
-Bjorn
+Agreed. I'll add this. The vmap path should never see a valid=E2=86=92valid=
+ transition,
+but an explicit assert makes that contract visible.
 
->      then:
->        properties:
->          reg:
-> 
-> -- 
-> 2.55.0
-> 
+Thanks,
+Wen.
