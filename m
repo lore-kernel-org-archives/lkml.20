@@ -1,81 +1,79 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05804F7CB0
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07457502563
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790633228; cv=none; b=PqgQgpnOgtqfnGjfIv09wFhEsU5mWk3MfMHQpWsYxwYIftQ8WK1iezFFQ714/hHnDtRVZIXE7b9V0CMjSRZN+gKJiQV1jhuLr58o0gxsS/Xrgehinfyn9vNCMFtZaOhrlcNX+ilrxLj3h5BTGvpmMm/+8ZWtS5xW+zNGCqo012A=
+	t=1790633253; cv=none; b=ab6//bvdNd/Db+jEzSug7/w3Awg/hnbfo19n/4BQok4N4VPIj+UEQgfNPlvQNUskM8Tx4tN+epHRFCZz0HhrApgGVQZoaM6GX9j8Z6SAG+/L9WXLIQ8gCG0+PL6nJrcmYM1Fx7MG5bbHWVIeajH5GKv+/BJgmbbyFKv5GlFEssM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790633228; c=relaxed/simple;
-	bh=LBdGe8R4oviA310VZyXHJ88W41OaTYLb/e2Nhki1T4Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IPykDNKv1n/X6UfE1hJ3+pww71qfEZluZzVTllM6biEbslMBETMEF4OT0eqOa/l8zLAp500HarsOzn2rQIBMeNPyufVVuzIdS2zr54uEaqnRNHChdiHVmPwKJChktBaeokFib91eOwc5y0hSAxFsPqAIopsFF9lXbl2KCiUGm68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C1GF3vv9; arc=none smtp.client-ip=74.125.228.171
+	s=arc-20240116; t=1790633253; c=relaxed/simple;
+	bh=Wzp7NBGBBycqLpdAbfE01xx7uBKdSRv0qdi0TBFQZjA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dcnbBRTH19KouGZBCYo1aC2dl1W3gMwXKGgZnrGfb1VUitTOHrsW3ymoiOx+1L7u6hlGLnn+DqyR7NYuhDWL0MHno5+CjcZnuBWY5qprqY4g6L1UW3/t0usZcMfno/hh93Hn+rezQYOsq/CSsBckJM2hqA9OmBagPqcfygg4XEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bfKhoNN2; arc=none smtp.client-ip=74.125.228.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1GF3vv9"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c264788fd58so512995566b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:07:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bfKhoNN2"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2aff2c45efso301983066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:07:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790633225; x=1791238025; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U7L/fn4+DNGPLasPjiTA/4S/hqwTcpwadDXw7wo7nOs=;
-        b=C1GF3vv9Zs5BXs9CHl5zyV7h+uldCkXp17idOSiFQB49P9YGxeJxqEgVx3iicqIZLK
-         DiMXPeFRbNpxHPMfW7KPoandFxXfdgFTfFabopuFMFgw1nURwhJzlyRNcK7JjYm3D+vM
-         00/2+leYkgNg5KpuX3JpePV3SjEyvPQHe4fzETVgKOagtN86gsUx0YG20g1PXx9OgjmD
-         Tx+Dum1gg+FHmFjhhkCk5WZX/DGTqm5C5V0HuiYfV/EhAYe+SUrmutH65Ddwn6O9KZ6M
-         cWK2UMY4u+VHVxkUkyXKPJclpfOpYku5c9ycCbocsa3fC8UgaZ294q93/1YkE2cFn+Sw
-         3npg==
+        d=gmail.com; s=20251104; t=1790633250; x=1791238050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lFkW14Ux5nF3m2S+iJsCNiUfHXVOlemX2yDn1EvBi3A=;
+        b=bfKhoNN2tZOjz0k7em62zYcW2rNS8Akvuey+CSsiTCttn0EHPTLOEzhnEyt0mteAyy
+         BG/W48aFvkfaTZp9bfUFxZ91C110AMOyWhkFbbaews7hBSpAVfv66oAtPa30NEVJgsY1
+         nRyQKv67IBAjRG8J5/nqkK2gPyrtd9di9L+fQNVbie7xod4QKYluVAJUDe4oG4EKW2t6
+         Wr9BY65Gr9HtWud1NnMF2aj+D9zOLJGuMKhUPKo8PLrkxLeOA1ZMjxwwPUpVJ+coegNf
+         UtA99Jsx1XIA0+Qrr3GF/wxsZ3Q4D9IMnwfihTnkVOO6f+Y2Y9dYpl5jnIfhwNVzDMCY
+         bpcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790633225; x=1791238025;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U7L/fn4+DNGPLasPjiTA/4S/hqwTcpwadDXw7wo7nOs=;
-        b=Zz3D6vt6sFSPL23G2cfEjYJljhsjDx2kQQeVEVUInftP+q0WBi5ZK/tORZQftvZRfe
-         2U9PkC8cXdKPGAhBMM2/C+93oJuqDYofpeRdpPP+9PDausrhDuzGrrj15YE6AARmdI8N
-         DNCc1+qCeFAYIDxUZ6h7E8rFNvFE0BNvQktymcNs75xAdcMhPMECNa+s6MTUFSFyOin5
-         1HmSVQRpCSBbS5WozxajvDzMB1ubtKxig2NrATJnwl4OCZF431dy2u6qHXSOrCTdVGow
-         TTGCMbT3lc+jsM1yPugqMJAfzao5TU0JohGQ7L0uOCpFl//1HenFNMUYrPJFMLtBxuD2
-         n0Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBzx75nuuZc39FgeFFRx4+7bvl3uHOVaFCd+DfFH+fMuEuMv5eiwl6Sye0cjfSws394A5HsoJupyOHO/YLg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8U8TgiRSoLNUK1Eb7EWprUWjOoUmPKPJsxzDXeIf5AgFEc3d3
-	zXQubc/h86cn1S/VaP7fc0J3N7qMaaCAq4Eq+ep1hnoR99DZuj/QN4A36Xn+mMkLwzIUEA==
-X-Gm-Gg: AYBFou3DjQl3IUCm6c12Tw8ec8em13fRGpqFaK2t0COEkdSOmDwR0REYIzA2P4ogNFx
-	EAjDBAeLrxgZk6VvXUOYCFdnMe6kXuhBLVS6JQePSrmvQ/iVAKBk4VOO+sgbcOV/LKBCBieGv/3
-	0blZi58qLI6MpskTeiOvcfUHiRSyTkMM3NBPdoL7dkmVm+Htxl1YncM2gAIRF01C1tfNM57nb5W
-	Yi+iEno0H4EEVYXzSl6AY3DCZPQiU52/uVd65bB2ZSkr/SGGqLAPd6SgD/zI0mgTWhvUzQE+GJV
-	UvS2s5P5WX1aPXC6qMGl6vPq7jPxyGIcPBh3A4trwwPp5WdzokVOlBQuURQIaGphXsqk4HifLZj
-	erZm17+Mgs2T/TmoyjZ4iiu5YP8yK/VfzWHFs2p8j91CpQ+MlpcxkgOdjsDDxWiDy3VzrCmrBFx
-	OXIc7hleNHCgcDa/0hhHJqkQ0zWodsYKeG2n8ew0uN5wDOjA4pyisJfeeRkSOMWXQ4MHPV5+9os
-	Fg4aHW6o+kIlPTm9Qw3+0U8ibWO9Cc9dEBvh2XE9R4KQrGh+L7y5eWb
-X-Received: by 2002:a17:907:c50c:b0:c26:2751:3da4 with SMTP id a640c23a62f3a-c2ae97cc828mr890313966b.13.1790633224767;
-        Mon, 28 Sep 2026 15:07:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790633250; x=1791238050;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lFkW14Ux5nF3m2S+iJsCNiUfHXVOlemX2yDn1EvBi3A=;
+        b=yg5se7pVghAZkji004BvHRha6hSrfdqMB1DxtAth+do4rzGR+5lXaPDZMmAZv80TbZ
+         aKeBZCXMXdHHewJMC0LspvTr3IdkrHEik74SE4Mlq9+Tf8PsyRT/a0jkHsMBPbp6FMiM
+         XXVcYLTtDH0rVREofw4FjGAkw7Lri5c29G4RH1a5YM8FBGAbyy5IIUE7H974aKgG6q3N
+         Ug9zvbIM6NjJa5J2Dtk0I+28IzAWX0rpvzsaiPw6FergdOmcI60uAZ9WLDl939GlyF5/
+         JPYxG1C1Y3eavZAAnd/JSLMSVoR+QiktSisMQX9hvo57XwHT4rl/m5wKy3mC5kKe5BID
+         u9IQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3OIQRkUEuMZzJaJMcIncGefDjzsNa2gjlMlTlf/9KBwnMgaKag0UCZkMkOMHlKB1JBdUpB7mpIaFeKxI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPRJ8pBoEgnqeYh8N00EHY0EoYErB0Qzcsukh5h1sWx4wRHqIS
+	yTVR/YLz52/4EzPVehbr/JEST4PWZhATN0sklI32AEGFoW0laaqmPG6c
+X-Gm-Gg: AYBFou0kFlVxdHUAmTV1VzMvy0Z7Qt1lvsm9hNeqewNn5Z2CSPe4iErBx9VrsT9EB+n
+	rA8+ADnNNRi28LU4N6YYpv7ij1DB0O9dfwxrUD1v/TUmeWCjRZ5b89KcuYWzjbpoA9L8rNpQnhk
+	wSea+WmgTWcROIIJwE8KV5zVmgYX/K/mADd1GIVEBZsgmboy6Q6Q3Wvuloyen7KO5S+TWjamyoJ
+	HUbaonh28xMy4SC/4b+jgxPkmpBWOXnYD/PM1Z2XXHziPxblVHB4gAn+SfJltENu83YwPb88bmZ
+	mkLICUlrLRvA1pIYX3Mqbok5Z7BGAKe7QmLmcmDWUG9Aa7MQnMfe7WfFSxBFJ55cM3EKcp25eUp
+	q6oeO0EeKct0jlV6ChpZUy5iutO+y/JaC5CDpwS6LuMCaFUVcDeGQ/fA0Vnl9Wu+Y1pkhiu5n0z
+	wO19D0AVBlBONqg3OEFMcWGbIr1iuwZM/MjS09Xk8BnWHplgwqSlhQs5wlzxf9aPGH0vhpeU8Iu
+	jfziVl+4WyXDbsi1gWc8puAMz5eZmyJvE16Uvf9nMBbgiHAowesZmJrnTUkN1zuNlI=
+X-Received: by 2002:a17:906:9f86:b0:c2d:cd1a:d5a9 with SMTP id a640c23a62f3a-c2dcd1af35emr405148566b.39.1790633250063;
+        Mon, 28 Sep 2026 15:07:30 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:801:793:68fd:c07a:9093:1956:b4bf])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b50fsm520177266b.32.2026.09.28.15.07.03
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm540308966b.33.2026.09.28.15.07.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 15:07:04 -0700 (PDT)
+        Mon, 28 Sep 2026 15:07:29 -0700 (PDT)
 From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	John Crispin <john@phrozen.org>,
+	George Moussalem <george.moussalem@outlook.com>,
+	Ziyang Huang <hzyitc@outlook.com>,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 3/3] net: dsa: qca8k: fail mgmt Ethernet MDIO access on busy wait errors
-Date: Tue, 29 Sep 2026 00:06:29 +0200
-Message-ID: <20260928220629.238-4-yongzhao.derek@gmail.com>
+Subject: [PATCH net v2 0/2] net: phy: qcom: at803x: IPQ5018 analog initialization fixes
+Date: Tue, 29 Sep 2026 00:07:15 +0200
+Message-ID: <20260928220717.939-1-yongzhao.derek@gmail.com>
 X-Mailer: git-send-email 2.45.2.windows.1
-In-Reply-To: <20260928220629.238-1-yongzhao.derek@gmail.com>
-References: <20260928220629.238-1-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,54 +82,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qca8k_phy_eth_command() polls MASTER_CTRL over management Ethernet until
-BUSY clears, but only bails out when the poll timed out and the last
-poll request also failed. If every request succeeds while BUSY stays
-set, the -ETIMEDOUT is dropped. A read then returns MASTER_CTRL data
-from a transaction that has not completed, and
-qca8k_internal_mdio_read() does not fall back to the MDIO bus.
+When the IPQ5018 internal GE PHY is connected to another PHY without a
+cable, its analog setup matters for the 1000BASE-T link. Two problems
+in that setup are fixed here.
 
-A failed poll request does not stop the loop either.
-qca8k_phy_eth_busy_wait() leaves the value unchanged on failure, so the
-BUSY test then uses the previous value, or an uninitialized one if the
-first request fails.
+Patch 1 fixes the short-cable DAC values, which were written to the
+wrong bits. It is the patch sent as v1 [1], unchanged except for
+Andrew's Reviewed-by.
 
-Stop polling when a request fails and return the poll error or timeout.
-The early return also leaked read_skb, which is only consumed when the
-read request is sent; free it on this path.
+Patch 2 applies the analog settings in probe, right after the PHY reset,
+instead of only when the MAC attaches the PHY. The PHY starts
+autonegotiating when it leaves reset, so until attach it negotiated
+with its reset defaults. On a Redmi AX5400, where it connects to PHY4
+of a QCA8337, 1000BASE-T never came up in that state and SmartSpeed on
+the switch PHY dropped its 1000BASE-T advertisement for good. With
+patch 2 the link came up at 1 Gb/s with SmartSpeed left enabled, and
+the SmartSpeed workaround discussed in [2] is no longer needed.
 
-Fixes: 2cd548566384 ("net: dsa: qca8k: add support for phy read/write with mgmt Ethernet")
-Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
-Assisted-by: LLM
----
-v2: new patch, addressing the Sashiko review of v1:
-https://lore.kernel.org/netdev/179054715863.3145.10179961093285192493@kernel.org/
+On that board, with both patches backported to OpenWrt's Linux 6.18.52,
+the link was verified at 1 Gb/s after a first boot, three reboots, a
+power-off cold boot, interface down/up cycles, renegotiations and a
+network restart. During a separate 10-minute observation, sampled link
+status remained at 1 Gb/s and no new switch-side CPU PHY link-down
+events were logged. After the cold boot the switch side first reported
+1 Gb/s at 4.4 s; it went down at MAC attach and recovered at 25.2 s.
 
- drivers/net/dsa/qca/qca8k-8xxx.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Patch 2 accesses the PHY right after reset_control_reset(), which
+pulses GCC_GEPHY_MISC_ARES for about 1 us. The vendor SDK waits 200 ms
+after deasserting each Ethernet reset, but it does so for every block
+alike, so that does not establish a GE PHY-specific minimum delay.
+This patch adds no post-reset delay. Diagnostic warm-boot tests on
+this board read back the values correctly after writing them in probe.
+I have no specification for the required post-reset interval. George,
+does the GE PHY require a minimum delay or a readiness check after
+ARES is deasserted, before its analog settings are written and
+autonegotiation is restarted?
 
-diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
-index 00a70c7880e..420b375b8b0 100644
---- a/drivers/net/dsa/qca/qca8k-8xxx.c
-+++ b/drivers/net/dsa/qca/qca8k-8xxx.c
-@@ -728,12 +728,15 @@ qca8k_phy_eth_command(struct qca8k_priv *priv, bool read, int phy,
- 	}
- 
- 	ret = read_poll_timeout(qca8k_phy_eth_busy_wait, ret1,
--				!(val & QCA8K_MDIO_MASTER_BUSY), 0,
-+				ret1 < 0 || !(val & QCA8K_MDIO_MASTER_BUSY), 0,
- 				QCA8K_BUSY_WAIT_TIMEOUT * USEC_PER_MSEC, false,
- 				mgmt_eth_data, read_skb, &val);
- 
--	if (ret < 0 && ret1 < 0) {
-+	if (ret1 < 0)
- 		ret = ret1;
-+
-+	if (ret < 0) {
-+		kfree_skb(read_skb);
- 		goto exit;
- 	}
- 
+Thanks to Ziyang Huang for asking whether the DAC settings had been
+corrected [3], which is how the first problem was found, and to Andrew
+Lunn for his reviews in the v3 thread, which kept the investigation
+going until the cause was found.
+
+Changes since v1:
+- Added patch 2.
+- Patch 1: added Andrew's Reviewed-by and Ziyang's Suggested-by.
+
+[1] https://lore.kernel.org/netdev/20260927155136.2489-1-yongzhao.derek@gmail.com/
+[2] https://lore.kernel.org/netdev/20260923215858.1653-1-yongzhao.derek@gmail.com/
+[3] https://lore.kernel.org/netdev/SEYPR01MB58827E0D18ACC93AF98A4109C98E2@SEYPR01MB5882.apcprd01.prod.exchangelabs.com/
+
+Yongzhao Chen (2):
+  net: phy: qcom: at803x: Fix IPQ5018 short-cable DAC values
+  net: phy: qcom: at803x: Apply IPQ5018 analog settings at probe
+
+ drivers/net/phy/qcom/at803x.c | 94 ++++++++++++++++++++++++++---------
+ 1 file changed, 70 insertions(+), 24 deletions(-)
+
+
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
 -- 
 2.43.0
-
