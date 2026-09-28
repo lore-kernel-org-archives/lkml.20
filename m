@@ -1,135 +1,84 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFED3515F9;
-	Mon, 28 Sep 2026 12:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435AE385519
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598139; cv=none; b=hAiFk3NfsG7NN4fqrhuT7nwm+0q29YV5jAxonIahdL8FL//MDD1W15MUpRxZnMzBkl1lm/R17eo3/Qi1yGQW4b/I2PEPrMudMQ66pjy8HZAX0wHOeOy1lh2LHUTlz3CKlFEmUN3ukX9a5bxsmboDTF/RDujnd/w/0nQ3eURwavc=
+	t=1790598154; cv=none; b=fEul176vkemeWQZEsGi0N3mhwDiGLcNVAp1XSL3r6+fmVTN9mWamyjluoRyMHSZBv/3lrk4rTiuqrxcZlNfiFf8KZwRP+Y7y1qlRJ1VW8S+SBATDqaCsGlKBWSxLTBqg5M17KhFI/akJDTfnwn0kfS5NUYoPUcXlDLJ2JgwEY50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598139; c=relaxed/simple;
-	bh=BrsBM5b+jhrtkW9EbuXBMTCH/6ologB5CM38m+YZG2w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iKGaHi72WQU7VGU3VUqDIVZ6b3lSx2DPzJZ/LQk1es01MAM+LPeI8Ezc37/TgiB7iM/pMtxAXQ76dRGxHwq1juc2tHS26VemO5dI+ZLPijR5tp04V0ozAQ0W2YPtoqAt6AysKpcEI3BMUhYM/5qfONXOJsyrpaCje5kLb5eaN/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=p0Rjsju8; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mTC4KTg6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hj1gGLkK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EndqyVQe; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790598154; c=relaxed/simple;
+	bh=CYr46wE5XAX7Y1vwDFvlJRJLa3xImyeWpZgtt6PYaaY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tq47YMELeJpYLuKDh5qFINkWc6Dfe8TncqrTBb7KCqz4aGWneKGvimfzjLKTnk9GCE1jUUAnGEhCiAYl6nrC91CeSheibHUBlN7hE33XI+83J0jmY423iLh7uulymr54uC+jq3/N8vwgy2qM57J0lCHJFDvvo5uD4rM5Ue85GpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yp5pldoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="p0Rjsju8";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mTC4KTg6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hj1gGLkK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EndqyVQe"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2057222321;
-	Mon, 28 Sep 2026 12:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
-	b=p0Rjsju8vF9zzn/yv9s6ELPU1dA7Cz9QprB6LiG5lF3VJJtH5uhZrjNxjCeUaPSeZ4aNWt
-	WH7apr+6IWgaDWgdbCNoTPKac3NqfZgWq3jcIESDwmL3dv4sCM3zwZKrEu361zcWvLs0B4
-	x+mgIfRxmq/Ef6lnwhbsdW+nl0Gshbs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598132;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
-	b=mTC4KTg6eQ8OQwv0GkCfHeITV9tHBQC/pYBnqU8blnjYk1rO1pRYYSeVBR+ZAm9SbiMNQe
-	w+Bb6JpUcP/dwjAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
-	b=Hj1gGLkKYDE2kGs23yJZb9Tob1m3Y7SyxBygyuvFxl+LReGy5MuhrKcrwBFKaUV79zoqLr
-	nClZq+FyXWoJFJuZ+dAjUuqWEfyCWUZj9aZdpxTOcmYVfnVKBwyU6AFsR4cNMvZBqjiv8q
-	Q1WLiyostUTtXmbQYdINACi2Oz6a/ss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598128;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ilbfi+4a89869sF6Jw39CE/+8m7auO72mbhe8bLvxe8=;
-	b=EndqyVQeo7iPULFsoCY+VlskdquWuPrymGWTjK5BY8C207AnbeIYuCkDylmmxz7nbY41LG
-	BLWuc7AEK7BthCCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BC40A133F1;
-	Mon, 28 Sep 2026 12:22:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HlSmI+9bumpPdAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:22:07 +0000
-Date: Mon, 28 Sep 2026 14:22:07 +0200
-Message-ID: <87ld8l5zww.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: ALSA: Skip timer tests when device is unavailable
-In-Reply-To: <20260927064430.2112688-1-arfa79lg@gmail.com>
-References: <20260927064430.2112688-1-arfa79lg@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yp5pldoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1F61F000FF
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790598151;
+	bh=CYr46wE5XAX7Y1vwDFvlJRJLa3xImyeWpZgtt6PYaaY=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Yp5pldoCFMC0JiPqxHh8tvKEvJMqEfjGcdYwitMww7msuDHlhnzLKPuqYuY6lT7se
+	 AHqdAuyLRQrDytmaSft8DRu++0XgkLYotdvumKjgj+KQzmjyAAa0BcG4H73IgnEspg
+	 b/b9pZQqK5CNqWN2Ko3lVBRBaaucOlBINUQldz8jS67WEaaeUqihakEe67vfUoPsSu
+	 P40c62EYrnIsRCfIoJlV1plUMP9fEE684fE5J0FDyuR2uJbkDcR4lSj3Rev7VprgWg
+	 OvHoyzhSDRxeT0h8pkIJTzoZFWNp59gMfiqHGUg0R+QTyWDJdfMWnMXZvlLI1dPmm5
+	 4KEJ6lHU8MQig==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e911e665so2218520e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 05:22:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByrL4PPB4EBLPJlMa+2IKnxB1Cf7kzvQC++TIJ627wzAUK+SNwxF2kGMB7kjp3t9o+qICXh9rM+tF6doE8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIISoX+whQqjTFPNKCKFwmDXht+UH+EqiLjRdAMIwu/M/qZLxHJ
+	/1KWCxQcpx7Z4LlDK+uHNuWp0he97MF5EeB/nZVc400eeSLJKo4Y20TI4kBOr4ELSr80+jh6Xeb
+	V9S9OrmXbADQa2pSpWNwmdcgQHM2LiZyPekTYRW81hA==
+X-Received: by 2002:a05:6512:3c84:b0:5b8:e2de:6f67 with SMTP id
+ 2adb3069b0e04-5b8e2de6feamr3570218e87.33.1790598149932; Mon, 28 Sep 2026
+ 05:22:29 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 12:22:28 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 12:22:28 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260928112546.631440-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+MIME-Version: 1.0
+References: <20260928112546.631440-1-fanwu01@zju.edu.cn>
+Date: Mon, 28 Sep 2026 12:22:28 +0000
+X-Gmail-Original-Message-ID: <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
+X-Gm-Features: AclHuK-nfTnJntkhEiDwnqhH1uYRFQ3P8cKjQ9tdRKoWajTwO1i7cEA4_kF9RF8
+Message-ID: <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
+Subject: Re: [PATCH v2] gpio: mpsse: fix race when arming the IRQ poll worker
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, songl@zju.edu.cn, linusw@kernel.org, brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 27 Sep 2026 08:44:30 +0200,
-Alireza Feyzabadi Farahani wrote:
-> 
-> When CONFIG_SND is disabled, opening /dev/snd/timer fails and the
-> userspace timer tests report failures even though the test environment
-> does not support ALSA timers.
-> 
-> Skip the affected tests when opening the timer device fails because the
-> device is unavailable. Continue to report unexpected open failures as
-> test failures.
-> 
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218479
-> Signed-off-by: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+On Mon, 28 Sep 2026 13:25:46 +0200, Fan Wu <fanwu01@zju.edu.cn> said:
+> gpio_mpsse_irq_enable() schedules a poll worker before adding it to
+> priv->workers. gpio_mpsse_disconnect() can miss the worker while
+> tearing down the list, after which the worker can access freed priv.
+>
+> Publish and schedule the worker while holding irq_spin. Set dying under
+> the same lock before disconnect tears down the list, so a worker created
+> after teardown starts is neither published nor scheduled. Use
+> kfree_rcu() for such a worker because irq_enable() runs with the IRQ
+> descriptor raw lock held.
+>
+> This issue was found by an in-house static analysis tool.
+>
+> Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
 
-Applied to for-next branch.  Thanks.
+Please always include the changelog between iterations of the same series. I
+have no idea what changed since v1.
 
-
-Takashi
+Bart
