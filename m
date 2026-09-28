@@ -1,111 +1,121 @@
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-b-107.mailbox.org (mout-b-107.mailbox.org [195.10.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18643FC5AE
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613CB498926;
+	Mon, 28 Sep 2026 10:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591101; cv=none; b=kswYnLNYz50jGM/yc8qkXglJnHIXlbkLMWef6bsTSAofvL4vG+L/v80Bt9oDMpQRjfdnX79PP4kHarVgUWHeP7UC0SIst7cy/fQzCFkG8a4MpU4xxmaSEN9tEX9oJ1cx2g9yPOOB5U/XVKVFYoLx3LWGCqzvO0607M1c9cn2Q0w=
+	t=1790591127; cv=none; b=InxyybMbbos0VY6mCTxf5cqgqsyCVWgUu41ltG/KmBpAOWZAr7HdvlBhcPB9BDrnvdlqHOYVSlZG6Wt/AzDCjHZuPsk/A8q3458Z83jW8vRB5nOR23xqkt1QlCteaitFbUf1xKOMQPgeHc6KS8Pp9PqRBUderHCYMOsJzRen5nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591101; c=relaxed/simple;
-	bh=2qsLTZUYXNCuyy8IDZLxqiAQMXwe8wqDNcAp0qKJ77U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FK7UEVTV7AhUY6SsqIco0cRP1ZNRpsg/Qi1gaq0lrq5iWzgjLhvOfKZwMImAUZw2LN1kzr11QBL3QZDZL0nIYEW1IzzUc/RTh/iCMxPtdPpi7wihyMsI0msiVI8WQRSZmYHE6E7L81CR9tksksPdQm99nNPyFTb3jfSd59i/bwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NswKtore; arc=none smtp.client-ip=91.218.175.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790591127; c=relaxed/simple;
+	bh=MT2Bc/ZNls4asFb7dpperaXWEgFdq6n1uxLmf9vLQ58=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gx6jkgTNGcqkZsqXbb8pEPuDy5mucTLRNEQMWTf4SIYsFxA9HJirIfmRkGiPP176nerhgScROQJQB+87D9neDrpFFkpQLtBEb0omSPpaTAN29S46zvurtlgLM0Gf6CVmMd8x85dnTfej35OfNG4LDg4rP449O/x8xoC7TI6MJEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=MB6wiG3p; arc=none smtp.client-ip=195.10.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NswKtore"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2qsLTZUYXNCuyy8IDZLxqiAQMXwe8wqDNcAp0qKJ77U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790591096; v=1; x=1791195896;
- b=NswKtore9qYVrR9vagccDrfbHyJJ8mLoexTlyQOOyX8nMj4mDLBKDtayUHTK03wcMnHqDgCM
- ZVCDSG5PnHjsONqAkaN6ghYKpdJ2i5doEGIlPAvGqf8fa8E9AEY0WMPLwQiy3WKspmMYcd8PTA2
- CWqwGR1xLv1bCr8zwYC9Yq1w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8692f2c2c9228f5e;
-	Mon, 28 Sep 2026 10:24:46 +0000
-X-Mizu-Trace-ID: 8692f2c2c9228f5e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9c47dad9-2716-4ae0-b6e2-9e6b5c718859@linux.dev>
-Date: Mon, 28 Sep 2026 18:23:03 +0800
+	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="MB6wiG3p"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-107.mailbox.org (Postfix) with ESMTPS id 4htcrS2Cz0z3yZ5;
+	Mon, 28 Sep 2026 12:25:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1790591112;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5PKjogvk9Bz/ff62lcGFG1HPawyd9V8ON7tXYK3jSgA=;
+	b=MB6wiG3pEmvq8yYvVozRUtis4WdO6kSjy12WW8AcwqycCiIFt138JO9EY8WTn1jpMEgKER
+	z9cWooHDczpCY3OKh8c9vu/tZYQGbpaqimkB05iudElK4BaIPasQpqP9wF6I7D75GpuhJj
+	PZyGJqtthZk/K36X9S3Drww5iWj/3LhUPyVn7RVejxvS8L98Wyy9nVF8EIb8XpXRyv45Kz
+	0ijLb3z/Hznsfk3m+iSEvHRiVt44GgSs/ZXt1eCfJdoaf9eDStGsR+07azXnt7e0AEiKv4
+	/LkkvpXz89NmiN8FsuQEGcm8AU8dgWDAdkbzH1jyuDtvq8U8b4lovTojcJBU4w==
+From: Ralf Lici <ralf@mandelbit.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org,
+	Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with accurate DMA directions
+Date: Mon, 28 Sep 2026 12:25:00 +0200
+Message-ID: <20260928102502.266108-1-ralf@mandelbit.com>
+In-Reply-To: <arn3UFsriRlGMXwB@gondor.apana.org.au>
+References: <arn3UFsriRlGMXwB@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Baoquan He
- <baoquan.he@linux.dev>, David Carlier <devnexen@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- kexec@lists.infradead.org
-References: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
-Content-Language: en-US, en-GB
-From: Dave Young <ruirui.yang@linux.dev>
-In-Reply-To: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 4:48 PM, David Hildenbrand (Arm) wrote:
-> The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
-> needs similar information (although still relying on
-> SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
-> 
-> Let's just export the value instead, so tools that work on vmcoreinfo
-> will not have to guess.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
-> SECTION_MARKED_PRESENT and further cleanups" [1]
-> 
-> This patch can go in independently. It would be preferable if both
-> go into the same kernel release ;)
-> 
-> [1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
-> ---
->  kernel/vmcore_info.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
-> index 5a417f8a922a..7833a36064a8 100644
-> --- a/kernel/vmcore_info.c
-> +++ b/kernel/vmcore_info.c
-> @@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
->  	VMCOREINFO_STRUCT_SIZE(mem_section);
->  	VMCOREINFO_OFFSET(mem_section, section_mem_map);
->  	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
-> +	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
->  	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
->  #endif
->  	VMCOREINFO_STRUCT_SIZE(page);
+On Mon, 28 Sep 2026 15:12:48 +1000, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+> On Wed, Sep 23, 2026 at 11:13:17AM +0200, Ralf Lici wrote:
+> >
+> > There is no caller to identify for that particular single-entry layout,
+> > it was only a hypothetical example in response to your question. Even
+> > for out-of-place AEAD, the destination starts with space reserved for
+> > the associated data (as documented in the comment at the top of
+> > include/crypto/aead.h). A single linear destination entry can therefore
+> > contain both that reserved prefix, which the device does not write, and
+> > the ciphertext and tag, which it does write. Because the DMA direction
+> > applies to the whole entry, such a mixed entry is mapped
+> > DMA_BIDIRECTIONAL.
+>
+> So why is it a problem if the dst SG list entries aren't pointing
+> to memory that's also occupied by the SG list entries?
+>
+> Even if the hardware doesn't write to the data, it should be OK to
+> map them.
+>
+> The only issue that I can see is if the same memory is present in
+> both the src SG list and the dst SG list, but that is expressly
+> forbidden for out-of-place operations, and indeed would be a grave
+> security issue.
+>
 
-Current crash code looks below:
-#define SECTION_MARKED_PRESENT          (1UL<<0)
-#define SECTION_HAS_MEM_MAP             (1UL<<1)
-#define SECTION_IS_ONLINE               (1UL<<2)
-#define SECTION_IS_EARLY                (1UL<<3)
-#define SECTION_TAINT_ZONE_DEVICE       (1UL<<4)
-#define SECTION_MAP_LAST_BIT            (1UL<<5)
-#define SECTION_MAP_MASK                (~(SECTION_MAP_LAST_BIT-1))
+I think the missing point is that DMA_FROM_DEVICE is not neutral for
+bytes which the device does not write.
 
+For an out-of-place request, the caller may have already populated the
+reserved destination AAD area. The AEAD API says that this area will not
+be written by the cipher operation:
 
-And it does not match the kernel for below chunk with ifdef
-#ifdef CONFIG_ZONE_DEVICE
-        SECTION_TAINT_ZONE_DEVICE_BIT,
-#endif
-#ifdef CONFIG_SPARSEMEM_VMEMMAP_PREINIT
-        SECTION_IS_VMEMMAP_PREINIT_BIT,
-#endif
+  Even in the out-of-place case, space must be reserved in the
+  destination for the associated data, even though it won't be written
+  to.
 
-The last bit could be wrong in crash.  So all numbers should be exported in vmcoreinfo.
+With SWIOTLB, however, mapping it as DMA_FROM_DEVICE may leave the
+corresponding bounce-buffer bytes uninitialized, and unmapping then
+copies those untouched bytes back over the caller's AAD.
 
-Thoughts?
+The API also explicitly permits the source and destination AAD entries
+to describe the exact same byte range (and users do this in practice,
+for example nitrox_rfc4106_set_aead_rctx_sglist):
 
+  It is permissible for the "destination" associated data to alias
+  the "source" associated data.
 
-ThanksDave
+Therefore, this is a valid out-of-place request:
+
+  src: [ AAD X ] [ plaintext P ]
+  dst: [ AAD X ] [ ciphertext C ] [ tag T ]
+
+P and C use separate storage. Only the two AAD entries point to the same
+addresses X.
+
+Safexcel currently maps the source list as DMA_TO_DEVICE and the whole
+destination list as DMA_FROM_DEVICE. Consequently, X is mapped as device
+output even though the accelerator deliberately does not write it. On a
+non-coherent system or with SWIOTLB, unmapping the destination can then
+overwrite X with stale data.
+
+Thanks for following up.
+
+-- 
+Ralf Lici
+Mandelbit Srl
