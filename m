@@ -1,125 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA844EE85F;
-	Mon, 28 Sep 2026 16:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB864EDCD6;
+	Mon, 28 Sep 2026 16:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613092; cv=none; b=Kies/0ybwJskZxOCfTZEYHyp5UudueZ4d8ml2lL8Necxq6NuGEjj53XgoI3Zq/QCheGc6mg0DshexWnF5CI8PogarPAgH7IB9VKUX5FoUunpSy55WLCQC2RxBbs96hPb34x01+AAaAo2Y5MHJGwJVOacV7phCYX/u2Baxd9Tffo=
+	t=1790613106; cv=none; b=oTQq16Bvu6/NXF84G3rodS/pm6pij0LfdnTv8Bw1y16AmVychBwlPFOcXDsk+luIv8TCqkIYwy9KTb9qvxPcj7ksaNcbKUh0Q2/cKRMpH5QoH8cjgDsKIpNKuHJ1d7lhKZ7R/PfBNt1f2g5stijyPV/DpaicH+vMy7zxWYiljPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613092; c=relaxed/simple;
-	bh=X7tuiSkPdQ541N7qK8lWpSLvxSF1OR6q4jOZ2O0iywg=;
+	s=arc-20240116; t=1790613106; c=relaxed/simple;
+	bh=c541e+Yf/1TkzNRiiS1DegAycr4yZV+4QccWpKXqm8M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OvT5TjcIgc3enHLEhTjIIlafFBKhfjdjXqMYTjqDRMOzgsTaUI76yotGOan39yr3bXmhQqd/8KzCB8H94oYrHCsPZCXdteTSJYn368BhIJDG5n5LT9QNaFzVy/GbzT2VPIcgPAAngdrLSfxfuZvwqD4pP9Gvq7tHxxead/o0cPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQofYHM8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4HklI5uMtCyySb/MYspRWXdsewR9Tz+GdqrXvgHBOAoNQNw7eJI3u28Qg+yXv9Q0R/8HO56cU9fg8IkYt9MsCHWx1nTtqqygx/RGjy1nRUiipWpq0zkiQBun8iqiaeB477xRuyvTg/RrKIQzvX93uIcoc3WbbWIWfM1zkqJjSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggGsrxCJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQofYHM8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F371F00893;
-	Mon, 28 Sep 2026 16:31:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggGsrxCJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9BEA1F000FF;
+	Mon, 28 Sep 2026 16:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790613091;
-	bh=u+GecGFatFN3gd4FU0zwdLZy3vmhqUQHcx2HZQZRqDY=;
+	s=k20260515; t=1790613105;
+	bh=5GpRpNe92QpGRvNBfRb9js65IBscjYzBPJDtk432NWo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eQofYHM8uBma/8EpuyIQiXsLcSgWdZZ3UFAlUaDMJ1ELaYDqMqrVxvrMKXmoCMeRp
-	 17/u0w+sJDqb779BLRn8Djc2yT38Az1pJque6e73DEmnCO77nUjppWY34d/qq+14PS
-	 14dv5JESvVi/AhuXKzUYds6UTkCMMDodNL6w7NBlSsiyDOgc+vhQEzQqsymqQyhN6Y
-	 risYv6rabELRHy4reEgIfyF+Z1yAxP///8CX+3dLTxPaJWPshFGvhjMYzeQLL0NHjq
-	 DNYFzXZ5quj0r94QhcUaGC6zqUj1zV80KZIMiHcoqH3opWkdNm83Akin8f5phHNF85
-	 zvATf4iWAUtGw==
-Date: Mon, 28 Sep 2026 17:31:25 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
- Remove nxp,imx8mq-vpu
-Message-ID: <20260928-primal-figurine-2a87db42eab0@spud>
-References: <20260928080822.19553-1-benjamin.gaignard@collabora.com>
- <20260928080822.19553-3-benjamin.gaignard@collabora.com>
+	b=ggGsrxCJcCVfBhbDDe5wweiFa11dtdqZONL6hGceidJWjnTSl2SPFmGZXWpQDsw8f
+	 JwstrbRF5NyKr0IYJUTBIsjQ0umloPXgXRxrPnf41ADGTGCsHjwxcC2EtGuzjMlqh7
+	 BwZsjwGPT3Mi2rqSC+HiM63nVW4T7U6PW2dwo8mg4nq/52QTpy8KmrdbE1HEm9A5B4
+	 IwdWgpCTeYsGUFwuOeW2VWQy6sxN8djuyRVuAvaRyNp2nt3ZTXjb4GS+1fE0lRr3y3
+	 8mhRVYR2hewuRIRh4ohElTixJUKVTzAkUBflv1MZHyePic0en8YBJEHP98Lyxtfoof
+	 KizmyksIBKuOQ==
+Date: Mon, 28 Sep 2026 18:31:42 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Leo Yan <leo.yan@arm.com>
+Cc: John Garry <john.garry@linux.dev>, namhyung@kernel.org,
+	linux-perf-users@vger.kernel.org, will@kernel.org,
+	james.clark@linaro.org, mike.leach@arm.com, leo.yan@linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: Update John Garry's address for from arm64
+ perf tools
+Message-ID: <arqWbrUcrkQnHEjy@x2>
+References: <20260928151652.66499-1-john.garry@linux.dev>
+ <20260928162436.GF14479@e132581.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ojMyhCVrSd8uTcXb"
-Content-Disposition: inline
-In-Reply-To: <20260928080822.19553-3-benjamin.gaignard@collabora.com>
-
---ojMyhCVrSd8uTcXb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260928162436.GF14479@e132581.arm.com>
 
-On Mon, Sep 28, 2026 at 10:08:21AM +0200, Benjamin Gaignard wrote:
-> nxp,imx8mq-vpu has been tagged has deprecated since a while and
-> driver emitted a warning when this bindings was used.
-> Vendor DT use the following node before they moved to mainline driver:
-> vpu: vpu@38300000 {
-> 	compatible =3D "nxp,imx8mq-hantro";
-> 	...
-> };
-> but that binding has never be documented.
-> After driver clean up it is time to remove it.
->=20
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
+On Mon, Sep 28, 2026 at 05:24:36PM +0100, Leo Yan wrote:
+> On Mon, Sep 28, 2026 at 04:16:52PM +0100, John Garry wrote:
+> > My employer e-mail address will stop working soon and I am likely to get
+> > more involved in this area in future, so update my address.
+> > 
+> > Signed-off-by: John Garry <john.garry@linux.dev>
+> 
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
 
-This is not a tag that you should put in your commits btw, this was me
-telling the dt patchwork that this patch has been handled.
+Thanks, applied to perf-tools-next, for v7.4.
 
-> ---
-> changes in v5:
-> - add more details in commit message
-> - add Conor Dooley accked-by tag
->=20
->  .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml =
-b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> index 19528262810a..69619d2c86fa 100644
-> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> @@ -14,12 +14,10 @@ description:
-> =20
->  properties:
->    compatible:
-> -    oneOf:
-> -      - const: nxp,imx8mq-vpu
-> -        deprecated: true
-> -      - const: nxp,imx8mq-vpu-g1
-> -      - const: nxp,imx8mq-vpu-g2
-> -      - const: nxp,imx8mm-vpu-g1
-> +    enum:
-> +      - nxp,imx8mq-vpu-g1
-> +      - nxp,imx8mq-vpu-g2
-> +      - nxp,imx8mm-vpu-g1
-> =20
->    reg:
->      maxItems: 1
-> --=20
-> 2.53.0
->=20
-
---ojMyhCVrSd8uTcXb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarqWXQAKCRB4tDGHoIJi
-0sBnAQC3KVZncC+oc93z8JEN+k1mmcQPrcPZ/QqF5cWDRv1gLAEAs6BKKnMf9fJD
-qhFn2pNOcXaqd7qnzod8w2h8rp4NXgY=
-=qoRO
------END PGP SIGNATURE-----
-
---ojMyhCVrSd8uTcXb--
+- Arnaldo
