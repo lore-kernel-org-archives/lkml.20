@@ -1,78 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5215636D9E7;
-	Mon, 28 Sep 2026 18:03:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EF0547046;
+	Mon, 28 Sep 2026 18:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790618596; cv=none; b=mJW8SixfjEq1SOdgURtwckDVAg4eFhr1+WBGBhql6zpeKL3SZpTS6QY8p8cvXCBrJEG+LT4XchLRcMlav45xhAw3P9kV/Gr801Jxajk4pO+lHm3GNDsOqi6sq6cSDTWjyCxhWKOclpv1sYCMZmEdE2RUE/3uHEiXLShIztVUYUU=
+	t=1790618621; cv=none; b=EU1CBxLoqc5IPLf0YgpDarjQMzL45Z8O+ckgkOoioUYaVKjeyi2XTCs3ioWXMThlnGIy/BEiY5f98keuxBm5k3ZzV9MgEPyFnX5DyHZCgD843DefGAAMIx7nwrS/qCMdbGzkPMyJUpJR1ICtaCdlQkK5JdaHclKjHPIAB9TLCHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790618596; c=relaxed/simple;
-	bh=Iq17ZHSa0ber6uELTegqmqNPqZCMNtUa8u0uGUAm8R0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=clLV+Sc3y8nmrrq9ne45h2grMopiMQrYqveOFckwEDbGdmRZ9aaTNDHukqg+X4FTjCjtVtb9En7iAXcbX/NkMHnDs9uwl0v9ukgEH5vDKy1GS3yGtRqTJQQ1NpVE+ch+CnsEaYEH9KMe6LbyWoDizJOn9WeK+rEZqEkZl9pLSNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TlCegE3W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790618621; c=relaxed/simple;
+	bh=Em6qkKYb+gUcvRKeEmVxlAsqhkqcC0JJ8qJlMwTzxyE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QjImnSEaBITZQ+rxBWQoFhwzHx0Fqfn0Ypv52KJi5cZLa/oTFxdgyGdAKgXJ255r2ArLVSy/zW0t3j38ZdVEgIUnng+Lm787Dpz8DKStLyh9szYO8BwKxqSuwblnVIB8BZXxwlmk2F/GSK/2YqeaEYUPkUE874exVXnBeZC16gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rn6zrALh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TlCegE3W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80D91F000FF;
-	Mon, 28 Sep 2026 18:03:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rn6zrALh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9CE1F000FF;
+	Mon, 28 Sep 2026 18:03:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790618594;
-	bh=DO7o4JAF+6Q8Jr+W2hSDTGMsm586qLnk695cJOnqtK8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TlCegE3WItry3JOr3+uA5bnqD05RkKoEYikp2K1svBBSDzXiIR5lB69OEH3zS4Geh
-	 Nr/tdmF5b9gsXBqQev1qvEwzsQDub/A2k77VuZR2YAxyq9W4wdEcAqXyoV7YCKxEUm
-	 Sa9UrnG/UZbc6wxRhgs1u7B7S3Y8kInCL8dLsMp5svLOrdryu0kjEP5zaCWAjnNqyg
-	 58h+SPa+jOpVtabGFKGhsN5HN6Ii1fK7coXAYATn1U9yGDuVWTkrkz8qwaCtwwSRr2
-	 /KR6M303zUYsjQk3l1XRr6YW5DoB7p0VmG2M0Ony4Eb8WrRo4Rfbxqzi9qFuZpEtZO
-	 vwPxUx/xIRNow==
-Date: Mon, 28 Sep 2026 13:03:12 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Heidelberg <david@ixit.cz>, dri-devel@lists.freedesktop.org,
-	Simona Vetter <simona@ffwll.ch>, Conor Dooley <conor+dt@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	phone-devel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v2 1/9] dt-bindings: vendor-prefixes: Add Shenzhen TXD
- Technology Co., Ltd.
-Message-ID: <179061859113.120376.10442541499029119870.robh@kernel.org>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-1-f8de8be5b86f@minlexx.ru>
+	s=k20260515; t=1790618619;
+	bh=Em6qkKYb+gUcvRKeEmVxlAsqhkqcC0JJ8qJlMwTzxyE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rn6zrALhktzX3F+Qlx/sCblhKYPW7bRfEE6BJ6xnmgqwaOWPYFxo3ixhEbhKg+r6O
+	 e+H0GV5kzwq5abYap6EhWyHAJC1ciZuD2u0jDx9k44qyxiXPne3k2fpLGlOgSPsAvj
+	 OwM397eqZzSNjsfzqndd+jf/KLESRjltxZU/R1iVbMDCCWbu/p93B+z3mO8ywoG57y
+	 xzafkjNjqPMxcRwwOFpja7N2v1AIZyxgkL4Swwhv1YzEVOo8jIp6dyaAvh4X2Re4Uy
+	 hepOuRZUAcK5Ws1/P2ZRnr9lfpFOMkIu3O07XVV7l6pIWnXLAT/YBnrAqtYoAK0XpE
+	 XEhnD18itDbdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/6] x86/vmware: Report guest crashes after kmsg
+ dumpers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zack Rusin" <zack.rusin@broadcom.com>, "Andrew Morton" <akpm@linux-foundation.org>, "Dave
+ Young" <ruirui.yang@linux.dev>, "Baoquan He" <baoquan.he@linux.dev>, "Mike
+ Rapoport" <rppt@kernel.org>, "Pratyush Yadav" <pratyush@kernel.org>, "Pasha
+ Tatashin" <pasha.tatashin@soleen.com>, "Petr Mladek" <pmladek@suse.com>
+Cc: "Alexey Makhalov" <alexey.makhalov@broadcom.com>, "John Ogness" <john.ogness@linutronix.de>, kexec@lists.infradead.org, "Stephen
+ Brennan" <stephen.s.brennan@oracle.com>, "Shuah Khan" <skhan@linuxfoundation.org>, bcm-kernel-feedback-list@broadcom.com, "H.
+ Peter Anvin" <hpa@zytor.com>, "Bo Gan" <bo.gan@broadcom.com>, "Maaz
+ Mombasawala" <maaz.mombasawala@broadcom.com>, "Joel Granados" <joel.granados@kernel.org>, "Ian
+ Forbes" <ian.forbes@broadcom.com>, "Randy Dunlap" <rdunlap@infradead.org>, "Michael
+ Kelley" <mhklinux@outlook.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Eugenio
+ Perez" <eperezma@redhat.com>, "Borislav Petkov" <bp@alien8.de>, linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Kees Cook" <kees@kernel.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "Sergey
+ Senozhatsky" <senozhatsky@chromium.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Ajay
+ Kaher" <ajay.kaher@broadcom.com>, linux-doc@vger.kernel.org, "Ingo Molnar" <mingo@redhat.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, x86@kernel.org, "Brennan Lamoreaux" <brennan.lamoreaux@broadcom.com>
+In-Reply-To: <996d3ceefd98ed9a7c40508e6f62039ba5a15325.1790014793.git.zack.rusin@broadcom.com>
+References: <cover.1790014793.git.zack.rusin@broadcom.com>
+ <996d3ceefd98ed9a7c40508e6f62039ba5a15325.1790014793.git.zack.rusin@broadcom.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 18:03:36 +0000
+Message-Id: <20260928180337.6F9CE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-nt36672a-panels-v2-1-f8de8be5b86f@minlexx.ru>
 
+> VMware accepts a structured guest-crash event, but a host configured with
+> backdoor.coredumpOnCrash may terminate the VM before the hypercall
+> returns. Keep this event separate from the pre-kdump log sender.
+>=20
+> Register a panic-only kmsg dumper with late_initcall_sync(), after built-=
+in
+> dumpers registered by then. Skip the event while a crash kernel is loaded
+> so the host cannot terminate the guest before kdump saves its vmcore.
+>=20
+> Issue the event at most once. With CONFIG_PRINTK=3Dn, use a late INT_MIN
+> panic notifier. An unexpected dumper registration failure with printk
+> enabled leaves reporting disabled rather than overtaking working dumpers.
+>=20
+> Link: https://lore.kernel.org/r/20260309235250.2611115-4-alexey.makhalov@=
+broadcom.com
+> Co-developed-by: Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>
+> Signed-off-by: Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>
+> Co-developed-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
+> Signed-off-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
+> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 
-On Thu, 17 Sep 2026 19:43:03 +0300, Alexey Minnekhanov wrote:
-> Add prefix for Shenzhen TXD Technology Co., Ltd., manufacturer of
-> medium sized LCD and camera modules for mobile phones, tablets and
-> automotive.
-> 
-> [1] https://en.txdkj.com/
-> 
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-> 
-> ---
-> v2: prefix changed from "txd" to "txdkj"
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790014793.gi=
+t.zack.rusin@broadcom.com?part=3D6
 
