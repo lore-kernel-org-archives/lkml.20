@@ -1,131 +1,143 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DF6547074;
-	Mon, 28 Sep 2026 12:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C88547074;
+	Mon, 28 Sep 2026 12:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598409; cv=none; b=KPqT+yIzuCnzdAZGXTOdApeG+CigvFt8vbaaZlgvGrYliusTuLwzL4mtyveK7f3rAKvzA3M6AFoNPGERtzp8kPWfwfh5Or9MrKsFL+7GNu49wdIpDLQ5XRQGduH14et8v4d34HsT6R6JgmwWKLxEF3x7ATASHcVizIab6h6jlkA=
+	t=1790598423; cv=none; b=E6aAR8ejjiAnn7EdTxgPVzjiPq4/+7JsqaKDf2J9Qbk/qEsc7+sW8aU0Eji5h5+wnSAx8P0G+y5Ks6aV4SN3T76LOP/8RdPUZkTWJvp1es2rXbGw3Eu5G5McOV6PbD2FR2CVtqs+RDBtSK8bvwFAmDxoMwU8jXWJnYQ7nmBgFak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598409; c=relaxed/simple;
-	bh=wPs0WKOvyZp3tfsZ+PPe2sRXbr63ukzEd3hrixqLTMM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kLgDdMmDbB7SX7eT/UYqi1FnbjjG0oxGmoRiuMDFmwYByBTpiCWAj3IXR2XAejEETWFQr6PhZBkFAgHvmRtEPmqV1AGv4kI1UzVxjQ34l5yexr6cM9Yov3A3nvGope3VZVqF+O9zHTpUL7wyzMW48i6ZDxGwk1zetbbsma5+Kq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=v4ev79pF; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790598423; c=relaxed/simple;
+	bh=fzBb13jWeHbetOHaxkffaUktqw43QLasIW90cL/E2tk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lS1Kg6AThaZpVbpw5hcfP38oYNx8PArGP8NJlVufbAnYrv6zCoEfHGEPz+WNk7+EnMcq/eOUZGqCywrLRHJ+kSahkOAVGTOvL9EpPx0GiOv6LYf+2Unf0rcfhYSjdJWuR1T7ut1UQsw1RaeiszhZVGa3h5eTqGOUMJw4d0er/ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=peBfZOi1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ccUrRNL1; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mzij3oPg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IvTcol6R; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="v4ev79pF"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=KACfx1G2q1GAQfSfbEu83uZ/Iaq8+MkddQpDTiGosdY=;
-	b=v4ev79pFv7LYn7GzuvqgyuVWE1fUT3b7YzjpGNU/yCYoUbUWfWAm7pafsTm3Qz+DOTbMmnmKF
-	nyb9gLGmvjMLioR5yQfMiyKEaSrA/7b2s/JfbcwkOkc4j02C1M/wqkQzNkOi171lRsBBzMa3dnf
-	6mMdL3yVUGrGAFPHkJmkvhI=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4htgGX2YrRzmV8H;
-	Mon, 28 Sep 2026 20:14:28 +0800 (CST)
-Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
-	by mail.maildlp.com (Postfix) with ESMTPS id 18D9F4057A;
-	Mon, 28 Sep 2026 20:26:36 +0800 (CST)
-Received: from [10.174.177.243] (10.174.177.243) by
- kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 28 Sep 2026 20:26:35 +0800
-Message-ID: <99ec7529-0733-4d04-a30c-d9a2b299182f@huawei.com>
-Date: Mon, 28 Sep 2026 20:26:34 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="peBfZOi1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ccUrRNL1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mzij3oPg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IvTcol6R"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CE6D21FB2C;
+	Mon, 28 Sep 2026 12:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AMCD1jeroqJFqfdYDzOlxe/63Fke+HvavrjJJ6441D0=;
+	b=peBfZOi1m7YE098432bgzU/fSACSLy97d2EsRcPSZWAwrPDJbFvm1K7WaiT/89pMKbIFnq
+	QLBUyYIbQEo88I33SyoCfYD+HmZgrbYEAcQUaptlLcajUg7c81TOWdiUsL4edu14Kq7WXC
+	DOuoQnsVYL9fZxCf26yfFCYb+n44Uck=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598416;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AMCD1jeroqJFqfdYDzOlxe/63Fke+HvavrjJJ6441D0=;
+	b=ccUrRNL1G96MHGxcHtZa3NjjtRmgAf1SZI5wqobSl1Si4K2cQCVP0mvwz7o+W9PCImeC76
+	LyjsWrQrjwLI+8Bw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mzij3oPg;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IvTcol6R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790598411; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AMCD1jeroqJFqfdYDzOlxe/63Fke+HvavrjJJ6441D0=;
+	b=mzij3oPgLYHrmsz4kLk/2DvIQtaTwexg5VEiqC+LXy04gXwCi7s51mOYNn4ABj6rNI2MMj
+	Obbb/LKZDrrg2zJ98dKl/e+kagCsFdCI74fm1hh9WJ0KLLEOWoVzSf6axvg0YlrErZXjAW
+	u86OEUp1MPDsk88VY9Ba64IjO6fCzkk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790598411;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AMCD1jeroqJFqfdYDzOlxe/63Fke+HvavrjJJ6441D0=;
+	b=IvTcol6R0kO8aUXbmJkQQCUTxTeYWzQlGeapgLgXJODX8dfOL1YkTJ2FEDgn+TWNJXu5nx
+	MN999/3VP4KMgWBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 78F3B133F1;
+	Mon, 28 Sep 2026 12:26:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id U29lEwtdumrLeAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:26:51 +0000
+Date: Mon, 28 Sep 2026 14:26:50 +0200
+Message-ID: <87h5j95zp1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: via82xx: use helper to activate DXS controls
+In-Reply-To: <20260927141447.788664-1-runyu.xiao@seu.edu.cn>
+References: <20260927141447.788664-1-runyu.xiao@seu.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: manual merge of the fs-next tree with the mm tree
-To: Andrew Morton <akpm@linux-foundation.org>, Carlos Maiolino
-	<cem@kernel.org>
-CC: Mark Brown <broonie@kernel.org>, David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Linux
- Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List
-	<linux-next@vger.kernel.org>
-References: <arUS5b85ed6L01qc@sirena.org.uk>
- <arZn0IB-L3hnNniw@cronus.toxiclabs.cc>
- <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk>
- <araNBVKW6MXR97P1@cronus.toxiclabs.cc>
- <20260925141448.57220a7d3f76b92d8f1cb130@linux-foundation.org>
-Content-Language: en-US
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
-In-Reply-To: <20260925141448.57220a7d3f76b92d8f1cb130@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk300003.china.huawei.com (7.202.195.93)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CE6D21FB2C
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,seu.edu.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-
-
-On 9/26/2026 5:14 AM, Andrew Morton wrote:
-> On Fri, 25 Sep 2026 17:03:58 +0200 Carlos Maiolino <cem@kernel.org> wrote:
+On Sun, 27 Sep 2026 16:14:47 +0200,
+Runyu Xiao wrote:
 > 
->> On Fri, Sep 25, 2026 at 02:11:28PM +0100, Mark Brown wrote:
->>> On Fri, Sep 25, 2026 at 02:26:25PM +0200, Carlos Maiolino wrote:
->>>> On Thu, Sep 24, 2026 at 01:09:09PM +0100, Mark Brown wrote:
->>>
->>>>> I fixed it up (see below) and can carry the fix as necessary. This
->>>>> is now fixed as far as linux-next is concerned, but any non trivial
->>>>> conflicts should be mentioned to your upstream maintainer when your tree
->>>>> is submitted for merging.  You may also want to consider cooperating
->>>>> with the maintainer of the conflicting tree to minimise any particularly
->>>>> complex conflicts.
->>>
->>>> Do you mean non-trivial conflicts with linux-next? I always attempt a
->>>
->>> With other trees in linux-next.
->>>
->>>> merge against Linus's tree before sending a pull-request to check and
->>>> annotate any possible conflict, but I have never done that for
->>>> linux-next. I can do that, no problems. Where should I send a
->>>> notification to? linux-next@vger?
->>>
->>> If there's anything interesting it can be helpful for me to get a heads
->>> up on the resolution but the main thing (and half the point of having
->>> -next) is to coordinate with other trees that you're colliding with.
->>> You don't specifically need to check, I'll tell you if I notice
->>> something, but OTOH if you know your work is going to be colliding with
->>> someone else's it's good to coordinate.
->>
->> Ok, that sounds fair Mark. I honestly didn't expect this patch to
->> collide with Andrew's tree. The submitter sent both of them initially,
->> Andrew picked one, and I asked the submitter to send the second one
->> individually for me to pick up. But I didn't expect it to cause a
->> collision. Next time it happens I'll try to keep an eye on the ending
->> result.
+> The VIA DXS playback callbacks modify control access flags directly when
+> a stream opens or closes. This bypasses the control core locking and
+> notification path.
 > 
-> I don't think much went wrong here.  Keeping the [1/4] xfs patch in
-> mm.git is appropriate, as it's part of a series.  Unfortunately Kefeng's
-> standalone "xfs: fix NOFS state corruption in btree split worker"
-> conflicted with it.
-
-
-The mm series patches were based on Andrew's mm tree. However, sashiko
-discovered a previously existing issue and sent a separate bugfix (based
-on linux-xfs). But because both patches modified the same function,
-xfs_btree_split_worker, it caused a context conflict.
-
-
-* 26f42375404e xfs: fix NOFS state corruption in btree split worker
-* 213bf447fc22 xfs: remove dead kswapd flag inheritance from btree split 
-worker
-
-I checked the latest linux-next, next-20260925, and found that the
-current branch has issues while resolving the conflict, resulting in the
-bugfix part being lost.
-
+> Use snd_ctl_activate_id() for both transitions so access changes are
+> serialized by the control core and reported with the expected info event.
 > 
-> I suppose I could add the standalone fix to mm-git as well (with xfs
-> maintainer acks), just to make life easier for everyone?
+> Fixes: 3d00941371a7 ("sound: via82xx: deactivate DXS controls of inactive streams")
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Maybe Mark will fix it in linux-next, or as Andrew said, merge all
-the patches into the mm branch, but depends on the maintainer :)
+Applied to for-next branch.  Thanks.
 
 
+Takashi
