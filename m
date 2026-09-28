@@ -1,222 +1,193 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39874F391E;
-	Mon, 28 Sep 2026 19:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42744F474A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623726; cv=none; b=hPOumOpSNVqoQlDS0EBWIS4umJaylnQmeD5cAmOYygGeP8en27qaZ8XIwIcYX351dha6zxZS9KKn5sNm413Jbsn4sm0FyW/4jNyv/waY1+hn1LUmX2T/kOzQV2TjbB7/A+Uj1DwmlfsBJOKOQgOfrhyHJ7l/BGyBDVZlOrGHON4=
+	t=1790623729; cv=none; b=iwSfyJThlf1XoFYgFAPn+j7DPGfkRSDKCZ50ptVLiTa+7oV7Bmnx9NQS2Yju2yH8t2wITyiIbOrwFezKtZPHuCP3f2Juu/8ZZEu0Yt0bv6oELbXo6re/R2U33Le1mAkMY1jwDoCTCT7VCJZzVXf+iFO689NMfnr3My+vwXxwF5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623726; c=relaxed/simple;
-	bh=ZPpOyI+RGVODWfCoIjR0Z+6xnmSW0dErgiTKfYd0Kyw=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cbRUx8uQXGAO/4yEvdbKB94adr3fU+BAQ/5m44//fBT4fFPgl+WFBsUifXvpzNDWhxRwa1OV5Hrxq0fY7JOHvQpchlOIS3M1Q24Cb0DDUTwL6hfovDdvHqilAnYFEPMS2bAtrYS9E6FOQSG//x/SJuWVETZAdVcHAgl1pfm6W3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BOuXZ6Kx; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1790623729; c=relaxed/simple;
+	bh=O4uIi9qgIMnPjsFpze9OgXjJoOKWfAVoaOQ1MDw6W24=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qHDa+emtlEh0muHICswRGWcyDDjPKb9fKUN/+9PYKmW2TgB6EnzQeIH1qdqGO0BqGke9v+mAJv3xEFCdD0PkHE8rR279GXVq6zoT4dP4i9p3nHl/MkmxFaOAGZNB8RdEwPE2URxb0s0sWJsSgpiSO2g+eDnJqI4bExIYrbCOZnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ujeAHZXC; arc=none smtp.client-ip=74.125.227.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BOuXZ6Kx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ZPpOyI+RGVODWfCoIjR0Z+6xnmSW0dErgiTKfYd0Kyw=; b=BOuXZ6Kx2JG4SF07WsRq+qLQpi
-	Xah6rkq20d7k3agnCaoZ5DtgGfWtvqDS8o/vabi/BxOFIvx6SLQKwAu58CFl0xd3WMPRoZbBvJpyb
-	lSkxAO/sf+/VIEkazcS+F/5/0OxuO+FklW9NMnyGm4V5BzV/TcvA1pZvZlGZc3JbHod1EB0Isy0H+
-	6fu5nMwT/38rhJH3mXeGAwGyWC5yA6gjrC99kf2PsL+Y4SJarxDQqad3wQmHIuY6ZoSlhpyT7Gry5
-	2u2GueO+CBoBkvCUHcLQomgkno48jP0u//gC3hwcPJjelyla15N8/GJbT95uf3+O8erT1QhXtGWNh
-	/4VlOTZg==;
-Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=edge-m3-r2-132.e-iad51.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xBH1Z-00000008Spo-3pIg;
-	Mon, 28 Sep 2026 19:28:32 +0000
-Message-ID: <cb992b22907085c4ced8d9a35cd1c8836aad20ad.camel@infradead.org>
-Subject: Re: [PATCH v4 2/4] pps: Drop the !NO_HZ_COMMON dependency from
- NTP_PPS
-From: David Woodhouse <dwmw2@infradead.org>
-To: Rodolfo Giometti <giometti@enneenne.com>, Richard Cochran	
- <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, John Stultz
- <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,  Stephen Boyd
- <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- linux-kernel@vger.kernel.org, 	netdev@vger.kernel.org, Alexander Gordeev
- <agordeev@linux.ibm.com>
-Date: Mon, 28 Sep 2026 20:28:24 +0100
-In-Reply-To: <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
-References: <20260829210041.40649-1-dwmw2@infradead.org>
-	 <20260829210041.40649-3-dwmw2@infradead.org>
-	 <f6e90a49-8c68-42e6-bdff-ea9b3ecbaf7b@enneenne.com>
-	 <fc1ec38dbc3723f7aed73ebf3413e1d81c161228.camel@infradead.org>
-	 <7098f5d2-043d-464a-82d9-a105e4000c02@enneenne.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-V8YPTHVYynRdDxEhQYE+"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ujeAHZXC"
+Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cd13e9ec34so1390655e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:28:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790623726; x=1791228526; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
+        b=ujeAHZXCofuwKgAeICLb9kvV1n9E+r47D8VgVObLOyXqxCqTWKsnzm29wo6zstlAEb
+         oQnquVN2ifqow7e3G0NZgZWL2bvGI3Daavmgj7IgOOZbjp/B2aOvc70ysTztAIwx4X/X
+         uhoYlK0KP5JYbo3VE/5SPmHOv/ww/x4cckykcKfVQNOy25xJXfg6mAaMXyshTqWvj/+P
+         BW8htB6UCgewzAPuRJfvs3A/soDKRsZNWs5K2SFAv7DpV4ZhJgzxLhgz4hiJgjtHfzwr
+         QMo6NWZjjXJXHG9QC2r1AmirOCJoqXNv/c6F2zP6I16Shtm9h4eYZ8OElq1bNRxZSv55
+         P5Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790623726; x=1791228526;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f4XLiHmjvbY0WMNhbeGvYmwDKn+iLVO18enI78KZT1U=;
+        b=rEXXsGnPQYfbirYpXidrz9KS/wTxwfwuzgMXd/ATs9Qip//YSrZ0aPF+EOFNzoRdN8
+         TV3LBCT64YNUk07ybslLo71mA7E8j3SYB6Nobhjoc8xM9zhzOsGAnUsN7ED85Zo6CMkJ
+         Zgf+PgTlO+lSd6I2VHUrAfMGLNdTlNr5Da/ixmaeGhxJzJyPtB7YBEgB+3Lbqiyxc6NN
+         fpyNpjhTybL6fgB6vseM9RtuB39bsgzefbBZB+CfVf2FMq2ZRAbXiFvhSmZ+M/fC+X3E
+         IavCRPNX3+9Ra/BFTOjQRGIkdPxCVwDcremcvv1JHfMR4YlQeVKoZG9l+0cDV0n+3RTJ
+         FsBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDUK4ceDppUvim472cMsDHojYbx9S4tPRJy8ZD0QXDVJ2hMBqfTooPhzAZ4xHKfcdTynYWPWvBdHiSHj8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXuKEi96VBmn92Wmdm6WpnBcBzt4JkhcwfVpXDT8Kv65/Kfk3r
+	cW0sCslicQR6+70Bx73Bt+PTBFAgD01Syp6NftvjwxNysDDimKmSDP4qOmUQdWWzIV8=
+X-Gm-Gg: AYBFou1J43aeRXfgcLdxCwDYDWvTp2In35eu15TUE/CcYbQrlr6LHViBCQP8Ym1Gfhp
+	jqeaiAi+mI/0CpZEj28wmdQlMXEKM9VDx3q5nQc/Lgl3xbaRa8Jlg6Ul5IrNCcJgAV//8Q7nOnz
+	huYI+L0wXpcKaasfPEiJuDWpYWPJyDlnXCW5N2WUuGl6T7XMTyf1vKhlbmu3OsMnV2hvdD+V3C/
+	fGR08YKkl8EZ+x62ts9eR2893TWGDlbQPIzL+748H4ziGyMEJ6KO7GXbizoH0dsiv+0VWg+jop4
+	GsfeBmmAv35Q9W7LYBR88FGi3CoKcFymGiU9qdxbHD1Hf9rGus31GItkSh/IqsGq0BWFGsNpNGr
+	fyjzCcKHzys4BCuESnzg+erJs08MWK/wRQv+pYH4+LOEDmjDvYYcboX1/Qb5pVLGx0vW1YfiVtC
+	FNSTjJxB99Lg8XN9UA/gkAI0jo+Zstgry6Ja0fRWBzMjyvcw0smrFyE059nOLOEOOAwnvM9IhOZ
+	kruH1xU65NKHQ==
+X-Received: by 2002:a05:6122:25ca:b0:5d1:b41c:8ff1 with SMTP id 71dfb90a1353d-5d1b42bdce3mr337088e0c.15.1790623726416;
+        Mon, 28 Sep 2026 12:28:46 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde664c06esm9993095e0c.16.2026.09.28.12.28.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 12:28:45 -0700 (PDT)
+Message-ID: <59097bca6ad101c160c1d519556fbee378801dcd.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: imagination: e5010: release m2m device on probe
+ failure
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: =?UTF-8?Q?=EB=B0=95=EB=AA=85=ED=9B=88?= <mhun512@gmail.com>, Devarsh
+ Thakkar <devarsht@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 28 Sep 2026 15:28:44 -0400
+In-Reply-To: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
+References: <20260424-e5010-m2m-probe-unwind-v1-1-mhun512@gmail.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-voi74w9GheclbzmAzMR6"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-V8YPTHVYynRdDxEhQYE+
+--=-voi74w9GheclbzmAzMR6
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-09-28 at 18:41 +0200, Rodolfo Giometti wrote:
-> On Mon, 2026-09-28 at 14:37 +0100, David Woodhouse wrote:
-> > But I can *simulate* it, by running a virtual machine with vmclock and
-> > knowing the precise relationship of counter to real time that I'm
-> > *telling* it to discipline against =E2=80=94 then checking how it did. =
-Your "no
-> > independent reference anywhere" is my "I'm actually testing the part I
-> > want to test" :)
+Hi,
+
+sorry for the long delay, finally getting to this one, comment below...
+
+Le samedi 25 avril 2026 =C3=A0 01:58 +0900, =EB=B0=95=EB=AA=85=ED=9B=88 a =
+=C3=A9crit=C2=A0:
+> From: Myeonghun Pak <mhun512@gmail.com>
 >=20
-> What it cannot show is the thing this patch actually enables: hardpps
-> on a tickless kernel driven by a real PPS source, with its jitter, its
-> IRQ latency, and the CPU going idle between pulses. If you (or someone
-> on Cc) can run it for a while with a GPS PPS on a GPIO and report how
-> the offset converges compared with a tickful kernel, that is the test
-> I would like to see mentioned in the commit message. If not, please at
-> least state there that the validation was done with the simulated 4/4
-> pulse only.
+> The probe path allocates the mem2mem device with v4l2_m2m_init(),
+> but several later failures jump directly to the v4l2_device_unregister()
+> unwind path. Since the driver core does not call .remove() after a failed
+> probe, those paths leak the m2m device.
+>=20
+> Route post-v4l2_m2m_init() failures through the existing m2m release step
+> before unregistering the v4l2 device.
+>=20
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/media/platform/imagination/e5010-jpeg-enc.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/driver=
+s/media/platform/imagination/e5010-jpeg-enc.c
+> index 42ad9ee399..4c250e2275 100644
+> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> @@ -1072,14 +1072,14 @@ static int e5010_probe(struct platform_device *pd=
+ev)
+>  	if (IS_ERR(e5010->core_base)) {
+>  		ret =3D PTR_ERR(e5010->core_base);
+>  		dev_err_probe(dev, ret, "Missing 'core' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->mmu_base =3D devm_platform_ioremap_resource_byname(pdev, "mmu");
+>  	if (IS_ERR(e5010->mmu_base)) {
+>  		ret =3D PTR_ERR(e5010->mmu_base);
+>  		dev_err_probe(dev, ret, "Missing 'mmu' resources area\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->last_context_run =3D NULL;
+> @@ -1089,14 +1089,14 @@ static int e5010_probe(struct platform_device *pd=
+ev)
+>  			       E5010_MODULE_NAME, e5010);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "failed to register IRQ %d\n", irq);
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	e5010->clk =3D devm_clk_get(dev, NULL);
+>  	if (IS_ERR(e5010->clk)) {
+>  		ret =3D PTR_ERR(e5010->clk);
+>  		dev_err_probe(dev, ret, "failed to get clock\n");
+> -		goto fail_after_v4l2_register;
+> +		goto fail_after_m2m_init;
+>  	}
+> =20
+>  	pm_runtime_enable(dev);
+> @@ -1113,6 +1113,7 @@ static int e5010_probe(struct platform_device *pdev=
+)
+>  	return 0;
+> =20
+>  fail_after_video_register_device:
+> +fail_after_m2m_init:
 
-Yeah, working on that now. My first soak test on the nohz_full build
-didn't have nohz_idle, so it wasn't really very tickless.
+Can't you simply use fail_after_video_register_device label ?
 
-Running it again now, it looks a bit better =E2=80=94 a test binary in an
-initramfs, no network or real system activity. Waking once a minute to
-dump stats to the serial port. With HZ=3D250 it's only waking about 1500
-times a minute, and I'm seeing ntp_error p95 21ns, p100 116ns. More
-data, and pretty graphs, when I'm confident of the results and have the
-A/B testing. I'll get some data on the distribution of the sleep times
-too (I'm assuming most of those wakeups come while the serial dump is
-running).
+Nicolas
 
-The ntp_error being corrected is still two orders of magnitude less
-than the jitter on the IRQ, mind you. I think it's even processing the
-timekeeping when woken by an the IRQ, before running the PPS IRQ
-handler. I'm going to play with that IRQF_HWTIMESTAMP thing I
-mentioned, and sample the counter right at the start of the exception
-vector. (And again, my endgame here is hardware sampling it before the
-CPU even wakes up).
+>  	v4l2_m2m_release(e5010->m2m_dev);
+>  fail_after_v4l2_register:
+>  	v4l2_device_unregister(&e5010->v4l2_dev);
 
---=-V8YPTHVYynRdDxEhQYE+
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+--=-voi74w9GheclbzmAzMR6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-AVyNp3qAogRWAKdK4GylRfAAAAAAAAA=
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarq/7AAKCRDZQZRRKWBy
+9IZmAP0VR6bu6gTm5GrW5zPbMo2MHKgY6EAy04h+kue45wO+HwD+LGwAIVFAH7ri
+2jBuZaTDoCNv7kwXXm6c9LckfqoGjgM=
+=S2RM
+-----END PGP SIGNATURE-----
 
---=-V8YPTHVYynRdDxEhQYE+--
+--=-voi74w9GheclbzmAzMR6--
