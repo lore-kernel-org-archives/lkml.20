@@ -1,84 +1,45 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26724718CA
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B70F4848B6;
+	Mon, 28 Sep 2026 08:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790585303; cv=none; b=jYU6UzdUIl7qeY+U8M35QFoHyTx3OUFjqt+/2POBD1BcjlC2E4XJaKCS0Kjh15VgNOgO7Fe/oB0ZKEpqP237dBxSOeA/FnyagN6ZpEVd6EiOIVzKC4+zwfw+hUCtJJ63TfXNfkXW7NcnDMiTU2Y2H1wLc5NmGtcGqEbnmhMBEfs=
+	t=1790585305; cv=none; b=SZxXTsciJmH+Il5UhvrjLKA/1AW+FwVovBPFevmxQuiA32DVumUPSyUO9LMTIzfntRup8Jrlex9zbduIWqLf2ldgIhDmi3FoPBC4IcD1+ZC5N89JG0BgIJAFK6lBb5W3veE/B4pLY6boZdaSAZ2PfAtEN8WE3CZEfgfkE842W78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790585303; c=relaxed/simple;
-	bh=nGNK4CJ7IAGxiLKQK5N1I+NN+hh0tDC50qXrF7zVWV0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KtwcyWF/0uaf7EJYWc3MNAdbhANLUfb3+c4YZAiRhApLZ3DO+Au1/ixhj8m2ncLHUT+Lc2SVgylIdGfGNy4LU9eTAMWK2+/g2KCH7MidiwqHgqfxjyPb0cwIDzP6KraswQhm3AcS90YcZ7YrJFHNA6FrNmSIZnW++Hw43krsw/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hJJpx8b+; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790585305; c=relaxed/simple;
+	bh=o8ybOedh32j23wSzSzyd4G1EPrINANiBMUEOtQ7303U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FLT8lc7ZO1+TfQodniN+lOnc5sAhOPSUJsCoWssch828PggtqFTSs3p/W1KAfinR55jyFAT4mX54DDKDoPthIUDAK6zFXKjyYueVX0gaw7pooXGHkXXobtFHrwVB/MveNkRq4vcOyxPXdteWhuxj4j8JMJ5hMRValOk3woMHg2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wy0Ja1Gl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hJJpx8b+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so13863195e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 01:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790585300; x=1791190100; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlTyxrC5JLY4QSgeol6426LcGC8kkaxi4wrrxLeCtIs=;
-        b=hJJpx8b+vD0TBgD70aw8kyrK35e9qxFjpsoSa7cSUq9slEeIEJDqY76u6bCmf7cCa6
-         m3mZvs0nrJ0U2n+Xwmpl/4/x51CWtvg5d3GGJONzOqErG7sgTQegRZ5NzCGi2rm+15v8
-         P7Yh4lEmPzI/aj1jCHFRDOXx4AbnL3UnimiEkhItQ/t7SMxTPT9MYwb6GPkyN2/YIibO
-         S59G9QM4x0bFDBK/o4b4CWoWl0hNdNiAlxNOU+CuG8+7WA71rdVdT3Q1s15Q0HrFGhvT
-         0ZSqWVnjER0SZMvv+GxxXRfGPS2xl0By6375Lrk8lpkUzXXDQCM9MVKxIx/Ko0wZHP5N
-         PkWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790585300; x=1791190100;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlTyxrC5JLY4QSgeol6426LcGC8kkaxi4wrrxLeCtIs=;
-        b=Zc2bZ3J6muK0iqApeWiev+hYU2Kl8ZfenDma7mOm4ZnLCdItec7gL3kbWkVGPdEtM8
-         DMFKXcBp7aCwP3kvnMYZUKPZsnb4OEBhLhcwWmabVue7FxxfSzj7ovHBsEycbHWbWCSc
-         o/pgtk9IU1JoUdteEdk3kLT48szlC9HZBkn93F7MtaLbe1o3V5jF3THYzGQCRGyruxJE
-         PneqF677AZbjAlxUmRxkOZIa8nuwg3dw6YNnhmsVfJpVtCvvPB9oeOIjWiG/vZG7UN2J
-         70TURGM7Q2Y2NrjcaFGM3WAL9HnNwQFbf0LYnZxwfR7yy8lxDETrLfyoqs56bDj/0Z4C
-         0Jvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuo2bsYqs/0Mp/FiS6k/Co9zQamc76nuERv45dp3Jl2zKPEOUymDSujIUM9lZHBLm5I/fl10gRUnzf008=@vger.kernel.org
-X-Gm-Message-State: AFuF++ne7aDrHipWYy84NrPE56JeyWneVs7OWulaiSuY6gaz6WxrYfCQ
-	y3WkTWnOVEqaYE5uTAzRioG7Yo1sXngQ+jrB26KFHi7WQ3flMI3nKYh2vFvrPICM
-X-Gm-Gg: AYBFou0ettCD/7GLaJX+x7EiUliLSAvbwYnbnxK0f1y2zwzoQM8tuSP7l7ytG4WIqve
-	MTpk3e4uxADhE/KENBU1z7ZZj916JrdZ8AvCO+L/4ZoIjvVBRflvsfNQhTGZTdagwFxGMmoiJaW
-	wSmphp8Cf23uDywmooscwK2u9tYJhgRnsGUbQy6ZAwqzABzCj1jVXVkuPG0BJzmG/GeDQyoDk2s
-	W6Ln8LX387pBcP1EI8gSYo/gZ4muadeKhwVSJdXO69pZZmAvAfG3olTiVav7LOvoOBOUKkGCjpG
-	AgKA+J/6ic3CfFv9aseliHLadDT/nnzXh4/aDZ/Wno2n/RAdVkyDeD1pMjWgvFBJ+7tAy9Lgdpc
-	KYVEeYEiis1XWFJkHono9M7duSXXXJGvphxfpZwV83a0ut6L/cEOqZc4p4AlGp4QbG3+onQi/08
-	pDm1boH3GXddF85Noh8YqDjPSeJY5EgRNALQT/0ItzyKkjdfC21oZaY1fKV2Z7VU92MqOfRo+Wm
-	QqdzBCbgqJgpqSOMzYhCjBwWMsQl022Bhc5XYEXVPsuYszuxZ7QDfHaHe4t61Oby5e8bsye2asy
-	rOU4CA==
-X-Received: by 2002:a05:600c:310b:b0:49e:7862:c09e with SMTP id 5b1f17b1804b1-49fe66c6289mr211174025e9.14.1790585299451;
-        Mon, 28 Sep 2026 01:48:19 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0017652d1sm182584705e9.5.2026.09.28.01.48.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 01:48:18 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wy0Ja1Gl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61B01F0089B;
+	Mon, 28 Sep 2026 08:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790585303;
+	bh=l+XUTYe6hm3kxfI8yuA6zaaLnG2sroAqD2TflRvrQMQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wy0Ja1Gl5W57VgNDPaWrMrZoejn3vl/3qftaheyYiODpvqNaNAyn/ZXtL5SEFz40g
+	 mjir+nu2FumbFHeOBwM4Z3mvJrN56x0y8T1TiiWU3/KEOqmkKXfeIgoT99g5Rzoe/S
+	 Jsa/fLtMR0kJJ/WN9j8RbtBtVL7xvKqIM3hPQQgR629aqS7JH6tFF1mJPGM8ai1sBu
+	 b6nw5Q7+e+qZYuod6NSBeMvS8lpl7y45XI9zx8jSupmSPE2l+EStLCMcxYTLF6Iewx
+	 wUvi2v1wDWW8wBomt19BfInZ0Vlg6+19cD+Zv2ltxdwklnC2E43qCH8XFwPGwwubve
+	 j3yZ01TwQNmgw==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	stable@vger.kernel.org,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 0/4] iomap: fix error handling regressions
-Date: Mon, 28 Sep 2026 10:48:05 +0200
-Message-ID: <cover.1790342457.git.parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-mm@kvack.org
+Subject: [PATCH v5 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Mon, 28 Sep 2026 01:48:14 -0700
+Message-ID: <20260928084816.5575-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260928084816.5575-1-sj@kernel.org>
+References: <20260928084816.5575-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,77 +48,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix three independent error handling regressions in iomap:
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
- - clear the writeback context after a failed ->writeback_submit() call,
-   preventing an already completed ioend from being submitted again;
- - preserve an iomap iteration error when iomap_fiemap() has a pending
-   extent to emit; and
- - preserve a direct I/O data path error when sub-block tail zeroing
-   succeeds.
+damos_goal_tune_esz_bp_temporal() converts the scheme's size quota
+into basis points with "quota->esz_bp = quota->sz * 10000", both
+unsigned long, and damos_set_effective_quota() divides the result
+back by 10000.  quotas/bytes is unbounded; bytes_store() hands it to
+kstrtoul() as is.
 
-The three fixes have no ordering dependencies and can be applied or
-backported independently.  Each issue was reproduced before and after
-its respective fix.
+On 32-bit the product wraps for any size quota above ULONG_MAX /
+10000, that is 429496 bytes.  A wrapped product below 10000 divides
+to a zero effective quota: 429497 gives 0.  damos_quota_is_full() is
+then true on the first test of every charge window.  Other wrapped
+values are wrong without being zero: 500000 gives 70503.
 
-Patch 2 is not a fix and carries no stable tag: it adds an XFS error
-tag (requested by Christoph) that lets patch 1's ->writeback_submit()
-failure be injected without the boot-param hack used for the original
-reproduction.  The corresponding xfstest (list corruption caught via
-CONFIG_LIST_HARDENED on an unfixed kernel, clean writeback failure on a
-fixed one) was posted to fstests@vger.kernel.org:
+Triggering this needs a scheme with a quota goal, the temporal goal
+tuner, and a size quota above ULONG_MAX / 10000 -- 429496 bytes on
+32-bit, 1844674407370955 on 64-bit.  The scheme then makes no
+progress for as long as the goal is unachieved, which is easy to
+notice, and writing a smaller size quota restores it.  Nothing is
+corrupted and nothing leaks.  This is unlikely to be hit on a tested
+setup.
 
-  https://lore.kernel.org/all/20260924091338.198407-1-parri.andrea@gmail.com/
+addr_unit does not cover this.  It only scales the numbers a paddr
+context writes to quotas/bytes, so a large enough scaled value wraps
+just the same, and vaddr and fvaddr contexts take raw byte values.
 
-Changes since v2:
- - Patch 1: no code change; picked up Christoph's Reviewed-by.
- - Patch 2: fixed the alignment of the new XFS_ERRTAG_WB_COW_CONVERT_ERROR
-   define; picked up Reviewed-by tags from Darrick and Christoph.
- - Patch 3: no change.
- - Patch 4: dropped the reformatting of the iomap_dio_zero() prototype,
-   keeping the iomap two-tab indent style (Christoph); added the
-   "# v6.12" stable version tag (Darrick); picked up Reviewed-by tags
-   from Darrick and Pankaj.
+Bound the multiply.
 
-Changes since v1:
- - Patch 1: reworded the added comment to fit 80 columns (Christoph);
-   described the reproducer in the commit message (fault-injected
-   ->writeback_submit() failure on a reflinked XFS file, reliably hits
-   list_add double add on the unfixed kernel); documented why the final
-   ->writeback_submit() call in iomap_writepages() needs no equivalent
-   fix, since wpc is never reused after it; picked up the version-scoped
-   stable tag Darrick suggested; picked up Brian's Reviewed-by.
- - Patch 2: new, added per Christoph's request.
- - Patch 3 (was 2/3): no code change; picked up the version-scoped
-   stable tag Darrick suggested; picked up Reviewed-by tags from Brian,
-   Darrick, and Christoph.
- - Patch 4 (was 3/3): reworked per Christoph's suggestion to make
-   iomap_dio_zero() return void and drop the handling of its return
-   value, since it can only fail via a can't-happen WARN_ON_ONCE()
-   assert; this also resolves Darrick's question about the local
-   variable's type.  Brian's v1 Reviewed-by was dropped due to the
-   rework.
+Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+Cc: <stable@vger.kernel.org> # 7.1.x
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2: https://lore.kernel.org/all/20260924091203.198225-1-parri.andrea@gmail.com/
-v1: https://lore.kernel.org/all/20260921083133.2960-1-parri.andrea@gmail.com/
-
-Andrea Parri (4):
-  iomap: don't resubmit an ioend after ->writeback_submit() failed
-  xfs: add an error tag to inject a ->writeback_submit() failure
-  iomap: don't lose a fiemap iteration error when emitting the last
-    extent
-  iomap: don't lose a failed direct I/O bio's error when zeroing the
-    tail
-
- fs/iomap/direct-io.c         | 16 +++++-----------
- fs/iomap/fiemap.c            |  8 ++++----
- fs/iomap/ioend.c             | 10 +++++++++-
- fs/xfs/libxfs/xfs_errortag.h |  6 ++++--
- fs/xfs/xfs_reflink.c         |  5 +++++
- 5 files changed, 27 insertions(+), 18 deletions(-)
-
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 0e375f4445fd..60e4233ed23c 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3291,7 +3291,7 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
+ 
+ 	if (score >= 10000)
+ 		quota->esz_bp = 0;
+-	else if (quota->sz)
++	else if (quota->sz && quota->sz <= ULONG_MAX / 10000)
+ 		quota->esz_bp = quota->sz * 10000;
+ 	else
+ 		quota->esz_bp = ULONG_MAX;
 -- 
-2.53.0
-
+2.47.3
