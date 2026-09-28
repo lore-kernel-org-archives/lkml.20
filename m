@@ -1,137 +1,144 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-197.mail.aliyun.com (out28-197.mail.aliyun.com [115.124.28.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A655614A60F;
-	Mon, 28 Sep 2026 12:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70A9140E5F;
+	Mon, 28 Sep 2026 12:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598755; cv=none; b=mu87h5XkJVSQowUBSEOXCiw5Ys5hZ5MdKWYOGjI90qZYPNV2QczKw4UcSFD5/d3jobccmDTmBfLy73/uk1Lp2xKdJ+8ukGEbCu+0BMgRQ85cxLy0dxakTa/Xc9sJPnisvTg+ExWzhIYbxjz3MsEpvaEbZWIyv2F1wtLfP4p2JO4=
+	t=1790598772; cv=none; b=RCFBlWr21eauo1jgy39aC2Sx+liOv8cBsUZjnEauzKJA+MssdZa+8gSLbhoofzOir/QaqI3JavDNgv3ECefmv1/SaEXswidAXarvXLIVI99ni8h/085RXteeGIHnXVDdKgsKDvATQeQNYAUpbUXn3jOr5qC3EBJ1YRv0jTmtMTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598755; c=relaxed/simple;
-	bh=VKHGwjATVv2qo24fwCxBTuXt2td5jC31V3pkTaPuMCY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fitRaVNWnp3UVKdTp5j/kbLW24WjCppnUMA0FW3QwlXtGXpTf1W4zDKglO5zqH9tRKjfYuDVsnw9iAtkGPhi9mqmCJ/qUVcaedGLQdP3O6jVRhG9uyRMDBSuwWIYP+RlIR0T/SQs9UD5Wy9+nPmucS6unPIkGAeHOtZZ95zh+BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NfFiAZvL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DG7/eIM4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QsCYo+nt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EnakfErx; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NfFiAZvL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DG7/eIM4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QsCYo+nt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EnakfErx"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7840D1FB30;
-	Mon, 28 Sep 2026 12:32:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zyo1ye8iFfz/6i0pBA8NwUyA1gHeYxlway4s/c26CZk=;
-	b=NfFiAZvLFV5vJFpp6H5PNouJ/r96zoa4n04lDPEYTdZDkvj/ibGch3vbI1xQ39hGVbx3NX
-	rIXBeyK2q9U9lSr4aPG3IJgArpaqQN6CcKp66z6aiHY/lTUH/bMbZrEqAgI8h3SmTpvQbY
-	3VjFcs80CUYkJxVqG2jVuo0Wh/aJMzw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598746;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zyo1ye8iFfz/6i0pBA8NwUyA1gHeYxlway4s/c26CZk=;
-	b=DG7/eIM40Y/RqzH7rf5PX3FxL/OBczcca6UJ8ZcB4WzYxBu1y6hV1ZA4mU3s/RAV7nOnax
-	/rFoDHLrIv/VUEDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790598742; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zyo1ye8iFfz/6i0pBA8NwUyA1gHeYxlway4s/c26CZk=;
-	b=QsCYo+nt1KJK5zWOsfw0/gtbvp5Z5VpI49TXWdWOjTyGdu+Bavknh2T2uBII+rbhckNIo3
-	GbmIRCdNTFY8cP5se7xsmDxT+sisBWm1XyfmrOREdBIgXC1NrSEydrkn9rUEb/oC1qmfid
-	U5Ea6trLpyexge4PYHkfTnm4n3MXISM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790598742;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zyo1ye8iFfz/6i0pBA8NwUyA1gHeYxlway4s/c26CZk=;
-	b=EnakfErx01i7+Cy9O7ez1rUhNy/r/M5UFEpjg7AE05TxxBsuo539JF9l4mWC/brBJIvSOB
-	byqW/TPEOJxBbHBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E706133F1;
-	Mon, 28 Sep 2026 12:32:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3nsAOlVeumpxfgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 12:32:22 +0000
-Date: Mon, 28 Sep 2026 14:32:21 +0200
-Message-ID: <87cxtx5zfu.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: phucduc.bui@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	thomas.weissschuh@linutronix.de,
-	Thomas Gleixner <tglx@kernel.org>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: dummy: Move pcm_substreams check out of the loop
-In-Reply-To: <20260928021823.6517-1-phucduc.bui@gmail.com>
-References: <20260928021823.6517-1-phucduc.bui@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	s=arc-20240116; t=1790598772; c=relaxed/simple;
+	bh=K0l81un+edAdB5SzIiEsvHmqBWxY75R4gNovU3jd65Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IsIP82jdoy/qahstQdjsBlTidH7vu96GttW0PTxzBBhUG23WtF54NIfGkYIKfYNAumFTtTTMo3jR7VlDaHnr5OUSyEeArhl1tDjA2Pk926zKuzi0lUns1Ch647TStu4T9jKX3fm8zcv6ZLJA1gOawpDd32xXb2hrBFFtuY5DHII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com; spf=pass smtp.mailfrom=nebula-matrix.com; arc=none smtp.client-ip=115.124.28.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebula-matrix.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.5423321|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0744364-0.00998503-0.915578;FP=16604998707832323984|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=illusion.wang@nebula-matrix.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jQ6tpgL_1790598760;
+Received: from localhost.localdomain(mailfrom:illusion.wang@nebula-matrix.com fp:SMTPD_---.jQ6tpgL_1790598760 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 28 Sep 2026 20:32:40 +0800
+From: "illusion.wang" <illusion.wang@nebula-matrix.com>
+To: dimon.zhao@nebula-matrix.com,
+	illusion.wang@nebula-matrix.com,
+	alvin.wang@nebula-matrix.com,
+	sam.chen@nebula-matrix.com,
+	netdev@vger.kernel.org
+Cc: kuba@kernel.org,
+	edumazet@google.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v30 net-next 0/8] nbl driver for Nebulamatrix NICs
+Date: Mon, 28 Sep 2026 20:32:25 +0800
+Message-ID: <20260928123237.88994-1-illusion.wang@nebula-matrix.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -1.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,linutronix.de,kernel.org,gmail.com,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 04:18:23 +0200,
-phucduc.bui@gmail.com wrote:
-> 
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> The pcm_substreams[dev] range check does not depend on the loop
-> index. Do it once before the loop instead of on every iteration.
-> 
-> No functional change.
-> 
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+From: illusion wang <illusion.wang@nebula-matrix.com>
 
-Applied to for-next branch.  Thanks.
+This series continues and refines the previous v28 NBL NIC driver patch
+set for Nebula-matrix m18110/m18000 (SNIC s1000) Ethernet adapters.
 
+The first two foundational patches of v28 have been merged into net-next
+main branch:
+- net/nebula-matrix: add minimum nbl build framework (cffde9e49e86)
+- net/nebula-matrix: add core driver architecture and HW layer
+  initialization (825e6d230163)
 
-Takashi
+Following maintainer feedback to shorten the patch series, this
+iteration drops the two merged commits, reorganizes and polishes the
+remaining functionality into a standalone 8-patch sequence. No new
+features are added; this series only completes the pending core
+infrastructure.
+
+The overall driver development plan remains consistent with the v28
+two-phase roadmap:
+1) Complete hardware initialization, mailbox/channel communication and
+   control-plane infrastructure (this series)
+2) Implement netdev registration and TX/RX data-path functionality
+   (follow-up series)
+
+This patch set supplements the merged foundational code, covering
+channel layer abstraction, resource management, interrupt handling,
+chip-level initialization, control dispatch routing, channel RPC
+framework, and device lifecycle init/remove/start/stop logic.
+
+changes v29->v30
+Link to v29:https://lore.kernel.org/netdev/20260922120311.86593-1-illusion.wang@nebula-matrix.com/
+1.AI review issues
+changes v28->v29
+Link to v28:https://lore.kernel.org/netdev/20260914123429.56596-1-illusion.wang@nebula-matrix.com/
+1.AI review issues
+2.remove the hash table implementation
+
+illusion wang (8):
+  net/nebula-matrix: add channel layer
+  net/nebula-matrix: add common resource implementation
+  net/nebula-matrix: add intr resource implementation
+  net/nebula-matrix: add chip-wide hardware init/deinit implementation
+  net/nebula-matrix: dispatch: add control-level routing core
+    infrastructure
+  net/nebula-matrix: dispatch: implement channel RPC framework and
+    serialize hardware ops
+  net/nebula-matrix: add common/ctrl dev init/remove operation
+  net/nebula-matrix: add common dev start/stop operation
+
+ .../net/ethernet/nebula-matrix/nbl/Makefile   |   10 +-
+ .../nbl/nbl_channel/nbl_channel.c             | 1467 +++++++++++++++++
+ .../nbl/nbl_channel/nbl_channel.h             |  181 ++
+ .../nebula-matrix/nbl/nbl_common/nbl_common.c |   52 +
+ .../nebula-matrix/nbl/nbl_common/nbl_common.h |   14 +
+ .../net/ethernet/nebula-matrix/nbl/nbl_core.h |   20 +
+ .../nebula-matrix/nbl/nbl_core/nbl_dev.c      |  625 +++++++
+ .../nebula-matrix/nbl/nbl_core/nbl_dev.h      |   55 +
+ .../nebula-matrix/nbl/nbl_core/nbl_dispatch.c |  680 ++++++++
+ .../nebula-matrix/nbl/nbl_core/nbl_dispatch.h |   25 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_chip.c       |   32 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_chip.h       |   12 +
+ .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c  | 1094 ++++++++++++
+ .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h  |  320 ++++
+ .../nbl_hw_leonis/nbl_resource_leonis.c       |  359 ++++
+ .../nbl_hw_leonis/nbl_resource_leonis.h       |   12 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h     |   33 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_interrupt.c  |  703 ++++++++
+ .../nebula-matrix/nbl/nbl_hw/nbl_interrupt.h  |   21 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_resource.c   |  157 ++
+ .../nebula-matrix/nbl/nbl_hw/nbl_resource.h   |  121 ++
+ .../nbl/nbl_include/nbl_def_channel.h         |  174 ++
+ .../nbl/nbl_include/nbl_def_common.h          |   23 +
+ .../nbl/nbl_include/nbl_def_dev.h             |   16 +
+ .../nbl/nbl_include/nbl_def_dispatch.h        |   61 +
+ .../nbl/nbl_include/nbl_def_hw.h              |   62 +
+ .../nbl/nbl_include/nbl_def_resource.h        |   38 +
+ .../nbl/nbl_include/nbl_include.h             |   32 +
+ .../net/ethernet/nebula-matrix/nbl/nbl_main.c |  138 ++
+ 29 files changed, 6536 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dev.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_resource.h
+
+-- 
+2.47.3
+
