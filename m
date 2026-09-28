@@ -1,208 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2894534887B;
-	Mon, 28 Sep 2026 17:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307473FB07A
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617309; cv=none; b=Ad79XkFjjInFIitRpV1k0IkjnlXADHKgoWKSPmYzNHt05nRUnPkDG0uTTWhJT6gQk+kZgW9TX+oS97gAJwEqUJt5xyoPdduc8QiVK9zn5XgMbU7vfpz1Xx1GEEtKE2z14iMraYPoXu9UNrhaHEvW1lz9fT8QxfL/zQHwvejHB7o=
+	t=1790617311; cv=none; b=pOIHSA5ZkPt/MrbxT4cJm3PPYVKhjuj7FzXvY+Kc0g8Dr7xBnH2SkE9LMmUWn2eyFs07GiNgagSPtbUPzFPdXRxqVlm3E9gip4MAvT+2XcHyionve+ulvxUCvf7V9cowesHKS2STcxYESA/2ikVmlSOECACoojCoX/tuvm5ysk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617309; c=relaxed/simple;
-	bh=w1V0FmqumbUaFEHbOuDQCMioksi2L79HUj2fl85SiJw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AnGiJNdAbdnoiNTl4rSkxPdPk9NZfaOf4m9DKW7WoiYBiclQNXGJQSZFdokrAH6NFjq8Bk4QBJMe3NWq9SKQ13HHgThl2TgWL3qO28AvH8HLeAFDils34p2vmBq3Euz3N/DYsExzdOatKGf5sYdRnKXfmfIH39GAT7jaxo7EzbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ji81w2P3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790617311; c=relaxed/simple;
+	bh=ig53hfXLZhnnOYcVWzo/9m+ADZMcLmZw2ofGmkQ9Cy0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cQ4FJZ/YRbRXaoWlT7yW3HLdFSsCa+9TkPbgHarDxvnSteTkf83/07milLerEvb/6BEUvbmdMpgs6UizbACUiL/5qcgph1uG9Pgp0ZD3ML7l4wEVQtpoffFNECsLKvtM5jx8n8peJyKkPHHaPg5PyMPZMpDJC9yQCCkxAU6DAN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d6IKXXM5; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ji81w2P3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864EC1F000FF;
-	Mon, 28 Sep 2026 17:41:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790617307;
-	bh=bio2Y9F5gf2JUjQfJ3HNyq0KHsAJNYGF0LSeTxxnRz8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ji81w2P3OvwBwZ+SfBFlHppqHkwIgn8FNMqhUbCYfyrtsaGSgA9Y6NadfxtKqDtRc
-	 G4hk/u46xqtuPWC1WCpBVreTPBuXwixIjfMEu0mDHhK/yMVG/8eIF2HlGo0kMQffMf
-	 GqY3YbTg8UX/0lArRf2Amw2MEp9DpkyGyR7xex0Cuy3ZMS/5rMC6JADOdNgpWV4rFN
-	 kZuEXyrTKpE4uJ66bwwrBN31kdfBimpDoR6N//XUlwV7lAMzWVLvUYB/LTnxAzIL4w
-	 Ubs2S8JTCuzXg/VukK3Y+Ks57iOqlME4Epo1KIkexQOk3ASeJyXF0S49fZzlm8sR60
-	 LrxzI3InFhyvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/12] mm/rmap: Mark folios mapped into
- crash_memaction-marked VMAs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Serge E. Hallyn" <serge@hallyn.com>, "Suren Baghdasaryan" <surenb@google.com>,
- =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>, "Baoquan He" <baoquan.he@linux.dev>, "Oscar
- Salvador" <osalvador@suse.de>, "Liam R. Howlett" <liam@infradead.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Mike Rapoport" <rppt@kernel.org>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Dev Jain" <dev.jain@arm.com>, "Zi Yan" <ziy@nvidia.com>, "David
- Howells" <dhowells@redhat.com>, "Alasdair Kergon" <agk@redhat.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Dave Young" <ruirui.yang@linux.dev>, "Rik
- van Riel" <riel@surriel.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Nico Pache" <nico.pache@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Jann Horn" <jannh@google.com>, "Barry Song" <baohua@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>, "Danilo
- Krummrich" <dakr@kernel.org>, "Mike Snitzer" <snitzer@kernel.org>, "James
- Morris" <jmorris@namei.org>, "Mark Rutland" <mark.rutland@arm.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, "Harry Yoo" <harry@kernel.org>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Peter
- Xu" <peterx@redhat.com>, "Benjamin Marzinski" <bmarzins@redhat.com>, "Muchun
- Song" <muchun.song@linux.dev>, "Paul Moore" <paul@paul-moore.com>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Byungchul Park" <byungchul@sk.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Jarkko
- Sakkinen" <jarkko@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Will Deacon" <will@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Mikulas Patocka" <mpatocka@redhat.com>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Gregory Price" <gourry@gourry.net>, "Ying
- Huang" <ying.huang@linux.alibaba.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Mimi
- Zohar" <zohar@linux.ibm.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, "James Bottomley" <James.Bottomley@HansenPartnership.com>, "Michal
- Hocko" <mhocko@suse.com>, "Saravana Kannan" <saravanak@kernel.org>, "David
- Hildenbrand" <david@kernel.org>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "Kiryl Shutsemau" <kas@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, "Eric Biggers" <ebiggers@kernel.org>, linux-integrity@vger.kernel.org, robh@kernel.org, linux-mm@kvack.org, linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-doc@vger.kernel.org, driver-core@lists.linux.dev, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, dm-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-crypto@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-9-e511e9ee2329@jaseg.de>
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
- <20260928-crash-memaction-upstream-20260921-v3-9-e511e9ee2329@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 17:41:43 +0000
-Message-Id: <20260928174143.864EC1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d6IKXXM5"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49ffc2b1867so15518905e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:41:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790617307; x=1791222107; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i6dOIeR3pXAhPYZMt7PFHzXVozdl2RGhyvaCgErXxW0=;
+        b=d6IKXXM581sOgkZZ2UajNIas2hDTefX+aDT5fmpv+1kzcBdZ1RhGik5eJq4kwwA/er
+         MioHuUMUf9jy0kb8Yd6UdIi9OD49zxysNNeAwe4iRKKZekUwTjj8v3WGJCq/dlXrVs2N
+         WekWAnJ0VqQtIUOuaGsM9U23NLvkGYpQHaLNhf7C76gEAAB1Ja5XhMUynYNZ+4OH2Tta
+         /sqVyi9qsBy/L8Gq8Wswi/kpbFUd6M006LoTyD2TRP1p2iAxsISo72YXO3l9bmfCCHHI
+         VO3F4QDKIqYJdK2LKFUp6M2Vlr4EiuWZ+5zcYUF0lN8IpbctuYT7HDJ6YpUGYcVvEimo
+         GQjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790617307; x=1791222107;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i6dOIeR3pXAhPYZMt7PFHzXVozdl2RGhyvaCgErXxW0=;
+        b=emf+6Hdy3cAcVLIWoweZUFfhs1hW25m4B9qnuxD+13XzIts2JyPH9vsckZnT8uWjso
+         qrdk5Hmtpvkph6Ek3SesfC+sYqYBeOdytGs+vJ4iMaNK3wHcm6Pcit9WELcJCioJQD6h
+         QonLmhMqhIvoun1VsU1cTQIhsC2HNAC8xD5UFhbo/PSZy62bpGEp+Sqbl4EJgXK3Okqo
+         gFYS75xl6DOfvRVg7sXy6kXNLgR0VBdm/Z3qzv/Nu9RarpkNfWOT6lMj6yWqdw8CE7l8
+         AZcUy9hUBlH/2lrEw/6E6xUEUniRlFg5g/yCocoricbIZPbkYkXH3ijtKAXAlzGzftlo
+         udWg==
+X-Forwarded-Encrypted: i=1; AKwUvBypuueSNnRgID5f00uVEkrNCGUReXYBAucBgv9fz7bokeBW1zKieedmMhnX4w7nv/cV3u4JJAhceZ4nWV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6cHzCJMU2YDXUt+3I8dcXNqt9L5DIwsPqWdje33SzWLrGkenB
+	DpwXMEaxXlL9mT8gJA4Lo6HIjWyW4ZLdXM5fXIMOYZqOovxx6nLjg4bj0aVCrbL/pGcnrIDJrDz
+	WypPpuCpNpSL4+Q==
+X-Received: from wmdv19.prod.google.com ([2002:a05:600c:12d3:b0:49f:f099:7fc3])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:c494:b0:49c:fa21:1c81 with SMTP id 5b1f17b1804b1-49fe7bab979mr230718305e9.22.1790617307210;
+ Mon, 28 Sep 2026 10:41:47 -0700 (PDT)
+Date: Mon, 28 Sep 2026 17:41:07 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928174122.3380703-1-smostafa@google.com>
+Subject: [RFC PATCH 00/15] arm64: Set kernel stack size from cmdline
+From: Mostafa Saleh <smostafa@google.com>
+To: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, 
+	linux-hardening@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	akpm@linux-foundation.org, urezki@gmail.com, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, kees@kernel.org, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, gustavoars@kernel.org, 
+	bigeasy@linutronix.de, clrkwllms@kernel.org, 
+	Mostafa Saleh <smostafa@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] mm/userfaultfd: UFFDIO_MOVE misses crash_memaction registration =
-for swap cache
-- [Medium] mm: stale crash_memaction marks when moving pages to unmarked VM=
-As
-- [Low] mm/rmap: data race on vma->vm_flags in crash_mark_pages()
---
+Summary
+=======
+This patch series adds the ability to configure the kernel stack size
+for arm64 from the kernel command line.
 
-commit 78115d9186907359bdb879efc1ef14d161aac39a
-Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
-Subject: mm/rmap: Mark folios mapped into crash_memaction-marked VMAs
+On some systems (specifically, Android), this provides a mechanism to
+reduce the kernel memory consumption, as the default kernel stack size
+of 16kB (with 4kB pages) can result in ~100MB of allocated memory,
+despite the fact that most threads do not come close to exhausting
+their allocation [1].
 
-This patch propagates crash_memaction marks set through madvise() to the
-crash_memaction registry. It registers folios of a VMA carrying VM_CRASH_MA=
-RK
-as they are mapped, and updates the registry when a folio moves. It also ho=
-oks
-into the free path to deregister pages and avoid tracking stale data.
+There have been multiple alternative attempts to improve this
+situation, including for x86 and cloud workloads. However, these
+have typically focussed on more dynamic behaviours such as allocating
+kernel stack pages lazily (based on faults) [2] or reclaiming unused
+stack pages from blocked tasks [1], whereas this series focusses on
+making the kernel stack size configurable without changing the way in
+which it is allocated.
+It also permits a 12kB stack size, which is currently not supported
+by arm64's stack overflow checking logic.
 
-> diff --git a/include/linux/crash_memaction.h b/include/linux/crash_memact=
-ion.h
-> index 5f3e114c60ad7..2de60bc12dd9f 100644
-> --- a/include/linux/crash_memaction.h
-> +++ b/include/linux/crash_memaction.h
-[ ... ]
-> @@ -50,6 +51,18 @@ static inline void crash_memaction_unmark_pfns(unsigne=
-d long pfn,
->  		__crash_memaction_unmark_pfns(pfn, nr_pages);
->  }
-> =20
-> +static inline void crash_mark_pages(struct page *page, int nr_pages,
-> +		struct vm_area_struct *vma)
-> +{
-> +	if (!static_branch_unlikely(&crash_memaction_active))
-> +		return;
-> +
-> +	if (likely(!(vma->vm_flags & VM_CRASH_MARK)))
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This series re-uses the first part of the dynamic stack patches which
+makes it possible to partially back the VA space of the stack
+(THREAD_SIZE) with memory, but never attempts to dynamically grow the
+stack.
 
-[Severity: Low]
-Should this lockless read of vma->vm_flags use READ_ONCE()?
+The size of the stack (<= THREAD_SIZE) is determined from the kernel
+command line and is not further configurable at runtime, all threads
+on the system (except the init_task, see below) will use the size set
+from the command line.
 
-The crash_mark_pages() function is called via folio_add_anon_rmap_ptes()
-during migration (such as in remove_migration_pte()) holding only the
-anon_vma lock. At the same time, mprotect() can update vma->vm_flags
-while holding the VMA lock, but not the anon_vma lock.=20
+Patches
+=======
+The patches have dependency on the ongoing arm re-work[3] to move the
+overflow stack to sp_el1 allowing the early kernel exception to use it
+without clobbering any registers.
 
-Could this concurrent modification lead to a data race or torn reads during
-migration?
+- Patches 01-09: have no functional change, they abstract the code
+  dealing with the stack to avoid hardcoding the stack size
+- Patches 10-13: Introduce the new ARCH_HAS_VARIABLE_STACK_SIZE and
+  make the kernel deal with stack sizes set in the run time.
+- Patches 14-15: arm64 selecting ARCH_HAS_VARIABLE_STACK_SIZE and
+  setting the kernel stack size from the command line.
 
-> +		return;
-> +
-> +	__crash_memaction_mark_pfns(page_to_pfn(page), nr_pages);
-> +}
-> +
->  void crash_memaction_mark(void *addr, size_t size, int types);
->  void crash_memaction_unmark(void *addr, size_t size);
-> =20
-[ ... ]
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 3fb9504dff7a9..adbda968d58ef 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2966,6 +2966,8 @@ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t=
- *dst_pmd, pmd_t *src_pmd, pm
-> =20
->  		folio_move_anon_rmap(src_folio, dst_vma);
->  		src_folio->index =3D linear_anon_page_index(dst_vma, dst_addr);
-> +		/* No rmap add, and the two VMAs need not agree on the flag. */
-> +		crash_mark_pages(&src_folio->page, HPAGE_PMD_NR, dst_vma);
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KASAN
+======
+The KASAN stack helpers keep unpoisoning the whole THREAD_SIZE area.
+As they only write shadow memory which is populated for the whole vmap
+area.
 
-[Severity: Medium]
-How are stale crash_memaction marks handled when moving to an unmarked VMA?
+init_task
+=========
+init_task is the only kernel thread that has a full stack allocation
+as it is allocated statically. However, the additional stack pages are
+not usable because the overflow check on exception entry will continue
+to check against the configured stack size.
 
-If a process marks a VMA with MADV_CRASH_CACHE, then moves an exclusive
-anonymous page to an unmarked VMA via mremap() here in
-move_pages_huge_pmd(), the destination VMA is checked but the source VMA
-is not unmarked.
+Future work
+===========
+There are multiple paths that can build on this
+- Per task stack size (either via an in-kernel API for kthreads or
+  potentially a prctl() for userspace to configure)
+- It is still possible to build on top of this on the fault path to
+  add dynamic stacks if the challenges raised in [2] can be solved.
 
-Because the new VMA lacks the mark, a subsequent madvise(MADV_CRASH_RESET)
-will short-circuit and fail to unmark the pages. Will these pages remain
-permanently marked and excluded from kdump dumps until freed, potentially
-risking data loss?
+Will Deacon will host a discussion at LPC next week [4]
 
-> =20
->  		_dst_pmd =3D folio_mk_pmd(src_folio, dst_vma->vm_page_prot);
->  		/* Follow mremap() behavior and treat the entry dirty after the move */
-[ ... ]
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index b242fa8b22c8c..bb0a35d59daa9 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -1326,6 +1326,7 @@ static long move_present_ptes(struct mm_struct *mm,
-> =20
->  		folio_move_anon_rmap(src_folio, dst_vma);
->  		src_folio->index =3D linear_anon_page_index(dst_vma, dst_addr);
-> +		crash_mark_pages(&src_folio->page, 1, dst_vma);
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Testing
+=======
+I tested on Lenovo Mini-x gen 10 (Qualcomm X1 CPU).
 
-[Severity: Medium]
-Similar to the mremap() case above, does move_present_ptes() fail to unmark
-the PFN if the page came from a marked src_vma but is moving to an unmarked
-dst_vma?
+With configs KMEMLEAK, DEBUG_STACK_USAGE, SCHED_STACK_END_CHECK.
 
-[Severity: Medium]
-Are we missing crash_memaction registration for swap cache folios during
-UFFDIO_MOVE?
+1) 4kB kernel - 16kB stack (default)
+2) 4kB kernel - 8kB stack
+3) 4kB kernel - 12kB stack
+4) 64kB kernel - 64kB stack
 
-While the rmap is updated for present PTEs with a crash_mark_pages() call
-here, the parallel move_swap_pte() path in mm/userfaultfd.c seems to
-omit it:
+With running VMs with KVM, stress-ng and LKDTM.
 
-	if (src_folio) {
-		folio_move_anon_rmap(src_folio, dst_vma);
-		src_folio->index =3D linear_anon_page_index(dst_vma, dst_addr);
-	} else {
+16kB tests done on Qemu.
 
-If a process marks a VMA with MADV_CRASH_SECRET, and then uses UFFDIO_MOVE
-to move a swapped-out but swapcache-resident page into this VMA, the page
-registration is skipped. If the system crashes before the page is faulted
-in, is there a risk that the kdump kernel will dump the unmarked RAM and
-leak the secret data?
+[1] https://lore.kernel.org/all/20260827232948.2520558-1-stevensd@google.com/
+[2] https://lore.kernel.org/all/20260424191456.2679717-1-stevensd@google.com/
+[3] https://lore.kernel.org/all/20260918161407.2300-1-will@kernel.org/
+[4] https://lpc.events/event/20/contributions/2419/
 
-> =20
->  		orig_dst_pte =3D folio_mk_pte(src_folio, dst_vma->vm_page_prot);
->  		/* Set soft dirty bit so userspace can notice the pte was moved */
+David Stevens (3):
+  fork: Don't assume fully populated stack during reuse
+  fork: Move vm_stack to the beginning of the stack
+  fork: Move vmap stack freeing to work queue
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-crash-mema=
-ction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de?part=3D9
+Mostafa Saleh (9):
+  sched/task_stack: Add helpers for stack high/low
+  exit: Don't assume the kernel stack size
+  usercopy: Don't assume the kernel stack size
+  mm: kmemleak: Don't assume the kernel stack size
+  arm64: Don't assume the kernel stack size
+  sched/task_stack: Introduce ARCH_HAS_VARIABLE_STACK_SIZE
+  fork: Implement partial VMAP stack allocation
+  arm64: mm: Relax kernel stack alignment
+  arm64: mm: Set stack size from the kernel command line
+
+Pasha Tatashin (3):
+  fork: Remove assumption that vm_area->nr_pages equals to THREAD_SIZE
+  fork: Separate vmap stack allocation and free calls
+  mm/vmalloc: Add a get_vm_area_node()
+
+ .../admin-guide/kernel-parameters.txt         |   7 +
+ arch/Kconfig                                  |  10 ++
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/memory.h               |  19 ++-
+ arch/arm64/include/asm/stacktrace.h           |   4 +-
+ arch/arm64/kernel/entry.S                     |  91 ++++++++++--
+ arch/arm64/kernel/setup.c                     |  24 ++++
+ arch/arm64/kernel/traps.c                     |   5 +-
+ include/linux/sched/task_stack.h              |  61 +++++++-
+ include/linux/thread_info.h                   |   8 ++
+ include/linux/vmalloc.h                       |   3 +
+ kernel/exit.c                                 |   2 +-
+ kernel/fork.c                                 | 134 +++++++++++++++---
+ mm/kmemleak.c                                 |   2 +-
+ mm/usercopy.c                                 |   4 +-
+ mm/vmalloc.c                                  |  24 ++++
+ 16 files changed, 348 insertions(+), 51 deletions(-)
+
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
