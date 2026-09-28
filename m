@@ -1,69 +1,37 @@
-Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com [74.125.226.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6714C3C3F68
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31A23AF666;
+	Mon, 28 Sep 2026 19:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790623218; cv=none; b=FlhmWlTrzPWqkMF/PC+tc4XN2xRtgTt3JInOqcr2bcKtC6WzeSjBWrmlRiv68C1BLHuxf+hfNp07CtYc2CG01ij5EozI7w3j/k5f0Dwx/aBc3ZivosSImVpsYRKU9y0pBmtvxThAPnwQ61hT71BniZMwpDiPKSace8nMMXJ0F1A=
+	t=1790623228; cv=none; b=booYWv8WKl8xMLMjYHTSxIfkS+M8xNwEbEXr97xA9pg4yJVld17yETnv+go7y68DQd+FHRFsdpZqOno/wlLMwXOq54yUP9ABySV32h1AalBlGYQMCQOJkzupE90aWRzF86PdMaafrX1XcrW3nWiIPj9ZtECaEVxfU50ldqcme+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790623218; c=relaxed/simple;
-	bh=+IdK2muCFRO0CVjwWieNJcwFsMXfEeJbRjc+FinzqwI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SpK4/XHz20sqWYEkbz8GiQ8cneVhwGCNSJze2PcUTj4RhBt/axXpSuk65nrzXvc3Nmm+gmHw/2qd6EwB4g/5ZxyF5ny0p+nWjPp0oMxFB2Ar/yYWXNSk7wrBXUhof48dNHjK64JA4gJDovyiog4LAxWCvcW67k23MAJp3/8YHmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=q0PsxeLF; arc=none smtp.client-ip=74.125.226.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790623228; c=relaxed/simple;
+	bh=3zEPkUFxOR09IdnXs7p5QQFfZrVevbRfZuoN0pz3I+g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tdFVJTpUDBbeJBJnOkhOOxuXE4oZEGog96Uo4+E5ZMlBvYsY+WJw3dsIhtjHiLXU7LVk2U+h1SeU4ovqXyOEVjZWhk6HsUNExTRsxkzUve5JZzScV3uTgc5ich0S0rKH2SaI6Lp6DpukDyjIOmxMGjmeV3c/v+YYuoIXWi1OiH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=RqFymikj; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="q0PsxeLF"
-Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-986e0b83340so2156261241.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:20:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790623215; x=1791228015; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3EOtyWnpj6H2JKh2l6IAWizW9Kgj+njv8aMgbCxIvr4=;
-        b=q0PsxeLFzwdunkwC4eSX0d+C8Pa5wgTuqRwjkZJezaOmGXMuXtaKdThAgnE3yaIi6l
-         kH3CT/GUozRF4oxBmTQvBqJXDHlomOXBQKIOqCUI5MxQspH8kTQc5zSEX2JS4S19cWzO
-         b2oDrOTkLmhtYN25GiuzVEBbpbrUWB7tFi2xSHB85InaYm27YQMEaWb8fqaTIBa6fzBT
-         NJNd3nvqKIWQtV1o8x7/2b26PncmtElk0rtaNgyUz/nqsrqGRwppCGWmBQtsZB9m2atP
-         SW1bmzaP8mxnWhCoWX/Motn3jhiQrTFgpIktM4ClBAYtgp4Y3UYtPs/D+5SU4ZGJ4HHq
-         mgHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790623215; x=1791228015;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3EOtyWnpj6H2JKh2l6IAWizW9Kgj+njv8aMgbCxIvr4=;
-        b=v7r+0uBBt9T94BNI77alS4wpL02YKqindKm2YbsdBg4CzTMaOT+CgEcmjC66+/fh7r
-         B60QdmTdEc2W6WQW+CaBbuSRrsvf6gJ+Zd6qeXXyGEohPQ+150OEWhry1e1IWiCun97P
-         19IuorjNIOqCvv9pS0cu2W60yAOTlh8aF8x9gbH0kQNKm3G0Trd6XQOj5bSOl2nz4Ob/
-         /Pw5qI5GJu5y/oIud8Nd3GPm2O9bKNhRtSxs6TE7Ab0McPPJXJvNoZG8QDA4ol3LisB9
-         KIy3DJnEFrTwGe6AUyxIteUTpKggIOJ4UBzokBvNl86uevgi/0AjtwmiKsvP9TNZO4hX
-         FHjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnTZQkSx4vk+VRvdrIPW+tm9T64ZrjWJ+lTxOmTdfdQVDdVwHbK5MNnFXZYvths9YaQ0pvpDQE9aNKtvY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7YKGd/5RT5bgKFU/t2pKy58Tzz+BqRGkMEpSLeBydYx4Ne29F
-	VBPzS5ejFySOtiEjVi+MCmP9cVoPPXIQQVuXjwOifjujKBbsv4jsGcR8ySEMubQ2TjE=
-X-Gm-Gg: AYBFou2bNUvlMNcbuXPRrEWDC+cdlA9sciUhfkL1weeH44ZxoQssWiZUVF7tgXNg+dJ
-	ph2FFJYfq5UyHaDXFvzWGZoe6qAOc+TLCTDYLnjDJFLvLATvnSELfBh/xE2ztvNpkxDeT4/eUCs
-	mWpSya0EHNxYXy6aD5ahIRV893Mw46ui+SkodVoWWD3ulHa/SnHRJ38cvIIpcs6bQIX15X7vTNx
-	taIYzYzf0ILxl9OVkxrGAu8sEVO76znG8e4GOe8OtWkWFdrPJrrVGT8opFsGXtBIdLrJED8b2j2
-	oOzOJz/egqeNLlMounXCO2uVwvcxkJwkhBR9kDBI0j6F8Foykqs1E/g3JY2C0TlVYJtu3ya/kUT
-	RKDdNe7PWKJ2iZxiY/M1HFubiiDVr4Qwzoxuz3smCW9CvekuwtXd7Cc7zq0O+0VXaErWqVT5j5S
-	CYSWwqYELIZZvh9kbVxV3Q16TsscfV55CERxSNUuIhyi8Nw6/m5yxHNSjsYLthBI0XZtpdd+R/t
-	s6vmJi1e8Yi9UQJV33Wh3tkudaaUZ57/Gh1zsYWLPdALlEHwc/Km8K1+GSFEIGaIWcwZPyIWUrO
-	KhESNRFTQcddQs7oxw==
-X-Received: by 2002:a05:6102:3f8b:b0:7a6:bc69:5a32 with SMTP id ada2fe7eead31-7af1e6f3640mr5363208137.23.1790623214949;
-        Mon, 28 Sep 2026 12:20:14 -0700 (PDT)
-Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889afc5c7csm8124301241.2.2026.09.28.12.20.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 12:20:14 -0700 (PDT)
-Message-ID: <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
-Date: Mon, 28 Sep 2026 21:20:12 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RqFymikj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=XBqyVMo6pWKAr13NYV/9DY4DwxVan3yzu41fmE1Qx6w=; b=RqFymikjtUZjzYg7puqAnn+sg3
+	61FRddqIeawfj9uM+vYWtCfo1ylwmmINy9FVZ/tC3YoBr4aJbIxEXtzk8tGX7VF962W5/ko1IE4pH
+	KonoVPFwRYCXr6IMzmkpDCSMyDSAZY/zqDxV/mCwdoNoAM5tXfSzkQUN3apsLc04f+dO2/wr/GN47
+	fslxlNodhFwrFldD91LdDL0Shf4oAvq9/kpLqsB1DAq9kpr0v0pi54xZnCxJ165Dj5JiEfHoGb14+
+	XqJsHdq9vLDUgWcjCxT3dZasZuSlJQzWrvwEoI6aKbB3bzok+wGAUIx0NeBWwrnl2M9jV0GUdDAJm
+	b5C3yInA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBGt9-00000001Pqt-0G3I;
+	Mon, 28 Sep 2026 19:19:47 +0000
+Message-ID: <99217c46-6ec4-4af6-ac14-18f814f86ba1@infradead.org>
+Date: Mon, 28 Sep 2026 12:19:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,153 +39,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <arqhwHiVf00j94J7@beelink>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 12/12] kexec: Expose the crash memaction bitmap in
+ debugfs
+To: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Baoquan He
+ <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org,
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev,
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org,
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+ <20260928-crash-memaction-upstream-20260921-v3-12-e511e9ee2329@jaseg.de>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-12-e511e9ee2329@jaseg.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 19:24, Benjamin Tissoires wrote:
-> On Sep 28 2026, Neil Armstrong wrote:
->> Hi,
->>
->> On 9/28/26 18:22, Maxime Ripard wrote:
->>> Hi,
->>>
->>> Panels in general, and MIPI-DSI panels in particular, are pretty
->>> difficult to support and require pretty much a panel driver for each
->>> panel produced. Most of them are pretty simple, and require an opaque
->>> initialization sequence that is usually poorly documented.
->>>
->>> This creates a tension between OEMs and distros because OEMs will
->>> typically get a new panel to react to a sourcing issue during
->>> production, and thus need some swift turnaround between getting their
->>> new panel and it being operational in the OS. Distributions on the other
->>> hand can take years to ship a kernel with that new panel driver.
->>>
->>> To solve this, I followed the example of HID-BPF and wrote a panel
->>> driver that will rely on BPF programs to perform the panel
->>> initialization. That way, we can ship the programs separately from the
->>> kernel, and with a different lifecycle. If this driver is accepted, the
->>> plan is to have a userspace component started by udev to identify and
->>> load the right BPF program for the panels found on the device.
->>
->> This is kind of late for serious applications except if we manage to
->> solve the bootloader to Linux display engine transition.
->>
->>>
->>> This driver is fully functional and works with both 5" and 7" Touch
->>> Display 2 panels for the RaspberryPi. However, it breaks away from the
->>> typical panel driver in multiple ways:
->>>
->>> - BPF programs can only be loaded by userspace. This leaves us with two
->>>     choices:
->>>
->>>     * We prevent the driver from loading until the script itself is
->>>       loaded. This has the side effect of preventing any other output to
->>>       be used until the initramfs is ran at the earliest, and possibly
->>>       ever if the loader isn't installed for example.
->>
->> This adds a dependency on user-space behavior and if somehow the
->> initramfs doesn't load for a reason we won't have a way to display
->> an error.
->>
->>>
->>>     * Or we probe the driver all the time, but only report it as connected
->>>       once a program has been registered. This is somewhat unconventional,
->>>       but allows the other outputs to be functional, *and* allows the user
->>>       to force the output if their panel doesn't require any
->>>       initialization or during debugging. I chose this solution.
->>
->> Both options are not really great...
->>
->>>
->>> - It's not a panel driver, but a bridge one, which is also pretty
->>>     unconventional. This is required because panel drivers don't have
->>>     access to a detect callback that is required for the above, but I also
->>>     think that the recent work from Luca blurs the line from panels and
->>>     bridges and we'll end up going that road anyway.
->>
->> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
->> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
->> a proper way to describe the display/panel/monitor independently of the DDIC.
->>
->> At first glance it's a nice driver, but moving the timings into a blob moves something
->> into possible proprietary binaries with possible closed licence and distribution
->> restriction so it's a downgrade for the same of bringing up a panel faster.
-> 
-> Quick answer on this, because I had the very same questions regarding
-> HID-BPF:
-> - in BPF, you can require (and by default it does) that only GPL
-> 	compatible BPF programs are loaded, closing the argument of "closed
-> 	licence and distribution restriction"
-> - also, a BPF program can be disassembled much easier than a binary
-> 	blob, and I remember Alexei showing me an example where you get almost
-> 	the source code from the BPF object in just one pass.
 
-Right, it "solve" one of my question, but doesn't really solve the issue
-of vendors providing "GPL" bpf programs with source available "somewhere".
 
-Another big issue is the API, I don't want to keep the current API as-is,
-we plan to support more advanced panel features and use try to use the
-atomic states to support rate switching for example, and I'm not confident
-it's a good idea since there's no "simple" and "forever valid" API
-to initialize panels...
+On 9/28/26 10:18 AM, Jan Sebastian Götte wrote:
+> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
+> index 3cdc8d459ac0..b5380e16bfaf 100644
+> --- a/kernel/Kconfig.kexec
+> +++ b/kernel/Kconfig.kexec
+> @@ -204,4 +204,18 @@ config CRASH_MEMACTION
+>  
+>  	  If unsure, say N.
+>  
+> +config CRASH_MEMACTION_DEBUGFS
+> +	bool "Expose the crash memaction bitmap in debugfs"
+> +	depends on CRASH_MEMACTION && DEBUG_FS
+> +	help
+> +	  Allow reading the live crash_memaction bitmap through
+> +      /sys/kernel/debug/crash_memaction/. The bitmap is used when
+> +      CRASH_MEMACTION is set and when a crash_memaction cmdline param is present
+> +      to tell an eventual kdump kernel about the use of certain memory pages.
+> +
+> +      Note that this is a debug interface only that gives no guarantees
+> +      whatsoever on memory consistency.
+> +
+> +	  If unsure, say N.
+> +
+>  endmenu
 
-Neil
+Please adhere to kernel coding style for Kconfig files:
 
-> 
-> Cheers,
-> Benjamin
+10) Kconfig configuration files
+-------------------------------
+
+For all of the Kconfig* configuration files throughout the source tree,
+the indentation is somewhat different.  Lines under a ``config`` definition
+are indented with one tab, while help text is indented an additional two
+spaces.
+
+-- 
+~Randy
 
