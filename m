@@ -1,48 +1,79 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AE845A295
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC9045A286
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580381; cv=none; b=FId7ghLXrWe3NrW0nkVjWSLlUEIrWoX608L/drEabKuTqsAMyfog8boJxNZVR5swtpI6j62yHWodVtq/Oam0c+3+KGXe2gYgElVbFeYPLUAwamjfJLt1Mh7Gyf2HhmzhEfOVnL+bijMb5pQdKp3tWpGKzRpiBrD/O3nyHPO0wDg=
+	t=1790580494; cv=none; b=nzyT68a3Dqxkl4IH/8OisZkqzIlCmyxFTO3a3rYF5d38IGb+jvTZquZnRytCX3lJRoVEH0twyNQn5X6M7HDvy5h/xsUz+3Wb/4YUtFzRJGOtNvTQZtV3sPLUVsJzlYtmNcpCEo3NlmkLy2nvf6Fd09isW4TyUm4IbpW5CilWQBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580381; c=relaxed/simple;
-	bh=g1mh52GslLFu/bYNUPE7pddv6EiDzRY152mH6+1sVJA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aNdPUWa3jc4iVPpQQXp1LdXgRgZkUNEqTNcljDtsR5HEAlO33SAgMlaEc88GJ1gMDcnVFKauXRqY9QycNy8Wvn4ejipCWgPEItfftN0xOWtgLfMmzatSEEg3awp2CBrxoCe4JmPzvoPsSrZMQtQkyFup53UEvQloLxSj5UdjFtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=PcGm1Tsv; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1790580494; c=relaxed/simple;
+	bh=DZEBm7AqqCnArM9eNi1XRjIHVWMaI8eGfrCgZqmx5vI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m71J3MaANFsHpHo8yRnvGsy4GUMOU9ut5nbi3OZkgi408414n5dnaZ9PvT5x9WuesOgXNhDXBMOIwTb3FUhHTqBUHh3oybGYrHOV9DknL56xrOsqMEKyWFpHkbnnEQDcXdeaiCktLsrlLhiZlK/RuDA9RiUHeZfWaPe6cgxqUyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wh8/+rcv; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="PcGm1Tsv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wh8/+rcv"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7a4b79bc4so146956a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:28:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1790580375; x=1790839575;
-	bh=9f0bMQYix9ionzVk8R/TO0cHghsrpmHa1wjIrwMGGUY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=PcGm1Tsv5apu3iOZYHChNlUkadmmZOVfM6wc/KY62BNyxZaAZZWanLcFh/PmVu0r2
-	 Typ9ZIxfJIjotoBrYtjqi1QBMhz+NrRWsQBi1RPTOL7bBn2lFg1q0XuxtfYFF7IzqG
-	 WxBtnmxfu6wRObtPWjuuhzpdc9XF1HZUCRoVh9VP6AB6HoD2gI/HkKMwlQacxx1NwE
-	 LBjISflOuUYWLBx3YgeQZ4L5SziBZvi3HC4iK9W/FHndSFfYlOQeDu7C4WdTS2/Z0c
-	 z8+UNDBCjdWSCoRIsfVB2pKooTYr38Bgq0O7iFIsmqUtFlcq7HVK2qr42uq9wBy4Ss
-	 Hqv6rxvyCvxJA==
-X-Pm-Submission-Id: 4htXss2tNyz2Scpc
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH 2/2] selftests/namespaces: add uid_map/gid_map range tests
-Date: Mon, 28 Sep 2026 10:25:37 +0300
-Message-Id: <20260928072537.115668-3-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
-References: <20260928072537.115668-1-natalie.klaus@runtimeverification.com>
+        d=gmail.com; s=20251104; t=1790580489; x=1791185289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bye6SXDJtZqYyoJ8pMJ9LL8Wd0RgcztWGshO/EITHjg=;
+        b=Wh8/+rcv28soGebdBSKzhwOn68goxvLuv1hRTAzaC25X3bk+4LR3vyn6wNS5bB6Lw/
+         SYZ/dtiW2vJr/9/5NzMwQrvtUuMWc7BJG5HgPefwbZiieOB7zVsjflE0zpu1t1w1JfbL
+         f/1Zk6XfITsyZNYSqnpFyxRocH4ZYaDzA0woOUuyUtPX/li8QQgFTxh+QyZEsYUW06L2
+         P9+TIqlSgIxoM8yGpla3NGZorhmjnU124OCf4AwIF3hrb73P8iFzRugadFwz2VTm2QJi
+         OZcB51w33G942eiIkaN1CbEvGw1C0rr8AfkhkOv8rsIZktNffD8XY04Hw1HXrpjFJw2b
+         lP7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790580489; x=1791185289;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bye6SXDJtZqYyoJ8pMJ9LL8Wd0RgcztWGshO/EITHjg=;
+        b=GwqZUcF+OPA/rASZMR8Ppso/b3BE1qBrnFpJlM3AAEhjfoPazCNJrYndM0U8fCrw6J
+         XxkkdWuKn9Sjqq8zYhPnFGn94sJk4hieHQWGVsqWp0NnhBjhENqK/hlLf9daUofFtwMp
+         OL4O7GK02mBNM/FOqpih7dVtICdoHhTe2nxS8TDaspzEke/YLxa5P8k8NlNJiDXNA1sg
+         /7IXBsEHAm/JCiJot91nQwimdHv/c0y+CSQb2lop6dFtDTKQPcZ83yZiBDlQd/NGHJ2i
+         zJby5l0c5ERZiZcoUh4W1GBSXnmS7awicqBd2JqRv+o1QVp19VLC1TNLr7I9wLHDh8i7
+         EIGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQYr+p6d2obSx5r46w1tAzpdVmVZMXQQzdq+Oa6tjrVi282mu0uY4/Q0K9LyxT8fpOYPEUph4DTLW9Apw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVbRz4Ewv0TE4qK20PoMpDW3uPyfWNf38n+aKaRNXuj/g026v3
+	i/cJCu7v5iBu9QRklKSOEJK75snU34FvXk7fr1jHXLI8N0SfQx0R8VPo
+X-Gm-Gg: AYBFou1u5BBntUGa9Uhy4GJMOILoE6ZLxBaqzKBIaS3o8f7PP15KkXF/Ld8zn9LtW1i
+	193c6fQBe6aD48iDHTdb2cTk6bZtpDuKp3i3or6IdeSTH66JMmTzeN6LA2NdYp4yDLPXZ3obfp7
+	FcB6jHoN/iQl9l7P4UQraxHzJpSkQ29xcC6IuhpAJz9pri3bKmG3RYVHY+hWO85JkXDvW22BwP3
+	58bVxnuyV+S7EHXzE5MFQjYXe5SfgDMBjhn2ugV7ekrt607m214oPzzdKZS8fj2lUnJAX/rrgSU
+	JIa3NEwlLPNENGPzqYrvek++du9n0KrxCfuH6pkeXJvc+0jqQMcozXOi8kbvjfLb5s1gXdIwMpr
+	9ZuuZUtHCsUhDxadi3zkJrb2jlYlrjokQPo97Frc3Xp/TASiEsl/E2Fx+DXIHD7WBtH5lbsYeU2
+	KdChnRCKcePpUqgE/MFUYV2h/BsMalfjLBEkHkF3I5yqsOU1/lw7Zoh6S+C+gtsknLk8RIs47zq
+	rFekw4y89E=
+X-Received: by 2002:a17:90b:5247:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-3a098b628d9mr7264933a91.36.1790580488646;
+        Mon, 28 Sep 2026 00:28:08 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm25102399a91.3.2026.09.28.00.28.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 00:28:08 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Zhenyan Wang <maximwang110@gmail.com>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Christian Brauner <brauner@kernel.org>,
+	ntfs3@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] fs/ntfs3: keep PrintName not changed when creating symlink
+Date: Mon, 28 Sep 2026 15:28:00 +0800
+Message-ID: <20260928072801.13714-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260927180359.3867508-3-maximwang110@gmail.com>
+References: <20260927180359.3867508-1-maximwang110@gmail.com> <20260927180359.3867508-3-maximwang110@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,204 +82,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check that a uid_map or gid_map line with a value that does not fit in
-u32 is rejected with EINVAL and installs nothing, for each of the three
-fields, and that an in-range line is still accepted and reads back
-unchanged.
+On Sun, Sep 27, 2026 at 06:03:59PM +0000, Zhenyan Wang wrote:
+> -	/* Translate Windows '\' into Linux '/'. */
+> -	for (i = 0; i < err; i++) {
+> -		if (buffer[i] == '\\')
+> -			buffer[i] = '/';
+> -	}
 
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Assisted-by: LLM
----
- tools/testing/selftests/namespaces/.gitignore |   1 +
- tools/testing/selftests/namespaces/Makefile   |   3 +-
- .../selftests/namespaces/uid_map_range_test.c | 155 ++++++++++++++++++
- 3 files changed, 158 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/namespaces/uid_map_range_test.c
+ntfs_readlink_hlp() reads PrintName, for both tags:
 
-diff --git a/tools/testing/selftests/namespaces/.gitignore b/tools/testing/selftests/namespaces/.gitignore
-index 0989e80da457..995b082357fa 100644
---- a/tools/testing/selftests/namespaces/.gitignore
-+++ b/tools/testing/selftests/namespaces/.gitignore
-@@ -10,3 +10,4 @@ cred_change_test
- stress_test
- listns_pagination_bug
- regression_pidfd_setns_test
-+uid_map_range_test
-diff --git a/tools/testing/selftests/namespaces/Makefile b/tools/testing/selftests/namespaces/Makefile
-index fbb821652c17..9b22d12708e1 100644
---- a/tools/testing/selftests/namespaces/Makefile
-+++ b/tools/testing/selftests/namespaces/Makefile
-@@ -13,7 +13,8 @@ TEST_GEN_PROGS := nsid_test \
- 		  cred_change_test \
- 		  stress_test \
- 		  listns_pagination_bug \
--		  regression_pidfd_setns_test
-+		  regression_pidfd_setns_test \
-+		  uid_map_range_test
- 
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/namespaces/uid_map_range_test.c b/tools/testing/selftests/namespaces/uid_map_range_test.c
-new file mode 100644
-index 000000000000..9da02005a09c
---- /dev/null
-+++ b/tools/testing/selftests/namespaces/uid_map_range_test.c
-@@ -0,0 +1,155 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <sched.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include "../kselftest_harness.h"
-+
-+/*
-+ * The fields of a uid_map/gid_map line are stored in u32. Values that
-+ * do not fit must be rejected with EINVAL instead of being silently
-+ * truncated modulo 2^32, and in-range values must still be accepted.
-+ */
-+
-+static int write_file(const char *path, const char *buf)
-+{
-+	ssize_t len = strlen(buf);
-+	ssize_t ret;
-+	int fd;
-+
-+	fd = open(path, O_WRONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return -errno;
-+	ret = write(fd, buf, len);
-+	if (ret < 0)
-+		ret = -errno;
-+	close(fd);
-+	if (ret < 0)
-+		return ret;
-+	return ret == len ? 0 : -EIO;
-+}
-+
-+static ssize_t read_file(const char *path, char *buf, size_t size)
-+{
-+	ssize_t ret;
-+	int fd;
-+
-+	fd = open(path, O_RDONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return -errno;
-+	ret = read(fd, buf, size - 1);
-+	if (ret < 0)
-+		ret = -errno;
-+	else
-+		buf[ret] = '\0';
-+	close(fd);
-+	return ret;
-+}
-+
-+/* Enter a fresh user namespace, remembering the outer ids. */
-+static int enter_userns(uid_t *uid, gid_t *gid)
-+{
-+	*uid = geteuid();
-+	*gid = getegid();
-+	if (unshare(CLONE_NEWUSER) < 0)
-+		return -errno;
-+	/* Required before an unprivileged gid_map write. */
-+	return write_file("/proc/self/setgroups", "deny");
-+}
-+
-+static void expect_rejected(struct __test_metadata *_metadata,
-+			    const char *path, const char *line)
-+{
-+	char buf[256];
-+
-+	TH_LOG("writing \"%s\" to %s", line, path);
-+	EXPECT_EQ(write_file(path, line), -EINVAL);
-+	/* Nothing may have been installed. */
-+	EXPECT_EQ(read_file(path, buf, sizeof(buf)), 0) {
-+		TH_LOG("installed: %s", buf);
-+	}
-+}
-+
-+TEST(uid_map_first_above_u32)
-+{
-+	char line[64];
-+	uid_t uid;
-+	gid_t gid;
-+	int ret;
-+
-+	ret = enter_userns(&uid, &gid);
-+	if (ret)
-+		SKIP(return, "cannot set up user namespace: %s", strerror(-ret));
-+	snprintf(line, sizeof(line), "4294967301 %u 1", uid);
-+	expect_rejected(_metadata, "/proc/self/uid_map", line);
-+}
-+
-+TEST(uid_map_lower_first_above_u32)
-+{
-+	char line[64];
-+	uid_t uid;
-+	gid_t gid;
-+	int ret;
-+
-+	ret = enter_userns(&uid, &gid);
-+	if (ret)
-+		SKIP(return, "cannot set up user namespace: %s", strerror(-ret));
-+	snprintf(line, sizeof(line), "0 %llu 1", (1ULL << 32) + uid);
-+	expect_rejected(_metadata, "/proc/self/uid_map", line);
-+}
-+
-+TEST(uid_map_count_above_u32)
-+{
-+	char line[64];
-+	uid_t uid;
-+	gid_t gid;
-+	int ret;
-+
-+	ret = enter_userns(&uid, &gid);
-+	if (ret)
-+		SKIP(return, "cannot set up user namespace: %s", strerror(-ret));
-+	snprintf(line, sizeof(line), "0 %u 4294967297", uid);
-+	expect_rejected(_metadata, "/proc/self/uid_map", line);
-+}
-+
-+TEST(gid_map_first_above_u32)
-+{
-+	char line[64];
-+	uid_t uid;
-+	gid_t gid;
-+	int ret;
-+
-+	ret = enter_userns(&uid, &gid);
-+	if (ret)
-+		SKIP(return, "cannot set up user namespace: %s", strerror(-ret));
-+	snprintf(line, sizeof(line), "4294967301 %u 1", gid);
-+	expect_rejected(_metadata, "/proc/self/gid_map", line);
-+}
-+
-+TEST(uid_map_in_range)
-+{
-+	unsigned int first, lower_first, count;
-+	char line[64], buf[256];
-+	uid_t uid;
-+	gid_t gid;
-+	int ret;
-+
-+	ret = enter_userns(&uid, &gid);
-+	if (ret)
-+		SKIP(return, "cannot set up user namespace: %s", strerror(-ret));
-+	snprintf(line, sizeof(line), "5 %u 1", uid);
-+	ASSERT_EQ(write_file("/proc/self/uid_map", line), 0);
-+
-+	ASSERT_GT(read_file("/proc/self/uid_map", buf, sizeof(buf)), 0);
-+	ASSERT_EQ(sscanf(buf, "%u %u %u", &first, &lower_first, &count), 3);
-+	EXPECT_EQ(first, 5U);
-+	EXPECT_EQ(lower_first, uid);
-+	EXPECT_EQ(count, 1U);
-+	/* Exactly one extent. */
-+	EXPECT_EQ(strchr(buf, '\n'), buf + strlen(buf) - 1);
-+}
-+
-+TEST_HARNESS_MAIN
--- 
-2.34.1
+	case IO_REPARSE_TAG_MOUNT_POINT:
+		... MountPointReparseBuffer.PrintNameOffset ...
+	case IO_REPARSE_TAG_SYMLINK:
+		... SymbolicLinkReparseBuffer.PrintNameOffset ...
 
+On a volume written by Windows that PrintName is the display form, so
+its separator is '\' - "C:\Users\foo".  Without this loop readlink()
+hands that back verbatim and the whole string becomes one component.
+The loop is after the switch, so junctions and mount points lose it too.
+
+Keeping it, the first hunk alone already fixes the '/' case:
+
+	symlink target   PrintName   readlink
+	a/b              a/b         a/b
+	a\b              a\b         a/b
+
+The second row cannot be fixed this way.  A '\' in PrintName is either a
+Windows separator or a literal character from Linux, and nothing in the
+buffer tells them apart, so a round trip for the literal one needs a
+different encoding, not a missing conversion.
+
+Also, after the first hunk the is_absolute block still decorates through
+rp_name while the copy is at sub_name; both point into the same buffer,
+which is easy to get wrong later.
