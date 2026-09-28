@@ -1,254 +1,319 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E4D4DEC23
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CE43D6682
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605947; cv=none; b=k9KmxsmJIrUUy6r0i41Gk9CqU4+myjD+YHzKdo8ZuJVu/qGrqGq+09JsqCYDob3GBgVNqLgN783HyajIJu3qtyPG1yH0j34vVCFSv+4DO2lQDmF4t+0RYzyDQeBhlfTPCo4ibp2+tTpJ1E2S78yaXZDJm7B1zP4rUkvnOMfdiLU=
+	t=1790605951; cv=none; b=RFod8bVU7LFr5wfcIAsanr/iG4rIzHkNdo3RDgseSBaMBWKC2yz0GriojcbhfJmbbjlp90AmHLE186AnLt1tLtdvjf0xe2u1r48Po5dBI7FgLuRrQ/N+KxgndDeC2p5+EtN2Wr1/4Qr1X+Rx6JoWJkauiSelzNj5dUbNjwHhx1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605947; c=relaxed/simple;
-	bh=H5GiHK6ztFKrLa7xReiffciw7VCa8JM2dUKAkH6u0T4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGzZw2IiDnilTzpR5XuzA05/GMZYoCxuVew1/i9zkTzuUTxj2P2ZbDlmFIZQONcyzY9aUlBM2Fx/0x7EwjnOiVBsf2ocEbEG/6MFdrRlvhFYR05cGV+T4pSwYAZEryuKwKAlElqiiFX8DLVglPoV0h2u1a/8Co2Ef5oNR8Q7Q5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WEJVLUt6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nd9nqcgn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790605951; c=relaxed/simple;
+	bh=dXkENPo2wVumyHDmzXwLjWgH3JP+mqFSzaQO0/K8fYs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R4js+f6+OldjuCBPQ9NZhqphMgclanlFVS6x2n3bxEd1IXa3gibGHOZL9LwPyjD+b7uyws3yj1mt22VhL3N5IKlZVtctNyWX5NMLAuKss0DpOETllJibIPU/xB5oXt+grody3GHWqqQ4Rns/jzukTaKJ1Os+VsUZBQM1KVKvm1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KQb7D41i; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WEJVLUt6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nd9nqcgn"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBA7pE481577
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/O
-	SLFJMMjU=; b=WEJVLUt6Qgndx5YiL7HpWyG8kpXQW6l5olRaMN4FmaJtiSAMI7T
-	3yv/pOhRBpkLZyiKRu0CfqCIbDxYg1vdaHIBC73J9OOf/tSqGMkuhLADt8b5ShH5
-	BBBWHHl4A3D2+X1ObB3j0llCuQrJgtg29SJEBbeGast4A4kD2OXm+BAihAAGIShA
-	BgZ0QlwUae0plvs6QYFxdtCn8m2+kcG9SqUn7P3XW5f+co5y7bdt6hJLhfJIzh9X
-	c4ISX9iTXWVvLjlGbhpAY9jv8e/3I4XsnmtFwE/KWcOm9EtiAQ4z5l6gsYcoSSMt
-	F177KeS7x4cTW3Fi7Mbg/muDcB24nsKEd8A==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt11ut8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:32:15 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7b2f700b30bso633928137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:32:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KQb7D41i"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e93611e7so3215277e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:32:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790605935; x=1791210735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/OSLFJMMjU=;
-        b=Nd9nqcgnv0CT9fXwQYW587aubsB/MDnQb12lUquON69Zw1l2R+wzyHAw7hnc4hUZ+E
-         pV7vX+u6diDlqmbUe4OsN+7r0OPofOK4lspxDBZyaZfI3g7uEsNK9t9j64fPR01xvfWz
-         gMcm8oMhd3ZE+Yd6wBmWmDh5L2Rm4bShf3Z21VNF55jyY1V78Kw+eJe7f9Cqh+O1ZB8J
-         ac4A0qoBFwu+lWMriN+6brfJtuL85p5GfX5Kuf7+AoBft3JTwOqq6uk5w8Nb5CEsXpqc
-         K0jzntnMC2QTBJiqgxUbe5XCWXJ31/psRxz6cCSrRiF3Tkq2MSCjP0ha8u5B7Gf78oK1
-         RmIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790605935; x=1791210735;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1790605939; x=1791210739; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z60xJj9fp2vRAD3QTBKkgHGd6KjBHDRVy/OSLFJMMjU=;
-        b=NRTgi0y80uQHJpjeL8rW7psKnIQd1ROtPtYI9fy+AgDQA6DvEaknd0hbxOpLiHrVXN
-         dODF1XyTSBZu+Qwr53BOgRUwXFcth/Vo54hQcd+gS0uN+zJ1nu7y0ZhpQegg4Xq5GOY5
-         83DvSIuuViOvVw7BvBTBHNhzD11Rp8XbrR8yUzi3vO0Rl+RU+Bz+XozaQ61fxp39qCJR
-         4VusAzWAInxmQu8cURJT0VSQJoY5VOrYeC/0jkczxf49Lx7dXoF69sLYSF8NvI/SjUeP
-         DYaItk1al6qXbZObeC/lVJJLt6pAH2jdeRAGIOiK4vTw6U6QXaL5N83EgJ/jpc+mOTQU
-         /DSA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2hYQ/Z6HOvvnQqq+xwGKUpfHwTqJLUTkZknPuXBQwH+2YUrX546aM+t3OTFYC5zrjFpp8lRyu+cv0C64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6vRbAneT2pygtC9e0Tn1kr06ImF7+FSbpwyxpyL8jPCPH2r3G
-	YzYcmnPJwSLSea2j6IMGvh1rtryFh7XaX/9gRxhNRgCncGtZWssQrRYejdBYnfFkgSAsUkS43q7
-	TVGb//SzjEaEECGpWbxrH036wh01aQffYQg6TBgB8r+Oux/6M6K7UMh4avisOcwP60SA=
-X-Gm-Gg: AYBFou2ll6fg9c8/0aZOShow2IihnjrEPhMzgT2tMHYXEI5I3VKyPF6Hq/7FW3DW51B
-	CLqdbO/08QzwQ/ClyxN9OX/NdUryhWkxRWWYm91HjPf+NMTZ/vDib9TfFco3FSbJtvAJqkgRi6D
-	tXOHlFZGnfIzwvaDJVjzeQc5EwPsfA87PjHZS2EautZBUCxRhjJhxdcGJDnHh58fn9UnSNPWFNy
-	MzaAyxZCKQs0Dc1avYRIgI9c81VsPM5WdG2oD4DY51Q+G4fkYPFxYSZctuWsFYk5dNgsaWd7PZy
-	y1EX1kQR/KB38lAvmanrL4BTPvhMFj1UoQ7VjJW4nNZkd9cyed3DESQyUaDkWRhDg8UVIcXkJUh
-	4dr5XGdsWq97dy61TKsvJ1or+Ysz9TPisnBgsAw==
-X-Received: by 2002:a05:6102:c03:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7b390445334mr1520453137.30.1790605934789;
+        bh=y/3sa9/J1OWP4CmhUpz/yxw8bRZqT4L863BARaR7FIk=;
+        b=KQb7D41i9lJMOZ4n1zWT6sOnSabR22oQSRSKZb8l91TXkY97F1iQ0a00DPswIN/dMO
+         mRHcsWfZyWOFZ78weYY8fCSv+7YLBZ9WNRDkELQxZJOaXmiU/vZvzP9MVzHsSu3ewZgp
+         dEH3hDlpY6/ZmfhkHYlrGKmPRAhBCVj6ApvGo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790605939; x=1791210739;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y/3sa9/J1OWP4CmhUpz/yxw8bRZqT4L863BARaR7FIk=;
+        b=yZDknOFH+62ZQtYLOXPADSAv1GAisibPAD7r4OGmZhrcoPZlJkB1NtNczLjgCU0RaG
+         WsGszV+xX4z6vFpjFN8yDLcpPCU15rAUh/NCL/fNSLHI7HCSyEj9T16JL1Wlz8Y5dUVN
+         m3qh8hYsGcykgT0xA9PLANJaxrkNIOiS3H8ZQqFWSjXCbw3vx9YhcRsjS1TTWTa7QGyl
+         Okxg52abf0UNRgvYG1rhi9rP4M2k/CNpx2O5eZlw92R0kaq+HOAg/giO/h9CaHACY2HX
+         7PDo8y3OwAD0mLa2/yiL3lEVlwIV7m48T+x6ssc+DpOLj31ks7C3r8Nx9PA9JtMCIjIW
+         ocPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxt2Xj3NaDfSK+4x/LQpDJQ782c9/I7FgbWvTtkDHqYTFOphcAwmV9N8Zc5MDz4VCQ6vQndyR36382gSYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1bO/dwq/TYXOWJeqqSIwolJEwvAAWcIZIzrUyQvLlyGGqdRcn
+	epWb7FzCoe4yo/TRL6sOR7U1CAKuF7atbmtA8JfnMbYTeHcb6hMSbgPNDsS5Fi6ZKA==
+X-Gm-Gg: AYBFou3tng9USOd84tu41wNrgKVGBknqHxb5dRJRUnakwBITILz2cA9YaihrEVoAQ8N
+	fYA0dew3I2aFdDIr2XAHb2ex7LLZK/Ifh/Igy3Hne/MNdgOsAy5ERPcuS24Rlou8VbrMNWiMWXP
+	o0AMi5kkHWh6VJNI6p4WKU+o1fq5vdypOCjcE1zWoCLgpKaM+5JcpPuMogqeAABoJ7n7cOANOcU
+	aDZF7AGHpUarmozIpgWjIfBy2EKBlK/smFCQ1FSC0mlATSvehSJogB5Nn1qyQ/yhAHqyUE45mIj
+	xzIvS3FkXLKU22+GjYbrYlhTX1Nj3LFMr6Rao2gLNWoCHjSR5ZDZ6izYywiBPPo6yY+vwnD3HYQ
+	+rxaxnB5+tn34QIzoX6IJvN1qZdyaLcpsVBEniem+p6n1GhuepK4olErLQhyPRAwd9gtcNJp1uo
+	P9Js+33Agdsd+HNyeoRS6j5pvA54z41AW8PFJMmU0s9Fj4bHgFXV3itXNxHs76RL6SJDtpYY/zH
+	ZmUwi018OYvnyYRv8yChnqgSG1zhctW8CA6Xg83KPJIVRGT+Q==
+X-Received: by 2002:a05:6512:15a0:b0:5b8:c6f6:ab0b with SMTP id 2adb3069b0e04-5b8e6de10c3mr3442042e87.55.1790605934647;
         Mon, 28 Sep 2026 07:32:14 -0700 (PDT)
-X-Received: by 2002:a05:6102:c03:b0:7a7:196a:84e6 with SMTP id ada2fe7eead31-7b390445334mr1519697137.30.1790605875667;
-        Mon, 28 Sep 2026 07:31:15 -0700 (PDT)
-Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3bcadbsm292389266b.72.2026.09.28.07.31.14
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb098dsm603606e87.38.2026.09.28.07.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 07:31:14 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: iommu@lists.linux.dev, kvm-riscv@lists.infradead.org, kvm@vger.kernel.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: tomasz.jeznach@linux.dev, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
-        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
-        palmer@dabbelt.com, tglx@kernel.org, anup@brainfault.org,
-        atish.patra@linux.dev, fangyu.yu@linux.alibaba.com,
-        zhangzhanpeng.jasper@bytedance.com, zong.li@sifive.com
-Subject: [RFC PATCH v3 00/14] iommu/riscv: Add irqbypass support
-Date: Mon, 28 Sep 2026 16:30:59 +0200
-Message-ID: <20260928143113.49838-1-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 28 Sep 2026 07:32:13 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 28 Sep 2026 14:32:02 +0000
+Subject: [PATCH v4 3/5] media: uvcvideo: Automatically handle cameras with
+ invalid uvc_version
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX/8JWEeOx2Tp7
- PmoJ6H0BkdAx070QzVE4iHxQ8QxcoLqAxKGoIHA3BuLTztR4mDXydpnp03ql4nCsvavcvn0Yc/B
- /axaH7NXsIdEh3/x5nZhiSvzvDHpA2EFy7nXKv4I7vj0QZApuXo2SBZ68LVMEKdaZmRaPWG4Ygt
- MgW+fj/p5t7nEsGE4GwY/0BzxKQP+YQt1d/HvbHnCgpOFinchx8n945smIlqz4LNCXTGIfwscrj
- anHFG3oJYjtfq+zsQDHYd30rOjbSdmq+js/O+15p8riYgiUg1PwGgqc6bnBrPwpZadb/0X+AbXX
- FXyR26/d+ZkPZsmIqYRzvid2SVA8ln/mEgfZ40NfcmGvhhZ4T/j1eAyrnVKSKTdDTN08AkWadHc
- Qy5GQWgNsmA14LFF+3ouqVn6tDyyX6fGEfWaVYbEyrb+KBhLA76G+lA/amZJG4zouzbNv8IKHvR
- WFxcCqFJwcGphRCnxdA==
-X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba7a6f cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=NEAV23lmAAAA:8
- a=VwQbUJbxAAAA:8 a=bDdBU3oEAAAA:8 a=EUspDBNiAAAA:8 a=SRrdq9N9AAAA:8
- a=JbFp9CTg7fNynJPQWhgA:9 a=ODZdjJIeia2B_SHc_B0f:22 a=DN7SgORnOiO7RqxRx1GC:22
-X-Proofpoint-ORIG-GUID: ckWXGJU599opZKUUabdOFC5Ion5bWyz1
-X-Proofpoint-GUID: ckWXGJU599opZKUUabdOFC5Ion5bWyz1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NyBTYWx0ZWRfX3hDXiTI1NO2/
- 0j5ohj+74IKn+bmmmuo611wUWrm8zOTN/CCxFcj5Oy/P02aAb3PtgznyZQf3VlwvoS/ADOtjE6I
- 94DCL9HivP385ZD56G0LydIXzKeJhd8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280057
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-uvc-version-v4-3-da0e983fcb95@chromium.org>
+References: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
+In-Reply-To: <20260928-uvc-version-v4-0-da0e983fcb95@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>, 
+ Hans de Goede <johannes.goede@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
 
-This series adds the RISC-V IOMMU side of IRQ bypass, allowing MSIs from
-assigned devices to be delivered directly to guest IMSIC interrupt files.
-It uses the IOMMU's flat MSI page table to translate guest IMSIC addresses
-to their host backing, with support for both hardware guest interrupt
-files (VS-files) and memory-resident interrupt files (MRIFs).
+Currently, the driver expects that cameras properly implement the spec
+version that they announce, and if they fail to do so, we do not continue
+probing the driver.
 
-It has been a year since v2[1], and much of the design and implementation
-has changed. Host MSI remapping, IOMMU_DMA, and VFIO enablement have been
-split into a prerequisite series[3]. This posting contains only the
-IOMMU/IRQ-side support. The KVM patches will be posted separately: they
-are currently a minimal client for testing this interface, with further
-work needed for general device assignment.
+To make drivers more fun, some vendors decided to announce that they are
+a UVC version that they are not. Until now, we handled those cameras via
+quirks.
 
-The design evolved while considering two-stage guests in the discussions
-with Jason on v4 of the host MSI-remapping series[2]. With a guest vIOMMU,
-the address in the device's MSI message may be any guest IOVA which the
-guest's first-stage page tables map to a guest IMSIC GPA. The hypervisor
-cannot determine the target vCPU simply by decoding that IOVA. Instead,
-the intended hardware path is:
+Unfortunately, reality has shown us that there are more cameras out
+there with an invalid uvc_version than we initially predicted.
 
-  Guest MSI IOVA -> S1 -> guest IMSIC GPA -> MSI table -> VS-file or MRIF
+This patch tries to handle these cameras with an identity crisis
+automatically. We still shame them in dmesg. But now they will work.
 
-An MSI-table match completes the translation; addresses outside the MSI
-pattern use the ordinary second-stage page tables. With S1 Bare, the
-device uses the guest IMSIC GPA directly. Populating the MSI table with
-all guest IMSIC targets allows guest changes to S1 mappings or interrupt
-affinity without corresponding MSI-table updates. When a vCPU's host
-backing changes, the hypervisor updates the entry for that guest IMSIC
-GPA, leaving the device message and guest S1 mapping unchanged.
+Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 11 +++++---
+ drivers/media/usb/uvc/uvc_video.c  | 54 ++++++++++++++++++++++++--------------
+ drivers/media/usb/uvc/uvcvideo.h   |  2 ++
+ 3 files changed, 44 insertions(+), 23 deletions(-)
 
-The MSI table belongs to the second-stage IOMMU domain and is shared by
-all devices attached to it. RISC-V requires second-stage translation to
-be enabled when using the MSI table. This is separate from host MSI
-remapping, which uses ordinary page-table mappings prepared by the common
-DMA-IOMMU/iommufd code and composed by the IMSIC driver.
-
-A per-IOMMU interrupt-remapping irqdomain, installed as the MSI parent of
-eligible devices at probe time, provides the irq_set_vcpu_affinity()
-entry point. The IRQ hierarchy remains stable across IOMMU domain changes.
-The callback obtains the device from the MSI descriptor and operates on
-its currently attached second-stage domain. The irqdomain has no private
-per-IRQ mapping state or MSI table of its own.
-
-The affinity protocol supplies an owner, the guest IMSIC address pattern
-and mask, and the complete set of guest targets. The first forwarded IRQ
-populates the table and installs its configuration in every attached
-device context. Further IRQs share that table after checking the owner
-and address layout. A separate target-update command changes a guest
-IMSIC's backing without changing per-IRQ forwarding state. The last IRQ
-to stop forwarding removes the table configuration from the devices.
-
-The main changes since v2 are therefore:
-
-- Separate host MSI remapping from guest IRQ bypass, and use second-stage
-  domains for the guest MSI tables
-- Replace per-IRQ MSI-entry mapping and reference counting with complete
-  guest-topology setup, domain-wide table lifetime, and individual target
-  updates. This is intended to accommodate guest-controlled S1 mappings.
-- Add IOMMU-side MRIF support alongside hardware guest interrupt files.
-- Move the KVM client out of this series
-
-This remains an RFC, particularly for the relationship between the IRQ
-hierarchy and the domain-owned MSI table. Jason raised the alternative of
-a per-VM irqdomain owning the table[2]; the arrangement proposed here
-keeps the IRQ hierarchy stable and ties the mappings to the S2 domain
-shared by the devices.
-
-The dependency stack is based on linux-iommu/next at 634706fe6e36, with:
-
-- "iommu/riscv: Enable MSI remapping, IOMMU_DMA and VFIO" v6[3].
-- Fangyu's "iommu/riscv: Add hardware dirty tracking for second-stage
-  domains" RFC v4[4], which also supplies second-stage domain allocation
-  and page-table support.
-
-The branch below contains all of the above, this series, and the minimal
-KVM IRQ-bypass client:
-
-  https://github.com/jones-drew/linux/commits/riscv/iommu-irqbypass-rfc-v3-kvm/
-
-Testing requires userspace to select a second-stage domain, for example
-by allocating an iommufd HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT. The
-corresponding kvmtool branch is available here:
-
-  https://github.com/jones-drew/kvmtool/commits/iommufd-nested-rfc-v1/
-
-LLM-based coding assistants were used during development for code
-exploration, patch review, test execution, and drafting and editing
-commit messages and this cover letter. I reviewed and finalized all
-resulting code and text. Per-patch Assisted-by tags are omitted in
-light of the ongoing discussion about simplifying coding-assistant
-attribution.
-
-Thanks,
-drew
-
-[1] https://lore.kernel.org/all/20250920203851.2205115-20-ajones@ventanamicro.com/
-[2] https://lore.kernel.org/all/20260820214150.545737-3-andrew.jones@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/20260925151659.419512-1-andrew.jones@oss.qualcomm.com/
-[4] https://lore.kernel.org/all/20260915032828.11250-1-fangyu.yu@linux.alibaba.com/
-
-Andrew Jones (14):
-  iommu/riscv: Allocate MSI tables for second-stage domains
-  iommu/riscv: Prepare domain bonds for outer locking
-  iommu/riscv: Serialize MSI table publication with domain attachment
-  iommu/riscv: Reject live S2 replacement with forwarded IRQs
-  iommu/riscv: Derive the IOMMU from the device in IODIR updates
-  iommu/riscv: Cache the programmed device context
-  iommu/riscv: Prepare MSI table updates for interrupt remapping
-  irqchip/riscv-imsic: Define IOMMU IRQ bypass protocol
-  genirq/msi: Provide DOMAIN_BUS_MSI_REMAP
-  iommu/riscv: Add IRQ domain for interrupt remapping
-  iommu/riscv: Prepare info->domain for concurrent RCU access
-  iommu/riscv: Prepare interrupt remapping for IRQ bypass
-  iommu/riscv: Validate IRQ forwarding requests
-  iommu/riscv: Implement IRQ forwarding
-
- drivers/iommu/riscv/Makefile            |   1 +
- drivers/iommu/riscv/iommu-bits.h        |  27 ++
- drivers/iommu/riscv/iommu-ir.c          | 505 ++++++++++++++++++++++++
- drivers/iommu/riscv/iommu.c             | 352 +++++++++++++++--
- drivers/iommu/riscv/iommu.h             |  56 +++
- drivers/irqchip/irq-msi-lib.c           |   8 +-
- drivers/irqchip/irq-riscv-imsic-state.c |   6 +
- include/linux/irqchip/riscv-imsic.h     |  60 +++
- include/linux/irqdomain_defs.h          |   1 +
- 9 files changed, 974 insertions(+), 42 deletions(-)
- create mode 100644 drivers/iommu/riscv/iommu-ir.c
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..ca75f8d1ec46 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 
+ 	case UVC_VC_PROCESSING_UNIT:
+ 		n = buflen >= 8 ? buffer[7] : 0;
+-		p = dev->uvc_version >= 0x0110 ? 10 : 9;
+-
+-		if (buflen < p + n) {
++		if (buflen < 9 + n) {
+ 			uvc_dbg(dev, DESCR,
+ 				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
+ 				udev->devnum, alts->desc.bInterfaceNumber);
+@@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 		unit->processing.bControlSize = buffer[7];
+ 		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+ 		memcpy(unit->processing.bmControls, &buffer[8], n);
+-		if (dev->uvc_version >= 0x0110)
++
++		/*
++		 * We are not using bmVideoStandards, so there is no need to
++		 * warn the user if it is missing.
++		 */
++		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+ 			unit->processing.bmVideoStandards = buffer[9+n];
+ 
+ 		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 2a3b7431cc68..a69608666f66 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -211,11 +211,14 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+ 	if (frame == NULL)
+ 		return;
+ 
+-	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED) ||
+-	     (ctrl->dwMaxVideoFrameSize == 0 &&
+-	      stream->dev->uvc_version < 0x0110))
+-		ctrl->dwMaxVideoFrameSize =
+-			frame->dwMaxVideoFrameBufferSize;
++	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
++		ctrl->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++	} else if (!ctrl->dwMaxVideoFrameSize) {
++		ctrl->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++		if (stream->dev->uvc_version >= 0x0110)
++			uvc_warn_once(stream->dev, UVC_WARN_VERSION,
++				      "UVC non compliance: Missing dwMaxVideoFrameSize from video_ctrl\n");
++	}
+ 
+ 	/*
+ 	 * The "TOSHIBA Web Camera - 5M" Chicony device (04f2:b50b) seems to
+@@ -273,6 +276,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+ 	}
+ }
+ 
++#define UVC_VIDEO_CTRL_MIN_SIZE 26
++
+ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ {
+ 	/*
+@@ -280,7 +285,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ 	 * on the protocol version.
+ 	 */
+ 	if (stream->dev->uvc_version < 0x0110)
+-		return 26;
++		return UVC_VIDEO_CTRL_MIN_SIZE;
+ 	else if (stream->dev->uvc_version < 0x0150)
+ 		return 34;
+ 	else
+@@ -290,7 +295,6 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 	struct uvc_streaming_control *ctrl, int probe, u8 query)
+ {
+-	u16 size = uvc_video_ctrl_size(stream);
+ 	u8 *data;
+ 	int ret;
+ 
+@@ -298,13 +302,13 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 			query == UVC_GET_DEF)
+ 		return -EIO;
+ 
+-	data = kmalloc(size, GFP_KERNEL);
++	data = kmalloc(stream->video_ctrl_size, GFP_KERNEL);
+ 	if (data == NULL)
+ 		return -ENOMEM;
+ 
+ 	ret = __uvc_query_ctrl(stream->dev, query, 0, stream->intfnum,
+ 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+-		size, uvc_timeout_param);
++		stream->video_ctrl_size, uvc_timeout_param);
+ 
+ 	if ((query == UVC_GET_MIN || query == UVC_GET_MAX) && ret == 2) {
+ 		/*
+@@ -319,7 +323,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+ 		ret = 0;
+ 		goto out;
+-	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
++	} else if (query == UVC_GET_DEF && probe == 1 &&
++		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		/*
+ 		 * Many cameras don't support the GET_DEF request on their
+ 		 * video probe control. Warn once and return, the caller will
+@@ -330,15 +335,24 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 			"Enabling workaround.\n");
+ 		ret = -EIO;
+ 		goto out;
+-	} else if (ret != size) {
++	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+ 			uvc_query_name(query), probe ? "probe" : "commit",
+-			ret, size);
++			ret, stream->video_ctrl_size);
+ 		ret = (ret == -EPROTO) ? -EPROTO : -EIO;
+ 		goto out;
+ 	}
+ 
++	if (ret != stream->video_ctrl_size) {
++		uvc_warn_once(stream->dev, UVC_WARN_VERSION,
++			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
++			      uvc_query_name(query),
++			      probe ? "probe" : "commit", ret,
++			      stream->video_ctrl_size);
++		stream->video_ctrl_size = ret;
++	}
++
+ 	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+ 	ctrl->bFormatIndex = data[2];
+ 	ctrl->bFrameIndex = data[3];
+@@ -351,7 +365,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+ 	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+ 
+-	if (size >= 34) {
++	if (ret >= 34) {
+ 		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+ 		ctrl->bmFramingInfo = data[30];
+ 		ctrl->bPreferedVersion = data[31];
+@@ -381,11 +395,10 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 	struct uvc_streaming_control *ctrl, int probe)
+ {
+-	u16 size = uvc_video_ctrl_size(stream);
+ 	u8 *data;
+ 	int ret;
+ 
+-	data = kzalloc(size, GFP_KERNEL);
++	data = kzalloc(stream->video_ctrl_size, GFP_KERNEL);
+ 	if (data == NULL)
+ 		return -ENOMEM;
+ 
+@@ -401,7 +414,7 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 	put_unaligned_le32(ctrl->dwMaxVideoFrameSize, &data[18]);
+ 	put_unaligned_le32(ctrl->dwMaxPayloadTransferSize, &data[22]);
+ 
+-	if (size >= 34) {
++	if (stream->video_ctrl_size >= 34) {
+ 		put_unaligned_le32(ctrl->dwClockFrequency, &data[26]);
+ 		data[30] = ctrl->bmFramingInfo;
+ 		data[31] = ctrl->bPreferedVersion;
+@@ -411,11 +424,12 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 
+ 	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+ 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+-		size, uvc_timeout_param);
+-	if (ret != size) {
++		stream->video_ctrl_size, uvc_timeout_param);
++	if (ret != stream->video_ctrl_size) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to set UVC %s control : %d (exp. %u).\n",
+-			probe ? "probe" : "commit", ret, size);
++			probe ? "probe" : "commit", ret,
++			stream->video_ctrl_size);
+ 		ret = -EIO;
+ 	}
+ 
+@@ -2231,6 +2245,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+ 
+ 	atomic_set(&stream->active, 0);
+ 
++	stream->video_ctrl_size = uvc_video_ctrl_size(stream);
++
+ 	/*
+ 	 * Alternate setting 0 should be the default, yet the XBox Live Vision
+ 	 * Cam (and possibly other devices) crash or otherwise misbehave if
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index abcafd929c9e..b41ce01dc21c 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -461,6 +461,7 @@ struct uvc_streaming {
+ 	struct usb_interface *intf;
+ 	int intfnum;
+ 	u32 maxpsize;
++	unsigned int video_ctrl_size;
+ 
+ 	struct uvc_streaming_header header;
+ 	enum v4l2_buf_type type;
+@@ -662,6 +663,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+ #define UVC_WARN_PROBE_DEF	1
+ #define UVC_WARN_XU_GET_RES	2
+ #define UVC_WARN_QUERY_CTRL	3
++#define UVC_WARN_VERSION	4
+ 
+ extern unsigned int uvc_clock_param;
+ extern unsigned int uvc_no_drop_param;
 
 -- 
-2.43.0
+2.56.0.rc1.315.gc6ed9934b7-goog
+
