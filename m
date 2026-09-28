@@ -1,183 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385F33CFF49;
-	Mon, 28 Sep 2026 10:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D77D48D890;
+	Mon, 28 Sep 2026 10:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589935; cv=none; b=mKqAzkleg2KzFOnnmQuCn/KABrMZp0l4usZZupUd75mM7JP4+XOQd4eQ1AOk+e4JxqvD3VQQ/OT3EZ4gMVnxD4m+zSnGlkhs5cLrapWchuNns88hY8zlV951e6QXVPd65RhAN5QIfUPMCk6ll0i4KWoQE9MXSwUWKxV3aU9VfeY=
+	t=1790589942; cv=none; b=u80mRCiq1FL1JWaDYRI0nrwQc9MWFIcWTgtQFiMLuFI1dLDyfgXlRGzpeMPpiSEHi7/RuhdgslAfTDf//ixkAqQtdzqJoEV6HQ2HSkgN+rwqW5PSEI0YjNcyStQMqCRkXYOYU4m0p+95PkhliHS2+a9xYb5st6q3SPBlI03JhJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589935; c=relaxed/simple;
-	bh=/doysIOq/NVxl2rVmuZK749aLf/1vlGmsfsw4VMzHkQ=;
+	s=arc-20240116; t=1790589942; c=relaxed/simple;
+	bh=DbOusftimddsgE8f0FZAtzebevz2Qk3DbogdBudWLZw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kJLS0nyiqs79bxriV9LaX1EtRyzEyW8lQaBirCzWUMC47NaU3aIhHU7EMilbohvJNzKq9Gxtxxf6ka+LWJ3SqJblJeXTJpb7A4X/MAuANPuBwrGpZVNkfc7Rblwikoac372rHMWOJvKfMdITd1w2+sTa+ENK+t2HqkoTWdzXtLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQ17o/57; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=J/ZAKobKc+s1Njlm/Lz15WabbQJWF3/7819HjiZWMkWmbI2/GkDuBlrgQENgHfzJXVD0dvWzN2l2JBgxO/kcruCMImd//IZLPNhM1dErtHbGZ1Ne5EdcuTTh9X9h0tSa1GNIPjL3I7+t/K4aP1jesklBMUWpZTjWm0M02acodwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RiSNT6CK; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQ17o/57"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4121F000FF;
-	Mon, 28 Sep 2026 10:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589933;
-	bh=JJDJn44L9MIQQG6KNAreRHrg9uO+c4Os3eCJKsUQEJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GQ17o/57KF9lHOA44UeSTaHk7XtYerxCYLFcQxkJgT3B+b1rxMOjKd7tKnT04DUsl
-	 kUlNY/ezMrd9xbfDLY70jUnWLKYLNVEINxxeZvTvBZgTEc9bFBN9OZzxfvNrwD4UKR
-	 a37Vz3YOYDhM8LeHPrnCFT2BkmsfPqUUijXfSB78iw9Vn01y0Zpf/HXhjq0jYO20xk
-	 osgaS+Fj7XKs/UbIUhfaeyDQn3pjd5U84Vjs6U74Xpao+/NZnpe3VDW/8JrUgjGETw
-	 zfkmDYhaIMbZcZsktmM81+0GKCMmXYWayBD2wLnG/CjbhbVfW1amMGg2G9vTFywCPe
-	 YxqSsaOCkLZKA==
-Date: Mon, 28 Sep 2026 12:05:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
-	Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 10/27] dt-bindings: gpu: panthor: Document
- panthor-system bindings
-Message-ID: <20260928-vehement-incredible-markhor-06685e@quoll>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-11-karunika.choo@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RiSNT6CK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790589940; x=1822125940;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DbOusftimddsgE8f0FZAtzebevz2Qk3DbogdBudWLZw=;
+  b=RiSNT6CKDtrkIuX6WVYXPytuFo2vtjOihkTGtDJFbIZn5vX5aQUcbLsJ
+   lDg/hqjYeSh/r8TE6xd75HSN33opI4M+Ei/CMOFVsH5IZydCqJQtPj0ps
+   NqGhLMRTK3FCZZI3Kdgp8I4RU5kacP/jJvmmqOHvh9Zmimvs+OzXkZuEf
+   Upj80DUG55XRrXv6woqIyrnpqtY+ZT/RKY7KWlpRXqfWrYQLCz7aOTmCe
+   7RKKkR7jzvlJ38fMVzZ4nFyHl4OJrFRwJeXEEmsCSTx7121gyzAtGePYH
+   pOld2BsAqPoAxoJoQwTkKgWz5yjNAJUrsg1M/eL4oatv8l4Ru5gJbcBq9
+   A==;
+X-CSE-ConnectionGUID: zvnOj5vTQTif7hqidUBISA==
+X-CSE-MsgGUID: ALX4+1b1RPOTzWuCb28aXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90189872"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="90189872"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 03:05:39 -0700
+X-CSE-ConnectionGUID: aBy4UDDwRbqx33zxPrbdvQ==
+X-CSE-MsgGUID: /9PeS/vcTWSUu3n5v+YZtw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="273149675"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.42])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 03:05:37 -0700
+Date: Mon, 28 Sep 2026 13:05:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Bartu Alev <bartualev@gmail.com>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>,
+	Mario Limonciello <superm1@kernel.org>,
+	Hans de Goede <hdegoede@redhat.com>, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: acpi: Ignore AC adapter wakeup on ASUS FA507
+Message-ID: <aro77qeVeSdWfZ7N@ashevche-desk.local>
+References: <20260927014212.302743-1-bartualev@gmail.com>
+ <20260928094156.GG106095@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922204535.2850094-11-karunika.choo@arm.com>
+In-Reply-To: <20260928094156.GG106095@black.igk.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 22, 2026 at 09:45:04PM +0100, Karunika Choo wrote:
-> Mali 5th-Gen AM GPUs expose an AM_SYSTEM block for GPU-wide control
-> outside the main GPU register window.
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
+On Mon, Sep 28, 2026 at 11:41:56AM +0200, Mika Westerberg wrote:
+> On Sun, Sep 27, 2026 at 04:42:12AM +0300, Bartu Alev wrote:
+> > The ASUS TUF Gaming A15 FA507 wakes from s2idle whenever the AC
+> > adapter is plugged in or unplugged.
+> > 
+> > In the CPMGPIO0 SSDT, GPIO pin 23 (0x0017) is declared in the
+> > \_SB.GPIO._AEI resource template as:
+> > 
+> >     GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullNone, 0x0000,
+> >              "\\_SB.GPIO", 0x00, ResourceConsumer, ,)
+> >              { 0x0017 }
+> > 
+> > and the corresponding \_SB.GPIO._EVT handler issues a device wake
+> > notification for the AC adapter on pin 23 events:
+> > 
+> >     Case (0x17)
+> >     {
+> >         Notify (\_SB.ACAD, 0x02) // Device Wake
+> >         Sleep (0x05)
+> >         Notify (\_SB.ACAD, 0x80) // Status Change
+> >     }
+> > 
+> > Both AC plug and unplug transitions therefore trigger a spurious
+> > wakeup from s2idle. Add an ignore_wake quirk for this pin.
 > 
-> Document the system node compatible, register and interrupt resources,
-> GPU clock, and optional GPU regulator supply used by the AM_SYSTEM
-> platform driver.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
-> ---
->  .../bindings/gpu/arm,mali-gen5-am-system.yaml | 67 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 68 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
-> new file mode 100644
-> index 0000000000000..f0689bb8f05a2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
-> @@ -0,0 +1,67 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +# Copyright 2026 ARM Limited. All rights reserved.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-system.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Mali 5th-Gen GPU System Device
-> +
-> +maintainers:
-> +  - Liviu Dudau <liviu.dudau@arm.com>
-> +  - Boris Brezillon <boris.brezillon@collabora.com>
-> +
-> +properties:
-> +  $nodename:
-> +    pattern: '^panthor-system@[a-f0-9]+$'
+> I would think this is by design like that.
 
-Nope. Why would we name devices based on driver?
+Yep, we don't have quirks for AC adapter events, touch pad and USB are
+the majority of misbehaving cases.
 
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-If you cannot find a name matching your device, please check in kernel
-sources for similar cases or you can grow the spec (via pull request to
-DT spec repo).
+With that being said, I defer this patch (you can discuss more and if
+the conclusion is to include, it may be done in the next release).
 
-Drop the nodename completely.
+> What is the issue? You unplug the device from AC with lid closed and it
+> wakes up? Userspace should put it back to sleep in these cases. In Windows
+> and ChromeOS there is something called "dark resume" that deals with this
+> but I'm not sure if generic distros have that yet.
 
-> +
-> +  compatible:
-> +    oneOf:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Drop
-
-> +      - items:
-
-Probably drop... but:
-
-> +          - const: arm,mali-gen5-am-system
-
-How can this be used alone?
-
-
-> +
-> +  reg:
-> +    items:
-> +      - description: System register
-
-so just maxItems: 1
-
-> +
-> +  reg-names:
-> +    items:
-> +      - const: system
-
-Drop entire reg-names
-
-> +
-> +  interrupts:
-> +    items:
-> +      - description: System interrupt
-
-keep it simple, maxItems: 1
-
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      Phandle to the GPU clock.
-
-Drop description, obvious. Can this be something else than phandle? Can
-a single clock for GPU can be something else than GPU clock?
-
-> +
-> +  gpu-supply: true
-
-This should rather be named based on the pins/domains. Are you sure the
-domain is called GPU?
-
-> +
-> +  dma-coherent: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    panthor_system: panthor-system@68000000 {
-
-Drop unused label
-
-Best regards,
-Krzysztof
 
