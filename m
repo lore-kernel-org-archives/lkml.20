@@ -1,55 +1,55 @@
 Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB8D4F7CBE;
-	Mon, 28 Sep 2026 20:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA6D4F93CF;
+	Mon, 28 Sep 2026 20:50:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628656; cv=none; b=RYGtdjGTFNPZ9u51SNwGvKdTyDjltIlmKHmUxUpkQ57HUKaCY9Jc0BU9iV9wWdAPkXUXGJwrDy3y+pWXP7V/1K+hC7l568Fzfj5TBjbzzH3zwSxCAsFKb+HmwC9Tg4b0oP/mY15pGXMHVACXrR++9HLjE56v28ZyZNriIdmQv0s=
+	t=1790628657; cv=none; b=Fjmk0EgDOse71f3FD+7Ca0xqMAI3G70ltn8DrHAx4l7Y55bjfIgLx0AWZG6HnCHaOExvBRXIEKn9pmus8GwODGVmnvPSRu1vUN3p0sUwhIpfxAMGHWyD1At4ls0XPWEYfzF30jOZ2kUIff3/GKygxqmbpXFicBqpt8cMbkN8mHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628656; c=relaxed/simple;
-	bh=5rjOjPS6ptkZNuM83OIK5Gph4OgO1QCSOq5YkUWUImY=;
+	s=arc-20240116; t=1790628657; c=relaxed/simple;
+	bh=8irU6BqCPgmFNkEHkU6Q1kHRPHevtysVa7lFeKEGzco=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AsvJwDdFGPqN31cNi7bKYU3c55M8+i3f68s8WPv0/fxg5dUaep0G1zHIUtb6EiD3zaffrY3NUaUayRntR7Fg4ACMfOEVLiyr30g3LoVWLwW1gbQbv4T4FLRpV3Uebe0ssqswXexuoyu+2iDRseG36Szi6kKBQkAhq7MwfMzXAqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=CxWQjxnL; arc=none smtp.client-ip=195.154.119.183
+	 MIME-Version; b=DayJQKnnIjCypmOtEtwoaBj+CwkbhncDqQmCPBp7RLo0ku4fyuMU1H2LB+h3nHpSj1YtNuG9eBalV2wEjkAoSZBVd/Dc8JHjjOy425K1uPaB7zFC0c5ZoaTRtyhdhAgUOoB6oEx2mfvBCte086E+9JY+1obtH/1jdX5olTFuddo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=RQ7aPAN/; arc=none smtp.client-ip=195.154.119.183
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="CxWQjxnL"
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="RQ7aPAN/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
 	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
 	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=DlQTGPWIR1/gHzQCLPtQyd1MJT+Ewj/blXbZlbpNF7A=; b=CxWQjxnL20OdvhuGdPm0JTP8R4
-	Tyfeko0q9n3MeN4D+r6h+gLZNiusyuqEhdZt5dj9ekBfMjUE30k5zLdXsCykzD4LaJFK2MosCPBwa
-	3IS41/YYAkslAdrB3sna0epQ9MVZPznfFFqaUxTtjPh3pgNqhSg2RoJrzRGIAt4um96NX4RiYj08X
-	EUX38Fkym8gQTtWTDxamqw8D3hjlVEME27ZQPRavKVZ5AG48kLAIChMCAzAfyZA+4pbK5uxGSQTfw
-	gh1R/kbTy1RGCftY+t73s2NKVbwoaArx88SdYFQkWsQN30SESwAb9UAqE4AD8urBwliPYoIhmRZBd
-	toUbj7sA==;
+	bh=aRMadcUPFUBPhEkJErQMVtX02I55WFciqcB4WS1T+xw=; b=RQ7aPAN/qb5YyMKHuzvVxBL7GD
+	8FIYoPqJNszRs+TDBAkwkiPy5611pCLUkn4f6zNhsPF4tg7Cxq6wI+emGlXeKOrK6YF2RaYT6ALub
+	1nT99CwKxgad0Q5OreNixz7Y8WZ5aIYmPsSzqjNRqCR9oMaJzwCOojagF897LCwofuUsbi1kdBsRE
+	5/bEr51niviC+l8SO/fKbcEwNlRxhBIXwMam0dUQBzRsQC7ofdJEDSUblJg5aF6z5gj29DkUeXD0s
+	oPrgOZ13UUlF+UaLxVzFu+7y2wLfbcwN5fJ6Jpf0zU/yUO9zKYnyWFfK1sMEe2YVVH1jbij5wvDah
+	gjqwYvFA==;
 Received: from authenticated user
 	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <aurelien@aurel32.net>)
-	id 1xBIJH-0000000F7qe-0Rly;
-	Mon, 28 Sep 2026 22:50:51 +0200
+	id 1xBIJG-0000000F7qY-2Ffb;
+	Mon, 28 Sep 2026 22:50:50 +0200
 From: Aurelien Jarno <aurelien@aurel32.net>
 To: linux-kernel@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
 	Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Inochi Amaoto <inochiama@gmail.com>
 Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-riscv@lists.infradead.org (open list:RISC-V SPACEMIT SoC Support),
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
 	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
-Subject: [PATCH v5 2/5] riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX board
-Date: Mon, 28 Sep 2026 22:49:07 +0200
-Message-ID: <20260928205012.3689405-3-aurelien@aurel32.net>
+Subject: [PATCH v5 1/5] riscv: dts: spacemit: k3: move USB3 phy to board level
+Date: Mon, 28 Sep 2026 22:49:06 +0200
+Message-ID: <20260928205012.3689405-2-aurelien@aurel32.net>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260928205012.3689405-1-aurelien@aurel32.net>
 References: <20260928205012.3689405-1-aurelien@aurel32.net>
@@ -61,126 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SpacemiT K3 has 4 USB3 controllers labelled A to D.
+On the SpacemiT K3 SoC, the combo phy provides 8 lines that can
+either be used for PCIe or USB3, depending on its configuration
+(spacemit,apmu). This configuration is defined at the board level, and
+assigning a phy line to a USB3 controller while it is configured as PCIe
+results in an "Invalid PHY mode" error.
 
-On the K3 Pico-ITX board, the controllers B and C are used in USB2 mode
-only respectively for the M.2 B-Key slot and for the RTL8852BE Bluetooth
-controller.
+Move the USB phy definitions at the board level, as it is done for the
+submitted PCIe controller [1]. As a consequence, boards that do not
+enable a USB3 controller node will not match the DT schema due to
+missing PHY entries. This is not an issue as dtbs_check only validates
+enabled nodes.
 
-Add the two controller nodes. On the K3 Pico-ITX board, enable the
-controllers nodes and add the two corresponding USB2 PHY nodes.
+[1] https://lore.kernel.org/spacemit/20260923015016.64069-1-inochiama@gmail.com
 
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Fixes: 46380e4b1534 ("riscv: dts: spacemit: k3: add USB controller and USB phy support")
+Cc: Inochi Amaoto <inochiama@gmail.com>
 Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
 ---
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 22 +++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 60 ++++++++++++++++++++
- 2 files changed, 82 insertions(+)
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 ++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 3 ---
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 0a6f669d509a9..5aa6fa89cab58 100644
+index b084a35aa00e3..0a6f669d509a9 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
 +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -323,6 +323,28 @@ &usb2_phy {
- 	status = "okay";
+@@ -328,5 +328,7 @@ &usb3d_u2phy {
  };
  
-+&usb3b {
-+	phys = <&usb3b_u2phy>;
-+	phy-names = "usb2-phy";
-+	maximum-speed = "high-speed";
-+	status = "okay";
-+};
-+
-+&usb3b_u2phy {
-+	status = "okay";
-+};
-+
-+&usb3c {
-+	phys = <&usb3c_u2phy>;
-+	phy-names = "usb2-phy";
-+	maximum-speed = "high-speed";
-+	status = "okay";
-+};
-+
-+&usb3c_u2phy {
-+	status = "okay";
-+};
-+
- &usb3d_u2phy {
+ &usb3d {
++	phys = <&usb3d_u2phy>, <&combophy 4 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
  	status = "okay";
  };
 diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 1af47b7f1c8af..cf1c8b572c86b 100644
+index b9977e78e096a..1af47b7f1c8af 100644
 --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
 +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -441,6 +441,66 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
- 
-+		usb3b: usb@81400000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0x81400000 0x0 0x10000>;
-+			interrupts = <125 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_B_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_B_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_B_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			dr_mode = "host";
-+			status = "disabled";
-+		};
-+
-+		usb3b_u2phy: phy@81500000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0x81500000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		usb3c: usb@81700000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0x81700000 0x0 0x10000>;
-+			interrupts = <148 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_C_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_C_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_C_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			dr_mode = "host";
-+			status = "disabled";
-+		};
-+
-+		usb3c_u2phy: phy@81800000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0x81800000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		usb3d: usb@81a00000 {
- 			compatible = "spacemit,k3-dwc3";
- 			reg = <0x0 0x81a00000 0x0 0x10000>;
+@@ -452,9 +452,6 @@ usb3d: usb@81a00000 {
+ 				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
+ 				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
+ 			reset-names = "ahb", "vcc", "phy";
+-			phys = <&usb3d_u2phy>,
+-			       <&combophy 4 PHY_TYPE_USB3>;
+-			phy-names = "usb2-phy", "usb3-phy";
+ 			phy_type = "utmi";
+ 			snps,dis_enblslpm_quirk;
+ 			snps,dis_u2_susphy_quirk;
 -- 
 2.53.0
 
