@@ -1,97 +1,103 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DE94AA1F7
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50344A5C54;
+	Mon, 28 Sep 2026 11:22:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594555; cv=none; b=a2lucgKecfsFupP5SNqJYjl565Rith7ECRbD8vyy7vJ0+CTuECeXG6bdMIt7IEqbUwKZh/V5TOAzwkxy3rmBeHDHs+57kJ+MJAVGx6FfB2AlifVuDmpDrtGr4qlJOZienHgkM5ieI109ltpmwdY38/Ylyk2lPxtft6y0JjwkIXM=
+	t=1790594568; cv=none; b=NyIjP7oFLMQ1tfsYTNPU3rWdQevbGzDHF3n4OtPaIuGVFGVmLRvrktVlw23s1hiv3A/VBDv5l+/xrsJJUZ34Y+7pCHkCIEMn90+Gsok7Y5p0HyTsDayQC4djX2lpLsBCVLkXdsFbbTNdu5BiW4ONUbq+cb7lNiQEEFzhTw6SadY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594555; c=relaxed/simple;
-	bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K+2pGDs7f/4h6Zf7wRAPMRXnNx+VUWFsH20W5wpaIhynyAZK6EzhoQmURS5JdAqO8sBn6Ve3xD4t3NflK+AKZKWF1olenGivEocBuq5HjdGklVLf8+Z0xP9I/auuJH572/kXU7Jd1HlJ1W/Swle3JzWicGjZqgqYVpvDRokPw7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VB6Sqw7/; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790594568; c=relaxed/simple;
+	bh=I8FU2VMH9Cg41tf2voAO5j1Vslvoq7wOp6q/hU8Lxlc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=A+Pjtm96/zHrWTkmc8yayMemjpCOH9ly2BFZO8ktNjGTBLHbFYXORClP9IUbeucILxlXxbJ/dTZSDtsEvdyjdistvkYHnfpbYQ1MJf5wLbqCKDyuUdFJ5Ck+QhYdQ6YYkuwrtdeiWkH6erRdGYbVm/rZuLGGAalHtQC6flMWrY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JReAxmyF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VB6Sqw7/"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343697ad877so117529eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:22:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790594547; x=1791199347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
-        b=VB6Sqw7/Z8GTAJ4kFlLJPwzaUQU0aEfmiFRiB8Fd1HtHmAZWNQHTzJEOFHS1A3fFfz
-         0XkA5w0i3P/oigOeczsctzo+3eRrYpfe0RyBekSt7JmbpLyylp6UnYzfFap0N+2mn90/
-         7uDf71wCAvXjLFxSpt1JKUbgQ5GJ1Ejy81ztIDkJEhTFKgKZDI47wlXJHVpf8onPIHaG
-         74sXtp0BzOOXT50F/yMwMMissMNgagu8fJmEVpFSm9xWCrvu7W8QPyUp7ycb3LB4UyKz
-         Afi37QxraaYdQr1B22WR9nP2G9VTYU8pB68FRDLPFOhKCfly/45MZnfFhXkTvPzsIR+R
-         hD6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790594547; x=1791199347;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lJQz35lNLmHImQXDxRBBTx01nhhoR67A1rVNCsVep8I=;
-        b=so79FjyYRVFKWxVwG4c1v86l9pUCRzDyxbqRxjgV8iY2MH2mOkp1ZbhnrepM1vaT5R
-         6G6flaQIYSLgBRGu6Vh3KFs+XcbNKMD2M9mWzxPhnXqQMFbkpdqAmvvIwNVj3eTT1rtU
-         G+XiEdRBlg5sXRxsDVXuHMEqw9KDn3pt5A+W3ppMkcVeotYjhvovYtFPJPPYZJO1nfdh
-         kkGYLoBFMj9RK+z6UhlSO+SnCIi2lkUSsGAN5BwfXFCkIARfmefYELdy4kCcQACRaFNB
-         TyJf/h4blCApaQppvNNULz5bXjMw2WwjZvUB4bEInVOoWxn1vYxJH0LEuOo0k6RTuGo+
-         7OhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBHudYTO4bwxfuKe8dF+2+t+3MDgSIsN3bdX1AUGYn8pQsGzV4fP/wUulgLF/OsfZ/bwg1oXMkv1zBIgQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n60i9X4fL+ttZANV0ZI+AkK7kzRwhW684Qq2WuuPHFzGJIBOWj
-	XxGdcd8W58dSbNAen9Md0TZgb7WKUwsbpckXSyDkZhXCD21PiAFVXjCN5hNQtgHm
-X-Gm-Gg: AYBFou2L958jAleuyXuC3OkNxaodorZ2vV9Y2Iy6gwWSOE+OaFET0Q8MllBvzd6MoNw
-	cXcUVl0d7obIioAtiedo0bKlilqmQnNm26jYQp4Vz90XDARYp9iUGoiPgSs7F/sVROMGpsoOgKy
-	uUhUK/ytxa7CsajGSup/xY4b9m7rhz1LdR2ZZeOO8rS+bEVTSJ1djN+0O8JaBYlQZY1p7lv2hgN
-	Gv6hPKHsPxZtJWuFHc+CiCb4QjWQ4WeGmsqcpc9ushClyMPvITfVP2i5u6JMUKM6mcH22DK8qaF
-	0wP+/1NfJz2MEi1HXFWkKicV/qVUSGn3qep0tpZQhrzGsYVakFXJ/koNZXlDibO26utpiee6y2k
-	8a56MxXB2VqfQBxQsbXphMGGSHsjL+yNT0Hw8Gsn5MAm/9QMRV0FR/zJjsOdiU1umGbPm80H1Ql
-	mVdOxyx7h04znKm1YP9BHfYvrUStHFE18F0kHF6rnnmtYkaLox4fQgZPOI/RP1VHjWM3+oddhtO
-	TvDqqyr0oqtZ6mLOHqB/LrHyv0RBwch8mdJ/b4G6LF1TKnNP+5oVxOOFZrrQgQPmm6ErkAKOOLk
-	O18UUVPtdpNKnS6fGc0=
-X-Received: by 2002:a05:7022:29c:20b0:12d:c389:ae54 with SMTP id a92af1059eb24-146cfdd1a65mr15123488c88.2.1790594546278;
-        Mon, 28 Sep 2026 04:22:26 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm20689853c88.17.2026.09.28.04.22.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 04:22:25 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: rf@opensource.cirrus.com,
-	david.rhodes@cirrus.com,
-	broonie@kernel.org,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: ALSA: hda/cs35l56: same calibration condition logged at dev_info() and dev_err()
-Date: Mon, 28 Sep 2026 16:52:19 +0530
-Message-ID: <20260928112219.713777-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87jyo57ifo.wl-tiwai@suse.de>
-References: <20260914000308.108995-1-navonjohnlukose@gmail.com> <87jyo57ifo.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JReAxmyF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A6BFEC2BCF6;
+	Mon, 28 Sep 2026 11:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790594568;
+	bh=I8FU2VMH9Cg41tf2voAO5j1Vslvoq7wOp6q/hU8Lxlc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JReAxmyFuUZQjuZWYmhHDVR4ThDXwSB1BiAKs+8cHpwA4Thzs0ZvVu+psKEzCLl+Z
+	 6cKymtH7UVat7x2RNShEsjl4XwRa7rkgK6/pExBoCN8N/TS1a8xk8wsYzOkj0nYG8I
+	 Tv97zDQUKRXif0CEUTGYcyrAV1AMMvCzAK1QlUFPArhQHNbCxdURB0sWlrg61yDG98
+	 pboCANFh6pyWM/WxuLmckO2eV6GGZV8m8iOohWGJSeeDGTe8K1i+t/Xm9XOzgDUPKI
+	 1+SPWtCJvVOiSFdBS8EDZkfzyRC2fX6Pgi0GddFBx01YaDgkVakjnMwHmkA93B9Ibw
+	 EZJU1NvRSzZQw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87A39CA5FA2;
+	Mon, 28 Sep 2026 11:22:48 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 28 Sep 2026 13:22:46 +0200
+Subject: [PATCH net-next v2 2/2] dpaa2-eth: mark DPNIs without a DPMAC as
+ virtual devlink ports
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-for-upstream-dpaa2_ports-v2-2-1cda148530bf@free.fr>
+References: <20260928-for-upstream-dpaa2_ports-v2-0-1cda148530bf@free.fr>
+In-Reply-To: <20260928-for-upstream-dpaa2_ports-v2-0-1cda148530bf@free.fr>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Ioana Ciornei <ioana.ciornei@nxp.com>, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790594566; l=1468;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=3YGJMDPaMDzgW71kznvDVaigwXmYnYuAduxFzGsju8g=;
+ b=gpjUniYcuC+Qe5vrx3IlrqALzspy2ZUXoss6j4BUCCbJkk4umwE8zC+vKI0I2iUlpRnCRCEnE
+ FzIuJpaxXe8AxIhMRlH2d2DReQwZbxw8WLsDjtpJydh1r588O23Y3Tv
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Mon, 28 Sep 2026 12:56:43 +0200, Takashi Iwai wrote:
-> The actual patch is missing?
+From: Vincent Jardin <vjardin@free.fr>
 
-Hi Takashi,
+A DPNI whose endpoint is not a DPMAC has no physical connector: it
+may have no endpoint at all, or be connected to another DPNI or to a
+DPSW port. Until now, such a DPNI was still registered as a physical
+devlink port with number 0, so userspace saw a physical port that does
+not exist.
 
-There is no patch, sorry for the confusion. This was a report about
-the cs35l56 documentation rather than a code change, and I should have
-made that clearer in the subject. Richard replied in this thread and
-will reword the doc text.
+Register these DPNIs as virtual devlink ports instead. A virtual port
+has no phys_port_name, so only the DPNIs that serve a DPMAC at probe
+time report one, "p<dpmac id>", and those names do not collide.
 
-Thanks,
-Navon
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ drivers/net/ethernet/freescale/dpaa2/dpaa2-eth-devlink.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth-devlink.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth-devlink.c
+index 4c0a04c2d458..6defc00199bf 100644
+--- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth-devlink.c
++++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth-devlink.c
+@@ -233,7 +233,10 @@ int dpaa2_eth_dl_port_add(struct dpaa2_eth_priv *priv)
+ 	priv->dl_port_valid = true;
+ 	mutex_unlock(&priv->mac_lock);
+ 
+-	attrs.flavour = DEVLINK_PORT_FLAVOUR_PHYSICAL;
++	if (port_number)
++		attrs.flavour = DEVLINK_PORT_FLAVOUR_PHYSICAL;
++	else
++		attrs.flavour = DEVLINK_PORT_FLAVOUR_VIRTUAL;
+ 	attrs.phys.port_number = port_number;
+ 	devlink_port_attrs_set(devlink_port, &attrs);
+ 	err = devlink_port_register(priv->devlink, devlink_port, 0);
+
+-- 
+2.43.0
+
+
