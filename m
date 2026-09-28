@@ -1,145 +1,172 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437094E73B9
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B684EB876;
+	Mon, 28 Sep 2026 19:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790622938; cv=none; b=hK93alj6ZFrjHTKIFngBiq1M6qEP2+qQ2F4iT4MctRht7Dbb14JhPeqozgFKG8dnRCu5mnFZRnRKW8KXkUj0ErhysehDa++s8oRRGEVfW4n4Dgvxq6X83G9/jawQAWAmbTJpEdbDbGPWiWO10ILWTx4vVZZ0fQ7vQ3g33WFWmEM=
+	t=1790622942; cv=none; b=G30OKlI38qj5D5mvROpYgL+H4WfwgMzi+WM+BeDsvSTPzc+jEzQo68zLr4w13xgEUetNX8w4t0QMn31b1OWDs1CDNdfB3opGW9SXZ+RmE+dMzamPXwAnNcQTm1BinSCfTMY2eb212x71ihrn03K7I61BjzbMrVyuyAqH390kE14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790622938; c=relaxed/simple;
-	bh=cnSkWhVxKLSHuvDTlQufv+EuF2rraS4RcqOQGjemejk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FqPM+WUTOaaRveTvssvRh22MOR9uqv4x1O6tl5uGikGCwKdUxWBJlN8hLYAYrw46kzQbz2QIz3DcQ9/hfJkcx58r6dsKnMA9JuFqrngW4JTCGcgNobwpA0UlbHT9vuYuMq3CURtFhq6SGJF4NidPmiwiXIXeunXdo7uJYyFSLh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1ul2MGa; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790622942; c=relaxed/simple;
+	bh=puqMg1sTaFj/Bsh7B+dlZfWlRdP87GEJpVuSjxj4Jq4=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=XXdB1rBUzmVnyp4rQ9401oT+5yiL8EG2Gfq8h5h6Ezvjip+lFzoNqFRlVoblF/dB02+nM9Za3kYBW3WUvv5ND9uE/BgCghd95pOTuTcaSdikYnFfRMkcewJ4jBjorGPSoZb6yt/xGCRB2UQrqt+WkewIF7drWfimBOi/ksNcOVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HuKZ7ocI; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=n/SaJfiy; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1ul2MGa"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-883a16b758dso267003b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 12:15:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790622936; x=1791227736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RgWd/l9HpKlKhvcWTT1u0c7+1pXvz8TwXeJa3yLEX5w=;
-        b=K1ul2MGaTUlcU8VoW/vtt3h45V2MYm/YBvwbZR91EXDoyl13W6Q8fgtqYxlszs1w4e
-         wp7lCYHPu49E9isGQ+3ibE7C+C/+5nAtA0J65wEy6fthROkkZGuF0j6Ap9WOMGF5rHlT
-         DFyUjqpI+xrWZZG5t1vjeOiCx3DrHFW9+k6dQ7UoylvJrk8XhYU8BW2iQ7tMgZ87FC6r
-         B0lpOhAXr28bilYzaCElM46svxOF0h1gVXFvcH/hc1GpvjtujJ6KtxhuHnz8q5tbz7c/
-         E+1pCkt+/qMWoLpTcnhmp9bHSWnexnCmJ5QMYIzudhzS/liYFOGoFZIyRQXUW1BTXaP8
-         hsfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790622936; x=1791227736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RgWd/l9HpKlKhvcWTT1u0c7+1pXvz8TwXeJa3yLEX5w=;
-        b=E+FBiGVE2hbZOvakvxOcMHS/Zw/2wSAE9zf4derzuk2Zes79GYS7Z/nPW6jSVTng9a
-         uyjDu6c34I5aOf1P2Fbac9/CcyBoWd5q2oy+XSRC0MYgWw4d9bZUmTWW844G3QS3QmMb
-         nZgK35meryA3J+sIiI4NmqkFaZMCFLrdoXxE3/j0s0HLHZJoYkuWGAFI/FSgjZ+H3X5f
-         FD6Z1XEMVe6JCupp2cx5gVin4vJAyhqfBf1IV8OWII3N82pl3GTH12E2TCqVgcqdpOqN
-         dOJjS7WWTHvGtY88mAxNSvsyvNnurel8JNVufY+KRDCuNiE4Z9U05NyISNkUz5crFp31
-         V6gg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/B/0ulsEPBizlsdcEI0QEzfkuc/prgqjnBKl08/28Jd4KwtH6q3bDau+T+4OJYmMMY9jFledU+M7aNaA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLemLoX2sVeoSQvHX4lG5TASwv8lSb9z+jnA49YCRqKSJrkz2/J
-	fGt0z39AEOtsNJwKWb9v9oaUmtEYtm7Qk/xUaHiWdY5sgtNgongUQGJC
-X-Gm-Gg: AYBFou3TsfkEsmP/YTmpuw8GcxXGzG2Lv9xJBaAlzrMqu5CgUxISOfmOFVg0eDzSqM6
-	QseBWd2JgzrbcEJEt1uIRoFn3FbvcKCxodx8cknaaJBOw3UyQmaoZt7EIOFs+MaK7nlB58kDvUU
-	Gbp3JIA/Ax3SQvNg26CmZHSGN0oj0Gq9fg3908eA54UxkYSLc2s/UIT7/fJTG/vvmT0wUGiHVoK
-	ae7T8B2swRDGHuXPBXEKr9HabDLCAOpb2PFazPQ4DXD2cBb3szb5MMkXCjnMaWnB5n1YzTnbcOy
-	9uGxdUwIGX3U1oicvIu5KiQu8ooS83WmGBxlrHno8EMIQoj8PlOVDpIGnbnHRW8O5JoSnBtzbDn
-	VIruFbGkhPCj9OshHcrOAuof2ul3ST1KbK47jFKixsJcTyKupsVBz7zozWFGpcXZVLcfZ4Il3Zq
-	UkkGMb0GX/Mds+g2lpLR7f3qNFQ9czOvx3ou938k7rSJ0Xfve8srEPZsEL5g1oU11TqH/X9t/L1
-	6b67POcfc1ImUfDpqJSS/YxXPqWC7KBjskkqUPbBzXdipg5I4ve4MCsKzBUjM6zlYayq8Agheq9
-	0ijLhSapOClh1kOOuinp
-X-Received: by 2002:a17:90b:5648:b0:3a0:e985:9ca2 with SMTP id 98e67ed59e1d1-3a49c1a1c55mr90738a91.31.1790622936500;
-        Mon, 28 Sep 2026 12:15:36 -0700 (PDT)
-Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2006-1fb9-8409-0195-705e-5b47.dynamic-ip6.hinet.net. [2001:b011:2006:1fb9:8409:195:705e:5b47])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49c1afb23sm284314a91.16.2026.09.28.12.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:15:35 -0700 (PDT)
-From: Yiwei Lin <s921975628@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Yiwei Lin <s921975628@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] rbtree: update augmented data on the way down in rb_add_augmented_cached()
-Date: Tue, 29 Sep 2026 03:15:26 +0800
-Message-Id: <20260928191526.645160-1-s921975628@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260928140513.GF4121620@noisy.programming.kicks-ass.net>
-References: 
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HuKZ7ocI";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="n/SaJfiy"
+Date: Mon, 28 Sep 2026 19:15:36 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790622938;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xh3djANS6QZdIIa9maXKS8rDvXhbh+b5OB4Sb1sWRTY=;
+	b=HuKZ7ocI86o4wK3K6KEyyL3mVAX99QuA8ga0nX7sUaNRefQh+luHjMryrWZMrpIAg+i0zP
+	kSCLdGCr+iCA+Vo/IbAJgrj26dWM33CE3Enj1y96rD398pbBWSFIBKgJQhDfIdnqJLvVeE
+	kufw1PtkRPZTNrnrpHUF/Ew120CZ8yMD+OFJLVQ6CfF34O6RpuzZbwXUMxAbn2loRM25TS
+	UNoFvNYtC6D9bBahNo2cOf3igGDZdUnv+nYtopRDvRYpcQvO3cNX257klQ8M0ASrVDEqZ2
+	Tf3hi1u6q2mzutSviDWIOuR0w+cQKhutejSOzDKwMDDX6NM3cVSYZ/KflCOKMg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790622938;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xh3djANS6QZdIIa9maXKS8rDvXhbh+b5OB4Sb1sWRTY=;
+	b=n/SaJfiyZlC+gUfg5XMc7CZMV2vcEKf+V8QdD7XpR6rdowhNaoBZpX5FDu/Jd9JiM6CR5g
+	/bYOZ76Ez+xQEmDw==
+From: "tip-bot2 for Nick Desaulniers" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] {x86,um}/uapi/ptrace: Guard register offset macros
+ with __ASSEMBLER__ or __FRAME_OFFSETS
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Oleg Nesterov <oleg@redhat.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Elliott Hughes <enh@google.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
+References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179062293624.3910103.15499265591348988384.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/09/28 22:05, Peter Zijlstra wrote:
-> > And that is *very* close to being generalizable, obviating the need for
-> > RBCOMPUTE. Does your LLM see a way to make that happen?
->
-> Perhaps by doing something like so?
-[...]
->  #define RB_DECLARE_CALLBACKS_MULTI(RBSTATIC, RBNAME,			\
-> -			     RBSTRUCT, RBFIELD, RBCOPY, RBCOMPUTE)	\
-> +			     RBSTRUCT, RBFIELD, RBCOMPUTE, RBAUG...)	\
+The following commit has been merged into the x86/urgent branch of tip:
 
-Yes, and since RBCOMPUTE is always "reset the fields to the node's own contribution,
-then fold in each child". I think we can also generalize it with RBMERGE, by
-adding one extra RBINIT:
+Commit-ID:     a661c34fe693c8f9ef29b45ee71cfa1fe593502b
+Gitweb:        https://git.kernel.org/tip/a661c34fe693c8f9ef29b45ee71cfa1fe59=
+3502b
+Author:        Nick Desaulniers <ndesaulniers@google.com>
+AuthorDate:    Fri, 21 Aug 2026 15:45:42 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Mon, 28 Sep 2026 12:11:19 -07:00
 
-        static inline void min_vruntime_init(struct sched_entity *se)
-        {
-                se->min_vruntime = se->vruntime;
-                se->min_slice = se->slice;
-                se->max_slice = se->slice;
-        }
+{x86,um}/uapi/ptrace: Guard register offset macros with __ASSEMBLER__ or __FR=
+AME_OFFSETS
 
-So the original RBCOMPUTE can be generated by the template instead, which allow us to
-remove min_vruntime_update.
+The register offset macros in <asm/ptrace-abi.h> are guarded by
+`defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)` for 64-bit, but
+were left unguarded for 32-bit. This causes havoc for userspace that
+happens to use identifiers colliding with these short macro names
+(e.g., EBX, ECX, EAX, DS, ES, FS, GS, CS, SS). Without this guard,
+userspace is forced to be super extra careful with include ordering to
+minimize the chance of collision.
 
-        static inline bool RBNAME ## _compute(RBSTRUCT *node)                         \
-        {                                                                             \
-                typeof(node->RBAUGMENTED) aug;                                        \
-                RBSTRUCT *child;                                                      \
-                                                                                      \
-                RBINIT(node, &aug);                                                   \
-                if (node->RBFIELD.rb_left) {                                          \
-                        child = rb_entry(node->RBFIELD.rb_left, RBSTRUCT, RBFIELD);   \
-                        RBMERGE(&aug, &child->RBAUGMENTED);                           \
-                }                                                                     \
-                if (node->RBFIELD.rb_right) {                                         \
-                        child = rb_entry(node->RBFIELD.rb_right, RBSTRUCT, RBFIELD);  \
-                        RBMERGE(&aug, &child->RBAUGMENTED);                           \
-                }                                                                     \
-                if (!memcmp(&aug, &node->RBAUGMENTED, sizeof(aug)))                   \
-                        return true;                                                  \
-                node->RBAUGMENTED = aug;                                              \
-                return false;                                                         \
-        }                                                                             \
+Wrap both the 32-bit and 64-bit register definitions under
+`#if defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)`, and ensure
+User-Mode Linux (UML) defines `__FRAME_OFFSETS` for 32-bit as well.
 
-Base on this I have another idea: can we let augmented data becomes one member and
-init/merge just work on its type by value. Taking sched for example:
+Closes: https://github.com/llvm/llvm-project/issues/217413
+Assisted-by: LLM
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Acked-by: Johannes Berg <johannes@sipsolutions.net>
+Tested-by: Elliott Hughes <enh@google.com>
+Link: https://patch.msgid.link/20260821-ptrace_uapi-v1-1-3de8638a29f2@google.=
+com
+---
+ arch/x86/include/uapi/asm/ptrace-abi.h | 4 ++--
+ arch/x86/um/asm/ptrace.h               | 4 +---
+ arch/x86/um/ptrace_32.c                | 1 +
+ 3 files changed, 4 insertions(+), 5 deletions(-)
 
-        struct_group_tagged(sched_aug, aug,
-                u64 min_vruntime;
-                u64 min_slice;
-                u64 max_slice;
-        );
-
-So fair.c's se->min_vruntime etc. can stay as they are, we don't have to rely on the
-FOR_EACH machinery. Do you think this can be better or do you prefer the field-list form?
-
-Thanks,
-Yiwei Lin
+diff --git a/arch/x86/include/uapi/asm/ptrace-abi.h b/arch/x86/include/uapi/a=
+sm/ptrace-abi.h
+index 5823584..3656955 100644
+--- a/arch/x86/include/uapi/asm/ptrace-abi.h
++++ b/arch/x86/include/uapi/asm/ptrace-abi.h
+@@ -2,6 +2,7 @@
+ #ifndef _ASM_X86_PTRACE_ABI_H
+ #define _ASM_X86_PTRACE_ABI_H
+=20
++#if defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)
+ #ifdef __i386__
+=20
+ #define EBX 0
+@@ -25,7 +26,6 @@
+=20
+ #else /* __i386__ */
+=20
+-#if defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)
+ /*
+  * C ABI says these regs are callee-preserved. They aren't saved on kernel e=
+ntry
+  * unless syscall needs a complete, fully filled "struct pt_regs".
+@@ -57,12 +57,12 @@
+ #define EFLAGS 144
+ #define RSP 152
+ #define SS 160
+-#endif /* __ASSEMBLER__ */
+=20
+ /* top of stack page */
+ #define FRAME_SIZE 168
+=20
+ #endif /* !__i386__ */
++#endif /* defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS) */
+=20
+ /* Arbitrarily choose the same ptrace numbers as used by the Sparc code. */
+ #define PTRACE_GETREGS            12
+diff --git a/arch/x86/um/asm/ptrace.h b/arch/x86/um/asm/ptrace.h
+index 2641d28..439c415 100644
+--- a/arch/x86/um/asm/ptrace.h
++++ b/arch/x86/um/asm/ptrace.h
+@@ -13,9 +13,7 @@ enum {
+ };
+=20
+ #include <linux/compiler.h>
+-#ifndef CONFIG_X86_32
+-#define __FRAME_OFFSETS /* Needed to get the R* macros */
+-#endif
++#define __FRAME_OFFSETS /* Needed to get the register macros */
+ #include <asm/ptrace-generic.h>
+=20
+ #define user_mode(r) UPT_IS_USER(&(r)->regs)
+diff --git a/arch/x86/um/ptrace_32.c b/arch/x86/um/ptrace_32.c
+index 3af3cb8..9e9155b 100644
+--- a/arch/x86/um/ptrace_32.c
++++ b/arch/x86/um/ptrace_32.c
+@@ -7,6 +7,7 @@
+ #include <linux/sched.h>
+ #include <linux/uaccess.h>
+ #include <linux/regset.h>
++#define __FRAME_OFFSETS
+ #include <asm/ptrace-abi.h>
+ #include <registers.h>
+ #include <skas.h>
