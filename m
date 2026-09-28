@@ -1,220 +1,202 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77064B8291
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7218F4B7A3E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596710; cv=none; b=ZGzEwJYzWoMq0V0yE+scqlpcVt45RcPhEhIA51YXDH25VyP5107SkTACMOycHCXmNVYAMuUz2owSm/ZrUtshutYgyaahJHstznfnO78Octy17pNspU1ll1MelXXUumayknBp0A/uGaeyzKRFbBidbNtjlYnuIGrA7ySa0oC9pGg=
+	t=1790596728; cv=none; b=P3zQuFAuvHXeQ4HwLKAOrprZg2MEQ8lxHGxTZi4HmOJ7RdfJ2b2+SGdM31Axa8rk2J1k97SjOYIeAJOTAQnLf+t08Fe0EuP/y/5GDrJ5mlW1NAH2QdzDFtmBEsiUD24z48vjmkq/7WWVLS1FF4owiWf0Unp8f1+brgCELZwDRNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596710; c=relaxed/simple;
-	bh=1O3PxAFo3FfLIlYr/TdS/zrbc350A63udpmTM0P5zpo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WBWyBlLWJzLnSAJYv8IvL/hQTualdTaFK3eqiqxsi/qHE8PWzRWA6jVgAK1Z4yTSAjOncJflAIqOidDeu5/0RBMuM9SH2giU6uD8QeWUU2ycOmZRuB1K/RGt0jTy6nteCijuZT4MBOD2I8zmO9LB/fmiWZEmfBYEyYLi6xRIPu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4959c49e054so3134642b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:58:28 -0700 (PDT)
+	s=arc-20240116; t=1790596728; c=relaxed/simple;
+	bh=a5KcPfO/lVWvSV/4F80VAySM5Pi85YzX0n3tROeq3fI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mamgYs9pJxRt41tWlZ2hU3wnDQdjsKLNL0Rv+ykUChZfwCVOsZ+i260dFOOR6wm6w0LCVzEKDYVHjLMEhk7D14cjaa1di4VFZl8/VObJtPIMCeNkK46QmsGl0VfrGfrO720zoKMi01WZvZheDUuc+6xk7lH/A8SMUWy0X+dOn+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMpjLb6s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=abrhiRd1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMpjLb6s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="abrhiRd1"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAZHB558813
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=GWvcEfZFoPLDafBzTdcCM2
+	UQzqRP8Ydg4Kuy7k8AJBs=; b=aMpjLb6sF5zwjCIthlnlTSZP7LWcH2cdRXg7MK
+	6ut+DkS9JJNrkQr17zR1WNVAPzqT0O3S+On6sVE1oAH4aOR/ltSjg5g/Ggib+1uh
+	syhfQ6b9FlfDYV2QzduiMEskG/5n5zDO2zzqDkSKOhzS6Gs0qKVDXps1lrr8gBFT
+	YSWNSchv78a+eEi5miyUtJr68Rb9P/7iPUeBUjCEULtKRl2OUNS8u9Y0/cznwcAK
+	1cZLr50+tfmJoXd9+gd220/Y3qw1Libj9a0Tvk9XLhIU//3uY9Tc2dG9uCFnypXo
+	Ux9XoHWkZZ4Pw2uYvSPVQ/3abT/om7NXqIQ5xj5144DPgKHg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq203t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:46 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a0f55a3941so1877630a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790596726; x=1791201526; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GWvcEfZFoPLDafBzTdcCM2UQzqRP8Ydg4Kuy7k8AJBs=;
+        b=abrhiRd19ghEdqmBbGN9D2dPc+z2qmLCrY/yzIwa38pzu1L8UcE/xnOdstHPZqBLA2
+         kQdBPTDcSzf5uuSFMKG0Hh3Ohy0Yrg7/llqMwN7RKn/7Aqq2WeVUOlhZ8zZLeEYDNHao
+         GTN7/JGLQ4uyyCpXJbkvQc7/wMJOHr+a//RUFW+M9/PUYrvYYXB9UtfPH2Ct3VtW2BBe
+         to4UILjsKgMoQSzXlrj9xq5DkK0t7YmB/FrKPQ5hbfoHA5XGq/0Xm8TUZryg37lhJ348
+         /J9I1QW1toAfyhG8+x4qsqrPVQddfFRi7OyBLA8PqjrAcn/KL+D+qLSKDJTWG8roGXTH
+         N3wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790596707; x=1791201507;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tD00Tn9PzpN11Ydf9Aruk6Tjr4xl8SEYjEbKTx3h+aw=;
-        b=B2Hrvz1nIYYaf+i8oKCe42/7BFkGJq1rz0tz76pQ3Ck8L3LK9scFl4alRjQZ64zVWQ
-         fQXhVZLzpQscjMQ5xn3PCD7v5FgPjCivPRtN3tSJHb7cHz5Sq775PjeTd6dGpo3VW/Yd
-         e61XLG/nrw2lPDNl9acB/UFyPoAixCukSACxlQwc3MAeqvrFzHKlhIPKjoHfV+m3GN4b
-         v41VfoTuqRatfJGZIajLErUvgMbKXYwhYQMoew1/LR7G5yY6TqJ9DRKCWECEp43aWiI9
-         G9hjuUlHhK1eV8ly8/v0xwNGj+mrVjSL9kQx/zt0DJuFuoPTJMTwW+0bSD8/N1t8DMWe
-         c8rA==
-X-Forwarded-Encrypted: i=1; AKwUvBxw9DTzV4kBY6xXAPKuAErrRbVWPd3Qrs545OYMFyFvsoMQJzMhHdvFFodOM1Qn5RfPn8F570DoFf+KiNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxy/miicV8gAqLVNUAnXx50HQRDTSK+onghOZdxFWdHM29y8D5
-	So7E+DNlsTaOQbNU1ayWIXpySrQrq92aFUvlhqdjcgAL18K9k/Kl3pjjx+NCMBtzZ1Q3ii5xhBJ
-	ftPo5zo5Y46hqw3xaiJrg6A//oQcASXO1kkTdrZE8z9zA2Q0DHpLONfFso0s=
+        d=1e100.net; s=20260707; t=1790596726; x=1791201526;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GWvcEfZFoPLDafBzTdcCM2UQzqRP8Ydg4Kuy7k8AJBs=;
+        b=pLnUhSC7RnKvUnBkegnbOPr9Hg5QC3myt8oYPigb1t+vhIivJlsyXBbDGTAp/HEkgK
+         r5NmFzFn98Gs/Fi4PX++TK0GVfT8l2IYzseX7rLLkoZwdFNga3lQAuyS5OnE9TkkDdNH
+         aN5H+eoufqLjePALwOgJ/uH7Nlt+XAQrmSELtNqZ2OvFNKAh24mNKY34BSvpbkdA/7Z1
+         bGpr0T9UX1eTutilmtasurCHrYbuk7bnM24/pXBcRckJcFUSBv9QTqLMBdLWge88C5k3
+         tNO77QG6ojsjOJQ8PTBvt42hOWqb8eJetb1jOHbY8BeARSyP76QY0/1+wsksv2PiDwZI
+         4ysQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/c8iL1C7Ox27YbFIfg9gyLQKoKjr9L6BVlYTEzVGjMh3rbP0c4kvCfBHSxGH4n9ztDkVDRGFib/g26Y0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpQ6s/lEh7Qz2/VQsNn8ZkBtsaTac0EzCYvByMvlhehoyQUxHT
+	qgm90fRBA0YbLAQ20oHQqAC3uCWia0EfIcMwjCuQAtN33/AoylTY2FsKI6sDO2uWeDnMHojOI2i
+	iYLIULx+/e21fYMjo4i10ZrXLzgvMlTVoCCLLsW+CxTHZyzdR0hiBbtBu0D8gnItIWfQ=
+X-Gm-Gg: AYBFou0HkLTuglXBaFAHqpjswW8JmOIyoRpZ+rBAfZKFxxkBLvIiUQvjnh6DlYpSBm8
+	8r87xq3nDFrxMJG/4Wu4LMc10H5gFpZGjBVbpOGtDUpKYV984C5UGn8qrJiV59kEtjyFtFlDPe7
+	9gcx3ufRRh1Kv9HV6SElmuqAP3WtTNRoU4JQqi4WKxMPdRXgtTjnQ9M898jm3wh5ni+Z7L+jWp/
+	6PPrEo61RRC0jbkOp9bXHDlAuH2ZpumEzGq75IzsFL+FZ+cRe9cz2cToTw1quPete2yAINVc9K7
+	urP11t5/NMbzfg1nN7bsw9+tgNPwvLTgJhEt6foIoUtgx+DJFYIF+2VkPlTsBoMn4sMnYlDmaS0
+	/WwhfdW2oHP5iUBg1LzoJUf+GilXcxxU4UZSx7kXmbjGt7cjHyezyJiW0mqffjLNqrlemqk4=
+X-Received: by 2002:a17:90b:4a91:b0:3a0:bf26:f24a with SMTP id 98e67ed59e1d1-3a0bf26fc15mr7372235a91.45.1790596725722;
+        Mon, 28 Sep 2026 04:58:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a91:b0:3a0:bf26:f24a with SMTP id 98e67ed59e1d1-3a0bf26fc15mr7372213a91.45.1790596725186;
+        Mon, 28 Sep 2026 04:58:45 -0700 (PDT)
+Received: from congzhan02.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm22054562a91.1.2026.09.28.04.58.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 04:58:44 -0700 (PDT)
+From: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 19:58:38 +0800
+Subject: [PATCH v3] virtio_blk: use synchronous quiesce in
+ virtblk_freeze_priv()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:17a1:b0:4e6:76eb:b997 with SMTP id
- 5614622812f47-4e676ebbb9amr6162017b6e.62.1790596707620; Mon, 28 Sep 2026
- 04:58:27 -0700 (PDT)
-Date: Mon, 28 Sep 2026 04:58:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aba5663.beeaa6a4.36f27f.0003.GAE@google.com>
-Subject: [syzbot] [i2c?] INFO: task hung in ft260_remove
-From: syzbot <syzbot+1dc44aa283d5af458c73@syzkaller.appspotmail.com>
-To: andi.shyti@kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-virtblk_sync_quiesce-v3-1-a037e6e2fdf5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAG1WumoC/3WN3Q6CIACFX8VxHQ7wJ+yq92jNAWJSKgnKcs53D
+ 2xtXdjN2c52zvctwEqjpAWnaAFGOmWV7n1JDhEQDetvEqrKd0AQyVGBEXTKjLx9lHbuRTlM/is
+ kLDgRlFZpluIc+OvTyFq9Nuzl+ul24ncpxsAKi0bZUZt58zocdl8F3lc4DDFklCY1rRNMMnrW1
+ sbDxFqhuy72AYLJkV8W+cMinoUKhhDO0oIfyQ5rXdc3ejIhdB0BAAA=
+X-Change-ID: 20260910-virtblk_sync_quiesce-9b2c88d45416
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+        Eugenio Perez <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+        Ming Lei <ming.lei@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Cong Zhang <cong.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-38bf1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790596722; l=2486;
+ i=cong.zhang@oss.qualcomm.com; s=20250926; h=from:subject:message-id;
+ bh=a5KcPfO/lVWvSV/4F80VAySM5Pi85YzX0n3tROeq3fI=;
+ b=KMwGuSH+3ziApXG5QlvjxI5qXg+XS3sB7eaaGysM93gcZmk2lo8uADbhVuFwfleEvAg51bq7p
+ 5GaiSm4r5+CCauqVc4qPd2kBSoQBiy/axVIbTxwOXVqwOhEVB6UpdcD
+X-Developer-Key: i=cong.zhang@oss.qualcomm.com; a=ed25519;
+ pk=8SBh3ey5igz2nlW+UFC6khFvaNPgG7MmbWtAeO2s6n8=
+X-Proofpoint-ORIG-GUID: j0Fxy2csG3Xcm1tt0UdwHVj-0tVyH4pY
+X-Proofpoint-GUID: j0Fxy2csG3Xcm1tt0UdwHVj-0tVyH4pY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfXwTkF3xHaHNtU
+ z8Vn49nK1hW131qfFP/RSaAinfgpNPstOrtYvEP2CneRTFX6JFew01KPyjZBy425RJaM5TcCkob
+ +K2Grx+OdHKbdEzVlBwuXnfufpGWV/s=
+X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba5676 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=20KFwNOVAAAA:8
+ a=kkXLOB11zRU5SlhL2XgA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfXzpXsyVc0eryx
+ GtjsiErTDgUWUeXWWx0RB9RoPXBQsV3wm4HLQl2fjdYNfc1dVz5UkwqDarmZTVVXih1wKBeT0fE
+ aga82oa50RWnVmVcFeBeCm0f2EbOwoAO5bRTmWh+DL0xeondZ8LTEtD+kbVUR+eJisKvoPpFYqV
+ TnAQNzfOQM7vjmHJOUqOk7/T47iIXk32DQyvalVQHI7fOj+C6OLEEyJs5rRizhPZkZNP49b35M0
+ ZViFPa+nevoxgnWQH3yJrz2opSy6QMoQjpyVmbo8D+4Z7ZVx6qb+01Ooh+MCPC8y8tS4RKY7CFG
+ CbrEXhqMLX4toF0GQeBOUG7hfQC3Fcw0wsOnt7VewSYI0p2XV3o9h30eO2fs/pJOcS6UtTvmA7e
+ 7cdSzdkL8mY9G5Hf8GWAt1pdIVuj5HZbL5Uj7bdUHNduBGFwbqrdqjSVZ3JUw+htv56Lpu1ESrc
+ 0tvhYruTWhw5B5pRxlg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280047
 
-Hello,
+blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+while the flag is clear. It can then be preempted before it gets a
+request. At that time, it has no queue usage reference, so
+blk_mq_freeze_queue() does not wait for it.
 
-syzbot found the following issue on:
+virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+dispatcher can run again, use its old flag check, get the new request,
+and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+reset the device, delete the virtqueues, and free vblk->vqs. The old
+dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+kernel can crash.
 
-HEAD commit:    62f4c998b297 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15b69c05580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=1dc44aa283d5af458c73
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
+that was already running. Keep the existing freeze and unfreeze order.
+The queue remains quiesced until virtblk_restore_priv() calls
+blk_mq_unquiesce_queue().
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
+Cc: stable@vger.kernel.org
+Acked-by: Jason Wang <jasowangio@gmail.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+---
+Changes in v3:
+- Move the race description into the commit log.
+- Remove the blank line between tags.
+- Add Cc: stable@vger.kernel.org to the commit trailers.
+- Link to v2: https://lore.kernel.org/20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/d1795a0bff93/disk-62f4c998.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ec557749691d/vmlinux-62f4c998.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/2e2f8fa31746/bzImage-62f4c998.xz
+Changes in v2:
+- Cc stable@vger.kernel.org.
+- Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+---
+ drivers/block/virtio_blk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1dc44aa283d5af458c73@syzkaller.appspotmail.com
-
-INFO: task kworker/1:6:5715 blocked for more than 143 seconds.
-      Tainted: G             L      syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/1:6     state:D stack:21408 pid:5715  tgid:5715  ppid:2      task_flags:0x4288060 flags:0x00080000
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
- do_wait_for_common kernel/sched/completion.c:100 [inline]
- __wait_for_common kernel/sched/completion.c:121 [inline]
- wait_for_common kernel/sched/completion.c:132 [inline]
- wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
- i2c_del_adapter+0x292/0x440 drivers/i2c/i2c-core-base.c:1847
- ft260_remove+0x5d/0x80 drivers/hid/hid-ft260.c:1104
- hid_device_remove+0xc5/0x1c0 drivers/hid/hid-core.c:2897
- device_remove drivers/base/dd.c:616 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- hid_remove_device drivers/hid/hid-core.c:3126 [inline]
- hid_destroy_device+0x6b/0x1b0 drivers/hid/hid-core.c:3148
- usbhid_disconnect+0x9f/0xc0 drivers/hid/usbhid/hid-core.c:1479
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Showing all locks held in the system:
-locks held by khungtaskd/31: 1, last CPU#1:
- #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8ed5c920 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6871
-locks held by getty/5375: 2, on CPU#1:
- #0: ffff888034e030a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
- #1: ffffc900032332e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
-locks held by kworker/1:6/5715: 6, on CPU#1:
- #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff8880226e6140 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90004cbfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff88802979d1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #2: ffff88802979d1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
- #3: ffff88807aa121d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #3: ffff88807aa121d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
- #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
- #4: ffff88802039c1a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
- #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
- #5: ffff88807e0e1a58 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
-
-=============================================
-
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 31 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x135/0x170 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xfd7/0x1030 kernel/hung_task.c:561
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 1 to CPUs 0:
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: 9c 88 02 e9 83 08 03 00 cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d e3 a1 23 00 fb f4 <c3> cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 90 90 90 90 90
-RSP: 0018:ffffffff8ea07ca0 EFLAGS: 00000242
-RAX: 00000000004d2bf7 RBX: ffffffff819bbcb0 RCX: 8000000000000001
-RDX: 0000000000000001 RSI: ffffffff8e414ba9 RDI: ffffffff8c6da780
-RBP: ffffffff8ea07d78 R08: ffff8880b8633a1b R09: 1ffff110170c6743
-R10: dffffc0000000000 R11: ffffed10170c6744 R12: 0000000000000000
-R13: 1ffffffff1d51e00 R14: 1ffffffff1d40f9c R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888124ccb000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000559c5e26da38 CR3: 000000000eb48000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- arch_safe_halt arch/x86/kernel/process.c:767 [inline]
- default_idle+0x9/0x20 arch/x86/kernel/process.c:768
- default_idle_call+0x72/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x2e0/0x540 kernel/sched/idle.c:355
- cpu_startup_entry+0x43/0x60 kernel/sched/idle.c:454
- rest_init+0x378/0x3a0 init/main.c:732
- start_kernel+0x392/0x3e0 init/main.c:1190
- x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
- x86_64_start_kernel+0x137/0x1b0 arch/x86/kernel/head64.c:291
- common_startup_64+0x13e/0x157
- </TASK>
-
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9d..7a570591e040 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+-	blk_mq_quiesce_queue_nowait(q);
++	blk_mq_quiesce_queue(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
+ 
+ 	/* Ensure we don't receive any more interrupts */
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Best regards,
+--  
+Cong Zhang <cong.zhang@oss.qualcomm.com>
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
