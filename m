@@ -1,87 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8FC37E5D5;
-	Mon, 28 Sep 2026 17:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4CE2BEC52;
+	Mon, 28 Sep 2026 17:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616710; cv=none; b=o8/6MkKsIIabuqw17oXICEcD2BG60SXW7euuMUNmo7eejvjAIkGY08e/cL0ZGKR3ShWEO/V0ffe6dPM8e7ZH9/VSvq7C9WO18N4mak1lY+Qq5qjbknHEOCC9Spc5x1w0t++rnx4Efan9IEg1+daVMkyJRUN5b0HBkbHZyieeQhM=
+	t=1790616729; cv=none; b=hBpax8Ipe5VQLGcgFCN0ONhWTPB+eCJl/Vz+n48z6a9M86TbOT+450NIH6rXlkB3HDbi92xlwYzhjYLL4D11BxrI9nfpJa28qEnsE4XHQY1or3TZIE5ffItvCAer3f/fTtUJVZSHRBRctp/pIg8rGIIU7/ranR5RpNPShzyiBk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616710; c=relaxed/simple;
-	bh=YUNsQKbdoNdkmOn7hVMkhLGJNjStR4GPA47+J2XShC8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XUaZluBHcAUa5rWPFATkTa0mwj+e7WuBcgBhxQAMeVlRSiNyt+59UroxutIDhyOQy+yAI7YlevqXlhYjdK0ws3SDj94rF9jVT+hvj0rQcnV6XtAhqVn+dS9OkoZW+LYGBPmp5Gq61KkXtxFOe4vtVnpJNxJB1g/pc0aZvWypmCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaaRP7xu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790616729; c=relaxed/simple;
+	bh=UiypJmqqftjwWJQbCeECB92FHMjHzyFn0BqCt6hipjA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nb60KjRt+2M0M/nCyv43ycXOIoNiju/EOrR6Wh8bN1Y4tjQ3FsCtCJiWAgcVUZo5QiOipGbu5CCDHXzOoOuUdrcq0EY3mCzje8hKccFWmwsNYC3i/wBGZSlB9VcZXvNP8h+7EGBk5TrroB4Tgc5PekWNIFQ06Ai3jB3xbLSLJmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTTJOcwp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaaRP7xu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E5F1F000FF;
-	Mon, 28 Sep 2026 17:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTTJOcwp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1831F000FF;
+	Mon, 28 Sep 2026 17:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790616709;
-	bh=YUNsQKbdoNdkmOn7hVMkhLGJNjStR4GPA47+J2XShC8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aaaRP7xu4vYzsbzzIB1ARh5jRF/4XJXKwPf+eveA2AT8Jqgpt1Dnjgyzvhb6dw3MN
-	 s5SsekoSkivHHuRMmjC8WK+SNNa6oKFRebBMX+pN+jDJMgAGxCCLmBp3y5icFGCyhq
-	 koLG98wagBmCJ91hpHOfudtH6lk7UG6sxDevYDhmrwIL+e6sTydtzOC05AhgMH5nAw
-	 VhsKAc6sD+RdhsMIBV2DVLUmCWQ+TBtLqTSr+vRei2d6ksq1uQcIEXUBbTV1E41N5c
-	 FPQgqNF2AvWgUTJmSpxqa1beS5wNqni9CREmTJ+4t9aZH1Me00wySFaMVs7FJ3kIdV
-	 Gx2ByASjD6MFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/12] Documentation/mm: Document the crash memaction
- registry
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikulas Patocka" <mpatocka@redhat.com>, "David Hildenbrand" <david@kernel.org>, "David
- Howells" <dhowells@redhat.com>, "Michal Hocko" <mhocko@suse.com>, "James
- Bottomley" <James.Bottomley@HansenPartnership.com>, "Rafael J. Wysocki" <rafael@kernel.org>, "Peter
- Xu" <peterx@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>, "Ying Huang" <ying.huang@linux.alibaba.com>, "Jann
- Horn" <jannh@google.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "Saravana
- Kannan" <saravanak@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Gregory
- Price" <gourry@gourry.net>, "Catalin Marinas" <catalin.marinas@arm.com>, "Mike
- Snitzer" <snitzer@kernel.org>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Harry
- Yoo" <harry@kernel.org>, "Mimi Zohar" <zohar@linux.ibm.com>, "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>, "Paul Moore" <paul@paul-moore.com>, "Rob
- Herring" <robh@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Nico
- Pache" <nico.pache@linux.dev>, "Baoquan He" <baoquan.he@linux.dev>, "Andrew
- Morton" <akpm@linux-foundation.org>, "Muchun Song" <muchun.song@linux.dev>, "Kiryl
- Shutsemau" <kas@kernel.org>, "Dev Jain" <dev.jain@arm.com>, "Arnd Bergmann" <arnd@arndb.de>, "David
- S. Miller" <davem@davemloft.net>, "Suren Baghdasaryan" <surenb@google.com>, "Serge
- E. Hallyn" <serge@hallyn.com>, "Will Deacon" <will@kernel.org>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Mike Rapoport" <rppt@kernel.org>, "Benjamin
- Marzinski" <bmarzins@redhat.com>, "Jarkko Sakkinen" <jarkko@kernel.org>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>, "Byungchul
- Park" <byungchul@sk.com>, "Lance Yang" <lance.yang@linux.dev>, "Brendan
- Jackman" <brendan.jackman@linux.dev>, "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Dave
- Young" <ruirui.yang@linux.dev>, "Zi Yan" <ziy@nvidia.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Barry
- Song" <baohua@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>, "Mark
- Rutland" <mark.rutland@arm.com>, "Pedro Falcato" <pfalcato@suse.de>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Vlastimil Babka" <vbabka@kernel.org>, "James
- Morris" <jmorris@namei.org>, "Oscar Salvador" <osalvador@suse.de>, "Rik van
- Riel" <riel@surriel.com>, "Usama Arif" <usama.arif@linux.dev>, "Alasdair
- Kergon" <agk@redhat.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, "Eric Biggers" <ebiggers@kernel.org>, linux-security-module@vger.kernel.org, conor+dt@kernel.org, linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org, kexec@lists.infradead.org, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, keyrings@vger.kernel.org, driver-core@lists.linux.dev, linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org, linux-arch@vger.kernel.org
-In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-11-e511e9ee2329@jaseg.de>
-References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
- <20260928-crash-memaction-upstream-20260921-v3-11-e511e9ee2329@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 17:31:44 +0000
-Message-Id: <20260928173144.96E5F1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790616727;
+	bh=DVCYORH83Mdl0Gt8ikYu58Tz+uRUhq9ZJzLJhMmXjZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dTTJOcwptb6dtMZSchc1Lofu3hSLpnFiqMkVGzX4i24kCkCaG/iGddLmgAfy9dhOP
+	 V9T7CrALeOpd+ch2q5TE2cqbRaRBjJzAmaFRijbYMnvL6hjtTUbOqrX9fT7Mq1xJGd
+	 beM7+4/VqZ7tJJh75zo1CBfH5u/yroD9KDXRfiDuksUIlJn5qDJHGjOiClin0XRGq3
+	 hGuB4dbwy36SVluamPU6mYLjAVxoLWYf+/DYtu6XVi6QDofA6r3epPv++vQBPfJipa
+	 seLWVZJYEXdq31uGKgrMQolSe2cfPDeW2Z8O2EK7e1tLe54GzD52cWpP/EVFTOL3b4
+	 48SEqu6ci+0JQ==
+Date: Mon, 28 Sep 2026 19:31:59 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Albert Esteve <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <arqi0etVHGajQAMe@beelink>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928163711.GA210522@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928163711.GA210522@killaraus.ideasonboard.com>
 
-> Describe the crash memaction registry, including its kernel and userspace
-> interfaces, allocation lifetime rules, and current limitations.
->=20
-> Signed-off-by: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+On Sep 28 2026, Laurent Pinchart wrote:
+> Hi Maxime,
+> 
+> On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
+> > Hi,
+> > 
+> > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > difficult to support and require pretty much a panel driver for each
+> > panel produced. Most of them are pretty simple, and require an opaque
+> > initialization sequence that is usually poorly documented.
+> > 
+> > This creates a tension between OEMs and distros because OEMs will
+> > typically get a new panel to react to a sourcing issue during
+> > production, and thus need some swift turnaround between getting their
+> > new panel and it being operational in the OS. Distributions on the other
+> > hand can take years to ship a kernel with that new panel driver.
+> > 
+> > To solve this, I followed the example of HID-BPF and wrote a panel
+> > driver that will rely on BPF programs to perform the panel
+> > initialization. That way, we can ship the programs separately from the
+> > kernel, and with a different lifecycle. If this driver is accepted, the
+> > plan is to have a userspace component started by udev to identify and
+> > load the right BPF program for the panels found on the device.
+> 
+> Interesting idea.
+> 
+> How would that work for devices that want early display support ? In
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Brain fart... Include a bpf VM in the bootloader? :)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-crash-mema=
-ction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de?part=3D11
+> particular, how does it interact with your recent work on "fastboot"
+> support (with the kernel drivers taking over a running display
+> configured by the boot loader) ?
+> 
+> I'm also wondering about the incentives for vendors to upstream the
+> code. How will we avoid having a proliferation of out-of-tree drivers ?
 
+My 2 cents here from the HID-BPF point of view:
+- as mentioned in my reply to Neil, the kernel enforce GPL licensed BPF
+	only
+- so vendors have to publish their code somewhere
+- in HID-BPF, I decided to provide an "official" list of HID-BPF sources
+	as part of the kernel (see drivers/hid/bpf/progs). I try to sync them
+	with the userspace tree when time permits
+
+So basically, distributions can say "we ship only BPF objects compiled
+from the kernel tree". It doesn't mean they have to be in a released
+kernel already to remove the friction, but in the process of being
+released could be sufficient.
+
+Cheers,
+Benjamin
