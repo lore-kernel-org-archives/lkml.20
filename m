@@ -1,116 +1,355 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9844E2F2B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EEF4ED181;
+	Mon, 28 Sep 2026 16:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612545; cv=none; b=ZOPNpjngjowC92uVWcASbGIjaDxizIJCjwWffOD81OpQWaaIMXjElNkvmBAs9EuKGHwy5qU/r5vfBZYFXv7YcPlrcVK9YDT8Dauj1JpsfMQQSBI9zDoPkEYxUf1usJDmNL6C0viQXgr2jlP0vZmf6qWBDql+Q9tbJJ1KRvsa7zM=
+	t=1790612548; cv=none; b=l4rg7c+/MGPdqWzzNSRq0JQPlufqG1NRsvsZbm0sJB4PAPEO7uzySJhw29N9KIqWANWUxsttMJ4X+CPnCo6qOQCaybvBfzJWKXwpBIMBFUzYnADqB4fpdDoaoDWaSV7ZSxZumuz4ypJ0HbhJyr0NeAXG/RIFsDchC/vDVEWLtCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612545; c=relaxed/simple;
-	bh=T0BVWlH+xvCgpGrbu8nNWISjsWHXibM8xFq2to97JoE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G6I4w/dELRGocy9a10Cr42GoS/DTloiTlWw7QsPdGpjYezHd6Jgsav8qZljBZUUEchYOiwouzBDSW8GavCpClBcrJWzEjI7wZHPsOH0E9jRMGWpYl1cvyyoNZLoLCtDrfTC2sxx560FQ03iUzUEJiLmifcIFXg9esXiNKhExIjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eXBNNdrP; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790612548; c=relaxed/simple;
+	bh=0S4CEFoEPYSCmsmU59aYS4gRg8Rrk0Sq5MBvVQtYuis=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ayqlzECspyhYuqtQ2fJFqcdBV+1PRvaZrhdVZ/LUh1w/euH/7OOBMb4ZwAYXY1c5UsgS92SqdddvpbwklnhXK6BnvUzvtf29X5iMm0QoIx4VyrkexwwUkSIku0f5+xjNpIQrYVlBxHe44iX8UQVBcbgVH8X9rfvNldJ8CxTjbQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiC4PkVm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eXBNNdrP"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so26428565e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:22:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790612542; x=1791217342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pnCeuLGKaQE+iBUrLvw9M2eMKqv09/kl1t4RvltPK10=;
-        b=eXBNNdrPIkTnwGz1WO2x3siSqzZk9NZTx99SD69BsgT5Wkoy0YZh2VInAruhjkYpXa
-         ENYXaD2rYB/sSFVWSOwAk8zocTYvKu+cWGFq0Qw/ZhrWwSgU0pr+EmZD4Du6ps0BeOxJ
-         xyn2eJi/0yslacFl4ibW0XxdB0e7nRVBdGuGQ+UeJEe1mDJfF+gvtGofBaCbren184BI
-         1XgWBfNJCNdYI9QeapMEChSthDFCH/kd2YBn2r1YQla14ypMFLwqNzCNZkAXbcnCdZr9
-         FgUn980OojVDTMtFM7N/rAsuYTBQGZErkgXmkOzCybLDzwUfBXzQqb4u/725l0A+w7IL
-         XQKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790612542; x=1791217342;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pnCeuLGKaQE+iBUrLvw9M2eMKqv09/kl1t4RvltPK10=;
-        b=JoUuoHaU38i0O9ERvxJqE7J9xE+neoR5INBHsO/ThOztZWww25YDGtVkRbv0xYiW2N
-         w0i2XmPaxX9Rshbw7KekNHx32jknQDRXtjdOTeeFoI6Kcewwe6zUGnpW36NJ18+pRYa3
-         4hDV3TuCu57YisVbKm54DX/rDLwhct1JC+PKM7HXiRHIL1FVbmhUSTsfWtsILCvMs4E2
-         j6hjrAp2OUxsiq4nV26ZuMzeZOP55zjWevPoR8tF9TSmCUEctkescppzYQcGUVZKj05b
-         NnuDI21KglREHhFnlF8A13wRMvS2c33teREjpWlIQ2Be+6M/TzY3rUJs3VEF0Av58IwF
-         kyfA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0ciWPbVGanTOw1pT+JKE39NmZjnypMBInH5xCTjg9zzAUPKqNRSYTOgmx1htsNcqg9V4D5u/kpynFuFs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKAZ8TwLYRh4XTr89jifLGALGCwEus6S6iwtUY7AS4K1E1rObu
-	XAMmTUZWLu6VFS03msg6i3RJO0yb+iSqFi5QJgiwiRfElZdblPztij8z
-X-Gm-Gg: AYBFou1IxREI+moLHiUMef7CEEG2jTrzpOsISS276Ckz+z4wGRyUQgcg5crG5aNkY46
-	0znjWPCL2/fPJrQepSCiKMchkNgakBaMN+luUDD7D+4B78YdOEbax4qQFFG6/xfT0DtChbnno7e
-	NxvcL/Kda4tTBu5WPtwzGUwz2KdhBARuDe4FqpVGiEY8OQUECdZJgyU0332c6RpZRX1N46AQgNq
-	wQJMkDoVVELLLvKYaO7Tor69DDLvvOvUVUwpqoeZnlp6eHJrPkC2dgkLPRTBAK2QfKblw7MX4IT
-	SyU1r1cLYR/Jed7QZQD00fnyFgb6wRIXSLTyeNNeJr7IYQBev3iLu9j1HNKSLWGfKjMOJqAG3H/
-	RIoDOvSZoOA441XKhKc4nTx7ReneFo+oipo9/HQwQClvc4zpSutmCfZwexHAp0U1I8RYEcO32lP
-	TQCylZEYEMbpyCzvJlNMBb5awDq4AECDXtWxJeVS00fmzKAu2Y+1kz+PEkYTS765JFmHZcS9qxv
-	s/VyMZS+lrSTs4UDElSgXIaNaXUIbZKx0MvNqup/kwtrImpA8I=
-X-Received: by 2002:a05:600c:348a:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-49fe7bbaf83mr222889565e9.23.1790612541529;
-        Mon, 28 Sep 2026 09:22:21 -0700 (PDT)
-Received: from sp1der-OptiPlex-7080.epfl.ch (dhcp-122-dist-b-107.epfl.ch. [128.178.122.107])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b150sm3372535e9.7.2026.09.28.09.22.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:22:20 -0700 (PDT)
-From: spidermana <xuyiwen14@gmail.com>
-To: mehmet.mkoseoglu@gmail.com
-Cc: a.hindborg@kernel.org,
-	acourbot@nvidia.com,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	boqun@kernel.org,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	gary@garyguo.net,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	lossin@kernel.org,
-	ojeda@kernel.org,
-	rafael@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	tamird@kernel.org,
-	tmgross@umich.edu,
-	viresh.kumar@linaro.org,
-	work@onurozkan.dev
-Subject: Re: [PATCH v3] rust: cpufreq: reject NULL from cpufreq_cpu_get()
-Date: Mon, 28 Sep 2026 18:22:14 +0200
-Message-ID: <20260928162214.487564-1-xuyiwen14@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
-References: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiC4PkVm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD181F00893;
+	Mon, 28 Sep 2026 16:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790612547;
+	bh=Q5MpRCgTyniKRzdF9ICN9in07rWUgFaKPM6STdE8jZA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YiC4PkVmGQfMTuBWtLz+SJF4957bZ3Q5QVjzOC9WciNS/zJULMF9OEtRUVt7jnYW9
+	 kHbiBQkm+MuTvevs/ATg8A+t1V4r9+G1klrVQXtf/gJqHn8oRLNGaDIz2Tt/6b3BZY
+	 Ss67BnwGSHB/pfLW1zGoSE/ea7n6obyKIsE3QIORwmyTMZPzOEr9q63TdgP3hF2TrX
+	 P/dtQfF9yzse9b7Rg32hDdcFFls6zjY9fm9MPeIY2Z6m135bf6cZn15dME1mzQJtX2
+	 wUXWHfLJ0h1JmBb9FOT5VvT/Wqdm1UoqJxGLkvcjyUF/2ntoX+AhmWdUNih/wqCLoZ
+	 d3ZkSKzms2RrQ==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Mon, 28 Sep 2026 18:22:03 +0200
+Subject: [PATCH 3/6] drm/panel: dsi-bpf: Add BPF program build
+ infrastructure and helper header
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260928-drm-mipi-dsi-panel-ebpf-v1-3-5244926aace4@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10491; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=0S4CEFoEPYSCmsmU59aYS4gRg8Rrk0Sq5MBvVQtYuis=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm7phiFNZ/3Sf8gyMxoGWsRbv2JIdhB7Ois/mZFt8W/3
+ ZsSbuV2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIlMrGZs+NxXmHPwhv/6jDOS
+ Kioajp9XXDFW99cMmVWd6Ja65NmhxLwFK2fa8Z6W2ZE+0zpN3l6Ssc5eNbeKoSi3YWULc1uB+96
+ ul9u7Rdi2f0hou8AyIfjbhJfX5GY6CkT7NT+vfPLmwLM2PQA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On Sat, 29 Aug 2026 19:10:13 +0300, Mehmet Koseoglu wrote:
-> cpufreq_cpu_get() returns either a referenced policy or NULL.
-> PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
-> rejects ERR_PTR values but accepts NULL.
-[...]
->          Ok(Self(
->              // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
->              // the returned reference.
-> -            unsafe { Policy::from_raw_mut(ptr) },
-> +            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
+Add the BPF-side header panel-bpf-mipi-dsi.h and a standalone
+Makefile for building panel BPF programs. The header provides
+section name macros (PANEL_BPF_MIPI_DSI_PREPARE, etc.), the
+PANEL_BPF_MIPI_DSI_OPS() struct_ops declaration macro, extern
+declarations for all the kfuncs, and some convenience macros.
 
-Just a quick nit here, maybe rephrase this SAFETY comment, e.g.:
+The Makefile follows the same pattern as drivers/hid/bpf/progs/.
+It generates vmlinux.h from BTF, bootstraps bpftool and libbpf
+from the kernel tools/ directory, then compiles every *.bpf.c
+file into a stripped .bpf.o object. The resulting objects are
+userspace artifacts loaded at runtime.
 
-            // SAFETY: `ptr` is non-NULL and `cpufreq_cpu_get()` took a reference on it, so it is
-            // valid for writing and remains valid for the lifetime of the returned reference.
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/panel/bpf/progs/Makefile           | 93 +++++++++++++++++++++
+ .../gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h   | 95 ++++++++++++++++++++++
+ include/drm/drm_panel_dsi_bpf.h                    | 50 ------------
+ 3 files changed, 188 insertions(+), 50 deletions(-)
 
-Either way, looks good to me.
-FWIW, I hit this too and have a reproducer [1].
-[1] https://github.com/Rust-for-Linux/linux/issues/1258
+diff --git a/drivers/gpu/drm/panel/bpf/progs/Makefile b/drivers/gpu/drm/panel/bpf/progs/Makefile
+new file mode 100644
+index 000000000000..74190ee618ab
+--- /dev/null
++++ b/drivers/gpu/drm/panel/bpf/progs/Makefile
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: GPL-2.0
++OUTPUT := .output
++abs_out := $(abspath $(OUTPUT))
++
++CLANG ?= clang
++LLC ?= llc
++LLVM_STRIP ?= llvm-strip
++
++TOOLS_PATH := $(abspath ../../../../../../tools)
++BPFTOOL_SRC := $(TOOLS_PATH)/bpf/bpftool
++BPFTOOL_OUTPUT := $(abs_out)/bpftool
++DEFAULT_BPFTOOL := $(BPFTOOL_OUTPUT)/bootstrap/bpftool
++BPFTOOL ?= $(DEFAULT_BPFTOOL)
++
++LIBBPF_SRC := $(TOOLS_PATH)/lib/bpf
++LIBBPF_OUTPUT := $(abs_out)/libbpf
++LIBBPF_DESTDIR := $(LIBBPF_OUTPUT)
++LIBBPF_INCLUDE := $(LIBBPF_DESTDIR)/include
++BPFOBJ := $(LIBBPF_OUTPUT)/libbpf.a
++
++INCLUDES := -I$(OUTPUT) -I$(LIBBPF_INCLUDE) -I$(TOOLS_PATH)/include/uapi
++CFLAGS := -g -Wall
++
++VMLINUX_BTF_PATHS ?= $(if $(O),$(O)/vmlinux)				\
++		     $(if $(KBUILD_OUTPUT),$(KBUILD_OUTPUT)/vmlinux)	\
++		     ../../../../../../vmlinux				\
++		     /sys/kernel/btf/vmlinux				\
++		     /boot/vmlinux-$(shell uname -r)
++VMLINUX_BTF ?= $(abspath $(firstword $(wildcard $(VMLINUX_BTF_PATHS))))
++ifeq ($(VMLINUX_BTF),)
++$(error Cannot find a vmlinux for VMLINUX_BTF at any of "$(VMLINUX_BTF_PATHS)")
++endif
++
++ifeq ($(V),1)
++Q =
++msg =
++else
++Q = @
++msg = @printf '  %-8s %s%s\n' "$(1)" "$(notdir $(2))" "$(if $(3), $(3))";
++MAKEFLAGS += --no-print-directory
++submake_extras := feature_display=0
++endif
++
++.DELETE_ON_ERROR:
++
++.PHONY: all clean
++
++SOURCES = $(wildcard *.bpf.c)
++TARGETS = $(SOURCES:.bpf.c=.bpf.o)
++
++all: $(TARGETS)
++
++clean:
++	$(call msg,CLEAN)
++	$(Q)rm -rf $(OUTPUT) $(TARGETS)
++
++%.bpf.o: %.bpf.c vmlinux.h $(BPFOBJ) | $(OUTPUT)
++	$(call msg,BPF,$@)
++	$(Q)$(CLANG) -g -O2 --target=bpf -Wall -Werror $(INCLUDES)		\
++		     -Wno-microsoft-anon-tag					\
++		     -fms-extensions						\
++		     -c $(filter %.c,$^) -o $@ &&				\
++	$(LLVM_STRIP) -g $@
++
++vmlinux.h: $(VMLINUX_BTF) $(BPFTOOL) | $(INCLUDE_DIR)
++ifeq ($(VMLINUX_H),)
++	$(call msg,GEN,,$@)
++	$(Q)$(BPFTOOL) btf dump file $(VMLINUX_BTF) format c > $@
++else
++	$(call msg,CP,,$@)
++	$(Q)cp "$(VMLINUX_H)" $@
++endif
++
++$(OUTPUT) $(LIBBPF_OUTPUT) $(BPFTOOL_OUTPUT):
++	$(call msg,MKDIR,$@)
++	$(Q)mkdir -p $@
++
++$(BPFOBJ): $(wildcard $(LIBBPF_SRC)/*.[ch] $(LIBBPF_SRC)/Makefile) | $(LIBBPF_OUTPUT)
++	$(Q)$(MAKE) $(submake_extras) -C $(LIBBPF_SRC)			       \
++		    OUTPUT=$(abspath $(dir $@))/ prefix=		       \
++		    DESTDIR=$(LIBBPF_DESTDIR) $(abspath $@) install_headers
++
++ifeq ($(CROSS_COMPILE),)
++$(DEFAULT_BPFTOOL): $(BPFOBJ) | $(BPFTOOL_OUTPUT)
++	$(Q)$(MAKE) $(submake_extras) -C $(BPFTOOL_SRC)			       \
++		    OUTPUT=$(BPFTOOL_OUTPUT)/				       \
++		    LIBBPF_BOOTSTRAP_OUTPUT=$(LIBBPF_OUTPUT)/		       \
++		    LIBBPF_BOOTSTRAP_DESTDIR=$(LIBBPF_DESTDIR)/ bootstrap
++else
++$(DEFAULT_BPFTOOL): | $(BPFTOOL_OUTPUT)
++	$(Q)$(MAKE) $(submake_extras) -C $(BPFTOOL_SRC)			       \
++		    OUTPUT=$(BPFTOOL_OUTPUT)/ bootstrap
++endif
+diff --git a/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h b/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h
+new file mode 100644
+index 000000000000..e2b03afef2c8
+--- /dev/null
++++ b/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h
+@@ -0,0 +1,95 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef ____PANEL_BPF_MIPI_DSI_BPF__H
++#define ____PANEL_BPF_MIPI_DSI_BPF__H
++
++#define PANEL_BPF_MIPI_DSI_PREPARE	"struct_ops.s/panel_prepare"
++#define PANEL_BPF_MIPI_DSI_UNPREPARE	"struct_ops.s/panel_unprepare"
++#define PANEL_BPF_MIPI_DSI_ENABLE	"struct_ops.s/panel_enable"
++#define PANEL_BPF_MIPI_DSI_DISABLE	"struct_ops.s/panel_disable"
++
++#define PANEL_BPF_MIPI_DSI_OPS(name) SEC(".struct_ops") \
++	struct drm_panel_dsi_bpf_ops name
++
++/* Mode flags — kernel #defines not exported through BTF */
++#define MIPI_DSI_MODE_VIDEO		(1 << 0)
++#define MIPI_DSI_MODE_VIDEO_BURST	(1 << 1)
++#define MIPI_DSI_MODE_VIDEO_SYNC_PULSE	(1 << 2)
++#define MIPI_DSI_MODE_NO_EOT_PACKET	(1 << 9)
++#define MIPI_DSI_CLOCK_NON_CONTINUOUS	(1 << 10)
++#define MIPI_DSI_MODE_LPM		(1 << 11)
++
++extern int panel_bpf_mipi_dsi_regulator_enable_and_wait(struct panel_bpf_mipi_dsi_ctx *ctx,
++							enum panel_bpf_mipi_dsi_supply supply,
++							__u32 settle_ms) __ksym;
++extern int panel_bpf_mipi_dsi_regulator_disable(struct panel_bpf_mipi_dsi_ctx *ctx,
++						enum panel_bpf_mipi_dsi_supply supply) __ksym;
++extern void panel_bpf_mipi_dsi_gpio_cycle_and_wait(struct panel_bpf_mipi_dsi_ctx *ctx,
++						   enum panel_bpf_mipi_dsi_gpio gpio,
++						   __u32 assert_ms,
++						   __u32 settle_ms) __ksym;
++extern void panel_bpf_mipi_dsi_gpio_enable(struct panel_bpf_mipi_dsi_ctx *ctx,
++					   enum panel_bpf_mipi_dsi_gpio gpio) __ksym;
++extern void panel_bpf_mipi_dsi_gpio_disable(struct panel_bpf_mipi_dsi_ctx *ctx,
++					   enum panel_bpf_mipi_dsi_gpio gpio) __ksym;
++extern int panel_bpf_mipi_dsi_dcs_write_and_wait(struct panel_bpf_mipi_dsi_ctx *ctx,
++						  __u8 cmd, const __u8 *data,
++						  __u32 data__sz,
++						  __u32 settle_ms) __ksym;
++extern int panel_bpf_mipi_dsi_generic_write_and_wait(struct panel_bpf_mipi_dsi_ctx *ctx,
++						     const __u8 *data,
++						     __u32 data__sz,
++						     __u32 settle_ms) __ksym;
++extern int panel_bpf_mipi_dsi_dcs_read(struct panel_bpf_mipi_dsi_ctx *ctx,
++				       __u8 cmd, __u8 *data,
++				       __u32 data__sz) __ksym;
++
++/*
++ * Convenience macros
++ *
++ * These wrap the _and_wait kfuncs with settle_ms = 0 for the common
++ * case where no post-operation delay is needed.
++ */
++
++/* Enable a supply without a post-enable delay. */
++#define panel_bpf_mipi_dsi_regulator_enable(ctx, supply)			\
++	panel_bpf_mipi_dsi_regulator_enable_and_wait((ctx), (supply), 0)
++
++/* Send a DCS command without a post-send delay. */
++#define panel_bpf_mipi_dsi_dcs_write(ctx, cmd, data, data__sz)		\
++	panel_bpf_mipi_dsi_dcs_write_and_wait((ctx), (cmd), (data), (data__sz), 0)
++
++/* Send a generic DSI write without a post-send delay. */
++#define panel_bpf_mipi_dsi_generic_write(ctx, data, data__sz)		\
++	panel_bpf_mipi_dsi_generic_write_and_wait((ctx), (data), (data__sz), 0)
++
++/* Send a DCS command with a single byte payload. */
++#define panel_bpf_mipi_dsi_dcs_write_byte(ctx, cmd, val)		\
++	do {								\
++		const __u8 _v = (val);					\
++		panel_bpf_mipi_dsi_dcs_write((ctx), (cmd), &_v, 1);	\
++	} while (0)
++
++/*
++ * Standard DCS command helpers
++ *
++ * exit_sleep_mode and enter_sleep_mode include the 120ms delay
++ * required by the MIPI DCS specification before the next command.
++ */
++
++/* Send MIPI_DCS_EXIT_SLEEP_MODE with a 120ms settling delay. */
++#define panel_bpf_mipi_dsi_exit_sleep_mode(ctx)				\
++	panel_bpf_mipi_dsi_dcs_write_and_wait((ctx), MIPI_DCS_EXIT_SLEEP_MODE, NULL, 0, 120)
++
++/* Send MIPI_DCS_ENTER_SLEEP_MODE with a 120ms settling delay. */
++#define panel_bpf_mipi_dsi_enter_sleep_mode(ctx)			\
++	panel_bpf_mipi_dsi_dcs_write_and_wait((ctx), MIPI_DCS_ENTER_SLEEP_MODE, NULL, 0, 120)
++
++/* Send MIPI_DCS_SET_DISPLAY_ON. */
++#define panel_bpf_mipi_dsi_set_display_on(ctx)				\
++	panel_bpf_mipi_dsi_dcs_write((ctx), MIPI_DCS_SET_DISPLAY_ON, NULL, 0)
++
++/* Send MIPI_DCS_SET_DISPLAY_OFF. */
++#define panel_bpf_mipi_dsi_set_display_off(ctx)				\
++	panel_bpf_mipi_dsi_dcs_write((ctx), MIPI_DCS_SET_DISPLAY_OFF, NULL, 0)
++
++#endif /* ____PANEL_BPF_MIPI_DSI_BPF__H */
+diff --git a/include/drm/drm_panel_dsi_bpf.h b/include/drm/drm_panel_dsi_bpf.h
+deleted file mode 100644
+index 02d4707fd0a0..000000000000
+--- a/include/drm/drm_panel_dsi_bpf.h
++++ /dev/null
+@@ -1,50 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef __DRM_PANEL_DSI_BPF_H__
+-#define __DRM_PANEL_DSI_BPF_H__
+-
+-#include <linux/bpf.h>
+-
+-struct mipi_dsi_device;
+-struct drm_panel;
+-
+-#define DSI_BPF_PANEL_ID_LEN	64
+-
+-/**
+- * struct dsi_bpf_ctx - Context passed to BPF panel programs
+- * @panel: The drm_panel this callback operates on (private)
+- */
+-struct dsi_bpf_ctx {
+-	struct drm_panel *panel;
+-};
+-
+-/**
+- * struct drm_panel_dsi_bpf_ops - BPF struct_ops for MIPI-DSI panels
+- * @panel_id: Device identifier for matching. On DT systems this holds
+- *	the panel's compatible string. Firmware-agnostic to allow future
+- *	ACPI support. Written before load, immutable after.
+- * @panel_prepare: Called to power on the panel and send init commands.
+- *	Must enable regulators, toggle GPIOs, and send the DSI init
+- *	sequence. Sleepable.
+- * @panel_unprepare: Called to power off the panel. Must send shutdown
+- *	commands, assert reset, and disable regulators. Sleepable.
+- * @panel_enable: Optional. Called after video stream starts, for panels
+- *	that need post-video-start DSI commands. Sleepable.
+- * @panel_disable: Optional. Called before video stream stops. Sleepable.
+- * @set_brightness: Optional. Called to set backlight brightness via DSI
+- *	commands. Sleepable.
+- */
+-struct drm_panel_dsi_bpf_ops {
+-	char			panel_id[DSI_BPF_PANEL_ID_LEN];
+-
+-	/* private: internal bookkeeping */
+-	struct drm_panel	*panel;
+-
+-	/* public: */
+-	int (*panel_prepare)(struct dsi_bpf_ctx *ctx);
+-	int (*panel_unprepare)(struct dsi_bpf_ctx *ctx);
+-	int (*panel_enable)(struct dsi_bpf_ctx *ctx);
+-	int (*panel_disable)(struct dsi_bpf_ctx *ctx);
+-	int (*set_brightness)(struct dsi_bpf_ctx *ctx, u32 brightness);
+-};
+-
+-#endif /* __DRM_PANEL_DSI_BPF_H__ */
 
-Reviewed-by: Elowen Xu <malanalyzing@gmail.com>
+-- 
+2.55.0
+
