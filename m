@@ -1,164 +1,192 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F0436C5AE;
-	Mon, 28 Sep 2026 08:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41848470EA5;
+	Mon, 28 Sep 2026 08:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583053; cv=none; b=Y6sIuMTASEoKJyBeHhrajycFLH9amK6D3pqzbFULScH7re7WW0sT+SLJ8ykYFL8iC6eOQnvjXFTXLKqpeZwbVktMsbIM9NwQovcbTkyaGm8o6mxUAcQz3acIy67/Ban5kwTsMAEs1TYAl6bUXrfkxLzFLpE1BXP5LZtp1bra/vI=
+	t=1790583058; cv=none; b=tYZp3nP7d8rEejho0gZ1ir3rIJt5N8FoGhWHVd18VZ6wmMdyI49HRKLfbWzFGCUVF5Ks1pdH3R3ddLBFb632fsCWllTZGdh8TSZg7uL4lzpRwUyCEBF5TyUMEvWvRhHCJyMmsTmRr5Vl3DK7f4mZaLqBdM7fGmQamlFzdpXjALg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583053; c=relaxed/simple;
-	bh=nsvlZn/1cHYyiCG9JCMeZP7jI+pMLHhdHLqRqJufIiI=;
+	s=arc-20240116; t=1790583058; c=relaxed/simple;
+	bh=iX0JHr3OaK1F907tUkdtLXi8iMAHjfLYQ9uHjk2hIIQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K2vIcHQy31tbOFZUOfm9X6tp5yGTClyEHSRlVA3S2nE36TDvTnYScvctwIwpewrP0RJe5WVh9HYjZ6iZLFlaff/iEU2hpvoTadIx5Gl0BduAuvhzCeDehmWgmsmCYL0U3UMVDuaGSzCXZSDWlwiswHKfy52ySgbkg8NyqFoueD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LyP7Xio0; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=o536s8T2zeRzyI0W6ufWKxil6lKowu6YfHU84Gf8s30vavZr/jDanmrvc4ec2H6dYnqGBMVkQxVsB2xMfnZ7uf+yrImTXVurT91/duxc57GTtFjsXsK3X58DEcIrAD5g+7XTp5CAw9RhT4FhoflF7JUfUH72jMsQngWrfeBg/AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ItMPqOto; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LyP7Xio0"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4htYsH35qGzKqK2;
-	Mon, 28 Sep 2026 10:10:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790583043;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aIY8SPKWTyDpONssmi/1MXmgnQQyjM5Q9JRAxu1BCzY=;
-	b=LyP7Xio0SjFMctEiuiF6nXS35fp9M345lu2ob3Fmzp5i2UTTEdVHeBDNzvvELjoiwG3nnr
-	VB3Jeh7BG/61T6Vf/RG5OkXid41+i9+lsPkMq8kMNxXtAkbh+9wU4vyD1/45pHm3TBgeth
-	Fe0BxsGq7Nw0xtLi7kon6UKK+wgBTgA/1S2wo4QLNW6mnlkw3kqxB5EW91JTB797cIMF8j
-	Hbl4HdaY2ybLC2Q69gikRqAA7+HlIM+5kKj5zdsmO9Sbk9mP4QizOYDa895AeuydNGQT3V
-	ydnfCKiGnN4P0FaJ51ea6tUXGO9W+w62Qc6QFZGZR/mNHWb4IC/Svk5TSWrkag==
-Message-ID: <3cf7143d-7013-4a3b-a831-96c3f125c2f6@mailbox.org>
-Date: Mon, 28 Sep 2026 10:10:33 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ItMPqOto"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BAE01570;
+	Mon, 28 Sep 2026 01:10:50 -0700 (PDT)
+Received: from [10.57.12.79] (unknown [10.57.12.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D5A2C3F86F;
+	Mon, 28 Sep 2026 01:10:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790583053; bh=iX0JHr3OaK1F907tUkdtLXi8iMAHjfLYQ9uHjk2hIIQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ItMPqOtowS0ZHlYRac5WKIgJ9uZtyWAWWq3/qzMaPipTg35S8D4i59hxkFzWQ0PAZ
+	 MY0/f8DdQORcc2licSIabU2dBhHPp3dzpUT5etsrc/ndkO6ywv+1PRsBkvsMtYTQsJ
+	 23fq3M4L2W07KsDbGcAExLWRwXfeOQKulXsWeHms=
+Message-ID: <01361954-ad51-46ec-a9a1-89413fbb6084@arm.com>
+Date: Mon, 28 Sep 2026 09:10:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-To: Leo Li <sunpeng.li@amd.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <0226527e-ee38-40ab-a2a8-1ae62013b950@amd.com>
- <VERVf-aJRRKsBOI_3dpScg@collabora.com>
- <8a3b2902-3255-4dd9-82f0-75a7747b710e@amd.com>
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <8a3b2902-3255-4dd9-82f0-75a7747b710e@amd.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2 MMU
+ operations
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+ <20260920212845.707-10-suzuki.poulose@arm.com>
+ <647ae455-4175-4070-a40e-d2d89f18971f@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <647ae455-4175-4070-a40e-d2d89f18971f@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: tcbp3n76m8henjpos5gobg5u9xk9b6pk
-X-MBO-RS-ID: 863b51de2cc2ecb5cfe
 
-On 9/25/26 20:42, Leo Li wrote:
-> On 2026-09-22 11:26, Nicolas Frattaroli wrote:
->>>> + * VRR Limiter/Target Properties
->>>> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>> + *
->>>> + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
->>>> + * through which userspace can control the desired range of refresh rates in
->>>> + * which VRR is allowed to operate. Each rate is expressed as a
->>>> + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
->>>> + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
->>>> + *
->>>> + * If the minimum and maximum rate are set to the same value (and not 0), they
->>>> + * are understood as a fixed target rate. This is especially useful for media
->>>> + * playback, where the content's frame rate is both constant and known in
->>>> + * advance. In such cases, a refresh rate that is not an integer multiple of the
->>>> + * content's frame rate will introduce judder, since not every frame is
->>>> + * displayed for the same amount of time. A modeset of the display with a
->>>> + * compatible rate may in those cases be either undesirable or impossible, but
->>>> + * the rate can still effectively be reached through VRR.
->>>> + *
->>>> + * .. _VRR-MIN-NUMERATOR:
->>>> + *
->>>> + * "VRR_MIN_NUMERATOR":
->>>> + *	Default &drm_crtc integer property forming the numerator of a
->>>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
->>>> + *	target rate. Set to 0 to disable.
->>>> + *
->>>> + * "VRR_MIN_DENOMINATOR":
->>>> + *	Default &drm_crtc integer property forming the denominator of a
->>>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
->>>> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
->>>> + *	zero, it must be non-zero.
->>>> + *	Otherwise, must also be zero.
->>>> + *
->>>> + * .. _VRR-MAX-NUMERATOR:
->>>> + *
->>>> + * "VRR_MAX_NUMERATOR":
->>>> + *	Default &drm_crtc integer property forming the numerator of a
->>>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
->>>> + *	target rate. Set to 0 to disable.
->>>> + *
->>>> + * "VRR_MAX_DENOMINATOR":
->>>> + *	Default &drm_crtc integer property forming the denominator of a
->>>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
->>>> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
->>>> + *	zero, it must be non-zero. Otherwise, must also be zero.
->>>>   */
->>> If VRR_MIN_NUMERATOR == 0 && VRR_MAX_NUMERATOR > 0, do we interpret that as
->>> vrr limiting is disabled?
->> You can picture VRR limiting as always being active, but with a limit rational
->> of 0 it uses the display's limit as per the EDID, which is what unlimited game
->> mode is. So with how it's implemented right now in hdmi_validate_vrr(), your
->> example would set a maximum target, but leave the minimum at whatever the
->> display defaults to.
+On 28/09/2026 02:09, Gavin Shan wrote:
+> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
+>> Add VM type specific S2 MMU operation backends which can be 
+>> initialized per
+>> VM flavor, to keep the handling cleaner.
 >>
->> Now that I'm thinking through this, a possible problem is that
->> drm_crtc_helper_vrr_is_fixed_rate() operates on the user supplied limits, but
->> if the display supplied lower limit is equal to the user supplied upper limit,
->> then we have a fixed rate scenario without recognising it as such. I think I
->> need to have a ponder on what the least surprising behaviour for userspace
->> is in that instance. The display limit stuff gets a bit complex due to
->> CinemaVRR and QMS TFRmin/TFRmax.
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_host.h |  15 ++++
+>>   arch/arm64/kvm/mmu.c              | 137 +++++++++++++++++++++++++-----
+>>   2 files changed, 131 insertions(+), 21 deletions(-)
 >>
->> I'll improve the documentation on the next revision to make the meanings more
->> explicit.
 > 
-> Perhaps a simple way is to require simultaneous setting MIN and MAX pairs?
-> IOW, require userspace to set MIN and MAX simultaneously to >0, or =0. For example:
+> Apart from the comments from Jonathan, some nitpicks and questions below.
 > 
-> if ((vrr_min_n == 0 || vrr_min_d == 0 ||
->      vrr_max_n == 0 || vrr_max_d == 0) &&
->     (vrr_min_n > 0 || vrr_max_n > 0))
-> 	return -EINVAL;
-> That way, it's never ambiguous what userspace has requested for the range.
-> They can copy the EDID supported range if they don't care about limiting one side, rather than leaving it at 0.
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
+>> asm/kvm_host.h
+>> index 149f4582c8b6a..7664d8b8cce5a 100644
+>> --- a/arch/arm64/include/asm/kvm_host.h
+>> +++ b/arch/arm64/include/asm/kvm_host.h
+>> @@ -155,6 +155,19 @@ struct kvm_vcpu_ops {
+>>       void (*vcpu_put)(struct kvm_vcpu *vcpu);
+>>   };
+>> +struct kvm_gfn_range;
+>> +
+>> +struct kvm_vm_s2_ops {
+>> +    bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
+>> +    bool (*vm_test_age_gfn)(struct kvm *kvm, struct kvm_gfn_range 
+>> *range);
+>> +    int (*vm_flush_remote_tlbs)(struct kvm *kvm);
 
-Determining the actual limits can be non-trivial (though I guess that might be fine as long as libdisplay-info can work them out), if user space gets them wrong, it might accidentally apply a narrower limit than intended.
+...
+
+>> @@ -166,6 +168,18 @@ static bool memslot_is_logging(struct 
+>> kvm_memory_slot *memslot)
+>>       return memslot->dirty_bitmap && !(memslot->flags & 
+>> KVM_MEM_READONLY);
+>>   }
+>> +static int pkvm_flush_remote_tlbs(struct kvm *kvm)
+>> +{
+>> +    kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+>> +    return 0;
+>> +}
+>> +
+>> +static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
+>> +{
+>> +    kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
+>> +    return 0;
+>> +}
+>> +
+>>   /**
+>>    * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+>>    * @kvm:    pointer to kvm structure.
+>> @@ -174,26 +188,36 @@ static bool memslot_is_logging(struct 
+>> kvm_memory_slot *memslot)
+>>    */
+>>   int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
+>>   {
+>> -    if (is_protected_kvm_enabled())
+>> -        kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+>> -    else
+>> -        kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
+>> -    return 0;
+>> +    if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
+>> +        return 1;
+> 
+> For the return value, I'm wandering if 0 should be returned. More details
+> can be found below.
+
+Answered below.
+
+> 
+
+...
+
+>> +static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+>> +                     gfn_t gfn, u64 nr_pages)
+>>   {
+>>       u64 size = nr_pages << PAGE_SHIFT;
+>>       u64 addr = gfn << PAGE_SHIFT;
+>> -    if (is_protected_kvm_enabled())
+>> -        kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+>> -    else
+>> -        kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
+>> +    kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
+>>       return 0;
+>>   }
+>> +int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+>> +                     gfn_t gfn, u64 nr_pages)
+>> +{
+>> +    if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
+>> +        return 1;
+>> +
+> 
+> Realm would the only case where vm_s2_ops->vm_flush_remote_{tlbs, 
+> tlbs_range) 
+> are NULL. On request to flush remote TLBs by 
+> kvm_flush_remote_tlbs_range(), it
+> ends up with event KVM_REQ_TLB_FLUSH queued for each vCPU. How this 
+> queued event
+> is linked to a remote TLB flush for realm? The problem is TLBs are owned 
+> by EL2
+> realm and there are no RMI calls for the management. So I'm wandering we 
+> should
+> return 0 here?
+
+Please note that, the Realm s2 callbacks are not NULL for 
+flush_remote_tlb*. They all return 0, indicating that everything
+is taken care of. (See Patch 14/20: KVM: arm64: CCA: Add bare minimal S2 
+operations for Realm)
+...
+
+>> +
+>> +#define KVM_VM_S2_OPS(flavor, ops)        \
+>> +        [flavor] = ops
+> 
+> Parentheses are needed, to be consistent with KVM_VCPU_OPS at least.
+> 
+> #define KVM_VM_S2_OPS(flavor, ops)        \
+>          [(flavor)] = (ops)
+> 
+
+Ack
 
 
-> It's then also clear if they requested a static Hz.
+> Actually, KVM_{VCPU, VM_S2}_OPS() can be combined to one in kvm_host.h 
+> as below.
+> 
+> #define KVM_FLAVOR_OPS() [(flavor)] = (ops)
 
-I do see the benefit of your suggestion for this though.
+I would leave it as they are to avoid confusion.
+
+Cheers
+Suzuki
 
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
