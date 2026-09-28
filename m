@@ -1,202 +1,92 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7218F4B7A3E
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFD34B95BB;
+	Mon, 28 Sep 2026 11:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790596728; cv=none; b=P3zQuFAuvHXeQ4HwLKAOrprZg2MEQ8lxHGxTZi4HmOJ7RdfJ2b2+SGdM31Axa8rk2J1k97SjOYIeAJOTAQnLf+t08Fe0EuP/y/5GDrJ5mlW1NAH2QdzDFtmBEsiUD24z48vjmkq/7WWVLS1FF4owiWf0Unp8f1+brgCELZwDRNw=
+	t=1790596736; cv=none; b=j+6qrp6RAj3ZnkXxAnIEkKj5NZ70nr/gsotIiJtJAqpPRBe6126iECWGpf0fitFrNorojqcgwZ2FJYEm3lcvflj2vukxKP3GqfjaWB7vWk/0MLcjmjwRmKebP5kFjSbVJ42j3nf2lE9Bf0Ne2bZ2ZxrLpmJa1V5SV97byROaCbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790596728; c=relaxed/simple;
-	bh=a5KcPfO/lVWvSV/4F80VAySM5Pi85YzX0n3tROeq3fI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mamgYs9pJxRt41tWlZ2hU3wnDQdjsKLNL0Rv+ykUChZfwCVOsZ+i260dFOOR6wm6w0LCVzEKDYVHjLMEhk7D14cjaa1di4VFZl8/VObJtPIMCeNkK46QmsGl0VfrGfrO720zoKMi01WZvZheDUuc+6xk7lH/A8SMUWy0X+dOn+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMpjLb6s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=abrhiRd1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790596736; c=relaxed/simple;
+	bh=ekvRhtO90bqV2FfI8e4HIlD3mlaI0So/2yQ5E4G17jY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Sn+iX4XJyms4ESOObFt35b1QiWTyfBIsSRM5BiZqlHmcx9QWF4fpxvWeo4persR8fIAM7tuMuxf7WLmJlVn7Qg+Z510D0ItCOGfvfJFAZAmP9whhrVb5gNalOFfPET/L8Bmjd+NvUM4hQ6IT2eJ1968R3FVX87mib2oF6EIEhOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=i6wwXSCk; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMpjLb6s";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="abrhiRd1"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SBAZHB558813
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=GWvcEfZFoPLDafBzTdcCM2
-	UQzqRP8Ydg4Kuy7k8AJBs=; b=aMpjLb6sF5zwjCIthlnlTSZP7LWcH2cdRXg7MK
-	6ut+DkS9JJNrkQr17zR1WNVAPzqT0O3S+On6sVE1oAH4aOR/ltSjg5g/Ggib+1uh
-	syhfQ6b9FlfDYV2QzduiMEskG/5n5zDO2zzqDkSKOhzS6Gs0qKVDXps1lrr8gBFT
-	YSWNSchv78a+eEi5miyUtJr68Rb9P/7iPUeBUjCEULtKRl2OUNS8u9Y0/cznwcAK
-	1cZLr50+tfmJoXd9+gd220/Y3qw1Libj9a0Tvk9XLhIU//3uY9Tc2dG9uCFnypXo
-	Ux9XoHWkZZ4Pw2uYvSPVQ/3abT/om7NXqIQ5xj5144DPgKHg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq203t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:58:46 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a0f55a3941so1877630a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:58:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790596726; x=1791201526; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GWvcEfZFoPLDafBzTdcCM2UQzqRP8Ydg4Kuy7k8AJBs=;
-        b=abrhiRd19ghEdqmBbGN9D2dPc+z2qmLCrY/yzIwa38pzu1L8UcE/xnOdstHPZqBLA2
-         kQdBPTDcSzf5uuSFMKG0Hh3Ohy0Yrg7/llqMwN7RKn/7Aqq2WeVUOlhZ8zZLeEYDNHao
-         GTN7/JGLQ4uyyCpXJbkvQc7/wMJOHr+a//RUFW+M9/PUYrvYYXB9UtfPH2Ct3VtW2BBe
-         to4UILjsKgMoQSzXlrj9xq5DkK0t7YmB/FrKPQ5hbfoHA5XGq/0Xm8TUZryg37lhJ348
-         /J9I1QW1toAfyhG8+x4qsqrPVQddfFRi7OyBLA8PqjrAcn/KL+D+qLSKDJTWG8roGXTH
-         N3wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790596726; x=1791201526;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GWvcEfZFoPLDafBzTdcCM2UQzqRP8Ydg4Kuy7k8AJBs=;
-        b=pLnUhSC7RnKvUnBkegnbOPr9Hg5QC3myt8oYPigb1t+vhIivJlsyXBbDGTAp/HEkgK
-         r5NmFzFn98Gs/Fi4PX++TK0GVfT8l2IYzseX7rLLkoZwdFNga3lQAuyS5OnE9TkkDdNH
-         aN5H+eoufqLjePALwOgJ/uH7Nlt+XAQrmSELtNqZ2OvFNKAh24mNKY34BSvpbkdA/7Z1
-         bGpr0T9UX1eTutilmtasurCHrYbuk7bnM24/pXBcRckJcFUSBv9QTqLMBdLWge88C5k3
-         tNO77QG6ojsjOJQ8PTBvt42hOWqb8eJetb1jOHbY8BeARSyP76QY0/1+wsksv2PiDwZI
-         4ysQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/c8iL1C7Ox27YbFIfg9gyLQKoKjr9L6BVlYTEzVGjMh3rbP0c4kvCfBHSxGH4n9ztDkVDRGFib/g26Y0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpQ6s/lEh7Qz2/VQsNn8ZkBtsaTac0EzCYvByMvlhehoyQUxHT
-	qgm90fRBA0YbLAQ20oHQqAC3uCWia0EfIcMwjCuQAtN33/AoylTY2FsKI6sDO2uWeDnMHojOI2i
-	iYLIULx+/e21fYMjo4i10ZrXLzgvMlTVoCCLLsW+CxTHZyzdR0hiBbtBu0D8gnItIWfQ=
-X-Gm-Gg: AYBFou0HkLTuglXBaFAHqpjswW8JmOIyoRpZ+rBAfZKFxxkBLvIiUQvjnh6DlYpSBm8
-	8r87xq3nDFrxMJG/4Wu4LMc10H5gFpZGjBVbpOGtDUpKYV984C5UGn8qrJiV59kEtjyFtFlDPe7
-	9gcx3ufRRh1Kv9HV6SElmuqAP3WtTNRoU4JQqi4WKxMPdRXgtTjnQ9M898jm3wh5ni+Z7L+jWp/
-	6PPrEo61RRC0jbkOp9bXHDlAuH2ZpumEzGq75IzsFL+FZ+cRe9cz2cToTw1quPete2yAINVc9K7
-	urP11t5/NMbzfg1nN7bsw9+tgNPwvLTgJhEt6foIoUtgx+DJFYIF+2VkPlTsBoMn4sMnYlDmaS0
-	/WwhfdW2oHP5iUBg1LzoJUf+GilXcxxU4UZSx7kXmbjGt7cjHyezyJiW0mqffjLNqrlemqk4=
-X-Received: by 2002:a17:90b:4a91:b0:3a0:bf26:f24a with SMTP id 98e67ed59e1d1-3a0bf26fc15mr7372235a91.45.1790596725722;
-        Mon, 28 Sep 2026 04:58:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a91:b0:3a0:bf26:f24a with SMTP id 98e67ed59e1d1-3a0bf26fc15mr7372213a91.45.1790596725186;
-        Mon, 28 Sep 2026 04:58:45 -0700 (PDT)
-Received: from congzhan02.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm22054562a91.1.2026.09.28.04.58.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 04:58:44 -0700 (PDT)
-From: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 19:58:38 +0800
-Subject: [PATCH v3] virtio_blk: use synchronous quiesce in
- virtblk_freeze_priv()
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="i6wwXSCk"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=oKCFLwVE40G9JXDKK/zKyWnWBxKb+0ihAxkPTgPLbOY=;
+	b=i6wwXSCkIEIgMmwF/wHRY1TXPMujmNDJUNJ8L7zr4In81DcD5mxF7lwzcJHzl2uS3Wkl9L4cL
+	uwbcz2PMX7BxpY0zyBqG7zYTnAf4jvM3UvLPe7CxKqb4qqOAM99KCu3LFImkBv5hri8KmXc+QBh
+	9aew8xKDk70wyy+BF5iIiZA=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4htffR3FrCzRhQs;
+	Mon, 28 Sep 2026 19:46:39 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6B79F4057F;
+	Mon, 28 Sep 2026 19:58:44 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 28 Sep 2026 19:58:43 +0800
+Message-ID: <89d1aecd-d4df-47e0-9b5a-9c5b6830aeb5@huawei.com>
+Date: Mon, 28 Sep 2026 19:58:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-virtblk_sync_quiesce-v3-1-a037e6e2fdf5@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAG1WumoC/3WN3Q6CIACFX8VxHQ7wJ+yq92jNAWJSKgnKcs53D
- 2xtXdjN2c52zvctwEqjpAWnaAFGOmWV7n1JDhEQDetvEqrKd0AQyVGBEXTKjLx9lHbuRTlM/is
- kLDgRlFZpluIc+OvTyFq9Nuzl+ul24ncpxsAKi0bZUZt58zocdl8F3lc4DDFklCY1rRNMMnrW1
- sbDxFqhuy72AYLJkV8W+cMinoUKhhDO0oIfyQ5rXdc3ejIhdB0BAAA=
-X-Change-ID: 20260910-virtblk_sync_quiesce-9b2c88d45416
-To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
-        Eugenio Perez <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-        Ming Lei <ming.lei@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Cong Zhang <cong.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-38bf1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790596722; l=2486;
- i=cong.zhang@oss.qualcomm.com; s=20250926; h=from:subject:message-id;
- bh=a5KcPfO/lVWvSV/4F80VAySM5Pi85YzX0n3tROeq3fI=;
- b=KMwGuSH+3ziApXG5QlvjxI5qXg+XS3sB7eaaGysM93gcZmk2lo8uADbhVuFwfleEvAg51bq7p
- 5GaiSm4r5+CCauqVc4qPd2kBSoQBiy/axVIbTxwOXVqwOhEVB6UpdcD
-X-Developer-Key: i=cong.zhang@oss.qualcomm.com; a=ed25519;
- pk=8SBh3ey5igz2nlW+UFC6khFvaNPgG7MmbWtAeO2s6n8=
-X-Proofpoint-ORIG-GUID: j0Fxy2csG3Xcm1tt0UdwHVj-0tVyH4pY
-X-Proofpoint-GUID: j0Fxy2csG3Xcm1tt0UdwHVj-0tVyH4pY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfXwTkF3xHaHNtU
- z8Vn49nK1hW131qfFP/RSaAinfgpNPstOrtYvEP2CneRTFX6JFew01KPyjZBy425RJaM5TcCkob
- +K2Grx+OdHKbdEzVlBwuXnfufpGWV/s=
-X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba5676 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=20KFwNOVAAAA:8
- a=kkXLOB11zRU5SlhL2XgA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NyBTYWx0ZWRfXzpXsyVc0eryx
- GtjsiErTDgUWUeXWWx0RB9RoPXBQsV3wm4HLQl2fjdYNfc1dVz5UkwqDarmZTVVXih1wKBeT0fE
- aga82oa50RWnVmVcFeBeCm0f2EbOwoAO5bRTmWh+DL0xeondZ8LTEtD+kbVUR+eJisKvoPpFYqV
- TnAQNzfOQM7vjmHJOUqOk7/T47iIXk32DQyvalVQHI7fOj+C6OLEEyJs5rRizhPZkZNP49b35M0
- ZViFPa+nevoxgnWQH3yJrz2opSy6QMoQjpyVmbo8D+4Z7ZVx6qb+01Ooh+MCPC8y8tS4RKY7CFG
- CbrEXhqMLX4toF0GQeBOUG7hfQC3Fcw0wsOnt7VewSYI0p2XV3o9h30eO2fs/pJOcS6UtTvmA7e
- 7cdSzdkL8mY9G5Hf8GWAt1pdIVuj5HZbL5Uj7bdUHNduBGFwbqrdqjSVZ3JUw+htv56Lpu1ESrc
- 0tvhYruTWhw5B5pRxlg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280047
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] security: keys: Fix comment of
+ search_process_keyrings_rcu()
+To: Thomas Huth <thuth@redhat.com>, David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, James
+ Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
+CC: <keyrings@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260928072024.91664-1-thuth@redhat.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260928072024.91664-1-thuth@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-while the flag is clear. It can then be preempted before it gets a
-request. At that time, it has no queue usage reference, so
-blk_mq_freeze_queue() does not wait for it.
 
-virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-dispatcher can run again, use its old flag check, get the new request,
-and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-reset the device, delete the virtqueues, and free vblk->vqs. The old
-dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-kernel can crash.
 
-Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
-that was already running. Keep the existing freeze and unfreeze order.
-The queue remains quiesced until virtblk_restore_priv() calls
-blk_mq_unquiesce_queue().
+在 2026/9/28 15:20, Thomas Huth 写道:
+> search_my_process_keyrings() has been renamed to search_cred_keyrings_rcu()
+> in commit e59428f721ee ("keys: Move the RCU locks outwards from the keyring
+> search functions"), but one spot has been missed in a comment.
+> 
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> ---
+>  security/keys/process_keys.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
+> index a63c46bb2d148..570c131d90d5c 100644
+> --- a/security/keys/process_keys.c
+> +++ b/security/keys/process_keys.c
+> @@ -528,7 +528,7 @@ key_ref_t search_cred_keyrings_rcu(struct keyring_search_context *ctx)
+>  
+>  /*
+>   * Search the process keyrings attached to the supplied cred for the first
+> - * matching key in the manner of search_my_process_keyrings(), but also search
+> + * matching key in the manner of search_cred_keyrings_rcu(), but also search
+>   * the keys attached to the assumed authorisation key using its credentials if
 
-Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
-Cc: stable@vger.kernel.org
-Acked-by: Jason Wang <jasowangio@gmail.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
----
-Changes in v3:
-- Move the race description into the commit log.
-- Remove the blank line between tags.
-- Add Cc: stable@vger.kernel.org to the commit trailers.
-- Link to v2: https://lore.kernel.org/20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Changes in v2:
-- Cc stable@vger.kernel.org.
-- Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
----
- drivers/block/virtio_blk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>   * one is available.
+>   *
 
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index 32bf3ba07a9d..7a570591e040 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
- 
- 	/* Ensure no requests in virtqueues before deleting vqs. */
- 	memflags = blk_mq_freeze_queue(q);
--	blk_mq_quiesce_queue_nowait(q);
-+	blk_mq_quiesce_queue(q);
- 	blk_mq_unfreeze_queue(q, memflags);
- 
- 	/* Ensure we don't receive any more interrupts */
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
-
+-- 
 Best regards,
---  
-Cong Zhang <cong.zhang@oss.qualcomm.com>
+Jinjie
 
