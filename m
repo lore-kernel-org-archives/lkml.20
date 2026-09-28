@@ -1,99 +1,203 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C0F23EAAD;
-	Mon, 28 Sep 2026 15:01:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9AD4CC28E
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 15:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790607687; cv=none; b=WAz5k/Tin1f8oMytl2QVXcv3wuZwQUqcXtv8rvjDq2ajFZ2RHEfErjMGBcPxlda+iyXfezbHLG7r4tb1p6rM4ODU8l8AezUupuiwJ2CoXQ/0KdgBPmKV87DrrH1U614rKpT/CTqVYxvSobI56nGPw6UjmdKyo3Omp3FZzu+Jk+w=
+	t=1790607688; cv=none; b=jrAPjfxri3QVDfCm2KvwRhu7t6mWJM/ZMMYura5slcr+aocby44+K9DKq2XbG6qJv2DTwHDNlf1NvNikhFcjyLxNTe8zUSPZgDTH/RDNRW0hr3+pKsWV8y/uRFpiJ2kWgkrnhRg1+kE58jRFJddPMOh+J+twdxIO1eEYRVv/1Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790607687; c=relaxed/simple;
-	bh=VmqgzTZXEL2abXYE2ZwSbXtEHIgDV5rMnt4AXizdjxQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qWgnAPk+1ukiLmO1uDsZHMoTogtE1RDqfJuAUkqs2AGbKrD9ByTcbmgF5WbJjlSrY56pEjDSC8zQF3wLV3mCokmbXfg+NEmIUAOfjlPFoFgUSQPahdnezLuQaJNltBUcrR2Ip6WBTHTSGXcArTLJ0cA8a7k1bbmosc+9K6LPzlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=a6o5sbIH; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790607688; c=relaxed/simple;
+	bh=jdQOpTd1yKVH2Iw9b4utgOqc6ic9XH0J/Yb2gcTPXtM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=K+bmxjV64E8TtiBsT1mHG7hY4iBvC5+QsZotvk7a/p8SpFemPPMUdHv4f+7O7MzuVuB9czJP7sJMt7Zeul9gIgLsLKmg9W5RAaR8pIsApM1LcuLnRjjx+jnQ3/ZxNPcn60so7Xmj2iZtHhbNQJm6hiuj/W/87VJHYlUn5yN3k0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fB+jOAQ2; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="a6o5sbIH"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68SF0TgwC500472, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790607629; bh=VmqgzTZXEL2abXYE2ZwSbXtEHIgDV5rMnt4AXizdjxQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=a6o5sbIH2x2yw8YBJmbd7YZJvkpsImIgnemZspapUG3IzJbVciACNPU6eKQ/nwZ0X
-	 5eeMet+zkKkl4UkmjjA1auOWgq74LROKKRvaw2guX9+JmflmqMFOZC50VkH9NZ+Pnf
-	 ob7GHs1zBKH/Q9nWCz8NnkUXaQxspEO5ICoyhc+skWfgftgu5jro2ZMv/a8syBQ/o8
-	 8pztzpQjZH4vhOwREPuurcRDT7Mo1uHlI6rYaErtPg9dSq3O9ZWw33hfJESfDyJolN
-	 IiKjg7JM4XLfy2s+3yI1Z3j7+tyabA/jDblLG1CJBNTMJ+kMhicyWm+XVJ6mXXwGpW
-	 JZ7+unULky3zA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68SF0TgwC500472
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 28 Sep 2026 23:00:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 28 Sep 2026 23:00:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 28 Sep 2026 23:00:29 +0800
-From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
-To: Pengpeng Hou <hppiscas@163.com>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
-	<james.tai@realtek.com>
-CC: "afaerber@suse.com" <afaerber@suse.com>, "linusw@kernel.org"
-	<linusw@kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, =?big5?B?VFlfQ2hhbmdbsWmkbLZoXQ==?=
-	<tychang@realtek.com>
-Subject: RE: [PATCH v2] pinctrl: realtek: rtd1619b: publish the OF module
- alias
-Thread-Topic: [PATCH v2] pinctrl: realtek: rtd1619b: publish the OF module
- alias
-Thread-Index: AQHdSLEcJX+4NvxkzUaHWGar/UKH9rbkIpVw
-Date: Mon, 28 Sep 2026 15:00:29 +0000
-Message-ID: <f25e75dabbf64d3a9078ea584aee7986@realtek.com>
-References: <20260920033520.12924-1-hppiscas@163.com>
-In-Reply-To: <20260920033520.12924-1-hppiscas@163.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fB+jOAQ2"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1a439db36so1853158a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:01:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790607686; x=1791212486; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TnFki+BLJa1RwxDmrHE/Ki7U3AU1ZKVEEJDLyRcwiMA=;
+        b=fB+jOAQ2GgrTNvh/M7NyBkoImGJ2g1cKsg1SuHFgxUsVX6EtaZ/LlkRu2lmNvVZBaG
+         Xa0cncKvtEnmFy2zkDKXOgGJF/enJEG6uvARZOeUzLLqtaNWrtmWShFVnwtSncomZA9J
+         G972w26Xz/0egdtm52x1N0t3G+yd5bnOWQRM2NbYijYlHHDmp71kgU/clTgZCiSJxUrI
+         vuE4dSB1TprWTj4RfASvVnSHGPXLMC11+z5TxOWsqtrc6bDwGxNFlgQ3W5iJjkBTlzn9
+         iIXoNEgN/rfym1dfpgBSlZInCLiGoYyFLNpb55Uij6gGUU1Z24N4VhnjYAevpGoEu59j
+         HiyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790607686; x=1791212486;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TnFki+BLJa1RwxDmrHE/Ki7U3AU1ZKVEEJDLyRcwiMA=;
+        b=vW3RSus/woywjsnRyU1kq5/7yYMOq37nGj5stdMLY3o+Lg1nr8fAHoaEawiktYKgyz
+         sOo8CPNv3iFu6QsggmhK+K+dFBIJlQ2/RVbiNzt+jDzyn6kDeaSCAxIqsAxxdbtHiWUn
+         k4FKVd07ZbrpnqT41I7gnfSSZur3sR+fcql/OyCplPvZmqAirBYH9BcwtNgwJgsdnTX2
+         iLo0Q9IiqxcEBfAPKxDLoYxouHlNVgxz2K4jOvRBuwEVJ+NJW8TUmWtxmWeZXe8xHnQ6
+         PUJLFP11ypd0ytB8pGTPvuu8B8M88aEhP7w84MOQpdD86YU8CkphWbK3agLv9WtpsQYD
+         G6dA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4gRT+uxI6R94/z1Ju10HgFMgqVZY2od886X8eWckC6HT1W5eHGdTN7kR3hriotFYP6x4qbTqWEZnCizc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRyem67SLfK+cHpjHh60vD3u6haeR6v9QzG9FGwkxE03jI6jPV
+	IRH4xgmehogstuBN4XhE9fBJeRYAEeHn1H1YATgkr7RuOZ3/rdFk+IUWSO2/cn+/wGQ3crOw3cI
+	htYQ1rW5blVBFrDRlBg==
+X-Received: from pfki17.prod.google.com ([2002:a05:6a00:51:b0:881:464e:33be])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:138d:b0:881:7ff5:605c with SMTP id d2e1a72fcca58-8817ff562d9mr5296272b3a.55.1790607685619;
+ Mon, 28 Sep 2026 08:01:25 -0700 (PDT)
+Date: Mon, 28 Sep 2026 08:01:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260928150121.1712559-1-tjmercier@google.com>
+Subject: [PATCH bpf-next v7 0/2] bpf: htab: Reduce memory use of hash maps
+From: "T.J. Mercier" <tjmercier@google.com>
+To: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"T.J. Mercier" <tjmercier@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiBQSU5DVFJMX1JURDE2MTlCIGlzIHRyaXN0YXRlLCBhbmQgdGhlIGRyaXZlciB1c2VzIHRoZSBy
-ZWFsdGVrLHJ0ZDE2MTliLXBpbmN0cmwNCj4gY29tcGF0aWJsZSB0byBtYXRjaCBpdHMgZGV2aWNl
-cy4gSG93ZXZlciwgdGhlIE9GIHRhYmxlIGlzIG5vdCBleHBvcnRlZCwgc28gYQ0KPiBtb2R1bGFy
-IGJ1aWxkIGRvZXMgbm90IGFkdmVydGlzZSB0aGlzIGFsaWFzIGZvciBhdXRvbWF0aWMgbW9kdWxl
-IGxvYWRpbmcuDQo+IA0KPiBBZGQgdGhlIE9GIGV4cG9ydCB3aXRob3V0IGNoYW5naW5nIHByb2Jl
-IG9yIHJlZ2lzdHJhdGlvbiBvcmRlcmluZy4NCj4gDQo+IFRoZSBpc3N1ZSB3YXMgZm91bmQgYnkg
-b3VyIHN0YXRpYy1hbmFseXNpcyB0b29sLg0KPiANCj4gRml4ZXM6IGM3OTEwZjZhY2E1NiAoInBp
-bmN0cmw6IHJlYWx0ZWs6IEFkZCBwaW5jdHJsIGRyaXZlciBmb3IgUlREMTYxOUIiKQ0KPiBBc3Np
-c3RlZC1ieTogZ3B0IDUNCj4gU2lnbmVkLW9mZi1ieTogUGVuZ3BlbmcgSG91IDxocHBpc2Nhc0Ax
-NjMuY29tPg0KDQpBY2tlZC1ieTogWXUtQ2h1biBMaW4gPGVsZWFub3IubGluQHJlYWx0ZWsuY29t
-Pg0KDQo+IC0tLQ0KPiBDaGFuZ2VzIHNpbmNlIHYxOg0KPiBodHRwczovL2xvcmUua2VybmVsLm9y
-Zy9hbGwvMjAyNjA5MDUxMzQ0MTguNjc2MTktMS1ocHBpc2Nhc0AxNjMuY29tLw0KPiBVc2UgdGhl
-IGZ1bGwgYXV0aG9yIG5hbWUgYW5kIHJlZ2VuZXJhdGUgdGhlIHBsYWluLXRleHQgaW5saW5lIGRp
-ZmYgd2l0aG91dA0KPiBlbWJlZGRlZCBjYXJyaWFnZSByZXR1cm5zLg0KPiANCj4gIGRyaXZlcnMv
-cGluY3RybC9yZWFsdGVrL3BpbmN0cmwtcnRkMTYxOWIuYyB8ICAgIDEgKw0KPiAgMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9waW5jdHJs
-L3JlYWx0ZWsvcGluY3RybC1ydGQxNjE5Yi5jDQo+IGIvZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsv
-cGluY3RybC1ydGQxNjE5Yi5jDQo+IGluZGV4IGIwN2U1MGQ2MzU2ZC4uZTAzZTFmYjA5ODk5IDEw
-MDY0NA0KPiAtLS0gYS9kcml2ZXJzL3BpbmN0cmwvcmVhbHRlay9waW5jdHJsLXJ0ZDE2MTliLmMN
-Cj4gKysrIGIvZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvcGluY3RybC1ydGQxNjE5Yi5jDQo+IEBA
-IC0xNTc1LDYgKzE1NzUsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZA0KPiBy
-dGQxNjE5Yl9waW5jdHJsX29mX21hdGNoW10gPSB7DQo+ICAgICAgICAgeyAuY29tcGF0aWJsZSA9
-ICJyZWFsdGVrLHJ0ZDE2MTliLXBpbmN0cmwiLCB9LA0KPiAgICAgICAgIHt9LA0KPiAgfTsNCj4g
-K01PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHJ0ZDE2MTliX3BpbmN0cmxfb2ZfbWF0Y2gpOw0KPiAN
-Cj4gIHN0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIHJ0ZDE2MTliX3BpbmN0cmxfZHJpdmVy
-ID0gew0KPiAgICAgICAgIC5kcml2ZXIgPSB7DQo+IA0KPiBiYXNlLWNvbW1pdDogNTE4ZTViNzk0
-YzA2YzBmMGViNDBkZjNlMjAyMjc0YTY2MjAyYzEzNw0KPiAtLQ0KPiAyLjUwLjEgKEFwcGxlIEdp
-dC0xNTUpDQoNCg==
+Memory is expensive and scarce these days. This series reduces the
+memory use of BPF hash maps by eliminating the per-element overheads
+below. This saves up to 50% of per-element memory use for standard and
+PCPU hash maps. The memory use of LRU hash maps is unaffected.
+
+Map Type & Configuration           | Old size | New size | Savings
+-----------------------------------|----------|----------|--------
+Standard (key =E2=89=A4 8 B, val =E2=89=A4 8 B)    |   64 B   |   32 B   | =
+50.0%
+Per-CPU (prealloc) (key =E2=89=A4 8 B)     |   64 B   |   32 B   | 50.0%
+Per-CPU (non-prealloc) (key =E2=89=A4 8 B) |   64 B   |   40 B   | 37.5%
+LRU (Any key/value size)           |    -     |    -     | 00.0%
+
+1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1)
+struct htab_elem is used for all hash map types, and includes fields
+that are not always used (bpf_lru_node, ptr_to_pptr). For standard
+(non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (union)
+are entirely overhead and can be eliminated. Non-preallocated PCPU maps
+only need the 8 byte ptr_to_pptr which is currently unioned with the
+unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
+eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 bytes
+of overhead can be saved.
+
+2) Hash caching for small keys (patch 2)
+For hash maps with small key sizes (=E2=89=A4 word size), comparing keys on=
+ly
+requires a single instruction. Currently the 4 byte hash value (8 byte
+aligned and padded) is used for this, but offers no performance
+advantage in this case and can be eliminated.
+
+The implementation splits htab_elem into dedicated structures for the
+different map types (htab_elem, htab_elem_pcpu, htab_elem_lru with
+hashed and unhashed variants) so that the map-type specific fields
+exist only in structures where they are necessary. In all hashed
+variants, the hash is always at a -8 byte offset from the start of
+htab_elem. The elem_offset map field supports the different sized
+element headers, and allows dynamic offsets to be kept out of the hot
+lookup path. It is used primarliy for allocation / free, and indexing
+preallocated elements.
+
+run_bench_htab_mem.sh shows the following changes across 10 runs on my
+3995WX.
+
+Benchmark (all in kops/sec)  |  Avg. Before  |  Avg. After  | Delta
+-----------------------------|---------------|--------------|--------
+prealloc overwrite           | 116.26 =C2=B1 4.3  | 118.81 =C2=B1 4.2 | +2.=
+19%
+prealloc batch_add_batch_del | 128.43 =C2=B1 3.6  | 128.89 =C2=B1 2.9 | +0.=
+35%
+prealloc add_del_on_diff_cpu | 22.91 =C2=B1 0.69  | 22.44 =C2=B1 0.62 | -2.=
+07%
+normal overwrite             | 72.43 =C2=B1 3.13  | 81.06 =C2=B1 1.49 | +11=
+.9%
+normal batch_add_batch_del   | 45.20 =C2=B1 0.78  | 50.09 =C2=B1 0.56 | +10=
+.8%
+normal add_del_on_diff_cpu   | 12.02 =C2=B1 0.24  | 12.80 =C2=B1 0.18 | +6.=
+49%
+
+---
+Changes in v7:
+Rebase on bpf-next/for-next. Resolve conflicts with 63b13537e6b2 ("bpf:
+Speed up htab lookups for u32/u64 keys")
+
+Changes in v6:
+Make htab_elem_set_hash branchless like htab_elem_hash
+
+From Alexei Starovoitov:
+Drop smp_wmb/smp_rmb and WRITE_ONCE/READ_ONCE on hash
+Drop map size check changes (just use sizeof(struct htab_elem_lru))
+Drop BUILD_BUG_ON on elem_offset
+
+Changes in v5:
+Rebase on top of bpf-next/for-next
+
+Update elem_size check in map_ptr_kern selftest to 40 in first patch
+(Sashiko)
+
+Place hash at constant compile-time offset before htab_elem, to allow
+removal of key_offset. (Andrii Nakryiko)
+This avoids dynamic htab->key_offset load and pointer arithmetic. The
+struct declarations got reworked to implement this, and htab_node was
+dropped. All map_in_map changes became unnecessary and were dropped.
+
+Fix key update before pptr, value initialization for recycled elements
+and lockless readers. (Sashiko finding on internal run)
+Read / write memory barriers and READ_ONCE() / WRITE_ONCE() were added
+for this.
+
+Combine rhtab_mem_dtor() and htab_mem_dtor() implementations.
+
+Fixed the KMALLOC_MAX_SIZE overflow check since sizeof(struct htab_elem)
+shrinks in both patches.
+
+Changes in v4:
+Removed inline from new functions per BPF CI (netdev/source_inline).
+
+From Mykyta Yatsenko:
+Factor out duplicate lookup_elem code into __lookup_elem_raw.
+Use offsetof instead of sizeof for key_offset assignments in
+htab_map_alloc (patch 1).
+Eliminate branching and htab_elem casting in htab_elem_hash /
+htab_elem_set_hash.
+
+Changes in v3:
+From Sashiko on torn reads/writes:
+Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of memcmp /
+memcpy for atomic key comparisons for hashless elements.
+
+Changes in v2:
+Make maximum key_size for !has_hash depend on word size for atomicity
+on 32-bit.
+
+From Mykyta Yatsenko:
+Put the htab_elem* common initial sequence in its own struct (htab_node)
+and reuse it across all element types that share it. Eliminate
+associated BUILD_BUG_ON additions.
+Replace both the hash and key fields with data[].
+Store has_hash in struct bpf_htab, and avoid per-element reads of it.
+
+T.J. Mercier (2):
+  bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
+  bpf: htab: Reduce elem_size by 8 bytes for small key sizes
+
+ kernel/bpf/hashtab.c                          | 320 ++++++++++++------
+ .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
+ 2 files changed, 226 insertions(+), 96 deletions(-)
+
+
+base-commit: ea9358e1270ab2c3ba6f36bd9bdda68617665516
+--=20
+2.56.0.rc1.315.gc6ed9934b7-goog
+
