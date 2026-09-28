@@ -1,262 +1,299 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010066.outbound.protection.outlook.com [52.101.85.66])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE73847AF68
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920747CC9E;
+	Mon, 28 Sep 2026 09:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589380; cv=fail; b=H7FCedj39CYMD7QmIQzHqci55Rb1dVsFNB54V/XMf61I2Rb+Idap7PSBm7tp3fMSPY2WzekqlvJ25l3iEnXGTQpfzhVyJFRklF0COiFiKlnqk53L+b5Z/QbtjhKqBb/rCb9+0bawIygiDQIJpSF4U++/P8jxMAJcl09ID2It0pI=
+	t=1790589389; cv=pass; b=GMN/JUb4a1maJtYxvJnxc85a6bQVpUT/fdNS6A9Co1jGAxQqKvxhnhfxaxv64TsXjkHd+lc54d1VGp1pX6sLfvVXyOtN1XUaUZ8gUSK64SRj/L2EbXkGZTDg0/mPPn/ijnuVtoO9VuFX6mOW5HSmeJWqCB5s3nBrJEUdmQs4nno=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589380; c=relaxed/simple;
-	bh=QIqHklMevGe6ODzyeExUqSVH1uPq527fdYPC11RiK8s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DCvHtiK7zlefztrRi3idiijQSXPdzhUnghhSLp7GA8NZWN9J12A1fGgHGbsLyJCzfnVBurUsw/aGK6HyzJ5s5v7fg2hj6XlZ5w3jsWEtvX2vpAnHPPg1OXYjrJ9hcWQbYdxwnyqkUfsF1UqJ2dazPOS4DAJhcept4evvQiskRpk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oaFQPmk9; arc=fail smtp.client-ip=52.101.85.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790589389; c=relaxed/simple;
+	bh=jlY/G8SBXi3MacKSinkAbyqBt0gkHz9gB/Hix+r3HXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oke1rectkrWM3svbLa3B08MfejbGu8oap8CDbe3nsv+dmyMvYHdlXmhpozvBFaACwz/Xg9aMp756WbvRsKx28+vmSytddoqGUCBz1R4g4eVLYFnpE3ut1SPTq/VsgKvIyF0iJS386PNHtf/DPG+obfBq1ZoVBHHe6U2mQ6CDtgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=GWCN68O8; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oaFQPmk9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bMra+uG0qCDlSxl6QQYKO/legceqsh+tMQE5jqv/3o6mf54xHxjiNAwHyBG7iKsw5lzs/HKHrqq+XVZkMQA3EWCrcLBmr4pCsuez1N2Y5wpJwJ43QtZ5ZtRaFCXOX4wx6iL03mEbCNo82Ud1HpZuaCzxVVICMALN43AOQqQlNhR/00tYwm+Id8F6ITEzkntRq+VbW5vwfiSzlDmM/aYUk0X02MuFOfzlhwajyNlZZEiz2sHwMBGv6k/ZRgy9YdGC1LrTVa0MTKFAfHw9s21WN+OaA4imMpfdYg1UlL2KOWyMKPCTvAkgWM4YsgyP1n0LMZkfdwPT0y9qmx+w76kcWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eWspZCSM2x0jTQdvEHBYdwfoQs+bQFMjCN0vfqifdcI=;
- b=nqSoTmLV+weYsu18jrlchPWyOGKTbxiObvye0T7Ml3suAudLIrbTsuX9kvY52FqSl7zgkM6HEGpfZDk3SYcIxZkGOJmxGVSfVa5NjkqfZCB32dP2Zqix+3tM/aG1DIdd3Jnyw0coD6mnLS3jSXq9lll/s6oql5ROiAL39yudweojvQeN00GGXMi0E4Uox6Tho0B/+SpgJKH3wBH61kdQEblnzag+eQ6QT2wqJ2udtQltW3BPQWwb/QlarcFlyR5Ckl4Uua00mzWAx8Njnaogsl7l8JjtrW1o+I5/aw8eePbkTMD6fUK4bRyYP2TGP4ZE1KgcD53JHPWubLsYHwk/lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eWspZCSM2x0jTQdvEHBYdwfoQs+bQFMjCN0vfqifdcI=;
- b=oaFQPmk9BgaECos7gOk5UwNwqU7nOIeQoWghUah3XFpOw+6mhjmHHpBQfF2zCeDqzdm3VJKa9ST2WGqL/ywa74sJm5f5hy/oMI5fwrP4yCDETy5dXZkRHTT/eXHc6k4b0EK0vTP0BZDZkunREoQ0o4VKYprStMnkXSjTFXr8YjkZp6EGszgZkRVgsUYi3nnRFUNeBJQbpIX0/g3any+fIjs+s1j989IPn+or/L3eaP8AXfDdVx2mbDBOl8oRe2Uk0mEm8sVXNyUUcwx1wvAHL7S0tpYrx8Jql76HaX6wluG6vKeA5R4BwDGWeBjjcuBg9F+pKrxNtjsfSQiWY5mh0Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by LV3PR12MB9259.namprd12.prod.outlook.com (2603:10b6:408:1b0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 09:56:14 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 09:56:14 +0000
-Date: Mon, 28 Sep 2026 11:56:05 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, Alap Mohan <mohaalap@meta.com>,
-	Joonwoo Park <joonwoo@meta.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix CPU hotplug hang
- when a dying CPU's tasks sit in the BPF scheduler
-Message-ID: <aro5tQ5gsoOdHeyO@gpd4>
-References: <20260923223825.734003-1-tj@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923223825.734003-1-tj@kernel.org>
-X-ClientProxiedBy: ZR0P278CA0214.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:6a::9) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="GWCN68O8"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0112F2001F2;
+	Mon, 28 Sep 2026 11:56:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790589384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6LuymVPYOeFAgj5ouYzllJ1mO8H9HkFW/AWhP83jbnI=;
+	b=GWCN68O8Zb6p/9/DXqR3kOKZWFjSnABczRl9jhLdMrKz7uAWw4+4bnRmVrRds3d4eT+0Wo
+	CPkrBdO0S30RcX7/grHcCchBUKq9AcxSjUr2bZp79PdGJFned7UAIDwI8bpbMyimmSB5PK
+	4PqSjlqpe3ssoUHCn5UjJRCLEfuF+ymk5gJ2a2eTXSIa6Pl244+6vQtDQhJPpBTfTkCE0b
+	emQC6b5GWQOnY2I7hMUXPNvj8aqzBAiLlm2dWW2ogIA95GfBugpYr+1Pm1vZhWqMTW3GMU
+	KeUGJKRb9k0qxShEUJeBIXDPQRTOhDsonVMkKYjPWRgVNjjNF+GEktu2QDkY6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790589384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6LuymVPYOeFAgj5ouYzllJ1mO8H9HkFW/AWhP83jbnI=;
+	b=cwifMkiBvbVBYCKb0nVPnTur6/uQz+5veMWsqrcuqAcqVyQj1hKonxiz+TtMRHrT/j36MF
+	O098vXUDHj2lYgO+4XRwniAngMhFIpGkvE2BUGAih5ZNhf3+e0vK6wAr2cNcZFg1WAWFrS
+	8hgLZWkYVaDhbR5sRo9qV7uszD4AI80zJkDck7a11cSxT5Z5i3S4M8QHecEYwtobU2glW6
+	j54u88detZPjXcKau9N9aC5hz/16+mr/N5yYULKzfE1H6ySN2proHCr3zEF2IvxJKgZEyZ
+	x80vDGbTdKt4eCFyJczDOgGPuCeeqX09c7DyyFj06X/2IHrwYfpvIK/EfBRBEg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790589384; a=rsa-sha256;
+	cv=none;
+	b=dEkMY0j2VqybOpRFC0MZQnXvjh6ZmIVQ/dP5vmSLXT+wxkazFCpa/UKHmoQVnt/s1zt/r5
+	VngR+zBn1TZaEVGeeikmwWpRDvEN5xwNO9mcSuIYfBpwUcUUT/VeX4sf10gLQ3JSwR7rHf
+	CpXyyrT9FtKcz2+ruFQnExliEhzOZfTaOFJkKaJ7RkuMA/9udYJZZSi8rEuLsxPn6S2XBV
+	Gz4ZmpRpttpVMLCsU9Wa3LCXaTLRxwnSP2HojO9fU6dxmguiBmgh03VeyLfJ4R0l690um4
+	+AxOn85Gum2wKAq5PV4mZm+WONHPbe94JvPfMuLEsMCZ22KHfftzPDC0ZXwZYw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1xB85v-003Cfy-2m;
+	Mon, 28 Sep 2026 11:56:23 +0200
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marek Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yi Zhang <zhanyi@qti.qualcomm.com>,
+	Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+	Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+	venkata.valluru@oss.qualcomm.com,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH] drm/bridge: lt9211: drop delayed work
+Date: Mon, 28 Sep 2026 11:56:22 +0200
+Message-ID: <20260928095622.38130-1-p.zabel@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|LV3PR12MB9259:EE_
-X-MS-Office365-Filtering-Correlation-Id: 377dad82-9c6e-4de8-29b6-08df1d46bb65
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|18002099003|22082099003|10067099003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	SOHtTD7QHsgjkVGXrJatScnAYcDzJnB+PYRMOZcWQcJhgyfxFUsnw9H0BMHSki8samitax59Sk5cZhOHRsrNNllGQ8UWed0i824CEbPGrs5j0TEmYpBqNAHHgE5p0AMmV88dpTPwlxXEKgWf53DnWDooP/QZIqCL7D6OWgowaL0fcGMk4HvcljDewZcQMcqeH54PppUtRhTwoOaRhkNdM9etD1rBKuf/dQdHIvVzc4/3TCDpJc+G450vpegBWmt67koiBPzOSTKnHDSibXHSqdW0bA9jjVrJaL08DXgLVHCjEp/prFsmHEk5iUWOeFaBicsSi0uxh+0VzPIn3XJvAaOyx8NEJou7unCY6FyhlkKzCl1QW8y2reO4sMYyckoZs8zHP3dF284HPuX/zhT0B1Qc7laLQqBUXbuPbn9g1qYtdf5ArSxif+PxXl5X6zmFw3qisy5qlNnr7i8gIpd8io2HDrVVgesw9508E9jmRGLD4ZBwtSdDS12C/Ahf5avstsEc+bBrHlXNoLbx2EH60+n6wccB1Frg/ezeJKUsPdK693dSWWm9HVSPM2+8isA2Si44nZU3ZVlEYV8P0ojm9hIyNoa/YSqtNlK/kwpLmBFG1IJk7M8mrXQecNndVQ2x/CbIh/8chgkNQ+KdvpzhLlvpvM4RCFdNPfnNy4SyZYM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9UNTUpg5PeV5ZAvFY0BmEuvVnhjXw9jgt9JegidaZyGhCRpsjxrkbbwNUBsO?=
- =?us-ascii?Q?zlZhMPBk/PCryLv8u2n7gN6mvQtD3CyR3XmOSYJ/xElaiL8oQ+oL02hvYeu5?=
- =?us-ascii?Q?ixDJcOHIGvjF3JXJC97CEdLpOIAiV0SJ2mCQGqWnicwMajWi/ULdXE+gVeOc?=
- =?us-ascii?Q?uUyp4cFS3Bl4i/gxFMvkUiWR//4VZCbpuymX7zLWk+1xiYoxJXlHwDRj8Xyh?=
- =?us-ascii?Q?oos3kQdfwn7fz5XCUiaDJE2tTB/Yfjg7vsMMHsveWgb7SWDU0+t3lyNg59sJ?=
- =?us-ascii?Q?FP8anavEvNn3gv0pqXpc5di2p8FIn5NbG1GRjynXLl3avOvjUQ+/qHhQDfGo?=
- =?us-ascii?Q?C5Xad/rITVRmG4ETq+wwAFRJHyk72UDX8o2BbpUdAfx3BLijKt6szQrPZ3VD?=
- =?us-ascii?Q?pfuOhxW/4eb+Go+wcQMlWCpXgX3E/i48EITHkP1hS3OgL2NhJCqOmPhzqU7B?=
- =?us-ascii?Q?9PLBNk8Do0m6i6N7svvz3/9X17ji7MT+DEHb1eCWGqMHvk5JV/BSIzW2CFZ4?=
- =?us-ascii?Q?dkIMiidOxbUmtQz9BFIiS4Zqkr++YgCODF3lf/CthMlJ2CX7HirZTwdG5fYk?=
- =?us-ascii?Q?zqQkCTfbr1nHsdHSoYbBI/85dI+9M3ObIuAkEWJ1w+l0B5jOiuCL8OLRvUsZ?=
- =?us-ascii?Q?VCDvFtYKf626o9tT4E9eRBBcFWSNVdgMdiodocumtHQOwBrU5zkpaAxJFyxg?=
- =?us-ascii?Q?qh8gTKZKmeikjNyXYCATO8JSNbaZ4TC86YSNjkKFOpZMVuySY6AqSlElgkgQ?=
- =?us-ascii?Q?5E/VV4ola/WWh4oiaR8pfiOLgVye8zcvqgHFqRhJVysCO7PgdRK/I0EJDU6b?=
- =?us-ascii?Q?e6i+dFngKUPgMSP+QH4Y+d83BFZCyBot/kZ4E0KdrkHGl+m4hWXQ2W0ooJry?=
- =?us-ascii?Q?dbBkjS39XmUtgMw365y9ZCg5meIts+SlPvNVMtI/Pswex64ZOe6uiyYlon3r?=
- =?us-ascii?Q?Uedqgtju2t3hdlmEAWqnvTxJjGRQtfEWuDwwy9EouqfqylfxKJw7OPLE60rx?=
- =?us-ascii?Q?msP3ya5eTCzSluPfFsvfGzGEFLyBy7VoUmJTYydsu+Bkd5fJ+SkTtFH6onit?=
- =?us-ascii?Q?DeE7pWW1YrUTffDgFxithZ4R8L6mdQVnT/lyWXSxPZ26xqajtlUknHVtI2AJ?=
- =?us-ascii?Q?q+f0P+/hRI3XTmaNAqHZm9ulQCdflXgfwyQqE7+vNiwLFiTJea6bTxl7l37K?=
- =?us-ascii?Q?vDY/VpH70gtbOUSeRwIB1RXpj+f3ZAxmFQaupujkOEb0CC3RweUV1saVCNMN?=
- =?us-ascii?Q?2IhghjW7QiMJmPQfJKiVPLctn3mSHbowtS0dmO5PK6a4xuFy5HCe8nDLomFM?=
- =?us-ascii?Q?ZhG0wPd9RwxAHsvuax5QUBw9pNd4Lw6IeJJNkqYogG4MF2Tjo7BBl9ChpZJW?=
- =?us-ascii?Q?kr1JENu2dgxjp72ZzCwLM1Sdd4CRn6MROjYhBwz2U7vDXdUbE91ntf3lzOeO?=
- =?us-ascii?Q?b928dvncngl9Yv5QJbOySnoArdJEVdeyI6JcAk/X4w8N2D+yCnEzfMW9OGTj?=
- =?us-ascii?Q?dIL2UGXp+SBrCx08swWlhEU+UYf7ksiYgHbBVbm0Zpkb7GY7wMcHViO3kV9N?=
- =?us-ascii?Q?F/KwBqVROyBGFm/2SnW8XHM0IKBxmPt9kRJraFl77g5b2pdq8550d90q41gS?=
- =?us-ascii?Q?UbB57eiwM14v/SvzMYX51WEb4XknNPIQAlyrgmrC6uw91Ry5b6uUk2ct2SW5?=
- =?us-ascii?Q?lWab4/5R/1p/krpPcGsNazYA1SXBbOAOoVnu1NcUzi0+OpDUvGh4Q2H7N0IM?=
- =?us-ascii?Q?wtQs9AliHw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 377dad82-9c6e-4de8-29b6-08df1d46bb65
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 09:56:14.0680
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eFoPdCKEi3HEIfX/P3rnVC2FsyN6FJHHmYpWSEx3hQYqcSF9wduTU8pYY/tthgjK/VPNeJFWhY6OzNhaf/H7Hw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9259
+Content-Transfer-Encoding: 8bit
 
-Hi Tejun,
+Replace the asynchronous work item with synchronous initialization in
+lt9211_atomic_enable. This should fix 3 issues flagged by sashiko [1].
 
-On Wed, Sep 23, 2026 at 12:39:20PM -1000, Tejun Heo wrote:
-> A CPU going down has to empty its own rq. Its hotplug thread waits in
-> sched_cpu_wait_empty() until nothing else is left, and the only thing that
-> wakes it is balance_push(), which runs from __schedule() on the dying CPU
-> and pushes off the migratable tasks the CPU picks.
-> 
-> sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
-> scheduler is still counted on its rq, but an inactive CPU no longer calls
-> ops.dispatch() and can't pull the task back. The dying CPU goes idle with
-> the task still counted, and one of two things happens:
-> 
-> - Another CPU consumes the task. The rq empties without a __schedule() on
->   the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
->   holding cpu_hotplug_lock.
-> - The task is affine only to the dying CPU. Nothing can move it, and the
->   offline stalls until the watchdog ejects the BPF scheduler.
-> 
-> When the rq goes offline, re-enqueue every task on it that isn't already on
-> the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
-> dying CPU itself picks the tasks and balance_push() pushes them off, the
-> same as for the other sched classes. From then on no sched_ext path on
-> another CPU can pull a task off the rq.
-> 
-> ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
-> hotplug then waits for an RCU grace period before taking the rq offline. A
-> BPF-held task affine only to the dying CPU and preempted inside an RCU
-> read-side critical section would block that grace period, and the rq would
-> never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
-> running until the rq goes offline. Only the dying CPU's own hotplug thread
-> clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
-> other rqs' tasks off the CPU.
-> 
-> Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
-> Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
-> Cc: stable@vger.kernel.org # v6.12+
-> Reported-by: Alap Mohan <mohaalap@meta.com>
-> Reported-by: Joonwoo Park <joonwoo@meta.com>
-> Signed-off-by: Tejun Heo <tj@kernel.org>
+The next bridge or panel in the chain may depend on the LVDS signal
+being active after atomic_enable, so arbitrarily deferring bridge
+initialization is not an option.
 
-This makes sense to me.
+If deferring initialization into an asynchronous work item fixes DSI
+stream detection, there might be a bug in the upstream display
+controller or MIPI DSI host controller bridge drivers, as the DSI
+signal should already be streaming when lt9211_atomic_enable is called.
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+[1] https://lore.kernel.org/all/20260924160816.ED8F31F0089E@smtp.kernel.org/
 
-Thanks,
--Andrea
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 121 ++++++++----------------
+ 1 file changed, 38 insertions(+), 83 deletions(-)
 
-> ---
->  kernel/sched/ext/ext.c     |   22 ++++++++++++++++++++--
->  kernel/sched/ext/inlines.h |    8 +++++++-
->  kernel/sched/ext/sub.c     |    4 ----
->  kernel/sched/sched.h       |    5 +++--
->  4 files changed, 30 insertions(+), 9 deletions(-)
-> 
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -2123,8 +2123,8 @@ static void set_task_runnable(struct rq
->  	}
->  
->  	/*
-> -	 * list_add_tail() must be used. scx_bypass() depends on tasks being
-> -	 * appended to the runnable_list.
-> +	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
-> +	 * depend on tasks being appended to the runnable_list.
->  	 */
->  	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
->  
-> @@ -3731,8 +3731,26 @@ static void rq_online_scx(struct rq *rq)
->  
->  static void rq_offline_scx(struct rq *rq)
->  {
-> +	struct task_struct *p, *n;
-> +
->  	rq->scx.flags &= ~SCX_RQ_ONLINE;
-> +
-> +	/* sched domain rebuilds call rq_offline with the CPU staying alive */
-> +	if (cpu_active(cpu_of(rq)))
-> +		return;
-> +
->  	scx_rescue_flush(rq);
-> +
-> +	/*
-> +	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
-> +	 * onto the local DSQ so that they run here and balance_push() moves
-> +	 * them off.
-> +	 */
-> +	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-> +		if (p->scx.dsq == &rq->scx.local_dsq)
-> +			continue;
-> +		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
-> +	}
->  }
->  
->  static bool check_rq_for_timeouts(struct rq *rq)
-> --- a/kernel/sched/ext/inlines.h
-> +++ b/kernel/sched/ext/inlines.h
-> @@ -70,7 +70,13 @@ scx_dispatch_sched(struct scx_sched *sch
->  #endif	/* CONFIG_EXT_SUB_SCHED */
->  	}
->  
-> -	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
-> +	/*
-> +	 * scx_rq_online() can't be used. Its cpu_active() test goes false
-> +	 * before CPU hotplug waits for an RCU grace period, and
-> +	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
-> +	 * the wait. The grace period can depend on those tasks running.
-> +	 */
-> +	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
->  		return SCX_DSP_NONE;
->  
->  	dspc->rq = rq;
-> --- a/kernel/sched/ext/sub.c
-> +++ b/kernel/sched/ext/sub.c
-> @@ -585,10 +585,6 @@ void scx_rescue_flush(struct rq *rq)
->  
->  	lockdep_assert_rq_held(rq);
->  
-> -	/* sched domain rebuilds call rq_offline with the CPU staying alive */
-> -	if (cpu_active(cpu_of(rq)))
-> -		return;
-> -
->  	/* end the current rescue */
->  	if (rq->scx.rescue.curr)
->  		scx_task_slice_ended(rq, rq->scx.rescue.curr);
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -4205,8 +4205,9 @@ extern void balance_callbacks(struct rq
->   * after which it is enqueued again.
->   *
->   * Typically this must be called while holding task_rq_lock, since most/all
-> - * properties are serialized under those locks. There is currently one
-> - * exception to this rule in sched/ext which only holds rq->lock.
-> + * properties are serialized under those locks. There are currently two
-> + * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
-> + * and rq_offline_scx().
->   */
->  
->  /*
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/bridge/lontium-lt9211.c
+index 9226d967b271..244979fb9ae6 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9211.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
+@@ -20,7 +20,6 @@
+ #include <linux/of_graph.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+-#include <linux/workqueue.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -72,14 +71,6 @@ struct lt9211 {
+ 	bool				lvds_dual_link;
+ 	bool				lvds_dual_link_even_odd_swap;
+ 	const struct lt9211_chip_data	*chip_data;
+-	/* LT9211C specific fields */
+-	struct workqueue_struct		*wq;
+-	struct work_struct		lt9211_work;
+-	struct drm_crtc			*lt9211c_crtc;
+-	struct drm_display_mode	lt9211c_mode;
+-	bool				lt9211c_bpp24;
+-	bool				lt9211c_jeida;
+-	bool				lt9211c_de_high;
+ };
+ 
+ static const struct regmap_range lt9211_rw_ranges[] = {
+@@ -1157,51 +1148,6 @@ static int lt9211c_configure_tx(struct lt9211 *ctx, bool jeida, bool bpp24,
+ 	return 0;
+ }
+ 
+-static void lt9211_work_func(struct work_struct *work)
+-{
+-	struct lt9211 *ctx = container_of(work, struct lt9211, lt9211_work);
+-	const struct drm_display_mode *mode = &ctx->lt9211c_mode;
+-	int ret;
+-
+-	/* wait for vblank irq to correctly configure bridge and autodetect stream */
+-	ret = drm_crtc_wait_one_vblank(ctx->lt9211c_crtc);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: wait for vblank failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_rx(ctx);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_rx failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_autodetect_rx(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: autodetect_rx failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_timing(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_timing failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_plls(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_plls failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_tx(ctx, ctx->lt9211c_jeida, ctx->lt9211c_bpp24,
+-				   ctx->lt9211c_de_high, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_tx failed: %d\n", ret);
+-		return;
+-	}
+-}
+-
+ static void lt9211_atomic_enable(struct drm_bridge *bridge,
+ 				 struct drm_atomic_state *state)
+ {
+@@ -1272,17 +1218,45 @@ static void lt9211_atomic_enable(struct drm_bridge *bridge,
+ 		return;
+ 
+ 	if (ctx->chip_data->chip_type == LT9211C) {
+-		drm_mode_copy(&ctx->lt9211c_mode, mode);
+-		ctx->lt9211c_bpp24 = lvds_format_24bpp;
+-		ctx->lt9211c_jeida = lvds_format_jeida;
+-		ctx->lt9211c_de_high = !!(bus_flags & DRM_BUS_FLAG_DE_HIGH);
+-		ctx->lt9211c_crtc = crtc;
++		/* wait for vblank irq to correctly configure bridge and autodetect stream */
++		ret = drm_crtc_wait_one_vblank(crtc);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: wait for vblank failed: %d\n", ret);
++			return;
++		}
+ 
+-		/*
+-		 * Needs a live DSI stream to auto-detect RX resolution/format;
+-		 * defer bridge configuration until vblank inside the work item.
+-		 */
+-		queue_work(ctx->wq, &ctx->lt9211_work);
++		ret = lt9211c_configure_rx(ctx);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_rx failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_autodetect_rx(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: autodetect_rx failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_timing(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_timing failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_plls(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_plls failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_tx(ctx, lvds_format_jeida, lvds_format_24bpp,
++					   bus_flags & DRM_BUS_FLAG_DE_HIGH, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_tx failed: %d\n", ret);
++			return;
++		}
++
++		dev_dbg(ctx->dev, "LT9211C enabled.\n");
+ 		return;
+ 	}
+ 
+@@ -1320,9 +1294,6 @@ static void lt9211_atomic_disable(struct drm_bridge *bridge,
+ 	struct lt9211 *ctx = bridge_to_lt9211(bridge);
+ 	int ret;
+ 
+-	if (ctx->chip_data->chip_type == LT9211C)
+-		cancel_work_sync(&ctx->lt9211_work);
+-
+ 	/*
+ 	 * Put the chip in reset, pull nRST line low,
+ 	 * and assure lengthy 10ms reset low timing.
+@@ -1483,11 +1454,6 @@ static int lt9211_host_attach(struct lt9211 *ctx)
+ 	return 0;
+ }
+ 
+-static void lt9211_destroy_wq(void *data)
+-{
+-	destroy_workqueue(data);
+-}
+-
+ static int lt9211_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -1532,17 +1498,6 @@ static int lt9211_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (ctx->chip_data->chip_type == LT9211C) {
+-		ctx->wq = create_workqueue("lt9211_work");
+-		if (!ctx->wq)
+-			return -ENOMEM;
+-		/* Register after DSI attach so devres flushes work before freeing ctx->dsi. */
+-		ret = devm_add_action_or_reset(dev, lt9211_destroy_wq, ctx->wq);
+-		if (ret)
+-			return ret;
+-		INIT_WORK(&ctx->lt9211_work, lt9211_work_func);
+-	}
+-
+ 	return 0;
+ }
+ 
+-- 
+2.47.3
+
