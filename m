@@ -1,188 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D751F4AC14D;
-	Mon, 28 Sep 2026 11:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430824963A6
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594668; cv=none; b=eSV+bgF+jl5GV+y49ExHCo+dhOcKiw4KEUPzmpSRZtiM33Z6NJBaBdYF20pFThrab7por0jvVmddH7mc+Bp4pkd+Vmn/+xxSQjfd1LxTpUFVNN1R5CnsYsYspG4yz4s0vyrvI1n3Y7WRp4SNuOlmvbcfV2Fe6oXsXF8bupaonz4=
+	t=1790594678; cv=none; b=hiod4AHU16etE7zh1dZS3HmqK/losqp2f2npzGN7vgVPHbpyNnB5BgYnrcXMySJPex1cvbvPhKmx3PAU4IDJa43JScAxTykLEQpRJl82gqpzrRTomZ5dWdZvoi5DQ3+20EGzu2I2DfwmyHP/slFO0bN2QwK0gd6QordD/b+8TMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594668; c=relaxed/simple;
-	bh=96zShvewS0FUHaZkV3Ypl0XopKvOITUxP8nkh+iwyhc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t0cwjGLSVXYyg0typ7QZNJCVXrXaf5MWpvXGLvNpbwQmv+ahr/za6B3V0pfinyIpV61JV5ER2JFjUXkyGc3IrKanH5dXiAdIfPdxBY6JUhzmypJOzQIUZWa/mu/4apjV6CzC7t5Juo3iUaSTE2cYFeRKdY1AWQfYSJ8oJeaJe90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TO+4cgpM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790594678; c=relaxed/simple;
+	bh=WnGWhNvaH7q5bzvu7KMH/yNAVi0tmobq4UUzPbUO7yM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bVPEwx34r+cZpoS3r9fUrUBc9RzIlJPEpZAgMLT3CBLBwulbgmtTbkJKzoS7MtrBVs0Q2AJyVMjTvQ54+BonPVoIOOjdRrm1RPZbXenOsvkH7JB8VSoseuukhI+Aw6ldWCT4olnVNIb18OsTlN1WJXfFYzzGpE4oBTN629gS/Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DXG5HE5o; arc=none smtp.client-ip=91.218.175.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TO+4cgpM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7411F00898;
-	Mon, 28 Sep 2026 11:24:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790594666;
-	bh=Z+flXo99CE7ujWH6j+CbkZKQFDT8A/xMdJen7Hp7HEs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TO+4cgpMI7cf2a5cTLrlWYEyzxwFlGMfCpGu3Ij/ESyVcyhh77hhoJbDzu7OxdA00
-	 u+YaDm0OSpMlu/bC99BpR2ptk+jdv1WHmS3N4dX02Z16jM34Z4KO34TRiBSEe8PdLb
-	 z/DJfwfBMqDJNDe5Umwwk8vDD/OWQWThon70Rh9VI6qLtcsFMmIC6mSVuNtTMPBfiy
-	 7wqwk1lk/81LMeEEgD+Kc2wM1lpJkraL+HDZzDkmJFNMsY4DseaEE9Z6CqmOsrNpvz
-	 Ovdhusi0G+JmcW1rxHil+F36NtOVdcnseNS6CJ7AXqoXhLAwMlYKeh8RzxzXVHKVrP
-	 eRPYjTy/43YUA==
-Message-ID: <deb5e3b3-d1d7-4d1e-8bb6-95050769d656@kernel.org>
-Date: Mon, 28 Sep 2026 13:24:20 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DXG5HE5o"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WnGWhNvaH7q5bzvu7KMH/yNAVi0tmobq4UUzPbUO7yM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790594673; v=1; x=1791199473;
+ b=DXG5HE5oM+IT1wOrce2Q1snF7LIbuokVOv0khbcmrrkvdYUvaUhlw3MYr1jXxgRCHTeGX0G/
+ N/43ysFgZz64B2wYE8a71x2E7wA5/dP8y/412yrq60BFAO5VvJdIbgf50eP8EjOR+qezbveajLt
+ VgzPMUW4Dw9sf0N79XdUwYEs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 93c82698bd379aea;
+	Mon, 28 Sep 2026 11:24:32 +0000
+X-Mizu-Trace-ID: 93c82698bd379aea
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 13:24:24 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
+ time calculation
+Message-ID: <arpOBwuJJvt-UMa3@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
+ <CAPY8ntBUtZ3zkJrekAuXamMH-M+4gcS9vEid3DFrLgrwg2jQmw@mail.gmail.com>
+ <aronEaoCLJo0h2Ni@bombadil>
+ <CAPY8ntAUQY_kFRVKGUZJzOD3ygPQqtirTAC21giKuLmBaph5zw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next 5/5] selftests: mptcp: convert iptables to
- nftables for mptcp_join.sh
-Content-Language: fr
-To: netdev-bot+sashiko@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- quanyeyang@proton.me
-References: <20260926-net-next-mptcp-misc-feat-7-4-v1-5-67af4ab37406@kernel.org>
- <179058242453.3145.1450534124183352369@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <179058242453.3145.1450534124183352369@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPY8ntAUQY_kFRVKGUZJzOD3ygPQqtirTAC21giKuLmBaph5zw@mail.gmail.com>
 
-Hello,
+On Mon, Sep 28, 2026 at 12:02:18PM +0100, Dave Stevenson wrote:
+> Hi Richard
+> 
+> On Mon, 28 Sept 2026 at 09:56, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > Hi Dave,
+> >
+> > thanks for your feedback!
+> >
+> > On Wed, Sep 23, 2026 at 03:16:27PM +0100, Dave Stevenson wrote:
+> > > Hi Richard
+> > >
+> > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> > > <richard.leitner@linux.dev> wrote:
+> > > >
+> > > > ov9282_exposure_to_us() divided the line length by the pixel rate control,
+> > > > which is the MIPI rate and not the clock HTS is counted in.
+> > >
+> > > It really shouldn't be. PIXEL_RATE is the pixel array and LINK_FREQ is
+> > > the MIPI rate. Many drivers do conflate the two.
+> > >
+> > > However I did notice a couple of weeks back that pixel_rate is
+> > > incorrect for 8bit readout on ov9282 [1]. (It's correct for 10bit
+> > > readout).
+> > >
+> > > <quote> Actually I see the problem. In the hardware the pixel rate for 8 bit
+> > > is scaled by the change of PLL2 multiplier from 0x50 to 0x60 = x1.2.
+> > > The pixel rate control is scaled from /10 to /8 or x1.25. 1.2/1.25 =
+> > > 0.96, so my 96% of speed would be spot on. The use of link frequency
+> > > in computing pixel rate is totally bogus as they are on independent
+> > > PLLs </quote>
+> >
+> > So I guess I should also get rid of the pixel rate pre-processor
+> > calculation which depends on the link frequency?
+> >
+> > Is it OK with you to just hard-code them?
+> >
+> > #define OV9282_PIXEL_RATE_10BIT   160000000
+> > #define OV9282_PIXEL_RATE_8BIT    192000000
+> >
+> > AFAICT it should be possible to calculate the PLL1 pix clk from the input
+> > clock (inclk or XVCLK in the datasheet) provided in the dts. But tbh I
+> > would prefer to not add this to this series. If it's desired and possible
+> > from your point of view, I can tackle this in a future series.
+> 
+> I'm happy for them to be hard coded, possibly with a comment that the
+> pixel rate is derived from the PLL2 clock tree. For 10bit readout, the
+> whole PLL config is exactly the same as the sample PLL configuration
+> given in the datasheet (table 2-10 for me with datasheet v1.53). 8bit
+> readout changes the PLL2 multiplier.
+> 
+> The registers initially looked pretty close to the CCS standard and so
+> possible to use the ccs-pll helpers, except the dividers support /1.5
+> and /2.5 in places so I don't think it can be used as-is (PLL1 prediv
+> is set to /1.5 in the current setup).
+> 
+> Whilst feasible, if no one has had a use case needing an alternate
+> input clock rate in 5 years since the ov9282 driver was merged (Aug
+> 2021), then there's little point in jumping through hoops to
+> accommodate a theoretical future user who may never surface. I'd save
+> yourself the effort.
 
-On 28/09/2026 10:00, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
+That's of course fine with me ;-) Thanks for the quick response.
 
-TL;DR: It looks like there are issues with NFTables, but no new version
-needed here for these MPTCP patches.
+Then I'll add a comment and will likely send v2 later today.
 
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In endpoint_tests()
->   (tools/testing/selftests/net/mptcp/mptcp_join.sh), the new rule `tcp…
-> - [Low] The patch removes CONFIG_NFT_COMPAT from
->   tools/testing/selftests/net/mptcp/config, "since we don't need it now".
-> 
-> --
-> 
-> selftests: mptcp: convert iptables to nftables for mptcp_join.sh
-> 
-> This converts the iptables/ip6tables rules in mptcp_join.sh to nftables.
-> It keeps the same table and chain names and adds init_nftables() to set
-> up the tables only when a test needs them. The cBPF bytecode that matched
-> the ADD_ADDR and RM_ADDR suboptions is replaced with "tcp option mptcp
-> subtype" matching. In the config fragment, CONFIG_NFT_COMPAT is swapped
-> for the nft modules that are now needed.
+regards;rl
 
-(...)
-
->> diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
->> index 18ce7136a2b0e..b16e24418e737 100755
->> --- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
->> +++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
 > 
-> [ ... ]
+> > >
+> > > If you correct OV9282_PIXEL_RATE_8BIT to being 192000000 (instead of
+> > > the current 200000000), does that solve your problem without
+> > > recomputing things?
+> >
+> > Thanks for the explanation above. I guess you're right, the link freq/mipi
+> > rate should not be in there. I've just ran a quick test and it should be
+> > fine with that change.
 > 
->> @@ -4402,12 +4372,10 @@ endpoint_tests()
->>  
->>  		# To make sure RM_ADDR are sent over a different subflow, but
->>  		# allow the rest to quickly and cleanly close the subflow
->> -		local ipt=1
->> -		ip netns exec "${ns2}" ${iptables} -I OUTPUT -s "10.0.1.2" \
->> -			-p tcp -m tcp --tcp-option 30 \
->> -			-m bpf --bytecode \
->> -			"$CBPF_MPTCP_SUBOPTION_RM_ADDR" \
->> -			-j DROP || ipt=0
->> +		local nft=1
->> +		ip netns exec "${ns2}" nft insert rule ip filter OUTPUT \
->> +			ip saddr 10.0.1.2 meta l4proto tcp \
->> +			tcp option mptcp subtype remove-addr drop || nft=0
+> Great. If just correcting the pixel rate solves the problem, then it's
+> better not to complicate the calculations in other places
+> unnecessarily.
 > 
-> [Severity: Medium]
-> Can this rule ever match an RM_ADDR packet on an established connection?
+> > As i would like to keep the ov9282_line_time_ns() function, what's your
+> > take on the following implementation? Would that be OK for a v2?
+> >
+> > static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> > {
+> >         u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> >         return div_u64(hts * NSEC_PER_SEC, ov9282->pixel_rate->val);
+> > }
 > 
-> nft_exthdr_tcp_eval() stops at the first TCP option whose kind matches
-> (30 for MPTCP). The subtype check therefore only ever sees the first
-> MPTCP suboption:
+> I have no issue with having a helper for the flash calculations.
 > 
-> net/netfilter/nft_exthdr.c:nft_exthdr_tcp_eval() {
->     ...
-> 	for (i = sizeof(*tcph); i < tcphdr_len - 1; i += optl) {
-> 		optl = optlen(opt, i);
+>   Dave
 > 
-> 		if (priv->type != opt[i])
-> 			continue;
-> 		...
-> 		return;
-> 	}
->     ...
-> }
-
-Indeed, the RM_ADDR will be added in a second MPTCP option. It looks
-like Netfilter doesn't handle that case. But that seems to be an issue
-on the Netfilter side, rather than with the command that should work. I
-will follow up with Netfilter devs. If a fix cannot be added on their
-side, I will change the nft command to look at a specific offset.
-
-Note that the command here is just to check there is no RM_ADDR sent on
-the wrong side: it shouldn't catch any packets here anyway.
-
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
-
+> > thanks!
+> >
+> > regards;rl
+> >
+> > >
+> > >   Dave
+> > >
+> > > [1] https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
+> > > The original reporter did come back to me and acknowledge he was using
+> > > the downstream Rockchip driver which is doing the wrong thing.
+> > >
+> > > > The right
+> > > > clock is PLL2's system clock. With the PLL2 dividers left at their reset
+> > > > values the chain
+> > > >
+> > > > SYS_CLK = XVCLK  / pre_div0 / pre_div * loop_div / sys_pre_div / sys_div
+> > > >         =    24  /    1     /    3    * loop_div /     4       /    2
+> > > >
+> > > > collapses to SYS_CLK = loop_div MHz.
+> > > >
+> > > > Fix this by introducing a new static function to calculate the current
+> > > > line time and use it in ov9282_exposure_to_us().
+> > > >
+> > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > > ---
+> > > >  drivers/media/i2c/ov9282.c | 46 +++++++++++++++++++++++++++++++++++++---------
+> > > >  1 file changed, 37 insertions(+), 9 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > > > index c10b2e205834e..3f83a6cf338d8 100644
+> > > > --- a/drivers/media/i2c/ov9282.c
+> > > > +++ b/drivers/media/i2c/ov9282.c
+> > > > @@ -10,10 +10,12 @@
+> > > >  #include <linux/delay.h>
+> > > >  #include <linux/i2c.h>
+> > > >  #include <linux/math.h>
+> > > > +#include <linux/math64.h>
+> > > >  #include <linux/module.h>
+> > > >  #include <linux/pm_runtime.h>
+> > > >  #include <linux/regmap.h>
+> > > >  #include <linux/regulator/consumer.h>
+> > > > +#include <linux/time64.h>
+> > > >
+> > > >  #include <media/v4l2-cci.h>
+> > > >  #include <media/v4l2-ctrls.h>
+> > > > @@ -472,6 +474,41 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
+> > > >         return container_of(subdev, struct ov9282, sd);
+> > > >  }
+> > > >
+> > > > +/**
+> > > > + * ov9282_line_time_ns() - Calculate duration of one sensor line.
+> > > > + * @ov9282: pointer to ov9282 device
+> > > > + *
+> > > > + * The line time and therefore OV9282_REG_TIMING_HTS and the strobe frame span
+> > > > + * are counted in PLL2's system clock. We assume the PLL2 dividers are at their
+> > > > + * reset values, so the formula reduces to SYS_CLK = loop_div MHz.
+> > > > + *
+> > > > + * Return: line time in nanoseconds.
+> > > > + */
+> > > > +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
+> > > > +{
+> > > > +       u32 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > > > +       u32 sclk_rate_mhz = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ?
+> > > > +               OV9282_PLL_CTRL_0D_RAW10 : OV9282_PLL_CTRL_0D_RAW8;
+> > > > +
+> > > > +       /*
+> > > > +        * OV9282_REG_TIMING_HTS counts 2-pixel units
+> > > > +        */
+> > > > +       return DIV_ROUND_CLOSEST(hts * (u32)NSEC_PER_USEC, 2 * sclk_rate_mhz);
+> > > > +}
+> > > > +
+> > > > +/**
+> > > > + * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
+> > > > + * @ov9282: pointer to ov9282 device
+> > > > + * @exposure: exposure register value to convert
+> > > > + *
+> > > > + * Return: microsecond represenation of the given exposure register value.
+> > > > + */
+> > > > +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > > > +{
+> > > > +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
+> > > > +                      NSEC_PER_USEC);
+> > > > +}
+> > > > +
+> > > >  /**
+> > > >   * ov9282_update_controls() - Update control ranges based on streaming mode
+> > > >   * @ov9282: pointer to ov9282 device
+> > > > @@ -510,15 +547,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> > > >                                         mode->vblank_max, 1, mode->vblank);
+> > > >  }
+> > > >
+> > > > -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+> > > > -{
+> > > > -       /* calculate exposure time in µs */
+> > > > -       u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+> > > > -       u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
+> > > > -
+> > > > -       return exposure * trow_us;
+> > > > -}
+> > > > -
+> > > >  /**
+> > > >   * ov9282_update_exp_gain() - Set updated exposure and gain
+> > > >   * @ov9282: pointer to ov9282 device
+> > > >
+> > > > --
+> > > > 2.53.0
+> > > >
+> > > >
