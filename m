@@ -1,98 +1,102 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9F83DDAF7;
-	Mon, 28 Sep 2026 13:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC6C2652B2;
+	Mon, 28 Sep 2026 13:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600709; cv=none; b=b5FHJQIi6hG5E8CMilMFEVT1lnteGYRFA1krG6PyPd4vVY7SlRpyD/RqCFjQ1hIU/xpm7W2PmbFcI7DUOs3kr6jFqN4qALZJ8DvPdZO5TaUr39u48k5/El0przTZsc/Ub76UvOwmRHHnHfQZ5XjrS1eOutRvsyEvM36Ivgj1bKY=
+	t=1790600758; cv=none; b=dehRSJPbKsa31jx1pdN5w64RAvmymnnXxLVNyYHxlc7GAEUW08LVwZUGLdE6Wr+gFd5PRV9mWzTAiN/A4DkfJ92Dk1X0QeZ4wXND67lsvZitpHi9kVHcEKQzKOpJiadbHwzPAO0PhRNTICJqXMPeolfyISwEG68ieIOnM4A1K9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600709; c=relaxed/simple;
-	bh=65+7vKuEvhuWFc/lEOTdpPleihYib6cFiBpcE5AQo5U=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g/ZZSkYESX45VN2nrGo6w35nae/E0r+Jk4E3+E8zxlkX2MR7uqdbjvXmJ3sOaJi1OzT+H6dJZm8YgN937f3I+laNt85nyq0uGA/w75sib2whJzoF2VMPjvTyuE7OP7IoXtBwpvSp6V8FXm8VHGkw/ICAVYMKCjRAnhiqAm7SvQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vmHxp/Jz; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790600758; c=relaxed/simple;
+	bh=d8bbmK/oVnzTlH8czD0/aDae1ZS2ChfTJ8lU6AwPsA0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OibR9G53aU/naDcAi1T/acy5q+3pxMI5p1idrhrG83pdzpzedd/9je5mNHqcyAwf8iuhT/v5FUlr3W7l5MWBCLkY+OjmoAgUvg2wGQTLI0aj1M7+CriqNL5k+lg08NTjkyz8VOhAW5mjwzXjz44u2rX+iUSbvRKdf9uzfY6tcQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQmrwUZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vmHxp/Jz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790600708; x=1822136708;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=65+7vKuEvhuWFc/lEOTdpPleihYib6cFiBpcE5AQo5U=;
-  b=vmHxp/JzfPy6TPF10/tru6+vygchPGZhUIPvB2639XW1TQivJ1qJHQSC
-   IaMZKYW+YunDwk4auC1ionPeMIEqO8w3hskpL1zZCzEuUaFxRRJnfnqGy
-   nUQAPKVjvlR44HYFQ+v5c/yD0JY7XuHlotUAR9um1wRhH+qPyDUzpZSfJ
-   5Ao+fizIbET6JDOdKksxRL5Mhc91PwO3IsZJcc8S5bM48Ne6EdSkiCRrb
-   25KMTm7yGvcrxMM3749gcxZoA+tjIydf+ugPlTF/gpd6sg+HfQahIPc8k
-   QxozldBjWi9RiX2ApDg2jiKfoCBjdi4d65+f7DpI1lYOgk9YmXBwDdAm1
-   Q==;
-X-CSE-ConnectionGUID: iXTAp/08Sci8x7ZxUFv50w==
-X-CSE-MsgGUID: hNDEykj2RiuvUDcZN6ZVLw==
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="295665390"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Sep 2026 06:04:00 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 28 Sep 2026 06:03:58 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 28 Sep 2026 06:03:56 -0700
-Date: Mon, 28 Sep 2026 15:03:55 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Quentin Freimanis <quentin@q-lab.dev>
-CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
- Cochran" <richardcochran@gmail.com>, Horatiu Vultur
-	<horatiu.vultur@microchip.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: sparx5: skip ptp deinit if init was skipped
-Message-ID: <20260928130355.jxs4iqcd6jfoxezp@DEN-DL-M70577>
-References: <20260928044542.29287-1-quentin@q-lab.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQmrwUZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3721F000FF;
+	Mon, 28 Sep 2026 13:05:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790600756;
+	bh=VkfJhLqjOEWNYqVuFiE1DZPDqUocEdeEndWTP6Qnuu8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GQmrwUZ9xYW1McRQ2inTkmfOE7Nddf8wRTe9Co580fjFyY6RPsER/8MpwhO5pLV2Y
+	 0HpGQTKmUrMxFWyWg1gVYmg+mGXvmKUmYk76IwKTT5xV6yHxQk0/JqfChDl6I+0lnu
+	 MWt3P6gOm3XLe6d9OMS8Z4JtCXTCZkA8yclyVySh19hnnmXxCg44QGWBDRrcK5lQ/h
+	 I2AbtM8R+2dQdsZMpDCLFeXKKqWCIF79AwXoA7rvJjL82ZNWoxf9wcC8fikrecJqqh
+	 TOvizhCVwemA9eP5+gS0BEsHAJPxF1itjvvp0zO/I/rJE+gLdRMFTQV0d/aiD3F7zz
+	 u4hRo3Omt4bQg==
+Message-ID: <a7099b6b-bd80-4fdd-8d03-ba95107a65e1@kernel.org>
+Date: Mon, 28 Sep 2026 08:05:53 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260928044542.29287-1-quentin@q-lab.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpiolib: acpi: Ignore AC adapter wakeup on ASUS FA507
+Content-Language: en-US
+To: Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Bartu Alev <bartualev@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <westeri@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260927014212.302743-1-bartualev@gmail.com>
+ <20260928094156.GG106095@black.igk.intel.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260928094156.GG106095@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Quentin,
-
-> sparx5_ptp_init() returns early on the base lan969x variants
-> because they do not have the SPX5_FEATURE_PTP flag. It also returns early
-> when no "ptp" interrupt is described. Unbinding the driver then causes a
-> NULL pointer dereference when cleaning up uninitialized tx_skbs queues:
+On 9/28/26 04:41, Mika Westerberg wrote:
+> Hi,
 > 
->     Unable to handle kernel NULL pointer dereference at virtual address
->     0000000000000008
->     Call trace:
->     skb_queue_purge_reason+0x68/0x120 (P)
->     sparx5_ptp_deinit+0x64/0xc0
->     mchp_sparx5_remove+0x38/0x70
->     platform_remove+0x20/0x30
->     device_remove+0x4c/0x80
+> On Sun, Sep 27, 2026 at 04:42:12AM +0300, Bartu Alev wrote:
+>> The ASUS TUF Gaming A15 FA507 wakes from s2idle whenever the AC
+>> adapter is plugged in or unplugged.
+>>
+>> In the CPMGPIO0 SSDT, GPIO pin 23 (0x0017) is declared in the
+>> \_SB.GPIO._AEI resource template as:
+>>
+>>      GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullNone, 0x0000,
+>>               "\\_SB.GPIO", 0x00, ResourceConsumer, ,)
+>>               { 0x0017 }
+>>
+>> and the corresponding \_SB.GPIO._EVT handler issues a device wake
+>> notification for the AC adapter on pin 23 events:
+>>
+>>      Case (0x17)
+>>      {
+>>          Notify (\_SB.ACAD, 0x02) // Device Wake
+>>          Sleep (0x05)
+>>          Notify (\_SB.ACAD, 0x80) // Status Change
+>>      }
+>>
+>> Both AC plug and unplug transitions therefore trigger a spurious
+>> wakeup from s2idle. Add an ignore_wake quirk for this pin.
 > 
-> Before per-port tx_skbs were added, a NULL dereference would have happened
-> when calling ptp_clock_unregister() on the never-registered PTP clocks.
+> I would think this is by design like that.
 > 
-> Fix by returning early in sparx5_ptp_deinit() if PTP is not used.
-> 
-> Fixes: 0933bd04047c ("net: sparx5: Add support for ptp clocks")
-> Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
+> What is the issue? You unplug the device from AC with lid closed and it
+> wakes up? Userspace should put it back to sleep in these cases. In Windows
+> and ChromeOS there is something called "dark resume" that deals with this
+> but I'm not sure if generic distros have that yet.
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
-Tested-by: Daniel Machon <daniel.machon@microchip.com>
+I tend to agree with Mika.  If there is dedicated GPIO being triggered 
+on AC adapter events with a Notify(0x02) it was OEM intended to wake the 
+system.
 
-Thanks!
+FWIW I did have a design proposal to systemd for generic distros to add 
+some behavior around dark resume.
 
-/Daniel
+https://github.com/systemd/systemd/issues/27077
+
+I also had started a PR but didn't really garner interest:
+
+https://github.com/systemd/systemd/pull/37142
+
+As you have a system this can strongly benefit, feel free to take the 
+torch on trying to develop a userland solution.
