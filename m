@@ -1,174 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CB32D29C8;
-	Mon, 28 Sep 2026 04:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7998D30566D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 04:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790568586; cv=none; b=S26G+jPjhooR3/FXLchaTV8CwVATKZ/a0kNdogOHeJKnrz+RGKVXZexrKKjr3mDsVba7GKZL4O4gk5Ux4XAsrFfnqdU9BM7hnfvGVcORCEOHstOOZPbCVO0vGHbdLUnfkPO/kEhFPx0R2qTqkJGdl5Sl6jGdkCzk2GJx+BXfyfo=
+	t=1790568755; cv=none; b=bjlA3zhRkR3bHGe4rOdLSPdOHeeqUO7tNo5p5CFyYdpRFt2NiX9kF9of/bknpAJxVAbUiaS62kBnNA1811PlrikP7hX5NpNOoDUNIwzNxHuw3jikaOcdm6YPe7cY9Zbg17NSEYjhUOp3ncwczhxAs0WRfKK0N2xYgCziZ2jqHT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790568586; c=relaxed/simple;
-	bh=G8NMwEuSRB/CcoIUPcK0S3YolO7o8n6Bnm6GXQCevWM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BE8uHxB2nAZj6nAbmCd7ncF8ZSCIYCpC7blnURcAiMx5CkWvB8iSGtRmjPWiHM7eq0QcjjU1xJtDmeY37v+Mq2R9Z1j7jdLp0hOcp2fCJNaQzfcAmZd6uQu11ItSzccEIUVFX5fRN++1silr1PyhM6UUy5zCk3zn2c/nMhx3Y2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPpA495m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790568755; c=relaxed/simple;
+	bh=/sOtv+Jy0VfC/zdAlOtrQTC1fDfCRtKdJKUcnFIpFsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q+Vnfym3aMztj/Kq6KRPLIzS6dH9ZiRNuXU8tbep9PC8izyH4UamFd3h1cr45Rky33WAmPnsbIMoAjbqUU4zEYWO72qw3j3FoCzaUtHMBeGGGwc3ZqhhReIGwpKNUK3Ns4mgrBP5vG9sNAbjVhYhhZcnItfMw0IrF6cDYQqnyfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KEIR3m9W; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPpA495m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB311F000FF;
-	Mon, 28 Sep 2026 04:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790568584;
-	bh=u43RpCCF5drsEvpIG/ma+yDNf+UcywHh9C8ANoA0Ws4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IPpA495mypCm3cmjopHZFUY3Ony7mnJDP3VxDbQy3c9UyPv5DXQnz1AGP6PM7tJh5
-	 AQHH4UdbrPtpliAjZ6X+RBptjbio2oAdMyyDOpTNflU9QZGySZJQftWInpF7aDUm1r
-	 /4p/wudUVwA6YNVUUoH3EAZUW4u07W0ugZljfI6HAWaNdB6NqKKsgrAJSfqgZ9t7wH
-	 naHQiBlX58xaX8D28E8rXaacR56GlrBE/4k7lH1oMMsyN+Dg4kQcIF2ZQApJUy2aQZ
-	 Y1cuAVM0Ld9ANeO7G+LDb33w9IhTmYmx1mRzaGVsW6fwE42vfzX1IJj0lxJKiy9Tsb
-	 yXO9d3Nd+V6gA==
-Subject:
- Re: [PATCH net-next v2] net: phy: aquantia: add get_features() for AQR113C
-From: netdev-bot+sashiko@kernel.org
-To: hongmei.xu@oss.qualcomm.com
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 04:09:43 +0000
-Message-ID: <179056858385.3145.15807151008226199830@kernel.org>
-In-Reply-To: =?utf-8?q?=3C20260924-net-phy-aqr113c-fix-pma-capability-v2-1-2?=
- =?utf-8?q?9b06283b0f3=40oss=2Equalcomm=2Ecom=3E?=
-References: =?utf-8?q?=3C20260924-net-phy-aqr113c-fix-pma-capability-v2-1-29?=
- =?utf-8?q?b06283b0f3=40oss=2Equalcomm=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KEIR3m9W"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e22e123350so2407515ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 21:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790568753; x=1791173553; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bXDScwdKbt28kFhjEDV73RhbSo3l7UPBxj8GidcV6Ck=;
+        b=KEIR3m9WIJGGxbDxu5WT7d1D8pdjysg2u6EOJPP2gwFE4OJjvQnJ287pxIflD0w4Cg
+         3KRo1HxvqGoz0UssGc+2rSuTUyOtycuRzbtmoCDu1UD7mwkHfhAOWZum2XbziBA9oVWv
+         jJBljzLhKQzGV32PJczj1FgBrq2QfJL1amKgE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790568753; x=1791173553;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bXDScwdKbt28kFhjEDV73RhbSo3l7UPBxj8GidcV6Ck=;
+        b=UQ6bw5C7ZEfiEj+hxICP5bfSiSeeGXqiN7Lq7Dx6yzVj1jikhEcj9ARLOnOBomutpy
+         hHxb5zGIhH6aynTjmnZLBs3GiyM2AO8rUag9dHZGCxmA3BGJb03QMim432pgjKWNUhP3
+         Y4SxTNruMTYJVpdmixA7fJ9wUrg0R7zi3r+hwfV3RP3q3hhpgSfQVkjFpmvDy7gL7xRV
+         xYhN70ihUjS1mZb9LqhdUeQ5mngDdQd9Rg/uJMGVENXw/+0uGlKFJc1xMrHV4lbPvtSj
+         eYrgplTn8gE2es/W641ua0fbacQXRbSrd7uct4AhOJRXlhYa1nnJgGnW/DgkM25R0RUB
+         ed5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByKBPMDoNGEX1r+aqr/XTsKlQFfUqI0zoUvyz5FnC0rfPpeipkYEIIf1GBCHpDNbHWy3L2L+kpRmg3imfs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzuwrBJPdfiBR19u/6FasngKM0EQSv2zLJFvQYs0k1jwIbadRs
+	aKjSnXF0GCo1ytYOlztd/Vksg2jw+F/o9FfaZnbXHVqGSEL5AUSDWSkn/2bPNSwI0Q==
+X-Gm-Gg: AYBFou282xqKgy9OR784sVqKybn/CKOJWXKW4NafrzMswQlXNggyQODkcKcN16SkufV
+	6CgU9VnCxylmUBmfBUxh4SIxVKU1XmM0Tjase50E3sKGuc/H7dfL1fMlPITunb4nfZ7t5qqsiaF
+	bCcjGS/lwpjLE4GPU9QDvsBOoIJ9flXqAF0yy82vMcSXDU7Lmb2jPM8fHD7GlAv1XL60xnHVoZF
+	b9m7FAwBPHg+/4aTwCX3AhBilV5w3QBtRBBPyc555cGZhWVzOdr9rHXzVXs3m8U1VCosxk46N2m
+	O+4tM73ioZDVh8OJEoQwbCGGpf7joy7dOidWRtmmIaaVcFGA+LpI/gxHWtcAwACknNxC0oc53QQ
+	K72PP0OYwrq3n+kHys5pElZxXwpgE6+SqE/f1YlqcPj8tafW02Acy/H6SyUvRC+YKxjppE/C3WE
+	6GMGcdWkYzR1Qrop2FoWp/B96KVzHvxL6d4BP/PhQ02yBV+B4yoGgSmuj5HzKKV3f0ONDBlNiXU
+	vTZ4sYKeuRRKK7Hoe2EO3ZUSbQVWx7zx0XHaEY=
+X-Received: by 2002:a17:90b:1c82:b0:3a0:7d97:37c1 with SMTP id 98e67ed59e1d1-3a098aaba1dmr10891588a91.59.1790568752817;
+        Sun, 27 Sep 2026 21:12:32 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:fdbe:318b:98fe:bd96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bec30aaasm17381254a91.15.2026.09.27.21.12.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 21:12:32 -0700 (PDT)
+Date: Mon, 28 Sep 2026 13:12:24 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Phillip Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, 
+	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH RFC 1/9] lib/lz4: import upstream LZ4 sources verbatim
+Message-ID: <arnosKlQYVIdmTR7@google.com>
+References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+ <CGME20260925113452eucas1p170bfdb34dfbf670a14a6f8f0c2f5094a@eucas1p1.samsung.com>
+ <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On (26/09/25 13:27), Michal Wilczynski wrote:
+[..]
+> +#ifndef LZ4_FAST_DEC_LOOP
+> +#  if defined __i386__ || defined _M_IX86 || defined __x86_64__ || defined _M_X64
+> +#    define LZ4_FAST_DEC_LOOP 1
+> +#  elif defined(__aarch64__) && defined(__APPLE__)
+> +#    define LZ4_FAST_DEC_LOOP 1
+> +#  elif defined(__aarch64__) && !defined(__clang__)
+> +     /* On non-Apple aarch64, we disable this optimization for clang because
+> +      * on certain mobile chipsets, performance is reduced with clang. For
+> +      * more information refer to https://github.com/lz4/lz4/pull/707 */
+> +#    define LZ4_FAST_DEC_LOOP 1
+> +#  else
+> +#    define LZ4_FAST_DEC_LOOP 0
+> +#  endif
+> +#endif
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new aqr113c_get_features() stops the kernel from
-  discovering EEE on AQR113C.
-- [Low] If the premise is true, meaning AQR113C has never had its
-  10G/5G/2.5G modes set correctly under the generic PMA path since…
-
---
-
-net: phy: aquantia: add get_features() for AQR113C
-
-This commit adds a get_features() callback for the AQR113C PHY. The PHY is
-said to misreport its PMA capabilities, so the callback sets the
-10G/5G/2.5G/1G link modes directly instead of reading the PMA registers.
-
-> AQR113c does not correctly report its supported PMA
-> capabilities which includes speeds like 10G/5G/2.5G.
-
-[Severity: Low]
-If AQR113C has never had its 10G/5G/2.5G modes reported correctly through
-the generic PMA path, the bug goes back to the commit that added the
-driver entry:
-
-12cf1b89a668 ("net: phy: Add support for AQR113C EPHY")
-
-Should this carry a Fixes: tag so stable picks it up? The v2 changelog
-shows the patch was moved to net-next on purpose, so this is only a
-process question.
-
-> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
-> index e95d391a6dc23..604f5492515dd 100644
-> --- a/drivers/net/phy/aquantia/aquantia_main.c
-> +++ b/drivers/net/phy/aquantia/aquantia_main.c
-> @@ -1094,6 +1094,18 @@ static int aqr111_get_features(struct phy_device *phydev)
->  	return 0;
->  }
->  
-> +static int aqr113c_get_features(struct phy_device *phydev)
-> +{
-> +	/* Generic C45 PMA abilities do not fully describe the PHY's copper
-> +	 * autonegotiation modes, so add the 10G mode explicitly.
-> +	 */
-> +	aqr111_get_features(phydev);
-> +	linkmode_set_bit(ETHTOOL_LINK_MODE_10000baseT_Full_BIT,
-> +			 phydev->supported);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this stop EEE discovery on AQR113C?
-
-Before this patch, AQR113C had no .get_features. So phy_probe() took the
-is_c45 branch and called genphy_c45_pma_read_abilities(), which ends with
-genphy_c45_read_eee_abilities() and fills in phydev->supported_eee.
-
-With the new callback, phy_probe() takes the get_features branch instead.
-The core reads EEE abilities itself only in the static features branch:
-
-drivers/net/phy/phy_device.c:phy_probe() {
-    ...
-	if (phydrv->features) {
-		linkmode_copy(phydev->supported, phydrv->features);
-		genphy_c45_read_eee_abilities(phydev);
-	}
-	else if (phydrv->get_features)
-		err = phydrv->get_features(phydev);
-	else if (phydev->is_c45)
-		err = genphy_c45_pma_read_abilities(phydev);
-    ...
-}
-
-The new call chain is aqr113c_get_features()->aqr111_get_features()->
-aqr115c_get_features(). It only sets speed bits in phydev->supported and
-never touches supported_eee.
-
-Later in phy_probe(), the empty supported_eee then clears advertising_eee
-and eee_cfg.eee_enabled ends up false:
-
-	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
-		     phydev->advertising_eee);
-
-genphy_c45_write_eee_adv() also writes the 7.60/7.62 advertisement
-registers only when supported_eee intersects PHY_EEE_CAP1_FEATURES or
-PHY_EEE_CAP2_FEATURES. That means the kernel can no longer change or clear
-the EEE advertisement the PHY comes up with. Also, ethtool --show-eee
-would report no supported modes.
-
-aqr105_get_features() in the same file keeps EEE discovery by calling the
-generic helper first and then adding the missing modes:
-
-	ret = genphy_c45_pma_read_abilities(phydev);
-	if (ret)
-		return ret;
-
-Would it make sense to follow that pattern here? Another option is to call
-genphy_c45_read_eee_abilities(phydev) after setting the link modes.
-
-AQR111, AQR114C and AQR115C already have the same gap. On AQR113C it is
-new with this patch.
-
-[ ... ]
-
-> @@ -1444,6 +1456,7 @@ static struct phy_driver aqr_driver[] = {
->  	.get_sset_count = aqr107_get_sset_count,
->  	.get_strings    = aqr107_get_strings,
->  	.get_stats      = aqr107_get_stats,
-> +	.get_features   = aqr113c_get_features,
->  	.link_change_notify = aqr107_link_change_notify,
->  	.led_brightness_set = aqr_phy_led_brightness_set,
->  	.led_hw_is_supported = aqr_phy_led_hw_is_supported,
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-net-phy-aqr113c-fix-pma-capability-v2-1-29b06283b0f3%40oss.qualcomm.com
+I just checked https://github.com/lz4/lz4/pull/707 and it seems that
+LZ4_FAST_DEC_LOOP is enabled on aarch64 now, but we still disable it.
+Am I missing something?
