@@ -1,105 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A169B38333A;
-	Mon, 28 Sep 2026 18:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFD9383316;
+	Mon, 28 Sep 2026 18:22:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619693; cv=none; b=P3M/NmDLWwoIQAJjT7ArfwEfwT8eKAoxRMZcNl0BURHTgrGMKsuj46r213ZLgqZKe7m9uIGEmKbM//UlAytnqsdublV/aEeVq19+6o3SMFn8ByT1vjE7pSlTvAH2pshtnE36DEqepHzDwO627tN6utSb2ThstIHmEvzj6q5VrT4=
+	t=1790619765; cv=none; b=j1EnUEtfJxAL4lFta6xG618MUVzfeljhemQyYyJPT0IZnJF7n+Xr/A5OnqPzh0EuL8EUovV99DzzuUtOTH4lCugTe0r69GLPyh5NZbdiyWHUQOXhMsl4/WV07x94vFELYEiCCjoSu69PUgGtYbGlk47izkHnqZL4xxSNzTbCj10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619693; c=relaxed/simple;
-	bh=s2tsQKHUzn1NMF9iclAXB1A3Gy/joyPQ+aTH9c8pRUI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mJnsFyWwMnLVbe8726SE76L69JtiCXksFK7OxZcd1NAN9tQZCPmBY2pV8ykNvapPn4qYMYQwNnIWRC9Z5zEl64JNvYlZM8Be3j5Ew8OKGAbHpb/SMJEdNF4XRaN28VCiG46UwEA1/zVNvG0mDUIAULUwihDwJe/lHwkwcjaXmzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EY0zAZ+O; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790619765; c=relaxed/simple;
+	bh=K1cLWac03IM4KLKAmCbBaNPBWoO0bBv/YDS2Dcc186U=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=BJxaytBQCSJQiL4o3QIJvytuQlzBEcmqIkboX9u8Ir3tZc1dIQ7veNWpRNtZGVVHuqYc7LGDBOGb9WMBfswk4XHVwgItBHZBs9DtIEPSIyaba7pOyaJP0vUM2AzKczEkhnDhLT8p5Zt9MOOrdOAweclB5PlEh0xDo75M5prowfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzRocgp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EY0zAZ+O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790619692; x=1822155692;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=s2tsQKHUzn1NMF9iclAXB1A3Gy/joyPQ+aTH9c8pRUI=;
-  b=EY0zAZ+ObULIQ8StZEsiT03Mv3CNfv8zczvQdsftLudDnFfQ+yE5+qFq
-   UI8bfawC9X4tm7BQKcaENtr7Fs/z8JP/CwQ5P9o3umNnF/sRg4aB7ktmI
-   p+u+Mxkq74+oKhCJqYjcS/+vWwFd5gvMyh8v74TPAAjtCj25YTRUWlCe5
-   mESbNjP43pF3o0uBfAgznmBfo9UUQ7pTz7/jjby9BrFPK2U14G+nM/fas
-   Jv+Ze0SoHQcszIyKBHqD5ADlXCZhUqi8QbgSEnzC9WqnkQmHY13NvimFw
-   6Fi+eGkO85FQ9WB4S2G8jrMNc/eVHLOH2ZzfsFqi5C2ilQTkyKk0KYZ5C
-   g==;
-X-CSE-ConnectionGUID: uIUxe1ORSzGavQ3EpkE13A==
-X-CSE-MsgGUID: waClS0D1SDqK99EXFvQiIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90092671"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="90092671"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 11:21:31 -0700
-X-CSE-ConnectionGUID: TflOUfHhRHC74YF93lEBgQ==
-X-CSE-MsgGUID: ggTk/IAcTeqqwfk4KJIpng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="278329622"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.79]) ([10.125.111.79])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 11:21:31 -0700
-Message-ID: <51e4cfe6-b3c7-43ff-8b1c-512cfb23b9be@intel.com>
-Date: Mon, 28 Sep 2026 11:21:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzRocgp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04541F000FF;
+	Mon, 28 Sep 2026 18:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790619763;
+	bh=K1cLWac03IM4KLKAmCbBaNPBWoO0bBv/YDS2Dcc186U=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=jzRocgp9APFbn7PWm/lVftNBWm3nQuRe4DUsY1sk9cmMIiwjTgRQz3nzamHXngS9I
+	 D5vM+QVrBcWiDqiAKnqzhNEGR+VN4zBbJZRS+3RhDWZgRZHyyaOjXYKtHZ8UYogYlI
+	 xnP2x0peEeKDhrzkQMemQW6PZjv0TfneoPHS8XXrk+10ztob7MmG8VcIFgBndIwMmI
+	 X6rxeLZb1m7SDtl/JNvNQ2qRBw8oM1zCVVLFrw8dfMra73wGuHSIpl0DSNbBOHtJ2g
+	 gVsGur5H9GW6bmWAm67uLZpkNuy8XV/GVUc41PQrczztiKYMoML/svpOqrDftsFfIa
+	 MZbh+EkmNLKCw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/edac: Bounds-check ECS threshold index from device
-To: Yili Zhang <zhangyili01@baidu.com>, linux-cxl@vger.kernel.org
-Cc: Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Shiju Jose <shiju.jose@huawei.com>, linux-kernel@vger.kernel.org
-References: <20260928073553.85669-1-zhangyili01@baidu.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260928073553.85669-1-zhangyili01@baidu.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 28 Sep 2026 20:22:39 +0200
+Message-Id: <DLR5Q993RA06.3UA51L951IFX0@kernel.org>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Matteo Kloiber"
+ <kernel@matt3o12.de>, "Robin Murphy" <robin.murphy@arm.com>,
+ <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
+ <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+ <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
+ <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
+ <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+ <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
+ <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+ <20260927224446.1053037-1-kernel@matt3o12.de>
+ <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
+ <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
+In-Reply-To: <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
 
+On Mon Sep 28, 2026 at 7:39 PM CEST, Gary Guo wrote:
+> I was quite skeptical whether the complication of adding the dma setup to=
+ken is
+> worth the effort, but the capacity struct sounds like a very nice design =
+as it's
+> infinitely extensible. I can foresee that we might want to eventually get=
+ rid of
+> the special `Core` typestate and just replace everything with setup
+> capabilities.
 
+I had a similar thought (which is one of the reasons I proposed it), but I =
+don't
+think we can replace the Core type state entirely.
 
-On 9/28/26 12:35 AM, Yili Zhang wrote:
-> cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
-> device-supplied ECS config word and uses it to
-> index ecs_supp_threshold[], which only has 6 elements. A device reporting
-> index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
-> value is then returned to userspace via the EDAC 'threshold' sysfs
-> attribute (small info leak and wrong reported threshold).
-> 
-> Return 0 for indices outside the table.
-
-Why return 0 instead of errno?
-
-DJ
-
-> 
-> Fixes: 85fb6a16ad14 ("cxl/edac: Add CXL memory device ECS control feature")
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
-> ---
->  drivers/cxl/core/edac.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index b321971fef58..73335b980b11 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -633,6 +633,9 @@ static u16 cxl_get_ecs_threshold(u8 log_cap, u16 config)
->  {
->  	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
->  
-> +	if (index >= ARRAY_SIZE(ecs_supp_threshold))
-> +		return 0;
-> +
->  	return ecs_supp_threshold[index];
->  }
->  
-
+There's more than just one bus callback that holds the Core type state, so =
+I
+think the bus setup token is rather the (much) better version of a Probe ty=
+pe
+state.
