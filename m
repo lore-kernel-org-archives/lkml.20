@@ -1,153 +1,155 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69E24CC28E;
-	Mon, 28 Sep 2026 16:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790612393; cv=none; b=Lespv7r+PyNKORAlBIwPTwVwj1RdSpGAdjKBhW9RkGAqMCF9szV6rRwjURfWMSLA+S8iqtK2cKWg2f9EFTcfJ60MRJlDPzbx0M1wq6uWPOYL/9n19UCIMjQwS8zx/1beX2YxPNByP7yf+k5UF8X31tDQ0mT+lORCpiIwagcLNzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790612393; c=relaxed/simple;
-	bh=yYp5cNpz5PUJlVY2FeZV6LwZCwiiKi3/QRuJB2IWDY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qB71OM86cFQNKiR0cPzO2rKMMe/dlaWEZ45gLIAqaqhtbh5H1e0veK0EDVW+s0AIxgldnuRsynqRjoSo0s44YRKqxWjrV1qlNXdw71CBq2hjY2a5ZsSUbNhLXPbqV9PNbz+OrpQfYcX9duIDFH5s/tkwp8QaecSuLJD25Qyo1So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=Mb5HDv5k; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nloeQVgi; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1F04E73C3
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 16:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790612406; cv=pass; b=qpx2K2fBihWd7CujB3KXHpLk3I27d//QoJcPkHL75sXLMxdcu/NU7GTYWWqSIfJcsZUNd8iXuVhfLP4C26IAqBvK12rJvhYAmpIl9sYl0EPfxwSm5RU+2dm/3lyIi78iHvLlWMEW1QawYvkSsX+OcNnlBayCvU1gjj0V/DR9xlY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790612406; c=relaxed/simple;
+	bh=fi949oQMxoIpu6w4p86whaB5RahCgAexfWrkdtJ+AKs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YPRkDB76Y6TUAXDGkm/j2ghSh28IkoHxpx7gRqf5BwaKU7he8iaUkkNkhdlJPf5tvq7FQacQbFdBMlVlecP3gfNwI1Gn4OsquvFWJly91M3sD2R79SyNDtiikuaOmF4e7o84PjzXibiq588FvDTXQb4KEcUJ125wodldzegT4/4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dd3p3Dp+; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="Mb5HDv5k";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nloeQVgi"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id DD84F7A013C;
-	Mon, 28 Sep 2026 12:19:48 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Mon, 28 Sep 2026 12:19:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
-	 t=1790612388; x=1790698788; bh=DAOUi7GOni8Cdt13HRrVrHIrYtOcSvfh
-	HmGjs3zaKgo=; b=Mb5HDv5kyhfrbVzvfOLW+XIIVMTQL+yR00BjcDBa46oMJNQ6
-	sRE1ZYJ9g4F25wHkaC4Il6adqzmKqzWfizi/dOJ03OnrhbfAOyklCXHRujQEqEJ2
-	npmRudNFGJm6WAIGlMkchDXzDEM/zexOzApqkupSGSqAhUKziMJzzUGgqQzVTPw0
-	7XlBRJggps2rSrT/NuiuWviAr0Tw1z9vBrHXlCMC9nl4AGxtaemdoFWiMb2LDpvF
-	GDH+Nd2wE1jhLyRKDR2xT39bxfd5dKCqlKsyfgRSmw1aY+bxesbKfdd4Q46s7YMt
-	TZ8skvBSb1MMRSECEDbR9jHWBRM6AWIDN5dXrw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790612388; x=
-	1790698788; bh=DAOUi7GOni8Cdt13HRrVrHIrYtOcSvfhHmGjs3zaKgo=; b=n
-	loeQVgit0lxbnAs8lbTIP31qnytuaxfDLpGjU3jl9yBMWmn0Mhj3HbzQYF2RIlay
-	ynA9jZHL3/CYQ1vCPTmV+xHA46gjoYqsXUF5m0begPd3OcVQanCZvMsVln+LcyaY
-	IJ1JlhLTo+eof0rl5TwXRXAAY/9xSHqU/VdGMGFNpeWXCyBDnv970w0CQ5QQj1ek
-	X3UBhQjQbM1amtWDPDrP9G6XzeB/KCOD3ecg7bFeeVGOzMLbj+WDWTL7VFtHWnYE
-	LvNZrPqgWQKwWVz2I1ao2zrIRjCDUSzC+NdvXXWyIZcZIgNA64sGT7RmThVl7yh7
-	lNTYBl5sLrfrCV60pjRuw==
-X-ME-Sender: <xms:opO6auFOuAlQs-0rOx45PFDNyu0fYRca7mS_Ymi--wMOvm2rsZ4LRw>
-    <xme:opO6apYbEeIppsWeIzs3qp0OZuP1VlSzg-FF8r3QKUtAsZtGmXW9hqf2b_TOeXfNu
-    904DT56YKqbBmV9byYQiLqLLtqPk4fagR5qPdCqntm86xVMQdop36nc>
-X-ME-Received: <xmr:opO6aoDeM5aEEoHW4kfB8zJDWiKgG4FovsIcjz87krbag77k1OebBEcsne4m>
-X-ME-Proxy-Cause: dmFkZTEKrLlBov6TwZWkyHY7vVe3QYJBV7mCf6n//dlldHBQzDjnruk48aV/I7ITarStts
-    qBU+DRF/WoOAKURQvN//n2ZCuoFOql/FGv9uyMPDXqEZHq9/OXnGMYkGVtN3/qIGVRkkC6
-    jH6wqkc36JLxXKjiCntr52CVMxbuJdutf/C7JUYLoKW8wrRI74CQzZdSwkbZ7WkI0ac9q6
-    TY6KQizdV2oliV4ZoMuZBPoMZqJNUNxPdgrfGTwg7nnECgYMSiMo1ubCmv3TfYehJTrfUz
-    zMuYA+lGhfcbUQ51y4miIHcqcz2zZbpc4GHGhhBGtPopBMUykZ7wNa0OOPD5Zfz+QIrrFS
-    QV3WJQ3CoSVs4q+h+zF+nTtaBl7sU76zvudxMC75kkbdCDOiHVty79+JbkSI/Udat2vUsG
-    HsfL0nPStDqiBnbxDkAjvkabP5yI2T2umZ96rvFadvRXDJ4mRyyITbkDpIO7ZBlwcB3Tiu
-    7yJO2/3p6+qXdp/tq6nKO+qTLj8LrLm+rKmvmrpcYjzx8kq4xOmAA/UBH0dRV+EmNutQA2
-    wDr5icP2OqCD0vVEHbOw7fyzYMQgT8vAUkiCiikZgzSe0ZR1aBNeAM/KTdl3+sLK3cIOnp
-    nC1HIrftSYO9XV1z0TO4Ml7icH6+mPlcszxkzT9L/hRKPyyfYOStHGJmWrUQ
-X-ME-Proxy: <xmx:opO6apm3ZTqCUlFa8I2g34FeeBERBTp0cE5d5wg1kg7poDHeSMyYiQ>
-    <xmx:opO6ahxg28IbescFX7o81v3W3RHb0Z3Z9pFUeJ-P7DLh27C6ApnwKQ>
-    <xmx:opO6arQxemb7MECvhm5KXJd9jQv-olFKbeMuFC9p03txODN7DNvFTw>
-    <xmx:opO6ah9w3Xx_vGkMdiOthA518U252SjmY-rCGl4FgAbyxZbQ1_40vA>
-    <xmx:pJO6asR5U5GtQerjydBmhRxpB0aIWeQfDOGM1gekg9x6YnrFrnLytzsZ>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 12:19:46 -0400 (EDT)
-Date: Mon, 28 Sep 2026 18:19:44 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
- nonce reuse
-Message-ID: <arqToNCxIwi9CZ--@krikkit>
-References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dd3p3Dp+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so2705514f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 09:20:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790612402; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l7lRkLZC67kkcqvVvwnmtQgDE7rf/aiLSiPPPsNRMpqnR7NPjbsW0EY3RpUL8a53EB
+         IJb91Ad2bUxQboq007khJHuJTg6Eo36K9U3RPcHsqpsXkpS2J92ZYHo6EbDXkFf0kdzA
+         6hlo670ZgvQ6269yuaClY/qu7KrDg9661JXCZXf4iDDCJNObhYdz3bQVPxKmzXI1ltVv
+         NHfNk90Rch0a9gAtO9GV1B28vVgC95Ar3WWy8qKIrqVKWqWBhCOTp3JheRtKr2khvh1U
+         n6yE+TYOr1RA3TNjq+iRDxgZ9bjBfoXqg3DbjyHOAH4sjV25Q9r7g7St3ZMEgzFyO8PA
+         86mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Idi5LKEyTFs2voreuzbcbppZ5nLIeoJ5tGdhI+MVBSA=;
+        fh=bqssgAvSy3uhPjrYT07H0efs6vHIDlQKAUWB7zY4ZB4=;
+        b=PUvQW5/0tAY1rmQJfPZr88GxEOSGWjWuwP4whPHO9Stor2sxK8o46Z0y38y1YCU2U8
+         E5om6i4IwQnMHkFo3gSScbAthWVdQWDGns8CJrljCxQz2CyD6TfONt6BrH6BqpmvdKNy
+         vx3Pv2TxEbokqFya/pqqsYZkIM6t3IG5ne+GZspO+OE7QTGHWzq363Nvz1a4WZ8zZJNj
+         BYN1PFwsr9zo4s8xFldCc7OFx/VKfX7DFADpoZLqf7CnoL3YBApueLmlD5WD1MqWiQzd
+         kox7LW4zkDqTnfgH5LLMO+11q6QvzYAaxyqJTErCgHZBbM4luf6OWk0z3jonVtY8V6/z
+         JPgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790612402; x=1791217202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Idi5LKEyTFs2voreuzbcbppZ5nLIeoJ5tGdhI+MVBSA=;
+        b=dd3p3Dp+gNS4QfK8y+5Qw9vtU2KfPx0E4bn4uSFW76oyAOvHkfWld/kWQIbRfOQlRY
+         rQvLURXeK578sfSb+5EhqOr6FwGX+XPo2FMKX0oh9rUTV2ktB2b5d6ShkLjKzmx4rQFI
+         9qVmFPxJ9WKxVl7xSuCYVonJLVo/7xjxvUEL169LNU/dU6rltjse4PfqAfWEz/TC4cUu
+         g67vxuYFeY91mQ9QD98SX3MdXL8ectHLSsza8Xzf3Mh/M/lOX75atyZmUxcyy7ZogWeb
+         Sxrr3ZAEOH5oWf2vaFi0m749Yuf2pZ5DE1nV2uKQgTjS3mmqdE2Z4ygtEYefZrYjN7ra
+         LfZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790612402; x=1791217202;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Idi5LKEyTFs2voreuzbcbppZ5nLIeoJ5tGdhI+MVBSA=;
+        b=2BQCk4coF+C9PrqStTKWT0Mv0GDNFNaS4ufDOCXLtsUNc7lVULn/7feg/VZW0mDVKW
+         YKdGbKbZzpAq1ETGOcfZ9NwKfXj++0VOyt9qOsYm552Mg05atZg2lfz+STeNpxLQvpvR
+         vuWel8fNxCxeoDqL4Z38iMMRLwW9ock/8DajilGpVmtj9joBJ3jFShYb3kg1Kaq7A1nL
+         V4Mp7N4gjOe49gp0JFmQMyk1P7yWLJJk6Tyud3f/nL/LJrl8/DIVxL2CkKHO/k8pQHIK
+         Nun6sqtYHrkuzXc3imRt3Tpe+MIvPq+jBDY8iLLakJsvINcJsh4VXv3OShiteoXw3Ij4
+         xAmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDiBgnMOKOuo79mVtcndNdMoJAIEehNO56Qum/vecopqbRea5AkVXnBwBM3hxQEuaJQETY+ftAhvWq1bw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqbCt1Ajl8fZkipLpcZ9lInr4+u0OK5tddEwoGIUF+O9KIg6RA
+	nVW6H7het/vvZDE3a2Xtm6NS0Yq/A5By4WQfk35gceTJrVuTiDloeuBhVL2JR972EQZ01386aLT
+	Eq+Ko6CyTmbuHjGzC3XFpDioxMNkV1meTYUW2PHkj
+X-Gm-Gg: AYBFou3kLC7Yb+g1Tt+gXXcEYzd2SRlti5hp5eTWDVUsDJqRiqPG/g3YO0+n0nt+gAb
+	gqCrNmkuZwDoyyk0tPQEOTMeEtbo49PwJtqzOa03tUYUpxB2hAZ2q/SC5RvqHgijJDLPPHt9pXB
+	J0Ye1LpMkJKk6oW/Vsz5MK0HuyVGqyxz6BPmmcZFMWP0+7uFpF9a3htTKmtd3CsfpZVYWuYRJil
+	Q3UmDLgw8WpF9r4WIqgv/L5BnY+j62MQsQdgtrwTqLLr0gaq8hea4y9IyUCbzIgcw4DHhyGJCeE
+	t6WOc0bcF77IO5ZCu7WulMycmU2lM4c2319pZAFVXOayw8kQYj0bNyakY54iNoc7H8l5OksDZJn
+	uQZg5ntl67iPgLn4TIfRtmg1r1nxj4Rxodfl0p7Bl1VoS8qaJFn5FtXQ=
+X-Received: by 2002:a05:6000:41ee:b0:487:1ac0:32af with SMTP id
+ ffacd0b85a97d-4887197853fmr26855385f8f.51.1790612401692; Mon, 28 Sep 2026
+ 09:20:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
+ <e801211b4c71ddd919fa5d7b9c859b86addf3fb7.camel@sipsolutions.net>
+ <CAKwvOdkMK9Tj=JgsPeQj6_Xtx3FgZK2SWTSJVU_BJ7G17pDC2w@mail.gmail.com> <20260926195145.GBargiUSEEqjWPpuaK@fat_crate.local>
+In-Reply-To: <20260926195145.GBargiUSEEqjWPpuaK@fat_crate.local>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 28 Sep 2026 09:19:49 -0700
+X-Gm-Features: AclHuK80ygbd3wiyZigI_Z6HIjLwZPQopGivmPnn4hRCPTRgq5S7ll5QQxv7VJs
+Message-ID: <CAKwvOdn2U5xy5T3kc3epPX74nr6ja4NBFVGCqLD4GPwKYX6hBg@mail.gmail.com>
+Subject: Re: [PATCH] x86: uapi: ptrace: guard register offset macros with
+ __ASSEMBLER__ or __FRAME_OFFSETS
+To: Borislav Petkov <bp@alien8.de>, Elliott Hughes <enh@google.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Oleg Nesterov <oleg@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
+	linux-um@lists.infradead.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The subject prefix should be "PATCH ipsec" for IPsec bugfixes.
+On Sat, Sep 26, 2026 at 12:52=E2=80=AFPM Borislav Petkov <bp@alien8.de> wro=
+te:
+>
+> On Fri, Sep 25, 2026 at 02:25:47PM -0700, Nick Desaulniers wrote:
+> > On Thu, Sep 24, 2026 at 7:54=E2=80=AFAM Johannes Berg <johannes@sipsolu=
+tions.net> wrote:
+> > >
+> > > On Fri, 2026-08-21 at 15:45 -0700, Nick Desaulniers wrote:
+> > > >
+> > > >  arch/x86/um/asm/ptrace.h               | 4 +---
+> > > >  arch/x86/um/ptrace_32.c                | 1 +
+> > >
+> > > This seems like a simple adjustment for what you need to do in x86, s=
+o
+> > > that's OK, but I don't think we'll take this through the UML tree.
+> >
+> > Appreciated! I agree, maybe with Oleg's review this can go via the x86 =
+tree?
+>
+> Do we want it in stable too even if it is not really stable material so t=
+hat
+> userspace does not have to upgrade kernels just for this?
 
-2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
-> An off-by-one error in esp6_xmit() advances the IV counter before
-> encrypting each software-GSO segment. For N segments with sequence
-> numbers X through X+N-1, the IV counters are therefore X+1 through X+N.
-> The following non-GSO packet uses X+N for both its sequence number and
-> IV counter, repeating the last segment's AES-GCM nonce under the same
-> key.
+I don't think so.  Android, say, is not going to upgrade kernels just for t=
+his.
 
-I find this description very unclear. All I'm managing to understand
-from this is "there's some situation where a packet isn't getting the
-seqno it should". I don't know where the "+1" comes from since for GSO
-the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
+>
+> Or are they simply copying upstream UAPI headers from the latest kernel s=
+o
+> that stable backports don't matter?
+
+Right.  IIUC, bionic doesn't have N copies of UAPI headers (one for
+each branch of stable), just 1 copy which they do move to newer kernel
+versions when they need something. (enh@ can correct me precisely).
+
+>
+> Thx.
+>
+> --
+> Regards/Gruss,
+>     Boris.
+>
+> https://people.kernel.org/tglx/notes-about-netiquette
 
 
-Anyway, one process nit and one question on the code:
 
-> The repeated nonce allows first a passive attacker who knows partial
-> plaintext from one packet to recover corresponding bytes from another
-> one, and second, an active attacker to recover GCM authentication key
-> to forge authentication tags without recovering the AES key.
-> 
-> Fix this by saving the complete current sequence number in esp.seqno
-> before advancing the shared GSO sequence state.
-> 
-> Fixes: 3dca3f38cfb8 ("xfrm: Separate ESP handling from segmentation for GRO packets.")
-
-And if there's a crypto leak, this should probably have a "Cc: stable"
-tag.
-
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  net/ipv6/esp6_offload.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
-> index 2289552..05d13cc 100644
-> --- a/net/ipv6/esp6_offload.c
-> +++ b/net/ipv6/esp6_offload.c
-> @@ -346,6 +346,7 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
->  	}
->  
->  	seq = xo->seq.low;
-> +	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
->  
->  	esp.esph = ip_esp_hdr(skb);
->  	esp.esph->spi = x->id.spi;
-> @@ -364,8 +365,6 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
->  	if (xo->seq.low < seq)
->  		xo->seq.hi++;
->  
-> -	esp.seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
-
-But then esp.seqno can have an inconsistent view of xo->seq.hi
-compared to what esp6_output_tail/esp_output_set_esn will see
-(xo->seq.hi++ just above this)?
-
--- 
-Sabrina
+--=20
+Thanks,
+~Nick Desaulniers
