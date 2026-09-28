@@ -1,329 +1,176 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011014.outbound.protection.outlook.com [52.101.125.14])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCBB400967;
-	Mon, 28 Sep 2026 08:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582730; cv=fail; b=LQDhfibw8V0EHkGY3QXvUECvgXICRYO6FEdF0LulSFYtoIE80RRyzHNgVNpSJNcG/6y7EZWRbbm1q0Avf3Db1I0oG9KBImyFSkfytibiHr04UOtmTIrh0Py414kIjdGUyJANUR5BvMc+b7fMbvSnHJKlgqwiM+leyBN+UGHWRjI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582730; c=relaxed/simple;
-	bh=VwQxFEwoYtKZDuL0Eu7gujxTKB6ygfCwAuCSSzrZOSo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=f1dhY0v6/XYED+v7r4isZcRDJW0Hg23AgawRxIRPNMSgT04TXf4aofiLMfqrSmE1J/QijEP+IfSEYznhkzNJ+Gs1RtcHtkckxJ37l2ghtbMBOzQWQxFTMpr0JGOI0QUFsNdYzqaGTkL4durvOyrcZQoTZ96yz3Kq1m0ItsCazq0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=kiIyf7Ui; arc=fail smtp.client-ip=52.101.125.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58783B813D
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 08:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790582762; cv=none; b=M7e7gEqU9H4KPkexLEd5RJOi8CK50UygGRJIAgbIttpJyOaDu/M0Xp+7auCY7ISqAdhlMeeIZP0HT26jQIeOTPBVgt4QtBF1kNnjoKD45C5Sjulqvg3SKUJnpVE7SzILUou1yDxj7ztuQC0N/5bGjb/ERZyhzSovxdy2NW1UJFU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790582762; c=relaxed/simple;
+	bh=PQXZjBjrsjp9GYj4AvXgR7u5WgJ14naqr9fTVj9p8MI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M9fBZTx4+fP946u6/+/QJjHWQ2jRybtiwFIRMutxNx60MkcikTMc075xm5fNxQOBWxjTlw/sYBd7HzG6WUAgC0Q2TerHiyvrfedlRXqFkbkRZvEjgHBD076xatZ/P5Cwy9rCknaFsB+CWuh68h/PKzCBPhanvoW1Qqy4NZsHOak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=VijeZghR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CtJYAYRm; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="kiIyf7Ui"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E09WqdS3jT1+V9YYlheColhRFNN3SVvOxKuf0S9tcT4hjWt2NG/tZ2j6yZatT4CzWmiEVkJ6gEBoHF8b/w+uKGt2TT/LX2AwIQlh4E7b7DAc5HHcRaC3F+ersqZhxv8SPGFBIeSIGGcNBFG3XvY9cNdvR6Jn8a5U6vVlKeFnLZ8qmI8spN4iOcsGilV+2Dxwbwukhnp4Wo3FdCEMKUmRJdH530y5wrALeaFd5A3PQb7Fy3WwYUWbZKWB8+Ltm0FZBzoXA+BZkWSDzgjMboSF1oDAcH86zxs8OL+9JszdW8NuB0T04zcpbe3SpKCcC79JEnujZr6K0wpvRxvijuOSGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AQ8tRCyixVhwqsWc61Gvmjz/TK8ToHyFAvDC1j1/Ol4=;
- b=ti2jy74RjdezzE0nrRRuuryffTWKEXOyKWe0inQ46ZXmeWtfMIr2JLnmxVU3lZtrH1a9RLX50rjIWtDkdtGbI/l1yCHdpfo60X3D83ujfxg6Loe7f02hOfZJqnnLjzBHaUxKVXRlMyEm6xoZpZ7737ympAv9DGNFWq7cmgXJ/fckJvKUmms4+6qfkhh/B6d15M6McCkxE0mG3BS1FGlaegvvprCRbXWTMnA8H6hMfp1y3JTW6WGX48JHbWbHOXNYhsMX9pRXkbwDm98T43DHlHER1O/8Pox6dZLdXUYZft4ZbfF+o1gs70s+XSL0ZC8Iz9KNGXNF2PFmRXbvT6DDoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AQ8tRCyixVhwqsWc61Gvmjz/TK8ToHyFAvDC1j1/Ol4=;
- b=kiIyf7Uix2ti36CArzsko0MC8Q5HTcJTGXgOzMGYG8z+pM7X7EGCQmIcjpMAIDlzHzZEVOvYe1lDfjSI73I20xasAT9K5eU4kV8GPVcjTgc7rFYYW2bSZeNwD39rQk/064ckOBY9peY61JVxaTWnXC7OByRVe2urzO02kgFDO4s=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY3PR01MB9697.jpnprd01.prod.outlook.com (2603:1096:400:223::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 08:05:25 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 08:05:25 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: jiale yao <19888972804@163.com>
-CC: Linus Walleij <linusw@kernel.org>, Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: Re:RE: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices
- without match data
-Thread-Topic: Re:RE: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices
- without match data
-Thread-Index:
- AQHdTPMcx8CFgDS7T0eXq2w7rRWLsrbgohqAgAAGNACAAtp7cIAAGDwAgAAApUCAAAe6gIAAAT1A
-Date: Mon, 28 Sep 2026 08:05:24 +0000
-Message-ID:
- <TY3PR01MB1134666FCB97948ACDA5C3661868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260925133804.2231004-1-yaojiale02@163.com>
- <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
- <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com>
- <TY3PR01MB113468365E8ADD0FC214135CD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <ffaef81.6d34.1a0e70274e7.Coremail.19888972804@163.com>
-In-Reply-To: <ffaef81.6d34.1a0e70274e7.Coremail.19888972804@163.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY3PR01MB9697:EE_
-x-ms-office365-filtering-correlation-id: ae134019-638f-49f7-7af1-08df1d374058
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|260925021911599003|260925021311599003|260925022911599003|11063799006|5023799004|56012099006|4143699003|6133799003|10067099003|3023799007|22082099003|18002099003|13003099007|38070700021;
-x-microsoft-antispam-message-info:
- Tdm1VTGvU4U8KLch+kjYuinl2i076HGg+FCFGjYDsnihlQSw4br7qnvhhmjXt8Bsfz3aZdLU0uCBXlnuhwvZ5WSI/TDSpCO+06sXlzuqH7pZIx5H3m57FWPXRCpOmQFBHR/fXKj6KT0yvx5o/NEdMssXJNUrvMxdKthbVv+ZtxJEWqpJqO6DPU8z7cSHYA+0pYcxiRyYMx8DRFs8MMZIfwVxNmDw0js6Rk5vy5oGDU9TInzCsaZJCh4S3dL8qvvjyA1ce1xainCPiNcsSPx82M/KlWASk/gdS1vXRBbMlSHHluujaW1cmd3YdDW6PjwlCcSVC93FOTI/TUetQ+NRTPUQ12VME5nBZ4O5rNQb/jLsT6N5kRRTUV3XpQ/z0+4V1AzAeIIypoVBcpsCvZmwZP+yntnDyRavR6OwcLNfjtu1dgZUhp/dDC53FIide8XstDAQlVWjUHJLe5Haw6XDjAEnLJ5DKWeFHSu0s7gm9X7BeEr5WCU3PZ43WjVPULnD6rU8GS9lQTzbxZfxnkwcfSruTvvRUCABDzDRYbWj64lLEH9Gk3y2ypgpO5XW6D6+1d6gUX68wZemjRuX7rYcXSAu1fDJlEZ2QjkWbQWuiLOeYjHbnZCtLz6Y2jDGYMzBURswmommAQ40cXKC9471t2qpGTA7mBcsIEvXguvaJDVdaPFlmzCvq4B5VlZaTNHpbQFpJ1TtE7+9W1un+fpOfRrIY8edMFS4JfMxWbgrDhs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(260925021911599003)(260925021311599003)(260925022911599003)(11063799006)(5023799004)(56012099006)(4143699003)(6133799003)(10067099003)(3023799007)(22082099003)(18002099003)(13003099007)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?P5imq+ewxs3cAkv5ILgKJZgsgfBPY6rhk5er/bNaESZec63oN12egHTymSRe?=
- =?us-ascii?Q?qqrKFVs6Ys6P1rzteC6ip5LtSkRQOweiR20HpMxMGw2dNVVsr4p67htzA5H7?=
- =?us-ascii?Q?WrL4dsIukbBLRzZ9xXQ121B1Ux6MNiXwgFTQHvaVCmcP2jvIgdQCYqbsBemW?=
- =?us-ascii?Q?STaY2f4xmoACXOviIQnmZgiDVL2vwhg5YTZiUkJoCMYn+oDpjAMdynm57WCY?=
- =?us-ascii?Q?YOBsPpsP7VmRH6HhYQV3pKerX7V8WG0Gcm4qlu2Ak7kOYINGyG0Az206AHR5?=
- =?us-ascii?Q?2waHKDnBmWzfIr8gcIKHzkoqNoAaYqVX+vg+C2oWfoVF5t8Uq06vGkqiKEas?=
- =?us-ascii?Q?QRY07Ih8DBBnlbVGrjTbC8L7UNRKynTCBMiDxDDLDs9reM5pzxcqSzkZBmxq?=
- =?us-ascii?Q?OFhCSfHiqqOVIvXewmunjnSUJUM9LwxAJ3w1Mxq1kSJpKbmrzAE7dclmnKl4?=
- =?us-ascii?Q?W35TriMbFjAG7UjuzAu+sz2qaqnc3yGtTXIOnCuDMXzrE8JFwBqGOg6HtttJ?=
- =?us-ascii?Q?vOWDnI93bXmOhoACTvVKqAmhNYWK1G+xzoNOnKc9ldKaEAvg8c0aNhynkL0b?=
- =?us-ascii?Q?H8zXmHd/d/YP3TOp790gJt8SENRGap5ZK72LS7rSvT5+/bKYX0h8PhTW8PT6?=
- =?us-ascii?Q?R2i+B47StVPzxP+2pDAJFqi3ZCtEo3QXTR7BOx3+0CGbTYU4/06F5oiiShR7?=
- =?us-ascii?Q?c4VuOqp5HiTxVgDiK0IeKMrmiPHvoBkVrOVnc1OJes/V0wDtbOgzo3utDKEK?=
- =?us-ascii?Q?rava+OHFKGwiI7DfYXFYTUtroVU+XAMN2/kX6kApBe6cV8Vg1Pd0NTvZE6Jk?=
- =?us-ascii?Q?sGi/gGtWv8PLAJqaGtsDH1EoNmRAawo5jNRFDHZkJ531lU/n/q63+7k4GCVz?=
- =?us-ascii?Q?zsWY7WdQJr5N1C/3wZSQGP9QwSxgH40exmGodLNByscQb/rVtwQDoQIYWWaK?=
- =?us-ascii?Q?quXgyoVMdeN40JJNrWUUsWxsTpBku16KH+79gzNW1YOZ3nrA4KIrna0Jud+W?=
- =?us-ascii?Q?y4jvSjLxdTm7a/5AGbSG6cO9d0USpH8kJEiFAn+9MPDV79xAzGhfDRiiTwEu?=
- =?us-ascii?Q?s7fNp7Bw43/W7/zRs8yohNSHXThvquuLsKWAfst70Dut9qQxD1MWTQKCQIO7?=
- =?us-ascii?Q?T17hU9LzAaeLpKReBKjQLatg7dTCl3aHywzOO1s0FaivMli3Hd/t45UOjF+9?=
- =?us-ascii?Q?CVTC7F3nCdu5rSIXA7voDvA7aINdHvDfI6CrQjT5ja0EnNMZBjVUU1Ntx8uP?=
- =?us-ascii?Q?wnzj2k/DncxMlq0ybh4duxl1PGzRFSVOcnxfm1OW78Hs7H6fRAdPZwXeaCKw?=
- =?us-ascii?Q?tfV5Dw2Wy+FiAZ5Lza5zvagcgav7sTksMD/mVjME0EJygqc1LCOJAxfb9COn?=
- =?us-ascii?Q?9o1/86HesKwlc3ZNJmxkQtmCghfyaOn3mojCfpacEZI/dyah99RXkGF0ZV39?=
- =?us-ascii?Q?lr+ROQDD5BWHPi7LgrlvRWzB7fnR8oNgNssNC8JwQGp592MFjroJ1GEGQifT?=
- =?us-ascii?Q?3bQY+65yyJV+Ko4psm89TCQF51yvFed1wVhRmdTI9XY3XnG+hLYcr7+lPrjK?=
- =?us-ascii?Q?wQE90Lkx6J22Zh33HWhOP54VVvoGH8aUZ53CPwG6DeIL6qlTw704YlMj3Z4N?=
- =?us-ascii?Q?/FJTPVRDe9yx/igJXlI3MRdYnfzYy7DmVrkmAA7CpmyUeUJSJUkyXA1gIKy3?=
- =?us-ascii?Q?EHnOUuhc10t0QypGlkj2uTe5fbQFByBeC/+5dWcK0TNMDNbkypnHFKyo8Rab?=
- =?us-ascii?Q?o0GZFyMPTA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="VijeZghR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CtJYAYRm"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.phl.internal (Postfix) with ESMTP id BE96EEC007A;
+	Mon, 28 Sep 2026 04:05:58 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Mon, 28 Sep 2026 04:05:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1790582758; x=1790669158; bh=QWrEbWbu7S
+	cexwQjcS9oXjuHvyEC6XUbPv+tot1HLFw=; b=VijeZghRxNOWC0rmDSpRN3ab+0
+	T0PAVzlDwrgBmZ9xmF306lGG+8sp5TDwaPcp0gh6oiXFsYx8s/U1qn0aB+wlDv+W
+	7sr0E+xQG+Cc6ANXA/m0A1yjz0XPNXozYQlK51+2U5I/sk5aPDF+FJgovUNAtKD+
+	IJi2B+2fLmwW5TW68j6c6W167Xkjzkr0M5T7g3ZKFbxZbVHeph4wTGeGO0Ez33/q
+	QAYlHwUUh3l1VjCHNZGltP/rW9GAnJiGS9D2uz1irhI2t3m7q1aGTJL1UoOcIA4e
+	IkUCBuO1Rc6xBbPj48yzmt9wBQ/E7HLVlLqNVu3o6/Kr7yY4VNLmro4BtQPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790582758; x=1790669158; bh=QWrEbWbu7ScexwQjcS9oXjuHvyEC6XUbPv+
+	tot1HLFw=; b=CtJYAYRmxPcY2f7EtffL+OsyboG/tLsMUE6i3+lMWVUwFPBYP8a
+	IQg8JV9ZtbrfQOXiB5mXNNbGHxR9feZcr/7rTru6h2JFtp46CWucDZlIGiNW/Vp3
+	ztQLH18cjsN/34Ahyxw1/BpKxelpFe6XfmN4GhKtXyK7+Y51b6ccTKYcUIfpixo/
+	d2DXbgn/Owt3dtPX71PpMwAZu8tO2Kat8bOllX+A44/fWrnrSs6BjHV/4X2Z2+4h
+	t8BYaCxn1VHld3VhA67+tYHmYmVQIl+wTuxMGcDQunPneRoz9Awj23b6ryKcxP1P
+	aK58YD/31MeIaew/nLxRhs+b7gjYd8sjTpQ==
+X-ME-Sender: <xms:5h-6asPjLfz3I4iHiOsDz1Te7S6ep6Mu_GEBb8tBLoBLK_0ciRCvHA>
+    <xme:5h-6ap_sHQ_74AD9-dJRMlHw2FvaReoXuk42Mg9Tdm5Ra2LUzYTPXE6p3aHI6-t3a
+    YIeGai2DfDjlVziZoeeUg8VdRSAsGq1UBZmrtLBCEZH1bvAcYAMPfcg>
+X-ME-Received: <xmr:5h-6aoSn0sR1pGwxFzq8qwXmxXI8Z6rF58dfdaFmVfhsSRQy27XV_Ecv6giY>
+X-ME-Proxy-Cause: dmFkZTFVkEWH2jzR3XiBpbEmdB1c1RxCkMZbnNztqgMlgkZ3XJYt8kAzZnuCZ9Aci7UQex
+    ouf6/a7AsBxQo3DDuCpRpr/S7m9wZHHsFn2d3n6iSDVxdd2lovWf59cIk2Vg6W9j/UhAeb
+    s8pn8G22meUR9x1vsEkGa5aAV5WRJH92WVStC292IL7DJmVAsL6aDuTV2Fo28b5+r4pWXl
+    JHr6WjhJep45Yl6xx4KJH70jD/ZV2J+TOXqtIGA0Tld9/WGWzmE63aHEB8IqeCh+w+y3AS
+    2ALYqpWb4xUF8c3giSHKOZP5H9ts8Xk9CyqrAvYgVxmZ15JwqXz7/+qjUT0LlQPPi+A6uD
+    EAYzpHmZmDlHfJHv+oZiY9SJE579Ixl+0cAElboE0TtQUv8Dv7Vmon2HiB/TW4xkHgc20n
+    soIisbMS3ZP5j30BDsbPyudSdwzNcXW0BqVXuHRnwEya8wG3nLTRW2AqULr11B+O19AML4
+    w7qi2XATC6tK4irIp/uJl4GwZAMJJgLUWeW7x1faMc8ay0TkGR90VB68YCbAjJt5O4zoAk
+    MHaUYi6j+WKWgj2D6a4xLAatRMD/V4Lu6rH1n1XAuroNXU+dswGa42K9vkZpYX4rzTOfOR
+    BGFblp9Lcx792EIfrT/zhj3jo2Yobv+QKzVvp850czFdEjilEAvUPghMFckg
+X-ME-Proxy: <xmx:5h-6ajn5Ac_8IPOp0m4K3alXsoCUe9Od2leuTEXPzWEM6_XRHg1k9A>
+    <xmx:5h-6agSJjcUqdMMT3YfJke7oinFSkQ-YjshhE3Cxnx66UWNWFbC8bA>
+    <xmx:5h-6apM8o1wShkQE45_wPUXpIJewihDN5BKWVjevSw7WgzBWmaj0XQ>
+    <xmx:5h-6ahXwW_OXa38NFgojDyH7jh7BnUY8SlaEz5qARWIPTLnTVsxKiA>
+    <xmx:5h-6ashlL__SAxq0VNORQZAFEjlg5k2ktTUXPYDGZNC9mni0qPWaouSq>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 04:05:57 -0400 (EDT)
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: linux-kernel@vger.kernel.org
+Cc: Sabrina Dubroca <sd@queasysnail.net>,
+	Andy Whitcroft <apw@canonical.com>,
+	Joe Perches <joe@perches.com>
+Subject: [RFC PATCH] checkpatch: check Fixes for a Cc: stable tag
+Date: Mon, 28 Sep 2026 10:05:02 +0200
+Message-ID: <1e5824f7bb8f5d32783c5b47ef4c06b1fc59969a.1790437098.git.sd@queasysnail.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae134019-638f-49f7-7af1-08df1d374058
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 08:05:24.9594
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KMYYsgwpAmmT5EKJue8wEIyKsGSM6kYvVUVC7vZQyui9tw8JpDr/7fLPbuulCwU8MXrrz3PMpGxktN0HtLdDAaftNWoNLebWPj+FzpGN9WA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9697
+Content-Transfer-Encoding: 8bit
 
+I keep forgetting to add a "Cc: stable@kernel.org" tag to my
+Fixes. Not all fixes deserve one, but it's a good reminder.
 
+Only print a CHECK-level message if one of the Fixes tags belongs to a
+commit present in a released kernel. Fixes for stuff that's only in
+-next should be fine without the Cc.
 
-> -----Original Message-----
-> From: jiale yao <19888972804@163.com>
-> Sent: 28 September 2026 08:55
-> To: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Linus Walleij <linusw@kernel.org>; Andy Shevchenko <andriy.shevchenko=
-@linux.intel.com>; linux-
-> gpio@vger.kernel.org; linux-kernel@vger.kernel.org
-> Subject: Re:RE: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices w=
-ithout match data
->=20
-> At 2026-09-28 15:32:52, "Biju Das" <biju.das.jz@bp.renesas.com> wrote:
-> >
-> >
-> >> -----Original Message-----
-> >> From: jiale yao <19888972804@163.com>
-> >> Sent: 28 September 2026 08:25
-> >> To: Biju Das <biju.das.jz@bp.renesas.com>
-> >> Cc: Linus Walleij <linusw@kernel.org>; Andy Shevchenko
-> >> <andriy.shevchenko@linux.intel.com>; linux- gpio@vger.kernel.org;
-> >> linux-kernel@vger.kernel.org
-> >> Subject: Re:RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices
-> >> without match data
-> >>
-> >> [You don't often get email from 19888972804@163.com. Learn why this
-> >> is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >>
-> >> At 2026-09-28 14:03:46, "Biju Das" <biju.das.jz@bp.renesas.com> wrote:
-> >> >Hi jiale yao,
-> >> >
-> >> >> -----Original Message-----
-> >> >> From: jiale yao <19888972804@163.com>
-> >> >> Sent: 26 September 2026 11:24
-> >> >> Subject: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
-> >> >> match data
-> >> >>
-> >> >> [You don't often get email from 19888972804@163.com. Learn why
-> >> >> this is important at https://aka.ms/LearnAboutSenderIdentification
-> >> >> ]
-> >> >>
-> >> >> Hi Biju,
-> >> >>
-> >> >> At 2026-09-26 18:07:14, "Biju Das" <biju.das.jz@bp.renesas.com> wro=
-te:
-> >> >> >Hi,
-> >> >> >
-> >> >> >> -----Original Message-----
-> >> >> >> From: Jiale Yao <yaojiale02@163.com>
-> >> >> >> Sent: 25 September 2026 14:38
-> >> >> >> Subject: [PATCH] pinctrl: mcp23s08: reject devices without
-> >> >> >> match data
-> >> >> >>
-> >> >> >> A device bound through driver_override need not match an entry
-> >> >> >> in the driver tables. In that case
-> >> >> >> spi_get_device_match_data() returns NULL, but mcp23s08_probe()
-> >> >> >> later passes the result to the regmap setup and dereferences it =
-while setting up each device.
-> >> >> >
-> >> >> >I believe this is an invalid use case as the user trying
-> >> >> >driver_override and the probe returns error. Am I missing anything=
- here?
-> >> >>
-> >> >> Yes, my commit message was not clear enough. This patch is
-> >> >> intended to fix a regression introduced by commit 2e44555b05c0,
-> >> >> rather than to make an unmatched device probe
-> >> successfully through driver_override.
-> >> >>
-> >> >> Before that commit, missing match data effectively resulted in
-> >> >> type 0, which fell through to the default switch case and returned =
--EINVAL.
-> >> >> Commit 2e44555b05c0 replaced the type value with an info pointer,
-> >> >> but the SPI path missed the corresponding NULL check before
-> >> >> dereferencing
-> >> >> info->type. The I2C path preserved the previous error handling
-> >> >> info->with an
-> >> >> explicit NULL check after the same conversion.
-> >> >
-> >> >you are testing the driver with driver_override and your patch makes
-> >> >driver Probe failure. I do not understand the test case you are
-> >> >trying to achieve with driver_override.
-> >> >
-> >> >Can you please share some logs with driver_override that you planned =
-to test?
-> >> >
-> >> >Cheers,
-> >> >Biju
-> >> >
-> >> >>
-> >> >> Consequently, an unmatched device bound through driver_override
-> >> >> used to fail cleanly. It can now cause a NULL pointer dereference
-> >> >> when a valid spi-present-mask property is present. This patch resto=
-res the previous failure
-> behavior.
-> >> >>
-> >> >> >
-> >> >> >Can you please prepare a patch that makes the driver probe
-> >> >> >success by using driver_override Feature? Also please share some
-> >> >> >logs to see how it works in real device
-> >> >> >
-> >> >> >Cheers,
-> >> >> >Biju
-> >>
-> >>
-> >> The test is NOT intended to make an unmatched device probe successfull=
-y.
-> >> driver_override permits an explicit probe attempt; it does not guarant=
-ee that probe must succeed.
-> >> The driver must still reject unsupported devices safely. The bug is
-> >> that it currently crashes instead of returning an error.
-> >>
-> >> I reproduced this deterministically with KASAN on arm64 QEMU.
-> >> The SPI device has an unmatched compatible and a valid
-> >> microchip,spi-present-mask property, and is then bound with:
-> >>
-> >> echo mcp23s08 > /sys/bus/spi/devices/spi0.0/driver_override
-> >> echo spi0.0 > /sys/bus/spi/drivers/mcp23s08/bind
-> >>
-> >> KASAN reports:
-> >
-> >This is original issue.
-> >You want to now add driver_override feature.
-> >
-> >What is the log you get with your patch, probe failure?
-> >
-> >Can't you make a patch for making probe working with driver_override
-> >feature that makes the device functional with driver_override?
->=20
-> I think we are discussing two different expectations:
->=20
-> - driver_override only gives the named driver an opportunity to bind, as
->     documented in Documentation/ABI/testing/sysfs-bus-platform. It does
->     not guarantee that probe succeeds.
-> - Without match data, this driver cannot determine whether the device is
->     an MCP23S08, MCP23S17 or MCP23S18. Probe must therefore fail.
-> - Before commit 2e44555b05c0, this path failed cleanly with -EINVAL.
->     After that commit, it dereferences NULL.
-> - This patch only restores the safe failure behavior.
->=20
-> With the patch applied, the result is:
->=20
->     [    2.319112] mcp23s08 spi0.0: probe with driver mcp23s08 failed wit=
-h error -61
->=20
-> This is the expected result. As far as I understand, an unsuccessful prob=
-e should return an error, not
-> cause a kernel memory access fault.
->=20
-> I am a little confused by this point. Are you suggesting that, if driver_=
-override is used for an
-> unsupported device, the kernel should crash rather than have the driver's=
- probe fail cleanly?
+Assisted-by: LLM
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+---
+I don't deserve the credit for more than "suggested-by" on this,
+I just fed the idea to claude and it produced this. It seems to do
+what I wanted, and looks fairly reasonable to me (as someone who
+doesn't know Perl).
 
-If you want to support driver_override, you need to make it functional for =
-this device.
-But you are making probe failure for driver_override which is of no Value t=
-o Linux
+ scripts/checkpatch.pl | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-Cheers,
-Bij
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 8a7787d228a6..8f675445ba51 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -1292,6 +1292,16 @@ sub git_commit_info {
+ 	return ($id, $desc);
+ }
+ 
++sub git_commit_in_release {
++	my ($commit) = @_;
++
++	return undef if ((which("git") eq "") || !(-e "$gitroot"));
++
++	`${git_command} describe --contains --match 'v*' --exclude '*-rc*' $commit 2>/dev/null`;
++
++	return $? == 0;
++}
++
+ $chk_signoff = 0 if ($file);
+ $chk_fixes_tag = 0 if ($file);
+ 
+@@ -2687,6 +2697,8 @@ sub process {
+ 	my $fixes_tag = 0;
+ 	my $is_revert = 0;
+ 	my $needs_fixes_tag = "";
++	my $has_cc_stable = 0;
++	my @old_fixes_without_cc_stable = ();
+ 	my $author = '';
+ 	my $authorsignoff = 0;
+ 	my $author_sob = '';
+@@ -3085,6 +3097,11 @@ sub process {
+ 			my $email = $4;
+ 			my $ucfirst_sign_off = ucfirst(lc($sign_off));
+ 
++			if ($sign_off =~ /^cc:$/i &&
++			    $email =~ /stable\@(?:vger\.)?kernel\.org/i) {
++				$has_cc_stable = 1;
++			}
++
+ 			if ($sign_off !~ /$signature_tags/) {
+ 				my $suggested_signature = find_standard_signature($sign_off);
+ 				if ($suggested_signature eq "") {
+@@ -3309,6 +3326,15 @@ sub process {
+ 					$fixed[$fixlinenr] = $fixed;
+ 				}
+ 			}
++
++			# Cc: stable@vger.kernel.org may appear later in the
++			# tags block, so defer the check until the whole
++			# commit log has been scanned.
++			if (defined($cid)) {
++				if (git_commit_in_release($cid)) {
++					push(@old_fixes_without_cc_stable, $herecurr);
++				}
++			}
+ 		}
+ 
+ # Check email subject for common tools that don't need to be mentioned
+@@ -7869,6 +7895,12 @@ sub process {
+ 			WARN("MISSING_FIXES_TAG",
+ 				 "The commit message has '$needs_fixes_tag', perhaps it also needs a 'Fixes:' tag?\n");
+ 		}
++		if (!$has_cc_stable) {
++			foreach my $fixes_herecurr (@old_fixes_without_cc_stable) {
++				CHK("MISSING_FIXES_STABLE_TAG",
++					 "The commit fixed by the Fixes: tag is already present in a released kernel, should the commit have a Cc: stable tag?\n" . $fixes_herecurr);
++			}
++		}
+ 	}
+ 	if ($is_patch && $has_commit_log && $chk_signoff) {
+ 		if ($signoff == 0) {
+-- 
+2.55.0
 
->=20
-> >
-> >>
-> >> KASAN: null-ptr-deref in range
-> >> [0x0000000000000010-0x0000000000000017]
-> >> pc : mcp23s08_probe+0x2f8/0x944
-> >> lr : mcp23s08_probe+0x190/0x944
-> >> Call trace:
-> >>  mcp23s08_probe+0x2f8/0x944 (P)
-> >>  spi_probe+0x1c0/0x2d8
-> >>  really_probe+0x17c/0x5b8
-> >>  __driver_probe_device+0x28c/0x350
-> >>  device_driver_attach+0xa0/0x18c
-> >>  bind_store+0xc4/0x13c
-> >>  drv_attr_store+0x60/0x9c
-> >>  sysfs_kf_write+0x170/0x1e8
-> >>  kernfs_fop_write_iter+0x298/0x404
-> >>  vfs_write+0x648/0x8cc
-> >>  ksys_write+0xf0/0x1e0
-> >>  __arm64_sys_write+0x70/0xa0
-> >>  invoke_syscall+0x70/0x24c
-> >>
-> >>
-> >> spi_get_device_match_data() returns NULL, and
-> >> mcp23s08_spi_regmap_init() later dereferences info->type at offset 16.
-> >>
-> >> The patch only guarantees safety; it does not attempt to support
-> >> unmatched hardware through driver_override.
-> >
-> >If you don't want driver_override non functional What is the point of
-> >this patch, simply want to add some Code space in linux kernel?
-> >
-> >Cheers,
-> >Biju
