@@ -1,165 +1,249 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-26.mta1.migadu.com [95.215.58.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3F54D9554;
-	Mon, 28 Sep 2026 14:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605435; cv=pass; b=prEgnX5aR3fUOMQb6dxol6gdfKT5lqSPE3eby2E+F+k5ZLV5oqLVdWZ4FbcoilF5Fgvn2B2sP97MO7hvMq8il4NyzL3wbBeuRaFygM4in7Wy03aiZ81V+1Gx6rBSDz6vA6MJjfinwXxnxomE2BqPVKUnTWVuOs+uIA/Ia2KjdNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605435; c=relaxed/simple;
-	bh=ibiYVn/L7S4UmODqYLiJxWqoAGlqGRh7pFqd64OpuQU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZIeDSE5UDYZDIZFNb9xlvxTQNOohHiBokECeN3pu7xoBHBfoGEw7qWRCc9Hfbv8K8VoN7mhEsVdp5FtW1j3uZGiWdHCHjZQx66HMJP3SNwjbi6qlJS6USwL7rMpPQkf79+qW5fFxTHcDaJhW9jjCk7iGa0YHEDgLWptNwe2IHOI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=Cvxwoycg; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C71A4DBD75
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.26
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790605437; cv=none; b=TKbfuyFpjn0HhksO7hIXOSmashDdV1slbYu7oX0S/ITgKwyE//U91e+8k4rqoLIxO61fxUUYbrXqGe/rVEW8HcJ43/K5qLYUkD8frXr8KbI/oLlX2Cm3ACmM9CdMBZz5+I/Rx0wLgZW6RazOmeHDlhFcjst4AanJQGR/MJtsaAI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790605437; c=relaxed/simple;
+	bh=1Pt5c0ewlbxs35Qenv4TwVyYegBMJMSsO1N36lie138=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PmnRBgAml0dk5kaIUi/irSTHV25IyjKEuvyTG5cdl5Ns1mrCqrsYXErUlmzOCf1a4y7zFACscVmcIFYsGjNZoyYeJsMWC3liUjGb1i4K/3D5xRAWzPhMhkt3PRxKlFoZ++wDgm43wwcjNWLKVxgsfwmdu72tDCFC7p9PXLg3Wcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TTbQt+ME; arc=none smtp.client-ip=95.215.58.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Cvxwoycg"
-ARC-Seal: i=1; a=rsa-sha256; t=1790605423; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=N7EuKB4qC+wbWaB8+OBJ30DwmiBmECQlNVVZZkCVrnZ0uL6rpyxN3XdRq2OOYgM1iER5evCF5iqI3BBqeimD/xbVxQ/hbaMcBlRoqV5E6UnWI/JlVIyAHdkZ1Gh1R/S8VIAltskG8b8MUYcxz665hWvh888H/HYQgFwjkHxqhZg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790605423; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7uBb2+okI+xjvWkYL3wu85s0nnzBvHShpKmWBmYT4fY=; 
-	b=RrmHYbxN7WwlYKjtR3hkldpR1HF/kPO0h1R5fvBOX448VR2ncYo3VO9WCWubZcDMUashgQ2p0+qi3fx383zCsJj7uiFkvdMvKAXei99W5TUhM42/vxfxGnZ67ynWscrynrHeKIFdeSZxo8sg1O5/+YTi6kkEI+G/4YndyoeQyWo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790605423;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=7uBb2+okI+xjvWkYL3wu85s0nnzBvHShpKmWBmYT4fY=;
-	b=CvxwoycgFQ4nS7oKnDU13WL+iHmxT+HJMd4TlUwMDa0jHGGnEUo9PuBIcylaPBBZ
-	7iJpiuj1t1YAXihmIG3Ww6ZOYYZju87arXk9APC1yHM36UrUmtWJOmdyxBxn8sWQA+X
-	d7iLaWm2A6bXgYPgS0Zmt004w1QDDfPlUKQSOB8A=
-Received: by smtp.zohomail.com with SMTPS id 1790605420969388.6811490029762;
-	Mon, 28 Sep 2026 07:23:40 -0700 (PDT)
-Message-ID: <627d7085-a6bd-4696-81a7-fc14869f7a4b@collabora.com>
-Date: Mon, 28 Sep 2026 17:23:37 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TTbQt+ME"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1Pt5c0ewlbxs35Qenv4TwVyYegBMJMSsO1N36lie138=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790605430; v=1; x=1791210230;
+ b=TTbQt+ME2K8PxCLCOmpoW5JqKs4ryiFwi0mHnJxOJO1XzsxjzoTRinLfYOwx2SEbVDyAZTtj
+ O55Cmeivj9IA8AL3CD5hAknmeLiCvMAfVSj75YyaC+BBGDuPJtsN6OJxeLlEsDs0uFSWTQgHmQA
+ tRdgor9s9niz+3WOM4KgIIH4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 39d7e5e62d16e8e6;
+	Mon, 28 Sep 2026 14:23:50 +0000
+X-Mizu-Trace-ID: 39d7e5e62d16e8e6
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 28 Sep 2026 16:23:46 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
+ range
+Message-ID: <arpyD2CjxOqwQvx8@bombadil>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
+ <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
+ <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: synopsys: hdmirx: report DMA error interrupts
-To: Thomas Weustenfeld <tw@tvlabs.ai>
-Cc: linux-media@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20260923023846.21166-1-tw@tvlabs.ai>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260923023846.21166-1-tw@tvlabs.ai>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
 
-23.09.2026 05:38, Thomas Weustenfeld пишет:
-> hdmirx_start_streaming() enables FIFO_OVERFLOW_INT_EN,
-> FIFO_UNDERFLOW_INT_EN, HDMIRX_AXI_ERROR_INT_EN and
-> LAST_FRAME_AXI_UNFINISH_INT_EN in DMA_CONFIG4, but
-> hdmirx_dma_irq_handler() only decodes HDMIRX_DMA_IDLE_INT and
-> LINE_FLAG_INT_EN. Any of the four error interrupts therefore falls
-> through the handler with handled still false and is discarded: no
-> counter, no message at default verbosity, and nothing reported to
-> userspace. The only trace is a v4l2_dbg level 3 line saying the irq was
-> not handled, printing the raw status word.
-> 
-> The practical effect is that a capture FIFO overflow -- the DMA failing
-> to drain incoming pixels to memory, which loses whole runs of lines from
-> the frame -- is completely silent. Frame cadence, DMA idle interrupts and
-> buffer delivery all continue to look healthy while the delivered buffers
-> contain unwritten lines. On affected boards this reads as unexplained
-> video corruption with every normal indicator nominal.
-> 
-> Measured on RK3588 with a 900 frame capture: a board writing a
-> semi-planar format reported 907 DMA idle and 907 line flag interrupts as
-> expected, plus 702 FIFO overflow interrupts, all of them dropped. An
-> otherwise identical capture on a board writing a packed format at the
-> same data rate reported none.
-> 
-> Decode the four error bits, count them per stream, warn once per stream
-> on the first occurrence of each, and log the totals when streaming stops.
-> No functional change to the capture path.
-> 
-> Signed-off-by: Thomas Weustenfeld <tw@tvlabs.ai>
-> ---
->  .../platform/synopsys/hdmirx/snps_hdmirx.c    | 47 +++++++++++++++++++
->  1 file changed, 47 insertions(+)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 25f8ca0d6d94..d7ff7aa4ebde 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -117,6 +117,10 @@ struct hdmirx_stream {
->  	u32 sequence;
->  	u32 line_flag_int_cnt;
->  	u32 irq_stat;
-> +	u32 fifo_overflow_cnt;
-> +	u32 fifo_underflow_cnt;
-> +	u32 axi_error_cnt;
-> +	u32 last_frame_unfinish_cnt;
->  };
->  
->  struct snps_hdmirx_dev {
-> @@ -1567,6 +1571,15 @@ static void hdmirx_stop_streaming(struct vb2_queue *queue)
->  	hdmirx_update_bits(hdmirx_dev, DMA_CONFIG6, HDMIRX_DMA_EN, 0);
->  	return_all_buffers(stream, VB2_BUF_STATE_ERROR);
->  	mutex_unlock(&hdmirx_dev->stream_lock);
-> +
-> +	if (stream->fifo_overflow_cnt || stream->fifo_underflow_cnt ||
-> +	    stream->axi_error_cnt || stream->last_frame_unfinish_cnt)
-> +		v4l2_warn(v4l2_dev,
-> +			  "dma errors over %u frames: fifo_overflow:%u fifo_underflow:%u axi_error:%u last_frame_unfinish:%u\n",
-> +			  stream->sequence, stream->fifo_overflow_cnt,
-> +			  stream->fifo_underflow_cnt, stream->axi_error_cnt,
-> +			  stream->last_frame_unfinish_cnt);
-> +
->  	v4l2_dbg(1, debug, v4l2_dev, "stream stopping finished\n");
->  }
->  
-> @@ -1583,6 +1596,10 @@ static int hdmirx_start_streaming(struct vb2_queue *queue, unsigned int count)
->  	mutex_lock(&hdmirx_dev->stream_lock);
->  	stream->sequence = 0;
->  	stream->line_flag_int_cnt = 0;
-> +	stream->fifo_overflow_cnt = 0;
-> +	stream->fifo_underflow_cnt = 0;
-> +	stream->axi_error_cnt = 0;
-> +	stream->last_frame_unfinish_cnt = 0;
->  	stream->curr_buf = NULL;
->  	stream->next_buf = NULL;
->  	stream->irq_stat = 0;
-> @@ -2080,6 +2097,31 @@ static void line_flag_int_handler(struct snps_hdmirx_dev *hdmirx_dev,
->  	*handled = true;
->  }
->  
-> +static void dma_error_int_handler(struct snps_hdmirx_dev *hdmirx_dev,
-> +				  u32 dma_stat1, bool *handled)
-> +{
-> +	struct hdmirx_stream *stream = &hdmirx_dev->stream;
-> +	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
-> +
-> +	if ((dma_stat1 & FIFO_OVERFLOW_INT_EN) && !stream->fifo_overflow_cnt++)
-> +		v4l2_warn(v4l2_dev,
-> +			  "dma fifo overflow, captured lines are being dropped\n");
-> +
-> +	if ((dma_stat1 & FIFO_UNDERFLOW_INT_EN) &&
-> +	    !stream->fifo_underflow_cnt++)
-> +		v4l2_warn(v4l2_dev, "dma fifo underflow\n");
-> +
-> +	if ((dma_stat1 & HDMIRX_AXI_ERROR_INT_EN) && !stream->axi_error_cnt++)
-> +		v4l2_err(v4l2_dev, "dma axi error\n");
-> +
-> +	if ((dma_stat1 & LAST_FRAME_AXI_UNFINISH_INT_EN) &&
-> +	    !stream->last_frame_unfinish_cnt++)
-> +		v4l2_warn(v4l2_dev,
-> +			  "dma did not finish writing the last frame\n");
-Can this result in a message storm? If yes, a generic rate-limited dev
-print variants will be more preferable.
+Hi Dave,
 
--- 
-Best regards,
-Dmitry
+thanks for your feedback! Greatly appreciated!
+
+On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
+> Hi Richard
+> 
+> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+> <richard.leitner@linux.dev> wrote:
+> >
+> > When updating the flash_duration range ensure the ceiling is at least as
+> > long as the exposure time is. This may cause the calculated
+> > flash_duration register value to be rounded up.
+> >
+> > This is done by introducing a new
+> > ov9282_update_ctrl_range_flash_duration() function and using them
+> > wherever possible.
+> >
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
+> >  1 file changed, 28 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index f728709fcf0a6..be38ecfad8c82 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
+> >                                 NSEC_PER_USEC);
+> >  }
+> >
+> > +/**
+> > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
+> > + * @ov9282: pointer to ov9282 device
+> > + *
+> > + * This may round up the ceiling to the microseconds representation of the
+> > + * next flash_duration register value to make sure one can illuminate the whole
+> > + * exposure time long.
+> > + *
+> > + * Return: 0 if successful, error code otherwise.
+> > + */
+> > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
+> > +{
+> > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
+> > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
+> > +
+> > +       if (fd_max_us < exposure_us)
+> > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
+> 
+> Reading the driver for how it handles flash duration, it all gets a
+> bit convoluted. I see part of it comes from the units being usecs
+> whilst natively it is in lines, but we've got this slightly odd calc
+> and adding 1, and rounding in try_ctrl to get closest to the absolute
+> value.
+
+That's true. I'm also not happy with this back-and-forth conversion between
+u/n-secs and lines. From a V4l2 API user perspective I'd love to have
+all "timing related" controls in the same unit (likely usecs). I was
+already playing around with that approach, but as this would break the
+current exporsure property I have not sent those patches...
+
+If you have any "mainline-acceptable" idea on how to do that I would
+definitely love to hear it ;-)
+
+> Seeing as this is the max flash_duration, is it actually limited by
+> the exposure, or by the frame duration? The difference between those
+> is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
+> you up to another 9usecs to play with. That covers any of this
+> rounding stuff. You can afford to always round that one down and never
+> clip the range below the exposure time.
+
+From a hardware perspective this isn't limited at all AFAICT. But from a
+"use-case" perspective a flash_duration (with a flash offset=0, which is
+the hard-coded default case in this driver currently) longer than the
+exposure time makes no sense, as it does not have any effect on the image.
+
+With this patch I want to make sure to be able to illuminate the frame
+during the complete exposure time, but keep the maximum as short as
+possible. So I was comparing/aiming this at the exposure time, not the
+frame duration.
+
+As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
+time: Would a "turned-on flash" during those 25 lines have any impact on
+the frames brightness in your opinion?
+I haven't explicitely tested/measured this with hardware, but I guess
+this does not have any impact?
+
+Or do you mean when calculating against the frame duration the +/-1
+stuff can be dropped and the code would be easier to read?
+
+Sorry If misunderstood your feedback somehow.
+
+> 
+> There is reference in the docs to a different behaviour if "the
+> vertical blanking period is long", but with a bit to set to give
+> stable behaviour (0x3017 bit 1).
+
+I've read that paragraph in the datasheet, yes. But as this was not
+affecting my use-case I haven't included this in this series or my
+downstream kernel. Do you think it's worth adding support for this? Do
+you know of any reports complaining about this power saving feature?
+
+thanks!
+
+regards;rl
+
+> 
+> You've far more experience with how this sensor handles the strobe
+> outputs though.
+> 
+>   Dave
+> 
+> > +
+> > +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
+> > +                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +}
+> > +
+> >  /**
+> >   * ov9282_update_controls() - Update control ranges based on streaming mode
+> >   * @ov9282: pointer to ov9282 device
+> > @@ -555,7 +578,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >  {
+> >         u32 hblank_min;
+> >         s64 pixel_rate;
+> > -       u32 exposure_us;
+> >         u32 lpfr;
+> >         int ret;
+> >
+> > @@ -590,9 +612,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >         if (ret)
+> >                 return ret;
+> >
+> > -       exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > -       return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, exposure_us,
+> > -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +       return ov9282_update_ctrl_range_flash_duration(ov9282);
+> >  }
+> >
+> >  /**
+> > @@ -605,11 +625,9 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+> >   */
+> >  static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
+> >  {
+> > -       u32 exposure_us = ov9282_exposure_to_us(ov9282, exposure);
+> >         int ret, ret_hold;
+> >
+> > -       dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
+> > -               exposure, exposure_us, gain);
+> > +       dev_dbg(ov9282->dev, "Set exp %u, analog gain %u", exposure, gain);
+> >
+> >         ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
+> >         if (ret)
+> > @@ -623,9 +641,7 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
+> >         if (ret)
+> >                 goto error_release_group_hold;
+> >
+> > -       ret = __v4l2_ctrl_modify_range(ov9282->flash_duration,
+> > -                                      0, exposure_us, 1,
+> > -                                      OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +       ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+> >
+> >  error_release_group_hold:
+> >         ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
+> > @@ -660,11 +676,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+> >                  * Ensure the flash duration range is also updated on powered
+> >                  * down sensors.
+> >                  */
+> > -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
+> > -                                              ov9282_exposure_to_us(ov9282,
+> > -                                                                    ctrl->val),
+> > -                                              1,
+> > -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+> >                 if (ret)
+> >                         return ret;
+> >                 break;
+> > @@ -674,10 +686,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+> >                  * duration. Therefore recalculate the flash duration range
+> >                  * here.
+> >                  */
+> > -               exposure = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> > -               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
+> > -                                              exposure, 1,
+> > -                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> > +               ret = ov9282_update_ctrl_range_flash_duration(ov9282);
+> >                 if (ret)
+> >                         return ret;
+> >                 break;
+> >
+> > --
+> > 2.53.0
+> >
+> >
