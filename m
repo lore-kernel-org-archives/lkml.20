@@ -1,87 +1,77 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010065.outbound.protection.outlook.com [52.101.46.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D5649AA42
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591392; cv=fail; b=f9WgBc4Vrwr2V6FjaeDDAPXUfZdUgw3e4Ih+pcRyx4DHh/zN5t8iR+EGSVXeJmFtom4PmE2KnK9SmsV/wi/zIQ1+g/8a0cptsnoy4z1zSYpbxnspAno/RMYlcl3BqpGvYQsnfdRjHVDWBrcfJsuGtnyDGRQKdruKrmqF4QaqD1E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591392; c=relaxed/simple;
-	bh=n3HykQB+SRsP5tosFczhOvVe4pIDdrkopQhq6UPL5mo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MbyLZzV1v4GxemtkoUPxA78ZAXWC4WDLOR5E7lR2kZC7BvjaTXJqqJq4LbnS9tFVpKsVAQ0qN/dCPJtiu/r2ApMC9EUnR1yMW3eY0LjjIhqDCmwSF75lan0YlABycKTyoe+NGoL15FsyQPDP0oGLNJvoQZcWNmY2THU48oEp0Vs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=f54UyA6k; arc=fail smtp.client-ip=52.101.46.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607F549A3D5
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790591402; cv=none; b=kM+zLYCwzxLr5EJRyeLcenHpakc5jE3eqKXPDuuX2XAC2PES8GIw/mzmwAHfRJBODRVC97wxFcziZvIwTRkXvz/7SJfsvydnDqmeyCZV9HrZwElZLeL7eltJRm26ifD1AuU+CQJCet+e7I/moRaQoJmpZnN61FA7Z54KFXK+RG8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790591402; c=relaxed/simple;
+	bh=2glsE5Cmd5RFiqe/xfQlOTA4A7Rw4VEXRsQ+5/ZN5fY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rln918mSzHf33cKGlv13xvOw4QpdWdOdEzYLDU8g5clQdsUIV4Al/0iOP7W+V2NFR9aWFKD7URv8QfackgZoIq61oZEnubKAFCGYwVe/lnifG42TRHos7MjufP7S4DUk35vWXprXjmtU37TyBYwUgzZ/n9R4qZOcs0P9+ZePdpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Peqzom7y; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="f54UyA6k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s0jdYT38LU3Z0AvBlj9DiP70FyXZ/FmcCUcG/f3qrbhTOReHUI56sgQIV828Vrzxg3D2OkUmpcBmaCDgfSNQgIKavkDcs/HH4bi/G4Buf+JVhpjkQMN18PR9FN9LS4ZkAZQhyPO5cWiA82/QSePNSzuz0G4K04TfPHMEqs0Ce9H1PNMOUm+NR4dqNb3oDqtPHsIuQ9X5u3bcpPRvzuRgjiaXXOEzU34UvysGwbb9C/GWdOK1iH34cu77xQbB6G3a2R1cs9e0MKkkLfZ3XNxi9c8JDgoVvRa/UFeXGTC+XVbff5LOf9c8mZr3h4lGhvv1yMm1B7NveewT7yp8FwR+KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ldbHvQw3bcKRH1coQIQIOUTXfcDyG9tdPEa7liVk2Jk=;
- b=FdEF6ukKkebk49x43abjuR35/tq02XckrxxiCn6UOrY1wCI6elopCQUKFV2qxplwLBfmaBmABhAZezwQ4R+vxgQcyIydceOQBNuU3stFiZFpLus68cunUgD7ivtwCgtVgQy3fv6uKkSaKTH1seq4jrOE/E+zN7Oyi7HEfT4vSGx7FLXFzvQU+qBjXGGSL5AZDlnU3ttZWBHvuLLC11PO+5xH3cz/oD2PYnR78yjlu0LX3GxtURKqtz6RVF7FrJ2OHUqY4WK+L1kj8RPmTPSkfJYp38YJtlZRcNK/f6kb5kOWD8GtRfMzvzlOBzD6KFKCqqD/0A9LXPzE7+uMpT4X8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ldbHvQw3bcKRH1coQIQIOUTXfcDyG9tdPEa7liVk2Jk=;
- b=f54UyA6kN7kzB6s7EhWlWZyhbd9vrdOP6jUzV4jISWacxDGxffNBPq5J+m4+vG+eHt1mtuE5cbzkpnDHMiNblRhodMdUe2KvAp11Tw+rAHw43wrV3gaZ6uHL9SC/KrQ7zlHFL0Q4nCEqxsQUzDogPKD4oTIsyYRLuTKheEGQEqxQHqz1zPLrGCTGRSbl+dDVJRcJOvDxiLoz6Mebe7R7pVftYt5JNyBrzW6y+C+qDHpOQSPB707ARNpdKgJ8IkAy5LfeABVue8DBvxavgRy8AUPoCTUsnw3tzAoJQqA7+yUupz8jDfhqxDTucyhsD4KEZfJFXjnEoBbx/LaOwf2jKg==
-Received: from BN9PR03CA0268.namprd03.prod.outlook.com (2603:10b6:408:ff::33)
- by CYXPR12MB9441.namprd12.prod.outlook.com (2603:10b6:930:dc::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 10:29:46 +0000
-Received: from BN2PEPF000044AC.namprd04.prod.outlook.com
- (2603:10b6:408:ff:cafe::4c) by BN9PR03CA0268.outlook.office365.com
- (2603:10b6:408:ff::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 10:29:46 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF000044AC.mail.protection.outlook.com (10.167.243.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:29:46 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:31 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:30 -0700
-Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:29:22 -0700
-From: Zhi Wang <zhiw@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
-	<zhiw@nvidia.com>
-Subject: [PATCH v3 05/31] gpu: nova-core: gsp: decode the FIFO engine table
-Date: Mon, 28 Sep 2026 13:28:08 +0300
-Message-ID: <71a9b18dbd2eb324b797300a3b50514708fe5d82.1790580105.git.zhiw@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
-References: <cover.1790580105.git.zhiw@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Peqzom7y"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0af6f9a1eso186298a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:30:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790591401; x=1791196201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Twi5fQzle6f9n3uo368zx2Nqx5/BlakhNld/RfUfYA=;
+        b=Peqzom7yIdPk1o81Zdm0ZZT3Wz9zef8acm/7PWcRgTkxNoe29w6v8u5ajOaa50BtIR
+         1IqxWyO7QJWL5kSnBa6bPTMdvGgsACNFuEolioeVsq4a9BbOYjR0JxoACjpXU+kf3p/f
+         Ju7cLiCop228J16IPfpTV/so+IncCoACpSnxow28ZvPn5WYc1R1UbVI6OPgDq+JxhWdz
+         RvWgOy0UHrWuTUJAAbC/ScPSbxQorUNNB3I4z3uDRCxyEVEst8lYpnDHXbiwU1aSP8Ur
+         4KkT1PaYj3SajfsqnbKxVPvGSKZWzs+WuRlZgsKOWar4as1iovo4VmB6i3g4HD0zM4uJ
+         UmMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790591401; x=1791196201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Twi5fQzle6f9n3uo368zx2Nqx5/BlakhNld/RfUfYA=;
+        b=kZHl5tcCjp61KF6Peqpt92rGJtAccwE7ikg9RujwoZWy52UQqZwFXA5ZqQ4PgBgGZY
+         +SdHpFS/HCFm+r1kRjNfbUTkWmI4IezIKqjXuvaG/rTD2Ww4eEeoY2CH8uA73kKTb7Vg
+         RPKztASp6mn39wLHYGgNrr1DKRKzUcIfOz1DTf4fs71TejSMXs5Qq8fsxKcCMpOOVgtI
+         DmBEfW2K1oA35++2KjpFA4rRG4TY2mmHWY8jMpBsWu9RNgsd2g2taIbgWdDaqn74I7y1
+         H0wFzi0DQx4dCj4IalmXTDwxhovs1Jm0iRrvQm3CFle1gxst9fTemOSfdkymFTnm6Us1
+         9XaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzG6/bCku2+f3v1dSC0LxjVjpYooLr8LNCVE5RI9H21m10PCOKfGWIiQ9xGcXdYLiDhAJsXQs+a8j0gR88=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+IN2EyEzluaDg6a/gR6+7TASl9ZIuym4yCSXOxwYgWNnyUo0a
+	ZFtZSJoU4bSyyRJr6WLRDtTlbMh8CNMmih88gJ6Ct+Ko1X6dGPE/MZM5
+X-Gm-Gg: AYBFou2h+z8F8ussUaWgzCxfVPFRKarPY7ywLBCyGkSokTe99PxUcaADHkY5NuIrZtI
+	/4f/vEnT5fII46NoJj3MZCN5MQ2KxuD83qB8ohuHMQKstauzx3aBotI1n4la/s7NC4ISjV9D0K4
+	kzLnUK6bt/c4jRCVOVCJkDFlJc0DCYZgZk4oM8MU/vMjET9Dc496vkqA7kKupQNWA03mi+kmJJz
+	V9aPWI4Y/vSWxuJwv+chkXehMRMsUS856ZHyH0Y9hCvJuzLJoZWzctUVgs4b/ga9lM4Qbdh3Hq3
+	vE3/lWLbXl0yyQ7RYQbcd9uQG1CZ9rGLa+LXRGgA+ThuYwFwnrMQ/QXtoiQg6JV8PqG/Mq7sSeD
+	lx0MI4dvqjdQlTRFcG0ogeqDzkmiPPtAYuISlIafncwlPmhs4k2onLKvpv65IbXw/C3zgwxce5j
+	g47kGqmqWuBnDB62O9ikKT9GxmL0J2YpLtPO/dnQlUkqnQuGzOI3/6eLRkaKEj/C1VfyW27dc7P
+	/PkGHB3wkULYw==
+X-Received: by 2002:a17:90b:4c81:b0:39e:3728:3b11 with SMTP id 98e67ed59e1d1-3a0b2507f4cmr14034686a91.3.1790591400646;
+        Mon, 28 Sep 2026 03:30:00 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm20234282a91.4.2026.09.28.03.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 03:30:00 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] Add support for Acer Swift SFA14-11
+Date: Mon, 28 Sep 2026 18:29:40 +0800
+Message-ID: <20260928102951.18369-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,191 +79,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AC:EE_|CYXPR12MB9441:EE_
-X-MS-Office365-Filtering-Correlation-Id: a072ea6c-be42-4e74-b044-08df1d4b6b20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|82310400026|376014|36860700016|22082099003|6133799003|3023799007|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vI1V15q8clEU5OMjq2m5qjBqMMC59wnh+bT4XusyQjZZrjy2nHuPflqKKNeq1Yt5EKE6DlLow7AiSUwiYj94HFRPr4AxigcFh7VrPOQFtxEf3ZMreE/HoYFgLdAw67BLNdbUoMF6hHnznBtiLp8A+p/AAPvAcTQvuCHqdrA05m9T6G4YC67wA6t9s9d/y3/6DbnH4f12lQ2cGkatTS77HXaDj1Tfy/7giZYMrnpltWK6piTGxoS9WTLB6MA7Oey2akMWkqtUizj/dxo+jUyuVlU4O+TV27NdDR8vwwZBa2ZFoIE+80Lskba2BxZR9dPoAN6QICDJUH9PiMeQDeALZbkE2OT3uobvVoyLm6UBEc/pVMt+8QbTxQKndNA7NLSxNVL6s0tEgHEL7fmUaCUISehylOqvIyyljZpXKzvXGdh5cjBDXz0aZkYlRXu1W6fYflIbI6sm8Z3PnB1C1eRB+i1hz7vNSFTiLJoS70xIitlzCe6FkGpEWBkwQ4KX2ra+gmR3GbT1PZi2qNQl5atLCufZdJylEN2BIW2F6upROwAZUP3mAJq7bb4cSwL0YUg2MohhT7A384euNt/oaP80wZwnzqUh6ThO0AqMTXJVTjGoOsBtRy+5h42rAmbStlf4nc5Z+KGOjPs6R9CP0t6GFmRhFx81LAbq9Iys2HroIj5dBWlzvx5aj346rdv0S/B6r93OBVB8h9zOBNkiH0yjeQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(82310400026)(376014)(36860700016)(22082099003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VWgttrKJRVUd3Avmz6hn3dVQ8iC4SnsVUg4NBmleemJjbJO+vu8KFuQthyhQumR34KA/DI8JNEJCP0eUBQyKYDCGCOFjD5LUeF9iccGxiWj5u8zB9LCAy1tgonUBI6+Dao0dGmwA9ylpGnuwDgTl7FZHsa1pgdIy9IvH4KgTtMTGYLloRRQ+l5ukJ+igUtyil5731qMq3widQzuld6E5g58iOgbRg1Y6cCPAhk9iIoqvpbroFssfay1Ang4wRVBxhgoEKtrCwBZPNkzYsdI9AEk4lcrjVbx+BrRTWpRSWS07t8IMC9zfYuomBtRg7IjP4+JLNIE+0u8uZOQd1tSLwt0UyLOtV9NTDDQVGCqST3LYeEubuSl+ZM017jR4yCKSAN/2lQEkzCjGarMKP0Bj3vlJbDzpj5gAouXTwSH5QBraKeacTc39L6eUJ41hmEth
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:29:46.5131
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a072ea6c-be42-4e74-b044-08df1d4b6b20
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044AC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9441
 
-From: Alok Kumar <alkumar@nvidia.com>
+Add support for Acer Swift SFA14-11, a laptop based on the Qualcomm
+X1E78100 SoC.
 
-GSP_INIT reports the FIFO engine topology used to build the channel map
-for vGPU instances.
+The following hardware has been tested and is working:
 
-Decode the count, GMC IDs and flags into GspStaticInfo and expose
-host-driven engines in firmware FIFO order, retaining repeated IDs.
-Reject counts and indexed entries beyond the driver's 64-entry table
-capacity rather than silently accepting a prefix. An omitted count
-remains zero.
+- NVMe SSD
+- WiFi and Bluetooth (UART)
+- USB-A ports
+- USB-C port with DP alt mode
+- eDP display with PWM backlight
+- HDMI (via DP bridge)
+- I2C HID keyboard and touchpad
+- Audio: speakers, headphone jack, DP alt mode and HDMI
+- GPU and video decoding
+- Battery charging
 
-Cc: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
-Co-developed-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Changes in v3:
+- Change compatible string to acer,swift-sfa14-11.
+
+Changes in v2:
+- Add power-supply for the backlight (vreg_edp_bl), matching the T14s
+  LCD variant
+- Fix swapped vdda-phy/vdda-pll supplies on the QMP PHYs, matching the
+  reference design (cf. commit 7c1d0ef2969e1 fixing the same issue on
+  Purwa boards)
+
+Jianfeng Liu (3):
+  dt-bindings: arm: qcom: Add Acer Swift SFA14-11
+  arm64: dts: qcom: Add Acer Swift SFA14-11
+  firmware: qcom: scm: Allow QSEECOM on Acer Swift SFA14-11
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../dts/qcom/x1e78100-acer-swift-sfa14-11.dts | 1521 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 4 files changed, 1525 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e78100-acer-swift-sfa14-11.dts
+
 ---
- drivers/gpu/nova-core/gsp/commands.rs    |  2 +-
- drivers/gpu/nova-core/gsp/fw/commands.rs | 80 ++++++++++++++++++++++++
- 2 files changed, 81 insertions(+), 1 deletion(-)
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+branch: sfa14-11-next-20260925
 
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 9473004a0921..436ea52689b9 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -126,7 +126,7 @@ pub(crate) fn gsp_init(
- /// # Errors
- ///
- /// - `EINVAL` if the payload is not a whole number of NVKV words, or if the stream is malformed
--///   or omits a required key.
-+///   or omits a required key, or the FIFO engine count exceeds the supported table capacity.
- /// - `ENOMEM` if the words or the decoded regions cannot be allocated.
- fn decode_gsp_init_reply(payload_0: &[u8], payload_1: &[u8]) -> Result<GspStaticInfo> {
-     const WORD_SIZE: usize = size_of::<u64>();
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index d0715dca1be2..17ae4224e214 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -29,6 +29,7 @@
-     DecoderValue,
-     Encodable,
-     Encoder,
-+    Indexed,
-     Key,
-     KeyId,
-     Required, //
-@@ -317,6 +318,52 @@ pub(crate) fn new(
- 
- // Decode:
- 
-+const MAX_FIFO_ENGINES: usize = 64;
-+
-+/// Bit mask for `NVGMC_SC_ENGINE_FLAGS_IS_HOST_DRIVEN`.
-+const ENGINE_FLAGS_IS_HOST_DRIVEN: u32 = 1 << 0;
-+
-+/// Host-driven GMC engine IDs in hardware FIFO order, including any repeated IDs.
-+///
-+/// # Invariants
-+///
-+/// `count` is at most [`MAX_FIFO_ENGINES`]. The first `count` slots are the retained engine IDs.
-+#[derive(Copy, Clone)]
-+pub(crate) struct FifoEngineList {
-+    gmc_ids: [u32; MAX_FIFO_ENGINES],
-+    count: usize,
-+}
-+
-+impl FifoEngineList {
-+    #[expect(dead_code)]
-+    pub(crate) fn gmc_ids(&self) -> &[u32] {
-+        // PANIC: The type invariant bounds `count` by the array capacity.
-+        &self.gmc_ids[..self.count]
-+    }
-+}
-+
-+/// A FIFO engine count that fits the supported tables.
-+///
-+/// # Invariants
-+///
-+/// The count is at most [`MAX_FIFO_ENGINES`].
-+#[derive(Default)]
-+struct FifoEngineCount(usize);
-+
-+impl TryFrom<DecoderValue<'_>> for FifoEngineCount {
-+    type Error = Error;
-+
-+    fn try_from(value: DecoderValue<'_>) -> Result<Self> {
-+        let count = crate::num::u32_as_usize(u32::try_from(value)?);
-+        if count > MAX_FIFO_ENGINES {
-+            Err(EINVAL)
-+        } else {
-+            // INVARIANT: The count was checked against the table capacity above.
-+            Ok(Self(count))
-+        }
-+    }
-+}
-+
- // Should decode with UnknownKeyPolicy::Ignore.
- nvkv_decode! {
-     /// Schema for the `GSP_INIT` response.
-@@ -326,6 +373,9 @@ pub(crate) struct GspInitResponseSchema => GspStaticInfo {
-         fb_regions: Accumulated<FbRegionSchema>,
-         bar1_pde_base: Required<u64, { Self::BAR1_PDE_BASE_KEY }>,
-         vmmu_segment_size: Key<u64, { Self::VMMU_SEGMENT_SIZE_KEY }>,
-+        fifo_engine_count: Key<FifoEngineCount, { Self::FIFO_ENGINE_COUNT_KEY }>,
-+        fifo_engine_gmc_ids: Indexed<u32, MAX_FIFO_ENGINES, { Self::FIFO_ENGINE_GMC_ID_KEY }>,
-+        fifo_engine_flags: Indexed<u32, MAX_FIFO_ENGINES, { Self::FIFO_ENGINE_FLAGS_KEY }>,
-     }
- }
- 
-@@ -334,6 +384,9 @@ impl GspInitResponseSchema {
-     const GPU_NAME_STRING_KEY: KeyId = 0x2000;
-     const BAR1_PDE_BASE_KEY: KeyId = 0x1020;
-     const VMMU_SEGMENT_SIZE_KEY: KeyId = 0x1050;
-+    const FIFO_ENGINE_COUNT_KEY: KeyId = 0x0500;
-+    const FIFO_ENGINE_GMC_ID_KEY: KeyId = 0x0501;
-+    const FIFO_ENGINE_FLAGS_KEY: KeyId = 0x0502;
- }
- 
- /// The static GPU configuration, as decoded from the `GSP_INIT` reply.
-@@ -343,6 +396,9 @@ pub(crate) struct GspStaticInfo {
-     bar1_pde_base: u64,
-     #[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-     vmmu_segment_size: u64,
-+    fifo_engine_count: FifoEngineCount,
-+    fifo_engine_gmc_ids: [u32; MAX_FIFO_ENGINES],
-+    fifo_engine_flags: [u32; MAX_FIFO_ENGINES],
- }
- 
- /// Error type for [`GspStaticInfo::gpu_name`].
-@@ -407,6 +463,30 @@ pub(crate) fn total_fb_end(&self) -> Option<u64> {
-             .checked_add(1)
-     }
- 
-+    /// Returns the host-driven engines in their firmware FIFO order.
-+    #[expect(dead_code)]
-+    pub(crate) fn fifo_engine_list(&self) -> FifoEngineList {
-+        // INVARIANT: The list starts empty and appends at most one ID per supported input slot.
-+        let mut fifo_engine_list = FifoEngineList {
-+            gmc_ids: [0; MAX_FIFO_ENGINES],
-+            count: 0,
-+        };
-+        for (&gmc_id, &flags) in self
-+            .fifo_engine_gmc_ids
-+            .iter()
-+            .zip(&self.fifo_engine_flags)
-+            .take(self.fifo_engine_count.0)
-+        {
-+            if flags & ENGINE_FLAGS_IS_HOST_DRIVEN != 0 {
-+                // PANIC: At most one slot is filled per input, and the input has at most
-+                // MAX_FIFO_ENGINES entries, so the next retained ID always fits.
-+                fifo_engine_list.gmc_ids[fifo_engine_list.count] = gmc_id;
-+                fifo_engine_list.count += 1;
-+            }
-+        }
-+        fifo_engine_list
-+    }
-+
-     /// Returns the BAR1 page directory entry base address.
-     pub(crate) fn bar1_pde_base(&self) -> u64 {
-         self.bar1_pde_base
+-- 
+2.47.3
+
