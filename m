@@ -1,88 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8C544E65F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A854649D585
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591573; cv=none; b=UXLtpGQ7nqqmFS6zHWimYcYrZj7xzN/SE9/5/82C9rYuWI8V3Y/x5r61IS9b8gLTy6cG1hGmbxaZC0Z0a3a7HRHkhJEgQU+xjGsNOA+DqKFF5wE7PQIr3mS529F6r1xWMgipjQ3U+52t3k4vG/pBbBAWm0/w0QLa+spjKjNNq98=
+	t=1790591577; cv=none; b=raiCXrXDybrdWSzjW42r6AYKSIpUC2b3TWi0rz6cZiCrnNllWynYV70lyKniqyGXOiB7+Bm3blbGiovW0VX95f5+9uj+UunsMBabWch+5Xhxm8UjPNDYzGioGt9q/6Pe9lCe7cQ0SZ4xA+G8od+V2HhSM35Ms7irqYbAjCLOnWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591573; c=relaxed/simple;
-	bh=Hfc+Ic5irS9iaZIKSNjHWar2++17x/7bV9KkH4O2CuQ=;
+	s=arc-20240116; t=1790591577; c=relaxed/simple;
+	bh=kPn6Dg0bdnYkwCA+6ezajILIS03WVEUaTY+v05K4hXg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hYIBAe66uhscp6SPgDHIZeWcsQKgRkvELZ1mSWCO2fzaE8jiyUYMbhZLPSNRBl82A6sU5wszYjBAReCiLQP9NbfHBRGn3VS6vp8be1RPq3jp2qY0dlg2VPGzuZPKbvWpKgn9yZrZHs9jh21IxYV5xdtadUhBDLmeFNeWQQVnVN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QiYHPiKz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IUEwR2f8; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=uRzR7eTUbiZ4IjQ091l5VHBfWC15+/8NMJ86gg4OFrwpwQEbXvtLzz/Ua0TdxpswhnymDLwe9FjQRr6luO2JajWaXqZvEbUkVvbARtsf2JaDbOUEJ1jQGVWfa6uMxDIALTOdmzie8OqAudkSzYYwgxMhGDLtbpbDDi5F6slJYec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NQxAnjX5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gpGvgBro; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QiYHPiKz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IUEwR2f8"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9MHjK806179
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQxAnjX5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gpGvgBro"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9MEDs954452
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	X+F01bJuybZTwFO2WBoKTou/uN0G2y5zUMWWErME7OY=; b=QiYHPiKzYf4gCtuE
-	77NLqtfujyld+NASZs5Uf9oy94MIQNmL51CSmLxjtfCMCxjG98IP2Fl+RT1nkfGt
-	byE3p/tjEwoCB8xewkpiEeLibQbadjWz+fX1T86XNIdbZL9LJFUavVWSB84zg52T
-	GvcDHG/jHIpWCDI43V7hZpG5TtM1FYN5yFEx9XoL38ZeAZOZTEC+pxtIC4X9IqlK
-	E2NfCD8yGMgsbnNxAA8YyoyxshCSFAXH6wpUBH3YF6jHZFma1LZDK6t12+5Qqc4h
-	BaeNZt9Kz1gbpKLCIF05WPCDSP6tQKR4BNteKgk8AvpZsBS/5I0MfKGaj3lTgB6f
-	jSpTyA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyk5mrvay-1
+	btJXwtvrlKSFwnalBRzKZ+u43uNhdzBt0gD3LXAU9eg=; b=NQxAnjX54lWAg1vc
+	UXBDSXM0R64YdEj66BuefrKeSD5GW4xWk11zf3gDdLxqccDUtIMjsOVuldvE+tGt
+	sS8cyTWoUnqkcQTXp+cf2Xi6YRXZFx1BFNAph1UCiSampV0E/8lPKiMA3HegG9+h
+	v6dYUvK9fNyXSRoVA15wJC7Zc94ghotpKJWlx2/5bqhycyOn61aAXL469TvF/wHy
+	5aa5xT1hI6gMLjSqluw8KJTcaWqcBZPxbGi/oRHQnaWYggNwiYnnxrKNWLMmFumx
+	CS9YmxK+ESZxNKiqEJO/fbB3BAMwJqrUf3PG1HU1bXfwIzIydhKTL+5wuWxcBxbY
+	U3/qdw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynbc0a40-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:48 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso3093860a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:32:48 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 10:32:52 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so3261740a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 03:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790591568; x=1791196368; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790591571; x=1791196371; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X+F01bJuybZTwFO2WBoKTou/uN0G2y5zUMWWErME7OY=;
-        b=IUEwR2f8zm0H0hh68eruXBk0rFhuumlxW7GfKgNGtv45tnNq3/iPMARN22pkF30TA/
-         QP83x/cN5tO3tGEui0MrvkFXh/mKNnPpOI/Eewt/L11hirbwl3b+A83CvLhmrcAh96Ts
-         lpip/T0nTZwslDp+xXzP1XOyDyopqsGQNx+Vn9WpSwWA1feFf+QFEzB205h1hGX2fBXa
-         yItey5RIRpfgRMJH4MCCx9m5epcusDekDAH8PWcVeIxMT6A/j7inN1nPEoJTTugSN7BZ
-         srYH1i5PFyqL+grxo8XSHaVIEucwk2zqVqhZFkjeFf45gl44p0tN3GtYTbG06ss0aieD
-         oq8Q==
+        bh=btJXwtvrlKSFwnalBRzKZ+u43uNhdzBt0gD3LXAU9eg=;
+        b=gpGvgBroigtWciRS2XcsPv7mSgn3FdAFMnXpUotpWdJZOr4RhG7vPKP1RF3STPzOt2
+         gpUiaddwG1Cpnj9SFhZHMKF3jYOIamUOSD/4kwdhh7d8UAAiMli8l0U5jjK4apGKdfRv
+         dR8eYprXQB/XJ6FpUm7eF2DtuX1gzM/BDd76l9HvdMRwn/3wwi0Zej6n63/LJTaYKPp9
+         PRYBV6rZde11fXDBmTpXvh/Vn0PAFyIs5Qx/eQWg8Auq3XBbEBVHyfPnxvIcr0D0Cz/F
+         GVr6Ct14uHeO0Mry8mPzX7Fy7sc2/BhTJqntQLRSUvSnd7mmKcPK7c3UKzY6f1yIByIz
+         fS7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790591568; x=1791196368;
+        d=1e100.net; s=20260707; t=1790591571; x=1791196371;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X+F01bJuybZTwFO2WBoKTou/uN0G2y5zUMWWErME7OY=;
-        b=lZuR5U8UVL7l8q76fFiu9CcIa/nFYcrQ0trk2Bk5dJvnESXyyYcaZw/oPNyx3XdZu7
-         97hswFsEPVepMoPAumtdPADB2nrhp/AILXO5kmqeJKyR5HFIoSkm/B2qz7RGbYFkdfQh
-         JU+xEIQ1ErW7pn+ypbVB80TBPF1IVi3N5Rx27egsy2xANzK5iVdBjmrDSR4xLlHwZQq2
-         RWgpHgokn1g4U3sQI1lyU7kc4o4DQiF/R6yghcmIN/iK599zM6x8fr0CbPfz6VquG2bV
-         n0mjbvgrmmKvEGAwqW6X/wwKTAWWOybRz2w22TYjuSraWDkVWTsbMHRGT6chfVrZ/jgq
-         DMUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwqBYlwa/jj8QUDlhoGmIqr53eghH+xFZezrU+ljIlCqOwjxS/5cYcikJEvylvclqGa3tpOJuyaOJLWELo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJA4hpMWikVEmqXu1qGfChPYT2oSQ8VcDxaWQl2oQc+xlpheLG4
-	ZHx9LTPLZHZkHrkyZ3MfPxH7Vbe4/9EYUXda3EaRnVO5Or/MirLvWMVuRRlDqyLzU5nX1ZquYzL
-	2Cg9+zQNwnug9x3N4AJrZCZwntJVoqr/Epx5Ka5Hes+a2M7VwbVhEtPcvlqpZVD0kzyw=
-X-Gm-Gg: AYBFou3U8F1e5qQBcpgIX28G1kZYn2QbgEYeslJ45j8rju3JYi+9ioTGVxHNvbkIxhR
-	Dftbsrn7f5fxWrMAJXe0b9X/azIYBHL1Q+39HW6WqHtOSvg/D3AJ1+bnCU0HvpXD8EB32k0bFJQ
-	DFc9o3M3x20GnaPVsjni3v4ubEfVrgoixGbsHZmprQBMvSySY4YCu4OusAbUDMqySQJBEBAf6hk
-	emyQ9zOTRtL8WGlxg0GaXwMklkzhYSywJGIlFswADUDzdY2dk2ApgSAEWttVTBu+gmkg83Tp+25
-	RJxMQNlbdR48jTc1MOJ+pd6ZullmDcGTR3acbZNyFJpGQ/5a385iPqh0NmKsUMVRjXDqd2GaMpN
-	5E9aFkfvLIpCqLpcZftMnMsKksIk=
-X-Received: by 2002:a17:90b:540b:b0:3a0:4384:adf6 with SMTP id 98e67ed59e1d1-3a09855cfa2mr9547054a91.0.1790591567674;
-        Mon, 28 Sep 2026 03:32:47 -0700 (PDT)
-X-Received: by 2002:a17:90b:540b:b0:3a0:4384:adf6 with SMTP id 98e67ed59e1d1-3a09855cfa2mr9547033a91.0.1790591567134;
-        Mon, 28 Sep 2026 03:32:47 -0700 (PDT)
+        bh=btJXwtvrlKSFwnalBRzKZ+u43uNhdzBt0gD3LXAU9eg=;
+        b=DhBZsofmU2GGO20gnGUQoe+D1fLYiByClJVlDFow3IOn+25I3QJ9ku8htbYgDU1YL+
+         2r++k5uH4ilfPE4AywNe1yMQMAHQ0lRdV8245A+eIB0sfVE1Zgrk4Ud5K/5BXZkhL0LL
+         p07/pE0E8PeN23+01Yl+N2QSMwPBRZIHWUEWYqDgpsCeiK41h2QaHsOTVW4tyFsRRvbM
+         Rttxan1r4nz21WfNP3yewIgWOiaT/ZPn225rAqapBf5SDiGqDtJ9hVZ0KlXIB1HaATQo
+         BjAPRSO7k/53ateiKdSLaBGjlqGc+tB9W/xNhyHBa6QBfEZwRYwPH7+1x1rUbKcAjMha
+         9HvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzzQTJKKptFR88oaGLLEqnVBk6Xaz/WKG4/6Cbg2LdO6FL0NOn8Xw0a8XseRcyR0s0QCGAk9NHp3DFI58=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgT079q3AfUn4bJxg9ebkCNPK81MmI5wdcPzGISKsMAA4p/nIE
+	N17TftYD+MUxv27Sr/09tzFnGQm3ZIA4ikXt39CezHt/JwhU2h+Sa9C+Bay1tKawE/9XuX0ecZj
+	CNLGx/j+V5gAvbxovXzrtuFGBDKySjxxTld6HLHyRwD+5KDIEjy0kzlESVYnYQ0mk8rA=
+X-Gm-Gg: AYBFou35fo99S4SWc4j2drwWdDr5DYNGgRZlCwFpmfjJQkbUaltwaWSzc2d1Y51S560
+	KoXbP0Tk9wxgc6J2OcMNnHfrIKDoT0asqDjEioz3w1FiZ0/0Fl6a0dyTKcfm4S/k6RXxnghlDFG
+	lEYWKKb0WwFv2a7j+FX0FQgj6hFfXlqWCVLC/piy8MuJ9HjedzYzICIPOtoYjzcrsQxUe5iD9LS
+	lx2po1CiCVxYmdJ+04YkwW5XUMsB/igIwFlIO/3/uac6dH7EnRv/YWKr882ntGbx5ft0jJxO/+P
+	zrWr+OZy0YXXZdTTHGOBBflxicaDoB5igmXw9NpJaKegKyq3ra1jcEHgWvS200n/784GEt+xH4c
+	FmWLhmytmffVBpDTSkISCYJd6KIE=
+X-Received: by 2002:a17:90b:264d:b0:3a0:3673:dbc0 with SMTP id 98e67ed59e1d1-3a0bb6325cemr7282999a91.49.1790591570969;
+        Mon, 28 Sep 2026 03:32:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:264d:b0:3a0:3673:dbc0 with SMTP id 98e67ed59e1d1-3a0bb6325cemr7282990a91.49.1790591570467;
+        Mon, 28 Sep 2026 03:32:50 -0700 (PDT)
 Received: from hu-nandam-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm19885131a91.2.2026.09.28.03.32.44
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efaeb3sm19885131a91.2.2026.09.28.03.32.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 03:32:46 -0700 (PDT)
+        Mon, 28 Sep 2026 03:32:50 -0700 (PDT)
 From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 16:02:21 +0530
-Subject: [PATCH 3/5] ASoC: codecs: lpass-va-macro: manage clocks in runtime
- PM
+Date: Mon, 28 Sep 2026 16:02:22 +0530
+Subject: [PATCH 4/5] ASoC: codecs: lpass-wsa-macro: manage clocks in
+ runtime PM
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-xo-sd-runtimepm-v1-final-v1-3-e3ebade3aeb7@oss.qualcomm.com>
+Message-Id: <20260928-xo-sd-runtimepm-v1-final-v1-4-e3ebade3aeb7@oss.qualcomm.com>
 References: <20260928-xo-sd-runtimepm-v1-final-v1-0-e3ebade3aeb7@oss.qualcomm.com>
 In-Reply-To: <20260928-xo-sd-runtimepm-v1-final-v1-0-e3ebade3aeb7@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -101,37 +101,36 @@ Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Proofpoint-ORIG-GUID: 7T5J7T3u617kKXQlnOYtujZLVxTLul4N
-X-Proofpoint-GUID: 7T5J7T3u617kKXQlnOYtujZLVxTLul4N
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX9GFfpTZ7YC2+
- 6w9sXi8dxM020Cyaze71WdiJ+aoP5SlAY62UV6vmZtFu2taZS1wLbZgJ5Cl2vWtkDCXsEUOC7R8
- IxO81LONqGMWM2xPT2Lvm26ruaahUXDLz+PGhPe7tYmPHFjppv1Ib9YkZqvTbCGhTornELCuHb1
- B+wVatfVZmY9OJtgojjs6Q+NbqwCVu8tK7avJ5DiIWs50fuLzTnlaeipOAZYJOgVknfUUuC3wou
- cMmSTHR08sXDuK9MAOaUt2suHUFa5UP4/Gr3TajG47APHlr8/D3VJhrcb/zB+GKUeaffm0SSHQn
- qXzVeurxBzyLU+VtKZRRGRrMoaZ/tY/Cdjpb1BJXBCFUDhDSRaXc89p2R6T14HZ34mdgh2QNFa2
- 3yZDVhI/l8Z1JvT3j7oTiuVBcKPYjMfQSjCf0Ci6244sxLch1a9YGHn1vdYatXU3E6XzcBgbVBl
- +C5PRDmc+ZAPUMwfquQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX9tI7SB9BP0pi
- B3WLWjm1w+VS90Qv5JXypuYGVpCgLAwIS17YaohLsBemGjI8Ebg08jPwhGcYEhNsU+SF6dfAT68
- A5xj4Y9908BIRV32SO53JiyyNJU0/1k=
-X-Authority-Analysis: v=2.4 cv=asYnmiZV c=1 sm=1 tr=0 ts=6aba4250 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=Sq4Fe/O0 c=1 sm=1 tr=0 ts=6aba4254 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=e4XGr0MdzGbF6maxRbQA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=0aw6pvlUo1gSDbX1wFsA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: XjXTMz8iH18Q6IHXUFaL7SIdwn7fovhq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfXynhWEiduIXoB
+ txm87uVD2/cgHf51X8hCHodQDszwFSlA/++xeKHd8319LZnSAQAzMjucktKUCpTJkOzRX9HNqEj
+ wv1sNc1zpUab1MHD1FXNX2VNAhRrD4N65rOrLAV1iM1GURQQrSye4YKUBp4IFuEjrsyFDh4uzg7
+ OtK44c9xRtaxZRsStlg3ERDLcA13D8M0pdWmLZ41/vmasHtQxIrcsjZtk0rgf9vNGDI/GwWjfl3
+ QVI60Rqdj528hA80YneU9V5zg7K0SXa0kUA53G03yPgKKrg/HNF+i7zFAC533Lkmbxf3TiQUucn
+ BT+HeJ3dJ2VTddaEA44ts/t3wfLi+ib9Cp4RIDPvY+ki4SvEY2U/a2z9DjACWBRVQS/d/hZCLVz
+ 2AlGnf5To8ms7fZ+hlOPOyXkQwkDybC2giC/LQzZNLyGXJAjxi0BIW51AM7RwrsdaKS5oHcQA4N
+ 1TLKi1YCIPSwNWRY65Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0MSBTYWx0ZWRfX6/WSCZaN9izo
+ ji9pBrllT+h9i6g7eOzCD/lJ/umzQRT7UzKdWgOdX47k5LjGExqQiJIwS21fTdc1N6nUz/+u8YD
+ JeHwuuETXIE2h+yXTRTeKfW5Q7jy2DA=
+X-Proofpoint-ORIG-GUID: XjXTMz8iH18Q6IHXUFaL7SIdwn7fovhq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280041
+ impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 malwarescore=0
+ adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280041
 
 Replace PM clock framework usage with explicit clock prepare/enable and
-disable/unprepare operations from runtime PM callbacks. This keeps the VA
+disable/unprepare operations from runtime PM callbacks. This keeps the WSA
 macro clock prepare state tied to the runtime PM active state, so idle
 suspend can release parent clock votes.
 
@@ -140,138 +139,144 @@ suspend path for an active device.
 
 Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 ---
- sound/soc/codecs/lpass-va-macro.c | 74 ++++++++++++++++++++++++---------------
- 1 file changed, 46 insertions(+), 28 deletions(-)
+ sound/soc/codecs/lpass-wsa-macro.c | 80 +++++++++++++++++++++++++-------------
+ 1 file changed, 53 insertions(+), 27 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 03d6434a4a12..1197ca7210e6 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -10,7 +10,6 @@
- #include <linux/of_clk.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
+diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+index 4242366601a5..bc0ff467c822 100644
+--- a/sound/soc/codecs/lpass-wsa-macro.c
++++ b/sound/soc/codecs/lpass-wsa-macro.c
+@@ -12,7 +12,6 @@
+ #include <linux/clk-provider.h>
+ #include <sound/soc.h>
+ #include <sound/soc-dapm.h>
 -#include <linux/pm_clock.h>
  #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -260,6 +259,46 @@ static const struct va_macro_data sm8550_va_data = {
- 	.has_npl_clk = false,
+ #include <linux/of_platform.h>
+ #include <sound/tlv.h>
+@@ -424,6 +423,53 @@ struct wsa_macro {
  };
+ #define to_wsa_macro(_hw) container_of(_hw, struct wsa_macro, hw)
  
-+static void va_macro_disable_clocks(struct va_macro *va)
++static void wsa_macro_disable_clocks(struct wsa_macro *wsa)
 +{
-+	clk_disable_unprepare(va->npl);
-+	clk_disable_unprepare(va->mclk);
-+	clk_disable_unprepare(va->dcodec);
-+	clk_disable_unprepare(va->macro);
++	clk_disable_unprepare(wsa->fsgen);
++	clk_disable_unprepare(wsa->npl);
++	clk_disable_unprepare(wsa->mclk);
++	clk_disable_unprepare(wsa->dcodec);
++	clk_disable_unprepare(wsa->macro);
 +}
 +
-+static int va_macro_enable_clocks(struct va_macro *va)
++static int wsa_macro_enable_clocks(struct wsa_macro *wsa)
 +{
 +	int ret;
 +
-+	ret = clk_prepare_enable(va->macro);
++	ret = clk_prepare_enable(wsa->macro);
 +	if (ret)
 +		return ret;
 +
-+	ret = clk_prepare_enable(va->dcodec);
++	ret = clk_prepare_enable(wsa->dcodec);
 +	if (ret)
 +		goto err_dcodec;
 +
-+	ret = clk_prepare_enable(va->mclk);
++	ret = clk_prepare_enable(wsa->mclk);
 +	if (ret)
 +		goto err_mclk;
 +
-+	ret = clk_prepare_enable(va->npl);
++	ret = clk_prepare_enable(wsa->npl);
 +	if (ret)
 +		goto err_npl;
 +
++	ret = clk_prepare_enable(wsa->fsgen);
++	if (ret)
++		goto err_fsgen;
++
 +	return 0;
 +
++err_fsgen:
++	clk_disable_unprepare(wsa->npl);
 +err_npl:
-+	clk_disable_unprepare(va->mclk);
++	clk_disable_unprepare(wsa->mclk);
 +err_mclk:
-+	clk_disable_unprepare(va->dcodec);
++	clk_disable_unprepare(wsa->dcodec);
 +err_dcodec:
-+	clk_disable_unprepare(va->macro);
++	clk_disable_unprepare(wsa->macro);
 +
 +	return ret;
 +}
 +
- static bool va_is_volatile_register(struct device *dev, unsigned int reg)
- {
- 	switch (reg) {
-@@ -1621,14 +1660,6 @@ static int va_macro_probe(struct platform_device *pdev)
- 			goto err;
- 	}
+ static const struct wsa_reg_layout wsa_codec_v2_1 = {
+ 	.rx_intx_1_mix_inp0_sel_mask		= GENMASK(2, 0),
+ 	.rx_intx_1_mix_inp1_sel_mask		= GENMASK(5, 3),
+@@ -2791,14 +2837,6 @@ static int wsa_macro_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
  
 -	ret = devm_pm_clk_create(dev);
 -	if (ret)
--		goto err;
+-		return ret;
 -
 -	ret = of_pm_clk_add_clks(dev);
 -	if (ret < 0)
--		goto err;
+-		return ret;
 -
  	pm_runtime_set_autosuspend_delay(dev, 100);
  	pm_runtime_use_autosuspend(dev);
  	ret = devm_pm_runtime_enable(dev);
-@@ -1719,16 +1750,9 @@ static void va_macro_remove(struct platform_device *pdev)
- static int va_macro_runtime_suspend(struct device *dev)
+@@ -2844,16 +2882,9 @@ static int wsa_macro_probe(struct platform_device *pdev)
+ static int wsa_macro_runtime_suspend(struct device *dev)
  {
- 	struct va_macro *va = dev_get_drvdata(dev);
+ 	struct wsa_macro *wsa = dev_get_drvdata(dev);
 -	int ret;
  
- 	regcache_cache_only(va->regmap, true);
+ 	regcache_cache_only(wsa->regmap, true);
 -
 -	ret = pm_clk_suspend(dev);
 -	if (ret) {
--		regcache_cache_only(va->regmap, false);
+-		regcache_cache_only(wsa->regmap, false);
 -		return ret;
 -	}
 -
-+	va_macro_disable_clocks(va);
- 	regcache_mark_dirty(va->regmap);
++	wsa_macro_disable_clocks(wsa);
+ 	regcache_mark_dirty(wsa->regmap);
  
  	return 0;
-@@ -1737,9 +1761,9 @@ static int va_macro_runtime_suspend(struct device *dev)
- static int va_macro_runtime_resume(struct device *dev)
+@@ -2862,9 +2893,9 @@ static int wsa_macro_runtime_suspend(struct device *dev)
+ static int wsa_macro_runtime_resume(struct device *dev)
  {
- 	struct va_macro *va = dev_get_drvdata(dev);
+ 	struct wsa_macro *wsa = dev_get_drvdata(dev);
 -	int ret, sret;
 +	int ret;
  
 -	ret = pm_clk_resume(dev);
-+	ret = va_macro_enable_clocks(va);
++	ret = wsa_macro_enable_clocks(wsa);
  	if (ret) {
- 		regcache_cache_only(va->regmap, true);
- 		regcache_mark_dirty(va->regmap);
-@@ -1752,21 +1776,15 @@ static int va_macro_runtime_resume(struct device *dev)
+ 		regcache_cache_only(wsa->regmap, true);
+ 		regcache_mark_dirty(wsa->regmap);
+@@ -2876,20 +2907,15 @@ static int wsa_macro_runtime_resume(struct device *dev)
  	if (ret) {
- 		regcache_cache_only(va->regmap, true);
- 		regcache_mark_dirty(va->regmap);
+ 		regcache_cache_only(wsa->regmap, true);
+ 		regcache_mark_dirty(wsa->regmap);
 -		sret = pm_clk_suspend(dev);
 -		if (sret)
--			dev_err(va->dev,
+-			dev_err(dev,
 -				"failed to suspend clocks after regcache sync failure: %d\n",
 -				sret);
-+		va_macro_disable_clocks(va);
++		wsa_macro_disable_clocks(wsa);
  		return ret;
  	}
  
  	return 0;
  }
  
--
--static const struct dev_pm_ops va_macro_pm_ops = {
--	RUNTIME_PM_OPS(va_macro_runtime_suspend, va_macro_runtime_resume, NULL)
+-static const struct dev_pm_ops wsa_macro_pm_ops = {
+-	RUNTIME_PM_OPS(wsa_macro_runtime_suspend, wsa_macro_runtime_resume, NULL)
 -};
-+static DEFINE_RUNTIME_DEV_PM_OPS(va_macro_pm_ops, va_macro_runtime_suspend,
-+				 va_macro_runtime_resume, NULL);
++static DEFINE_RUNTIME_DEV_PM_OPS(wsa_macro_pm_ops, wsa_macro_runtime_suspend,
++				 wsa_macro_runtime_resume, NULL);
  
- static const struct of_device_id va_macro_dt_match[] = {
- 	{ .compatible = "qcom,sc7280-lpass-va-macro", .data = &sc7280_va_data },
+ static const struct of_device_id wsa_macro_dt_match[] = {
+ 	{
 
 -- 
 2.34.1
