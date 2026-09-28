@@ -1,198 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD1D4D954D
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:28:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FB24D9908;
+	Mon, 28 Sep 2026 14:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790605716; cv=none; b=KDJs59MkgiqTgaGtErHzKornLJ1akDFkK5c642eCXYztyiNsZ9H+KyZdmHM6/AJpG4QilsHMrM3nTciTgv8Dr4pl0ws7zeVELOSM+Z1oSt6AgqIwTvE6VJAuG3S4X84fbz0VcSn/NI+bd4MAo055vS/cWZaR/w1MNTi68ULhvfA=
+	t=1790605763; cv=none; b=SAwazMpou0JRaiRAdJJ5prj76Ejc91Ad8IV4hrS3r0NZAEUJvlDmVW94A5exT6Ekza+tVPR8kiuQdnJV0QEpkh7nTPP5BHqvDqrUfD14c5TTr5B3Jj4ZLjnfHt3OvFz+ZgIauG/u3NfSbDS3ocBzn58ieVlI7+mUQCF++HDE0NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790605716; c=relaxed/simple;
-	bh=9uWhnOZitfKn/aBGgT8rT/13BQ31t5CQPD0tYRaO6/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FKez1UAubYlCsW0ePr60qBfOCV5VHvC8ULS0tsrgvfmBujaRMzTuspDL9jacbIOsXoBhIP0gsI/ZUZffV2mGl3HlEciJWVUXaMRtMZ27FM83a+VkrYoAea/jVPXyRJujmvrVqEU1/UTmGXt7mOtDGB28ZJ7o9XomYPHKbCqjR/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSfs5RMk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790605763; c=relaxed/simple;
+	bh=QVRWFLw76zgCtb7Dk0+R/Mu4NDb54jeLKb2zAJjJsIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BCIl2QcwxMblRtb6V+TbOJU6GLAKY3UaTiczeJDehCofPWgc+BABd5zdA3P1Hth+qJ9b2rjLOn6Jo3Euzm1azAwmak+6Zn/xQMZOHuW65nLZVvsXfhokwgmc0+GXX/K16+7ZgEN+PThqAHkOxfhDn6U8WLGb+/vW5u2dTHt9aBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N/ghxvVF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSfs5RMk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6AF1F0089F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 14:28:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N/ghxvVF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E5F1F000FF;
+	Mon, 28 Sep 2026 14:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790605715;
-	bh=YPzStzDokfiX/VDV5QtJf5+kUVF9DbxDMP+IisfKyT8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YSfs5RMkDkKbpdzc32rdg+UCY/r9+hJ4gXPA0BaxZjWobloLH0meA7L2Ndcg0MVMQ
-	 voaDBj0dh4OTL3lIsFGVGWx7do1U1dPHpnaUxjioi49KxFmH9IopR+IJI8U6Ii8YDh
-	 52dleR4BVfIhNROssUvwdUsnLXo8FPOsTuIhnGKdhBJu918fDO88XDdjlxZQLIN2Tj
-	 SRRLN2HiCbJzv2aauias77hq4rOI86GltxBrmlKWMhETrsZQpGXC8Sgn1+6iwZ8awn
-	 UOIG2a6m+KM3jzZEUwIQ5ifhB00RG15phzB/filJQ+cs8ad8Tz19galLNSZqlbqFOm
-	 qpDinbQwKJhUg==
-Received: by mail-ed2-f13.google.com with SMTP id 4fb4d7f45d1cf-6ab0d9260baso2354933a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:28:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByejMNKUuBLJu3DcuPaCvBzpRMX3l4lIXjpUhAO6hgx0nAhli6zb9ZZlQAOMpVm2bEk5Jxy1nPAQCe8t5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGHiJiI3f0aGU7e+gGbPk+8jcl40qo2Y7P2QWV09fq5TRn2ZwE
-	VDDh2LonqUWbIw9aJVwROK/tgGOtTrAr2J5lvcKWW/dW/OShOHFYgIgCFHaFgvl18Jq5ojcTOJQ
-	GNC413H72qfmmcB8SjJ2JOvNSzIU3UjM=
-X-Received: by 2002:a05:6402:4011:b0:6ac:62aa:e3dc with SMTP id
- 4fb4d7f45d1cf-6ac62aaea73mr3602685a12.26.1790605713775; Mon, 28 Sep 2026
- 07:28:33 -0700 (PDT)
+	s=k20260515; t=1790605761;
+	bh=UWCMYFvLNAm68dl9T3p5+ei0mitspgrPR0ZgUvMplx4=;
+	h=From:To:Cc:Subject:Date;
+	b=N/ghxvVFzeM7ZM0edHvlEWjV6tkzS0tfZ9dGHsuTbydx102IBb+Uy5wajLYWomwU5
+	 dQD98F2WlQpzb6NgbSg9uzCRKD90WwdEjg2Ehe3MTvm33ML/MtxmhAcD3LkvOJfz9e
+	 w12EhLDkvzDUvifx/J8IjGmAmTQ+N9etWAnTgK1IMSjUZItyZQ7qtmHCFXDRdyxKnC
+	 dL1k7MS9bSQgrcXidTF71kJVb5H6BAAcfKYXWMwDUb+PS99i1n186Fs4RkHWWLyusq
+	 yeOCJOSJOFjoiiOc+VRZ2X3Z1iT8KZIpjcUXrYnNG4WGtX4kAngJiJeVvReMdZmjhB
+	 /HVtYc4eVKz8g==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: "Paul E . McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] fprobe, rcu/tasks, rhashtable: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
+Date: Mon, 28 Sep 2026 23:29:13 +0900
+Message-ID: <179060575297.372125.10581329083761385407.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923060349.146780-1-lianyangyang@kylinos.cn> <20260924075655.375632-1-lianyangyang@kylinos.cn>
-In-Reply-To: <20260924075655.375632-1-lianyangyang@kylinos.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 28 Sep 2026 22:28:23 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6C=AyS=1AejxxaG-Zri=2=AfMtPzXFxEvzpFdD1_AaAw@mail.gmail.com>
-X-Gm-Features: AclHuK_Cw3Fa7E90RJ5ekvaNPqdQ2_xMfC9MdHhXGybH75CyqmNPIL39bdqS-mU
-Message-ID: <CAAhV-H6C=AyS=1AejxxaG-Zri=2=AfMtPzXFxEvzpFdD1_AaAw@mail.gmail.com>
-Subject: Re: [PATCH v2] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
-To: Yangyang Lian <lianyangyang@kylinos.cn>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
-	WANG Xuerui <kernel@xen0n.name>, kexec@lists.infradead.org, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Haoran Jiang <jianghaoran@kylinos.cn>, 
-	Tao Cui <cuitao@kylinos.cn>, George Guo <guodongtai@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi, Yangyang,
+Hi,
 
-On Thu, Sep 24, 2026 at 3:58=E2=80=AFPM Yangyang Lian <lianyangyang@kylinos=
-.cn> wrote:
->
-> Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
-> /proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
-> /proc/kcore as wellas /proc/vmcore.
->
-> LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
-> arch-specific values are missing from the vmcoreinfo PT_NOTE. The
-> generic exporter in kernel/vmcore_info.c already provides
-> NUMBER(VMALLOC_START), but tools like crash cannot derive the module
-> and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
->
-> Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
-> space to 2GB") the vmalloc and module boundaries are no longer stable
-> across kernel versions either, so vmcoreinfo is the only reliable
-> source for them.
->
-> Provide this function in a separate file that is built at the same time
-> as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
-> Documentation/admin-guide/kdump/vmcoreinfo.rst.
->
-> Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Tested-by: Tao Cui <cuitao@kylinos.cn>
-> Co-developed-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
-> ---
-> V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matching
->           what tools like makedumpfile expect.
->           Add Tested-by tag from Tao Cui.
->
->  .../admin-guide/kdump/vmcoreinfo.rst          | 29 +++++++++++++++++++
->  arch/loongarch/kernel/Makefile                |  1 +
->  arch/loongarch/kernel/vmcore_info.c           | 21 ++++++++++++++
->  3 files changed, 51 insertions(+)
->  create mode 100644 arch/loongarch/kernel/vmcore_info.c
->
-> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentati=
-on/admin-guide/kdump/vmcoreinfo.rst
-> index 7663c610fe90..2ff921232616 100644
-> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> @@ -594,3 +594,32 @@ va_kernel_pa_offset
->
->  Indicates the offset between the kernel virtual and physical mappings.
->  Used to translate virtual to physical addresses.
-> +
-> +LOONGARCH64
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +VA_BITS
-> +-------
-> +
-> +The maximum number of bits for virtual addresses. Used to compute the
-> +virtual memory ranges.
-> +
-> +PHYS_OFFSET
-> +-----------
-> +
-> +Indicates the physical address of the start of memory. Used to translate
-> +virtual to physical addresses.
-> +
-> +KERNELOFFSET
-> +------------
-> +
-> +The kernel randomization offset. Used to locate the kernel text in
-> +virtual memory. If KASLR is disabled, this value is zero.
-> +
-> +MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VMEMMA=
-P_END
-> +------------------------------------------------------------------------=
------
-> +
-> +Used to get the correct ranges:
-> +       MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
-> +       VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
-> +       VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struct p=
-age array.
-> diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Makef=
-ile
-> index 001924877772..6260c15adaba 100644
-> --- a/arch/loongarch/kernel/Makefile
-> +++ b/arch/loongarch/kernel/Makefile
-> @@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)     +=3D relocate.o
->  obj-$(CONFIG_KEXEC_CORE)       +=3D machine_kexec.o relocate_kernel.o
->  obj-$(CONFIG_KEXEC_FILE)       +=3D machine_kexec_file.o kexec_efi.o kex=
-ec_elf.o
->  obj-$(CONFIG_CRASH_DUMP)       +=3D crash_dump.o
-> +obj-$(CONFIG_VMCORE_INFO)      +=3D vmcore_info.o
->
->  obj-$(CONFIG_UNWINDER_GUESS)   +=3D unwind_guess.o
->  obj-$(CONFIG_UNWINDER_PROLOGUE) +=3D unwind_prologue.o
-> diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kernel/=
-vmcore_info.c
-> new file mode 100644
-> index 000000000000..fb703b716253
-> --- /dev/null
-> +++ b/arch/loongarch/kernel/vmcore_info.c
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <linux/vmcore_info.h>
-> +#include <asm/addrspace.h>
-> +#include <asm/pgtable.h>
-> +#include <asm/setup.h>
-> +
-> +void arch_crash_save_vmcoreinfo(void)
-> +{
-> +       VMCOREINFO_NUMBER(VA_BITS);
-> +       /* NUMBER(VMALLOC_START) is exported by the generic code */
-> +       vmcoreinfo_append_str("NUMBER(VMALLOC_END)=3D0x%lx\n", VMALLOC_EN=
-D);
-> +#ifdef CONFIG_64BIT
-> +       vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=3D0x%lx\n", MODULES_=
-VADDR);
-> +       vmcoreinfo_append_str("NUMBER(MODULES_END)=3D0x%lx\n", MODULES_EN=
-D);
-> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=3D0x%lx\n", (unsigne=
-d long)vmemmap);
-> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=3D0x%lx\n", VMEMMAP_EN=
-D + 1);
-> +#endif
-> +       vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=3D0x%lx\n", PHYS_OFFSE=
-T);
-I think it is also useful to export PAGE_OFFSET here.
+Here is an RFC patch series which removes standard RCU read lock
+(guard(rcu) and rcu_read_lock()) from fprobe callback paths
+by switching fprobe and BPF multi-kprobe to Tasks-Rude RCU.
 
-Huacai
-> +       vmcoreinfo_append_str("KERNELOFFSET=3D%lx\n", kaslr_offset());
-> +}
-> --
-> 2.25.1
->
->
+Motivation & Problem
+====================
+
+Currently, fprobe entry and exit callbacks (fprobe_fgraph_entry,
+fprobe_return, and fprobe_ftrace_entry) execute in the tracing hot
+path where preemption is disabled.
+
+However, fprobe was forced to wrap hash lookups with guard(rcu)() and
+rcu_read_lock() because:
+
+- rhashtable defers bucket table deallocation using standard RCU
+- unregister_fprobe() and BPF waited for a standard RCU grace period
+
+Taking standard RCU read locks in the tracing fast path introduces
+several drawbacks:
+
+1. Unnecessary Runtime Overhead:
+   Every probe hit manipulates current->rcu_read_lock_nesting with
+   memory barriers, and rcu_read_unlock() adds conditional branches
+   to check for special quiescent processing.
+   On debug kernels with CONFIG_PROVE_RCU=y or CONFIG_LOCKDEP=y,
+   this additionally acquires and releases lockdep maps on every hit,
+   introducing severe lockdep hashing overhead and tracer recursion risks.
+
+2. Fragile Dependency on rcu_is_watching():
+   Standard RCU treats idle CPUs (and user-space on nohz_full CPUs) as
+   Extended Quiescent States (EQS). If a function is traced while
+   rcu_is_watching() is false, standard RCU is blind to the read-side
+   critical section. In such contexts, synchronize_rcu() does not wait
+   for the reader (risking Use-After-Free), and lockdep emits an
+   "RCU-illegal: rcu_read_lock() used while not watching!" warning.
+   To avoid this, ftrace callbacks normally require FTRACE_OPS_FL_RCU,
+   adding extra trampoline check overhead.
+
+3. Asymmetric Synchronization with fprobe_return():
+   fprobe_return() executes under preempt_disable_notrace() without
+   holding rcu_read_lock(). Prior to this series, unregister_fprobe()
+   only waited on synchronize_rcu(), which does NOT wait for pure
+   preempt-disabled sections, leaving a potential Use-After-Free window
+   during probe unregistration.
+
+I've tried to fix the last UAF with simply introducing guard(rcu)()[1]
+but Sashiko found the 2nd problem [2]. So I decided to implement this
+series.
+
+[1] https://lore.kernel.org/all/179055575009.241711.6358052647499787191.stgit@devnote2/
+[2] https://lore.kernel.org/all/20260928005114.9C9FC1F000FF@smtp.kernel.org/
+
+
+Solution: Tasks-Rude RCU
+========================
+
+Because fprobe callbacks already run strictly within preempt-disabled
+contexts, we can transition fprobe and its deferred table reclamation
+to Tasks-Rude RCU:
+
+- Tasks-Rude RCU detects grace periods via schedule_on_each_cpu(),
+  forcing a schedule on every online CPU. This guarantees that all
+  preempt-disabled sections that began prior to the grace period have
+  completed before memory is reclaimed.
+- Unlike standard RCU, Tasks-Rude RCU does not rely on dyntick-idle /
+  EQS tracking. It does NOT require rcu_is_watching() to be true and
+  does not trigger lockdep warnings in pre-RCU/idle execution paths.
+- Within fprobe, guard(rcu)() is replaced with guard(rcu_sched_notrace)(),
+  reducing the lookup lock to pure, non-tracing preempt counter
+  increments without lockdep or RCU state manipulation.
+
+Feedback and suggestions from RCU, BPF, and tracing maintainers are welcome!
+
+Thank you,
+
+---
+base-commit: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
+
+Masami Hiramatsu (Google) (3):
+      rcu/tasks: Export call_rcu_tasks_rude()
+      rhashtable: Add use_tasks_rude parameter to defer bucket table free
+      fprobe: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
+
+
+ include/linux/rcupdate.h         |    6 +++
+ include/linux/rhashtable-types.h |    2 +
+ kernel/bpf/syscall.c             |    2 +
+ kernel/rcu/tasks.h               |    8 ++---
+ kernel/trace/fprobe.c            |   66 +++++++++++++++++++++-----------------
+ lib/rhashtable.c                 |    5 ++-
+ 6 files changed, 54 insertions(+), 35 deletions(-)
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
