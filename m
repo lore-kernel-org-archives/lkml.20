@@ -1,121 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD26434E35;
-	Mon, 28 Sep 2026 11:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBF9484892
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 11:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594154; cv=none; b=mVuFE/AGJ0flGjc/A7/wJcAhZhRi4SsCFK6QkWym6c5atuo8xpAV3dd9p6Xrq7Zy5EwX5YHguSLrtzg5qWhdFjtbb2btrd2eZtcTbi7SVfIh777NBu3s1efBSRla0LngSY9/SvfgvmvuzjdYkrtXV9WUOFlCyWlKmimkyMSeqng=
+	t=1790594205; cv=none; b=XYkxQwDrz7vI7e7xsX+tKzAc2H/fcm07iicahJTiXYfW7LiJnFXyhaQaTo31YCSb6YUgVUV3IIRlDp4qGBdlHi0WUwLnJHwqJpvqkFfWNrRlwfnH/pIV0XncG1+Gl1WGn4JQGgPq/+rOC37ejqWB5en81qQGArfc+D4xGQoDbFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594154; c=relaxed/simple;
-	bh=/rEQ5tR0s7tCO9TBNoWnBlkcTDT0Tbc/AZQQ+6eJ3YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOE59PU7uoe1aRzqFL/1dqjA2zS21thWkYHXSisgkcmOCWxKMSiRrQ2r6PUfo/21dXQ+eMgBefu3MumC5R5g8+4QEioothJtFxyenGxfsRufu2dGACbaA36eTlg00eRn3LDmDPTsnW0ygb/S7bBTOzqYKmr7r8/FRAGRZRKMxZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIOuwvHj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790594205; c=relaxed/simple;
+	bh=mOHb0iWkAf0/UxgI2SgtTP0M7yHAAiRCYNviMNWXans=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X/i5nbP6iE4u5kSd9Bd09QFD3OSbdBd9zmCfzv/gIXEgwm1i0m5it/6vZoORMd3DwAVaZCMLigpDbjDw8kQXHcX66k+LBSNtT4BVM87IutwQO9c61Ah/18HcWFQ8L6FDfK3UKnYB61+P3DMzxicxotRHxadftw0ZUSRivdyu+TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=u59dhuPz; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIOuwvHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4B01F000FF;
-	Mon, 28 Sep 2026 11:15:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790594152;
-	bh=qKgEuv9CkeatwMaEoVWwIZzAsZrjAYsxRirMIYaZdag=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QIOuwvHjPRav9eT8nF7YfNLLqJ8z0AQt1yewPmRegf+oH5eRgNJIhbn1v1/Q+2o0X
-	 nPUarDfalGrAaN9D1k51LHg6iQRCc0U2OaF7tkOiq7GrZXB87kSf/U3dIi5r8P3+rn
-	 K4uoZoDZlBzDBtSl8TkWII13sSk5xAuw4ybHFFNxjLwfjnZOW8l3gk3uavcQ03fYzt
-	 A4jwuaoPWpccsxO+V5Jbp/p027RhnKRzkXX9yS9xIvLtvDf0Q3eMqXghDMs3mwv4Ro
-	 IGj0LRAD7WdzX30gEYUznsFq9Xa01QdmuiuaDgt/y1aEojl6qc2wscTH1JvBMYmBkD
-	 N9uS42sU1xGSA==
-Date: Mon, 28 Sep 2026 12:15:46 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH] kbuild: keep .modinfo when vmlinux is linked with
- --gc-sections
-Message-ID: <arpLoeLVATRCXm5E@gremlin>
-References: <20260927161227.1179863-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="u59dhuPz"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790594200; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=dQp40vdg1KvkXwbwq7QiX9CILuC9xXX+jUR4wprdTlA=;
+	b=u59dhuPz7cqvy8jtRUNaZZwhwFtAJDBcoIm4obugpqALuPFCD7cLp+4QvbdCYmBPtKkaN95JNbzcmnab8qD+EvD7nZajgc56e8oQxhB/NE/IqZDi6wqPloNvtZudmwZOyqLVzEjr/baxZu6K/h751ZnctMFHf59lvGzh7JvwZSU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBn4.cx_1790594188;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XBn4.cx_1790594188 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 28 Sep 2026 19:16:38 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org
+Cc: hpa@zytor.com,
+	xin@zytor.com,
+	luto@kernel.org,
+	jpoimboe@kernel.org,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	akpm@linux-foundation.org,
+	rdunlap@infradead.org,
+	elver@google.com,
+	andreyknvl@gmail.com,
+	glider@google.com,
+	gor@linux.ibm.com,
+	brads@mainlining.org,
+	kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	xiangzao@linux.alibaba.com
+Subject: Re: [PATCH v3 0/2] x86/fred: Fix stack depot exhaustion on FRED systems
+Date: Mon, 28 Sep 2026 19:16:28 +0800
+Message-ID: <20260928111628.1247368-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
+References: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927161227.1179863-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 12:12:27PM -0400, Sasha Levin wrote:
-> Builds with CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y, such as arm
-> allmodconfig, now fail while extracting modules.builtin.modinfo:
->
->   arm-linux-gnueabihf-objcopy: vmlinux.unstripped: can't dump section
->   '.modinfo' - it does not exist: file format not recognized
->   /bin/sh: 1: cannot open modules.builtin.modinfo: No such file
->
-> or, with LLVM:
->
->   llvm-objcopy: error: 'vmlinux.unstripped': section '.modinfo' not
->   found
->
-> Nothing references the MODULE_INFO() strings, so --gc-sections
-> discards every .modinfo input section and vmlinux.unstripped ends up
-> with no .modinfo data. This is not new: ever since
-> modules.builtin.modinfo started being extracted from
-> vmlinux.unstripped, these builds have silently produced an empty
-> file, losing the modinfo of every built-in module. An arm
-> multi_v7_defconfig build with LD_DEAD_CODE_DATA_ELIMINATION on current
-> mainline yields a 0 byte modules.builtin.modinfo. The switch to
-> --dump-section only turned that into a build error.
+Gentle ping.  v3 addressed Dave's comment on the generic hook comment
+and carries Alexander Potapenko's Acked-by for both patches; Peter was
+happy with the rename in the earlier discussion.  Is there anything else
+you would like changed?
 
-Yikes, so an existing bug but now exposed by my series.
-
->
-> Wrap the input section in KEEP() so that the linker retains it. The
-> output section is still (INFO), so nothing is allocated for it. With
-> the same arm config, modules.builtin.modinfo now has 14119 entries,
-> and on x86_64 defconfig, where nothing is garbage collected, it is
-> byte-identical before and after this change.
-
-Sounds reasonable.
-
->
-> Found by KernelCI builds of the linus-next tree.
->
-> Fixes: 39cfd5b12160 ("kbuild: extract modules.builtin.modinfo from vmlinux.unstripped")
-> Fixes: 5fe4dd596641 ("kbuild: do not allocate .modinfo in vmlinux")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Nathan - do you want me to fold this into the 1st patch of my series on respin
-or fine to treat separately?
-
-> ---
->  include/asm-generic/vmlinux.lds.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-> index a6730d34e8c67..7a3e9f00d6283 100644
-> --- a/include/asm-generic/vmlinux.lds.h
-> +++ b/include/asm-generic/vmlinux.lds.h
-> @@ -855,7 +855,7 @@
->  		KLP_SYMID
->
->  #define MODINFO								\
-> -		.modinfo (INFO) : { *(.modinfo) }
-> +		.modinfo (INFO) : { KEEP(*(.modinfo)) }
->
->  #ifdef CONFIG_GENERIC_BUG
->  #define BUG_TABLE							\
-> --
-> 2.53.0
->
-
---
-Cheers, Lorenzo
+Thanks,
+Yuanhe
