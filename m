@@ -1,59 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F181F33A02B
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83965411F8D;
+	Mon, 28 Sep 2026 07:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580118; cv=none; b=OsDB+LN9u3pKw/oCG02fsImOLgj4SJajU44ncL5OPrNn/JigPQvZeWl1OkUPYqjqEeWtAlWBhE6zgOnncfw/Jw5HpGS0GE4FgSM7BL58Co0WFBJLExhbxzJ4lKN/gjyTY7mM7VbkssGJwpvGSPIZwrTaRbQN8Amir7RRXjQ3XHA=
+	t=1790580135; cv=none; b=RTC0wATafbvsAe5hwY5OhSPyaTVw70b6ndgbT5aB52esDdBc3kNSrUBsKYIQcphOaFW9Lx0JjhvViZrv+iWdoIxiH33SAysFk9IfzHH7tVhG5CzU72dHlU3rKwfYdR0z/yikXyM4DHEJFmtU71w6LOzcJO3O8lvwEKPL3pvcUw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580118; c=relaxed/simple;
-	bh=LdRp3BoxsUvuBdgdpYIliSyKMiXdYa8O2gMhJ5qw2Zc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eiJdtd0zG2YIjG8iM7ETR9WR7RxshP2GfSBoRyQsIsnub1LnhZD+pziI54WA2O9iSAH6Z8gR+CHm4N4n05XmSEpRav9gVhiALK9InD1Xr6mmcU11BVF3beTXh1FFVY6H2NUv0gujzBTvKx79+2IJdxn0VOKYYaZGOBYpJNNaMSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0d0H2O+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0d0H2O+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5654E1F000FF;
-	Mon, 28 Sep 2026 07:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790580117;
-	bh=pjWZf1auWciM0t/tzIaHilDCX2PzkzFuO2fqxNX40f4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D0d0H2O+wFox1vxz6GaXraMUjdFc8oPkr36VVt6syNwHz/vZlkVRokPyWTEmotW/g
-	 TgXiL4DlgHlZNWD3/xrpuxrNQzgVcRCV/aMwU3yDoPdmrZxeIMNpBPpoZdSlicRPFT
-	 IKCdyvLZBNC1my1UYL4ucCyEptyXeNB/R5nPSiq9+ETo6NWHamBPNAkY19r7ld/YQx
-	 6wlNjpTwndog4VEYnINiQ8G4RV8Gv2Xs2lQfQFi1BIIK5PNNX/lBvWY7znynafAFre
-	 0fhVjI06rIwYbLte3+pZSjb1OmxJcAaJBanGwtj5pxgiJlEgpo5TQwEB2SRtzvwPC0
-	 HRv0DfAsiZbkA==
-Date: Mon, 28 Sep 2026 10:21:53 +0300
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ARM: at91: Replace __ASSEMBLY__ with __ASSEMBLER__
-Message-ID: <jypj45gex4daonopod5slfuob2dzbqjysbfanbybt33xu7krlg@muhrmrczdpwm>
-References: <20260821083645.200344-1-thuth@redhat.com>
+	s=arc-20240116; t=1790580135; c=relaxed/simple;
+	bh=V8QlhZUYn1YHfL8bhH35XrLM0K+kWYCYXhnYTx2/DRs=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=HIPyHZg4G1GVgByglavPZf3nQOOsww7XieJtszEgXTEnTjKOOLWWpmSU9DTNfGN0Y/Pugmmxg4+ohQ3Yo+0NUmtAta6akw8aHDmVWmZfJeW2M1KYKas1OyFB40+7u+xhn9byG8+8cGnUZZg3q2LSlYNEurqJdacTzA1/no1uM7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8AxS_CgFbpqgG4QAA--.48248S3;
+	Mon, 28 Sep 2026 15:22:08 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCxPs+dFbpq2_wlAA--.14639S2;
+	Mon, 28 Sep 2026 15:22:07 +0800 (CST)
+Subject: Re: [PATCH 4/6] LoongArch: KVM: Rebase steal time counter in vcpu
+ context
+To: Tao Cui <cui.tao@linux.dev>, gaosong@loongson.cn, zhaotianrui@loongson.cn
+Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+ nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+References: <20260927075240.3007947-1-cui.tao@linux.dev>
+ <20260927075240.3007947-5-cui.tao@linux.dev>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <789eaa76-50a1-61bf-0419-0f45beb45a92@loongson.cn>
+Date: Mon, 28 Sep 2026 15:23:30 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821083645.200344-1-thuth@redhat.com>
+In-Reply-To: <20260927075240.3007947-5-cui.tao@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxPs+dFbpq2_wlAA--.14639S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWry5Ar4xCr47Wry7Ary5GFX_yoWrXFyxpr
+	W7ur1jgrWrKr97CwnrK39Y9F1YvrWxCr12gry7WFyFkFs8tryYyFsYkFW3AF15A34rZa1I
+	qF1Yy3ZI9ayjy3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
-On Fri, Aug 21, 2026 at 10:36:45AM +0200, Thomas Huth wrote:
-> While the GCC and Clang compilers already define __ASSEMBLER__ auto-
-> matically when compiling assembly code, __ASSEMBLY__ is a macro that
-> only gets defined by the Makefiles in the kernel. This can be very
-> confusing when switching between userspace and kernelspace coding, or
-> when dealing with uapi headers that rather should use __ASSEMBLER__
-> instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
-> this confusion.
+
+
+On 2026/9/27 下午3:52, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
 > 
-> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> KVM_SET_DEVICE_ATTR(PVTIME GPA) initializes st.last_steal from the
+> ioctl thread's run_delay, but kvm_update_stolen_time() accumulates the
+> vcpu thread's run_delay; the first delta can be negative and wraps in
+I think that ioctl thread is the vCPU thread itself in KVM mode, there 
+will be many potential problems when one thread set registers of vCPU 
+while vCPU is running.
 
-Applied to at91-soc, thanks!
+Regards
+Bibo Mao
+> u64, so the guest reads a steal time close to 2^64.
+> 
+> Drop the initialization from the attr path and lazily rebase the
+> counter on the first steal update, which runs in vcpu context like the
+> hypercall path.  Re-registering a GPA clears the rebase sentinel first
+> and publishes the address with a write barrier; the reader side loads
+> the address and sentinel with READ_ONCE and a read barrier so a
+> concurrent re-registration is not observed half-applied.
+> 
+> Fixes: b4ba157044ea ("LoongArch: KVM: Add PV steal time support in host side")
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+>   arch/loongarch/kvm/vcpu.c | 25 +++++++++++++++++--------
+>   1 file changed, 17 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+> index 8e028be3f0a9..d931a5a802f6 100644
+> --- a/arch/loongarch/kvm/vcpu.c
+> +++ b/arch/loongarch/kvm/vcpu.c
+> @@ -154,12 +154,13 @@ static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
+>   	u32 version;
+>   	u64 steal;
+>   	gpa_t gpa;
+> +	u64 last_steal;
+>   	struct kvm_memslots *slots;
+>   	struct kvm_steal_time __user *st;
+>   	struct gfn_to_hva_cache *ghc;
+>   
+>   	ghc = &vcpu->arch.st.cache;
+> -	gpa = vcpu->arch.st.guest_addr;
+> +	gpa = READ_ONCE(vcpu->arch.st.guest_addr);
+>   	if (!(gpa & KVM_STEAL_PHYS_VALID))
+>   		return;
+>   
+> @@ -187,8 +188,14 @@ static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
+>   	smp_wmb();
+>   
+>   	unsafe_get_user(steal, &st->steal, out);
+> -	steal += current->sched_info.run_delay - vcpu->arch.st.last_steal;
+> -	vcpu->arch.st.last_steal = current->sched_info.run_delay;
+> +	/* acquire pairs with the smp_wmb in the attr path */
+> +	smp_rmb();
+> +	last_steal = READ_ONCE(vcpu->arch.st.last_steal);
+> +	if (!last_steal)
+> +		/* first update in vcpu context: rebase the counter */
+> +		last_steal = current->sched_info.run_delay;
+> +	steal += current->sched_info.run_delay - last_steal;
+> +	WRITE_ONCE(vcpu->arch.st.last_steal, current->sched_info.run_delay);
+>   	unsafe_put_user(steal, &st->steal, out);
+>   
+>   	smp_wmb();
+> @@ -1122,7 +1129,7 @@ static int kvm_loongarch_pvtime_get_attr(struct kvm_vcpu *vcpu,
+>   			|| attr->attr != KVM_LOONGARCH_VCPU_PVTIME_GPA)
+>   		return -ENXIO;
+>   
+> -	gpa = vcpu->arch.st.guest_addr;
+> +	gpa = READ_ONCE(vcpu->arch.st.guest_addr);
+>   	if (put_user(gpa, user))
+>   		return -EFAULT;
+>   
+> @@ -1197,7 +1204,7 @@ static int kvm_loongarch_pvtime_set_attr(struct kvm_vcpu *vcpu,
+>   		return -EINVAL;
+>   
+>   	if (!(gpa & KVM_STEAL_PHYS_VALID)) {
+> -		vcpu->arch.st.guest_addr = gpa;
+> +		WRITE_ONCE(vcpu->arch.st.guest_addr, gpa);
+>   		return 0;
+>   	}
+>   
+> @@ -1208,8 +1215,10 @@ static int kvm_loongarch_pvtime_set_attr(struct kvm_vcpu *vcpu,
+>   	srcu_read_unlock(&kvm->srcu, idx);
+>   
+>   	if (!ret) {
+> -		vcpu->arch.st.guest_addr = gpa;
+> -		vcpu->arch.st.last_steal = current->sched_info.run_delay;
+> +		WRITE_ONCE(vcpu->arch.st.last_steal, 0);
+> +		/* publish the new address only after clearing the rebase sentinel */
+> +		smp_wmb();
+> +		WRITE_ONCE(vcpu->arch.st.guest_addr, gpa);
+>   		kvm_make_request(KVM_REQ_STEAL_UPDATE, vcpu);
+>   	}
+>   
+> @@ -1800,7 +1809,7 @@ static void kvm_vcpu_set_pv_preempted(struct kvm_vcpu *vcpu)
+>   	struct kvm_memslots *slots;
+>   	struct kvm_steal_time __user *st;
+>   
+> -	gpa = vcpu->arch.st.guest_addr;
+> +	gpa = READ_ONCE(vcpu->arch.st.guest_addr);
+>   	if (!(gpa & KVM_STEAL_PHYS_VALID))
+>   		return;
+>   
+> 
+
