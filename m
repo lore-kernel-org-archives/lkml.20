@@ -1,86 +1,68 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD30F45D90F
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:58:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA91466AED
+	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582324; cv=none; b=GopGR/3BpjM+GT58jPy4l1Le6fFngodLT+QQpJEjx+MVe/MVeE/3OZQTG+taTkKOKDZJakMxbULsFnPtGhQqPq+FKrnmmvFYte5utU3JUdls1ihL2a/90zjPmo4YqoqlG4cp9DQ/NJcXAW5LnLOFl8WkoN6EfjjbSHKwfMZmRb4=
+	t=1790582352; cv=none; b=se9+8pjfIAGvcMqezN6AFUIs/uiZIc6es9yJwTcfbfnYaZ2bIw/cHPi+64mF0RgR9FSmCCgcZOy5C/JfsQ6HIFOCwVTi52JnVloBks5OA6NBV1gu7ClMA+jz4jMr4qraztime9EpGw0CrsQYLUPW2duRjszFYe/RGpp/428SagA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582324; c=relaxed/simple;
-	bh=oINfMFzwgmFUF8JnPJ7Uumdy83saBkH4GJpPh/hFZ1I=;
+	s=arc-20240116; t=1790582352; c=relaxed/simple;
+	bh=ED+sBRr3QhMO5/4gS/VqfY8k9EZbHBPa7Fm+KPqc9as=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5gQswrnO9bRxkLrH4yerwPQ4oj3y5FmEu8wnXo4SnnTtcICR07V3cIIgXGJqpCtYoGejNQyFdzMr10z3WHKTKt7bLGEReogqJsY2aTybq2jPi8wxE/nblgRMwQgzvSF0V7IY56Y81Cn689F8x0JYrC6lpQ5eNW4qx4Kn3YOT2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jVkk5pUP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FkAwyzIc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=lWfFeOUVBJdes090YppqRTR6PnqTNRIqiMz7shtXbwedNsWx8vBdUY9dMSy14f4tUyVsckbS4jKQxE8oBVi5m50ZUayBa+JStMHwxFvk1CFpwvXyiIrVPET4XPHw3sAdWyU7SQxrzMg4pEmKDFktdQUoHg9x/C5ENGIbvchruGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JPihjfMb; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jVkk5pUP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FkAwyzIc"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S0PWHW893068
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:58:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oLePkQK14oDgXmWMoUR6/Kqp6Ke46jg/FT4UUQ96oBU=; b=jVkk5pUPMZuhdiWZ
-	F6Ts7niLnMxiE/z/r9JIknubpWcPWU79Of7QW+39aHP/LNdcI9U0he9fc5CRPFAb
-	VaYx061TaQymdzGjRBytgGU2wvzgGawYIjiFDHcDAHlWbVeIRjdbYDhRrg5tF6ja
-	FWmU5rxFAb8euh5hrls2/aW71WotwuuXdYgr24B7riEDGbaYDCVjMuuRbVTIJv0d
-	YGqKoh0eHKGekrE1MM7FkCnbNzuEmPODsQR9TRxJ1bvpTZeknWcA1WoHAGu0tzIb
-	BioiK/cG8+rJtGKdIHfuzez05HU3hLSsBiflN/u9bVY58xQnBPgaRzcgGULUH8UV
-	0sQXzQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx3dp5e2m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 07:58:41 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5333e3f5811so14944741cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:58:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JPihjfMb"
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49fe4ca1052so6650495e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 00:59:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790582321; x=1791187121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oLePkQK14oDgXmWMoUR6/Kqp6Ke46jg/FT4UUQ96oBU=;
-        b=FkAwyzIciX9L/6vapRnq+7ew/FrKTHkNAHUOEw79Pj06ZoDkxzjF0Wz2t8BMskV6SJ
-         w7gago4Uoo++2MCsXHXqvaTwLOYLXT6UHY38ZSshrki0IC3rhSviCLBrYAWIFYevSJZd
-         IwK/2kLCBSvtYjH9O+kjM5EA85XUcTh4hlJuUQ++AwipHtS+lC/QTYkKa7HJZ2k6Sa+x
-         zfZbwik8p1tzLV98YeUFiDqYcmT+EOKPdbkvDb0sHhHIJ1fqrcCE/6T8rnmEft7vI45O
-         HUv6htExKYJv61F4/pqOewTE3AQjRpqQAsrUEwz825s74mO7JdDnRrY+t8OenXMfUoht
-         1QLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790582321; x=1791187121;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1790582349; x=1791187149; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oLePkQK14oDgXmWMoUR6/Kqp6Ke46jg/FT4UUQ96oBU=;
-        b=rdRJQL1MRWkZgXAxhi1paUiLLDEKeNJczxLsWv78hR+mTrIoN/xeJo+Rc5mBba9uqa
-         XHEUQe4xHqYmIbh5DOx4O/Vn+Q6TVpBAEcPgseyBtKY3nY+FqxNL2PA/M4oLyeWSP2Q1
-         I1QkiQz+Q+gatpF0WFCBNbbVg5rEUF2mDUoOOuunVDcKkNfxj+KxxW0D+ZR2S6NZCUXh
-         Rp1CSWMinem4X8kOVA4v7ZNXOK5PnNq4jSg7YSw5z6zcWDBPlVOKcfWwXzNDkC3H1iWX
-         zQppwFUiZgMjGVETCcxm+gf107DpVJDaqc5TekMfYSbPL6wsOaRP8bJr5ufPceDca+ly
-         5Z7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxKG/Of+q87/CoI5nlis9f/fAOgYpxAgLuzlQXovF/TU0eBCWhc1OIvl/ipVgaMpdck7VxdusFkM+jOLLk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAiLbU5fURmV5EOKWi3+LvkCeuIkYvKUaYWz/FrjR9UooJsq3J
-	VokOnXZoY6GGf+S0IkVMwmhdqCJNn+TXQRTXpebk/dPy7cu2LM5yZtaI4CFliVSlStYXMVzOFHF
-	2nuiHn8gT6AyvlvnaFNtDr7uEk49dCcqDzjHwRQiyZFVERoGzWvnPl5oKEzflgjc8t4w=
-X-Gm-Gg: AYBFou0Ut5r8yIkwzxCWjOW35SzXKg7vvi2krO7qJgMxqQZ0iPFYGY88salZuYuiPTe
-	0ru0MygQJfJ0n64VCZtWyslsGR6UQ17Lx5EeOVAfz77crgcFaxp1Mvt8rP8IoohexUgzZbXHGl4
-	9mMsVJniV2/bwM50zGIYWMzPt4QXHXFibcQJNqqLgwAdx+FXvRYGq8oW7CckeqA7qVkKKtc/hPs
-	cNj+7iPGV97NCk3BlGD+2siPXMUBfoM64gklWWHQAvQ6D1gF0M6bkP95h1o3gHDQeotMvpXE0Ks
-	XzrJivPtSaU29q4G/8e6NG+OeJ6Kaghxlqs9qiVXOLPppva4AYNW2/nAL6j7TMrszdN2epYNpay
-	mrfEW5scL+4HxzBj0YZqdfF3ftBE2+NU8IL6g7aXnL+1DO+F0XEoo6cT2ZMqck8lB
-X-Received: by 2002:a05:622a:1341:b0:533:36d3:1c81 with SMTP id d75a77b69052e-53336d31efcmr76941871cf.2.1790582321092;
-        Mon, 28 Sep 2026 00:58:41 -0700 (PDT)
-X-Received: by 2002:a05:622a:1341:b0:533:36d3:1c81 with SMTP id d75a77b69052e-53336d31efcmr76941681cf.2.1790582320648;
-        Mon, 28 Sep 2026 00:58:40 -0700 (PDT)
-Received: from [10.111.171.191] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223efcc4sm57093321cf.25.2026.09.28.00.58.36
+        bh=XhysCFeCFrK6Hy/AV9kl1/zr3IXUOwo2mfXgBsYx8sE=;
+        b=JPihjfMb3WY76x+yDC/RJKaFkXn/ssSQGuprdvgCJ3E76w9JNPtkZc+0KoaVwmKZYT
+         qKSwIAyohTIK8g0aukoajF4Wi0acP3C/4JUVISb7LW60+gPc0zJc7cflaDHwLdsZP3+/
+         hF/i6tA4Y8ESnzEfFKPwH6eNVu/ghuq6Vg90dkH6yWRForln4mK1aFYPLSoI2ozPaF5X
+         XOGQ4bKEkv3LLpq8VeP9Q8RMVs0oRqxm/vMg5xTmNz5S/Tc5LwDS1lbb3UKzItV7X3UN
+         OSvUVfXwrCizrL3GJT+ZdssP3Ts9PcJnPcczPqhMuqnZaInLhpqqUhdENvYWkrqer3OT
+         NH0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790582349; x=1791187149;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XhysCFeCFrK6Hy/AV9kl1/zr3IXUOwo2mfXgBsYx8sE=;
+        b=pwotffLj1i045iUx5e5z180qDl3NajVgGoUIcfzqZpxeyUaUVuxXkGsObuXuWyc41f
+         xh5GlsTkfH7fZcheRjrRa7rrOnan4gS2SjAAma7mSL3TMKplAhKjsnqU7lGGcF7SNVQT
+         LzGveL+lh4NvPUeDSajELTzg03ZRh85pfL40pWCo3dKuFDDxCJYjZ8/Rm9elKxkASVCW
+         s4bioGT+EK9+IdWWU62Nrt0YuP7AVA6u7XLtRrrn9b/SMkOWgNpl0R4l+q/AuIfRqZ4s
+         lNTH8L4ichPTrXNajawv+YZ1mIaGtG4kUYPk4oLQ6uoMIbPrTBhy77AY6hrdCJv52ipJ
+         PfRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDjuF7DbkuympPr+uldAn00saPiuiMZ8qu5n9MCBKNBxs4FlCrj+DlRemULu+0Q9IOR1ioMkwhILnPf08=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYS1zmCZKqeiQBJxpRa1G9bJOure6dA2wmMHbO2au8eRmLFqCs
+	j8wpxhtuYTcNY0R3H19/URWYZTzeI750aBkANW/2CckEqf2hsdNORo1zCSaE2B03JbQ=
+X-Gm-Gg: AYBFou0p22TIyf618QGEA04Ya5HYgdJV61WJ0hjNjGr9Jk3QRyyQgnOflBXlSIAMSBx
+	QPIocgOgOn8pLLK5HoZGeVpP4swS8u/dsXYtqjDuNldnNv2Ky/rD/fyIi6y0riZvYnoaMuBr0v0
+	0Zd6VaDBeIfL1jjJNcA3NTyqvUsJSr9AzRCxURzHI4ktZXKJWhMdEKLbjPN9r2W1wDTQy8P3fKn
+	QQZgIMJaz7e/RpdEXKzkJOI97vUj+T3kJ4VMBJpS0VdVX1QSz5ynAtZaZoS5SyrWfOfWvVc3g1E
+	Pg1NxD5QqtM0mcrA7Gw6HYTIxq+W+REItCJUVoM4TwcekmmZawY4WZT1PA3scBYexn61iNVIsof
+	Nr68AqZMKNRhnAMyoSkpygdqwcD6XCdjfJFxCvoa0KzEq91ePxDeWbj/RjXMlK+LMmg5MeDxAp1
+	+oTsAwBaTzSCb7kccHRBFFfp8nI/Fe3jjhkJ3EUYjobH2eZy9UkWx/qO8m1AjoiB5HK9QX8ySqM
+	BQvEu4p78RN+2VVxOzDJdn+PTdY0zpLoBkD8BwW/1IljL2H/TEmHQ==
+X-Received: by 2002:a05:600c:a4c:b0:49c:fa20:cc08 with SMTP id 5b1f17b1804b1-49fe67060cemr213903135e9.31.1790582349255;
+        Mon, 28 Sep 2026 00:59:09 -0700 (PDT)
+Received: from [192.168.0.38] (static-246-51-231-77.ipcom.comunitel.net. [77.231.51.246])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a007be0761sm21702035e9.3.2026.09.28.00.59.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 00:58:39 -0700 (PDT)
-Message-ID: <c6a4a9b2-b7d9-416a-a4b2-b669bcd52b74@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 15:58:34 +0800
+        Mon, 28 Sep 2026 00:59:08 -0700 (PDT)
+Message-ID: <bafa7204-1025-4db6-974b-1491d3cc48a6@suse.com>
+Date: Mon, 28 Sep 2026 09:59:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,86 +70,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] media: i2c: Add Samsung S5KJN5 image sensor driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org
-References: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
- <20260914-sk5jn5-v4-2-386e84cfb2b3@oss.qualcomm.com>
- <f653e9e3-6426-4e20-a095-5e2490afbbb4@oss.qualcomm.com>
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-In-Reply-To: <f653e9e3-6426-4e20-a095-5e2490afbbb4@oss.qualcomm.com>
+Subject: Re: [PATCH 2/2] wifi: brcmfmac: Add clm_blob firmware for
+ brcmfmac43456-sdio
+To: Benjamin Drung <benjamin.drung@canonical.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org
+References: <20260923203739.2560527-1-benjamin.drung@canonical.com>
+ <20260923203739.2560527-3-benjamin.drung@canonical.com>
+Content-Language: en-US, ca-ES, es-ES
+From: Matthias Brugger <mbrugger@suse.com>
+Autocrypt: addr=mbrugger@suse.com; keydata=
+ xsFNBFP1zgUBEAC21D6hk7//0kOmsUrE3eZ55kjc9DmFPKIz6l4NggqwQjBNRHIMh04BbCMY
+ fL3eT7ZsYV5nur7zctmJ+vbszoOASXUpfq8M+S5hU2w7sBaVk5rpH9yW8CUWz2+ZpQXPJcFa
+ OhLZuSKB1F5JcvLbETRjNzNU7B3TdS2+zkgQQdEyt7Ij2HXGLJ2w+yG2GuR9/iyCJRf10Okq
+ gTh//XESJZ8S6KlOWbLXRE+yfkKDXQx2Jr1XuVvM3zPqH5FMg8reRVFsQ+vI0b+OlyekT/Xe
+ 0Hwvqkev95GG6x7yseJwI+2ydDH6M5O7fPKFW5mzAdDE2g/K9B4e2tYK6/rA7Fq4cqiAw1+u
+ EgO44+eFgv082xtBez5WNkGn18vtw0LW3ESmKh19u6kEGoi0WZwslCNaGFrS4M7OH+aOJeqK
+ fx5dIv2CEbxc6xnHY7dwkcHikTA4QdbdFeUSuj4YhIZ+0QlDVtS1QEXyvZbZky7ur9rHkZvP
+ ZqlUsLJ2nOqsmahMTIQ8Mgx9SLEShWqD4kOF4zNfPJsgEMB49KbS2o9jxbGB+JKupjNddfxZ
+ HlH1KF8QwCMZEYaTNogrVazuEJzx6JdRpR3sFda/0x5qjTadwIW6Cl9tkqe2h391dOGX1eOA
+ 1ntn9O/39KqSrWNGvm+1raHK+Ev1yPtn0Wxn+0oy1tl67TxUjQARAQABzSRNYXR0aGlhcyBC
+ cnVnZ2VyIDxtYnJ1Z2dlckBzdXNlLmNvbT7CwXgEEwECACIFAlV6iM0CGwMGCwkIBwMCBhUI
+ AgkKCwQWAgMBAh4BAheAAAoJENkUC7JWEwLx6isQAIMGBgJnFWovDS7ClZtjz1LgoY8skcMU
+ ghUZY4Z/rwwPqmMPbY8KYDdOFA+kMTEiAHOR+IyOVe2+HlMrXv/qYH4pRoxQKm8H9FbdZXgL
+ bG8IPlBu80ZSOwWjVH+tG62KHW4RzssVrgXEFR1ZPTdbfN+9Gtf7kKxcGxWnurRJFzBEZi4s
+ RfTSulQKqTxJ/sewOb/0kfGOJYPAt/QN5SUaWa6ILa5QFg8bLAj6bZ81CDStswDt/zJmAWp0
+ 08NOnhrZaTQdRU7mTMddUph5YVNXEXd3ThOl8PetTyoSCt04PPTDDmyeMgB5C3INLo1AXhEp
+ NTdu+okvD56MqCxgMfexXiqYOkEWs/wv4LWC8V8EI3Z+DQ0YuoymI5MFPsW39aPmmBhSiacx
+ diC+7cQVQRwBR6Oz/k9oLc+0/15mc+XlbvyYfscGWs6CEeidDQyNKE/yX75KjLUSvOXYV4d4
+ UdaNrSoEcK/5XlW5IJNM9yae6ZOL8vZrs5u1+/w7pAlCDAAokz/As0vZ7xWiePrI+kTzuOt5
+ psfJOdEoMKQWWFGd/9olX5ZAyh9iXk9TQprGUOaX6sFjDrsTRycmmD9i4PdQTawObEEiAfzx
+ 1m2MwiDs2nppsRr7qwAjyRhCq2TOAh0EDRNgYaSlbIXX/zp38FpK/9DMbtH14vVvG6FXog75
+ HBoOzsFNBF3VOUgBEACbvyZOfLjgfB0hg0rhlAfpTmnFwm1TjkssGZKvgMr/t6v1yGm8nmmD
+ MIa4jblx41MSDkUKFhyB80wqrAIB6SRX0h6DOLpQrjjxbV46nxB5ANLqwektI57yenr/O+ZS
+ +GIuiSTu1kGEbP5ezmpCYk9dxqDsAyJ+4Rx/zxlKkKGZQHdZ+UlXYOnEXexKifkTDaLne6Zc
+ up1EgkTDVmzam4MloyrA/fAjIx2t90gfVkEEkMhZX/nc/naYq1hDQqGN778CiWkqX3qimLqj
+ 1UsZ6qSl6qsozZxvVuOjlmafiVeXo28lEf9lPrzMG04pS3CFKU4HZsTwgOidBkI5ijbDSimI
+ CDJ+luKPy6IjuyIETptbHZ9CmyaLgmtkGaENPqf+5iV4ZbQNFxmYTZSN56Q9ZS6Y3XeNpVm6
+ FOFXrlKeFTTlyFlPy9TWcBMDCKsxV5eB5kYvDGGxx26Tec1vlVKxX3kQz8o62KWsfr1kvpeu
+ fDzx/rFpoY91XJSKAFNZz99xa7DX6eQYkM2qN9K8HuJ7XXhHTxDbxpi3wsIlFdgzVa5iWhNw
+ iFFJdSiEaAeaHu6yXjr39FrkIVoyFPfIJVyK4d1mHe77H47WxFw6FoVbcGTEoTL6e3HDwntn
+ OGAU6CLYcaQ4aAz1HTcDrLBzSw/BuCSAXscIuKuyE/ZT+rFbLcLwOQARAQABwsF2BBgBCAAg
+ FiEE5rmSGMDywyUcLDoX2RQLslYTAvEFAl3VOUgCGwwACgkQ2RQLslYTAvG11w/+Mcn28jxp
+ 0WLUdChZQoJBtl1nlkkdrIUojNT2RkT8UfPPMwNlgWBwJOzaSZRXIaWhK1elnRa10IwwHfWM
+ GhB7nH0u0gIcSKnSKs1ebzRazI8IQdTfDH3VCQ6YMl+2bpPz4XeWqGVzcLAkamg9jsBWV6/N
+ c0l8BNlHT5iH02E43lbDgCOxme2pArETyuuJ4tF36F7ntl1Eq1FE0Ypk5LjB602Gh2N+eOGv
+ hnbkECywPmr7Hi5o7yh8bFOM52tKdGG+HM8KCY/sEpFRkDTA28XGNugjDyttOI4UZvURuvO6
+ quuvdYW4rgLVgAXgLJdQEvpnUu2j/+LjjOJBQr12ICB8T/waFc/QmUzBFQGVc20SsmAi1H9c
+ C4XB87oE4jjc/X1jASy7JCr6u5tbZa+tZjYGPZ1cMApTFLhO4tR/a/9v1Fy3fqWPNs3F4Ra3
+ 5irgg5jpAecT7DjFUCR/CNP5W6nywKn7MUm/19VSmj9uN484vg8w/XL49iung+Y+ZHCiSUGn
+ LV6nybxdRG/jp8ZQdQQixPA9azZDzuTu+NjKtzIA5qtfZfmm8xC+kAwAMZ/ZnfCsKwN0bbnD
+ YfO3B5Q131ASmu0kbwY03Mw4PhxDzZNrt4a89Y95dq5YkMtVH2Me1ZP063cFCCYCkvEAK/C8
+ PVrr2NoUqi/bxI8fFQJD1jVj8K0=
+In-Reply-To: <20260923203739.2560527-3-benjamin.drung@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMSBTYWx0ZWRfX4ndwXlI4ZAsd
- mmwxNIvqDrznBKicH7y0+NFRNxH6NZgEJI+5OJFhwOvk/gMXPhwCRHP7JMzbnLXNkAz3UnisyGH
- FZB2tn9YzHrOs0udU6uKH5WBLIRb4Ascsa6TLYSwKvOCNDALaO1NoPLFplqZOjK9b5MS1LX+h4Y
- JeBcqNlCDfauq5SKZwBuRMAkRBT2LjFbGmhBAiAUtuLs4eGgt49/pn1I20ZbdZi7ew7lIoBcQ2f
- lulcNVX3G0N3Gt0noINbLcFaKtc6egIgcojj5qxDAiLjpIvPG3dme8dbgY5QfZG82ChFQtMdoDJ
- 9XuMmJBSJYyZgOv/KABPW6ncYz+t9PpuMYEjPzpRkRIgV6cpL6TY8a/6FsW8ABQlId17wFFg7ZQ
- EEicA/Fg5ZXi4HWb2bKp3Y9jpl5eGz/H9ZEKUGoOkwRtXtjYlvqrtRfyA52n2aHfKY7uKLj2Ggv
- BbRBXFcV8Bg5mg1xp7Q==
-X-Authority-Analysis: v=2.4 cv=QsXLTlyd c=1 sm=1 tr=0 ts=6aba1e31 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=eETrMs8bDw3qfd9Ur1UA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: z_8LjTNTggWO8IFg9TSF-manVLnFWsIU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMSBTYWx0ZWRfX2E5soT9KGjDp
- qDQ4HxUCy8NOJbtiANctuwobjcuqDJsHK0uHPGqceq6PkEF+EoOnibDn7qbXEGbm54cz3l3eU21
- fbdQRO/zjjhe5hfi+vg9+041FtjeO6M=
-X-Proofpoint-ORIG-GUID: z_8LjTNTggWO8IFg9TSF-manVLnFWsIU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 malwarescore=0 phishscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280031
 
 
 
-On 9/23/2026 7:11 PM, Nihal Kumar Gupta wrote:
+On 23/09/2026 22:37, Benjamin Drung wrote:
+> On Ubuntu 26.10 these firmware file are missing inside the initrd when
+> including the brcmfmac kernel module:
 > 
+> ```
+> /usr/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob.zst
+> /usr/lib/firmware/brcm/brcmfmac43456-sdio.clm_blob.zst
+> ```
 > 
-> On 14-09-2026 16:40, Wenmeng Liu wrote:
->> Add a V4L2 sub-device driver for the Samsung S5KJN5, a 50 MP 10-bit
->> RAW MIPI CSI-2 image sensor. The driver supports the 4096x3072 mode and
->> exposes the standard controls (exposure, gain, vblank/hblank, test
->> pattern).
->>
->> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->> ---
->>   MAINTAINERS                |    1 +
->>   drivers/media/i2c/Kconfig  |   11 +
->>   drivers/media/i2c/Makefile |    1 +
->>   drivers/media/i2c/s5kjn5.c | 2861 ++++++++++++++++++++++++++++++++++++++++++++
->>   4 files changed, 2874 insertions(+)
-> Hi Wenmeng,
+> So include the clm_blob firmware file for brcmfmac43456-sdio similar to
+> the other firmware files.
 > 
-> This series fails to build against linux-next(20260922) after:
-> 
-> 7eef49c16461 ("media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops")
-> 
-> s5kjn5_set_fmt() and s5kjn5_get_selection() need to be updated to
-> include the new 'const struct v4l2_subdev_client_info *ci' parameter.
-> 
+> Bug-Ubuntu: https://launchpad.net/bugs/2168109
+> Signed-off-by: Benjamin Drung <benjamin.drung@canonical.com>
+
+Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+
 > ---
-> Regards,
-> Nihal Kumar Gupta
+>   drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> index 3cff0f1fe25f..cea52d408817 100644
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> @@ -618,7 +618,7 @@ BRCMF_FW_CLM_DEF(43430A1, "brcmfmac43430-sdio");
+>   BRCMF_FW_DEF(43430B0, "brcmfmac43430b0-sdio");
+>   BRCMF_FW_CLM_DEF(43439, "brcmfmac43439-sdio");
+>   BRCMF_FW_CLM_DEF(43455, "brcmfmac43455-sdio");
+> -BRCMF_FW_DEF(43456, "brcmfmac43456-sdio");
+> +BRCMF_FW_CLM_DEF(43456, "brcmfmac43456-sdio");
+>   BRCMF_FW_CLM_DEF(4354, "brcmfmac4354-sdio");
+>   BRCMF_FW_CLM_DEF(4356, "brcmfmac4356-sdio");
+>   BRCMF_FW_DEF(4359, "brcmfmac4359-sdio");
 
-Hi Nihal,
-
-Thanks for point that out, new version has been posted:
-https://lore.kernel.org/all/20260928-sk5jn5-v5-0-19aa0a0a68eb@oss.qualcomm.com/
-
-Thanks,
-Wenmeng
