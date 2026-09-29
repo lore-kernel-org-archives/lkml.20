@@ -1,195 +1,227 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020074.outbound.protection.outlook.com [52.101.84.74])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E4639CCED;
-	Tue, 29 Sep 2026 07:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.74
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666001; cv=fail; b=uiL0i1owTH8nlwjQt9Wb41xpzqIc+N0nHYfieyb0ig/+l6fvJ60TSZnq7OEAMkUfim2f374JqJ0ILq5hNIRm7ehwk95lffWJdkTe8JcoCBdfG+BK8LSmzWmM/KFdPQABWE9JWGG6SPioFsCcJawtvXd80EZgnDTVJElb0OLFx2s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666001; c=relaxed/simple;
-	bh=DOVySxW/M/aaRInAlTC4eXe/vjjCiAYvn7wBnnM1T00=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=S5+XCmGrbtRzInXdwGvjLmtZ0ItLuus9tdrDH4qss8093BHj3hMhdqpiz7acOPX01Qd9Of2VmkMD405WCN9UKiRxRcYMTzYOdnBU5Ld/Llx5fkTJXWYPoneSfu5aTC81/wRZTCS4gIy5CfAO5LEDj0z5uLcxNj2tvj54hwWChgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=sDko/Z6H; arc=fail smtp.client-ip=52.101.84.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0128439C657
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790666017; cv=none; b=ZhX+lsnpUmkdVAqbK49Zo9OPRfPtL7+4IQ+mvXJNO+d6rL7aCoFC7F8QZp552MnNxJ2u9JB3cC0DA2/TZUk1tjvWgq9g2dw/Ixc/d0aMWT8rCzBQOteHeVhALHThurnnEO+cjFJvps0C7T9Mci4icp5NfzWbjPj/DwK1y15KZD0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790666017; c=relaxed/simple;
+	bh=OD/2Z9i5FlYVANmscJPSCqUoHst2gkiQD2aSmRFY5y0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QBk5Jp7hTC9JvZSxlS9KANIyuvSPbqEJtmsBlEelK4og1NZDJGQXJ0M6xVZ6VNQTGmtGhBSwvKXFiGJlgK7023LHDa6eG+UXIgCyWNw/ihzpab578X5bDc7Z95mUi63vRASxvLj45wdXlHV9BAZShbSaZjxJRsJAaeqvcz7MIQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ppg4JIaN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ayq/Caop; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="sDko/Z6H"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vi3sUeJ3l0HR8eWumFrawRWP3sSAAyWlEsWjjQQac5n6S7urgpCUXYX8jjQwTJsHyaMw5gP9+NeU/rN2wNjItjrjrI9he9ujHILmYsiJJVkXs91RczNad0DD8fv2if4fy0bxc0sBxcUQb6zcwJAjHA5jXzPl1MbB2OMyTFbZOgQTjiH76RlWrBi9t/eVW4+aJOGEMjqvHjcEegW1oO6fgUkimWF+4VO+y2oQALd1kbti8tDGD6OzdgXI4jOfnjPvGYFwsLYo6u2TCduRc33JnIh69YbJvq5cQQFEtHY+PgeRDi/NgqH0KfDI6YMo9eyqlEmHLdA/usdZh69ODrgdmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DOVySxW/M/aaRInAlTC4eXe/vjjCiAYvn7wBnnM1T00=;
- b=uJAdSyCM6I2wlaq4cNXysNpsE1UVJpaCdfKQy2Pp0p0jkQTLdLBlsAl/yBRt0JRHJEgXxaUm6jSF/N5CB1Bbv+HMpqU4n+vrcFihRkVwJJ0SOpj3mVtTgOOpNocIQFqBdJb2MzZSabyaFtvJK8+nFeFagDxfd4LdNge9rOHKPjB4ZTECEk+cnmLbo/v6WGAIBbe9Z6XCPblqu4CeRS83LSAcdMvuxbkE0L3zsHnLHXJZRyGFhgCiIjHufROTo2B/xZ/6X6YF4dkBqb0JZOcxYlxe4eAq5Qw2noQiMnyFwaiWWJ4QK37vJlByz7QST26oNMA+i4SU3q+ukKxVLlV51w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
- dkim=pass header.d=vaisala.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DOVySxW/M/aaRInAlTC4eXe/vjjCiAYvn7wBnnM1T00=;
- b=sDko/Z6Hufebnc4RnV0WVYPoxJ+buwNeZo7DYOn0rXp6ECrcPW1GdeEzZ38cVCn12ttdIc9BE+2DnxtEKAIzsidvkRiAfgYmAQUHgQzcEXXiBU0J9hWdv/c59I5tbktaee9ZVOe9a7i9grveazOJ24JWQu0paNSgxN0xf5S6ljhzoAQsurNSIBLYQ25WWICF0CndY53p2Iagb0+vR3r9lnHYF1tMgUQtATkvEGzfGnJq/rOnhqN4QLn+FQmG4r1xPU8dXRG1DDTq0Jq0HLPdPxFSgJbkfUNKRgq8sKD8+lH//wI1qZYKCGUjYq2Wbt3bejUw8fN4Le89FZxpoy9qUA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vaisala.com;
-Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
- by AS8PR06MB8345.eurprd06.prod.outlook.com (2603:10a6:20b:440::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 07:13:06 +0000
-Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
- ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
- ([fe80::a597:33a7:d4e2:1b17%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 07:13:06 +0000
-Message-ID: <97b4259f-7438-4d6d-8dde-2f1090e425e5@vaisala.com>
-Date: Tue, 29 Sep 2026 10:13:04 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] serial: max310x: drive RTS in software when hardware
- delays are too short
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Tapio Reijonen <tapio.reijonen@kolumbus.fi>
-References: <20260916-max310x-rs485-sw-delay-v4-1-d37a694342cf@vaisala.com>
-Content-Language: en-US
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-In-Reply-To: <20260916-max310x-rs485-sw-delay-v4-1-d37a694342cf@vaisala.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GVZP280CA0007.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:273::11) To AM9PR06MB7907.eurprd06.prod.outlook.com
- (2603:10a6:20b:3a6::23)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ppg4JIaN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ayq/Caop"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47Ucf2991431
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:13:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=aRA7DODR2959lHEtpusPTNFu
+	ptGLf/zMYDjv6njZNl0=; b=ppg4JIaNJrD60qPhc3j5QQ2Br97bfPxdFzjvjiAH
+	wVEg2El/VgB1E8kCP2fxP2I+Bb8VSI6MgatqI5IKjhXWtaeY/LK1d9vYP1KKLmry
+	jOZ/m8gusaZI7lLOH9Qv8iDEJfS56NdIbO4fRANNs5+O31eR0EAQGLk1dEEM+w4b
+	SoAk2yyRrN5k5eZ1PYf3B2Jz9UYqH4HMzpxe8C9t8u9f54LcBRJw4zMr0FDHjnoX
+	BLZZrFNxjAktdirKEzOC3XZWk25lJLXwD2aKr13UFF8Jxo9OGH1aF492qZGEfUqM
+	uYy6NVQ5IC5zkBO+dIifZKY1hE5wuLx2L7xPazOfkrTsDg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyvwnaqk2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:13:35 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c444b438aso834306585a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:13:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790666014; x=1791270814; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aRA7DODR2959lHEtpusPTNFuptGLf/zMYDjv6njZNl0=;
+        b=ayq/CaopsnaAu8Bvndioau0ZnOZQEQQ/5Stz609XV2KRJXObQYDdI+EUL6/urxvD3z
+         Hw8A3aRh4CsFWhaItAWw5ucbkmerHP9qlOEI2afZSxs8xZP9VZX/s/meWvAI0GEg056L
+         H2EmekYNj7bQ9CmLIQx43Cpointkbd6+Yjw/EwCQ/PROB45KBvv27KhDwGR9Gx7fP3fb
+         5GxSShSq52p43uy2Hlo/h+DgxxLvjD5HalFOtSeIcoaASx4+iYts59dCj3hcT1R8AwGZ
+         j+yW4mbhRGJspJxULnjvA7XqqSfxQ+xqtCySjGiajaxCZ42UCECpMJQ4WUauHHSiWYYQ
+         s68g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790666014; x=1791270814;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aRA7DODR2959lHEtpusPTNFuptGLf/zMYDjv6njZNl0=;
+        b=EPUebxD5kVUuIlR6+uS1uXBjNOwvULEmOzAeOD+CEL1c1z2xX5zzOYfQCFSYyCm+qL
+         EHJpDOdnQyNLW9GNwdgMG2T7L6ybRndi6mweIz8HLbaMjHrKCU2laTckYq4PR1Vywkc9
+         j9gg6iG/vPugUpBypvIHVJiqRWRFQuUcStx0asgueL40AGPgCjFl2XKIfeeIJqJ3t8Ay
+         edMdWG91RWY4sjU7ZWaR/Olia5MVxRKvSN/NUIAiF2j9nzasjj17L17P6VC8y4xfhR1n
+         0/8UMmTWF3aWDM+Vcm3WGJuBouRQhY04BJXvHowDVCPGSVCpgD5VCkLrnseJAbTdnNfy
+         Gpjw==
+X-Forwarded-Encrypted: i=1; AKwUvByfxjYtXA3M0JSABJXjjNpqy4B25IqnOjGUekEwo9A1qXsen6Gdy/XFffc4t7dElE1d5J62TAYX4WiSdSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1zCKtN2EyJ38yJVmFkcUlXIGxP3/SCqBMrJBQwXNTBS/4wDWu
+	J2Vpo03NUNAzulySh4sHiCM3rQAY0GxlfXKXYjEMWdyDJtDAV0Hr/Fod6b64jl/qy9TSEHlElQm
+	2RPCnQYuhTyGNEJubEBTBMlGqrhQQMSfoqRAKILAowigz/sX0dSkbsozNA5Pg0ioU1LM=
+X-Gm-Gg: AYBFou2QDUeosmd3Iza80EaXnxRb0Nksce3ongEf2zjx/hxYNOcrIhL8LgQObZlo7qG
+	4q3vAZbsYtObDdz/IL9SARgBOBzcr/XLHjBiLSSshz/Bj86xWp5HhcCKSPw3ykSaas+anF+LsIq
+	AWCZSzgL48VsIv9cHDNuwZeGBqREbrgzkXPpdvnYoNPdWdnbTBZxTG5/cblSkWlCtSqESOmfUyc
+	oUtHQTtes71oIB44+mRe8it9w0tpfXnjNHgA87d+6XmDZCiHp4WIvqsf87HAVxpoNzkITuYrCHV
+	+QBPSW20cdwW2ct8MNGBxrEQ2l5q6MQdr1eNHnXtI1T1ex5kZsDx1bXkkXyLA2MA7vCVmtGeZCo
+	rYaWBxkhIttvNHg==
+X-Received: by 2002:a05:620a:404d:b0:93b:ee1e:6714 with SMTP id af79cd13be357-93c43d2359dmr2340390085a.60.1790666013984;
+        Tue, 29 Sep 2026 00:13:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:404d:b0:93b:ee1e:6714 with SMTP id af79cd13be357-93c43d2359dmr2340386485a.60.1790666013318;
+        Tue, 29 Sep 2026 00:13:33 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507f33fsm1745638f8f.24.2026.09.29.00.13.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 00:13:32 -0700 (PDT)
+Date: Tue, 29 Sep 2026 09:13:31 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+        davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Nicolai Buchwitz <nb@tipi-net.de>,
+        Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>,
+        thomas.petazzoni@bootlin.com,
+        Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        Peter Robinson <pbrobinson@gmail.com>
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Don't set or get RSS
+ parameters when not supported
+Message-ID: <artlGxdHjIKyuPuP@lore-desk>
+References: <20260928145043.1228968-1-maxime.chevallier@bootlin.com>
+ <20260928145043.1228968-3-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|AS8PR06MB8345:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3ba5ed7-8bf5-4969-0c91-08df1df91bbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|56012099006|5023799004|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	kFHpc6XeSTYBru+PDmZxEZ2KQ7ZHD1iXx3T6f3mnSIZIwvjyO6oRQtfts1BtkuT9OEUChzoXQmjlm+dSMBYV5f+CtAenyy+kOkhx/zTvUajFfFJ+GbD1tb3f+Tns9O3KgmpZRyxTlMcpNWFSdaAXzG4W3EwGAi5/2MmIoOXtlO6bo0dk7U4G5wVS+N/1HmH0y6+T/JrCrMIZmMSt1KLbacOXuN3QWjtvp1tVOYW6NpReoRfTqAExlCvYuCtEHbrsISpFHkXv4e0HfDS23d/ovQ1pfESnldPTI+jKw43sCVVMWguLPGQUXfZYdWATwYfXkpp6Vyz9k369yTLLruh6NP3SsUvIrI8EZbRZLQw1hjfiZ60NXlfZBkTHzaAmUJ5C8t32KCNetDHPQoVk2iq9cHngt5egIUatm+ZJGRPTj7VtdYz3vF9Y+Deg4UnZrcAGkDcJNpiPRW8xZFuKpjJpWnVxaXKZYv+lJOxoe6km91SKpSSAye4ZVpBndBKPu6X2QXDCHdS69FUYXr/cXjhG5A1Tluh1xiflmmtXXpLF30BKGytEjHw6xbKUYFsxkPK7esHQ/l7Rr8mPzUTF5li5qzlqC+yJ98hRC5zqu+zuY3VVXPmVIP0Y2xlk8E6NaRNT/favlN56wpvBYnS+BR7ObB31VplkUm62km798ODGkEw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TEU5WGFSbWk5emNUMDdlWWtGNTcvaVl4bTVpdEF3NmdnYTNDK3FsVkVKeGNE?=
- =?utf-8?B?eU1TcnpCQUYxYmMzdEIvVU1iQ0t5eXI0Rm1BMmNnajA0L2ZKc3NhOXE0eWpw?=
- =?utf-8?B?SkIzVERDTEt5dGZId2oxTURLc05hUzUzd3JrK3lTZVRMOVluc1Z2ZnE3ejFO?=
- =?utf-8?B?cXJoYmw0YThJZnp6am5MS2VLMytGZTlySHFWdE9kMXNSeWl0eDRLWXF2YmlT?=
- =?utf-8?B?eEJkcGdtNnBYOVErMm5yZUxWWFZNckEzM1JlOWNTVVNBOGVmZHNiQjFnNmUx?=
- =?utf-8?B?T2g2R3NTcTFpZnEwMnpwSlNiMURWVElaR2lQZkoxeXNkbFZISXZoQ0J0UVRa?=
- =?utf-8?B?WDFaQUkva09hK0t2ME5WOWFncmxabXZrK0k3VkpxWG5xWXg0YjRZU2lxU3VB?=
- =?utf-8?B?Vit3NGdkejhBV0JaN25ORlZOUERRTGdXaXlaT256UzBaRHlpdmNxYzRqZUhB?=
- =?utf-8?B?UHpQMDNiS1I4R1VaMkhPSVpNRjNHaGNIckhZTVRIaFEwU0dhKytoaE9JVE9h?=
- =?utf-8?B?NU8waTR4bC9sdVlXcEZiN2lYdUQwOENDZHVCVWlpYmFGZ1o4TVZGWVAzclE4?=
- =?utf-8?B?S3NtSUMrbEY3Y0pSMGpIaWQyWWw1MGxOc1piS2VmdDhnVmVobHZ3N2VCbVZp?=
- =?utf-8?B?bDUrMzZvbHp6K0Q3VDlOY2p2WlMwOE0vdGxpUzZyYmdSRHdGWGN0a2RzamVh?=
- =?utf-8?B?WmdYNFRqM3Y5eElSSGJsRm1IWFdadGFPamtXTkw5eGdtTXpBaFBJNUlXOGEv?=
- =?utf-8?B?NStlL0dxaHhFaUl0anpBdzBpckY1UTA2Y3U5ZmoxYlFnQVNlMSs1dkNpWEpU?=
- =?utf-8?B?QkhXUW5FSy92QlVGUnRjcGRPZ3JNRy92KzJ0U0ZYZUp1R3daOThzK2lON3VJ?=
- =?utf-8?B?U3h6djlFckNHa2lGb3pPNnZWNVMyTDhYWGwzbHd5TXluODNFd2Rma3AyRlNL?=
- =?utf-8?B?b0dOSmVMRGxyL3ZLQlV4U0RLQlZMcmYvZU94NVhmNTVHclZVTC9Zc3pSVlVK?=
- =?utf-8?B?NDRyZ1l3Q1RLWDRQM1YvZHZIa0RWMERobmovbG4xRUx1YU5VeDZKUE5DaDJ2?=
- =?utf-8?B?QVpVUW9TYWdQSFFyV2Y3Zk1zVzA3T2o0ei9xZmxkYzI3dnNTVVl0YStOV0RP?=
- =?utf-8?B?dWRkcWNIMFJ3aW1LaWkzWnN5WTVycmxwbEUvYlJucGY4SnVkZ2FzNSt5WUJk?=
- =?utf-8?B?cjVHd3RYeWhQZnZiS1ZtT3FSaUQyVWNTb2F1M2RFMzcycXg2Rm1Zb1NtTEUx?=
- =?utf-8?B?eUVSeEF5RU55MHRjL014cm9PL1BHUDl4TXprSWJUK2tJaW1pdG4rVkkyalpY?=
- =?utf-8?B?TEthTjBoRkhGaGZ5VUlzL2E2QkVWdWhzdzNCTmdBYlJyM2FaTzRYOVlDakxp?=
- =?utf-8?B?cFhWVkllQkJqSWFlTXEvdWFIZWhDMmhTNGRGa1pyZFR3ZFdLVlJEOWMrdGF5?=
- =?utf-8?B?UlZiZHQ5cm8rOHdOajZsU09XRGN6eW5NaDkvdm80UnFrdUc1dkwzeXZPWlQ1?=
- =?utf-8?B?ZjVDYjdMRXQ5bFdNV0xEUUp2VGFsRHhabWlXWG42SmdBOEsxNG5YYjdQWkFn?=
- =?utf-8?B?OVo1QmxZUjQwV1gwdXlWS3JlSVpQOWFGcEVIaEM4blB4TVlpVlU1dDdiZkEr?=
- =?utf-8?B?UXpOZUU0aVJ5Ni9GblFZY1pkSW9yR2JFdUJIQkx5Wk1CeWtzdmNiNE5Sa1pC?=
- =?utf-8?B?bnZzWlR3Z2JwR2JIRGpqN3U1VVVqVlBpK2I1bTd5cHBtTk9nMWt5T1pySmNn?=
- =?utf-8?B?blJXeFVHR1g1dUdFRzFNOGNwODY0ZXkyV1FRWkdVWlRZLzJkaHE5WW01dmYw?=
- =?utf-8?B?NlNiOHBlM0MvZDdXWDRIU0JTVzU2R3hwNzdHM1VqbmtQb2N1NlNNb2pXK1lK?=
- =?utf-8?B?NUVNV2JuaDZOY1JTUVNSckptbXBKVEFNNWJwTW01Z1NwZzc4WUZNc08vcGYy?=
- =?utf-8?B?Mkx2R2dldTA5VjR6bmxUZDZEdytmT0NSM0FaZ00zTjdDMVQ1L3ZpM1ZYa1Vk?=
- =?utf-8?B?RWdSMk1jcUlTSjlNSjEzdUJERWhwZGp1TXV6R0l6TWFwN2x0RVlENEdTTStn?=
- =?utf-8?B?VEgzZGJBOTYzWlB1Yk1KQ2tHUTFnNU5CUDFKQ0g4Tzl1OTdUMjc2alkvM1BB?=
- =?utf-8?B?VC9RM0JUK0syaXNsQkd5QjdpWVZKbHUyb0dMMUVhNTU2dDJsTzh6azN4SW04?=
- =?utf-8?B?Mithdy9tRitBOUdtakVCbFlyNkJ2MDU2Nm0yaDNybTh3K2FiUS9ORDVpdGZK?=
- =?utf-8?B?WWNzVmRqS2ZhNThlRTEyZmxHY0VacnNUdEh3Q3FBbUMxZnpJVUJsM0tVa2lu?=
- =?utf-8?B?eTBscE5YeVIveWdIYnhXblhpR1VWVWhuYml4L3ZjeEZnSzQ0RDB0b25Ta0ox?=
- =?utf-8?Q?7XsQPCtR6G6h77KQ=3D?=
-X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3ba5ed7-8bf5-4969-0c91-08df1df91bbf
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:13:06.0790
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MYM4MS0rIiRGfTC6Lv8dTLoMCoQueT13/ck5wQGo5wWzJ4d+FnPJWBBwjMGpAX56LLm+e/tFc1CzrHOs+hM6xy5MRYngk1Okbb98ihADm7Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR06MB8345
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UlNQx2lngAS2JeLJ"
+Content-Disposition: inline
+In-Reply-To: <20260928145043.1228968-3-maxime.chevallier@bootlin.com>
+X-Proofpoint-ORIG-GUID: 5Wo7rvPWia_RCNXT4lMB18aoy-oMqbeu
+X-Authority-Analysis: v=2.4 cv=W42txhWk c=1 sm=1 tr=0 ts=6abb651f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=P-IC7800AAAA:8
+ a=EUspDBNiAAAA:8 a=8xPVtbtLPbnhiEF_wpUA:9 a=CjuIK1q_8ugA:10
+ a=pZA6dvReJZDbMZWyEwoA:9 a=PEH46H7Ffwr30OY-TuGO:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX45GdR0Rlrb+o
+ 7Kyn2jgTvsfpyj4gmTFecffPidlj68tYpkNur5LRz+B4HlLfNADHJyIiFm10lO29nqGvW7xvTQw
+ NYq6Q+2ylBPz6QnW7miGBUv5bZV415a4ho9RgTbfyoP6pkFoYwZODPohKF8lm75vgIJxzC+iQp5
+ hutC9h1o6N8v2TbPQnxqx04dsFuzCwLSiKVHZfrtVbM+l5liRPRaEKoV/RQcr0jC1bcmFNsPPOK
+ OPUmmwQUHBJ7Y4TFKf3zg05MXOAIfV7bNJw6czR/twiLYvwkB/2rz7Onr4z8uqYhUWb9i4NoCvC
+ RPx7X3UQ8UHqaODM0stdHUFxH+IFs7+fVihIC0KCS8UyjvXUEJJNwRU2R46fwvm8stJq7fGMFvx
+ Y9rsdqFw37iRx0nTuUypntS7NMPgLFxvj+Mi6QCi+f7CTqBfVj/Q/CLJnQYAQGT3LP9BzMcB5tN
+ B/oHYTai/ck8IlJMgew==
+X-Proofpoint-GUID: 5Wo7rvPWia_RCNXT4lMB18aoy-oMqbeu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfXxXdNd7fDSqaB
+ ucouspajd3BlwoCdaAaMfpMuZctNBCKchKdHRqbjIYKz3QnN1jCWLKd9E6k/rTtvY62HJOszZ+w
+ aRtYAVKcwgAIzftfswN6nuZvWKgl4eo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290028
 
-A belated follow-up on the three findings the automated review raised
-against v4, since v5 (split into a series, as Greg asked) is about to
-be posted and changes course on some of what earlier replies claimed.
+--UlNQx2lngAS2JeLJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The short version: two of the three findings led to changes in v5, and
-one of those corrects a claim made in my reply on v3. The third finding
-is refuted, and v5 adds a comment at the spot so the reasoning is in
-the code rather than in a mail archive.
+> The RSS kselftests fail on stmmac, and this is partly due to the driver
+> reporting bogus data for the RSS ops :
+>=20
+>  - ethtool -x reports an indirection table and a key while the hardware
+>    doesn't have any of that
+>  - ethtool -X fails with -EINVAL.
+>=20
+> Let's return early in the rss ops if we know the hardware and platform
+> don't support RSS.
+>=20
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-On "races from dropping port->lock in start_tx/rs485_config":
+Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-Right bug, and my earlier assessment was too narrow - both of its
-scenarios are real, although the dropped lock is not the mechanism.
-->shutdown() runs under port->mutex and ->start_tx() under port->lock,
-so they never excluded each other to begin with: the window is the
-whole of shutdown(), not the unlock. The same shape exists in the
-rs485-disable path, where the sharp end is silent data loss - a
-write() racing the disable leaves its bytes queued with no envelope
-left to pump them, and a following close() discards them without an
-error. In fact this finding and the two shutdown-related findings from
-the v3 round collapse into one defect: starting a transmission had no
-teardown interlock. v5 adds one (a tx_teardown flag set under
-port->lock by shutdown() and the rs485-disable path, checked by
-start_tx() on entry and again after the dropped lock is retaken), the
-disable path now restarts TX once the reconfigure is applied so the
-queued data goes out, and shutdown() also cancels tx_work, which was
-previously only cancelled in remove().
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drive=
+rs/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> index 154cc0c7623d..b78dc301d70d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> @@ -927,6 +927,9 @@ static u32 stmmac_get_rxfh_key_size(struct net_device=
+ *dev)
+>  {
+>  	struct stmmac_priv *priv =3D netdev_priv(dev);
+> =20
+> +	if (!stmmac_rss_is_supported(priv))
+> +		return 0;
+> +
+>  	return sizeof(priv->rss.key);
+>  }
+> =20
+> @@ -934,6 +937,9 @@ static u32 stmmac_get_rxfh_indir_size(struct net_devi=
+ce *dev)
+>  {
+>  	struct stmmac_priv *priv =3D netdev_priv(dev);
+> =20
+> +	if (!stmmac_rss_is_supported(priv))
+> +		return 0;
+> +
+>  	return ARRAY_SIZE(priv->rss.table);
+>  }
+> =20
+> @@ -943,6 +949,9 @@ static int stmmac_get_rxfh(struct net_device *dev,
+>  	struct stmmac_priv *priv =3D netdev_priv(dev);
+>  	int i;
+> =20
+> +	if (!stmmac_rss_is_supported(priv))
+> +		return -EOPNOTSUPP;
+> +
+>  	if (rxfh->indir) {
+>  		for (i =3D 0; i < ARRAY_SIZE(priv->rss.table); i++)
+>  			rxfh->indir[i] =3D priv->rss.table[i];
+> @@ -962,6 +971,9 @@ static int stmmac_set_rxfh(struct net_device *dev,
+>  	struct stmmac_priv *priv =3D netdev_priv(dev);
+>  	int i;
+> =20
+> +	if (!stmmac_rss_is_supported(priv))
+> +		return -EOPNOTSUPP;
+> +
+>  	if (rxfh->hfunc !=3D ETH_RSS_HASH_NO_CHANGE &&
+>  	    rxfh->hfunc !=3D ETH_RSS_HASH_TOP)
+>  		return -EOPNOTSUPP;
+> --=20
+> 2.55.0
+>=20
+>=20
 
-On "torn read of the 64-bit one_character_duration":
+--UlNQx2lngAS2JeLJ
+Content-Type: application/pgp-signature; name=signature.asc
 
-Valid, and my reply on v3 overreached when it said every value the
-driver can hold has a zero upper word. That was board-specific
-reasoning stated as a driver-wide claim: with a low reference clock
-the no-PLL configuration can win, the baud floor collapses, and a
-12-bit frame at single-digit baud does exceed 2^32 ns - at which point
-the bounded-shutdown-loop argument from the first round falls with it.
-Rather than argue reachability, v5 stores the per-character duration
-as unsigned int microseconds: single-copy atomic on 32-bit, so the
-torn read is gone by construction, and three of the four users
-converted straight back to microseconds anyway.
+-----BEGIN PGP SIGNATURE-----
 
-On "tx_work bypasses the before_send delay":
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCartlGwAKCRA6cBh0uS2t
+rJCeAQCl/sM1/UiVOqNd4jhL5Oy3pU029vOCKWXEOSlJSz+XZgD/d+i/oeT18HiZ
+DpFlaHzEx66iglM4gU7yoatpOMjQPwc=
+=kiG3
+-----END PGP SIGNATURE-----
 
-The premise about the code is correct - nothing in the TXEMPTY path
-checks tx_state - but the scenario is unreachable. TXEMPTY latches on
-the FIFO's non-empty to empty transition and the IRQ handler's read of
-IRQSTS consumes the latch; that read sits upstream of the only path
-that ever deasserts RTS, so whenever RTS is low there is no pending
-latch left to fire. (If the bit were level-triggered instead, the
-handler's read-until-clear loop would never terminate on an idle
-port.) A write landing mid-envelope can reset the phase and pay one
-extra before-send delay, but RTS is already asserted then, so nothing
-is shifted with the transceiver released. v5 adds a comment at the
-TXEMPTY handling to that effect.
-
-Of the two pre-existing concerns, shutdown() not cancelling tx_work is
-addressed in v5 as part of the interlock work; the remove() ordering
-remains out of scope for this series.
-
-Tapio
-
+--UlNQx2lngAS2JeLJ--
