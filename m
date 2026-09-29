@@ -1,101 +1,163 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-43.mta0.migadu.com [91.218.175.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E4A41A92C;
-	Tue, 29 Sep 2026 06:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507E941A92C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790663135; cv=none; b=g86bmXb0H3n/QzOOnI6BRq3s8bM2gg2YU7HV7sx76w0JpQpV6mdZbiBNauQd+15axyNzutuJ/PgiEp71ojnE6EyxefLSPmDijzZuJIFPSmNGpSbPQ5x209F6LXSVCrynhQ9FPUYl5Um/FUbzvUrSB0FCeTud2pDENftuzhg6dN8=
+	t=1790663188; cv=none; b=Rz78eG+daIU8lFVOKjwLq+TeF4IpRpu1Hp6HwpGj65/bVle8pP8NW/cHmo/NkYOg3IRPowvMlCra5S2OQsWGLiiRXkmU/O7aDLk6pjCyMUGhVlh/+OfDyZSsh7csNj3Lbh12tLMYqRZVV5r4Gy3ze3o1XrETcfO185ktr4nnEE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790663135; c=relaxed/simple;
-	bh=quxAoFc0jh8sRiiUgmMr/Pgb3tJBWNr4iLfGz2B0/EU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Dy5J0uXIj4gMgEPJ7uLRe1fNDDP3RFNaw+RcwarCao5nKXSysIGMEDK4FdDi1j6DKTih/LMfDYGLIFe1C0FaMoo/3NynU3qx1cbG66sEUOE4dRA0i83EFOhkmNRQE8IKCLBIs+eDJ2ecV3MGX4P+L3/rv9h/6uRMZC+1pxMUakY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=u+sDz2lI; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790663188; c=relaxed/simple;
+	bh=jUvogs66QM3UZRwtzv4kECXAX0N6N/SMMnyGrD9T0CA=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=hivPaJ87lpWA+nI9F/ER7oGlneIePWcpa9ltY7jU5t02KknEAAkugmzJejpG7UYVKe1xaya9J4RZxeK3XZ9KMAvSDzxbqXFDjKM/VeSVH1+aKr5KTc8GkrpM54GBXx+s+MNGfR3iz2469euuPFjoa16znGvIM5+kiZ52KOWrjBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tX35khiy; arc=none smtp.client-ip=91.218.175.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="u+sDz2lI"
-X-UUID: 8b7f720abbce11f18dc8c9802ae25ab1-20260929
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=4BBaoZ4uoulOab2Cr6EQ3iDBn+vLxKq+FxX0x0G4yZE=;
-	b=u+sDz2lItx93DHdhddJWmflhLVux1w7e0VWYl38mvTjrLTqlQWdiFFFkU9yI09EjIpPtAD1H+dGl12lyr4WxFoD5dsnla3E7uxBws8/do5eDjm7Q6BbYsD3mYmOWpkWGvj+8YroZD0rJWU83mfWOiLE+VRccqVaypUCxn6I3tuQ=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:6c1e87c9-61c6-4adc-8993-cfdefa23457c,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:291e20b,CLOUDID:c7359f34-37f0-435c-b265-a3ddc15fd61c,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 8b7f720abbce11f18dc8c9802ae25ab1-20260929
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <tim.kuo@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 164707656; Tue, 29 Sep 2026 14:25:20 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 29 Sep 2026 14:25:19 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 29 Sep 2026 14:25:19 +0800
-From: Tim Kuo <Tim.Kuo@mediatek.com>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, Steven Liu <Steven.Liu@mediatek.com>,
-	Sky Huang <Skylake.Huang@mediatek.com>, Tim Kuo <Tim.Kuo@mediatek.com>
-Subject: [PATCH v2 1/2] spi: dt-bindings: add SPI IPM v59 compatible for mt7987 and mt7989
-Date: Tue, 29 Sep 2026 14:25:15 +0800
-Message-ID: <20260929062516.416368-1-Tim.Kuo@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tX35khiy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jUvogs66QM3UZRwtzv4kECXAX0N6N/SMMnyGrD9T0CA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790663184; v=1; x=1791267984;
+ b=tX35khiydvqA9iiJWTKsPwJZ+EXl/6OhY/22BHbmsX/L3K8BPqsY8fMgLxbgCVEL/nUhziNg
+ E7yA8OwYJBHcJrAcDkQtFFC3Plci/w4kW09A2qooJL/5kzIKTqGsnvOuruNVumP3BLfA9mXjenD
+ Dvk/xi+BEyGhM8yM6p+jexvQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d177fc393ae7c2b3;
+	Tue, 29 Sep 2026 06:26:24 +0000
+X-Mizu-Trace-ID: d177fc393ae7c2b3
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Date: Tue, 29 Sep 2026 06:26:19 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <a941bc47f9ba62ca4f360e9552df1ff80a08a388@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <78faacdc2ba04d48b663c91194f04bc8@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-4-luka.gejak@linux.dev>
+ <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
+ <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
+ <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
+ <92337f29a7dd8d517c2037e857e13eb2612e10e7@linux.dev>
+ <78faacdc2ba04d48b663c91194f04bc8@realtek.com>
 
-MTK mt7987 and mt7989 SPI hardware has been updated to IPM v59 SPI IP and
-it differs from earlier IPM designs, most visibly in the tick delay field
-of SPI_CMD_REG, so it needs its own fallback compatible rather than reusing
-"mediatek,spi-ipm".
+September 29, 2026 at 04:04, "Ping-Ke Shih" <pkshih@realtek.com mailto:pk=
+shih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E >=
+ wrote:
 
-Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
----
-v2: Add mt7987 and mt7989 real device compatible
 
- .../devicetree/bindings/spi/mediatek,spi-mt65xx.yaml         | 5 +++++
- 1 file changed, 5 insertions(+)
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> Hi Ping-Ke,
+> >=20=20
+>=20>  September 24, 2026 at 06:11, "Ping-Ke Shih" <pkshih@realtek.com> w=
+rote:
+> >=20
+>=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20=20
+>=20>  Answers in the order of your mail. The MAINTAINERS point is in a
+> >  separate reply.
+> >=20=20
+>=20>  Can you also review other RTL8723B specific functions? I didn't re=
+view
+> >  them one by one by v3, but I wonder why it needs specific functions,
+> >  not common flow. If any of them is necessary, please point out reaso=
+ns.
+> >=20
+>=20>  By the way, I didn't only mention these three functions. At here t=
+here
+> >  are many specific functions. Please analyze them.
+> >  (Honestly, I don't fully re-examinate your analysis in detail, and
+> >  believe your results.)
+> >=20=20
+>=20>  I went through the whole file. The part that is already common flo=
+w can
+> >  be listed exactly, because those ops point at shared code:
+> >=20=20
+>=20>  power_on, power_off rtw_power_on, rtw_power_off
+> >  mac_postinit rtw8723x_mac_postinit
+> >  set_tx_power_index rtw8723x_set_tx_power_index
+> >  false_alarm_statistics rtw8723x_false_alarm_statistics
+> >  read_rf, write_rf rtw_phy_read_rf_sipi,
+> >  rtw_phy_write_rf_reg_sipi
+> >  read_efuse rtw8723x_read_efuse, plus the hardware
+> >  capability, because this chip has no
+> >  hardware feature report: the firmware
+> >  reports id 0xfd instead of the C2H
+> >  efuse_grant rtw8723x_efuse_grant, plus the 0x6b BT
+> >  power cut and output isolation write that
+> >  the vendor efuse path does
+> >=20
+>=20I think you have checked them. Please reconsider to rewrite them.=20
+>=20
+> As Johannes mentioned, LLM is a tool, but please not fully believe
+> and rely on it. LLM can generate a lot of stuff, but I read by my
+> eyes and then think and type by my hands. To understand and rework
+> stuff generated by LLM is submitter's business.
+>=20
+>=20>=20
+>=20> I think the better way is to assign proper rtwdev->hal.rcr per chip
+> >  in rtw_core_init().
+> >=20
+>=20[..]
+>=20
+>=20>=20
+>=20> If you prefer, I can put the core change in a small patch before th=
+e
+> >  chip series rather than in patch 3, so the chip series stays free of
+> >  core changes.
+> >=20
+>=20Yes, that'd be good.=20
+>=20
+> The 8723BS specific stuff should do in the kind of rewriting.=20
 
-diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-index 3bf3eb1f8728..d2c740572d85 100644
---- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-+++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-@@ -39,6 +39,11 @@ properties:
-               - mediatek,mt7988-spi-single
-               - mediatek,mt8188-spi-ipm
-           - const: mediatek,spi-ipm
-+      - items:
-+          - enum:
-+              - mediatek,mt7987-spi
-+              - mediatek,mt7989-spi
-+          - const: mediatek,spi-ipm-v59
-       - items:
-           - enum:
-               - mediatek,mt8196-spi
+Understood,=20already did while addressing Bitterblue's comments.
 
-base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
--- 
-2.45.2
+>=20
+>=20>=20
+>=20> Can you reuse the existing since they are the same?
+> >=20
+>=20I think I can refer a common rule...=20
+>=20
+> >=20
+>=20> (Please quote the code; to reply to this, I need to switch to your
+> >  patches again).
+> >  On your last sentence, that the reason is hard to explain later if i=
+t is
+> >  not written down: whatever we change will carry its reason in the co=
+de
+> >  or in the commit message, not only in this mail. The same goes for t=
+he
+> >  two things I am asking to keep, cfg_ldo25() and the RESP_SIFS writes=
+,
+> >  which will say why they are there.
+> >=20
+>=20It is still hard to me to recall what I wrote at last sentence...
+>=20
+>=20Let's follow Bitterblue's comments on v4, and move to v5.
+>=20
+>=20I noted the copyright aren't all consistent. Check them yourself.
 
+I noticed that too, and fixed it in v5. I will send it together with
+other replys to Bitterblue's comments today.
+
+>=20
+>=20Ping-Ke
+>
