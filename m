@@ -1,128 +1,111 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971ED30C62D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D878311C2D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790644902; cv=none; b=Q2j1X/+m2nePndvzbIpBSR2xgxIK1aGyLTSuX8IsK4xlgWmMegwYxkojNU6PbNvlwbgZ0xQ4MLal3uqgFHYG6w0ryCpjJ/VqodxfHN3GXnRx1D+tEkF+TAt2f1tbBVtO5MdOX6eHOL36qzrLS6yDVKJAiSjbS+oGXyjAq5I7/3g=
+	t=1790644933; cv=none; b=pvqRZ8PhProRWyMBCPcsvFKNaSdaRGclsTBMLpMQe+mvBXKqYgETFt4McdVL/8kURx57VkHO00cdZMOUY4BDY7maJ5WU+qavRInOTEesJbznhV0feH/I6Suh+e6lCgfQoJbNr45zpOeYQfyQNT5wUtCyeGYjy33Nm2P3Ycyc/a8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790644902; c=relaxed/simple;
-	bh=n0NF20FVc7dFuhkFp5r7/ym4uGaeOxlFX1AIR7oub6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Auamu7NZF7hphCZ2ew6Ntt2XDhVhEIGzqqGsclkkPR6PmQV7pCdB5CfUPuCBwYRr5NmoFnz7RUm/gGNhOQe5cbIb4OtWAe8eP0+tV3Z9StRvBD2tDLMj1Rj9qAPPUkPVEg7AXfR1fJWuco+SklQ27S3wffjc2M9TFOJv60DzOeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3/vhqrA; arc=none smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790644933; c=relaxed/simple;
+	bh=y6zwP3b2fxxBONzUl72JLW4nTSFbQsYTTWD04VWcprk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GJN2pOJH00hJ2rByItxr6uj01u+Fs3NaoymhCepylttyLLyTkYkJ2FDtdraf4QFoUhvzSyT9PMIvQ6LyCh0quADl2HuuqQ/Nb9BfEMMCZtTKVUySN2v40sfCoDkI+yzO/kJK0U7gWmHOye+1uRKbKPbU2usESuQhOof+m8Hh/5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=csQ2F424; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3/vhqrA"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e874624e83so521434b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:21:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790644899; x=1791249699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EdlWV1UrrswI4TlOFB+Lu4Lt2sreQh/UqmTFUVR9kI0=;
-        b=M3/vhqrAC67vr9DJocBiCDDOLHEd1dL5VFv24euU6SzbUQgHu9Hm7maiSoOTskWh63
-         rZWQxsASTEzqO3k4BvaPgF2Xh84s7H+TEogi8ngp5zHFIWKRThk1v+JpRo684akO/ylU
-         X77lL45SKVMjGibP9BE7y4CWcP8EuACrgLLoaM3PD3nscYWNbN8JkOP2T4Jis5bE70gj
-         sd87GW6TJBop8vyf5s4wyiAOhlKp1UBFfeS8oQtuCOw/hR//cIlq8QFZJKhxXfi0CS5j
-         WwPytA2b/PdzH3MYweW4JNnU1Z0U+h8+kuUx6STHFB1adQXRN1jCL43LO97zeSY7XxQF
-         uIBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790644899; x=1791249699;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EdlWV1UrrswI4TlOFB+Lu4Lt2sreQh/UqmTFUVR9kI0=;
-        b=gTKcA08iV14fWxvKOBMZtwmc8Yk8i80K/CJuCfLzgS1ktWQHOQY318/N0WOOWE244a
-         t4AwpnkEo+rH1dmTo6cMao/KGvnG+JY0BrsSpHrcxQBr8flMToAO3CHO8hM1wSl4ml0F
-         PELnRcuc3sj4+GXwe1+kDuPKogE0kNr4aw1jIwVfDZkYsaFJ7BtMIayE6JAiJs0rIqzq
-         PKMuSUWpXDyfZ9l3RYN+8ULevGpGXGT3zBs/QjXtBW4xDhZVHmaTA7akPHIffN6EeESg
-         KSBzmSqYvEVUS0XHdlMWKZDM9mBKKn49jX5Z1crPpebwFHK6f7TlRLc5PzK5LX1+tHN6
-         dBzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkJ2d9YogNLXHRRiQiNSNMBVWRCKsO2v17MSdcQRHL2XOzDWBFaZelnxSP/9wzgdiEPGnJ4s3KXahJW3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxlCM70WWMo/mUbsWnsLEE1zy+JYzP/fecGlrACYnTk9A3tEeO
-	aJctu+Goa28HF+ybjkAdwm6YHi94Xtx/grmY9rGmwRfdFZerRLyNFOys
-X-Gm-Gg: AYBFou3SOvgrY2nkugZymbryDZu0CfQQYQEL0opJ6g2ZHOWRFiecHMWX2Beavi891G0
-	NgLmY5BgixcMTrpuaxmD/FRM3Bc57XXOHXrIj5LthgK7o03PhycQhjo9bVVqJwVFdWXN4wKLeMI
-	HovJB3thLX0PvmouKLPRMDzsIq8/KpUKZkrCLU9yxTbK02lHcDBFap1orwnwjugH3W0plS+pOLj
-	CdpjVr/E5EB9ks3YdvKkrYmTCjxeGbUrldAeqxvEWkelncBqDozgRACmhgnOBX662+XWuLislH2
-	lfY90srxSakSCRAc0y2ElCnIP3CKU7nkGvEo28jq4VKBi7cQY9hk46H9OT/UxxltgntdCeSod2/
-	NtHbYZ4pB4UQYQf6j7I54vxbLYfl8b7jhHqdj2OQTjchwPVxqDS+cKMLl9RWrBB2i9TFtLy08L5
-	YA3P4ZrnV1cL5iRvMnVevqyTnk0HPUbx1Jmz7YAbMGC6P4C4I0OBhSfcdL69GChzkSoyAJ6h98F
-	vrJniUMv+zBD7tXK8kwLGTTDJbsWXMOKgjmFyIRHs1innerxLg=
-X-Received: by 2002:a05:6808:c18f:b0:4d6:9133:cff3 with SMTP id 5614622812f47-4edd64228bamr679952b6e.26.1790644899389;
-        Mon, 28 Sep 2026 18:21:39 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ebbc7b9453sm3546338b6e.13.2026.09.28.18.21.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 18:21:38 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: William Breathitt Gray <wbg@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] counter: Allow 32-bit tasks to use the character device
-Date: Mon, 28 Sep 2026 20:21:38 -0500
-Message-ID: <20260929012138.71156-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="csQ2F424"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y6zwP3b2fxxBONzUl72JLW4nTSFbQsYTTWD04VWcprk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790644929; v=1; x=1791249729;
+ b=csQ2F424N0nEzbZgEWW2TqgN3RVvIITuTUrMqNtOvn9uLfe3ccp96NpXcsXQszLquOPo/Hb8
+ a6UVHOL4++prHudRC/S2PjeUSPUTO5lg/9z4IhM8yR9yB2V5VT0ib2MwZOCI026eqDYbe+KuFwa
+ EP1Gr5T5YAkJEzBpOEzVZPpQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 64465a751bbcb560;
+	Tue, 29 Sep 2026 01:22:09 +0000
+X-Mizu-Trace-ID: 64465a751bbcb560
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0499fb85-d323-4141-b76e-bc9812b1d142@linux.dev>
+Date: Mon, 28 Sep 2026 18:22:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] tracing: fgraph: allocate shadow stacks inline
+ with GFP_NOWAIT
+To: sashiko-reviews@lists.linux.dev, Peter Zijlstra <peterz@infradead.org>,
+ rostedt@goodmis.org, Andrii Nakryiko <andrii@kernel.org>
+Cc: bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, kernel-team@meta.com
+References: <20260929005411.4105448-1-vineet.gupta@linux.dev>
+ <20260929005411.4105448-2-vineet.gupta@linux.dev>
+ <20260929010327.024281F000FF@smtp.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20260929010327.024281F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-counter_fops has no .compat_ioctl, so COUNTER_ADD_WATCH_IOCTL,
-COUNTER_ENABLE_EVENTS_IOCTL and COUNTER_DISABLE_EVENTS_IOCTL fail with
--ENOTTY for 32-bit tasks on a 64-bit kernel, e.g. armhf userspace on
-arm64. Without a watch, such a task gets no events from /dev/counterN.
+On 9/28/26 6:03 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] cleanup: mixing goto-based error handling and scope-based cleanup
+> --
+>
+> commit a6de528fef00ef67da15965a7a8b3944fa92b053
+> Author: Vineet Gupta <vineet.gupta@linux.dev>
+> Subject: tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
+>
+> This commit aims to resolve performance regressions with ftrace graph tracing
+> when there are a large number of tasks. It replaces the pre-allocated batch
+> approach with inline allocation using GFP_NOWAIT, avoiding repeated sweeps of
+> the task list. Additionally, it transitions the RCU read-side section to use
+> scoped_guard(rcu) instead of manual rcu_read_lock and rcu_read_unlock calls.
+>
+>> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+>> index 40d373d65f9b9..1c5ccc3f80d53 100644
+>> --- a/kernel/trace/fgraph.c
+>> +++ b/kernel/trace/fgraph.c
+> [ ... ]
+>> @@ -1057,26 +1056,37 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>>   		}
+>>   	}
+>>   
+>> -	rcu_read_lock();
+>> -	for_each_process_thread(g, t) {
+>> -		if (start == end) {
+>> -			ret = -EAGAIN;
+>> -			goto unlock;
+>> -		}
+>> +	scoped_guard (rcu) {
+> [Severity: Low]
+> Does this mix goto-based error handling and scope-based cleanup within the same
+> function?
+>
+> Looking at alloc_retstack_tasklist(), the function retains the legacy goto free
+> path in the initial pre-allocation loop (just before this block), while
+> introducing scoped_guard(rcu) here.
+>
+> The cleanup subsystem guidelines recommend that for a given routine, we should
+> convert all resources that need a goto cleanup to scope-based cleanup, or
+> convert none of them. Mixing these paradigms creates confusing ownership
+> semantics and is highly prone to double-free or resource leak regressions upon
+> future modifications.
+>
+> Could we either convert the ret_stack_list array cleanup to use scope-based
+> helpers, or stick to the manual rcu_read_lock() and rcu_read_unlock() here to
+> keep the error handling style consistent?
 
-struct counter_watch has the same layout for 32-bit and 64-bit tasks,
-and the other two ioctls take no argument, so compat_ptr_ioctl() is
-enough. struct counter_event, which read() returns, has the same layout
-too.
+And a third option is to drop the fallback allocation completely and 
+return -EAGAIN and come back. Granted I don't have much experience of 
+typical handling of GFP_NOWAIT fails and retrying immediately: would 
+that recover at all or does that take us back to where we started ? Peter
 
-Fixes: b6c50affda59 ("counter: Add character device interface")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
-
-Notes:
-    Tested on x86_64 in QEMU (counter-fixes plus this patch, KASAN and
-    lockdep) with interrupt-cnt on a gpio-sim line, toggling the line five
-    times per run:
-    
-    - before: tools/counter/counter_watch_events built with -m32 fails with
-      "Error adding watches[0]: Inappropriate ioctl for device", and so do
-      the enable and disable ioctls; the 64-bit build gets all five events
-    - after: the -m32 build gets the same five events and the same errors
-      for an invalid watch and a bad pointer as the 64-bit build
-    
-    No splats. W=1 builds are clean for arm64 (COMPAT=y, LLVM=1) and for
-    i386 (no COMPAT).
-
- drivers/counter/counter-chrdev.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
-index 61451ba74ca1..f5bf8e40096b 100644
---- a/drivers/counter/counter-chrdev.c
-+++ b/drivers/counter/counter-chrdev.c
-@@ -457,6 +457,7 @@ static const struct file_operations counter_fops = {
- 	.read = counter_chrdev_read,
- 	.poll = counter_chrdev_poll,
- 	.unlocked_ioctl = counter_chrdev_ioctl,
-+	.compat_ioctl = compat_ptr_ioctl,
- 	.open = counter_chrdev_open,
- 	.release = counter_chrdev_release,
- };
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.55.0
-
+Thx,
+-Vineet
