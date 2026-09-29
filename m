@@ -1,208 +1,233 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038EB4FE2C4;
-	Tue, 29 Sep 2026 10:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790679488; cv=none; b=JORXCtlkE1l7sXr6A8RORK6bRKTwq9nNNi1SAlIECVNwfJbhLDiCCmA4jSX+sxTs+V4cR6vzZBV34Gzv4pdred/a6UXb7eEJbyXXG00vbTehuWXVNHWQysoN/1n9wzsIK5SqgF2OBwHwlBZ88bDE3aT52OsuTixLV5WmVjG0njk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790679488; c=relaxed/simple;
-	bh=Qa7OBGpxl+kQdR4zeETbPJkdXlexsIGL9/D/7cSJMOg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p9BFZ8M4j9wrhjjFaGvwFvPQviQO3B0+NVzlOWcPwhKqLcD6lEHulniNs4mwTBQDFOzhFGtJ5BsRsoJvIgJ6du1nFLjJ+3MHBd7SjroETpIFSgfNw5cc4kOS91CgKWY3FW5j3JKDhu4FCLB74r9KxM0l8V6qW/y3WK3/XqAZZJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=i9nKF+cw; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SQd4oAST; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=x4zqbyCj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Eonhaonq; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA244D2ED2
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:58:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790679494; cv=pass; b=QScV+otejUYTLnL9GMyFcN6+TcOkMuC0pbSrbnRyfhziK+U1r+iNYjBk12SW97tsnwmYSRxjnhgyiIdoF1w3r8Se0jGyWyKdsGGyJKM2z+dyEyI5d88z8eHANcOl8dBsuajw4eZxGvCsJ2mnCQzCx/gooUpc3wVjAZlxcNwc2l0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790679494; c=relaxed/simple;
+	bh=r0iDdiaq+ZyYSfXbDb7+z6i7X/8eMmWTcFQEHtOWypE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ODRn6GuarG7hvvAIcx3vRQBfYXkAlOtO3PLI8C69knizZdahqy0qrkOid5Uht+XEfkrG5upYXTq/Jz7QtJqk1fzUmf7ZcAZ3BrBT/m4CwXL4ZA6tvlsObINlhA6/SjCMQkBWy5rAft+ZcEYNUqIyCS4lnkEBNvUhLSb8jU3oOfc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fvM4YFwZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eQBjEiIG; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="i9nKF+cw";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SQd4oAST";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="x4zqbyCj";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Eonhaonq"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D6B841F7D9;
-	Tue, 29 Sep 2026 10:57:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790679472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G/gMs4OvWesls8mrP38XACVxq+iHXgQgPEhCSwmqIvY=;
-	b=i9nKF+cwQxGhhWjTQdOGMXFOd/OF5JPE1DmBgZ9X7REMsnZQne1VMAN8TExtzB3dEQ+qmE
-	K487QBQHnyMOtmV94Pgfz+3Y7jiUeVHlwvyOPpwQ84KKSDayMwovQYGHj5jVjj6DrNJaDA
-	P3XnJXLaE/8TSk01XddaP2/hnAaujAg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790679472;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G/gMs4OvWesls8mrP38XACVxq+iHXgQgPEhCSwmqIvY=;
-	b=SQd4oAST4RTwRx1DttxouDhk/f0ps1NjAAwN/NCqPE/lhA7/q/CXnizlCFGTjD2f32vW/u
-	bi6cKSQ92c7YNkAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790679467; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G/gMs4OvWesls8mrP38XACVxq+iHXgQgPEhCSwmqIvY=;
-	b=x4zqbyCjFcpZM/1Aq8fatSXsnIILny35LISlZLy4k3V1IAl2FH1cxOMYie+fgii/1zhLKi
-	qC5u2CK5R+jEq5f/BkPfNeGw3yyl/rs9IouwEnm/V/I/pf5jzrWNIDGZVMfSosRNnlXBPV
-	TpgUSCW0WvFzd6KaXAn6PqldMpW/TuY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790679467;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G/gMs4OvWesls8mrP38XACVxq+iHXgQgPEhCSwmqIvY=;
-	b=Eonhaonq7/xRW2BMy2QvJeslU2/7AVvxxbmAXH7HnediQK7s7wbuDVKrIxk+ibWI+UrlVj
-	YK+FxfItvIqEwyAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA8E2136D1;
-	Tue, 29 Sep 2026 10:57:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id it/PIKuZu2oXdQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 10:57:47 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 38FCFA132A; Tue, 29 Sep 2026 12:57:47 +0200 (CEST)
-Date: Tue, 29 Sep 2026 12:57:47 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Hui Peng <benquike@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] isofs: bound empty directory blocks in
- isofs_read_level3_size()
-Message-ID: <cm3n7vjwbdnafttuz5ftkzz5wdbalgews4dfs5zlwvkyuzotuq@jo2nhsplhstc>
-References: <20260919222553.3792320-1-benquike@gmail.com>
- <20260923175215.1577791-1-matthias.goergens@gmail.com>
- <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf>
- <20260924151356.3287733-1-matthias.goergens@gmail.com>
- <20260925043804.2091174-1-matthias.goergens@gmail.com>
- <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n>
- <20260926083517.556576-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fvM4YFwZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eQBjEiIG"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAijbD3561145
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:58:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pTu5GuGQkO3QNfFTOWgaKMH1xO659EwhYW2I+BxJgks=; b=fvM4YFwZdYvO/Nns
+	3XCqK37QDI3P5E71YPnc/3nTKyPMr9Iy0kTCEzAWxeopvGT78mhmTb2LJvlPVIm2
+	f+gBExaJu6bRNnc6VBfGtWEG4Ya+yQ5itf5FJhXLtnDevy7SlILJSmEZI23/BncS
+	64TsAc3I9bAaNRSnrmeX9B9+LUcPgOGMr+kOxYrGX6Ljdc0MaGkta0LzdJY+RbF8
+	bq9vHtSmHHiykBw4sPHk02KO3n9bYycc+Ajhg7vRhfnkOygph3H5x2xHix+pCEpX
+	xhQnzCf8SjwWpERxX9zjPFHh0rXOyWRK5Gw2zhSEyrg0K+7R/TkUertRoZeDY33J
+	CzhAnQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0b0v89n2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:58:04 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a0bcf8b74cso4229853a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:58:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790679483; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z1GzstY/DXjZHVK3+2aYN0nx0B2Qc58xEZH75KPB5EllKQACknMPXjNW4er3iDboal
+         OZqW+SB+jd0utGR08NStD8qmt7Az9d5WdaaRNEetmz8XZNzkyzyEUUBO2AmRX3bj137H
+         CGfuweJt4sYTr8ghJleU+yAz/lrhLoMxo5qtMnhOja2t4temk4D2gcLtZ9F2qvXm6bgJ
+         qM4uvzWP9GsCtq7bEEBhZ0GIML1vTzKwLlBpcQWATpYV+NMyXh+MdMMso1f8ee52hegl
+         oRWh29pgaP9cj6Xo4oDj/rktlKr9rzi+k6MRgWTZDUAAM9xiFOtGd+funARpSIR/Swfe
+         zymw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pTu5GuGQkO3QNfFTOWgaKMH1xO659EwhYW2I+BxJgks=;
+        fh=wQPAbWkV1tgyLoP3ealofckjbEzzZZ+d48LpfAhePOg=;
+        b=Fe8YWjNCkYM2tbm8/ZQPzBVMP/ygcvKOPpinMOnl0bVNBTwVzTfxXR2+lIJIdXDKi4
+         47z1NUmspWChGHlDu14ovHTImuTG+4raiMzvl6R8dri61YPebT6GXEnmBTO0heZfyZEc
+         ZCq1z75HpixhnP8scT8WCfR52AzS9ghfgWzzTjd69l0kCFp4Ykw1EDzalCf5tdWcq1c1
+         O00ThdCqVYnvUz6lOPiK0XhuSI4TE/u5V8xuT1Ms8i+kuNN71Kc1Ouums1gQVvOsZaYX
+         H50xgtqzjZ6lzQBt4tRVK7SGaVFrNcNkjY30WRR33Edh2mrXEdMRXZVeY0Oi3oCFVyqt
+         FXeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790679483; x=1791284283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pTu5GuGQkO3QNfFTOWgaKMH1xO659EwhYW2I+BxJgks=;
+        b=eQBjEiIGW86ux9EvP4LB3VrFGqJ7942QvCTNQuKgSecBjdp0PdWgSO302ZPdhxWvpv
+         cQlcsEw55WfZJgBGLyv0zUhVEx9R4xQJysJJSwkx+ySkiE0B7G/3dpYF8ZEsjKSK54l5
+         yCZAeHMeRW5v8ZhEvZRVvL2y8fC4RTgXGmsPzu48bqDKM4Mx1GK8uJmwLaFMpUMVz7O7
+         OxQ0YQCZMZuHtKuTdAkXxI3XIQkis5QrnUKOJ/ztIXpeukL9us+2l1DGzoYfHADaQx8X
+         HdNCBp/+ztXCrBxepebuVsKyRRdEnOlclIRIE+h4apGNIig95mi6ErqAXYcOhOQVg7es
+         azqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790679483; x=1791284283;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pTu5GuGQkO3QNfFTOWgaKMH1xO659EwhYW2I+BxJgks=;
+        b=TCc23yiai1EmSLF9KfS3iTrShr1PA/fyVTqgbXLB28e9EJ8mrK3IGxPwof5+Xy+5Qn
+         QYtvCCz3eNDYqCbExwj2CWcg6BQ+euqN2AJxnZq9/a4YIILfq9+5JzJpBj+9juMZWwDH
+         xfN0H+jsbV7QBaS3el5HcnKsmD78z3HgXKbxERPgjNqiJtcnxflUkZWwbz037I8orlwN
+         VU4J5wXZLtH+INx3Ftz2SCCdl9LwKzyojTFOZD6+4N23yC8yJhCsTSg/8X5lhJZjFK5X
+         pVFihH/0casEdpSmNNLQ+2TfSkIlLHardpaSDpnCXzr/lITMSHKq/k9JqeXTfAA6plo2
+         o1EA==
+X-Forwarded-Encrypted: i=1; AKwUvBzawrYmQZbWMYi7U5lvPVhsI2ysnaBHoVwsWIw744jJLOWf+YT/I6e2gVGiJGKzHcsfs1J1S3Fq6OAVekE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJggoh1NdjOcRMFybUb3E+wpmDzfZFhQZtaNTmGm8mXYqR7Sot/
+	d+GlvWabjYYL07wA+rtaPakcFp7y+NeDT41J7Nie3zocffi214Pko0JyBbrOZsrua+/+K0wHtrw
+	zHO0t4QFGDLOPktAIBMdPAoyaZeKDIEiWE5vE6CLaBGRhsRmL8Cuc/buS35Ere8Yb/UxLpF/9Ti
+	+YYrtV1XyICR9X+1hsFSiaUt1Hrk6niPg/aoeHlRhcdQ==
+X-Gm-Gg: AYBFou3knlJHsE3QUqtQLAByB+prPIhMeETGKLPc91dG9mv19gw0d45QdJ7dmsPFZ5O
+	UXrhJANI+Q8cbOMvtCjZV3E0XT2fx9sVsFRPY6EnhBGZN8EGawVf/MG3mReXaVVfrhMg7A8GzOH
+	KsQKBcMTVTOHG7ouMxz0weWp3kohogWrWWQtlMkNYVXa4ETmugfmhVrPD2AA==
+X-Received: by 2002:a17:90b:3842:b0:3a0:aed7:7b39 with SMTP id 98e67ed59e1d1-3a0aed81503mr12381413a91.24.1790679483421;
+        Tue, 29 Sep 2026 03:58:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:3842:b0:3a0:aed7:7b39 with SMTP id
+ 98e67ed59e1d1-3a0aed81503mr12381383a91.24.1790679482906; Tue, 29 Sep 2026
+ 03:58:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926083517.556576-1-matthias.goergens@gmail.com>
-X-Spamd-Result: default: False [-1.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,kernel.org,zeniv.linux.org.uk,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Flag: NO
-X-Spam-Score: -1.30
-X-Spam-Level: 
+References: <20260919100408.113979-1-ngocthang2710.1999@gmail.com> <CAPx+jO-JBBLNCUrnB0UaMSPu7ajwsrEQMPJ1SfH2PccCR5VnCA@mail.gmail.com>
+In-Reply-To: <CAPx+jO-JBBLNCUrnB0UaMSPu7ajwsrEQMPJ1SfH2PccCR5VnCA@mail.gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 12:57:50 +0200
+X-Gm-Features: AclHuK82roEHJrweTwio7mtf04vdHQh9G4MQuD-caqh9KRrj_nsX38Q0GfQxQhA
+Message-ID: <CAPx+jO9iva6YnKba8aEuOHURiZKjh2+wvhfC97bZ22UjGsXgNw@mail.gmail.com>
+Subject: Re: [PATCH] memstick: core: reclaim the request before freeing a
+ timed-out card
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Maxim Levitsky <maximlevitsky@gmail.com>,
+        Alex Dubov <oakad@yahoo.com>, linux-mmc@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: DlHkxTCS32sCyO9onJwDqLuUjxu5yveM
+X-Proofpoint-GUID: DlHkxTCS32sCyO9onJwDqLuUjxu5yveM
+X-Authority-Analysis: v=2.4 cv=Z+55j3RA c=1 sm=1 tr=0 ts=6abb99bc cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=edf1wS77AAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=hSkVLCK3AAAA:8 a=Zq5GaAOXB1qV3tOyoOkA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=DcSpbTIhAlouE1Uv7lRv:22 a=cQPPKAXgyycSBL8etih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0MyBTYWx0ZWRfXwNY7dNnudPfE
+ Ya3upWXrI9V3n+Gq2xxfb/6Q5wn5zVMG1KvbohGUoPVK7pYuR58/26aJobQBo3T1CZt66ubcz0Z
+ k2jMga8Oj/VVVPPry9Fy6HqUTKz7G2spcaMsn2bUij1eI9mu3QxIytCoWYwbay2WZ06URmXd8Ga
+ KR00QpnWjVh2tmlsdhUzfzAvLkbkece3NYyZ0CDS7GjYVEK9U6ZZ7eJ08XqfZ57m+khriE+5Ezd
+ 6IF08Tj7s0Y6jSjUDEDtegs2+oaUQ/IpBQw/uOitjtk9NMgnYTwge6tqDc7PpDjMQ/YPAS/iGCq
+ GaPSBGHCqAdZBC373Q9evyTyVUFupq+txH5Svg6V6uAboYZtiwpSxi9s2pGMOkrfaGL/Ro1g4Z0
+ 8ZYCIHjhC/7BfPlZlrzSw539gSU4OFyhp1vCj6F655mvgBiNBtFOJu68VSP8iZh58ohhknkuPes
+ 963mYDsnvSj8pywMIHA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0MyBTYWx0ZWRfX7BjXfBoTdjFi
+ tS04l+PZE+wwSzhtQ0TWC9zujH2ZO9fTOGUbSRFsG4KiCm2wvS8oex0uEg+QhisXW3nwu9iX9hg
+ V45/6hjn9etbgoo1+KZZYpf/FMGySaA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290043
 
-On Sat 26-09-26 16:35:17, Matthias Goergens wrote:
-> isofs_read_level3_size() walks the sections of a level-3 (multi-extent)
-> directory record and, on a zero length byte, moves on to the next
-> block with no limit.  A crafted image can put a long run of empty
-> blocks between two sections of a multi-extent file, and the walk reads
-> every one of them before it gives up, all the way to the end of the
-> device if it has to.
-> 
-> Real discs do have trailing empty directory blocks, written by tools
-> such as Easy CD Creator and Nero, but always at the end of the
-> directory, never between two sections of a multi-extent record, so
-> they do not exercise this path [1].
-> 
-> Jan Kara suggested treating an empty block like a section: count it
-> towards the existing 100-section limit rather than adding a separate
-> one [2].  Do that: both the section count and the empty-block count
-> are checked against their combined total, so neither one alone can
-> reach 100 while the other keeps growing.  Only a zero length byte at
-> the start of a block counts as an empty block; the same byte later in
-> a block still just ends that block's records, as it does today, and
-> is not counted.
-> 
-> Hui Peng's earlier patch for this function added its own, separate
-> limit on the number of empty blocks [3]; this uses the combined limit
-> Jan suggested instead.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> 
-> [1] https://lore.kernel.org/all/20260925043804.2091174-1-matthias.goergens@gmail.com/
-> [2] https://lore.kernel.org/all/cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n/
-> [3] https://lore.kernel.org/all/20260919222553.3792320-1-benquike@gmail.com/
-> ---
-> Tested with fs/isofs built as a userspace program under ASan and UBSan,
-> and in a KASAN VM on Jan's for_next:
-> 
-> - The real discs from [1] (DM_BXL2, Comdex_05, ITSOFTCD_39, each with
->   trailing empty directory blocks) and the level-3 images from the
->   earlier patches list and read the same with and without this patch.
-> - A crafted multi-extent file with 150 empty blocks between two sections
->   now stops with "More than 100 file sections/empty blocks ?!?" instead
->   of reading all of them.
-> - A crafted file with 60 sections and 50 empty blocks interleaved (110
->   in all) is rejected; without this patch it is accepted.
-> 
-> The image generators are at
-> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-26-isofs-empty-blocks
+On Tue, Sep 29, 2026 at 12:24=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
+>
+> On Sat, Sep 19, 2026 at 12:06=E2=80=AFPM Nguyen Ngoc Thang
+> <ngocthang2710.1999@gmail.com> wrote:
+> >
+> > memstick_alloc_card() hands card->current_mrq to the host and waits 500=
+ ms
+> > for it. If the host is still busy, the wait times out, the card is free=
+d,
+> > but the host keeps its pointer to the freed request.
+> >
+> > rtsx_usb_ms hits this easily: its handle_req work can block in USB
+> > transfers for seconds. When it returns, it reads and writes the freed
+> > request, including the retry path in memstick_next_req():
+> >
+> >   BUG: KASAN: slab-use-after-free in rtsx_usb_ms_handle_req+0x17ff/0x1a=
+00
+> >   Read of size 1 by task kworker/1:3
+> >   Workqueue: events rtsx_usb_ms_handle_req
+> >   Allocated by task 1656:
+> >    memstick_alloc_card
+> >    memstick_check
+> >   Freed by task 1656:
+> >    memstick_alloc_card
+> >    memstick_check
+> >
+> > Add an optional host->cancel() hook that stops the host from using the
+> > current request, and call it from a common wait helper on timeout, befo=
+re
+> > the request's owner can go away. rtsx_usb_ms implements it by draining =
+its
+> > work item. The helper also covers memstick_set_rw_addr() and both waits=
+ in
+> > memstick_alloc_card().
+> >
+> > Reported-by: syzbot+3ee5da0319ca17ef1f4e@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D3ee5da0319ca17ef1f4e
+> > Fixes: 99451dceeb5f ("memstick: Add realtek USB memstick host driver")
+> > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> > ---
+> > Testing: no hardware. A raw-gadget emulation of an RTS5129 (0bda:0129) =
+on
+> > dummy_hcd delays every bulk-IN reply by 550 ms (above the core's 500 ms=
+ wait,
+> > below the driver's 600 ms USB timeout). On a KASAN kernel the unpatched=
+ tree
+> > reproduces the report (same offset and alloc/free stacks); the patched =
+tree
+> > takes the timeout+cancel path (~0.6 s) with no KASAN.
+> >
+> > I first considered a second unbounded wait_for_completion() instead of =
+a hook,
+> > but rtsx_usb_ms_request() skips scheduling once host->eject is set and
+> > memstick_remove_host() flushes the workqueue, so that can deadlock.
+> >
+> > Known limit: cancel waits for the worker's remaining retries (a few sec=
+onds
+> > with a device that never answers) while memstick_check() holds host->lo=
+ck.
+> > Other hosts leave ->cancel NULL, so their behaviour is unchanged.
+> >
+> >  drivers/memstick/core/memstick.c    | 22 ++++++++++++++++------
+> >  drivers/memstick/host/rtsx_usb_ms.c |  8 ++++++++
+> >  include/linux/memstick.h            |  2 ++
+> >  3 files changed, 26 insertions(+), 6 deletions(-)
+>
+> May I suggest that you split this into separate patches. For the core
+> and for the rtsx_usb driver. Other than that, this seems reasonable to
+> me.
+>
+> In fact, we should probably have something similar for mmc, as
+> currently it's the mmc host driver responsibility to manage this
+> timeout itself.
 
-Thanks for the patch and the generator. Just one question below:
+Reviewing another patch [1] for the same issue, indicates the memstick
+host drivers are already managing the timeout themselves. So, even if
+your approach seems reasonable, I decided to go with the other
+solution for now.
 
-> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-> index 184350d2e6ad..e884618c0c53 100644
-> --- a/fs/isofs/inode.c
-> +++ b/fs/isofs/inode.c
-> @@ -1175,6 +1175,7 @@ static int isofs_read_level3_size(struct inode *inode)
->  	struct buffer_head *bh = NULL;
->  	unsigned long block, offset, block_saved, offset_saved;
->  	int i = 0;
-> +	int empty_blocks = 0;
->  	int more_entries = 0;
->  	struct iso_inode_info *ei = ISOFS_I(inode);
->  
-> @@ -1202,9 +1203,14 @@ static int isofs_read_level3_size(struct inode *inode)
->  
->  		/*
->  		 * If we are at the end of a block (or at its zero-padded
-> -		 * tail), move on to the next block.
-> +		 * tail), move on to the next block.  A zero length byte at
-> +		 * the start of a block means the whole block is empty;
-> +		 * count that towards the same limit as sections below, or a
-> +		 * chain of empty blocks could be walked without bound.
->  		 */
->  		if (offset >= bufsize || de->length[0] == 0) {
-> +			if (offset == 0 && ++empty_blocks + i > 100)
-> +				goto out_toomany;
+[...]
 
-Any reason why don't you do just "++i > 100" here and completely remove the
-empty_blocks variable?
+Kind regards
+Uffe
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+[1]
+https://lore.kernel.org/all/20260924204142.607-1-rajojha047@gmail.com/
