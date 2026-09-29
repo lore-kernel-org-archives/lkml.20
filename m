@@ -1,161 +1,148 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194CB51A72A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AB43ED5B6;
+	Tue, 29 Sep 2026 12:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683160; cv=none; b=Rn0tIsnckMZGzrMRuyaMy7rgETbMUo0VlKppWyT9Bv+Im2PZP52iDtWfAZM9OgrdxoKIAPDzkQByEKwPSARVvBO11bqZr03dVgwwJ3WP2elyTZjXw/Lj0u9mBAiFmh96UCsP6tYNTj/Xl8OSkPXDk28BJfxZhtPDn9pH3jCyer0=
+	t=1790683204; cv=none; b=WgUL/laMSVOaeihTseMXDVgj4z+Q+QHSu6MWm2VOogNCVWmjVyWmy5Aq1iPbOEVNCtwMAwV0+jHjc4stN5zqfwwbX61UUHvEPqP9MkmUQZ304Omp/bgjB0qNzHKuB3j9XIcRnwKTDuPO7MRFbKc9en091+PfkgB1zx6UlPqlX0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683160; c=relaxed/simple;
-	bh=vVvDrY//xdBNbp6iPJngokdTuFS+NhXaql31Vv+iJbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rgh8D9CGkCUpB2xSzlDBngz4gUPoHEmCsRGmCtgdjDswiRg7LbRv6dHe0FGDy28xZxvixC3cfygeNlVutjmjSzE3xWEDH2XkxS5y7NcdPmIvnYs0nr4PIlnpSGuwiepGPAsq/fH0vgLSxPZ5rIa2o9SV1VmUXuHe+o3iZwPI49E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=NTTemChe; arc=none smtp.client-ip=74.125.230.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790683204; c=relaxed/simple;
+	bh=oE2nDJoYPaF3EIF/jrJhJjHeCJ61YnNCdjyPE7i14Es=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AYinTQuZWJ47RM/R/9SlEQE8U/i1/gZdKHVie3fx3296/rmEJPxzkkRkfPULgcz+JILEJKOppNHl8tbO7rPxNHWrdVmdK3taqpqAUeh4VFMYCIZR34/iNLB0Qnpzh9pKOl6eckzwXpuXChvmBaB+hhdycplePKrXo1yXOPIcDkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AXm5nwq5; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="NTTemChe"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5333a59e20cso19878671cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790683157; x=1791287957; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlgScPHdiLebmGaCvP48bU4gXKNbLya/+el4EaXYdkE=;
-        b=NTTemChe7dfixuN74dxTKB7C8sNyxI9FeiN4dmeX7yCelWMUCBnUXZsYugKVVqI3Y3
-         iEbDYAUv/zaedKY1NP7/LqRq7ZGgL1Xx3gSjHRpLtJpLu6tklL199d2NpJs9WUY8zH7y
-         i/sMcoWAd6YmZFgN+dGNhZjO88/fFCbfOcglRLF75QK7njpqt78m8Gc6RtLewLTI5Y/G
-         Y9pqSIMliKGpuxEzTlHnCci50tE+tIA1Jw+LRJDEisuJJzAMCFlhzH9KiZLS6hWOfibd
-         i1X4PBYO7v0EOfKOYWaPV3EBqCIKwvb4CjCM2MZhZTvEe4iSLzKu9sgs8uyYW5dHjwUq
-         nRZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683157; x=1791287957;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlgScPHdiLebmGaCvP48bU4gXKNbLya/+el4EaXYdkE=;
-        b=EeahPeUAZ7i984r77BDY2bA+cKtOG80CGVFxB+GNKTc2vH2VQiCKttkTBZ2lMpOJ0n
-         eqsrkhHWpMkikS9rs4oPUzOJz2Zga7rgdx6pQtq6Pf9/Qp3/VM96YBd5J3EDpBkZht7k
-         bsXeAo3I/yQEHaRM+4xzGNYNfx4K5F45H7+3KkR0JTJfYIsdfY+fOQtuO9ipBO6xyDH+
-         GcPfyMH2P8ZOn2IVynX2YsDS7bzx6KoqM3mEO7eqglNYOTPffDyDhpMWYYZUHzOaRwIS
-         gj8cB2KbAzk+2EEdDTTKX1k3v/xpwdHOOgePs9Nju2ShM4hkkNqPCaTPi27tbIxmZU0Y
-         TqHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKdGnFX0xR/WFxTY1zaUF4La0L1UdvopuhTNBk78uLaHchsaJ0Iy5Fql78rNADUdU1gQwbGoMnPT3XBas=@vger.kernel.org
-X-Gm-Message-State: AFuF++khkzKZWccVMbS0v9/ydjAtSBiF1/gYUT5H8I7ozzyxl7PJtqmu
-	H66ek5As3yuR/yS//MbZ7+C9vjmFCv+VByo/vr/yNTswHH1MAZCihX6zQzIsi9UWwwQwwWJiDqb
-	ubt09uWIz1g==
-X-Gm-Gg: AYBFou2J/ia2it6dc7n5AoEzWVpISgpuPRLnVsr2b5nn3fv520yPlSL+7NdWwf+ERB8
-	9mj7HoXRfQVCv+O/XVDKLKGBoD2XzhtfGn969RPQC9UT3mAeYzbhKdhCKsjBGx0DYSRvIC6fRR1
-	hGgwZcu4luRz0QLrq2sNH/FEcE5SYJntPtcBpzaLFkL3qtUXAPs2KoxtQejSUi5wuAxQlNCKq88
-	cM/WItFpdRgbc3x/r7eViye1fi4clQpvSZzHAswI+YfY1oIx+xUsxK518DLQKBiidNMkEAsMPEg
-	J3JU2dk4I4mVnWtA8eEe5O4Dlw9yWBn2DVmY6iwwoB+FgBSbpGJxnDqoVXkN8ol7zwVAx5nFAAq
-	WOBuLTD84smBgHn3UpuKU8WWaPUJJ6q1dWAGKre6vkAuwxqrE3g44KXUWFWhwsAJ1iDkr9aTaiU
-	H3H0L3c10Xyfuluy9suXiRtBoETc5MM/OWwG6MPCoAua6eNXY=
-X-Received: by 2002:a05:622a:130a:b0:533:4b39:4e28 with SMTP id d75a77b69052e-5334b395abcmr86308001cf.33.1790683156815;
-        Tue, 29 Sep 2026 04:59:16 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332225a696sm84460381cf.14.2026.09.29.04.59.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 04:59:16 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Johan Hovold <johan@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liviu Nicoara <lnicoara@thinkoid.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator volume after enabling clocks
-Date: Tue, 29 Sep 2026 07:57:55 -0400
-Message-ID: <20260929115755.6096-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AXm5nwq5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790683202; x=1822219202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oE2nDJoYPaF3EIF/jrJhJjHeCJ61YnNCdjyPE7i14Es=;
+  b=AXm5nwq5NhDnE/1v7M33kS+xVbqJO1WxMgS3E1clXVs5+xt3mZSr0MWm
+   nxv6isI88ZwWAEzEiXjvb3wZDR+UHXnmdt1yuTPLpmFvnlDRjGUJRIu1X
+   H37faqYEv30SY3JU3fvPtfcAfRXw6nHSCQQ2MrQsdCFfmS0tWNGT2mBp6
+   zX2JmJLwMjeCJ/aL/9ue4RVhKNAlxfOHV7TUw1EqTAHEAcg4q9xNScAan
+   Fqrx2UbXgIFLknlhaQiCiLiztu0qU7SABfGTLNlJ5XiotipT0Dg8WVWT4
+   0Ynh9jo0zl6wOc7qH7ZB4TItMic8z6UWIdgLsziWQcSVAqVsIxEXFGohB
+   A==;
+X-CSE-ConnectionGUID: 9UicNoSoTVeHZonsrQRgIQ==
+X-CSE-MsgGUID: bTkXa3JnRQiRjz+HicKA+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90351395"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="90351395"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 05:00:01 -0700
+X-CSE-ConnectionGUID: ZwNi5KCDQ2+pD5ZB1WFTIA==
+X-CSE-MsgGUID: WvwUBb0hRRe69whW8H9a3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="303314509"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.223])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 04:59:58 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5F4AB121840;
+	Tue, 29 Sep 2026 15:00:02 +0300 (EEST)
+Date: Tue, 29 Sep 2026 15:00:02 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: ipu6: Fix ipu7 firmware context leak on
+ stream start
+Message-ID: <aruoQnh5HUeUenIk@kekkonen.localdomain>
+References: <20260927201631.153126-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927201631.153126-1-devnexen@gmail.com>
 
-Commit 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless
-gain read/write sequence") removed the read and write of the digital
-volume register in wsa_macro_enable_interpolator(), on the grounds that
-writing back the value just read does nothing. The comment above it,
-"apply gain after int clk is enabled", was left in place.
+Hi David,
 
-On the Dell XPS 13 9345 (X1E80100, four WSA8845 amplifiers on two WSA
-macros) the write does something: a volume change made while the path
-is idle does not take effect when playback starts. Lowering the digital
-volume from 81 to 63 with nothing playing, then playing a test tone,
-gave about the same level as before the change. With the rewrite
-restored, lowering it from 81 to 69 while idle played audibly quieter,
-and restoring 81 while idle brought the level back. Changes made during
-playback take effect with or without the rewrite.
+Thank you for the set.
 
-The register already holds the new value when this happens. Without the
-rewrite, after an idle change from 69 to 81, playback stayed at the old
-level while the register, read from the hardware through /dev/mem, held
-the new one (0xfd). Writing that same value back through /dev/mem
-brought the level up at once.
+On Sun, Sep 27, 2026 at 09:16:30PM +0100, David Carlier wrote:
+> ipu7_fw_isys_init() runs on every first stream start, but allocates the
+> firmware context and queue configs with devm and never frees them, so
+> each STREAMON/STREAMOFF cycle leaks them. Use kzalloc and free them in
+> ipu7_fw_isys_cleanup().
+> 
+> Fixes: 9ab793dbc176 ("media: ipu6: Add ipu7 fw isys ops")
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> index aee9227fd66c..19e063b22a15 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> @@ -34,6 +34,8 @@ static void ipu7_fw_isys_cleanup(struct ipu6_isys *isys)
+>  	}
+>  
+>  	isys->fwctx = NULL;
+> +	kfree(fwctx->queue_configs);
+> +	kfree(fwctx);
+>  }
+>  
+>  static int ipu7_fw_isys_open(struct ipu6_isys *isys)
+> @@ -67,8 +69,7 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+>  	int ret;
+>  
+>  	/* Allocate and init firmware context. */
+> -	fwctx = devm_kzalloc(dev, sizeof(struct ipu7_fw_com_context),
+> -			     GFP_KERNEL);
+> +	fwctx = kzalloc_obj(*fwctx);
+>  	if (!fwctx)
+>  		return -ENOMEM;
+>  
+> @@ -76,10 +77,9 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+>  	fwctx->num_output_queues = IPU7_INSYS_MAX_OUTPUT_QUEUES;
+>  	num_queues = fwctx->num_input_queues + fwctx->num_output_queues;
+>  
+> -	queue_configs = devm_kcalloc(dev, num_queues, sizeof(*queue_configs),
+> -				     GFP_KERNEL);
+> +	queue_configs = kzalloc_objs(*queue_configs, num_queues);
+>  	if (!queue_configs) {
+> -		ipu7_fw_isys_cleanup(isys);
+> +		kfree(fwctx);
+>  		return -ENOMEM;
+>  	}
+>  	fwctx->fw_entry = adev->fw_entry;
+> @@ -111,7 +111,8 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+>  				   &fw_config_dma_addr, GFP_KERNEL, 0);
+>  	if (!fw_config) {
+>  		dev_err(dev, "Failed to allocate isys subsys config.\n");
+> -		ipu7_fw_isys_cleanup(isys);
+> +		kfree(queue_configs);
+> +		kfree(fwctx);
 
-This is the behaviour described in commit 46188db080bd ("ASoC: codecs:
-lpass-wsa-macro: fix compander volume hack"): "the volume registers
-still need to be written after enabling clocks in order for any prior
-updates to take effect." The value read comes from the register cache,
-so the write pushes the last requested volume to the hardware once its
-clock runs.
+Instead of releasing the memory here, could you add a few labels for error
+handling?
 
-Restore the rewrite in the interpolator's POST_PMU event only. The mix
-path event removed later in the same series is not brought back.
+Doesn't ipu6_isys_fwcom_cfg_init() suffer from the same?
 
-Fixes: 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless gain read/write sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
----
+I think it could also make sense to keep these allocations around until the
+device is unbound, but it's best to fix the issues first in any case.
 
-Notes:
-    Changes in v2:
-    - Cc stable (Johan Hovold).
-    - Add the /dev/mem read and rewrite from the v1 review.
-    - Link to v1: https://lore.kernel.org/all/20260924125940.22665-1-lnicoara@thinkoid.org/
-    
-    Tested on v7.2.6 on the machine above, by listening. This function is
-    unchanged between v7.2 and for-next; the driver's clocks moved to the
-    PM clock framework in cd054a6e272c after v7.2, which was not tested
-    here. Build-tested on broonie/for-next (arm64 defconfig).
+>  		return -ENOMEM;
+>  	}
+>  	fwctx->fw_config = fw_config;
 
- sound/soc/codecs/lpass-wsa-macro.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 4242366601a5..899c8bee4645 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -1849,6 +1849,7 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					 int event)
- {
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	unsigned int gain;
- 	u16 gain_reg;
- 	u16 reg;
- 	struct wsa_macro *wsa = snd_soc_component_get_drvdata(component);
-@@ -1890,6 +1891,8 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					CDC_WSA_RX_PGA_HALF_DB_MASK,
- 					CDC_WSA_RX_PGA_HALF_DB_ENABLE);
- 		}
-+		gain = snd_soc_component_read(component, gain_reg);
-+		snd_soc_component_write(component, gain_reg, gain);
- 		wsa_macro_config_ear_spkr_gain(component, wsa,
- 						event, gain_reg);
- 		break;
-
-base-commit: 1f9b1774f65c6670a37000390e6c43309248a345
 -- 
-2.55.0
+Regards,
 
+Sakari Ailus
