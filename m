@@ -1,179 +1,156 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB6D51A14F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179BD527584
 	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687432; cv=none; b=sIRHOdgAwCRzyPJ3X734KX7cMRJ7IzyB2Nu043tzN5SvmeakHe25+Xeb9SO2gKUiCNluIF0tJ1IMNSr8sPrZqjoLZN3x1w53wOamrqLxaxspPs4tDsg8KbZ8K7fRf4gt9d1nrj5HRSia6iKGNXvdkYPBM1qZrG8QmK9GDF9VD1Y=
+	t=1790687433; cv=none; b=vEF8nYegBR7fLocCjE5jfzv/sLAqlkgAptE0/AT6VS6m6Ub74Wg5Et2DYhk7oU/spmPMrJHx2Dg9VTQTdJRBenhALdosVJ5sFG/MUFn2N1H5BYXbjiY/Uqbvx8pSdGhb65Drs+3R34coO8aoTOH+SmcpgC2wx8ZD3vtthnldbmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687432; c=relaxed/simple;
-	bh=mPGy83zCIZIUwpjE30P3ea5r0XwYdy+rZle+WQsh5b8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HGa22v3UzAVS2eYi3pcdFtjcCVqF1dCtxmSmWtICIdGbsUB+5ofaU2i3Pq0FbfTJjBq+qCXcsYOMVO9eFhEhl5uMPAagAmgQTdgsB3wqltI7gsjBlK5ctfhWdLLO/9GKy88kyiStaiK/vtdLQIc9M1UHxKy7zIDalkIWxrk2oM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=epJy8ZcF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tv68dzqd; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790687433; c=relaxed/simple;
+	bh=8cPRUFsA8KS0yyETrcUqv/obyJxQTG4rJfluXO7eWbg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HEqpYPfX1kCuibGFVVknSYwonsu32D5zxOdlFzxdWXDmc73IwPIMN1rNIPABuRCR+vTSvvV228/KdqcIWZTYKZaorP6RmuDzIyyCDXk/eN6VLqP1nH2TrTnSRwXu1EkjmjMQpQEdQycJiQzh/I/AO26n0aIxaBPI+Jo/2GtDyFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WG/FOhi/; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="epJy8ZcF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tv68dzqd"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqee1611450
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:10:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Jxn0OOB1sRE2utqg39woPRTHt+IMHQbA8JUcm94TNvQ=; b=epJy8ZcFmuZ2lDYn
-	oq92ENMFZrSq9ZVYHCeRjQGh+8rr94BXoALOoRt1a0gg1hcwYvO/vWuKaYw5Czw2
-	nmac4KElhUWGC7IzYQVg0pYNKwT9/LsvKBMzrmwGPNpbGWRfxpOg4CS6sOwswfD9
-	xBhmkWcQKJmwRPAWbuh/dUob6L2gCcN+uQ8f0cEvr2XrbiImioACfl9uERBh3Q4O
-	e+VNgEFR39gPP5QaVW3PCs9iZ+kr/FH2tpFNOTh87Nb58q+bFB+11yMP1sbWmd7d
-	Vb92ob83pYwAItR+MwlH1lbHxF4yL18lLlZw+zjldtKp7HoULLWnc16weMstTUho
-	KkGLtw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4u6qx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:10:30 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-914321eb48eso80601786d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:10:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WG/FOhi/"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db479a55b6so3899825ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:10:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790687429; x=1791292229; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790687431; x=1791292231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jxn0OOB1sRE2utqg39woPRTHt+IMHQbA8JUcm94TNvQ=;
-        b=Tv68dzqdYrqjWlnIM2jyyGcXTOXHI8gXvlyEKrg5cPmbHUFsjXNI2B/8CINBRc7Fdg
-         AW7Gqfg9uYJqRBZEK2KP/VTNHGoz7UNYMjhbii7rPDm5bQjnIOkdG23WiBh4sjOuHofF
-         3QXUZ9wUkamsJs8vjVSjpAHqBhfbNMkbnXHbmf3DpHF+81X2ejSz7296rxhLUiDoKWnK
-         P3FbfA8URy6jIgd+fH0FH1cg/jewzClToFpZv8u1FfHrLpMbZihm6F/ap8t9cd09MSDQ
-         OIS7wvbrMisEoSke4/TqcEuIMjfXO5XVn64RKIkSH6tDZdz8UsfUQrY785yPUMSofciM
-         GCVA==
+        bh=cb+KxoUYDyPoOtp95oCFcc09OTaWElRib7MXp3IhocI=;
+        b=WG/FOhi/oEz0oS3C9SDyS1vCUyNwkz4qUAJMT3de18p4jnbh5vZbDv67C45sMwbTM2
+         tzwR9OncF5uwpzrcmMmKrCVcxABasBxsAQonR4lfZR8vTlRdxsAe0/FoXL1qMUQiTLzP
+         vZQRpkolQ9F55shmvRj2O6RHu2BeO9C65d+m0HcciP36EhyGj2S9XVl8TqdpvTxgdAiG
+         JRxKw0fhAj0fpOvn4Qm6o2IJ54cZokRcbhrHZmpjLbH+NhpP1OcJ2xErz8ghyBnWq3iY
+         1AWgac6OhMk92jqcnS/F310YQIRrdQS2wxPBSntfB6O4gNLtuCNjnXTqI+0D2a7doqzy
+         Ua1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687429; x=1791292229;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jxn0OOB1sRE2utqg39woPRTHt+IMHQbA8JUcm94TNvQ=;
-        b=wMkC8WoVxcAo15UgrLA+fDD4IOo2aMTHTLAOcJHbDRtRcYLFPlatuzu3Zu2ME8CEV+
-         yd6SilwPUnpsvIpHnCxYfq0h6iI52roYU/YTbC1ZvuYyEMpRlHSPfi5vUvzF7G+FX4SM
-         l/h6TZxO17mnigPzwRWQI8Gs7uAjwTkBAlvJGlosp6wxVFtLQzXrOOvIQGd6aQq2JMMX
-         O2FDFhOXqr45Ll+aDN+ozCDaXCplxSVNWWGvXPEmHpcL6IGAiC+BqnjuyzunIjLWAP76
-         fOmjqPTfacInlLSj0TMzgJDRSDreVc6SLjQQrtOmljkttH9t+egb5mdmE9BrHcd4ILJk
-         CdAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCJoGgMOFwWcLHA5qOwy7sjGSazM2VRm2DN467UgLbPLu69139NW3/D+CRJoGZs82+afcjC367Kwx8y9M=@vger.kernel.org
-X-Gm-Message-State: AFuF++ki7la664AnKrvFJ8CNGnPobUhbML+edeOXossK1/5/Cw08YLeU
-	52MJey2vwterjzhH5miTJZmMnBFxoIyhAQbmWhWKkLidkjevD9grD6GL3VD8DWL5c8HfyoBiUKW
-	Kl8h5Z+J0Pj3qUAMr3TLyBozO2wr9kBKVzup7K5y+yaEnBPoJY3htBX4bKVv7mnharb0=
-X-Gm-Gg: AYBFou1pn8NUlVdIqr0CYOwn7pzb/1QV2NuNcrrCdAIpupl+Nj06Xrugb0biS1i2mBl
-	ApsMvfiPkjt2ipxAwEA7RZrXCMi7MKItlGP23LeFTNXLpcAPf48LsHGwFMaYa9t/Twd8aDIHUYR
-	RcoJPB8IstuN5xre2GnjRftwmvUgApeMaZxiOXk1mJvVUDFlAM4aM+bxgsu9e2CerdZcu4bMapX
-	i6G+2al2IXpvYNTQkyt8TCRhbEbaE6MUVYywdalWPiVXnmNvPeu662pTL5vEGVL7x3PRZ6s+B81
-	r/SJ4QOvpGb7sWp1k4GAg2/jxt0AbKWan9hsmen8VhwSMEI1MUFe443t/3Ij/lotJurd3w7jwjT
-	L8DJLUasqeAcYoHp8DqAVlML3J1C5eWlpIvM=
-X-Received: by 2002:a05:6214:2dc6:b0:917:9338:6f16 with SMTP id 6a1803df08f44-917933871f9mr11843746d6.3.1790687428372;
-        Tue, 29 Sep 2026 06:10:28 -0700 (PDT)
-X-Received: by 2002:a05:6214:2dc6:b0:917:9338:6f16 with SMTP id 6a1803df08f44-917933871f9mr11842516d6.3.1790687427497;
-        Tue, 29 Sep 2026 06:10:27 -0700 (PDT)
-Received: from hu-manafm-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d013e8bsm10225326d6.0.2026.09.29.06.10.18
+        d=1e100.net; s=20260707; t=1790687431; x=1791292231;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cb+KxoUYDyPoOtp95oCFcc09OTaWElRib7MXp3IhocI=;
+        b=piv9Qn+q9u3oXKCEkEfBFMFzWFUTNYwpkTqc/eLLSMnLWflrC8uYDwl+Lvk4GmU3ql
+         mJNVboF/4xSOONSKYgJxUMmHrUupWeV76MzH1cydocvO0qBktPiMftxwgJO4YVfSEQ7/
+         JrQR9tWcn2Q8GWWOdC54bmBziKzLnVFb7jUaCtrBnA8ZCUpHF74Jp+xiQWA24WRSm/bP
+         1i8PlACSNNyTIGZx1mbuNZVzVgIvDK26a/IXKrH7rFoLUppN9c//0kEnCErK3Y6sholv
+         xdcG4Z1DvEbsVPgtqwcTz71msvQCxwj8gs4AUUyVFZ5CpqxkTMGUpL6OB0uH55S/Z75k
+         lc5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxUrSU8h7Om79klenzYa2VLrY/GVB3Mn/VjO6TXNgT7fHriCWgBkNBQ6p0xMsxU3v17IreQQJzCNHAJwEQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMHgkHBeAFh34c51wLcqH/Nm4qifBhM4+PgTVCiwYBV9cLBix5
+	qjbZx/MoickEpv6M0cX2GHZgki4zplNfzKUSVO36OQHWlNm5K/yhyft/
+X-Gm-Gg: AYBFou2zUqJsAsiG8gnDHnt3Q/fTEYR9Vu64H+A1C7Vi0Hg7KW8LaQk3U3Ug+fqQ9AM
+	TS6NliUscBrbw8eW9wXCogiaO/cQv9z97jNCVrJcBvUBBAMChGSdMS4qRFffLs75MqAUKcAyFt7
+	auhVGLUaJzRhANUnE3nk3QwiOy7gY0JYxopz/oADtLG7YZkyS9Dj2UwVO3rToIwMsEzNm5e7TI1
+	hSOQ3aUN0Uy1jo1hRRPZkRe9h/afYcEqtyGBKeFlQAKkdU/vpc6CUue9Su1/XaV+Gmew6p39L02
+	yJSf8K/AFNpSuuooHp4ZoI/yCGYhLiZJTmL6cDcJeB5BPqAnNB2+8iInPr44buGK1ksYG88x/vm
+	gNNuMGcq1sIF8f/KggOAaQJcxUI1P4EtjT2EqUWMSLGhk09eNdD9qNSTqdjT2j2kHQtwezjsios
+	ZUVz+GaIvztPaWiSs/gBD0Li5Bu0+JS+yI65Bw15/qrlC3rgu7i7VZKhjWnwW/wN/PSldR1r2Ex
+	tVhsGe3RW/2ABJaF1QmTXu0tusOwLqZLXJeG4+o64otiFDfQWhLAhvx8A==
+X-Received: by 2002:a17:902:e550:b0:2df:8909:f719 with SMTP id d9443c01a7336-2df8e71a14amr176903705ad.3.1790687431185;
+        Tue, 29 Sep 2026 06:10:31 -0700 (PDT)
+Received: from chenyou.. ([140.116.39.229])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142969esm57363705ad.45.2026.09.29.06.10.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:10:24 -0700 (PDT)
-From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 18:39:38 +0530
-Subject: [PATCH v3 06/12] arm64: dts: qcom: pm7550ba-eliza: Enable BCL
- sensor node
+        Tue, 29 Sep 2026 06:10:30 -0700 (PDT)
+From: Chen-Yu Yeh <chenyou910331@gmail.com>
+To: corbet@lwn.net,
+	alexs@kernel.org
+Cc: dzm91@hust.edu.cn,
+	wy@wyuan.org,
+	si.yanteng@linux.dev,
+	srcres258@furdevs.cn,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen-Yu Yeh <chenyou910331@gmail.com>
+Subject: [PATCH 1/4] docs/zh_TW: move security-bugs to process/
+Date: Tue, 29 Sep 2026 21:10:15 +0800
+Message-ID: <20260929131020.266120-2-chenyou910331@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260929131020.266120-1-chenyou910331@gmail.com>
+References: <20260929131020.266120-1-chenyou910331@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-qcom-bcl-hwmon-v3-6-f5ca00889cf7@oss.qualcomm.com>
-References: <20260929-qcom-bcl-hwmon-v3-0-f5ca00889cf7@oss.qualcomm.com>
-In-Reply-To: <20260929-qcom-bcl-hwmon-v3-0-f5ca00889cf7@oss.qualcomm.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790687377; l=1187;
- i=manaf.pallikunhi@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=mPGy83zCIZIUwpjE30P3ea5r0XwYdy+rZle+WQsh5b8=;
- b=u4MO1IQw9Ihk61kLbucFLPF/d2RDFy+rHq3SsRATGzkMgdOmAfo6LUaCZpDyQt6vVXBvcU23a
- ulIb7QRcZzaAj834Dguk9ENMjChXGtyuuTYlP18ySUbvBBn8SLS9wN5
-X-Developer-Key: i=manaf.pallikunhi@oss.qualcomm.com; a=ed25519;
- pk=oZ3x9jh+FDyPwxHmCbyzEMQHMzKqrH6hUbbL7dEBe2g=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1MiBTYWx0ZWRfX1/CVeH+bcXzB
- J8eI0qHmA/WfyhydzCxzFvNfZPCSkIt4CdcNRDhmXb9Uqc0rogwirSsPTMpzTPXkIdORE0ZNFZ3
- dlHekzaQ//qwF1o7R5T4j2x2srcSyeg=
-X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abbb8c6 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=JVADKE0FdtAJhbIBjnoA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1MiBTYWx0ZWRfXzG/1QmfzBw51
- kaQcB4uGLnV/KjyRp7js3Z6jmy06T/5lcu61j1jtJf2fX/2LRuVcP+3NSWKJJ4vZE10tNGoyhXM
- veLC//Bw0coZJKMpiwSlGtu7gWcrIxgFam6aMlTkKy4DA0PtCeEbJQe+AkIhlnlDaHYSXcMTyVV
- 025sHYtip/l+fCe1vmrc+/V3QpNIoBVtiqMJgj4hEQtnKhny+eiF8h4UyuFT77BX0dxAZA7bQVE
- /DO9XABzrNSQ5d54nmuzy007q2x92sqB/30C0ATwHVaiBvVTd5MV2t0k8jFoWCjKKDPLhsSEy6n
- o5jaOc+K3KpGm5gHCL6gkelE5tC5bn+2URYg7Id5tlcLf9dmgyVtZUwiZF3oZhOvvukc8aa0g2Q
- Apcsn67wmLWzjUrTRqL6Rkkn2cmu3ss1SmHPL+1FarZ5vs7l6eQWChKHG113RgnUmI/bfbncNK7
- KIDvW+hPZQuAwork3/w==
-X-Proofpoint-GUID: 5ujtiuc5nIUOHAqe6BxQGtvjrc7TmCyA
-X-Proofpoint-ORIG-GUID: 5ujtiuc5nIUOHAqe6BxQGtvjrc7TmCyA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290052
+Content-Transfer-Encoding: 8bit
 
-Add Battery Current Limiting (BCL) hardware monitor node for
-pm7550ba-eliza. The BCL monitors battery voltage and current, providing
-hardware interrupts when configurable thresholds are violated.
+The English original moved from admin-guide/ to process/ in
+commit 44ac5abac86b ("Documentation/security-bugs: move from
+admin-guide/ to process/"), but the translation stayed behind.
+checktransupdate.py locates the English original from the translation's
+path, so it currently reports:
 
-Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+  Cannot find the origin path for
+  Documentation/translations/zh_TW/admin-guide/security-bugs.rst
+
+Move it to match the English layout, and list it under "Dealing with
+bugs" in process/index.rst as the English index does.  The content is
+unchanged; its :Original: reference already points at
+process/security-bugs and resolves the same way from the new location.
+
+The translation has only had mechanical changes since it was imported in
+2021, and the English document did not change between that import and
+its move, so the move commit is the English version this translation
+mirrors.  It is also the oldest baseline the tool can use:
+checktransupdate.py does not follow renames, so a commit from before the
+move would make it fall back to comparing dates and report the file as
+up to date.
+
+update to commit 44ac5abac86b ("Documentation/security-bugs: move from
+admin-guide/ to process/")
+
+Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ Documentation/translations/zh_TW/admin-guide/index.rst          | 1 -
+ Documentation/translations/zh_TW/process/index.rst              | 2 +-
+ .../zh_TW/{admin-guide => process}/security-bugs.rst            | 0
+ 3 files changed, 1 insertion(+), 2 deletions(-)
+ rename Documentation/translations/zh_TW/{admin-guide => process}/security-bugs.rst (100%)
 
-diff --git a/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi b/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi
-index 18692893ca41..f0c252a386ee 100644
---- a/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi
-@@ -50,6 +50,17 @@ pm7550ba_temp_alarm: temp-alarm@a00 {
- 			#thermal-sensor-cells = <0>;
- 		};
+diff --git a/Documentation/translations/zh_TW/admin-guide/index.rst b/Documentation/translations/zh_TW/admin-guide/index.rst
+index a6e8564ba68f..937f84c69ce9 100644
+--- a/Documentation/translations/zh_TW/admin-guide/index.rst
++++ b/Documentation/translations/zh_TW/admin-guide/index.rst
+@@ -37,7 +37,6 @@ Todolist:
  
-+		sensor@4700 {
-+			compatible = "qcom,pm7550ba-bcl";
-+			reg = <0x4700>;
-+			interrupts = <0x7 0x47 0x0 IRQ_TYPE_EDGE_RISING>,
-+				     <0x7 0x47 0x1 IRQ_TYPE_EDGE_RISING>,
-+				     <0x7 0x47 0x2 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "max-min",
-+					  "critical",
-+					  "emergency";
-+		};
-+
- 		pm7550ba_gpios: gpio@8800 {
- 			compatible = "qcom,pm7550ba-gpio", "qcom,spmi-gpio";
- 			reg = <0x8800>;
-
+    reporting-issues
+    reporting-regressions
+-   security-bugs
+    bug-hunting
+    bug-bisect
+    tainted-kernels
+diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
+index 30db28078460..18653aa75d7d 100644
+--- a/Documentation/translations/zh_TW/process/index.rst
++++ b/Documentation/translations/zh_TW/process/index.rst
+@@ -88,13 +88,13 @@ TODOList:
+ .. toctree::
+    :maxdepth: 1
+ 
++   security-bugs
+    embargoed-hardware-issues
+ 
+ TODOList:
+ 
+ * debugging/index
+ * handling-regressions
+-* security-bugs
+ * threat-model
+ * cve
+ 
+diff --git a/Documentation/translations/zh_TW/admin-guide/security-bugs.rst b/Documentation/translations/zh_TW/process/security-bugs.rst
+similarity index 100%
+rename from Documentation/translations/zh_TW/admin-guide/security-bugs.rst
+rename to Documentation/translations/zh_TW/process/security-bugs.rst
 -- 
 2.43.0
 
