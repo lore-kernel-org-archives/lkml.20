@@ -1,45 +1,45 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66AC3FC5AA
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F503FCB3A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653584; cv=pass; b=SeNgfX/HA3Gjl8dD5+aVCOlv2sYeYaOtpUr4epdA2IGT7ExTPAGiVJBSE9SH078wLJ33lqoL3Tn4f17T4H6cRNBkt7ogtIKkVoC1iEIWLGwVt8NlhFxj/UKXx3RiXq97CBTpDgJP5Nlzy6q0+UJTxN4QM74R65YEASrL17K8AQs=
+	t=1790653588; cv=pass; b=IkdWeJuNz8Kr1TlG8MSLa9+ZU8V5FizztVFbZbTcaUgcUd7nrPzn4rxRVo3amtpE5pMF4p6FooM+FezhM4f8IYIvPpC/sBVBOrgpBXA6UmdaTLUpofup3Eh+gFseoUR4MZDcxRa38DYGH+ypoALQZxtIvazNhOvy0QVbDgy+3UU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653584; c=relaxed/simple;
-	bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
+	s=arc-20240116; t=1790653588; c=relaxed/simple;
+	bh=t0pKAbH0SA2araO3s4z8ycC80JiA92CZd/FQ3/v+S5g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZiWeoqLYYDlYRBEBvptH/1KSRYiEoG7/qbpQ5b+trtS8n0vJpjfqq5C1Ss9goVPaU6phXSeRJJNqLtzKDyxYRN3uMDcNG6Q49P4PfmRVDvQ1OoHpJQKznUtKJH+4e0sE9ATwXkmMJj0U4CNA36g9zpve/ylqvjlVWNxBxbx+lbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=MhHYz5ai; arc=pass smtp.client-ip=165.173.180.11
+	 In-Reply-To:To:Cc; b=uYsR4LUDR4+6zfaPDaSPGwifM5+7wPpeTDNWo1jxcvFNnSgKMJUZ7UdRpD2Dn7I2pk7kJXtXPxYXGTQPZvCPFsK2917KsmEnOqInfX/x4lSgvGBxC8GkGPOZfBVKxVKywo+9O0ERORWVmADXPOn+gdulSrZpF2VcUgZbmh+7iOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=EgXv3KQ1; arc=pass smtp.client-ip=165.173.182.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="MhHYz5ai"
-ARC-Seal: i=1; a=rsa-sha256; t=1790653556; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="EgXv3KQ1"
+ARC-Seal: i=1; a=rsa-sha256; t=1790653560; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=K1aQ3s1j96CCvCTdXb74GhAFq2SarM9mGQDImTCBdBoETsMw7ymvGQxbEeiDe332pM74122hqOdorG7la/cin4Qkx97/kY5TdG96Fq34r1Y6YC6qw8zUhb3+EMBieRjvTmx1FZ6KW/+KoVuamVycWX8TMMCy3h31kdFxOywY+UU=
+	b=Ky4GCNUO4J5851+oVeG/DeOslxYw8eE9xl6sbiuX8muaxjsgExYFSsyFVsqKssb9/MBMAEJIRW4SfTq+Xiesr8j9Mg8nQBa1uwWD4/ZN6TdSffJZllIr++qNU/fB+x/Co83VaB9idoi6QDu8L+glL1KrJi/nQlNNzsEgZePjhaA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790653556; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=; 
-	b=S2HnYSiaXCEqHqLrt9lLGTWOzUZuEYT/Mb/4WfO0eNXFhcHQ7wow74VxYahV0DE2AUVhYXBGFxRFVOanyVLNsSVbA3Ztbqwyz2hXCpARXaDUtXtgJTwV2ZtmeEzJmriazxM1bchimnsP0gWsRYu4vWh8zbr9aos42+1nqj9bwBk=
+	t=1790653560; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Z6RRS3cshQwsXc3rA/U7BvQ2XdAR4lAqGHrehoKydrQ=; 
+	b=RF5E/lKnS6QcsVSz+nqqZL6krOD61pNhzu5pCEA6UZ2sDSZwzjnoPXuU6ZDdQOIQ6tkB7Nr/kpJhLkrMwdKrlMz8xuy3Vp0961wPdVdqerW7q8G5VdBcmspqUAZqI/0L1/gmze+RejddA5qLn4U+Xra5F9f88i/ae6F/Jct7Z5Y=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653556;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653560;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=;
-	b=MhHYz5aigWi6Ebq73DSvHun7fYZqeePzpWYRHyN+VIjSPd7hFY9P6XszdbqIIXzs
-	vN/FSxsU5Xj/+wiH0nbz1oc/c3T0+QPa2NKygY6srZF/pA5Y4TyvpuhRdItqufhYvkw
-	gw754yssANDvOZBJ8euFocQ5rQpIPf8PxNQ91KYg=
-Received: by smtp.zohomail.com with SMTPS id 1790653554870843.1004182142298;
-	Mon, 28 Sep 2026 20:45:54 -0700 (PDT)
+	bh=Z6RRS3cshQwsXc3rA/U7BvQ2XdAR4lAqGHrehoKydrQ=;
+	b=EgXv3KQ1meWQrd1GNJqWg/JLbm4+5GMKynLlHBmFJPSR8ejqXyZVo+LsEmOlN6p+
+	4us9UhcyyNqprjqfBCqWPRmI7R7aRTOFWg0B9vX/042BjWFCOohc+1zQIDHamUVgs21
+	EkXxou2R7HGtix3iShV9T/JBz9CBzTW57OkXF0XY=
+Received: by smtp.zohomail.com with SMTPS id 1790653560565778.2981140572697;
+	Mon, 28 Sep 2026 20:46:00 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Tue, 29 Sep 2026 04:44:45 +0100
-Subject: [PATCH v12 11/15] drm/panfrost: Move perfcnt GPU disable sequence
- into a helper
+Date: Tue, 29 Sep 2026 04:44:46 +0100
+Subject: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-claude-fixes-v12-11-62beb08de207@collabora.com>
+Message-Id: <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
 References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
 In-Reply-To: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -65,91 +65,60 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1716;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQuGk22BwzeD6Ok71oYnxrUcd1JLK07kWLI3
- ZCNectG36aJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
- PTTFC/4vNF39PCA+t/2SzhZTRbmE5mFRmoNR5e1rDeEWlWLBciSgIhZR53Qos9B8SuevIDSxewJ
- ejowpo+1/w04bKYjk9sogR1wDI7YBo62zQdrOKzhc1SuVoBwA/x8n/PL7RN0qgMWzNyyN/zk1xo
- WRNq1eM3uKehAsm+eeMPiYMxcoK7oCgXBFcfZ/+nNgHaoiovciAWcrjJMQzW8UzN9dJ//y/1Zeu
- G8TKEh/lX2geDBqQH3Cl1qiN7ATobKkYbpEaZ/Vx2oy2DHJFb1+ELM+F8b5hp9lY6modVw8pRNJ
- 1fZ+TycN8X0aWfZDFyoLWhsh+jsXYlJiHYVut+4jrp++Lmt2fR8reLzlS/JQg2ATwSeECkNayuC
- F6X/JBGsrZ8WW2k335fxtfPhc0pgXgX4oDd/jgN6kynkLuSj//xijzXrZ5MYlwQ+crCZhJb6NlZ
- /xVfw2T2x8JLsWcNqKcqU8xPOyWwMbbArNWjUYULWkckaZO+9xdClGsVMWv1xm2Ol8Ook=
+ bh=t0pKAbH0SA2araO3s4z8ycC80JiA92CZd/FQ3/v+S5g=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQu3mOhp5nT7B01MR760fkEsdIPNesrG46lw
+ M3ba4BJ5kCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
+ PZvqC/98swrtH/HiTTyUrJPI2x6crLZJUVuVy1SKjSZs1nk7PA3ORhxZuPQI3Ft0VqTvtNmw2BP
+ IO2Ox1AFehFpdbuHa2a7COuWoDFPxoBhIzPPy52T7o+6pcFI/qvffOHFWXcFh4HxJgMYkzTBcpW
+ peRuaDCCcD2eBGWJVc6uLTuA9ASO1Kx9FLHUDxvzZOi14g+Ijts7YaKmNUmMqAHcJREsqzPSBr+
+ eaamQd6DIL2+qcpCB28KrRDMtSDjVdXh4cLO5MsJWuy3HxSyBBjl7nXDj2BT3dZQKZtIpq1cot0
+ bBp+HIe/4EhMmmfIKh5ATW/+5gzgdMgdPDLTqoSnbJ57oxWPzB0z+TwMeXEk1xUZ55io6LeZBhO
+ vXMtBOmlSSfsdAnyTltD9BBJPRl5A8L4STrwiZGB19kALlMot3qUO0MteFIlW3aP0CMBZnkWC1k
+ cJW2UFp/lloNqzVuf9IYYyG4rVM5vbrgH8PshN0y2YxjY4xilcoAQewap/yXY8RPoU9Q4=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Just for the sake of avoiding repetition.
+The GPU cache flush/invalidate operation is unnecessary. First off, the
+GPU doesn't read off the perfcnt sample buffer, only writes into it, so
+an invalidate doesn't make a difference. Then flushing GPU caches after
+each sample has been written is enough for the CPU to see updated values.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index 7020c0192e18..f71534e741b6 100644
+index f71534e741b6..ffc77121070e 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
- 	struct completion dump_comp;
- };
+@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+ 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
  
-+static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
-+{
-+	gpu_write(pfdev, GPU_PERFCNT_CFG,
-+		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+}
-+
- void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
- {
- 	complete(&pfdev->perfcnt->dump_comp);
-@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 	if (user != perfcnt->user)
- 		return -EINVAL;
+ 	/*
+-	 * Invalidate the cache and clear the counters to start from a fresh
+-	 * state.
++	 * Clear the counters to start from a fresh state.
+ 	 */
+-	reinit_completion(&pfdev->perfcnt->dump_comp);
+-	gpu_write(pfdev, GPU_INT_CLEAR,
+-		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+-		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
++	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+ 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+-	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+-					  msecs_to_jiffies(1000));
+-	if (!ret) {
+-		ret = -ETIMEDOUT;
+-		goto err_vunmap;
+-	}
  
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	panfrost_perfcnt_hw_disable(pfdev);
- 
- 	perfcnt->user = NULL;
- 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
-@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- 	perfcnt->bosize = size;
- 
- 	/* Start with everything disabled. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_hw_disable(pfdev);
- 
- 	init_completion(&perfcnt->dump_comp);
- 	mutex_init(&perfcnt->lock);
-@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
- {
- 	/* Disable everything before leaving. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_hw_disable(pfdev);
- }
+ 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+ 	if (ret < 0)
 
 -- 
 2.55.0
