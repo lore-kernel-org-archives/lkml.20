@@ -1,130 +1,108 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F1B52D2B5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7064F3CEB9D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690840; cv=none; b=uOzvl2R+ToLLrjVEL4lj5hRhGzNZY50WZIs+TdtnONDxbRAc2lERsjOJ1ySxHpuAYUWLUnJnyP6/VAE4pXt/hZTxKIMI0kd6eSOxvtS66l8QYZmO+d5ApP3V2tsZ/8pOJaMXjpmRXH1Q83CJ0q3qtpe53shGacJGXhouTAR/UKs=
+	t=1790690891; cv=none; b=nuyzOObIHxi8AfXcr4cc3LciM+UUboSigGer3cpif4Rff9KsjlrBg4npNGKLbG2fleQzSeT1urWv5T7mdKGL/8gd+A/b05ULl+zx+JNm+75Td9wG72pOk+i3vYzoVSzheozKvedruDCtEeYSd24oNuJ2MD14lehHAYVqUcGX0wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690840; c=relaxed/simple;
-	bh=yNJm9rA62v9MpM3ToST3iGXEFOROWx+UkzYwEQFVslk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rKmWD5c+dhT/GlQQEcWDJ/kG9ww7jUskRHlBOwBVjnKlhi7BJHafQ64LwZnYHE3POtY/4SIM/0UGmwQ44/OP+mvQVFtawHnCeOTkU2xdo554uYc8YSIToySYZpxXUy8u+T7swqvWhQE2lOZwrQ24fMjvyffBdh7DB0spKp22KKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sALH0gkb; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790690891; c=relaxed/simple;
+	bh=zRmSSpx7pOpIVgGMPJbmxUydIOWy8dcYMe0BfTr5YCU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QiNM8lfXfqFHsIVxB2Q8+HYo6DEpvhgTFme1LjHx2svqGqkg4o30lkRzsVLuXSGjXjq30uy1uFm1YECYpUUuaZB7fDgwDndnbhLuX1+9+1TyPmbqW18vB6v0zavRMpcqAEqt0g2gEqC1JgNsFJXZjb+vYNbb7CNzw92o6fJtYiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MIALrTS3; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sALH0gkb"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso438670a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MIALrTS3"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7cc8bffedso454289a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:08:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790690839; x=1791295639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SqA+LDAW+n6bzSeEWtxAoQmofqsPeInfCOUXCovBFDk=;
-        b=sALH0gkbc4rpwXCYFecuAY6zgc4p6x5wk5Oe7OXJcX4+8+mpXlhmoBSF+apwMSjtnJ
-         eMxUfaTNB82/GChQ5B7yGZ693m0MAp1esyZc23pimHaxxMqKPkrkW1Q1D5tPDxs/C9Re
-         0ErdT0E1W9+NyPZ39Nc0/jceCVbI4qy+kjQC+6sEx6UbVTZsE9nIoi3UHCR5s9+tJn2b
-         e9SwxuRgrQ1Xe91hCOblON57yWkeWPrmwgLI8QWPpnMSKy3MjlfkYLdoMSwGUlSINDPL
-         Ek+wuBhhMzSerm1S9wpuf6T3wU4w8mt+JSKrwUvFaCwxmWaO6WKOoKWV9mtNr7Nb/1tP
-         IM1Q==
+        d=google.com; s=20251104; t=1790690889; x=1791295689; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9E1G8+1SAy708zksU5Axe7JTCFgve+ogorVJl8uDEi8=;
+        b=MIALrTS3rLZHeMyXCk6Mz1vM0DDg2elk44mDH37l5cqCKkmLMzTqrfyKyXTwiH5zH6
+         +VrCXt3UD77U/rWIun9OLQ65fRuEOsEmDnnAwFvoR2DfHjMSG0RmngWy33FWq8MQcACE
+         MoElO1xchMnSNvNKlbyZlJ/wOWI2qP/RlUFLI/fA2gVyDDyDi4I8f8Nr/HZa3+lzVWtc
+         /PH8sC2oDcIDYzj6o4cyu9Me9/Ilxo0aurlrvGwTS0XA/nWQVkW6qViwpx44YcQ959VX
+         P7o1C3JSFdLo0LfcsalM2cugoGlZ//Vbqll7pZU7MtcrZ/0PaW5KgNTX8GpleqRW62h8
+         vVlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790690839; x=1791295639;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SqA+LDAW+n6bzSeEWtxAoQmofqsPeInfCOUXCovBFDk=;
-        b=E/XR/9diLmB5dcOUTAorphWgfmrnAUkk92ZXeST66V+JWE2ZzSw8X9X7sXLD27dqp6
-         jJW772JVA7b/1og/WCEPB6USluEqKntbmF1naIT0uLCiZoXJILBnribaVTLbemes/JJZ
-         g114fZTYchxRs8LODFQwqlzxs1mxfOJ2m/efn6VqfqNU0m+o6owXM+CN5epEiWd1MZvd
-         uJ51hC5Tr84wbV5fRUV1Fr5yCS/QLluvohI3koJdWkNFHRR2A4dDmWVPUGd4u7DspL6T
-         JxC9Sl6IOY6aEP5ZTc6uRLG6Aqe3BbB8aueVIcT6+Dv51m3sU5m87YE/B/OHNNINzZum
-         31fQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfxebBB45HBNqxHW4duQyDpiSON3h57bCYbgrP/fKWZbItDPfk4sv4ANVVnWeHiqm3qcASnk77T3ukSsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mf8uFptQvpbufOQ8cRgzlZlzyEFh6UVIaQul4MaGlnzirbkxDc
-	n67XNf2yHtdgM34WQHgwjM80ZQ/FQguJtQ4Kbcoald9CkJockQPlRsTB
-X-Gm-Gg: AYBFou2w6MlUwIWRA/4TAzzijeVgpobrb5qw1NBAEsXvYlcLSIBEUP9mFTVfaj2RnJd
-	cCy/D8sZei1CLDxRftUBSHvkz9yL/u568RUDmO2mFygciasaN2a7k33fgZ5BUUw7JcYY73l2xhn
-	IIQJAwy4+T2+uN5DBp6W1UH4Vabc37SV4+Y7H4SYSz93gbpM7uYiITVH1faq2tTPEwNkVuMUxZ8
-	4T4PzCCZEqCPAh65o1GggwX5zEs2cOUsW/hB9v3JehS5kZmyA75K/ui2iJZCMiADAL7I1FBHdv4
-	ccUciZGHQt+OGOIhRagzgdKoPWU2qgbLslWznozfPTKThUEebUGqlh/FRNQ+3lxQ3ZMXTuO0N4P
-	jO2wxF3eCXmMOuYxyOxWUifjivHcglkPrCNxpABM8bfDhaHWVWdcFB24iC1dRVcESE2F2Ph3pH4
-	nRcguUkuF9lGDqvI+yiQEhwJGglo4UtQaSQ1kj0J4U7iFLCFaaXGPwWu1qwY2BmYgT6GZaiucCx
-	skZAoMBZys=
-X-Received: by 2002:a05:6a21:150d:b0:3de:6172:e340 with SMTP id adf61e73a8af0-3de7cf3ea13mr1897125637.38.1790690838628;
-        Tue, 29 Sep 2026 07:07:18 -0700 (PDT)
-Received: from Aaron-M6 ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7b0f4ab05sm3526989a12.29.2026.09.29.07.07.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:07:18 -0700 (PDT)
-From: Yaozhong Li <yaozhonguwl@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [RFC PATCH v3 3/3] arm64: dts: rockchip: fix power-off on Firefly-RK3399
-Date: Tue, 29 Sep 2026 22:06:48 +0800
-Message-ID: <20260929140649.55-4-yaozhonguwl@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20260929140649.55-1-yaozhonguwl@gmail.com>
-References: <20260929140649.55-1-yaozhonguwl@gmail.com>
+        d=1e100.net; s=20260707; t=1790690889; x=1791295689;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9E1G8+1SAy708zksU5Axe7JTCFgve+ogorVJl8uDEi8=;
+        b=W9rPBaGB4Tc048I+BGO1XXUgVkNW/uhjMXb/7YJBWLGXfJVV2kCk55gxsYvNt8gGQQ
+         SySCQFeN91i2a4SI8UO41o5EWeWDrN7XtEErWaEU4zR7vSS/6PBGflkk8YobY4hraDaI
+         3FNrmFqnyOLltCCKdeO9rpf587UgCwBdZCnVeeOpbZgtMlixkcu8tIamXpMZSW/wdcSX
+         1OR8aTPeuKSMYU4oy9gOsMC8fZACNV1M2dR3ov6oY6A3kgQhOxwoiplWy4hLbS/CvIcC
+         ZPP22WEWS+qcjAj/kG08oko8SiKpSbAVvq7IvHzGMZ8Fiyg8EsjqiXD26w+LijPxcI1G
+         sCLw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6YTL6JgalJiKWsHrS9HtkF8wgbMYi0g1g+4Rmif/qYgLkHPuxjZMxXtl2uAAxoU9trmEd6FkgTRx4v0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nT7ouYKi9yWHFQu9tNGXfE+SIDhnEW2k3Kzu2sUMEgtZVwQGAX
+	YKwt1GIec9evRnkHx2RRASi0tDRLMguCGmw++1ePf4f+XZTJ3mwjpzQflylAr1aKaWBwYXIuFKW
+	xMOffVGNOh4fvVS+nmprubQ==
+X-Received: from pgdj13.prod.google.com ([2002:a05:6a02:520d:b0:cc7:9c2f:bcca])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:6f07:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3de0e73d922mr15677870637.17.1790690888675;
+ Tue, 29 Sep 2026 07:08:08 -0700 (PDT)
+Date: Tue, 29 Sep 2026 22:08:06 +0800
+In-Reply-To: <20260929031352.1355691-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260929031352.1355691-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929140806.2859367-1-stanleyjhu@google.com>
+Subject: [PATCH v2] scsi: ufs: rpmb: Fix power-on UNIT ATTENTION retry
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
+	Damien Le Moal <dlemoal@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-poweroff on this board drops the rails and immediately brings them back
-up, so it reboots instead of staying off and U-Boot reports a power-on
-reset.
+A merge conflict resolution dropped SCMD_FAILURE_ASCQ_ANY from the
+retry added by commit a8a34238e5e6 ("scsi: ufs: rpmb: Retry power-on
+UNIT ATTENTION on the RPMB WLUN"), so only 29h/00h is retried, not
+the other 29h ASCQs.
 
-Firefly's BSP drives GPIO1_D0 high while the system runs and low during
-shutdown, before writing the RK808's shutdown bit. Mainline does not
-describe GPIO1_D0 at all, so nothing drives it and the shutdown does not
-stick. Describe it in the PMIC node, with the settle time the vendor
-uses.
-
-The BSP releases GPIO1_B5 in the same sequence, and in testing the board
-came back up when that pin was still high as the shutdown bit was
-written. Mainline describes GPIO1_B5 as the backlight enable GPIO.
-pwm-backlight drives its enable GPIO low whenever it turns the backlight
-off, including from its shutdown callback in device_shutdown(), which
-runs before the PMIC's power-off prepare handler. That pin is therefore
-left to the backlight.
-
-Fixes: 171582e00db1 ("arm64: dts: rockchip: add support for firefly-rk3399 board")
-Assisted-by: LLM
-Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+Link: https://lore.kernel.org/linux-scsi/yq1jyo4onqe.fsf@mail.kernel.org/
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 2 ++
- 1 file changed, 2 insertions(+)
+v2: Use scsi_sense_code() (Damien)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-index 0568dfa..210e4cb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-@@ -327,6 +327,8 @@ rk808: pmic@1b {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pmic_int_l>;
- 		system-power-controller;
-+		power-hold-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
-+		power-hold-delay-ms = <200>;
- 		wakeup-source;
- 
- 		vcc1-supply = <&vcc_sys>;
+Tested in QEMU on top of "scsi: ufs: rpmb: Drop the unregistered
+ufs_rpmb bus" (RPMB v5 3/3).
+
+ drivers/ufs/core/ufs-rpmb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
+index 50ef63afd528..65f2d71cf073 100644
+--- a/drivers/ufs/core/ufs-rpmb.c
++++ b/drivers/ufs/core/ufs-rpmb.c
+@@ -47,7 +47,8 @@ static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t le
+ 		{
+ 			.sense_key = UNIT_ATTENTION,
+ 			.sense_code =
+-				POWER_ON_RESET_OR_BUS_DEVICE_RESET_OCCURRED,
++				scsi_sense_code(ASC_POWER_ON_RESET_OR_BUS_DEVICE_RESET_OCCURRED,
++						SCMD_FAILURE_ASCQ_ANY),
+ 			.allowed = UFS_RPMB_UA_RETRIES,
+ 			.result = SAM_STAT_CHECK_CONDITION,
+ 		},
+
+base-commit: f09d2c7485b32adb82336d0d748935c8237a649e
 -- 
-2.55.0.windows.3
+2.56.0.rc1.315.gc6ed9934b7-goog
 
