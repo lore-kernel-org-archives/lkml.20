@@ -1,164 +1,156 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF0C23394A;
-	Tue, 29 Sep 2026 20:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C33A4F58;
+	Tue, 29 Sep 2026 20:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713575; cv=none; b=KStxF4KHYdX+YbbWpi283VlLAfnJ+G9Nl7XGdI8b/Z4w4XTNQ+aFGMLXVnjv5g8Z1N8PjIdWactmhAXW7dUZKjUfWalYuEJJn5nY3iMuGhvHiX9ZbPY0W7kfhC5IAE+QIBQP0HqfrDLCNJWaOZmyK9Xj9s3FOdfbum79md2ZelQ=
+	t=1790713625; cv=none; b=ACEElr9E4koVESeyKbYG9vQEP8ko07vFxk0uxuAGecb56sofJ9BVLkZ9t/KUltRkdkIA8X/DiyKxp72kFaRSQhJSs5Wd36nz1nvARxq+uN/jsP6LBDLB5OT0eUC6ew+6RUZS6Pd5nxRys1S50uXsAfxgysAEA89qjEnnPnp94iI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713575; c=relaxed/simple;
-	bh=eHEBuXgfQ2Ol4zZixiwa8F6XnZA89yB1qhegzPe2F1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dBMXxmLr3kURErUxqSxTCAZX+Q4KsZx6iFTQlkNb22PGr9K1RuQccKk4deTpW9xTo6vG9VMeV+lI+if8pvgQ7caPIcxPQAzsy/2lticJhf8YKTiDN1N+ilrzKUp8t/vkr735YCgZExiLrymsrxkXHgDOOoU0egsQBA/UEvDsrmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZewUDrHu; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ozW3JUPN; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=h2+jbMi9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jETJYb7z; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790713625; c=relaxed/simple;
+	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RB+SthpFZ40/FCCEQNArPBzymemFKzl2/MvjKbYfxOqEBw7LxAltNCKDlKhlhv6eIRz3YqMpMkeo8yKbCbeAYxaYxJz/vh18OcYkV6DReRuEpiz1MxKcdcA00XqKE//uS4nyK72bcZ3HGz2jpcmRp2u6n+FzKi61Um/pRI5Jn3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TvFU9C9P; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZewUDrHu";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ozW3JUPN";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="h2+jbMi9";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jETJYb7z"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TvFU9C9P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790713618;
+	bh=DkHl216R8HsWOjEtGTLQqdSyQom/zGA2tKkvsdwDZYU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=TvFU9C9Pbg/JzO7ElZRPimssQgIEjJ2O+y47e02mjN7B5re1GnOWJ2BbvYWhNNp17
+	 T1Akjncag7PuCiEoPPfIgVDUzYd3K36JyRBSSy1aiIU5w/msMQugPDcHBt8mH7x1oP
+	 GDfogMllekTuriiWr+Eo8jW4OC4m44QDMWYdGspci/W+OJ7Gdxt1i4mfXicmrZYp37
+	 tcMnhLzHJNNzkkt78qjieaQWD6O7YSwK7vp5kVpiTY+enHh8SPxuR/5uobMpxfg9+2
+	 Y1qT8xbzt77mkxXoZzgqqLW+x64NaHWHoVz8PYVlRYS1Z3VNk+bmFswyYVKDQOFwdL
+	 nR3ngVmlMXtOg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4DF851F460;
-	Tue, 29 Sep 2026 20:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790713567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4O5nG7LIgYjapwrvh2Gb45eHxs3a8B3lm20PFzYTcTA=;
-	b=ZewUDrHuApLPNaV3ZGaniPPGNOdE/IqqpZ2/KTcHHBiWZ6M2Je6qDWr8JFM4meTdekCiVF
-	qkvlqyoc+g8hgfcZCftWeRd4fGM3TIW7E5XbXYlw+6DctP/pT58DlOttBhQQlXDXs2YMzc
-	qWbUBf8kMwUlYeHH9ysY3kS/j9+AAFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790713567;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4O5nG7LIgYjapwrvh2Gb45eHxs3a8B3lm20PFzYTcTA=;
-	b=ozW3JUPNvW3ktufIlI4HO6mE6GHL2t/918CI1+95ku5xHklp3gY7Ftaj59Hr3E3CmiRx9G
-	GKWdn4LI3ouNxqDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790713563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4O5nG7LIgYjapwrvh2Gb45eHxs3a8B3lm20PFzYTcTA=;
-	b=h2+jbMi9mtk2Km9/8zGcEbNIDV+r+QL45rJMk3FoTNcqsj1OD3xMsI9p7hAC2D9WiZd9us
-	Uk9pg0AodiMdYjtKI+2zGwM+skxxXGeHs11zwq0XvmOkYxJrDypIXPwXMenwX1bPOJRXUh
-	HtntGeZjS4pEAvPaDHkXJshlhQUYEUI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790713563;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4O5nG7LIgYjapwrvh2Gb45eHxs3a8B3lm20PFzYTcTA=;
-	b=jETJYb7zQPx18K48LrL/Qd4LBhx51V2tMAtOWpPcSeegcO1ZL9Sc0SchxwTbDIialMM1uY
-	sXITWQUh8bxnXZDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A689136D1;
-	Tue, 29 Sep 2026 20:26:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id WmchONoevGr9XAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 20:26:03 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 97644A133D; Tue, 29 Sep 2026 22:25:58 +0200 (CEST)
-Date: Tue, 29 Sep 2026 22:25:58 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kdev_t: shift in dev_t in MKDEV()
-Message-ID: <nm2fu2l6lo74444qkqpakt4ehd5jfnhv7c5a2it5z33ve4irpf@haivvqpxkhfi>
-References: <20260927224958.508964-1-matthias.goergens@gmail.com>
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4D56F17E0B21;
+	Tue, 29 Sep 2026 22:26:56 +0200 (CEST)
+Message-ID: <90a604622a614a2de95820bdc73372a3e1d7fb41.camel@collabora.com>
+Subject: Re: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Tiffany Lin	
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+ Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Hans
+ Verkuil	 <hverkuil+cisco@kernel.org>, Kees Cook <kees@kernel.org>, Tomasz
+ Figa	 <tfiga@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, Steve Cho	
+ <stevecho@chromium.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:26:54 -0400
+In-Reply-To: <20260921090808.336112-1-lgs201920130244@gmail.com>
+References: <20260921090808.336112-1-lgs201920130244@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rV4yfsU2n0WfwiE+CTHf"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927224958.508964-1-matthias.goergens@gmail.com>
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
 
-On Mon 28-09-26 06:49:58, Matthias Goergens wrote:
-> MKDEV(ma, mi) evaluates ((ma) << MINORBITS) in whatever type the
-> caller passes, usually int.  For majors >= 2048 (legal: majors go up
-> to 4095) the result exceeds INT_MAX, which C11 leaves undefined for
-> a signed left shift; shifting a negative ma is undefined regardless
-> of the major's value.  In practice, on the compilers and two's
-> complement targets the kernel supports, both cases wrap to the
-> intended bit pattern; this patch makes the macro well defined
-> regardless by casting the major to dev_t before shifting.  For major and
-> minor numbers in range, the device number it produces is unchanged.
-> 
-> isofs feeds the Rock Ridge 'PN' entry's dev_high and dev_low into
-> MKDEV() while holding them in int variables (fs/isofs/rock.c), so a
-> crafted image can drive this exact shift.  Fixing the macro covers
-> every caller instead of just that one.
-> 
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 
-Fair cleanup. Feel free to add:
+--=-rV4yfsU2n0WfwiE+CTHf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+Le lundi 21 septembre 2026 =C3=A0 17:08 +0800, Guangshuo Li a =C3=A9crit=C2=
+=A0:
+> mtk_vcodec_probe() populates decoder hardware child platform devices on
+> platforms that support decoder subdevices. These children must be
+> removed with of_platform_depopulate() when they are no longer needed.
+>=20
+> If initialization fails after the children have been populated, the
+> probe error path releases the parent decoder resources without
+> depopulating the child devices. This leaves the child platform devices
+> registered.
+>=20
+> The remove path has the same issue and leaves the child devices
+> registered when the parent decoder driver is unbound.
+>=20
+> Depopulate the child devices in the probe error path and in the remove
+> path before tearing down the remaining parent resources.
+>=20
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>=20
+> Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware de=
+code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  include/linux/kdev_t.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/kdev_t.h b/include/linux/kdev_t.h
-> index 4856706fbfeb..2dbbd47f1e68 100644
-> --- a/include/linux/kdev_t.h
-> +++ b/include/linux/kdev_t.h
-> @@ -9,7 +9,7 @@
->  
->  #define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
->  #define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
-> -#define MKDEV(ma,mi)	(((ma) << MINORBITS) | (mi))
-> +#define MKDEV(ma, mi)	(((dev_t)(ma) << MINORBITS) | (mi))
->  
->  #define print_dev_t(buffer, dev)					\
->  	sprintf((buffer), "%u:%u\n", MAJOR(dev), MINOR(dev))
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv=
+.c
+> index e936ed8dffba..592685ad522c 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+> @@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *p=
+dev)
+>  err_dec_mem_init:
+>  	video_unregister_device(vfd_dec);
+>  err_reg_cont:
+> +	if (dev->vdec_pdata->is_subdev_supported)
+> +		of_platform_depopulate(&pdev->dev);
+>  	if (dev->vdec_pdata->uses_stateless_api)
+>  		media_device_cleanup(&dev->mdev_dec);
+>  	destroy_workqueue(dev->decode_workqueue);
+> @@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_dev=
+ice *pdev)
+>  {
+>  	struct mtk_vcodec_dec_dev *dev =3D platform_get_drvdata(pdev);
+> =20
+> +	if (dev->vdec_pdata->is_subdev_supported)
+> +		of_platform_depopulate(&pdev->dev);
+> +
+>  	destroy_workqueue(dev->decode_workqueue);
+
+This was first for a reason, please keep first.
+
+Nicolas
+
+> =20
+>  	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
+
+--=-rV4yfsU2n0WfwiE+CTHf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwfDgAKCRDZQZRRKWBy
+9FakAP4vcR8SMhV7pVZIdxreL/3W6hen9hQOFj6cC3ZEarcA2wD+LAwK/qdsJ85/
+pSIKX2XUmKWpyl2obUYqdo/NDZ69UQU=
+=Asfv
+-----END PGP SIGNATURE-----
+
+--=-rV4yfsU2n0WfwiE+CTHf--
