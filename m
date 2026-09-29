@@ -1,88 +1,70 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF01524AE4;
-	Tue, 29 Sep 2026 12:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470BB522F05;
+	Tue, 29 Sep 2026 12:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685249; cv=none; b=teOa6MHbYGM1iWmE9bxX4pwYc3A1vIa+gNrNsDpb9l7HANFmbs3WeJVD0z/wZEx1TIXib/WljbqcBhTGWm3TlN5rxyMGinDWk44OTJW06e0TKI02hHQvLU6r+gK+N7jhyZuUVIqonzQcYnAY2FUcYZV5v4SSHiU4GMbAswBf6Fw=
+	t=1790685253; cv=none; b=o1cReWx4Tstrt9ai/+WdRtqJb453fYIlbFO8rDus8aiiqTCQVKRCn7bzi7A9WhKI5TjrBlvBRT44A0SqV2V1v1XA4O06KK6RLhO9e56R8NjIdrnpEpFouzmQCl6mppLHZN3TRMDygQsiilfH66Xa2bs6sqhntfideuaBPz0Otmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685249; c=relaxed/simple;
-	bh=wRbT7fU2I2ui6EMpMFFVKQeIOSH4jVqBM0XWcuHcyFQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KQKuG6phmCGoJeZroOTR2dEhSgsDcIjAt2n4ka9QlckzhVHnTgwa7MB3+vdu23UFkjaW4a2zE+XTp9jt2DFgcMdNk9Rckjkteuw92owcl1Y+bHKv1DlEha+aKFKIwC6Q+RngbM30H92wyel0sqdLrFh3fIk9uucPKJAON51k87Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=EAF5JK1+; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790685253; c=relaxed/simple;
+	bh=RHKK5Ycj/8UQNEsWLqQJ5mV0vqPYZnXEZvEe/oRO0VI=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=mUFEVrfEfsWEI0tdhmzHzWLIY3CqVyyP+Dmtev9gaq5Krf5Ulzgz+TPSehxJPNsAp6SI3RhZO93jFGqU108y1y+JEpkgl/aSl+VEcDc0FaLpAVq/e0wLxlOkt3nPXQT81yrSsLL5pZMkRc1ib9Kxx++2/bp1byvj4dO/mkUqaoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mR38mcbC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="EAF5JK1+"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f81e7acb;
-	Tue, 29 Sep 2026 20:33:58 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Zhu Yi <yi.zhu@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update with mutex
-Date: Tue, 29 Sep 2026 20:33:29 +0800
-Message-Id: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mR38mcbC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9491F000FF;
+	Tue, 29 Sep 2026 12:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790685252;
+	bh=RHKK5Ycj/8UQNEsWLqQJ5mV0vqPYZnXEZvEe/oRO0VI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=mR38mcbCKtZyUuZHnZp25p6VHWWx1vLscQRt3C59JIVCsQqQRMA/erOUCxKKv0y+p
+	 KKcNfo7arO3kD2m3Mg/fHlxcUW2a9uIq8i/CVqH6ewOVWM4gKX9dd8rpJeW4tZZpLW
+	 IueOqGnAZqAkTY5199UtQknScNLTuPr0CpGeULlesKreWrpm5JlFX3q1Pvhc2ubkBD
+	 jYHwyvFyW4NnKErk2qF+M7sr+gmXBLYD+ZSdZNRiAZgdapTSP7c6EIwNOIoqcN0oaP
+	 rLsqvHcZ9PNYQZHvaglwQ4oWDqDqY5trAI6JVWVnEEHVVu1IQRgB24Vl0GXnC1eThW
+	 1EvwCJFFM0C7w==
+Message-ID: <98051aee185d6d7105f0be2c8d712ffe@kernel.org>
+Date: Tue, 29 Sep 2026 12:34:09 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 4/7] drm/bridge: dw-mipi-dsi2: stop using deprecated
+ devm_drm_of_get_bridge()
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-4-ccb7e602daad@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-4-ccb7e602daad@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Arnd Bergmann" <arnd@kernel.org>, "Dave
+ Stevenson" <dave.stevenson@raspberrypi.com>, "David Airlie" <airlied@gmail.com>, "Doug
+ Anderson" <dianders@chromium.org>, "Fabio Estevam" <festevam@gmail.com>, "Frank
+ Li" <Frank.Li@nxp.com>, "Geert Uytterhoeven" <geert+renesas@glider.be>, "Hui
+ Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Icenowy
+ Zheng" <zhengxingda@iscas.ac.cn>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
+ Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ed28543003a1kunmab53cc0c23d9b4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSB9JVh9PH0JMSh1OTEweQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=EAF5JK1+ojoYGSMDz1mKlteLN3pkydjHHWvaN6iWtdsJYAc6LPFUnNbidWJI+m2VtYcmb0dQkeVOI1hyQ3JXW43Wdb5sns3uNJQ183JkngeVNgPlR/RvQvKlDUeJfxZ/GO70g2o365XMx4ceMrcV0oCnk2g6jNbrQIltgGTh32Q=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=4XRCNu0IyF90aKVxuMobHnbm6goKDNrYFuge0X35Otc=;
-	h=date:mime-version:subject:message-id:from;
 
-The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), whose
-command path requires il->mutex to be held. The callback bypasses the mutex
-used by the other 3945 control paths, triggering the lockdep assertion and
-allowing concurrent TX power updates to race with other command or state
-transitions. Serialize the update with the same mutex.
+On Tue, 29 Sep 2026 12:36:36 +0200, Luca Ceresoli wrote:
+> devm_drm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>=20
+> [ ... ]
 
-Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index cbaf25062..e8cbc2993 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3083,10 +3083,13 @@ il3945_store_tx_power(struct device *d, struct device_attribute *attr,
- 	u32 val;
- 
- 	val = simple_strtoul(p, &p, 10);
--	if (p == buf)
-+	if (p == buf) {
- 		IL_INFO(": %s is not in decimal form.\n", buf);
--	else
-+	} else {
-+		mutex_lock(&il->mutex);
- 		il3945_hw_reg_set_txpower(il, val);
-+		mutex_unlock(&il->mutex);
-+	}
- 
- 	return count;
- }
--- 
-2.34.1
+Thanks!
+Maxime
