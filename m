@@ -1,81 +1,62 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF63D329E5D;
-	Tue, 29 Sep 2026 23:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 160014B7A4D;
+	Tue, 29 Sep 2026 23:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723204; cv=none; b=jJJQlkBGWTtI2M4s6ujiw81uaFw3gB2YXlhHOqPaOKWqxDgkqfRLtChxn0vbXc0XPHfnI6stcCTdGF68/XyWL7Pv86Viyff9s9BM9JPkFuZAnYsP3YRF3CXzT0DXA54EwZWx+ad/qhfHu01pnnh/eaDglEkKngrBBonO/BvrbUw=
+	t=1790723398; cv=none; b=QKmdQWjiGpkOS6okacuD6NIvtXr/UB2GyZcEY2GSgDww8ShKjAyqon48KUqGlqVXzFDQ18bxhKgSamhfWosa4d+b44ehjAbsvZa5TM9KUKDjjT1qAuPB+b8Pn2hHU+bDJiEgRhE1Ph1e29HeDtLeGmb3lPgPnUzUaB2MFvGhZHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723204; c=relaxed/simple;
-	bh=hgZuY1NB6LpeCr6RapyBc8LRcgy0vqjfZ7B8ehuh9/g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=AhdpjPvo8+pW29WA/1Wx6VWYTHs4Z2YhBlDo9bXSXKVGqZlW/8azrk7i/RSa7vwfZsGa8f153/z4c8T3oBCSLlMVucYMejkspoepCS7gSlfcKiHYQwskmPbdJ/K+i4z1Z/RFOqZLapkXfvROufuLBxJiO3KeIRc6fIIlVox3S88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=o3HYD9Xc; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1790723398; c=relaxed/simple;
+	bh=Eh9OKMokxv7hISf6O+yViQFfrtfGj+wm3beSRRyLJTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QAOulleraTRBOS/n5X30eSTYSaZOydejcQd+fTbj8GTUesK7+EzRLkyJTfkiZdgm7NuycUhkrQXBBo4+kPRnKI8IilUxRfPh5DzYPJskTuFfoPAdT9rTfo23Z/Z7p+8rx4GLQXjGdsjPWETcPJhq9/VBVmbKsBDuod5xQnRNyec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=J/5oOhz3; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="o3HYD9Xc"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net F3148408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1790723202; bh=uIke5UfhrUOUD+L5m0KedjGsRjJ3iYLA6gviUCnOmYg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=o3HYD9XcgRrcr+gnctAFWDGmM11Fkz7HZU+7lO/KlIv4pWdR9JbQaXq8c8Xy/TKaj
-	 Bmt0Cwq9zc6NBNifIRDcQwC4PJ1ygBLBu7yC56oDEXr5M2JZL3i/PMTcKnKP2de+IE
-	 A7+pLVaBY03/H0xOspIbTjQx6sIdP27DC+S2a62kOk5uMXWLCt2Sa4bnco7Ws3xZXG
-	 BLZ2ZzM8Dp584mzEf86lC4goc/2OU6vL/dw7BjtG3KuXB7semccfQbmlYhz7+MNjKx
-	 J/XXjQoYo8UddWO4aO34TSCVn0iR3zNUkV1wZ7RBJPV4qGhkK8pja2RXKuIKc2ayEs
-	 Vb6LFBqlRyk9A==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id F3148408FF;
-	Tue, 29 Sep 2026 23:06:41 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- peterz@infradead.org, elver@google.com, bvanassche@acm.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: skhan@linuxfoundation.org, rdunlap@infradead.org, mchehab@kernel.org,
- aleksandr.loktionov@intel.com, kees@kernel.org, emmaonana18@gmail.com,
- tudor.ambarus@linaro.org
-Subject: Re: [PATCH] docs: kdoc: parse context_lock_struct() as struct
- declaration
-In-Reply-To: <20260925234054.128477-1-emmaonana18@gmail.com>
-References: <20260925234054.128477-1-emmaonana18@gmail.com>
-Date: Tue, 29 Sep 2026 17:06:41 -0600
-Message-ID: <87pkxvwtby.fsf@trenco.lwn.net>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="J/5oOhz3"
+Received: from LAPTOP-F8U7OQUB.localdomain (unknown [167.220.26.102])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BB93E20B7166;
+	Tue, 29 Sep 2026 16:09:03 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BB93E20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790723344;
+	bh=Eh9OKMokxv7hISf6O+yViQFfrtfGj+wm3beSRRyLJTA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J/5oOhz30yi8CC5f95jnNVOY5DAXjih4p1AnzrPwET41rEeIS8IAJbvwnoEf5BvjZ
+	 hCR7Pun6Ibf34zFhNvRb9hbCc2SExzQTbmtDSvLpSVOTIFCDoD0b6HV6eD6FJ7Kaeu
+	 RZ1tI/2nOsIYzxL/N7lzybTVeZhJtF5F4JY4bYCQ=
+Date: Tue, 29 Sep 2026 16:09:45 -0700
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au, raminwo0202@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, apais@linux.microsoft.com
+Subject: Re: [PATCH V1] xfrm: prevent policy_hthresh.work from racing with
+ netns teardown
+Message-ID: <arxFOXGFq3GEgsLS@LAPTOP-F8U7OQUB.localdomain>
+References: <20260820211418.1409602-1-taherafahimi@linux.microsoft.com>
+ <2026082106-widget-steed-ece0@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026082106-widget-steed-ece0@gregkh>
 
-Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> writes:
+On Fri, Aug 21, 2026 at 06:25:45AM +0200, Greg KH wrote:
+> On Thu, Aug 20, 2026 at 02:14:18PM -0700, Tahera Fahimi wrote:
+> > [ Upstream commit 29fe3a61bcdce398ee3955101c39f89c01a8a77e ]
+Hi Greg,
+Sorry for the late reply, I was on a long vacation.
 
-> kernel-doc fails to parse struct declarations wrapped in
-> context_lock_struct(), e.g. struct debugfs_cancellation:
->
->   include/linux/debugfs.h:245 ... error: Cannot parse struct or union!
->
-> Add a struct transform that expands context_lock_struct() to a plain
-> struct declaration, and apply the struct transforms to the whole
-> declaration before split_struct_proto(), matching what dump_var() and
-> dump_function() already do for their prototypes. The member-only
-> transform in dump_struct() is then redundant.
->
-> Add a regression test for the debugfs_cancellation declaration.
->
-> Fixes: 6e530e2e3119 ("debugfs: Make debugfs_cancellation a context lock struct")
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-> ---
->  tools/lib/python/kdoc/kdoc_parser.py  | 11 +++++++----
->  tools/lib/python/kdoc/xforms_lists.py |  1 +
->  tools/unittests/test_kdoc_parser.py   | 26 ++++++++++++++++++++++++++
->  3 files changed, 34 insertions(+), 4 deletions(-)
+> No it is not :(
+Agreed. This is not commit 29fe3a61bcdc; it is an independently implemented 6.6-specific fix for the
+same issue because disable_work_sync() is unavailable in 6.6.
 
-Applied, thanks.
-
-jon
+I will remove the upstream-commit annotation and resend it.
+Sorry for incorrect annotation.
