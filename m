@@ -1,132 +1,157 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAA343C056;
-	Tue, 29 Sep 2026 03:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1D43DEAD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651958; cv=none; b=rwis+qdkIsdeYXlBXCZS+I+2/FzWwAqKqo0bQFjeUIYLMLVpxM7Ic+BF/dN0m50p+IYxdvQpcM6+fRa77QLjyKNz2S8dSvIIk/ziw2QdOS18XGUu4erkFbF4Ym5zeK4IaPWMkvzo9kcxOpjuJGVAh0dN/nk1R2MkLxhHCvziibU=
+	t=1790651958; cv=none; b=g7XXLymP02L1A8a6gVEXom0tkffULwWAconx8Q2Nd90nHYmj5WiRlv4yTC97tsB5LtrBQj+vmZtS1rPhQmBa7XamfBA8PYcyrJ71kt9aWUf2OkSJ+qFhSJiRXD64LR/BMD1U+gAtfoU1Rki+kE+VNCvezXUh+S796XIptHRHW+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790651958; c=relaxed/simple;
-	bh=eFFpSJGTY9H51+Ppr2ck9NUn017OEic632u7lr+XJFs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Vnw8pWxeIRAOSE6BBAWpyEhAF13EcxnNxfjyEmkSgWkDkNQfj5DZEFXQYQ4JwNEcbh6sKa8QN0S8mszOypeaJkWrv1bdRixu8iaWLnM0Ny7CcxFuNDoYhuctLtNr9HH3IwxILNbvK9YAth0Za8xCy40deVzrk528fXfeSaOsAVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=in7S4NcX; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=WyvbW2mr; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	bh=cvniDiIc4764cA34CKQl6/w0r0WGSY5lKDDOdu/oDKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pphhDlkB/1Qf68j2aXF3bAtD/QqjAbNIsQad0tWP6DktS9tbrL3ozpArRE6EYHRmBqPYmcWMYWwJFIJ2ALw8Y2chiBdJkEiYh5yJq9WfOS6bPA+tBqPfS0SKQLyyJuqYeHWIwd8PQOL5QjNkTFfeT8hbftrvcq5jEBOghIaSsug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ilGLmRAP; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="in7S4NcX";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="WyvbW2mr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790651942;
-	bh=eFFpSJGTY9H51+Ppr2ck9NUn017OEic632u7lr+XJFs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=in7S4NcXBLwGV5p8oRmrM10z69InSjoIUpBGR5fv/VOyV1PErN53DmVm202ou1yRo
-	 E6zIWmnEWEN3bxdz0+wxr1qAHEe2vQwvcHgSYJhCb0ex/svH6+z/c0t7HxfG+OTKuQ
-	 33zmuDGAf0vZ1gUeWspm4TBruR4ESv2uTR2ULxTTXdrwR8HBUkU2ToehDhPmyxJHlW
-	 wAMbP0/N0oRWqLDo8FE9dioqt3rbGFVAWsnzYoUdDEo5qkYDJzo1oNVFYX8LhV9/vH
-	 7mYu7ccDA1j86GLTPreGri6nrYympCy51A3KvinS0XWyUBUW7tB5KL6tYDKHHBiF8A
-	 zyiPYFdIqHbSQ==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 95F0B4228D; Tue, 29 Sep 2026 03:19:02 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1790651938;
-	bh=eFFpSJGTY9H51+Ppr2ck9NUn017OEic632u7lr+XJFs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WyvbW2mrNFF4ph9PXQnGEQ/2+bgGxHZ3vVPILPYdDjMWruJeCn4qUP1OCQIkmeERC
-	 veee9AvQBfEFw/8d3wnV/EFiNUX/GUklqlBjWdDzVaP/LlCjUIdkZuGEkIslTQhkO5
-	 3mdFTjUWvwxd4rG7QtKhPR+jeoMQUXiJL9xVhk5zOJ+nHtM0gcknZa97dtcGPhIg82
-	 Dn53u7Au3HwxHAWadBAu/xkgzWXRfzvO6j+U/7aAA/Kggjc+9JqDiQVF62dZ4Oc3AN
-	 Zz9GZA7gfzQiEMAIK8UNMOmmyRInXc7QUvGlNSoGrx1UJeHbQDIwejx6QQtUCh2WGw
-	 kAOXLST7YhoTA==
-Received: from AMDDesktop.lan (p5dd1eaf2.dip0.t-ipconnect.de [93.209.234.242])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 12D6142255;
-	Tue, 29 Sep 2026 03:18:58 +0000 (UTC)
-From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Tue, 29 Sep 2026 05:18:49 +0200
-Subject: [PATCH net-next v14 01/14] phylink: Add phylink_mac_interrupt
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ilGLmRAP"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-3468ec309afso1318102eec.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:19:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790651946; x=1791256746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
+        b=ilGLmRAPqOBK7k5WLuDEdicdftpiXadYdpaMfw+p/Qad9Ip96GFXDbsuQNb36SYEfe
+         qhK1ttpwhAe6ob08aP7YX9JB5fUQDGk8x/IHbHD5n+ypJUIu3ScPI3ZtBSOy8Zzb5wKX
+         A5c74BWAwkH+bZgXFDU1oT0QXj7+/BnLcr6/A1XcsU6XToLIV7YjwLNP7Z3dcLujsHrG
+         643v/husILaQL5gQ+EB5n3uaRHT1Jl1m72NAIJWHedeAm3m0giMN+vYQaTUo35AgiD8K
+         Kfde5SfHeZgfZST3CGHA+xSyvCNzahQ4C8FSTs+VfBff7jZ3EdA5IEUW0UPDjU0Lg5gK
+         Lklg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790651946; x=1791256746;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rChgDG4+9LHVh/7Fh95cpWNAythLuYoy13f8pIwvxIg=;
+        b=FTemOXuKMQq2Z5xx8jM2iwLuDnJjunFCasgIPNBrIhPi+xhfBFLc/7rBXj98tOlyoX
+         J+y3KTYo+gTsY+qCSJ/+W+qsuzqfzmICJW4df74YfkxCIRmVu4ZbYeTEpU6y5TB8SWWr
+         DXIiN+mqYDHwbr2EVBGxSLizISYuxBC2d6WTIivT60dJ+RCTeXpJEcG0G7FdHgE0mb7b
+         qP51wOx4e/kTsJeIOBdbf2THv6hpUTiHtku6EcR+0F/x7wuKj+RvBihAIwsPthJ3CsdV
+         7r9HGjMvJj8bV74VrJELnNT4AR+ttCXZQF/ozc4TbH555ivnKxCJfD6FXcOfmbJKDFm4
+         cvMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnRUHsjB/lUT8E8zA6Xuok0R054s+eUQ/5sr5eRXW7kbeNeBHQfAJL699AjBd9gM6mNubwKuruWkoldJg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLud7KWX9BWfWDZmTi0017uko4jHNgUupNhzOLWRtv8yw3z0yuH
+	L32F0Q3SOlZC8AWmb0So7heOWEsaoe+7RLtZ0RjNv1xIk1gb836WAYvrJH9W7pjxhQc=
+X-Gm-Gg: AYBFou0q6k+qdQF02BZseM/jFc9xq6bZLwcP4lriVMfQfmhXICqAsf6mhT0vsyOFd+D
+	JAbmObo9Ha3zPUhStZuG+EDJKO4bzoVa26j8Tzp9i2YSPhv8fd2cHsvy0C9WdZut4sh3P1tRJGV
+	eBXlmQGADUZImISf17BwMwJkNQR+EAE7nZkW/JJtha1uyS29phyQvlkeUeSBtSZTvzVifNZJIJf
+	DaHvUnYsTgyMzl74BIR97NXddlHqxfobCpigSlOhz6DnN/YYZZ8cB4gCVNnWgP3CPmXFNLBRTu4
+	sQY3KMVLMKVrJQZopN2/6aEj8UVnQiJ1wZ0bb1zccMrDqVyEGPyb5Q8HBmVizeDONgyMHBkodp1
+	658EWlz/YVqPSCTDxC1dGAMINX2Ez9X1KoDrpHmWroLrs+31e8lujZAs5D2EvchcBYXK9smCyqD
+	JmoDwjAHRgAe90KrMfUr6Qk/e/VOb/6vUXNhf+UzqOIj7Xp2zgMkW1P+30wSoz39P2T86CaEvwf
+	D3pArgwDQdfpAbrTOI+bAz6yCaw7R/N12Ss7Kkc9dzIkfv1JEecnGlRWbQi4CP5CQ==
+X-Received: by 2002:a05:693c:62dc:b0:33b:ef1f:14b9 with SMTP id 5a478bee46e88-34271a92cb8mr10274241eec.15.1790651946136;
+        Mon, 28 Sep 2026 20:19:06 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a4a00dsm33740601eec.1.2026.09.28.20.19.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 20:19:05 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Simona Vetter <simona@ffwll.ch>,
+	jason-jh.lin@mediatek.com
+Subject: [PATCH 6.6.y] drm/mediatek: Fix potential NULL dereference in mtk_crtc_destroy()
+Date: Mon, 28 Sep 2026 23:19:01 -0400
+Message-ID: <20260929031902.88182-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-ax88179a-v14-1-a1f2249e42ea@birger-koblitz.de>
-References: <20260929-ax88179a-v14-0-a1f2249e42ea@birger-koblitz.de>
-In-Reply-To: <20260929-ax88179a-v14-0-a1f2249e42ea@birger-koblitz.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- Jianhui Xu <neuromoments@gmail.com>, 
- Birger Koblitz <mail@birger-koblitz.de>, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-Add the phylink_mac_interrupt() function to phylink, which
-passes a link-change interrupt received by the MAC to phylib.
-This function can be used by drivers which want to avoid
-polling the PHY and instead rely on an interrupt received by
-the MAC when a link-change happens.
+From: Dan Carpenter <dan.carpenter@linaro.org>
 
-Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+[ Upstream commit 4018651ba5c409034149f297d3dd3328b91561fd ]
+
+In mtk_crtc_create(), if the call to mbox_request_channel() fails then we
+set the "mtk_crtc->cmdq_client.chan" pointer to NULL.  In that situation,
+we do not call cmdq_pkt_create().
+
+During the cleanup, we need to check if the "mtk_crtc->cmdq_client.chan"
+is NULL first before calling cmdq_pkt_destroy().  Calling
+cmdq_pkt_destroy() is unnecessary if we didn't call cmdq_pkt_create() and
+it will result in a NULL pointer dereference.
+
+[ Backport to 6.6.y: used the older Mediatek CRTC file and helper names. ]
+
+Fixes: 7627122fd1c0 ("drm/mediatek: Add cmdq_handle in mtk_crtc")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/cc537bd6-837f-4c85-a37b-1a007e268310@stanley.mountain/
+Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
- drivers/net/phy/phylink.c | 20 ++++++++++++++++++++
- include/linux/phylink.h   |  1 +
- 2 files changed, 21 insertions(+)
+Hi Greg, Sasha, and drm mediatek maintainers,
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 3ec3bb43910953f3d57a4601633d0c3be65e959d..2621d568dfa24c29d69def019e11427d5f355b01 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -1612,6 +1612,26 @@ static bool phylink_link_is_up(struct phylink *pl)
- 	return pl->netdev ? netif_carrier_ok(pl->netdev) : pl->old_link_state;
- }
- 
-+/**
-+ * phylink_mac_interrupt() - wrapper for phy_mac_interrupt()
-+ * @pl: a pointer to a &struct phylink returned from phylink_create()
-+ *
-+ * Passes a link-change interrupt received by the MAC to phylib.
-+ * This function may be called in interrupt context, and therefore cannot take
-+ * a mutex. However, it is safe to assume that the reference to phy does not
-+ * disappear during the call, as only an SFP module may be unplugged to make a
-+ * PHY disappear. SFP modules however do not support interrupts.
-+ */
-+void phylink_mac_interrupt(struct phylink *pl)
-+{
-+	struct phy_device *phy;
-+
-+	phy = pl->phydev;
-+	if (phy)
-+		phy_mac_interrupt(phy);
-+}
-+EXPORT_SYMBOL_GPL(phylink_mac_interrupt);
-+
- static void phylink_resolve(struct work_struct *w)
- {
- 	struct phylink *pl = container_of(w, struct phylink, resolve);
-diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-index 1dda5c7ed5f146930d1acc6f06072e6755167af6..f6c1db837fb5062c6d42ffc6489ec06ae84e535b 100644
---- a/include/linux/phylink.h
-+++ b/include/linux/phylink.h
-@@ -768,6 +768,7 @@ int phylink_ethtool_set_eee(struct phylink *link, struct ethtool_keee *eee);
- int phylink_mii_ioctl(struct phylink *, struct ifreq *, int);
- int phylink_speed_down(struct phylink *pl, bool sync);
- int phylink_speed_up(struct phylink *pl);
-+void phylink_mac_interrupt(struct phylink *pl);
- 
- #define phylink_zero(bm) \
- 	bitmap_zero(bm, __ETHTOOL_LINK_MODE_MASK_NBITS)
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-53056. It skips command-packet destruction when
+channel setup failed before packet creation.
 
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2024-53056
+Upstream: 4018651ba5c409034149f297d3dd3328b91561fd
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/gpu/drm/mediatek/mtk_drm_crtc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+index 859dffe4513722..1e8052a0425ee5 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+@@ -163,9 +163,8 @@ static void mtk_drm_crtc_destroy(struct drm_crtc *crtc)
+ 
+ 	mtk_mutex_put(mtk_crtc->mutex);
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+-	mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+-
+ 	if (mtk_crtc->cmdq_client.chan) {
++		mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+ 		mbox_free_channel(mtk_crtc->cmdq_client.chan);
+ 		mtk_crtc->cmdq_client.chan = NULL;
+ 	}
 -- 
-2.47.3
+2.39.5
 
