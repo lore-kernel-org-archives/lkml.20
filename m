@@ -1,110 +1,60 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2121503BFF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48390352027;
+	Tue, 29 Sep 2026 00:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790640003; cv=none; b=VGbtWNy1pG5lAJwc08ZXKIaHAtX2d0dccZaa8V1sYmDGTMOin72vAsl1FBo0T2vZPH1O/sj5nBltiMBv6CMMgfLMBW2n8PmKF1a+8J82Ijlht22d3POngKcPsWXF9f9AvNTs/PfP1Smv7j4RSeIttehxKz8pYyEPH5gMiGc/kNQ=
+	t=1790640021; cv=none; b=Z6wKNgeKdGTi6ORLQOrvEydHRf69xfbSMVvgucL3c/OhMHDrRx+VooUGYNqmBrRDWYz6/j7okmpC59jiI8xcFFllFZqk8WtTBM+Zg4G6ySfeSnkr2OzAGIAMexWMXeczofDJG2a7jzOj+vy9OyOIWEvOLnN4KrlJsBvQ6Z4n48c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790640003; c=relaxed/simple;
-	bh=ot+I73SaU9sqn64543aeRD7kwAJJI21fZVn6OsikOA4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rl5OCBZHypiEJRseAxfj0ofZhtDnwhmYpnqjxCVNFonVW+8rQ23kPTaPLbr5UlZHivehjXkPvyKJejsYNhG/ej1lh0NutO7+BiSeK/paqJIAaK0b7HI2xQ1aIIUL73RmFt5C3Ij83u3xph0R053Qm8/DwwzAqbPJcYOWkLbu4Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PROGHTC6; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790640021; c=relaxed/simple;
+	bh=PFwaBBBPfoMpkuptS7RbPQwvS3l52IuuDZgn3oWyhB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tfH5BNQcqQGeFXtb3E8wbj22NgBPr4Pwu6IbTVaUKoZKBLju4ISUJi3v6Ecpq23mtujjW4FRnvHj1SXVl8hAsQ42Cqm6wTis3/GQgTgTatQ7hnfpHegq3ldlR9Dq+Lydj2B6TXQNnH6ofmK1X2U9P4PxhCaykStd+8/S6uQgt5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxxPhfzX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PROGHTC6"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d8facae850so18315ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790640001; x=1791244801; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kp5ei0/iKnj9mU7W/OT7FmtL2iwT8AA400ktoI4ALho=;
-        b=PROGHTC6+UpGMYBmv9WG4bXjieemg4XXG9DoZ/GRkW2JS2mQ/gWhu4oZZVS0hJY6kg
-         k9bHORTlDeYGSPqrutYop+FNqcQ1QHXxl63miGJUiYEzIxcb1LUdIOQYvWbcCbEl3G/8
-         rRLFkIRIvgjqMOxHY6oxNtxJOx51gMZLvJQh0/nCeliv2iS2NCFyL5aLq6YTIZxidK4L
-         i6HfJu5ca4PE1hYVPC/gkVlyBTXdlP5dNVuieb4dV+q47vlwxS7Pb4fE7jqNVPaPvt1h
-         8TH3ynDLgZPKMZWRvb0cOu6DXWd/IrTdZjvZqURQyvlbdHayK4/DXpjAtl1yJ+O4FSZv
-         0ZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790640001; x=1791244801;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kp5ei0/iKnj9mU7W/OT7FmtL2iwT8AA400ktoI4ALho=;
-        b=osIrunlRrZVcANon6ZoT2mB/nuxblnKm6q50EAufzUMmO9d8RobfclDLWpOpGIWrz7
-         HDzgPAZrK40hZ1mI7vtZmr+8tuI6UkjLkC8kftszErZSK5OmFdvFd8zDeZLjwuGnL9Ce
-         1cb8bOBFCY26uHeILXcKd88qtadh7EN+0m9eoG6Aa/W5/0nzmPNDVfFmRUyGyQkqvs+e
-         +nTfC9GdY8yKK8K3WSoykgVzuc4sVpZZBmx3Eu8eGdq7VvN22tY6YFJdc/w4GEnhYiT3
-         NYQ0sBy9BCd4qApV/dUHF/JXGV1i8+kePXiLY7xCqfsSp9iUyiEU5jRBu6HJLZaFy+Wx
-         3Jww==
-X-Gm-Message-State: AFq9FYJpmmh/I1MLXbEmeVxGN03fnyFYRj4fkcSdIl9Nhal1wXtWvcMg
-	QUvWLzrxmna895EFBKVTPddTXX0m3oVxNdHTN9/Y/kVnGxct8sbxUdNBrDmVR5d4pQ==
-X-Gm-Gg: AYBFou2n2R+rFdGTedbs84vRAhDi6X4u/1YV2pFMnfgX1DOoLpVqpQ2ntgbKT+M6VxE
-	PHDj9pck7DK4a8f6ObObHuVUX1CERPLHCucN8Y5+4TCBKkKav3ilHUSkvXd80RT8c4pUPHLJDl0
-	YQEOk78XuO0yvwxQZcvljXwDkrS/E8E95Be5gHRVs1i52r+UTorvF9NmkjYVoaEHdzVWLfDau/J
-	Jo09noMUD7NQo/xOfYQjZ3+UUfDfTYEhQvPU2Y74usVo/eO/WHqZVwFeWLWxs0xbdjZ5FOycMB+
-	XhRsum06tmLVSLBm3HOiMq0o3iKZPyRbmvby6dI595osup0Xm2sNeQz/bm/fiQFLHNIrSHcpC+K
-	Y7kkxDLMqSTJuU4DWS4jlKweT5Sm9YV8+Y5m2k+/6dR1vKTR48gzBPnKv1HEdOCk63jTFbn8Nfv
-	MeLOECgVbdlv5xNzomS5uGgyNRweBlTtFXP4nhqi2wbab9hrG4NsGWKYljsayzn7d81H0miT5rU
-	rjCNEV9tN67fPWly1oVcOfI3PbWoLIcdjo9
-X-Received: by 2002:a17:903:2b0d:b0:2c9:d89f:fd98 with SMTP id d9443c01a7336-2e2c608146fmr1652085ad.1.1790640000240;
-        Mon, 28 Sep 2026 17:00:00 -0700 (PDT)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91444797sm47124675ad.58.2026.09.28.16.59.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 16:59:59 -0700 (PDT)
-Date: Mon, 28 Sep 2026 23:59:54 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, will@kernel.org,
-	robin.murphy@arm.com, joro@8bytes.org, jgg@ziepe.ca,
-	nicolinc@nvidia.com, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH v2 1/5] iommu/arm-smmu-v3: Ensure L2 tables are visible
- before L1 ptrs
-Message-ID: <arr_eqQJtOAIT4Pd@google.com>
-References: <20260924085616.300650-1-smostafa@google.com>
- <20260924085616.300650-2-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxxPhfzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338611F000FF;
+	Tue, 29 Sep 2026 00:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790640019;
+	bh=PFwaBBBPfoMpkuptS7RbPQwvS3l52IuuDZgn3oWyhB0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MxxPhfzXkEzgCroYWGwtMGd5hmW8mBwViX43g4kO00UnJ2ozgT+0nGrS2wLOR7tpq
+	 Wo6JcKu/ugwnRaHeAa9pAxISzy6ZMT3fWJcdqRquLfL0Rqma6XiDaGru/WGiszAzJT
+	 4dLK3/OPDP81as6ULvI3pglbSJf207xDPcRzNVABNbWCR9yWvrojvli/OxefNALitS
+	 B+xMXMaJ3P9xWoHBWo/xiLu+VW0q/agCgk+/jYspTKapZHr/wKmYGyQHcBgr4OjDWk
+	 jkCvLlMk6B6AMyFSwmzJypKyiPjrYg6TwISnVRocvS/0mQr5UUvGmW1irycd/v3Xlj
+	 5dNpfE4M6Wk+A==
+Date: Mon, 28 Sep 2026 17:00:18 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>, Doug Berger
+ <opendmb@gmail.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Zak Kemble
+ <zakkemble@gmail.com>, Simon Horman <horms@kernel.org>, Ryo Takakura
+ <ryotkkr98@gmail.com>, linux-kernel@vger.kernel.org (open list)
+Subject: Re: [PATCH net v2 01/10] net: systemport: Fix buffer overflow in
+ bcm_sysport_get_stats()
+Message-ID: <20260928170018.5284b925@kernel.org>
+In-Reply-To: <20260922232440.598918-2-florian.fainelli@broadcom.com>
+References: <20260922232440.598918-1-florian.fainelli@broadcom.com>
+	<20260922232440.598918-2-florian.fainelli@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924085616.300650-2-smostafa@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 08:56:12AM +0000, Mostafa Saleh wrote:
-> Commit 6fabce53f6b9 ("iommu/arm-smmu-v3: Add a missing dma_wmb() for hitless STE update")
-> adds a dma_wmb() to arm_smmu_write_entry() to make sure stream tables
-> and context descriptors are observed first.
-> 
-> However, STE L1 table descriptors are configured directly
-> via WRITE_ONCE(), where before that they were zeroed with memset()
-> inside dma_direct_alloc() then written to abort in via memset() also
-> in arm_smmu_init_initial_stes() without a barrier in both cases which
-> means that the SMMUv3 can observe the allocated table before the
-> written descriptors causing it to fetch random data.
-> 
-> Similarly in arm_smmu_write_cd_l1_desc() where the L1 CD is written
-> after dma_alloc_coherent() with no barriers.
-> 
-> Add dma_wmb() in both cases.
-> 
-> Fixes: 48ec83bcbcf5 ("iommu/arm-smmu: Add initial driver support for ARM SMMUv3 devices")
-> Reported-by: Sashiko <>
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Mostafa Saleh <smostafa@google.com>
+On Tue, 22 Sep 2026 16:24:31 -0700 Florian Fainelli wrote:
+> When running on SYSTEMPORT Lite, certain statistics are unsupported and
+> skipped during bcm_sysport_get_stats(). The variable 'j' tracks the
+> compacted index into the destination data buffer, whereas 'i' iterates
+> over all elements in bcm_sysport_gstrings_stats.
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-
-Thanks,
-Praan
+looks legit
