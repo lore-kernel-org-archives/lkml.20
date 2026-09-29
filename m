@@ -1,84 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1563B14B6;
-	Tue, 29 Sep 2026 08:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02FE3B14C6;
+	Tue, 29 Sep 2026 08:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669851; cv=none; b=QPuY+akVu/RCQqPpXtWb1Oko7wHRAakZ1R9SIX/UEjrBKC0aCyDUM4LO9uIPvBHDQG5DjFEvnhVWi3lAB1eVIEf7F5NMPVXNJudS+y+gchbrgoLWgO1xiIe1lfJntC7eA56CT5zOvEvREPqzasVWZJN3YKRtsElanTWGLPU17fM=
+	t=1790669866; cv=none; b=elr44AqLh0HHkGqQAVRLieHw0p8rA9kaTW99JXQF7YMppPTJlkJz1j9shiVDIXBeDBtfqeTrLYWcdkVJk8zjtbWotobCL7WKClCZTDNAH6OXbk5BQFWb7cmYYgSrDjaBPiQc6RU8MTNJYrBMh4zr7UbmgKYieOoG0iG5y08fGfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669851; c=relaxed/simple;
-	bh=ewJKq01X7cz2Ue1vFMiTUnv0exHdMMW+tmYvr0degLI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PqnId6wP1TemYeg64uR0wz1HZLqJYC3mNY/VnC2Z6dhvMfDyQ/9Q1/N5fqszcBOTohhkloJozTmxuTplJpkXJfio7qW7KHk2GTnQAgOyJlQ4KZ60Sti47Me+Whvat4SbaBdLkDjurZzSluwRLYZbSw8aO3PR+xHMse/3igV0GaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aa6Au49P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669866; c=relaxed/simple;
+	bh=9wjlQLssATALYhKM0vpkOIcxvVmpWm1aP34WbYkqIbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=si2yRm+bBLDzbtSQ+HJ05kKPKp15td+NFtEJmxaoO8Yb9mM4INNml1UTJrnFc034lBcHwzZMbv3z2b97pVOFarxMefBnooUEsP7dmKq13T+43V61VhKAtlqcfY/i+7YvWmrLKnIRP1QYoqutj6/OM6bgh9CZbPxeeAM1oWJ8Rhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Gqu8QVk2; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aa6Au49P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3471F00893;
-	Tue, 29 Sep 2026 08:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790669849;
-	bh=5QoHG/n2/laaRy5rYicMZNSwTjNxom3qwPZeDoYqp/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aa6Au49PkqG2GJ9kFSljN4pEa9AfiwGP+zm0xec/WFPk3XCdHnxy0/mQTtM5eAnGA
-	 s7G3E65Y+aG80L2rH4F4OSARJoQLMPrcnkmjUrSsOnv7PRqaJIOrwsDsM+TSbsR+ll
-	 JKAe5PL/FV+/rYvDCTpa/LpNZp4+X5UjV+hl1KzJST91v6X6+Ca5ZTRyCw+Ry6X4//
-	 mUMhaJwpurdZ0dUjkBJ9JPBalAu3dwaJ8b+D1Y59cOKeat6c/AT+RfrXyJ5etx1fT2
-	 1aInKxoGrcl4Rpm1V2I0KWaxBa9K4Mn6nDABCh3mi7dLdZleG+pWAnC9Zb0aDZbOHF
-	 GRYz++HJvTYhA==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Gqu8QVk2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9wjlQLssATALYhKM0vpkOIcxvVmpWm1aP34WbYkqIbA=; b=Gqu8QVk2WonuQBpb3WMf8KpX+O
+	Chm2ExLDnu2QFPuHjF/UvhHPx3UELfAtyslk5+0jGYtS214mFRSRRArDi4fgGeavZ2J4Gpl/dZXlD
+	eVVX58Z0/Pj3IIBYJOozGJgLeZX+P1vATGJHmoPHqn4wVbDCHOfHEanDimsxiUjNYUl/Ig5XBKBG8
+	T+4WV588I3cxM9iEwUP4Vw89thBVugIlBc6XIU3n1E4gR8aQfyQAYxaWGZaTSn6Oq+xWMFi7n4mT1
+	cIJyJH0vjUWC6ekkTvsgFnM2ZOG/3x6ZOo2DwiPHHBUcwKIT+MEuOi9bJKRSvaZ6UYJpzb7yTsVd0
+	SEcp4dPw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBT1x-0000000BgJe-2Nsd;
+	Tue, 29 Sep 2026 08:17:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B9C95300446; Tue, 29 Sep 2026 10:17:40 +0200 (CEST)
+Date: Tue, 29 Sep 2026 10:17:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
 	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 0/8] mm/damon: introduce damos quota goal target metric complement flag
-Date: Tue, 29 Sep 2026 01:17:22 -0700
-Message-ID: <20260929081722.42380-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929080113.41708-1-sj@kernel.org>
-References: 
+	Ingo Molnar <mingo@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/psi: clamp negative cpu_clock() skew
+Message-ID: <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
+References: <20260928233743.3777102-1-stevensd@google.com>
+ <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
 
-On Tue, 29 Sep 2026 01:01:03 -0700 SJ Park <sj@kernel.org> wrote:
-[...]
-> Add a new flag, quota goal complement, to allow flexible tuning goal
-> setup without unnecessarily increasing the number of metrics.  The flag
-> specifies whether to use the complemented value of the given goal metric
-> for the tuning.  For example, if the complement flag is set, the upper
-> tier memory utilization ratio metric works the same as the free memory
-> ratio metric for the tier.
+On Tue, Sep 29, 2026 at 10:10:04AM +0200, Peter Zijlstra wrote:
 
-Sashiko found no blocker for this series.  Sashiko sends its findings to damon@
-mailing list [1], and I reply those if anything needs to be clarified.  Please
-refer to those for details.
+> > When running browser workloads on an Intel N100 with a sustained
+> > psi.mem.some of 2-3%, this underflow is observed once every couple of
+> > hours.
 
-[1] https://lore.kernel.org/damon/
-
-
-Thanks,
-SJ
-
-[...]
+Reading is hard. This is sad, that's a relatively modern chip :-(
