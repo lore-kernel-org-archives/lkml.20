@@ -1,104 +1,95 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194824E7802;
-	Tue, 29 Sep 2026 22:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4652C4EC65C;
+	Tue, 29 Sep 2026 22:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790719212; cv=none; b=JV2PnVT3JlR2xSQzUJ1Kzp/I4oWJH7HWl7zYECz6iqWJVZ6BMYsvjBzUWIJwzoxcEgzR35qdBIury4e2TQXWSS1fDep7MMJNMnoobz0dEUQN7LjbqPFLN1kec9VBXsM8TvKlrHWAPXjd27Ud/FiItUYAFiidSY0ZZJP1ulYjJ2U=
+	t=1790719413; cv=none; b=MJmTDZkXRoZvbwVjVA/qZDi9IjY2NhyAtItD+vSv7clo2tzwJMoCuW0mCR9tPcX+Tc7m16/bnLx8PolKE0GJvbXA9sil8pkAQSlpTjqYMrV0UXoJeTj0ZLo6YMlhi65vB/HLJNq1dfFK4vBxU13g37pYzwtGQOS498ZLzNXcPSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790719212; c=relaxed/simple;
-	bh=RfvP/Rcc7bthj/POM/GyXTM7UX7zeEg2qL2xnbY8BTw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=psQ0pBUJLafh4PvYHK2VhT5AKasm37rvgeMJWPE6BS+MT3nkDflu/RajN3XLrRLuaxKWmpO7PwBmZigpYbieMk+Jq735TdKVpNgRG7wLD3selWoa48n0QQ9yyp71YxmjEi/rLW1U/ixvvtK/kttZ2s7D8BnD+4uDCYJfTSUz3O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BMgwmDIe; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790719413; c=relaxed/simple;
+	bh=xv8YOZN5Exepypbq24b/k1Km7GfktNrqLP2hJw1SNC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BSttU/JfEd2MourEf6C6h/BDFsJFe8BAG+zNgnvELGkhYv45ttZ/0OdH2tvrGcYOOtzih2nk7y5n9M7XQWCGjzlSBcNkeraqxkvCS+6P0KjYLZzShYZq/NPbp5zNb1E5iCvjgPdacuExRxXhgo+giaUUG0Pk1D8ch/zqS5OsOWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMO3s90B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BMgwmDIe"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 419CA4E410B4;
-	Tue, 29 Sep 2026 22:00:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 15414601BD;
-	Tue, 29 Sep 2026 22:00:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0BE17103295D5;
-	Wed, 30 Sep 2026 00:00:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790719202; h=from:subject:date:message-id:to:cc:mime-version:content-type;
-	bh=BpAtl+04mI7CLiVqd2KF2FbkC8J/N7vViwCsafcTwMA=;
-	b=BMgwmDIe/IUtv+ARhNjUyC89eM+zaNanhw27JTyW+b8jHosBJ89/lI/4ZBDxbdD/+/v/Ps
-	hEoHE6LRAU9MVerz3pXKC3nu2Eqkci1M+IlCzdCAuDiitUzQ17IgF8LyP/SSZRj5TlsZnD
-	Nhdh+p55LuqOYavfl6ge3X4r2n6NtbdXAaMFj/E/cuXV2PP6oIbkd13+Dz+xIrqtoeMFo+
-	jAZ8RaxjfR050MiZ+OL0Kd2ZAhnxwyEZ0ocboxL5xhOXGfYhU9//grxkazLWN2jUU14Ir4
-	NVXyrUJHQu1XmNfSwvAfKmzzGOElXucesvwv3f4cHF9SqUalmr4TwSXQr1u3eg==
-Date: Wed, 30 Sep 2026 00:00:00 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] RTC fixes for 7.3
-Message-ID: <2026092922000025ba1a22@mail.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMO3s90B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B401F000FF;
+	Tue, 29 Sep 2026 22:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790719411;
+	bh=v/nJ4k1u78ke7ZIHZ4IMT2+oEY9uF0eOOz//6bbIgqY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mMO3s90BPyVNAf3nUTt7RP3vpKU1sWdUZrUeRmMYdW/AKChDH4asRiPP6HJwxqnyB
+	 B1zy1qrfD/5nHEfgGSU1E9IIIEQ1MIHwxuMke8DCbWfqMnf0myGRguUW/8ScsTYajh
+	 qz94KFKNJtSIGMHhgdpoksf+uJuLDgGTpj0u/Zo0kU2rM++IUD2qk+jE6cVNpE77wz
+	 aYMorE41+yHTgN4bBWx2Yhb572oTvAs+9aWhlC023k50o2sTVgow2/6ZKEtZPoemgo
+	 bvktGTajcnXcxEAxxKURHAZ8p4vrR7ZKgm6Lob1JpEtk507QyPnQYbEzinEldEG7kh
+	 PgOKbB8HgOlMw==
+Date: Tue, 29 Sep 2026 23:03:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 03/11] kselftest/arm64: Move exit calls out of fp-stress
+ loads
+Message-ID: <489314ca-0bdd-4d19-8f53-cf0b38130da4@sirena.org.uk>
+References: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
+ <20260901-arm64-fp-stress-kvm-v1-3-31bce995b49b@kernel.org>
+ <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yhcXNUoMVHeEzr/M"
+Content-Disposition: inline
+In-Reply-To: <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
+X-Cookie: 1 bulls, 3 cows.
+
+
+--yhcXNUoMVHeEzr/M
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Linus,
+On Tue, Sep 29, 2026 at 05:27:28PM +0100, Mark Rutland wrote:
+> On Tue, Sep 01, 2026 at 06:06:43PM +0100, Mark Brown wrote:
 
-Here is a collection of fixes for 7.3, mostly small issues found using
-AI. The efi change is to avoid a regression on some platforms.
+> > When they detect corruption the fp-stress test loads print load specific
+> > diagnostics and exits with a failure status.  In preparation for
+> > building versions intended to run as KVM guests factor the exits into
+> > asm-utils-linux.S.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> This is a good cleanup, but I do think it'd be worth noting that some of
+> the existing asm was wrong and worked by coincidence.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> I did mention that in the patches I linked you to a while back:
 
-are available in the Git repository at:
+>   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=922d15ef46cb486a79f168949e103f6df26f4fba
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git tags/rtc-7.3-fixes
+Ah, so you did.  To be honest I'd initially forgotten what was in there
+when I wrote these, though I did go check them after writing and should
+have updated the changelogs when I did.
 
-for you to fetch changes up to 055ef5ce9f67a6a3a1363fa663007f8196cc0fb8:
+--yhcXNUoMVHeEzr/M
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  rtc: spear: initialize IRQ state before requesting alarm IRQ (2026-09-21 22:46:42 +0200)
+-----BEGIN PGP SIGNATURE-----
 
-----------------------------------------------------------------
-RTC fixes for 7.3
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq8Na4ACgkQJNaLcl1U
+h9B6XQf/afmbwqYeX8wC1xYdsrffIp0UYaX5YWRV++8pmaaLaLV1J+8tGXCUQ+yB
+iio51yiXRE4/24GNDnX0AdMaxsruqbgUi2Oy9EWMcY9/juQqWkNAfz9iXo1cUEPm
+mJ4Nl6LNNC7GRdO0a1vdLaM7bPQVmb/bS6hl7tmDwgf6Ysz8YEfsd3ww5ARQmlHp
+ybmzWIytlXREenELwE2+iTu3x2iIS3pjWIbqSnKF94oNZt+MeoFKo9yoc7T/4qbu
+VFUPBK50gtAq1Xx8M1yPk3urF2sWsbgV/Ya5hwQik1haeEBr/E3i/BTLnXDg7K/1
+vLmUZuilkfnFkfJkR6XfF6WLOAc+4w==
+=8oJI
+-----END PGP SIGNATURE-----
 
-Subsystem:
- - fix a possible information leak
-
-Drivers:
- - efi: restore alarm support with runtime capability probe
-
-----------------------------------------------------------------
-Aamir Ahmed (2):
-      rtc: ac100: Assign .num before accessing .hws
-      rtc: ac100: Fix clock provider use-after-free on probe failure
-
-Johnny.Fan (1):
-      rtc: efi: restore alarm support with runtime capability probe
-
-Liu Dalin (1):
-      rtc: dev: zero-initialize struct rtc_wkalrm to prevent information leak
-
-Manush Prajwal (1):
-      rtc: mpfs: fix unchecked devm_clk_get() error pointer in probe()
-
-Runyu Xiao (1):
-      rtc: spear: initialize IRQ state before requesting alarm IRQ
-
- drivers/rtc/dev.c       |  2 +-
- drivers/rtc/rtc-ac100.c | 39 ++++++------------------
- drivers/rtc/rtc-efi.c   | 80 +++++++++++++++++++++++++++++++++++++++++++++++--
- drivers/rtc/rtc-mpfs.c  |  6 +++-
- drivers/rtc/rtc-spear.c | 11 +++----
- 5 files changed, 99 insertions(+), 39 deletions(-)
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+--yhcXNUoMVHeEzr/M--
