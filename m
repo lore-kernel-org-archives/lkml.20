@@ -1,686 +1,338 @@
-Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010045.outbound.protection.outlook.com [52.101.69.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF92374E5A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676624; cv=none; b=Q51IEG5f/xXalIzTR+Ufrhpw3zB9wd6j3ZRY07xO5p7Zvh4iRsaKZvN7JuOrYh2Wdq0hwUeZSWUwSWUw3Ov9D3XF3/gYmbulPLWRjIg1GgNGYwPKSo+GeTWK+TBOSViu8CIU1UEdmuCPek8XmBTdPCG/GwtEuML4CGwmLtwl83M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676624; c=relaxed/simple;
-	bh=7h2haqBkDrEWOQL4qtIiLbt/hfyqNlxKKBOHn3V9wpo=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=CW5fvTxv+gSCfH/4ZYyeNvM5/TXeP1uOPyZ9fnvyemTx+MpdgluvcSvU/+BJFlYECKoqOulxx9x31lq+TFmjPW/6Dm0EXH40Qwl50JHQtgTRxF/ys9alhwrPjszUiv7iuiARdXRFkyY3/OI963lnvLMY4iW8Qs4eescego/8j4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rjlSk3FC; arc=none smtp.client-ip=95.215.58.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0BA3DE43F;
+	Tue, 29 Sep 2026 10:10:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790676630; cv=fail; b=q8M547fBCZrutSgINex17J3hAQ/wKUJl/29lZwufmMZeDlsAiBVkDQrjvEuOxDQNYoRu6f4qtFV4IeRNxA7CB4AqeE6ETSXFxBwfVfU9n3E4bbxu3RSjOZGH4GQRr5Go467gLzX+mUm40oMWZVTpxm3K8+sSL0keNp0aFQxANSI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790676630; c=relaxed/simple;
+	bh=etCHDNNVri2ZU5kTVav4S88A1M7d73eND1kHGAlYXDw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=E5NiK3boMSVTy3T+W3x+htDxRY8UcKCyVIpk+tpqMcCNUaF8fHx53227rEyjZsIQDBjBZZPUPKGrVRTxCJaGoj0gGeFzVDZaFKSAdDiyX9X3h31PpZGU31/tyvvEXr7glfrqan1VnykAisSg2UQgj6aXH1YcOAv/G6l4F+At9EQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=f+3y2k9+; arc=fail smtp.client-ip=52.101.69.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rjlSk3FC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7h2haqBkDrEWOQL4qtIiLbt/hfyqNlxKKBOHn3V9wpo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790676605; v=1; x=1791281405;
- b=rjlSk3FCObHV/lSbVF8sb9QP8HIwm9HG/yXVtkNoQF3/GABFPX+qTG3J6iULNwAMSm117y96
- I1u14z3WSO2Jc+qD6edHJN/7FN6HHuM2UaBJWix+CIi2klZpy7NLbu8jIQIqTmbjWmxhLwLuilQ
- RH7q99NB3AJ61PXoVppg4xsE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 448e1c7dff45e3e1;
-	Tue, 29 Sep 2026 10:10:05 +0000
-X-Mizu-Trace-ID: 448e1c7dff45e3e1
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="f+3y2k9+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PWADgejQyT0G7AmHW4vQcsRCbBdsp/z+wr6OFKkIRaXWwLPuLF6aV7mIHhCBBty6GONbr8oj5KqqCw9c5hhoycQtHMaAmXB9LTCvKAVVBEa3b7FA7XmtapRZ4J5nX46MSPo5bUlL2JvWa1NopGz2lz7TFRY+kbosu2Gx9Fi3aSIBzlqJ0sb5/t1fg6xdarIKi/6dQ3SSphzqsvpuH077+poxMa1kjHdB7K4nfejYoxiDq/I6eJQQiP6Yc2FwkDFRERhKLEJBedhm6M7kx84qF4USUeqZKbiDwROVsVL6ovSaMPKeqXl9G0mx1LvFoMc+g7l0XD2KgIPORvTQ2/quJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sSLB3IKsBv8WUNM7pcmKQKYgjPIfM2LMQHALKPwfgzg=;
+ b=JaF3HSuOrxqhmgGBQs9TPyFJ5A6sdn9Pg9Xdek/hC7jt/XAb0Y1zhKnCpz9m+2P089zXuScWS4N0/Ad36OxzmaACxKewwP9i2cXeiR0I87L41IFNqrhPa2+poWOvGtVTAEN/ZdQFrVb4SCJj2DF2hzlFEww9uKKjaY5b9mEeS5dMXbYLpOwvnidYm3cNnGJ5dLy60Mw0XmULbHN8I14VAmXAkfWnWt6CW2zPErdzWdwa73yf8E0yd+/N/lR8+dRjs1IP1115bgSl14yPI9lesucb8IFOuDBAc1Bgvflps5zSEKkgLpbxHmynDqiBg7bLf+Dk5PQz1LPlkaHbtVKzEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sSLB3IKsBv8WUNM7pcmKQKYgjPIfM2LMQHALKPwfgzg=;
+ b=f+3y2k9+UoXC4YKP6xDHBP1ToVsy6YDe6CuxQInZbvfRi5ZySqPoaXNAqwbuM2NOnRDWulAMSH3WQXtQCRrbo492rZaH9PfIhqn7KuwyHv2yNdfdbK5dFROoziQSvxny4hIg5LKwZJme4IGCSO7bw2h/MD31VQtdTY4FvIdbjwCSeRh6WOJb4UjR/hVTJm2r2TqgSvguw2E1NagvQMHqQvcXKe/ewRtvoe7O2fFz5nOALlwAItU3wDIw9Rk4ph93KikgjpyOCvPA63RY6+HiHFIl/MlBVNb3UHv4mic19Qh53757iuuhMA52Kg53i8uB6IjvUoApismPSuJ3UdF3hg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by VI2PR04MB10595.eurprd04.prod.outlook.com
+ (2603:10a6:800:273::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 10:09:56 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 10:09:55 +0000
+From: Larisa Grigore <larisa.grigore@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Hannes Reinicke <hare@suse.de>,
+	Joao Pinto <Joao.Pinto@synopsys.com>
+Cc: linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	clizzi@redhat.com,
+	aruizrui@redhat.com,
+	eballetb@redhat.com,
+	echanude@redhat.com
+Subject: [PATCH v7 00/12] Add S32N79RDB UFS support
+Date: Tue, 29 Sep 2026 12:09:34 +0200
+Message-ID: <20260929100946.693962-1-larisa.grigore@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P189CA0019.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5db::10) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 10:10:01 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <845297728a153af0edb5404d88e59cc4ebe4d4cf@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v4 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, luka.gejak@linux.dev
-In-Reply-To: <6ad11268-9f09-4618-8b44-ab0744cf0a52@gmail.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-4-luka.gejak@linux.dev>
- <6ad11268-9f09-4618-8b44-ab0744cf0a52@gmail.com>
-
-September 27, 2026 at 17:21, "Bitterblue Smith" <rtl8821cerfe2@gmail.com =
-mailto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821=
-cerfe2%40gmail.com%3E > wrote:
-
->
->=20
->=20On 24/09/2026 00:35, Luka Gejak wrote:
-
->> +static u8 rtw8723b_default_ofdm_index(struct rtw_dev *rtwdev)
->> +{
->> +	u32 val32;
->> +	u32 swing;
->> +	u8 i;
->> +
->> +	swing =3D rtw_read32_mask(rtwdev, REG_OFDM_0_XA_TX_IQ_IMBALANCE,
->> +				OFDM_SWING_MASK);
->> +
->> +	for (i =3D 0; i < RTW_OFDM_SWING_TABLE_SIZE; i++) {
->> +		val32 =3D rtw8723b_ofdm_swing_table[i];
->> +
->> +		if (val32 >=3D 0x100000)
->> +			val32 >>=3D __ffs(OFDM_SWING_MASK);
-
-> Isn't this the same as u32_get_bits(val32, OFDM_SWING_MASK) ?
-
-Yes. It is u32_get_bits() now, and the if goes away with it.
-
->> +		if (val32 >=3D 0x100000)
->> +			val32 >>=3D __ffs(OFDM_SWING_MASK);
-
-> Also, every value in the table is bigger than 0x100000, so no need for =
-if.
-
-There is no val32 left to test.
-
->> +static void rtw8723b_post_enable_flow(struct rtw_dev *rtwdev)
->> +{
->> +	/*
->> +	 * Enable falling edge triggered interrupts and GPIO9 interrupt mode=
-.
->> +	 * The power-on sequence sets both, but it runs before the firmware =
-is
->> +	 * downloaded, so reassert them here as the vendor driver does.
->> +	 */
->> +	rtw_write8_set(rtwdev, 0x0049, BIT(1));
->> +	rtw_write8_set(rtwdev, 0x0063, BIT(1));
-
-> This seems like bit 25 of REG_GPIO_PIN_CTRL_2.
-
-It is. That write is rtw_write32_set(REG_GPIO_PIN_CTRL_2, BIT(25)) now.
-The write above it is bit 9 of REG_GPIO_INTM.
-
->> +static void rtw8723b_phy_lck(struct rtw_dev *rtwdev)
->> +{
->> +	rtw_write_rf(rtwdev, RF_PATH_A, 0xb0, RFREG_MASK, 0xdfbe0);
-
-> We have a name for 0xb0: RF_SYN_PFD. Not sure if it's the right name he=
-re.
-
-I have decided to use it.
-
->> +static void rtw8723b_init_tx_buffer_boundary(struct rtw_dev *rtwdev)
->> +{
->> +	u8 val8 =3D TX_TOTAL_PAGE_NUMBER_8723B + 1;
->> +
->> +	rtw_write8(rtwdev, REG_BCNQ_BDNY, val8);
->> +	rtw_write8(rtwdev, REG_MGQ_BDNY, val8);
->> +	rtw_write8(rtwdev, REG_WMAC_LBK_BF_HD, val8);
->> +	rtw_write8(rtwdev, REG_TRXFF_BNDY, val8);
->> +	rtw_write8(rtwdev, REG_DWBCN0_CTRL + 1, val8);
-
-> __priority_queue_cfg_legacy() already takes care of these. Is it
-> necessary to set them again here?
-
-No. init_tx_buffer_boundary() and init_page_boundary() are both gone.
-
->> +static void rtw8723b_init_transfer_page_size(struct rtw_dev *rtwdev)
->> +{
->> +	rtw_write8(rtwdev, REG_PBP, 0x11);
-
-> We have some macros for this in reg.h right under REG_PBP. You can use
-> them with u8_encode_bits().
-
-Done, u8_encode_bits(PBP_128, PBP_RX_MASK) and the same for TX.
-
->> +static void rtw8723b_init_driver_info_size(struct rtw_dev *rtwdev)
->> +{
->> +	/* NOTE: also is done in rtw_drv_info_cfg */
-
-> If it's done there do you have to do it again here?
-
-No. init_driver_info_size() is gone.
-
->> +static void rtw8723b_init_wmac_setting(struct rtw_dev *rtwdev)
->> +{
->> +	/*
->> +	 * The vendor's 8723x filter value plus BIT_APP_FCS, which rtw88
->> +	 * needs because it advertises RX_INCLUDES_FCS. It is assigned to
->> +	 * hal.rcr and not merely written because rtw_core_start()
->> +	 * rewrites REG_RCR from hal.rcr after power_on, which would undo
->> +	 * a register-only write; fw.c toggles BIT_CBSSID_BCN in it.
->> +	 */
->> +	rtwdev->hal.rcr =3D WLAN_RCR_CFG;
-
-> Is it necessary to change the default value assigned in rtw_core_init()=
-?
-
-No, that is where it belngs. hal.rcr is assigned in rtw_core_init() per
-chip now. It is a patch of its own at the beggining of the series.
-
->> +	rtw_write32(rtwdev, REG_RCR, rtwdev->hal.rcr);
->> +
->> +	rtw_write32(rtwdev, REG_MAR, 0xffffffff);
->> +	rtw_write32(rtwdev, REG_MAR + 4, 0xffffffff);
->> +
->> +	rtw_write16(rtwdev, REG_RXFLTMAP2, WLAN_RX_FILTER2);
->> +	rtw_write16(rtwdev, REG_RXFLTMAP1, WLAN_RX_FILTER1);
-
-> Please also update rtwdev->hal.rxfltmap1 when you change REG_RXFLTMAP1:
-> https://lore.kernel.org/linux-wireless/2a52d718-9e46-47f2-84a1-d8e7b1ed=
-89a8@gmail.com/
-
-You are right, and the reuse turns out to be the fix. The chip uses
-rtw8723x_mac_init() now, which writes REG_RXFLTMAP0/1/2 and sets
-hal.rxfltmap1. rtw8723b_mac_init() and rtw8723b_init_wmac_setting() are
-both gone.
-
->> +static void rtw8723b_init_operation_mode(struct rtw_dev *rtwdev)
->> +{
->> +	rtw_write8(rtwdev, REG_BWOPMODE, BIT_BWOPMODE_20MHZ);
-
-> I don't see this in the vendor driver v5.2.17.1.
-
-After rechecking it myself, me neither. init_operation_mode() and the
-REG_BWOPMODE defines are gone.
-
->> +static void rtw8723b_init_antenna_selection(struct rtw_dev *rtwdev)
->> +{
->> +	rtw_write8(rtwdev, REG_LEDCFG2, WLAN_ANT_SEL);
->> +}
->> +
->> +#define RF_AC	0x00
-
-> You can use the existing RF_MODE name for this.
-
-Done, the local RF_AC is gone.
-
->> +static void rtw8723b_lck(struct rtw_dev *rtwdev)
->> +{
->> +	u32 rf_mode =3D 0, lc_cal;
->> +	int ret;
->> +	u8 val_ctx;
->> +	u8 rf_val;
->> +
->> +	val_ctx =3D rtw_read8(rtwdev, REG_CTX);
->> +
->> +	if ((val_ctx & BIT_MASK_CTX_TYPE) !=3D 0)
-
-> No need to compare.
-
-Dropped.
-
->> +	/* 3. Read RF reg18 */
->> +	lc_cal =3D rtw_read_rf(rtwdev, RF_PATH_A, RF_CFGCH, MASK12BITS);
->> +
->> +	/* 4. Set LC calibration begin	bit15 */
->> +	rtw_write_rf(rtwdev, RF_PATH_A, 0xb0, RFREG_MASK, 0xdfbe0);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_CFGCH, MASK12BITS, lc_cal | BIT_L=
-CK);
->> +
->> +	ret =3D read_poll_timeout(rtw_read_rf, rf_val, rf_val !=3D 0x1,
->> +				10000, 1000000, false,
->> +			 rtwdev, RF_PATH_A, RF_CFGCH, BIT_LCK);
-
-> checkpatch should catch alignment issues like this. Please always run i=
-t.
-
-Fixed, and I am running it. checkpatch --strict is clean except the
-MAINTAINERS reminder on the patches that add files and the comllex-macro
-report on TRANS_SEQ_END, which rtw8703b.c already has.
-
->> +	if (ret)
->> +		rtw_warn(rtwdev, "failed to poll LCK status bit\n");
->> +
->> +	rtw_write_rf(rtwdev, RF_PATH_A, 0xb0, RFREG_MASK, 0xdffe0);
->> +
->> +	/* Restore original situation */
->> +	if ((val_ctx & BIT_MASK_CTX_TYPE) !=3D 0) {
->> +		rtw_write8(rtwdev, REG_CTX, val_ctx);
->> +
->> +		rtw_write_rf(rtwdev, RF_PATH_A, RF_AC, MASK12BITS, rf_mode);
->> +	} else {
->> +		rtw_write8(rtwdev, REG_TXPAUSE, 0x00);
->> +	}
-
-> I think the vendor driver is using MASK12BITS (0xfff) by mistake in
-> this function. It doesn't make any sense, it should be RFREG_MASK
-> (0xfffff) instead.
-
-Agreed, and that function is gone. The chip had its own lck carrying the
-shared one plus the RF_MODE standby read and write and the two RF_SYN_PFD
-writes. The RF_MODE pair only runs in the continuous TX branch, which
-this driver never enters, and rtw8723b_phy_lck() already does the
-RF_SYN_PFD pair at RF configuration. So rtw8723b calls rtw8723x_lck()
-now, the way 8703b and 8723d do, and that one reads RF_CHNLBW with
-RFREG_MASK. Test results are the same with it dropped.
-
->> +static u32 rtw8723b_iqk_ant_switch_path(struct rtw_dev *rtwdev)
->> +{
->> +	if (rtw_hci_type(rtwdev) !=3D RTW_HCI_TYPE_SDIO)
->> +		return rtw_hci_type(rtwdev) =3D=3D RTW_HCI_TYPE_USB ? 0x280 : 0x0;
->> +
->> +	/* Scan and connect use the PTA mux, so calibrate the path they use.=
- */
->> +	return (rtwdev->efuse.bt_setting & BIT(6)) ? 0x80 : 0x200;
-
-> This function would be clearer if you don't use the ternary
-> operator at all.
-
-Rewritten without it.
-
-> Not sure this logic is correct. The check in the vendor driver is
-> like this:
->
-> bool shared_ant =3D bt_setting & BIT(0);
-> if (USB) {
-> 	if (shared_ant)
-> 		ant_path =3D RF_PATH_B;
-> 	else
-> 		ant_path =3D RF_PATH_A;
-> } else {
-> 	if (bt_setting & BIT(6))
-> 		ant_path =3D RF_PATH_B;
-> 	else
-> 		ant_path =3D RF_PATH_A;
-> }
-> if (!shared_ant || ant_path =3D=3D RF_PATH_A)
-> 	return 0;
-> else
-> 	return 0x280;
->
-> I didn't see 0x80 and 0x200 in the IQK code.
-
-It follows the vendor now, shared_ant from bit 0 and ant_path from bit 6,
-returning 0 or 0x280. The 0x80 and 0x200 are gone.
-
->> +static void rtw8723b_set_channel_rf(struct rtw_dev *rtwdev, u8 channe=
-l, u8 bw)
->> +{
->> +	u32 rf_cfgch;
->> +
->> +	rf_cfgch =3D rtw_read_rf(rtwdev, RF_PATH_A, RF_CFGCH, RFREG_MASK);
->> +
->> +	rf_cfgch &=3D ~RFCFGCH_CHANNEL_MASK;=0D
->> +	rf_cfgch |=3D channel & RFCFGCH_CHANNEL_MASK;
-
-> This is what u32(p)_replace_bits is for.
-
-Done, now using u32p_replace_bits().
-
->> +
->> +	rf_cfgch &=3D ~RFCFGCH_BW_MASK;
->> +	switch (bw) {
->> +	case RTW_CHANNEL_WIDTH_20:
->> +		rf_cfgch |=3D RFCFGCH_BW_20M;
->> +		break;
->> +	case RTW_CHANNEL_WIDTH_40:
->> +		rf_cfgch |=3D RFCFGCH_BW_40M;
->> +		break;
->> +	default:
->> +		break;
->> +	}
-
-> bw is only going to be 20 or 40, so a simple if would be shorter.
-
-This is the one I left alone, the bandwidth assignment is still a single
-ternary.
-
->> +static void rtw8723b_set_channel(struct rtw_dev *rtwdev, u8 channel,
->> +				 u8 bw, u8 primary_chan_idx)
->> +{
->> +	rtw8723b_set_channel_rf(rtwdev, channel, bw);
->> +	rtw_set_channel_mac(rtwdev, channel, bw, primary_chan_idx);
->> +	rtw8723b_set_channel_bb(rtwdev, bw, primary_chan_idx);
-
-> I don't think the vendor driver v5.2.17.1 does the stuff below:
-
->> +	rtw8723b_reassert_rx_path(rtwdev);
->> +
->> +	if (rtw_is_8723bs(rtwdev)) {
->> +		bool keep_pta_owner;
->> +
->> +		keep_pta_owner =3D test_bit(RTW_FLAG_SCANNING, rtwdev->flags) ||
->> +				 (rtw_read32(rtwdev, REG_PAD_CTRL1) &
->> +				  BIT_PAPE_WLBT_SEL);
->> +		rtw8723b_sdio_restore_pad_ctrl(rtwdev, keep_pta_owner);
->> +
->> +		rtw_write8(rtwdev, REG_RF_CTRL, WLAN_RF_CTRL_ENABLE);
->> +		fsleep(1000);
->> +
->> +		/*
->> +		 * RF_WLINT bits 0-1 gate the data path into the BB and a prior
->> +		 * IQK or coex run can leave them blocking TX, so re-arm them.
->> +		 */
->> +		rtw_write_rf(rtwdev, RF_PATH_A, RF_WLINT, RFREG_MASK,
->> +			     0x0780);
->> +	}
-
-> If this driver doesn't work without it, you probably have a bug
-> somewhere.
-
-The block is still there. I did not find a bug, and I have not found a
-reason to delete it either. rtw8723b_reassert_rx_path() has a comment
-saying what it puts back, and where the PAD bits come from is in my reply
-to your other mail.
-
->> +	/* enable path A PA in TX IQK mode */
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_LUTWE, 0x80000, 0x1);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_ADDR, RFREG_MASK,
->> +		     sdio_iqk ? 0x18000 : 0x20000);
-
-> Where does 0x18000 come from? The vendor driver v5.2.17.1 uses 0x20000 =
-here.
-
-That value was mine and it is wrong. The vendor's value is used now.
-
->> +	rtw_write32(rtwdev, REG_TXIQK_PI_A_11N,
->> +		    sdio_iqk ? 0x821303ea : 0x821403ea);
-
-> Here, too, it uses the second value.
-
-Same, the vendor's value.
-
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_LUTWE, 0x80000, 0x1);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_ADDR, RFREG_MASK,
->> +		     sdio_iqk ? 0x18000 : 0x30000);
-
-> Vendor driver uses the second value.
-
-0x30000 now.
-
->> +	/* IQK setting */
->> +	rtw_write32(rtwdev, REG_TXIQK_11N, 0x01007c00);
->> +	rtw_write32(rtwdev, REG_RXIQK_11N, 0x01004800);
->> +
->> +	/* path-A IQK setting */
->> +	rtw_write32(rtwdev, REG_TXIQK_TONE_A_11N, 0x18008c1c);
->> +	rtw_write32(rtwdev, REG_RXIQK_TONE_A_11N, 0x38008c1c);
->> +	rtw_write32(rtwdev, REG_TX_IQK_TONE_B, 0x38008c1c);
->> +	rtw_write32(rtwdev, REG_RX_IQK_TONE_B, 0x38008c1c);
->> +
->> +	rtw_write32(rtwdev, REG_TXIQK_PI_A_11N,
->> +		    sdio_iqk ? 0x82130ff0 : 0x82160ff0);
-
-> Here as well.
-
-Also the vendor's value, in the RX path RF_MODE_TABLE_ADDR write.
-
->> +	rtw_dbg(rtwdev, RTW_DBG_RFK, "[IQK] path A RX IQK step2!\n");
->> +
->> +	/* modify RX IQK mode */
->> +	rtw_write32_mask(rtwdev, REG_FPGA0_IQK_11N, MASKH3BYTES, 0x000000);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_LUTWE, 0x80000, 0x1);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_ADDR, RFREG_MASK,
->> +		     sdio_iqk ? 0x18000 : 0x30000);
-
-> Here as well.
-
-And in the REG_RXIQK_PI_A_11N write.
-
->> +	/* leave IQK mode */
->> +	rtw_write32_mask(rtwdev, REG_FPGA0_IQK_11N, MASKH3BYTES, 0x000000);
->> +
->> +	/* Check failed */
-
-> No need for a comment that just repeats what the name of the function
-> already says.
-
->> +	/* path-A IQK setting */
->> +	rtw_write32(rtwdev, REG_TXIQK_TONE_A_11N, 0x38008c1c);
->> +	rtw_write32(rtwdev, REG_RXIQK_TONE_A_11N, 0x18008c1c);
->> +	rtw_write32(rtwdev, REG_TX_IQK_TONE_B, 0x38008c1c);
->> +	rtw_write32(rtwdev, REG_RX_IQK_TONE_B, 0x38008c1c);
->> +
->> +	rtw_write32(rtwdev, REG_TXIQK_PI_A_11N, 0x82110000);
->> +	rtw_write32(rtwdev, REG_RXIQK_PI_A_11N,
->> +		    sdio_iqk ? 0x2813001f : 0x2816001f);
-
-> Here as well.
-
-All three are gone.
-
->> +	rtw_write32_mask(rtwdev, REG_FPGA0_IQK_11N, MASKH3BYTES, 0x000000);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_LUTWE, 0x80000, 0x1);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_ADDR, RFREG_MASK, 0x30=
-000);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_DATA0, RFREG_MASK, 0x0=
-001f);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, RF_MODE_TABLE_DATA1, RFREG_MASK, 0xf=
-7fb7);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, 0xed, 0x20, 0x1);
->> +	rtw_write_rf(rtwdev, RF_PATH_A, 0x43, RFREG_MASK, 0x60fbd);
->> +
->> +	for (i =3D 0; i < PATH_IQK_RETRY; i++) {
->> +		a_ok =3D rtw8723b_iqk_tx_path_a(rtwdev);
->> +		if (a_ok =3D=3D IQK_TX_OK) {
-
-> If you invert the condition, this block with long lines can be
-> indented less.
-
-Inverted.
-
->> +
->> +	if (a_ok =3D=3D 0x0)
->> +		rtw_dbg(rtwdev, RTW_DBG_RFK, "[IQK] path A IQK fail!\n");
->> +
->> +	/* rtl8723b is 1T1R, so path B is not calibrated. */
-
-> It looks like the vendor driver is calibrating path B as well
-> (phy_path_b_iqk_8723b() and phy_path_b_rx_iqk_8723b()) when the device
-> has two antennas, and only path A when the device has one antenna.
-
-Path B is still not calibrated, so path A only. The comment now says what
-you said, that the vendor calibrates it when the board is not 1-antenna
-and that this driver does not support that case. I would rather not add
-IQK code I cannot test on a 1x1 card.
-
->> +	memset(result, 0, sizeof(result));
->> +
->> +	rtw8723b_lck(rtwdev);
->> +	rtw8723b_inform_rfk_status(rtwdev, true);
->> +
->> +	/* The LTE path GNT backup that 8723d does is not needed on SDIO. */
->> +	rtw8723x_iqk_backup_path_ctrl(rtwdev, &backup);
->> +	rtw8723x_iqk_backup_regs(rtwdev, &backup);
->> +
->> +	/* save default GNT_BT */
->> +	bt_control =3D rtw_read32(rtwdev, REG_BT_CONTROL_8723B);
->> +
->> +	for (i =3D IQK_ROUND_0; i <=3D IQK_ROUND_2; i++) {
->> +		if (!rtw_is_8723bs(rtwdev))
->> +			rtw8723x_iqk_config_path_ctrl(rtwdev);
-
-> I didn't see this in the RTL8723BE or RTL8723BU drivers. I guess it was
-> copied from another chip?
-
-It was. The iqk_config_path_ctrl() and restore calls are gone.
-
->> +	rtw_dbg(rtwdev, RTW_DBG_RFK, "[IQK] final_candidate is %x\n",
->> +		final_candidate);
->> +
->> +	for (i =3D IQK_ROUND_0; i < IQK_ROUND_SIZE; i++)
->> +		rtw_dbg(rtwdev, RTW_DBG_RFK,
->> +			"[IQK] Result %u: rege94_s1=3D%x rege9c_s1=3D%x regea4_s1=3D%x reg=
-eac_s1=3D%x rege94_s0=3D%x rege9c_s0=3D%x regea4_s0=3D%x regeac_s0=3D%x %=
-s\n",
->> +			i,
->> +			result[i][0], result[i][1], result[i][2], result[i][3],
->> +			result[i][4], result[i][5], result[i][6], result[i][7],
->> +			final_candidate =3D=3D i ? "(final candidate)" : "");
-
-> You can make this two calls to rtw_dbg to avoid such a long line.
-
-Two calls now.
-
->> +static void rtw8723b_pwrtrack_set_cck_pwr(struct rtw_dev *rtwdev, s8 =
-swing_idx,
->> +					  s8 txagc_idx)
->> +{
->> +	struct rtw_dm_info *dm_info =3D &rtwdev->dm_info;
->> +
->> +	dm_info->txagc_remnant_cck =3D txagc_idx;
->> +
->> +	swing_idx =3D clamp_t(s8, swing_idx, 0, RTW_CCK_SWING_TABLE_SIZE - 1=
-);
->> +
->> +	BUILD_BUG_ON(ARRAY_SIZE(rtw8723b_cck_pwr_regs) !=3D
->> +		     ARRAY_SIZE(rtw8723b_cck_swing_table_ch1_ch13[0]));
->> +
->> +	/* Only ch1-13 is wired up; channel 14 is Japan-only and unreachable=
-. */
-
-> If I change my country code to JP and trigger a scan, rtw88 visits
-> channel 14.
-
-Right. Channel 14 selects rtw8723b_cck_swing_table_ch14 now.
-
->> +	for (int i =3D 0; i < ARRAY_SIZE(rtw8723b_cck_pwr_regs); i++)
->> +		rtw_write8(rtwdev, rtw8723b_cck_pwr_regs[i],
-
-> These register addresses are consecutive values, there is no need
-> to put them in an array.
-
-The array is gone, it loops over the eight consecutive registers from
-0x0a22.
-
->> +	delta =3D rtw_phy_pwrtrack_get_delta(rtwdev, RF_PATH_A);
->> +
->> +	/* NOTE: also done in rtw_phy_pwrtrack_get_delta */
-
-> Is it necessary to do it again?
-
-No. The clamp is only in rtw_phy_pwrtrack_get_delta() now.
-
->> +iqk:
->> +	if (do_iqk)
->> +		rtw8723b_phy_calibration(rtwdev);
-
-> The vendor driver doesn't redo IQK here.
-
-8723d and 8703b in rtw88 both call phy_calibration() from phy_pwrtrack()
-when rtw_phy_pwrtrack_need_iqk() returns true, so I kept it and match the
-other chips.
-
->> +static void rtw8723b_pwr_track(struct rtw_dev *rtwdev)
->> +{
->> +	struct rtw_efuse *efuse =3D &rtwdev->efuse;
->> +	struct rtw_dm_info *dm_info =3D &rtwdev->dm_info;
->> +
->> +	if (efuse->power_track_type !=3D 0) {
->> +		rtw_warn(rtwdev, "unsupported power track type\n");
-
-> This function runs every two seconds, forever. Please put this
-> warning elsewhere, like rtw8723b_read_efuse(), to avoid filling
-> the kernel log. (Or create rtw_warn_once()).
-
-Moved to rtw8723b_read_efuse().
-
->> +static void rtw8723b_coex_cfg_ant_buffer(struct rtw_dev *rtwdev)
->> +{
->> +	u8 sys_func_before;
->> +
->> +	sys_func_before =3D rtw_read8(rtwdev, REG_SYS_FUNC_EN);
->> +	if ((sys_func_before & WLAN_SYS_FUNC_BB_ENABLE) !=3D
->> +	    WLAN_SYS_FUNC_BB_ENABLE) {
->> +		rtw_write8_set(rtwdev, REG_SYS_FUNC_EN,
->> +			       WLAN_SYS_FUNC_BB_ENABLE);
->> +		usleep_range(10, 11);
->> +	}
-
-> Not sure why you need to touch REG_SYS_FUNC_EN here. The vendor
-> driver doesn't do it.
-
-That is gone from rtw8723b_coex_cfg_ant_buffer().
-
->> +	rtw_write8_set(rtwdev, REG_PWR_DATA + 1,
->> +		       BIT_EEPRPAD_RFE_CTRL_EN >> 8);
->> +	rtw8723b_coex_write8_verify(rtwdev, REG_RFE_CTRL_E, 0xff);
-
-> The vendor driver uses a normal rtw_write8() here.
-
-coex_write8_verify() is gone and the call is a plain rtw_write8() now.
-
->> +		rtw_write8_set(rtwdev, REG_SYS_FUNC_EN,
->> +			       WLAN_SYS_FUNC_BB_ENABLE);
->> +		usleep_range(10, 11);
->> +	}
->> +
->> +	rtw_write32(rtwdev, REG_BB_SEL_BTG, value);
->> +	readback =3D rtw_read32(rtwdev, REG_BB_SEL_BTG);
->> +	if (readback =3D=3D value)
->> +		return readback;
->> +
->> +	rtw_write8_set(rtwdev, REG_SYS_FUNC_EN, WLAN_SYS_FUNC_BB_ENABLE);
->> +	usleep_range(10, 11);
->> +	rtw_write32(rtwdev, REG_BB_SEL_BTG, value);
->> +
->> +	return rtw_read32(rtwdev, REG_BB_SEL_BTG);
-
-> All this looks strange too. What happens if you eliminate this function
-> and write REG_BB_SEL_BTG with a simple rtw_write32()?
-
-Nothing, it works. The function is gone and every call site does a plain
-rtw_write32() now.
-
->> +	.query_phy_status	=3D rtw8723b_query_phy_status,
->> +	.read_rf		=3D rtw_phy_read_rf_sipi,
->> +	.write_rf		=3D rtw_phy_write_rf_reg_sipi,
->> +	.set_tx_power_index	=3D rtw8723x_set_tx_power_index,
->> +	.rsvd_page_dump		=3D NULL,
->> +	.set_antenna		=3D NULL,
->> +	.cfg_ldo25		=3D rtw8723b_cfg_ldo25,
->> +	.efuse_grant		=3D rtw8723b_efuse_grant,
->> +	.set_ampdu_factor	=3D NULL,
->> +	.false_alarm_statistics	=3D rtw8723x_false_alarm_statistics,
->> +	.phy_calibration	=3D rtw8723b_phy_calibration,
->> +	.dpk_track		=3D NULL,
->> +	/* REG_CSRATIO does not exist on this chip generation. */
->> +	.cck_pd_set		=3D NULL,
-
-> You can use rtw88xxa_phy_cck_pd_set() from rtw88xxa.c for this
-> chip too.
-
-Done, and it has a consequence you should know about. The chip driver
-calls into rtw88xxa.c now, so RTW88_8723B selects RTW88_88XXA, which make=
-s
-rtw88_8723b.ko depend on rtw88_88xxa.ko and pulls that PCI chip module
-into an SDIO only build. 8821A and 8812A select it the same way, it
-builds and loads clean, and it was on the card for a suite and a soak.
-Say so if you would rather not have the dependency and I will put the
-function in the chip driver instead. The same file carries the adaptive
-control and EDCA init now as well, because the chip was writing the same
-values, so the dependency does more than that one call.
-
->> +	.txgi_factor =3D 1,
->> +	.is_pwr_by_rate_dec =3D true,
->> +	.max_power_index =3D 0x3f,
->> +	.csi_buf_pg_num =3D 0,
->> +	.band =3D RTW_BAND_2G,
->> +	.page_size =3D TX_PAGE_SIZE,
->> +	.dig_min =3D 0x20,
->> +	.usb_tx_agg_desc_num =3D 1,
-
-> The RTL8723BU vendor driver v5.2.17 sets this to 6.
-
-usb_tx_agg_desc_num is 6 now.
-
->> +	/* same shared table as the sibling rtw8703b and rtw8723d */
->> +	.prioq_addrs =3D &rtw8723x_common.prioq_addrs,
->> +	/* used only in pci.c, not needed for SDIO devices */
->> +	.intf_table =3D NULL,
->> +	.dig =3D rtw8723x_common.dig,
->> +	.dig_cck =3D rtw8723x_common.dig_cck,
-
-> This chip doesn't have dig_cck.
-
-You are right, and I had to reread the vendor tree to figure out why.
-ODM_IC_PHY_STATUE_NEW_TYPE is 8197F | 8822B | 8723D | 8821C | 8710B, no
-8723B in it, so that write never runs here. dig_cck is NULL.
-
-Best regards,
-Luka Gejak
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|VI2PR04MB10595:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86002f2d-60ae-45a4-dc7d-08df1e11cf92
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|19092799006|18002099003|921020|3023799007|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ ByWqsjf12zQWqo2M8hXWtnaYXUXpa3/E2FMd6dhJHD9gY04YqN0UIoObOJyddidYU7dI2GSu56EMMkeha3fJ32o6BT4k3PCjZ4sVZa+UtQcT7HzBzq6UdeTvI8KWbw9Nas6U/R/ixQ4ON5elp+OFZL18D7M2TSywEIOfUYFqBKtU7BZbj/BtnxSxRaeTJt1jxFID+dV7cjFdZQN0dmyWNqe76ujCG5eaIL45mpKRC2irepNvQnzHwbljWIUfUxlTyzV7dIEP+Z57Cq+wWwujV6VAkfihZi+AVa2DKoZkngawLczjs+GEPWIaAMcrDdie/YKSK0c/3HW79IjqFza6+SpFKR4+4zWea9qs10LNWhk5bwVFS7wepVf95M7y5iwNJGkIty2nDKXpMie6lS+PzQhKNNqGAmhaWuUptkSkc2lf27jxLo5Sn4w4cWU90eVT3BslpZc2tiV7lLZUGknRNgW8iZnOwrZ1FK40JeppoZGMB2TikQ7SHmgT26VSel/m1rJWuYFdzRK3hYOqcqwB/h4dTTbzlCTUJhEEjsFbWKMvnM02eKlfrpltwLdIGLzLqwJvQofEE0eSewIyGGtm0hQ3MJlOc5V+5KtXNROs0tnFMOvQzPckM19p2lHRVHKz+RnaeJhPjTPI4zNWUN8LNpZl6QQIxJrvxrbBRgsC263vQCyLk4T6egFmYQIka9lz4Yzr/ugs8nOESX8Ds2BF0w==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(19092799006)(18002099003)(921020)(3023799007)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?SElKOG5zVUxPSzV0UEJReFcwRTFzcmNlcWJMNFpRL3pTZkV3QURsdlJpWFJQ?=
+ =?utf-8?B?TVJ1dFdZblgyaDkvcDNxdmtiSS81bmpra2RGWG5MTVAxcDBiT3FlOC9SSXp2?=
+ =?utf-8?B?ZEpDbHJPMGd1NHo0MktNN0pDZDJYdlI4UHF1akZZYW53M0RndVkzbTh3WVc3?=
+ =?utf-8?B?WnZERnhDMjNkZDBqa3QzYkRaM2lIaTR2c0J0VW5kYXV4Uy9qOUJZVklXV3Yy?=
+ =?utf-8?B?NlZMakdiY3ZFbG1hWjBkODlnUU5iYWhOc3JrcHFJU3cxckM4Zk4xcHl4VG9x?=
+ =?utf-8?B?dUxodThWTlRRZkRsOGEyZVhmOC9iMTk5NWtiWmExUGlvOWRCYlFnTWV0UlJk?=
+ =?utf-8?B?RE51VTlxZW1oSnpGd1c0M2hrazVZRjBrb1JkWlBEdWg3R2JKaStFT0F4dlNG?=
+ =?utf-8?B?c1NkREFZUEI4SkxSc1ptcE9XMkpJWE1tMmh4YTVtNXd5czcwaytKZ0R6VzNV?=
+ =?utf-8?B?cW9PQjQ0citGSXp6R1ByT2NlNUJrS05vTmNuL2RzaFMwZmNEc21jYjlNMGtL?=
+ =?utf-8?B?aU5MY2o4Q0VtQThJNFFtSWJsSmZscXNOSGw5TFAwcEwwVXM1VlhhbEwvVzBp?=
+ =?utf-8?B?QjI0bWhaV1IwQmkrdkNDVnprR09kSFc3dXpyYWY5SFVJOGkrck1rUXpOVmxm?=
+ =?utf-8?B?NS9JbmJ6ZjdwZnFBZ3VsTDBFeHQ3T2VjWWVlRW5vNFFoRmhHZVVZNjBzYUR4?=
+ =?utf-8?B?OE5YU3VZTnlRSUwrTWcvSTI1U25lMkVVNWZkaGQvTXhkVDI0WW54aGdKUkZm?=
+ =?utf-8?B?cWVKSUNOdFV4QjNEOG5zT0NlL1RUUnNHeDhwZG50ODZpUWpDTUJHRnBoYnRl?=
+ =?utf-8?B?ZmJtYlllUng2TU1HV3RCMUR4T2ZPQUcrQnBrazNEbG1lOW1lekQrbXVBM3Nv?=
+ =?utf-8?B?WXBTVHFkNWhpRy9mdVlvd294Q3EwVHorK0s1RGltVkQ3SnNGZndBQzRwaXB1?=
+ =?utf-8?B?K1NXQ0VwbXNOL0xOdXV0c2Q5RTVEenBWM3Q4aXdWeXFtcTM3dUdtOW5acXRX?=
+ =?utf-8?B?QzJHM0JQR2p6Tyt1Z2ozZjJIK2xFZFpnNXdQeUdtWnJEZHRXNUFzUXZoWVFB?=
+ =?utf-8?B?ZHFMdUZhVVR3ZWRHbE1sK05xS1FweVpyNjBqWVBIMkNlUlh6ZFNNVVNCVDVU?=
+ =?utf-8?B?U0xBVHZFV1l0cDd4WVhjLzRnV2dHeU55cnNtUG80SGFrQUlqdllRdXMvSTRY?=
+ =?utf-8?B?MVRoMXdVTXg4bS9WQjlBaCtjdmNoaUVUK1dSVkpNTS9xSGxKdEJFUkp4aGIv?=
+ =?utf-8?B?aXNPVXNSdXQ5OEJGcDJ2K2xqL2xNTWp2ZFBQSjU4L0JyRTkxb0NBdkxZRXc1?=
+ =?utf-8?B?QWNjR282YUZLcE4zRU9WMHBjZGt2UTh1MU1TMVcybStueURtMmFaNXlqeTFl?=
+ =?utf-8?B?dktTbEVEdnhOY01xNFIxZ0UyaHNnNHlpSklWUGxqU3BUNGFUbmF0aW83M2Rw?=
+ =?utf-8?B?amtpT3l2bFZkSDlBbVpKeU5ING1kcjV3S1FQdFAzTmRJb0xvZVkrY2hkV2FX?=
+ =?utf-8?B?TUJ4NnZjVW83cFBORjhlZ21BWUJ6UnQzYTJJUkpuanQ3SGRGSFdrZGdxVFZi?=
+ =?utf-8?B?Um44WkF4V0NBMXFib2xybTErZXI2ZWU5ZjArZWZxcWs3bU53dngrOTNocGRG?=
+ =?utf-8?B?L3lzN0JaTGFkSDVkaEtYdHFLMmE5dWdaTmNTZkd6RnNhaFBsMXFyMWRXVHZt?=
+ =?utf-8?B?MVdsR0J5OHA0RkZkcCtxSllMU1FkaXpGMTNOZm5CMzJ3K3QrMGxsUW1LK2Qz?=
+ =?utf-8?B?cjFielF4L1FMdnB3ZXZaZkJGRVNxS0JZRm05SlBodVQrR0Z5WjdrWDVtQmZl?=
+ =?utf-8?B?cjlvQ1ZJYWY5L2pCK3p4TlpEclZDU1JPUTN3VEQrc01XZ1JUOEN3bElDMFBp?=
+ =?utf-8?B?ZS9VMjg3Um1RdzZEcHVSM0FDdDdLTnVJbHZFd291a25lMmVBaVQxZTM2a2VU?=
+ =?utf-8?B?OE1xTUlOS1A2VUFQK0RteVlYMVF1dGh1VDhEbjQrZ0Y2Ni9idkpVL1VzeWtC?=
+ =?utf-8?B?RmpnMW83c1hLTTV0a3o5V0YxOG1mTFByZkVaUXFxZWlBeWtZdUZhZHdzc0VN?=
+ =?utf-8?B?V2RmV3FvREg5cm9PTnIxT2dLKzE4aFI4RUR5OXNjSWlJbGZLUjdMQ21ZTWw4?=
+ =?utf-8?B?R1NIS2dLWllvcUdVNGtMUkFLeEdSLytoa2hKaTFHZ3BZWUJRa1FRenpxYysv?=
+ =?utf-8?B?VjBkR2N6WmorVTZ3UE9xUTNRWktqOEJ3S3pUSlJ3UGlldWxkWDY0WGlUZVUx?=
+ =?utf-8?B?M1JPRm5LRHRTZngvSEZ4Uy9xZTRRcjJHRm9LbXd2NWJOOE55U0Q5QWFickx4?=
+ =?utf-8?B?Y1ZERVhDUStVaG5aNDJUMUI4c3ljNElja1BoT3JocnBYMjZYVVRzdz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86002f2d-60ae-45a4-dc7d-08df1e11cf92
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 10:09:55.7341
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HZei+2JLBKZr/vG5/kE6hnmJEkRP6TpHSyApRuO6EyKuPDIQ67yNAuVDfiWP7HCj8+xV7DxKue4ME6iHkqw30g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10595
+
+This series adds support for the UFS host controller found on the NXP S32N79
+platform. The controller is based on the Synopsys DesignWare (DWC) UFS host
+architecture and requires S32N79-specific M-PHY initialization/calibration
+sequence. It is compliant with JESD-223D "Universal Flash Storage Host
+Controller Interface" v3.0, and supports up to HS-Gear 4 speed grade. It is
+compatible with UFS 2.1, 3.0 and 3.1 devices. The MIPI UniPro is compliant with
+"MIPI Alliance Specification for Unified Protocol", v1.8. The MIPI M-PHY is
+compliant to version 4.1.
+
+In order to keep the S32N79 platform driver small and avoid duplicating common
+DWC code across platform glue drivers, the series also refactors and exports a
+few reusable DWC helpers. In particular, M-PHY CREG (CBCREG*) register access
+helpers are moved from the existing AMD Versal2 glue driver into the common
+ufshcd-dwc layer, and are then used by the platform drivers. The series also
+introduces a generic Hibern8 TX-FSM polling helper so that multiple platforms
+can reuse the same pre-link checks.
+
+Device tree binding documentation for the S32N79 UFS controller is included,
+along with SoC and board DTS updates to instantiate and enable the controller.
+
+Changes in v7:
+
+scsi: ufs: Add NXP S32N79 UFS host controller driver:
+- Wrapped .prepare/.complete in pm_sleep_ptr() instead of pm_ptr().
+- Fixed code alignment issues.
+
+Changes in v6:
+
+scsi: ufs: dwc: Return a negative error if the link is down:
+- Translate a positive UIC command result from ufshcd_dme_get() into -EIO.
+- Declare dme_result as u32 to match the ufshcd_dme_get() parameter type.
+
+scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset:
+- Added Reviewed-by: Frank Li.
+
+scsi: ufs: Add NXP S32N79 UFS host controller driver:
+- Added Reviewed-by: Frank Li.
+
+Changes in v5:
+
+scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset:
+- New patch. Split the macro reorder into its own cleanup.
+
+ufs: host: Add common Hibern8 TX FSM polling helper:
+- Return the real poller error on timeout, not a forced -ETIMEDOUT.
+
+dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+- Dropped the jedec,ufs-2.0 fallback.
+- Removed the select: block and the clocks description.
+
+scsi: ufs: Add NXP S32N79 UFS host controller driver:
+- Documented the timeout values as driver-defined bounds.
+- Wrapped .prepare/.complete in pm_ptr().
+
+arm64: dts: freescale: s32n79: Add UFS host controller:
+- Dropped the jedec,ufs-2.0 fallback.
+
+Changes in v4:
+
+scsi: ufs: dwc: Return a negative error if the link is down:
+- New patch. ufshcd_dwc_link_is_up() now returns a negative errno on failure
+  instead of a positive value.
+
+ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h
+- Added Reviewed-by: Frank Li.
+
+ufs: host: Add common Hibern8 TX FSM polling helper:
+- Refactored ufshcd_dme_check_tx_hibern8() to use read_poll_timeout().
+
+scsi: ufs: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc:
+- Added Reviewed-by: Frank Li.
+
+dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+- Added Reviewed-by: Frank Li.
+
+Changes in v3:
+
+ufs: host: Add common Hibern8 TX FSM polling helper:
+- Use -EAGAIN while polling and only normalize to -ETIMEDOUT on timeout, so
+  real attribute-read errors are returned instead of masked.
+- Drop the stray delay.h include in ufshcd-pltfrm.c; the helper lives in
+  ufshcd.c.
+- Drop the now-redundant dev_err() after the check in the HiSilicon driver.
+
+scsi: ufs: Add NXP S32N79 UFS host controller driver:
+- Use devm_clk_get_enabled() to enable the core reference clock.
+- Rename the family-level identifiers from the s32n_ prefix to s32n7_
+  (structs and functions), keeping the s32n79_ prefix only for the
+  chip-specific data.
+
+Changes in v2:
+
+ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h:
+- Improved the enum comments. They now cite the MIPI M-PHY v6.0 tables.
+
+ufs: unipro: Add TX/RX FSM state attributes:
+- Added Reviewed-by: Frank Li.
+
+ufs: host: Add common Hibern8 TX FSM polling helper:
+- Moved the helper into the UFS core (ufshcd.c).
+- Split out an inner per-lane poller, ufshcd_poll_tx_hibern8_lanes().
+- Expanded the commit message to document the -ETIMEDOUT normalization done
+  when converting the qcom/hisi checks to the helper. No code behaviour change.
+
+scsi: ufs: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc:
+- Made the DME attribute arrays const. They are now initialized inline instead
+  of by later field assignments.
+
+scsi: ufs: dwc: Export common clock divider and link status helpers:
+- Added Reviewed-by: Frank Li.
+
+dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+- Renamed the patch subject and simplified the commit message.
+- Renamed the binding file to nxp,s32n79-ufshc.yaml so it matches the
+  nxp,s32n79-ufshc compatible string.
+- Removed the nxp,mphy-boot-mode property.
+- Made reg-names and clocks required.
+- Removed the conditional if/then/else schema.
+- Removed clock-names.
+- Changed the compatible from jedec,ufs-3.0 to jedec,ufs-2.0.
+- Updated the example clocks to <&clks 0x92>.
+
+scsi: ufs: Add NXP S32N79 UFS host controller driver:
+- Removed the nxp,mphy-boot-mode handling and the mphy_boot_mode enum. The
+  M-PHY firmware always runs from ROM now.
+- Added a struct s32n_soc_data for SoC match data.
+- Moved the calibration writes out to static const tables.
+- Renamed struct phy_reg_cfg to s32n_phy_reg.
+- Moved the rate-select sequence out of link_startup_post_change() into a new
+  pwr_change_notify() pre-change path.
+- Used devm_clk_get(dev, NULL) and dropped the redundant core_clk NULL check.
+- Switched to *_PM_OPS() macros and pm_ptr() for the PM ops.
+- Clarified the Hibern8 poll timeout comment.
+- Enabled Auto-Hibern8 instead of setting UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8.
+- Reworked and improved the M-PHY initialization sequence.
+
+arm64: dts: freescale: s32n79: Add UFS host controller:
+- Changed the compatible from jedec,ufs-3.0 to jedec,ufs-2.0.
+- Removed clock-names.
+
+arm64: dts: freescale: s32n79-rdb: Enable UFS:
+- Removed the nxp,mphy-boot-mode property.
+
+Larisa Grigore (12):
+  scsi: ufs: dwc: Return a negative error if the link is down
+  ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h
+  ufs: unipro: Add TX/RX FSM state attributes
+  ufs: host: Add common Hibern8 TX FSM polling helper
+  scsi: ufs: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc
+  scsi: ufs: dwc: Export common clock divider and link status helpers
+  dt-bindings: ufs: Add NXP S32N79 UFS host controller
+  scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset
+  scsi: ufs: Add NXP S32N79 UFS host controller driver
+  arm64: dts: freescale: s32n79: Add UFS host controller
+  arm64: dts: freescale: s32n79-rdb: Enable UFS
+  MAINTAINERS: Add NXP S32N7 UFS host controller entry
+
+ .../bindings/ufs/nxp,s32n79-ufshc.yaml        |  49 ++
+ MAINTAINERS                                   |   8 +
+ arch/arm64/boot/dts/freescale/s32n79-rdb.dts  |   5 +
+ arch/arm64/boot/dts/freescale/s32n79.dtsi     |  10 +
+ drivers/ufs/core/ufshcd.c                     |  73 +++
+ drivers/ufs/host/Kconfig                      |  12 +
+ drivers/ufs/host/Makefile                     |   1 +
+ drivers/ufs/host/ufs-amd-versal2.c            |  89 +--
+ drivers/ufs/host/ufs-hisi.c                   |  48 +-
+ drivers/ufs/host/ufs-hisi.h                   |   6 -
+ drivers/ufs/host/ufs-nxp-s32n7.c              | 546 ++++++++++++++++++
+ drivers/ufs/host/ufs-qcom.c                   |  42 +-
+ drivers/ufs/host/ufs-qcom.h                   |   2 -
+ drivers/ufs/host/ufshcd-dwc.c                 |  86 ++-
+ drivers/ufs/host/ufshcd-dwc.h                 |  39 +-
+ drivers/ufs/host/ufshci-dwc.h                 |   6 +
+ include/ufs/ufshcd.h                          |   3 +
+ include/ufs/unipro.h                          |  22 +
+ 18 files changed, 851 insertions(+), 196 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+ create mode 100644 drivers/ufs/host/ufs-nxp-s32n7.c
+
+-- 
+2.43.0
+
