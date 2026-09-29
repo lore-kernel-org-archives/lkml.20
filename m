@@ -1,336 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876823C342B;
-	Tue, 29 Sep 2026 03:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A103DD85C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651645; cv=none; b=JnvU9iVziqCNOHgU2vru7khKaCNAuLSTpUcUWhiMDtv5tHg1NJmI4cyzBw1vLJHQ4ANUQZcdjT6kSZ9nVvWLv9qpXQ5JZp/8DDl7Fcfb4eU+IoMJeSY9UqzJ9kgnNCwpe/BgNUBimdnTVZQbizMrR4AUnktw7b7dBXoaz2gz5D8=
+	t=1790651652; cv=none; b=a2/i5Ue80iF3b3aralsQexdhhDhwJ+qLpmHHR1urSWaWmTAO66hhI7rqA46BItl5R/3kADW4BxNUihHa1+byZQLSroR6pHHvkXKmbUarPoeMxqo8n+jS03sxpl3sUp7aQx7TUH0d5GqhX2ATPPAhYPMXTwOW/x4L15irkl22Ev4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651645; c=relaxed/simple;
-	bh=b2OfSb2+SciWkRMpuXJSyGid0M8VY1bTxEUNQw1US6c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PIkZ4G2SwkjW0WWnR2vUdurbcj/q53eybeZgGdeuoER5juZgGCyQLu2BrZfdxqDqmzbyx1d4eyJORU5tvbvN5m/wr6a7/JVuO230XRR6defNZpEltGlnjr9uOiIqAFU6Os0j2lvHUGlNiTudCpZyG0ll1Rarg6ME5dGXiPsfdWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUu8MX2W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651652; c=relaxed/simple;
+	bh=E0QVRun1Rtl9by+zxe8bI3xBduqYg8w0MLEhejpTV+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pQ5A9ELM0vuGt/AJPs6Q368NohZcA+YGU0mCU3CJDRjl4z/JRW7EYEJMcJuvwthfgi756q1RvYDzYiD6mPTXRwYYSRtmj/Jqnf+c4fHJydSjIlUsdyP0BvKhbv5sgljG4AYKDbiJQSJB3KmMZbqPNTLHWjfGzY53m+QMI+AeXto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQzADro3; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUu8MX2W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83041F000FF;
-	Tue, 29 Sep 2026 03:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651639;
-	bh=f+/2mu3Kkhj/XCxEL4wgAbPmQ6fjcskhKTYYG5//9qU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nUu8MX2Wiieaf7rfl4Y1Mvf1kGn1hZkY0W+2rILeSupK33V4YwL0jwsHW5tR3Cm/J
-	 dbsM3hZV5/MiP9zh2oeDrZ+YuZo4oaIOipoO5JxMbyvmLRjbL2RqSbS+n9CzqANilz
-	 veQNUbrbxD67iKRh4u9br1vlAPd1TQh4agbi9SrA1dqxfsHTZvDon3+TqQp7RaU9xh
-	 wLTFDVJ5v96oZ42pW3YqYjOQAkO1Aq/Q55A5HqlGt3yyhz0qY2/feuttXOz5t6P6ej
-	 y+ges4gzYCTuvsBPIwc+fnXkJ5dF4r3bFF2QKymEyPC9ZoAZ+c8IE3Zhy+ONq61CB5
-	 01EI0crIMzIXA==
-Date: Mon, 28 Sep 2026 22:13:56 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
- Replace old sound nodes, enable DisplayPort audio
-Message-ID: <arssv5dH5ywjQWUw@zenbook>
-References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
- <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQzADro3"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso1830220a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790651648; x=1791256448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8KiajsX9AXzugaV+rM1roV/GBOKr61T0qmPfAwnIkdk=;
+        b=WQzADro3Krynyh/AD2dkfeOJRh67/+ZdtkQvOV5nMrZQBGiF5aaGluYk0LO8edJ2qy
+         HMjEtGSn4SnXDVmXzO6OgndsL7OJUZiSFAzcry0H0+g9AlrWgkmfSgARhF1o0MKdkI9D
+         WhR3htwSfJJf+bsKVKKGrH7z+PPviBHdIZHvImBO2OkbVmAHp+gQk8jxFc3Xr5oiw/O0
+         34DDtXFTH+StQuOymBsUH0eLOlu/y2Yg3lKnoQ/qsbfz7Cb3n4JVvQywfC6Q2+6h1Xbl
+         Fnlyun2l60H+oYUD3o666RnOi3wMjROoziRcRD4AUKzQ5EhBC7mSI/sDCzAaOPYC6hg2
+         iN9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790651648; x=1791256448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8KiajsX9AXzugaV+rM1roV/GBOKr61T0qmPfAwnIkdk=;
+        b=t6v3zzAlaYwsuVDMpkEzFYp9WvCWQsUj2bwv8Aq86jqa6fcJiTtwYB2MPmRloys2Ep
+         /352DrdjYrI2OkMhADcNfQTE49CkEFZiQcp0vVn1jAEBx7PAK2wuZrMLCCxr0rEN2T5j
+         l+s6fdlVKiNYc+SFTIeJwtSc0XPUKg3VcyZQ6GHjvbH6eTN8GKLgtQ11DdQaKuCQFUOZ
+         3KQhg4+tv4Zw4KpPRvF/+U2SHwN1ADyZnB8LN6j0e/vutmOxz8HWNBfyDJDmcs2+SjYR
+         BKdkD8EXxeGiytxuNbxIMGY5QkhJCimmudZe1wym+KuMhWPqPpccrXJkseUzJW/k12y5
+         Iq/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxACAtIw56P32R8IEZ+bssL1uK/Dd5VuynMShJKwkHc+MvmEp8W0ZRNRxvhcxureAcadRhaG9/45LPXgmU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVeYRWCcgbQ2RBoW9ppvDtw+5oFV55Vl1Ep4AGukHJnP4Rspxe
+	G/TUPGDjxai3eGAHxcG8/dh2M0nEiORnmC+jukOi0gaGMgKqdVWn+x8=
+X-Gm-Gg: AYBFou26Lgl/wQDcQVIT1L87qV/W1fsGTE+4E8kOn8/eLwCU8J4phGM2f8go6HVTCKW
+	s+7vdcTEaR9flKhfkpNsArvhJfNokyphWyBlfBRklnzGJVMM8Bfo0VE3aalchn3qCS+HVIQm3yM
+	Y2KlhCyBNXAL/wnETwROaPhfbxTLsd+DtnhAar28IUy66/Mps6Ck391kcXREMkEICux90CLjuxo
+	tGlXAq1DX+WhB1d68mH51Y2vh2FHElDee9mULPs635aVTlTBXS0x83RGyfE6mow1zL69VUo1nmi
+	1sj3hI3zM2Ynk71rDrsJpWtejh7tZRuDt68onTyRWUvxwovNGpn+7A5Hfk91DJ/HFLZEBy3aPZn
+	17TnwjbQiws37nMzXBy9oIjJdzEwwzZ0uqKh5zNpZfkh/M0JRyBkDHRhza29DgZ9HnngkAenUOy
+	3WAvRO9AhY8Zw4P5QjdlEWu8YWwIOBsfVv+pj0rUOX2GXOrkTYKncmsY91aDNas6TrBGBE0PQj/
+	EvTiZVQkcTEAU3+i6vHFdVj/w==
+X-Received: by 2002:a17:90a:e70f:b0:3a4:9a7a:360 with SMTP id 98e67ed59e1d1-3a49a7a0402mr1413209a91.29.1790651647749;
+        Mon, 28 Sep 2026 20:14:07 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:712c:b4ae:1eb:26ce:7dc5:ed80])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497e90180sm2756476a91.2.2026.09.28.20.14.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 20:14:07 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [PATCH] iommufd: Keep reserved IOVA ranges when a replace within one IOAS fails
+Date: Tue, 29 Sep 2026 12:14:02 +0900
+Message-ID: <20260929031402.1998253-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 04:07:45PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> The Windows Dev Kit 2023 has no built-in speakers, microphones or
-> headphone jack. Likewise the device with the same mainboard, Surface
-> Pro 9 5G [1]. The previous WCD938x / WSA / VA sound card definition
-> was therefore non-functional.
-> 
-> Replace the unused codec nodes, SoundWire controllers, LPASS macros
-> and related pinctrl with DisplayPort DAI links (DP0/DP1/DP2) so that
-> audio is available over the DP connectors. Add the required
-> sound-name-prefix properties and update the card model name to the
-> conventional SC8280XP-MICROSOFT-BLACKROCK form.
-> 
-> [1]: https://support.microsoft.com/en-us/surface/models/surface-pro-9-features-and-specs
+iommufd_device_do_replace() installs the group's reserved IOVA ranges in
+the new hwpt's IOAS only when it differs from the old hwpt's IOAS. If the
+replace fails in iommufd_device_do_replace() or
+iommufd_group_do_replace_reserved_iova(), the error paths remove the
+ranges from the new hwpt's IOAS whether or not the IOAS is shared
+between the old and new hwpt, which removes the ranges that the old hwpt
+still needs.
 
-Computer says:
+For example, on x86 with intel-iommu, after a replace within a shared
+IOAS fails with -ENODEV, IOMMU_IOAS_IOVA_RANGES goes from
 
-arch/arm64/boot/dts/qcom/sc8280xp-crd-el2.dtb: displayport-controller@aea0000 (qcom,sc8280xp-edp): Unevaluated properties are not allowed ('sound-name-prefix' was unexpected)
-    from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml
-+ 5 more times...
+  0x0-0xfedfffff
+  0xfef00000-0xffffffffffff
 
-What am I doing wrong?
+to
 
-Regards,
-Bjorn
+  0x0-0xffffffffffff
 
-> 
-> Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition for WDK2023")
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
->  .../boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 135 +++------------------
->  arch/arm64/boot/dts/qcom/sc8280xp.dtsi             |   4 +
->  2 files changed, 21 insertions(+), 118 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> index 4f4b5f4285ec2..ac22f44020a64 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> @@ -28,32 +28,6 @@ aliases {
->  		serial1 = &uart2;
->  	};
->  
-> -	wcd938x: audio-codec {
-> -		compatible = "qcom,wcd9380-codec";
-> -
-> -		pinctrl-0 = <&wcd_default>;
-> -		pinctrl-names = "default";
-> -
-> -		reset-gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-> -
-> -		vdd-buck-supply = <&vreg_s10b>;
-> -		vdd-rxtx-supply = <&vreg_s10b>;
-> -		vdd-io-supply = <&vreg_s10b>;
-> -		vdd-mic-bias-supply = <&vreg_bob>;
-> -
-> -		qcom,micbias1-microvolt = <1800000>;
-> -		qcom,micbias2-microvolt = <1800000>;
-> -		qcom,micbias3-microvolt = <1800000>;
-> -		qcom,micbias4-microvolt = <1800000>;
-> -		qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000 500000 500000 500000 500000>;
-> -		qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
-> -		qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
-> -		qcom,rx-device = <&wcd_rx>;
-> -		qcom,tx-device = <&wcd_tx>;
-> -
-> -		#sound-dai-cells = <1>;
-> -	};
-> -
->  	dp3_connector: connector {
->  		compatible = "dp-connector";
->  		label = "DP-3";
-> @@ -852,23 +826,19 @@ &remoteproc_nsp0 {
->  	status = "okay";
->  };
->  
-> -&rxmacro {
-> -	status = "okay";
-> -};
-> -
->  &sound {
->  	compatible = "qcom,sc8280xp-sndcard";
-> -	model = "microsoft/blackrock";
-> +	model = "SC8280XP-MICROSOFT-BLACKROCK";
->  
-> -	wcd-playback-dai-link {
-> -		link-name = "WCD Playback";
-> +	dp0-dai-link {
-> +		link-name = "DP0 Playback";
->  
-> -		cpu {
-> -			sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
-> +		codec {
-> +			sound-dai = <&mdss0_dp0>;
->  		};
->  
-> -		codec {
-> -			sound-dai = <&wcd938x 0>, <&swr1 0>, <&rxmacro 0>;
-> +		cpu {
-> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
->  		};
->  
->  		platform {
-> @@ -876,15 +846,15 @@ platform {
->  		};
->  	};
->  
-> -	wcd-capture-dai-link {
-> -		link-name = "WCD Capture";
-> +	dp1-dai-link {
-> +		link-name = "DP1 Playback";
->  
-> -		cpu {
-> -			sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
-> +		codec {
-> +			sound-dai = <&mdss0_dp1>;
->  		};
->  
-> -		codec {
-> -			sound-dai = <&wcd938x 1>, <&swr2 0>, <&txmacro 0>;
-> +		cpu {
-> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
->  		};
->  
->  		platform {
-> @@ -892,67 +862,23 @@ platform {
->  		};
->  	};
->  
-> -	wsa-dai-link {
-> -		link-name = "WSA Playback";
-> -
-> -		cpu {
-> -			sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
-> -		};
-> +	dp2-dai-link {
-> +		link-name = "DP2 Playback";
->  
->  		codec {
-> -			sound-dai = <&swr0 0>, <&wsamacro 0>;
-> -		};
-> -
-> -		platform {
-> -			sound-dai = <&q6apm>;
-> +			sound-dai = <&mdss0_dp2>;
->  		};
-> -	};
-> -
-> -	va-dai-link {
-> -		link-name = "VA Capture";
->  
->  		cpu {
-> -			sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
-> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
->  		};
->  
->  		platform {
->  			sound-dai = <&q6apm>;
->  		};
-> -
-> -		codec {
-> -			sound-dai = <&vamacro 0>;
-> -		};
->  	};
->  };
->  
-> -&swr0 {
-> -	status = "okay";
-> -};
-> -
-> -&swr1 {
-> -	status = "okay";
-> -
-> -	wcd_rx: wcd9380-rx@0,4 {
-> -		compatible = "sdw20217010d00";
-> -		reg = <0 4>;
-> -		qcom,rx-port-mapping = <1 2 3 4 5>;
-> -	};
-> -};
-> -
-> -&swr2 {
-> -	status = "okay";
-> -
-> -	wcd_tx: wcd9380-tx@0,3 {
-> -		compatible = "sdw20217010d00";
-> -		reg = <0 3>;
-> -		qcom,tx-port-mapping = <1 1 2 3>;
-> -	};
-> -};
-> -
-> -&txmacro {
-> -	status = "okay";
-> -};
-> -
->  &uart2 {
->  	pinctrl-0 = <&uart2_default>;
->  	pinctrl-names = "default";
-> @@ -1076,31 +1002,12 @@ &usb_2_qmpphy0 {
->  	status = "okay";
->  };
->  
-> -&vamacro {
-> -	pinctrl-0 = <&dmic01_default>, <&dmic23_default>;
-> -	pinctrl-names = "default";
-> -
-> -	vdd-micb-supply = <&vreg_s10b>;
-> -
-> -	qcom,dmic-sample-rate = <4800000>;
-> -
-> -	status = "okay";
-> -};
-> -
-> -&wsamacro {
-> -	status = "okay";
-> -};
-> -
->  &xo_board_clk {
->  	clock-frequency = <38400000>;
->  };
->  
->  /* PINCTRL */
->  
-> -&lpass_tlmm {
-> -	status = "okay";
-> -};
-> -
->  &pmc8280_1_gpios {
->  	misc_3p3_reg_en: misc-3p3-reg-en-state {
->  		pins = "gpio1";
-> @@ -1302,14 +1209,6 @@ usb2_en_state: usb2-en-state {
->  		output-low;
->  	};
->  
-> -	wcd_default: wcd-default-state {
-> -		reset-pins {
-> -			pins = "gpio106";
-> -			function = "gpio";
-> -			bias-disable;
-> -		};
-> -	};
-> -
->  	wlan_en: wlan-en-state {
->  		pins = "gpio134";
->  		function = "gpio";
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-> index fbcfd3883bbb4..baca36b151853 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-> @@ -4903,6 +4903,7 @@ mdss0_dp0: displayport-controller@ae90000 {
->  				phy-names = "dp";
->  
->  				#sound-dai-cells = <0>;
-> +				sound-name-prefix = "DisplayPort0";
->  
->  				operating-points-v2 = <&mdss0_dp0_opp_table>;
->  				power-domains = <&rpmhpd SC8280XP_MMCX>;
-> @@ -5168,6 +5169,7 @@ mdss0_dp1: displayport-controller@ae98000 {
->  				phy-names = "dp";
->  
->  				#sound-dai-cells = <0>;
-> +				sound-name-prefix = "DisplayPort1";
->  
->  				operating-points-v2 = <&mdss0_dp1_opp_table>;
->  				power-domains = <&rpmhpd SC8280XP_MMCX>;
-> @@ -5252,6 +5254,7 @@ mdss0_dp2: displayport-controller@ae9a000 {
->  				operating-points-v2 = <&mdss0_dp2_opp_table>;
->  
->  				#sound-dai-cells = <0>;
-> +				sound-name-prefix = "DisplayPort2";
->  
->  				status = "disabled";
->  
-> @@ -5327,6 +5330,7 @@ mdss0_dp3: displayport-controller@aea0000 {
->  				operating-points-v2 = <&mdss0_dp3_opp_table>;
->  
->  				#sound-dai-cells = <0>;
-> +				sound-name-prefix = "DisplayPort3";
->  
->  				status = "disabled";
->  
-> 
-> -- 
-> 2.53.0
-> 
-> 
+and IOMMU_IOAS_MAP at 0xfee00000 succeeds.
+
+Remove the ranges on failure only when the replace installed them, and
+look up the old hwpt_paging before the replace so that the error path
+can compare the IOAS.
+
+Fixes: e88d4ec154a8 ("iommufd: Add iommufd_device_replace()")
+Assisted-by: LLM
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+Tested on 72d3fcf802c4 in QEMU (q35, intel-iommu) with vfio-pci devices.
+The replace was made to fail by moving a device without PRI to a hwpt
+allocated with IOMMU_HWPT_FAULT_ID_VALID, which intel-iommu rejects.
+Checked whether the MSI window (0xfee00000-0xfeefffff) is still reserved
+in the original IOAS after each case:
+
+  case                                  unpatched   patched
+  replace fails, shared IOAS            no          yes
+  replace fails twice, then succeeds    no          yes
+  replace fails, different IOAS         yes         yes
+  replace succeeds, shared IOAS         yes         yes
+  replace succeeds, different IOAS      no (moved)  no (moved)
+
+tools/testing/selftests/iommu: identical per-test results on both kernels.
+
+ drivers/iommu/iommufd/device.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index a664c70a6fe73..1b0bdf57ac8ab 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -849,7 +849,8 @@ iommufd_group_do_replace_reserved_iova(struct iommufd_group *igroup,
+ 	return 0;
+ 
+ err_unresv:
+-	iommufd_group_remove_reserved_iova(igroup, hwpt_paging);
++	if (!old_hwpt_paging || hwpt_paging->ioas != old_hwpt_paging->ioas)
++		iommufd_group_remove_reserved_iova(igroup, hwpt_paging);
+ 	return rc;
+ }
+ 
+@@ -889,6 +890,7 @@ iommufd_device_do_replace(struct iommufd_device *idev, ioasid_t pasid,
+ 		return NULL;
+ 	}
+ 
++	old_hwpt_paging = find_hwpt_paging(old_hwpt);
+ 	if (attach_resv) {
+ 		rc = iommufd_group_do_replace_reserved_iova(igroup, hwpt_paging);
+ 		if (rc)
+@@ -899,7 +901,6 @@ iommufd_device_do_replace(struct iommufd_device *idev, ioasid_t pasid,
+ 	if (rc)
+ 		goto err_unresv;
+ 
+-	old_hwpt_paging = find_hwpt_paging(old_hwpt);
+ 	if (old_hwpt_paging && pasid == IOMMU_NO_PASID &&
+ 	    (!hwpt_paging || hwpt_paging->ioas != old_hwpt_paging->ioas))
+ 		iommufd_group_remove_reserved_iova(igroup, old_hwpt_paging);
+@@ -920,7 +921,8 @@ iommufd_device_do_replace(struct iommufd_device *idev, ioasid_t pasid,
+ 	/* Caller must destroy old_hwpt */
+ 	return old_hwpt;
+ err_unresv:
+-	if (attach_resv)
++	if (attach_resv &&
++	    (!old_hwpt_paging || hwpt_paging->ioas != old_hwpt_paging->ioas))
+ 		iommufd_group_remove_reserved_iova(igroup, hwpt_paging);
+ err_unlock:
+ 	mutex_unlock(&igroup->lock);
+-- 
+2.53.0
+
