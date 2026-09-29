@@ -1,295 +1,117 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949E239A7E7
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F11380FD3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790659176; cv=none; b=AWS8XUwnodshR0kukSNQ5SMyE722sZx4OywhZOoMp+uvWZH6bR1FS6P6Moeg5Vluxtre4dhIbl9cmkUCEV7e9slc2S9u0OPZ9LEft+BotvUS+j4p/vDzBF308ho/7LjCPwArc+3oZruz95iIMaTJZPLPvQ8UT93+1+L7EPLF4QQ=
+	t=1790659496; cv=none; b=B2ew1ht8JvCiyiBEgFCRq7zkXcUYM52VH5dLgNMUsXB4k2jq7Fs8WJQwfh9vXAB/UHmzYqCz0MiOXuLajrmFzS1ABlHSDPXhxRgW11/R7j4ImKWD93hke4uPmWuHIgVYnqCIcaTNldyBphl9cBIAQFHuVMD60PKiX9Op/zoXZq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790659176; c=relaxed/simple;
-	bh=qkNSfRBuIy53rg4Nn/2TkVfGkD/nlXMY/pVq5xmNMyE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pD0QkrKuJvegYk76ufiDmH4DMrJLAhZhpXAzcQrfkOyLhuk7D5BL1/c2LXkZD580cvPQEhZWYyVxhJETthPos2cAzcVQm9/vWcS0D/nrq8AYeqgQqkra+oWt8uygD61Z5w+xGOydaysUvBbXOAJ1oMrrYMOjQSXmX1jfAQOEb4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nz2DaIkp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jlOGU3OE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790659496; c=relaxed/simple;
+	bh=VCI4r23IY/yhxJkm7KNPDvZ1RbPcYzGhTCb+BwU0Onk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sWNsO3yAN3zex0O9B+I3KNVhB2QQ3zhhd/6QR7dzKwDCE32M7TabzO6bCPEO5xAhZe4cCFvs+2AGNjwI6tPHhxJ6NkCaIudYc1PvlJJTamuoT24LTdahKlOdrhEHYandlGamkgUdopY1cHR0cIJlxIdUKLsTZSx1m7lb1+mozSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpNYcaIK; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nz2DaIkp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jlOGU3OE"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47KM6318986
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:19:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=84I6dwv8lrYLFqtHCg9mwt
-	ZCKKguwH+d2StAc1aezx8=; b=nz2DaIkpwgitSY08sT6npAwlQaRrbAKkQRZ6Ky
-	yPn5FOxcderKhQhgV0Y0ZI9XccSrCuEJ1AUfQfc5/SkmRIgAV31O521toQoAOYXN
-	KBv4wRE27maghjyAGsU9RjL7wF2ekoR+TM6rV9XB5ZPI9x5gIt4Ev2gn75FIYZBX
-	9zRGWZOcdfMTTENF5nNb2m4KW6jnygk7t+mtvQTJfiGt1ELqSSgOqqaF8y6nVhVk
-	ztshNRRblNBnqAzH8ty/1Tr2/oV4sdm+8Y4TAVjYOfLIJKrzx7+xZ6f97Rz11aFQ
-	pjMV7rox+8LBDnOmSdph8DLyQDVU8iPEn9MQglz4JGYw1cOg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyw03j9p9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:19:33 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34318e88ba2so2360595eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:19:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpNYcaIK"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-8814e797a5bso1279999b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:24:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790659173; x=1791263973; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=84I6dwv8lrYLFqtHCg9mwtZCKKguwH+d2StAc1aezx8=;
-        b=jlOGU3OEaKeAlIKN6bATJWpgsnD4d8DlG9Rd2P2q/1wabrzSGVann3tIL+hcBe0RvY
-         M+MRLlxm+YvllI6e/fFpEEhAh6ZighbWJJ1WWK4SHbQBQAV8235WV+U63xgFGMiOhGgK
-         V1LfL7I7tNT47QcRwe80qTd4PE8ldf1ESItSgdGaGjudcfw0FyD/sUgqBdvM3J2Z0Xvo
-         cEDq3UFsXFi/QEzIiIbTQoDs054kPmR1Y7otuChGkDbzMyPN82ZapNQdiPjhwNrAG4c4
-         VCY/Dwx8sQXOv8ytu5U2jYBGS9MEnvJ7tw9A8oaso98jgwry/9ffqjY5yLnwymNRmusg
-         aqig==
+        d=gmail.com; s=20251104; t=1790659495; x=1791264295; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OqJjaWtJymYwkfVBEG9NY0+ZN7tqwrmNxYsbKwMQHQ0=;
+        b=jpNYcaIKGtIQ0rxY/sJTlUXcnwX77vMdE3gbJjQwbMpBpT7rRwbsMPCurEPM0xSoJ8
+         UrfPyntsHLg5ZUV+iPw5xTqJioHsfmPDRNhD0lZhdCmjQJQX4kKDEKNPN3+i05Hh4M35
+         djeFyEU9mvjFnGb3rGoM95rWe2VXb+/zhLvODGOHI3I1/3VHRW7lKeUCbIXxSMc4yAQ3
+         z8ZU6ZPBRvlBwA8GIsDdbQQ9tFxdX0NoznEEw5uPlR6CX0hRe6t2s+HQi8zi3JeIEzDW
+         hCmwHOrMtBbh2VuA38WgpTEMbBT5SIMkFe88gt+yXewE5cJXb+UmzdocW5G5RHqS0x9K
+         3wqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790659173; x=1791263973;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=84I6dwv8lrYLFqtHCg9mwtZCKKguwH+d2StAc1aezx8=;
-        b=lfY950CV2NJNDoLqv0k5D5a8nxuS+j1rMTpCgGoq0+l5GMFTtYD2sj4qCwTsI8evko
-         x3THumgqAjuujJSZbWrjF1f9ePPbh5ia9fUrTrp/BtI+TXnD6gAIEx4cluQKpvSJUbnv
-         lIGRBj9yzAcUt8580Aiilynrey/LS6wxu3qznlMeg18+F4GibbMUznNfMsJTy03o/vCD
-         3tmP2DIzt97by45mwUqBUWWIf6Y9ec2f2+bgWQuNxqadGyww69KASlK6IQiAU795Oiul
-         L1O1heGeryqyFfiUiWg0eNWBeEgcZgJpFle4AInXOeIa3+LOOcnxeRJeborltGXRYpxB
-         0YNQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIsGjK3VsWrDEuGXT78+iVje23Jm0a2/0KTdmS86YIPFQ6bTVezbWll6lvAgfg8Oepxhwp2vZNaQn1X6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++km+jxPcXjtTmf6j5Qh3xhrxNiwvc7yG0ktckymu1AP6iS2pnb1
-	p2Nkrow3ulCdxfo6EKV3p+OgLXxgdcdTgK0yoCI1kgfUm0bu8NYfuYtJbgHU5qI3kUJ8D79H574
-	OLr8nbfI2qcUbgWUMkIyOTJa5fQjAVto1XL1yOvVVZiz7LkqvGIVa/3f2lqoYreAfguBkBfRmp9
-	w=
-X-Gm-Gg: AYBFou12nYhR7nLqMur2JnMb8ZAjaIf/MkLWlJnmP5lrEMVfmj2IlVPMO1pLRclzswA
-	OrCuPpHLNeM4GO6ZkoAXwzEe0oMFAqb2+AkHssA8WAR2/YdvCsJQCjv9dOisAMGQxqCCAeDc7ph
-	EvoqJS00YQ4oQfTrCwq+x2SGvylN0V7Eo6svlDWqQdGVBY0l95YPoyb5e+PPegh/TCt6XEm/kFu
-	kDcyzRzs4l7W/1kf7t6BpFysQoyCj0lEaQdEtAcEHvS1/ySCAuOQGStb2jUCaGXbfX/pilopHyY
-	ZWhiTJdwMEUXsrL372+QPSbumblBcEpuCoOg8/N0m1N9+iE6MVds8i+mcdW89oZLPbZRTeU8Idj
-	qm9EFtS2Lgdzev/3y5up+3fomrJPDxZCB1BR8HCMUYl60jkIam8Fb2v69/ka+dr+wcD0w
-X-Received: by 2002:a05:7301:687:b0:33e:64bb:e5d1 with SMTP id 5a478bee46e88-3427265e212mr19203289eec.34.1790659172605;
-        Mon, 28 Sep 2026 22:19:32 -0700 (PDT)
-X-Received: by 2002:a05:7301:687:b0:33e:64bb:e5d1 with SMTP id 5a478bee46e88-3427265e212mr19203255eec.34.1790659171975;
-        Mon, 28 Sep 2026 22:19:31 -0700 (PDT)
-Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3434958c3adsm42688896eec.22.2026.09.28.22.19.28
+        d=1e100.net; s=20260707; t=1790659495; x=1791264295;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OqJjaWtJymYwkfVBEG9NY0+ZN7tqwrmNxYsbKwMQHQ0=;
+        b=wYvH1LrqNvVk8K4tiPIu2j8oSKew04xeA7Jkt/hgpLQ3kZFhMAG/M+U4zMhPK+J40W
+         XIJOGg7p8iLXy3Qn6tA79UC2BG2ydXg2TbiAL6EY0IGWiQrPU0mO0hMTnjKF1iBT47fp
+         hvsYHlYbFHB63mUdZBFGXZnv0l1W5aR1cZzZVNNQdcZhW6UYhUuqR8HYkF4uvqezelPl
+         31v7GlxT/Pa3efWW1E1hLp7khxsaNKpqiEmPW2ejb5BS/XrADamIj1Zl88kALZvyX/Bd
+         KZMVSh4suzfAFkvm8YA850NOX6Oyaqnrx9zTZTBoggUgiNeKnwFw6KUmzFf/nAqXJHvY
+         wp9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwt2iBuuu2ezkpuWGlZXdz/3LJak9pLnPou6BsjjGIPFca2Uty9MeaQ35yheY+4b2L2GSCsgmnlzZzHGHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmnEE86OTC2fg1VCap4/0sbaBMQCFq/ZneLtd0OD/hc6R/tO/m
+	ZmIGLySJUTu18yMqO9XXBdvmbO60Mr0Ql+y/Hvv8qKQk2NSV7UWiWXG1
+X-Gm-Gg: AYBFou2wQOWRJtkZjWvRkiqNrzQFYmsysMhgpW6rH5xQQQCj970rYd2FkMk5XZplgzb
+	+RND2N871BU64R8QTdqjdNI6oo4LJfpkrpXLtVXMjFH3OZR7tYOWE2QH3xM5uPGm+q4qiZ9IiME
+	tOlxw28NVjqNNoWxWzLCgP3qx+3T+trHuA6vZogsGmnZWq1RT7UZjy1mkQMD4pE3soRHsqCAOCW
+	8R/HS+KHebDOyIKS67+4aN44c+PyTKSf9uO835ARuA6LGIAFj1pKbFEyOzYOm156po1VqtbanrI
+	PLgymmXyrrd9jK+fmvm0bqJ3+YCZoTAZw4/lOrhZVPVZe93utsD8NCM5z3N90Qj+U11QXrpsWdN
+	1lv0norR/LDzy2eTJ0vWPvtmUI96S6nwkNPzfEYSJj/djbtgc+Apr+xCm6rbQ5EasoANuQeksE+
+	owpNmuKzsSic05kdV500MqOxvVpXSdyftumNUyfP8xJ4tjSWr/1oyGHdWnRz6lMYSGGrl8eV/Tf
+	SblwoLb9j8dWl8TPIX6
+X-Received: by 2002:a05:6a00:2341:b0:881:bc81:e8f3 with SMTP id d2e1a72fcca58-881bc81ec45mr6635453b3a.12.1790659494629;
+        Mon, 28 Sep 2026 22:24:54 -0700 (PDT)
+Received: from NV-9MNJ414.nvidia.com ([72.25.121.34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e1066931sm161151b3a.16.2026.09.28.22.24.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 22:19:31 -0700 (PDT)
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 10:49:25 +0530
-Subject: [PATCH v3] usb: dwc3: core: Fix RAM interface getting stuck during
- enumeration
+        Mon, 28 Sep 2026 22:24:54 -0700 (PDT)
+From: Yiwei Lin <s921975628@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Yiwei Lin <s921975628@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] rbtree: update augmented data on the way down in rb_add_augmented_cached()
+Date: Tue, 29 Sep 2026 13:24:46 +0800
+Message-Id: <20260929052446.159008-1-s921975628@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928213736.GA2947991@noisy.programming.kicks-ass.net>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-ram-interface-stuck-v3-v3-1-0d1a54db233c@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAFxKu2oC/yXMQQoCMQxA0asMWRuorYj1KuKijalGsUrSGQaGu
- btVl2/x/wLGKmxwHBZQnsTkVTvCZgC6pXpllEs3eOf3LvqImp4otbGWRIzWRnrgFDCl4miXtyH
- HA/T4rVxk/o1P579tzHem9r3Bun4AiZBKKHoAAAA=
-X-Change-ID: 20260929-ram-interface-stuck-v3-aaf0c4b13b98
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790659168; l=6212;
- i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
- bh=qkNSfRBuIy53rg4Nn/2TkVfGkD/nlXMY/pVq5xmNMyE=;
- b=L4WJYqCwzH/M5D/HF37YAtJYWWThk1yMow7Qr61G3w6ebJdIW0ldg0COajDsl3/tbABzIfYaL
- J6fRm9LLad9CL3+Vk1I9ZMb+FxibcyVhdMb5aZEat2DTcHRSu4G1lCN
-X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
- pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyMSBTYWx0ZWRfX8RROCOrvOgzR
- g9R/GosG1nmpBUzWk0WuQp/2+7JW1xRUFi/AeemGJQYS9V24SVkzVNqW20EMjhXlTUWX7mCcnlA
- oKEJcpubpQmmpi74Yye6viDCpZbSaVY=
-X-Authority-Analysis: v=2.4 cv=SIbXx+vH c=1 sm=1 tr=0 ts=6abb4a65 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=pGLkceISAAAA:8
- a=Ps5XhnICjWHbJgl_nW8A:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyMSBTYWx0ZWRfX9A92suBFs12+
- 2oY89aERv8MCVc5v9+clUT1ft/H05T7nggynS9Ul8EyDWJPEJIg4Bxe7JoC9Fx6GyHjn6saaKWM
- qOPZ5bcn6KCZqkJ6sR03fsOQEyYoLwMtRMZakXEvsEqSSVVQkrao3bquH1niM1l4qk4zUsq2a97
- +38v0JZWa5S0H9/JQzCxOztTyER+p8MZNNjrnWI2m3t/QqNEmiexzc3yTd906bSDHCXYUGVcA2D
- h0bWdVgjitbUlDa3foSBiR7tDDTb+8M+XLlPdQtMjvf0ONWxMCeQRu0c1DiyYFHD9jrZkE5uhnn
- rGRTNHbrphmVQ4p1I6qCr2EzJh+r5ocjSmSdatuEIZbQf4bURfd2kzbK2ywAujT4yDs+AljB4Kx
- YrmCRjAFmhWZHOrtNFiisEOg+bwdZG04fZ2BjHcYrLk7FLFLcuje3/iMRu6aFQ17TNBtye2H7pQ
- ioa2p67GJIP8jUHbTlg==
-X-Proofpoint-GUID: I9c9uli493M_DeGQhfzHassPU5yvBPJ7
-X-Proofpoint-ORIG-GUID: I9c9uli493M_DeGQhfzHassPU5yvBPJ7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290021
+Content-Transfer-Encoding: 8bit
 
-During plug-in/plug-out test cases, it is sometimes seen that no events
-are generated by the controller and all CSR register reads give "0" and
-CSR_Timeout bit gets set indicating that CSR reads/writes are timing out
-or timed out.
+On 2026/09/29 05:37, Peter Zijlstra wrote:
+> This builds and boot, so it must be perfect, right ;-)
+>
+> Assisted-by: Brain
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-The issue comes up on different instnaces of enumeration on different
-platforms. On SM8550, the debug log is as follows:
+Right, thanks.
 
-Prepared a TRB on ep0out and did start transfer to get set
-address request from host:
+If you're fine with me carrying it, I can take it into v2 with and
+derive ->merge() from the same RB_AUG() list, so
+rb_add_augmented_cached() folds the new node into its ancestors in
+the one pass down instead of the ->propagate() round trip.
 
-<...>-7191    [000] D..1.    66.421006: dwc3_gadget_ep_cmd: ep0out:
-cmd 'Start Transfer' [406] params 00000000 efffa000 00000000 -->
-status: Successful
+One thing I am aware here:  RB_AUG()'s cmp only
+expresses "pick one of the two", so min/max style aggregates; a sum or
+a count (subtree size, total weight) can't be written, where the old
+RBCOMPUTE could do anything.  Nobody in-tree needs that today, so it might
+be acceptable as is, but it's a regression in generality for the same
+price:
 
-<...>-7191    [000] D..1.    66.421196: dwc3_event: event (0000c040):
-ep0out: Transfer Complete (sIL) [Setup Phase]
+        RB_AUG(val, aug, fold)  /* _val = fold(_val, child->aug) */
 
-<...>-7191    [000] D..1.    66.421197: dwc3_ctrl_req: Set
-Address(Addr = 01)
+keeps the register-local recompute exactly as it is, drops RB_MIN /
+RB_MAX in favour of the existing min()/max(), and a sum is just
+"a + b".  For sched that's min, max and a wrapping-safe min for
+min_vruntime. Do you think this can be accepted as is, or should I try
+to make it more general?
 
-An XFER NRDY is received on ep0in for zero length status phase and
-a Start Transfer was done on ep0in with 0-length packet in 2 Stage
-status phase:
 
-<...>-7191    [000] D..1.    66.421249: dwc3_event: event (000020c2):
-ep0in: Transfer Not Ready [00000000] (Not Active) [Status Phase]
-
-<...>-7191    [000] D..1.    66.421266: dwc3_prepare_trb: ep0in: trb
-ffffffc00fcfd000 (E0:D0) buf 00000000efffa000 size 0 ctrl 00000c33
-sofn 00000000 (HLcs:SC:status2)
-
-<...>-7191    [000] D..1.    66.421387: dwc3_gadget_ep_cmd: ep0in: cmd
-'Start Transfer' [406] params 00000000 efffa000 00000000 -->status:
-Successful
-
-A bus reset was then received directly after 500 msec. Software never
-got the cmd complete for the start transfer done in status phase. Here
-the RAM interface is stuck. So host issues a bus reset as link is
-idle for 500 msec:
-
-<...>-7191    [000] D..1.    66.935603: dwc3_event: event (00000101):
-Reset [U0]
-
-Then software sees that it is in status phase and we issue an ENDXFER
-on ep0in and it gets timedout waiting for the CMDACT to go '0':
-
-<...>-7191    [000] D..1.    66.958249: dwc3_gadget_ep_cmd: ep0in: cmd
-'End Transfer' [10508] params 00000000 00000000 00000000 --> status:
-Timed Out
-
-Upon debug with Synopsys, the root cause is as follows:
-
-During any transfer, if the data is not successfully transmitted,
-then a Done (with failure) handshake is returned, so that the BMU
-can re-attempt the same data again by rewinding its data pointers.
-
-But, if the USB IN is a 0-length payload (which is what is happening
-in this case - 2 stage status phase of set_address), then there is no
-need to rewind the pointers and the Done (with failure) handshake is
-not returned for failure case. This keeps the Request-Done interface
-busy till the next Done handshake. The MAC sends the 0-length payload
-again when the host requests. If the transmission is successful this
-time, the Done (with success) handshake is provided back. Otherwise,
-it repeats the same steps again.
-
-If the cable is disconnected or if the Host aborts the transfer on 3
-consecutive failed attempts, the Request-Done handshake is not
-complete. This keeps the interface busy.
-
-The subsequent RAM access cannot proceed until the above pending
-transfer is complete. This results in failure of any access to RAM
-address locations. Many of the EndPoint commands need to access the
-RAM and they would fail to complete successfully.
-
-Furthermore when cable removal happens, this would not generate a
-disconnect event and the "connected" flag remains true always blockin
-suspend.
-
-Synopsys confirmed that the issue is present on all USB3 devices and
-as a workaround, suggested to re-initialize device mode.
-
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
----
-This series has only been compile tested. The issue was reproduced
-easily with a certain kind of cable and CDP port of AMD based Lenovo
-laptop. I don't have access to the cable currently and hence only
-compile testing the fix for now. But the issue has popped up on OEM
-testing as well.
-
-Also, didn't add locking while calling error recovery work in
-gadget_ep_cmd since the caller is supposed to handle it.
-
-Changes to v3:
-- Using error receovery mechanism from [1].
-
-Link to v2:
-https://lore.kernel.org/all/20260806-ram-interface-code-v2-1-fe4a0de31d42@oss.qualcomm.com/
-
-Changes in v2:
-- Implemented gadget recovery mechanism during gadget_ep_cmd instead of
-handling this issue only during disconnect.
-
-Link to RFC:
-https://lore.kernel.org/all/20231011100214.25720-1-quic_kriskura@quicinc.com/
-
-[1]: https://lore.kernel.org/all/20260915110637.17658-1-jiazi.liu1984@gmail.com/
----
- drivers/usb/dwc3/gadget.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index ee837235630a..a7c4514cf0e2 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -283,6 +283,8 @@ int dwc3_send_gadget_generic_command(struct dwc3 *dwc, unsigned int cmd,
- 	return ret;
- }
- 
-+static void dwc3_schedule_err_recovery(struct dwc3 *dwc);
-+
- /**
-  * dwc3_send_gadget_ep_cmd - issue an endpoint command
-  * @dep: the endpoint to which the command is going to be issued
-@@ -432,6 +434,23 @@ int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned int cmd,
- 		cmd_status = -ETIMEDOUT;
- 	}
- 
-+	/*
-+	 * STAR 5001544 - In some situations, like the cable is
-+	 * disconnected or if the Host aborts the transfer on 3
-+	 * consecutive failed attempts, the Request-Done handshake is not
-+	 * complete. This keeps the RAM interface busy.
-+	 *
-+	 * The subsequent RAM access cannot proceed until the pending
-+	 * transfer is complete. This results in failure of any access
-+	 * to RAM address locations. Many of the EndPoint commands need to
-+	 * access the RAM and they would fail to complete successfully.
-+	 *
-+	 * If the depcmd doesn't match the actual command, trigger controller
-+	 * recovery.
-+	 */
-+	if (DWC3_DEPCMD_CMD(reg) != DWC3_DEPCMD_CMD(cmd))
-+		dwc3_schedule_err_recovery(dwc);
-+
- skip_status:
- 	trace_dwc3_gadget_ep_cmd(dep, cmd, params, cmd_status);
- 
-
----
-base-commit: ab29ca7714b82485ebb31d66835ccd5364221a76
-change-id: 20260929-ram-interface-stuck-v3-aaf0c4b13b98
-
-Best regards,
---  
-Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-
+Thanks,
+Yiwei
