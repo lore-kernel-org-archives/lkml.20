@@ -1,152 +1,131 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758BB568FA6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F5C354AE3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710209; cv=none; b=c892sSnWNNhakEem5vuK3/UYx2oV2u/gT2BmVcBeL6KC+8t3y06cAVcEYxqG1gAuoA6LQ/bMRHFeSOPbgLjb/w5x/ClpD9yUFhi87dh9OCHznymJV2wjp+F3YfRSJgxCmbQwYRhWzaFmhUhH3q76tBEVDQ5tHq809FL3Fd7fU7M=
+	t=1790710209; cv=none; b=rPaG8Sz6RAcxDJF0s5a6NO6VskYc5MD6fyBhxawi9tFcDPh1ZiqHLnfbjNqjSef16ITEnj2m5VLCGvMtLMG+dEUPEQHIR4vmnhRl2J9AnLob0WvpVqnr+RTMZWiDK5XREQkJTcNOE+7iTi5c0J/uaXMTOs10AX7ET+mEi0EkeE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790710209; c=relaxed/simple;
-	bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lEx7J6UsgoWpHs7EM1N51ZoiIxOnBw0bkKZztKF0jkjZrRySkKnhKtECnbqHaorWWGJQ3t6382D9ZNmil1DISzRp+2hES3hVJfZuiL/m/heU7FoyOT+YFXUzxUoL/a5hLwCkQ91aignpkudwUOkNi84TRlLgIyeAGdg2wgmDbSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fohw24hc; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=UZHazEcVXVJS7l6C2Rm3n3+jkb4pWcZQZp3cmWOcWrU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=id/gpNG4lb9Ew5Q9lSaBy4yeo8piHST1biC6VO9+UM4jn3DHujNIbyov9oiFymY2fkbggyyZESwL097cn2soM4NZeQEcwKDpiG69Sg1AZnb8vY/Iicn2EZMuOjy/fzPLru3BjPdlWITPWqlB3AnvDWKdba8Ol7JTaSyvxt+Aa6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=qvnHIg0P; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fohw24hc"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso339603eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:30:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790710206; x=1791315006; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
-        b=Fohw24hc2TW53G7PfmQZ75qoNqEGDCmAACYcpgcT8T/pXTLi8wmFjjSMIF1nFb6T19
-         lAmwoxUYxrUzWipoJivsl4LXO4mZ6HAouAb+qYjP0EEY4BIhcP4UD2/b4RYwR5cLlS69
-         Bzci079u73stV648rNVEIqfK+0W7ByjQBxurLjascSyL9IIDgLQqDGBT6MAnl3RP34Cw
-         nKqNepjjIUD48TITIkEsY5DGq4e//Uq/J399TLkmK56GyoUhz4aTxWXwmOxYCemVUBLP
-         Y7cjjyAUS17bmywBor0pxF4ho0Zr5BgC2U4EzvHisRUUmLo/avEi68hwREn+BdK2O0dw
-         E/AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790710206; x=1791315006;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
-        b=thoMkeuqRAFrVMJ+vW8J7/w229nP/cCcGfuzMnamVmeCdPQXiSr/Dgksw4Am+9r1om
-         nEWXC8OXfKi4E0bETsMW1ChxQLyX6S5Kxq1syi/7PNmFJljaoXgaF+7+oGdzxM66KW2K
-         lcAc0vr2jCjGC3/eTEsv7WHhHtOGXIGWYaPQV/WyKq1qHXGJIhF73jINuRHZykfPCmb6
-         wS11V6Q8iR+bikLVcUEkmFYI5v+XHPEM6FK7ZZU0uM1gwDzoQo6nQOvf2BzNLZBBd2h8
-         Zue0ONSri3hNBtDcOmuhdXrLFkH7V1C40cs7BlHCffAb4i7CYi+j1lDpkKhsd3VLMfOX
-         Ze1w==
-X-Gm-Message-State: AFq9FYInaNA9jTHvqq/v1eU643YNRm8n5dklgGkZo+JVfoKwl1h/9I2g
-	fkm66/tLKcg3TTROGn0G7P5OK/cOnVVFQ45Xzyq3xvrGye9+i9dQmMEc
-X-Gm-Gg: AYBFou0MVN/fmLuS9/02CO+PvA0IiRfT5dcpNQjfTxbA9M0gE/kzmNEU9D9b+RejTd/
-	3CO+sDyxRmg/y5+vZOEdA/ZEqklcW5jEeCfPeVME89yYsquCWgLj4JqWeiRnW0rJ3sgxfeJcbFB
-	B2Qj36zw4/NhhQT60v1Qk/TiBcJx4d+iLTlBrDMs0YV1SXfwrioIGVUzAxhTDlXFH9oQeXnG+4a
-	Ah2uKSCr+vrKrVYCo3PM6vTHfdXaLetoQfhr8/lrcx7TKbz5vV1KWIBjmiL3yizEfzjbgPAgLbX
-	OOwhQK6T6T1G0lfAHmHu//XTgpCvrWLTGubt/pmarSVQ9CYv2Fv8CS2NBp1d5ImLwyHUc5n0Ljj
-	7Uub7FbOpHrS9YYHHBr1BFGUDjmEAFNQt/heKymgOxaQxsYFMciZIl8lpSjjkl1TTlBLYvIRk39
-	2dpZf8i25B/b039DuuyHtYHXmJzxPvY+tznL5D+7mouhjW+Q70lOYgWXWmRQKEJNhKDbWw1gJQL
-	r7Wp8j67A==
-X-Received: by 2002:a05:7301:4d12:b0:34c:3ae5:ebc with SMTP id 5a478bee46e88-34c6128bdf6mr606357eec.0.1790710206173;
-        Tue, 29 Sep 2026 12:30:06 -0700 (PDT)
-Received: from [10.211.86.252] ([2409:40c2:5054:69f0:5c6b:5195:5b7b:d414])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm1275349eec.16.2026.09.29.12.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 12:30:05 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Subject: [PATCH v5 0/2] regulator: dt-bindings: Tegra coupling DT
- conversions and cleanup
-Date: Wed, 30 Sep 2026 00:59:41 +0530
-Message-Id: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="qvnHIg0P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
+	s=protonmail3; t=1790710195; x=1790969395;
+	bh=UZHazEcVXVJS7l6C2Rm3n3+jkb4pWcZQZp3cmWOcWrU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=qvnHIg0Pcxwg5hw3Km0vLT5wxj/oEz19mM2HZWCZCu7IFk07XDbabmPxGEne+TnyG
+	 q+60SNCBkBoK8FmOVD7cf0xmIQODfgdzbD6S8fuJnxlJy6Y44rJwEUZ8TgS7aTr82o
+	 /kWNOAkT97lJXYBDgevLsKNMBIUT7VmWabpZ9YnJqnrlBYHi7EQLisJe+yg1tH2kpR
+	 33qE5lxJN4fs8Fp7/fNS2SdNepXINWRaFRjyEKhPWdKCoVWK5gyvLfkszAMV4OmhED
+	 LhHaAgGi4A/nh2YXuChSgWU+T7QTngeKJ/570CSK4ndNpDjfvTh7j9ID+uFmuiLcK7
+	 w0nKZcd92vv0Q==
+Date: Tue, 29 Sep 2026 19:29:50 +0000
+To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Alex Robinson <alex@ironrobin.net>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+Message-ID: <20260929192908.16507-4-alex@ironrobin.net>
+In-Reply-To: <20260929192908.16507-1-alex@ironrobin.net>
+References: <20260929192908.16507-1-alex@ironrobin.net>
+Feedback-ID: 54785507:user:proton
+X-Pm-Message-ID: 28a40f096bffcfa3e46b21560eee73fc5561a9e9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13NQQ6CMBCF4auYrq1hpsNQXHkP44KWVmtUDEWiM
- dxdqjGCy5fM989TRNcGF8V68RSt60MMzWUc+XIh7KG67J0M9bgFZsiZRpBdkN01cq75Lk1OrgC
- AEgorRnFtnQ/3d227++x4M0dnu5RIF4cQu6Z9vN/1kO6+ZZyVe5AgS2UNsVFosNjsz1U4rWxzF
- qnc48+WwHOLMpMe0PraGyK2/1ZNbTm3arSs6hop88Sa/i1NLNLcUrK2qLQ32jDx1A7D8ALJkTC
- 1bAEAAA==
-X-Change-ID: 20260821-ti-tps6586x-b54e7111917c
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
- Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790710190; l=2057;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
- b=ilhdseio2iTuo0yviwOatf83AM0VBGpCAYeK5Hkt5ozS9PWnQcn/FQ38a6gjWl/sMMFJAv/so
- Qrz5Kae571TCPLKx5GN5PNmAJHRi2pb4fjqXH7eqQom3wILB2QDreKA
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This series adds a shared DT schema for Tegra regulator coupling, 
-updates relevant PMICs to use it, and converts the TI TPS6586x 
-bindings to DT schema.
+Enable the ThinkPad X13s embedded controller so its driver can provide
+keyboard backlight support when booting with Device Tree.
 
-Summary:
-- Patch 1: Fixes existing TPS65910 validation warnings.
-- Patch 2: Converts Tegra regulator coupling to DT schema.
-- Patch 3: Updates Tegra-related PMICs to reference the new schema.
-- Patch 4: Converts TI TPS6586x to DT schema.
+Use a pull-up on the EC interrupt line to match the firmware-inherited
+configuration measured before Linux configured the pin.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v5:
-- Dropped example from nvidia,tegra-regulators-coupling binding.
-- Link to v4: https://lore.kernel.org/r/20260924-ti-tps6586x-v4-0-6c7a8fb8b646@gmail.com
-
-Changes in v4:
-- Dropped applied patches 1 and 4
-- Rebased to broonie-regulator/for-7.4 to resolve conflicts
-- Link to v3: https://lore.kernel.org/r/20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com
-
-Changes in v3:
-- Patch 2: Add '>' to description
-- Collect tags
-- Link to v2: https://lore.kernel.org/r/20260916-ti-tps6586x-v2-0-f12cfdfb446c@gmail.com
-
-Changes in v2:
-- Add patch 1 to resolve warnings from TPS65910.
-- Add patch 2 to convert nvidia,tegra-regulators-coupling to DT schema.
-- Add patch 3 to $ref to shared schema.
-- Patch 4: remove individual properties and add $ref to shared schema.
-- Link to v1: https://lore.kernel.org/r/20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com
+Assisted-by: LLM
+Signed-off-by: Alex Robinson <alex@ironrobin.net>
 
 ---
-Bhargav Joshi (2):
-      regulator: dt-bindings: nvidia,tegra-regulators-coupling: Convert to DT schema
-      regulator: dt-bindings: Reference Tegra regulator coupling schema
+Review note: GPIO103 was measured at pinctrl probe before Linux
+claimed/configured the pin. TLMM CTL offset 0x67000 read 0x00000003;
+the pull field value of 3 decodes to pull-up on SC8280XP.
 
- .../devicetree/bindings/mfd/ti,tps65910.yaml       | 12 +++-
- .../regulator/maxim,max77620-regulator.yaml        |  5 +-
- .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------------
- .../nvidia,tegra-regulators-coupling.yaml          | 38 +++++++++++++
- .../devicetree/bindings/regulator/ti,tps62360.yaml |  1 +
- 5 files changed, 52 insertions(+), 69 deletions(-)
----
-base-commit: 05a3330f490cfa266831c0fc7f8c6df942866d59
-change-id: 20260821-ti-tps6586x-b54e7111917c
-
-Best regards,
--- 
-Bhargav
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/a=
+rch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+index 218573a97785b04528854b03a99c837558a33c1e..1e29bab37de6d192ec49dc407e2=
+4e1a3bc9496bd 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+@@ -806,6 +806,25 @@ &i2c4 {
+ =09};
+ };
+=20
++&i2c8 {
++=09clock-frequency =3D <400000>;
++
++=09pinctrl-0 =3D <&i2c8_default>;
++=09pinctrl-names =3D "default";
++
++=09status =3D "okay";
++
++=09embedded-controller@28 {
++=09=09compatible =3D "lenovo,thinkpad-x13s-ec";
++=09=09reg =3D <0x28>;
++=09=09interrupts-extended =3D <&tlmm 103 IRQ_TYPE_EDGE_FALLING>;
++=09=09power-state-gpios =3D <&tlmm 176 GPIO_ACTIVE_HIGH>;
++=09=09pinctrl-0 =3D <&ec_int_n>, <&ec_power_state>;
++=09=09pinctrl-names =3D "default";
++=09=09wakeup-source;
++=09};
++};
++
+ &i2c11 {
+ =09clock-frequency =3D <400000>;
+=20
+@@ -1571,6 +1590,20 @@ cam_rgb_default: cam-rgb-default-state {
+ =09=09};
+ =09};
+=20
++=09ec_int_n: ec-int-n-state {
++=09=09pins =3D "gpio103";
++=09=09function =3D "gpio";
++=09=09input-enable;
++=09=09bias-pull-up;
++=09};
++
++=09ec_power_state: ec-power-state {
++=09=09pins =3D "gpio176";
++=09=09function =3D "gpio";
++=09=09drive-strength =3D <2>;
++=09=09bias-disable;
++=09};
++
+ =09edp_reg_en: edp-reg-en-state {
+ =09=09pins =3D "gpio25";
+ =09=09function =3D "gpio";
+@@ -1591,6 +1624,13 @@ i2c4_default: i2c4-default-state {
+ =09=09bias-disable;
+ =09};
+=20
++=09i2c8_default: i2c8-default-state {
++=09=09pins =3D "gpio43", "gpio44";
++=09=09function =3D "qup8";
++=09=09drive-strength =3D <2>;
++=09=09bias-pull-up;
++=09};
++
+ =09i2c11_default: i2c11-default-state {
+ =09=09pins =3D "gpio18", "gpio19";
+ =09=09function =3D "qup11";
 
