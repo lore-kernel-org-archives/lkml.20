@@ -1,116 +1,395 @@
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15CB243D4FD;
-	Tue, 29 Sep 2026 23:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790725187; cv=none; b=XLWSSPZhnIfv9ZrfmYFHegzLEg5ppPDzsRe0IlSYvfOhhpg2anzxrwTj3gwGm5PvsizqsSBBDlnsTkTQy4JVwNXxPcfr9FxSW/CI3wCcB1j9vp7xilAO5Jm/5ehc1LRdwvjsZeC88Ss+wB4bhSBrdpCdo4R9bY87O+QqKIFOupw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790725187; c=relaxed/simple;
-	bh=/ZO0HV1CHAVxHhcwpZu2/IgbMnvUsZ6FcDt33Df3jBk=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kMtfodLi0IcnYacXtKGR0cMQm8BVYrrwiA40MKyOtaErbM3TfE/jrVv6Kk9Mal/h10+tPtS7x5LmKDPsbqb39LMzHlowcDKYYjan1wuPzojwb8t7JHGrp2Kw5hRl2Pve0qT8yCPURW2wZgyWKoggShIE1I3MsPVIigyiP2QSr2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=Td1Ui6ET; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=ZpS1/gLD; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6975B3DE447
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790725306; cv=pass; b=QvSpEkZoha+1APWPchCCy8vAu7svY8hguzlag4O0Jlaph89tqWzom8FT/4ZaD45emgZttAQUh8/ZcecIuyqv0khTyzW37Iu3yGFr6jc8KtzUx7lim5pg2ibviymmRBrelu9MzhUTpJQr/RmrOmLjP9DXEx1xl6axXeWi9ZDVR1k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790725306; c=relaxed/simple;
+	bh=HD1IXYaD6c+FfUy56N8Mrzk10Uq5pLrnPqJGCZSn9JQ=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QQq4re7TBoyxg4dQw/nGrkytcyj9ADXlrQLSK9re2zDT4O/XhdGRDlRd7mOUvSpUnbYDdUKS5p30ikSMfeK/B7WNuZmpZSDgCQJTCd2H1WS4hW9S3VNsOPK0NwMVMa1mtRgQrhpdxSukBGsP2jdXMDEgpviBL3ZUtKxUSw+FHgw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rg4soNIr; arc=pass smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="Td1Ui6ET";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="ZpS1/gLD"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68TNdGTX030368;
-	Wed, 30 Sep 2026 01:39:21 +0200
-Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 4E31A1228D0;
-	Wed, 30 Sep 2026 01:39:11 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1790725151; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYnov7C+eQCVb8E/UF6F7bZulO2iyu3Dr9Y6cOu87z4=;
-	b=Td1Ui6ETiJp5CwrMi6glMBfX2TgBEYxVc0h7nA0A7ZOGgoiWv15vp6eIAYv6Wioe7OXrIH
-	iIixEgCLmhM0olBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1790725151; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYnov7C+eQCVb8E/UF6F7bZulO2iyu3Dr9Y6cOu87z4=;
-	b=ZpS1/gLDKqAwsUIz0j9h7VRuhzzIqsTn14VHGe1utBlCGPFV23RqYOHMwovx2PySmzjn3/
-	UY3p4Nu2OgOl6xszd0cbAR/YJTngfMJr+/DuDE1s8fpHBsti9ZFzy4IFtAMPLXdlyYtaUj
-	zIV/+R1VX80y7rODWAK+RQFl90j///ZWfKmHhKiqf9i1TRROQoPIgUWgwj/yyegClreYoN
-	bYSCG9wXhCeqF3Yy6+uyBVTcskcd3NaMZK8oxwAN0NnkFHYNS1TFi3hvMAfz3Ft9wPjZ6y
-	wQ9Db+Jhcc6Z9tfzZs3CCYqg8M2JHD3qGIrmw/Su8dRWsWJ27TwyuRJAOGs/2g==
-Date: Wed, 30 Sep 2026 01:39:10 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>,
-        Simon Horman
- <horms@kernel.org>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, David Lebrun <david.lebrun@uclouvain.be>,
-        Stefano Salsano
- <stefano.salsano@uniroma2.it>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net] seg6: ensure packet data is writable before
- modifying SRH and IPv6 DA
-Message-Id: <20260930013910.ef20606a1141e83edeee0771@uniroma2.it>
-In-Reply-To: <arsqomcYCLJqtWSC@fedora>
-References: <20260925133807.32-1-andrea.mayer@uniroma2.it>
-	<arsqomcYCLJqtWSC@fedora>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rg4soNIr"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-914446005e8so37794986d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:41:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790725303; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rRjaNrojalgc90AiWJvAY7san1BD8n6oWEXx3mCjOzr/T/yqUKK9uywhduGrfXuCOo
+         8f2M3cpfrRrlaEChyLs0w2nnVW70DKXtWQEkiGTp/J88BM/z1qyare0PFJFPZxm7ercD
+         tmiNi5B5KgJ1VW6LjdS8jQTymQLB/kyOm7uOPyv7JBdxNJcd1GNb/0ghun1hSkzZ1o3Y
+         7AbILlWKyWsHfkBphjt7B078JuAZscXLrnjIR02SmxG3U/FevU92J9R0iyAO8L/YGKeI
+         Unjpmjwr6DEP2s8DKWC3qv1jeW4wecx812Kx6PZhWLIMs7TGAyzIwZT6Z2k8Jmmjd3BU
+         pziA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date
+         :mime-version:references:in-reply-to:from:dkim-signature;
+        bh=+Xrgsv7RmptoTEWMbXsE4AaL7NQQ9ZRcJ/lLOBbn/ZM=;
+        fh=MH5RnT6vKNJLgi48LfHo7JczieOXtvW8x8gQu5XzXzA=;
+        b=RO4QVNxZw9GWH3AYy0qo8Cf/RJ+o15XzfMy594l8GOMNqhqsM3y0ACmcq1NFV5wcA4
+         ZGbaHNw/an3Ll9WFWrrUQ6+5/3sNZXwJiYNbQ7fxm9d+MF3MleR9WtxXOgnlFCb5muFD
+         LFVBwg0ohKrYwfwxrLhcNpV2IMkhE8qSq/xE/wl6rKe9rla+gEHiAtjc3a2y545ffjvf
+         qKpmGyo57guJkvROIvz3WxF4FlBstSwuqfe6wJ7CXvykedE9G81BnOuEmbHO46zD7y2V
+         8mqD2RRR+RKDULVnQNg9yKd4K+P1Trol0XNXfsuMLEiymcdfHlRAXzDzIKChfupp0qnI
+         5xOw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790725303; x=1791330103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+Xrgsv7RmptoTEWMbXsE4AaL7NQQ9ZRcJ/lLOBbn/ZM=;
+        b=rg4soNIr/Ato9YlkBjBXZhb8Z91ywgNvHRb2xXoFXP2tmgkO1OcY1kowUb7H6spYe2
+         /zYoLiBYnoSXiDqIK9MlvmpljFgikNzYR5yKx5yJS2wmVGQlFeVS0r7/nDzn5wy//8St
+         VVdsFs0EDOOH7T1RsHo9POlDpNkJbDi3d16NubYsB9Ml4Wwere26DIE/WfDF2ku5Kr+F
+         FMr3U0FTDoYyi4+nMTFryqagjzHhEcXLmI80g0N6p1TF+4Nr2dLSSuCaHrinvtOD6E+e
+         ODO0HHTXm9mRqL7356G4GJN1LR4cjahUxt0ELx+NOn63uEO7knlcqm10+ZumyB/04lXi
+         adBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790725303; x=1791330103;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Xrgsv7RmptoTEWMbXsE4AaL7NQQ9ZRcJ/lLOBbn/ZM=;
+        b=F94z6sP6nJrSMlNCM3M0JtSoxDZOD0QpLsqRwwvb2v1a7Xj7Z2Y7HxOPdfFoJJw1US
+         vwtEDWiqZnkONlVgHDB4oO41vdjMgavWrGnArXfUYD4565zcQdyPND95gGvWGzLYhJSl
+         BB7XhAcoMuw+xX5nmm3X3kBFai1Aah9eQoQDz/Qw9BJgZIwrESAvp1dY2SKT0loqyb02
+         0JIPZdQnTuCAxkop0yu2+pM4lXs0fY8+2E7NA4WL3Tw8mBhe83M3sG9AAlVaykBWgAnM
+         Aqn24NAma3IFSaimvJMGSuLTh+17+dRWKcsx1fPPnhcsC5b9DFyz3/Y0L4xoWfx2BddL
+         pEyA==
+X-Forwarded-Encrypted: i=1; AKwUvBws95EggnQP+6vyP92XNr936lfjS3/5xfHmbRkCS5lMoeyxB74LEvpx4oJ9wDX5G4eOLNf8EUA6Bex1hYY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2X/FO6bElveyq4Xgbzn+39JYSHCxRmgAdAOSq5+it9dItOKUI
+	9iQjtQ7EqyxwNRcesMcdMgo2WG/kVF1q3nhsT7liN5JLgR0WMBSX761ZI/m+V2oLMs0t5Gl1itI
+	wnA67JtOyeHsp9lRcQlo6JJYaLHvTzmhwAq3jKZia
+X-Gm-Gg: AYBFou2D75uU8XDGb1PYdkMk+/K3Rs+6lVa+7aoU2SCqIxKyA1LJWMaOXxTH9EBGMcG
+	LrhFX1Atq6moo/5VGmy5CCiXPr+f3oeNoEOx2M2ANqRME7iOK+R1KU1W36ky//3SJWtBDSwb+R4
+	5Y8eq/rCy8gs3xqxuqlFDqPmsEJKnhAe2fsP1cAYRUtXFuELsMxURjw65jsSxknUIg66GNUQ8RX
+	JUXQOwXBQNeQmmXk55JhBHtncNZehBGsITEqvjOyGDJLJuxu2P5a9jii2UvZc3cte89W4nMAyXE
+	XEewpyXzsscSR85TLEwTJRr4gvwvocZEtwtooe0NfVdlJLIeKHQVXbZcRJTm/doClHV34YY/VpK
+	1iQMsjS49UAK2cSWZ6nsYHX4vI/czT1VQmZPrnic5
+X-Received: by 2002:a05:6214:3f86:b0:912:1f7a:3e96 with SMTP id
+ 6a1803df08f44-91799b6f1cbmr14363076d6.7.1790725302155; Tue, 29 Sep 2026
+ 16:41:42 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 29 Sep 2026 16:41:41 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 29 Sep 2026 16:41:41 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <ecab388213245df81815e42246db3b13b2d43e2b.camel@infradead.org>
+References: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
+ <d599627270c67a5334d2abced75d1d1711fb0af0.camel@infradead.org>
+ <CAEvNRgGw_RjiGs_bbVnoRAvq49Qukm4h8XhkBd0DXxn1ZzLrQg@mail.gmail.com> <ecab388213245df81815e42246db3b13b2d43e2b.camel@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Date: Tue, 29 Sep 2026 16:41:41 -0700
+X-Gm-Features: AclHuK-XLbcvCXV4wApQJel8RTlaN3ncBGEcJbP_UmWcTs4Jcx4bthsfg-DyB4A
+Message-ID: <CAEvNRgEU47Xag6S4mJNxZCjEf9AetHO_kvMQ033Vaz4jpwcrcg@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/17] Allow guest_memfd to be created using a
+ resource (pool) fd
+To: David Woodhouse <dwmw2@infradead.org>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <shuah@kernel.org>, vannapurve@google.com, erdemaktas@google.com, 
+	jxgao@google.com, rientjes@google.com, fvdl@google.com, jthoughton@google.com, 
+	tarunsahu@google.com, pratyush@kernel.org, fuad.tabba@linux.dev, 
+	Gregory Price <gourry@gourry.net>, yan.y.zhao@intel.com, michael.roth@amd.com, 
+	suzuki.poulose@arm.com, Christian Brauner <brauner@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Xu Yilun <yilun.xu@linux.intel.com>, aik@amd.com, 
+	aneesh.kumar@kernel.org, Vlastimil Babka <vbabka@kernel.org>, 
+	Connor Williamson <connordw@amazon.co.uk>, Fred Griffoul <fgriffo@amazon.co.uk>
+Cc: kernel-team@android.com, kernel-team@meta.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 29 Sep 2026 11:05:02 +0800
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
+David Woodhouse <dwmw2@infradead.org> writes:
 
-> [snip]
+> On Mon, 2026-09-28 at 15:59 -0700, Ackerley Tng wrote:
+>> David Woodhouse <dwmw2@infradead.org> writes:
+>>
+>> > On Fri, 2026-09-25 at 17:50 -0700, Ackerley Tng via B4 Relay wrote:
+>> > >
+>> > > =3D=3D=3D What if my provider doesn't deal with pages?
+>> > >
+>> > > Frank and David Woodhouse [2] have use cases for providers that use
+>> > > PFNs, and this is definitely something a generic interface must
+>> > > support.
+>> > >
+>> > > Here are some options I can think of:
+>> > >
+>> > > 1. Don't define .alloc_folio(), instead define .alloc_pfn()
+>> > > 2. Refactor .alloc_folio() to .alloc_pfn()
+>> > >
+>> > > Either way, I think guest_memfd should still be the primary manager =
+of
+>> > > the memory.
+>> >
+>> > Thanks for working on this.
+>> >
+>>
+>> Thanks for the quick reply!
+>>
+>> > I'm not sure what you mean by 'primary manager' here but my use case i=
+s
+>>
+>> Naming is hard! See comment on revocation below.
+>>
+>> > for the provider to be the ultimate arbiter of who owns which PFN, and
+>> > revocation of the same. Think of it like a filesystem backed by
+>> > external memory. Each guest's memory is a file, and a guest can
+>> > *donate* specific pages of its memory to other guests (which in the
+>>
+>> Putting donation aside first - I don't have a good picture of how a
+>> guest would tell the host that it's willing to share a page - can't
+>> comment. Would love to find out more.
+>>
+>> > context of the *interface* only means that we need revocation).
 >
-> >  static int input_action_end_core(struct sk_buff *skb,
-> >  				 struct seg6_local_lwt *slwt)
-> >  {
-> > +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
-> >  	struct ipv6_sr_hdr *srh;
-> > +	int err = -EINVAL;
-> >  
-> >  	srh = get_and_validate_srh(skb);
-> >  	if (!srh)
-> >  		goto drop;
-> >  
-> > -	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
-> > +	srh = advance_nextseg(skb, srh, &reason);
-> > +	if (!srh) {
-> > +		err = -ENOMEM;
-> > +		goto drop;
-> > +	}
+> That's implementation-specific. Think of things like Nitro Enclaves
+> where a guest 'donates' its memory back to the hypervisor to be used by
+> another microvm. But that interface isn't the guest_memfd concern; as I
+> said, in the context of the guest_memfd interface, there is only
+> revocation: that page went away, whatever the reason.
 >
-> The srh is not used in the later function, maybe just
+
+Okay we're on the same page then. :) guest_memfd only needs to know that
+the page went away, guest_memfd cannot say no.
+
+>> Going with this revocation part, beginning with a more basic use case:
+>> I'm thinking that the provider can notify guest_memfd that the page or
+>> PFN is going away.
 >
-> 	if (!advance_nextseg(skb, srh, &reason)) {
-> 		err = -ENOMEM;
-> 		goto drop;
-> 	}
+> Right. That part I have working in what I was posting.
+> [5] https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dcommitdiff;h=
+=3Dee95ed5aaf06
 >
-> [snip]
 
-Hi Hangbin,
+That is similar to what I had in mind except the parameters, I was
+thinking inode, offset, size.
 
-Right. Since the patch changed advance_nextseg() to return the SRH,
-I updated srh at every call site. Your form works as well where srh
-is not used afterwards.
+kvm_gmem_invalidate_range() in your patch [5] does have a kvm_gmem
+prefix, but it's really a direct call to tell KVM MMU to zap the gfn
+range, guest_memfd doesn't get to update its own state.
 
-Thanks,
-Andrea
+>> guest_memfd cannot say no, but it does have to tell KVM to zap the page
+>> from stage 2, and for CoCo it may need to do more stuff.
+>>
+>> The notification needs some pointer, so I was thinking that on .attach()
+>> the provider would also note down which guest_memfd instance the
+>> provider should notify.
+>>
+>> The notifier could tell guest_memfd that some (offset, size) is going
+>> away, and breaking down mappings in the EPT/NPT should be something
+>> guest_memfd tells KVM to do, I think. Are you thinking that the provider
+>> would directly break the mappings down in the EPT/NPT?
+>
+> I think telling KVM is the right thing to do.
+>
+
+Glad to hear that :)
+
+>> Does this notification mechanism work for you? IIUC regular DAX would
+>> need it too, like if the device is unplugged for example.
+>
+> Sure. As long as it works and efficiently covers everyone's use cases,
+> I'm not going to be overly opinionated a priori about *how* it works.
+>
+> All such bets are off once we see the code, of course :)
+>
+>> > Should I be trying to rework parts of my series to live on top of this=
+?
+>>
+>> I hope to gather more feedback at LPC. It'd be nice to get early
+>> feedback if you think it can work for you! The overall design still
+>> needs feedback though, don't take this as the final direction.
+>>
+>> > Things I have working but which I don't see here include:
+>> >
+>>
+>> This sounds like 4 or more different features! I think they do work with
+>> this resource fd proposal.
+>>
+>> > =C2=A0=E2=80=A2 PFN support (which you mentioned).
+>>
+>> Yup, guest_memfd needs some way to track PFNs in addition to folios. I
+>> think for tracking we can reference DAX, the part I haven't looked at is
+>> how to let guest_memfd handle events. Like if there's memory failure on
+>> a PFN, how do we let guest_memfd handle it?
+>
+> Telling the guest about correctable and uncorrectable errors, you mean?
+> I would have thought that's up to the VMM, until the point where (see
+> revocation)?
+>
+
+Informing the guest is definitely the userspace VMM's action to
+take.
+
+guest_memfd's role here is updating it's own tracking, and perhaps
+splitting folios. When guest_memfd supports huge pages, one thing high
+on the wishlist is to split the huge folio and zap only the page where
+there was an error and not the huge page.
+
+Advantage of splitting: If the failure happened in the last 4K, the
+first 1G - 4K can continue to be used by the guest. If the guest never
+touches the last 4K, it doesn't have to know about the failure at all.
+
+>> guest_memfd needs to at least be notified, so that it can handle the KVM
+>> stuff: zapping and special stuff for CoCo. Whether the provider or
+>> guest_memfd gets to handle it first can be worked out :)
+>>
+>> > =C2=A0=E2=80=A2 IOMMUFD support via dma-buf.
+>>
+>> Is this about having guest_memfd work with dmabuf fds?
+>
+> It's about having the provider of memory (again, think of it as a daxfs
+> if you will) able to tell *both* KVM and IOMMU which pages are where =E2=
+=80=94
+> and revoke them at will.
+>
+> The *implementation* involved dmabuf fds, and we already discussed
+> which wraps which, on the first posting of my series. But maybe we'll
+> conclude that the right answer is for IOMMUFD to recognise this
+> guest_memfd 'provider' as a first-class citizen, and we won't need to
+> masquerade as dmabuf?
+>
+>> Fuad also brought up that Android uses dmabuf as an interface for CMA
+>> memory. [3] IIUC the dmabuf fd is mmap()ed, then the userspace address
+>> is set up in a memslot for the guest. To make this CMA memory
+>> CoCo-friendly, we want to use it with guest_memfd.
+>>
+>> Jason response was that guest_memfd should probably just directly get
+>> memory from CMA [3].
+>>
+>> I'm not super familiar with CMA or dmabufs, would either have a suitable
+>> "resource fd" to pass to guest_memfd like how HugeTLBfs has a mount fd?
+>> The "resource fd" should ideally have no way to mmap or read/write the
+>> memory directly.
+>>
+>> [3] https://lore.kernel.org/all/CA+EHjTxZ0N3Tfnid404B4tkb_E+Z8mODTHTgBPi=
+F6=3DbwZp7Hjw@mail.gmail.com/
+>
+> I think where the memory comes *from* is an implementation detail for
+> the provider. It provides a PFN (or folio, if you must). All else is
+> not the business of KVM or IOMMUFD.
+>
+
+So we already have
+
+  dmabuf --wraps--> CMA (and others)
+
+We could have
+
+  [a] guest_memfd --wraps--> dmabuf --wraps--> CMA
+
+or
+
+  [b] guest_memfd --wraps--> CMA
+
+I agree guest_memfd shouldn't care where the PFN comes from, but this
+does impact where the provider_ops code is implemented though.
+
+If we go with [b], CMA needs to find a non-dmabuf way for userspace to
+get some resource fd. If we go with [a], dmabuf folks need to support
+this :)
+
+>> Or is this about letting IOMMUFD get pages to map in IOMMU page tables
+>> via an fd+offset instead of via mmap()-ed userspace addresses as in
+>> IOMMU_IOAS_MAP_FILE, and that guest_memfd isn't a supported kind of fd
+>> (yet)?
+>>
+>> I think guest_memfd should support IOMMU_IOAS_MAP_FILE. One use case is
+>> Confidential IO [4], where SNP would need to have private memory
+>> (guest_memfd) mapped in the IO page tables.
+>
+> Right, I think that's what I meant with 'first class citizen' above?
+>
+
+I agree, yes, I would like guest_memfd to be first class alongside other
+memory providers.
+
+>> The missing parts here are that guest_memfd and iommufd need to
+>> cooperate for conversions (or some other coordination in userspace). If
+>> private memory gets converted to shared, iommufd needs to know to remap
+>> the pages as shared in the IO page tables.
+>>
+>> [4] https://lore.kernel.org/all/20260225075211.3353194-1-aik@amd.com/
+>>
+>> > =C2=A0=E2=80=A2 Revocation (which I've tested correctly breaks down la=
+rge pages in
+>> > =C2=A0=C2=A0 both EPT/NPT and IOMMU).
+>>
+>> See above.
+>>
+
+I missed considering breaking down huge pages (the folios). guest_memfd
+will definitely need to cooperate with the provider to break down the
+pages.
+
+I'll need to prototype support with HugeTLBfs, probably after LPC. There
+I'll need to split pages on conversion to shared and merge on conversion
+to private.
+
+I think you meant breaking down the mappings for the large pages in
+stage 2? guest_memfd tells KVM to do that in one of the earlier
+prototypes for guest_memfd HugeTLB pages.
+
+>> > =C2=A0=E2=80=A2 AsyncPF support for pages requested by KVM.
+>>
+>> Is this kind of orthogonal? IIUC today KVM MMU handles the async-ness.
+>> KVM MMU checks that the page is not there, then since async was
+>> configured, KVM tells the guest to schedule in something else.
+>>
+>> guest_memfd doesn't have support for async #PFs now. I imagine it would
+>> be something like KVM MMU firing off a kvm_gmem_get_pfn() request
+>> asynchronously, and then guest_memfd gets the page or PFN and inserts it
+>> in guest_memfd filemap, and then notifies KVM MMU?
+>>
+>> Within kvm_gmem_get_pfn(), guest_memfd should get the page or PFN from
+>> the provider.
+>>
+>> I think it's orthogonal because guest_memfd could
+>> have gotten a PAGE_SIZE page (existing functionality) or gotten a page
+>> from the provider.
+>
+> Kind of, but I'm focusing on the guest_memfd provider interface, and
+> that needs to support the asychronous mode: asked for a PFN for a given
+> guest address, it returns -EAGAIN and then provides it later, and the
+> guest gets the right asyncpf behaviour:
+> https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dcommitdiff;h=3D8=
+94dd0fcb34f
+
+I thought the same .alloc_folio would be used, except for an async #PF
+the entire kvm_gmem_get_folio(), which calls .alloc_folio() would be
+done in some background thread, so the provider doesn't have to have a
+different .alloc_folio_async().
+
+If the provider does need to know, then the corresponding thing in this
+series could be:
+
+  struct guest_memfd_provider_operations {
+	  void *(*attach)(struct file *resource_file);
+	  void (*release)(void *provider);
+	  struct folio *(*alloc_folio)(void *provider, pgoff_t index,
+-				       struct mempolicy *mpol);
++				       struct mempolicy *mpol, bool nowait);
+	  void (*invalidate_folio)(void *provider, struct folio *folio);
+  };
+
+something like that?
+
+Either way I think it would have to be a later series after the first
+one (for upstreaming).
