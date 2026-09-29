@@ -1,162 +1,131 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-yx1-f98.google.com (mail-yx1-f98.google.com [74.125.224.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FFD23ABBE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC58C3D79EF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790704016; cv=none; b=vGaydohOLT+tnVnkciolpoHicDfFmD6PZUWZx72PuFoNou1nSaNbD/PhU1fdKaCyTVUECMoGhyl1gRJT9NjfnzNDcu7hggk9jw3Ch4MncFtx/mRQ2S1TPKql6uPS+MXx1+ZgvscPvT3fzPKa4GaHzgSrb5WjguA02ysvWhghJNA=
+	t=1790704088; cv=none; b=BHMjndVorSdDyTUeSBJaHFdUO+ZYTLHGcVLrL6LlM3q5SXNxB2niSSNsUgMcGTvW7A2dsgY93T17/nMJesq5g+FxfqqgdboVfwg4rvrTyS86QukNvrtgLqY70SS4HDdhBf3Zjjqw90KPVXn05Yb/87i/x0QF2Qw5+b+Eb1ld8Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790704016; c=relaxed/simple;
-	bh=plLnMTWHjT4ksAJ2LtWoCd3HEFsbF70ylSiNp0W26Wo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=saimI3hyMwIf/tlhIbedC3Ntu8/+Qqgnm57YMohyXuk53ylfIoGoNOcux59EiKJkWqtxFrpAozCAtricPnbMdV+f5mQxXZqm/2/EFncP6PpcZ9jNP6J5ZFtTEB8D2GnekulhAiHuSE9MkU1WU9sPiGSghWsvIN+lhz+pz4zSrXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CrNbTkmR; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790704088; c=relaxed/simple;
+	bh=cJpmwEiuNdtdqwEFSa2ysDoeGDJ2N9SxsOcBpZJ0PNQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h/IyJYhFVFB0maaK6pVkit1pJetXAuPAYyGzsSesU4yp+XEbSW5Kqffu2B1CL6BtN523/LjDmvSRG1fhNPHCp0RkJOAw6+U626l+iqYGmT91T9wj8uy9PAxrUTEi+/xtYa6prUFuDRFW+/usave4d4xadmMl8xraUh9KowEDyyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=U4bWRal1; arc=none smtp.client-ip=74.125.224.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CrNbTkmR"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488837e7eccso482808f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790704013; x=1791308813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kd+neJQ7oIbs50uy2PwGD5QdD8b7z9vag9un56+bUwY=;
-        b=CrNbTkmRvqO0iUHrQU7avKNYRsdeiQTkSU4u5uCE1+lNvQfnb0iFFlD0AoEhaGFdJ+
-         tBf7DaDpTe8dVR1E4AYDKQEN4ECLyikUrBeMqkQeB22FTowvNefHfy4spOQEdoLWf+1G
-         s298ko21CzHzNGzZbXokTyfo+K9N90k8k/stYuhK6pMxRaBPRIRfPlqEVgLkVl9EbfEU
-         oKdp939OY1NLKEhOc3pedJZuazBx+sLzpamob9qgoK5tLhq/nru/eKQGfGR9PC1w2HUA
-         ue9E0ftOvC4V34QrQU+EsWsSk7rFSUcGSgeBOw1PUgZh6r7NiSBnbP3QDOQevOM+bl9I
-         NN5g==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="U4bWRal1"
+Received: by mail-yx1-f98.google.com with SMTP id 956f58d0204a3-67162548181so388429d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:48:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790704013; x=1791308813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kd+neJQ7oIbs50uy2PwGD5QdD8b7z9vag9un56+bUwY=;
-        b=hnfMS7w9LObPDidRed1lW55VwatTQkIZ69Hryo1/NlWe8jvtlqzpCs5mOfYh8gtW09
-         HmwoNf5rcNTz+WJTzv9fcAYJBGirfQYAGB0e5tK6scXiPAnQK7VR1Abpp+YdKfkWr5g4
-         BIVcNZVRoIYZBhk0h5K7jB02aFvAU0ZS8Yyh5VxVyn2ZyOG0c0D52wR7ascidF0VMz5R
-         OIUiPPZARY7+Zh7YayjU+fiFFblG2LC7/nYnAVTHMJZAoJCKRKas5Z6epZE9YfkzK6+D
-         nGR/NPCeuLTuI6UJDY+yJc7Cm9YxjxEzTG4t61nVsKn7Hiac59InmN+aq96FwTisdeuT
-         02AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwo0j1XJRXfAfAtWeaxukDMvPN0X9iraWmaJ3qHQIX+GWTm2CKxCZs07B2nrksOGzlffdwhTwyhzgCuIUk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwXF86qfTphW+7+29RItkkZnZ3/+wT2R5CVzOwZMhqZReRg2D/
-	tARfQD6uru+DtDX7DeHVhDiC2TifyTV/Aw/qBwEdqh/fGTdrc3QuprM8
-X-Gm-Gg: AYBFou0SNtloaXLl4tnoIpAyoXvNk3s2JB+7oyeOFjGGfgnP3j+XetVbPho0HPxdVTh
-	WcAtsSUMK5POT635U+UHEMewLdQ7snSUxoK7gBJ1pcjgPHT8g8wj3lheBtrkpMKL6bTIxiuUA76
-	0+X8BIxiSMuvrOhqG2H2h8a51ABbR4Z1q0TPUPUpawJ5+EfdXkI1WlXM6ZMfeQUY4MXCD4P4440
-	XZEgddEGn16iPkaHKFehALMaXcUv2DtR9w5A2LggsHJG+9T5N4aZ34XZQ061imIx58hZvPD513/
-	tsmSUvH1tCrtRawPSv1A9OTpX6v4GLRuFkeTs7HGjNvybL5mwGh30c9mks4G7rJQmKfRlpRBGfF
-	yk7Q99BZLiTQAzuyKfL6C0i8uKnM6UzO1vbR7/mDEqj72zzs5iK6LM/zUo2jW3Pi/fvedhMOd83
-	kOc1y6iyx93CckE7s8boh/QAtuW3fHxdM4oFV/NCvSJ8zEB++hvK1s/CxNz8wrKEVL+pFCuC1Ay
-	Zpgx7ya8EjSoxxGa3Qd
-X-Received: by 2002:a05:600c:6088:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49feddba128mr243816215e9.1.1790704012063;
-        Tue, 29 Sep 2026 10:46:52 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe16a2sm94724455e9.4.2026.09.29.10.46.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:46:51 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@kernel.org,
-	rostedt@goodmis.org,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
-Date: Tue, 29 Sep 2026 20:46:47 +0300
-Message-ID: <20260929174648.196105-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929085320.337703476@infradead.org>
-References: <20260929085320.337703476@infradead.org>
+        d=1e100.net; s=20260707; t=1790704085; x=1791308885;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=e7MyTOOeEo7WzEXet1cmfM85sICUvnUIP5uaOgZRIgc=;
+        b=ojOpw/9JQcOJH6VJQMR/7LuyHWUT6/gW4FRrGLaSduLwcAf+tNZstZDqEVcO9ST9lO
+         Y4N088Xj+7I3odyWUkHT+9V+t/jIBRrcgdu8MFgH6kZXHidI4Tr9Z1eCpGslW3D8CesN
+         pLYDA6u0Bz+wgVXF4Khy1xrtZo8Cb4203FgovoQPByT8nbhzJ2VKe1XvXxmzA+09wD/J
+         jzo9joea+a8kZ89rng8oTdJ3AGZ3xL3r0n0bHWN0ErkPHVwKdRcXN2NPk6vVxU+Eb5g4
+         N01shkQVXvt1Fq/ysknleAAGGEgn7k2u2gGOI3Ev8AIUwAjQe0rlvMyHKU0vI6ZzQ9Au
+         SdQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmYUjd43ixyxE9hgEhX5s2Yy0ttYb8BvTbRB14akkkPnwj0BXe7MUZe5t/rcqJY2EjodPblqFHFbLAMr4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtsZ2iy4Jly8LA04ywQNbdqQhNNuBt+LEo5yTXDP6NYZzaBYEP
+	qv+XNWIHfVWNrK/7wHTmxZ+4qjMXmp6BDuRHo3JUVRnx3d+LJ/U7ufDgO+csofTe/BLgjo/liBr
+	njrgs0R3NCnWd/u5St2s88WHnmumk0M6apXZiX2GlNsU4ctpSJ9khkKZLjMXjnRKssiF/TBTBhf
+	x71lH5b3SlweLV5Im2Xd6AT/zGQpKpprUmZEOQi6g2TmAQVOWb5ln1Xf1f2HyjvdhLXsQD97AN9
+	x6wdIt3MN1FLtSgkQ==
+X-Gm-Gg: AYBFou2g49SRyL+O5+vpFZQuZ6O7vGNevR3MGL7x1PXoMpkNVj1d2YShGDOwptBAayv
+	AwkGslb7c+rpsGJhR6490ZX5yFt8Cvg+IGUu1qvqQAt3jtDBlCUV7/1wrS2GIb3FDLEb41K+ofV
+	awGlBGz7wkHAsXy2AN1hSAlk6WSB52IqKDyg+I4WofkZURDdod86EgH7YW3ak/ds6Ic0kkUSSD8
+	7QkEG6/ptpbJQBXkiLDiXzOoWu264+0cDYoZ7ABK/CalZcXEqJ4Xf0Q7FQnZcdLgTf+6Ws3PTKa
+	Fay7s7muv6QKHNAPCiYVP+dckhhZoX6q+DJtfF3OrUbFyx1Y1D4bcz5/OZ015Eci15IlH4WhHfZ
+	tLcvI0td/N0tGkcrE3tUAWWsxXBFml6zGyAZ9dSHvdOKsmF+DDtdpA0eZXd8da3o3EmgG+OVshF
+	MNag/VwgGfVktTKCM75MceCQBd7AWSXvfua0Y+
+X-Received: by 2002:a05:690e:400d:b0:671:520:cf7e with SMTP id 956f58d0204a3-672ed2a19c3mr7842927d50.49.1790704085331;
+        Tue, 29 Sep 2026 10:48:05 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-124.dlp.protect.broadcom.com. [144.49.247.124])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-675b2800376sm105802d50.7.2026.09.29.10.48.04
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:48:05 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b6416441eso7787658a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:48:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790704084; x=1791308884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e7MyTOOeEo7WzEXet1cmfM85sICUvnUIP5uaOgZRIgc=;
+        b=U4bWRal1SZ7Hl6BG+s/i5AO3szN3ZCoOYl1RbpXW6RHffQN3O6R0Qubf6lE6LGeVDL
+         cQQ+oIi/B8EO/XLwLN3yN2j+LthVII2C/FHyWMmPdo0zxAq6y17/G0NPdqFnVhhNjJiH
+         9FILZiTtUvF1KctF3yRv3CnyGfvy7Wf8NHYiE=
+X-Forwarded-Encrypted: i=1; AKwUvByFQdcx7pEEM3eufZIw4D+GN6Zr27thXqkpwcaNN+T8dtIaEjpUcQo2AtVOuF+ul00CEEWr0N41yLkqNAg=@vger.kernel.org
+X-Received: by 2002:a17:90a:e7ca:b0:39e:24ab:9f82 with SMTP id 98e67ed59e1d1-3a4bfdbabc6mr122714a91.10.1790704083972;
+        Tue, 29 Sep 2026 10:48:03 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7ca:b0:39e:24ab:9f82 with SMTP id 98e67ed59e1d1-3a4bfdbabc6mr122698a91.10.1790704083573;
+        Tue, 29 Sep 2026 10:48:03 -0700 (PDT)
+Received: from [10.14.4.125] ([192.19.161.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49858bf27sm6624088a91.4.2026.09.29.10.48.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:48:03 -0700 (PDT)
+Message-ID: <0cfdc48c-e06d-4664-8791-98b29138584c@broadcom.com>
+Date: Tue, 29 Sep 2026 10:48:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Hi Peter,
-
-(Fun Stuff):
-
-> @@ -15731,6 +15766,8 @@ static int __sched_group_set_shares(stru
->  			update_load_avg(cfs_rq, se, UPDATE_TG);
->  			update_cfs_group(se);
->  		}
-> +		for_each_sched_entity_bl(se, cfs_rq)
-> +			update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
->  		rq_unlock_irqrestore(rq, &rf);
->  	}
->
-
-So, the code is this:
-	#define for_each_sched_entity(se, cfs_rq)					\
-		for (struct sched_entity *_BL = NULL;					\
-		     (se) && ((cfs_rq) = cfs_rq_of(se), (cfs_rq)->backlink = _BL, true);\
-		     (se) = (se)->parent, _BL = (se))
-	
-	#define for_each_sched_entity_bl(se, cfs_rq) \
-		for (; ((se) = (cfs_rq)->backlink); (cfs_rq) = group_cfs_rq(se))
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mailbox: bcm74110: Cap rx_svc_init_list growth to prevent
+ PMC-induced OOM
+To: Danesh Petigara <danesh.petigara@broadcom.com>, jassisinghbrar@gmail.com
+Cc: florian.fainelli@broadcom.com, james.quinlan@broadcom.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260825191619.2326087-1-danesh.petigara@broadcom.com>
+Content-Language: en-US
+From: Justin Chen <justin.chen@broadcom.com>
+In-Reply-To: <20260825191619.2326087-1-danesh.petigara@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 
-(While writing this, a suitcase tried to assassinate me by falling from top of the closet,
-what follows after this part may be the symptoms of my brain-damage.)
 
-Let's say we have a *thing* like this:
+On 8/25/26 12:16 PM, Danesh Petigara wrote:
+> From: Florian Fainelli <florian.fainelli@broadcom.com>
+> 
+> bcm74110_rx_push_init_msg() allocates a GFP_ATOMIC struct for every
+> BCM_MSG_SVC_INIT word received from the PMC co-processor and appends it
+> to rx_svc_init_list with no cap on list length.  The only consumers of
+> this list (bcm74110_rx_pop_init_msg_block / bcm74110_rx_flush_msg) are
+> called only during probe and at shutdown respectively; after probe
+> completes, PMC firmware can continuously inject BCM_MSG_SVC_INIT words,
+> exhausting GFP_ATOMIC reserves and causing a whole-device denial of
+> service.
+> 
+> Add BCM74110_INIT_MSG_MAX (16 entries) as the maximum list depth.
+> bcm74110_rx_push_init_msg() now checks the count under the existing
+> rx_svc_list_lock before allocating; if the cap is reached the message is
+> dropped and a rate-limited warning is emitted.  The new rx_svc_init_count
+> field is decremented by bcm74110_rx_pop_init_msg() on successful dequeue
+> and reset to zero by bcm74110_rx_flush_msg() on shutdown.
+> 
+> Fixes: 52436007b862 ("mailbox: Add support for bcm74110")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Assisted-by: Anthropic:claude-sonnet-4.6 cursor
+> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
 
-  +----+    +----+    +------+
-  |se_a| -> |rq_a| -> |task_a|
-  +----+    +----+    +------+
-     |
-     |
-     |
-     V
-  +----+    +----+     +------+
-  |se_b| -> |rq_b|  -> |task_b|
-  +----+    +----+     +------+
+Signed-off-by: Justin Chen <justin.chen@broadcom.com>
 
-When we start as task_b, everything goes well. Both groups are updated.
-On task_a too, only se_a is updated. 
-
-But when we start as se_a root's backlink is NULL so we don't update anything.
-While on se_b rq_a's backlink is NULL and update se_a but not ourselfes.
-
-I don't think this is that of a problem tho, and
-I could be missing something.
-
-(Ultra-Fun Stuff (Maybe)):
-
-Also, I saw you making an Assisted-by joke yesterday so... 
-
-Assisted-by: Fingers (Typing)
-Assisted-by: Luck (Born)
-Assisted-by: Computer (IDK)
-Assisted-by: Knowledge (Knowledge)
-Assisted-by: Linux Itself (Kernel)
-Assisted-by: EEVDF (I mean...)
-Assisted-by: Water
-Assisted-by: Energy (I don't have any ;<)
-Assisted-by: Sun
-Assisted-by: Universe
-Assisted-by: Editor
-Assisted-by: LKML
-Assisted-by: LWN
-Assisted-by: Music (Vibes)
-Assisted-by: Heart (Broken ;<)
-Assisted-by: Brain (Damaged a bit)
-
-There could be more :p
+Gentle ping on this patch.
 
 Thanks,
-Kayra
+Justin
