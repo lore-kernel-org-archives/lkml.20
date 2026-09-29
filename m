@@ -1,196 +1,119 @@
-Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69443AAF58
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D843AAF69;
+	Tue, 29 Sep 2026 07:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668417; cv=none; b=qeydS9UVjS757tiOjHu+mbqjH3Yx5DOKo0gpUWR2BJsUa16uOYj9w0dI8vPeyHxaBCvDVUTaeAlzaITIxLJjS1wQgCMFDIzVb/FT9Iz6TNSaz4v2K4aAvM4sD/wRidkpXNbRmbUZh7Aqwf1aOH8/ZHbKh8gRslYRRxJS6VyirZs=
+	t=1790668496; cv=none; b=HSaB7+PJqagDA8McZubPZhdl3TW4tPF/vDSw3u00lnfO2TrtGTVBnp6twts4wJJqhEdjeFlQQpsNlbtal9OT4QwBRMIXgTcBZ9R2gi1b6vaCNlFwaBQEjFhCSBdp5FKi3+qM6f9mXx3GcioMNM8uVUnNjRn6aNZR2pr+WCq23I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668417; c=relaxed/simple;
-	bh=UVeeOQdrWmFqZlj5Z7vC/2L8sbl3nluI5tg6Il2hotU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=rX5OLXy2my7cLRyixgNff8wD8x8OCLG7FpDRVymqdR+CwK8SNWEYFIj9H4VZy5g4a8XUnhVDjAdQecpLF569QXOLQQflMjgR23f0qeXE7TGxi/5YNzqfiwoeHKt5YfdP0edoEcDTCliZpxDrwbXVUJlcrq33198N9Z3XVS18c7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ud+OwCx8; arc=none smtp.client-ip=95.215.58.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790668496; c=relaxed/simple;
+	bh=BMIu3XzRkJm+A1W6ZZm3DtEJrTbu/WBqZDXJAhuao4Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LJiUFPAuE8GxvaIZZkdNr5NORA5t/yfa6ZGMnRBw9gweKEUCLTpCkLNhNSbIjYp4GK9Wl+S25KwdF48wxh75QnjTsBfQyFy9THU9RKgbMDORT2qmkQr7tUAxNBUH6eP21NrEyotA6WLjnAtabxrp5f6QPE+zvmj9E7mGGG6i6Ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bmQLzw4r; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ud+OwCx8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UVeeOQdrWmFqZlj5Z7vC/2L8sbl3nluI5tg6Il2hotU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790668412; v=1; x=1791273212;
- b=Ud+OwCx8sz5JctF/EYW7j4Nm8DDn8E4rHSLo8wlPMyWndqRvi25SqH2q8Y9EmTKjm/QxhOKf
- p+sT8qZ5dAmL5JVId9m+W/kZjLRH2/vRh9f92PIEAV35z8xMUa3KRi290vG9JUx1pPIR4XJAgm+
- 4UQXspfD8f+f00qrZr9Fa8Ps=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 36715084ceb0146c;
-	Tue, 29 Sep 2026 07:53:30 +0000
-X-Mizu-Trace-ID: 36715084ceb0146c
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bmQLzw4r"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zT6GlfQft/QJeAy0pckXvrIl9KIiBoLg2QYNryNymLU=; b=bmQLzw4rqkY4fV8qO1gp2+zRk4
+	nhnwFpj7IgIbEV0UNBL0AOnauwbzBlCrL0ajhvhUVi+pNnh8SIZRzeefsOeh2Kr+NSn2B/sAIj7Vh
+	Cx4AjbKvt+mRby1KlKqiNENB9NvJZhwvbf7gm1HC3bSiE/zr2kOf2x6WRKTNv+D2/KJS9G+aCQfJy
+	toxyW81SwYmF7/bHp3ab0R0jpaRE1WptNnL1lIFsaUvgJvNpq1mWDNvoRc/z4pdNqCh2Tcmi+TgDy
+	hVZUhCFgMIoSgF2tN4jnyl9609fBdFBT+W9F9gzKS5Fe2LmAP+mdiNLql6o3NqdHV3RMF1f+4q+yR
+	ZPnsshtw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xBSfV-00000002Jcc-0zm7;
+	Tue, 29 Sep 2026 07:54:30 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F1E06300446; Tue, 29 Sep 2026 09:54:26 +0200 (CEST)
+Date: Tue, 29 Sep 2026 09:54:26 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org, Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+	Christoph Lameter <cl@gentwo.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org,
+	linux-arch@vger.kernel.org, linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Long Li <longli@microsoft.com>, Andy Lutomirski <luto@kernel.org>,
+	linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>,
+	Ashish Kalra <ashish.kalra@amd.com>
+Subject: Re: [PATCH v2 2/6] percpu: Bound decrypted storage for all x86
+ encrypted guests
+Message-ID: <20260929075426.GQ4120091@noisy.programming.kicks-ass.net>
+References: <20260929040256.543767-1-zack.rusin@broadcom.com>
+ <20260929040256.543767-3-zack.rusin@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v5 03/12] mm/sparse-vmemmap: introduce
- CONFIG_VMEMMAP_OPTIMIZATION
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <d7a75c99-3021-495f-ae34-883d047370f3@kernel.org>
-Date: Tue, 29 Sep 2026 15:53:15 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Lance Yang <lance.yang@linux.dev>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D0B0A406-100C-437D-8AA8-D276E8DA8278@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-4-songmuchun@bytedance.com>
- <d7a75c99-3021-495f-ae34-883d047370f3@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929040256.543767-3-zack.rusin@broadcom.com>
 
+On Tue, Sep 29, 2026 at 12:02:51AM -0400, Zack Rusin wrote:
+> TDX also needs shared per-CPU buffers. Use X86_MEM_ENCRYPT for their
+> definition and placement, and provide page-aligned boundaries so the
+> architecture can convert each CPU's whole section before registration.
+> 
+> Define the boundaries in the SMP template or UP data as appropriate.
+> Drop the unused DECLARE_PER_CPU_DECRYPTED() macro.
+> 
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/r/aqqGUAX65s4LdJkr@thinkstation
+> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+> ---
+>  include/asm-generic/vmlinux.lds.h | 12 ++++++++----
+>  include/linux/percpu-defs.h       |  7 ++-----
+>  2 files changed, 10 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+> index 64bc2bfdd2ec..145fcdbbe9db 100644
+> --- a/include/asm-generic/vmlinux.lds.h
+> +++ b/include/asm-generic/vmlinux.lds.h
 
+> @@ -1022,11 +1024,13 @@
+>   * Note: We use a separate section so that only this section gets
+>   * decrypted to avoid exposing more than we wish.
+>   */
+> -#ifdef CONFIG_AMD_MEM_ENCRYPT
+> +#if defined(CONFIG_X86_MEM_ENCRYPT) && defined(CONFIG_SMP)
+>  #define PERCPU_DECRYPTED_SECTION					\
+>  	. = ALIGN(PAGE_SIZE);						\
+> +	__start_percpu_decrypted = .;					\
+>  	*(.data..percpu..decrypted)					\
+> -	. = ALIGN(PAGE_SIZE);
+> +	. = ALIGN(PAGE_SIZE);						\
+> +	__end_percpu_decrypted = .;
+>  #else
+>  #define PERCPU_DECRYPTED_SECTION
+>  #endif
 
-> On Sep 29, 2026, at 15:11, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> On 9/27/26 04:54, Muchun Song wrote:
->> The section-based vmemmap optimization infrastructure is guarded by
->> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it can also be used by
->> ZONE_DEVICE users that set dev_pagemap::vmemmap_shift. Introduce
->> CONFIG_VMEMMAP_OPTIMIZATION as a common config for the shared
->> infrastructure.
->>=20
->> Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
->> ZONE_DEVICE when the architecture opts in to DAX vmemmap =
-optimization,
->> and use it to guard the generic sparse-vmemmap state and helpers.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->> ---
->> v5:
->> - Move this patch after the shared tail-page factoring.
->> - Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX,
->>  covering all users of dev_pagemap::vmemmap_shift, reported by
->>  Sashiko.
->>=20
->> v4:
->> - Rename SPARSEMEM_VMEMMAP_OPTIMIZATION to VMEMMAP_OPTIMIZATION
->>  (suggested by Mike Rapoport)
->> - Collect Acked-by from Mike Rapoport
->>=20
->> v2:
->> - Fix SPARSEMEM_VMEMMAP_OPTIMIZATION being selected without =
-SPARSEMEM_VMEMMAP
->>  reported by Sashiko.
->> - Add an explicit DEV_DAX dependency on ZONE_DEVICE
->> - Collect Acked-by from Qi Zheng
->> ---
->> arch/x86/entry/vdso/vdso32/fake_32bit_build.h |  2 +-
->> fs/Kconfig                                    |  1 +
->> include/linux/mm.h                            |  3 +++
->> include/linux/mmzone.h                        | 10 +++++-----
->> include/linux/page-flags.h                    |  5 ++---
->> mm/Kconfig                                    |  5 +++++
->> mm/sparse-vmemmap.c                           |  2 +-
->> mm/sparse.h                                   |  6 +++---
->> 8 files changed, 21 insertions(+), 13 deletions(-)
->>=20
->> diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h =
-b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> index bc3e549795c3..72a92cb9b53d 100644
->> --- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> +++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
->> @@ -11,7 +11,7 @@
->> #undef CONFIG_PGTABLE_LEVELS
->> #undef CONFIG_ILLEGAL_POINTER_VALUE
->> #undef CONFIG_SPARSEMEM_VMEMMAP
->> -#undef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> +#undef CONFIG_VMEMMAP_OPTIMIZATION
->> #undef CONFIG_NR_CPUS
->> #undef CONFIG_PARAVIRT_XXL
->>=20
->> diff --git a/fs/Kconfig b/fs/Kconfig
->> index d1c210c6508f..1454b7fe9641 100644
->> --- a/fs/Kconfig
->> +++ b/fs/Kconfig
->> @@ -278,6 +278,7 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP
->> def_bool HUGETLB_PAGE
->> 	depends on ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
->> 	depends on SPARSEMEM_VMEMMAP
->> + 	select VMEMMAP_OPTIMIZATION
->=20
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+So you're page aligning something that will get different protection and
+will thus shatter large pages?
 
-Thanks.
-
->=20
-> Is there a path to remove HUGETLB_PAGE_OPTIMIZE_VMEMMAP, and to merge
-> ARCH_WANT_OPTIMIZE_DAX_VMEMMAP+ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP into =
-a
-> ARCH_SUPPORTS_VMEMMAP_OPTIMIZATION?
-
-These are actually two completely different capabilities.
-
-ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP requires the architecture
-to support dynamic updates to vmemmap page tables, meaning a
-PTE entry can be changed from one valid entry to another
-valid entry. This does not meet the requirements on arm64,
-because arm64 requires page table operations to satisfy BBM
-(there is, of course, a series [1] attempting to do this).
-
-However, for ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, the vmemmap page
-tables do not involve dynamic updates, so the BBM requirement
-can be satisfied. Therefore, arm64 can enable
-ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, but cannot enable
-ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP. To make the naming clearer,
-I have another patch [2] that renames it for greater clarity.
-
-As for ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, I plan to remove it
-entirely in the future, because architectures that do not support
-it can simply choose to disable it, as can be seen in patch [3].
-
-So in my plan, ultimately only one config will remain:
-ARCH_SUPPORTS_VMEMMAP_REMAP.
-
-I hope this clarifies the plan. Let me know what you think.
-
-[1] =
-https://lore.kernel.org/20260708031129.3503195-1-jthoughton@google.com/
-[2] =
-https://lore.kernel.org/20260903122128.12264-2-songmuchun@bytedance.com/
-[3] =
-https://lore.kernel.org/20260513132044.41690-6-songmuchun@bytedance.com/
-
-
-Thanks,
-Muchun
-
->=20
->=20
-> --=20
-> Cheers,
->=20
-> David
-
-
+That is somewhat uncool. We like large pages, large pages are good.
