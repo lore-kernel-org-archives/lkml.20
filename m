@@ -1,97 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A6751AEC7;
-	Tue, 29 Sep 2026 12:36:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABD2522EE2;
+	Tue, 29 Sep 2026 12:36:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685381; cv=none; b=oWHAmSEiDVQnn4vvVN0GOYT3/DjZcm2nvWU/g0JqavFfseVsN6B97tQiRzJ2nS3YGufskRL7NW19cJC1niWMl6tfpB6uxcbQ7ENXAq2yVu5BaJhV2yD/PdhXf1BHJ+JWcIRsnXnty//spyUgCVT/CzlOAHLTNVfJBe5VQ6lA+3k=
+	t=1790685395; cv=none; b=oWPCQXarlmezKgvneW4YHOp8tqB+rSMpRofkwFLAMMOyqZMw14XVJuW63Cg3U28a3vlDIm9injxHq3XfhMJmXkB/Nkoazqij2GG/3h9UFiLW8Sx8y6f83ioJRI9RNe+ViapapchT4IoK3yPv3z71GInnL0LJMS1Iw06qWTRbR0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685381; c=relaxed/simple;
-	bh=9w0aozm5qgJf30Vwj4KT6E+5pKgTpxivdQWFVHn3Ht8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=meeYh89LfhY4Ev5TZm0Qc6qSy4BjSp06KFUxrxaAiPKeA0G4M6jxU8XjHwcDv85HF0BdMF+EsGQtzsdRSCc6ddfqTjzvp4T9ywd1jUcRnbJsqQdRHaRi+RMv2qiv+jTqDj9XdF3xIBmh4rvADx3UAiykYSBCqd4/3urRGpsBxZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cd3O9qHJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790685395; c=relaxed/simple;
+	bh=4/DeA+1F0dIAEimi0AL0c99MVeNYvMd6hGnWDw1e/2k=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=L/hkxia5pg/XlWU4Z+ReRQAi+SHFaQtX/cJcq0iBJI9a+MNthR/WoamjQPYTFfXyto94YjvMd47mHnPEg1PYvljPmns401kA640SxcH/h4mbIy5x0w5QeSJivCMEMzMeZAS5YwTKNXZ4Es0yIzlqaRiBu28VhlfddsUvdlZ0ac8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QYlm4a/7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cd3O9qHJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2218A1F000FF;
-	Tue, 29 Sep 2026 12:36:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QYlm4a/7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B2B1F000FF;
+	Tue, 29 Sep 2026 12:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790685379;
-	bh=9w0aozm5qgJf30Vwj4KT6E+5pKgTpxivdQWFVHn3Ht8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cd3O9qHJmxwUhi4i+7IR55ITy66r8GNziuOt0YGVH+g0ZSRY9QdNSGBvAG8dh64MV
-	 RzsRA+51SPSdlGW9t5ISeeNEcoERS2oyZEf39T/Bo7v/Kj9qHIwAHeOTEO1h5ajYUU
-	 1zDxeoIkTfvjUKVI3rzkzhHcM6TsR3EskifPlnMi/32tVuRABqpSFKlx/yC68M688k
-	 BzvHELFMDg2SNcCvlK8Ihk9THHsiZM3FGNNs4maZCEovZ3nwwFVKdbCAc9Dg21VgEe
-	 0jf6ka1Ka71GnYoZ8zgRT6wVUE4vPeH8p4w8z9+Rl8Y/hDdFYYIwHCV+Dp3cxO6VXq
-	 99/Im2stE6WgA==
-Date: Tue, 29 Sep 2026 14:36:16 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
-	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 6/7] drm/vc4: dsi: stop using deprecated
- drmm_of_get_bridge()
-Message-ID: <aruwsj4TFCUaLDjJ@houat>
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
- <20260929-drm-fix-of_get_bridge-build-regression-v1-6-ccb7e602daad@bootlin.com>
+	s=k20260515; t=1790685394;
+	bh=4/DeA+1F0dIAEimi0AL0c99MVeNYvMd6hGnWDw1e/2k=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=QYlm4a/7EhVMOiLvx7E76uLW9wUY0uqQq4dOcSPIUd8/3U6K1Rx4WymnX4LVZYc0M
+	 5o5YdmUdwGBFQfie6KaQNfAYsmF/MerjaVxx+8joZVoC+FUj+FUlwWTHBVK+RZ5p4E
+	 w8LQ5UUxLFCueFvyivPlxA0oPJh4mOHA8p+05dATnee7eNdVdTHyejFoAoa2OUfjp8
+	 kN82QXLx0Y0NVH0UZZsIxtcTfPyyd9DxwAa1MidFuzRpWlajmjn81s92ve7vL9aeZX
+	 0djPqpA/p/j9oTHCTXvagAY/94DKS/lNXjUEjEXvpYPn4dm++niiNeXT/Ji6snuLUo
+	 ytAz7Z3evlKew==
+Message-ID: <dfdc2f9f96e86d686ada0e826cc57d35@kernel.org>
+Date: Tue, 29 Sep 2026 12:36:31 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 7/7] drm: renesas: shmobile: stop using deprecated
+ devm_drm_of_get_bridge()
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-7-ccb7e602daad@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-7-ccb7e602daad@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Arnd Bergmann" <arnd@kernel.org>, "Dave
+ Stevenson" <dave.stevenson@raspberrypi.com>, "David Airlie" <airlied@gmail.com>, "Doug
+ Anderson" <dianders@chromium.org>, "Fabio Estevam" <festevam@gmail.com>, "Frank
+ Li" <Frank.Li@nxp.com>, "Geert Uytterhoeven" <geert+renesas@glider.be>, "Hui
+ Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Icenowy
+ Zheng" <zhengxingda@iscas.ac.cn>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
+ Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="366bc25sjkfcvxjo"
-Content-Disposition: inline
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-6-ccb7e602daad@bootlin.com>
 
-
---366bc25sjkfcvxjo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 6/7] drm/vc4: dsi: stop using deprecated
- drmm_of_get_bridge()
-MIME-Version: 1.0
-
-On Tue, Sep 29, 2026 at 12:36:38PM +0200, Luca Ceresoli wrote:
+On Tue, 29 Sep 2026 12:36:39 +0200, Luca Ceresoli wrote:
 > devm_drm_of_get_bridge() is deprecated, switch to
 > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
 ns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+> a refcounted bridge, ensure it is put.
 >=20
 > drm_panel.h becomes unused, drop the include.
 >=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> [ ... ]
 
-Same comment than on patch 5
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
+Thanks!
 Maxime
-
---366bc25sjkfcvxjo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaruwwAAKCRAnX84Zoj2+
-doCqAXwNORdzZPIAJhdGeMgzrt1jcoq6TB7Jj3M8ttuR805L87IJPshdr7ufUQDv
-IwKfw/kBgNC2oDbRHWOcpJS92jCEDiGBBVlZSAuiKbn409qXb4YYDU6BxQ3XDhMo
-+dWCOdA5mw==
-=9j5F
------END PGP SIGNATURE-----
-
---366bc25sjkfcvxjo--
