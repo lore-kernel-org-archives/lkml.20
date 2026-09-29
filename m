@@ -1,47 +1,88 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904F43CCFD2;
-	Tue, 29 Sep 2026 21:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B254E3EF7
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718512; cv=none; b=o5jwmsT8wJakvlBn5cavmSluI0oJKX4vtkMbeFb2WXUVbkus8meFoBXr8wY9LELruvA8K22UxJKObROoDIOfR0Kk61jRelj6o9XtMPqhXCOXoDrzofcquz8VA1THbB/053FS/3MmQMXlu5kji8u06Zp424nImnRIyqNE7JQT9ME=
+	t=1790718528; cv=none; b=E9ORi4HG1mG/v2K6K8kMapdX1UZ3rQ5WFlKFSHIPQs95/Rry/7vJ+8BHm1hzChqTmTUwjW/4nR4EOOumBVKsX0JUzmougeJaezRZbLCQGyl6B2YUbUvs5UzhX8AES+g+n+gz7BTBt/4VPrLKWk1vXXbe13+I9WZJYxoppnE9J8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718512; c=relaxed/simple;
-	bh=GWmvwj+nORo0EWQgRL+UgZnBah9OR8tb06mwcbd+pgI=;
+	s=arc-20240116; t=1790718528; c=relaxed/simple;
+	bh=jEAlHCaf7HwrBMr2fEr3XlegkapBlO+MtAspedqTvo8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FeCfhtqWLaITEe2fJa9eEOzLT+wLfBKjMt9FrWsHfAc+ixZaGzweBDDkGZkeyPj3djhdu7C6sy3RzRCcdrjx7awam/vTk0taSNQ3+hEFDE4vXUnb3HRcbykJ01m8auwUHldesvhOifRnJs+BvwgK9CFRnAC/Zxiyh3KA7mXvVv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2x1BvzJA; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2pqkmdNYsuyLR3fFjQqiI29fPkmHzzaru060/AtDw1RhuZstsz8u+lo/U9PVMIo8D8azJpB4oHAe5ApMWxh8+So6rVHwapqwHF20cXSjEVEs1rRm3HzgGxeM/vlagJvwRiGdPdwncPISAuBEs+o0bdOzHyu1A4vEePeEkWg2GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=GqpdP/Gl; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2x1BvzJA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7AF164E410AF;
-	Tue, 29 Sep 2026 21:48:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DDE3601BD;
-	Tue, 29 Sep 2026 21:48:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 88733103295D5;
-	Tue, 29 Sep 2026 23:48:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790718500; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=tNY2nMHpXTQMwRb4EtGa7fbXYJPj910XzwZSiKsA6lE=;
-	b=2x1BvzJAZ8G7RebZNCGzug6UcptMR1h+2WFmRk7gJo4Xfw3cREvWJvFIsMysfX2x3t2YZ7
-	m4eIvK7Ff33TB7jsot7FXa4LRCkQoHxRLVrrQtwk8UHigtgxQ2/2kOIQmUj01QmpMu0puX
-	SzpG3FWCWA6Rg6Rz4q7q2rcFos7ebWND3J3znjVrUhFRmBwwuRXox/R+036RoHDUKEB4Im
-	rH/vFLUfh1MwcdZ8kK7wjpKT1mq2mJ4zNYOe2rR5Q5ueLMKfuqrDj5mtVZqgh/f+AQhe8C
-	V9teQPe5fPPYIam2ON3FvKLTnMxUzuZj9mYdgwuaAY8H8lTItR5+COIOs79taA==
-Date: Tue, 29 Sep 2026 23:48:17 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Liu Dalin <liudalin@kylinsec.com.cn>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
-	Qin Yungao <qinyungao@kylinsec.com.cn>,
-	Luo Qiu <luoqiu@kylinsec.com.cn>
-Subject: Re: [PATCH] rtc: rs5c372: add missing error code for unknown RTC type
-Message-ID: <2026092921481727857dc7@mail.local>
-References: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="GqpdP/Gl"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25400so1877829b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:48:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790718524; x=1791323324; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GnGR8D9Ofu0keKVSYqoY+bfqxp7ik+ClHNVT61CMuqY=;
+        b=GqpdP/GlEJvVvytyTk4nqQJmNitdCQD0RMVjVLvTfBNan8AkB3HO9RwtZTdlOUKYZP
+         zjlceeV/o0uOKUpAcnuK44sBIWI0kkx4CrNICwDpLNjrbAJL8KjqwKkT71bTCjz3XDY1
+         0elXE5glbbzsRagBdQAZmV7L05J6zINy5f3Bc6CLvwu6Ntjoa2f+sTpOk2yotzvmjn62
+         Q1ZwSkpQbVzbmTjksZdGp2Ka5k1TyWRk3lw9XCGL85vCcTaR4J8GcwvERslRiGzrMHEV
+         AMmGIpjuHIIbkeQeIVEb44s36/M8Ur9DS7cSLkECGHxjGpfjUdQPeOy/9RbRjuOA1WXJ
+         z+qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790718524; x=1791323324;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GnGR8D9Ofu0keKVSYqoY+bfqxp7ik+ClHNVT61CMuqY=;
+        b=pGSSiFq60QazX4QxHnkl6FlUim5LcZPqL+U3av7CHxLnPFzMKT0jxZ06btZylqEMwc
+         IknppzaNQH0G2ijawIJPGDHF0Pdy0K4KPkvSKppUcVdAATAcmYAxeCPTost9z/iF3xaC
+         vpSJ0cBLUYyl01UU4VM3Belrqe0IAaimiN7tdqnw5G2+h6Xl4G9vCnNuWNOuDHqA8vhy
+         QOnv46/UPaLioEfFgH/XbxmVyMXXJlQtIIbfMaDkvG8suJqXiS7MtOA0lpib2HCyhmeB
+         Fp24VOWJDQMJhwoWOUCBWidV7WIltH+mNg0puIF2lmKZUXntntKXbg9idrHuLensoxxs
+         tzJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEwoeKzo1hSuJaK2nHi05Wb++daIRRfM+uBUtZ8psj8uyFTaKAdI743/UmyPA8CvlLOc+n3Ky1czEfEdQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+YgmcgruwfgHoG2FL3/GpKNCvX4zd/SRFZ1HkzwpG+QPsku4O
+	OK0q5LV6j1w+0eJMX6H+UCnisJARnEn4k1GIEPO7XRdoWVd3mt96V6q1uOepd2E5rCg=
+X-Gm-Gg: AYBFou26oGJWiFD4gtHCcXwclwsEp9Q1ga9KwcTx7HXpp7go32f6r7+r0NPdwmMnJuC
+	OKwuPh91Sbohj/0aJtak7hGiB7rHCUmCcIN6xIKen6YjWsdQm9kB8WTI/IELznXuHybc8QWLcTQ
+	EtaJV4I4jUsQUZHfGmpZ79dFK/oDg+ppOSy+fjGy0HL0yqct2M5MLbQcfZisQfoJiWcyLb+TpjV
+	CXG+v6WozePJR+NbTBy5PikG8WjleoNYnNE70Cjuxoj7bGi00d+F0ZtlC3l9Q+Lny83kuKWSEdI
+	ZbPXj3Ux2hheP0SK4NvEhFuto/lBiUVWEyWCLbf132cn8jwdGn6dGwl+A3UTIa5ITozlTdL80OO
+	cRnobv6rvN2diZ4Qz9xx9vc5Esp7fdfn39fYV+lMk7GovkPWg6cdGJb5g4SFITxJrYqCK1QxntQ
+	J6SiU2qLXhlZjeVe2SqDuATXkTcK5NDlsVwm6durHsEolWusdhQoCyxV5g8bVO/CmGbI+cdvPTa
+	b24QNmUBTtLJxUOqcE3yvw=
+X-Received: by 2002:a05:6a00:3005:b0:874:705d:f63e with SMTP id d2e1a72fcca58-886c48b3682mr475937b3a.32.1790718524401;
+        Tue, 29 Sep 2026 14:48:44 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:58::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868ccc884csm451233b3a.50.2026.09.29.14.48.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 14:48:43 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:48:42 -0700
+From: Joe Damato <joe@dama.to>
+To: Ayush Yaduvanshi <ayush37735@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH net-next] atlx: fix kernel-doc description for
+ atlx_tx_timeout
+Message-ID: <arwyOuM3q36/q4RX@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Ayush Yaduvanshi <ayush37735@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel-mentees@lists.linux.dev
+References: <20260929101714.51579-1-ayush37735@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,43 +91,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260929101714.51579-1-ayush37735@gmail.com>
 
-On 27/08/2026 09:58:46+0800, Liu Dalin wrote:
-> In rs5c372_probe(), when an unknown RTC type is encountered in the
-> switch default case, the local variable 'err' is still 0 from its
-> initialization. The subsequent goto to the exit label then returns
-> success, even though probe has failed.
+On Tue, Sep 29, 2026 at 03:47:13PM +0530, Ayush Yaduvanshi wrote:
+> Add missing @txqueue parameter description to atlx_tx_timeout
 > 
-> Set err = -ENODEV before jumping to exit to properly report the
-> failure to the caller.
+> to eliminate kernel-doc warning.
 > 
-> Fixes smatch warnings:
-> - drivers/rtc/rtc-rs5c372.c:860 rs5c372_probe() warn: missing error
->   code 'err'
-> 
-> Fixes: cb26b572dc394 ("[PATCH] Update the rtc-rs5c372 driver")
-> Assisted-by: smatch:2.0 [static analysis]
-> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
+> Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
 > ---
->  drivers/rtc/rtc-rs5c372.c | 1 +
+>  drivers/net/ethernet/atheros/atlx/atlx.c | 1 +
 >  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
-> index 24bd795d9d95..84407119caba 100644
-> --- a/drivers/rtc/rtc-rs5c372.c
-> +++ b/drivers/rtc/rtc-rs5c372.c
-> @@ -857,6 +857,7 @@ static int rs5c372_probe(struct i2c_client *client)
->  		break;
->  	default:
->  		dev_err(&client->dev, "unknown RTC type\n");
-> +		err = -ENODEV;
 
-But isn't this dead code that will never be reached? In what case would
-you be probed and not match any i2c_device_id?
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Reviewed-by: Joe Damato <joe@dama.to>
