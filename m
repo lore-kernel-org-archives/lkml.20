@@ -1,87 +1,62 @@
-Received: from www.kot-begemot.co.uk (ns1.kot-begemot.co.uk [217.160.28.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DDF42CAEB;
-	Tue, 29 Sep 2026 06:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.160.28.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817C537AA9A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790663520; cv=none; b=DWs6AbqbsG9Sdnx6pxWdqkLboNImhq/2P/xhO9v3uv+IEOVtE9m+BVbvaPwPttH0yVbYbs47vftxYP6i0mNPJiDKFdgLWarzfNcSg4YihKs2rcKbX+M6fgkS5cjBdDsYYxRtn7t0bMzJ4rQzPyolnmVASkijN2W6SzoymvROJ/8=
+	t=1790663534; cv=none; b=nLZvnIgmQgnZM/0UgJ/5+NvWfdQg2sy8zk/RXFvHfVdty2r4jNpoL1jUvXjC6JQy5JY3DNdmRBchAMwZahu5iXhIMXWVA/N83R49OydTnjldKe6LqN7lplUM9rLAZj27pkBvYjfMPujV/61nqo/ID0+Wwi53c6Qxgl2VcEI4L8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790663520; c=relaxed/simple;
-	bh=UQjLV6SR4IIVfeeY2rKLzrUNxgQ8OmEXMkSIDFkRiMA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=SCOkQYU3LX8BLUkj7Uzjdku4jbGT9FETYM3NDuuffb5ILmgojJUin3batYTI3VFA3nzHHhHg/UbJwQtSK93Q7tlvYSbZKO7+BVPKRRfTFEyQk8R4NxaMfqEnetF9YzxxmqG17DCX7XFl2A4k1xJmFYQX5YRaupcWogOmb9iXCgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cambridgegreys.com; spf=pass smtp.mailfrom=cambridgegreys.com; arc=none smtp.client-ip=217.160.28.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cambridgegreys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cambridgegreys.com
-Received: from [192.168.17.6] (helo=jain.kot-begemot.co.uk)
-	by www.kot-begemot.co.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1xBQxx-006b3W-2Q; Tue, 29 Sep 2026 06:05:25 +0000
-Received: from madding.kot-begemot.co.uk ([192.168.3.98])
-	by jain.kot-begemot.co.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1xBQpv-0000000FjgF-3FV5;
-	Tue, 29 Sep 2026 07:05:23 +0100
-Message-ID: <623372e1-dd03-431d-b613-4592d1505093@cambridgegreys.com>
-Date: Tue, 29 Sep 2026 07:05:21 +0100
+	s=arc-20240116; t=1790663534; c=relaxed/simple;
+	bh=bcH5AWD3DFrSfHSrHunXKck0oCD+JZnpRaXIcwOtD+Q=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=eB2ICwqpggYY461B6hidEVku7W13pfFu8arkLPZQXTPYXS3pHrQoN2o2I2fGo+7tGTjY7/N1kJkGcP7frqtY8/z08Z71oIDcoFbzrhu8VhXTyXeSeaes/7g6NUBqIhK5eOsB3UsQlXyahbipzrwGHzNuUrlvHSPnrpMH/iv6n2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4943ed99826so2946522fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:32:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790663532; x=1791268332;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bcH5AWD3DFrSfHSrHunXKck0oCD+JZnpRaXIcwOtD+Q=;
+        b=ZwsnrP4aiGh0ivWUBEe9dROrVsZIUn5ulCXEt6IQl+/ABVrdg+GYS4U+OnMz7xTB/C
+         8szae+nUid3qGgm1YRDPVqfXK+ttV8X4MSx7iFjHSqKdUOlfdGAKd9bkFZEz75HgJyD8
+         Z+lXzsetdraNiDJZonK/I9of9uwL1ygEcnr3nnmo1B27NBiRGhTRit8ecd0Qi0/A02v2
+         +H/cAIJbcL70oy/7x4xTxmjsuKoKfmMR1+SBJssOx0wFqVcKgaMwtNy4HfTLzrJNaAIW
+         f7BmCyijkSCssDnhhqXqhiA+FeJ4bECbUSU1xNqiIRBx5Z9+IiCMQAmSNQEjkBp8FMcf
+         YAjQ==
+X-Gm-Message-State: AFuF++khqX6LYqy344pvhSUPz0W73yIa31J/7u0KK4IeAHrzyMhHLAgL
+	i4BZQoSdg3pMPtdU9yQ3O3JLESTmFsXtaSZbd7mxWk+O173iiM+TxzS3AkSCzs+QyUFRmZ8JOu0
+	znQrn3Lh3+QNwqXcInGA3k6Kc+SHzMYEE/4Ghvfe2hqr+bA9cMmNjw8msyN8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: Fix outdated URL in user_mode_linux_howto_v2.rst
-To: Chaohai Chen <wdhh6@aliyun.com>, richard@nod.at,
- johannes@sipsolutions.net, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-um@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260929035006.2201371-1-wdhh6@aliyun.com>
-Content-Language: en-US
-From: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Organization: Cambridge Greys
-In-Reply-To: <20260929035006.2201371-1-wdhh6@aliyun.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Score: -1.0
-X-Spam-Score: -1.0
-X-Clacks-Overhead: GNU Terry Pratchett
+X-Received: by 2002:a05:6808:508f:b0:4d6:9252:4643 with SMTP id
+ 5614622812f47-4d72ea5fe60mr15899999b6e.55.1790663532383; Mon, 28 Sep 2026
+ 23:32:12 -0700 (PDT)
+Date: Mon, 28 Sep 2026 23:32:12 -0700
+In-Reply-To: <6a987197.9266084e.bf0d7.000d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abb5b6c.69bd487b.a6f8c.000f.GAE@google.com>
+Subject: Forwarded: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+ 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+From: syzbot <syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 29/09/2026 04:50, Chaohai Chen wrote:
-> Using an outdated website results in an error:
->    E: Failed getting release file http://deb.debian.org/debian/dists/buster/Release
-> 
-> It works successfully using https://archive.debian.org/debian-archive/debian .
-> 
-> Signed-off-by: Chaohai Chen <wdhh6@aliyun.com>
-> ---
->   Documentation/virt/uml/user_mode_linux_howto_v2.rst | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/virt/uml/user_mode_linux_howto_v2.rst b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> index 9224bea5ee9f..c4d5d08e2bab 100644
-> --- a/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> +++ b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> @@ -123,7 +123,7 @@ jfs, etc will work too.
->   
->   Create a minimal OS installation on the mounted filesystem::
->   
-> -   # debootstrap buster /mnt http://deb.debian.org/debian
-> +   # debootstrap buster /mnt https://archive.debian.org/debian-archive/debian
->   
->   debootstrap does not set up the root password, fstab, hostname or
->   anything related to networking. It is up to the user to do that.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-That is the historic archive - you have only out-of-support distros there.
+***
 
-That line should change to
+Subject: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+Author: dmantipov@yandex.ru
 
- > -   # debootstrap buster /mnt http://deb.debian.org/debian
- > +   # debootstrap trixie /mnt http://deb.debian.org/debian/
-
--- 
-Anton R. Ivanov
-Cambridgegreys Limited. Registered in England. Company Number 10273661
+#syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
