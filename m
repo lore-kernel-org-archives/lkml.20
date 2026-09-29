@@ -1,139 +1,302 @@
-Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9693D47AB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1361B51DE01
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693243; cv=none; b=Q/aTn05FdDHtxRdj3yjF3QMAY+jNPRApOlhALmAKEuryRCFs/ip7dLek9XCQ9CjDOUnGA7TexgoHSg+fWnjx8UgxAQcmTZOumBewZ7wz+m8MkErdKwhTfnF+E96qbPdh530y0nPDzTADpIdxkIa6188o/ktDNFf84kF1OoUs/Kg=
+	t=1790693278; cv=none; b=GxoVb5fGutIypvMeDvvuYhBxhw15I2Noqgofd+ribZas7SVr8tKjM/N+wljdLQ4O8Ro2ikuTJlEgJE3SU5jCn3JO0ZY7PsCBf/kLNSqIfwKClDf+w1BkW6Rox48NK7uzU+H+VqoqzjMTPn/7hujh29D1GGKdL1f2Yvgpv+c7sqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693243; c=relaxed/simple;
-	bh=SLmPCj6Drkarz6MGesiMP1GtPbh4rsUc3J8b1Kcoqwg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=REviH/GXPoUAZ6jx2ZvDx5bJziyvW0ir4PZLATg9D9GA9Se0SWaCAPhMNY00xR1DyTwzpYiv3eFQSu2gx1cVfFYfhNSpvE7i8MJkQgeQe1v74LHA3TlUF0elJaQEojWhJZareMc6OZNIocHWhiwRVdbXDCGWDSff1RuWRbX8KLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FAy3PfmP; arc=none smtp.client-ip=74.125.228.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790693278; c=relaxed/simple;
+	bh=9SKT8aCCZY1wl1FsCgxAjHgW3cDtqMvlQ2rTmIB8m8U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yv8DFqGvoq2D5YHVrIeHtdomW534D321LunlfjNAKruMp0I2jWKsqo1lOgG+Nlrri9pidwv0kWbmVj0BafgR6v4X0RuWWlabPMyyi8Vj1pqx/7on0w3/K2LKmu+C7UjFPkV5p/31Ba23/dK/WyFXkFNTB9FArsuuQyLXsAXDk5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=euxQOPdd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OqRQCNd7; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FAy3PfmP"
-Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso7245147a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:47:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="euxQOPdd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OqRQCNd7"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqdgH1576998
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:47:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z9XZoXTwGMQVNET7DHE0w8OqTS0H7fU7il6Xp1aiEII=; b=euxQOPddC91dGmmT
+	7hupFBv7I1+SE8J6KCL5zrClHp47OmJpFkXWr0QMLZ4b7r7sZsmfbSUFKGIDT9jT
+	oDIIhN2B1A5PCBxWMUnZiDvn2epimyRZwYJhzji9mEf0r2ux6GaV2it9GT2BDVeB
+	ztIp6gmTyJoOmWFQjsjWyYP/I2el8+v2DpXw58H/o0VH+caDGqxwaju/TfYkq+wY
+	Gt9CI2rW9Te2DFZ83HOVz8QQ8y009C6PzPuO1/Y/xfEQWjxl9FrCfAzo724uQvZv
+	iMVvjISzo/sxq7r1HGFefW5YRU6rLO+RCDL3GOTmCLfeSpaa9Z9sbBbW73kbc8pK
+	qRDGRg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h09x4skdc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:47:56 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a0b66ecd9so665659185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:47:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1790693238; x=1791298038; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790693275; x=1791298075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IP+IFTLJhHPOzVgLZORkj6YpvpTLDjx8asIrhC/8Liw=;
-        b=FAy3PfmPob5b0tf35c22y/lqxzj34685Bt3ifpj4hCUJdnr9xqz7qoebi1ZpVN7Cp1
-         yzaU94LLP02xO71cSvnm5iyfPHLPI8doJn2khs+4Yfvl0HHNairGQPfyyqC1nNBVb8nf
-         B9pWbThAUdMYtTtZWwICGr4ZppnSr23eo7VrI=
+        bh=Z9XZoXTwGMQVNET7DHE0w8OqTS0H7fU7il6Xp1aiEII=;
+        b=OqRQCNd7BBKYsJ9QqRW9c2d9uMSc7B5gtS8kZXs+GK6j98s431Vqq66S5TwLw+8GnF
+         m4vndqmnqZOHwWMN/QWX0TcMk6fsOJ3hL+Ce99pUwqifM7JmV0y4K7U7vTIsID3VF9im
+         DkaNb6uqsA1GRlQ+2Wk9L24gqjujXUERbOXJu5Xz8GEgcjXstKL/ZejAX5bKuPkIKezf
+         QFZawTvgCWKqhHoDuVbdpnVg6SExxMFU4F32EoygomaCHR1mwv5/3X3+p85rmeIsqO4b
+         s2daR/zCe+OhJCyTmd3UpaK2HVCAMwHy68jufmOCm3Mf0LG9WdBgk4s2DiPv7LkzUfnt
+         TK2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790693238; x=1791298038;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IP+IFTLJhHPOzVgLZORkj6YpvpTLDjx8asIrhC/8Liw=;
-        b=Jz8AJ180B478663jutYDmr5ahfwLX7ALhiFEgTZKb+KadyE72fNwLLis3an79VitJO
-         cvxDxS2VLjbOTjKXjziQRttYkFdSQAFsHPA0DxC5CjR3bxfO0KLoZBGm+84NML+mamQi
-         AcFB1LlUJLEDN6+9wT2FtgXyt7WAW+206eMfC/CANCroZH9OE7ujgxL+Uy+WC1n5nO89
-         HYmAKucPbPhKBsQTlJ1Ms78r+ZwgTI5JtXFwTJTHcYk6bSY0ubbnY0EYqGShzaObP+7d
-         Eg5/OTgEftwd/iJ/XHX5otTM73KEBjLXpFBUho9uA+dluVsDMep3pCjHlJZkacElgfSe
-         juLw==
-X-Forwarded-Encrypted: i=1; AKwUvByKKHiCGwn8vwp9AhH4KyIbUhFm0yWa+H3b67qfyt+znrlvJYADQFOqbuY4sVGgvooboeP04vm3QImmXto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQtDKbyI6OyPPLQrwlmPdbVIN8tFKWSUFB9DBSI4IA/K3YyK/d
-	qSo63Ji8uHwz9oJhy4Mcm59wEF5zaZi6ANXzatFNzwjfzCaGGuhi2nlzwlaO/IRq1F0SGU+WapX
-	IqDPfrc8=
-X-Gm-Gg: AYBFou1QStmet9JDxT/D91zS+sRRjEan8ZuoHz9sjrt4QUNxtQaBRHqD52RmiOu0MMD
-	DZn7ljbdl30A82aAwci4yR1nJ0Y42IbGVsdoorZcgS/VFTTMMHJ0F8YHD6afNP+PnSKNj81RX7F
-	wANlcdnuLUry/4Zse0IaVF+u/mUlZTTLt9YvE4odPw4QUOuePpIkGNKD5Gp828IdFdFJVZRgyz5
-	y6dVNVs8k+1dW3sdL8o47z8zItEsJft8DRdwerp01JKN3dgK3hdWw7QB+N9EwSd+Dp0MZXvBXFG
-	c9n3J34SkTKY02KljbeAAYCcA8SkiF3zGpV8fFyVn6iALzExXihrKV3kwQYcaBMx8A716y5kBHS
-	rdEkF5FGMWsVMo/TzAnnwZthJcCFNAKu55ao6X94D6X+dNad7fX26GNWKf23FES4k0KbB52zBw9
-	0jiabfGM/RJj3hal2h6C/SAauzFDabFSSy+PEjolFPN6rPflMFS8kezbI8/MA2XnGS58gVtW+Hf
-	/Hf9OOZpYpDYrvFhN9Fc6ejh0kPThPBAEA44YzSqJrWkiS0fEbL91tn1d4c
-X-Received: by 2002:a17:907:1c8e:b0:c2d:cd1a:d5b0 with SMTP id a640c23a62f3a-c2dcd1af3a4mr673780466b.15.1790693238178;
-        Tue, 29 Sep 2026 07:47:18 -0700 (PDT)
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com. [74.125.228.170])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757ade3sm656130366b.29.2026.09.29.07.47.17
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1790693275; x=1791298075;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z9XZoXTwGMQVNET7DHE0w8OqTS0H7fU7il6Xp1aiEII=;
+        b=bk/MRK67wkS22bYvARGvFRZtreGWvqTBmv96OqkvYyP3oYB83rt+2AogAqF7pNKpBP
+         AE/wj+dm6A/sYM3fNVWAw1ipVrkDo56wq8DC+ltjOKoRWPYTkL/8FLwXaeBYHJsHbJ/c
+         QiuffZW6Y6wq4OSCkT1H2Mx/Ewq3eFiMtQaFnaqWuKdeYFwOnGwstLxhHybT2DN2rPdK
+         +R5YS7rUp60Hha6yCNpkOGh4XCHN3qPeQmIZrYl4YQCPSIgmlt6jokhLtfSHiGJhyEbn
+         POIGl8cU4Ms2NAnv1DfD6Rgr6FJH/86AnoiC+Exnt3RG7kobhiy6qe1T5fTlNNVOdgFm
+         PV2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxYe7d0Vfk5baQAYNUhNNFBqjaFInwyI3ykfLgupp9A6XnvnO0P9GfPF5XVE1qzThKJft+Nz+lL6ljYS44=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzjztTKvIyAONNU634+vF3gTS9eHBJdL7X9xIyuk4DwYcWWKKf
+	M85maJXOTAIhtSW3n01/LAIsM1TX00zAPFkU0T54+BHie7YTR1WXO4niwBzt4zp5uMbxcfTNmQm
+	A/xzvjvg0di2M+KCZlzLychDq3F6/LnVXyfZ++yeDgfBCSTgIzfY2YzKFVQBksXzxu7I=
+X-Gm-Gg: AYBFou1Zty0bAhh4xx0vdrC/bWjtGapAU3rs8azYcxSlPTfqcj6GFc77BAlWFKaK8wq
+	P7JZHc61aNcrT6Bpbw7KdRkrAWJBLN0+mNUw9M4gG3EIRAbKYR3qfRTvJgFgJSs5dom5GvTdYcl
+	0reJ1PqmMt+io8ybomonseC3uj8tekgL1Qa7cIWDu6gPyxjFW37AvlKr8U5JZ1X4KhP8FzOXaQ7
+	TabSl/DCNTCdUVvDDM1ZdioRY2gSyo7HNaExzSGc95OEk2A5hVEpYrk45ObumLpCs+rflycHw5I
+	2GY7ydxax2aOjtCM6bi620TQj8HButxUtztmeD6sHJCrewaLHW4LATruQ+5ceHQshcF+kr42en/
+	UeU6z+aITIIFJsHxt4jrzpziNkiEX6T4Qk8hr
+X-Received: by 2002:a05:620a:7004:b0:93c:5f3c:f482 with SMTP id af79cd13be357-93c5f3cfbd3mr2120476085a.33.1790693274963;
+        Tue, 29 Sep 2026 07:47:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:7004:b0:93c:5f3c:f482 with SMTP id af79cd13be357-93c5f3cfbd3mr2120468985a.33.1790693274302;
+        Tue, 29 Sep 2026 07:47:54 -0700 (PDT)
+Received: from [192.168.0.116] ([124.123.146.251])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c81423acasm407409585a.27.2026.09.29.07.47.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:47:17 -0700 (PDT)
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dbdcb4f59so445513166b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:47:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwiu1Qw1Z/WOFEeT/uFrR9ju2eTKqWsf8P4xPvKfUl9M2uxjW3vpva3HcFiy3pcnvwugWFaRdzmwEbrKSw=@vger.kernel.org
-X-Received: by 2002:a17:907:c491:b0:c26:1648:a06f with SMTP id
- a640c23a62f3a-c2ac253fd57mr1427153166b.42.1790693237251; Tue, 29 Sep 2026
- 07:47:17 -0700 (PDT)
+        Tue, 29 Sep 2026 07:47:53 -0700 (PDT)
+Message-ID: <c814c340-9973-44d4-a555-ee734cc613b4@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 20:17:49 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com> <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
-In-Reply-To: <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 29 Sep 2026 07:47:00 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
-X-Gm-Features: AclHuK-hIyKMMCYq0m6RbVGEdDaE41y87jUOezwgP_JOLXBYBmnHdH3WXkY-n-A
-Message-ID: <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
-Subject: Re: [PATCH hazptr 2/4] compiler.h: Introduce ptr_eq() to preserve
- address dependency
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org, 
-	Boqun Feng <boqun.feng@gmail.com>, Joel Fernandes <joel@joelfernandes.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Will Deacon <will@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>, 
-	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, Frederic Weisbecker <frederic@kernel.org>, 
-	Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
-	Waiman Long <longman@redhat.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com, 
-	Mateusz Guzik <mjguzik@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, rcu@vger.kernel.org, linux-mm@kvack.org, 
-	lkmm@lists.linux.dev, Nikita Popov <github@npopov.com>, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] dmaengine: qcom: bam_dma: Defer IRQ trigger type
+ to device tree
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Andy Gross <agross@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
+ <aqlQ_y-um0yqo6jj@SMW015318>
+ <64fc0855-3dd5-4668-9d4d-bd82be246de8@oss.qualcomm.com>
+ <b60b699e-7921-4a5c-b110-50448e660f44@oss.qualcomm.com>
+ <arqVap3Ky6vJEhRt@SMW015318>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <arqVap3Ky6vJEhRt@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1OCBTYWx0ZWRfXw5kk+fscAkwI
+ V6OvkWOSH7AetW9TaUIskFQjUnrlIXNXSCHVzP4VDTvaplOHTrXTnmj/3LUb8take9BlOfvn3+r
+ zoB17CG8kaV+i7thIF8GXOFb3h8sF2w=
+X-Proofpoint-GUID: EoPcnf11lkf7R4qU8gezjRythtQLYXJQ
+X-Authority-Analysis: v=2.4 cv=I5Hw19gg c=1 sm=1 tr=0 ts=6abbcf9c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=K/78aEDNEn2Q/Yuv7mVN5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=OWrbcomlJjJMdB3O3y4A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: EoPcnf11lkf7R4qU8gezjRythtQLYXJQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1OCBTYWx0ZWRfX63Eg2ev65iPB
+ 4UkZL9HLSGijScDtz7cNIWg4KjebeNPJD8CiGzG3Kkcw4M793FclnRLESlfyIYyCWLgzUg1AkTL
+ Ou17vuyBcKWSXNUJblbfBo4V2VT4CEk9Vhi2heLFu5iDW4tSHyGC9NRoCFzBq9Yefl+kPPCzDym
+ 80Wc4+JSstKU2GFhZZiRlYaxWTgYzW10+xb8L7g7KQRv/xWI6dIUWb5Kr/P9hnxYsrC4d/Ml4pn
+ beC8Y9s/gPy7aUE7CKpYDmCDSD2O2BAE9WMcPvFxZ/ltk4QEdzks5ts0kBQj9pBf7qEidjj850H
+ U5Hd8/wiCkiKTGGSd5WTuERT9Y/owVwNdnvxWXGSuaU7B5SvYDkyQdZZlU7ekcPuhgIHztF3xAW
+ dkHVjgrPZNaMEnwyu9n7WZElUGchI1SpvVeAlJsdJ1M6ZKJ9pwGHAYkVp9rsm6Y9dT5r6VCusNU
+ GR985ELOZCXTJG9hjVg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290058
 
-On Sun, 27 Sept 2026 at 08:51, Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
+
+On 28-09-2026 09:57 pm, Frank Li wrote:
+> On Mon, Sep 28, 2026 at 02:38:14PM +0530, Vishnu Santhosh wrote:
+>> Hi Frank,
+>>
+>> On 16-09-2026 08:30 pm, Vishnu Santhosh wrote:
+>>> On 15-09-2026 07:36 pm, Frank Li wrote:
+>>>> On Fri, Jul 17, 2026 at 10:30:28AM +0530, Vishnu Santhosh wrote:
+>>>>> The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
+>>>>> interrupt, which overrides the trigger type specified in the device
+>>>>> tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
+>>>>> to the apps processor; registering it as level-high causes the
+>>>>> interrupt to not fire, resulting in missed DMA completions.
+>>>>>
+>>>>> Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
+>>>>> trigger type already configured by platform_get_irq() when it parsed
+>>>>> the device tree interrupts property. This makes the driver
+>>>>> platform-agnostic.
+>>>> where show this? can you point me doc or code?
+>>>>
+>>>> Frank
+>>> Hi Frank,
+>>>
+>>> The BAM driver obtains the IRQ through platform_get_irq():
+>>>
+>>> bdev->irq = platform_get_irq(pdev, 0);
+>>>
+>>> in https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dma/qcom/bam_dma.c#L1270
+>>>
+>>> It then registers the same IRQ with:
+>>>
+>>> ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+>>>                           IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+>>>
+>>> in https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dma/qcom/bam_dma.c#L1335
+>>>
+>>> The comment above IRQF_TRIGGER_NONE in include/linux/interrupt.h
+>>> states that when no trigger flag is specified, the interrupt uses the
+>>> trigger type already
+>>> configured by the machine or firmware.
+>>>
+>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/include/linux/interrupt.h#L25
+> Thank you provide it. Kernel doc or comments may miss match actually code
+> Do you know where exactly handle IRQF_TRIGGER_NONE as what doc said?
 >
-> +static __always_inline
-> +int ptr_eq(const volatile void *a, const volatile void *b)
-> +{
-> +       OPTIMIZER_HIDE_VAR(a);
-> +       OPTIMIZER_HIDE_VAR(b);
-> +       return a == b;
-> +}
+> Frank
 
-I had to think about why I hate this so much.
+Please find the detailed flow below.
 
-It's probably entirely senseless, but this just rubs me the wrong way.
-Those OPTIMIZER_HIDE_VAR() statements are hiding the wrong thing. They
-are telling the compiler to treat valid information (the pointers) as
-if they had changed, so then the compiler will have to just reload
-those pointers when they are used later (and "used later" is part of
-the whole *point* of this, after all).
+The trigger type is handled in two steps:
 
-But it was never the pointer values that needed hiding from the
-compiler. It's always just the comparison. And while the "optimal"
-thing would be to just do something like
+1. platform_get_irq() looks up the DT trigger type and stores it in irq_data:
 
-  static __always_inline bool ptr_eq(const volatile void *a, const
-volatile void *b)
-  {
-        bool ret;
-        asm("cmpq %0,%1":"=@ccz" (ret):"r" (a),"r"(b))
-        return ret;
-  }
+bam_dma_probe()
+  platform_get_irq()
+   platform_get_irq_optional()
+    platform_get_irq_affinity()
+     of_irq_get()
+      irq_create_of_mapping()
+       irq_create_fwspec_mapping() {
+           ...
+           irq_domain_translate(domain, fwspec, &hwirq, &type); /* L928 */
+           ...
+           /* Store trigger type */
+           irqd_set_trigger_type(irq_data, type);                 /* L1001 */
+       }
 
-that is an architecture-specific thing - and then have that
-OPTIMIZER_HIDE_VAR() available as a fallback.
+https://elixir.bootlin.com/linux/v7.3-rc4/source/kernel/irq/irqdomain.c#L1001
 
-I don't know if it's really worth it, but I really do despise that
-"hide the wrong values" thing that generates two new values just to
-compare them and throw them away, and adds register pressure for no
-good reason.
+Type as IRQ_TYPE_EDGE_RISING, taken from the interrupts property in DT.
 
-               Linus
+2. request_irq() uses the stored type only when the caller gives no trigger flag:
+
+bam_dma_probe()
+  devm_request_irq()
+   devm_request_threaded_irq()
+    __devm_request_threaded_irq()
+     request_threaded_irq()
+      __setup_irq() {
+          ...
+          /*
+           * If the trigger type is not specified by the caller,
+           * then use the default for this interrupt.
+           * /
+           if (!(new->flags & IRQF_TRIGGER_MASK))
+              new->flags |= irqd_get_trigger_type(&desc->irq_data);  /* L1495 */
+          ...
+          if (!shared) {
+              /* Setup the type (level, edge polarity) if configured: */
+              if (new->flags & IRQF_TRIGGER_MASK) {
+                 ret = __irq_set_trigger(desc,
+                       new->flags & IRQF_TRIGGER_MASK);   /* L1719 */
+              }
+          }
+      }
+
+https://elixir.bootlin.com/linux/v7.3-rc4/source/kernel/irq/manage.c#L1495
+
+So with IRQF_TRIGGER_HIGH, the check at manage.c#L1495 is false, the DT
+type is ignored, and __irq_set_trigger() programs the GIC as level-high.
+With IRQF_TRIGGER_NONE (0), __setup_irq() takes the type stored from DT
+in step 1 and programs that instead.
+
+
+Thanks,
+Vishnu
+
+>
+>>>
+>>> Therefore, IRQF_TRIGGER_HIGH overrides the trigger type associated with
+>>> the IRQ during
+>>> DT/IRQ-domain mapping, while IRQF_TRIGGER_NONE preserves it.
+>>>
+>>> The Shikra DTS which is still under review describes the BAM interrupt
+>>> as edge-triggered:
+>>>
+>>> interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
+>>>
+>>> This driver change is needed so that the DT-specified trigger type
+>>> remains effective once
+>>> the Shikra DTS change is accepted.
+>>>
+>>>
+>>> Thanks,
+>>> Vishnu
+>>>
+>> Gentle ping on this patch. Please let me know if any other information to be shared
+>> from my side.
+>>
+>>
+>> Thanks,
+>> Vishnu
+>>
+>>>>> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+>>>>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>>>>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>>>>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>>>> ---
+>>>>>    drivers/dma/qcom/bam_dma.c | 2 +-
+>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+>>>>> index 19116295f8325767a0d97a7848077885b118241c..6c3e2ca8a572fd04c925de0adbd5cc0616b361ef
+>>>>> 100644
+>>>>> --- a/drivers/dma/qcom/bam_dma.c
+>>>>> +++ b/drivers/dma/qcom/bam_dma.c
+>>>>> @@ -1303,7 +1303,7 @@ static int bam_dma_probe(struct
+>>>>> platform_device *pdev)
+>>>>>            bam_channel_init(bdev, &bdev->channels[i], i);
+>>>>>
+>>>>>        ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+>>>>> -            IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+>>>>> +            IRQF_TRIGGER_NONE, "bam_dma", bdev);
+>>>>>        if (ret)
+>>>>>            goto err_bam_channel_exit;
+>>>>>
+>>>>>
+>>>>> ---
+>>>>> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+>>>>> change-id: 20260601-qcom-bam-dma-irq-trigger-0366e7e86f17
+>>>>>
+>>>>> Best regards,
+>>>>> --
+>>>>> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>>>>
