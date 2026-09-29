@@ -1,179 +1,148 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E964E77F3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688930; cv=pass; b=aXm/Nu2lgvD3BQQqoluChwqurA5r3IPDp3uiCZa2NJKkdUhiPS+R4kgQzug1I4o8PZ9eFAobjIKt8wDIM2CE8M9GZGZVGKqtU9MPSYrZ+T2ur5+uONL1hHdITP7TEpnFLgpIayGgQwuZORtQOG5WtyzZbjfVP2shHkC66sMvjNQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688930; c=relaxed/simple;
-	bh=Pr5ObivNdgC6TpXZVCnYFfdYZPpZOxjA6yMjAIcM9dc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jTB2Xm/onPhClFiKK9wfIn2c3h3rg/ygA1liWNFen06fd2o7q1+WowVAHQrIbfT/eBXsxjDIXkg4FFjx8affkzYTO7vPUsvuBaT6QH4g5b/0DivI9Z77RXhE22/mPrZqQ9ZPg8UGmPkqD8PfMZB8bQ5dw8K/zvyoyB9oeBr7z/4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EvEmHdbc; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7F050EBFE;
+	Tue, 29 Sep 2026 13:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790688957; cv=none; b=ifJq0lEBieA+zD+QhRt8Sn59L/zLb/GhdKl2M/GgYmwv4REWHrEGIePVBkloWOkiDzcDF543ReNuDR1etipE5wo7rHAXAs1FFI54BaSMZ/W6dXPj6tlOk+WqS07qn/ugRgi6GbR8IKctJLE/fgpGiH8X7z1ExYiRqc6cONZwsDE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790688957; c=relaxed/simple;
+	bh=/6lSb3CpeLl7SwGfTsg4YHsaXjtvjbZO91QqGbf4VSc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UgrkIWghct5g1NiLZ53kDGQmk6AJCcsIYjJcQidFxHZPfAqs0BiiDqJOcsmdhnjtEwnXWYks/d2nMolK32aYb0QwggBOexXzkEwxKqgJhtI+TRV0JXJfeKvzhBo0ar3K05VyWTT/9rEaMguvwzKUM0sQt/67Q3+U/SArFC/sDQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MEpyx26A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EvEmHdbc"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffe817151so16560325e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:35:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790688927; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V7O9e0rUVIknFFtzUjiyQn2xOhTQr/2m3uNV8x1jwUc64GrjqZRQR9EELKF7fEXoIT
-         HGUaOJG8iAWrMAGJcJN9KohDO6dX50i0ruaXjOU031JhpHIyJNCEzNVbqqUjmhaKU646
-         ITz/IwLWF0DjhQI/QXlZtgRt47MftOC1xPe2f0IUIsrc8A8bkLpULexyqABvxE4l9zig
-         rnQMcwAVfTxgGkgHypMtYg9Dn9fDd+nVPzAk+mh/oBoU7DTnnJOOSVGj5qB8z7sef4WZ
-         VdB7/clCDIFeVnHpXNLTdLhVkT58v2hObBSnzPUDYkEumSeDkbXKdSRfnLBxCWsjesuh
-         Apiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KO35IpzQU2wUiVLnR02rlEk4h+IQIikt7twWTAwFAKQ=;
-        fh=TLiYoGCEF4+2vca/rogpBwt1vxchsCwORUWgSs8urLY=;
-        b=DOA6obQ+uyfwFXmsYFo+SCDZCjDWU6fAlvknO1WFcrqKuEIJbC6+prjNt5MJfglJ6F
-         JqzbSHCm9phY0J/Gf9lZXNA8NDUkQ853RdHwCtKAgUBBmdYqdDp7XfNIdjeecn7m69W1
-         35kd8b25URMK07a8RoBRuvmRQRg1lxJYnyISPf/JRq9wWWcUNzpmJpQkTdHNEW+z5zoz
-         BKbcAJC5QhcchYlrqF/3lpNh8UbAKuwWvw7aiqP7iqmjfDxghMXCn53fpOHaFzEgZsj1
-         zMMgNQq92bDlKLNdJpJzvbf1TQqhdWtBHhq3litlUUJA9szsSc3sU7xbQR1Mf044k0hV
-         MetA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790688927; x=1791293727; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KO35IpzQU2wUiVLnR02rlEk4h+IQIikt7twWTAwFAKQ=;
-        b=EvEmHdbcZDRHlEJ1LoV5GlDXcMmhPdyd0VSyzRrMHlI6gmcvwvnLcqcWWim2wZkPMQ
-         6ZMcYREQOZR8VX+PYbb4a0Fj1+5fZVGQM6Aid1DH80mbLCbc1jWrRNSN3Ac3L/3Q7BQn
-         uSlp02A8tYtW0MVceWT5UhlV0VVRb1gNZLVVzTG21ibrkkNdLa0DKYm1xCD58HVsaiMh
-         46YsaIkQS0T8gWe0XcIqrczCr2fQywNarlVffqqhl7DAEF/LeFZ2TNpWdlmcvBMG94Qc
-         RqBzigkbtX6H2f7/Pu6jZejNTf/xb2ZGe+8t7WQyLVQ7BbwLozY3ma964vcsmQH21Sm3
-         wNBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790688927; x=1791293727;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KO35IpzQU2wUiVLnR02rlEk4h+IQIikt7twWTAwFAKQ=;
-        b=0VRSBsT7PgHNiTxnAb1I8eEq7zohEzhL6XoAMb5kXDXV7p08/QTW3DL8e8/r4AleVT
-         aHuFuYDE597t0LrxHhuvEmVjOgF0Zoz3oQ5WA2Xdu3hpGsr2S9eoql2Qf4zZj3G1ngiN
-         wpyQ8nzHsaiOeUMiXOcsLCJlxEtSwbebnlN5IRPc7HjUtKI/AAGI09ED8z54Bjd2lKW0
-         g7aO5cNUe0YjU3lLebnIUskf3D3cbFqC3myUOC68kY20/S0Umh6xTRpaxC+IfQMQYcxv
-         d657XT5UEOLmn+1pRFa3pN3U6yagValkMimgN/VDeLR5BWEVAR/KXL3DsOWXVroz/SJf
-         Pz5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwYuVLK8YniVeOIogUQmMAYdXLcqJWTujm1PD3rTfkgHA4vVqCEDmo/+1k5UbJvrbQgPoWFTlGHBsfqSRY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMP1ArEdP0pVe6/XAuZWmbx0Po7cRZq7MZ4Xabek/S08RuBdnI
-	+N/YL+N+qYpWT1TVU+T81iMh4JBJ4RWJ2GI5aftziM28ulYi16UMT+ZcPacl2DO/7Q1nYhzYckw
-	4pQ/8+1fdkE30kLib8stQ3T9HLy1cGF9HbAvFiGzi
-X-Gm-Gg: AYBFou1BA8q6RoicL/C+pzUJD+odwvo5ne3bT90OmOZ1FJ5kdxYJ0L1R0OzRkUnpMTJ
-	M1aqgDnATMYlBOja57yMlxlkLsKClRAjuc1G0BLWAm5U4BL3WgKKzBWQ2+uEcnTy4vv52gXkAbt
-	obrIYFeHY8mcIgmakIVdouaVRHwqgMztf1bhxKuQs8SoAPSrXJjWioOh2Dzi0q5ZIe42QLVflX2
-	+MKszndTcID3pocBxop0grZgcjWgH153OCXklqPze9UaTGM0JFAOZmEkAm4tvbfzeONDuB6HfAW
-	NqngO0J9P5xUmq64WeZ2WGtSh1D6Re6HY/uHqIDNddp1uOEu46b14sIy3KPtHQklluOydvb3iTB
-	a5VPByi3hD7WWNI7uvPWT5Er4qWnBPXpnCdbjRNSS7+pph5qfFFqj
-X-Received: by 2002:a05:600c:4e08:b0:49e:817a:ca7 with SMTP id
- 5b1f17b1804b1-49fe66d05cbmr252109515e9.8.1790688926718; Tue, 29 Sep 2026
- 06:35:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MEpyx26A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4031F000FF;
+	Tue, 29 Sep 2026 13:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790688955;
+	bh=Rj7aC/lleh8azgssOlkAV+winU+3efLg2rqC9Qnh824=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MEpyx26A6lPZETrDGEk/3KWIWp4QM6mzmtVfpoWQJVeQYHJKAnzSzfLoPLofCCWUF
+	 KkfldSdHdOm9qzjCVH5G2CwkqckQX0B6VPL+nmjlSHvRuk/SQpoZyeCYTc3Y4G2BGr
+	 gLxIpkhVvNcQ0qqWuIytOO1mEfv5MKRGs7VIL99AE54C8fkAQ33ZZFaCOYEvTNF2ca
+	 vlPZqtss8Jkz8W5vS5RhMrsU+SQFNNPentS5WIzOp/hURmE0lF0AH+FcoTAIN8GzAL
+	 YD8mPqHJXTbwWzjJv0FMLYzFUhwK1IYC/3DBqf/+RH05R6y7VG3+4ofZQ0bb9w8m3K
+	 rtTjBSJTKaZFQ==
+Message-ID: <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+Date: Tue, 29 Sep 2026 15:35:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
- <arThye_219ruNbM2@google.com> <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
- <20260929044843.GA3909609@ZenIV> <art7swUNAa3AyUrL@google.com> <20260929132839.GA989762@ZenIV>
-In-Reply-To: <20260929132839.GA989762@ZenIV>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 29 Sep 2026 15:35:13 +0200
-X-Gm-Features: AclHuK8Z-kW-zwNhccfDW8-lP45SgDWDrvmNfYKPjY5D3ROZthqWW7EWiceXvYE
-Message-ID: <CAH5fLgis-9ibYAEK-shQtwg_08Le-JDYChS77LugEhgZ=T+z8Q@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
- descriptor APIs
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+To: Linus Walleij <linusw@kernel.org>
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 3:28=E2=80=AFPM Al Viro <viro@zeniv.linux.org.uk> w=
-rote:
->
-> On Tue, Sep 29, 2026 at 08:49:55AM +0000, Alice Ryhl wrote:
->
-> > So, I previously wrote some code that could invoke filp_close() to clos=
-e
-> > a given fd ... from a workqueue. This was in the scenario where the
-> > process dies and the usual cleanup function gets called deferred from a
-> > workqueue instead of from the ioctl like usual.
->
-> Huh?
->
-> 1) filp_close(file, NULL) doesn't do _anything_ to any descriptor tables;
-> the only requirements are that it should happen in _some_ thread context
-> (workqueue is fine) and that caller should not be holding any locks that
-> might be taken by ->flush() of the file in question (for a workqueue
-> callback it's fine as long as the callback itself is not holding any
-> of those).
->
-> 2) any caller of filp_close(file, files_struct) must obviously guarantee
-> that files_struct won't be freed under it; passing current->files from
-> workqueue is safe in that respect, but obviously bogus.  Note that
-> descriptor table in question will *still* not be accessed; it serves
-> only as an opaque tag that identifies POSIX locks (and dnotify_struct
-> instances) related to the descriptor table in question.  IF you have
-> just manually removed the file in question from descriptor table
-> (file_close_fd()), you must call filp_close() passing it the same
-> descriptor table while that descriptor table is still guaranteed to
-> be alive.
->
-> Rationale is memory safety, actually - for POSIX locks descriptor table
-> serves as lock owner; the reference is opaque, but we don't want to have
-> it outlive freeing and reuse of the object it's pointing to.  So anything
-> that removes some file reference from a descriptor table is responsible
-> for corresponding filp_close() call done *before* the descriptor table
-> is gone.
->
-> Note that we only need to take care of the reference we remove from
-> descriptor table; files_struct destructor will call filp_close() for
-> anything still referenced from it.
->
-> Places where file reference is removed from the table:
->         * do_close_on_exec(); filp_close() called in the same loop as
-> clearing the descriptor table slot.
->         * do_dup2() in case the new slot had already been in use;
-> filp_close() called just before return.
->         * file_close_fd_locked() callers. Three of those call filp_close(=
-)
-> as soon as they drop ->files_lock (close_fd(), __range_close() and
-> io_uring io_close()).  Remaining caller (close_fd_locked()) leaves that t=
-o
-> _its_ callers (binder_deferred_fd_close() and its equivalent Rust-side).
->
-> Again, normally both removal from descriptor table and filp_close() are
-> done by the same primitive...
->
-> > In this case the correct behavior was just to do nothing.
->
-> ... leaking an opened file?  IDGI...
->
-> > It was a very easy mistake to make, and if such mistakes lead to null
-> > ptr derefs or worse, then I think it's worth doing something to reduce
-> > the bad consequences from this kind of mistake.
+On 29/09/2026 14:54, Linus Walleij wrote:
+> On Mon, Jul 27, 2026 at 10:29 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>> On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
+> 
+>>> +  reset-gpios:
+>>> +    maxItems: 2
+>>> +    description: 2 reset pins for 2 physical panels
+>>
+>> Won't work. gpio-consumer-common expects only one reset line. You need
+>> two separate properties.
+> 
+> Hm that is a big confusion for the head.
+> 
+> reset-gpios is by it's very nature plural, because we structured
 
-Sorry I mixed it up ... the code called file_close_fd() and then
-filp_close() with current->files. The important call here is the
-file_close_fd() one, not the filp_close() one.
+So GPIOs are plural, but not reset-gpios. Just like shutdown-gpios. If
+you have two pins to turn off one device, how does it work? Maybe you
+have simple two devices?
 
-Alice
+> all GPIOs like that, exactly in order to indicate that they can be
+> arrays. :/
+
+Yes, in many cases.
+
+> 
+> I think it's appropriate to patch gpio-consumer-common to accept
+>> 1 gpios, in a separate patch, can even be sent outside
+> of this series.
+> 
+> Unless the DT maintainers have some good reason to slap my
+> hands for that suggestion...
+
+Make a case, can be an exception in gpio-consumer-common. But if you
+have two panels, why can't it go to the graph for each of them?
+
+This entire binding seems like stitching two devices together, which
+might be fine (I don't even remember this stuff... two months old) or
+might be artificial grouping of separate devices.
+
+Best regards,
+Krzysztof
