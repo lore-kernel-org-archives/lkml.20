@@ -1,499 +1,208 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A645248F72
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790644726; cv=none; b=EQ0/Et7vGGDNu+GehA9uml94+4eRZRgRysypOFlAiwvi/13d3oWt06ON60+lfuNpw07fV90vy/P+aMcBgdcBwFPDyB32jCfysc2x3hY9W6JnCYfuuaCt0QhoN8apTi/c0ejvrx10NN+pABlYP145IOaskhPrqRuiXyZPgqxhouY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790644726; c=relaxed/simple;
-	bh=kqqYPmLRMtRK+SM1Qc1MbjwHpBTqSedeKoIhc/NaV/w=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uyvKcDDvbEFSxtaK+J/s6gnwEsN5IjQ0fkp6l1LXIzuCqLlSxVXlgELKNCI9xJ48GuTjFV4b+RR3c7KCE7qIIMMhMXZCtLntYUt5leNM2czT1r1ZJwfJeXdcrOGCggUWAEgCHeDqDH8Yv2eD1Dp1cDKccT3HjiDzmoymMCAcIow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YTGTAu75; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44E72D0C7E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.232
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790644856; cv=pass; b=BfzZ920OwnZcs3tRQ0rvlKVmdsmrFodXGeH1au5jqcSr2T/VCRn9BJaFVBaRB9rX/7fTPX2RHlsyXqPTOW0qY4o0hijwGgt4mEaVjC0ebwGD7dcxDsKT5jbfsgsx+3Bf7QqH6QDmV2vdcdFb8V1J3f5DAqrhNeCFjzV6gfdxEEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790644856; c=relaxed/simple;
+	bh=FUpC5+QICGEEQMitDGZ4kUhvLc8mbh2N6lFIAyT1Fgs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C2CA7/5jcrd4vjotV7UFFzNB2MARjBqKITsjlrV0KW/dI6WBE6NxON2kymW8rq+Gwnw4kRJPQupjDOF/bEhJ2Sdzeizlya8i+pO/hlrQbWggFFW205coYEtqGAICyiTVcV3aLtDeGufhgMh9VDJfKH3xzJRTZFFF/V9qZ2fkNpQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NG75XCff; arc=pass smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YTGTAu75"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3441e2b3fc3so2442081eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:18:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NG75XCff"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5ce99149so250472585a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:20:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790644854; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PkFkVhYgi7IeJjhNmc6EexpeOu1S0tdumXHZ448npS2nswZNDEKmZbcS5xy5Kj8GYo
+         k9Idjj27GDh0Lr2FRirp6K6xELUSCPTd/SG+Ejs1KS6s/YzINY7eGXfKg4vTHXNObsdt
+         Z84s73Ee3jT0BDEek2SrhjpUxU8qRVEvhC1li1Wmq8sn91Zw1VHBfZ/cDWbCPZrM/WfX
+         Wl6qJZABMt0c2OtkJGf3O7wRGnO4AqJrjgOhgbT1urocM6h6XS8EnQBk4PYGSyixE1Ce
+         R0dc7vfxkkcLhpVGgtchVDpIoJ6OlFJC2jnBlffweViyWVWvP2GnWwQ1aA7+2eU2+OyD
+         6NFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=d4qa5JgZpWpXAOARMRbQJDt6dJ/0X4FjiQ4MUTrDE2Q=;
+        fh=S/m8WSn5uRJe+VmB9ozxbhCTLMoAzTsdoAYI6CynFX8=;
+        b=Am1mbQwnkDgBsXxMDG29aB2zV8arJlSY6NhKbJjC457X3SN5t7ZTy+6+luDcmHHp62
+         z/228BbwlUkZZeCPILix4i/F+V2mM3XtgasegQmPWYk6ZcENwtv40UJTvtcYxwIWHTF0
+         R6GjGKCTz9in0rbE8v9jUk4KZupvEX01cq709ApDXOe8sDBp0iEz7LzeUKoeYDk1DUaH
+         Cgm+64AnaOXpw5tIOANy6yhlOMAGAzf1IcV1f82mwzoDsdXjyjiy6WRfLu/my7+LRmOj
+         VMx16mPY787EP5Wp7yb80VToPQvm6iWVu6GkItswo6DZnmKyMS0rpqjxKY/CEKtZY1iJ
+         AJLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790644723; x=1791249523; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mfF0n/3FquVGSmkwNIYpE3boWmeLEn//zug4omUkTE4=;
-        b=YTGTAu75/VJd2VldjX+QwIN3Te7bhAyVsbcSOHcMtWC93ruJ3RzcJDY0vgacwDYxcJ
-         wHIp70CsJTYFN7Ah281kMj3YD03CY6qW6RC+MBoRBVuPNbPBGM4bjMyViBfOziQ6239C
-         S2bKwerzXypQS65aZ4orthXsv+jUatQ3r77a29U0gWp+8hEEV2SX7/j+MP3+qGZhu+94
-         4MNBETykYLJ32EFAj26eXQQG5xeVOXBjJTLpTxOtC22wHCT2v0/Yd+U5UWxnCq+7nzUh
-         O6AiWBVttO47OM8O1YZdbFqi9gGHZ7Zg9bb4ZHYrCLyEArCkjQ6D2VIAiZfMJqOPM5jl
-         Mjrg==
+        d=gmail.com; s=20251104; t=1790644854; x=1791249654; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d4qa5JgZpWpXAOARMRbQJDt6dJ/0X4FjiQ4MUTrDE2Q=;
+        b=NG75XCffMF2eowdU4w2VaWTafhg/25KDIk5L0uLDnzmHuc0qVfEZhEPScbwUilj46e
+         jks3aAC/u1CYnoGySbiZM0Gk4Yg+ImreniXIgfK+ROChaBhzD8OXyqr/5we265raiXEh
+         jmDQE3D6ljo/4J0nqEEq7g9Ma/DhUeSoBRvnXHkoimBqXjymsKK2fLow8PV4Q7CSdeqp
+         OjBgGwBFJc0VjKwEEeonXq+eEOOkQa6LlcoCJ49ptH2/zo9bSKfaGroIXcCF7UULDauR
+         FaZifgetWURXLIoxdgH1fNRbXFmX2OsNp/cXLXcCZDDGH2PuHodSNL4iVxCKJb/hw0nx
+         vggQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790644723; x=1791249523;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mfF0n/3FquVGSmkwNIYpE3boWmeLEn//zug4omUkTE4=;
-        b=F9jF5X3xcAptyITsp5B/YZgpw+ZrxDydcqzDFIPSqCPNmHtrReLoI3A6jd/5Q+N0fh
-         u5KbZamIPpKCdCwcPnftBrcY2Q1l3cxE21v2JdpiBxyWwSHidFMRb5CvMF5mFQWiPYZz
-         Mct0LmOtblSv2bEqTRMayxsRcaWOscr/U67TrQKBPrS1mZroAvZw5g+0hOGv+UL2gWzX
-         LifNo0wYbFAzWj+sDVhy5RsNzXV14F0w8eJ58dwhCzM+UhS6kiIdJTEG8UCpk9zV/mtf
-         Mwlmn7mVQqh9E/XhjLddxMTYN39nz90oVZBmthOdu4TnE54HGAuFzjlRNf+6OziNHxef
-         Knjw==
-X-Forwarded-Encrypted: i=1; AKwUvBygq3ygO/sQhsCmyb1MzDA3AFESTmvtVIloNFg9BXPPIou6wIcbOZFAAgotOk5U+YCEzC36ySaIV4D7nr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFlmVQ3FzFoG3IqRwobAhJwfmOizelGYe9eDq65cF40E2e4e2Y
-	mg9ehLFFSJezgKt8/oQ8g53LcpdT0YaJfnyK9zvtn9DpFG+2bvQPz6ZT0gKuzgblKfgpnnY1ADv
-	SgJVzhVU45w==
-X-Received: from dlbpv14.prod.google.com ([2002:a05:7023:90e:b0:144:c590:e885])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4354:b0:143:8865:cca
- with SMTP id a92af1059eb24-146cfdcf390mr11215940c88.22.1790644722913; Mon, 28
- Sep 2026 18:18:42 -0700 (PDT)
-Date: Mon, 28 Sep 2026 18:18:36 -0700
-In-Reply-To: <20260929011837.4157334-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1790644854; x=1791249654;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d4qa5JgZpWpXAOARMRbQJDt6dJ/0X4FjiQ4MUTrDE2Q=;
+        b=p5eVyC6ukB1FwNFxlKtp+6QkLg9moz2Td1x0MdgZ97n0ruKd1V0dUhzIrlUx6VAu/U
+         0CRGJC7TpORT0YcPJGPfyTiDjhQ0q8YTDnjWovjDtVdCJkOgDctK6UMla/jxrUAT34lH
+         5rbQJ9OWMU3P3jdelGRGeMVK9TJiD30vLA6BsHotxiPXH4AGSro+rUdDqtL4qN8WrGva
+         ME2QgHSHdGrJhVH+GcsRqoYHGdPTmL5CEpf9/a/8GZB8HyqG7zwGfYyRsohk5NoNnCe0
+         gwowIWN4BY4YbkCQeRyk90nYsr6TVQnBgQI8rhw5xsnhihdBfjDUV6m0kLDzlpxF/hbI
+         pSQg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+fSrKVVMZWO6MouAzPoqCNJHd9ZkSBu3+tO1X2iQZFKwp3ZSX4wzQqu5/aC2a3FlG/wHcBbFrXaJtOfE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjtzEdZZQHY5nepMgYr4Tsko0Ko6yjWE+ksmY21PQ3Kzqsa9kd
+	Iyd1ToQkNYrfUN7xbuXYJjbkCyNeRt6P37g84HQzwo0TUZ641QPdoXMw1J4GkMPSycS8TQIn1YS
+	wP3VU5wSqoUYe9/t7sFcjEmWoaiLkhFwAQCsCbzuPzg==
+X-Gm-Gg: AYBFou2q0q8ZgE6GizXsa+3AFQI7o12e6lZYpTHv1wEGNRoeec48WgYmXkKQkeHtsBz
+	7uYv6PTcZQ/Vw6Eb7LMLpEVufiNSJrLD7r8hNa/63OburoL/UrL89hJeSGxs8X7PW35R2ZwFi+H
+	o6B8/3YFM9Jyfu/0WlfOQ13ezglMknrmZtsIpywZiYrlFIHSxkvby4lCjINYwu24bI+9fudIgY6
+	yQGVxFEeRStHshcPP9Wod+Bv+MomhOiCY0aOMRbvyN/vgnzBtKieaao3yipVcD4U/9AzVC+qVx7
+	R33JY7D8uLambBLwPqCxvpIKAVgR+y/wfnFRxhnWio9IBIXv6iv9jNekgbjQjHfnh0PG3hZfb0L
+	uvu+lDGDHMCddPyWsHoqztqP5pV8CCoHd1C0S+qvBL962Tk0Tc2QV6UdOSwI2t978kqL4BY5Oaw
+	YZPQDXdRWLabHLf/+aeqQQc9Tk0ZBWodtwxYqa4KtZGnE3Mw==
+X-Received: by 2002:a05:620a:a2d2:10b0:93c:6904:9644 with SMTP id
+ af79cd13be357-93c69049a34mr969668385a.35.1790644853648; Mon, 28 Sep 2026
+ 18:20:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928210144.3925224-1-irogers@google.com> <20260929011837.4157334-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929011837.4157334-2-irogers@google.com>
-Subject: [PATCH v2 2/2] perf test: Improve JUnit XML schema compliance and completeness
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
-	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+MIME-Version: 1.0
+References: <20260928084125.67104-1-jain.sm@gmail.com> <20260928084125.67104-2-jain.sm@gmail.com>
+ <20260928154405.fc2e650ef162f53d9d8e4d0a@linux-foundation.org>
+In-Reply-To: <20260928154405.fc2e650ef162f53d9d8e4d0a@linux-foundation.org>
+From: shashank Jain <jain.sm@gmail.com>
+Date: Tue, 29 Sep 2026 06:50:42 +0530
+X-Gm-Features: AclHuK-1e-bdOuxfqw6H9UrngACtzd7nUALd3x8Klgl8IctbgrLNlxx76j-HZ0U
+Message-ID: <CA+FWx==P553i1Og3KBXzkf4N=DWxUO5b0nZFEO_=y6=NWLC-4Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] objpool: keep objpool_push() correct when a push from
+ NMI nests in it
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Matt Wu <wuqiang.matt@bytedance.com>, 
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Improve the JUnit XML output generated by 'perf test -j' so that it
-validates cleanly against both the strict Apache Ant/Windy Road JUnit
-schema (JUnit.xsd) and the Jenkins xUnit/Maven Surefire schema
-(junit-10.xsd):
-- Add the required 'package', 'id', 'timestamp' (ISO 8601 UTC),
-  'hostname', and 'time' attributes to '<testsuite>'.
-- Emit '<properties>' (populated with uname sysname, release, version,
-  and machine when available) at the start of '<testsuite>' and
-  '<system-out/>' and '<system-err/>' at the end, matching the element
-  sequence required by JUnit.xsd.
-- Add the required 'type="failure"' attribute to '<failure>' elements
-  and emit self-closing tags for passing '<testcase>' elements and
-  '<failure>'/'<error>' elements with empty error output.
-- Escape apostrophes ('&apos;') and validate UTF-8 multi-byte sequences
-  against valid XML 1.0 codepoints in xml_escape().
-- Use the actual suite description and '%.2f' time format for user
-  override skipped tests ('-s'/'--skip').
-- Document '-j[<file>]'/'--junit[=<file>]' in perf-test.txt.
+Thanks for looking at it.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/Documentation/perf-test.txt |   5 +
- tools/perf/tests/builtin-test.c        | 309 +++++++++++++++++--------
- 2 files changed, 212 insertions(+), 102 deletions(-)
+On Tue, 29 Sep 2026 Andrew Morton wrote:
+> This code can run in NMI?
 
-diff --git a/tools/perf/Documentation/perf-test.txt b/tools/perf/Documentation/perf-test.txt
-index 16d940e8d221..9b1f153ce881 100644
---- a/tools/perf/Documentation/perf-test.txt
-+++ b/tools/perf/Documentation/perf-test.txt
-@@ -55,6 +55,11 @@ OPTIONS
- 	Do not fork child for each test, run all tests within single process, this
- 	sets sequential mode and disables the per-test timeout.
- 
-+-j[<file>]::
-+--junit[=<file>]::
-+	Generate JUnit XML test report to the specified file, or 'test.xml' if
-+	no file is specified.
-+
- --dso::
- 	Specify a DSO for the "Symbols" test.
- 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 4ecbaf757095..1e85eb1eba82 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -28,6 +28,7 @@
- #include <sys/stat.h>
- #include <sys/time.h>
- #include <sys/types.h>
-+#include <sys/utsname.h>
- #include <sys/wait.h>
- #include <unistd.h>
- 
-@@ -466,23 +467,59 @@ static int __printf(2, 3) strbuf_addf_safe(struct strbuf *sb, const char *fmt, .
- static char *xml_escape(const char *str)
- {
- 	struct strbuf buf = STRBUF_INIT;
--	const char *p;
-+	const unsigned char *p;
- 	char *res;
- 
- 	if (!str)
- 		return strdup("");
- 
--	for (p = str; *p; p++) {
--		if (*p == '&')
--			strbuf_addstr(&buf, "&amp;");
--		else if (*p == '<')
--			strbuf_addstr(&buf, "&lt;");
--		else if (*p == '>')
--			strbuf_addstr(&buf, "&gt;");
--		else if (*p == '"')
--			strbuf_addstr(&buf, "&quot;");
--		else if ((unsigned char)*p >= 32 || *p == '\n' || *p == '\t')
--			strbuf_addch(&buf, *p);
-+	for (p = (const unsigned char *)str; *p; p++) {
-+		unsigned char c = *p;
-+		int err = 0;
-+
-+		if (c == '&') {
-+			err = strbuf_addstr(&buf, "&amp;");
-+		} else if (c == '<') {
-+			err = strbuf_addstr(&buf, "&lt;");
-+		} else if (c == '>') {
-+			err = strbuf_addstr(&buf, "&gt;");
-+		} else if (c == '"') {
-+			err = strbuf_addstr(&buf, "&quot;");
-+		} else if (c == '\'') {
-+			err = strbuf_addstr(&buf, "&apos;");
-+		} else if ((c >= 0x20 && c <= 0x7e) || c == '\n' || c == '\t') {
-+			err = strbuf_addch(&buf, c);
-+		} else if (c >= 0xc2 && c <= 0xdf && (p[1] & 0xc0) == 0x80) {
-+			err = strbuf_add(&buf, p, 2);
-+			p += 1;
-+		} else if (c >= 0xe0 && c <= 0xef &&
-+			   (p[1] & 0xc0) == 0x80 && (p[2] & 0xc0) == 0x80) {
-+			unsigned int cp = ((c & 0x0f) << 12) |
-+					  ((p[1] & 0x3f) << 6) |
-+					  (p[2] & 0x3f);
-+
-+			if (cp >= 0x800 &&
-+			    (cp < 0xd800 || (cp >= 0xe000 && cp <= 0xfffd))) {
-+				err = strbuf_add(&buf, p, 3);
-+				p += 2;
-+			}
-+		} else if (c >= 0xf0 && c <= 0xf4 &&
-+			   (p[1] & 0xc0) == 0x80 && (p[2] & 0xc0) == 0x80 &&
-+			   (p[3] & 0xc0) == 0x80) {
-+			unsigned int cp = ((c & 0x07) << 18) |
-+					  ((p[1] & 0x3f) << 12) |
-+					  ((p[2] & 0x3f) << 6) |
-+					  (p[3] & 0x3f);
-+
-+			if (cp >= 0x10000 && cp <= 0x10ffff) {
-+				err = strbuf_add(&buf, p, 4);
-+				p += 3;
-+			}
-+		}
-+		if (err < 0) {
-+			strbuf_release(&buf);
-+			return NULL;
-+		}
- 	}
- 	res = strbuf_detach(&buf, NULL);
- 	return res ? res : strdup("");
-@@ -531,6 +568,68 @@ static int get_max_desc_width(int width)
- 	return width > term_width ? term_width : width;
- }
- 
-+static void append_junit_testcase(const char *classname, const char *testname,
-+				  int result, const char *skip_msg,
-+				  const char *err_output, double elapsed)
-+{
-+	char *escaped_err = xml_escape(err_output);
-+	char *escaped_class = xml_escape(classname);
-+	char *escaped_test = xml_escape(testname);
-+
-+	if (!escaped_err || !escaped_class || !escaped_test)
-+		goto out;
-+
-+	if (result == TEST_OK) {
-+		strbuf_addf(&junit_xml_buf,
-+			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\"/>\n",
-+			    escaped_class, escaped_test, elapsed);
-+		goto out;
-+	}
-+
-+	strbuf_addf(&junit_xml_buf,
-+		    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
-+		    escaped_class, escaped_test, elapsed);
-+	if (result == TEST_TIMEOUT) {
-+		if (err_output && *err_output) {
-+			strbuf_addf(&junit_xml_buf,
-+				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
-+				    escaped_err);
-+		} else {
-+			strbuf_addstr(&junit_xml_buf,
-+				      "      <error message=\"TIMEOUT\" type=\"timeout\"/>\n");
-+		}
-+	} else if (result != TEST_SKIP) {
-+		if (err_output && *err_output) {
-+			strbuf_addf(&junit_xml_buf,
-+				    "      <failure message=\"FAILED\" type=\"failure\">\n%s\n      </failure>\n",
-+				    escaped_err);
-+		} else {
-+			strbuf_addstr(&junit_xml_buf,
-+				      "      <failure message=\"FAILED\" type=\"failure\"/>\n");
-+		}
-+	} else {
-+		char *escaped_reason = xml_escape(skip_msg ? skip_msg : "Skip");
-+
-+		if (escaped_reason) {
-+			if (err_output && *err_output) {
-+				strbuf_addf(&junit_xml_buf,
-+					    "      <skipped message=\"%s\">\n%s\n      </skipped>\n",
-+					    escaped_reason, escaped_err);
-+			} else {
-+				strbuf_addf(&junit_xml_buf,
-+					    "      <skipped message=\"%s\"/>\n",
-+					    escaped_reason);
-+			}
-+			free(escaped_reason);
-+		}
-+	}
-+	strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
-+out:
-+	free(escaped_err);
-+	free(escaped_class);
-+	free(escaped_test);
-+}
-+
- static int print_test_result(struct test_suite *t, int curr_suite, int curr_test_case,
- 			     int result, int width, int running,
- 			     const char *err_output, double elapsed)
-@@ -601,41 +700,9 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
- 	}
- 
- 	if (junit_filename && result != TEST_RUNNING) {
--		const char *classname = t->desc;
--		const char *testname = test_description(t, curr_test_case);
--		char *escaped_err = xml_escape(err_output);
--		char *escaped_class = xml_escape(classname);
--		char *escaped_test = xml_escape(testname);
--
--		strbuf_addf(&junit_xml_buf,
--			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
--			    escaped_class, escaped_test, elapsed);
--		if (result == TEST_TIMEOUT) {
--			strbuf_addf(&junit_xml_buf,
--				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
--				    escaped_err);
--		} else if (result != TEST_OK && result != TEST_SKIP) {
--			strbuf_addf(&junit_xml_buf,
--				    "      <failure message=\"FAILED\">\n%s\n      </failure>\n",
--				    escaped_err);
--		} else if (result == TEST_SKIP) {
--			const char *reason = skip_reason(t, curr_test_case);
--			char *escaped_reason = xml_escape(reason ? reason : "Skip");
--
--			if (err_output && *err_output) {
--				strbuf_addf(&junit_xml_buf,
--					    "      <skipped message=\"%s\">\n%s\n      </skipped>\n",
--					    escaped_reason, escaped_err);
--			} else {
--				strbuf_addf(&junit_xml_buf, "      <skipped message=\"%s\"/>\n",
--					    escaped_reason);
--			}
--			free(escaped_reason);
--		}
--		strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
--		free(escaped_err);
--		free(escaped_class);
--		free(escaped_test);
-+		append_junit_testcase(t->desc, test_description(t, curr_test_case),
-+				      result, skip_reason(t, curr_test_case),
-+				      err_output, elapsed);
- 	}
- 
- 	return 0;
-@@ -1407,7 +1474,86 @@ static void cmd_test_sig_handler(int sig)
- 	siglongjmp(cmd_test_jmp_buf, sig);
- }
- 
--static void print_tests_summary(void)
-+static void write_junit_xml(const struct timespec *start_time, time_t start_realtime)
-+{
-+	unsigned int total = summary_tests_passed + summary_subtests_passed +
-+			     summary_tests_skipped + summary_tests_timed_out +
-+			     summary_tests_failed;
-+	struct timespec end_time;
-+	double elapsed;
-+	struct tm tm;
-+	char timestamp[32];
-+	struct utsname uts;
-+	bool have_uts;
-+	char *escaped_host;
-+	FILE *fp;
-+	int fd;
-+
-+	fd = open(junit_filename, O_CREAT | O_TRUNC | O_WRONLY | O_NOFOLLOW, 0644);
-+	if (fd < 0) {
-+		pr_err("Failed to open %s for writing junit XML output: %s\n",
-+		       junit_filename, strerror(errno));
-+		return;
-+	}
-+
-+	fp = fdopen(fd, "w");
-+	if (!fp) {
-+		close(fd);
-+		pr_err("Failed to associate stream with fd for %s: %s\n",
-+		       junit_filename, strerror(errno));
-+		return;
-+	}
-+
-+	have_uts = uname(&uts) == 0;
-+	escaped_host = xml_escape(have_uts && uts.nodename[0] ? uts.nodename : "localhost");
-+
-+	clock_gettime(CLOCK_MONOTONIC, &end_time);
-+	elapsed = (end_time.tv_sec - start_time->tv_sec) +
-+		  (end_time.tv_nsec - start_time->tv_nsec) / 1000000000.0;
-+	if (!gmtime_r(&start_realtime, &tm) ||
-+	    !strftime(timestamp, sizeof(timestamp), "%Y-%m-%dT%H:%M:%S", &tm))
-+		snprintf(timestamp, sizeof(timestamp), "1970-01-01T00:00:00");
-+
-+	fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-+	fprintf(fp, "<testsuites>\n");
-+	fprintf(fp,
-+		"  <testsuite name=\"perf-tests\" package=\"perf-tests\" id=\"0\" timestamp=\"%s\" hostname=\"%s\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\" time=\"%.2f\">\n",
-+		timestamp, escaped_host ?: "localhost", total, summary_tests_failed,
-+		summary_tests_timed_out, summary_tests_skipped, elapsed);
-+	free(escaped_host);
-+	if (have_uts) {
-+		char *sysname = xml_escape(uts.sysname);
-+		char *release = xml_escape(uts.release);
-+		char *version = xml_escape(uts.version);
-+		char *machine = xml_escape(uts.machine);
-+
-+		fprintf(fp, "    <properties>\n");
-+		if (sysname)
-+			fprintf(fp, "      <property name=\"sysname\" value=\"%s\"/>\n", sysname);
-+		if (release)
-+			fprintf(fp, "      <property name=\"release\" value=\"%s\"/>\n", release);
-+		if (version)
-+			fprintf(fp, "      <property name=\"version\" value=\"%s\"/>\n", version);
-+		if (machine)
-+			fprintf(fp, "      <property name=\"machine\" value=\"%s\"/>\n", machine);
-+		fprintf(fp, "    </properties>\n");
-+		free(sysname);
-+		free(release);
-+		free(version);
-+		free(machine);
-+	} else {
-+		fprintf(fp, "    <properties/>\n");
-+	}
-+	fprintf(fp, "%s", junit_xml_buf.buf);
-+	fprintf(fp, "    <system-out/>\n");
-+	fprintf(fp, "    <system-err/>\n");
-+	fprintf(fp, "  </testsuite>\n");
-+	fprintf(fp, "</testsuites>\n");
-+	fclose(fp);
-+	pr_info("Wrote junit XML output to %s\n", junit_filename);
-+}
-+
-+static void print_tests_summary(const struct timespec *start_time, time_t start_realtime)
- {
- 	pr_info("\n=== Test Summary ===\n");
- 	pr_info("Passed main tests : %u\n", summary_tests_passed);
-@@ -1430,42 +1576,9 @@ static void print_tests_summary(void)
- 		color_fprintf(debug_file(), PERF_COLOR_GREEN, "Failed tests      : 0\n");
- 	}
- 
--	if (junit_filename) {
--		int fd;
--		FILE *fp;
--
--		fd = open(junit_filename, O_CREAT | O_TRUNC | O_WRONLY | O_NOFOLLOW, 0644);
--		if (fd >= 0) {
--			fp = fdopen(fd, "w");
--			if (fp) {
--				unsigned int total = summary_tests_passed +
--						     summary_subtests_passed +
--						     summary_tests_skipped +
--						     summary_tests_timed_out +
--						     summary_tests_failed;
--				fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
--				fprintf(fp, "<testsuites>\n");
--				fprintf(fp,
--					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\">\n",
--					total,
--					summary_tests_failed,
--					summary_tests_timed_out,
--					summary_tests_skipped);
--				fprintf(fp, "%s", junit_xml_buf.buf);
--				fprintf(fp, "  </testsuite>\n");
--				fprintf(fp, "</testsuites>\n");
--				fclose(fp);
--				pr_info("Wrote junit XML output to %s\n", junit_filename);
--			} else {
--				close(fd);
--				pr_err("Failed to associate stream with fd for %s: %s\n",
--				       junit_filename, strerror(errno));
--			}
--		} else {
--			pr_err("Failed to open %s for writing junit XML output: %s\n",
--			       junit_filename, strerror(errno));
--		}
--	}
-+	if (junit_filename)
-+		write_junit_xml(start_time, start_realtime);
-+
- 	strbuf_release(&junit_xml_buf);
- 	strbuf_release(&summary_timed_out_tests_buf);
- 	strbuf_release(&summary_failed_tests_buf);
-@@ -1475,8 +1588,13 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
- 		      struct intlist *skiplist)
- {
- 	static int width = 0;
-+	struct timespec suite_start_time;
-+	time_t suite_start_realtime;
- 	int err = 0;
- 
-+	clock_gettime(CLOCK_MONOTONIC, &suite_start_time);
-+	suite_start_realtime = time(NULL);
-+
- 	for (struct test_suite **t = suites; *t; t++) {
- 		int i, len = strlen(test_description(*t, -1));
- 
-@@ -1574,23 +1692,10 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
- 						      " Skip (user override)\n");
- 					summary_tests_skipped++;
- 					if (junit_filename) {
--						char *escaped_class =
--							xml_escape((const char *)
--								   test_description(*t, -1));
--						char *escaped_test = xml_escape("override");
--						char *escaped_reason =
--							xml_escape("user override");
--
--						strbuf_addf(&junit_xml_buf,
--							"    <testcase classname=\"%s\" name=\"%s\" time=\"0.000\">\n",
--							escaped_class, escaped_test);
--						strbuf_addf(&junit_xml_buf,
--							"      <skipped message=\"%s\"/>\n",
--							escaped_reason);
--						strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
--						free(escaped_reason);
--						free(escaped_test);
--						free(escaped_class);
-+						const char *desc = test_description(*t, -1);
-+
-+						append_junit_testcase(desc, desc, TEST_SKIP,
-+								      "user override", NULL, 0.0);
- 					}
- 				}
- 				continue;
-@@ -1631,7 +1736,7 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
- 		setitimer(ITIMER_REAL, &timer, NULL);
- 		signal(SIGALRM, SIG_DFL);
- 	}
--	print_tests_summary();
-+	print_tests_summary(&suite_start_time, suite_start_realtime);
- 	free(global_pfds);
- 	free(global_pfd_indices);
- 	global_pfds = NULL;
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Yes: on the rethook architectures a kretprobe on a function that also
+runs in NMI context (for example one that perf calls from the PMU NMI
+handler on x86) takes and recycles instances in NMI context, so
+objpool_push() can run in NMI and nest in another push on the same CPU.
 
+> Calling WARN_ON from NMI sounds quite sketchy [...] perhaps this is a
+> chance to address it.
+
+Agreed. With the in-order publish a nested push can no longer trigger
+that sanity check, so for v2 I'd add a patch that drops the
+WARN_ON_ONCE() from the push path (or skips it in_nmi()). Masami, would
+you prefer one of these?
+
+> Sashiko liked [1/2] but had a lot to say about the test module
+
+v2 reworks the test: cleanup actions so an assertion failure or a
+timeout can't leak or use freed memory, the threads are stopped before
+the test returns, and release/acquire for the flags.
+
+Shashank
+
+On Tue, Sep 29, 2026 at 4:14=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Mon, 28 Sep 2026 14:11:24 +0530 Shashank Mohan Jain <jain.sm@gmail.com=
+> wrote:
+>
+> > objpool_push() adds an object to the slot of the local CPU with
+> > interrupts disabled. It reserves an entry with a cmpxchg() on
+> > slot->tail, writes the entry, and publishes it with
+> > smp_store_release(&slot->last, tail + 1).
+> >
+> > A push from NMI context can still interrupt it and push to the same
+> > slot. kretprobes may run in NMI context since commit e03b4a084ea6
+> > ("kprobes: Remove NMI context check"). At the time, kretprobe instances
+> > came from a CAS-based lockless freelist, which tolerates that. Commit
+> > 4bbd93455659 ("kprobes: kretprobe scalability improvement") moved
+> > kretprobes and rethook to objpool.
+> >
+> > With rethook, rethook_trampoline_handler() recycles instances with
+> > objpool_push() after the user handler has run, when no kprobe is marked
+> > running anymore; rethook_flush_task() does the same. An NMI that arrive=
+s
+> > during such a push and runs a function probed by the same kretprobe tak=
+es
+> > an instance in pre_handler_kretprobe(), and when the function returns
+> > inside the NMI, pushes it back to the same slot. This needs a kretprobe
+> > on a function that runs both in NMI context and outside it, for instanc=
+e
+> > one that perf calls from the PMU NMI handler on x86. Before v6.14, fpro=
+be
+> > also used rethook and could push from NMI the same way, with one pool
+> > shared by all functions of an fprobe.
+> >
+> > ...
+> >
+> > Publish the entries in order instead:
+>
+> Thanks.
+>
+> > --- a/include/linux/objpool.h
+> > +++ b/include/linux/objpool.h
+> > @@ -193,19 +193,40 @@ __objpool_try_add_slot(void *obj, struct objpool_=
+head *pool, int cpu)
+> >       struct objpool_slot *slot =3D pool->cpu_slots[cpu];
+> >       uint32_t head, tail;
+> >
+> > -     /* loading tail and head as a local snapshot, tail first */
+> > +     /*
+> > +      * Only the local CPU pushes to its slot, with irqs disabled, but=
+ a
+> > +      * push from NMI context (a kretprobe'd function returning in NMI=
+)
+> > +      * can interrupt this one at any point.
+> > +      */
+> >       tail =3D READ_ONCE(slot->tail);
+> > +     while (!try_cmpxchg_acquire(&slot->tail, &tail, tail + 1))
+> > +             ;
+> >
+> > -     do {
+> > -             head =3D READ_ONCE(slot->head);
+> > -             /* fault caught: something must be wrong */
+> > -             WARN_ON_ONCE(tail - head > pool->nr_objs);
+> > -     } while (!try_cmpxchg_acquire(&slot->tail, &tail, tail + 1));
+> > +     /*
+> > +      * fault caught: something must be wrong.  Read head only after t=
+he
+> > +      * reservation: a nested push and a pop on another CPU could have
+> > +      * moved head past an older snapshot of tail.
+> > +      */
+> > +     head =3D READ_ONCE(slot->head);
+> > +     WARN_ON_ONCE(tail - head > pool->nr_objs);
+>
+> This code can run in NMI?
+>
+> Calling WARN_ON from NMI sounds quite sketchy - the warning handler
+> does all sorts of stuff.  I see this is pre-existing but perhaps this
+> is a chance to address it.
+>
+> Sashiko liked [1/2] but had a lot to say about the test module:
+>         https://sashiko.dev/#/patchset/20260928084125.67104-1-jain.sm@gma=
+il.com
