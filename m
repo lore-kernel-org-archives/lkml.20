@@ -1,329 +1,139 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EB229A309
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9693D47AB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693210; cv=none; b=DsLn9iWfxmT17okkBDII4BFtYhyscKVZWud3izyqM3bPXOfCZdFGy6XBgstlvU0usprjT16PSDsh4i2X94Ejr6sQW07hoCh+mfNlP7ZmaR3IZF03gJqnOu2qGMtoDUVxKlocWcauc3tV9BDlV01bT1u9rupjJk/KB05mO92LLiQ=
+	t=1790693243; cv=none; b=Q/aTn05FdDHtxRdj3yjF3QMAY+jNPRApOlhALmAKEuryRCFs/ip7dLek9XCQ9CjDOUnGA7TexgoHSg+fWnjx8UgxAQcmTZOumBewZ7wz+m8MkErdKwhTfnF+E96qbPdh530y0nPDzTADpIdxkIa6188o/ktDNFf84kF1OoUs/Kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693210; c=relaxed/simple;
-	bh=b20H6OMD/mJhvs+PtOypDKp/Uq3Cp4/GFdIS+uB909c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CKxFoNfL0sfJdmll2idaLh28duowzeq2kym27+IxhvPT2D1me7sGmKdWFupT+yvu9D8fVh9pFRkR36pAuj+2awmnE9e+sqH2JWX8QklaTgbGZx0SQkdx+th9sOAdxqL9Cw7tmQs//gC5Oq46xakbztIUpHProi5NcwZqJb02DGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TImB6qVz; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790693243; c=relaxed/simple;
+	bh=SLmPCj6Drkarz6MGesiMP1GtPbh4rsUc3J8b1Kcoqwg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=REviH/GXPoUAZ6jx2ZvDx5bJziyvW0ir4PZLATg9D9GA9Se0SWaCAPhMNY00xR1DyTwzpYiv3eFQSu2gx1cVfFYfhNSpvE7i8MJkQgeQe1v74LHA3TlUF0elJaQEojWhJZareMc6OZNIocHWhiwRVdbXDCGWDSff1RuWRbX8KLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FAy3PfmP; arc=none smtp.client-ip=74.125.228.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TImB6qVz"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so1311920b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:46:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FAy3PfmP"
+Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso7245147a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:47:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790693206; x=1791298006; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4b5KTvylDtW2+5uJtb7CKuwRyrC+2b0oF+GIiDXxI/0=;
-        b=TImB6qVzwysU7aUMstLbioWxs/i9cCjvXdPOA2gG6dahE7EPKrTt/8MUnlwf/OzzFT
-         2+P0o5JBVcVMvdirsZ3qom76jvovH2kMv4SQNZvqzVW/f4cykGyfgBR50maNQw609G3e
-         m0a7EMBJtYhCT8vFKTl6faMdkFotcGSuwQIQtHnRAfzNF1cSdJ2Dy6MVq2YVpsqMG2pq
-         PMoM81bGyOgribcSTALQVg9flEFNX2BzsPFruzxpIepK1bBQ8/FNwkPBqIAtMo9k85Xz
-         UFohlkwNFw40QWda/Go0z8Rosbxn1ldWO39mYk6coLM62tRcJRBZ1vto8rleZ4JQ2P2x
-         uOVQ==
+        d=linux-foundation.org; s=google; t=1790693238; x=1791298038; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IP+IFTLJhHPOzVgLZORkj6YpvpTLDjx8asIrhC/8Liw=;
+        b=FAy3PfmPob5b0tf35c22y/lqxzj34685Bt3ifpj4hCUJdnr9xqz7qoebi1ZpVN7Cp1
+         yzaU94LLP02xO71cSvnm5iyfPHLPI8doJn2khs+4Yfvl0HHNairGQPfyyqC1nNBVb8nf
+         B9pWbThAUdMYtTtZWwICGr4ZppnSr23eo7VrI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790693206; x=1791298006;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4b5KTvylDtW2+5uJtb7CKuwRyrC+2b0oF+GIiDXxI/0=;
-        b=gofMtaHgdh9kZ3qi0Lsi6lXOR3uIYKqhdN7syxhq+UJfwmhevPYnjn6Yaq0W8E8vdF
-         lEEatfhHq0vVZ+VItda1S3e54UgwM4cj/DQEiwLTE8FSZO8ZtnPj3wJ/dk4TlY/CmJyG
-         Cyplih68wq2RI7Nd/5/1Uz5P9X+hxTWsrMzhhIiQfWzxayeGcONXxMW+BKxmAwoWX6Xh
-         h7vONO7Jm7Z5hlrtFqrdXOVmQykFLNpQk1pH1agHkZ1q7LUXOoOqpzXqju21lL2tVRRe
-         oiuF/97a0isHj3r/k9bw/GI/joMQs7rUjBbLWdo+eeQ4A3U939ZIDluUht86AeC95Uv2
-         KkGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwn1KHTuvnb92E7Rxy/1jZQBYnqwr4/7OeM9kz8ERCa3EMTAVkrQ7isTYVb72k2plN6gg8Qh6yxVlF9iEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyRhZuWcZ5nEpMKpi/3tAV1DkodaIiz5iPJFFNVu1Gsk6PFPCp
-	CjC0zFvr1GwFbwgdXxxiBLsgNhEMu9h2n75ASajoFnhdAsUkKuCLdd3B
-X-Gm-Gg: AYBFou3UR+/yTMR9DI78JumOmNjrLMO55RLpQrpu1sV42i0cdWQETxnNfIohuyX6O6m
-	DxBMZ1CGfi1rubdBsYCaoyrf67EGweFGKoLO6FKjj0AdKtM89C35CKjPpXsJvH9EscMmE6U5KxB
-	y26e7qmO57hZo9DmLeCKa+TsEORecHFumRNRibD1lSGmSS9spN4hnUfkC+LJmS6d1jJ+ZC9J4HT
-	NwALbk7RBjd7qHBfPgUGHGA8s3iChCox4K0Gg1IkP/KpnkLyUa1hRwFLJOwa928SX6+LATUfp2j
-	3Qx2JIGNRn6FbaYvCc91p6EsXJOjNgDYqSu9nhx8HXZ6mj0r6f9uzyIK8w/Gs7QkvYs+ep4F/z5
-	4JgmagkCIkC7jWQIKJHjc2yJjQbBEieM38eD6qXJUYFrRDPGPlM8L4Lt6BA6YVajYYQRnAGAeif
-	r1oLf01f7Aby1k6BVFAYWaNzKQPP6UuxVHmFrMn7SqXhdoOP1Dgc/sE0jN58G5OYZolMoLKJaR4
-	BQvZW3qCsgGChIopmHq+SS7PVnxEkjr/Q==
-X-Received: by 2002:a05:6a21:6089:b0:3dd:ff70:1426 with SMTP id adf61e73a8af0-3de0e725d1emr15101045637.3.1790693206167;
-        Tue, 29 Sep 2026 07:46:46 -0700 (PDT)
-Received: from localhost.localdomain ([216.236.36.150])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7c5afb5c9sm1282397a12.3.2026.09.29.07.46.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:46:45 -0700 (PDT)
-From: xy521521@gmail.com
-To: stern@rowland.harvard.edu
-Cc: Hongyu Xie <xiehongyu1@kylinos.cn>,
-	gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] usb-storage: ene_ub6250: don't let the card-type probe hang forever
-Date: Tue, 29 Sep 2026 22:46:40 +0800
-Message-Id: <20260929144640.2028-1-xy521521@gmail.com>
-X-Mailer: git-send-email 2.32.0
+        d=1e100.net; s=20260707; t=1790693238; x=1791298038;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IP+IFTLJhHPOzVgLZORkj6YpvpTLDjx8asIrhC/8Liw=;
+        b=Jz8AJ180B478663jutYDmr5ahfwLX7ALhiFEgTZKb+KadyE72fNwLLis3an79VitJO
+         cvxDxS2VLjbOTjKXjziQRttYkFdSQAFsHPA0DxC5CjR3bxfO0KLoZBGm+84NML+mamQi
+         AcFB1LlUJLEDN6+9wT2FtgXyt7WAW+206eMfC/CANCroZH9OE7ujgxL+Uy+WC1n5nO89
+         HYmAKucPbPhKBsQTlJ1Ms78r+ZwgTI5JtXFwTJTHcYk6bSY0ubbnY0EYqGShzaObP+7d
+         Eg5/OTgEftwd/iJ/XHX5otTM73KEBjLXpFBUho9uA+dluVsDMep3pCjHlJZkacElgfSe
+         juLw==
+X-Forwarded-Encrypted: i=1; AKwUvByKKHiCGwn8vwp9AhH4KyIbUhFm0yWa+H3b67qfyt+znrlvJYADQFOqbuY4sVGgvooboeP04vm3QImmXto=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQtDKbyI6OyPPLQrwlmPdbVIN8tFKWSUFB9DBSI4IA/K3YyK/d
+	qSo63Ji8uHwz9oJhy4Mcm59wEF5zaZi6ANXzatFNzwjfzCaGGuhi2nlzwlaO/IRq1F0SGU+WapX
+	IqDPfrc8=
+X-Gm-Gg: AYBFou1QStmet9JDxT/D91zS+sRRjEan8ZuoHz9sjrt4QUNxtQaBRHqD52RmiOu0MMD
+	DZn7ljbdl30A82aAwci4yR1nJ0Y42IbGVsdoorZcgS/VFTTMMHJ0F8YHD6afNP+PnSKNj81RX7F
+	wANlcdnuLUry/4Zse0IaVF+u/mUlZTTLt9YvE4odPw4QUOuePpIkGNKD5Gp828IdFdFJVZRgyz5
+	y6dVNVs8k+1dW3sdL8o47z8zItEsJft8DRdwerp01JKN3dgK3hdWw7QB+N9EwSd+Dp0MZXvBXFG
+	c9n3J34SkTKY02KljbeAAYCcA8SkiF3zGpV8fFyVn6iALzExXihrKV3kwQYcaBMx8A716y5kBHS
+	rdEkF5FGMWsVMo/TzAnnwZthJcCFNAKu55ao6X94D6X+dNad7fX26GNWKf23FES4k0KbB52zBw9
+	0jiabfGM/RJj3hal2h6C/SAauzFDabFSSy+PEjolFPN6rPflMFS8kezbI8/MA2XnGS58gVtW+Hf
+	/Hf9OOZpYpDYrvFhN9Fc6ejh0kPThPBAEA44YzSqJrWkiS0fEbL91tn1d4c
+X-Received: by 2002:a17:907:1c8e:b0:c2d:cd1a:d5b0 with SMTP id a640c23a62f3a-c2dcd1af3a4mr673780466b.15.1790693238178;
+        Tue, 29 Sep 2026 07:47:18 -0700 (PDT)
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com. [74.125.228.170])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757ade3sm656130366b.29.2026.09.29.07.47.17
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 07:47:17 -0700 (PDT)
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dbdcb4f59so445513166b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:47:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwiu1Qw1Z/WOFEeT/uFrR9ju2eTKqWsf8P4xPvKfUl9M2uxjW3vpva3HcFiy3pcnvwugWFaRdzmwEbrKSw=@vger.kernel.org
+X-Received: by 2002:a17:907:c491:b0:c26:1648:a06f with SMTP id
+ a640c23a62f3a-c2ac253fd57mr1427153166b.42.1790693237251; Tue, 29 Sep 2026
+ 07:47:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com> <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 29 Sep 2026 07:47:00 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
+X-Gm-Features: AclHuK-hIyKMMCYq0m6RbVGEdDaE41y87jUOezwgP_JOLXBYBmnHdH3WXkY-n-A
+Message-ID: <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
+Subject: Re: [PATCH hazptr 2/4] compiler.h: Introduce ptr_eq() to preserve
+ address dependency
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org, 
+	Boqun Feng <boqun.feng@gmail.com>, Joel Fernandes <joel@joelfernandes.org>, 
+	Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Will Deacon <will@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>, 
+	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, Frederic Weisbecker <frederic@kernel.org>, 
+	Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
+	Waiman Long <longman@redhat.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com, 
+	Mateusz Guzik <mjguzik@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, rcu@vger.kernel.org, linux-mm@kvack.org, 
+	lkmm@lists.linux.dev, Nikita Popov <github@npopov.com>, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Hongyu Xie <xiehongyu1@kylinos.cn>
+On Sun, 27 Sept 2026 at 08:51, Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>
+> +static __always_inline
+> +int ptr_eq(const volatile void *a, const volatile void *b)
+> +{
+> +       OPTIMIZER_HIDE_VAR(a);
+> +       OPTIMIZER_HIDE_VAR(b);
+> +       return a == b;
+> +}
 
-ene_ub6250_probe() queries the card type with ene_get_card_type() while
-holding us->dev_mutex (the locking added by commit 445fc368c6bc
-("usb-storage: ene_ub6250: fix race between scan work and probe")).
-The query is a bulk-only transaction: CBW, 1-byte data-in and CSW, each
-transferred by usb_stor_bulk_transfer_buf(), which waits for URB
-completion with MAX_SCHEDULE_TIMEOUT.
+I had to think about why I hate this so much.
 
-That unbounded wait is safe only while a SCSI command is being handled,
-because the command's abort machinery (usb_stor_stop_transport() via
-US_FLIDX_ABORTING) is the only thing that can terminate it.  At probe
-time no SCSI command exists, so a device that passes enumeration but
-never services bulk transfers wedges the probe forever:
+It's probably entirely senseless, but this just rubs me the wrong way.
+Those OPTIMIZER_HIDE_VAR() statements are hiding the wrong thing. They
+are telling the compiler to treat valid information (the pointers) as
+if they had changed, so then the compiler will have to just reload
+those pointers when they are used later (and "used later" is part of
+the whole *point* of this, after all).
 
-    hub_event:         usb_stor_msg_common() <- ene_send_scsi_cmd
-                       <- ene_ub6250_probe  (holds us->dev_mutex)
-    events_freezable:  usb_stor_scan_dwork  (blocked on us->dev_mutex)
+But it was never the pointer values that needed hiding from the
+compiler. It's always just the comparison. And while the "optimal"
+thing would be to just do something like
 
-syzbot reports the second worker as "INFO: task hung in
-usb_stor_scan_dwork"; the hub_event worker is stuck in the same wait
-but sleeps interruptibly, which the hung-task detector ignores.
+  static __always_inline bool ptr_eq(const volatile void *a, const
+volatile void *b)
+  {
+        bool ret;
+        asm("cmpq %0,%1":"=@ccz" (ret):"r" (a),"r"(b))
+        return ret;
+  }
 
-Bound the three probe-time transfers with a 30 s timeout through a new
-usb_stor_bulk_transfer_buf_timeout() helper, so a dead device fails the
-probe cleanly and the existing error path unwinds via
-usb_stor_disconnect().
+that is an architecture-specific thing - and then have that
+OPTIMIZER_HIDE_VAR() available as a fallback.
 
-Fixes: 445fc368c6bc ("usb-storage: ene_ub6250: fix race between scan work and probe")
-Reported-by: syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=30552b4cbe99d6d91306
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
----
- drivers/usb/storage/ene_ub6250.c | 55 ++++++++++++++++++++++++--------
- drivers/usb/storage/transport.c  | 31 ++++++++++++++----
- drivers/usb/storage/transport.h  |  3 ++
- 3 files changed, 69 insertions(+), 20 deletions(-)
+I don't know if it's really worth it, but I really do despise that
+"hide the wrong values" thing that generates two new values just to
+compare them and throw them away, and adds register pressure for no
+good reason.
 
-diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-index 895f90c7a3fa..109336bd7e30 100644
---- a/drivers/usb/storage/ene_ub6250.c
-+++ b/drivers/usb/storage/ene_ub6250.c
-@@ -24,6 +24,13 @@
- 
- #define DRV_NAME "ums_eneub6250"
- 
-+/*
-+ * Bound for the probe-time card-type query.  It runs under us->dev_mutex
-+ * with no SCSI command in flight, so nothing else would terminate the
-+ * bulk transfer wait if the device stopped responding.
-+ */
-+#define ENE_PROBE_TIMEOUT (30 * HZ)
-+
- MODULE_DESCRIPTION("Driver for ENE UB6250 reader");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("USB_STORAGE");
-@@ -487,7 +494,8 @@ static void ene_ub6250_info_destructor(void *extra)
- 	kfree(info->bbuf);
- }
- 
--static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
-+static int ene_send_scsi_cmd_timeout(struct us_data *us, u8 fDir, void *buf,
-+				     int use_sg, int timeout)
- {
- 	struct bulk_cb_wrap *bcb = (struct bulk_cb_wrap *) us->iobuf;
- 	struct bulk_cs_wrap *bcs = (struct bulk_cs_wrap *) us->iobuf;
-@@ -499,8 +507,9 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 
- 	/* usb_stor_dbg(us, "transport --- ene_send_scsi_cmd\n"); */
- 	/* send cmd to out endpoint */
--	result = usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
--					    bcb, US_BULK_CB_WRAP_LEN, NULL);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-+					    bcb, US_BULK_CB_WRAP_LEN, NULL,
-+					    timeout);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		usb_stor_dbg(us, "send cmd to out endpoint fail ---\n");
- 		return USB_STOR_TRANSPORT_ERROR;
-@@ -517,6 +526,10 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 		/* Bulk */
- 		if (use_sg) {
- 			result = usb_stor_bulk_srb(us, pipe, us->srb);
-+		} else if (timeout) {
-+			result = usb_stor_bulk_transfer_buf_timeout(us, pipe,
-+					buf, transfer_length, &partial,
-+					timeout);
- 		} else {
- 			result = usb_stor_bulk_transfer_sg(us, pipe, buf,
- 						transfer_length, 0, &partial);
-@@ -528,20 +541,25 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 	}
- 
- 	/* Get CSW for device status */
--	result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe, bcs,
--					    US_BULK_CS_WRAP_LEN, &cswlen);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+					    bcs, US_BULK_CS_WRAP_LEN, &cswlen,
-+					    timeout);
- 
- 	if (result == USB_STOR_XFER_SHORT && cswlen == 0) {
- 		usb_stor_dbg(us, "Received 0-length CSW; retrying...\n");
--		result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe,
--					    bcs, US_BULK_CS_WRAP_LEN, &cswlen);
-+		result = usb_stor_bulk_transfer_buf_timeout(us,
-+					    us->recv_bulk_pipe, bcs,
-+					    US_BULK_CS_WRAP_LEN, &cswlen,
-+					    timeout);
- 	}
- 
- 	if (result == USB_STOR_XFER_STALLED) {
- 		/* get the status again */
- 		usb_stor_dbg(us, "Attempting to get CSW (2nd try)...\n");
--		result = usb_stor_bulk_transfer_buf(us, us->recv_bulk_pipe,
--						bcs, US_BULK_CS_WRAP_LEN, NULL);
-+		result = usb_stor_bulk_transfer_buf_timeout(us,
-+						us->recv_bulk_pipe, bcs,
-+						US_BULK_CS_WRAP_LEN, NULL,
-+						timeout);
- 	}
- 
- 	if (result != USB_STOR_XFER_GOOD)
-@@ -567,6 +585,15 @@ static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
- 	return USB_STOR_TRANSPORT_GOOD;
- }
- 
-+/*
-+ * Unbounded variant for command-path callers: the command's abort
-+ * machinery terminates usb_stor_msg_common()'s wait if the device dies.
-+ */
-+static int ene_send_scsi_cmd(struct us_data *us, u8 fDir, void *buf, int use_sg)
-+{
-+	return ene_send_scsi_cmd_timeout(us, fDir, buf, use_sg, 0);
-+}
-+
- static int do_scsi_request_sense(struct us_data *us, struct scsi_cmnd *srb)
- {
- 	struct ene_ub6250_info *info = (struct ene_ub6250_info *) us->extra;
-@@ -1826,7 +1853,8 @@ static int ms_scsi_write(struct us_data *us, struct scsi_cmnd *srb)
-  * ENE MS Card
-  */
- 
--static int ene_get_card_type(struct us_data *us, u16 index, void *buf)
-+static int ene_get_card_type(struct us_data *us, u16 index, void *buf,
-+			     int timeout)
- {
- 	struct bulk_cb_wrap *bcb = (struct bulk_cb_wrap *) us->iobuf;
- 	int result;
-@@ -1839,7 +1867,7 @@ static int ene_get_card_type(struct us_data *us, u16 index, void *buf)
- 	bcb->CDB[2]			= (unsigned char)(index>>8);
- 	bcb->CDB[3]			= (unsigned char)index;
- 
--	result = ene_send_scsi_cmd(us, FDIR_READ, buf, 0);
-+	result = ene_send_scsi_cmd_timeout(us, FDIR_READ, buf, 0, timeout);
- 	return result;
- }
- 
-@@ -2193,7 +2221,7 @@ static int ene_init(struct us_data *us)
- 	struct ene_ub6250_info *info = (struct ene_ub6250_info *)(us->extra);
- 	u8 *bbuf = info->bbuf;
- 
--	result = ene_get_card_type(us, REG_CARD_STATUS, bbuf);
-+	result = ene_get_card_type(us, REG_CARD_STATUS, bbuf, 0);
- 	if (result != USB_STOR_XFER_GOOD)
- 		return USB_STOR_TRANSPORT_ERROR;
- 
-@@ -2358,7 +2386,8 @@ static int ene_ub6250_probe(struct usb_interface *intf,
- 
- 	/* probe card type */
- 	mutex_lock(&us->dev_mutex);
--	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf);
-+	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf,
-+				   ENE_PROBE_TIMEOUT);
- 	mutex_unlock(&us->dev_mutex);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		usb_stor_disconnect(intf);
-diff --git a/drivers/usb/storage/transport.c b/drivers/usb/storage/transport.c
-index 9a4bf86e7b6a..c586d2021b7e 100644
---- a/drivers/usb/storage/transport.c
-+++ b/drivers/usb/storage/transport.c
-@@ -378,12 +378,18 @@ static int usb_stor_intr_transfer(struct us_data *us, void *buf,
- }
- 
- /*
-- * Transfer one buffer via bulk pipe, without timeouts, but allowing early
-- * termination.  Return codes are USB_STOR_XFER_xxx.  If the bulk pipe
-- * stalls during the transfer, the halt is automatically cleared.
-+ * Transfer one buffer via bulk pipe, allowing early termination.  Return
-+ * codes are USB_STOR_XFER_xxx.  If the bulk pipe stalls during the
-+ * transfer, the halt is automatically cleared.
-+ *
-+ * A nonzero timeout bounds the wait for URB completion.  It must be used
-+ * only when no SCSI command is being handled: usb_stor_msg_common()
-+ * otherwise waits indefinitely, relying on the active command's abort
-+ * machinery to terminate the wait.
-  */
--int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
--	void *buf, unsigned int length, unsigned int *act_len)
-+int usb_stor_bulk_transfer_buf_timeout(struct us_data *us, unsigned int pipe,
-+		void *buf, unsigned int length, unsigned int *act_len,
-+		int timeout)
- {
- 	int result;
- 
-@@ -392,14 +398,25 @@ int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
- 	/* fill and submit the URB */
- 	usb_fill_bulk_urb(us->current_urb, us->pusb_dev, pipe, buf, length,
- 		      usb_stor_blocking_completion, NULL);
--	result = usb_stor_msg_common(us, 0);
-+	result = usb_stor_msg_common(us, timeout);
- 
- 	/* store the actual length of the data transferred */
- 	if (act_len)
- 		*act_len = us->current_urb->actual_length;
--	return interpret_urb_result(us, pipe, length, result, 
-+	return interpret_urb_result(us, pipe, length, result,
- 			us->current_urb->actual_length);
- }
-+EXPORT_SYMBOL_GPL(usb_stor_bulk_transfer_buf_timeout);
-+
-+/*
-+ * Same as usb_stor_bulk_transfer_buf_timeout() with an unbounded wait.
-+ */
-+int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
-+		void *buf, unsigned int length, unsigned int *act_len)
-+{
-+	return usb_stor_bulk_transfer_buf_timeout(us, pipe, buf, length,
-+			act_len, 0);
-+}
- EXPORT_SYMBOL_GPL(usb_stor_bulk_transfer_buf);
- 
- /*
-diff --git a/drivers/usb/storage/transport.h b/drivers/usb/storage/transport.h
-index 74ffd0d7e7b6..dc0442efc24d 100644
---- a/drivers/usb/storage/transport.h
-+++ b/drivers/usb/storage/transport.h
-@@ -77,6 +77,9 @@ extern int usb_stor_clear_halt(struct us_data *us, unsigned int pipe);
- extern int usb_stor_ctrl_transfer(struct us_data *us, unsigned int pipe,
- 		u8 request, u8 requesttype, u16 value, u16 index,
- 		void *data, u16 size);
-+extern int usb_stor_bulk_transfer_buf_timeout(struct us_data *us,
-+		unsigned int pipe, void *buf, unsigned int length,
-+		unsigned int *act_len, int timeout);
- extern int usb_stor_bulk_transfer_buf(struct us_data *us, unsigned int pipe,
- 		void *buf, unsigned int length, unsigned int *act_len);
- extern int usb_stor_bulk_transfer_sg(struct us_data *us, unsigned int pipe,
--- 
-2.32.0
-
+               Linus
