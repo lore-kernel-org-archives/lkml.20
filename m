@@ -1,122 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD973D1A81;
-	Tue, 29 Sep 2026 18:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076513D5661;
+	Tue, 29 Sep 2026 18:46:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707557; cv=none; b=QcKBiymvnxLbz8YsRIrT4m84auWnqnL19fWOb9lo3Vja8JcbrHMj8rMHeX8hfxJyDawxboeHlz+f+o9v5KoTmcJb8+BjUA95FIaZ7jN/HMJr/Sqiefh7bO6mE4mutWrlH2CpDcoOlsHR+6VJ55EEIhMyKmc95WmK1IY3NWvsSjI=
+	t=1790707586; cv=none; b=WeQtQyalFWhilMbJGHoBFhQN6cuF5efJK5lO8CgEv9yBfAGy3yjPoFbtjsq172EFFjPzK/R9lZXCd/hpjogJfwjkpIK7Pd23DIsVXHAkF1/jdpqaZpybesHlfqcL3SpXRZwPuRtcyXI+QuJVIenoxRw5bT4Liw3Fgolh88Q/s7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707557; c=relaxed/simple;
-	bh=3N4KdQxJoGPz1hgxzgdGAufrbd1lUAKVW8XZBxY+qxQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=r0aRMFrVDBuEoiSyP/dVKmpkm0TzchRczm6guwrXnMm8fPsykUu/RsjWScxybM4eVYd1iSWH2CeBecbjcsKiTyAj16tHJWG7CPsuwZBalzey0uDev2wG46s/cms3CqiNUnUy4G1sm9ICiLIyBRUMWwD+ckNSkb3hlx1u73/KLjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=s9zy8G7w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790707586; c=relaxed/simple;
+	bh=qQ0lffp+SG62vr/DVXvAlZcQhAoJ5fcbKCSvj9Ov/RY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r65hdD0VdYFc6rkOCOw9i+Xf4yaWqETybskaYQvgK8r3fcQzwu5IDusSnel1sFuM1IgZ+CGyK55ACb6wpEurH+MLG18zAHw49fmlNbB7DdTykSI3SjoNBC2o/4edKs3YNf/lbolKeRgopfYKcYtH1fVlFnWJWWQ4ffql7ynoZw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5qIHnd7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="s9zy8G7w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892AD1F000FF;
-	Tue, 29 Sep 2026 18:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790707556;
-	bh=ckBKRlY57E9QCcqLcWEZ4zI8fs+c1MX2N526ah8gQys=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=s9zy8G7w8bhgas9xFv6Zm5M/+579DY/4L6zBXisIITWbS1mKLEFbEFImbFSqNhsia
-	 xSP2bGnMuXzf8CtK5oPnbKlXQSmVm7ZH5yG8TDBmMm5HjZqPAxZsIbqtwqn8iaCjps
-	 J0V+84ucQiOjU8QQyRoAIlTrT3hBXaY3wKX8pZv8=
-Date: Tue, 29 Sep 2026 11:45:54 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: jim.cromie@gmail.com
-Cc: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>, Petr
- Mladek <pmladek@suse.com>, Zhen Lei <thunder.leizhen@huawei.com>, Luis
- Chamberlain <mcgrof@kernel.org>, Andrey Grodzovsky
- <andrey.grodzovsky@crowdstrike.com>, Steven Rostedt <rostedt@goodmis.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, David Laight
- <david.laight.linux@gmail.com>, Masahiro Yamada <masahiroy@kernel.org>,
- Jiri Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, Geert Uytterhoeven
- <geert@linux-m68k.org>
-Subject: Re: [PATCH v7 0/3] kallsyms: Accelerate symbol name lookups by ~7x
-Message-Id: <20260929114554.571ba4899639db50f71fafa5@linux-foundation.org>
-In-Reply-To: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
-References: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5qIHnd7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BB61F000FF;
+	Tue, 29 Sep 2026 18:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790707584;
+	bh=GNBP1B5ElGW/DnEs/JpWQBDvoFFLmyeNzTzUB9qB/Ro=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Y5qIHnd72D+dXyes8qI9UbjisMK2FQV7LUxMa1hlBSsy8IsjpRtwsaDCNh1Mrl6eD
+	 aycixNE8OjVphXGEDaXeFM2w0AldoMC/5zKnDMbCUvdnCiThaKs92dlkhV5/5XGkj5
+	 XCOJO2gFouqiVRUB4ZpODLQuKNhTVmvqOV6Ipl9lwPE/Grju3ePqB/fokK+bk7E19d
+	 wut3FjwaVonhQKAopL+oUIi0EQD8XBNB9H0rU2Xp0AfYy/u9TEaTqO62NngFUaWp/C
+	 WV1bSorXCIZvHfCzUcQc2oMpREd1PK9lSjIpKJQlJSizSD6fA06Jxso8cASp3EEuTH
+	 CFTRODSdvPtTA==
+Message-ID: <206e75ee-7133-4fd8-964d-1e507002f6cb@kernel.org>
+Date: Tue, 29 Sep 2026 13:46:22 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86/amd/pmc: Add spurious_8042 to ASUS ROG Flow
+ Z13 GZ302EA
+Content-Language: en-US
+To: Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Hans de Goede
+ <hansg@kernel.org>, ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260929181655.26105-1-matthew.schwartz@linux.dev>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260929181655.26105-1-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 29 Sep 2026 12:07:29 -0600 Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org> wrote:
 
-> In 2022, commit 60443c88f3a8 ("kallsyms: Improve the performance of
-> kallsyms_lookup_name()") introduced kallsyms_seqs_of_names[] (+550 KiB
-> .rodata), transforming an O(N) linear scan into an O(log N) binary
-> search (5.2 ms -> ~7.2 us).  While this was a major step forward,
-> the binary search inner loop was left decompressing full candidate
-> names and scanning across sparse 256:1 markers on every probe.
-> 
-> Modern fleet observability, security daemons (e.g. CrowdStrike Falcon,
-> Cilium, Datadog, Falco), and tracing tools resolve thousands of kernel
-> functions by name at boot or service start.
-> 
-> CrowdStrike recently hit this in production:
-> 
-> commit 93e8fd1a565e ("ftrace: Use kallsyms binary search for single-symbol lookup")
-> 
-> Attaching just 50 kprobe.session programs caused an 858 ms attach
-> stall with 25% CPU burned in kallsyms.  That commit routed single-symbol
-> libbpf attach directly to kallsyms_lookup_name().  In larger workloads
-> (such as the BPF selftest serial_test_kprobe_multi_bench_attach across
-> 64,000 symbols), kallsyms_lookup_names() spends ~390 ms in raw CPU spin.
-> 
-> This series accelerates kallsyms_lookup_names() by 7.0x (from 6,102 ns
-> down to 866 ns per lookup), cutting 64k-symbol attach from ~390 ms to
-> ~55 ms, by fixing two inner-loop bottlenecks:
 
-Thanks, this is awesome.
+On 9/29/26 13:16, Matthew Schwartz wrote:
+> The ASUS ROG Flow Z13 (GZ302EA/GZ302EAC) wakes up from suspend-to-idle
+> without any user input. With PM debug messages enabled, each unexpected
+> wakeup shows the EC raising IRQ1 at the same time as the ACPI SCI:
+> 
+>    PM: Triggering wakeup from IRQ 9
+>    PM: Triggering wakeup from IRQ 1
+>    ACPI: EC: Query(0xa3) started
+>    ACPI: PM: Wakeup after ACPI Notify sync
+> 
+> EC query 0xa3 only notifies the battery of a status change, which
+> happens when it transitions between Charging and Full while on AC.
+> The ACPI core correctly treats that as a non-wakeup event and cancels
+> the SCI wakeup, but the IRQ1 wakeup remains pending and resumes the
+> system. i8042 debugging confirms that the keyboard controller has no
+> data at that point ("Interrupt 1, without any data").
+> 
+> The detachable keyboard on this device is a USB device, so disabling
+> the i8042 wakeup source does not result in any functional loss. With
+> serio0 wakeup disabled, the same battery event is processed during
+> suspend-to-idle and the system stays asleep.
+> 
+> Add the spurious_8042 quirk for it. The GZ302EAC reports sys_vendor
+> "ASUS" while the GZ302EA reports "ASUSTeK COMPUTER INC.", so match on
+> "ASUS" and on the "GZ302EA" board name to cover both models.
+> 
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 
-> 0. Candidate symbols are fully decompressed into a 512-byte stack buffer
->    before calling strcmp(), even though ~16 of the 17 search steps
->    mismatch at the first differing character (0..N-1, heavily
->    front-loaded toward 0-2).
-> 
-> 1. Probes scan sequentially from 256:1 markers in kallsyms_names[],
->    decoding an average of 127.5 symbols per probe (~2,170 hops across a
->    17-step search).
-> 
-> The 3-patch progression:
-> 
-> 0. Patch 1 introduces kallsyms_strcmp_symbol() to compare ASCII queries
->    against compressed tokens on the fly, bailing out on first mismatch.
->    Drops the 512-byte stack buffer and saves ~530 ns.
-> 
-> 1. Patch 2 increases marker density from 256:1 to 16:1, cutting average
->    scan distance from 127.5 to 7.5 hops and dropping lookup latency from
->    6,102 ns to 866 ns for +42.2 KiB of .rodata.
-> 
-> 2. Patch 3 inlines and unrolls get_symbol_seq() 24-bit reconstruction.
-> 
-> Results (CONFIG_KALLSYMS_SELFTEST across ~184k symbols):
-> - Baseline (256:1):  6,102 ns
-> - Patch 1 (strcmp):  5,572 ns (-530 ns)
-> - Patch 2 (16:1):      866 ns (7.0x faster)
-> 
-> Trade-offs:
-> - .rodata footprint: +42.2 KiB (+10,782 u32 entries for ~184k symbols,
->   ~0.1% of loaded kernel image).
+Good analysis of this issue.  It sounds like the right direction for 
+this problem.
 
-That's the bad news.  Can anything be done to reduce this aspect?
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
 > ---
-> Jim Cromie (3):
->       kallsyms: Match compressed tokens on the fly during binary search
->       kallsyms: Increase marker density to 16:1 to accelerate lookups
->       kallsyms: Unroll 24-bit sequence reconstruction in get_symbol_seq()
-
-I'll queue this in mm.git for testing, would prefer not to go further
-without third-party review, please.
-
+>   drivers/platform/x86/amd/pmc/pmc-quirks.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
+> index 09a30f333759..ff5c90510c0c 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
+> @@ -143,6 +143,14 @@ static const struct dmi_system_id fwbug_list[] = {
+>   			DMI_MATCH(DMI_BOARD_NAME, "RC73YA"),
+>   		}
+>   	},
+> +	{
+> +		.ident = "ASUS ROG Flow Z13 GZ302EA",
+> +		.driver_data = &quirk_spurious_8042,
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
+> +			DMI_MATCH(DMI_BOARD_NAME, "GZ302EA"),
+> +		}
+> +	},
+>   	/* https://bugzilla.kernel.org/show_bug.cgi?id=218024 */
+>   	{
+>   		.ident = "V14 G4 AMN",
 
