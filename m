@@ -1,281 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60D4322B9F;
-	Tue, 29 Sep 2026 18:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705251; cv=none; b=Yb9EaR9louBZsfq6jx93w91vRQqLjFPIJ9PET8pbDYegL2PXVIdMPYIXaAbs/vKwEmbkPs4n9EmzY1QUvBt/X4Wh4Ml5pL9PwF03PVmn1rb0IjWaAnkBMaUb7Xumy5P2VjC/zOAlnoQtbpwquUhpSPvyRhj3Hmcj6macNX50OhY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705251; c=relaxed/simple;
-	bh=HedXA29bP2AYga35+FP735wrhCFsjEPZwKzF7UPRSqs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pOXPqxUjLn+Ng6KI3nzKQx7G+PloXIkayqpwEfVsj7qZfVMorztW+jxmNvPm/Na0057+b/41B9U44EAFyHgegBWZ+d/3yI9q9fZ6Q3ul4M4PO3yBpFbBp2BfpLEcU0RWzDi1JgSTMyCQWitjSmJWVMITBxYBtK2kEaLx2l6Qgv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egPIya6h; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078B451DE17;
+	Tue, 29 Sep 2026 18:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790705341; cv=fail; b=OIBWwSOJIK4U0qOYUS3ZOEaB+0ZgjaRBEKIHRz32XSTQ0c/4NiIwLVfAeC39YRce/W8/Q6THAYJZnRnhF0+GCk97sHUCvZ80NJ61whUQHRRb4A1wJIunWVhTkbQeI1/S6GBTz9g68tYEYHf9Uo4KflKnV62GGO8f1WH9MwFONdo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790705341; c=relaxed/simple;
+	bh=aYT2QZfpwLaw9GeOB19PBw4Qce6ZynrTezlCmW8BXJA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=YDt928CjatLSu/vi8KbcigayvdU5Zu0jLDjfjxge9mV/zSWUTHPdm4r8mAdHr4XzDGKAcXS01GwjEXH5MODL0tc+fOoj/TOgpWJP4UdNcU9BYF/+Ygs8uaQXLKtqvWwaQxJckb+bLHTrhYSvtktQWvYfxFmSekemisrozl2O2hU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eX6++q1v; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egPIya6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 638D6C4AF0B;
-	Tue, 29 Sep 2026 18:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790705251;
-	bh=HedXA29bP2AYga35+FP735wrhCFsjEPZwKzF7UPRSqs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=egPIya6hO0qD84jl3l6phUzqNKajQWYKKFlxstWRFyT+XstgLuyHk4IkCcU2tEzx1
-	 dXYZ1aVu8ranfxxyEOyoeHUuuv9vf7em7oKMGfkQuL0YcMCdyS9GxxRtlc0YY0QcP1
-	 T8E28kDtZ0PFE6eefHfxv7kf7SrgYqepvJrZPTff18tb+5NYoFeWWR9jf06CPe1ZyH
-	 zsemc/29RrVD4eEz/W6+vvEZk5wYjCNvuEFuYIhkIS91jilIVfWScfDPKQ7zACCiIj
-	 JqjciY3qhgWhW0w9mEiZwdLAkMV6QojV/DQ2ky6NKxjtfm7vkh+Z5zd+zsy5NITeUw
-	 1q6iFvB9k3EgA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E498CA5FA7;
-	Tue, 29 Sep 2026 18:07:31 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Subject: [PATCH v7 0/3] kallsyms: Accelerate symbol name lookups by ~7x
-Date: Tue, 29 Sep 2026 12:07:29 -0600
-Message-Id: <20260929-ksyms-tune-v7-0-be568ceef41e@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eX6++q1v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790705340; x=1822241340;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=aYT2QZfpwLaw9GeOB19PBw4Qce6ZynrTezlCmW8BXJA=;
+  b=eX6++q1v83spLKw9o39FIAE8O0Y9ugcSsTpFlA70Psq8ex+5n2N/wROv
+   baU7d8duVjOPby5SC16T/y1onnijA0H0n/QLLymFwH6SpjKXgeB3lPBYc
+   rO0m/8RPbZDjQqQhwbZWk8J2/R2HaYbx4OhrOx43xvJWtsWTkbFUneQWc
+   S/86D7i+d2EvdGDZqrjZRR5Zxb/AQ58Jhtzk5wH+n0GvCwsqhQAhTTu39
+   EgFeXJxRq6+qqUowRq3e3hYA6rbWxiMfXLL5JIAKQfFgMicN2AGbrOGet
+   O4ZCPPv3Q9/MlxRbUio4NhieWmZnV5VIKqS6SQOfsj+edvMfvSphyezWU
+   g==;
+X-CSE-ConnectionGUID: 82DbKiUGRd+Zrg5fFcdaOw==
+X-CSE-MsgGUID: cRBqRQP1QqSS5XUm3kWECQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="95246589"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="95246589"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 11:08:45 -0700
+X-CSE-ConnectionGUID: AcyeKwQ9TRaMyj3tnplmuA==
+X-CSE-MsgGUID: D9mtGYbrRuKazC4NPsz+qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="273218963"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 11:08:45 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 10:53:16 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 10:53:16 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.71) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 10:53:16 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hZa2rbIx3lJAR2VNhlbKVk1d/nsFdC8PcyMu8/xgMlZ6j57P6ci65mZ/eAiyornox6lBxeVJmlgS9PEHfZZVH8x6dvxAPPkM3N9URuijyHaZDbnO3vmERkJOlwRmRxHB0v8fEbpY83wcGHr62K27DPWRSvFXzbkADwWiT0fvKW0vaYRbZZFZnDSvxYPaAnbW/LbdVf1ohUmzMXuIhSKCEVD6bPGDqpwVsJXs+zvEVt1VzFzjDCWc4BVd9ZDEUkitt4gD2ytgMIBFjNXbQDbUEHN8zh/ZNvFs5XJBcHEH+NnIhfomv3kmaPPxr6+PmU1x2SdSWtJ3hYCVz5oQJNF3yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BoE7gc8kwG/bI9y4snN372Wt7xEXb6VZpA/rGXFMe3s=;
+ b=wdBPeAsv/g/8ssA/UwzOEewgsarpxX/Am++IPZ/J60PDu5WU2l0zDHO6upx9ToV+yytQ8gZL86BAoWLzY0rb3kfoeUBOQ9FehtJGsMauo/0o3DoDOTNs2dDRn0OcPFuMqa5TyqQwx3Tb8ij7Cn/3GnjmZ6IpbmBBN+j7XL1WZJH/GKkuyFAcmtZ8H0505PodVtpeel1S+9ni8HR2xU+vSAXYl+u284RMauJgvm9wmdDlCSGfDf9cJ3KsL+DrJJx+7o0xFJTtoscDbM2wsTA6TKTqbc2EX6kf01STR90KeBLqN064aLi+ypAaQu+spqbp4tvVHSC8CzzhE5UIKZPTYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by PH0PR11MB9524.namprd11.prod.outlook.com (2603:10b6:510:3b1::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 17:53:15 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
+ 17:53:14 +0000
+Date: Tue, 29 Sep 2026 10:53:03 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Yili Zhang <zhangyili01@baidu.com>
+CC: <dave.jiang@intel.com>, <dave@stgolabs.net>, <jic23@kernel.org>,
+	<linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<shiju.jose@huawei.com>, <vishal.l.verma@intel.com>
+Subject: Re: [PATCH] cxl/edac: Bounds-check ECS threshold index from device
+Message-ID: <arv6_znTtwN4JExY@aschofie-mobl2.lan>
+References: <51e4cfe6-b3c7-43ff-8b1c-512cfb23b9be@intel.com>
+ <20260929031742.14302-1-zhangyili01@baidu.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260929031742.14302-1-zhangyili01@baidu.com>
+X-ClientProxiedBy: SJ0PR05CA0117.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::32) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNwW7CMAzG8VdBOS9TYidps9PeY+LgJQaire3UQ
- DWE+u4znNpqHD9Lv79vqvJYuKq33U2NPJVahl5G87JT6UT9kXXJshUYCCbaqL/qtav6fOlZMwA
- 5yC2hJSXgZ+RD+X3EPvayT6Weh/H6aE/2fv03M1ltdG59ik0mSwjvx47K92saOnXPTLCgACsKQ
- gkRmdEypWZL8TlFoaGVf47J+By31D2nTmgESkyt+4zWbqlfUr+iXqg9NJ6ySQg2bWlY0rCiQSh
- gCGBS8BzbJZ3n+Q+NlOQ0ywEAAA==
-X-Change-ID: 20260919-ksyms-tune-e22a42d8a31a
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Petr Mladek <pmladek@suse.com>, Zhen Lei <thunder.leizhen@huawei.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, 
- Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Kees Cook <kees@kernel.org>, David Laight <david.laight.linux@gmail.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Jiri Olsa <olsajiri@gmail.com>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790705250; l=10591;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=HedXA29bP2AYga35+FP735wrhCFsjEPZwKzF7UPRSqs=;
- b=Mv/rpPgdR/0VpIzwGFWoQbsQv8QxW98ufFmXosfOyf0Cpmy3i7E8xS9kk4S6Bs+9oQ/Fph7GE
- 7I+JIKeR3XSDlquZrCiJVg/l7V26hSsYx/IPlkYVnzaMpUdRgwhEr6B
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
-Reply-To: jim.cromie@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH0PR11MB9524:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20c806ba-1d1c-42b3-4db3-08df1e5288fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: xt5nrrVSJvqMASPIND4zA2MKViTOolu/UjqayGb/HgVb8HyRKesXDd9Nk8rbZ5wNv4bl5o1X7X1mQj0yHILSDPHlKyhqzE+g6eNjDUW80Ba0M8Js+hicGPjD3Slp38TkJoY5O25GSbeSJs63VIgzbmDvDlcmeY7ZYy32OUo83SnQtE3yK0c5zc+O+m/ZDjIyd2a3e52hbPSFH9VFfjibY6G9cjnKgRl8xvpVqIebYzO857hdWlJvFYIyBEgwvutOmaqFvkCK6S0bz/rPVmYz+ZbqgxTnpy+QqBCsPAMpl4JpzJJUbWT5rh2eSYRQuEi3DtXCaySvjpymAAsFA35xAjn5qlE9XVcw/ewiEo6MLDNyUO82jIzzQpehA2/4slQAAMmsI4mGJE+sc3BJ+rbAKW7zdURXyfolLu0EOkB+kXu+H0sJU0HocRWnzTIzWGUPBpGjksNg1DyuNzQKNUYaqty3QGL6OSwrI3dUHWWPZZM6rass+bGbnTtRDjzuzCk7/yTy/0iEV7pxbJQEzVtwVW81uzdiTpZTlHTbO+U+g27KL0I0sdN173wPodL233ZhfYu74dAaUQh98cwRqmqcYeVHFekEj/kKRHTOxur7Ldvf99aNr6s929LLO6QXUMp7XxoGgFqMOPgtBnNJfajRGiZQ1Fp9mf698qOQwAox9bo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gXMJr64jkL2y8PVIvy8PB4g5BAbPxMbya/n5Lv439W+3XNBpa3teeyXFhkpM?=
+ =?us-ascii?Q?Ef6aalQ5F37vAjLYqA7FHTIo+k/caklMsEbNQ0fJTC1ejScCgAxfqsEkx/+a?=
+ =?us-ascii?Q?uE2JTgK7Y6Xw9JEyGSnZhmGiWBX4XqtyzM+Z3wJ2cfN3IidwJdOYYSPUZjso?=
+ =?us-ascii?Q?W7xFNY8Up9FHTg7InR2M4knz7Wej2IdBV8ocrEVMr69DP0zlV3ZBcD8AbKB/?=
+ =?us-ascii?Q?vzNa7UZZJZWARj5tZG1n8ewFEbkGkh9j1CYH6JWfo2TbnZYxIgAM2Y9F5/lL?=
+ =?us-ascii?Q?Q24xMudPwKKZJwd9cy0HhlrI0nwyOKIro2heP1nhZC05AgezlJyyZ/DAbE9B?=
+ =?us-ascii?Q?09UB8VdCkU8nkFgBLEyZAc7+nT5dvckOtwKzJOo65UD6KdC33Ar/kG3yVPFk?=
+ =?us-ascii?Q?+munUGbyNF3y+7RV1/H/F3dYCNGE1ecJFqQp0nBQCjsuPdae3e57QBhL+mVh?=
+ =?us-ascii?Q?hZbO8yV3PYyvVP3Y/8dy3rf/Dbk1I8s8w5ZPGfU75VtGRlhn4/Uh2UTVklMD?=
+ =?us-ascii?Q?44bGiseR880UjD2NPErwG7xPvuJPlussNo3azq9gK1ZaMaU5fF8CHzcfCYcZ?=
+ =?us-ascii?Q?cCoV7iHlUnfjLbHg3+7aYGpF4dackACLRoOuO+jGcsao33Bll1A9v9Zqqjp4?=
+ =?us-ascii?Q?yceGF01n84ZFF9bFFOT+/i18vaCu1KuokThO0ICJzYDMsiHcwUz8vMDITsq2?=
+ =?us-ascii?Q?xxLgnMlxo3eBIdjdmNb9qJpJLhNlf9dxB4M5usEFQjsONC6Gl6CSBWd3QC1B?=
+ =?us-ascii?Q?FBqY/IHroH5BANnK7CtxolMgioS2cxntcucS3mMM6S/WtxVnzCmzDGkHtmx3?=
+ =?us-ascii?Q?tXe/tLE7+LVXRjsnkktJc+EBfOn/aoWhgx7MRPXx50A+LsOi/B5QcvcPh+8n?=
+ =?us-ascii?Q?5Fd/LQzjdZXT0ogQfhgMPNDDJvwU4JHG8HDkrU4y+pQNWwLHh1NOsx6Gne/0?=
+ =?us-ascii?Q?ssoCu2KkfD3+28SzAeQR81B/+3GyBkwMZ13aRTTWFRCf2BbkhfTANJiZfLis?=
+ =?us-ascii?Q?jKryto7zZSvMOupFD7HsSEetG9JrITS/iUaKvTvYoTMYSeTgiFhQBbixKxZK?=
+ =?us-ascii?Q?NI4WsHDplVM8+p6BoE3jjQV3/uZ1nhDo/e5b6DCytoIpFXsc4IRsPGJmavWA?=
+ =?us-ascii?Q?LvGb8HN1N4Gy3CtV4eJNuaVv41TU8EuEvRN5nNUsgouk+C568SUorh6KN6k9?=
+ =?us-ascii?Q?pAuQXkleeQ10uOeqadVUUihmGfeO49r9ViL3R6gKl1xh5j3N7XbHXjvqMaPq?=
+ =?us-ascii?Q?PNtvCTD5Wphrpgz7ooe0SvA/kGUhUIZ9My0OU+xgIvnt8UhbB81lCkgun1sM?=
+ =?us-ascii?Q?qyoGk/xY28wyZBuvwLlb0Ol21aMaYL2bJqOryWcrByqBXxoyx3WfOGybNWQc?=
+ =?us-ascii?Q?for5mvTqK1jxIGdVXBIuKlVeWdgpcztBUj+rUU7Dk4DS06sTkjK7F9Acr6KU?=
+ =?us-ascii?Q?YYNLd+IS+hGqtI/p76m3eo2opWCsEscuMceJ3Nzayn9RsonsJ0cVT7iFtHk+?=
+ =?us-ascii?Q?9mSifx3/gZVi5X+PoVJ4DjUcj6JVqFj4hUQSFvk9MI+A7c4Yk4NkwZGp0lAS?=
+ =?us-ascii?Q?fEQmFW+EZCy5EI77LYQX1w1+KpidpzDFoB2lJwz6ZKyADn3pyV/3IH2RRCbx?=
+ =?us-ascii?Q?94P9DvuKgzsD7qI592fWmCuhP+gHxOX4610R2tyadMVzZ7J9UU6FRCrt84Md?=
+ =?us-ascii?Q?Cb4NbC+6rOIhbd6F+P1FF3n7w5ttYKSKkQsF4EGJtVmelmaSWFMg6skARPtu?=
+ =?us-ascii?Q?ajWMWoJkTT8nIcf/Xap7GbG88NryNHo=3D?=
+X-Exchange-RoutingPolicyChecked: F92hk1pUdAYxjM5vrAK4g5oYpWLtlWJaFWXvwcv5y5q9leQ1m4t3yS9QI5YtenFUBA+lGS9TjG425YJM/7FRYm6M0TNEOo4cIN5P0m3vqsoYu4y8zytODvHJy5CFhrq2CIS0D+WgK1htlW1rMDsMmbM3E0bqBe3WOcKSSPS48bFXzsz83JumASscaaACQ9vCdvRByo9Umo4E+ne/rc2OAe2kjAlg/Q3DoJGs+BJWwg5oJJogbrpHfjKtEEW7PCCr9M3qC3ONHkKSmZPFp0eIZH+jMyamAdRdMwNt4PfPXXglPJZEo5xRMkFVRdMyGH7S0LicQlHsoDQu/EEZJ8e+BA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20c806ba-1d1c-42b3-4db3-08df1e5288fc
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 17:53:14.6985
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FeMMZWc2I0pXJQuqqO3sSQyirXpwynw6V6HFRgFqTqR62xYEsPQC2SNmFk0Y/SHe9YhCI9hdsrZ13DAtquMRliqB9jyVKjl4Yczxo4tVUxg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9524
+X-OriginatorOrg: intel.com
 
-In 2022, commit 60443c88f3a8 ("kallsyms: Improve the performance of
-kallsyms_lookup_name()") introduced kallsyms_seqs_of_names[] (+550 KiB
-.rodata), transforming an O(N) linear scan into an O(log N) binary
-search (5.2 ms -> ~7.2 us).  While this was a major step forward,
-the binary search inner loop was left decompressing full candidate
-names and scanning across sparse 256:1 markers on every probe.
+On Tue, Sep 29, 2026 at 11:17:42AM +0800, Yili Zhang wrote:
+> On 2026-09-28 11:21, Dave Jiang wrote:
+> >
+> > On 9/28/26 12:35 AM, Yili Zhang wrote:
+> > > cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
+> > > device-supplied ECS config word and uses it to
+> > > index ecs_supp_threshold[], which only has 6 elements. A device reporting
+> > > index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
+> > > value is then returned to userspace via the EDAC 'threshold' sysfs
+> > > attribute (small info leak and wrong reported threshold).
+> > >
+> > > Return 0 for indices outside the table.
+> >
+> > Why return 0 instead of errno?
+> 
+> The threshold count field is 3 bits wide, with encodings 0-2 and
+> 6-7 reserved. ecs_supp_threshold[] is a sparse array that only
+> initializes entries 3-5 (256/1024/4096), so when a device reports
+> one of the reserved encodings 0-2, the current code already
+> returns 0. The patch just extends the same treatment to the
+> remaining reserved indices instead of reading past the table.
+> 0 is also not a valid threshold value, so userspace can tell it
+> apart from a real one.
 
-Modern fleet observability, security daemons (e.g. CrowdStrike Falcon,
-Cilium, Datadog, Falco), and tracing tools resolve thousands of kernel
-functions by name at boot or service start.
+Hi Yili,
 
-CrowdStrike recently hit this in production:
+I see the appeal of keeping this as the smallest possible fix, but is the
+existing behavior for 0-2 something we intentionally want to preserve, or
+just how the current implementation works?
 
-commit 93e8fd1a565e ("ftrace: Use kallsyms binary search for single-symbol lookup")
+Documentation/ABI/testing/sysfs-edac-ecs lists 256, 1024, and 4096 as the
+threshold values. If 0 is meant to represent a reserved encoding, should
+that be part of the documented ABI?
 
-Attaching just 50 kprobe.session programs caused an 858 ms attach
-stall with 25% CPU burned in kallsyms.  That commit routed single-symbol
-libbpf attach directly to kallsyms_lookup_name().  In larger workloads
-(such as the BPF selftest serial_test_kprobe_multi_bench_attach across
-64,000 symbols), kallsyms_lookup_names() spends ~390 ms in raw CPU spin.
+> 
+> Returning an errno would additionally require open-coding a
+> separate getter for this one attribute, as it goes through the
+> shared CXL_ECS_GET_ATTR() macro, which cannot propagate errors.
 
-This series accelerates kallsyms_lookup_names() by 7.0x (from 6,102 ns
-down to 866 ns per lookup), cutting 64k-symbol attach from ~390 ms to
-~55 ms, by fixing two inner-loop bottlenecks:
+Does CXL_ECS_GET_ATTR() itself prevent that? It already has an int return
+path and can return errors from cxl_mem_ecs_get_attrbs().
 
-0. Candidate symbols are fully decompressed into a 512-byte stack buffer
-   before calling strcmp(), even though ~16 of the 17 search steps
-   mismatch at the first differing character (0..N-1, heavily
-   front-loaded toward 0-2).
-
-1. Probes scan sequentially from 256:1 markers in kallsyms_names[],
-   decoding an average of 127.5 symbols per probe (~2,170 hops across a
-   17-step search).
-
-The 3-patch progression:
-
-0. Patch 1 introduces kallsyms_strcmp_symbol() to compare ASCII queries
-   against compressed tokens on the fly, bailing out on first mismatch.
-   Drops the 512-byte stack buffer and saves ~530 ns.
-
-1. Patch 2 increases marker density from 256:1 to 16:1, cutting average
-   scan distance from 127.5 to 7.5 hops and dropping lookup latency from
-   6,102 ns to 866 ns for +42.2 KiB of .rodata.
-
-2. Patch 3 inlines and unrolls get_symbol_seq() 24-bit reconstruction.
-
-Results (CONFIG_KALLSYMS_SELFTEST across ~184k symbols):
-- Baseline (256:1):  6,102 ns
-- Patch 1 (strcmp):  5,572 ns (-530 ns)
-- Patch 2 (16:1):      866 ns (7.0x faster)
-
-Trade-offs:
-- .rodata footprint: +42.2 KiB (+10,782 u32 entries for ~184k symbols,
-  ~0.1% of loaded kernel image).
-- Runtime overhead: 0 bytes dynamic RAM (no kmalloc/kvmalloc), 0 RCU,
-  0 new locks, and 0 new algorithms.
-- Kernel stack: -512 bytes freed in kallsyms_lookup_names().
-- Build tooling: scripts/kallsyms.c includes
-  ../kernel/kallsyms_internal.h (guarded by #ifdef __KERNEL__) so host
-  build and kernel runtime share KALLSYMS_MARKER_SHIFT 4 as a single
-  source of truth.
-- Build time: Unmeasurable delta (< 1 ms in scripts/kallsyms.c).
-
-What's Unchanged:
-- Symbol table layout in address order remains identical.
-- Streaming decompression for /proc/kallsyms and sprint_symbol() is
-  untouched.
-- 0 new user-facing APIs, 0 new locking primitives, 0 Kconfig options.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-Changes in v7:
-- Lead cover letter with concrete workloads and "who cares" (citing
-  CrowdStrike commit 93e8fd1a565e and 64k BPF selftest attach times)
-  (addresses Andrew Morton review).
-- Document lineage from Zhen Lei's 2022 binary search work in commit
-  60443c88f3a8 (+550 KiB .rodata) and frame this series as completing
-  that optimization (+42 KiB .rodata for 7x faster lookups).
-- Explicitly detail memory (+42.2 KiB .rodata, 0 B RAM, -512 B stack)
-  and build-time (<1 ms) trade-offs in cover letter (addresses Andrew
-  Morton review).
-- Detail lack of runtime complexity (0 kmalloc, 0 RCU, 0 locks, 0 new
-  algos).
-- Note scripts/kallsyms.c reading KALLSYMS_MARKER_SHIFT from kernel/
-  header as single source of truth.
-- Add Petr Mladek, Zhen Lei, Luis Chamberlain, Andrey Grodzovsky, and
-  Steven Rostedt to Cc list.
-- Link to v6: https://lore.kernel.org/r/20260926-ksyms-tune-v6-0-236620c65e98@gmail.com
-
-Changes in v6:
-- In patch 1, clarify token matching mechanics and early exit on char
-  0..N-1; cite CONFIG_KALLSYMS_SELFTEST across all ~184k symbols for the
-  ~530 ns measurement (addresses BPF CI review).
-- In patch 1, drop 0-2 list and fix repeated word typo ("the the").
-- In patch 2, recast commit body around kallsyms storage trade-offs and
-  drop hunk-by-hunk numbered list (addresses BPF CI review).
-- In patch 2, drop 0.002% percentage claim and state absolute .rodata
-  cost (+42 KiB for ~184k symbols).
-- In patch 2, drop ephemeral benchmark comment from
-  kernel/kallsyms_internal.h (addresses BPF CI review).
-- Link to v5: https://lore.kernel.org/r/20260925-ksyms-tune-v5-0-1f75ad0c321c@gmail.com
-
-Changes in v5:
-- Dismiss dynamic 1:1 batch table as unnecessary:
-  In v2-v4, a dynamic u32 lookup index allocated in transient RAM was
-  explored.  While dynamic 1:1 breaks even against baseline 256:1 after
-  ~1,200 queries, comparing dynamic 1:1 against static 16:1 markers
-  dismisses the dynamic approach entirely:
-  * Static 16:1 markers achieve 866 ns, capturing 97.4% of the maximum
-    latency savings of a 1:1 table (an 85.8% reduction from baseline).
-  * Dynamic 1:1 gains only an incremental 138 ns (the remaining 2.6%),
-    while paying ~6,419 us in allocation setup and synchronize_rcu()
-    teardown.
-  * Amortizing 6,419 us at 138 ns saved requires 46,514 queries just to
-    break even against 16:1 markers.  For any workload under 46k
-    queries, dynamic allocation is slower overall.
-  * Drop kallsyms_lookup_batch_start/end APIs, mutexes, refcounts,
-    transient kvmalloc RAM allocations, and RCU synchronization.
-- Drop lib/test_kallsyms_perf benchmark module and
-  CONFIG_TEST_KALLSYMS_PERF; existing in-tree CONFIG_KALLSYMS_SELFTEST
-  already benchmarks standard kallsyms_lookup_name() without adding
-  unmaintained test files in lib/.
-- In patch 2, increase marker density to 16:1 via
-  KALLSYMS_MARKER_SHIFT 4 shared between scripts/kallsyms.c and
-  kernel/kallsyms_internal.h, and drop all references to dynamic tables
-  from the patch body.
-- Link to v4: https://lore.kernel.org/r/20260922-ksyms-tune-v4-0-92acea84b911@gmail.com
-
-Changes in v4:
-- In patch 1, ignore early boot invocations in param_set_trigger() when
-  system_state < SYSTEM_RUNNING to prevent NULL pointer dereference in
-  ktime_get_ns() prior to timekeeping_init() (addresses Sashiko review).
-- In patch 1, prevent sysfs TOCTOU divide-by-zero panic: reject
-  num_iters == 0 in param setter, snapshot iters locally via READ_ONCE,
-  and serialize runs with bench_lock mutex (addresses Sashiko review).
-- In patch 1, eliminate multi-second boot stall: add run_on_boot
-  parameter (default false) so late_initcall only runs benchmark when
-  explicitly requested (addresses Sashiko review).
-- In patch 1, chunk lookup loops in 4096-iter batches with
-  cond_resched() outside the timing bracket to prevent preemption sleep
-  time from inflating reported latency (addresses Sashiko review).
-- In patch 3, annotate dyn_kallsyms_offsets declaration with __rcu to
-  satisfy sparse type checking and prevent address-space warnings across
-  rcu_assign_pointer() and rcu_dereference() (addresses Sashiko review).
-- In patch 3, use rcu_replace_pointer() with lockdep_is_held() during
-  batch teardown to atomically read and clear the pointer while
-  satisfying sparse address-space constraints (addresses Sashiko
-  review).
-- Link to v3: https://lore.kernel.org/r/20260922-ksyms-tune-v3-0-681a34ea05d9@gmail.com
-
-Changes in v3:
-- Reorder series: place on-the-fly token matching ahead of marker
-  density optimization, establishing an active proof of incremental
-  performance deltas across all steps (addresses David Laight review).
-- Add inlined and unrolled get_symbol_seq() 24-bit sequence index
-  reconstruction into direct byte shifts (addresses David Laight
-  review).
-- In test_kallsyms_perf, configure as a built-in test (bool) rather
-  than a module (tristate) and drop kallsyms iterator EXPORT_SYMBOL_GPL
-  exports to avoid exposing internal kernel symbol data (addresses
-  Sashiko review).
-- In patch 1, optimize kallsyms_strcmp_symbol() by dropping
-  skipped_first tracking and checking len at the bottom of the token
-  loop (addresses David Laight review).
-- Drop 'default m' from lib/Kconfig.debug.
-- Fix soft lockup risks by adding cond_resched() every 16k iterations in
-  test_kallsyms_perf loops.
-- Replace direct 64-bit integer divisions with div_u64() to fix 32-bit
-  builds.
-- Guard against divide-by-zero when num_iters=0.
-- Replace tcp_v4_rcv with panic in hit_symbols to prevent failures wo
-  CONFIG_INET.
-- Move David Laight to series-wide Cc on cover letter, dropping trailer
-  from patch 3.
-- Link to v2: https://lore.kernel.org/r/20260922-ksyms-tune-v2-0-a333ee31eac7@gmail.com
-
-Changes in v2:
-- Replaced static build-time 3-byte offset table with a dynamic u32
-  index bracketed by kallsyms_lookup_batch_start() and
-  kallsyms_lookup_batch_end().
-- Dropped .rodata image footprint addition from +573 KiB to 0 KiB,
-  addressing Kees Cook's memory footprint objection.
-- Native u32 loads in transient RAM eliminate 24-bit big-endian shifts
-  and unaligned loads, addressing David Laight's endianness critique.
-- Direct O(1) table indexing provides 0 hops for all symbol lookups
-  without remainder logic or odd/even branching.
-- Restored scripts/kallsyms.c and kernel/kallsyms_internal.h to pristine
-  state, leaving legacy kallsyms_markers[] as safety fallback.
-- Rebased out Lorenzo Stoakes' kbuild series; this series is now
-  completely decoupled and applies cleanly directly onto mainline.
-- Link to v1: https://lore.kernel.org/r/20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com
-
----
-Jim Cromie (3):
-      kallsyms: Match compressed tokens on the fly during binary search
-      kallsyms: Increase marker density to 16:1 to accelerate lookups
-      kallsyms: Unroll 24-bit sequence reconstruction in get_symbol_seq()
-
- kernel/kallsyms.c          | 111 +++++++++++++++++++++++++++------------------
- kernel/kallsyms_internal.h |  11 +++++
- scripts/kallsyms.c         |  14 ++++--
- 3 files changed, 86 insertions(+), 50 deletions(-)
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260919-ksyms-tune-e22a42d8a31a
-
-Best regards,
--- 
-Jim Cromie <jim.cromie@gmail.com>
+Is the real limitation just the interface used by the cxl_get_ecs_*()
+helpers? Would something like this work:
 
 
+static int cxl_get_ecs_threshold(u8 log_cap, u16 config, u16 *threshold)
+{
+	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
+
+	if (index >= ARRAY_SIZE(ecs_supp_threshold) ||
+	    !ecs_supp_threshold[index])
+		return -EINVAL;
+
+	*threshold = ecs_supp_threshold[index];
+	return 0;
+}
+
+-- Alison
+
+> 
+> So I'd prefer to keep returning 0 here.
+> 
+> Thanks,
+> Yili
