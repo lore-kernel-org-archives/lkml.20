@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C626552ED51;
-	Tue, 29 Sep 2026 13:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8339C52E042;
+	Tue, 29 Sep 2026 13:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690392; cv=none; b=O0Q/E/Y4USHQDmlLFP4a4tVwaqGEpFEZPRuQiSvAWlvEnOeoUP1/Irv7gysHOPv+/N6v2j6guSbsnU5TFEbZQwMpazJxj88IZQfJtMXe9rrqk24bYOrngfdSElsIpYl3IPcTZecrvEOGgRti3kzUaYgbC8ylfBvM1qlnkw5DtIA=
+	t=1790690398; cv=none; b=Cr+F4vSa7z85OtphvaKFOQJxDmxqE7lhgdubEBAS9Aqz3WlPZDVHoVYx2HE7CiZRGCC9zUAl0oK2nTZwH983aHzZE9xaAvdEBjpoxKr7XABcZKc/KZq3vTOceZ+5SrfsNcPfe2lKsDMe8XGveBrMYvQjWstFWFpazHd443rhCxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690392; c=relaxed/simple;
-	bh=Xaph0qIEfVybRVW4imx5xpK9NnxcSA2LEcPcqk5KGLM=;
+	s=arc-20240116; t=1790690398; c=relaxed/simple;
+	bh=4l7txIGHx9kjfgnhOILIcb6mmCZbeG4MAdf+84zKGGY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kazn4lffHujtXCJh/PIWRSkGEqwLmT4QisvuSs9EWP05fx7+0bTnHSzobHp0zfH8cNx2rvioGQcxhPpUjiStjKo1vsP9itRICyQ3UYmnj36TkLEpt3VNjRo71bbubah0GayG/rIqxcDtnBlecEONVBGJlx1FccVb84L6Bv2Zbzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SSmB7yjo; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=HOzeOMFoQk/PV7ZYzVVrUUgw/Ac273OvAZlS2zflMYReQQc13qVzpfaHR7aQlIgdtfPgMa4Dr5LlJH+KzPSBoXFyXjVEWbYUGAWAWd3Uw73u/hG22VjmYMgRGZeqL734H6ZNfax02eMIi55UCID0RHWC/c+evmR38O8a3CzD8KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eQDKgKYs; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SSmB7yjo"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eQDKgKYs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=dt
-	OCtpddPtxNY4jjWPjPoCS627RvUcegE76E+9vOL7o=; b=SSmB7yjo7Xu34hMsje
-	fX7RHCG6r74PkCEa2rKcYs7eeXSiZygCCxRn5bLinRMrLMx6G/MNJUc9WJPFFems
-	83UAiLqSLPqxsDKCdJCipwaGslboODtESw0O2uTArU8bZAJh+ylG8AT5x8x5ARw9
-	pDQtoBA031M3jVP9/nl7uJiJ0=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=+J
+	0emnX8GPjR8WsdZ68vYZJDAhtbGn8vDsdIdB4rXtg=; b=eQDKgKYsHfpQJqbCIp
+	QAYKIeKz26GhtluT3RxqAtij1Pm+ZDYXBiHrkFna44BR1LPpdgVN2LW504u78any
+	W3nMOVV9HT7xLUQ/FsXCrHYfzGkIuQQRhSgkiDSM0asDV4j3JBNPXGoBiAO6bk1w
+	sAbmDqSwgpJkkEtfZhBUkWx9A=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDX8L8hxLtqbwr+Bg--.43938S3;
-	Tue, 29 Sep 2026 21:59:07 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3rr08xLtqmCNYBg--.46271S4;
+	Tue, 29 Sep 2026 21:59:33 +0800 (CST)
 From: Kaiqi Guo <chaoji_xinren@163.com>
 To: rust-for-linux@vger.kernel.org,
 	Miguel Ojeda <ojeda@kernel.org>
@@ -35,9 +35,9 @@ Cc: Jesung Yang <y.j3ms.n@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Kaiqi Guo <chaoji_xinren@163.com>
-Subject: [PATCH v6 01/10] rust: macros: add derive macro for `Into`
-Date: Tue, 29 Sep 2026 21:58:46 +0800
-Message-ID: <20260929135855.36775-2-chaoji_xinren@163.com>
+Subject: [PATCH v6 07/10] rust: macros: derive From for exhaustive enum conversions
+Date: Tue, 29 Sep 2026 21:58:52 +0800
+Message-ID: <20260929135855.36775-8-chaoji_xinren@163.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260929135855.36775-1-chaoji_xinren@163.com>
 References: <20260929135855.36775-1-chaoji_xinren@163.com>
@@ -48,769 +48,305 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgDX8L8hxLtqbwr+Bg--.43938S3
-X-Coremail-Antispam: 1Uf129KBjvAXoWfXr4ftFWUKFWUtw4Uuw15urg_yoW8ury8Ao
-	WxG39Yg398Ar10krsavwsxAa47Cw4fGrZ3Zr4F9rnI9a48X34S9ay8Cw4UZw43W3WUtry5
-	Zw1rX3yrJayDJrn8n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTR6MKtUUUUU
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4Q3FQWq7xC3aVQAA3f
+X-CM-TRANSID:_____wD3rr08xLtqmCNYBg--.46271S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GrW8AFyfKFWxKw4rCryDWrg_yoWDJF4DpF
+	Z0g39Yg3y7JrZ7GrsrKa47XryxKFyfG3y3XFWxtw17Za15XF9a9r17Kr15JryFyw1qvFy3
+	KayjkrWUGF1jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMv38rUUUUU=
+X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC-gbLR2q7xEawBQAA3S
 
-From: Jesung Yang <y.j3ms.n@gmail.com>
+Nova register fields need From<Bounded<T, N>> when every possible field
+value names an enum variant. Add From and its from helper alongside Into
+and TryFrom, with the shared convert helper for round trips.
 
-Introduce a procedural macro `Into` to automatically implement the
-`Into` trait for unit-only enums.
+Reuse the existing discriminant range assertions. Rust already rejects
+duplicate discriminants, so checking that the number of variants matches
+the input range proves exhaustive coverage at compile time. Compare
+range spans in u128 with wrapping subtraction to handle signed minima
+and full-width ranges without overflowing a cardinality.
 
-This reduces boilerplate in cases where enum variants need to be
-interpreted as relevant numeric values. A concrete example can be
-found in nova-core, where the `register!()` macro requires enum types
-used within it to be convertible via `u32::from()` [1].
+After testing all but the final variant, return that variant directly.
+Missing values and out-of-range discriminants are compilation errors,
+including when no conversion is called; the generated implementation
+needs neither unsafe code nor a panic branch. Document the blanket
+TryFrom implementation and its conflict with an explicit derive for the
+same source.
 
-The macro not only supports primitive types such as `bool` or `i8`, but
-also `Bounded`, a wrapper around integer types limiting the number of
-bits usable for value representation. This accommodates the shift toward
-more restrictive register field representations in nova-core where
-values are constrained to specific bit ranges.
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
 
-Note that the macro actually generates `From<E> for T` implementations,
-where `E` is an enum identifier and `T` is an arbitrary integer type.
-This automatically provides the corresponding `Into<T> for E`
-implementations through the blanket implementation.
-
-Link: https://lore.kernel.org/rust-for-linux/20250624132337.2242-1-dakr@kernel.org/ [1]
-Signed-off-by: Jesung Yang <y.j3ms.n@gmail.com>
+Link: https://lore.kernel.org/rust-for-linux/DHHK2OJ6O83V.2MZNHRQYK21EU@nvidia.com/
 Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
 ---
- rust/macros/convert.rs | 527 +++++++++++++++++++++++++++++++++++++++++
- rust/macros/lib.rs     | 174 +++++++++++++-
- 2 files changed, 700 insertions(+), 1 deletion(-)
- create mode 100644 rust/macros/convert.rs
+ rust/macros/convert.rs | 105 ++++++++++++++++++++++++++++++++++-------
+ rust/macros/lib.rs     |  95 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 182 insertions(+), 18 deletions(-)
 
 diff --git a/rust/macros/convert.rs b/rust/macros/convert.rs
-new file mode 100644
-index 000000000000..6702c2e48c1f
---- /dev/null
+index 78efbc7b99d7..7fa8a22dc913 100644
+--- a/rust/macros/convert.rs
 +++ b/rust/macros/convert.rs
-@@ -0,0 +1,527 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use proc_macro2::{
-+    Span,
-+    TokenStream, //
-+};
-+
-+use std::fmt;
-+
-+use syn::{
-+    parse_quote,
-+    parse_str,
-+    punctuated::Punctuated,
-+    spanned::Spanned,
-+    AngleBracketedGenericArguments,
-+    Attribute,
-+    Data,
-+    DeriveInput,
-+    Expr,
-+    ExprLit,
-+    Fields,
-+    GenericArgument,
-+    Ident,
-+    Lit,
-+    LitInt,
-+    PathArguments,
-+    PathSegment,
-+    Token,
-+    Type,
-+    TypePath, //
-+};
-+
-+pub(crate) fn derive_into(input: DeriveInput) -> syn::Result<TokenStream> {
-+    derive(DeriveTarget::Into, input)
+@@ -38,6 +38,10 @@ pub(crate) fn derive_try_from(input: DeriveInput) -> syn::Result<TokenStream> {
+     derive(DeriveTarget::TryFrom, input)
+ }
+ 
++pub(crate) fn derive_from(input: DeriveInput) -> syn::Result<TokenStream> {
++    derive(DeriveTarget::From, input)
 +}
 +
-+fn derive(target: DeriveTarget, input: DeriveInput) -> syn::Result<TokenStream> {
-+    let data_enum = match input.data {
-+        Data::Enum(data) => data,
-+        Data::Struct(data) => {
-+            let msg = format!(
-+                "expected `enum`, found `struct`; \
-+                `#[derive({})]` can only be applied to a unit-only enum",
-+                target.get_trait_name(),
-+            );
-+            return Err(syn::Error::new(data.struct_token.span(), msg));
-+        }
-+        Data::Union(data) => {
-+            let msg = format!(
-+                "expected `enum`, found `union`; \
-+                `#[derive({})]` can only be applied to a unit-only enum",
-+                target.get_trait_name(),
-+            );
-+            return Err(syn::Error::new(data.union_token.span(), msg));
-+        }
-+    };
-+
-+    let mut errors: Option<syn::Error> = None;
-+    let mut combine_error = |err| match errors.as_mut() {
-+        Some(errors) => errors.combine(err),
-+        None => errors = Some(err),
-+    };
-+
-+    let (helper_tys, is_repr_c, repr_ty) = parse_attrs(target, &input.attrs)?;
-+
-+    let mut valid_helper_tys = Vec::with_capacity(helper_tys.len());
-+    for ty in helper_tys {
-+        match validate_type(&ty) {
-+            Ok(valid_ty) => valid_helper_tys.push(valid_ty),
-+            Err(err) => combine_error(err),
-+        }
+ fn derive(target: DeriveTarget, input: DeriveInput) -> syn::Result<TokenStream> {
+     let data_enum = match input.data {
+         Data::Enum(data) => data,
+@@ -109,6 +113,13 @@ fn derive(target: DeriveTarget, input: DeriveInput) -> syn::Result<TokenStream>
+         return Err(errors);
+     }
+ 
++    if matches!(target, DeriveTarget::From) && data_enum.variants.is_empty() {
++        return Err(syn::Error::new(
++            input.ident.span(),
++            "`#[derive(From)]` requires a nonempty enum",
++        ));
 +    }
 +
-+    let mut is_unit_only = true;
-+    for variant in &data_enum.variants {
-+        match &variant.fields {
-+            Fields::Unit => continue,
-+            Fields::Named(_) => {
-+                let msg = format!(
-+                    "expected unit-like variant, found struct-like variant; \
-+                    `#[derive({})]` can only be applied to a unit-only enum",
-+                    target.get_trait_name(),
-+                );
-+                combine_error(syn::Error::new_spanned(variant, msg));
-+            }
-+            Fields::Unnamed(_) => {
-+                let msg = format!(
-+                    "expected unit-like variant, found tuple-like variant; \
-+                    `#[derive({})]` can only be applied to a unit-only enum",
-+                    target.get_trait_name(),
-+                );
-+                combine_error(syn::Error::new_spanned(variant, msg));
-+            }
-+        }
-+
-+        is_unit_only = false;
-+    }
-+
-+    if is_repr_c && is_unit_only && repr_ty.is_none() {
-+        let msg = "`#[repr(C)]` fieldless enums are not supported";
-+        return Err(syn::Error::new(input.ident.span(), msg));
-+    }
-+
-+    if let Some(errors) = errors {
-+        return Err(errors);
-+    }
-+
-+    let variants: Vec<_> = data_enum
-+        .variants
-+        .into_iter()
-+        .map(|variant| variant.ident)
-+        .collect();
-+
-+    // Extract the representation passed by `#[repr(...)]` if present. If nothing is
-+    // specified, the default is `Rust` representation, which uses `isize` for its
-+    // discriminant type.
-+    // See: https://doc.rust-lang.org/reference/items/enumerations.html#r-items.enum.discriminant.repr-rust
-+    let repr_ty = repr_ty.unwrap_or_else(|| Ident::new("isize", Span::call_site()));
-+
-+    Ok(derive_for_enum(
-+        target,
-+        &input.ident,
-+        &variants,
-+        repr_ty,
-+        valid_helper_tys,
-+    ))
-+}
-+
-+#[derive(Clone, Copy, Debug)]
-+enum DeriveTarget {
-+    Into,
-+}
-+
-+impl DeriveTarget {
-+    fn get_trait_name(&self) -> &'static str {
-+        match self {
-+            Self::Into => "Into",
-+        }
-+    }
-+
-+    fn get_helper_name(&self) -> &'static str {
-+        match self {
-+            Self::Into => "into",
-+        }
-+    }
-+}
-+
-+fn parse_attrs(
-+    target: DeriveTarget,
-+    attrs: &[Attribute],
-+) -> syn::Result<(Vec<Type>, bool, Option<Ident>)> {
-+    let helper = target.get_helper_name();
-+
-+    let mut is_repr_c = false;
-+    let mut repr_ty = None;
-+    let mut helper_tys = Vec::new();
-+    for attr in attrs {
-+        if attr.path().is_ident("repr") {
-+            attr.parse_nested_meta(|meta| {
-+                let ident = meta.path.get_ident();
-+                if let Some(i) = ident {
-+                    if is_valid_primitive(i) {
-+                        repr_ty = ident.cloned();
-+                    } else if i == "C" {
-+                        is_repr_c = true;
-+                    }
-+                }
-+                // Delegate `repr` attribute validation to rustc.
-+                Ok(())
-+            })?;
-+        } else if attr.path().is_ident(helper) {
-+            let args = attr.parse_args_with(Punctuated::<Type, Token![,]>::parse_terminated)?;
-+            helper_tys.extend(args);
-+        }
-+    }
-+
-+    Ok((helper_tys, is_repr_c, repr_ty))
-+}
-+
-+fn derive_for_enum(
-+    target: DeriveTarget,
-+    enum_ident: &Ident,
-+    variants: &[Ident],
-+    repr_ty: Ident,
-+    helper_tys: Vec<ValidTy>,
-+) -> TokenStream {
-+    let impl_fn = match target {
-+        DeriveTarget::Into => impl_into,
-+    };
-+
-+    let qualified_repr_ty: syn::Path = parse_quote! { ::core::primitive::#repr_ty };
-+
-+    return if helper_tys.is_empty() {
-+        let ty = ValidTy::Primitive(repr_ty);
-+        let implementation = impl_fn(enum_ident, variants, &qualified_repr_ty, &ty);
-+        ::quote::quote! { #implementation }
-+    } else {
-+        let impls = helper_tys
-+            .into_iter()
-+            .map(|ty| impl_fn(enum_ident, variants, &qualified_repr_ty, &ty));
-+        ::quote::quote! { #(#impls)* }
-+    };
-+
-+    fn impl_into(
+     let variants: Vec<_> = data_enum
+         .variants
+         .into_iter()
+@@ -134,6 +145,7 @@ fn derive(target: DeriveTarget, input: DeriveInput) -> syn::Result<TokenStream>
+ enum DeriveTarget {
+     Into,
+     TryFrom,
++    From,
+ }
+ 
+ impl DeriveTarget {
+@@ -141,6 +153,7 @@ fn get_trait_name(&self) -> &'static str {
+         match self {
+             Self::Into => "Into",
+             Self::TryFrom => "TryFrom",
++            Self::From => "From",
+         }
+     }
+ 
+@@ -148,6 +161,7 @@ fn get_helper_name(&self) -> &'static str {
+         match self {
+             Self::Into => "into",
+             Self::TryFrom => "try_from",
++            Self::From => "from",
+         }
+     }
+ 
+@@ -199,6 +213,7 @@ fn derive_for_enum(
+     let impl_fn = match target {
+         DeriveTarget::Into => impl_into,
+         DeriveTarget::TryFrom => impl_try_from,
++        DeriveTarget::From => impl_from,
+     };
+ 
+     let qualified_repr_ty: syn::Path = parse_quote! { ::core::primitive::#repr_ty };
+@@ -267,25 +282,8 @@ fn impl_try_from(
+         let param = Ident::new("value", Span::call_site());
+ 
+         let overflow_assertion = emit_overflow_assert(enum_ident, variants, repr_ty, input_ty);
+-        let emit_cast = |variant| {
+-            let qualified_variant = ::quote::quote! { #enum_ident::#variant };
+-            match input_ty {
+-                ValidTy::Bounded(inner) => {
+-                    let base_ty = inner.emit_qualified_base_ty();
+-                    let expr = parse_quote! { #qualified_variant as #base_ty };
+-                    inner.emit_new(&expr)
+-                }
+-                ValidTy::Primitive(ident) if ident == "bool" => {
+-                    ::quote::quote! { ((#qualified_variant as #repr_ty) == 1) }
+-                }
+-                qualified @ ValidTy::Primitive(_) => {
+-                    ::quote::quote! { #qualified_variant as #qualified }
+-                }
+-            }
+-        };
+-
+         let clauses = variants.iter().map(|variant| {
+-            let cast = emit_cast(variant);
++            let cast = emit_variant_cast(enum_ident, variant, repr_ty, input_ty);
+             ::quote::quote! {
+                 if #param == #cast {
+                     ::core::result::Result::Ok(#enum_ident::#variant)
+@@ -308,6 +306,77 @@ fn try_from(#param: #input_ty) -> Result<#enum_ident, Self::Error> {
+         }
+     }
+ 
++    fn impl_from(
 +        enum_ident: &Ident,
 +        variants: &[Ident],
 +        repr_ty: &syn::Path,
 +        input_ty: &ValidTy,
 +    ) -> TokenStream {
 +        let param = Ident::new("value", Span::call_site());
-+
++        let (last, rest) = variants.split_last().expect("nonempty enum checked above");
 +        let overflow_assertion = emit_overflow_assert(enum_ident, variants, repr_ty, input_ty);
-+        let cast = match input_ty {
-+            ValidTy::Bounded(inner) => {
-+                let base_ty = inner.emit_qualified_base_ty();
-+                let match_arms = variants.iter().map(|variant| {
-+                    let qualified_variant = ::quote::quote! { #enum_ident::#variant };
-+                    let expr = parse_quote! { #qualified_variant as #base_ty };
-+                    let bounded_new = inner.emit_new(&expr);
-+                    ::quote::quote! {
-+                        #qualified_variant => #bounded_new,
-+                    }
-+                });
-+                ::quote::quote! {
-+                    match #param {
-+                        #(#match_arms)*
-+                    }
-+                }
++        let input_min = input_ty.emit_min();
++        let input_max = input_ty.emit_max();
++        let span = rest.len() as u128;
++        let msg = format!("enum `{enum_ident}` does not cover every value of `{input_ty}`");
++
++        let clauses = rest.iter().map(|variant| {
++            let cast = emit_variant_cast(enum_ident, variant, repr_ty, input_ty);
++            ::quote::quote! {
++                if #param == #cast {
++                    #enum_ident::#variant
++                } else
 +            }
-+            ValidTy::Primitive(ident) if ident == "bool" => {
-+                ::quote::quote! { (#param as #repr_ty) == 1 }
-+            }
-+            qualified @ ValidTy::Primitive(_) => ::quote::quote! { #param as #qualified },
-+        };
++        });
 +
 +        ::quote::quote! {
 +            #[automatically_derived]
-+            impl ::core::convert::From<#enum_ident> for #input_ty {
-+                fn from(#param: #enum_ident) -> #input_ty {
++            impl ::core::convert::From<#input_ty> for #enum_ident {
++                fn from(#param: #input_ty) -> Self {
 +                    #overflow_assertion
 +
-+                    #cast
++                    const _: () = {
++                        // Rust rejects duplicate discriminants, and the overflow assertion
++                        // places every discriminant in the input range. Equal cardinality
++                        // therefore proves that every possible input has a variant.
++                        let min = (#input_min) as ::core::primitive::u128;
++                        let max = (#input_max) as ::core::primitive::u128;
++                        // Wrapping subtraction also handles negative minima. Compare spans
++                        // rather than lengths to avoid overflowing for a full 128-bit range.
++                        ::core::assert!(max.wrapping_sub(min) == #span, #msg);
++                    };
++
++                    // Exhaustiveness guarantees the final variant when no other one matches.
++                    #(#clauses)* {
++                        #enum_ident::#last
++                    }
 +                }
 +            }
 +        }
 +    }
 +
-+    fn emit_overflow_assert(
++    fn emit_variant_cast(
 +        enum_ident: &Ident,
-+        variants: &[Ident],
++        variant: &Ident,
 +        repr_ty: &syn::Path,
 +        input_ty: &ValidTy,
 +    ) -> TokenStream {
-+        let qualified_i128: syn::Path = parse_quote! { ::core::primitive::i128 };
-+        let qualified_u128: syn::Path = parse_quote! { ::core::primitive::u128 };
-+
-+        let input_min = input_ty.emit_min();
-+        let input_max = input_ty.emit_max();
-+
-+        let variant_fits = variants.iter().map(|variant| {
-+            let msg = format!(
-+                "enum discriminant overflow: \
-+                `{enum_ident}::{variant}` does not fit in `{input_ty}`",
-+            );
-+            ::quote::quote! {
-+                ::core::assert!(fits(#enum_ident::#variant as #repr_ty), #msg);
++        let qualified_variant = ::quote::quote! { #enum_ident::#variant };
++        match input_ty {
++            ValidTy::Bounded(inner) => {
++                let base_ty = inner.emit_qualified_base_ty();
++                let expr = parse_quote! { #qualified_variant as #base_ty };
++                inner.emit_new(&expr)
 +            }
-+        });
-+
-+        ::quote::quote! {
-+            const _: () = {
-+                const fn fits(d: #repr_ty) -> ::core::primitive::bool {
-+                    // For every integer type, its minimum value always fits in `i128`.
-+                    let dst_min = #input_min;
-+                    // For every integer type, its maximum value always fits in `u128`.
-+                    let dst_max = #input_max;
-+
-+                    #[allow(unused_comparisons)]
-+                    let is_src_signed = #repr_ty::MIN < 0;
-+                    #[allow(unused_comparisons)]
-+                    let is_dst_signed = dst_min < 0;
-+
-+                    if is_src_signed && is_dst_signed {
-+                        // Casting from a signed value to `i128` does not overflow since
-+                        // `i128` is the largest signed primitive integer type.
-+                        (d as #qualified_i128) >= (dst_min as #qualified_i128)
-+                            && (d as #qualified_i128) <= (dst_max as #qualified_i128)
-+                    } else if is_src_signed && !is_dst_signed {
-+                        // Casting from a signed value greater than 0 to `u128` does not
-+                        // overflow since `u128::MAX` is greater than `i128::MAX`.
-+                        d >= 0 && (d as #qualified_u128) <= (dst_max as #qualified_u128)
-+                    } else {
-+                        // Casting from an unsigned value to `u128` does not overflow since
-+                        // `u128` is the largest unsigned primitive integer type.
-+                        (d as #qualified_u128) <= (dst_max as #qualified_u128)
-+                    }
-+                }
-+
-+                #(#variant_fits)*
-+            };
-+        }
-+    }
-+}
-+
-+enum ValidTy {
-+    Bounded(Bounded),
-+    Primitive(Ident),
-+}
-+
-+impl ValidTy {
-+    fn emit_min(&self) -> TokenStream {
-+        match self {
-+            Self::Bounded(inner) => inner.emit_min(),
-+            Self::Primitive(ident) if ident == "bool" => {
-+                ::quote::quote! { 0 }
++            ValidTy::Primitive(ident) if ident == "bool" => {
++                ::quote::quote! { ((#qualified_variant as #repr_ty) == 1) }
 +            }
-+            qualified @ Self::Primitive(_) => ::quote::quote! { #qualified::MIN },
-+        }
-+    }
-+
-+    fn emit_max(&self) -> TokenStream {
-+        match self {
-+            Self::Bounded(inner) => inner.emit_max(),
-+            Self::Primitive(ident) if ident == "bool" => {
-+                ::quote::quote! { 1 }
-+            }
-+            qualified @ Self::Primitive(_) => ::quote::quote! { #qualified::MAX },
-+        }
-+    }
-+}
-+
-+impl ::quote::ToTokens for ValidTy {
-+    fn to_tokens(&self, tokens: &mut TokenStream) {
-+        match self {
-+            Self::Bounded(inner) => inner.to_tokens(tokens),
-+            Self::Primitive(ident) => {
-+                let qualified_name: syn::Path = parse_quote! { ::core::primitive::#ident };
-+                qualified_name.to_tokens(tokens)
++            qualified @ ValidTy::Primitive(_) => {
++                ::quote::quote! { #qualified_variant as #qualified }
 +            }
 +        }
 +    }
-+}
 +
-+impl fmt::Display for ValidTy {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        match self {
-+            Self::Bounded(inner) => inner.fmt(f),
-+            Self::Primitive(ident) => ident.fmt(f),
-+        }
-+    }
-+}
-+
-+struct Bounded {
-+    base_ty: Ident,
-+    bits: LitInt,
-+}
-+
-+impl Bounded {
-+    const NAME: &'static str = "Bounded";
-+    const QUALIFIED_NAME: &'static str = "::kernel::num::Bounded";
-+
-+    fn emit_new(&self, expr: &Expr) -> TokenStream {
-+        let Self { base_ty, bits, .. } = self;
-+        let qualified_name: syn::Path = parse_str(Self::QUALIFIED_NAME).expect("valid path");
-+        ::quote::quote! {
-+            #qualified_name::<#base_ty, #bits>::new::<{ #expr }>()
-+        }
-+    }
-+
-+    fn emit_qualified_base_ty(&self) -> TokenStream {
-+        let base_ty = &self.base_ty;
-+        ::quote::quote! { ::core::primitive::#base_ty }
-+    }
-+
-+    fn emit_min(&self) -> TokenStream {
-+        let bits = &self.bits;
-+        let base_ty = self.emit_qualified_base_ty();
-+        ::quote::quote! { #base_ty::MIN >> (#base_ty::BITS - #bits) }
-+    }
-+
-+    fn emit_max(&self) -> TokenStream {
-+        let bits = &self.bits;
-+        let base_ty = self.emit_qualified_base_ty();
-+        ::quote::quote! { #base_ty::MAX >> (#base_ty::BITS - #bits) }
-+    }
-+}
-+
-+impl ::quote::ToTokens for Bounded {
-+    fn to_tokens(&self, tokens: &mut TokenStream) {
-+        let bits = &self.bits;
-+        let base_ty = self.emit_qualified_base_ty();
-+        let qualified_name: syn::Path = parse_str(Self::QUALIFIED_NAME).expect("valid path");
-+
-+        tokens.extend(::quote::quote! {
-+            #qualified_name<#base_ty, #bits>
-+        });
-+    }
-+}
-+
-+impl fmt::Display for Bounded {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "{}<{}, {}>", Self::NAME, self.base_ty, self.bits)
-+    }
-+}
-+
-+fn validate_type(ty: &Type) -> syn::Result<ValidTy> {
-+    let Type::Path(type_path) = ty else {
-+        return Err(make_err(ty));
-+    };
-+
-+    let TypePath { qself, path } = type_path;
-+    if qself.is_some() {
-+        return Err(make_err(ty));
-+    }
-+
-+    let syn::Path {
-+        leading_colon,
-+        segments,
-+    } = path;
-+    if leading_colon.is_some() || segments.len() != 1 {
-+        return Err(make_err(ty));
-+    }
-+
-+    let segment = &path.segments[0];
-+    if segment.ident == Bounded::NAME {
-+        return validate_bounded(segment);
-+    } else {
-+        return validate_primitive(&segment.ident);
-+    }
-+
-+    fn make_err(ty: &Type) -> syn::Error {
-+        let msg = format!(
-+            "expected unqualified form of `bool`, primitive integer type, or `{}<T, N>`",
-+            Bounded::NAME,
-+        );
-+        syn::Error::new_spanned(ty, msg)
-+    }
-+}
-+
-+fn validate_bounded(path_segment: &PathSegment) -> syn::Result<ValidTy> {
-+    let PathSegment { ident, arguments } = path_segment;
-+    return match arguments {
-+        PathArguments::AngleBracketed(inner) if ident == Bounded::NAME => {
-+            let AngleBracketedGenericArguments {
-+                colon2_token, args, ..
-+            } = inner;
-+
-+            if colon2_token.is_some() {
-+                return Err(make_outer_err(path_segment));
-+            }
-+
-+            if args.len() != 2 {
-+                return Err(make_outer_err(path_segment));
-+            }
-+
-+            let (base_ty, bits) = (&args[0], &args[1]);
-+            let GenericArgument::Type(Type::Path(base_ty_lowered)) = base_ty else {
-+                return Err(make_base_ty_err(base_ty));
-+            };
-+
-+            if base_ty_lowered.qself.is_some() {
-+                return Err(make_base_ty_err(base_ty));
-+            }
-+
-+            let Some(base_ty_ident) = base_ty_lowered.path.get_ident() else {
-+                return Err(make_base_ty_err(base_ty));
-+            };
-+
-+            if !is_valid_primitive(base_ty_ident) {
-+                return Err(make_base_ty_err(base_ty));
-+            }
-+
-+            let GenericArgument::Const(Expr::Lit(ExprLit {
-+                lit: Lit::Int(bits),
-+                ..
-+            })) = bits
-+            else {
-+                return Err(syn::Error::new_spanned(bits, "expected integer literal"));
-+            };
-+
-+            let bounded = Bounded {
-+                base_ty: base_ty_ident.clone(),
-+                bits: bits.clone(),
-+            };
-+            Ok(ValidTy::Bounded(bounded))
-+        }
-+        _ => Err(make_outer_err(path_segment)),
-+    };
-+
-+    fn make_outer_err(path_segment: &PathSegment) -> syn::Error {
-+        let msg = format!("expected `{0}<T, N>` (e.g., {0}<u8, 4>)", Bounded::NAME);
-+        syn::Error::new_spanned(path_segment, msg)
-+    }
-+
-+    fn make_base_ty_err(base_ty: &GenericArgument) -> syn::Error {
-+        let msg = "expected unqualified form of primitive integer type";
-+        syn::Error::new_spanned(base_ty, msg)
-+    }
-+}
-+
-+fn validate_primitive(ident: &Ident) -> syn::Result<ValidTy> {
-+    if is_valid_primitive(ident) {
-+        return Ok(ValidTy::Primitive(ident.clone()));
-+    }
-+    let msg =
-+        format!("expected `bool` or primitive integer type (e.g., `u8`, `i8`), found {ident}");
-+    Err(syn::Error::new(ident.span(), msg))
-+}
-+
-+fn is_valid_primitive(ident: &Ident) -> bool {
-+    matches!(
-+        ident.to_string().as_str(),
-+        "bool"
-+            | "u8"
-+            | "u16"
-+            | "u32"
-+            | "u64"
-+            | "u128"
-+            | "usize"
-+            | "i8"
-+            | "i16"
-+            | "i32"
-+            | "i64"
-+            | "i128"
-+            | "isize"
-+    )
-+}
+     fn emit_overflow_assert(
+         enum_ident: &Ident,
+         variants: &[Ident],
 diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 24f96feaeb34..1faeebc0de4b 100644
+index 4d420d34ed6b..f45f80dbf8cb 100644
 --- a/rust/macros/lib.rs
 +++ b/rust/macros/lib.rs
-@@ -15,6 +15,7 @@
- #![cfg_attr(not(CONFIG_RUSTC_HAS_SPAN_FILE), feature(proc_macro_span))]
- 
- mod concat_idents;
-+mod convert;
- mod export;
- mod fmt;
- mod for_lt;
-@@ -26,7 +27,10 @@
- 
- use proc_macro::TokenStream;
- 
--use syn::parse_macro_input;
-+use syn::{
-+    parse_macro_input,
-+    DeriveInput, //
-+};
- 
- /// Declares a kernel module.
- ///
-@@ -537,3 +541,171 @@ pub fn ForLt(input: TokenStream) -> TokenStream {
- pub fn CovariantForLt(input: TokenStream) -> TokenStream {
-     for_lt::covariant_for_lt(parse_macro_input!(input)).into()
+@@ -962,3 +962,98 @@ pub fn derive_try_from(input: TokenStream) -> TokenStream {
+         .unwrap_or_else(syn::Error::into_compile_error)
+         .into()
  }
 +
-+/// A derive macro for providing an implementation of the [`Into`] trait.
++/// Derives [`core::convert::From`] for a unit-only enum covering every input value.
 +///
-+/// This macro automatically derives the [`Into`] trait for a given enum by generating
-+/// the relevant [`From`] implementation. Currently, it only supports [unit-only enum]s.
++/// Supported inputs and representation rules are the same as for [`macro@TryFrom`]:
++/// `bool`, primitive integers, and [`Bounded`]. `#[from(...)]` or `#[convert(...)]`
++/// selects the input types, overriding the default derived from `#[repr(...)]`
++/// (or `isize` when no representation is specified).
 +///
-+/// [unit-only enum]: https://doc.rust-lang.org/reference/items/enumerations.html#r-items.enum.unit-only
++/// Every discriminant must fit each input type, and every input value must have
++/// a corresponding variant. Both conditions are checked at compile time, even
++/// when the conversion is never called. Duplicate discriminants are rejected by
++/// Rust itself. Empty enums and the layouts rejected by [`macro@TryFrom`] are
++/// not supported.
 +///
-+/// # Notes
-+///
-+/// - Unlike its name suggests, the macro actually generates [`From`] implementations
-+///   which automatically provide corresponding [`Into`] implementations.
-+///
-+/// - The macro uses the `into` custom attribute or `repr` attribute to generate [`From`]
-+///   implementations. `into` always takes precedence over `repr`.
-+///
-+/// - Currently, the macro does not support `repr(C)` fieldless enums since the actual
-+///   representation of discriminants is defined by rustc internally, and documentation
-+///   around it is not yet settled. See [Rust issue #124403] and [Rust PR #147017]
-+///   for more information.
-+///
-+/// - The macro generates a compile-time assertion for every variant to ensure its
-+///   discriminant value fits within the type being converted into.
-+///
-+/// [Rust issue #124403]: https://github.com/rust-lang/rust/issues/124403
-+/// [Rust PR #147017]: https://github.com/rust-lang/rust/pull/147017
-+///
-+/// # Supported types in `#[into(...)]`
-+///
-+/// - [`bool`]
-+/// - Primitive integer types (e.g., [`i8`], [`u8`])
-+/// - [`Bounded`]
++/// The generated conversion is infallible and contains no panic path. It also
++/// provides `TryFrom` with [`core::convert::Infallible`] through the standard
++/// blanket implementation. Do not additionally derive [`macro@TryFrom`] for
++/// the same input type; use it for inputs the enum does not fully cover.
 +///
 +/// [`Bounded`]: ../kernel/num/bounded/struct.Bounded.html
 +///
 +/// # Examples
 +///
-+/// ## Without Attributes
-+///
-+/// Since [the default `Rust` representation uses `isize` for the discriminant type][repr-rust],
-+/// the macro implements `From<Foo>` for `isize`:
-+///
-+/// [repr-rust]: https://doc.rust-lang.org/reference/items/enumerations.html#r-items.enum.discriminant.repr-rust
-+///
 +/// ```
-+/// use kernel::macros::Into;
++/// use kernel::macros::From;
 +///
-+/// #[derive(Debug, Default, Into)]
-+/// enum Foo {
-+///     #[default]
-+///     A,
-+///     B = 0x7,
++/// #[derive(Debug, PartialEq, From)]
++/// #[from(bool)]
++/// enum Switch {
++///     Off = 0,
++///     On = 1,
 +/// }
 +///
-+/// assert_eq!(0_isize, Foo::A.into());
-+/// assert_eq!(0x7_isize, Foo::B.into());
++/// assert_eq!(Switch::from(false), Switch::Off);
++/// assert_eq!(Switch::from(true), Switch::On);
 +/// ```
 +///
-+/// ## With `#[repr(T)]`
-+///
-+/// The macro implements `From<Foo>` for `T`:
++/// Use `#[convert(...)]` with `Into` to derive both directions:
 +///
 +/// ```
-+/// use kernel::macros::Into;
++/// use kernel::{macros::{From, Into}, num::Bounded};
 +///
-+/// #[derive(Debug, Default, Into)]
-+/// #[repr(u8)]
-+/// enum Foo {
-+///     #[default]
-+///     A,
-+///     B = 0x7,
++/// #[derive(Debug, PartialEq, From, Into)]
++/// #[convert(Bounded<u8, 2>)]
++/// enum Mode {
++///     A = 0,
++///     B = 1,
++///     C = 2,
++///     D = 3,
 +/// }
 +///
-+/// assert_eq!(0_u8, Foo::A.into());
-+/// assert_eq!(0x7_u8, Foo::B.into());
-+/// ```
-+///
-+/// ## With `#[into(...)]`
-+///
-+/// The macro implements `From<Foo>` for each `T` specified in `#[into(...)]`,
-+/// which always overrides `#[repr(...)]`:
-+///
-+/// ```
-+/// use kernel::{
-+///     macros::Into,
-+///     num::Bounded, //
-+/// };
-+///
-+/// #[derive(Debug, Default, Into)]
-+/// #[into(bool, i16, Bounded<u8, 4>)]
-+/// #[repr(u8)]
-+/// enum Foo {
-+///     #[default]
-+///     A,
-+///     B,
-+/// }
-+///
-+/// assert_eq!(false, Foo::A.into());
-+/// assert_eq!(true, Foo::B.into());
-+///
-+/// assert_eq!(0_i16, Foo::A.into());
-+/// assert_eq!(1_i16, Foo::B.into());
-+///
-+/// let foo_a: Bounded<u8, 4> = Foo::A.into();
-+/// let foo_b: Bounded<u8, 4> = Foo::B.into();
-+/// assert_eq!(Bounded::<u8, 4>::new::<0>(), foo_a);
-+/// assert_eq!(Bounded::<u8, 4>::new::<1>(), foo_b);
-+/// ```
-+///
-+/// ## Compile-time Overflow Assertion
-+///
-+/// The following examples do not compile:
-+///
-+/// ```compile_fail
-+/// # use kernel::macros::Into;
-+/// #[derive(Into)]
-+/// #[into(u8)]
-+/// enum Foo {
-+///     // `256` is larger than `u8::MAX`.
-+///     A = 256,
++/// for value in 0..=3 {
++///     let bounded = Bounded::<u8, 2>::try_new(value).unwrap();
++///     let mode = Mode::from(bounded);
++///     let round_trip: Bounded<u8, 2> = mode.into();
++///     assert_eq!(round_trip, bounded);
 +/// }
 +/// ```
 +///
-+/// ```compile_fail
-+/// # use kernel::macros::Into;
-+/// #[derive(Into)]
-+/// #[into(u8)]
-+/// enum Foo {
-+///     // `-1` cannot be represented with `u8`.
-+///     A = -1,
++/// Missing values are rejected at compile time:
++///
++/// ```compile_fail,E0080
++/// use kernel::macros::From;
++///
++/// #[derive(From)]
++/// #[from(Bounded<u8, 2>)]
++/// enum Incomplete {
++///     A = 0,
++///     B = 1,
++///     C = 2,
++///     // No variant represents 3.
 +/// }
 +/// ```
 +///
-+/// ## Unsupported Cases
++/// Having the right number of variants does not allow out-of-range values:
 +///
-+/// The following examples do not compile:
++/// ```compile_fail,E0080
++/// use kernel::macros::From;
 +///
-+/// ```compile_fail
-+/// # use kernel::macros::Into;
-+/// // Tuple-like enums or struct-like enums are not allowed.
-+/// #[derive(Into)]
-+/// enum Foo {
-+///     A(u8),
-+///     B { inner: u8 },
++/// #[derive(From)]
++/// #[from(Bounded<u8, 2>)]
++/// enum OutOfRange {
++///     A = 0,
++///     B = 1,
++///     C = 2,
++///     D = 4,
 +/// }
 +/// ```
-+///
-+/// ```compile_fail
-+/// # use kernel::macros::Into;
-+/// // Structs are not allowed.
-+/// #[derive(Into)]
-+/// struct Foo(u8);
-+/// ```
-+///
-+/// ```compile_fail
-+/// # use kernel::macros::Into;
-+/// // `repr(C)` enums are not allowed.
-+/// #[derive(Into)]
-+/// #[repr(C)]
-+/// struct Foo(u8);
-+/// ```
-+#[proc_macro_derive(Into, attributes(into))]
-+pub fn derive_into(input: TokenStream) -> TokenStream {
++#[proc_macro_derive(From, attributes(from, convert))]
++pub fn derive_from(input: TokenStream) -> TokenStream {
 +    let input = parse_macro_input!(input as DeriveInput);
-+    convert::derive_into(input)
++    convert::derive_from(input)
 +        .unwrap_or_else(syn::Error::into_compile_error)
 +        .into()
 +}
