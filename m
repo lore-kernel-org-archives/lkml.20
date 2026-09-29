@@ -1,421 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A67F3DAADE;
-	Tue, 29 Sep 2026 03:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652405; cv=none; b=H03O2BXwtunBlMIv8MaYoSQOFuuZZE221ix0zmSbA75DxkLaFR0y5HUwlfUwuRNqLWQ1GNKDEjsGMiJtijtSxDF9ZE4fH22a1i8podS7lVyeYU9E1FbP7JWxzUR3OjcTzVcDltamIKksf8Ni9ryzptLGX9ULJtd2MJAQwpGnB/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652405; c=relaxed/simple;
-	bh=LMPwhXWzoyA4CT0vfKDyCz6d337/b/7difhhKULPGtE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ljvLg+sdxPXpomSrMLULXo5ELJ9Io5WOFoEvbKorDuYERwoMHSxG0yxYH9asF6HN8yAiEHU0ILPg6FbheseONEXxqAickPgoonDkT8aB0U3sb/cEdY5oHOpw7y8Uf6TydcgAhNvss7NY6OgVW+Sciqb6z1BVHMHRqWXH5yPwaus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQMaKOpJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E903EF0D3;
+	Tue, 29 Sep 2026 03:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790652409; cv=fail; b=C7wTqt3QZQ0+mdPDdkUEmlujJ3n8CnIXqyCLhIGaSN/ggND7C1PgkBgPjeCPfmBoQbU/offigv3gJhdQ2mH/MiK3lmo4t1MuH5Vo3TS1NTwkDcq5Mumb5CO4lYa9DzWlVkq5IO9hZmDHCA3I5rpohSesmDfZmZPV2/+5a9wLFEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790652409; c=relaxed/simple;
+	bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tHjQrcj3z7I9Tc8fq6Ug/Wx5CapN7RwHVZKNeYSkCi68zekqQ3IVhKfDPJfVBrppngNmGaDXvrVMof9ZI/ewe0vDFAXOp2M/CXGi1FYfpmYdEfuNgyUgK29CCwPwufbnauS/Oyzd/7zsa1EN1DbePfw33rJ9wBu05uWfxLUybeg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=EXROSext; arc=fail smtp.client-ip=52.101.126.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQMaKOpJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED821F000FF;
-	Tue, 29 Sep 2026 03:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790652403;
-	bh=7ykcN9t5xnpHUVwPxTl9FBG3rX4MmVDJf3PpotSZZPY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZQMaKOpJcUmaD3LcIa44TShrbM5KSGyDInLkZr6kbPONT9S1BBzxKkoNqmTkUv3rE
-	 kY5aGmBPErlpCCs5vuvrDwpryWY/oztEOKRJkkw3NNC3pz6kitu4kx/Mlzbf5VBMvk
-	 pBq2Cu8/E1hkiApmyotXswaXKehasRU+fUJWBqP1XnO3qXXQ4omUWUzZ9HYHt2rP7Q
-	 c5BUqtfshPRHVFMFYD1jJEscUX7kKRrw7Ji/fMYnnp5RVuvp+DA2WeMG+AVu+1pYub
-	 dheipDyRXdJ4h3aWqBxVq0Ro8u0gB+N3zil0RyZZj2QXyj/yaqVo5ENuIm4sRJ6pCc
-	 6bt1ExZ8nmkUg==
-Subject: Re: [PATCH net-next v2 3/3] selftests: drv-net: pause: Validate pause
- autoneg interactions with link autoneg
-From: netdev-bot+sashiko@kernel.org
-To: maxime.chevallier@bootlin.com
-Cc: andrew@lunn.ch, kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
- hkallweit1@gmail.com, corbet@lwn.net, skhan@linuxfoundation.org,
- o.rempel@pengutronix.de, vladimir.oltean@nxp.com, f.fainelli@gmail.com,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Date: Tue, 29 Sep 2026 03:26:41 +0000
-Message-ID: <179065240183.434549.13444478594975358421@kernel.org>
-In-Reply-To: <20260925182628.214667-4-maxime.chevallier@bootlin.com>
-References: <20260925182628.214667-4-maxime.chevallier@bootlin.com>
-X-sashiko-severity: Medium
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="EXROSext"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ygg+K6HIhnI6X6mdVPj1teZKSfZJn2P2bB+Ev0pIfQVNQGU+zezXsi5VactZaxo6+3IsDyV0KAASDQGBXN7N9epCtRsGuVeVg/WnyeR0+6L9fE2XTBWr+P6gJpbZVT/0D5c5AUBYRTXRfJQ64P8o87yaRUs8tZ+6pGuBantnlLTpHmOPsZXJCIxEpzzB5v1aBd6HoZvpMxFfX2op+hG+G+KxSEH6XwpJCIRRlFCZvA1uy50dRNgxbqfQSKIJczRwhQ/leXGomalYwn4HtNiP6C7W/0/EtOJtvJ/z8gD1VEAYM4R4wg9Laan4zNNF63qjwJoav69NuE8PrD0ewYl04Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+ b=XwI7nbZzC6LXuCCtmKhvGAfd0de5/sW9F0WLRQ9uPqL/XVb3uHjd1spX2RZKIRUKCjZ4H2K4jcGLy5Iy9zcCZ43h59VB62pv+ijpTPuxvY48ULVnRF45w54H5oz44JcI7ws5U+pl+o/JeovNs04vjAakQjj+f7u1XUXCpmh/7lJz0TYwGayxVj1H8xEBV3SDRJOkgjDqhT/kuoP57ThgpPq+IXT5VgHpWtYSAHTKTkdHKKPsrZIsD29dCNyp/4JawBNAjXD7CT3Qwe1WfU6EhaeuSw9kPFyjHkx4s51lCJ6DK+ksSdbE96yyKVTtk1Qry1b0JlyT5VbdOlE2SVGlzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tbPpjIgRCEQ6NfiDWPqvdplS7Uxz7Ynr7zV1HVEmFy4=;
+ b=EXROSextef+k6tP+n4y47G5jx/GCGbRENJBZ7Y8pE2nih1UauVC885opVup7k7sq0ForeDBmBU7EfDS73HCImyu5o1au6f+uByPE9uiM9eBMl/rhNXO0MswOPg6MDT4z3qNBIu0F7QRU/xrfPZUPRnpTewS/kBB3dVJEfLPw7Cn6/wPSPtAS/VnJ+P6EIejueeNnlBadFGB2LhCgzFL8ScOHb/auTWi7FaxppVBGddkLPQNXa31JzZ9EeB6c8PPN52JYZKGWjy8L8mSCc4MYeP8uUTDe7LRqaTwNW3rcPeL92L0O2aG9x5dzI/DAHLXYFP36YIoeJPSyyNV5sogiaA==
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
+ by TYNPR06MB8999.apcprd06.prod.outlook.com (2603:1096:405:3c4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 03:26:43 +0000
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::e00f:6219:946c:195e]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::e00f:6219:946c:195e%4]) with mapi id 15.21.0451.014; Tue, 29 Sep 2026
+ 03:26:43 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tony Luck <tony.luck@intel.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
+	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Krzysztof
+ Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Thread-Topic: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Thread-Index: AQHdRZyFCcJDuw2op0azvEk4NXStz7be1rUAgAYimjA=
+Date: Tue, 29 Sep 2026 03:26:42 +0000
+Message-ID:
+ <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
+ <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
+In-Reply-To: <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|TYNPR06MB8999:EE_
+x-ms-office365-filtering-correlation-id: c72ec4b5-eba7-4ebe-1e0d-08df1dd97bb0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|38070700021|4143699003|10067099003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ qW2Wwdcl6S5ZE7jhp21B+xcq+k80mnE7QxALxzj6ZjYoYmF6qVvS+9EIfxN23N9PpMdnj1diFjTQltVdsLqzSNHP+MHVRndqX7V40Aa/jFTSeqxy6V/9GQmmn0isny3ZhyCv8jxlpLWusPBAZZGhva84+u+B7Je+AvbBCfLlan/SAOU/mqtB3RmaPU5RTgUmmXnXhX9znHVgzCAFTzD9AneYYOhSDpSYDdS5VFTIa9aNXwn6P/i94C36oJJLac7fNAhXu2Q5cLnj/Dq/bgslCLBtdsQoRTKUXQ4ke5ZU+aSUsDGtnWYinW1SC5oextKc9CctAaNoB9IVUc0AqxOK1TMaOH2llCzc5mqyA+cyM0auvyDdQxqty15UZd/6FtNQ9Dz3iKB8UQRVfW8IvyMK+njF3T1JRZp0pDTQuAGKiRXHnghhlIy44BMm2ZNOsW0wZqQ3hs7FJ9nWaPMylas6jY07aTMOwnjGVTGncRu/9zKl3r0sPuMOCzzpB9ZY/LzGjCqgceuu3aBZ3SZ+X7N+C8hdcCt2mmnBSm3LMYpP6qxXTDDc6dEr5sTWJa9rv60Opos3fUCzxK8+MNRYrEGmoFHAnfUAfmafTSaca5Lsa6qSOWjx8uOH1AdjiVFCbp+V9w6jKsWLY4XZo51Jw0IgZ5858qos+u9HEqZylGlVVmZ0Rh8zwl0JdJOlm9Tn2m7s823hei8U/r6CtwP/bY9yLVwdkNXDhbAC8w0aPw7ubtw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(38070700021)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?aTlVdWVsOE5jZXpwNm43UFMvaWZxekZsUms0RlFFc3l5WGhPZGYrT1lzN0c5?=
+ =?utf-8?B?NXJETEhiME5keWkxVjJuQ2p3SG41ak9oeThZMW9zUFBYYUZmTkpWZFV1VjR5?=
+ =?utf-8?B?NDJveEs3SHJUTEI2eHQ1R1VCZ0kwY2l3a1VvcHNmZjZnZFJocHdSNituOUZY?=
+ =?utf-8?B?Sk5Tck5rVGtSK3dteVYrZkFEZnk5cEJLK3RzUUJlYkN5bGFRQUl6bEdmdnZn?=
+ =?utf-8?B?RGRjUUdDajRYL3lUYUFPcWxGalRXSUhKVzV2M3ppdVhzbEwxRnRaMFJjMXBT?=
+ =?utf-8?B?d0VtKzRzNHN5OFo1UzA1NDBCTjJicFU1U0w3R3ZYTHF4MlFmekVHd2ttN0Fm?=
+ =?utf-8?B?T25wQzdwZWxlRUlHRFVnUlhGR3lvcW5VZjFlZGNGSzFPWHdWdVNBVWVGeERN?=
+ =?utf-8?B?VlJnRDBpaUtIY0l3Q3ZRdTU4Y0NJMDNGY0JaaEVEWDRibW1LREtyZ2d5SDMy?=
+ =?utf-8?B?YmE0d0pNSW9oRElxMS9rZ0cxRS96YlRzbG43cWUweldEQ0JTMUxpZUlMVWNX?=
+ =?utf-8?B?T0FwVmJmNTVqSEUyTHFhcGZIcVhPSmxlSFdMS0JHRkRjVnF5a2p4MkluNVBB?=
+ =?utf-8?B?UkNvbkQ5V1lmZGJoamIxOFY3NlN3U0hrazNiWkpMc2l6ZEc2QzVuaFQ2UE9S?=
+ =?utf-8?B?dXpCR2Y0TlJ5d28zL0NyTWNRYUlvU003enh6RlFERmNEMmJxNTBXcWpaTTZT?=
+ =?utf-8?B?RFgydTJHem1WNlhnMy9CTnA1dDdpNjZNSGpiUDk0Wi9MMHM2cWVjaWwzSHdN?=
+ =?utf-8?B?VWtwdXRVQnFHRDdyVDFLZEluV1Q4SVg3b1Z0TFVZZERNeFo5UWZkYTdJYzFB?=
+ =?utf-8?B?S2hybDBBa29DbXFLN3dNVDhxQ2dmQXNJZkNQYTVaZ0lRNUVHSWFJOXVNUkZj?=
+ =?utf-8?B?TGVmcjhkenB0RW5qeW9IdEV6NHJoVlg5NEZaUDk1R3IxSlJoTWp6RThGYUJE?=
+ =?utf-8?B?WjVnYzV2Z1B2QW5BWmJoc2YvMi9BbzUzSGIxQ2Q3QnFZK05hQXBzNzcwVGRw?=
+ =?utf-8?B?eGpFbVpWZ2RBT2w3aWVUQngwSW5ydGltb2htY1RrUDZKWGkybXg0T1kwN1Zw?=
+ =?utf-8?B?WmorMTlRaGMwWXZjN1FUbGdjVDZTNVpDRDZyRUljTVYyNVlPNlF2d1NOWjl1?=
+ =?utf-8?B?VHpPVU12am9JUWdkZkpGblJZTy9lQmdaRGpvZUJUbnlndnpiQXMrZjZuK005?=
+ =?utf-8?B?dzRzVzAwY0EvUEJDMWpLTG9pRFlNS0dCSFZ4ZE5GMVFHSE12NlE4K2xSSWRB?=
+ =?utf-8?B?V0NsTmlDWmlla041eDNpUSsvTjFpaVFoQUt3ajBmMlFJbGhhalNYc1phUVZu?=
+ =?utf-8?B?WXpVMUkra3U3ZTMvb21pbE5UVG92YUR4RHplUFFVdVpQWGhTOS9JZjA3V3g2?=
+ =?utf-8?B?UEV5cVRDUzN0Zm9nUzdSMFhDbVZnR1N0SXA3R25ycEtkQXJ1OGUyTWMyekVW?=
+ =?utf-8?B?WGZnbHh1YW00cVlpWWNvODRXS3gzQ3lZWWVnSHViVS9pbUZuUDJLSTBWUnZ5?=
+ =?utf-8?B?WlNCb0VKVEQ3WWUvdG5IcTRFUmJwUENjNGE3bHdqZWFjdmo5eFROZU9Mckty?=
+ =?utf-8?B?SjlIcG1CbTZtVmZkTWF5SThZaTRTZCtBQW5WcXk5MElETG5xTXcyQUt6OExo?=
+ =?utf-8?B?NjdibWZBdW9QMVRqYlBPeG5EUmRsYUM0MmoxTnM1aWtabFIyQ3h2SUFpOFh6?=
+ =?utf-8?B?OUF3TDQ0UFJkZzkzck5GaDViRTlBeE03WCtsSzhTUFZLNjdCeUdoMFpxZDFr?=
+ =?utf-8?B?U1c3ay9xY3l6TGIrN2JDYUg2S0NnOHlSYWtlVmo3OUNLUE5QTFg2MzBIQUMr?=
+ =?utf-8?B?T1VYcEQyRTk3N2M1Q0tMZ0FkWWJoQ3JLMThWK29QenF4cXlPcTNzV2NURWlx?=
+ =?utf-8?B?ampCUmU0Q21oMFRuUjQ4cUREdXRXK3c3WDRYSWlnTHdnc3ljeDZjVk5XbUNx?=
+ =?utf-8?B?ekFSSm41ZGh6dGF4eWlpc2lWTGxOMXQ3ZkF5aW91U09aTEQxRGF4NUZ6M3Qz?=
+ =?utf-8?B?Ny9iTEsrY0tKME10VC9DYjVTS0M2RWJSdERtS04wQkxJMVl4R01vWlNQOUlZ?=
+ =?utf-8?B?YmFsSnZGQVFOL2ppWU96VFZxNDlWZmRIR2swVGFIenZLVy9COFREcjBYZDhs?=
+ =?utf-8?B?SmRvS2dJVzJvdSt0cGpFMDlyUnFzYTlHQkRtamVVdENVazJyZCtsbXhZQ2NT?=
+ =?utf-8?B?OWdzWW1xdG8vLzRQRXM4N2tOWFdWbEsrVnMyM0R1TWRjNU1JNjhMelR4aHFh?=
+ =?utf-8?B?RkwxeFhxdTJvMlJHTS92V2pscVZKT2EwSlhqZDhDZS9BcndwSmVHVWc4ODkr?=
+ =?utf-8?B?Tzd0V2Y1MGs5dEl2Q2xEV2F6SU5wcUhjSmEzNStUTUMybitwb0tEQT09?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 2 · Low: 6
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] pause_autoneg_state_adv() turns pause autoneg off with
-  `ethtool -A <if> rx R tx T autoneg off` (rx/tx unchanged, link autoneg…
-- [Medium] pause_autoneg_off_while_link_autoneg_on() calls
-  wait_for_aneg(cfg, link_drop=True) twice and treats a missed carrier…
-- [Low] The commit message says the tests cover 'If Pause autoneg is off,
-  it must stay off when link autoneg is enabled' and 'that the user…
-- [Low] pause_autoneg_off_while_link_autoneg_on() says it checks that 'we
-  do not use negotiated pause parameters' when pause autoneg is off, and…
-- [Low] In pause_autoneg_state_params(), the comment at line 899 says
-  'Peer advertisiong Pause + Asym and us advertising Pause'.
-- [Low] pause_autoneg_link_autoneg() makes several soft ksft_eq checks
-  first: set_local_pauseparams at line ~982, wait_for_aneg, and…
-- [Low] pause_autoneg_state_adv() checks pause advertising, including
-  what the link partner sees, but unlike the other three new tests it…
-- [Low] pause_autoneg_off_while_link_autoneg_on() runs `ip link set
-  <remote> down` then `ip link set <remote> up` (lines 954-955) as bare…
-
---
-
-selftests: drv-net: pause: Validate pause autoneg interactions with link autoneg
-
-This adds four disruptive tests to the drv-net pause selftest. They check
-how pause autoneg interacts with link autoneg, and whether the user's rx/tx
-pause intent survives changes to either autoneg setting. The commit also
-adds helpers that check link autoneg support and pause support, and that
-verify the local pauseparams and pause advertising.
-
-> Pause autoneg and link autoneg settings must not interfere with one
-> another when user is configuring them :
->  - If Pause autoneg is on, it must stay on when link autoneg is disabled
->    (even though Pause won't actually be negotiated)
->  - If Pause autoneg is off, it must stay off when link autoneg is
->    enabled
->
-> Introduce a set of tests to verify that pause and link autoneg are
-> behaving correctly, in particular that the user intent is correctly
-> cached when toggling link autoneg.
-
-[Severity: Low]
-Do the new tests cover the second bullet, or the part about toggling link
-autoneg?
-
-pause_autoneg_off_while_link_autoneg_on() never runs "ethtool -s ...
-autoneg", so link autoneg stays on for the whole test. The only things that
-change are the peer's pause settings and the remote admin state.
-
-pause_autoneg_link_autoneg() is the only test that forces the link and then
-turns link autoneg back on. It starts with pause autoneg on.
-
-No test runs this sequence: pause autoneg off -> link autoneg off -> link
-autoneg on -> pause autoneg still off, with rx/tx kept. Wouldn't a driver
-that turns pause autoneg back on whenever link autoneg is enabled pass the
-whole suite?
-
-> diff --git a/tools/testing/selftests/drivers/net/hw/pause.py b/tools/testing/selftests/drivers/net/hw/pause.py
-> index 96ee730074f8c..74bc21c606958 100755
-> --- a/tools/testing/selftests/drivers/net/hw/pause.py
-> +++ b/tools/testing/selftests/drivers/net/hw/pause.py
-
-[ ... ]
-
-> @@ -747,12 +815,218 @@ def pause_aneg_resolution(cfg, settings):
->          ksft_eq(remote_pauseparams["negotiated"]["rx"], expected_lp_rx)
->          ksft_eq(remote_pauseparams["negotiated"]["tx"], expected_lp_tx)
->  
-> +@ksft_disruptive
-> +def pause_autoneg_state_adv(cfg):
-> +    """Validate that toggling pause advertising changes the advertised linkmodes
-> +
-> +    When disabling pause autoneg, we enforce the pause params based on what user
-> +    asks, instead of relying on the negociation process (which may not be what
-> +    the user asked for). In forced pause settings, we don't advertise pause and
-> +    asym_pause bits.
-> +
-> +    Failing this test means that .set_pauseparam in the MAC driver doesn't
-> +    forward to the PHY (in charge of advertising these bits) that we are in
-> +    fixed pause mode.
-> +    """
-> +
-> +    require_pause_supported_anyof(cfg, ["Pause", "Asym_Pause"])
-> +    require_controllable_lp(cfg)
-> +    pause_setup(cfg)
-> +
-> +    set_peer_pauseparams(cfg, True, True, True)
-> +    ksft_eq(wait_for_aneg(cfg), True)
-> +
-> +    rx, tx = supported_pauseparams(cfg)
-> +
-> +    # Enable all possible pauseparams with pause autoneg
-> +    ret = set_local_pauseparams(cfg, rx, tx, True)
-> +    ksft_eq(ret, 0)
-
-[Severity: Low]
-Should pause_autoneg_state_adv() also call require_link_autoneg()? The other
-three new tests do.
-
-pause_setup() turns on link autoneg only when "supports-auto-negotiation"
-is true, and it doesn't skip when that's false. The test then requires
-the pause autoneg set above to succeed.
-
-The struct ethtool_pauseparam kernel-doc tells drivers to "reject a
-non-zero setting of @autoneg when autonegotiation is disabled (or not
-supported)". On a non-phylink driver that follows the doc and has no link
-autoneg, wouldn't this report FAIL instead of SKIP?
-
-phylink_ethtool_set_pauseparam() doesn't reject this case, so phylink
-drivers aren't affected.
-
-[ ... ]
-
-> +    # Disable pause autoneg
-> +    ret = set_local_pauseparams(cfg, rx, tx, False)
-> +    ksft_eq(ret, 0)
-> +
-> +    # This may trigger a link renegociation
-> +    ksft_eq(wait_for_aneg(cfg), True)
-> +
-> +    # We shouldn't be advertising anything anymore
-> +    ret, adv = get_local_pause_advertising(cfg)
-> +    ksft_eq(ret, 0)
-> +    ksft_eq(adv, [])
-> +
-> +    # Validate on the LP that we aren't advertising anything
-> +    ret, adv = get_peer_pause_lp_advertising(cfg)
-> +    if ret == errno.EOPNOTSUPP:
-> +        return
-> +
-> +    ksft_eq(ret, 0)
-> +    ksft_eq(adv, [])
-
-[Severity: Medium]
-Do these two ksft_eq(adv, []) checks match the uAPI contract? The struct
-ethtool_pauseparam kernel-doc in include/uapi/linux/ethtool.h says:
-
- * If the link is autonegotiated, drivers should use
- * mii_advertise_flowctrl() or similar code to set the advertised
- * pause frame capabilities based on the @rx_pause and @tx_pause flags,
- * even if @autoneg is zero.
-
-phylink does this. phylink_ethtool_set_pauseparam() calls
-phylink_update_pause_state(), which sets the advertisement from rx/tx
-without checking MLO_PAUSE_AN:
-
-drivers/net/phy/phylink.c:phylink_update_pause_state() {
-    ...
-	linkmode_set_pause(config->advertising, tx_pause,
-			   rx_pause);
-    ...
-	if (pl->phydev)
-		phy_set_asym_pause(pl->phydev, rx_pause, tx_pause);
-}
-
-phy_set_asym_pause() in drivers/net/phy/phy_device.c also sets the
-advertisement from rx/tx alone.
-
-The test runs "ethtool -A <if> rx R tx T autoneg off" with rx/tx unchanged
-and link autoneg still on. After that, won't every phylink driver, and
-every phylib driver that uses phy_set_asym_pause(), still advertise Pause
-(or Asym_Pause) and fail both checks?
-
-The docstring also says a failure means ".set_pauseparam in the MAC driver
-doesn't forward to the PHY ... that we are in fixed pause mode". That
-points driver authors toward behaviour the uAPI doc rules out. Also, the
-pause_advertising_test docstring earlier in this file says phylink handles
-the PHY reconfiguration correctly.
-
-[ ... ]
-
-> +    # Set peer user intent to RX on TX on, with Pause autoneg on
-> +    set_peer_pauseparams(cfg, 1, 1, True)
-> +    ksft_eq(wait_for_aneg(cfg), True)
-> +
-> +    # Set the local intent to RX on TX off with pause autoneg
-> +    ksft_eq(set_local_pauseparams(cfg, 1, 0, True), 0)
-> +    ksft_eq(wait_for_aneg(cfg), True)
-> +
-> +    check_local_pauseparams(cfg, True, 1, 0)
-> +    # Peer advertisiong Pause + Asym and us advertising Pause means we are
-> +    # actually using RX on TX on here, which is different than the intent.
-> +    check_local_advertising(cfg, ["Pause", "Asym_Pause"])
-> +    check_local_lp_advertising(cfg, ["Pause"])
-
-[Severity: Low]
-This isn't a bug, but in pause_autoneg_state_params() the comment has the
-two sides swapped.
-
-The peer is set with set_peer_pauseparams(cfg, 1, 1, True), so it
-advertises Pause. The local side is set with set_local_pauseparams(cfg, 1,
-0, True), so it advertises Pause + Asym_Pause. The asserts right below
-match the code, not the comment.
-
-The comment also has a typo: "advertisiong".
-
-[ ... ]
-
-> +@ksft_disruptive
-> +def pause_autoneg_off_while_link_autoneg_on(cfg):
-> +    """ Validate that when link autoneg is on but pause autoneg is off, we do
-> +        not use negotiated pause parameters.
-> +
-> +        Failing this test means the MAC driver incorrectly accounts for the
-> +        negotiated pause parameters even with pause aneg off, likely due to
-> +        confusion between link autoneg and pause autoneg.
-> +    """
-
-[ ... ]
-
-> +    set_peer_pauseparams(cfg, 0, 0, True)
-> +    ksft_eq(wait_for_aneg(cfg, link_drop=True), True)
-> +
-> +    ip(f"link set {cfg.remote_ifname} down", host=cfg.remote)
-> +    ip(f"link set {cfg.remote_ifname} up", host=cfg.remote)
-
-[Severity: Low]
-If the "up" call fails after "down" succeeded, what brings the remote
-interface back up?
-
-These are bare ip() calls, and no defer() restores the remote admin
-state. pause_setup() only defers restores for the ethtool -A and ethtool
--s settings, even though its docstring says the ports being admin up is
-restored on exit.
-
-The next test, pause_autoneg_link_autoneg(), brings the port up only inside
-pause_setup(), and it can skip before it gets there. If it skips, or if
-this is the last test to run, the remote interface stays admin down.
-
-Would registering something like this before the down call help?
-
-    defer(ip, f"link set {cfg.remote_ifname} up", host=cfg.remote)
-
-> +    ksft_eq(wait_for_aneg(cfg, link_drop=True), True)
-
-[Severity: Medium]
-Can the two wait_for_aneg(cfg, link_drop=True) calls in this function fail
-on a correct DUT?
-
-With link_drop=True, wait_for_aneg() no longer returns early for a link
-that is already stable:
-
-        if not link_drop and time.monotonic() > restart_by:
-            return wait_for_link(cfg)
-
-It returns True only if it sees the local "link-detected" go false.
-Otherwise it waits the full 15 seconds, returns False, and the ksft_eq()
-fails.
-
-Neither trigger here reliably causes a local carrier drop that the test
-can see:
-
-- Not every peer driver restarts AN when only its pause advertisement
-  changes. An in-band 1000BASE-X restart through
-  phylink_change_inband_advert() and pcs_an_restart can also finish well
-  within the 100 ms poll interval.
-
-- Admin-down on the peer doesn't always drop the physical link. Examples
-  are i40e/ice with link-down-on-close off (the default) and PHYs kept
-  powered for WoL or NC-SI. controllable_lp() only checks the other
-  direction, where local down drops the remote carrier.
-
-- Polling starts only after both remote ip commands return, so a fast PHY
-  or PCS can drop and recover before the first poll.
-
-The first link_drop wait also adds no coverage, because the remote bounce
-right after it already forces renegotiation.
-
-> +
-> +    # Pause autoneg must still be off even after a link renegotiation
-> +    check_local_pauseparams(cfg, False, rx, tx)
-
-[Severity: Low]
-Can this check detect the bug the docstring describes? The docstring says
-a failure means the MAC "incorrectly accounts for the negotiated pause
-parameters even with pause aneg off".
-
-check_local_pauseparams() only reads the configured autonegotiate/rx/tx
-values from ethtool -a. On phylink, those values come straight from the
-stored user intent:
-
-drivers/net/phy/phylink.c:phylink_ethtool_get_pauseparam() {
-    ...
-	pause->autoneg = !!(pl->link_config.pause & MLO_PAUSE_AN);
-	pause->rx_pause = !!(pl->link_config.pause & MLO_PAUSE_RX);
-	pause->tx_pause = !!(pl->link_config.pause & MLO_PAUSE_TX);
-}
-
-This test would still pass in either of these cases:
-
-- mac_link_up() applies the negotiated pause anyway.
-- phylink's resolve path stops replacing state->pause with
-  link_config.pause when MLO_PAUSE_AN is clear.
-
-pause_autoneg_link_autoneg() has the same gap. Its docstring says that once
-link autoneg is re-enabled, "pause params must be derived from the
-negotiation". It never reads the "negotiated" section that
-pause_aneg_resolution() checks.
-
-> +
-> +@ksft_disruptive
-> +def pause_autoneg_link_autoneg(cfg):
-
-[ ... ]
-
-> +    # Enable all possible pause modes and autoneg
-> +    set_peer_pauseparams(cfg, 1, 1, True)
-> +    ksft_eq(set_local_pauseparams(cfg, rx, tx, True), 0)
-> +    ksft_eq(wait_for_aneg(cfg), True)
-> +
-> +    check_local_pauseparams(cfg, True, rx, tx)
-> +    check_local_advertising(cfg, adv)
-> +    check_local_lp_advertising(cfg, ["Pause"])
-> +
-> +    # Disable link autoneg, at the speed and duplex the link runs at
-> +    forced = forced_link_settings(cfg)
-> +    if not forced:
-> +        raise KsftSkipEx("Can't tell what to force the link at")
-> +
-> +    ret, _ = ethtool_ret(f"-s {cfg.remote_ifname} autoneg off {forced}",
-> +                         is_get=False, host=cfg.remote)
-> +    if ret != 0:
-> +        raise KsftSkipEx(f"Can't force the peer's link at {forced}")
-> +
-> +    ret, _ = ethtool_ret(f"-s {cfg.ifname} autoneg off {forced}",
-> +                         is_get=False)
-> +    if ret != 0:
-> +        raise KsftSkipEx(f"Can't force the link at {forced}")
-> +
-> +    if not wait_for_aneg(cfg):
-> +        raise KsftSkipEx(f"No link when forced at {forced}")
-
-[Severity: Low]
-What happens to failures already recorded in this test when one of these
-skips is raised?
-
-Before this point pause_autoneg_link_autoneg() has already run several
-ksft_eq() checks: set_local_pauseparams(), wait_for_aneg(), and the
-check_local_* helpers. ksft_run() in
-tools/testing/selftests/net/lib/py/ksft.py handles the skip like this:
-
-        except KsftSkipEx as e:
-            comment = "SKIP " + str(e)
-            cnt_key = 'skip'
-
-That skips the later pass/fail choice based on KSFT_RESULT. The test is
-then reported as "not ok ... # SKIP". KTAP consumers treat that as a skip,
-and the totals count it as a skip instead of a fail.
-
-This path looks likely. Forcing 1000BASE-T copper usually gives no link,
-and forced_link_settings() returns an empty string when the speed is
-unknown. ksft_exit() still exits non-zero, but the per-test result hides a
-real pause or advertising mismatch.
-
-Could these skips be raised only when none of the earlier checks has
-failed?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925182628.214667-1-maxime.chevallier%40bootlin.com
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c72ec4b5-eba7-4ebe-1e0d-08df1dd97bb0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 03:26:42.9762
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8epU82AFNkKzIuNRXhIQy1wNheUY1tNkX/cC5axbYvQc8z1wLKL/jnAx+p0GHc6R5flvdamBzugPZAriRWXUDbxj9Sw95rG/zZCsb/zshhI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8999
+
+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDAvOV0gQWRkIEFzcGVlZCBBU1QyNzAwIFNEUkFNIEVE
+QUMgc3VwcG9ydA0KPiANCj4gT24gV2VkLCBTZXAgMTYsIDIwMjYgYXQgMDE6MzA6MzdQTSArMDgw
+MCwgUnlhbiBDaGVuIHdyb3RlOg0KPiA+IEFkZCBFQ0MgZXJyb3IgcmVwb3J0aW5nIGZvciB0aGUg
+QXNwZWVkIEFTVDI3MDAgU29DIHRvIHRoZSBleGlzdGluZw0KPiA+IGFzcGVlZF9lZGFjIGRyaXZl
+ci4NCj4gPg0KPiA+IFRoZSBBU1QyNzAwIG1lbW9yeSBjb250cm9sbGVyIGtlZXBzIHRoZSBzYW1l
+IG92ZXJhbGwgRURBQyBwcm9ncmFtbWluZw0KPiA+IG1vZGVsIGFzIHRoZSBlYXJsaWVyIEFzcGVl
+ZCBCTUMgU29DcywgYnV0IHVzZXMgYSBkaWZmZXJlbnQgcmVnaXN0ZXINCj4gPiBsYXlvdXQsIGEg
+c3BsaXQgaW50ZXJydXB0IHN0YXR1cy9jbGVhci9tYXNrIHNjaGVtZSBhbmQgRERSNC9ERFI1IG1l
+bW9yeS4NCj4gPiBSYXRoZXIgdGhhbiBmb3JrIHRoZSBkcml2ZXIsIHRoZSBleGlzdGluZyBjb2Rl
+IGlzIGZpcnN0IHRpZGllZCBhbmQNCj4gPiBnZW5lcmFsaXNlZCwgdGhlbiB0aGUgQVNUMjcwMCBp
+cyBhZGRlZCBhcyBvbmUgbW9yZSBwZXItU29DIHZhcmlhbnQuDQo+ID4NCj4gPiBQYXRjaGVzIDIt
+NSBhcmUgYnVnIGZpeGVzIGFuZCBjbGVhbnVwcyB0byB0aGUgZXhpc3RpbmcgZHJpdmVyLg0KPiAN
+Cj4gWW91IGFsd2F5cyBwdXQgdGhlIGJ1ZyBmaXhlcyBmaXJzdCBpbiBhIHNldC4gU28gaXQgc2hv
+dWxkIGJlIDEtNCBidWdmaXhlcywgcmVzdCBuZXcNCj4gZmVhdHVyZXMuDQo+IA0KPiAtLQ0KVGhh
+bmtzIHlvdXIgcmV2aWV3Lg0KDQpJJ2xsIHJlb3JkZXIgZm9yIHY0Og0KDQogIDEgIEVEQUMvYXNw
+ZWVkOiBTZXQgdGhlIERJTU0gZ3JhaW4NCiAgMiAgRURBQy9hc3BlZWQ6IEZyZWUgdGhlIGludGVy
+cnVwdCBiZWZvcmUgdGhlIG1lbV9jdGxfaW5mbyBvbiByZW1vdmUNCiAgMyAgRURBQy9hc3BlZWQ6
+IENsZWFuIHVwIHdoaXRlc3BhY2UgYW5kIGluY2x1ZGUgb3JkZXJpbmcNCiAgNCAgRURBQy9hc3Bl
+ZWQ6IEZyZWUgdGhlIG1lbV9jdGxfaW5mbyB1bmNvbmRpdGlvbmFsbHkgb24gcmVtb3ZlDQogIDUg
+IGR0LWJpbmRpbmdzOiBlZGFjOiBhc3BlZWQ6IEFkZCBBU1QyNzAwIFNEUkFNIEVEQUMNCiAgNiAg
+RURBQy9hc3BlZWQ6IFJlcGxhY2UgcmVnbWFwIHdpdGggZGlyZWN0IHJlZ2lzdGVyIGFjY2Vzcw0K
+ICA3ICBFREFDL2FzcGVlZDogQWJzdHJhY3QgU29DIGRpZmZlcmVuY2VzIGJlaGluZCBjaGlwIGRh
+dGENCiAgOCAgRURBQy9hc3BlZWQ6IEFkZCBBU1QyNzAwIHN1cHBvcnQNCiAgOSAgTUFJTlRBSU5F
+UlM6IEFkZCBhIHJldmlld2VyIGZvciB0aGUgQXNwZWVkIEVEQUMgZHJpdmVyDQoNCjEgYW5kIDIg
+Y2FycnkgdGhlIEZpeGVzOiB0YWdzLCAzIGFuZCA0IGFyZSB0aGUgY2xlYW51cHMsIGFuZCA1IG9u
+d2FyZHMNCmlzIHRoZSBBU1QyNzAwIHdvcmsuDQoNClJ5YW4NCg==
