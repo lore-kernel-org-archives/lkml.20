@@ -1,153 +1,155 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DFB52E05C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EFF52E064
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699392; cv=none; b=qE2pzf/mivKa0A913Q5k21wV8BtsaTtsc1wYqpL08tU8+t7bYo3leDV43PAeULfcx1qMNRwdDNngN9cXgbWolrlyIjyVhnzSi7kysn5an+BWpZ+gOp00bBHmnbsW+31UXau31bBMCgDQqyW7djyCLKd6KizkWAJPYl+yS5tP0+I=
+	t=1790699398; cv=none; b=PUcSCBH1lRGz9QSs+UfgWeUwebzrcMC9K81zfQrR6+05t3wBWhSsuf7Blj7UrTbBfr9HxGZcrIfspqfiS0x5a2mB8EYCMgTz/qZl4mklmBAMoDXPuyBUbFE81jSE6uZ70hcLhYoq0+DjX9FQ8PAm5/fRQ0dDKOiUMbPT1f7CISk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699392; c=relaxed/simple;
-	bh=at9caQSNlDirzi19HDDan4Y2L3uJCRt9I9RlxktvPA0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVNpwdPCyHktqkMTeoLl4xTy4EskV0s/FO59N/8CvrdwLaKWE/twFK1BrOUgTGhcOycnGQd2pxswTgyE5KUrAtSmePHztNDoaXTjEZHEfsY5BsC3kGWxXMsZCSp0BOaIOVyf11QxfcdyhW0BTTiYVaHO1nVFbMMgHoM7KlfAbdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TBR5IXRm; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790699398; c=relaxed/simple;
+	bh=3RaYRMVXn2BIUsCB/bZhtFbTVHGk+QiNMUl8qUepp+E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a+YEyGNMleBfvbmPWLZl4GfAxHIbNfewtmEgFTAABpqlVoU9rUlmm4bq8sii91Ojy0DWYHqJZ64ZmkQg8xiy868JgwoNpqYjqcXSC+oiBu8AKN3dHlsh7tizqXs3+M31Lz0pgeIRquF4SQB8M4F6rcPYe958NQ2DPRQp5oKz0gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UWeQUOOW; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TBR5IXRm"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2119190a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UWeQUOOW"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so7086570a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790699389; x=1791304189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tH7cezq+gJXVplHNKlxZez1fJO97a08MzeloZBiVfiI=;
-        b=TBR5IXRmomUpK6uuo+27sfEnZuB9z+QyyX8PQNBGyA9EofMqSFJ4CzTvYilbflTLXA
-         YDkJQ5KHZezf3pP9kfsLw6h7c+Yd4wXq/ktDQHOc1T+4De2u5ufNhg8qIKOzPNkJ3cYL
-         QXoprhz0+JkE3Tm/YlJQwtsqea+JO6yj4KimQ6qQdPGOb2bI/+/A8eB1+1wxZ13JNTdc
-         vy3XSsNm73eWblGUVQapLKtnO7uSEtCeTkzB6XjFfonUv/o5DzePowvWRO1l+87W1kQ2
-         wRJFgz0Ukunx3Avf8/n517AgyLENjuSLwpUXVnN/2BLmEZL23W+x2Dz3hvZ9t9wGPhev
-         soXQ==
+        d=chromium.org; s=google; t=1790699394; x=1791304194; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=benznCTRx/IEcE/MVflwkxYVhHzqfo0H2S1mbmL87+g=;
+        b=UWeQUOOWCm2cfRWYAT1EOty+HsszSfMj7dOZHSUiOvdDcD1vGVWbsXttVMe5dmJRwz
+         dYYMAK+uH/LyQb0lmUCmba81UWfM4yt23nl4yMFaCl624t8P05Pag5suRikDGBKBTnBa
+         5unyjPKiDPJWYTgr0OIg52zQBSAIc9XKp56u0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699389; x=1791304189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tH7cezq+gJXVplHNKlxZez1fJO97a08MzeloZBiVfiI=;
-        b=pCoy4WRQxEnvChWsTX/1A5OXILPoSghkk1xDpwdyP6QhcMFBxqS1tUmQ4/GP/Y5Wny
-         iYE59tudMh6BAnw+VcuxhDZnW76apGTud/bmNb2RFdRJKVoLskWPg8P64/eUJUQ8JExV
-         xeqi4vAGYFVlVOomODy0MeYANtXf8CicWZAdOTh1cgISBgnK1hYfB31EXyahDeGvsSLZ
-         GFmc+EHWNHbS9vLwt8OE1I94NjqsBd0fHdDOlP0BzdO+6E6zWuP56XuhcNn2KL4NiMak
-         lmQ+jqM5taflBSJd0nfLBEf6SKudcYH8xoIosypP6v1/c46IFkWTds3FMR5CnDoD/miM
-         9mAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJaDVMX+OaLqDquzCbC/40AX1Ju7NcbgAeUulIIL2mGVP2YziWXps/dZk7XW2OJPYh/wsBPJwYOldVSh0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3MvWLOx1zevk5l3wF+utZ9BLDZWfwQqvLEXU797Yq8/yODU7z
-	EKz+9JcOVn6Wcc/8nlDGOPXT0soaCnlvknz+foBOxIfdUfhaxvEjdeW4
-X-Gm-Gg: AYBFou1fOH7Q45Ii2wkL+ZxEE/UBUg4bENRc1L3JoheBD1inX5JXMtxBO3uiQO5XHrL
-	oL+VJLlKm2R80ynI478fBvl0mzwITezsDVhL78sqED50c91QOQrdSaC+1boCBsdyAFLx8lS7Dxu
-	hSFiZy9pLzSkWKHKWIou5GzNvS83eAUwAFHfpb/8S/VsrbJ1XWJiY8vFnfX1KKPCbMnX0QXFoik
-	j31ccrb4ZbB4dcbVBQMqkTA3W5IAxDQGogVN0dIFBFVa1HZmCaCkiFyRKgTRKFbHCYfkrJZ+4iI
-	F209mePO/74dngzwGiUn9iC6eatYbBHgF0r6aksxqZOpXCDxgcl+mcUizUGWZaXb4bjoHdWYf6S
-	O9jXSj78f+lbwq69qGnocdsguaHByKM4+1Qn5hdGIcjV2ai1/xJ9DcoNbSmjRpGNs6ROPDLJ/Og
-	gdM7yNzJzop0BFD/eC9H0i5WoMn7Q3jZ2tZjRDU6rXgRZb071yHuSnEVPn6Nnupk88MNRfVVFeI
-	cQ2z+jSp4UNrrv0nk5wQA==
-X-Received: by 2002:a17:90b:2882:b0:3a4:b8fd:5d67 with SMTP id 98e67ed59e1d1-3a4b8fd5e29mr379785a91.50.1790699389050;
-        Tue, 29 Sep 2026 09:29:49 -0700 (PDT)
-Received: from x1c ([2405:9800:b670:b64b:8c3c:36b:3374:1c96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497ecef67sm6481678a91.6.2026.09.29.09.29.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:29:48 -0700 (PDT)
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com,
-	shuah@kernel.org
-Cc: kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Subject: [PATCH v2] KVM: selftests: Verify KVM_MSR_EXIT_REASON_INVAL on non-canonical FS_BASE write
-Date: Tue, 29 Sep 2026 23:29:40 +0700
-Message-ID: <20260929162940.14610-1-tharitt97@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1790699394; x=1791304194;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=benznCTRx/IEcE/MVflwkxYVhHzqfo0H2S1mbmL87+g=;
+        b=AXCKAFyA5w5st8wIjt0oqFGKqr9gwRg7k5zO87GgMDTFWZnFI+QXfEATA3fKHreUqP
+         QSSwlhYtc1iPZgtT5/3Cshh1Oavr89865VJcSHu0JZapO3ss/ZCninwiTrGpp3IBApw7
+         OXJ2L8NNJ+SUvGzq861A2tjEogoD2r8rKIaTU90oMA7zXLAK1NaPMjltvB+3wQi2eCWS
+         yR6wYKfSzn6a3cPV/we6CHFbiMQaCa5yt5rQ4oElisuZwPQ6RYMEKQtRPaZFqyrqqOP1
+         Dj5m/nfRDY0NXOrV4eInw0yQ19W0HyKVP9aQVaAKCO6ZOl6+pood6PQRilaa6251ChgA
+         LApA==
+X-Forwarded-Encrypted: i=1; AKwUvByAPf4zSTN5zv4S42LXkoGaYXWVPi5ODFLe8KPR/mGxOYq6eY9MFV4WQZtN7Rk94haOMXDoDIeZTRf2LWM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9t1y8GDScwxDFmLirCv+oX0+tYUj2NgADM/Y+3aMTPAZtMV6l
+	JO8C+WC6+zHxpmIvGrTkzMZx5nxkB2JiV4zeXr/Fr9+U3PDsj3rFexdYBLVp0KiQDyxMPXNFIEP
+	xGU4dow8m
+X-Gm-Gg: AYBFou3ORd7Ue2pZCLoy+XmgZFElU1wQQlTBb4ccVF+AVuDLO+EQj5v9nIkngDdx35N
+	J4PAsUrmxnPHdnomT2Mb4w1MQB/Qwb12OtwduLal7QNUM9Cf5FS/IvuvbgqBsqUvXPFXgsOAwhM
+	P5MNJHJGh4Ex6RbtAA+waCAJF/t6LqkrtjSE/FC2EZ9UHaA3VBsNiy73nZ/RybOQVzyT8d6EOAe
+	zYXCkGSWpLvLs2pdK+mEYw1g7tf+F/83LnZTYiwXyA1U+w5S6O85am4t1b0Uxxvp8FftE//AJTH
+	1HYBfyetkWusknj9JgZfMFy/amTFT0Kn+a80HCVaE5MLf/Z48C0bxQd3ZlR4ni1t9WGifn2utOv
+	XoUEFE6tGkTyPpC6oR26ulyL6Nl8WE7bFBLfyKotSMnp6cDV15rXBQTBVIYKkrt8HggFa9yVpNm
+	KZu9WA1no/7JYBUxtyeQlQvwguUdiUVlcNtzMC5KO+N6AX5XGefUSPfriN3VU241FWXIIsNSTiq
+	UMztAlN1QWc5b43p435P3fHxtoHL1sq0T4PuqZk1Sm3SszSPg==
+X-Received: by 2002:a05:6402:540a:b0:6ac:b49e:42a with SMTP id 4fb4d7f45d1cf-6acb49e060amr1727093a12.28.1790699394142;
+        Tue, 29 Sep 2026 09:29:54 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb8e19b41sm1165196a12.4.2026.09.29.09.29.50
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 09:29:53 -0700 (PDT)
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so25147935e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzlFRwmXN5rj0uWLz0fZHyyOwyv6s4WjtH4YjQuwd1yNSN/CKLHf0A9ezoE0vyC/tg3uVISPjuK9kSEi5M=@vger.kernel.org
+X-Received: by 2002:a05:600c:1f95:b0:49f:ce78:3562 with SMTP id
+ 5b1f17b1804b1-49fe66f1aa8mr296606315e9.19.1790699389340; Tue, 29 Sep 2026
+ 09:29:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929080143.559685-1-hungen3108@gmail.com>
+In-Reply-To: <20260929080143.559685-1-hungen3108@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 29 Sep 2026 09:29:37 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UU+NS0T-Ga8i12QKTNCYOu8kar_6=NsH0=4FVUFyKB7A@mail.gmail.com>
+X-Gm-Features: AclHuK_CMHHACYWLbkCTUj8Wg_n6T0qMeI89YsR3gxxruJZion0bIfNfLPongVU
+Message-ID: <CAD=FV=UU+NS0T-Ga8i12QKTNCYOu8kar_6=NsH0=4FVUFyKB7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel: ronbo-rb070d30: Use mipi_dsi_*_multi() functions
+To: Hsieh Hung-En <hungen3108@gmail.com>
+Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+	airlied@gmail.com, simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The msr_filter_deny test covers the FILTER and UNKNOWN MSR exit
-reasons, but nothing exercises KVM_MSR_EXIT_REASON_INVAL.
+Hi,
 
-Have the guest write a non-canonical value to FS_BASE and verify
-that the write exits to userspace with KVM_MSR_EXIT_REASON_INVAL along
-with the attempted value.
+On Tue, Sep 29, 2026 at 1:02=E2=80=AFAM Hsieh Hung-En <hungen3108@gmail.com=
+> wrote:
+>
+> Replace the deprecated mipi_dsi_dcs_exit_sleep_mode() and
+> mipi_dsi_dcs_enter_sleep_mode() calls in the enable and disable callbacks
+> with their _multi variants, as suggested in Documentation/gpu/todo.rst.
+>
+> The callbacks retain the same return values. The new helpers additionally
+> log an error if the command fails.
+>
+> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
+> ---
+>
+> Notes:
+>     Compile-tested on arm64 with W=3D1; not tested on hardware.
+>
+>  drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 
-FS_BASE writes are passed through to hardware, i.e. a plain WRMSR
-takes #GP directly without exiting, so use forced emulation to route
-the write through KVM.
+_multi doesn't buy us much here, but this is still something we want
+to do so we can (eventually) remove the old functions. Thus:
 
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
----
-v2:
- - Use a write of non-canonical to FS_BASE value instead of 
-   reserved EFER bit 63 because writing non-canonical can't 
-   become valid without massive architectural changes unlike EFER reserved bit
-   (suggested by Sean).
-Tested on Intel Core i5-10210U (VMX). Not tested on AMD.
----
- .../kvm/x86/userspace_msr_exit_test.c         | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-diff --git a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-index 2808ce727e5f..40b084cba2c0 100644
---- a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-+++ b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
-@@ -309,6 +309,14 @@ static void guest_msr_calls(bool trapped)
- 	/* Invalid MSR, should always be handled by user space exit */
- 	GUEST_ASSERT(rdmsr(0xdeadbeef) == 0xdeadbeef);
- 	wrmsr(0xdeadbeef, 0x1234);
-+
-+	/*
-+	 * Writing a non-canonical value to FS_BASE is rejected by KVM, but
-+	 * FS_BASE writes are passed through to hardware, so force emulation
-+	 * to route the write through KVM and get an INVAL exit.
-+	 */
-+	if (is_forced_emulation_enabled)
-+		test_em_wrmsr(MSR_FS_BASE, NONCANONICAL);
- }
- 
- static void guest_code_filter_deny(void)
-@@ -627,6 +635,13 @@ static void handle_wrmsr(struct kvm_run *run)
- 		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_UNKNOWN,
- 			    "deadbeef trap w/o inval fault");
- 	}
-+
-+	if (run->msr.index == MSR_FS_BASE) {
-+		TEST_ASSERT(run->msr.data == NONCANONICAL,
-+			    "MSR_FS_BASE data is not NONCANONICAL");
-+		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_INVAL,
-+			    "MSR_FS_BASE trap w/o inval fault");
-+	}
- }
- 
- KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
-@@ -667,7 +682,9 @@ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
- 
- done:
- 	TEST_ASSERT(msr_reads == 4, "Handled 4 rdmsr in user space");
--	TEST_ASSERT(msr_writes == 3, "Handled 3 wrmsr in user space");
-+	TEST_ASSERT(msr_writes == (is_forced_emulation_enabled ? 5 : 3),
-+		    "Handled %u wrmsr in user space, expected %u",
-+		    msr_writes, is_forced_emulation_enabled ? 5 : 3);
- }
- 
- KVM_ONE_VCPU_TEST(user_msr, msr_permission_bitmap, guest_code_permission_bitmap)
--- 
-2.53.0
+I'll be at a conference next week and will probably wait until I get
+back before applying, just in case there are problems. So unless
+someone else applies in the meantime (or other issues come up), I'll
+try to land in ~2 weeks.
 
+
+> diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/d=
+rm/panel/panel-ronbo-rb070d30.c
+> index c3fbc459c..ebe6352db 100644
+> --- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+> +++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
+> @@ -75,15 +75,19 @@ static int rb070d30_panel_unprepare(struct drm_panel =
+*panel)
+>  static int rb070d30_panel_enable(struct drm_panel *panel)
+>  {
+>         struct rb070d30_panel *ctx =3D panel_to_rb070d30_panel(panel);
+> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+>
+> -       return mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
+> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +       return dsi_ctx.accum_err;
+>  }
+>
+>  static int rb070d30_panel_disable(struct drm_panel *panel)
+>  {
+>         struct rb070d30_panel *ctx =3D panel_to_rb070d30_panel(panel);
+> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+>
+> -       return mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +       return dsi_ctx.accum_err;
+>  }
+
+nit: not new for your change, but it's probably better if
+rb070d30_panel_disable() ignores the error here and always returns 0.
+We often ignore errors in disable(), especially when unprepare() will
+power the panel off anyway. If you wanted to send a followup patch
+fixing that, it would be nice. ;-)
+
+-Doug
