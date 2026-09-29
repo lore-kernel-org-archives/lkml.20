@@ -1,59 +1,58 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6294EE846
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F310851AFD1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686167; cv=none; b=RYe7LOghh1HDi/XvIm7N95eFerSkSEf098McGRRj07LLcQEekdDZSpWeGWbL9MJMJUx34kObgLPrOembfrE9Mb76THOD5jBDID2/ro+DfWsFz4wnTqBBmdQDACfz1nyxG5AT/OQyH+gjw1MPXcgvY/VWKQjPNjY/YSRyR0n/8Yc=
+	t=1790686171; cv=none; b=NuHon+iq3UfF753XWYscit5mkKxXBpVrgNtrWTV/Bx4IBWAWnuFVsysp0Box5KxXep1vFXWvZCBfdN4EbFbAKG3ob7MFh0aIfs18QhmzPXY3MCVFsOdz9G8vstuTW8UUhez+KDfCiARk9Mygjb5TM5sJBzfagKfYssv3Foo0qkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686167; c=relaxed/simple;
-	bh=r/ZfoBgyD1vF3LJTDWvszBll3ysJFWimztxHWCJKJhg=;
+	s=arc-20240116; t=1790686171; c=relaxed/simple;
+	bh=EqZmbWOSzN3G5NmVQ7GaJg9DE1KreAuKK+h+UdTnFjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EbSaVpVlixXUNwYK8CR6xQdwcSGe5bAmPKUWG/fM3Ai5veuzwshU+KNV2Jl8I7i4oqlwW0X346dYGHgz2p4dIkgbpt4jLtvvCfgbU6tBLnyrM5hNr4xMivNJxZrM9kFDRTx61DzQsUn95rmLrT+7y+zr65iPE2FWFtTBh3o6ulk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ae5swBwD; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=pKQK2dLOwkrwYpWpPlT+QBXprRGYIZCTmZ40PJDbrQTdwxwpUJMN+d+i9LOwojyPRWjJlD/GgHEirnP3rG4IGPnBG53yeS+/ZyEhAUj1dji8QQTPiamp2IozlAeln8NQSP5chIxh/0scHIxTr6ZTp+b02zJysWbeiZKTrp3uwrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Utd1gF/s; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ae5swBwD"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Utd1gF/s"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790686164;
+	s=mimecast20190719; t=1790686169;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0FB2c+czFRObJnbuclViunwJsY8tUzCrXNtZGJ1dA4w=;
-	b=ae5swBwDWzZdoKaCK2Df8ILcq52yFU3wgV/ayBuu7n+73xQA6zfVw7a98tK+/goqg690en
-	OCvYx6/BeLdM07acx+xPTz++2deavvI1lF8HFVwfCSskOXlBPMFKP60xHYzs0fWoDx9jhP
-	l/ga+MVX9EzPwt0KMGL6vL3tAchDGBs=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=RCH+fD1vc3UUJcFQ9+Om6OLTNJXpyzIp0edH7K0DqAc=;
+	b=Utd1gF/siIgzTBa/raxIHhw191D2a9uu/e75S6MPj5WxMWWzpau7L6oovevB2EE8+CTASy
+	UmUclemz/1tGkYPN01Ww3f8+ijvMpKBg9zqT0woLb9ezoBlWFFtiALHr7Mb6aPDg+XhTTY
+	zkrEbelNT3NDbHi07avt7BqnEwiJ52E=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-265-AHPC_yQkM3awmVcwWbF0FQ-1; Tue,
- 29 Sep 2026 08:49:23 -0400
-X-MC-Unique: AHPC_yQkM3awmVcwWbF0FQ-1
-X-Mimecast-MFC-AGG-ID: AHPC_yQkM3awmVcwWbF0FQ_1790686162
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-602-PKIX7teON32T5o4gUq6NTQ-1; Tue,
+ 29 Sep 2026 08:49:27 -0400
+X-MC-Unique: PKIX7teON32T5o4gUq6NTQ-1
+X-Mimecast-MFC-AGG-ID: PKIX7teON32T5o4gUq6NTQ_1790686166
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 09C411954B04;
-	Tue, 29 Sep 2026 12:49:22 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6D6E41805A23;
+	Tue, 29 Sep 2026 12:49:26 +0000 (UTC)
 Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5CB851956095;
-	Tue, 29 Sep 2026 12:49:19 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6D7DE19560AB;
+	Tue, 29 Sep 2026 12:49:23 +0000 (UTC)
 From: Gabriele Monaco <gmonaco@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
 	Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>
+	Gabriele Monaco <gmonaco@redhat.com>
 Cc: Nam Cao <namcao@linutronix.de>,
 	Wen Yang <wen.yang@linux.dev>,
 	Juri Lelli <juri.lelli@redhat.com>
-Subject: [PATCH 01/10] rv: Force environment reset action on HA monitor start
-Date: Tue, 29 Sep 2026 14:48:59 +0200
-Message-ID: <20260929124908.177676-2-gmonaco@redhat.com>
+Subject: [PATCH 02/10] rv: Remove unused ha_monitor_env_invalid()
+Date: Tue, 29 Sep 2026 14:49:00 +0200
+Message-ID: <20260929124908.177676-3-gmonaco@redhat.com>
 In-Reply-To: <20260929124908.177676-1-gmonaco@redhat.com>
 References: <20260929124908.177676-1-gmonaco@redhat.com>
 Precedence: bulk
@@ -65,84 +64,160 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Currently the monitor variables with a storage (e.g. clocks) are
-initialised as invalid, then the first explicit reset() sets them as
-valid for constraint. This only adds extra complexity to handle the
-invalid case in constraints check.
+After forcing a reset() action when starting HA monitors, environment
+variables cannot be invalid, hence ha_monitor_env_invalid() and checks
+using it are no longer required.
 
-Apply a reset() by default when starting monitors instead of resetting
-to an invalid state. If monitors have no stored variable (hence no reset
-function) add a macro HA_NO_RESET to stub it, this is all transparently
-handled by rvgen.
-
-The reset() action on ns-granularity clocks needs the (possibly cached)
-current time, read it directly there. This might cause a double call to
-ktime_get_ns() within the same da_handle_start_run_event() but will
-occur only the first time and is harmless.
+Remove the function and its usage from library and generation scripts.
 
 Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 ---
- include/rv/ha_monitor.h                 | 8 +++++++-
- kernel/trace/rv/monitors/opid/opid.h    | 1 +
- tools/verification/rvgen/rvgen/dot2c.py | 2 ++
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ include/rv/ha_monitor.h                             | 12 ------------
+ tools/verification/rvgen/rvgen/dot2k.py             |  8 --------
+ .../rvgen/tests/golden/ha_percpu/ha_percpu.c        | 13 +++++--------
+ .../rvgen/tests/golden/test_ha/test_ha.c            | 13 +++++--------
+ .../tests/golden/test_ha_kunit/test_ha_kunit.c      | 13 +++++--------
+ 5 files changed, 15 insertions(+), 44 deletions(-)
 
 diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
-index 6e1c7fe5449a..93ac99ff7f1d 100644
+index 93ac99ff7f1d..87cf91abdf67 100644
 --- a/include/rv/ha_monitor.h
 +++ b/include/rv/ha_monitor.h
-@@ -159,19 +159,25 @@ static void ha_monitor_destroy(void)
- 
- /* Should be supplied by the monitor */
- static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns);
-+static void ha_reset_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns);
- static bool ha_verify_constraint(struct ha_monitor *ha_mon,
- 				 enum states curr_state,
- 				 enum events event,
- 				 enum states next_state,
- 				 u64 time_ns);
-+#ifdef HA_NO_RESET
-+static void ha_reset_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns) { }
-+#endif
- 
- /*
-  * ha_monitor_reset_all_stored - reset all environment variables in the monitor
-  */
- static inline void ha_monitor_reset_all_stored(struct ha_monitor *ha_mon)
- {
-+	u64 time_ns = ha_get_ns();
-+
- 	for (int i = 0; i < ENV_MAX_STORED; i++)
--		WRITE_ONCE(ha_mon->env_store[i], ENV_INVALID_VALUE);
-+		ha_reset_env(ha_mon, i, time_ns);
+@@ -211,14 +211,6 @@ static inline void ha_monitor_reset_env(struct da_monitor *da_mon)
+ 		ha_cancel_timer(ha_mon);
  }
  
- /*
-diff --git a/kernel/trace/rv/monitors/opid/opid.h b/kernel/trace/rv/monitors/opid/opid.h
-index fb0aa4c28aa6..f85b1959c2fb 100644
---- a/kernel/trace/rv/monitors/opid/opid.h
-+++ b/kernel/trace/rv/monitors/opid/opid.h
-@@ -28,6 +28,7 @@ enum envs_opid {
- };
+-/*
+- * ha_monitor_env_invalid - return true if env has not been initialised
+- */
+-static inline bool ha_monitor_env_invalid(struct ha_monitor *ha_mon, enum envs env)
+-{
+-	return READ_ONCE(ha_mon->env_store[env]) == ENV_INVALID_VALUE;
+-}
+-
+ static inline void ha_get_env_string(struct seq_buf *s,
+ 				     struct ha_monitor *ha_mon, u64 time_ns)
+ {
+@@ -360,8 +352,6 @@ static inline u64 ha_invariant_passed_ns(struct ha_monitor *ha_mon, enum envs en
+ {
+ 	if (env < 0 || env >= ENV_MAX_STORED)
+ 		return 0;
+-	if (ha_monitor_env_invalid(ha_mon, env))
+-		return 0;
+ 	return ha_get_env(ha_mon, env, time_ns);
+ }
  
- _Static_assert(env_max_stored_opid <= MAX_HA_ENV_LEN, "Not enough slots");
-+#define HA_NO_RESET
+@@ -388,8 +378,6 @@ static inline u64 ha_invariant_passed_jiffy(struct ha_monitor *ha_mon, enum envs
+ {
+ 	if (env < 0 || env >= ENV_MAX_STORED)
+ 		return 0;
+-	if (ha_monitor_env_invalid(ha_mon, env))
+-		return 0;
+ 	return ha_get_env(ha_mon, env, time_ns);
+ }
  
- struct automaton_opid {
- 	char *state_names[state_max_opid];
-diff --git a/tools/verification/rvgen/rvgen/dot2c.py b/tools/verification/rvgen/rvgen/dot2c.py
-index 22938ce1bf6c..1532e6b6e199 100644
---- a/tools/verification/rvgen/rvgen/dot2c.py
-+++ b/tools/verification/rvgen/rvgen/dot2c.py
-@@ -90,6 +90,8 @@ class Dot2c(Automata):
-                         ' "Not enough slots");')
-             if {"ns", "us", "ms", "s"}.intersection(self.env_types.values()):
-                 buff.append("#define HA_CLK_NS")
-+            if len(self.env_stored) == 0:
-+                buff.append("#define HA_NO_RESET")
-             buff.append("")
-         return buff
+diff --git a/tools/verification/rvgen/rvgen/dot2k.py b/tools/verification/rvgen/rvgen/dot2k.py
+index fd3254ea5b4d..0b4e19ad9bd5 100644
+--- a/tools/verification/rvgen/rvgen/dot2k.py
++++ b/tools/verification/rvgen/rvgen/dot2k.py
+@@ -279,19 +279,11 @@ class ha2k(dot2k):
+     def __format_guard_rules(self, rules: list[str]) -> list[str]:
+         """
+         Merge guard constraints as a single C return statement.
+-        If the rules include a stored env, also check its validity.
+         Break lines in a best effort way that tries to keep readability.
+         """
+         if not rules:
+             return []
  
+-        invalid_checks = [f"ha_monitor_env_invalid(ha_mon, {env}{self.enum_suffix}) ||"
+-                          for env in self.env_stored if any(env in rule for rule in rules)]
+-        if invalid_checks and len(rules) > 1:
+-            rules[0] = "(" + rules[0]
+-            rules[-1] = rules[-1] + ")"
+-        rules = invalid_checks + rules
+-
+         separator = "\n\t\t      " if sum(len(r) for r in rules) > 80 else " "
+         return ["res = " + separator.join(rules) + ";"]
+ 
+diff --git a/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c b/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
+index 3a72e867122c..7357e182e487 100644
+--- a/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
++++ b/tools/verification/rvgen/tests/golden/ha_percpu/ha_percpu.c
+@@ -109,16 +109,13 @@ static inline bool ha_verify_guards(struct ha_monitor *ha_mon,
+ 		res = ha_get_env(ha_mon, env1_ha_percpu, time_ns) == 0ull;
+ 		ha_reset_env(ha_mon, clk_ha_percpu, time_ns);
+ 	} else if (curr_state == S2_ha_percpu && event == event1_ha_percpu)
+-		res = ha_monitor_env_invalid(ha_mon, clk_ha_percpu) ||
+-		      ha_get_env(ha_mon, clk_ha_percpu, time_ns) < foo_ns;
++		res = ha_get_env(ha_mon, clk_ha_percpu, time_ns) < foo_ns;
+ 	else if (curr_state == S3_ha_percpu && event == event0_ha_percpu)
+-		res = ha_monitor_env_invalid(ha_mon, clk_ha_percpu) ||
+-		      (ha_get_env(ha_mon, clk_ha_percpu, time_ns) < FOO_NS &&
+-		      ha_get_env(ha_mon, env2_ha_percpu, time_ns) == 0ull);
++		res = ha_get_env(ha_mon, clk_ha_percpu, time_ns) < FOO_NS &&
++		      ha_get_env(ha_mon, env2_ha_percpu, time_ns) == 0ull;
+ 	else if (curr_state == S3_ha_percpu && event == event1_ha_percpu) {
+-		res = ha_monitor_env_invalid(ha_mon, clk_ha_percpu) ||
+-		      (ha_get_env(ha_mon, clk_ha_percpu, time_ns) < 5000ull &&
+-		      ha_get_env(ha_mon, env1_ha_percpu, time_ns) == 1ull);
++		res = ha_get_env(ha_mon, clk_ha_percpu, time_ns) < 5000ull &&
++		      ha_get_env(ha_mon, env1_ha_percpu, time_ns) == 1ull;
+ 		ha_reset_env(ha_mon, clk_ha_percpu, time_ns);
+ 	}
+ 	return res;
+diff --git a/tools/verification/rvgen/tests/golden/test_ha/test_ha.c b/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
+index 9047ff725546..a2bd1eb93b03 100644
+--- a/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
++++ b/tools/verification/rvgen/tests/golden/test_ha/test_ha.c
+@@ -109,16 +109,13 @@ static inline bool ha_verify_guards(struct ha_monitor *ha_mon,
+ 		res = ha_get_env(ha_mon, env1_test_ha, time_ns) == 0ull;
+ 		ha_reset_env(ha_mon, clk_test_ha, time_ns);
+ 	} else if (curr_state == S2_test_ha && event == event1_test_ha)
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha) ||
+-		      ha_get_env(ha_mon, clk_test_ha, time_ns) < foo_ns;
++		res = ha_get_env(ha_mon, clk_test_ha, time_ns) < foo_ns;
+ 	else if (curr_state == S3_test_ha && event == event0_test_ha)
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha) ||
+-		      (ha_get_env(ha_mon, clk_test_ha, time_ns) < FOO_NS &&
+-		      ha_get_env(ha_mon, env2_test_ha, time_ns) == 0ull);
++		res = ha_get_env(ha_mon, clk_test_ha, time_ns) < FOO_NS &&
++		      ha_get_env(ha_mon, env2_test_ha, time_ns) == 0ull;
+ 	else if (curr_state == S3_test_ha && event == event1_test_ha) {
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha) ||
+-		      (ha_get_env(ha_mon, clk_test_ha, time_ns) < 5000ull &&
+-		      ha_get_env(ha_mon, env1_test_ha, time_ns) == 1ull);
++		res = ha_get_env(ha_mon, clk_test_ha, time_ns) < 5000ull &&
++		      ha_get_env(ha_mon, env1_test_ha, time_ns) == 1ull;
+ 		ha_reset_env(ha_mon, clk_test_ha, time_ns);
+ 	}
+ 	return res;
+diff --git a/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c b/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
+index 239b0539df18..61446e7f32c4 100644
+--- a/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
++++ b/tools/verification/rvgen/tests/golden/test_ha_kunit/test_ha_kunit.c
+@@ -109,16 +109,13 @@ static inline bool ha_verify_guards(struct ha_monitor *ha_mon,
+ 		res = ha_get_env(ha_mon, env1_test_ha_kunit, time_ns) == 0ull;
+ 		ha_reset_env(ha_mon, clk_test_ha_kunit, time_ns);
+ 	} else if (curr_state == S2_test_ha_kunit && event == event1_test_ha_kunit)
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha_kunit) ||
+-		      ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < foo_ns;
++		res = ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < foo_ns;
+ 	else if (curr_state == S3_test_ha_kunit && event == event0_test_ha_kunit)
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha_kunit) ||
+-		      (ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < FOO_NS &&
+-		      ha_get_env(ha_mon, env2_test_ha_kunit, time_ns) == 0ull);
++		res = ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < FOO_NS &&
++		      ha_get_env(ha_mon, env2_test_ha_kunit, time_ns) == 0ull;
+ 	else if (curr_state == S3_test_ha_kunit && event == event1_test_ha_kunit) {
+-		res = ha_monitor_env_invalid(ha_mon, clk_test_ha_kunit) ||
+-		      (ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < 5000ull &&
+-		      ha_get_env(ha_mon, env1_test_ha_kunit, time_ns) == 1ull);
++		res = ha_get_env(ha_mon, clk_test_ha_kunit, time_ns) < 5000ull &&
++		      ha_get_env(ha_mon, env1_test_ha_kunit, time_ns) == 1ull;
+ 		ha_reset_env(ha_mon, clk_test_ha_kunit, time_ns);
+ 	}
+ 	return res;
 -- 
 2.55.0
 
