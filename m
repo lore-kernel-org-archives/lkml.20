@@ -1,69 +1,69 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859D7509EF7
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C80050B8AA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677745; cv=none; b=OJzcGAUObR4TEYqwek27R9x+o8++MJcD2fm7kJK96snnD+7yS7Wo3jMHr6D+4QIUnC25r25IWic+GwUTCsk+jRk/j8jl0hkkgqO425xeQybwO4FP47q2ngnzI4ufdX1ScotcbHVT5hHLqK7LErB/2PuaAYqNgNyXbHax1ldC81M=
+	t=1790677747; cv=none; b=nsSFfFeCpOjiWPeBFLXGTGCmEerjri97WEf4Fm+GslT5Ue7RdwmbDa4cneevSChh/P+4aTXk+rMmd5BRumKbAD0fyzGPKFN8Wf5A36UJoIdKlRHOxXxggzT5mGLrwzXpnS/gMHFsob3Gm7+Nq4RKPyA+xJpADQWAeiRk1580XfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677745; c=relaxed/simple;
-	bh=mMiA4dH7y9LdOOVFFONMqDGxfntbpR+c/GSXExdAUbM=;
+	s=arc-20240116; t=1790677747; c=relaxed/simple;
+	bh=5ADyit8Ijsc5TQdkw96Oigh6pxYDNfJpvW/Ssz5MCwE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lk3WHwr48Fdo98FNjtTr+ujrnUVvT4ET3+m+WFNzgq1I3jT8deUHHGF8eCS4ToDdjSZ5GqDuc/Z0idr2GkTXXGKPdqNWoWbQwtqvrmEQwlBGPHndg71iiOTCEgS9iknpKvgnwRS13AqRbxFRUYofT7RP4nvpp9lxdTi579wgRj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=rpcovV1N; arc=none smtp.client-ip=74.125.225.141
+	 In-Reply-To:To:Cc; b=ooQQ8tvtPewDGGTzgpRxPrARR9w0EYMvqfoSirGPcPFsoya18yuagRxzeW2msopwP8GWE8Dl3rBRji7nto08XudBHcKWtUgzA40hTaFZflSAFkq+/6bPtKRm0AmCzN776QyPBCwcvisaqfHjvtAb1lS2orOqarULyqgDTvVWu9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=x1Xni6Bx; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="rpcovV1N"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so37806295e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:28:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="x1Xni6Bx"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso4462035e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:28:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790677726; x=1791282526; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1790677721; x=1791282521; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dj92lTF8akr3d6vO83htUPeUraoOhuGYgiyg/qVoz2E=;
-        b=rpcovV1NneIC9WvjOBZaSNa1hv8UUcoJhhBu1AcQAHlwzKRpm7zq9Ni4RzSwTzLIxH
-         V3Kvudu49DUcvXyPUt0fF/A+su8LjlKVd/SQXkA7/ScyFuzNmdejwr1L0VVcqhbNvcqb
-         Ae+jirL/+qyaCP6LhHzpY+jfafEQuu2mb2pcqXoXFVJ3JadSWmB8u5QcIs060za2G73F
-         Pa554ATHqbtGzmoe91eHKNSMqTr+CDFym7PgqIvLq0yR4qa3Y4p6YgYXxxvCeiCrgCvk
-         0o/0Q5kKcLnxzNNojBxwsqPFHo9zk1oe+YDVykvfc+m6QaDmNgjZq6dAGRqu2czo5lL8
-         7BCQ==
+        bh=rGvPl8En9vQFk7BFZDJEBDExAfjn0FzJiGJJ7lWPWO8=;
+        b=x1Xni6BxlRBytWFGhj6UBLouXwJ54DK+fWWeDFGYNYaeFK3vaOzn1H+LZecUvhcBue
+         EZJGdleys2Y0PH9M4CwtAy1YjlLRuHYjv67tO7zeIA8nBbY4hasISsVYI8xMvN9XtHzc
+         S5iXDUflTXCX1gP4eiZHVeNDFd2x3qfJGOuc+xm4lvlxnedw3k2OoHzl3MDv76/R56wQ
+         pXT3uwVRONr7w9+eQ3WUHB80A0N/SW9v2LFSbbJb6C7Qei2DBbsgO5RySn6dyf+8poOB
+         BEKOmMAr66Bbx5bjpfaOvYVqlqA6qXxSqrKQXl7dE1poqXosixVbTFCR4RSOe9rqeo4W
+         yCiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790677726; x=1791282526;
+        d=1e100.net; s=20260707; t=1790677721; x=1791282521;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dj92lTF8akr3d6vO83htUPeUraoOhuGYgiyg/qVoz2E=;
-        b=U1milHbR6ObCBmZ6Ux4G8TNAr8vvNYCbFkFM2A7EL1EB9XsZ/TjWkwetCUQoUfR+7t
-         jfOrW47VMP1jEvumxvayEyoi7Q+6X1m2iSfkeVVxDYLSmsIagYdTpkHFCcdwdg+TRdg4
-         Dm2IYxYZCYj+dm8kDTmPidiQ86Wx00vNuYPKmikTBgcLv33LYm9E73yYRhJlWCLJaX9j
-         2cgO7HoipFkmB0aWJJxbpc5N7GFeIQ1OykvCFnlw83oLTXHwM40ohAEQcdqgH/cNHz+Y
-         kHQgrZiHpJiPKU2LAd3Ud+O+ZNO9d6cDpZxNxLshpFsZO08o8Ml+AduzEh/2tcZIs1y1
-         RR3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxo/R5dXc6a+BcXoQqjlj4CsPYvcGrqboW5Wz+8eflxY6M/PGTRDU1T+nSMKd5aLUEfzK0RO/7tX0siN6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJZC3NBg9mBQUzBRq/9iciAtXA3hHMhf8lP54Ld42ltvlf//bI
-	f8iLrcuB0yqu4PH0MVnfSngmuTcIgF+pEJbpYDzS4ZGJCVhOM4wTla2XufAdLq8syY4=
-X-Gm-Gg: AYBFou29o/KjinUJAExuCiXJRrQyAJji2HC+thSiRpqfH9SY4cF3ViOKeB2WTPWIERD
-	GEaPU+TLEns6HkG6RhIobpW4hc32CHles7nHwRxosk1C7KDB02A5ZxTFUYFpt7OMoUFx70dxSxw
-	vSgKffcBneZq3BOEMxCXHlzOWuHK9Rjj2KFl7Tu0marD92/NTSDj7bIw/FiDTO/GY2bAfkXxjVL
-	iGfJCO3rt/vdhd8mubT1uTHTf0RJKEJtqqJdO1aJsP6DcJdV4REYsPOncnLi8Qg+ztqB8/24F3+
-	brjfGSQwNDN0Edt94gdAZYBMIKuRhFCl8TKYxsgheq7RhQnzJNJzKpwPlCK7GD8HzqOE/N+r00S
-	nnH+A9l9J5upn2jmr9hxFqDQ07L7mb6blBVHyKIZt1sH1bt5wk4s8rizQMLybaJMiyVNigp7bxV
-	RRXP25qgR9EfJAk+Xn1+eFLAUCWd1jTaDXOma0uFZrQkm7lXgcvGtXRuIYUnA7h63YBMX7UJ4AB
-	rBQ+cRlwOeJQa6O7lY=
-X-Received: by 2002:a05:600c:154c:b0:4a0:4c7:e0c4 with SMTP id 5b1f17b1804b1-4a004c7e4e7mr94742415e9.1.1790677726105;
-        Tue, 29 Sep 2026 03:28:46 -0700 (PDT)
+        bh=rGvPl8En9vQFk7BFZDJEBDExAfjn0FzJiGJJ7lWPWO8=;
+        b=bcbNUOABC0vd6kFZerXjtOL/Q+ts/8aODTyStjZDrh6H38Q/3G75gnxT3AQV7o5b2B
+         A9ZGKX2Csd9G5NYNz+nC9faOLEECfTa1GDhGs+9OTY1bLE1CTCPDsezE2nE65j/NFxu5
+         BtzwiIqnu9qEvvICr+3CWCAiR+SDNQhBEA5na2yL2tZ229pbljUGPW7hfnCMh8dhHnTr
+         qnCpVOMaDk/CWZ3ZC+SN6HmbxJZ1Ti+uJ3fj4z5Ca7eY499OidhW1atI3qmSU3OG3BdR
+         8dndVnwppuJKCLJ7cHP7uSK4pkvCtQCmGHfVGKB4QloLK9QzT+qHD7+e1nn36QqVL9wQ
+         LClQ==
+X-Forwarded-Encrypted: i=1; AKwUvBze6loCpeu47nTcabU7Xmpf8cKVQQOLuwpreuiUyPtB19S1sCRQDIV1CAO1BdFsZWMGP3r/zQbN/slve0s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPrsOgp8TPzBGgA62EKhZWDmD9TA5XBVYAbdUxJHM8qfoHUu+1
+	yHqdj2yyGsblvecRn45arb4KieWmlGrj6ovZ1PLNQfPt7S1S798SOM2C8SqlWLInlTs=
+X-Gm-Gg: AYBFou0htysK4RuQy2/m4MRJ6czmw07ZZimouQJ0uYlJtqHdUhfH1C8s5iBz/byJMzu
+	u4/P7QhCs4cb7wfPNsICkBRCfwWenF1syY/ciYoUWDiCrM/Kn7QGw6ahZiux/OElUXYeQwV9sJI
+	SUVHh2gFvIFQD5HXcd/eKSLLpMEPtQ5OUiTsF4tvcljUWVX5vDsEcbqRbihf/uG8y+YCkSyuEdE
+	zh2djPabrm/BLQdLqZQXFpiOq3TSFz9TcpoYhP9LUsc056A46trFiJF0X5OXZ+SB11tvY+wcUhF
+	wQiWwFGWWmyK49sj1N7TnmE4xezXyH9cnSNABSowdAb/UAF0n5z2Zqa2eUe71juTQIJAgDWqptX
+	OBuQRiDW0VfoVqLO3O1Vtj1ELBIcl7U4wv/u+xWQokFnH4M81pKYqCET2koXWswebkbDoDSS+BZ
+	CTIs2gM8Rfn0aK+NvjP/9J23mFWC92VsFU4iEQNqErjmIvl9trHvFrVdtCaAaK2tZz/I0PL3VwR
+	rFvChxy+tJrdTieuQ==
+X-Received: by 2002:a05:600c:4fc9:b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a0037da3c1mr96548565e9.29.1790677721312;
+        Tue, 29 Sep 2026 03:28:41 -0700 (PDT)
 Received: from alchark-surface.localdomain ([5.194.93.183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfb479asm66579305e9.15.2026.09.29.03.28.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfb479asm66579305e9.15.2026.09.29.03.28.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 03:28:45 -0700 (PDT)
+        Tue, 29 Sep 2026 03:28:41 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 29 Sep 2026 14:28:22 +0400
-Subject: [PATCH v2 5/5] arm64: dts: rockchip: name the reboot mode supplies
- on RK3576 EVB1
+Date: Tue, 29 Sep 2026 14:28:20 +0400
+Subject: [PATCH v2 3/5] power: reset: syscon-reboot-mode: enable supplies
+ for the next stage
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-b4-rk3576-reboot-mode-v2-5-5a34ca72065a@flipper.net>
+Message-Id: <20260929-b4-rk3576-reboot-mode-v2-3-5a34ca72065a@flipper.net>
 References: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
 In-Reply-To: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -80,62 +80,125 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Sebastian Reichel <sre@kernel.org>
 Cc: Alexey Charkov <alchark@flipper.net>, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- Shawn Lin <shawn.lin@rock-chips.com>
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1763; i=alchark@flipper.net;
- h=from:subject:message-id; bh=mMiA4dH7y9LdOOVFFONMqDGxfntbpR+c/GSXExdAUbM=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtnnTpUMvFF8mX5jK+uFhmtP1CbqJ19qeLF2Wa8621T
- GK3WhkadkxkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkY6xjpGDFycAjDVIRcZ/le3n0m/lHc7etP22Ijt/POniCazTSn5nx50xnHpou9ltw4y/Gb18fr
- gf9L+nY2A8IUohoMWDzb6vgvYa8fxieNl3MmiFmYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4101; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=5ADyit8Ijsc5TQdkw96Oigh6pxYDNfJpvW/Ssz5MCwE=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtnnRR7eaco/P+HJ1ifNh4tcP6XSrCzSVz2xfYiq+2U
+ l2f4PR7QcdEFgYxLgZLMUWWud+W2E414pu1y8PjK8wcViaQIdIiDQxAwMLAl5uYV2qkY6Rnqm2o
+ Z2ikY6xjxMDFKQBTvTGRkeGoj11uZuRb4QuXDK9NCzNw8bj+45Sxrf3X7VeNbjMsWfmM4b+3ztk
+ vQSceHTN9e2i2duqkxByDpXMqCv/JGJrtmf74iA47AA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-A reset that carries a boot mode request has to leave the mode register
-intact, so it also leaves the regulators as the running system left
-them. The DDR firmware that runs next configures bus QoS in the
-interconnect, in CCI_GRF, DDR_GRF and NPU_GRF, and faults if a supply
-behind any of those is down. The NPU rail is the one most easily left
-unpowered, as nothing else on the board needs it.
+Requesting a boot mode on some SoCs such as the Rockchip RK3576 hands the
+request to the boot ROM in a register that a full reset would clear, so
+any reset that carries it has to leave the PMIC untouched. This means that
+the regulators stay in whichever power state the running OS left them,
+which may be unsuitable for the early boot code. E.g. on RK3576 the DDR
+initialization blob runs on the way back and accesses registers which
+Linux normally leaves powered down, resulting in an unrecoverable abort.
 
-Name every supply those blocks sit behind, so that requesting a boot
-mode powers them regardless of what the running system happened to keep
-enabled.
+Get every supply named in the reboot mode node and enable it when a mode
+is written, which is when a mode is being requested. The supplies are
+deliberately left enabled afterwards: the system is on its way down, and
+what runs next cannot turn them on.
 
-Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-index 4c82980a9f63..55951f290906 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-@@ -957,6 +957,22 @@ wifi_wake_host: wifi-wake-host {
- 	};
+------
+
+Current implementation of of_regulator_bulk_get_all() never writes the
+supply names, instead leaving them uninitialized, while the regulator
+core uses the field in error paths to provide meaningful error messages
+to the user. This has been highlighted by Sashiko on v1, and is addressed
+separately in [1]
+
+[1] https://lore.kernel.org/all/20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net/
+---
+ drivers/power/reset/syscon-reboot-mode.c | 41 ++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/drivers/power/reset/syscon-reboot-mode.c b/drivers/power/reset/syscon-reboot-mode.c
+index e0772c9f70f7..5ef882d81816 100644
+--- a/drivers/power/reset/syscon-reboot-mode.c
++++ b/drivers/power/reset/syscon-reboot-mode.c
+@@ -10,6 +10,8 @@
+ #include <linux/platform_device.h>
+ #include <linux/reboot.h>
+ #include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/reboot-mode.h>
+ 
+@@ -18,6 +20,8 @@ struct syscon_reboot_mode {
+ 	struct reboot_mode_driver reboot;
+ 	u32 offset;
+ 	u32 mask;
++	struct regulator_bulk_data *supplies;
++	int num_supplies;
  };
  
-+&reboot_mode {
+ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+@@ -28,6 +32,20 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+ 
+ 	syscon_rbm = container_of(reboot, struct syscon_reboot_mode, reboot);
+ 
 +	/*
-+	 * A reset that carries a boot mode request leaves the regulators as
-+	 * the running system left them, while the DDR firmware that runs next
-+	 * configures bus QoS in the interconnect, CCI_GRF, DDR_GRF and
-+	 * NPU_GRF, and it runs into a synchronous abort if any of the blocks
-+	 * is unpowered when it accesses them.
++	 * Whatever acts on the mode (e.g. boot ROM) runs before the operating
++	 * system, and may need supplies that the running system had powered
++	 * down. Enable them here, and deliberately leave them enabled: the
++	 * system is on its way down, and what runs next may not know how to
++	 * turn them on.
 +	 */
-+	ddr-supply = <&vdd_ddr_s0>;
-+	ddr2-supply = <&vdd2_ddr_s3>;
-+	ddr-pll-supply = <&vdda_ddr_pll_s0>;
-+	ddrq-supply = <&vddq_ddr_s0>;
-+	logic-supply = <&vdd_logic_s0>;
-+	npu-supply = <&vdd_npu_s0>;
-+};
++	if (syscon_rbm->num_supplies) {
++		ret = regulator_bulk_enable(syscon_rbm->num_supplies,
++					    syscon_rbm->supplies);
++		if (ret < 0)
++			dev_err(reboot->dev, "enabling reboot mode supplies failed\n");
++	}
 +
- &sai1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&sai1m0_lrck
+ 	ret = regmap_update_bits(syscon_rbm->map, syscon_rbm->offset,
+ 				 syscon_rbm->mask, magic);
+ 	if (ret < 0)
+@@ -36,6 +54,14 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+ 	return ret;
+ }
+ 
++static void syscon_reboot_mode_put_supplies(void *data)
++{
++	struct syscon_reboot_mode *syscon_rbm = data;
++
++	regulator_bulk_free(syscon_rbm->num_supplies, syscon_rbm->supplies);
++	kfree(syscon_rbm->supplies);
++}
++
+ static int syscon_reboot_mode_probe(struct platform_device *pdev)
+ {
+ 	int ret;
+@@ -59,6 +85,21 @@ static int syscon_reboot_mode_probe(struct platform_device *pdev)
+ 
+ 	of_property_read_u32(pdev->dev.of_node, "mask", &syscon_rbm->mask);
+ 
++	ret = of_regulator_bulk_get_all(&pdev->dev, pdev->dev.of_node,
++					&syscon_rbm->supplies);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret,
++				     "can't get reboot mode supplies\n");
++
++	syscon_rbm->num_supplies = ret;
++	if (syscon_rbm->num_supplies) {
++		ret = devm_add_action_or_reset(&pdev->dev,
++					       syscon_reboot_mode_put_supplies,
++					       syscon_rbm);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = devm_reboot_mode_register(&pdev->dev, &syscon_rbm->reboot);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "can't register reboot mode\n");
 
 -- 
 2.55.0
