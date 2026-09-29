@@ -1,260 +1,172 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FEF526AB8;
-	Tue, 29 Sep 2026 13:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0350E344D9B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687199; cv=none; b=r7tiaI0hvPQGCvtEYstOLOUiV/n2QcK2zc+HNbwAXz0uA4TvfAbZ/FvyTqIaCLGYQ7Ya+r+6TirWwdJbrEPVa8cthu31d+/ywljXkUFqLz2ZUrMSyo5cLpq9sOjYkFkrGbo1D9ukiK5DYunKNQX7fkTztpukglrt59b0ztCqat8=
+	t=1790687200; cv=none; b=DiC+SbEj4R2hRfhVTbhP7yczW4SNhPNrvYP3KUmGNlbFdMMUn5tPHGC+fJRUz6i5FUK7KNu2i2g7K2jdK/VASUm8R1wljHp0FGGxy7ZaPVOZHMskNQYEm1HjHFRGeq2IU435LlVq+g3ZVLGhpJQmqLGL39VgHDiaccfFBR3zZPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687199; c=relaxed/simple;
-	bh=HbiHSu1gZj2M8LqxK6m7VoynE0Pu4uWXZhWKhFZhqw4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iezoeaC/+yg5BtnCqjsOmWvGWFsqwI2DSW48ClTnBF93Ul6QH/j1/VN9e5R6FmglbL8sW0DKAYSeUDpqms646hkTPRnWjsGi5HRXBATTxdd07AVuEG3eSfEXpabiUNIwn1XeXjhVuRgo/ZXps/Gt4n4crmFM30kotilUTRtpBro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=osEXGjCn; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790687200; c=relaxed/simple;
+	bh=KKlXeG4EWEHG8V9wWhgZ48hd2vq9Tr+1FGJhYZ4ceaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lqK6NTDPXKnTFKjJr9CCFx0ypj3gccKn+4qGhsYlj1NG7WJxSaGkaxBz73QXlWPGbcOy10kxn7VrMOxKesGxzYSDxwrBRZ0fWeqoicXylPCQhknYExPu8dwOFbmXZEfJQuKsyCLG3vuEHd/5bLwNKs/qKaG2BN5MZ3R/L0Npt2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agoL3X0R; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="osEXGjCn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=wRSt/Q6yL3SDX46AhVe25U0RS95EF+oV/KiE0w+aORw=; b=osEXGjCn0/ckjUE2/hg7eBqEST
-	8zqyyJUe5AY1bBn2Hj5VMj54znztgcnubR77+KJ06+YQfC5BksZVElPIvvNiNFr+KSqre02RoSz/8
-	qUyHeYlcP99c4DuNxM7sFs1kCQ1HgGPHjQPkbJwIyNjka1EuPun5fmR3lDvjZFwI8U2IweRGxci0O
-	6cPRxFMKxgQlhwsd2CZscfMLg/xc4CPEAknnZArSgF5KlOnHqE3iwEd4YI4vsmzEerJhTR8UvEnUm
-	8SHZ7Ol2V39O+WSVf5lc5BcH8D21tH/aV/iIBGRFGXLB2whP58fUfkAdph34K8MbtwZi6soecVqak
-	k4LOIfMA==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xBXXE-008vkJ-Tt; Tue, 29 Sep 2026 15:06:16 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Russell Harmon <russ@har.mn>,  miklos@szeredi.hu,  corbet@lwn.net,
-  skhan@linuxfoundation.org,  rdunlap@infradead.org,
-  fuse-devel@lists.linux.dev,  linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Bernd Schubert <bernd@bsbernd.com>
-Subject: Re: [PATCH v2] fuse: add inode generation number support
-In-Reply-To: <CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
-References: <20260927141437.1432584-1-russ@har.mn>
-	<20260928014357.2285448-1-russ@har.mn>
-	<CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
-Date: Tue, 29 Sep 2026 14:07:17 +0100
-Message-ID: <87tsn89pfe.fsf@igalia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agoL3X0R"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd88a115ebso23153305ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790687198; x=1791291998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rGEWCLC1FPZDP0SnOnB5resnwfxQezT/YHoUyZYHjyE=;
+        b=agoL3X0RXteHgriIWFkSkCROwdLI8yqHUfJeqEHW2G63mf84CludM5UQD2lZN1glaV
+         1HgJed0aGEy1KuaUZ/ZahcvYx71uxNjwWbocEohKTfnjH8GN8Jb9YI49g4pAcbWLVFjp
+         MiNijWsrkCBh+UGuybIkC5BNTnZ7z9Mn1PTVFb6kUIiKR0+XVvmK7UcFkDWoQMU4CKcS
+         QEKfMoQ251/Odye8Sk5BM7swZcibHSTceM/FV2LO+7WEbuMJK0mIEEBJk0Qwlh/Yyzuy
+         rWuF2Dc6ei5vRyiS1kOE9PKcWPgfrHteQeSgWbkqZ19U28CxvT+Vq7d4SkzxkBpo2S6s
+         m1Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790687198; x=1791291998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rGEWCLC1FPZDP0SnOnB5resnwfxQezT/YHoUyZYHjyE=;
+        b=b1rMv2MYmelhBsl6uDyFfbMx7VgwIa1O0BokxhQXPLWuPsmg89qT8FN8JZ28UHVkDh
+         1MHSrnjL7P0mLsiPDmC9AfaxfOs95NsMQyLM1771zQtY5ttTFkFK2+tC/Wg67If8O28A
+         lnuYxeA/JS4g5vw+oYlp+yaxNwAvjseVP14qjpsSjhH2ej08EaxGguybDPpZZ3AkiIDK
+         NlfIyObmgvRsDJchCBnsMbKzJ+KmyOWN2qSWIti8aYiY9FkQ8bzsHsIQgM70fCPDZSA7
+         a6lGE+cU/DydOaMuJXPQ0yOgLrtmR1LE1mTPdEsD49g5ENr4O0Tv2cD+ERb97pEzv/co
+         ZoJQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJOVDZ/PZ17tJ5RLj92UcHthWn/tnm2wrmSsomRa6QYe9TFg9n1o+4lzsi/rI7TjmyZYmq3QBv7Q9Jx2s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWdaVJYEceW6R+J8BFKhMN5l3PrybLl/XpBvKInukMIz1MuJnu
+	cmx8q5oMvKvOz6lMTyCSKICJGfhiVX2VQQyQXKkf1BLodSAhbDQdThr4
+X-Gm-Gg: AYBFou2SYfPdPIehrQcPwgZ43RqcDf8zzdaZyRaMs0KrWksRvXNDZ9Qf9NUUVxj5AK9
+	X3K+aSuSrYZj0gerNZGkmX0quWY8zzuu2y4Wo0bJ0qeUzV2Szh7yvoOUjUR0kLCA+ddjuuWqctq
+	Hce5Qc6pFS+xntqraMKNWOgiG17DNqwwnvGmCvYdUngF0WJF/ZDFb5zAEy+tFUxhYrdIaxprGg9
+	fF+pkwK+7EBZvp+A1GmhJEs/HYoehXZwr8fRQ9tqLMfHmzguc9nlnzApcNTync/+AvrZ6yjYsdD
+	EeQ2Ps3Y70N0zf7Og3giuk7L7s5K1g5hXlbaEm5FhfVCvgIf4KlTq8xswFF/SBzsiYuw16oU5VE
+	WbxiPilMTQCJm4ae4IbZRggnZnxMKA/YQdvAdczPzsLGjXMAQJAo9FouWTa+4N8ujbRmAKAN4F7
+	MP4CgUL9CgUwRuHBnEeSQI/XDERSv3DmBWvYlqu5+WnRdw8bpNkGACf38pYBOpkQP+++SVfMDi5
+	w61B4SzWo/g3k5PWh6/99Cy
+X-Received: by 2002:a17:902:cec9:b0:2dd:ad74:ac2f with SMTP id d9443c01a7336-2df7dea09b6mr135005155ad.24.1790687197690;
+        Tue, 29 Sep 2026 06:06:37 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df914024c4sm55838485ad.31.2026.09.29.06.06.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 06:06:37 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	lumag@kernel.org
+Cc: abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	sean@poorly.run,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Joonhoe Kim <26rote@gmail.com>
+Subject: [PATCH] drm/msm/dpu: compute the CRTC bandwidth from the state being checked
+Date: Tue, 29 Sep 2026 22:06:33 +0900
+Message-ID: <20260929130633.977-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28 2026, Amir Goldstein wrote:
+_dpu_core_perf_calc_bw() is called with the new CRTC state but sums
+plane_fetch_bw over drm_atomic_crtc_for_each_plane(), i.e. the planes
+of the committed state. When the CRTC is re-enabled (DPMS on, system
+resume) the committed state has no planes attached, so the check
+computes bw_ctl = 0 and the display runs without an average bandwidth
+vote on the MDP path until some later commit changes a plane -- which
+may not happen for a long time on a static screen such as a lock
+screen.
 
-> On Mon, Sep 28, 2026 at 3:44=E2=80=AFAM Russell Harmon <russ@har.mn> wrot=
-e:
->>
->> This patch adds support for propagating the inode generation number from
->> the FUSE server to the kernel.
->
-> Incomplete statement.
-> Without the mention of GETATTR/SETATTR this is a misleading statement.
->
->> This is useful for exporting FUSE
->> filesystems over NFS, where the generation number is used to detect
->> stale file handles (ESTALE) when inodes are recycled.
->
-> How exactly does it help?
-> I am not trying to troll you, I am really curious. how?
->
-> Context: I have been trying to improve FUSE NFS export support for a while
-> I have built a library that provides reliable NFS export for FUSE passthr=
-ough fs
-> for specific backing file system types [1].
->
-> [1] https://github.com/amir73il/libfuse/tree/libfuse_passthrough/passthro=
-ugh
->
-> It is broadly understood that real NFS export support requires extending =
-the
-> FUSE protocol to identify objects using file handles and Luis has
-> already started
-> with this work [2]
+Seen on a Lenovo TB323FU (SM8850) through the interconnect and DPU
+tracepoints: after DPMS off/on or s2idle, dpu_perf_crtc_update reported
+bw_ctl=0 and qnm_mdp was left at avg_bw=0 (peak 800000) instead of the
+3728793 kBps voted before, until the next mode change.
 
-I just want to add that this work is mostly stale at the moment.  It was
-decided that it needs to be done on top of fusex, the next major protocol
-version bump.  Also note that the initial draft of fusex lacked a bunch of
-features (e.g., it was available for local-filesystems only), so it may
-take a while before a LOOKUP_HANDLE operation is available.
+Iterate the plane states of the CRTC state being checked instead.
+drm_atomic_crtc_state_for_each_plane_state() falls back to the current
+plane state for planes that are not part of the commit, so the result
+is unchanged for commits that do touch the planes.
 
-Cheers,
---=20
-Lu=C3=ADs
+With this, bw_ctl is 3728793600 right after DPMS on and after resume.
+Only tested on this device.
 
-> [2] https://lore.kernel.org/linux-fsdevel/20260225112439.27276-1-luis@iga=
-lia.com/
->
-> So my question is, what does adding generation id to GETATTR/SETATTR
-> improve for FUSE filesystem writers that wish to export their filesystem =
-to NFS?
->
->>
->> Key changes:
->> - Bump FUSE protocol version to 7.47.
->> - Repurpose the unused `dummy` field in `struct fuse_attr_out` as
->>   `generation`.
->> - Add a `FUSE_ATTR_GENERATION` INIT flag with which the filesystem opts
->>   into the kernel consuming that field. Gating on the protocol minor
->>   version alone would break existing filesystems: the minor version only
->>   reflects the library, not whether the individual filesystem fills the
->>   field, and a zero there would look like a generation change for any
->>   filesystem that reports nonzero generations in LOOKUP.
->> - Update `fuse_change_attributes` and related functions to accept and set
->>   `inode->i_generation`.
->> - Populate `i_generation` from `LOOKUP`, `GETATTR`, and `READDIRPLUS`
->>   responses.
->> - Detect nodeid recycling on `GETATTR` and `SETATTR` responses via
->>   `fuse_stale_inode()`, the same check already used by the `LOOKUP` and
->>   `READDIRPLUS` paths, and mark the inode bad (EIO) instead of merging
->>   the recycled file's attributes into the existing, possibly still-open,
->>   inode.
->> - Update `fuse_get_dentry` to validate the generation number against the
->>   file handle, returning ESTALE on mismatch.
->> - Maintain backward compatibility: without `FUSE_ATTR_GENERATION` the
->>   generation field in attr replies is ignored.
->>
->> Verification:
->> Tested with a QEMU harness in fuse-generation-qemu against a patched
->> libfuse (FUSE_CAP_ATTR_GENERATION, fuse_reply_attr_with_generation) and
->> its passthrough_ll example reporting real backing-filesystem generation
->> numbers. The suite verifies that:
->> 1.  The generation from `LOOKUP` reaches `name_to_handle_at()` file
->>     handles and matches the backing filesystem's FS_IOC_GETVERSION.
->> 2.  `open_by_handle_at()` succeeds for a valid handle and fails with
->>     ESTALE for a handle whose generation does not match, both while the
->>     inode is cached and after cache eviction.
->
-> 1 and 2 should work on upstream FUSE right?
-> This is something worth mentioning.
->
->> 3.  When a `GETATTR` reply reports a new generation for a cached inode
->>     (inode recycling), the kernel marks the inode bad: fstat() on an
->>     open fd fails with EIO, while a fresh path lookup recovers and
->>     pre-recycling file handles fail with ESTALE.
->
-> How did the inode recycle happen with passtrhough_ll which keeps
-> open fds for fuse inodes?
-> Something is missing from this test report.
-> If you just used a mock filesystem which makes no sense in the real world
-> then the value of this change is questionable.
->
->>
->> Signed-off-by: Russell Harmon <russ@har.mn>
->> Assisted-by: Gemini:gemini-3.1
->> ---
->> v2:
->> - Bump FUSE_KERNEL_MINOR_VERSION to 47 to match the new 7.47 changelog
->>   entry (v1 added the entry but left the minor at 46).
->>
->> v1: https://lore.kernel.org/all/20260927141437.1432584-1-russ@har.mn/
->>
->>  Documentation/filesystems/fuse/fuse.rst | 32 +++++++++++++++++++++++++
->>  fs/fuse/dir.c                           | 21 +++++++++++-----
->>  fs/fuse/fuse_i.h                        | 10 ++++++--
->>  fs/fuse/inode.c                         | 23 ++++++++++++------
->>  fs/fuse/readdir.c                       |  2 +-
->>  include/uapi/linux/fuse.h               | 11 +++++++--
->>  6 files changed, 81 insertions(+), 18 deletions(-)
->>
->> diff --git a/Documentation/filesystems/fuse/fuse.rst b/Documentation/fil=
-esystems/fuse/fuse.rst
->> index 0fbd5a03fdc9..f67bc9fc6316 100644
->> --- a/Documentation/filesystems/fuse/fuse.rst
->> +++ b/Documentation/filesystems/fuse/fuse.rst
->> @@ -49,6 +49,38 @@ using the sftp protocol.
->>  The userspace library and utilities are available from the
->>  `FUSE homepage: <https://github.com/libfuse/>`_
->>
->> +NFS export support
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +FUSE filesystems can be exported via NFS if the filesystem daemon suppo=
-rts it.
->> +For reliable NFS export, the filesystem should provide a unique inode
->> +generation number for each inode. This generation number is used by the
->> +NFS server to distinguish between different file instances that may
->> +share the same inode number (e.g. after an inode number is reused).
->> +
->> +The inode generation number is provided by the filesystem daemon in the
->> +following messages:
->> +
->> +- `FUSE_LOOKUP`
->> +- `FUSE_GETATTR` (see below)
->> +- `FUSE_SETATTR` (see below)
->> +- `FUSE_READDIRPLUS`
->> +- `FUSE_CREATE` / `FUSE_TMPFILE` / `FUSE_MKNOD` / `FUSE_MKDIR` / `FUSE_=
-SYMLINK` / `FUSE_LINK`
->> +
->> +A daemon that keeps the generation number in its `FUSE_GETATTR` and
->> +`FUSE_SETATTR` replies (the `generation` field of `fuse_attr_out`,
->> +protocol 7.46) must announce this by setting `FUSE_ATTR_GENERATION` in
->> +its `FUSE_INIT` reply flags. When the flag is negotiated, the kernel
->> +compares the generation in every getattr/setattr reply against the
->> +cached inode: a mismatch means the daemon has reused the node ID for a
->> +different file, and the cached inode is marked bad (subsequent
->> +operations on it fail with EIO). Without the flag, the field is ignored
->> +and the generation is only taken from lookup-type replies, preserving
->> +the behavior of existing filesystems.
->> +
->> +If the filesystem daemon does not provide a generation number, the kern=
-el
->> +will use a default value of 0.
->> +
->
-> On the one hand, I still need to understand the value of reporting genera=
-tion
-> in GETATTR/SETATTR.
->
-> On the other hand, I do see the value in the server negotiating at init t=
-ime the
-> fact that "Generation values are reliable".
->
-> What happens today is that NFS exporting is allowed for all FUSE filesyst=
-ems
-> regardless of the reliability of generation id, so after inode evict
-> and recycle,
-> an NFSv3 client  that had access to inode X.Y may get access to a complet=
-ely
-> different file or even a directory with inode X.Y, where X is the recycle=
- nodeid
-> and Y is an unreliable generation provided by the server.
->
-> The problem is that FUSE does not require opt-in for NFS export, it only
-> allows servers to opt-out of NFS export (FUSE_NO_EXPORT_SUPPORT).
->
-> So what can be done given a declaration of the server that generation
-> is reliable?
->
-> One option is to set a non-zero uuid/fsid to the fuse filesystem.
-> This will allow exporting the fuse filesystem without the opt-in uuid/fsi=
-d=3D
-> in /etc/exports.
-> This will also allow setting fanotify FAN_MARK_FILESYSTEM watches
-> on this fuse filesystem, whose file handles could be trusted to be a genu=
-ine
-> unique identity of the filesystem objects.
->
-> But if we take this route, it is better to take it one step further
-> and allow the
-> server to determine the filesystem uuid/fsid during negotiation.
->
-> In any case, I am not convinced there is value in doing all this
-> without extending
-> the protocol with LOOKUP_HANDLE/LOOKUPX lookup by file handle, so if you
-> have compelling use cases, please spell them out.
->
-> Thanks,
-> Amir.
+Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
+Assisted-by: LLM
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+---
+_dpu_core_perf_calc_clk() walks the planes the same way; it is not
+touched here since I have not seen a wrong clock vote from it.
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 24 ++++++++++---------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index fea173e37464..343c41550637 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -54,24 +54,26 @@ u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+ /**
+  * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+  * @perf_cfg: performance configuration
+- * @crtc: pointer to a crtc
++ * @state: the CRTC state
+  * Return: returns aggregated BW for all planes in crtc.
+  */
+ static u64 _dpu_core_perf_calc_bw(const struct dpu_perf_cfg *perf_cfg,
+-		struct drm_crtc *crtc)
++		struct drm_crtc_state *state)
+ {
+ 	struct drm_plane *plane;
+-	struct dpu_plane_state *pstate;
++	const struct drm_plane_state *plane_state;
+ 	u64 crtc_plane_bw = 0;
+ 	u32 bw_factor;
+ 
+-	drm_atomic_crtc_for_each_plane(plane, crtc) {
+-		pstate = to_dpu_plane_state(plane->state);
+-		if (!pstate)
+-			continue;
+-
+-		crtc_plane_bw += pstate->plane_fetch_bw;
+-	}
++	/*
++	 * The planes of the CRTC state being checked: iterating the committed
++	 * state (drm_atomic_crtc_for_each_plane()) summed nothing when the CRTC
++	 * was being re-enabled (DPMS on, resume), whose old state has no
++	 * planes, and the display ran without a bandwidth vote until the next
++	 * plane update.
++	 */
++	drm_atomic_crtc_state_for_each_plane_state(plane, plane_state, state)
++		crtc_plane_bw += to_dpu_plane_state(plane_state)->plane_fetch_bw;
+ 
+ 	bw_factor = perf_cfg->bw_inefficiency_factor;
+ 	if (bw_factor) {
+@@ -131,7 +133,7 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+ 		return;
+ 	}
+ 
+-	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
++	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, state);
+ 	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+ 	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+ 	DRM_DEBUG_ATOMIC(
+
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+-- 
+2.43.0
 
