@@ -1,164 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFDB45FFDF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105863EEAD7;
+	Tue, 29 Sep 2026 03:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651789; cv=none; b=SpUlFsYuRX80v5ge9mCTu9Ifbguf1Jh77AwuGvXwv0+gIR8Axj35VmOMSOPtPuuIqxxnYYhcV81mt99pPbwAu4+tlrd2Pul+rR9g1aUf7bUM77AdzhAjC6DqoX60A0uoOA0iC6evf/Of5sQQn28ZToSo069UW9+UBw/hsRcW9NM=
+	t=1790651790; cv=none; b=gPZBOHt2xMPhqep3Xua9a5fnbtqQS7SDYH1Dmdk3RnhcdgFO1lnzS/PbVoIIquChv+KGxkQ1lwB1Kk6cRB7IwqteyUzX/ziIzpwIPSJkuTPokwlzucENZSeOtCJzGi20ZSZpPR2a+KOWkEcDZkcOFZGdLkJjcXB2hifHMgZJXPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651789; c=relaxed/simple;
-	bh=NQUWQekraRK2R+oQCbO6bqaq/zm+kPTsDnaShbnYVKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=potw6AbHZg6AgN4a8YGRXRt9PARml6NZXv5I1GiKrGnx4HbZXm62hh2ctXcDIsTsZfPTx4fy87qNeDEtzD63m220Oe/pMap2wK1P7IqUjc/2G20JRdxn7EC5QBuPvGnDBRmYYQaqua4nuXyd4veMhcHKGS4oKvvEIBKEj6MyWz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ovno2xc7; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790651790; c=relaxed/simple;
+	bh=VG7ZSYfwj4f3avD2hojHkvp6hgUfYEPJxfXl+qpeCzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DvOo4hI8YzwckvM+TQMzt8KGaTQ5Rf3Zx2kZPr7AT25HxV9/VuDLKw4hvf8lvBUseGdozBw9C4Hz+DTjLijFrobgnYIVL4nOX4dFantu3qtMFryIkPKI6fnet6aEieYG/1Ll6pJuNrCpf2zDGOg7/MIYPjHNc/PrIMf8FT3oscw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lA/BfhPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ovno2xc7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790651774;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1bJx4NmG9aDPkafQVKf9yGMg66Bh8HADH48d93MDLfk=;
-	b=Ovno2xc7dKPB0W4jzFsGriC4FTMawLMPLITyz06A9vjk+UsDlOt5EmzhSDmvCDS6AJpsx0
-	yh6TXaZaW/0fZSM3TYZcfhMDTtJWHZ1P1BQWMyi8rkkqHcSscg2u/QcSJyPyRLmq2uD18j
-	HnBO883QONJCdnRywD2twSPC5guJqaw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-580-Ti8NtgbCPsuFN5HK_C_xKA-1; Mon,
- 28 Sep 2026 23:16:12 -0400
-X-MC-Unique: Ti8NtgbCPsuFN5HK_C_xKA-1
-X-Mimecast-MFC-AGG-ID: Ti8NtgbCPsuFN5HK_C_xKA_1790651771
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 484E81840C74;
-	Tue, 29 Sep 2026 03:16:10 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 857541956045;
-	Tue, 29 Sep 2026 03:16:08 +0000 (UTC)
-Message-ID: <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
-Date: Mon, 28 Sep 2026 23:16:07 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lA/BfhPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA48C1F0089E;
+	Tue, 29 Sep 2026 03:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790651778;
+	bh=a1PuxGYyS5aHjQiZwSY2J0YqzhmKjO5y0LAntG0yZKY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lA/BfhPCRE1mXbiQAGPylPS1obmTbx13eg2qzJB+lu1XhL7PqzczLFabddb3EU+rP
+	 tvYDX0D+OkDAmweZD/L/Wo3opGVA1sPxsmKJluhX1HztBMzOYqMhe1zEJ26f4hlwrI
+	 6LHG7j7stCkMjsplC0y3FwZD91OAyU8mtVaMZZ9ZSbKw7M/JvKuZFWvTxow90pDYUP
+	 6y7ntIioxQE/jCm411Ra4gP8w3Uqi7yJ6F6APEtbyOyITpraDRjb0FOJl+FprxZSen
+	 J1edBlrPE9KBT9ioj3mSiSCecb3E8z/TdX6dK+2uk0unnbTTn0PDLl6ow/0LaJWwiX
+	 1xBlqMNK1jgxw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/8] arm64: dts: qcom: shikra: Enable audio on EVK boards
+Date: Mon, 28 Sep 2026 22:15:10 -0500
+Message-ID: <179065171001.2673486.2346423682930035847.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917-shikra_audio_dts-v3-0-9a49e1ca6370@oss.qualcomm.com>
+References: <20260917-shikra_audio_dts-v3-0-9a49e1ca6370@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
- state switching fails
-To: Tejun Heo <tj@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
- <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928235159.515654-1-longman@redhat.com>
- <941e5affde16b803741ddaf87b937f3d@kernel.org>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <941e5affde16b803741ddaf87b937f3d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 10:07 PM, Tejun Heo wrote:
-> Hello, Waiman.
->
-> The following is a Claude-generated review.
->
-> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
->> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
->> don't leave any housekeeping"), the partition state can be freely switched
->> from "root" to "isolated" and vice versa. After that commit, the switch
->> from "root" to "isolated" can fail if it exhausts all the housekeeping
->> CPUs. Later on, the switch from "isolated" to "root" can also fail if
->> some of the partition CPUs are boot-time isolated by "isolcpus".
-> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
-> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
-> add a Fixes: tag for it too?
 
-Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in 
-root or isolated partition") comes after 103b08709e8a. From my point of 
-view, the first commit is the one that introduces the bug. The second 
-commit comes along assuming the existing code is right. That is why I 
-didn't tag the second one even though the second one is easier to 
-trigger than the first one.
+On Thu, 17 Sep 2026 10:07:29 +0530, Mohammad Rafi Shaik wrote:
+> This series enables the Shikra audio path on EVK targets by adding the QAIF
+> CPU endpoint, GPR/APM/PRM services, SoundWire and LPASS macro nodes, and
+> board-level sound card wiring for CQM, CQS and IQS variants.
+> 
+> Shikra EVK variants use different audio components and processing
+> architectures:
+> - CQM/CQS use an I2S-based path with WSA885x amplifiers and
+>   PM4125 + Rouleur codec components.
+> - CQS uses modem-DSP based audio processing.
+> - IQS uses a third-party MAX98091 codec with modem-DSP support.
+> 
+> [...]
 
->> The partition is made invalid when the switch fails. However, the
->> remote_partition flag for a remote partition can remain set and the CPUs
->> from the invalidated partition aren't cleared from subpartitions_cpus.
->> Fix this by properly disable the partition in this case.
-> The reproducer below is a local partition and the fix covers that case
-> too. The CPUs weren't given back to the parent, which is what leaves them
-> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
-> both? Also, "properly disable" -> "disabling".
-OK, will update the commit log.
->
->> In the case of remote_partition flag, it should be cleared for a
->> invalidated remote partition. To be safe, the reset_partition_data() is
->> now enhanced to always clear the remote_partition flag. So there is no
->> need to explicitly clear remote_partition in remote_partition_disable().
-> After the update_prstate() change, every path that invalidates a remote
-> partition goes through remote_partition_disable(), so the other
-> reset_partition_data() callers never see the flag set. If one did,
-> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
-> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
-> this part?
-Yes, I can drop this part.
->> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
->> and more than 16 cores, the following commands was executed after boot.
-> "a x86" -> "an x86", "commands was" -> "commands were".
->
->> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->>   		 */
->>   		if (((new_prs == PRS_ISOLATED) &&
->>   		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
->> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
->> +		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
->>   			err = PERR_HKEEPING;
->> -		else
->> +			disable_partition = true;
-> If a root -> isolated switch fails isolated_cpus_can_update() under an
-> isolated parent, partcmd_disable hands the CPUs back to the parent and
-> partition_xcpus_del() adds them to isolated_cpus, which is the state the
-> check just rejected. Switching to member ends up in the same place, so
-> this may be fine as is.
-If the parent is a valid isolated partition before the child partition 
-is created, it had passed the isolated_cpus_can_update() check. So 
-returning the CPUs back to its parent is fine.
->
->> +	}
->> +out:
->> +	if (disable_partition) {
-> The early goto out paths never need the disable. Maybe put this block
-> before out: instead?
-Yes, that made sense though the current placement should cause any problem.
->
-> Also, update_cpumasks_hier() below gets force only when switching to
-> member, to update effective_xcpus. Now that the failure path disables the
-> partition too, should it pass disable_partition?
-Yes, it should.
->
-> Separately, a partition invalidated with PERR_HKEEPING can become valid
-> again through partcmd_update without newmask (hotplug, or
-> update_cpumasks_hier() from an ancestor), which doesn't check
-> housekeeping. A failed member -> root enable has the same problem, so it
-> isn't from this patch.
+Applied, thanks!
 
-I need to take a further look at that.
+[1/8] ASoC: dt-bindings: qcom,apr: Add modem_apps GLINK channel for shikra
+      commit: d5a42f092babbd4af6c9b976581bb2993c9f0be1
 
-Cheers,
-Longman
-
->
-> Thanks.
->
-> --
-> tejun
-
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
