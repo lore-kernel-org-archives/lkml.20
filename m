@@ -1,124 +1,105 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBAD3566C5B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F32F36B907;
+	Tue, 29 Sep 2026 19:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.89.141.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711252; cv=none; b=Mi+DC/txj5Rk03EM+ha8mXQI9agkAh/WUKGTQkpLFSJDoRJPBBmHiyHYra5HJonLBnc6mRJDsWkEqwanA9WPuhe8VGNVu7UHDC5P3ZTnvVjwQsA4UXAkA2MFb9VqCvUumcKz3gHzWRh57Rb4rjTjAp3NG3XdfYclOulsR9OtK1s=
+	t=1790711263; cv=none; b=FbvL4oiZNQKpSc4jfLuMrybTxOMCRDV+o/FfKh0RnPo5FD7bAv7AvgiJB/HVfR0Hd+1gn0c6VMXC3g183C/OZuYb06Qi1jgv7hcTx3MuJGZqVDxeS9uL5xWzZfxC2W/Ya5+pFwuS0Ue9b6lVsTyfdtaijS3pdgONiNsszRcvhcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711252; c=relaxed/simple;
-	bh=lg+EkASDb7Om2ZYSnWzaAbNPKi2t9pnhqgCPqSr+/kM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MVPMHYifTf+LGNStd0mY4cQXqiI0khXJYM6iKW6n3jWPvi57M87s/ldWJkTf61O8El8mxEllAoQbTznqWVgvHBdLF2phEZ6bJf7qWPP337f0nEcL6AyAOXQFOi8SZmNpyjxmEU+wG3P1xUhoOIpLGpQP26iNR3iV4KaNilVVBBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=APdKzPYl; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790711263; c=relaxed/simple;
+	bh=sI325cC8UG3uv9TDadWiuNQxt8yHhmXIrUg0Vwq8FWU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KnZJ8QKCtDVgqCQ+mPmJjwh0ISZF80Yqr+rfvX5oHt6ZCnGKjt4pPRWAA3MEfIy3cOQXX2I9/7dTS+1AAGNGly1hprJngujUOOj1aukzwBhcH9/TsKFD+v0mcpCmV6ySqj9Y8lfS1J2kpINeMDTDsIl/z4CPrZZO0dSQTaA5xzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk; spf=none smtp.mailfrom=ftp.linux.org.uk; dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b=NcL747iB; arc=none smtp.client-ip=62.89.141.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ftp.linux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="APdKzPYl"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4940143D;
-	Tue, 29 Sep 2026 12:47:26 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.52.74])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9C3FE3F763;
-	Tue, 29 Sep 2026 12:47:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790711250; bh=lg+EkASDb7Om2ZYSnWzaAbNPKi2t9pnhqgCPqSr+/kM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=APdKzPYlWPEMB8JUpSlrgZTbpBUTS2LxfC+dp8enFbdv+o4F1Z0zav0K1COuxsPO4
-	 IdxFpFTDySAjapqqixHRYJPQM39U3XLahAPfSA5uc9paKyv+IjAks+nc+yfbEJe8or
-	 TdBhnsF9TY04ETXSQPT1ERwhAa5vkIxxgzoQMPak=
-From: Christian Loehle <christian.loehle@arm.com>
-To: linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH] sched/fair: Take slice protection into account when arming HRTICK
-Date: Tue, 29 Sep 2026 20:47:11 +0100
-Message-Id: <20260929194711.2689811-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b="NcL747iB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=NfOZsYWn5pZsGH9m0zoezdWqXY6d5EjWzhvFuRoX8rM=; b=NcL747iB7aF5ENFubPTI/02ASE
+	Q1EEVP33N0rMp9PynUFwbzqJslqYLdf6b3Yrz4kI8qJoXYga2UfCs9n5iRXQ3dJW6mib+o750rXZe
+	AXDhI3ThwrNJRowhvLAQCF7fHxM7M98103bgmM6mERt+yJADSDt1oPo/bJ6GBDnaKBVfCd/Vu0yQH
+	rr+ZtDL5e6I1uPJ96dhWiZxefXeYKuiHgH/WPJaVlHTmxNod4puN2igA1jPllTC3B3Oogy5BtK1DA
+	W2Jwj56ZWvvnUVE1hQouTfvDgPUqE20HAyNJ6QAwtZ0sfRjxDjaGT6TK+i/8HP1mtQWUT4F8vuaEU
+	bs19di2Q==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xBdnS-00000000ICf-3d6Q;
+	Tue, 29 Sep 2026 19:47:26 +0000
+Date: Tue, 29 Sep 2026 20:47:26 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Gary Guo <gary@garyguo.net>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>,
+	Boqun Feng <boqun@kernel.org>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Al Viro <viro@ftp.linux.org.uk>
+Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
+ descriptor APIs
+Message-ID: <20260929194726.GE989762@ZenIV>
+References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
+ <arThye_219ruNbM2@google.com>
+ <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
+ <20260929044843.GA3909609@ZenIV>
+ <DLRSQRUVOGT2.10ZY01VEJVHCE@garyguo.net>
+ <20260929135154.GB989762@ZenIV>
+ <DLRXHGLDR2QQ.WZVRWGY995BT@garyguo.net>
+ <20260929170218.GD989762@ZenIV>
+ <DLS0CO1HEGJN.2XX8QX8LW8XJM@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLS0CO1HEGJN.2XX8QX8LW8XJM@garyguo.net>
+Sender: Al Viro <viro@ftp.linux.org.uk>
 
-EEVDF can end a task's slice protection before its virtual deadline when
-shorter requests compete on the runqueue. update_curr() requests a new
-selection once protection expires, but hrtick_start_fair() still arms the
-timer for the virtual deadline. Without an intervening scheduling event,
-the next opportunity to reconsider the task can therefore arrive much
-later than the protection boundary.
+On Tue, Sep 29, 2026 at 07:22:28PM +0100, Gary Guo wrote:
+> On Tue Sep 29, 2026 at 6:02 PM BST, Al Viro wrote:
+> > On Tue, Sep 29, 2026 at 05:07:40PM +0100, Gary Guo wrote:
+> >
+> >> The reproducer that Georgios posted on GitHub is some cleanup job being added to
+> >> task_work, which drops FileDescriptorReservation. And since exit_task_work()
+> >> happens after exit_files(), put_unused_fd in that cleanup observe that
+> >> current->files is NULL.
+> >>
+> >> So it's not from random thread, it's from the current task. And I find that
+> >> particular case of doing per-task cleanup not unrealistic.
+> >
+> > FWIW, descriptor reservation ought to be tied to specific files_struct
+> > instance; note that dup_fd() can be called when there are outstanding
+> > reservations and the copy does *NOT* have those reserved.
+> >
+> > What rules would you suggest for such delayed put_unused_fd() wrt e.g.
+> > files_struct unsharing?
+> 
+> Ah, is this about `unshare(CLONE_FILES)`? For that case indeed our existing
+> abstraction break down.
 
-For example, with two continuously runnable equal-weight SCHED_OTHER
-tasks requesting 100 us and 1 ms on one CPU, the unpatched HZ=250 kernel
-shows approximately 1 ms between context switches for both tasks. A
-short request can be repicked repeatedly, so its uninterrupted run is
-not limited to one request. CPU shares remain approximately equal;
-the problem is the scheduling granularity.
+FWIW, the current rules are "you must not have any outstanding reservations when
+you unshare descriptor table in any manner".  You are adding "... including the
+ones that would be discarded by an already-scheduled task_work callback".
 
-Arm the fair hrtick for the earlier of the virtual deadline and live
-slice protection. Keep the deadline fallback once protection expires.
-A same-task repick restarts the timer without renewing protection, so
-newly eligible tasks can compete without waiting for another protected
-quantum.
-
-A wakeup can shorten protection without preempting current. The enqueue
-path calls hrtick_update() before wakeup_preempt_fair() updates protection,
-and hrtick_update() leaves an active timer alone. Recompute the fair
-hrtick after update_protect_slice() changes vprot, including when a timer
-is already active. If the new protection boundary has already passed,
-request lazy rescheduling, as update_curr() does on protection expiry,
-instead of falling back to the later deadline.
-
-Reported-by: Vincent Guittot <vincent.guittot@linaro.org>
-Link: https://lore.kernel.org/r/CAKfTPtD_aJeAh1biW6gKCLK6BnYcNtbz-FJvxUzZ1tD3V=43mw@mail.gmail.com/
-Link: https://lore.kernel.org/r/CAKfTPtApFGcYA22Qtg3OyYEt6EJw_FW9_VV=_vgE_HtNY3V9og@mail.gmail.com/
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- kernel/sched/fair.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 1c687c3c70f1..5b2965591ad8 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -7798,9 +7798,13 @@ static void hrtick_start_fair(struct rq *rq, struct task_struct *p)
- 		return;
- 
- 	/*
--	 * Compute time until virtual deadline
-+	 * Reconsider the pick when live slice protection expires, which can be
-+	 * earlier than the virtual deadline when shorter requests compete.
-+	 * Without live protection, use the virtual deadline instead.
- 	 */
- 	vdelta = se->deadline - se->vruntime;
-+	if (protect_slice(se))
-+		vdelta = min_vruntime(se->deadline, se->vprot) - se->vruntime;
- 	if ((s64)vdelta < 0) {
- 		if (task_current_donor(rq, p))
- 			resched_curr(rq);
-@@ -10023,8 +10027,18 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
- 	if (preempt_action == PREEMPT_WAKEUP_SHORT && entity_eligible(cfs_rq, pse))
- 		goto preempt;
- update:
--	if (sched_feat(RUN_TO_PARITY))
-+	if (sched_feat(RUN_TO_PARITY)) {
-+		u64 old_vprot = se->vprot;
-+
- 		update_protect_slice(cfs_rq, se);
-+		if (hrtick_enabled_fair(rq) && se->vprot != old_vprot) {
-+			/* The enqueue may have armed the timer before this update. */
-+			if (protect_slice(se))
-+				hrtick_start_fair(rq, donor);
-+			else
-+				resched_curr_lazy(rq);
-+		}
-+	}
- 
- 	return;
- 
--- 
-2.34.1
-
+It's not just unshare(2) - there are more interesting callchains. For example,
+unshare_files() from do_coredump(); this one should be fine in face of
+put_unused_fd() in task_work, due to the task_work_run() in get_signal()
+being upstream of vfs_coredump() call, but it needs to be considered.
+Or begin_new_exec() - that has a lot more callchains leading to it.
+It should be safe at the moment, but that needs to be demonstrated, etc.
