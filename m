@@ -1,121 +1,116 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailrelay-egress15.pub.mailoutpod3-cph3.one.com (mailrelay-egress15.pub.mailoutpod3-cph3.one.com [46.30.212.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3E64D1780
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6DA488757
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.212.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718796; cv=none; b=gcFv9E5Jno/blo6NNV2q34eBNZMJ2xUdNOxZW62QgHq1lmGakQbcyXDwL65zc4MjsmtJ30iXY4nsgE2TBZoWEDVFyHjau214JfJgH4yXz6D+i4ql3lLceWoquv7eHU40f6piuVUYPgggz0meKdMCZFC8liQEaJoMWy9gN+vCXlw=
+	t=1790718789; cv=none; b=JcmRmQ8jxt9lhHcgm2cK8mof9fm/GDHYFdAAb/KVR9Hve5ibNc4gpH3q92LE7D+ttz17xVI3LHz0bBrm4SSj8/oHGmT38e24xNySltUHzhljD6+tYzhkAnQwXNPl/GWQVjqUM+Ae+mOKrB5sgs2BpWeWXFgQMIcIvMtqIBeFPOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718796; c=relaxed/simple;
-	bh=yYlUHXeU1rSx4t+U8qxu7dtA8Nvhruq9KGdMjctBjd8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Tygb/KIkaiy7tXZviU+CPy79+vaJoMh8Qgpnday5A3mShy/MygPBEEkyTIhdYYmdRLG1HmxojC8boyEP+RfnyK7Wzc8eL9n/mS7DqZz2ytJdA1hH61ym3q4VJYNFLoebrtSVcRdJmETQ6U+FlvLLaX9LlSWy3bbQk3UPKUJvWiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GC3N2AyJ; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
+	s=arc-20240116; t=1790718789; c=relaxed/simple;
+	bh=tH/YIgW7cuBjiPySbxTYCNjWnbGErusLwCFzsKVTIpg=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=uoqGlFDqL1j52obqjpeCZVS0BF3VVrpb3zlaZWr/WkIX3Liw1f1oXtAtsF8jh1ktksvlfHx+JcGR7UvAnF15ZH2mkfIOinmVlSNNJFW834z68jidP7L9oyjei93We4Kc3skIxsxa+zsHH1SR716tzstE3vALaKWwLHOwLAQ2X+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=androscientia.com; spf=none smtp.mailfrom=androscientia.com; dkim=pass (2048-bit key) header.d=androscientia.com header.i=@androscientia.com header.b=Tj7aVOdf; dkim=permerror (0-bit key) header.d=androscientia.com header.i=@androscientia.com header.b=4KD2I4Gc; arc=none smtp.client-ip=46.30.212.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=androscientia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=androscientia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GC3N2AyJ"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so4825042eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790718793; x=1791323593; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O8S1L9thUbDBOo5IvvqirVWz8KUgkebaENmH325jJXM=;
-        b=GC3N2AyJhLoRlUlZWtehrQq4SPuw40DKVi3UaxwM2kbxY6HiKJTxyXLPRqtMSKbyKb
-         yKOwLwUcmoIL4bGFiWSv+v3a3c12s8RZaLHEWyzvM9+Txyxe1ash2dbRobDRKXA6+kRW
-         oK59J16WiCj6RoABPxBaH9ubYycBL0tKYriKahVa31TcqVCUYaNi62FuedtGH+nPIt09
-         8839G04bb2OAmgdopTt3gcR4mq9pjitkEYTrwz4lDFpIvUxajoBr5TFdRGOoM2evTltu
-         QK8UULteq5Gugm4Udx3kA9+kN9XzOr/eOiIX1RkZMy4xNnT/aXypLuf7YgxEmHr4yN8a
-         lfPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790718793; x=1791323593;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O8S1L9thUbDBOo5IvvqirVWz8KUgkebaENmH325jJXM=;
-        b=sKpCfjH4hDiZnLLuksRkEmOoPqM9A5LhQkXY1lD/gn5414f57qDJgqzeodcCjbcP7Z
-         2fECOv4B9iforRLrQr0wvrxYgLHhNPsqdSMassU9u4QuHZmWN5Oa5b/K1Wulu4qyPHc5
-         +cWboRCPFK2Wn25z5682xaqWe2zQWw/uvbCDnGmPRCfFJ6Kbn70g9WmYizjk8DVXHpGo
-         oKYEJrrsrxhm/RgKJJuZyyYv/Yeqxl5/CS+87JikQ+ymc7LbggnQ7arrESPVW8QTRyWF
-         jr8S/BQr6W9OO+4B4xBXLC8FB2+FhvHUtCvVELE8OTu9TNj68FrT6ZEXHtA0p3MIQURK
-         5DFw==
-X-Forwarded-Encrypted: i=1; AKwUvByl+PfiP6OyZYq6GMAzc4bvmcfKXoENcH4FVeqcXUeeoT9GT9FVdwCqkT/V1sjmINsDOptP9OHfDvKt1Gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGmOdeRj0LQwOHPRoYmq0rTSmkt69EFTVj2oFiZBWqOCyUsDur
-	UmgkP50lLL9lqbICBZNTMXwK66VLbP87OO36dKn54mkPGSwMFmnAsbPBctXpLxTY2RkhTa5jTLQ
-	IcbNDbc90Omg/3V8d/FT+xw==
-X-Received: from dlx9.prod.google.com ([2002:a05:7022:89:b0:144:d025:68b5])
- (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2706:b0:146:6755:ff08 with SMTP id a92af1059eb24-14c9d60e402mr605303c88.9.1790718792863;
- Tue, 29 Sep 2026 14:53:12 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:51:52 -0700
-In-Reply-To: <20260929215206.516490-1-nilayvaish@google.com>
+	dkim=pass (2048-bit key) header.d=androscientia.com header.i=@androscientia.com header.b="Tj7aVOdf";
+	dkim=permerror (0-bit key) header.d=androscientia.com header.i=@androscientia.com header.b="4KD2I4Gc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790718784; x=1791323584;
+	d=androscientia.com; s=rsa1;
+	h=content-transfer-encoding:content-type:subject:from:cc:to:mime-version:date:
+	 message-id:from;
+	bh=U1BRGFZMWSg2a8DIJbbH8hQOCpiW3Dt4xz5oU3rMprQ=;
+	b=Tj7aVOdfjzQ8F5hGMEr2XlOJQRwc0DSdd4Zs7GPePnDaKrroWjPXTSnvhrvOn6nzYg13dreFORC+P
+	 tw8+SbEvyCGv62ESS3V0BuLjMyUfn8kgShZhqHbWbYgupS57PoFkXu3JMBVjEoN+euafLdrS/zWXeL
+	 5wSTGu5wIWVJWrOKSqouCnQAeMa/rKuPFSCLeZWlYCcsNbklwVG8fjI+UkWpW9vUd1CpKPDtrM3mgZ
+	 a6kx90lLeRuRoExg8h55JkKRdmJcnk70W67wKsj62KFKs9YBSmcsJ8x73C6IibFlB9yjx7nEKbqv0B
+	 MMc5202CU1cscxo9S7DWIw4LOkcHEBw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790718784; x=1791323584;
+	d=androscientia.com; s=ed1;
+	h=content-transfer-encoding:content-type:subject:from:cc:to:mime-version:date:
+	 message-id:from;
+	bh=U1BRGFZMWSg2a8DIJbbH8hQOCpiW3Dt4xz5oU3rMprQ=;
+	b=4KD2I4GcyXrDUebv8O9DHzNJ/C1oYuZbwkoui1SBXIgpnjWevlKiLIe84UTkFT3Bls9BQmfwhV813
+	 yLU8XYzBw==
+X-HalOne-ID: 248d24b8-bc50-11f1-9cc0-154560f4cd7b
+Received: from [IPV6:2001:2044:db:f800:7717:9155:be2c:9362] (unknown [2001:2044:db:f800:7717:9155:be2c:9362])
+	by mailrelay5.pub.mailoutpod3-cph3.one.com (Halon) with ESMTPSA
+	id 248d24b8-bc50-11f1-9cc0-154560f4cd7b;
+	Tue, 29 Sep 2026 21:53:03 +0000 (UTC)
+Message-ID: <47904337-8887-4623-83df-c370a26adf03@androscientia.com>
+Date: Tue, 29 Sep 2026 23:53:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260929215206.516490-1-nilayvaish@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929215206.516490-2-nilayvaish@google.com>
-Subject: [PATCH 01/15] mm/khugepaged: drop redundant page parameter from set_huge_pmd()
-From: Nilay Vaish <nilayvaish@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Greg Thelen <gthelen@google.com>, Roman Gushchin <kfree@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Nilay Vaish <nilayvaish@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, shenghao-ding@ti.com, kevin-lu@ti.com,
+ baojun.xu@ti.com, sen@ti.com, tiwai@suse.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Andreas Axelsson <andreas.axelsson@androscientia.com>
+Subject: [PATCH v2] ASoC: tas2781: Skip calibration data for other SPI devices
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-As part of the memdescs effort, struct folio will be allocated
-separately from struct page and will no longer overlay the head page.
+On SPI-based TAS2781 HDA systems (e.g. HP laptops with two amplifiers
+on separate SPI chip selects), each tasdevice_priv instance services a
+single device, and the SPI bus glue returns -EXDEV for register access
+addressed to a channel the instance does not own (see
+tasdevice_spi_change_chn_book()).
 
-set_huge_pmd() is a static helper with a single caller that passes both
-'folio' and '&folio->page'. Drop the redundant struct page parameter and
-pass folio_page(folio, 0) to do_set_pmd() so khugepaged no longer
-references folio->page directly.
+Commit 513480da5e9c ("ALSA: hda/tas2781: Fix device-0 reset issue and
+handle -EXDEV in block data processing") taught
+tasdevice_process_block() to ignore -EXDEV on SPI, but
+tasdev_load_calibrated_data() still tries to write calibration data
+for every channel. On each instance the write for the other amplifier
+fails and is logged as an error on every boot, resume and profile
+switch:
 
-No functional change intended.
+   tas2781-hda spi1-TXNW2781:00-tas2781-hda.1: chn 0 r0_reg bulk_wr err 
+= -18
 
-Assisted-by: LLM
-Signed-off-by: Nilay Vaish <nilayvaish@google.com>
+The owning instance loads that channel's calibration data itself, so
+skip channels other than priv->index on SPI.
+
+Tested on an HP ZBook Fury G1i (subsystem 103C:8DE8) with two TAS2781
+amps on SPI.
+
+Fixes: 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c and 
+leverage SND_SOC_TAS2781_FMWLIB")
+Signed-off-by: Andreas Axelsson <andreas.axelsson@androscientia.com>
 ---
- mm/khugepaged.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v2:
+- Rebased on current code. The tasdevice_process_block() part of v1
+   is superseded by commit 513480da5e9c; only the calibration part
+   remains.
+- Resent as a new thread with the patch inline; my earlier reply had
+   it as an attachment, sorry for the noise.
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 913086eaf17b..63acb13f24eb 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1793,7 +1793,7 @@ static void collect_mm_slot(struct mm_slot *slot)
- 
- /* folio must be locked, and mmap_lock must be held */
- static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long addr,
--		pmd_t *pmdp, struct folio *folio, struct page *page)
-+		pmd_t *pmdp, struct folio *folio)
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	struct vm_fault vmf = {
-@@ -1821,7 +1821,7 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
- 	}
- 
- 	vmf.pmd = pmdp;
--	if (do_set_pmd(&vmf, folio, page))
-+	if (do_set_pmd(&vmf, folio, folio_page(folio, 0)))
- 		return SCAN_FAIL;
- 
- 	folio_get(folio);
-@@ -2032,7 +2032,7 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
- maybe_install_pmd:
- 	/* step 5: install pmd entry */
- 	result = install_pmd
--			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
-+			? set_huge_pmd(vma, haddr, pmd, folio)
- 			: SCAN_SUCCEED;
- 	goto drop_folio;
- abort:
+  sound/soc/codecs/tas2781-fmwlib.c | 4 ++++
+  1 file changed, 4 insertions(+)
+
+diff --git a/sound/soc/codecs/tas2781-fmwlib.c 
+b/sound/soc/codecs/tas2781-fmwlib.c
+index e8ceeb0..e250d38 100644
+--- a/sound/soc/codecs/tas2781-fmwlib.c
++++ b/sound/soc/codecs/tas2781-fmwlib.c
+@@ -2631,6 +2631,10 @@ static void tasdev_load_calibrated_data(struct 
+tasdevice_priv *priv, int i)
+      if (!data || !cali_data->total_sz)
+          return;
+
++    /* On SPI each instance owns a single device; skip the others. */
++    if (priv->isspi && i != priv->index)
++        return;
++
+      if (data[k] != i) {
+          dev_err(priv->dev, "%s: no cal-data for dev %d from usr-spc\n",
+              __func__, i);
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.34.1
 
