@@ -1,98 +1,151 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ms.icloud.com (ms-2004f-snip4-6.eps.apple.com [57.103.74.207])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5467B53B33E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56F541C2E4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714194; cv=none; b=sARK4GWLCpRaVqpNjRFEqWy5sicAlUsvez3zGfUc0m7SHUcXLGX6QBvwHXlrml7jz6XiP7RWACAw6NZJcSMs/NEJC227TF0aFqmfmK8EDZFLYyes6URHQWlKf4w1RrQJTE2laIBka0akt41DLaFf89I5Ms18hCHEr+W2tf8VymU=
+	t=1790714236; cv=none; b=ODuanxzWK09CEg2QJ+hSVzQQNdmD13aAtCPE4TEwOTvyaeAZqQmry6PznltX94UtqX6rU0ctoBOXmzgS2XfqhS3qEKwqwgmZUt5LAZ6oRaqwRGeUM9gQVZtIOl33w/YxjveZgrS+6u9JuK/EuVmrRnZyrxdr7yxA33wHTQF7VnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714194; c=relaxed/simple;
-	bh=d1KbSzL7wbUeQWAqRwALt8wrw8AGHHea3aEV7/CG66o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iILJaOHpUOgsMq4zOWHG7ny+MaBdg+KcvTVwo9IUmMshSedsLPNuw7NXAWCmCGespGXycYONEEyaONF09luXar4zMlvTahO5JTT/3BF6xbFwkdp+umDBF6m7wb16Uc/2Rw6Mlv/MfOoooKtoRJgN+7r8JXARA8geQi/M+TFNxHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OXLDzNgK; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790714236; c=relaxed/simple;
+	bh=CmlE80pSLORwSx812eu1SFv+69BqG+tG5JfC1lXaUWw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gFPAdpgtpupFGJc4xuIWC7sV20iKjVrOgqsbBk8qWjKYG9z/rxoM0Po9GpZsvVDPFE1MLDCJ/laaJXHlMQdG7JDlTSryseMgovdk6lUWTpiHVxQqnmNustGI02bkIkE3XV3ZDlseAgI70P9uH57RCxRJv4e/YbTsapJtUt/Zpqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=Hmma00I1; arc=none smtp.client-ip=57.103.74.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OXLDzNgK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso4411385e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790714191; x=1791318991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HY+uK+9mHQGUTtMN3D118HnRijdv0U2Tb9WBorVAJXM=;
-        b=OXLDzNgK5Id2GAaTa3qJn5JYZ/yDM74qbu8jfE2Eb8ISskglksyCZ8cdnSDBuraUMu
-         KTi/gOWCbeSVWqcMjdoK66NLtNBvff58Yc1Z7cCpUVlhaWnuXDmLua9fp2wOSHl5zwHG
-         1MdyEhfUvsIZqbE4l4fXZJ11Fw7kTXbMlJnAumYKLAdPWi3nesCPOlqYNRZUGl648QAj
-         D0IyNo6kc3btkHJgTR2tRaRPArN3wm0jXHO9uvsH8mBT3FpjKabMZshaZAje0cXzU7DK
-         zg9wq1u/LQTt02gyvzkiQAtg8vdFV0OgoXWQO9gQd9MOS3byeFzDa/RKYm7mbKtK80+l
-         6pTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790714191; x=1791318991;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HY+uK+9mHQGUTtMN3D118HnRijdv0U2Tb9WBorVAJXM=;
-        b=QFslSjgMvs9on3K/VkxvwA1IIow7ZNdEvPwbjjaiPtgrUD1NwQZSSrsrVKV99q3JBq
-         IuZwhcUjkK096AOe3IseCaaIy+Gp/4ElE58lIifMbkTa3IwXRdYT2QDPh/CBZorWlf/6
-         /fuTgRE8dmta3dIzE6bsoPXv9zfg3QFV+EKfGMoZGUUW6X9+FwRzuAsUt5FMjBgZQVOk
-         tdK0J7AViloYgqq2NdWdRbq9Xq5rQ3jad5OI7SlChr8VRyOZGRTWb++tJ6mwLw/vpfYZ
-         n55o5s6txMm+zrG3Am2DLhEkjV71f1o0SJQSYPN2BX5SlHGkEyBE2BsBkZWojMqtF8fd
-         3htw==
-X-Forwarded-Encrypted: i=1; AKwUvBycvgBSPErAVk0J+oXCNdduHIRK1a6RyBjoNF9hLHxCTcWSGLfdu/xQi+EmBRLjOm73fHPsM8KTgo470cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHiaqbi3/GE9wLgIdDwG8Xw4aYXhlGTmFd9eLXdjIzTzsSagXp
-	XmoNpn5Bf4YWL95JYl7NA9Pa8LIEiFU2iOvK9f1TvqZKEoLjmvde/FM=
-X-Gm-Gg: AYBFou0llMUbcRe4gNS53CIkUeimdt4I9QtQNyJrTXSxDTJbu56nKgtF//n+R62gj/C
-	DpQ7fPXqxJN7xKa0hPO5t9WFk2wwWQvuAgQV+KWD5lSJ4Ce2vkLr7+RoQfX4XnxtbLc0wNYfFFi
-	qvO1crQOjeTRp6GjNDX2o49yVllPRc8hhCL1ANS0EF7zez3x6kB/F33+RUgU5mUX0VUUc6SVni/
-	WnuMiJY+wzJyIskYO2OuSkesgEKkeDJ+RlC4Vr2iCu85MPv0+GXsToZ/ea2qtk35MlKhAeoKLOJ
-	uPWQb0EPfN6XHyxjZP3m0lAMN6zPSmOk+VN/Fq41kgzXtgsJdN0e8Rati2BVwaLDrJArw4tq7sU
-	XRjZvClXXq7l8hSWK3wevFkTbSsSkXJO7zIYvqNBvOljLwxxlB0ENqkkgIUamw4MFQqFoTNLvXL
-	YmSxYMw4bPGEEzXeWguCEEBdQawQuRdf1lLlKTOhszQJtVESn70WA4NaKQ473fZd0TiJW5i+ov3
-	hX5BFyyLwAGd9cKFlzvBk2WzqEBsS+rJzGsMTfMmB8f97G/tY489bzFGNFaOIVuH/LOqeAqLqvQ
-	lXH2IKs=
-X-Received: by 2002:a05:600c:a08:b0:49f:d69a:1a04 with SMTP id 5b1f17b1804b1-4a015141deemr4262055e9.16.1790714191554;
-        Tue, 29 Sep 2026 13:36:31 -0700 (PDT)
-Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015019e5asm13682155e9.2.2026.09.29.13.36.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 13:36:31 -0700 (PDT)
-From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-To: akpm@linux-foundation.org
-Cc: hnkz.64@gmail.com,
-	gabriel@krisman.be,
-	krisman@suse.de,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] shmem: fix unicode_map leak on remount with casefold=
-Date: Tue, 29 Sep 2026 22:35:46 +0200
-Message-ID: <20260929203547.229191-1-med08elkadiri@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929132129.f22de2069651aa2eaf56bf7c@linux-foundation.org>
-References: <20260929132129.f22de2069651aa2eaf56bf7c@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="Hmma00I1"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPS id 1D75818001DC;
+	Tue, 29 Sep 2026 20:37:10 +0000 (UTC)
+X-ICL-RepId: 01a0eee2-b8c6-701d-bd84-4469f180ccb1
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FD15UCFZGWhsCQAMJBEkUTAIJVEYKFgsaHl5UXFFBWhwCWwVdVzBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1790714234; x=1793306234; bh=zmp8SFl84gZRi5OkpkQVvlEiTxHsOKWX9tq1JueGvnA=; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type:x-icloud-hme; b=Hmma00I1iCTJetJLa+4lEcU2IJz2CTZSLyP1/eSX7O2Hin+njeiX/5qIFzrt+kQDK74uL3SnlcUh04MdlhLy+vnTjVqWijHsko8nXx0qy0a8+RCxN+3PYVD2Y69zNbWLRuUrTvLUxDZmGGTQmytTTxtliHu8e71gBk+v1SvjlPKUWIOBA/sSihPvkfrmdXYF3cNvP25Dg1dZjV+3f97zit0hRXHLuSOe/i9h90i3kmWTHuNQPVD/gbSvPHDaTh62yeey/PV3n1JSKWy+uTUAWmFPm9cIX4IgY1BRCQlpo2lGHKlOoogPYRN9xls7jzVByl8ZrUj1269tsPCKVBZJ9w==
+mail-alias-created-date: 1748381178872
+Received: from [10.69.1.69] (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-11 (Postfix) with ESMTPSA id 07A2C1800128;
+	Tue, 29 Sep 2026 20:37:08 +0000 (UTC)
+Message-ID: <3ccd6cc1-4b69-41dc-8f2b-3c7c1cd1626e@lcb.to.it>
+Date: Tue, 29 Sep 2026 22:37:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
+ 14IWC11
+From: Martino Papero <martino.papero@lcb.to.it>
+To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260911182328.9267-1-iustinivan2002@gmail.com>
+ <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
+ <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
+Content-Language: en-US, it-IT
+In-Reply-To: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MiBTYWx0ZWRfXzX4PcDGFh85E
+ GiqboE8JyjiohHnoEtkhUvhRVaVCRL10/aWKG9PFm+QJogYvicTUtlu0V8BBkjFOx3noM20blfZ
+ AzPxJ1jG6IeR4QklnnZzZKgmer6gbQYkkj0KM983MU5qB8loOXIyd+GggkHd6jvv9vHnGvtj8Iw
+ rqv2fvdEWiVJ11cKqscjiMqCBoeX3J2KTwqTe4G0rMaAl8PjmcnFcOicDorFkkrevGNf8m4V3vB
+ llCzz3WaFNbNaDcdzSYbgjgipip2mCEUZU9GH6zGsRToebWtnLJ+qgB/xP4esIWHHviya6Ck9Vv
+ o+4CgMfnaFb8wBX3LGV+8iFibDYxoayUoosjo4G/VJaZwUEXsIoY2vY2GiWcKM=
+X-Authority-Info-Out: v=2.4 cv=K4Ev3iWI c=1 sm=1 tr=0 ts=6abc2177
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=3zCP-tckM5ql3hE0fiwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 9JlmH3iyPLzgemWWF9Fou-DUGXNdTqPo
+X-JNJ: AAAAAAABvqZ69FQdBawXlj+s49PQOgiboPcUwYZUMrWYErmdxHFYAdED5eSlp3rj3Y6HN/4Y6WIozw5nZpuw5Vz+kkhZ2YHbFKhCDx9DlF1EmoGF5/X+RgqiTm7lOqddiSeOr5GSlQ2LXaRXTjEF3P2myJRkYJNgvgcKvN6hr4veke+YcuyUKZQVUGv1VTH8bpQTPsciTCUUf6PB+5hkq6+bEallsgChhFJovl2dyWMop2JjBYT/aLH7mKixGPf+1+mCpT0XT/Zr9n09LJFdbbb4fm97OC9yMXZaZarjWqEgdE1uCYG8HFbgZYurEneiy1fqgHg+7cHGgsusIRPVclbiDjVQPVxIpd+BAOSorCTcCw+QAwCiqYeFlsoT5gwjCX5K4uOfzXwEwFXMNubyJHt699gFiF1nsqgUIJSGB4RKsHxfz846iuSXgGYCHV7GJti9ZKPZTYGZezoX++bEeBYAuuJGuTRy1Nep341R2Tum9T13i/zHHN8krmy4a0VyVaX4AWePAy4qo6U5KT71JM12efGSB5tSST+kW8+6gcxZOXef269sNn9zfRjlV1GeasMMuIvMbu7pa2QBylipMwtcVzsxC3dQ0AqCXOsMZH2kqxiXQs03TABFXdHQ1eNSx7uo2jduzfdY8hlZTN3XJsra2padRSKUFdUPWLCeo2Yt9meTcZElfbWx2OX7D7vxtfENlRIhpbbRDpRshCPhEmbAzCzVM37XCrVqFv0T8423O6K9PVT+G86Y1D4VZ2SHJzdPLSW+DDQgROfrK/o8BIuvKLVFG3LaFiXmBn7egxsiIMpbVNBjDy9IwrhTfUwo3bwein15YmWomTnhT2PUCzwpLMUPhD77DFRs9W+2qNHNMCnK6IeWuHykdT63Au9rrJ25s6j6MJhArV26jtUs7Ts/VpMzuIq/7PyuXC4z2LkmruN30tYQtIrGXzl2tOGXvrzRU/xiLqYuH5PavjnjU2Cj5uvtHjC
+ U/wAXfKodBAOShx/MlYMZsfU5dQDrJIZ4bdzIBWUQrtABxU1evpcnhFJn/QOclohbQ4IpdKX/0+sto12UQDpD/fHZjegn4DiREimci4SIWM41QSNz2COuNVPH928HSpQFvYdHE37g6E2/xfICk93dcJHdiEQ9xuA2kMe/JEX+a/XsPnwic2sAZffcK7SnqQeTAL1+UbaU0S/eKTawLKQ4Mx0imrsUi19ck1/idm+5LV+ylZfbrVxHI+j6PJ/3zkGVNjB75szX37X0O1h8Iqd60MHu3zS7cz0EXPG7ppWOVGPO7lFLJ0wvCZ4ACuxT8Q+3i2h67xrFcfIOyYjUW+xD/qDchj1vLtCcA9uR4L5tl/KKwPmTr6rK7zQB
 
-On Tue, 29 Sep 2026 13:21:29 -0700 Andrew Morton wrote:
-> I recently merged
-> https://lore.kernel.org/20260827152516.805622-1-hnkz.64@gmail.com
+
+Il 19/09/26 02:09, Martino Papero ha scritto:
 >
-> Which is preferable?
+> Il 11/09/26 20:52, Hans de Goede ha scritto:
+>> Hi,
+>> I'm starting to wonder if we should not just make this behavior the 
+>> default.
+>>
+>> IIRC the whole deactivate thing was added as a workaround for 
+>> multi-byte scancodes
+>> getting split-up during suspend/resume. I wonder if we can come-up 
+>> with some
+>> better fix for that ?
+>>
+>> Regards,
+>>
+>> Hans
+>
+>
+> Hi,
+>
+> I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
+> 15IWC11 (83RR), which was affected by the keyboard issue previously 
+> discussed here:
+>
+> https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
+> <https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/> 
+>
+>
+> Without any kernel quirk, the internal keyboard does not work. I had 
+> been using:
+>
+> |i8042.nopnp=1 i8042.dumbkbd=1|
+>
+> which makes the keyboard work, but prevents the Caps Lock LED from 
+> working.
+>
+> I built Fedora kernel 7.2.5 with the following additional DMI entry:
+>
+> {
+>     /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */
+>     .matches = {
+>     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+>     DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
+>     },
+>     .callback = atkbd_deactivate_fixup,
+> },|
+>
+> I booted this kernel without any i8042 command-line parameters.
+>
+> The internal keyboard and Caps Lock LED both work correctly. I also 
+> tested suspend/resume and a cold boot, with no issues so far.
+>
+> DMI:
+> LENOVO 83RR
+> LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
+>
+> So it looks like the 83RR can use the same atkbd_deactivate_fixup as 
+> the 83RQ.
+>
+> I can test a revised patch if needed.
+>
+> Regards,
+> Martino
 
-Kazuki's.  It came first and also covers the repeated casefold= leak
-I sent separately today, so please drop both of mine:
 
-https://lore.kernel.org/all/3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com/
+Hi,
 
-Thanks,
-Mohammed
+Just following up on this.
+
+The 83RR is still working reliably with atkbd_deactivate_fixup after 
+further use, without i8042.nopnp or i8042.dumbkbd.
+
+Would it be useful for me to submit a separate patch adding the Lenovo 
+IdeaPad Slim 3 15IWC11 (83RR) to the atkbd_deactivate_fixup DMI table?
+
+I can prepare and test the patch on the affected hardware. 
+Alternatively, if the generic solution discussed above is preferred, I 
+am happy to test that as well.
+
+Regards,
+Martino
+
+
