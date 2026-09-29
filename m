@@ -1,115 +1,148 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C98D397352
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666615; cv=pass; b=eRx0Zc732248cFid95FxJQRUnFSC8nmkHOdKPV8qZCF2sgcFwut2o6Tiriok6VSqSdOlasty6J1r9h9CsUHGe/pcXCfYF7pfrAWIP0WeJg9wnxmU47LhXZpNLgg0cVPyrp2/lMHJF7T7mehlF49aapUydndLIB1ngbSQZd0Wxq4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666615; c=relaxed/simple;
-	bh=SwmbR5dUOxUWo+3BAnh/kkUvEjW5wbI0GebbSk6cpTI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DnmfSAetYtfHjeHJnaM6KWn9esdCz2hZYwmsyT6hl5UrPZw9jPtczEz66B0d2zc5ArPnk0rEKgPSLReYyl57jcaFcIteUmyt9CBrOfRpaP4i/XJ+ZNnu9dMFQA5cPLcvUUK8xE1DCHGJAp0iI96i7qCyrKhBHmhdw1p9ALZ5zE0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1UQShj6; arc=pass smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3781638D40C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790666652; cv=none; b=A1aN+85JMNsScseL++qE1z6DqR4zvBTNayQ7la8c2DYqLm6bmcB2vZnDlFjq6fASri5LwsJpxhivcfBOWKY0YiAjLME3f8CeEEG2FJ511E6Fa0w2HPt5R2wT6g0YvkXXH2xAxXgFRiT3tlpZ4lLi7fQgVXBmHm0b5CVJWVCZmrI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790666652; c=relaxed/simple;
+	bh=9w6nTAHB8G5P+NtmTJepYiRl0Ypkzk1jCmGQQ79jht4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i+D5u3YAZ2hTdJplcBdU9E5822pEDn3lrY2RF7zX0r1sGJWwIqlAiz2jyUnCSjo9Zk6OVawH63DKQKiQ1URE6JyhGJaffbfqF1SuFIoOHAcmb8IZfEBwL1Iv65ZGNqycHlxC25AUlDd3ImPqnXjdV/61sVIRm+x/01Ugtlpvr3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svDm7tJB; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1UQShj6"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso516707eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:23:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790666614; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rWfkU+cZd7STnc17oyWvgYJiGzBcdVHQC0h7d3iYV91rf5kcYJ8QLLLNmuJUF5Qt6a
-         exSQuQXyZb9/VQ9IfT3qVVJJxPasSTdrkIujPx5/rfs33MH4c8pLcnpsM8eM21qPokEn
-         NtECrmZhRkPQkDMEXVe4V5xD2SDUQYLOIiVEhs8EcSett6FBuQ20rSYPsAEQUhT5gj0q
-         bwx8iH5c9omKPGiANsERcof0z4sjzgHkp5eZ2U3vxN0r7k3lnYih6GZhDmzohteCXLMb
-         lus7xF2NSpjNdiJ+ZmCCfTkL4WReap7tlEWD6DpKiPodsXhUrckindUVZhEjC+2n3C6Z
-         N9Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SwmbR5dUOxUWo+3BAnh/kkUvEjW5wbI0GebbSk6cpTI=;
-        fh=C2bZikU1rXO0seVjt+GKgoh2Taq3WeKZv07Ahxhab5c=;
-        b=ZshoIo7wm+656Szl2rZf55g7DYV3vU1fG+p3fqERuf8QkTI3WlZMU5aulT+4SJX4E8
-         qZXaPrxiWt5dDTQ5KFtqZYUtWQnh4Grn1fPvo4if8KWrKl77rZ/ZK97ESdtoPU5m30wZ
-         Wp7j1CaQXEtxwqJ+r99WuF7FuuHIg2q/RMMSTCykTnPQtqenTnK26vR+nN8fBV86Z34j
-         3aMaJCM1deC5CNFTOIZmv47J+0/591IruKMgA3nHfY435i1S9d232qaO9KX3Qdo/VNMz
-         MK2Z5B3JG87UvV9Wg4UrfX+6U2wTrjYTkT3+OVoOVimfMBkiX840M6y0vQx5b1qYmLd+
-         60fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svDm7tJB"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-880cb967dffso356599b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:24:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790666614; x=1791271414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SwmbR5dUOxUWo+3BAnh/kkUvEjW5wbI0GebbSk6cpTI=;
-        b=i1UQShj6qC2lO20wsdPHUGzLHOxvb1Bcb0wrIrmxdp8aH0+snnAesayJWRxVPlPWH8
-         TcApQZdnY6aXEPGS7/2cgya/7fS1NKeNCK7rr28Cwv3R1UMn/j1tCTM3Fql0F7ehlUhB
-         W87nkmj5VW7j8fGiiPE/czP+EfaNWXb9RuBW1jmrTEp5iVt83REsuWsvSoiIU3xGIq2W
-         qx0SfNViYWne+yFGB+Kne04v8djy0meFkrq4CvPMEKdn1o/IP4u66SAAeg+oMssswYXP
-         HZBQcirl+TONYkVBznlB/KP+G0OjW4MsO4zDSs8BkIe5bUJSHSPVDo8ij9ZscwOKk9bJ
-         wAdA==
+        d=gmail.com; s=20251104; t=1790666650; x=1791271450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jh7IxIMeGWVcAIbqfyHopn8hAOw8pMEoVf8MFSMNyOc=;
+        b=svDm7tJBte90Aqee88XpM+247mX54dlDXQp02HbkBZiAPpCDOhvYpTtVvscNVRmuA1
+         uPnfb6mxxh1WzHJ+VOZCHBik5mQSsY3p3SkGYXqsP6yxTfNnvE8+XwLPz6ZaepLSq4R6
+         TA7GudUWaS/C0vjfGWwNtfBIShStGT/zQav4JmXobnsmSRZFbCLbq9PsOPIDY3Xm876Y
+         EnxdmgWyo6TYtoAK1mksZ7nmWYT5tt5yuDhOIG5BsE+ods8coMKYHcSjOMewi4DwPIA/
+         uATcAytjweVKYs2qguZKoIhYIxgSm54ODh4tLjlMNywI2aptOpc10SraeiHQSZrD7CNk
+         Beuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666614; x=1791271414;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SwmbR5dUOxUWo+3BAnh/kkUvEjW5wbI0GebbSk6cpTI=;
-        b=h6R1eSOb7UlLkYiR0kHqm/R1L9Dt5ljiZb6SpcGFEj9pfKFuPDRhH+kK6tN4sylZqo
-         tGBxldbvllqpNnof6kckOh+k9My2wwwxOWPbwLZZqnbfY2s23LwgeN6EVUAlxdQXMYVi
-         gKiCoMAP9PVsHkaQk6/734scfWszNM3COpxP0eUmSZvCbmNv0KzDT2UN5fP6Yec486QB
-         BpfNIHYG/ne8sxsmUCqqg3653DBOoJiA6MRPl8/Aot2m8UX/BLgoZ4tBFHa9NdqT/eRB
-         lRqsbuu8kVZi1wt8KL9AhsqZ74tVnT/dERZ7nNVHLFiFRNm1kyaiXS1aKLfkFqf5RO1J
-         AT/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgTZVku4lbDjx0VcGzonTbHTdHhqRZ2tToC8WejcfTEleW1pxlU4+7nH4wUOSpCVcKDB8riO4xtsJ/oAg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICtiIjOBlECdyTDTjijlpHrV1nNCDzwwO+PpL0+GaeVS/zKNRM
-	gVv7c/95mFrJylg90RzFuVKNb2axX0wHJi6vtuedwxx9t25K1uEjOZSxpIJoJ2I/XjCiMrEtVIz
-	E1Q8sZxak3o4QNoVTy/iP4WVAZTvxcRo=
-X-Gm-Gg: AYBFou1hq1udiXkVermp1VQJThnaFpOHzDytY3er1lWUew3n+WJ2Vtsj7Un3hoFizHV
-	6HrTpvjdq4VkU6JcRgkwb66R+KobLxcsj71i1NjWKvUoJ2NZheF5rTI4RFuQfJvniv2dLXn3pDg
-	UPh9e3dqUZ1zpMouapzzZpOuLXnnJxbNKAAdjuCZxsnMQaFe6lvrER/baYVk6II3fN0lrRfomJC
-	E4azGeneBn3V+vKHNKeN4MGxbt99rjj0Uqs4VwDEhxNbzXOLReZyNghqCHeabY6jxgGsQaVTOi/
-	agY222LtpuBNd5FOfuEgJ9FjPLBomREtzgfEC2qx7fX8ae0wMOINGH/pWDB4e03oRgMyLOUrs/g
-	GMayCvkN6bixL9Cw0C5r40i/NrDa8xoP/IgFLsTI88+ZNu24dNE+d7bUPHyUGnsWzHNRUFechYe
-	BnNVBGpdmLU1seDOgDk/er6xdB4DiZpQkdZNAStQ2YUKFHsIWkcwo=
-X-Received: by 2002:a05:7300:f64b:b0:33e:4e49:d08d with SMTP id
- 5a478bee46e88-34272b4bc81mr19698142eec.1.1790666613587; Tue, 29 Sep 2026
- 00:23:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790666650; x=1791271450;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jh7IxIMeGWVcAIbqfyHopn8hAOw8pMEoVf8MFSMNyOc=;
+        b=Iugr+iM0TtS2kdTzNO+5opLD1Cifw6WFwY61y89h1KvS6F5nsFhsHMjc/Ea8DHzuuf
+         T8opSjIJDZ131ifn2qHWTohbItV4aa+vZ9EguCKN8u4KL+E+Pkvg88nUp00H2i3/ALCy
+         ToDb3jxkqVYgOB+FsgI01eXRR+GIoleGsf7ggaS9b58c7ynYCntZTfvph20NXZf4DsxR
+         o5bRm48Mg1BVMTa23VQuJGUCsxZR5UGmIQwql/dkApRE0/4YoFigwX6cd1bkurEMtkb6
+         KlQclc9qNra9AQa1GYDlvybApKxw5vDY+SsTbvjrvsbi8O2s/zj+8OGv7eZGvwWzc3/h
+         v3gQ==
+X-Forwarded-Encrypted: i=1; AKwUvByz+MqPpfq/0ujqUUImi9zXioSDCFwezXePBcObpKSrAwJwVTHRxC3XFTCvDdWCm8dGAWUDhO6azRPE1ys=@vger.kernel.org
+X-Gm-Message-State: AFuF++kugyNvVJRFYf0P0B/XB3r5nvf0uQUUVlVczApmVH0Bmy7z/pkO
+	pwva0vXBm9thN3nIU6jaHxr86EEoevUGMVXEaBhGqaXglzCwl2mk0P28
+X-Gm-Gg: AYBFou1IGyfeSLPO0noHwAk5aMEImOGeAeJRK9x6BvZ34h0CSEGVSq14AY2sT9uy1Ud
+	Ecu2xgShgFj8J7kM13yUMH3b1/ia4LkrjuPp9GcGbhafLInIYM2dNS/+YCsuvgPt4f95SzlPduO
+	jXymUdIeuwYl10y+X9eBxdwj5YLAN1cdSwSWm/qoozcKE5h0PK9YS0mYyPpasvWs7fBGnKNLDsN
+	m4uBXdmxbDDxF9pMstTTYOBaXtGTsN5sDG4o05NMW+ti+/aW1M3eXFFGLKWfh8UHqK5R/dO4oKl
+	ikEKn/vHQfLsX6JvDp+dUS1g6hZPnaHjvgN3tu8nM+jURByL5g6z8MdAsL5GY/+xoMyTUfGqT2E
+	yowIlXZ3yjeM6p/cIb/OK6urHuMMPb8h14rZbpE5vU9639Zcx4da0/5iS16IAtw6n18BUvF/xNM
+	6rTZQDB+rrQ+K6E7tlGzExNu65JhY0Fvmem1DnvMfN3fZtz0Kr5UKalrhwHxg2A8GZ/D5xdw==
+X-Received: by 2002:a05:6a20:a104:b0:3dd:85ba:acd with SMTP id adf61e73a8af0-3de7ce947a7mr1379360637.32.1790666650250;
+        Tue, 29 Sep 2026 00:24:10 -0700 (PDT)
+Received: from gmail.com ([106.16.239.60])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a4b03082sm3483547a12.11.2026.09.29.00.24.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 00:24:09 -0700 (PDT)
+From: Xue Boyang <fuchen.dust@gmail.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xue Boyang <fuchen.dust@gmail.com>
+Subject: [PATCH ntfs] fs/ntfs3: fix out-of-bounds read in check_log_rec()
+Date: Tue, 29 Sep 2026 02:24:05 -0500
+Message-ID: <20260929072405.61860-1-fuchen.dust@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <GrS88TFpjifccsmrblR3hAxYF6f4xInMyFabclrH0IMtQKZWF3-tOTg-CWN-ZFKrgHY8G2kAArtkzeGOx2k-OQ==@protonmail.internalid>
- <20260928183925.1315274-1-chenhan0017.work@gmail.com> <87bj9htclg.fsf@t14s.mail-host-address-is-not-set>
- <CANiq72kWg-pX36jrJy9M5eKMqRHUT3UUEKTssPwfYWKoseYd-g@mail.gmail.com>
-In-Reply-To: <CANiq72kWg-pX36jrJy9M5eKMqRHUT3UUEKTssPwfYWKoseYd-g@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 29 Sep 2026 09:23:20 +0200
-X-Gm-Features: AclHuK-JOInkMbAtuhvVdW0qLZ7chfVQqmG90mh5JQERQlOVnqB1y0MCUXRo0uo
-Message-ID: <CANiq72mbTM89p=ef_fz1DLSQEJzhogdckp07ZiHK+5-53sRF3g@mail.gmail.com>
-Subject: Re: [PATCH] rust: time: make Delta division and remainder fail consistently
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: chenhan <chenhan0017.work@gmail.com>, ojeda@kernel.org, boqun@kernel.org, 
-	fujita.tomonori@gmail.com, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 9:20=E2=80=AFAM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> Yeah, they should not be in `time.rs`.
+During $LogFile replay, check_log_rec() validates the alignment of
+redo_off/undo_off and that the record holds the fixed header, but never
+checks that the declared data window fits inside the record:
 
-By the way, chenhan: in the next version, please Cc everyone in the
-`DELAY, SLEEP, TIMEKEEPING, TIMERS [RUST]` and `RUST` entries (both
-`M:` and `R:` fields).
+	if (le16_to_cpu(lr->redo_off) & 7)
+		return false;
+	if (le16_to_cpu(lr->undo_off) & 7)
+		return false;
+	...
+check_length:
+	if (bytes < lrh_length(lr))
+		return false;
 
-Thanks!
+Every consumer of the window reads from (lrh + redo_off, redo_len) with
+no source-side bound: the analysis-pass OpenNonresidentAttribute handler
+memcpy()s bytes_per_attr_entry from lrh + redo_off into the open
+attribute table, and the redo/undo passes feed the same pair to all
+do_action() memmove()/memcpy() sources. Since redo_off is a raw u16
+taken from disk, a crafted log record makes the kernel read up to ~64K
+past the kmalloc(log->page_size) page buffer holding the record.
 
-Cheers,
-Miguel
+The destination side of do_action()'s UpdateNonresidentValue already
+applies the equivalent bound (lco >= cbo + roff + dlen), so the
+invariant exists at other call sites; check_log_rec() is the omission.
+
+Reproduced deterministically on rw mount of a hand-crafted $LogFile
+(QEMU x86_64, v7.3-rc4-0094-gf49a343b305c, CONFIG_KASAN=y): a single
+RCRD page with an LfsClientRestart record followed by an
+OpenNonresidentAttribute record with redo_off=0xFFF8, redo_len=0x28
+triggers the read on every mount, no race. Multiple records with
+different redo_off values were verified to select the read offset.
+The KASAN report of the triggering record:
+
+  BUG: KASAN: use-after-free in log_replay.cold+0x3b12/0x4251
+  Read of size 40 at addr ffff88800420a028 by task mount/71
+   ...
+   __asan_memcpy+0x23/0x60
+   log_replay.cold+0x3b12/0x4251
+   ntfs_loadlog_and_replay+0x2cb/0x300
+   ntfs_fill_super+0x1375/0x22d0
+   ...
+
+Both operands are u16 so the sum cannot overflow u32; with the checks
+in place every consumer reads inside the record buffer itself.
+
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS3 filesystem")
+Assisted-by: GLM:zhipu-coding-plan/glm-5.3
+Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
+---
+ fs/ntfs3/fslog.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index ed50c1d0c23e..498f63da2b96 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -710,6 +710,13 @@ static bool check_log_rec(const struct LOG_REC_HDR *lr, u32 bytes, u32 tr,
+ 	if (le16_to_cpu(lr->undo_off) & 7)
+ 		return false;
+ 
++	/* The declared data window must fit inside the record itself. */
++	if (le16_to_cpu(lr->redo_off) + le16_to_cpu(lr->redo_len) > bytes)
++		return false;
++
++	if (le16_to_cpu(lr->undo_off) + le16_to_cpu(lr->undo_len) > bytes)
++		return false;
++
+ 	if (lr->target_attr)
+ 		goto check_lcns;
+ 
+-- 
+2.53.0
+
