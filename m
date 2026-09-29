@@ -1,138 +1,122 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C03A358D27
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFBE51EDFE
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694937; cv=none; b=EXe2GT3RmgFiHzhR1Q1p3bvY5nwl8Igk/RjEdMC491z0pPyEg0KsJvDLF+AGvW9QNdrQNPoObluD2viq+bkXFagzZm3VrYcRDOwq2aZB50DFLzARp4n13b+xltdkynhlgLuuGlzDawpAlu33gAAkP4eVk7TnhD4mwJRK5uJYn98=
+	t=1790694997; cv=none; b=FG66KTPXlFkSl96/yhCU3kzkjpuwSdnHs6mqIvJExoFif/iTaUxE5wVWXtGbe6/NgwW4M8dpFbovOlVu3EeMofK43WWhR5OBUmyg8cNB4/3kcyRl5catQLMLqFyPZ8ITljS/zgMqFbJu71mNK4D/dXOKga1R++cJWllKs6sYOh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694937; c=relaxed/simple;
-	bh=oPQHCssSreqYevmIjmIVpdjtDtYP4yQh7GmMq4F7OJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s8YkLRAH9+uYo88ExAvwbaviuvT+zjR+TU0uDRkqjOxIPDlDtKpbt6a5jpDcyMGJ8a9GOdcAcfdUsLnml42Fbe7rdv0GFNd5LZ/a6G16kdHFQMGL86dGxV2cFYZGz4N+mCL6fs1oHtuOVKvtNXB3ypzEYmRaBL84waFibegafQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WtUEwfue; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790694997; c=relaxed/simple;
+	bh=bWF2RLkDSukvRv3ojzJFf0HCx2pYwdCFf9sW3v74D0A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=FcUG+q3S2Q/2hEd8uo49/dX/nfci8UfjsLIu44BArn1NumqXVU811XtgvwX7eFWkhCPMRwBdLAIKN2VNP7XrWUkT1GFadRsvFNvbEHRykD0LBPHq0Atw+34A8BQkGPwFheqeJZCk4YmDM7Ez7Q3pbOYAw4VEmfxqJP58acrHGtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TX4lQJiv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=t1IVhKGo; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WtUEwfue"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so3771801c88.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:15:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TX4lQJiv";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="t1IVhKGo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790694976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
+	b=TX4lQJivVRePQyvZo1VZrmOLSuB4aQPuXmMveI2Bg7i8ytvTCu312kVGBrchHM9UMpxmKl
+	AuturOCSB+ca5RYdyXlIp+WLB0yetfVmadLb4dnyXOYy1DRs8NdAjQ9O5NgMmnjXcN3yTN
+	fdfVkrr000Qj7FxoCYWvdpiFP5g46k0=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-604-oz6BmVSOPTK953TH68VoCQ-1; Tue, 29 Sep 2026 11:16:13 -0400
+X-MC-Unique: oz6BmVSOPTK953TH68VoCQ-1
+X-Mimecast-MFC-AGG-ID: oz6BmVSOPTK953TH68VoCQ_1790694973
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c5e9c2ec1so185855285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:16:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790694927; x=1791299727; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gVboeSEwOgJav25gExM8I636sToVx7fihtJZdEWuJF0=;
-        b=WtUEwfue7sRqWEdoeIyM2cqWA+68qspOVfIDNhQZw6lf0R9OgYTthH7Rk6/9JNuNi7
-         a6PQdaj+luiKzA2VYP3aNwo5YVSmfsTmeEXR0eLumdyMz5XYvfqeWCalytGUi4yPyzLk
-         nGClggQu1v1phHvQA6V9GYdUqY2g5IiCeF/nPbLwagl+9GiujnuJHODsxXHfwzcDn2PM
-         Km0xv776HZDb+ErWR2TzF3HlR9ReddCt1JnzLxhrMeCBl02udhX/WjzNp0vcb4Fo8hsC
-         QD74E3PHgTDVTIvubfaWK8nfkLP7NF9AU9jU5zmPBUuncl7nxRY0Gu3E/VfLQMain6X9
-         TF9w==
+        d=redhat.com; s=google; t=1790694973; x=1791299773; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
+        b=t1IVhKGoFPqf09lPU8gqwRcCxXQZBkx5NC4TR2+/E1fefLE6YJdqOJUiNfuJ5y3kbz
+         Oeord3cjw9cKE5b2WWYeMCeOVtTYPH8GVNL++CgtdO97JdiKx3JZPuq18/NENjwNGt71
+         5qEryrEZfBsN3/JTNwkl+JcedGdzoarYM365yRo9ElZqPLvoy0M1epz6QuEdnbc3hRYH
+         24JNJ5fWSENmLnDx2ymFdmfCMWK5d+ylANvYMG7QshVuW9+V/7G3wa3StDfTh2BrvwZy
+         8AUWwnvx28RQqMxwvDgoW5JezfQTyONhu3BhpJPEiFHSr+lHT+J+aNZF2mL7i56TlguX
+         pXiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694927; x=1791299727;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790694973; x=1791299773;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gVboeSEwOgJav25gExM8I636sToVx7fihtJZdEWuJF0=;
-        b=xRnlSWP9mxfC2fYJ+/EDzvbVS9EIDNxGBO9hNIjVDIRTSVBhff0/0XVK6HHjJDbt5b
-         agFx05fr4ciZSUy99E0e29JtYwimg6xfcA3qfTxLCEAxOw5X+pH2QNXh7jXz+txHXtOg
-         z8tSmNgU+jVYwo+Ak6eRGN+BaLlYsbcUyF3RpBIhhb+81OaMuttU3yIpa9vCWOc2QnpL
-         NexsMdjuyJu6NZAhP2aTvYoJdNoNgl9KBfFA9owywyn9O2IeSJ8FXIJzyfYMv5sydd6D
-         2nKSYsdY3O5PbCQyrpXGMh6Ypw05y+OjuQ0Kaut7HsqqgMR8E1vRxq7TJPiwvnYNL/ri
-         ce3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwjUp1YXWTEnDl3MdtJeJlQyCmaT2NIDbIQRn5B0c1vvhTol4s6LFNWm6XDJE+UJRll8h4cAIFH9Qtp7Qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxscEcE37dlXpl9DSHUc/W9JF8kktCK7bBhToYgfM2LqwYL8D8
-	WdEFS5biOOWMb71GChPlFrILsrhaSuWQK3es3FGlG+wKxctBCgFjTb50
-X-Gm-Gg: AYBFou23w9gliAS3c78n009Xlt+K3QFYmDEXykwj9SHGFbReqjNg6HxMn1hU71dkPoE
-	J7hdkf01+9SwxeW4e3xYURpZewAvvLR19BwmX4m6x0/7YUUyGNqnl3IkLEddNj/CqTBuifVwz8N
-	1/lGANqz2mu3Ewtj1iBORgCS22qH9N+eyKVLvPuSdskZfPMsBrZnCq0XGp8iMcZbcjGgsUgl1/Q
-	SAoOAZNjaiWPkbsVOz6hx6L9oscTo+uj59508z3N+O7awWFM8aIev16yVSWoYQH9WSUOoiu9FNK
-	ED1rV6p5enudlRQkdMsOvTlMxz2vqqQJ7PkJDqxygyI4rhDUTTVdQN21ntYeZJNJiLTtqP3Z7UD
-	oqdoG8dapTaNOt05cDC12Qr2ykQHPcMSc/woe9+flVDossxxkOYnaZPyNbq7LkG67y3MYBqKVPN
-	D8p5zNuABl1V5NDgfH4GdTv/lT0fG+x9DcVOxdgD37ODpOEHbNwDJ2yWoiEAMI6+nSZ/SOWPtvi
-	l0O
-X-Received: by 2002:a05:701b:2702:b0:14b:1757:fe5 with SMTP id a92af1059eb24-14b17665491mr3620704c88.0.1790694927068;
-        Tue, 29 Sep 2026 08:15:27 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14c6489457asm101549c88.15.2026.09.29.08.15.25
+        bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
+        b=YLNkdv3Pp7IG1Uoct+I7/h3DmdQcIz4x+CTlhI42PCtfjapsMFTejxsyI1Bsf0DQvt
+         bC8oApiJGs0VDrP7AldANWkDvZzPy6dHsCUSsIEi7206tl/C1hW2QB3V45R6/tdziMDc
+         c5/VDbpl6U9sE6NRStreUb6xnIZPBnSrGt+nxFowYHbs0iuBqAyi4lrd1Pbewttol0YJ
+         CcarIub+1lpwxFvHYh+jjQMK6Sk3VRSziT+y9nltsTpt8vrNUrYhtyg2HyMuUBs2OrDQ
+         ow7b3QSmiv1Y8hUuZZMHsl3N1I/YONU664cfT6CMRntkf0Gvmyk+vnwMmO7IxEptK3ME
+         Ad7g==
+X-Forwarded-Encrypted: i=1; AKwUvByYMgoVMFI2yl/9lz7WyShvyeA1Crvfk311Hg9ZltuSLlNteBWWMx3Dd0n7h35nSDKrH+dsSZRRoiwMd60=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngIZhZeI1ONYefFu7tPHN69RNuwjpqeCrgyRab/pPQBuFV20NE
+	cTgEKisZF6Dq9Gi//9Jrg+5Pm9hmtQ6Qsxyw3Uh5Liisr7uQTj6mXYSL6mIVQFig9cmrM1jvi1C
+	2rdRaCtf5hmnt5EkRL3ZSi32H95dbAQkDPm//YtmrbbZatoXv9826krZ60nuwDBKokQ==
+X-Gm-Gg: AYBFou1S17bMH6dAfE1vbZIjbw/c3TBD8lfdUpzaNyz3YN3XIgXpHU30ar2Wh4/nMua
+	G9pJSLe93TQrqGawK3w+C/sFfBTeI1pyT7Jwd7IM9fagT2svinQw/a9scLuXIk8oBNUqz+/OBYu
+	JSVP7fTzLTKw3gsg/0UqF5T3oBMzonVzjDWwdezgf0lPutBtkRXd7qq7JLLuLFIK14hBjYo48Oh
+	7F7/p/w4GNUAmfJG/YoPj7smo3NHa3vHVOJnZxTYxYvvKn23x9A/EsAJU8FxNCaJO1HrjcmJsN4
+	FiYA0FtU8uwbe1fd/nT4jFYd9MtwV9KSknOIn1936Rto+C3mdc79ie8puXHKlbVbrHhC/B4LdtR
+	EEK4sDPbLw7JqNtB/+4lfoAMMRxdYZhf8rWuzG0zcarQrgXkzwhI=
+X-Received: by 2002:a05:620a:4722:b0:93c:5b32:c9d9 with SMTP id af79cd13be357-93c8bcd086dmr532936985a.6.1790694972728;
+        Tue, 29 Sep 2026 08:16:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:4722:b0:93c:5b32:c9d9 with SMTP id af79cd13be357-93c8bcd086dmr532929185a.6.1790694972197;
+        Tue, 29 Sep 2026 08:16:12 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c81598783sm411763785a.46.2026.09.29.08.16.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:15:25 -0700 (PDT)
-Date: Tue, 29 Sep 2026 12:15:37 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <Kanak.Shilledar@axis.com>
-Cc: "dlechner@baylibre.com" <dlechner@baylibre.com>,
-	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>,
-	Henrik Grimler <Henrik.Grimler@axis.com>,
-	"nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"andy@kernel.org" <andy@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"macromorgan@hotmail.com" <macromorgan@hotmail.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Kernel <Kernel@axis.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 1/5] dt-bindings: Add InvenSense ICM-42370-p
- accelerometer
-Message-ID: <arvWGdQN3fQi5UFU@debian-BULLSEYE-live-builder-AMD64>
-References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
- <20260917-b4-inv_icm42370p-v4-1-fd9373f123c9@axis.com>
- <aq_lObgrI7uAi0K1@debian-BULLSEYE-live-builder-AMD64>
- <3ab2ba81a38d4da84d4e3ebc147aa956728e96bc.camel@axis.com>
+        Tue, 29 Sep 2026 08:16:10 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yury Norov <ynorov@nvidia.com>
+Cc: Yury Norov <yury.norov@gmail.com>
+In-Reply-To: <20260925193858.250215-1-ynorov@nvidia.com>
+References: <20260925193858.250215-1-ynorov@nvidia.com>
+Subject: Re: [PATCH] clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
+Message-Id: <179069493301.199845.17240762807739332840.b4-ty@b4>
+Date: Tue, 29 Sep 2026 11:15:33 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3ab2ba81a38d4da84d4e3ebc147aa956728e96bc.camel@axis.com>
-
-Hi Kanak,
-
-On 09/28, Kanak Shilledar wrote:
-> Hi Marcelo,
-> 
-> On Sun, 2026-09-20 at 10:52 -0300, Marcelo Schmitt wrote:
-> > Hello Kanak,
-> > 
-> > On 09/17, Kanak Shilledar wrote:
-> > > ICM42370P is a 3-axis accelerometer. The device can support I2C,
-> > > SPI
-> > > and I3C. Add the supporting devicetree documentation for the
-> > > device.
-> > > The device supports VDD and VDDIO operating range of 1.71V to 3.6V.
-> > > 
-> > Patch 3 says ICM-42370-P is almost identical to the existing
-> > Invensense ICM-42607-P.
-> > Instead of creating a new doc, could we have similar properties for
-> > ICM-42370-P
-> > by extending
-> > Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml?
-> > The updates on the other patches keep supporting both ICM-42370-P and
-> > ICM-42370-P with the same device driver.
-> 
-> ICM-42370-P is very similar to ICM-42607-P but it's an accelerometer as
-> it does not have gyro. As dt-bindings should describe the hardware I
-> think it should be inside the iio/accel/ directory although it is using
-> the same driver of IMU. If you think it should be in the same file, I
-> will move it and update the binding description.
-> 
-
-If ICM-42370-P can be described with the same (or roughly same) dt-properties of
-ICM-42607-P, then I'd suggest to extend the existing dt-doc so all devices from
-the ICM-42600 series can benefit from updates to icm42600.yaml. ICM-42370-P
-being an accelerometer is not an issue according to Rob's reply.
-
-Anyways, the final word is always from dt maintainers.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=306; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=mZR9PHzdXdFqvDzHRwBoXIJQhHINnxzMIo6bw+8Twnw=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2XzNaqmWlqvTFQsrRXjf7rzivh0z3RbaqotPnHUVn/
+ 54d33S3o5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgImE7GJk6P4llzBrV8++Nzc1
+ Q5k0mQslWCQc1/oX/vjZIPX5+4mrRxn+Fx0wan78vuHLkZuzClREWF+kdy7SvCsaE8S8QHKHbts
+ kbgA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-With best regards,
-Marcelo
+On Fri, 25 Sep 2026 15:38:58 -0400, Yury Norov wrote:
+> clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
+
+Applied, thanks!
+
+[1/1] clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
+      commit: f619355a6bc6e2ce8b2b104abfd4f2c86e22aad3
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
