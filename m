@@ -1,167 +1,172 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010028.outbound.protection.outlook.com [40.93.198.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7694C4F93DF;
-	Tue, 29 Sep 2026 09:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675132; cv=none; b=OL8/ezyf7iuioeItDptvp96nMhPHDQslxZV0aV6jeIypZTceYa7vdtF3ewIMPyVTB7F+JlKgZ/PKPRs6Y6WDR7KWqPXfAZPW7GnKaUvGww0lBAtMKS8rOYhBHl/0tDnEWFeoh6F8qIjh4Fpc3oik7VUfRLpObP0Ri7EnQJ8WPqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675132; c=relaxed/simple;
-	bh=xCk8+uaXP7T6Kpiv52zlt/8t8w7jCD8xBmg98UngIVk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F5DjeycAS5syEQ+ecjCUPICFKoPCg429yEYC6oKpTOC4ccRjfsXKU7zxtj7ahnxCkLzSia1qSiN0SOyqDNX5mUVIeaeSZxEHnBIg0yhzdKmUDj9PGohvPxjL4Cv1AN73W8iODJBGKwHP/8T6Z8Tzd5Z2CpCMNAKVvdfTWIr9Aj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YlhzKY0r; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Y06NhwlQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ibp9aJgX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sJ9yDfPQ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52784FC8C6;
+	Tue, 29 Sep 2026 09:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790675158; cv=fail; b=PIq4AiPo3sMEPoXo6CCrcy8rZNyoBY1oTmSoEu9pbxPgo65NUlvJ434DJ7GxLG6ARqySApNqO23K91WrKWj5A0h0GwORdXx9e+Rt6bs1H4NkZw7hQeDSzmzqmYOMJovUYv+13995/dLoow1jqBoQjQoFwnnV7CCEZQ/4WpBZaKA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790675158; c=relaxed/simple;
+	bh=sigcM6tY9rKCP2HPdYtybY1i6lG8v8CnuhFkp9LYsTc=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=RApzgkucsWK21QrChnnp5Uu3rMnvR8a7QRkIxkDMjN8cZftOQTPU6WHaG5fJQMtov+USB+Lwh6nBikTgPSX346l4GEX4CMevH+valr6a7GUf0yLbPRaJaSmFoVTis0THLaqCPOq+LuzIU/Echanxk4lqTEhYrbhGy92rZDkq2/Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aqrIgUdZ; arc=fail smtp.client-ip=40.93.198.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YlhzKY0r";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y06NhwlQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ibp9aJgX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sJ9yDfPQ"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0146321BF1;
-	Tue, 29 Sep 2026 09:45:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790675124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aCHbnM642LxLoPuBofIdnowrOGEBuwjMHDXxKBWOHvs=;
-	b=YlhzKY0rGmNeNTf76Gqxx+JLeKPvtfBNyEGanUxW53eEjcjLYe0KT/Jw6xWLhC/9jhSO19
-	J9UpDCBm7g62oet5FobKA0tCTVnDjY7XnyUrdRkjUXnWBnLDU3g0x9SQhZFFmJcamORj6J
-	AKSw8UxgFpKnsVHeD+UVJUfW9n4sYY8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790675124;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aCHbnM642LxLoPuBofIdnowrOGEBuwjMHDXxKBWOHvs=;
-	b=Y06NhwlQ7pkqBVOy5ZzZUeQ7HPuY1ELZI4PMYGF+j+N0RrqsLhPV+7bCBd35H3mdsBYYc5
-	APoakbmXLrfe2cAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ibp9aJgX;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sJ9yDfPQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790675120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aCHbnM642LxLoPuBofIdnowrOGEBuwjMHDXxKBWOHvs=;
-	b=Ibp9aJgXuf76GoWelzxdo5jreczgycPE2vQgqcbSoFjQmfXj9/6lALIe85MBxh1XJ4W60J
-	eE2yWcXajb6wRUu4SoT3tGB2IOoKP60KWEgnFW1xzkoIQTBgxLapJlooykOvT2CWMTiPKv
-	SusYEoe4Q4ILLjdx3c4hZuRSeoBB5S4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790675120;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aCHbnM642LxLoPuBofIdnowrOGEBuwjMHDXxKBWOHvs=;
-	b=sJ9yDfPQr5tWhdG646IXNLldrnCT7BCGKbjMLUhlAUZZjTIOUr4bblOQFecKlIuVsmhb9Q
-	RYBLplKri2Hb6vAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA491133F1;
-	Tue, 29 Sep 2026 09:45:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RN6eIK+Iu2pmJAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 09:45:19 +0000
-Date: Tue, 29 Sep 2026 11:45:19 +0200
-Message-ID: <87a4p02xxs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ilya Pavlukhin <i.pavluhin@ya.ru>
-Cc: Takashi Iwai <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,	David
- Rhodes <david.rhodes@cirrus.com>,	Richard Fitzgerald
- <rf@opensource.cirrus.com>,	"Rafael J . Wysocki" <rafael@kernel.org>,	Len
- Brown <lenb@kernel.org>,	Hans de Goede <hansg@kernel.org>,	Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-sound@vger.kernel.org,	patches@opensource.cirrus.com,
-	linux-acpi@vger.kernel.org,	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] Add support for the bass speakers of Lenovo Yoga Slim 7 Carbon 14ACN6
-In-Reply-To: <20260920092808.17234-1-i.pavluhin@ya.ru>
-References: <20260920092808.17234-1-i.pavluhin@ya.ru>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aqrIgUdZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wXUmhzrSA7gzCiUsx6sFONcmmlWPx7Rv0xcmNnuhMebbrjL3BRynYU9jYf6vTw/KiFn2ps5WXFNeJ7yTdfZ0cB7BY5GFd9OpHzYmELvF9QfThlRqlMmM33LME2pTxvfOw3VNYRhFoIGeLsWHVnK1QfBDXYLQM7znWAhkwLnr0nysMavXU6mrixAliEl7FK3JL1IYepWiflfR/YBy0Ot3jmxdOPKxMYvNP2WUtNpHKaHaRLDs5jKToXs2iScE1WvfctYjJOzGLZBV+C1gS2mdTHR8pWaDKjk8ZRwEZwEgFYYkdAi47Da4duEG+KgTVZ5fLXWatzRSv/uDOuL74ltVgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Uu8AFH0UVOOPITwSCS4OUztLAtqkHVvJIRiA+/641yc=;
+ b=Fv3FiB/XQm3ymneEMJ0bYXPFm7o1ybJ/WsL6a0U6GpuFxZt8t7BS99IYFxmqN53i/2G2lGxLJKlLrdwraD9KNrRvN6moyADmiVAyVjZq4L73S8ywlJa1UESWuLuMIapPAjTm2MVE9xyQx7hpu2gLWn5tE6ZkOi46jTCqhwtXvVMYR5TJVkEcU1YHDip6fS2wvuf0NtlOiD4Rm3Vg5seh2qhudXcOlq3pAmmXaiJiZaFkEtPYI+b8naX+uW4u9sqCmqHMxgiuHJe3jb9nTVS2b2Fq8lbOmeqcH639ONRubG7Ii+MR+CBlpxcctE4x2sv0q1IB2bzL8dHfTanROJZY4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Uu8AFH0UVOOPITwSCS4OUztLAtqkHVvJIRiA+/641yc=;
+ b=aqrIgUdZAuOdfTvXyuFbXhabx5iFYTelVL+EFYmsPX47RfJwb26vPHrOSLdVUepybmd+IlveC0sSAtUPKhx367i8ndZB3sfqVNWvIVio0qG9dYiRaOrtHTRx3+ItgHbnnQqcFj+HJjNd1XiTrgcNQYZNg6PzTEtFyJcCmLBLYlwzTXU7iGpLmGSdxUGhTj2LMnNZa4hSBOdpkdvRtfzacUHOlPZ1EgHUw31g/acA0j3Aavn2EqG4oLRdXmjtoetcx1UkxUtLCfOL/Al32+GmL9swAen3geC/XtnNaYA8m95nESizirr3+GAg9q7vQN8pRNnv+vjGvKuVFzYnZv/6lQ==
+Received: from BY5PR04CA0021.namprd04.prod.outlook.com (2603:10b6:a03:1d0::31)
+ by CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 09:45:50 +0000
+Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::3) by BY5PR04CA0021.outlook.office365.com
+ (2603:10b6:a03:1d0::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Tue,
+ 29 Sep 2026 09:45:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 09:45:50 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 02:45:27 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 02:45:27 -0700
+Received: from [127.0.1.1] (10.127.8.13) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Tue, 29 Sep
+ 2026 02:45:22 -0700
+From: Kartik Rajput <kkartik@nvidia.com>
+Subject: [PATCH v2 0/4] Add UFS host controller support for NVIDIA Tegra264
+Date: Tue, 29 Sep 2026 15:15:06 +0530
+Message-ID: <20260929-tegra264-ufs-v2-0-f0467b9c503e@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 0146321BF1
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[ya.ru];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[ya.ru];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKKIu2oC/2WOyWrDMBRFf8W8dQUaLLnyr5QsnqWrRAVnkOzQE
+ PLvUYZFoMsDdzhXqigZlcbuSgXnXPNh30B/dRR2vN9C5NiYtNROeunFgm1h7Xqxpiq8RoxshzB
+ YplY5FqT895z72by4rtMvwvLYeCcKTmv7WV4xmrhChMM852XsnBksnApSwRsYCwwcojGO3bfno
+ BKjn6z09OnXdP/ZzcfdRSSDmFzi3mg1nhVtbrc7ZkMca/EAAAA=
+X-Change-ID: 20260909-tegra264-ufs-92edda57c75a
+To: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
+	<avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, "Jonathan
+ Hunter" <jonathanh@nvidia.com>, "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+	<mkp@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: Thierry Reding <treding@nvidia.com>, <linux-scsi@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Kartik Rajput <kkartik@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790675122; l=2141;
+ i=kkartik@nvidia.com; s=20260909; h=from:subject:message-id;
+ bh=sigcM6tY9rKCP2HPdYtybY1i6lG8v8CnuhFkp9LYsTc=;
+ b=u2vhbQiiBaniUR6NqiB6FKnq2wBOdW7dwIapB0NBMXTtMCbrLbmdk7t8v8AT1yPCXqnKL0Rgq
+ j4H+8mMBQc3Cn+FEvBSqrKFX5rV4akG1D36quA5riaW3OuZ8y1neVmp
+X-Developer-Key: i=kkartik@nvidia.com; a=ed25519;
+ pk=V+1YkJqxCruxUVxLXtAG3f5k8O5skT0X4/QIB75KZ64=
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|CH2PR12MB9457:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3182cf23-7b3a-47b6-e416-08df1e0e7240
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|36860700016|82310400026|13003099007|6133799003|10067099003|11063799006|921020|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LmhJyPywliVh3eaUp1NA3ZEoV13WHfEptK9bU+kGd6mb146cYD/ift8twozka8wxr10NZmuj46lWWjqwcoJSvS0mE7zjJGMF0YwlbVoncG3ZbOaC0dLfJ+2Erg5++BZ0ihJ8I6ULmgTjZcH/59UcoCwoQShJxlx+kCGU2fVa3GASPCjpgSaX0pGwjBy0ssMQlVMT6HmYgBujlVSollmxGIFnzow3J+ssR8gnHfvOOmdx8QwXy3lver+J1xYr3K39WLP/eGyT4nOt+ITWTEeuUbBKUHSkg4u8rScX4+s7RGPmsOXqi/JN8ZAbAdWCyBKyIhOdk5t9MoBn2TpXIl0p0wVp58ROb1yJh71qbHx000DrbR5pRC35XKrbMamKyk0jwqJvcuYgrPYf3WaP5cL+G6JNeJyQNId+5QCKCPHeyGTLY6QPgYIc7Pdk1i7TsYYV+FeACE4l+5LJ+afwCJ7dtSTCHFTVPiC0Xn5mrpnpMl3FTg79eAKijHxX9qNaQ6oAESwNwYLIt87doabAqqHVAryKc3E9JzrbtK1gnF464FsKKg0ZPtW9OY1EJCXcsU6cKw9OoK5wdiTxTtiZVdRBbFyUvPupo9CuM1NW4udCkXXTLB6gQeKWmum1Hg+T2pChxU3wSuYo20DVAbv9CWZaE8zekF/CRCtFB7Loyz/82TI3N3CluanUqGVqkvZmBcyqEeCZSS68on2H3tDM7Z30ZPNjq701NRk6MBTMyNigV0jB/sfgpkcXlZ4ailUGAGtM
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(36860700016)(82310400026)(13003099007)(6133799003)(10067099003)(11063799006)(921020)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qQz9eROQlTinKLnZEte7MFITcUTYh4IVP76hY8XpWzcfSppieb9YSxFde9bExIbdVIXKOCk3cX1WnzhiiumnXHmti/3vlLEjrCVUaRp1odkbf5Fjsfh0RXwRAf9A2/qYfwQEMsyZokWeI5zjHg5L/G6CpJ4c6nipknh+eTSq7FbRccbfEQn9qsJUNZvMFQmsc8Zd0Li/5XAq/Jzf52UertJSvgXcwI/f+lwi+bC0wkTDIMd610L1hsx1A17BVYOWZEVJaiUchs+7vZuQ5WbbQum5m1WSQ2R65gJaYTENXEj3NoOEpQsJnr6xa7b/2TP3vSGHdR/mG3VSfjwd9pagfTGQqzPbSOgIyc51iFwGJIp7PCsYJESx+VsYOxEyLTiKQ8ioEOLka5pEXN3y248MUitDTY7mfxXeE3k6QRrbMte4xSIFhg0z5foTttCuhtBC
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:45:50.3606
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3182cf23-7b3a-47b6-e416-08df1e0e7240
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075F3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9457
 
-On Sun, 20 Sep 2026 11:28:04 +0200,
-Ilya Pavlukhin wrote:
-> 
-> The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0, Ryzen 5000) has four
-> speakers. The two tweeters are driven directly by the ALC287, the two
-> bass speakers by a pair of CS35L41 amplifiers on I2C. On Linux only
-> the tweeters work [1].
-> 
-> The amplifiers are described by ACPI HID CLSA0102, without _DSD, in a
-> single node with both I2C addresses, the same way as CLSA0100/CLSA0101
-> on the Legion 7. Patches 1-3 add CLSA0102 next to them. The Windows
-> Cirrus driver configures CLSA0102 with an external speaker supply, so
-> external boost is used.
-> 
-> Patch 4 adds the codec quirk. The ALC287 only clocks the I2S bus to the
-> amplifiers while pin 0x17 is enabled, and the BIOS marks that pin as
-> unconnected.
-> 
-> Tested on a Yoga Slim 7 Carbon 14ACN6 (BIOS H5CN42WW) with all four
-> speakers playing. The DSP firmware (cs35l41-dsp1-spk-prot-17aa3856*)
-> is not in linux-firmware yet. For testing it was taken from the Lenovo
-> Windows driver package (tuning "Lenovo-S760-17AA383D"). Without it the
-> driver falls back to the default spk-prot firmware.
-> 
-> [1] https://bugzilla.kernel.org/show_bug.cgi?id=215632
-> 
-> Ilya Pavlukhin (4):
->   ACPI: scan: Add CLSA0102 to the serial bus ignore list
->   platform/x86: serial-multi-instantiate: Add CLSA0102
->   ALSA: hda: cs35l41: Add support for CLSA0102
->   ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 Carbon 14ACN6
+Add UFS host controller support for NVIDIA Tegra264 SoCs. The controller
+supports UFS 3.1 up to HS-G4B on two data lanes.
 
-I can take the series, but before that, I'd like hear a confirmation
-from Cirrus people.
+This series depends on the Tegra264 M-PHY series: the binding references
+the M-PHY provider, and drivers/ufs/host/Kconfig selects PHY_TEGRA_MPHY.
+The driver consumes the M-PHY through the generic PHY API.
 
+Changes in v2:
+- Rename the UFS functional clock to "core" and the host-consumed UPHY
+  PLL clock to "hs" in the binding and driver.
+- Use raw M-PHY cell values in the binding example so it can be checked
+  independently of the prerequisite series.
+- Drop the unnecessary mod_devicetable.h include and clean up the OF
+  match table initializers.
+- Limit compile testing to 64-bit architectures because the high-speed
+  link clock rate exceeds the range of unsigned long on 32-bit systems.
+- Tear down the M-PHY lanes in reverse initialization order.
+- Link to v1: https://lore.kernel.org/r/20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com
 
-thanks,
+Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
+---
+Kartik Rajput (4):
+      dt-bindings: ufs: Add nvidia,tegra264-ufs
+      scsi: ufs: Add UIC DEBUGSAVECONFIGTIME attribute and its field masks
+      scsi: ufs: hisi: Use VS_DEBUGSAVECONFIGTIME instead of a literal address
+      scsi: ufs: tegra: Add Tegra264 UFS host controller driver
 
-Takashi
+ .../bindings/ufs/nvidia,tegra264-ufs.yaml          | 120 ++++
+ drivers/ufs/host/Kconfig                           |  14 +
+ drivers/ufs/host/Makefile                          |   1 +
+ drivers/ufs/host/ufs-hisi.c                        |   6 +-
+ drivers/ufs/host/ufs-tegra.c                       | 686 +++++++++++++++++++++
+ include/ufs/unipro.h                               |   6 +
+ 6 files changed, 829 insertions(+), 4 deletions(-)
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260909-tegra264-ufs-92edda57c75a
+prerequisite-change-id: 20260909-tegra264-mphy-f3edf6fa4321:v1
+prerequisite-patch-id: 1c46e1bce9f6106dbabf81e50cd366d3d2da01fc
+prerequisite-patch-id: d367971b99f7308cef032b436c054d005b94eded
+
+Best regards,
+--  
+Kartik Rajput <kkartik@nvidia.com>
+
