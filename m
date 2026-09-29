@@ -1,134 +1,103 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A24525A8C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41226527582
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687253; cv=none; b=A2ovw/EfFq5gkeUnlmemRh771KJJ0UTII42sTrsGX09JrTWBmETRTLQ5/7KQ2ZeYu0Qiq7mUb4AcmamldvJvDy993nKPo8I0otxYoldL4u9ymYK6jfnohnXjdFi928iaVoEY7wSkes13GYgYdhf0rU5LiHpRUKbIrCNQ04nuFmY=
+	t=1790687258; cv=none; b=C9ND3OKPmNsqD+tpReN5SRWSoviG18pNvoqwBubQNQJGDjQExLnf44OWf8ji5DAUJXHZ5It6IOt5j2iYv57aOElNegpmNyz7eDRi6li0A3DUMtyej3azAWJIFzs6Lk5jKY9TZju3OCadsUxsARTCKHWV2/d1KnSX9zJf/yp5Y3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687253; c=relaxed/simple;
-	bh=PUrN0XLKKmcY4+BzdqcUirV+08xJH2NYk9oyUJnLOKY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MLRsPpH9Mg1+0yeF9+1P2E+4z8z1SQAxlineV62ymvm5Fv4JZJXgKmRVJTN13+x97ua+8wMkARg+ZeDzRLEP7/F8zwXji/O4ElQuIqbaSVVThXBx5yqaHPYsccFQ7VfllOu2f6v9uiAa8jONsg9GJKWUkUD9oiXmvJpcrwnBgBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=sGoAyW/c; arc=none smtp.client-ip=74.125.230.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790687258; c=relaxed/simple;
+	bh=OdfK6zPQifeqrDI7Dk172xxCzy7BT3/xi+HCCHXocTw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aWYTB5sFGmqQuEczuPhYrgX5VazFK/57cx+9kjU3f7Ldyku+qVqM/geuUFXgamu6F9QAnVaAeAL5CH5m9yOJ1saPEsr0PQk9/fpHBSD4YAvQIBveZHsFFAi6zkgugUIMneqI1BPGnS1OsoSG3nuGLuGWeQVAUtI1wi67LyWaD1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cPnOzTR5; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="sGoAyW/c"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9178b9b7ecfso6302536d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:07:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cPnOzTR5"
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49b0dd21eb8so9655725e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:07:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790687247; x=1791292047; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s2+9C75fPvA5g6i7G+PRMeW8ilNW2Hk9NJmcPsE1jGE=;
-        b=sGoAyW/cBDUOjNP/dhva8ysA7RPUsTwMJ8xLzsDjxnrHpZ8NwtRL8fvltqg6ECe6uk
-         4bSH/ClMNhb5xWEM48s783LJiRt6RHjWDUZLjJTTSOJnJYKhL/YuPXQkC7g2xGL+ha9X
-         eap9ibADGLP/UaXukTYZfE7vg7NOClXT2SgcR3xekoUB+3eJFaOISd4mlCfpA+kPLcx4
-         jAt+oDTYPvPUHlWadsoosVfKAuDRA/O1LvlgL1idYqQNiSmq2wYGHhP+fYfdjkaOTssm
-         a8O5jRbN1JVD3+bX6NCG8XOzg/cQULYHziQOTmEP+dRSGQ1yD+q05MWpiHqn877tFCej
-         5AiQ==
+        d=gmail.com; s=20251104; t=1790687254; x=1791292054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b6HCpdBVY9gbUFJh3MVkCjOH6d5f1ORSf0MCQzzTdUQ=;
+        b=cPnOzTR5/JJDz0Muz10bt4wMjtxcEID+tMllGEuHCRlB98KaF1q+vCwR1eLJMe+DZA
+         mtaB/2jARZc+qnGjQtt0ZtY8UgZoo14OgHqzh4ymsvc1na5X7dDXfvNj951eFnhuCoUv
+         J6K+jflJRkrct0FM0nR5vLg5yxjItj25yjYXAshpcSVHswyah1s969t7JtYQ48zzmqPs
+         bOl4zvuJBl/o0357nZvPwS1EYT11vrqt3yvjBhnVGeDPftI8+W+k/l1sf7hgSSborBRr
+         VWcBfLhWkjyT8pR1I4bokrKg0FaVoYPrDywxu+iSJNmKq4BOvcweBjcz4z5OXd32ue+A
+         Z5DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687247; x=1791292047;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s2+9C75fPvA5g6i7G+PRMeW8ilNW2Hk9NJmcPsE1jGE=;
-        b=Z3+uQnw74vhFl/3Jcll4fMyL/O+HSyq0MuAZ9sqFmpICLDlcYvxCSqI1vhPltZ5ZJI
-         Ip+7avIa6jqmeP7wurITuiKts605t70rdIzgqgwewbl1Lt0My9srkqjoucyUkzfDpG2Y
-         QVeaSLB7ObP94IQESgRCYYt3FX8Afz9xRjZUrNM6MQ/R2O+HjraUUp6ypJlYqDXl5nH6
-         bgG4m1hmLd74KlRIBq/Yz+LGeXeSmfjuBepNI+SeMbMgoKkBdgwFm6cIsGmwCOg+W3dj
-         YIo1rF0RqettB7PtSAVLnAGdd2g08t1YbhRFL2dk8rA3pG+RmRKJLA1uaybQNZethuw5
-         e+pg==
-X-Forwarded-Encrypted: i=1; AKwUvBziYIukWsdlk+tno2MOFKRl5jHxrPEdpw0dWVd2CGlgyH1DL5PPLiSLZ+NDbTdMyi9dnZjD48sVMliMjAc=@vger.kernel.org
-X-Gm-Message-State: AFuF++knmz3vgbAJOiZXO6FaWdAhLyP8TXP1BHZ0QrWv/SSFQCMsPdI0
-	tJfoXF8XJqkd4pVRute+aAW5/W150YRt5q5WCUJFEDl6+C9YghOiBJWbX+E/km4+lGA=
-X-Gm-Gg: AYBFou2Gt/WzS7nErNiF9+aUt66EEpLWHMCqYXn8eGgJIxwRrfp9V9jq5HuYBLePEti
-	JwIizVTO+WuZffg8MUN3PCh7mfoa+nsHim4cAuarn1PWTzeKCM6hGZaAe/15BXnHO/LirRmjCeV
-	njHbEm2AB2chYOndD4ubR+OxXRgHxGrdlRS0n2QAidgNYqlqPsvQq31M5rAg8SE2PeSYMcRLpqP
-	5LJ2RGKl+JcbR17Cc0ALyHTS888j7qOAjsPc2uH8XCf3GAkici7tuzAZpmJGTLKTXl0v217kH5F
-	ewyV8xEkc7u7TnP5FTq6EriYZg8f2DuQD9sUAx5ldsLzpdVLcn/C5FOmIRI/JL6SL/NumaDwe/k
-	8M6jbQfQ/mpi8Xg0UBsXsRAIG6jgKxqzDjpXlSLxjZGjuIJx+7nIjBviU7isYcm68PHEVLBcANU
-	CJmr8mrmxEQPBU/GDvANWnzfPRpjIqmby6VFJBl7mIJGL3ocPJfOC0WEEO9FVzem3V3Uw5u8s/x
-	q3h5HSjj+JI8Cc=
-X-Received: by 2002:a05:6214:2f8b:b0:913:ffb2:e8d9 with SMTP id 6a1803df08f44-9142f93e820mr258725566d6.40.1790687246832;
-        Tue, 29 Sep 2026 06:07:26 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.255])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d1bcfabsm9993486d6.2.2026.09.29.06.07.25
+        d=1e100.net; s=20260707; t=1790687254; x=1791292054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b6HCpdBVY9gbUFJh3MVkCjOH6d5f1ORSf0MCQzzTdUQ=;
+        b=mbg7kULCa0hZVowrsswjLtK+shFa0UTYz18zvckrcOXJ81ZLm+68/YGCZf4LR+Fnlw
+         aHwRuFn9ii+JhOV6lWLFew9Zj5dzvmk8mV/YNg628n+160XbQ13jZsC7DrIZh95G097z
+         rH2SEsdCiCDwCq+h6wa5qeyQxEg8ER7Th/9OdSLU0Cc+vgV6M7KiZQtButfZz27Jqacb
+         ehmEDWgzjThvLeLz5gFo45nZ9xIEI9QPhS70vmSggdBea4zwTu2GZYiJWSbfNGI3h0VI
+         XaDH1X6xvwDqhPk9kXqr5cJ7SmhVrDIiavTKRb1GjVEvX9Ueh/gaAVOTJGdlNEprRub0
+         zjCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbuZJtglgQ3seEdn7y6uOtj6njbUOvgedzA7EHRumnqekvb0hoDa1k/cd/DN8dtRkDiCL+qibtOqmN0D8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCRIhOsf9XUrssBzul6b7RmCVclCFdJR1S9boWaWnkA7f4l5ub
+	kJS3unSwH/Jg4K6b7iMav+xf+qcGumFOdINlgEpwsIQyk9eCNe+jxbES
+X-Gm-Gg: AYBFou0oggrUgn6N7FxjuEfSoSvpdqmBp9jk+OfeN2/gwWi2D+MVbIsLCOxm5CZx6Jo
+	0fKqF2KRSTrkQugG/QhZ8iJgLSRj23DsblGsiMTjpRIMikJASzc3h8kIL/hH9om4k/nJnEjpvDs
+	CGwmGPBekmw+Sd4bOJeuGEe59rz0cXd2Y+0wova39AfgNbUQL9SBNhtvN4rQmhzcqjEJvp4zwyE
+	OFIfHAYrWHXp0+EVDgvR4tEiOSNmJ0qjlK3vCCBKlo6BFOkBqaD04oAOBQlGghbWhNbWOnoRpAy
+	+BzbtpMpwmYL4fHVMsgtexhRLEhLk4bjok0fmicgqmOi3dcXfCKdIxaHcRvTNGORW/A7oZUHlnf
+	z4CcxErJg0TZ9sreYOMJx7ZTSrV88zbZ4NngG2R4aBE/87QHuXHH5Ta0m20rgvfGgIdbr1c18SJ
+	U33VqQRoX72FElWR+VEbMOaIuPtj+nPZl/vpDkqns655mg+meFuH6S+g4I5A==
+X-Received: by 2002:a05:600c:a15:b0:49e:7c7e:274c with SMTP id 5b1f17b1804b1-49ff06bdedamr225747385e9.14.1790687253920;
+        Tue, 29 Sep 2026 06:07:33 -0700 (PDT)
+Received: from fedora41 ([2a01:e0a:1058:7c30:e315:b955:cb8b:b86b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013d2d048sm1584475e9.3.2026.09.29.06.07.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:07:26 -0700 (PDT)
-Date: Tue, 29 Sep 2026 13:06:49 +0000
-Message-ID: <f3880ecc0f95cc12f0b8fbb019f7efef.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 3/9] ublk: publish io->cmd under io->lock in the commit paths
-In-Reply-To: <CADUfDZqDZEM4=uw+By6RnxvLqXbc-iPf8RCUQtQB5_Z_Di84Aw@mail.gmail.com>
-References: <20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com> <20260928-b4-ublk-cancel-stop-v1-3-4a4360232a46@toxicpanda.com> <CADUfDZqDZEM4=uw+By6RnxvLqXbc-iPf8RCUQtQB5_Z_Di84Aw@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        Tue, 29 Sep 2026 06:07:33 -0700 (PDT)
+From: Timo Joannin <timo.joannin@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Timo Joannin <timo.joannin@gmail.com>
+Subject: [PATCH] staging: rtl8723bs : remove dead commented-out 8192e code
+Date: Tue, 29 Sep 2026 15:07:16 +0200
+Message-ID: <20260929130716.61119-1-timo.joannin@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 10:53:38AM -0700, Caleb Sander Mateos wrote:
-> On Mon, Sep 28, 2026 at 9:03 AM Josef Bacik <josef@toxicpanda.com> wrote:
-> > +               ublk_io_lock(io);
-> >                 req = ublk_fill_io_cmd(io, cmd);
-> > +               ublk_io_unlock(io);
->
-> Taking a spinlock for every ublk I/O completion will be very
-> expensive. Is it not possible all paths calling ublk_cancel_dev() to
-> wait for all tags to go idle?
+The rtl8723bs_hal_init.c file contains a commented-out
+call to rtw_write(8) referencing REG_DWBCN1_CTRL_8192E.
 
-I measured it on a c6id.metal (Xeon 8375C) under KVM: an 8 vCPU guest,
-kublk null target with 4 queues, fio 4k randread with 4 jobs at iodepth
-32, ten interleaved rounds of three kernels: for-next, this series, and
-this series with io->lock taken back out of the commit path. That last
-one also drops the second lock/unlock pair patch 5 adds after
-ublk_prep_cancel(), so it isolates both. The guests weren't pinned and
-landed at two throughput levels about 15% apart, so I compared within a
-level.
+A grep of the driver in the rtl8723bs codebase shows that
+REG_DWBCN1_CTRL_8192E isn't defined anywhere else,
+meaning it could never be uncommented without breaking the build.
+Remove it to clean up the driver.
 
-Series against the no-lock kernel, IOPS / CPU time per I/O:
+Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-  plain      -0.04% / +0.7%  (high level)   -0.7% / +0.7%  (low level)
-  zero copy  -0.6%  / +1.1%                 +1.5% / -1.2%
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
+index 6a4a13544ca1..748567059af8 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
+@@ -1903,7 +1903,6 @@ static void hw_var_set_opmode(struct adapter *padapter, u8 variable, u8 *val)
+ 			rtw_write8(padapter, REG_BCN_CTRL, (DIS_TSF_UDT|EN_BCN_FUNCTION|EN_TXBCN_RPT|DIS_BCNQ_SUB));
+ 
+ 			/* SW_BCN_SEL - Port0 */
+-			/* rtw_write8(Adapter, REG_DWBCN1_CTRL_8192E+2, rtw_read8(Adapter, REG_DWBCN1_CTRL_8192E+2) & ~BIT4); */
+ 			rtw_hal_set_hwreg(padapter, HW_VAR_DL_BCN_SEL, NULL);
+ 
+ 			/*  select BCN on port 0 */
+-- 
+2.55.0
 
-Batch mode, which runs the same per-I/O code on both kernels, differs by
--0.03% / +1.2% and +0.4% / +0.5%, so the lock is inside the noise of
-this setup, which is under 1% of about 3.5us per I/O. Against for-next
-the series is +0.4% IOPS / +1.0% CPU per I/O in plain mode at the high
-level. I'm rerunning with pinned guests to tighten that and will follow
-up if it moves.
-
-It's one lock per io that only the task committing that io takes, so
-it's uncontended, which fits those numbers.
-
-Waiting for the tags to go idle doesn't close the race this is for,
-though. The control path claims io->cmd while the server can still
-commit on the same io, and what matters is ordering the claim against
-the commit switching the io from the request to the new command. Idle
-doesn't give you that: a tag can be idle when you look and be re-armed
-by a COMMIT_AND_FETCH right after. That's the QUIESCE_DEV hang on
-for-next today, its cancel pass skips a tag whose request is with the
-server, the server commits and re-arms it, and nothing ever completes
-that command.
-
-Also, ublk_wait_for_idle_io() can't actually wait as it is.
-blk_mq_tagset_busy_iter() only visits started requests and
-ublk_count_busy_req() only counts requests that aren't started, so the
-count is always 0. I'll send a fix for that separately with the
-QUIESCE_DEV work.
-
-If the numbers show a real cost I'd rather find a way to keep the lock
-off the fast path than lose the ordering, so I'm open to ideas.
-
-Thanks,
-Josef
