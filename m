@@ -1,221 +1,258 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CBD450B8AA
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA3250B409
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683538; cv=none; b=kdTrau4FzcbJyOILJaWhV0dTQr1jzoBHnXx3gseSsRh696YxNvV3Yujku6+3qcEoUzKqGRwpcnrEhzO0ylI3oHsqsikV3xlZRzSWLoevhwlePGDoVgAFJeb+f01h+xd/bDzkZxV6TMAdmRHgDkGwdvzkpw6TAg0nBbtnYk2Ttls=
+	t=1790683557; cv=none; b=SELPByw2TUoyJJoAro70SDQXS3tIGC53uBR8BDRLO2tLdab3jmN5K9I9Zt7vk2XpvNkDuN52a4vnLloCLTv17gNCs0VH/xmPdiXsQM+IxSaCnhnsk8xY4e8iBaw6aswnb2T+Ij0GcQmyBoJR7nIr5JWZy+o/86iECTJUgjb/vg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683538; c=relaxed/simple;
-	bh=vUuie+qDqthHWW92rj4hGf4q1VZUQf2gLO+ErZoFFLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QGmFvNIQNBEiutrMkVoseeQupi9OI13EJgeVFyzdXPu6KYoW8a++smCul1HVuzj4cyNkKwIXqsFhyTRb0dIy32lUJf0QCcPzJ3XCcwfinahGAUaZQlhJnccnUbaEjkSzWlQ5fyco0EXQYKqLxRts8Bn5u6gXFip6KwkB33YxRcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=g0qkdzdz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790683557; c=relaxed/simple;
+	bh=KJn8wtQ58M6IA7RKLkz+BlUvNzVHQD9mWFVNqF7gP48=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZfeizSczizhHzn3b/XWSV2qRFj/71VECQwoitTEPkiKq1TrvnceL0Exr1dF13LOegoXNJwxLHkhF+KpIw9ktwr8TwKT1dU1gZkw51vGLfFh6KsdK7MHFpd6HQnQVvciektyQZzkx3TSUrTbw/DPoJ5qd7HhLXcaX27mJHFyHRlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TctaXwUY; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="g0qkdzdz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 17EEE1476;
-	Tue, 29 Sep 2026 05:05:31 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D15D63F86F;
-	Tue, 29 Sep 2026 05:05:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790683534; bh=vUuie+qDqthHWW92rj4hGf4q1VZUQf2gLO+ErZoFFLg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=g0qkdzdzbsZeKr8noK/9BvgTQud9GeBvwH5RO9Gme6oQ8sI2NE6BsYFg8ZKPPBfci
-	 7mLGsbZeU4mu5SC8BFqCJcrOzw0OBVESwX8bzh4xrEb7iaqyU3gotcutZ8Q0cHMPSe
-	 m+WO6RXfTBZ3ySRefZOIAp1o2kNWXmR9FO6IBvNQ=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-mm@kvack.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [RFC] mm: Add KUNIT test for ptval_bytes_to_hex_str()
-Date: Tue, 29 Sep 2026 17:35:30 +0530
-Message-ID: <20260929120530.3394073-1-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TctaXwUY"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so22329205e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:05:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790683553; x=1791288353; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IV0/JgauBCmxyymKqnct/gxcGWYLV4vaqZ3QBeRuQPw=;
+        b=TctaXwUYUJVo6H4+JcNYHxV9h3QKTjxUgJR0QPSg3OYlDH1IzJh93wAc2XhjaWotmJ
+         gdGE4+irrbdbG42dB0bCXmFdjR/95bNACC+qN6MUWHnu5U/KkFITgPhpC/MDeXBiuVmR
+         vfofNU3HdOZl/LYfFG2xu/pc6ZrvHZhcrvKwZ2Eyz8v7lNIHyrlT+DleI5fx6DOHwe6a
+         pffHTrjQd/jDe0LRgUcA/adN/peuv+cxzoN7+xLn0qqbsPBK0uPDZCYIYBVeEcBsmtrI
+         xYTNp5EAz0dOggzCzfDvT3lZq3BcyhDjV50vvWHIW4twwz6R2ir9ySnpWpLU6phUWX+C
+         UEiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790683553; x=1791288353;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IV0/JgauBCmxyymKqnct/gxcGWYLV4vaqZ3QBeRuQPw=;
+        b=j/VhkU3bHSX0QfwqQwf0EH7RkciKaLodZWQlzpBHCnjcX4dfd83Vm71SeYs9ln35xJ
+         nfsNJaBdi+0FblVku0mwFI87aCYUdP97nnixfWRsxdIL9g8I/EhN1uAFR5lvSjOb/EUW
+         WFejpj7Bndy7+lU5IGm04AJ089UB5QXdgcUr8Gaiwma+ZRwZbZmGjVpOemHMuratCRw1
+         G0DsENsfetmS6JexpV/JTNanP1PwvTjMDy84DTcYanQRGoerLrwPalTc81yyHNF0p5Rh
+         AkPcrN6Eisy4rCYd7uRT0NkLQCNkzMlqba5jW2GxFkIz/f6t6CrEDfpYC57yQWeLZ4ef
+         AbsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEjuw4+hHPDyCNHmygH86XyWtTdqECIl5pnhDDAWTYfNi+oxMPo8YDM6RN96wWeZzp1Xk05AQt9SL+x78=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAhuwtjI7/RGgm3X0m3FJ2tfiOeE4Q1UNh/z15vfvsOWZElLYN
+	ok+e5Gp543xAKC5T3dUwVXUQnGCHOrljTmgyt+49SYxa4vGbBNUIeOvXXrtIL6QVLgk=
+X-Gm-Gg: AYBFou0gllo7Chv7bJAc2x09fiUZ0YBLnZaibtTk0h9uX4ILnT047cBGSw6KwPs7Oje
+	/8dqP459wZuoNmv7N/dIwmaarbRa04plnDaSrf9lWC4goPgdRvr1SMkBONDHMwB3Y/qiyoJPF3i
+	qO4ssD2YkKDVbb3bcwJUSICsJ9KNcwJd7RuKhIJeKO8hYK3m5zIy250qjwx35YUQoyfczpfFUga
+	4rghB7nyv01ODOIusJruKdfYUUqTaZnz4UBshj2WmpkAz36U6M4VRs67zDSNwil9H5tfaTZ4CEv
+	pdYU9nJTXMZ6Yw6WOQ2Doz9npS9gpadAA6Mh5TtpsFPRjv1XF8oRqu2W/gFztYYKuM50guv4nJO
+	UJvuX75JluVEdK5K6WsOJ83nAQhJpMooGeujANVD/mf/Ux9XJbImHF0pHbpaNKsAv0J1JWzW70y
+	6NskHOtks7bHhRW073x1+gScSLcmHFi9vsfZKjT+PsOTNmckS0ZBiSVoAbRBWl4s4254embfUdY
+	7HEo0zi
+X-Received: by 2002:a05:600c:5487:b0:49f:feb4:6904 with SMTP id 5b1f17b1804b1-49ffeb46a45mr137208195e9.11.1790683553176;
+        Tue, 29 Sep 2026 05:05:53 -0700 (PDT)
+Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9dd27sm74831615e9.2.2026.09.29.05.05.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:05:52 -0700 (PDT)
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Chris Down <chris@chrisdown.name>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>
+Subject: [PATCH v5 00/16] printk: Clean up preferred console handling
+Date: Tue, 29 Sep 2026 14:05:30 +0200
+Message-ID: <20260929120546.328616-1-pmladek@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add KUnit tests for ptval_bytes_to_hex_str() to verify conversion of 32-bit
-64-bit, and 128-bit (when supported) page table entry values into printable
-hexadecimal strings.
+Hi,
 
-Add a new PTVAL_HEX_STR_KUNIT_TEST option to enable the tests.
+this patchset does some clean up of the code for handling preferred
+consoles in the console registration code.
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
-This patch applies on v7.3-rc5 after the following series
+It is a prerequisite for Marcos' clean up of CON_ENABLE
+flag handling. It should prevent regressions caused by the
+hidden effects of try_enable_preferred_console(), for example,
+see https://lore.kernel.org/r/89409a0f48e6998ff6dd2245691b9954f0e1e435.camel@suse.com
 
-https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
+Also I am working on a feature which would allow to explicitly
+enable/prefer consoles proposed by SPCR, device tree, or
+platform-specific code using a generic "console=platform".
+This clean up is a prerequisite, see
+https://github.com/pmladek/linux/tree/console-platform-poc1-iter9
 
- mm/Kconfig                        |  11 +++
- mm/Makefile                       |   1 +
- mm/tests/ptval_hex_string_kunit.c | 111 ++++++++++++++++++++++++++++++
- 3 files changed, 123 insertions(+)
- create mode 100644 mm/tests/ptval_hex_string_kunit.c
+Note: I split the 4th patch => should be easier for review than v4 ;-) /o\
 
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acbf..f68bf26b98c83 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -1511,6 +1511,17 @@ config LAZY_MMU_MODE_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config PTVAL_HEX_STR_KUNIT_TEST
-+	bool "KUnit tests for pgtable entry string conversion" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable this option to check that ptval_bytes_to_hex_str() is able
-+	  convert given pgtable entry value in bytes into hex strings which
-+	  could be printed.
-+
-+	  If unsure, say N.
-+
- source "mm/damon/Kconfig"
- 
- endmenu
-diff --git a/mm/Makefile b/mm/Makefile
-index e7245cb88c665..d08b8bd01917b 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -147,4 +147,5 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
- obj-$(CONFIG_EXECMEM) += execmem.o
- obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
- obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
-+obj-$(CONFIG_PTVAL_HEX_STR_KUNIT_TEST) += tests/ptval_hex_string_kunit.o
- obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
-diff --git a/mm/tests/ptval_hex_string_kunit.c b/mm/tests/ptval_hex_string_kunit.c
-new file mode 100644
-index 0000000000000..45c203cfb49ae
---- /dev/null
-+++ b/mm/tests/ptval_hex_string_kunit.c
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <kunit/test.h>
-+#include <linux/pgtable.h>
-+
-+struct ptval_str {
-+	u64 val;
-+	const char *str;
-+};
-+
-+static struct ptval_str ptval_u32_tests[] = {
-+	{ .val = 0x1234abcd,	.str = "1234abcd"},
-+	{ .val = 0x4455aabb,	.str = "4455aabb"},
-+	{ .val = 0xccddeeff,	.str = "ccddeeff"},
-+	{ .val = 0x12345678,	.str = "12345678"},
-+	{ .val = 0x87654321,	.str = "87654321"},
-+	{ .val = 0xaabbccdd,	.str = "aabbccdd"},
-+	{ .val = 0xaa44cc66,	.str = "aa44cc66"},
-+	{ .val = 0x11442266,	.str = "11442266"},
-+};
-+
-+static struct ptval_str ptval_u64_tests[] = {
-+	{ .val = 0x123456789abcdef0ULL,	.str = "123456789abcdef0"},
-+	{ .val = 0x113355779abcdef0ULL,	.str = "113355779abcdef0"},
-+	{ .val = 0xaabbccddeeffaabbULL,	.str = "aabbccddeeffaabb"},
-+	{ .val = 0x1234567812345678ULL,	.str = "1234567812345678"},
-+	{ .val = 0x0000000000000000ULL,	.str = "0000000000000000"},
-+	{ .val = 0xffffffffffffffffULL,	.str = "ffffffffffffffff"},
-+	{ .val = 0xaa00cc00ee00aa00ULL,	.str = "aa00cc00ee00aa00"},
-+	{ .val = 0xc0ffeec0ffeedeadULL,	.str = "c0ffeec0ffeedead"},
-+};
-+
-+static void ptval_hex_str_u32(struct kunit *test)
-+{
-+	char buf[PTVAL_STR_MAX];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ptval_u32_tests); i++) {
-+		u32 val = ptval_u32_tests[i].val;
-+
-+		ptval_bytes_to_hex_str(buf, sizeof(buf), &val, sizeof(val));
-+		KUNIT_EXPECT_STREQ(test, buf, ptval_u32_tests[i].str);
-+	}
-+}
-+
-+static void ptval_hex_str_u64(struct kunit *test)
-+{
-+	char buf[PTVAL_STR_MAX];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ptval_u64_tests); i++) {
-+		u64 val = ptval_u64_tests[i].val;
-+
-+		ptval_bytes_to_hex_str(buf, sizeof(buf), &val, sizeof(val));
-+		KUNIT_EXPECT_STREQ(test, buf, ptval_u64_tests[i].str);
-+	}
-+}
-+
-+#ifdef __SIZEOF_INT128__
-+struct ptval_128_str {
-+	u128 val;
-+	const char *str;
-+};
-+
-+static struct ptval_128_str ptval_u128_tests[] = {
-+	{ .val = (u128)0x1122334455667788 << 64 |
-+		 (u128)0x123456789abcdef0, .str = "1122334455667788123456789abcdef0"},
-+	{ .val = (u128)0xaabbccddeeffaabb << 64 |
-+		 (u128)0xaabbccddeeffaabb, .str = "aabbccddeeffaabbaabbccddeeffaabb"},
-+	{ .val = (u128)0x0000000000000000 << 64 |
-+		 (u128)0x0000000000000000, .str = "00000000000000000000000000000000"},
-+	{ .val = (u128)0xffffffffffffffff << 64 |
-+		 (u128)0xffffffffffffffff, .str = "ffffffffffffffffffffffffffffffff"},
-+	{ .val = (u128)0x1234123412341234 << 64 |
-+		 (u128)0xabcdabcdabcdabcd, .str = "1234123412341234abcdabcdabcdabcd"},
-+	{ .val = (u128)0xc0ffeec0ffeedead << 64 |
-+		 (u128)0xc0ffeec0ffeedead, .str = "c0ffeec0ffeedeadc0ffeec0ffeedead"},
-+	{ .val = (u128)0xa5a5a5a5a55a5a5a << 64 |
-+		 (u128)0xa5a5a5a55a5a5a5a, .str = "a5a5a5a5a55a5a5aa5a5a5a5a55a5a5a"},
-+	{ .val = (u128)0x4455445544554455 << 64 |
-+		 (u128)0x2233223322332233, .str = "44554455445544552233223322332233"},
-+};
-+
-+static void ptval_hex_str_u128(struct kunit *test)
-+{
-+	char buf[PTVAL_STR_MAX];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ptval_u128_tests); i++) {
-+		u128 val = ptval_u128_tests[i].val;
-+
-+		ptval_bytes_to_hex_str(buf, sizeof(buf), &val, sizeof(val));
-+		KUNIT_EXPECT_STREQ(test, buf, ptval_u128_tests[i].str);
-+	}
-+}
-+#endif
-+
-+static struct kunit_case ptval_hex_str_tests[] = {
-+	KUNIT_CASE(ptval_hex_str_u32),
-+	KUNIT_CASE(ptval_hex_str_u64),
-+#ifdef __SIZEOF_INT128__
-+	KUNIT_CASE(ptval_hex_str_u128),
-+#endif
-+	{}
-+};
-+
-+static struct kunit_suite ptval_hex_str_test_suite = {
-+	.name = "ptval-hex-str",
-+	.test_cases = ptval_hex_str_tests,
-+};
-+kunit_test_suite(ptval_hex_str_test_suite);
+Important: An extra fix is needed to get the Braille console
+	working on a serial port using NBCON API, see
+	https://lore.kernel.org/r/20260922072558.98854-1-pmladek@suse.com
+	https://lore.kernel.org/r/20260925141729.173943-1-pmladek@suse.com
+
+
+Changes against [v4]:
+
+  + Removed 1st patch from v4. Already in upstream.
+
+  +  Cleanup _braille_(un)register_console() wrappers already in 3rd
+     patch. is_braille_console_preferred() will be needed sooner.
+
+  + Split 4th patch. Start with reshufling the add_preferred_console()
+    code without any functional changes. Add the various checks
+    and behavior changes one by one is a followup patches.
+
+  + Rework the code to make it clear when it is a new entry or an update.
+
+  + Put back braille_set_options() which just updates the optional
+    entry. The logic when the value should get updated is the same
+    as for pc->options.
+
+  + Make sure that options can be overridden by the command line.
+
+  + Add preferred_dev_node to remember the ordering of preferred consoles.
+    Use it when the last one becomes Braille. The previous version tried to
+    remembered just the last preferred console. But the logic because
+    pretty complicated when I tried to make it error proof. AI was
+    able to find many scenarios where it broke. The list is
+    the ultimate solution and is easier in the end.
+
+  + Use console_call_setup() in braille_register_console() instead
+    of duplicating the code [John]
+
+
+Changes against [v3]:
+
+  + Move the handling of pre-enabled consoles into register_console()
+    as 1st patch. It prevents a possible invalid access. [Petr]
+
+  + Move the code for handling pre-enabled to console to
+    try_enable_console() in 7th patch. The resulting code
+    is the same as in v3.
+
+    This 2nd move was not needed in v3 because the code
+    was moved to this final location later. [Petr]
+
+  + Switch order of the 10th and 11th patch. Aka make
+    try_enable_default_console() return an err before
+    refactoring try_enable_console() call
+    try_enable_preferred_console() only when there is any.
+    [Petr]
+
+  + Initialize err value in try_enable_console() in 11th patch.
+    It prevents using a non-initialized variable. [AI:gemini-3]
+
+  + Make sure that pre-enabled consoles won't get registered
+    when something went wrong in try_enable_console()
+    in 11th patch [Petr]
+
+
+Changes against [v2]:
+
+  + Move static_assert() after declaration (1st patch) [Steven]
+
+  + Rename update_preferred_console() to add_or_update_preferred_console() [John]
+  + WARN_ON() when called without "name" and "devname" [John]
+  + print error when reached MAX_PREFERRED_CONSOLES
+  + Add comment above code adding new entries [John]
+    (all in 4th patch)
+
+  + Call console->setup() under console_lock() in braille_register_console()
+    (new patch) [Sashiko]
+
+  + Use "No functional changes." phrase in commit messages. [Steven]
+
+  + Call try_enable_preferred_console() only when there is no
+    preferred console (reworked and split 9th patch) [Petr]
+
+  + Added taken Reviewed-by and Acked-by tags [John, Macros]
+
+
+Changes against [v1]:
+
+  + Fix stale comment (1st patch, Chris)
+
+  + Add comment descibing update_preferred_console() behavior (3rd patch, John)
+
+  + Better describe behavior changes caused by update_preferred_console()
+    in the commit message (3rd patch, Chris)
+
+  + Use unsigned int for iterating/indexing preferred_consoles[]
+    table (3rd patch, John)
+
+  + Add a check preventing an update via "devname" is already assigned
+    to a real "name". (3rd patch, Petr)
+
+  + Use only Braille entries when trying to enable Braille console (Chris)
+
+  + Split all try_enable_*console() calls into new try_enable_console()
+    and return early when try_enable_braille_console() succeeded.
+    Note that we do not longer need to initialize "err" variable
+    in this case. (new 5th patch, Chris, Petr)
+
+  + Put back the explicit check of CON_BRL flag in register_console()
+    so that it returns prelimitary only when the driver is used in Braille
+    mode. (6th patch, Chris, Petr)
+
+  + Add comments explaining that try_enable_braille_console() might succeeded
+    also when newcon->match() succeeded. In this case, the Braille mode can't
+    be used because the console device was already used as an early console.[*]
+    (6th patch, Chris, Petr)
+
+  + Reset preferred_dev_console_prev when used to revert the value.
+    (7th patch, John)
+
+  + Add Acked-by and Reviewed-by tags (1st, 2nd, 4th patch, Chris, Marcos)
+
+
+[v1] https://lore.kernel.org/r/20260206165002.496724-1-pmladek@suse.com
+[v2] https://lore.kernel.org/r/20260423130015.85175-1-pmladek@suse.com
+[v3] https://lore.kernel.org/r/20260602085312.228251-1-pmladek@suse.com
+[v4] https://lore.kernel.org/r/20260604101459.393162-1-pmladek@suse.com
+
+Petr Mladek (16):
+  printk: Rename struct console_cmdline to preferred_console
+  printk: Rename preferred_console to preferred_dev_console
+  printk: Cleanup _braille_(un)register_console() wrappers
+  printk: Separate code for adding/updating preferred console metadata
+  printk: Prefer the console either via name or devname exclusively
+  printk: Check that index is not defined when a console is preferred
+    via devname
+  printk: Ensure consistent name and devname when updating preferred
+    console
+  printk: Do not quietly ignore adding entry for a preferred console
+    when there is no space
+  printk: Allow to override options via the command line
+  printk: Allow to debug misuse of add_or_update_preferred_console()
+  console/braille: Lock console->setup() call during the registration
+  printk: Separate code for enabling console
+  printk: Try to register each console as Braille first
+  printk: Do not set Braille console as preferred_console
+  printk: Modify try_enable_default_console() to return error/success
+  printk: Try enable preferred consoles only when there are any
+
+ .../accessibility/braille/braille_console.c   |  17 +-
+ include/linux/console.h                       |   1 +
+ kernel/printk/braille.c                       |  20 +-
+ kernel/printk/braille.h                       |  22 +-
+ .../{console_cmdline.h => console_register.h} |   9 +-
+ kernel/printk/printk.c                        | 414 ++++++++++++------
+ 6 files changed, 326 insertions(+), 157 deletions(-)
+ rename kernel/printk/{console_cmdline.h => console_register.h} (74%)
+
 -- 
-2.43.0
+2.55.0
 
