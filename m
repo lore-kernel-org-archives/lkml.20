@@ -1,64 +1,64 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715704FDA63
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2244FDA42
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675348; cv=none; b=bYaZpObxcUo4h5438w3anaIyJi4XXiOFQmyZMyPPEImiMyD0SymiFes0veBRby/tBL1kVhiDQa/Ue2MF2yEiTAmufhc/D3c0xORvJ8xQWWIIkuepRlN0nFLGLhnF+4MZx5V4Gays/rnCfbyYc5SozkhoB/B4EwxIcgrK41FmNF4=
+	t=1790675350; cv=none; b=m0uoXvniqU3zfPoXDuGHoJ6dJ15tBTa/sioI17XiUlB9Z8TtK4Zi72/3WTARvxx1B5REZKAGEFWE98pgypK4if/4bqraQt2E3aJN4mRuFr1Bq1DAGeWOo56pjXlwoZDYg2IO8Uk9NYOgAFjc1yIXH5gIVAky6UKpK5k4VZ9sMAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675348; c=relaxed/simple;
-	bh=iqpbgIcuh9iCNLrVRX9mzEdLHHas24ifzA5YROCsukA=;
+	s=arc-20240116; t=1790675350; c=relaxed/simple;
+	bh=4mtz3F9XvkhZzi1HVdRKJIb48VIOMWlFxg7+FHKbMzM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZXUm5/g2+PIFrquZWwi0EkSGzScNqExmNK4xD7s4Nch1EoCu9UHTICo8Fp/CxpeWcn4U3IsnkJgGJ7fb0ebSLZ+Qo5DcfL5AIK2Qj5AHPeZ+Fs6ykb8G2qMb6vhiTDllZgJ0gZZV92sOzYNlPr40Yex0WPetO3NR1eXG/zDNzR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qia0z73Q; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=CFu62onyeknb2ZLUb8fSOu/WRDHVQq/VSHshqwWJdgnaR0soZq8lCqu3T0CISjbFLa7apvfa+d3k89wsIRe3EhuudPuhTIr7/sGfCNF0fW7AcCcZ4cUdPnB5kvNQzsxMphpp9092G5oZN2IQq7MAYeJmxmxCwv2+LBqob83f0Ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IsG3Ikxn; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qia0z73Q"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so24596845e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:49:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IsG3Ikxn"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so29649745e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:49:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790675342; x=1791280142; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790675344; x=1791280144; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hyio1wh95j9ctU9oUBQpxlfVjmmC3Y8u2BtQy9SpKZE=;
-        b=qia0z73QzLpAIv+K8rlTXHfSiRLSleR3pKNKYHmD2UKy0pxHqu25+neIpqSku+SBfz
-         EL8TauKzaCPvmdBXimGPqQ1bP8Pgx7gtA0vn6MHdfnU0UvH7UIDTiDq8JooA76lNKl4K
-         Wg5j+95r+s2F+COdVEJ4np6uAWmAZDq1DvIxyQ4uWfdEKcwcalAkI9/p2lfWConzs+ee
-         vPILN7XZ/Kjnt8sgoNP4ugnBP9pbcP6X2DZ8tNKaBLyzqrxYtsXyjq5UQrGfDml6h9R5
-         K0ZgGGOmPCOE1BuKUYyPSLlKDfvpl+dwrHRFi26DiavSNjyPnSOEq91N8FqIAnYGLruU
-         SiNw==
+        bh=bzjWScFRE8+J0efyr1jf3tpnLnL6de369Jd4yW9gblM=;
+        b=IsG3IkxnmspscEq/vGOvzKGaqAL0/P/zmEI8ysqzU9SL47ofyN7EeG7fQpZ8p/zgNI
+         ClOOELnSpRrsl3KGyDt7tlDlpicpdEwV9CgiCH9smQB9yDU/jsAMtpEmVnP/TboL9WuY
+         y2XmfZ8juIi4SmEDSYQLWM7utMjiZk20oUSFH5orbuqVB5JLn1KYdYFSE0VG5e6IjnDU
+         hEaL4oVvNe7g9I9drfEvOz9XNWKYOGg2AIreQ/LJiR31XoskqrdcfVdfARlZR6DSzUX9
+         NcZ5qJ6KyHNh4DUSZ7IGVZdguddMX1uVB1rlJcH3VU+wfWxFXVXvpMzHEe6DeV8facVi
+         rjWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790675342; x=1791280142;
+        d=1e100.net; s=20260707; t=1790675344; x=1791280144;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hyio1wh95j9ctU9oUBQpxlfVjmmC3Y8u2BtQy9SpKZE=;
-        b=2qjc0vhzTY7jRn+hirTbEiSM4XzbdpQ+8dPlGsc8W9yrincNFg5Kx8K6O3uj77TnPh
-         gsQvA1wHcfPZAcCzhpKexLR0uEKzY1tuDpOQf79IZXY97dhYa6csGb/gcMJ45Uivuxm1
-         g9B6FW+jlH49PSHsJv3T+hhuuIM5WhFPZVWNb3/no9rRVpSIlkBPAl88ocFl0yotpobj
-         drRKqY/z6C1oVDpHcf8T07C+y+1Gliesnmbhfa3IgP9dUq2aRiaYKOWcImElYOrJT/a9
-         IbgdE2PVpsFbUiAwLkNNJi5mjvCZ6UnK5KaCrPe22MbjY6VM7v0yjVVwVamF+MUj7jl7
-         Q2OA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSCGEmVrof8tq6LqNXCyw7ueUwxIO2+wq/dPAbvUA+7tx0sPW4Peftt0FpMfGMFkJ19WfVNnBHgkU5zW8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nur9P7aQt9X/KhG8sppLBNX25bLunEILMQxHx6hLNVAU1B+Ogc
-	S3RJwpKis9hKdnix7oBAzoT8iBgPpvVD0KjyFdxyrH6/Mms+oqaeniaQ
-X-Gm-Gg: AYBFou3yA2m+VrLYX9VDEDPIRC0YSe+Hczt6vmGp5sX8l5oVivwKcWS61V1FGCQ/CdO
-	Wn3Y92PESE0QFyXK0g6NL4xtT/CAr1EMhzxpHVXjqlA5ZilRjtaUWSR/4rYAQlCvFcPkY8en9aC
-	n72dc+jQLnBlqrE385PCGYKQn/+PQARlk3KWScGNAi81Gc6g1A4Fzo7BpHtwurUgLuED59nO6yv
-	UwyV9QtH/nA75p3HOyAoMXIeDtPsgZwpIpztcdrteN5M8ykDjRFvkFwbI9BhRGZhKl98Wr16RLz
-	qUm8e6oZzlhRJaFOxHrx3fDhG2gM0peum1Mi+Dww1+Dyshq7+YVoAnDznOdVx0NGC69CC8WVCkQ
-	s2WD5QhFiJoQuin90+qUZzHZGhemSW8FNgwj3i69W3/BgqJcvjcovgA3rl5jGm4he8nRveuz1wV
-	BI91yEq4YEd81RKs0BGOVDcYh5DTDBcbxdgmouo6nBE4ReMyh0MDE37bKbaTKPyewexxRytNKSV
-	Jeb
-X-Received: by 2002:a05:600c:4504:b0:49f:ff09:3b57 with SMTP id 5b1f17b1804b1-49fff251664mr125841895e9.10.1790675341793;
-        Tue, 29 Sep 2026 02:49:01 -0700 (PDT)
+        bh=bzjWScFRE8+J0efyr1jf3tpnLnL6de369Jd4yW9gblM=;
+        b=w/BC+TyidlLuzZYBhteWVeHlY6u7FfXQP/ZMH++g2fg3vjXg/V7ahZYGoZ+ZeWhugY
+         uUxBjncrkJY5umSIFA+BsF4Qe/ANrh8LWsNm2Q0lrmU37H7+/XeRTZesl+f3xP7bMmrW
+         P+AZYjoOda5L1D2qNI8+CCy+T3cihdBKT744QG1pLFXAudUdmRcpKCBOlY9QIPlSgP84
+         EAJnd6STaburNbdzYjY2WwdalBBjcIBFUTtMDFayZCYZkizqiGkZ0m9wUzjVjq0uSOIT
+         Ax9JoD/XkQwR0/jtGSdOHRTpeDnSAc5MYByROvS7bduG00gbAk0FPgAtZwY6o3NZ0b1d
+         mvog==
+X-Forwarded-Encrypted: i=1; AKwUvBw8eMpVPUDPY0e73gV3kCijHb5ZrTi2MeNdg2Cn2X9MlGiqosgw3k3JUe27ZM7bAOubYVQ0dnveTro4/Xc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwvLFIPjJkwGmpVHkGCijB0W/jZFOLOHd4JecmmwMQTJ5N5wNI
+	hrPOpl4FdjmCkqnV37vh8VABMDxXp0kzUr4wV/6GCvUEo9Q7pP4xQYln
+X-Gm-Gg: AYBFou0g+QQMQlXtdy43Qo/kwOf28vC3NHmaaZ11Hlf7JVbsc0Y0xz1mA9AqYpiRFAn
+	zVfN+v+QbqIU7N4nxaiPBMEQUO31daDJi+ONDDRmlRRnP999N2Hp8//NmhVtfrvhgXaao16o/Fn
+	4ORApK15nRx6sBm3HYS+Prrqdyy5uKXlsiOi0secEGWajcmrN8B7PsIIy4IOC6zrmcxlHfMYEyX
+	CsXaI6qlxBhWB8qCHuf8bDACo4N8I0HpiZhj0BXa7r4dG9gGuq9S9A3vk1LeSM+zFD+hf39APA6
+	BOXdr7qXG+WcH62h6/CvoOvTC+U4zIvMJxLucuc+o0kNA7PLuCxlAcaqCiOk8diiWgp0DgYwfc8
+	i9P3l14oWFefqkOkKdNISXoEX9I8wcqrHfTb3eCDNUTtfrhVkuYP+5Wf3bKT7o56BZMeuqxi8YQ
+	xyaiWiVd+QmINBvGqsljGhsPoG2R8+JKR5m/v6XNyjUnQ2B4XOPrfwZhE2GIGY1/NgtyrOxwgPb
+	ZH3
+X-Received: by 2002:a05:600c:34d4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49fe66d1279mr239605565e9.10.1790675343795;
+        Tue, 29 Sep 2026 02:49:03 -0700 (PDT)
 Received: from SurHub.localdomain ([196.188.113.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm89821455e9.9.2026.09.29.02.48.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm89821455e9.9.2026.09.29.02.49.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:49:01 -0700 (PDT)
+        Tue, 29 Sep 2026 02:49:03 -0700 (PDT)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
@@ -69,9 +69,9 @@ Cc: alex@shazbot.org,
 	ioana.ciornei@nxp.com,
 	nipun.gupta@amd.com,
 	nikhil.agarwal@amd.com
-Subject: [PATCH v2 4/7] vfio/platform: keep logical vm_pgoff in MMIO region mmap
-Date: Tue, 29 Sep 2026 12:48:45 +0300
-Message-ID: <20260929094848.7439-5-suruurism@gmail.com>
+Subject: [PATCH v2 5/7] vfio/fsl-mc: keep logical vm_pgoff in MMIO region mmap
+Date: Tue, 29 Sep 2026 12:48:46 +0300
+Message-ID: <20260929094848.7439-6-suruurism@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929094848.7439-1-suruurism@gmail.com>
 References: <20260929094848.7439-1-suruurism@gmail.com>
@@ -83,7 +83,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vfio_platform_mmap_mmio() overwrites vma->vm_pgoff with the physical
+vfio_fsl_mc_mmap_mmio() overwrites vma->vm_pgoff with the physical
 frame number of the MMIO region and passes it to remap_pfn_range().
 The VMA is inserted into the device file's mapping->i_mmap interval
 tree keyed by vm_pgoff, which VFIO expects to be the logical file
@@ -102,26 +102,26 @@ vfio/cdx call unmap_mapping_range() today, so no reachable
 stale-mapping issue exists.  Keeping vm_pgoff logical preserves the
 VFIO core contract for any future revocation path.
 
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
 Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
 ---
- drivers/vfio/platform/vfio_platform_common.c | 5 ++---
+ drivers/vfio/fsl-mc/vfio_fsl_mc.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/vfio/platform/vfio_platform_common.c b/drivers/vfio/platform/vfio_platform_common.c
-index ab531318f170a..e8cfa76ad7f87 100644
---- a/drivers/vfio/platform/vfio_platform_common.c
-+++ b/drivers/vfio/platform/vfio_platform_common.c
-@@ -559,9 +559,8 @@ static int vfio_platform_mmap_mmio(struct vfio_platform_region region,
- 		return -EINVAL;
+diff --git a/drivers/vfio/fsl-mc/vfio_fsl_mc.c b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
+index 5a6cd78dcc06a..15b05b8c0c908 100644
+--- a/drivers/vfio/fsl-mc/vfio_fsl_mc.c
++++ b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
+@@ -369,9 +369,8 @@ static int vfio_fsl_mc_mmap_mmio(struct vfio_fsl_mc_region region,
+ 	if (!region_cacheable)
+ 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
  
- 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
 -	vma->vm_pgoff = (region.addr >> PAGE_SHIFT) + pgoff;
 -
 -	return remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
 +	return remap_pfn_range(vma, vma->vm_start,
 +			       (region.addr >> PAGE_SHIFT) + pgoff,
- 			       req_len, vma->vm_page_prot);
+ 			       size, vma->vm_page_prot);
  }
  
 -- 
