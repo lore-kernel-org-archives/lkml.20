@@ -1,61 +1,62 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C10559CB5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286F655C320
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707671; cv=none; b=taEInSQXGiE2gXFNlXNrOtqNBRLlcK/yTdwStCU4jg8n03Nxc1t7DXhmB9PXp96XcDsW0JJHb3lTQ4vIrcrcAgFj3FxMong9HraRcQp7WkaIDywaiP3MpIi4Fwf3CqY8/yaj3p1wChvX8dU6SwcNIGI9GbRhSCh5AA4aHJ0v+v8=
+	t=1790707674; cv=none; b=QtfuPb76RqGWRjyf/DmhZfyKos82OHIi/POPg6rVZqbwYAkimsg1xfcCKuuKWTArET/SyzB4F7li8zlhsiaIGjlCvRAjKyyOwRn3vub5sG8mSeUyzEKdXkk304gRzUygikT59d5pocJ32+DVj/RtVOaMl6SZjA6O8CXJO7t86XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707671; c=relaxed/simple;
-	bh=EfN4DRQ7RGeIckCzz0l9GMwp+1v5qtliTwAQlB4LR8s=;
+	s=arc-20240116; t=1790707674; c=relaxed/simple;
+	bh=01L+QQECHra3xXDUIkDulIcHYQjusCnd2MqkIHFu46o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T3SaMAj8p91JxarhneAjg3a33h4VkrJ+TCjeUSmsJ3G56+q4yWe50cKnBTVOE12qN7tybLP67SAPz5xxGf6zeXjrveyfn74Z9u9D/GZr+/dS4KZesWkyTGL+OPzqV3XyR5DulFCEj1w1mvP54debKYgCqKJ8ewIBIL6PDBEH9xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=guhqNydw; arc=none smtp.client-ip=74.125.229.170
+	 MIME-Version; b=o7RLviJPEsYW0ZMHA19XK9bXWWMbXil6+bv6fYPCmnTxFFypaw9vJy+mA1mskFrpBlMQGWGK4Ib4Llv1GC4M8xhxZXNJEcR1E0CuI4D9cZ/Wnh0KJnQBgN2bjOPlyUYU5A8U/siqF06+ojIWceleIfLxXXJqt+JkxPvsOWOrr48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=l4J1Oh1x; arc=none smtp.client-ip=74.125.82.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="guhqNydw"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144efd1ea76so2716838c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:47:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="l4J1Oh1x"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3115c4451c8so945160eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:47:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790707669; x=1791312469; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1790707672; x=1791312472; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Nc0gE7Gombl2PMFQGXcyIkbha/LFCYb67kK5kCWn/0A=;
-        b=guhqNydwZBBeh+DNGU+7czrZ1GEdDFWXps+BTuK/k3OOfIk55GJzgw349vYbAZS4/M
-         8lgrwKRZhLlJwrvxvnVnlCQMsyQWIqtSUQjDMefEqgr/gY5EwmCQXeVztMC2fEO56vZQ
-         kq9gaRNo+1nZGdQ8dD8mkyPgqL7koFN3cFJhc=
+        bh=iw97L1f7Zvhgrq8Jgnb3mPTr/+Xzqez0KSXoOwEr4YU=;
+        b=l4J1Oh1xwO0SH5PP/SemGW/zVO1nJYGkcYUQu7lXx2knuuQop385nn5xVAdK4qckvR
+         2bkb3pJhmvlWU8OWyrRP6vYGqtHutxsefEB4oLOkacjRkJPeIla0k9s4VRGuuKXRfY5x
+         YzR3G7p6CXNJ6SHmjpC/63qB4+qF7iFZmvH0k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707669; x=1791312469;
+        d=1e100.net; s=20260707; t=1790707672; x=1791312472;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nc0gE7Gombl2PMFQGXcyIkbha/LFCYb67kK5kCWn/0A=;
-        b=c9OMwH0x+NDkbuQulWUrHhZ/1i2IE1aI0seP8H1ykcQXmhU8rfJzC5bbGNUItxw46o
-         8L93JAdsjQDgLiBwvaXWqG2K7AZggfgd+ENlUzuAFx+Km0kHpJ9X7aXvfPGIvHQVUuRy
-         QtoNQf7uWOKLsXP6P8Jy7ilARSU5q6l4H2ouSHM4qH33J3vQsNPmUXQrw/fRqMjPbdA+
-         wP1p4RY6vtBCJFpPYY13nkdH2yqXxsc/4H3NX25S1VolgOX39uBNYdSAg7l8WQP4eqm/
-         Odq+XFCkAS4FuNZOd3CkYeXkLx4J3Xr+VRz7qesMwqbBzwplWgWcwcdnrnVLu50nENdb
-         VMMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwCo0ACadD3p7wFBo0SgmMultgjXJI8w5Xjo6Ds4Agi/VQYxh7RZSwgAQPTnrMKBPxpuUz2Bjq3x3f7iT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkYDd0saYGsNdylU1bk+YZhKEmyPF/ZyndQjhlIhC1CVnJp3F2
-	1GIqj5bd00+dBCz2QlEwiNvg3KDnjzgP7Tq0wyNjKNxgoGuXJoe+9Bi6RNRZ9Fw+MQ==
-X-Gm-Gg: AYBFou0Rf/396Fjb2HceES0CVHWOgUWNr251JJgrO4Ardt1oIx8qc6APWb/bugbcmma
-	rwR8pHb2mQ0f95AIdLlZ6f1vDqpP8+7nhB85FMcuOItzhkEDCtCMchPB7ZqwXAG3R6Ooahv8pyO
-	UNLYVK7JtUkxUwqNLX8A8fZs3WTP5cogR262bTylyzSGtHvyystqkE0RVr3nvtQBWxsFjql9AXY
-	EbVdxlbShyXPbE2ABc2+bG96fwzH+eK2uDJzFEdhtxa02avqKeeqZAJPVuFOkcfUwrPQFoxBagz
-	IUXTRyYpA8+JTO1gB5L7VMvzn1myxmt7Q7YlQz9/YHfYao4WSpzzG5FrAqvvEEsJZuJyAPojHPF
-	xryTkahcZZkc/4VVqYEpjsZoeA2c/tqKuv+Ot3CiEj0HO0YKoYTTwoLfq1Z24gNzGviycSf52XK
-	8bkzdwGdkCAjoZKccE9/+4vy8aG0youLOPo4yOFeeXRJ8dHMTT2HgA66925PsegGCgYVR5P+196
-	3jHuvTl+yyLHm1mykbU7r/avlUGUVvqm2UeTvabtAZooXk=
-X-Received: by 2002:a05:7301:4882:b0:34b:f279:2c29 with SMTP id 5a478bee46e88-34c65a742damr266421eec.13.1790707668531;
-        Tue, 29 Sep 2026 11:47:48 -0700 (PDT)
+        bh=iw97L1f7Zvhgrq8Jgnb3mPTr/+Xzqez0KSXoOwEr4YU=;
+        b=Dzg8TOQ4WDhcPFn27I/UFmqoBT7qXExpiA5qr1O8iR/FIYNaxPgE/GN08G2FilbWwg
+         Y/s9kJTJK5xq8Pmjwd0764lK8CpzBR+vDyaw4192HBkqpeaFx+29OFyABY/gTeN4OBcs
+         DOrLJwY76dzy7pO6boLLGUQ83YQ/V42zzcsWc19QBgB4+1zZ6mCB53jYePhSsHS5PG+Q
+         j+5ZamsDh8w8NpD6lXT5jZWeau9IdDqZOhLPsyE8ztX0FtZDLd89mMasi8gR/QILzuSS
+         LJKEWt0or3J4hn1T923hazVzQa/2K9AZrHndhkQ8eCooYA9JN6f+3qBqbURgnmVR7KgQ
+         71RA==
+X-Forwarded-Encrypted: i=1; AKwUvBxUj94u66opeF/l/3t8AwZ+F8rQg30yvxCbclS7T3vQAzaI2ipl5gv04/AvhaU7hFjbSmCZs8e5mgzhLuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnVYDYDxrCODNZZ6ZmAFS3zR24lx3JHDV1rGeaGYMwnoLOjMp4
+	sxZlVKlareKaSweUc5f2m4Qq0szs6j5B0QCXwJknRtGeoYyw4e7D2W8Z55/EDVfb0/v5G+x2zwl
+	SdCM=
+X-Gm-Gg: AYBFou0jYHkHO4xj6PdOJfElfVwMo314Vw75y0V3knsyALWZC5blSAP9Lo7psL4PsHM
+	+hU/oliaopbGCpob3eEO3TlBDXm+l/5GGE/B1H1i+ZWPAIGJksqjXDE96T4RsKSpAfkmm2nGkvW
+	Yi7HsaYbWiQPiEdMGpP08tO1SR331FzqNKoNum1Frjtw1nLpAb6kLDNePDto/qB0ZunuCzUUJ6W
+	ipQdn1DFdB6FcVzy53314coKSNz8z1vXbcJHvm6p/vDu0wmX9vuUXq7O9v+i4itgMgnhPtJ/W+D
+	8P/cHrzQmNfItRecfxbFPllxxGLkjygkeqXbyNtNHEjiVZ0grXdAQscVi9HAEYmUySnx4z1/pQF
+	o0D2bUpt4BFPKjz0ouexXzp8582NdkQ9WOEmUZoARYdFuUsjwoVm13w3HD12itCA4Kgo7mYhcLv
+	68eiViMMRdrcrW7QViu/sVDkgzhMn9naNRZiuHsW761qmFAwKBs2RlGNE4oGUWkx4OuYvWGvUjk
+	icDYg/eUE+X5Mqb7OzFkXopx7Za8Z6APHdr
+X-Received: by 2002:a05:7301:db18:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-34af9606139mr3743921eec.23.1790707672135;
+        Tue, 29 Sep 2026 11:47:52 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:5f5a:aa9:d06d:b4a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34c388c76c1sm1004071eec.19.2026.09.29.11.47.47
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34c391e25e1sm904778eec.30.2026.09.29.11.47.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 11:47:47 -0700 (PDT)
+        Tue, 29 Sep 2026 11:47:50 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>
 Cc: Ulf Hansson <ulfh@kernel.org>,
@@ -66,9 +67,9 @@ Cc: Ulf Hansson <ulfh@kernel.org>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	linux-pm@vger.kernel.org,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 3/5] PM: runtime: Add test for autosuspend-rearm
-Date: Tue, 29 Sep 2026 11:47:13 -0700
-Message-ID: <20260929114714.3.I7104ceb30c7a54ada598a7a37806432997216cce@changeid>
+Subject: [PATCH 4/5] PM: runtime: Synchronous suspend when updating autosuspend
+Date: Tue, 29 Sep 2026 11:47:14 -0700
+Message-ID: <20260929114714.4.I1efb3320288521918bec038f24a69f1712af75dc@changeid>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20260929184729.2346769-1-briannorris@chromium.org>
 References: <20260929184729.2346769-1-briannorris@chromium.org>
@@ -80,111 +81,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If runtime_suspend() fails with a transient error (e.g., -EBUSY) +
-pm_runtime_mark_last_busy(), we intend to rearm/retry autosuspend. Add a
-test for it.
+When updating autosuspend settings, we request synchronous autosuspend.
+This is sometimes a best-effort action, because we don't know if there
+are open reference counts for the device. In other cases, we expect this
+to be reliable -- specifically, on the teardown side of
+devm_pm_runtime_enable(), which calls pm_runtime_dont_use_autosuspend()
+to (among other reasons) ensure the device will immediately suspend if
+possible. (See commit b4060db9251f ("PM: runtime: Have
+devm_pm_runtime_enable() handle pm_runtime_dont_use_autosuspend()").)
 
-This is a regression test for the bug fixed in "PM: runtime: Avoid racy
-clock checks for autosuspend-retry".
+However, synchronous rpm_idle() does not flush pending suspend requests
+-- it simply returns -EAGAIN. This is noticeable as a small race
+condition in the following sort of scenario:
 
-Example invocation:
+	/* Last user drops its references, and queues RPM_REQ_AUTOSUSPEND */
+	pm_runtime_put_autosuspend(dev);
 
-  $ ./tools/testing/kunit/kunit.py run --kconfig_add CONFIG_PM=y \
-      'pm_runtime*'
+	/*
+	 * Next, driver is unbound:
+	 * --> driver remove()
+	 *  --> devres teardown
+	 *   --> pm_runtime_disable_action()
+	 */
+	 pm_runtime_dont_use_autosuspend(dev);
+	/*
+	 * --> rpm_idle(RPM_AUTO) may return -EAGAIN, and the SUSPEND
+	 * request may still be pending...
+	 */
+
+	// Indeterminate device status: may be left SUSPENDED or ACTIVE,
+	// depending on a race condition.
+	pm_runtime_disable(dev);
+
+If we use synchronous rpm_suspend() instead, we will properly wait for
+an outstanding RPM_REQ_AUTOSUSPEND to quiesce (or else, perform our
+own).
+
+This is a safe change, because:
+
+ * drivers that use autosuspend shouldn't care about .runtime_idle()
+   (the difference between rpm_idle() and rpm_suspend()) [1]
+
+ * drivers that don't use autosuspend will not reach this code, except
+   on the teardown path of devm_pm_runtime_enable()
+
+[1] This isn't actually mentioned in any documentation, but I infer this
+    because its dedicated helpers (e.g., pm_runtime_put_autosuspend())
+    skip any idle checks. And surveying existing drivers shows that
+    those that implement .runtime_idle() behave similarly in their
+    .runtime_suspend().
 
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
+See also a regression test in the next patch.
 
- drivers/base/power/runtime-test.c | 70 +++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+This resolves one racy pitfall when using devm_pm_runtime_enable(), but
+it doesn't resolve another pitfall: what if user space forbade runtime
+PM (`echo on > /sys/devices/.../power/control`)? In that case, the
+device will still remain RPM_ACTIVE on teardown.
 
-diff --git a/drivers/base/power/runtime-test.c b/drivers/base/power/runtime-test.c
-index 24865ce844fc..3487392e0afd 100644
---- a/drivers/base/power/runtime-test.c
-+++ b/drivers/base/power/runtime-test.c
-@@ -285,6 +285,75 @@ static void pm_runtime_supplier_suspend_test(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, pm_runtime_suspended(norpm_supplier));
- }
+Surveying many devm_pm_runtime_enable() users, it's common to fall into
+these pitfalls. Commit 2d90ecdfa326 ("ASoC: rockchip: i2s: Use managed
+hclk and runtime PM cleanup") shows a rare example that got all the
+details right.
+
+I may propose other changes to devm_pm_runtime_enable() later to try to
+help those, but I expect them to be a bit more controversial.
+
+ drivers/base/power/runtime.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+index 2a99b7509744..b0262f187041 100644
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -1788,7 +1788,8 @@ EXPORT_SYMBOL_GPL(pm_runtime_irq_safe);
+  * @old_use: The former use_autosuspend value.
+  *
+  * Prevent runtime suspend if the new delay is negative and use_autosuspend is
+- * set; otherwise allow it.  Send an idle notification if suspends are allowed.
++ * set; otherwise allow it.  Attempt to suspend the device if suspends are
++ * allowed.
+  *
+  * This function must be called under dev->power.lock with interrupts disabled.
+  */
+@@ -1816,7 +1817,7 @@ static void update_autosuspend(struct device *dev, int old_delay, int old_use)
+ 			atomic_dec(&dev->power.usage_count);
  
-+struct pm_runtime_test_data {
-+	int pm_counter;
-+};
-+
-+static int pm_runtime_rearm_test_suspend(struct device *dev)
-+{
-+	struct pm_runtime_test_data *data = dev_get_drvdata(dev);
-+
-+	/* Say we're busy the first time. */
-+	if (data->pm_counter) {
-+		data->pm_counter--;
-+		pm_runtime_mark_last_busy(dev);
-+
-+		/*
-+		 * We could also purposely slow this down, to potentially lose
-+		 * more races:
-+		 *   msleep(1000);
-+		 */
-+
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
-+static int pm_runtime_rearm_test_resume(struct device *dev)
-+{
-+	struct pm_runtime_test_data *data = dev_get_drvdata(dev);
-+
-+	data->pm_counter++;
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops pm_runtime_rearm_test_ops = {
-+	RUNTIME_PM_OPS(pm_runtime_rearm_test_suspend, pm_runtime_rearm_test_resume, NULL)
-+};
-+
-+static void pm_runtime_autosuspend_rearm_test(struct kunit *test)
-+{
-+	struct device *dev = kunit_device_register(test, DEVICE_NAME);
-+	struct pm_runtime_test_data data = {
-+		.pm_counter = 1,
-+	};
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dev_set_drvdata(dev, &data);
-+	dev->driver->pm = &pm_runtime_rearm_test_ops;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_enable(dev);
-+
-+	KUNIT_EXPECT_TRUE(test, pm_runtime_active(dev));
-+
-+	/*
-+	 * .runtime_suspend() should return -EBUSY once, but retry due to
-+	 * pm_runtime_mark_last_busy().
-+	 */
-+	KUNIT_EXPECT_EQ(test, 0, pm_runtime_autosuspend(dev));
-+
-+	KUNIT_EXPECT_TRUE(test, pm_runtime_suspended(dev));
-+	KUNIT_EXPECT_EQ(test, 0, data.pm_counter);
-+
-+	/* Don't let on-stack drvdata escape this context. */
-+	dev->driver->pm = NULL;
-+	dev_set_drvdata(dev, NULL);
-+}
-+
- static struct kunit_case pm_runtime_test_cases[] = {
- 	KUNIT_CASE(pm_runtime_depth_test),
- 	KUNIT_CASE(pm_runtime_already_suspended_test),
-@@ -293,6 +362,7 @@ static struct kunit_case pm_runtime_test_cases[] = {
- 	KUNIT_CASE(pm_runtime_error_test),
- 	KUNIT_CASE(pm_runtime_probe_active_test),
- 	KUNIT_CASE(pm_runtime_supplier_suspend_test),
-+	KUNIT_CASE(pm_runtime_autosuspend_rearm_test),
- 	{}
- };
+ 		/* Maybe we can autosuspend now. */
+-		rpm_idle(dev, RPM_AUTO);
++		rpm_suspend(dev, RPM_AUTO);
+ 	}
+ }
  
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
