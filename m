@@ -1,158 +1,227 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010012.outbound.protection.outlook.com [52.101.201.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4BA552943;
-	Tue, 29 Sep 2026 17:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E753E54B1AA;
+	Tue, 29 Sep 2026 17:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790703306; cv=fail; b=ecW1H2yRJyh/FE3qoKva1fAtpuN52SSnaQL9MRPV2fWVPyVd/tM1c1BmjACV4TPhzQQGNBWt4n7MwXEYKdFJ8cV1kxXBRoHR205FOjXYA2vJ5ALVeTgq1z0NFxi/kTJLqVW4juhWv561iTpO8QNXVatQUl/BdbhkSpvtleSY1YM=
+	t=1790703375; cv=fail; b=JgLEcpYK3o0ODbSh2ngMPEFgGtsZbpagPjG5x6xeqJWY+IzjZDlVpZil/7Qbff5lHUH+X+ktUepv8MbQ4K0qBPlcpjNFfCHjDBSh6gIeund6g9mAFoDGL1PEOhh9aAv5BMGIN5KFSFcdQ8BYQc19s9Q6w/2jrlfi/rS6qkGJ5BM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790703306; c=relaxed/simple;
-	bh=MdTF8zECPkLv0IGOlu2/3iokTg7WNGN/hY8lSxCkOBM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rwwRDtIfMDF2HPEb8J/ku1djbxXleM7uoB615iwHu6wfZN8iMi3OLAsIbedLZw2Uj0TQi06rT3yPuVFVXvYYdj4fHPsgnXqzOl9tfr2WhLOTZGiXJSMVSOPdUbkZplOKAyRDKGoliKyGjZShur1nMeniMWFWPnq1L264USdqfOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GD1jMuAg; arc=fail smtp.client-ip=40.107.209.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	s=arc-20240116; t=1790703375; c=relaxed/simple;
+	bh=XWh8y0YyinBWDiStNXhPkErwoDqMYtsO8li9myJ2vpI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BE5aQtKQ6ujLFWSkCSm5p9HDEzmGDflGXRYRr0nqfTiY2VKZOQEp/8MV6UV/sPN2nl1Av5YAUhIl9ytkLJCy3wzg6O6JUpplYl9q3h3PkTZz8StRGWkFHASQ7qrNiDh82aEQ7/bKBpJg7+q84ZOHIIgkuLWRjAJE4vpHWUmgfMA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=fail (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=d5ugpvmV reason="signature verification failed"; arc=fail smtp.client-ip=52.101.201.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GD1jMuAg"
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="d5ugpvmV"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ln+HRwyo22F4HX/4mtrwKfWtzfAUz1BGUBZx5QPF3pPF/ZPUj1uxfQuTSxVXKziMNwuXLrbydLcr7T1BtRLUuLfTrhtJQYdqriqC/oR0g/B1R9SqBi4v7LhqafIxRT8+amovLFrtqdBCUC4nDnN1LWwPfzAA6xJHBOUYlA3tIKKIaEm2bI7+uNsUZcP2vw8+nuEpyKEQe53Ybq+AzEBbTKZn5iLjICgz4YinXn+T3xWrPAcnv0oAFQs8p9A8T3LSvZX+QKYgyd85isvWfYJ2SgmbvUCVYnS8Vy+B4pNAb23eM8iYYWRMarCky4Eva69D/d4Mi/lqeo/+oXSjLQ6Gdg==
+ b=td+1/yQlk4VjYKrfHXjZZ7v7vDDSGnwJE+uL3ohT+iMTv4L9LsxnX2+eQi+AQq9QoO4QoaoVQbMeWFK+8xAOmX9JF6gpbZk4Nv1ZQQJHlg1P4V5oPYP1fA8Zc4t258MN3DUWbXiol+BtMnVEEuFSBHnLbOXgPy7mDnbgA15PqJFXacZ7gdLQ9gjcbLj4HwxVEKcYn4FsWsOupXeQ7Syin0utnZbveIqYgL0cS6NZO7Qunuqg0Rv3wbV0XMiD8L6skK+c1bO2bThdEsgdGyDYcHd+qbxZKNxZ27oV/W5vanIaI9VT7XzFV1KJEsacAZ8ofXoKig+hROHxOXbQKP2AnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vbSe0041Lak4xhpObQui2WVCIU0+y0ZZy3GhHvIjQfQ=;
- b=jRz4FlO2DdCgn+A8EtI3Vm8m/tDon87J4lF7Z4cgKDyl5kIcSs1RmBwbXJY0UJuEUFTCNtttu4+4bEMsRSOUdmSXJ+5DoXSpdzv48X7REXRz66janBLuEaBYLX7rROUyfhjMEsznDiuonpc6sTTWwBNsdc4r+0ZdeDYMGgfUzKTumpuD8YUJXjDkK90ML5IB6qaaUQErABAUB4roYfANPLaelVxgpZF6WbNAhLQpHNxRnEQ+iYumwC0/TnY67Sjyi9XBWXK30Sd/Xuad6TrmbLBrtV6qWPSxtutpgu5xszZDTpP1OeTZ1TQa28OSc9azVyxa/DzQHk6q2Y0Ovc4U4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
+ bh=7T80J5U2+Qrjb0qePczu5/5S+RVz8/RukSA/r362eTI=;
+ b=wBZQd7ZSCvK28aRbkJDfUL3CKLftmhiOyUw6uXm0mL9ajCIIJeU2hIh8BGteYnwATVu5fM5bK5Qih2655nbkqqfTkQSpD+Bw5jJnRPqgVn4EAefP48ixr+jMg/+XSMOXhptabpTZIg267NzKP3sbLa+SW45eRXO8zsZ1F4i/Xvxoi4efvr7WPsgaeRFzdFsVohsf+Ranz2crQRUPRY/HoiHRheu01FJg6ppkvc1+Tsz74beWI5fqRp6w32PT52Qa9xQt0TyBg4vAkiBYnNEOzprtWyQs7C2ATH9xrkR4EejFZpXhqWyZJtagOB6pdbRdE3h7/qMBGG71gy6pMU75Fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbSe0041Lak4xhpObQui2WVCIU0+y0ZZy3GhHvIjQfQ=;
- b=GD1jMuAg7o2hK8p8bpNpkMx2iaWQd5tGmLYUW2ORhDiqgIawumW5K9sqxdWTVPOFv1oSx6ybRnkZi2fxho7T63jQUZJzFUbJZQU8gM4jqvccNi0Kycx8+q1vfHrX44skNfXKUyAcFcV8WXLpOfDYPNrGZlZOo5kZRlhCM2SuxgKJJmfWRsLs4WTwwsKSYEb16bholhtWKRJSZf3JOBlc+CwPwtF58+ycVj/BHgFeX61KS36rjCNTpAR1XbJUHt1kV9vU65PY22vLZC1/SofMI1kO7CeKC+NqW/LFp9+Hj+dOO2qe/FlwPji4PR4DcOvkn9YRwxdi+SqZzmr8z4tTEg==
-Received: from PH8P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::8)
- by PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
+ bh=7T80J5U2+Qrjb0qePczu5/5S+RVz8/RukSA/r362eTI=;
+ b=d5ugpvmVp/8j7PjstXXLya6XwjUmQR0Cm005lskrNkLWyeJ/mKlBR/BElB0mjg8+ba1LDcftof/9n9AxIHWoWNa/GwsxKQ5VRd9qSFSGsH2eOiISI13hC5hS3oxAlBOsE3V0AGQcB9rbEFaCcIKSXzsquWrTb/vWrbn0vkCLic718f/4X6wdksliLqMDXm2Bv3fowRt3RIZyF7oVkMs2C100ti/K7LMrpoOv6qH7YQDkEl/e/rVzw/MxLQGG9BOtAM4ODsXCjoTwq7z1DAUk+RAEDpX8o7vb6jx2m2jXhI+Ah+XesXEf+ry4G34nHW3VqSS5dNqsVdwpl00aGP0Q4w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MN0PR12MB6342.namprd12.prod.outlook.com (2603:10b6:208:3c1::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 17:34:56 +0000
-Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
- (2603:10b6:510:2db:cafe::66) by PH8P223CA0002.outlook.office365.com
- (2603:10b6:510:2db::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
- 29 Sep 2026 17:34:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 17:34:56 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 10:34:26 -0700
-Received: from NV-2Y5XW94.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 10:34:23 -0700
-From: Shameer Kolothum <skolothumtho@nvidia.com>
-To: <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
-	<kbusch@meta.com>, <michal.winiarski@intel.com>,
-	<satyanarayana.k.v.p@intel.com>, <sonangp@nvidia.com>, <ankita@nvidia.com>,
-	<nathanc@nvidia.com>, <mochs@nvidia.com>, <skolothumtho@nvidia.com>
-Subject: [RFC PATCH v2 16/16] vfio/pci: Enable host PCI error recovery for vfio-pci
-Date: Tue, 29 Sep 2026 18:33:05 +0100
-Message-ID: <20260929173305.204856-17-skolothumtho@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260929173305.204856-1-skolothumtho@nvidia.com>
-References: <20260929173305.204856-1-skolothumtho@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 17:36:04 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 17:36:04 +0000
+Date: Tue, 29 Sep 2026 19:35:55 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Waiman Long <longman@redhat.com>
+Cc: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, sched-ext@lists.linux.dev,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH 1/3] cgroup/cpuset: Protect is_in_v2_mode() in
+ cpuset_num_cpus()
+Message-ID: <arv2-3-6-Ewv0gpb@gpd4>
+References: <20260929084124.626693-1-arighi@nvidia.com>
+ <20260929084124.626693-2-arighi@nvidia.com>
+ <20260929-making-language-254d9c6a6605@there>
+ <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com>
+X-ClientProxiedBy: MI1PEPF000008CC.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::43a) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|PH7PR12MB7305:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6e72dd4-89e6-40c5-22d5-08df1e4ffa76
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MN0PR12MB6342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79b0e1a7-7de2-4020-fdb0-08df1e50229a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|4143699003|6133799003|3023799007|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	tI9aeP2RVqwyA+11d0niVs5InsrWnoewePV22spFbx27DmRYti+zXrW8DD7GkkylJD+4hyRbeIfkAF6Bj85SVURtHH8Iinv57kI6zFzrZhV+Q3bXTBghWfqq+WbzshhEudcp9zuk394+Mkc3cYHuDjWFMfjWoLxR2mdPjBOz4dFLPvhjBpVn2xXVhIRGG/cqB3+Tau3jiMs8NaZ9Voa95z8sdX9PJ+NMPcGuBM7uYUQheV+HQ2taS/awFaNqXcpfjxJlaukvZf6UHjNipdaM+YCRxn/2MDhPj8eR7rR7+nIfFrHBwo5mqp0uS6SQ78DaUHE1oKb+2Ec0BHr/UcJrxljsT71vsKCRcKygLkSlFTe91tR8oebrUaFUQL+2SKc2+8BI8D+eZbVXYdoMtVjoqbZirjFduE5rjcPTi7QaytoDzeQmO5aAkwvZ5wqARYzSyyfloujonawzFTgboUxqNRUOe8BgUJcSrqouxrRc4y/VV/RYVo36RNjNlLJsawLbK/FOlfN6VIVlu2wUSBJjwM1k87m/8zkWpema5zTAxcgfx0gyLwlwGOQ0ioaQSIKMbiAfDHYYAKopLImV+DWZTFzHIgiLcxNx9ljakPl2Nww/5UBDeNEVZUJUk+C7rTMLZlY5gPZ5e3JpYLLfNDLaUl+cHLn8P/BUfaXri4ow17LBK72o5/cJ5HxIE3tfNmtT0eoxZDhIwoFa+hYvX8ey5g==
+	R0o6Stx3ZXuvuhU8k1bOx7W00mSMAceFPRzua8qOgskB+6fddu1yYRVLMZm2zhX3zgTZHgyJzZ/dFbcX91ncNr8th7MO3SNyvHxxLOV1mhQHm7lGxwB5E43oiwWjMIt8TaQslVlnSu+zXXaFvJ3Llbl07QY631hA/jRJFBeQA0jfPQlOXXueLTfYZL9e0EAB0/m9ZnfDAxXEMlxX29xnDDw1Q4xZE2rFwVKOj58WSdB98mfXNhRYKLWknXZ3U3USfCHjQ02CTUZK820DyripHdT4Bu1C7p9eQuoWzPcoR8s/BUx/7nFEM4XVFEbgRLrsVnGYHp38aSrgwBMuM/qir6TZygS/2xyxLULYaMvB/l3CSF9bW50S1S+9nHPl43Tyzdy8V9Y6dvmWFMt1X6Fqcq+dAvz9jHQvBHPe6DrspYNCXwUsBgXWbdu3tDObJVLTeMEFvARRzROOnXtcrsRvWkgk+Y1mr1XeuV3wbBX3X9Lo1wUoz0B636rq0BKfvZf+agVYBL4f4WemRFdNOpu/c+Tq86s5LjeNluXT7r6+UmUQJ5Jzny00R0cNBQU926pHWiBgVVRn0pt4No6ejzimccvUdma+/QopKXsM6cxGt8udqrIsnkTETRgAurZO01JKm4lxkqSPkvMPiYNBvk4DzEgS6jG4FkKEOVH3IjrRnG8=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(4143699003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	X/6J6t1jNPVO4OpJ3Ft2d82MR1mZko9Uryu5+gz2rOwYQTSQBP72sK6iy3uw/bQqDwI1aCvg6jqJSCwRZu2d2AR12YpC8crTF+BJRshrhM0FpiclzmC/Ig4ZnnsX6pVxD0Zg1QOnUvT7MAc+mb4/wn6Sic0R/N7DtFa+kJt/yD4+NfIu/ec356rCnd0cF6R6uBSqSoYC6sPSvEUxjn1WPhNfHsQgfp5+XTnS5i7bEoh4fnq3+xh7IooRmxicl1unelpKubQfEdhqmecSIqPFred/EI/Ab2MBIgjMzxjsskc7u0MUW6zri8J3pmU+MG7HpXLMumQ5ltSIzMB1qoFyQZT2oZYZBzYSI3oOiRKWuU0AuV5dXfOrAnrPf31hGFPkSyZg5nBl9yb5AQn6vidczKKCV8WhiaTJNCPp6blCG2tXU6xC8TSIDWAXO0gv82iP
+	=?iso-8859-1?Q?Kil3auTm6qnS118SClrCtRmco4irlFK1xhtiTE+hhHJbesNPM2SG9KMQ6H?=
+ =?iso-8859-1?Q?nSjqNwFvgSetJVD1xyQcMfJiBYSn4l13LUUTl7+GHjpoaZiOApWIbNaGyU?=
+ =?iso-8859-1?Q?U6JvrF1UPDyGBUk/5aH/0ESTsdU1eqk7HegB/LB3CE+syfshhqybGD5X/t?=
+ =?iso-8859-1?Q?TdynpT4PYYdZ1dTe9HRtLu8gyr5jANHFo4uf7eGTSD2Y8gszYculNJ08QK?=
+ =?iso-8859-1?Q?lYAOSA+iNTRjHj6oqvfF3o+SUBieSwQZOIeJGBqNMo8TqdzvJEGga/KzjH?=
+ =?iso-8859-1?Q?mb7DtpsAWPa4nKAe9vAz4GEX1dkucMzOyAXOVqBZPBxGsjXcXsJrwbvX6k?=
+ =?iso-8859-1?Q?nNRkAkgMtRqtSWs63L5ihx/zDw9IGCYbLhFqcs/5qSI0ZnCqCaXvP2fCnT?=
+ =?iso-8859-1?Q?YVFsoro0W4ArsPre7/I9l64wsWPIxQUDnKXXaGcu//TLZKrM9Zn5daDZ9W?=
+ =?iso-8859-1?Q?0O826V1SS1w9+r+GlDBuQrx2Mp1hkjBRIY3z0ZmwWPJdmKYNs2v+J2ujqk?=
+ =?iso-8859-1?Q?pj5reo3IyEUKcrbXN2F/4CzJQmR3uDZ2/CLjRMWA4LAwfu4sLR/J5FiqDG?=
+ =?iso-8859-1?Q?mnBU2Kt/mqrKoOuMWzpQvVYdRgKin0UESU2O+P+7tSLoEXOsZDBcOlZ6e6?=
+ =?iso-8859-1?Q?nygHtsvUsTmUFrQLyVfgmeGQC3ZfC4JvAjq6/0FdxWJh+H9Ndqm1r9uP/H?=
+ =?iso-8859-1?Q?VOrTezRCqzHhhJm430hbmw8E8BgvnjlN1a0tQhCeywENczjy5qsS7k49Sk?=
+ =?iso-8859-1?Q?DKp/MXYo0wuNmDUPpQpQyxLT5zu4pOoWO6unR3zJP3OHshkiTukK3q0fz/?=
+ =?iso-8859-1?Q?QKehwTDzG+6WxhI1BSwElupnRrB8HNF8wg3Ok71gcXw8sVMI83g3jBjZDp?=
+ =?iso-8859-1?Q?6amZWIK6IrVifM5kEAZI6effDbEym3pKyW+vdepGtrVqcnKs/fu9K0Czqc?=
+ =?iso-8859-1?Q?IJCky95bUUgB7bwJDvbz5AQ6pcBhsj1b0sz7gSVVV8cQiso78wtBdQB5CJ?=
+ =?iso-8859-1?Q?rFNKXRUuDq8WzEZ2G/bi9eG0Et6kwoeTY/9j7XFse89dd2m+ihD+4+wRSn?=
+ =?iso-8859-1?Q?YTxLMa9LVTK6DWhZxvSJY7Jib3KPoju9woDnrtZ3kWjTMr5EA0SCcpCm3c?=
+ =?iso-8859-1?Q?2OXp+NAa4bSLKW2fo/T0seSl5D/Y2ocpabHVIg9njwumU6UZ5n5KHJ0iAC?=
+ =?iso-8859-1?Q?we7R9Apk2l4jzKfkHau2QKjBcjniZRQHvzxcGKFoWbLc1B4xbf2Z+Q+9S6?=
+ =?iso-8859-1?Q?zApK1jL+7OckcaGq2cP/PTfrORWtVgmW3JOGjoftna3d+uqCvDPd+sZr4C?=
+ =?iso-8859-1?Q?Q4LULFLC1FAOyWpypGLybNaMvgn/znbh6p9BmuUBZoeS1eYcNrxi1SFEvs?=
+ =?iso-8859-1?Q?/P3iBVbq/mR5Y6N8dnYI5Wr2Rk4LxzvpkBFMe98h4lBandsuk33VaeE82Q?=
+ =?iso-8859-1?Q?V5JC+w6s32gDajIHIUm17RBhnUhBDSkxl0D9Dt89JS8T3ZiRQ6nu7dK5Gy?=
+ =?iso-8859-1?Q?8FNqzXihsBb//2tz/vlfTPCCvOyyV75mgZkzSRcLzo0Tv+xzLW1vs+V0mb?=
+ =?iso-8859-1?Q?HhZVDQjWL9fbOHi+jyJEpFmfQhcB8/4mcWXg4FA3WHJQrsaiISkwMog5VR?=
+ =?iso-8859-1?Q?sztFaXGczhWfx48TyS1T6Z2gRbpq6XollXdveV1Bq2+RrLAd0MjztCKRv0?=
+ =?iso-8859-1?Q?T6tCyeg546XksHUXrOQ1rqWWegZUVL1rtTdaWoKA2Lf5LSTTab0/7sdnOT?=
+ =?iso-8859-1?Q?WIog9x25QO2eq52++oDeF3lUD6nUikIbE8LzqXfCGctLu4VF8V1QSAvHB/?=
+ =?iso-8859-1?Q?9dgsr0TRkg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 17:34:56.1585
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79b0e1a7-7de2-4020-fdb0-08df1e50229a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 17:36:04.0472
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6e72dd4-89e6-40c5-22d5-08df1e4ffa76
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uBISDN3MAVuilL36YtoVLVqambnIrfI3dWEmU2TiqaS27gZuyydtCvjNJLlMOwOqblbNSFoeDTuIyjNa8m0lHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6342
 
-Enable recovery support for generic vfio-pci. Userspace opts in through
-VFIO_DEVICE_FEATURE_PCI_ERROR_RECOVERY. Open rejects an active host
-recovery even without opt-in. Leave variant drivers disabled until their
-access paths are covered.
+Hi Michal and Waiman,
 
-Exclude CXL memory devices and s390: Restricted CXL Host (RCH) and s390
-mediated recovery can omit completion callbacks. On s390, permanent-failure
-notification also blocks config access, so draining SRCU can deadlock
-with config readers.
+On Tue, Sep 29, 2026 at 11:32:33AM -0400, Waiman Long wrote:
+> On 9/29/26 9:47 AM, Michal Koutný wrote:
+> > Hi.
+> > 
+> > On Tue, Sep 29, 2026 at 10:37:38AM +0200, Andrea Righi <arighi@nvidia.com> wrote:
+> > > cpuset_num_cpus() enters its RCU read-side section only after checking
+> > > is_in_v2_mode(). When cpuset is bound to a v1 hierarchy, is_in_v2_mode()
+> > > dereferences cpuset_cgrp_subsys.root, which is freed via kfree_rcu()
+> > > once that hierarchy is destroyed and cpuset is rebound to the default
+> > > hierarchy. A preemptible caller outside RCU can therefore read the flags
+> > > of a freed root.
+> > > 
+> > > The only current caller, fair's group share calculation, runs under the
+> > > rq lock with preemption disabled, so it can't hit this. However, the
+> > > helper already means to protect itself with RCU, and upcoming sched_ext
+> > > support exposes it to sleepable BPF programs.
+> > > 
+> > > Take the RCU read lock before is_in_v2_mode() so that the whole lookup
+> > > is protected regardless of the caller's context.
+> > This feels like mere querying of the mode shouldn't require such
+> > constraints (despite it's needed anyway later down). But it could truly
+> > happen with the novel usage (CONFIG_CPUSET_V1 && unmounting cpuset
+> > hierarchy for some reason, I wonder how you noticed :)).
+> > 
+> > Then I'd welcome more structured approach with at least:
+> > 
+> > diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
+> > index 3754d697854b3..7f4d346cfb119 100644
+> > --- a/include/linux/cgroup-defs.h
+> > +++ b/include/linux/cgroup-defs.h
+> > @@ -841,7 +841,7 @@ struct cgroup_subsys {
+> >          const char *legacy_name;
+> > 
+> >          /* link to parent, protected by cgroup_lock() */
+> > -       struct cgroup_root *root;
+> > +       struct cgroup_root __rcu *root;
+> > 
+> >          /* idr for css->id */
+> >          struct idr css_idr;
+> > diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+> > index 227d09704ca59..a718b5f521fb2 100644
+> > --- a/kernel/cgroup/cgroup.c
+> > +++ b/kernel/cgroup/cgroup.c
+> > @@ -1909,7 +1909,7 @@ int rebind_subsystems(struct cgroup_root *dst_root, u32 ss_mask)
+> >                  /* rebind */
+> >                  RCU_INIT_POINTER(scgrp->subsys[ssid], NULL);
+> >                  rcu_assign_pointer(dcgrp->subsys[ssid], css);
+> > -               ss->root = dst_root;
+> > +               rcu_assign_pointer(ss->root, dst_root);
+> > 
+> >                  spin_lock_irq(&css_set_lock);
+> >                  css->cgroup = dcgrp;
+> > 
+> > 
+> > However, if I zoom out, I see that the intention of reading cpuset's
+> > nr_cpus from the scheduler is meant for setups where cpuset tree ~ cpu
+> > tree:
+> > 
+> > | * This only really works for cgroup-v2 where all the controllers are mounted
+> > | * in the same hierarchy. If not cgroup-v2 or no cpuset controller is
+> > | * configured it reverts to num_online_cpus().
+> > 
+> > Hence it may be just OK to do:
+> > 
+> >          int nr = num_online_cpus();
+> >          struct cpuset *cs;
+> > 
+> > -       if (is_in_v2_mode()) {
+> > +       if (cpuset_v2()) {
+> >                  guard(rcu)();
+> >                  cs = css_cs(cgroup_e_css(cgrp, &cpuset_cgrp_subsys));
+> >                  if (cs)
+> > 
+> > I hope Waiman seconds this -- if a feature depends on shared tree,
+> > there's only so much that 'cpuset_v2_mode' can guarantee.
+> 
+> I think it is simpler to just change is_in_v2_mode() to cpuset_v2(). Almost
+> all the cpuset functions should either take the callback_lock with interrupt
+> disabled (which is a RCU read-side critical section) or with rcu_read_lock()
+> and cpuset_mutex() acquired. This cpuset_num_cpus() function is an
+> exception. Given what is said in the comment, this function is not supposed
+> to be used with v1 mounted. We should change it to cpuset_v2().
 
-Assisted-by: LLM
-Signed-off-by: Shameer Kolothum <skolothumtho@nvidia.com>
----
- drivers/vfio/pci/vfio_pci.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+The comment says that, outside cgroup v2, cpuset_num_cpus() falls back to
+num_online_cpus(). However, on v1 with cpu and cpuset mounted together using
+cpuset_v2_mode, it returns the group's effective cpuset count and fair.c uses
+that count in the default "concur" group share calculation and in "max" mode.
 
-diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
-index 4887dd062c77..043371c2882c 100644
---- a/drivers/vfio/pci/vfio_pci.c
-+++ b/drivers/vfio/pci/vfio_pci.c
-@@ -129,6 +129,7 @@ static int vfio_pci_init_dev(struct vfio_device *core_vdev)
- {
- 	struct vfio_pci_core_device *vdev =
- 		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-+	struct pci_dev *pdev = to_pci_dev(core_vdev->dev);
- 
- 	/*
- 	 * These behaviors originated in vfio-pci and moved into
-@@ -139,6 +140,14 @@ static int vfio_pci_init_dev(struct vfio_device *core_vdev)
- 	 */
- 	vdev->nointxmask = nointxmask;
- 	vdev->disable_idle_d3 = disable_idle_d3;
-+	/*
-+	 * CXL RCH and s390 mediated recovery can omit completion callbacks.
-+	 * s390 also blocks config access across failure notification, which
-+	 * prevents draining SRCU readers waiting for config access.
-+	 */
-+	if (!IS_ENABLED(CONFIG_S390) &&
-+	    (pdev->class >> 8) != PCI_CLASS_MEMORY_CXL)
-+		vdev->pci_recovery_supported = true;
- #ifdef CONFIG_VFIO_PCI_VGA
- 	vdev->disable_vga = disable_vga;
- #endif
--- 
-2.43.0
+So replacing is_in_v2_mode() with cpuset_v2() would change scheduler behavior
+for that setup. I guess we could either preserve the current behavior, fix the
+comment and protect the root lookup with RCU; or make the code follow the
+documented v2-only behavior. Which one would you prefer?
 
+Thanks,
+-Andrea
