@@ -1,132 +1,123 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09333C8C62
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA283C3792
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790660041; cv=none; b=Nl4pNvIJdOZamqxvCHwrMoYMH0nQACodP+r/ZiDyn7NZVBGzzfxBH/QFeFhLxXDnG3/noD8i0b8v3Rim/+UtNWIm91uWoMR9/xWC1z00H2V3Mug0VnkHNwn0dZJkHF0RRzqnKG9jDC4YjiztDtwkXzHLWVgYU9alAxWsN0T+WQ0=
+	t=1790660053; cv=none; b=kK/Nx6CMJBTROE8TxiB2u/uCIFy5CLr3WiW1e2RUSOCsXacd6E1UkkX3B1axfBRnu80SBydtoPnbYIvkKZ91jCKLPUZWhll3qkxR3bdsow7ASRo7+9C8ECz/6yuYC9TeGn/ymu11Etoxckvqo2Z80ihkwPvFprKSb6ncQQ7Kzrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790660041; c=relaxed/simple;
-	bh=4tjin2arzBxb0No8jiATaHD+mvUM2mFdrrpGQDcez+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u4Xg320dFHCKQWoej9DGYgXfKZVkmQOMAmDHf5vHmAUzpuvKDFdewBBsPDPWIVzXQGGYlLfmklyDTNrRZVwm5XO8SvfMBxLFQD68GDZNjyPdk+4oxnEvAg6k/iSfjGyRhOkEkf3Nmjmzk6+fjc56O4pApnCywNI0PBSk5FZwsAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=VNDMWM+s; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790660053; c=relaxed/simple;
+	bh=m2lqawFRROq7VOxJCYnJVdA4aB6TI0mUCVIlIeUuTzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A+jfzQkRlF4J7BG+sop6pLWPKIVUBsrppswUyv/TVaRpwvaI6yZrFFYduKwyDj0sQcO8PqZHOZX7CBEYruipufNCQobfKi4PJP8nUILv2Fn6euh9kP2zpCRZ9Ng1Ub2TtPPvZPSU62JrR7GIVy88f+7AswDtgUcWaN8364aN8Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+zLSDTB; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="VNDMWM+s"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b43b20bso15954085ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+zLSDTB"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2818995f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:34:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790660039; x=1791264839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aIKIMkYuFOTq61i+iCqWLdJrE5c2b5L+SL6VyhrzHK0=;
-        b=VNDMWM+s5gBo4GKR+m0hXZ8y0SB+VRPQa0woVHBGtCQSWJcnsDrzRtnJiaOjGoMFzp
-         KQ0EsuBZp5TTstDWemrePbwZSg4XAxSZwihFRVqNq/GMGlqb7U5t6xCLkV9H/eAHZDXX
-         MdbM7sA8rSNi2CQ6SD0HEMkHnaXnYRu8MCGw9TNWkvuNYugysuSm+sH5oo8qaiAB041m
-         zWzGmvMm3/LkzdZ8L5JFMBm9DvTvVu/yESJhmv24otn9w4rDTjIvfptRcaS1RHE+EnPk
-         qVangFI5gsmAEdcV7cBSdu7FAVgBWHbWNdbqaO98yMH/Z/1m10OXYYZMAmC//vy9U3ZO
-         Dpqw==
+        d=gmail.com; s=20251104; t=1790660050; x=1791264850; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vDrRpA1W/7JjCEY/lfrVQceoo3M5nHbNKEhFmkg5umg=;
+        b=g+zLSDTBN5PBcQHF5j5AAGj8sobOayPMm/lPnpU7fFtjmd3yNMI9nSQHvybIYKg/n+
+         GnGtfnaSbNuUbTmkxDnLFRqu09paoQmpeHA9gNMpY/dnIiFV2aTWuyoV1ec/eekRx1+w
+         +cFWuPIJoHLHgXUoyu2mRuVcCvIFCsfVnszBEcOfx33IZmpH8ZPyNBUgz3kKmqunn1Tg
+         uKWjYgPIBuXLK+Cs/AqKE+2lqdLlelH0tOcKaTzbAFTopW7ebyce/4Sp1LnRuciwb8ov
+         zrfKTEZqkXuAiXYdLJdO1RPcMxP+iSEhL6TFXWJxtc9mGiJT6dynqKgOppieq46c7rex
+         nwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790660039; x=1791264839;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aIKIMkYuFOTq61i+iCqWLdJrE5c2b5L+SL6VyhrzHK0=;
-        b=Pb2C8946Rt48AXx7LXufpYoEeobHPRPAM78DcajAnKsMuxpFrLjBwc68gq3F1/H+CZ
-         SLkuWz4eN3m5u5K9bImZ/hNDAXURJ6r1DMxSvi2TczzBujDinN3EZf2ufg5c1+h0S+DU
-         034Q6cigq27z3oCCFQGFCqWr45Dp6czw4G5JQTf9HNVN8309lYGuocQGeZm1hLY73duw
-         wfEKtTo1uf8L1GXl3JF4pHhTSaqjl6sYqCVzY1dMQrk9V6dPUPkHU7KOAUndkgNkntVm
-         OMdEXN4ozgI7wwvZtPJ3ClZ4w4j4JpcgPGJWtM40zExVwu5AdlhoLhiG6XGdTtterK+0
-         wkuw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXvkujlQSlSC7r3upXoAmvZ/7r/GqIZwIyThWTcI6v4ncru6qRZRVw6PamX8hBkl0A1HTalti+/mzX/fw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIgBZmjoYkuIsGUzsMiWhdIszglmCHMxHyuHyvzHsSnbnHx3xw
-	BumXv/Q2PoBAs3+C9CwjKCkKBi7019qDt0M9XDuwMqJ/6YGRtixXF7QWJZS9eHzFjiM=
-X-Gm-Gg: AYBFou3dueA1IpFf4IWGZT0srWP/ilutjdU2MAmEu9yvxFf1vxH2izK4pLewb6dKG7N
-	shlXEg6dPrv8bK7NA5pMTiCzcgOKTtA2mb7880U/gPe0vXn3xSGAv0a9NqRIciwINv7TKUKPpBG
-	wH/mBgoOTIBartfFAof3VQqbLEV9/Y+SvqX6GL084elwNZyaCffC3bkn88V/P3UNWulti0Ltkt3
-	l4cNoTOc6MJJtV3nMAqOrPkZg2wY0LhYZAcpZU3eycglqCtBD/HDYxoacu/v55AA10EqgiOTmT3
-	gBj0/yeBQC1Trz56k4s23sq/Qdwk9skCRAEID62xgbpJyiY+L8MNL9MKMMSCOeOMkedOb72KAyK
-	cOlV28MDPMhhoKGW6iGw+Hl24xWVYjwntQuiRB32iZ5UR4e4BfbahRnf5N+LTCqdqT3RXTlekIx
-	6WJBNUaXB/9Fm49mCkvlcak6tLsJXEfk0Yv0RewF1DyESxrkXNE4nPsFwsujAMDPUmHFbZeWdEs
-	CGHlS7H3P2kG0++/gHsCLE+Tlv4mQ==
-X-Received: by 2002:a17:902:f710:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2e2c937e018mr7110035ad.0.1790660039331;
-        Mon, 28 Sep 2026 22:33:59 -0700 (PDT)
-Received: from G6L4RL2QG9 ([139.177.225.254])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bafesm49251765ad.51.2026.09.28.22.33.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 22:33:58 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	muchun.song@linux.dev
-Subject: [PATCH v3 6/6] mm/mm_init: add zone mismatch warning during page init
-Date: Tue, 29 Sep 2026 13:32:31 +0800
-Message-ID: <20260929053231.66085-7-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260929053231.66085-1-songmuchun@bytedance.com>
-References: <20260929053231.66085-1-songmuchun@bytedance.com>
+        d=1e100.net; s=20260707; t=1790660050; x=1791264850;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vDrRpA1W/7JjCEY/lfrVQceoo3M5nHbNKEhFmkg5umg=;
+        b=Ue/3DaVzQMO/Mmbdz1hpaGfYgJS4Lbbsl4quTxzLePxCAStddYsBjnrtZuauln6SLv
+         uvNYihR3BvQFuevHt7XP2P/9tGm5jkcSKhl6yb/HKbKssiUh8l7+Hr0wv1lkwXBYxd3D
+         +YVsr1d9gh/9NogIed4IhfQekj/0ZOvE+WUol2nTf8aFhHzS/PZ7ZpOQwKmKDTtO1vGx
+         4NFdxqZjYBxR5yEsIMO+O/yflI5d+D69imQwbCkYL1TOSHemLf2+1ePpUALT9inBoX4C
+         9cFypXPigybSFe7J1YolOO+SVtkB+Mrg1dQ1fPqkKklwiQDiGh/mCu4JLVqdaeH6oV/c
+         coQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpZ5G921rnJtGBmDf5PZYal9TDGzUKkBZiPA6C5iPTnXLZP9XsXTzcxFFu26ZVu+3VIDMpZlYr1CdHn0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0r/+YiExKN3q1DVLmYQrNIvds3ZW+sLiJKIolSSDV/Zi6lbA3
+	sKt6cs5YD8fSmudWul1uOZbtayfSNN0Bd47k0vc9/uJVmQYKy85m5FYDX2lGKNYq
+X-Gm-Gg: AYBFou3zHVrXprbbpNhnWpZZr+2+DHnF43KL0Ky8VPRR0NoJAClwMFGfmPesh5tUuTF
+	sQTBymqg8WJIwQadFaXdKywxuUR9O0rQyzYsudRnRBundyRr/1Yg11MWcf0tdTMmTqiJ5Xn8Bnh
+	uSuw43oUS9tEauSLrhsDPdOuz5tTtDn4+Rz9UwDvowHP+UXceFWd4rLsVCM1byx/TuLhNZfG6St
+	iFTCme81xGVjwJbbylSNRbEEZyY8tDbNPohNdV5nEZBX2Gbb7Ke6hFn6Ko976v/E78q1PVNbMbX
+	uDdrWiNIyE5ZZECs3Ys3CyO61nsimk+WAE0nsNF/h/A4/yrdB5zxPb2YpoipwgyJz6b22FHjdAE
+	0YhOhf5MaRXQsH9KtZDf64JETM58K61/Dxka3Y9VdJlvlASgoAGpnwe38rjiCy1+Ypshm5C6vpW
+	724CVBJbL5qosZ4+jqouzN/qSeQoKWZo26K9sFr/EbAuHLRrGvf7m1sWCq1tjyYzwprIep4x/yG
+	JVXxUt3dpl7nKlzv1Q0kRbxF9bHZoCppXVvu/wcfSVOjVCBRgy85spdFodWiALZ56QDqNRdPn2Z
+	R5nLSuB3xxRIzv+5ZiLA/XX7GgSitg1oZQHpWwZjtvNHXYb3T8VHiDfgk0Udkte9USTaLXgX/bU
+	=
+X-Received: by 2002:a5d:5e83:0:b0:488:84bf:eedf with SMTP id ffacd0b85a97d-48884bff147mr15033151f8f.48.1790660049555;
+        Mon, 28 Sep 2026 22:34:09 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9c32-f801-0451-cc94-d3ca-f56b.310.pool.telefonica.de. [2a02:3100:9c32:f801:451:cc94:d3ca:f56b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af506fdc1sm1047634f8f.21.2026.09.28.22.34.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 22:34:08 -0700 (PDT)
+Date: Tue, 29 Sep 2026 07:34:06 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: Matt Johnston <matt@codeconstruct.com.au>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] net: mctp: Make KUnit tests depend on flow
+ support
+Message-ID: <artKykZLgwngX5zs@gmail.com>
+References: <20260925192510.93840-1-kmehltretter@gmail.com>
+ <20260928205352.30502-1-kmehltretter@gmail.com>
+ <fb39875c7fa4131e565eebf8ffc9b3b19bb5ad87.camel@codeconstruct.com.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fb39875c7fa4131e565eebf8ffc9b3b19bb5ad87.camel@codeconstruct.com.au>
 
-For vmemmap-optimized sections, tail struct pages may be backed by
-shared vmemmap pages. Those shared pages must carry the same page zone
-ID as the struct pages initialized for the section.
+On Tue, Sep 29, 2026 at 09:02:23AM +0100, Jeremy Kerr wrote:
+> > This keeps the full flow-test coverage: the suite is available only
+> > when flow support is enabled, for example by the I2C transport.
+> 
+> Hardware transports are typically not enabled for kunit test kernels.
+> 
+> Are you attempting to fix an actual problem you're encountering? What's
+> the aim with this change?
+> 
 
-Warn in __init_single_page() if the shared tail page has a different
-page_zone_id(), which would indicate inconsistent initialization.
+Hi Jeremy,
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
----
-v3:
-- Collect Acked-by from Qi Zheng
+It's no real-world MCTP workload bug. This came from a similar issue in
+my 842 KUnit patch: the test selected the decompressor. Geert pointed
+out that tests should not silently enable otherwise-unused code:
 
-v2:
-- New patch.
----
- mm/mm_init.c | 3 +++
- 1 file changed, 3 insertions(+)
+https://lore.kernel.org/r/CAMuHMdVcZ5cV4-HrjLYfFKh6UshiVxq5eXCNyp0Z1k_SMAvF5g@mail.gmail.com/
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 1650d6bc1211..bd02e8d06965 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -609,6 +609,9 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
- 	if (!is_highmem_idx(zone))
- 		set_page_address(page, __va(pfn << PAGE_SHIFT));
- #endif
-+	VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)) &&
-+			page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=
-+			page_zone_id(page));
- }
- 
- #ifdef CONFIG_NUMA
--- 
-2.54.0
+My goal is to keep KUNIT_ALL_TESTS from pulling in otherwise-unused
+production code. An explicit opt-in could preserve the coverage,
+following CRC_ENABLE_ALL_FOR_KUNIT and CRYPTO_LIB_ENABLE_ALL_FOR_KUNIT:
 
+- MCTP_ENABLE_ALL_FOR_KUNIT depends on KUNIT=y and MCTP=y
+- it selects MCTP_FLOWS
+- all_tests.config enables it
+- MCTP_TEST depends on MCTP_FLOWS
+
+This keeps KUNIT_ALL_TESTS from enabling optional flow code, while the
+explicit kunit.py run --alltests profile opts into it and retains full
+flow coverage without requiring a hardware transport.
+
+Would that approach work for you?
+
+Karl
