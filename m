@@ -1,239 +1,230 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F455221CE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02ED51122E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684731; cv=none; b=bYoimAbYY3yE/Xrf6bFHoUGdnHmpEAxKYMrICl/V62F9xbrTgPE8hZDpzGmUXIF8sqoNDpmGt4uWftNEidy1nN8Mq5Fmn8StE82rxjBAxYsib3JRXsJT1Vl+sQHtCRS74i3uropzr8tLzY3qIr1zXbxMq81NiI3H8LAERWAWozc=
+	t=1790684756; cv=none; b=BYS/yzK7gNJrO8lcLuZG/ZT3cCshgdbgT/QJ0qf1ckQb3aKHhInNINL/gTWwZoxP0Ahuzhe/FRXI8aXKodufmKFmqH511m2aGPTNwRSZ2GHFmt6iSIP/eT6YZIxvHkugG8hm8OvydDJXWg2Q003NEy/g6Y2slBlLGevLADEd84s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684731; c=relaxed/simple;
-	bh=Pj6KvNqBjDZrYnWKrO2uDDAWtlmglraWFZNgjyxk/Fc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iXsg5VeMzWn4yqUS1Ywv0S4wuXaFotOpL0RCoH7Vxw3ceoGZZhfewQmu43QXApvslw1DM8EgzIq/5rX5nZsDNakS70vrgceiQ+AXq+eyqyX1ItOp8GNQGL8RsAhcF55MvVu2zCknudkgNruk3wRVq92hWYx4p3Adu8Jyc3oAuzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2AIWsch; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790684756; c=relaxed/simple;
+	bh=LlWU3yBVXRRJfr+LivnTiGZtuaci3yz8ELmy/Q9s3bI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cDpmL8EwKxiHu++cOGXsC7pYgghHUfQLnoJQxzD14TjKFwl+IEzeHtEFOu48IVvdoDwhQpfOcEqm1oU8v1pr5mfeUFDAgUwggS7Avl5EeijlbELlhBks35E+PxE1wrN/jyorfERcnMpC//yvM61s6+Yw6Ud744RzYV4rySAbMOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ug3b2INA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JQZvACYN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2AIWsch"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a48e359e0fso796566a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:25:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ug3b2INA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JQZvACYN"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCE6g9528961
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:25:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=l+1/gp30Pqhkzp+lEQxy2S
+	DB3xgsxUhnhSlDGzy4Fbg=; b=Ug3b2INArsuIsQlsI9grN5HafqFBq0+w+ZRsf0
+	FuZx5dxI6t8ODWG54sWEMjRxN7DkR6qWgERVYIqst2dPg8cwiIaW2xGaWcgZoqjB
+	2OCBZxtquP/zOwG7icOi6y1W454Qe+c/9g7+jkdSA9b0t9ICkTXpFwxzkmRVuqrq
+	vKIgxS8SXFm7N5i7BgIP9UgaAY0U0TLMcQv+peVa298GJLE5TJroWkvnODsaXq0a
+	kJ+0m95cceq5GRh6ZJ+qrcKYw/oEi1ogzLBro92zw+5u30mLeQRpRbtLiFYF053M
+	ur7YYAwFGod40yjJ56Xarv5OjU1TJCJmX0KihjfWTyAHH2kQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h03ew2d8g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:25:53 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9179524bf03so423846d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790684729; x=1791289529; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JwHhpjVu6BlRKWyBSGHgYpAs9nS3uWumWH8uIhfw3wA=;
-        b=C2AIWschWmL7gndlMRM88JryybRhr/eo+10Qzd0O4zvXc6RRxfH67ed13X8YKRraep
-         i1MD2aMrHxPqN1XysEbVCyWKit+kcIquw/Q46XJzlIsjbzDNsJL+k4HxJ1QJWcmuKs8J
-         isPoNn4MBJL/gzBkSWCGB3SOYclAK6gTaDw88KnOhLcgA4vBv1hpWpLg1nuDaXZcQtkL
-         EDlaufoXhF6d7Z3xan5LlvQhrkI58qS3ETdZUp5U5RlP48DrMyPcwxXuQtMWoWt90Xum
-         crkDYFNtYAlT+nslV4TESnbIhRnv99l6jziOAkjcDojPu9v9xyLMs781pvagGIk9W6f5
-         WOtA==
+        d=oss.qualcomm.com; s=google; t=1790684753; x=1791289553; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l+1/gp30Pqhkzp+lEQxy2SDB3xgsxUhnhSlDGzy4Fbg=;
+        b=JQZvACYN8nowSeKolZYQUqwHntQDaMR8REQXjuGb24PeFa5Bmuhc5oGO4BXtVSRVj6
+         JUkWf1k0w7mHkmSAkoEv0dIx6EfwWcPzf62vW+0kFNO8XHrvDZXwfqKkJIJa7Fj6P6x5
+         QxyZcRe4Bqq95TBJIzE3e1lrvlPnGA83hG2Z3X/nDWox+OD1ECDX4PKi6j7AbkjawNBJ
+         eh2Xwpan0Hqv9XWjZzp+2BTES/VkHGb5sBcCETSVvN8mQMgSr/cbKNMXeGOJkdqvpIiS
+         1U+bPKG2MDDiFj78AJgJDo+m4ywWCFO0B5KXNKzA0SjfAQe8shhQe3wEucXtnH3eyoKJ
+         svog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790684729; x=1791289529;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JwHhpjVu6BlRKWyBSGHgYpAs9nS3uWumWH8uIhfw3wA=;
-        b=vJHDytV0pg/nkxCgNQBmhYArUUbrEheWaX9ip+lt2/K1YERZzp7AO+D0jyJfq5UeyF
-         47UJ1776M7+wQMhu+WAWVFqQ/2d7S3KtaVtY0f1wgw/uv8yHw0Ykb6X6pp5aMasVcsZm
-         +cxz5T/bololLImr9IJoS8OFwOHwKz0gNxrAgFtaEBToYwyw3NAFM4zwc0P93TR4A5q6
-         hByPao1EocXKjktVxFWA+6i55/hajTaRs/Y7mbr77B+9QwGo4BvxoxsIvM3QJTANbRn0
-         Iops+BArgrfjpiY9coEPW57eZLu2f7EF4Q3SOmdGMR5D8mgiUrDk0jH9og1SXlhNIP1N
-         g9sQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjJig06Eu5nlk4QdDsSKObM7Qd636uQgoxaMKDVWHgalNhPhuc7BA/Nrv7+YYlscPlm+sqb6oPz8VCsvk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY79dpdLJbncRHio305MB+yJBHP6ECr37sTsg97BOkDI8ivd2y
-	Gc4frFSpGapDEfpHsW1J4RBMQ1yvYvbM4jn1TRbxkVxd6J7+5miMR0B5ps2pN1dp
-X-Gm-Gg: AYBFou2kXyzIivVrxwYgUfkOb9Rh8Kr/+1qLScoCED3y35WeblLdPDs5QNIR8xE4WyQ
-	zEjxkjmDSjcs6gU+Gax+LX/ypdOhY9Wyeg8oL0nMCqXmPQcosXUIHtsaGeWUJV/YByXsKnD/f2w
-	ePaBzQXh5RoUKf2pNfyI/18gs9idYw913JHj0g8WOcxoeJ8/8RKTxDWkvQvYLo4q4M0wIZw8sLL
-	EDV6B5WbIrKV70xO8OsZRVn1K/+CBGCJdaLSOdfjz1bl67SO71Ir7NW95yyw0dPbVN+u6KoVtQT
-	IPT5/xWjtzf+XJFYdZDDeIlRuX1P6vWCsTxI2iYWSsAL1xjlt3IfDGU8jrSoc603X55qbrGZdF0
-	zW5DaSyA91EQVKhDzQ/CRlve3lJbqMHmnL3AtA+TKv5PXVio7QZWb2m9t1LVHu7UlZ26v0FdrBz
-	PyT92FyjvOOzP37kM0EnNFSzL/qpdai40yxxeBEU0xejkmaDr/+EoDD3rLcpRXiPlgFm96
-X-Received: by 2002:a17:90b:2e4e:b0:3a0:a515:c450 with SMTP id 98e67ed59e1d1-3a0a515c806mr12143744a91.27.1790684728865;
-        Tue, 29 Sep 2026 05:25:28 -0700 (PDT)
-Received: from gmail.com ([111.55.96.98])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497ebd6b0sm5442941a91.1.2026.09.29.05.25.26
+        d=1e100.net; s=20260707; t=1790684753; x=1791289553;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l+1/gp30Pqhkzp+lEQxy2SDB3xgsxUhnhSlDGzy4Fbg=;
+        b=nYYl7F7GqG91ccCc3HNs0lJazZZ78mSi+f4DSS5NoS3pz0qfvAX495NdeKdYc4Oqtu
+         yMQPSljucJZwYTsbIVP7Ci4wQLDhJAdjFad9p0lirBnimVL2GCz269UwfaNCaO+lHXVM
+         TbW9kKo9kclPYRD2peRRPiLNeswsa9rtpmg6VspEkXLAyEd8SWu4xP+7KSvY+hkMnQ5b
+         mJ8ol10eGX+usMkCNaQh/fpnnDMUgLFk8l/bvguy6mxnVVqfuc/VjzDpn1PalOmTYvon
+         pPml1kNyPsCCaoGpAQ2OByBaMVGKkT6fqI2hKQJEoRFcN1A0ZGo9cudkBJy1qEx+nRkR
+         g5PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpUIY1VvZUdL/Tpbe9/1nINbR9oB8lRBkahL3lxjUJThgDe4u9ucuNtrSvxdXKQYStXNzpN6R/uqxnp1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mASCUsLk1bFXJG4qG77hD5p/0zd9QcLmUJJDlsHfq/ZF+wxtBd
+	9Zh2UmPaUZcXPxSWSjuN8tHVcLOa+lo5bapNgRpmpSf6RfIpnCZ5H4V17yA1FxmrZFtcipoDeks
+	svKBqwr2CVLjq0kXdu/FnOt6ux8nj/wykn8HQH/wJjyNkwdc7QXOCXCKHJuA5DRIrgB8=
+X-Gm-Gg: AYBFou039NGWytCLVlaB8rL2i3M7OgUSyvWrbyHNlz3EoTatpBDYq0Nhhyts57MqhVo
+	lD2MNRwzmCQ4v95e29LsD7MkvOqLbYbzHXoF9gOiwhL0CPS9KdKU4D91vKO39eosLybWpvp6QWF
+	4U+H+AzAPT582sIemVa1l9SBW3QPT/piH9ZYiNNjvCxzq3G8u5kR7YDGk1k1/LK5BcpjuoqApJi
+	vUfJCqc0Ywc66HwzjEYgMIgE4i2fAVawqWWZfT8aVdYRL0bC96Is5B+K5GZ9UzeAYjmg4xVGZvP
+	90kHaiHq070aiagg1KQCwiwy1bd4a0ktIOKEInIwdE9v2El7ovV2n9Mr11fC7n3M0t4USFKHSdz
+	bAk/foc9g/2DAni+v67NFnwkOfr30wjBhLRZQ8ALcBFT3BGfjoqUyZd0HSy50edqUfSm06jEAZl
+	kStbif5/4qFh9zirc4NoQMH6QRSvABvvoXEMmHvYVdv88WFHztlMk=
+X-Received: by 2002:a05:6214:5f09:b0:914:4e89:132e with SMTP id 6a1803df08f44-9144e8917cfmr188842806d6.26.1790684752569;
+        Tue, 29 Sep 2026 05:25:52 -0700 (PDT)
+X-Received: by 2002:a05:6214:5f09:b0:914:4e89:132e with SMTP id 6a1803df08f44-9144e8917cfmr188842066d6.26.1790684751847;
+        Tue, 29 Sep 2026 05:25:51 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5c1f:3897:a4a1:99e1])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d302482sm9103956d6.12.2026.09.29.05.25.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:25:28 -0700 (PDT)
-From: Xue Boyang <fuchen.dust@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xue Boyang <fuchen.dust@gmail.com>
-Subject: [PATCH ntfs] fs/ntfs3: fix slab-out-of-bounds write in index buffer replay
-Date: Tue, 29 Sep 2026 07:25:00 -0500
-Message-ID: <20260929122500.362486-1-fuchen.dust@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 29 Sep 2026 05:25:51 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v6 0/5] i2c: qcom-cci: Enforce the required CCI clock rate
+Date: Tue, 29 Sep 2026 14:25:44 +0200
+Message-Id: <20260929-cci-clk-fix-v6-0-62a268cccb0f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEiuu2oC/3XPSWoDMRAF0KsYrS2jqVpSVrlHyEIulWzhoZNW0
+ iSYvrvL3njAvSn4H+rBP4lGQ6Um3hYnMdBYW+2PHLrlQuA2HTcka+YsjDKd8kZLxCpxv5Ol/sl
+ C2sHaJCzJC/74Gojrq/bxyXlb208//F/xUV/a186opZJAiXzwSuUU3vvWVt+/aY/94bDiIy7ca
+ O4J/0gYJtBGCMWEtXIwQ9h7Ij4Sloli0VudNcSOZgh3I4J6GuKYIJ0DjwBHSs8QcCPi8xBgwmF
+ 2MQDERK+GTNN0BncaLyi5AQAA
+X-Change-ID: 20260721-cci-clk-fix-fe145b2acfa7
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Luca Weiss <luca@lucaweiss.eu>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org,
+        konradybcio@kernel.org, stephan.gerhold@linaro.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0OSBTYWx0ZWRfX/8Rk7wy7S/ln
+ V+mTnFquMrxiNNltB+dkr3aH39QXORj7t/LetAfu/fmqp7xk5BCePtbb6MZz0fvh9sdsTEv5SX/
+ ADcHM84+XRGDqxlD+0vP0lM658G8syQ=
+X-Authority-Analysis: v=2.4 cv=IIOXmQvG c=1 sm=1 tr=0 ts=6abbae51 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=CakdkRaH-b5KpuXxX4YA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0OSBTYWx0ZWRfX5VHHvHwsbH+A
+ Fr0XKU0VfxmbNWiwYZGbIJNrXaORNqwIqsLnYR8mtTS5S3fbPdhSFAKBENqlP58ICraPZxsQlin
+ Uw9f4oinAK8FkkEOsr+hZkokULNmk39lpuhH1eXlJJZWWOxPhCPCChQQCf17HD77rUDQuWJvxER
+ Q706ftDTZH0iOD5A3/Jl2K2DCcayTbeGr4PQgufYO9Z3m7Y3JjjltQFz0uGD/xjeW1ngK4/kxoF
+ 7/YkOrBET+CcQy/9goPa8kc5v95Rstf9Ub0+tZQCaW1bUvQwdQ9bdEkJQRBUoJFoG4lX9fX6cKE
+ u4/55T5EmTFw+v2O1qduMHCCoRCkS3xLNDIUK+0dptmKEP7p0oErzYEfAnBKl8IIXlFPn17OtJH
+ NDCQbcOne1iFLpYqdAgbm+2I7YRaPCN4sCD76puqDIbtIuUvkgbeC9vamhRXk4ngYiX2qy8bEF1
+ o3V5612gdFPaCLg6uGA==
+X-Proofpoint-GUID: 6OzUsc2k2dnUatlBK-YC3orubx86i01f
+X-Proofpoint-ORIG-GUID: 6OzUsc2k2dnUatlBK-YC3orubx86i01f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290049
 
-During $LogFile replay, the allocation-op preamble in do_action()
-computes the buffer size as:
+The CCI hw_params timing values (thigh, tlow, etc.) are expressed in
+clock ticks and are only valid at the specific CCI clock rate they were
+calibrated for. Running at the wrong rate causes incorrect I2C timings
+that may violate the I2C specification. Today the rate is left to the DT
+(assigned-clock-rates) or the bootloader, which is fragile: the driver
+owns the hw_params and should own the clock rate too.
 
-	bytes = max(oe->bytes_per_index, lcns_follow << cluster_bits);
-	bytes += roff;
-	bytes = ALIGN(bytes, 512);
-	buffer_le = kmalloc(bytes, GFP_NOFS);
+- Move the msm8953 to reusing the common v2 config.
+- Turn the timing table into a two-dimensional [mode][rate]
+- Add the 19.2 MHz Standard/Fast timing sets for the v2 CCI
+- Promote v2 to the generic common table for all revisions
+- Actively enforce the required rate.
 
-and then sets ib = buffer_le + roff, so the index buffer starts roff
-bytes into the allocation.  However, all six allocation cases pass the
-FULL allocation size to check_index_buffer() and
-ntfs_fix_pre_write() instead of the space actually available behind ib
-(bytes - roff):
+This ordering also addresses Vladimir's point that the clock rate is a
+property of the mode/timing settings rather than of the CCI revision.
+the per-mode [mode][rate] table lands first, and rate enforcement is
+built on top of it.
 
-	check_index_buffer(ib, bytes)       // validates entries up to ib+bytes
-	ntfs_fix_pre_write(&ib->rhdr, bytes) // writes fixups up to ib+bytes-2
+Patches 2/5 and 4/5 are the result of discussions with Vladimir and
+some code sharing. I would expect him to add a Co-developed-by and
+corresponding Signed-off-by tag if he agrees that the submitted
+implementation still matches his original intent.
 
-This lets check_index_buffer() approve entries that extend roff bytes
-past the end of the kmalloc() allocation, and makes
-ntfs_fix_pre_write() write the last USA fixup at ib + bytes - 2, which
-is roff - 2 bytes past the allocation.
-
-Reproduced deterministically on rw mount of a crafted $LogFile with
-oe->bytes_per_index = 2560 and record_off = 1536 (bytes = 4096,
-ib = buffer_le + 1536, available = 2560).  The USA fixup write at
-ib + 4094 = buffer_le + 5630 runs 1534 bytes past the 4096-byte
-allocation:
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_fix_pre_write+0xb4/0x100
-  Read of size 2 at addr ffff8880044891fe by task mount/70
-   ...
-   ntfs_fix_pre_write+0xb4/0x100
-   do_action+0x1c67/0x1e09
-   log_replay (fs/ntfs3/fslog.c)
-   ntfs_loadlog_and_replay+0x2cb/0x300
-   ntfs_fill_super+0x1375/0x22d0
-   ...
-
-Pass bytes - roff (the space behind ib) to both functions, matching
-the intended semantics when roff is nonzero.  With roff = 0 the
-argument is unchanged.
-
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Assisted-by: GLM:zhipu-coding-plan/glm-5.3
-Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- fs/ntfs3/fslog.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Changes in v6:
+- Fix error reporting in cci_set_core_rate, and prevent double
+  reporting. (Andi)
+- Link to v5: https://lore.kernel.org/r/20260927-cci-clk-fix-v5-0-4cd498559ae5@oss.qualcomm.com
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index ba61767cab3f..4b83a21532a3 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3624,7 +3624,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		used = le32_to_cpu(hdr->used);
- 
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff) ||
- 		    Add2Ptr(e, esize) > Add2Ptr(lrh, rec_len) ||
- 		    used + esize > le32_to_cpu(hdr->total)) {
-@@ -3639,7 +3639,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		a_dirty = true;
- 
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	case DeleteIndexEntryAllocation:
-@@ -3653,7 +3653,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		if (!check_lsn(&ib->rhdr, rlsn))
- 			goto out;
- 
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff)) {
- 			goto dirty_vol;
- 		}
-@@ -3682,7 +3682,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		a_dirty = true;
- 
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	case WriteEndOfIndexBuffer:
-@@ -3694,7 +3694,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 			goto dirty_vol;
- 		if (!check_lsn(&ib->rhdr, rlsn))
- 			goto out;
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff) ||
- 		    aoff + dlen > offsetof(struct INDEX_BUFFER, ihdr) +
- 					  le32_to_cpu(hdr->total)) {
-@@ -3705,7 +3705,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		memmove(e, data, dlen);
- 
- 		a_dirty = true;
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	case SetIndexEntryVcnAllocation:
-@@ -3718,7 +3718,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		if (!check_lsn(&ib->rhdr, rlsn))
- 			goto out;
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff)) {
- 			goto dirty_vol;
- 		}
-@@ -3726,7 +3726,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		de_set_vbn_le(e, *(__le64 *)data);
- 
- 		a_dirty = true;
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	case UpdateFileNameAllocation:
-@@ -3739,7 +3739,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		if (!check_lsn(&ib->rhdr, rlsn))
- 			goto out;
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff)) {
- 			goto dirty_vol;
- 		}
-@@ -3750,7 +3750,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		memmove(&fname->dup, data, sizeof(fname->dup));
- 
- 		a_dirty = true;
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	case SetBitsInNonresidentBitMap:
-@@ -3789,7 +3789,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		if (!check_lsn(&ib->rhdr, rlsn))
- 			goto out;
--		if (!check_index_buffer(ib, bytes) ||
-+		if (!check_index_buffer(ib, bytes - roff) ||
- 		    !check_if_alloc_index(hdr, aoff)) {
- 			goto dirty_vol;
- 		}
-@@ -3802,7 +3802,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		memmove(Add2Ptr(e, le16_to_cpu(e->view.data_off)), data, dlen);
- 
- 		a_dirty = true;
--		ntfs_fix_pre_write(&ib->rhdr, bytes);
-+		ntfs_fix_pre_write(&ib->rhdr, bytes - roff);
- 		break;
- 
- 	default:
+Changes in v5:
+- Check the rate returned by cci_get_required_rate() and pass it
+  out via a pointer. Never call dev_pm_opp_set_rate(0) anymore,
+  error out (-EOPNOTSUPP) when no rate fits all masters.
+  (Konrad)
+- Set the CCI rate once at probe, drop the set_rate from
+  cci_resume_runtime() and the set_rate(0) from
+  cci_suspend_runtime(). (Konrad)
+- Declare the loop iterators in the for() headers. (Konrad)
+- Drop the now-redundant hw_params[].thigh check in cci_get_hw_params(),
+  cci_get_required_rate() already rejects rates lacking a valid timing
+  set for an active master's mode. (Vladimir)
+- 'v2' is an arbitrary name, not realy hw revision, mention it. (Konrad)
+- Collect Reviewed-by tags on patches 1-4. (Konrad, Vladimir)
+- Link to v4: https://lore.kernel.org/r/20260801-cci-clk-fix-v4-0-e1d80da54e01@oss.qualcomm.com
+
+Changes in v4:
+- Rebase on andy/i2c/i2-next (527dd7fb6209) (Andy)
+- Add 'select PM_OPP' to i2c qcom cci Kconfig (Andy)
+- Link to v3: https://lore.kernel.org/r/20260729-cci-clk-fix-v3-0-f3c731d1596e@oss.qualcomm.com
+
+Changes in v3:
+- Reorder the series so per-mode clock support comes before rate
+  enforcement. Introduce a [rate][mode] timing table and select the row
+  matching the running clock rate. (Vladimir)
+- The per-mode patch only validates the running rate (error out on a
+  missing entry), the following patches enforce it.
+- Split the addition of the v2 19.2 MHz Standard/Fast timings into its
+  own patch, keeping the [rate][mode] conversion a pure refactor.
+- Drop the "Revert ... Remove unused struct member cci_clk_rate" patch:
+  the per-mode [mode][rate] table replaces cci_clk_rate entirely.
+- Introduce a common params table (revision agnostic) (Vladimir)
+- Link to v2: https://lore.kernel.org/r/20260727-cci-clk-fix-v2-0-c3958f28b045@oss.qualcomm.com
+
+Changes in v2:
+- Instead of adding a 19.2 MHz cci_clk_rate for msm8953, switch it to
+  the v2 config (37.5 MHz). The msm8953 table was internally
+  inconsistent (Standard/Fast for 19.2 MHz, Fast+ for 37.5 MHz), so a
+  single rate could not satisfy all modes. msm8953 is the same HW
+  version as msm8996/sdm630, which already use v2. (Vladimir)
+- Remove the msm8953 fix tag (Vladimir)
+- Apply the rate via the OPP framework instead of a bare clk_set_rate(),
+  managing the vote across runtime PM. (Konrad)
+- Link to v1: https://lore.kernel.org/r/20260721-cci-clk-fix-v1-0-5eae78700da8@oss.qualcomm.com
+
+---
+Loic Poulain (5):
+      i2c: qcom-cci: Switch msm8953 to the CCI v2 timing/rate config
+      i2c: qcom-cci: Support per-mode CCI clock rates
+      i2c: qcom-cci: Add 19.2 MHz timings for the v2 CCI
+      i2c: qcom-cci: Share the timing table across CCI revisions
+      i2c: qcom-cci: Enforce the required CCI clock rate
+
+ drivers/i2c/busses/Kconfig        |   1 +
+ drivers/i2c/busses/i2c-qcom-cci.c | 332 ++++++++++++++++++++++----------------
+ 2 files changed, 195 insertions(+), 138 deletions(-)
+---
+base-commit: 527dd7fb6209857f8ff4426055b3a418e60faa8b
+change-id: 20260721-cci-clk-fix-fe145b2acfa7
+
+Best regards,
 -- 
-2.53.0
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
