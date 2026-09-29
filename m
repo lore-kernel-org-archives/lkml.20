@@ -1,194 +1,128 @@
-Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A4F4E3235
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B94E3250;
+	Tue, 29 Sep 2026 09:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672482; cv=none; b=fN4bVDRe6wiQvtO3tFRYqcj+Y5ZCCPNtn5i06elZ9RuDEfLVmt9smm/XPCEqZ8RbWdv18gTXFk4dtlN9b9Am2xxkFyuaMgVa9+aniEvpQ1lCMq27D84STscTTU5gj1Q8I+Kt1j0q4FaUZDEMQldfpFQCSP/0JRapUInPx3W22pI=
+	t=1790672487; cv=none; b=B6Uxw3nvkLw7Io74SOKjKHPuq3rVCElkU61EbLOzQDsm//HkRGy6sY0gmqoMr2gODuHevqrxSt9leW9TVAHyw07qVvgfSTEyPZBYU5ExBk+VCnqaIginbsBCP3/OC1FPWd/rsWQniZCJ0xYJX0UmhpVBbDOPacob5mYwaB7xmdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672482; c=relaxed/simple;
-	bh=K0ZekEDjY5VG7aCtWBzRLRTbCI3fC9nROB+rmBb3umg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hh191roKbEyTmbsEeHRZN1hDPxN+hcSnI6CyypI3xfkvHejrHsgjR11PmObUIDl9anVzF2V5yoFNN7Z+5DO4T9ErhZknOQiqbekZGqegeBw/Wufd+o/EucvNda+jfUauuUx13XtrFUncQGpMntlGR4wSQHgHC1ZrtKfZQvx0Qas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WPZkTAFy; arc=none smtp.client-ip=91.218.175.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790672487; c=relaxed/simple;
+	bh=+cJ+oApCLWFX+2J/TYrhnMYyfOBv2bJE5opuDyb81Ec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qlqSvBLUE3D57DkpfHigM+heyV7LZ4zQZ/IVpsC5ioWAKQ12OL+grmfsRSYJOU7I15hZjI1x6HPDtL2KIwarJRaNrAyf0y/EnHNzQZIhdUcl4+O1QsJZmiF8HOd4IOXkjZhMFqko1V1PAoofh2ihyEGykaGzjomiqEJC6zxdq8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=iMK2lyNF; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WPZkTAFy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=K0ZekEDjY5VG7aCtWBzRLRTbCI3fC9nROB+rmBb3umg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790672478; v=1; x=1791277278;
- b=WPZkTAFyD8gE7PaFuIcsKkInVw0wvzMEiAaMRTbFqHUjIN0uQ+Tu9oPeNWoYXtIKjVSEziLY
- qkNRWY06MeCWVYnwrrDujUmZJEdpGxPltlUbG9RswifEwd2j50zvG82ruYMqrpMVCISLjLXQh+E
- +jkvI6y952yyZZzUHg9Z0g6s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eacd41c09129df34;
-	Tue, 29 Sep 2026 09:01:18 +0000
-X-Mizu-Trace-ID: eacd41c09129df34
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Quentin Perret <qperret@google.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] KVM: arm64: Use the host's HCR_EL2 for non-protected VMs in pKVM
-Date: Tue, 29 Sep 2026 10:00:30 +0100
-Message-Id: <20260929090031.3829185-4-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260929090031.3829185-1-fuad.tabba@linux.dev>
-References: <20260929090031.3829185-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="iMK2lyNF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1790672479;
+	bh=Db5PjPl0J8Jar2v2P8e7jihhsNeO4rAjX3w6USPwtns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iMK2lyNFubrnV8n45wb1GL+vSy1ToOweiFuNYHnSaUpUBePmlD/y2PH252g8bCHnh
+	 A+nB5wP+0vqt5YYQ/uX0yxyT6Eil+XCbGh3/rfkionJSx4mJHnllkv6GOBPsJLLLNn
+	 zrMTIbjXXT3rdfisFM2xcgIkxI9UhCr0L4+ZJMrI2EDEv6PKQmeFsGitpN8muoyGUQ
+	 sNhbdHMxxo7bTLUiRs9y7S4tyzr5Xw696ws7iv5HtKYTbmvUTWKdYP3nZRzxjraVdU
+	 l2lVxXk80+OjC1kJMvNAuxifAVpQKBjAsdQOhGdJ7TuajM3pLCCjF6Qy7kvfWHXhAx
+	 JVOynpVF7Tc8w==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id BFAA66005A;
+	Tue, 29 Sep 2026 11:01:19 +0200 (CEST)
+Date: Tue, 29 Sep 2026 11:01:17 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: =?utf-8?B?7ISx67OR7LCs?= <tjdqudcks0424@naver.com>
+Cc: fw@strlen.de, phil@nwl.cc, netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] netfilter: IPv6 conntrack fragment reassembly truncates
+ header offset
+Message-ID: <art-XRsR09GIvc4D@chamomile>
+References: <31da96413a406da2116f44df2db84f@cweb009.nm>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <31da96413a406da2116f44df2db84f@cweb009.nm>
 
-For each vCPU, pKVM's EL2 builds its own HCR_EL2 and takes only TWI, TWE
-and VSE from the host's value on each entry. For a non-protected VM it
-has fallen behind the host's: on a CPU with MTE the guest can read
-GMID_EL1, on one with FEAT_EVT2 but no FGT it can execute a TLBI OS its
-ID registers hide, an interrupt injected without a vGIC (VI, VF) never
-arrives, and set/way emulation loses the TVM trap it relies on.
+Hi,
 
-For a non-protected VM, also take the bits the host varies with the VM's
-configuration or at runtime: VI, VF, TVM, TID2, TID4, TID5 and TTLBOS.
-They only pend interrupts for, or add traps to, a VM the host controls.
-The traps exit to the host, which handles them as it does without pKVM.
-The bits that change what EL2 does on entry and exit (E2H, RW, API/APK)
-or depend only on the CPU (TEA, TERR, FWB) stay EL2's. A protected VM
-still takes only TWI, TWE and VSE.
+We have a patch for this.
 
-EL2 now sets TID2 or TID4 only for a protected VM, and never sets ATA,
-as the host rejects KVM_CAP_ARM_MTE in pKVM.
+But I stumbled a few times over it because I did not have a
+reproducer.
 
-Fixes: b56680de9c648 ("KVM: arm64: Initialize trap register values in hyp in pKVM")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  9 +++++++++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  7 ++++---
- arch/arm64/kvm/hyp/nvhe/pkvm.c         | 18 ++++++++----------
- 3 files changed, 21 insertions(+), 13 deletions(-)
+If you can share it with me, that would great. Thanks.
 
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index c904647d2f760..5c050f21066ab 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -12,6 +12,15 @@
- #include <nvhe/gfp.h>
- #include <nvhe/spinlock.h>
- 
-+/*
-+ * HCR_EL2 bits EL2 takes from the host on each entry, per VM type. The rest
-+ * are EL2's own and nothing the host sets there reaches the guest.
-+ */
-+#define PKVM_HCR_EL2_HOST_PVM	(HCR_EL2_TWI | HCR_EL2_TWE | HCR_EL2_VSE)
-+#define PKVM_HCR_EL2_HOST_NPVM	(PKVM_HCR_EL2_HOST_PVM | HCR_EL2_VI | HCR_EL2_VF |	\
-+				 HCR_EL2_TVM | HCR_EL2_TID2 | HCR_EL2_TID4 |		\
-+				 HCR_EL2_TID5 | HCR_EL2_TTLBOS)
-+
- /*
-  * Holds the relevant data for maintaining the vcpu state completely at hyp.
-  */
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 9a3b92e626adb..ac64a036b0a95 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -216,6 +216,7 @@ static void sync_debug_state(struct pkvm_hyp_vcpu *hyp_vcpu)
- static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- {
- 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
-+	u64 host_hcr_mask = PKVM_HCR_EL2_HOST_PVM;
- 
- 	fpsimd_sve_flush();
- 	flush_debug_state(hyp_vcpu);
-@@ -228,6 +229,7 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
- 		if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
- 			flush_hyp_vcpu_state(hyp_vcpu);
-+		host_hcr_mask = PKVM_HCR_EL2_HOST_NPVM;
- 	} else {
- 		hyp_vcpu->vcpu.arch.ctxt = host_vcpu->arch.ctxt;
- 	}
-@@ -241,9 +243,8 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	 * trap-control bit, so it must flow to the hyp vCPU alongside TWI/TWE
- 	 * for the vSError to be delivered. sync_hyp_vcpu() reflects it back.
- 	 */
--	hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE | HCR_VSE);
--	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
--						 (HCR_TWI | HCR_TWE | HCR_VSE);
-+	hyp_vcpu->vcpu.arch.hcr_el2 &= ~host_hcr_mask;
-+	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) & host_hcr_mask;
- 
- 	hyp_vcpu->vcpu.arch.iflags	= host_vcpu->arch.iflags;
- 
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 62d432144d44c..7ef09867f2802 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -30,6 +30,7 @@ unsigned int kvm_host_sve_max_vl;
-  */
- static DEFINE_PER_CPU(struct pkvm_hyp_vcpu *, loaded_hyp_vcpu);
- 
-+/* The PKVM_HCR_EL2_HOST_{PVM,NPVM} bits of this value come from the host on each entry. */
- static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
- {
- 	vcpu->arch.hcr_el2 = HCR_GUEST_FLAGS;
-@@ -47,13 +48,6 @@ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
- 	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
- 		vcpu->arch.hcr_el2 |= HCR_FWB;
- 
--	if (cpus_have_final_cap(ARM64_HAS_EVT) &&
--	    !cpus_have_final_cap(ARM64_MISMATCHED_CACHE_TYPE) &&
--	    kvm_read_vm_id_reg(vcpu->kvm, SYS_CTR_EL0) == read_cpuid(CTR_EL0))
--		vcpu->arch.hcr_el2 |= HCR_TID4;
--	else
--		vcpu->arch.hcr_el2 |= HCR_TID2;
--
- 	/*
- 	 * Without AArch32 EL1, leave RW set and let the entry fail with an
- 	 * illegal exception return: the *32_EL2 registers EL2 would otherwise
-@@ -65,9 +59,6 @@ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
- 
- 	if (vcpu_has_ptrauth(vcpu))
- 		vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
--
--	if (kvm_has_mte(vcpu->kvm))
--		vcpu->arch.hcr_el2 |= HCR_ATA;
- }
- 
- static void pvm_init_traps_hcr(struct kvm_vcpu *vcpu)
-@@ -85,6 +76,13 @@ static void pvm_init_traps_hcr(struct kvm_vcpu *vcpu)
- 	 */
- 	val |= HCR_TACR | HCR_TIDCP | HCR_TID3 | HCR_TID1;
- 
-+	if (cpus_have_final_cap(ARM64_HAS_EVT) &&
-+	    !cpus_have_final_cap(ARM64_MISMATCHED_CACHE_TYPE) &&
-+	    kvm_read_vm_id_reg(kvm, SYS_CTR_EL0) == read_cpuid(CTR_EL0))
-+		val |= HCR_EL2_TID4;
-+	else
-+		val |= HCR_EL2_TID2;
-+
- 	if (!kvm_has_feat(kvm, ID_AA64PFR0_EL1, RAS, IMP)) {
- 		val |= HCR_TERR | HCR_TEA;
- 		val &= ~(HCR_FIEN);
--- 
-2.39.5
-
+On Tue, Sep 29, 2026 at 02:07:58PM +0900, 성병찬 wrote:
+> Hello,
+> 
+> I found a reproducible IPv6 conntrack fragment reassembly bug in:
+> 
+>   net/ipv6/netfilter/nf_conntrack_reasm.c
+> 
+> Tested kernel:
+> 
+>   Linux v7.2.8
+>   commit: 9a66fdc0d7fd55f54235524a73435af99051e46f
+>   architecture: x86_64
+>   KASAN and KCOV enabled
+> 
+> The problem appears to be in find_prev_fhdr():
+> 
+>   u8 prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
+> 
+> A valid IPv6 extension-header chain can place the previous Next Header
+> field at offset 256. Since prev_nhoff is u8, the value is truncated from
+> 256 to 0.
+> 
+> The truncated value is later stored as the fragment queue nhoffset.
+> During reassembly, nf_ct_frag6_reasm() consequently modifies byte 0 of
+> the IPv6 header instead of the Next Header field at offset 256.
+> 
+> Observed results with the unmodified kernel:
+> 
+>   - Control packet with predecessor offset 248: delivered
+>   - Boundary packet with predecessor offset 256: not delivered
+>   - Ip6InHdrErrors increased by 1
+>   - The result was reproduced twice
+> 
+> I then changed the local variable from u8 to int:
+> 
+>   - u8 prev_nhoff;
+>   + int prev_nhoff;
+> 
+> Observed results with the modified kernel:
+> 
+>   - Control packet: delivered
+>   - Boundary packet: delivered
+>   - Ip6InHdrErrors did not increase
+>   - The result was reproduced twice
+> 
+> I also tested the boundary packet against an IPv6 INPUT firewall rule.
+> The packet was counted by both ACCEPT and DROP rules, and no firewall
+> bypass was observed.
+> 
+> No KASAN report, memory corruption, information disclosure, privilege
+> escalation, or firewall bypass was observed. I am therefore reporting
+> this as a packet corruption/drop correctness bug, not as a confirmed
+> security vulnerability.
+> 
+> The same u8 declaration appears to remain in the current mainline
+> source.
+> 
+> The code appears to have originated from commit:
+> 
+>   6b88dd966b42e374dc783c397efc15f5c1458265
+>   ("[SK_BUFF] ipv6: Use skb_network_offset in some more places")
+> 
+> I have a minimal C reproducer, kernel configuration, serial logs, and
+> before/after test results available. Please let me know if you would
+> like me to send the reproducer or prepare a formal patch.
+> 
+> Regards,
+> sungbyeongchan
