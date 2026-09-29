@@ -1,164 +1,111 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D372459E1;
-	Tue, 29 Sep 2026 13:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124165226AA;
+	Tue, 29 Sep 2026 13:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688101; cv=none; b=M3hodZ31Y2fszCpPAi1fmS/mx25EaMp4GtUm8d61+PuMtvElN3N5FfuhPr5aAY/3eZ0pAD1s7iMDHrW6cb6aFP4dIeE59bM2VTjSFhQgP+THAjAj0zSk0fZ/+02YqZ3h3O8pA8F6u2yIjkHc0gGsd4hwSJQBycpRtT98D85kIqQ=
+	t=1790688125; cv=none; b=n5yAz0Op8Z96jZmGY+OAQmWUiFU0WL4onxX0v3kxYlb7hVzyBgNLz+mVysqTPW3D0fqRNaFkGjZ7I4nC9yGqxX0HQmthSl0hk7qPmKMHoOF6LQFHTwnG9dla23LnoGBRbVz6K1CPC+K/qHuz2GTcLtOwrJiPOCdxZWFMeHZ5ALw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688101; c=relaxed/simple;
-	bh=4fUb+FBTDaJCnRT+TrqQyLEWUoHEBgK6iOcfDMSaFqc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mqlCOXQmrwYPhVoVubRoRCM/PlDsodAhhPSPeEyOvtLYAnKuDF4alvqRz4mZ5bNdnERLxPpJCmqr/rnxzwE65bDBr2dYegau7LH4/LliRa7dPs0edK+Hy1pO9rVKc6BhhsAHafNOepkmX5jRg1uv0+sqTplPnZ+Dt76xbPZB2zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gKHv9/5R; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KLyWKnLy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VjjKdJ3j; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=m1JhuCQ0; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790688125; c=relaxed/simple;
+	bh=jofquaWAYODr/UgreamCLltZG/YeYsMeiMAfxsINRmo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pWWR99trgv5kGliuJmnAD7aScNFtwyNBH+gpQNMA+O9g8seLbJAlxAyss0kGkZdaLz6LzORO6j/tljRr1wpIAjdpnIxfVYA0Avn7MWm2K8tjEv/dqwfkQJekz4epm6aMzW0ho3iTwRtNv+bFjtxV2TCO98ZAY/lX4ccK4oEzjog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=bHnt/LS/; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gKHv9/5R";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KLyWKnLy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VjjKdJ3j";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="m1JhuCQ0"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C197E1F7C9;
-	Tue, 29 Sep 2026 13:21:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790688094; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rCenjerG6qhlAFfM4z9/qyiF93TZR3Dk/p581e8+4/Y=;
-	b=gKHv9/5RXBhPM73c4Nl6glOPueNBPE1DD4VCSrY2NK80TPQQVT9II0ItD3jOKVSP3GGetw
-	7gqBJfbgZZYUdOCYpl4+RLGP0oMyurrLij0Jfdb2DpEH5PEJirKfsjYHBXKo5/w3+gZwDV
-	+TLUJPe+f/igU148jEQvnltjrLDREe4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790688094;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rCenjerG6qhlAFfM4z9/qyiF93TZR3Dk/p581e8+4/Y=;
-	b=KLyWKnLy5M1oCniBphnsgIF4gwRrBmbIHGHeVtntIVlVSrl9GfCkmcJb8zPbnV5uDYIDrU
-	AttSdi5esuHGcaBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VjjKdJ3j;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=m1JhuCQ0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790688089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rCenjerG6qhlAFfM4z9/qyiF93TZR3Dk/p581e8+4/Y=;
-	b=VjjKdJ3j3zAHW16roARHP64bacvN4i8eXxa+N/RM87+mDMxIMWXW7vyDNQMn1kKOvFvUHP
-	pHAt8bwUsYMR70XyV27Ud7ICy04By+aGvtm/hVQ0fOulBwJdD3BjlGRS0ykTvLVpw8LSDy
-	92CJlxOF+fFy2ZH/FMUUKXYuJOHTZQM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790688089;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rCenjerG6qhlAFfM4z9/qyiF93TZR3Dk/p581e8+4/Y=;
-	b=m1JhuCQ0VrUXJyiHo+wPknRk0za8RhOoNXtc4EBEdUW+1CSEA1wTzO8ZlA2n3ld8LFy4+x
-	UmW5brwVw62NRkDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F431136E4;
-	Tue, 29 Sep 2026 13:21:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id U+17EFm7u2qBFAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 13:21:29 +0000
-Date: Tue, 29 Sep 2026 15:21:25 +0200
-Message-ID: <87bj9g19d6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Christian Ruppert <arc@gmx.li>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Will Porter <mrwillporter@gmail.com>,
-	Peter Drabik <drabik.p@gmail.com>,
-	Neil Andrews <neil@androos.io>
-Subject: Re: [PATCH 0/3] Add Audient EVO4 support
-In-Reply-To: <20260919151840.24371-1-arc@gmx.li>
-References: <20260919151840.24371-1-arc@gmx.li>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="bHnt/LS/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790688124; x=1822224124;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=NB7hpKyiD3BFL2XDrDPPY5lgZEdsfSIldEvfHJXPBOM=;
+  b=bHnt/LS/NnG5KXZ75mHa7SY5+c/AtizI0XO6AV5ZMYs2Gb/ORIKElA/5
+   WUavnywp44sgNy5vGA0qSuRmrtRIs6W5ZsjTe+TQk8OCfQTU+dixc4c+J
+   tXT7f2qVg3RQ9raxvAOPzI8YN3Q/F8xpv5CJRUxB81/MZObEd3K/b+5nd
+   ZCtoSNQmdEkHrLjy6K5QAIeh6xIyagoMWTCXlixhF8kO1naWeAKecLNs2
+   QnQBS3U9s4eFdrLln6JOF15bX6E6RprmEpwwvodP6+xp39OqoCwHTkU8O
+   63X8UFrqT1B8tKWp6MXEf4pbdQDJrXsd2u6R7yXoeHR4U118ErPbGguUK
+   Q==;
+X-CSE-ConnectionGUID: syAV1fRlQK2P5eFpXG4Gbw==
+X-CSE-MsgGUID: 8v0jxBA0SAK2WQitTAlqwg==
+X-IronPort-AV: E=Sophos;i="6.27,130,1787011200"; 
+   d="scan'208";a="29920886"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 13:22:01 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:19224]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
+ id c090e9e5-78ba-4c90-8429-056fade416b7; Tue, 29 Sep 2026 13:22:01 +0000 (UTC)
+X-Farcaster-Flow-ID: c090e9e5-78ba-4c90-8429-056fade416b7
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 29 Sep 2026 13:22:00 +0000
+Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 29 Sep 2026 13:22:00 +0000
+From: Surendran Kanagaraj <surenkj@amazon.com>
+To: <jarkko@kernel.org>
+CC: <graf@amazon.de>, <gunnarku@amazon.com>, <jgg@ziepe.ca>,
+	<joshlev@amazon.com>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
+	<peterhuewe@gmx.de>, <surenkj@amazon.com>
+Subject: Re: [PATCH 1/2] tpm: Add per-chip timeout for transient unavailability
+Date: Tue, 29 Sep 2026 13:21:56 +0000
+Message-ID: <20260929132156.52496-1-surenkj@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <arabPv2YCddSMu_b@kernel.org>
+References: <arabPv2YCddSMu_b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C197E1F7C9
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmx.li];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.li];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com,androos.io];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D038UWC001.ant.amazon.com (10.13.139.213) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, 19 Sep 2026 17:18:37 +0200,
-Christian Ruppert wrote:
-> 
-> This patch set adds support for advanced mixer features of the Audient
-> EVO4 audio interface. The code is structured so that support for the
-> EVO8 (and potentially other Audient devices) should be trivial to add
-> but I don't have access to the hardware and no way of testing them so
-> they are not supported by this patch set.
-> 
-> The third patch in the series (Add Kconfig option for Audient EVO4 mixer
-> quirks) is optional. Other mixer quirks are compiled in by default and
-> don't provide Kconfig options but as this one adds a few hundred lines
-> of code I decided to provide this last patch as an option and leave the
-> choice if such an option should be added to the subsystem maintainers.
-> 
-> Christian Ruppert (3):
->   Fix Audient EVO4 master playback control name
->   Add Audient EVO4 mixer quirks
->   Add Kconfig option for Audient EVO4 mixer quirks
+On Fri, Sep 25, 2026, Jarkko Sakkinen wrote:
+> On Wed, Sep 23, 2026 at 02:28:33PM +0000, Surendran Kanagaraj wrote:
+> > +	unsigned int busy_timeout_ms;
+>
+> So I think this is a wrong solution.
+>
+> Instead this should be tpm_crb internal and you should simply patch
+> chip->duration[]. See tpm_tis_core for example.
 
-I merged the two, but dropped the Kconfig patch.
+Thanks for the review. Agreed that this belongs in tpm_crb.
 
-We have no Kconfig for other mixer stuff, and most likely the users
-will enable simply all mixer supported devices.
+TPM2 doesn't read chip->duration[] today. Commit 207696b17f38
+("tpm: use a map for tpm2_calc_ordinal_duration()") removed the
+ordinal to class lookup so patching the array would mean bringing
+that back. Something like:
 
-It might make sense to introduce a Kconfig if we build each vendor
-mixer stuff as an individual module, though.  Until then, let's try
-to reduce Kconfig.
+1. tpm2_get_timeouts() fills chip->duration[] with the TPM2 defaults
+   and calls ->update_durations() the same way tpm1_get_timeouts()
+   does. tpm_tis_update_durations() only handles 1.x, so I would make
+   it return early on TPM2.
 
-BTW, do you see an issue Faaris reported for the recent kernel?
+2. For the command durations, bring back the class lookup, so
+   tpm2_calc_ordinal_duration() returns chip->duration[class] like
+   tpm1_calc_ordinal_duration() does. SELF_TEST (3000 ms) and
+   VERIFY_SIGNATURE (30000 ms) need special care since they don't
+   fit the old classes.
 
+3. tpm_transmit() takes the TPM2_RC_RETRY cap from
+   chip->duration[TPM_LONG] instead of TPM2_DURATION_LONG.
+   tpm2_get_timeouts() sets it to TPM2_DURATION_LONG, so other chips
+   keep the same 2s.
 
-thanks,
+4. tpm_crb implements ->update_durations() and raises the values to
+   30s for NitroTPM.
 
-Takashi
+Does this match what you had in mind?
+
+Thanks,
+Surendran
