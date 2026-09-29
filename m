@@ -1,201 +1,414 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30C151E455
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.3
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684504; cv=fail; b=lalcIOxXWn90WjQmkz9VZj6DHrpO0TXKpXSZdkef7xCZrk5aGfYqfqcnpglSE0giKz9XuNbAXSHyzIz+QIciNQGenLk0l/fyTODzYLUP17GyNjwbHJBgM0bKSlg+rk+togqrPjJHl2hZlvMLKYxfvrF4JHAIlJ7Vxs0SkN2As7s=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684504; c=relaxed/simple;
-	bh=rgWqvbvF5sF2oRgU/YJrJdev7+FIsUKk3+5g9ipW30M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=AixrihgdpWcgOpnQ+yssNLDONtR+y0zv+b/6IK2Lxj6tIgyB6/5oXgnzOyH0nNsHdsVCPrwc9+TL3etQm3AsHiHqPqhdLGs0iYtyCOxTecdSXwPJN4prS3zBR6rVfj2SDBxv47bfOmxSWLLqH8Y4T1YRwTud1uIXIqF7zxASgdI=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ym+dRGEP; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ym+dRGEP; arc=fail smtp.client-ip=52.101.69.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB5551EE03
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790684555; cv=none; b=E9kmeleAeboocRlBx0z6Tb0nhkLcXTCqKlsRbHRWGvWFwN/OT+352xHswYmLUWiWwCje8KaM6luD1vrVa2Cjh38TAOzh/YMrc170wTN6nGyegOzFPhdEqHC82UMBzAx8HSjxOw8vZsdmI5zZSD132nycuHpmNljDC3w4XSY+KTg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790684555; c=relaxed/simple;
+	bh=O8D84FTFBf1LiYsMUL6kZ7J896dKztzUtv7yg42eDus=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1ZwAP9r03o7H5tNLHNJdfv8bNrghkH/apJ2uYue9cY1PnQU/7nVDinlkzhb1uDu5DeMP65jnVvCASMgrQHTkocdiJvEuYN1QsfNDaOFKTXRejY1FYga8Ng7DBTYCHxkarCGRjX81ZfFf1hIQCv1Rj5KkTnlQAiiktVe5tftNos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVt8K5fD; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ym+dRGEP";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ym+dRGEP"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=negvxNE1+BTjkSgG6ngBPaivWGBCke7pyA1SPtztXEWgs2lWHL4EaV0k5KH9cPaorZO6wXlZ5w1kWvDprEA9fOlYaD8OqZTNVAFJ28MWJCmZWH8IBz7Zy0ohQDUjyE/WUV2BfCP1KL3hM9yFZnYeQ/poWNtOEElZ1u0IBnMREi+Cpc2ZvUjpHZ2fF94zPVL2Iua+UzMhA2uSTBGihmBM1Z3E/Bj9gCYjpg9/Nhyah16DCV1wzQmJlKDTnw6sHP/p0GuN95XPPfKWOE0yFRo8vMEKPXc4PCNZZjF3Lm2x91rlz1dsF/2tqfHdnTX1apB2h0EoMnd8YuM2F7ug5cKl5Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=po1J0odtjG06Jn6CopZl3x5TJwVKeGH6cPusXe2go0I=;
- b=PP4aMzhlm9wPcju7FTK6cy7Fe048MiySIOkeRbpIYyqyy8DpW/DqGKSSsQegICpPkAyXuddJiOwsTilO0vklts6DJMz24MmJPFc5WzEPQVNvgm4GMK2+lARyKqxmXv7yyQIpLPtlrdVj0xUydQ1ZsNDvufkA9vW/DRyC4Sb8Dc7qW9tJxAGJfxPINiFVnlDbV1znIDAxVfy9Rm4KAjzpbwLO+ydcg81b8iNc2/1ZxJTqRHrtfbrEjoWmAu3wC4Mhl0armM4zawpEtaScG2BNYeh/hyiYJfXKpSrwnKnWUnG2TNIhvRHe5i6Umes5Bz/VJgvRFsKB0+cZ3JdaRzJ89w==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kylinsec.com.cn smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=po1J0odtjG06Jn6CopZl3x5TJwVKeGH6cPusXe2go0I=;
- b=Ym+dRGEPTFByoTUgDpYsTp0/glO7ZRL8Edorz425PdXSlTSk0oA0PJW7CGhiiU5Zku//DtWAB9XqzIJOn5DuR3R8cJMVLFgJg8gePPtD9mfnuBRmnB1jr1x968Ed559FK1zQvyD78w7ErHoXSVHHTB39BaALZFphTsmcHSt+9H8=
-Received: from PAZP264CA0077.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fa::15)
- by GVXPR08MB11471.eurprd08.prod.outlook.com (2603:10a6:150:2e3::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 12:21:35 +0000
-Received: from MAD0EPF000008BF.eurprd04.prod.outlook.com
- (2603:10a6:102:1fa:cafe::4) by PAZP264CA0077.outlook.office365.com
- (2603:10a6:102:1fa::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 12:21:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MAD0EPF000008BF.mail.protection.outlook.com (10.167.241.168) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Tue, 29 Sep 2026 12:21:34 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IvV2KAlVXv2M1AptqGR8hEAMwmJSKP1D0puyoKfbxahIfDKdtDesFRDAAwlTG3WUXcrsW28gQ+A0B5KWQRHTxMT6Yzt5vRyb44m8UekINJC0+scmbE78BIenJ80XUQ2fUTM96/jXvldHlicW3JVtLECNHdAduu4WBjxLXRD9MjwbILoYDeReTRDwgH3UCmv+61pY+GeRKfm+eNRE7p5dO9NGfhcGdyfTj3DA6eUFq9p+wN16kaZK0M/yjekFdy+plesAXbjymziU6FbAObOSPhCS5r0B89hnexvzMZrCRs8b42nBtz9L+Zl6MP4G6EdFX3Kl405zcU2T6Nknmr0ZZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=po1J0odtjG06Jn6CopZl3x5TJwVKeGH6cPusXe2go0I=;
- b=xU0qF/viezf0RGZEcy6i4kQ75wlrodpaVny71t6Q9D+93lgSBg8ysvUI6T5/4ZBTv453c9zKaiTcuBsfnr8Zp36sGUEbGsl4NMphor8LV4xNSBI1d+l+HfhIobIUnZndvCtOpalfJwAbdZbGXwlKLCvXFulygwNGwco1sjGMT2PVr++y/jy8Q2rv8d3nw0uA+Chbg6BTti4I01A6Ur86AuJRCzue9FfFCHSnnO9RCZRyYGx4dCaEtgUEBddPepBEu8+o+dPmw94d4UjtwGyz6Ele7h/NzuxTVFSLWFiaczpVRTlTP9J7r+Oms5bMIV86dx/AiBQBy5Dh4x8P7Lw+fA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=po1J0odtjG06Jn6CopZl3x5TJwVKeGH6cPusXe2go0I=;
- b=Ym+dRGEPTFByoTUgDpYsTp0/glO7ZRL8Edorz425PdXSlTSk0oA0PJW7CGhiiU5Zku//DtWAB9XqzIJOn5DuR3R8cJMVLFgJg8gePPtD9mfnuBRmnB1jr1x968Ed559FK1zQvyD78w7ErHoXSVHHTB39BaALZFphTsmcHSt+9H8=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAVPR08MB9674.eurprd08.prod.outlook.com (2603:10a6:102:31d::14)
- by DU0PR08MB9464.eurprd08.prod.outlook.com (2603:10a6:10:42c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Tue, 29 Sep
- 2026 12:21:01 +0000
-Received: from PAVPR08MB9674.eurprd08.prod.outlook.com
- ([fe80::6f25:3681:7c97:ea2e]) by PAVPR08MB9674.eurprd08.prod.outlook.com
- ([fe80::6f25:3681:7c97:ea2e%5]) with mapi id 15.21.0472.005; Tue, 29 Sep 2026
- 12:21:01 +0000
-Message-ID: <59e10194-cc34-4535-a8c9-6cfb808582c2@arm.com>
-Date: Tue, 29 Sep 2026 13:20:59 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coresight: syscfg: Fix null pointer dereference when
- configfs init fails
-To: Yingchao Deng <dengyingchao@kylinsec.com.cn>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, qinyungao@kylinsec.com.cn,
- luoqiu@kylinsec.com.cn, liudalin@kylinsec.com.cn, nd@arm.com
-References: <C73E0F9BDC0A8FE7+20260928123515.2032-1-dengyingchao@kylinsec.com.cn>
-Content-Language: en-US
-From: Mike Leach <mike.leach@arm.com>
-In-Reply-To: <C73E0F9BDC0A8FE7+20260928123515.2032-1-dengyingchao@kylinsec.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0340.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:39a::7) To PAVPR08MB9674.eurprd08.prod.outlook.com
- (2603:10a6:102:31d::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVt8K5fD"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d391aso31044965e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790684551; x=1791289351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wsVWpdNqyR1ov4kzte6IkDcEo+/nTeP+Cd8I0+pKOW0=;
+        b=sVt8K5fDv8xmHYDpJbQs8Mk/ZZ8MJKL8C5kW+CZGiRc9w30ONUwcwkUBdt3MJuiEgW
+         gElqK3pw8h/QrbIClfq5q718tT5P01llF4daiYz0Sp+qbHx+Yp2sKG8/3t1Uc/1XnihK
+         GAyhLCONKZ7exROJc7MkPBvpRLce5475802T30pO5gKsF0m8Q9e83ZANJwgD7MMwcljl
+         kEs3Pb65fVFXx3AEUvtmawRfsIfgzCLUh43VK1GjqQctRunpwwv8Sy+Ii7CkjysO5L+A
+         M5HW6K2m1dt3dzAu+4lgZU9pu9nDCx1Un0+P8Cf6qtOGPxZ9wxrGH6wlOgxNwye4Spdc
+         JBPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790684551; x=1791289351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wsVWpdNqyR1ov4kzte6IkDcEo+/nTeP+Cd8I0+pKOW0=;
+        b=jI/rwwyWjRUrNCNwwXsENo73TL8yqIVhkckd8YICQvcDIrcpVmfyPi2s6FZjrl791Q
+         A06qbItqqEPWHAo2h8mRFOrVZRHIBnO44SRQDFkqnt7L+yleltcK0JIwb+B44DExsyti
+         VOcbaj0kxespJuTGfD/tncw+KaO6Vv5UBj2zyhxbDUr3xCSPBEgoAYnnhZCnzGOq62z3
+         qATd+/J5n+wOpw5UxamKUTIVKtsgDv6He72lSTCha8FUYpmnNBnZt0aClsg+UPnhf6Fr
+         WU3t3CYtUuXYOmRAd5uowbq32G4kC/O67Xsb04GYmnmgeJhPgAof4sTWy1+OaCpgi9Z5
+         6IYA==
+X-Forwarded-Encrypted: i=1; AKwUvByXoX0NPIQ+LVyFWOwr7a7LRcFEKbXZu/bcheY4bjnP8Peh5MH04SQ84aV8XLTxxKhip9GVazrzg7fRn1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyBfQNLeY04yDtfa9ym9mU3ET+caLpVoiLSG4Cthposf0WV7+N
+	N0b5Do1YJMXeFuD37AAHSbpUDeShwonBgxIa7rm2whbxqfIuu4Tq8QuW
+X-Gm-Gg: AYBFou1gZaAbUFRUsLudVXs5MgNQUPzSOZ15Y4Fw2gC0y1SGNFkrHAMNfBwxNSFupbd
+	V1HssWrbeoCHXXm5gjl/XMVsTT2G6uUkC2QCnVejbFmMFjEh82PsxrpaqahWxq9F1+mucj9hINN
+	DnFedkxH19skO4DoXcbGDmaryG+sT940OQI0uDoK4g/8BcwHJJZjdIwB+R5ph0vDPaHtANtnE99
+	iXx23n5vtTIJXY4dfc76XXJp08H2AYoRaGLSXDGJRvePEBpjIuDYqABPa+2/wbA4MLD10N0p21p
+	7lCEt4XYI9uk6v8ea4zR7sQ6jQxzymW86o4qj6c+oBhmvLWG0pObhE38EiDgD690S7LYa4asyfc
+	L8CZ57Jv4+0PkA2fscF6F2e+6eqcp2aeGnoObkvFtU2HHJgonhjPR0A6rtlbKO0AMdtGlr+eUEe
+	9dt5808SNy9snIbOB5zE9v9UrIFviMAVmMPBCsBU4H+gQ/AVlKzw1bnP1Ourg5s0VTCRra64edQ
+	9ved7mEHxocvkTNrv9j4e5MbuYgPYv93wRiGurOT7mdfFMaJ69t1CyOvzU6EUx2Vdh2Ao4=
+X-Received: by 2002:a05:600c:46c6:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-49ffe88e87dmr141315145e9.15.1790684550378;
+        Tue, 29 Sep 2026 05:22:30 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00ed06ea7sm55359085e9.4.2026.09.29.05.22.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:22:29 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: nicoyip.dev@gmail.com,
+	pav@iki.fi,
+	r772577952@gmail.com,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Subject: [PATCH v4] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
+Date: Tue, 29 Sep 2026 17:22:26 +0500
+Message-ID: <20260929122226.98970-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAVPR08MB9674:EE_|DU0PR08MB9464:EE_|MAD0EPF000008BF:EE_|GVXPR08MB11471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f54e7f8-886e-4d7c-d150-08df1e2433ce
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|10067099003|11063799006|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info-Original:
- qD/CnUAH6Ev0CuLkRWbv1dJS5zNJtV8kd+/O4Mzk8zHxNP0gYZeI/Z0Fi7eItYZUSdvm+2hex+5TKxYED8KjfoG37WP6zMHhgs5dq/FzHUChtuVhT6TS6y5I2lKPBs9agvR9oyG89+ZGQwXz7RvCFd+hT6TevOP2S9YantEQSGnrzRCb3Te/JJVzhxr3OKDohljvgK5DVz8aA2il2qS7qQW5AjcYm5rY92oQkQEMHR22UIwKpKcITMUaByPhT6PgIe7WXuq516bPWEOtZU8f861YGejrrHbqGxSbSA7s8We02+F/MZ9Os+vurDZBbdocvtdMsrLWR+DoWMZjCvhtlrE+4kDu6I+DvXSBX6Y4bdi1gPilEjxeols1S8ByKfiIrytvb1BbCEP5Rw/lOcSdcNU1Yg34/ZqqESWu1unVnGr3bVkwVwX37hO7imEEClOL1FUbsSwdt7+trljwDpgfXBqKvjXdqWxbJrQRwn0dCgNO5EiMzbtyYXHfRuGsuhkyGHwUIhQ2LtQeg/JPAsXldIar16WYEuUOX4cAaSY0nYcaY7Zn/WqMycP2kwUefEctzp1ZG8r1FaY0xgs/78MY/bJMEEonDtlJia7iGgPJv/Q8rjRl6LuqElt6fqLo/Pfk
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR08MB9674.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- LgZFwdVJrEmiRc2WI3EF3a0SftBTCeCyY88G3st4vCKd3jymYwcWA+iDhuum6XEw+XSgta4Of/HbUw8j25qcej5xdsMIUIZix9fW53O7NNz+/XOVxk320D7Gjvb4fWnrMPSujiCsKbwwZ4wDmZxwGK2EB6E6GM5RQLEgLE9I2uuXNFXhjWl72UUh71gKs4wai/kvXUkI2QUob4rj8i1olzIJ523rg5tK4eGnzUPkdUpX2uOHoj274rjk9tPf/GrWn0YRrBfQ1abszAU3RLgDOKVPSN+REJxFNZ160qYPBgzansL+rNnM5wKlDWHWFOunlv0qe/D2TC52gzBVXYujiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9464
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MAD0EPF000008BF.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	6e93c87b-f61c-4074-b5bf-08df1e241f9e
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|23010399003|376014|1800799024|36860700016|82310400026|14060799003|6133799003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	7sv99CVYxd8MyXk7uoAh9g8w40ztW0Wn+0Hor8imJT5iAEQbCa4tz1gTWcb7NXlJNet8qQc/teNb8xN8ZbyPTkUwndhoXO40/oN6sNz5civ4v9vrrYdlA+HlP9KSZxWzbyfMMAPsGg5JTarjFJfl7kRJ6zwwCd9MITshnunz2ITpHSJgSyJSx31pzboV3sRfxyKz23Q+7UexWC9K2aF7EU30OKYlM/3Sxz+L4myxerW5YTf39b/68VUC2t5qaoFx6wfTglVeUNl6iWddPsmbnT+z6pFEE4EHmHVxiVLb8dvlAQ5rkk5rlFjt3Kz32Jq2mJPMBkuMmOZZoCu4qkBUNe7M/Ee0SISIGH2kz9WK2Gpq7bmOvqviQE/qQSLuN8bZMW1uyJUvy27ganveI8gECdTe0/gkpFbMEgzyM2x0tXzC7f6zugp1GvD55YKYW3ChokWO/7EO5WExh4aMFOJ4I5Qr3DJjnJUEX9W1JDtCnQi4uz6Ic1heiMjPX0DxBsoIXDcIVpVKtpUbt6030N3ovkIF0meoYyv6wzuX7W2U1HPop4iIQN7RJKHFEz7jk7tp6cABKMBTLGYw+/LLxyQ8q1UOH0XMTnKs3nlULRhJWUhM+DhO+ul6AIsk8xRe22Iv9jIkIM7v01BU0x26X6wH+2UHj4p8gGSaGEJ7RBhKlEk=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(14060799003)(6133799003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OeNd3nPUmYCGH4ENG9qNIZmOE7ArbZ1Fzp8zB55P3FOaqY1LDKwj24NJKLcANxjkUjYugmoBWyAAU3ODX8VNdbwgHn4uuS8YTlEL4pQtdDCuaG2kzuh+P21Rl30zjFiAM1qVd49WXMvTy6l1NYk9SSUg8MjQtD54zoxCNWhNaNf6uv+yZ2sb96gVUaS4uL2NYeL8GdKAIndEcFk7L9nsssN4Oii7CpsFzsF+fIepbI+UDHV1nQbgJG91d+6ZYXVbUb6Ntqf9XhtY/ge/iEj6/KEZPUh67AvI+PmRK6lMInm90asdG+pY8/iom/8Xs91JdUvqpgFnml2XGEBoQMTBxF4BJ6p4EX9MHlPPvx0zSl9kxuyo10sucKu+prbXE/PJKGOA7ApLPNvR4whJN2g4o32NE1ZKzzrhRJQxt0VW72+Iry2gfbh8ltV7iLeRhTcH
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:21:34.5142
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f54e7f8-886e-4d7c-d150-08df1e2433ce
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008BF.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11471
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Mike Leach <mike.leach@arm.com>
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
 
-On 9/28/26 13:35, Yingchao Deng wrote:
-> If cscfg_configfs_init() fails, cscfg_init() takes the exit_err path:
-> 
-> 	cscfg_init() -> cscfg_clear_device() -> cscfg_configfs_release()
-> 		     -> configfs_unregister_subsystem()
-> 
-> which tears down a configfs subsystem that was never registered.
-> configfs_unregister_subsystem() begins with:
-> 
-> 	struct dentry *dentry = dget(group->cg_item.ci_dentry);
-> 	struct dentry *root = dentry->d_sb->s_root;
-> 
-> ci_dentry is assigned in configfs_create_dir() only once the subsystem
-> directory has been created, which never happened here.  cscfg_mgr
-> comes from kzalloc_obj(), so ci_dentry is still NULL, and dget()
-> hands a NULL dentry back unchanged - the next line dereferences it.
-> 
-> Handle the failure in cscfg_init() directly: unregister the device and
-> return the error, releasing the devres-allocated config item type and
-> cscfg_mgr without touching the subsystem.
-> 
-> Fixes: a13d5a246aca ("coresight: syscfg: Add initial configfs support")
-> Suggested-by: Leo Yan <leo.yan@arm.com>
-> Link: https://lore.kernel.org/all/20260924162404.GN200420@e132581.arm.com/
-> Signed-off-by: Yingchao Deng <dengyingchao@kylinsec.com.cn>
-> ---
->   drivers/hwtracing/coresight/coresight-syscfg.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-> index 2bfdd7b45e49..00b29d1656c0 100644
-> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
-> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-> @@ -1299,8 +1299,10 @@ int __init cscfg_init(void)
->   
->   	/* initialise configfs subsystem */
->   	err = cscfg_configfs_init(cscfg_mgr);
-> -	if (err)
-> -		goto exit_err;
-> +	if (err) {
-> +		device_unregister(cscfg_device());
-> +		return err;
-> +	}
->   
->   	/* preload built-in configurations */
->   	err = cscfg_preload(THIS_MODULE);
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
+
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
+
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Connecting without the lock opens a window in which the socket can be
+closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
+nothing to do and returns without touching it, and rfcomm_dlc_open()
+would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
+marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
+mark once it holds rfcomm_mutex again and drops the socket instead of
+attaching the DLC.  The mark is cleared when an open starts, so a DLC
+that is reused is not affected.  This covers both callers of
+rfcomm_dlc_open(), the socket and the tty layer.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Reported-by: Jiaming Zhang <r772577952@gmail.com>
+Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+The commit this fixes is in v7.3-rc1 and is marked for stable, so this
+probably wants the bluetooth fixes tree rather than -next.
+
+v4:
+ - rfcomm_dlc_close() marks a DLC that is not on a session yet, and
+   rfcomm_dlc_open() drops the socket instead of attaching the DLC when
+   it finds the mark after taking rfcomm_mutex again (Luiz, and the
+   Sashiko review of v3)
+ - Reported-by/Closes for Jiaming Zhang's report, which hits the same
+   cycle from the connect side: rfcomm_dlc_open() holding rfcomm_mutex
+   while l2cap_chan_connect() takes hdev->lock
+ - syzbot tested v3 with its reproducer, no issue:
+   https://lore.kernel.org/all/6ab100d7.71f81b7d.15fa6d.0029.GAE@google.com/
+
+Tested on 7.3.0-rc5 with an MT7922 controller (btusb) and a JBL Tour
+Pro 3 headset.  An RFCOMM connect() towards an address that does not
+answer, run after the headset has authenticated its link, reports the
+inversion without the patch (checked on 7.3-rc2); with v4 it stays quiet
+and the validator is still armed afterwards (debug_locks: 1).  A connect
+towards the connected headset is answered in 23 ms with ECONNREFUSED -
+the session is established over the existing ACL link and the peer
+rejects the channel - and towards an idle one it fails with EHOSTDOWN
+after the page timeout.  The reproducer is in the v3 posting.
+
+v3: https://lore.kernel.org/linux-bluetooth/20260912100315.151674-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/linux-bluetooth/20260904012028.77590-1-mikhail.v.gavrilov@gmail.com/
+v1: https://lore.kernel.org/linux-bluetooth/20260902235132.453044-1-mikhail.v.gavrilov@gmail.com/
+
+ include/net/bluetooth/rfcomm.h |   1 +
+ net/bluetooth/rfcomm/core.c    | 134 +++++++++++++++++++++++----------
+ 2 files changed, 96 insertions(+), 39 deletions(-)
+
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index 102c278e3..9dc5fd4cb 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -207,6 +207,7 @@ struct rfcomm_dlc {
+ #define RFCOMM_AUTH_REJECT  7
+ #define RFCOMM_DEFER_SETUP  8
+ #define RFCOMM_ENC_DROP     9
++#define RFCOMM_CLOSED       10
+ 
+ /* Scheduling flags and events */
+ #define RFCOMM_SCHED_WAKEUP 31
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index d91e2a6ee..54ec1136f 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -62,10 +62,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -365,28 +364,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -421,14 +409,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	clear_bit(RFCOMM_CLOSED, &d->flags);
+ 
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
++
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
+ 	rfcomm_unlock();
+-	return r;
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* The DLC may have been closed while the socket was connecting.  It
++	 * was not on a session, so rfcomm_dlc_close() could only mark it;
++	 * attaching it now would leave it with no owner.
++	 */
++	if (test_bit(RFCOMM_CLOSED, &d->flags)) {
++		rfcomm_unlock();
++		sock_release(sock);
++		return -ECONNRESET;
++	}
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
++
++	rfcomm_unlock();
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -508,8 +566,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
+ 	rfcomm_lock();
+ 
+ 	s = d->session;
+-	if (!s)
++	if (!s) {
++		/* Not on a session yet: rfcomm_dlc_open() may be connecting a
++		 * socket for it with rfcomm_mutex released.  Leave a mark so
++		 * that it does not attach the DLC once it holds the lock again.
++		 */
++		set_bit(RFCOMM_CLOSED, &d->flags);
+ 		goto no_session;
++	}
+ 
+ 	/* after waiting on the mutex check the session still exists
+ 	 * then check the dlc still exists
+@@ -757,12 +821,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -792,24 +856,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr_unsized *)&addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+-- 
+2.43.0
 
