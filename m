@@ -1,190 +1,96 @@
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6B423EA83
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681D52C11F3;
+	Tue, 29 Sep 2026 08:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669122; cv=none; b=m9nnWphCrFc10evrItmSwxUMj+50hKpdAEASifYQG0PJ4Dfg4+CXkdVnv+izcYJQ3Lf0Mlcupiuyesn8Wcoc1I6LfiV9H7wUZTxAVsTuUCaD9/bz7kgQLL3PKV8UpzYwvs9h4uKgFpBo646qE19HyoWyA1ob4Hi7OzaiDogs2FE=
+	t=1790669173; cv=none; b=ovs/Ej15l3WZjmn82QX8eh4w/vr34pPDv7i9D/EB+TWKtwOIfG/Uk0WI/VfI+jqhFsEKxr48Wu4RsfWyK93ZFr9jEXPvfZTbxvhIY29JXtFN/lA3AmmCJsDgF2BuLXACbVq7u1acVVGq0ZxyknkizP09TaiLt4+62PXiZok7Uek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669122; c=relaxed/simple;
-	bh=Cu3PmaM4+usDuxduqOqsYpNfFf0tzadb722O33EBlFs=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=lt6eLhg4cx12j8o3f4G52AHDPedHRG/imAXYpAoOLh4l68tWils3pJOAoyihoWQPjUnDRXbhmd3YZMvpLcXZY4HEpXAxYOahGsCqRYf5RdL/4iRDpsG020SCHpv8O5NJ1YZphtUCfpPnkQsjXIeQL96/0ZpM/mMpZs+OdB/Ik1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pEiS4CAq; arc=none smtp.client-ip=91.218.175.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790669173; c=relaxed/simple;
+	bh=NQuYWNXbM0um/Bk7OR6ZqeBZzo7ZYc2JRC/8GYTckbE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aOcM/AeTSrFyLV8UPGcJV4xyFh+G16aZGejabGByzIx8IwLDwoqZ8kTKF/vgadOG1qypx0q47gJ3a8xw51vWxI85v9D7guUVOKbthiE2gWE1Ag4OS1Fy/p032QF7dLGNkiLZpteEnXp5o746dmLfzeYmPaN9m855c/n+dYVfRm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhc06+TD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pEiS4CAq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Cu3PmaM4+usDuxduqOqsYpNfFf0tzadb722O33EBlFs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790669116; v=1; x=1791273916;
- b=pEiS4CAqRhKAXEpY5GJeEoHPtjNXppUWTKZwpVgTWqQ+f4ccdJlJfOyFFbl7qcspQgQYvred
- qxzvHh8eshC1Cub/8Sh0lCirl+W64+dUIFIAdhMiecoIM31bOfsoVsxfuW9wCpTXUrJHdBJD2Ld
- SKgcBOqqFQ1YRoheW1caIrrA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id dcefedb6d7c8165b;
-	Tue, 29 Sep 2026 08:05:14 +0000
-X-Mizu-Trace-ID: dcefedb6d7c8165b
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhc06+TD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098921F000FF;
+	Tue, 29 Sep 2026 08:06:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790669172;
+	bh=pBbBU/HalPPdxadYVBZuB6Z8V7u65zmk+9HH6iJyTQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dhc06+TDSSn0Qp2gvtELwnLLPGSzjUZ9bt5WehGAa6kt/hauPnB0fRp7DFBdAyu3R
+	 NNhHDZmV7FdmcjjK/clPXhb/9xvxlFKkjU/USyJ397mLKQO6yexI5Vn2ZHWBaQiNtC
+	 6LxvrL23+BktUa4LbIPzdDaUuMp9xzTcIQdI4JdcWtuvUEwnzscJoLVF0T5vE7wtpK
+	 NS0Jk0DRNWjaJtb2irlJLlHp3qbUdzN2KymvqXNnX56HcMnaFfxG15SqsJFh99qH0J
+	 PyjhjPyl+BDUF2OiIN9zx4RsMkyP+rVxLrE5//INogcLDTY8WNNL/qVB1I45ZDHJEF
+	 7d1jZ7rVirlMg==
+Date: Tue, 29 Sep 2026 10:06:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <quic_jkona@quicinc.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: Fix videocc clock inputs
+Message-ID: <20260929-smart-hairy-puma-e4cf8e@quoll>
+References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+ <20260924161152.1162301-4-shengchao.guo@oss.qualcomm.com>
+ <3l6v5idon2edkritzyqlmvdjn5ijt3lytp656sxicfnqah2rga@o6plxiv5d53u>
+ <araTYLZoYUKyQw5b@QCOM-aGQu4IUr3Y>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v5 05/12] mm/sparse-vmemmap: prepare DAX vmemmap
- population for compound page orders
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <deecea10-589f-4e2c-9c17-5e5dd4e81250@kernel.org>
-Date: Tue, 29 Sep 2026 16:04:55 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Lance Yang <lance.yang@linux.dev>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <77523FDF-D7CC-4B79-AF35-DF2E6673F0A1@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-6-songmuchun@bytedance.com>
- <deecea10-589f-4e2c-9c17-5e5dd4e81250@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <araTYLZoYUKyQw5b@QCOM-aGQu4IUr3Y>
 
+On Fri, Sep 25, 2026 at 11:29:36PM +0800, Shawn Guo wrote:
+> On Fri, Sep 25, 2026 at 12:47:16PM +0300, Abel Vesa wrote:
+> > On 26-09-25 00:11:52, Shawn Guo wrote:
+> > > The videocc node passes GCC_VIDEO_AHB_CLK as its second input and stops
+> > > there. videocc-sm8750.c declares its DT inputs as DT_BI_TCXO,
+> > > DT_BI_TCXO_AO and DT_SLEEP_CLK, so the second input is the always-on
+> > > board XO rather than an AHB clock, and the sleep clock is missing
+> > > entirely.
+> > > 
+> > > The missing third input leaves video_cc_sleep_clk_src unable to resolve
+> > > its parent, so it registers as an orphan clock and cannot be rated.
+> > > The AHB phandle in the always-on XO slot is not resolved by the driver
+> > > today, but it implies a parent relationship the hardware does not have.
+> > > 
+> > > Pass bi_tcxo_ao_div2 and the board sleep clock instead.
+> > 
+> > So videocc can still function properly without the GCC video AHB clock then?
+> 
+> I do not have a sm8750 device to test, but I did verify the same change
+> on Nord, and videocc can still function properly.
+> 
+> Dropping gcc_video_ahb_clk as a videocc input clock shouldn't break
+> sm8750 videocc from what I can see.
+> 
+> - The AHB clock isn't a videocc input at all. The videocc clocks array is
 
+Why is not input? You keep using in the commit msg and here only driver
+arguments. This is not an argument for hardware change.
 
-> On Sep 29, 2026, at 15:24, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> On 9/27/26 04:54, Muchun Song wrote:
->> Device DAX still uses vmemmap_populate_compound_pages() to populate =
-its
->> compound-page vmemmap mappings. That helper allocates the head and =
-first
->> tail vmemmap pages explicitly, then reuses the first tail page for =
-the
->> remaining tail page mappings.
->>=20
->> Device DAX is being moved to the section-based vmemmap optimization
->> infrastructure, but it cannot switch to the generic section-based
->> population path yet. Once a later patch records the DAX compound page
->> order in section metadata, DAX head and first-tail PFNs can look
->> optimizable to the generic helpers as well.
->>=20
->> Add a DAX-specific population flag for this transition. It keeps DAX
->=20
-> Well, you're not adding flag, your reusing an existing one and =
-renaming it?
->=20
-> And then you're specifying it on more paths.
+>   positional and the driver maps index 0/1/2 to
+>   DT_BI_TCXO/DT_BI_TCXO_AO/DT_SLEEP_CLK.
+> 
+> - gcc_video_ahb_clk cannot be consumed anyway. gcc_sm8750_probe() leaves
+>   it always enabled in probe and never registers it as a clk at all. So
 
-You're right. The commit message need to be more precise.
+Again driver argument. So if driver did not leave it enabled, then
+hardware would need it?
 
->=20
-> [...]
->=20
->> mm/sparse-vmemmap.c | 27 +++++++++++++++------------
->> 1 file changed, 15 insertions(+), 12 deletions(-)
->>=20
->> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
->> index e4dae98ba7f8..2457ea2c6dca 100644
->> --- a/mm/sparse-vmemmap.c
->> +++ b/mm/sparse-vmemmap.c
->> @@ -35,8 +35,8 @@
->> /*
->>  * Flags for vmemmap_populate_range and friends.
->>  */
->> -/* Get a ref on the head page struct page, for ZONE_DEVICE compound =
-pages */
->> -#define VMEMMAP_POPULATE_PAGEREF 0x0001
->> +/* Vmemmap population for ZONE_DEVICE compound pages */
->> +#define VMEMMAP_POPULATE_DAX 0x0001
->=20
-> Cleaner.
->=20
->>=20
->> #include "internal.h"
->> #include "mm_init.h"
->> @@ -243,13 +243,17 @@ static inline struct page =
-*vmemmap_shared_tail_page(unsigned int order,
->> #endif
->>=20
->> static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
->> -  			struct vmem_altmap *altmap)
->> + 			struct vmem_altmap *altmap, unsigned long flags)
->> {
->> 	struct zone *zone;
->> 	struct page *page;
->> 	const unsigned int order =3D pfn_to_section_compound_order(pfn);
->>=20
->> - 	if (!vmemmap_optimizable_pfn(pfn))
->> + 	/*
->> + 	 * Device DAX still relies on vmemmap_populate_compound_pages() =
-for
->> + 	 * head/first-tail allocation and tail-page reuse.
->> +	 */
->> + 	if (!vmemmap_optimizable_pfn(pfn) || flags & =
-VMEMMAP_POPULATE_DAX)
->> 		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
->>=20
->> zone =3D pfn_to_zone(pfn, node);
->> @@ -271,7 +275,7 @@ static pte_t * __meminit =
-vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
->> 		pte_t entry;
->>=20
->> 		if (ptpfn =3D=3D (unsigned long)-1) {
->> - 			void *p =3D vmemmap_alloc_pte(pfn, node, =
-altmap);
->> + 			void *p =3D vmemmap_alloc_pte(pfn, node, altmap, =
-flags);
->>=20
->> 		if (!p)
->> 			return NULL;
->> @@ -286,7 +290,7 @@ static pte_t * __meminit =
-vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
->> 			 * and through vmemmap_populate_compound_pages() =
-when
->> 			 * slab is available.
->>  			 */
->> - 			if (flags & VMEMMAP_POPULATE_PAGEREF)
->> + 			if (flags & VMEMMAP_POPULATE_DAX)
->> 				get_page(pfn_to_page(ptpfn));
->> 		}
->> 		entry =3D pfn_pte(ptpfn, PAGE_KERNEL);
->> @@ -546,6 +550,7 @@ static int __meminit =
-vmemmap_populate_compound_pages(unsigned long start_pfn,
->> 	unsigned long size, addr;
->> 	pte_t *pte;
->> 	int rc;
->> + 	unsigned long flags =3D VMEMMAP_POPULATE_DAX;
->=20
-> const and at the top?
-
-No problem.
-
-Thanks,
-Muchun
-
->=20
-> --=20
-> Cheers,
->=20
-> David
-
+Best regards,
+Krzysztof
 
