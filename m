@@ -1,181 +1,99 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA514E5331;
-	Tue, 29 Sep 2026 09:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08794EB87F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674047; cv=none; b=jO17d5sg+hPdUZOQovcbDOL4mGU/JWYac5vdBST2DeuFC77OyX8CBEBibW3PgvCNVECZQbrtg4EC1ZLSm8CGL0ItQAnUXChHAoci6xYLS0p7UFHQR+oPjSwHeOYcNp/wuBNB+m6H998M5kWm+0wgNN41nhCjbhROFdIfO8r3r/c=
+	t=1790674062; cv=none; b=k8rRbL4j2xp+BLqmFQxJ0Iete8VN/yz0g5jAHz6bMFI3Rx2Db+zbl3Ig5IaV0cFs2onqC5vt/kiy9S9G9H5TohWYCLVq6hpGrU+ArAIAH+dsGeNMrOGtLQSNJ6shumzqNNtKYTmNXyj1y/B7VLMLVkWAHoheHE19fz/m59XDR98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674047; c=relaxed/simple;
-	bh=uZnwL9mwrmur0vHEMWEEwWNSeteVcxeC32QE2NWQOjk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ox8Tce5Uh4GDgZE1pLczDtyX9gaRKquLauGPKTHKUlQsWmZLe4PBtDSFtCZ5yBEsGAIIupIzUaDVr5UbFWq/jjUv4r38URJtxlw6NpXAV3R5ytFm60zKKthfzul86FQm/g/REBS5LcnmSVp6yuei1t9biHqa7XCpzAHh4Za1N9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=TA+nVprn; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790674062; c=relaxed/simple;
+	bh=j93BxfAGWJRlRwDQGHbijnMULy8q1YBGFG/QeFztJlE=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=nIJzROLBXqgvK/82CvpyUr8vSNMC5e0JCRygyV30shHyjwCLEXKnrmfsePzhJwN6rxytrrEnc3x1R6v0xnSIu2VopENKY+cISK4y79Qkvswj91ZsfpQIoq1ro/gHyYMbodDOiFSEnLffw7YRQ6vKEDTZq0e07Or/JM83ftvOjJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=y6U+hzZo; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="TA+nVprn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ijrOHhCN7oa5Qm7hU1nW+Tu2/lZ0PHw9bM6SdNnuOlw=; b=TA+nVprnOMCVGLStMe84nKIY4X
-	N5bFPe5VoO5PxY+qQEVTE8hQVsGZsurPJEr5X8ItbW+Au44TKYhSSoNpV3i+/MKhx6A2dvaaQe1eT
-	pr4SKyunCmB/Vrm6dZEmK0had/l3WNXlT33vrRve04+0eDgKk8Gmjah7xI0PoNTcTF0NcIxFU6qui
-	dQflidFK/W7UrjrQfDyxhobV2qSejkWTUpmNjFLArHD7yjhQMqxOst81piJFY/zIa1vilAgWtz7fH
-	O7UrCa1xeJHi+5ug98DkvCBHmZXtPw80mSJDxzgkr4sSENug7Jz20+18DJJ/NoqMA5XWTT90ym+ud
-	zAcOq93A==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBU7K-0003jA-2f;
-	Tue, 29 Sep 2026 11:27:18 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBU7K-000ATb-2I;
-	Tue, 29 Sep 2026 11:27:18 +0200
-Message-ID: <a6f07d24fda8c7482c91e54b92fc8a7029f91eb6.camel@ew.tq-group.com>
-Subject: Re: [PATCH v3 04/10] leds: pca995x: Fix fwnode handle leaks in
- error paths
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Isai Gaspar <isaiezequiel.gaspar@nxp.com>, Marek
- Vasut <marex@denx.de>, Pieterjan Camerlynck <pieterjanca@gmail.com>, Javier
- Carrasco <javier.carrasco.cruz@gmail.com>,  linux@ew.tq-group.com,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 11:27:17 +0200
-In-Reply-To: <179025017981.457255.5791421193775684526@kernel.org>
-References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
-	 <3d38609c96d387aec7eaff7cdb19fc2d8eb32a3e.1790087890.git.nora.schiffer@ew.tq-group.com>
-	 <179025017981.457255.5791421193775684526@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="y6U+hzZo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790674049; bh=AWUWyJ+l2DRWxplVbMpUfprXcHiO+Hhgpwu0TEAt2Ps=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=y6U+hzZowv/kQXd8zIXhFmREZFa55LBeSbfxK/Vg04f/Ev012G48P0Ze/zNpg7uKQ
+	 QdjFB3fLmQVjG9IdWaKkfK0N6S87t15yL4rpsr34RMei3oR0e3boYb4vpxVhfxDqzT
+	 p/NWNhvB5PkXfl2jnSjwUAdtJoRJlZneJnxthsVc=
+Received: from lzk-B860M-AORUS-PRO-WIFI7 ([2409:8a28:a83:5ba1:514f:5353:e14b:594e])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 6D804811; Tue, 29 Sep 2026 17:27:24 +0800
+X-QQ-mid: xmsmtpt1790674044t61f9qe0i
+Message-ID: <tencent_FC17069F1AD34F4E65F6C8DB7AD5ACEA4408@qq.com>
+X-QQ-XMAILINFO: NG+oLgkBIWry3Wz4maLN7rRkyN41slc9JvtS1xFpKIhL57k1NV4x7PDHWi8WdX
+	 o99f03YS8qokgloaivFfemf3brjidrYniLNj7+KxYFNhw0/N9KVKX8GkuqHRb+re6xXkmIU5x27C
+	 X5jkJo5iGDhaezZ0jkbJNVDNXP3oTQD9fmVAd3LqwdV8IBezdHn/pcY/aMY7cFbHd/BvXhXapkPW
+	 UCEl/eIN0mAekh9Jfjn6t6x8et5fXKjVQ1TUOvztXip3ThfvBaiHrKKmnf1P09JG+iCxq252eLGM
+	 vS3J1QxzZffF1CHsBz5gLpW7mN30Zc1rrCXWf3/kLo1tKZweSS7KsGkJkh/6xoqL8AGjeKZsu7zV
+	 HBsOsp1tzyturg0vdJgFV1SZzHbjlsrz3edV6zJkhyCLHihNLSXmdEPMGRx/dtBPRtoAGH5VtHyQ
+	 kTLtKoEJoYQoOk337rRVtGGObqJhxKRZw6WaI9xmIy6YZmc+8BFo+h9evPVAjNLVUnRC7n5qqr1h
+	 tvzD+yDaETQVdVKaZvIRwrTrt5wnzxPbeWr+X1k2mXNv9VPyKFT4JHIfuZEd/+m5h4MlldUkxIFu
+	 SB3izGdEElpPErImYCgB7E6l6G25RIrtipqueulmDzPA6IHriiKKkJBDRnAhVK78rV8VokJ2u/Oz
+	 Exv0sGBIFoY0WoiBjU+WV3rgOWAbb1tqv2VhFNmDUQSR2SYz92mLMUP0tciXX758vUZtSesCsxXo
+	 ChFFeZ1sFeDKcKKjZsoWFEXlecDNu9KKy5DnvmyMOWxPOAm6xmJjydotxUEihoWKMrkWGiCOJI5Z
+	 Bk4hUE+kQ7PfVJYW6mjIqxL0QIRLMJEz7Fg126fbGnxjLXLdzV7ejO0UhmkCXmEXLpZ7mZWZk1LE
+	 7T5OM32oytXF69Bu4fMDG2raTMAH8X/jkhxZc5hiItqSCM8bT4Il9qrOXbmWL06Ieufz+3KGzYrI
+	 GauRTZL+NZAC24JEPKWGdARnDtHgNr721bzXcb6ZX7D/JAadiueABo1sWIUyRJv+MF6HvTHVDzk+
+	 dcUOYyCHvydM3x5qkRxJr+4F3oXORLCpQOU0NvPs8yEhetcP6osu1AXWc8krMaYxWdqez/HaTMgL
+	 laPnN9SD7iTiPEADADvS1cEkTWJXJ664WN6fJbJhkP7tMO4Qtoc6oM+/hd1W7mFGGL8NmCudsyFD
+	 6HgFlNyPgZkduHYUWYQJYYu6fiULY9iCMKizI=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Zongkun Lei <leizongkun@qq.com>
+To: David Hildenbrand <david@kernel.org>
+Cc: Zongkun Lei <leizongkun@qq.com>,
+	linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Hugh Dickins <hughd@google.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/6] mm: swap support for hugetlb folios
+Date: Tue, 29 Sep 2026 17:26:30 +0800
+X-OQ-MSGID: <20260929092720.544090-1-leizongkun@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <d8646877-4975-4b2d-9255-9285414d65cb@kernel.org>
+References: <tencent_501F9D3CED07B66BAA97D5352FB63EE1A709@qq.com> <d8646877-4975-4b2d-9255-9285414d65cb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28138/Tue Sep 29 08:26:15 2026)
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-29 at 10:20 +0100, Lee Jones wrote:
-> --- checkpatch.pl: clean (0 issues) ---
->=20
-> On Tue, 22 Sep 2026, Nora Schiffer wrote:
->=20
-> > Each entry in led_fwnodes needs to be put as long as no LED device has
-> > been created for it yet - not just in the creation loop, but also in th=
-e
-> > first loop that iterates over the child nodes.
-> >=20
-> > By clearing entries in led_fwnodes once they have been used, the same
-> > cleanup loop can be used to handle errors in both loops.
-> >=20
-> > Fixes: 82c5ada1f9d0 ("leds: pca995x: Fix device child node usage in pca=
-995x_probe()")
-> > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> > ---
-> >  drivers/leds/leds-pca995x.c | 26 +++++++++++++++++---------
-> >  1 file changed, 17 insertions(+), 9 deletions(-)
-> >=20
-> > diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> > index 8b05b3f12cf38..079ce3d8f1e49 100644
-> > --- a/drivers/leds/leds-pca995x.c
-> > +++ b/drivers/leds/leds-pca995x.c
-> > @@ -123,7 +123,7 @@ static int pca995x_probe(struct i2c_client *client)
-> >  	const struct pca995x_chipdef *chipdef;
-> >  	struct pca995x_chip *chip;
-> >  	struct pca995x_led *led;
-> > -	int i, j, reg, ret;
-> > +	int i, reg, ret;
-> >=20
-> >  	chipdef =3D device_get_match_data(&client->dev);
-> >=20
-> > @@ -144,10 +144,12 @@ static int pca995x_probe(struct i2c_client *clien=
-t)
-> >  	device_for_each_child_node_scoped(dev, child) {
-> >  		ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> >  		if (ret)
-> > -			return ret;
-> > +			goto err_put_nodes;
-> >=20
-> > -		if (reg < 0 || reg >=3D chipdef->num_leds || led_fwnodes[reg])
-> > -			return -EINVAL;
-> > +		if (reg < 0 || reg >=3D chipdef->num_leds || led_fwnodes[reg]) {
-> > +			ret =3D -EINVAL;
-> > +			goto err_put_nodes;
-> > +		}
-> >=20
-> >  		led =3D &chip->leds[reg];
-> >  		led_fwnodes[reg] =3D fwnode_handle_get(child);
-> > @@ -169,12 +171,12 @@ static int pca995x_probe(struct i2c_client *clien=
-t)
-> >  						     &chip->leds[i].ldev,
-> >  						     &init_data);
-> >  		if (ret < 0) {
-> > -			for (j =3D i; j < chipdef->num_leds; j++)
-> > -				fwnode_handle_put(led_fwnodes[j]);
-> > -			return dev_err_probe(dev, ret,
-> > -					     "Could not register LED %s\n",
-> > -					     chip->leds[i].ldev.name);
-> > +			dev_err_probe(dev, ret, "Could not register LED %s\n",
-> > +				      chip->leds[i].ldev.name);
-> > +			goto err_put_nodes;
-> >  		}
-> > +
-> > +		led_fwnodes[i] =3D NULL;
->=20
-> Shouldn't we put this before removing it?
+On Tue, 29 Sep 2026 10:02:11 +0200, David Hildenbrand wrote:
+> Hugetlb is effectively in a feature freeze. There is no interest in
+> maintaining even more of the special hugetlb sauce, sorry. :/
 
-The handle is only consumed when the LED has been registered successfully. =
-On
-error (ret < 0), led_fwnodes[i] must not have been unset yet to avoid the l=
-eak.
+Understood -- thank you for the direct answer.
 
+My mistake was misreading the subsystem's direction.  I had read the
+earlier list discussions and concluded that the red line was touching
+hugetlb's reservation semantics, so I designed the whole series to
+keep them intact -- user-driven only, no LRU, no reclaim hooks.  I
+see now that the actual position is a feature freeze: not "new
+features are welcome if reservations stay sacred", but no new
+features at all.
 
->=20
-> >  	}
-> >=20
-> >  	/* Disable LED all-call address and set normal mode */
-> > @@ -184,6 +186,12 @@ static int pca995x_probe(struct i2c_client *client=
-)
-> >=20
-> >  	/* IREF Output current value for all LEDn outputs */
-> >  	return regmap_write(chip->regmap, chipdef->irefall, PCA995X_IREFALL_H=
-ALF_CFG);
-> > +
-> > +err_put_nodes:
-> > +	for (i =3D 0; i < chipdef->num_leds; i++)
-> > +		fwnode_handle_put(led_fwnodes[i]);
-> > +
-> > +	return ret;
-> >  }
-> >=20
-> >  static const struct i2c_device_id pca995x_id[] =3D {
-> > --=20
-> > TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, =
-Germany
-> > Amtsgericht M=C3=BCnchen, HRB 105018
-> > Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan=
- Schneider
-> > https://www.tq-group.com/
-> >=20
-> >=20
->=20
+Going forward I will stick to work that reduces hugetlb's divergence
+from generic code rather than adding to it, and I will float ideas
+on the list before putting serious effort into anything big.
 
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
+Thanks,
+Zongkun
+
