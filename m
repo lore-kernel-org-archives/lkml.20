@@ -1,127 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AF038DC4C;
-	Tue, 29 Sep 2026 08:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B001F3E6392;
+	Tue, 29 Sep 2026 08:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671013; cv=none; b=nbkm7Dzc02T/dNUlnQlk78nrhttIYOnIvl4V8XTPIBeEodYoxYRArKq1NOPPqUQ5NFxJNWiKtKS0xMs62eM6MyrXTnEQ8dgbZVOfGSvcNDKwYYNr9+zxr2tH/YnYNXVkk9CcxzrEBISExzwawdm1Tsf5aQ5pBKLtgEmRgm9cYiA=
+	t=1790671013; cv=none; b=A2dILiokWnV4HcYX9gT9MZmS7W91pz3Yx42yhbp+sTsFj4n1tk9t7i62X/MhtITixZ5vajKLQncdZlNT+abpDZ/rN1WkO/Dt3Ps3Y+vZKOCemb2qfSrs/ylK8unnIWuAG1gSiVX651Xy2wHjLyO6hicXpIyrIyh+75OxcbBEAI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790671013; c=relaxed/simple;
-	bh=HVhNFOUDFzx6KORBrOqHtSbqOl75R/ekFiH3auXgFs8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OujgCdmT764dL9gtnCTRh3n/cjuBLcFyAB1Ik74iSgMFo1DHg/nqeJ0Svmev95Pt380QxcV5ZpwZLfd6ZwEAKTmPl9RBbSOZvAvebm1tTiGRxyGczr74TYERJobnieNGMDkagXgXIwikhrBZYmchJ5nVnL119srOBMxhLnA1vQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CW6SrSa9; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=d9zFpHqoZ0BWBxAoNBnLnApyzVmHDwEFjPEsjYrnQ2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UuXaSRhrNdLzL3PYb07R1n4HfYssa8yfLzk/ngdOC9RwxSDLlL3/oCuL12ULIP6xi20xl9NzbbJBlA5qoRnqnjRaOHnCViqvZ1uWEaml5vMhN3cRAynFr7ol86ViHQpy5K5MXOEdl61XoD7eRskNgbNokzBOY2zIn9nKOyTZ8Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtaQjHCo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CW6SrSa9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790671011; x=1822207011;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=HVhNFOUDFzx6KORBrOqHtSbqOl75R/ekFiH3auXgFs8=;
-  b=CW6SrSa9sEdIV2pUmsCBb5e+hK8yqRIGNpglFAUEuViZV5S4Sa5MMwfF
-   Bg1KTg0qL5RIQKdy5tU7O08ObNGnyHOzxztcTY7BycvfJPpVUg6+q/S4t
-   Pi7w5xcltPh93FH1zzxnypeHLHrQ/M4VbYxHzjLY6SXUwnaoAoxLLayx9
-   3O5x2pq6KJNpAkK0OlebnBUwj/U7WYOjUhFlSkGzbRjs3UspqOxaAmSpf
-   Gnx7iUN3tUOe3JzuxQcW/5nZcVusjKfhO6UeBHSq8yFDpQjIx6mtWMqBO
-   r9ltuOSO1IxW+iMZ9g1DO3oDzd9p99+tsYUzELi2uC1fDSb2wJtihUQ6H
-   A==;
-X-CSE-ConnectionGUID: VBDHf/YOQAuipElyi2cnkA==
-X-CSE-MsgGUID: GSJUojgwQhew2jwd7xxk4w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90335275"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90335275"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:36:51 -0700
-X-CSE-ConnectionGUID: +a09hawJT+icnamkAb0PDg==
-X-CSE-MsgGUID: btG2jMWQRJW4i44DMIDwUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="274413857"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.252]) ([10.245.244.252])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:36:49 -0700
-Message-ID: <8093ecff-842a-4063-bb29-4eb4903f7f73@intel.com>
-Date: Tue, 29 Sep 2026 09:36:47 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtaQjHCo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157F11F000FF;
+	Tue, 29 Sep 2026 08:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671012;
+	bh=Rs1CkTi+9r9PKxnWBlU9VchKWdbkwnHkDzwKExg5G04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dtaQjHCoL6wBCn3MwhzhQH0mBfkWaEv+gB3h/hMz8cLIo5a/sS9dmEGaW6dVX3vtf
+	 D3KntZXSQ5UXPp9KoW/6dhulUn1hkeEekIITvia14D7NYUWPojxwHixV7cd+dAKfjT
+	 1mcJqJG8N2mvNFN3VZc8U8IZkpL3e4oLxreL4Xlhws5tB1oGrzbGv98KMAWiYzFo2l
+	 /TocQ0CXgEfBi4/rPYp8roSSYHRd9V/BzHuKOp0CJ6wfGbelpPlq+WqOf9QD/ywKIs
+	 jqocYNSTAx1f+W+KqvdF+15rJX6M4P/swKM8sb4JIiqiqL6z7g3oAE7ArS/7Zq8NcI
+	 seoj9aWR+ESVg==
+Date: Tue, 29 Sep 2026 09:36:45 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>, 
+	Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun <ts930@dgu.ac.kr>, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND 0/9] selftests/mm: improve mremap_test
+Message-ID: <art4dfRkyu5OCwvd@gremlin>
+References: <20260924050009.19974-1-sarthak.sharma@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu/buddy: add __counted_by_ptr attribute to roots
-To: Bill Wendling <morbo@google.com>
-Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, codemender-patching+linux@google.com
-References: <20260925204423.80661-1-morbo@google.com>
- <605221ed-a1b5-4179-be8d-b206c79487d7@intel.com>
- <CAGG=3QWoa0sK1P2VEAW+76EkFsjzXEZ9ucJg4iiOv29i8Sgzxw@mail.gmail.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <CAGG=3QWoa0sK1P2VEAW+76EkFsjzXEZ9ucJg4iiOv29i8Sgzxw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924050009.19974-1-sarthak.sharma@arm.com>
 
-On 28/09/2026 19:44, Bill Wendling wrote:
-> On Mon, Sep 28, 2026 at 5:20 AM Matthew Auld <matthew.auld@intel.com> wrote:
->>
->> On 25/09/2026 21:44, Bill Wendling wrote:
->>> In 'struct gpu_buddy', the 'roots' field points to an array of pointers
->>> to 'struct gpu_buddy_block'. The number of allocated roots is tracked
->>> by the 'n_roots' field.
->>>
->>> Annotate the 'roots' pointer with the '__counted_by_ptr' attribute
->>> referencing 'n_roots' to enable compile-time and runtime bounds-checking
->>> via KASAN and '__builtin_dynamic_object_size'.
->>>
->>> In 'gpu_buddy_init', 'mm->n_roots' is initialized first, and 'mm->roots' is
->>> subsequently allocated with 'kmalloc_objs(struct gpu_buddy_block *,
->>> mm->n_roots)'.
->>>
->>> Since the bounds associated with 'roots' ('n_roots') are fully set prior
->>> to any array allocation or access and remain invariant, this annotation
->>> will not cause runtime panics or false-positive bounds checks.
->>>
->>> Cc: codemender-patching+linux@google.com
->>> Assisted-by: LLM
->>> Signed-off-by: Bill Wendling <morbo@google.com>
->>
->> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>
->> Would it make sense to also do this for *_scoreboard and free_tree, if
->> we add a new field n_orders?
->>
-> Sure! There's already a 'max_order'. I assume that 'n_orders' would be
-> more dynamic?
+On Thu, Sep 24, 2026 at 10:30:00AM +0530, Sarthak Sharma wrote:
+> This series fixes several correctness issues in mremap_test and
+> simplifies and strengthens its data validation.
+>
+> Patch 1 converts the mremap_test to use kselftest helpers, removes
+> manual tracking of failed tests and corrects some spelling errors.
+>
+> Patches 2 to 5 fix userfaultfd skipping, unexpected mremap success
+> handling, multi-VMA data validation and failure reporting when data
+> corruption is detected.
+>
+> Patch 6 removes the randomization and uses a simple pattern based approach.
+>
+> Patch 7 removes perf tests and timing infrastructure.
+>
+> Patch 8 removes validation threshold and always validates complete mappings.
+>
+> Patch 9 strengthens the multi VMA validation by also checking the
+> mapping state of holes after remapping.
 
-Yeah, I think just mm.n_orders = max_order + 1. I assume the 
-__counted_by_ptr() only works with a field?
+Even if I don't get a chance to look through this, just want to say thanks for
+taking a look at this! The mremap tests have always been hairy, when I added
+extra tests there I didn't love what I saw so it's great to see it get some
+attention! :)
 
-> 
-> -bw
-> 
->>> ---
->>>    include/linux/gpu_buddy.h | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
->>> index 2c36124bb696..d7249e500ab6 100644
->>> --- a/include/linux/gpu_buddy.h
->>> +++ b/include/linux/gpu_buddy.h
->>> @@ -172,7 +172,7 @@ struct gpu_buddy {
->>>         * a power of two, with each root being the largest power-of-two
->>>         * that fits in the remaining space.
->>>         */
->>> -     struct gpu_buddy_block **roots;
->>> +     struct gpu_buddy_block **roots __counted_by_ptr(n_roots);
->>>        /*
->>>         * Per-order free block scoreboard: free_scoreboard[order] holds the
->>>         * number of blocks of that order currently in the free state.
->>
+>
+> ---
+> Sarthak Sharma (9):
+>   selftests/mm: mremap_test: use kselftest helpers
+>   selftests/mm: mremap_test: skip test when userfaultfd is unavailable
+>   selftests/mm: mremap_test: fail unexpected mremap successes
+>   selftests/mm: mremap_test: correct multiple VMA range size
+>   selftests/mm: mremap_test: fail on data corruption
+>   selftests/mm: mremap_test: replace random data with deterministic
+>     pattern
+>   selftests/mm: mremap_test: remove perf tests and timing
+>   selftests/mm: mremap_test: remove validation threshold
+>   selftests/mm: mremap_test: strengthen multi VMA validation
+>
+>  tools/testing/selftests/mm/mremap_test.c | 600 +++++++++--------------
+>  1 file changed, 220 insertions(+), 380 deletions(-)
+>
+> --
+> 2.53.0
+>
 
+--
+Cheers, Lorenzo
