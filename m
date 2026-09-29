@@ -1,227 +1,174 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFA851C331;
-	Tue, 29 Sep 2026 13:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBAC37BE71
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686826; cv=none; b=ctg0fldkofj087gwE7Eou9qx6mYCtFMa87ljhCibXtX9FzwOoDvtcXASSk4lv7PMn1DlqShQfvpwiYxmsM4DMXws2zus8F6Bbs4KsI3K5oZIRORdlxuJgGqDF0otlJQApz3/sVy1GXxWUpSGfqfUgppmdTpFJ6JhJaFetpcmNlA=
+	t=1790686878; cv=none; b=J1Jmur6G7NSGIFuUknCw84bg6OAgv3dFPGxz50d2iBqV1TWpP1OPLnOQJyiTXaoJLQ2fBvwRknwBShnBYn/qCO6JU5bEfS0XiOHwUa8cgW8iAuTDvyg026t4JeUruzvKFemvkXRw9UDF0nMGefV6icHI7RM2jbUAkv2zX8QOyt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686826; c=relaxed/simple;
-	bh=tnRVbMFjVHnMi4GM2FGEjW3vI3oqDfVuL7/o+RpLgDs=;
+	s=arc-20240116; t=1790686878; c=relaxed/simple;
+	bh=bc41fhPq1AbUDyoEQ0R//kmi81si+zDzpXWyjPOGmXk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IXNn/x/GexEsqOdYl/3/kDLHiJUchkD/R+RIDK+ep6157ZtKHl7sBTFkybvB2L3a2srXV/SjtFPCxnR2eRrnNL7kB3ke0wdYfuRf0PXCwgF4pkSkfBKDkET9fM+i7P3rXvjagmmZ/hQcPCPACdrr5myn4GrDdMu4UhbahLXDVOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=uIpWDLlA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tfbXe/no; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=TU1XNBwsWGYDwc80b3rhMGFWMa2k77/tAWdemTSUoO1dmPCja7oz5AeF9GAR9j5WBo+xmnEmuHc/niXi6Ds5fdGpAm07LdZn+gwfy4SQyAMo5BytPnLlBpCGBlrxEn94eskNvfHwEhS1L+1y3HXlDCk/o/IEOXif7KXC+QQPaKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=A3YQDfBk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gher5/UL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="uIpWDLlA";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tfbXe/no"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 70165EC05AD;
-	Tue, 29 Sep 2026 09:00:22 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 29 Sep 2026 09:00:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
-	 t=1790686822; x=1790773222; bh=rxZ2xVXpHDE7yPB6wIvZqz2OGFEty91V
-	JWNn9ZY4UOs=; b=uIpWDLlAHzb0qVrPQX0kzcc2u9h/NmYiSx39Y/Gr15WPlzDM
-	nsH3Fa1ijOMKCp/txlccsOWAzLQIJNcAPPci96ZnRk+2XaBsXMtRpjk90duVjyWk
-	Io9krtWkesoHyUgMMQ6MqMCFubS4YDgL2PopoXCb1cJGMSUHNszo4CkbLFH8UWiR
-	D5+NgLwCKJqjHVSNnrlN2UyDP7MBXYQoP7tAd4tAGhtzomdlGatOBHkDDHeHrlhI
-	RUajnYjCgfMdMAujH3m3RzhukMLvQ/Zzx8t5PPUC3+X+CLnLL4OWGeae8i13lxV7
-	8oF8js0+ZYhte5FN8gsPqeAfLwwWKTjous+NKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790686822; x=
-	1790773222; bh=rxZ2xVXpHDE7yPB6wIvZqz2OGFEty91VJWNn9ZY4UOs=; b=t
-	fbXe/noCJ0TijdKnosxiCNKhFj/Mj6OPR891YZnM0D67ghDr/qUDcAClCvisvC0l
-	bFshYgQgS3OKYc3rTIznsdRNSRdBq0Y+OtZk2RV8BMyX/Whb/ven9V3XqkfQ0Oj4
-	J2ag3iLg0i8BodJluBI34TqAyAaq4H6oLdZx+yNKg81fw+Do7vedEabKM2pjPEca
-	Uz1burZTC+FS4FGoUW19VjRY7wZn9aJyWQLpyKzKQ5zfeJAbEM4bQJQ0UP2LtuIe
-	6uCqk317cSMQ0hjliPNYdiWom5l2hBnmQYml8YJOPKop9v8xlovj+qNTRzOCEq8s
-	Mlm6pZeKevitwLx+boekg==
-X-ME-Sender: <xms:Zba7akuw1XfmxYiIlpNaDoeZ5Wl93ZCxXT0ZJNPTNWf87O_7Y67Nhw>
-    <xme:Zba7arjR0OMeJiEIFN3LdyMt8pkxqb3CaycFdoqcVa_e2f-RM83k3cMO9wHd9vT89
-    Q7mL5-S1s9sS-XNX5nXGOcH76trdYIDOjbPbzvjaIA44_HrEu0YQHCZ>
-X-ME-Received: <xmr:Zba7avr2zvWlsih2Phvfhi4kTZvxnIQdGh32vzG2OKiaeY3cMjKsuLiguyp9>
-X-ME-Proxy-Cause: dmFkZTEt0YXDcI7osdiiMyGjH2AhCsHjHK9ziJRdT8WP0eyjC//TY7aVudGVc0xynXt+r5
-    cDpwS3l1+50AxiIUfwTn56bvEUDeY3/KL1xR47HjtfllbCtQ8GlbR1VEBJGp5qT84XFEWn
-    TVu2jVDHixhmOZgP2rla6BKUqWfFc1o862KP2B1OBWjZHuEltqSnUcwCoarjkHkmc4u3oK
-    L8rr3/z6YL8E55YuqJxk8eF5xQDz50WcbshcjVug6dj4UNrhUC4XhsYM45G1FI8GgbAe+n
-    YNa/9rUlTMqefLPUOcHyMgUw6KrWLA7+dLsr0NmGXSwLND5BKjgbIRMwvAnowJTUNM7uZn
-    T6O3gI+bblzwg1LnFaIKnAYbUwgMFEdIVNpv8eXowvGDBsUS7nQTlQFlpA6rqJ2S/MGJfh
-    /1+8aeFCQuaBM4rf8o0a4amnfFfN9vxuHcOxRypxDpXn86ZrdSxGMiT5Apq6SJhhxhCtl6
-    ifd+m5dl97ML6msbS4eNpZPDhKcR46BL7zRLtt+SIVyECZS54Y3YRk9L4nlQq58ACHtR5h
-    i9FNkaZxEjavri3jNaVDt25rWo6z1JgdoCKDNetHbnkqAfcpvXcq4kTOawmnoRv7dmacXC
-    WZwAlxomvO5f9XsJV8mKziIxfj0ACgAo3nHpIZlbF47n9BgglPRE/PqQ1bVA
-X-ME-Proxy: <xmx:Zba7aou_5KO03ea5jMsGJ-nET7topc1akhYKpeOqkn8RWytBiT_kmg>
-    <xmx:Zba7aiYuLf77hoQ9ExgE6CmhD7XKwtdLIXfd6wKfxBv4z24fm97ClA>
-    <xmx:Zba7avbno8QhRxGYkKVzQZ4V29Cb8Crpb4PYM9w1TC4Uym5MAKfDaA>
-    <xmx:Zba7ajlWN0_KUAzo5fx4AUWCMDd1qVsDXiYKGSKgsnUmigx0klD4_Q>
-    <xmx:Zra7at4J2ruC5vh4YEbrV-P6XHRado6NeTnivBFFT0bkepcsGDxxZU_v>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 09:00:21 -0400 (EDT)
-Date: Tue, 29 Sep 2026 15:00:19 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
- nonce reuse
-Message-ID: <aru2Y-gyrgcZsyUD@krikkit>
-References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <arqToNCxIwi9CZ--@krikkit>
- <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
- <arr8x3a9Vqkg-ooM@krikkit>
- <29a10d01b87fb1c5f9af445aa7864351@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="A3YQDfBk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gher5/UL"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqiVe1577540
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:01:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=SHTaJ91zIZJtCVD1ysUK05e9
+	DvOS2NaF0UZdJm1rljQ=; b=A3YQDfBkPQdwXYBg7n4fWd87UVcMtpmwtfP64YpZ
+	QhKTpKx9Jw1SdM31N2x3yaZk9uigW8tUaMAjdPzb4Izzw8+uaPDEBZ/jG5tbW9Xi
+	1jm2FVsg95wKSWew1jPZwg0a85eqmWnTfU1Ljv3MjshJt01dxwG6wNt6smHVc2MD
+	oWq735BicAqWtEZKZIB3xKz1Z5/nx9kfQfSyHaY8mI23sylDbTye438xXlUL6Gd8
+	GV2lDTDt7yGTieKNEmfsD/xbYAzJdjQFrBe4YsCPS/f9bf0WUT7Fge8s4mebZOQQ
+	lOka3icnVX9omN4LoFmzLLRY2slsLh1IMJHpLNpfaBvnYw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h09x4s2pr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:01:16 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-988c7363ee1so189124241.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:01:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790686875; x=1791291675; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SHTaJ91zIZJtCVD1ysUK05e9DvOS2NaF0UZdJm1rljQ=;
+        b=Gher5/ULiKfm6Cm0N5hni+//ZcRmlmRoPcj+4mU0oC/fjZD2bq/DuXI+L/F2AE+dQ3
+         czr0br9SpgoaEEkwxQ7/RsfNrWqigXqgcL0Uy1JIuv/Trb+LrauKJ0u51Fw+COzhagCA
+         DqjG+c81bp5R9yG+7F9iH0R1oEByJKau83qNXUxHoJapnZzw55FVf0WJwg/qkhsITPxH
+         oOVScZ4xVnbPwswiB5iLHv5JBA2KR01CZGI245yN0m7cD+Vv406PclMamw/T0BXNo0Z4
+         UC0QAfK9cteG2PsN3ZZX6KE+Sx30++rhWUFKfoigiBKR9Fubm1JMdodym2gCPPFBpsgQ
+         VhiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790686875; x=1791291675;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SHTaJ91zIZJtCVD1ysUK05e9DvOS2NaF0UZdJm1rljQ=;
+        b=NvK0sfaF165IdI4ZijqBYtFFkgdv2hQVTrPmBLQxSMszTGCWVIZuuGn1VnwAJqgJHs
+         yZwjhgrQMDb1M+edHXwGR2yzqdeoH7YJQ3PQ8LUcCKozaVon9StJfeGrYJPrtULehxix
+         dlfThUe0hn/eHO7EZR7ncmpo5ymcTQHC+pHER589yzSJbbPPGlwihq3EMThUG/V1OxMz
+         fHox1AwYAfAuC/5UI4Jzi+RqK3dO2BGB/Ge4kQm67v9dF1P2MtGfMlTLg95oeOddjZ8X
+         LSz0BI8+X1/eeFy3vfBCYzXSpvuojymkWNsO9ags+0il82dZ++RWARztV4xsvv0EZltB
+         H0GA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAHN65KQzabpQUTaFLXOYxWsekqBZaVKP3Po3leyxrXXZoZXCkg8bSVtnyVAOrg5vzidz2VJuea0zY+jg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2EH8B62uHQV/yxC5Z93vM6H/+g3rAIMq6FSQvknBF3EoirCHe
+	427yL5rIXbNYaGM4a+rSj/OwKR5Dag0XBT/DKnTkQu76ZzJF5Py1iqvouae0t7S7c3h6gMJ/PSk
+	L0Q+8K+/uTgiV5dOLqkR0qNapAngDbtydDW3z8Y7EAqPk5LfSQ9oWdZ4/q78awwU0PdE=
+X-Gm-Gg: AYBFou3tuC25Tx4y/YJwJgvIpVQn40KIDjaE8K/ldwhumLsT9sKhJOQ5uHBLi4p5hlL
+	gHQeJHud5b9kKsc5BFMwYRGtLoa2SKyW/ymdKW+HahDHMcVICQdOuaHRm3CmSmlNXlw+snuuSHp
+	RVpyWdeN/DiKHB0x88lqQakml+d3FOGTFL6gWSMWx39/RxutIcNcBL0fnWMhd9m1usQRWCkzlqb
+	Fb7FSynfaSe/INQ88EmlAIg4aIcBvYU+PAYGCwr34xI7EhIE9IaczCd7sctNq7JI6tWfOSefS+R
+	5WaLGSRiTVuCeJFkPNoaNxlahYkFocjRpCdd1vXW1XRi8qKRJ6kSSeFJ5lZjXcmCpLF2Gl+DgIi
+	B6YrFjRY5opkzb7E=
+X-Received: by 2002:a05:6102:32c3:b0:7b5:b51:63ae with SMTP id ada2fe7eead31-7b50b51701fmr2323492137.26.1790686874814;
+        Tue, 29 Sep 2026 06:01:14 -0700 (PDT)
+X-Received: by 2002:a05:6102:32c3:b0:7b5:b51:63ae with SMTP id ada2fe7eead31-7b50b51701fmr2323457137.26.1790686874122;
+        Tue, 29 Sep 2026 06:01:14 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.162.105])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af4f88352sm4244682f8f.4.2026.09.29.06.01.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 06:01:13 -0700 (PDT)
+Date: Tue, 29 Sep 2026 16:01:11 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] arm64: dts: qcom: Introduce Maili SoC
+Message-ID: <m5g274qs3zyukhzbdx2izd4kigohajcr7btart7fb32uox6h5u@ropvegiaobbw>
+References: <20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com>
+ <20260922-maili-dts-v1-3-ac2b1b76bfd9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <29a10d01b87fb1c5f9af445aa7864351@oss.cyber.gouv.fr>
+In-Reply-To: <20260922-maili-dts-v1-3-ac2b1b76bfd9@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1MSBTYWx0ZWRfX4dwq7ETmwI4V
+ NhvPijoqmjdpC0lvmWRVvFqX7VC1wHwfADELOOta1wcDdMFakAfBXKQ7SxjpojCULpJAf/WC6S0
+ zLuOGRbonamR6aZNZXZknyR63EZ5+0U=
+X-Proofpoint-GUID: qs0jwiJMj1fwfP5fbKKcW5Stn_JYOKqr
+X-Authority-Analysis: v=2.4 cv=I5Hw19gg c=1 sm=1 tr=0 ts=6abbb69c cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=6/JeGS87fU6CufIuUkUOiA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=8uDdfusW4S966u9v8EQA:9 a=CjuIK1q_8ugA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: qs0jwiJMj1fwfP5fbKKcW5Stn_JYOKqr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1MSBTYWx0ZWRfXyNe9hmZom4ak
+ 4pgrkEvjKXP55CEUxMteEE3TvPt1c1H9EmEwbitEKw5sSyispPItBJiVrrEfJC8E6PgyM/b18Xh
+ YB/U0XlBPq1Q6miyfMGfY4bo32PmMalo2ploO0n1YaYUWX+a9/7LxkpCK5UIxuCYVHCUfR0tOCr
+ gtoX/aIhfCEjiOdQv/DiQA80o8v0PBn3o8hkJM27RVJP/Z2mzfiI10HH3Kv9c14dW2+TGDkSxrN
+ JeYxrnhOI+nsIcXhOD9PpfpVU40rUTWw5w392ST8v/dzxl4kVANdc8FdECRFQufyW2obcS1RNcB
+ P/eP03D8VeG7262RBUbn71dEzWCHOCeRJwPYkdg4Ub3Su0AsFmWyoBvRNAzxekpaXqtudbll9vj
+ BIoVfL2Hf8ikYCJ4bf+DXf2j2uVaTp1AMzXMHx4+vWNgV3ajnYZiEfCqAc44OW81nNpVjrGUB1B
+ M9cFi8Tv0X7slIVTTKQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290051
 
-2026-09-29, 11:47:47 +0200, Jérémy Jean wrote:
-> Hello Sabrina,
+On 26-09-22 16:20:00, Jingyi Wang wrote:
+> Maili is Snapdragon SoC from Qualcomm.
 > 
-> On 2026-09-29 01:48, Sabrina Dubroca wrote:
-> > 2026-09-28, 21:33:41 +0200, Jérémy Jean wrote:
-> > > On 2026-09-28 18:19, Sabrina Dubroca wrote:
-> > > > 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
-> > > > > An off-by-one error in esp6_xmit() advances the IV counter before
-> > > > > encrypting each software-GSO segment. For N segments with sequence
-> > > > > numbers X through X+N-1, the IV counters are therefore X+1 through
-> > > > > X+N.
-> > > > > The following non-GSO packet uses X+N for both its sequence number and
-> > > > > IV counter, repeating the last segment's AES-GCM nonce under the same
-> > > > > key.
-> > > >
-> > > > I find this description very unclear. All I'm managing to understand
-> > > > from this is "there's some situation where a packet isn't getting the
-> > > > seqno it should". I don't know where the "+1" comes from since for GSO
-> > > > the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
-> > > 
-> > > I tried to be as explicit as possible, but I apologize if it was not
-> > > good enough. My understanding on the full GSO processing isn't as
-> > > deep as yours, so here is another try at explaining.
-> > > 
-> > > The bug happens after software segmentation in GSO. When a large
-> > > amount of data needs to span across several packets, software
-> > > segmentation splits it into N smaller skb. After this split, each
-> > > smaller skb holding the individual packets has skb_is_gso(skb)
-> > > returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
-> > > that this skb resulted from a segmentation. Consequently, the skb
-> > > goes through the increment below in esp6_xmit():
-> > > 
-> > > net/ipv6/esp6_offload.c:
-> > >    355		if (xo->flags & XFRM_GSO_SEGMENT) {
-> > >    356			esp.esph->seq_no = htonl(seq);
-> > >    357
-> > >    358			if (!skb_is_gso(skb))
-> > >    359				xo->seq.low++;      // <<< increment here
-> > >    360			else
-> > >    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
-> > >    362		}
-> > > 
-> > > There are N calls to esp6_xmit() for all the smaller packets, and for
-> > > each of them, the current sequence number is first written into the
-> > > header, and then the shared counter for the next packet is
-> > > incremented. However, the value esp.seqno used to construct the IV is
-> > > derived from the counter value _after_ the increment.
-> > 
-> > Ok, I see now. One call to validate_xmit_xfrm() that calls
-> > skb_gso_segment() and feeds those N non-GSO skbs to ->xmit one by one.
+> Features added in this patch:
+> - CPUs with PSCI idle states and cpufreq
+> - Interrupt-controller with PDC wakeup support
+> - Timers, TCSR Clock Controllers
+> - Reserved Shared memory
+> - GCC and RPMHCC
+> - TLMM
+> - Interconnect
+> - QuP with UART
+> - SMMU
+> - RPMHPD
+> - UFS with Inline Crypto Engine
+> - Watchdog
+> - remoteprocs with smp2p and fastrpc
+> - QUPv3 serial engine protocols
+> - IPCC
+> - PCIe
+> - SPMI PMIC
+> - USB
+> - SD Card
+> - videocc and gpucc
+> - Adreno SMMU
+> - BWMONs
+> - LLCC
+> - Temperature Sensor (TSENS)
 > 
-> Yes, precisely.
+> Written with help from Raviteja Laggyshetty (added interconnect nodes),
+> Taniya Das (added Clock Controllers and cpufreq), Fenglin Wu (added RPMhPD
+> and PMICs), Nitin Rawat (added UFS and SD Card), Kyle Deng (added IPCC
+> and smp2p), Kumari Pallavi (added fastrpc), Vivek Pernamitta (added PCIe),
+> Jyothi Kumar Seerapu(added QUPv3), Krishna Kurapati PSSNV(added USB) and
+> Haritha S K (added TSENS).
 > 
-> > In that case, the seqno used in the IV wouldn't match the one that the
-> > peer will reconstruct using the bottom 32b of seqno present in the
-> > header, and it would never manage to decrypt anything we sent.
-> 
-> I don't think the peer uses its internal counter to reconstruct the IV?
+> Co-developed-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 
-For some reason when looking at this last night I thought it was
-rebuilding it from the seqno in the esp header.
-
-> The IV is part of the GCM ciphertext and the peer uses that value it
-> received to decrypt the payload. AFAICT, the decryption is ultimately done
-> in seqiv_aead_decrypt(), where one can see the IV copy (121), and the
-> actual decryption call (123).
-> 
-> crypto/seqiv.c:
->     99	static int seqiv_aead_decrypt(struct aead_request *req)
->    100	{
->                 // ...
->    116		aead_request_set_callback(subreq, req->base.flags, compl, data);
->    117		aead_request_set_crypt(subreq, req->src, req->dst,
->    118				       req->cryptlen - ivsize, req->iv);
->    119		aead_request_set_ad(subreq, req->assoclen + ivsize);
->    120
->    121		scatterwalk_map_and_copy(req->iv, req->src, req->assoclen, ivsize,
-> 0);
->    122
->    123		return crypto_aead_decrypt(subreq);
->    124	}
-> 
-> > But luckily, it seems commenting out the memcpy(iv, seqno) line has no
-> > effect (I think that's because all algorithms rely on either seqiv or
-> > echainiv).
-> 
-> I may misunderstand, but which memcpy() do you refer to ?
-> If you do not memcpy, then IV is always null, and the nonce reuse is even
-> worse, no?
-
-Yeah right. I thought there was something dodgy there.
-
-> > > For example, if
-> > > the last packet produced by segmentation has sequence number 100, the
-> > > IV is constructed using counter value 101. Then, a subsequent
-> > > ordinary packet not going through segmentation is allocated sequence
-> > > number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
-> > > there is no increment, and its value is constructed from value 101 as
-> > > well. Hence the nonce repetition.
-> > 
-> > I don't think that happens? The other packet will go through ->xmit
-> > too and use the wrong seqno too.
-> 
-> Which "wrong seqno"? The other packet will indeed, go through ->xmit,
-> but its lack of XFRM_GSO_SEGMENT will make it skip the increment and
-> reuse the previous counter value.
-
-Eh, ok. I thought you were saying one goes through ->xmit (with the
-wrong seqno because it has been incremented) and the other through
-->output.
-
-Then I guess this makes sense.
-
-
-Could you:
-
- 1. fix both bugs you found so that the code looks similar, probably
-    bundled as a small series (this stuff is not ipv*-specific, so
-    there's no reason for it to be implemented differently)
-
- 2. rewrite the commit messages based on this thread to be much more
-    precise and also less verbose
-
-I'd also reduce the amount of crypto detail about GCM, I don't think
-it's super relevant. Or move it to a cover letter.
-
-
-Thanks.
-
--- 
-Sabrina
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
