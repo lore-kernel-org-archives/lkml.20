@@ -1,190 +1,285 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22BA376A07
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC353822A1;
+	Tue, 29 Sep 2026 07:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666172; cv=none; b=RxPN+U/jjzORUuBbSwi83rtp8rfhx1QcXQGl4amAhY2D9L5vcCYiW/G8s9uD6GLyRnHUyovggl3Dg12/4hJ27+PU7vNaxJXG59z61+hryU1Um1RDgVtxMi6tAeAMUQW2FqqY/t9OHCJzTZ91TR3AeBfmWLAooYioOBXGI/kb2kA=
+	t=1790666183; cv=none; b=WaQzvdsfdG78xTUsxFEgLaq90l3UEiXBc20ug3R5EQphvYvFmsJ8CZzAWizcD+Pg9St3TR/NLmMW0lmSNR/ffUDBHYVaDCYgABXBQQCHOwx48fk+RqKYy63+HzjJVc1q7p5l613lF8j8ksvyV9jKBPe7BcWhSpoafrTMKPaD+9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666172; c=relaxed/simple;
-	bh=6jwGK/RpDDVIi9XxA9dCge2nNTpeuKH0rCMjPJqRD/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aSzqaSlBqYD7QEituYQxfnaNnrSvBWdI2aaS38+516vrpIb71FnQZ3RNj1bQMFW+gMoQv39u2z3/k5yUV5vw1keuOMBG0AqAyJBZvZDsSe919TOlmbMmgeAl0wSOmwICj5WI44SEvMTOjEZWIMD0JXH8x2fZCQKFFO3NC2KHP+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bscL93fb; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790666183; c=relaxed/simple;
+	bh=1KNSDVRh0rJHFPY3GyssGJ8thgeS3VYVzNRHLPdERFg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CDDDY9+rKa295Mg8LwUVLYplX6UI83ZyUwu5Z7o6r2ZHD8AromESytOPISX80HL1ZaTr/xGzNKm7ojVM1cI116BqhxZTFZkd+B/7Sex9ZdJUYwwEeoAMGbam5vPsLWR5sCy/FQS8uPrgsSVpCWHzuMhuu40Fq3ZB5RhVF7FIVO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ibm.com; spf=pass smtp.mailfrom=ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pnv94pym; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bscL93fb"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so2769960c88.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:16:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790666170; x=1791270970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tV37dXjm0XTJJYPlLCuDvkniyGjzFz1oUiZO7WcjuN4=;
-        b=bscL93fbGvFmEAMCi8aNEYLkJYj4A/tyYrozgrOvZnrRjeJ/Rg9VvQ7waY6z2lnQj0
-         58Ll8FM8snDOqa0EVvYpfI52z31JdQNA15Dl4xQqZCcmBU4TKna9Zxzu4mgyghnXHDnj
-         QXCLr8f7Fg+IF0pwjy2OOlgl5D7AUlkMV9RvDUMldrUq8/E5Vz1iziY5owYmATRIT9Mf
-         WHpRr9ulWzLDTFcDdXZNrkmoFwNunJCng5tkGLvXNZM0GZyAWsFAMWeUdCOopeAmylWr
-         M0AStjZ/izEf/Pi0wX4/19sokpJk1IkOhCCqC+thW/t/QkCqeQllsJFGm7dXT4SBGrXb
-         zSLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666170; x=1791270970;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tV37dXjm0XTJJYPlLCuDvkniyGjzFz1oUiZO7WcjuN4=;
-        b=Bq9gO5KLJOTNYcfTeWL2CPLKcIQqGkDLUxYq5hIMYOfvzuV4SlrY7GnOiOKULtkvcB
-         GwJKM/fpEa/a16GxsM0OAsvBOkpuh8wipc7dpGv/wVqZEk1O+nNJJyNkCKAuJK1c5yfJ
-         s/+9Sb/U+tNvLgvZvizWhgSv8rmZhiRDGqF57GXo2dkQ0X/wl2Zfa26tWIwYyOCnf8Ll
-         DLwgzZyAzw2++WbhH95/cywXYZj2+nl7SrSsFJa1eje6JEaB8oSvb8+mvAHmrmbcjHX7
-         DKV6/APNhUaFnGcRmgciBohsMUOr2aEVanMHzgsEEJ5QDLu93cFXsDdVlJ8CSqNaUvx8
-         ggHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwat30zbeJCGujv8uD0X4DEczH5qqM0uRhGfStUQiru1ZAqDTBn/vd5R8Pov/L7EyTo1CkFD2lOP9RUh/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA1YvED5Z7PYZSkeWLgpc0/Sv2sjk+kKY5uyLCeQ+vGwlokeOw
-	admyAU5Z7JOOLYwLmFR8S9Cx3fZzjXALUqgImm8O0gDO8gY+7s1Dy/sDcVRjm/+h
-X-Gm-Gg: AYBFou0HNt3VL165GzrGasliyiOrGD++uN3lli7MeLOzdFvq48aJ0KBRKt2UkGkk4pg
-	Y8DiTviwZNOm9Y1R6DpJeWfn1uIeZda84RbFINNGSuEcUzvPu/J+QQTBqtDI3+3BCxO8TY5RqGO
-	A/uHGfEM5nw0Rv1kE312hHppdx8IoddmCtd1KDBk/tJ0V8fIm9rqqjT2PWaX8oOTEqyJKnRoinS
-	ygaTowM1cRaWlIPXBAvJsRYyvTh8L879dXz3EDHmHFj2eYwK+T0mLpWKnCQjHER+xBLpBbSSWZD
-	hlJAp4irBYtVKCaCrL9YqcEmn+NEEMh0cD84HkEU2IZJdY7ds81yrCKFMio/LofuQFlA675pfKH
-	qGDNVRwhSBdzGC8FshDzOiDatCyCddHJGAuBmLa8a8Uc135f2u8H4UhLJzuUZ4ic5eE3gwGrkuO
-	y7cufF+fxCxRVb7BJdymXGxepIV5K2L6mI1ob/Z5XusFoJqKDlWJhc62JcKtJLxTDOZxdRoz1x+
-	nBKcmLIR1zA57DxyA25tVX55gMLnTca8cNMenwTEP/IoQ4ZBz7xRizypmta
-X-Received: by 2002:a05:701b:2511:b0:14a:c6cf:1449 with SMTP id a92af1059eb24-14ac6cf14e6mr3420039c88.32.1790666169513;
-        Tue, 29 Sep 2026 00:16:09 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm27867713c88.17.2026.09.29.00.16.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:16:09 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	mkchauras@linux.ibm.com,
-	mkchauras@gmail.com,
-	ruanjinjie@huawei.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Subject: [PATCH] powerpc: fix NMI exit ordering: restore soft masks after irqentry_nmi_exit()
-Date: Tue, 29 Sep 2026 12:46:00 +0530
-Message-ID: <20260929071600.2963954-1-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pnv94pym"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T46KHA3076706;
+	Tue, 29 Sep 2026 07:15:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=FZ9Juu
+	Ss/D+akfl91xU7OP2eBpxBAvfXWSZY4zEvYBU=; b=pnv94pymYS0IkF3b2G50M4
+	RVkV8lncqhwY25+KxnAPc7KJwZVwdpd0iKVIrj4PwxwfYDMRh5T+oR2yEtuzPbH2
+	kdv9XrbE4eQtQLFmYta2zPltzRW7rhH586EJ2ybEDNqh8OSAuakepqe+7Pt4n5mP
+	DGX5X/mETzLJG1sXOqDhr2Rb9wpxG36dw3L/5R+pFX+nps9uXskpE6ZIFYlEJcWJ
+	g08Vtu+2FfMj+4am4v8c63suUwZPSmRO2N3qPwVCozQd+Ycy+/YuLD8AUcNxhXzb
+	L8/IXF/12LKdKDVVQyMOqk7m12zbbTGC4wNJ68wXadbZIqsb5kDKowEw1/TRnTvQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j55tup-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 07:15:48 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T4HjaP4070253;
+	Tue, 29 Sep 2026 07:15:47 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxtkg8h5r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 07:15:47 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T7F1jI63111648
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 07:15:01 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9B92B5803F;
+	Tue, 29 Sep 2026 07:15:45 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C7B0358056;
+	Tue, 29 Sep 2026 07:15:33 +0000 (GMT)
+Received: from [9.39.21.128] (unknown [9.39.21.128])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 29 Sep 2026 07:15:33 +0000 (GMT)
+Message-ID: <e5a70518-9dfb-47e5-ac32-58b75c07a858@ibm.com>
+Date: Tue, 29 Sep 2026 12:45:30 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/20] KVM: selftests: PPC pre-enabling
+To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu
+ <yuzenghui@huawei.com>,
+        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
+        David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        loongarch@lists.linux.dev, kvm-riscv@lists.infradead.org,
+        linux-riscv@lists.infradead.org,
+        Itaru Kitayama
+ <itaru.kitayama@fujitsu.com>,
+        Nicholas Piggin <npiggin@gmail.com>
+References: <20260902164123.2546762-1-seanjc@google.com>
+Content-Language: en-US
+From: Anushree Mathur <anushree.mathur2@ibm.com>
+In-Reply-To: <20260902164123.2546762-1-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX4W62F1yk8l8n
+ XRhO7dxw6DEBdNCkzVHNd7rm217fvhWBjLGNh2KVb7AZ6oSj/1GseOaZgbN6WYJGep0nXfw82O7
+ jJOdA+BHclkxjO9Ket6CpoVz9mTJDmQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX29hXdJK+LPTK
+ cxwZVEFGcWGq/Mgo5FUIs2Vb4htVFQjwN8KlZwtb4sjWi5GeUTQcnBZbpE1O091Ihohaeuh5qkR
+ SLpswNapgrgeZaNwRvBWGshWh7SXpWZgnE3wlbUUG8uCHLJnYNHq3PzZ/6PO4ms+P9cf1E8kgMY
+ 9/GzKedeG8bpauhAcmM9Si0xRO+IzkXkqqbrkBV2yTKLPErnsIB9vtqbLM3S8SvO+uhIRBKupnc
+ XLHQRfxTuk3WJIgYj1huHrtlzo4qHBfCjMIkb+EXNecZLXBk7ls9pat6npTqb56LiPtrNmbg5/h
+ v1nDPuLvnwRP6XLiA4YRRw9MfHFT5zP1/vQQh/rgnHbqWeHrsgLfHlR5NVZK4aZy05CsaHl5QEA
+ sPXalB7Hzb37c68E5EyXRywagkkFFrGZ1FcWNV4uV2zUQPqqU/b51FTOrRFYoqOZnQSvrSVpsWY
+ iup3H4jBaxT2Nyul/yw==
+X-Proofpoint-GUID: lq-aGJq6ZdFWNGe-LVvOh1HYDcJzNXa4
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abb65a5 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=1XWaLZrsAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=zvVxG0z6fLcq2R3n2ywA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: pfPYA5yzPUw02pptXEK0MLlNkLCDJqba
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290028
 
-When running with CONFIG_PPC_IRQ_SOFT_MASK_DEBUG=y and LOCKDEP=y, an
-Oops is triggered during NMI exit:
 
-  [  202.258332] Oops: Exception in kernel mode, sig: 4 [#1]
-  NIP [000000000003e178] 0x3e178
-  LR  [c00000000003e174] arch_local_irq_restore+0x2a4/0x328
-  TRAP: 0700  MSR: 0000000000081000 <ME>
+On 02/09/26 10:11 PM, Sean Christopherson wrote:
+> This is a big pile of cleanups and refactoring to prepare for PPC support in
+> KVM selftests.  PPC has paging modes that require multi-page page tables, and
+> those page tables need to be naturally aligned.  The original proposal was to
+> plumb in an @align param to the page allocators[*], but I didn't love the idea
+> of adding another rarely used param to the allocators.
+>
+> v2:
+>   - Collect tags. [Itaru, Bibo]
+>   - Use 0x180000 as the min GPA for page table pages on LoongArch, instead of
+>     changing every other arch to use 0x200000. [Sashiko, Bibo]
+>   - Opportunistically move the vGIC LPI stress test's global "gpa_base" variable
+>     into setup_memslot(). [Sashiko]
+>
+> v1: https://lore.kernel.org/all/20260826230511.972824-1-seanjc@google.com
+>
+> [*] https://lore.kernel.org/all/df86b5ccdbdafc3509d9538bd5e6796737bab2db.1781093720.git.ritesh.list@gmail.com
+>
+> Nicholas Piggin (1):
+>    KVM: selftests: Use goto instead of do-while to retry finding unused
+>      physical pages
+>
+> Sean Christopherson (19):
+>    KVM: selftests: Use MEM_REGION_PT memslot instead of '0' for s390
+>      regions/segments
+>    KVM: selftests: Use the common minimum GPA for page tables on
+>      LoongArch
+>    KVM: selftests: Use vm_alloc_page_table() to allocate LoongArch page
+>      tables
+>    KVM: selftests: Rename "num" param to "nr_pages" for physical page
+>      allocators
+>    KVM: selftests: Extend page allocator to support naturally aligned
+>      allocations
+>    KVM: selftests: Make the single-page allocator APIs static inline
+>    KVM: selftests: Use the innermost page allocator API in the memslot
+>      perf test
+>    KVM: selftests: Use the innermost page allocator API in s390's IRQ
+>      routing test
+>    KVM: selftests: Add a wrapper API to allocate multiple page table
+>      pages
+>    KVM: selftests: Initialize vm->memslots[] with invalid memslots during
+>      creation
+>    KVM: selftests: Add APIs to override memory region types with custom
+>      memslots
+>    KVM: selftests: Add TEST_EXTRA memory region type for "special"
+>      memslots
+>    KVM: selftests: Use TEST_EXTRA region in arm64's vGIC LPI stress test
+>    KVM: selftests: Use TEST_EXTRA region in x86's smaller MAXPHYADDR test
+>    KVM: selftests: Use TEST_EXTRA region in set memory region test
+>    KVM: selftests: Take the memory region type, not memslot, in page
+>      allocators
+>    KVM: selftests: Use TEST_ASSERT(), not assert(), in
+>      vm_get_mem_region()
+>    KVM: selftests: Automatically pick min_gpa for allocations based on
+>      region type
+>    KVM: selftests: Add arch hook to force page tables to be naturally
+>      aligned
+>
+>   .../selftests/kvm/arm64/page_fault_test.c     |  18 ++-
+>   .../selftests/kvm/arm64/vgic_lpi_stress.c     |  21 ++-
+>   .../testing/selftests/kvm/include/kvm_util.h  | 106 +++++++++++++--
+>   tools/testing/selftests/kvm/include/x86/smm.h |   2 +-
+>   .../selftests/kvm/lib/arm64/processor.c       |   4 +-
+>   tools/testing/selftests/kvm/lib/kvm_util.c    | 127 +++++++++++-------
+>   .../selftests/kvm/lib/loongarch/processor.c   |   5 +-
+>   .../selftests/kvm/lib/riscv/processor.c       |   4 +-
+>   .../selftests/kvm/lib/s390/processor.c        |   7 +-
+>   .../testing/selftests/kvm/lib/x86/processor.c |  15 ++-
+>   .../testing/selftests/kvm/memslot_perf_test.c |   3 +-
+>   tools/testing/selftests/kvm/s390/cmma_test.c  |  19 +--
+>   .../testing/selftests/kvm/s390/irq_routing.c  |   2 +-
+>   .../selftests/kvm/set_memory_region_test.c    |   8 +-
+>   .../x86/smaller_maxphyaddr_emulation_test.c   |   9 +-
+>   15 files changed, 221 insertions(+), 129 deletions(-)
+>
+>
+> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 
-The faulting instruction at NIP is a 'trap' (0fe00000) inside the
-rfi_flush_fallback trampoline at a userspace-looking low address, reached
-after a bad rfid caused by an incorrect SRR0 value.
+Hi Sean,
 
-Root cause
-----------
-DEFINE_INTERRUPT_HANDLER_NMI used to call arch_interrupt_nmi_exit_prepare()
-*before* irqentry_nmi_exit(), giving this sequence:
+Thanks for working on this patch series. I tested this series (v2) as a 
+base
+for Ritesh's PowerPC KVM selftest series (v5) [1] on two real 
+PowerPC(ppc64le)
+PowerVM & PowerNV systems. Your patches applied cleanly and the core 
+infrastructure
+changes worked correctly on PowerPC — exactly the foundation Ritesh's 
+series needed.
 
-  arch_interrupt_nmi_enter_prepare()   // saves irq_soft_mask, irq_happened
-  irqentry_nmi_enter()                 // __nmi_enter() -> nmi_count++, in_nmi()=true
-  ____func(regs)                       // NMI handler body
-  arch_interrupt_nmi_exit_prepare()    // RESTORES irq_soft_mask=0 (IRQS_ENABLED)
-                                       // RESTORES irq_happened with pending bits
-  irqentry_nmi_exit()                  // instrumentation block runs here...
-    trace_hardirqs_on_prepare()        //   ...with in_nmi()==true still
-    lockdep_hardirqs_on_prepare()      //   ...and irq_soft_mask already restored to 0
-      -> arch_local_irq_restore(0)     // mask=0 -> enable path entered
-           WARN_ON_ONCE(in_nmi())      // FIRES: __nmi_exit() hasn't run yet
-    __nmi_exit()                       // nmi_count-- (too late)
 
-arch_interrupt_nmi_exit_prepare() restores irq_soft_mask to whatever
-the interrupted thread had (IRQS_ENABLED / 0) and restores irq_happened
-with any pending deferred-interrupt bits that were present when the NMI
-fired.  This is correct and necessary before rfid back to the interrupted
-context, but it must not happen until irqentry_nmi_exit() has fully
-completed.
+Ritesh's patch series : 
+https://lore.kernel.org/linuxppc-dev/cover.1790101179.git.ritesh.list@gmail.com/
 
-With irq_soft_mask=0 and pending bits in irq_happened, the
-trace_hardirqs_on_prepare() call inside irqentry_nmi_exit()'s
-instrumentation block reaches lockdep_hardirqs_on_prepare() which
-calls __trace_hardirqs_on_caller(), which eventually calls
-arch_local_irq_restore(0) (the IRQS_ENABLED / enable path).
+Full test suite summary (make run_tests):
+-----------------------------------------
+                                    LPAR    bare-metal
+   demand_paging_test               PASS      PASS
+   dirty_log_test                   PASS      PASS
+   dirty_log_perf_test              PASS      PASS
+   guest_print_test                 PASS      PASS
+   hardware_disable_test            PASS      PASS
+   kvm_binary_stats_test            PASS      PASS
+   kvm_create_max_vcpus             PASS      PASS
+   kvm_page_table_test              PASS      PASS
+   set_memory_region_test           PASS      PASS
+   memslot_modification_stress_test PASS      PASS
+   memslot_perf_test                PASS      PASS
+   access_tracking_perf_test        PASS      PASS
+   irqfd_test                       SKIP      SKIP
+   vm_types_test                    SKIP      SKIP
+   --------------------------------------------------
+   Total                         12 PASS   12 PASS
+                                  2 SKIP    2 SKIP
 
-arch_local_irq_restore() with mask=0 hits the CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
-guards at irq_64.c:217:
+My Detailed testing analysis for your patches on PowerPC (ppc64le):
+-------------------------------------------------
+Patches 1-5 [Page allocator and memslot refactoring]
+   Core page allocator and memslot infrastructure exercised by all 14
+   tests on both systems — no regressions observed.
 
-  WARN_ON_ONCE(in_nmi());   // TRUE: __nmi_exit() not yet called
+Patches 6-10 [Extended page allocator APIs]
+   Exercised via kvm_create_max_vcpus and memslot_perf_test on both
+   systems — APIs work correctly on PowerPC.
 
-The WARN_ON_ONCE fires a 'trap' instruction (tw 31,0,0 / 0fe00000) in
-kernel mode with MSR_PR=0, MSR_IR=0 (real-mode).  The program check
-handler (TRAP 0700) takes the sig:4 (SIGILL) path via do_program_check()
-and calls die(), producing the Oops.
+Patches 11-13, 16 [Memslot initialization and TEST_EXTRA region]
+   set_memory_region_test and memslot_modification_stress_test ran
+   successfully on both systems — memslot init, TEST_EXTRA region, and
+   its usage in set_memory_region_test all working correctly.
 
-The RESTART_TABLE mechanism in arch_local_irq_restore then causes the
-bad rfid that lands at the userspace-looking address visible in the NIP.
+Patch 17 [Memory region type API]
+   Exercised by set_memory_region_test — PASS on both systems.
 
-The bug is invisible with LOCKDEP=n because trace_hardirqs_on_prepare()
-is a no-op when CONFIG_TRACE_IRQFLAGS is not set (TRACE_IRQFLAGS is
-selected by PROVE_LOCKING which selects LOCKDEP).
+Patch 18 [Use TEST_ASSERT() in kvm_util.c]
+   Exercised by all tests — no assertion failures observed.
 
-Fix
----
-Move arch_interrupt_nmi_exit_prepare() to after the irqentry_nmi_exit()
-block, so that:
+Patch 19 [Auto-pick min_gpa for PowerPC]
+   This is the critical patch for PPC — guest physical test memory
+   was correctly placed above 256M on both systems:
+     LPAR:       guest physical test memory: [0xfffffbfff0000, 
+0xfffffffff0000)
+     bare-metal: guest physical test memory: [0xfffffbfff0000, 
+0xfffffffff0000)
 
-  irqentry_nmi_exit()                 // __nmi_exit() -> nmi_count--, in_nmi()=false
-  arch_interrupt_nmi_exit_prepare()   // now safe to restore soft mask state
+Patch 20 [Add arch hook to force page table setup]
+   lib/powerpc/processor.c correctly hooks into this — guest page
+   tables set up correctly on both systems.
 
-The instrumentation inside irqentry_nmi_exit() now executes while
-in_nmi() is still true (nmi_count not yet decremented), but
-irq_soft_mask is still IRQS_ALL_DISABLED (NMI-entry value), so
-arch_local_irq_restore() is never called with mask=0 from that path.
-After __nmi_exit() returns, arch_interrupt_nmi_exit_prepare() restores
-the pre-NMI soft mask and irq_happened, which is the correct state for
-the rfid back to the interrupted context.
+Note: Patches 14 and 15 (arm64/x86-specific TEST_EXTRA usage) were
+not exercised as those tests don't build on PowerPC — as expected.
 
-Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Closes: https://lore.kernel.org/all/d4cccba9-ce5c-424b-864c-2248fb0d99e6@linux.ibm.com/
-Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
----
- arch/powerpc/include/asm/interrupt.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
-index 1b45a49e9bed..56f855c6f07e 100644
---- a/arch/powerpc/include/asm/interrupt.h
-+++ b/arch/powerpc/include/asm/interrupt.h
-@@ -301,7 +301,6 @@ interrupt_handler long func(struct pt_regs *regs)			\
- 		state = irqentry_nmi_enter(regs);			\
- 	}								\
- 	ret = ____##func (regs);					\
--	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
- 	if (mfmsr() & MSR_DR) {						\
- 		/* nmi_exit if relocations are on */			\
- 		irqentry_nmi_exit(regs, state);				\
-@@ -317,6 +316,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
- 	} else {							\
- 		irqentry_nmi_exit(regs, state);				\
- 	}								\
-+	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
- 									\
- 	return ret;							\
- }									\
--- 
-2.55.0
+Please feel free to add :
+
+Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+
+Thank you,
+Anushree Mathur
 
