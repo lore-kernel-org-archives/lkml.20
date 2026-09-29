@@ -1,71 +1,69 @@
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455D251615F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFFD5158B3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681483; cv=none; b=NIKf/DVDpTED7VXAz16pdh0rc31KXUSJUyguny7wh33k6ekCnkuIb9GYagpX3uuMIixrGdq/TtRgBVe6Ra8NY3g8vJUyvyBb8X8EJHk46KPyCO66fYA4EnN+kOh0bjh9LaK8/nNp826e3kXB4oBnm31L3MQTg2bPuceVTRzVo0Q=
+	t=1790681491; cv=none; b=SRbnVa+fN70MpHLWUhgLS8HwZmZNqOrU0SX/CEQMAt7wb948bE/UjIlD/vkEzcHLe8aBjJ7uUILXxz/5D4Rrtccl7PfrzGqIakTpv31L098acBm4tMAglmvmTenGsv2A+gV3w/VYdtrajPMPIWtB2ptd1lGpy3Zp/AlHncPegvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681483; c=relaxed/simple;
-	bh=kHd0cWkGqn/Kku036S1bn/S8py9cSnlyWzFzp+veRDE=;
+	s=arc-20240116; t=1790681491; c=relaxed/simple;
+	bh=IKzqvREfbWKuikV4V1gaar7W94/0plV3FzhAA9L0KUo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u4mnBSjr6EMfFliU074Wdwh57jtvE+M0zitChlbHpPgCCHOTgHuSSQltmqi6ba4y089/CXH5PMknZOgSxl4wIiHVoGhVPFZtYE3ieqdz16KzuDUohbcBACiiVzy4eHJx4vMREXHZNN1wynmi2iHFsXubJh++tHOEzUinKw11E+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sFCGAeFL; arc=none smtp.client-ip=148.163.158.5
+	 MIME-Version:Content-Type; b=d2DJuXv8STekTkQC96HrhLLmnzhjlrYmOCD1rqWKeBDPqdu1apMYBgWykhFCXGjenO41SPL5i3wYZVAoADXEWG/Sgbf3Lxf5M8TI3CCQmcyzdQEir86P4UqzG4zqIaCtKIkZfgGxkGmiMT9x3KLoI9wxyFbcaz3IIG0KoXo1f1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XlLUc+XP; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sFCGAeFL"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB5dil2783702;
-	Tue, 29 Sep 2026 11:31:06 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XlLUc+XP"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB5jqV3836778;
+	Tue, 29 Sep 2026 11:31:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=WfMzLb
-	3xmoX/qM5N4JkCxfOBjTh3ejV7Lqwy5CF+kZ8=; b=sFCGAeFLRpQEvreI3C5jLB
-	FqrY2ttx8Ry32vFZ1/ZaM8CQLVXJjYWDfr7QDu3dy46t1LR+JIFqw6VGVWn47lXv
-	aa8HqzpKnJx1myDe08IRYPqUOh9NV+ybu9BvN/AUDCp2ffAGsTjrZ+boGz+kbKpT
-	7JPbYwMW6+M1d3QyyFhSoqD/SHyNFOqzgKw6MeGfUkNFdaNwICb8ZdtwkdOKSa3w
-	ivSumKGLJrxC2uzT/qtQ9FNpcem4p4vTm2AF64mAUf5tx5oIBLD8dIYmO6XqwWSa
-	5anTUgXUvKdy3WXip5bZMxyVB+8ByeUjEF3WRNJyaYH612KPMlKw0RMzj2TGo2Nw
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Noe9vW
+	NYAyWkJNW1N3e+zPWf0iDGQdkjDTTrpvwtMQg=; b=XlLUc+XPT2dKJmrgdR4ppS
+	Bm1VQVkHbk9ohA2c8+B1f3lQgXfLYe6/R2LjX4JU3KK8gPW92fVTURG0FVQVelg2
+	iTE2bIN/2N6BU37TDBhcLYJ5gR+0b2+7JcIwASNv9/8qb9OKcj0YPOo2kromE/y+
+	suCk5WmqkDa5PlAWf9wLJ19dTiXhtX9kzHLI/m5JBydOloZRZMCfSeR9EfUS7HMK
+	NtJpmMWDwh4eizdvegtZz1Y7OgWaAW4jYAp6HAWmZMXLtwt2smtOjSeY0LNj/2Xp
+	h5Yw6FhAbZ1T2sYIqIMJyS6gBjtTc3vqjrBlEIMn7Mk7KY0OGhMiaclB3TfaDgKA
 	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fe63qj-1
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk6bnd-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 11:31:05 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAldvk1667746;
-	Tue, 29 Sep 2026 11:31:05 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhhe23-1
+	Tue, 29 Sep 2026 11:31:11 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAlkc91657634;
+	Tue, 29 Sep 2026 11:31:10 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxrcpsnfg-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 11:31:05 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TBV3Iv44564884
+	Tue, 29 Sep 2026 11:31:10 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TBV7kW53412170
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Sep 2026 11:31:03 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E55922004D;
-	Tue, 29 Sep 2026 11:31:02 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1B87220040;
-	Tue, 29 Sep 2026 11:31:00 +0000 (GMT)
+	Tue, 29 Sep 2026 11:31:07 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 26E432004D;
+	Tue, 29 Sep 2026 11:31:07 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 82D8F20040;
+	Tue, 29 Sep 2026 11:31:04 +0000 (GMT)
 Received: from Linuxdev.ibmuc.com (unknown [9.43.88.139])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 29 Sep 2026 11:30:59 +0000 (GMT)
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 11:31:04 +0000 (GMT)
 From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Christophe Leroy <chleroy@kernel.org>, Link Mauve <linkmauve@linkmauve.fr>
-Cc: techflashYT <officialTechflashYT@gmail.com>, Ash Logan <ash@heyquark.com>,
-        =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] powerpc/sstep: Fix compilation on 32-bit PowerPC
-Date: Tue, 29 Sep 2026 17:00:58 +0530
-Message-ID: <179066556646.265207.12358872627744720045.b4-ty@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org, Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, linux-kernel@vger.kernel.org,
+        msuchanek@suse.de, ritesh.list@gmail.com, hbathini@linux.ibm.com,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: Re: [PATCH v2] powerpc/ftrace: Don't restore r13 during ftrace_regs_caller
+Date: Tue, 29 Sep 2026 17:01:03 +0530
+Message-ID: <179066556649.265207.17586795790331377487.b4-ty@linux.ibm.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730065007.964703-1-linkmauve@linkmauve.fr>
-References: <20260730065007.964703-1-linkmauve@linkmauve.fr>
+In-Reply-To: <20260921072151.35531-1-sshegde@linux.ibm.com>
+References: <20260921072151.35531-1-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,49 +74,49 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abba179 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-ORIG-GUID: f5ZWfvlQ0imUHj7Rh3B-9wbxnYb53jYW
+X-Proofpoint-GUID: RnlRpO4fLDroHI2gto4OrdRKyAmUihYI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX3ScRDP+XhVoA
+ b9UxhqdWsp9k00whlgUhLrNemMzRTzJ57by/AeOEiDcBHSwOt2jnlwyL5/SVxTzrArohhJfKKSi
+ YKu0omFtDQYPNign/vJONFrLgYK3DFU=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abba180 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=BrOgvOr2DgzzvcNUf_gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX1J/3wy5pqsho
- oKa33lSa5Ua0c0Idau0qsDeJevlU1Jaj77iXyfshEVtPc73yeAodNk3Zne1d51JOjqLkHRDwqgD
- X4J3fN/F/SSj3A45zkneJACOejRZ+u8=
-X-Proofpoint-ORIG-GUID: u5rUQlonc9xSVu3Zs2KuLMYp6V1x0TpV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX+5VRA2cMJhds
- v7dZxA+xQ++tusEnCBEpKDGOIkvTxSMug2JXuEmoLKRJ6cLPR6ti40mT9YHPffpiziRB2FcSInr
- 7JNpCnXpbzmGsWkMeZy5JuJl0E9r/lYRAOE2rHpe5WDr29ks+vTeyAdTne6HRkG5KlW8TitRH7E
- eLewXszSGCrs1fMTpX1sSr0d6r56JFYg2JZzIZTzLLD35EahkitqmlOWMtRJ/zIlq5ekn32IjuJ
- nDY7NOVUUlKDrtsc+31ZuCeQdxxacpGB/mueGT7qGV6r5DAJmHpNgCibKcp73+dsu9qAs9k3uFZ
- ONAF56XDQ7jKQB30DCLetokMhhkZpf30XjVPXfcy2pjZ2DbAxQZPZXL53/e01bXPVfH5OVL4W6v
- 16C2iqbF1RI297mKucUqWPSqSwtDkUxEt7o1cBMOv8KIAVJREaOJbcoxUN5dIpb1TyNddsVHHWQ
- VB9lRJQa8Powi3NTkDA==
-X-Proofpoint-GUID: UA37yFkuzZKRx-JPVidfRlPI5fGM9Zux
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=TsoWHe6mYCxSqgRXxVIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX8e4QTeLPGOij
+ 7RzFHyptVNcQVo4G5n8amkGK2XhlwuXFteF1v0Uupl2Oxlt/1qzYSqx5U0R5OFyHwr+FQWFQtvA
+ LrgEKW7C8olyvafoEzDN0w8BMlFIxWnvz8IkFol+wTtzB1SA87yJ0Ty/QFw+/kL8/vp9C9E+eCx
+ 0O0SRWldw5IWVzBln2IRLfIxf2P7l+xOzy81CHpHeXIrE/Zu29378+0b80AftWzFjX1uvgA73Sv
+ s0iXuQBKc4azuWxCy2RClX/gltdxYlGkbrsIkQuUQhmzoq1FuAc8e5lTaxpxxvDcljBNrnUEAJf
+ kQa0ZigNOLqFeGvnXZvx57F6qIAWJpbw5nwGmvRL1nHMY5EEUt9B1HB0SmY6f6CT3kmAoK93X4j
+ bioF0iesNhBX9c0EA1EaAKPbe6CSo0nmZAZEvjMnmj9LE/BD+U8tvMZPGi0PsbfOY2zm7hmVaKS
+ 8t6NH5GMJKwxQXTCNXw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1011 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609290044
 
-On Thu, 30 Jul 2026 08:50:04 +0200, Link Mauve wrote:
-> Two local variables were only set but never read on 32-bit PowerPC,
-> which causes an error during compilation with W=1.
+On Mon, 21 Sep 2026 12:51:50 +0530, Shrikanth Hegde wrote:
+> Michal reported a stack-protector failure and subsequent panic when
+> running kernel builds. This was observed with full/lazy preemption.
+> Initially it was suspected as KVM, but later turned out to be due
+> to a bcc tool running in parallel.
 > 
-> This series first makes the 64-bit guards consistent by converting all
-> uses of __powerpc64__ to use CONFIG_PPC64 instead, and then guard the
-> two variables rc and suffix behind CONFIG_PPC64 checks.
+> Issue was recreated using a bcc tool.
+> For example, running below in parallel leads to crash.
+> ./funccount sched* -d 100 and make -j 64
 > 
 > [...]
 
 Applied to powerpc/next.
 
-[1/2] powerpc/sstep: Consistently use one define to check arch bit width
-      https://git.kernel.org/powerpc/c/a3b88f816f1b87c6dbcbb858d153adb82fec2e15
-[2/2] powerpc/sstep: Don’t define variables we won’t be using
-      https://git.kernel.org/powerpc/c/16736e0587530a2ad074ef716a6a2f1d45f63827
+[1/1] powerpc/ftrace: Don't restore r13 during ftrace_regs_caller
+      https://git.kernel.org/powerpc/c/af5f0870883ae4aea7f668d06cbb7ad0e12824c8
 
 cheers
