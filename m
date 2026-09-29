@@ -1,122 +1,108 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.catnarok.net (mail.catnarok.net [167.99.87.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFBE51EDFE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843EE2BEFEB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=167.99.87.0
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694997; cv=none; b=FG66KTPXlFkSl96/yhCU3kzkjpuwSdnHs6mqIvJExoFif/iTaUxE5wVWXtGbe6/NgwW4M8dpFbovOlVu3EeMofK43WWhR5OBUmyg8cNB4/3kcyRl5catQLMLqFyPZ8ITljS/zgMqFbJu71mNK4D/dXOKga1R++cJWllKs6sYOh0=
+	t=1790695022; cv=none; b=WnxkPqTLeJznMCyTfEpQSxCoyM55lTU9d14rkk7aV1jMtF+tuzxcZT/M5OuDPGrsZO7V5C4OQ3faD8NQNwHS2M+mcipWbRI0lhHtk9wDW6c5KmDFz/pB8m8KMC159ScieKwEMovjLL6vUShf47i2AEnnrKdLdvJcP/reL7lxaRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694997; c=relaxed/simple;
-	bh=bWF2RLkDSukvRv3ojzJFf0HCx2pYwdCFf9sW3v74D0A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FcUG+q3S2Q/2hEd8uo49/dX/nfci8UfjsLIu44BArn1NumqXVU811XtgvwX7eFWkhCPMRwBdLAIKN2VNP7XrWUkT1GFadRsvFNvbEHRykD0LBPHq0Atw+34A8BQkGPwFheqeJZCk4YmDM7Ez7Q3pbOYAw4VEmfxqJP58acrHGtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TX4lQJiv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=t1IVhKGo; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790695022; c=relaxed/simple;
+	bh=wLhWyewojJhFiX5NOdAyYoG2PtrTWePbkC8uas+9nlo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eYpygeQXzRinteTxjOC+WpOSbmFBqW5HOrePEvxWqEm7cioQy4x9uFWP5eHuPJZFB6PphE4TP1sfJ+NcWpmNn8pNYjMNWhfhsfX7uqkEvqbm9TJgpPZTPPqBVT/K9vzKToXk5J4y0wKkIixrwz41OY/0oo96XG/tJgUxMIv99yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catnarok.net; spf=pass smtp.mailfrom=catnarok.net; dkim=fail (2048-bit key) header.d=catnarok.net header.i=@catnarok.net header.b=jXzkr76P reason="signature verification failed"; arc=none smtp.client-ip=167.99.87.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catnarok.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catnarok.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TX4lQJiv";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="t1IVhKGo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790694976;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
-	b=TX4lQJivVRePQyvZo1VZrmOLSuB4aQPuXmMveI2Bg7i8ytvTCu312kVGBrchHM9UMpxmKl
-	AuturOCSB+ca5RYdyXlIp+WLB0yetfVmadLb4dnyXOYy1DRs8NdAjQ9O5NgMmnjXcN3yTN
-	fdfVkrr000Qj7FxoCYWvdpiFP5g46k0=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-604-oz6BmVSOPTK953TH68VoCQ-1; Tue, 29 Sep 2026 11:16:13 -0400
-X-MC-Unique: oz6BmVSOPTK953TH68VoCQ-1
-X-Mimecast-MFC-AGG-ID: oz6BmVSOPTK953TH68VoCQ_1790694973
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c5e9c2ec1so185855285a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:16:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790694973; x=1791299773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
-        b=t1IVhKGoFPqf09lPU8gqwRcCxXQZBkx5NC4TR2+/E1fefLE6YJdqOJUiNfuJ5y3kbz
-         Oeord3cjw9cKE5b2WWYeMCeOVtTYPH8GVNL++CgtdO97JdiKx3JZPuq18/NENjwNGt71
-         5qEryrEZfBsN3/JTNwkl+JcedGdzoarYM365yRo9ElZqPLvoy0M1epz6QuEdnbc3hRYH
-         24JNJ5fWSENmLnDx2ymFdmfCMWK5d+ylANvYMG7QshVuW9+V/7G3wa3StDfTh2BrvwZy
-         8AUWwnvx28RQqMxwvDgoW5JezfQTyONhu3BhpJPEiFHSr+lHT+J+aNZF2mL7i56TlguX
-         pXiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694973; x=1791299773;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=haHxVk6HtMmMg8MDyLTddniohI+cOYlGgDr4EoKwINs=;
-        b=YLNkdv3Pp7IG1Uoct+I7/h3DmdQcIz4x+CTlhI42PCtfjapsMFTejxsyI1Bsf0DQvt
-         bC8oApiJGs0VDrP7AldANWkDvZzPy6dHsCUSsIEi7206tl/C1hW2QB3V45R6/tdziMDc
-         c5/VDbpl6U9sE6NRStreUb6xnIZPBnSrGt+nxFowYHbs0iuBqAyi4lrd1Pbewttol0YJ
-         CcarIub+1lpwxFvHYh+jjQMK6Sk3VRSziT+y9nltsTpt8vrNUrYhtyg2HyMuUBs2OrDQ
-         ow7b3QSmiv1Y8hUuZZMHsl3N1I/YONU664cfT6CMRntkf0Gvmyk+vnwMmO7IxEptK3ME
-         Ad7g==
-X-Forwarded-Encrypted: i=1; AKwUvByYMgoVMFI2yl/9lz7WyShvyeA1Crvfk311Hg9ZltuSLlNteBWWMx3Dd0n7h35nSDKrH+dsSZRRoiwMd60=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngIZhZeI1ONYefFu7tPHN69RNuwjpqeCrgyRab/pPQBuFV20NE
-	cTgEKisZF6Dq9Gi//9Jrg+5Pm9hmtQ6Qsxyw3Uh5Liisr7uQTj6mXYSL6mIVQFig9cmrM1jvi1C
-	2rdRaCtf5hmnt5EkRL3ZSi32H95dbAQkDPm//YtmrbbZatoXv9826krZ60nuwDBKokQ==
-X-Gm-Gg: AYBFou1S17bMH6dAfE1vbZIjbw/c3TBD8lfdUpzaNyz3YN3XIgXpHU30ar2Wh4/nMua
-	G9pJSLe93TQrqGawK3w+C/sFfBTeI1pyT7Jwd7IM9fagT2svinQw/a9scLuXIk8oBNUqz+/OBYu
-	JSVP7fTzLTKw3gsg/0UqF5T3oBMzonVzjDWwdezgf0lPutBtkRXd7qq7JLLuLFIK14hBjYo48Oh
-	7F7/p/w4GNUAmfJG/YoPj7smo3NHa3vHVOJnZxTYxYvvKn23x9A/EsAJU8FxNCaJO1HrjcmJsN4
-	FiYA0FtU8uwbe1fd/nT4jFYd9MtwV9KSknOIn1936Rto+C3mdc79ie8puXHKlbVbrHhC/B4LdtR
-	EEK4sDPbLw7JqNtB/+4lfoAMMRxdYZhf8rWuzG0zcarQrgXkzwhI=
-X-Received: by 2002:a05:620a:4722:b0:93c:5b32:c9d9 with SMTP id af79cd13be357-93c8bcd086dmr532936985a.6.1790694972728;
-        Tue, 29 Sep 2026 08:16:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:4722:b0:93c:5b32:c9d9 with SMTP id af79cd13be357-93c8bcd086dmr532929185a.6.1790694972197;
-        Tue, 29 Sep 2026 08:16:12 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c81598783sm411763785a.46.2026.09.29.08.16.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:16:10 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yury Norov <ynorov@nvidia.com>
-Cc: Yury Norov <yury.norov@gmail.com>
-In-Reply-To: <20260925193858.250215-1-ynorov@nvidia.com>
-References: <20260925193858.250215-1-ynorov@nvidia.com>
-Subject: Re: [PATCH] clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
-Message-Id: <179069493301.199845.17240762807739332840.b4-ty@b4>
-Date: Tue, 29 Sep 2026 11:15:33 -0400
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=catnarok.net header.i=@catnarok.net header.b="jXzkr76P"
+Received: from mail.catnarok.net (localhost [127.0.0.1])
+	by mail.catnarok.net (Postfix) with ESMTP id A2CDA800FE
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:09:26 +0000 (UTC)
+Authentication-Results: mail.catnarok.net (amavisd-new);
+	dkim=pass (2048-bit key) reason="pass (just generated, assumed good)"
+	header.d=catnarok.net
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=catnarok.net; h=
+	content-transfer-encoding:mime-version:x-mailer:message-id:date
+	:date:subject:subject:to:from:from; s=dkim; t=1790694566; x=
+	1793286567; bh=wLhWyewojJhFiX5NOdAyYoG2PtrTWePbkC8uas+9nlo=; b=j
+	Xzkr76PgT7yMmPBo3KZgROn3dYXNjpSFHSBQ14pXuTsiHcxrKKBnWx6tK8E7D3Rv
+	2CWUDEbizkKNBNu5Yi1F2q+2DMd1YDp4joN9A8gH88RW86S/q6OtDeWcRsR3HIGI
+	J5kcJJHyv8YP96gjXY2CLgmuYSA9Xudbccs5I9L0VI//bmrAIWRbo3jiqCl7EERN
+	yRRLaE3ugytVJti69SAfR5yZ6grRWzOS4a1N7mlukSZQ5/6YEJ0nvH+93NspNCB3
+	q5k/nay9BTRw1P9uAq6SBnKU1NymrYO2K5CqpRd0BYmTHN3otiO/Mtqzz+TwaDIC
+	JT7mzh6dXQnCNX0ph6fdQ==
+X-Virus-Scanned: Debian amavisd-new at mail.catnarok.net
+Received: from mail.catnarok.net ([127.0.0.1])
+	by mail.catnarok.net (mail.catnarok.net [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id LE2DMRTLNGpX for <linux-kernel@vger.kernel.org>;
+	Tue, 29 Sep 2026 15:09:26 +0000 (UTC)
+Received: from horse.private.catnarok.net (92-247-245-29.spectrumnet.bg [92.247.245.29])
+	by mail.catnarok.net (Postfix) with ESMTPSA id 1CADE800EB;
+	Tue, 29 Sep 2026 15:09:25 +0000 (UTC)
+From: Michael Stolovitzsky <emestee@catnarok.net>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Stolovitzsky <emestee@catnarok.net>
+Subject: [PATCH] PCI: Add function 1 DMA alias quirk for Toshiba AHCI SSD controller
+Date: Tue, 29 Sep 2026 18:09:24 +0300
+Message-ID: <20260929150924.2376309-1-emestee@catnarok.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=306; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=mZR9PHzdXdFqvDzHRwBoXIJQhHINnxzMIo6bw+8Twnw=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2XzNaqmWlqvTFQsrRXjf7rzivh0z3RbaqotPnHUVn/
- 54d33S3o5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgImE7GJk6P4llzBrV8++Nzc1
- Q5k0mQslWCQc1/oX/vjZIPX5+4mrRxn+Fx0wan78vuHLkZuzClREWF+kdy7SvCsaE8S8QHKHbts
- kbgA=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: quoted-printable
 
+The Toshiba AHCI SATA controller [1179:010b] (subsystem [1b4b:9183])
+used in 11-inch MacBook Air models (MacBookAir6,1 and MacBookAir7,1)
+issues DMA with the requester ID of function 1, which does not exist.
+With the Intel IOMMU enabled (intel_iommu=3Don, or
+CONFIG_INTEL_IOMMU_DEFAULT_ON=3Dy), these DMA writes are blocked, IDENTIF=
+Y
+fails and the internal disk never appears:
 
-On Fri, 25 Sep 2026 15:38:58 -0400, Yury Norov wrote:
-> clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
+  DMAR: [DMA Write NO_PASID] Request device [0000:04:00.1] fault addr 0xf=
+ffe0000 [fault reason 0x02] Present bit in context entry is clear
+  ata1.00: failed to IDENTIFY (INIT_DEV_PARAMS failed, err_mask=3D0x80)
 
-Applied, thanks!
+Add the controller to the quirk_dma_func1_alias() list. With it, the
+SSD is identified and the system boots with the IOMMU enabled.
 
-[1/1] clk: si521xx: simplify si521xx_diff_idx_to_reg_bit()
-      commit: f619355a6bc6e2ce8b2b104abfd4f2c86e22aad3
+Link: https://github.com/omacom/omarchy/issues/12097
+Link: https://github.com/omacom/omarchy/issues/13010
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Opus 5.5
+Signed-off-by: Michael Stolovitzsky <emestee@catnarok.net>
+---
+Tested on a MacBookAir6,1 (7.2.5-based kernel, intel_iommu=3Don);
+build-tested on v7.3-rc5.
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+As far as I can tell, 1179:010b is specific to the Toshiba SSDs Apple
+shipped in the 11-inch MacBook Air: pci.ids has no entry for it, and
+every linux-hardware.org probe carrying it is a MacBookAir6,1 or 7,1.
+
+ drivers/pci/quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda..9d2ca995b 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -4366,6 +4366,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_JMICRON,
+ DECLARE_PCI_FIXUP_HEADER(0x1c28, /* Lite-On */
+ 			 0x0122, /* Plextor M6E (Marvell 88SS9183)*/
+ 			 quirk_dma_func1_alias);
++/* Toshiba AHCI SSD controller in MacBookAir6,1 and MacBookAir7,1 */
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TOSHIBA, 0x010b,
++			 quirk_dma_func1_alias);
+=20
+ /*
+  * Some devices DMA with the wrong devfn, not just the wrong function.
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+--=20
+2.55.0
 
