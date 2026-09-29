@@ -1,290 +1,159 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E04743499F;
-	Tue, 29 Sep 2026 13:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C927543499F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690100; cv=none; b=rruyy+vYwoUmKUKeLP//r9n5j1yGke47NOEWw46JOmyh6cqS9AY7uKWZDLaUX39SzwrMo8BsgOvSqhslN4ukt+UcuzOjRFvv05HNeEH65y/6wjuuS0C6t4Mqm9pYxfx4Yro+0eTgBaX/hFijz1lzDMcOka06AKJ5wU3tseBP4nA=
+	t=1790690108; cv=none; b=QC48Cqb7IPCAg+O1ZGdaqCc0+Rdz0q08z1NZG3oMD5ADWdddyexfzVL85+QM+KP5gGG9v71EOcHax4UEChKiAL+jCAH/OyjKROhfkcEzz5LK5BQ53y26jhuDbKOu+rFXecpzmP54sp0Z5NtTabdXMURKOBo6nvO1/I6Rrdqowhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690100; c=relaxed/simple;
-	bh=A789vHjOf1S9ib3KcuLodzzVgJAGJWRct01oP2ECTbc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=KqlPQzhTsUU0MPSZ+O6uLlASg0bTZI5TIXaZHqIEeWtwAMpbH4bcdftSqQnaasRx6XJkoTsAkjnDYqkFdJVoA8p0VL+1MXsf/7Pq5N8kfU2T8C8lwK82RvgzglBT4ihJW8cz3aEmuk/pQY9BMFFaASOc1wdFr0MaFMCbv6vH2HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=SiktROZX; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1790690108; c=relaxed/simple;
+	bh=E6VXpq+qZYhv8tNTG9AR+0gEd0oGtsHCFPhCgKyyYsE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YZKZ7n3CcerDDB0VNaU61uDyd9UP0WR+sg3Lq2gNbE1C2IBM3I2wxgBI7OjGlaFHZOMVj6RugErHZxpj3nMGOSnu8oED6znZasfYR7mNLW4fPV7GQ9rWDNPiE0gZg0fRjfGB7rZXSUFfzRYuxTAqTFKCbo6GDrAoJ49oW6fcnX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F2X3ibjp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XP0wovkA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="SiktROZX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=Ey5iOdljmqLicEUWHayCdjXuTJVEi9baHzlBb1cP5Fk=; b=SiktROZXfMzx7wSUSVZL46anuC
-	BENf5fAsQfeVlwK5WCbWfRtKssriMKvy+Zv/MDWTymfWKK5eis2Zd+whFBEIVWlFlyl9nKvpWm1b8
-	WMzkwJNfq4sZgkKukj5BkdCeV2q5VPtkUbUwSDiibcm+/9GGOXi9zjmo5rB3phtWxDKM=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xBYID-000000001EH-1vNB;
-	Tue, 29 Sep 2026 09:54:51 -0400
-Date: Tue, 29 Sep 2026 09:54:49 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Tapio Reijonen <tapio.reijonen@kolumbus.fi>
-Subject: Re: [PATCH v5 3/8] serial: max310x: convert RS485 delays from
- milliseconds to bit-times
-Message-Id: <20260929095449.f8216dbdf39228c1e6a4d7cc@hugovil.com>
-In-Reply-To: <20260929-max310x-rs485-sw-delay-v5-3-ae46afa583f2@vaisala.com>
-References: <20260929-max310x-rs485-sw-delay-v5-0-ae46afa583f2@vaisala.com>
-	<20260929-max310x-rs485-sw-delay-v5-3-ae46afa583f2@vaisala.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F2X3ibjp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XP0wovkA"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqsi81577907
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:55:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TBpZuxpAB/NHE21T+jwIIT0IiDN/7w0EffTqxQ3ZtAQ=; b=F2X3ibjpwHeKsvqR
+	QnZpDC274JVHIHnuDE77d/hub77UkWSpJBxKivaemAs0oRjH4AHwkmZR5J2Yrx1N
+	Q02efD1KBucNc7QMwPftugSkQ+MjpWIA4lL7/TZtk94QBKHSUC4BTaXaDKYpkfj8
+	kly/ktqpcAehUdEoRU3AUlQVOOtoP9IskBv9KqbOYkwl5kkH6XNJ1LWvi+JfqPby
+	4ANR7PqoC/wH2q1ZsvZyzO7YVuT/TEm1ghgwKTBwE3xJSknTICd6Cy8W5H9i8onU
+	TQLO6jyLOY3/1MeYCjoJd11TF7lTr6A58UuvUOwkq1Iui5IXb8JvvBy9iIBZgh1q
+	iIb4Hw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h09x4sb62-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:55:04 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c5d6c3b21so77783385a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:55:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790690103; x=1791294903; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TBpZuxpAB/NHE21T+jwIIT0IiDN/7w0EffTqxQ3ZtAQ=;
+        b=XP0wovkAHwywF4w+5A6bn8nD88vzEYlHfaqAdxHxA2soCSXwggLRy3xWRQeT/+gLRm
+         dcgKmQqtkqGb5f1n4wFvbtZq/DNTpubMJDVGCxbfmA0eTQbNNzve4oI/EDtYoS9lqYe5
+         J12BMb19+2/Y8mMibM2ebE6xG+14IrGRkLhhpnCwNvARihoRzzaLaHvqpqNJHwlvHKLU
+         u2upSKzRFMJBdRliTGqi9eBarTYpHWqynvBm81rJ11fci8FUVZ5MAwvpDFNItMmT38DT
+         Mu0a+2TlON6RKnQGaSN8LHgXOM7KkLxjmnr6oyj+kazvTURX7QogzY/KlZpwfuIbYxvQ
+         vZLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790690103; x=1791294903;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TBpZuxpAB/NHE21T+jwIIT0IiDN/7w0EffTqxQ3ZtAQ=;
+        b=hCTBtBTE9+e4cuWr0/PkY9nq7VdR/KpT1u0/8GYKV0IgAMnUB3q9xBx5RILT2MCqol
+         ZNICANC+mYk2Z8MaIkAddgsg9ZHYkfk78hmfqba4wL41cozVergE8cJMPmAtMbbR/Rr+
+         koscc3OOt93i0LB32MXx3+5TANpwyenThW0F1Nxhm2cSthuKeCd7Nv/HBefmpcI/+fhB
+         ye+vrWYBqqppd5j6SRtwKScgTEd4pMl4NfmZM9Qq3sqocSRPTcExxN79Zv1a8ai8blww
+         mxbbPH/aNSrKdEnr5SDckqEe0oH8P5H+OAHcCyAqDJA455gxDoB8X5PeQ9PEFqDNWOuT
+         fTKg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1s866UQ3THhARwBkNoF9wWOtP8IaizOHDaCtXRt0WrlNHVtZIG4YNpL91VFqdU/IyysKz9ZHcY/XmDts=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmaKkpDFYxXF1EEEgp4siY9rr9XufwJWb7vQT2GlpIt72YZbo6
+	l+RqqGJIX1dogZqQWneERgBUlLEkQPZa3IOZ9qv7fiv/V83pQvlyWwoTz2bS7fNutowz0Hjc/VN
+	cTktJT4et2tzu+hcgVWXYz6oVRIvGqjFG6U2tQOxgsWTSVvz4WIOdX05Z5swCa+MrFG4=
+X-Gm-Gg: AYBFou2qT7hE2ybsS/Q+8cHdmEbgKPxYG50c4dAl/K3FHQ3XzvoekVvf6x7ZNk/Q3Dd
+	exOv2URNifq0bAUEzwFDVtuOywfbhIyC6QaaYxGBFfAQ8y05X3/WphZGuZ/HT1yLDmWk4ovJQ8h
+	LRNdC7jO8QQ2jZDfZyddxSAYF02fDc1Nu+k10v8CKKmKc37glLs5W/eGu9KfuSz23OmwLea5T2m
+	8wn/5YDdwpimJ6CQgOs38I4yxSStNcqIwnB0SpR9pnfv4Mislte8Uf2zGtWA7c1GIWdBzQ7G1Fi
+	4GlutO41OXda5Y6iy8K6uBYxQy87R0JgsWs++l7KpUaQUMVJoNcIaiBFqs3TzCxZxMpuxFm/69N
+	QPnFIji7kDGHspb6zKB8P3w==
+X-Received: by 2002:a05:620a:4503:b0:939:8148:1e3d with SMTP id af79cd13be357-93c43bd1bb0mr2533928385a.2.1790690103033;
+        Tue, 29 Sep 2026 06:55:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:4503:b0:939:8148:1e3d with SMTP id af79cd13be357-93c43bd1bb0mr2533924285a.2.1790690102568;
+        Tue, 29 Sep 2026 06:55:02 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64c2fa412sm41413991fa.22.2026.09.29.06.54.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 06:55:01 -0700 (PDT)
+Message-ID: <9a1e7a4c-3a9b-4233-ab4e-93a9878dfa34@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 15:54:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10
+ voltage range
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+References: <20260929-fix_l10_max-v2-1-2fccd87115e7@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260929-fix_l10_max-v2-1-2fccd87115e7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX88WJKduKyjRh
+ q7dhJLufCumOQdbFT8qQkJNdLIfzKi57RrFEKR2PIhUshkDL7gVBcCFGo17v7cYShD7JxlEl4wo
+ eoDpjPDfXNS6F1MehvlyrtGoi3LyCbM=
+X-Proofpoint-GUID: 9X5NJ7ZzC51uxjVp-Ohh2XH7vEQq8ZMa
+X-Authority-Analysis: v=2.4 cv=I5Hw19gg c=1 sm=1 tr=0 ts=6abbc338 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=NkAsgdMbsgjDGuKY8CEA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: 9X5NJ7ZzC51uxjVp-Ohh2XH7vEQq8ZMa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX6vYxlf0wdPoq
+ nUuqh3h+t3k9DfpX2DR0oAK+RgNsZywee98ZwQ47KxwF9xRNx07NExuL0wpeOSwgbjyxvYCiiqx
+ mL29ryCErpDPaHmX5q+YVRIEXdFvYGoiVoxFGM7YfRyNujwfBoNK43SQZt6xl6LfDhJHQM/1YuR
+ BoAbwDJPq8lf6iuEhE4Gnx37nHdFeiMzMXaZinWdVHFigH/R8Kg/PJAb4dgxZzfF+Y66M/Voq8n
+ 91u4T+s8fzdCrdIrWhZuu4EWVHJOTaeY2JF0wBMp3kt9/PTOpfShx2CxETxElVSJl7PBakRUaGr
+ MFUyI4f/hginbbHU7ZlakffqlZ1GhAo9UOgspq0Wsm3pnRX7ILf9nCqQsunS4wTCZ5r7QdTKtGF
+ FbF7ER2soFwtELSjgwOGLXDpq805uwiysLxv02vXULfFjim6AKH09o9rq+gjzg4xXGRZsqyc2Bh
+ /pk8IOFEtJ4jQAr38SA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290055
 
-Hi Tapio,
-
-On Tue, 29 Sep 2026 09:37:57 +0000
-Tapio Reijonen <tapio.reijonen@vaisala.com> wrote:
-
-> The HDPIXDELAY register counts the RTS setup and hold delays in
-> bit-times, four bits per direction, but the driver has been writing the
-> struct serial_rs485 delay_rts_before_send/delay_rts_after_send values
-> into it unconverted - and the uapi expresses those in milliseconds. A
-> requested 9 ms setup delay is programmed as 9 bit-times, which at 9600
-> baud is 0.94 ms, roughly a tenth of what userspace asked for; the error
-> grows with the baud rate.
+On 9/29/26 10:35 AM, Rakesh Kota wrote:
+> On Shikra IQS, the L10 rail supplies the SD card's VMMC. Its maximum
+> voltage must be limited to 3.3 V because the derived VQMMC voltage on
+> L2 supports up to approximately 3.3 V. Allowing VMMC to reach 3.544 V
+> can drive VQMMC beyond its supported range, potentially causing SD
+> bus bit errors and resulting in the voltage negotiation failure:
 > 
-> Cache the baud rate in set_termios() and convert the delays to
-> bit-times at the current rate, rounding up so the delay on the wire is
-> never shorter than requested, and capping at the 15 bit-times the
-> 4-bit field can hold. Centralize the HDPIXDELAY and MODE1.TRNSCVCTRL
-> programming in max310x_set_rts_ctl_params(), called from set_termios()
-> (the conversion depends on the baud rate), the rs485-config worker and
-> startup(), which each had their own copy.
+> l2: unsupportable voltage range: 3500000-3296000uV
 > 
-> The rs485-config worker's break guard moves into the helper with the
-> MODE1 write it protects, and break-off now reapplies the current
-> configuration through the helper instead of hand-restoring MODE1, so a
-> reconfigure that arrived during the break takes effect when the break
-> ends instead of being dropped.
+> Reducing L10's maximum voltage to 3.3 V keeps both rails within their
+> supported operating ranges.
 > 
-> The delays a 4-bit bit-time field can represent still fall well short
-> of the milliseconds the uapi can express; requests beyond 15 bit-times
-> are capped, and the -ERANGE rejection of values above 15 ms remains in
-> place for now.
-> 
-> Fixes: 55367c620aed ("serial: max310x: Add support for RS-485 mode")
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> Co-developed-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > ---
->  drivers/tty/serial/max310x.c | 120 +++++++++++++++++++++++++++++--------------
->  1 file changed, 82 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-> index 693decd04de104051b07357973364bd587ab3d91..f8dad37d017afe5c0b1d36d6239ba05fc5e7aff0 100644
-> --- a/drivers/tty/serial/max310x.c
-> +++ b/drivers/tty/serial/max310x.c
-> @@ -165,6 +165,10 @@
->  #define MAX310X_IRDA_IRDAEN_BIT		(1 << 0) /* IRDA mode enable */
->  #define MAX310X_IRDA_SIR_BIT		(1 << 1) /* SIR mode enable */
->  
-> +/* HDPIXDELAY accessor macros */
-> +#define MAX310X_HDPIXDELAY_SETUP(val)	(((val) & 0x0f) << 4)
-> +#define MAX310X_HDPIXDELAY_HOLD(val)	((val) & 0x0f)
-> +
->  /* Flow control trigger level register masks */
->  #define MAX310X_FLOWLVL_HALT_MASK	GENMASK(3, 0) /* Flow control halt level */
->  #define MAX310X_FLOWLVL_RES_MASK	GENMASK(7, 4) /* Flow control resume level */
-> @@ -298,6 +302,7 @@ struct max310x_one {
->  	struct work_struct	md_work;
->  	struct work_struct	rs_work;
->  	struct regmap		*regmap;
-> +	unsigned int		baud;
->  	bool			tx_break;	/* break_ctl() owns the transceiver */
->  
->  	u8 rx_buf[MAX310X_FIFO_SIZE];
-> @@ -934,6 +939,48 @@ static void max310x_set_mctrl(struct uart_port *port, unsigned int mctrl)
->  	schedule_work(&one->md_work);
->  }
->  
-> +/*
-> + * Program the chip's RS485 RTS timing. The HDPIXDELAY setup and hold fields
-> + * count bit-times, four bits per direction, while the uapi expresses the
-> + * delays in milliseconds: convert at the current baud rate, rounding up, and
-> + * cap at the field maximum.
-> + */
-> +static void max310x_set_rts_ctl_params(struct max310x_one *one)
-> +{
-> +	const unsigned int max_bit_dly = 15;
-> +	struct uart_port *port = &one->port;
-> +	unsigned int setup = 0, hold = 0;
-> +	u8 mode1 = 0;
-> +
-> +	if (port->rs485.flags & SER_RS485_ENABLED) {
-> +		/* Convert milliseconds to bit-times, rounding up. */
-> +		setup = DIV_ROUND_UP(one->baud * port->rs485.delay_rts_before_send,
-> +				     MSEC_PER_SEC);
-> +		hold  = DIV_ROUND_UP(one->baud * port->rs485.delay_rts_after_send,
-> +				     MSEC_PER_SEC);
-> +		setup = min(setup, max_bit_dly);
-> +		hold  = min(hold,  max_bit_dly);
-> +
-> +		mode1 = MAX310X_MODE1_TRNSCVCTRL_BIT;
-> +	}
-> +
-> +	max310x_port_write(port, MAX310X_HDPIXDELAY_REG,
-> +			   MAX310X_HDPIXDELAY_SETUP(setup) |
-> +			   MAX310X_HDPIXDELAY_HOLD(hold));
-> +
-> +	/*
-> +	 * A break owns the transceiver: break_ctl() disabled auto-RTS and
-> +	 * drives RTS manually, and restores it from the current
-> +	 * configuration when the break ends. Touching MODE1 here would
-> +	 * release the transceiver mid-break.
-> +	 */
-> +	if (one->tx_break)
-> +		return;
-> +
-> +	max310x_port_update(port, MAX310X_MODE1_REG,
-> +			    MAX310X_MODE1_TRNSCVCTRL_BIT, mode1);
-> +}
-> +
->  static void max310x_break_ctl(struct uart_port *port, int break_state)
->  {
->  	struct max310x_one *one = to_max310x_port(port);
-> @@ -953,10 +1000,20 @@ static void max310x_break_ctl(struct uart_port *port, int break_state)
->  	 * break duration and drive RTS manually so the break reaches the wire;
->  	 * restore auto-RTS when the break ends.
->  	 */
-> -	max310x_port_update(port, MAX310X_MODE1_REG,
-> -			    MAX310X_MODE1_TRNSCVCTRL_BIT,
-> -			    break_state ? 0 : MAX310X_MODE1_TRNSCVCTRL_BIT);
-> -	max310x_rts_ctl(port, break_state);
-> +	if (break_state) {
-> +		max310x_port_update(port, MAX310X_MODE1_REG,
-> +				    MAX310X_MODE1_TRNSCVCTRL_BIT, 0);
-> +		max310x_rts_ctl(port, 1);
-> +	} else {
-> +		/*
-> +		 * Reapply the current configuration: a reconfigure that
-> +		 * arrived during the break was deferred by the tx_break
-> +		 * guard. Then release the manual RTS - auto-RTS owns the
-> +		 * pin again.
-> +		 */
-> +		max310x_set_rts_ctl_params(one);
-> +		max310x_rts_ctl(port, 0);
-> +	}
 
-Maybe leave original code here to save a few lines:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-   max310x_rts_ctl(port, break_state);
-
-
->  }
->  
->  static void max310x_set_termios(struct uart_port *port,
-> @@ -1073,41 +1130,35 @@ static void max310x_set_termios(struct uart_port *port,
->  
->  	/* Update timeout according to new baud rate */
->  	uart_update_timeout(port, termios->c_cflag, baud);
-> +
-> +	/*
-> +	 * Cache the new baud rate and reprogram the RS485 RTS delays, whose
-> +	 * millisecond-to-bit-time conversion depends on it.
-> +	 */
-> +	to_max310x_port(port)->baud = baud;
-> +	max310x_set_rts_ctl_params(to_max310x_port(port));
->  }
->  
->  static void max310x_rs_proc(struct work_struct *ws)
->  {
->  	struct max310x_one *one = container_of(ws, struct max310x_one, rs_work);
-> -	unsigned int delay, mode1 = 0, mode2 = 0;
-> +	unsigned int mode2 = 0;
->  
->  	/*
->  	 * Serialize against break_ctl() and set_termios(), which run under
-> -	 * port->mutex: the tx_break test below and the MODE1 write must not
-> +	 * port->mutex: the tx_break-guarded register writes must not
->  	 * straddle a break starting or ending.
->  	 */
->  	guard(mutex)(&one->port.state->port.mutex);
->  
-> -	delay = (one->port.rs485.delay_rts_before_send << 4) |
-> -		one->port.rs485.delay_rts_after_send;
-> -	max310x_port_write(&one->port, MAX310X_HDPIXDELAY_REG, delay);
-> +	max310x_set_rts_ctl_params(one);
->  
-> -	if (one->port.rs485.flags & SER_RS485_ENABLED) {
-> -		mode1 = MAX310X_MODE1_TRNSCVCTRL_BIT;
-> +	if (one->port.rs485.flags & SER_RS485_ENABLED &&
-> +	    !(one->port.rs485.flags & SER_RS485_RX_DURING_TX))
-> +		mode2 = MAX310X_MODE2_ECHOSUPR_BIT;
->  
-> -		if (!(one->port.rs485.flags & SER_RS485_RX_DURING_TX))
-> -			mode2 = MAX310X_MODE2_ECHOSUPR_BIT;
-> -	}
-> -
-> -	/*
-> -	 * A break owns the transceiver: break_ctl() disabled auto-RTS and
-> -	 * drives RTS manually, and restores it when the break ends. Leave
-> -	 * MODE1 alone meanwhile or the break goes undriven mid-way.
-> -	 */
-> -	if (!one->tx_break)
-> -		max310x_port_update(&one->port, MAX310X_MODE1_REG,
-> -				    MAX310X_MODE1_TRNSCVCTRL_BIT, mode1);
->  	max310x_port_update(&one->port, MAX310X_MODE2_REG,
-> -			MAX310X_MODE2_ECHOSUPR_BIT, mode2);
-> +			    MAX310X_MODE2_ECHOSUPR_BIT, mode2);
->  }
->  
->  static int max310x_rs485_config(struct uart_port *port, struct ktermios *termios,
-> @@ -1151,21 +1202,14 @@ static int max310x_startup(struct uart_port *port)
->  	max310x_port_update(port, MAX310X_MODE2_REG,
->  			    MAX310X_MODE2_FIFORST_BIT, 0);
->  
-> -	/* Configure mode1/mode2 to have rs485/rs232 enabled at startup */
-> -	val = (clamp(port->rs485.delay_rts_before_send, 0U, 15U) << 4) |
-> -		clamp(port->rs485.delay_rts_after_send, 0U, 15U);
-> -	max310x_port_write(port, MAX310X_HDPIXDELAY_REG, val);
-> +	/* Configure the RS485 RTS timing and the RS485/RS232 mode bits. */
-> +	max310x_set_rts_ctl_params(one);
->  
-> -	if (port->rs485.flags & SER_RS485_ENABLED) {
-> -		max310x_port_update(port, MAX310X_MODE1_REG,
-> -				    MAX310X_MODE1_TRNSCVCTRL_BIT,
-> -				    MAX310X_MODE1_TRNSCVCTRL_BIT);
-> -
-> -		if (!(port->rs485.flags & SER_RS485_RX_DURING_TX))
-> -			max310x_port_update(port, MAX310X_MODE2_REG,
-> -					    MAX310X_MODE2_ECHOSUPR_BIT,
-> -					    MAX310X_MODE2_ECHOSUPR_BIT);
-> -	}
-> +	if (port->rs485.flags & SER_RS485_ENABLED &&
-> +	    !(port->rs485.flags & SER_RS485_RX_DURING_TX))
-> +		max310x_port_update(port, MAX310X_MODE2_REG,
-> +				    MAX310X_MODE2_ECHOSUPR_BIT,
-> +				    MAX310X_MODE2_ECHOSUPR_BIT);
->  
->  	/*
->  	 * Configure flow control levels:
-> 
-> -- 
-> 2.47.3
-> 
-> 
-> 
-
-
--- 
-Hugo Villeneuve
+Konrad
