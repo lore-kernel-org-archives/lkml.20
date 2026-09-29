@@ -1,123 +1,202 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8ED3F1041
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37CBA344D9B;
+	Tue, 29 Sep 2026 09:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673140; cv=none; b=Gz1A+3OqRqTBUkgt0UfnAQAzg9/XWHTI1JhLTcJsJhIOfFf85AqrqwiTnv/QEvOnx+1Z9KVpTSjha2ZOjDO8VigKC6bdXb09kSkD7ZxF1WtNrIt+FMSvST9EIIYJJ64eXBuIH9U0yiqzENaWUeQxC/Q0x5i/PDz6MJkNYGx+pPI=
+	t=1790673187; cv=none; b=f5Xfqe1on4m7xgNKUg7uR3J8XMGwZAisyXKEbDzzxXkxnPdgBWBKNXGMPAVWyg6ErX/fghfi+/sz+0k8fazF+8VdK+TSd2jel4RqEGTYBu2zejFlZIsGFabUn9Tl+PCr9I9RqmYyJbYmBDS6M0Ab4uutg25tjAnxL3asGMDjI5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673140; c=relaxed/simple;
-	bh=eD9jJiA9GPEMmX8bCB0JmdatEsivCM7gKPJYSSi9XLI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IxT0M+vm87mQUNHr/jpJ1scCHB+q0b3Fb85GUaFuXYlpE2iftLbo7TSrClXNSBzFno3W84Kdf2dplwJq775sYc0thLU+e1yS6XEMTnS4ooFLlzyMrEDqA/lCQql/roGs1v6MakB0bM3xLOnMrPmBIRkfONrZ4SK0ef7VPdef6QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-988bb9d0548so225080241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:12:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790673128; x=1791277928;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JOw0a9YdB1CwQ1gVObJylylvUx3VbrlfiDLWG9S39O0=;
-        b=jyX5l/d5Bdb9WCafaN2tMFLIlfhv9pSjBcvN6SnyRq1QSmERYryuhJH6hm4JaSCvkI
-         Bh7rssuuQLOgDt6Z+VIw/YSTeXyWkG1J7QdFu4hqOBIY4MgeCy7nakMbU51fp4RSYmSr
-         j+u/8aOme7vuhZ0QynSlkd0R7VrwC11+2KfntGvOznIvXu7IhDMJPoGmvuBASt9c+Yg6
-         wFXGvDVLXiLn6ZY3n4qlb0Y/1/374Rf6FpZmjvaC0LSPT0yP0p8sMWk92A0SEZpDfqYb
-         H3MV8KnQ76SYvY54k+KjRz3A2WltuDOemKJ8EI8Odo+fddIV+olIIF9+kV8wKHUUJxdI
-         pz8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzMOpmmQt2yghZnYBlbfCE1e1VJXcnvSmuW3yHF53fjQoNf8MyyPs67m94quvwNYG3x/UA4l4tvmErPLRM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqg/+zaj4Nud6GIsdjQRlH89cq+S4uIJd927I/QOhzfyubfCoP
-	k2WBwmJ1jVbYtVNTu4Ozwecf7geAzBe835qNP1NXpobMGNSgt8pxMfKaWI+jhEDd
-X-Gm-Gg: AYBFou229n6A+P3FKMCWs24dWFDtCruKBI9rnzxhyDdDGuWp9E2zxvsERgrKOiuXUbb
-	XMYhnJr1SbZA8wkmsPACuOLKBdjZSCJn9lRShIeiddd8KXf3NjbFq6SJ5ofDQ2wPB6ut8dXgIxa
-	FCGgMdzQgdlCoW8pq0rYMDT8rzZ972vk6whVnD+EGZCyrOhqbkg+aY3B9X5oPX53wmoRZv5MOet
-	o1Pc+pfOhmbgqMLQ4e54jdvcTVNf5jYu0mssF7t0tCM0v2lCh1kK5SWamQ10TY1h/z0mivbSWOT
-	EcMi6ofh3Ln3vhIX1J3VYesSWLEf6gSge12sqp/LPWsDbgKsSsQNfDyqn1U4fPbC80JzGdI/IrP
-	oaguRaBakVXbua95hPhppMkKV7HoBkBcdbF2IiK7wdFzn8aONNAdEA8qQ1y3wPb+L6ttQn/StOD
-	9+KU4PdCI2hhzWX9eU1s3tX7zh6dFeXK0Bbq87Cf/LZ4SWCjzKtGx14NloKcwFt3NFTtqRlqcYT
-	scyfhcWs3ck0RiEjJnWPHn+z6/ssFEETBNH
-X-Received: by 2002:a05:6102:4b0c:b0:7a7:7961:b14d with SMTP id ada2fe7eead31-7af1bb76c57mr5350302137.12.1790673128360;
-        Tue, 29 Sep 2026 02:12:08 -0700 (PDT)
-Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com. [74.125.227.39])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b257379sm12689418137.4.2026.09.29.02.12.07
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 02:12:08 -0700 (PDT)
-Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cca96ec1feso1115061e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:12:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByuAZ2mC7mnQA5ncMo+3SUxvZ9f2V4pUdhXneyaMREl7l2JcuExgOPl45LfyaTIFrPgMk9W7sTTyNEVgFw=@vger.kernel.org
-X-Received: by 2002:a05:6102:149d:b0:7b7:3acf:bd3a with SMTP id
- ada2fe7eead31-7b73acfe23dmr1486747137.4.1790673127529; Tue, 29 Sep 2026
- 02:12:07 -0700 (PDT)
+	s=arc-20240116; t=1790673187; c=relaxed/simple;
+	bh=L+A+ki4F258ZbWCrWJlsH2ukcU/51HiXJ123/RCt0cQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sG2FM9IMSiihiE5qBXZB6h/EwcuNM2o79VhFmKFmnDpWO54Jz+zAhm3WoEh8uwqoJLADEuaFdSRGbW2wZR1g64WcVdMS6NHyevHcXBhvS0KUdXQG5NDSo0gq2UqcOxKPvqTVshTzr2M8+942LedYTDtkwBxgkybWRPdirJa+8DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=js/r2/ns; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="js/r2/ns"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 89B061516;
+	Tue, 29 Sep 2026 02:12:50 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA4863F85F;
+	Tue, 29 Sep 2026 02:12:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790673174; bh=L+A+ki4F258ZbWCrWJlsH2ukcU/51HiXJ123/RCt0cQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=js/r2/nsA1DwL2WcPDO5OkJF7bZRGKScgjzgGMCwIST8iXOV5Sr5cJTpwJpzGiiBc
+	 bOT/l1RvLUkJ7ULIyZAgBvUYe75Sb5bsKniFMPIqa7ORqSb8KvMNJKm1iQxb8KyN/3
+	 7V/udeDnpU65E9tX4vXIHlIRSsmqc3tR3NzBZn88=
+Message-ID: <498b8fc3-ef39-424c-81b1-aa4bfdb7eac7@arm.com>
+Date: Tue, 29 Sep 2026 14:42:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924213256.122530-2-blum@kernel.org> <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
-In-Reply-To: <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 29 Sep 2026 11:11:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
-X-Gm-Features: AclHuK-WMfBhqpiaX2MeBSdTA0pBWiNpHLGLXukEn385P1daLkcYPTJ9S7ydLfM
-Message-ID: <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
-Subject: Re: [PATCH] riscv: process: Use str_supported_unsupported() in compat_mode_detect()
-To: Paul Walmsley <pjw@kernel.org>, Thorsten Blum <blum@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Deepak Gupta <debug@rivosinc.com>, Zong Li <zong.li@sifive.com>, 
-	Samuel Holland <samuel.holland@sifive.com>, Zishun Yi <vulab@iscas.ac.cn>, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND 1/9] selftests/mm: mremap_test: use kselftest
+ helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
+ <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924050009.19974-1-sarthak.sharma@arm.com>
+ <20260924050009.19974-2-sarthak.sharma@arm.com>
+ <6c349d10-2160-4166-8b63-3d60b42a5b69@kernel.org>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <6c349d10-2160-4166-8b63-3d60b42a5b69@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Paul, Thorsten,
+Hi David!
 
-On Sat, 26 Sept 2026 at 01:48, Paul Walmsley <pjw@kernel.org> wrote:
-> On Thu, 24 Sep 2026, Thorsten Blum wrote:
-> > Replace hard-coded strings with the str_supported_unsupported() helper.
-> > This unifies the output and helps the linker with deduplication, which
-> > can result in a smaller binary.
-> >
-> > Signed-off-by: Thorsten Blum <blum@kernel.org>
->
-> Thanks, queued for v7.4.
+On 9/29/26 1:28 PM, David Hildenbrand (Arm) wrote:
+> On 9/24/26 07:00, Sarthak Sharma wrote:
+>> mremap_test currently uses a lot of fprintf() and perror()
+>> calls. It also uses a variable "failures" to track the number
+>> of failed table driven tests.
+>>
+>> Use ksft_print_msg() and ksft_perror() for diagnostics.
+>> Remove the variable "failures" and let kselftest counters
+>> handle the final exit status. Use ksft_finished() at
+>> the end instead of manually checking if failures > 0. Replace
+>>
+>> if (success)
+>> 	ksft_test_result_pass(...);
+>> else
+>> 	ksft_test_result_fail(...);
+>>
+>> calls with ksft_test_result(success, ...);
+>>
+>> Also correct the duplicated "mremap" in "mremap move within
+>> range" and the spelling of "dontunmap".
+>>
+>> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+>> ---
+> 
+> [...]
+> 
+>>  #endif /* __NR_userfaultfd */
+>>  
+>> @@ -1124,7 +1096,7 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
+>>  	void *new_ptr = mremap(src + SIZE_MB(1), SIZE_MB(1), SIZE_MB(1),
+>>  						   MREMAP_MAYMOVE | MREMAP_FIXED, dest + SIZE_MB(1));
+>>  	if (new_ptr == MAP_FAILED) {
+>> -		perror("mremap");
+>> +		ksft_perror("mremap");
+>>  		success = 0;
+>>  		goto out;
+>>  	}
+>> @@ -1145,59 +1117,49 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
+>>  
+>>  out:
+>>  	if (src && munmap(src, c.region_size) == -1)
+> 
+> While at it ... why the comparison with -1. And why do we worry about munmap()
+> failing at all? We generally ignore these errors on the exit path, as it's
+> unlikely we would ever hit them, and there isn't a lot we can do.
+> 
+> So maybe just remove printing errors entirely?
+> 
+> if (src)
+> 	munmap(src, c.region_size)
 
-Thanks for your patch, which is now commit a06776565b9e7351 ("riscv:
-process: Use str_supported_unsupported() in compat_mode_detect()")
-in riscv/for-next.
+Yup, this check is not supposed to be on the exit path. I'll fix this.
 
-This fails to build:
+> 
+> ...
+> 
+>> -		perror("munmap src");
+>> +		ksft_perror("munmap src");
+>>  
+>>  	if (dest && munmap(dest, c.region_size) == -1)
+>> -		perror("munmap dest");
+>> +		ksft_perror("munmap dest");
+>>  
+>> -	if (success)
+>> -		ksft_test_result_pass("%s\n", test_name);
+>> -	else
+>> -		ksft_test_result_fail("%s\n", test_name);
+>> +	ksft_test_result(success, "%s\n", test_name);
+>>  }
+> 
+> [...]
+> 
+>>  static void usage(const char *cmd)
+>>  {
+>> -	fprintf(stderr,
+>> -		"Usage: %s [[-t <threshold_mb>] [-p <pattern_seed>]]\n"
+>> -		"-t\t only validate threshold_mb of the remapped region\n"
+>> -		"  \t if 0 is supplied no threshold is used; all tests\n"
+>> -		"  \t are run and remapped regions validated fully.\n"
+>> -		"  \t The default threshold used is 4MB.\n"
+>> -		"-p\t provide a seed to generate the random pattern for\n"
+>> -		"  \t validating the remapped region.\n", cmd);
+>> +	ksft_print_msg("Usage: %s [[-t <threshold_mb>] [-p <pattern_seed>]]\n", cmd);
+>> +	ksft_print_msg("-t\t only validate threshold_mb of the remapped region\n");
+>> +	ksft_print_msg("  \t if 0 is supplied no threshold is used; all tests\n");
+>> +	ksft_print_msg("  \t are run and remapped regions validated fully.\n");
+>> +	ksft_print_msg("  \t The default threshold used is 4MB.\n");
+>> +	ksft_print_msg("-p\t provide a seed to generate the random pattern for\n");
+>> +	ksft_print_msg("  \t validating the remapped region.\n");
+>>  }
+> 
+> That looks odd, as we will now print this as "# ". I would have assumed that
+> removing all parameters as the first patch would make things cleaner?
+> 
+> So as a first patch I think we should just remove the parameters entirely. They
+> are unused by our infrastrcture:
+> 
+> 	run_vmtests.sh:CATEGORY="mremap" run_test ./mremap_test
+> 
+> Does anything speak against that?
 
-    arch/riscv/kernel/process.c: In function =E2=80=98compat_mode_detect=E2=
-=80=99:
-    arch/riscv/kernel/process.c:138:17: error: implicit declaration of
-function =E2=80=98str_supported_unsupported=E2=80=99
-[-Werror=3Dimplicit-function-declaration]
-      138 |                 str_supported_unsupported(compat_mode_supported=
-));
-          |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+Okay, I'd kept the 7th and 8th patch of the series for that. I'll make
+them the first and second ones then, this will remove all this churn.
 
-as it has a hard dependency on commit 5383cf280ef4f00b
-("lib/string_choices: Add str_supported_unsupported()
-helper"), which is only present in the for-next branch of
-https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.=
-git.
+Or maybe remove all parameters altogether in the first patch itself.
 
-Gr{oetje,eeting}s,
+> 
+>>  
+>>  static int parse_args(int argc, char **argv, unsigned int *threshold_mb,
+>> @@ -1232,7 +1194,6 @@ static int parse_args(int argc, char **argv, unsigned int *threshold_mb,
+>>  #define MAX_PERF_TEST 3
+>>  int main(int argc, char **argv)
+>>  {
+>> -	int failures = 0;
+>>  	unsigned int i;
+>>  	int run_perf_tests;
+>>  	unsigned int threshold_mb = VALIDATION_DEFAULT_THRESHOLD;
+>> @@ -1260,7 +1221,7 @@ int main(int argc, char **argv)
+>>  	pattern_seed = (unsigned int) time(&t);
+>>  
+>>  	if (parse_args(argc, argv, &threshold_mb, &pattern_seed) < 0)
+>> -		exit(EXIT_FAILURE);
+>> +		ksft_exit_fail_msg("Invalid arguments\n");
+>>  
+>>  	ksft_print_msg("Test configs:\n");
+>>  	ksft_print_msg("threshold_mb=%u\n", threshold_mb);
+>> @@ -1282,7 +1243,7 @@ int main(int argc, char **argv)
+>>  	rand_addr = (char *)mmap(NULL, rand_size, PROT_READ | PROT_WRITE,
+>>  				 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>>  	if (rand_addr == MAP_FAILED) {
+>> -		perror("mmap");
+>> +		ksft_perror("mmap");
+>>  		ksft_exit_fail_msg("cannot mmap rand_addr\n");
+> 
+> Would be better combined like:
+> 
+> ksft_exit_fail_msg("cannot mmap rand_addr: %s\n", strerror(errno));
+> 
+> ?
 
-                        Geert
+Yup, or maybe with a ksft_exit_fail_perror() directly. Will change.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
