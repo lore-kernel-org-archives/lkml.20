@@ -1,237 +1,180 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC50524B10
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C98B41A92C;
+	Tue, 29 Sep 2026 12:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685848; cv=none; b=s/Rbhavl7m7WjtYEFtB1OOOh+AMtf3RAnXt8RyDqe24x2vwmU0qhP/l8HBCAAYCmHMYD5VALtaF0n09ZKSYNRL98xKnwWTtsseiD+fku/cGkKXydDM7S79Dil4+/XQfey3Vf5kzNt8l1r1qSHJa5hn5wUY3gbSDhEH8BVoIABSM=
+	t=1790685884; cv=none; b=owpdGmDL7lONEUB2uf2iB20Szl9aKcPB6orrmdqLU+S7G/w7XkK3fx6e0yobU9FMwhsjB+iwY7GaxwHXb37eZsZe1IrVwKGkZgs/mcKn+LxTKabnjO7gQavZ7Qi3q1mdgzInd5xemRJRy27lPvY8XhKmX5A2xXsVCztRpUng/80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685848; c=relaxed/simple;
-	bh=j06Ol8IPYxL2GWLy9zi4VaMa2xDFt7ySvCchcoxRVpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QslXZME/O7XwlBqro9gzsBf6w3KQb+xF88DQL/F8cF/Q0CSx7bbtobmwb+wQ0gXzuOq/wQYQ9mB7M3Zc1nThcROd7xO9Su0aGRQtJG4hguvihZQL/6RlMyuN6rXnR/93/lXKvkFkkTa5m7EJCDH7wHZaz/fHvbwYp9cHT5CHwwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2rNCJ0d; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790685884; c=relaxed/simple;
+	bh=7zCbF+GpwDZQ+pFSCsOJspW29PsvmAYHAjabl9nsyhs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LDRazjY3JYEYq+Tu2DWbg10t6kbTvse6VV8SRjOoeLxjveF0E/eUk83TuWyKBse242ASL/3yI78Jp1g2EEAmoDn3Z3J/CK2UsDe3spc6jUu5sSDcUeRJxFmUjO9FskRHmJUb5FAH6bvjVD0CNdPzAL5Qtcc1YE3i+Q1MwaXZvDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CC9TfELS; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2rNCJ0d"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so18576235e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:44:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790685845; x=1791290645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zx7HPL5INHSosIjFX/PO62kFSLqfe3KIXe6VSdyiW+w=;
-        b=e2rNCJ0dZv5EN7+A9XSITKwXP3RWmBYiRq+UXdlyI0YLWnZ2RQocmgamLWl/nlE/Si
-         4U17SdyD0lEg6cmjiwLb5xuwh2aom6r26ufKf2JwUxs/ch4bVUEG3hZXWW+FKZZj6l2l
-         D8z91h+iVtVLlY3fA64awJEkRDYaleRAtQOZJx9Ge30p4VzC5ZOl0+QiaYptXpIWMAtR
-         SW+o5oT8sewb1iWQZ3I1zbvKKtzrQYOfci2/r9vPeFvpvBcXn6gl8B1Fx53ybLRcX5nb
-         huMNzkUq8N4LNoO/lNNcEM2Ay/D7VCiuiN6daSQzD8JCtH4x9Xy1mBSRQnchsK0jGaST
-         LVWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790685845; x=1791290645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zx7HPL5INHSosIjFX/PO62kFSLqfe3KIXe6VSdyiW+w=;
-        b=IsxdU1bgmNUgA7Ok9qlOUOKIlPyHNyhLjaN0NhOZ+sCen85HB57CDBEGsl9WASrK6T
-         Yf642E5rkUYr3fYYxAIEd0R+MGUDxQ+xeQJ3zOS+8QFlx3HZfSKv+eoVBaBGv38RYgS2
-         Au57mop17ekJyPT4X150nSc0tee6T0VNVlEi3wDWNSPm9FOiPeod/UcMfbJ3bxUBoX9n
-         D2NcyI2Xp3inz7NvtCFajPW0J2llyUmyAsfsp9kS4ulC7BdAsmGiOYupC5GYCmS3YjBz
-         cOdqyAisye1T5P0vNEMKiW8H5PjWo50bah6WKM9NG1JwLAmb6sBvSdSrlpyq2dtySqRd
-         wJGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwR/6oq7fI29Q2/9w8NGjhdanr9lUhjXhNAmRBz+5tA50axjubIcUrqqwv4Xqv7gYVrZ8RRBhW5y/dejCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++niHxRYlrNziTACHDG0cuZ5r60Z9f5CRH1B6qAotyz8uzTLjCc+
-	gvehuUIdi+0m/QEPWX0LTxnT41cUqZcPV/fzqF7wpurujbEzjYQqnKRb
-X-Gm-Gg: AYBFou2MxQ5ZJnhsbaj+4kWQiK0g7eYT8VFMiAcMuNz8PsjLdFps//uQYnqyP6uwRCy
-	JXLjbY8yXlMuvHvkdgSDaOkutBpt8+Xfy0T/V82VcNTrqpz3MTmWZfWT1KHBnMUSXbid0qcqe4P
-	cNy5q3goqV1fM31JfKLZ7NbnFS/xiAdXZXu9kc8T4vISHzWP95gd70H6sR6OQrzeyfHSpHyk0Xe
-	NC3/eZI/X10snjmZEE27k7XIF+vrrTO6I77XmNGSULNztr/OJshaoQpSmo8P6XDQmAJD6O0lLgi
-	VyKECO2q0I1efpfxqL3n6CtR9VY5ofQ0n2sFrd/QR5uJi1GoDk6yY2d05cw31GwaKHV0A6dpVVO
-	ce/QPlMaZ3+onVArRoeGc02Sv6pjaI81+7GzGjdqTGIszzKQyv9X311KdTVYeUK41I7mHl4mxCJ
-	AoGNMivt0DLGaz3trr5FhRFDsC71zFMecvUHm9nyKGQtKLpXpmkcg82mopuvbo/1icfnZq3+uEi
-	pf0
-X-Received: by 2002:a05:600c:a30b:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-49ffaa33f7amr124253555e9.13.1790685844806;
-        Tue, 29 Sep 2026 05:44:04 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a012387337sm33002265e9.8.2026.09.29.05.44.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:44:03 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next 2/2] wifi: rtw88: support channel switch in AP mode
-Date: Tue, 29 Sep 2026 14:44:00 +0200
-Message-ID: <20260929124400.3856049-3-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929124400.3856049-1-mehmet.fide@gmail.com>
-References: <20260929124400.3856049-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CC9TfELS"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB5LpF4059980;
+	Tue, 29 Sep 2026 12:44:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=RjSlzM
+	2R9aIL6cDN07DKGdujqs1Abkvok6iYg663e5o=; b=CC9TfELSHSpvuJUf+qTFhV
+	7jn+SciJ9rvtC0Nore2qWTSDYdVbGXGmp9c35tmn7umhF5E28bmcmV9pIYvoFdJ3
+	4Iod/mXFHSYZv6THmWCRKijVdgvR4AAQCjVCIirDdZtXdmQGNozWzXEvMFRDBS9P
+	jB1mV/9yIUA+/c+X+z7lD0MiKQactWj726JEwTNxY42yPcSVy/MnRTdI4tvx4NAr
+	geMnNxImTOnPajvImMdL26zMb5PCVK6Zf3fIRCZZz7Q+jCep7008tWPXjCiP4ogS
+	kA6bebs9mR9pMstfcRb04ww1Ad0HC/d9HXrFdnU4ei3y+7Z8TtqXTia/eZJhOpQA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5743q-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 12:44:14 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAlrZo1657706;
+	Tue, 29 Sep 2026 12:44:13 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxrcpsw37-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 12:44:13 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TCi9iJ48038178
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 12:44:09 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9E77B2004E;
+	Tue, 29 Sep 2026 12:44:09 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 49AC42004B;
+	Tue, 29 Sep 2026 12:43:59 +0000 (GMT)
+Received: from [9.124.214.246] (unknown [9.124.214.246])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 12:43:58 +0000 (GMT)
+Message-ID: <2964a7d8-8765-435c-af9e-a38024fca877@linux.ibm.com>
+Date: Tue, 29 Sep 2026 18:13:58 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 09/13] sched/debug: Add migration stats due to non
+ preferred CPUs
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org,
+        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com,
+        tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+        seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+        rostedt@goodmis.org, dietmar.eggemann@arm.com, maddy@linux.ibm.com,
+        srikar@linux.ibm.com, hdanton@sina.com, chleroy@kernel.org,
+        vineeth@bitbyteword.org, frederic@kernel.org, arighi@nvidia.com,
+        pauld@redhat.com, christian.loehle@arm.com, tj@kernel.org,
+        tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+        rdunlap@infradead.org, kernellwp@gmail.com, linux-doc@vger.kernel.org,
+        jgross@suse.com, virtualization@lists.linux.dev,
+        sunlightlinux@gmail.com, Marco Elver <elver@google.com>,
+        llvm@lists.linux.dev
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-10-sshegde@linux.ibm.com>
+ <20260929121838.GA1814129@ax162>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260929121838.GA1814129@ax162>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1MCBTYWx0ZWRfX+ViTAVSY9C6d
+ Zh0y9/HMm55PExuQ9TJYLIo+RkAoxM619VhzjRtApFwP/DLPkb+/S25VG7vOjSV052bxFXe5mNg
+ ESlE7zXQmfoOw7gs+RWGmrdl/teSQ1s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1MCBTYWx0ZWRfX0TkZHcNRl/Iq
+ KytfmOj6R1bmuveywVoH5xN8IWcLEBFb7NPO1GTxq+V+rm/Z1t3RUPFGFPSrReWe07FiKR9/cvx
+ t9Cs3GIAAHL4HomcmXHt9g0qc6pYAi8VYS9ZrHmApZ8leJe82I+ZlUnSCxM+6csoM+Z7wMOLMss
+ XinnxIBU/ZbT7LqBqH8MlzZyGGu3v3Q2nPD6YCzJksL6jVgUrd41yURw76JeaBoHuNR6YV2Ni6d
+ DWQHnmBlKi16GjpTtXF/k9kUFmAfAsuIEuWAyBGAvWf/eWU9mxJSDrnPRrJAR6k1UNGnHp0xGZP
+ c0H7+SJSyeMdENXUJeTJ/m91XKMr8m81oZAbqdJXeQLT2s3L9RAOie/iSPaOBs4wqAMzRsIsHbn
+ s99WBKgrgbEWL0mcWqPyWqlE/vrvoBdl8T20devzd6AnUd+1Tt8llQGugX/WBwx8VoRPbbyOBmg
+ u3vpLW7VvlgK0jRrZLw==
+X-Proofpoint-GUID: STRPcxzn_YxRri8O88Y7Azr011y4-RGd
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abbb29f cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=MBmL4KyaN2R1Ztbd2Z8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 70JjiqjWJBATLuNceMBWnv0wpvJ1SX2G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290050
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Hi Nathan. Thanks for report.
 
-hostapd's CHAN_SWITCH is refused because the driver does not announce
-channel switch support, so an AP on rtw88 can only change its channel
-by being torn down and started again.
+On 9/29/26 5:48 PM, Nathan Chancellor wrote:
+> On Mon, Sep 28, 2026 at 11:07:24AM +0530, Shrikanth Hegde wrote:
+>> Add a new per-task stat,
+>> - nr_migrations_cpu_non_preferred: number of push migrations while the
+>>    CPU is non-preferred.
+>>
+>> Since this new stat is per-task, it changes only /proc/<pid>/sched.
+>> It doesn't update /proc/schedstat. Hence increasing the schedstat version
+>> is not necessary.
+>>
+>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ...
+>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+>> index 5049eff58fb7..7465c983e6f6 100644
+>> --- a/kernel/sched/core.c
+>> +++ b/kernel/sched/core.c
+>> @@ -11236,8 +11236,13 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
+>>   		update_rq_clock(rq);
+>>   		context_unsafe_alias(rq);
+>>   
+>> -		if (task_rq(p) == rq && task_on_rq_queued(p))
+>> -			rq = __migrate_task(rq, &rf, p, cpu);
+>> +		if (task_rq(p) == rq && task_on_rq_queued(p)) {
+>> +			struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
+>> +
+>> +			if (rq != dest_rq)
+>> +				schedstat_inc(p->stats.nr_migrations_cpu_non_preferred);
+>> +			rq = dest_rq;
+>> +		}
+>>   		rq_unlock(rq, &rf);
+>>   	}
+> 
+> This breaks the build for me with clang-23+ (which have context analysis
+> enabled by default), although it bisects to the final patch of the
+> series since this is under CONFIG_PREFERRED_CPU and it is not selected
+> until then.
+> 
+>    kernel/sched/core.c:11292:25: error: calling function '__migrate_task' requires holding raw_spinlock 'rq_lockp(rq)' exclusively [-Werror,-Wthread-safety-analysis]
+>     11292 |                         struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
+>           |                                              ^
+>    kernel/sched/core.c:11298:3: error: releasing raw_spinlock 'rq_lockp(rq)' that was not held [-Werror,-Wthread-safety-analysis]
+>     11298 |                 rq_unlock(rq, &rf);
+>           |                 ^
+>    kernel/sched/core.c:11303:1: error: raw_spinlock 'rq_lockp(__this_rq())' is not held on every path through here [-Werror,-Wthread-safety-analysis]
+>     11303 | }
+>           | ^
+>    kernel/sched/core.c:11286:3: note: raw_spinlock acquired here
+>     11286 |                 rq_lock(rq, &rf);
+>           |                 ^
+>    3 errors generated.
+> 
+> Not sure what the proper fix for this is, maybe another
+> context_unsafe_alias()? cc Marco just in case
+> 
 
-Declare WIPHY_FLAG_HAS_CHANNEL_SWITCH and implement
-ieee80211_ops::channel_switch_beacon the way rtw89 does: the firmware
-repeats the beacon held in the reserved page, so while a switch is
-announced the beacon is downloaded again every beacon interval to renew
-the countdown, and ieee80211_csa_finish() is called once it completes.
+I suspect it is due to using of dest_rq = rq and rq is changing context.
 
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/net/wireless/realtek/rtw88/fw.c       | 29 +++++++++++++++++++
- drivers/net/wireless/realtek/rtw88/fw.h       |  1 +
- drivers/net/wireless/realtek/rtw88/mac80211.c | 14 +++++++++
- drivers/net/wireless/realtek/rtw88/main.c     |  3 +-
- drivers/net/wireless/realtek/rtw88/main.h     |  2 ++
- 5 files changed, 48 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index a4400ff51372..20f24086dd8c 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -1812,6 +1812,35 @@ void rtw_fw_update_beacon_work(struct work_struct *work)
- 	mutex_unlock(&rtwdev->mutex);
- }
- 
-+void rtw_fw_csa_beacon_work(struct work_struct *work)
-+{
-+	struct rtw_vif *rtwvif = container_of(work, struct rtw_vif,
-+					      csa_beacon_work.work);
-+	struct ieee80211_vif *vif = rtwvif_to_vif(rtwvif);
-+	struct rtw_dev *rtwdev = rtwvif->rtwdev;
-+	unsigned int delay;
-+
-+	mutex_lock(&rtwdev->mutex);
-+
-+	if (rtwvif->net_type != RTW_NET_AP_MODE || !vif->bss_conf.csa_active)
-+		goto out;
-+
-+	delay = ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
-+
-+	if (!ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
-+		rtw_fw_download_rsvd_page(rtwdev);
-+		rtw_send_rsvd_page_h2c(rtwdev);
-+
-+		ieee80211_queue_delayed_work(rtwdev->hw, &rtwvif->csa_beacon_work,
-+					     usecs_to_jiffies(delay));
-+	} else {
-+		ieee80211_csa_finish(vif, 0);
-+	}
-+
-+out:
-+	mutex_unlock(&rtwdev->mutex);
-+}
-+
- static void rtw_fw_read_fifo_page(struct rtw_dev *rtwdev, u32 offset, u32 size,
- 				  u32 *buf, u32 residue, u16 start_pg)
- {
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.h b/drivers/net/wireless/realtek/rtw88/fw.h
-index 48ad9ceab6ea..0aaac8458ccd 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.h
-+++ b/drivers/net/wireless/realtek/rtw88/fw.h
-@@ -864,6 +864,7 @@ void rtw_add_rsvd_page_sta(struct rtw_dev *rtwdev,
- 			   struct rtw_vif *rtwvif);
- int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev);
- void rtw_fw_update_beacon_work(struct work_struct *work);
-+void rtw_fw_csa_beacon_work(struct work_struct *work);
- void rtw_send_rsvd_page_h2c(struct rtw_dev *rtwdev);
- int rtw_dump_drv_rsvd_page(struct rtw_dev *rtwdev,
- 			   u32 offset, u32 size, u32 *buf);
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 2a9b09fa76e7..915e810470aa 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -164,6 +164,8 @@ static int rtw_ops_add_interface(struct ieee80211_hw *hw,
- 	memset(&rtwvif->bfee, 0, sizeof(struct rtw_bfee));
- 	rtw_txq_init(rtwdev, vif->txq);
- 	INIT_LIST_HEAD(&rtwvif->rsvd_page_list);
-+	rtwvif->rtwdev = rtwdev;
-+	INIT_DELAYED_WORK(&rtwvif->csa_beacon_work, rtw_fw_csa_beacon_work);
- 
- 	mutex_lock(&rtwdev->mutex);
- 
-@@ -235,6 +237,8 @@ static void rtw_ops_remove_interface(struct ieee80211_hw *hw,
- 	rtw_dbg(rtwdev, RTW_DBG_STATE, "stop vif %pM mac_id %d on port %d\n",
- 		vif->addr, rtwvif->mac_id, rtwvif->port);
- 
-+	cancel_delayed_work_sync(&rtwvif->csa_beacon_work);
-+
- 	mutex_lock(&rtwdev->mutex);
- 
- 	rtw_leave_lps_deep(rtwdev);
-@@ -556,6 +560,15 @@ static int rtw_ops_set_tim(struct ieee80211_hw *hw, struct ieee80211_sta *sta,
- 	return 0;
- }
- 
-+static void rtw_ops_channel_switch_beacon(struct ieee80211_hw *hw,
-+					  struct ieee80211_vif *vif,
-+					  struct cfg80211_chan_def *chandef)
-+{
-+	struct rtw_vif *rtwvif = (struct rtw_vif *)vif->drv_priv;
-+
-+	ieee80211_queue_delayed_work(hw, &rtwvif->csa_beacon_work, 0);
-+}
-+
- static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 			   struct ieee80211_vif *vif, struct ieee80211_sta *sta,
- 			   struct ieee80211_key_conf *key)
-@@ -973,6 +986,7 @@ const struct ieee80211_ops rtw_ops = {
- 	.sta_add		= rtw_ops_sta_add,
- 	.sta_remove		= rtw_ops_sta_remove,
- 	.set_tim		= rtw_ops_set_tim,
-+	.channel_switch_beacon	= rtw_ops_channel_switch_beacon,
- 	.set_key		= rtw_ops_set_key,
- 	.ampdu_action		= rtw_ops_ampdu_action,
- 	.can_aggregate_in_amsdu	= rtw_ops_can_aggregate_in_amsdu,
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index 0f23498b5c96..9f3da59b208f 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -2293,7 +2293,8 @@ int rtw_register_hw(struct rtw_dev *rtwdev, struct ieee80211_hw *hw)
- 	hw->wiphy->available_antennas_rx = hal->antenna_rx;
- 
- 	hw->wiphy->flags |= WIPHY_FLAG_SUPPORTS_TDLS |
--			    WIPHY_FLAG_TDLS_EXTERNAL_SETUP;
-+			    WIPHY_FLAG_TDLS_EXTERNAL_SETUP |
-+			    WIPHY_FLAG_HAS_CHANNEL_SWITCH;
- 
- 	hw->wiphy->features |= NL80211_FEATURE_SCAN_RANDOM_MAC_ADDR;
- 	hw->wiphy->max_scan_ssids = RTW_SCAN_MAX_SSIDS;
-diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
-index d59f6e323adf..a1974effa3d1 100644
---- a/drivers/net/wireless/realtek/rtw88/main.h
-+++ b/drivers/net/wireless/realtek/rtw88/main.h
-@@ -823,6 +823,7 @@ struct rtw_bf_info {
- };
- 
- struct rtw_vif {
-+	struct rtw_dev *rtwdev;
- 	enum rtw_net_type net_type;
- 	u16 aid;
- 	u8 mac_id;
-@@ -835,6 +836,7 @@ struct rtw_vif {
- 	const struct rtw_vif_port *conf;
- 	struct cfg80211_scan_request *scan_req;
- 	struct ieee80211_scan_ies *scan_ies;
-+	struct delayed_work csa_beacon_work;
- 
- 	struct rtw_traffic_stats stats;
- 
--- 
-2.55.0
-
+let me try locally and see the fix.
+One fix is use rq->cpu instead of rq comparison to see if migration happened.
