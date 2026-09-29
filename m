@@ -1,106 +1,297 @@
-Received: from mail-vs2-f37.google.com (mail-vs2-f37.google.com [74.125.227.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AA54E3EF6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164FD4E4304;
+	Tue, 29 Sep 2026 09:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672500; cv=none; b=UwcfvNAL6xOAIOBZDxmYxYbpzv2Web4IATctG2mu/KgtUSkLjMnJ0nRjpyi/fvNK97BP52QPCqZo5htBYtmlneBup0g0TA8Y8u6hZULZEa9bd6IVCuVa2ObPsplFrURK7mpuQm1ej8eF+BZX4Wjj8VivZy7q87vgF2dBaxUe664=
+	t=1790672542; cv=none; b=Kwq7s1/+TqFz4YVlMl7lUJXtLbOC8Jb7LsqwhlsHKpU85rDseJqIGKWvqvqEPNThznKH2UNN38+zuz/C7VuC7JpCH/x6lSYRS2roG/1IxmuwrAGr2HxGF9ozAVLKeDjCSDvh9OqnR9zPivIYxJ6Lkmk1arLtCswBof1g8yYWLxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672500; c=relaxed/simple;
-	bh=yGRUq+NkeA2wCzaT3ddrS1lhHL4f/8v2x/N+ptJUPEc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TVKxict4EKxfKxIGmgnDcgTY+jPUAxuCggPRaiZXOHr1Kul12A69wK6hfFUNWnNEN8TpX4r7h+NNfELutu7wBEWsmRl+ryFOCToQs7npyQ+x1+86+5ObTcUt09cWvjLniBTeyGBnFw1tEg4fx/5G+YFeccQ/hnSuQkk0xITISrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f37.google.com with SMTP id 71dfb90a1353d-5cfd29f1208so718885e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:01:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790672497; x=1791277297;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M48abSoMOPLnpPLpLH2wH9c2xeQ/JgdDngp0dUmsb3o=;
-        b=zA1bGAEaRS/vVjMiT9u+b9IYBoP6vPyw+lP1E8Zo495WU3YaBElMntpO+1NpojGVv0
-         yfEpuOO2EKaIqU0OzlAQqaj6arP4kQtSNKuUAp/YPQxe1Pg4atlbOziuwDAi81oTE9Ko
-         xDC7eSRQFmHDCfpWHYUQCD4FGvy3KrSAWEs8zXgE970ZRR0Bw289ik/A56L/hOUlGuTY
-         0pD39frTRJOUXAO4KCJPV/8WDALtzESOXnLHIW7cs65OzMu2QPxUXAs6AyUn1vO0Z7a0
-         mKgyJCHgja79kXUdUi7PJHHvMDHkeKKUboBXAb8R2YPOovPrzyb0S2kGPfip3XPydfbN
-         RRVg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyrAuEQNeC5D0yVxnJszVEyJzjLUH1dfgNTnxg+5JTlGaEXElNkrfYVV4KXhgFFSGzlL2LEhGsymuTlFY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYNhF5qzIMsWEwwLjlHQm3YxuC3zrnPO50mXWBKegWAjf6YAjt
-	6dfD81n4XCnD0Ox0lQunt9naF8TCeZFDfKMYdV686UwbawaMQ7GFZmyNGrJ+Fxvq5/U=
-X-Gm-Gg: AYBFou2G6kFylExIwIfUqstcbMhAz2QjSe5O4Iis43wjCbo+teFjaIguaeUoT+IQBb1
-	ytsxkOUCSlwHvf94xBIG8GhtE6p1Q2gzrBe7GRTorFqBC5/YjPLenfJi0yAS9OSTgSVroNQjjUZ
-	Qv9NbBE2jOrhBKRXX0IgbcmRdJw6vEm/nQMZ9EkytCBZUcxg4m7DRH+Rhf1uImmw0jI+o8Zam4h
-	na2XpU8X5ekT+ZBSP8HKvv6jS1alYIr1OyIfT//6EVBJJENM9tXBoZ9hhRDgaBV8ojrOA3qJm2T
-	0AAi9pnneLCXoVcwumpPlpp6wWIUbwUdL4zvrk5I/S/Y0Dm1bY3kosq9i3JYQQa7DKk6s1/Xs3w
-	mIh9TY+QeZHaGfnHkYGjx6rOqbOgda6Py7QcCi6lK9wiDK1+wcsI4LiRFo9B+mzJ816iDUxzvUq
-	6vslszDlqFYK6bzwSi069nLXffex0Mhk1z7gjzkNXkgetVP1eUVF4AbioSYq3Avoz/4E4TRVvnV
-	E+txQTluSBZhAOvjQMsAfvUqA+jgYNPXecs7w==
-X-Received: by 2002:a05:6122:e16c:b0:5ce:ab22:1749 with SMTP id 71dfb90a1353d-5ceab221b4emr2723799e0c.1.1790672497102;
-        Tue, 29 Sep 2026 02:01:37 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d30b9ec2e3sm924728e0c.18.2026.09.29.02.01.36
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 02:01:36 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c796e3aso815512241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:01:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByNnZEcpbMh3AQRi3RRCpHvYpFoOnWlU65yL+N7FAJJ/f/PFlXL2bDez/KdLKxiqtSPWHkDIjUo5Ql/q6s=@vger.kernel.org
-X-Received: by 2002:a05:6102:2d04:b0:7a6:accf:72c1 with SMTP id
- ada2fe7eead31-7af19740319mr5405907137.0.1790672496458; Tue, 29 Sep 2026
- 02:01:36 -0700 (PDT)
+	s=arc-20240116; t=1790672542; c=relaxed/simple;
+	bh=IuNTPS/pgW79O2tFI9zTWhxQc6oNc4Pi9KFm6spx+is=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aL9pUKgUFsI2KYjRAYeLuk3Tjvqk2EJJELnqyEDdRYUWW0xm9Qb+GQVKtBkU3YkYGsvgHiPOPaeTdTLQkoIen/lB6Fu7rK6F0fE+grvV67xM7R8HovaM3rbz/ulV1Lvrm0hVpu5rmvqMHnN495xJVBKX9yiI22Te51C8+ly7IJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TZFgPRPD; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TZFgPRPD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790672535; x=1822208535;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=IuNTPS/pgW79O2tFI9zTWhxQc6oNc4Pi9KFm6spx+is=;
+  b=TZFgPRPDDcH5Q6NfcaVkE9dn902uF6tjRTyoxCIH4INPZ0UsdjZmLoO2
+   vcI7dvWXTCe8bJyzl4FFd5hIRhD8HlBL+coDOxBZI7Bte7MlDnJXF5+uQ
+   qkDGiLG/DZk+ihP2Jju7AcdaIsMWCf/hsSBAkyWDcuNNj/+zg/4GoSaXC
+   fWcCYTG9a8KB4+KcxXLNT1G9zGMEhS+cp/6PHDEy71eMZIIo0vHrpo97N
+   J6Iw4Cyt+olMQSc6OMAFxEYS9Kyye8gejEea2JbUEBPFeKEQoHsJnrvZ2
+   VDQrQ1ptRZAdKvqmAIvCwVUZ3BiexyDxkZ455h9nz/h7/oMU2s3I+j9Jb
+   g==;
+X-CSE-ConnectionGUID: QC36Wf0OR2mPTfXkcoD93w==
+X-CSE-MsgGUID: PGHHsMeSQ1u4hz7I3nY8Kw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="113171398"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="113171398"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:02:10 -0700
+X-CSE-ConnectionGUID: yPXCpkEJSQufRszkNJwMTQ==
+X-CSE-MsgGUID: MgGkyf9RTGuH5XB6II6UUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="313262758"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.234])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:02:06 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 29 Sep 2026 12:02:02 +0300 (EEST)
+To: Mingyou Chen <qby140326@gmail.com>
+cc: W_Armin@gmx.de, foxido@foxido.dev, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, nika@nikableh.moe, 
+    platform-driver-x86@vger.kernel.org, vlku.milos.fun@gmail.com, 
+    i@rsplwe.com, wolf109909@outlook.com, rahulbheda131313@gmail.com
+Subject: Re: [PATCH v5 5/6] platform/x86: bitland-mifs-wmi: Add per-machine
+ ops table
+In-Reply-To: <20260816100813.300450-6-qby140326@gmail.com>
+Message-ID: <17fbfcf4-c235-170b-c0ea-ad48b24e3eb9@linux.intel.com>
+References: <20260816100813.300450-1-qby140326@gmail.com> <20260816100813.300450-6-qby140326@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com> <CAMuHMdWWoH-m972X1Emo6gis81-_TUs819gOPkUwtgnR3aQhGA@mail.gmail.com>
-In-Reply-To: <CAMuHMdWWoH-m972X1Emo6gis81-_TUs819gOPkUwtgnR3aQhGA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 29 Sep 2026 11:01:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUMURt52wR7kM3=7GKv7x-3O77MLwSuUDt7KJEf9e+hqg@mail.gmail.com>
-X-Gm-Features: AclHuK98mw98nJ3_l_Mt7cVTGbvizjI_Q30Ugi6pttPN_xWKMIDQnQGX1HfBaig
-Message-ID: <CAMuHMdUMURt52wR7kM3=7GKv7x-3O77MLwSuUDt7KJEf9e+hqg@mail.gmail.com>
-Subject: Re: [PATCH v10 00/11] arm64: dts: renesas: Add various SolidRun RZ/G2
- based boards
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 29 Sept 2026 at 10:12, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Mon, 28 Sept 2026 at 19:34, Josua Mayer <josua@solid-run.com> wrote:
-> > Add support for a variety of SolidRun RZ/G2 based SoMs and both
-> > HummingBoard IIoT and HummingBoard Ripple Evaluation boards.
->
-> Thanks, will queue in renesas-devel for v7.4.
+On Sun, 16 Aug 2026, Mingyou Chen wrote:
 
-Except for:
+> The MIFS WMI interface is shared by several Bitland ODM laptops which
+> differ in the layout of the performance mode values of
+> WMI_FN_SYSTEM_PER_MODE and in the capability checks.
+> 
+> Introduce a machine ops table to support multiple machine families
+> without sprinkling model checks over the driver:
+> 
+> struct bitland_mifs_ops {
+>         const char *name;
+>         const struct bitland_profile_mode_map *mode_map;
+>         int (*check_performance_capability)(
+>                 struct bitland_mifs_wmi_data *data);
+>         bool has_full_speed;
+> };
+> 
+> The default ops instance keeps the current Bitland behavior, so this
+> change is a pure refactor without any functional changes.
+> 
+> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+> ---
+>  drivers/platform/x86/bitland-mifs-wmi.c | 89 +++++++++++++++++++------
+>  1 file changed, 67 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+> index 81dad2b65f4f..17792d8b7c29 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -78,6 +78,46 @@ enum bitland_mifs_power_profile {
+>  	WMI_PP_FULL_SPEED	= 3,
+>  };
+>  
+> +struct bitland_mifs_wmi_data;
+> +
+> +/*
+> + * Value layout of WMI_FN_SYSTEM_PER_MODE.
+> + */
+> +struct bitland_profile_mode_map {
+> +	u8 balanced;
+> +	u8 performance;
+> +	u8 quiet;
+> +	u8 full_speed;
+> +};
+> +
+> +static const struct bitland_profile_mode_map bitland_mode_map = {
+> +	.balanced	= WMI_PP_BALANCED,
+> +	.performance	= WMI_PP_PERFORMANCE,
+> +	.quiet		= WMI_PP_QUIET,
+> +	.full_speed	= WMI_PP_FULL_SPEED,
+> +};
 
-  - dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow input-/output-disable
-    Already queued in renesas-pinctrl for v7.4
+Hi,
 
-  - dt-bindings: usb: cypress,hx3: make peer-hub property optional
+This approach seems not generic enough to cover all the variations (see 
+the recent submissions).
 
-Gr{oetje,eeting}s,
+I suggest you take a look at those patches once they get the next version 
+of the generalized framework out and review it to make sure it abstract 
+on the correct level so we don't have to immediately broaded the scope.
 
-                        Geert
+I'd prefer to get the redmi merge done separately from the generalization 
+of the performance profiles. If the merge depends on the generalization 
+(my impression is that it does because of the patch 6), we should try to 
+finish that first and them do the merge on top of it.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Also, dropping redmi-wmi first and adding support back in a later change 
+is not acceptable as it creates a black hole where an unlucky bisect 
+could land to.
+
+> +static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data);
+> +
+> +/*
+> + * Machine-specific operations. The MIFS WMI interface is shared by
+> + * several Bitland ODM laptops which differ in the layout of the
+> + * performance mode values and in the capability checks.
+> + */
+> +struct bitland_mifs_ops {
+> +	const char *name;
+> +	const struct bitland_profile_mode_map *mode_map;
+> +	int (*check_performance_capability)(struct bitland_mifs_wmi_data *data);
+> +	bool has_full_speed;
+> +};
+> +
+> +static const struct bitland_mifs_ops bitland_ops = {
+> +	.name = "Bitland",
+> +	.mode_map = &bitland_mode_map,
+> +	.check_performance_capability = bitland_pp_check_capability,
+> +	.has_full_speed = true,
+> +};
+> +
+>  enum bitland_mifs_event_id {
+>  	WMI_EVENT_RESERVED_1		= 1,
+>  	WMI_EVENT_RESERVED_2		= 2,
+> @@ -163,6 +203,7 @@ struct bitland_mifs_wmi_data {
+>  	struct input_dev *input_dev;
+>  	struct device *hwmon_dev;
+>  	struct device *pp_dev;
+> +	const struct bitland_mifs_ops *ops;
+>  	enum platform_profile_option saved_profile;
+>  };
+>  
+> @@ -193,6 +234,7 @@ static int laptop_profile_get(struct device *dev,
+>  			      enum platform_profile_option *profile)
+>  {
+>  	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
+> +	const struct bitland_profile_mode_map *map = data->ops->mode_map;
+>  	struct bitland_mifs_input input = {
+>  		.reserved1 = 0,
+>  		.operation = WMI_METHOD_GET,
+> @@ -200,32 +242,29 @@ static int laptop_profile_get(struct device *dev,
+>  		.function = WMI_FN_SYSTEM_PER_MODE,
+>  	};
+>  	struct bitland_mifs_output result;
+> +	u8 mode;
+>  	int ret;
+>  
+>  	ret = bitland_mifs_wmi_call(data, &input, &result);
+>  	if (ret)
+>  		return ret;
+>  
+> -	switch (result.data[0]) {
+> -	case WMI_PP_BALANCED:
+> +	mode = result.data[0];
+> +	if (mode == map->quiet)
+> +		*profile = PLATFORM_PROFILE_LOW_POWER;
+> +	else if (mode == map->balanced)
+>  		*profile = PLATFORM_PROFILE_BALANCED;
+> -		break;
+> -	case WMI_PP_PERFORMANCE:
+> +	else if (mode == map->performance)
+>  		*profile = PLATFORM_PROFILE_BALANCED_PERFORMANCE;
+> -		break;
+> -	case WMI_PP_QUIET:
+> -		*profile = PLATFORM_PROFILE_LOW_POWER;
+> -		break;
+> -	case WMI_PP_FULL_SPEED:
+> +	else if (mode == map->full_speed)
+>  		*profile = PLATFORM_PROFILE_PERFORMANCE;
+> -		break;
+> -	default:
+> +	else
+>  		return -EINVAL;
+> -	}
+> +
+>  	return 0;
+>  }
+>  
+> -static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *data)
+> +static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data)
+>  {
+>  	struct bitland_mifs_input input = {
+>  		.operation = WMI_METHOD_GET,
+> @@ -252,6 +291,7 @@ static int laptop_profile_set(struct device *dev,
+>  			      enum platform_profile_option profile)
+>  {
+>  	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
+> +	const struct bitland_profile_mode_map *map = data->ops->mode_map;
+>  	struct bitland_mifs_input input = {
+>  		.reserved1 = 0,
+>  		.operation = WMI_METHOD_SET,
+> @@ -259,42 +299,46 @@ static int laptop_profile_set(struct device *dev,
+>  		.function = WMI_FN_SYSTEM_PER_MODE,
+>  	};
+>  	int ret;
+> -	u8 val;
+> +	u8 mode;
+>  
+>  	switch (profile) {
+>  	case PLATFORM_PROFILE_LOW_POWER:
+> -		val = WMI_PP_QUIET;
+> +		mode = map->quiet;
+>  		break;
+>  	case PLATFORM_PROFILE_BALANCED:
+> -		val = WMI_PP_BALANCED;
+> +		mode = map->balanced;
+>  		break;
+>  	case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
+> -		ret = bitland_check_performance_capability(data);
+> +		ret = data->ops->check_performance_capability(data);
+>  		if (ret)
+>  			return ret;
+> -		val = WMI_PP_PERFORMANCE;
+> +		mode = map->performance;
+>  		break;
+>  	case PLATFORM_PROFILE_PERFORMANCE:
+> -		ret = bitland_check_performance_capability(data);
+> +		ret = data->ops->check_performance_capability(data);
+>  		if (ret)
+>  			return ret;
+> -		val = WMI_PP_FULL_SPEED;
+> +		mode = map->full_speed;
+>  		break;
+>  	default:
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> -	input.payload[0] = val;
+> +	input.payload[0] = mode;
+>  
+>  	return bitland_mifs_wmi_call(data, &input, NULL);
+>  }
+>  
+>  static int platform_profile_probe(void *drvdata, unsigned long *choices)
+>  {
+> +	struct bitland_mifs_wmi_data *data = drvdata;
+> +
+>  	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
+>  	set_bit(PLATFORM_PROFILE_BALANCED, choices);
+>  	set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
+> -	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
+> +
+> +	if (data->ops->has_full_speed)
+> +		set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
+>  
+>  	return 0;
+>  }
+> @@ -717,6 +761,7 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+>  		return -ENOMEM;
+>  
+>  	drv_data->wdev = wdev;
+> +	drv_data->ops = &bitland_ops;
+>  
+>  	ret = devm_mutex_init(&wdev->dev, &drv_data->lock);
+>  	if (ret)
+> 
+
+
+--
+ i.
+
