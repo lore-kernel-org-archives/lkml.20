@@ -1,69 +1,49 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968213D8105
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02FE37A820
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695914; cv=none; b=sUat38teb0wAnTGq2VzcC5mhlvWedpGiS/uiI+tCSTBSBHGRGWViOfsKL1tZqOS+0IVWVSKFTFi9BnAeBXgUJpGNpFZvCQWFeaMPm5bkCpkueuIHS3qaPcV2NZLg4hJSc9e8uLflJt2pT9vib6cp1PFI5I6fO8UAdgsdfzJ9tJI=
+	t=1790695968; cv=none; b=Ohno2PT/MqYvoSlrn+WnsoKsv7Aje0ZAajN7FXO8mXou1s1wAcO0gAJMF69YHme/zi/TMOJCr8IHQqdQUSIZ+t+bu26sGCc5WyMta/JG+1MTBThWofcdUAzto81DyaHmQ9nI9hRq8Q8YOswHA6wZCD20kYAaAxGzOJX8LVX4Kkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695914; c=relaxed/simple;
-	bh=xPbWLGY7zm1enSWeIUxEJi4deGkZk+h6h+c+RetpYc8=;
+	s=arc-20240116; t=1790695968; c=relaxed/simple;
+	bh=t8mn3gwPrOdOqrmCjRq54KlBWO2U++tWo3nWUN3734M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k2Tm8lwb1I74qDgRp+h0mD7E+xETQA7pXeFDJpm7PZro1I/jUv/kOKNUoj4qnurBwSIJ2UNus/XxVnyT6L5MF/G38fIpdpcuPHOGwcbrumIzh1NmqyCIHeR2XKtUR7Zm7c2enpDY94KO/XsPjI7QwUrAsW0Kg4yr443rpXTt0+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mUjBR9lS; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=Bt73xHcmYdBM3sRc0nnUiS0s9ZfLfh883punTAAzky6R8QKVXwNlDZCrYAk5jtjIQ/jfMt8E0/JgSyL3yVeqX/3Adul4c5pOp6O77S1k/bAAx6sDbzAtwsYX2WzncbjBURWyS+AVxagqxsDbc4t1E7DseOdmpBS6h0ywqYOEYBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SDDajsiW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mUjBR9lS"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so27858685e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:31:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790695911; x=1791300711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0kKztUmQRauzLspAudONYS9350S9maMl64aTwFoNWoc=;
-        b=mUjBR9lSi5FuNcI59FvKsTG08i3JaYS2qqsGqxNt7FZNywDe9EC2zhoILz0t7Z3Pbf
-         RLFycbpDL+wzWFKuSMM8D3tn2/QjHRJlF/EVomsTtQW/eWCXJH/qz8C67ENdx0ow9drF
-         3ku+iaiPGAz8NJBLMcrHk2Bv+PSWxU7aJCSMULj5jw4nVmaWNekuQK8gXVewb60uTNoS
-         bMGXt0m4ySsFEH8bpqK3rPuEHS3/kUcJ9ThgqA+2xae4mnPmGOppdbrEo6sMJNNyFKXu
-         hl7tA4sa4x3rVs9C2ln6d3r4io10THCxgYw40IYJTLTl965cKgvtRl+9eK2Y4V/OAram
-         xUAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790695911; x=1791300711;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0kKztUmQRauzLspAudONYS9350S9maMl64aTwFoNWoc=;
-        b=C3I4AqrY1jwrQ3vUDd3CdFKqOHifiStnGYn7A3TYRDozkv8WghRBF/DAR6aqppahRp
-         O0FuhPsDi8lCtew8oh8gmTAHW1uRvDUUHwmvUCzsZI7KL/Q4rsUnAEFuLaKMMV83On8j
-         +FS2gW4KeU0+0Kj1tEhYKZrhG7NByRdv6M2GQSQSxm+Ud+DUkjB/R5bfC81ex7i6xSZH
-         q1pNm34ilT2U91Xkawe6fI0aFA0TPrGPjl8DGuCdDzSwCH9SvE2txsWVj933cyee1Q+5
-         BrxEN3W+K2GIr9T3IhdPuetGCGCemYcJ7xZeDxc9/SH74jxHg+WvUDsdXulNrpx8k6yU
-         rExQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0D+8PcmuoGCaqrpUcuYIZnLkb/lQjbNKs0WXGbPVf4UXScxbAHwDoFoPn4h7vBfeSs+3BKAEe2w/VGOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBg3CKZuBq0LU/DbzXCVshIKTdlwtqOhfv07FcbEgit4yShWGz
-	baX+KNY6Ox2uV81zJKqa+Qcf3bImMRoOjfLhoCz1JefDRv6IrA5d/C9CZvfwc77oj/cS25UdCAS
-	DxRQKDsY=
-X-Gm-Gg: AYBFou2Ub6OnaKiF3kxzueygi20qysPT8woRgBXq+RjWeXkMKYin78ifk89pXa+4hLe
-	2QrrDFoV9l3LDDZM/Zw2WaVOEFwmOeMWPHCT8kODZ73QzmSgFNMKrOeKfV5LhDCbc8Db7yAMKPX
-	1+Bchkz0N40u3b70lGBahlYmnx5rQclTyfMlF7O7h8L1BFJokL/SKUkwHjLac3A0ik6IXCjzbE8
-	r+bYCrlyV6gjs6GlCjeXyFEsyurwuJyr7hUTzOcikbTLRZRdSDDoC4CJD4qyqXZuuhFyjq5FgGX
-	2OhzSAOQ34kq3ASIMxM86nusCssRum/0Ldtbmi6zjD/2m/+dvZmDUVU0XOkR/mPO7sW3bGRPDsZ
-	NRYHwVt0enuHxc4Pi08Mcuh/gIcerk+XhmrUeumr/yJFKITucf4VjFo+TJaOBf26i18bm5Az7+h
-	ve3IoNLjvlYe2sFNUw3nutAwjCzL26TFw1eN+qGHvpff8by5XFc8OP2SxWROfoqbPuI1wXAhCpG
-	Es=
-X-Received: by 2002:a05:600c:4f4b:b0:4a0:b9:21b5 with SMTP id 5b1f17b1804b1-4a000d959d2mr144380745e9.30.1790695910824;
-        Tue, 29 Sep 2026 08:31:50 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50923f0sm4866532f8f.31.2026.09.29.08.31.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 08:31:50 -0700 (PDT)
-Message-ID: <0b657642-0770-4fb4-a9d8-4dc59d5407df@linaro.org>
-Date: Tue, 29 Sep 2026 16:31:49 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SDDajsiW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790695965;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tjIn0aev0a9hJQzIqwYh5+plkSCK9cnTpE6TgaQgUIY=;
+	b=SDDajsiWKhAPBkAqoUMNqMaAjDYU7VI8V3O1O6MEa/pjsLhtBQcfmSzbKgmdqhhhZgND7n
+	w8sVoD33XogSemnqILcTpHSKcyTdDTJsnqEcJAnEw55V5UQ0ltCHxsJSGceRwBjH4/1vKw
+	OsecS7O152zsB+wkBItq0dDQhsYkMZg=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-281-cc3pLX9QPvGXg7wN_pPROg-1; Tue,
+ 29 Sep 2026 11:32:40 -0400
+X-MC-Unique: cc3pLX9QPvGXg7wN_pPROg-1
+X-Mimecast-MFC-AGG-ID: cc3pLX9QPvGXg7wN_pPROg_1790695958
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 33D8519774FC;
+	Tue, 29 Sep 2026 15:32:37 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 36F581956095;
+	Tue, 29 Sep 2026 15:32:34 +0000 (UTC)
+Message-ID: <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com>
+Date: Tue, 29 Sep 2026 11:32:33 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,70 +51,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] perf/core: Fix ITRACE start suppression for inherited
- events
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>
-References: <20260929-perf_core_itrace_start_fix_inherit_event-v2-1-9361a946ed56@arm.com>
+Subject: Re: [PATCH 1/3] cgroup/cpuset: Protect is_in_v2_mode() in
+ cpuset_num_cpus()
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Changwoo Min <changwoo@igalia.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, sched-ext@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>
+References: <20260929084124.626693-1-arighi@nvidia.com>
+ <20260929084124.626693-2-arighi@nvidia.com>
+ <20260929-making-language-254d9c6a6605@there>
 Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260929-perf_core_itrace_start_fix_inherit_event-v2-1-9361a946ed56@arm.com>
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260929-making-language-254d9c6a6605@there>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+On 9/29/26 9:47 AM, Michal Koutný wrote:
+> Hi.
+>
+> On Tue, Sep 29, 2026 at 10:37:38AM +0200, Andrea Righi <arighi@nvidia.com> wrote:
+>> cpuset_num_cpus() enters its RCU read-side section only after checking
+>> is_in_v2_mode(). When cpuset is bound to a v1 hierarchy, is_in_v2_mode()
+>> dereferences cpuset_cgrp_subsys.root, which is freed via kfree_rcu()
+>> once that hierarchy is destroyed and cpuset is rebound to the default
+>> hierarchy. A preemptible caller outside RCU can therefore read the flags
+>> of a freed root.
+>>
+>> The only current caller, fair's group share calculation, runs under the
+>> rq lock with preemption disabled, so it can't hit this. However, the
+>> helper already means to protect itself with RCU, and upcoming sched_ext
+>> support exposes it to sleepable BPF programs.
+>>
+>> Take the RCU read lock before is_in_v2_mode() so that the whole lookup
+>> is protected regardless of the caller's context.
+> This feels like mere querying of the mode shouldn't require such
+> constraints (despite it's needed anyway later down). But it could truly
+> happen with the novel usage (CONFIG_CPUSET_V1 && unmounting cpuset
+> hierarchy for some reason, I wonder how you noticed :)).
+>
+> Then I'd welcome more structured approach with at least:
+>
+> diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
+> index 3754d697854b3..7f4d346cfb119 100644
+> --- a/include/linux/cgroup-defs.h
+> +++ b/include/linux/cgroup-defs.h
+> @@ -841,7 +841,7 @@ struct cgroup_subsys {
+>          const char *legacy_name;
+>
+>          /* link to parent, protected by cgroup_lock() */
+> -       struct cgroup_root *root;
+> +       struct cgroup_root __rcu *root;
+>
+>          /* idr for css->id */
+>          struct idr css_idr;
+> diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+> index 227d09704ca59..a718b5f521fb2 100644
+> --- a/kernel/cgroup/cgroup.c
+> +++ b/kernel/cgroup/cgroup.c
+> @@ -1909,7 +1909,7 @@ int rebind_subsystems(struct cgroup_root *dst_root, u32 ss_mask)
+>                  /* rebind */
+>                  RCU_INIT_POINTER(scgrp->subsys[ssid], NULL);
+>                  rcu_assign_pointer(dcgrp->subsys[ssid], css);
+> -               ss->root = dst_root;
+> +               rcu_assign_pointer(ss->root, dst_root);
+>
+>                  spin_lock_irq(&css_set_lock);
+>                  css->cgroup = dcgrp;
+>
+>
+> However, if I zoom out, I see that the intention of reading cpuset's
+> nr_cpus from the scheduler is meant for setups where cpuset tree ~ cpu
+> tree:
+>
+> | * This only really works for cgroup-v2 where all the controllers are mounted
+> | * in the same hierarchy. If not cgroup-v2 or no cpuset controller is
+> | * configured it reverts to num_online_cpus().
+>
+> Hence it may be just OK to do:
+>
+>          int nr = num_online_cpus();
+>          struct cpuset *cs;
+>
+> -       if (is_in_v2_mode()) {
+> +       if (cpuset_v2()) {
+>                  guard(rcu)();
+>                  cs = css_cs(cgroup_e_css(cgrp, &cpuset_cgrp_subsys));
+>                  if (cs)
+>
+> I hope Waiman seconds this -- if a feature depends on shared tree,
+> there's only so much that 'cpuset_v2_mode' can guarantee.
 
+I think it is simpler to just change is_in_v2_mode() to cpuset_v2(). 
+Almost all the cpuset functions should either take the callback_lock 
+with interrupt disabled (which is a RCU read-side critical section) or 
+with rcu_read_lock() and cpuset_mutex() acquired. This cpuset_num_cpus() 
+function is an exception. Given what is said in the comment, this 
+function is not supposed to be used with v1 mounted. We should change it 
+to cpuset_v2().
 
-On 29/09/2026 16:08, Leo Yan wrote:
-> perf_log_itrace_start() follows event->parent before checking
-> PERF_ATTACH_ITRACE, but perf_event_itrace_started() sets the flag on the
-> event passed by the PMU driver. If an inherited event starts tracing
-> before its parent, the parent's flag remains clear and the child emits
-> redundant ITRACE_START records on subsequent schedule-ins.
-> 
-> Follow event->parent in perf_event_itrace_started() as well, so that the
-> setter and checker use the same event. This preserves the original
-> suppression policy: ITRACE_START supplies the initial task context when
-> tracing begins, while subsequent task switches are tracked through
-> context-switch records or trace context packets.
-> 
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
-> Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
-> Changes in v2:
-> - Changed setter to fetch parent event instead (James).
-> - Link to v1: https://lore.kernel.org/r/20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com
-> ---
->   kernel/events/core.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 634d2ccbab82d8bfe9d1bd7f8c6745f60260dbd9..85d924cce387f88de0c1efe6c22754d38430c9d6 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -10568,6 +10568,9 @@ void perf_event_text_poke(const void *addr, const void *old_bytes,
->   
->   void perf_event_itrace_started(struct perf_event *event)
->   {
-> +	if (event->parent)
-> +		event = event->parent;
-> +
->   	WRITE_ONCE(event->attach_state, event->attach_state | PERF_ATTACH_ITRACE);
->   }
->   
-> 
-> ---
-> base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
-> change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-> 
-> Best regards,
+Cheers,
+Longman
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+>
+> 0.02€,
+> Michal
+
