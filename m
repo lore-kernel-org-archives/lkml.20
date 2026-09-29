@@ -1,155 +1,88 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-wr2-f37.google.com (mail-wr2-f37.google.com [74.125.225.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EFF52E064
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33C7495ADD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699398; cv=none; b=PUcSCBH1lRGz9QSs+UfgWeUwebzrcMC9K81zfQrR6+05t3wBWhSsuf7Blj7UrTbBfr9HxGZcrIfspqfiS0x5a2mB8EYCMgTz/qZl4mklmBAMoDXPuyBUbFE81jSE6uZ70hcLhYoq0+DjX9FQ8PAm5/fRQ0dDKOiUMbPT1f7CISk=
+	t=1790699426; cv=none; b=uFz73Yr6KGaE9gKyLpFlD+rrZcfW73f9MczBRM8fjZ1ogVJvD8QdPo5/ViiE1a7OYJK7Ji7MO+O9pEjOMzSn5l3cTdeN5PqcaDlWkpbEQBu5hnrRoKR2oUI9NkPnjpG3e8isHnASr++F91l/fLfRAoAuHD3f/ZkfsGWpj6YeVDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699398; c=relaxed/simple;
-	bh=3RaYRMVXn2BIUsCB/bZhtFbTVHGk+QiNMUl8qUepp+E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a+YEyGNMleBfvbmPWLZl4GfAxHIbNfewtmEgFTAABpqlVoU9rUlmm4bq8sii91Ojy0DWYHqJZ64ZmkQg8xiy868JgwoNpqYjqcXSC+oiBu8AKN3dHlsh7tizqXs3+M31Lz0pgeIRquF4SQB8M4F6rcPYe958NQ2DPRQp5oKz0gA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UWeQUOOW; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790699426; c=relaxed/simple;
+	bh=yZLzULU2uih8NUS1IvSltwPGoqS/nnlu9ISb0E8Wc+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=onzeYHIwyFco7JMe2XzLZE5InySzpldmX6MJ74rJvJJ06Vzn+tq9/Jd77Z0ZZ1b6IofzGnM00cnxtteZmlGlPm8WKVfzog9RPOfloA5e+7PCNYi2YVkjKFCzewgwKthm6LMtkzCA2bmCeGCDVPWF9EnogblzwiAesnHonzj+Fe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ed/vECsa; arc=none smtp.client-ip=74.125.225.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UWeQUOOW"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so7086570a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ed/vECsa"
+Received: by mail-wr2-f37.google.com with SMTP id ffacd0b85a97d-4887840c529so1605534f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790699394; x=1791304194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=benznCTRx/IEcE/MVflwkxYVhHzqfo0H2S1mbmL87+g=;
-        b=UWeQUOOWCm2cfRWYAT1EOty+HsszSfMj7dOZHSUiOvdDcD1vGVWbsXttVMe5dmJRwz
-         dYYMAK+uH/LyQb0lmUCmba81UWfM4yt23nl4yMFaCl624t8P05Pag5suRikDGBKBTnBa
-         5unyjPKiDPJWYTgr0OIg52zQBSAIc9XKp56u0=
+        d=gmail.com; s=20251104; t=1790699423; x=1791304223; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yZLzULU2uih8NUS1IvSltwPGoqS/nnlu9ISb0E8Wc+o=;
+        b=Ed/vECsa2wbKYImD7D/SitTRJZ1iUhem0kP+Dt2nlr28Gm+2V33Jn1Du6yORAYHAok
+         YC3b/rx/6H7zmedPSSNYFVCvhUvCkCR9yEqLgJ8TC3mucvDyVvDXo7WmZ6iOVA61cpfx
+         b/nd4lCSdHj2jFYeViT5T1kaeXtn3Iau4Z4c/HlBQ9WhNjDkwagrUOb5AGdgC6bY/Uef
+         sVLieE5V1sBP2nfioflJo48sh0hB1fAXHC+Zu6lwYTSqVLFcWVWMohjbd4hmtIY3Str7
+         YsJtNGj/I1Wj7LO7+FBClJM/4uPN+LHS4w245mvB4VyS7eYa/CWmYUbCXqOVPfdHJhNn
+         cT3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699394; x=1791304194;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790699423; x=1791304223;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=benznCTRx/IEcE/MVflwkxYVhHzqfo0H2S1mbmL87+g=;
-        b=AXCKAFyA5w5st8wIjt0oqFGKqr9gwRg7k5zO87GgMDTFWZnFI+QXfEATA3fKHreUqP
-         QSSwlhYtc1iPZgtT5/3Cshh1Oavr89865VJcSHu0JZapO3ss/ZCninwiTrGpp3IBApw7
-         OXJ2L8NNJ+SUvGzq861A2tjEogoD2r8rKIaTU90oMA7zXLAK1NaPMjltvB+3wQi2eCWS
-         yR6wYKfSzn6a3cPV/we6CHFbiMQaCa5yt5rQ4oElisuZwPQ6RYMEKQtRPaZFqyrqqOP1
-         Dj5m/nfRDY0NXOrV4eInw0yQ19W0HyKVP9aQVaAKCO6ZOl6+pood6PQRilaa6251ChgA
-         LApA==
-X-Forwarded-Encrypted: i=1; AKwUvByAPf4zSTN5zv4S42LXkoGaYXWVPi5ODFLe8KPR/mGxOYq6eY9MFV4WQZtN7Rk94haOMXDoDIeZTRf2LWM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9t1y8GDScwxDFmLirCv+oX0+tYUj2NgADM/Y+3aMTPAZtMV6l
-	JO8C+WC6+zHxpmIvGrTkzMZx5nxkB2JiV4zeXr/Fr9+U3PDsj3rFexdYBLVp0KiQDyxMPXNFIEP
-	xGU4dow8m
-X-Gm-Gg: AYBFou3ORd7Ue2pZCLoy+XmgZFElU1wQQlTBb4ccVF+AVuDLO+EQj5v9nIkngDdx35N
-	J4PAsUrmxnPHdnomT2Mb4w1MQB/Qwb12OtwduLal7QNUM9Cf5FS/IvuvbgqBsqUvXPFXgsOAwhM
-	P5MNJHJGh4Ex6RbtAA+waCAJF/t6LqkrtjSE/FC2EZ9UHaA3VBsNiy73nZ/RybOQVzyT8d6EOAe
-	zYXCkGSWpLvLs2pdK+mEYw1g7tf+F/83LnZTYiwXyA1U+w5S6O85am4t1b0Uxxvp8FftE//AJTH
-	1HYBfyetkWusknj9JgZfMFy/amTFT0Kn+a80HCVaE5MLf/Z48C0bxQd3ZlR4ni1t9WGifn2utOv
-	XoUEFE6tGkTyPpC6oR26ulyL6Nl8WE7bFBLfyKotSMnp6cDV15rXBQTBVIYKkrt8HggFa9yVpNm
-	KZu9WA1no/7JYBUxtyeQlQvwguUdiUVlcNtzMC5KO+N6AX5XGefUSPfriN3VU241FWXIIsNSTiq
-	UMztAlN1QWc5b43p435P3fHxtoHL1sq0T4PuqZk1Sm3SszSPg==
-X-Received: by 2002:a05:6402:540a:b0:6ac:b49e:42a with SMTP id 4fb4d7f45d1cf-6acb49e060amr1727093a12.28.1790699394142;
-        Tue, 29 Sep 2026 09:29:54 -0700 (PDT)
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb8e19b41sm1165196a12.4.2026.09.29.09.29.50
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 09:29:53 -0700 (PDT)
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so25147935e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzlFRwmXN5rj0uWLz0fZHyyOwyv6s4WjtH4YjQuwd1yNSN/CKLHf0A9ezoE0vyC/tg3uVISPjuK9kSEi5M=@vger.kernel.org
-X-Received: by 2002:a05:600c:1f95:b0:49f:ce78:3562 with SMTP id
- 5b1f17b1804b1-49fe66f1aa8mr296606315e9.19.1790699389340; Tue, 29 Sep 2026
- 09:29:49 -0700 (PDT)
+        bh=yZLzULU2uih8NUS1IvSltwPGoqS/nnlu9ISb0E8Wc+o=;
+        b=MsZ0dptJRDNjAeCPWHJNpfVxBMQ0CsJKVESkVf6VC8SzZlcIsU/8G9BDUkGMs74h7J
+         sP2NC05tEXeRElRSF/JpTpnP2VLjsgdRo4nHGKCy0LINM+9o5msr97IO+duwC31wGKAq
+         EcQdE8SrGGrfO+nxPlEE97nyGwtXrQVy9QCTwCHGrAXGBrC0LCbYQMx+8tOLdghWEf/K
+         zOmocCkGhloeuAn6btpGNBPfcBkIa/jCQ/e6+2+MdXQMMM0DW//UD9ySZ8G274DNs8Qk
+         7xC4gDo2NK+YEcZ08hts5PExf1pI3/fSRUTS6br0mSLC+wmQCPDuQK/je7VHKTqcyu0y
+         l4eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynEjXLS7F2WT9W8Dkfvm3L53ZjqnyurtTGPBHQLmwTYTeyKJ1XfwU69jB6VK4Qo3jam/6AB7Z+kjgwpmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8QfRiVyyebXahbKmgXm7sp7QO2rKjy/3sqZOJGxwV5CbUMSXt
+	14BqU8rBs2BG2eJi4/VTVxE/1igpYZRtQcvFhsddyW9ra06NzgEgtvED2y2s
+X-Gm-Gg: AYBFou2/+x27QlVYc+g0Yx7MyVTJm1YU6zQ5v8SI7qaS4lBY/QoOKDc32iHL/Vc3ZlX
+	MR2cA2UqMQT5mZlaacCTqAb8//YStpqy6KGCnP7FbPlEL8nBu2rM6P3mwzkz5rr6u4YkNzgnp0r
+	7kLY7c9qliQo0fazdx5NEksb0N5+X/wfsCI1w3NZi3UXNSuXzEN9PHASbMVgbvg/RxzfrFYr5xo
+	l9twHutz4dFykPhcunwn39rKISuPmTvj7G1Ak2V8i7OH6rXzV9XuCft+8v2OQgmHsqmy60mNBWl
+	8QIdiOLlqYVO1ii9a776ojqNXrvmZDuRAu1wKc/R6oEJUouVuVN8zhBUT+C9D2YgQLxhKgNk9W1
+	XX2dA1BFkX1DA3YAZ2gY2C+/0ecEtetiWklafRCIpDwwd9QHyG38CvwkJlE6S7HxkihLgVtVM30
+	0Vcgh8Wusbd0e9/s76g5Sp3ji8vXwQdO6j80SAL94Jg5RvUf8IL+poT0tBq6+F2mzCAzZ6QtKET
+	JmoLtgomThq5cg10YOdZFxai50iF0WCj5YxaJbWf+Pdy5GqZ+CErF1CZ6VK13HvUqW3gKjYyEfI
+	CAt6eu6DN60PqA==
+X-Received: by 2002:a05:6000:2893:b0:488:7fdb:46b5 with SMTP id ffacd0b85a97d-48af1b2e134mr5635978f8f.20.1790699422665;
+        Tue, 29 Sep 2026 09:30:22 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502cf08sm5879746f8f.9.2026.09.29.09.30.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:30:21 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH ath-next v4 0/8] wifi: ath9k: fix register access and spectral scan filter handling on ath9k_htc
+Date: Tue, 29 Sep 2026 19:30:15 +0300
+Message-ID: <20260929163015.1779285-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
+References: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929080143.559685-1-hungen3108@gmail.com>
-In-Reply-To: <20260929080143.559685-1-hungen3108@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 29 Sep 2026 09:29:37 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UU+NS0T-Ga8i12QKTNCYOu8kar_6=NsH0=4FVUFyKB7A@mail.gmail.com>
-X-Gm-Features: AclHuK_CMHHACYWLbkCTUj8Wg_n6T0qMeI89YsR3gxxruJZion0bIfNfLPongVU
-Message-ID: <CAD=FV=UU+NS0T-Ga8i12QKTNCYOu8kar_6=NsH0=4FVUFyKB7A@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: ronbo-rb070d30: Use mipi_dsi_*_multi() functions
-To: Hsieh Hung-En <hungen3108@gmail.com>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Toke,
 
-On Tue, Sep 29, 2026 at 1:02=E2=80=AFAM Hsieh Hung-En <hungen3108@gmail.com=
-> wrote:
->
-> Replace the deprecated mipi_dsi_dcs_exit_sleep_mode() and
-> mipi_dsi_dcs_enter_sleep_mode() calls in the enable and disable callbacks
-> with their _multi variants, as suggested in Documentation/gpu/todo.rst.
->
-> The callbacks retain the same return values. The new helpers additionally
-> log an error if the command fails.
->
-> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
-> ---
->
-> Notes:
->     Compile-tested on arm64 with W=3D1; not tested on hardware.
->
->  drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+Gentle ping on this series. Please let me know if any changes are needed.
 
-_multi doesn't buy us much here, but this is still something we want
-to do so we can (eventually) remove the old functions. Thus:
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-I'll be at a conference next week and will probably wait until I get
-back before applying, just in case there are problems. So unless
-someone else applies in the meantime (or other issues come up), I'll
-try to land in ~2 weeks.
-
-
-> diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/d=
-rm/panel/panel-ronbo-rb070d30.c
-> index c3fbc459c..ebe6352db 100644
-> --- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> +++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> @@ -75,15 +75,19 @@ static int rb070d30_panel_unprepare(struct drm_panel =
-*panel)
->  static int rb070d30_panel_enable(struct drm_panel *panel)
->  {
->         struct rb070d30_panel *ctx =3D panel_to_rb070d30_panel(panel);
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
->
-> -       return mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
-> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +       return dsi_ctx.accum_err;
->  }
->
->  static int rb070d30_panel_disable(struct drm_panel *panel)
->  {
->         struct rb070d30_panel *ctx =3D panel_to_rb070d30_panel(panel);
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
->
-> -       return mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
-> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +       return dsi_ctx.accum_err;
->  }
-
-nit: not new for your change, but it's probably better if
-rb070d30_panel_disable() ignores the error here and always returns 0.
-We often ignore errors in disable(), especially when unprepare() will
-power the panel off anyway. If you wanted to send a followup patch
-fixing that, it would be nice. ;-)
-
--Doug
+Thanks,
+Nerijus
