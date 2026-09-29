@@ -1,176 +1,110 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF4FF3AC0D5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1288313293
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690682; cv=none; b=acIHkXxJI8qJUJB8iUJTKTjtPuvBI7Pt3jTbxJRW8TL/e7X19iiiorO7GxqZoGgO1J0LIg/ziaJvuwjbqTeiv1S1OPmsq3MLvR46C5/v2BGTfixeJnalG8mpF/thnulsZP1kaxIvJWTlcOcY4jDz8Cf6pgqQO/LvxalKgIZFZng=
+	t=1790690748; cv=none; b=JZipNeSdvynlvDoHSOW5cxKFvZD/NeS8cyjjzQblvMIJnDYsMJc+lXafzhC+wcHy2ikmocDgUnn6+BSGS6BToXC7EQcZvYhN+YcyBixNbTgIIGvli2T0t60Ghz6tHo0d76b8IqZPuvoX0+BDOZKTEKCvupXbtf6I93f0ZjsSIDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690682; c=relaxed/simple;
-	bh=RAtVjGI/Vb8hQhwjC88DUK3cpVwBXtc6/x2dZWEwF0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sWmaxXB2RJ6gNhXB2/9B5q1EeDjWPCTQBBBC5q/w6oob0uO9cCWZXvIsbkQ2j3EjYCl1TIjhM2wuKAyL/4G7+F/GaSjDKVYwj59PzjUWzLtfAFthY+lAoEdpXdMaE6/6xz94pjiYDq6LY4P4pXtiSr0KsiOq5LJcT9bv/psQkgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YPfrQsz3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790690748; c=relaxed/simple;
+	bh=VWqrz0PQBQafrnuUvM872YR0gmn76hR2P3X1h/x+F9Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rXwcsrQpY/Q1WrQeiIZGn5F53EaApk8wuoDGhszsCzeath43o4zu9h/NM5IJWe14F0K+rlZppH54uxReN+vAI/ckRa+A2ZtVYNbcqbPXkf5tENsFv/rUDdlmPl5SFOv2A22NVkCLrL0JWioNwo9LHmT08z9gNH7pHLs3aurYXuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8fFKJzD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YPfrQsz3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5EDE1476;
-	Tue, 29 Sep 2026 07:04:36 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F5873F86F;
-	Tue, 29 Sep 2026 07:04:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790690680; bh=RAtVjGI/Vb8hQhwjC88DUK3cpVwBXtc6/x2dZWEwF0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YPfrQsz3Mdo9IfN+12z6J07vTX7zV21SP9VGoYGyQLz9IZnF7blGrLx0RbJpQeLrn
-	 U/zHioaI9LSacoxSgCMfMqY3aBzFq+POqHE8rZz2hbD9qDLtg5JjDdhABVCkzNlAyn
-	 +AbFsF1QF5CySeHJBa3gkA1OleN+S08nzeS2gQg0=
-Date: Tue, 29 Sep 2026 16:04:31 +0200
-From: Beata Michalska <beata.michalska@arm.com>
-To: Chuyi Zhou <zhouchuyi@bytedance.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, catalin.marinas@arm.com,
-	will@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] cpufreq: Use hardware feedback for cpuinfo_avg_freq
-Message-ID: <arvFb8kJoWT98Suj@arm.com>
-References: <20260916142623.359336-1-zhouchuyi@bytedance.com>
- <20260916142623.359336-3-zhouchuyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8fFKJzD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B281F000FF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790690745;
+	bh=VWqrz0PQBQafrnuUvM872YR0gmn76hR2P3X1h/x+F9Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=U8fFKJzDg9VQJ1MYquviyTW94rOZ4p99G0Xw30YywoGMHBURtvTab3kbcdQOGxerG
+	 piXitQq2oob4KKGq1zIWZM/9qMfhC58FKSLKFNhvKto6R0w6GxG9NKw0i0pnfYeBQP
+	 yYbwSD6LAUF9zUTJQsxN8odfsrmW6S8c7yKYmorq6iXCcrY/0wpCbo2oAwgFYQ+WWv
+	 MeQmbhYN+HWLnx3vosB/nSUMAEzPZ+gEOTWEKA2FTJ8DMCgRe4A0tJ4GrQxiYRkb7Y
+	 Ph3A6+350CRXxFR91AqzSYdsN2jV0QFIeIbpxxjdDkOPKom2tC+pumkRP1Qvle6Bi0
+	 YEfT3fduPUMBA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a302c06eceso36372551fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:05:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxUfFnepTpmgNpKSByWXl/0GYA/tO8nXHjr5qRBfcfRWQN2XGMMd4MjrfvfpmNMgEOUiPul3YP0dkaTnB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlgVV8WMrsGehLnfjVgz4+nz0rMc97AhZwSm3YHUKb5BrfxLxb
+	mEhkiE4FemHqlqEhFAxBW/Kv7yebWVu/kEKf3ZcKO+h1L64Peg4eQBumt+xhh/3ghizlT4HPlII
+	qs7IcHl6Zjg6ktoZkIPklytanwHe/ucqXzkNCsfD7Ww==
+X-Received: by 2002:a2e:a590:0:b0:3a7:635c:d563 with SMTP id
+ 38308e7fff4ca-3a7635cd713mr10714931fa.26.1790690744454; Tue, 29 Sep 2026
+ 07:05:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916142623.359336-3-zhouchuyi@bytedance.com>
+References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
+ <arZRZfa7AmDxmwoJ@ashevche-desk.local> <20260925125433.GY106095@black.igk.intel.com>
+ <araGjQoaffMhDMLz@ashevche-desk.local> <20260926100727.GB106095@black.igk.intel.com>
+ <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
+ <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
+ <20260928123446.GH106095@black.igk.intel.com> <CAHp75VfxMwLMPDQr9f=3ea8Z+5zja=kT01o-fhkyrc-V1rh3Hg@mail.gmail.com>
+ <8fa77d7021ddf66f344c139d3bbeebcdb47ebfa8.camel@linux.intel.com>
+ <CAHp75VcqqsTSiyGxeZeNXHAVM2ujux26Nmc5C4CNJA-Fqxn5Kg@mail.gmail.com>
+ <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com> <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
+In-Reply-To: <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Tue, 29 Sep 2026 16:05:31 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
+X-Gm-Features: AclHuK_bsMCOZtLrUWL95SwI-0lCshARGsgrcXW2Ask3cdoimum8AEXwpOm32xs
+Message-ID: <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
+Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, Lixu Zhang <lixu.zhang@intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mika Westerberg <westeri@kernel.org>, 
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>, Hans de Goede <hansg@kernel.org>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Chuyi,
+On Tue, Sep 29, 2026 at 3:31=E2=80=AFPM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+> > >
+> > > Just send it now, in any case my series is blocked as I have not seen
+> > > a consensus on what to do. Or do we? Bart, Sakari?
+> > >
+> >
+> > If I didn't make myself clear: I would love it if there was a single so=
+urce
+> > of intel GPIO pull-requests (most likely Andy) for *all* intel GPIO dri=
+vers
+> > even if they have additional reviewers. I'd also love for them to live =
+in
+> > a single subdirectory at drivers/gpio/intel/. Otherwise, it's still cha=
+os like
+> > right now, just worse.
+> >
+> > This is in line with pinctrl vendor directories. I also don't see a rea=
+son for
+> > moving Kconfig options into their own vendor submenus if we keep the to=
+p-level
+> > entries sorted by driver type.
+>
+> So, as of now it doesn't seem like an agreement among all parties. My
+> opinion is that it's good to have PMIC be separated from the other
+> code, although I don't know if the camera PMIC GPIO driver that is
+> used with IPUx is good to go under the intel/pmic subfolder. I also
+> believe that camera related drivers are the best to be handled by the
+> media tree (as it's done, exempli gratia, for int3472).
+>
+> At the end of the day you will have a single PR from me, but it won't
+> include camera stuff unless Sakari agrees to send a PR to me (which I
+> think won't be the case).
+>
 
-On Wed, Sep 16, 2026 at 10:26:22PM +0800, Chuyi Zhou wrote:
-> cpuinfo_avg_freq is documented as a frequency derived from hardware
-> feedback, but it uses arch_freq_get_on_cpu(), which supplies a fallback
-> on x86 when the cached sample is unavailable. Userspace cannot distinguish
-> that value from a measurement. With amd-pstate-epp, for example, the
-> fallback is policy->min even under the performance policy. A fallback
-> based on the requested frequency also does not establish the frequency
-> at which the hardware actually ran.
-> 
-> Use arch_freq_get_avg() for cpuinfo_avg_freq reads and support detection.
-> On x86, unavailable samples then return -EAGAIN instead of a fallback
-> frequency, and the attribute is omitted when APERF/MPERF is unsupported.
-> 
-> Provide a weak default returning -EOPNOTSUPP and reuse the existing ARM64
-> AMU implementation. Preserve the behavior of ARM64, scaling_cur_freq
-> and /proc/cpuinfo.
-> 
-> Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
-> ---
->  Documentation/admin-guide/pm/cpufreq.rst | 11 +++++++++--
->  arch/arm64/kernel/topology.c             |  7 ++++++-
->  drivers/cpufreq/cpufreq.c                | 19 +++++++++++++++++--
->  3 files changed, 32 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/pm/cpufreq.rst b/Documentation/admin-guide/pm/cpufreq.rst
-> index 34baf20cc202..3057829b01bd 100644
-> --- a/Documentation/admin-guide/pm/cpufreq.rst
-> +++ b/Documentation/admin-guide/pm/cpufreq.rst
-> @@ -255,12 +255,19 @@ are the following:
->  
->          This is expected to be based on the frequency the hardware actually runs
->          at and, as such, might require specialised hardware support (such as AMU
-> -        extension on ARM). If one cannot be determined, this attribute should
-> -        not be present.
-> +        extension on ARM or APERF/MPERF on x86). This attribute is not present
-> +        when hardware feedback is unsupported.
->  
->          Note that failed attempt to retrieve current frequency for a given
->          CPU(s) will result in an appropriate error, i.e.: EAGAIN for CPU that
->          remains idle (raised on ARM).
-> +        The attribute remains present during temporary sampling gaps.
-That's bit ambigous - what are 'temporary sampling gaps' ?
-Sampling did not take place, samples were outdated or somewhat invalid ?
-Also, isn't that implied by the sentence above.
-> +
-> +        On x86, reads use cached APERF/MPERF samples without waking the target
-Is there a case when the target is woken up for this particular attribute
-readings ?
-> +        CPU to collect new samples. An expired sample or a zero MPERF delta
-> +        results in ``EAGAIN`` instead of a fallback to a policy or reference
-> +        frequency. A CPU that has just entered idle can still have a usable
-> +        sample, while a busy CPU excluded from periodic sampling can lack one.
->  
->  ``cpuinfo_max_freq``
->  	Maximum possible operating frequency the CPUs belonging to this policy
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index d28438f8b83f..939d3e4ce5d2 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -181,7 +181,7 @@ void arch_cpu_idle_enter(void)
->  
->  #define AMU_SAMPLE_EXP_MS	20
->  
-> -int arch_freq_get_on_cpu(int cpu)
-> +int arch_freq_get_avg(int cpu)
->  {
->  	struct amu_cntr_sample *amu_sample;
->  	unsigned int start_cpu = cpu;
-> @@ -250,6 +250,11 @@ int arch_freq_get_on_cpu(int cpu)
->  	return freq;
->  }
->  
-> +int arch_freq_get_on_cpu(int cpu)
-> +{
-> +	return arch_freq_get_avg(cpu);
-> +}
-> +
-I do not think this is needed.
+I thought we agreed usbio would be moved out of drivers/gpio/ and into
+media? That leaves intel/pmic as the only subdirectory IIUC.
 
----
-BR
-Beata
->  static void amu_fie_setup(const struct cpumask *cpus)
->  {
->  	int cpu;
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 0d0df986fa3d..21bec6b7f538 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -705,9 +705,24 @@ __weak int arch_freq_get_on_cpu(int cpu)
->  	return -EOPNOTSUPP;
->  }
->  
-> +/**
-> + * arch_freq_get_avg() - Get an average frequency from hardware feedback
-> + * @cpu: CPU to read.
-> + *
-> + * Provide cpuinfo_avg_freq with an average operating frequency derived
-> + * from recent hardware feedback for @cpu or its frequency domain.
-> + *
-> + * Return: Frequency in kHz, -EOPNOTSUPP if feedback is unsupported for the
-> + * CPU or policy under the current configuration.
-> + */
-> +__weak int arch_freq_get_avg(int cpu)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
->  static inline bool cpufreq_avg_freq_supported(struct cpufreq_policy *policy)
->  {
-> -	return arch_freq_get_on_cpu(policy->cpu) != -EOPNOTSUPP;
-> +	return arch_freq_get_avg(policy->cpu) != -EOPNOTSUPP;
->  }
->  
->  static ssize_t show_scaling_cur_freq(struct cpufreq_policy *policy, char *buf)
-> @@ -769,7 +784,7 @@ static ssize_t show_cpuinfo_cur_freq(struct cpufreq_policy *policy,
->  static ssize_t show_cpuinfo_avg_freq(struct cpufreq_policy *policy,
->  				     char *buf)
->  {
-> -	int avg_freq = arch_freq_get_on_cpu(policy->cpu);
-> +	int avg_freq = arch_freq_get_avg(policy->cpu);
->  
->  	if (avg_freq > 0)
->  		return sysfs_emit(buf, "%u\n", avg_freq);
-> -- 
-> 2.20.1
+Bart
