@@ -1,259 +1,91 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DF852CCFE;
-	Tue, 29 Sep 2026 14:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99183D45EA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692376; cv=none; b=t2PmTcR4KDrDdK7Gu/dL/i4cP3EkOv0JUUaC+B2GlDX9uXLfn2o3SsIEwnhMfw9xbGMTT7aFzPjCiUzmfuMPF2d1yeEqWB60G14PZTtNFdG7YYvp92+Qs0RnIKTC4J00023nRDPsy4Q3dErVrrEjZch0ZADecCNCHAYQRQTN49w=
+	t=1790692405; cv=none; b=YAfsKqkX45drQnLI99CVERsHoOywiqSPvUEz5U0d9AW8bpG4WwbQ2KFWMR4iyrCPnyhCe9sZlmn2XcEToEbUlTFOgNSt4XbsBiGonTCRunfO9PZh87MVjmEfsZFCAMJOI7zYsxBPwTjZcuYB9W/OBVSEtOGSg6U6DETn8SA1bPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692376; c=relaxed/simple;
-	bh=rLh0/yJsYc4k0rf14CEkNFcjZfcnxoCJV4Cvpt6fjD4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EtX462yCxCx5LMEPFkFK2TkeRBb+oqZMj0tslvs1l0MSt44n7QgrwyemWeX7lXspCl0umj9q0rIP3cUKpvQMI9Kmo6F+uNUiYs4ZFntEF+qXw1Ovevif1mH1B56YQoeHggcBNlWJxkr68dbeZSgCTCyYfEcENyi1dJlfRKDTYP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sAjqq+QF; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790692405; c=relaxed/simple;
+	bh=sqIXHsgjuzSOpBDIveJReY9Pac4X4nNriTQoVEBFmoI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lc07v6EKrAOr8fHZYFv3aTyMJtAlyxr9HSQcMVSLdzmaWY+1a4GYCzMgcdjfCVnbRq6W8dz8m2CzLJyzvFD5o+3G7PXuKnRT72NAO3NDHMJOiOBYGAom0GgbYUrBaigZyVxMriivaSkBfDt4MjqfM1Cr+kgzIh3odZC5Vf3IP9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMk7n7fK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sAjqq+QF"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hvLHd37HmzMlMZ;
-	Tue, 29 Sep 2026 16:32:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790692365; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eVPHcNKEnZbCUM6JPhhPFFrAPt2luGsLtj/T1FhlUww=;
-	b=sAjqq+QFsRWG4O8Ysdhye6ymk/YJpItyiAVQAOVpRMOvGZ74lyjGudKliWAOMPap0n5mKB
-	dpFmtgMR8tY+9Uj/3UCPK/yfi9XUbuu621WiuC/G55qt5fZEXAERBv0mHowPxJ8Hb8esO6
-	2uk6hOywYa0FXkSGksUJglhaveT3yGMmfkhlx6WlRj9Q7VHeeNfGdflD8hKFmiJVQmY+pS
-	DqUoWaX+2DB2CJrVvnjGOz55FPNbo5DyxL+Bvc8ssLnBRTrFsNUZ2NpJpjp/4Ik84lMBEE
-	d7isf4Qknjqu3VwAmMgYOxH5CMhI3W3yjFFDK2AVoTX4F2G58FIY0zFzFSgkLg==
-Message-ID: <cc55db30a4a7ca274c95ff3351644515a404de67.camel@mailbox.org>
-Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
-	 <dakr@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 16:32:43 +0200
-In-Reply-To: <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
-References: <20260923150308.1294592-2-phasta@kernel.org>
-	 <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
-	 <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
-	 <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
-	 <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
-	 <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
-	 <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
-	 <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMk7n7fK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84491F000FF;
+	Tue, 29 Sep 2026 14:33:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790692403;
+	bh=hJHLsnpcNA0uTePr2GlOIQUb3XJZmhtwsyzzBMfiqjs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QMk7n7fK582l2SG6gvpFPcNiwSIAWgS/JHPXyyx/xyD9rd4yc0MFOaQ5CHanM5wDX
+	 wPHjijvU1QRKT0q7i424r4ppLn8RMpZydfTaEulN5vZAL4Di83V939/W0Z0Ymfpluo
+	 p1J9aF+eisnKXsh9pqX1+TLfVhLAoGmsGJnaqpt2ffNiJMwc1fUIUITXFMIcKuY7b5
+	 /d0fac8HxoIqoCsGP+3H0M5kN9myuetgA5FEX2IjIif6Eti66NfTkBpSVdclRIHKcR
+	 Uqnw5emfULHcHJm9txWntjFpm22TbC6pQ1FjZV0vabEbJfE7LOJAKc9YJKaLQhooge
+	 CKfjvxI6LVPWQ==
+Date: Tue, 29 Sep 2026 15:33:18 +0100
+From: Will Deacon <will@kernel.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	syzbot+635d160c0d4133481520@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [RFC PATCH] arm64: mm: recover from kernel-mode SEA via
+ exception table
+Message-ID: <arvMLr8Mdh6ZKCtq@willie-the-truck>
+References: <20260912135546.55977-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 3b9ebjbwdr95psixijzyfucgu5xndqwe
-X-MBO-RS-ID: 0ea9bc353001fd077be
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912135546.55977-1-ngocthang2710.1999@gmail.com>
 
-+Cc Danilo
+On Sat, Sep 12, 2026 at 08:55:46PM +0700, Nguyen Ngoc Thang wrote:
+> do_sea() unconditionally calls die() for a synchronous external
+> abort taken at EL1, without ever consulting the exception table.
+> This is inconsistent with __do_kernel_fault(), which does check
+> fixup_exception() before giving up.
+> 
+> A SEA at EL1 is reachable and recoverable: futex's LL/SC atomic ops
+> (__llsc_futex_cmpxchg/__llsc_futex_atomic_*) carry
+> _ASM_EXTABLE_UACCESS_ERR entries, but if the user address is mapped
+> to Device memory (e.g. a PCI BAR obtained via sysfs "resourceN" and
+> mmap'd MAP_FIXED), the LDXR/STLXR pair faults with a SEA instead of
+> a translation fault, and the extable fixup is never reached, so the
+> kernel oopses instead of returning -EFAULT to userspace.
+> 
+> Check fixup_exception() for kernel-mode SEAs before dying, mirroring
+> __do_kernel_fault(). No taint is added on the recovered path since
+> this is a userspace-triggerable condition, not a hardware failure;
+> a ratelimited warning keeps a trace of it.
+> 
+> Reported-by: syzbot+635d160c0d4133481520@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=635d160c0d4133481520
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> Sent as RFC: verified by code inspection (ESR/DFSC decode matches
+> the extable-carrying LL/SC futex path) but not yet reproduced under
+> QEMU on my end; would appreciate a look before I chase the aarch64
+> repro further.
+> 
+>  arch/arm64/mm/fault.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 
-On Tue, 2026-09-29 at 15:32 +0200, Christian K=C3=B6nig wrote:
-> On 9/25/26 10:42, Philipp Stanner wrote:
-> > On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
-> > > Some problems like the locking design are still WIP, but we are
-> > > slowly moving towards that.
-> >=20
-> > The question will be whether we can reach common ground with that
-> > one.
->=20
-> I haven't had a chance to look into your alternative to using RCU,
+I guess this is trying to solve same issue that was reported here:
 
-That was just a nasty, still half broken RFC that doesn't really work
-(yet), just to see how the rough idea might resonate.
+https://lore.kernel.org/all/apsIH2hDpeiGiazJ@willie-the-truck/
 
-Basically, I think that at the heart of fence's problems are these
-issues:
+however, I suspect you don't have to try too hard to make the abort
+asynchronous and then this won't help. At least, if we want to go down
+this route (or having a fixup), we need a way to guarantee that these
+things are always synchronous.
 
-a) fence and fence_context can share a lock
-b) thus, the driver often protects driver data with that lock
-c) drivers now are allowed to take the fence-lock manually
-d) thus, the fence-state cannot consistently be protected with the lock
-
-The fundamental problems were IMO worked around with RCU.
-
-I think if we re-designed dma_fence today, we would do it like that:
-
-a) each fence has its own lock
-b) the driver cannot (legally) access a fence-lock
-c) the entire fence state is protected by the lock
-d) the fence lifetime is completely covered by refcounting
-e) signaling is the decoupling point. Signaled-state is guarded by the lock
-f) fence->ops access is, through the signaled-state guard, also guarded by =
-the lock.
-g) all fence API functions are locking-atomic. For example,
-   dme_fence_set_error() should not exist, but dma_fence_signal(err)
-   should take the code and do all operations while holding the
-   lock.
-
-If the driver can never take the lock, then there cannot be a lock
-inversion (unless the driver would signal while holding its own lock,
-which should be avoidable).
-
-
-So my idea would have been that, similarly to how you added the
-inline_lock a year ago, we add another super_lock to dma_fence, which
-is always present, for all users.
-
-We could then add this lock as a second locking layer around the
-existing inline / shared lock and implement the rules listed above with
-it.
-
-This is just a crazy idea =E2=80=93 it's obviously horribly dangerous and
-fragile because of locking order. So I'm not sure if it's worth
-exploring further.
-
-But if we had a time-machine I think that's what we would tell
-ourselves to do.
-
-
-> but you mentioned that you found a solution to the problem on the
-> RUST side so it sounded to me that we at least have a path forward.
-
-In Rust we just obey 100% to the current dma_fence contract. We do use
-RCU, and establish the signaled-state as strict decoupling point for
-driver-unload.
-
-Since all the code is new, we just don't implement deprecated
-callbacks, and we use inline_lock.
-
-I take the fence lock manually where necessary, and sometimes where
-half-necessary.
-
-Fence::is_signaled() for example takes and releases the lock like you
-do in the AMD code example below, so that all future API users know
-with 100% certainty that all callbacks have run once the function
-returns true.
-
-(what our Rust design, ironically, solves is ops->signaled() not being
-usable for users of drm_sched, because of drm_sched_fence being in
-between)
-
->=20
-> > >=20
-> > > But some problems like parts of the dma_fence uAPI are unfixable
-> > > without time travel.
-> >=20
-> > I would be especially interested in learning about who the party is
-> > that apparently is spinning on dma_fence_is_signaled(), supposedly
-> > preventing us from getting the memory ordering right.
->=20
-> Well there isn't spinning on it. It's just that in a SMP system it
-> takes some time for state to transfer between CPU cores and that
-> communication channel often becomes a bottleneck.
-
-No no, that's not what I mean. Having ops->signaled() is unrelated to
-my question.
-
-I'm asking about this:
-
-static inline bool
-dma_fence_is_signaled(struct dma_fence *fence)
-{
-	const struct dma_fence_ops *ops;
-
-	if (dma_fence_test_signaled_flag(fence))
-		return true;
-
-
-You said once that I cannot add lock protection to that if-evaluation.
-And IIRC the reason was that someone would complain about performance.
-Who is that someone?
-
-That's what I meant: that someone would have to be looping on
-dma_fence_is_signaled() to feel the lock.
-
-The reason I want the lock there is that I want to get rid of things
-like that:
-
-void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
-{
-	[=E2=80=A6]
-
-	/* Make sure that all fence callbacks have completed */
-	dma_fence_lock_irqsave(vm->last_tlb_flush, flags);
-	dma_fence_unlock_irqrestore(vm->last_tlb_flush, flags);
-
-
->=20
-> By implementing the is_signaled callback you avoid that device->CPU
-> core A->CPU core B signaling making things much more responsive.
->=20
-> Even on ancient drivers like radeon people start to complain when the
-> is_signaled callback is removed, so it is definitely necessary.
-
-We can keep the callback, I think it being there is not a decisive
-issue.
-
-Though I don't get why it being there would make things faster. My
-understanding so far was that it's only good for parties that do not
-signal fences via interrupt.
-
-Who triggers the check via ops->is_signaled()? You once said it's
-typically the compositor.
-
-Since you mention Radeon I suppose it can indeed only be drivers that
-don't use drm_sched.
-
-> > Also learning more about the users that definitely *need* ops-
-> > > signaled() and ops->enable_signaling() would be interesting.
-> > > drm_sched
-> > users cannot make use of these, since the sched-fence does not pass
-> > the
-> > request through to the hardware fence.
-> >=20
-> > So who are the users? Parties like Nouveau implement these
-> > callbacks,
-> > but it's not clear whether they actually need them.
->=20
-> The eviction fence and KFD fence in amdgpu as well as the preemption
-> fence in XE and i915 depend on that to note whenever somebody starts
-> depending on the fence.
->=20
-> Additional to that I just last week have talked with some Qualcomm
-> folks who desperately want device to device signaling without waking
-> up the CPU. The enabling_signaling callback is necessary for that as
-> well.
->=20
-> For Nouveau I think that it is pretty much pointless to implement
-> those callbacks, but I'm not 100% sure.
-
-I tried to remove them 1-2 years ago and then ran into massive
-performance degradations, which indicates that Nouveau uses them for
-some performance trick, maybe to reduce interrupt load. Didn't explore
-it further.
-
-
-P.
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > (btw, funnily enough, with the Rust-fence design we finally have
-> > the
-> > ability to fully support all callbacks with or without a scheduler,
-> > since the need for an intermediate fence disappeared)
-> >=20
-> >=20
-> > P.
+Will
