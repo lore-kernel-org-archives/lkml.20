@@ -1,148 +1,169 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF7A522EEA;
-	Tue, 29 Sep 2026 13:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ECE3E6DEB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688676; cv=none; b=VAas1z4cygyyT+rOntH+JzXx1uShoMKGCiNIHnwcuqcgfCzcRNoh4d/5kY5oLqZgDR1wlKkaxTx5w0Q0IORCQ7z6TTv67pS6eh45Tiwq7K17MuqBu3WUGRkL+Oou8TNLDdv0tEnVDDdbsgg8Xz76KfFSnqZET0caVIb6LiWybzY=
+	t=1790688689; cv=none; b=o1kXZkZ1ZQmgUP1wixSftTjMPDIh/WTe/Ya7Z9lqzl//ptgHsn2LN0DLzKauPLNvzQhj2X5nQQQvcTugoLB4JhaGoWzRkoi/t3bWMIrBGwPfiB57ZrRbAnsd8D1m0jGbegM9Kvb1MWZfpj0r+7QZH8YkWamgb+PEfYbOKz/4lfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688676; c=relaxed/simple;
-	bh=VjHeBljt2CDSsJAWfzAzTdo5B0hkvQTyMqqc3a8SMKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Wvy5xxRxpIF05rydkyj10wIpEgzDCQUdRcrLSmmQt7sNgVaGzD5EjA5/h16pqE7i12lPPryw8O8mO/RVd2/9+4WfloSLq50nabMnEsf2Ji2jbu/PO5Az9BV+1u4MlHeGBRkdrGAZBok7OcsIUF3Zl406NZXfD+FZoz9GhnJ+ubo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vm48OB8D; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790688689; c=relaxed/simple;
+	bh=vZHQZnKzND2V3/5evi3PxqRTOZ+codyE0Rd6KAGY/NU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=LSUMZLqBHnkHSbQLLCGc2sUwJFOBHTqiHmS6Z8+Ks7lSwmtUVqNGg9Q9fHnrld5jFHzOYCozuBKYcQvvA68SmIsRXd+76vdrChxODPsKpi0gIZREWXKEzNW3kGo1jgLm+XaJenkPQ58TyE0I8AKW+IbhVTgkYMxYuR4J83jUSSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cluWDE+n; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vm48OB8D"
-Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6CFA55B3;
-	Tue, 29 Sep 2026 15:29:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790688560;
-	bh=VjHeBljt2CDSsJAWfzAzTdo5B0hkvQTyMqqc3a8SMKk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=vm48OB8D8gzKeAZ31DRR9OUfv6BB/OsPleSkO7/aD4mkr+nGIauhVw07NaEv9zQ7I
-	 Z4GnvlSb4cdMwP1AAhdrTYM9pThmP08M/p6araB4NIr9qdFhI9F8QxQphhFdM1kX3a
-	 JFTWJS2Bo1MCOKPQo0qXODkKSLTGJcHTnRTKAfgw=
-From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Subject: [PATCH v1] media: rcar-isp: ispcore: Fix inconsistent step sizes
-Date: Tue, 29 Sep 2026 15:30:21 +0200
-Message-ID: <20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cluWDE+n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=vZHQZnKzND2V3/5evi3PxqRTOZ+codyE0Rd6KAGY/NU=; b=c
+	luWDE+n2qfSNB+jwRWl1AcPHF/Ts6yalzPxDWhosnUlWOkso14Mw7dZfxGZQdvaW
+	9UohRvp7H14Zsl1K1TTinXS897DVjS1+uzabc5SXWHWkWgaqNSSiUIC95rsF7uTc
+	lN4OZfInd5BwI86oBdVMpAcer7EudQtICmk1475PLg=
+Date: Tue, 29 Sep 2026 21:30:25 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Heming Zhao" <heming.zhao@suse.com>
+Cc: "Joseph Qi" <joseph.qi@linux.alibaba.com>,
+	"Andrew Morton" <akpm@linux-foundation.org>,
+	"Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: validate extent list in filecheck repair
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <6e19a760.6fea.1a0e709b376.Coremail.19888972804@163.com>
+References: <20260926131848.3379842-1-yaojiale02@163.com>
+ <744a70bd-5455-421f-a37d-1c0a63f54b60@linux.alibaba.com>
+ <aroZaYiB-DUxFyLs@p15>
+ <6e19a760.6fea.1a0e709b376.Coremail.19888972804@163.com>
+X-NTES-SC: AL_Qu2SAvqTt04p4yGZZukcn08ShO49XMOyvfoi2YFTc+YElSvC4RoGdl5RBEDrysmADR2RkSe5VRVvzuh+cbRyOs3u1iW3UET2mYnrgc5mEA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <699a3fcd.9ad4.1a0ed5c01e1.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bigvCgD3v0FxvbtqYfxQAA--.655W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhEVT2q7vXFarAAA3u
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-`risp_io_{input,capture}_enum_framesizes()` sets the horizonal and vertical
-step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
-to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
-
-So move these constants into macros to avoid the repetition, and with that,
-use 4 as the step size everywhere.
-
-Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
----
- .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
- 1 file changed, 24 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-index 820af506f896c..b60b91f43d42d 100644
---- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-@@ -15,6 +15,12 @@
- 
- #include "risp-core.h"
- 
-+#define RISP_MIN_WIDTH 128
-+#define RISP_MAX_WIDTH 5120
-+#define RISP_MIN_HEIGHT 128
-+#define RISP_MAX_HEIGHT 4096
-+#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
-+
- #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
- 
- static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
-@@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
- {
- 	unsigned int bpp = 0;
- 
--	v4l_bound_align_image(&pix->width, 128, 5120, 2,
--			      &pix->height, 128, 4096, 2, 0);
-+	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-+			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-+			      0);
- 
- 	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
- 		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
-@@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
- 
- 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
- 
--	fsize->stepwise.min_width = 128;
--	fsize->stepwise.max_width = 5120;
--	fsize->stepwise.step_width = 2;
-+	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-+	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-+	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
- 
--	fsize->stepwise.min_height = 128;
--	fsize->stepwise.max_height = 4096;
--	fsize->stepwise.step_height = 2;
-+	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-+	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-+	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
- 
- 	return 0;
- }
-@@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
- static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
- 				       struct v4l2_pix_format_mplane *pix)
- {
--	v4l_bound_align_image(&pix->width, 128, 5120, 2,
--			      &pix->height, 128, 4096, 2, 0);
-+	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-+			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-+			      0);
- 
- 	pix->field = V4L2_FIELD_NONE;
- 	pix->colorspace = V4L2_COLORSPACE_SRGB;
-@@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
- 
- 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
- 
--	fsize->stepwise.min_width = 128;
--	fsize->stepwise.max_width = 5120;
--	fsize->stepwise.step_width = 2;
-+	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-+	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-+	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
- 
--	fsize->stepwise.min_height = 128;
--	fsize->stepwise.max_height = 4096;
--	fsize->stepwise.step_height = 2;
-+	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-+	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-+	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
- 
- 	return 0;
- }
--- 
-2.55.0
+U2VlIHYyIGluLCBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA5MjkxMzI4MTguMjU5
+ODcwLTEteWFvamlhbGUwMkAxNjMuY29tLwpBdCAyMDI2LTA5LTI4IDE2OjAyOjQ3LCAiamlhbGUg
+eWFvIiA8MTk4ODg5NzI4MDRAMTYzLmNvbT4gd3JvdGU6Cj5UaGFua3MgZm9yIHRoZSByZXZpZXcu
+IEkgYWdyZWUgdGhhdCB0aGlzIHNob3VsZCBiZSB0cmVhdGVkIGFzIGFuCj5leHRlbnNpb24gb2Yg
+b25saW5lIGZpbGVjaGVjayByYXRoZXIgdGhhbiBhIGZpeCBmb3IgZDU2YThmMzJlNGM2Lgo+Cj5J
+IHdpbGwgcHJlcGFyZSBhIHYyIHdpdGggdGhlIGZvbGxvd2luZyBjaGFuZ2VzOgo+Cj4tIERyb3Ag
+dGhlIEZpeGVzIGFuZCBzdGFibGUgdGFncyBhbmQgZGVzY3JpYmUgdGhlIGNoYW5nZSBhcyBhZGRp
+dGlvbmFsCj4gICBmaWxlY2hlY2sgdmFsaWRhdGlvbi4KPi0gRXh0cmFjdCB0aGUgZXhpc3Rpbmcg
+ZXh0ZW50LWxpc3QgY2hlY2tzIGZyb20KPiAgIG9jZnMyX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKCkg
+aW50byBhIHNtYWxsIHNoYXJlZCBoZWxwZXIgaW5zdGVhZCBvZgo+ICAgZHVwbGljYXRpbmcgdGhl
+bS4KPi0gUmVtb3ZlIGVudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzLgo+LSBLZWVwIHRoZSBy
+ZXBhaXIgcG9saWN5IHVuY2hhbmdlZDogcmVqZWN0IGFuIGludmFsaWQgbF9jb3VudCwgd2hpbGUK
+PiAgIGFsbG93aW5nIHRoZSBleGlzdGluZyBjb2RlIHRvIGNsYW1wIGxfbmV4dF9mcmVlX3JlYyB0
+byBsX2NvdW50Lgo+Cj5UaGFua3MsCj5KaWFsZQo+Cj4KPkF0IDIwMjYtMDktMjggMTU6Mzk6MTQs
+ICJIZW1pbmcgWmhhbyIgPGhlbWluZy56aGFvQHN1c2UuY29tPiB3cm90ZToKPj5PbiBNb24sIFNl
+cCAyOCwgMjAyNiBhdCAwOTozMzoxMkFNICswODAwLCBKb3NlcGggUWkgd3JvdGU6Cj4+PiAKPj4+
+IAo+Pj4gT24gOS8yNi8yNiA5OjE4IFBNLCBKaWFsZSBZYW8gd3JvdGU6Cj4+PiA+IG9jZnMyX2Zp
+bGVjaGVja192YWxpZGF0ZV9pbm9kZV9ibG9jaygpIGRvZXMgbm90IHZhbGlkYXRlIHRoZSBlbWJl
+ZGRlZAo+Pj4gPiBleHRlbnQgbGlzdCwgd2hpbGUgb2NmczJfZmlsZWNoZWNrX3JlcGFpcl9pbm9k
+ZV9ibG9jaygpIG9ubHkgY2xhbXBzCj4+PiA+IGxfbmV4dF9mcmVlX3JlYyB0byBsX2NvdW50LiAg
+VGhlIG5vcm1hbCBpbm9kZSByZWFkIHBhdGggcmVxdWlyZXMgbF9jb3VudAo+Pj4gPiB0byBiZSBu
+b24temVybywgbGltaXRzIGl0IHRvIHRoZSBudW1iZXIgb2YgZXh0ZW50IHJlY29yZHMgdGhhdCBm
+aXQgaW4gdGhlCj4+PiA+IGlub2RlLCBhbmQgcmVxdWlyZXMgbF9uZXh0X2ZyZWVfcmVjIG5vdCB0
+byBleGNlZWQgbF9jb3VudC4KPj4+ID4gCj4+PiA+IFdpdGhvdXQgdGhlIHNhbWUgY2hlY2tzLCBm
+aWxlY2hlY2sgY2FuIHJlcG9ydCBTVUNDRVNTIHdoaWxlIGxlYXZpbmcgYW4KPj4+ID4gaW52YWxp
+ZCBleHRlbnQgbGlzdCBvbiBkaXNrLiAgQSBsYXRlciByZWFkIHRocm91Z2ggdGhlIG5vcm1hbCBp
+bm9kZQo+Pj4gPiB2YWxpZGF0aW9uIHBhdGggcmVqZWN0cyB0aGUgaW5vZGUgYW5kIG1ha2VzIHRo
+ZSBmaWxlc3lzdGVtIHJlYWQtb25seS4KPj4+ID4gCj4+PiA+IEFkZCBhIHNoYXJlZCBoZWxwZXIg
+Zm9yIHRoZSBmaWxlY2hlY2sgcGF0aHMgdG8gY2hlY2sgdGhlc2UgaW52YXJpYW50cy4KPj4+ID4g
+VGhlIGZpbGVjaGVjayB2YWxpZGF0b3Igbm93IHJlamVjdHMgYWxsIHRocmVlIGNhc2VzLiAgVGhl
+IHJlcGFpciBwYXRoCj4+PiA+IHN0aWxsIGNsYW1wcyBsX25leHRfZnJlZV9yZWMsIGJ1dCByZWZ1
+c2VzIHRvIHJlcGFpciB6ZXJvIG9yIG92ZXJzaXplZAo+Pj4gPiBsX2NvdW50IHZhbHVlcy4KPj4+
+ID4gCj4+PiA+IEZpeGVzOiBkNTZhOGYzMmU0YzYgKCJvY2ZzMjogY2hlY2svZml4IGlub2RlIGJs
+b2NrIGZvciBvbmxpbmUgZmlsZSBjaGVjayIpCj4+PiAKPj4+IEknZCBsaWtlIG1ha2UgdGhpcyBh
+cyBhIG5ldyBhYmlsaXR5IHJhdGhlciB0aGFuIGEgYnVnIGZpeC4KPj4KPj5BZ3JlZQo+Pgo+Pklu
+IG15IGV4cGVyaWVuY2UsIHVzZXJzIHJ1biBvbmxpbmUgZmlsZSBjaGVja3Mgb25seSB3aGVuIGlu
+b2RlIGRhdGEgaXMgY29ycnVwdGVkLAo+Pm9yIHdoZW4gZnNjay9kZWJ1Z2ZzIGhhcyBhbHJlYWR5
+IHJlcG9ydGVkIGFuIGlub2RlIGlzc3VlIHByaW9yIHRvIHRoZSBjaGVjay4KPj4KPj5UaGUgRml4
+ZXMgdGFnIHNob3VsZCBvbmx5IGJlIHVzZWQgZm9yIHRoZSBwYXRjaCB0aGF0IGZpeGVzIHRoZSB1
+bmludGVuZGVkIHBhbmljCj4+YW5kIHJlYWQtb25seSBpc3N1ZSBpbnRyb2R1Y2VkIGJ5IGNvbW1p
+dCBkNTZhOGYzMmU0YzYuCj4+Cj4+LSBIZW1pbmcKPj4KPj4+IAo+Pj4gPiBTaWduZWQtb2ZmLWJ5
+OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4+ID4gLS0tCj4+PiA+ICBmcy9vY2Zz
+Mi9pbm9kZS5jIHwgNzEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrCj4+PiA+ICAxIGZpbGUgY2hhbmdlZCwgNzEgaW5zZXJ0aW9ucygrKQo+Pj4gPiAKPj4+
+ID4gZGlmZiAtLWdpdCBhL2ZzL29jZnMyL2lub2RlLmMgYi9mcy9vY2ZzMi9pbm9kZS5jCj4+PiA+
+IGluZGV4IDE4MDEwN2ExMTA0Ni4uNTcxNjhlZDAyOTE1IDEwMDY0NAo+Pj4gPiAtLS0gYS9mcy9v
+Y2ZzMi9pbm9kZS5jCj4+PiA+ICsrKyBiL2ZzL29jZnMyL2lub2RlLmMKPj4+ID4gQEAgLTI0OSw2
+ICsyNDksNDEgQEAgc3RhdGljIGludCBvY2ZzMl9kaW5vZGVfaGFzX2V4dGVudHMoc3RydWN0IG9j
+ZnMyX2Rpbm9kZSAqZGkpCj4+PiA+ICAJcmV0dXJuIDE7Cj4+PiA+ICB9Cj4+PiA+ICAKPj4+ID4g
+K2VudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzIHsKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElT
+VF9PSywKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElTVF9aRVJPX0NPVU5ULAo+Pj4gPiArCU9DRlMy
+X0VYVEVOVF9MSVNUX09WRVJTSVpFRCwKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElTVF9CQURfTkVY
+VF9GUkVFLAo+Pj4gPiArfTsKPj4+ID4gKwo+Pj4gPiArc3RhdGljIGVudW0gb2NmczJfZXh0ZW50
+X2xpc3Rfc3RhdHVzCj4+PiA+ICtvY2ZzMl9jaGVja19leHRlbnRfbGlzdChzdHJ1Y3Qgc3VwZXJf
+YmxvY2sgKnNiLCBzdHJ1Y3Qgb2NmczJfZGlub2RlICpkaSkKPj4+ID4gK3sKPj4+ID4gKwlzdHJ1
+Y3Qgb2NmczJfZXh0ZW50X2xpc3QgKmVsID0gJmRpLT5pZDIuaV9saXN0Owo+Pj4gPiArCXUxNiBj
+b3VudDsKPj4+ID4gKwl1MTYgbmV4dF9mcmVlOwo+Pj4gPiArCj4+PiA+ICsJaWYgKCFvY2ZzMl9k
+aW5vZGVfaGFzX2V4dGVudHMoZGkpKQo+Pj4gPiArCQlyZXR1cm4gT0NGUzJfRVhURU5UX0xJU1Rf
+T0s7Cj4+PiA+ICsKPj4+ID4gKwljb3VudCA9IGxlMTZfdG9fY3B1KGVsLT5sX2NvdW50KTsKPj4+
+ID4gKwluZXh0X2ZyZWUgPSBsZTE2X3RvX2NwdShlbC0+bF9uZXh0X2ZyZWVfcmVjKTsKPj4+ID4g
+KwlpZiAoY291bnQgPT0gMCkKPj4+ID4gKwkJcmV0dXJuIE9DRlMyX0VYVEVOVF9MSVNUX1pFUk9f
+Q09VTlQ7Cj4+PiA+ICsJLyoKPj4+ID4gKwkgKiBUaGUgZXhhY3QgY2FwYWNpdHkgZGVwZW5kcyBv
+biBpX3hhdHRyX2lubGluZV9zaXplLCBhbm90aGVyCj4+PiA+ICsJICogdW52YWxpZGF0ZWQgb24t
+ZGlzayBmaWVsZC4gSW5saW5lIHhhdHRycyBvbmx5IHNocmluayB0aGUKPj4+ID4gKwkgKiBsaXN0
+LCBzbyB0aGUgbm8teGF0dHIgbWF4aW11bSBpcyBhIHNhZmUgdXBwZXIgYm91bmQgdGhhdCBhCj4+
+PiA+ICsJICogdmFsaWQgbF9jb3VudCBuZXZlciBleGNlZWRzLgo+Pj4gPiArCSAqLwo+Pj4gPiAr
+CWlmIChjb3VudCA+IG9jZnMyX2V4dGVudF9yZWNzX3Blcl9pbm9kZShzYikpCj4+PiA+ICsJCXJl
+dHVybiBPQ0ZTMl9FWFRFTlRfTElTVF9PVkVSU0laRUQ7Cj4+PiA+ICsJaWYgKG5leHRfZnJlZSA+
+IGNvdW50KQo+Pj4gPiArCQlyZXR1cm4gT0NGUzJfRVhURU5UX0xJU1RfQkFEX05FWFRfRlJFRTsK
+Pj4+ID4gKwo+Pj4gPiArCXJldHVybiBPQ0ZTMl9FWFRFTlRfTElTVF9PSzsKPj4+ID4gK30KPj4+
+IAo+Pj4gVGhpcyBzZWVtcyBhIGR1cGxpY2F0ZWQgY2hlY2sgaW4gb2NmczJfdmFsaWRhdGVfaW5v
+ZGVfYmxvY2soKS4KPj4+IFNvIEkgc3VnZ3Vlc3QganVzdCBleHRyYWN0IHRoZSBoZWxwZXIgZnJv
+bSBpdCBpbnN0ZWFkIG9mIGR1cGxpY2F0aW5nCj4+PiBhIG5ldyBvbmUuCj4+PiAKPj4+IEJUVywg
+c2VlbXMgd2UgZG9uJ3QgaGF2ZSB0byBpbnRyb2R1Y2UgZW51bSBvY2ZzMl9leHRlbnRfbGlzdF9z
+dGF0dXMsCj4+PiB0byBtYWtlIHRoZSBjaGVja3Mgc2ltcGxlLgo+Pj4gCj4+PiBUaGFua3MsCj4+
+PiBKb3NlcGgKPj4+IAo+Pj4gPiArCj4+PiA+ICAvKgo+Pj4gPiAgICogaGVyZSdzIGhvdyBpbm9k
+ZXMgZ2V0IHJlYWQgZnJvbSBkaXNrOgo+Pj4gPiAgICogaWdldDVfbG9ja2VkIC0+IGZpbmRfYWN0
+b3IgLT4gT0NGUzJfRklORF9BQ1RPUgo+Pj4gPiBAQCAtMTgzNSw2ICsxODcwLDMzIEBAIHN0YXRp
+YyBpbnQgb2NmczJfZmlsZWNoZWNrX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKHN0cnVjdCBzdXBlcl9i
+bG9jayAqc2IsCj4+PiA+ICAJCWdvdG8gYmFpbDsKPj4+ID4gIAl9Cj4+PiA+ICAKPj4+ID4gKwlz
+d2l0Y2ggKG9jZnMyX2NoZWNrX2V4dGVudF9saXN0KHNiLCBkaSkpIHsKPj4+ID4gKwljYXNlIE9D
+RlMyX0VYVEVOVF9MSVNUX09LOgo+Pj4gPiArCQlicmVhazsKPj4+ID4gKwljYXNlIE9DRlMyX0VY
+VEVOVF9MSVNUX1pFUk9fQ09VTlQ6Cj4+PiA+ICsJCW1sb2coTUxfRVJST1IsCj4+PiA+ICsJCSAg
+ICAgIkZpbGVjaGVjazogaW52YWxpZCBkaW5vZGUgIyVsbHU6IGV4dGVudCBsaXN0IGxfY291bnQg
+aXMgemVyb1xuIiwKPj4+ID4gKwkJICAgICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2Nr
+bnIpOwo+Pj4gPiArCQlyYyA9IC1PQ0ZTMl9GSUxFQ0hFQ0tfRVJSX0lOVkFMSURJTk87Cj4+PiA+
+ICsJCWdvdG8gYmFpbDsKPj4+ID4gKwljYXNlIE9DRlMyX0VYVEVOVF9MSVNUX09WRVJTSVpFRDoK
+Pj4+ID4gKwkJbWxvZyhNTF9FUlJPUiwKPj4+ID4gKwkJICAgICAiRmlsZWNoZWNrOiBpbnZhbGlk
+IGRpbm9kZSAjJWxsdTogZXh0ZW50IGxpc3QgbF9jb3VudCAldSBleGNlZWRzIG1heCAldVxuIiwK
+Pj4+ID4gKwkJICAgICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2NrbnIsCj4+PiA+ICsJ
+CSAgICAgbGUxNl90b19jcHUoZGktPmlkMi5pX2xpc3QubF9jb3VudCksCj4+PiA+ICsJCSAgICAg
+b2NmczJfZXh0ZW50X3JlY3NfcGVyX2lub2RlKHNiKSk7Cj4+PiA+ICsJCXJjID0gLU9DRlMyX0ZJ
+TEVDSEVDS19FUlJfSU5WQUxJRElOTzsKPj4+ID4gKwkJZ290byBiYWlsOwo+Pj4gPiArCWNhc2Ug
+T0NGUzJfRVhURU5UX0xJU1RfQkFEX05FWFRfRlJFRToKPj4+ID4gKwkJbWxvZyhNTF9FUlJPUiwK
+Pj4+ID4gKwkJICAgICAiRmlsZWNoZWNrOiBpbnZhbGlkIGRpbm9kZSAjJWxsdTogZXh0ZW50IGxp
+c3QgbF9uZXh0X2ZyZWVfcmVjICV1IGV4Y2VlZHMgbF9jb3VudCAldVxuIiwKPj4+ID4gKwkJICAg
+ICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2NrbnIsCj4+PiA+ICsJCSAgICAgbGUxNl90
+b19jcHUoZGktPmlkMi5pX2xpc3QubF9uZXh0X2ZyZWVfcmVjKSwKPj4+ID4gKwkJICAgICBsZTE2
+X3RvX2NwdShkaS0+aWQyLmlfbGlzdC5sX2NvdW50KSk7Cj4+PiA+ICsJCXJjID0gLU9DRlMyX0ZJ
+TEVDSEVDS19FUlJfSU5WQUxJRElOTzsKPj4+ID4gKwkJZ290byBiYWlsOwo+Pj4gPiArCX0KPj4+
+ID4gKwo+Pj4gPiAgCWlmIChvY2ZzMl9kaW5vZGVfaGFzX3NpemVfd2l0aG91dF9jbHVzdGVycyhz
+YiwgZGkpKSB7Cj4+PiA+ICAJCWlmIChTX0lTRElSKGxlMTZfdG9fY3B1KGRpLT5pX21vZGUpKSkK
+Pj4+ID4gIAkJCW1sb2coTUxfRVJST1IsCj4+PiA+IEBAIC0xODkzLDYgKzE5NTUsMTUgQEAgc3Rh
+dGljIGludCBvY2ZzMl9maWxlY2hlY2tfcmVwYWlyX2lub2RlX2Jsb2NrKHN0cnVjdCBzdXBlcl9i
+bG9jayAqc2IsCj4+PiA+ICAJCXJldHVybiAtT0NGUzJfRklMRUNIRUNLX0VSUl9WQUxJREZMQUc7
+Cj4+PiA+ICAJfQo+Pj4gPiAgCj4+PiA+ICsJc3dpdGNoIChvY2ZzMl9jaGVja19leHRlbnRfbGlz
+dChzYiwgZGkpKSB7Cj4+PiA+ICsJY2FzZSBPQ0ZTMl9FWFRFTlRfTElTVF9PSzoKPj4+ID4gKwlj
+YXNlIE9DRlMyX0VYVEVOVF9MSVNUX0JBRF9ORVhUX0ZSRUU6Cj4+PiA+ICsJCWJyZWFrOwo+Pj4g
+PiArCWNhc2UgT0NGUzJfRVhURU5UX0xJU1RfWkVST19DT1VOVDoKPj4+ID4gKwljYXNlIE9DRlMy
+X0VYVEVOVF9MSVNUX09WRVJTSVpFRDoKPj4+ID4gKwkJcmV0dXJuIC1PQ0ZTMl9GSUxFQ0hFQ0tf
+RVJSX0lOVkFMSURJTk87Cj4+PiA+ICsJfQo+Pj4gPiArCj4+PiA+ICAJaWYgKGxlNjRfdG9fY3B1
+KGRpLT5pX2Jsa25vKSAhPSBiaC0+Yl9ibG9ja25yKSB7Cj4+PiA+ICAJCWRpLT5pX2Jsa25vID0g
+Y3B1X3RvX2xlNjQoYmgtPmJfYmxvY2tucik7Cj4+PiA+ICAJCWNoYW5nZWQgPSAxOwo+Pj4gCg==
 
