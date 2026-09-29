@@ -1,91 +1,213 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C490D3B19AF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C62D372EDD;
+	Tue, 29 Sep 2026 23:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726250; cv=none; b=DK/oDzx+Fb8Rb+OUAceprydlsqidWjxQxXQLtxyi6ymCZe+1ShCrbJJulKoaE6onxxRlh861ACMnIwyrRdbirzxOFu/yBnhCYxoSmGAN/jv9N55wAfPIXLfwGGGtP+LACLAFmTc0B3j2UcjBsI7KqRqUcKeSDzu+LEgfCq/ST3o=
+	t=1790726298; cv=none; b=PMZCzIpfTmsH+DzB8bfbO+G7tGjswanwgFnD1s0eaHOVF8Rbkw2TqTVuXXJnPTe1GfVQo7Ab38G6Dk28M9cS5hXoamH+Bp7f4rY5pkTdFcDWRzN9HxsO+SY4NJPmTxKEzSKgJj029ZAiPVk/TIy6rL/S5FT9wVq+7cmN9htHkzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726250; c=relaxed/simple;
-	bh=9Qwqr4O1Hk5QXM5BJaunl/8mdy0F4NYnkgxyteM1Vsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crSF7/AL31alrsjHBa+8ETZs/SfClS5BMGoFe+CIhMZBYFokrdlMSg47MHLrOx9tl7X8QKC30RFkByJUewX0YRl0FAo6BUEvSVXoQu+EYZIms0BNEPQMLROg1Fx+bFY2zHIrNeaXHWPoccp2e+Jr489co4GAqWd20XaondhCcxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=YL89hyDz; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790726298; c=relaxed/simple;
+	bh=c7MoQ0McuuWc5hSvRsoKsLhQpIvXSpZ1py4o7MufjE0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=tTJDuqXhaQK9WP4RO2rIoJJFenOhE7fIAOj0pgXYn/5fsL2pIBrpqkLE1Yc6E2PUMVLTw/oVVjTAbf+VM5vWDQKHk7qIq7JHeceDYuZqrywLtlqJJUQjSaUWwgFGqy+t6eeK+wgt8cPEgoUZDzBzqkoid796gmnhhIfEa1OUuXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjTZO47C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="YL89hyDz"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6F3A840E01ED;
-	Tue, 29 Sep 2026 23:57:25 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id WcJGX6yWGAaZ; Tue, 29 Sep 2026 23:57:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790726235; bh=3TXQNKNtzGun0BzILCNXXur5LDD3gQiPLPIRxrj+WG4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YL89hyDzenYImpeqKNKHZ4i6ZprbjH0W03mpQCP9ikOeqO38mqi5diJTtwKNXkDyf
-	 pqWwmbu/ooyDUHmaP+ke6qxm9GWSwJSJBdhunEwGu9J0giXNfBRKY6yUDzN6PPn1ML
-	 Uu/JCQIyiXpoXVF0gOeuR2YSIdlOXHR3cpwmOwMht31naPayaVyYyfKa6GGP98Wxb5
-	 TZ/X23gz17mWIMKJwnyAfbNyj13YQ5M/AzfXpK5SrdOJXHctBwFcPcoml54NGi9ksW
-	 08czE+xLl+xAZZAdOiqU4oUMT4EUtkJ6PLjIQI9B5fezaxKqiOX2+atBr01SzAo63I
-	 mQhVplX/JiaL1MFsiSC0TnpahDHuxfXWWHm8/4ipTsu3sZQFrJhbJtfkEjWF7aM9KH
-	 d7ehHhY0xvGxTz7AVd67Owf0ppSSF0zdlJS5wQD/HQjzbdLiMFg26RCTXk1vF80mNu
-	 80+4sy6YIRStQQfVjRZ3Ae8GhmZuddAH/FblpyV4QeUhRjZCPtM8+88QHR8/lj94fo
-	 wtzHmv2k4hSPDBJ7hwe8Gq1l4vrXNPm0memTMQZwO+deUobk4VmYB5zWFsijGXOBbi
-	 Fje4f/BlFXiJyAekUUpHdee5W1heIbZPa5z24j5Qj2Itk1Ihskki44ZGDQlA8xenZZ
-	 7uFCNYRsPoQckH8d8mQpA2Nc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D386940E015D;
-	Tue, 29 Sep 2026 23:57:04 +0000 (UTC)
-Date: Tue, 29 Sep 2026 16:57:00 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Andrei Vagin <avagin@google.com>
-Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
-	criu@lists.linux.dev, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 0/2] x86/fpu: Allow restoring signal frames with larger
- xstate_size
-Message-ID: <20260929235700.GBarxQTLOrWy1I3UZr@fat_crate.local>
-References: <20260929232621.3745312-1-avagin@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjTZO47C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356B01F000FF;
+	Tue, 29 Sep 2026 23:58:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790726296;
+	bh=kJtbXgOmUBQQmBkKV/prrCPczHPcLI1tyn/KSadxlnA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SjTZO47CxVHRnnhWyZqWRGIwx5oQ/Z02pb4YyCKZoFsEO9Gh+x4xdps7wWLsnAxtr
+	 psyFdlrKKXp9k5l6sZ/ByK5OFyYux5mpbyuY4CVwNaIDXEvhAc2Nd4Hl5jfW3q76Kw
+	 rzKRHDLV69q4Sh1AhdPgYAg/VfVTsaiaEQtCZ2z+v5cjdAg6FBdQUSf0iVCE8rka6P
+	 41JZZewK7BEASloNvL0OjuZhGkQCXKp/P4jFnZA9YbKLqvhkuDMyfUyJ5vHTW7Iv8H
+	 bkA1FYCh4TjsUPrrSSPdObFlj8f53gEgy5nHOwYtaKoPy4eipcPBl9Q+f4tGJcqpsk
+	 Tlw2J2sakYFhQ==
+Date: Wed, 30 Sep 2026 08:58:11 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers
+ <irogers@google.com>, James Clark <james.clark@linaro.org>, Jiri Olsa
+ <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, LKML
+ <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, Masami
+ Hiramatsu <mhiramat@kernel.org>, Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH v2 8/8] perf tools: Update debuginfo__new() to take DSO
+Message-Id: <20260930085811.bf08e4fa082f4f303b7fe817@kernel.org>
+In-Reply-To: <20260929011139.53242-9-namhyung@kernel.org>
+References: <20260929011139.53242-1-namhyung@kernel.org>
+	<20260929011139.53242-9-namhyung@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929232621.3745312-1-avagin@google.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 11:26:19PM +0000, Andrei Vagin wrote:
-> When a process is checkpointed on one machine and restored on another
-> (e.g., via CRIU during container/process migration), any signal frame on
-> its stack carries the xstate layout of the source CPU.
+On Mon, 28 Sep 2026 18:11:39 -0700
+Namhyung Kim <namhyung@kernel.org> wrote:
+
+> It should be the common case to get debuginfo from existing DSOs.
+> Now dso__debuginfo() calls it with its debuginfo type to avoid the
+> unnecessary loop to find the location of debug file.
 > 
-> Commit fd14edd82077 ("x86/fpu: Pre-fault only required size of xstate
-> buffer") enabled restoring signal frames created on CPUs with a smaller
-> xstate_size than the destination host's default. However,
-> check_xstate_in_sigframe() still enforces that a signal frame's
-> xstate_size must not exceed the current task's fpstate->user_size.
+> Update existing function to debuginfo__from_path() for clarity.
+> 
 
-Hmm, what happened? Change of heart after the fact?
+Looks good to me.
 
-So I guess I am zapping fd14edd82077 from tip:x86/fpu now and then we test
-some more before we try this again?
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+Thanks!
+
+> Reviewed-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> ---
+>  tools/perf/util/debuginfo.c   | 28 ++++++++++++++++++----------
+>  tools/perf/util/debuginfo.h   | 13 +++++++++++--
+>  tools/perf/util/dso.c         | 11 ++---------
+>  tools/perf/util/probe-event.c |  4 ++--
+>  4 files changed, 33 insertions(+), 23 deletions(-)
+> 
+> diff --git a/tools/perf/util/debuginfo.c b/tools/perf/util/debuginfo.c
+> index fc2640dcd29d3aaa..db188c397d63880c 100644
+> --- a/tools/perf/util/debuginfo.c
+> +++ b/tools/perf/util/debuginfo.c
+> @@ -91,13 +91,27 @@ static struct debuginfo *__debuginfo__new(const char *path)
+>  	return dbg;
+>  }
+>  
+> -struct debuginfo *debuginfo__new(const char *path)
+> +struct debuginfo *debuginfo__new(struct dso *dso)
+> +{
+> +	struct debuginfo *dinfo;
+> +	char *path;
+> +	bool decomp = false;
+> +
+> +	dso__find_dbginfo_type(dso);
+> +	path = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
+> +	if (path == NULL)
+> +		return NULL;
+> +
+> +	dinfo = __debuginfo__new(path);
+> +	dso__put_filename(dso, path, decomp);
+> +	return dinfo;
+> +}
+> +
+> +struct debuginfo *debuginfo__from_path(const char *path)
+>  {
+>  	struct dso *dso;
+>  	struct debuginfo *dinfo;
+>  	struct build_id bid = { .size = 0 };
+> -	char *filename;
+> -	bool decomp = false;
+>  
+>  	/* Try to open distro debuginfo files */
+>  	dso = dso__new(path);
+> @@ -112,13 +126,7 @@ struct debuginfo *debuginfo__new(const char *path)
+>  	if (filename__read_build_id(path, &bid) > 0)
+>  		dso__set_build_id(dso, &bid);
+>  
+> -	dso__find_dbginfo_type(dso);
+> -	filename = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
+> -	if (filename == NULL)
+> -		return NULL;
+> -
+> -	dinfo = __debuginfo__new(filename);
+> -	dso__put_filename(dso, filename, decomp);
+> +	dinfo = debuginfo__new(dso);
+>  	dso__put(dso);
+>  
+>  	return dinfo;
+> diff --git a/tools/perf/util/debuginfo.h b/tools/perf/util/debuginfo.h
+> index a52d69932815cd72..ade40d54ea125988 100644
+> --- a/tools/perf/util/debuginfo.h
+> +++ b/tools/perf/util/debuginfo.h
+> @@ -18,8 +18,12 @@ struct debuginfo {
+>  	const unsigned char	*build_id;
+>  };
+>  
+> +struct dso;
+> +
+>  /* This also tries to open distro debuginfo */
+> -struct debuginfo *debuginfo__new(const char *path);
+> +struct debuginfo *debuginfo__from_path(const char *path);
+> +/* Create a debuginfo using information in DSO */
+> +struct debuginfo *debuginfo__new(struct dso *dso);
+>  void debuginfo__delete(struct debuginfo *dbg);
+>  
+>  int debuginfo__get_text_offset(struct debuginfo *dbg, Dwarf_Addr *offs,
+> @@ -31,7 +35,12 @@ int debuginfo__get_text_offset(struct debuginfo *dbg, Dwarf_Addr *offs,
+>  struct debuginfo {
+>  };
+>  
+> -static inline struct debuginfo *debuginfo__new(const char *path __maybe_unused)
+> +static inline struct debuginfo *debuginfo__from_path(const char *path __maybe_unused)
+> +{
+> +	return NULL;
+> +}
+> +
+> +static inline struct debuginfo *debuginfo__new(struct dso *dso __maybe_unused)
+>  {
+>  	return NULL;
+>  }
+> diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+> index e4a2a0ea38823b5f..d3017c82ffb5f4b1 100644
+> --- a/tools/perf/util/dso.c
+> +++ b/tools/perf/util/dso.c
+> @@ -2086,17 +2086,10 @@ const u8 *dso__read_symbol(struct dso *dso, const char *symfs_filename,
+>  
+>  struct debuginfo *dso__debuginfo(struct dso *dso)
+>  {
+> -	char *name;
+> -	bool decomp = false;
+> -	struct debuginfo *dinfo = NULL;
+> +	struct debuginfo *dinfo;
+>  
+>  	mutex_lock(dso__lock(dso));
+> -
+> -	name = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
+> -	if (name) {
+> -		dinfo = debuginfo__new(name);
+> -		dso__put_filename(dso, name, decomp);
+> -	}
+> +	dinfo = debuginfo__new(dso);
+>  	mutex_unlock(dso__lock(dso));
+>  	return dinfo;
+>  }
+> diff --git a/tools/perf/util/probe-event.c b/tools/perf/util/probe-event.c
+> index 11ae4a09412c9bd9..1534280c0c1d59cb 100644
+> --- a/tools/perf/util/probe-event.c
+> +++ b/tools/perf/util/probe-event.c
+> @@ -519,7 +519,7 @@ static struct debuginfo *open_from_debuginfod(struct dso *dso, struct nsinfo *ns
+>  		pr_debug("Load debuginfo from debuginfod (%s)\n", path);
+>  
+>  	nsinfo__mountns_enter(nsi, &nsc);
+> -	ret = debuginfo__new((const char *)path);
+> +	ret = debuginfo__from_path((const char *)path);
+>  	nsinfo__mountns_exit(&nsc);
+>  	return ret;
+>  }
+> @@ -567,7 +567,7 @@ static struct debuginfo *open_debuginfo(const char *module, struct nsinfo *nsi,
+>  		path = dso__long_name(dso);
+>  	}
+>  	nsinfo__mountns_enter(nsi, &nsc);
+> -	ret = debuginfo__new(path);
+> +	ret = debuginfo__from_path(path);
+>  	if (!ret && !silent) {
+>  		pr_warning("The %s file has no debug information.\n", path);
+>  		if (!module || !strtailcmp(path, ".ko"))
+> -- 
+> 2.55.0
+> 
+> 
+
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
