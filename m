@@ -1,165 +1,93 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 821464F96D4;
-	Tue, 29 Sep 2026 10:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A1051A159;
+	Tue, 29 Sep 2026 10:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678477; cv=none; b=l49/G0+w9Cj+thjsNQdbv8UcYNQT/t4EA1LwTcjXunqTpR9ZumtllxhbvlKGJnpEelU8PMyN8S1MssNxZh1POguJh367R4klhwuHqogsMMrzi2xDGyZmPRVMCvvXFot3uMSrTOqkURgJUEoQNAdjWebT/gDwxgxatvna/bI9wRg=
+	t=1790678508; cv=none; b=KizajUSLLCPiqRmWeqqJ5YMM7bQp20MhvTVPKqlpwA0NuZAJqZZpE4NH+o9znTyzZxZJAtlZZ4e+4v5dCN6coTPTdtV/K+QwtOFEXhfMd7i7Q8TizQHoPeDNXVzj66DZkC2bhAQHq0nZe7xypeuT3niXsJ3s/1UYLVZCEzrD9jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678477; c=relaxed/simple;
-	bh=UZr89XgYGJTx/73Z6djBBnqWD8Mg/Y/eUHrTZhuEFYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FZQtnuXyUGy5WIfGvSoZ7znHpTkrUL0wQhX+3jNH0STfR1TR75FnTJybcMQGL2z7ivaaENrYySQfuFbNriAYxo/P50BB1eBC6x8BYWMKR2zOc6kVMyG21yHxr57ryCxHVXnwUAib1scA8lSgKsGkztZ2FLHlmgJ1EPX3LJ9JbKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jIm3ldFb; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790678508; c=relaxed/simple;
+	bh=ohVyGXhCgnwro20BvSE8QCBmsQ9YPbHoyspNgd1/HEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXy+MT1AqXHLw12CBkKp6p9KbO2Nz9++ch63kxs9jwM0pMUSrqt3dHYA0RYCOjpJ6hQL8kvRyGjtGWkag+3KL1307zq7GmH4uz7G/JAcCE/xXtjs0Un5Bq9DDALTAQ9+YEZI8Mzbtft38uvkNlZcls/3vwGQpttOo9xk8ATATb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEpQQkYc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jIm3ldFb"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 66642497;
-	Tue, 29 Sep 2026 03:40:56 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 44B443F86F;
-	Tue, 29 Sep 2026 03:40:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790678459; bh=UZr89XgYGJTx/73Z6djBBnqWD8Mg/Y/eUHrTZhuEFYQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jIm3ldFb5pk3+tqKp3bdQ7jRyTBU1tt/T+9urehbXxS751TBWNYOlsCXfYtzsid40
-	 pjThz3FBE7KeWWRNb56VbfgtpD+nqCUsLGsts7sSKdMDUhbcN0SzuK7+DnrWg1A1hz
-	 gpXx3jj1Rs1nnhyI/5x63AX1JHz53K4I6IZrCOS8=
-Date: Tue, 29 Sep 2026 11:40:46 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <aruVrvQcYCGe0HJ6@arm.com>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com>
- <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com>
- <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
- <arKVcjCOJf8p9rWL@arm.com>
- <4e315360-5b7a-4a0e-99c0-679a0271e625@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEpQQkYc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB2F1F000FF;
+	Tue, 29 Sep 2026 10:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790678496;
+	bh=dQn31xHbq0L/9f4jn80/zqGrFsjkBvOVj0bPXPL+JB4=;
+	h=From:To:Cc:Subject:Date;
+	b=CEpQQkYcXpf4Al1gCu4YnQPRD9UCvXY5TgZ1aWo6kmUw8yiOc/SwKXY2CXsa49Yv/
+	 ofAWhYmIQ7Mz8IpgJ1umyoL+LHVa3H1pOgkU7LweHrF0H89nEYchf5JaN0AHm/CuWx
+	 cJaA5SETCedj9UYBZYqdvm6EFh7w0C+XWLDgXddknD9Vt1DeksdhvzktMpcVyqEQ5E
+	 +xFnciBMlAFL1sqsKimT/gzlOdZgu/bODyopj8NJv4JKzvVz4ZPVJeZblskE9DhTrQ
+	 kdvL/r6OvljsRhOQ+DM1hkCyv50gYG+lZ5Q54t7nVPEtEddjaoLv4b053KSTU5xJwX
+	 gjnzxPe79s0Pg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Imran Shaik <imran.shaik@oss.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+	Jie Gan <jie.gan@oss.qualcomm.com>,
+	Xueyao An <xueyao.an@oss.qualcomm.com>,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: shikra: fix sdhc interrupts property
+Date: Tue, 29 Sep 2026 12:41:12 +0200
+Message-ID: <20260929104127.3156764-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4e315360-5b7a-4a0e-99c0-679a0271e625@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 12:01:18PM +0100, Suzuki K Poulose wrote:
-> On 22/09/2026 15:49, Catalin Marinas wrote:
-> > On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
-> > > I had another look and we could handle this via kvm_fault_is_gmem_abort()
-> > > see in arch/arm64/kvm/mmu.c:
-> > > 
-> > > 
-> > > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> > > index 87e49251e0447..af5a4bf961aae 100644
-> > > --- a/arch/arm64/kvm/mmu.c
-> > > +++ b/arch/arm64/kvm/mmu.c
-> > > @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
-> > > *s2fd)
-> > >          gfn_t gfn;
-> > >          int ret;
-> > > 
-> > > +       if (!kvm_slot_has_gmem(s2fd->memslot))
-> > > +               return -EINVAL;
-> > 
-> > I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
-> > changes, we should never get in this situation. Well, to be revisited
-> > for private devices.
-> > 
-> > Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
-> > kvm_fault_is_gmem_abort(). Something like:
-> > 
-> > 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
-> > 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
-> > 		return -EIO;
-> > 
-> > To me it makes more sense for gmem_abort() to be called only *if* it's a
-> > gmem slot. So any inconsistency, avoiding user_mem_abort() for private
-> > memory, should be done in the caller. I assume the caller will also have
-> > to route the private device path as well rather than rely on
-> > gmem_abort().
-> > 
-> > > +
-> > >          if (!perm_fault) {
-> > >                  memcache = get_mmu_memcache(vcpu);
-> > >                  ret = topup_mmu_memcache(vcpu, memcache);
-> > > @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
-> > > phys_addr_t fault_ipa);
-> > >   static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
-> > >                                      const struct kvm_s2_fault_desc *s2fd)
-> > >   {
-> > > -       if (!kvm_slot_has_gmem(s2fd->memslot))
-> > > -               return false;
-> > >          if (kvm_memslot_is_gmem_only(s2fd->memslot))
-> > >                  return true;
-> > > +       /*
-> > > +        * For Realms, all private faults must be backed by GMEM.
-> > > +        * TODO: Handle Trusted device private memory mappings.
-> > > +        */
-> > >          if (private_ipa_fault(kvm, s2fd->fault_ipa))
-> > >                  return true;
-> > >          return false;
-> > > 
-> > > 
-> > > Also, I have the following hunk for preventing memslot modifications.
-> > > I will add this to v20 integration branch, which is almost ready ;-)
-> > > 
-> > > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> > > index 582b48e34486b..87e49251e0447 100644
-> > > --- a/arch/arm64/kvm/mmu.c
-> > > +++ b/arch/arm64/kvm/mmu.c
-> > > @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
-> > >          }
-> > >   }
-> > > 
-> > > +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
-> > > +{
-> > > +       /* Cannot modify memslots once a pVM has run or Realm created */
-> > > +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
-> > > +               return false;
-> > > +
-> > > +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
-> > > +            kvm_realm_is_created(kvm))
-> > > +               return true;
-> > > +       return false;
-> > > +}
-> > > +
-> 
-> This needs to be tweaked for Realm to support non-secure device assignment.
-> Aneesh reports that the Device assignment fails now,
-> because the Device BAR reset deletes the memory slot and re-registers
-> it, which the above change prevents.
-> 
-> I will modify that to
-> 1. Prevent "Guest-memfd" backed memory slot deletion. Makes sure that
->    nothing can replace a private memory slot.
-> 2. Allow non-Guest-memfd backed memory slots to be created
->   after the Realm is created. We anyways prevent "private" memory
->   to be mapped from a non-Guest-memfd memslot.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Yes, I think this should be fine. But at least with the last version I
-looked at, we did not prevent private memory from being mapped from
-non-guest_memfd slots (there was a way to delete the gmem slot, add a
-normal one while the guest does a private IPA access). If we prevent
-gmem slot deletion, we no longer have this issue, although we should
-warn somewhere on the user_mem_abort() both.
+The gicv3 on this chip uses a 4-cell interrupt specifier, which
+includes the affinity, but the newly added mmc node uses the
+3-cell format:
 
-Anyway, to be discussed on the KVM patches, not here. I raised it
-initially here as I was looking whether a non-gmem slot ever ends up
-private and trigger the GPF.
+arch/arm64/boot/dts/qcom/shikra.dtsi:4151.4-27: Warning (interrupts_property): /soc@0/mmc@4784000:#interrupt-cells: size is (24), expected multiple of 16
 
+Add a zero affinity, same as for the other I/O devices on this chip.
+
+Fixes: c8e3d40457f1 ("arm64: dts: qcom: shikra: Add SD Card support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index 9823c591b02b..1814ab33e236 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -1470,8 +1470,8 @@ sdhc_2: mmc@4784000 {
+ 			compatible = "qcom,shikra-sdhci", "qcom,sdhci-msm-v5";
+ 			reg = <0x0 0x04784000 0x0 0x1000>;
+ 
+-			interrupts = <GIC_SPI 350 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
++			interrupts = <GIC_SPI 350 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			interrupt-names = "hc_irq",
+ 					  "pwr_irq";
+ 
 -- 
-Catalin
+2.53.0
+
