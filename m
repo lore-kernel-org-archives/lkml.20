@@ -1,100 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF20B388E4B;
-	Tue, 29 Sep 2026 19:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0DD53B603;
+	Tue, 29 Sep 2026 19:59:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711915; cv=none; b=lLd2WJCyfXX8wVCEEKYT7+asy77bYuXzuxGP1xM/Nk80F83bemMzYTpBMYacgrK/hu7LCsar3OalldhqlhtU10HHuOT7JPZNkclvCr94R2dsWlWXZU2rX8Ll+fL7hMmQjcbYVOI9WKWnqLidBAsKGXO/6ERCUjuDv4m54oqY4hc=
+	t=1790712001; cv=none; b=YdRZeW+g3c1noZLPEQ6r8zPw9Bz37xA3XvLDTokP+4I8tZWJUfV0g+croBiAUtMaTtH1+Mgi+b0Kbuz8bkkdrcrXtF/+5Qxk8+/u6G3uXa3jH4M1iIzEdnO3btE0CM9AAP4XtEokCBIziNd9iIrxHM466fDJGVOCIk37AcFp+DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711915; c=relaxed/simple;
-	bh=rzIyuyw2Sv4lrUy8xSI2ZMlSAC2YqPgM0Am+3ZBgb0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XmsusZa3Fbi0lljsqB58HQ2M4+meRKtoSwqbYy7QL4jC8oCpfEcVMhPlG1kRiX6JlqnneE1/OEhvXmc6E8xl4EH/DEKrJ6y0sHXRn+LEgV6DrbVva3qWXu8hjSziY6ESiVkK8SWkMOfALKvkwD4gS14HF6rKrS8xPpPl/Js0XwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MD8JS7rU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790712001; c=relaxed/simple;
+	bh=BHZIDW5MC/I2vncUVsPMoybZl+cU4d/ASq3TG+iYXBw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=oD3H5dBn3AjWS+2wx9/s4ZLdwZShdHfLqSvLwzEoqCHUWsTAGLNtbSBIlrFGMgR0t2Cgu9xLcfpN4xrdDPBcDH2NESdFRGWcqsx0RDom5eB/FZ+vR53g9dYc4kLN4ZZ7bAjvI6/u4PG2cHqbxH9iKsj+Zx6+WKjcKZoDTKh6+5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5pJq00c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MD8JS7rU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683301F000FF;
-	Tue, 29 Sep 2026 19:58:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5pJq00c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D761F000FF;
+	Tue, 29 Sep 2026 19:59:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790711912;
-	bh=FM08SSqsWSOZJWtV+yNcCq2za0yCimEnBoqDGB1eG60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MD8JS7rUltqIokKYj4s9NMk3Cw71hV8LHF0JdqABhcsGjIZOQMNizD0pmlplj4qQf
-	 uezCHmwJmrp3KKwtkEdcP8mhilJQuzmWMaktNjxSxnva1Nk+07kZ2kbFPllXEfHg5T
-	 ccAdRFxzUKCnrfboj8FpXsZiFbHn3BeOGSgu3uWn4qXiTcxMak+Crv+64pXOMifXUs
-	 tSC0V5lUA/Jor0235C/iyi83lx/m0koI1TgVDw1cCfVFoupkR4tJsy/VMPaifxBHdB
-	 YWlLq5R1VD5RLEoHobWJhABApSpeEo0BvRSE9B0RDZM8Bb+yztDCA96EONxPXRhdpH
-	 uoqezxorutw6w==
-Date: Tue, 29 Sep 2026 12:58:31 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH] clk: tenstorrent: use regmap_assign_bits() for
- conditional set/clear
-Message-ID: <arwYZ3rU1fNTFTld@x1>
-References: <20260924083439.461769-1-peng.fan@oss.nxp.com>
- <arV1rOMRG6D9erK8@thelio>
+	s=k20260515; t=1790711999;
+	bh=z2oa1OcDtqfJYCrJ3lsWN9bBLTjM9ok0eOwKjWlgV04=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=h5pJq00cLWLqy+pgZKxCIvZCY3qPuGjY1/niwFtITAHarht8XoCxt38A93iFfze2K
+	 j/6mQNjxtXTwnxZ+8r/D9/uTtO0F/6gvLxx0u/N+qJwtTDSeXw27CnJ4DpVwz6Bqhu
+	 wO6vzDmyFtu+OmSyqPqPBttuJBLqnNSdPW6YJXLofUpZ8Vw6cnXh1pnyXlSFXwN2e/
+	 4UG0yvKI8MzJAGUJCg5GlwHyCaSruIv0rQMGKGCFeqVJ4L6C3PXavgt6kLIl0ghhD+
+	 04TAgQBu8V5ZNinVlYFfDSZl+72XrPBhXLTlHSFNwTRf0pCL7+qjgcFyHE4+hI/lUo
+	 j5r6qFIVudMyw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arV1rOMRG6D9erK8@thelio>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] clang-tools: Import os for broken pipe handling
+From: Nathan Chancellor <nathan@kernel.org>
+To: =?utf-8?q?14=E4=BE=AF=E5=BB=B7=E7=BF=B0?= <ue081723@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+In-Reply-To: <CA+NtrhRdnuZOOFpBXvnfOXFs-HA8q+2sLvR0BxH=BjzVAEZBzw@mail.gmail.com>
+References: <179017337986.52388.7943687183785012868@gmail.com>
+ <179037565553.3985470.12035061965740287126.b4-reply@b4>
+ <CA+NtrhRdnuZOOFpBXvnfOXFs-HA8q+2sLvR0BxH=BjzVAEZBzw@mail.gmail.com>
+Date: Tue, 29 Sep 2026 21:59:52 +0200
+Message-Id: <179071199261.2735405.15944114878466249879.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=870; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=BHZIDW5MC/I2vncUVsPMoybZl+cU4d/ASq3TG+iYXBw=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFl7JHbseRAdfN9mt5lyqF7J+VWJ7LaXot3uWN7d+8o21
+ 1vIf9KpjhIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRbAGG73E9M7KFOLuzv337
+ 5Hwhl0HlqpqSiPwWlQ5zHv+8rapPGBmuHbx57HS6rOeXhlumdzenbXG/ZrnswvSPf87+3HEr7ud
+ WNgA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Thu, Sep 24, 2026 at 12:10:36PM -0700, Drew Fustini wrote:
-> On Thu, Sep 24, 2026 at 04:34:38PM +0800, Peng Fan (OSS) wrote:
-> > From: Peng Fan <peng.fan@nxp.com>
-> > 
-> > Replace if/else blocks using regmap_set_bits()/regmap_clear_bits() with
-> > the simpler regmap_assign_bits() call.
-> > 
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > ---
-> >  drivers/clk/tenstorrent/atlantis-prcm.c | 11 +++--------
-> >  1 file changed, 3 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
-> > index 6d4386eeb7dae..854b9c48816f2 100644
-> > --- a/drivers/clk/tenstorrent/atlantis-prcm.c
-> > +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
-> > @@ -205,14 +205,9 @@ static int atlantis_clk_gate_endisable(struct clk_hw *hw, int enable)
-> >  {
-> >  	struct atlantis_clk_gate *gate = hw_to_atlantis_clk_gate(hw);
-> >  
-> > -	if (enable)
-> > -		return regmap_set_bits(gate->common.regmap,
-> > -				       gate->config.reg_offset,
-> > -				       gate->config.enable);
-> > -	else
-> > -		return regmap_clear_bits(gate->common.regmap,
-> > -					 gate->config.reg_offset,
-> > -					 gate->config.enable);
-> > +	return regmap_assign_bits(gate->common.regmap,
-> > +				  gate->config.reg_offset,
-> > +				  gate->config.enable, enable);
-> >  }
-> >  
-> >  static int atlantis_clk_gate_enable(struct clk_hw *hw)
-> > -- 
-> > 2.50.1
+On 2026-09-26 08:52 +0800, 14侯廷翰 wrote:
+> From: Ting-Han Hou <ue081723@gmail.com>
 > 
-> Reviewed-by: Drew Fustini (Tenstorrent) <fustini@kernel.org>
+> The BrokenPipeError handler in run-clang-tools.py calls os.open() and
+> os.dup2() without importing os. If this handler is reached, it raises
+> NameError instead of redirecting stdout and exiting with status 1.
 > 
-> I will apply this to tenstorrent-clk-for-next.
+> Import os so the handler can work as intended.
+> 
+> Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
+> Assisted-by: LLM
+> Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+> ---
+>  scripts/clang-tools/run-clang-tools.py | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/scripts/clang-tools/run-clang-tools.py
+> b/scripts/clang-tools/run-clang-tools.py
 
-Applied to tenstorrent-clk-for-next:
+Your patch is mangled, so it cannot be applied (maybe you send it with a
+different client from your v1?). Please resend properly.
 
-  d5e56ca6c53b clk: tenstorrent: use regmap_assign_bits() for conditional set/clear
+-- 
+Cheers,
+Nathan
 
-Thanks,
-Drew
