@@ -1,106 +1,118 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F9336B067
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219893AEF56
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674279; cv=none; b=DZIC9oXOlD8e1OpIq0X90PqjKWrs7I7S7i+CuIZHvjplMls/CuOwRNu8T5kTId9k9uR9fV5J0j1NVzZGARhWhRagKlCh0RZO0MLHqY/XagenS/eUhHgM/K5E9dDZqpmN0qqz7zqBnXGD6bv5SWRGT5i8NC/hTEybL7+TNDhCn/g=
+	t=1790674292; cv=none; b=GNoSHUbQsOumj+lsaw8z/mp5lHzAiakHEpXoI5oZiEuRe2iT2VjGdSQ7qHwvhhpE+sgTPZW/d7pooIvx+eerf2W8VLLxO5jFNbYLvVTXEq6dnr04Zv7A6HASpyqNgGiChHuzvCb/UGiwYn+GwbRx0S01plWS9KhLV/Fc/gASq2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674279; c=relaxed/simple;
-	bh=HXOaTKSj6n5nt9NKB55ee/mH9zUNQAEV8tfkrSP0oI8=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=QSg6yy5E8LgGP6p5hP+ggwFtgOQfL+FEjSN6nBLj0V2PkH5ohnx04AGhM2LsTBoCM3aoBxxWsCsPDeT5+uvmkKGwtycfdl10PxNTtczI0kq8k0Pb5B5mxID8cYWD++GgasLtE9TfkmoDtMaa1AyESOxVF084ehHoOWlTQRIBzG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hvCbb2Cz8z5B101;
-	Tue, 29 Sep 2026 17:31:07 +0800 (CST)
-Received: from njy2app01.zte.com.cn ([10.40.12.136])
-	by mse-fl2.zte.com.cn with SMTP id 68T9UosI001485;
-	Tue, 29 Sep 2026 17:30:51 +0800 (+08)
-	(envelope-from sun.wenhan@zte.com.cn)
-Received: from mapi (njb2app07[null])
-	by mapi (Zmail) with MAPI id mid205;
-	Tue, 29 Sep 2026 17:30:53 +0800 (CST)
-X-Zmail-TransId: 2aff6abb854def5-521b0
-X-Mailer: Zmail v1.0
-Message-ID: <20260929173053186td0a5D4tn7cNBN-R8JyEp@zte.com.cn>
-In-Reply-To: <c8bd7448-e9f3-72fc-9c91-db0c2525a3a1@kernel.org>
-References: 202609220934.68M9Y2eC015972@mse-db.zte.com.cn,c8bd7448-e9f3-72fc-9c91-db0c2525a3a1@kernel.org
-Date: Tue, 29 Sep 2026 17:30:53 +0800 (CST)
+	s=arc-20240116; t=1790674292; c=relaxed/simple;
+	bh=hUrOZ52DDstARIDO01aRn/uvMq2nL0l0cd1Scv1pds8=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=nd03D8D9/tGZ94mdW59b/Y20ubhCC2zwGURXo0yyn7hlK6/f6SSXm/9veObt7yHVWe+CwJ14nfrWqcau4HFm0od5kGFr22yQFGpJXpQP2JtTFIJs6HPEpviXkdwsZXss4Nduy4Kt8vhzh4Dx9uzuKiMfDcsL/fQbHJ/njAox7AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=CCbFAu3A; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="CCbFAu3A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790674283; bh=rP1Kjv8k98xwAfYx7eMTbq7vYEhGH14gXrZgLKEr/R4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CCbFAu3AtcCWm8ZoP77iu6jMtJDHagKwWF6dkHdEL6SiYshY1Dnz4BYjH9J0k5NIp
+	 C4z6Zbdw4oqc9gc0M/TKeLFGRnmoIxYvcUKp8mZhVpKieOrZgn46Saay2O3FCcl4i5
+	 3mI7c6vCQT9hllI/xW9neVSCMuh0R9XnZjSeB2mY=
+Received: from lzk-B860M-AORUS-PRO-WIFI7 ([2409:8a28:a83:5ba1:514f:5353:e14b:594e])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 7899AE10; Tue, 29 Sep 2026 17:30:09 +0800
+X-QQ-mid: xmsmtpt1790674209td0i7yvm2
+Message-ID: <tencent_736FFBB76DA2EA0BF5E60B9BCFAAE9692707@qq.com>
+X-QQ-XMAILINFO: NwU6Bou9okj/siVb1eHQhL+Vspf7kVKi/MRFyz3JXUqc7UvJIWn92IwBYZKOlZ
+	 vriojD8PB13ppx8glRZC0ssNjXyPj/+KlsHJn50UEGxhYy3Wgz883kRXY+bIOavBkypbHqFwuLsZ
+	 Yn/G8E2MhepRLEKjzA7A4ZD/d2hw8hvr3C/Ok56voS3MpjvfaBfQx12ab9oBFVNq0dgWhta/rH5G
+	 o84eR/z5t9mvWXSfCX43vHCqxnmYTWCA2WhPU7N2wcvuHeGo50sAeByxfTWkbY5hhOLhA+QiLnhq
+	 xh8szW5ddQJTAMkTzz81xIlVAfw4435of7BruPztSOjAU47Sz0I8iJUCVH0jO1i7QaVezh6HTpuN
+	 BHbqAKgRvUL1AFjrJ5mbsekDd5Ed9kN66SHD7DzwWqi4zLvWbqilf/q4B80IJDgLkz5rmFQiO6r0
+	 cZdLtO6lOlNksuoNFpRIFq9qwnUMtlRVs9FYGXozZDnp5YhGn/aBvKgUaMk+BwXJcUyKsjoMRumx
+	 jesC51ki41DsmwdUGe+SKfM6KqN4EjZay880cl+FTbnqA/LvwG2rzCADij+Q1tCgejPGE95XEocM
+	 itc4HLpqT8HQ7buRSDjqyDslryCJLZaPZSnnNgodM1BcanQ/i1EXBBpUL6XVP+gbF2CMLFgKycQS
+	 GJJXuZfM2tRcZsfaAfcJnHp3AhGkTIRxBrr2HiqpJ57PJPidYJ02WKmmud6uV3EadcmU3pIF0+OO
+	 dDpAmSIaSNjyq+ELUIw3LWwGjVpobwFyQRctooFL9EcrlvjAx37tV+sJDY1ajT2JSSrmPvXJxaUZ
+	 4awGWdjyo5p5bltlCLgONS2IG/hiYz/9m4KMZDDUVhGxmZX6Cj0hk+25Jn6YUoKcgYlcz7WNYrTc
+	 RDCCn6rbYLvC8KMUfWmp8OByp060MK8kf9jQY2g/6bDdsSN/85MM18Vgp8mGI9H/qz9SPgzf1/wL
+	 FWPO+g/p1BnE7dTjXvk/CWRl2YvLAaKO5IDwry1Z53zhNdG1AqH/eJhmBTKXSnvVaxTFaW1NvgVf
+	 X+WXqLPha1UxuzIY3I2IMr2Y9fJo35HES7ZcFsXMh6EpY3lfIK3+UgCa8nYljO8hC8xtsDu4/LI/
+	 /WGBp5f2CVofzjGHlBu0iB3m6M550LCLoHen/PKDHNKgBpkCu/69aJeYQwBb9fnCnjE/cQ6yp6AN
+	 VcChw=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Zongkun Lei <leizongkun@qq.com>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zongkun Lei <leizongkun@qq.com>,
+	linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Kairui Song <kasong@tencent.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Hugh Dickins <hughd@google.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/6] mm: swap support for hugetlb folios
+Date: Tue, 29 Sep 2026 17:30:04 +0800
+X-OQ-MSGID: <20260929093007.555388-1-leizongkun@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <art0PItp9LoUXIcd@gremlin>
+References: <tencent_501F9D3CED07B66BAA97D5352FB63EE1A709@qq.com> <art0PItp9LoUXIcd@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <sun.wenhan@zte.com.cn>
-To: <pjw@kernel.org>
-Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, <jianjun.wang@linux.alibaba.com>,
-        <liu.qingtao2@zte.com.cn>, <lv.yating@zte.com.cn>,
-        <guo.chang2@zte.com.cn>, <deng.weixian@zte.com.cn>,
-        <hu.yuye@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIXSByaXNjdjogYWxpZ24gcGNpZSBidXMgYXNzaWduIGxvZ2ljIHdpdGggQVJNNjQ=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68T9UosI001485
-X-TLS: YES
-X-ENVELOPE-SENDER: sun.wenhan@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 29 Sep 2026 17:31:07 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6ABB855B.000/4hvCbb2Cz8z5B101
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-RISC-V currently relies on the asm-generic default of
-pcibios_assign_all_busses() returning 1, so the kernel always
-re-assigns all PCI bus numbers and ignores the bus numbers already
-set up by the firmware. This has two downsides.
+On Tue, 29 Sep 2026 09:18:51 +0100, Lorenzo Stoakes wrote:
+> What David said - hugetlb is in freeze so we're unfortunately not
+> interested in such a big change.
 
-As UEFI 2.8 has brought mature firmware support to RISC-V servers,
-the OS can trust and inherit the PCI bus enumeration done by the
-BIOS, skipping a redundant re-enumeration at boot and improving the
-boot time.
+Understood -- my mistake was misreading the subsystem's direction:
+from earlier list discussions I had concluded that keeping hugetlb's
+reservation semantics intact was the bar, and designed the series
+around that; I see now that the actual position is a broader feature
+freeze.  Thank you both for the straight answer.
 
-The unconditional re-assignment also causes bus numbering conflicts
-during PCI rescan. When a root port that is not the last one in the
-hierarchy is removed and the bus is rescanned, the kernel fails
-with:
+> Also you somehow sent the cover letter and the patches separately.
 
-    pci_bus 0000:01: busn_res: can not insert [bus 01-ff] under
-    [bus 00-ff] (conflicts with (null) [bus 02])
+My apologies for the mess.  My SMTP provider (QQ) rewrites the
+Message-ID header of outgoing mail but leaves In-Reply-To untouched,
+so the patches reference a cover Message-ID that never reached the
+list.
 
-Define pcibios_assign_all_busses() the same way as ARM64, so that
-RISC-V also preserves the bus numbers assigned by the firmware by
-default instead of always re-assigning them. This keeps RISC-V
-consistent with the other major architectures.
+> ... triggered an AI detector script ...
 
-Signed-off-by: sun wenhan <sun.wenhan@zte.com.cn>
----
- arch/riscv/include/asm/pci.h | 5 +++++
- 1 file changed, 5 insertions(+)
+Fair, and thank you for raising it openly.  Full disclosure: I used
+an LLM to help organise and polish the English of the cover letter
+and the per-patch commit messages.  It also reviewed the code, and
+some fixes found during those reviews were applied with its help.
+That said, I understand every line of the final code and can defend
+all of it in as much detail as anyone wants.  Going forward, any
+submission from me will carry the disclosure tag that
+Documentation/process/coding-assistants.html requires.
 
-diff --git a/arch/riscv/include/asm/pci.h b/arch/riscv/include/asm/pci.h
-index cc2a184cfc2e..b2f91abebd61 100644
---- a/arch/riscv/include/asm/pci.h
-+++ b/arch/riscv/include/asm/pci.h
-@@ -15,6 +15,11 @@
- #define PCIBIOS_MIN_IO		4
- #define PCIBIOS_MIN_MEM		16
+> ... we expect you to do smaller work before moving on to larger
+> changes ...
 
-+/*
-+ * Set to 1 if the kernel should re-assign all PCI bus numbers
-+ */
-+#define pcibios_assign_all_busses() (pci_has_flag(PCI_REASSIGN_ALL_BUS))
-+
- #if defined(CONFIG_PCI) && defined(CONFIG_NUMA)
- static inline int pcibus_to_node(struct pci_bus *bus)
- {
--- 
-2.27.0
+Point taken, and it is fair.  I will look for smaller mm work to
+build that track record -- pointers to a good entry point are
+welcome.
+
+Thanks for the detailed reply, and for pointing me in the right
+direction.
+
+Zongkun
+
