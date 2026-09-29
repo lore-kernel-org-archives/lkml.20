@@ -1,42 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E746E3DC4DD;
-	Tue, 29 Sep 2026 03:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5488E3DAAAA;
+	Tue, 29 Sep 2026 03:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651751; cv=none; b=jU52oJX9y/SUauZ3Q4tPUSQSOGu+8wkgo05TF6IoPhOY90AqJOCXsQRwKVC3333/iOxmfk16uQmjK/zfCUeDoa2WnBALOv7c4kmqPqX2GIEulrcD0BFqclA6Tp7YsLQV8fXMVO7a6lCY5v5vpNVPI5EZ+x96RT07/HeThkdspCE=
+	t=1790651752; cv=none; b=tkytvnW0LNuzTrBcFYa5huGyISrleqVAr4BABel0EAaxGGhBe/1TX+gFU9UVhN97cSGgKTuA0i/5svFevekftQDonZgtsDR4z7lZe9JgiRIuGvo/bPp8RncLB0Kn93j1QiwG7ekDt6Cp4c+Q4aiFThlU/TDZvCxGOI2/zuZPeTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651751; c=relaxed/simple;
-	bh=rzeRpF09s/thKlIjv77qUB7JCKtF8fBFDOVUd1fAntU=;
+	s=arc-20240116; t=1790651752; c=relaxed/simple;
+	bh=CbVjQfizRLDfmRdI7gcmB1od3YMdoLKlV25JJrzM9Hs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oyE6WG/sTJf9AuSTFY1XqsBNKIUDuXr17refxR9pB+ya93/mBFggHjpvmJMzOPOq7kxIMgSGCD63C2/9tJm1/px/P8YLOowuGEOFx/8oCMM4TWhryjxmKGu5qtQp0fvIYNzH7AsGIwp9MT0Jp2Yz1QphOMNQpdsARomgOUVKMOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4EdEIeG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XauB6OOi6BmbmYngc9xc61dJkFyYSMYDOo6GDGmf5ValVs/tHFmNOfAeMK26cijH7TCaYlsa5umcmeukglQMIfhpe5aTiN9ACacRxpAfoSvKj5vyV5UrEDEX3ukpTk2gBBmqaVBBwi4BCVhGiU25Vl+u6j25RnanY/CuXcSIEfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kudCjqJP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4EdEIeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAFD1F00893;
-	Tue, 29 Sep 2026 03:15:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kudCjqJP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3D61F0089A;
+	Tue, 29 Sep 2026 03:15:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651747;
-	bh=x02v9lYImerXfecy7cxoXIGqHCUHwmqRCjNJ6gPzsKk=;
+	s=k20260515; t=1790651750;
+	bh=hA8LUWW3PtjcaCrXtbh0vfqqPBEJbVf3BoVC5KmmLFM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X4EdEIeGVHL3WpS+RFlPkFfnko1VPNEPnI4ThUp+kSR4zTGzTUDlbEyQNuj7AoBRK
-	 fnK70PsB/blziapUWfcFebrMmAcL9ONBy3vPiy2ZsJUO+jfRYLb4YEPV/fAcwUKV1p
-	 5z/AElp1K5xZSiAzVO6FfQIul0tnZtWwcyn/r5PSWlQ45P4dB42Y4vEer5twSRDJBU
-	 eDOdvl5a6BqlXiLxo1LdkbQEXSDLl156fQiOeJow0rJoOgfiQXIZWjbfsjegUpJfpo
-	 mBwtoZBQhQ7THYdY6CcJuiLz68e3svtzm3+H1UiIw73MzPPgQr441uZTOIYi8Gy7CZ
-	 gBrlX7dBUmaeg==
+	b=kudCjqJPceZR1C78VsRk7LleDgpsvmIV24SIVD3dZ+wRgnFekpOwTu3Ur6hD3TZUd
+	 RiAxVuFsCVuuG19DT6Q/cSbsVBP3BP9gA3NyEk+b2/gOl2/FkUPg6Vgc/CoiML7v8o
+	 U/7wJWokF6KAHW/eKkthRCq1CD6g5tMcoVQhAZTHet3B6qTuK9BCQQhI0vMpFzTvWG
+	 3RSwc29tGg3KSVPJV+lyWFRg01s6iJerS4gBll85LACInhk62twOkIa9tlQRY6RoKJ
+	 VSaDNXjJaWz7CFyG7PCEqpFVxa23LFPNdqWqXeKOzVcrsix5gBWJsi0LXPu/Rn7Y1D
+	 YjG/clYMbBOVw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Hemanth Selam <hemanth.selam@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] firmware: fix typos in comments
-Date: Mon, 28 Sep 2026 22:14:45 -0500
-Message-ID: <179065170966.2673486.16315687113712437439.b4-ty@b4>
+Subject: Re: [PATCH] clk: qcom: Fix camera rivian PLL configuration settings
+Date: Mon, 28 Sep 2026 22:14:47 -0500
+Message-ID: <179065170918.2673486.12337942031233081331.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907061742.10954-1-hemanth.selam@gmail.com>
-References: <20260907061742.10954-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260801-cam-rivian-pll-config-fix-v1-1-6918d58cd823@oss.qualcomm.com>
+References: <20260801-cam-rivian-pll-config-fix-v1-1-6918d58cd823@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,23 +60,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 07 Sep 2026 11:47:40 +0530, Hemanth Selam wrote:
-> This corrects 2 misspellings in comments.  Each is a separate patch so
-> that any one of them can be dropped without touching the rest.
+On Sat, 01 Aug 2026 01:15:07 +0530, Jagadeesh Kona wrote:
+> clk_alpha_pll_write_config() in the PLL configure function skips writes
+> to PLL registers when the configured value is 0. However, hardware
+> requires USER_CTL_U and CONFIG_CTL_U2 to be explicitly programmed to 0
+> for a few rivian PLLs.
 > 
-> Nothing outside comments changes.  Every touched C file was checked by
-> dropping its comments, replacing each string literal with a placeholder
-> and collapsing whitespace; what remained was identical before and after,
-> so the compiled code cannot differ.
+> Add a clk_regs_configure() callback to ensure these rivian PLL registers
+> are correctly initialized on Glymur, SM8750, and Kaanapali platforms.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] firmware: qcom: fix typo "uninterruptable" in comment
-      commit: 6359904fbd19a18c267f63e51061c275ddfef647
-[2/2] soc: qcom: fix typo "upto" in comment
-      commit: 5a174856d0ac97699b07cdbf09e0c251b3a60034
+[1/1] clk: qcom: Fix camera rivian PLL configuration settings
+      commit: 3b651d946ebb756f922bed8a213919af17f58f43
 
 Best regards,
 -- 
