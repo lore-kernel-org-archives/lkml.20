@@ -1,50 +1,34 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12814516160;
-	Tue, 29 Sep 2026 10:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABEF515987;
+	Tue, 29 Sep 2026 10:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678316; cv=none; b=GVlKBfIoxKterf25PRHEgVF7cakpqzPY69g7Lr7vj2FVztgqDodCmRza7le2Py6/Z9gyaHC4mokLLUmXsWxdk4u08O8ku5ODxkQEq6r9XjnBhiLpxqf1QmLXfq7LE9hjOCApJMpl9LfMKlvdfMCUfss3hJ1xRRzFN7Ze1mCmY4Q=
+	t=1790678341; cv=none; b=IUtvyytho8xNKEfo1MjHrnxF6C/ypF3D5iijnq+ezHW3eTAcqc6heaML51i2dM44VdIQt8FvdNEIQXf8o2/ekP3RXqyioNDVzsxTH49MOXST0xYn2GQxbXnnNwumkyaJecP/lE/98sC8p1WzcrZ/tR6irDaUHGL2G7yyUK5Y6f4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678316; c=relaxed/simple;
-	bh=jS141X4c3OMFBTtEjLJAKaXarrTHW1pMnwbWixyREe8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kfcj1YNslEtom+JqLX/E6Jw0Cy6PzFzTFnGQv+geZN8vkCjb2qSps/UIQxJu+hUwzlsf9Leb3J4r18IokLpPWNpoRP+NglypuieT3wynt4p3rKwPbDuSiRoMaXngT36/20D1Y+OJ6o77MrQjrT1CtjCY5TetTo8v1G0tAiOWpV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ezm1GZhH; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790678341; c=relaxed/simple;
+	bh=+OUhlVYZ0jq6CYLj3jCvatmRk5xzGaVmAfrPyhOkY6g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AoXJyO0NY4IZbGGbPdAb6uobX8nL8RgzTpDxNOE587DsNAgZxQ2YQ5lyCOQh34RW6rlqSNPUv8b40RaQZhBHNzJsRFAkKPLZ8lO4I+bP/WwAa0Ei/Ab4DgJzFEX0cPgLR9YAXJXGobfIS1GpOY245diESCHrXjh45pYkCJOo26k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GphxntBf; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ezm1GZhH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cf
-	ld2cwTrYOuPLcQ+rdijj5y4bobOtCa+l0ukmiFTmc=; b=Ezm1GZhHfIly1H55b1
-	7xG7E/VxNTcSjSlZAn326GRjavNgULazVttJAmEKUSyUIen2r7KPBT1YgclzeQXR
-	U9DLfTG6zrDvOAWz4ZrQIFMwXU1RtyuE36vPQNMkwxUttBdpY0OR1cHRGgm+PzAQ
-	Ftl6Gd+ou1jeHHkxBmObZ9l0E=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f73HlLtqMY85Bg--.27154S2;
-	Tue, 29 Sep 2026 18:36:56 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-pm@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GphxntBf"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7ead550;
+	Tue, 29 Sep 2026 18:38:43 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] cpufreq: schedutil: Serialize start against rate limit updates
-Date: Tue, 29 Sep 2026 19:36:35 +0900
-Message-ID: <20260929103635.3780346-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: usb: as102: Initialize callback locks before DVB registration
+Date: Tue, 29 Sep 2026 18:38:15 +0800
+Message-Id: <20260929103815.2109376-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,57 +36,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f73HlLtqMY85Bg--.27154S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF13Xr1rAFy3Cr43WF45Jrb_yoW8CryDpr
-	ZIgFW8Aw4UK34jvrZIkw4kur48ua1DC347tryfCrs3Crn8Gw1Fg3s7KFnxXFWI9Fs8Cana
-	y3WYvay7Ar10yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pROdbbUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgjgQGq7lMjaGAAA3l
+X-HM-Tid: 0aa0ecbed1aa03a1kunm4d1f998a23813d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxhOVkpLHxoZHx4aS0seH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=GphxntBfOkc/nvV9UNksOkFtEYEG/ZuU16iPDDuz66Atied3Ln3ypEmJBPMYeKnhxWKXU9bWHfc1rMikZrQaW8FeJOvRQtbbMl6InjUB7DufhCf/VvSA1SvfP4PsFD2iQdTQ5Ac4DhUOVVe1XPyMzJy7tbwa8Y/sdlJRb3510ec=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Uk6UVNkbpeLJaWrzx887ukrH1cneAahKD/1dLIWZl8E=;
+	h=date:mime-version:subject:message-id:from;
 
-rate_limit_us_store() is called with the governor attribute set
-update_lock held, but sugov_start() updates freq_update_delay_ns from
-the same tunable without taking that lock.
+The AS102 DVB frontend and demux callbacks use bus_adap.lock and sem. DVB
+registration publishes the frontend and demux devices before either lock is
+initialized, allowing a userspace callback to run before the lock is ready.
+Initialize the callback state before registering the adapter.
 
-This allows the two paths to interleave as follows:
-
-        sugov_start()             rate_limit_us_store()
-
-        read old rate_limit_us
-                                  write new rate_limit_us
-                                  publish the new delay
-        publish the old delay
-
-The sysfs tunable then contains the new value while
-freq_update_delay_ns contains the old one. Unlike a transient torn
-read, the stale delay remains in effect until another rate limit update
-or governor restart.
-
-Serialize sugov_start() against sysfs stores by taking the existing
-governor attribute set update_lock around sugov_update_rate_limit_us().
-This keeps the fix off the scheduler hot path.
-
-Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
-Signed-off-by: Hui Su <sh_def@163.com>
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
-kernel/sched/cpufreq_schedutil.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/usb/as102/as102_drv.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index 49ccd6f1c185..e759f09be638 100644
---- a/kernel/sched/cpufreq_schedutil.c
-+++ b/kernel/sched/cpufreq_schedutil.c
-@@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy)
- 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
- 	unsigned int cpu;
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a..f3e2acf8f 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,10 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
  
-+	/* Serialize against rate_limit_us_store(), which holds this lock. */
-+	mutex_lock(&sg_policy->tunables->attr_set.update_lock);
- 	sugov_update_rate_limit_us(sg_policy);
-+	mutex_unlock(&sg_policy->tunables->attr_set.update_lock);
++	/* Initialize callback state before registering the DVB adapter. */
++	mutex_init(&as102_dev->bus_adap.lock);
++	mutex_init(&as102_dev->sem);
 +
- 	sg_policy->last_freq_update_time	= 0;
- 	sg_policy->next_freq			= 0;
- 	sg_policy->work_in_progress		= false;
-
-base-commit: 63de2367f6d280904a9c5e5bbc7c75bb91c5b3d8
-
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +345,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
+ 	}
+ 
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
+-- 
+2.34.1
