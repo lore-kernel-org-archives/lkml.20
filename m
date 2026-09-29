@@ -1,147 +1,127 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECF83DAAA9
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:04:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B4B3DAAA9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701501; cv=none; b=gOJ4jq721v0eYmn7GajRAWCR3W+09f8mpfdKRDjZvbeV5aJYkluk0hZQG1V43a/G6TwxVgEecK/THHTWUuqIfi2mFZK6isnehdSPSozTUCztK3I/LJr6n0nypE9dOYDZIj7ZyNznhmnMvKJTId9ig07MMM1TMeIsibARk6UZNbM=
+	t=1790701544; cv=none; b=mNL/hPWq4ipCYvkXhqutAMeEflUZGvOqothi5/bu9XGPebCz9qfp3RiCFcPgdN/wRW4eAj5KPxWPUV6t4Ig/mVpS17pzJPNJSuIL8Rvqg5Hvrl6Wz1wQRVXENzaRSZ5FNOL41gjouJnri4D0Lh5LnPjFDvuUG4rRRlJtgXI6Bg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701501; c=relaxed/simple;
-	bh=lSKhCVe2e9y67BQZBB8N5b0lo4u2NoSTarkPLG+MNOA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tf57fU15rxeVx0P8xAbL6EVvtiqH6rmS2BjRyj3tfRe3Q+KAN5v9hlhwbtZU5j82E5yZ6RreJiqoq/bJFjLJBj721zjiG3OARFxdImlhHkyYoj/Sv8Xs4QX31h+Mi9p17WA6zzYUt5c/jzra4Q/6MKYkhgrGvARu2wT+ELErx/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndru4r+4; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790701544; c=relaxed/simple;
+	bh=JV8h3XKKL4iKc1z0q0ZRCkZ4gT3Y6S4Dns2ilEa3XNY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=UxXqsmCFdcwNjUM0DdlFulcXCUUwoWAwl0ADvH2HCJiq7Pq73nJL3T1i3+LHQeF+eLmMNQpqVPrnY6fVkrcovbQeSxmPV7BZY7w2W2+CwqPab/LhnpbmX74U6jYKzNXWvdWAogTU3HnGdEHlXDJzGDwCOsH6VDVaC9IyUiKWn5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qk12IFJj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JSwYylKP; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndru4r+4"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so3196580f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:04:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qk12IFJj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JSwYylKP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790701542;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6J6pIvhEE+BADOBuoPnseFgbyAffm02tcOvxzUPEbqk=;
+	b=Qk12IFJjwVhA2+JO7gFpgd4ovcV/LIurwwJzfA8rt1X2AC6/B7PBY6UjabP4kUWFIgAke4
+	ofsWAyt7n0niFrKLVuIm6hou9aZcybTo69nzjiWeLcJPWS0bO37l/arz01qR0IK1FlcBmZ
+	4A2OzCx0AN/iFkOtSB+Fm+56ySHtkBQ=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-247-ar10tbR_MpuV63OWPH226A-1; Tue, 29 Sep 2026 13:05:41 -0400
+X-MC-Unique: ar10tbR_MpuV63OWPH226A-1
+X-Mimecast-MFC-AGG-ID: ar10tbR_MpuV63OWPH226A_1790701541
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93bf4c0af4eso185725385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:05:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790701498; x=1791306298; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IYlY+0VQmviH8AJ9O1JXprZTbqCcvurlza+Wbwy3a28=;
-        b=ndru4r+45UlLvkt9Jo7mAfA/iJ8v4WnZjZ2imhAPMsweaAyPPZ86ESzXx/y/VZ/SZf
-         eohcQnK1yuWRO7NqWW3sDAXmXDbXSTDfc0/RUjgIz/ZLRRawGplibykllKekjkniJQVJ
-         jqkUe7DBa0wJNANEvipMCBx0kHIJ3FCTtPjFzeilJVc5sJ3HQDUnvyQmIv9C2nRbgb61
-         wTqXFKnPPq+GIdJAHbQA02EeGfsJLQ95Ar+iMTG3QHl6FRWYivG59GP3LNY+o2WVlHEI
-         3dJRcUONzTPSGEocddVslU2FhQgobnlJBn9TBtQRgFG2pECH3tT6VYBFIJI4i3HEIPpu
-         VhOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790701498; x=1791306298;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1790701540; x=1791306340; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IYlY+0VQmviH8AJ9O1JXprZTbqCcvurlza+Wbwy3a28=;
-        b=2Su5eiJiIWC7+TdcJWjDhA6BUp+JCGRPJaZrIqwnUg+q74nbDE+PP8UicPiUwJmr2I
-         EYIYy/EyxvOnbl7GcAGj+Fi1zPG69G/04Xw9SY3kl27AXveCLuUEgpoR5qfs+9TCfl3i
-         ZM7gZPSwl5VxyZyJZRgD1+k+BJ36lsy0BICR/Y8ztClHOsIf8o6M65ggqeOgSuU6Epkc
-         ZrWJY02agPTEM3j1rPXSers40LFWTktezEdaBryf33MSwcxAmaI8S8aupjK4qyS+7/E6
-         B6W7XHdcJQfx2lcflIZKAyhTvzy0PY0fHNsKCwZYRtw1WMVfXTm1FeDly6pdot1jrfjR
-         aMLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7UnNjL8jiqUZx7DwObWwvhYhsGI4i0AroAPFIP5Y9wJLjIYahg5TF+17do/+TayJfpLphwxFsyMsTD6U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVCmZcypGh1GgjFjqnP4A0Dqv30Cvf5mBNcUg/Zjy6rzQpiGDJ
-	chlb+WxfuL3HHRcJNFeBDELIYReeJoCkl2Ic+A7JlzMrp+ALs204NVnh
-X-Gm-Gg: AYBFou1uUwBHHhthqtgOT9ltxrc0I4L4cSOVRCCwkV013zkbopeHoF1qmgX9p/kHP5v
-	CkZ90GmeO61uAJonYlWAyj9aYkav5ho9mJnr5r0r4YJVtIVshbkALKahImSwaLD/BczaCCms7UG
-	wz+Rm0fGzSEHC99+kyMAAKlPNWloe8Gjr24DkHaBKJOOVZBree6Ls4Tz+v5xpTKnKGxojhicoJm
-	j8pd4WpbYHQ6MB4QCz3I4NJ0v2Gad7wjQDy10APwnFi4qcj7ordGGVVJqGH6jykZwxhWAjqsQB2
-	KO9158VHnU3JlAN26ARRaEwwRMtZD6OrqnohsQ8But9LXNPwslP7XuMfngkFMpz5YF/ZF0aujG2
-	nt7AyzAjDgKxSoiSE9ISD56wZifYy06ecdtoKbfANSoQ4urqZgZoKea4odnZM7fwZRkGn6Rakhc
-	H2T2/DGJRp3TFrSIbiB8ku/UnmcIBkAeqlatqtzXj8mYjNg/J4cxARMDIsHmHfPtWCDukptEkDh
-	6NcTmS2nLud+hIltb25SDkNpvtlaWkeqmwOnRO1VMkDLqaFXL1SLBQ=
-X-Received: by 2002:a05:6000:2204:b0:487:27f6:a4e5 with SMTP id ffacd0b85a97d-488716bd7ecmr33864013f8f.53.1790701498062;
-        Tue, 29 Sep 2026 10:04:58 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe698525sm3243f8f.20.2026.09.29.10.04.56
+        bh=6J6pIvhEE+BADOBuoPnseFgbyAffm02tcOvxzUPEbqk=;
+        b=JSwYylKP4AVGNASKjga98weuxW6sBvD7ogU5r9U3Uxa+f4WR7q8enhZDxtRD3gCd/3
+         YQk8AmZF1oDPA7WgZNy9bLmSN3HIRP/maXNgK18zrrsy4wT59vYPzfG+qxOE5SVrNlF8
+         Pn/yGDyoHj2CIoNFqaZ247pCoxXQIgj65+I5yPcGpY0gUX846GRJ5llDj21WFfbfLT8r
+         PCHlB/5i9bfntQ2Zywr9AMik+qVPj0GPtp5xjiih8bqVr+uq11g5gF7nqAjVRpHur5vu
+         X0r5Wty9euy67r7lptrrL4vjKAcv7iKNu1vddWs6Aa+/UfL3GTLd2DaZig/uvhqulzJz
+         sR+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790701540; x=1791306340;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6J6pIvhEE+BADOBuoPnseFgbyAffm02tcOvxzUPEbqk=;
+        b=pAXX03rs70nbLrBV/Td2yzfnxPCmYsqR+Da3T1BdTBNk3aw/YT0LUrOAJjit9DwIpq
+         ZSt+gcJaEDnB+SX4NolaK3p1QQuXuCynAWYdaSN2Q5mraZxFto/VnAnk9o/gUVuVs3Xn
+         /s0uz4dOerMo2fSjIPL4nZvx/tV3/RJBxuXH1FVftP4WUuKnwJgoLKvOFSDo7Su7VhRX
+         IvEKNfJ67HlM9bbXVy7Ed07eBDHk5Kdn1A+7ycmvt/pdOUmQdbnFJSvKw6zHXW6rOK0s
+         3Rh2+wqeukjCZ2ClIpJY9Lw39npJHpWS7zxuFWAVeSqkZIBfdqHmQK1BpEFS2ORhQaLE
+         YW/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzznDd4JuwjaJeJdY0x0gJvku5cZRl0MQ4fL81hhRj4QfNOzwDcWZZ8fHiUjMjTaZtOOUu5WdRa/k9mDJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYETIjKbPrqVK5TTREZwoHJvMUQ1Ld2LilQmoHWAdm63tD3iKX
+	sHVOn0ZJngXY3I6A7M0v2SvShFkhHSv22WkCNhonOqkMsfq12N81DAZdNYlTlojkb4SodrJPp7S
+	MsV03i48TX2+Zv3QovuSQtN6lkBWqcLO4dfbWM0lrUAmVNeGiE06laiIwZELacxZnyw==
+X-Gm-Gg: AYBFou08NaDxqomnh741eBy1iP6M3Lnd+sqdAot+cOuIZotQ3Am4dtf/v2tqLAcla4P
+	yrL4we36rq5FhKdxl20bPoULGW/alGYNFOSUg6iKlK8SQ84byg1zb3zC2nr0nQIE+SsiqGrbWYZ
+	cC7Buyl6706j7mjOx38f2bKu5k523gqlBliND18T7ZCDwdhkMpmAVJnDxiz+7nSHtFlC2fLZ+om
+	yEyQsCqUuj3de9ur6rtbrB5QW0Brl7YVzux9TxE8Ojxdl5lRreAuPCHU7vwFp3PZ9Q2b7wDVm9u
+	mmDd0Qx0hg1Hl3qcoMnNuJiCGN0ofit974ajDWjZymocF/qHZn+wlpHFbkKO+C1Pg1s8GmRGwzV
+	lz7M6QfVN7/uPrG2f9bm5f29Bw9kR9pYKYEI2om05akT9FbYpTOc=
+X-Received: by 2002:a05:620a:6988:b0:939:7e23:b2f2 with SMTP id af79cd13be357-93c9fa5fc59mr25257485a.25.1790701540255;
+        Tue, 29 Sep 2026 10:05:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:6988:b0:939:7e23:b2f2 with SMTP id af79cd13be357-93c9fa5fc59mr25248485a.25.1790701539617;
+        Tue, 29 Sep 2026 10:05:39 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f541cfasm14451085a.38.2026.09.29.10.05.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:04:56 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] rtnetlink: wait for RCU readers in rtnl_link_unregister()
-Date: Tue, 29 Sep 2026 19:04:42 +0200
-Message-ID: <20260929170444.218093-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 29 Sep 2026 10:05:38 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: linux-clk@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, 
+ =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ llvm@lists.linux.dev
+In-Reply-To: <20260719214349.734351-1-rosenp@gmail.com>
+References: <20260719214349.734351-1-rosenp@gmail.com>
+Subject: Re: [PATCH] clk: mmp: allow COMPILE_TEST builds
+Message-Id: <179070151857.199845.8103237122518687447.b4-ty@b4>
+Date: Tue, 29 Sep 2026 13:05:18 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=273; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=oS1ZL6IKxW4hwmHG7GbpdJ7kavjzT5ERg1L4wiG0veU=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v39wNLTMfKFGZMxiweX9O+933NBfv1/6+p+T/DNtz
+ EW3HmRw6ShlYRDjYpAVU2RZkmtUEJG6yvbeHU0WmDmsTCBDGLg4BWAi220YGQ4tX3Py89/Ee1N+
+ vs88PJ9ZKPPO+wfFNtIVaaacdV5vVpczMqw+96OJZcb/Txn7FTd4np/zIujURX8e388xaxe3XFl
+ 2fgY7AA==
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-rtnl_link_ops_get() finds ops on link_ops under rcu_read_lock() and only
-then takes ops->srcu. rtnl_link_unregister() unlinks ops, then calls
-synchronize_srcu() and cleanup_srcu_struct() without first waiting for
-RCU readers. A reader that found ops before list_del_rcu() and has not yet
-taken ops->srcu is not waited for.
 
-Such a reader then locks a cleaned-up srcu_struct and keeps using ops
-after the module that owns it is gone. rtnl_newlink() and
-rtnl_dump_ifinfo() both look up ops without RTNL, the latter for any
-user that dumps links filtered by kind.
+On Sun, 19 Jul 2026 14:43:49 -0700, Rosen Penev wrote:
+> clk: mmp: allow COMPILE_TEST builds
 
-With delays added between the lookup and srcu_read_lock() in
-rtnl_link_ops_get(), and before rtnl_link_ops_put() in
-rtnl_dump_ifinfo(), running "ip link show type dummy" alongside
-"rmmod dummy" on a KASAN kernel gives:
+Applied, thanks!
 
-  BUG: KASAN: vmalloc-out-of-bounds in __srcu_read_unlock+0x57/0x70
-  Read of size 8 at addr ffffffffc02ff318 by task ip/147
-  Call Trace:
-   __srcu_read_unlock+0x57/0x70
-   rtnl_dump_ifinfo.cold+0x30/0x3b
-   rtnl_dumpit+0x7a/0x1b0
-   netlink_dump+0x486/0x11b0
-   __netlink_dump_start+0x661/0x910
-   rtnetlink_rcv_msg+0x611/0x9e0
-   netlink_rcv_skb+0x126/0x380
-   netlink_unicast+0x605/0x830
-   netlink_sendmsg+0x6d0/0xbb0
-   __sys_sendto+0x335/0x3a0
+[1/1] clk: mmp: allow COMPILE_TEST builds
+      commit: d0b72c88671b3c46342bbebc9b90280890436c98
 
-Call synchronize_rcu() before synchronize_srcu(), as
-rtnl_af_unregister() already does. This should be enough because
-rtnl_link_ops_get() is the only RCU walker of link_ops, and it takes
-ops->srcu before rcu_read_unlock(), so every reader that found ops is
-covered by synchronize_srcu() once the RCU grace period ends. The extra
-grace period only costs time at module unload.
-
-Readers and the writer were serialized by RTNL until link_ops got its
-own mutex, which is why the missing RCU wait did not matter before.
-
-Fixes: 6b57ff21a310 ("rtnetlink: Protect link_ops by mutex.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
- net/core/rtnetlink.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
-index be9d1625bac31..abcd2c4ea2178 100644
---- a/net/core/rtnetlink.c
-+++ b/net/core/rtnetlink.c
-@@ -707,6 +707,7 @@ void rtnl_link_unregister(struct rtnl_link_ops *ops)
- 	list_del_rcu(&ops->list);
- 	mutex_unlock(&link_ops_mutex);
- 
-+	synchronize_rcu();
- 	synchronize_srcu(&ops->srcu);
- 	cleanup_srcu_struct(&ops->srcu);
- 
-
-base-commit: 54518e0e827f4ca9229ae657022c60bf60f5c1bf
+Best regards,
 -- 
-2.53.0
+Brian Masney <bmasney@redhat.com>
 
