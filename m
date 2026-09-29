@@ -1,270 +1,207 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635FD3955DC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665665; cv=none; b=uI19YqNjB4hzyAK54Cnll4RfkXhSE33+PWmEhwu1nDlKJqvQLoXqtc7Inw6ZvUv87JtUl9Rtl5dTDpynD+M+zAPE0sJAb/qYF7lvQRNpYoN2I94gAJCQXstDyMUBp+IOVb9NJs6HMTlmhsSQ7vb1ynTf60NT98WjBvqJhlnLdlY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665665; c=relaxed/simple;
-	bh=sn9nVAuE9CIKUaNtjwjoRmbzxL+sDIi+Hu2Kva/kOxc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FG+De6Wpf4YlYz20v9bqtC4ih7Nb9tE2+wDPZB9auysBUAYjqZmzFxXFIFxcVIbuUbA5/sOm1EfY12AB5zwxrpMir3fIdClOfKOsQOWZMSKwKKS7EppIUO2aqsUtp698+EPEFykNtc8pZBPyiPbleB7gwBhwkaCfnPAtx+QDfnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pRjAc/fC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MlAEZaJ3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289F73955DC;
+	Tue, 29 Sep 2026 07:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790665691; cv=fail; b=dbLa9aCmYcEDg+JXv4LLXsxIIOHLMH7oo+xMG35FHFuhTVZw8y7lRt+DPLnKg4xVmqxotFefJ5MQfzQ0VUn2HxjTfZG9PEsyZpUxyauvPQZCqriXeV2CXRlwgqCRsOfFYUWkgxaxFdKim2N7pHyax1mbcL9fAOfmCpb74g2LThI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790665691; c=relaxed/simple;
+	bh=rPP6mmCHnA9/vGm5ZRqPBYbmjf89j2RwHuknlGYoBrc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=O3TQEeGcXQmCkYfrH9dDgGP3IcAse4B5zZoEE55VMAYJ6mSa6vSgvGmu65K/wdLHlNo0bLl3z7my10Xv42gAUQDahm2JBEbpqRcdEBt2Jh/JWjaJc1uoO0CZxQxsVHcDpZ8eCiLciay94Atxyqc8zCg7gCAF+RTehvnvLvfE4wc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H3lAinGZ; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pRjAc/fC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MlAEZaJ3"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T475bd3390850
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc
-	9bPCyTtM=; b=pRjAc/fCbWl9lTmGOIchQ1JPrLJeF/yv+6SaNz0SnCa2Tje87Il
-	cdEk0OUDZJ7HxQ0GJ4EqhWnfoz00nesihJ44hcSno/yJfr2jUeyBuQaci6+vidJM
-	DJ2h+ZtKpppU5k3RdTOFpTGgyuxAVeZpeKF/CuSo/8I35Jyz6L51npwtV3Det6xn
-	3z6xP5hkdc0Wb1IYYcL5Lp8cgRPGeGe0XsEtDr9LSzgajINBKLFJ1UJw2Hsg+O7s
-	6aDPk41mEp+usCY6N1pV4jkNBiotG2dO2s6xwZQ6t+2Urcequs3+tB1gGBEa8ScK
-	N9l3BIgsP3ZNRxdbZIJWe5XVzkyINvQjAqA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h01vkhfjg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:43 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso459039eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790665662; x=1791270462; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc9bPCyTtM=;
-        b=MlAEZaJ3ane8pc+vwixAY7XzqSoCStWezQQAK5D7tI4yVo6E5/dXQkrnpH2mAcHxAm
-         mzVCi9w93MyOybeIdA9CjgIkwOjbJthS6p94n/tyzgK7/rbblDH9my1HJVGO7rzwtUQd
-         cwDKRLF1UuumaJSD3lEtlqVy+jLwra9NOOuoGPPC7dNqtilYXOQY05do7NXzR7EJBPeH
-         FiXeC1tbzIKw+cY+Q5rvZTmuIHMu/D4uAuxH/dqZQIopwx0e8o+tpzc45uNOmnpPQQ5n
-         p7ppv9fNSougDE4Y4Dxrdr8JlGibNeVdZ9FGJ5HF7nEXHsclyeXX32KC1QFsx3wp9GQM
-         f7uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665662; x=1791270462;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc9bPCyTtM=;
-        b=dDgDgYBeJykDJ5Dpwx1BJu7syaCOwWcw+iA1PxqFRMON3mxEQ2SX3qfbyNLvMqfnOW
-         QMM6QC897INValt5MyskbDKFbM/vV2U34PT9NkzSh8jal5383qtPuk+8M7xvvL4IJ4n0
-         kBM8slFs9a2d258WmQQaVc1+xBSXRXyHyvOB68P/SJIFtrtKXmH4I/vI9MiNC5RyQSOI
-         OnqcxumSLeEF8+W2aHg8k2rWjN6e00nw6U40/rNGXNquRiQap0G0+LiKY2A4DnE2gU3n
-         oJbW8ywILoHLrPYMSUC/OXfLbFwreDxALZQRSrbuelMWr3U32WxVI0iPY4dQmudSy1Wl
-         yXug==
-X-Forwarded-Encrypted: i=1; AKwUvByXFOo7UxwelNgc4PU4wO6B+AiPUnff3iB+kMX4MOocJYZKFyjveU1yWkWqrceO6us0HmQuKgDAC4S2qNg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nn7uuBjyFOjteGOHxrnjbaMuUZTAhxJKTDB2d0bgUsJzDqgU1S
-	cAq3aFA2z02iB8aQFBJ+wt508uaDowdIcDmwdDF8Wns38Ss+EEqEZvT0m/+MZDciZ1VPV3F1GUG
-	RHH/7OO1NFPUrOR4ZiYNNxXfdVyEixCGApEuyJKly/MYablsjLYsfkoUVauzdxfBbuwsYvn8rey
-	w=
-X-Gm-Gg: AYBFou3cekXC7kHgMg3rWnrU8abENZWNR/ejMdrh9Y0kiyzrp6GkuQnPAwggK/XJEQ/
-	l5MkO9mWXc70tLgOtmq3aX+TN9TLP3es6b3SUIubGNf74gI39ORH64iH1lylfapFd3uKOyFSrw6
-	xGgXmQjXj1TZ7NJ8N6JeHLLzueaJ64Jx9rQpQr75jJ54XWis7xhEtBehxaawwC9cmPE4fXOMHz7
-	BncXMW6pQ1aFXCv3vY6XLSh2KPNGSmoOyW1SPXvcLc1B/m0Gs+Ne64uzv7c3EYVzfIS2AthfkUf
-	XcJBRRo32Mnh/0YDS5w0/AIgDpG+RuNxr8AHDauF4a+7HM1+UqVmJtl46wFJ/pWAVY0pAlN/a3/
-	Z12B5uuRHp6mwevj6HSI5kZno5Wet8xulFUcceSMemHvOBCbKsw==
-X-Received: by 2002:a05:701b:2212:b0:149:ef22:2fa2 with SMTP id a92af1059eb24-149ef223168mr5577023c88.8.1790665662218;
-        Tue, 29 Sep 2026 00:07:42 -0700 (PDT)
-X-Received: by 2002:a05:701b:2212:b0:149:ef22:2fa2 with SMTP id a92af1059eb24-149ef223168mr5576993c88.8.1790665661419;
-        Tue, 29 Sep 2026 00:07:41 -0700 (PDT)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14a7c03ece2sm7426321c88.16.2026.09.29.00.07.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:07:40 -0700 (PDT)
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: joro@8bytes.org, will@kernel.org
-Cc: robin.murphy@arm.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        fenglin.wu@oss.qualcomm.com, peter.chen@oss.qualcomm.com
-Subject: [PATCH 1/1] iommu: Hold group references across bus_iommu_probe()
-Date: Tue, 29 Sep 2026 00:07:37 -0700
-Message-ID: <20260929070737.3798358-1-peter.chen@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H3lAinGZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790665690; x=1822201690;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=rPP6mmCHnA9/vGm5ZRqPBYbmjf89j2RwHuknlGYoBrc=;
+  b=H3lAinGZpyNBP4EGh4wp0lp0nlIdtQtACJASoqP2NB8DkoHblCJeqFwD
+   nOTHNDuQJArVRcVctpeCu2d6sLG5c8HpkZ0mbPX/aVtW3LCBdk4/20Ewe
+   xVs44hVufIcBHGxOZkvSl7uaXFxz/EMlH4JSyUpWhYMAgC3aVh2fMM1MX
+   8w4yklRi4vVCfAqRRq4Z2mq3bIrpUr47JoLHAI8Lix4GEhbrFVbCePBvu
+   h/8Nd8hLkgzvfAvAdx4DTh59QV0args+ZghBrqXBgWpVRfDyjtXKFMpPM
+   /BcQhQfLmotoy7Dc36gO6QnZq/zZKuRUuZ2m4lo8TSK9D/cU1sL+MNTBL
+   w==;
+X-CSE-ConnectionGUID: rhCvoznGRTO2uSIP7d7tMQ==
+X-CSE-MsgGUID: vYeW5llfSCOczerln90UKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101542401"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="101542401"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:08:09 -0700
+X-CSE-ConnectionGUID: be+PZ8pLQfyjHHKT0xbtyA==
+X-CSE-MsgGUID: ttiK9VMxRTeyILqf/5/2Lw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="271771784"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:08:08 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 00:08:08 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 00:08:07 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.30) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 00:08:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ef1OxdfPTLfPjLoy37riOrPYynXwTq8ZN7Tie93LV78NqIzHZ1qlcHB9JyL1rbvZmK3F3b1xSduW5Vg2xM0MZknBFFnZWv1qMMyQNInMdvKmffFQsGrmDF/TR7RMJRKxdtsbUtAA4x6HEvHGFY4txrwEBu1veHDF3XAJ+K1CYO3GKo7VQhD/dlwF2kVZnT5JI4TP9Y5PKUwG8jZKGDn9Y4zdFJPyf+MLDIsHFqX4SMGZQJipjM/aMUKxIKaiAvtPUDEGXE27bM7FK2l11bDKQ3s5G+jEbcB3jY+VYUjL4RB1r2YNEoN1TPA+cFwBJMPCms4CS4E4BSwo//9/4AuVaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0bL0RX9E1XrlsSgQFrKJ3BXF6DMxdV7P/hZ5dT83+2M=;
+ b=LINQi7dEUUyI2Ub+jHASFhaOzkapfbh6Yv50Gd2iAkiENmm3FQX4P9cFpNGrVks47XrytxisnUaQvOYuRqKJO+hi/PCimliV3/tlJSQ2CxTmb85lzFTQQldI7rI1AZxuS8EWxZz0aZr9fghHanaSi91gBJ0Sgktf90fyoOKngqcNsEv1hHxkn8vyDYu2J5Kh0ZNFoXrX/jZB4DSWd1UZJ5iVoMAa7Ql34nKTwQeT6LkQbJyBIQW80ZkPTZK9tDF+s909da6snBhgAyD6rGsoywj8PH4SPf7KeU46eKAiokt4nQXvKp2KRNCqMgnpaju125fMIXjmO11PId+NW6Kg3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by LV8PR11MB8511.namprd11.prod.outlook.com (2603:10b6:408:1ed::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 07:07:41 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 07:07:41 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Hongyan Xu <getshell@seu.edu.cn>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jianhao.xu@seu.edu.cn" <jianhao.xu@seu.edu.cn>
+Subject: RE: [PATCH net] net: e100: cancel timeout work during removal
+Thread-Topic: [PATCH net] net: e100: cancel timeout work during removal
+Thread-Index: AQHdT08Lu9l88thpV0KuKLwQXrVYOLblI8HA
+Date: Tue, 29 Sep 2026 07:07:41 +0000
+Message-ID: <IA3PR11MB898623140BD84D12FE2234D2E58C2@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260928134121.826-1-getshell@seu.edu.cn>
+In-Reply-To: <20260928134121.826-1-getshell@seu.edu.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|LV8PR11MB8511:EE_
+x-ms-office365-filtering-correlation-id: 918e446f-952e-4dd2-7cb2-08df1df85a22
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: x8Q3stj5Z/K7psQji+pp19o4jn2wvMij9buwewfY/6P7ZLJoEC3IZhjahLiPqhiAUPTZnc94SY2pdQZJ3aPBaSfVsaCG1fluLcglgr+FBDDv/SCxb8vy/vQ9yj1ZfYw9rAZmtGdYVJ9B7DFh38x9I9lhcrsJyVQSla8u+3hminQroxwjBSBQRAbNX2V9lxDZwcA7fCwA/EPzLySuM/umgLs+RCzMZW/0qnrr1qv32W3O50O3cLmuYQyW3fc5aMnongP8ObbVLAY7DB9molcGxc+egpgLiDGvkSysfx/fB+67EABdIHnAkdVDI9c7DeOMmBCx8r39i5JklOhWdqHwFIgvVC00UB173RScuhjn1S/T5wyWil7xiOB/Eid5pYKq0FoEVjvM5KugSVlXGdD/95wznF//zrHlGzZTioxuEkWfSJNvw0xeJk6tKXGcAee10NgsxpXiLM5iey8QdkFEpcrjfUOPlcQ9rjLNMD1aq1tlE+KS9uUx+aQjiEWlSj7KrnIVSZiosgAjkNFKX/T+lsormt0AWjz/He9M57Xz6EcLN3YuPzHLrblWoPNUpdyahgFnsiHJNYP5x+IqM81eQOxbmsrwu8XpmnGapOT5F2HCHB5XkEo5de2s01wKknF6fbTFinb+zEUgfrnDahQkovKvDi4/oyOzvKlypaD8SFQM/7vdDYmM1FBkhZb3leDk42TcyouXRY28qxdENfq9c8Zk8JV50EWPjyB+xhD/A7Q=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YZKApI8EQRgpnWuo5NL9yzjLGT2hzJTozHZKqJUK8Xli4b0m6uSgxMO93s/9?=
+ =?us-ascii?Q?DDdrp+WRxb/EyjOMJz2Rdho9YF5aMqucAVKT634SWEYfoHeT+o1btyr3f0QB?=
+ =?us-ascii?Q?cyRVmmXsoXDE3uIZ2w4p7SSYVgO2V2ArAfPu2vu6pAyKfPiZJ7Tatx0Yr18n?=
+ =?us-ascii?Q?Oub893nRKrEj+KdUbcI+O6jBQdyouNHACHSVKRdVgletwApBeAERPPq9wDfD?=
+ =?us-ascii?Q?M1HSi0vmlz3bllVTMnf1Fu0EgeQzvO65sOoC89jxbBkbSuciyzLFL5XMap8T?=
+ =?us-ascii?Q?kwRv1x1ABTHTGMleJdOkUpn1QPo5A4lu6mxHjS1F5/yOfKcb4c8bXeihm5tg?=
+ =?us-ascii?Q?x9yUk9Nfm9RwoK9iSMd0SDaSDL4lbHwGMuWUesihqj3JL/WPTG7Sk9AUKpC3?=
+ =?us-ascii?Q?Jnl4yDQXBmvuG6hSMxOq+D6bClotHmhrURJu8JLeS98NymxKOhkefDkLijKn?=
+ =?us-ascii?Q?SXLL1yCF3BHv7g6Bkicvylkog6CW7avQo/WcqRLL7ka5m8L4xRUPRVMzIsjS?=
+ =?us-ascii?Q?KTJDtCOHpAFS2ctBUbc+m1wGhMoIEhFCCKeapBbiJiEqTIsffdlD+CYxF5OR?=
+ =?us-ascii?Q?FggOWgmPl2CjPgFYvR1JW4b7kpE+ER/YcHHk2fUI6bx22n9MsG9ATy0J0EGd?=
+ =?us-ascii?Q?ZUIRgCDouDUUqwSfZJuATA9okY9qqRK88eIKFvUd6+62CPtPJ++hfpJm/K1H?=
+ =?us-ascii?Q?cgmdoaUL3XENXt86b5FjWMKhOT40DnHZFQwCMPjzd0HG5P3SukiRvnJ/KyAO?=
+ =?us-ascii?Q?WAIML3H+ncbIFKEkVd5sn6sFAgE2BJyLuE8zrW6lV+xMzJalYNzsey8gnc6k?=
+ =?us-ascii?Q?g1+6r/4kjFcC2rDUQbBK8EYgTzStrItEGYSgtBy+YoWF/Fd6pgUtsSjoK4mh?=
+ =?us-ascii?Q?BKz1RGDiTn/QSbba2E+BkYKKz2gwFsR97W0yu7cHwoNprO9Km2IrfYOERzS0?=
+ =?us-ascii?Q?DKnxiawGf4yTJIO3ekvjAGGDGPVYysAZNqrmzhwrifQ5Pyrmk2xCg9hujdFA?=
+ =?us-ascii?Q?wgPo5bBN6R0Rd46A1WJLInCJjf4+wJRjg0EOK0k9nCkEaka60e//jtilYf7e?=
+ =?us-ascii?Q?IYM1fMtp+3xhgDIjQCuPZvVv58CpavwI2MK6CsP1+sAKnZwzFrVHCvEvbMEv?=
+ =?us-ascii?Q?2X+kwy/rF+neWeKAsK3fHbcE0P1A9jiEa69sLPzNyMPCCKAYuXAdPwSyXtzO?=
+ =?us-ascii?Q?20JUe8GXrjmaaHxa5+4eYM+7Y2+Gy24/IvNOCX6b7SD044iiVrRgICsDa0yT?=
+ =?us-ascii?Q?MnUuhR6KSQQP2SovPvJH0jB78JfDDvoKJVsUtuotg3s8wv6NjzpshDOyMmVc?=
+ =?us-ascii?Q?1etomDcdYvxKaX/7QylPWAy4UBXMhDQWyYKj2i2RFXYvv4DT8qtR/A1cz3dq?=
+ =?us-ascii?Q?Ce5c0252t8Yq4qbo7BVpJh24CcNHNIQqc7D13p4InAmCiNKA/3V2iQTHR4pr?=
+ =?us-ascii?Q?Urh6J79loyWmfKXf9TTXq2nQok6UX0M3gbcDLHJhF9UTyDRe0+fQ1EdsFtsY?=
+ =?us-ascii?Q?CpNCViN1gVVuG/26ITJ+sJV3e7Cjf+q+SLbskivd2x7/88Bt34o0h6PiITMZ?=
+ =?us-ascii?Q?30Mln7vs2Fmr74/yhHb/aaOlfDIIZryPkreU1+pYCx3Rm07i1Al2x7vyfDRk?=
+ =?us-ascii?Q?p6i/iz7nkWEZ62TBChs2r3kRUhzvFdgaJdcgR/yCKd9+MDeoi91jeU6z0RoC?=
+ =?us-ascii?Q?xM0Yr2MJKuMFehT24jr2RzeX2AC90K7RqSc7N1S7zxo3YzPo0DSZFrEgRYRC?=
+ =?us-ascii?Q?jNOBaf2JSLNNsVFWJ9NcaIB6GHa00VM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX3RWmMWxtWzl8
- 8L3HAj6j+bQ04r9OJbeNrZ3MPZr/dafYwGhccOwUUeNd4S3UgNDdHzDeWp+vgk38fV9xmee4bE9
- a1mAm0A0eGU6KtDRZoJy+NnpU5wPKQRroeFWYXq77XEQaNyjcrSB3MKgFYt3One7YDHCTh1+5Qn
- P+LjBU46dohzsTYoaAlBSr4VjE0v3SPMFpNOWrFFTW0BDOaDcYysz7CbfI+VKRCepek7xobf+wC
- Tdipc98pmT2vBRh1t0dsbV9eiARMKjts0f5dNZvrIfFrXzvlpF7UVjyBhJfuQJTB1Ulxm8g+9kH
- CQTaXD+dobYRVcDwItaX29MbpFFPoJ9rpf9bZ0gCMD3S2n9NSX7DKIqTVbagVJ3tlrSVpE8xyGG
- qjvdRkAf0k1lChBEWyXv9zmWgzPyxE7lkOE9A+HPdVNQyG3C9LM6Ux3hCewiBzp9Sq/DZuFW84d
- y3WnMuY2PK0xJNhWOaQ==
-X-Proofpoint-GUID: pOHQVe2yuFTY1pIAGI4p4WM3qYoeq1N7
-X-Authority-Analysis: v=2.4 cv=VcVir1p9 c=1 sm=1 tr=0 ts=6abb63bf cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=5nmvm-2Xiqt-MVby-jsA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: pOHQVe2yuFTY1pIAGI4p4WM3qYoeq1N7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX9fckKHZ6bTVs
- YcgFYnEU+q4G9hRpo+IfQeOtFgfN22kdd9O/ESgJo7D1EUzBJ4+b10KopR3yumbehJSanut1R8H
- 5MKw3YRtz8J8y6NCqjm7LHpwPeQjlcs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290028
+X-Exchange-RoutingPolicyChecked: 3SbubgZO/ztQD6RGPpakmlcYwHSOW4uLdF1xBWkSW8pDPB0SmtkrPdTC6Q346utOuHZPIhUhXQ7GZk7R111Kb7spm/6oNbbIspOOglf+Lcx3wKRDA/+O6Qe3pDPPtJtoO9Ksa3LteZA+k42t0cLHBC6ic+9OgtXSh0rbYvk/Ebdau/hx3TyyJhdpO8Qpc0qLqWltJxjJRgLQ2j2LjkirPQ8GgKb1Nnh3UdLO0c8IDoGDPviVFEFR0ikiLjjTVCW/3YElWHQHV/Hu0G4onO5TwdLD6RMlRKqq6ork5fjJ51RVMW1KhLwwpxMEfJq6VLxA1NFId3ctKsKQmAp68X/XBg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 918e446f-952e-4dd2-7cb2-08df1df85a22
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 07:07:41.1155
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EKQoNMkJXyMlWTRJfrXzqkP0Kp+47tkx9Pn/c2cpHwg8xp8xXlVidU7jaxKXdrz1wzAman0iUg2Ibv4iKEVfP/UpOxl7zVwNPfC9S7LLMpM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8511
+X-OriginatorOrg: intel.com
 
-bus_iommu_probe() collects the groups that are linked through
-group->entry, but the list does not hold a reference on them. Only the
-member devices do. A device of such a group may be released while the
-bus walk is still in progress, for example by a BUS_NOTIFY_REMOVED_DEVICE
-for a platform device that is depopulated concurrently. If the last
-iommu_group_put() then frees the group while it is still linked on the
-list, the second loop of bus_iommu_probe() walks and unlinks freed
-memory.
 
-This is the "iommu_bus_notifier() being triggered during
-bus_iommu_probe()" case that commit da33e87bd2bf ("iommu: Handle yet
-another race around registration") left open. The sequence is like
-below:
-- Process 'A' creates the platform device 'T'.
-- Process 'B' (eg, arm_smmu_device_probe) walks the iommu bus, and
-  allocates new group ID 'X' for this device 'T'.
-- Process 'A' deletes the platform device 'T', and frees its iommu group.
-- Process 'B' finishes walking the iommu bus, and tries to get the iommu
-  group from the list, but that iommu group has been freed.
 
-The kernel dump is like below:
-  list_del corruption. next->prev should be ffffff8064a984e8,
-                       but was 0000000000000000. (next=ffffff8064a9a6e8)
-  kernel BUG at lib/list_debug.c:67!
-  Call trace:
-   __list_del_entry_valid_or_report+0x148/0x14c (P)
-   iommu_device_register+0x1d8/0x268
-   arm_smmu_device_probe+0x588/0x624 [arm_smmu]
-   platform_probe+0x74/0xb8
-   ...
-   deferred_probe_work_func+0xa4/0xf4
+> -----Original Message-----
+> From: Hongyan Xu <getshell@seu.edu.cn>
+> Sent: Monday, September 28, 2026 3:41 PM
+> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
+> Przemyslaw <przemyslaw.kitszel@intel.com>
+> Cc: andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@kernel.org;
+> kuba@kernel.org; pabeni@redhat.com; intel-wired-lan@lists.osuosl.org;
+> netdev@vger.kernel.org; linux-kernel@vger.kernel.org;
+> jianhao.xu@seu.edu.cn; Hongyan Xu <getshell@seu.edu.cn>
+> Subject: [PATCH net] net: e100: cancel timeout work during removal
+>=20
+> Transmit timeout and command submission paths can queue
+> tx_timeout_task.
+> The worker accesses the MMIO mapping and netdev private state, but
+> device removal releases both without draining a pending instance.
+>=20
+> Cancel the work after unregister_netdev(), when the network stack can
+> no longer publish it and after any RTNL serialization used by the
+> worker has completed.
+>=20
+> Fixes: 2acdb1e05c1a ("[PATCH] e100: Execute tx_timeout task outside
+> interrupt context")
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>  drivers/net/ethernet/intel/e100.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/net/ethernet/intel/e100.c
+> b/drivers/net/ethernet/intel/e100.c
+> index 29960762e64a..710c2c30d9ed 100644
+> --- a/drivers/net/ethernet/intel/e100.c
+> +++ b/drivers/net/ethernet/intel/e100.c
+> @@ -2988,6 +2988,7 @@ static void e100_remove(struct pci_dev *pdev)
+>  	if (netdev) {
+>  		struct nic *nic =3D netdev_priv(netdev);
+>  		unregister_netdev(netdev);
+> +		cancel_work_sync(&nic->tx_timeout_task);
+>  		e100_free(nic);
+>  		pci_iounmap(pdev, nic->csr);
+>  		dma_pool_destroy(nic->cbs_pool);
+> --
+> 2.50.1.windows.1
 
-where next points at ->entry (offset 232) of a freed kmalloc-512 object,
-the released iommu_group of the depopulated device. That was seen
-on an Android 6.18-based kernel, but the code involved is unchanged in
-mainline.
-
-Take a group reference when a group is added to the list, and drop it
-once bus_iommu_probe() is done with the group. With the group kept
-alive, a group that has lost all of its devices in the meantime can
-simply be skipped: there is nothing left to attach a default domain to.
-
-Also drain the list on the error paths. Returning early used to leave
-the remaining groups linked to the dead on-stack list head, so
-list_empty(&group->entry) stays false for them and a later
-bus_iommu_probe() would never queue them for default domain setup again.
-
-Fixes: 41df6dcc0a3f ("iommu: Keep a list of allocated groups in __iommu_probe_device()")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
----
- drivers/iommu/iommu.c | 41 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fc..6965b89e76bb 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -682,10 +682,14 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
- 		/*
- 		 * With a group_list argument we defer the default_domain setup
- 		 * to the caller by providing a de-duplicated list of groups
--		 * that need further setup.
-+		 * that need further setup. The list holds a reference on each
-+		 * group, as its devices may be released before the caller
-+		 * gets to it.
- 		 */
--		if (list_empty(&group->entry))
-+		if (list_empty(&group->entry)) {
-+			iommu_group_ref_get(group);
- 			list_add_tail(&group->entry, group_list);
-+		}
- 	}
- 
- 	if (group->default_domain)
-@@ -1951,6 +1955,18 @@ static void iommu_group_do_probe_finalize(struct device *dev)
- 		ops->probe_finalize(dev);
- }
- 
-+static void iommu_group_list_put(struct list_head *group_list)
-+{
-+	struct iommu_group *group, *next;
-+
-+	list_for_each_entry_safe(group, next, group_list, entry) {
-+		mutex_lock(&group->mutex);
-+		list_del_init(&group->entry);
-+		mutex_unlock(&group->mutex);
-+		iommu_group_put(group);
-+	}
-+}
-+
- static int bus_iommu_probe(const struct bus_type *bus)
- {
- 	struct iommu_group *group, *next;
-@@ -1959,7 +1975,7 @@ static int bus_iommu_probe(const struct bus_type *bus)
- 
- 	ret = bus_for_each_dev(bus, NULL, &group_list, probe_iommu_group);
- 	if (ret)
--		return ret;
-+		goto err_put_groups;
- 
- 	list_for_each_entry_safe(group, next, &group_list, entry) {
- 		struct group_device *gdev;
-@@ -1969,6 +1985,16 @@ static int bus_iommu_probe(const struct bus_type *bus)
- 		/* Remove item from the list */
- 		list_del_init(&group->entry);
- 
-+		/*
-+		 * The bus notifier may have released every device of the group
-+		 * since it was added to the list; there is nothing to set up.
-+		 */
-+		if (list_empty(&group->devices)) {
-+			mutex_unlock(&group->mutex);
-+			iommu_group_put(group);
-+			continue;
-+		}
-+
- 		/*
- 		 * We go to the trouble of deferred default domain creation so
- 		 * that the cross-group default domain type and the setup of the
-@@ -1977,7 +2003,8 @@ static int bus_iommu_probe(const struct bus_type *bus)
- 		ret = iommu_setup_default_domain(group, 0);
- 		if (ret) {
- 			mutex_unlock(&group->mutex);
--			return ret;
-+			iommu_group_put(group);
-+			goto err_put_groups;
- 		}
- 		for_each_group_device(group, gdev)
- 			iommu_setup_dma_ops(gdev->dev, group->default_domain);
-@@ -1991,9 +2018,15 @@ static int bus_iommu_probe(const struct bus_type *bus)
- 		 */
- 		for_each_group_device(group, gdev)
- 			iommu_group_do_probe_finalize(gdev->dev);
-+
-+		iommu_group_put(group);
- 	}
- 
- 	return 0;
-+
-+err_put_groups:
-+	iommu_group_list_put(&group_list);
-+	return ret;
- }
- 
- /**
--- 
-2.43.0
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
