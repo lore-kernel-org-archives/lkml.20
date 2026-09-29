@@ -1,93 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA4E4E3250
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0032D4F7CAF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686496; cv=none; b=REZkjcTVgaqKy6gsnM66FfzkHADE6R20hM2yTrnRypPkocwdXRBvqtVHFD7Ltfh/XVLGavNjI9R3UqIShSWuvVnq8OJpg2plGPHch37gptUBdZnc+Ilh4xJCOiBACwWiWuBuRtM2Ua5DheNFSWAIKkO/JD4kf8k78PdUScrBR6o=
+	t=1790686537; cv=none; b=dGctg14K7dOqGFBPzs+z5iNYvv36QMN/Q6Vpfk4nLEZivmKjVkM1M36PwevZIerwSjDEvpE7kbIOiIKcZO2oCgfCeNNn2ZXDNCb4L97hjGG0nDlyGqxlNHKUj3QrQrl+KymsISqLRbldana8x+svH/ZORPPaeOwB162sbVLZLuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686496; c=relaxed/simple;
-	bh=xS1NkkYN9CulJRaLfTSH2iScF0/e2DNcLRbcAPxB9l8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RCVCEvri3UDaLJgVvx4/k0XEyfon8v0auwjP2TYhX4ty7ALTmwKGkWaVLLnBr/OkaF3BQ5os/VKNqfVslSPsHu7nwHEVDqYP4vM/TZO9GHsfOZc/TfylsUas5bmEpRCwSs9e/BPcAnrSThNm/92XodMhF19TdKbaXUjMY4yDjEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jI/dbVEp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790686537; c=relaxed/simple;
+	bh=tCMTsPHjO2fXbww9+BHIYYPXZ2hJhXv8equJFXTA+DE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LwfUtQwxAFReToNounElbEK51Tde+4Aht8P/GqF0MpFHlPC5hBqApoDhTpJSODICGCEbe+Q5izKz9qa4Bs/tNvdCQDblDTEkrGYN9snIP8mCAxHuIwAHOvuh5KD3DFM/peKWBHx9fk29JTTsE0rDAkU8B/4HUayZjRnOCIPOGfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0IrFkyE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jI/dbVEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1C61F0089C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:54:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0IrFkyE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE951F000FF;
+	Tue, 29 Sep 2026 12:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790686495;
-	bh=Igy42JddWg1pvkuq6wti/LXMBzd9rwbkMAjmT2jtT+0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jI/dbVEpToIZjYPOtLcxlN0h3WJDkOrANgmtO2i8XE78vv7VqR/PeARfiiQonmD4Y
-	 EfBPRo8EPGNjbLhfNaSxRWKg0T9DFBFNWmC85RWdDJoIOa0Ynz4W+76kgEl+irxVxw
-	 kktRI/6tfdO5HM4dgxyQVCBp3XqZoGQu2mEsDYXSp3ysm8/D2CWAgl04HglIdkPYtr
-	 l5YQANrrCKSdWfXtAvwYSEbqm/p/BOsLanOvE8UF90BZapp7hVj4WQxtfQu0hm8sbi
-	 ph4lpmHta4oBf+e77DRO+G1s4achZKJl7Q68baOsp2LTfo4LA7PxFvkSv34Qu4Cj+E
-	 hayQnICxL/rHA==
-Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-492d8c4add0so2197821fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:54:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy4gVrDHA/4l6ZfgL+En4fFW5qFKDeTkmzfbOWTXaLVuh5DxxgKs9dk1Cstsp4rMXb6VCjmmmC5EFMEXGk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJuyyXTD9eUPceH+VqBgAqrvKFGsrPh0PWsvakfH9kyJudpsc2
-	DVmBPvulT0UCJ96wvt/mMvBtEk50Dm5jIlx2fPLDWxe2nl8x9Encwspy1sw3jKiX4DstYJkgnSg
-	xPQ4XEs2Riulukl9KPCq47OAez8mRgHE=
-X-Received: by 2002:a05:6870:d1c2:b0:48f:e0e5:a1dd with SMTP id
- 586e51a60fabf-491e7a6d6b0mr14229510fac.50.1790686494627; Tue, 29 Sep 2026
- 05:54:54 -0700 (PDT)
+	s=k20260515; t=1790686535;
+	bh=gCkJjBBff/AJibyur95WsljmL9G7qJJd4uMEIUoBaII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O0IrFkyEUym09hmYERwCoeXE5FV+rViVAoFgvgV/1Z7djCEdl0r14IYM7huhcz/mc
+	 UXeYWz/TWgjulH1qt2vR8LzeT+VYQxWvIRiazSBnnnCkMnzMkQU72ji4xB/bFZ2nwe
+	 pB2bidGM0WdrtRQT15AhEkgJLz/H+7w2S/EojnaAInelokEKJct7M77W2Pq33/FVLq
+	 8LsxVemswmK2xRwo8hYCF2kvXqmRFg5qPySS3OOOcNbQv4hRZSnRcsZHfeRsmXDHwC
+	 /XGQKdl3JkNLiUzk8XKrAXQ92MqOS6F5A5ABGgFP492Y0QoLkpVVZr+r/fE/NFDpE+
+	 RSAvWP5DxQPwQ==
+Date: Tue, 29 Sep 2026 13:55:30 +0100
+From: Will Deacon <will@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ben Horgan <ben.horgan@arm.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>
+Subject: Re: [PATCH v3 7/8] clocksource/drivers/arm_arch_timer: Expose a
+ direct accessor for the virtual counter
+Message-ID: <aru1QvpaQ8A-OnQq@willie-the-truck>
+References: <20260802165327.385217-1-maz@kernel.org>
+ <20260802165327.385217-8-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org> <20260727-spotted-winged-mantis-7aa1ce@quoll>
-In-Reply-To: <20260727-spotted-winged-mantis-7aa1ce@quoll>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 29 Sep 2026 14:54:40 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
-X-Gm-Features: AclHuK_CheQSKIMDhFg2gRDpav4ZMyb1OqvfpMBU-vTMPZz8dP06MGN3wLf1QRU
-Message-ID: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260802165327.385217-8-maz@kernel.org>
 
-On Mon, Jul 27, 2026 at 10:29=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
-> On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
+On Sun, Aug 02, 2026 at 05:53:26PM +0100, Marc Zyngier wrote:
+> We allow access to the architected counter via arch_timer_read_counter().
+> However, this accessor can either be the virtual or the physical
+> view of the counter, depending on how the kernel has been booted.
+> 
+> At the same time, we have some architectural features (such as WFIT,
+> WFET) that rely on the virtual counter, and nothing else.
+> 
+> If implementations were perfect, we'd rely on reading CNTVCT_EL0,
+> and be done with it. However, we have a bunch of broken implementations
+> in the wild, which rely on preemption being disabled and other
+> costly workarounds.
+> 
+> In order to provide decent performance on non-broken HW while still
+> supporting the legacy horrors, expose arch_timer_read_vcounter() as
+> a new helper that hides this complexity. Obviously, this is simply
+> a global alias of arch_counter_get_cntvct().
+> 
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> ---
+>  drivers/clocksource/arm_arch_timer.c | 2 ++
+>  include/clocksource/arm_arch_timer.h | 1 +
+>  2 files changed, 3 insertions(+)
+> 
+> diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm_arch_timer.c
+> index b3b31d4f4815f..9c7501ce57073 100644
+> --- a/drivers/clocksource/arm_arch_timer.c
+> +++ b/drivers/clocksource/arm_arch_timer.c
+> @@ -128,6 +128,8 @@ static notrace u64 arch_counter_get_cntvct(void)
+>  	return __arch_counter_get_cntvct();
+>  }
+>  
+> +u64 arch_timer_read_vcounter(void) __attribute__((alias("arch_counter_get_cntvct")));
 
-> > +  reset-gpios:
-> > +    maxItems: 2
-> > +    description: 2 reset pins for 2 physical panels
->
-> Won't work. gpio-consumer-common expects only one reset line. You need
-> two separate properties.
+nit: compiler-attributes.h provides __alias to make this a tiny bit cleaner.
 
-Hm that is a big confusion for the head.
+That said, why did you decide on the alias rather than just having this
+as a wrapper function?
 
-reset-gpios is by it's very nature plural, because we structured
-all GPIOs like that, exactly in order to indicate that they can be
-arrays. :/
-
-I think it's appropriate to patch gpio-consumer-common to accept
-> 1 gpios, in a separate patch, can even be sent outside
-of this series.
-
-Unless the DT maintainers have some good reason to slap my
-hands for that suggestion...
-
-Yours,
-Linus Walleij
+Will
