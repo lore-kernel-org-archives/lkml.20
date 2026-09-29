@@ -1,191 +1,284 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A3535FCD
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70D95383D3;
+	Tue, 29 Sep 2026 14:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692901; cv=none; b=bSynwCLEBkAKkGZRYlxsABCpjyb1+wHQm743QoEeXLd+uou1LaW/aG3WLCdXenxe0PwXOyowuVGAJy4G17KZp42hTcq1lhV43Zj2E3j5BPmN4RfiG2LHZJLokSGvSPC/yZ3xaovB8ntQIO4YMYF6eAgsp9eN31z+yJrRFU0d5vA=
+	t=1790692905; cv=none; b=bKmUMtb064z+xJiQACQOH09Ge4G4qKE6pirXEeSL6kWriX4VX0G1KeXSiNeZCcYf/tGmAkQKNRHeFlS180Oel9nEub5OpZBPIJLXcAJhDjXZTz/49icHOv8NyG4nVig3dfimLm87wmvhxDFGbf8Ebb9qk6gtxBomltdzfIzTfjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692901; c=relaxed/simple;
-	bh=I+1TtXq3U+1B/VQR2q2ohCXl8X3baiWAnbXgVNkqxsQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bWH8ZoHSqcyCMmidUDvAK7d7pu/fEzJEuqDzYzP2fHXx7kLzCu84+/E4pwC+qg1HgTWoEAnxG7SKSHDs//pqgAK7AnI07T4IPhNq4UpCUC45j27bPHwiExlh+rc65UdQllA/jez/EEZGJXy7RI8CTWDo9nr6I4FN9b+lk2p22Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vnWGGL9s; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790692905; c=relaxed/simple;
+	bh=n7c/9yUMz69v5IqCNcpDLzMA3tZ8S+lpt4RyCLmeFWw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O5zlr3VY/DgvMWzsyjONzf18QPgB+Sq8VcZNAuPke2bcC3ssepHIzQdzY/a7ykXC9/kdODeOZmHsoNlfbqbuu8dq4R4OxYXC7XsQ96p9qFNxe4js2t4zgQQv0chbWbtCqmv1RI/eYMcLXSddtHxDyl3pawG1uKWeh0TiGIdWZDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=LIj2gOrL; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vnWGGL9s"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso574514666b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:41:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790692890; x=1791297690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ljt9qo4CbaNAhZ8NBb8RScI9+T0M5HBa8xMXa6k6Vt0=;
-        b=vnWGGL9suXiT6pmulhc0TuLPLp+MGcpywAt5jGtpAhUMxTa9Kj8UArKV5m7xFTDGKS
-         snHc7FvvnZeUxsB9iiDVm68mLoXruxMbWIZD+i7Ege1yCkddHWO08KJfUkSQ7hIf4BSh
-         qg6SMuJLsEiKS2JpT6JKSOb5V4J/S88z3tMl3D61LeEi14SRuFSFl1H3zBhrf5NfsEa2
-         6J0Z5Uup12+gsZfpISX6D6J8ZEr5y1vqq0drfFL6i+dRLfsbFINmkevJLpDGp7YdUmHp
-         9SPJcoRmOnoqANjhxeErCYregFBZCpKmq8HgxN6VcgLe62A4EpN3RisOwUkbYxWNaNQ2
-         rucw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790692890; x=1791297690;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ljt9qo4CbaNAhZ8NBb8RScI9+T0M5HBa8xMXa6k6Vt0=;
-        b=KGT+FJRSZyQhc+8f1TbOpdXYuAsAf7gctBpqkDth8DF1OqZoTyVB7QT6UK3HtSNIpd
-         PkNepNPR+FH9TT/z+okkQnjgSTHOWKPdLAqS5rE4Go02nVDDtUizajsNa/dxKl6ZQago
-         OVqPqbhrGypbK9pDMwpMrf8rBI7pwBopgU1tM1mHJa8C/rMBrvnkU6eCrqTale4NeYeX
-         uVoewnD8EAkPLwuWug/GwzwrreUjwCMZC66hkpDStUdVtL0g49BY6NyiMfmemVgs216V
-         6bBTNX3X5BjRmAUklPsAhpvgX7xatJUR0Pb/1ANl+mh3qxx1nX9fRIkxVNm4/dBN0+hp
-         UQsg==
-X-Forwarded-Encrypted: i=1; AKwUvBxu4GKRJ5nNTlLgGZR1vgq1fT+FpeqvAVjgTvCJ9tqEYudwoY6RS07QMbDFtr1/+sKTMwqVFE+4Uge/0QM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+vdQJZmWQnK7LgHU4Ki4fC+CAZr/FUOysG5CfqUj6Perzcoh+
-	svaElIrRYhWMYgBfhjlysm5yvBIuvkzI4WfE1OsAAYw9g1sBGVFLphcKE83ocKCX3JI=
-X-Gm-Gg: AYBFou24Eh6pF+UxEEphSGjcu88RcqJk093PG4QcX9YYaaSpo/82D/qoUmhIMAMARF+
-	sA3kVAZ/yDg7dKlDluGoIKxczsGsJtIxau24ZnwW2CxzLHmDPn6GII4jZ+ev1YhoTjAgOdj9sDa
-	8ZoyCf6pXyxfIx5d+gUXNvXKcoOV9cbmzU8UPlll2BBBFZoY6frECwU3EkywEEy5nV6zVl9z4Tg
-	jK4+QiSUWOXKECdioFg5quPsJoL6BE2uwWgGakYKD9I5m87QzgJXVa0L2uyF578WDOEFGaFBpsb
-	JJGethLIIJ56b8lBMDesgumcgs3Jw7t6WJteTdBKfa8G9NT4vlRvMk98obfVJyS1++n3Puo9zb8
-	UrT7C2QFi6OCo95hromr6adCtwy3GE3EXGsCMcx7qaiaT34FuMktwLWEGz1+TVYDpfhlCsoJ2I5
-	R/7BGblBKK6SrzSdBUGDOxTKiCLt9NC8Xv6qjMFHwajp5oX3vfzuuxKlfir3GD
-X-Received: by 2002:a17:907:c310:b0:c25:32b0:e56c with SMTP id a640c23a62f3a-c2ac23862eemr1446037966b.4.1790692889352;
-        Tue, 29 Sep 2026 07:41:29 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb905c6f4sm966711a12.37.2026.09.29.07.41.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:41:28 -0700 (PDT)
-Message-ID: <8094040d-cb75-4f44-9662-97987f6eadef@linaro.org>
-Date: Tue, 29 Sep 2026 15:41:27 +0100
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="LIj2gOrL"
+Received: from localhost.localdomain (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 4A84278050E;
+	Tue, 29 Sep 2026 16:41:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790692891;
+	bh=n7c/9yUMz69v5IqCNcpDLzMA3tZ8S+lpt4RyCLmeFWw=;
+	h=From:Date:Subject:To:Cc:From;
+	b=LIj2gOrLYcUROFpt4S0CpkNPjNnR/tMgcK+t/KwpYSa868RVqedopVriYuUesi6HO
+	 r71pS3wOSQ2tRaouMgzwOkvj/KWqfxD/a/2ph4ZNRiNjqFSd1HLeHKL/z32WPfsD8N
+	 Y0O1/ifyeMIOflSUO8487Jwtwqn07k8yg0fuHafQStdU1Z0LctTXpdNFmvZdEcjL9x
+	 mbmx1iuVF/eto3vXw3UOJttO6hbi6M/HULlUEpayWt6gTd9GyJrvENFTg5jD5P6eJi
+	 DRXVEwirphAdMhrcswWRYOHYGxPyl6/zwMup4MwQGALkioMs1b3smV9imtpCiSbUOK
+	 z/EXRyIFIjYIA==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Date: Tue, 29 Sep 2026 16:41:03 +0200
+Subject: [PATCH v2] can: peak_usb: Add bus error reporting for the PCAN-USB
+ FD family
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] perf cs-etm: Fix bogus branch samples on
- exceptions
-To: Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260929-peak_usb-canfd-berr-v2-1-1a7005797c38@peak-system.fr>
+X-B4-Tracking: v=1; b=H4sIAP7Nu2oC/32Nyw6CMBBFf4V07ZjSiIAr/8MQ08dUqrGQGSASw
+ r9Lce/yJOeeuwhGCsjiki2CcAocuriBOmTCtjo+EILbWCipzrJWNfSoX/eRDVgdvQODROAQT8p
+ Ka7SUYlv2hD589uqt+TGP5ol2SKlktIGHjub9dsqT9/9hyiGHUhtXVIWvytJfkwU884DvoyfRr
+ Ov6Bf3HE87NAAAA
+X-Change-ID: 20260929-peak_usb-canfd-berr-dee42c0cba00
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+X-Mailer: b4 0.16.0
 
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
+CAN bus error reporting is currently missing for all PEAK-System
+USB-to-CAN FD devices. Add support for reporting bus errors by enabling
+bus error notifications in the firmware for each CAN channel.
 
-On 23/09/2026 16:21, Leo Yan wrote:
-> CoreSight currently models exception entry by changing the preceding
-> instruction range into a taken branch. This can give an IRQ the source
-> PC of an instruction that already retired and overwrite a real branch
-> immediately before the exception.
-> 
-> For an untaken B.LS followed by an IRQ, perf script currently reports:
-> 
->    hw int  4000f8 => ffff800080010c80  b.ls #0x400118
->    ...
->    iret    ffff800080012284 => 4000fc  eret
-> 
-> The hardware trace supplies 0x4000fc as the preferred return address.
-> For an IRQ, this is the architectural resume PC (Arm ARM, R_VBQMV).
-> B.LS has retired, and the saved PC identifies the boundary before the
-> following MOV. Using this PC as the IRQ source reflects the
-> architectural state at exception entry:
-> 
->    hw int  4000fc => ffff800080010c80  movz x2, #0x1796
->    ...
->    iret    ffff800080012284 => 4000fc  eret
-> 
-> The IRQ sample represents the transfer from this architectural execution
-> position to the handler. The series synthesizes exception entries from
-> exception packets, preserving the preceding branch and its outcome.
-> 
-> The supporting changes:
-> 
-> - Let decoders supply sample.ret_addr so later instruction fetching cannot
->    change thread-stack return addresses. Apply this to Intel PT
->    asynchronous samples as well.
-> - Prepare packet ISA and instruction-size handling and share sample
->    synthesis helpers. Mark untaken branches and break history when
->    instruction memory is unavailable.
-> - Add a thread-stack regression test and four AArch64 CoreSight tests.
->    IRQs and page faults must resume at the entry PC; SVC and emulated MRS
->    must resume four bytes later.
-> 
-> Based on the AI search and test on my x86 machine, this matches perf's
-> Intel PT handling of IRQs. Intel PT records the next instruction's IP in
-> the FUP packet, and Perf uses that IP as the interrupt sample's source.
-> 
-> This series is verified on Orion6 board with "perf test coresight".
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
-> Changes in v2:
-> 
-> - Rework the fix around exception packets to preserve both exception
->    entries and preceding branches.
-> - Add explicit return addresses and the Intel PT asynchronous-branch fix.
-> - Split out packet/synthesis preparation, record not-taken branches and
->    handle unreadable instruction memory.
-> - Add thread-stack regression coverage and four CoreSight tests.
-> - Link to v1: https://lore.kernel.org/r/20260713-perf_cs_etm_fix_non_taken-v1-0-4561607fc69f@arm.com
-> 
-> ---
-> Leo Yan (14):
->        perf sample: Allow decoders to supply branch return addresses
->        perf intel-pt: Preserve return addresses for asynchronous branches
->        perf cs-etm: Break branch history when instruction memory is unavailable
->        perf cs-etm: Centralize packet ISA initialization
->        perf cs-etm: Use the recorded instruction size for A32 and A64
->        perf cs-etm: Mark branches that were not taken
->        perf cs-etm: Factor out final instruction sample synthesis
->        perf cs-etm: Centralize branch sample synthesis checks
->        perf cs-etm: Classify exception calls using the exception packet
->        perf cs-etm: Synthesize exception entries separately from branches
->        perf tests: Check CoreSight IRQ entry and exit
->        perf tests: Check CoreSight syscall entry and exit
->        perf tests: Check CoreSight abort entry and exit
->        perf tests: Check CoreSight emulated instruction entry and exit
-> 
->   tools/perf/tests/Build                             |   1 +
->   tools/perf/tests/builtin-test.c                    |   3 +
->   .../perf/tests/shell/coresight/abort_entry_exit.sh |  21 ++
->   tools/perf/tests/shell/coresight/irq_entry_exit.sh |  37 ++++
->   .../tests/shell/coresight/syscall_entry_exit.sh    |  21 ++
->   .../perf/tests/shell/coresight/trap_entry_exit.sh  |  24 +++
->   tools/perf/tests/shell/lib/coresight_exception.sh  | 165 +++++++++++++++
->   tools/perf/tests/tests.h                           |   3 +
->   tools/perf/tests/thread-stack.c                    | 106 ++++++++++
->   tools/perf/tests/workloads/Build                   |   4 +
->   tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++
->   tools/perf/tests/workloads/page_fault_loop.c       |  37 ++++
->   tools/perf/util/cs-etm-decoder/cs-etm-decoder.c    | 106 +++++++---
->   tools/perf/util/cs-etm.c                           | 222 ++++++++++-----------
->   tools/perf/util/cs-etm.h                           |   2 +
->   tools/perf/util/intel-pt.c                         |   7 +
->   tools/perf/util/sample.c                           |   1 +
->   tools/perf/util/sample.h                           |   5 +
->   tools/perf/util/thread-stack.c                     |   5 +-
->   19 files changed, 656 insertions(+), 147 deletions(-)
-> ---
-> base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
-> change-id: 20260713-perf_cs_etm_fix_non_taken-5b4d7f73f41e
-> 
-> Best regards,
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+---
+Changes in v2:
+- Add a defensive check against single-channel adapters reporting an
+  invalid channel index.
+- Link to v1: https://patch.msgid.link/20260929-peak_usb-canfd-berr-v1-1-7abd585f877f@peak-system.fr
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c | 89 ++++++++++++++++++++++++++----
+ include/linux/can/dev/peak_canfd.h         | 15 ++++-
+ 2 files changed, 92 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+index 0d46f4ce5dca..98f6943469b3 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+@@ -661,17 +661,71 @@ static int pcan_usb_fd_decode_error(struct pcan_usb_fd_if *usb_if,
+ 	struct pucan_error_msg *er = (struct pucan_error_msg *)rx_msg;
+ 	struct pcan_usb_fd_device *pdev;
+ 	struct peak_usb_device *dev;
++	struct can_frame *cf;
++	struct sk_buff *skb;
++	u8 can_err_tx = 0;
+ 
+ 	if (pucan_ermsg_get_channel(er) >= ARRAY_SIZE(usb_if->dev))
+ 		return -EINVAL;
+ 
++	/* Guard against bogus channel 1 reports from single-channel adapters */
+ 	dev = usb_if->dev[pucan_ermsg_get_channel(er)];
++	if (!dev)
++		return -EINVAL;
++
+ 	pdev = container_of(dev, struct pcan_usb_fd_device, dev);
+ 
+ 	/* keep a trace of tx and rx error counters for later use */
+ 	pdev->bec.txerr = er->tx_err_cnt;
+ 	pdev->bec.rxerr = er->rx_err_cnt;
+ 
++	/* ignore non-CAN error notifications */
++	if (PUCAN_ERMSG_TYPE(er) > PUCAN_ERMSG_OTHER_ERROR)
++		return 0;
++
++	/* update other errors counters */
++	dev->can.can_stats.bus_error++;
++
++	if (PUCAN_ERMSG_RX(er)) {
++		dev->netdev->stats.rx_errors++;
++	} else {
++		dev->netdev->stats.tx_errors++;
++		can_err_tx = CAN_ERR_PROT_TX;
++	}
++
++	/* if berr-reporting is off, stop here */
++	if (!(dev->can.ctrlmode & CAN_CTRLMODE_BERR_REPORTING))
++		return 0;
++
++	/* otherwise, build the CAN_ERR_xxx frame */
++	skb = alloc_can_err_skb(dev->netdev, &cf);
++	if (!skb)
++		return -ENOMEM;
++
++	cf->can_id |= CAN_ERR_CNT | CAN_ERR_PROT | CAN_ERR_BUSERROR;
++	cf->data[2] |= can_err_tx;
++
++	switch (PUCAN_ERMSG_TYPE(er)) {
++	case PUCAN_ERMSG_BIT_ERROR:
++		cf->data[2] |= CAN_ERR_PROT_BIT;
++		break;
++	case PUCAN_ERMSG_FORM_ERROR:
++		cf->data[2] |= CAN_ERR_PROT_FORM;
++		break;
++	case PUCAN_ERMSG_STUFF_ERROR:
++		cf->data[2] |= CAN_ERR_PROT_STUFF;
++		break;
++	default:
++		break;
++	}
++
++	cf->data[3] = PUCAN_ERMSG_CODE(er);
++
++	cf->data[6] = pdev->bec.txerr;
++	cf->data[7] = pdev->bec.rxerr;
++
++	peak_usb_netif_rx_64(skb, le32_to_cpu(er->ts_low),
++			     le32_to_cpu(er->ts_high));
+ 	return 0;
+ }
+ 
+@@ -899,6 +953,7 @@ static int pcan_usb_fd_start(struct peak_usb_device *dev)
+ {
+ 	struct pcan_usb_fd_device *pdev =
+ 			container_of(dev, struct pcan_usb_fd_device, dev);
++	u16 usb_opts = 0;
+ 	int err;
+ 
+ 	/* set filter mode: all acceptance */
+@@ -912,12 +967,17 @@ static int pcan_usb_fd_start(struct peak_usb_device *dev)
+ 		peak_usb_init_time_ref(&pdev->usb_if->time_ref,
+ 				       &pcan_usb_pro_fd);
+ 
+-		/* enable USB calibration messages */
+-		err = pcan_usb_fd_set_options(dev, 1,
+-					      PUCAN_OPTION_ERROR,
+-					      PCAN_UFD_FLTEXT_CALIBRATION);
++		/* enable USB calibration messages (needed only once for the
++		 * entire interface)
++		 */
++		usb_opts |= PCAN_UFD_FLTEXT_CALIBRATION;
+ 	}
+ 
++	/* set channel device options: always asks for bus error notifications
++	 * to get (at least) rxerr/txerr, as well as any USB-specific option.
++	 */
++	err = pcan_usb_fd_set_options(dev, 1, PUCAN_OPTION_ERROR, usb_opts);
++
+ 	pdev->usb_if->dev_opened_count++;
+ 
+ 	/* reset cached error counters */
+@@ -955,12 +1015,15 @@ static int pcan_usb_fd_stop(struct peak_usb_device *dev)
+ {
+ 	struct pcan_usb_fd_device *pdev =
+ 			container_of(dev, struct pcan_usb_fd_device, dev);
++	u16 usb_opts = 0;
+ 
+ 	/* turn off special msgs for that interface if no other dev opened */
+ 	if (pdev->usb_if->dev_opened_count == 1)
+-		pcan_usb_fd_set_options(dev, 0,
+-					PUCAN_OPTION_ERROR,
+-					PCAN_UFD_FLTEXT_CALIBRATION);
++		usb_opts |= PCAN_UFD_FLTEXT_CALIBRATION;
++
++	/* turn off bus error option, as well as any USB-specific options */
++	pcan_usb_fd_set_options(dev, 0, PUCAN_OPTION_ERROR, usb_opts);
++
+ 	pdev->usb_if->dev_opened_count--;
+ 
+ 	return 0;
+@@ -1200,7 +1263,8 @@ const struct peak_usb_adapter pcan_usb_fd = {
+ 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
++			CAN_CTRLMODE_BERR_REPORTING,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1276,7 +1340,8 @@ const struct peak_usb_adapter pcan_usb_chip = {
+ 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 		CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
++		CAN_CTRLMODE_BERR_REPORTING,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1352,7 +1417,8 @@ const struct peak_usb_adapter pcan_usb_pro_fd = {
+ 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
++			CAN_CTRLMODE_BERR_REPORTING,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1428,7 +1494,8 @@ const struct peak_usb_adapter pcan_usb_x6 = {
+ 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
+ 	.ctrlmode_supported = CAN_CTRLMODE_FD |
+ 			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC |
++			CAN_CTRLMODE_BERR_REPORTING,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+diff --git a/include/linux/can/dev/peak_canfd.h b/include/linux/can/dev/peak_canfd.h
+index 056e0efa649f..bbcba2711f19 100644
+--- a/include/linux/can/dev/peak_canfd.h
++++ b/include/linux/can/dev/peak_canfd.h
+@@ -8,6 +8,8 @@
+ #ifndef PUCAN_H
+ #define PUCAN_H
+ 
++#include <linux/bitfield.h>
++
+ /* uCAN commands opcodes list (low-order 10 bits) */
+ #define PUCAN_CMD_NOP			0x000
+ #define PUCAN_CMD_RESET_MODE		0x001
+@@ -197,7 +199,18 @@ struct __packed pucan_rx_msg {
+ #define PUCAN_ERMSG_FORM_ERROR		1
+ #define PUCAN_ERMSG_STUFF_ERROR		2
+ #define PUCAN_ERMSG_OTHER_ERROR		3
+-#define PUCAN_ERMSG_ERR_CNT_DEC		4
++
++#define PUCAN_ERMSG_TYPE_MASK		GENMASK(6, 4)
++#define PUCAN_ERMSG_D_BIT		BIT(7)
++#define PUCAN_ERMSG_TYPE(e) \
++	FIELD_GET(PUCAN_ERMSG_TYPE_MASK, (e)->channel_type_d)
++
++#define PUCAN_ERMSG_RX(e) \
++	FIELD_GET(PUCAN_ERMSG_D_BIT, (e)->channel_type_d)
++
++#define PUCAN_ERMSG_CODE_MASK		GENMASK(6, 0)
++#define PUCAN_ERMSG_CODE(e) \
++	FIELD_GET(PUCAN_ERMSG_CODE_MASK, (e)->code_g)
+ 
+ struct __packed pucan_error_msg {
+ 	__le16	size;
+
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20260929-peak_usb-canfd-berr-dee42c0cba00
+
+Best regards,
+--  
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
