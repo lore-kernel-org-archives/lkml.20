@@ -1,137 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7EC5476C3;
-	Tue, 29 Sep 2026 17:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22B54EBACC
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:58:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790704713; cv=none; b=KyMrAwK5u4WDgoKelDq3yHghFGsD//qS2pxgWq3DnxiCHPAtStSdJJkkILZvkrqqsPgqUA63Esg5UFPqtk/vJ3a0a5AoSqTXSOMLKd5/7U+2WGJ0O7XpNJ/kOeFvlAmXc1XDyxajUEDMQ0WEaz/IgcHkHw+Wl1zb5/macTU/EPo=
+	t=1790704735; cv=none; b=kp7VuAwwDbmm3N9/Ey9D0sMg3M+o4owThi6w39twTjIvnOpDuyjI8HJcLhEP0JJuVY3nu5UGH+li9Kxq084wOdpiKWw8HOyxiwt7uPLejiCwGDswycW7KS9wAvQqWHdiggryC7cC3W/RVB6RtSI6BKvRWcFSnu3lFTltOTuiyNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790704713; c=relaxed/simple;
-	bh=xhMnY8P3fAJuW7gQqQ0qb7YT+JEIYP+2o3RbxdirnqM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m3Kwy0PXDs/X70rZQrAKD2zsUiHanycBNi23+F3p51J5/J0uYFolgRltBW8NDB5eQ3kbVK89E0hnDItjVZ0uqO6jTgXFq2URyU7y6X9tsT4yxGNbLg1pvGjvJU/ijYLtA5g1G959hZOHfGmo/y2uxhKbQmikSN2MmPI8Lq8zR3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ES24bieo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790704735; c=relaxed/simple;
+	bh=qFAx/pnngE/A8wI8Zu9QmS4CjpyUWSL8VwdOu9yr0KU=;
+	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=Cm+Yelio26SHggg256ke3stdf1wu7oJbmH0yVEfGDprflLCIO/LNDH/V+GDTy4SE/+8gMd2a5N98p3WDia2Vf4ovA7cI9RayzE3h87AW0A8kLYUuWMNVhISK0LPqhnEdvaj4GiKcj8yXXV+RRwVYMipA1wB1flkIl0cMcfZ5uGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKUtNz0O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ES24bieo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7B31F00893;
-	Tue, 29 Sep 2026 17:58:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKUtNz0O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827061F000FF;
+	Tue, 29 Sep 2026 17:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790704712;
-	bh=0ytK01UUqKtotZZ62Ic77OTRq9P25Gej53iA0+pPsT4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ES24bieoPKbsUbWOs74PnIlycqVArVt4vd3DF+ZCypQue6GN5PjrAcTXtmw9nPcXk
-	 xK9/bVtNW2cuPvG1aur6VBVVDE+bedSl5xQt/U26tifGnZObliofAbqMu+U4PvU0iZ
-	 v5x9XMefm7bT9OP9dP2fpQhBvhM+nVWhqt8gQJ5nhNBMjpLicOvQqHsdB/CMVBB4t6
-	 VZUgJIcFq2E4GDhrV/jbo3cyib+3eC+VWAQrZOy6D8jt32N1il4QOzKZBpEF6l14Co
-	 UqCgw0okDbPJxB1FY8YRy7jYmq7cAxpGLbklG/QX0rL6oqzv9Eg2Ag0Y11fRK5ZUmV
-	 mmaTQtypgKfhQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Tue, 29 Sep 2026 19:56:49 +0200
-Subject: [PATCH v3 2/3] rust: add a wrapper for the `nr_online_nodes` C
- function
+	s=k20260515; t=1790704734;
+	bh=vk3nxwp/7lZZyp5CGxF5TgatcwDjt9KZTeaXzgNAE2I=;
+	h=Date:From:To:Cc:Subject;
+	b=UKUtNz0OGYJcm4trvq+cBEKFIwHEtOln0ej9SvH+RCOz2VdQujJo3RG7egLWGrg2A
+	 vEpZs5la1aIlchPjzCaQnrCcXaNOehTe+G10L7ZRgm7Qq4861S030WUyTPTNf99RKz
+	 LhWd4rB4pXWqhZZ1jEaSkHdXHukdi06NZbpt88khVRibSrHsr6qCnhWz2Yq6OR1UWj
+	 se1U9BiKXOMYZXZcTDvevYhjlsEIEzYdofSy+10MV6jttA2QxtDJ8cCqpTE4FR5AK5
+	 x7ubb6c7xKx+328SVZDx9BpL/wXODJlAT43syyakIp4W52ggoz7EHDylAJoQ2Q06KJ
+	 q9ZCRjpn+uluA==
+Message-ID: <edb955af-9153-4db1-8a9e-3d729cb99753@kernel.org>
+Date: Tue, 29 Sep 2026 10:58:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-cpu-helpers-v3-2-e968ce5ee613@kernel.org>
-References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
-In-Reply-To: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1702; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=xhMnY8P3fAJuW7gQqQ0qb7YT+JEIYP+2o3RbxdirnqM=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqu/wbJU1VjOLSQUJRFAJPECJd9/FEeP2M0S5Tx
- WBH+M9JQVaJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCarv8GwAKCRD6UCkIqsW9
- 0PNZD/93QHc2dQpsnskLYOkLwRJiakxNnEwwECD3e4d+NbMPkkhBiO62Q0IYTuU9DWBtQWFM7OS
- XZFhG4dG6RkDAbKKSCXyTWKHAqedTecqoXNQFBsBzdQqNWi9AFV4lzGeGD7N7ZAN2KIGzQbOuAO
- 89yllTo7nrhTe/4vFlRhhLmTHRNTXNAzjHFTf/OYWdnXJ1QRXSAYMTqfOQbVJ8EbZBoAQUqltmR
- P9K67rKyK23SIMAiqfv9lT/HSN3qZI+4FjXLqxubvJNPOvopyFyjsTxJ8yi32dSwr8jls2vlwgq
- k0Uli9SljxMLU5ItkqvveWxDiAzVJ2tAOpc0DiFr3jBbWb/UBVO+rrww27m5irvFPbUXHhhahlA
- m8su+asrf5X7Um7OoE6PA2TNL+cFVSFxhfXlcsCa0veHMN0X5LbHYMoTrlvagxftuPxGRUvrg4z
- QC8xZo4BiS2I3w0KG73nOcXLplL2OVK3J6bBhw14D0QwMG6qeu16cuhY6v3Yvs21M7HPhOrD+T6
- R2sWFf8V65ykyw0qSQDOBBoMv9TlFeLf0LhVLc3lPI/9uLnz1OE8TK4Eu4hhBrOdOUsRHY+4+gV
- SVIbV4BtWvf7IvUBn8XOzO8+kv78UcciHUHjnb44e6Fxk+SMp8XDWR/2CeLN+XhF8DliFJJ2SkG
- AN1d3qkXHEpKqMA==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+User-Agent: Mozilla Thunderbird
+From: Vineet Gupta <vgupta@kernel.org>
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: lkml <linux-kernel@vger.kernel.org>,
+ arcml <linux-snps-arc@lists.infradead.org>,
+ Bradley Morgan <brads@mainlining.org>, blaze <1466528493@qq.com>,
+ Anthony Iliopoulos <ailiop@suse.com>, "Paul E. McKenney" <paulmck@kernel.org>
+Subject: [GIT PULL] ARC updates for 7.3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This function returns the number of online NUMA nodes.
+Hi Linus,
 
-The wrapper is needed by the Rust null block driver.
+A bunch of fixes for ARC. Please pull.
 
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
- rust/kernel/lib.rs  |  1 +
- rust/kernel/numa.rs | 29 +++++++++++++++++++++++++++++
- 2 files changed, 30 insertions(+)
+Thx
+-Vineet
+------>
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
 
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 4d5c96ddc49c..a7b1c9cf454f 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -105,6 +105,7 @@
- #[cfg(CONFIG_NET)]
- pub mod net;
- pub mod num;
-+pub mod numa;
- pub mod of;
- #[cfg(CONFIG_PM_OPP)]
- pub mod opp;
-diff --git a/rust/kernel/numa.rs b/rust/kernel/numa.rs
-new file mode 100644
-index 000000000000..164e622d325f
---- /dev/null
-+++ b/rust/kernel/numa.rs
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! NUMA topology utilities.
-+//!
-+//! C header: [`include/linux/nodemask.h`](srctree/include/linux/nodemask.h)
-+
-+use crate::bindings;
-+#[cfg(CONFIG_NUMA)]
-+use crate::sync::atomic::{
-+    Atomic,
-+    Relaxed, //
-+};
-+
-+/// Returns the number of online NUMA nodes.
-+#[inline]
-+pub fn num_online_nodes() -> u32 {
-+    #[cfg(CONFIG_NUMA)]
-+    {
-+        // SAFETY: `nr_online_nodes` is a global variable that is valid for the lifetime of the
-+        // kernel. The C side updates it with plain writes during node hotplug and reads it with
-+        // plain reads. A relaxed load is the Rust equivalent of `READ_ONCE()`, which is the best
-+        // we can do on the reader side.
-+        unsafe { Atomic::from_ptr(&raw mut bindings::nr_online_nodes) }.load(Relaxed)
-+    }
-+    #[cfg(not(CONFIG_NUMA))]
-+    {
-+        bindings::nr_online_nodes
-+    }
-+}
+   Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
 
--- 
-2.54.0
+are available in the Git repository at:
 
+   git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc.git/ 
+tags/arc-fixes-7.3
 
+for you to fetch changes up to f050c3e61d2a1aaece3170d459e4ce5fa2486c12:
+
+   ARC: arch_cmpxchg_relaxed to use size of pointed type not pointer 
+(2026-09-24 21:17:09 -0700)
+
+----------------------------------------------------------------
+ARC fixes for 7.3
+
+  - cmpxchg snafu [Bradley] and other miscll fixes
+
+----------------------------------------------------------------
+Anthony Iliopoulos (1):
+       arc: remove unused profile.h includes
+
+Julian Braha (1):
+       ARC: cleanup dead ARC_CANT_LLSC option in Kconfig
+
+Vineet Gupta (1):
+       ARC: arch_cmpxchg_relaxed to use size of pointed type not pointer
+
+blaze (1):
+       arc: kernel: Fix clk reference leak in show_cpuinfo()
+
+  arch/arc/Kconfig                      | 4 ----
+  arch/arc/include/asm/atomic64-arcv2.h | 6 ++++++
+  arch/arc/include/asm/cmpxchg.h        | 4 ++--
+  arch/arc/kernel/setup.c               | 1 +
+  arch/arc/kernel/smp.c                 | 1 -
+  5 files changed, 9 insertions(+), 7 deletions(-)
