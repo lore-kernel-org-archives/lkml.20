@@ -1,217 +1,338 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B078A3AC0F6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664669; cv=none; b=UaxJHzixzBRxmxs8HvjoX2XlE2lyvQv6at3rEspCeM89zvb/KTrHbNwkxipuhDpsdlxU7n113YcIqvm/VZK28GmXudEl2t93RpngwGBm561mEBWSZCnzM+TjMYSbXNT2ffNTmYcfXMb1xM1DtUj2tf8OJEPrzE7bRJJiyrxwCRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664669; c=relaxed/simple;
-	bh=xBcsERAGMD9eGee+SFf8E3U4t25wa6AVynACUUStgmg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BcnXf/DFl8SnkcRrwbSwTOb0H0vXpkHfKp6zI1xtCWni1MQOXH2VctylJ9zpllmWdYds5ayPjiOFWrh+6ApACNFv/E58ENkXwnanTH+GFhUoBM0bZNNNm3WVEJMccgcTQTI8eKn+J5DC2eupo0KEfTuLHB5f6TEdzX1ufY7mT8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nn1oTJqZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=atOMOI3L; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F823CA4A1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790664807; cv=pass; b=ZDWkBAas+89Ydy22zh+WwqGkQsFg1JWs5fAstJ97PGV+CbQKoEpSmVE8lzp9bMW1YjgZgAQc0JDlYKd+YHYCA3iPdw1icyD1KUIegVRZd8Iiyf/2hf4vGJz19ikTWJN603QlP8iKgx8jCPe4JJApVg2lgEIKL/I0urXX6lCw7bg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790664807; c=relaxed/simple;
+	bh=EfP/d5Y49xviNaxKDhrOQcTd1OI9sI7yXtVqUJTZqNc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ISiDCXAHnMLvvaGe/4A5xZRXrv/pb08ZG8APIamNVSjB7DM2UIB6X8xVuzUSWWzs+58j1oYq4cBaTwBXcCHrOGhgJoSvtvdwAyD5RXWcGteM2mBb4JA9KtdRPLt3PBprb0AoUpPQKT90dZK6aM6y0G5FzPMUR8NVv+jYi3XkYzs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RA51Z3Dp; arc=pass smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nn1oTJqZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="atOMOI3L"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47A4n2126506
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:51:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+ETLrKADipHnQ0SvOXNNqJhUBO4FGwFDlpJ1cHVM8gQ=; b=Nn1oTJqZKgpL34gB
-	PYd6lvc9jUtOrzbjx11pTeoFrNmIxW0en6/g71KyXJ39sqFDHbGo+3m67xNCmTpR
-	2mgvv2L2qO/RtMmJ1afjOzAOjbv+lTkgTSS38pdoSBL3rvCe/ZHwegTryIPfDtZH
-	SCZ9v9e/+7uRFb55nJlWPu+65DCT8HKA61N4fHPjCWg2biLYIIaNzWCY+sX530EH
-	KYg+SFS+785CLIpvlQBejGqM9Li5S6vI2b76hHK9tPk8eU/siHnaW3vMKyQm4Wq0
-	ndPKEVAhMCVPJw7dUNvyPVjVPBKiKY7/OfcDss5JTGsfnIhKHo/phICgg6f+R6kk
-	JPbsUA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn9833-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:51:06 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88620af3beeso2696b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:51:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RA51Z3Dp"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso2505335241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:53:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790664805; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LG8HzoZaAPm/9Vt0sJmLcmg1L1p2cv1CrKT/sbOuzcVzpmPVpxEi6WXaDbyJTpfz9h
+         1dx4a7my1DP+30zJD6KK6JPoc1bl46EqtubHN/KrFyoJdy5gqaoJS4BQEoJtodszzk9P
+         fDd6Ng1y1/uGmoVp1ASpZCl+Bl1bQfxOz/LCMP6gWSnVfio8lXZsX2g0rPCOh3Zp6K6+
+         TsTsVBQrA4Gy8rtGPb1GEGWwlWqkvFbi+4L15M8gQ7Cj1CeByLZzkM8wYjhHWEajElWf
+         uKA9ZQY0mk6RmAVZDwzPTFsMbWJBU6ImAK2qvR2Pbrn9glwzwQ5YMtMWex/g8Nwx4QVL
+         3zqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dXZNNhcaPyXqA+zSRw2siBSAi+AcqonBzV+S3T5CpzY=;
+        fh=4jY/EJiS8l3OyrD7jdxv6NbyW35h1i4/VyIwfhjrcGg=;
+        b=rGl6zkoXnjr8OLO8ouX1qHmSFLEQ9f9h1w/39AjpinWwpdTl01Che9vgPy5BbQEc2h
+         TV36HLgqfJUEmeMpNCAMOEAXDYP5IV8B06/vNd5UA1pPUBhGVcLKy8kkxAv8kZPz8GqK
+         VDEdLfvOtAITGtHRl0udvUWYoGkIVEb2Dg0EXgX7bM1jx7/5p6v00Ufwg56+eFqHmLpj
+         bVmkYQq5IXp9/ogw8d0JZFLjHw3oux5U8C/ZfrRIxcKrLtkDSzSpg77BBf9u7WMcMpgd
+         OyC6EGtHjT7e3/B9dpuKvdy0gCpfeHD5o34cV0yNXniP4bubJiAkquqrbckX342dJe7G
+         yxyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790664666; x=1791269466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ETLrKADipHnQ0SvOXNNqJhUBO4FGwFDlpJ1cHVM8gQ=;
-        b=atOMOI3LzLpcYZDBF1czx7FzQ14ZzzWCbOUmsuquyWyjXWzqYRyuS/dsjAV/OKN49H
-         nb4UbPHuz1qteIL0m6OJPc/f9TrrXSC7dyiwxsxTsD4VJgP++6MG3Pdy2LeQxwwTNUzW
-         MhMH5jZIMT1csecNWyypi5JtbFmdvgklfU+BEQ+HQybPLrLEBfMbpmpfP4NQD8XOEnM4
-         FaPx+mWd8lCkvOeGXUrzbz3jG8tf/lVwVs9ze85sSfMDJAxn1rpUQlRjsO3bHuUCWTLb
-         YrjiHpMj+9xCuVaojgieWvGEVydTD4deFqPT/TnF+AFIDF1adV4UQpxXcsHMUvvXs0uK
-         g3vg==
+        d=google.com; s=20251104; t=1790664805; x=1791269605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dXZNNhcaPyXqA+zSRw2siBSAi+AcqonBzV+S3T5CpzY=;
+        b=RA51Z3Dpl6NjuuVdtHkqh2HWesiJrEA0riCy61M+YOqGqvmRkUyWhsbfMktlAs0Jxq
+         qyeJeEaVOkM6bgvFPCm8u6uKpJ3RHtXC0ydcXNC6oGXDevwfMHOrXjg1fGphllqiSgL4
+         N270MKMB/EPXi6QVTLiJXsaK+5RF0WaSKIxqVpePATVT2OAzsEv0wrHmYfYTkGuAZxw+
+         7AFo3akJcH3Bma5SvDH+y4LaBaKTluSk38Xbflvnkk+w12Q0xp8s7nC7hVGL7DQru2Tg
+         yVPIRv8UfO6rxh4z1lT4C5h4KYUxwZO8CNEzFVq+Im+gfOsB4ksnMLBwg/twg0S1t7ql
+         mCQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790664666; x=1791269466;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ETLrKADipHnQ0SvOXNNqJhUBO4FGwFDlpJ1cHVM8gQ=;
-        b=Ab73MU59FTISzS+oi/p51OV2THalJfj5VvTUqBxSxY6Y3Zr5dUrsIYHYK9nIClSFe7
-         J50WnNXk5HeYHyI2ycd9w5VoeX1ff44cbEPSa1tmuwKfonixrKM6WexLjPtYOE52QvfF
-         M5B0XI6DZZSjH/rNvM9b2oxOkCp6aNpWId2NlM6MQTy6nJvcOp1LwbyA0Jd5Rwg9dIK3
-         URrTd6Hf6tH2bGWfRaHKVMLlxk9TufOheB1PKbA/7bNQFW12PsRVGL57Jo2AafDrAtP9
-         F0AhQb5JoBSCdKPtxZRHcZCCRj6/XoEm/hlEpBvksyj2qV/bXcn+4msBFe5jr4lz+D5G
-         CTFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwv9CFEkKZ5Z1eR0SkBbVXqQFs+xirkHAGs6yDvWkeb7ze+zDlWNACQuwzbuonwtkRkK1cp2FLdG9pYz1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvXb0SvugUkenOXO1amOjdxiuLfntSuPA3lbjOJkLD++MAMUI3
-	FcWXKiBdx7fR1i7Dh9rlFtkFf2NMsSgGnEuzLjCkdATYv7kkgyU++NHDHvgrqtOp2xBsqz12lV9
-	K+if6Tg7aizN2qJvcTVZbDxbhJ+jH9G80qLYc/TYXXB1tvpxVBQhX90nQf9OFHp3x+fI=
-X-Gm-Gg: AYBFou2NzXAzGNRUEvrumwXuN1LFckDyIhx+A0WT6EBwL6mXfrTJe/YZa8etz2PK07K
-	ZUGoX5OQnL2nPZcMfrxrRmsyt8Ha8eg255i53QV4OL2QTrR+VWS69nzsRJda6EQ/qgcNuxuvLxW
-	5HDBjmIMoh9/MkOmsmyDYUbYRLIeS7P9SPH8hGkvJXNJkkYLeyq739h3dPTc/UJUJIqU/ndb8O3
-	4l+TtGk6sNUlH85AMicyKkQ/g05yrKU7QSefCuP/aW7Wn6Gu+sXO2qJu31vewbXF1JaeeWsfY1K
-	FOYzUXa3UpCk47QY7ID5Emom5hGSDaNDPvfnccl/jtGIJjLkw+ZPsCr4FX7hTd9WR33UFjxDJLG
-	zUCHwB1UQYO+/YMVGYWbDqICfT2j19xBh3YoMu66rCFkdsq6LA+4ydFl5EAv/Ec8wNW4Ur8SOgO
-	+PrH5WMthmFQF3yH1CwtdH
-X-Received: by 2002:a05:6a00:2d25:b0:881:236b:748a with SMTP id d2e1a72fcca58-8855fb8b546mr1025633b3a.16.1790664666095;
-        Mon, 28 Sep 2026 23:51:06 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2d25:b0:881:236b:748a with SMTP id d2e1a72fcca58-8855fb8b546mr1025611b3a.16.1790664665618;
-        Mon, 28 Sep 2026 23:51:05 -0700 (PDT)
-Received: from [10.79.116.189] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e28d7d23sm258534b3a.56.2026.09.28.23.50.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 23:51:05 -0700 (PDT)
-Message-ID: <186fbca3-3676-492f-9c8e-fc7a75d5ead4@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 12:20:56 +0530
+        d=1e100.net; s=20260707; t=1790664805; x=1791269605;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dXZNNhcaPyXqA+zSRw2siBSAi+AcqonBzV+S3T5CpzY=;
+        b=D9gAGxgXD33UJ1RsiQzwg5V8UTvDE80UDOUtrX8SBL7l4rBoHL9Fxq7Uc58enaX/8P
+         u5hwoxV1pCoBk/So5Yg5H6pLjeTZtNaz4yDJyVTyzqA3DowGFXC6AF+2wfAOcKQYwj1X
+         z8cOJkYftMcy90ZpiafGGeRbkIWfQ7eWlSU3A4UUruXM92kkyXKQ3NFQSsJZwl8DKvmm
+         SF0IDaNd+f/utVDMEm+cWh07xo77ibR/9sbSNfDu69FdtcFoNyia2gcRgrWWAjmx+pwp
+         +LjTw9A+ryeZ8wv+s5uu8Rqf90MvheB7PoCWlvtU6uxQ1E0+j2A6396XZ2qHWxroWy2d
+         DktQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwyWRNbKzkYR0/c8cxKVUfQ2P8qB41jfspapCzTTw93893AbK68p8sX22S/aVd4y51+s5ciZV7Erq3u5ys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRE3vBABkdpUC9WApNZBdzX405tJbjrvowA00vhWg/l5nKvzr9
+	c2vtZlag5TBN7CKnIcbtks5fAJLX6dSlbCKAgWXqQHCkWQFeGdREaAkB6KtbYRnjL3d/SH/46qh
+	vH34WW1YEnnznS5c7kHXGEnNvfJ48JZn1L+Pc2ik=
+X-Gm-Gg: AYBFou3ZlJdF5XUtEESQsWCEHFPhftg1VFlW5o8VuZL0t1XT/OLm+RluXhyxrybi4fo
+	6RQYsnsD2skeP5oaMNxnwicY13sBZEUkZP7CCKLtUeXsheA75PKNkZD00a1pKKSzROcixEMatNU
+	Qg6eRowuIMnbCafsBeS9ggO1tOsQlix1eGIgOkuHdSGXwu1VAjY5I+TxD1wIWU+PelIAeKB9Gur
+	7CeFT8bo0vyEts5hIOCF2+gMeGaPmOtdj37oQNxYbDA2sKna47ScAovt8pgyE0FykYkcYsxa7qr
+	rLtFXqFzc2LQwwl/bZdgLOiFdo3dA8wgT0YxT3+XRepNPzDP99t1B4t1FEqvVFNsFGralG1kAVh
+	3IxtLhkV3irmr60IGgqSU
+X-Received: by 2002:a05:6102:5346:b0:79b:f57e:ea17 with SMTP id
+ ada2fe7eead31-7af1c6921f0mr6195643137.3.1790664804262; Mon, 28 Sep 2026
+ 23:53:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/15] ARM: dts: qcom: Add initial device tree for Kuno
- SoC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
- <1a167d6f-2dce-4d06-a416-9fd1e25c69a8@oss.qualcomm.com>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <1a167d6f-2dce-4d06-a416-9fd1e25c69a8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb5fda cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PaPtSKYIirbzHVDMbN0A:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-GUID: D_5CbqhO-ePU312NTHUKq05YKzHUCSZ_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyNyBTYWx0ZWRfX3aXHyocHaM1I
- UMHrwBdbk7VJEzzYToqWyH+lkwd6TSXt3uKuEwAaPlbDFJyzp+KtfyMF7hu+UeRno7E/F3HjnG8
- Xom53BzzW0dxDnM48W/0BYzXiBUTVAU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyNyBTYWx0ZWRfX6MDnNjcBDauy
- HtukzTKYHERalxQAs92rPEoSUVHqZc2GdDQPzc/UvZRqgAwlaS22jk7aSzaiNpXM3YFsKEFZV5b
- IGvgXrLk8yqemanxMZsBbuZ/QJhXiC/8MNOGtji5d/G7BmSF9ZACaTAkZa6iPYnvIibib40IuOZ
- Z+eFKIdWhmNMFjNDTKdzOFZTymMfTACTODkwmS3c2OI6/4+xIxQheZPVZrbeLeXbine3OXmaFLH
- oEmZYtb+N/NZBS6CGAf3ZW2bu2bMJjBrUYqDVnSP8V7ygdcE6eYorXlrd/BxxSTuYKhFwthuXFz
- 87SayKbKwVA6xahqSiXKf1wA3ySy5lu+M/MxRKMu16R0f5+Zdm8n+ev6xZavnLc6bEmOJYHGCGj
- PHUgN9jTL9mTeX/yoSEeyq4FDnVr8p+mt21y9+6agjiflJ9wMbwvWWWyxmpYEo2RH6/uk30xCBB
- SESf7DqQBD6fTK6onGQ==
-X-Proofpoint-ORIG-GUID: D_5CbqhO-ePU312NTHUKq05YKzHUCSZ_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
- bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290027
+References: <20260928231737.2092716-1-morbo@google.com> <20260929010031.2186255-1-morbo@google.com>
+ <20260929074930-f1e4add2-f8ca-43db-85fd-83be0e40c676@linutronix.de>
+In-Reply-To: <20260929074930-f1e4add2-f8ca-43db-85fd-83be0e40c676@linutronix.de>
+From: Bill Wendling <morbo@google.com>
+Date: Mon, 28 Sep 2026 23:53:08 -0700
+X-Gm-Features: AclHuK95_Ji_ujgZlHwbCN-2G8mT4XgLFj2k80q5CXF5eM05CshEFI-U1oGuQxM
+Message-ID: <CAGG=3QXAb954ib3eGqci5NNs7pE3VEFgUBocRObqRSa4Z8sn_A@mail.gmail.com>
+Subject: Re: [PATCH] fortify: add KUnit tests for __counted_by and __counted_by_ptr
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Alexander Potapenko <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, kasan-dev@googlegroups.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Thomas,
 
-On 9/1/2026 9:26 PM, Konrad Dybcio wrote:
-> On 8/27/26 7:51 PM, Hardeep Sharma wrote:
->> Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
->> (qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
->>
->> Peripherals included in this initial set:
->>    - Single Cortex-A7 CPU with PSCI idle states
->>    - RPMh RSC with clock controller, power domains, and BCM voter
->>    - GCC (Global Clock Controller)
->>    - TLMM pin controller (110 GPIOs)
->>    - Interconnect (aggre-noc, cnoc-main)
->>    - GENI UART console (QUP SE3)
->>    - SMEM, hardware spinlocks (TCSR mutex)
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Reviewed-by: Linus Walleij <linusw@kernel.org>
->> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
->> ---
-> [...]
+On Mon, Sep 28, 2026 at 11:23=E2=80=AFPM Thomas Wei=C3=9Fschuh
+<thomas.weissschuh@linutronix.de> wrote:
 >
->> +		pdc: interrupt-controller@b220000 {
->> +			compatible = "qcom,kuno-pdc", "qcom,pdc";
->> +			reg = <0x0b220000 0x10000>;
->> +			qcom,pdc-ranges = <1 148 6>,
->> +					  <9 156 2>,
->> +					  <17 164 7>;
-> GPT reports you're missing a whole lot of entries here and that will
-> lead to the wakeup GPIOs silently failing.
+> Hi Bill,
 >
-> An old local script suggests this map is correct instead, but please
-> check yourself:
+> this looks much better. Thanks for the rework.
 >
-> <1 148 6>,
-> <9 156 2>,
-> <17 164 7>,
-> <26 173 1>,
-> <29 176 1>,
-> <40 187 1>,
-> <46 193 6>,
-> <52 266 32>,
-> <84 249 1>,
-> <85 256 1>,
-> <86 315 4>,
-> <90 43 1>,
-> <91 45 1>,
-> <92 154 2>,
-> <94 158 6>,
-> <100 171 2>,
-> <102 174 1>,
-> <103 23 7>,
-> <110 147 1>,
-> <111 31 4>,
-> <115 175 1>,
-> <116 177 10>,
-> <126 188 5>;
+> On Tue, Sep 29, 2026 at 01:00:31AM +0000, Bill Wendling wrote:
+> > The '__counted_by' and '__counted_by_ptr' attributes associate a
+> > flexible array member or pointer member with a struct field that holds
+> > its element count. Supporting compilers use these annotations to
+> > compute dynamic object sizes via '__builtin_dynamic_object_size()' for
+> > runtime bounds checking with CONFIG_FORTIFY_SOURCE.
+> >
+> > Add KUnit tests ('fortify_test_counted_by_flex' and
+> > 'fortify_test_counted_by_ptr', guarded by CONFIG_CC_HAS_COUNTED_BY and
+> > CONFIG_CC_HAS_COUNTED_BY_PTR respectively) to verify that:
+> >
+> >  - '__builtin_dynamic_object_size()' (both types 0 and 1) returns the
+> >    expected logical byte size for annotated flexible array and pointer
+> >    members.
+> >  - Fortified operations ('memset()' and 'memchr()') succeed within the
+> >    logical bounds and detect out-of-bounds read and write accesses
+> >    beyond the annotated count.
+> >
+> > Allocate the test buffers with extra physical capacity (2 * size) in
+> > 'noinline' helpers and hide the returned pointers with
+> > OPTIMIZER_HIDE_VAR() so allocation-size attributes, physical slab
+> > bounds, and compiler optimizations do not mask the '__counted_by' and
+> > '__counted_by_ptr' checks.
+> >
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> > v2: Move tests to the 'fortify' KUnit tests. It uses UBSAN, which is
+> >     what gets triggered by 'counted_by'.
 >
-> Konrad
+> v2 is missing in subject.
+>
+Doh!
 
-Thanks Konrad for review.
+> > ---
+> >  lib/tests/fortify_kunit.c | 119 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 119 insertions(+)
+> >
+> > diff --git a/lib/tests/fortify_kunit.c b/lib/tests/fortify_kunit.c
+> > index 413cdbf3dc0d..2335171f84d8 100644
+> > --- a/lib/tests/fortify_kunit.c
+> > +++ b/lib/tests/fortify_kunit.c
+> > @@ -1011,6 +1011,119 @@ static void fortify_test_kmemdup(struct kunit *=
+test)
+> >       kfree(copy);
+> >  }
+> >
+> > +#ifdef CONFIG_CC_HAS_COUNTED_BY
+>
+> The ugly ifdeffery can be replaced by IS_ENABLED():
+>
+> if (!IS_ENABLED(CONFIG_FOO))
+>         kunit_skip(test, "Not built with CONFIG_FOO=3Dy");
+>
+> It makes the code cleaner and gives some useful feedback at runtime.
+>
+Ah yes! This is much nicer. It'll also fix up the #ifdef stuff at the
+end as well.
 
-fixed in v6 : 
-https://lore.kernel.org/all/20260929-kuno-soc-support-v6-1-a16afafbcbc7@oss.qualcomm.com/
+> > +struct counted_by_flex_struct {
+> > +     size_t size;
+> > +     int array[] __counted_by(size);
+> > +};
+> > +
+> > +/*
+> > + * Allocate the struct out-of-line with extra physical capacity so tha=
+t
+> > + * __alloc_size() and physical slab bounds do not mask the __counted_b=
+y()
+> > + * logical bounds check.
+> > + */
+> > +static noinline struct counted_by_flex_struct *
+> > +alloc_counted_by_flex_struct(struct kunit *test, size_t size)
+> > +{
+> > +     struct counted_by_flex_struct *s;
+> > +
+> > +     s =3D kzalloc(sizeof(*s) + 2 * size * sizeof(s->array[0]), GFP_KE=
+RNEL);
+>
+> kunit_kzalloc() to automatically free the allocation again.
+> struct_size() for the size calculation.
+>
+Oh cool! done.
 
+> > +     KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s);
+> > +
+> > +     s->size =3D size;
+> > +     return s;
+> > +}
+> > +
+> > +static void fortify_test_counted_by_flex(struct kunit *test)
+> > +{
+> > +     size_t size =3D 128;
+> > +     struct counted_by_flex_struct *s;
+> > +     size_t elem_bytes =3D size * sizeof(s->array[0]);
+> > +
+> > +     s =3D alloc_counted_by_flex_struct(test, size);
+> > +
+> > +     OPTIMIZER_HIDE_VAR(s);
+> > +     OPTIMIZER_HIDE_VAR(elem_bytes);
+> > +
+> > +     /* __builtin_dynamic_object_size() should return the logical leng=
+th. */
+> > +     KUNIT_EXPECT_EQ(test, elem_bytes,
+> > +                     __builtin_dynamic_object_size(s->array, 0));
+> > +     KUNIT_EXPECT_EQ(test, elem_bytes,
+> > +                     __builtin_dynamic_object_size(s->array, 1));
+> > +
+> > +     /* Within-bounds write and read succeed. */
+> > +     memset(s->array, 0x42, elem_bytes);
+> > +     KUNIT_EXPECT_EQ(test, fortify_write_overflows, 0);
+> > +     KUNIT_EXPECT_NOT_NULL(test, memchr(s->array, 0x42, elem_bytes));
+> > +     KUNIT_EXPECT_EQ(test, fortify_read_overflows, 0);
+> > +
+> > +     /* Out-of-bounds write and read past logical size are caught. */
+> > +     memset(s->array, 0x42, elem_bytes + 1);
+> > +     KUNIT_EXPECT_EQ(test, fortify_write_overflows, 1);
+> > +     KUNIT_EXPECT_NULL(test, memchr(s->array, 0x42, elem_bytes + 1));
+> > +     KUNIT_EXPECT_EQ(test, fortify_read_overflows, 1);
+> > +
+> > +     kfree(s);
+> > +}
+> > +
+> > +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+> > +struct counted_by_ptr_struct {
+> > +     char *ptr __counted_by_ptr(size);
+> > +     size_t size;
+> > +};
+>
+> In the other structure the arguments where swapped, intentional?
+>
+Yes. It's a minor test to make sure that the attribute can refer to a
+field that's defined after the pointer.
+
+> > +
+> > +/*
+> > + * Allocate the struct out-of-line with extra physical capacity so tha=
+t
+> > + * __alloc_size() and physical slab bounds do not mask the __counted_b=
+y_ptr()
+> > + * logical bounds check.
+> > + */
+> > +static noinline struct counted_by_ptr_struct *
+> > +alloc_counted_by_ptr_struct(struct kunit *test, size_t size)
+> > +{
+> > +     struct counted_by_ptr_struct *s;
+> > +
+> > +     s =3D kmalloc_obj(struct counted_by_ptr_struct);
+>
+> We should probably also get kunit_kmalloc_obj() at some point.
+>
+> > +     KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s);
+> > +
+> > +     s->size =3D size;
+> > +     s->ptr =3D kzalloc(2 * size, GFP_KERNEL);
+> > +     KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s->ptr);
+> > +
+> > +     return s;
+> > +}
+> > +
+> > +static void fortify_test_counted_by_ptr(struct kunit *test)
+> > +{
+> > +     size_t size =3D 128;
+> > +     struct counted_by_ptr_struct *s;
+> > +
+> > +     s =3D alloc_counted_by_ptr_struct(test, size);
+> > +
+> > +     OPTIMIZER_HIDE_VAR(s);
+> > +     OPTIMIZER_HIDE_VAR(size);
+> > +
+> > +     /* __builtin_dynamic_object_size() should return the logical leng=
+th. */
+> > +     KUNIT_EXPECT_EQ(test, size, __builtin_dynamic_object_size(s->ptr,=
+ 0));
+> > +     KUNIT_EXPECT_EQ(test, size, __builtin_dynamic_object_size(s->ptr,=
+ 1));
+>
+> Is this builtin guaranteed to be available?
+> We have a wrapper KUNIT_EXPECT_BDOS() above.
+>
+I suppose not. I'll use the macros instead.
+
+> > +
+> > +     /* Within-bounds write and read succeed. */
+> > +     memset(s->ptr, 0x42, size);
+> > +     KUNIT_EXPECT_EQ(test, fortify_write_overflows, 0);
+> > +     KUNIT_EXPECT_NOT_NULL(test, memchr(s->ptr, 0x42, size));
+> > +     KUNIT_EXPECT_EQ(test, fortify_read_overflows, 0);
+> > +
+> > +     /* Out-of-bounds write and read past logical size are caught. */
+> > +     memset(s->ptr, 0x42, size + 1);
+> > +     KUNIT_EXPECT_EQ(test, fortify_write_overflows, 1);
+> > +     KUNIT_EXPECT_NULL(test, memchr(s->ptr, 0x42, size + 1));
+> > +     KUNIT_EXPECT_EQ(test, fortify_read_overflows, 1);
+> > +
+> > +     kfree(s->ptr);
+> > +     kfree(s);
+> > +}
+> > +#endif /* CONFIG_CC_HAS_COUNTED_BY_PTR */
+> > +#endif /* CONFIG_CC_HAS_COUNTED_BY */
+> > +
+> >  static int fortify_test_init(struct kunit *test)
+> >  {
+> >       if (!IS_ENABLED(CONFIG_FORTIFY_SOURCE))
+> > @@ -1054,6 +1167,12 @@ static struct kunit_case fortify_test_cases[] =
+=3D {
+> >       KUNIT_CASE(fortify_test_memchr_inv),
+> >       KUNIT_CASE(fortify_test_memcmp),
+> >       KUNIT_CASE(fortify_test_kmemdup),
+> > +#ifdef CONFIG_CC_HAS_COUNTED_BY
+> > +     KUNIT_CASE(fortify_test_counted_by_flex),
+> > +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+>
+> The nesting of these conditionals looks unnecessary.
+>
+
+-bw
+
+> > +     KUNIT_CASE(fortify_test_counted_by_ptr),
+> > +#endif /* CONFIG_CC_HAS_COUNTED_BY_PTR */
+> > +#endif /* CONFIG_CC_HAS_COUNTED_BY */
+> >       {}
+> >  };
+> >
+> > --
+> > 2.56.0.rc1.315.gc6ed9934b7-goog
+> >
