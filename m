@@ -1,65 +1,65 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC0F51598D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:50:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBC451D532
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:50:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790679050; cv=none; b=GMwi0S8ISGOfGiGYdkmbIFYmS1BJ7KFgvJHdCH4KgmlUANY1PXcf3UcRhNj+GiJSIDw5jC4YbSgwz5klqF4fZQez2ymYVa5bjpsiZ0igN9fLsU7HOYh0aZJWiOXNUWOxOe5C4+taVOZ7jQ/sTy9l3dbEKHMVAZX8hsSjrPkjP0w=
+	t=1790679050; cv=none; b=HrlIkf8aZfUVyBnxOJ9KdWlTeBzKZcGlTZK68KtT77jVGQFGtb7Occl4qm27puPOTZ/hN12oHiIIcSTuqkW6Pv7Ujps/Dx+KbclNp1aW6aQdYlmFZ/+RgBmZ4sFrLWK5QyUuvanNStZVDAXhQe4sFn8XqebmMjVs9Fi65MRabag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790679050; c=relaxed/simple;
-	bh=Nlv1m2l7ghTkT3cO5yFi20nfIAUpd2j8NLnXbA6e+rM=;
+	bh=24VJL4yr71yDjFK19B91jRLLCZCsRy4Ks9vH5rORZX0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TgDq2meBFfgoUzlvbAqeVl5mzYcsW43PY7IqA0jdwCyyo1Dv7iD44kcuctNnNuvuI77RS+xVgZUbq2c21JB7qXkd0KgydoSfnsj2auvSc82HGyKy7hA1Qj8XvHf7daHtS8D4enJvDOWE890UYFJq0igsZcp5x3G6TtvVSxr281M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NgtErF8d; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=Hsp9uxCquLy0rpwGHoO3xu9p3GbJkBNYa3YbwLM0W2Bq+q4M6a9HNlMc+Yp2wbUK4toR2DOx9+j5mjrk0QaQKi1ty4fh9RwO4zHw3vm3lCB4y2cwmIPNle1fYtPdsITucxoK9sjZldEx8ci8W616JzqSrWCyrzFLyqTnFHUYM4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OtehukGn; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NgtErF8d"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-486e1a044c5so3383615f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:50:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OtehukGn"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so3381483f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:50:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790679040; x=1791283840; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790679038; x=1791283838; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N5tHtfYr9TOddaGe2pXDMEwIuJ0LgMwAhApw2cB2IqU=;
-        b=NgtErF8dUX2SZCDiJiA/8syDRYJR4n/Kazm2CT+81R3QoJzDZwJylIodtle9Lv5RyL
-         XEH9E2btWxkb4PnG9azveAWhfNMgiRhoredtO2GXY0fs0qFvT+ASdAim63AKLPzdz+UX
-         zgbX/rAmi5iv4db3yQI11XDfYGFm6joBjpkOJyaTCs435mjuwDJYOfmsHMBNqiisix17
-         k7TlvZnxyXjxnveiirGeOwXSREMNk2YrH3RFcugZBv/dNP/mR4BP+ICVuTNtjkVVtL7X
-         4buwxQaDyyBsSSFmD8QDeKtgq516jYSwHeGBY1cTq7O8P/tI52VGD2gLwzCXNSdGOsfT
-         6TyQ==
+        bh=TRZBWbdx2V+lf3HeAagoP8lmXsSParpAXBpfb0Sv3U0=;
+        b=OtehukGn9KxWSCiqayr5219Uscq6hSCHyeC2BaRNzBVSXArCaiANl3+diBNX4G32UV
+         Ixu5l7k+rd2QR8VWU6k7pBVIAYGjEIFWSZ5Weg8baIZQNJSVWvQrnbcGSfQ1FYFZAk4f
+         yxE6vSsdjPwiEXZvJiOcX7QJAoedGPyi8lXqe4cQ3bGQkKZWiD1fk3T11tRukPEaaQXt
+         kLlMbbesUlbSUhXX0AeA+Nzw7r9je8GnGrqk3RaoVjYuYcxMLPUMh3e1LfPfhHBuSzJo
+         1zzk3sndv64ToDf8bzz5TClovmh60MFE9mPywD1vbgJClJxOUmkba4MPkbGUQge0fEaf
+         Li/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790679040; x=1791283840;
+        d=1e100.net; s=20260707; t=1790679038; x=1791283838;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N5tHtfYr9TOddaGe2pXDMEwIuJ0LgMwAhApw2cB2IqU=;
-        b=KsvFZBVCsn/aJ0YNZrrsWilBGpJIJ0Dt2DeuR5dOstQ+CNsM5TcKP4LkrOPcQ5UC1g
-         yYzjHQQ5p80COD2stiyDC1ftRlbpzSawiGWH6Q69z1VP7KO+/sK8Vk1mKcU/KktB1jHV
-         Ci94+sCppoDrYvqC35HBe4XrAXCmM9UMcnHiXxdFkoKUCu8I69c6riIuqRUyJper+efy
-         OHJwP7vStAn1hY7RpyTiKk5HSv9PSYBVjmGDAAgSa6+KMD0lhk+uyueYF74bhljsgkN1
-         vFalaHK1T9XLpaA+BbVReKXwNApNeYec1s+2ItG4TNu//dr2z9tcPoPY2e250D+ahfi4
-         D3vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwtRQ7/VIH3dSVGnQD5CdKa+OLKa4ArJF/8WBu9Xk65h5MpacMNOK0SN4Q0a8zFIcJY7Lr5RTfMZThN/l4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4PKEJVT5/UC+XgIzg8c6FOnoXY0YSRfN3kYXnxiv4nlYi57vh
-	PWjrYAsorv3elvQAD07xSBf8RRUreLLoM3vMlPG6p6Tgq1E2IjdPHfc1
-X-Gm-Gg: AYBFou0xSYttAeEP/VVBALGBf2Wxw9GssgfoTlTWWPc+/UmcIaqoskpfbi6YjuChqG8
-	pFm5mOYtWv/7JXE2wNwUszNWE9XCNwrQ8CIF4KR12tdxxrVjAFOEMVO8xNwUAnr8YfAuXNfOiCD
-	U/z+ooF6XU+7EcJsgSBWRFY7Ye69ZjdAQbNh0H69rdb32hCPs6dxWiUAgVbtiU6q5sEd7GTLyml
-	z1SX+Qzm0FzXidYvw92ltja4Q/6FuzohFKyRLKRbAPgPbILDcFWqVvN1cy/OUVXtMQRAFrI7acb
-	jNAy2O3arUbg8Ewf/wvgP/Rks6i2GCtOHsulXv5sL7rDBGDe+8J+6Abd3W63xFIQ66qp5ZlH6+a
-	HiQPuUaTbn6e/R2jTBo377ks8QNxFJ08M49Eg6kbMIsSkyOvdNmbdt+XySsZ0wgMDkvHPGlE6Sj
-	p6MIlKymE1FepTVOd+DqhN3wc9zfqcnT3cTMaOCEg4YcLPrL0EPqMliXu0aATAVSuYdXPwdxg+1
-	+2SDKF8c49CiJ28zOEIIxhdvepHSHg3Gb+9HKu6Q3wuUFJvPYuOInwuVc2Y36+Onob3QT6PM6rD
-	kl6Cye9OE81wEbPV3g==
-X-Received: by 2002:a05:6000:230e:b0:488:5d44:6680 with SMTP id ffacd0b85a97d-4887175f986mr28573245f8f.36.1790679039746;
-        Tue, 29 Sep 2026 03:50:39 -0700 (PDT)
+        bh=TRZBWbdx2V+lf3HeAagoP8lmXsSParpAXBpfb0Sv3U0=;
+        b=uC0AWv+e33uim8CR+Jp9ec0JtnA1/q85ruc+mtFzXul7D56Cxx2UAuQNRnjhmG67eH
+         uMPF0TJ6NT0lNRKmPAOpvGPy1ga3WEmrNkCJDI0bbd7AxbY6On6408sMxR1bGr/TAP4H
+         +ktaLQbgA1ahyP93KuENakEC9ZDgpMqYD4USv01IIjp+gU0bCjDPDDurNPIaNEQ0XOvD
+         iKCnxDy2D+F9ZEhD4j/e8tDLzUrbdJ5Kqouu+SPbX+xC0MPRgnolbrwR34lsnvXJ9ODK
+         zd/q4pNx+xZ7cwsntpDfOkH5VhnBBASa3KbP/ok43lADb3Ep8v+LIAUk6tvStVoPw8yy
+         kl0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByPzlI5Rj0Z1hdfpLPkUuyNUuBfiHrt7aAfEzVG0+Gbe42tDRPJRecmL1cJQrGUMDJXpa+Jny+nEm3/tCs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7JuNBmgyvs2PYWsP0gJIKGNxTSMPcgcigFbvMXxy1y0kM/ErU
+	UZFvYdQwgOduzpHy4H2696FN8iNtzY/GtUnjUxp61rPijL9GeL4I7HpN
+X-Gm-Gg: AYBFou0tEPZ4qp8b+x26A/HJULSEZX3HoGq8WK6sRODeF3fmzr7lgmAL62B4Gu1RwU+
+	bcv6CXjj2MreTysA/TZzOOU/vduiXy9xWq5K6HIVFewY/gtqJ7nSc0lTss1EFSeZatDTXrmmK55
+	VgfKiLvJ2kJ90PvjUmT5IbJawLRFR+T49Fu1B1aHf8yL8FLQjPc8Q5umUGFitasnhZoh2nG/hEO
+	AXy4w1Duf6DI5UIhsigZPEQr4QG1NHyBvznc1qVAauyB18SKczK5zN8W5wN4PhZKQ0e/t8EiiAz
+	IwsC2Ek6DE97Z43NSMvMBqDslrDTrxju0D827d2TY3H4rxOhpyGsO51r4PT4sHTc1ZOKKD8cbNz
+	eQw22NTa86y+BaDiNxYLqomE86yWi+Xu8RW1QQTfwvnxsUeLiU/xhyDEqro7CX5C0Z66gx6jVwL
+	+w0jR3lrWrmnljLB4whqiSM8UxC25KcW1CeTam7XGKsIeAo+j+UPllOWy6I5c7v2d6PBg7E1rw2
+	cXwdKEe5XAsMDxkorc2JwIZuL6KT6AZzsqdiHrqCyMFDp2Ou3n3bJLM32xBNbIx4KGCwJdKx1MT
+	LmgwPtsNW29UDWFR3DroA1x5GrOf
+X-Received: by 2002:a05:600d:848f:10b0:4a0:bc9:28c6 with SMTP id 5b1f17b1804b1-4a00bc928f3mr39671375e9.34.1790679038306;
+        Tue, 29 Sep 2026 03:50:38 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:10d5:21e1:1aae:c9d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5058c52sm3516303f8f.19.2026.09.29.03.50.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5058c52sm3516303f8f.19.2026.09.29.03.50.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 03:50:39 -0700 (PDT)
+        Tue, 29 Sep 2026 03:50:37 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -81,9 +81,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v7 5/8] watchdog: rzv2h: Drop runtime PM handling from WDTDCR init
-Date: Tue, 29 Sep 2026 11:50:18 +0100
-Message-ID: <20260929105021.542730-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v7 3/8] watchdog: rzv2h: Drop enabling clocks in the restart handler
+Date: Tue, 29 Sep 2026 11:50:16 +0100
+Message-ID: <20260929105021.542730-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929105021.542730-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260929105021.542730-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -97,44 +97,73 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-WDTDCR is located in the CPG region, outside the watchdog module, and is
-accessible regardless of the watchdog's clocks and reset state.
+The watchdog restart handler runs from do_kernel_restart() with
+interrupts disabled and after smp_send_stop() has halted the other CPUs.
+Calling clk_enable() from the !watchdog_active() path takes the clock
+framework's global enable_lock. If a stopped CPU held this lock, the
+CPU executing the restart handler can spin indefinitely and prevent the
+watchdog from resetting the system.
 
-Drop the unnecessary runtime PM handling from WDTDCR initialization and
-access the register directly.
+Keep pclk and oscclk enabled for the lifetime of the watchdog device by
+using devm_clk_get_enabled() and devm_clk_get_optional_enabled().
+Remove the conditional clock enable/disable operations from the restart
+handler so it does not acquire any clock framework locks.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
 v6->v7:
+- No change
+
+v5->v6:
+- No change
+
+v4->v5:
 - New patch
 ---
- drivers/watchdog/rzv2h_wdt.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/watchdog/rzv2h_wdt.c | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index 17c9e9a24ce2..40157e969f58 100644
+index f247e42d54f5..55ac11fcfcab 100644
 --- a/drivers/watchdog/rzv2h_wdt.c
 +++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -242,20 +242,12 @@ static const struct watchdog_ops rzv2h_wdt_ops = {
- static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
- 				 struct rzv2h_wdt_priv *priv)
- {
--	int ret;
--
- 	priv->wdtdcr = devm_platform_ioremap_resource(pdev, 1);
- 	if (IS_ERR(priv->wdtdcr))
- 		return PTR_ERR(priv->wdtdcr);
+@@ -192,22 +192,9 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
+ 	int ret;
  
--	ret = pm_runtime_resume_and_get(&pdev->dev);
--	if (ret)
--		return ret;
+ 	if (!watchdog_active(wdev)) {
+-		ret = clk_enable(priv->pclk);
+-		if (ret)
+-			return ret;
 -
- 	rzt2h_wdt_wdtdcr_count_stop(priv);
+-		ret = clk_enable(priv->oscclk);
+-		if (ret) {
+-			clk_disable(priv->pclk);
+-			return ret;
+-		}
+-
+ 		ret = reset_control_deassert(priv->rstc);
+-		if (ret) {
+-			clk_disable(priv->oscclk);
+-			clk_disable(priv->pclk);
++		if (ret)
+ 			return ret;
+-		}
+ 	} else {
+ 		/*
+ 		 * Writing to the WDT Control Register (WDTCR) or WDT Reset
+@@ -292,11 +279,11 @@ static int rzv2h_wdt_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
  
--	pm_runtime_put_sync(&pdev->dev);
--
- 	return 0;
- }
+-	priv->pclk = devm_clk_get_prepared(dev, "pclk");
++	priv->pclk = devm_clk_get_enabled(dev, "pclk");
+ 	if (IS_ERR(priv->pclk))
+ 		return dev_err_probe(dev, PTR_ERR(priv->pclk), "Failed to get pclk\n");
+ 
+-	priv->oscclk = devm_clk_get_optional_prepared(dev, "oscclk");
++	priv->oscclk = devm_clk_get_optional_enabled(dev, "oscclk");
+ 	if (IS_ERR(priv->oscclk))
+ 		return dev_err_probe(dev, PTR_ERR(priv->oscclk), "Failed to get oscclk\n");
  
 -- 
 2.55.0
