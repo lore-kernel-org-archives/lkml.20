@@ -1,140 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DAF51DE17;
-	Tue, 29 Sep 2026 18:09:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C874F322B9F;
+	Tue, 29 Sep 2026 18:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705392; cv=none; b=Ppt1p6mY5zf5Z5gCpbCTGY0xBGG6eea1nbNT7jhjRG7LBWEi21d8FgpH5xumERrjNZkRAK5ykmFml7tD6BlS1OjUbMYlb92wgBisYT3FTt/ATSijmYbtBO1LjcXOVAJ9rBEw0yIKg9Dll+KLSCNFlwuNU4SdYEmJc09zeQIs1vI=
+	t=1790705399; cv=none; b=QW6aInFLayNlaKoQuWNg6ocJjDyLo8daY6a2KXEXkS6NZ1swkstWgrOzlBrNlJj+RifTL39E2yX819cRJ5FU/2a8o1XRNJUIcWhipDnY5njBw3jogmFOx1PcTFvaFZ4Ll8wuhoosEPV9gw9MZ9IQtcGiE3LEOuE9VBRt5eW7pCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705392; c=relaxed/simple;
-	bh=dJ3wWcS7lkJa2JC2ceFPQruGD9GAjHXCNWpgf6AYY3w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iNwlUbcUwxc03xe6P1tEfKoPvcJHP+cSo8m5t7sNqrrz4FKL7vXweZBwY6pJP/Zm1/FLaXdY3qfO4T47I2bduYJLFf9p6QJ7OFuOJ/BGDU2iVW3sFCx7SQQbDNsh9oFOf5c975TGlvvP5N73HR7O4pCd1oEmYLWSEkL/4ve01e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXmmcU+x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790705399; c=relaxed/simple;
+	bh=jIGf+JuBrUWPkyoA7f2ubF6JzGRrafTPwlrNY0S1B6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FuS+7DkG8AwuGgl1DcphDWVsFfXyShvCVcuSR5ZT5NnMW711GLEAHp0cIr0eG7bRDmhzVeJufGi1VCZmZK1X1Yg9Xge703DSR2V8fKueBWyRdQB9otZOJI+UFkB386BvQbWDH6tbrVKydh5pW6qcb3hQKtqsjQ5x6XDKXTvBdrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLl7WDk9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXmmcU+x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC961F000FF;
-	Tue, 29 Sep 2026 18:09:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLl7WDk9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041D61F000FF;
+	Tue, 29 Sep 2026 18:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790705390;
-	bh=99OpVub6iYC6VmMdemzhrmrJtXQGtvPnIqfGtEY1Hb8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kXmmcU+xDCPETN/6pAIpaknbmGfrqVAvRDL62Xy98JMfabGGm1BnfYgkwtumKlwhs
-	 KLIFJlfJeglFK8ER8nYOx/DBM+oNIm0mLl2k233NmXqDwFKbkkvdVaLZSIyE6oIcP2
-	 ObKFXzd1Y7l0mY+Kli35CKyMJndxZPam1D5kovd6cxh3945Tw0PUiqf4gJxudJN/RG
-	 naFQp2w8CX66BfIU8kNLziNaCXf2REqEWoHxCwuKLdSssi5cs5mbPigb7ZWzYjNk0A
-	 8e6VmHS5BhhBiI/AAjEzXFVZxsZIn86q3bE4YkAKWql7npYsKuwj8g6TGo1H8q5JEr
-	 2MOiVswFw6dDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] pinctrl: mediatek: common-v1: Use a raw spinlock for
- the pinctrl regmap
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Brue" <ryanbrue.dev@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260929-rbrue-suez-upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com>
-References: <20260929-rbrue-suez-upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 18:09:50 +0000
-Message-Id: <20260929180950.7DC961F000FF@smtp.kernel.org>
+	s=k20260515; t=1790705398;
+	bh=hKpP6AmRy2uEEd1qKdLiqqz3Y0+SldqHi3ro+MOIkTs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QLl7WDk9m3BS//Bc2l4k4yfB4Zwpk4Kn0f2vqkosKdPdv+yx4HsHXsn3jGVbIRbUo
+	 FFJyHTQfOa95qB2bn09P+m7mmUBqe6xkq8oWG0D29rXRKw2Ef4HiLiBt81S+zzqA3P
+	 vfoWCXibXl0wi9eWOTBJ5RkjtyCD2Dp+79lVTKh4hUDDABRnlgo3KCrvY2tPqDIViE
+	 +s/Rh3hGH909asgAT9kuazZHkZsQ+tKSGtcV/9HIhNuzejgNZEfHHbrJc6fZcgB7vm
+	 YzKXjCEHCX1Whem8FgEN/BTP9RSpnlsednPVOyzCzoOkWovuIiIi/g0DcY+y8uCbKI
+	 zBj+MxUJwQbGQ==
+Date: Tue, 29 Sep 2026 11:09:56 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
+ storage, and LRU shrinking
+Message-ID: <arv-9NWWZ14TG5Te@google.com>
+References: <20260928075237.3055101-1-irogers@google.com>
+ <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
+ <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com>
+ <arrhc_7jvX_W2uXS@google.com>
+ <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
+ <CA+w=M=S3USeLyFNaHSjHL+cmzssWk2Bygahetzr0dNU55TZEMw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+w=M=S3USeLyFNaHSjHL+cmzssWk2Bygahetzr0dNU55TZEMw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] pinctrl: mediatek: fallback to syscon bypasses lockdep fix
-- [Medium] pinctrl: mediatek: integer underflow in max_register calculation
---
+On Mon, Sep 28, 2026 at 05:12:35PM -0700, Alireza Haghdoost wrote:
+> On Mon, Sep 28, 2026 at 3:05 PM Ian Rogers <irogers@google.com> wrote:
+> > > I think many of this memory overhead come from the symbol string.
+> > > Probably we don't use most of them.  Then would it be nice if we can
+> > > lazy-load the strings?
+> 
+> Namhyung, your guess is right. I counted live symbol allocations in eager mode
+> on the sample fixture. At the peak, 986,688 symbols take 258 MiB:
+> 
+>    names (demangled, avg 210 bytes)   197 MiB   77%
+>    struct symbol (48 bytes each,       45 MiB   18%
+>      24 of them the rb_node)
+>    malloc overhead                     15 MiB    6%
+> 
+> That is most of the 335 MiB max RSS. With --lazy-load-symbols, only
+> 2,928 symbols are created (0.5 MiB), with identical output, and max
+> RSS is 108 MiB.
 
-commit b8dcd543528b096e44b07a9f7d47936a1a0bdd08
-Author: Ryan Brue <ryanbrue.dev@gmail.com>
+Thanks for checking this!
 
-pinctrl: mediatek: common-v1: Use a raw spinlock for the pinctrl regmap
+> 
+> > > Without the string (and the priv part), now it has a fixed size so it
+> > > should be saved in an array directly.
+> 
+> That is close to what patch 5/6 of my v3 does. Its index is a sorted
+> array of fixed-size entries:
+> 
+>    struct sym_idx {
+>            u64     start;
+>            u64     end;
+>            u32     name_off;
+>            u8      binding;
+>            u8      type;
+>            u8      flags;
+>    };
+> 
+> That is 24 bytes per symbol. The name is read from the string table
+> and demangled only when a sample lands in the symbol. The difference
+> from your description is that v3 then creates a regular struct symbol
+> for the hit and inserts it in the rb-tree, because the rest of perf
+> holds struct symbol pointers. If the entry itself were the symbol,
+> with the name as a pointer/offset union, that extra step would go
+> away. Ian's patch 1 would help: once every name access goes through
+> symbol__name(), that accessor is the only place that has to resolve
+> an offset.
 
-This commit introduces a new regmap with a raw spinlock for Mediatek
-pinctrl nodes to resolve invalid wait context splats in hard IRQ context.
-It registers this regmap with syscon so other node users can share it,
-and falls back to an existing syscon regmap if one is already registered.
+I'm curious if name_off would work well for PLT symbols which come from
+the dynamic symbol table.  Probably you need to handle them differently.
 
-> diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common.c b/drivers/pinc=
-trl/mediatek/pinctrl-mtk-common.c
-> index 1a977acd6883a..65b1e3096183d 100644
-> --- a/drivers/pinctrl/mediatek/pinctrl-mtk-common.c
-> +++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common.c
-[ ... ]
-> +static struct regmap *mtk_pctrl_syscon_regmap(struct device_node *np)
-> +{
-> +	struct regmap_config config =3D mtk_pctrl_regmap_config;
-> +	struct regmap *regmap;
-> +	struct resource res;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	ret =3D of_address_to_resource(np, 0, &res);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	base =3D ioremap(res.start, resource_size(&res));
-> +	if (!base)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	config.name =3D kasprintf(GFP_KERNEL, "%pOFn@%pa", np, &res.start);
-> +	if (!config.name) {
-> +		iounmap(base);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	config.max_register =3D resource_size(&res) - config.reg_stride;
+> 
+> > > Probably we can add a limit there
+> > > and print it with offset when it doesn't have the name.
+> 
+> Agreed, that is better than [unknown]. The symbol boundaries are still
+> known, so the frame can be printed as an offset and resolved offline.
+> I can do the same for the byte cap in v4.
+> 
+> >
+> > We load all symbols instead of lazily because we need the end of a
+> > symbol, which we can only determine by processing the entire symbol
+> > table as the end of one symbol is the start of the next.
+> >
+> 
+> Ian, I think most symbols don't need the next one for their end. ELF
+> symbols have st_size, so the end is start + st_size. Only zero-size
+> symbols take the next symbol's start. The whole table still has to be
+> scanned to find the symbol for an address, because .symtab isn't
+> sorted by address, so an address window would scan it again each time
+> it grows. The v3 index scans it once, sorts the entries and fixes up
+> the ends there, but keeps only the 24-byte entries, not the names.
+> 
+> On which kernel symbol is right in the nf_tables example: the sample
+> is at 0xffffffffc0c4b280, and /proc/kallsyms has nft_do_chain at
+> 0xffffffffc0c4b0b0 and the next nf_tables symbol at
+> 0xffffffffc0c4b4e0, so your series is right. The last dca symbol
+> starts at 0xffffffffc0c4aa50, and symbols__fixup_end() extends it to
+> 0xffffffffc0c4c000, over the first page of nf_tables. I've sent the
+> fix separately:
+> https://lore.kernel.org/all/20260928-haghdoost-perf-symbols-fixup-module-end-v1-1-0a70d1edd401@uber.com/
 
-[Severity: Medium]
-Can this calculation underflow if the mapped resource size in the device
-tree is smaller than config.reg_stride?=20
+Thanks for the fix!
+Namhyung
 
-Because resource_size() returns an unsigned resource_size_t, a small
-resource size (e.g., 1, 2, or 3) would underflow and set max_register to
-an extremely large value. This seems to bypass regmap memory bounds checkin=
-g.
-The standard syscon code in drivers/mfd/syscon.c usually checks if the
-resource size is smaller than the IO width to prevent this.
-
-> +	regmap =3D regmap_init_mmio(NULL, base, &config);
-> +	kfree(config.name);
-> +	if (IS_ERR(regmap)) {
-> +		iounmap(base);
-> +		return regmap;
-> +	}
-> +
-> +	ret =3D of_syscon_register_regmap(np, regmap);
-> +	if (ret) {
-> +		regmap_exit(regmap);
-> +		iounmap(base);
-> +		/* An earlier probe, or another user of the node, got there first. */
-> +		return ret =3D=3D -EEXIST ? syscon_node_to_regmap(np) : ERR_PTR(ret);
-
-[Severity: Medium]
-Does this fallback path silently inherit a non-raw spinlock regmap if anoth=
-er
-driver (like ethernet) already triggered its creation?
-
-If another driver sharing the syscon node probes before this pinctrl driver,
-the standard syscon initialization will create a regmap with a normal,
-sleepable spinlock_t. When the pinctrl driver subsequently probes,
-of_syscon_register_regmap() returns -EEXIST, and we fall back to
-syscon_node_to_regmap().
-
-Would this result in the pinctrl driver using the existing non-raw
-spinlock regmap, bypassing the intended lockdep fix and potentially causing
-lockdep warnings on PREEMPT_RT when accessed from hard IRQ context?
-
-> +	}
-> +
-> +	return regmap;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-rbrue-suez=
--upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com?part=3D1
