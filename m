@@ -1,240 +1,212 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4475A3F327A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD1051D501;
+	Tue, 29 Sep 2026 12:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683973; cv=none; b=oqQg7Y/L4/HdubwmctCIuZnjyoZ8+sjLURfHPUeGqRwd5m/hlJn/2PgrcJZ0dJDlhJHzqQwAQzRNf7//9bhcK7r+eVVwNh0LlNKrhSICKJCO4PxQ+ZLeqKwTf47BlR2LqVThRVuXIM5SVxJ+30u4/j7wz8+Be8Mo84spCYSMvTo=
+	t=1790683978; cv=none; b=C0dlPkdJoO92QoAK1mTwrW3w3gyDOOpdTYLlUepdx3dqvsOgZUUbJiBBbEGgZRUE/nOZIcNHo7eBzpHwTKRDdW7VNomr81vafZEYRy+wfeiCJCvt4G6mMPe6H2oFUInQK5kAO51JdJ4GcXXGS1ERjMvEnypgkEVz0IMVNrbbBUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683973; c=relaxed/simple;
-	bh=aOHR2S9JoDTNHa4EinckRR5sM8LP9tsgVirzxTuKr0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IcrplY78umwkSQS2t4VDROcGDMGsr2z8KNFv94Ma1RYxaKjZXTP1RqSToDGV7k/WLKDymdbdk3Bv0NhHuJ/jCptCtiPLuS4bMKg04aaqRvOcZiWy3rkotlxRHRC2g7wF2EOJzRxby4ehcINMyuXfYfR0dcVc1zItlF/CQZ1M1xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bsn3FYPi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790683978; c=relaxed/simple;
+	bh=yJ/SGqKQ1Z8c+Xwy8RHSWBf1iyGr0NkUa6OVX9HF12Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T5gu5iD5wZZvTcULcb1/j7md2HRjCH86UPdnMTQkIfkjCqsy+cWUe1zqhqStHMaDMkLoWnbxfgCHaTjqk4Y1NQYAcDKpjS7cl0YijTlkTLdSbkPiljRo40rGy497uoICFpzktSuR2yHO9rmsLuTQvnP7mvWuAFaV8053BN3+U5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=AbXarkRI; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bsn3FYPi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso15277285e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:12:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790683969; x=1791288769; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=paQ2/onKT319WLEUhupq6lCWp4YbjzVGMuOnFcHWo94=;
-        b=Bsn3FYPiNhIp2HBDQV/+jwpbyP000Xi2mEKEkhMsMnM8swD4yjc/vttTBIclQvIwHT
-         2rvOWBKPZgVT1YMjv+XgD5tacsIjNUp2H+6ZMJ75vXTIGrkaRMl+DIjzqMUe6gwPaGs+
-         t8hWrrlLb5EKIyvR3AonglQ2WH6k+2BNm60aimiPsoPgV/Mq9puUSJhAsdgXzQaJLrTQ
-         NY3UPjbA6SjgoKYK5kqyvr5QZqMSplltvmh/pNTiwfdxt0mtx8yBQJRBi6pRmkhujNwG
-         S+kmXuMdgu2jlS4TX/K6ndqUmW8B2TlzQqpcGrez9r+TvVVRIZxi8U7Qz3ykH0bKNVVS
-         Z5KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683969; x=1791288769;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=paQ2/onKT319WLEUhupq6lCWp4YbjzVGMuOnFcHWo94=;
-        b=0MNzD5XJsqmB9qTjtf5EkdWGdudhWwpcJ7t7tXz9gdvYndApxKqpdlXAosrQpZxG/m
-         kLRLElyqWUHewn+lX7bSjlJnQ3uO/GRJnI3enwoWSOUDysH6UpEKRffcY/ZHT2D75FMW
-         K1ch+vWFamFSCIYpf1/FVJOUoqsr7923otml8KZaY53oFEva/KmXlo+Bnu/GDyAe5TVC
-         IUnNUHeAnJkpX7YyDpI0paGpzzP9VR7sbiPD2g3sbz7D2FnZBvGDtYMUYETLXKS40jk3
-         G230DtokRDPDM5pDI1X/sjGCuD7VKQ61gb36YP+6njRJZgtMKzemYJlEgEmHhWCbhKCA
-         1uCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxvECcLM4KgrKE6RmZDQ3VdK9G+aH5r0+dat/+bUrqyq7Ii23qjKNQt8NSa5N3wMZrZR/p4oYIB5qujn14=@vger.kernel.org
-X-Gm-Message-State: AFuF++kG0e8565suugE2aXonc3lUM3Uq82JQPyQyVfi3VF1akGD4ljL5
-	TuA4+PzN4fVhCVUovy78DWsyODFDQ4ZFOv4olGINhmehjAwtU8SPUGSTPxBEt02KzA==
-X-Gm-Gg: AYBFou0UAvBC5OBS8KZox1JxUGq3jQOVnjzi+yIFIGAabSbhTFLZgxxTOWo7NQujCad
-	nbc6DaFHZHqYMPpvHqgTpSKzx++X/Gw4PZ+vSb0SuEb77KxKzaBjG7ikktUv+RET+25yr+8tnw8
-	cjPPJT5AZ1fkFIgx1LrvtTjcYh1QgRHkP+wegjaP4ZZstFPP7Nor86c3yJqCrtPIm1zG11/QnL+
-	NwjmjAx58uJ+6Cnvd1aoNo/Ijl1F/sCoZ8gJyFX/uKbrpdHI6Ny8O7CV9s+vG7zZEjTDjoIrOoj
-	oNVHPzOxAmXlGWzCp0tbwzsnnncw3olYIQwW9x54BKPjeeIv6K1diYCP/c55ePYuq1vO58OpJ9s
-	Dc+Qh7c7D4hxeliF7R6q+KrXCLcw3Qy+zu4dOLLOA3yN97iT3NCQD/0+hFXHiaxIYwFfBI4t/z5
-	Pv6y+5uKzpRygPCeLSK6JRzHerXr5CU+Lp0S7+c/mhcyokxkTF3se5N/4ilb+rnoSLLcgatvLng
-	6JoyWGLHBLePPxJUBckqUDKA2yiww==
-X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr302281505e9.33.1790683968737;
-        Tue, 29 Sep 2026 05:12:48 -0700 (PDT)
-Received: from google.com ([2a00:79e0:288a:8:ce20:1d4f:298a:2070])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013b8f6f5sm4087715e9.10.2026.09.29.05.12.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:12:48 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:12:42 +0200
-From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>,
-	Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net,
-	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
-	dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk,
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
-	dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org,
-	sj1557.seo@samsung.com, yuezhang.mo@sony.com,
-	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org,
-	neil@brown.name, okorniev@redhat.com, Dai.Ngo@oracle.com,
-	tom@talpey.com, miklos@szeredi.hu, amir73il@gmail.com,
-	senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com,
-	zohar@linux.ibm.com, roberto.sassu@huawei.com,
-	dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com,
-	stephen.smalley.work@gmail.com, omosnacek@gmail.com,
-	casey@schaufler-ca.com, nanx95726@gmail.com, djwong@kernel.org,
-	daniel@iogearbox.net, linux-security-module@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
-	ecryptfs@vger.kernel.org, exfat@lists.linux.dev,
-	linux-nfs@vger.kernel.org, linux-unionfs@vger.kernel.org,
-	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
-	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	xiujianfeng@huawei.com, lujialin4@huawei.com
-Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
- WRITE_METADATA access rights
-Message-ID: <arurOphe6QIx2Zr8@google.com>
-References: <20260924104831.1081137-1-caixinchen1@huawei.com>
- <araxO4ze0KZBz756@suesslenovo>
- <20260926.255b951d3013@gnoack.org>
- <arqcbjWLN1CLkL_Y@suesslenovo>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="AbXarkRI"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 4CFA8534030D;
+	Tue, 29 Sep 2026 14:12:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790683974;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=YIcJiMvSHwtCZnraYE7wCGLbPbIrNhutTgj56ANQtZQ=;
+	b=AbXarkRI7d1uL5pGMTN/5au3nH00ZVes00ljfBw59yD7Qjr/1kIgkQsn4S3NDsbaTe3pvc
+	86+w92S4SwvByTCCrF4jbvLZiJfCP0dDiAhaEY/liQAN7VygMySW4NTP2w1kHORudDHOGV
+	yCikEM0v8ls11Lr+17vkgfM8U2yy1RY=
+Message-ID: <49805bcc-2456-4f7d-a08a-3ccb7223ea50@ixit.cz>
+Date: Tue, 29 Sep 2026 14:12:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arqcbjWLN1CLkL_Y@suesslenovo>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
+ <20260929-dramatic-ocelot-of-support-2aa377@quoll>
+ <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
+ <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
+ <739ce9f4-8bdb-4bc4-9cc1-9a1a7eba80ce@ixit.cz>
+ <ce6379a5-2a60-4d65-9553-e39f8398d6cf@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <ce6379a5-2a60-4d65-9553-e39f8398d6cf@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam: Yes
 
-On Mon, Sep 28, 2026 at 01:13:35PM -0400, Justin Suess wrote:
-> On Sat, Sep 26, 2026 at 09:56:28AM +0200, Günther Noack wrote:
-> > Hello!
-> > 
-> > On Fri, Sep 25, 2026 at 02:03:05PM -0400, Justin Suess wrote:
-> > > On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
-> > > > This series adds two new Landlock filesystem access rights,
-> > > > LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
-> > > > which control access to file and directory metadata such as inode
-> > > > attributes (mode, ownership, timestamps), extended attributes and POSIX
-> > > > ACLs.  It picks up the work from the "landlock: add chmod and chown
-> > > > support" series [1] and follows the coarse-grained grouping discussed in
-> > > > that thread [2]: instead of separate chmod/chown rights, metadata
-> > > > operations are grouped into one read and one write right.
-> > > > 
-> > > > Landlock evaluates access rights on a per-path basis, but the metadata
-> > > > related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
-> > > > inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
-> > > > inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
-> > > > object.  Patches 1-7 therefore first pass struct path instead of dentry
-> > > > through the metadata-related VFS helpers and LSM hooks.  This is a pure
-> > > > refactoring with no behavior change, split so that every patch builds
-> > > > and works on its own:
-> > > >
-> > > I like these patches, but is the ability to read metadata already
-> > > sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
-> > > directory?
-> > > 
-> > > The one case I see this being different is:
-> > > 
-> > > 1. if you wanted to grant read access to the file, but not metadata
-> > > read access, but I can't think of any usecase for being able to read
-> > > the contents of a file, but not the metadata. (see below)
-> > > 
-> > > 2. If you had the absolute path already and didn't need READ_DIR.
-> > > 
-> > > I see introducing this READ_METADATA as causing potential
-> > > hard-to-diagnose issues.
-> > > 
-> > > Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
-> > > 
-> > > The program can technically open the file with the READ_FILE permission,
-> > > but it may error out because the stat() on it beforehand failed.
-> > > It's pretty common for programs to do that kind of thing (stat before
-> > > open), like for checking for config files (strace bash and you see it
-> > > stat .profile, /etc/profile)
-> > > 
-> > > There may be other bugs, because being able to set permissions to read
-> > > a file *but not read it's metadata* isn't possible currently in posix
-> > > acl and userspace may not work well if that assumption no longer holds.
-> > >
-> * posix acl and linux DAC.
+On 29/09/2026 12:36, Krzysztof Kozlowski wrote:
+> On 29/09/2026 11:59, David Heidelberg wrote:
+>> On 29/09/2026 11:51, Krzysztof Kozlowski wrote:
+>>> On 29/09/2026 11:41, David Heidelberg wrote:
+>>>> On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
+>>>>> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
+>>>>>> The reset was introduced with wrong polarity. Correct for the future
+>>>>>> compatibles and keep current with reverted logic.
+>>>>>>
+>>>>>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+>>>>>> gpiod_toggle_active_low() on the deprecated compatible.
+>>>>>>
+>>>>>> Assisted-by: LLM
+>>>>>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
+>>>>>>     1 file changed, 19 insertions(+), 4 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>>>> index 5e1e997b83b36..99290913de69a 100644
+>>>>>> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>>>> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>>>>> @@ -20,16 +20,17 @@
+>>>>>>     #include "panel-samsung-dsi.h"
+>>>>>>     
+>>>>>>     struct s6e3ha8_desc {
+>>>>>>     	const struct drm_panel_funcs *funcs;
+>>>>>>     	const struct drm_display_mode *mode;
+>>>>>>     	unsigned long mode_flags;
+>>>>>>     	const struct regulator_bulk_data *supplies;
+>>>>>>     	unsigned int num_supplies;
+>>>>>> +	bool broken_reset_polarity;
+>>>>>>     };
+>>>>>>     
+>>>>>>     struct s6e3ha8 {
+>>>>>>     	struct drm_panel panel;
+>>>>>>     	struct mipi_dsi_device *dsi;
+>>>>>>     	const struct s6e3ha8_desc *desc;
+>>>>>>     	struct drm_dsc_config dsc;
+>>>>>>     	struct gpio_desc *reset_gpio;
+>>>>>> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
+>>>>>>     {
+>>>>>>     	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+>>>>>>     
+>>>>>>     	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+>>>>>>     }
+>>>>>>     
+>>>>>>     static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+>>>>>>     {
+>>>>>> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>>>>> -	usleep_range(5000, 6000);
+>>>>>>     	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>>>>>>     	usleep_range(5000, 6000);
+>>>>>>     	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>>>>>     	usleep_range(5000, 6000);
+>>>>>> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>>>>>
+>>>>> This breaks all users and this usage of ABI was already released.
+>>>>
+>>>> See the gpiod_toggle_active_low() usage later in the patch which keep the logic
+>>>> for the original compatible as intended.
+>>>>
+>>>
+>>> OK, I went way too fast, that's correct part. But splitting fix is still
+>>> just confusing. Backporting to stable is a different thing than fixing
+>>> issues.
+>>
+>> Sure, I already droped the previous commit changing it for stable.
+>>
+>> Btw. looking at gpiod_toggle_active_low(), would it make sense to do a series
+>> correcting panel reset logic? I see many panels keep "reset asserted" in the
+>> driver (but ofc not in the reality).
 > 
-> > > So maybe WRITE_METADATA is good enough?
-> > 
-> > The existing use cases are the combinations of (a) READ_DIR
-> > allowed/denied and (b) READ_METADATA allowed/denied.  Because these
-> > two access rights overlap slightly, it seems likely that for a given
-> > directory or file, users will want to either grant both, or deny both.
-> > 
-> > At the moment, where the (not yet existing) READ_METADATA is
-> > implicitly always allowed, the problematic case is the one where the
-> > Landlock user wants to deny READ_DIR, but where much of the same
-> > metadata is still available through stat() and the various
-> > get-attribute syscalls.  (c.f. the warning box in the Landlock docs
-> > [1])
-> > 
-> > In my view the READ_METADATA right closes a gap that READ_DIR left
-> > open (which is also potentially surprising to callers if they did not
-> > read the docs closely).  Also, if its implementation is symmetric to
-> > WRITE_METADATA, I feel that it's worth having it in the same patch
-> > set.
-> > 
-> > –Günther
-> > 
-> > P.S.: I know, even after we can control stat(), there are likely ways
-> > to infer the presence of a file by observing Landlock error codes.
-> > This would be nice to fix as well, but is harder to do without
-> > controlling the path walk itself [2].  But also, the fact that this is
-> > currently not controllable is not an excuse for leaving READ_METADATA
-> > open IMHO.
-> >
-> I'm still sort of concerned about the case where read access is allowed,
-> but metadata isn't, due to how many applications will not cleanly handle
-> such an unexpected condition. You can reproduce this with a seccomp
-> policy forbidding stat().
 > 
-> Would it make sense to have the existing READ rights
-> (READ_DIR/READ_FILE) imply READ_METADATA on the files/directories 
-> if READ_METADATA is handled? Reading a file's contents should always
-> imply that you can read the metadata.
+> To my knowledge it is impossible task to do, without breaking something.
 
-I am wary of situations where the handling of access rights implicity
-implies other access rights.  We have discussed such schemes in the
-past (e.g. we considered a design for RESOLVE_UNIX where we'd have
-both a "scoped" and a "access_fs" right that would interact with each
-other), but in the end we always settled for approaches where such
-interactions would not be necessary.  One of the concerns was that it
-would complicate "best effort" fallback logic in all Landlock
-libraries and in the countless places where people use the syscalls
-directly.
+I would do the partial change (only driver, not full DT).
 
-To throw another option in the mix.  (To be clear, I have only 70%
-confidence, so feel free to push back, but it feels like it might
-work?):
+So we end up with drivers having the correct logic with extra 2-line DT quirk 
+using gpiod_toggle_active_low() for given compatible.
 
-Is this similar to the "truncate" right?
-----------------------------------------
+This could solve people implementing new panel on top of existing DDIC and allow 
+them to use the right polarity for new compatible.
 
-With "truncate", there was an existing common operation (open(2) with
-O_TRUNC, a.k.a. creat(2)) which called the truncation hook and checked
-for the truncation access right.  But that was in fact OK.  The way we
-resolved it at the time was by documenting very loudly that WRITE_FILE
-and TRUNCATE access rights should always be requested in lockstep, if
-TRUNCATE is handled.
+David
 
-If READ_DIR and READ_FILE do in fact read and return metadata to the
-user, maybe the right thing would be to do it the same way here and
-*require* that we have READ_METADATA to do these operations?
+> Either you break users of ABI (so the DTS) or break existing users of
+> DTS. One could try to avoid both by using your approach here with
+> compatibles having fallback. But then what polarity actually would be in
+> such DTS node? If you know your users, like for some SoC components, you
+> could argue that none of then will be affected. But both the driver and
+> DTS here can be used externally.
+> 
+> Best regards,
+> Krzysztof
 
-(READ_METADATA is automatically allowed as long as it's not handled,
-so that approach does not break existing programs.  Programs who
-consciously start handling READ_METADATA must simply take into account
-that reading directories and opening files for reading requires
-READ_METADATA.)
-
-(BTW, I can see it for reading directories, but I am not sure I fully
-follow the argument why opening files for reading means that you can
-read the metadata?  Can't that be guarded on fstat()-like operations?)
-
-—Günther
