@@ -1,176 +1,122 @@
-Received: from mail-vs2-f37.google.com (mail-vs2-f37.google.com [74.125.227.37])
+Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D954331EB2
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5B03D566F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647720; cv=none; b=l+TyCjCD9gxd96lFtX4kTpwomg76GfLqgQTZoivXTOnkq5Mjb+yiWFiI2k1GDqsHEVUzNjb0Ki2b30A98FzWm23th6x/icAG2X6vdOxbZBWrpiZuY2OUn0g02DpMnHPuMmLPMyz5TpQrRjvnxJhW6uga+PoJnE6PlaGH9Q50pxo=
+	t=1790647722; cv=none; b=H0KWZJ/gpsEIpMLdLKj/uXg9vmDtw7h2dRHhab6kfJ5rx19zLIAg8vlQbYMOucmqlrLYWae8DytYMbFJq0YohH/aiDPkxTBnL9YaKRh+vYoLVM+teHxyDef3Wp3PQ8DvJ8YSpJODYCfad/Np/QlVJN/eoh4Rk6+iz2EJAZMQkUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647720; c=relaxed/simple;
-	bh=8HZQIfdkPFT/KAepzonaOWUZog4wsVJFZMYSKO8Uqdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oatncUazideDxh7JJLeUmDIkW9R4xQEAyrqveJ8JoCqkWhGE1qb6WCmw1rBhUbEAa4fALqfxssIGoj2i1wA3h833PQQ6Dois9I3HiRBSSgnFUdkUyh3j8iaCdJHjB5sIhxcRfULtKcyUQ97YRDbxUzA5oxT/uuMdt/EhcMTEVsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PyAIltqn; arc=none smtp.client-ip=74.125.227.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790647722; c=relaxed/simple;
+	bh=yWN2pXrEgudmQV5/KdTupS8SIlaev88MpOoEz+dBiaU=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=a4SRHZlkSuJqTWddIrq1GjPcbiU2D+NvNHBxQ25jK+6nAXoRPJfHsDxdQxH2sJ8wVeNdfH3mTUqSDJ6VXOZWv7HEy2Dlo1LFLuwhRo0p32yhm3lhA0q3QEE0f8v/uZVne8rAx4YA3/KG9pEGN+0TVZ5hLKrERukcGwvMHrqhBh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SlrPdpfH; arc=none smtp.client-ip=91.218.175.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PyAIltqn"
-Received: by mail-vs2-f37.google.com with SMTP id 71dfb90a1353d-5cfd29f1208so644357e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:08:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790647718; x=1791252518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IezbauBQo0SYD5vT1v9mpnB2FDN7oYHxuNkWtEmhqDg=;
-        b=PyAIltqnhZOrcx929FLI7VmKu4FNqd1cLGONqxs1TVMcFPDhT7mhZq5bDC7+ytgAjS
-         gQGl9wiEDzwyL1q5BvusBPjPyQc0JaN96Q3nri5axm7+/XoKr3Qj55Ja8RT/a261Ih6J
-         ILdHGbuthuHCamawcMfTowewof3dwesFeIakf7wz3I3UbZ0TxrCQIynAlWFkpOInrUK0
-         8tpfhABh4mtG+Nk5a2KXRo6seZUyDUVrqaCtz0ovFSEbPbhPK7qx3OIg+hkcLnfcw1NK
-         WmaVniEa2Xdap3Jy3NAcWlBgDGWpQ8EEg9k91avJb48pDGP9su4HSYZ880zNvYfhWnIt
-         FasA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790647718; x=1791252518;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IezbauBQo0SYD5vT1v9mpnB2FDN7oYHxuNkWtEmhqDg=;
-        b=2ZbRP4hOUHwAjuKigjd1tye9q8H5Ti5ZH465+8ESloxIZojvslBQQlX+Nxlb4ZQTnT
-         XBYYvzybl4Cd+AS+/qcj3lgfCodYmVFIbheiWuimlLE7E1+Y2GAISwVe1ZMJIO2zshvM
-         aq5YqFCzS8T3an9vTZ5CTQJ7K4ftn3SMBtmgNEKQ0yMdWx2KbJ0OQ+1pUiiuEkJSav71
-         4Ri/G4SVM7bB4HFBmjvWZZuTBKpX0oONxx3wlWx4KDRMWwPqi3Qe+CLkFn2/quzRipxx
-         iiCd22onxxVWXuqq/ROBaY5SC8yJ5og3V+pF9yUXOqnZKbT3rIMFvEjwUCyoTVoz7IAz
-         76eg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjsl2tFERJvqFvIbZ+qDFvqXfwW7tRbKMDwPdP95CErcmYaE27N+xi0/SwxZaPKoiQ2ZvEh+CbeJM6uWo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLE8wQDDZzDUbBeDX7Wf6MV5AEjVgWU1EG3O3MKNtg69+c8LSND
-	cxwk8R2g8SOfwtMO8QQiEloojGljKzlQQ76+k4xZe79fEK7e3HVQeI6U
-X-Gm-Gg: AYBFou28kd3fjxBpVjW1HuHf+fkhe5y6vhZ96B3Afokf7E5zNPfbJggjZQw8A2FI6rn
-	rEKPItZ9trWNy4gvhQSBVWiVK1dtZA4mX9xEr2d76NKdQG/Ta31B2In8aiLePcrP7kirsR42ezj
-	gnSyPUYeRUEZVOcbBfbAFrprYKu8eXAMCMpWaAgFw5SRlQFMVd9Jr9eD3FHz4L7+7S+6TK80fJO
-	1SH7sVUAA2RfDGExfvHbnGI5U4quAXl/+432950l+bzD+2fy/QNYr0X+VoZkGRt2zDl1Bv22Th1
-	1Q4NJEQ2GcBJMTvLRvvKzl0wdlrytPFJwkVHjWmR9y6+VEmhgzGpBGZLljiMRPuhapzMsqHhEgB
-	pmIfCIDSgYVkb3AY5XD/IZE7IjjfKjzejBd+x7epHm7VquvUdYqjVeKgfxXq2SGZtmh8Xu10Nw8
-	QUvJVKMPdgVOzgTKiI42nfLr5FhDxGTAwWorsBZaiPwov62lS7MqZlB//QmOKRavfPSCV4P7bK7
-	UJhwYaE+aCMW/QyBKFz16B/k0e2nzzFRdRW9JHiL29xPdrhKEeLwQPaTQKxU1sXdZMlMA==
-X-Received: by 2002:a05:6122:1791:b0:5cf:1e68:6015 with SMTP id 71dfb90a1353d-5cf1e6867acmr2230397e0c.15.1790647717795;
-        Mon, 28 Sep 2026 19:08:37 -0700 (PDT)
-Received: from bazzite ([138.122.221.74])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde587a790sm11159030e0c.9.2026.09.28.19.08.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 19:08:37 -0700 (PDT)
-From: Davy Felipe <davyfelipe34@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Davy Felipe <davyfelipe34@gmail.com>
-Subject: [PATCH v6] hfs: handle extent B-tree write errors
-Date: Mon, 28 Sep 2026 23:03:29 -0300
-Message-ID: <20260929020329.32911-1-davyfelipe34@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924231054.2175660-1-davyfelipe34@gmail.com>
-References: <20260924231054.2175660-1-davyfelipe34@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SlrPdpfH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yWN2pXrEgudmQV5/KdTupS8SIlaev88MpOoEz+dBiaU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790647718; v=1; x=1791252518;
+ b=SlrPdpfHrHOfufAPrBSOLY8Qt/w7v54sQoquAkaBso0nUbJntMxn/sgYYIE9+gk8CIigOIG7
+ +ImfcoI7TOeBOKUm1kgQjzupSGTMlFbhdTh9IC12lTCp2xA9wM1jzeAOqAw2MoKm2TMDkUUiRE0
+ WNgJ0i5Ng0tVYIFxHknqk2jQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 754af4c4803bea6d;
+	Tue, 29 Sep 2026 02:08:28 +0000
+X-Mizu-Trace-ID: 754af4c4803bea6d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <edfc22ef-799d-4f70-8668-bde0caf67bcf@linux.dev>
+Date: Tue, 29 Sep 2026 10:08:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cuitao@kylinos.cn, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6] loop: defer the queue limits clear to a workqueue
+To: Bart Van Assche <bvanassche@acm.org>, axboe@kernel.dk, hch@lst.de,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+References: <20260928093512.3153646-1-cui.tao@linux.dev>
+ <df36224b-7fcb-45c4-ab78-d7e726bfeb9d@acm.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <df36224b-7fcb-45c4-ab78-d7e726bfeb9d@acm.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-hfs_brec_insert() may fail while inserting a new extent record, but
-__hfs_ext_write_extent() currently ignores its return value and clears
-HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
-succeeded.
+Hi Bart,
 
-Propagate errors returned by hfs_brec_insert() and only clear the
-extent flags after a successful insertion.
+在 2026/9/29 01:26, Bart Van Assche 写道:
+> On 9/28/26 2:35 AM, Tao Cui wrote:
+>> @@ -1148,6 +1182,16 @@ static void __loop_clr_fd(struct loop_device *lo)
+>>       lo->lo_backing_file = NULL;
+>>       spin_unlock_irq(&lo->lo_lock);
+>>   +    /*
+>> +     * Invalidate any clear that was scheduled against the old backing
+>> +     * file.  Unbinding cannot race with in-flight I/O, so cancelling
+>> +     * here leaves no work item behind.
+>> +     */
+> 
+> This comment is wrong - asynchronous I/O can still be in progress here.
 
-When updating an existing extent record, hfs_bnode_write() returns
-void. Validate the extent write parameters before calling it so an
-invalid update is reported as -ERANGE instead of being treated as
-successful.
+You are right, asynchronous I/O can still be in flight in
+__loop_clr_fd(). I'll fix the comment.
+> See also
+> https://lore.kernel.org/linux-block/69960302-1535-441a-be4e-d652766d65c2@I-love.SAKURA.ne.jp/
+> 
+> Should this patch perhaps be rebased on top of Tetsuo's series?
+> 
+On rebasing on top of Tetsuo's series: since you recommend it, I
+can rebase this patch on top of it - the cancel inside
+__loop_clr_fd() just moves along with the new structure, and the
+I/O flush there makes that cancel airtight. 
 
-Use a reusable B-tree node range helper that takes the find data and
-the expected record size. The helper validates the bnode and tree
-pointers, entry offset and entry length, and ensures that the write
-range fits within the node.
+>> @@ -1783,7 +1827,9 @@ static void lo_free_disk(struct gendisk *disk)
+>>           destroy_workqueue(lo->workqueue);
+>>       loop_free_idle_workers(lo, true);
+>>       timer_shutdown_sync(&lo->timer);
+>> +    cancel_work_sync(&lo->clear_limits_work);
+>>       mutex_destroy(&lo->lo_mutex);
+>> +    mutex_destroy(&lo->clear_limits_lock);
+>>       kfree(lo);
+>>   }
+> 
+> Is the above new cancel_work_sync() call really necessary?
+> 
+>> @@ -2140,6 +2188,12 @@ static int loop_add(int i)
+>>     static void loop_remove(struct loop_device *lo)
+>>   {
+>> +    /*
+>> +     * Cancel early: the queue may already be in RCU-delayed freeing
+>> +     * by the time lo_free_disk() cancels the work item.
+>> +     */
+>> +    cancel_work_sync(&lo->clear_limits_work);
+>> +
+>>       /* Make this loop device unreachable from pathname. */
+>>       del_gendisk(lo->lo_disk);
+>>       blk_mq_free_tag_set(&lo->tag_set);
+> 
+> Is the above new cancel_work_sync() call necessary since there is
+> already an identical call in __loop_clr_fd()?
+> 
+On the cancel in loop_remove(): i think this one is needed because
+asynchronous I/O may still complete after __loop_clr_fd() has run
+and queue the work item. Since the queue becomes eligible for
+RCU-delayed freeing before lo_free_disk() is reached,
+cancel_work_sync() before del_gendisk() ensures no pending
+clear_limits_work remains against that queue.
 
-Negative-path testing in QEMU confirmed that an insertion error is
-propagated to the caller. Testing the existing-record path also
-confirmed that invalid write parameters are rejected before
-HFS_FLG_EXT_DIRTY is cleared.
+I'll send v7 with the comment fixed and the redundant cancel removed once Tetsuo's series has landed.
 
-Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
-Changes in v6:
-- Rename hfs_bnode_is_valid_range() to is_hfs_bnode_range_valid().
-- Use size_t for the expected record size.
-- Drop the redundant expected_len validity check.
-- Return -ERANGE for invalid find-data/range parameters.
-- Incorporate the final review feedback from Viacheslav Dubeyko.
-
----
- fs/hfs/btree.h  | 19 +++++++++++++++++++
- fs/hfs/extent.c | 10 ++++++++--
- 2 files changed, 27 insertions(+), 2 deletions(-)
-
-diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
-index b4c3f2a31471..1f703f2c53d8 100644
---- a/fs/hfs/btree.h
-+++ b/fs/hfs/btree.h
-@@ -84,6 +84,25 @@ struct hfs_find_data {
- 	int entryoffset, entrylength;
- };
- 
-+static inline bool is_hfs_bnode_range_valid(struct hfs_find_data *fd,
-+					    size_t expected_len)
-+{
-+	struct hfs_bnode *node;
-+
-+	if (!fd)
-+		return false;
-+
-+	node = fd->bnode;
-+	if (!node || !node->tree)
-+		return false;
-+
-+	if (fd->entryoffset < 0 || fd->entrylength != expected_len)
-+		return false;
-+
-+	return (u64)fd->entryoffset + fd->entrylength <=
-+	       node->tree->node_size;
-+}
-+
- 
- /* btree.c */
- extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id,
-diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-index f066a99a863b..26357086517f 100644
---- a/fs/hfs/extent.c
-+++ b/fs/hfs/extent.c
-@@ -121,12 +121,18 @@ static int __hfs_ext_write_extent(struct inode *inode, struct hfs_find_data *fd)
- 		res = hfs_bmap_reserve(fd->tree, fd->tree->depth + 1);
- 		if (res)
- 			return res;
--		hfs_brec_insert(fd, HFS_I(inode)->cached_extents, sizeof(hfs_extent_rec));
-+		res = hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
-+				      sizeof(hfs_extent_rec));
-+		if (res)
-+			return res;
- 		HFS_I(inode)->flags &= ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
- 	} else {
- 		if (res)
- 			return res;
--		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents, fd->entryoffset, fd->entrylength);
-+		if (!is_hfs_bnode_range_valid(fd, sizeof(hfs_extent_rec)))
-+			return -ERANGE;
-+		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents,
-+				fd->entryoffset, fd->entrylength);
- 		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
- 	}
- 	return 0;
--- 
-2.55.0
+Thanks,
+Tao.
+> Thanks,
+> 
+> Bart.
 
