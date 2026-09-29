@@ -1,226 +1,182 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A685409295
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B83296BCF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661670; cv=none; b=rxCMsStazllIPmR2Zd11Ll8jLJ0yvgGyBr/IvRTCov+sUyypFQ0dcRMqEHiyay7SwLG1wV373MkP9vVKFB/UzYAfvB63Cr0mW6ojgN3EdFEwnPU1iJIcq1Hrh+gx6lw7N95EKtXcUdQGXY9JmwSJKRVhGv2tSOVJF0fJfbsBmNg=
+	t=1790661891; cv=none; b=td0/Hcyy3R6CUgdu5DDMckXjcvIUJKhLeWzybjMKEXxy7ZakIvBRNIfp57xoIk66XSobhbsZO1OApubDtL4iNKlFRUUMonNKzEm0PNkKxbda20BlKSYV1GjejQ43IWMUsLwme9ghsq5jxgI1DxJopzUkDbMG4BedXhrlAnjj4Yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661670; c=relaxed/simple;
-	bh=TQMoOx7LRStcYqRtPZiksVgN+aWBh0cBp7N3YqiOc5o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VA6H66G9QhQaXXZhTIiwgtaXJWjVhaM9qZ8xN3YYy1JcGHceX+1aDVWIfqXbIj6Wc7/Vf2UgVbXpbPAAM2qNcJXJJ+njK9vNC4tQWqkpCmTecdA4lx+tzQRPeMHuEACsfOY3a9udu48M0xxpiUKjM3pdeQgaQG1LGXbVVD2nags=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BZyN1g4X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JuDJhbK3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790661891; c=relaxed/simple;
+	bh=a4Kw0/+7x9IW9EMICVZHdLINZ3mYtw/nqjRwyV3ufBE=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=himi3X6OGoOKky1bEide3Qr9uNbkf0uXUPK4TvezNqb1phmQ7+mAh92ec3CfpQQSq9H6N4dCv6NYt7DFTkhHRFbtGIhk7rdiXEFRqMbWAI2RP89gh5NHGmwKAb9B8wfZJENzntL9NqCHBFlecH+DbKXKb2MaMD9LnohzyVvUVWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=roFgokrf; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BZyN1g4X";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JuDJhbK3"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47fuS4052905
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:01:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zDVxaWUQExbSZqDtvncCwvGw4iki0k/Nc32cFQcnXL4=; b=BZyN1g4XsICfxyih
-	uYTeck0yaRPyEtV0IWWnDvVLuU72IEneoz+wIo1JAVdAFeems1l203RfCXSFfSys
-	MDB+Gv3Os1hUf/in4OG0Mv1d3rO+0xAi8eAxtUIILlHpp+E894E6qKGRWefhcKIT
-	UBdq2Ufje9/QApEFxAwUMRh/iFGRlsSH+3A1TnYOrHkBvq4iCxc3gAun/E7vJGGv
-	0qQgDzIzlc1pQtCMvnEL8B0wYaUAjvcFrL1EtnCtaNKUN03CZaQDB54YS8xP8qGP
-	6WtXOaL1Z/rhsgwem61Wmngiyq5P4kdkFL4SYDr2SQUqJxN3Z522P1gTWZqBZr/d
-	v6UpWw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h05yxgcea-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:01:07 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb48f41343aso388226a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:01:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="roFgokrf"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af0707d41so227218f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:04:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790661666; x=1791266466; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zDVxaWUQExbSZqDtvncCwvGw4iki0k/Nc32cFQcnXL4=;
-        b=JuDJhbK3ZBmmsynbnVvAEgca2r1w0JMDltO2+ICk5ShOJTo94sujffLte4A4TtHXta
-         lbQ7AY57OpBrcc4jPYSjSMYODRKtSd6LlQ5FuY0wwnT2hZJxmYdVmXUN5JZVrqZjwUXV
-         GdIt8mdWbax90U+MKn8JSrSzmHDiKKVhquqkUAdkORtdUwj98B+goO8o41Yr1VEg+AVI
-         mKYgQFfl6Qjs+vGPbSWqD2uyINlSUCKte6X0jR+xHr9dxnz5lT4tZsn9UGGYV9eWhIja
-         PDKzC+a9vRXNLGvRDXKtoTyEOcoZS8aHhyqgs6TpeVRD0bJNx6jqW14O4D4QCCTbz3UI
-         LYtg==
+        d=gmail.com; s=20251104; t=1790661888; x=1791266688; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z0TZEPIVidw3xLm+2nRYFt1HaNZNBSK8y9IPaB77MDo=;
+        b=roFgokrftoEMCPFcmgnQByHUmYf58p4TT7+pKkCFrhvkYKtJOexweECRJ9/RQeM5XM
+         srSCD9U27eZqEhW0kbiOQNZNru8jIp8hnL9MnuvXGSfokKUdJ7ASFNewtXtgRdDbIoCb
+         jUAElwbaV4XJ+RYXQx+gSilEJ+REmqyHube9HKFPMctfcOO2CDcKIMW7KcpLaKoZcWIp
+         9jbsU2zVS1wtEL6EVmpW9aQ8BKuv/6EG6x5a9pOMZe741ydBgxzI+rsQQlZcapIjgWvS
+         CPLJsvWI4segTHDZCXkHkjsovp1DLi93usTeNhrjlnFNoRGI5Xi2W4P3PEKZ55v+nW38
+         U0EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790661666; x=1791266466;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790661888; x=1791266688;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zDVxaWUQExbSZqDtvncCwvGw4iki0k/Nc32cFQcnXL4=;
-        b=SfnCtSvlpQNJZ66ulTksmmiUYDQmGx9V9ErKqoe/QlfzoeOHfhz3yXC3vLD/wQpg7E
-         0rj7mnFSHq0zmqZcB+ah2avOqugcKdnDKSWn1j2kBYLybN3PSu6+DFQ9lKMm20TzDTGe
-         KSdQ4hn3xD96cHOwuEe+P3j4ow9Eq+Aiyb4p2YTylZXpF2k+sCwtC0gzaHzCxwdWbt8s
-         aYabbHklr1snHWBEgzCn3zFTo2/N9T5sj8sO36h1pLfZCv8UUHxNOQO6S2fzt3lbwQwm
-         NydIZ1BKwmie/3+D+uUJxsJ4hZbHk3dpCAuKbjOsldC79zqNsA8TWw7v1DeDTUjOoTH6
-         u4wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxG5jCv51iJsXAWwk0kfJm7/2MA7ktS3u0ygf5l0d++UkfRkOTt4f/zkA3Q5vvgh2LQiEUelrRukgVIeXw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI47mDw6BvD8QMYFj9UIkaXnX64AcmcXLKm2Q+SINf6Uj8faGKh
-	bOtupUSfdN53jyS1KMKCR6dstmm3M0uCx8cDWyAz6e02jW5qnEEnsmRRpr2bfwjsb9qp4FPPI/d
-	0HKxvt46LRUTyFqdjDNjflulsnrg3oYnmcWpEqSNWpdNY3xzd3onZen7WAlhtAjUJVvk=
-X-Gm-Gg: AYBFou3lYe6gQtpx6Ad0nuB7eQd6yx78rNpK95Yof9bAsOITEKNAgnaFq/3bdIevlw3
-	kWRYrNsDqrZv3KTqEZbGS+IAFaDUFJa2QXaJXAhnJcpgg1iXaLmvCq8d75EdmoOLUxKExMhG8tk
-	uvZt15c1cguMbZIZLJFf1suKuM9dFNTKYLj5Eul8irFbMAekg27vNHzesWx+9bk9hRWd0RITrnf
-	vrkvBbNFUlJnOVeHreo25wQ4N1k7/eQvCNtRuRaMlKvJk2N/sH/nJ5JYo/UInUtpWXMoQvnEKMs
-	Cbvmh3m9CV7phHiftGQZbmQZfBSuvsgzHX3qrfle+yJyf+z6Mm9wkwiTT4iVxPagzEEV7srTw3a
-	SbUeqxPnxsydlr5i72yO93efeYBggUcCCaUVrE1rBsGlS9MP28yvfp8l/tWZByNVCpJj84EZaau
-	NXHaOLtS6swg==
-X-Received: by 2002:a17:90b:4fc8:b0:3a0:c85a:ee12 with SMTP id 98e67ed59e1d1-3a49c1e7becmr794581a91.41.1790661663738;
-        Mon, 28 Sep 2026 23:01:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:4fc8:b0:3a0:c85a:ee12 with SMTP id 98e67ed59e1d1-3a49c1e7becmr794415a91.41.1790661660279;
-        Mon, 28 Sep 2026 23:01:00 -0700 (PDT)
-Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4985ff0f2sm3383588a91.8.2026.09.28.23.00.58
+        bh=z0TZEPIVidw3xLm+2nRYFt1HaNZNBSK8y9IPaB77MDo=;
+        b=z8uXOLqe2A941mkKr0u72dRe2yFq0THAlKaUShKPfMrR5bL9aj1SWI5AO2PFZqZQO0
+         0RaF2dSt5TJWyRb0bMQpuiffnmMAj4Z8RgdedHMwTNGf4KfS+OF+QibMlTxEMlDBJpd6
+         AKVadSYgytS+HfusRFcMCRDERwjewSX1RWzv7d8/GKIJytHqsYVYawzkHFGVybF4HRug
+         9sy3qfxEBMs4IHpJUQRZeJa6z+d815suRnEXLPzeNl3l8aats4a4lYsNhcjYI1HSLwmT
+         O2Qn6wPaNQ4EYOhYrHIMeUl96D98VPt2jy/X1sMIaXNWqivU+952yp5b+fT1l6bUPsNR
+         02sg==
+X-Forwarded-Encrypted: i=1; AKwUvBwyicixOXHwBHbrsnnMKuDFVPNWDeClKcWw3g0Xi5J9vGpRVuemmNqkZ8wQo4wMb1M6CHP2N9MVwjIRpbc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLguab/Q0+WWDGs0H/sPBZoZdiG151uF+WtlLngzUglFkyTFpS/
+	OKL/nLfZyeY2IF0C03hr84AcOLPKTb79Wt9IuyWUgfYBvgonydGg2jvD
+X-Gm-Gg: AYBFou3YP2++LvTgyYwai/SuSuo7ffpyNy68e6ZK6PZXbn2R9MlCrOnpyE74cTBqdQz
+	PK0iOH5HrFoT1Q3uAB6Tu7jA0yj6rJTE4umqtjfHeDfXIE+QD7wq8riSeDiFj8yh3BVts1IyLuB
+	QpVBc2XgbWvI7+ngivSraLeKFrvy/va7GfNDMHH3uuk8mtF4TEK9/EFYOmAY1TVpfA5UykY7zg0
+	B2QS3yrgqUR+Fn09XqF9FxqCAGxGizlWN0xmNtFcQkpalsE7n3gMH6LDnjcny3gVyuPSm8iwdDm
+	z9OHoeNCJdbAsh1u50XTW+JigDbifbtA2PSFUxTHDw+iHpS3NHJw+Iyya2DCB1Tbac4YsbxSu57
+	xeImdlgQPmlLP+Z/p3hyuvtWpDXS54oyh/7nD+pAU+eDOlzPhPNsON0uKu0HJlIp6cRinXprym2
+	4VuvprkYsrsMwyuB5MHSt/9aN7G2V5AeSvAUIc6lqIzEiYbj9tJRQodtiTWm+qbTCI5UPwy0L4j
+	zUkgyuCLskIgcq0T/4BG1oaVx9xXzXo1oXkLWhZu7Zx3A==
+X-Received: by 2002:a05:6000:41cb:b0:48a:f4b7:25c4 with SMTP id ffacd0b85a97d-48af4b727b1mr1097369f8f.1.1790661888208;
+        Mon, 28 Sep 2026 23:04:48 -0700 (PDT)
+Received: from Ansuel-XPS. (host-82-57-191-234.retail.telecomitalia.it. [82.57.191.234])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507f33fsm1275291f8f.24.2026.09.28.23.04.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 23:00:59 -0700 (PDT)
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 23:00:37 -0700
-Subject: [PATCH v17 11/11] arm64: dts: qcom: kaanapali: Add camera MCLK
- pinctrl
+        Mon, 28 Sep 2026 23:04:47 -0700 (PDT)
+Message-ID: <6abb54ff.332d3c56.21546b.7fef@mx.google.com>
+X-Google-Original-Message-ID: <artU_MVOnnHuo-a1@Ansuel-XPS.>
+Date: Tue, 29 Sep 2026 08:04:44 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Yongzhao Chen <yongzhao.derek@gmail.com>
+Cc: netdev@vger.kernel.org, Ziyang Huang <hzyitc@outlook.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 3/3] net: dsa: qca8k: support QCA8337
+ internal PHY CPU links
+References: <20260928220811.1880-1-yongzhao.derek@gmail.com>
+ <20260928220811.1880-4-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-kaanapali-camss-v17-11-dcf3fd37f76c@oss.qualcomm.com>
-References: <20260928-kaanapali-camss-v17-0-dcf3fd37f76c@oss.qualcomm.com>
-In-Reply-To: <20260928-kaanapali-camss-v17-0-dcf3fd37f76c@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyMyBTYWx0ZWRfX95GbCUtjJvzi
- T0z0q0mojNj75PkkzvGo0oxLU5qW5dGz4P9rYQ6Y2A45eoQb6ZFYJ0LfxJhu9iEtsoxN/eNTiNd
- 9A5N9m0nZnvZ7BFr8Uubc+9hG48B5Fw=
-X-Proofpoint-GUID: KR5-C-AkzujWC0gFxrTez0LE1LVCoBjy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyMyBTYWx0ZWRfX3LEa9+mL2UQ0
- CStRQgzyyBpZOYCT5YCnF8jNF8AGsd68mhVPh5Oz4pOTM9ZysFpYGB/CdbYVyMo/oYC4l5+x8Nt
- eTnAxblpi1lvBI6+UcU2N6RaE/fhsXW8Q5aX3OWEZblOomBAkj24gizZSDWnhfftIgSI08EbJef
- jJw8oVskjgtBjcA1dKUCe0Y6SOXTYYfGxeJbepTuGlSi4gR17aAWhBL0V7ufUqYzPtBHua5CYyc
- DItoBCn4FbD2QYYvirihFbcGqIFJ8FJPFi12ET1miIZUonwWWyzOrLcMARwhwsoumu77ZzMDqZQ
- wlIM2J1SeK4tKtSQpyWcY1nhOqC2Nfo3zRIIRlQI25FR4dgWwoFTHlCj6wDHWQ1YHYr+TqqFkmz
- SjYd+CAX9xfQCEfe7EnkyfuXvDIOymwhjVbdqUBp8ul6EiCBfdjQNe/tEYNpFQTW47Zry6QElnz
- snA5uwZnERccQYYxhOQ==
-X-Proofpoint-ORIG-GUID: KR5-C-AkzujWC0gFxrTez0LE1LVCoBjy
-X-Authority-Analysis: v=2.4 cv=SaFi5fRu c=1 sm=1 tr=0 ts=6abb5423 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=4Dwyees-64n8yO_2jeYA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290023
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928220811.1880-4-yongzhao.derek@gmail.com>
 
-Add TLMM pinctrl states for the camera master clock GPIOs on Kaanapali so
-camera sensor nodes can select the proper MCLK pin functions when enabled.
+On Tue, Sep 29, 2026 at 12:08:11AM +0200, Yongzhao Chen wrote:
+> From: Ziyang Huang <hzyitc@outlook.com>
+> 
+> A PHY-to-PHY CPU link connects the SoC PHY directly to an internal
+> switch PHY. The QCA8337 supports header mode on these ports, and
+> existing phylink callbacks already handle their internal interfaces.
+> 
+> Allow QCA8337 CPU port selection to fall back to ports 1 through 5 after
+> checking the dedicated MAC-only ports. Preserve the preference for CPU
+> ports 0 and 6 across all switch models, limiting the internal-port
+> fallback to QCA8337. Support for QCA8327 internal CPU links has not
+> been established and is not enabled. Include internal CPU PHYs when
+> selecting the PHY access method, without altering the handling of
+> MAC-only or external user ports.
+> 
+> This enables a single internal CPU PHY configured with an explicit
+> phy-handle and phy-mode = "internal". The conduit interface uses its own
+> PHY on the opposite side of the MDI connection. Existing single-CPU DSA
+> forwarding uses the selected port for default flooding and membership
+> without extra routing changes.
+> 
+> Adapted from the OpenWrt PHY-to-PHY CPU link patch, narrowing the MDIO
+> filter adjustments to preserve handling for external user ports.
+>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 56 +++++++++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index c19945bc438e..bbcd5a622f0b 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -4568,6 +4568,62 @@ tlmm: pinctrl@f100000 {
- 			#interrupt-cells = <2>;
- 			wakeup-parent = <&pdc>;
+Can you put an example DT for this? Also no additional register are needed
+to this special mode?
  
-+			cam_mclk0_default: cam-mclk0-default-state {
-+				pins = "gpio89";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk1_default: cam-mclk1-default-state {
-+				pins = "gpio90";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk2_default: cam-mclk2-default-state {
-+				pins = "gpio91";
-+				function = "cam_asc_mclk2";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk3_default: cam_mclk3-default-state {
-+				pins = "gpio92";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk4_default: cam_mclk4-default-state {
-+				pins = "gpio93";
-+				function = "cam_asc_mclk4";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk5_default: cam_mclk5-default-state {
-+				pins = "gpio94";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk6_default: cam_mclk6-default-state {
-+				pins = "gpio95";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam_mclk7_default: cam_mclk7-default-state {
-+				pins = "gpio96";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
- 			cci0_i2c0_default: cci0-i2c0-default-state {
- 				scl-pins {
- 					pins = "gpio110";
+> [yongzhao: preserve external user-port handling on port 6 and limit
+>  internal CPU PHY support to QCA8337]
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ziyang Huang <hzyitc@outlook.com>
+> Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
+> ---
+>  drivers/net/dsa/qca/qca8k-8xxx.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+> index 7bd9d9abcef..cd36efd1c4f 100644
+> --- a/drivers/net/dsa/qca/qca8k-8xxx.c
+> +++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+> @@ -1026,7 +1026,8 @@ qca8k_setup_mdio_bus(struct qca8k_priv *priv)
+>  			return ret;
+>  		}
+>  
+> -		if (!dsa_is_user_port(priv->ds, reg))
+> +		if (!dsa_is_user_port(priv->ds, reg) &&
+> +		    !(reg > 0 && reg < 6 && dsa_is_cpu_port(priv->ds, reg)))
+>  			continue;
+>  
+>  		of_get_phy_mode(port, &mode);
+> @@ -1102,16 +1103,23 @@ qca8k_setup_mac_pwr_sel(struct qca8k_priv *priv)
+>  static int qca8k_find_cpu_port(struct dsa_switch *ds)
+>  {
+>  	struct qca8k_priv *priv = ds->priv;
+> +	int port;
+>  
+> -	/* Find the connected cpu port. Valid port are 0 or 6 */
+>  	if (dsa_is_cpu_port(ds, 0))
+>  		return 0;
+>  
+> -	dev_dbg(priv->dev, "port 0 is not the CPU port. Checking port 6");
+> -
+>  	if (dsa_is_cpu_port(ds, 6))
+>  		return 6;
+>  
+> +	/* Internal PHY CPU port selection is currently enabled for QCA8337. */
+> +	if (priv->switch_id != QCA8K_ID_QCA8337)
+> +		return -EINVAL;
+> +
+> +	/* An internal PHY can provide a PHY-to-PHY CPU link. */
+> +	for (port = 1; port < 6; port++)
+> +		if (dsa_is_cpu_port(ds, port))
+> +			return port;
+> +
+>  	return -EINVAL;
+>  }
+>  
+> @@ -1863,7 +1871,7 @@ qca8k_setup(struct dsa_switch *ds)
+>  
+>  	cpu_port = qca8k_find_cpu_port(ds);
+>  	if (cpu_port < 0) {
+> -		dev_err(priv->dev, "No cpu port configured in both cpu port0 and port6");
+> +		dev_err(priv->dev, "No CPU port configured");
+>  		return cpu_port;
+>  	}
+>  
+> -- 
+> 2.43.0
+> 
 
 -- 
-2.34.1
-
+	Ansuel
