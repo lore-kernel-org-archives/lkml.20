@@ -1,252 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013015.outbound.protection.outlook.com [40.93.196.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A860C4FDE5A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675997; cv=none; b=fsKfhzWQ71V3kwoJBFDRqBCTJz/XxEciv5Uscc8pDDrB8ppOU2b6gEGKDNVUBhbZrPJgrHut6/6OpURvisPr8OxpLC8+C23cvc25tZbhmjCLLXOSjf+U7es4apsD2dhcwhIIC1oAFHe6bTx+aeDmk/ZsXoLFaGpTxtrWnSbefmI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675997; c=relaxed/simple;
-	bh=9Xgc6UQ5KNhU9TgRSQYjuJRejAzY/LAix8Z0rUXJIYg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OG/ti5hFVmHwE87fMyAR/V7SEQIV5IO157YWUgqEsDuJfbWmuEw89hR/qwBc4INW3JCf/lvhNrdjogq6yzEbzqOJcv76L6aRvdKQR35hm0Ib4186NwSrPwDzctjcYMKVrpONzxElBMm819xDwIjxRk2z2fUhEIJIelXcq+6l46Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mXDRv9bj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ayiJtHeJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10014FD7BE;
+	Tue, 29 Sep 2026 09:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790675999; cv=fail; b=AJq8vAc+RyWdhvWjzLsJYDvq5afoGEH54H3YVhOoS7stXdPyOO0GXU+uGlELUo9YdhSK3awy2Oo4xr8wSEDZNG2pmSMDVlU6ERhmCSJDvhLfiPI+qniShTBvIkedTlfSyagaHK3vzp80zJynQI/C3YvpjfdqCcxRapisryPya6A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790675999; c=relaxed/simple;
+	bh=28tEVs5Ly43A9athii135x+PZwpW2eQ0tF51krLCUzA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Sqmsiif5p0R739X+EaH/vTfb/KR/L3Td+t9uKrPiMj58H6g4iqkUWAq74RPYMV5Gtd/JbJGIkVIu0SEAjQ0g+xZzb4PyeChf6k3Jcu91U+ZAq6lp80S6PSzTCgUv/mXEr366pidxwJy//Z+2hvhB7Ck10zynxPu/CByB1P/oiXk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gL8n+ODK; arc=fail smtp.client-ip=40.93.196.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mXDRv9bj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ayiJtHeJ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7Tprb3220622
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:59:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SitGaPdS1185rMwXB618H8QLsSJ3+iy3JIMMMT0jpes=; b=mXDRv9bjA58j+Tob
-	SE7hSwMlWvbcfx41LCoagatKQWM0+TWRE1ieogFPw8Gh61qLUUoVmvh8cAdPCyLV
-	bLBDAe42vT46BMmSiEmh5vChlAQyYSHtVYpsH4Rpqu4VYeLSsBOGHzSSltGEY2du
-	TT+UhktN863kN6EQRmd0Y+aS6+dNqIa/q/0tKnYYppaf2MqAaS5Dr3b1+pITBfn+
-	Qvy9i0mwJwJ+okxnimNlLBvKRwbDgsWqhdnXYDyPxa5tfmSbyoMfZFrJvuJXwWqe
-	RtorqU6ZP3j5VFwBvh0jR90J9bhugvyag8QVQ28Ruk/kl/a/3gGeKyRZZyIuaDKt
-	5zLKyw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyvw23dxd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:59:49 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a0312937eso534528585a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790675989; x=1791280789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SitGaPdS1185rMwXB618H8QLsSJ3+iy3JIMMMT0jpes=;
-        b=ayiJtHeJKy/Bcyaw0vMyyh6HbSXZWOgVYsnW0SMXMpDKUEhqFsKA9YZDd0ZB34K1Uf
-         /GktmIG0K5Vb7axF1VMD1mKzC3z99NyrL2JoU9bK1AH/GvrEKD7iI6znioIZAseTJ9Ga
-         KVyNylqlx10rsZSZGzsv5GkSYDz0CHTYL/IIBd5KQb0+/ykr8D2Qd2LT+1XpGkYgt2aH
-         ZIr4xWlcw4IvRaS1SQtr/motzH3L8B44/GoV15V6toxAGfr1+t4zODQGDrl1LcXvUJmc
-         1JKKb4l9UaBYmNFmDKByZDi+E0mwi+apwT/eGImOIzkqcBexkoXySC0bCY1wQKjNVUjx
-         bP9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790675989; x=1791280789;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SitGaPdS1185rMwXB618H8QLsSJ3+iy3JIMMMT0jpes=;
-        b=LAYQatO7uk9Xq+201vGY48WZYfjCQF/VUFz4spdaRCvoKls4GTBY91/Cnl13aXLBmX
-         AX6IqUBkz+Jc0++LX5vRFZp+rHIAEFh1awoAm1BKVnJZe9VbbKJJsrKfcxaITovUZ1sU
-         1+myLTnssmu4G58QCAULB2xWREeZEMHMa5DUKiaiQEcPj9IxXcqZcLv30KJUu5uY7wAf
-         deNvZ55Q61YBKAXGxjxFm9qicPo9oZol7NnAVlwcoU6ICEVRqaHYLADIoTx6aeCDCuyn
-         r8PtCEe6Vaz8AzsM1weTbSxlRvnBLDjwTB/xliOx5LfDizSO1NL6nG00ZPR9eajLKKPK
-         ALxg==
-X-Forwarded-Encrypted: i=1; AKwUvBxE9mMWDwR28LYH9bIdCo2Sq4GY8Z7SjWZAstrSNPfohaC9OImaVC+pgqfRFB535hkiC8Xv2C1S64vnv5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC+v1+VfSEUlgJwn9E0OB3RqlW5z9hyrfNTi3HeyNdPBHuNjm9
-	TPrjfvVVCqSnonjAlf0zLO4UaSG0GGv2uXenj8ZZYrOUcWfDFIlSzHb7uLjALVwL4uh0/r2HNcl
-	r6ES10uC/EVB1ZW5Tl6urs4i8daanZsv+OgPgQd7jVP9OptSp9xbW4i29Ln4Z8L2DmFs=
-X-Gm-Gg: AYBFou1BRQXisJf48iv1A2QqT+g7HaWDtgOHp7VuOaAMPO+5s9fFkQyyk7lFXYR7CKq
-	LYgQV0XOTDV920rA14ii+naoo/6bve77pS2Z3RGsI3P6A/gr71EIGWEn7dulaUYH6kG5LgVUD3J
-	lxgzgHJT+XYqBYjN6Q84J49wXhJDOC7Oouas6NcAeJ58OErEzPWbFmhqUmjXBrMgD/n70wOApTT
-	yFtvIJq3idc65ueVwW/kW75UnRgYqXAmy5qfDfdHhtSxkGSozUjZ6hnzVyG+HlJrsysQ/CIpAty
-	AU85IfTXy/l3gIgCQOXuztktWxKwi4OSg2z66HOrZgIQFvCDxu5lOw/hLnLAmJy2TLu94ihJ9xD
-	xJvmDOANOOshNy2k1DB1Pkp+jCpvAJvs2JjxG3H8LvSXuX2Z+pYKayWYlqLQKUw==
-X-Received: by 2002:a05:620a:6cc4:b0:939:fd0e:9fd7 with SMTP id af79cd13be357-93c43cf88d6mr2578310785a.43.1790675988715;
-        Tue, 29 Sep 2026 02:59:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:6cc4:b0:939:fd0e:9fd7 with SMTP id af79cd13be357-93c43cf88d6mr2578307785a.43.1790675988156;
-        Tue, 29 Sep 2026 02:59:48 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502da06sm3353200f8f.11.2026.09.29.02.59.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 02:59:47 -0700 (PDT)
-Message-ID: <4846bb08-9317-407a-a25a-8437a599ee7d@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 11:59:45 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gL8n+ODK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jZN4TTa5NtWEyoXcC6xJelTWfCRYTof1axYqTxvciIfljCgx4tCVTf99p37NMnTQ3r9iuFWo51S6lUmMYtC+WX+iCJFpDf6GKEUwVvx89gXlLlUcqlfWh9D+FxckXbOEl550h+twDDYzxFFtSVykRIfSIB/kw2GjpID96JlsoVnPDA1Rv5tfF+jyPiiBzOgU8EtYdfgMPxOrOGufcc7dtJKnKukkzsFrEHZaI3bzwVIGddB0SLr1CNT/XVgjLxy9KGgDNzeCzfbP9jnyfiRFwm8Ueyd6A3+QyRB83BOkD61xO0BEdVT1Qy6D6OsgK7f9BBEeZSoxXRf7Tki74rYjvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwxaqKJYujdvRz1ajDjU0y+/a7Uor0wsCBhSQz7LuPc=;
+ b=LrcBajKlNsDHOj76nN9bQJzqT0034EqUeQk5f3Tl46J62jvtiEwCQMOPH8GngWC/JlTmpEr1Lg16958ql0ti50MdDS0ZtOVfWmE2v/1Rue7j6s8WfnwfhPh46fjGfihaCYR3fcpOuzoMEUIkkZqrVPp3Zg3D+DbTPdwn14ne0BFKFsHqt52EugJdPJ3NzkeBpRuMff2esrcEZ00zvyqtXLJqsqJUDN51/wEXv5Eu++QqQselXfrPB8Pt7B/jj7wBYWOZGuCrtvY8tJK7Q7VyxiBntIZI6cRuh/X6/7wtfGa3fFY0zG9pV5Mvsn42G4XOxCC/8w+HbOQEnwX5xpBHcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwxaqKJYujdvRz1ajDjU0y+/a7Uor0wsCBhSQz7LuPc=;
+ b=gL8n+ODKl0N5bVLUlzR10zkoQA2bt4q21VAPhQvr44TgOt8Q7M6facZu4rRZ16aH7e3d5u+4HRWnaRTbvqu57fkLL9WtGxsG98KOVpdpFNZSobk82DOT0rHOjkmTpnKzZTI075R1v0UufdR7spNkoEGAQ2kzxtvusDUZBdG51n6+LM+5nvEtXmpPdNxa569Em97w1MEHhzkuRshtLfreOwm2LZs1yKOu7rt+eRoATbdZQiPaZqhyJwixX62mIo8/0yJs5o+S80dYgAQJuPmtq0lXHnM9y75BVqmuxPsA7eixhC53UtstaZ/aDOyBovZDUtzRvMRBnJFML4eRwNlw4Q==
+Received: from DSZP220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::10) by
+ SN7PR12MB7275.namprd12.prod.outlook.com (2603:10b6:806:2ae::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Tue, 29 Sep 2026 09:59:47 +0000
+Received: from DM2PEPF00003FC6.namprd04.prod.outlook.com
+ (2603:10b6:5:280:cafe::36) by DSZP220CA0012.outlook.office365.com
+ (2603:10b6:5:280::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Tue,
+ 29 Sep 2026 09:59:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DM2PEPF00003FC6.mail.protection.outlook.com (10.167.23.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 09:59:47 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 02:59:32 -0700
+Received: from build-anrao-noble-20260906.internal (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 02:59:32 -0700
+From: Aniruddha Rao <anrao@nvidia.com>
+To: <thierry.reding@kernel.org>, <jonathanh@nvidia.com>
+CC: <linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Aniruddha
+ Rao" <anrao@nvidia.com>
+Subject: [PATCH v5 0/5] firmware: tegra: bpmp: Add ACPI and MBWT support
+Date: Tue, 29 Sep 2026 09:59:10 +0000
+Message-ID: <20260929095915.2215685-1-anrao@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com
-References: <20260922181818.5503-1-daniel.lezcano@oss.qualcomm.com>
- <aruFjEq4AfcIOxa3@linaro.org>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <aruFjEq4AfcIOxa3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=N6i8hG9B c=1 sm=1 tr=0 ts=6abb8c15 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=8k6WQxmsAAAA:8
- a=7Jf4kJHaAAAA:8 a=EUspDBNiAAAA:8 a=yHKr3JDVMgr7eIydpkwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=B30mOkiisUNQCrgcu9ts:22
-X-Proofpoint-ORIG-GUID: -EAUA8CuTJpJo8E6bZYUyB4nBne7OfwO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfX8u1nUDv9A+i/
- n1/EYota6ZNhRoPaa7vwwJhzBccu9StmgtOLVAUz+++q2hcIafTO6Py1XZ4+NdlYAckjfJDpSAf
- kwF4+/v/IJvXMQPaT8aE5G0H+Slvr61ugcx0bwe4XLWIudySaP8FnPIDaLx+LK8bHwYXlg1cJNS
- bkGnHxkO9mZDCZC/NDtXlniKUxW2+FvO5c/7QDrjkNlkGfNgSgRhN8/foAaPEQsWDS4WTTj8lO1
- qWe1ujqPqiMZr/vOD2xJln2jtv9fNC6JUuU8bFg2TB61A3mX+m2pqEpIVypZ2m0DM3IgeRWnxII
- iHrgoW2jmo+1q+5BT3pfgd3amsMnUouGytIjymXNC2wsAkQI8zK6Br5IfN04eVx1kyIiG4Jh4yp
- b9uEh8d2IpGc4a9v1O0jQ9SG0di/btRtO86m8plHI+TpHGucRzOCVKcmbv2Rgpx64uEbkrrv2s3
- iyWeU05tLL3c1rsGvMQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfX/d75KoeVqmaM
- rr8ruJBkGFqgMoO6ofqiwouXux/YV6WO9Ar5c/vgAWGsIbO4kDZJzt0kq8MEcSp+01jjOAS3O0m
- UdAPCYABYTap4EOmVQajqZo/69V+KSE=
-X-Proofpoint-GUID: -EAUA8CuTJpJo8E6bZYUyB4nBne7OfwO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290039
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC6:EE_|SN7PR12MB7275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ea8eda6-1aee-4065-7ab4-08df1e10653f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|18002099003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	RPqcrAW+5m5b+6g23nX6ZgxDmGJgDJMJXtQPnsgDvHkLN7YiRReLcKyO4curb5EKfBuwsPA3PXXZhe6QQSxMkikXc8nPR1akMXjEAMAvVfCukMmVyIYzoiuQQpSAIuXUn6FAGnfHrWV4RKC9tOduiv4Sd0zS/7ZA87XF7xV9JStL27+EE9TaoukguLel2nt5+fpQazgMIJF2p2LgySl+B80WMcJNjTywsvF7+Cmoy09PUiFGELINizRR33dEFOQHXEyqfr/GoVUPLZkvWz9B8IQESjVHEWtjOhj7/wDR4T0u9EVboWixE14VkJQazdBGTdtB9wWJ4+DuUhtC06xO+c8XxpwMbkgAjRVochaJNHbdUWQ8H3+lfac9E8Rwm83Ey1hRSe0dRTAbocJjfsL91hWhhS061J09nuqUjhbkrNyYv5AT6rNQ4EQZQ+66PkNo8OtjieJsT81VXDHJ34l4qu5fGkPZ6cyuRrYFuUHLST0je06MybDjjA4qOnTjBt+pnKVCeog21BSghksQVJipYbg3eWblWtjcwvEH4nJL0IY4c57qglefyZUgvSz7bGujP6X5Hg+2MY8TGp7ZZW9pMd5LzrVRKZDC8SUBtGvbPZTdkmHDHqq5VBmWdqNLOa6p2+zZ4lhBnSmcwXglG4Ckvpw9QsEXntNBhWSywK4CbvsFX+ikG6MzP6WqxrzCU6yQTasCdksNPZs7nn0EKp3j2Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	oB22F/JfxBKLAT1kzA2OC/O6cO25+EGEiobMlSGDkhuJkSEAcK6Q5qGVlxJVUfFSYl/WsiI/RQhpe7o0lbozTBd5Du0ogFnZNZPQs0/LCob7xjDU/Tcf0DBF3qo8Ke3IE/OKB2gNBVStAHMlw/8fiHRO8zbh/eI3bLukwYRuSnsQPuDI0T3Av9NPFaM3LtIivzhkqigpIQw6b38BF9Lmh3X369pFBinEOZ9xBnskMdyvZxanVNBfuGb30Cj6xHpnNdnhvo8Ot2oDFw5UfxkS/BkVvjgPN5E2C+rGmlguPRkaWyzhNhYTCeXsw/41gdMckQc4GTo5WwXryyDhJRbwl0eal4VF97FkCASZ84hSvnJDBMtBzzE1LFKSS3Nhueg/I1GH/0uyxm+oqo0Sp8O+EOs+5f4iDkp913e/zGNyqvYHjgHSOVeFTgsdW8AunwZy
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:59:47.5364
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ea8eda6-1aee-4065-7ab4-08df1e10653f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM2PEPF00003FC6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7275
 
-On 9/29/26 11:31, Stephan Gerhold wrote:
-> On Tue, Sep 22, 2026 at 08:18:18PM +0200, Daniel Lezcano wrote:
->> Add the thermal zones for the ThinkPad T14s and describe the board
->> temperature sensors exposed through the PMK8550 VADC.
->>
->> The keyboard area is the main thermal constraint under sustained CPU
->> load. Add a passive thermal zone for it and progressively throttle the
->> three CPU groups as the temperature approaches the 53°C limit. The
->> groups are activated at 49°C, 51°C and 53°C respectively, with a
->> 1000 m°C hysteresis and a 500 ms passive polling interval.
->>
->> The cooling maps limit each CPU cooling device to state 6, which
->> corresponds to approximately 1.9 GHz. Testing showed that the system can
->> sustain the workload with all three CPU clusters capped at this
->> frequency while maintaining the expected performance, making it a
->> suitable upper cooling state for thermal regulation.
->>
->> Several configurations were evaluated while tuning the keyboard zone.
->> Using a single 53°C trip for all CPUs allowed the temperature to rise
->> quickly but resulted in a stable operating point around 54.3°C, about
->> 1.3°C above the intended limit. Introducing staged cooling before the
->> target significantly reduced the thermal overshoot. A 49/51/53°C
->> configuration kept the steady-state temperature close to 53°C, while a
->> later 49.5/51.5/53°C configuration improved the heating response but
->> shifted the equilibrium slightly above the target. Based on these
->> results, keep the earlier 49/51/53°C staging.
->>
->> Also add a passive back-cover thermal zone which uses the GPU as a
->> cooling device at 64°C, together with a 73°C critical shutdown trip.
->>
->> Describe the remaining SMB, SDX, east and west board temperature
->> sensors as monitoring-only thermal zones, and enable ADC thermal
->> monitoring on the corresponding PMK8550 VADC channels.
->>
->> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
->> ---
->>   .../qcom/x1e78100-lenovo-thinkpad-t14s.dts    | 142 ++++++++++++++++++
->>   1 file changed, 142 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
->> index 5cc6a63d1ef6..9407868864ad 100644
->> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
->> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
->> @@ -10,6 +10,117 @@ / {
->>   	compatible = "lenovo,thinkpad-t14s-lcd", "lenovo,thinkpad-t14s",
->>   		     "qcom,x1e78100", "qcom,x1e80100";
->>   
->> +	thermal-zones {
->> +		soc-thermal {
->> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
->> +		};
->> +
->> +		keyboard-thermal {
->> +			critical-action = "shutdown";
->> +			polling-delay-passive = <500>;
->> +
->> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-> 
-> I believe this is "towards back cover next to heat pipe" on T14s, not
-> "keyboard".
-> 
-> SYS_THERM1 is RT8502 and you can find that labelled on the top bottom
-> right in this mainboard picture:
-> https://download.lenovo.com/Images/Parts/5B21P83385/5B21P83385_A.jpg
-> 
-> In the T14s, the mainboard is mounted 180° rotated, you can see the same
-> part of the mainboard in the top middle here, above the heat pipe,
-> facing towards the back cover:
-> https://www.notebookcheck.net/fileadmin/_processed_/d/c/csm_DSC_0003_aadae1ddd2.jpg
+This series adds ACPI support to the Tegra BPMP driver and support for
+Memory Bandwidth Throttler (MBWT) controls exposed by BPMP firmware of
+some Tegra platforms.
 
-Thanks for pointing it out, I'll double check
+The current BPMP driver depends on device tree bindings. This series
+keeps the existing DT path unchanged while adding an ACPI transport path
+for BPMP firmware requests.
 
->> +
->> +			trips {
->> +
->> +				keyboard_alert0: trip-point0 {
->> +					temperature = <49000>;
->> +					hysteresis = <1000>;
->> +					type = "passive";
->> +				};
-> 
-> If I'm reading the Windows ACPI setup correctly, it starts throttling
-> much later. The main thermal zone used for throttling on Windows is
-> TZ40, which is thermistor 2 read through the qcom-hamoa-ec interface
-> (b94000.i2c, 'i2cget -y N 0x36 0x2a b'). TZ39 with thermistor 1 looks
-> like the SoC thermistor, so TZ40 could be the EC equivalent of
-> SYS_THERM1, i.e. RT8202 also visible in the mainboard picture above.
-> 
-> On Windows, TZ40 is configured as follows on my T14s:
-> 
-> Passive throttling starting at:
->   - 3310 dK (57.85°C), power mode "balanced" (current default for EC)
->   - 3330 dK (59.85°C), power mode "performance"
->   - 3230 dK (49.85°C), power mode "low power"
+MBWT controls are accessed through BPMP firmware requests. This series
+defines the MBWT BPMP ABI, adds MBWT helper functions, and exposes a
+narrow sysfs interface when firmware reports support for the required
+MBWT requests.
 
-Yes, probably it is time to take benefit of the platform profile in 
-order to change the trip points.
+Aniruddha Rao (5):
+  firmware: tegra: bpmp: Move channel initialization to helper
+  firmware: tegra: bpmp: Add ACPI support
+  firmware: tegra: bpmp: Add the Memory Bandwidth Throttler ABI
+    definitions
+  firmware: tegra: bpmp: Add MBWT BPMP helpers
+  firmware: tegra: bpmp: Add MBWT sysfs interface
 
-> Cooling devices:
->   - CLS0.CPU0-3
->   - CLS1.CPU0-3
->   - CLS2.CPU0-3
->   - GPU0
-> 
-> If we start throttling earlier than Windows, I would be worried that the
-> EC will not reach the trip point for maximum fan speed, and we'll end up
-> overly throttling the device.
+ .../ABI/testing/sysfs-platform-tegra-bpmp     |  48 ++
+ drivers/firmware/tegra/Makefile               |   1 +
+ drivers/firmware/tegra/bpmp-private.h         |  39 ++
+ drivers/firmware/tegra/bpmp-sysfs.c           | 207 +++++++++
+ drivers/firmware/tegra/bpmp-tegra186.c        |  14 +
+ drivers/firmware/tegra/bpmp-tegra210.c        |  13 +-
+ drivers/firmware/tegra/bpmp.c                 | 415 +++++++++++++++---
+ include/soc/tegra/bpmp-abi.h                  | 161 ++++++-
+ include/soc/tegra/bpmp.h                      |   2 +
+ 9 files changed, 849 insertions(+), 51 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-platform-tegra-bpmp
+ create mode 100644 drivers/firmware/tegra/bpmp-sysfs.c
 
-Mmmh, that is a good point.
+Changes since v4:
+- Move BPMP channel allocation and ping setup/teardown into the
+  SoC-specific init/deinit operations.
+- Add an optional init_providers operation for DT child and provider
+  registration after BPMP communication is established and the firmware
+  tag is read.
+- Add an ACPI BPMP init operation for the BMRQ ping path.
+- Remove ACPI-specific setup and teardown conditionals from the common
+  probe path.
+- Drop the redundant NULL check after device_get_match_data().
+- Explain the transport and provider initialization phases in the ACPI
+  support commit message.
+- Explain why DT registers an incoming MRQ_PING handler while ACPI only
+  sends an outgoing ping request.
+- Describe MBWT bandwidth groups and traffic types with platform data so
+  firmware instance and VC type values can vary between platforms.
+- Document the sysfs hierarchy using platform-defined bandwidth-group and
+  traffic-type names.
 
-I don't know the thermal management in Windows and if it has exactly the 
-same design as the Linux thermal framework.
+Changes since v3:
+- Update the sysfs ABI Documentation date to September 2026 and target
+  release to 7.4.
 
-As we can set multiple passive trip points, may be we can try to step in 
-the different cooling devices instead of making them all together tied 
-with a single trip point.
+Changes since v2:
+- Rename the non-ACPI transfer helper to tegra_bpmp_transfer_channel().
+- Keep the common BPMP message validation in tegra_bpmp_transfer().
+- Remove duplicate message validation from the ACPI transfer helper.
+- Move the MBWT helpers near probe and document why they are needed.
+- Rename bpmp-tegra-sysfs.c to bpmp-sysfs.c.
 
-Or do you think it is better to just make all devices capped at the same 
-time ?
+Changes since v1:
+- Dropped the SoC Kconfig patch.
+- Kept the existing DT path unchanged while adding ACPI support.
+- Reworked ACPI matching to avoid a dummy ops table.
+- Added explicit error handling for short ACPI BMRQ responses.
+- Folded MBWT helpers into bpmp.c.
+- Reworked MBWT sysfs into per-traffic bandwidth attributes.
+- Removed software bandwidth range checks.
+- Use NVCLINK consistently in commit messages and documentation.
+- Avoid platform-specific or transport-specific MBWT wording.
+
+-- 
+2.43.0
+
