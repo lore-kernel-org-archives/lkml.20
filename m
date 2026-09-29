@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7999A4E56E3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58063547056
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718807; cv=none; b=b4l0EEgmBveZyVRD7WzsI28DWOEH1PhGC0gEd95HfgFn6qlgzP9i6M4U4RxLqj5mgNLdGf/mUizdwgUKXe0Q64erJI9VYaiTQ8vFj5EVvRH9j4+wMTsHTp3ovRZ/1CqsDdLnLqJVa24IrBwDaOhOTDrlKzkcFoEKUwDcbBLDhMw=
+	t=1790718807; cv=none; b=ZFWtbdN4TeXPVJ8KwFQp2je1NlnSShJ5CTSHZ5uIfBh2BuHwny/FYntDjMSFXMc9HkVMXV6rxF/8GR2DcDYiigXtOr9fBCpNPAdY27HqiQ0FErogtP61xtqLrrYGa6XeWnC7JZ+PScTBmfSiNx3ufusYo/JpYbRtsu8Ryb11iNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790718807; c=relaxed/simple;
-	bh=WoaJr5tb+hXIrrWsuy1zRip/WZnisitGsg/RZ3PGvzs=;
+	bh=+MASHYeccSPeYQ7v3Rz0foj3H0YvOAcJkX23lYLc3Qk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZTOhxnhCZR4NbWaDZQlWb2bHoxdT6ih6lkzwG3LMFOeBnDKeIN1zbeIyeqWvZf/zfE/N4dajgmKp29w2dfJQqOgCTzLsqveuSVQdcJeEhqaNPgLOjiCIBMlGwfDZiAnAU8QBZ2iQ6b+c3j70800B0k1PoEd2S0SOaXvFR1jzcPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p8tYE6PP; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=Apr6nJk7zbBYr88+xVh2sj2WScpHmbwCKsTXZ/zfVMXCiN7dYlstei1TtRaVWm0TkGGvFgHemgnDpHYcbEQldpBDmYQay8otxbuxF2lZQ3/BlAWFj29taFze9IwQIJOn341G9glCpYhWigBKe6UCLXLK5kGn9UFwXIW0DGemmi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o699RJb1; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p8tYE6PP"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34344599f01so3532795eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o699RJb1"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so1067774c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790718801; x=1791323601; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790718805; x=1791323605; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e6MALMUB95W7jnY9HmZglriqu96XwkYJATP3d1B7IV8=;
-        b=p8tYE6PP/k2sxZfbEkEGxywpr7ugb+GXsaWP3scsEONgX9oOgK/58riNg8ZkJ1sm9f
-         lpI0m35u8hyWEp0KxFZAUsxZvnbh22IiuXnKCnU1II8CqPe/HLcYFM5p8ZM4DcMVujTh
-         ZVAYc4r2ygUMFnF10R65Ow7h2/cQES+aYmUPrLs/UouqlkYdJCjDxNHkwB6Z4msxIzwK
-         ZG1Z5mjhF0tQcfO/ULonuxA2/a8ALxcNqUDXNiOKeXLtx6E8gAX+gzh1ABW3yD6tzDMz
-         MVjCtXRtbrXkAz+kGUkGNUCggxH2tCXgPQC8Ko+bRVcQq7lYWP12dEDbR2cUt5jf6+n4
-         idJw==
+        bh=wAhFd0jGDjt7zoASvNiCqcMpRW3iwBtEszTc/DFImjA=;
+        b=o699RJb11V4y6LCcLFfuAiHN3oo/V9VLHZ/shMrGXMSgkr6ZBgkhcwAl5/KZ6aW3GO
+         THWb2Nnv+OUvVM43/0OIs8lJ6e2QgRVm6eJM8+HXferiD/Cr98t/Y+L9lNtnI3cJXrLU
+         roTS6fHQC9xNgPipGuU/YIbg6SqeZsc5nVMireUgFlBb6BLuO0WmOU1hd4sUXwmn+G0v
+         QR6z9TNYAhmn8XrFgR7r4yeSlgiHA/nOD0jAif0h1z66C+MaGjy5nl0LWcJLM23PxNsD
+         q3cqdheI2Ygvw4/agmN8N20WFrVUPZ6t63nyWFMe6jvZ3STLMrLXrm+UxObf1/vgVw3x
+         QU4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790718801; x=1791323601;
+        d=1e100.net; s=20260707; t=1790718805; x=1791323605;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e6MALMUB95W7jnY9HmZglriqu96XwkYJATP3d1B7IV8=;
-        b=Rm68TZv/Myo6NPh3UTtAJ1HPBCaDa0sCZ2KNlBts1eDuONBxHqV2AIoVsr2rdF0eRn
-         2kIR9d8nsrpY647CsYlH9rfT0bHJ525vAy1EsHE1M56TnzdhWFLHPlwlEuYywBYiHlOQ
-         NdxhOSrkc00qF/smygvRkxalNVelkQ+XjchoOZPKcKbasE92xecW93byrXs1Ux4WsOEH
-         NpbOuWP5/1G65d+RRrtiwkEDwbDPO3QUXxXp1yROK0lVdNn6ZfHXkH/64ec+Y7Kp+3Ff
-         jjpr//vOoORyHXmx9nwnQFGeNrqjRYQWCYNXWV6IHGzLgkdqzEPEZ8TLPQYHiKYAA7/1
-         WXqA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8xVZcX53DMQG8+93d0ChbnwV8HNI52MMpmjwK0pLzab7Qh9TX28S91hh1Tar4rkFwxElPJ88LrNwmh1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lg4ynhBQ56bOsELK06V1A20V6lAZUUGLL62jhAOgJthUucMcH3
-	VG1NJwqTAKQ1+PjEKHLrt2+pZEUrjm4jjIRBYqaw9kRTXnrCsx+zkr+Wy3GJs5NFpvOsJtwwNOW
-	Rfme31VQ1JHSPYeTw/uciAw==
-X-Received: from dlbox7.prod.google.com ([2002:a05:7022:1207:b0:149:432f:988])
+        bh=wAhFd0jGDjt7zoASvNiCqcMpRW3iwBtEszTc/DFImjA=;
+        b=gTa6nszZCx+VGtlQXz3vyTkk/LA+qfoGebppbCB1dTJDEWZAGbSQs4uXs1PdxRvkSa
+         90Ob7CB5CSOBH3sl81IsvXjO7HXqUmSfigFsWSvGE0nlkrRbNwyehOHwI/nkIxdiWlc9
+         sp7LCxwpyvgNjTlVZGk+g5mUuxoSeceOjbEPzaso5DK1gWyRa+RcfS2kSN1OaA2YCDcC
+         F2a+5c+G0sWu1IeR2PzAB3dkvPBI1WPkdVSDM18GNJx1BablQzPnMKNF6e8idTfxpvty
+         /QiyJqV2Vad9TqiUfaN1nSri6/abYb66g25Iap7uSpnKG+St60G2nbWMrJ42Ty+Z/kL3
+         mV6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwS8ur+DlVXItUVLaiB6RMarm8DeBf2JNwRiymg4JQNtpdLh7v+Z9p6gxkaf5iRdYTp0zBkZKdW+mHu9O4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPa0glFIApn8oH/VvZB2Vdu7A1AyXQt7Hc/HLpX4nhjLOg8UgT
+	onxn4N9NvmBGKwd36239C1WyvGm74P/IxDO8pqfYTAe6qBKjaJVJNndIO3DQgUpnxVz8B2WHWYV
+	HdhTdvnsUsehhBq4i72p6bw==
+X-Received: from dlbpt13.prod.google.com ([2002:a05:7022:e80d:b0:144:db62:fce1])
  (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4314:b0:143:271a:8b82 with SMTP id a92af1059eb24-14c9e8643a8mr511036c88.44.1790718800896;
- Tue, 29 Sep 2026 14:53:20 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:51:56 -0700
+ 2002:a05:7022:1184:b0:14a:51c8:e9fd with SMTP id a92af1059eb24-14c9f405490mr543692c88.26.1790718804889;
+ Tue, 29 Sep 2026 14:53:24 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:51:58 -0700
 In-Reply-To: <20260929215206.516490-1-nilayvaish@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929215206.516490-1-nilayvaish@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929215206.516490-6-nilayvaish@google.com>
-Subject: [PATCH 05/15] mm/hugetlb_cma: use folio_page() in hugetlb_cma_free_frozen_folio()
+Message-ID: <20260929215206.516490-8-nilayvaish@google.com>
+Subject: [PATCH 07/15] mm/page_isolation: use folio_page() in page_is_unmovable()
 From: Nilay Vaish <nilayvaish@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
@@ -72,31 +72,32 @@ Content-Type: text/plain; charset="UTF-8"
 As part of the memdescs effort, struct folio will be allocated
 separately from struct page and will no longer overlay the head page.
 
-Pass folio_page(folio, 0) instead of &folio->page to
-cma_release_frozen() in hugetlb_cma_free_frozen_folio().
+Replace &folio->page with folio_page(folio, 0) when passing the head
+page to compound_order() in page_is_unmovable(). Keep compound_order()
+rather than folio_order() since page_is_unmovable() inspects pages
+without holding a folio reference.
 
 No functional change intended.
 
 Assisted-by: LLM
 Signed-off-by: Nilay Vaish <nilayvaish@google.com>
 ---
- mm/hugetlb_cma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/page_isolation.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-index 95fd2d190f0d..e0fdd07cc6a9 100644
---- a/mm/hugetlb_cma.c
-+++ b/mm/hugetlb_cma.c
-@@ -47,7 +47,8 @@ static phys_addr_t __init memblock_node_memory_size(int nid)
- void hugetlb_cma_free_frozen_folio(struct folio *folio)
- {
- 	WARN_ON_ONCE(!cma_release_frozen(hugetlb_cma[folio_nid(folio)],
--					 &folio->page, folio_nr_pages(folio)));
-+					 folio_page(folio, 0),
-+					 folio_nr_pages(folio)));
- }
+diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+index 5aaad037384e..29c9e108b2e5 100644
+--- a/mm/page_isolation.c
++++ b/mm/page_isolation.c
+@@ -47,7 +47,7 @@ bool page_is_unmovable(struct zone *zone, struct page *page,
+ 		unsigned long nr_pages, pfn;
+ 		unsigned int order;
  
- struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+-		order = compound_order(&folio->page);
++		order = compound_order(folio_page(folio, 0));
+ 		if (order > MAX_FOLIO_ORDER)
+ 			return true;
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
