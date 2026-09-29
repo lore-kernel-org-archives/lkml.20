@@ -1,289 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C98392C3A;
-	Tue, 29 Sep 2026 02:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709D22EEE79
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647265; cv=none; b=RHkIymB63UHH2fNPCOl+OdcmsURKZppyTfIvfCO25GO0WhbahsQ2Y+wLTzhWf82Qg+/dQteG4Rw5W7TXtS+klNNh7BS1hg/hBt1SRVKWaRkRmJKYCEbMdZ8esKf/EeJW2NNnBiJsz252k44ZoaqPwX193rX+hE4S1ZT4O9SLSf4=
+	t=1790647296; cv=none; b=SQDr7uVFpHc8D12mchs6DjjIPCRupDji5c5f5VUcOGs2svw0dboEnsbpIF4t3YePBgaScPV/4afLqnExMTxuXs3V7Lria5P5h2GUAUdFv6gWmL9R+sLiXI9gmIUCRA5V7+VbZGN9BzQh1gx4U5P8k41TogxsbfJCurYEPvlItSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647265; c=relaxed/simple;
-	bh=RCTQuE4F2aGMnkcpjYqcqy/zc44r0VWCD9wX/iIxS44=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=js+aOLwWC8ZRoZte+05So6ArX4aC/mbU4oWkBYWGESVPpAh/MCYMj7SOZi7g/sYLo2GDJamjQ5NfYBvL5A4H9YJbirkKf/CuHPogjGHak4XKOb2AA1QJEOhqRrsgkRkiBvQf3rUE6jTPIm7GjU1WT5wV13hbS9cp15QN58rbVPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b45IHmFY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790647296; c=relaxed/simple;
+	bh=0GxvZMjD/v3XCVlggilDUels1loLNShD+5LLUXiTvwk=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=GIOYJ4PaXeJmIrVG94ZmMGfRQnszBANHb/yF/MBMVDpHc9nP7rp0g9fWMrKo4yqOPTk7uLOscAvgdmBx6lSVtfHNVQnbC6EPqLHzBlC/U0Uo/jwqI8rlPwZ7A/J/4s9Cb2/1m+HhPT1GFKqm8mZjueyVLQhNwlJ/SPsZQYQJtC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQT/oftm; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b45IHmFY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4431D1F000FF;
-	Tue, 29 Sep 2026 02:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790647263;
-	bh=RA5QKocbe+ww7hQlp2se6ktybAyAo3VCbKapHFlHH5w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=b45IHmFYa1tuc5j1jVXbWxBceBAgb2hErenJw8uGrN87WhV7IAa2EZglBGeWXMy5g
-	 2s3iDYveVa4aAKQHshOrma4aQ7KOVDNDc8sYL+jXquS5mzAGthuBm1vQNUdiCkulam
-	 MhPUATLW8Fg8OuG0P/Sl2lJCJwTo6MCHHC5xkiJyOMPKANJxn/wWb7U7EdJ8xPj1Ig
-	 0Io+RjjZFAGDEslqsYoG5wjOk6IRR3Q4G8dnSR5oXAey214X0Qt7d77IfP2jsT6yj3
-	 MN/BjAEK7F7F5LU0kSUbC2PJib4fasjS+OSYmoas0hXhjt6twrpf6rksybA8m6ZjQ5
-	 mf9OFcESyrfug==
-Subject: Re: [PATCH net v2 3/3] net: macb: quiesce IRQs and drain BH on
- interface close
-From: netdev-bot+sashiko@kernel.org
-To: theo.lebrun@bootlin.com
-Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sean.anderson@linux.dev,
- atenart@kernel.org, edumazet@kernel.org, nicolas.ferre@microchip.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- nb@tipi-net.de, vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
- tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
- maxime.chevallier@bootlin.com, stable@vger.kernel.org
-Date: Tue, 29 Sep 2026 02:01:01 +0000
-Message-ID: <179064726179.434549.12262058149502187159@kernel.org>
-In-Reply-To: <20260925-macb-close-v2-3-360efa565914@bootlin.com>
-References: <20260925-macb-close-v2-3-360efa565914@bootlin.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQT/oftm"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b223602d7so181616eec.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790647294; x=1791252094; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0g58I4h4nmwVw9ZB8EVoFTUYEfVp+7fY00zUlya+KGY=;
+        b=aQT/oftm/gcadaHCpceSMeWABITOkz91ImB39O3/uepsaocE/hvANrO/9fWFsL1LH9
+         bdEZAA5XexcMJSaFnQLz4vOvW38hLKWogrpE+lv4a3qm+kqBFQSsg2YVcmpvCYyY5Y0L
+         KkCmcyxLb3iyt6Xg1V1N9mdNkcw9tVUx6wJeuce96WPY51DhUeKmdvc9wD/QWZpfBzMa
+         6KaUttWvicWXrAW9qoKEFBwHc+1QdoCjOD8WkoHPA3x/WzFlnmL2XTfYkF6vkyTWuq0W
+         hfPovdpRUyc5FsTwCqcDtzesix85CNBDMba/aVHFaUbSD/l2sJg9+Y/G4r4vZYT7zcD1
+         Qikw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790647294; x=1791252094;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0g58I4h4nmwVw9ZB8EVoFTUYEfVp+7fY00zUlya+KGY=;
+        b=YWYp67WiZezX5T3v6uVXP7MDrYIkq672z8Pyy74AF+aU4pRGi2Qy+A5WQ1IEsq+Us9
+         27nWv1LyXtcYP4k94jCnsqCdpSv0w4kQxwAI1QNMCXvTrloy/76WIcGGSqQTWGpMuiiA
+         z12uwrmjQKN/6j1iAMWnXUTj4adN+eZ5SbMJI6CY69CCyebbdukxJ50lDHl2OErooAG3
+         EBhu24InpeUWZav5s7+/j2s2E4A9L24/SLzYCItFDiIpFsgd5fk039SuEaKdL3ROBvP1
+         ngfb6PbEpUDTltyyfcfLAGIOUBRJlkUzlzeN5DsEhA4JDmMT42uuwic8X2ORDoVWxQxO
+         qG6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy0GvrIaYBxCZwmzFOOWkpFyVm9CXqxnh8OztDp23qjW7iTElg/JGXMJXEUddX1m27vt8LOR6QR7Do4ZQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpBigPgF6U/xPcDXyY1Z+BZFIgYWrG75oUsQdzoM9keUPG9wdZ
+	UjbbcPswVExfc9yjTQaOajBT6xG8fXKr39P0GvsbfCFZMehT3FpRz+1M
+X-Gm-Gg: AYBFou14f+0O6mb2l8I+6FHz3TwdAA9b4yg15dO3O7gHIL43I/rMJOfF8/cyQH8ATPe
+	R74UCqbqv8+DdveU/cG2clzAGQEwDIHa69QqvK09BHDS8flxUHuLaokzwUPQTk4w1QfejCVRPcp
+	likspPMEoBdsC8lDiTD0ehjRzsV3JxHNBqHKMfnG0gdM3EANN4OFCx3MGRb+a2zA/l8MqoEwvRA
+	N43tC3YQhf4rS0O+MI+MSvPGTYbrM1FKHkHErUMHLdPCxCIi8eowcbo4icF2U+agG2T7oJhywkH
+	cZ+N2Y/rqOUPSoyjjj0kOstc6pCnZqWVtnMLt3fhchDCr4BsZv6gCDgEPBUVPItz/UTW54KoL6w
+	BnMKh0n38MdGyNWv4EHul37PBftChuU+BdQzYfEs0LExkB9eFjb49KBTOmtU4Y9pG2UBwMrwpL6
+	YdUKWU5qlQTs6hdafQC7uKpKkjAo8adEP9KMf1u2d+fLxLdkD6u6ETXLkbMzmEYLDIi+//+AGGl
+	OGQzpExhejGrJOPP+q8an40GlUzNkczfvUN+1UlVFQz36xvDkyd2ufjPs8SYmiU
+X-Received: by 2002:a05:7300:16a8:b0:342:4a2f:49eb with SMTP id 5a478bee46e88-34272b4bc8cmr11854243eec.38.1790647294257;
+        Mon, 28 Sep 2026 19:01:34 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-342c9c245a7sm22818699eec.11.2026.09.28.19.01.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:01:32 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 0/6] mm: Unify device DAX and HugeTLB vmemmap population paths
+In-Reply-To: <655A7615-5885-4733-9E4E-3BDA1FE39362@linux.dev>
+Date: Tue, 29 Sep 2026 07:27:09 +0530
+Message-ID: <o6dgkefe.ritesh.list@gmail.com>
+References: <20260924075259.2013039-1-songmuchun@bytedance.com> <607759bf-59f2-4ad6-b95b-e780ed2acba3@kernel.org> <8385F749-0F72-494E-9CA2-2E433A066712@linux.dev> <se2tjmpk.ritesh.list@gmail.com> <655A7615-5885-4733-9E4E-3BDA1FE39362@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Muchun Song <muchun.song@linux.dev> writes:
 
-Low priority / nit picks for your consideration:
+>> On Sep 29, 2026, at 01:43, Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
+>> 
+>> Muchun Song <muchun.song@linux.dev> writes:
+>> 
+>>> 
+>>> If you're planning to review this series, I'd suggest waiting for my rebased
+>>> version.
+>>> 
+>> 
+>> Hello Muchun,
+>
+> Hi,
+>
+>> 
+>> Thanks for taking care of powerpc side of the changes. Is it possible to
+>> share your git/github tree somewhere? Sorry, but it's hard to follow
+>> which series is based on which and the overall multi-series is based on
+>> which upstream tree. If you could share your updated tree somewhere -
+>> that would make my life simpler.
+>
+> Thanks. For now I'll follow David's suggestion and explicitly note which
+> MM branch each series is based on. That should make things clearer early on.
+>
+> I'll also try to set up a tree later and share it once it's ready. Until
+> then, let me know if a written summary of the branch/dependency order would
+> help.
+>
 
-- [Low] macb_probe() initializes bp->hresp_err_bh_work and
-  bp->tx_lpi_work (lines 6056-6057) only after register_netdev() (line…
+Written summary should be good too! Earlier I tried applying on few
+trees, but I wasn't able to - hence checked for it. If you can share
+which tree and/or tag/commit-id should I apply and the order of your
+multi-series - that would help.
 
-Pre-existing issues:
-- [High] The suspend path still has the same tx_error_task vs. NAPI
-  deadlock that this patch fixes for close.
-- [High] macb_set_ringparam()
-  (drivers/net/ethernet/cadence/macb_main.c:3801-3812) calls…
-- [High] macb_set_ringparam() (line 3803) calls macb_close() directly,
-  holding only RTNL, so the core's…
+> Thanks for bearing with me while I get that sorted out.
+>
 
---
+Thanks a lot!
 
-net: macb: quiesce IRQs and drain BH on interface close
+-ritesh
 
-This patch adds an irq_quiesced flag. macb_interrupt() checks it and
-disarms itself while the interface is closed. It also adds
-macb_quiesce_start() and macb_quiesce_end(). macb_quiesce_start() drains
-the IRQ handlers, hresp_err_bh_work, tx_error_task, NAPI and tx_lpi_work,
-in that order. macb_close() and the macb_open() error path now use these
-helpers.
-
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-> index 18a1b5f7ad916..1d6361c0d8bc9 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -2009,6 +2009,53 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
->  	return work_done;
->  }
->  
-> +static void macb_quiesce_start(struct macb *bp)
-> +{
-> +	struct macb_queue *queue;
-> +	unsigned long flags;
-> +	unsigned int q;
-> +
-> +	spin_lock_irqsave(&bp->lock, flags);
-> +	bp->irq_quiesced = true;
-> +	spin_unlock_irqrestore(&bp->lock, flags);
-> +
-> +	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue)
-> +		synchronize_irq(queue->irq);
-> +
-> +	cancel_work_sync(&bp->hresp_err_bh_work);
-
-[Severity: Low]
-macb_probe() initializes these works only after register_netdev() has
-returned:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_probe() {
-    ...
-	err = register_netdev(netdev);
-	...
-	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
-	INIT_DELAYED_WORK(&bp->tx_lpi_work, macb_tx_lpi_work_fn);
-    ...
-}
-
-Userspace can open the interface inside that window, for example in
-response to the registration uevent. Suppose the open then fails in
-phy_set_mode_ext(), phy_power_on() or macb_phylink_connect(), or the
-interface is closed right away. Can cancel_work_sync() here then trigger
-the WARN_ON(!work->func) in __flush_work() on a work that is still
-zeroed?
-
-The close path already cancelled tx_lpi_work before this patch. The new
-parts are the hresp_err_bh_work cancel and the cancels on the macb_open()
-error path.
-
-Would moving INIT_WORK() and INIT_DELAYED_WORK() before register_netdev(),
-or into macb_init_dflt(), avoid this?
-
-> +
-> +	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-> +		/* Must be done before NAPI is disabled: the task ends with a
-> +		 * napi_enable() call.
-> +		 */
-> +		cancel_work_sync(&queue->tx_error_task);
-> +
-> +		napi_disable(&queue->napi_rx);
-> +		napi_disable(&queue->napi_tx);
-> +	}
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch.
-macb_suspend() still seems to have the same tx_error_task vs. NAPI
-deadlock that this patch fixes for close. It disables NAPI without
-setting irq_quiesced and without cancelling tx_error_task or
-hresp_err_bh_work:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_suspend() {
-    ...
-	netif_device_detach(netdev);
-	for (q = 0, queue = bp->queues; q < bp->num_queues;
-	     ++q, ++queue) {
-		napi_disable(&queue->napi_rx);
-		napi_disable(&queue->napi_tx);
-	}
-    ...
-}
-
-In the non-WoL branch the IRQs are still unmasked at this point. On a TX
-error, macb_interrupt()->macb_interrupt_misc() can still call
-schedule_work(&queue->tx_error_task). On HRESP it can queue
-hresp_err_bh_work.
-
-In the WoL branch, a tx_error_task queued just before the IDR write can
-also run after the napi_disable() calls.
-
-macb_tx_error_task() then calls this on a NAPI that is already disabled:
-
-	napi_disable(&queue->napi_tx);
-
-Would that spin forever in napi_disable_locked() while holding
-netdev_lock? macb_resume() then calls napi_enable(), which takes the same
-netdev_lock, so it looks like resume would never complete.
-
-The commit message says the flag will be reused for suspend/WOL, and the
-patch is Cc: stable for this class of deadlock. Could macb_suspend() and
-macb_resume() use macb_quiesce_start() and macb_quiesce_end() too?
-
-[ ... ]
-
-> @@ -3234,11 +3276,10 @@ static int macb_open(struct net_device *netdev)
->  	phy_power_off(bp->phy);
->  
->  reset_hw:
-> +	/* The netdev stays down: quiesce and drain, as macb_close() does. */
-> +	macb_quiesce_start(bp);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but macb_set_ringparam() calls
-macb_close() and macb_open() directly and ignores macb_open()'s return
-value:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_set_ringparam() {
-    ...
-	if (netif_running(bp->netdev)) {
-		reset = 1;
-		macb_close(bp->netdev);
-	}
-    ...
-	if (reset)
-		macb_open(bp->netdev);
-
-	return 0;
-}
-
-Every macb_open() failure path leaves NAPI disabled. The macb_alloc() and
-mog_init_rings() failures jump past macb_quiesce_end(). The later failures
-call macb_quiesce_start() here.
-
-These paths also free the rings and drop the runtime PM reference, but
-__LINK_STATE_START stays set. A large ring size can make macb_alloc() fail
-under memory pressure, and ethtool -G still reports success.
-
-A later ip link set down, or another ethtool -G, calls
-macb_close()->macb_quiesce_start() again. Does napi_disable() then wait
-forever in napi_disable_locked() with RTNL held? If that step were somehow
-passed, would macb_free() and pm_runtime_put() run a second time?
-
-This also doesn't match the new comments. They describe irq_quiesced as
-"True when the interface is closed" and say it is "cleared by macb_open()
-and re-armed by macb_close()".
-
-> +
->  	macb_reset_hw(bp);
-> -	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-> -		napi_disable(&queue->napi_rx);
-> -		napi_disable(&queue->napi_tx);
-> -	}
->  free_rings:
->  	macb_free(bp);
->  pm_exit:
-> @@ -3249,19 +3290,17 @@ static int macb_open(struct net_device *netdev)
->  static int macb_close(struct net_device *netdev)
->  {
->  	struct macb *bp = netdev_priv(netdev);
-> -	struct macb_queue *queue;
->  	unsigned long flags;
->  	unsigned int q;
->  
-> -	netif_tx_stop_all_queues(netdev);
-> +	macb_quiesce_start(bp);
->  
-> -	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-> -		napi_disable(&queue->napi_rx);
-> -		napi_disable(&queue->napi_tx);
-> +	/* Drain the BH contexts before stopping the queues: NAPI completion
-> +	 * and tx_error_task wake them up.
-> +	 */
-> +	netif_tx_stop_all_queues(netdev);
-
-[Severity: High]
-This is a pre-existing issue, but it is about draining contexts before
-teardown. macb_set_ringparam() calls macb_close() directly under RTNL, so
-the core's dev_deactivate_many()/synchronize_net() never runs to drain an
-ndo_start_xmit that is already in flight.
-
-netif_tx_stop_all_queues() only sets the XOFF bits. It doesn't take the
-xmit lock, and it doesn't wait for a macb_start_xmit() that has already
-passed the queue-stopped check.
-
-macb_start_xmit() writes queue->tx_skb and the TX descriptors under
-queue->tx_ptr_lock. Neither macb_close() nor macb_free() takes that lock
-before this:
-
-drivers/net/ethernet/cadence/macb_main.c:macb_free() {
-    ...
-			kfree(queue->tx_skb);
-			queue->tx_skb = NULL;
-    ...
-}
-
-The same applies to the dma_free_coherent() of the TX ring.
-
-Can an xmit that is still running during ethtool -G then write into the
-freed tx_skb array or the freed TX ring? This seems more likely on
-PREEMPT_RT, where the xmit path and tx_ptr_lock can be preempted.
-
-Would netif_tx_disable() or an explicit synchronize_net() here close this
-window?
-
-> +	for (q = 0; q < bp->num_queues; ++q)
->  		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925-macb-close-v2-0-360efa565914%40bootlin.com
