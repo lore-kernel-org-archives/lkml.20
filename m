@@ -1,158 +1,161 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58BE47DD7B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718766; cv=fail; b=R5qkvGbE7mlCW8L++Ej3ruZtBTRA4b77AthYNUCLH4XfU5Mj+CSrQWjkD4IrZ6yZ+VgVK4cQ24XeUIza77ZWBet6f74CRu/Eo1H9ECHBWx205HQO62+S/MqhFHNizfY4PtwLqQUXcrV5wBgIK3fsqoRVazXinlMyTKhILpQ9Mk4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718766; c=relaxed/simple;
-	bh=ctRPfb+1sRO2+YSaBfbijjOIl5zixX1csL/nYqixvG4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Lj6FlzXamJUQrNkDA9uUhmICCmJmgPgUGMwucfposuwK4YVu4/LoPWtd6KOShStdYAIhvAI7H563k8CBvSZndl9SlqZnUSEvRp5TNc5daJ1y1q3Rz3hiUrfsYaj1ZTpElMr5xtjTb4tS129Le1kUbBWO/0zV3S6ZCzFxIbDTkj0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dyxdD0Dv; arc=fail smtp.client-ip=52.101.85.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7EA547056
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790718794; cv=none; b=oenfM07fxBBW0EvRAu6YuRkszLPGrb735gehhdaHRlTSWGTwVD7PiETjInDHy3bksRt/DgBq/JoBh4DhhNOgcMmpfWvHORQIENR7ONKZbSDaps62w69Q8I1vAqoqNNtrpUZ7XlD76lOx3zSe7fcLo8BlvXUwnIzJ/4zQctcb7Fg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790718794; c=relaxed/simple;
+	bh=JPHOtLX5J/CfXdFkUMD/4UI3dnjhvmipFBQMpiGm5g8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=hRWeEFGCNVdREc2H3aIKujUNglqvIQ3lrSZ/VMjBqU4cmhMfbnQUfvsDUWPmDZpWaL/4wxz7ipBYM6THf7K4DtiHap31p/7wlp6S1Cy1a9dFnvNBzIDIegwCZDyQZL6QeFpziPT/XiZ/OpRixAE90cM0qmOWMOSPoxF08FD7MXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ObU5dgIk; arc=none smtp.client-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dyxdD0Dv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ObAqiZTHG+LPJVwv34iuq6eFaa5HHbzczcDqdOXZ0HGirKG+OX4KpglkfkzuYoPjddqY6tAhGm06WNA+hINktsYsG4mpH+i+nikn9427HeuKsE/FtnaeR6tvYmEjndA34INH6kmvxjxU+TJg1oG2VNjxvONlYrke+tdzQX6plofUnBwT/XwS6M3w1sVo5VrPt9bXNqOVT67BjnyeduZQGdJjAQHN+jRaPI/uUmAk1/CinGHTrWOwpoeiDdTpn3vxFK08ATlU/buAj/XLhHORu1BbEWw79Z2UqEJXUvuUlNgV12dtqiR4+lQnwDWcX29cUeONnmkUFSmV9XMmyvVdvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rpc97EN+cbj5RMnVDFH5aRzU60rOnbu5nH/IYmAqNRc=;
- b=Er9fEuu6DGQ9YaiuLAvdfa3sVsfylvQ5rqryK/b/mZUlI8XHBN1h9GhUTv1bpzLhc3RJSJtOqltgiv2n0BWDpNrid8rkl0reaVR/uL/QjILSoCM/qD45zoW0hS1EmUwgLCf9IHppkFbOPaC9ndh9tPXOFBMypAz9Tess+pxn/AKqNLCyrpTTUfGV/s+pYaA5SZAcwPXZx7S9IaqKY3K6EGnBUxMnlmx53d8NNx/dHe+vCbJ/pkHJAK+sgkHMmPkfwx3Ox3nmLekcEPwj5OxYpIWePkSGheuqoSejL/pf6Qmjl6aJNiOvmSFgGMnQsG0/GMZLhoUL5mOYs6zfy9a/zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=8bytes.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rpc97EN+cbj5RMnVDFH5aRzU60rOnbu5nH/IYmAqNRc=;
- b=dyxdD0DvC/5c0O7YNb2uRSe7XR8oC8TrC/KkriVBIttZD6WqfXxS88Sv94OiteY6GFKFHat6LDYw7Cv1viqR/rv6GUH2Qh2NERu9i82Es8XV8TfQyPP7TVX/oqBJgzjUnVjHCvS+XVaG0K7s8w5q37aOOz0iSgpvPTjYrHc4uPGgGu405sgfXhZrVoBZ2ydRHksKAlFtRdi+8jhpTFLhuVftL0YrycTZEwO+RkMmR4Xx0eWSD63nNsaidxjLuk25/LJMOKQcBHSk4qz20XG+Mj/tKbAXFIjVLT9UjqkNNoqswi7afOgH+f7t+M7tEfVSWAldLRt9CO1j36Ata5w8dQ==
-Received: from PH8PR07CA0002.namprd07.prod.outlook.com (2603:10b6:510:2cd::9)
- by SJ1PR12MB6265.namprd12.prod.outlook.com (2603:10b6:a03:458::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 21:52:33 +0000
-Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
- (2603:10b6:510:2cd:cafe::7f) by PH8PR07CA0002.outlook.office365.com
- (2603:10b6:510:2cd::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
- 29 Sep 2026 21:52:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 21:52:32 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 14:52:16 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 29 Sep 2026 14:52:15 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 29 Sep 2026 14:52:15 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <joro@8bytes.org>, Lu Baolu <baolu.lu@linux.intel.com>, Jason Gunthorpe
-	<jgg@nvidia.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Kevin
- Tian" <kevin.tian@intel.com>, Jean-Philippe Brucker <jpb@kernel.org>, Yi Liu
-	<yi.l.liu@intel.com>, <iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v1 1/4] iommu: Unpublish the attach handle before the group detach callback
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ObU5dgIk"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso3790898c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790718791; x=1791323591; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CyTriPACuulD8PSeUOBZRvdda3vwGDvZO2NnK49TgBc=;
+        b=ObU5dgIkFKxdDs/DHHz3Lg8FyyhYFN5v3QecgCW42RtpwfdT5B/KIAFd2l6hBmHU8U
+         YAs6cQI4ogXneya+Sem279L3nGM2TAIe9FUB+OT7EVA4bzw3qHDtyCc6urvyXZfyGIqY
+         ZPPu21bcnIEjn4EjVUh8j4XSuFzh+1uPCkfYtUXlfH5XWsr9KAbe71gkofrmoCDd+XSA
+         4+obKj6R/VyJQ4gn9mvjm0xqEOUXL6sVjqdxsSJgzeKxvKOiFIPs68WYdP9Xr0Y0OkNM
+         /ByChW5F5nNGsLVtiZ7dGBgNsA4w/x8NrtkZuAYkVGtOCbeal7fjkoXQJF5KP+ZBvphr
+         QZKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790718791; x=1791323591;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CyTriPACuulD8PSeUOBZRvdda3vwGDvZO2NnK49TgBc=;
+        b=ZKkj8PAZFyZuGsL3YHHK5/6nos7e3abVqUtHtJnf07yUlHn66Dv0bqNbqR5rs+8DD4
+         otEDmo6226QbmK1o1PeZNmccxEOf3HWt0jqZB62GWJQoHDx6b8QN5B/ioq0qSyXEEodD
+         gvR/mvzIVD3wiGdb0fWLELr+8xqb2GEsFh3MUqim7AIN3RvQ85nkd7ADi7Z3BZL8Gn9P
+         UgkwSWIabSHT6C0Nj7EWTiSONn6zy/cb0mc4fC6jRLUSCCF46bFaYGEL8zvVYrH1i/Jv
+         Xd4XgZi7Eqe3M/HTbH4fUjLt1qSi13pRcP3GuN6aE/E+Ik1A3kwvmUWNANWgdBQkiPO2
+         h70Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxmLoAV9sOv62wNw9Uh0erDYtYgSQi9VmlIjE15DsyGnWDXxyTAhX6TyVcHc8p4cPtyGmwKLAAb1tU4bDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTTfANF7kN7hbGjp1RDD1MfJ2+Na6Z3Bj/k7zUH/FUW/cbeKQP
+	M6bZYJBpl/DqBJRRUxpsEc4iVxvdqbzSFuiTlRG9NzZEOHhvG+W6J+ADSQavmPjvo2FQIg253Gv
+	wh8wJhi4dOz8Z8BZ+mbTLOA==
+X-Received: from dlbuu7.prod.google.com ([2002:a05:7022:7e87:b0:13f:c1b7:470])
+ (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:b889:b0:14a:c6cf:1449 with SMTP id a92af1059eb24-14c9dccf066mr568034c88.32.1790718791005;
+ Tue, 29 Sep 2026 14:53:11 -0700 (PDT)
 Date: Tue, 29 Sep 2026 14:51:51 -0700
-Message-ID: <03392b21011e9285b342488f0df233b92acc3405.1790718296.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790718296.git.nicolinc@nvidia.com>
-References: <cover.1790718296.git.nicolinc@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|SJ1PR12MB6265:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9996c174-07c3-4d69-0d7e-08df1e73f759
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	L7baTU/sWdeZ5Rw4/CxDiDKkEcAk68UaHgL7s/vO/DxilgsBHBdySX8A+1oGTltA7/tGXVJGEUkuw3gv2x6YS8IKRyFyGQzv7BKh2i33GwCP62+5gC8GhQ3Nj9g35ytdL/i3GYPtgPuGBOx8tFjDeI4VnI7H/6jyCg+m6rRv8Pti5NARJNL4ICnNAZ1UI7VyxMr8MjgeZl7ghL0zO3v77H+oHo9Soytlth04ZMeDwYQ+d/AG0xP5VEo6xkd9APHaapx6VIp2mKf3XdXr7jA36CR682gip5drPqwakogvVOQAbvyfvn8yN9JU6wuwlqR5IHtY6LsImtlRJGL3itnzaLjFLcvk04O6C/Si0WzG4QzdauMa6YMEhYGRWKlvKjJ907JtQOG/+7LjwsR4y9Mcb8f/mBvkI40NPW8wVL4IhGJzFuwlN2UAIqr4Szv5QR2o/ZXs1u42pYjkIayOMDYYwqIiLi4hdkcz9/g0lAHmxZczfpt1a0A3FX5BPc/P5rH5zEB5Lwn6Ts7Y6R57n+pk9+4PkBZ+WHHRQxnSDQNK4xyqcC9GKn2ht+RO/DrqQz5PvKkNRmFcwhP+O5njBGx1TC4ZuESDe4DViEclw2kFZjxQs6MZIwANjEfRxZCfVc3YhesPFXsJ1kkZ+sxK1lwEBfJzkyYspiDGkeLfdlHY/CUcbWx4ex86gi+S3F84sk97hLOU6L8fdU1DrmHSvHtjlQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hQcSV/Ce+Q+Pljne58nG3tUCBPUqkdloAcKD+kZdVrd9UGNkPd/u9jKzDa+ktagMCN4Zs1+uYNYZgLL2PCpjdHmr+zOiDWVAMsexakValre+BcC6nmFjKkxkM9BAOmZS30JRq2/38HOgRGE9Yv8ZB0Occvn5FOZfGppfGJbIgN7Pg1xzvl1RRL31GICoJHGQ+Fl4An/uvickFPjYQ6c1qzxKDHrubJ5nJWIa5/+X+Oc6dMQtP9ApoEnWHi3w8uvAgcksvzv9Ad7jZq75T7GK1ekV6u5kUW673BCVYA1zcphT5lF8df4LvcuXqBguLnzEyLqMwrwvYKKkG0HxJ5Uq6gg/yXabk4MX1XnlPZ0r8djAVRLdzSSKyRP25T3b08JksHJL7rFTPeJaO4J0vx7x+xq3vOM2ECA1zddfv67m2Z3mdqO9r2t0EQntnqgtMHOR
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 21:52:32.8370
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9996c174-07c3-4d69-0d7e-08df1e73f759
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6265
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929215206.516490-1-nilayvaish@google.com>
+Subject: [PATCH 00/15] mm: eliminate &folio->page references in mm/
+From: Nilay Vaish <nilayvaish@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Greg Thelen <gthelen@google.com>, Roman Gushchin <kfree@google.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Nilay Vaish <nilayvaish@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The group->pasid_array entry is erased only after the detach callback has
-returned, so the outgoing attach handle stays published for the whole of
-that call. iommu_attach_handle_get() reads it under the xa_lock alone, not
-under the group mutex, so a fault raised in the meantime still finds that
-handle and the domain being detached, both of which the caller frees the
-moment that detach returns.
+As part of the memdescs effort to separate struct folio from struct page
+and allocate struct folio dynamically [1], struct folio will no longer
+embed a struct page member (folio->page), and the address of a struct
+folio will no longer equal the address of its head struct page in
+vmemmap.
 
-Commit 5e9f822c9c68 ("iommu: Swap the order of setting group->pasid_array
-and calling attach op of iommu drivers") has fixed the attach path, while
-the detach path never got the symmetric change.
+This series eliminates all but one of the remaining &folio->page
+references across mm/*.c (25 files) by converting them to:
 
-Erase the entry ahead of the callback instead. A missing entry reads back
-as NULL from xa_load(), so that iommu_attach_handle_get() returns -ENOENT
-and the fault gets rejected rather than delivered against a domain that is
-on its way out.
+- folio_page(folio, 0) (or folio_page(folio, i) where indexing a
+  subpage) when passing a folio's head/subpage struct page * to
+  page-based helpers (PageAnonExclusive, SetPageAnonExclusive,
+  rmap/split helpers, movable_ops helpers, HugeTLB Vmemmap Optimization
+  (HVO) address calculations, page_ext, alloc_tag, etc.);
+- VM_BUG_ON_FOLIO(..., old_folio) in place of
+  VM_BUG_ON_PAGE(..., &old_folio->page) in hugetlb_wp(), and
+  folio_set_hwpoison(folio) in place of SetPageHWPoison(&folio->page) in
+  mf_generic_kill_procs();
+- ERR_CAST(folio) in place of returning &folio->page on IS_ERR(folio)
+  paths in do_read_cache_page() and shmem_read_mapping_page_gfp();
+- Operating on struct page * directly in compaction_alloc_noprof()
+  before calling page_rmappable_folio(), and adding &page->lru to
+  cc->freepages[order] in compaction_free().
 
-Fixes: 8519e689834a ("iommu: Extend domain attach group with handle support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/iommu/iommu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+The remaining folio->page uses in mm/debug.c (__dump_folio(), which has
+three lines: page_has_type(&folio->page) and two reads of
+folio->page.page_type) are intentionally left untouched because
+__dump_folio() operates on a stack snapshot (&ps.folio_snapshot) rather
+than a live struct folio.  Those are the only folio->page uses left in
+mm/*.c after this series.
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index cd1bca7ede9af..a062a84686c29 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -3951,8 +3951,12 @@ void iommu_detach_group_handle(struct iommu_domain *domain,
- 			       struct iommu_group *group)
- {
- 	mutex_lock(&group->mutex);
--	__iommu_group_set_core_domain(group);
-+	/*
-+	 * Unpublish the handle first, so it would not resolve to the detaching
-+	 * domain once the driver is detaching it.
-+	 */
- 	xa_erase(&group->pasid_array, IOMMU_NO_PASID);
-+	__iommu_group_set_core_domain(group);
- 	mutex_unlock(&group->mutex);
- }
- EXPORT_SYMBOL_NS_GPL(iommu_detach_group_handle, "IOMMUFD_INTERNAL");
+This series is based on the mm-unstable branch of Andrew Morton's mm
+tree.  It has been build- and boot-tested on x86_64 under KVM with
+CONFIG_TRANSPARENT_HUGEPAGE, CONFIG_HUGETLBFS,
+CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, CONFIG_CMA, CONFIG_KSM,
+CONFIG_USERFAULTFD, CONFIG_MEMORY_FAILURE, CONFIG_PAGE_OWNER,
+CONFIG_MEM_ALLOC_PROFILING, and CONFIG_DEBUG_VM enabled.
+
+No functional change is intended while struct folio overlays struct
+page.
+
+[1] https://kernelnewbies.org/MatthewWilcox/Memdescs
+
+Nilay Vaish (15):
+  mm/khugepaged: drop redundant page parameter from set_huge_pmd()
+  mm/huge_memory: use folio_page() in PMD/PUD rmap, zap, and migration
+  mm/huge_memory: use folio_page() in THP split paths
+  mm/hugetlb_vmemmap: use folio_page() for vmemmap address arithmetic
+  mm/hugetlb_cma: use folio_page() in hugetlb_cma_free_frozen_folio()
+  mm/hugetlb: replace &folio->page with folio_page() and
+    VM_BUG_ON_FOLIO()
+  mm/page_isolation: use folio_page() in page_is_unmovable()
+  mm/compaction: stop casting free pages to struct folio
+  mm/migrate, vmscan: use folio_page() for movable_ops helpers
+  mm/memory: use folio_page() in fault and CoW paths
+  mm/rmap, gup: use folio_page() for PageAnonExclusive and
+    gup_must_unshare
+  mm/ksm, userfaultfd: replace &folio->page with folio_page()
+  mm/page_alloc, folio: use folio_page() when freeing folios
+  mm/page_owner, alloc_tag: use folio_page() for page_ext and codetag
+  mm: replace remaining &folio->page uses with folio_page() and helpers
+
+ mm/alloc_tag.c       | 10 +++++-----
+ mm/compaction.c      | 15 ++++++---------
+ mm/filemap.c         |  6 +++---
+ mm/folio.c           |  2 +-
+ mm/gup.c             | 11 +++++++----
+ mm/gup_test.c        |  6 ++++--
+ mm/huge_memory.c     | 37 ++++++++++++++++++++-----------------
+ mm/hugetlb.c         | 21 +++++++++++----------
+ mm/hugetlb_cma.c     |  3 ++-
+ mm/hugetlb_vmemmap.c | 10 +++++-----
+ mm/hwpoison-inject.c |  2 +-
+ mm/khugepaged.c      |  6 +++---
+ mm/ksm.c             | 16 ++++++++++------
+ mm/memory-failure.c  |  8 ++++----
+ mm/memory.c          | 16 +++++++++-------
+ mm/memory_hotplug.c  |  2 +-
+ mm/memremap.c        |  2 +-
+ mm/migrate.c         | 20 +++++++++++---------
+ mm/page_alloc.c      | 18 ++++++++++--------
+ mm/page_isolation.c  |  2 +-
+ mm/page_owner.c      | 15 +++++++++------
+ mm/rmap.c            | 10 +++++-----
+ mm/shmem.c           |  2 +-
+ mm/userfaultfd.c     | 14 ++++++++------
+ mm/vmscan.c          |  2 +-
+ 25 files changed, 139 insertions(+), 117 deletions(-)
+
+
+base-commit: 90ddfbd1963659ca4a5d3d7f20717a4222682a8e
 -- 
-2.43.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
