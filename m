@@ -1,64 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47652524AF5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF20B524AE6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686186; cv=none; b=bTVUMBQFoDI5GP6AC06G4atUnBQr7iEWxs/LaNkCCwRWNL+yiYHnoCVtwYR0qly8PvOyRaIidLJoDDQqmtaSGNNhVLFGNwBncEt0DKNtfnW2UFtItu3bl9Am+2iUUe+btFw+biooSh/FwEXs5guR/9bsxD5g7+xY3HIQUHbgReI=
+	t=1790686188; cv=none; b=sT0zhV38SRu3tO/WA5+3zgqZ+eO1fKw85/9mdyw70/AJ0clYPUdNG2Megg7vZgDyBjyfSr34LmYfsqyck+/a/yN2WWNwMI+v+wkPFstP62l6hPuca79FLGZktPrnj/zoamnwA09TFAzDhdiUBUj5FNz7jrFAoxKCd1kMSasiixU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686186; c=relaxed/simple;
-	bh=w3XceD/hAcLgiXgTj1mVa+MSKBhZVDdZ42T/2vjcOGc=;
+	s=arc-20240116; t=1790686188; c=relaxed/simple;
+	bh=vAII6y+UyX853EB0stipK2/jzXEceoZeWIrSRQpr5Q8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g8XBdb9E0/P/rYVJcCbs3mV1pTnZDU30GttaYLqzJK6pTztwbwEyE5v6t8uD7nimqgh7tz9rwUsR51RfBcb6PgbKd8do/OC4vwNngbXJ1mYDRZ1ns3lUx4ucFI05eR6rYGCtCkYP/bft78+LatxTk+uN55tcm+jgRFsZF3OQhao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PkJ033wV; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=gb0lfhICcRwnpvBIR6VF4USyy7c2RZhWPp+FnsqqUbHkBpR9Gf0TJ2PtY8ZgC5WVLF9MK7/aKLTwGvwG5/5sBp8OrZYjFceRETF+qcT0wuEdOTbniuBxKiOEQuZIBNZcWP4X3TMO/wTDdRFxMGHUl0exfwGjZhKz4VH0PzeSg94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JVwCfBcj; arc=none smtp.client-ip=74.125.231.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PkJ033wV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790686184;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TppiMmhxAm2ZWR6QRy07GUwj7a6vC6qIkpW1XCsvm7M=;
-	b=PkJ033wVImmP3AmH5X2eJ5s2+fBdFSDTlp/ZGU6VIG5KudLKvkDPPJpSTtiUiiutv1tlcI
-	rgaDmJnBPwR1k+Gk5jBILHIKX213eKAZt1IyxC5mNTBSZnxF6F2Ho8IsgSbaYwG6dWGn5s
-	SbEVRJ+JSZo0Y3AmaeUbC/oOCT7dvZ4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-90-VLZ4V4LZMm6aE4zsZ67IGw-1; Tue,
- 29 Sep 2026 08:49:40 -0400
-X-MC-Unique: VLZ4V4LZMm6aE4zsZ67IGw-1
-X-Mimecast-MFC-AGG-ID: VLZ4V4LZMm6aE4zsZ67IGw_1790686179
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F19AA1800771;
-	Tue, 29 Sep 2026 12:49:38 +0000 (UTC)
-Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B799619560AB;
-	Tue, 29 Sep 2026 12:49:35 +0000 (UTC)
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Nam Cao <namcao@linutronix.de>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Gabriele Monaco <gmonaco@redhat.com>,
-	Wen Yang <wen.yang@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>
-Subject: [PATCH 05/10] sched: Add task enqueue/dequeue trace points
-Date: Tue, 29 Sep 2026 14:49:03 +0200
-Message-ID: <20260929124908.177676-6-gmonaco@redhat.com>
-In-Reply-To: <20260929124908.177676-1-gmonaco@redhat.com>
-References: <20260929124908.177676-1-gmonaco@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JVwCfBcj"
+Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-81be5042c56so1838350a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:49:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790686186; x=1791290986; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3qz69nn016xYBQdwzZDhML9vSWViTQw4JE83CtlM57o=;
+        b=JVwCfBcjiPcbvJaiqqFewjaFyOVQM0Uf7A/Nx7kdxYA2i33weiCKOuAxUPtfwDnUgs
+         4CgzEbB5P13SodCChGT2u2cmttpDL8UAv7QrXFV/5aF4GCS1ZXyrft/82YTUrj98d22Y
+         nYSIfuJie0pAkaJt2pEOeIw7KzNJJnaiSsZkSl4vqDnBGiZCUMlBE6u33bbqdTZaYyJi
+         hlrRFfd6TZxh6RohchrZi1Tm9rQF+XAjGtl4tsdta9B0fHiVRqz2kNjcQq/OzMNR6+f6
+         dshwCBgFlHKUTVXP+YQ1Z9MNfKiE3qkDnSn0i6ec8FVepWXXV3VjrGDeso7dbmUTikzO
+         OXVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790686186; x=1791290986;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3qz69nn016xYBQdwzZDhML9vSWViTQw4JE83CtlM57o=;
+        b=a0m7+4zeGslVnQg9AbvVAbIimdxKquF4zeRy+Og/fAofERgaKAfZ5/99SnsQE3fPyj
+         TWkpS5qOLyANukvcpj/mmszZaBCBbCd96/jYOiuYRvPqJbSka9XTu641Cf0tBUnZr1lW
+         IeuN3rphqb4ydhVmfQ93zbb4GvdsuE8vtbHTd+dzx/Q0N9q3k8xIMDrFfZFUjWOTSrsN
+         7C/OvjPMi3fqNWKnWGWleLTgjXVoUFBdqCkChDEwsmCCSuJTHE2e/wtmkQSW+MzaffJr
+         xta9qywr8ON6BsQv7HBHCut17cpsJbQ6MQ4UEUzSnfpmNJ71572c1lGKapwQSJnsrruz
+         hBjw==
+X-Forwarded-Encrypted: i=1; AKwUvByLNpT2Mo8mvOOSO+y512hr+NiiX0Kxh6XnAGvVV7hkFcn1ULxxJsDGVN4HEwtlEa3a7nJkfjuNzzQk5jw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kroUJanDKxdCU/JcuojjP3m/6r+ZVBWt2weHV52WVko9LmwNjk
+	WzWv3h56V/F4zU7Bgsr5PAxnnB7OvLw8+8mmnqw9IM6wt9X9jsyU3ur8
+X-Gm-Gg: AYBFou1wlQ0vDVowoujbR5DQvNU5i/PsshNfgCZOXIqg7cDIWLVBzZna4xClLz8cAwM
+	2YyCewPd2pRjIQx7Ce7hV700twC8b3cdEx80qoDTojcko45NlmEXe5NAfuhwzhohiX5SVkDzroe
+	pGRSglx0ddXHS3l1Z3BQoetDuijuk3X7DALyu0/NFnG3KJ6IUumtVeBp8XjtUNUBGW4v7eNb/pe
+	X/IogdQR/CCbuBvPQd+lscxb2eIdt0/+Y8INzTIfIQhmTV0NGTSQjjTdZcWlgTBQgnLIK/Meppe
+	rNmxGgIdpeaKz4HNzF/iCTq75VrJhXEAMTnyq3iKPwfSbh2XMIZHnD8d2w0XpwsOP4B7YIauAIL
+	O7vZgAXh4fh5JhwPHqBXPCB+n/PkSiXo4WcO1pzlXh21u4A1/pJQ9O0YsPyu56h+bQc6z/N7JZL
+	rzHwqP9B1XLkqssX5AYgYUcQmGQDyKbEAecj4lktfa/HSkHllYwg7vytNeqH8WGDWidzPyOy9/S
+	SEGL/YmZf0grkSaeAD6h28bD0068DOOvIN1yYyR
+X-Received: by 2002:a05:6820:818b:b0:6c0:7620:fccf with SMTP id 006d021491bc7-6d5ba06420cmr11907539eaf.57.1790686185660;
+        Tue, 29 Sep 2026 05:49:45 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8830ab0d7sm6781572eaf.11.2026.09.29.05.49.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:49:44 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Calvin Owens <calvin@wbinvd.org>,
+	Yibo Tan <lhfff@tju.edu.cn>,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/4] pps: generators: don't use the driver's info after unregister
+Date: Tue, 29 Sep 2026 07:49:35 -0500
+Message-ID: <20260929124937.51114-3-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929124937.51114-1-danishkhateeb03@gmail.com>
+References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,99 +81,147 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Nam Cao <namcao@linutronix.de>
+A file that was opened before pps_gen_unregister_source() keeps
+pps_gen, and with it the pointer to the driver's pps_gen_source_info.
+PPS_GEN_SETENABLE and PPS_GEN_USESYSTEMCLOCK keep using that pointer
+after the driver has gone:
 
-Add trace points into enqueue_task() and dequeue_task().
+ - pps_gen_tio allocates its info with devm_kzalloc(), so after an
+   unbind both ioctls read freed memory, and SETENABLE calls the
+   driver's enable() with its freed private data.
 
-Signed-off-by: Nam Cao <namcao@linutronix.de>
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Co-developed-by: Gabriele Monaco <gmonaco@redhat.com>
-Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
+ - pps_gen-dummy does not set info->owner, so it can be unloaded while
+   the file is open, and the ioctls then read the unloaded module's
+   data and call its code.
+
+TIO can't probe in a VM, as it needs ART. A test driver that registers
+its info in devm memory like TIO does, unbound while /dev/pps-gen0 is
+open, gives:
+
+  BUG: KASAN: slab-use-after-free in pps_gen_cdev_ioctl+0x4c1/0x580
+  Read of size 1 at addr ffff88800e647f38 by task ppsgen64/145
+  ...
+  Freed by task 146:
+   kfree+0x25a/0x6d0
+   release_nodes+0xd1/0x140
+   devres_release_all+0x10e/0x1a0
+   device_unbind_cleanup+0x71/0x250
+   device_release_driver_internal+0x41b/0x570
+   unbind_store+0xd9/0x100
+
+and unloading pps_gen-dummy while its file is open oopses:
+
+  BUG: unable to handle page fault for address: ffffffffa0203040
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:pps_gen_cdev_ioctl+0x372/0x580
+
+Protect info in the ioctl handler with a mutex, and clear it under the
+mutex on unregister, so that unregister waits for the ioctls using it
+and later ones fail with -ENODEV. PPS_KC_BIND does the same for a
+removed PPS device since commit 3649f9a6b897 ("pps: don't allow
+PPS_KC_BIND on removed devices"). The sysfs attributes need nothing
+new: they are removed, and their callbacks drained, before info is
+cleared.
+
+Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- include/trace/events/sched.h |  8 ++++++++
- kernel/sched/core.c          | 12 +++++++++++-
- kernel/sched/sched.h         |  2 ++
- 3 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/include/trace/events/sched.h b/include/trace/events/sched.h
-index 535860581f15..d6e41edc25d2 100644
---- a/include/trace/events/sched.h
-+++ b/include/trace/events/sched.h
-@@ -896,6 +896,14 @@ DECLARE_TRACE(sched_set_need_resched,
- 	TP_PROTO(struct task_struct *tsk, int cpu, int tif),
- 	TP_ARGS(tsk, cpu, tif));
+Notes:
+    Tested in the same setup, with patch 1/4 applied. After an unbind, and
+    after unloading pps_gen-dummy with its file open, both ioctls return
+    -ENODEV with no KASAN report, and closing the file is clean. Normal use
+    of pps_gen-dummy is unchanged.
+
+ drivers/pps/generators/pps_gen.c | 31 ++++++++++++++++++++++++++-----
+ include/linux/pps_gen_kernel.h   |  2 ++
+ 2 files changed, 28 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index 059f4fe6c9b4..d80e28dc31dc 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -69,17 +69,28 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 		if (ret)
+ 			return -EFAULT;
  
-+DECLARE_TRACE(sched_enqueue,
-+	TP_PROTO(struct task_struct *tsk, int cpu),
-+	TP_ARGS(tsk, cpu));
+-		ret = pps_gen->info->enable(pps_gen, status);
+-		if (ret)
+-			return ret;
+-		pps_gen->enabled = status;
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
 +
-+DECLARE_TRACE(sched_dequeue,
-+	TP_PROTO(struct task_struct *tsk, int cpu),
-+	TP_ARGS(tsk, cpu));
-+
- #define DL_OTHER 0
- #define DL_TASK 1
- #define DL_SERVER_FAIR 2
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 7885ff76e69f..debe5290b72f 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -121,6 +121,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_compute_energy_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_entry_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_exit_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_set_need_resched_tp);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(sched_enqueue_tp);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dequeue_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_throttle_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_replenish_tp);
- EXPORT_TRACEPOINT_SYMBOL_GPL(sched_dl_update_tp);
-@@ -2181,6 +2183,9 @@ unsigned long get_wchan(struct task_struct *p)
++			ret = pps_gen->info->enable(pps_gen, status);
++			if (ret)
++				return ret;
++			pps_gen->enabled = status;
++		}
  
- void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+ 		break;
+ 
+ 	case PPS_GEN_USESYSTEMCLOCK:
+ 		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
+ 
+-		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
++			status = pps_gen->info->use_system_clock;
++		}
++
++		ret = put_user(status, uiuarg);
+ 		if (ret)
+ 			return -EFAULT;
+ 
+@@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
  {
-+	if (trace_sched_enqueue_tp_enabled() && !(flags & ENQUEUE_DELAYED))
-+		trace_call__sched_enqueue_tp(p, cpu_of(rq));
+ 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+ 	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
 +
- 	if (!(flags & ENQUEUE_NOCLOCK))
- 		update_rq_clock(rq);
- 
-@@ -2207,6 +2212,8 @@ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
-  */
- inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
- {
-+	bool ret;
++	/*
++	 * An open file keeps pps_gen around, but the driver may free info as
++	 * soon as we return. The sysfs files are gone now, so wait for the
++	 * ioctls using info and make later ones fail.
++	 */
++	scoped_guard(mutex, &pps_gen->info_lock)
++		pps_gen->info = NULL;
 +
- 	if (sched_core_enabled(rq))
- 		sched_core_dequeue(rq, p, flags);
- 
-@@ -2223,7 +2230,10 @@ inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
- 	 * and mark the task ->sched_delayed.
- 	 */
- 	uclamp_rq_dec(rq, p);
--	return p->sched_class->dequeue_task(rq, p, flags);
-+	ret = p->sched_class->dequeue_task(rq, p, flags);
-+	if (trace_sched_dequeue_tp_enabled() && !(flags & DEQUEUE_SLEEP))
-+		trace_call__sched_dequeue_tp(p, cpu_of(rq));
-+	return ret;
+ 	put_device(&pps_gen->dev);
  }
  
- void activate_task(struct rq *rq, struct task_struct *p, int flags)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..a2cb06beafe6 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3070,6 +3070,8 @@ static inline void sub_nr_running(struct rq *rq, unsigned count)
+@@ -243,6 +263,7 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
+ 	pps_gen->info = info;
+ 	pps_gen->enabled = false;
  
- static inline void __block_task(struct rq *rq, struct task_struct *p)
- {
-+	trace_sched_dequeue_tp(p, cpu_of(rq));
-+
- 	if (p->sched_contributes_to_load)
- 		rq->nr_uninterruptible++;
++	mutex_init(&pps_gen->info_lock);
+ 	init_waitqueue_head(&pps_gen->queue);
+ 	spin_lock_init(&pps_gen->lock);
  
+diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
+index f26f6aac000d..c4d22b1af118 100644
+--- a/include/linux/pps_gen_kernel.h
++++ b/include/linux/pps_gen_kernel.h
+@@ -11,6 +11,7 @@
+ #include <linux/pps_gen.h>
+ #include <linux/cdev.h>
+ #include <linux/device.h>
++#include <linux/mutex.h>
+ 
+ /*
+  * Global defines
+@@ -44,6 +45,7 @@ struct pps_gen_source_info {
+ /* The main struct */
+ struct pps_gen_device {
+ 	const struct pps_gen_source_info *info;	/* PSS generator info */
++	struct mutex info_lock;			/* protects info */
+ 	bool enabled;				/* PSS generator status */
+ 
+ 	unsigned int event;
 -- 
 2.55.0
 
