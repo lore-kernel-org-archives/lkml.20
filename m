@@ -1,206 +1,221 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f8.google.com (mail-wr2-f8.google.com [74.125.225.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD04F4024;
-	Tue, 29 Sep 2026 14:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F0548594B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692225; cv=none; b=OC+7ZHvk9IfcrJBvzeOJDjYw9IIJ7L0JRpcdFdhx/64/WvLXOGpqO/inyYNPiu4lMKHYk3x78EJ/A391crlgUBJcuVckzId99Ndu8iTD9ScNSK8TPsmT3/xu6dya6HrnLcl5bumfO6YK/awGoXWaYZR6Gap0JsS5l2dSeaOBoSY=
+	t=1790692269; cv=none; b=PkpMW5hJapJ+2SVBKXL1mcCteF5Pwd4MeMQEeRQ/J1nj2y6an1WV59zGg2ZBLby74KPkNvEyQM8PlHcAcwpNn/4h6KzL/guZxJ2TN1r0GSJGrwLCmk/4M8hvTJZmyRF+TUzcFUG5buIUgCVdvzKnKGBfzxoE80GiO+Jae2XU94c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692225; c=relaxed/simple;
-	bh=7ZMoLlE5/mTVgfBTmCJqOWyEivNkU+AeJL3PzzVxxZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DqG27ZYAuOXaBePCi9TUORbK2G/3dBAalCiSqEhwMHhFMMM5ZhMXGB0OuQbxmdiuKDx8oQWk0i7UvpScMDv+EKwskCQRb2s+y4D1DPIfeo/ePvG+j1w+9M+3U9wSpMH8sH7+taIowFVKYZiu9cTlVSp9oyKo+1expwzoqUaed/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=lGdlGjez; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dm+XL5fC; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1790692269; c=relaxed/simple;
+	bh=7ldb8HOmjgXtNUqB8nPLQ9i0TZ7S1XWD7Hhe/UMCeKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=laMR4Wx/WUDi6qQEPtY49Ow/bNI0RPB3PcFpHb1NmjJQ5+MrYhTar/1cjIHqEYC6RxR2FxigwK38EP0wkQhH9qAY5Oqdn52ugtkfq80osvAuaKLjOpxXbvbhxy0LYbUiZCzjU394Kld3ZyT9b4uRmCYAcfCJLNBVAAaPZM2gZus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/csxjgn; arc=none smtp.client-ip=74.125.225.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="lGdlGjez";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dm+XL5fC"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id CE0E71400052;
-	Tue, 29 Sep 2026 10:30:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Tue, 29 Sep 2026 10:30:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790692218;
-	 x=1790778618; bh=IvKd5F4ysyhmnPovYdkt0ImhsVRcG0GfXUCUA50JdJ4=; b=
-	lGdlGjezXHreh2zZB7Lk2xBC33E1ixJQMdTDLlOR5fmBevWY4CrWYH0dQuFxzjxr
-	w0INqrXpVB49kRihyRiilSRG3dUmNbC1+c3Hin96/H+Kh97Dd/fqwK8dc6ZKLWsq
-	qVix7iWBBJK4v63VnhnFMy4Xsm1+eUrN5kUMWee0JYt0noBdq7xazTKwIpEPfwx8
-	IixMCfLAW6vzQ+3MEsJXwQ4ocFilbUM0//mczQ8zGqUWddO4bjJ40QGqB5+AwkJP
-	mJYR5Q0uv8rk6hPzxFVzuKr7Q/ela46p6gLluIkxW/DqAf82ozynp7NJCEywLmEG
-	vGoo1R4hEl77GhEIsECuvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790692218; x=
-	1790778618; bh=IvKd5F4ysyhmnPovYdkt0ImhsVRcG0GfXUCUA50JdJ4=; b=d
-	m+XL5fCSHZ30qaHl4u7S3FtqEl6oJ5Gem/v/I0XscirXMnjIO8UkeWKsQpgmkhvP
-	E4/C2IkGxjiL7QwtES30zyE/akJYyFUQpSdejt/o6AlbuuPLZaNNiGVBlqRrxgJp
-	JnKDGfOTF7jxqP+hY/u1yDPOb35R1cO1qIBNEUafuII6h5FxwA2gnl5OJjE6YDgl
-	JZaqxnV9GdM2ENbeJQivdfttfew0Shmic+512XzdDmc9kwZ5Dy3M2onXRJ8b/87H
-	aQ4DrKgcExUH5hx21+m0rsAPEldPQ0gT2oQtO5VCIQjlTdzLoLNJ6gVoOHkzt7VB
-	h2f0GTOv8GXIdIrKfxCPw==
-X-ME-Sender: <xms:esu7ank6YKCmk6upGufvbHdc7RcDdN_XkR9IwfOcccL_OhFTUo_lQQ>
-    <xme:esu7anaC2Qry5jE5m4JfvFu22CKspzQJ9bn0KR7TxD6PNUy8ptnmz0YnZL5fkcIWW
-    6X5gfsXzklg4sWQzFp0EPZ05Fm-4OP3dJ5aDvSc-nTEZK3gF_y4qc35nw>
-X-ME-Received: <xmr:esu7aiHJQBa28eqaBOaCuo5WZS6SQcgWXSLG9INa4S7Cct3WVVY3OcalB0mmINQ9nhgF3e7Lj62afSd_iLSmhBKBU1a4twU>
-X-ME-Proxy-Cause: dmFkZTEyWfgsudX6RHBNY3GF5pQCgYzAE/M8J+Q79q2i5teNIp70QUGwnC8FGzOsVnv7PH
-    Oauk00hqFW1CQZLOQyRkCYBzJNqjFDyye3CdCqcW2pTaNew2h1ya4Q53DsxGkxg1S5fA9L
-    Bk+4v4Jyf1OnyerDMQAPphlVFeNGvDdQqHQdLy6RqUrJFlNV2SNPNS0irkuuw+vI++2LsC
-    yQX3vBa+4scslmM2r8qXS153SzwoZGSy+b8NmCwxc+7scF+T4tLNa1HQ/QBQMgspF6/XOO
-    94/nmtmG8+Ei66lS9meTmpJaEvTT85MXdjZv+Nl5QwOgEml8P9OD/+soog4pi8907lToOY
-    eB7QdzwLaZRUQoIXmfojncegddWq2/MOSFsHFmEDgRamIKpUa2QKaNVXzuUDIla+qIdrk6
-    CBGOtLEW+zSfod0ZbGjhGl4g7m3bMEc2Nh1gN7Nf+/+K0ji/9UdoViPnwYF7FAluMQxtyZ
-    kjat/77oFrfdcnZn4vKncvB9cHeSipTT7g2f/zS8buZxNhKwKuYfaqub+aLszGxDjENAMR
-    8zwVafAY4YySCBjX2N5zMHdepnbiwRRRyIh6o5zX6e04W/sEDE7SqFk3NWMaMXwDW91UxG
-    IXnuPt8cOxyU3JFSTb+3gCvqumQ/2Y//4Vovl2j2jvy/5nGTL/YI8eZLpsuQ
-X-ME-Proxy: <xmx:esu7amZKKufKg_tiuKhOQH8rWIrTfNCErBRUTRTEku13CezcJJ4mOg>
-    <xmx:esu7amwp_9Fd5-u4cNdpJau8lxvrdJanWwsJNch21yE5er-pzi6sew>
-    <xmx:esu7aoQiblkj-cPTzXTUEq4DA4fj5y-PJ2cCGzx52yOXI3tf_YY5Tg>
-    <xmx:esu7ajKzV-Rc4yMHyzvglIPGLTLFx2SocykRgI_1ia0vBvaNJSSPDg>
-    <xmx:esu7arG7vGUhfFn73_gMWvHf32ps5gKvdzycQb7eMePiodvGqcZK4V__>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 10:30:17 -0400 (EDT)
-Date: Tue, 29 Sep 2026 16:30:15 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] media: rcar-isp: ispcore: Fix inconsistent step sizes
-Message-ID: <20260929143015.GA1244576@ragnatech.se>
-References: <20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/csxjgn"
+Received: by mail-wr2-f8.google.com with SMTP id ffacd0b85a97d-4887965533eso1320785f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:31:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790692263; x=1791297063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fQTnQKTsS6Avi4kBaKDVGL1M647FRs0iTSqK5qxgUsQ=;
+        b=D/csxjgnK9iJnOthp+PUCD4i+x0JR/wX7w2eF6ExSeBYWQOq51+cHy2KrNjnsy2jrh
+         7E99RyFKU07q8rVJGKK0pi88FM2SE7MAef/zuIK5hR8MkPOw+SQ1xE1kEbZB5FQeJ9dh
+         gna+q9HGWyDqg/+q2vWP3LZ2KrZcLLdfKSPVssejCoy4Uikmdc0NcE2Hw0vm4AXfSyLU
+         rCF7+9m9Bx8hNnz5RPjucUTq9iS6Z9gh+0s/ZGoh1fhqpU4bFQ6TdQHiL+yqR6q5ppJS
+         Why4BBqacyi8K9lnUUqPfDAglA/2C+ZCEKaiix1KyQhDR5NLmHIfg/6z+yP10q1mHXJv
+         zLbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790692263; x=1791297063;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fQTnQKTsS6Avi4kBaKDVGL1M647FRs0iTSqK5qxgUsQ=;
+        b=sqOgHfYFnjGopWVKRtHP+/GkcA+Zfp+8BGkF14OmFNT8ZVSi2kHdXxFyLW3cBhLUmC
+         lY5YTVo894bnD5Un9MbFKcYN3x9U5wJ2FvMC8pwVh9oQRUxbfordRylxTaqkaEH5gjZK
+         6dhmzgY//cp69b487iSzY6XfEm1xFl4CwgmT2ize8jQW6uVB1BYY4k02MGGNBRMgAQw+
+         CSzNL9iIYiZaW/b+yt4xAbxwyDqNHUWYnsHes0JwXP1oBO1vx/6UcdFWDca9CJAWQaVg
+         jMjcV8ON8RzrPgXDBTZsmohrbs07GudHGRZjctt8vJtFmJGlwJLRlsjIv6pbvQrrjuTB
+         T9fA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa7yejcfHBREWuNro78Yy5P6QgdFQCEn192HKzjluFq8XwcxVZeBq21lPAKT9x0hx+jcNIuN3BkCCvPc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWtkhWxJr+G7Wm7T/GJ0kKGvgrxajJAsUF3mU2kxegni9mknR+
+	rcvFeJ//PiY4HqBesBOrXDbneIZ3T3irB8HgS/zVRuXgeyYumMFQn0VB
+X-Gm-Gg: AYBFou11WJ3ih0FOeFS/X97glLmnlwtSBPorg4POmHVnzep2+P4lXOxlZG0kg6UIbll
+	Q2DASis/e3uyG+y9uOh7LTHEdpamCL8oq1raism/kmNCcpLzcTCpTNhDAm3B2Xhp8MTHUvn08Kn
+	6KkBz+fMZNXaWHwROV3T3PqukzleqId/+R8GpxO7XL+J5y/iZmxKgD+jkjBlaVoYZsvjUj+KVej
+	+MD2oqYMo96QpoZjwl9OU+tZOCoW86IDSXuBlk8UG6jtmizw5DxXa7oGgZPadYv3c9Q8K2+uXyY
+	KuhHaEQXr5QVXJh5P9oY8fsDgD3tVPyuVpaKOi5zWULyYgsfAjxVa+5jqDFh7vmWRYZeP0QfOMW
+	e8R2LBT20ZhouaNyhtulc1qANqmF4JSsEpyW6Q3yyZYeBqWSEG1w5wjUQc1JvPQ6EZnZ9y/O8yK
+	AhEh7lAXvb1WHJVbWs9tjPXFWIc+tzNE6wq3B1qImxGtxac/Z+XSyoRQ3tIP/9c53oUtX2WuEjT
+	LPWUlmOyPE/Bl68
+X-Received: by 2002:a5d:64cc:0:b0:487:212:a412 with SMTP id ffacd0b85a97d-4887165f6fdmr32380213f8f.9.1790692262433;
+        Tue, 29 Sep 2026 07:31:02 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5030037sm5196243f8f.8.2026.09.29.07.30.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 07:31:01 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Joerg Roedel <jroedel@suse.de>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Borislav Betkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@intel.com>,
+	David Hildenbrand <david@redhat.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jann Horn <jannh@google.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleinxer <tglx@linutronix.de>,
+	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Yi Lai <yi1.lai@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rahul Sharma <black.hawk@163.com>
+Subject: [PATCH 5.10] iommu: disable SVA when CONFIG_X86 is set
+Date: Tue, 29 Sep 2026 17:30:34 +0300
+Message-ID: <20260929143036.82392-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com>
 
-Hi Barnabás,
+From: Lu Baolu <baolu.lu@linux.intel.com>
 
-Thanks for your work.
+commit 72f98ef9a4be30d2a60136dd6faee376f780d06c upstream.
 
-On 2026-09-29 15:30:21 +0200, Barnabás Pőcze wrote:
-> `risp_io_{input,capture}_enum_framesizes()` sets the horizonal and vertical
+Patch series "Fix stale IOTLB entries for kernel address space", v7.
 
-nit: horizontal
+This proposes a fix for a security vulnerability related to IOMMU Shared
+Virtual Addressing (SVA).  In an SVA context, an IOMMU can cache kernel
+page table entries.  When a kernel page table page is freed and
+reallocated for another purpose, the IOMMU might still hold stale,
+incorrect entries.  This can be exploited to cause a use-after-free or
+write-after-free condition, potentially leading to privilege escalation or
+data corruption.
 
-> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
-> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
-> 
-> So move these constants into macros to avoid the repetition, and with that,
-> use 4 as the step size everywhere.
-> 
-> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+This solution introduces a deferred freeing mechanism for kernel page
+table pages, which provides a safe window to notify the IOMMU to
+invalidate its caches before the page is reused.
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+This patch (of 8):
 
-> ---
->  .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
->  1 file changed, 24 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> index 820af506f896c..b60b91f43d42d 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> @@ -15,6 +15,12 @@
->  
->  #include "risp-core.h"
->  
-> +#define RISP_MIN_WIDTH 128
-> +#define RISP_MAX_WIDTH 5120
-> +#define RISP_MIN_HEIGHT 128
-> +#define RISP_MAX_HEIGHT 4096
-> +#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
-> +
->  #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
->  
->  static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
-> @@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
->  {
->  	unsigned int bpp = 0;
->  
-> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
-> -			      &pix->height, 128, 4096, 2, 0);
-> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> +			      0);
->  
->  	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
->  		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
-> @@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
->  
->  	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
->  
-> -	fsize->stepwise.min_width = 128;
-> -	fsize->stepwise.max_width = 5120;
-> -	fsize->stepwise.step_width = 2;
-> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
->  
-> -	fsize->stepwise.min_height = 128;
-> -	fsize->stepwise.max_height = 4096;
-> -	fsize->stepwise.step_height = 2;
-> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
->  
->  	return 0;
->  }
-> @@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
->  static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
->  				       struct v4l2_pix_format_mplane *pix)
->  {
-> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
-> -			      &pix->height, 128, 4096, 2, 0);
-> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> +			      0);
->  
->  	pix->field = V4L2_FIELD_NONE;
->  	pix->colorspace = V4L2_COLORSPACE_SRGB;
-> @@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
->  
->  	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
->  
-> -	fsize->stepwise.min_width = 128;
-> -	fsize->stepwise.max_width = 5120;
-> -	fsize->stepwise.step_width = 2;
-> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
->  
-> -	fsize->stepwise.min_height = 128;
-> -	fsize->stepwise.max_height = 4096;
-> -	fsize->stepwise.step_height = 2;
-> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
->  
->  	return 0;
->  }
-> -- 
-> 2.55.0
-> 
+In the IOMMU Shared Virtual Addressing (SVA) context, the IOMMU hardware
+shares and walks the CPU's page tables.  The x86 architecture maps the
+kernel's virtual address space into the upper portion of every process's
+page table.  Consequently, in an SVA context, the IOMMU hardware can walk
+and cache kernel page table entries.
 
+The Linux kernel currently lacks a notification mechanism for kernel page
+table changes, specifically when page table pages are freed and reused.
+The IOMMU driver is only notified of changes to user virtual address
+mappings.  This can cause the IOMMU's internal caches to retain stale
+entries for kernel VA.
+
+Use-After-Free (UAF) and Write-After-Free (WAF) conditions arise when
+kernel page table pages are freed and later reallocated.  The IOMMU could
+misinterpret the new data as valid page table entries.  The IOMMU might
+then walk into attacker-controlled memory, leading to arbitrary physical
+memory DMA access or privilege escalation.  This is also a
+Write-After-Free issue, as the IOMMU will potentially continue to write
+Accessed and Dirty bits to the freed memory while attempting to walk the
+stale page tables.
+
+Currently, SVA contexts are unprivileged and cannot access kernel
+mappings.  However, the IOMMU will still walk kernel-only page tables all
+the way down to the leaf entries, where it realizes the mapping is for the
+kernel and errors out.  This means the IOMMU still caches these
+intermediate page table entries, making the described vulnerability a real
+concern.
+
+Disable SVA on x86 architecture until the IOMMU can receive notification
+to flush the paging cache before freeing the CPU kernel page table pages.
+
+Link: https://lkml.kernel.org/r/20251022082635.2462433-1-baolu.lu@linux.intel.com
+Link: https://lkml.kernel.org/r/20251022082635.2462433-2-baolu.lu@linux.intel.com
+Fixes: 26b25a2b98e4 ("iommu: Bind process address spaces to devices")
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Borislav Betkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Robin Murohy <robin.murphy@arm.com>
+Cc: Thomas Gleinxer <tglx@linutronix.de>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Vasant Hegde <vasant.hegde@amd.com>
+Cc: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yi Lai <yi1.lai@intel.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ The context change is due to the commit
+  be51b1d6bbff ("iommu/sva: Refactoring iommu_sva_bind/unbind_device()")
+  and the commit 757636ed2607 ("iommu: Rename iommu-sva-lib.{c,h}")
+  in v6.2 which are irrelevant to the logic of this patch. ]
+Signed-off-by: Rahul Sharma <black.hawk@163.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2025-71089
+
+ drivers/iommu/iommu.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index 9d65557dfb2c..e3f1496013b2 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -2988,6 +2988,9 @@ iommu_sva_bind_device(struct device *dev, struct mm_struct *mm, void *drvdata)
+ 	struct iommu_sva *handle = ERR_PTR(-EINVAL);
+ 	const struct iommu_ops *ops = dev->bus->iommu_ops;
+ 
++	if (IS_ENABLED(CONFIG_X86))
++		return ERR_PTR(-EOPNOTSUPP);
++
+ 	if (!ops || !ops->sva_bind)
+ 		return ERR_PTR(-ENODEV);
+ 
 -- 
-Kind Regards,
-Niklas Söderlund
+2.53.0
+
