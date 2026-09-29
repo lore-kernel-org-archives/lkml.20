@@ -1,134 +1,101 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mta60.mailii.org (mta60.mailii.org [78.129.155.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D35568FC8;
-	Tue, 29 Sep 2026 19:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6F636167B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.129.155.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710077; cv=none; b=C5TK8TFksO3+V90wNYp/hdHjPHLZW3jMQus0hcJMoIq/eBR4PffTR877l7Qq6PPG8sGsAR4dy+U35BGRUxtA6COqBBDmQfWc++vUfYM3fRcwnBFyjYVL96SNzbyScwOTZODwjPFCSDa0Q/My50f1PJLvNpAiFYgszsmn1SpZNZo=
+	t=1790710081; cv=none; b=E1W8Ki872eoSCaSs/j8Ae0vrF9vMzhYnIfKwq78jh0tNBy9jzCpa4tlhohXo3FKSYeBg21uY/nCwCEHQ95jI/tabIJg5IR79ZSzp9yaX8loLH9cvaTgaEO18s9bBqQfSSdeRPlsD1OdsJOpP/QZ6v9XcpxW17VBYHKQrBc/NQFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710077; c=relaxed/simple;
-	bh=NIocjTe+NMU8daivWCUahF174/R2p4B8MbRYv3N5qnA=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=fusUk1Aj042VWZcQ9N18bB/hTriVo1ntIuwPMWKqCGXzpARtCSHM3kTDJdSybP38D9VxlTqrzQ8p7qcLPEaBOii4QQHxoMMgjOMb0NCuXaQlgGzaU1ZjORZ7sVa76TyWLuaHP1XEaC/B9HrBOK/RbAtqAyCEMOOcLK46aNkIJfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=irJhiNJ7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x3FMYnbA; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790710081; c=relaxed/simple;
+	bh=A+oRRwQ10aiwtATv2WWoD/8rMmQLTGjw4bJpUhB89hQ=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=XoghvTLqOv4ezRQr4taYd/vj1yfJaVKoKC8goBk8RlzmnLkg++UQHJ6CePhXE1PPUoeat0PMterDEhk0nkmeUvIA6/HRQLNG3YDygVokJfNFRm2v0pFj6HXkFEOBLYtg/ppJSwgDooBYksQGUiuEycLZAT9wUpdmHeNY7iEiZUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net; spf=pass smtp.mailfrom=hajimohammadi.net; dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b=vXqg+XNv; arc=none smtp.client-ip=78.129.155.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hajimohammadi.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="irJhiNJ7";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x3FMYnbA"
-Date: Tue, 29 Sep 2026 19:27:52 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790710074;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pEb3ssYZjC5eOJuXI51WGagRmlgw8ItabDZyhUcYCrI=;
-	b=irJhiNJ7RyJLF5IBbMd1DB6LE7v6wOsh1eeaDH3U1eyGRQo6KEEFoq4GEtBFOVMK5YhssX
-	qWMJMA0G80RbHAGPJByu0+jt1rkxVhKG7J8ZCbezW+lSCaXndWJXP2SpTVFzJqXGKg4D1N
-	kjCWIrOMDgPM5H5BlZg9M2WJLQoxf2EmFbCOcOxKAZlIjwmG66EQUjxySXpNrD4SQFFQkZ
-	W1Xk3gHyiHvxNYL5eP0yFi8hI480cNpK+on9LfXzRrWNXvbmpi4WG36Fkg6xpbFgOK9sGE
-	nwVta9mohllJa/XavOIeo8ECjQ84p27ZsP6YC5s3hiU3ONkDpEBCZOjYMza56A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790710074;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pEb3ssYZjC5eOJuXI51WGagRmlgw8ItabDZyhUcYCrI=;
-	b=x3FMYnbAbvAAYL3x6Mep7bVE/cmeMzviwT45JDbB9uYCnXWBObQyLxA/RulHNGvQWiWQOc
-	r3x90fo6bcpRRVAg==
-From: "tip-bot2 for Zhan Xusheng" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/vdso] vdso/math64: Use OPTIMIZER_HIDE_VAR() in
- __iter_div_u64_rem()
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, Thomas Gleixner <tglx@kernel.org>,
- thomas.weissschuh@linutronix.de, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916023252.418473-2-zhanxusheng@xiaomi.com>
-References: <20260916023252.418473-2-zhanxusheng@xiaomi.com>
+	dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b="vXqg+XNv"
+X-Mailin-Tag: 95.217.242.122
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=srs.mailii.net; s=mail;
+	h=to:cc:date:message-id:subject:mime-version:content-type:from:from;
+	bh=tUrjT9ZMIdMQTi3Ph678hgdcX/K1AT+tm++YHIQwXhw=;
+	b=vXqg+XNvuH1g7kJWQUpLMW3FhfFO0kgrTjoE/0kGjenuZv7YKRN2MgxfOfSWcCOxdKVKQU62v5C5s
+	 593NGCRW4wN8NWZJdRXB1rCBf6Cozv2mmjzY0OEPzLsMZK2+sNCTeoeQO7nnNSbslj/+KfGwCtg4rW
+	 /nObFzu2bY9k6bsU=
+Received: from linux1de.centraldnserver.com (static.122.242.217.95.clients.your-server.de [95.217.242.122])
+	by ukgw.mailii.org (Halon) with ESMTPSA
+	id bf1b5f40-bbed-11f1-ab49-005056a23964;
+	Tue, 29 Sep 2026 13:38:41 +0330 (+0330)
+Received: from [45.252.182.9] (port=52731 helo=smtpclient.apple)
+	by linux1de.centraldnserver.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <info@hajimohammadi.net>)
+	id 1xBUlE-000000005Ir-0nsA;
+	Tue, 29 Sep 2026 13:38:31 +0330
+From: Amirhossein Hajimohammadi <info@hajimohammadi.net>
+Content-Type: multipart/mixed;
+	boundary="Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <179071007229.3910103.10624612430659519102.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: [PATCH] staging: rtl8723bs: stop overreading monitor interface name
+Message-Id: <4E27F487-1146-4557-8A26-51F6E9E2E2C6@hajimohammadi.net>
+Date: Tue, 29 Sep 2026 13:38:19 +0330
+Cc: linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
+X-YourOrg-MailScanner-Information: Please contact the ISP for more information
+X-YourOrg-MailScanner-ID: 1xBUlE-000000005Ir-0nsA
+X-YourOrg-MailScanner: Found to be clean
+X-YourOrg-MailScanner-SpamCheck: 
+X-YourOrg-MailScanner-From: info@hajimohammadi.net
+
+
+--Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=us-ascii
+
+Patch attached as text/plain.
+
+--Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96
+Content-Disposition: attachment;
+	filename=0001-staging-rtl8723bs-stop-overreading-monitor-interface.patch
+Content-Type: application/octet-stream;
+	x-unix-mode=0644;
+	name="0001-staging-rtl8723bs-stop-overreading-monitor-interface.patch"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the timers/vdso branch of tip:
+=46rom=203a4bea4cf2133cb8a8929be1655ce2a95d685d40=20Mon=20Sep=2017=20=
+00:00:00=202001=0AFrom:=20AmirHossein=20HajiMohammadi=20=
+<info@hajimohammadi.net>=0ADate:=20Tue,=2029=20Sep=202026=2013:05:58=20=
++0330=0ASubject:=20[PATCH]=20staging:=20rtl8723bs:=20stop=20overreading=20=
+monitor=20interface=20name=0ATo:=20Greg=20Kroah-Hartman=20=
+<gregkh@linuxfoundation.org>=0ACc:=20linux-staging@lists.linux.dev,=0A=20=
+=20=20=20linux-kernel@vger.kernel.org=0A=0Acfg80211=20passes=20a=20=
+NUL-terminated=20interface=20name.=20memcpy()=20always=20reads=0A=
+IFNAMSIZ=20+=201=20bytes,=20even=20when=20the=20caller=20supplied=20a=20=
+shorter=20string.=0A=0AUse=20strscpy()=20to=20stop=20at=20the=20=
+terminator=20and=20bound=20the=20write=20to=20the=0Adestination=20=
+buffer.=0A=0ASigned-off-by:=20AmirHossein=20HajiMohammadi=20=
+<info@hajimohammadi.net>=0A---=0A=20=
+drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=20|=202=20+-=0A=201=20=
+file=20changed,=201=20insertion(+),=201=20deletion(-)=0A=0Adiff=20--git=20=
+a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=20=
+b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0Aindex=20=
+4416d0ec..8f503284=20100644=0A---=20=
+a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0A+++=20=
+b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0A@@=20-2158,7=20=
++2158,7=20@@=20static=20int=20rtw_cfg80211_add_monitor_if(struct=20=
+adapter=20*padapter,=20char=20*name,=20str=0A=20=09=09goto=20out;=0A=20=0A=
+=20=09*ndev=20=3D=20pwdev_priv->pmon_ndev=20=3D=20mon_ndev;=0A-=09=
+memcpy(pwdev_priv->ifname_mon,=20name,=20IFNAMSIZ=20+=201);=0A+=09=
+strscpy(pwdev_priv->ifname_mon,=20name);=0A=20=0A=20out:=0A=20=09if=20=
+(ret=20&&=20mon_wdev)=20{=0A--=20=0A2.39.5=20(Apple=20Git-154)=0A=0A=
 
-Commit-ID:     37db375ad90467d7e3ce4e450b3d1c4f297d4ed3
-Gitweb:        https://git.kernel.org/tip/37db375ad90467d7e3ce4e450b3d1c4f297=
-d4ed3
-Author:        Zhan Xusheng <zhanxusheng1024@gmail.com>
-AuthorDate:    Wed, 16 Sep 2026 10:32:49 +08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 29 Sep 2026 21:23:30 +02:00
-
-vdso/math64: Use OPTIMIZER_HIDE_VAR() in __iter_div_u64_rem()
-
-__iter_div_u64_rem() divides by repeated subtraction, because its callers
-only ever produce a small quotient.  A barrier inside the subtraction loop
-keeps the compiler from replacing the loop with a division:
-
-	asm("" : "+rm"(dividend));
-
-The "rm" constraint permits a memory operand.  clang picks it and spills
-the dividend inside the loop, at 32-bit and 64-bit alike.  The helper sits
-on the clock_gettime() fast path through vdso_set_timespec(), so the spill
-is not free: with clang 18 the x86 vDSO is 64 bytes larger in vdso64 text
-and 112 bytes larger in vdso32 text than with a register-only barrier.
-
-Use OPTIMIZER_HIDE_VAR(), which is the register-only form of the same
-barrier and the form the rest of the kernel uses.  gcc 13 generates
-identical code either way, and neither compiler turns the loop into a
-division at either width.
-
-Put the function signature on one line while touching it, and reformat the
-comment, which described the asm() that is now gone.
-
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
-Link: https://patch.msgid.link/20260916023252.418473-2-zhanxusheng@xiaomi.com
----
- include/vdso/math64.h | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/include/vdso/math64.h b/include/vdso/math64.h
-index 22ae212..c628d6c 100644
---- a/include/vdso/math64.h
-+++ b/include/vdso/math64.h
-@@ -2,15 +2,16 @@
- #ifndef __VDSO_MATH64_H
- #define __VDSO_MATH64_H
-=20
--static __always_inline u32
--__iter_div_u64_rem(u64 dividend, u32 divisor, u64 *remainder)
-+static __always_inline u32 __iter_div_u64_rem(u64 dividend, u32 divisor, u64=
- *remainder)
- {
- 	u32 ret =3D 0;
-=20
- 	while (dividend >=3D divisor) {
--		/* The following asm() prevents the compiler from
--		   optimising this loop into a modulo operation.  */
--		asm("" : "+rm"(dividend));
-+		/*
-+		 * Prevent the compiler from optimising this loop into a
-+		 * modulo operation.
-+		 */
-+		OPTIMIZER_HIDE_VAR(dividend);
-=20
- 		dividend -=3D divisor;
- 		ret++;
+--Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96--
