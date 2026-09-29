@@ -1,87 +1,60 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB67253B325
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F4E3D47C5;
+	Tue, 29 Sep 2026 14:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693932; cv=none; b=CKt67UFgHdnn6lGXsMyghiFKxjX1wNW/APfPq/LiRt1CQAayb0feIzneNy6j5+byiyVvPQ89CzLHOcYktpzchOQzNyDBAgOKYRHgKt4/21eD6zn8BtVJ29bS4jJa3tVOnEnzu39MMBRP/4jjtF+FOmLIFKUFwxAWwz6Rr2aPDZU=
+	t=1790693942; cv=none; b=bedv5GK1AYkmJpKWjpme6ZJ4dfa0lLy4TkVB60ZKdHeQ4EpEkdTgXp0zMNZ4bStloFSJ66Enmm9e1v5Ms6zjiZoeQd4e6mzcgch2k3fVhbTqi4hPNtSPV5+LpTr5p6GGm9YbV1xIJlmkjtzTx4BDmtMaNW/TZQdY5QbnDyK0fZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693932; c=relaxed/simple;
-	bh=EqAVcdyv3bdh5PWijfipsTsljh3WRwAlRWBBEdBJcZQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uUOykCfdMh3Td2hQg9JsuP5AbsTiD802P+h7UCjXq1X5PwDnzMXU2nM7M23MW11lqRN1Lz1bc9/FXLxVhujnZS5dSiZ2oIOfhDDKOOoaXFYVfnTHNcurZVVQE9V3uUF+Z4OojWDdX3k5CAWIRuBqUQeGhxVMglJnkdoj3sqJAfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h6+S91ec; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3Mp7Dry; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790693942; c=relaxed/simple;
+	bh=DqeI++b161KtjAHzethdo3fEox1c19TAWzryZUcs3tE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=HI6fL73ZlmYNK9tsCETClK3IXu3JaakV5MIFgZQylnzpu9fzq94/yTukelgD4s1PIVST6BGzvmRpCLMpmpjsZFDaQxx++Lq2eErNzTOidH8mFSdnvIMoj6sVXk/rugCzNjUnQIxV26Ckn/2S7EfmVGGTs/tXpnPX3xgn77vd/Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XvvrqjJq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6+S91ec";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3Mp7Dry"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqrOd351030
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=; b=h6+S91ectDgEyORG
-	S1jC5DakWLX5QfDmaOXupVyAUzAGuOXi88d6bBwKqvIQGCsuL0YIu0GSI5K1dDyv
-	J8bOw0UDSh/3XHF9GvSrmnSntzt5mkMJnVkDNApC/xgYaA907OS93mW0HS4eWo84
-	/ezJpFIWlELErhW9JlZLMVPLlsWf3H6SfamIkCmxuEtq9utV7ic+QELL9ySiwBsu
-	eVInksBK4gqmVApUF1aFfQ0+RaL0LrZoA2ObNub+uBefTLRjEALsut/maBO9QbB7
-	n4Iuk1yq4FMubDnE2lSgErY/P1CdAPQh85Hw0JGmgDvEaMLlqdQV+YecfhY2koSr
-	i00vmQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h01vkkf28-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:31 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9123be39eeaso88475436d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:58:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790693911; x=1791298711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=;
-        b=c3Mp7DryE6lf5INug55hBEZKzqaeciJzfTFBKGnNP96nAfwT6SRjxyQnxHNzn7WnhM
-         xRdEZLJMV/RfewuvtqKpsQVQ+YJtLoJUer4FY9ti8kjlpDvtKcZqop/YotW9axgfGxvr
-         bWbLhYQdQKAhuuGEpI1uzQ3TjgOF6TTq7EfQ5F6JHBZ8175dIsVTVs6C1mxNZLkL52bm
-         yNoRTdSYB4Z80oHKbg5D3a8zuFVI4N2m8OZSDuu+3fPAVEqKsDzhE1OyyVtNFrfIacP/
-         yKg04supWUBfXLg1L+2jgfhP2GPliaMAXceWUMOcDZa5VmXTABMtuOS/yAaQj39ATygB
-         0OQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790693911; x=1791298711;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=;
-        b=B4LGExCmLY1/zuZShRyzlkYl6ECwN91IS3zRFnPrhAQrbjs75As1xjRysWUi3Orrkp
-         Zce5rmcGdtAdRNZ0wXJX30JG6bz+G2Ht0E2dkL/vjpY4L7qkXzrpJpvl3m68mnQRRjOH
-         U+yW8vnLyJeHvIA4086bRZVi1LgA4wSZCeQ1Crpi0SoGa9P5t4cGFsTP9Ug3IP2+hhdp
-         EY1Rqk/bvgJFEinxIa6AiLBCNqFqczk134vyigFtzAC2aBCpamhvnGi3xJYLc6DgfaA6
-         n6GAf6Zmks3MJyfDSRB1rXtzbF+C33htCxBvbwHOhL/1LA4BAwqCy4+tKrDjRsMawqc4
-         2Whw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9/XM0MU68ZfGg6GDmwFefWiAlSG2VQaUR90RjTHsaMoYXkknwnNrWC9323SHBHEKyK3KGzR60pqrLv+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l69u8y3+05A+eaTauNNRuVl+E8qg6P285cyGPNfm4ZA+n9/Y70
-	4+gG5RY9qU4Zh+Xd8LB0DWH+GimU9+9tiravgfe4y+iwMZLwy42uzVEHzqXb+DWozMfWkLYZBge
-	2bBgOlSV9h4uxCUjSOHgjI5obX7iQncuj8chjadfQUEoAWswbjiiddvhpj4JZH/P5FTE=
-X-Gm-Gg: AYBFou36jsjVkRIeEqkY/EukDXFSsB1ruywHcD/BQ+VrD68pSEmnR12sIBzl7ibrc3I
-	WwC/0hF+NhPs9etrP/L6uScBj4r3a9LV9BrUPQ/MqyKOXxkS2hY4dfkQOQuFeDqjwEr6DSdUqRh
-	NcguF00tb7R2WZ0+r6k3zYXBmeOZbSUJiDjG3QK63f1k2nW2yO8tdjX2XQGvWuI7fgFiC52g5Ql
-	jP1h797TJEzCobXcFJOq9PscKNt6C5nYgwE9+vQhiIuVHWvth4/7qnVkuFtvJhllWYb5pGfiPmc
-	m5g5tOq0Ga73Xzr6wj42QjHuceYhcmUvVx6B66HMX8ZOT1GJm4v28FwFx5R0LdjF5DIBL2FwBX7
-	rkhf3EGRW0OBq7a081JgDdfe63nZl3aAKXmRP
-X-Received: by 2002:a05:6214:390a:b0:914:4601:dfd8 with SMTP id 6a1803df08f44-9144601e535mr213690316d6.10.1790693911017;
-        Tue, 29 Sep 2026 07:58:31 -0700 (PDT)
-X-Received: by 2002:a05:6214:390a:b0:914:4601:dfd8 with SMTP id 6a1803df08f44-9144601e535mr213689766d6.10.1790693910318;
-        Tue, 29 Sep 2026 07:58:30 -0700 (PDT)
-Received: from [192.168.0.116] ([124.123.146.251])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d377464sm12112356d6.41.2026.09.29.07.58.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:58:29 -0700 (PDT)
-Message-ID: <4b149801-0846-455f-83aa-a222219d01be@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 20:28:22 +0530
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XvvrqjJq"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB6GLY2189632;
+	Tue, 29 Sep 2026 14:57:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=R6JfXv
+	ppDwndtGpHNaqd1NG4kbQK5XAbphIjZn2QMB4=; b=XvvrqjJqEMZ89mSdXaLySS
+	CjMLp6MTIbywHpMoH9g+y4QVCQAscidvC84BgYYBCsDGT1/Z6vuQQOy4iZIfCCOY
+	WdK0UuxJrJ5UWKZ53D7fFcS/UIRk4Gq3HYZzy/bKf6CmZ2+0LV53SLbm1//1UPUS
+	ctXPDId3zJAV1Wakmxi7nI/NSrZ6DeedMlmA/ecpgei04M2kmKvbBa1n2PZmOsPJ
+	8O8K7cpFPeSvlrPp6PBGtS+umhzQUvgFZ8EGvyt2CXr4KgVGL9E7T6DMOVymFHGT
+	Wb0SPsavtNZKUxSrUk51KyQBHexVefyUFtjdF1wlw3M3VLxWclBDZY5dU2OHk4ow
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qr7mf1-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 14:57:30 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAlU6r1667670;
+	Tue, 29 Sep 2026 14:57:29 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhj493-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 14:57:29 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TEvPqG50397614
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 14:57:25 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 05FBF20043;
+	Tue, 29 Sep 2026 14:57:25 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EC00D20040;
+	Tue, 29 Sep 2026 14:57:14 +0000 (GMT)
+Received: from [9.124.214.246] (unknown [9.124.214.246])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 14:57:14 +0000 (GMT)
+Message-ID: <4cd3d839-ac67-43ac-9b22-0ded9c3d1f41@linux.ibm.com>
+Date: Tue, 29 Sep 2026 20:27:13 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,127 +62,149 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 0/2] net: wwan: qcom_bam_dmux: Add restricted
- DMA pool support
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn
- <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
- <ca3c86b6-c837-4298-a1ab-4fc61a2f8a0a@oss.qualcomm.com>
- <artzWeUgTHvGzo1m@linaro.org>
+Subject: Re: [PATCH v14 09/13] sched/debug: Add migration stats due to non
+ preferred CPUs
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: Nathan Chancellor <nathan@kernel.org>, peterz@infradead.org
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
+        vincent.guittot@linaro.org, yury.norov@gmail.com,
+        kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
+        meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
+        gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
+        vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
+        dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
+        hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+        frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+        christian.loehle@arm.com, tj@kernel.org, tommaso.cucinotta@gmail.com,
+        maz@kernel.org, rafael@kernel.org, rdunlap@infradead.org,
+        kernellwp@gmail.com, linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com,
+        Marco Elver <elver@google.com>, llvm@lists.linux.dev
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-10-sshegde@linux.ibm.com>
+ <20260929121838.GA1814129@ax162>
+ <2964a7d8-8765-435c-af9e-a38024fca877@linux.ibm.com>
 Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <artzWeUgTHvGzo1m@linaro.org>
+In-Reply-To: <2964a7d8-8765-435c-af9e-a38024fca877@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1OSBTYWx0ZWRfX/BZeuJ1e63Il
- W6vDkritQXgNXv9GK5PE0ZZtij3GHUusjrBc9zWU3N4GGCnyjCHGEFlSovEXeSzaONMYmV9q4nm
- yVrQS2IFtm93MAhwNMGtMBKE90fqd1o3CR957do1sQem1NB941vDwrqh/JB+QkuENNaKTIMw0p1
- URD6Dms6NL9mtLQoosxpPyEWR76+lm38bqE4XlJUAaec9Sgq0tiIAL+CPRoIN6D1WZqkSPdtrqT
- S2f5dhi/x/XeUV798jK1HF3ZjHwuI78JerQvuc+ftpmfhY6pZQakFq1ikxF4QUyDy2Mr4Y6MYT7
- kfRYPTUd5isjen7DIpYnWI8nuj2k6LIYl/6b4kqEIUEZQCZBNRCpShxRvFRnOitsSJTr7JN5v3V
- T3cuApIJDVxvSW70rByWx4bpZAoB3GEDrgmxI5u2GbEBy34Rtxzk17ZylL4bcjWnHQZhdr1jUeP
- PsFJxabvkYPN8t2l2xg==
-X-Proofpoint-GUID: HU5L5FTgy_mPf7mrejvc6y0oAJPXuex2
-X-Authority-Analysis: v=2.4 cv=VcVir1p9 c=1 sm=1 tr=0 ts=6abbd217 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=K/78aEDNEn2Q/Yuv7mVN5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uW-ob52F1wccIURrHgMA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: HU5L5FTgy_mPf7mrejvc6y0oAJPXuex2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1OSBTYWx0ZWRfX9GyhNTuQxcM6
- zjEkoD+ETJazPqswbdJ/ZlCo+ELF7c8raLPZcdYCbt7lWQX5P6F06Lw7PXkrXUrir7LUQcaiGEt
- jZNl9RWmHsEn6eoNGN98UJetO+eafZA=
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1OCBTYWx0ZWRfX8QE/bA12ixhQ
+ GGCKHdguXOu1egtpLmNkSa72JDnNMUZZ2Nmdt/wi83+3+cOVbAa2IpqRkuF7MOcB8GvpIImbYbU
+ /aCAv+pPZakCSsC1GlsvoT/gCc9aOb59pG2Rx0+IKXxlZTfOt7ZL/SheaULLw+dWbMZ87UvRl4V
+ VN0912Q/srwuFVnIEGjB2c04S8HBrELYySY2GNulZSMXYXoFoaD8BhjkksgcGH9xejrkckPVSXd
+ vTj14oAZFjUZqAj+p3j9mA2NLBMVN2u5DIBo5wg53YTM8zhoubcH8fjxEqqPMNfsy66lyCh9qPQ
+ x4HPZzxdQlnj417zp1Zt154lkdDESxmR/7xHkSzuG7w0Eg4sUciwy1KBe0AhOHhbjMfxf6H3x28
+ vClA6jrMbejcXQH6K8RLy4eXh5PYG0+NHPVgSA0uj01b8XzXUeTuzqJkdvLfx+yujh84XYgwW8x
+ 9qZMiUZ1g5tD8mAH+dA==
+X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6abbd1db cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=dZdlNAd9hR_1z_CP-BwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: mldWp8I46kJ4NJJmp9bnC7Hus2sjzBBG
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1OCBTYWx0ZWRfX01DnDrelLr55
+ 9G7RaKzPyTtiTdojcqqAUfqUz2rKVRzPClp7+lgC8uZqV83DRtWhwwgLx0fYqxCFTaEF4HbsXUx
+ Mbl++ljY7hRH8BlRm78TNcWAhW0HNhQ=
+X-Proofpoint-GUID: GtyHGCHu9-nvngSu4wczeaSac3lOIR3C
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290059
+ definitions=main-2609290058
 
+Hi Nathan.
 
-On 29-09-2026 01:44 pm, Stephan Gerhold wrote:
-> On Mon, Sep 28, 2026 at 04:02:47PM +0530, Vishnu Santhosh wrote:
->> On 20-09-2026 08:32 am, Vishnu Santhosh wrote:
->>> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
->>> domain with restricted access to system memory. BAM-DMUX DMA mappings
->>> and BAM descriptor FIFOs must therefore be constrained to a designated
->>> memory region that can be shared with the modem. Accesses outside that
->>> region can trigger an XPU violation.
+On 9/29/26 6:13 PM, Shrikanth Hegde wrote:
+> Hi Nathan. Thanks for report.
+> 
+> On 9/29/26 5:48 PM, Nathan Chancellor wrote:
+>> On Mon, Sep 28, 2026 at 11:07:24AM +0530, Shrikanth Hegde wrote:
+>>> Add a new per-task stat,
+>>> - nr_migrations_cpu_non_preferred: number of push migrations while the
+>>>    CPU is non-preferred.
 >>>
->>> Add memory-region and qcom,vmid properties to the BAM-DMUX binding.
->>> When qcom,vmid is present, the driver SCM-assigns the entire restricted
->>> DMA pool to the local and remote execution environments before requesting
->>> the DMA channels.
+>>> Since this new stat is per-task, it changes only /proc/<pid>/sched.
+>>> It doesn't update /proc/schedstat. Hence increasing the schedstat version
+>>> is not necessary.
 >>>
->>> The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
->>> controller references the same pool, its descriptor FIFOs are covered by
->>> the assignment as well.
->>>
->>> A related binding change allows the BAM DMA controller to use the same
->>> restricted pool for descriptor FIFO allocations:
->>>
->>> https://lore.kernel.org/all/20260920-qcom-bam-dma-vmid-ext-v2-1-4dbbff0e57c8@oss.qualcomm.com/
->>> ("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
->>>
->>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
->>> ---
->>> Changes in v2:
->>> - Replace the Shikra-specific compatible and coherent RX allocation with
->>>     memory-region and qcom,vmid properties.
->>> - Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
->>> - SCM-assign the complete pool before requesting the DMA channels.
->>> - Validate the remote VMID and restricted DMA pool configuration.
->>> - Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
->>>
->>> ---
->>> Vishnu Santhosh (2):
->>>         dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
->>>         net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
->>>
->>>    .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 +++++++++
->>>    drivers/net/wwan/Kconfig                           |  1 +
->>>    drivers/net/wwan/qcom_bam_dmux.c                   | 95 ++++++++++++++++++++++
->>>    3 files changed, 134 insertions(+)
->>> ---
->>> base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
->>> change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
->>>
->>> Best regards,
->> Hi Stephan,
+>>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>> ...
+>>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+>>> index 5049eff58fb7..7465c983e6f6 100644
+>>> --- a/kernel/sched/core.c
+>>> +++ b/kernel/sched/core.c
+>>> @@ -11236,8 +11236,13 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
+>>>           update_rq_clock(rq);
+>>>           context_unsafe_alias(rq);
+>>> -        if (task_rq(p) == rq && task_on_rq_queued(p))
+>>> -            rq = __migrate_task(rq, &rf, p, cpu);
+>>> +        if (task_rq(p) == rq && task_on_rq_queued(p)) {
+>>> +            struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
+>>> +
+>>> +            if (rq != dest_rq)
+>>> +                schedstat_inc(p->stats.nr_migrations_cpu_non_preferred);
+>>> +            rq = dest_rq;
+>>> +        }
+>>>           rq_unlock(rq, &rf);
+>>>       }
 >>
->> I followed your suggestion and updated v2 to use the restricted DMA pool.
+>> This breaks the build for me with clang-23+ (which have context analysis
+>> enabled by default), although it bisects to the final patch of the
+>> series since this is under CONFIG_PREFERRED_CPU and it is not selected
+>> until then.
 >>
->> Please let me know if this approach and the implementation look reasonable and
->> meets your expectations.
+>>    kernel/sched/core.c:11292:25: error: calling function '__migrate_task' requires holding raw_spinlock 'rq_lockp(rq)' exclusively [-Werror,-Wthread-safety-analysis]
+>>     11292 |                         struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
+>>           |                                              ^
+>>    kernel/sched/core.c:11298:3: error: releasing raw_spinlock 'rq_lockp(rq)' that was not held [-Werror,-Wthread-safety-analysis]
+>>     11298 |                 rq_unlock(rq, &rf);
+>>           |                 ^
+>>    kernel/sched/core.c:11303:1: error: raw_spinlock 'rq_lockp(__this_rq())' is not held on every path through here [-Werror,-Wthread-safety-analysis]
+>>     11303 | }
+>>           | ^
+>>    kernel/sched/core.c:11286:3: note: raw_spinlock acquired here
+>>     11286 |                 rq_lock(rq, &rf);
+>>           |                 ^
+>>    3 errors generated.
 >>
-> Thanks, the approach looks good to me. You received some comments from
-> others and Sashiko already, so I will make a more thorough review from
-> my side once you have addressed (or at least considered) them for v3.
->
-> Thanks,
-> Stephan
+>> Not sure what the proper fix for this is, maybe another
+>> context_unsafe_alias()? cc Marco just in case
+>>
+> 
+> I suspect it is due to using of dest_rq = rq and rq is changing context.
+> 
+> let me try locally and see the fix.
+> One fix is use rq->cpu instead of rq comparison to see if migration happened.
 
-Thanks for confirming the approach. I will address the remaining comments
-as well, so that you can proceed with thorough review.
+Well, it was rather due to Patch 8/13 which had rq marked as context_unsafe_alias
+after acquiring it.
 
-Thanks,
-Vishnu
+I have tried below and that helps to fix the warnings.
+I will write a changelog and send it across soon.
 
+Let me know if it works for you.
+
+---
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 0bb86a43a592..23677d76f9d2 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11283,10 +11283,10 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
+  		 * safely bail out.
+  		 */
+  		cpu = select_fallback_rq(rq->cpu, p);
++		context_unsafe_alias(rq);
+  		rq_lock(rq, &rf);
+  		rq->npc_push_work_pending = false;
+  		update_rq_clock(rq);
+-		context_unsafe_alias(rq);
+  
+  		if (task_rq(p) == rq && task_on_rq_queued(p)) {
+  			struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
