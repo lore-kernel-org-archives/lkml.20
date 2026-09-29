@@ -1,117 +1,102 @@
-Received: from smtpdh19-2.aruba.it (smtpdh19-2.aruba.it [62.149.155.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7519B3AC0ED
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321683ACEFF;
+	Tue, 29 Sep 2026 08:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670201; cv=none; b=pxMesFoCtqjH8PXZKyZlCgqhEMkJ4620pyo6QkZ7Y2AJsEVhomi0KV5Pj56aYS52v7zFVk3mTvpMR24/mx53ldAcgVnN6V5shd1xgV6vv1ta6vBPZ7AmQLFK3tyHGZ9BqOf1XYom+67ZTUCfmFrg9Sh9TQ0ukrg0QN1+eNmwEjU=
+	t=1790670280; cv=none; b=o2bYicSWOTdlFl5L73hQIWVQYwLVaxZT4h3nAcF6gF8pVpKnZKyKNbU4JPa2RX55o/FoE76/02gSiq1n7icC1d1bAdqBiZVvgT4sBCAeAdhgxk47ZfGNCIjRHN5+bdrFV9cS1+2UpypaVvyb5s1ttTO6tK7CkKQl488qWwRR4pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670201; c=relaxed/simple;
-	bh=hH6wFHZcqV5QAPROldTmx40Jya4IORDEg+KMnchDpqI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P5w5scY0QmMawk6hygo7mA0cNd75aM/sEOD9XkbEUnxEQo3T72lMGKiOauzRCHMB2hZzupMEY25w2PPYPRNZVGratjSw8OGgF/x2TdWSvkVIiv6Tw3fnI6HfRIlAeggiFryTrSaMllsXs5PFQ8qc7Csqb2hiWErwLSnAr9APZvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=Nfhuhoxi; arc=none smtp.client-ip=62.149.155.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790670280; c=relaxed/simple;
+	bh=DSjqS1GfPRbk667G7+Zbmx6tEavD40Uv6BKwPB8amig=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AzDHuPFB53RxpbYH2r6xvnw4IZiWR/sGGjBCU3ga2h6jWsdEfCD+4iV5PEwvZAy1zCV9NfBLSfVoMEefVeh9ZM88CpD7yu0z6/HM/hZ0cZ1NoVxFW80Xj+ME57ayfNHaHJNW5+JmZjpTIHmv0b0ztMoUngz046GXz6uG6vIO4Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7WHQKZQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="Nfhuhoxi"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id BT4Ixtaiy5bAIBT4Ix9aTM; Tue, 29 Sep 2026 10:20:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790670008; bh=hH6wFHZcqV5QAPROldTmx40Jya4IORDEg+KMnchDpqI=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=NfhuhoxiaQB/Y2Fg2Fz1OmknIdOuooek24KcC+a48CAQlWiwFc5rp3aKkGUxN2g5i
-	 Xu3kJN57eX0EkjSADOfWghcXbtW1Vyxy3KElZ0Y3rl7d4f/sPrvlcRB0wiXJICCHqV
-	 JUb0fjCNyOT8q7vw9yMGpDW7Y0Mnx7CYZRugtk4UvVVjo8FQMdqu6/zN3TlYosU7+e
-	 Ky2SAOPK0L+bep3MV71pK7WRc0y9K0miOXCJO1h3n5azs5zoxup07i5JlhmDFSQ2Ki
-	 zwSCBnOL4EtkFdkQHaZQUKZUG7vQ2XcDgh92eiW2Hco2QzdLTxCdIFkn2OFSCHK9jk
-	 XgwAFjpSnRUdQ==
-Message-ID: <c8eb7663-484d-43c7-8092-280a68ecac0d@enneenne.com>
-Date: Tue, 29 Sep 2026 10:20:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7WHQKZQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B207BC2BCF6;
+	Tue, 29 Sep 2026 08:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790670279;
+	bh=DSjqS1GfPRbk667G7+Zbmx6tEavD40Uv6BKwPB8amig=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=G7WHQKZQmu3wVw3SS2S4XlczqSrYRfl4fm+bRHZ6uSMR/5vQfD5t/e5ZmEkj8GYp+
+	 rfjBzrHLzHEPz+G/QIfO9zK0Dk/p24ousQcWOes8lh8UP5wh3wl/QpE+JYHt/A3ewH
+	 XtUgXqFbS7eHJS8uD5x6TlxvY+CE8zWUxAhNdKksD4tplEHZT7Pcu6afy6tNtF0UHQ
+	 25MdeTwqE5+MmYyx9JTOGS/xY4+HGpJKcsMsNFySmzFJ1uZznNzNO/JfO+c+quERQ8
+	 Kg3j33+17hcsSJRDMmM31hoYCHMkCOD9oCkVh/8nLvKDZe1c+wiCbePCAOwvOyf4+W
+	 fs+u/atg5V7qg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82E29CA5FA5;
+	Tue, 29 Sep 2026 08:24:39 +0000 (UTC)
+From: Shuming Fan via B4 Relay <devnull+shumingf.realtek.com@kernel.org>
+Date: Tue, 29 Sep 2026 16:24:06 +0800
+Subject: [PATCH v3] soundwire: intel_auxdevice: add rt766/rt767 codec to
+ wake_capable_list
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pps: generators: don't use the driver's info after
- unregister
-Content-Language: en-US
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260929022219.212024-1-danishkhateeb03@gmail.com>
- <20260929022219.212024-3-danishkhateeb03@gmail.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260929022219.212024-3-danishkhateeb03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfFQH/YbabTwp9O6unY4zh0waVgfemXjiMGt4TEBC0Mo7RmL5JYromnZc65EZDNdb7XAhWWKisnI+PWtE4EYvsH/fzRU1acmiU8a/2dQQMuBF8rHb+taX
- 21zIP4uub9sVhThY5ZBVJ4bkgGYUVzXswf1G/SpgerFrGhhIqGDON6Fbq9BwUr5xMLWJgwVJ6FyFGTRzHWkNmqSlfohvj+72wMHKQvLbYGdwD84MBTOh/Vjm
- 4FpQXdETfzuBo0xLbWrnEEd0Tmjtj/DFGSfV/6LZ86DP0gFTUYewO3+R/P8cv17EQsjpB3gIAElAxI+dqQFhm9lXdr0dZYityFaQ+U5+mwVgCJ0zf7VY6hJe
- xd4uLHCxy/7gmAbLIr9ll6AssmRQNz5k/UHVWE1JCRpzHSg8uGS1ywtfmGFZDDIpk+iV20p9
+Message-Id: <20260929-rt766-wake-v3-1-09c0b82c72a6@realtek.com>
+X-B4-Tracking: v=1; b=H4sIAKV1u2oC/22Nyw6CMBBFf4XM2hpok6F15X8YFn2MUlFq2lo1h
+ H8XcOvyJOeeO0Gi6CnBoZogUvHJh3EBsavA9nq8EPNuYeA1x1pxxWJuEdlLD8QcSmecwlYoAcv
+ gEens31vs1P04Pc2VbF4Lq9H7lEP8bG9FrN7fcBGsYRJb1zhpZKP5MZK+ZRr2Ntyhm+f5C7YBJ
+ HK4AAAA
+X-Change-ID: 20260929-rt766-wake-d68dbd967393
+To: vkoul@kernel.org
+Cc: flove@realtek.com, oder_chiou@realtek.com, linux-kernel@vger.kernel.org, 
+ linux-sound@vger.kernel.org, jack.yu@realtek.com, derek.fang@realtek.com, 
+ Shuming Fan <shumingf@realtek.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790670278; l=1046;
+ i=shumingf@realtek.com; s=20260924; h=from:subject:message-id;
+ bh=CuWXA0osMnyNhJR4bA+pYYv+p0CVTA4+P+MOPg7CqKE=;
+ b=jACE0ZSkVju5HVgsQDQUKvR/DEXCCQziF3kLiEEmLhLqp2yUduvmFVauLnRsZDFigP15+U5jF
+ TFulc/IHDM+Cn8E6M+q5F/eV5Fg7zVVVhNCM7OSZbzHCCQHDeqnvib2
+X-Developer-Key: i=shumingf@realtek.com; a=ed25519;
+ pk=ZM8Pg7tEJ0SDXQeBw6SfvcYyqXU9nF88DuTyxzf9utE=
+X-Endpoint-Received: by B4 Relay for shumingf@realtek.com/20260924 with
+ auth_id=1053
+X-Original-From: Shuming Fan <shumingf@realtek.com>
+Reply-To: shumingf@realtek.com
 
-On Mon, 28 Sep 2026 21:22:19 -0500, Danish Khateeb wrote:
-> @@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
->  {
->  	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
->  	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
-> +
-> +	/*
-> +	 * An open file keeps pps_gen around, but the driver may free info as
-> +	 * soon as we return. The sysfs files are gone now, so wait for the
-> +	 * ioctls using info and make later ones fail.
-> +	 */
-> +	scoped_guard(mutex, &pps_gen->info_lock)
-> +		pps_gen->info = NULL;
-> +
->  	put_device(&pps_gen->dev);
->  }
+From: Shuming Fan <shumingf@realtek.com>
 
-This closes the window after the unregister, but what about the one
-just before it? The two generators in the tree stop their timer before
-calling pps_gen_unregister_source(): pps_gen_tio_remove() does
-hrtimer_cancel() and pps_tio_disable(), pps_gen_dummy_exit() does
-timer_delete_sync(). At that point the file and the sysfs "enable"
-attribute are still there, so AFAICS a PPS_GEN_SETENABLE landing in
-between re-arms the timer, and nothing stops it again before tio is
-freed (or the dummy module goes away).
+rt766/rt767 have wake capability. Add it to the wake_capable_list.
 
-I don't think the drivers can fix this on their own: if they unregister
-first, the TIO timer may call pps_gen_event() on a pps_gen that is
-already gone. So I suspect the core has to disable the generator itself
-on unregister, once the file and the sysfs are gone and before clearing
-info. On top of this patch, something like (untested):
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+Changes in v4:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://patch.msgid.link/20260929-rt766-wake-v3-1-867d1d8b81a2@realtek.com
+---
+ drivers/soundwire/intel_auxdevice.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/drivers/pps/generators/pps_gen.c
-+++ b/drivers/pps/generators/pps_gen.c
-@@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
--	scoped_guard(mutex, &pps_gen->info_lock)
-+	scoped_guard(mutex, &pps_gen->info_lock) {
-+		if (pps_gen->enabled) {
-+			pps_gen->info->enable(pps_gen, false);
-+			pps_gen->enabled = false;
-+		}
-  		pps_gen->info = NULL;
-+	}
+diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
+index 901a71262094..24fff33a9093 100644
+--- a/drivers/soundwire/intel_auxdevice.c
++++ b/drivers/soundwire/intel_auxdevice.c
+@@ -73,6 +73,8 @@ static struct wake_capable_part wake_capable_list[] = {
+ 	{0x025d, 0x717},
+ 	{0x025d, 0x721},
+ 	{0x025d, 0x722},
++	{0x025d, 0x766},
++	{0x025d, 0x767},
+ 	{0x04b3, 0x9356},
+ 	{0x0102, 0x5572},
+ 	{0x0102, 0x5682},
 
-Could you add that as its own patch in this series, and test it with
-your unbind/rmmod setup? As a bonus, pps_gen_unregister_source() would
-then do what its kernel-doc promises.
+---
+base-commit: 90b63b309fd6c0f192337659e73e3047a67df99f
+change-id: 20260929-rt766-wake-d68dbd967393
 
-Also, a reader sleeping in PPS_GEN_FETCHEVENT is never woken up by the
-unregister: after 1/2 it no longer touches freed memory, but it now
-sleeps until a signal arrives. Worth a wake-up and an -ENODEV while you
-are there?
+Best regards,
+--  
+Shuming Fan <shumingf@realtek.com>
 
-1/2 looks good to me; I'll ack the whole series once this is sorted
-out.
 
-Ciao,
-
-Rodolfo
