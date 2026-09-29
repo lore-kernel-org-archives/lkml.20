@@ -1,139 +1,130 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-195.mta1.migadu.com [95.215.58.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD63A457E4E;
-	Tue, 29 Sep 2026 19:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960E541CB2E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:11:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709082; cv=none; b=hX6QtcufDHehUBce6uQUQzGkNfyeScIhNoo37NOcUuiQNg93jvO0gzb/6oSj7zZfB0H1Y6M2EBxvBqbMRJv1dcshMhsKVU65RIAbzOzDre5sQsNMj2fQ/wIcoTfXvr/MkQj4g92RNabqOB8MqTi+NwTa/Cg1FMpGGYdGDMSvjLc=
+	t=1790709101; cv=none; b=Nlc+zTVY6v4my0L4GTbzWM1y+4pP6iuQzwGPbfgzN04ERmysDrgRdvO549y1JnIfl8/ifaJFATt1qsEkYUDtk8NT7cqn1BM7Pm2KI+opNOjozhz1dOy77e6wGcRv6JiDAR5FMHdSrmnAvzaDu0+HdsGlnjHfbtCS4J/pjWQApNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709082; c=relaxed/simple;
-	bh=izHzaJOs0CEG4YSsC3pzhFbNDXDUjOsPjamc/l8PlFk=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=Pq0HEyMyz1YJqlv0wAsoWysXE9hRDbgWu2j0DxVkqWYLVVu2Wp91ZtTCK5jX3zVTo25iLAFTCR7APk5QhDpFrr7cJoZ4aEtKG9o3TaGPAvlJJFYlYjycPRqN07Unp+dkmOxEFf3ImPN8jssVqaF/29vB40sUGD0N1R7w51mIiNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2bZK6t91; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NyclH/v4; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790709101; c=relaxed/simple;
+	bh=JfVPwfuojVZMZlRIrq/IrnSUzs93t53tkFi/otplTA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gFqX+2Rng3x99oBFD7i7EqEkuUq2uweP2x1A7nCHc93/fqcQovAN8e0Hj0aimJmY7NmFqfWZAjsh115LdwD2ohZ1clIGPIYb9E/jyO3WvRtdYDDGNQzhqD7iL7LEWEgI59WVp2fKcQC44A2Ph8LLrhKZfHS4dcM4FLPDbBez5WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QXzeglYC; arc=none smtp.client-ip=95.215.58.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2bZK6t91";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NyclH/v4"
-Date: Tue, 29 Sep 2026 19:11:17 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790709079;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bXd4x92/vZCRy1R5g518OCi9+DCUXSWZPLaRtdhAq4g=;
-	b=2bZK6t91OcvlA3I4HQwhfwom9wF+kkjhCh5fab5G1ezX7wBoXXNFuFRxapC5+7lHYQLjJ4
-	3Jsc8g4uf7UZDyARzxmBSi4xbplmqK8Gm5ZcGqouqPaAkGDvep5DMNhr4Db5GNMKmFiCAU
-	aoIr3jpVStgzHmEZ5ePp+b2suih1FtRUYrqmnlai7j0CHYNAjXUuCevR80WaxRc0R2rl81
-	UEEGzd1civrbflMRrAAb/rWQkuJkZnaaN/36Saw8qG6r0TIdEp8qo6MC7DRwcQNV7bfnw5
-	L9Le8ro4xilvhoRSkOoPgTXEdeNW5BJIKBoibh08/YcCAbdy44t249Y/WzoCxg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790709079;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bXd4x92/vZCRy1R5g518OCi9+DCUXSWZPLaRtdhAq4g=;
-	b=NyclH/v4kBduiQ6+mS0Jy1x4LRcyU8Fmml7+rfcrF6EDbyPlUhq2UGu5iGTOmX1AGrEaZp
-	sGRfiPbP1VBl0jBA==
-From: "tip-bot2 for Paul E. McKenney" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: timers/core] timers: Mark racy updates to hlist_node::pprev field
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260919002523.3133928-1-paulmck@kernel.org>
-References: <20260919002523.3133928-1-paulmck@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QXzeglYC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JfVPwfuojVZMZlRIrq/IrnSUzs93t53tkFi/otplTA0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790709097; v=1; x=1791313897;
+ b=QXzeglYCDJNMJJNUY3qmqsWhJAJzmkoAuSJGv4/MeMjbn+2RqsMcmpjNJSfX3PqETnjmvxoy
+ Ce6BXrXX0I9c9lsPZTMRcN1FJHxsVZl9kw6KM2lTYzSvBVGMnMW7T0gsgp+n3tqfjBC/BFZNE20
+ 8s/qzqUnTLB6l2Rv21Rhwn0Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a126e1739c00e298;
+	Tue, 29 Sep 2026 19:11:37 +0000
+X-Mizu-Trace-ID: a126e1739c00e298
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: Re: [PATCH rtw-next 1/2] wifi: rtw88: download the beacon the reserved page was built with
+Date: Tue, 29 Sep 2026 19:11:36 +0000
+Message-ID: <20260929191136.1315-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929124400.3856049-2-mehmet.fide@gmail.com>
+References: <20260929124400.3856049-2-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179070907745.3910103.4729382723879149495.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the timers/core branch of tip:
+On Tue, 29 Sep 2026, Mehmet Fide wrote:
 
-Commit-ID:     1159ad0a6aaa414dc726a33ccdcb702752d1b8eb
-Gitweb:        https://git.kernel.org/tip/1159ad0a6aaa414dc726a33ccdcb702752d=
-1b8eb
-Author:        Paul E. McKenney <paulmck@kernel.org>
-AuthorDate:    Fri, 18 Sep 2026 17:25:22 -07:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 29 Sep 2026 21:07:15 +02:00
+> Besides the extra work, every beacon fetch advances the DTIM count and,
+> while a channel switch is announced, the CSA countdown; doing it twice
+> per update lets a countdown that starts at 2 reach 0, which mac80211
+> warns about. Keep the beacon skb from the page build and download that.
+[...]
+> @@ -1744,25 +1745,25 @@ static int rtw_download_beacon(struct rtw_dev *rtwdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	skb = rtw_get_rsvd_page_skb(hw, rsvd_pkt);
+> +	/* the beacon kept by rtw_build_rsvd_page() */
+> +	skb = rsvd_pkt->skb;
+>  	if (!skb) {
+>  		rtw_err(rtwdev, "failed to get beacon skb\n");
+> -		return -ENOMEM;
+> +		return -ENOENT;
+>  	}
+>  
+>  	ret = rtw_download_drv_rsvd_page(rtwdev, skb->data, skb->len);
+>  	if (ret)
+>  		rtw_err(rtwdev, "failed to download drv rsvd page\n");
+>  
+> -	dev_kfree_skb(skb);
+> -
+>  	return ret;
+>  }
+>  
+[...]
+> @@ -1791,6 +1792,12 @@ int rtw_fw_download_rsvd_page(struct rtw_dev *rtwdev)
+>  free:
+>  	kfree(buf);
+>  
+> +	/* free the beacon kept by rtw_build_rsvd_page() */
+> +	rsvd_pkt = list_first_entry(&rtwdev->rsvd_page_list,
+> +				    struct rtw_rsvd_page, build_list);
+> +	kfree_skb(rsvd_pkt->skb);
+> +	rsvd_pkt->skb = NULL;
+> +
+>  	return ret;
+>  }
 
-timers: Mark racy updates to hlist_node::pprev field
+This breaks hardware scan offload while an AP is active.
 
-hlist_unhashed_lockless() locklessly samples the hlist_node structure's
-pprev field, but detach_timer(), hlist_move_list(), and hlist_splice_init()
-all use plain C-language stores to update this field, despite the "The
-READ_ONCE() is paired with the various WRITE_ONCE() in hlist helpers that
-are defined below" in the hlist_unhashed_lockless() header comment.
+rtw_download_beacon() no longer fetches a beacon of its own. It reads
+rsvd_pkt->skb, and rtw_fw_download_rsvd_page() clears that skb right
+before it returns:
 
-Therefore use WRITE_ONCE() for these hlist_node::pprev updates.
+	if (rtwdev->ap_active) {
+		ret = rtw_download_beacon(rtwdev);
+		if (ret)
+			rtw_err(rtwdev, "HW scan download beacon failed\n");
+	}
 
-KCSAN located this issue.
+rtw_hw_scan_offload() takes that branch without building a reserved page
+first, so nothing repopulates the skb. Since the store has already run from
+BSS_CHANGED_BEACON when the AP started, rsvd_pkt->skb is NULL by the time a
+scan begins and rtw_download_beacon() returns -ENOENT:
 
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260919002523.3133928-1-paulmck@kernel.org
----
- include/linux/list.h | 6 +++---
- kernel/time/timer.c  | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+	skb = rsvd_pkt->skb;
+	if (!skb) {
+		rtw_err(rtwdev, "failed to get beacon skb\n");
+		return -ENOENT;
+	}
 
-diff --git a/include/linux/list.h b/include/linux/list.h
-index 77fb62f..e375369 100644
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -1172,7 +1172,7 @@ static inline void hlist_move_list(struct hlist_head *o=
-ld,
- {
- 	new->first =3D old->first;
- 	if (new->first)
--		new->first->pprev =3D &new->first;
-+		WRITE_ONCE(new->first->pprev, &new->first);
- 	old->first =3D NULL;
- }
-=20
-@@ -1189,10 +1189,10 @@ static inline void hlist_splice_init(struct hlist_hea=
-d *from,
- 				     struct hlist_head *to)
- {
- 	if (to->first)
--		to->first->pprev =3D &last->next;
-+		WRITE_ONCE(to->first->pprev, &last->next);
- 	last->next =3D to->first;
- 	to->first =3D from->first;
--	from->first->pprev =3D &to->first;
-+	WRITE_ONCE(from->first->pprev, &to->first);
- 	from->first =3D NULL;
- }
-=20
-diff --git a/kernel/time/timer.c b/kernel/time/timer.c
-index ae9abf1..42afdcb 100644
---- a/kernel/time/timer.c
-+++ b/kernel/time/timer.c
-@@ -890,7 +890,7 @@ static inline void detach_timer(struct timer_list *timer,=
- bool clear_pending)
-=20
- 	__hlist_del(entry);
- 	if (clear_pending)
--		entry->pprev =3D NULL;
-+		WRITE_ONCE(entry->pprev, NULL);
- 	entry->next =3D LIST_POISON2;
- }
-=20
+rtw_ops_hw_scan() then treats the error as a failed scan and aborts it.
+
+Before this patch the scan path worked because rtw_download_beacon() called
+rtw_get_rsvd_page_skb() itself.
+
+Could the scan path fetch its own beacon, or could the retained skb be
+released only after the standalone download, with care taken to not
+advance the CSA countdown twice?
+
+Best regards,
+Luka Gejak
