@@ -1,437 +1,167 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637823A450F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0770537AA9C;
+	Tue, 29 Sep 2026 20:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715356; cv=none; b=PtKQgLYuT6XmiZ1RdJESztBgp3a3VqM9cr+vbcbp+aGYkzCPaRnEowbAMTXnzGBZcXEkSL6HXuJlLLyCCIOXU1osjAv7bnL0C56VQX5h0oAEy7cwBBUklF/V2pBdsF/Gw6ia0303ytfU8RUtvlz35l+8l+wOqQTvmPmMQc08cjE=
+	t=1790715371; cv=none; b=rS+FivgxjgPYkgLKz5hgRIx9J+6eXM/i7AC/KG7Ogs1AifpED9mOBbmpELd8vXNGSYX1pO1MJSSG04eWA2E73BgM/JwYfylPvY6VAW3pVNWTcnBzbUMSDcWMZbiRBm3ZSALrOF+rItPl8BsKFpGqx6Zl+H5WQ3pxxMNtX9mcQCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715356; c=relaxed/simple;
-	bh=fmjR5znDuXAP+eGjxPWNBzmgAiD4HsAGBUk7tghgSfE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=POhxsKLB5usuRGaNb7sus0SLf1nX9T65MchTBmUSh9syDxSzZzwCvQne/tXJG4qepKtLapowHOzW39Yoobb/419kv/ZirYrb6cN71MjX0TK9T5NJ1ojhuSucFXrg2Ypcztv5vRxqbm3Ej7OA1EZcQ7tzOARq97WCkyGNze5cYsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=har.mn; spf=pass smtp.mailfrom=har.mn; dkim=pass (2048-bit key) header.d=har.mn header.i=@har.mn header.b=kPXUlhhM; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=har.mn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=har.mn
+	s=arc-20240116; t=1790715371; c=relaxed/simple;
+	bh=Y6tLZ+MWmEK3aPAI7iP6Dz2kbWCHr5Co6SSMUqBltJw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dZUyz8jCQ6XUAm1v73HIeYY5f+Q6AIQlI2f8I2Esv0a7OHoQViMMHTFbrDDIdSraZjjAsiqTKdLIsrRhaalrQgbcmT7Ee2jyMBLtRpL20fuPa9fgHMZUZaUASf7dZ3wcj9TKA5r58R7gEEwC0pDEmKfrGaC7TtwWxvx5QuArDzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qs6W0L7O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=har.mn header.i=@har.mn header.b="kPXUlhhM"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so45205621fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:55:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=har.mn; s=google; t=1790715352; x=1791320152; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2jHb5XJ9mbC6EVlnTfZ+WcK6KQ0TTrHYytvslAEWIq0=;
-        b=kPXUlhhMLZBrpBmXPFvr3W4lIiws6DPcTVAAZHjbaKl6BLCk+r/zknDzDwoOS9wtnr
-         ev31rqVhiFDQsuYE5tJ6AnECG6d7Zg3E4KRyPZ7QsgiWhc3gKAwrFQFerIDYx/GQN6Yp
-         UNZc55WhPxB8mAkK5R05WDL/fak0u7N8jk+ab1/x/fmexsLKF/F9KM1LflCKy6Cx9a5s
-         UrZ20FiVy37iSIARfgE1ta5VVSHeHbkNXm0Jen9onPCPUIvETF1GFnTNi4aC3ALYSvk7
-         5dlRk8BkVdwfgLkBV5fL6JjBHngKUZOsFKxw6wi5iB7MXVvrGsr2kaEcHz3cU0W+f3A4
-         NNKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790715352; x=1791320152;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2jHb5XJ9mbC6EVlnTfZ+WcK6KQ0TTrHYytvslAEWIq0=;
-        b=fskdKsuOudUwzAaR4C86awSuGU3m8rme1dGF3DR9y8StIK5lM/tde7w33KwvCiJJdq
-         U1NEb9piQKD1c+j9SVbaublVZd0bL+dIps9yU5MyV5d3UDYHqojefEqtdfaGZblY11Fx
-         5B6pi8KkWHC+GBhYha1MVr+FZNTrmORs03B4Gul4fx2XFNXN0yfvP3ekPu8SCITEclBB
-         2rABMCEtWHGzqE4sBz4SJpGXc60XABJa/fDYtP4uG6NFW9nZFpjpKGgRyNONX2xilVbL
-         B0KucFLAkQrSEmb4DbWKlOtHe5GliEoG0yQYcojrGogBcsWMBvtuYOnqpiNj3vuRezaY
-         c7rw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeWR8mcxllJ6UGw1+rlbQe0qMKtV9obkR5+l/tlloI/D4fotNUNx0amaro87oCbY850T4A6UIalGN88mI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtqtN25KyNeSCONg/LEc89gPcWUsw9qSUd/kx9GvZgWH398CLp
-	EAkohWQwQRLZNX78lRcVB9acAOk4O+KFZrPiMICNi796jyv+dlkdXSGwhWaXywC+n/bvCmVSqI4
-	22+NidRsj
-X-Gm-Gg: AYBFou1odHSG6vE1o1wLzJHZ1/qf8fI+tTTAvsZCOEgs6Sowml5B7xI04KksOf9lA15
-	FCo/f6cZHYLIBZdjvjMfTFXgPKlYr8vpqXufKqWzUpjsVYUPjtBnFuAjWeJ9npdJrr26niO7F7k
-	gly2J4k/tpzjoDHq4JNJcamUHoiEovFo9DaYD3BgZJt4qnHarmZXZzJe0zu1oDK/e1A4FAWtu5/
-	riEVX2t2hBxqYmGHWxpWgJ67lQWnbI6kvwkNd5MqAAZ0QEJsZL4VLJIoPf0n3FWlY5XmLE0mwSx
-	VeG2L0omfY1SN8LfqxYIkOlG2GWDox6dGm56EXUANQALCZHOgRPIgEEHjnd5m8qWkjQTLLq2t1N
-	nq/DYOCf/vEx6jk10kmE30tVbdI9n2eUM9GdcikBvNrQUfgAwjkblUYYRYi1TvAH10V/A9fswnC
-	jv6AeLiXczoRST17aDWC9qZGMWLmRrr8oali8Mta0zjLrh6yinUpRpOtq5O7cfBdyTRiSlMsm1t
-	OnN6bi4oKmd6KCo8XldZc7Y
-X-Received: by 2002:a2e:bc05:0:b0:39c:624d:82b9 with SMTP id 38308e7fff4ca-3a77177ec9amr1894061fa.4.1790715352244;
-        Tue, 29 Sep 2026 13:55:52 -0700 (PDT)
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com. [74.125.230.98])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a77190854dsm1661801fa.23.2026.09.29.13.55.50
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 13:55:51 -0700 (PDT)
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a772de44c5so999261fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:55:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzv7ZvgXEYTrLbiaCWYUJGpOnTm8SPmBbKrdO3pxDRhbMJ02v6n+RzhTysxpsgAsZNX++jbSB1SCC2omSk=@vger.kernel.org
-X-Received: by 2002:a05:651c:4214:b0:3a6:566a:5ca1 with SMTP id
- 38308e7fff4ca-3a77191a593mr1463641fa.21.1790715350365; Tue, 29 Sep 2026
- 13:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qs6W0L7O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A3F1F000FF;
+	Tue, 29 Sep 2026 20:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790715369;
+	bh=egeJiaAABQ6NN/KxfVE7y0aHVwqQk0f06ablB231vIU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Qs6W0L7ODxRwl5KzB9FwrQyINYr7k7hSASbeNZeaNn4oxg0yzRCDjlG9vXh0oElPm
+	 TU+mCK4lsMfk+TfBefehlWEG6IgNuMEYzooCzfFfArRmnb0mp/TkIvngqEhE6tgHfX
+	 Zf7cS1AMMJXpwlhr1h7CKunFIKV59ZYgzgvZ5I0Hdh41+VDUQaH+bInjD+zUBpVoUZ
+	 TNsXvzryzPY7A0CuvQtvp15dtF39kDHIXqqocxOGE1TRC8UGj/FcOVaPwKqL1RCuBF
+	 jLkCysPHFFC4NYiVswiXu98R5V8B0zFrU2CYDYcMlpvzEsqHrVZv1Z6bH0ncQZW2CC
+	 toY5jIwNFu/yA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Anna-Maria Behnsen
+ <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross
+ <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, John
+ Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andreas
+ Hindborg <a.hindborg@kernel.org>
+Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
+In-Reply-To: <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
+Date: Tue, 29 Sep 2026 22:56:06 +0200
+Message-ID: <877bk3ixp5.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927141437.1432584-1-russ@har.mn> <20260928014357.2285448-1-russ@har.mn>
- <CAOQ4uxiD9ofGEG+CkjszGaHygPWH7S4nob03XRNXUCrze5n91w@mail.gmail.com>
- <CA+zrezRqjY3_V1cDRpTVsXY-d_2CEVkhPqjWiztuKH1CG63jUQ@mail.gmail.com> <CAOQ4uxj4xQ9Z=9JH=U21iHnfLBQLboz5dsivigKicWS22M+zgQ@mail.gmail.com>
-In-Reply-To: <CAOQ4uxj4xQ9Z=9JH=U21iHnfLBQLboz5dsivigKicWS22M+zgQ@mail.gmail.com>
-From: Russell Harmon <russ@har.mn>
-Date: Tue, 29 Sep 2026 16:55:23 -0400
-X-Gmail-Original-Message-ID: <CA+zrezR3vZOH4-DJbu7kRu=qXF4RSWUxz3BjpnOou_vy6eDcwQ@mail.gmail.com>
-X-Gm-Features: AclHuK_-sxgW41FSNSTiQINVXT69kVMm9iJRYozv6Nn2_kkXLQhD03LnrOFFrWg
-Message-ID: <CA+zrezR3vZOH4-DJbu7kRu=qXF4RSWUxz3BjpnOou_vy6eDcwQ@mail.gmail.com>
-Subject: Re: [PATCH v2] fuse: add inode generation number support
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: miklos@szeredi.hu, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, fuse-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bernd Schubert <bernd@bsbernd.com>, 
-	Luis Henriques <luis@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Mon, Sep 28, 2026 at 9:54=E2=80=AFAM Amir Goldstein <amir73il@gmail.com>=
- wrote:
+On Tue, Aug 25 2026 at 14:16, Andreas Hindborg wrote:
+> A hrtimer callback may modify its own expiry with hrtimer_forward()
+> and read it with hrtimer_get_expires(). Both run after
+> __run_hrtimer() has dropped the cpu_base->lock, so they race with a
+> concurrent hrtimer_start_range_ns() on another CPU, which rewrites
+> node.expires under the base lock and requeues the timer:
 >
-> On Mon, Sep 28, 2026 at 6:04=E2=80=AFPM Russell Harmon <russ@har.mn> wrot=
-e:
-> >
-> > (re-sending in plaintext)
-> >
-> > Thanks for the review! Comments inline.
-> >
-> > On Mon, Sep 28, 2026 at 2:38=E2=80=AFAM Amir Goldstein <amir73il@gmail.=
-com> wrote:
-> > >
-> > > On Mon, Sep 28, 2026 at 3:44=E2=80=AFAM Russell Harmon <russ@har.mn> =
-wrote:
-> > > >
-> > > > This patch adds support for propagating the inode generation number=
- from
-> > > > the FUSE server to the kernel.
-> > >
-> > > Incomplete statement.
-> > > Without the mention of GETATTR/SETATTR this is a misleading statement=
-.
-> > >
-> > > > This is useful for exporting FUSE
-> > > > filesystems over NFS, where the generation number is used to detect
-> > > > stale file handles (ESTALE) when inodes are recycled.
-> > >
-> > > How exactly does it help?
-> > > I am not trying to troll you, I am really curious. how?
-> > >
-> > > Context: I have been trying to improve FUSE NFS export support for a =
-while
-> > > I have built a library that provides reliable NFS export for FUSE pas=
-sthrough fs
-> > > for specific backing file system types [1].
-> > >
-> > > [1] https://github.com/amir73il/libfuse/tree/libfuse_passthrough/pass=
-through
-> > >
-> > > It is broadly understood that real NFS export support requires extend=
-ing the
-> > > FUSE protocol to identify objects using file handles and Luis has
-> > > already started
-> > > with this work [2]
-> > >
-> > > [2] https://lore.kernel.org/linux-fsdevel/20260225112439.27276-1-luis=
-@igalia.com/
-> > >
-> > > So my question is, what does adding generation id to GETATTR/SETATTR
-> > > improve for FUSE filesystem writers that wish to export their filesys=
-tem to NFS?
-> >
-> > Long answer is https://russ.har.mn/blog/2026-04-09/fuse-loopback-is-inc=
-omplete
-> >
-> > Short answer is that inode on its own doesn't uniquely identify a
-> > file. The unique identifier is inode + generation. Reason being that a
-> > user can delete a file and create a new one, and the filesystem is
-> > allowed to reuse the inode (but if it does it must use a different
-> > generation).
+> - The unlocked read-modify-write of node.expires in
+>   hrtimer_forward() is a data race against the locked write in the
+>   start path.
 >
-> This is obvious. That's the reason LOOKUP already returns a generation.
+> - The is_queued check in hrtimer_forward() is racy with
+>   a time-of-check-time-of-use bug as well: a concurrent
+>   start can enqueue the timer between the check and the expiry
+>   update, and forwarding an already queued timer changes the expiry
+>   of a node inside the timerqueue without re-sorting, leaving the
+>   tree unordered.
 >
-> >
-> > As for why it needs to be a part of GETATTR/SETATTR, consider that,
-> > given the above, without a generation number such calls are actually
-> > ambiguous. They don't uniquely identify a filesystem object. e.g.
-> > "what are you asked to GETATTR/SETATTR _on_?"
-> >
+> Timer users which both forward in the callback and arm from other contexts
+> must provide their own serialization, e.g. perf's cpc->hrtimer_lock plus
+> hrtimer_active flag, see commit 4cfafd3082af ("sched,perf: Fix periodic
+> timers"). The requirement is subtle and not enforced; i915_pmu and taprio
+> currently get it wrong. For the Rust hrtimer abstraction it is a soundness
+> problem: safe code can arm a timer whose callback is running, so callback
+> context forward and expiry reads cannot be offered as safe API.
 >
-> You phrased the question correctly, but the same question
-> applies to any other command, i.e.
-> "What are you asked to OPEN/TRUNCATE _on_?"
+> Add an alternative callback variant that removes the race
+> structurally instead of requiring serialization. An expiry injecting
+> callback receives the expiry snapshotted under the base lock by
+> value and, to restart the timer, fills a struct hrtimer_forward_args
+> and returns HRTIMER_RESTART. __run_hrtimer() then applies the
+> forward and the enqueue with the base lock held. The callback never
+> accesses live timer state.
 >
-> So you see, what's needed is to change the input argument
-> of ALL the fuse requests from nodeid to nodeid+generation, or
-> in the more generic form of NFS handles, a variable size object id blob.
+> If a concurrent start enqueued the timer while the callback ran, the
+> restart request is discarded and the start wins, matching the
+> existing "restart == HRTIMER_RESTART && !timer->is_queued" handling
+> for classic callbacks. The is_queued check is reliable here: while
+> base->running == timer, hrtimer_try_to_cancel() bails out before
+> remove_hrtimer() and the timer cannot switch bases, so only a
+> concurrent start can enqueue it, and the start path writes the
+> expiry and is_queued in the same critical section. Thus !is_queued
+> at requeue time guarantees the expiry still equals the snapshot
+> handed to the callback: the deferred hrtimer_forward() cannot hit
+> its concurrent start check, and an overrun count the callback
+> derived from the snapshot is consistent with the forward that is
+> applied.
+>
+> The new callback pointer shares storage with the classic one in an
+> anonymous union, discriminated by a new is_ext flag placed in
+> existing padding; sizeof(struct hrtimer) is unchanged and the
+> classic callback path is unaffected. hrtimer_update_function()
+> rejects timers with an expiry injecting callback.
 
-Yes, fair, we'll need to change all the fuse requests.
+Aside of the horrible name (what is "ext"?) the whole mechanism is
+creating a false sense of "safety" as the same problem exists when the
+timer callback simply sets the new expiry time without invoking
+hrtimer_forward().
 
-> This is from the latest proposal for FUSEX protocol [3]
->
-> struct fusex_id {
->     u64 nodeid;
->     /* will extend with file handle */
-> };
->
-> [3] https://lore.kernel.org/fuse-devel/20260429102058.1362965-1-mszeredi@=
-redhat.com/
->
-> > > >
-> > > > Key changes:
-> > > > - Bump FUSE protocol version to 7.47.
-> > > > - Repurpose the unused `dummy` field in `struct fuse_attr_out` as
-> > > >   `generation`.
-> > > > - Add a `FUSE_ATTR_GENERATION` INIT flag with which the filesystem =
-opts
-> > > >   into the kernel consuming that field. Gating on the protocol mino=
-r
-> > > >   version alone would break existing filesystems: the minor version=
- only
-> > > >   reflects the library, not whether the individual filesystem fills=
- the
-> > > >   field, and a zero there would look like a generation change for a=
-ny
-> > > >   filesystem that reports nonzero generations in LOOKUP.
-> > > > - Update `fuse_change_attributes` and related functions to accept a=
-nd set
-> > > >   `inode->i_generation`.
-> > > > - Populate `i_generation` from `LOOKUP`, `GETATTR`, and `READDIRPLU=
-S`
-> > > >   responses.
-> > > > - Detect nodeid recycling on `GETATTR` and `SETATTR` responses via
-> > > >   `fuse_stale_inode()`, the same check already used by the `LOOKUP`=
- and
-> > > >   `READDIRPLUS` paths, and mark the inode bad (EIO) instead of merg=
-ing
-> > > >   the recycled file's attributes into the existing, possibly still-=
-open,
-> > > >   inode.
-> > > > - Update `fuse_get_dentry` to validate the generation number agains=
-t the
-> > > >   file handle, returning ESTALE on mismatch.
-> > > > - Maintain backward compatibility: without `FUSE_ATTR_GENERATION` t=
-he
-> > > >   generation field in attr replies is ignored.
-> > > >
-> > > > Verification:
-> > > > Tested with a QEMU harness in fuse-generation-qemu against a patche=
-d
-> > > > libfuse (FUSE_CAP_ATTR_GENERATION, fuse_reply_attr_with_generation)=
- and
-> > > > its passthrough_ll example reporting real backing-filesystem genera=
-tion
-> > > > numbers. The suite verifies that:
-> > > > 1.  The generation from `LOOKUP` reaches `name_to_handle_at()` file
-> > > >     handles and matches the backing filesystem's FS_IOC_GETVERSION.
-> > > > 2.  `open_by_handle_at()` succeeds for a valid handle and fails wit=
-h
-> > > >     ESTALE for a handle whose generation does not match, both while=
- the
-> > > >     inode is cached and after cache eviction.
-> > >
-> > > 1 and 2 should work on upstream FUSE right?
-> > > This is something worth mentioning.
-> > >
-> > > > 3.  When a `GETATTR` reply reports a new generation for a cached in=
-ode
-> > > >     (inode recycling), the kernel marks the inode bad: fstat() on a=
-n
-> > > >     open fd fails with EIO, while a fresh path lookup recovers and
-> > > >     pre-recycling file handles fail with ESTALE.
-> > >
-> > > How did the inode recycle happen with passtrhough_ll which keeps
-> > > open fds for fuse inodes?
-> > > Something is missing from this test report.
-> > > If you just used a mock filesystem which makes no sense in the real w=
-orld
-> > > then the value of this change is questionable.
-> >
-> > Ack, I'll dig more into this. Sending responses to your other
-> > questions now and will reply again once I've got an answer.
-> >
-> >
-> > > > Signed-off-by: Russell Harmon <russ@har.mn>
-> > > > Assisted-by: Gemini:gemini-3.1
-> > > > ---
-> > > > v2:
-> > > > - Bump FUSE_KERNEL_MINOR_VERSION to 47 to match the new 7.47 change=
-log
-> > > >   entry (v1 added the entry but left the minor at 46).
-> > > >
-> > > > v1: https://lore.kernel.org/all/20260927141437.1432584-1-russ@har.m=
-n/
-> > > >
-> > > >  Documentation/filesystems/fuse/fuse.rst | 32 +++++++++++++++++++++=
-++++
-> > > >  fs/fuse/dir.c                           | 21 +++++++++++-----
-> > > >  fs/fuse/fuse_i.h                        | 10 ++++++--
-> > > >  fs/fuse/inode.c                         | 23 ++++++++++++------
-> > > >  fs/fuse/readdir.c                       |  2 +-
-> > > >  include/uapi/linux/fuse.h               | 11 +++++++--
-> > > >  6 files changed, 81 insertions(+), 18 deletions(-)
-> > > >
-> > > > diff --git a/Documentation/filesystems/fuse/fuse.rst b/Documentatio=
-n/filesystems/fuse/fuse.rst
-> > > > index 0fbd5a03fdc9..f67bc9fc6316 100644
-> > > > --- a/Documentation/filesystems/fuse/fuse.rst
-> > > > +++ b/Documentation/filesystems/fuse/fuse.rst
-> > > > @@ -49,6 +49,38 @@ using the sftp protocol.
-> > > >  The userspace library and utilities are available from the
-> > > >  `FUSE homepage: <https://github.com/libfuse/>`_
-> > > >
-> > > > +NFS export support
-> > > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > +
-> > > > +FUSE filesystems can be exported via NFS if the filesystem daemon =
-supports it.
-> > > > +For reliable NFS export, the filesystem should provide a unique in=
-ode
-> > > > +generation number for each inode. This generation number is used b=
-y the
-> > > > +NFS server to distinguish between different file instances that ma=
-y
-> > > > +share the same inode number (e.g. after an inode number is reused)=
-.
-> > > > +
-> > > > +The inode generation number is provided by the filesystem daemon i=
-n the
-> > > > +following messages:
-> > > > +
-> > > > +- `FUSE_LOOKUP`
-> > > > +- `FUSE_GETATTR` (see below)
-> > > > +- `FUSE_SETATTR` (see below)
-> > > > +- `FUSE_READDIRPLUS`
-> > > > +- `FUSE_CREATE` / `FUSE_TMPFILE` / `FUSE_MKNOD` / `FUSE_MKDIR` / `=
-FUSE_SYMLINK` / `FUSE_LINK`
-> > > > +
-> > > > +A daemon that keeps the generation number in its `FUSE_GETATTR` an=
-d
-> > > > +`FUSE_SETATTR` replies (the `generation` field of `fuse_attr_out`,
-> > > > +protocol 7.46) must announce this by setting `FUSE_ATTR_GENERATION=
-` in
-> > > > +its `FUSE_INIT` reply flags. When the flag is negotiated, the kern=
-el
-> > > > +compares the generation in every getattr/setattr reply against the
-> > > > +cached inode: a mismatch means the daemon has reused the node ID f=
-or a
-> > > > +different file, and the cached inode is marked bad (subsequent
-> > > > +operations on it fail with EIO). Without the flag, the field is ig=
-nored
-> > > > +and the generation is only taken from lookup-type replies, preserv=
-ing
-> > > > +the behavior of existing filesystems.
-> > > > +
-> > > > +If the filesystem daemon does not provide a generation number, the=
- kernel
-> > > > +will use a default value of 0.
-> > > > +
-> > >
-> > > On the one hand, I still need to understand the value of reporting ge=
-neration
-> > > in GETATTR/SETATTR.
-> > >
-> > > On the other hand, I do see the value in the server negotiating at in=
-it time the
-> > > fact that "Generation values are reliable".
-> > >
-> > > What happens today is that NFS exporting is allowed for all FUSE file=
-systems
-> > > regardless of the reliability of generation id, so after inode evict
-> > > and recycle,
-> > > an NFSv3 client  that had access to inode X.Y may get access to a com=
-pletely
-> > > different file or even a directory with inode X.Y, where X is the rec=
-ycle nodeid
-> > > and Y is an unreliable generation provided by the server.
-> > >
-> > > The problem is that FUSE does not require opt-in for NFS export, it o=
-nly
-> > > allows servers to opt-out of NFS export (FUSE_NO_EXPORT_SUPPORT).
-> > >
-> > > So what can be done given a declaration of the server that generation
-> > > is reliable?
-> > >
-> > > One option is to set a non-zero uuid/fsid to the fuse filesystem.
-> > > This will allow exporting the fuse filesystem without the opt-in uuid=
-/fsid=3D
-> > > in /etc/exports.
-> > > This will also allow setting fanotify FAN_MARK_FILESYSTEM watches
-> > > on this fuse filesystem, whose file handles could be trusted to be a =
-genuine
-> > > unique identity of the filesystem objects.
-> > >
-> > > But if we take this route, it is better to take it one step further
-> > > and allow the
-> > > server to determine the filesystem uuid/fsid during negotiation.
-> > >
-> > > In any case, I am not convinced there is value in doing all this
-> > > without extending
-> > > the protocol with LOOKUP_HANDLE/LOOKUPX lookup by file handle, so if =
-you
-> > > have compelling use cases, please spell them out.
-> >
-> > I'm trying to implement a caching filesystem which uses a sqlite
-> > database (stored on an SSD) to cache all file and directory metadata,
-> > ultimately to avoid HDD spinups (and the associated electricity cost)
-> > for operations other than file reads. I'm also exporting this
-> > filesystem over NFS, hence the need for NFS support.
->
-> OK, so you are implementing a passthrough filesystem (to HDD)
-> with a fast caching layer, I assume to cache results of GETATTR/
-> LOOKUP/READDIR/READDIRPLUS? Anything else?
-> Are you caching a specific type of backing filesystem?
->
-> I advise you to look at libfuse_passthrough [1].
-> You can either see if it fits you or learn from my experience with NFS
-> export of a fuse passthrough filesystem.
-> I am giving a talk on the subject in Linux Plumbers next week [4].
->
-> >
-> > If I remember correctly, name_to_handle_at on a FUSE filesystem
-> > contains just the inode+generation, and open_by_handle_at results in a
-> > LOOKUP of that inode (and now inode+generation). But I'll
-> > double-check. Assuming my memory is correct, I think that's
-> > sufficient, assuming that we consider inode+generation as a unique
-> > file object identifier.
->
-> The problem is, that what you assume is not an API definition, this is
-> a specific
-> filesystem implementation, which happens to be correct for some commonly
-> used filesystems (e.g. ext4, xfs), but is not true in general.
-> In general the API {name_to,open_by}_handle_at() the file handle is an
-> opaque blob.
+Also why is Rust special and wants to delegate the external
+serialization requirement to the hrtimer core code and thereby adding a
+boatload of extra conditionals into the hotpath to distinguish between
+the two callback variants?
 
-Maybe I'm thinking about this backwards, but we're not talking about
-"any" filesystem here. We're talking about the FUSE filesystem where
-the definition of a handle _is_ inode+generation. All I'm proposing we
-do is to expose that fact to the FUSE userspace daemon. That daemon
-can then turn around and call open on another filesystem, or make a
-network call to AWS or whatever. In my case I want to
-open_by_handle_at on an underlying filesystem, but I can solve that by
-storing a mapping from fuse_ino+fuse_generation_num to
-underlying_fs_file_handle in my database.
+Yes, you found an example for the downside of this design in the i915
+code. That's not surprising because i915 is generally known for ignoring
+documentation and making up their own rules just because they can. So
+I'm not accepting this as an argument at all.
+
+I agree with you that the lack of enforcement of that external
+serialization rule is suboptimal. External serialization is hard to
+validate/enforce in general though it's not impossible.
+
+But let's first take a step back and look at the larger picture.
+
+The obvious question is:
+
+   Why is the base lock dropped when invoking the callback?
+
+The answer is simply that the callback might and in many cases will
+acquire a lock which is used in the reverse lock order for the purpose
+of external serialization.
+
+If you think about that then it's pretty obvious that you can introduce
+a safe variant of hrtimer_forward() which can be invoked from the
+callback:
+
+hrtimer_forward_safe_from_callback(timer)
+{
+        base = lock_running_timer_base(timer);
+        if (!hrtimer_is_queued(timer))
+        	hrtimer_forward(timer);
+        unlock_timer_base(base);
+}
+
+That prevents the scenario you described in a completely safe way, no?
+
+Coming back to validation/enforcement of external serialization. That's
+a problem which has been solved in other places already. Look at the
+seqlock code for inspiration.
+
+Thanks,
+
+        tglx
 
 
-> The way that libfuse_passthrough gates against recycled inode numbers
-> is that the file handle is stored in the server's inode table at lookup t=
-ime
-> (generation is recorded) and all the commands that follow, lookup in the
-> server's inode table (could be in sqlite in your case) and use
-> open_by_handle_at() with the recorded file handle from lookup time
-> to get an O_PATH fd to the object on the backing filesystem (on HDD).
->
-> This is called InodeRef in libfuse_passthrough and any request will retur=
-n
-> ESTALE to the kernel if it cannot get an InodeRef.
->
-> Thanks,
-> Amir.
->
-> [4] https://lpc.events/event/20/contributions/2367
