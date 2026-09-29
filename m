@@ -1,98 +1,209 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33A84EDCA2;
-	Tue, 29 Sep 2026 09:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E753EB104;
+	Tue, 29 Sep 2026 09:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673102; cv=none; b=lgl1SDCoU3BhFqigmCmxmKkPsdhF8tdC5lWH7TTi+u8r2M6Lv4060ZRzwA5IrIn8D3i0w2Ij7XbT1xQIxEgQ0SxyP81l9Mwu8bsKy79vjPNWzHuxCVVw7Xla/FYtuBC4ehauFYvwE68Xi4aOI7h1/1UcIQLKjQ6ifN7rio8sW1s=
+	t=1790673116; cv=none; b=QL/OoUmlLh/HTSDaZoeW2xuJ+wrDSMDT+adH9CICvawQy1imHZ78KtIsImSMyin27t//fK5dEacMZRAxwpJObds1SruSsyNTt5ex79T/3irU7PEm54fYPdu7xForxBbpbxlAJCd07x5JGnv6PWtSrM0IljPJSvGrMs5TWFUWu7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673102; c=relaxed/simple;
-	bh=+7rmRIZibKSqz/WUp/LmNXHbdHkuzWK8JdJa3t157SY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r2RpUoHF5Rp/4oGqNm7aF+4S5BWn67cqDPNjpWmtOTBhC5ZmLgwPhODr0Djp6+wIgCOXdTAiju1wSwyxhVjxrHobx9jjzmYQyua9zqA9BCpBl1ofYSb975nM2L+hmEn8a7MzdKMKb8RI2zYp9QM9yMjbDZUUabDS9iaxd5GRPEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b869563ebbe511f19a56ed5b684f684d-20260929
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:43db57a3-481c-4040-a901-4eb44e55289c,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:099431e81793013c369144042f439b33,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b869563ebbe511f19a56ed5b684f684d-20260929
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 839846699; Tue, 29 Sep 2026 17:11:14 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP Pavilion AiO 24 speaker
-Date: Tue, 29 Sep 2026 17:11:09 +0800
-Message-Id: <20260929091109.400313-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790673116; c=relaxed/simple;
+	bh=ZRKYSA9lNoFvz9hkgdqIrCwDiB1kNbapUnQ7cGvbzJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eQE9hdrqxlYWyHGlPu4SLs2uSGlhXW0CHU99iVKyoSI92TTehcdWjuQ8ds50aK390PXtUp4sX2+1uDaxy9ZeuStYDZIVqTeXZ//1q6PsT0nDj2ErOsdiW+Dt4hCvLH3kiF1HE/NoPn0e3gubM1lReT7X9MOqAZPMrOKmsdQJpqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdkkaCQN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdkkaCQN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A371F000FF;
+	Tue, 29 Sep 2026 09:11:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790673105;
+	bh=iRZrKKdjj6wJIDn1Q4IR6UHPk0wgRtP6EBV9HRXQbLo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZdkkaCQNenS6wvDDz2+phvixL2neFWfVW9W3jvgnJ6qjlsXpnlTDuxzyiRBnbuANB
+	 V0ToswbpZnJrgNmhXyO/7He4tWmuDs7FbKHQj8UABoO2ZgE0SvbWjZFrn/A4FrqTd9
+	 SALzZA/5kMy52YzBnzYgufKEW+RTphQMLDuzEwsaMTedBc6NHjc4i0JcifGJFLt+Yv
+	 zE1mxCxQGDUuPNYusQUD6LRsGrY0dpUqGCJqxGitF5LPyDFU6OuzfCO4PFQnhwL1In
+	 7Agxzrc2D2PJBiRr3X8pygT2/j8w4KULvoqhS3hZVeTeTlvV9dea34OvUWjiw60ejo
+	 yc5J/gpWcsfJg==
+Date: Tue, 29 Sep 2026 10:11:41 +0100
+From: Lee Jones <lee@kernel.org>
+To: plaztininikolai@gmail.com
+Cc: Pavel Machek <pavel@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] leds: trigger: input-events: Restore previous brightness
+ on input
+Message-ID: <20260929091141.GD2112133@google.com>
+References: <20260924-leds-input-events-brightness-v1-1-b0ceff3a2343@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-leds-input-events-brightness-v1-1-b0ceff3a2343@gmail.com>
 
-Add ALC225_FIXUP_HP_AIO_SPK to enable the internal speaker on
-HP Pavilion AiO 24 (103c:85ba).
+On Thu, 24 Sep 2026, Nikolay Plastinin via B4 Relay wrote:
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221691
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc269.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+> From: Nikolay Plastinin <plaztininikolai@gmail.com>
+> 
+> The trigger turns the LEDs back on with LED_FULL, which the LED core
+> clamps to max_brightness. For keyboard backlights with several levels,
+> such as asus::kbd_backlight, this means the backlight always comes back
+> at maximum after being idle instead of at the level the user picked.
+> 
+> Remember the brightness in blink_brightness before turning the LEDs off
+> and use it when turning them back on, as the netdev trigger does.
+> Brightness changes made while the trigger is active are picked up too.
+> This needs per-LED handling, so convert the trigger from the simple
+> trigger API to a regular trigger with an activate callback.
+> 
+> Tested on an ASUS ROG Flow X13 GV302XV: with the keyboard backlight at
+> level 1, it now comes back at level 1 after going idle instead of at 3.
+> A level changed with the brightness hotkeys while the trigger is active
+> is restored after the next idle period as well.
+> 
+> Assisted-by: Claude Opus 5.5
+> Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
+> ---
+> This came up while looking at a keyboard backlight idle timeout for ASUS
+> laptops in asusctl:
+> https://github.com/OpenGamingCollective/asusctl/issues/98
+> 
+> The trigger walks trig->led_cdevs under rcu_read_lock() the same way
+> led_trigger_event() does. I can add a helper in led-triggers.c instead
+> if that is preferred.
+> ---
+>  drivers/leds/trigger/ledtrig-input-events.c | 56 +++++++++++++++++++++++++----
+>  1 file changed, 50 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/leds/trigger/ledtrig-input-events.c b/drivers/leds/trigger/ledtrig-input-events.c
+> index d057b2a23..d1ef14ae8 100644
+> --- a/drivers/leds/trigger/ledtrig-input-events.c
+> +++ b/drivers/leds/trigger/ledtrig-input-events.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/leds.h>
+>  #include <linux/module.h>
+>  #include <linux/moduleparam.h>
+> +#include <linux/rculist.h>
+>  #include <linux/slab.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/workqueue.h>
+> @@ -28,7 +29,48 @@ static struct input_events_data {
+>  	unsigned long led_off_time;
+>  } input_events_data;
+>  
+> -static struct led_trigger *input_events_led_trigger;
+> +static int input_events_activate(struct led_classdev *led_cdev)
+> +{
+> +	struct input_events_data *data = &input_events_data;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&data->lock, flags);
+> +
+> +	if (led_cdev->brightness)
+> +		led_cdev->blink_brightness = led_cdev->brightness;
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 618ff25eff18..92b14179a088 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4241,6 +4241,7 @@ enum {
- 	ALC225_FIXUP_DELL_WYSE_AIO_MIC_NO_PRESENCE,
- 	ALC225_FIXUP_WYSE_AUTO_MUTE,
- 	ALC225_FIXUP_WYSE_DISABLE_MIC_VREF,
-+	ALC225_FIXUP_HP_AIO_SPK,
- 	ALC286_FIXUP_ACER_AIO_HEADSET_MIC,
- 	ALC256_FIXUP_ASUS_HEADSET_MIC,
- 	ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
-@@ -5762,6 +5763,14 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
- 	},
-+	[ALC225_FIXUP_HP_AIO_SPK] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x10 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0220 },
-+			{ }
-+		},
-+	},
- 	[ALC286_FIXUP_ACER_AIO_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_VERBS,
- 		.v.verbs = (const struct hda_verb[]) {
-@@ -7432,6 +7441,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x854a, "HP EliteBook 830 G6", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x854d, "HP EliteBook 840 G6", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x856a, "HP Pavilion 15-cs1xxx", ALC295_FIXUP_HP_PAVILION_MUTE_LED_1B),
-+	HDA_CODEC_QUIRK(0x103c, 0x85ba, "HP Pavilion AiO 24", ALC225_FIXUP_HP_AIO_SPK),
- 	SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible 14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
- 	SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx", ALC285_FIXUP_HP_ENVY_X360),
- 	SND_PCI_QUIRK(0x103c, 0x85f0, "HP Laptop 15-dw0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+Should we be overloading 'blink_brightness' like this?   It would be cleaner to
+allocate a small per-LED state struct in the 'activate()' callback, store it in
+'led_cdev->trigger_data', and free it in a 'deactivate()' callback.
+
+> +	if (!led_cdev->blink_brightness)
+> +		led_cdev->blink_brightness = led_cdev->max_brightness;
+> +
+> +	led_set_brightness(led_cdev, data->led_on ? led_cdev->blink_brightness : LED_OFF);
+> +
+> +	spin_unlock_irqrestore(&data->lock, flags);
+> +
+> +	return 0;
+> +}
+> +
+> +static struct led_trigger input_events_led_trigger = {
+> +	.name = "input-events",
+> +	.activate = input_events_activate,
+> +};
+> +
+> +/* Must be called with input_events_data.lock held */
+> +static void input_events_set_leds(bool on)
+> +{
+> +	struct led_classdev *led_cdev;
+> +
+> +	rcu_read_lock();
+> +	list_for_each_entry_rcu(led_cdev, &input_events_led_trigger.led_cdevs, trig_list) {
+
+Please avoid accessing 'led_cdevs' and 'trig_list' directly from outside the LED
+core.  As you suggested in the commit message, adding a helper in
+'led-triggers.c' would be much preferred.
+
+> +		/*
+> +		 * Remember the brightness the LED was last set to, so that it
+> +		 * is restored instead of max brightness on the next input event.
+> +		 */
+> +		if (led_cdev->brightness)
+> +			led_cdev->blink_brightness = led_cdev->brightness;
+> +
+> +		led_set_brightness(led_cdev, on ? led_cdev->blink_brightness : LED_OFF);
+> +	}
+> +	rcu_read_unlock();
+> +}
+>  
+>  static void led_input_events_work(struct work_struct *work)
+>  {
+> @@ -42,7 +84,7 @@ static void led_input_events_work(struct work_struct *work)
+>  	 * running before a new event pushed led_off_time back.
+>  	 */
+>  	if (time_after_eq(jiffies, data->led_off_time)) {
+> -		led_trigger_event(input_events_led_trigger, LED_OFF);
+> +		input_events_set_leds(false);
+>  		data->led_on = false;
+>  	}
+>  
+> @@ -59,7 +101,7 @@ static void input_events_event(struct input_handle *handle, unsigned int type,
+>  	spin_lock_irqsave(&data->lock, flags);
+>  
+>  	if (!data->led_on) {
+> -		led_trigger_event(input_events_led_trigger, LED_FULL);
+> +		input_events_set_leds(true);
+>  		data->led_on = true;
+>  	}
+>  	data->led_off_time = jiffies + led_off_delay;
+> @@ -138,11 +180,13 @@ static int __init input_events_init(void)
+>  	INIT_DELAYED_WORK(&input_events_data.work, led_input_events_work);
+>  	spin_lock_init(&input_events_data.lock);
+>  
+> -	led_trigger_register_simple("input-events", &input_events_led_trigger);
+> +	ret = led_trigger_register(&input_events_led_trigger);
+> +	if (ret)
+> +		return ret;
+>  
+>  	ret = input_register_handler(&input_events_handler);
+>  	if (ret) {
+> -		led_trigger_unregister_simple(input_events_led_trigger);
+> +		led_trigger_unregister(&input_events_led_trigger);
+>  		return ret;
+>  	}
+>  
+> @@ -153,7 +197,7 @@ static void __exit input_events_exit(void)
+>  {
+>  	input_unregister_handler(&input_events_handler);
+>  	cancel_delayed_work_sync(&input_events_data.work);
+> -	led_trigger_unregister_simple(input_events_led_trigger);
+> +	led_trigger_unregister(&input_events_led_trigger);
+>  }
+>  
+>  module_init(input_events_init);
+> 
+> ---
+> base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
+> change-id: 20260924-leds-input-events-brightness-a76ae9a77b85
+> 
+> Best regards,
+> -- 
+> Nikolay Plastinin <plaztininikolai@gmail.com>
+> 
+> 
+
 -- 
-2.25.1
-
+Lee Jones
