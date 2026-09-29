@@ -1,82 +1,157 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F24E80BC;
-	Tue, 29 Sep 2026 12:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F15B50B432;
+	Tue, 29 Sep 2026 12:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684987; cv=none; b=NJgSbYDrlo7aVsmQk1xQSlZt6sSWoHWmhyFWigynRZwMndm+iNti4TKAOSN1t26Vg9Ed1cLv/JDTr94yUJuquBLqJyXEdFqbyqYIArM4ogiRglfF9CRtjcQimTnxm4oEcUud5PkOT+qPK8M0vCtZu8RBAo7vVNdBxShDpl52hko=
+	t=1790684997; cv=none; b=hvct5JF6sp4syV9czCmcyl68Kq5q1GiyvaQCYTUvX++KC0IVGegoEApAcVRoL6z3cb3u1l5hfgKrLX/QlBENpoHde7WZ+jdogG+HZF6Nb0LlX0G97+oOWRwlcXFcfYgePM/xxTXQ1JJc4ttn58jhpDmUftVguLgGwiYIh9BgaB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684987; c=relaxed/simple;
-	bh=VHAhHnezYBd7J/bmChRu3tuXqghhmGSANCHL/AYasUk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByPbZLZYiFU7WNzNo5q2Xh4Gy+Z6nQVYCdDa0hsgxplhR9DpmcobpwCxRF8GR/6S7GoAp32smza4PBEgw/7izgJSH8/xZu6IWKUQ8EZ9I42laccTZYCV+tvlZwdb41YFxRuhODFa6oMQJbWIv+LHd/1+88EKHtqF7RaASQtvLok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ikipT74B; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790684997; c=relaxed/simple;
+	bh=De5Jw1KJiDJSyRBdRbxh/06pAZuV3uzth4IIILPRif4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YizU+V9tjhwxUL3qkzmfMIqwetXrRxpXBZbTgc1nSmNeREr6zJs7LzqcGdkbTzoN0fEki1pIEK/aH+gU7hit1o4BKaBtcGg4CFe+MzGdjyz2MmOh0ABRuCtLz2GAcM2YT83ju03hk+5Od0yjWVD5K/AWctEXn7HP9TnQAmYvFxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WXyuMFUk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dWsL9DgE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uIb3PBSt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CTTDFhDy; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ikipT74B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=CbN2+lu8v6PEj1VxXWPoKgsEuGGU/IXvOnEXwuo7n+Y=; 
-	b=ikipT74BRQz7W/l6y17QkV+wIec8UsusIAsPujpkyK7LP1JnfuvPmFTLIUXXtEUuOliNesX2eMM
-	5XsQiNZrXXb4K4aV2svDnX0jv2fYG+GzpqXsqWkTwzPje9vCdJC8Jfbgx0PS6IannPBunFeuf+KSy
-	0zLXa0rQtAt2MI21gkwWPdYg14AgixQG4VfhZivQLUP/zzWABTLKNBf+6Iq9YM0yfU4Y7RTvw5kku
-	29jIOsRYBj9hfQFLGLFQzyc+0MaeTnq4JJNGNkgt7cqPUf6u+cVl/F1P634jbqG8luZgg72NFsZ0Y
-	E3kpymrxSOUIRnq00En5vdtxql/Zf14yNEJA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xBWxY-00000001mRV-0mCe;
-	Tue, 29 Sep 2026 20:29:25 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 29 Sep 2026 22:29:24 +1000
-Date: Tue, 29 Sep 2026 22:29:24 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: vjardin@free.fr
-Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gaurav Jain <gaurav.jain@nxp.com>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] crypto: caam/qi2 - algorithm priority be a parameter
-Message-ID: <aruvJECCDNdguMdw@gondor.apana.org.au>
-References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
- <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WXyuMFUk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dWsL9DgE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uIb3PBSt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CTTDFhDy"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 51E781F38E;
+	Tue, 29 Sep 2026 12:29:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790684989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
+	b=WXyuMFUkQJTvickO2PwsqfsZEuyZZ6WYl2UYHZO97eRLwp3mcKDiaNghPww52xinD/mvYz
+	fnfigErQTru7LFJCBhUVgoWP/knBPbARGqrX5+0GfwzoJWpoCSZWqR6t/060jfeqOqh4kZ
+	SiGrbHgN4ARf+nreWz/zZXjZrHspAR0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790684989;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
+	b=dWsL9DgE7crZFbecxJBe6qCF6IBJ2CtJq1v35giDdl4Cd79GTzt2ycINlkGtNwp2nOJ2cK
+	+V6+GrvOBlsHnVDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790684985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
+	b=uIb3PBSteJM/p3XGg86OzCraHr+708RAVOqbj+f4gHwnxVseniZsCbi1/yiyKQ6TnZMSUX
+	2M4+P7GtaGtWbBBGWLPrD+oqeL6LTzBMSHr8GJDLCRKGbLwDjZHqjYhlkLZPR9HRiYoCPI
+	cJE1DevO5w2DsfXst+g3n76bfrmgEgs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790684985;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
+	b=CTTDFhDyGU0WqBosTqpHegA9g8wo4jxYAOQb52LWo8Xp/jjc7/Bvvhq2dbW8pVYfuwoyI3
+	VGh50CUYcwqfs8Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1DBF5133F1;
+	Tue, 29 Sep 2026 12:29:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BJsYOjivu2rIWQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 12:29:45 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: Jan Lentfer <jan.lentfer@web.de>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Apply boot quirk for Behringer models generically
+Date: Tue, 29 Sep 2026 14:29:25 +0200
+Message-ID: <20260929122938.1471867-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[web.de,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+	FREEMAIL_ENVRCPT(0.00)[web.de]
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
 
-On Mon, Sep 28, 2026 at 04:01:03PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> dpaa2_caam registers every skcipher, aead and ahash at a fixed priority
-> of 2000.
-> 
-> It is above the ARMv8 Crypto Extensions (200 to 300), so on any DPAA2 SoC,
-> every in-kernel user of AES, SHA or GCM moves from the CPU to the SEC,
-> whatever the request size.
-> 
-> Whether the SEC should be the default or only be reached by driver name
-> depends on the system, and there is no way to choose/tune it.
+Jan reported that a few Behringer devices became broken since the
+recent optimization to avoid usb_string() call at probe time at the
+commit b364a0d23cae ("ALSA: usb-audio: Use strings in struct usb_dev
+for manufacturer & co").  Interestingly, the devices seem requiring
+the explicit descriptor read at probing time, and the optimization
+above dropped it.
 
-You can easily change the priority from user-space through the
-crypto_user interface.
+There is already a boot quirk for another model, Behringer CM1A
+(1397:1234), that adds a device descriptor read, and this seems
+working for them, too.  As the quirk is safe and cheap, just apply the
+same boot quirk to all Behringer devices for avoiding the pitfall
+again.
 
-So why not lower the default priority and let the user adjust
-it if necessary?
+Fixes: b364a0d23cae ("ALSA: usb-audio: Use strings in struct usb_dev for manufacturer & co")
+Reported-by: Jan Lentfer <jan.lentfer@web.de>
+Closes: https://lore.kernel.org/e7087d42-5e74-4d85-b1c5-b11eff235d41@web.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
 
-Cheers,
+This is a revised solution from the previous patch
+  https://lore.kernel.org/20260929120309.1460348-1-tiwai@suse.de
+
+ sound/usb/quirks.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 1c248075c48e..9207504e9b82 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1784,13 +1784,15 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
+ 	switch (id) {
+ 	case USB_ID(0x07fd, 0x0008): /* MOTU M Series, 1st hardware version */
+ 		return snd_usb_motu_m_series_boot_quirk(dev);
+-	case USB_ID(0x1397, 0x1234): /* Behringer CM1A */
+-		return snd_usb_cm1a_boot_quirk(dev);
+ 	case USB_ID(0x2717, 0xd005): /* Xiaomi audio connector */
+ 		snd_usb_xiaomi_boot_quirk(dev);
+ 		return 0;
+ 	}
+ 
++	/* Behringer devices may need explicit device descriptor read at boot */
++	if (USB_ID_VENDOR(id) == 0x1397)
++		return snd_usb_cm1a_boot_quirk(dev);
++
+ 	return 0;
+ }
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.55.0
+
