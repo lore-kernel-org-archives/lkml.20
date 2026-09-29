@@ -1,391 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F5E3EB0F1;
-	Tue, 29 Sep 2026 18:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706675; cv=none; b=aIkTXtRSJLWPpfUMq1Cv1TaSKiFgWvBkb3RF73WKhx8RwfrCP+Ac+Sb41cDsheA+qdigVTaR8vNCbYBYLaay8u68z4cZVMYaWV5bvxZqlIM1Qq+5JqfF8eg97sRhFlUv/ltKIUCENU21Xu4iBJ8ohmiASNyyJUcH+vxObC0slbA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706675; c=relaxed/simple;
-	bh=BF/uQRzDnn9pskHDHJN0llI/msi/n8lHwOW/d5rWTno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/g6ZlT6Kx+VEoYg19hhvS3+MC9oBE1yTAVBGkeOoDa2h8dS7F/7fCxyGbhLXckmRufPx/mRsRciZnYrsi+IhgTJSJkZ+8b1Gj+mjORiBhV6TJnWW5yLcs+PUFh44oQ8A9EM9njKGO56Tsj7Ppzxtk/XbaTR4Inu7mfHWDzJPEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7yGkHk5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22B05505E6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790706718; cv=pass; b=GQDs6lBCHUQnEoZumwyAX2/wKW3semd0nAt/sdUj8BtfDUcs9usy65WdoWAHmfyo5ozzYQCV3k4aPA/xN+bpZfLsxOch/+l4YGTvHAxcDO0DoH61/fYgkQqE0cdhEaJ1xsJ9BrrFvfxlQ+dJGHhh5OxwjIT6/dN2x9O48QbXX9A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790706718; c=relaxed/simple;
+	bh=qWjEYaStd/oVywPQuQU4H4r1EBvFvWLTPGQ7OKRH+DE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d/ekTekKW56CZ6qwA/ds2m7/zjHHAbnIkIzgO8DEA5qIvTXrbq7tmUTcuSkPsWhWYSlY6WhRsbumZisCRS67WF4+ZqN1eN43jK1jrXDeSJ+ly1d18jtj+5HoYa/i1rq/1YzzGuP6K3YCHLBljeGoTWVVJumP64NH1FrbloGuczM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BwsFDg/G; arc=pass smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7yGkHk5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAED51F00893;
-	Tue, 29 Sep 2026 18:31:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790706673;
-	bh=8zB9odqPE5xO/cTdbrEVTgTCHFGwY5zr2TXgNCHKN2s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R7yGkHk5+jFxrtqUaBzTW1nZz1VOgJ+kc5hItAwJDCwsN6zdess6uZS+05dvMEFO5
-	 a0p6AvlB2bC+H/5I3banORJsRZeuQmuSCu7FperuB86zx9zVcfTucFbjyj5WtJ3emp
-	 BusRzWDRsylUSuY/o1swpmm+qRHVWnFshWs+AXAPa8YK+hJv4Bj3aZo1v5kE3HvUV2
-	 cBeC0Cjt/xKyEZG3w8Ri98YHIwN7/QZuDSxRZBhYYJHK2F1/JhC9SRDR34XZFi7txu
-	 rfbTEH9JmZyhxhKpeju9ueDM3TXVhQ5rQcAp17nmZ0DTLbdBtlwWq5G6aCKtSPxlt+
-	 5GegpcQTHokEQ==
-Date: Tue, 29 Sep 2026 11:31:11 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 3/4] perf scripts: Add perf-stuck, to tell where a
- running perf is stuck
-Message-ID: <arwD7-9VQuS2LvWc@google.com>
-References: <20260928220634.2451784-1-acme@kernel.org>
- <20260928220634.2451784-4-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BwsFDg/G"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4026762c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:31:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790706716; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TBzleawfHIzvbonaxXDKzY7tnaNFzEKWDUj8lVXIv6dy0ipGxiEuLyyUPEhNEKNvKC
+         T0omYE+7ceoxZjxUZiD/PMX0sImau4s/pAPPCrSO7rNKPZNf86dimbvSistjSNireu01
+         Qko3vJ7maJ2gpb5wjYrnPuw+fGYA7AHk9iHyLNrT285NLya6wKvilxDEHH+algW2AUMS
+         CaHQGGE+nfKHMPtKqwhfahFt64RS2yfSHogBZaWCe/I5+KiHDgOMskIshzZjl62K6J3k
+         ccCwr5aGfqYZ6ifnQTDsKbcQXwcvJQyuEkDVrVvbrp/XFzPsCKk+/m/Pdtxcc6ghusQd
+         6v4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QL+31yB/3pr3YcTjuo55arVZQnRMUw6vTN5sIsky9hs=;
+        fh=AwX9wvqElt4eNiYpTrF6bTRfw7p9hzXJH1WTqGP791g=;
+        b=Rau+V2PnwSORwiglEbNVlDKmgolydRZMsGUdfCn7lI2uXT09O5gUmm9OGOpaC2ql9t
+         JkMi6trnbUN3damasy9mUbNXTLcCMAHMvvD20Xpfbs8AOPs1ekdH9hMvcn0beMUQuZcC
+         h1oclto7tEl1QVKsytnZliY7CNKxYtYNL6uhCQcv5rGbth4poC1pR4rMyHnKrzob9RVj
+         gmmkz1/N3gB3pHNif/gHdxdRSvpDOh7M2mngzX4FFlWk0NWNWEa/nKkScEi0D7po9j1M
+         JakSgN7nFNvidnhPPK6KzKHm6G7o06ECsJWlCECM3q5gc0MEFUgALYQW2Ux41yoqhjTX
+         MqUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790706716; x=1791311516; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QL+31yB/3pr3YcTjuo55arVZQnRMUw6vTN5sIsky9hs=;
+        b=BwsFDg/Gv4ukAzEhuxzhve2EDunqulHxV+ODFZYafQ3zbCmYUOst+aEa1xR2+EIRTJ
+         spRkMwPnH7ov09ct7wyEMz9BgKKcWRpOi3kZVfOAYFReKIqguPI9eGkJEzjWbEuQ9d+j
+         pRMowgfZx+7SoxazG/lG87/mRlIaIZJyGeIySKkJLq2DhkEFnBwERbKCywgNeMhsNdwz
+         TfHhXMK+rQJMe83EqE9DT0at/VbhWeeD1NahN/WLnsQKdyqaoYDJj3GEViXPIec40H9V
+         8VLLZMmGzCMGUckeHalzxuMC5O5CKbnt3hkFySbnBl5LgBwAVHexd0ZiRw7WxF4zEdgg
+         BTeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790706716; x=1791311516;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QL+31yB/3pr3YcTjuo55arVZQnRMUw6vTN5sIsky9hs=;
+        b=behwbkqxck+mlbCk34CA+0SW/6KwjR3rJ9OGRZ/By6SG4QxEemKqwYhllxLOpxEovx
+         b8V1OUDzS7G3IkPGWgTDD19GsCWG5SEzpX5wnsJKNywhobLGT8qneJwFO+eX+LmaTpSF
+         GY18RsOP6Inm8OgeDwXFKtRYhGvUATkyKo/werdZIYjKElFERDe/T8R4KN9fu6NoeFLh
+         GXJGQXXq8xmB9hkE2+5fegv6Qo+7Ub2MyuQJEKP6r9kgbkDzeqBL9HjFlcBvUi6rvTfe
+         voenV1yU+cA1Webvk4Qw3d3hYHl9Gg9EWqfyaNb8k1pbpVyygNJff2P0oLRtgbdsF79N
+         onxw==
+X-Forwarded-Encrypted: i=1; AKwUvBz80Y58wOQ29amprsDzYzoLH+vQNnQfTBFX9o4PDskoKilQAL3UQse72sWpgpEuD9O0a4jJ3caWebQBV4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++krxuDnvSKVWSKjeTWd17IbpQAfZgoZWCikqlcLPCboF7Tiluta
+	hsg+5SPm8J/mVfvfGTS1cr3cU9lt61qtc3v3roAMYkvVkTyNPQ/aPfhZjY0G0Cf6OZwMh9wmza6
+	R0CZn1Qi/CpCW8eXwH8SpICjld5I7cuZsRpH50gFJEr4F37oT6dnckFLZFyg=
+X-Gm-Gg: AYBFou2BcCMQq5e82rpQE6StX5lRmJ9a8fV88wEVgDiZsWJJQXAVofBdVV8zkkLmljH
+	Jcfl6mictEOtVM6+4+Rwal+0wJ9wpHc3WVAPzIi5XBhdVR7Z0j1obj2kR8TQfj7GZw8zKrd0Pbe
+	6Qj8++VSLkpNTboyak/mWp3aeSzOeCPNuFQTkbkpK+E9P56Qn6dOLXXdB/bqTSuLJeR+KVSERF+
+	416zVjDW6ugNtrOAyY0wbpm4rZQaVIbF7vOaf8tJuDjs/59k9iiVM9K7/X5tQd628OHHtog+4fC
+	O6uQGB9Y7DORLtYe0tc1NZ/N6pFzc8OP7U2d7XO8N+J/4CPSqnfSc+g9/NlHG15nGp1QQet5i+G
+	enNdSkMUrw6m9rNc4UGTZ8iYAQyBs0RNbQlxeFNv+PllBj3qi5p09z8eV2ul2y0tCz1QI+ULkOJ
+	FRZsuCf3LqdIiusnmBVxOqPg==
+X-Received: by 2002:a05:701b:205c:10b0:143:26f5:c617 with SMTP id
+ a92af1059eb24-14c9f219e28mr16546c88.32.1790706714675; Tue, 29 Sep 2026
+ 11:31:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928220634.2451784-4-acme@kernel.org>
+References: <6E4F8645-9453-45F1-B068-52E1B14E8B0C@doyensec.com>
+ <20260928174546.4022833-1-kuniyu@google.com> <E620A4AC-8FC3-437D-AE14-31D50C7E2007@doyensec.com>
+In-Reply-To: <E620A4AC-8FC3-437D-AE14-31D50C7E2007@doyensec.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Tue, 29 Sep 2026 11:31:43 -0700
+X-Gm-Features: AclHuK__0wlfIuQn5YoIbWiwSnDEbSvDEt-dCblHPCpJMwXVhpCzSggWiEdv3qQ
+Message-ID: <CAAVpQUDB8_K0xjGtDzXNd4AjBgD9WOPskJjWMMT4cdYQodEsuA@mail.gmail.com>
+Subject: Re: [PATCH net] soreuseport: Fix use-after-free when a socket is
+ added to socks[] twice
+To: Norbert Szetei <norbert@doyensec.com>
+Cc: daniel@iogearbox.net, davem@davemloft.net, edumazet@kernel.org, 
+	horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	martin.lau@linux.dev, netdev@vger.kernel.org, pabeni@redhat.com, 
+	willemb@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 12:06:33AM +0200, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> A perf that takes forever is hard to tell apart from one stuck in a
-> loop, and there is no way to see where without attaching gdb.
-> perf-stuck.sh samples a running process' /proc entries and its progress
-> line at a fixed interval, and with -g runs gdb (perf-stuck.gdb, adding
-> the perf-die-chain command) when no progress is made across two
-> samples, printing the DIE chain a DWARF type chase is stuck in.
+On Tue, Sep 29, 2026 at 8:31=E2=80=AFAM Norbert Szetei <norbert@doyensec.co=
+m> wrote:
+>
+> On Sep 28, 2026, at 19:45, Kuniyuki Iwashima <kuniyu@google.com> wrote:
+> > This has long been a known problem, and I think it's time
+> > to fix it instead of working around it:
+> >
+> > diff --git a/net/core/sock.c b/net/core/sock.c
+> > index 2948dffcc3e1..a33cdf99368d 100644
+> > --- a/net/core/sock.c
+> > +++ b/net/core/sock.c
+> > @@ -1324,6 +1324,8 @@ int sk_setsockopt(struct sock *sk, int level, int=
+ optname,
+> > case SO_REUSEPORT:
+> > if (valbool && !sk_is_inet(sk))
+> > ret =3D -EOPNOTSUPP;
+> > + else if (!valbool && rcu_access_pointer(sk->sk_reuseport_cb))
+> > + ret =3D -EBUSY;
+> > else
+> > sk->sk_reuseport =3D valbool;
+> > break;
+>
+> Thanks for the suggestion. I tested it with my sock_reuseport.c change dr=
+opped
+> and I was not able to reproduce the issue, and migration and resurrect st=
+ill
+> work.
+>
+> One question before I send it as v2 with Suggested-by: you, unless you
+> would rather post it yourself.
 
-Probably you need to check if gdb is available first.
+I had a few more patches in my local tree regarding this kind of bugs
+but I didn't post them as I thought no one would stumble upon them,
+but it's no longer the case, so let me post the series.
 
-Thanks,
-Namhyung
+It will cover SO_BINDTODEVICE as well.
 
-> 
-> It is a prototype: the plan is to turn it into a first class 'perf
-> stuck' command.  The process name is resolved with pgrep among the
-> caller's own processes only, as root an unscoped one would attach gdb
-> to the first process of any user with a matching name.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/scripts/perf-stuck.gdb | 109 ++++++++++++++++++
->  tools/perf/scripts/perf-stuck.sh  | 184 ++++++++++++++++++++++++++++++
->  2 files changed, 293 insertions(+)
->  create mode 100644 tools/perf/scripts/perf-stuck.gdb
->  create mode 100755 tools/perf/scripts/perf-stuck.sh
-> 
-> diff --git a/tools/perf/scripts/perf-stuck.gdb b/tools/perf/scripts/perf-stuck.gdb
-> new file mode 100644
-> index 0000000000000000..2022f83c6bfdc646
-> --- /dev/null
-> +++ b/tools/perf/scripts/perf-stuck.gdb
-> @@ -0,0 +1,109 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +#
-> +# gdb commands for a stuck perf, used by perf-stuck.sh -g and usable directly:
-> +#
-> +#   gdb -p $(pgrep -x perf) -batch -x perf-stuck.gdb -ex bt
-> +#
-> +# PROTOTYPE: part of the perf-stuck.sh stopgap, wants to become a first
-> +# class 'perf stuck' command printing these DIE chains without gdb.
-> +#
-> +# The commands are for the DWARF type chasers in util/dwarf-aux.c:
-> +#
-> +#   perf-die-chain <function> <die variable> [iterations]
-> +#   perf-die-chain-all [iterations]
-> +#   perf-dso
-> +#
-> +# For each iteration of the chasing loop they print the DIE address, the
-> +# CU, its file offset, tag and name: a cycle shows as the same (addr, cu)
-> +# pairs repeating, and a CU changing between iterations means the chase
-> +# hops between a debug file and its dwz common file.
-> +
-> +set pagination off
-> +set confirm off
-> +set debuginfod enabled off
-> +set print pretty on
-> +set height 0
-> +set width 0
-> +
-> +define perf-die-chain
-> +  if $argc < 2
-> +    printf "usage: perf-die-chain <function> <die variable> [iterations]\n"
-> +  else
-> +    frame function $arg0
-> +    if $argc == 3
-> +      set $perf_die_chain_n = $arg2
-> +    else
-> +      set $perf_die_chain_n = 10
-> +    end
-> +    set $perf_die_chain_head = $pc
-> +    set $perf_die_chain_i = 0
-> +    while $perf_die_chain_i < $perf_die_chain_n
-> +      # Pointer type DIEs have no DW_AT_name, so dwarf_diename() can
-> +      # return NULL: printf %s of it would error out and abort this
-> +      # batch script, handle it.
-> +      set $perf_die_chain_name = (char *) dwarf_diename($arg1)
-> +      printf "chain[%d] die=%p addr=%p cu=%p off=0x%lx tag=%d name=", $perf_die_chain_i, $arg1, $arg1->addr, $arg1->cu, ((Dwarf_Off) dwarf_dieoffset($arg1)), ((int) dwarf_tag($arg1))
-> +      if $perf_die_chain_name == 0
-> +	printf "(null)\n"
-> +      else
-> +	printf "%s\n", $perf_die_chain_name
-> +      end
-> +      until *$perf_die_chain_head
-> +      set $perf_die_chain_i = $perf_die_chain_i + 1
-> +    end
-> +  end
-> +end
-> +
-> +document perf-die-chain
-> +Print the DIE chain being walked by a DWARF type chasing loop.
-> +usage: perf-die-chain <function> <die variable> [iterations]
-> +  perf-die-chain die_get_pointer_type type_die
-> +  perf-die-chain __die_get_real_type vr_die
-> +  perf-die-chain die_get_real_type vr_die
-> +end
-> +
-> +define perf-die-chain-all
-> +  if $argc == 0
-> +    set $perf_die_chain_n = 10
-> +  else
-> +    set $perf_die_chain_n = $arg0
-> +  end
-> +  if $_any_caller_is("die_get_pointer_type", 20)
-> +    printf "stuck in die_get_pointer_type():\n"
-> +    perf-die-chain die_get_pointer_type type_die $perf_die_chain_n
-> +  else
-> +    if $_any_caller_is("__die_get_real_type", 20)
-> +      printf "stuck in __die_get_real_type():\n"
-> +      perf-die-chain __die_get_real_type vr_die $perf_die_chain_n
-> +    else
-> +      if $_any_caller_is("die_get_real_type", 20)
-> +        printf "stuck in die_get_real_type():\n"
-> +        perf-die-chain die_get_real_type vr_die $perf_die_chain_n
-> +      else
-> +        printf "not in a DWARF type chaser, try: bt\n"
-> +      end
-> +    end
-> +  end
-> +end
-> +
-> +document perf-die-chain-all
-> +Find which DWARF type chaser the process is in and print the DIE chain.
-> +usage: perf-die-chain-all [iterations]
-> +end
-> +
-> +define perf-dso
-> +  if $_any_caller_is("find_data_type", 20)
-> +    frame function find_data_type
-> +    # REFCNT_CHECKING, implied by an ASan/LSan build, wraps struct map and
-> +    # struct dso in a proxy keeping the real object in ->orig, so there the
-> +    # dso is map->orig->dso->orig, giving map->orig->dso->orig->name here;
-> +    # struct symbol is not wrapped, so sym->name needs no ->orig.
-> +    printf "dso=%s ip=0x%lx sym=%s\n", dloc->ms->map->dso->name, dloc->ip, dloc->ms->sym ? dloc->ms->sym->name : "(no symbol)"
-> +  else
-> +    printf "not in find_data_type()\n"
-> +  end
-> +end
-> +
-> +document perf-dso
-> +Print the dso, ip and symbol of the data location being resolved.
-> +end
-> diff --git a/tools/perf/scripts/perf-stuck.sh b/tools/perf/scripts/perf-stuck.sh
-> new file mode 100755
-> index 0000000000000000..5622a6e0742988c3
-> --- /dev/null
-> +++ b/tools/perf/scripts/perf-stuck.sh
-> @@ -0,0 +1,184 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-2.0
-> +#
-> +# perf-stuck - tell a spinning perf apart from a blocked or recursing one
-> +#
-> +# Arnaldo Carvalho de Melo <acme@redhat.com>
-> +#
-> +# PROTOTYPE: wants to become a first class 'perf stuck' command, sampling
-> +# a process from inside perf, with the knowledge of perf's phases and of
-> +# the DWARF type chasing loops built in, instead of poking /proc and
-> +# shelling out to gdb.
-> +#
-> +# Samples /proc/<pid> at a fixed interval and prints the CPU time used
-> +# since the previous sample, the [stack] mapping start and size, and the
-> +# last line of a progress log when one is given, e.g. the stderr of
-> +# 'perf report --progress': burning a full interval with a constant
-> +# stack is a loop, a [stack] start moving down is runaway recursion.
-> +#
-> +# With -g it runs gdb (perf-stuck.gdb) when no progress is made for two
-> +# consecutive samples, printing the DIE chain a DWARF type chase is
-> +# walking.
-> +#
-> +# usage: perf-stuck.sh [options] <pid|process-name>
-> +
-> +set -u
-> +
-> +usage() {
-> +	cat <<-EOF
-> +	usage: perf-stuck.sh [options] <pid|process-name>
-> +
-> +	  -i <secs>   sampling interval (default: 10)
-> +	  -n <count>  stop after this many samples (default: watch till it exits)
-> +	  -l <file>   progress log, its last line is printed with every sample
-> +	  -g          run gdb with perf-stuck.gdb when no progress is made for
-> +	              two consecutive samples, writing the output to a temp file
-> +	  -x <file>   use this gdb command file instead of perf-stuck.gdb
-> +	  -h          this help
-> +	EOF
-> +	exit "${1:-0}"
-> +}
-> +
-> +interval=10
-> +count=0
-> +progress_log=
-> +use_gdb=
-> +gdb_cmds=
-> +
-> +while getopts "i:n:l:gx:h" opt; do
-> +	case "$opt" in
-> +	i) interval=$OPTARG ;;
-> +	n) count=$OPTARG ;;
-> +	l) progress_log=$OPTARG ;;
-> +	g) use_gdb=1 ;;
-> +	x) gdb_cmds=$OPTARG ;;
-> +	h) usage 0 ;;
-> +	*) usage 1 ;;
-> +	esac
-> +done
-> +shift $((OPTIND - 1))
-> +
-> +[ $# -eq 1 ] || usage 1
-> +
-> +if [[ "$1" =~ ^[0-9]+$ ]]; then
-> +	pid=$1
-> +else
-> +	# Resolve the name against the caller's own processes: as root,
-> +	# unscoped pgrep picks the first match of any user, e.g. one planted
-> +	# to get gdb attached to it, use an explicit pid to look at a perf of
-> +	# another user.
-> +	pid=$(pgrep -x -u "$(id -u)" -- "$1" | head -1)
-> +	[ -n "$pid" ] || { echo "no process named '$1' owned by $(id -un)"; exit 1; }
-> +fi
-> +
-> +[ -d /proc/"$pid" ] || { echo "no process $pid"; exit 1; }
-> +
-> +if [ -n "$use_gdb" ] && [ -z "$gdb_cmds" ]; then
-> +	gdb_cmds=$(dirname "$0")/perf-stuck.gdb
-> +	[ -r "$gdb_cmds" ] || { echo "cannot read $gdb_cmds"; exit 1; }
-> +fi
-> +
-> +hz=$(getconf CLK_TCK)
-> +psz=$(getconf PAGESIZE)
-> +prev_cpu=
-> +prev_stack=
-> +prev_progress=
-> +stuck=0
-> +gdb_done=
-> +nsample=0
-> +
-> +# The command line is whatever the process was started with, so drop the
-> +# control characters from it: a process started with escape sequences in
-> +# its arguments, e.g. one replaying a log line, would otherwise get them
-> +# replayed on the terminal of whoever runs this.
-> +cmdline=$(tr '\0' ' ' < /proc/"$pid"/cmdline | tr -d '[:cntrl:]')
-> +
-> +echo "watching $pid ($cmdline) every ${interval}s"
-> +
-> +while :; do
-> +	if [ ! -d /proc/"$pid" ]; then
-> +		echo "$(date +%T) process gone"
-> +		break
-> +	fi
-> +
-> +	# Field 2, the command name, is in parentheses and can contain
-> +	# spaces, so drop it together with the pid before splitting so the
-> +	# fields line up.  %d keeps the CPU time out of scientific
-> +	# notation, that bash arithmetic can't parse past six digits.
-> +	if ! stat_line=$(awk '{ sub(/^[^ ]+ \(.*\) /, "");
-> +			       printf "%s %d %d\n", $1, $12 + $13, $22 }' \
-> +			 /proc/"$pid"/stat 2>/dev/null); then
-> +		echo "$(date +%T) process gone"
-> +		break
-> +	fi
-> +
-> +	# The process can be gone between the check above and this read, in
-> +	# which case there is nothing to report: 'set -u' would otherwise
-> +	# turn the unbound fields into an aborted script.
-> +	if [ -z "$stat_line" ]; then
-> +		echo "$(date +%T) process gone"
-> +		break
-> +	fi
-> +
-> +	stat=($stat_line)
-> +	state=${stat[0]}
-> +	cpu=${stat[1]}
-> +	# field 24 of /proc/<pid>/stat, the resident set size in pages
-> +	rss=$(( stat[2] * psz / 1024 ))
-> +
-> +	stack=$(awk '/\[stack\]/{print $1; exit}' /proc/"$pid"/maps 2>/dev/null)
-> +	if [ -n "$stack" ]; then
-> +		stack_start=0x${stack%-*}
-> +		stack_size=$(( 0x${stack#*-} - stack_start ))
-> +		stack_txt="$stack size=$((stack_size / 1024))kB"
-> +	else
-> +		stack_start=
-> +		stack_txt="-"
-> +	fi
-> +
-> +	progress=
-> +	[ -n "$progress_log" ] && [ -s "$progress_log" ] && progress=$(tail -1 -- "$progress_log")
-> +
-> +	if [ -n "$prev_cpu" ]; then
-> +		cpu_delta=$(( cpu - prev_cpu ))
-> +		# No progress log, or one with nothing written to it yet, leaves
-> +		# no progress to look at, so count the samples that show none:
-> +		# -g then looks at where the process is after two intervals.
-> +		# Otherwise count the repeats of the same last line.
-> +		if [ -z "$progress" ] || [ "$progress" = "$prev_progress" ]; then
-> +			stuck=$((stuck + 1))
-> +		else
-> +			stuck=0
-> +		fi
-> +		stuck_txt="stuck=${stuck}"
-> +		[ "$stack_start" != "$prev_stack" ] && stuck_txt="$stuck_txt STACK"
-> +	else
-> +		cpu_delta=0
-> +		stuck_txt=""
-> +	fi
-> +
-> +	printf '%s state=%s cpu=+%d (%d.%02ds) rss=%dkB stack=%s %s %s\n' \
-> +	       "$(date +%T)" "$state" "$cpu_delta" \
-> +	       $(( cpu_delta / hz )) $(( (cpu_delta % hz) * 100 / hz )) \
-> +	       "$rss" "$stack_txt" "$stuck_txt" "${progress:-(no progress log)}"
-> +
-> +	if [ -n "$use_gdb" ] && [ -z "$gdb_done" ] && [ "$stuck" -ge 2 ]; then
-> +		gdb_log=$(mktemp /tmp/perf-stuck-gdb.XXXXXX)
-> +		# The gdb script makes inferior calls, and a call into a perf
-> +		# wedged in a loop never returns, so bound the run; SIGINT
-> +		# releases the inferior instead of leaving perf stopped.
-> +		timeout --signal=INT 30 gdb -p "$pid" -batch -x "$gdb_cmds" -ex bt \
-> +		    -ex 'perf-die-chain-all' -ex perf-dso -ex detach > "$gdb_log" 2>&1
-> +		gdb_done=1
-> +		echo "... gdb output of $pid in $gdb_log"
-> +	fi
-> +
-> +	prev_cpu=$cpu
-> +	prev_stack=$stack_start
-> +	prev_progress=$progress
-> +
-> +	nsample=$((nsample + 1))
-> +	[ "$count" -gt 0 ] && [ "$nsample" -ge "$count" ] && break
-> +
-> +	sleep "$interval"
-> +done
-> -- 
-> 2.55.0
-> 
+
+>
+> Should the check be restricted to TCP?
+>
+>         else if (!valbool && sk->sk_protocol =3D=3D IPPROTO_TCP &&
+>                  rcu_access_pointer(sk->sk_reuseport_cb))
+>                 ret =3D -EBUSY;
+>
+>
+> The closed section only exists for TCP, so TCP is the only protocol where
+> clearing the flag leads to the double add. With the check as it is, a bou=
+nd
+> UDP socket also starts getting EBUSY from setsockopt(SO_REUSEPORT, 0).
+>
+> N.
+>
+> >> Clearing it between shutdown() and listen() makes that listen() skip
+> >> reuseport_add_sock(), and with it reuseport_resurrect(), so the socket=
+ is
+> >> hashed as a listener while it is still in the closed section. On the n=
+ext
+> >> shutdown() __reuseport_detach_sock() does not find it in the listening
+> >> section, returns false, and __reuseport_add_closed_sock() adds a secon=
+d
+> >> copy of it to socks[].
+> >>
+> >> sk_destruct() calls reuseport_detach_sock(), which removes one of the =
+two
+> >> entries. reuseport_grow() then dereferences the other one, because its
+> >> loop runs over every slot up to reuse->max_socks:
+> >>
+> >>  BUG: KASAN: slab-use-after-free in reuseport_grow (net/core/sock_reus=
+eport.c:291)
+> >>  Write of size 8 at addr ffff888132359988 by task poc/621
+> >>
+> >>   reuseport_grow (net/core/sock_reuseport.c:291)
+> >>   reuseport_add_sock (net/core/sock_reuseport.c:350)
+> >>   inet_hash (net/ipv4/inet_hashtables.c:810)
+> >>   inet_csk_listen_start (net/ipv4/inet_connection_sock.c:1359)
+> >>   __inet_listen_sk (net/ipv4/af_inet.c:225)
+> >>   inet_listen (net/ipv4/af_inet.c:247)
+> >>   __sys_listen (net/socket.c:2014)
+> >>
+> >>  Allocated by task 621:
+> >>   sk_prot_alloc (net/core/sock.c:2246)
+> >>   sk_alloc (net/core/sock.c:2308)
+> >>   inet_create (net/ipv4/af_inet.c:333)
+> >>
+> >>  Freed by task 0:
+> >>   slab_free_after_rcu_debug (mm/slub.c:6570)
+> >>   rcu_core (kernel/rcu/tree.c:2919)
+> >>
+> >>  The buggy address is located 904 bytes inside of
+> >>   freed 2624-byte region [ffff888132359600, ffff88813235a040)
+> >>
+> >> Only move the socket to the closed section when __reuseport_detach_soc=
+k()
+> >> reports that it was removed from the listening section.
+> >>
+> >> Fixes: 333bb73f620e ("tcp: Keep TCP_CLOSE sockets in the reuseport gro=
+up.")
+> >> Assisted-by: LLM
+> >> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+> >> ---
+> >> net/core/sock_reuseport.c | 4 ++--
+> >> 1 file changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
+> >> index 29948cb44b7d..031b641be317 100644
+> >> --- a/net/core/sock_reuseport.c
+> >> +++ b/net/core/sock_reuseport.c
+> >> @@ -479,8 +479,8 @@ void reuseport_stop_listen_sock(struct sock *sk)
+> >> */
+> >> bpf_sk_reuseport_detach(sk);
+> >>
+> >> - __reuseport_detach_sock(sk, reuse);
+> >> - __reuseport_add_closed_sock(sk, reuse);
+> >> + if (__reuseport_detach_sock(sk, reuse))
+> >> + __reuseport_add_closed_sock(sk, reuse);
+> >>
+> >> spin_unlock_bh(&reuseport_lock);
+> >> return;
+> >> --
+> >> 2.55.0
+> >>
+>
