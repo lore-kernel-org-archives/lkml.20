@@ -1,82 +1,80 @@
 Received: from rcdn-iport-6.cisco.com (rcdn-iport-6.cisco.com [173.37.86.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED0A55D897;
-	Tue, 29 Sep 2026 18:59:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45D9560AD4;
+	Tue, 29 Sep 2026 18:59:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.37.86.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790708385; cv=none; b=sVJz3cAJZPumZvHmO0+Yy6uMNMwBpBJBH40pKHSFq6rUVtp4x0KyrlYayQO+vQTmHB98fzbjxDmsYkilcbORhzBZfbVr+74ifDtgswxzYL56aRDZbBLI7ExqWKx0tCYFeLIo2kJqgCF9O+FMmcbjS6CZwnhgg9EcaV4C37B0BQw=
+	t=1790708387; cv=none; b=EQLP+sWOpsDAMxsv504l0vXvy6IC+nCqyzTxlqO6TCdC94xZ+gO1z/hZKy+h3KQjhqZGbsBfkp3F0lY9cbfR2IJQ72V2z8oMb8Gje8zOOAvEy6eU+Xcbq0+CXvHcNsdXzDfOkzSGO8gylKiv+uxAdirkZsd1MYAMLpns0UtmiGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790708385; c=relaxed/simple;
-	bh=Jekz/4yMFLlCICjtt4QrF7H6M0ZF4KdSuSKgZpq49m0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XsboBODjpQiNCZTbDrVOcDalEbcXGG39BtNtG0mtxLfpoDJBva8YKc+9WHp50pOdOKetzFi1oDXSZD6mldWzDgeFbx1zoPr8oot7vQjHL0rpdH5H8rCFLA9IscptXzh0CIjuMZmusxW2s7tMkgUReDdQVJpQWjbiJDNBt69Wt2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=KQQmhd31; arc=none smtp.client-ip=173.37.86.77
+	s=arc-20240116; t=1790708387; c=relaxed/simple;
+	bh=sFh0aQamfTAjvNlnNEhb6wt7vj2SCLsQOvGzBgc1wfU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G5ufw5iaMMTKoHtAuDZ0jl08cbCbQ0xeIy1Q0Aw/vZI8POMm043K6Enppdn8Y4gl+eAJ8xpDK9jDdcPYjhPhdrHznhHfTB7/nvtJv16FIQwQ4O5xCNkKWhHfoytgeNSEUAxdSIT1a6L1otIjr70gdpQhFcDodG6pbzBfv4I79As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=CP4QBLq2; arc=none smtp.client-ip=173.37.86.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="KQQmhd31"
+	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="CP4QBLq2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=cisco.com; i=@cisco.com; l=5261; q=dns/txt;
-  s=iport01; t=1790708383; x=1791917983;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=uIbCTW08h42rABK1YivWmm10n/GoyKyR5MMamQkcFFw=;
-  b=KQQmhd31etWXO6st4IfTxIg3SAlu0q/949Cxp4Xmhj9OKF9zwwD6hEPA
-   AgXvH0TJJnaLc8/ryrqDqO86A5kXj0FSCYNiaQPJfMUg93jXEwDymnoih
-   NPFRc6jlD0767K7eAM4KFleqvR2cBgFwbC6beN+QisR6YTpMhCumnXY4z
-   CX0y8Q9aJL5Oa0x8kdRwjiacq0wV/99rWYpkg/VR5NMpJnNjjttz6NZO8
-   /pmuq76K9+SGLiJT0C+MQe+OISpneezRxaiFuC541kUFjNYZjVKZ0SX8I
-   ZdbFjvni1bH2diWOfxetGbNeyRs17cFqxP1LgPOslWRqvpBe2FzbCB8q7
+  d=cisco.com; i=@cisco.com; l=4854; q=dns/txt;
+  s=iport01; t=1790708385; x=1791917985;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=SMC6SgLhwngWg/peGv5/1lQgClaqRttLnJ85Qw8EPrU=;
+  b=CP4QBLq2NuuL60P84vaL030ccfkASG9vmY1vni1LmcONaNu6CopGVybs
+   kwTRzGXqBZAiXvDyz01KwdeZkw6nYfGyo5S8Uw6w8kunu42KnX4YiTqRm
+   a9jYb/X44tLsYB6FP3/ktkp21HhexFhkme6yBm7OIWra5z4k1YDBjocwm
+   JS7xjwrf/w9r8v3ki3PiB+hONxw8bmtiKMk8RQzrlIEAb1dWf/ALEkUYP
+   RBcQldgb9C+vfaoxuF5Db2TPc3tcOrBnuOcQqJw7PenKgNRla0ncnV2eK
+   rbYlKCSMH6lNsfPwhElxiuQvu/zgtfXNzU4irWliF8CHG7Hg2Qs3qM/cH
    g==;
-X-CSE-ConnectionGUID: UhBZRq9bSomSh56KW4y0zw==
-X-CSE-MsgGUID: 4CZKd/7AShOR3XClAn4I4w==
-X-IPAS-Result: =?us-ascii?q?A0AnAADCCbxq/4v/Ja1aHAEBAQEBAQcBARIBAQQEAQFMg?=
- =?us-ascii?q?TAHAQELAYIXgTRgQ0mEV4gbhzeCIZFMjFEUgWoPAQEBD0QNBAEBhQVRFY0kA?=
- =?us-ascii?q?iY0CQ4BAgQDAgMBAQEBAQEBAQEBAQEKAQEFAQEBAgEHBYEOE4ZPDZAVJ1Y1A?=
- =?us-ascii?q?iYCSBYBEoMCAYJ0AxEFAcEqeoEygQGEftlKgW4GFYEKLgGFcYJtAYFxhAg7h?=
- =?us-ascii?q?EEnG4FJRIEVg2mEHwuDdIJqBIEOgRSBDIJdi1SGdwk/gQIcA1ksAVUTDQoLB?=
- =?us-ascii?q?wVhUjMDIAoLEhIYFQIUHRIPBBYyHXAMJxIsFy9YGwYFgR11FAQTghkjGTZ6g?=
- =?us-ascii?q?QlegSspYAEQF4EHggcCglSCAAIBSUEOB0VTCSVFEkcmIggSCQETGjALgRs4P?=
- =?us-ascii?q?gkoPRgNSBEsNwYPGQQ9AW4HkDcegW0BcQEWRDUrUAcJIg88BBcaEQEeLJJaI?=
- =?us-ascii?q?ggdg1mNX2uBNZ9ahCiBZogsghCVVDOEBJNjkwiZCCOCNosxih6LShgBT4Rpg?=
- =?us-ascii?q?Wg8gVkzGggbFTuCZ1MZD49YAQGGHItrAbx7JzICOwEBBwIHDgMLgWiEXosiA?=
- =?us-ascii?q?gMMFweBTwEB?=
-IronPort-Data: A9a23:sbBRvan92egxgg7cO1xA9UHo5gxTJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
- xIWWWHVbqzfMDbzeo93a9u09k1XscWEyoAxGVNrq3s9EltH+JHPbTi7wugcHM8zwunrFh8PA
- xA2M4GYRCwMZiaC4Errav6+/SEUOZigHtLUEPTDNj16WThqQSIgjQMLs+Mii+aEu/Dha++2k
- Y20+ZK31GONgWYubDpFsfPb8nuDgdyr0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSb
- /rD1ryw4lTC9B4rDN6/+p6jGqHdauePVeQmoiM+t5mK2nCulARrukoIHKZ0hXNsttm8t4sZJ
- OOhGnCHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqHLWyOE/hlgMK05FbAY0NRNGDBEz
- vsdEzBQMDO82/Pu0q3uH4GAhux7RCXqFJkUtnclyXTSCuwrBMiZBa7L/tRfmjw3g6iiH96HO
- JFfMmUpNkmdJUQUaz/7C7pm9AusrmL2bzxDqFGVjaE2+GPUigd21dABNfKIII3THpoMxhvwS
- mTuo0/LIR1da/WkyR2/qUKHgsbJwQKnR9dHfFG/3rsw6LGJ/UQfAQMbUHO3qOe0j0q5Vc4ZL
- UEIkgIjobU3/V6mUvHyWBq3pHPCtRkZM/JQFPc/8ymOx7DS7gLfAXILJhZCddYvnMw7Xzon0
- hmOhdyBLTVpvKeYVjGb+6uYoC2aPTUTKykJZUcsVQIP7t/iiJs+ghLGUpBoF6vdptn0Hyzgh
- jOHti4zg50NgsMRkaa251bKh3SrvJehZgg4+gnaQEq74Q5jIo2ofYql7R7c9/koEWqCZkOKs
- H5Bn42V6/oDSMnX0ieMW+4KWrqu4p5pLQHhvLKmJLF5nxzFxpJpVds4DO1WTKuxDvs5RA==
-IronPort-HdrOrdr: A9a23:ggf8OqxpZEXCcCZY86NJKrPwsr1zdoMgy1knxilNoNJuA6ilfq
- eV/MjztCWUtN9/Yh0dcLy7UpVoIkmzyXcK2+Ys1N6ZNWGMhILCFuxfBOXZsljdMhy73bMY6L
- xpeap/D9OYNykYse/KpCO4G9EvzJ2m3cmT9IXj5kYoYA10Z6Rn9gtjTiSWAiRNNXB7LKt8OZ
- aC6s9Avja6PU4WYMOyG2UfU4H41rv2ferdEHk7Li9izhWShjW177O/OR2Z0hACFw5r+94ZgB
- D4e8iT3NTYjxl9oSWsrFPu0w==
-X-Talos-CUID: 9a23:Hb6APm+jrBXIU+9gHlOVv3MUMPIfayzX93DVGE/lV0VWFKzNW0DFrQ==
-X-Talos-MUID: 9a23:PxeF3Ql1HSdyPOCsKB5ddno+H/VL7+PxIXsNtq9di+KAHCosGmuC2WE=
+X-CSE-ConnectionGUID: 1dQ047lPSk2zw6W3Ms7diw==
+X-CSE-MsgGUID: SP6ivtapSqOmAs3xx7gtGw==
+X-IPAS-Result: =?us-ascii?q?A0AaAADCCbxq/4v/Ja1aHAEBAQEBAQcBARIBAQQEAQGBf?=
+ =?us-ascii?q?AcBAQsBglaBVUNJhFeIG4c3giGeHYF+DwEBAQ9RBAEBhQUCjggCJjQJDgECB?=
+ =?us-ascii?q?AMCAwEBAQEBAQEBAQEBAQoBAQUBAQECAQcFgQ4ThlyQEwIBAyMEUhAlAiYCA?=
+ =?us-ascii?q?kUBEAYBEoMCgnUDwUF6fzOBAYR+2UqBaAELFAGBCi4BhXGCbQGBcYQIO4RBJ?=
+ =?us-ascii?q?xuBSUSBFYNpgQUBgxmDf4JqBIMcEpUoCT+BAhwDWSwBVRMNCgsHBWFSMwMgC?=
+ =?us-ascii?q?gsSEhgVAhQdEg8EFjIdcAwnEiwXL1gbBgWBHXUUBBOCGSMZNnqBCV6BKylgA?=
+ =?us-ascii?q?RAXgQeCBwKCVIIAAgFJQQ4HRVMJJUUSRyYiCBIJARMaMAuBGzg+CSg9GA1IE?=
+ =?us-ascii?q?SwUIwYPGQQ9AW4HkDcegmCBBAslJmEBgQAwlyaNX2uhD4QogWagEDOXZ5MIm?=
+ =?us-ascii?q?Qgjo2dQhGmBaDyBWTMaCBsVgyJTGQ+OLgsLkx0BvHsnMj0BAQcCBw4DC4Fok?=
+ =?us-ascii?q?BGBbQEB?=
+IronPort-Data: A9a23:IbD/86LX2Mc74iLNFE+RA5QlxSXFcZb7ZxGr2PjKsXjdYENS0zIFy
+ DYZWmuDO/aCNGGmLdhya46+9R8PuJPXn4RjHlMd+CA2RRqmiyZq6fd1j6vUF3nPRiEWZBs/t
+ 63yUvGZcoZpCCea+Uf1WlTYhSEU/bmSQbbhA/LzNCl0RAt1IA8skhsLd9QR2uaEuvDnRVnS0
+ T/Oi5eHYgH9imQlajh8B5+r8XuDgtyj4Fv0gXRmDRx7lAe2v2UYCpsZOZawIxPQKqFIHvS3T
+ vr017qw+GXU5X8FUrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRuukoPD8fwXG8M49m/c3+d/
+ /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTvOTLp3AqfUcAzN03AHhuYdIcwt10W3NRq
+ 8NDDStSYhGc0rfeLLKTEoGAh+w5J8XteYdasXZ6wHSBV7AtQIvIROPB4towMDUY358VW62BI
+ ZBENHw2N0Wojx5nYj/7DLollfupnXn8cxVTqUmeouw85G27IAlZjeK8aYGKI4XXLSlTtn2g+
+ GPY423hOQg9MfWEkiqVrX2wqfCayEsXX6pXTtVU7MVCjFSNy2k7BBQIWF6/pvelzEizR7p3J
+ kAJ/yM8oLQa+0usQd3wGRa/pRasvhkGXsF4EOAg7gyJjK3O7G6xBXUORxZCZcYguctwQiYlv
+ neAmd/zCCMstrCJRX+D3rOJqzX0Mih9BXcLbyICTCMf7tXjqZ11hRXKJv5nEaionpj2FCv2z
+ jSisicznfMQgNQN2qH9+krI6xqqq4TFQxAd+AraRCSm4xl/aYrjYJangWU39t5aJ4qfC13Et
+ 38elo3GtqYFDIqGk2qGR+Bl8KyV2stp+Qb02TZHd6TNPRz0k5J/Vei8OA1DGXo=
+IronPort-HdrOrdr: A9a23:5rQA0aFBD0EyP7dEpLqEHseALOsnbusQ8zAXPo5KOHhom6uj9v
+ xG/c506faaslsssR0b8+xofZPwI080lqQb3WBuB9eftWDd0QPCEGgh1/qA/9SKIUHDH4BmpM
+ JdWpk7JdHuAV19lMrgpCu1A78bsaC62ZHtqOvAw3JqVA1wL5th4QBwFxqBHiRNNW977OICZf
+ 2hz/sCgSa8cnIKacn+LHwEU+/f4+DvrvvdEGY779pN0nj1sdtug4SKaCSl4g==
+X-Talos-CUID: =?us-ascii?q?9a23=3AWUPFiWrwAf4asbeO/2cR7yrmUZkpSyWBk3PoGEz?=
+ =?us-ascii?q?iG3k3d+awUgCc+bwxxg=3D=3D?=
+X-Talos-MUID: 9a23:HR+fzgt5MeSczRZ+ns2nvwk8Ndl06ryVEWcIuI5dq9nbOjBfJGLI
 X-IronPort-Anti-Spam-Filtered: true
 X-IronPort-AV: E=Sophos;i="6.27,130,1787011200"; 
-   d="scan'208";a="529137105"
+   d="scan'208";a="529137115"
 Received: from rcdn-l-core-02.cisco.com ([173.37.255.139])
-  by rcdn-iport-6.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 29 Sep 2026 18:58:35 +0000
+  by rcdn-iport-6.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 29 Sep 2026 18:58:36 +0000
 Received: from [127.0.0.1] (unknown [10.25.128.208])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by rcdn-l-core-02.cisco.com (Postfix) with ESMTPS id 749A318000356;
-	Tue, 29 Sep 2026 18:58:34 +0000 (GMT)
+	by rcdn-l-core-02.cisco.com (Postfix) with ESMTPS id 05D0A1800037C;
+	Tue, 29 Sep 2026 18:58:35 +0000 (GMT)
 From: Satish Kharat <satishkh@cisco.com>
-Subject: [PATCH net-next v2 0/6] enic: configure V2 VF addresses and
- receive mode
-Date: Tue, 29 Sep 2026 11:58:03 -0700
-Message-Id: <20260929-b4-enic-sriov-v2-vf-receive-control-v2-0-5962c10061b2@cisco.com>
+Date: Tue, 29 Sep 2026 11:58:05 -0700
+Subject: [PATCH net-next v2 2/6] enic: serialize V2 VF mailbox requests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,11 +83,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADsKvGoC/42OTQ6CMBCFr2Jm7ZhSAcWV9zAs6DDIGG1NWxsM4
- e7ycwGXL+/neyME9sIBLrsRPCcJ4uws9H4H1Df2zijtrEErXaoqK9HkyFYIgxeXMGlMHXomlsR
- IzkbvnmgKypVpGy5MBfPS23Mnw0q5geWIlocI9eaEj3kwxQWyZHsJ0fnveihla2Nj6+wvdspQY
- XlqVFOyOrf58UoSyB3IvaCepukHUU/sYPIAAAA=
-X-Change-ID: 20260916-b4-enic-sriov-v2-vf-receive-control-b5c40bdae5b9
+Message-Id: <20260929-b4-enic-sriov-v2-vf-receive-control-v2-2-5962c10061b2@cisco.com>
+References: <20260929-b4-enic-sriov-v2-vf-receive-control-v2-0-5962c10061b2@cisco.com>
+In-Reply-To: <20260929-b4-enic-sriov-v2-vf-receive-control-v2-0-5962c10061b2@cisco.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -97,118 +93,165 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Satish Kharat <satishkh@cisco.com>, sebaddel@cisco.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790708314; l=5383;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790708314; l=4981;
  i=satishkh@cisco.com; h=from:subject:message-id;
- bh=Jekz/4yMFLlCICjtt4QrF7H6M0ZF4KdSuSKgZpq49m0=;
- b=y4Qz5ssuu2o9c01ysdCC9XTs6DYBGjixSQKeBzpM1Bh0Qfi3E7QWGx4UXhlaf6O4te2j2hYJ/
- Rec+GTH2aypAbnmAEKBVptRK7Og+HVV5Wk0KMi3iRX0ud3WyQ7rUF4G
+ bh=sFh0aQamfTAjvNlnNEhb6wt7vj2SCLsQOvGzBgc1wfU=;
+ b=hiyFt3aRJ4IxeSG/x3/aQ2oO1Q5X+FSQpUKTTLEGn+eNLsjRhSzXTYm5rCFIZm/SBOltWPm7M
+ 7zZVIpt/z1KCg5qxvBX9zB8o+ctSaliTAyawmhG8TYXnI2bkHr1GCHF
 X-Developer-Key: i=satishkh@cisco.com; a=ed25519;
  pk=4BxbLoCGvHeIMH/PbpiNVx8/2IcTjFvqcr0AD8K6WLY=
 X-Outbound-Client-TLS: ANONYMOUS;unknown [10.25.128.208];TLSv1.3;TLS_AES_256_GCM_SHA384;256
 X-Outbound-SMTP-Client: 10.25.128.208, [10.25.128.208]
 X-Outbound-Node: rcdn-l-core-02.cisco.com
 
-An ENIC V2 VF cannot program its station address or receive filters
-directly. The PF owns those resources and exposes mailbox operations for
-the VF to request changes. Add the VF control plane needed to use those
-operations for station-address, address-list, and packet-filter
-configuration.
+The VF stores one expected reply and uses one completion for mailbox
+requests. If two VF control paths issue requests at the same time, the
+second request can replace the reply state for the first.
 
-The mailbox transport remains asynchronous: receive dispatch continues to
-process replies and unsolicited PF notifications. The VF allows only one
-request/reply transaction at a time because it stores one expected reply
-and uses one completion. This serialization applies only to VF requests;
-PF-side request processing is unchanged. Notifications and their
-acknowledgments remain deferred and asynchronous.
+Add a request mutex used only by the VF. Hold it from before a request is
+armed until its reply or timeout has been consumed. Recheck VF registration
+after taking the mutex and clear pending state on send failure so a later
+request cannot inherit it.
 
-The first patch adds a netdev helper for scheduling an immediate
-receive-mode update with a new retry budget. Callers which need to replay
-lost address state explicitly reset the corresponding synchronization state
-before scheduling the update. The second patch serializes only VF requests.
-The third patch recovers when a lost or malformed reply means that the VF
-does not know which changes the PF applied. A hardware send timeout is
-handled separately because the descriptor may still belong to the device.
+PF-side request processing is unchanged. Unsolicited PF notifications and
+their acknowledgments remain asynchronous.
 
-The remaining patches add and validate the configuration operations,
-manage station and administrative MAC changes, and install address lists
-and packet-filter settings through the sleepable receive-mode path. Replies
-are checked against the requested operation. If a station-address
-replacement deletes the old address but fails to add the new one, the VF
-registers again and rebuilds its mailbox state instead of assuming which
-address the PF kept.
-
-This is the VF-side receive-control series. It does not register
-.sriov_configure, so the in-tree V2 PF path remains dormant. A later PF
-activation series must implement the PF side of the MAC-address and
-packet-filter mailbox requests, including the VF policy checks, before
-wiring that callback.
-
-AI assistance:
-
-An LLM was used for design review, source review, commit-message
-drafting, test automation, and review triage. Sashiko was used as an
-additional review tool. All findings and generated changes were manually
-reviewed, and the author takes responsibility for the series.
-
-Validation:
-
-- The exact v2 VF module against the deployed async PF passed 32 secondary
-  unicast addresses, station-address add/delete through the multicast list,
-  and fixed administrative-MAC enforcement across a close/open.
-- Isolated test-only fault and timing controls verified bounded behavior
-  under persistent registration rejection, no reconnect after a coherent
-  generic MAC-operation rejection, convergence when an address changed
-  during receive-mode processing, and synchronous broad-to-exact filter
-  completion.
-- With all injections disabled, the exact v2 VF passed 20 multicast
-  add/delete operations, three close/open cycles, statistics retrieval, and
-  bidirectional traffic. Bounded host and guest kernel-health scans found
-  no new fault report. The installed kernel was not rebuilt or rebooted.
-
+Assisted-by: LLM
 Signed-off-by: Satish Kharat <satishkh@cisco.com>
 ---
-Changes in v2:
-- Rename the netdev helper to netif_rx_mode_schedule_update() and clarify
-  that it resets retry state and schedules reconciliation without itself
-  forcing a complete address-list replay.
-- Stop a failed registration-recovery handshake from requeueing its own
-  reset worker indefinitely.
-- Keep coherent generic MAC-operation failures as ordinary errors;
-  reconnect only after explicit registration loss or an indeterminate reply.
-- Enforce a cached fixed administrative MAC while the VF is down and repair
-  an actual device-address mismatch during registration.
-- Preserve compatibility with deployed async PFs at 32 secondary unicast
-  addresses and exclude the station address from both secondary lists.
-- Complete receive-mode transitions in one callback so concurrent list
-  changes converge and synchronous operations return with filters
-  installed.
-- Link to v1: https://patch.msgid.link/20260921-b4-enic-sriov-v2-vf-receive-control-v1-0-67a0a6e08d43@cisco.com
+ drivers/net/ethernet/cisco/enic/enic.h      |  1 +
+ drivers/net/ethernet/cisco/enic/enic_mbox.c | 49 +++++++++++++++++++++++++++--
+ 2 files changed, 47 insertions(+), 3 deletions(-)
 
----
-Satish Kharat (6):
-      net: add netif_rx_mode_schedule_update()
-      enic: serialize V2 VF mailbox requests
-      enic: recover V2 VF mailbox when PF state is unknown
-      enic: validate V2 VF configuration replies
-      enic: manage V2 VF station and administrative MAC
-      enic: configure V2 VF receive mode over mailbox
+diff --git a/drivers/net/ethernet/cisco/enic/enic.h b/drivers/net/ethernet/cisco/enic/enic.h
+index 7a509a056990..3945fe28f199 100644
+--- a/drivers/net/ethernet/cisco/enic/enic.h
++++ b/drivers/net/ethernet/cisco/enic/enic.h
+@@ -335,6 +335,7 @@ struct enic {
+ 	 * the requester.
+ 	 */
+ 	struct completion mbox_comp;
++	struct mutex vf_mbox_request_lock; /* serializes VF request lifetimes */
+ 	spinlock_t mbox_state_lock;	/* protects expected reply state */
+ 	u64 mbox_expected_msg_num;
+ 	u8 mbox_expected_reply;
+diff --git a/drivers/net/ethernet/cisco/enic/enic_mbox.c b/drivers/net/ethernet/cisco/enic/enic_mbox.c
+index 5c93ca49552a..b8a18d9682b2 100644
+--- a/drivers/net/ethernet/cisco/enic/enic_mbox.c
++++ b/drivers/net/ethernet/cisco/enic/enic_mbox.c
+@@ -218,6 +218,32 @@ static int enic_mbox_wait_reply(struct enic *enic, unsigned long timeout_ms)
+ 	return err;
+ }
+ 
++static void enic_mbox_vf_request_start(struct enic *enic)
++{
++	mutex_lock(&enic->vf_mbox_request_lock);
++	reinit_completion(&enic->mbox_comp);
++	spin_lock_bh(&enic->mbox_state_lock);
++	enic->mbox_expected_msg_num = 0;
++	enic->mbox_expected_reply = 0;
++	spin_unlock_bh(&enic->mbox_state_lock);
++}
++
++static void enic_mbox_vf_request_abort(struct enic *enic)
++{
++	lockdep_assert_held(&enic->vf_mbox_request_lock);
++	spin_lock_bh(&enic->mbox_state_lock);
++	enic->mbox_expected_reply = 0;
++	enic->mbox_expected_msg_num = 0;
++	spin_unlock_bh(&enic->mbox_state_lock);
++	mutex_unlock(&enic->vf_mbox_request_lock);
++}
++
++static void enic_mbox_vf_request_finish(struct enic *enic)
++{
++	lockdep_assert_held(&enic->vf_mbox_request_lock);
++	mutex_unlock(&enic->vf_mbox_request_lock);
++}
++
+ int enic_mbox_send_link_state(struct enic *enic, u16 vf_id, u32 link_state)
+ {
+ 	struct enic_mbox_pf_link_state_notif_msg notif = {};
+@@ -623,6 +649,7 @@ int enic_mbox_vf_capability_check(struct enic *enic)
+ 	u32 version;
+ 	int err;
+ 
++	enic_mbox_vf_request_start(enic);
+ 	WRITE_ONCE(enic->pf_cap_version, 0);
+ 	req.version = cpu_to_le32(ENIC_MBOX_CAP_VERSION_1);
+ 
+@@ -630,11 +657,14 @@ int enic_mbox_vf_capability_check(struct enic *enic)
+ 					ENIC_MBOX_VF_CAPABILITY_REQUEST,
+ 					ENIC_MBOX_VF_CAPABILITY_REPLY,
+ 					&req, sizeof(req));
+-	if (err)
++	if (err) {
++		enic_mbox_vf_request_abort(enic);
+ 		return err;
++	}
+ 
+ 	err = enic_mbox_wait_reply(enic, 3000);
+ 	version = READ_ONCE(enic->pf_cap_version);
++	enic_mbox_vf_request_finish(enic);
+ 	if (err) {
+ 		netdev_warn(enic->netdev,
+ 			    "MBOX: no capability reply from PF\n");
+@@ -656,15 +686,19 @@ int enic_mbox_vf_register(struct enic *enic)
+ 	bool registered;
+ 	int err;
+ 
++	enic_mbox_vf_request_start(enic);
+ 	WRITE_ONCE(enic->vf_registered, false);
+ 
+ 	err = enic_mbox_vf_send_request(enic, ENIC_MBOX_VF_REGISTER_REQUEST,
+ 					ENIC_MBOX_VF_REGISTER_REPLY, NULL, 0);
+-	if (err)
++	if (err) {
++		enic_mbox_vf_request_abort(enic);
+ 		return err;
++	}
+ 
+ 	err = enic_mbox_wait_reply(enic, 3000);
+ 	registered = READ_ONCE(enic->vf_registered);
++	enic_mbox_vf_request_finish(enic);
+ 	if (err) {
+ 		netdev_warn(enic->netdev,
+ 			    "MBOX: VF registration with PF timed out\n");
+@@ -684,16 +718,24 @@ int enic_mbox_vf_unregister(struct enic *enic)
+ 
+ 	if (!READ_ONCE(enic->vf_registered))
+ 		return 0;
++	enic_mbox_vf_request_start(enic);
++	if (!READ_ONCE(enic->vf_registered)) {
++		enic_mbox_vf_request_finish(enic);
++		return 0;
++	}
+ 
+ 	err = enic_mbox_vf_send_request(enic,
+ 					ENIC_MBOX_VF_UNREGISTER_REQUEST,
+ 					ENIC_MBOX_VF_UNREGISTER_REPLY,
+ 					NULL, 0);
+-	if (err)
++	if (err) {
++		enic_mbox_vf_request_abort(enic);
+ 		return err;
++	}
+ 
+ 	err = enic_mbox_wait_reply(enic, 3000);
+ 	registered = READ_ONCE(enic->vf_registered);
++	enic_mbox_vf_request_finish(enic);
+ 	if (err)
+ 		return err;
+ 	if (registered)
+@@ -711,6 +753,7 @@ void enic_mbox_init(struct enic *enic)
+ 	 */
+ 	if (!reinit) {
+ 		mutex_init(&enic->mbox_lock);
++		mutex_init(&enic->vf_mbox_request_lock);
+ 		init_completion(&enic->mbox_comp);
+ 		spin_lock_init(&enic->mbox_state_lock);
+ 		enic->mbox_msg_num = 0;
 
- drivers/net/ethernet/cisco/enic/enic.h       |   58 +-
- drivers/net/ethernet/cisco/enic/enic_admin.c |   29 +-
- drivers/net/ethernet/cisco/enic/enic_dev.c   |   11 +
- drivers/net/ethernet/cisco/enic/enic_dev.h   |    1 +
- drivers/net/ethernet/cisco/enic/enic_main.c  | 1251 +++++++++++++++++++++++++-
- drivers/net/ethernet/cisco/enic/enic_mbox.c  |  739 ++++++++++++++-
- drivers/net/ethernet/cisco/enic/enic_mbox.h  |   84 ++
- drivers/net/ethernet/cisco/enic/enic_rq.c    |   11 +-
- include/linux/netdevice.h                    |    1 +
- net/core/dev_addr_lists.c                    |   21 +
- 10 files changed, 2126 insertions(+), 80 deletions(-)
----
-base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
-change-id: 20260916-b4-enic-sriov-v2-vf-receive-control-b5c40bdae5b9
-
-Best regards,
---  
-Satish Kharat <satishkh@cisco.com>
+-- 
+2.43.0
 
