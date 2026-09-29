@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-242.mta1.migadu.com [95.215.58.242])
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B1C511207
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E69511E63
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677751; cv=none; b=AvvkWcoWq1XW+HoGqrx9g5O+gTCMZx+Y4Sk1V+EZ+qirEOOwNboaKzwAsqTR3rZVdKoUAIJp7ET1AtHg+nzcSSUdrmRwEnXwKe7fV6PZ9+z+2rXk9yU90ZE7u/Szs7Lmxv0mpufq0CavIyheNwrF/1gHPjI09naYB3Pu93MVOzo=
+	t=1790677753; cv=none; b=saLRYsnEU+h3FizdavKTKA+lI+9p2Sk7xLp3wGsyR7Nb0QJd0RT1f9ghZ234bFND6K1dIN4ZmcOkzQQosNelB/vAIxbr1J3LDPX/ZkoLy/IHDWp3i9jtK/FQbMeVPrcT/vjJCG/XNeJRTNOaxdTD0zcwspuJQlUg6BKGBF8cmqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677751; c=relaxed/simple;
-	bh=pD+cis/wDWCh93w5eb5Uib3ul/Qyk4R+r1GaHe1/vbA=;
+	s=arc-20240116; t=1790677753; c=relaxed/simple;
+	bh=8NLvOLnj3DbAAT+HBXadUZCHdDaLMqxODYIHGQTXStA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cPz/RLZWFGncqobd2GcUDjak/pyYFGZqgae1r1UpPCDDSZrXSGOI7AHtUY7KKqNFHgDalIwyL0Sm5SAkwc5QnuePQFM/ungJodpieyanEKLPH4FKTZcAULsQy7vuDJK/SUmS3xymm2iaSiQg0Lq/wMmmSqpxiVhxYKH6WzSG2x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ErmKEZm6; arc=none smtp.client-ip=95.215.58.242
+	 MIME-Version; b=DNbKHzdbjyEK0CX3TqrXQFE3fInA6glEPEjEG4jkDnSTi668EDlzdXjBv3QtqUTU71mFu7R/Xt7sX5w+7cEdLrDpgQcXb+8mGGfy9cVi198+V0esfjEZRceJ8bM8cUUHHVqWbgeKDilRT+AKRQzxjKgtdI3KjmGOQSWVIwfl6mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=I6DEcExZ; arc=none smtp.client-ip=95.215.58.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ErmKEZm6"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="I6DEcExZ"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pD+cis/wDWCh93w5eb5Uib3ul/Qyk4R+r1GaHe1/vbA=;
+DKIM-Signature: a=rsa-sha256; bh=8NLvOLnj3DbAAT+HBXadUZCHdDaLMqxODYIHGQTXStA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790677727; v=1; x=1791282527;
- b=ErmKEZm6fD7msYX/LvY2lNTjDlK/Ff5NTSJyjpLx3MCeWRdKheMo2koufaXJTji48czHASqy
- itIZsaJKIX6XSg+dPaHoHDCh24IV44k5q1eg6rnRRkEaUh0eJYqYOGMH1IJfvcG5UotNscXwPG8
- 9PEwis2f8XVMJRZ10UzK4NTI=
+ t=1790677735; v=1; x=1791282535;
+ b=I6DEcExZ4PszoHBe9A3n17luQIZ8u/p7vg1ET5qgK+ySRsE4eMpqKxsqNpfG4mUo4KznPJwi
+ 1lWzaVTKMBiNft1UCTzk4KB6SS+ePJMC2dP8fVxqKv48Khw6UQCORll3j7sZ5OtCFDFxZMg8k2H
+ k2jJ3ICDfTgkqp+2dYiBQhU4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9fbbb2095db56e44;
-	Tue, 29 Sep 2026 10:28:47 +0000
-X-Mizu-Trace-ID: 9fbbb2095db56e44
+Received: by smtp.migadu.com with ESMTPS id 863aecb5a1889c6f;
+	Tue, 29 Sep 2026 10:28:55 +0000
+X-Mizu-Trace-ID: 863aecb5a1889c6f
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: maobibo@loongson.cn,
@@ -41,9 +41,9 @@ Cc: loongarch@lists.linux.dev,
 	nagachaithanya9911@gmail.com,
 	cui.tao@linux.dev,
 	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2 2/4] LoongArch: KVM: Load dmsintc pointer once in pch_msi_set_irq
-Date: Tue, 29 Sep 2026 18:28:19 +0800
-Message-ID: <20260929102821.36112-3-cui.tao@linux.dev>
+Subject: [PATCH v2 3/4] LoongArch: KVM: Propagate real error code in kvm_pch_pic_create
+Date: Tue, 29 Sep 2026 18:28:20 +0800
+Message-ID: <20260929102821.36112-4-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260929102821.36112-1-cui.tao@linux.dev>
 References: <20260929102821.36112-1-cui.tao@linux.dev>
@@ -57,62 +57,32 @@ Content-Transfer-Encoding: 8bit
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-pch_msi_set_irq() reads kvm->arch.dmsintc several times: the non-NULL
-check and the address-window comparison each reload the pointer, so a
-concurrent device removal can be observed between them and the
-following dereference hits a freed object.
+kvm_pch_pic_create() replaces the real error of
+kvm_setup_default_irq_routing() with a fixed -ENOMEM.  Return the
+actual code, as kvm_eiointc_create() already does; the kvm_ipi_create()
+case is fixed separately by "Return the actual error code in
+kvm_ipi_create()" (Chaithanya Lagisetty).
 
-Load the pointer once at the top of pch_msi_set_irq() and add a NULL
-check with a local snapshot in dmsintc_set_irq().  Both loads use
-READ_ONCE() so the compiler keeps them single.  This closes the
-reload race; a narrower window where removal happens right after the
-load remains, as the injection path takes no lock against destroy.
-
-Fixes: 03de5eecb0f0 ("LoongArch: KVM: Add DMSINTC inject msi to vCPU")
+Fixes: e785dfacf7e7 ("LoongArch: KVM: Add PCHPIC device support")
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
 ---
- arch/loongarch/kvm/intc/dmsintc.c | 6 +++++-
- arch/loongarch/kvm/intc/pch_pic.c | 7 ++++---
- 2 files changed, 9 insertions(+), 4 deletions(-)
+ arch/loongarch/kvm/intc/pch_pic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
-index 41c8b597b5bd..91a163698c3c 100644
---- a/arch/loongarch/kvm/intc/dmsintc.c
-+++ b/arch/loongarch/kvm/intc/dmsintc.c
-@@ -69,9 +69,13 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
- {
- 	unsigned int irq, cpu;
- 	struct kvm_vcpu *vcpu;
-+	struct loongarch_dmsintc *s = READ_ONCE(kvm->arch.dmsintc);
-+
-+	if (!s)
-+		return -EINVAL;
- 
- 	irq = (addr >> AVEC_IRQ_SHIFT) & AVEC_IRQ_MASK;
--	cpu = (addr >> AVEC_CPU_SHIFT) & kvm->arch.dmsintc->cpu_mask;
-+	cpu = (addr >> AVEC_CPU_SHIFT) & s->cpu_mask;
- 	if (cpu >= KVM_MAX_VCPUS)
- 		return -EINVAL;
- 	vcpu = kvm_get_vcpu_by_cpuid(kvm, cpu);
 diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index 62c09b5f3937..30a8c65c7609 100644
+index 30a8c65c7609..7a704f18880d 100644
 --- a/arch/loongarch/kvm/intc/pch_pic.c
 +++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -71,10 +71,11 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
- int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level)
- {
- 	u64 msg_addr = (((u64)e->msi.address_hi) << 32) | e->msi.address_lo;
-+	struct loongarch_dmsintc *dmsintc = READ_ONCE(kvm->arch.dmsintc);
+@@ -445,7 +445,7 @@ static int kvm_pch_pic_create(struct kvm_device *dev, u32 type)
  
--	if (cpu_has_msgint && kvm->arch.dmsintc &&
--		msg_addr >= kvm->arch.dmsintc->msg_addr_base &&
--		msg_addr < (kvm->arch.dmsintc->msg_addr_base + kvm->arch.dmsintc->msg_addr_size)) {
-+	if (cpu_has_msgint && dmsintc &&
-+		msg_addr >= dmsintc->msg_addr_base &&
-+		msg_addr < (dmsintc->msg_addr_base + dmsintc->msg_addr_size)) {
- 		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
- 	}
+ 	ret = kvm_setup_default_irq_routing(kvm);
+ 	if (ret)
+-		return -ENOMEM;
++		return ret;
  
+ 	s = kzalloc_obj(struct loongarch_pch_pic);
+ 	if (!s)
 -- 
 2.43.0
 
