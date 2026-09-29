@@ -1,229 +1,259 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D933551EDFE;
-	Tue, 29 Sep 2026 14:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DF852CCFE;
+	Tue, 29 Sep 2026 14:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692342; cv=none; b=T6IdX8T0a7+gZg0PXNJQPSe4uCdCr3kBDJiTgi2NmPGyO23lR8UeyBMurpDyWRGcVCcYLkx2T17QuheKMbxF2U0WgNQNMGxaIYoOSxSZNTYQG8wo46/pcm68O9nw6BPxG34x0yFmUMsxeM58kfW1Z0aWIj8ms1SEhYiJce4S9A8=
+	t=1790692376; cv=none; b=t2PmTcR4KDrDdK7Gu/dL/i4cP3EkOv0JUUaC+B2GlDX9uXLfn2o3SsIEwnhMfw9xbGMTT7aFzPjCiUzmfuMPF2d1yeEqWB60G14PZTtNFdG7YYvp92+Qs0RnIKTC4J00023nRDPsy4Q3dErVrrEjZch0ZADecCNCHAYQRQTN49w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692342; c=relaxed/simple;
-	bh=EEkC1k5TlXqhlI1kvQuSXPB95c6jcTfMP0aFzVMO958=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yp2+9Ojqamg+Q0bYE+F4Hr9m0+/lk1Cj5hQZQYAArnB/1iEms9OG6dM+x9TE65pmezuVNcrq347O9YTxzz7dQk92MQxdINJwxK0QDJ9rDBoHlG4sVvXwj9O2aoDdmOMbxBspcn7BboxBvRKKGTWem0MJ8fz11veWPr8pW/9sFPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=XaGKsPSN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v/No45hR; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1790692376; c=relaxed/simple;
+	bh=rLh0/yJsYc4k0rf14CEkNFcjZfcnxoCJV4Cvpt6fjD4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EtX462yCxCx5LMEPFkFK2TkeRBb+oqZMj0tslvs1l0MSt44n7QgrwyemWeX7lXspCl0umj9q0rIP3cUKpvQMI9Kmo6F+uNUiYs4ZFntEF+qXw1Ovevif1mH1B56YQoeHggcBNlWJxkr68dbeZSgCTCyYfEcENyi1dJlfRKDTYP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sAjqq+QF; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="XaGKsPSN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v/No45hR"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 37DEEEC0B6C;
-	Tue, 29 Sep 2026 10:32:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 29 Sep 2026 10:32:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790692332;
-	 x=1790778732; bh=DaNWAhJP0gQpiCQdc/OXCgSdstp19EO6gxhOwhRHnfE=; b=
-	XaGKsPSN67oBIpgRE+BUn5jYHrYfyVSq/btZpjLzuJURoe9z0Ffv1fDjlakfh4oU
-	mqLms6SIi1pBkE/uVR4EJlArQ4LW9Q4UInvIdLL++KqJWpCb2oCVTc0X21upMOfY
-	d/aUEDSmU7jFMS52r+pNfW6fkHk4Qm2uhnL1xxqCTTKO8AtccBTUu1cu3pNMZvco
-	awzg9rggdVxCiWfkbh2Y3vEYqH5mLkPXGMeF0KHhC1mu7f7zB0W0ebQRLZtioYd4
-	T3sOYXm/BJhFGNkZ6ffMezDL8SBgLAdHCJUNoOEk5tSknzkr6TbpQVCWVZscCl9L
-	q3SZbLykvm8HFketwzXy2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790692332; x=
-	1790778732; bh=DaNWAhJP0gQpiCQdc/OXCgSdstp19EO6gxhOwhRHnfE=; b=v
-	/No45hRJO2HHQbeLbtRs0wRFskqhvFXevopYBAxmJdXQjzrQlvDPtwOMi1OPNRGF
-	XcH7Gdijwf57foOqqdeLUJyUVQNxStPe/6vDYzzqbhCmzDIx4ZtAWgk2Dde29/kc
-	QB5DL0RifJBWRj6OcBHUtYn7+GpHtnF1pTiC+wLPg4bU937Fcp+zw0Hln3kjfHLY
-	+jI56IpduYapDLPIYkxik9gUrqPTVS6OPrmuEfDE7Cx6o1j2Hjxk4bfl0WUAb0M/
-	CJbP/Ksel/IogQ5oTzx0LjGi5kWL7o83nPoTq+BczvEB7HbSIglxNF2BdilcTkaf
-	AwAUZJ15an1G+h/G8IbUw==
-X-ME-Sender: <xms:68u7amiTG50oxv0Juv1OhZaUkNgSuCGICMwCoMhpHZjyY0ucb5E-7Q>
-    <xme:68u7ahGTWhGn9_RcCsInnmFXEIGO_4mIldDkLeKh1gU9qgTOiLWeiQMdZIlOpUdd1
-    BAkRNeJ1e5BzDXU0GYkQmv3Zg3ET7Zj7kvJ5IDvNPWK-J5NckUkHkI>
-X-ME-Received: <xmr:68u7at8_OImoJ7R9Xj7TFsiNuvjfeRPj6po_N96819qJNGQ_WCiwwj55S0w6pzoNpqQdpZ7RUnrBrohmBUMleuJ_t0HnXjo>
-X-ME-Proxy-Cause: dmFkZTFKpfdBnY2TZoh/ZAx2aNt9EPRpz20KcKtXzjCFAmyJsPZQs813kKOYPMn9fBHhMH
-    tzcrruEmr8LiQJujG2I9tkjWOlPCUhwW4mndVRV5hq4y58IrR8u3fJyFxE9ZWwYJ3aw2kY
-    zdc9Zm0R7ocQyq4EQgVl5qTRomUZ/wI/0olAKav0bY252ZwBfSkbhVbMjDPx2kHn8g8p/V
-    WeRqTLDm9Bly8+nirCwUwiK/qBr6rBUsae8DlriMj7WwnwhAL8leObQc10ieSpQrMCKehY
-    83KH5NxcE0S2iNl2D5vhMP0fNgXFiTotPXM6xXc1aKwS+0kamtfxfI8TaHFJhV7XpuwXg6
-    7EKStK+ZCGbUjKTgBiQZuYibsx2NWcTYTHH4URhzqbs1RTw4/ehGv0ROnSB7XV30wJ4v02
-    GeEY+HiXHMmHuBvnTAYZ/9Y4t90LX6Wq16we+/8VsYS6XWIBzmQbuYLlekB6rf1P/yI8Az
-    K05BwNY1X+SrddYuykh3yC/yGOQtV+27EBv5H6ALVSOiVJeu6t8iGeHbEy1KcaMJOhlfjJ
-    koIyaA2PNksz+/Wx5hYnVdWG7K1uWebFleP8dRrxsxzNbwnXHfFOAEEQ7krcyaBC4vEsvv
-    WuqIY142exsQyqLIfOgHwLlWeABE+ABKY+gHOiqeJ+qPt8qJbIgnYorBqoQw
-X-ME-Proxy: <xmx:68u7agyHUsiPCfT0F-9-M6kgvlGTu3m7xiegqBoX1X0EH2n7kcDHig>
-    <xmx:68u7ahMGFeuIrAw05tMuB8fpZpTIO6laFCqIvBbR79olAd7udSdM8g>
-    <xmx:68u7at_F1YPjlBHdJj3vkaUTfruYPwRt3pQgwUnMwe-YYBbpGg9lKg>
-    <xmx:68u7am4oniXNtd2wHeNTFnLTgZKAgfsrPMFiL1ra-YYg_syuWWBSbA>
-    <xmx:7Mu7anUzmF6J4_O8WO3gtqii1wb5ELpl5bt3vLrueZr5yHGI9R1NikNV>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 10:32:11 -0400 (EDT)
-Date: Tue, 29 Sep 2026 16:32:09 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] media: rcar-vin: Implement `VIDIOC_ENUM_FRMSIZES`
-Message-ID: <20260929143209.GB1244576@ragnatech.se>
-References: <20260929133720.344955-1-barnabas.pocze+renesas@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sAjqq+QF"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hvLHd37HmzMlMZ;
+	Tue, 29 Sep 2026 16:32:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790692365; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eVPHcNKEnZbCUM6JPhhPFFrAPt2luGsLtj/T1FhlUww=;
+	b=sAjqq+QFsRWG4O8Ysdhye6ymk/YJpItyiAVQAOVpRMOvGZ74lyjGudKliWAOMPap0n5mKB
+	dpFmtgMR8tY+9Uj/3UCPK/yfi9XUbuu621WiuC/G55qt5fZEXAERBv0mHowPxJ8Hb8esO6
+	2uk6hOywYa0FXkSGksUJglhaveT3yGMmfkhlx6WlRj9Q7VHeeNfGdflD8hKFmiJVQmY+pS
+	DqUoWaX+2DB2CJrVvnjGOz55FPNbo5DyxL+Bvc8ssLnBRTrFsNUZ2NpJpjp/4Ik84lMBEE
+	d7isf4Qknjqu3VwAmMgYOxH5CMhI3W3yjFFDK2AVoTX4F2G58FIY0zFzFSgkLg==
+Message-ID: <cc55db30a4a7ca274c95ff3351644515a404de67.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
+	 <dakr@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:32:43 +0200
+In-Reply-To: <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
+References: <20260923150308.1294592-2-phasta@kernel.org>
+	 <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+	 <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+	 <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+	 <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
+	 <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+	 <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
+	 <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929133720.344955-1-barnabas.pocze+renesas@ideasonboard.com>
+X-MBO-RS-META: 3b9ebjbwdr95psixijzyfucgu5xndqwe
+X-MBO-RS-ID: 0ea9bc353001fd077be
 
-Hi Barnabás,
++Cc Danilo
 
-Thanks for your patch,
+On Tue, 2026-09-29 at 15:32 +0200, Christian K=C3=B6nig wrote:
+> On 9/25/26 10:42, Philipp Stanner wrote:
+> > On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
+> > > Some problems like the locking design are still WIP, but we are
+> > > slowly moving towards that.
+> >=20
+> > The question will be whether we can reach common ground with that
+> > one.
+>=20
+> I haven't had a chance to look into your alternative to using RCU,
 
-On 2026-09-29 15:37:20 +0200, Barnabás Pőcze wrote:
-> Currently there is no way for applications to query the available frame
-> sizes, so implement `VIDIOC_ENUM_FRMSIZES` based on what is allowed in
-> `rvin_format_align()`.
-> 
-> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+That was just a nasty, still half broken RFC that doesn't really work
+(yet), just to see how the rough idea might resonate.
 
-I'm not super exited about having ` in the patch title. With them 
-dropped,
+Basically, I think that at the heart of fence's problems are these
+issues:
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+a) fence and fence_context can share a lock
+b) thus, the driver often protects driver data with that lock
+c) drivers now are allowed to take the fence-lock manually
+d) thus, the fence-state cannot consistently be protected with the lock
 
-> ---
->  .../platform/renesas/rcar-vin/rcar-v4l2.c     | 70 ++++++++++++++-----
->  1 file changed, 51 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-> index 9d45e11898c13..4961d28f42c78 100644
-> --- a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-> @@ -19,6 +19,8 @@
->  #include "rcar-vin.h"
->  
->  #define RVIN_DEFAULT_FORMAT	V4L2_PIX_FMT_YUYV
-> +#define RVIN_MIN_WIDTH		5
-> +#define RVIN_MIN_HEIGHT		2
->  #define RVIN_DEFAULT_WIDTH	800
->  #define RVIN_DEFAULT_HEIGHT	600
->  #define RVIN_DEFAULT_FIELD	V4L2_FIELD_NONE
-> @@ -187,6 +189,24 @@ static u32 rvin_format_sizeimage(struct v4l2_pix_format *pix)
->  	}
->  }
->  
-> +static u32 rvin_format_width_alignment(u32 pixelformat)
-> +{
-> +	/* Hardware limits width alignment based on format. */
-> +	switch (pixelformat) {
-> +	/* Multiple of 32 (2^5) for NV12/16. */
-> +	case V4L2_PIX_FMT_NV12:
-> +	case V4L2_PIX_FMT_NV16:
-> +		return 5;
-> +	/* Multiple of 2 (2^1) for YUV. */
-> +	case V4L2_PIX_FMT_YUYV:
-> +	case V4L2_PIX_FMT_UYVY:
-> +		return 1;
-> +	/* No multiple for RGB. */
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
->  static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
->  {
->  	u32 walign;
-> @@ -208,27 +228,12 @@ static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
->  		break;
->  	}
->  
-> -	/* Hardware limits width alignment based on format. */
-> -	switch (pix->pixelformat) {
-> -	/* Multiple of 32 (2^5) for NV12/16. */
-> -	case V4L2_PIX_FMT_NV12:
-> -	case V4L2_PIX_FMT_NV16:
-> -		walign = 5;
-> -		break;
-> -	/* Multiple of 2 (2^1) for YUV. */
-> -	case V4L2_PIX_FMT_YUYV:
-> -	case V4L2_PIX_FMT_UYVY:
-> -		walign = 1;
-> -		break;
-> -	/* No multiple for RGB. */
-> -	default:
-> -		walign = 0;
-> -		break;
-> -	}
-> +	walign = rvin_format_width_alignment(pix->pixelformat);
->  
->  	/* Limit to VIN capabilities */
-> -	v4l_bound_align_image(&pix->width, 5, vin->info->max_width, walign,
-> -			      &pix->height, 2, vin->info->max_height, 0, 0);
-> +	v4l_bound_align_image(&pix->width, RVIN_MIN_WIDTH, vin->info->max_width, walign,
-> +			      &pix->height, RVIN_MIN_HEIGHT, vin->info->max_height, 0,
-> +			      0);
->  
->  	pix->bytesperline = rvin_format_bytesperline(vin, pix);
->  	pix->sizeimage = rvin_format_sizeimage(pix);
-> @@ -343,6 +348,32 @@ static int rvin_enum_fmt_vid_cap(struct file *file, void *priv,
->  	return -EINVAL;
->  }
->  
-> +static int rvin_enum_framesizes(struct file *file, void *priv,
-> +				struct v4l2_frmsizeenum *fsize)
-> +{
-> +	struct rvin_dev *vin = video_drvdata(file);
-> +	u32 wstep;
-> +
-> +	if (fsize->index != 0)
-> +		return -EINVAL;
-> +
-> +	if (!rvin_format_from_pixel(vin, fsize->pixel_format))
-> +		return -EINVAL;
-> +
-> +	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-> +
-> +	wstep = 1u << rvin_format_width_alignment(fsize->pixel_format);
-> +	fsize->stepwise.min_width = round_up(RVIN_MIN_WIDTH, wstep);
-> +	fsize->stepwise.max_width = vin->info->max_width;
-> +	fsize->stepwise.step_width = wstep;
-> +
-> +	fsize->stepwise.min_height = RVIN_MIN_HEIGHT;
-> +	fsize->stepwise.max_height = vin->info->max_height;
-> +	fsize->stepwise.step_height = 1;
-> +
-> +	return 0;
-> +}
-> +
->  static int rvin_remote_rectangle(struct rvin_dev *vin, struct v4l2_rect *rect)
->  {
->  	struct media_pad *pad = media_pad_remote_pad_first(&vin->pad);
-> @@ -564,6 +595,7 @@ static const struct v4l2_ioctl_ops rvin_mc_ioctl_ops = {
->  	.vidioc_g_fmt_vid_cap		= rvin_g_fmt_vid_cap,
->  	.vidioc_s_fmt_vid_cap		= rvin_mc_s_fmt_vid_cap,
->  	.vidioc_enum_fmt_vid_cap	= rvin_enum_fmt_vid_cap,
-> +	.vidioc_enum_framesizes		= rvin_enum_framesizes,
->  
->  	.vidioc_g_selection		= rvin_g_selection,
->  	.vidioc_s_selection		= rvin_s_selection,
-> -- 
-> 2.55.0
-> 
+The fundamental problems were IMO worked around with RCU.
 
--- 
-Kind Regards,
-Niklas Söderlund
+I think if we re-designed dma_fence today, we would do it like that:
+
+a) each fence has its own lock
+b) the driver cannot (legally) access a fence-lock
+c) the entire fence state is protected by the lock
+d) the fence lifetime is completely covered by refcounting
+e) signaling is the decoupling point. Signaled-state is guarded by the lock
+f) fence->ops access is, through the signaled-state guard, also guarded by =
+the lock.
+g) all fence API functions are locking-atomic. For example,
+   dme_fence_set_error() should not exist, but dma_fence_signal(err)
+   should take the code and do all operations while holding the
+   lock.
+
+If the driver can never take the lock, then there cannot be a lock
+inversion (unless the driver would signal while holding its own lock,
+which should be avoidable).
+
+
+So my idea would have been that, similarly to how you added the
+inline_lock a year ago, we add another super_lock to dma_fence, which
+is always present, for all users.
+
+We could then add this lock as a second locking layer around the
+existing inline / shared lock and implement the rules listed above with
+it.
+
+This is just a crazy idea =E2=80=93 it's obviously horribly dangerous and
+fragile because of locking order. So I'm not sure if it's worth
+exploring further.
+
+But if we had a time-machine I think that's what we would tell
+ourselves to do.
+
+
+> but you mentioned that you found a solution to the problem on the
+> RUST side so it sounded to me that we at least have a path forward.
+
+In Rust we just obey 100% to the current dma_fence contract. We do use
+RCU, and establish the signaled-state as strict decoupling point for
+driver-unload.
+
+Since all the code is new, we just don't implement deprecated
+callbacks, and we use inline_lock.
+
+I take the fence lock manually where necessary, and sometimes where
+half-necessary.
+
+Fence::is_signaled() for example takes and releases the lock like you
+do in the AMD code example below, so that all future API users know
+with 100% certainty that all callbacks have run once the function
+returns true.
+
+(what our Rust design, ironically, solves is ops->signaled() not being
+usable for users of drm_sched, because of drm_sched_fence being in
+between)
+
+>=20
+> > >=20
+> > > But some problems like parts of the dma_fence uAPI are unfixable
+> > > without time travel.
+> >=20
+> > I would be especially interested in learning about who the party is
+> > that apparently is spinning on dma_fence_is_signaled(), supposedly
+> > preventing us from getting the memory ordering right.
+>=20
+> Well there isn't spinning on it. It's just that in a SMP system it
+> takes some time for state to transfer between CPU cores and that
+> communication channel often becomes a bottleneck.
+
+No no, that's not what I mean. Having ops->signaled() is unrelated to
+my question.
+
+I'm asking about this:
+
+static inline bool
+dma_fence_is_signaled(struct dma_fence *fence)
+{
+	const struct dma_fence_ops *ops;
+
+	if (dma_fence_test_signaled_flag(fence))
+		return true;
+
+
+You said once that I cannot add lock protection to that if-evaluation.
+And IIRC the reason was that someone would complain about performance.
+Who is that someone?
+
+That's what I meant: that someone would have to be looping on
+dma_fence_is_signaled() to feel the lock.
+
+The reason I want the lock there is that I want to get rid of things
+like that:
+
+void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+{
+	[=E2=80=A6]
+
+	/* Make sure that all fence callbacks have completed */
+	dma_fence_lock_irqsave(vm->last_tlb_flush, flags);
+	dma_fence_unlock_irqrestore(vm->last_tlb_flush, flags);
+
+
+>=20
+> By implementing the is_signaled callback you avoid that device->CPU
+> core A->CPU core B signaling making things much more responsive.
+>=20
+> Even on ancient drivers like radeon people start to complain when the
+> is_signaled callback is removed, so it is definitely necessary.
+
+We can keep the callback, I think it being there is not a decisive
+issue.
+
+Though I don't get why it being there would make things faster. My
+understanding so far was that it's only good for parties that do not
+signal fences via interrupt.
+
+Who triggers the check via ops->is_signaled()? You once said it's
+typically the compositor.
+
+Since you mention Radeon I suppose it can indeed only be drivers that
+don't use drm_sched.
+
+> > Also learning more about the users that definitely *need* ops-
+> > > signaled() and ops->enable_signaling() would be interesting.
+> > > drm_sched
+> > users cannot make use of these, since the sched-fence does not pass
+> > the
+> > request through to the hardware fence.
+> >=20
+> > So who are the users? Parties like Nouveau implement these
+> > callbacks,
+> > but it's not clear whether they actually need them.
+>=20
+> The eviction fence and KFD fence in amdgpu as well as the preemption
+> fence in XE and i915 depend on that to note whenever somebody starts
+> depending on the fence.
+>=20
+> Additional to that I just last week have talked with some Qualcomm
+> folks who desperately want device to device signaling without waking
+> up the CPU. The enabling_signaling callback is necessary for that as
+> well.
+>=20
+> For Nouveau I think that it is pretty much pointless to implement
+> those callbacks, but I'm not 100% sure.
+
+I tried to remove them 1-2 years ago and then ran into massive
+performance degradations, which indicates that Nouveau uses them for
+some performance trick, maybe to reduce interrupt load. Didn't explore
+it further.
+
+
+P.
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > (btw, funnily enough, with the Rust-fence design we finally have
+> > the
+> > ability to fully support all callbacks with or without a scheduler,
+> > since the need for an intermediate fence disappeared)
+> >=20
+> >=20
+> > P.
