@@ -1,64 +1,64 @@
 Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB89855D88E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72C8559300
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:49:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707784; cv=none; b=Ib/IGmPRKg3AXIQ1DlN07lHLxudoP3AuamcF12wrzdAnTAWqvSc7CbwOPvIzWBKYcvZHPzeMgBXDq5EuXR/K8cJmWMHvjKJ3vtcL/68ufpUMhEDlZ+bcH6uSPPKrm4SBGC01MrCrzQk2pXU6TNQOmvRQ9pfnBHz4HBO3eK/UT0I=
+	t=1790707800; cv=none; b=htdnouUowe4w3W9oAbPZWYdxqc47DwSvHZMzjjOGylSYUmCIEL0NEXoxlahwIVZMEuiFRr17YlNDgkjYC5BhHIu6iXf/q0JDbcKk7rGGWnjv3nPx3QywzpbpSdk64ueEVp5HGsgt8tbJRh/5L9TXcMllEv/+oaBrJ8uJu54CUiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707784; c=relaxed/simple;
-	bh=tK+69dkX1Ss2BOAb0xlYsxPsrmqxWOjFTt6Zyqbrb1Y=;
+	s=arc-20240116; t=1790707800; c=relaxed/simple;
+	bh=IgggqRFRJHsrxTs4OuHEG4QNZQchSD/bszInjUcCjAQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VBXuB9uCG0qz7SMvB495pHvWB/a8SjxgN9m6XoH5gGLn1pzl08wPgt8Amlc9FyJPRMgwhrc4vnTjmfx5FS9qDEQIqsRbBhmWRr5DdC9wjxsNuxgJGjbhhbVq7umIaGn/lECo/GPpJNN5W3ux6dPhN4XgUBLIX8ZHAQrLX0SBJX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZxWDo9f1; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=W1FaC+ozc441YBMhml66ttil1Lw0+0Emujl2UyHhCK5XByvAISc5fBReTQQjJqhwn77mGDg/3MRhPWOaEF2rxI19GOPrXIQqIJZ+8yvTxlnB17FKo8kQdHwUGjkO91RP70RS9T0EyfP4xkNBSldnl0raIOuskmRhg8JOBCgSeTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CsXLKh1Q; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZxWDo9f1"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f635552aso3563573f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:49:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CsXLKh1Q"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so3266386f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:49:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790707781; x=1791312581; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790707797; x=1791312597; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4tQJNzO8qjbNvG9slVuZDk5HBmwm+kLu8BfTZi71ARw=;
-        b=ZxWDo9f1b5qoiq51JB/ZP5ZoGWJD13EtwOEGzHav13I6SAtVQaxwGZnHqG6GdToTN2
-         vYfJjUIsmkor6nBcvtJE7Kg8ERvbrctNU5mZiXiZkmF8AHncJoRVW4vd3R9lwB1GC612
-         TiuFUDYfOaUe0U2eeDRirI4Je0IlLNo8UPTogcPN+LHQ7BeIeumEK/ULf9O1zNjVKrLD
-         PjrY+Cmajd4PMX0oeihZ21QBtfp8+beQGS1Cf/5t8hQ5YyskhZu9mGMl+bmyUmuc2H21
-         3llDg9YS+unuhyZqMCfq+Az9X74xtiVNRAb7mtYu58rdSJ0MGTG4y4gvoH5h5MV7zupy
-         XQpA==
+        bh=8nV5PAl/j9F5unHW2G98h/r8gEnFDBcnSeXzHKLdPuw=;
+        b=CsXLKh1Q7BSI0scKH+kO40yk/NCIgzE9H/GbwtGaSH22HMH/qtX1j8wgDdXkYJmgwV
+         lFKwyTqHCxd62IjhPhIZeQmoIbeBBtve0NFIE/tVmuqeAa9a2Fn3oZlaeqqq+j3OlXIk
+         l814ssb2onCXdBVX8xQzcgrZgBnmtOc/PFPSpdNxElP12pciM+fgA6iMTAEi5gxqJsV0
+         oJQBm26kTM3LZIIndhJ8XnrM9j+izUIpFINK1ifIMJ5iYoOBOjDJSr4t3z9ntCG8Lmee
+         ck8BMt0gLZyp7WIzkyrY3vkqq8TpraA+V9PmCEbJ9GBQr5GNLWmbQ77rnIqzcalZECwB
+         syzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707781; x=1791312581;
+        d=1e100.net; s=20260707; t=1790707797; x=1791312597;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4tQJNzO8qjbNvG9slVuZDk5HBmwm+kLu8BfTZi71ARw=;
-        b=rpGhSb2GOHxZ3G6bMxgqfyBK7x9osHBUIwmdsGwflnXGvrhIzDBju1cNpoamJx+VBI
-         6LIJQlosPHWnOGSqOLUT2HgMivXlk/9DnsNodF6YIOTP/l4fNO5aDprfew+4WXNa0JVS
-         rWySGiOTfFOn5HUPpcVwxDsLnEXO23/GB0AZqCah/ex5mg/sFjA1NUhOJrVinfwBkeFo
-         1UdXTFoQ2CZuttBTV37S8XB1qQ+FW57OH3gLrNrlbdfciqdgaO8v2IVR9mlVSu59GkKb
-         E2S7pyJ88K4x0xHoQK5cY2L4Pdjh1TVDKOl5W0U7YcZCUc9BPExEZo22CAcvm8tCPLjp
-         Xj8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwpZimIsFrACChbFBuHLdAp7ChNwtYvQU9LJcpmJKrpS5vu+pAoOi8/ZtDgHNEaDHQtzW5NlLfdVYPpzzQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzs+TDw+3lVXxZBOJlB8SQZ+JpnKHvwG5xG/IzzYEVX9C73JsX
-	+IBsXtGZwZ8vFVw5Bi+SaHdCMW2rbRVINo1LyEt3tYwB0q4w7vqf8i7FqGuWww==
-X-Gm-Gg: AYBFou3MX217wRCgraLwZ8QBrF3n8P6tMBuXrBX6reWwhRBoshKsCuKvKVng+N0b8yG
-	uHb4C0YxK9JVkA4Pb2wsPNLS9RE8esoAch2a/ag9ZvnkHihBCaeqTlfzJPrEgvJ6v7CS9mdMcxP
-	5EolO0ERRBnvp4R1LYGX75yphon7lKLs55ORLGIs+mInAKMKSSX5FFyIyGIUYXXR9BaRF7FxneV
-	/Wr56wtIPLmrwmpQZYTFKzI04bm0kNIes5VXnwre8QPRleuW5mimLHK+M13eskM87rRIF0TceOm
-	wuI+RKYsZMwEkbMWvd6YhW2FuMHoUkMOTvHBmeHdCUUosn30bvtqIzChHLm5NqRdC95uJ2vFbe5
-	L9hgSUSe4Zpv1+Q6uvSIw2GcULNCJyc3LNYVtqcRcnVQijl2Z3rJrySUTnLD6f7+SnjV9LjG7lM
-	hzij4NWCQJweGTIMOlBMIM/PiwGZoG+Qr6b6NV05tWM44wemhOkytessgsY/o5iPC+vFlYR1bJ2
-	TqmZb9yRIZ4uaDSmRDV
-X-Received: by 2002:a05:6000:381:b0:487:2805:6834 with SMTP id ffacd0b85a97d-48afe75100bmr365591f8f.42.1790707780845;
-        Tue, 29 Sep 2026 11:49:40 -0700 (PDT)
+        bh=8nV5PAl/j9F5unHW2G98h/r8gEnFDBcnSeXzHKLdPuw=;
+        b=1Vm51+z1iJhFWAU84JWPNFYdTpBTEvMrKDV2/4BR7f/PQLLdJ3IVhXQfm+YsRROEtQ
+         aLeE3ghuqS9TqLnEjV4YYaVifoPGUmbWVk1O6cfXiUJLdnpEkNyPfS8rRXp0/tii5pOJ
+         58F6Er1i3yB1EpFaB+ovK5iVOVTyqs21YJ0hms9Y7maLVRXNRLE877BKSl57zMKOgazM
+         mTnYXis+KUuNwtUklsBnYI+eC3FKM6bd5i1S5Yz+nO4NE3PfaVZB2edBY7IHY/wguynu
+         kSsb5BHK9rzN71QLHWb88OIsOlSpD/otteYUhyS6HD7hh5cmKRXEcc8ZCs5iu9YeIOAb
+         nZTg==
+X-Forwarded-Encrypted: i=1; AKwUvByulJMx1cZkVKugbSXVJKDqKZgmDmx1Yh1QYHXFwSYkd7VSs22/Ik12vrdLjO6VXwRmlXI4mBRdAM4WOXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnMTexKKygkf+wfG7GLzNoyaTYam/kftf401y5EuZEbt3QbIkw
+	/eSdfXRhmeja8gvgnIJYDC8kSvaribMJ+roX0bZea7gBq0ZDotl5NGd0
+X-Gm-Gg: AYBFou0OOhIGbs8zvEbdsnXQTfpFq4Q0cgO2lDdSbVAuYLzSujrEX5MpJsabGfuWBr5
+	1ZXGcfRyAcDHrLnWYavhBiwnbfPIIlX/USFKa3RDDFQc2Ub415UHsM3k0VUDNbovZN/C/XsoLH+
+	+lTehuT6SY2HII2NhVICFM/HVqfDmGKS2foE1fwwA38e1wkYGcxPTHZOFdqbNSqhwNtmGl42I3R
+	iMX0LJIp6zz/PrZPNOYOrKqxLjICWRlOonp/w6crtJZaRc1N2D5YYnK6qF7o3NjlhriHzLvgJMw
+	Rf7Zy93VZoGF7UESVri2/Gw+AuiDRQbYF/1wUVCHx4+uv1xVJyjQ2iy2RWpmqQvi5ddPlWXsuFg
+	mRtcnSaIO9uXC9gcv4PN9TVvqlLuoAifJGYsEBzBbEPn7XbSv5JtIAtmsZlAJO3CRpFEriHNlkF
+	Ont1D1Y3ENf1f1b+NhMZDjNHKDZZhyjnCXQUxJdbs4pgaF34mvhmitz8XZSPVCiFuwH6jXqH/Fk
+	DP3Y8u1L6wr+YbT36kMR2irOVGwt91K
+X-Received: by 2002:adf:e00f:0:20b0:488:8384:c367 with SMTP id ffacd0b85a97d-48afe791c99mr265325f8f.12.1790707796878;
+        Tue, 29 Sep 2026 11:49:56 -0700 (PDT)
 Received: from fedora ([154.182.121.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe6b8d1esm452569f8f.30.2026.09.29.11.49.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe6b8d1esm452569f8f.30.2026.09.29.11.49.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:49:40 -0700 (PDT)
+        Tue, 29 Sep 2026 11:49:56 -0700 (PDT)
 From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 To: jic23@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -74,9 +74,9 @@ Cc: dlechner@baylibre.com,
 	error27@gmail.com,
 	narcisaanamaria12@gmail.com,
 	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH 1/3] staging: iio: accel: adis16203: fix inclination naming and remove unsupported Y-axis
-Date: Tue, 29 Sep 2026 21:48:58 +0300
-Message-ID: <20260929184900.39515-2-abdelnasserhussein11@gmail.com>
+Subject: [PATCH 2/3] staging: iio: accel: adis16203: add missing spi_device_id table
+Date: Tue, 29 Sep 2026 21:48:59 +0300
+Message-ID: <20260929184900.39515-3-abdelnasserhussein11@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
 References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
@@ -88,66 +88,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ADIS16203 measures inclination around a single axis. As per the
-datasheet, register 0x0C gives a 360-degree output, and 0x0E gives a
-+/- 180-degree output of the exact same measurement.
+The driver currently relies on OF/DT matching but lacks an SPI device
+ID table. This prevents module auto-loading on systems without device
+tree support.
 
-The current driver incorrectly maps 0x0E as a separate Y-axis. This patch
-removes the phantom Y-axis, updates the naming, and adjusts the timestamp
-channel index.
+Add the spi_device_id table to resolve this and ensure the driver loads
+properly across all supported platforms.
 
-Note: The ADIS_INCLI_CHAN(X, ...) modifier is intentionally kept to
-preserve the existing userspace ABI (incli_x_raw). Furthermore, removing
-the phantom Y-axis inherently shifts the scan indexes of subsequent
-channels down by one, which is expected to correct the hardware
-representation.
-
-Fixes: 2df79e1bddc4 ("staging: iio: accel: Rename source files and update Makefile")
 Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 ---
- drivers/staging/iio/accel/adis16203.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/staging/iio/accel/adis16203.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/staging/iio/accel/adis16203.c b/drivers/staging/iio/accel/adis16203.c
-index 830ff38fda92..eddb786d4747 100644
+index eddb786d4747..905485fd556f 100644
 --- a/drivers/staging/iio/accel/adis16203.c
 +++ b/drivers/staging/iio/accel/adis16203.c
-@@ -29,10 +29,7 @@
- #define ADIS16203_TEMP_OUT       0x0A
+@@ -11,6 +11,7 @@
+ #include <linux/iio/imu/adis.h>
  
- /* Output, x-axis inclination */
--#define ADIS16203_XINCL_OUT      0x0C
--
--/* Output, y-axis inclination */
--#define ADIS16203_YINCL_OUT      0x0E
-+#define ADIS16203_INCL_OUT       0x0C
+ #include <linux/kernel.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/spi/spi.h>
  
- /* Incline null calibration */
- #define ADIS16203_INCL_NULL      0x18
-@@ -129,7 +126,6 @@
+@@ -292,12 +293,19 @@ static const struct of_device_id adis16203_of_match[] = {
  
- enum adis16203_scan {
- 	 ADIS16203_SCAN_INCLI_X,
--	 ADIS16203_SCAN_INCLI_Y,
- 	 ADIS16203_SCAN_SUPPLY,
- 	 ADIS16203_SCAN_AUX_ADC,
- 	 ADIS16203_SCAN_TEMP,
-@@ -208,13 +204,10 @@ static int adis16203_read_raw(struct iio_dev *indio_dev,
- static const struct iio_chan_spec adis16203_channels[] = {
- 	ADIS_SUPPLY_CHAN(ADIS16203_SUPPLY_OUT, ADIS16203_SCAN_SUPPLY, 0, 12),
- 	ADIS_AUX_ADC_CHAN(ADIS16203_AUX_ADC, ADIS16203_SCAN_AUX_ADC, 0, 12),
--	ADIS_INCLI_CHAN(X, ADIS16203_XINCL_OUT, ADIS16203_SCAN_INCLI_X,
-+	ADIS_INCLI_CHAN(X, ADIS16203_INCL_OUT, ADIS16203_SCAN_INCLI_X,
- 			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
--	/* Fixme: Not what it appears to be - see data sheet */
--	ADIS_INCLI_CHAN(Y, ADIS16203_YINCL_OUT, ADIS16203_SCAN_INCLI_Y,
--			0, 0, 14),
- 	ADIS_TEMP_CHAN(ADIS16203_TEMP_OUT, ADIS16203_SCAN_TEMP, 0, 12),
--	IIO_CHAN_SOFT_TIMESTAMP(5),
-+	IIO_CHAN_SOFT_TIMESTAMP(4),
+ MODULE_DEVICE_TABLE(of, adis16203_of_match);
+ 
++static const struct spi_device_id adis16203_id[] = {
++	{ "adis16203", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, adis16203_id);
++
+ static struct spi_driver adis16203_driver = {
+ 	.driver = {
+ 		.name = "adis16203",
+ 		.of_match_table = adis16203_of_match,
+ 	},
+ 	.probe = adis16203_probe,
++	.id_table = adis16203_id,
  };
+ module_spi_driver(adis16203_driver);
  
- static const struct iio_info adis16203_info = {
 -- 
 2.54.0
 
