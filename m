@@ -1,96 +1,143 @@
-Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012038.outbound.protection.outlook.com [40.93.195.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF17A54145E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705711; cv=none; b=iK7otdTkogSTepGKQKocJB1YXsF74RC2Q0zftSnQHIvgi5Us1wU8d9zlv9lyeshS6lpx90ZCK099QYdXACTrDxA23nGnQkGfGu1qnEZS7S1NzdD4hagmAXOWuFWh+DbpK4FA2oFi32mlkJEgDJNCmLTUfmBpdEpumRSo/SfkYOE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46CC53F9F4C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790705711; cv=fail; b=YqabYcACOzZvZjq7LdLVrIyTO3kddbFVELVLbqG1EB3r9ZcnqG8u9GFbo2Z0g+97Nr13GDOnvxSvw5uaHaVdW7ZqV1bjo7sk5WH06lgm6E2wu4lV9Q64xCPUC/l97hf8x1YFS7KXTelrJXfJFbt2tkjOCTpoFUDG194TS5PJGOA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790705711; c=relaxed/simple;
-	bh=7YlaKSKdk/AQctfnNlh1p80wxyapyt+yadIM352C7/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZDlCByH2EWiLAgVws9WWuAbPCsc1+G76vXyqTQneV/73pV3EzAinWHGxtMcq2aJy+yzsEOj0k23EagDHatnOVqZmUUOHvTdHlJe7Ct8yq8SgTzdQJyoLjsXy3Wllp0JUjPxsmo5z0NFkS2XmWIkfuQ8JVp34+n6apcn+PtHaEHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=m97gfN/m; arc=none smtp.client-ip=212.77.101.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	bh=Xzkhv2s7HEf7hOEjBLDnqRsgHxq3+VQhYM0kXpvv9xY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XrLjjngmQ6rSf3vHabnpRGFyjJF0L68APGHaKBrj4h0k0peazWo1RXj4v6jFYScI/n5LfdKAGS7mMZUsbe6mLSCgGi+PAcY0GOIj6mw4q8OJU5aTJAcO287iWnEY28RbXi5yuFnZLrS1ZklRst9njaLVepeumI83yNRTyTyzCVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4Nv9pbBm; arc=fail smtp.client-ip=40.93.195.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="m97gfN/m"
-Received: (wp-smtpd smtp.wp.pl 1904 invoked from network); 29 Sep 2026 20:14:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1790705698; bh=gYAiV4904KKNcflT+EDNb+ZPGPPIrx6h9mgzalGq1F0=;
-          h=From:To:Cc:Subject;
-          b=m97gfN/mdrBxI52wByHwIoCx0jKavQKsfK0HFwKW018doiJzDulNIYtDjWe7M2jHM
-           yx6AhA8K77qQE7reNpoiqIu+BRAVPXtF8BlYfUr/OfFMuQBvlJZES3uagE2khJawHP
-           vxCP4KStBGD5C6iMCfnkGUkIycaIrloFPzHvr9LTLWhPFsSrr3scssTchcMevpUieV
-           fPUrwgx95+Clqg92UKqWfIH/xW834Brt4PHxL+lNn06MTaX7VyhbMMrOh9W5AjZhJL
-           B4AEqEBgItfLNDRavAOdz2sZ+/GQflK+O9XTVmFBoXwVw0J3wSRb4GPnnSxXVeu+M1
-           s1QEaNd7DMD9A==
-Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <runyu.xiao@seu.edu.cn>; 29 Sep 2026 20:14:58 +0200
-Date: Tue, 29 Sep 2026 20:14:58 +0200
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Zhu Yi <yi.zhu@intel.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update with
- mutex
-Message-ID: <20260929181458.GA17064@wp.pl>
-References: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4Nv9pbBm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mD4PvDU1FPYNK8cMsze5wI+lD6g+V1ZLqUBQy3r12Zz3NERsZ4bHw4m3ECsY9D9OfVZWCTeuQ6yQPlDgVYgCJmT0dnOM7im15gdjmmbjg45L2FXVWcqEjgbNzfl+hhUgYXdZTP2wqlSl/iKDTUHqN1t9Xy+gQ/gVXS5cpMcxLZxy4M747PzI0dyvc4W2rDbP3AYGmi2DJdPJqgLbt9lbcA6lhxkASgSnrNHKbuOSToEcdLL0063msuSa7cMjbsWWcttOLeDtPM3i30vtoZvs8EPvAIiVaiK+/MFUsg8mSrgM7EsGj5qbv7gfpZ6V9mJu/Q4rSN4MraEWcRknmam+9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VG3abgAxwAYOTW4P7Tv1ubniPMRBcEIqEiWuqXvvaAw=;
+ b=v+QNX8SOTk8Nqfr+x8jW3zLEHlm5iJKQrcfO1hKm65M1V5AxdGUs3OIZS1wAdoOdHO0QACOkaWazLqaczHQPQ0ezViNVegQ4SEUHV49gSj5HcgkK/Lao24lRkkZXKaD4QGU9m8F40hkSDdOBX0Dssjc2IgdpRSIRfIg5iAeV2I9dVg9qPHCTGwfkF/at57cwwtXMhXTCbChp2kKkntEtCAEYtHD0CL/GE3aQaP9KiH/sUs716iitHxkAayPwf1uJRvp4zsd1ksa/6FgA2t2Z0ipbxbNdU4p3wAzk4ksS3D8smnsCvXGj2nrWzQDwGFZL8G6v5uBoBeA8fMIdCi6aiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VG3abgAxwAYOTW4P7Tv1ubniPMRBcEIqEiWuqXvvaAw=;
+ b=4Nv9pbBmj32ARBWkLjXYCP9eCsaJkcOG1bLdASGD8vSDO0Ba17j6SEILjhPQz65X49dnKJVmIxhrluMEgyiKsxhZ9jRCjq+7k2iEH3WqXCjjA8POG57F+YwB6YwJOT8P7L5megXF+GvqkgsZ15WOykJUIMp+M+IrSOR2ppLPDCg=
+Received: from SJ0PR05CA0079.namprd05.prod.outlook.com (2603:10b6:a03:332::24)
+ by MN2PR12MB4208.namprd12.prod.outlook.com (2603:10b6:208:1d0::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 18:15:05 +0000
+Received: from MWH0EPF000A6734.namprd04.prod.outlook.com
+ (2603:10b6:a03:332:cafe::26) by SJ0PR05CA0079.outlook.office365.com
+ (2603:10b6:a03:332::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Tue, 29
+ Sep 2026 18:15:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000A6734.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 18:15:04 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 13:15:01 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 29 Sep 2026 13:15:00 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+Subject: [PATCH V2] accel/amdxdna: Add support for AIE2 revision 9
+Date: Tue, 29 Sep 2026 11:14:59 -0700
+Message-ID: <20260929181459.928468-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
-X-WP-MailID: 5a3024da050e293244fd07980ff6c828
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [cSMt]                               
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6734:EE_|MN2PR12MB4208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1010b067-a8a5-4871-88bf-08df1e559600
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	TZap/afYlsQVmT66cTR5KKVMuFG8wefaegJK3BuOyegXFxmK2pisQkpJNtf9435yMcexzGVF1Ms5YAKiSvr/QAwHV0WaRQy/y0kqGNyk/GXos0+h+ibaFNjfP8yUPjV+jAJZQn2yYVtxqjgCu6asajQIM66r00yhCPvPH32Ne7sl54HPcdPgMJ8u17w5qXNqPDUuVUWWwrUvb/3i8+R7rB87OmNsGtsmdBzwTBhzp2a2Fsk+WtmT42nMhD2vtk6bMlaMLUbtsCxg7PdypjUCLmFHrAtrAvsLzLdFzcU1ZmdigjNG74+vXkAH9f9SVpZIN+6aiakJifKkCCj3u/f55Tn4Er0Nd7Nb3FdAoGOvTYccOQZp5zlAMZJkA6eHU4e3klqXqY7WAXsybmL6CDe3eZwLMua5SXfOqlfvdVq1rBkZ8C4frnd6If+8Wdv3Kz9jLcEKAwT+wI+H4HMQ8tuSDkIBA1PXNwS8hIQrefa+LS3bksUAQvkiI+7MYi3Q/HPb3f7f7OQ14iwmQw/HBZ33pFEblMvUd7CFNtherCROAShRFwqaxPR3Ey/JaPP7O9L6S582APUst9Gs+hTk2g5rSa4tBKeZsI7jNvoB1NWAMB0+s+DUZR/e6lnvjjpYTu5ZPzw5ko+Hl9MiHkWl3h+jYb/pM7F9DJ/nV0jEQH7CSH2TjZcRH77DrXqyocGj3v1tbfNJB8xL+M7ct/7bbtI+VA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+jcAmjuvSVvEDcznF8xRJl3wf5psAnhS2rWYLNIZZY3qY1aqDx8MmI8y8qBg3t1gdMxavVw3Jnz2oBpbykdMAz2pGavEojc6QSr5WfFsC9XO8bkJ85CFo9aSIgIJQYhNs782dO+1LVwO9yAVMWT4JUHPh8BAs3BJFGYaH1yLnDATKHUdO/j/p6ifmH82XZZ1ET9LdOMcmW97DWZt4o8yhfIGa5VW/hEmsyWMNU9scXpbVhkDJ4ZEKMHbG2oXbAMTawjVrLs4M8RjMIhVysacrLvZyNRPgr8eojxCttRqOGUylvG3RQSv3/3EIy91ISP/3yis2MSTqjdhKFLgIhH8uoToOKGaIW3Dp0zDlQszhwKmJUNhahK09zEKsf+cKo8WIfIyLJKMkbN73K0Zge0dlSjpJrfU/vSfnGtrOiUirmvf403/xkyAOiEZOL1DjrtT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 18:15:04.6732
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1010b067-a8a5-4871-88bf-08df1e559600
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A6734.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4208
 
-On Tue, Sep 29, 2026 at 08:33:29PM +0800, Runyu Xiao wrote:
-> The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), whose
-> command path requires il->mutex to be held. The callback bypasses the mutex
-> used by the other 3945 control paths, triggering the lockdep assertion and
-> allowing concurrent TX power updates to race with other command or state
-> transitions. Serialize the update with the same mutex.
-> 
-> Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+aie2_get_dev_revision() fails to recognize AIE2 revision 9 hardware.
+Add AIE2_DEV_REVISION_GRGH to the list of supported AIE2 revisions.
 
-> ---
->  drivers/net/wireless/intel/iwlegacy/3945-mac.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> index cbaf25062..e8cbc2993 100644
-> --- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> +++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> @@ -3083,10 +3083,13 @@ il3945_store_tx_power(struct device *d, struct device_attribute *attr,
->  	u32 val;
->  
->  	val = simple_strtoul(p, &p, 10);
-> -	if (p == buf)
-> +	if (p == buf) {
->  		IL_INFO(": %s is not in decimal form.\n", buf);
-> -	else
-> +	} else {
-> +		mutex_lock(&il->mutex);
->  		il3945_hw_reg_set_txpower(il, val);
-> +		mutex_unlock(&il->mutex);
-> +	}
->  
->  	return count;
->  }
-> -- 
-> 2.34.1
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+V2:
+  Fix sashiko comment: add the revision string.
+
+ drivers/accel/amdxdna/aie2_msg_priv.h | 1 +
+ drivers/accel/amdxdna/npu4_regs.c     | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h b/drivers/accel/amdxdna/aie2_msg_priv.h
+index fd65a4236d49..8ed2b5701dcc 100644
+--- a/drivers/accel/amdxdna/aie2_msg_priv.h
++++ b/drivers/accel/amdxdna/aie2_msg_priv.h
+@@ -530,6 +530,7 @@ enum aie2_dev_revision {
+ 	AIE2_DEV_REVISION_GPT1,
+ 	AIE2_DEV_REVISION_GPT2,
+ 	AIE2_DEV_REVISION_GPT3,
++	AIE2_DEV_REVISION_GRGH,
+ 	AIE2_DEV_REVISION_UNKN,
+ };
+ 
+diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
+index 15a161384625..c9648c8032ec 100644
+--- a/drivers/accel/amdxdna/npu4_regs.c
++++ b/drivers/accel/amdxdna/npu4_regs.c
+@@ -153,6 +153,7 @@ const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[] = {
+ 	{ AIE2_DEV_REVISION_GPT1, "NPU Gorgon Point 1" },
+ 	{ AIE2_DEV_REVISION_GPT2, "NPU Gorgon Point 2" },
+ 	{ AIE2_DEV_REVISION_GPT3, "NPU Gorgon Point 3" },
++	{ AIE2_DEV_REVISION_GRGH, "NPU Gorgon Halo" },
+ 	{ 0 }
+ };
+ 
+-- 
+2.34.1
+
