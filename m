@@ -1,86 +1,36 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E220529414
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D4E529408
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689152; cv=none; b=Z2HUF4+tNYBW1Jkn+xxRGzRvqjFi/DXcsOOXmuFiIPe91+Dx9vCY+BMa7vDULi6Bx5iGsTVYsAJDGE7PSfUAl4lSA8s1Lt3qHlOjPBIXlT+lOJ6CHsWG646AzPJ9CnLWurqUJ48zP4uke8tSGeOlUj2sp+4oLAa5PP/Vfc5lswc=
+	t=1790689153; cv=none; b=cThqe15lBwzX+i/WoKi4J8fefakOdUBOReqiNzBWv084//o2DyxGJxsxEUsqaLOx9wSK1LBN94KLkIw+g2WUTIt6085yGWZ6lisSGgwdDQG0x2rGc/CC/PIrp5wLRRqoCFsaswunOhnZv1SjGsuTrPiVHVMYTbH0tg04mKDja6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689152; c=relaxed/simple;
-	bh=bX0vghnpJNEcep57BRAwSFZ8AVgRzOA1zDESa2UhD8k=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Nax2UpBxmLi1rVRJBbJm98SoqLw1KvKMtUsMgpWpsIC0CyDRC1ctApjpk0iBKsnVVAOCIlOId09th16ZgE6Ohe1nZI7SPuU8yNGuzzYZAoIRJKlbLlrggvHMUspP6s4uTCwwlkPW/dNwnSJaIo5/gbEKyNZm7Y8Xre8IXSGXM58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I32QXSeZ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CM/BjlSY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790689153; c=relaxed/simple;
+	bh=p0HopqRbmThSdHTCdVhwQwUjMsWdv84GVBnYu35sdLQ=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Nmt1kLlEUsTz8Ybhn9TM+1D8RFugyDGrvwX6n+m6p2nUA2dowtIbddjbQwWaYbHLeJcvw1H1bkm6wTqhEVEgTvyBAtc9/f5UIdZa5MYrSv1eb8htgZatuBMfvjkPwiqdAyaS7FvJ/jNPbTysJC1Qj3Sd53/ZZt/u2YHNTaBoC5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eOZQiVso; arc=none smtp.client-ip=95.215.58.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I32QXSeZ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CM/BjlSY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790689150;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bX0vghnpJNEcep57BRAwSFZ8AVgRzOA1zDESa2UhD8k=;
-	b=I32QXSeZ1IuK0I+ZxjCqDQYedHOfKhQdRhwCS3IiKSJhvrlSojzV5Lq4wohhDX8EPLK4nt
-	FsbVtsgFZATtFwmIGq9o+bBsHxUmMQ4ARRCS9TMpp31pCubsdukFxB1IlWM0W0+0kDfSsd
-	TOvSked5wGPdHN4oxRj+C7hQABdvpK0=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-684-HAeGeOm-PICk8ISj7yU9KA-1; Tue, 29 Sep 2026 09:39:07 -0400
-X-MC-Unique: HAeGeOm-PICk8ISj7yU9KA-1
-X-Mimecast-MFC-AGG-ID: HAeGeOm-PICk8ISj7yU9KA_1790689146
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a0037a1c05so21254985e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:39:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790689146; x=1791293946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bX0vghnpJNEcep57BRAwSFZ8AVgRzOA1zDESa2UhD8k=;
-        b=CM/BjlSYOvRZITxz4Uedg0Tk/wr1Qki3VlajsP9tUltRN7Yr9vgrni0ttA060wJ+jm
-         z7jJ0k106D0aYEvyGQAjGzlRw0VVss1ulM1xlrEtnRT61EeqnQR39v+6xCdI6iLvVWKP
-         XzL1NomPtkiZRvSTPi7ZcVNfvHbfS+TMmBNSpXsG8Ki6+0izL1ffiASYYlCDvQXYwX8F
-         nE7qqGEzwwCVrLNOpzNHKoiznPUte8+MStS7Ghu/VQ3D9f7n/DoaT2UqcF27ltsUpy7/
-         iLIaCxulSHebxCfRsoEhHKLWwvUq3QARxXQ8yVQmojINemHDTjOlrCzQR7/T1+mjElUc
-         vwCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790689146; x=1791293946;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bX0vghnpJNEcep57BRAwSFZ8AVgRzOA1zDESa2UhD8k=;
-        b=LiVY28xgQ6V5+rYRi5xGMwsHzM05ADZctIJc0RuQME4sTipBV1bMEKe/5hVDiHkdzm
-         un+d+9zMZRrsnIW2FgnZ/llQqKvFGD1i73i3oGDTx8JLb5Q73QLRnx2mfU7VyQg4LwJI
-         hFwuv1+iugR/mtsBGyrfT8QkS+4J5EOvJcU5XX4kvO8Tpu8seP1EbjsyAfpfp5+xWGj4
-         S5mESL/8y3hC+JkkH2BMtYrDXRaePRoGyxesqYksgtKqeAMm+fjUUeqrG16ZO9vWR0VD
-         yzsVxK28VR16yy3y2+IV5l2Rb1mX5Vs4P/PipRozQWr7gnlq7iuY67q8JnO1ApqUvpeS
-         wN+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzTWYpLT4pxqU+drf6lT9SqzabZWd1kxpI3gGrZ33ypVzRykPnYsEOJ8/xaEP+ZNSp3lEsqR65F7JYYkF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mt7zVC/Jtv/gm/TeykkO074E7ANIVqnncDNf6o1u3739+TCACy
-	/t04861ZzJYAjdKHJfBZI0Q5oXtlCkCigCgJ7S6i2iFhokVfmaEu7Iwdzfbde2XszXKE0OZrMMA
-	AvXLM2lecrvtOz9OQ2X6FYk711OgrWPA7zVvgv73T/XEV1+1HPBaiYP9Kof66U2EDGw==
-X-Gm-Gg: AYBFou0b6qRhR8/bvr6gwuF+q+vSP5vntggLU4COQ3hs9uBCseygjq3smunxf8EDU4/
-	3Up7g3rYyn7azDCNBlXDIjTZVg9oIsStyf0yuRw8kA3fie6/5Vcol98ucrAaRqO2+n/Il3Hdjse
-	5BuBx/Mm1CatEjIvaRNmb5/Y2KKxLYQyBVzVUJFNV+7A4vFbfwVHhJjG40GDDHuucvm75aaZiS7
-	2w3VuuTHnI4lMrQap07yru94MOm7ng8LE4/Mw3R6N33PzHDGrRRGFfvhfOWNG9Zs5Rd4aHzeF/d
-	XtWGMDgKM3zpRqSmMrScBR7ngiMpUFxDorKyFd2czBUg8QxM78GoNfDCzc5lYqyfRBHDY6rsOaQ
-	In5s4guH3bTdyVy9d8gKWM47Y6/OOxXqDwvi/SMxdpvszxk2+5gBkQFFslPe4AC3AvTufrFnTBw
-	==
-X-Received: by 2002:a05:600c:1912:b0:49c:fc6e:8cb1 with SMTP id 5b1f17b1804b1-49fe66d811dmr276298165e9.21.1790689145770;
-        Tue, 29 Sep 2026 06:39:05 -0700 (PDT)
-X-Received: by 2002:a05:600c:1912:b0:49c:fc6e:8cb1 with SMTP id 5b1f17b1804b1-49fe66d811dmr276297645e9.21.1790689145324;
-        Tue, 29 Sep 2026 06:39:05 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0f442dsm75545855e9.13.2026.09.29.06.39.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 06:39:04 -0700 (PDT)
-Message-ID: <97f2fdff-3954-4d53-aa55-156672658ee5@redhat.com>
-Date: Tue, 29 Sep 2026 15:39:03 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eOZQiVso"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=p0HopqRbmThSdHTCdVhwQwUjMsWdv84GVBnYu35sdLQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790689148; v=1; x=1791293948;
+ b=eOZQiVsooQobzNEYBrZz8JvKpe2lnq36dZZFAwBPG26qKrOJDdy03BgJQYBMFG4hxmZfhyTD
+ 3UO1JCJ0DTdsojyKgqNBlh0Wzj+yFDcYkQZb9oEt36g1sbgZhXSzNEDP+kKJRaAx8TukXejdK4B
+ QXfeFug0RB7rP1EKTNVdUFUo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fd0607d5a2665ee1;
+	Tue, 29 Sep 2026 13:39:08 +0000
+X-Mizu-Trace-ID: fd0607d5a2665ee1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4f1571a1-7e56-4264-aa7f-8dce32931ddb@linux.dev>
+Date: Tue, 29 Sep 2026 21:39:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,42 +38,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 3/3] net: devmem: decode DMA addresses for TX
-From: Paolo Abeni <pabeni@redhat.com>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- horms@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org,
- sdf@fomichev.me, bobbyeshleman@meta.com, almasrymina@google.com,
- kaiyuanz@google.com, linux-kernel@vger.kernel.org
-References: <20260925201522.254717-1-sdf@fomichev.me>
- <20260925201522.254717-4-sdf@fomichev.me>
- <85ddcc36-7e31-42d7-8e78-a3e456e13944@redhat.com>
-Content-Language: en-US
-In-Reply-To: <85ddcc36-7e31-42d7-8e78-a3e456e13944@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v7 0/4] blk-iocost: BPF struct_ops cost model
+To: Tejun Heo <tj@kernel.org>
+References: <20260924054549.2271705-1-cui.tao@linux.dev>
+ <6f80eca83c87b60398110c3a6d735aec@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <6f80eca83c87b60398110c3a6d735aec@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/29/26 11:43, Paolo Abeni wrote:
-> On 9/25/26 22:15, Stanislav Fomichev wrote:
->> On 32-bit architectures where dma_addr_t is wider than unsigned long,
->> page_pool_set_dma_addr_netmem() stores page-aligned DMA addresses shifted
->> by PAGE_SHIFT. The net_iov branch of __skb_frag_dma_map() adds byte offsets
->> to the encoded value, so the NIC is programmed with an invalid DMA address.
->> This can trigger an IOMMU fault or DMA from unintended memory.
->>
->> Consolidate DMA address encoding, decoding, and representability checks in
->> netmem helpers. Use the common decoder from the page pool and net_iov TX
->> paths so both interpret stored addresses consistently.
->>
->> Fixes: bd61848900bf ("net: devmem: Implement TX path")
->> Reviewed-by: Mina Almasry <almasrymina@google.com>
->> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
-> Fixes tag for net-next patches pointing to old code are highly discouraged.
-> My understanding is that netem on 32 bits is mostly a theoretical thing,
-> i.e. no actual usage.
-> Would you be ok to strip the tag? No need to repost, just reply here.
-Actually the above is more FYI than a real request. I'll apply the
-series stripping the tag.
+Hello, Tejun.
 
-/P
+在 2026/9/29 08:42, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Thu, 24 Sep 2026 13:45:45 +0800, Tao Cui wrote:
+> 
+>> loading attaches the model to
+>> that device and switches it away from the builtin linear model,
+>> detaching the struct_ops restores the builtin model, and the
+>> struct_ops core owns the program lifetime.
+> 
+> I don't think attaching should enable the controller. v7 currently turns
+> it on without the queue freeze and quiesce that ioc_qos_write() goes
+> through. Attaching can create the ioc if needed like an io.cost.model
+> write does and switch the model under the same freeze and quiesce,
+> leaving enabling to io.cost.qos.
+> 
+> This is different from what I said on v1, where switching back to the
+> builtin model detached the struct_ops, but with the controller state left
+> to io.cost.qos it seems more consistent to keep the attachment independent
+> too. Writing enable=0 or model=linear wouldn't detach the struct_ops,
+> model=bpf would switch back to the attached model, and only detaching
+> would remove it. This is the same as the linear coefficients, which are
+> kept while the BPF model is in use and take effect again when switched
+> back.
+> 
+
+Done.  The implicit enable and the wbt_disable_default() are gone.
+Attaching now checks disk_live() and creates the ioc under
+rq_qos_mutex, like blkg_conf_open_bdev() does, and switches the
+active model under the same freeze and quiesce sequence as the
+io.cost.model writes.
+
+To make sure I understood correctly: attaching switches the active
+model to the attached BPF model, while model=linear and model=bpf
+only switch between the attached model and the builtin model without
+affecting the attachment itself.  The attachment survives enable=0,
+and only .unreg removes it.  Please shout if I still got that wrong.
+
+>> iocg_init()/iocg_free()
+>> callbacks, invoked from the iocg policy init and free paths with
+>> the same per (cgroup, device) lifetime, let models manage their own
+>> per-cgroup state.
+> 
+> Existing cgroups don't get iocg_init() on attach and iocg_free() isn't
+> delivered on detach, so init and free don't pair up. Can you call
+> iocg_init() for all existing iocgs on attach and iocg_free() for the
+> remaining ones on detach? That's what sched_ext does with
+> ops.cgroup_init() and ops.cgroup_exit() on enable and disable.
+> 
+
+Done.  One note on the implementation: the existing iocgs are walked
+over q->blkg_list under q->blkcg_mutex, the same walk the blkcg
+policy teardown uses, rather than over the cgroup tree - this is a
+per-device walk and the queue is frozen and quiesced at that point.
+Cgroups without a blkg on the device yet are not missed: their blkg
+is created later and ioc_pd_init()/ioc_pd_free() deliver the
+callbacks then, so init and free pair up either way.
+>> Writing "ctrl=bpf" or "model=bpf" is accepted as a no-op so a saved
+>> configuration still parses; re-attaching the model requires loading
+>> the struct_ops again, not writing to this file.
+> 
+> ctrl keeps describing the coefficients and never reads back "bpf", so
+> ctrl=bpf shouldn't be accepted. model=bpf should fail when no model is
+> attached.
+> 
+Done as suggested; the bpf-ci review of v7 reported the same two.
+
+Thanks.
+Tao> Thanks.
+> 
+> --
+> tejun
 
