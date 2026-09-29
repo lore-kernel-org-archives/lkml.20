@@ -1,46 +1,46 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0671E56B862
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A40C56B874
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:19:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713157; cv=fail; b=mcfwCphqPhiXr2czkV+QTmVYFMqMDBgvbQpKSPWEDwJmXYX0l813JZBWlyBIc+58NDfqF6prwkN6zmiOaKHTCqxuq8McYQzdqIA+ycgzwJcXAgjG3LHyIYEPn/vY2UOBa8PZar2RqBDfegviJDoHa3EMPCLa4gtojDhHNXJ9rfM=
+	t=1790713158; cv=fail; b=ND3bhxd9Njys0ayO79GMpUfPRmdbPMp0ZjZY5yYIytA2LHyJCxN4cW0FRAWIkT6MS4bIhfcfvawqTEmlDNt6CYDHc1hw3TNs1D8XPGNM34e7agxGb8xRFWZhKTN70vIC8TnHiCx8etizuA4npecZ77M0McDfGJC1BInS4awSi4o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713157; c=relaxed/simple;
-	bh=MdkyBfXyF9BUBmXpEVdYlmkcBGhPMDPoTlMA27tI0vM=;
+	s=arc-20240116; t=1790713158; c=relaxed/simple;
+	bh=URo4tubjyWVj31aXyd4PXOakBvZ5EEOTotC2PMbTeIQ=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nrz3/zBqNqa6iy5bX7qMh3zJPRbSEViTSxh7bzoggX1zUIT7x0OYQvjZEtPPGLF2mIYuIWje76stL3CSj+YeIrxkDStj191+zXeF7P0EtyieLjMXC+wHF2p14jz/ZqzQfXIAP3IFId0UsD02xTXpn521Gr37kcXvo7zvxciUbU8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Xc8U22Uk; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=skcXFI5T; arc=fail smtp.client-ip=148.163.154.28
+	 MIME-Version:Content-Type; b=OBykaO811h8XaHUmpJzj7eXyt0oI9X/ujV1+yk/iKa0JNZLg4lIRupakmZWfluEuk1NMAK5DYTtD/WeC+9PTToRRBTfEdNFYycqrfOWzLKfjAW38JbINGcRCbouSbsWJ1WBw9/QEYCRz0/JrvBG9HZ8CWzqQt8LlAwYfO/ufKkU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Fh3Bw0w/; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=jIsjYGHv; arc=fail smtp.client-ip=148.163.150.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Xc8U22Uk";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="skcXFI5T"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TFZMiA4076699;
-	Tue, 29 Sep 2026 15:18:31 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Fh3Bw0w/";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="jIsjYGHv"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68TFgImi807515;
+	Tue, 29 Sep 2026 15:18:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=Gvhtm4am9MftDl2LlatwpDdm8uocJzk6kA4Ncp16/
-	bw=; b=Xc8U22UkAOHBdydsiWDUEn4ge3E9MvyyNazxXsuplimKavxkkhRqNJYt9
-	jutJDQ9hOMsFLaezY8hRM8p8eC9Qly9+PWPbphxO3/tsPbrFckNgs2OIaq8K284P
-	0masEmfIHV+0ev6E6NZATBicraPY9fEtMpMWsCSJu3zyahTiiXyju4LsaBRYM922
-	CfHxJ/wqfx4dWNelB3u34pPlvBswPT9ifaQ9oVciJ1+gw0QLXthA84eit6WPo4Sh
-	T84hroWuNAd56p/hrOv3UaenPqH8Z4HsqOYaIqy9gDGgrYsvu04NlfcOVZ3iZsra
-	hqbOAC3i5LSQBinE9NUtPHLrn5pEQ==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011019.outbound.protection.outlook.com [52.101.62.19])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h03adehc8-1
+	proofpoint-05-2026; bh=uLp8nZvVRwckzv0vu+W8cq82j5UNDc+PTYrM//LU2
+	QY=; b=Fh3Bw0w/OFzR48hEk0U2TqrSJ1H4xuAOtxaUDobwAYmFHU/FoKFX0fMAg
+	MJxuVDk33uPw8cJBdOc6vGG1G/q8UfjJ/iWQbPGj2WZNMTvg992V16wLCU/ZFvem
+	F1Zy7iojdJHtiKKWc5j3S6vyauySRe+r914kqG4CzsI1EY2n4S1883l/ZGSAW/3h
+	aduNHVIf1I4nyx89aCoh9ZwxAKfSyligcZ1VZ4eZ+D1ckhw60VTIIKyknH+vDilu
+	kFAA3KEOF+rXd3RJCIvQOiNcCQGT6GM2rBh9WCN80Lvgf51/HxN9mq/nxJYRF45Y
+	AoRBh6LlKOoGl+4/zPtCuH9nmkR6Q==
+Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012038.outbound.protection.outlook.com [40.107.200.38])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4h02j6ej12-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 15:18:31 -0500 (CDT)
+	Tue, 29 Sep 2026 15:18:54 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hjNijbS1iCKlJCoFly57AkmY7IDh/8Urq4mCsd6y8MKfh3ISaN7nPOvFMdT1ccFFey/a9IH+bJPoJ5iAeWL34wAPMxBkjX3SxrgVqfejQxQkZeL91gs0NoklZ9xOqaoLmZkMrOQnEzY+0OomoowMmh3Zoa7Ov2eqYbfHGoFfSQxk1+owee/upv0sVkgcRc2sZsLfFzBoarF5PteBXzhayPUX6EyTkkQe3vtoVxh9+Hx2gDvEM6S+VTeEppj+izsAkONCi7QOkLqbhmipbirUMkXy1S8WvG9kG+TjeBUxw4i8tlftqP3NAgqccC1Sxd8XXKwhtmqcZ7V3yldriQNxAw==
+ b=Hg8ULkmWnZkjzCqp3/JF41UeGzNTwEGCvKP4SVajiVRbSzLA9JarLVWOR0lJi/NJNvuzNBJ4GsuM3q5LPsywrZg3Jq+pSNISsg7XqthGF58ajrO8YPlRG0jawgTM1VUxO9BzU9GsHCxlnrOhp1pfKQ+ARQKO3qRpJSpzoi1Xw2gA0gPbrxVyHQ6M7Lgj7y5tPQWQuD+3iaz3Kx/6JT5wtovQ44YiHhWQA8eXUTEduz25Qg+02x52cqH7DXGpb3roeypmmcb49/MBy5dZVpNtPq57ZJ7CbKJcx/jknQbY1yMyLPEWZY6PMwrBTdBatwQZCKj6YVjCbXFBhF6HbgtTuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gvhtm4am9MftDl2LlatwpDdm8uocJzk6kA4Ncp16/bw=;
- b=swuxZLbVuZngjZhap0/IVOrmKuf49nGmbbUlHeG/nQcQPA8LtIHmqEIKcCxj7EwA3AdRw5viJaLnPPS2kBhvFlGL1mdUJQ+lNEF7W/1CMRKBkxBRodh26+njK8nCAm5OSkO+k62G1eJKt9mtONSLBCe2dpfQWCYMWqGyZjKyWy7w2X29LtuBfzaycRW1K6gkSLSTS8NbamZwL5sfuBYHHw+LUqQxqkgLBpuS+DUIho4pzkI9Mz5JDtcpwol4GshHqvM3F5q7900WsedlOUTKkfw4Mg4RyzTV/GW/wrMyAXJqOxjp2F8F8kcpeXnx284rNQ4kNQzV/sHcFsSaFLAVWQ==
+ bh=uLp8nZvVRwckzv0vu+W8cq82j5UNDc+PTYrM//LU2QY=;
+ b=ko90c3t8FwLRVPtegpLss6qjvW/ZhyfFpZJjamP08KKu9rHy7UTyhi9A+GBFXiYTEFrZeCrmQF1k8cherfE+wtL6KAKXZ6lVtMtIZjQjXkKim0RmtRvdhD1GCBsyopq5obR78xOxVck+wiL/7gGs/rXGr6HLqcTklRbWoXtywb0T7C+h9IRb/uQhAnPUCJYDw//utUEf8Yy0nuhWf3RlhKD9hchEvVnwSZMGGfD+a8X9TOrxYANy3gAFzrX5R6dzZijhsLyoFpFjh235AJ2/ScoWkQ4A49vBAKPeirMVFJIYM0myKDtEfu1T+xc+dpM/aW9kzSgjGluUnyjGPRHGxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
@@ -48,18 +48,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gvhtm4am9MftDl2LlatwpDdm8uocJzk6kA4Ncp16/bw=;
- b=skcXFI5TubkqVy8tr5T8uNQMQRnbFK9M857f28m6RXhOdHciOKvNjZlawv6JaganiUS0jKCYS0rm3sSVPyp4oPi1M7e6ciJP63+nfA5+4eu3cK8vUZBhxxWqyiyovnxmFKOpU2+Z4iwyiVeja+mUU9GjKwhdi+kbETam6lEok+4=
-Received: from CH0PR03CA0441.namprd03.prod.outlook.com (2603:10b6:610:10e::34)
- by CH3PR10MB7436.namprd10.prod.outlook.com (2603:10b6:610:158::7) with
+ bh=uLp8nZvVRwckzv0vu+W8cq82j5UNDc+PTYrM//LU2QY=;
+ b=jIsjYGHv82N4xypVour/uIn4W4gro0ZOzTUpYYLUSfooZ/PAVnmcbCHOHh8f2V+oCeXNvaO3u5QRT8d4wrmC7YkR5sO0bNYKZRHPGA0Nb00ohfYsYIcJyuVKZHp723VhaQ2MsJL1K7EQYPfAUrVscu/f74gMf5WS9FlAFRas8O8=
+Received: from CH2PR15CA0022.namprd15.prod.outlook.com (2603:10b6:610:51::32)
+ by PH0PR10MB7006.namprd10.prod.outlook.com (2603:10b6:510:285::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Tue, 29 Sep
- 2026 20:18:10 +0000
-Received: from CH1PEPF0000AD82.namprd04.prod.outlook.com
- (2603:10b6:610:10e:cafe::8a) by CH0PR03CA0441.outlook.office365.com
- (2603:10b6:610:10e::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Tue,
- 29 Sep 2026 20:18:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Tue, 29 Sep
+ 2026 20:18:46 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::81) by CH2PR15CA0022.outlook.office365.com
+ (2603:10b6:610:51::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
+ 29 Sep 2026 20:18:46 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
@@ -67,32 +67,32 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
  198.47.23.195 as permitted sender) receiver=protection.outlook.com;
  client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
 Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH1PEPF0000AD82.mail.protection.outlook.com (10.167.244.91) with Microsoft
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 20:18:09 +0000
-Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet201.ext.ti.com
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 20:18:46 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
  (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 15:18:00 -0500
-Received: from DLEE203.ent.ti.com (157.170.170.78) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 15:18:31 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 15:17:59 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE203.ent.ti.com
- (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 15:18:30 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 29 Sep 2026 15:17:59 -0500
+ Transport; Tue, 29 Sep 2026 15:18:31 -0500
 Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68TKHlMb1688208;
-	Tue, 29 Sep 2026 15:17:57 -0500
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68TKHlMl1688208;
+	Tue, 29 Sep 2026 15:18:28 -0500
 From: Beleswar Padhi <b-padhi@ti.com>
 To: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>, <afd@ti.com>,
         <vigneshr@ti.com>, <u-kumar1@ti.com>
 CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
         <b-padhi@ti.com>
-Subject: [PATCH 03/22] firmware: ti_sci: Move check for ACK into ti_sci_do_xfer()
-Date: Wed, 30 Sep 2026 01:47:27 +0530
-Message-ID: <20260929201746.4078803-4-b-padhi@ti.com>
+Subject: [PATCH 13/22] soc: ti: ti_sci_protocol.h: Add missing documentation for structs
+Date: Wed, 30 Sep 2026 01:47:37 +0530
+Message-ID: <20260929201746.4078803-14-b-padhi@ti.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260929201746.4078803-1-b-padhi@ti.com>
 References: <20260929201746.4078803-1-b-padhi@ti.com>
@@ -106,592 +106,512 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD82:EE_|CH3PR10MB7436:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52a1b342-556b-4306-2ba8-08df1e66c7bc
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|PH0PR10MB7006:EE_
+X-MS-Office365-Filtering-Correlation-Id: af7e9eed-4b6a-4b08-a0ff-08df1e66dda2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|18002099003|22082099003|6133799003|10067099003|56012099006;
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|10067099003|56012099006|6133799003|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	0hBKeVOs/6lJ8DMsDl/A/FfUmNcYfpsGJBN5krU3Eq9IYFVHGerii58s8VGPIWgLOM4fx189VgJVLL8IaTVu2tU3xCnLHnGoG1iPoRyEojljFywfqRDkYNsyeA3aqMvTAP/JhRLHYsZKga+nkfrkSg764uQhqXrVV0nvJPToGrewHqi2RTWcJU/cF1W412poclk4qK6wB0bx8Djfcc+rCa0sHaVPuzxu9qArsZUWyvmdFNYPQhj9M3e4V4WpOuQUsoKtRvuS2Siz22T6IkbZlGjstdn+c1BZCkAqmdhZ1wIJhMj+C0d66IwC8CFJZjn5Y+rCiiXhdGszgv1C9K+rLSuFqvHpnGfZSJq846VOswBS2kkj0OuNtPEtqMEcmByNcCeVkX7Jq78bRTpeEJs+BFzAJ5C8e9WaxmQH6vqJB4V5NSNC0uqWckrSVWXlUfVICTIwtiI9m78j8e2bWMRTDYKkxP1G3WBagh78cFU++eGOdhddJyc48G3OAtwzyp7+iSDJgrAXdtkdOWkFLJ/XD8Zk6li2nmAEPi59SwgvpSPhLn8alAAPa8UuhfR2z1woOZmLDXN065LUCNIGaZ1bzc/BUQ27o3ZouAFWjxPWNsiRXmWrwA+LXQXOiUu1nkdtx+Ojcol6xKDtoMjWaCyquO3wfm25Vttqih5ernoGdIsbe+eYrNP4B+i5WJxPMGyL62UXRemvw55U8rGd8Wrd9A==
+	emjo5iSZ9TBqSPkhKh8eWC446E2drnkjIP6qiCgekGzHy2UE2z9JrUP+zdkgkORWKlvP7/YjmdvsWOe7iMpHuCZohcij/mVvb0ZH1gKpR8a5VI7IRcCDTmsVRbDG7UwzWhzVOoVsQbSjdl526qf56XZ+KoS0mrUUWSNuHQRmmP4GPOBYeexG/2F2Dnyhsiqbh8xwgutWBypDsOnP7HXUyF3GewMyHD5vHWz6OmeObtsHc1PhXCOhsBUSNBi2ACDt/ZBkzY3YU2ceWWqTYhGVwl+ShCQWQdpXwTxSu0tt3gxMZUr5rRl1/q8YBS6ml5kwpcd+kjOQBJ0cJk2VBu6Sm7BvgVk6lv7OZtvhan2km5olBtgyuvC8OHAvOQx9x8Ey5lRILLW+hSU5VZ1x2wPZnc2O4dum6N3yq9hsPB9wUIBvy/fyEIxZnSyB2fy6GaYWALyBOf5qO5mxThLY1fSYdVThgS7E5yquKK0r6zyPP92o9YlQKT6NTXL68gBTt482KtG8AnVYJmhWuEfuG3pzwVqR+qAVLO4o/+luP6h34VRxE4zjL7sUTVcH/pErdCKlUOz/9JOHHwsWAtTHsOzOgNLCNnEPxJ00gRWAFK7CibFoQGA4Y5CWc7roxY+gX45uxs2WwxKb/QK1/oM/PUyHg8Eu9MwqasyTMZJtPTH1ZcljoTvYXyVquO21vLTx+2NLs8WfmLa3vBJ2AVj4alVTZA==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(10067099003)(56012099006)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1umL1gsfmGvru7zyKevinae52k9iPT/2POtZhradTqlMZcQPrqHCHbLQjPj6dr9MwlHJenaI4VyPfML6V80NNbHEwG6rSAg2u0JW6WZGYSmhGxcVCb9z7xEy3YuDlgUX9n6u3XYFBq5hahOKM6e4QoQBSz02zms2RVfmh2wn/VLmYtQCK0NRCyLNfZ1ZtRPfDb6svmKWixGnFFN6Dp7gwNKuqEhxxkK3wceqXT7pi5VXLa+LjFrdooAB44NuT0/goUoGtlJFi+3iu1MTaPpo+AXWRmCHwlSLO/Sn2mHf2LRcI3H4SjfgPEJ4Z5edEflCs/ImoB1UYuHg+YBCjxYvJvLX9nE7OP9LfNNdctZe+ZY3YSHK/bnFymySkY0kVVTTVpuVtA+oJ/CxK1xa3j0PFhaVqTJyPWqN5Qtpv4SKDpDMCE6cQN4OzKv5/7rDbCOJ
+	Hu9PVlEjkFWFu7fW+roWqzjNUPqhk1epm/LAypH9TrY0zQTdXguJTQcAbSScgeopa5XmDd5gY8FuHcTa4ONXSdLwiwKzfFYQdt3WwjxXxFnCDPO26mP4+hUSmMp6k0HbR5MyA5r5eKg8ZDTFVWD20FL2u/L1Md5xJcU61XgzidTTgffgJN/NWsry/ntdd5ibw+kslbV5R+R2MNpI8T98LRdZMByCJifQXyIqenMwEZgVNHss2dg+z8t7BFT0Ldf66OyFvXdfxY7LUPKiPcj3eNS8wciSNxH8HZgPjrprc727ECDy/az21hah77FVf5Y+Ok4l/tO08VLTgYLX8ryrtSZCjtfkRGyR431NZF+o9r2ZWXenoVooxm8R/S9aIdEDTAplN21Gf8gKa1l9mQcK/Qi9rO8m+nTVwKXRlzKLdptJnYbVlD3bnwlaNaH31nQi
 X-Exchange-RoutingPolicyChecked:
-	t6NGRGiY3fxTinbUfiHRyhLffD9hhXf7+Suws8cOB9D50v83CF7B3wATWR3sq5/NC/gF1gzt8TwCPI63bqjRampUzj4Si0qI+32K/dpkJx/Nw1Lps2KSgfjvRlgwV9hYFrdY2yrgJfTx04g9a6OvZ5uP8puq3fu850G470WmCvxE27I0UkI9u+wBZXgQIwRr1D3G2DCyETFtnjepJrAz0oeBipaQziFbGasO1nc3m6yz2M24ENj4cWpiKS+DapBpsc8PilCZTaST4awGovCEmsrZ1E4gyddI+/x5AeraUk2V2T+tE8BLd6uKUjnAF5Gx+rLLoTfJaM3qvAWwwsDauQ==
+	J2lGwlQ28ulyOeUwAGpl2InPFPSVa5G42XkAg/3kUAnXe69NbdAVXM3UyoIN6OMLjFQka29jM8pk914Ubyn2XRBLkMhMDjNRYU2MIDY/Mjn6Kd3STgxcv9nPPeMnIaG/W+CG/wdw/zvM7BWkfky5RnC761kiZgdsSVpx1tgxX4oVX8BbdAHADuDpUtlM3yu2770i071kUi5scc13AJ17DDADSxp6zeAJruAzvRWmq6+q132sBUt6lO2Y0HCOxbqN8rJ13ccsKR2rLQDGMXUW0dr0oDY4eotz8ItxNKAQWwSbpuUjkSj8ZCEQ9bgqaair6P9oL5yhgITepNox9PnLmQ==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 20:18:09.5417
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 20:18:46.2814
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52a1b342-556b-4306-2ba8-08df1e66c7bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: af7e9eed-4b6a-4b08-a0ff-08df1e66dda2
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD82.namprd04.prod.outlook.com
+	CH1PEPF0000AD7F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7436
-X-Authority-Analysis: v=2.4 cv=c94+0h9l c=1 sm=1 tr=0 ts=6abc1d17 cx=c_pps
- a=UyUtkpB65yKBl9uddpDweA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB7006
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA4MCBTYWx0ZWRfX1wkMftdL8RNj
+ aYD7eEhBoyKGVLiOcfuPru4w6m+nwRgli2XNR2EVrFZpITV3iRUoXNfsrMTXe/ys1EpjfMuSJtf
+ g8h8bmwzXUlST+aUWcgH7zcjPFyLMC0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MCBTYWx0ZWRfX+TkZMk/WDgxG
+ 3tIuWqiOtayJuv4xZYekl+khC16lZy4CQ5GDbPiwNo9zQKlA/H/hVRKFm0bn7XBFccsuRUy9TI6
+ LkmVjz1PdcYvZmArAsxwdfQTDX/IXMU00v4iH+L9pw6MokGKFSSV5Blmfdi38Vp5TOeuCW4bglZ
+ 04ETPzvkK1ulDY3bSYS/osHzAfw/gakJIFbIDLgWv8WgTmeooQWwxQl06C74nxGWgYsO0350aNW
+ FWSaM2KRD0qVGWbWo/nD9Zj6GWHWKqZhhbLBXZMgkh7m1fbBvorr5IDvPSIMEYtjbXVm69jaIKh
+ NiKpVefs9u/wl+Qv4lWNMjHwf/vK5Mi9f8CEhdDLpDFuF+60ZBKd+/EYqV5Jnb4o8xfD5Lv85s0
+ iSDRLW5FDW2+9Ur79XPTaoC5aPNpqJvqG58Se+Gp/lZJnKJcPk1uHmcx4cCP+uIZXCTOLzTRYhG
+ KsqWIh+ayIqVdEu5Xjw==
+X-Authority-Analysis: v=2.4 cv=Z4p5j3RA c=1 sm=1 tr=0 ts=6abc1d2e cx=c_pps
+ a=xHz2x/H0+t1Z4EfVAX8SiQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
  a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=C4LaqBg6sCNJR2sbnPEA:9
-X-Proofpoint-ORIG-GUID: 8YFaSvUNk0AlW80Z2C0iqVsFzVFi_RYU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA4MCBTYWx0ZWRfX/9+2hfgyw+Xh
- YOye2/d3BvOFK4B7C1a6dIuELVIrrSYJeL+t78eQSDCkFeJCuiz33sFAqv59vp2ndPYKb14I5PM
- CPs8R0SMIvkPM8+bcIfiWX1NDsBOX0nVtyjpH8QT+O0CG5FisLkRanZYOqo5t5+ABDh33/pSWHE
- oWFo7ySNGH3UsORRt7Kg6OmurVksZSv80ZdMkvMa059hRONqjlsFm/NqFS6R+8td3Er9Q4oSfpc
- 5oNqJ4hZRSdvBlNyvjf6JpjjkWuzP/fQ+xpgvKIM2u87jZsMxp11GRkrlOzefFHN1FkoEWmIETI
- BU8iP0kjYPhZ5QGk/1FihWwkNlaytFn7RBcBqhShvcsqt04P26Ro+VBjhrnA48clAYlUaLP7Hw3
- SbI55a320x64iZI47fasj2q/qdsMb7yPXSJKwKpK168plv9X1KfkWuEnBREf5NVq37bNk8wqV0P
- JhMYCc/mPTdbKmHW+Qw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA4MCBTYWx0ZWRfX2tt7X0wuT8fT
- lFDA0YTtU0+O0Xgbtf4ZSY5as3/CR9pjOrNMQeAUQN9sqbGVbTUiBEIKzd+BAtrGaA9fwEJc9UJ
- VREJnsQjwq8ntb1fxkOUreq0C9KDrmo=
-X-Proofpoint-GUID: 8YFaSvUNk0AlW80Z2C0iqVsFzVFi_RYU
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=OrHHYe0rJBWiAmqXVPgA:9
+X-Proofpoint-GUID: LlluZ9ckfyBv0QjO2dIhj7araHBIMIJl
+X-Proofpoint-ORIG-GUID: LlluZ9ckfyBv0QjO2dIhj7araHBIMIJl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 phishscore=0 priorityscore=1501 adultscore=0 clxscore=1011
+ priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 malwarescore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290080
 
-From: Andrew Davis <afd@ti.com>
+Some of the structs defined in ti_sci_protocol.h were missing
+documentation and some were not in correct style. Clean these up to
+resolve static warnings.
 
-Move ti_sci_is_response_ack() function up so it can be used in
-ti_sci_do_xfer(). As we know if a response is expected we can
-check the response in one spot removing the need to check that
-at every call site.
-
-Note: This changes the error code returned on a NACK for the ring
-config, PSI-L pair/unpair, and UDMAP TX/RX channel and RX flow config
-helpers from -EINVAL to -ENODEV, making them consistent with all other
-TI-SCI message helpers. The users of these helpers (k3-ringacc and
-k3-udma) only check for a non-zero return and propagate it, so no
-functional change.
-
-Signed-off-by: Andrew Davis <afd@ti.com>
-Co-developed-by: Beleswar Padhi <b-padhi@ti.com>
 Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
 ---
- drivers/firmware/ti_sci.c | 239 ++++++++++----------------------------
- 1 file changed, 60 insertions(+), 179 deletions(-)
+ include/linux/soc/ti/ti_sci_protocol.h | 374 ++++++++++++++++++++++++-
+ 1 file changed, 363 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti_sci.c
-index 3b58fee07c257..6ec16fe57f132 100644
---- a/drivers/firmware/ti_sci.c
-+++ b/drivers/firmware/ti_sci.c
-@@ -410,14 +410,28 @@ static void ti_sci_put_one_xfer(struct ti_sci_xfers_info *minfo,
- 	up(&minfo->sem_xfer_count);
- }
- 
-+/**
-+ * ti_sci_is_response_ack() - Generic ACK/NACK message checkup
-+ * @r:	pointer to response buffer
-+ *
-+ * Return: true if the response was an ACK, else returns false.
-+ */
-+static inline bool ti_sci_is_response_ack(void *r)
-+{
-+	struct ti_sci_msg_hdr *hdr = r;
-+
-+	return hdr->flags & TI_SCI_FLAG_RESP_GENERIC_ACK ? true : false;
-+}
-+
+diff --git a/include/linux/soc/ti/ti_sci_protocol.h b/include/linux/soc/ti/ti_sci_protocol.h
+index fd104b6668364..471f5580787cf 100644
+--- a/include/linux/soc/ti/ti_sci_protocol.h
++++ b/include/linux/soc/ti/ti_sci_protocol.h
+@@ -42,9 +42,17 @@ struct ti_sci_core_ops {
+  * @get_device: Command to request for device managed by TISCI
+  *		Returns 0 for successful exclusive request, else returns
+  *		corresponding error message.
++ * @get_device_exclusive: Command to request for device managed by TISCI that is
++ *		exclusively owned by the requesting host.
++ *		Returns 0 for successful exclusive request, else returns
++ *		corresponding error message.
+  * @idle_device: Command to idle a device managed by TISCI
+  *		Returns 0 for successful exclusive request, else returns
+  *		corresponding error message.
++ * @idle_device_exclusive: Command to idle a device managed by TISCI that is
++ *		exclusively owned by requesting host.
++ *		Returns 0 for successful exclusive request, else returns
++ *		corresponding error message.
+  * @put_device:	Command to release a device managed by TISCI
+  *		Returns 0 for successful release, else returns corresponding
+  *		error message.
+@@ -243,7 +251,7 @@ struct ti_sci_resource_desc {
  /**
-  * ti_sci_do_xfer() - Do one transfer
-  * @info:	Pointer to SCI entity information
-  * @xfer:	Transfer to initiate and wait for response
+  * struct ti_sci_rm_core_ops - Resource management core operations
+  * @get_range:		Get a range of resources belonging to ti sci host.
+- * @get_rage_from_shost:	Get a range of resources belonging to
++ * @get_range_from_shost:	Get a range of resources belonging to
+  *				specified host id.
+  *			- s_host: Host processing entity to which the
+  *				  resources are allocated
+@@ -322,6 +330,35 @@ struct ti_sci_rm_irq_ops {
   *
-- * Return: -ETIMEDOUT in case of no response, if transmit error,
-- *	   return corresponding error, else if all goes well,
-- *	   return 0.
-+ * Return: -ETIMEDOUT in case of no response, or
-+ *         -ENODEV in case of a NACK response, or
-+ *         corresponding error if transmit fails, or
-+ *         return 0, if all goes well.
+  * Parameters for Navigator Subsystem ring configuration
+  * See @ti_sci_msg_rm_ring_cfg_req
++ *
++ * @valid_params: Bitfield defining validity of ring configuration parameters.
++ *	The ring configuration fields are not valid, and will not be used for
++ *	ring configuration, if their corresponding valid bit is zero.
++ *	Valid bit usage:
++ *	0 - Valid bit for @addr_lo
++ *	1 - Valid bit for @addr_hi
++ *	2 - Valid bit for @count
++ *	3 - Valid bit for @mode
++ *	4 - Valid bit for @size
++ *	5 - Valid bit for @order_id
++ *	6 - Valid bit for @virtid
++ *	7 - Valid bit for @asel
++ * @nav_id: Device ID of Navigator Subsystem from which the ring is allocated
++ * @index: ring index to be configured.
++ * @addr_lo: 32 LSBs of ring base address to be programmed into the ring's
++ *	RING_BA_LO register
++ * @addr_hi: 16 MSBs of ring base address to be programmed into the ring's
++ *	RING_BA_HI register.
++ * @count: Number of ring elements. Must be even if mode is CREDENTIALS or QM
++ *	modes.
++ * @mode: Specifies the mode the ring is to be configured.
++ * @size: Specifies encoded ring element size. To calculate the encoded size use
++ *	the formula (log2(size_bytes) - 2), where size_bytes cannot be
++ *	greater than 256.
++ * @order_id: Specifies the ring's bus order ID.
++ * @virtid: Ring virt ID value
++ * @asel: Ring ASEL (address select) value to be set into the ASEL field of the
++ *	ring's RING_BA_HI register.
   */
- static inline int ti_sci_do_xfer(struct ti_sci_info *info,
- 				 struct ti_sci_xfer *xfer)
-@@ -466,6 +480,18 @@ static inline int ti_sci_do_xfer(struct ti_sci_info *info,
- 	 */
- 	mbox_client_txdone(info->chan_tx, ret);
+ struct ti_sci_msg_rm_ring_cfg {
+ 	u32 valid_params;
+@@ -397,10 +434,102 @@ struct ti_sci_rm_psil_ops {
+ #define TI_SCI_MSG_VALUE_RM_UDMAP_CH_BURST_SIZE_VALID		BIT(14)
  
-+	/*
-+	 * If we expect a response and are not otherwise already in an error
-+	 * state, then ensure that the response is an ACK
-+	 */
-+	if (response_expected && ret == 0) {
-+		if (!ti_sci_is_response_ack(xfer->xfer_buf)) {
-+			dev_warn(dev, "Message response not acknowledged (caller: %pS)\n",
-+				 (void *)_RET_IP_);
-+			ret = -ENODEV;
-+		}
-+	}
-+
- 	return ret;
- }
- 
-@@ -509,19 +535,6 @@ static int ti_sci_cmd_get_revision(struct ti_sci_info *info)
- 	return ret;
- }
- 
--/**
-- * ti_sci_is_response_ack() - Generic ACK/NACK message checkup
-- * @r:	pointer to response buffer
-- *
-- * Return: true if the response was an ACK, else returns false.
-- */
--static inline bool ti_sci_is_response_ack(void *r)
--{
--	struct ti_sci_msg_hdr *hdr = r;
--
--	return hdr->flags & TI_SCI_FLAG_RESP_GENERIC_ACK ? true : false;
--}
--
  /**
-  * ti_sci_set_device_state() - Set device state helper
-  * @handle:	pointer to TI SCI handle
-@@ -561,10 +574,6 @@ static int ti_sci_set_device_state(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -616,10 +625,6 @@ static int ti_sci_get_device_state(const struct ti_sci_handle *handle,
- 		goto fail;
- 
- 	resp = (struct ti_sci_msg_resp_get_device_state *)xfer->xfer_buf;
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--		goto fail;
--	}
- 
- 	if (clcnt)
- 		*clcnt = resp->context_loss_count;
-@@ -912,10 +917,6 @@ static int ti_sci_cmd_set_device_resets(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -987,10 +988,6 @@ static int ti_sci_set_clock_state(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -1050,11 +1047,6 @@ static int ti_sci_cmd_get_clock_state(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_clock_state *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--		goto fail;
--	}
--
- 	if (programmed_state)
- 		*programmed_state = resp->programmed_state;
- 	if (current_state)
-@@ -1279,10 +1271,6 @@ static int ti_sci_cmd_clk_set_parent(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -1337,14 +1325,10 @@ static int ti_sci_cmd_clk_get_parent(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_clock_parent *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--	} else {
--		if (resp->parent_id < 255)
--			*parent_id = resp->parent_id;
--		else
--			*parent_id = resp->parent_id_32;
--	}
-+	if (resp->parent_id < 255)
-+		*parent_id = resp->parent_id;
-+	else
-+		*parent_id = resp->parent_id_32;
- 
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
-@@ -1401,14 +1385,10 @@ static int ti_sci_cmd_clk_get_num_parents(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_clock_num_parents *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--	} else {
--		if (resp->num_parents < 255)
--			*num_parents = resp->num_parents;
--		else
--			*num_parents = resp->num_parents_32;
--	}
-+	if (resp->num_parents < 255)
-+		*num_parents = resp->num_parents;
-+	else
-+		*num_parents = resp->num_parents_32;
- 
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
-@@ -1477,10 +1457,7 @@ static int ti_sci_cmd_clk_get_match_freq(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_query_clock_freq *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp))
--		ret = -ENODEV;
--	else
--		*match_freq = resp->freq_hz;
-+	*match_freq = resp->freq_hz;
- 
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
-@@ -1545,10 +1522,6 @@ static int ti_sci_cmd_clk_set_freq(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -1603,10 +1576,7 @@ static int ti_sci_cmd_clk_get_freq(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_clock_freq *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp))
--		ret = -ENODEV;
--	else
--		*freq = resp->freq_hz;
-+	*freq = resp->freq_hz;
- 
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
-@@ -1658,15 +1628,9 @@ static int ti_sci_cmd_prepare_sleep(const struct ti_sci_handle *handle, u8 mode,
- 	req->debug_flags = debug_flags;
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
-+	if (ret) {
-+		dev_err(dev, "Failed to prepare sleep\n");
- 		goto fail;
--
--	if (msg_flags == TI_SCI_FLAG_REQ_ACK_ON_PROCESSED) {
--		resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--		if (!ti_sci_is_response_ack(resp)) {
--			dev_err(dev, "Failed to prepare sleep\n");
--			ret = -ENODEV;
--		}
- 	}
- 
- fail:
-@@ -1711,17 +1675,13 @@ static int ti_sci_msg_cmd_query_fw_caps(const struct ti_sci_handle *handle,
- 		return PTR_ERR(xfer);
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
--		goto fail;
--
--	resp = (struct ti_sci_msg_resp_query_fw_caps *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp)) {
-+	if (ret) {
- 		dev_err(dev, "Failed to get capabilities\n");
--		ret = -ENODEV;
- 		goto fail;
- 	}
- 
-+	resp = (struct ti_sci_msg_resp_query_fw_caps *)xfer->xfer_buf;
-+
- 	if (fw_caps)
- 		*fw_caps = resp->fw_caps;
- 
-@@ -1766,14 +1726,9 @@ static int ti_sci_cmd_set_io_isolation(const struct ti_sci_handle *handle,
- 	req->state = state;
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
--		goto fail;
--
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp)) {
-+	if (ret) {
- 		dev_err(dev, "Failed to set IO isolation\n");
--		ret = -ENODEV;
-+		goto fail;
- 	}
- 
- fail:
-@@ -1817,17 +1772,13 @@ static int ti_sci_msg_cmd_lpm_wake_reason(const struct ti_sci_handle *handle,
- 		return PTR_ERR(xfer);
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
--		goto fail;
--
--	resp = (struct ti_sci_msg_resp_lpm_wake_reason *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp)) {
-+	if (ret) {
- 		dev_err(dev, "Failed to get wake reason\n");
--		ret = -ENODEV;
- 		goto fail;
- 	}
- 
-+	resp = (struct ti_sci_msg_resp_lpm_wake_reason *)xfer->xfer_buf;
-+
- 	if (source)
- 		*source = resp->wake_source;
- 	if (timestamp)
-@@ -1880,14 +1831,9 @@ static int ti_sci_cmd_set_device_constraint(const struct ti_sci_handle *handle,
- 	req->state = state;
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
--		goto fail;
--
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp)) {
-+	if (ret) {
- 		dev_err(dev, "Failed to set device constraint\n");
--		ret = -ENODEV;
-+		goto fail;
- 	}
- 
- fail:
-@@ -1933,14 +1879,9 @@ static int ti_sci_cmd_set_latency_constraint(const struct ti_sci_handle *handle,
- 	req->state = state;
- 
- 	ret = ti_sci_do_xfer(info, xfer);
--	if (ret)
--		goto fail;
--
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp)) {
-+	if (ret) {
- 		dev_err(dev, "Failed to set device constraint\n");
--		ret = -ENODEV;
-+		goto fail;
- 	}
- 
- fail:
-@@ -1975,11 +1916,6 @@ static int ti_sci_cmd_lpm_abort(struct device *dev)
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp))
--		ret = -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2013,13 +1949,6 @@ static int ti_sci_cmd_core_reboot(const struct ti_sci_handle *handle)
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	if (!ti_sci_is_response_ack(resp))
--		ret = -ENODEV;
--	else
--		ret = 0;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2074,9 +2003,7 @@ static int ti_sci_get_resource_range(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_resource_range *)xfer->xfer_buf;
- 
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--	} else if (!resp->range_num && !resp->range_num_sec) {
-+	if (!resp->range_num && !resp->range_num_sec) {
- 		/* Neither of the two resource range is valid */
- 		ret = -ENODEV;
- 	} else {
-@@ -2193,10 +2120,6 @@ static int ti_sci_manage_irq(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2514,9 +2437,6 @@ static int ti_sci_cmd_rm_ring_cfg(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 	dev_dbg(dev, "RM_RA:config ring %u ret:%d\n", params->index, ret);
-@@ -2564,9 +2484,6 @@ static int ti_sci_cmd_rm_psil_pair(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2614,9 +2531,6 @@ static int ti_sci_cmd_rm_psil_unpair(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2682,9 +2596,6 @@ static int ti_sci_cmd_rm_udmap_tx_ch_cfg(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 	dev_dbg(dev, "TX_CH_CFG: chn %u ret:%u\n", params->index, ret);
-@@ -2747,9 +2658,6 @@ static int ti_sci_cmd_rm_udmap_rx_ch_cfg(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 	dev_dbg(dev, "RX_CH_CFG: chn %u ret:%d\n", params->index, ret);
-@@ -2815,9 +2723,6 @@ static int ti_sci_cmd_rm_udmap_rx_flow_cfg(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->xfer_buf;
--	ret = ti_sci_is_response_ack(resp) ? 0 : -EINVAL;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 	dev_dbg(info->dev, "RX_FL_CFG: %u ret:%d\n", params->flow_index, ret);
-@@ -2860,10 +2765,6 @@ static int ti_sci_cmd_proc_request(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->tx_message.buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2906,10 +2807,6 @@ static int ti_sci_cmd_proc_release(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->tx_message.buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -2956,10 +2853,6 @@ static int ti_sci_cmd_proc_handover(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->tx_message.buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -3013,10 +2906,6 @@ static int ti_sci_cmd_proc_set_config(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->tx_message.buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -3065,10 +2954,6 @@ static int ti_sci_cmd_proc_set_control(const struct ti_sci_handle *handle,
- 	if (ret)
- 		goto fail;
- 
--	resp = (struct ti_sci_msg_hdr *)xfer->tx_message.buf;
--
--	ret = ti_sci_is_response_ack(resp) ? 0 : -ENODEV;
--
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
- 
-@@ -3118,16 +3003,12 @@ static int ti_sci_cmd_proc_get_status(const struct ti_sci_handle *handle,
- 
- 	resp = (struct ti_sci_msg_resp_get_status *)xfer->tx_message.buf;
- 
--	if (!ti_sci_is_response_ack(resp)) {
--		ret = -ENODEV;
--	} else {
--		*bv = (resp->bootvector_low & TI_SCI_ADDR_LOW_MASK) |
--		      (((u64)resp->bootvector_high << TI_SCI_ADDR_HIGH_SHIFT) &
--		       TI_SCI_ADDR_HIGH_MASK);
--		*cfg_flags = resp->config_flags;
--		*ctrl_flags = resp->control_flags;
--		*sts_flags = resp->status_flags;
--	}
-+	*bv = (resp->bootvector_low & TI_SCI_ADDR_LOW_MASK) |
-+	      (((u64)resp->bootvector_high << TI_SCI_ADDR_HIGH_SHIFT) &
-+	       TI_SCI_ADDR_HIGH_MASK);
-+	*cfg_flags = resp->config_flags;
-+	*ctrl_flags = resp->control_flags;
-+	*sts_flags = resp->status_flags;
- 
- fail:
- 	ti_sci_put_one_xfer(&info->minfo, xfer);
+- * Configures a Navigator Subsystem UDMAP transmit channel
++ * struct ti_sci_msg_rm_udmap_tx_ch_cfg - Configures a Navigator Subsystem UDMAP
++ *					  transmit channel
++ *
++ * @valid_params: Bitfield defining validity of tx channel configuration
++ * parameters. The tx channel configuration fields are not valid, and will not
++ * be used for ch configuration, if their corresponding valid bit is zero.
++ * Valid bit usage:
++ *    0 - Valid bit for @tx_pause_on_err
++ *    1 - Valid bit for @tx_atype
++ *    2 - Valid bit for @tx_chan_type
++ *    3 - Valid bit for @tx_fetch_size
++ *    4 - Valid bit for @txcq_qnum
++ *    5 - Valid bit for @tx_priority
++ *    6 - Valid bit for @tx_qos
++ *    7 - Valid bit for @tx_orderid
++ *    8 - Valid bit for @tx_sched_priority
++ *    9 - Valid bit for @tx_filt_einfo
++ *   10 - Valid bit for @tx_filt_pswords
++ *   11 - Valid bit for @tx_supr_tdpkt
++ *   12 - Valid bit for @tx_credit_count
++ *   13 - Valid bit for @fdepth
++ *   14 - Valid bit for @tx_burst_size
++ *   15 - Valid bit for @tx_tdtype
++ *   16 - Valid bit for @extended_ch_type
++ *
++ * @nav_id: SoC device ID of Navigator Subsystem where tx channel is located
++ *
++ * @index: UDMAP transmit channel index.
++ *
++ * @tx_pause_on_err: UDMAP transmit channel pause on error configuration to
++ * be programmed into the tx_pause_on_err field of the channel's TCHAN_TCFG
++ * register.
++ *
++ * @tx_filt_einfo: UDMAP transmit channel extended packet information passing
++ * configuration to be programmed into the tx_filt_einfo field of the
++ * channel's TCHAN_TCFG register.
++ *
++ * @tx_filt_pswords: UDMAP transmit channel protocol specific word passing
++ * configuration to be programmed into the tx_filt_pswords field of the
++ * channel's TCHAN_TCFG register.
++ *
++ * @tx_atype: UDMAP transmit channel non Ring Accelerator access pointer
++ * interpretation configuration to be programmed into the tx_atype field of
++ * the channel's TCHAN_TCFG register.
++ *
++ * @tx_chan_type: UDMAP transmit channel functional channel type and work
++ * passing mechanism configuration to be programmed into the tx_chan_type
++ * field of the channel's TCHAN_TCFG register.
++ *
++ * @tx_supr_tdpkt: UDMAP transmit channel teardown packet generation suppression
++ * configuration to be programmed into the tx_supr_tdpkt field of the channel's
++ * TCHAN_TCFG register.
++ *
++ * @tx_fetch_size: UDMAP transmit channel number of 32-bit descriptor words to
++ * fetch configuration to be programmed into the tx_fetch_size field of the
++ * channel's TCHAN_TCFG register.  The user must make sure to set the maximum
++ * word count that can pass through the channel for any allowed descriptor type.
++ *
++ * @tx_credit_count: UDMAP transmit channel transfer request credit count
++ * configuration to be programmed into the count field of the TCHAN_TCREDIT
++ * register.  Specifies how many credits for complete TRs are available.
+  *
+- * Configures a Navigator Subsystem UDMAP transmit channel registers.
+- * See @ti_sci_msg_rm_udmap_tx_ch_cfg_req
++ * @txcq_qnum: UDMAP transmit channel completion queue configuration to be
++ * programmed into the txcq_qnum field of the TCHAN_TCQ register. The specified
++ * completion queue must be assigned to the host, or a subordinate of the host,
++ * requesting configuration of the transmit channel.
++ *
++ * @tx_priority: UDMAP transmit channel transmit priority value to be programmed
++ * into the priority field of the channel's TCHAN_TPRI_CTRL register.
++ *
++ * @tx_qos: UDMAP transmit channel transmit qos value to be programmed into the
++ * qos field of the channel's TCHAN_TPRI_CTRL register.
++ *
++ * @tx_orderid: UDMAP transmit channel bus order id value to be programmed into
++ * the orderid field of the channel's TCHAN_TPRI_CTRL register.
++ *
++ * @fdepth: UDMAP transmit channel FIFO depth configuration to be programmed
++ * into the fdepth field of the TCHAN_TFIFO_DEPTH register. Sets the number of
++ * Tx FIFO bytes which are allowed to be stored for the channel. Check the UDMAP
++ * section of the TRM for restrictions regarding this parameter.
++ *
++ * @tx_sched_priority: UDMAP transmit channel tx scheduling priority
++ * configuration to be programmed into the priority field of the channel's
++ * TCHAN_TST_SCHED register.
++ *
++ * @tx_burst_size: UDMAP transmit channel burst size configuration to be
++ * programmed into the tx_burst_size field of the TCHAN_TCFG register.
++ *
++ * @tx_tdtype: UDMAP transmit channel teardown type configuration to be
++ * programmed into the tdtype field of the TCHAN_TCFG register:
++ * 0 - Return immediately
++ * 1 - Wait for completion message from remote peer
++ *
++ * @extended_ch_type: Valid for BCDMA.
++ * 0 - the channel is split tx channel (tchan)
++ * 1 - the channel is block copy channel (bchan)
+  */
+ struct ti_sci_msg_rm_udmap_tx_ch_cfg {
+ 	u32 valid_params;
+@@ -433,10 +562,96 @@ struct ti_sci_msg_rm_udmap_tx_ch_cfg {
+ };
+ 
+ /**
+- * Configures a Navigator Subsystem UDMAP receive channel
++ * struct ti_sci_msg_rm_udmap_rx_ch_cfg - Configures a Navigator Subsystem UDMAP
++ *					  receive channel
++ *
++ * @valid_params: Bitfield defining validity of rx channel configuration
++ * parameters.
++ * The rx channel configuration fields are not valid, and will not be used for
++ * ch configuration, if their corresponding valid bit is zero.
++ * Valid bit usage:
++ *    0 - Valid bit for @rx_pause_on_err
++ *    1 - Valid bit for @rx_atype
++ *    2 - Valid bit for @rx_chan_type
++ *    3 - Valid bit for @rx_fetch_size
++ *    4 - Valid bit for @rxcq_qnum
++ *    5 - Valid bit for @rx_priority
++ *    6 - Valid bit for @rx_qos
++ *    7 - Valid bit for @rx_orderid
++ *    8 - Valid bit for @rx_sched_priority
++ *    9 - Valid bit for @flowid_start
++ *   10 - Valid bit for @flowid_cnt
++ *   11 - Valid bit for @rx_ignore_short
++ *   12 - Valid bit for @rx_ignore_long
++ *   14 - Valid bit for @rx_burst_size
++ *
++ * @nav_id: SoC device ID of Navigator Subsystem where rx channel is located
++ *
++ * @index: UDMAP receive channel index.
++ *
++ * @rx_fetch_size: UDMAP receive channel number of 32-bit descriptor words to
++ * fetch configuration to be programmed into the rx_fetch_size field of the
++ * channel's RCHAN_RCFG register.
++ *
++ * @rxcq_qnum: UDMAP receive channel completion queue configuration to be
++ * programmed into the rxcq_qnum field of the RCHAN_RCQ register.
++ * The specified completion queue must be assigned to the host, or a subordinate
++ * of the host, requesting configuration of the receive channel.
++ *
++ * @rx_priority: UDMAP receive channel receive priority value to be programmed
++ * into the priority field of the channel's RCHAN_RPRI_CTRL register.
++ *
++ * @rx_qos: UDMAP receive channel receive qos value to be programmed into the
++ * qos field of the channel's RCHAN_RPRI_CTRL register.
+  *
+- * Configures a Navigator Subsystem UDMAP receive channel registers.
+- * See @ti_sci_msg_rm_udmap_rx_ch_cfg_req
++ * @rx_orderid: UDMAP receive channel bus order id value to be programmed into
++ * the orderid field of the channel's RCHAN_RPRI_CTRL register.
++ *
++ * @rx_sched_priority: UDMAP receive channel rx scheduling priority
++ * configuration to be programmed into the priority field of the channel's
++ * RCHAN_RST_SCHED register.
++ *
++ * @flowid_start: UDMAP receive channel additional flows starting index
++ * configuration to program into the flow_start field of the RCHAN_RFLOW_RNG
++ * register. Specifies the starting index for flow IDs the receive channel is to
++ * make use of beyond the default flow. flowid_start and @flowid_cnt must be
++ * set as valid and configured together. The starting flow ID set by
++ * @flowid_start must be a flow index within the Navigator Subsystem's subset
++ * of flows beyond the default flows statically mapped to receive channels.
++ * The additional flows must be assigned to the host, or a subordinate of the
++ * host, requesting configuration of the receive channel.
++ *
++ * @flowid_cnt: UDMAP receive channel additional flows count configuration to
++ * program into the flowid_cnt field of the RCHAN_RFLOW_RNG register.
++ * This field specifies how many flow IDs are in the additional contiguous range
++ * of legal flow IDs for the channel.  @flowid_start and flowid_cnt must be
++ * set as valid and configured together. Disabling the valid_params field bit
++ * for flowid_cnt indicates no flow IDs other than the default are to be
++ * allocated and used by the receive channel. @flowid_start plus flowid_cnt
++ * cannot be greater than the number of receive flows in the receive channel's
++ * Navigator Subsystem.  The additional flows must be assigned to the host, or a
++ * subordinate of the host, requesting configuration of the receive channel.
++ *
++ * @rx_pause_on_err: UDMAP receive channel pause on error configuration to be
++ * programmed into the rx_pause_on_err field of the channel's RCHAN_RCFG
++ * register.
++ *
++ * @rx_atype: UDMAP receive channel non Ring Accelerator access pointer
++ * interpretation configuration to be programmed into the rx_atype field of the
++ * channel's RCHAN_RCFG register.
++ *
++ * @rx_chan_type: UDMAP receive channel functional channel type and work passing
++ * mechanism configuration to be programmed into the rx_chan_type field of the
++ * channel's RCHAN_RCFG register.
++ *
++ * @rx_ignore_short: UDMAP receive channel short packet treatment configuration
++ * to be programmed into the rx_ignore_short field of the RCHAN_RCFG register.
++ *
++ * @rx_ignore_long: UDMAP receive channel long packet treatment configuration to
++ * be programmed into the rx_ignore_long field of the RCHAN_RCFG register.
++ *
++ * @rx_burst_size: UDMAP receive channel burst size configuration to be
++ * programmed into the rx_burst_size field of the RCHAN_RCFG register.
+  */
+ struct ti_sci_msg_rm_udmap_rx_ch_cfg {
+ 	u32 valid_params;
+@@ -463,10 +678,142 @@ struct ti_sci_msg_rm_udmap_rx_ch_cfg {
+ };
+ 
+ /**
+- * Configures a Navigator Subsystem UDMAP receive flow
++ * struct ti_sci_msg_rm_udmap_flow_cfg - Configures a Navigator Subsystem UDMAP
++ *					 receive flow
++ *
++ * @valid_params:
++ * Bitfield defining validity of rx flow configuration parameters.  The
++ * rx flow configuration fields are not valid, and will not be used for flow
++ * configuration, if their corresponding valid bit is zero.  Valid bit usage:
++ *     0 - Valid bit for @rx_einfo_present
++ *     1 - Valid bit for @rx_psinfo_present
++ *     2 - Valid bit for @rx_error_handling
++ *     3 - Valid bit for @rx_desc_type
++ *     4 - Valid bit for @rx_sop_offset
++ *     5 - Valid bit for @rx_dest_qnum
++ *     6 - Valid bit for @rx_src_tag_hi
++ *     7 - Valid bit for @rx_src_tag_lo
++ *     8 - Valid bit for @rx_dest_tag_hi
++ *     9 - Valid bit for @rx_dest_tag_lo
++ *    10 - Valid bit for @rx_src_tag_hi_sel
++ *    11 - Valid bit for @rx_src_tag_lo_sel
++ *    12 - Valid bit for @rx_dest_tag_hi_sel
++ *    13 - Valid bit for @rx_dest_tag_lo_sel
++ *    14 - Valid bit for @rx_fdq0_sz0_qnum
++ *    15 - Valid bit for @rx_fdq1_qnum
++ *    16 - Valid bit for @rx_fdq2_qnum
++ *    17 - Valid bit for @rx_fdq3_qnum
++ *    18 - Valid bit for @rx_ps_location
++ *
++ * @nav_id: SoC device ID of Navigator Subsystem from which the receive flow is
++ * allocated
++ *
++ * @flow_index: UDMAP receive flow index for non-optional configuration.
++ *
++ * @rx_einfo_present:
++ * UDMAP receive flow extended packet info present configuration to be
++ * programmed into the rx_einfo_present field of the flow's RFLOW_RFA register.
++ *
++ * @rx_psinfo_present:
++ * UDMAP receive flow PS words present configuration to be programmed into the
++ * rx_psinfo_present field of the flow's RFLOW_RFA register.
++ *
++ * @rx_error_handling:
++ * UDMAP receive flow error handling configuration to be programmed into the
++ * rx_error_handling field of the flow's RFLOW_RFA register.
++ *
++ * @rx_desc_type:
++ * UDMAP receive flow descriptor type configuration to be programmed into the
++ * rx_desc_type field of the flow's RFLOW_RFA register.
++ *
++ * @rx_sop_offset:
++ * UDMAP receive flow start of packet offset configuration to be programmed
++ * into the rx_sop_offset field of the RFLOW_RFA register.  See the UDMAP
++ * section of the TRM for more information on this setting.  Valid values for
++ * this field are 0-255 bytes.
++ *
++ * @rx_dest_qnum:
++ * UDMAP receive flow destination queue configuration to be programmed into the
++ * rx_dest_qnum field of the flow's RFLOW_RFA register.  The specified
++ * destination queue must be valid within the Navigator Subsystem and must be
++ * owned by the host, or a subordinate of the host, requesting allocation and
++ * configuration of the receive flow.
++ *
++ * @rx_src_tag_hi:
++ * UDMAP receive flow source tag high byte constant configuration to be
++ * programmed into the rx_src_tag_hi field of the flow's RFLOW_RFB register.
++ * See the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_src_tag_lo:
++ * UDMAP receive flow source tag low byte constant configuration to be
++ * programmed into the rx_src_tag_lo field of the flow's RFLOW_RFB register.
++ * See the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_dest_tag_hi:
++ * UDMAP receive flow destination tag high byte constant configuration to be
++ * programmed into the rx_dest_tag_hi field of the flow's RFLOW_RFB register.
++ * See the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_dest_tag_lo:
++ * UDMAP receive flow destination tag low byte constant configuration to be
++ * programmed into the rx_dest_tag_lo field of the flow's RFLOW_RFB register.
++ * See the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_src_tag_hi_sel:
++ * UDMAP receive flow source tag high byte selector configuration to be
++ * programmed into the rx_src_tag_hi_sel field of the RFLOW_RFC register.  See
++ * the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_src_tag_lo_sel:
++ * UDMAP receive flow source tag low byte selector configuration to be
++ * programmed into the rx_src_tag_lo_sel field of the RFLOW_RFC register.  See
++ * the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_dest_tag_hi_sel:
++ * UDMAP receive flow destination tag high byte selector configuration to be
++ * programmed into the rx_dest_tag_hi_sel field of the RFLOW_RFC register.  See
++ * the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_dest_tag_lo_sel:
++ * UDMAP receive flow destination tag low byte selector configuration to be
++ * programmed into the rx_dest_tag_lo_sel field of the RFLOW_RFC register.  See
++ * the UDMAP section of the TRM for more information on this setting.
++ *
++ * @rx_fdq0_sz0_qnum:
++ * UDMAP receive flow free descriptor queue 0 configuration to be programmed
++ * into the rx_fdq0_sz0_qnum field of the flow's RFLOW_RFD register.  See the
++ * UDMAP section of the TRM for more information on this setting. The specified
++ * free queue must be valid within the Navigator Subsystem and must be owned
++ * by the host, or a subordinate of the host, requesting allocation and
++ * configuration of the receive flow.
++ *
++ * @rx_fdq1_qnum:
++ * UDMAP receive flow free descriptor queue 1 configuration to be programmed
++ * into the rx_fdq1_qnum field of the flow's RFLOW_RFD register.  See the
++ * UDMAP section of the TRM for more information on this setting.  The specified
++ * free queue must be valid within the Navigator Subsystem and must be owned
++ * by the host, or a subordinate of the host, requesting allocation and
++ * configuration of the receive flow.
++ *
++ * @rx_fdq2_qnum:
++ * UDMAP receive flow free descriptor queue 2 configuration to be programmed
++ * into the rx_fdq2_qnum field of the flow's RFLOW_RFE register.  See the
++ * UDMAP section of the TRM for more information on this setting.  The specified
++ * free queue must be valid within the Navigator Subsystem and must be owned
++ * by the host, or a subordinate of the host, requesting allocation and
++ * configuration of the receive flow.
++ *
++ * @rx_fdq3_qnum:
++ * UDMAP receive flow free descriptor queue 3 configuration to be programmed
++ * into the rx_fdq3_qnum field of the flow's RFLOW_RFE register.  See the
++ * UDMAP section of the TRM for more information on this setting.  The specified
++ * free queue must be valid within the Navigator Subsystem and must be owned
++ * by the host, or a subordinate of the host, requesting allocation and
++ * configuration of the receive flow.
+  *
+- * Configures a Navigator Subsystem UDMAP receive flow's registers.
+- * See @tis_ci_msg_rm_udmap_flow_cfg_req
++ * @rx_ps_location:
++ * UDMAP receive flow PS words location configuration to be programmed into the
++ * rx_ps_location field of the flow's RFLOW_RFA register.
+  */
+ struct ti_sci_msg_rm_udmap_flow_cfg {
+ 	u32 valid_params;
+@@ -516,7 +863,7 @@ struct ti_sci_msg_rm_udmap_flow_cfg {
+  * struct ti_sci_rm_udmap_ops - UDMA Management operations
+  * @tx_ch_cfg: configure SoC Navigator Subsystem UDMA transmit channel.
+  * @rx_ch_cfg: configure SoC Navigator Subsystem UDMA receive channel.
+- * @rx_flow_cfg1: configure SoC Navigator Subsystem UDMA receive flow.
++ * @rx_flow_cfg: configure SoC Navigator Subsystem UDMA receive flow.
+  */
+ struct ti_sci_rm_udmap_ops {
+ 	int (*tx_ch_cfg)(const struct ti_sci_handle *handle,
+@@ -558,10 +905,15 @@ struct ti_sci_proc_ops {
+ 
+ /**
+  * struct ti_sci_ops - Function support for TI SCI
++ * @core_ops:	SoC core operations
+  * @dev_ops:	Device specific operations
+  * @clk_ops:	Clock specific operations
++ * @pm_ops:	Low Power Mode (LPM) control operations
+  * @rm_core_ops:	Resource management core operations.
+  * @rm_irq_ops:		IRQ management specific operations
++ * @rm_ring_ops:	Ring Accelerator Management operations
++ * @rm_psil_ops:	PSI-L thread operations
++ * @rm_udmap_ops:	UDMA Management operations
+  * @proc_ops:	Processor Control specific operations
+  */
+ struct ti_sci_ops {
 -- 
 2.34.1
 
