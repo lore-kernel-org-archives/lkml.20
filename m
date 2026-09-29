@@ -1,78 +1,78 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+Received: from mail-yx1-f97.google.com (mail-yx1-f97.google.com [74.125.224.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939283DAAA9
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D44F3E1222
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790654594; cv=none; b=CfMLu2x7WNH2f1qJ1GCYjlZZmeahw/fbRhu+ziKB2vZr+WE6ykzsg2SzcBVLVRI6bd9/tL/3sIqQvVQVxF2VNLnuDp/HzAHMPPvgXiUAMHfwA9GdA9fPhGEh8XXF7gg2FrQJmG7m2V035kMGeXQyuWsL/gvaDWFwRhrCAyJts7Q=
+	t=1790654599; cv=none; b=qh295AyZXTAmEYM5iHY7Duxg8uxCYN8JU3EZwySDCRlDQmApu+E85L+RVSIZrW2205hEEu9PHXpNcTH8ugxoxL7S1L67wSacNrRkc1QFEJzDDcfqHVmOA5IiKH7VvafZgL6/PjLWUFlioeFM0GLEzWVTYtBftXKi/NMsXVnGfds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790654594; c=relaxed/simple;
-	bh=wfxZIiWhDP3+oFPqhctMkZvaOYbsAemH2FvdQjYIm9k=;
+	s=arc-20240116; t=1790654599; c=relaxed/simple;
+	bh=hwzN7aNlJ2wxS9ZWnQFgLPxc8hv3AZhs4ribMUFVqWY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ycd3YDnVxHGcGhO9DEGm0ZCHZ3FsZMgv+aXcKQVpCfu7YmGyI22qg2nhre4Qq2HlbzkOnohdiQp9PpXhHbRpWBjTTOq53cBPwfA9Ym1zFsqimtxgtrrZtqnwQ957OvOjHGHhyvuAiAleTc/L+vcjUw4UZyIbh1282PUM+AWQuD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=fhItftJA; arc=none smtp.client-ip=209.85.216.99
+	 MIME-Version; b=AfMrP/W3lRiKJuquqt1KtLJynLvWVPed0FxhoILWCVBV9OprQQHdhXa9Rf38q1v8DiKcFObhS4uVpEhbGC41yx15Bx9bRT2cv/ORL5SEhEo+ZIZ9/4Dnk5t7mGj/bmp5gBBzEj2haB3KYbuaJT5aQCERSxr4lx/wgoJGXDcUFiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=PyotIwFz; arc=none smtp.client-ip=74.125.224.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="fhItftJA"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so1448114a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:03:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="PyotIwFz"
+Received: by mail-yx1-f97.google.com with SMTP id 956f58d0204a3-675617e81f9so203715d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:03:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790654591; x=1791259391;
+        d=1e100.net; s=20260707; t=1790654597; x=1791259397;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=H1QC7xolz0zAjMGBpXSuPAgwwtLmlzIMyVrA3dvqh9k=;
-        b=0dGcnwrnyNBdyfiibrZ+nBc2k4aXfa0wuP6gurgi8UuCCED4hyzELRqnume7eE2nYF
-         KOZ/XZ+EeRGCHmyf8FEnexNAimplt3xhbFr/Qn5Juol+fIJhYA0WqZITekMaOgv/QMZc
-         q/58BzWk5e4rg3LPE6irUYF1V+Q5eIrkA7Kc7efFizp7CGnoGcRAJAxZug/w+uMfUmfS
-         6LM7ILDRTyTx3klLtQoVmYU3xs5Ti80/I5WWD1t1TqqVmQUxhLCkTgUprGRmHucob80V
-         DDWiwwQQzL0eQMwsCcLvMyOY9EHvS64OdggInSGgn0vIeMlWY/zSP8yvnZMDfdnOKQWD
-         JDmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8EOmyhup4/T582VYm98/hBT4Sxl/qMs2fTKWBbXCYXyvRX+C52SDi16YTn3kus4wyJ2SYVOKnYSA2vqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIv1wJ4vOlJeeFF9zt7kvGSqJ4c8abaUQB7KTeu+mVvVtcNlmd2
-	qAHO7hXOFffGvc8IIAHL0IaxdDjxwIpj4h2VYABpWLlWD0323w3Ob/o2pOGTxCIBJ1upN98CxKL
-	YtXGiiauBDrOnHaBNnu0p4O2EuTbxAEjjnP8b1Dgl9SVa8RGkiNEoU/cOZBdyQNQmb09xUxWHLF
-	hJW3mceZUIIUfdR0AplUU6MfcyjKejKoEXrADbt6PoPkw1WFfgz8BKI/nCfnyhN6sZ+5se7FlT4
-	Wvi7G5mx0y8qIgP
-X-Gm-Gg: AYBFou0KVp7iyMc0hgZ/rTHIqcN8HKoq+u2hUvj5ATthH8pg22bxdUdSn4XgG/pvnyW
-	Ul2ImHDse2GYlcWNvojMxXMJ61d2K/32BU7z6hoZgmBGuH7TY2ovmmL0N1V2/tRdewjGePYLkaX
-	V/dcCscmynHzXBXbrH/8SHjJN3HOJNEEBH/DHkI4O05iW/uC7MYvE22tVHP/To7l4LPVscS6H+7
-	loGvi43oSssCuTFV72S9QKsGC+nh43wJO/aRsVrk1hEtIpHo5MmVJ5+HgDQXfO8AYyOiGKrwGdA
-	5yxLMX/f6nGHIEpnTWxpOT2y7XvRbvpIM0+9C9zXvf5UTTvHOtZrPFXfN41f6FFLmTmy7nkR6xY
-	386e8z1jQgFeHZ8QUwdiNu7wh8+j0SwrOxfzxX8j0r6fVCbsrIkr9rVG9o4qiGigU1CcM8A9gNl
-	1wDQkuK1cdltsIR0M2Htbb5GBS/QgYPdmw/O0=
-X-Received: by 2002:a17:90b:5686:b0:3a2:b04e:8085 with SMTP id 98e67ed59e1d1-3a2b04e839fmr2624954a91.43.1790654591461;
-        Mon, 28 Sep 2026 21:03:11 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a497f21894sm996103a91.7.2026.09.28.21.03.10
+        bh=wf4+8fPuDTBmj6DTA0OwZVxSovvEfEo3g6LDTXOjhgc=;
+        b=mbOapO1ZmzjhA+IvzhSXqhkE2KyfYSl5dayn1aNBGXw1Jwn0sreKjGQ1pzE1OjwIKW
+         8k7s/+EEUH9ItV+LI2pXFuvYptfupeMcymmLaYkJhEyct9FbHbCbEJ2OnVLTYSNacYn0
+         tzkw5TbzGo55wAQeDdmxPiEqb6ig1DGkIlxPq5DrqLz1D9d0daEJU6Tl0cPLr956t7vW
+         IRlE4nYwCg32SijBZuwtRo6dl6pN4W3zmQlvWv0kwLrKxU11rNOeRHu0LUtlW9zB0UDY
+         pTzOS3ICH0A/4HnpUWnv3bniMLTGk4nydeK/9ogMg4nbRQPX3Y16IY045xZxAtp4VxdA
+         aRfg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9kM9JRykEOV/GHTk3nyRoLuBoiuiOM2m6i3tDIR/AFbPMDavPXKbsDXI0aQgNXlGV/pa3P/1EiU6uzw8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRHgHVpvDuYqyUzBRMGV/pItgk6chFmNfgKlO6MiMW3g2y+gL8
+	69iidC7OM16CqcRh/d2fNH26Keh07NUsF3Lt6jZ0/L4BVgvmv0TH7xAGRtIxQY4IeBKMPhPoYi6
+	sXYfOgyRdtwkFS1E8llL2oFfLVWSDaJy5xmCm9AYs/j4t9DetTvXiDRvxM9oRldHvH+1vo+PGUV
+	sgwjsKqx1pEFDpEXQYeomjYJEuw+WWyCJhQGh3OWxmjbcJcINEDBKHvcXosTC1qgNFtqBFE2/eh
+	hIQyOc/2BRJFot0
+X-Gm-Gg: AYBFou1dOt6HT8mierGJvx5ZHYc9ssIH7Yw9Sm8AKXVFvZg9FYuCWFfa7oyU5bgWmb9
+	M3GCmma7aO7LHSFc+Jv3De3WHZJrSlwNcQUWLd3Z0/KZkd36P4DZQ204b0sd5nUMAn28yRMxN+i
+	C1HVj29slnR2M5zsyvAev0ysxq3TN268AStwQl1KhIj97VB7/molmPZGuhfJkTTVNUkRckmwKVW
+	yLpCd0FNJamyYFSiYWCJF1G4oiCs0vcvl6Vrk3Vh/xesV9zw6cXuAcOfTD+hJ7cnVof/1ymurnn
+	6jmtsQ1fdqeT+IgWXZVt6pdBW3YRSsVqCzbg3wHLKi0a+pbF3Hkvk6tt71qoGSjy+TNyxi6Zm0g
+	URTWjr/IHsk+V+LShHVlao0he119WqAuOu+oBlq89rhDjJPrdjoN+HXUBxYPajYulfv+CWSidXs
+	O7R+ayKmoMyMI59iVdD+cUNoIvTqukjzXZN3s=
+X-Received: by 2002:a05:690e:1688:b0:675:55ea:3a11 with SMTP id 956f58d0204a3-67555ea491bmr1731484d50.97.1790654597004;
+        Mon, 28 Sep 2026 21:03:17 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-6740eea8439sm1860486d50.6.2026.09.28.21.03.16
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 28 Sep 2026 21:03:11 -0700 (PDT)
+        Mon, 28 Sep 2026 21:03:16 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33baaba6371so14196422eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:03:10 -0700 (PDT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-342217d8d53so12162527eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:03:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790654590; x=1791259390; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1790654596; x=1791259396; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H1QC7xolz0zAjMGBpXSuPAgwwtLmlzIMyVrA3dvqh9k=;
-        b=fhItftJAmbd5w4nLldXjYdujimhcBno2xM358LQIK+THcQYYx0bt6TiEyG7gjmcGLR
-         tDCMg3L/hdbu05TXXFgxfWQdgxGwCtTmbKr/CGmO/TOVU0FLsjPHPaN7N110tbrJWY8/
-         ADsyxvJ6pEHue+JcxGxeRU2wukWIvSLNR2IHg=
-X-Forwarded-Encrypted: i=1; AKwUvBwLrdj7CC/fambZhmYpXz2lTmhdZoEfOunVmCXq1hk4RgTdfPbHh5Wk0G9550nb6Dc4vE4KU6QM1+nxOSM=@vger.kernel.org
-X-Received: by 2002:a05:693c:88d7:20b0:344:c0fe:19ee with SMTP id 5a478bee46e88-344c0fe1acdmr7715250eec.14.1790654589485;
-        Mon, 28 Sep 2026 21:03:09 -0700 (PDT)
-X-Received: by 2002:a05:693c:88d7:20b0:344:c0fe:19ee with SMTP id 5a478bee46e88-344c0fe1acdmr7715216eec.14.1790654588762;
-        Mon, 28 Sep 2026 21:03:08 -0700 (PDT)
+        bh=wf4+8fPuDTBmj6DTA0OwZVxSovvEfEo3g6LDTXOjhgc=;
+        b=PyotIwFzFgcwxJInUjRqHdieDpi+5TYK7k6oOh4arLQ/4SxzVkj3Zckhwcp0wDEBvR
+         uz6kmALuwQN1yZw/lxy6N+LKDNlbu8+SyezeqDk1hTETmMhViRP2RaSKyYrJ3c7C0tTE
+         0g9jIlGP1CbFSRB78DU76rriTuCr0QkFtIECs=
+X-Forwarded-Encrypted: i=1; AKwUvByx+2GjjrN1OPQjtoIe4pAW/uGj7a+mp50y/43bj8NQ29S1Vkc6q0bxg+/icOio8X6xD2pE4J1bQf11iPo=@vger.kernel.org
+X-Received: by 2002:a05:7300:c8cc:b0:33b:a4dc:d5e1 with SMTP id 5a478bee46e88-3426fbbe36fmr11863807eec.8.1790654595156;
+        Mon, 28 Sep 2026 21:03:15 -0700 (PDT)
+X-Received: by 2002:a05:7300:c8cc:b0:33b:a4dc:d5e1 with SMTP id 5a478bee46e88-3426fbbe36fmr11863746eec.8.1790654594365;
+        Mon, 28 Sep 2026 21:03:14 -0700 (PDT)
 Received: from vertex.localdomain ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-347323f5a7esm10952571eec.15.2026.09.28.21.03.03
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-347323f5a7esm10952571eec.15.2026.09.28.21.03.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 21:03:06 -0700 (PDT)
+        Mon, 28 Sep 2026 21:03:12 -0700 (PDT)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: Kiryl Shutsemau <kas@kernel.org>,
 	Borislav Petkov <bp@alien8.de>,
@@ -113,9 +113,9 @@ Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
 	Nathan Chancellor <nathan@kernel.org>,
 	Kees Cook <kees@kernel.org>,
 	Ashish Kalra <ashish.kalra@amd.com>
-Subject: [PATCH v2 1/6] percpu: Page-align decrypted data in UP kernels
-Date: Tue, 29 Sep 2026 00:02:50 -0400
-Message-ID: <20260929040256.543767-2-zack.rusin@broadcom.com>
+Subject: [PATCH v2 2/6] percpu: Bound decrypted storage for all x86 encrypted guests
+Date: Tue, 29 Sep 2026 00:02:51 -0400
+Message-ID: <20260929040256.543767-3-zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929040256.543767-1-zack.rusin@broadcom.com>
 References: <20260929040256.543767-1-zack.rusin@broadcom.com>
@@ -128,42 +128,77 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Without SMP, DEFINE_PER_CPU_DECRYPTED() places variables in
-.data..decrypted. Align both ends of that section so that changing a
-variable's encryption attribute cannot expose unrelated kernel data.
-Keep the section in permanent data, where UP variables are instantiated.
+TDX also needs shared per-CPU buffers. Use X86_MEM_ENCRYPT for their
+definition and placement, and provide page-aligned boundaries so the
+architecture can convert each CPU's whole section before registration.
 
-Fixes: 000f8870a47b ("vmlinux.lds.h: Fix placement of '.data..decrypted' section")
+Define the boundaries in the SMP template or UP data as appropriate.
+Drop the unused DECLARE_PER_CPU_DECRYPTED() macro.
+
+Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+Link: https://lore.kernel.org/r/aqqGUAX65s4LdJkr@thinkstation
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- include/asm-generic/vmlinux.lds.h | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ include/asm-generic/vmlinux.lds.h | 12 ++++++++----
+ include/linux/percpu-defs.h       |  7 ++-----
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..64bc2bfdd2ec 100644
+index 64bc2bfdd2ec..145fcdbbe9db 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -368,10 +368,19 @@
+@@ -368,11 +368,13 @@
  /*
   * .data section
   */
-+#if defined(CONFIG_AMD_MEM_ENCRYPT) && !defined(CONFIG_SMP)
-+#define DATA_DECRYPTED							\
+-#if defined(CONFIG_AMD_MEM_ENCRYPT) && !defined(CONFIG_SMP)
++#if defined(CONFIG_X86_MEM_ENCRYPT) && !defined(CONFIG_SMP)
+ #define DATA_DECRYPTED							\
+ 	. = ALIGN(PAGE_SIZE);						\
++	__start_percpu_decrypted = .;					\
+ 	*(.data..decrypted)						\
+-	. = ALIGN(PAGE_SIZE);
 +	. = ALIGN(PAGE_SIZE);						\
-+	*(.data..decrypted)						\
-+	. = ALIGN(PAGE_SIZE);
-+#else
-+#define DATA_DECRYPTED	*(.data..decrypted)
-+#endif
-+
- #define DATA_DATA							\
- 	*(.xiptext)							\
- 	*(DATA_MAIN)							\
--	*(.data..decrypted)						\
-+	DATA_DECRYPTED							\
- 	*(.ref.data)							\
- 	*(.data..shared_aligned) /* percpu related */			\
- 	*(.data..unlikely)						\
++	__end_percpu_decrypted = .;
+ #else
+ #define DATA_DECRYPTED	*(.data..decrypted)
+ #endif
+@@ -1022,11 +1024,13 @@
+  * Note: We use a separate section so that only this section gets
+  * decrypted to avoid exposing more than we wish.
+  */
+-#ifdef CONFIG_AMD_MEM_ENCRYPT
++#if defined(CONFIG_X86_MEM_ENCRYPT) && defined(CONFIG_SMP)
+ #define PERCPU_DECRYPTED_SECTION					\
+ 	. = ALIGN(PAGE_SIZE);						\
++	__start_percpu_decrypted = .;					\
+ 	*(.data..percpu..decrypted)					\
+-	. = ALIGN(PAGE_SIZE);
++	. = ALIGN(PAGE_SIZE);						\
++	__end_percpu_decrypted = .;
+ #else
+ #define PERCPU_DECRYPTED_SECTION
+ #endif
+diff --git a/include/linux/percpu-defs.h b/include/linux/percpu-defs.h
+index dbe3267a0a13..fdb666a1b4de 100644
+--- a/include/linux/percpu-defs.h
++++ b/include/linux/percpu-defs.h
+@@ -169,13 +169,10 @@
+ 	DEFINE_PER_CPU_SECTION(type, name, "..read_mostly")
+ 
+ /*
+- * Declaration/definition used for per-CPU variables that should be accessed
++ * Definition used for built-in per-CPU variables that should be accessed
+  * as decrypted when memory encryption is enabled in the guest.
+  */
+-#ifdef CONFIG_AMD_MEM_ENCRYPT
+-#define DECLARE_PER_CPU_DECRYPTED(type, name)				\
+-	DECLARE_PER_CPU_SECTION(type, name, "..decrypted")
+-
++#ifdef CONFIG_X86_MEM_ENCRYPT
+ #define DEFINE_PER_CPU_DECRYPTED(type, name)				\
+ 	DEFINE_PER_CPU_SECTION(type, name, "..decrypted")
+ #else
 -- 
 2.53.0
 
