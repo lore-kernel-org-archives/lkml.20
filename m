@@ -1,313 +1,502 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548A453A3AF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694421; cv=pass; b=Xqzn3CRTDPh76MQZakKfUegKIPgtxUWybydvqJLnpH5lp0hUVo0GicdR0Jah/xsgD355+giE2xrZBpKDXojPGtyOb2nzFPGxOlxb7I9reNoBJMhHxuQa3ym+Sd1hLB53AkPPYHSqrM8pHPqblHiGxO12iAEnQe6BcSjcXJvgAF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694421; c=relaxed/simple;
-	bh=Mf0CEE/Ndi3adNKcAPlzfcyXORehguVF2tBgfNIzSKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qb3gdyvOgY7iKJhpHBtu97LTGBHq7ULyP+ngacx0ux1oh0GBq+F8udcRXG3K6evs4N34hHFOBRh3yKEBuDKxpdnUHK4eHthNsbqdzjyhQlfCXqxyJDmXQnIgl/OVCXstzbgIZMJGYYmVNQF2WX7GRjngbafTfi0j5j5AGt0Y1oM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Pj0WhG6H; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Pj0WhG6H"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso7661392a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:06:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790694406; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GrQxSKX8WjA0O1Mrj7NV2sNjZUgcjYOBpUHFobgAoVuNIDTE1d9NPw1wFG3aFUAIoX
-         6CHAfK0CdC+ZdjvCP6fAFFnVNtRstkx2SNWf+ge2QVltMptk/pwU55CFRnU9rFKa/8Pt
-         32s25aCoqONdoGAEfOVk5rNgUXYkUWdO1+00QFgr+UxsRyCVdew+o8RnWgdT2l6UV/q5
-         /pVpaZMBY97sZ9a5Mf/I6FDiWeXuiQnn6oa3L9i4+7Ey5lXuRgza0gykv17mtVGmGd6v
-         qfziWjzY/mIG60ljNTSRam1Fdi87MuAmkYTq7tc9O1Ozm0H0ZRZc+/fmiI2zdHIq4WWp
-         IADg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/sNOLTaNvoDiPUujM3BypTb7TAcwy52Xvqi64wDt2EA=;
-        fh=YV90gkORq4z96PvPXzhCLgnBMy5de7gvcUeDbylENLM=;
-        b=nwWE2lTwljpMoUxggN5rQkiRMQxzwyUOgSoLY2xS42TSfc7urYHuZvgol9d4VnqyhK
-         ahMwxDRb24tjequWDBG3l2TehfSCACmKFfbtfjbVr7NS3HKkaDZbLGuwS0Vycrm7vopi
-         Q7WsWJskwo95dOGNyKVXvvsfpFvC3q5amskVDmtC0D7dZG8RmX54XVcMNPO/tVCbk4Ld
-         PZJ8ZplY5WwWTsM77D6G0+9vhzYntiF/BsGAGq7VGLVF5tAd6dfSA+Jc+p97Oh5j4jOx
-         ZNoKYw8uK+W79W0L/9axMH+Na1+QLO0399RS4LSeA3FSRz6te4GJHbKOSls5x+x8PDjh
-         eiKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790694406; x=1791299206; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/sNOLTaNvoDiPUujM3BypTb7TAcwy52Xvqi64wDt2EA=;
-        b=Pj0WhG6HAL73tA7TkqFYnxLoxnzJmXN68moNO7PiwCEC/DPooIJO6VM3QsSgxklUQj
-         qx2R0iHu60PkIgkImq9CTX1828yJ/f/89k9YG4a1QmfGo5kswlMhRdN0cn50HickMX+K
-         L2QDuCex/DtWTKxpOVpHe01mVQJsgLr0RM03HFH0m6ZBwpMz6FBbB7onW4vpIzrvg2NL
-         MQ8sBJwcB97OisXt6apQ4+dW7gL/qv0VAMzej14aZ9imwJrzecrWnVWqd86c4EUHxZx0
-         6PHwyoQewva+YokBDmp9HgO2Gjdf1Td/lk4fUEVqYWb2c08WLiKmWvh8vaM4X7EI6XnT
-         CoHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694406; x=1791299206;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/sNOLTaNvoDiPUujM3BypTb7TAcwy52Xvqi64wDt2EA=;
-        b=E/TkN77C3nHGDmTgwPigAGv9ql1rNh4kGASPaw0W8OLbrlau0uy3m90TiI21q8vC7M
-         02uab63MuxOdd3LEZ9j68KLAZff+vA9H6XccJm0B7igczSMfc0Q2GOtFg/Hab0pytxv2
-         t/Bhn432b13lV/+gr0olA6uA+d9oPFnqpMRVbkoThqV9wbHoY+bRfVfkZOTHo5kXCXH2
-         1Vui+fFnTwVq2Br80X0xDZv+JSa6vIbAGXUrh+AixjNJfmCj0x9wyYtRFFy1NWxsYAWX
-         qUAw913eAzqV4JdTLzGejLKQ2gzIZZGDFLcEwWM4bCf1jBnSEg4HlaUuMYUqgj10VEs7
-         WLWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGwIK4V2WlQwwmN93AaV9GmGC+HNY3d0tTK/noMHsY4edAyeYaymnM9nYom0oqvRF4Qpl2Hx8jT/Aa5o0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoGNNCkyiYapd7DuG84Z6qaLkaRvOpQe6pqjX8jM4pr2Y0vUeo
-	l4qKmOJf3nJ9rEJQE4QiMpcLC53pQ84yQ1ob6KZbjj62wpTMcLEZXWk/uLpkf8jI8dpkNtbg16F
-	59cS6G5rz6eCkY2TG1WTbFAY7v2KmkMuvcLkOYp721g==
-X-Gm-Gg: AYBFou30iVHnguZ6PIsI2Uf+Yg0TWgm7I2OriAj85jeuPztK91Odav/2mOl65clbY0j
-	XWY5/hHjbJUTpsZ4Gl14AjOKgqK9pCOnwQBPBPFZh5qGu96aTogVKYwlF1kKm9zZxAdtH0pjTNj
-	kgyYgCqv92AEkHu270inmzmVnIO1vzkF1XTewG+h0pD2q1u5xjUr93ZxqlYlSY/U1smbSnD1oz0
-	L4sfDTMITP2Fyf2D+z+o5QCfZhWny5Lex/fj2h5gHxjFeyeZL3wtXeP0oUEiJERxNHKrKh5cjch
-	e2LHWvCP2wk84DcK8BcBRU+AawYUSgfrmCJ/uwlSshsXThrZEO/8KZsIrNb2pi1UTOoQmu/YB9y
-	MGjB8MtdSvXvr
-X-Received: by 2002:a05:6402:1f44:b0:6aa:c3d8:da1 with SMTP id
- 4fb4d7f45d1cf-6aac8ecf448mr11925620a12.9.1790694406120; Tue, 29 Sep 2026
- 08:06:46 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20C753B33D;
+	Tue, 29 Sep 2026 15:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790694461; cv=none; b=TtG47da2QdAwUZxfrxrAxmcMimsUmtjw5+IlUQgeIxHsQQzvTlRa3xqmu5E0i1T+/Elplhx5hiZ0iA9ImJSC37wgsXC7u1xmc+PhtLGA+WnG6Dm7HOzv9enrJVldQzUSYGkaUMUOKW/04S/KuLvFbpqD2dMISWpEgJmLA3kb3mg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790694461; c=relaxed/simple;
+	bh=aJZPvIfh5BHqrAG5zap6ruqNBG0ZnilEZ6S3nQfT9vA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FXieetPke+37Ghl+LWm2EhUdo/x2Rs4oYUh3kMVlSDgdZNkjyOPXVyzxylsrPaexR/h0nU389q7IrQBFR19Nj8MkCrDAAckAG6ogP8DWPenffLQ4serN9LdhiAPCHbSCaklDxM9b+V5f/3//2K3u2GkO0gjJKOm8Vf3mUxIMLyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
+	by APP-05 (Coremail) with SMTP id zQCowACHt0Hz07tqfp+vCQ--.6830S2;
+	Tue, 29 Sep 2026 23:06:28 +0800 (CST)
+Message-ID: <b5eb69f3f41a98b5a98694435df25a632babf05a.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 19/20] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Marek Szyprowski
+ <m.szyprowski@samsung.com>,  Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen	
+ <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Tue, 29 Sep 2026 23:06:26 +0800
+In-Reply-To: <20260915-jh7110-clean-send-v4-19-f0e4fd6f2cc8@samsung.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	 <CGME20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad@eucas1p2.samsung.com>
+	 <20260915-jh7110-clean-send-v4-19-f0e4fd6f2cc8@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923025855.2523147-1-hyz3367@gmail.com> <arqlFtvlN2LI6cT2@p14s>
- <20260929044312.kkqnizsdtg2axg7c@embedsky001.tail6d6b2f.ts.net>
-In-Reply-To: <20260929044312.kkqnizsdtg2axg7c@embedsky001.tail6d6b2f.ts.net>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 29 Sep 2026 09:06:35 -0600
-X-Gm-Features: AclHuK-ZMOUPEe4SsrWen_F7RhJdVsoX8XiLCVHlS8LsKTtnYzyq-BKQjbeFtos
-Message-ID: <CANLsYkx5VVWsmhaYfMe=gj7nO-8YpOknMvM7gKZ-xFEbGg=zMg@mail.gmail.com>
-Subject: Re: [PATCH] remoteproc: core: Fetch the auto-boot firmware only once
-To: Yonghao Zhang <hyz3367@gmail.com>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-CM-TRANSID:zQCowACHt0Hz07tqfp+vCQ--.6830S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Zw43AFyDKFy5Aw1xWr4kZwb_yoWDCr45pF
+	n2y34fGrZayrn7Aa1aqayUKFykKa4kC3Z09wnxWF1Fyr13XFyxtr4jywsxWa4UJrs7Jw12
+	qF1kZrWa9FnrKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
+	IIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+	cVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x07b-eOXUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Mon, 28 Sept 2026 at 22:43, Yonghao Zhang <hyz3367@gmail.com> wrote:
->
-> Hi Mathieu,
->
-> Thanks for the review.
->
-> On Mon, Sep 28, 2026 at 11:34:14AM -0600, Mathieu Poirier wrote:
-> > Good day,
-> >
-> > On Wed, Sep 23, 2026 at 10:58:55AM +0800, Yonghao Zhang wrote:
-> > > Auto-boot for an always-on remote processor registers an asynchronous
-> > > request_firmware_nowait() whose callback discards the fetched image
-> >
-> > The callback function is rproc_auto_boot_callback() but I don't see where the
-> > image fetched by request_firmware_nowait() is discarded.
->
-> It is the release_firmware(fw) called at the end of this callback.
+=E5=9C=A8 2026-09-15=E4=BA=8C=E7=9A=84 17:32 +0200=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> Activate the display subsystem by describing the video output
+> subsystem,
+> which the documentation calls dom_vout_top, as a bus node covering
+> the
+> whole 0x29400000 region, with dc8200, the HDMI block, the video
+> output
+> system controller and voutcrg as its children.
+>=20
+> The subsystem node owns the resources its children share: the NoC
+> display
+> bus clock and reset that gate access to every register in the region,
+> and
+> the PD_VOUT power domain. Modelling it this way keeps a shared gate
+> owned
+> by the block that shares it rather than by whichever consumer happens
+> to
+> probe first, and lets dc8200 inherit dma-noncoherent for framebuffer
+> DMA
+> from the bus it sits on.
+>=20
+> The monolithic hdmi node is in turn modelled as a container with
+> hdmi_phy
+> and hdmi_controller children. This lets the PHY (clock provider,
+> depending only on xin24m) and the controller (clock consumer) probe
+> independently, breaking the circular clock dependency with voutcrg.
+>=20
+> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
+> the
+> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
+> MUXes.
+> The old, incorrect hdmitx0-pixel-clock fixed-clock node is removed.
+>=20
+> The HDMI controller gets a phandle to the video output system
+> controller,
+> which holds the mux selecting the DC8200 output that drives the HDMI
+> transmitter.
+>=20
+> CMA is enlarged and constrained to memory the display controller can
+> address, because the default pool is too small for its framebuffers.
+>=20
+> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Right, this is happening at the _end_ of the callback, but the
-changelog says the firmware is discarded and then rproc_boot() called.
-This is not accurate and needs to be fixed.
+```
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
 
-> The image fetched by request_firmware_nowait() is never consumed:
-> rproc_boot() doesn't take it as an argument and fetches it's own copy
-> with a synchronous request_firmware(). It is that second copy which
-> rproc_fw_boot() parses and which is release at the end of rproc_boot().
-> The asynchronous copy is only ever touched by the final
-> release_firmware(fw) -- fetched, never read, freed.
->
-> "Discarded" in the commit message refers to exactly that. I can send
-> a v2 that names this release_firmware() explicitly in the first
-> paragraph if you want the message to be verifiable at a glance.
->
-> Thanks,
-> Yonghao
->
-> >
-> > Otherwise I agree with this patch.
-> >
-> > Thanks,
-> > Mathieu
-> >
-> > > and calls rproc_boot().  rproc_boot() then fetches the very same image
-> > > again with a synchronous request_firmware(), so every auto-boot reads
-> > > the firmware image twice and allocates the buffer twice; on kernels
-> > > with the sysfs fallback enabled, the uevent round-trip is repeated
-> > > as well.
-> > >
-> > > The asynchronous request exists only so that rproc_add() does not
-> > > block on the filesystem read; the image it fetches is never used.
-> > > The core already defers rproc_boot() to a worker for detached
-> > > processors (attach_work).  Reuse that worker for offline processors
-> > > too and drop the asynchronous firmware request: rproc_boot() fetches
-> > > the image exactly once and dispatches between a firmware boot and
-> > > an attach based on the proccessor state.  The work is renamed to
-> > > boot_work to match its widened role.
-> > >
-> > > commit 400e64df6b23 ("remoteproc: add framework for controlling remote
-> > > processors") noted back in 2011 that "we must wait until it completes
-> > > before we try to unregister the device".  rproc_del() now does exactly
-> > > that: it waits for the boot work with cancel_work_sync(), which also
-> > > closes the theoretical window in which a pending attach work could
-> > > outlive the rproc instance.
-> > >
-> > > The changed fallback behaviour only matters for legacy
-> > > configurations.  udev dropped its userspace firmware loader back in
-> > > 2014, as recorded in
-> > > Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
-> > > kernel has documented since commit 02c399306826 ("firmware_loader:
-> > > enhance Kconfig documentation over FW_LOADER") that "Linux no longer
-> > > relies on or uses a fallback mechanism in userspace".  Auto-boot now
-> > > uses the same synchronous fallback semantics as every other explicit
-> > > boot source (sysfs, cdev).
-> > >
-> > > Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> > > ---
-> > >  drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
-> > >  include/linux/remoteproc.h           |  4 +-
-> > >  2 files changed, 21 insertions(+), 48 deletions(-)
-> > >
-> > > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> > > index 263e12f022ea..f329dc478170 100644
-> > > --- a/drivers/remoteproc/remoteproc_core.c
-> > > +++ b/drivers/remoteproc/remoteproc_core.c
-> > > @@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
-> > >  }
-> > >
-> > >  /*
-> > > - * take a firmware and boot it up.
-> > > - *
-> > > - * Note: this function is called asynchronously upon registration of the
-> > > - * remote processor (so we must wait until it completes before we try
-> > > - * to unregister the device. one other option is just to use kref here,
-> > > - * that might be cleaner).
-> > > + * Boot or attach the remote processor in the background, on behalf of
-> > > + * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
-> > > + * not block while the firmware image is read from storage.  rproc_boot()
-> > > + * dispatches on the processor state, so this covers both a firmware boot
-> > > + * and an attach to a processor started by another entity.
-> > > + *
-> > > + * Note: rproc_del() waits for this work to complete with
-> > > + * cancel_work_sync(), so the rproc instance remains valid for the
-> > > + * entire lifetime of this function.
-> > >   */
-> > > -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
-> > > +static void rproc_boot_work(struct work_struct *work)
-> > >  {
-> > > -   struct rproc *rproc = context;
-> > > +   struct rproc *rproc = container_of(work, struct rproc, boot_work);
-> > >
-> > >     rproc_boot(rproc);
-> > > -
-> > > -   release_firmware(fw);
-> > >  }
-> > >
-> > > -static void rproc_attach_work(struct work_struct *work)
-> > > +static void rproc_trigger_auto_boot(struct rproc *rproc)
-> > >  {
-> > > -   struct rproc *rproc = container_of(work, struct rproc, attach_work);
-> > > -
-> > > -   rproc_boot(rproc);
-> > > -}
-> > > -
-> > > -static int rproc_trigger_auto_boot(struct rproc *rproc)
-> > > -{
-> > > -   int ret;
-> > > -
-> > > -   if (rproc->state == RPROC_DETACHED) {
-> > > -           schedule_work(&rproc->attach_work);
-> > > -           return 0;
-> > > -   }
-> > > -
-> > > -   /*
-> > > -    * We're initiating an asynchronous firmware loading, so we can
-> > > -    * be built-in kernel code, without hanging the boot process.
-> > > -    */
-> > > -   ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> > > -                                 rproc->firmware, &rproc->dev, GFP_KERNEL,
-> > > -                                 rproc, rproc_auto_boot_callback);
-> > > -   if (ret < 0)
-> > > -           dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
-> > > -
-> > > -   return ret;
-> > > +   schedule_work(&rproc->boot_work);
-> > >  }
-> > >
-> > >  static int rproc_stop(struct rproc *rproc, bool crashed)
-> > > @@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
-> > >     rproc_create_debug_dir(rproc);
-> > >
-> > >     /* if rproc is marked always-on, request it to boot */
-> > > -   if (rproc->auto_boot) {
-> > > -           ret = rproc_trigger_auto_boot(rproc);
-> > > -           if (ret < 0)
-> > > -                   goto rproc_remove_dev;
-> > > -   }
-> > > +   if (rproc->auto_boot)
-> > > +           rproc_trigger_auto_boot(rproc);
-> > >
-> > >     /* expose to rproc_get_by_phandle users */
-> > >     mutex_lock(&rproc_list_mutex);
-> > > @@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
-> > >
-> > >     return 0;
-> > >
-> > > -rproc_remove_dev:
-> > > -   cancel_work_sync(&rproc->crash_handler);
-> > > -   rproc_delete_debug_dir(rproc);
-> > > -   device_del(dev);
-> > >  rproc_remove_cdev:
-> > >     rproc_char_device_remove(rproc);
-> > >     return ret;
-> > > @@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
-> > >     INIT_LIST_HEAD(&rproc->subdevs);
-> > >     INIT_LIST_HEAD(&rproc->dump_segments);
-> > >
-> > > -   INIT_WORK(&rproc->attach_work, rproc_attach_work);
-> > > +   INIT_WORK(&rproc->boot_work, rproc_boot_work);
-> > >     INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
-> > >     spin_lock_init(&rproc->crash_handler_lock);
-> > >
-> > > @@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
-> > >     if (cancel_work_sync(&rproc->crash_handler))
-> > >             pm_relax(rproc->dev.parent);
-> > >
-> > > +   /* auto-boot may still be fetching firmware: wait for it here */
-> > > +   cancel_work_sync(&rproc->boot_work);
-> > > +
-> > >     __rproc_shutdown(rproc, true);
-> > >
-> > >     rproc_delete_debug_dir(rproc);
-> > > diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> > > index a44368737b39..d77e24539133 100644
-> > > --- a/include/linux/remoteproc.h
-> > > +++ b/include/linux/remoteproc.h
-> > > @@ -231,7 +231,7 @@ enum rproc_features {
-> > >   * @subdevs: list of subdevices, to following the running state
-> > >   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
-> > >   * @index: index of this rproc device
-> > > - * @attach_work: workqueue for attaching rproc
-> > > + * @boot_work: workqueue for booting rproc
-> > >   * @crash_handler: workqueue for handling a crash
-> > >   * @crash_handler_lock: serializes crash handler queueing and deletion
-> > >   * @deleting: remoteproc deletion has begun
-> > > @@ -277,7 +277,7 @@ struct rproc {
-> > >     struct list_head subdevs;
-> > >     struct idr notifyids;
-> > >     int index;
-> > > -   struct work_struct attach_work;
-> > > +   struct work_struct boot_work;
-> > >     struct work_struct crash_handler;
-> > >     spinlock_t crash_handler_lock;
-> > >     bool deleting;
-> > > --
-> > > 2.34.1
-> > >
+But,
+
+> ---
+> =C2=A0arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 121
+> +++++++++++++++++++++++-
+> =C2=A0arch/riscv/boot/dts/starfive/jh7110.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 105
+> ++++++++++++++++----
+> =C2=A02 files changed, 203 insertions(+), 23 deletions(-)
+>=20
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> index
+> a7a1c09a2c9075711f3a214a49618911fdc7b421..a4c3daf712a63b177f744e8c613
+> 416d22e0c9dbd 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> @@ -33,6 +33,27 @@ memory@40000000 {
+> =C2=A0		bootph-pre-ram;
+> =C2=A0	};
+> =C2=A0
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		/*
+> +		 * The display controller allocates its framebuffers
+> from CMA,
+> +		 * and the default pool is too small for them. Keep
+> the pool
+> +		 * inside the range the controller can address; it
+> fits in the
+> +		 * memory every VisionFive 2 variant has.
+> +		 */
+> +		linux,cma {
+> +			compatible =3D "shared-dma-pool";
+> +			reusable;
+> +			size =3D <0x0 0x20000000>;
+> +			alignment =3D <0x0 0x1000>;
+> +			alloc-ranges =3D <0x0 0x70000000 0x0
+> 0x20000000>;
+> +			linux,cma-default;
+> +		};
+> +	};
+> +
+
+I don't know whether constraining the CMA pool in the DT is a good
+idea.
+
+Thanks,
+Icenowy
+
+> =C2=A0	gpio-restart {
+> =C2=A0		compatible =3D "gpio-restart";
+> =C2=A0		gpios =3D <&sysgpio 35 GPIO_ACTIVE_HIGH>;
+> @@ -73,12 +94,47 @@ codec {
+> =C2=A0			};
+> =C2=A0		};
+> =C2=A0	};
+> +
+> +	hdmi-connector {
+> +		compatible =3D "hdmi-connector";
+> +		type =3D "a";
+> +
+> +		port {
+> +			hdmi_con_in: endpoint {
+> +				remote-endpoint =3D <&hdmi_out_con>;
+> +			};
+> +		};
+> +	};
+> =C2=A0};
+> =C2=A0
+> =C2=A0&cpus {
+> =C2=A0	timebase-frequency =3D <4000000>;
+> =C2=A0};
+> =C2=A0
+> +&dc8200 {
+> +	status =3D "okay";
+> +
+> +	ports {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		dpu_port0: port@0 {
+> +			reg =3D <0>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			dpu_out_dpi0: endpoint@0 {
+> +				reg =3D <0>;
+> +				remote-endpoint =3D <&hdmi_in>;
+> +			};
+> +		};
+> +
+> +		dpu_port1: port@1 {
+> +			reg =3D <1>;
+> +		};
+> +	};
+> +};
+> +
+> =C2=A0&dvp_clk {
+> =C2=A0	clock-frequency =3D <74250000>;
+> =C2=A0};
+> @@ -99,8 +155,31 @@ &gmac1_rmii_refin {
+> =C2=A0	clock-frequency =3D <50000000>;
+> =C2=A0};
+> =C2=A0
+> -&hdmitx0_pixelclk {
+> -	clock-frequency =3D <297000000>;
+> +&hdmi_controller {
+> +	status =3D "okay";
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&hdmi_pins>;
+> +
+> +	ports {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		port@0 {
+> +			reg =3D <0>;
+> +
+> +			hdmi_in: endpoint {
+> +				remote-endpoint =3D <&dpu_out_dpi0>;
+> +			};
+> +		};
+> +
+> +		hdmi_out_port: port@1 {
+> +			reg =3D <1>;
+> +
+> +			hdmi_out_con: endpoint {
+> +				remote-endpoint =3D <&hdmi_con_in>;
+> +			};
+> +		};
+> +	};
+> =C2=A0};
+> =C2=A0
+> =C2=A0&i2srx_bclk_ext {
+> @@ -351,6 +430,40 @@ &syscrg {
+> =C2=A0};
+> =C2=A0
+> =C2=A0&sysgpio {
+> +	hdmi_pins: hdmi-0 {
+> +		hdmi-cec-pins {
+> +			pinmux =3D <GPIOMUX(14,
+> GPOUT_SYS_HDMI_CEC_SDA,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> GPOEN_SYS_HDMI_CEC_SDA,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> GPI_SYS_HDMI_CEC_SDA)>;
+> +			input-enable;
+> +			bias-pull-up;
+> +		};
+> +
+> +		hdmi-hpd-pins {
+> +			pinmux =3D <GPIOMUX(15, GPOUT_LOW,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_DISABLE,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_HPD)>;
+> +			input-enable;
+> +			bias-disable; /* external pull-up */
+> +		};
+> +
+> +		hdmi-scl-pins {
+> +			pinmux =3D <GPIOMUX(0, GPOUT_SYS_HDMI_DDC_SCL,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_SYS_HDMI_DDC_SCL,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_DDC_SCL)>;
+> +			input-enable;
+> +			bias-pull-up;
+> +		};
+> +
+> +		hdmi-sda-pins {
+> +			pinmux =3D <GPIOMUX(1, GPOUT_SYS_HDMI_DDC_SDA,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_SYS_HDMI_DDC_SDA,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_DDC_SDA)>;
+> +			input-enable;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> =C2=A0	i2c0_pins: i2c0-0 {
+> =C2=A0		i2c-pins {
+> =C2=A0			pinmux =3D <GPIOMUX(57, GPOUT_LOW,
+> @@ -629,3 +742,7 @@ &U74_3 {
+> =C2=A0&U74_4 {
+> =C2=A0	cpu-supply =3D <&vdd_cpu>;
+> =C2=A0};
+> +
+> +&voutcrg {
+> +	status =3D "okay";
+> +};
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> index
+> 9c3e4598747eb5541effe697044484715569a285..bc2470963520eef30d7524370fc
+> b013f0631f509 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
+> =C2=A0		#clock-cells =3D <0>;
+> =C2=A0	};
+> =C2=A0
+> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
+> -		compatible =3D "fixed-clock";
+> -		clock-output-names =3D "hdmitx0_pixelclk";
+> -		#clock-cells =3D <0>;
+> -	};
+> -
+> =C2=A0	i2srx_bclk_ext: i2srx-bclk-ext-clock {
+> =C2=A0		compatible =3D "fixed-clock";
+> =C2=A0		clock-output-names =3D "i2srx_bclk_ext";
+> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
+> =C2=A0		#clock-cells =3D <0>;
+> =C2=A0	};
+> =C2=A0
+> +	xin24m: xin24m-clock {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <24000000>;
+> +		clock-output-names =3D "xin24m";
+> +	};
+> +
+> =C2=A0	soc {
+> =C2=A0		compatible =3D "simple-bus";
+> =C2=A0		interrupt-parent =3D <&plic>;
+> @@ -1199,22 +1200,84 @@ csi_phy: phy@19820000 {
+> =C2=A0			#phy-cells =3D <0>;
+> =C2=A0		};
+> =C2=A0
+> -		voutcrg: clock-controller@295c0000 {
+> -			compatible =3D "starfive,jh7110-voutcrg";
+> -			reg =3D <0x0 0x295c0000 0x0 0x10000>;
+> -			clocks =3D <&syscrg JH7110_SYSCLK_VOUT_SRC>,
+> -				 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_AHB>,
+> -				 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_AXI>,
+> -				 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
+> -				 <&syscrg
+> JH7110_SYSCLK_I2STX0_BCLK>,
+> -				 <&hdmitx0_pixelclk>;
+> -			clock-names =3D "vout_src", "vout_top_ahb",
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "vout_top_axi",
+> "vout_top_hdmitx0_mclk",
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "i2stx0_bclk",
+> "hdmitx0_pixelclk";
+> -			resets =3D <&syscrg
+> JH7110_SYSRST_VOUT_TOP_SRC>;
+> -			#clock-cells =3D <1>;
+> -			#reset-cells =3D <1>;
+> +		vout_subsystem: display-subsystem@29400000 {
+> +			compatible =3D "starfive,jh7110-vout-
+> subsystem";
+> +			reg =3D <0x0 0x29400000 0x0 0x200000>;
+> +			ranges;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			clocks =3D <&syscrg
+> JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
+> +			dma-noncoherent;
+> =C2=A0			power-domains =3D <&pwrc JH7110_PD_VOUT>;
+> +			resets =3D <&syscrg
+> JH7110_SYSRST_NOC_BUS_DISP_AXI>;
+> +
+> +			dc8200: display@29400000 {
+> +				compatible =3D "starfive,jh7110-
+> dc8200", "verisilicon,dc";
+> +				reg =3D <0x0 0x29400000 0x0 0x2800>;
+> +				clocks =3D <&voutcrg
+> JH7110_VOUTCLK_DC8200_CORE>,
+> +					 <&voutcrg
+> JH7110_VOUTCLK_DC8200_AXI>,
+> +					 <&voutcrg
+> JH7110_VOUTCLK_DC8200_AHB>,
+> +					 <&voutcrg
+> JH7110_VOUTCLK_DC8200_PIX0>,
+> +					 <&voutcrg
+> JH7110_VOUTCLK_DC8200_PIX1>;
+> +				clock-names =3D "core", "axi", "ahb",
+> "pix0", "pix1";
+> +				assigned-clocks =3D <&voutcrg
+> JH7110_VOUTCLK_DC8200_PIX0>,
+> +						=C2=A0 <&voutcrg
+> JH7110_VOUTCLK_DC8200_PIX1>;
+> +				assigned-clock-parents =3D
+> <&hdmi_phy>, <&hdmi_phy>;
+> +				interrupts =3D <95>;
+> +				resets =3D <&voutcrg
+> JH7110_VOUTRST_DC8200_CORE>,
+> +					 <&voutcrg
+> JH7110_VOUTRST_DC8200_AXI>,
+> +					 <&voutcrg
+> JH7110_VOUTRST_DC8200_AHB>;
+> +				reset-names =3D "core", "axi", "ahb";
+> +			};
+> +
+> +			hdmi_subsystem: hdmi@29590000 {
+> +				compatible =3D "starfive,jh7110-hdmi-
+> subsystem";
+> +				reg =3D <0x0 0x29590000 0x0 0x4000>;
+> +
+> +				hdmi_controller: controller {
+> +					compatible =3D
+> +						"starfive,jh7110-
+> inno-hdmi-controller";
+> +					clocks =3D <&voutcrg
+> JH7110_VOUTCLK_HDMI_TX_SYS>,
+> +						 <&voutcrg
+> JH7110_VOUTCLK_HDMI_TX_MCLK>,
+> +						 <&voutcrg
+> JH7110_VOUTCLK_HDMI_TX_BCLK>,
+> +						 <&hdmi_phy>;
+> +					clock-names =3D "pclk",
+> "mclk", "bclk", "pixel";
+> +					interrupts =3D <99>;
+> +					phys =3D <&hdmi_phy>;
+> +					resets =3D <&voutcrg
+> JH7110_VOUTRST_HDMI_TX_HDMI>;
+> +					starfive,vout-syscon =3D
+> <&vout_syscon>;
+> +				};
+> +
+> +				hdmi_phy: phy {
+> +					compatible =3D
+> "starfive,jh7110-inno-hdmi-phy";
+> +					clocks =3D <&xin24m>;
+> +					#clock-cells =3D <0>;
+> +					#phy-cells =3D <0>;
+> +				};
+> +			};
+> +
+> +			vout_syscon: syscon@295b0000 {
+> +				compatible =3D "starfive,jh7110-vout-
+> syscon", "syscon";
+> +				reg =3D <0x0 0x295b0000 0x0 0x10000>;
+> +			};
+> +
+> +			voutcrg: clock-controller@295c0000 {
+> +				compatible =3D "starfive,jh7110-
+> voutcrg";
+> +				reg =3D <0x0 0x295c0000 0x0 0x10000>;
+> +				clocks =3D <&syscrg
+> JH7110_SYSCLK_VOUT_SRC>,
+> +					 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_AHB>,
+> +					 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_AXI>,
+> +					 <&syscrg
+> JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
+> +					 <&syscrg
+> JH7110_SYSCLK_I2STX0_BCLK>,
+> +					 <&hdmi_phy>;
+> +				clock-names =3D "vout_src",
+> "vout_top_ahb",
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "vout_top_axi",
+> "vout_top_hdmitx0_mclk",
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "i2stx0_bclk",
+> "hdmitx0_pixelclk";
+> +				power-domains =3D <&pwrc
+> JH7110_PD_VOUT>;
+> +				resets =3D <&syscrg
+> JH7110_SYSRST_VOUT_TOP_SRC>;
+> +				#clock-cells =3D <1>;
+> +				#reset-cells =3D <1>;
+> +			};
+> =C2=A0		};
+> =C2=A0
+> =C2=A0		pcie0: pcie@940000000 {
+
