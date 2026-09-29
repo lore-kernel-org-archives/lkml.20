@@ -1,200 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753493CF1F0;
-	Tue, 29 Sep 2026 01:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1206428690;
+	Tue, 29 Sep 2026 01:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790644315; cv=none; b=FsxAjixNVihoY+SaR5HJFeWhJzC4EI9lMgNgwEir0qVNOEfWK71IQQZBqvqL46owAyN6CxcbanCJ3WlLeTJRFFuCgrWwCYr+ABWAFGnnDTHhFvdpbvX+W99kCAUDP0wrQolu+7MHyNQE80OkGC9wBhvq0kjKY0ylOnL/Ad6TbUs=
+	t=1790644532; cv=none; b=S1nVdrmdJV3q39U/uK6DtGuLw/ePoSdgmDSg0OaCkeo08FCAb16QG2Y3zJVmh35hL1YyLXXrqSxDBs1nvnZt0RUtdhSxrTaMrmAAyxG33Rvl32f1iSw8IDPXI5mrGdA1FZayq8wAjJLvvbD74Y8oG2R4sq7a9FfaDfGIV4jeuNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790644315; c=relaxed/simple;
-	bh=+iPcQDBbXbrl+rkVsX0zYfz1NGvp79cNVmOM842KQTk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hlJoyQWaqY9TqJxrsr3NUgynmf191s9CJwC9iXS5lvMOW8SZ1VO1gGkx/8ey0ZsaMAs0ibyA/lHffnogXf3Noj6d78iN/03zthiGyAQa8gwg7xvkvZD9IHpiINXKEvIxP5jyxip0IxIbzPdu9JREpEWU6C+bNd5HNxe+Dukfexk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clzq1+NP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790644532; c=relaxed/simple;
+	bh=YRD/Fj6bzCAH445n+r/x55IVrEBL91SCzr/HsPTOwC4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tFWCydnKh+WL6dm8aJDrE6mId2gFuP3KIGxgmiCjomMoWc5ytMvCafBk56E5oH0pOP45dxC0HzuM9S3oUViZ6FaUbuloU/tvneoFNkAz5O2BIlQYR5VjQxS37O/j6EdZK01b8u+97Ta/SsdoyBP8UmUi4OHe0iRYW5B7OF9yvc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ZWOwtBhb; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clzq1+NP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECEB91F000FF;
-	Tue, 29 Sep 2026 01:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790644313;
-	bh=HzHLfbUqdYzgaxswrohYK/ARmSS/TfBno4oMHbudt98=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=clzq1+NPSAs21yVXs/r1yYdbmYJgfWBH7LpSmgvaSM5MOFiH7QzLalMCpgM/1rDkU
-	 +NyznCI1axz+sLZN2cgG7JpMVF7CTAd/w/ts5EgmGmOoYynxIODWS9paT0EJaY6lPo
-	 89dqdgzWyhfIfVWg+4AkEWY63dsRuU+EVdH8gv8XnbxzBbfyrQICGA/cGgCjrAkvip
-	 +cB9CHSdiYZa7XtJ1zVVFg6prTqvGUo3k8vNjyYpe0cZdCYNNq/WS3OR3EKkIXpIqF
-	 C86YJwPQgV5fR/ydsp6N9zP0SHyU1m+DiCQfhk5WBfcfkNnu6AR7zX8eZCQMR5ohIB
-	 EJC9HRty8RnVA==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 8/8] perf tools: Update debuginfo__new() to take DSO
-Date: Mon, 28 Sep 2026 18:11:39 -0700
-Message-ID: <20260929011139.53242-9-namhyung@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929011139.53242-1-namhyung@kernel.org>
-References: <20260929011139.53242-1-namhyung@kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ZWOwtBhb"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68T1FIsO4840118, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790644518; bh=YRD/Fj6bzCAH445n+r/x55IVrEBL91SCzr/HsPTOwC4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ZWOwtBhbUdS2tk+cxeYb3+vjc8D3rCzwC8bBWz2wY91HGWfnW76J4LLmsgKjeHirW
+	 SAy+P2oxQcx9y59ab1ZsvDa7KyEMgFiWb7AjrhNlaqbYu/5vBxl45c5BRHuwULm1e/
+	 aqT0ABkcsMWhR7Mz3msgsaukGgnlDXhZ2Ix9pCM7A+N9HlM4pG12GEgznFyBNnW3bH
+	 2un0CTUkOpYPgKCH2XiZnLOE/kqCaO1ziVqo0F/bqPqtOjornEd2yf+HVG4bfv5Pex
+	 ksaOhfy1MbgwsVpjNZcJN3l6t7/e7Z0DFH2o4KLHpraHfBHHXbFrXRyVdvncBAWC1w
+	 ZJRgysq2B7qZA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68T1FIsO4840118
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 29 Sep 2026 09:15:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 09:15:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 09:15:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 29 Sep 2026 09:15:18 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Topic: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Index: AQHdS6ORhAIu01Pc706RGB6onKA0grbc7Ynw///IiYCACAbNMA==
+Date: Tue, 29 Sep 2026 01:15:18 +0000
+Message-ID: <c7069bdf8e9845e3b26898f545b0d3e5@realtek.com>
+References: <20260923213557.186205-1-luka.gejak@linux.dev>
+ <20260923213557.186205-7-luka.gejak@linux.dev>
+ <afb044e0aef8425880ddb24add9340ab@realtek.com>
+ <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
+In-Reply-To: <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-It should be the common case to get debuginfo from existing DSOs.
-Now dso__debuginfo() calls it with its debuginfo type to avoid the
-unnecessary loop to find the location of debug file.
-
-Update existing function to debuginfo__from_path() for clarity.
-
-Reviewed-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/util/debuginfo.c   | 28 ++++++++++++++++++----------
- tools/perf/util/debuginfo.h   | 13 +++++++++++--
- tools/perf/util/dso.c         | 11 ++---------
- tools/perf/util/probe-event.c |  4 ++--
- 4 files changed, 33 insertions(+), 23 deletions(-)
-
-diff --git a/tools/perf/util/debuginfo.c b/tools/perf/util/debuginfo.c
-index fc2640dcd29d3aaa..db188c397d63880c 100644
---- a/tools/perf/util/debuginfo.c
-+++ b/tools/perf/util/debuginfo.c
-@@ -91,13 +91,27 @@ static struct debuginfo *__debuginfo__new(const char *path)
- 	return dbg;
- }
- 
--struct debuginfo *debuginfo__new(const char *path)
-+struct debuginfo *debuginfo__new(struct dso *dso)
-+{
-+	struct debuginfo *dinfo;
-+	char *path;
-+	bool decomp = false;
-+
-+	dso__find_dbginfo_type(dso);
-+	path = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
-+	if (path == NULL)
-+		return NULL;
-+
-+	dinfo = __debuginfo__new(path);
-+	dso__put_filename(dso, path, decomp);
-+	return dinfo;
-+}
-+
-+struct debuginfo *debuginfo__from_path(const char *path)
- {
- 	struct dso *dso;
- 	struct debuginfo *dinfo;
- 	struct build_id bid = { .size = 0 };
--	char *filename;
--	bool decomp = false;
- 
- 	/* Try to open distro debuginfo files */
- 	dso = dso__new(path);
-@@ -112,13 +126,7 @@ struct debuginfo *debuginfo__new(const char *path)
- 	if (filename__read_build_id(path, &bid) > 0)
- 		dso__set_build_id(dso, &bid);
- 
--	dso__find_dbginfo_type(dso);
--	filename = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
--	if (filename == NULL)
--		return NULL;
--
--	dinfo = __debuginfo__new(filename);
--	dso__put_filename(dso, filename, decomp);
-+	dinfo = debuginfo__new(dso);
- 	dso__put(dso);
- 
- 	return dinfo;
-diff --git a/tools/perf/util/debuginfo.h b/tools/perf/util/debuginfo.h
-index a52d69932815cd72..ade40d54ea125988 100644
---- a/tools/perf/util/debuginfo.h
-+++ b/tools/perf/util/debuginfo.h
-@@ -18,8 +18,12 @@ struct debuginfo {
- 	const unsigned char	*build_id;
- };
- 
-+struct dso;
-+
- /* This also tries to open distro debuginfo */
--struct debuginfo *debuginfo__new(const char *path);
-+struct debuginfo *debuginfo__from_path(const char *path);
-+/* Create a debuginfo using information in DSO */
-+struct debuginfo *debuginfo__new(struct dso *dso);
- void debuginfo__delete(struct debuginfo *dbg);
- 
- int debuginfo__get_text_offset(struct debuginfo *dbg, Dwarf_Addr *offs,
-@@ -31,7 +35,12 @@ int debuginfo__get_text_offset(struct debuginfo *dbg, Dwarf_Addr *offs,
- struct debuginfo {
- };
- 
--static inline struct debuginfo *debuginfo__new(const char *path __maybe_unused)
-+static inline struct debuginfo *debuginfo__from_path(const char *path __maybe_unused)
-+{
-+	return NULL;
-+}
-+
-+static inline struct debuginfo *debuginfo__new(struct dso *dso __maybe_unused)
- {
- 	return NULL;
- }
-diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
-index e4a2a0ea38823b5f..d3017c82ffb5f4b1 100644
---- a/tools/perf/util/dso.c
-+++ b/tools/perf/util/dso.c
-@@ -2086,17 +2086,10 @@ const u8 *dso__read_symbol(struct dso *dso, const char *symfs_filename,
- 
- struct debuginfo *dso__debuginfo(struct dso *dso)
- {
--	char *name;
--	bool decomp = false;
--	struct debuginfo *dinfo = NULL;
-+	struct debuginfo *dinfo;
- 
- 	mutex_lock(dso__lock(dso));
--
--	name = dso__get_filename(dso, "", &decomp, dso__dbginfo_type(dso));
--	if (name) {
--		dinfo = debuginfo__new(name);
--		dso__put_filename(dso, name, decomp);
--	}
-+	dinfo = debuginfo__new(dso);
- 	mutex_unlock(dso__lock(dso));
- 	return dinfo;
- }
-diff --git a/tools/perf/util/probe-event.c b/tools/perf/util/probe-event.c
-index 11ae4a09412c9bd9..1534280c0c1d59cb 100644
---- a/tools/perf/util/probe-event.c
-+++ b/tools/perf/util/probe-event.c
-@@ -519,7 +519,7 @@ static struct debuginfo *open_from_debuginfod(struct dso *dso, struct nsinfo *ns
- 		pr_debug("Load debuginfo from debuginfod (%s)\n", path);
- 
- 	nsinfo__mountns_enter(nsi, &nsc);
--	ret = debuginfo__new((const char *)path);
-+	ret = debuginfo__from_path((const char *)path);
- 	nsinfo__mountns_exit(&nsc);
- 	return ret;
- }
-@@ -567,7 +567,7 @@ static struct debuginfo *open_debuginfo(const char *module, struct nsinfo *nsi,
- 		path = dso__long_name(dso);
- 	}
- 	nsinfo__mountns_enter(nsi, &nsc);
--	ret = debuginfo__new(path);
-+	ret = debuginfo__from_path(path);
- 	if (!ret && !silent) {
- 		pr_warning("The %s file has no debug information.\n", path);
- 		if (!module || !strtailcmp(path, ".ko"))
--- 
-2.55.0
-
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBPbiBUaHUgU2VwIDI0
+LCAyMDI2IGF0IDM6MjQgQU0gQ0VTVCwgUGluZy1LZSBTaGloIHdyb3RlOg0KPiA+IEx1a2EgR2Vq
+YWsgPGx1a2EuZ2VqYWtAbGludXguZGV2PiB3cm90ZToNCj4gDQo+IFsuLi5dDQo+IA0KPiA+PiAr
+UkVBTFRFSyBSVEw4NzIzQiBXSVJFTEVTUyBEUklWRVIgKHJ0dzg4KQ0KPiA+PiArTTogICAgIEx1
+a2EgR2VqYWsgPGx1a2EuZ2VqYWtAbGludXguZGV2Pg0KPiA+PiArTDogICAgIGxpbnV4LXdpcmVs
+ZXNzQHZnZXIua2VybmVsLm9yZw0KPiA+PiArUzogICAgIE1haW50YWluZWQNCj4gPj4gK0Y6ICAg
+ICBkcml2ZXJzL25ldC93aXJlbGVzcy9yZWFsdGVrL3J0dzg4L3J0dzg3MjNiKi5jDQo+ID4+ICtG
+OiAgICAgZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydHc4OC9ydHc4NzIzYiouaA0KPiA+
+PiArDQo+ID4NCj4gPiBJIHRoaW5rIG5vIG5lZWQgdGhpcyBlbnRyeS4NCj4gPg0KPiA+IEp1c3Qg
+d2l0aCBiZWxvdyAnUicsIHRoZSAuL3NjcmlwdHMvZ2V0X21haW50YWluZXIucGwgd2l0aCBydHc4
+OCBwYXRjaCBjYW4NCj4gPiBvdXRwdXQgeW91ciBuYW1lLCBubz8NCj4gPg0KPiA+PiAgUkVBTFRF
+SyBXSVJFTEVTUyBEUklWRVIgKHJ0dzg4KQ0KPiA+PiAgTTogICAgIFBpbmctS2UgU2hpaCA8cGtz
+aGloQHJlYWx0ZWsuY29tPg0KPiA+PiArUjogICAgIEx1a2EgR2VqYWsgPGx1a2EuZ2VqYWtAbGlu
+dXguZGV2Pg0KPiA+PiAgTDogICAgIGxpbnV4LXdpcmVsZXNzQHZnZXIua2VybmVsLm9yZw0KPiA+
+PiAgUzogICAgIE1haW50YWluZWQNCj4gPj4gIFQ6ICAgICBnaXQgaHR0cHM6Ly9naXRodWIuY29t
+L3Brc2hpaC9ydHcuZ2l0DQo+ID4+IC0tDQo+ID4+IDIuNTUuMA0KPiA+DQo+ID4gQnkgdGhlIHdh
+eSwgeW91ciBwYXRjaCBzaG91bGQgdGFnIHJ0dy1uZXh0IChpLmUuIFtQQVRDSCB2NSBydHctbmV4
+dF0pLg0KPiA+IE90aGVyd2lzZSwgTklQQSB0ZXN0IHlvdXIgcGF0Y2hlcyBvbiB3aXJlbGVzcy1u
+ZXh0IHRyZWUsIHJlcG9ydGluZw0KPiA+IGVycm9ycyBbMV0uDQo+ID4NCj4gPiBJIGRvbid0IGtu
+b3cgaWYgc29tZW9uZSBpcyByZWFkaW5nIHlvdXIgcGF0Y2hlcy4gSSdkIHNraXAgdjQuDQo+ID4g
+UGxlYXNlIHdhaXQgYSB3aGlsZSBhbmQgc2VuZCB2NS4NCj4gPg0KPiA+IFsxXSBodHRwczovL3Bh
+dGNod29yay5rZXJuZWwub3JnL3VzZXIvdG9kby9saW51eC13aXJlbGVzcy8/c2VyaWVzPTExNzI1
+OTINCj4gDQo+IFRoYW5rIHlvdS4gSSB3aWxsIGhvbGQgYW5kIHNlbmQgdjUgdGFnZ2VkIFtQQVRD
+SCB2NSBydHctbmV4dF0sIGFuZCBJIGFtDQo+IHJlYWRpbmcgdGhlIGxpc3QgaW4gdGhlIG1lYW50
+aW1lLg0KPiANCj4gT24gdGhlIGVudHJ5OiBpdCBpcyBhIG1haW50YWluZXIgZW50cnkgZm9yIG9u
+ZSBkcml2ZXIsIHdoaWNoIGlzIG5vdCB0aGUNCj4gc2FtZSB0aGluZyBhcyB0aGUgcmV2aWV3ZXIg
+bGluZS4gVGhlIGZpbGUncyBsZWdlbmQ6DQo+IA0KPiAgICAgICAgIE06ICpNYWlsKiBwYXRjaGVz
+IHRvOiBGdWxsTmFtZSA8YWRkcmVzc0Bkb21haW4+DQo+ICAgICAgICAgUjogRGVzaWduYXRlZCAq
+UmV2aWV3ZXIqOiBGdWxsTmFtZSA8YWRkcmVzc0Bkb21haW4+DQo+ICAgICAgICAgICAgVGhlc2Ug
+cmV2aWV3ZXJzIHNob3VsZCBiZSBDQ2VkIG9uIHBhdGNoZXMuDQo+IA0KPiBUaGUgbmFtZXMgaXQg
+cmVwb3J0cyB0aGVtIHVuZGVyIGFyZSAibWFpbnRhaW5lcjoiIGFuZCAicmV2aWV3ZXI6IjoNCj4g
+Z2V0X21haW50YWluZXIgZ2l2ZXMgdGhlIE06IHJvbGUgdGhlIGZpcnN0IGFuZCBwdXNoZXMgUjog
+ZW50cmllcyBhcyB0aGUNCj4gc2Vjb25kLiBXaXRoIFI6IGFsb25lIHRoZSBlbnRyeSBzYXlzIG15
+IG5hbWUgc2hvdWxkIGJlIENDZWQgb24gUlRMODcyM0INCj4gcGF0Y2hlcywgd2hpY2ggaXMgY29y
+cmVjdCwgYW5kIEkgaGF2ZSBrZXB0IHRoYXQgbGluZSwgYnV0IGl0IGRvZXMgbm90DQo+IHNheSB0
+aGF0IGFueW9uZSBpcyBleHBlY3RlZCB0byBsb29rIGFmdGVyIHRoZSBjaGlwLg0KPiANCj4gRG9j
+dW1lbnRhdGlvbi9tYWludGFpbmVyL2ZlYXR1cmUtYW5kLWRyaXZlci1tYWludGFpbmVycy5yc3Qg
+Y292ZXJzDQo+IGV4YWN0bHkgdGhpcyBjYXNlLCBhIG1haW50YWluZXIgZm9yIG9uZSBkcml2ZXIg
+aW5zaWRlIGEgbGFyZ2VyDQo+IHN1YnN5c3RlbToNCj4gDQo+ICAgLSAiVGhlIHRlcm0gbWFpbnRh
+aW5lciBzcGFucyBhIHZlcnkgd2lkZSByYW5nZSBvZiBsZXZlbHMgb2YNCj4gICAgIGVuZ2FnZW1l
+bnQgLi4uIHRvIHBlb3BsZSByZXNwb25zaWJsZSBmb3IgYSBzbWFsbCBmZWF0dXJlIG9yIGENCj4g
+ICAgIGRyaXZlciI7DQo+ICAgLSAiRHJpdmVycyBhbmQgYWxpa2UgbW9zdCBvZnRlbiBkbyBub3Qg
+aGF2ZSB0aGVpciBvd24gbWFpbGluZyBsaXN0cw0KPiAgICAgYW5kIGdpdCB0cmVlcyBidXQgaW5z
+dGVhZCBzZW5kIGFuZCByZXZpZXcgcGF0Y2hlcyBvbiB0aGUgbGlzdCBvZiBhDQo+ICAgICBsYXJn
+ZXIgc3Vic3lzdGVtIiAtIHdoaWNoIGlzIHdoeSB0aGUgZW50cnkgZGVsaWJlcmF0ZWx5IGhhcyBu
+byBUOg0KPiAgICAgbGluZSBhbmQgcGF0Y2hlcyBrZWVwIGdvaW5nIHRocm91Z2ggcnR3LW5leHQ7
+DQo+ICAgLSAiTWFpbnRhaW5lcnMgbXVzdCByZXZpZXcgKmFsbCogcGF0Y2hlcyB0b3VjaGluZyBl
+eGNsdXNpdmVseSB0aGVpcg0KPiAgICAgZHJpdmVycywgbm8gbWF0dGVyIGhvdyB0cml2aWFsIiBh
+bmQgImFuIEFja2VkLWJ5IG9yIFJldmlld2VkLWJ5IHRhZw0KPiAgICAgLi4uIGZyb20gYSBzaW5n
+bGUgbWFpbnRhaW5lciBpcyBlbm91Z2ggdG8gc2F0aXNmeSB0aGlzDQo+ICAgICByZXF1aXJlbWVu
+dCIgLSBhbiBBY2tlZC1ieSBvbiB0aGUgbGlzdCBmb3IgODcyM2IgcGF0Y2hlcyBpcyB0aGUNCj4g
+ICAgIHJvbGUgSSBhbSBhc2tpbmcgZm9yLCBub3QgYSB0cmVlIG9mIG15IG93bjsNCj4gICAtICJN
+b3N0IG5hdHVyYWwgYW5kIGNvbW1vbiBjaG9pY2Ugb2YgYSBtYWludGFpbmVyIGlzIHRoZSBhdXRo
+b3Igb2YNCj4gICAgIHRoZSBjb2RlIiwgYW5kIHRoZSBmaWxlICJpcyBub3QgYSBsaXN0IG9mIGNy
+ZWRpdHMgLi4uIGl0IGlzIGEgbGlzdA0KPiAgICAgb2YgdGhvc2Ugd2hvIHdpbGwgYWN0aXZlbHkg
+aGVscCB3aXRoIHRoZSBjb2RlIi4NCj4gDQo+IEkga25vdyB0aGF0IGxlYXN0IG9uZSBwZXJzb24o
+d2l0aCBteSBoZWxwKSBpcyB3b3JraW5nIG9uIGFuIFJUTDg3MjNCRSAoUENJZSkNCj4gYnVpbGQg
+YW5kIEkgZXhwZWN0IGFuIFJUTDg3MjNCVSAoVVNCKSB0byBiZSBhZGRlZCBldmVudHVhbGx5LiBy
+dHc4NzIzYiouYyBhbmQNCj4gcnR3ODcyM2IqLmggYWxyZWFkeSBjb3ZlciBhbGwgdGhyZWUgdmFy
+aWFudHMsIHNvIHRoZSBmYW1pbHkgaGFzIG9uZSBuYW1lZA0KPiBvd25lciBhcyBpdCBncm93cywg
+YW5kIHRob3NlIHBhdGNoZXMgZG8gbm90IGFsbCBoYXZlIHRvIHJlYWNoIHlvdSBmaXJzdC4NCj4g
+DQo+IEl0IGlzIG5vdCBhIGNsYWltIG9uIHJ0dzg4LiBUaGUgcGF0dGVybnMgY292ZXIgcnR3ODcy
+M2IqLmMgYW5kDQo+IHJ0dzg3MjNiKi5oIG9ubHkuIE5vdGhpbmcgZWxzZSBpbiB0aGUgZGlyZWN0
+b3J5IGNoYW5nZXM6IGdldF9tYWludGFpbmVyDQo+IG9uIHJlZy5oIHJldHVybnMgeW91IGFzIG1h
+aW50YWluZXIgYW5kIG1lIGFzIHJldmlld2VyIHdoZXRoZXIgdGhlDQo+IHNlY3Rpb24gaXMgcHJl
+c2VudCBvciBub3QsIGFuZCB0aGUgUjogbGluZSB5b3Ugc3VnZ2VzdGVkIGlzIHdoYXQgcHV0cyBt
+ZQ0KPiBvbiB0aG9zZSBwYXRjaGVzLg0KPiANCj4gVGhlIG5lc3RpbmcgaXMgbm90IG5ldzogdGhl
+IGF0aCBmYW1pbHkga2VlcHMgc2VwYXJhdGUgZW50cmllcyBmb3IgYXRoNWssDQo+IGF0aDlrLCBh
+dGgxMGsgYW5kIGNhcmw5MTcwIGluc2lkZSBBVEhFUk9TIEFUSCBHRU5FUklDIFVUSUxJVElFUywg
+d2hvc2UNCj4gRjogaXMgZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoLyogYW5kIHdob3NlIE06IGlz
+IEplZmYgSm9obnNvbiwgYW5kIGF0aDVrDQo+IGFuZCBjYXJsOTE3MCBjYXJyeSBNOiB3aXRoIG5v
+IFQ6IGxpbmUsIGFzIHRoaXMgb25lIHdvdWxkLg0KDQpJcyB0aGlzIGEgZ29vZCBleGFtcGxlIHRv
+IHlvdXIgY2FzZT8gSmVmZiBpcyB0aGUgbWFpbnRhaW5lciBvZiBhbGwgYXRoIGRyaXZlcnMuDQoN
+Cj4gDQo+IFRoaXMgaXMgYWJvdXQgdGhlIG9uZSBjaGlwIEkgaGF2ZSB0aGUgaGFyZHdhcmUgZm9y
+LCBub3QgYSBwcm9wb3NhbCB0bw0KPiBzcGxpdCB0aGUgb3RoZXIgcnR3ODggY2hpcHMgb3V0IG9m
+IHlvdXIgZW50cnkuDQo+IA0KPiBjaGVja3BhdGNoIC0tc3RyaWN0IG9uIHRoZSBNQUlOVEFJTkVS
+UyBwYXRjaCBpcyAwIGVycm9ycywgMCB3YXJuaW5ncy4NCj4gDQo+IElmIHlvdSB3b3VsZCBzdGls
+bCByYXRoZXIga2VlcCBpdCB0byB0aGUgUjogbGluZSwgc2F5IHNvIGFuZCB0aGUNCj4gc2VjdGlv
+biBnb2VzLCBpdCBpcyBvbmUgcGF0Y2gsIGFuZCBpdCBzaG91bGQgbm90IGhvbGQgdXAgdGhlIHNl
+cmllcywNCj4gYnV0IHBsZWFzZSB0YWtlIHRoZXNlIHBvaW50cyBpbnRvIGFjY291bnQuDQoNCkFz
+IEkgbWVudGlvbmVkIGVhcmxpZXIsIEkgc3VnZ2VzdGVkIHRvIHN1YnNjcmliZSBtYWlsaW5nIGxp
+c3QgYW5kIHJldmlldw0KcnR3ODggcGF0Y2hlcyAoSSByZWFkIHlvdXIgbGltaXRhdGlvbiwgYnV0
+IEkgdGhpbmsgaXQgaXMgZWFzaWVyIHRvIGZpbmQNCmFuIGFsdGVybmF0aXZlIHdheSwgbm8/KS4g
+DQoNCkFzIHlvdSByZXBsaWVkIFsxXSwgSSBzdXBwb3NlIHlvdSBoYXZlIHN1YnNjcmliZWQgdGhl
+IGxpc3QsIHJpZ2h0Pw0KDQpJIHN0aWxsIHRoaW5rICdSJyBpcyBlbm91Z2guIFdpdGggeW91ciBz
+dWJzY3JpcHRpb24gb2YgbWFpbGluZyBsaXN0LCANCkkgZXZlbiB0aGluayB3ZSBjYW4gZHJvcCB0
+aGlzIHBhdGNoLCBubyBuZWVkIHRvIHVwZGF0ZSBNQUlOVEFJTkVSUy4NCg0KQml0dGVyYmx1ZSBT
+bWl0aCB5b3UgQ2MnZCBpcyBhIG1haW4gY29udHJpYnV0b3Igb2YgV2lGaSBkcml2ZXJzIChub3QN
+CmxpbWl0IHRvIFJlYWx0ZWspLiBJIGRvbid0IHNlZSBhbnkgZGlmZmljdWx0IHRvIGhpbSB0byBy
+ZXZpZXcgYW5kIA0KY29udHJpYnV0ZSBwYXRjaGVzLiAoSWYgSSBtaXNzIHNvbWV0aGluZywgcGxl
+YXNlIGNvcnJlY3QgbWUsIEJpdHRlcmJsdWUpLg0KQW55d2F5LCBJIHdhbnQgdG8gc2VlIHBlb3Bs
+ZSByZWFsbHkgY29udHJpYnV0ZSBjb21tdW5pdHkgYW5kIHRoZW4NCmFkZCB0aGVpciBuYW1lcywg
+bm90IHJldmVyc2Ugd2F5LiBJIGRvbid0IGxpa2UgdG8gY2xlYW4gTUFJTlRBSU5FUlMNCnNvbWV0
+aW1lLg0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtd2lyZWxlc3MvMjAyNjA5
+MjYxODAwMDcuMjgwMzAtMS1sdWthLmdlamFrQGxpbnV4LmRldi8jdA0KDQpQaW5nLUtlDQoNCg0K
+DQo=
