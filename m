@@ -1,329 +1,273 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113043BFAC0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8321DD525;
+	Tue, 29 Sep 2026 03:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653721; cv=none; b=R1yVpfYvKgYWfrIGkkn8ReSjwurPmwUWCdKvWcTnU+yd1rlKmQzskIJXA0DyxgglSrRHSp/FSFAkZ+2/9nWBMuUbWCep01BgswNcdvLc6/65tzCsG8KiobzUxWABL8ujlj2E2D2ci1byU04ksDiiLKZL8D3AWCE2YcyggyMTj8Q=
+	t=1790653754; cv=none; b=dx86YWFScFeg1o2MiAp4MYwdMeVAnwucQ/+p/m3ckh3WizOVEELUgiuayN7WfheS9LiQKvYBPqjwjeQUuhqaYbjxAmFVhoLJ0EsnaIFQB/ikAKvXzPoE0k+Y8jdt/FFxngwWr2Mzjg5S/AD8XzNOpgJLD3EJwj6Li94TAdDZR0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653721; c=relaxed/simple;
-	bh=Oush5cHpP9xFtEHFwiURrJbQhScA3TYxzJEjTz3Bzg4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=F8qxhPEbhuBl9Vhr+Nw0OiU6XHom5GeTPVuNT7T55sZhj2tEYPGut09l3KoK2Hponjm3aFvX+hJEiyxoVC9O4Xf8lM2r4YMr+eLcwUhxZewSXdFWJTSMc9wUzLlK6DeAxYITXj+AWBgzoCK14wkaZRBhB1U8vUEc2XDld4cAC/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b1bc2e44e0so5868171b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:48:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790653718; x=1791258518;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vssZFQJgoUgFGRLMDEgt/1rxwFRJiQMxXieW0liGzdE=;
-        b=mdFpaMnKEYE4m5ue87Goa0+GVPJ97RNN7ON1f1VDiFf4K62+DMyiwI7in2oRrAJXe4
-         HxuluWydPAptT7QiqBFxLP1B+XV2TiY5n8kwS2vx7FWaUEWVZN4OnMMjPWNMc3mx480g
-         C0E+GWYrpcnhtEIa1m/8Yjpa26fT7mxOmOcnaT9T84rUx08p8qPIkg6ZMYhcY3hR6Rhg
-         fN66uS+K6E20AMTErZYAZ6lmHu+BcOFWrp9m6fCFXJ4Wm8p2X9u7lVoE0GDUiiQAmfej
-         y0wgglFU/4qqFtUdV+IQZ8fPla7dpHKbIduJIzQtjZvOwdk/wVwi/Va6a7h4ejWEvyfe
-         HTUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxajNNz6wpTsSzphNhbSOSGYCWR2yvcSJJ4uR1tnCGSJqYGCVL1i1Xdl6h/Zi6FfQr7eR+ILnA9MqZXZwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZPlDX6ix7IVIJFhpbn8KHttM079UHvw7URk6itbnlDO85cbRM
-	BKpK8OkFKv14Vse5Gdx4j+gjuYMIoJmTqB6tdabX7cVGj+0d+kOIjOMz4aoJhaMVoGbnRzoiMIl
-	0U12tGpzZZ8LRVw3LQUW91g4/zSCxF/6c8LZ0RfaNd4+I/etNR5BdvEMPc/w=
+	s=arc-20240116; t=1790653754; c=relaxed/simple;
+	bh=NuPzFkXF+Cp2xK4J012DQwWEX2Nq+EJBWUOD4DGgNPM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Raxs8AacdL3pA/GFYmjBiYuziHtEKAfQRZDgODJK6P2nskRPuuttFEbP3ryrrZc0GAAEtZy9MayKd8ULxcWx80Z6a70R7CSoiRzoksStCzn9Owz7lP/Wr/+FcZFxFDyzFMFoi1T3hgYryjxnrAsc25VQ5DeyuOWPxPPPtBeTyoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAEdmcKj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAEdmcKj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02051F000FF;
+	Tue, 29 Sep 2026 03:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790653752;
+	bh=csKY86v+F06JBBIwgLH+CI4S4jVmqKxLkT8G1pw/FOw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CAEdmcKj5PETGQzNjOiGQAvZQAPaJG/IXS5hmTOOJlx4Yalu6FWttMvVQDq2iFKZ8
+	 PqGNQMRVlAFrjLzIz4bybrc7tnssEWJ2OrWa1OWXQi9hdfXV4SSiIduQFqzW0ftNb5
+	 iU+RqCVJdek/ZzGgoXjFrKfSWFwE6RQ8N88kOwP1AyQ3COZqd50DuU18WaPdE7uWbe
+	 +CTfC3wUW4THgnVy9ky/yHQDOzqDjfmWz18mnqDur3Cgyq6ictbeBZXd2PiXjvzsGf
+	 hl3+up0YUiFAbh9M8dE21LgWJUZFveJycRgF9iMBh6An8p4Nbifk/m6ecdiarlh5XR
+	 /ppuYcJ81WzuA==
+Subject: Re: [PATCH net-next v6 1/3] net: stmmac: sun8i: reset the MAC after
+ PHY initialization
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: richard.genoud@bootlin.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, wens@kernel.org, jernej.skrabec@gmail.com,
+ samuel@sholland.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ clabbe.montjoie@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, peppe.cavallaro@st.com, joabreu@synopsys.com,
+ alastair@d-silva.org, mripard@kernel.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, andre.przywara@arm.com
+Date: Tue, 29 Sep 2026 03:49:10 +0000
+Message-ID: <179065375047.434549.7821787702167251080@kernel.org>
+In-Reply-To: <20260927-submit-h616-emac1-v1-v6-1-e64971f4e414@gmail.com>
+References: <20260927-submit-h616-emac1-v1-v6-1-e64971f4e414@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1642:b0:4cb:f21b:6f96 with SMTP id
- 5614622812f47-4d73045f896mr13098741b6e.41.1790653717941; Mon, 28 Sep 2026
- 20:48:37 -0700 (PDT)
-Date: Mon, 28 Sep 2026 20:48:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abb3515.c6a7fab7.e5ea7.0459.GAE@google.com>
-Subject: [syzbot] [usb?] KASAN: slab-use-after-free Write in
- usb_giveback_urb_bh (2)
-From: syzbot <syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-syzbot found the following issue on:
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
-HEAD commit:    62f4c998b297 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=157022c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2a820d8842c77560
-dashboard link: https://syzkaller.appspot.com/bug?extid=a5b220cacb0618384d5a
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Unfortunately, I don't have any reproducer for this issue yet.
+- [High] Before this patch, sun8i_dwmac_dma_reset() always returned 0.
+- [Medium] The failure mode the patch sets out to fix can still happen on
+  H3/H5 boards with an external PHY.
+- [Medium] The sun8i MAC soft reset now runs on the MTU-change, ethtool
+  reopen, ndo_open and resume paths.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-62f4c998.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/8d5e9781cf8b/vmlinux-62f4c998.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/b891c8b5bf72/bzImage-62f4c998.xz
+--
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+net: stmmac: sun8i: reset the MAC after PHY initialization
 
-==================================================================
-BUG: KASAN: slab-use-after-free in usb_giveback_urb_bh+0x441/0x560 drivers/usb/core/hcd.c:1692
-Write of size 8 at addr ffff888022a54300 by task ksoftirqd/1/30
+This patch moves the sun8i EMAC software reset out of the end of probe and
+into the stmmac dma_ops->reset callback. The reset then runs in
+stmmac_hw_setup(), after the PHY has been attached and initialized. Reset
+timeouts now go through the hardware-setup error path, and the H3
+MDIO-mux reset is kept.
 
-CPU: 1 UID: 0 PID: 30 Comm: ksoftirqd/1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- usb_giveback_urb_bh+0x441/0x560 drivers/usb/core/hcd.c:1692
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- bh_worker+0x6a5/0x8f0 kernel/workqueue.c:3782
- workqueue_softirq_action+0x14a/0x1b0 kernel/workqueue.c:3810
- tasklet_hi_action+0x17/0x70 kernel/softirq.c:994
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- run_ksoftirqd kernel/softirq.c:1099 [inline]
- run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
- smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 38d7e71de925c..5691da796454d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -269,11 +269,33 @@ static const struct emac_variant emac_variant_h6 = {
+>  #define SYSCON_ETCS_EXT_GMII	0x1
+>  #define SYSCON_ETCS_INT_GMII	0x2
+>  
+> +static int sun8i_dwmac_reset(void __iomem *ioaddr)
+> +{
+> +	u32 v;
+> +
+> +	v = readl(ioaddr + EMAC_BASIC_CTL1);
+> +	writel(v | 0x01, ioaddr + EMAC_BASIC_CTL1);
+> +
+> +	/* The timeout was previously set to 10ms, but some board (OrangePI0)
+> +	 * need more if no cable plugged. 100ms seems OK
+> +	 */
+> +	return readl_poll_timeout(ioaddr + EMAC_BASIC_CTL1, v,
+> +				  !(v & 0x01), 100, 100000);
+> +}
+> +
+>  /* sun8i_dwmac_dma_reset() - reset the EMAC
+>   * Called from stmmac via stmmac_dma_ops->reset
+>   */
+>  static int sun8i_dwmac_dma_reset(void __iomem *ioaddr)
+>  {
+> +	int ret;
+> +
+> +	writel(0, ioaddr + EMAC_INT_EN);
+> +
+> +	/* The PHY receive clock must be running for the reset to complete. */
+> +	ret = sun8i_dwmac_reset(ioaddr);
 
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- __usb_create_hcd+0x5e/0xac0 drivers/usb/core/hcd.c:2566
- vhci_hcd_probe+0xf3/0x4e0 drivers/usb/usbip/vhci_hcd.c:1378
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- platform_device_add+0x35a/0x800 drivers/base/platform.c:833
- platform_device_register_full+0x507/0x720 drivers/base/platform.c:970
- vhci_hcd_init+0x1a1/0x2f0 drivers/usb/usbip/vhci_hcd.c:1557
- do_one_initcall+0x11c/0x6f0 init/main.c:1362
- do_initcall_level init/main.c:1424 [inline]
- do_initcalls init/main.c:1440 [inline]
- do_basic_setup init/main.c:1460 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1675
- kernel_init+0x21/0x1e0 init/main.c:1565
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+[Severity: Medium]
+Is the 100 ms poll in sun8i_dwmac_reset() long enough now that the reset
+runs right after the PHY is resumed?
 
-Freed by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- hcd_release drivers/usb/core/hcd.c:2690 [inline]
- kref_put include/linux/kref.h:65 [inline]
- usb_put_hcd drivers/usb/core/hcd.c:2704 [inline]
- usb_put_hcd+0x149/0x1f0 drivers/usb/core/hcd.c:2701
- vhci_hcd_probe+0x342/0x4e0 drivers/usb/usbip/vhci_hcd.c:1415
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- platform_device_add+0x35a/0x800 drivers/base/platform.c:833
- platform_device_register_full+0x507/0x720 drivers/base/platform.c:970
- vhci_hcd_init+0x1a1/0x2f0 drivers/usb/usbip/vhci_hcd.c:1557
- do_one_initcall+0x11c/0x6f0 init/main.c:1362
- do_initcall_level init/main.c:1424 [inline]
- do_initcalls init/main.c:1440 [inline]
- do_basic_setup init/main.c:1460 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1675
- kernel_init+0x21/0x1e0 init/main.c:1565
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+On the reopen and resume paths, __stmmac_open() and stmmac_resume() in
+stmmac_main.c call phylink_prepare_resume() and then go straight into
+stmmac_hw_setup():
 
-Last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- insert_work+0x36/0x230 kernel/workqueue.c:2272
- __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
- queue_work_on+0x1a9/0x1e0 kernel/workqueue.c:2501
- queue_work include/linux/workqueue.h:700 [inline]
- usb_hcd_giveback_urb+0x330/0x4a0 drivers/usb/core/hcd.c:1758
- usb_rh_urb_dequeue drivers/usb/core/hcd.c:845 [inline]
- unlink1+0x418/0x510 drivers/usb/core/hcd.c:1580
- usb_hcd_unlink_urb+0x131/0x210 drivers/usb/core/hcd.c:1617
- usb_kill_urb drivers/usb/core/urb.c:716 [inline]
- usb_kill_urb+0x121/0x320 drivers/usb/core/urb.c:703
- hub_quiesce+0x1e9/0x320 drivers/usb/core/hub.c:1417
- hub_suspend+0x4ab/0x9e0 drivers/usb/core/hub.c:4021
- usb_suspend_interface drivers/usb/core/driver.c:1327 [inline]
- usb_suspend_both+0x288/0x950 drivers/usb/core/driver.c:1450
- usb_runtime_suspend+0x49/0x120 drivers/usb/core/driver.c:2004
- __rpm_callback+0xc8/0x620 drivers/base/power/runtime.c:406
- rpm_callback+0x11f/0x150 drivers/base/power/runtime.c:460
- rpm_suspend+0x2f4/0x1220 drivers/base/power/runtime.c:695
- __pm_runtime_suspend+0xba/0x1a0 drivers/base/power/runtime.c:1167
- pm_runtime_put_sync_autosuspend include/linux/pm_runtime.h:740 [inline]
- usb_new_device.part.0+0x1653/0x1686 drivers/usb/core/hub.c:2740
- register_root_hub+0x4e6/0x639 drivers/usb/core/hcd.c:990
- usb_add_hcd.cold+0xccd/0x1158 drivers/usb/core/hcd.c:2987
- vhci_hcd_probe+0x14b/0x4e0 drivers/usb/usbip/vhci_hcd.c:1388
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- platform_device_add+0x35a/0x800 drivers/base/platform.c:833
- platform_device_register_full+0x507/0x720 drivers/base/platform.c:970
- vhci_hcd_init+0x1a1/0x2f0 drivers/usb/usbip/vhci_hcd.c:1557
- do_one_initcall+0x11c/0x6f0 init/main.c:1362
- do_initcall_level init/main.c:1424 [inline]
- do_initcalls init/main.c:1440 [inline]
- do_basic_setup init/main.c:1460 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1675
- kernel_init+0x21/0x1e0 init/main.c:1565
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+__stmmac_open()
+    phylink_prepare_resume(priv->phylink);
+    stmmac_reset_queues_param(priv);
+    ret = stmmac_hw_setup(dev);
+        stmmac_init_dma_engine()
+            stmmac_reset()
+                sun8i_dwmac_dma_reset()
+                    sun8i_dwmac_reset()
 
-Second to last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- insert_work+0x36/0x230 kernel/workqueue.c:2272
- __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
- queue_work_on+0x1a9/0x1e0 kernel/workqueue.c:2501
- queue_work include/linux/workqueue.h:700 [inline]
- usb_hcd_giveback_urb+0x3b8/0x4a0 drivers/usb/core/hcd.c:1760
- rh_call_control drivers/usb/core/hcd.c:706 [inline]
- rh_urb_enqueue drivers/usb/core/hcd.c:817 [inline]
- usb_hcd_submit_urb+0xab7/0x2150 drivers/usb/core/hcd.c:1538
- usb_submit_urb+0x827/0x19b0 drivers/usb/core/urb.c:586
- usb_start_wait_urb+0x10e/0x580 drivers/usb/core/message.c:62
- usb_internal_control_msg drivers/usb/core/message.c:117 [inline]
- usb_control_msg+0x328/0x4b0 drivers/usb/core/message.c:167
- get_port_status drivers/usb/core/hub.c:607 [inline]
- hub_ext_port_status+0x14e/0x690 drivers/usb/core/hub.c:624
- usb_hub_port_status drivers/usb/core/hub.c:674 [inline]
- hub_activate+0x6e5/0x1c40 drivers/usb/core/hub.c:1190
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+phylink_prepare_resume() in drivers/net/phy/phylink.c says it does not
+wait for the PHY clock:
 
-The buggy address belongs to the object at ffff888022a54000
- which belongs to the cache kmalloc-8k of size 8192
-The buggy address is located 768 bytes inside of
- freed 8192-byte region [ffff888022a54000, ffff888022a56000)
+	 * then resume the PHY. Note that 802.3 allows PHYs 500ms before
+	 * the clock meets requirements. We do not implement this delay.
+	 */
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x22a50
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c043180 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c043180 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 7221018769
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- acpi_ut_initialize_buffer+0x144/0x220 drivers/acpi/acpica/utalloc.c:327
- acpi_rs_create_pci_routing_table+0x135/0xe00 drivers/acpi/acpica/rscreate.c:212
- acpi_rs_get_prt_method_data+0xc1/0x150 drivers/acpi/acpica/rsutils.c:456
- acpi_get_irq_routing_table+0xb8/0x140 drivers/acpi/acpica/rsxface.c:137
- acpi_pci_irq_find_prt_entry+0x179/0xdd0 drivers/acpi/pci_irq.c:215
- acpi_pci_irq_lookup+0x8e/0x6b0 drivers/acpi/pci_irq.c:299
- acpi_pci_irq_disable+0x1a8/0x360 drivers/acpi/pci_irq.c:499
- pcibios_disable_device arch/x86/pci/common.c:706 [inline]
- pcibios_disable_device+0x89/0xb0 arch/x86/pci/common.c:703
- do_pci_disable_device+0x9f/0x100 drivers/pci/pci.c:2203
-page_owner free stack trace missing
+The comment in sun8i_dwmac_reset() already says 10 ms was too short on
+OrangePi0 with no cable plugged in. Other dwmac reset implementations
+allow more time: dwmac1000 200 ms, dwmac4/imx 1 s, loongson 2 s.
 
-Memory state around the buggy address:
- ffff888022a54200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888022a54280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888022a54300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                   ^
- ffff888022a54380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888022a54400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+Before this patch, sun8i_dwmac_dma_reset() did not need RXC, so these
+paths could not fail here. Could a PHY that is slow but still within the
+standard now make the reset time out, so that ndo_open, resume or an MTU
+change fails? Could that also leave EMAC_BASIC_CTL1 with a soft reset
+still pending?
 
+> +
+> +	/* Leave DMA and interrupts disabled even if the reset timed out. */
+>  	writel(0, ioaddr + EMAC_RX_CTL1);
+>  	writel(0, ioaddr + EMAC_TX_CTL1);
+>  	writel(0, ioaddr + EMAC_RX_FRM_FLT);
+> @@ -281,7 +303,7 @@ static int sun8i_dwmac_dma_reset(void __iomem *ioaddr)
+>  	writel(0, ioaddr + EMAC_TX_DESC_LIST);
+>  	writel(0, ioaddr + EMAC_INT_EN);
+>  	writel(0x1FFFFFF, ioaddr + EMAC_INT_STA);
+> -	return 0;
+> +	return ret;
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+[Severity: High]
+sun8i_dwmac_dma_reset() can now return -ETIMEDOUT. Can a failed MTU
+change then free the DMA rings twice?
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On a running interface, stmmac_change_mtu() in stmmac_main.c calls
+__stmmac_release() and then __stmmac_open() with a newly allocated
+dma_conf. __stmmac_open() copies that dma_conf into priv->dma_conf before
+the reset runs:
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+__stmmac_open()
+    memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
+    ...
+    ret = stmmac_hw_setup(dev);
+    if (ret < 0) {
+        netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+        return ret;
+    }
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+priv->dma_conf is not restored when this fails. stmmac_change_mtu() then
+frees the resources that priv->dma_conf still points to:
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+stmmac_change_mtu()
+    ret = __stmmac_open(dev, dma_conf);
+    if (ret) {
+        free_dma_desc_resources(priv, dma_conf);
+        kfree(dma_conf);
+        netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+        return ret;
+    }
 
-If you want to undo deduplication, reply with:
-#syz undup
+The interface is left IFF_UP. On a later ndo_stop, __stmmac_release()
+calls free_dma_desc_resources(priv, &priv->dma_conf) again. That touches
+descriptor rings, the buf_pool, tx_skbuff arrays and page_pools that
+have already been freed.
+
+The same ndo_stop also frees dev->irq a second time, calls
+phylink_stop() again, and calls stmmac_release_ptp() again, so the PTP
+ref clock is disabled twice.
+
+The broken unwind is in the stmmac core. However, before this patch the
+sun8i dma reset always returned 0, so this path could not be reached on
+sun8i. The commit message now relies on "the normal hardware-setup error
+path".
+
+>  }
+>  
+
+[ ... ]
+
+> @@ -899,7 +900,9 @@ static int mdio_mux_syscon_switch_fn(int current_child, int desired_child,
+>  		/* After changing syscon value, the MAC need reset or it will
+>  		 * use the last value (and so the last PHY set).
+>  		 */
+> -		ret = sun8i_dwmac_reset(priv);
+> +		ret = sun8i_dwmac_reset(priv->ioaddr);
+> +		if (ret)
+> +			dev_err(priv->device, "EMAC reset timeout\n");
+>  	}
+>  	return ret;
+>  }
+
+[Severity: Medium]
+Can the failure described in the commit message still happen on H3/H5
+boards with an external PHY?
+
+The reset in mdio_mux_syscon_switch_fn() still runs during probe, before
+any PHY driver has bound. It runs when the external child bus is
+registered and its PHY ID is read:
+
+sun8i_dwmac_probe()
+    sun8i_dwmac_register_mdio_mux()
+        mdio_mux_init()
+            of_mdiobus_register(external child)
+                get_phy_device()
+                    mdio_mux_read()
+                        mdio_mux_syscon_switch_fn(1 -> 2)
+                            sun8i_dwmac_reset()
+
+The external PHY's RX clock may not be running yet, for example because
+the PHY or one of its suppliers is not ready. The reset then returns
+-ETIMEDOUT, which get_phy_c22_id() in drivers/net/phy/phy_device.c turns
+into -EIO:
+
+	return (phy_reg == -EIO || phy_reg == -ENODEV) ? -ENODEV : -EIO;
+
+__of_mdiobus_parse_phys() treats -EIO as fatal, so of_mdiobus_register()
+fails. mdio_mux_init() in drivers/net/mdio/mdio-mux.c then frees any
+child bus that failed with an error other than -EPROBE_DEFER, and never
+retries it:
+
+		r = of_mdiobus_register(cb->mii_bus, child_bus_node);
+		if (r) {
+			mdiobus_free(cb->mii_bus);
+			if (r == -EPROBE_DEFER) {
+				ret_val = r;
+				goto err_loop;
+			}
+			devm_kfree(dev, cb);
+
+If the internal child registered, probe succeeds without the external
+PHY and ndo_open cannot connect to it. If no child registered,
+sun8i_dwmac_probe() fails and the MAC is removed.
+
+Either way, loading the missing driver or supplier later cannot bring
+the interface back without reprobing the MAC. The commit message
+explains why this reset is kept. Should it also say that H3/H5
+external-PHY configurations are still not covered by this fix?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927-submit-h616-emac1-v1-v6-0-e64971f4e414%40gmail.com
