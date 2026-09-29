@@ -1,129 +1,144 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0925237AE;
-	Tue, 29 Sep 2026 12:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F224FECF5;
+	Tue, 29 Sep 2026 12:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684929; cv=none; b=jk+Y9yZEYGrDzK23GMKEVsItM239YtDIOg7HWWRONxGE46Jz918nhNJHnJxuqzWkImvRMvcrVFFmMfTl7yrxT2nhhtvsq7ai21fIQtonKvsrHsTlOijSm9IIuvQb4I5dNP5psWN6JNBGiU5nKQ7NEDlCzjxZElIOpEj9GryziWY=
+	t=1790684933; cv=none; b=nkPhmQuL0ZI54NV3StiqDl1rxVJO0c5Yizu21a3Fj/gbazwQr5Nqjd4XmgojgqpX6g0pGhgMxoA/VLh+CX0kZJ2E0iercTdIdUoJAJ0aBWrW4xr8MTt3aPhx3+3FjZO+M59aRgHsrOKxoWQBwEOCotsh0WWnshUrdr+QSSFxUNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684929; c=relaxed/simple;
-	bh=bmBBlXJUGQ7njJjiDQqU6/nJ0qeXLnyewGYp077riLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rqr+OHks+fYHCHcNoJ2jb5pTHqNN+U9bCHAWbztmZxmj5PstyGHXOnCABW5+82ydQ10GsUobTsOlRnRn8+6Pt+LdC6NvdTxzEjuDo3KR9Gxnbs/ARKY9DTEHjy2pAKKvdRRZRERjD1+Myrm1HNCIuQWmMHxj/rVDZv6fOvOGmSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Xgr6puIG; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790684933; c=relaxed/simple;
+	bh=Rya2/xvwmnG+LUNaAktFCoDG7sJ7+awgSLfG71+jbJ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fAkrYsYEgy9LfDNLA1ayVhjq9KAa5eN6laQ5gcMClqw8EAFpVK1W5zyUt+uH8R0MqMc+1SnPLO9ebtIvfK5LGwHLn+9InM4RrrpJcwBiu5+0qvNIhiUQrQfd5jD+Rq22VpOPr1doYhj6a7mfGn1G9XrVE9KrLF1IskS+JFdH9vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDgs52RD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Xgr6puIG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ok
-	7gh8hzf9xWkM6boOicySDPEGNZXm3WdCWyqq9eqXo=; b=Xgr6puIGa+YhjwEyUY
-	68G9r3G6+1moVeUgsJGEpUrgRPJhUwLlE8eZqhVCRemcts2D0tM5Zy7b79TZ2Mhv
-	jlcnHAGeAAisiEz6hX0003byr8A90bVD2m4RagVANje7tztcUmBc1IZcgBNuzizH
-	jqpL1Q4l5FPk3AowR94sdVngc=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3_03crrtqUYcxBg--.43947S2;
-	Tue, 29 Sep 2026 20:28:13 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: chris.mason@oracle.com,
-	dave@jikos.cz,
-	patchwork-bot@kernel.org
-Cc: linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] btrfs: wait for a grace period before freeing a new device
-Date: Tue, 29 Sep 2026 20:28:10 +0800
-Message-ID: <20260929122810.139057-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDgs52RD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8E61F000FF;
+	Tue, 29 Sep 2026 12:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790684927;
+	bh=Rya2/xvwmnG+LUNaAktFCoDG7sJ7+awgSLfG71+jbJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KDgs52RDTx6mh31I7eMF9UWgZiSg1uUMHsWF7NmqCu8jGXUdqsG5RRco4NAQ1yybk
+	 xQ+m+bbw1/UwtG3KjfgwVgTA5CaoLUfvpIS8lFDoTctzuu7VSyBxeowIx5ueXoinnE
+	 8tKck5octUTdRzH9FOQQ5rKCVgLBSz3czzpqXIl3DCc+gA8SVFh5ujozuK/cQlWlr3
+	 laRfPA3ooCYxIdbhJVJPI51VwDjiItiCpStTQWukUYuWtEtyJAROcrFDWye7LIwjKJ
+	 BEx8eFAfDOOrw/HeBkx0lBbtw4Jx8mATUrz9BoFpYrTbqm0g4vGPopfAaieDMB8Iyg
+	 sD/aDTz9tWV9g==
+Date: Tue, 29 Sep 2026 14:28:43 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <arut8kWzqX5YW5wE@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+ <aruD5kwOEsvFhW2e@beelink>
+ <42cfa3fb2246c66d69e45d7d9b8d6aaadc0da4c4@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_03crrtqUYcxBg--.43947S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5WryUpr
-	9Iga45JFyDJr1kAr4xCw4I9r1rX39Y9a9Ikrn3Kr4I9a4fA34Yvryvk34UuasxCrWrJFyU
-	Za4DJwn8Jw4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UF1v-UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+x1sUGq7rt3LLQAA3e
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="tn7gfu35hmfimxib"
+Content-Disposition: inline
+In-Reply-To: <42cfa3fb2246c66d69e45d7d9b8d6aaadc0da4c4@intel.com>
 
-KASAN reports a slab-use-after-free in btrfs_statfs() walking
-fs_devices->devices. btrfs_init_new_device() publishes the new device
-with list_add_rcu() and can fail afterwards, for example with -ENOSPC
-in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
-that is too small to a seeding filesystem mounted read-only. The error
-path removes the entry with list_del_rcu() and frees the object in
-btrfs_free_device() without waiting for a grace period, while
-btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
-the device list under rcu_read_lock().
 
-BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
-Read of size 8 at addr ffff8880096be858 by task poc/252
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? filename_lookup+0x1a9/0x540
- ? btrfs_statfs+0x11af/0x14a0
- kasan_report+0xce/0x100
- ? btrfs_statfs+0x11af/0x14a0
- btrfs_statfs+0x11af/0x14a0
- statfs_by_dentry+0x117/0x1e0
- user_statfs+0xac/0x130
- ? __pfx_user_statfs+0x10/0x10
- __do_sys_statfs+0x80/0xe0
- ? __pfx___do_sys_statfs+0x10/0x10
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+--tn7gfu35hmfimxib
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-Allocated by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- __kmalloc_cache_noprof+0x158/0x370
- btrfs_alloc_device+0xad/0x3e0
- btrfs_init_new_device+0x3e8/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+On Tue, Sep 29, 2026 at 01:16:41PM +0300, Jani Nikula wrote:
+> On Tue, 29 Sep 2026, Benjamin Tissoires <bentiss@kernel.org> wrote:
+> > Ouch. This immediately raises the "let's implement a parser in the
+> > kernel" flag, or "let's create a new langage".
+>=20
+> Fair.
+>=20
+> > You'd still need a dedicated driver for your new blob parser, with far
+> > fewer people who had had a look at it than BPF who has been working on
+> > for several years.
+>=20
+> Fair.
 
-Freed by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x121/0x380
- btrfs_init_new_device+0x4a0/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Also, it's kind of what we had with panel-mipi-dbi:
+https://github.com/notro/panel-mipi-dbi/wiki
 
-Fix by waiting for an RCU grace period after the device is removed
-from the list and before it is freed.
+It didn't really take off.
 
-Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- fs/btrfs/volumes.c | 1 +
- 1 file changed, 1 insertion(+)
+> > The integration of BPF and the kernel is honestly transparent nowaday:
+> > calling a struct_ops BPF function is just a function call away, and from
+> > the bpf calling anything in the kernel is also just a call away.
+>=20
+> I don't know if I'm just being overly conservative here, but it seems to
+> me BPF provides too much flexibility for the use case. But maybe the
+> point is completely moot, and you should just ignore me. ;)
+>=20
+> > See Maxime's answers: yes, falling back to dedicated driver is still
+> > encouraged.
+>=20
+> [Moved the above to go with below.]
+>=20
+> > Isn't that what Maxime wants to have? One driver for a plethora of DSI
+> > panels, with the same ability the BIOS has to also do function calls to
+> > set things up?
+>=20
+> I suppose this is something that could use some clarification. Is the
+> idea that most (simple) dedicated panel drivers eventually get converted
+> to BPF?
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 85ea9c5d4536..2693dacd1da7 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 	btrfs_update_per_profile_avail(fs_info);
- 	mutex_unlock(&fs_info->chunk_mutex);
- 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
-+	synchronize_rcu();
- error_trans:
- 	if (trans)
- 		btrfs_end_transaction(trans);
--- 
-2.43.0
+I don't think most of the existing panels will be converted, if only
+because it would require a different DT binding for most of them. We
+should totally fix the "what happens the panel is supported by a driver
+and the bpf driver" situation Rob (I think?) pointed out though, because
+I do think some will be converted still.
 
+> Or is the idea that BPF is easy for prototyping and development
+> using stable kernels and short time to market, and most of them would
+> eventually get converted to dedicated panel drivers?
+
+Even though it does make prototyping easier, I totally expect this to be
+a production-grade driver, just like any other panel driver.
+
+> The story wrt display before userspace is up and running also needs
+> clarification.
+
+Yeah, I'll work on an in-kernel loader for v2.
+
+Maxime
+
+--tn7gfu35hmfimxib
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaruu+wAKCRAnX84Zoj2+
+dvaDAYDbgFmn3VTPnwMmRkcBxrTVtKlQ2i2nTFTQqsY6+h83dQfdgZBSKyv4PaD8
+t21q8pIBgLJeTlsC72CRcfaSgL7zPCcpR02uuJQEdtsW57i6k17jJYgTCB0r9j+y
+8X+t6kZwEw==
+=GOdP
+-----END PGP SIGNATURE-----
+
+--tn7gfu35hmfimxib--
