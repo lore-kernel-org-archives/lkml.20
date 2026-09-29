@@ -1,151 +1,215 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E133B53B358
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB67253B325
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693909; cv=none; b=VzRGGds/AEQ5cYrDHnYnH1LS3MzMEK0Zvig7IGuRFoMHb1587BlPVGfan5hzoK+F032k6nZXpUhKStblQueE90e87g8LRyfZOHRxqQxLhNTRg8z4rTGLJP5eygee83ZBxKMMugjwazrfi9MKkjy4Fi1lNKpx5BUTlvjn3zzVy8c=
+	t=1790693932; cv=none; b=CKt67UFgHdnn6lGXsMyghiFKxjX1wNW/APfPq/LiRt1CQAayb0feIzneNy6j5+byiyVvPQ89CzLHOcYktpzchOQzNyDBAgOKYRHgKt4/21eD6zn8BtVJ29bS4jJa3tVOnEnzu39MMBRP/4jjtF+FOmLIFKUFwxAWwz6Rr2aPDZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693909; c=relaxed/simple;
-	bh=+Nae+VQCeZSmSPqR0LLrqa4yrCW4mwWubd2DoSBMmm4=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=eTyUIyT8gVq9qX9nymkqth45WFt1p9UTFsjfpWDMZwqoUC/Wvy2NwyxFwCuLYAX8KT0qvxBfBNGTYpFuWOXM6CXkmPllkgpucVhidI8ivwyVMlxOzVR/FAmGmDf4tA43REqY4tyTcupYoWJJSXpq4g2BmatExh9tPkloIrQ32G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSeO5Rtb; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790693932; c=relaxed/simple;
+	bh=EqAVcdyv3bdh5PWijfipsTsljh3WRwAlRWBBEdBJcZQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uUOykCfdMh3Td2hQg9JsuP5AbsTiD802P+h7UCjXq1X5PwDnzMXU2nM7M23MW11lqRN1Lz1bc9/FXLxVhujnZS5dSiZ2oIOfhDDKOOoaXFYVfnTHNcurZVVQE9V3uUF+Z4OojWDdX3k5CAWIRuBqUQeGhxVMglJnkdoj3sqJAfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h6+S91ec; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3Mp7Dry; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSeO5Rtb"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a8288165fbso40258797b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:58:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6+S91ec";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3Mp7Dry"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqrOd351030
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=; b=h6+S91ectDgEyORG
+	S1jC5DakWLX5QfDmaOXupVyAUzAGuOXi88d6bBwKqvIQGCsuL0YIu0GSI5K1dDyv
+	J8bOw0UDSh/3XHF9GvSrmnSntzt5mkMJnVkDNApC/xgYaA907OS93mW0HS4eWo84
+	/ezJpFIWlELErhW9JlZLMVPLlsWf3H6SfamIkCmxuEtq9utV7ic+QELL9ySiwBsu
+	eVInksBK4gqmVApUF1aFfQ0+RaL0LrZoA2ObNub+uBefTLRjEALsut/maBO9QbB7
+	n4Iuk1yq4FMubDnE2lSgErY/P1CdAPQh85Hw0JGmgDvEaMLlqdQV+YecfhY2koSr
+	i00vmQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h01vkkf28-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:58:31 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9123be39eeaso88475436d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:58:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790693886; x=1791298686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iS0vI6VPFheNRyG7TeQ5h4c/DL9d1CbeqeEtao3CvUY=;
-        b=rSeO5Rtb4rpBcgalBZME4CzwkFx/cHcUp0pnWTFuvBvuATOZxAqH3QH6niCkqsXk9g
-         /AtGQvGgh3s+nmfVrAamu3+jqmi6YpxtAz646NJhpYkNHfB4liSfKwKXLMO2P+h5eINh
-         3dz3ZBMG8JkrkquaV8rcCUYqOZkpvizKG1TjhtGhunoZIAfhEbrZi4HYW1CkWL5sBW2G
-         wFdLRvymoreXAJtxof1T8M3O0PzjmWiU+eHUH8uiejRVePAAVWm1a/4C5VOWqpt2kU7r
-         jfCoYvyO+A801Zntyd/0oV5ZP4AFedPwB0HNilBmjvZ0VskCut8Lm/Ja5FYe/Fm2uVMN
-         6tMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790693886; x=1791298686;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790693911; x=1791298711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iS0vI6VPFheNRyG7TeQ5h4c/DL9d1CbeqeEtao3CvUY=;
-        b=CN8GVAcOPCvRaV2XdKVt9UpXYVTvZr19wFWDdE6kx3K5/xFkDxShK3jI4BytKOmfL6
-         nR0RiEbsyDWHYu/x72Lq0HTXknMFwt3cf/HHQaL8FVqNPjFJrD1eQh7FocvEkEIsSPmS
-         Q4CIwJSp7y7nJ6m8sflK+b6PL/VQfsqIZlsxSfRKqYdLE8uM76H9fl+1RxzPrmOwUd9T
-         7ztkMRMryxrzFa93NlJszMjw1bhRPJh7zHcHqzQQcuJIsn1hb8uUyU+m1zRlYtaA22J1
-         drQF5qDnNEo0kbkk//UkZkCrnD2saS9+b2k4WGbIigf5xJzysRU/Tm4mmJJqwONxNkUN
-         GbBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwpOj0Gq04Yx6RK5/kBgiOtnHWepp4noZYO0/qPwuDYVJhYCzY5RS2GuQxkDPr3BLFNBf2pKhjNBYrYbVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJx2dSR5IDVbGUqYqes597rkK3WeDxDjZDXwNCNJZ/TVzNECAPI
-	5YIjw8TAflpBeYI80fU1Fv3rxcS74w4hR+qCGoTmIwulVC6x3XbU3ANb
-X-Gm-Gg: AYBFou2qAOS5GgmVrWRSkcW6lguwXsOUbDJPnLO8+Xyq6M6/Xy9SfjxrquI+lfDK7M/
-	gOCB93425UC7RD1w59rkyIbdAjXGIftPUG4xzxdHC0I6bfVArD4XwAd2TZwSGbvVg7BFEscqpJN
-	u/Zt5BScVohNJ+IvrQuvbXjGj0flK758+RkXaZh9C7FTDqN+vFBzYZaCu97xvvHcwSyIwLpDGFL
-	YdGrKxLZb7JM5dvfyl1UmYVjRhNmMLGUQKdqg5edtBItt6xheHbvYhdFAaKQykY+j4yqucO143r
-	KeRkWfel8MDPElbYHHbC6qshmEG8bsgGyC54ttPCJn+zphteCVJZmy9wbxKNCPpTn+WjDPOazEY
-	7EqJitZeraSNDfB4nuPdxWWcKEKI8+qvLL7EBWrTvp+fGHHOoMnrlojje04Ri59poi6tvHOLVbC
-	Q7737oKzotJF3jYp8T2Ex0dvDHtNfv0YE/96qqEWLOEHMLQ/zoRZoa8ekv8uRNAn/XCuTsMwT+V
-	lmIuOSUOZ96B2yWUC66DaDAZO7wcI79C1tnhELRfOODGv1kGl0x
-X-Received: by 2002:a05:690c:e68d:20b0:8ab:318f:1b61 with SMTP id 00721157ae682-8ab9588cbf2mr959057b3.41.1790693885914;
-        Tue, 29 Sep 2026 07:58:05 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ab46e3d02bsm6381477b3.29.2026.09.29.07.58.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:58:05 -0700 (PDT)
-Date: Tue, 29 Sep 2026 10:58:04 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Quchaosheng <quchaosheng000406@163.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-Cc: Quchaosheng <quchaosheng000406@163.com>, 
- Simon Horman <horms@kernel.org>, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.24f9b153d245a@gmail.com>
-In-Reply-To: <20260928113108.2127215-1-quchaosheng000406@163.com>
-References: <20260928113108.2127215-1-quchaosheng000406@163.com>
-Subject: Re: [PATCH v3 net] net/packet: guard the ll header push in
- packet_rcv_spkt()
+        bh=Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=;
+        b=c3Mp7DryE6lf5INug55hBEZKzqaeciJzfTFBKGnNP96nAfwT6SRjxyQnxHNzn7WnhM
+         xRdEZLJMV/RfewuvtqKpsQVQ+YJtLoJUer4FY9ti8kjlpDvtKcZqop/YotW9axgfGxvr
+         bWbLhYQdQKAhuuGEpI1uzQ3TjgOF6TTq7EfQ5F6JHBZ8175dIsVTVs6C1mxNZLkL52bm
+         yNoRTdSYB4Z80oHKbg5D3a8zuFVI4N2m8OZSDuu+3fPAVEqKsDzhE1OyyVtNFrfIacP/
+         yKg04supWUBfXLg1L+2jgfhP2GPliaMAXceWUMOcDZa5VmXTABMtuOS/yAaQj39ATygB
+         0OQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790693911; x=1791298711;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cfew/DLGWZ2OWSHmGvnAzyCDWtCayHiP7Z8vNY3IhS8=;
+        b=B4LGExCmLY1/zuZShRyzlkYl6ECwN91IS3zRFnPrhAQrbjs75As1xjRysWUi3Orrkp
+         Zce5rmcGdtAdRNZ0wXJX30JG6bz+G2Ht0E2dkL/vjpY4L7qkXzrpJpvl3m68mnQRRjOH
+         U+yW8vnLyJeHvIA4086bRZVi1LgA4wSZCeQ1Crpi0SoGa9P5t4cGFsTP9Ug3IP2+hhdp
+         EY1Rqk/bvgJFEinxIa6AiLBCNqFqczk134vyigFtzAC2aBCpamhvnGi3xJYLc6DgfaA6
+         n6GAf6Zmks3MJyfDSRB1rXtzbF+C33htCxBvbwHOhL/1LA4BAwqCy4+tKrDjRsMawqc4
+         2Whw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9/XM0MU68ZfGg6GDmwFefWiAlSG2VQaUR90RjTHsaMoYXkknwnNrWC9323SHBHEKyK3KGzR60pqrLv+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l69u8y3+05A+eaTauNNRuVl+E8qg6P285cyGPNfm4ZA+n9/Y70
+	4+gG5RY9qU4Zh+Xd8LB0DWH+GimU9+9tiravgfe4y+iwMZLwy42uzVEHzqXb+DWozMfWkLYZBge
+	2bBgOlSV9h4uxCUjSOHgjI5obX7iQncuj8chjadfQUEoAWswbjiiddvhpj4JZH/P5FTE=
+X-Gm-Gg: AYBFou36jsjVkRIeEqkY/EukDXFSsB1ruywHcD/BQ+VrD68pSEmnR12sIBzl7ibrc3I
+	WwC/0hF+NhPs9etrP/L6uScBj4r3a9LV9BrUPQ/MqyKOXxkS2hY4dfkQOQuFeDqjwEr6DSdUqRh
+	NcguF00tb7R2WZ0+r6k3zYXBmeOZbSUJiDjG3QK63f1k2nW2yO8tdjX2XQGvWuI7fgFiC52g5Ql
+	jP1h797TJEzCobXcFJOq9PscKNt6C5nYgwE9+vQhiIuVHWvth4/7qnVkuFtvJhllWYb5pGfiPmc
+	m5g5tOq0Ga73Xzr6wj42QjHuceYhcmUvVx6B66HMX8ZOT1GJm4v28FwFx5R0LdjF5DIBL2FwBX7
+	rkhf3EGRW0OBq7a081JgDdfe63nZl3aAKXmRP
+X-Received: by 2002:a05:6214:390a:b0:914:4601:dfd8 with SMTP id 6a1803df08f44-9144601e535mr213690316d6.10.1790693911017;
+        Tue, 29 Sep 2026 07:58:31 -0700 (PDT)
+X-Received: by 2002:a05:6214:390a:b0:914:4601:dfd8 with SMTP id 6a1803df08f44-9144601e535mr213689766d6.10.1790693910318;
+        Tue, 29 Sep 2026 07:58:30 -0700 (PDT)
+Received: from [192.168.0.116] ([124.123.146.251])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d377464sm12112356d6.41.2026.09.29.07.58.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 07:58:29 -0700 (PDT)
+Message-ID: <4b149801-0846-455f-83aa-a222219d01be@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 20:28:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 0/2] net: wwan: qcom_bam_dmux: Add restricted
+ DMA pool support
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Stephan Gerhold <stephan@gerhold.net>,
+        Andrew Lunn
+ <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
+ <ca3c86b6-c837-4298-a1ab-4fc61a2f8a0a@oss.qualcomm.com>
+ <artzWeUgTHvGzo1m@linaro.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <artzWeUgTHvGzo1m@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1OSBTYWx0ZWRfX/BZeuJ1e63Il
+ W6vDkritQXgNXv9GK5PE0ZZtij3GHUusjrBc9zWU3N4GGCnyjCHGEFlSovEXeSzaONMYmV9q4nm
+ yVrQS2IFtm93MAhwNMGtMBKE90fqd1o3CR957do1sQem1NB941vDwrqh/JB+QkuENNaKTIMw0p1
+ URD6Dms6NL9mtLQoosxpPyEWR76+lm38bqE4XlJUAaec9Sgq0tiIAL+CPRoIN6D1WZqkSPdtrqT
+ S2f5dhi/x/XeUV798jK1HF3ZjHwuI78JerQvuc+ftpmfhY6pZQakFq1ikxF4QUyDy2Mr4Y6MYT7
+ kfRYPTUd5isjen7DIpYnWI8nuj2k6LIYl/6b4kqEIUEZQCZBNRCpShxRvFRnOitsSJTr7JN5v3V
+ T3cuApIJDVxvSW70rByWx4bpZAoB3GEDrgmxI5u2GbEBy34Rtxzk17ZylL4bcjWnHQZhdr1jUeP
+ PsFJxabvkYPN8t2l2xg==
+X-Proofpoint-GUID: HU5L5FTgy_mPf7mrejvc6y0oAJPXuex2
+X-Authority-Analysis: v=2.4 cv=VcVir1p9 c=1 sm=1 tr=0 ts=6abbd217 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=K/78aEDNEn2Q/Yuv7mVN5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uW-ob52F1wccIURrHgMA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: HU5L5FTgy_mPf7mrejvc6y0oAJPXuex2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1OSBTYWx0ZWRfX9GyhNTuQxcM6
+ zjEkoD+ETJazPqswbdJ/ZlCo+ELF7c8raLPZcdYCbt7lWQX5P6F06Lw7PXkrXUrir7LUQcaiGEt
+ jZNl9RWmHsEn6eoNGN98UJetO+eafZA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290059
 
-Quchaosheng wrote:
-> packet_rcv_spkt() restores the link layer header with
-> 
-> 	skb_push(skb, skb->data - skb_mac_header(skb));
-> 
-> That subtraction is only meaningful when the device actually has a link
-> layer header.  packet_rcv() and tpacket_rcv() both wrap it in
-> dev_has_header(), which is also the predicate the block comment at the
-> top of the file states the restore in terms of; packet_rcv_spkt() does
-> not.  commit d549699048b4 ("net/packet: fix packet receive on L3
-> devices without visible hard header") introduced the helper and changed
-> the two call sites, and this one stayed behind.
-> 
-> A device without a visible ll header can leave skb->mac_header at the
-> 0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
-> init_can_skb() sets pkt_type and ip_summed but does not reset the
-> headers, and commit 9f10374bb024 ("can: remove private CAN skb
-> headroom infrastructure") dropped the skb_reset_*_header() calls that
-> used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
-> a large negative number and skb_push() reports it through
-> skb_under_panic() -- from softirq context, so it is a full system panic
-> even with panic_on_oops=0:
-> 
->   skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
->   kernel BUG at net/core/skbuff.c:214!
->   RIP: 0010:skb_panic+0x50/0x60
->   Call Trace:
->    <IRQ>
->    skb_push+0x38/0x40
->    packet_rcv_spkt+0xe1/0x170
->    __netif_receive_skb_core.constprop.0+0x7e8/0xd30
->    ...
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> The socket type is reachable: packet_create() accepts SOCK_PACKET
-> alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
-> and neither the socket length nor a capability check keeps it away
-> from a CAN interface.
-> 
-> The missing skb_reset_*_header() calls in init_can_skb() are a
-> regression in their own right and are being fixed separately, but a
-> packet socket should not turn a link layer that did not initialise its
-> mac header into a kernel panic.  Guard the push the way the other two
-> receive paths do.
-> 
-> Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
-> the driver RX path: vcan does not reproduce it, because can_send()
-> resets the headers on the way out.  One SOCK_PACKET socket bound to
-> can0 and one frame written into the line discipline panics an
-> unpatched kernel with the trace above; the same image with this patch
-> prints no panic and powers off normally.  Both kernels are this tree,
-> defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
-> 
-> Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+On 29-09-2026 01:44 pm, Stephan Gerhold wrote:
+> On Mon, Sep 28, 2026 at 04:02:47PM +0530, Vishnu Santhosh wrote:
+>> On 20-09-2026 08:32 am, Vishnu Santhosh wrote:
+>>> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+>>> domain with restricted access to system memory. BAM-DMUX DMA mappings
+>>> and BAM descriptor FIFOs must therefore be constrained to a designated
+>>> memory region that can be shared with the modem. Accesses outside that
+>>> region can trigger an XPU violation.
+>>>
+>>> Add memory-region and qcom,vmid properties to the BAM-DMUX binding.
+>>> When qcom,vmid is present, the driver SCM-assigns the entire restricted
+>>> DMA pool to the local and remote execution environments before requesting
+>>> the DMA channels.
+>>>
+>>> The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
+>>> controller references the same pool, its descriptor FIFOs are covered by
+>>> the assignment as well.
+>>>
+>>> A related binding change allows the BAM DMA controller to use the same
+>>> restricted pool for descriptor FIFO allocations:
+>>>
+>>> https://lore.kernel.org/all/20260920-qcom-bam-dma-vmid-ext-v2-1-4dbbff0e57c8@oss.qualcomm.com/
+>>> ("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
+>>>
+>>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>> ---
+>>> Changes in v2:
+>>> - Replace the Shikra-specific compatible and coherent RX allocation with
+>>>     memory-region and qcom,vmid properties.
+>>> - Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
+>>> - SCM-assign the complete pool before requesting the DMA channels.
+>>> - Validate the remote VMID and restricted DMA pool configuration.
+>>> - Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
+>>>
+>>> ---
+>>> Vishnu Santhosh (2):
+>>>         dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
+>>>         net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+>>>
+>>>    .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 +++++++++
+>>>    drivers/net/wwan/Kconfig                           |  1 +
+>>>    drivers/net/wwan/qcom_bam_dmux.c                   | 95 ++++++++++++++++++++++
+>>>    3 files changed, 134 insertions(+)
+>>> ---
+>>> base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+>>> change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
+>>>
+>>> Best regards,
+>> Hi Stephan,
+>>
+>> I followed your suggestion and updated v2 to use the restricted DMA pool.
+>>
+>> Please let me know if this approach and the implementation look reasonable and
+>> meets your expectations.
+>>
+> Thanks, the approach looks good to me. You received some comments from
+> others and Sashiko already, so I will make a more thorough review from
+> my side once you have addressed (or at least considered) them for v3.
+>
+> Thanks,
+> Stephan
+
+Thanks for confirming the approach. I will address the remaining comments
+as well, so that you can proceed with thorough review.
+
+Thanks,
+Vishnu
+
