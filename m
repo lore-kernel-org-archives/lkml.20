@@ -1,275 +1,168 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12448519DF5;
-	Tue, 29 Sep 2026 12:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7DD50EC1C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684041; cv=none; b=XoaGr5DOWXogPm1Uav2r0E97H6Nj9dnTXwPK96TjScNDIxHHHRS37eOZGHhQBCCcgMpZQR/tOz0Bydg+wazJsjL84IK7jHG4XIFYW8pzQRqjs10TkOM6BoOIW5iKhyj2on7YvcZjwRmEdwQ1ANvPw62oSYmgID53aefZcEZO2cc=
+	t=1790684059; cv=none; b=pGjE3TQu0TtnPBBU2X6sKZLmDZBC4Ekkf1sXpNuk1d7XADaX4+FIJOHmu6lBC/M/HcI368A6lwuJFw8QcgP3oGy4z7rZgnO8sRRAsr6n7uobYiKm2gzOTHx3MNyA9KuWQDEfovBHJUjgLZCM+J0fLLvGVUqp9bCvOUVBvXm2wWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684041; c=relaxed/simple;
-	bh=tzRq1nQqVKgeTjL+BXtutkXKsbTpUe1v+8HDD2W8fhs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U5XROK6YqZhf9pD3lZnKsR3enGPUYmev8Yd0IVO0QMPoznf/FoJnOHzhPBQN04SAiNkgz/aWFaz5tlRba8e8IriD9TSI52i1JmiEa23DeVVinr/Xx/RsEItGM5r0/1xZPlRI4rCGrheejX6JkmbhP2vUIT5RCUuV3PTm57bt1WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ly55CIHQ; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790684059; c=relaxed/simple;
+	bh=0+FK7CZdNqjwUrlTbS3GOvCFn0zxabA/TtGnzwA6aMA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TT+zbxWqeBvqvSUNYgLj2aGsK6xiymT0j5SUTnkdaocN5AvbXwMIRP4zrU4SXC4zdRO68Ggu9kpig/wjzXnaupjQLaa7hokBPJ5QetRa3lyTpXzOSdjwp3+4OZ9u+L9a945POwZriOsvgwlMtmrduDjB5EC6JvhDoETMmJNIPvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NSBsxO66; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ly55CIHQ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Qf1wifVMGQ5Xxq6Y+9fvB4ciUzALM7HnducbSW/kuhk=;
-	b=ly55CIHQUFUz9Gbak4geFzPgWujO81YXMpbEnqI3uyAH6jR/5EhLhjIZW20wt0ewXiuvF8HQt
-	T1CueG+fRQCMLOW9/bEaXarWOz034c+pmMF6BeUGBMIGZP79Oe+CCCOaMoejpBAYrLFULZonlrN
-	SVgOcZhX7K3bTaOklcvglLI=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hvGxK4RT0zpSvD;
-	Tue, 29 Sep 2026 20:01:41 +0800 (CST)
-Received: from kwepemo100017.china.huawei.com (unknown [7.202.195.215])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7819640561;
-	Tue, 29 Sep 2026 20:13:50 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo100017.china.huawei.com (7.202.195.215) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 20:13:49 +0800
-From: Bowen Yu <yubowen8@huawei.com>
-To: <linuxarm@huawei.com>, <liudingyuan@h-partners.com>,
-	<andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>, <acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <rafael@kernel.org>, <lenb@kernel.org>
-CC: <zhanjie9@hisilicon.com>, <prime.zeng@hisilicon.com>,
-	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <yubowen8@huawei.com>,
-	<ouyiyong1@huawei.com>
-Subject: [PATCH v5 2/2] i2c: hisi: Add I2C bus recovery support
-Date: Tue, 29 Sep 2026 20:13:48 +0800
-Message-ID: <20260929121348.109556-3-yubowen8@huawei.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20260929121348.109556-1-yubowen8@huawei.com>
-References: <20260929121348.109556-1-yubowen8@huawei.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NSBsxO66"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C17E34E410BC;
+	Tue, 29 Sep 2026 12:14:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9508D601BD;
+	Tue, 29 Sep 2026 12:14:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 25B6F1032904B;
+	Tue, 29 Sep 2026 14:14:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790684053; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=A3Qxs4TGrNUfCVNKwYJJtBFl5Z95xNFCzczvn4uL2t4=;
+	b=NSBsxO66s/RT1WEBpwTNhYbLhCZlF5S13iidsgkIk+GU0EDusmcvolh2/eJAA3UfJUK1hW
+	cA3fp1xeDIWEW78sum7OQGzEyNUMteFhidqmK6e7XUWNIYHnENPy8U8tL40t3eeynlnquA
+	47lNN5jGT+EnySNUzxBKDtEOsZUZa3gMfArjuhKQcf6mhgABkBWYlrUMx4D2ycllAuWpUu
+	LWQwuawfWn2ipm5jiQRSk60pbeZgmfibYSCnVfx+25CopeOMtVm9cG7jxUSJTfZoyOnv2g
+	cmE5twEwwE1mdqPmX6r6FFtZongUYETh3wr52jafco0Ac01arvmqnim/wTFcVw==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Subject: [PATCH v4 0/5] MIPS: GIC clocksource/irqchip improvements and
+ fixes for multi-cluster systems
+Date: Tue, 29 Sep 2026 14:14:07 +0200
+Message-Id: <20260929-sync-gic-counters-v4-0-ec70c4b60434@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemo100017.china.huawei.com (7.202.195.215)
+X-B4-Tracking: v=1; b=H4sIAI+ru2oC/23PywoCMQwF0F+Rro2k7TAPV/6HuOgj1Yq20o5Fk
+ fl3Z1QQdJYXknOTB8uUPGW2XjxYouKzj2EM1XLBzEGFPYG3Y2YCRY0NbyDfg4G9N2DiNfSUMnB
+ ja12h7uqW2Lh3SeT87WVud++cr/pIpp+gaeLgcx/T/VVa+DT38UU14xcOHJQSlbPoJGq30TH2J
+ x9WJp7Z1FDE12g5zhkCEKyjVgsjm1rjvyG/RodzfxY5GtK2HbdWaat+7hiG4Qlz7/U5TgEAAA=
+ =
+X-Change-ID: 20260717-sync-gic-counters-1cd6b40b968e
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Aleksandar Rikalo <arikalo@gmail.com>, Paul Burton <paulburton@kernel.org>, 
+ Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>, 
+ Chao-ying Fu <cfu@wavecomp.com>, Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mips@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-When the I2C bus is stuck due to a slave device holding SDA low
-(e.g. during an incomplete transfer), the master has no way to recover
-the bus through normal operation. Add bus recovery support using the
-subctrl register to manually toggle SCL and generate clock pulses to
-release the bus.
+This series addresses multi-cluster MIPS GIC handling: it fixes a few
+cross-cluster and lock bugs, and allows the GIC timer to be used as a
+fast local clocksource on multi-cluster systems by synchronizing the
+per-cluster counters.
 
-The recovery is performed via a second register resource (sctrl_base)
-that provides direct control over SCL/SDA lines through mux and
-output-enable bits. After recovery, the I2C controller is reset through
-the ACPI _RST method and reconfigured.
+The first three patches are for the irq-mips-gic irqchip driver.
 
-Recovery is only registered when the subctrl resource is provided in
-the firmware description, keeping backward compatibility with existing
-platforms.
+The first patch fixes the for_each_online_cpu_gic() macro which
+was releasing an unheld per-CPU cm_core_lock on every invocation
+on multi-cluster hardware. Move both the acquire and release into
+__gic_with_next_online_cpu() so they stay balanced and the for_each
+macro accesses all VP on a multi-cluster system.
 
-Signed-off-by: Bowen Yu <yubowen8@huawei.com>
+The second patch fixes a recursive acquisition of gic_lock in
+gic_set_affinity() when moving interrupt SMP affinity across clusters,
+caused by a call to gic_set_type(). Split out a gic_set_type_locked()
+helper to resolve the issue.
+
+The third patch transfers the interrupt mask state when moving affinity
+across clusters. The mask is per-cluster, so after a cross-cluster move
+the interrupt was left disabled in the destination cluster; and
+unconditionally enabling it would unmask an interrupt that was
+deliberately disabled. Save the mask state in the source cluster and
+restore it in the destination cluster.
+
+The last two patches are for the mips-gic-timer clocksource driver.
+
+The fourth patch simplifies gic_next_event() as it is guaranteed to be
+invoked on the CPU that owns the event, and adds the CLOCK_EVT_FEAT_PERCPU
+flag to document that guarantee.
+
+The last patch is the main functional change, carried over from v1. It
+synchronizes each secondary cluster's GIC counter to cluster 0's counter
+as its CPUs come online. Once every cluster is in sync, it promotes the
+clocksource from the slow cross-cluster gic_hpt_read_multicluster() path
+to the fast local gic_hpt_read() and re-enables the GIC VDSO clock mode.
+The switch is done with a flag rather than by unregistering and
+re-registering the clocksource. On the dual-cluster Mobileye EyeQ6H SoC
+this makes clock_gettime(CLOCK_MONOTONIC) about four times faster on the
+secondary cluster and replaces the jiffies-based sched_clock with the
+high-precision GIC counter.
+
+This series was tested on Mobileye SoCs with different cluster
+configurations:
+* The EyeQ5 with two clusters but only one is equipped with VP
+  (VP topology {2,2,2,2},{} total 8).
+* The EyeQ6Lplus which is strictly single cluster
+  (VP topology {4,4} total 8).
+* The EyeQ6H with two identical clusters
+  (VP topology {4,4,4,4},{4,4,4,4} total 32).
+
+Although I am posting this as a single series since the patches
+are all related to the GIC, the changes to the irqchip driver and
+to the clocksource driver are independent from each other and can be
+merged in different trees. I can split the series in two if it helps
+reviewing/merging.
+
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
 ---
- drivers/i2c/busses/i2c-hisi.c | 142 ++++++++++++++++++++++++++++++++++
- 1 file changed, 142 insertions(+)
+Changes in v4:
+- Patch 3: Don't unconditionally enable the interrupt when moving affinity
+  across clusters (Thanks to Thomas Bogendoerfer for the review)
+- Patch 5: Use a flag to avoid unregistering and re-registering the
+  clocksource (Thanks to Thomas Bogendoerfer for the review)
+- Link to v3: https://patch.msgid.link/20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com
 
-diff --git a/drivers/i2c/busses/i2c-hisi.c b/drivers/i2c/busses/i2c-hisi.c
-index ba5c9579ae19..5b4e92d23032 100644
---- a/drivers/i2c/busses/i2c-hisi.c
-+++ b/drivers/i2c/busses/i2c-hisi.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2021 HiSilicon Technologies Co., Ltd.
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/bits.h>
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-@@ -62,6 +63,8 @@
- #define HISI_I2C_INT_CLR		0x0048
- #define HISI_I2C_INT_MASK		0x004C
- #define HISI_I2C_TRANS_STATE		0x0050
-+#define   HISI_I2C_TRANS_STATE_SDA_LEVEL	BIT(5)
-+#define   HISI_I2C_TRANS_STATE_SCL_LEVEL	BIT(6)
- #define HISI_I2C_TRANS_ERR		0x0054
- #define HISI_I2C_VERSION		0x0058
- 
-@@ -86,9 +89,26 @@
- #define NSEC_TO_CYCLES(ns, clk_rate_khz) \
- 	DIV_ROUND_UP_ULL((clk_rate_khz) * (ns), NSEC_PER_MSEC)
- 
-+/*
-+ * SUBCTRL SC_I2C_CTRL register
-+ * Set HISI_I2C_CTRL_DAT_CFG_EN and HISI_I2C_CTRL_SCL_CFG_EN to control
-+ * I2C pin behavior by subctrl controller; use HISI_I2C_CTRL_DAT_OE and
-+ * HISI_I2C_CTRL_CLK_OE to control input or output; use HISI_I2C_CTRL_SDA_OUT
-+ * and HISI_I2C_CTRL_SCL_OUT to control output value.
-+ */
-+#define HISI_I2C_CTRL_DAT_CFG_EN BIT(5)
-+#define HISI_I2C_CTRL_SCL_CFG_EN BIT(4)
-+#define HISI_I2C_CTRL_DAT_OE BIT(3)
-+#define HISI_I2C_CTRL_CLK_OE BIT(2)
-+#define HISI_I2C_CTRL_SDA_OUT BIT(1)
-+#define HISI_I2C_CTRL_SCL_OUT BIT(0)
-+
-+#define HISI_I2C_RECOVERY_REG_SIZE 4
-+
- struct hisi_i2c_controller {
- 	struct i2c_adapter adapter;
- 	void __iomem *iobase;
-+	void __iomem *sctrl_addr;
- 	struct device *dev;
- 	struct clk *clk;
- 	int irq;
-@@ -108,8 +128,14 @@ struct hisi_i2c_controller {
- 	struct i2c_timings t;
- 	u32 clk_rate_khz;
- 	u32 spk_len;
-+
-+	/* Bus recovery */
-+	struct i2c_bus_recovery_info rinfo;
-+	acpi_handle acpi_handle;
- };
- 
-+static void hisi_i2c_configure_bus(struct hisi_i2c_controller *ctlr);
-+
- static void hisi_i2c_enable_int(struct hisi_i2c_controller *ctlr, u32 mask)
- {
- 	writel_relaxed(mask, ctlr->iobase + HISI_I2C_INT_MASK);
-@@ -151,6 +177,118 @@ static void hisi_i2c_handle_errors(struct hisi_i2c_controller *ctlr)
- 	}
- }
- 
-+static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
-+}
-+
-+static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
-+}
-+
-+static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	if (val)
-+		reg |= HISI_I2C_CTRL_SCL_OUT;
-+	else
-+		reg &= ~HISI_I2C_CTRL_SCL_OUT;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
-+		   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
-+	reg &= ~HISI_I2C_CTRL_DAT_OE;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
-+	writel(reg, ctlr->sctrl_addr);
-+
-+	/*
-+	 * Invokes the specific ACPI method "_RST" to trigger a soft reset
-+	 * of the I2C controller to help the I2C controller recover from
-+	 * the abnormal state after the bus recovery process.
-+	 */
-+	if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
-+		acpi_status status;
-+
-+		status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
-+		if (ACPI_FAILURE(status))
-+			dev_err(ctlr->dev, "_RST method failed: %s\n",
-+				acpi_format_exception(status));
-+	}
-+	hisi_i2c_configure_bus(ctlr);
-+}
-+
-+static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
-+					 struct platform_device *pdev)
-+{
-+	struct resource *res0;
-+
-+	res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-+
-+	if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
-+		return -ENODEV;
-+
-+	ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
-+	if (IS_ERR(ctlr->sctrl_addr)) {
-+		ctlr->sctrl_addr = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr)
-+{
-+	struct platform_device *pdev = to_platform_device(ctlr->dev);
-+	struct i2c_adapter *adapter = &ctlr->adapter;
-+	int ret;
-+
-+	if (acpi_disabled)
-+		return -ENODEV;
-+
-+	ret = hisi_i2c_get_bus_recovery_res(ctlr, pdev);
-+	if (ret)
-+		return ret;
-+
-+	ctlr->rinfo = (struct i2c_bus_recovery_info) {
-+		.get_scl = hisi_i2c_recovery_get_scl,
-+		.get_sda = hisi_i2c_recovery_get_sda,
-+		.set_scl = hisi_i2c_recovery_set_scl,
-+		.prepare_recovery = hisi_i2c_prepare_recovery,
-+		.unprepare_recovery = hisi_i2c_unprepare_recovery,
-+		.recover_bus = i2c_generic_scl_recovery,
-+	};
-+	adapter->bus_recovery_info = &ctlr->rinfo;
-+	ctlr->acpi_handle = ACPI_HANDLE(ctlr->dev);
-+
-+	return 0;
-+}
-+
- static int hisi_i2c_start_xfer(struct hisi_i2c_controller *ctlr)
- {
- 	struct i2c_msg *msg = ctlr->msgs;
-@@ -496,6 +634,10 @@ static int hisi_i2c_probe(struct platform_device *pdev)
- 
- 	hisi_i2c_configure_bus(ctlr);
- 
-+	ret = hisi_i2c_recovery_init(ctlr);
-+	if (ret)
-+		dev_info(ctlr->dev, "I2C bus recovery not available\n");
-+
- 	adapter = &ctlr->adapter;
- 	snprintf(adapter->name, sizeof(adapter->name),
- 		 "HiSilicon I2C Controller %s", dev_name(dev));
--- 
-2.33.0
+Changes in v3:
+- Rebased on v7.3-rc1.
+- Simplified gic_next_event() as it is strictly per-CPU instead of fixing
+  unused code.
+- Link to v2: https://patch.msgid.link/20260810-sync-gic-counters-v2-0-dfe8b2c376b0@bootlin.com
+
+Changes in v2:
+- Four new patches described above fixing multi-cluster
+  handling in the GIC irqchip and clocksource drivers.
+- In the last patch, gic_clocksource_promote() is now deferred via a
+  workqueue instead of a CPUHP ONLINE callback, to avoid a lockdep
+  issue on clocksource_mutex.
+- Link to v1: https://patch.msgid.link/20260724-sync-gic-counters-v1-1-aa24fd0f30bf@bootlin.com
+
+---
+Benoît Monin (5):
+      irqchip/mips-gic: Fix unbalanced cm_core_lock in for_each_online_cpu_gic()
+      irqchip/mips-gic: Fix recursive acquisition of gic_lock in gic_set_affinity()
+      irqchip/mips-gic: Transfer interrupt mask state across clusters
+      clocksource: mips-gic-timer: Simplify gic_next_event() for per-cpu timer
+      clocksource: mips-gic-timer: Use local counter on synced multi-cluster systems
+
+ drivers/clocksource/mips-gic-timer.c | 138 ++++++++++++++++++++++++++++++-----
+ drivers/irqchip/irq-mips-gic.c       |  59 +++++++++------
+ 2 files changed, 156 insertions(+), 41 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260717-sync-gic-counters-1cd6b40b968e
+
+Best regards,
+--  
+Benoît Monin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
