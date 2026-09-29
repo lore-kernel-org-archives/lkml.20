@@ -1,135 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC6C519E15
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862F8519934
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790682897; cv=none; b=XaaBMPcOSkx+6zZnGbkNwQzTZogZhQyLUtOzVVb3LDsMdJ1f1+sIDX6ny+7zJlNoRqdINxpiQPUBwhJjEd4Bx+EFkX5UmlQ7ywJQe7Q/4jbkXjSq4D3iKYC9j3I3Hye+IWepGRrOV26F1bAzBvzCkySd+Sc0qMc91+mKhAD3iwE=
+	t=1790682920; cv=none; b=Xh80NeLYEpmaHHjNEuch27aQ5gWVysanTvZTfdID7LyDSjOkDVCacf69aPu+OWft8cK283L6MSKz5LWO6yT4dIhP2TtjaHNkb8RhM1CX8RzIW+7i+UegZl1dtm3QGzTecndvSHhttyCTROFRNG2ZmnC4QaNN/G5hEoKMP2EMHis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790682897; c=relaxed/simple;
-	bh=c60k/KOAc5O47x6RHXj43yPBfvEPoTV3R0UArwsoSYs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HwxE/wBwMtPCc+XWjLc/pqw3Amw8bVgpfmHDaNRqvQRliXDMZ6dctp+hRIZLYAzRqzbBb4hc4KaXEWnIN813hf62TNTZwYTiuyOWFN/cSDxVZbXi9TiwNrM+1bKiV0FfnokNPnyPlNODKY+3+84shyi+gnDaatuw/5WrrrJ4QB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M10x7lp6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790682920; c=relaxed/simple;
+	bh=+D1EpXOsao70oTHN1ZB/SJuPMfP4iFavKifX1vQAiZc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=WCk195sgrTTDmWzIW8UX10wlAeYz3LRKPhe5uM31kgn+siS3SO/4R9BLsRiEe2j0sD/Rmk1ifcNAfTwQB0tdjyDrAdZU6BC1MWaKAeKgWlLNAQQZc2zJ2aP7f+XveKZizq1kVbDbEFq//Ikac7S0qLlMKXN8UDCHo+wehXMWur8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=TtASs+EW; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M10x7lp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027C11F0089B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790682896;
-	bh=S0aLT5GhtdTKzc7SEqO4ZKrTggwJ/hbn3y4IvvHxkXI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=M10x7lp6AAYxWfozwpiVSaz6eD3KM81OR+04WgSLlTBECqAaypzptuVVr8yosWEDS
-	 ysNwVNr7mvaJ4uRDRfYhP2nJpm+FR8kRBGI5aNKmMyixKmNf2Zx6v2ubfui7W5ggQT
-	 0W/7fSnHaTOMKR4aeJOXCuPLtP8nes9Hd+/+OK2D/PVMnaBRjwNVio8/L7h2yt659S
-	 +i3oBvdUaAHrRJd6mWR4UNMJj6lqokowPKaOdpfN3C68PiDXt096AudJXDMbogb/Fj
-	 IJ0A2+h6fAtUeFHSPCehtQOykZQeTdD+mnX5gGStYdT0X1efVJV7D5iHkn0ONeOKpt
-	 CBPnhLvi3Jubg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f5ae6fa8so2184620e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:54:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByK8tJFqXov3XTEu7tIINQ277owmIeM2rS7slY6rd2MFtpvc4srz+sDxGD1piTsPrM+MGLnq5bcOA8m+qI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhs+inL2V5z7SD5Zsdm5gM4e8Uq4Z1gPLBPAQHdUb4hl11J6sL
-	6mTIN8hLSQuiUE8RouV4n0SfYNXpVkfrg1rTwwNQ4pxbpJMFqSvJbw9+Qx8xWD4J51po7ndrgMm
-	73ftLtgzxVEKfTznb+KcLl88p68M22Rw=
-X-Received: by 2002:a05:6512:3401:b0:5b6:184c:7d99 with SMTP id
- 2adb3069b0e04-5b8df093114mr5498654e87.34.1790682894230; Tue, 29 Sep 2026
- 04:54:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="TtASs+EW"
+X-KPN-MessageId: 78d39de7-bbfc-11f1-8f57-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.190])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 78d39de7-bbfc-11f1-8f57-005056992ed3;
+	Tue, 29 Sep 2026 13:54:05 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 78d212ec-bbfc-11f1-b3e3-0050569977a2;
+	Tue, 29 Sep 2026 13:54:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=OyhKnhJnfh2BfCSlCihElmUmqjeW6EvlAyoMD8gCw24=;
+	b=TtASs+EWgMOqFN90qK7IplYbkh0d+RZ6VM2eYiEA3yxgZGrdTi7dAzX5wfd/GNT8ftitw8qucklcM
+	 +JcgUfiFiUue8d24hReOoAfwiA/ktKA5ReoXqgh7dbIvHWK9T50yw5t1fTwfOLZmjN1VCATryZ418h
+	 pk1OY+suZWlxP145u9oMklLcPf4WEWvzGRCuAKJF67itDuNJ0/Ktgb+QDx6q7rqTDrw1X8rngJP4ca
+	 WZQvo/lqcf5cUPhXQvctBCYbjRlAiGqbOGIyfZOb6fkf84OAjsDecaY5TgEUSVPt6ox/8RuRtciIwQ
+	 zw2lN9SiYmQlAiXnvWFKkmzNKvUmj7g==
+X-KPN-MID: 33|zaxh6UFxVctBfRcuwMrql1Yc+Wj9ISaWRbUJpDejJxGUQ8hNlQtKeTpTEiVyM8f
+ L7hOXwbSvGZ7toORSC1ZdPMSB9/YWp8x+y4prbEpQfCk=
+X-CMASSUN: 33|zf9aU6r3/aPS4YYE1OBJyI8QJyt3MMKnV0is/H3I2zHKi4v4wZV8NHHJrY+IutV
+ pNG4XaL/pNFYTJf1dASNjnA==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh06 (cpxoxapps-mh06.personalcloud.so.kpn.org [10.128.135.212])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 78c57858-bbfc-11f1-8edd-00505699eff2;
+	Tue, 29 Sep 2026 13:54:05 +0200 (CEST)
+Date: Tue, 29 Sep 2026 13:54:05 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: NeilBrown <neil@brown.name>, NeilBrown <neilb@ownmail.net>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <1010887891.582666.1790682845752@kpc.webmail.kpnmail.nl>
+In-Reply-To: <178977609418.207413.15011378414000392029@noble.neil.brown.name>
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+ <20260913185016.523376-8-jkoolstra@xs4all.nl>
+ <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+ <178972607557.207413.4312278359822083538@noble.neil.brown.name>
+ <178977609418.207413.15011378414000392029@noble.neil.brown.name>
+Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-hibernation-v2-0-235f69f3ab2a@kernel.org> <20260927150257.c9558f807114f2ce9c6675e0@linux-foundation.org>
-In-Reply-To: <20260927150257.c9558f807114f2ce9c6675e0@linux-foundation.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 29 Sep 2026 13:53:10 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jZnGzUOf6xsu-J-4cFOeY8yaLivNNUoBCnR4VJQisqHg@mail.gmail.com>
-X-Gm-Features: AclHuK8pzzjTvTId2wLoBf-9vLWfrBr9lHS8pLDp-rGJYqJfLaSLwRr15r-Wayo
-Message-ID: <CAJZ5v0jZnGzUOf6xsu-J-4cFOeY8yaLivNNUoBCnR4VJQisqHg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] hibernation: make safe_copy_page more robust and
- remove debug_pagealloc support
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>, Alexander Potapenko <glider@google.com>, 
-	David Hildenbrand <david@kernel.org>, Marco Elver <elver@google.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Mon, Sep 28, 2026 at 12:02=E2=80=AFAM Andrew Morton
-<akpm@linux-foundation.org> wrote:
->
-> On Sat, 26 Sep 2026 12:26:29 +0300 "Mike Rapoport (Microsoft)" <rppt@kern=
-el.org> wrote:
->
-> > When hibernation creates a memory image, it uses set_direct_map() APIs =
-to
-> > temporarily map pages that are marked as not present in the kernel page
-> > tables.
-> >
-> > Initially, this was intended to support debug_pagealloc along with
-> > hibernation on x86.
-> >
-> > With the increasing desire to use set_direct_map APIs for hardening
-> > features and with their inconsistent implementations across architectur=
-es,
-> > using kernel_page_present() + set_direct_map_valid_noflush() to save
-> > non-present pages in the hibernation image is not very safe, to say the
-> > least.
-> >
-> > Worse, some combinations of debug features, such as debug_pagealloc and
-> > PAGE_POISON cause a crash during restore.
-> >
-> > Keeping debug_pagealloc compatible with hibernation requires a complex
-> > infrastructure for tracking free unmapped pages with a page flag/page t=
-ype,
-> > verifying that it is actually a free page that hibernate_map_page() tri=
-es
-> > to remap and making sure there are no stale or failed page table update=
-s.
-> > With init_on_{alloc,free} and/or PAGE_POISON on top, this also requires=
- the
-> > ability to map and initialize these free pages on restore.
-> >
-> > This complexity does not seem justified for a somewhat niche debugging
-> > scenario.
-> >
-> > Instead of a complex fix to support hibernation with debug_pagealloc, m=
-ake
-> > sure that copy_data_pages() and its helpers properly handle errors that=
- may
-> > happen during page table updates, explicitly enable saving of KFENCE pa=
-ges
-> > and disallow hibernation when debug_pagealloc is enabled.
->
-> Thanks.
->
-> > Mike Rapoport (Microsoft) (5):
-> >       hibernation: make swsusp_page helpers static
-> >       hibernation: ensure secretmem pages don't reach a snapshot
-> >       hibernate: handle potential errors in hibernate_{map,unmap}_page(=
-)
-> >       hibernation, KFENCE: explicitly map/unmap KFENCE pages
-> >       hibernation: make hibernation unavailable when debug_pagealloc is=
- on
-> >
-> >  include/linux/kfence.h   |  29 ++++++++++
-> >  include/linux/suspend.h  |   6 ---
-> >  kernel/power/hibernate.c |   6 +++
-> >  kernel/power/snapshot.c  | 137 +++++++++++++++++++++++++--------------=
---------
-> >  mm/kfence/core.c         |  52 +++++++++++++++++-
-> >  5 files changed, 159 insertions(+), 71 deletions(-)
->
-> I'm not sure how to route this.  Rafael, wdyt?
 
-I don't have a strong preference.
+> Op 19-09-2026 02:01 CEST schreef NeilBrown <neilb@ownmail.net>:
+> 
+> > 
+> > nfsd_create_locked() used to do that before vfs_mkdir() could return a
+> > dentry, but it doesn't any more.  The reason was because
+> > d_splice_alias() on might return a different dentry. 
+> > In this case we want the same dentry, but we need to do a lookup on it.
+> > 
+> > I'd rather fix this in kernfs, but maybe that is a longer-term goal.
+> > 
+> > The comment in kernfs_dop_revalidate() suggests the we should d_drop()
+> > the negative dentry and d_alloc_parallel() a new one and ->lookup that.
+> > I'm not certain that is needed if we keep the parent locked, but we
+> > would need to be certain.
+> > We at least need to d_drop() the dentry before ->lookup as ->lookup
+> > cannot handle hashed dentries and a hashed-negative dentry is passed
+> > to ->mkdir.
+> > 
+> > I wonder if we could just disable O_CREATE|O_DIRECTORY on kernfs ....
+> > probably not.
+> > 
+> > Summary: I think that if vfs_mkdir() returns NULL (success) but the
+> > dentry is negative, we need to d_drop() and call ->lookup with a big
+> > comment about kernfs.  But we need to double-check that this will do the
+> > right thing with ->d_time (I think it will).
+> > We also need to think carefully about races with
+> > kernfs_dop_revalidate(), which could happen concurrently with the
+> > ->lookup.
+> 
+> I've thought a bit more about this ...  I think that doing a lookup after
+> the vfs_mkdir() results in a negative is a bit ugly.  It assumes things
+> about the fs that I would rather not assume.
+> 
+> I would rather have the current proposed code check for a negative
+> dentry, and fail with -EIO or similar.
+> 
 
-If you decide to pick it up, please feel free to add my ACK to the
-patches.  Or if you prefer it to be picked up by me, please let me
-know.
+I just noticed that there's precedent for this in overlayfs in super.c:
 
-Thanks!
+		/* Weird filesystem returning with hashed negative (kernfs)? */
+		err = -EINVAL;
+		if (d_really_is_negative(work))
+			goto out_dput;
+
+Shall we just do this for current kernel release, then we can add support
+later if wanted.
+
+(But let's do EOPNOTSUPP instead of EINVAL)
+
+What do you think?
+
+Thanks,
+Jori.
