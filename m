@@ -1,262 +1,212 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022090.outbound.protection.outlook.com [52.101.101.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F345C4FDA72
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698848; cv=none; b=fLWnBmMnenYZz5Kj3V0eNx4C4iMjembhY7DreS8Bg2ne//dm1p4iq4AvQA/JtFAPY4AjMKzZLjqSRr7FjtpFemABIlikpcGBOQ2qLecTLhpTyP2vzDgemAJaZ3GPO5wjba9LcuQOERGhxHjptqIivQh1Cegt2znlUH5zuSOZH2M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698848; c=relaxed/simple;
-	bh=UgnqOcoiOyCjdaRUkGLaBTpYmnuZDli+Tq5pWs/wI/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MuOVAgMfxDbx7kPgiFn2CORlXIRtldvRy00p/WqDiCCumzJCA9MIAzeL49dpIbrEPnaumiMXe1YF2x5Bxf0XvYQT75uvjbmj6czW4TckFn1ajc0bcQebfnFto/vBNM99kXP3lKo0NsmsHwNWe94eJwwNgTWb+D7lbPYF3q41euo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S3aDfofh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JeFETyiy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F69367B74;
+	Tue, 29 Sep 2026 16:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790698963; cv=fail; b=OIOWIDJW9xG6/hgL/QeWp35cgT7MJ9EaZiqUZ63Kh/E7K0ppxTIHfTfJLPCr98HjP5V81vDKyb9XVwlIfkE7ukLkfe/Fv/BvFJez7wIrSbrJZ6CpFdl3BWfrr+rsrjizbuDrTI45kY4KRcXDbo1qC2QkBq/NGAIcUIuP9ObEUuY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790698963; c=relaxed/simple;
+	bh=Tg6c6KIzN+QbgFKSDM2l93loMhbkgvl4vq+d2sqjyO0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=A/uvcFo0GaI7JguRge4a4aUj3ypNWqmb5aEh1s5U6ZV89Pr7d10nwaNnKdQzMG6SN0W9FxcsJ7pF6dJA+sD1IPkn17VsjU6WA6nBn83OAn6oq3fuNFrTBeXkSVz79esaq0/52Y6L7V7PodLl3uCwcm4tbOdZcGGdfsLigQ6FJeQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=nq+YAuZk; arc=fail smtp.client-ip=52.101.101.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S3aDfofh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JeFETyiy"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqoLC205448
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:20:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=SKXSfs161kjW32HtCfejw+Tq
-	SHrqUFuiYkbURsHolXo=; b=S3aDfofhAVbQ+GB7FUrhXjF6RxRCIGDQ6D2/Odio
-	oyFv18xsM/esDMVZEl0CQyPaU3lY3I0fw3ovIxVSHQuBWTOLlnZ+/Sgi4bEKIVXs
-	coIefEryno0zgmQEfkwH2Q5kTUs39mvd2sPhLhCHwDugO1Eort+VG5AcNF08CI82
-	6iq16IA6dFCDJIb40bnjbyqEPaFoDhAOI7ZieAQvqFnLZ/Mn9558GO1ZsM7dvaDu
-	47l49G+4SIT3wo91oL4dsAZvJCWWs9xuwVPRp0W/K5f4izgBgDskd0XBQn/ienM6
-	QoUoQSju6bO+k0rbGsef5OLldobdmupE0Ud1KH7+NuAVrw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0144v154-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:20:45 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-988d0a7e97eso1590241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:20:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790698845; x=1791303645; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SKXSfs161kjW32HtCfejw+TqSHrqUFuiYkbURsHolXo=;
-        b=JeFETyiydEyFiNXgHVAm1LVzwnscZgO0BKQpPev4pPbMhoUQbNV6jZMQUN+rNmv7gg
-         1YZAQtV4O5c+ohrsoMmjE5Q+53SjdvF5wLFvKSf+A1RiEAhlgCU/U8KQlP9nDoasFGku
-         mvIQKrZ+mrxOKGBhI6h6cEQlD/CbiY+cPojAT7KPEOFFdXlAFqjbmUqMjub9iLO5qeRl
-         tOYFgBiqQ8iWvoph3YYlz4mo3av63l1meEdjNp935T8MtImS7kRayi3unb4xlHWnl8As
-         50AideFuBjgrDi5EeH4ndhRQ4lYv7DlI47zRUoUZOxCG7ZpkklxAcpDv8CBEtf3DIzR6
-         OK6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698845; x=1791303645;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SKXSfs161kjW32HtCfejw+TqSHrqUFuiYkbURsHolXo=;
-        b=TVODwMt3K4yhkpDwoXHmlo6naay6D1F/bsUGFscwlpARtj1hxIgjAMFIdd4+K/jf1E
-         iv0Yed2e7ZBVi220KikcFvHaw1ZpCrCDFqnr9Jsksh14+Gn00AlCOIGH+FaLGyJh6MqT
-         HxssqIjZv83J7abAfjfGcvIE6IJ1lQCWT1EN88HfWmzEx8k8zGwoWn+zZRF19gIhnnPT
-         pbgwPLn3reAmvnQcBl88gJHucbxsuY0GvbN48mzqHVX4g6/YTmUlixt7/6fIqtl0Dutv
-         NJ4WNUjGG97tMhykm2sGVFJqhYQblz/AtggrrhG4V2K3ddcxzrRVosQis18vEFOMZYmV
-         UZ9g==
-X-Forwarded-Encrypted: i=1; AKwUvBzNk8qh5vfMZCLGR2xWyVb2J9SkinUP/99l1cjbHGOI5VOnY52nuxYPA6oLFcbrNBZJ+GouFD8gat7XWso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+oPVYCD5R8nM+KagG0SRiGkjykHQuRKyJOrOUDr0s5qdsBaBY
-	RA0QARN6bviEnF6Gc43GwxjbmHkTKe3R+Nzqn4StF75YCinXuF/J2bNgc5ILvusb4kS36Fpko+r
-	wgK/BBuTBLJVJ9Z1KpivopsiyxuO6c2k05kligYqrxk9Eqnl13aTWYb+RNjU8uK1kSkU=
-X-Gm-Gg: AYBFou10edH0zDWJMvl5ccmp/pntBnq44gu+eZM9GdhXyLVY9nMylcSdyZNphfM7FrL
-	lSDFji+sSp6z9jRYRK+QEIO2nIYmGhUzw8NgWXbIdBwpB5scbkKYhJUuxjp+fCN/14OYDIDER5T
-	vkAWdDxtffrP8JEhSzpIGFXx77Bbl5eg8/p3j7cdnj2MznESkQoCySL/AnkLemlOYmY5MJ+hfZf
-	5xmWGbrHE0w/Lk+65O6uSWoXvTk93Q5N+7zvRe+dzukArpXwbWW2PFfUbj96rosfiDQ8BTm+BX8
-	VOp2iC1upHVSQ2/1m9mYONCRU8MsCUa8jE2sg7Q+MN205taICMdP9BaB+iH0qkl1UlYx82giKYp
-	GieBCsDgCycq+WHLr4mrvuiJQfDU+q7gJt6NFZOGBNwXo+MDTuIGd+wtDGOuTKrJcIxEj6c+uPY
-	xb7ab7QUFL0Jw7
-X-Received: by 2002:a05:6102:8615:20b0:7a2:2f60:b9d1 with SMTP id ada2fe7eead31-7bc3c4a8df7mr5352137.6.1790698844656;
-        Tue, 29 Sep 2026 09:20:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:8615:20b0:7a2:2f60:b9d1 with SMTP id ada2fe7eead31-7bc3c4a8df7mr5331137.6.1790698843874;
-        Tue, 29 Sep 2026 09:20:43 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3b486489sm32770e87.54.2026.09.29.09.20.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:20:41 -0700 (PDT)
-Date: Tue, 29 Sep 2026 19:20:39 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
- single CRTC
-Message-ID: <jwlmzhhgpvbi47lt4biwn4razrvbf2rfi5uyyvfhjomzo7uqyh@ahf4ubqvegst>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="nq+YAuZk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eC2/f7/8rrZwo4KTrEc+gYUhONDOXpnRRgY7uUKEaHmhc0dM8Lmm2LWo8vg54fNbWqqhAv3Gu5PgzJeFg51ZvSyxxewc1/rmS891u3UAmS3VjjeGnNMWWfKKQoGqb3T05bUTucUhlrYfU3QvYgKLohSNxN7+HBEVmN7VVcgqrxu8XUhMEHbD3NP8qpvZX3j8UVpzs5jWlcGGCSKltHdjUvUg8Ba2hT7gCkrKrC/Qu06CoJX4cn85Q5wywFOMrbnx+ebYQB8dzlIQhERIQ/VUIkNtK/i7bBbHHNXtEZXb/bGQ+vYkHxafkFiPTRdpsvlbm8X26XS5eVTw1qhpZPy0Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ufuXTadR9DPcTzh3xS/ESgi+Gktq+/Faf4mTBxAbCFk=;
+ b=O66c9dKJwmTWwnhgHs0rQwNDWu7HwdyQzmBVkHlrFBqsNnNRgYRbIU+SFUCgycBZQwLt8JHhLIOX/KgCi6SCcoIGYhKTFNweDX8wBlO8KGrPeWGFJ05jYaSbvs+aodor6H1vJzNGeZW1E5cLDxwP87Tj5J8ST+oy7liXU29KxdSSBixdMViLK9eeN0BOuhbs1+fvDsDtRwB3ybBdPL/5Z6UGoxHVMKFQVM83uBW3b/KujTCa9wA7IO5XA8tB0kgPhKGHH6rmZel0twBsWECkef5jAEOnvz1WeqNzet6+zGRl/8YTAQ46nhnaxPGSgM735cfmebDnqK/ucBHXjOvoEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ufuXTadR9DPcTzh3xS/ESgi+Gktq+/Faf4mTBxAbCFk=;
+ b=nq+YAuZkF2QSnuHPAHFoFnYwkpN7vmOVPaXQQCasuA4/TzVAZE55lOfHGqFnfVZSuyEFOmOLgZc8T3SzelD16YNwgvb2saSa8RW6by+qA2/iHxSOvHvgc9hQzmpNVqOzDm4vwk1vFc6WWjK24LJRXWuGdNKt8l90b7zj5JwjiYc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO0P265MB3225.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:155::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 16:22:36 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 16:22:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 17:22:35 +0100
+Message-Id: <DLRXSVQZP07Z.3QSBVR1B2JO9S@garyguo.net>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Boqun Feng" <boqun.feng@gmail.com>, "Joel
+ Fernandes" <joel@joelfernandes.org>, "Alan Stern"
+ <stern@rowland.harvard.edu>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Sebastian Andrzej Siewior"
+ <bigeasy@linutronix.de>, "Will Deacon" <will@kernel.org>, "Peter Zijlstra"
+ <peterz@infradead.org>, "John Stultz" <jstultz@google.com>, "Frederic
+ Weisbecker" <frederic@kernel.org>, "Josh Triplett" <josh@joshtriplett.org>,
+ "Uladzislau Rezki" <urezki@gmail.com>, "Steven Rostedt"
+ <rostedt@goodmis.org>, "Lai Jiangshan" <jiangshanlai@gmail.com>, "Zqiang"
+ <qiang.zhang1211@gmail.com>, "Ingo Molnar" <mingo@redhat.com>, "Waiman
+ Long" <longman@redhat.com>, "Mark Rutland" <mark.rutland@arm.com>, "Thomas
+ Gleixner" <tglx@linutronix.de>, "Vlastimil Babka" <vbabka@suse.cz>,
+ <maged.michael@gmail.com>, "Mateusz Guzik" <mjguzik@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, <rcu@vger.kernel.org>, <linux-mm@kvack.org>,
+ <lkmm@lists.linux.dev>, "Nikita Popov" <github@npopov.com>,
+ <llvm@lists.linux.dev>
+Subject: Re: [PATCH hazptr 2/4] compiler.h: Introduce ptr_eq() to preserve
+ address dependency
+From: "Gary Guo" <gary@garyguo.net>
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Linus Torvalds"
+ <torvalds@linux-foundation.org>
+X-Mailer: aerc 0.22.0
+References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
+ <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
+ <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
+ <133ca8de-cf30-4bf5-9539-d0b73e347b22@efficios.com>
+ <CAHk-=wi7BkCuzMe_zWi6KHUs09UQWJpCVNvuFg5wh_CAu5dgow@mail.gmail.com>
+ <5a695b14-d25d-4c11-87f4-83c8d299d79f@efficios.com>
+In-Reply-To: <5a695b14-d25d-4c11-87f4-83c8d299d79f@efficios.com>
+X-ClientProxiedBy: LO4P123CA0620.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:294::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX0mvBayPhFQZ3
- q55YKEOyw9e5kNAANii9kTrZSVRMK2yYy4TbffjJcELJ+vwfSVvWiqI7B/vEnk+pmP4azFTKsvA
- 19Y2YZ2Utv7XQrLhqndGK/Jjcwo/kXJWPXoxdoHAM6T43zmUkIFbsE1PbPzt90N733S5NUONlJH
- qKLVFxtkY6Oz1+Uc4iOukHuYNk237N9T9KTUIqvJ4zVj+ix+ICzCwa0y55lS+kbCIpywtxbtL5C
- aP5ooA5vbij66v4M1PZYgldyxlfggFpflOV5oSji6og1HbKuuQfXhti6fSkV+lMYJUt1so5sREy
- ISBGbyi2++NewVGsn+2Pe9AlpToE4zd5AvPeXYhHGzolYpYr7zysjjhc4fzLibenM5hBzpmFyIp
- Kqbs2hc2p9xdyObVaylsPp/cNJUAdPOI5LpCAUCUJvH6CY1Ko5BbJgdrxoB9I38izSAf/gKFvWl
- wdjHM7smAmJ/PXE/vQg==
-X-Authority-Analysis: v=2.4 cv=FJSOVOos c=1 sm=1 tr=0 ts=6abbe55d cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8
- a=xngG1aiKzArpkGo9upMA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: M9NvBP-PDZnRJrrePemK4QBfM-nVQwfj
-X-Proofpoint-GUID: M9NvBP-PDZnRJrrePemK4QBfM-nVQwfj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX/gAzeW9WmbqV
- LIYScm4bh7A7vzqqZnE+6QJuS8A+w3h8TrnO/DzHWV1aJCUAzOg4OV2qg2JDWtqwEoOh7iucu7D
- kRybAP4xfxb6L4dM2Z0IYrprxc11rvc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290065
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB3225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56d70115-dc68-4d56-ba6b-08df1e45dfd6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|10070799003|23010399003|366016|1800799024|4143699003|56012099006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	bhwN+3r2LpDKOEjduI7sg31tXXt2h8hrOJcV69LoN2p/V0T7vL8SYItUsLw9OoncgP1bS6BQXI+RH72LAWqEvcKMvK+W5/6/W/GVlXJ1MRFJCoCyILAPbzDsBpJliJ6h/HRxSnSzn688n9BJ6Mpl1TQDFPOXJBiLeFLZkhQCfPkdqMLRIl619NJ2FVGdm6XoSlT9UE+dqSJ+Me6WWiSyH9WYr8F9xH0q/2HYjdLHh5byHvyFYXlRtKt85zYjXp4he5kHcvZaqH2wM1sfSaUs/ag8LcFcLq74p8gsDjRDiXMGR2SC1YTX1r7lubFfZN7rE+s9gk+t2n1nAwxhzFi8zNy+fE4R6kqsNXt3Y5UhpyJa71sFBJ3B645JEcd334urR9+7ylRwEM+8eFFL3iGM8Zwj2yTbxynpwd0MgvAx0/J1kVBMUXg+P14pIzi9NvvsQ9cEF8XBdJTeFpaJP7M/iVJjwYYjskE4irlofCI6AhrRHUQr1HKzq+X2uuqZqyU2wKAfY/S+pVpprTeVfr8KldR0EDyhWEYfmhyQ3+V9J4eLMFErz2vMp4jqean+H6JmhSn9DJ/3XkavTCmofx3IkmrWr2UIboXXHvW4WeeQiFCql6YGjRGU1RxLypIJ5bSXhPonYXOiYbn7NtrzFTAiss05Oh6wl1bfB1uHxJg1p+Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OHFsK0wzYzBEbTNNczJFZ2NqQUFVS2lManNSbjJXNElQVjRXQmxCNTFLd3VZ?=
+ =?utf-8?B?ODFSdk1vTUpDYW1nbUFRR2NsN2RUa0VGRlk2OTBoVGpVK2FjUjhjcG4wVndJ?=
+ =?utf-8?B?WXF1R3F3bjQ2V2lCNUtHZVZFMm80TFpmVEkvYlJneUdNMXhlbHRuaGZNMnlD?=
+ =?utf-8?B?WSttcEF2TkxYR242bm1NS25kTFJHTFJBRTVZOGtsS3d0bHN0b3R5N0YxRGt6?=
+ =?utf-8?B?NkJSeUd2dFgwT1o3S3dCUkMrMlBHemhXK3dCeFk0VXBiQUcvNmtrbUY5UU03?=
+ =?utf-8?B?VkRXZkdkNGRHYnZuN1BWOHRQSHNkeGJPY1BEdDB3dXN6R3ZJM3J1ZVZnWTFk?=
+ =?utf-8?B?bkFaNk00Z296MFVod0Y3WUNCYWhxR2Z2ZTA5V2IyQUJNblB0emsyS05Keldn?=
+ =?utf-8?B?SFZaSmJyZ0NMV2pBMW1WcjQwK2x5OWNqbU8wY0oza1JmRnVTZW1QV0NMMWhW?=
+ =?utf-8?B?WVFCNVl5VHd3Ry80bWdEMHZCWFBRMjc0OUJaT1YySGNoM3NsWTdPUEY4WXJ1?=
+ =?utf-8?B?QWJuSHk4WitmTlJmK013aTZuOFFGcTBQUUhZODBrK3BvL01yam5TNnd4clcy?=
+ =?utf-8?B?VFVzdUFXSUVHMVVtTzJSRktYRXd6cnRubXhUWVF4ZmJUZ0Q5SnZ1QkpPdmlk?=
+ =?utf-8?B?d1RXYzdtdS9ybTdUNHhJRWwxVG96L3FRN2twZ3U1c3J5SmozeTNDcVZtc1NW?=
+ =?utf-8?B?K2JHbm9jckdDVW5RcUE3Wlp2K3RERkxOZzVLb3IzU3JxS0RTc3lieGN4SUcr?=
+ =?utf-8?B?aUNXOEt5OFU3a01DdWJXQXdaMmRKbHBwOVlNa292anQ1TytlR3JuQXcyaWZa?=
+ =?utf-8?B?LzBad2JPdVdib0Vhd3lmWFIxSDZvcWYvb3ByMmNvVWNSNndsaGVqTXE1dGVt?=
+ =?utf-8?B?MCsvWFFGMC9vTlhzRHo2WVdZL3dqR2xackVpNHVKM0ZwMmFxczIyU0J1SUR4?=
+ =?utf-8?B?WWpucm1pMEo5bUpRWXRySTIvVHRJN0RWQWErSmRNMlUvTGZjamp5alFjeFZY?=
+ =?utf-8?B?dlVXUnloODFEaUNhckRVU21YSnlFSlNVWGsxTDhjU0dsdmRHUC9MVHhKR1lx?=
+ =?utf-8?B?OGQ4UGNkTnVtdmJMa1pPV2pwK3hRbmRhVXdrV05ZV05YcVhZZ2hBOVBVYlVV?=
+ =?utf-8?B?Vmxod3hBajlhYnZHYVZuMW1zNlBkSG9Ebm5rSERtMHBlNmVqVWxTMjN6b0pW?=
+ =?utf-8?B?eEhxN0VQYzF0R2FkWkpJRGlDN2tmcmFYWDhKOUhLbFdqWlgvZWl1MDhXeW5Y?=
+ =?utf-8?B?WUk5QnJaaTFGRTZtUzFhY2I2UW1Fand1TkhYTHBjWWRJc3JBUmd6Y3p0R2Z0?=
+ =?utf-8?B?TGxvUFg1aW1OTndabndpOThFMFExejF4L095N2ZqUng1ZnRaTjFFbXZGNXdk?=
+ =?utf-8?B?YTJRQUxzNnFqOFNZNjJicUtHd0V5SUVsTUxYYVpVWEUvRy9UNy9wb3NpVUlR?=
+ =?utf-8?B?RVhDaHJmVEZlODRxMnd5eitGaTF6MzB3cmNYcTZCcDh1WWloT0lCVzVuREJH?=
+ =?utf-8?B?dTF6WjBzckJrbnc3TkdJdVFYaWdzSDhMeWQxek0ya3Y3Ky80VVRUMjFHOWl0?=
+ =?utf-8?B?bVhYNDQ3c256bnI0dGZIMkQ5Q0FXZzJjSnhjWnkrQ0dkUE9MK25PMTlMNDBK?=
+ =?utf-8?B?REJ3d0NJS1E0MU01dG05S2E5QWx4UmVzNXNtdElGWTFzOHFORzcxK212Q0l3?=
+ =?utf-8?B?YWtDRVhRMVpmYzYyd2x0S29sMmNxTWJ6Y2x4bFlXem40TkJ1WDdrWmtWQXdE?=
+ =?utf-8?B?eEpIQ3ZiNlBCN3ZEdVEvVFpIelBWdjRhWnloNU9TRzA4NEFTWU1uUzRHUkFw?=
+ =?utf-8?B?WmxHeTYvNU1NMStYckdGdXpjNThFdUgvRUE1QWR4dCtBTkxVZmkxcStyM3Ez?=
+ =?utf-8?B?VGh5VUtzdTQ1STkrZmZhU2UyRVRkY2FDeFZpUmVpV242VXF3d3VSVjU1TTBH?=
+ =?utf-8?B?cGRrU0RGR3cxdlRuOVpHOHFGR1ljbDczZE8rQm8vcG54UmtaOWRqTzgyS0oz?=
+ =?utf-8?B?eWZ5bmU5VDdxMEwzYWQ2QlY2c2FPLys5WE5RLzdha0FCR3gwQ3Y1SjhTWnBv?=
+ =?utf-8?B?bGdqdXo2MjdjV2xndVNraEEwbXJVMlllWTVVNmdzbjM2K0ltaTFNV2g5WExQ?=
+ =?utf-8?B?V21KN1hVS01WamdDbHBrTmZFNXNLV0dWOGw2QVF6WkdQT2MvN2FhV3FoVzVR?=
+ =?utf-8?B?SWI2TzdJTytKSnkzaGlhbGNOMk9jYXN0SmZ2M2pyeldyTDJqNjBrWGV1S0th?=
+ =?utf-8?B?VTF6YXFYNDMwQUM2L1NTU2h6bzlRYWZlNEdvaU5aVG1WR0JEKzlMQU1jTzF1?=
+ =?utf-8?B?anh1TGUvWVBBeVF3bzZZdGRWV1hzOTk1QVBwai9YaHVFeHN6Y0VwZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56d70115-dc68-4d56-ba6b-08df1e45dfd6
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:22:36.7559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bIL9xwM0Jsdsd+awx6FFg4OVCyavW5i8KhM2h/IQtyYhnB/2MXwcznxhDrlCw4aBDNKIKHQ8HzraJMU8zYbPhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3225
 
-On Mon, Jul 27, 2026 at 04:08:43PM +0800, Jun Nie wrote:
-> Support a hardware configuration where two independent DSI panels are
-> driven by a single, synchronous CRTC. This configuration uses a bonded
-> DSI link to provide a unified vblank for both displays.
-> 
-> This allows application software to treat the two displays as a single,
-> wide framebuffer with a synchronized refresh cycle, simplifying rendering
-> logic for side-by-side panel arrangements.
-> 
-> At the DSI host level, the frame width for each link must be that of an
-> individual panel. The driver therefore halves the CRTC's horizontal
-> resolution before configuring the DSI host and any DSC encoders, ensuring
-> each panel receives the correct half of the framebuffer.
+On Tue Sep 29, 2026 at 4:42 PM BST, Mathieu Desnoyers wrote:
+> On 2026-09-29 11:16, Linus Torvalds wrote:
+>> On Tue, 29 Sept 2026 at 08:04, Mathieu Desnoyers
+>> <mathieu.desnoyers@efficios.com> wrote:
+>>>
+>>> I agree that doing it in asm would generate better code. Also, I've
+>>> been told that clang now preserves the address dependency in this
+>>> scenario, so perhaps we'd want to use preprocessor conditionals to
+>>> select how to implement ptr_eq based on:
+>>>
+>>> - architecture (allowing asm implementation overrides),
+>>> - compiler (e.g. if compiler is clang >=3D version X, just do a plain
+>>>     comparison). Likewise for gcc if it ever decides to fix this
+>>>     behavior.
+>>>
+>>> I think this "hide var" hack is a fallback which can be used as a
+>>> starting point, and then we can specialize based on architecture and
+>>> compiler.
+>>>
+>>> Or do you prefer this in a different order ?
+>>=20
+>> Oh, if there's some sane way to tell that the compiler already honors
+>> address dependencies, then that should be done first and the whole
+>> thing should just become a simple
+>>=20
+>>   (a) =3D=3D (b)
+>>=20
+>> for that situation - allowing the compiler then the freedom to do
+>> whatever (which can involve not using a register at all, but a compare
+>> to memory, or whatever - the compiler might have reasons to avoid the
+>> 'cmp' and use another sequence entirely)
+>
+> For the records, here is the relevant compiler discussion:
+>
+> https://github.com/llvm/llvm-project/issues/34577
+>
+> and it seems like they still have unfixed scenarios,
+> which may or may not affect the hazptr use-case:
+>
+> https://github.com/llvm/llvm-project/issues/220206
+>
+> Considering this, I would not be inclined to jump to the conclusion
+> that using the compiler compare for hazptr acquire load/test/reload
+> is safe today without a careful analysis.
 
-I guess, the flag from the previous patch should be coming from the DT
-node of the DSI host. The DSI should then get the mode from a single
-panel and then set the adjusted_mode for the CRTC (note sure how this
-will work for the compositors though).
+Out of the existing cases I think the only problematic one for hazptr is th=
+e
+comparison against costant global. Which isn't going to be a problem for us=
+ers
+that don't depend on a fixed adress.
 
+But it might be a problem for the lockdep case.
 
-Also please note that the are other possible configurations. For
-example, for some time I've had a setup using two Raspberry panels
-attached to two DSI hosts for exactly the same purpose (please check, I
-think Neil might still have it, or maybe somebody else from the team).
-Each channel is an I2C-controlled DSI-to-DPI bridge + a DPI panel. I
-understand that it's not your target, but it's something to keep in
-mind. I'd say, the bare minimum would be to resolve a second bridge (be
-it a full bridge or a panel bridge), possibly create a second bridge
-chain (remember, bridges don't support branching, so you are a bit on
-your own here) and at least manually call the callbacks. This would
-ensure that the second panel (or a second bridge) is properly controlled
-(and thus would get rid of the second reset GPIO from your patches).
+If we use inline asm for ptr_eq I think there's very little optimization
+potentials left for compilers, so I think unconditionally using asm would b=
+e
+fine.
 
-> The pic_width is used to calculated DSC parameter for DPU DSC controller
->  together with panel's parameter. While panel driver that support dual
-> panel shall provide slice_width parameter of single panel. This patch
-> only impact DSC configuration, so crtc is not aware of it and not impacted
-> by it.
-> 
-> While the DSI panel driver should manage two panels togehter.
-> 1. During probe, the driver finds the sibling dsi host via device tree
-> phandle and register the 2nd panel to get another mipi_dsi_device.
-> 2. Set dual_panel flag on both mipi_dsi_device.
-> 3. Prepare DSC data per requirement from single panel.
-> 4. All DSI commands should be send on every DSI link.
+Best,
+Gary
 
-broadcasting of DSI commands is controlled by the DT flag.
-
-> 5. Handle power supply for 2 panels in one shot, the same is true to
->    brightness.
-> 6. From the CRTC's perspective, the two panels appear as one wide display.
->    The driver exposes a DRM mode where the horizontal timings (hdisplay,
->    hsync_start, etc.) are doubled, while the vertical timings remain those
->    of a single panel. Because 2 panels are expected to be mounted in
->    left/right position.
-> 
-> To maintain synchronization, both DSI links are configured to share a
-> single clock source, with the DSI1 controller using the clock provided
-> to DSI0 as below.
-> 
-> &mdss_dsi1 {
->    assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-> 		     <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
->    assigned-clock-parents = <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
-> }
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e39938fb0f502..a3c56c3dc7904 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -186,6 +186,7 @@ struct msm_dsi_host {
->  	bool registered;
->  	bool power_on;
->  	bool enabled;
-> +	bool is_dual_panel;
->  	int irq;
->  };
->  
-> @@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  			return;
->  		}
->  
-> -		dsc->pic_width = mode->hdisplay;
-> +		if (msm_host->is_dual_panel)
-> +			dsc->pic_width = hdisplay;
-> +		else
-> +			dsc->pic_width = mode->hdisplay;
->  		dsc->pic_height = mode->vdisplay;
->  		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
->  
-> @@ -1705,6 +1709,7 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
->  	if (dsi->lanes > msm_host->num_data_lanes)
->  		return -EINVAL;
->  
-> +	msm_host->is_dual_panel = dsi->dual_panel;
->  	msm_host->channel = dsi->channel;
->  	msm_host->lanes = dsi->lanes;
->  	msm_host->format = dsi->format;
-> @@ -2600,6 +2605,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
->  	if (!msm_host->dsc)
->  		return MODE_OK;
->  
-> +	if (msm_host->is_dual_panel)
-> +		pic_width = mode->hdisplay / 2;
-> +
->  	if (pic_width % dsc->slice_width) {
->  		pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
->  		       pic_width, dsc->slice_width);
-> 
-> -- 
-> 2.43.0
-> 
-
--- 
-With best wishes
-Dmitry
