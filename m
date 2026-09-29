@@ -1,140 +1,196 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C413DD528
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9C2313293
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696888; cv=none; b=I0nV1c6a5JUsyJRVlIyLptrjl3pUNicLK2CNqCp+sAmLY2Ey9cwXMtJuMgGdVzGz5922Wn021W1XhakyhIcYyy+YglSIosUcjrwvUv+v60hTtYTz2RxGm78ADXQtopOMqqcAqx8OEcUTjb+entxjX2YBIjK4i71ml+2VQCc9iYA=
+	t=1790696958; cv=none; b=OVoCOwBUktiwSPCVouzNz9bChAXMEBGXYNny/zrAh49GiXGIgjSvqfs/LXC9LQZYnkcd3tNKOMnRVnViZWnhOwzTo7pOeRhE/A7ZXZ4ZuIq6w1O13Dds1lWcgtX+4P3u++ocZNyHl/9rqPGmuEv/QQSEX64M0T9+IJ6uTLNHnMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696888; c=relaxed/simple;
-	bh=vzU0w8F+HlGmZx4KQqQBaCbBovkeO3I44GgdCcYCp6o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CANaRSlswZh7JIsrH6qkEiwWoZfxDLeycZoaHXECok+XfXfDTttBSeOzyaqtjFnHxvqm0Yeb1oErVNKbBFU+1Pz6Jmqj4hyVlqD4NYnPdIA23KNTWIYHcE5prSu1C6WlcKC9gwJPCKWzpd6uCLSzPT6zTJ/Bd8po29yqap7VZrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=QmBdjXhU; arc=none smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790696958; c=relaxed/simple;
+	bh=hfqSadXKzYCOZRlrIClDG8QwzisMRXfTC7gb1kz0cc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nMsVMPc9P7DHnM4/FVDzkLfVOpcEgBDE/0/KbFMu1hJsZP2I4JXNUGCdt1M9Ad2KsUE1zFnwdlFWWkbYYuoOcgV2XwtEyWLZ3LcoGd12dxZ6rA7nM83rMz3rRVMnSgvc59OUpc7S9zYGkYqfPFEQB5xYxFebWKTL6SXDbshoIAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KFxjYG4d; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="QmBdjXhU"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb88abebdso1002672a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:48:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790696885; x=1791301685; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/dZbuYFRWaYPbHqq2vBKMBfGE1dD5iM+GHzPgRrdI6c=;
-        b=QmBdjXhUNTw1XZAE/BaaCq79KY4JLadVS1F/XK+68WLFsfcLGI+EXOy4a+8C2hZG1p
-         BPIdgaYly7WVOJlrjLSnUA+Eqp0fpYelkr8lYKMtdshKBbItxBJwrETKkv7BrIDQFl+y
-         e8QKtrHGlmDR6FBGWq7oIbqHy8tEvT2Xmvg7s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790696885; x=1791301685;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/dZbuYFRWaYPbHqq2vBKMBfGE1dD5iM+GHzPgRrdI6c=;
-        b=un6/OIX3I/x03qIUc4qNoBuXJJu1KhEPWJcE2rZ9AC4l0Sow9ptvUqPzEGdSW/hQ38
-         YMcBoG/Maca+qoMxWOVqwlAozMeMsvU7V9tK5NqPmUYKeiGVt1hcuyTxGVdm2hunpb+P
-         LTcVZXFJpqMuGt2aDwQnIg7KA8tEB+APbkZkrJ4ZFSSvVAIz36BnEz5N/yOEVm8maJaQ
-         Wu0IeMToO275b/ovws9VBZzeXqBsHkepW0qfsL5UC5pFTHAzJkl5y33rr0dwMKgyiJKw
-         YIu8wHjkQzo+gFaXC0y7DcwpwO7DpPBB/qiw1hI6jeL4KNz3qIDRMtOdQUVfiWb3nsx8
-         nUBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxF2eQ7x7soAOdRy/X/syuUBT6VyUd93OXyBoN+LgBf5z+ugPl7IdrOtmX0yPr8ynQI65sIqlldnzS9FR4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLp/0vxFKlwRBzV1108MhYebVRLPfXl8/+d2S1eMh+LEdgZXJAv
-	iHIDmQfyEAPDB85Z1beC3vvhJksxTuakIFqF+MvWCjcQVNcgVSI3V3lut9VAFTOww/eFtreEtFr
-	A9zcQOy8d
-X-Gm-Gg: AYBFou1TojBw7L0uOJbFX4ptZDGTh2eHEWVqjuC5qBsfCWxeQUIx4Arpx7vc0ChZQe/
-	5zX/GU5IZ9JvX5I+/yJJC6qSQ84Uo6nIpn+u5dZn+7QU6I+qpmfttJ/2YfPAvqNu+N+SPHG436V
-	9SPbnphlNDlEUMcANJPDk+1KAtL3+QzHsyXNSZ17IIciW8c2Q8HuCBXt2pPVbZ9iOO/23CO3ort
-	UGrkoQl5XLHWgXHgi/584AcBKIYC5r9nugAckuBRQPN/+fNdU9FirIrmkOxP6UbYjSO3RZbbWPm
-	ID4SJK5t7JOfNCq6jgLNECMRIf0rRbSqKHneHOqTOq/2Aj3fd0ZFvd/oxJzQQ/8jqyYC1i20IhT
-	cGD6JOcsMQmEcIHwjXck4qXYju+fom8qI8rv+W5aS5NnYn2Mc3eaxkw7XBVbm3C6UFDzR96Oajr
-	buq9Lde16m4IfiReIfVKwR/nM9E9NJ9O7uUE4AUMjqj64ZUPhsTDKEe2e+DVV56648tTZ40PkoB
-	kpZpx8QiVOLdSfcL9Zyfn9yTJPwQd5WC/NjjCQ=
-X-Received: by 2002:a05:6402:4020:b0:6ac:26f0:15a4 with SMTP id 4fb4d7f45d1cf-6ac26f01b6emr7099657a12.27.1790696885038;
-        Tue, 29 Sep 2026 08:48:05 -0700 (PDT)
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb90128e7sm1096903a12.18.2026.09.29.08.48.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 08:48:02 -0700 (PDT)
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso41071945e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:48:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxb6VAq1DfWinlBAGMrhll9XsI/lG2b7QQ39ad0P2Mp/mIdKgr2BHheMqCpcO27i9RvbfSd46GXULW5WSI=@vger.kernel.org
-X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc18 with SMTP id
- 5b1f17b1804b1-49fe66f4c72mr292995155e9.19.1790696879396; Tue, 29 Sep 2026
- 08:47:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KFxjYG4d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790696956;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+sAysMV0IYJ7rpTH8SIbs7ESaO2lMO4W2Vnw+qB0UCo=;
+	b=KFxjYG4d/WQlnty+9jMj5Gnv0lQQgdrHZwlhbJP08VX5wwLDexFo7VaWz7Cv+xxuBL6HN0
+	buOFUTzf8T5/+liPsSy+7uyMkLDD93twmzEeZfA9hEeRVS/5XqfLsURgK4CRAxsBGnZs+c
+	DN5YXTaixIMYnv8o54AP4yt4PVlWlzQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-584-WOd-ikfhNIazC_UOav6ZvA-1; Tue,
+ 29 Sep 2026 11:49:12 -0400
+X-MC-Unique: WOd-ikfhNIazC_UOav6ZvA-1
+X-Mimecast-MFC-AGG-ID: WOd-ikfhNIazC_UOav6ZvA_1790696951
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CD898195394C;
+	Tue, 29 Sep 2026 15:49:10 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7403E30000E7;
+	Tue, 29 Sep 2026 15:49:09 +0000 (UTC)
+Message-ID: <8a711efe-075c-48d6-a1b0-4642bce87065@redhat.com>
+Date: Tue, 29 Sep 2026 11:49:08 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
-In-Reply-To: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 29 Sep 2026 08:47:47 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
-X-Gm-Features: AclHuK_dL-VTDHnUEUTR3x2HZaC9uQoYf0vNl-UJk1UZAv-h2C9KslcOuDr2aQQ
-Message-ID: <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Brian Norris <briannorris@chromium.org>, Juan Yescas <jyescas@google.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
+ state switching fails
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
+ <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Hui Peng <benquike@gmail.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928235159.515654-1-longman@redhat.com>
+ <941e5affde16b803741ddaf87b937f3d@kernel.org>
+ <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
+ <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi,
 
-On Tue, Sep 29, 2026 at 4:11=E2=80=AFAM Peter Griffin <peter.griffin@linaro=
-.org> wrote:
+On 9/29/26 3:40 AM, Guopeng Zhang wrote:
+> Hi Waiman, Tejun,
+> 在 2026/9/29 11:16, Waiman Long 写道:
+>> On 9/28/26 10:07 PM, Tejun Heo wrote:
+>>> Hello, Waiman.
+>>>
+>>> The following is a Claude-generated review.
+>>>
+>>> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
+>>>> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
+>>>> don't leave any housekeeping"), the partition state can be freely switched
+>>>> from "root" to "isolated" and vice versa. After that commit, the switch
+>>>> from "root" to "isolated" can fail if it exhausts all the housekeeping
+>>>> CPUs. Later on, the switch from "isolated" to "root" can also fail if
+>>>> some of the partition CPUs are boot-time isolated by "isolcpus".
+>>> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
+>>> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
+>>> add a Fixes: tag for it too?
+>> Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition") comes after 103b08709e8a. From my point of view, the first commit is the one that introduces the bug. The second commit comes along assuming the existing code is right. That is why I didn't tag the second one even though the second one is easier to trigger than the first one.
+>>
+>>>> The partition is made invalid when the switch fails. However, the
+>>>> remote_partition flag for a remote partition can remain set and the CPUs
+>>>> from the invalidated partition aren't cleared from subpartitions_cpus.
+>>>> Fix this by properly disable the partition in this case.
+>>> The reproducer below is a local partition and the fix covers that case
+>>> too. The CPUs weren't given back to the parent, which is what leaves them
+>>> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
+>>> both? Also, "properly disable" -> "disabling".
+>> OK, will update the commit log.
+>>>> In the case of remote_partition flag, it should be cleared for a
+>>>> invalidated remote partition. To be safe, the reset_partition_data() is
+>>>> now enhanced to always clear the remote_partition flag. So there is no
+>>>> need to explicitly clear remote_partition in remote_partition_disable().
+>>> After the update_prstate() change, every path that invalidates a remote
+>>> partition goes through remote_partition_disable(), so the other
+>>> reset_partition_data() callers never see the flag set. If one did,
+>>> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
+>>> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
+>>> this part?
+>> Yes, I can drop this part.
+>>>> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
+>>>> and more than 16 cores, the following commands was executed after boot.
+>>> "a x86" -> "an x86", "commands was" -> "commands were".
+>>>
+>>>> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>>>>             */
+>>>>            if (((new_prs == PRS_ISOLATED) &&
+>>>>                 !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
+>>>> -            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
+>>>> +            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
+>>>>                err = PERR_HKEEPING;
+>>>> -        else
+>>>> +            disable_partition = true;
+>>> If a root -> isolated switch fails isolated_cpus_can_update() under an
+>>> isolated parent, partcmd_disable hands the CPUs back to the parent and
+>>> partition_xcpus_del() adds them to isolated_cpus, which is the state the
+>>> check just rejected. Switching to member ends up in the same place, so
+>>> this may be fine as is.
+>> If the parent is a valid isolated partition before the child partition is created, it had passed the isolated_cpus_can_update() check. So returning the CPUs back to its parent is fine.
+> However, after the parent is created, the ownership of full housekeeping
+> CPUs can still change, so passing the check at creation time doesn't seem
+> to guarantee that returning CPUs later is still safe.
+
+With additional thought after my email, I realized that my statement 
+isn't quite correct. So invalidating the partition handing the CPUs back 
+to its rightful parent may not be right. A simpler way to handle this is 
+to keep the status quo and return an error to the users instead.
+
+Cheers,
+Longman
+
+> I tested with this patch applied on a 32 vCPU VM booted with:
 >
-> Fix newly introduced DT warnings:
-> Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@588000=
-0:
-> unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or
-> child "reg" or "ranges" property
+>      nohz_full=1,3 maxcpus=4
 >
-> Fixes: 80f23487d554c7 ("arm64: dts: google: Add initial dts for frankel/b=
-lazer/mustang")
-
-Is the above git hash correct? In linuxnext, I see:
-
-54edd8698bb1 arm64: dts: google: Add initial dts for frankel/blazer/mustang
-
-Other than that, this looks fine to me.
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
-> ---
->  arch/arm64/boot/dts/google/lga.dtsi | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+> CPUs 0-3 are online, and CPU0 and CPU2 are initially available as full
+> housekeeping CPUs:
 >
-> diff --git a/arch/arm64/boot/dts/google/lga.dtsi b/arch/arm64/boot/dts/go=
-ogle/lga.dtsi
-> index 26a14b3a1b190a..919ee6619d9ee8 100644
-> --- a/arch/arm64/boot/dts/google/lga.dtsi
-> +++ b/arch/arm64/boot/dts/google/lga.dtsi
-> @@ -370,8 +370,7 @@ gic: interrupt-controller@5880000 {
->                         reg =3D <0x0 0x05880000 0x0 0x10000>,
->                               <0x0 0x05900000 0x0 0x200000>;
+>      cd /sys/fs/cgroup
+>      echo +cpuset > cgroup.subtree_control
 >
-> -                       #address-cells =3D <2>;
-> -                       #size-cells =3D <2>;
-> +                       #address-cells =3D <0>;
+>      mkdir A C
+>      echo +cpuset > A/cgroup.subtree_control
+>      mkdir A/B
 >
->                         #interrupt-cells =3D <4>;
->                         interrupt-controller;
+>      echo 0-1 > A/cpuset.cpus
+>      echo isolated > A/cpuset.cpus.partition   # isolated={0,1}, full HK={2}
+>
+>      echo 0 > A/B/cpuset.cpus
+>      echo root > A/B/cpuset.cpus.partition     # isolated={1}, full HK={0,2}
+>
+>      echo 2 > C/cpuset.cpus
+>      echo isolated > C/cpuset.cpus.partition   # isolated={1,2}, full HK={0}
+>
+> At this point, CPU0 is the last CPU that is neither domain-isolated nor in
+> nohz_full. Then:
+>
+>      echo isolated > A/B/cpuset.cpus.partition
+>
+>      cat A/B/cpuset.cpus.partition
+>      isolated invalid (partition config conflicts with housekeeping setup)
+>
+>      cat cpuset.cpus.isolated
+>      0-2
+>
+> The root -> isolated switch of A/B is rejected as expected, but the new
+> disable path then hands CPU0 back to the isolated parent A, and
+> partition_xcpus_del() puts it right back into isolated_cpus.
+>
+> In the end the domain-isolated CPUs are {0,1,2} and the nohz_full CPUs are
+> {1,3}, so no full housekeeping CPU is left.
+>
+> Also, as Tejun pointed out, switching A/B to member leads to the same
+> problem. What I tried in patches 2-3 of [1] was: if returning CPUs to an
+> isolated parent would consume the last full housekeeping CPU, invalidate
+> the outermost isolated ancestor and return its CPUs instead. Maybe this
+> part can serve as a reference. The implementation there may not be good
+> enough - it was an earlier idea and I am not sure whether it helps :)
+>
+> [1] https://lore.kernel.org/all/20260910094546.5852-1-guopeng.zhang@linux.dev/
+>
+> Thanks,
+> Guopeng
 
-nit: Leaving "#address-cells =3D <0>;" alone in a section, with blank
-lines before and after, looks a little weird, but it's not a major
-issue...
-
--Doug
