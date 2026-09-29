@@ -1,82 +1,65 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1963DEAC4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556C9379C35
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670131; cv=none; b=pegShMEeELosq9WwmtAgOuQ9gL5sdKczNoLfbrmoY2pnTOpwmLz8S6J9JzPrutGUZVhlDnDe6K357WniDgTh4504dbz86bWkmpFAbjJiEQb+YztE+Cw9rhBzvhoWtfbN2M9xtCm0b171uJzdZVHPtTFOs/N8ETxqkWJCvixuX6M=
+	t=1790670157; cv=none; b=KhrPBuoWqbARgNd+VdQcKDSM+7VKi20SMSpIcVMIbYYXWkbB/7GaHIZJ7PdUi8I9IEiCHDOKK5FTsqVCIcP+LsAIsiZPrX7QGHgpydzpnbp2pbe4yHGwBs3tuggnkDYnm5n1SxtW+1OwJOdUGgXq2TuZiFmzRaHodRWTdmrQ9I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670131; c=relaxed/simple;
-	bh=r15FT8O0+h/Lmn4AjtALBT+TFXMGfpyHuzC/5T4v9fk=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=ISrrrWEf095cI2Q1d/2GPrWOL61WsVbyUNuHwdqudCZA9V/jXXsjVwhlnAvQ5RzJvf3ViSacIvvIN8L7Dq4SHZFSLh4KACHR5jd9qjyJLaVnxGyHrluWcNU04zZVo7HQZ/6Mpo3VbQlKYGCcpAxS+jUIWfMlUJlP6ocphNlFTEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gkVGBCvw; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790670157; c=relaxed/simple;
+	bh=xxToONBdMXP+sQAcFMni1Xsp9MTpztNPlXZGUQfNC94=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HVBHO1T85o1Hv+5sbJZhddK6ZDANPkUTE4HKN6iYY5XiaHnsZZmgpxM4cncOjz16TK6E36B/rcIyASdd/f5g8ap9xnG/IPR1p2nsLcCJg8LF3N5TRhDcOp35ItgnthvZ4c9CLWnG1mOW8HrpV33rrAmRan2cxddIra7r9XlYNVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lpwmUCK5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gkVGBCvw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790670124;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CL2aoSvWGvZB1oNYcZBn9qxNqNpbwole8e0uMT7sFzo=;
-	b=gkVGBCvw4eav7p56HQiqnj0iVDU29l+X345ZM+Ik3vsu4GkkuSQDfQ1WIhvjji7X+nYFIq
-	VuDbqJcQKZmzEqDXclvM83wJ5XgZq71tyfNM6X0/Vam30tI/gXtKXHMHvTOSXz5G2g4mvf
-	vhSBLd2uB+kyzPbVvMRmWN34jRWJFbU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-oWsLDKbZPAqV-_pEJzYFOA-1; Tue,
- 29 Sep 2026 04:21:58 -0400
-X-MC-Unique: oWsLDKbZPAqV-_pEJzYFOA-1
-X-Mimecast-MFC-AGG-ID: oWsLDKbZPAqV-_pEJzYFOA_1790670116
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F3F5D1955E9E;
-	Tue, 29 Sep 2026 08:21:55 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 49C70180034C;
-	Tue, 29 Sep 2026 08:21:51 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20260929075913.2740968-1-dhowells@redhat.com>
-References: <20260929075913.2740968-1-dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Stefan Metzmacher <metze@samba.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Ilya Dryomov <idryomov@gmail.com>, netfs@lists.linux.dev,
-    linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 00/10] netfs, cachefiles: Changes for next, primarily occupancy tracking-related
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lpwmUCK5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92231F000FF;
+	Tue, 29 Sep 2026 08:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790670156;
+	bh=HTTndInTl8yksiJFhCcVpCQ/4fHg+TLd3FozuAv6AaA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=lpwmUCK5oNbHHqii/0jy5xPhlRhchmakLYO0GeHojTZ0QRCzM5/wmVN/K6L3Gy4m3
+	 Pw6oHY8C1NR4DnClCHtgc08ogxZbexSxXYuPCPnhXOeuFYpSdfZBEJ9ly8yVRtuJ2L
+	 nGY+76bCjPPUGQBk77XlqEaAz/GBBbUbU8qH3kj1zrfhFQYH1D1n+my/trR5G9b6pM
+	 2KbR08YMnHQ/QMyoGnHo6FA1VtFa2HQp3Uq9oShfGuAw74611HReVLunjMU4Q1+6IR
+	 bZTZCFFzZGtjDXBr2viggJdhXGxNhyB/5XK8PWCReMuec7Jo/BDIPL2MeXhWd0flit
+	 zBGToIpC4qoww==
+From: Thomas Gleixner <tglx@kernel.org>
+To: =?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>,
+ dave@stgolabs.net,
+ dvhart@infradead.org, peterz@infradead.org, mingo@redhat.com,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com
+Cc: =?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH] futex: Handle the correct robust list at
+ compat_exit_robust_list()
+In-Reply-To: <20260922005407.522060-1-andrealmeid@igalia.com>
+References: <20260922005407.522060-1-andrealmeid@igalia.com>
+Date: Tue, 29 Sep 2026 10:22:26 +0200
+Message-ID: <87zex0ii0t.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2741972.1790670109.1@warthog.procyon.org.uk>
-Date: Tue, 29 Sep 2026 09:21:49 +0100
-Message-ID: <2741973.1790670109@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-I forgot to change the cover subject line.  It should be something like:
+On Mon, Sep 21 2026 at 21:54, Andr=C3=A9 Almeida wrote:
+> compat_exit_robust_list(), as exit_robust_list(), should handle the robust
+> list from the task_struct from the function argument, not the current task
+> running the function.
+>
+> Fixes: 2cb5251d3d64 ("futex: Provide UABI defines for robust list entry m=
+odifiers")
 
-	netfs, iov_iter: Use a chain of bio_vec arrays instead of folio_queue
+It actually fixes nothing because *curr is always current.
 
-David
+I'd rather get rid of the argument alltogether because that's just a
+source of confusion.
 
+Thanks,
+
+        tglx
