@@ -1,193 +1,154 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B615514747;
-	Tue, 29 Sep 2026 10:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283C1516175
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678390; cv=none; b=VePGrXCoz+8DR/xorU/5akx+v6hGGejiEl0qTYMYSMYDgMoqTZqT3FbwdECLWlmJY3QMbkxjeN+A1Y7MRiImkPyavDzSPylMGQhFoMV4olIbHNIglCXkUGrgYGbrk7ePoQJY3EXUHK+KwpR2MUX9k8zb70yijDTOe96Wt0azQRQ=
+	t=1790678437; cv=none; b=Geq791shnS0++5ujk1tQZVoXMF53d7h+72WHcWV1vJf8P4L6cMw75kPDtoNGf4jyd2x1Wz06VMKXjES2Zw6ozvbYrWEaavi1/ImGzgMkzYnVGeALo0wuu//YCMr0Wj+0K0cRVjuoFv6imRU6PIF/J2q5vjFPbDQ34ZJoIEb47YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678390; c=relaxed/simple;
-	bh=6j2piQDUFgmBlu5XXZWQNNaTqk1oY46t5o3CJ2xDkg8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=GTqF3J5xuwbPjAblVQzluPjPS+zztW9urj4YtSu62QLaeBIlHdftZBS5Kvvi1zlt/HSNqZp4PqIygCFy1zffce8rcD7Xl+SqFARAbBoMul4ANB5bByLrBuHYQjG21RCtdBlIBGWwrSnbdFUClJh7tXUB716v0SvRtNWLcAT/sqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y8iHsgOz; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790678437; c=relaxed/simple;
+	bh=EFp+IIgLsS53IWlkb+HfsQhxHwEld0wQyO9Fu+1g4bY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=gzgerGQok+tseO78Y+bqCNTf8LiyPSQyAeXATxmnuiO2B4n0LZC+e7Bt59l7WNDTRyqLfHFDlcECr94bT2F+O4upkECeGMKWlIVcIIPKmCRkhNwRBmSDr+maQ3z9IGmn/w7qPjDongyQ7q0tyYPZYhxt1cXept6zhQSQBugBdfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com; spf=pass smtp.mailfrom=huawei-partners.com; dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b=BomE8Z/A; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y8iHsgOz"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7DCCB1A1058;
-	Tue, 29 Sep 2026 10:39:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4323360749;
-	Tue, 29 Sep 2026 10:39:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 229EF103295E3;
-	Tue, 29 Sep 2026 12:39:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790678366; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lGp4cm2Ao4TU3TW+1e8kXshs8WwzfjIeavwApsw+nKM=;
-	b=y8iHsgOzqp61uI69hlHbnIn/SOZzJaK4I0ClIaNgnr4hF/z9198ioBh7DYqGI9U233L00z
-	ityL4ZmohA70XfIBALxxdj3B2rfdgFw5h6ES+FCV6paHkLemgBSI3x91FGgUVtPSjFQeyn
-	awOVxDv33Tk02Wpn0gJXsrG4zjWvZ7vOfP46TV0dXrZnS92da4hCDQV0ADHB2rxTk1oJIO
-	B4eczD1RtoTAsKosdL9QrrjZjQxNEXqbYrMDSlOK9ko8dO0foldA0AsPlk8HEUKI0bRVI2
-	bgZI7tvR2MpxS2FJuF8WpqbEdShvEiv9PnLK6GykO6Xvl+Ylz08gtDyawQ3+kw==
+	dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b="BomE8Z/A"
+dkim-signature: v=1; a=rsa-sha256; d=huawei-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=zV15/2vXc2zmmCBC0wBRxIby3C3ggjhlTWNSwlGL0ro=;
+	b=BomE8Z/Agr0yj3ehCeSYnRmn1e64OrhvSs/g1NC/W0zvjSqOBYpNDl8KaxE3XefivF9VN1jBj
+	r+XraTw0qNIDUXuOko8ijMpOqXyBBSb+fqu1faPa4dJXTHpL4d0npNsa0q3xkHitf4XVevIs0bE
+	cHYdkGcNMgCPtlHy0mPPOZg=
+Received: from mail.maildlp.com (unknown [172.18.224.107])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hvDml6Y8jzJ46Xx;
+	Tue, 29 Sep 2026 18:24:07 +0800 (CST)
+Received: from mscpeml500003.china.huawei.com (unknown [7.188.49.51])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7CA0F4058B;
+	Tue, 29 Sep 2026 18:24:22 +0800 (CST)
+Received: from [10.123.123.154] (10.123.123.154) by
+ mscpeml500003.china.huawei.com (7.188.49.51) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 13:24:21 +0300
+Message-ID: <9e07dbdd-3b02-4175-b343-c8cb6f9885e0@huawei-partners.com>
+Date: Tue, 29 Sep 2026 13:24:20 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 12:39:09 +0200
-Message-Id: <DLRQHX9JC9YJ.1HR59B2KFZ90L@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Arnd Bergmann"
- <arnd@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
-Cc: "Arnd Bergmann" <arnd@arndb.de>, "Sasha Finkelstein" <k@chaosmail.tech>,
- "Janne Grunau" <j@jannau.net>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Manikandan Muralidharan"
- <manikandan.m@microchip.com>, "Dharma Balasubiramani"
- <dharma.b@microchip.com>, "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Jagan Teki" <jagan@amarulasolutions.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Liu Ying"
- <victor.liu@nxp.com>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Douglas
- Anderson" <dianders@chromium.org>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
- "Matthias Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Orson Zhai" <orsonzhai@gmail.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Chunyan Zhang" <zhang.lyra@gmail.com>,
- "Jyri Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Icenowy Zheng"
- <zhengxingda@iscas.ac.cn>, <dri-devel@lists.freedesktop.org>,
- <asahi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
- <linux-mediatek@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0
-References: <20260928161605.2271412-1-arnd@kernel.org>
- <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
-In-Reply-To: <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] mm/damon/core: introduce damos_quota_goal->complement
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+CC: <damon@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>
+References: <20260929080113.41708-1-sj@kernel.org>
+ <20260929080113.41708-2-sj@kernel.org>
+Content-Language: en-US
+From: Gutierrez Asier <gutierrez.asier@huawei-partners.com>
+In-Reply-To: <20260929080113.41708-2-sj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: mscpeml500004.china.huawei.com (7.188.26.250) To
+ mscpeml500003.china.huawei.com (7.188.49.51)
 
-Hello,
+Hi SJ,
 
-On Tue Sep 29, 2026 at 9:27 AM CEST, Luca Ceresoli wrote:
-> Hello Arnd,
->
-> On Mon Sep 28, 2026 at 6:04 PM CEST, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->>
->> The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
->> not all callers include this, which leads to build failures in
->> some configurations:
->>
->> drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
->> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declaration =
-of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
->>   404 |         bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, =
-0);
->>       |                  ^~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
->> drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declarat=
-ion of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
->>   306 |         next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->d=
-ev->of_node,
->>       |                ^~~~~~~~~~~~~~~~~~~~~~
->>
->> Include the new header in all files that need it.
->>
->> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
->> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> Thanks for the very quick reaction to this regression! However I think we
-> should fix it differently.
->
-> I had definitely build-tested most if not all these drivers, and also
-> runtime tested a few. Now I realized the build failure actually happens
-> only in !OF defconfigs which I haven't build-tested (sorry about
-> that!). Here's why:
->
->  * the affected drivers (all or most of them) include drm_of.h
->  * drm_of.h does:
->      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
->      #include <linux/of.h>
->      #include <drm/drm_bridge.h>
->      #include <drm/drm_panel.h>
->      #endif
->  * DRM_PANEL_BRIDGE is always set when DRM is set, so not a problem
->  * drivers which don't depend on OF and don't include drm_panel.h now fai=
-l
->
-> Most of the drivers changed by this patch do 'depend on OF', so they are
-> not affected. So the patch could be trimmed significantly. But still I'm
-> not in favor of including drm_panel.h in the remaining drivers, because:
->
->  * in the first place most/all of these drivers are now supposed to not u=
-se
->    the drm_panel API anymore; thsy should just use the drm_bridge API
->
->  * devm_drm_of_get_bridge() is now a deprecated [0], complicated way of
->    calling of_drm_get_bridge_by_endpoint(), which is rightfully in
->    drm_bridge.h
->    * for this reason Documentation/drm/todo.rst says it must be removed [=
-1]
->    * removal is easy, so I plan to do it in a few weeks globally
->    * after the removal all these #include <drm_panel.h> would have to
->      be removed, but some might easily be forgotten
->
-> So I see two option for a better fix:
->
->  * Option 1 -- fix the really affected drivers by switching from the
->    deprecated API to the one they recommended one. Based on quick analysi=
-s
->    there are about 6.
->
->  * Option 2 -- a quick surgical fix:
->
->    In drm_of.h:
->
->      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
->       #include <linux/of.h>
->       #include <drm/drm_bridge.h>
->      -#include <drm/drm_panel.h>
->       #endif
->      +#include <drm/drm_panel.h> /* Temporary for *_of_get_bridge() */
->
->    This can easily be tracked and reverted once all
->    devm_drm_of_get_bridge() users are converted to
->    of_drm_get_bridge_by_endpoint().
->
-> I'm working right now on option 1, hoping to get a series in a few hours
-> from now. I can switch to option 2 in case of unexpected issues with opti=
-on
-> 1, or if a fix "really right now" is wanted.
+On 9/29/2026 11:01 AM, SJ Park wrote:
+> Introduce damos_quota_goal->complement for specifying whether to use a
+> complemented value of the given goal target metric.  Add the field to
+> the data structure and implement essential core support.  Handle the
+> flag in the quota goal commit and current quota goal metric value
+> retrieval.
+> 
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  include/linux/damon.h |  2 ++
+>  mm/damon/core.c       | 26 +++++++++++++++++++++++++-
+>  2 files changed, 27 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/damon.h b/include/linux/damon.h
+> index 6a29dc2ac8db..42234839ce29 100644
+> --- a/include/linux/damon.h
+> +++ b/include/linux/damon.h
+> @@ -169,6 +169,7 @@ enum damos_quota_goal_metric {
+>  /**
+>   * struct damos_quota_goal - DAMOS scheme quota auto-tuning goal.
+>   * @metric:		Metric to be used for representing the goal.
+> + * @complement:		Use the complement of the metric.
+>   * @target_value:	Target value of @metric to achieve with the tuning.
+>   * @current_value:	Current value of @metric.
+>   * @nid:		Node id.
+> @@ -191,6 +192,7 @@ enum damos_quota_goal_metric {
+>   */
+>  struct damos_quota_goal {
+>  	enum damos_quota_goal_metric metric;
+> +	bool complement;
+>  	unsigned long target_value;
+>  	unsigned long current_value;
+>  	/* metric-dependent fields */
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 5ecbea5d71e1..1ab5154511e6 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -1224,6 +1224,7 @@ static int damos_commit_quota_goal(
+>  	if (!src->target_value)
+>  		return  -EINVAL;
+>  	dst->metric = src->metric;
+> +	dst->complement = src->complement;
+>  	dst->target_value = src->target_value;
+>  	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+>  		dst->current_value = src->current_value;
+> @@ -2960,10 +2961,18 @@ static void damos_set_psi_current_val(u64 now_psi_total,
+>  		struct damos_quota_goal *goal, struct damos *s)
+>  {
+>  	u64 last_psi_total = goal->last_psi_total;
+> +	unsigned long val;
+>  
+>  	goal->last_psi_total = now_psi_total;
+>  	if (last_psi_total != U64_MAX) {
+> -		goal->current_value = now_psi_total - last_psi_total;
+> +		val = now_psi_total - last_psi_total;
+> +		if (goal->complement) {
+> +			if (val < s->quota.reset_interval * 1000)
+> +				val = s->quota.reset_interval * 1000 - val;
+> +			else
+> +				val = 0;
+> +		}
+> +		goal->current_value = val;
+>  		return;
+>  	}
+>  	/* uninitialized last_psi_total; make no effect this round */
+> @@ -3255,6 +3264,21 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
+>  	default:
+>  		break;
+>  	}
+> +	if (!goal->complement)
+> +		return;
+> +
+> +	/* updte current_value to complemented value */
+There is a typo there. It should be "update". Also, what is the 
+purpose of this comment? It doesn't explain anything, which may
+not be obvious.> +
+> +	/* for user_input, users set complemented value on their own */
+> +	if (goal->metric == DAMOS_QUOTA_USER_INPUT)
+> +		return;
+> +	/* damos_set_psi_current_val() handles complement flag itself */
+> +	if (goal->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
+> +		return;
+> +	if (goal->current_value < 10000)
+> +		goal->current_value = 10000 - goal->current_value;
+> +	else
+> +		goal->current_value = 0;
+>  }
+>  
+>  /* Return the highest score since it makes schemes least aggressive */
 
-Done [0]. I found only 3 drivers affected, but I fixed all the others that
-build without OF.
+-- 
+Asier Gutierrez
+Huawei
 
-[0] https://lore.kernel.org/r/20260929-drm-fix-of_get_bridge-build-regressi=
-on-v1-0-ccb7e602daad@bootlin.com
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
