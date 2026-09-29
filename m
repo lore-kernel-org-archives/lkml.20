@@ -1,209 +1,188 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354A8282F0A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB815282F0A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690927; cv=none; b=T/4FC3zM8Rh3u3jrjneGZ3tD22/ojmcyVRJzXBVlizeuOyhf++0smVcjk5Sr9lFQ8Es6Exl3GeE+lbOxTapNxnXGEBLs5n/MG56KPt/XW7M8ckFfggG8hdRbf1RY+mEeLFBRtCJTwCRAxXyTo5Gc8uORyfIB6RRjrg5KbyOAmVA=
+	t=1790690998; cv=none; b=ibcrTJGp4v2htOhLsvnLuNspp8SpcS//pb2KmrBMNapzXPZyz+pNBa/UEAy+Mf5WCWls5KDqSEmY2WLU7tisgk9GfXFjWjJf/UrJBkqV7lFdhsK1DI3fgiReqyNai99iwb+tSeGN6YoxiXrxSey+6Ufa99U/o6PeaRCUcyrVdHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690927; c=relaxed/simple;
-	bh=81Al4bwaDbkS8RuD0G77U4m0bNlki511wftCyh1UIzM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=epzXiZwg/Yj7ynS6hhD+M+PI/dQUTpKy7WbMbZUXUJLINEfV01hiWWbMOyv4oXwDwIzi/E9NfkCkD6SLVEVvgLhgZ0Khix8kflge1V7OwoNnNXoQs4AUzGvNFKHOFyb4RfydtGV1tpDv3LhwweIdVzclEbIMJy1IPpP4kBPcExI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VwnpSwhn; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790690998; c=relaxed/simple;
+	bh=drjAjLIf0FiNjXb30u1fBy6oMHBuPaNbZ6+6LguMfEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P3OTvYJ/SC8hwoAl4NQF92MIqYulJW9I5WriLw3GXrgCbpmOWqw7dB78Ko9ZWio9egnZ0mBKFg4Aqg8d3aEVFDVs5weRAY1vW2wV8goK12V33usavrr/kgG7pgQl8b4xdovMKAe5Kz8DbTR+HcPQigq2y4+TiQ69vsAdwPt3RJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q1A79Yev; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VwnpSwhn"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso5513919a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:08:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790690924; x=1791295724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xe4sMjFI7Bnhs5VJABLcVxZS9wdqwlCcJPQVGcmwjL0=;
-        b=VwnpSwhn9wmzpgHMo1zEPMoAHce6s4dkRuNlqP4kt4aPbStX6wwgEtT62TojSzd8rR
-         r7RN6xIYr3uvD6dtr+DeMcNRtlQDnECFUVTBsrExGhfAqFUA46/CQEFaLEL3VlZP+nVU
-         gNZisIg+L2hXdjiCQP/LhC5NSU35pfgLgEFhZ6yeho/ghPyDZARVrdiSydRNnUQQHUYb
-         BcZIPOpFCjpdX+3YRWuqgz4IT0ODHY9YyM+agEfqnQUsX8RbApowfX79MfRUXWUIx5gc
-         RMbwgFesOT5l5U9YUyvAqHdr/rLxX6HlR9jVB/ZW7nlM5jJyrwKJe/q7M5aQa53SNt0E
-         JTcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790690924; x=1791295724;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xe4sMjFI7Bnhs5VJABLcVxZS9wdqwlCcJPQVGcmwjL0=;
-        b=jW54rA5XgaCs7BKtQMrrIRwvy90TljeLs8NxoV71nSXBh8XKmrc/GCOSQXU7OgU5zt
-         typuukSVdo04LPnaO/Rt4NEfVnljbQqpxe8z+rTcEp90LOfwl/MVJBumWdDGRGL/DrfH
-         BAzCr6CMyCoDWTP0iNupHLQicGIMaffpnhBY0M4cxshtPMtZeQF/fOBRNeVi8MlspLF/
-         NIgqt2wH3wvRsBwkpQrQ4ehhoJa3Os8aSEwbXNxBrHbBXvpfrbfElORz7P2faNPjFdsP
-         me/TAn8Y7ZRMi7KpE7paAaN1lCD0JUSjv6yi9CdHskMexPxVSbCgqctkutRujPq7uUTy
-         WqFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQsI78CR7N8WCgN2HXARQ44ghAV1D+NzqafeBchzHj/eCk/ROns+4XSNk4yzDkii7F3O6RJs3LiVmVKfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nodyVSnGSh7BZE3/3ffdX07wQntA4v3MoO9wtD8BWtjJLZa8Z3
-	9+LL9X5igS1Q7U5swtnWXJX+4Ailpr8BdI6nYas2dwtc2i3/TEM388Xo5HJO07miHV//5LXh5f7
-	r3jh25TA=
-X-Gm-Gg: AYBFou2/LjVfac9EGEyxzO5cLLF2G+qC8mM9BJcsXOda4vO8Y/V4d6JUSGOIw6ns4SV
-	EtHjSEH8PKLnShm7WxvffH8rQ7h6kOaVF6UfEVVfPInWrK8FcpCj2pAQad2PXllowo8NQSOxeG7
-	W8cGM0r8tOjpENAG1jFAcc8VGJmme3iAUBpvGsdv6itXPxlBnut5hoGLHHefUHMwJOCEiPBst5S
-	zJUgSxFBG742Gx/VOjvWPi/moUaZbKiaQg0jBm1nFFVo0Y0Z3KP5QmWsiQP2KeB/Xw9VbjK8VXJ
-	6HV+NubDjbphTpDxxPVww+4ERyyFyVrmfdV9F6rtpareYiuVx40BMYKuYcRD7YLxOHgw1iqFA5t
-	9LWfFBZfcYPacnh865UcHRRvrJYfMh8YZBFFBl99WGb8MrmFj9RIKNljdCu57ZOESZqBWF6CPh3
-	+S+AiqpaMOpZABWiPlAS4qiCgqEqxJsC2OAeUDWtlPu0w++HQTqBgXn4GzRwiHBUXPgson6nxff
-	W0=
-X-Received: by 2002:a17:907:c71b:b0:c29:53eb:9913 with SMTP id a640c23a62f3a-c2ac2531dafmr1335251266b.38.1790690924276;
-        Tue, 29 Sep 2026 07:08:44 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dd68a6f18sm337834066b.52.2026.09.29.07.08.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:08:43 -0700 (PDT)
-Message-ID: <7bed4275-0b97-46d7-b250-5039aa95eccf@linaro.org>
-Date: Tue, 29 Sep 2026 15:08:42 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q1A79Yev"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B710C152B;
+	Tue, 29 Sep 2026 07:09:52 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 122183F86F;
+	Tue, 29 Sep 2026 07:09:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790690996; bh=drjAjLIf0FiNjXb30u1fBy6oMHBuPaNbZ6+6LguMfEw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q1A79Yev43HvgLhsasL5CE3UA2ZZebu7AhW0HmQxZh77T5S/AX48u8EipgJqa2ntG
+	 jUT+j65NR85Fl/c5U4vti8w404B0nAF+O2Zx+6yCHl38iZ5eXZb3WHoVKJVFhQ2JGJ
+	 N5dGYi7EjKCuj14UfdM/aZtzVe09z5XgLkAtYIM8=
+Date: Tue, 29 Sep 2026 16:09:50 +0200
+From: Beata Michalska <beata.michalska@arm.com>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
+	will@kernel.org, suzuki.poulose@arm.com, James.Morse@arm.com,
+	xuewen.yan94@gmail.com, seanwang1@lenovo.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: errata: Add Cortex-A725 erratum 3821522
+ workaround
+Message-ID: <arvGrikAp8focp2Y@arm.com>
+References: <20260929134055.3241587-1-beata.michalska@arm.com>
+ <491d09a3-cfaf-45d5-9715-459e89180068@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/14] perf cs-etm: Classify exception calls using the
- exception packet
-To: Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
- <20260923-perf_cs_etm_fix_non_taken-v2-9-6ab8c07a5455@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-9-6ab8c07a5455@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <491d09a3-cfaf-45d5-9715-459e89180068@arm.com>
 
-
-
-On 23/09/2026 16:21, Leo Yan wrote:
-> ETMv4 and ETE use the same exception number for SVC, HVC and SMC.
-> Identify SVC by inspecting the instruction before the preferred return
-> address in the exception packet.
+Hi,
+On Tue, Sep 29, 2026 at 02:55:56PM +0100, Vladimir Murzin wrote:
+> Hi Beata,
 > 
-> Preserve the exception level and preferred return address from OpenCSD,
-> and use them with the packet's ISA in cs_etm__is_syscall() and
-> cs_etm__is_sync_exception(). This makes exception call classification
-> independent of the preceding instruction range.
+> On 9/29/26 14:40, Beata Michalska wrote:
+> > Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
+> > incur a significant increment error when a CPU enters and subsequently
+> > exits WFE or WFI, and may no longer track the system counter frequency.
+> > 
+> > The AMEVCNTR01_EL0 counter is being used as the AMU constant counter for
+> > frequency invariance and CPPC FFH feedback counters. Treat the affected
+> > AMU counter as unavailable by returning zero in the AMU counter paths,
+> > matching the existing convention used when the counter is disabled or
+> > unusable. This prevents the broken counter from being used as a reference
+> > source.
+> > 
+> > The erratum can also affect PMUv3 users of the CNT_CYCLES event, but this
+> > workaround intentionally does not change PMU event handling. Hiding or
+> > rejecting the PMU event from the erratum code would change the perf-visible
+> > PMU event interface, including raw event selection, and would need
+> > separate PMU specific approach rather than being folded into the AMU
+> > reference-counter workaround.
+> > 
+> > This also folds the per-erratum workarounds for ARM errata 2457168 and
+> > 3821522 into a single AMU constant-counter capability, as both require
+> > treating AMEVCNTR01 as unreliable and unavailable.
+> > 
 > 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   tools/perf/util/cs-etm-decoder/cs-etm-decoder.c |  7 ++++++-
->   tools/perf/util/cs-etm.c                        | 10 +++-------
->   tools/perf/util/cs-etm.h                        |  1 +
->   3 files changed, 10 insertions(+), 8 deletions(-)
+> Can we please split this in two patches:
 > 
-> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> index 469aba5e596a791289c5bcece132aba7b0baf6c3..48e8c355a3e495cc30dcb4056c04a034d10ce860 100644
-> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> @@ -511,7 +511,8 @@ cs_etm_decoder__buffer_exception(struct cs_etm_queue *etmq,
->   				 struct cs_etm_packet_queue *queue,
->   				 const ocsd_generic_trace_elem *elem,
->   				 const uint8_t trace_chan_id)
-> -{	int ret = 0;
-> +{
-> +	int ret = 0;
->   	struct cs_etm_packet *packet;
->   
->   	ret = cs_etm_decoder__buffer_packet(etmq, queue, elem, trace_chan_id,
-> @@ -521,6 +522,10 @@ cs_etm_decoder__buffer_exception(struct cs_etm_queue *etmq,
->   
->   	packet = &queue->packet_buffer[queue->tail];
->   	packet->exception_number = elem->exception_number;
-> +	if (elem->context.el_valid)
-> +		packet->el = elem->context.exception_level;
-> +	if (elem->excep_ret_addr)
-> +		packet->end_addr = elem->en_addr;
->   
->   	return ret;
->   }
-> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-> index c8a92b5dba6001329d68766d540b9b7ead90e9e6..a40b3b2fe2e6318154111d9b7ebd05bee53934f1 100644
-> --- a/tools/perf/util/cs-etm.c
-> +++ b/tools/perf/util/cs-etm.c
-> @@ -2019,7 +2019,7 @@ static int cs_etm__exception(struct cs_etm_traceid_queue *tidq)
->   	 * to generate branch sample for the instruction range before the
->   	 * exception is trapped to kernel or before the exception returning.
->   	 *
-> -	 * The exception packet includes the dummy address values, so don't
-> +	 * The exception packet does not describe an instruction range, so don't
->   	 * swap PACKET with PREV_PACKET.  This keeps PREV_PACKET to be useful
->   	 * for generating instruction and branch samples.
->   	 */
-> @@ -2225,7 +2225,6 @@ static bool cs_etm__is_syscall(struct cs_etm_queue *etmq,
->   			       struct cs_etm_traceid_queue *tidq, u64 magic)
->   {
->   	struct cs_etm_packet *packet = tidq->packet;
-> -	struct cs_etm_packet *prev_packet = tidq->prev_packet;
->   
->   	if (magic == __perf_cs_etmv3_magic)
->   		if (packet->exception_number == CS_ETMV3_EXC_SVC)
-> @@ -2238,8 +2237,7 @@ static bool cs_etm__is_syscall(struct cs_etm_queue *etmq,
->   	 */
->   	if (magic == __perf_cs_etmv4_magic || magic == __perf_cs_ete_magic) {
->   		if (packet->exception_number == CS_ETMV4_EXC_CALL &&
-> -		    cs_etm__is_svc_instr(etmq, tidq, prev_packet,
-> -					 prev_packet->end_addr))
-> +		    cs_etm__is_svc_instr(etmq, tidq, packet, packet->end_addr))
->   			return true;
->   	}
->   
-> @@ -2277,7 +2275,6 @@ static bool cs_etm__is_sync_exception(struct cs_etm_queue *etmq,
->   				      u64 magic)
->   {
->   	struct cs_etm_packet *packet = tidq->packet;
-> -	struct cs_etm_packet *prev_packet = tidq->prev_packet;
->   
->   	if (magic == __perf_cs_etmv3_magic)
->   		if (packet->exception_number == CS_ETMV3_EXC_SMC ||
-> @@ -2301,8 +2298,7 @@ static bool cs_etm__is_sync_exception(struct cs_etm_queue *etmq,
->   		 * (SMC, HVC) are taken as sync exceptions.
->   		 */
->   		if (packet->exception_number == CS_ETMV4_EXC_CALL &&
-> -		    !cs_etm__is_svc_instr(etmq, tidq, prev_packet,
-> -					  prev_packet->end_addr))
-> +		    !cs_etm__is_svc_instr(etmq, tidq, packet, packet->end_addr))
->   			return true;
->   
->   		/*
-> diff --git a/tools/perf/util/cs-etm.h b/tools/perf/util/cs-etm.h
-> index b81099c2b301c25f894cc9a50edfde87aceff49d..4d03f2a680b58aacd91c9f6c957fb2d38e7ac2ad 100644
-> --- a/tools/perf/util/cs-etm.h
-> +++ b/tools/perf/util/cs-etm.h
-> @@ -174,6 +174,7 @@ struct cs_etm_packet {
->   	enum cs_etm_sample_type sample_type;
->   	enum cs_etm_isa isa;
->   	u64 start_addr;
-> +	/* For exceptions: preferred return address, or CS_ETM_INVAL_ADDR. */
->   	u64 end_addr;
-
-Minor nit, but you could use a union. I don't know how clear re-using 
-"end_addr" id for exception packets is when reading the code.
-
-        union {
-            u64 end_addr; // Range packets
-            u64 pref_ret_addr; // Exception packets
-        };
-
-
->   	u32 instr_count;
->   	u32 last_instr_type;
+> 1. Factor out ARM64_WORKAROUND_2457168 into generic ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> 2. Wire up Cortex-A725 erratum 3821522
+Sure,
 > 
+> > CC: <stable@vger.kernel.org>
+> > Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+> > ---
+> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+> >  arch/arm64/Kconfig                          | 30 +++++++++++++++++++++
+> >  arch/arm64/include/asm/cpucaps.h            |  3 ++-
+> >  arch/arm64/kernel/cpu_errata.c              | 29 +++++++++++++++-----
+> >  arch/arm64/kernel/cpufeature.c              |  2 +-
+> >  arch/arm64/kernel/topology.c                | 16 ++++++-----
+> >  arch/arm64/tools/cpucaps                    |  2 +-
+> >  7 files changed, 68 insertions(+), 16 deletions(-)
+> > 
+> > diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> > index ac3248b9f2f3b..99a1eb4b833dd 100644
+> > --- a/Documentation/arch/arm64/silicon-errata.rst
+> > +++ b/Documentation/arch/arm64/silicon-errata.rst
+> > @@ -174,6 +174,8 @@ stable kernels.
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> >  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> > +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
+> > ++----------------+-----------------+-----------------+-----------------------------+
+> >  | ARM            | Cortex-X1       | #1502854        | N/A                         |
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> >  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
+> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> > index b5a51b0ef9440..cab741a695f52 100644
+> > --- a/arch/arm64/Kconfig
+> > +++ b/arch/arm64/Kconfig
+> > @@ -1040,9 +1040,17 @@ config ARM64_ERRATUM_1902691
+> >  
+> >  	  If unsure, say Y.
+> >  
+> > +config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> > +	bool
+> > +	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
+> > +	# On affected CPUs the counter may not increment at the expected rate,
+> > +	# making it unreliable. As a result, AMU users should treat it as
+> > +	# unavailable rather than relying on misleading counter values.
+> > +
+> >  config ARM64_ERRATUM_2457168
+> >  	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
+> >  	depends on ARM64_AMU_EXTN
+> > +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> >  	default y
+> >  	help
+> >  	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
+> > @@ -1073,6 +1081,28 @@ config ARM64_ERRATUM_2645198
+> >  
+> >  	  If unsure, say Y.
+> >  
+> > +config ARM64_ERRATUM_3821522
+> > +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
+> > +	depends on ARM64_AMU_EXTN
+> > +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> > +	default y
+> > +	help
+> > +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
+> > +
+> > +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
+> > +	  increment error when entering and subsequently exiting WFx.
+> > +	  As a result, the CNT_CYCLES may diverge from the system counter
+> > +	  frequency at which it is expected to increment.
+> > +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
+> > +	  being unreliable and unsuitable for use.
+> > +
+> > +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
+> > +	  counter return 0 in the relevant paths. This causes users of the counter
+> > +	  to treat it as unavailable and is functionally equivalent to firmware
+> > +	  disabling the affected counter.
+> > +
+> > +	  If unsure, say Y.
+> > +
+> >  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+> >  	bool
+> >  
+> > diff --git a/arch/arm64/include/asm/cpucaps.h b/arch/arm64/include/asm/cpucaps.h
+> > index 76350b38f0d7a..120c5dc3c11d7 100644
+> > --- a/arch/arm64/include/asm/cpucaps.h
+> > +++ b/arch/arm64/include/asm/cpucaps.h
+> > @@ -75,8 +75,9 @@ cpucap_is_possible(const unsigned int cap)
+> >  		return IS_ENABLED(CONFIG_HW_PERF_EVENTS);
+> >  	case ARM64_HAS_LSUI:
+> >  		return IS_ENABLED(CONFIG_ARM64_LSUI);
+> > +	case ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT:
+> > +		return IS_ENABLED(CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT);
+> 
+> Hmm, ARM64_WORKAROUND_2457168 has not been present here, so seeing
+> ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT here is not quite expected...
+Yeah, it's bit of a stretch and not necessarily needed.
+Added that for completeness but it's not really required.
+Can get rid of that.
 
+---
+BR
+Beata
+> 
+> >  	}
+> > -
+> 
+> Nitpick: unrelated change?
+> 
+> Thanks
+> Vladimir
