@@ -1,250 +1,185 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C35940862F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DA18C1F;
+	Tue, 29 Sep 2026 06:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662748; cv=none; b=rR0pTp+LaqPbi0YM4VfYMRtUuanD0dubIMnW/tJIfURYRJZ3Ir0Le0tuwIFe1NElbNaul7y1lQGDYN7e3jO4HrsDJpRX085l0kYN0r4XujEfeCpVvjWWc5xEwv7DEde+OkVHWQUAnalhdtfSWlGWIDGi+BMzMlz9A8kggNRcEkQ=
+	t=1790662820; cv=none; b=ncTs5zFjROCmQmP2tByNzn3y3H5yMVLCDbnyPn5cgOx/X8olAHwbzcAcgHZDdYL9svr9Q3SGJwWGjtfhatUTChUNAfWCPXTea4rS1lRwjlw4sWkHigzm44QJFJ3pUD9HjITRxu21uaMm3zSPdKFJnoWVLk2qS3Mn/9KKEx07t7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662748; c=relaxed/simple;
-	bh=FTf9Vb7KphCpDe4cHzJxthpV76mxOjoPZUu++XaTJe4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eUfVRzeGRvRhu9fOb75bAwD4Uw6vSjaI0l/GN2GwTVALif+7/WLmqFgqEt4njhUwia3T9Acx3OihHvRUnA/ihkCNlvsKLaj4Tdz40e/O4eWitrahDUzNNE3DHQsMKjKbvo4J+FcHlT7yiAZuAmCi2RU/eMOup1XqxObRgMsN5sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TzGXeELC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fu2TA9cd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790662820; c=relaxed/simple;
+	bh=DiDjwLgUJ2Ga1RJ/uPunNLpMVJhlYSR0X/a/1aZUwzE=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=eb6ywL+mobBHALFDVDYgXZ0a0oDWp69yKsgQ/Ka7+GO7P+t1q25AJuFYtLQzCoBBRLzSx5lj52oxQKriqptgBnZjcvaOqAqJ2xj1qYCn8xDHahlpVuvJClzbTLG+LRU35DO1TfNXrPBDOSdZEPJeFqz30nK0Kh4yQPeyDhSZ8Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=KGs3PoTh; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TzGXeELC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fu2TA9cd"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T46xeh2685993
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:19:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nsfWSASI7pHCuHAaBzrLs2MOHQ5m4idxUR0nJeO1FRE=; b=TzGXeELCp0T303qK
-	jr0zkA7jjpxQGZgHUZ9IKu5RcPMIAI7LMU2+xhgvv+yx/vVmvC6fguDYrQEzyM5D
-	Caxq211k6nuQDued1tnj5yDToB/fDireLDjfqxND9wJhG4KL3uHd5sCduXYjOvIc
-	137sbECpggMv7i/WTUc/qjHHmBrv+SdiWEk+nVPDSYEc1Fcqz1jSwE+J4B5NxLkZ
-	hZkYG9QW/eay2xT3PZOh8gxny72RbFwweWap/9dc0BKfdP6NVJSEVQOATG3JKNv1
-	8s7ZPsNJvhJ6CkgnT6Roam9saSkBdNpmnY5kU/EDxqdJJ+3NAuYsGjE5LCyGWpgf
-	cVNXxA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mjh4mv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:19:05 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df5a65671eso6448915ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790662744; x=1791267544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nsfWSASI7pHCuHAaBzrLs2MOHQ5m4idxUR0nJeO1FRE=;
-        b=fu2TA9cdHpwfcxmtxr/7NVLN1SKy8v2DgGs/kJp5Nb1HFRCPvw5/DXn7melre97hCj
-         XDQ1btX0Cbaw+w8PTolhsKjdttGFwHGvl8crqOaek5ApRPxqExqxPXDPIEC921DO1Vz7
-         pt87kHlXf8ohJqvj4rlfoPL5k8cgK33cfvCR22bUfA121UoirW2TklSq3atI/36gH3zF
-         Ch6+sBzKDiX9mvLgGf3OlITICWT04E6a+bppzc/n2IV1ViCvPxyrsg14ztKk+ODhrgVo
-         vE9txB2IkXAnsqVn5H3QD2HiDqLyX33YStXX+FkYDMOdqlBTBcLBIeW9zPjC4jj3dytQ
-         eKGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790662744; x=1791267544;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nsfWSASI7pHCuHAaBzrLs2MOHQ5m4idxUR0nJeO1FRE=;
-        b=dN80N42zUcfbfXr/KwRVy4gxDrTR90g9OqO3S4J32SqMRWQ7ZpGoX2Vet/7ZfXe37g
-         aGx1j2WsuN5Ye2PkxtCTUtwahfecofG7bP6uDLzpAtX+8ckSC4h5QACMMyjuqovqDgOP
-         W+su3gBLL9eFweMn6cySZ2TUrWXdMGvisEl8ES4tdEA1+g2pK6ewtnah54B8lEAOjlDj
-         t5wa0458ohte3hxndRc+0gLHMwE3kQYL9FYIxVdGnsAqSUgkLLO84fj6REfEfCyXyieA
-         MT8X+xAt5ap3LLJOqNxp0/3XReoUA1+YeXg+avtZFR1W6KPwUDC5ALK2ePU1GIgivIRT
-         5keA==
-X-Forwarded-Encrypted: i=1; AKwUvBxpL+35n2H7v1Irq4B4L+2heoOS9l4vYn9hhtZbTSZZrOaokeXhMUXrGwPvI1yHT0CT+LHsBu18fvD7KJw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzlUg71adE2Z1ltZ+XZdDOfolcrW+tP9AF1FzQCRCCdLNYR2G/
-	gauOyg+H/V9XvH7HG0kjFSMpO43wGC+R9kTz2M+29YEnXRmYZXbGo+DkVCq4D29fUd7ICABtiwV
-	RYg1Y72rARG++caCsAfzVCmh/MeCTvVxG2NyzOdkwe/aTwDU3UXFuWZq+mc4aBtkPAPI=
-X-Gm-Gg: AYBFou2HSpiPu8xYkIvXwAmrWFyrCcGD0eg7skukruTGCKKYWXQ0DOAyJwjHa/riaHJ
-	kysKwIp3SBYFKnM41zShPAmpydiEfCVeByNatWjiNBixJm7XWI5Nnog0ufBJe7WHeqqwjZknaCd
-	wLjuFzP7zlabz3ANvKf7jK8ETmW0iXFQburRMDwynlbWpYSkILFV8ovJAUZMYu6sgr9A+5nGJ4R
-	sX84/qa6RyaOi1kr+ZNlYMEV/tJkE4ulHO87S/VB0P2iYr0iVsvkTZlj9JTBcO/Ua2aypIfHDjj
-	lKp783cJOrpjLjPAAuFfQWqkmhzxegBYAXx3pGTJLH0OYTzMttGq4UtDe6vuK3r4t1Kuih2azMx
-	f3BYnmz48/zmtBSeiW3XwnQ3AD3zI4zP593me6VmpO4PYoxuEDeF08ZCHjLEL2/bpB3Skxls=
-X-Received: by 2002:a17:903:4b04:b0:2dd:ad7d:72e1 with SMTP id d9443c01a7336-2e2c497f98bmr9298685ad.24.1790662744330;
-        Mon, 28 Sep 2026 23:19:04 -0700 (PDT)
-X-Received: by 2002:a17:903:4b04:b0:2dd:ad7d:72e1 with SMTP id d9443c01a7336-2e2c497f98bmr9298555ad.24.1790662743790;
-        Mon, 28 Sep 2026 23:19:03 -0700 (PDT)
-Received: from [10.133.33.76] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9145b773sm51231545ad.69.2026.09.28.23.19.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 23:19:03 -0700 (PDT)
-Message-ID: <8bc3eaa1-7233-48db-a41b-ce3f08fbdd15@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 14:19:02 +0800
+	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="KGs3PoTh"
+Received: from smtpclient.apple (unknown [IPV6:240e:305:1b9d:c000:ac22:2543:5288:8f9b])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7471ea5;
+	Tue, 29 Sep 2026 14:20:10 +0800 (GMT+08:00)
+From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] wifi: ath11k: release peer accounting on peer delete
- timeout
-To: Michael Pfeifroth <micpf@westermo.com>, Jeff Johnson <jjohnson@kernel.org>
-Cc: Kalle Valo <kvalo@kernel.org>, ath11k@lists.infradead.org,
-        linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <arJzxQcf4intXBqS@mpf-ESPRIMO-P9012>
- <9d8307ee-e9bd-4538-92f8-b33410caecae@oss.qualcomm.com>
- <arTp/9A0iMNpIhl2@mpf-ESPRIMO-P9012>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <arTp/9A0iMNpIhl2@mpf-ESPRIMO-P9012>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyNSBTYWx0ZWRfXw1Xmp9z0QgLV
- 9JNdLypqP2+lu2IkmmVpPvDi6KuPaxTg4SYjjUCmdm9W/+/5gstiAkZFQ7doq0FEcSUTF+cVmAB
- UoSfePU3Qy0r8PyI0Iry4ZuuD6MTeHa/RNqrfLiIUxIJsD7alPVCFLFTpLknNUXa4pr7z5362MR
- kit1Y4ENdr8TNdPSPVvYdexM+MuChRe/gAdHa/Evlfo9+NsBYhbuV8QtExu9CGShhnzktnnd4Ld
- bCXMmugPjY8OHKuu2hVD7JwsSorEVagyIecF/fmPc/x4JE+Sgk0uiclMgeW88+j7MypkcBIu2Wo
- WjcOAHnUG3l7uRzfhFgfuNFa48XMwMhyObvBl9YYdqzRgwpKKure9A5mkXA/Wqm2tfoatVtfDeR
- emCqVG6PNBZp3hT8mdSL7z5fxkByABnJ1MFjswoWNfKIDG6EeGAUBJPWq0lqpiBKz3DzF2+xvbQ
- BNtJPuxipIUGE1PDrPA==
-X-Authority-Analysis: v=2.4 cv=OdgNnRTY c=1 sm=1 tr=0 ts=6abb5859 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=N9GNhs4bAAAA:8 a=aScLlBn_rR9kq3WGfpkA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22 a=PZhj9NlD-CKO8hVp7yCs:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyNSBTYWx0ZWRfXw09Nk5doH7ge
- WDHi/M/EsSTvPgBB54BoZxDr/UkvokcGBHfAzolztvOQm9LXgRmhA8tVxPKQESjD+m565BSZd0d
- MVwj45sk2N9ADsXh10I2Ri1+igzDQW4=
-X-Proofpoint-ORIG-GUID: j01VKBemmbFosrmFa5f1Cp_8yIfXZ4zC
-X-Proofpoint-GUID: j01VKBemmbFosrmFa5f1Cp_8yIfXZ4zC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290025
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: [PATCH] smb: client: fix WARN_ON_ONCE() on malformed NFS reparse
+ points
+Message-Id: <5B8D9C32-9B93-49DB-B817-B6921BC0737F@stu.pku.edu.cn>
+Date: Tue, 29 Sep 2026 14:19:59 +0800
+Cc: Ralph Boehme <slow@samba.org>,
+ Steve French <stfrench@microsoft.com>,
+ linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+To: Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-HM-Tid: 0aa0ebd21ad803a1kunmde6cf84d229a07
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGE9OVkxNHklOSB8fQ05IQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUhLTkFKGUIfQRhLS0tBGhhJSUFJTk9IQU5JQ0NBQx
+	1CGVlXWRYaDxIVHRRZQVlPS0hVSktISk5MTlVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=KGs3PoTh+CHd3oEK/for3YnbviNUM7TPswaFQYM4Of18QA/NwPkakAX/Xsel90JA5XvhswD/Y1HycOgsLMg2BGM0DL6nIHos5vpO5INtTTT5sIAC9GaKAb34to1aOnG9ltDZih7TvKRqKZ/GTMnRG0e+FtUqdpLaT1uLjiiSdN8=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
+	bh=ybllncL2MRfyw/3gcGbfE8GCLH4Ev9bS9SqdG450J68=;
+	h=date:mime-version:subject:message-id:from;
 
+posix_reparse_to_fattr() re-checks fields taken straight from an
+on-the-wire reparse_nfs_data_buffer and hits WARN_ON_ONCE() when
+ReparseDataLength is too short or does not match the inode type, or
+when the NFS inode type is unknown.
 
+A malicious or buggy server can trigger any of the four warnings
+with a plain stat() on a single name: parse_reparse_nfs() reports
+the problem and rejects the buffer (-EIO or -EOPNOTSUPP), but
+reparse_info_to_fattr() still builds the inode attributes from the
+rejected buffer via cifs_open_info_to_fattr(), and
+posix_reparse_to_fattr() warns on the very same server-controlled
+data.  With panic_on_warn this takes the whole system down.
 
-On 9/24/2026 5:14 PM, Michael Pfeifroth wrote:
-> On some deployments access points intermittently stop accepting new
-> station associations after several hours of uptime with frequent
-> roaming/reconnects. The kernel logs
-> 
->   ath11k_pci ....: failed to create peer due to insufficient peer entry resource in firmware
-> 
-> and hostapd reports "Could not add STA to kernel driver". A "wifi
-> down/up" (radio restart) on the affected radio restores service.
-> 
-> Despite the message text, this is not a firmware peer-table exhaustion.
-> The message is emitted by the driver-side gate in ath11k_peer_create():
-> 
-> 	if (ar->num_peers > (ar->max_num_peers - 1))
-> 
-> i.e. the driver's own ar->num_peers accounting has leaked and reached
-> the ceiling. It is always preceded by a peer-delete that timed out:
-> 
->   ath11k_pci ....: invalid vdev id in peer delete resp ev 1
->   ath11k_pci ....: Timeout in receiving peer delete response
->   ath11k_pci ....: failed to delete peer vdev_id .. addr .. ret -110
-> 
-> ath11k_peer_delete() only decrements ar->num_peers when
-> __ath11k_peer_delete() returns 0. On a delete timeout
-> __ath11k_peer_delete() returns -ETIMEDOUT, so the decrement is skipped
-> and one num_peers slot is leaked per event. After max_num_peers such
-> timeouts ath11k_peer_create() rejects every new station until the radio
-> is restarted.
-> 
-> In the observed case the peer-unmap event is received normally (there is
-> no "failed wait for peer deleted" log), so ath11k_peer_unmap_event() has
-> already removed the peer from ab->peers and freed it; only the num_peers
-> counter is left wrong. The delete-response completion is missed because
-> the response event is dropped in ath11k_peer_delete_resp_event() when
-> ath11k_mac_get_ar_by_vdev_id() cannot resolve the vdev ("invalid vdev id
-> in peer delete resp ev"), so ar->peer_delete_done is never signalled and
-> the second wait in ath11k_wait_for_peer_delete_done() times out.
-> 
-> Return success from __ath11k_peer_delete() on the timeout path so that
-> ath11k_peer_delete() releases the num_peers slot. As a safety net also
-> drop the local peer if it is still on the list; that only happens in the
-> other timeout case, where ath11k_wait_for_peer_deleted() itself timed out
-> and no unmap event removed the peer. The peer has already been removed
-> from the rhash earlier in __ath11k_peer_delete(), so only the list
-> removal and free remain, mirroring ath11k_peer_unmap_event(). A late
-> unmap event would then simply fail to find the peer id and log a harmless
-> warning instead of touching freed memory.
-> 
-> The problem was reproduced deterministically with an out-of-tree debug
-> patch that adds module parameters to force
-> ath11k_wait_for_peer_delete_done() to return -ETIMEDOUT and to cap
-> max_num_peers: after max_num_peers such deletes the AP permanently
-> rejects new stations, and with this change it keeps accepting them.
+parse_reparse_nfs() already logs each of these conditions, so fail
+quietly instead of warning, without changing the existing error and
+fallback behaviour.
 
-though the last paragraph explicitly says the issue is artificial, most of the commit
-message still reads like a real world bug ...
+Triggered on v6.13+ with panic_on_warn=3D1 by stat()ing a name for
+which the server returns a CREATE response carrying
+SMB2_CREATE_FLAG_REPARSE_POINT and FILE_ATTRIBUTE_REPARSE_POINT and
+answers the following FSCTL_GET_REPARSE_POINT with an NFS reparse
+buffer holding an unknown inode type (e.g. 0xdeadbeef):
 
-I think it would be better to rephrase as something like 'Theoretically, if peer unmap
-event is good but peer delete fails ...'
+  CIFS: VFS: parse_reparse_nfs: unhandled inode type: 0xdeadbeef
+  ------------[ cut here ]------------
+  WARNING: fs/smb/client/reparse.c:1267 at
+  cifs_reparse_point_to_fattr+0xd4e/0x1080
+  CPU: 0 UID: 0 PID: 896 Comm: stat Tainted: G  N  =
+7.3.0-rc4-00537-ga3ff15db6820
+  ...
+  Call Trace:
+   cifs_open_info_to_fattr+0xa87/0x1520
+   reparse_info_to_fattr+0x5d1/0xdc0
+   cifs_get_fattr+0xa1d/0x1910
+   cifs_get_inode_info+0xc0/0x310
+   cifs_lookup+0x3a8/0xbd0
+   ...
+   vfs_fstatat+0x77/0xe0
+   __do_sys_newfstatat+0x97/0x120
 
-> 
-> Fixes: 690ace20ff79 ("ath11k: peer delete synchronization with firmware")
-> Cc: stable@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: 6a832bc8bbb223 ("fs/smb/client: Implement new SMB3 POSIX type")
+Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+---
 
-I don't think it qualifies for stable backport since it is not a real world issue.
+Hi Paulo, Namjae,
 
-> Signed-off-by: Michael Pfeifroth <micpf@westermo.com>
-> ---
-> v2:
->  - Correct the root-cause description: the peer-unmap event is received
->    normally, so the peer is already freed; only the num_peers counter
->    leaks (Baochen Qiang).
->  - Explain that the missed delete-response completion is due to the event
->    being dropped on an unresolved vdev id, replacing the vague
->    "misrouted" wording.
->  - Rework the code comment and switch to netdev comment style.
->  drivers/net/wireless/ath/ath11k/peer.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ath/ath11k/peer.c b/drivers/net/wireless/ath/ath11k/peer.c
-> index b30a906..f93a8da 100644
-> --- a/drivers/net/wireless/ath/ath11k/peer.c
-> +++ b/drivers/net/wireless/ath/ath11k/peer.c
-> @@ -341,8 +341,21 @@ static int __ath11k_peer_delete(struct ath11k *ar, u32 vdev_id, const u8 *addr)
->  	}
->  
->  	ret = ath11k_wait_for_peer_delete_done(ar, vdev_id, addr);
-> -	if (ret)
-> -		return ret;
-> +	if (ret) {
-> +		/*
-> +		 * The delete timed out. The peer is normally already freed by
-> +		 * the unmap event; drop it here only if it is still on the
-> +		 * list. Either way return success so that ath11k_peer_delete()
-> +		 * releases the num_peers slot instead of leaking it.
-> +		 */
-> +		spin_lock_bh(&ab->base_lock);
-> +		peer = ath11k_peer_find(ab, vdev_id, addr);
-> +		if (peer) {
-> +			list_del(&peer->list);
-> +			kfree(peer);
-> +		}
-> +		spin_unlock_bh(&ab->base_lock);
+found this while testing a CIFS client against a server under my
+control, so I'm sending the fix directly.  Some notes that did
+not belong in the commit message:
 
-except for the firmware crash case, this is exactly what is done in
-ath11k_wait_for_peer_deleted(), so if that function succeeds the peer is definitely
-removed and freed already, so this is actually dead code.
+Still present in mainline v7.3-rc5 as of 2026-09-29; the code
+shape first shipped in v6.13.  A numbered recipe for the trigger
+described in the commit message, on a v6.13+ client with
+panic_on_warn=3D1:
 
-as for the crash case, all peers are cleaned up in recovery path so we don't need to do
-remove/free as well.
+  1. mount a CIFS share from a server you control;
+  2. answer the client's SMB2 CREATE for some name with
+     STATUS_SUCCESS, SMB2_CREATE_FLAG_REPARSEPOINT and
+     FILE_ATTRIBUTE_REPARSE_POINT;
+  3. answer the following FSCTL_GET_REPARSE_POINT with an NFS
+     (IO_REPARSE_TAG_NFS) reparse buffer whose InodeType is none
+     of the NFS_SPECFILE_* values, e.g. 0xdeadbeef;
+  4. stat() that name.
 
-> +	}
->  
->  	return 0;
->  }
+Shrinking ReparseDataLength below sizeof(InodeType), or setting
+InodeType to NFS_SPECFILE_CHR/BLK with a wrong trailing length,
+reaches the other three warnings the same way.
 
+I verified the warning fires with the recipe above on
+7.3.0-rc4-00537-ga3ff15db6820 and never fires with the patch
+applied, while the parse-time messages still appear.
+
+ fs/smb/client/reparse.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+index 3a27773186ae4..e6ed00bc114c5 100644
+--- a/fs/smb/client/reparse.c
++++ b/fs/smb/client/reparse.c
+@@ -1232,25 +1232,26 @@ static bool posix_reparse_to_fattr(struct =
+cifs_sb_info *cifs_sb,
+ 	if (buf =3D=3D NULL)
+ 		return true;
+=20
++	/*
++	 * parse_reparse_nfs() has already validated this buffer and
++	 * reported anything wrong with it, but reparse_info_to_fattr()
++	 * still builds attributes from the rejected buffer, so fail
++	 * quietly on server-controlled data instead of warning.
++	 */
+ 	if (le16_to_cpu(buf->ReparseDataLength) < =
+sizeof(buf->InodeType)) {
+-		WARN_ON_ONCE(1);
+ 		return false;
+ 	}
+=20
+ 	switch (le64_to_cpu(buf->InodeType)) {
+ 	case NFS_SPECFILE_CHR:
+-		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
+sizeof(buf->InodeType) + 8) {
+-			WARN_ON_ONCE(1);
++		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
+sizeof(buf->InodeType) + 8)
+ 			return false;
+-		}
+ 		ftype =3D S_IFCHR;
+ 		fattr->cf_rdev =3D reparse_mkdev(buf->DataBuffer);
+ 		break;
+ 	case NFS_SPECFILE_BLK:
+-		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
+sizeof(buf->InodeType) + 8) {
+-			WARN_ON_ONCE(1);
++		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
+sizeof(buf->InodeType) + 8)
+ 			return false;
+-		}
+ 		ftype =3D S_IFBLK;
+ 		fattr->cf_rdev =3D reparse_mkdev(buf->DataBuffer);
+ 		break;
+@@ -1264,7 +1265,6 @@ static bool posix_reparse_to_fattr(struct =
+cifs_sb_info *cifs_sb,
+ 		ftype =3D S_IFLNK;
+ 		break;
+ 	default:
+-		WARN_ON_ONCE(1);
+ 		return false;
+ 	}
+ 	fattr->cf_mode =3D (fattr->cf_mode & ~S_IFMT) | ftype;
+--=20
+2.43.0=
