@@ -1,92 +1,78 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FD54C4F62
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718277; cv=none; b=gpUDCGbYiQxtG5yoDuVen27SrzPO74UooMF2CFLluBhrvkzKujJE7YWHeC3lsrwHOd1R883d7d2s3uS2JBUj1eAp874NekPtUFsxEll1jvOSsjAva5yJQNOdv1UAuVAW2g8XSF3nZ+BtRQnlJheTYkm+FqwpECMDeOCWcGAk0mA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718277; c=relaxed/simple;
-	bh=sSS5ujNqwDF2ukOfHcgyrFNo6NxMTwMpa3kXviLIz/s=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA534B95B6;
+	Tue, 29 Sep 2026 21:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790718311; cv=pass; b=g2sF+sBqePa0KmJv2slCyiNbNV7gOqk9DLiBFzsvr2CLaAnYfgzRUyPHeHchAjVdTgKuU34IFE1kl9wUQyIAEx0KEjLT8Tk5jGZWuvpuEJ4t+geRAyIu4TKC47CbyIscNV18hONipSGU0hcNHIvQDGOutJk7wK1PBxuePbPsJpA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790718311; c=relaxed/simple;
+	bh=AhDCjG+2EDzMeuWSo3ACu4OjpbkJl7HTe1D26AYlcCs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E4JltsbUri8YRqtLwMQZUh6AEe+Oljr2PcuFtw9VPvXlGjqVZfs5SyqjlT8TKuaIgvStfVf4BCqYy1PaSsztJ1YutjcjvGzPlzpSoJOk68yBE5FjiPxV9ax4RBBw11j6HGORfLZkwt9YMcTV6D9yl+p5nhspSANra6MKCCQWR9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=H+lzIbEH; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=MIulRdM2RlSXhjFTZVp8feFG01eGRm5wUAwvfl1jomt5hqcctzoQQHsDsRZV+VOTrOH6ZyfGLfLslvtthZjNV5KOHmLvfkQub3YGJquA7iW25IOl5CWoTZ1J2viOQrWAVQDm6UOk7sTnLkqekebyjdRDOTZtyfKz2looGoe1h4g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=QRLjotwd; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="H+lzIbEH"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso1654006a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:44:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790718257; x=1791323057; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9q+E3Xh65cY9+ofmYDsNL60Gz/7NdFCbD28qz8ceGUE=;
-        b=H+lzIbEH0CsH7v/l30swJkvpVn3XHKoSAo9HoKhEy2SEc7JlGBbqcFXxn7BUe5Ba+G
-         p2+UxujFXJCKVImMUOocgIYGEI2VoeEyY24BVzm2RM2xrqacJU1xn1mPyFv1uogeMLKy
-         UuItenqrVT3P2Yp8V2pLJvFfIxv9hTBeipU2Px8M11xBDIJzEK/dQCzQpUr1HMvj7sjW
-         ZNRYHZPcpMthHDYaIylnS75EspGe7iIK6CCTiN1jyaBOroeAYJNAKJPXarNHF2GudH4f
-         06+jJiOfvOP1yaxsEwqx1vUDRlM1cgEwhwzqfVGwRPZjXw814N954rjBAKVLL0F0XMhR
-         Gt3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790718257; x=1791323057;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9q+E3Xh65cY9+ofmYDsNL60Gz/7NdFCbD28qz8ceGUE=;
-        b=eme2SFdTjqaKD18ejOXUpdB/EK4HJe9qXxf5+pQU+9YTMvdgAGKI8x0cZjZTsX5lxB
-         o/CQLpZHhwePUagnaZbwh4g05dwWrlUVs8DFs5KcOULlSfbOG7gNGs7wQH8k5bTXqxLV
-         E/BUXM2w7/RLWdwA/26xnqbA0pqtd/cx8S5dnPhBz2VBXMIFmO+fj7T+9bmyZkrflDvI
-         9ru5KnNIdinXCkHf8PO+YNnYYat4IIBlbpVfVWRIGq27xKidAjtg/3ydBHeUI9drq7Ai
-         t+nJPaARgO7jX87stI5tz32bQp7yzjEvqN4s6gIJliEsFSwn644quGyH/0Tn0QzkFeZ0
-         Wdsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzE1WRH03X1Ff6eYQ4Z0sjAvhr7OR0JhdNav6ttCLwcZTMbeIdyDEldv3W7az+oztLxjcB+pt7fuKUr6jE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfwM+/su8hhMHaKbqNSwjiGH62OoOfuEt7r8FqtixKpK+oUZs3
-	5lsvc9UXwd+QizOZGqwQkDZ2JtEZIKLz8LhSLsvn1qlPno0RQVIB6bp9FBpjLW1f2cI=
-X-Gm-Gg: AYBFou1aCaQ0nzjDCsKU3m4aGhrm7gYzpg8YlXnhzeL4aNCQhYCeZxbL3JdKTBqH1WP
-	uym701xlDcGpKwz5vg1n4Tdj1K4ft824UMGhPqYRs5slm290XcdstolgO+hSx4Srw8KT4Nco+02
-	V0UdLuUG8bb2JIXsVhJMVKq/1xCnza7YaWCvDF9AWEjffpZcOtWGOpxbGOoynb3WgeZJI/l6pRX
-	cRKey39aUcBbJKJt4ZnKBZ1r4sAlNHiyT5fgtWUzX70O1474RHo98j3H63EeFkTlyrAjqzjFMgA
-	VORNfGQGgI0CH8DAHDbtHhtQHNiwCVjT7tF4/37eGv1Cqd0S16ShkGw2usIYP548/Y0hrFl/2GM
-	KuxQZeX0sKI1LwH/vS5k7WcQx7QVTUPcL6n3rfHEFifB7YOW9AHwjF+NmX4n5rxc7sHuU2DK1Fl
-	L2Vzfaxnmy9dikPfx69QdUmE5GSMFetT7cOfCpMTgR4r7TjodznMb5iAAON6p2kE2asbd2M75Dw
-	NDTRNKnry3b1Lt50qw5xksC
-X-Received: by 2002:a17:90b:5109:b0:3a4:b8f3:8192 with SMTP id 98e67ed59e1d1-3a4bfeddacemr290081a91.52.1790718257035;
-        Tue, 29 Sep 2026 14:44:17 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4c::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c6142209sm74299a91.0.2026.09.29.14.44.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 14:44:15 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:44:14 -0700
-From: Joe Damato <joe@dama.to>
-To: Ayush Yaduvanshi <ayush37735@gmail.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-net-drivers@amd.com, linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel-mentees@lists.linux.dev
-Subject: Re: [PATCH net-next] sfc: siena: fix kernel-doc description for
- efx_ptp_timeset
-Message-ID: <arwxLnscbs05f84x@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Ayush Yaduvanshi <ayush37735@gmail.com>,
-	Edward Cree <ecree.xilinx@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-net-drivers@amd.com, linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel-mentees@lists.linux.dev
-References: <20260929100625.50380-1-ayush37735@gmail.com>
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="QRLjotwd"
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hvWtC37clz49Q6d;
+	Wed, 30 Sep 2026 00:44:51 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1790718292;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jmbMmBpiSqX5Ielk6c0V19Tn22PIfWy6yUMpcq85DZw=;
+	b=QRLjotwdNeKdPNL/mp7an2E7iwN5QD3deLa2GXOP2pRIUFe5dEeF/GXPb3yOTDoWCiCMGs
+	iFnyx1LGH+KH+rIqblDSNAEdxLycDElER4hmPc4MnKHQL998WtxDUMdJ7BX9skyIdvjpVh
+	4o6HbpFd741HZUzTc/zjf8qr4PZPs0bMTeIHKflR7YIaBSbNrG+924kPhU4a+py3SJ4X41
+	jaN8VTyow+7IHCp0/fIKVH7gkUopoACZH3B8KV8tJlljEiJCwFZcDni9bwywZSSmmikGFa
+	kElW/B9joE+2vHbancGIT3hsetzBVlJUqXYW9Wv9B9GpcGuXFoJSys1Rmn6VGw==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1790718292;
+	b=D4OFB7zyuli5tHIgIl0adxDyfcMjdtd95DxjH17JuLMxwsaA4u9QZhrzAg+hmCreY21WG2
+	2IOeUuTH+ET+hMAv3sDNQBH/A8uA44h+6SshU90Ncg7t5Mhkqk0b9CA9UDAbY2630X7wEI
+	zhJlcVjWycHLUOuhmfFNd8pHm77Sus1Nka/zDDcUGq7kQUCqtbOQbsCWLxgnHYb/wtHhtL
+	37VAKytfMqJCerKegxhZUPPtDMJ4kxa/o36yFPKJSLKLP+2BpI3cCY+FdpYfhquKYNVB6e
+	C3UN6iAW9UuELZcjDHB8tviMUImsarJzMSZ4BD6DA91aFFhBa4eqfQhs5PSKAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1790718292;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jmbMmBpiSqX5Ielk6c0V19Tn22PIfWy6yUMpcq85DZw=;
+	b=S04deSzt2V50MapSBZoOwTfDs15HfX8sEvuXFjDd9uSVAaXjkP1IdwrRQPY2qmCIs0rtO8
+	HtwUoWE/DbgE9A5ZsT18RDh+pajWR84S65dnO11FEA1iRd22OwvKL/gXIx5QFeHI2/vRH/
+	Bm/o5A/pJ+hXL5FL/hh036FmlxMBa3HXVag/SBHaoG5o0rPl2uhNimmfKmhUpa520IDZx8
+	v+3BONhACIR0cRp7FjEtw34H/cyD8i78h1YJ00l/JQhzohl57VD2PW5/C/FkJZL3ZDoOcM
+	Gk/HWI6iKk6sHtDOPS5r9LydLGyEBtqyIEz5JfPxdkAkd+c5c+DiIkIRod32dw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 77189634C5B;
+	Wed, 30 Sep 2026 00:44:49 +0300 (EEST)
+Date: Wed, 30 Sep 2026 00:44:49 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Nick Rogers <nick@getfieldwork.ai>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@xs4all.nl>,
+	Brian Daniels <briandaniels@google.com>,
+	Alexandre Courbot <gnurou@gmail.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: v4l2-ioctl: zero the ext control built for
+ VIDIOC_{G,S}_CTRL
+Message-ID: <arwxUcipqjMjA1D9@valkosipuli.retiisi.eu>
+References: <20260925080206.45261-1-nick@getfieldwork.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -95,16 +81,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929100625.50380-1-ayush37735@gmail.com>
+In-Reply-To: <20260925080206.45261-1-nick@getfieldwork.ai>
 
-On Tue, Sep 29, 2026 at 03:36:24PM +0530, Ayush Yaduvanshi wrote:
-> Remove excess @valid struct member description from
+Hi Nick,
+
+Thanks for the patch.
+
+On Fri, Sep 25, 2026 at 09:02:06AM +0100, Nick Rogers wrote:
+> When a driver implements the extended control ioctls but has no control
+> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
+> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
+> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
+> and reserved2[0]; the control's size and the rest of both structures are
+> left uninitialized.
 > 
-> efx_ptp_timeset.
+> A driver that forwards the controls rather than handling them through
+> the control framework sees that stack garbage. The virtio-media driver
+> under review takes a nonzero size as a payload to copy from userspace,
+> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
+> the stack is dirty. GStreamer's V4L2 encoders set their profile with
+> VIDIOC_S_CTRL, and cannot negotiate against such a device.
 > 
-> Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
+> Zero-initialize both structures.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 > ---
->  drivers/net/ethernet/sfc/siena/ptp.c | 1 -
->  1 file changed, 1 deletion(-)
+> Changes in v2:
+> - Assisted-by: LLM, per Documentation/process/coding-assistants.rst
+>   (Alexandre)
+> - Collected Nicolas's Reviewed-by
+> 
+> v1: https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
+> 
+> Alexandre asked whether drivers should fill the structure themselves.
+> The core builds it and passes it down, and a driver can't tell a
+> translated G_CTRL/S_CTRL from a real extended control call, so I think
+> it's the core's to zero. He's right that virtio-media will meet kernels
+> without this, though, so the driver now guards against it too:
+> https://lore.kernel.org/all/20260925080140.44696-1-nick@getfieldwork.ai/
+> 
+> Found running the virtio-media v9 series [1] in a VMM with a host-side
+> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
+> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
+> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
+> v4l2-compliance 1.30.1 reports the same results with and without this
+> patch. Build-tested on media.git next (arm64, W=1, no new warnings).
+> 
+> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@google.com/
+> 
+>  drivers/media/v4l2-core/v4l2-ioctl.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+> index 17ba1ae70..b7d248ab7 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -2357,8 +2357,8 @@ static int v4l_g_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
+>  
+>  	if (vfh && vfh->ctrl_handler)
+>  		return v4l2_g_ctrl(vfh->ctrl_handler, p);
+> @@ -2388,8 +2388,8 @@ static int v4l_s_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
 
-Reviewed-by: Joe Damato <joe@dama.to>
+These are needed exceedingly rarely.
+
+I'd declare them where the struct is filled now and initialise the fields
+in declaration, too. That way there's no extra zeroing step and the struct
+is only filled with anything when needed.
+
+I wonder what Hans thinks about that.
+
+>  	int ret;
+>  
+>  	if (vfh && vfh->ctrl_handler)
+
+-- 
+Kind regards,
+
+Sakari Ailus
