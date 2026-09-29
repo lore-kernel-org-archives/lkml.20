@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971F5012AF;
-	Tue, 29 Sep 2026 11:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14568438010;
+	Tue, 29 Sep 2026 11:04:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790679854; cv=none; b=T5hT9xK7Xjd1fVwUpZ4xAms9Aij1B8NgrrSEpacLRksaok2AA7OkQb8cqZI4pDfTxqZtgu6K+8tOZVOufKSyOLorSoXwCVwFszNVNOYOAmdBGn12yYJhwGaG0oov48VXBswMlX//JTSPbxyOQ74hUVo4Z7LQgHefXRvRcnpY5Rc=
+	t=1790679864; cv=none; b=OVmHWFf6mO2G+6IKHKEF5fVaXdP6sH8w5srG9FvTkj51kD7my9LdbSKeYC6jloLAe6GY1Lc4YQY27WucSf1PU45PttfpTrtS13WuDDIHO1K199cnQ7D6CxvbDdfZmY3WKJ1l32ITth8mT56NiJe31bsdaqZm7/3g+FpIhMx21iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790679854; c=relaxed/simple;
-	bh=s2WhwZ+nGtdj8d18CPvmqKGvmV/NViYAVXS6dctkRYU=;
+	s=arc-20240116; t=1790679864; c=relaxed/simple;
+	bh=bfvcxREXHo8YEECDUHHXRvYWxJNNb0UAyJmIMR+aTMM=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SbfTz4EJlmv/0LMwkyDz11qvoHsPwlAuBhkh7WQxpHS1FAEtFG3djgDXAfz+5OSpDJmtjtnUSbxl0OA008xBEsJbP+cFYTyDGrg8wWQWu99ozv5ZuICtZKw21V+bOJE2a3+r/Nn87/jQO03XBcdk+1CZqYLNzP9en3S+b6ukRX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMgFZBDO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=Yi9zHUHa/p/1KSLzpCsNk3xMhWIvQnHKiCKouQ8pkKHxY7JQk3EEYAD6gxBzn5TdUpFHTjpfnVN27Cf3lpnZAlTCa1703bJBIzKxVMMGirgcWYETjm8PwWAKivNWGddPAQOKIHJv3mx95T4KLwOokflFqNPq2QqKmoRwSv7nj8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFRlQ9lN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMgFZBDO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C9C1F000FF;
-	Tue, 29 Sep 2026 11:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFRlQ9lN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19DE1F000FF;
+	Tue, 29 Sep 2026 11:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790679851;
-	bh=l5JUeCTtHPn1GvL/VgOcMoEX7i+Bh6wrpN8i8JE1rIY=;
+	s=k20260515; t=1790679862;
+	bh=MY3zgCye5lDO5o+jn68gyNtfwgF2cGVnmPPDN4yZnGI=;
 	h=Date:From:To:Cc:Subject;
-	b=oMgFZBDOv00C0EIMYwayA2cw9ZKwkSD6xw0+NuWGKmFQMPdZSQ2o4p4g9zIUMIQLS
-	 xq8iF6Hv4IhlrB0IDcMsN/ONuuhYMBoxZgBACXkgl7Q2jEcbwZ5cNHpQdbRnsDcGJQ
-	 AVFN6Xerc0rgA1IbCbR4m0Ch/b6zEKrblnuyiGZgmfZvw9TQsZfvVAEAQFipaUO6aH
-	 xgRkZ5htEyls5wTPwkjLYHNqS60qJvGtWvxXaqOByUs0VhERBz6pG2u45fMtEIs0qb
-	 /J+aGVDPe+EcR15juzoBn6zAg16GFs18UTtltpH8IqyPbIRppaXEDDaStP4JzdQicP
-	 eoRTI/bwxcBuQ==
-Date: Tue, 29 Sep 2026 12:04:08 +0100
+	b=mFRlQ9lNvi2xzAt7SLMgFydNuOrB/+/5F497AF3OhHfUJmhO7/8lQPinAoLFCwPSN
+	 iKaholjBzUyWxmNmKugWrAQKjGwvOMgsSJwU9YX30XqOCBsktFUfJDTZCQoq1opYLB
+	 3bukmyE51insVUWA8i/6pQcZ9PsYIt+19a/jSkJOY7v2E500BaGRPaUAPejlUo3UZl
+	 4YXS85m6xsXaWxiSLSuflZaqlK/DkPhegJsuavaioEX6ovrC/xdHCidJGTx6Cysxnf
+	 S4TLBuMhC2+sSHw/Q6G/qGYHoD4KH/U0f9/b78QpzZAIuC18dF+rnqnqynasKfcU0A
+	 tLEnonLcMt1yA==
+Date: Tue, 29 Sep 2026 12:04:19 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 28
-Message-ID: <arubKB8g_s_g0NjA@sirena.org.uk>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the stm32 tree
+Message-ID: <arubM6k0KDyej0Y2@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,77 +39,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tv6UObsM+O3wKxz7"
+	protocol="application/pgp-signature"; boundary="6vsKljj057mxQk19"
 Content-Disposition: inline
 
 
---tv6UObsM+O3wKxz7
+--6vsKljj057mxQk19
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Hi all,
+Commits
 
-Changes since 20260925:
+  281ab10cc888a ("arm64: dts: st: enable eMMC on stm32mp257f-dk")
+  9a7f28a06dcf8 ("arm64: dts: st: add sdmmc2 pins_b for stm32mp25")
 
-The hwmon-staging tree acquired a conflict with the hwmon-fixes tree.
+are missing a Signed-off-by from their committers
 
-The drm tree acquired a conflict with the drm-misc-fixes tree.
-
-The drm tree lost it's build failure.
-
-The drm-misc tree lost it's build failure.
-
-The tip tree acquired a conflict with the jc_docs tree.
-
-The scsi-mkp tree acquired a conflict with the scsi tree.
-
-Non-merge commits (relative to Linus' tree): 10427
- 10844 files changed, 587151 insertions(+), 201979 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 430 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---tv6UObsM+O3wKxz7
+--6vsKljj057mxQk19
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq7mycACgkQJNaLcl1U
-h9CHaQf9G3tVW0TsLpox9ZfOJeh71emBnZ82e6cUXo3G5A8hqODeQOrwjbmy1zhK
-QtsUUazeEjeeE2X4lXXmJ9WISUgs/GvBrSX3fIYI1Qik/dBI4N3zatk6AMqtd8Fz
-izByIJO/JkzayWp1sI6lG6N26/7YckoP6OsGeHS18pMKQVN1vsK3834N6sskM1rI
-7WKNaHsLR7Bs9AFZzvuFFtQAb6JjIb0vH6axpnO2DmPFSD6WzyFERlbRpzqYDPN8
-CYkq1BBJUGi8uZ+Yb5HtYhROTEk+S+7vmDXL0SKWftVPo+COJ4ol5lSL1gKsEnjI
-yW1sfFwKkmKboGmFewt4daJ1IjrZmw==
-=+yi+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq7mzIACgkQJNaLcl1U
+h9Ai6gf/Y0mPk3ontdYf1Ne7h9sq4NEUg/9ygknyXc9fZ+KBA1lBr0ggS7+W/cYu
+Dg7nG6+AjBx+4Z+P/JT8NpE9NprF4BuIwAMTQm5Sype1sEOJm1JJ/3OXMz4fqZAf
+8mKDVSQsfYBpfjnGnnhbLUfWhSIUIzplwJBk8JxE86Rx2J3r5Cdtx1LSOEq3b7Mv
+PaOVTKXGs2TZuKhiQA0OU16tSfOmILjs++pTt9MFyF7d49E3Ie3DaqCs3S7z8oF3
+vR/RKmJwxOGWeUxyB1BlT1H9IqlMiHSUJz3+v3IT7VcqL7Hi2FRZOzDFWVlLJ9wc
+llaxAYpcnDo8utiWDTnY5U3QIssc3g==
+=kSKM
 -----END PGP SIGNATURE-----
 
---tv6UObsM+O3wKxz7--
+--6vsKljj057mxQk19--
