@@ -1,192 +1,221 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544954FE2C1
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25004ED1AF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.156.171.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698219; cv=none; b=lYhY0qau2pCSZVoD1bWq94BdI98cET6OeChsNiJlBgvEu4vyJy3EZvbFmPyUvc8TPaasVip8Av6oQsx9UnhvQABXcOUSM/aqIAQDqio//ASQbYGbEGUb91Ku7hxH1m60LfvyR1C0tRzP520Pu1uf6W3QPfpXDWmaKi1LVMKtMno=
+	t=1790698262; cv=none; b=UNixn5cN4+IdmfCruYGvIlGK93i2qWIPfaQ5QHxR3yb8UEqCjux4siyGw0ESE0+Q3fvU4Nln96zCw5aYALhWGuVV/EUfBKsNm1Y1yfpHE6tdccHPrIjors06oR5LVWBtUNxGop4HW+cnoTujxPnKChlluy2xHbYSGknIzfNpJVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698219; c=relaxed/simple;
-	bh=KeqC9VQXrB3+4LnVZRdfg14afrTEwBP8hLl5Kyalv0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VIgZBcvYvohuFdajW91qgiAJuYIo8fVsUnq38IhAyeSAdjLSt4SybGvdhwg0SnU4KiodXVtSXDqo7nKHfFkBVxo32OcFuIUihNq5TIvXwBHUghA88QBBKRBQc/4AIysJdL+u63kj/+kdWpmu0p/8rrwgOGLCHqQPM/YRkPDPytM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QmJ/TaNb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OFd/2KE/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790698262; c=relaxed/simple;
+	bh=4/8kHB6VsjavORXhGuMhJ8YPGNbzfwgAiBkRL5UB/Rc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rzGdNeObgfPj3jDuD4JMRVU4vhUUshTdofORv/Ezow9ZaKXS1IvHugTiyrHCy3I8GFRR+J5hxTPaFH7V6bsStYAUl8i524uZRAD0Rm8WDdtD0eXDVxwW8JcgtYCzbBJe8tvYAz9Fl7FPzAh+3UuhOXdGXHE7C7hgr805az07YRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=XoYQDVP1; arc=none smtp.client-ip=178.156.171.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QmJ/TaNb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OFd/2KE/"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqfCP3936790
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:10:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3nZ5FtLuY8+oVQiX89WT/WoAXT+i4QfhDJec0aS0UqM=; b=QmJ/TaNbDw+ozn+u
-	9yy6hwUNlhl3CuoQ9RpIiupjF2ujDaTV3C/H7E7HAOGbiYXv/kmRExf9S61Tkfxu
-	QrRmCiDQ+TFmaZNNgO/wjzrm/LLmNR9YXFWR0rX6UcwYd62VLLyyuWSXco0rFfbw
-	zhuTXhw5rLjACGxdrSByOdJa+hg1e4Cdr+nBIGqeVutomoVGRnDEqWt4EM36UdQ7
-	oZ35NNbP0Xg03yUqk1UkdXpvkXDKnLJX2/H8+cVTX2JGBLVRxkky3uwIUjSOQGbj
-	Eo7Q9+5xBgIc25meQjENE6wkr/9ToMtugDaKGRAD1QxSp0G9Y8YlSGcO81fs6Hm2
-	T63uww==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0bn1hg05-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:10:17 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so14913c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:10:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790698217; x=1791303017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=3nZ5FtLuY8+oVQiX89WT/WoAXT+i4QfhDJec0aS0UqM=;
-        b=OFd/2KE/TYlOOvf1JKnlMeXk32YcFv79Zlmcg4JI5CHY3IQL9PB69yUdz8xUSeZmpM
-         azWi3w6JstGTNxykoqDXJZvhKtjkmkwcVkQD3EVn/ra9ByFTENFBe5ZXFE6WddKhURip
-         KNitepjo89FBNAK3BTc9fiQ36rkOClFCMMWbljK4PotmPeco1L9D8c5GKzqP+jMk7BkY
-         AcMHVMC1gOuE5g0Rl89Fze6dYlAoYWu4e9aBQqcfIQfBag8B+yfZ2EPx4Ur+6av3osnr
-         bPDKTHXe+ufY9rZKLI/OPYpz/a63HCREnW+nVJtJQ15KW/l9++fVBdY+KRNwuI3VmTsf
-         sWWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698217; x=1791303017;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3nZ5FtLuY8+oVQiX89WT/WoAXT+i4QfhDJec0aS0UqM=;
-        b=jOmm1s0g2PWDNeX8LH76JFB7MmzMoB1fWzOcumtCXl6GF2alSzhgbz+PzoouLsrrWG
-         OjEeC0U9dqWz/PJZVlBXD7gZ8elSTWwMIO6pIuG2TgPnhWNEoCkWzylZ+0Rg907B7Tsi
-         l61RoVZKnWqode+k5jvhvYJi0mVTmRuRE7I3U1Atw2mrXiWEDzbaUIkBA7t78Tg/gY0e
-         agiIV/ESlW6TObkdI+epbdUXDqhaZ7JR+LUM53zB6Mwd1TxeNUO5Iqjk0eczn/pCEFzy
-         T+4e51jkluSyOi0hxNPDQ5n23oklPRu4AIj10a/64Mh7wObEK7zeW4yFVasoDlDEbLbx
-         mBAQ==
-X-Gm-Message-State: AFuF++k/13wDtrOV8yDNij3x5f+IVRtY7gfrrkC7cW61T2FdlYNfgjUs
-	zXTZ+Mgy4lvEzlgdGZqDatKF6gVCkl6f18+RCH2hVp7PZCk5PhTQhQK6fdy/xR2RQpFxksH0pDX
-	L9EjMg2hZ0Ht/00w36fIwVW6MFP9DVjyGLuJMjaasV+kWAmo9qD+OBQ2dmu7e0d2SmxM=
-X-Gm-Gg: AYBFou0RcXaG1lKNah8l1rvhEIw0OYCegM8FGNIEp+cgt3G+5jVikDUtfiLTLrC/u8l
-	XHWUpl3OEu6ui9mLNqDx1opUr+rGdDRNQu6CTbztipqwzggm24M9WGgiDh/WBCZ+1wmysZvE7KM
-	Lf9q85Z5skrXgi0wEgXD3rBc1lBvxXXvZKRwqGZ/MiZR8xvUlU+MDIU+FtrNTkzWFnwpRnJlV26
-	xlYtMIK5vGpvSkYxELEVHoTNXEo5WIHzaB2L5/imi5ZsyNYu+tx4ji/sMJTYS+O9VAVemxgMkWU
-	Tk0OTfwjEH5AMGQPp5lgmSHJ1E1OiV5Vqq0tFJ+l1yynTrc9isRF+3WAp/pyfNfMNI338nYsiVl
-	xwwGqzI/OxnJmk5eTOzTN/BKTs0tg0cNt8SNjY7idtbAuiZCaaMidkSE=
-X-Received: by 2002:a05:7022:7f1c:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-149cfa49d51mr7719489c88.3.1790698216625;
-        Tue, 29 Sep 2026 09:10:16 -0700 (PDT)
-X-Received: by 2002:a05:7022:7f1c:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-149cfa49d51mr7719451c88.3.1790698216013;
-        Tue, 29 Sep 2026 09:10:16 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14c6489457asm350724c88.15.2026.09.29.09.10.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:10:15 -0700 (PDT)
-Date: Tue, 29 Sep 2026 09:10:11 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-        f.fainelli@gmail.com, vincent.guittot@linaro.org,
-        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-        d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
-        lukasz.luba@arm.com, philip.radford@arm.com, david@kernel.org,
-        souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-        puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v12 06/25] firmware: arm_scmi: Add basic Telemetry
- support
-Message-ID: <20260929091011.000076d2@oss.qualcomm.com>
-In-Reply-To: <20260928130134.000019ff@oss.qualcomm.com>
-References: <20260920091928.2014972-1-cristian.marussi@arm.com>
-	<20260920091928.2014972-7-cristian.marussi@arm.com>
-	<20260928130134.000019ff@oss.qualcomm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="XoYQDVP1"
+Received: from relay13 (localhost [127.0.0.1])
+	by relay13.grserver.gr (Proxmox) with ESMTP id 9F3BC5E545
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:10:58 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay13.grserver.gr (Proxmox) with ESMTPS id 734595E6B3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:10:57 +0300 (EEST)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 391DF20056C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:10:56 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1790698256;
+	bh=q0EcYz+7oTChYGDHXMJMrvAXrlczc7nJkQML343vYQk=;
+	h=Received:From:Subject:To;
+	b=XoYQDVP16a5qUrBIYKaNjVwvWfjiPtjKjIlrEq1s9tzRlIehlA9CvH5Xcwnb8ax69
+	 WwpWwrnjTE0zK+rlBKlU4Rbqw2xNOrWHwrKz7M8JpUFAvldjDEq5qnNwNcsE8fij34
+	 xBSLXXmncvY53ze8HKhSHUj1BNx0gDDnTyv8copmKvZEjiIz55OcBc3d5ITqrizuaH
+	 BGK7r5Ym543sXFvnBMiHunMMSpv4Otf70hUzn1UmrLpUFsUztvdgo5KyFiz2NHUwTh
+	 O62Z5SUbhFv9Eqage3H3rzWBb4MNcUBFgXMCIB2M1a0UIYheId5fNMKVoqPFSepwV6
+	 +syIKqn7w06WQ==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.228.42) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f42.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc433d52421so1589992a12.3
+        for <linux-kernel@vger.kernel.org>;
+ Tue, 29 Sep 2026 09:10:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwRG+c/T0ijrqEWdVagvPyo0wrgEc2SuB0g2vT2ml/fkLCgZpBRXi3WJsvhSF76Ab0YPb0+naK/qsiZOOs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdvwAtgFm9V/MXCFWV+UVRzXcu/hqpfXCy19TCdNgHwATAE8oX
+	CbdCW9Zc6MwwJ1sz6hrIvDTvr5mXJvmkqE09SHZw124HXLmNSpGVLbOJNfOiaS/zjKC9uabFaMH
+	/XbUS9rp4G6YyivdpfE1Dp37NKZgrYLU=
+X-Received: by 2002:a17:90b:498c:b0:3a0:903b:f253 with SMTP id
+ 98e67ed59e1d1-3a09875d77cmr13557009a91.18.1790698254854; Tue, 29 Sep 2026
+ 09:10:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NCBTYWx0ZWRfX3T7NaCmO3UeS
- 8sCqIGJsbrTCKg6PjqZvUV/og7mKeL5BPp4WtWyF9v7AffJQthy2+OkoGdsF1+s32bPKGb3gNdr
- MRaKDQnThsrFdm2e5XUEokoBFPLd304=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NCBTYWx0ZWRfX/5KWhzbi6H/B
- g9tQalJq+yfjbTUKxXz/iSvQol/qTmbFBQ+THF1LYmDApiAxRPLGhDaHaMbumvDOBvFN/a8Oirp
- wf0EzZcZSL+pdvvHOqo4feUF/E8/o+STn/XZ/JNgj2ZLPE5zzo+siEj5ol3GbUOpppfePEtIAtm
- NGMwoTMMq7MG4BlyaQfGg07NOzNE124is2wo1I5AgjKmIamoZft4exyOvAGurHu3rzxYCLdlCdc
- ghUXsz2gSMUouEO35BzrjGZipyNJTBSRnXPqbeTe1XcGcFbDIDrqjfYwzzGjQR8SJl7FmcEfqnu
- Qfn4qib0EWcCGXx6g94jRcsjr8LmEf+1QjJ/tXEizsMmzdM05DFr+gaAxhOR7c6lZ6627oQyIjE
- x69q2p5wqU63qsi4AXYzPuV83DqBDQIOIlV365S5HgfwFj9cGQyfZGsJILXcDejWx8wcC0kvij6
- QbhLItslUediaXcpB/w==
-X-Authority-Analysis: v=2.4 cv=JMiuIMKb c=1 sm=1 tr=0 ts=6abbe2e9 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=Usant2sCTZzwgyS8W3EA:9 a=CjuIK1q_8ugA:10 a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-ORIG-GUID: _h84rpsqgZ4VC1iayNMc3zjdbRvExHg3
-X-Proofpoint-GUID: _h84rpsqgZ4VC1iayNMc3zjdbRvExHg3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290064
+References: <20260924134945.3095661-1-sashal@kernel.org>
+ <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
+ <arfpV7IXRAHREMzO@laps>
+ <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
+ <arhtsrVb82vr6U-p@laps>
+ <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
+ <arkiyMt2NIydrPhE@laps>
+ <CAGwozwGc62HAJnLeYL+jq_PnJq1LsV3Ex9LtQTE1pX3144MdtA@mail.gmail.com>
+ <arvFBqreU0qahkXx@laps>
+ <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
+In-Reply-To: 
+ <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Tue, 29 Sep 2026 18:10:42 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwHOttyNkC=sdVFCZYKZzhSE=cmUMgNd7cukpEE-WXm9Vw@mail.gmail.com>
+X-Gm-Features: AclHuK-cO7DTMRVZGm19HLnVLPRtH-na_m7RlUN11kaLgDUCAfSjBFWHmzRQ578
+Message-ID: 
+ <CAGwozwHOttyNkC=sdVFCZYKZzhSE=cmUMgNd7cukpEE-WXm9Vw@mail.gmail.com>
+Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
+To: Sasha Levin <sashal@kernel.org>
+Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179069825641.2834485.8711825499776034494@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
+On Tue, 29 Sept 2026 at 17:02, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+>
+> On Tue, 29 Sept 2026 at 16:02, Sasha Levin <sashal@kernel.org> wrote:
+> >
+> > On Sun, Sep 27, 2026 at 05:24:46PM +0200, Antheas Kapenekakis wrote:
+> > >On Sun, 27 Sept 2026 at 16:06, Sasha Levin <sashal@kernel.org> wrote:
+> > >> If someone adds their sign-off without understanding what it certifies,
+> > >> that's on them. We can't have agents add it for them just because some
+> > >> people would ignore its meaning anyway.
+> > >
+> > >I didn't say we should make the agent add it. I said if someone wants
+> > >to do it it is up to them. Not you, not the mainline kernel config,
+> > >not this patch. And disabling it does nothing because the user does
+> > >not understand what a sign off is anyway and will add it later or
+> > >submit without it. In which case you get broken patches anyway and you
+> > >solved nothing.
+> >
+> > Again, that's on the user. Your argument is saying that we should just drop
+> > this whole DCO nonsense because no one understands it anyway.
+> >
+> > We can't stop enforcing things just because users don't bother reading the
+> > docs.
+>
+> If it is up to the user, then this patch is not needed. If it is not
+> and the kernel should make LLMs prompt the user to do a better job
+> with DCO, then this patch does not provide a solution.
+>
+> I never said anything about enforcement and this patch is not about
+> enforcement anyway.
+>
+> > Nothing is stopping you from changing this behavior to your liking either, but
+> > at that point it makes you a downstream consumer on the kernel, so you get to
+> > carry that delta.
+>
+> I am aware. The issue of switching to a mainline tree for upstreaming
+> remains. Your symlink would come back. What is the solution for this?
+>
+> > >> If you think a hand-written AGENTS.md would do better, feel free to
+> > >> write one and propose it. For now, this one seems to be working just
+> > >> fine.
+> > >
+> > >No, I am fine with one not existing and it would be my preference
+> > >actually. Ideally it would be added to .gitignore as well.
+> > >
+> > >That just does not address your need of steering novel contributor
+> > >plus LLM, which I tried to help with. But if you do not want to put
+> > >more effort than a symlink then not breaking our workflows is more
+> > >important so this patch should not merge.
+> >
+> > All I care about is having all these "agents" follow the rules and guidelines
+> > that the kernel community set around LLM contributions. I'm not trying to
+> > improve the quality or make it more efficient. This patch is purely about
+> > having the majority of LLM agents follow our rules out of the box.
+> >
+> > If you want to spend a few months trying to massage an AGENTS.md to the liking
+> > of your LLMs-of-choice, then go at it.
+>
+> In doing so, you should consider the environmental impact and cost
+> this symlink will have by providing an unoptimized indexing blob to
+> LLMs which will also prompt additional tool calls. Then, the headaches
+> it will cause kernel developers that do know what a DCO is or want to
+> have a custom agents.md file, specifically the git errors that will be
+> caused when upstreaming as the agents.md file will be dirty.
+>
+> I get what you are trying to do. But you need to address the
+> underlying issues here. You can't just handwave them.
+>
+> Contributing to the kernel has never been "out of the box" and the
+> kernel is not set up for that in multiple ways. If you want there to
+> be an exception for LLMs such that they do a decent job at it by
+> default, if anything to prevent a flood of patches with obvious
+> defects, then I would agree with that goal.
+>
+> But in that case, you need to make sure that people that know how to
+> use LLMs and know what a DCO is are not negatively affected. No, it is
+> not ok to append 2k tokens to everyone's context or 2-3 more toolcalls
+> for every agent thread. It is also not ok to have to do gymnastics to
+> remove the symlink when switching to a clean tree for upstreaming.
+>
+> And even for novel contributors this is not ok. I am blessed to have
+> the disposable income to pay 100$ per month to access LLM services.
+> Even so, I have to make every % of usage count. Novel contributors are
+> not. They are typically using free services, 10-20$ plans, or local
+> models.  Those models are disproportionately affected by a poor
+> agents.md file and so is their usage.
+>
+> I would like to see these issues resolved prior to the kernel
+> providing an agents.md file or similar (if it should do so) and this
+> is a very fair ask. I do not believe I am unreasonable.
+>
+> Also, the above is a prerequisite for adding a default agents.md file
+> and does not pertain to its contents. That is a separate discussion
+> altogether.
 
-> 
-> > diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-> > index 5ab73b1ab9aa..2850b018da0d 100644
-> > --- a/include/linux/scmi_protocol.h
-> > +++ b/include/linux/scmi_protocol.h  
-> 
-> > +
-> > +enum scmi_telemetry_compo_type {  
-> 
-> I'd add some breadcrumb comments to help people find the sources
-> of these.  My personal preference for enums of things with spec
-> defined values is to also set every value explicitly.  Makes
-> it a lot easier to check individual values are right.
-> 
-> Note that there are quite a few more entries here than I'm seeing
-> in DEN0056F so I'm guessing there is a draft version that isn't public
-> yet (and I'm too lazy to see if I can get via other routes :)
-Ignore this one.   Somehow I didn't notice two columns, though I will say
-that is an ugly style in one table!
-> 
-> > +	SCMI_TLM_COMPO_TYPE_USPECIFIED,
-> > +	SCMI_TLM_COMPO_TYPE_CPU,
-> > +	SCMI_TLM_COMPO_TYPE_CLUSTER,
-> > +	SCMI_TLM_COMPO_TYPE_GPU,
-> > +	SCMI_TLM_COMPO_TYPE_NPU,
-> > +	SCMI_TLM_COMPO_TYPE_INTERCONNECT,
-> > +	SCMI_TLM_COMPO_TYPE_MEM_CNTRL,
-> > +	SCMI_TLM_COMPO_TYPE_L1_CACHE,
-> > +	SCMI_TLM_COMPO_TYPE_L2_CACHE,
-> > +	SCMI_TLM_COMPO_TYPE_L3_CACHE,
-> > +	SCMI_TLM_COMPO_TYPE_LL_CACHE,
-> > +	SCMI_TLM_COMPO_TYPE_SYS_CACHE,
-> > +	SCMI_TLM_COMPO_TYPE_DISP_CNTRL,
-> > +	SCMI_TLM_COMPO_TYPE_IPU,
-> > +	SCMI_TLM_COMPO_TYPE_CHIPLET,
-> > +	SCMI_TLM_COMPO_TYPE_PACKAGE,
-> > +	SCMI_TLM_COMPO_TYPE_SOC,
-> > +	SCMI_TLM_COMPO_TYPE_SYSTEM,
-> > +	SCMI_TLM_COMPO_TYPE_SMCU,
-> > +	SCMI_TLM_COMPO_TYPE_ACCEL,
-> > +	SCMI_TLM_COMPO_TYPE_BATTERY,
-> > +	SCMI_TLM_COMPO_TYPE_CHARGER,
-> > +	SCMI_TLM_COMPO_TYPE_PMIC,
-> > +	SCMI_TLM_COMPO_TYPE_BOARD,
-> > +	SCMI_TLM_COMPO_TYPE_MEMORY,
-> > +	SCMI_TLM_COMPO_TYPE_PERIPH,
-> > +	SCMI_TLM_COMPO_TYPE_PERIPH_SUBC,
-> > +	SCMI_TLM_COMPO_TYPE_LID,
-> > +	SCMI_TLM_COMPO_TYPE_DISPLAY,
-> > +	SCMI_TLM_COMPO_TYPE_RESERVED_START = 0x1d,
-> > +	SCMI_TLM_COMPO_TYPE_RESERVED_END = 0xdf,
-> > +	SCMI_TLM_COMPO_TYPE_OEM_START = 0xe0,
-> > +	SCMI_TLM_COMPO_TYPE_OEM_END = 0xff,
-> > +};
+I think I thought of a solution that does have precedent.
+
+The kernel forces you to have a local version file, otherwise it adds
+a .test wart. At least on Fedora. So there is precedent for requiring
+the user to create a file to disable some default behavior.
+
+Similarly, you swap this series into a two parter.
+
+The first patch gitignores agents.md.
+
+The second patch adds a phony rule to the makefile that symlinks
+agents.md to the coding assistants rst or similar if it does not
+exist. People that do not want that, like me, touch that file. Not to
+the current readme, please. Be reasonable. Yes the coding assistants
+rst file is not ideal either but that can be fixed later.
+
+If it is done like this, I do not have a problem with it.
+
+To prevent regressions down the line if a template agents.md file
+should exist but an existing agents.md symlink was provided, you can
+symlink AGENTS.md to Documentation/process/AGENTS.md which is itself a
+symlink to ./coding-assistants.rst and committed as part of that
+patch.
+
+Best,
+Antheas
+
+> Best,
+> Antheas
+>
+> > --
+> > Thanks,
+> > Sasha
+> >
+
