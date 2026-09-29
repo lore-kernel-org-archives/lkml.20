@@ -1,232 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D393DC87A;
-	Tue, 29 Sep 2026 15:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790697073; cv=none; b=qpAU/tHbMImmWaC03wBu7fgjiDulKqZmFNw5ygQ1G4v4QjpzD2rbibPyAbkEXp5ZGG0akmnJFqzSpRYKch9nvcrGhZ/NPrPV6kkHG1wMq3lSPys5CEGE174DEFXkNIS51uRDTKCQaDuZ4tBjH6j8hYWduJH2SHZ+o9rkeeLJ3gM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790697073; c=relaxed/simple;
-	bh=CWevSBXALK5VJGZwqUIRc64Xktm5k8Pt6yH/lhSUznI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tQDrnC2Bx58DVO75hsbdMoDum7G0f7iBPXTQcwGn3X6+domzSu5bBmucNj/VcH92ZQ6v5lxzDq1/iilwkE2drYz9u4hHiBIHbaX5x0c0OGIxKfWVwuuINv/LmBjHUuswRNvqwcGi/1Sjk6RyokV628O4OGVfU9HHQuUjHh+eolc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFZ7xqsO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991053E4117
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790697118; cv=pass; b=Bww7vNW6TQ4vvOTjDOEWrlktoZZlshvStOdCSV0EHOQG3vKzcnZ7oYhxSHlrA091+TGohfnAZifnkHa2RkxKf4G3X09dxriBcR+PY1lBv6QPYll6xCjMRUJOv29wiBPiNG4tPsK768APPHWE3IXloFuNLIkIELgoMROth7O6v64=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790697118; c=relaxed/simple;
+	bh=oE340zc4oBZyy7x9fRcISgyIozkhFs8LH39VrOoQshI=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=OQz4uRnKZcCEubFFFWefBKXRGqVk+A3W9L66nwREmHAyzvz5Kz/attyMQ4F4ux0xaZ1TgnEWTcWS+JF4CPoqpKkiNFIQVTtazJhh7rG6U8KKXaO/mu+JuQeASrFIpcuERY8hJSypc42lKiNvnEe10/9eg0QGvjXcFapRz1amYmg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de; spf=none smtp.mailfrom=xenosoft.de; dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b=Qk3vrtfs; dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b=w22YaIeD; arc=pass smtp.client-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFZ7xqsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B70A9C2BCF6;
-	Tue, 29 Sep 2026 15:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790697072;
-	bh=CWevSBXALK5VJGZwqUIRc64Xktm5k8Pt6yH/lhSUznI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=PFZ7xqsO5sDbjEoJj0SF5EiMHbMl10MmCCIgeL1ZMKYIf2e9QDspLeP/EFK1LJYAJ
-	 sjAPJCDthJLEvRnaWBRV3zf9d8NyehoLDzSPkxNCQvcMGh32uRxoaUMJGdW0cwcIVZ
-	 UBl+Ik90CcguMgHv5bLq3I5zVa+F+6J6mHZM8TWOmuZzeKYXMH9U5z3P8iPMW8By8h
-	 MahTWwWO6f/pzBRKFNE686yAl0Tr2suqVzZmZkQj6FwcUi3s10/atWIuLiCOicbxnj
-	 crBOwGxrSXsCFecEPA980ZQ7TEKrNO2VtS7XHXrkflLOChUuWyPhVwAiWKWLfobMgV
-	 PFBVidaGw6eNQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5199CA5FAC;
-	Tue, 29 Sep 2026 15:51:12 +0000 (UTC)
-From: Simon Sudarushkin via B4 Relay <devnull+simonsudarushkin.gmail.com@kernel.org>
-Date: Tue, 29 Sep 2026 20:50:32 +0500
-Subject: [PATCH] kunit: tool: report executor errors when listing tests
+	dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="Qk3vrtfs";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="w22YaIeD"
+ARC-Seal: i=1; a=rsa-sha256; t=1790697085; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=BfBw1Kox7QYgb+0KVqCyhFFXfyq8Db1+0jQVdVG4idNZO02VRtQSJMV0ZU9WZSuEyn
+    Ln6vst6Onw34SYteilna/hnNm97EYzQRuivw0pnP2j/1hRW6/JegbJU1KegyYqPpWr5i
+    1vorPk+swH+64y20U4vt/VFnCBSXO6+GM0dZUpWAyouzxi5ACDrHDfvp75GMcqyvaT+z
+    mIYF0pnNeuunTxiS0yMNGR1UF2/184HMDi3Gbbpw3nx/MDpom6KRyofSD7Pc4PbyYS7w
+    lhGEbAx/Y3sIsVea9i5e51I1RR9MFpeHQ0yo4ldf7Sr9Nhq2J3V94s/fnO0KlnYkjhvc
+    vEsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790697085;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=AMFhK9C963GdR47YZmuko0LM73Hc481Vl5AjQq5eme8=;
+    b=UsJjCkolkzPpbcbDJ9svSoiVaQfqPBABkjsj1i2lN5zwhHT2orckOdVxqbKlxEmNFT
+    BInocFQcfz8/EWzCR8WR3XdH+tB/j6seRgWCoxeuwxghXEP55+tWdm+vvNnPzpdyA4an
+    jD4XDhrk8/d+6kpkkyB7EpbOakdr1RN4PGMJexebRiPP3XTtIcPbyRwYaMm9x/vJgRat
+    PxYJQVwGq6ze4UuX2TrEnHgEIWX1+gICEIgM56jGZaebiUCesnZJwQGfiywXOCpmrQLW
+    XTCPboLyBProzUgOn4I/8igniXQImBeKvculkyr7ap102YoAtcQiuFGDl9aQ5iuoVpdM
+    T4DQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790697085;
+    s=strato-dkim-0002; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=AMFhK9C963GdR47YZmuko0LM73Hc481Vl5AjQq5eme8=;
+    b=Qk3vrtfs/0sysRkxStCaLN4M2rP7mxrBxq30Q0FV82zGTkVLbZk+ndTHRG4KlzEaBL
+    I7sJejk9S/Ljp41OxIrQDsGR5qWLh4Fx5gt8sGyAKNqyPYOKcgMxv7BOrt1az7aLMu9T
+    E1laK2gUeFYWUDXQps9/A0gGSlFD0TZ1NHg4uEEKhrJLh6hoRJdf4e3h1nqMi2FFT5XC
+    T4tAVFKP6H9dH6HkfBJA+lv3ZSLYgQWt2MhNUspQBcEyvKD8orbfJz57WL22zZSNIQd7
+    iDXdrOSSZlbhzm4434bFhdcx4JSuz+SWCdSfgqWLyvxB/UEi7w2RINsFkGtvec3msw5J
+    5GFg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790697085;
+    s=strato-dkim-0003; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=AMFhK9C963GdR47YZmuko0LM73Hc481Vl5AjQq5eme8=;
+    b=w22YaIeDYiMfwNQWidISGMiPfu/azzcbcM0Z8YojukOiwcu8TzBaV/7hps428h0WhR
+    lq6h+LnKNN+da/p/kzAQ==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIi+igQ=="
+Received: from void-ppc.a-eon.tld
+    by smtp.strato.de (RZmta 55.6.2 DYNA|AUTH)
+    with ESMTPSA id e0463b28TFpN54M
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 29 Sep 2026 17:51:23 +0200 (CEST)
+Subject: Re: [PATCH 0/2] KVM: PPC: BookE: Fix boot hang on preemptible kernels
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
+ linuxppc-dev@lists.ozlabs.org
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
+ harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
+ venkat88@linux.ibm.com, nnmlinux@linux.ibm.com,
+ "R.T.Dickinson" <rtd2@xtra.co.nz>, mad skateman <madskateman@gmail.com>,
+ Damien Stewart <hypexed@yahoo.com.au>
+References: <20260928110411.844582-1-sshegde@linux.ibm.com>
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Organization: A-EON Open Source
+Message-ID: <754bfea0-5f8f-ba20-cf48-9c6131f98b49@xenosoft.de>
+Date: Tue, 29 Sep 2026 17:51:23 +0200
+X-Mailer: BrassMonkey/34.3.2.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20260928110411.844582-1-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-kunit-list-errors-v1-1-16bf855e2ec3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IIoTqVYoLjWM7tcQyE0UQ7
- 26qy7f4fwclYVJoih2EVlaeY4YtCwjvLr4IecgGZ5w3tatxWiIn/LImJJFZFH0VbF8Z7x/WQe5
- +QiNv1/PZ3tal/1BI/xEcxwmVASRgdQAAAA==
-X-Change-ID: 20260929-kunit-list-errors-63c1b3066812
-To: Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- linux-kernel@vger.kernel.org, 
- Simon Sudarushkin <simonsudarushkin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790697071; l=6951;
- i=simonsudarushkin@gmail.com; s=20260929; h=from:subject:message-id;
- bh=WISOKMy68itHiwuQRD0Fmjjiui3rz30qfn+eKl1cbEg=;
- b=2hMvzP9MHwfL3ht8v7Ws1fJh00YzKB+GZ4aNPMQ1ISqxKx64d4UVbVckhrceLlFRU2LbpB8oC
- HFNoguCEPH/AY1vr10POZLabd8eQEMQTxLWKAj3qU6s90J3QxIC41Qq
-X-Developer-Key: i=simonsudarushkin@gmail.com; a=ed25519;
- pk=yr+Zf16IVZZq8kE1LwDB48Z/iOOIAkvBRA07CDmvH2M=
-X-Endpoint-Received: by B4 Relay for simonsudarushkin@gmail.com/20260929
- with auth_id=1081
-X-Original-From: Simon Sudarushkin <simonsudarushkin@gmail.com>
-Reply-To: simonsudarushkin@gmail.com
 
-From: Simon Sudarushkin <simonsudarushkin@gmail.com>
+On 28/09/26 13:04, Shrikanth Hegde wrote:
+> Christian Zigotzky had reported that preemptible kernels don't boot on
+> his FSL Cyrus+ board. The board freezes on running either full/lazy
+> preemption and has been an issue for a while now.
+>
+> https://lore.kernel.org/all/b897b0fd-90f2-4215-bcd4-3714e497d773@xenosoft.de/#t
+>
+> After 7.0, there is only preempt=full/lazy which removed the
+> preempt=none/voluntary workaround used to mask the issue. There was
+> challenge is getting the console logs which made the fixes difficult since
+> one couldn't know where the issue is.
+>
+> Thanks to Michal for helping in getting the logs. That pointed at few
+> places where the issue could be. This series is an attempt at fixing
+> those.
+>
+> Christian, KVM team,
+> Please *test* the patches.
+>
+> Shrikanth Hegde (2):
+>    KVM: PPC: BookE: Disable preemption before loading guest FP and
+>      Altivec
+>    KVM: PPC: Replay pending interrupts before entering the guest
+>
+>   arch/powerpc/kvm/booke.c   |  9 ++++++++-
+>   arch/powerpc/kvm/powerpc.c | 13 +++++++++++++
+>   2 files changed, 21 insertions(+), 1 deletion(-)
+>
+Hi,
 
---list_tests, --list_suites, --list_tests_attr and --run_isolated first
-ask the kernel for the list of tests. extract_tap_lines() keeps the
-"kunit executor:" lines printed before the KTAP header, but the list
-code then drops the first line as the dummy header and filters the rest
-by name, so an executor error is silently lost:
+I was able to compile the RC5 of kernel 7.3 with your patches today. :-) [1]
 
-  $ ./tools/testing/kunit/kunit.py run --list_tests --filter 'nosuchattr=1'
-  ...
-  $ echo $?
-  0
+After that I successfully tested it with KVM PR and KVM HV on my PowerPC 
+machines.
 
-The kernel log has "attribute not found: nosuchattr=1" and "error
-filtering suites: -22", while a normal run with the same filter reports
-the error and exits with 1. If the kernel prints no KTAP output at all,
-the same pop() raises ValueError and kunit.py exits with a traceback.
+Tested-by: Christian Zigotzky <chzigotzky@xenosoft.de>
 
-Move the code shared by _list_tests() and _list_tests_attr() into
-_run_list_action(), which raises ListError on executor errors or when
-there is no KTAP output. exec_tests() prints the error and returns
-TEST_FAILURE, as a normal run does.
+Many thanks for your help,
 
-Fixes: ff9e09a3762f ("kunit: tool: support running each suite/test separately")
-Fixes: 723c8258c8fe ("kunit: tool: Add command line interface to filter and report attributes")
-Assisted-by: LLM
-Signed-off-by: Simon Sudarushkin <simonsudarushkin@gmail.com>
----
-Tested with kunit.py on arm64 (QEMU with KVM): a bad --filter now prints
-both executor errors and exits with 1 for --list_tests and
---run_isolated, while normal listing, --list_suites, --list_tests_attr
-and --run_isolated=suite behave as before. In run_checks.py,
-kunit_tool_test.py and mypy pass; the UML smoke test could not be run,
-as UML does not build on this arm64 host (it fails the same way
-without this patch).
----
- tools/testing/kunit/kunit.py           | 57 +++++++++++++++++++++-------------
- tools/testing/kunit/kunit_tool_test.py | 18 +++++++++++
- 2 files changed, 54 insertions(+), 21 deletions(-)
+Christian
 
-diff --git a/tools/testing/kunit/kunit.py b/tools/testing/kunit/kunit.py
-index 91d234ac3b579..6db09144d7cfc 100755
---- a/tools/testing/kunit/kunit.py
-+++ b/tools/testing/kunit/kunit.py
-@@ -109,8 +109,12 @@ def config_and_build_tests(linux: kunit_kernel.LinuxSourceTree,
- 
- 	return build_tests(linux, request)
- 
--def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> List[str]:
--	args = ['kunit.action=list']
-+class ListError(Exception):
-+	"""Represents an error from the kernel while listing tests."""
-+
-+
-+def _run_list_action(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest, action: str) -> List[str]:
-+	args = ['kunit.action=' + action]
- 
- 	if request.kernel_args:
- 		args.extend(request.kernel_args)
-@@ -121,31 +125,34 @@ def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest)
- 			   filter=request.filter,
- 			   filter_action=request.filter_action,
- 			   build_dir=request.build_dir)
--	lines = kunit_parser.extract_tap_lines(output)
-+	stream = kunit_parser.extract_tap_lines(output)
-+	lines = []  # type: List[str]
-+	errors = []  # type: List[str]
-+	while stream:
-+		line = stream.pop()
-+		match = kunit_parser.EXECUTOR_ERROR.search(line)
-+		if match:
-+			errors.append(match.group(0).strip())
-+		else:
-+			lines.append(line)
-+
-+	# The executor reports a bad filter or action instead of listing.
-+	if errors:
-+		raise ListError('\n'.join(errors))
-+	if not lines:
-+		raise ListError('Could not find any KTAP output. Did any KUnit tests run?')
-+
- 	# Hack! Drop the dummy TAP version header that the executor prints out.
--	lines.pop()
-+	return lines[1:]
-+
-+def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> List[str]:
-+	lines = _run_list_action(linux, request, 'list')
- 
- 	# Filter out any extraneous non-test output that might have gotten mixed in.
- 	return [l for l in lines if re.match(r'^[^\s.]+\.[^\s.]+$', l)]
- 
- def _list_tests_attr(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> Iterable[str]:
--	args = ['kunit.action=list_attr']
--
--	if request.kernel_args:
--		args.extend(request.kernel_args)
--
--	output = linux.run_kernel(args=args,
--			   timeout=request.timeout,
--			   filter_glob=request.filter_glob,
--			   filter=request.filter,
--			   filter_action=request.filter_action,
--			   build_dir=request.build_dir)
--	lines = kunit_parser.extract_tap_lines(output)
--	# Hack! Drop the dummy TAP version header that the executor prints out.
--	lines.pop()
--
--	# Filter out any extraneous non-test output that might have gotten mixed in.
--	return lines
-+	return _run_list_action(linux, request, 'list_attr')
- 
- def _suites_from_test_list(tests: List[str]) -> List[str]:
- 	"""Extracts all the suites from an ordered list of tests."""
-@@ -160,6 +167,14 @@ def _suites_from_test_list(tests: List[str]) -> List[str]:
- 	return suites
- 
- def exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> KunitResult:
-+	try:
-+		return _exec_tests(linux, request)
-+	except ListError as e:
-+		for line in str(e).splitlines():
-+			stdout.print_with_timestamp(stdout.red('[ERROR] ') + line)
-+		return KunitResult(status=KunitStatus.TEST_FAILURE, elapsed_time=0.0)
-+
-+def _exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> KunitResult:
- 	filter_globs = [request.filter_glob]
- 	if request.list_tests:
- 		output = _list_tests(linux, request)
-diff --git a/tools/testing/kunit/kunit_tool_test.py b/tools/testing/kunit/kunit_tool_test.py
-index 85ae21754bdf9..d0cb3340a328d 100755
---- a/tools/testing/kunit/kunit_tool_test.py
-+++ b/tools/testing/kunit/kunit_tool_test.py
-@@ -991,6 +991,24 @@ class KUnitMainTest(unittest.TestCase):
- 				     kunit.KunitExecRequest(None, None, None, False, False, '.kunit', 300, 'suite*', '', None, None, 'suite', False, False, False))
- 		self.assertEqual(got, want)
- 
-+	def test_list_tests_executor_error(self):
-+		self.linux_source_mock.run_kernel.return_value = [
-+			'[    0.100000] kunit executor: attribute not found: nosuchattr=1',
-+			'[    0.100000] kunit executor: error filtering suites: -22']
-+
-+		with self.assertRaises(SystemExit) as e:
-+			kunit.main(['exec', '--list_tests'])
-+		self.assertEqual(e.exception.code, 1)
-+		self.print_mock.assert_any_call(StrContains('attribute not found: nosuchattr=1'))
-+
-+	def test_list_tests_no_output(self):
-+		self.linux_source_mock.run_kernel.return_value = []
-+
-+		with self.assertRaises(SystemExit) as e:
-+			kunit.main(['exec', '--list_suites'])
-+		self.assertEqual(e.exception.code, 1)
-+		self.print_mock.assert_any_call(StrContains('Could not find any KTAP output'))
-+
- 	@mock.patch.object(kunit, '_list_tests')
- 	def test_run_isolated_by_suite(self, mock_tests):
- 		mock_tests.return_value = ['suite.test1', 'suite.test2', 'suite2.test1']
 
----
-base-commit: e38f53f0482468efd04397f66bda4648b70ac9fa
-change-id: 20260929-kunit-list-errors-63c1b3066812
+[1] https://github.com/chzigotzky/kernels/releases/tag/v7.3.0-rc5-2
 
-Best regards,
---  
-Simon Sudarushkin <simonsudarushkin@gmail.com>
 
+-- 
+Sent with BrassMonkey 34.3.2.1 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_34.3.2.1)
 
