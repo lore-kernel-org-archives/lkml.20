@@ -1,173 +1,150 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2581389108;
-	Tue, 29 Sep 2026 09:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3101E4D0A0D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675274; cv=none; b=NRms8J4NiD2NUcqxYsoIHyXnXdfQXBtbA5ystS4PUeuMTCdWnYln+LuoOuo4zjYKZygXilfOcMFCSHofV6vcHG6Qs02+OJu9gX1xuLEFb0NxGNwogrtwW7s+MdyEdTZyIEeiNHxMSlszKZ9HmLqZ6tVp0sZpY/ogIKGOU9uGw40=
+	t=1790675306; cv=none; b=J4vW1C6b2eL7BtuVaO2ZMndudsdSTNndqgiRrBl+XP8CdXi+hR2akNfXeDJ9iGjO4utLMWpG/Xy5de/yEB0gzMVpKvLZOiGSyqF0sZcbEdDyx8sz629UfHr5t4bJq08FfW+FUiL+TX2oOGBc2dZ6teecJTLy6rHYBevhZUHveOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675274; c=relaxed/simple;
-	bh=rEuxxfzkL9sm1FhKOTCvWx8YEdC1w32sHm+MkcqNlSw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=F6SQQ7zYyfvliXdWGQLtYCoJiMEO7ZwyiB50Os9VJUhSBW+ZHhskEmPovYg9T5xlQ1lZSSOfQK17xnqSOsv6jSwS6T8t0yCmtrZI9nEP5DeijFZQfVrfrLcR2D+6ONP4dZ9E2U34zrczeooNvDtlpZORlJaBAvztvoqHX2oMKlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=b0QaBFJj; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790675306; c=relaxed/simple;
+	bh=kb8hjY/3GbCIKHPmXiRjeyjyJtS8xD8BUXG7R2aM3sk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SDfQadD1WziO3OA4MYrOuAkqf4TC6ooxOEA4gmuJ71REI8XaggjKzq+Z2OXwM2AVpB4XiIfNnlp4dQ2NOKvga7H1JKC+1Is5+xZQ+jrlFRkZxoIYOmPhVRYLl9wSreaCoymf6jeKmj4B1YoIbpBqbd//nO9h97AkWGuLv3Y+1TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T9fDjAYD; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="b0QaBFJj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=LWPlVOc4u6RU9UGM4cwX/BHsN+66TqLVJJ0MfWKvl8A=; b=b0QaBFJjng7mxiv/rjeBj9LA/N
-	iIv59cMwvPyxtu5FxE6Lg2EXi4g0AEcEKzHdO8tPdlVG+CuEASKhn6ZfMRED4WKyjp2nPpOCpU4ww
-	iDpoSmWSrMN/3nLoCQOVP6xrqdXbW+KJuk34HmObQByoYaSa0VREMXbYLgMiHV0WibGW+NVOh50zR
-	a7IQGIBk1hTqqN2iahYLrBQ9+sRGEdWYiFzFdr8xvnTxjea7CmVGO+zFDmffATy/vdefTOB4sXOP0
-	XtOsHHe1wWze6QuBiS3P3dO/Mad201ZEX4Mw16iWjegc/7CQW9WhctNwYXVN0fbK0BYeGr5X8dO3O
-	/tyaL9wA==;
-Received: from [::1] (port=35718 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xBURC-0000000A3Qa-1QV3;
-	Tue, 29 Sep 2026 11:47:49 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T9fDjAYD"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342568a5b54so1742022eec.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:48:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790675302; x=1791280102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hd2pDaQuHkOifvuoX51kyffsT4qd3/Uun46tkq8lzb8=;
+        b=T9fDjAYDs/3PAClv3G8qeBFrijeSUvX7d5d3aLtMX97NghYY3mbhnLPnPLQxHbVpH/
+         dE3lx+KXGxCDqb+9FuB+x/0w97QQixM9U2SOCFCc/jcxhYQc6e8H1FXC4S3E9daB1vU0
+         8YMRFSYPDmz6XVjeB3KarnDetJjeltCz9/I8C/Q8rWOvx97une483VNtmE3DKOAcq3/n
+         U2U8ykwtXFXgQA5j8ltETNSX6rHo5VYWq1nX1643al0xmlY8Go/PZyad+TxE7x5LQl6g
+         sMnOqGLikLSLJrTqT6HIXE7E7f84UpZOaGJ1jVw2Kz1jUksH3EO7njLaCb05WTZ85rB/
+         h6yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790675302; x=1791280102;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hd2pDaQuHkOifvuoX51kyffsT4qd3/Uun46tkq8lzb8=;
+        b=0kzuk+yey6R96ev3lDn8ZXibEzA4CN/PIElP6dFjbsZMo4z80I8bAmXLW2ly7hKe53
+         TaXVcKYPVFF5InUle+p2d3ZO/vzteulAZXufDF1kCTCfYOLWecgq/YPuP93+qgSuQRsO
+         kC0/zG3kyx/Tq3hNJMCl3rQONobjTVlHHcu+rKoTZWk9ERH2KGZPxAa39mYDOVFMb+l3
+         jC1w6a0/nTqwCWzBnTkX/x/CMrS2TnWcOsadmrj3m2Ac2kJlzPt50Ey2xs3OtjHxoov5
+         FPBhDkEBiaEzNrtqKApurUG2Wy13Z7HbcyGnbGmY1Y2AxruW6r9aluOelGYc9kr4t/+F
+         V8eA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8BYzrYp+ZuTfywsvi1y9Db6KWE4rOA6u5Q69MWi0YVuM7sR1nPejHHu1r9+NJAPZfPdv+mcN5nvu/1is=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIPW1475alOM4X2r39RQLnmjQwqE3Dn5WlQfJDUngS1jWEyEDZ
+	sEnvi263IOjNjPQpc+Kqvips1MSsX4VegVDCIdNGlkUYwuyCNgxoXOqu
+X-Gm-Gg: AYBFou24jUsyUoI3izDWRkdLPGFASXt/rj6V9Oa/X7F87fvF3ONgLO4HLo/tvl04od+
+	B8739T5a3FzLCWT0TKr6vA+nOQYfRIt6QIwN6kbW0N9VHYn3Y89DkjvAiVOXSf3TOqYrBpnzRpe
+	8F2FeSRW3SH1ULagOM/xeF74E55yhwmmeWzbhLka+WQTMV180kYP0HBvCiLbDA2z9UMR80R8i7M
+	93oKHMrKEsHqCnDptRbKieWUQM62YzfWqDjSZ62Psxspo96TAEENU+ED683kh+EbHjo9Pd5ZufO
+	i1dzWMPLrka/l3o5AOoRpL/oAG7jk+OvFakKbuNBQLujpG+7NH+7FzhESCU0OFWAtk4QXgNm91V
+	KJRyV3NyY3k7dfGA2i7wQbU96YDxYhF49Rbo6o/ElKrKwAO3ldFcgcM9gG/BkOqEpacguX+vclr
+	qhSUnXXYID8e1DjbZbBKfbk1qqRf6+RJvfmED8/nknLd2YH/fBrQDsgO2n5KDiWH2RLKYKYgX9c
+	aaEn5/rCvtnUOI8mv0vUa4HMMIy9l+5XwFKXuNeDTMgT8g6Y8UQsJqtoo1quJs+Y9glvQ96LIaM
+	a9SP
+X-Received: by 2002:a05:7300:cc1b:b0:327:e68e:3230 with SMTP id 5a478bee46e88-342702c203bmr16200118eec.10.1790675302090;
+        Tue, 29 Sep 2026 02:48:22 -0700 (PDT)
+Received: from Mac ([2401:4900:88cd:edb4:3499:f422:21b4:55c7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm31447320eec.10.2026.09.29.02.48.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 29 Sep 2026 02:48:21 -0700 (PDT)
+From: Tarun Khandelwal <tkhandelwal32@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	German Maglione <gmaglione@redhat.com>,
+	Vivek Goyal <vgoyal@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Tarun Khandelwal <tarun@supabase.io>
+Subject: [PATCH] fuse: propagate SB_POSIXACL to submounts
+Date: Tue, 29 Sep 2026 15:18:12 +0530
+Message-ID: <20260929094812.93374-1-tkhandelwal32@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 11:47:47 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
- nonce reuse
-In-Reply-To: <arr8x3a9Vqkg-ooM@krikkit>
-References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <arqToNCxIwi9CZ--@krikkit>
- <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
- <arr8x3a9Vqkg-ooM@krikkit>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <29a10d01b87fb1c5f9af445aa7864351@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Hello Sabrina,
+From: Tarun Khandelwal <tarun@supabase.io>
 
-On 2026-09-29 01:48, Sabrina Dubroca wrote:
-> 2026-09-28, 21:33:41 +0200, Jérémy Jean wrote:
->> On 2026-09-28 18:19, Sabrina Dubroca wrote:
->> > 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
->> > > An off-by-one error in esp6_xmit() advances the IV counter before
->> > > encrypting each software-GSO segment. For N segments with sequence
->> > > numbers X through X+N-1, the IV counters are therefore X+1 through
->> > > X+N.
->> > > The following non-GSO packet uses X+N for both its sequence number and
->> > > IV counter, repeating the last segment's AES-GCM nonce under the same
->> > > key.
->> >
->> > I find this description very unclear. All I'm managing to understand
->> > from this is "there's some situation where a packet isn't getting the
->> > seqno it should". I don't know where the "+1" comes from since for GSO
->> > the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
->> 
->> I tried to be as explicit as possible, but I apologize if it was not
->> good enough. My understanding on the full GSO processing isn't as
->> deep as yours, so here is another try at explaining.
->> 
->> The bug happens after software segmentation in GSO. When a large
->> amount of data needs to span across several packets, software
->> segmentation splits it into N smaller skb. After this split, each
->> smaller skb holding the individual packets has skb_is_gso(skb)
->> returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
->> that this skb resulted from a segmentation. Consequently, the skb
->> goes through the increment below in esp6_xmit():
->> 
->> net/ipv6/esp6_offload.c:
->>    355		if (xo->flags & XFRM_GSO_SEGMENT) {
->>    356			esp.esph->seq_no = htonl(seq);
->>    357
->>    358			if (!skb_is_gso(skb))
->>    359				xo->seq.low++;      // <<< increment here
->>    360			else
->>    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
->>    362		}
->> 
->> There are N calls to esp6_xmit() for all the smaller packets, and for
->> each of them, the current sequence number is first written into the
->> header, and then the shared counter for the next packet is
->> incremented. However, the value esp.seqno used to construct the IV is
->> derived from the counter value _after_ the increment.
-> 
-> Ok, I see now. One call to validate_xmit_xfrm() that calls
-> skb_gso_segment() and feeds those N non-GSO skbs to ->xmit one by one.
+fuse_fill_super_common() always sets SB_POSIXACL on the superblock, but
+fuse_fill_super_submount() never does. Submount superblocks are created
+from an fs_context with no sb_flags, so the superblock of an automounted
+FUSE_ATTR_SUBMOUNT directory (e.g. a virtiofs export containing another
+host mount) lacks SB_POSIXACL, even though it shares the fuse_conn, and
+thus fc->posix_acl, with its parent.
 
-Yes, precisely.
+Since IS_POSIXACL() is false on such a submount, the VFS:
 
-> In that case, the seqno used in the IV wouldn't match the one that the
-> peer will reconstruct using the bottom 32b of seqno present in the
-> header, and it would never manage to decrypt anything we sent.
+ - fails setting POSIX ACLs with -EOPNOTSUPP and hides existing ACLs,
+   without sending any request to the server;
+ - applies the umask itself on create, so default ACLs on the server are
+   not honoured for new files;
+ - skips ACL checks in acl_permission_check(), so with
+   default_permissions (implied by FUSE_POSIX_ACL) access is decided by
+   the mode bits alone and restrictive ACL entries are not enforced.
 
-I don't think the peer uses its internal counter to reconstruct the IV?
-The IV is part of the GCM ciphertext and the peer uses that value it
-received to decrypt the payload. AFAICT, the decryption is ultimately 
-done
-in seqiv_aead_decrypt(), where one can see the IV copy (121), and the
-actual decryption call (123).
+Copy SB_POSIXACL from the parent superblock, as is already done for the
+other superblock fields inherited from it. It cannot be set in
+fuse_sb_defaults(), because fuse_fill_super_common() checks whether the
+flag was passed at mount time to decide fc->dont_mask before setting it.
 
-crypto/seqiv.c:
-     99	static int seqiv_aead_decrypt(struct aead_request *req)
-    100	{
-                 // ...
-    116		aead_request_set_callback(subreq, req->base.flags, compl, data);
-    117		aead_request_set_crypt(subreq, req->src, req->dst,
-    118				       req->cryptlen - ivsize, req->iv);
-    119		aead_request_set_ad(subreq, req->assoclen + ivsize);
-    120
-    121		scatterwalk_map_and_copy(req->iv, req->src, req->assoclen, 
-ivsize, 0);
-    122
-    123		return crypto_aead_decrypt(subreq);
-    124	}
+Reproducer, with virtiofsd 1.10.0 started with --posix-acl and an export
+containing a nested mount:
 
-> But luckily, it seems commenting out the memcpy(iv, seqno) line has no
-> effect (I think that's because all algorithms rely on either seqiv or
-> echainiv).
+  host# mount -t tmpfs none /srv/share
+  host# mkdir /srv/share/child
+  host# mount -t tmpfs none /srv/share/child
+  host# touch /srv/share/rootfile /srv/share/child/childfile
+  guest# mount -t virtiofs <tag> /mnt
+  guest# setfacl -m u:12345:rw /mnt/rootfile           # works
+  guest# setfacl -m u:12345:rw /mnt/child/childfile
+  setfacl: /mnt/child/childfile: Operation not supported
 
-I may misunderstand, but which memcpy() do you refer to ?
-If you do not memcpy, then IV is always null, and the nonce reuse is 
-even worse, no?
+With this patch the second setfacl succeeds, ACLs set on the host are
+reported by getfacl on the submount, and default ACLs and ACL-based
+access checks behave the same as on the root mount. Tested on v7.3-rc5
+in a QEMU guest.
 
->> For example, if
->> the last packet produced by segmentation has sequence number 100, the
->> IV is constructed using counter value 101. Then, a subsequent
->> ordinary packet not going through segmentation is allocated sequence
->> number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
->> there is no increment, and its value is constructed from value 101 as
->> well. Hence the nonce repetition.
-> 
-> I don't think that happens? The other packet will go through ->xmit
-> too and use the wrong seqno too.
+Signed-off-by: Tarun Khandelwal <tarun@supabase.io>
+---
+I wasn't sure whether leaving SB_POSIXACL off submount superblocks was
+intentional. I would have opened an issue first, but since the fix is a
+one-liner I'm sending the patch directly. If there is a reason for the
+current behaviour, I'm happy to rework this or drop it.
 
-Which "wrong seqno"? The other packet will indeed, go through ->xmit,
-but its lack of XFRM_GSO_SEGMENT will make it skip the increment and
-reuse the previous counter value.
+ fs/fuse/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Regards,
-Jérémy
+diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+index e9552be36..ef3c7fac4 100644
+--- a/fs/fuse/inode.c
++++ b/fs/fuse/inode.c
+@@ -1629,6 +1629,8 @@ static int fuse_fill_super_submount(struct super_block *sb,
+ 	WARN_ON(sb->s_bdi != &noop_backing_dev_info);
+ 	sb->s_bdi = bdi_get(parent_sb->s_bdi);
+ 
++	sb->s_flags |= parent_sb->s_flags & SB_POSIXACL;
++
+ 	sb->s_xattr = parent_sb->s_xattr;
+ 	sb->s_export_op = parent_sb->s_export_op;
+ 	sb->s_time_gran = parent_sb->s_time_gran;
+-- 
+2.43.0
+
