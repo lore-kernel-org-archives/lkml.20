@@ -1,35 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE2C3D88F2;
-	Tue, 29 Sep 2026 15:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753793D7D94
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696411; cv=none; b=U/qCIOU4ZYx0uyugMikE7/jjFxiOOTN1vdfZFSEnQE3czW2nh/azDg+9LkmCg2AMvYOhMRoqgxhSUHnqxltSztUFhXZhGk2MlJwYlYhtpYHMWFcjBhUWDMAMOeMbcHnLx6YkVay1n4Lb0/tGgy5wtZjHnmLdCwyDFyBqzRyW22M=
+	t=1790696430; cv=none; b=GC8CtaxupHAlkvPYksdCk/Djb8EUrfKVdiFjbIqgWNDSKrgRpHdIRrv3aV54NV/4XWcjcinJUtBJZulu0XAGSbSIVa4DRRIGZ5CCAXnFDje2ZuAwSxeSc7RzIu/woML47ujdZ6wcYmyWiE+KZruj2bYg9U1dwdDLjYCgomIS980=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696411; c=relaxed/simple;
-	bh=dksADsFEbTLF3EKReye9ZlfDT5pVRFCKmvhtNZlOH4A=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=q876xct+hXb8IUmVci0AQZzMowN1NxbUPabZRS3zYjmruaoQLUZyebUMVPUaTWd41j4rs546g+u8W5feI2Bi4LDM13+t4z1U9Ppjev5LVd2e/P1Y1QeGrF9TzPm2ww7mJnIepwkWhB1uca+SB4or/g7sma5x0iGqukj02SLS7wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na6pclsh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790696430; c=relaxed/simple;
+	bh=mH0jZwfkHRJ/f29fgMIPF22P1sLjDotROPwF1ZstbgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N7QtTeGprDZUE9qUjahu1e98g84xvJqnV5zdikTVijiok5angptoTe7aUct+bQXtjPtbrDLmR8/U/pE/n9thHWdRPJFG+QGKWTQu2MOmFNnfVRzG6s70I+c/Z+uRSnRiV8O9i4kvPZHqA3dm70dbSLUiNoPx4L4j8QvgNiyI+Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ja/b3UN/; arc=none smtp.client-ip=74.125.228.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na6pclsh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED8F1F00898;
-	Tue, 29 Sep 2026 15:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790696408;
-	bh=vF5j6g9WG6e3eUnrBxsyO3KNBqQKDnjkpKAHzFlZuoM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=na6pclsh7D+grmDiIFBYkM0qmiRpYnAvHubLPxl2on/pLxthbGAPEwf3qrP3ao/D9
-	 4FHTO9lqWZn/p3qq85Qn345YmpYoBmFGWadmY2VPo0cvUe5hlpUGEg3WFx3AzMc/7k
-	 hM8f6+Ne9e3AroS+Xm/H2FtROWphXFeDeo3ZD1j4adrDmmeoafOX7MNaNWwcVFBeE6
-	 EpfJTaXUlsdXUYfqaptDEFk3DXJtFxyt1J87CzdAtmfHlsUo4SHOJPfZwQieEV0GKR
-	 PDOVSrlXITyiGWVOZwdmahXf+M4BrfuWrOJlXQyJ78DixENyOGKBvEW8HR/+Cm2BuH
-	 DDO0Rrc+s8HoA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43883927058;
-	Tue, 29 Sep 2026 15:40:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ja/b3UN/"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-88272e1d069so1947616b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:40:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790696429; x=1791301229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e1NH6lS9ZrNrd0d1hVfQFU/u7ZfW1VWDSDy434/8Djw=;
+        b=ja/b3UN/AwTtivYeaxzJI6I4mcgnN+EiRtwUaEhfUiE8bp+usNEi1af404K0AzJc8V
+         cl6+WjBSlAdyedwPs7sMq0EgWO99OZ/IsqHyxxUIj/CGrfuDoR3mQOmRv+2HaAuKY0Sw
+         06HbF3XlyJuSJwWjvep84riHLlifQANpVnQ05ZHYx4vjNMyaxPEafe1e3cES69Q5qOcd
+         EdXT3nC5qO6GM2pA7cXypGOJCxjdpuE+VxVXn99IOu1oq4rxiuvW68b5/m3ZEnKU4FLe
+         sJBexnF3NzDJ8ABjYgdx6+I2HvOKB61fZeC7jcdZxEeY62QXp2Sng0fm4UofXsM/3/ho
+         HaAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790696429; x=1791301229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e1NH6lS9ZrNrd0d1hVfQFU/u7ZfW1VWDSDy434/8Djw=;
+        b=Nt8RC7RnoJ2wle1PSqRkaFwxeYBGEt/eegfA5Ko38+eYah2Oe5ZNfknRPi2huzxXsM
+         pmTqozz94ZApoJd0hRr/DWV19g2dFrFgA2FeCVsPaUFxxptnoMMP0YSz0VupPUTkr1jx
+         J1J3lmicj4+CpEPUShEAAG+elEVHheJWIsZ1vE5M7cmOcvOJto/lwlMxXSmevSHlJvjF
+         xMdXZCfsdF4rpZhI2x8b0yeJf1E/1xlsBnTBxUa+CUkR3QpadLt+R/rwm0sSKei+Gnmi
+         vSGzZNtq/T5kfhAfB85uois9XoezUJFPKDquCtSZyuXYjPv/AxlAG7agNvCRXbwQpPpJ
+         zyDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdVv+IzEZ6LfQUf8OIZc7fwpLWX+FGmwA5HgtAQyPX7Uk9+aN9QwSi27ediZNcOfqdQMhWZIiD7DJRXiQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kd4ZAbiF+yQYR37dx0u5iLSJQqxHYgB3cd+xxH/Nf9YkwX17CG
+	Ia4PeV2f6KMrMQCBpgH5jeewKyPvsoKvqCmF7aSQrMYKS1SgFQFvXJsk
+X-Gm-Gg: AYBFou0P7VSS/6IV7SvGk7Qmaau6bA3mpRPsUsAX+EqnOjR+Il5AXUpfB+3OACG15pX
+	3g9P5fgWXBx2R7UBS4FpAqkZZnKFMuxGJwIVcthqqbnHhyEgFkjv6kA5I/QlUD8JXPtOb0bvpPh
+	HuMue/noku3Xo5AvmASXllDIbdUsx+YGEWmxoPU3MfGhlkL3APZBaXThP3uiPURDv4NbLB6hK+l
+	SKnoDQmm7fiO2f/QS8nXkRdC2eB56XAYlltNB/qF7490L/CkN3bPPuvWss9HmBRFIXp8SG9x2o3
+	fjRKM/aLb36zy0rFZdtHqu9kEN07iaby8VWnNmuJf1lBlvsFlvzwPItUxldCXufaeO2SY8KbaI/
+	6Vcf6s+29eVf+wUaJ+3BIetwxSyZevMid1i4bfmvvXC8gZPqE04W/EmWtiw87wIQu0OdJPumZJ/
+	Mb23LgIYL1/FqPsnzWOR2LUCpVyiYp6mgdIO7KYybadQ57DIeflCcsiGj7Ja+mZ+I+tbsLp9cxx
+	QL7x0mvQlEA+kiRxofQouW5wrSO1iEJjh96hJ0=
+X-Received: by 2002:a05:6a00:4fd3:b0:881:3f4e:4ae4 with SMTP id d2e1a72fcca58-8813f4ea2c3mr9376150b3a.53.1790696428794;
+        Tue, 29 Sep 2026 08:40:28 -0700 (PDT)
+Received: from zawanix-thinkbook.lan2.zerozawa.top ([2404:c140:1f09:d6e:d9fd:40a6:7730:7869])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868b412116sm163851b3a.19.2026.09.29.08.40.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 08:40:28 -0700 (PDT)
+From: Zekai Xie <zekaixie37@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: mpearson-lenovo@squebb.ca,
+	ikepanhc@gmail.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	derekjohn.clark@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Zekai Xie <zekaixie37@gmail.com>
+Subject: [PATCH] platform/x86: ideapad-laptop: Add PrintScreen key on ThinkBook 14 G8+ IPH
+Date: Tue, 29 Sep 2026 23:40:23 +0800
+Message-ID: <20260929154023.89492-1-zekaixie37@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,45 +77,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: MGMT: Fix status of pending commands flushed
- on
- power off
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179069640730.997963.2754170739187086814.git-patchwork-notify@kernel.org>
-Date: Tue, 29 Sep 2026 15:40:07 +0000
-References: <20260924171158.804136-1-yaroslav.voytovych@gmail.com>
-In-Reply-To: <20260924171158.804136-1-yaroslav.voytovych@gmail.com>
-To: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
- luiz.dentz@gmail.com, linux-kernel@vger.kernel.org
 
-Hello:
+The Fn+F11 (PrintScreen) key on the Lenovo ThinkBook 14 G8+ IPH
+(21VG) reports WMI scancode 0x48 (0x148 with the WMI key bit set),
+which has no entry in ideapad_keymap[], so userspace only receives
+KEY_UNKNOWN:
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+  Event: type 4 (EV_MSC), code 4 (MSC_SCAN), value 148
+  Event: type 1 (EV_KEY), code 240 (KEY_UNKNOWN), value 1
 
-On Thu, 24 Sep 2026 19:11:58 +0200 you wrote:
-> cmd_complete_rsp() receives a struct cmd_lookup and, for a pending
-> command that has no cmd_complete callback, falls through to
-> cmd_status_rsp(cmd, data). cmd_status_rsp() reads data as a u8 *, so
-> the status sent comes from the first byte of match->sk's
-> representation, not from match->mgmt_status.
-> 
-> commit f53e1c9c726d ("Bluetooth: MGMT: Fix possible crash on
-> mgmt_index_removed") changed the callers' data from &status to &match
-> and updated the cmd_complete branch to match->mgmt_status, but left
-> the fall-through passing data unchanged.
-> 
-> [...]
+Map it to KEY_SYSRQ so the key produces the Print keysym as labelled.
 
-Here is the summary with links:
-  - Bluetooth: MGMT: Fix status of pending commands flushed on power off
-    https://git.kernel.org/bluetooth/bluetooth-next/c/86ef0f58bdec
+Assisted-by: LLM
+Signed-off-by: Zekai Xie <zekaixie37@gmail.com>
+---
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-You are awesome, thank you!
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524..4cae65c 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -1364,6 +1364,8 @@ static const struct key_entry ideapad_keymap[] = {
+ 	{ KE_KEY,   0x2d | IDEAPAD_WMI_KEY, { KEY_SELECTIVE_SCREENSHOT } },
+ 	{ KE_KEY,   0x29 | IDEAPAD_WMI_KEY, { KEY_TOUCHPAD_TOGGLE } },
+ 	{ KE_KEY,   0x2a | IDEAPAD_WMI_KEY, { KEY_ROOT_MENU } },
++	/* PrintScreen (Fn+F11) on ThinkBook 14 G8+ IPH (21VG) */
++	{ KE_KEY,   0x48 | IDEAPAD_WMI_KEY, { KEY_SYSRQ } },
+ 
+ 	{ KE_END },
+ };
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
