@@ -1,235 +1,122 @@
-Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E15A547049
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8D714A60F;
+	Tue, 29 Sep 2026 01:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647043; cv=none; b=NBMe2cw/4SX+zVouYogU0837BvZIUjwmr3+vTUhmR5JJ/51nUPmUMSmqXekK/caqlzrZU9r/TUvkNT6uvxNayWb7uwXH4WhKsTko/B3L/v+cqbFy7ISHLprKCJMJy2uRmlZG6HiKbdotyOw9hFxIw9h/2jXZF4WYb4NkUANcQsA=
+	t=1790647149; cv=none; b=glLy/goI7ZiToaJnDtcASvhf1YfPeR48TTXVnibwTGo8GsPe6dyQCpTueOT0LSJOWZUprfiAOz2ulAXp3dc44npuAchjhDHDWcQEvbumT3zUJWpW+II1tc+m5AX7kRF7oQ0EMSGfpJS58sYSksW7ijp4tbSGJoIyI6PaWA5/4aM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647043; c=relaxed/simple;
-	bh=PIpaOhaxNUj5p39NIRWj1/IzJ+oNM7ndFQiuq7U/4OY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HbnrypfZhzmJDjXWmiJqFmvrdxL7waJNvtMCLGsgCF17Mc+zj8+1hzngjpaASh1q4Isg0/p4Thvk9a8WbHoiK9exBxVzOMbIiAI7161BbegwYN5Bdc7srXEfv5VFwI8wqZ6d1VBmFA2TQ++mk4ncx5Eko2nJqukhdOTVqORnKEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jJEanMdq; arc=none smtp.client-ip=95.215.58.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790647149; c=relaxed/simple;
+	bh=B5nV/HtbBryxw/8tS+VfkVUXRLsvMEBZHxC2zJCFYn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YBMcZIc1Vt3OHi+ihqpJMvbfKttGQyON2/rEnLCeOCzApeuC8Nc6CGoXl1f32OPog3MFzCSS7rfm4sjHzCpOJj4ojmNtGpGuU9UexT/DItiXmcXrRLxuriY1s31i4IEmh0ekstunSY+t83Du8b9vLlwY3/Mi0da4yugC8pRPJhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FOuK0Nu3; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jJEanMdq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PIpaOhaxNUj5p39NIRWj1/IzJ+oNM7ndFQiuq7U/4OY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790647038; v=1; x=1791251838;
- b=jJEanMdqL3UFc2ls72u1krsTljt7l/xA1tCTUmkNq2hEvKL1/Tj/1wEjJiVPWFgdPD6Fz7Er
- De4ENNCkYwfdXpnx2flMLA8dzFJ19rv0wG6hXQoLFroeOZ6Sc0ouw9UnirBlIUiHHlH0r5TZNEa
- /MzEGU76Rs295hnMF+ZxDVIE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c5cb103bf4a5bf94;
-	Tue, 29 Sep 2026 01:57:18 +0000
-X-Mizu-Trace-ID: c5cb103bf4a5bf94
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Tue, 29 Sep 2026 09:57:01 +0800
-Subject: [PATCH net] selftests: fib_tests: use per-test return value in
- subtests
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FOuK0Nu3"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790647143; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=8JRCLmFuMQXFiZMU3Bmuz8WXdz3zgxjaZT2gg9tR8dw=;
+	b=FOuK0Nu3LNOBptHzQKEBEDndqaD4244VN5idxKQ2IVO3ixw69FI3pM5eNjz7Dd//lDTZMUEUgX+RpnPKRW5eBCN9+BNyQac+6UOA/NI1dnIR0swzYoU+xGsNUgDYyJN5aAtVYb1nnCr32aqzp41JeXxQVAdpUGesK89M6EDb+v4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R281e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XBrSLRt_1790647141;
+Received: from 30.28.50.44(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XBrSLRt_1790647141 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 09:59:03 +0800
+Message-ID: <56179353-7e02-40bc-b443-80ab8e6b627d@linux.alibaba.com>
+Date: Tue, 29 Sep 2026 09:59:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: APEI: accumulate the queued flag across error
+ sections
+To: Breno Leitao <leitao@debian.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>, Xiaofei Tan <tanxiaofei@huawei.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
+References: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+In-Reply-To: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-self_fib_tests-v1-1-0eab6a3c3a3c@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBG4avIrA3EgGK8ShEx9Z92QFLJBBGCd
- 29w+S3eK6RIAqWpKZRwisovVnRtQ+/vGj8wslWTs26w3o1GsfPCEpYMzWrsZnv2A1YOgWp0JLB
- cz/BFEZnm+/4DvI0wpGUAAAA=
-X-Change-ID: 20260928-self_fib_tests-0d05f96eafbb
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, Ido Schimmel <idosch@mellanox.com>, 
- David Ahern <dsahern@gmail.com>, netdev@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hangbin Liu <liuhangbin@kylinos.cn>, 
- Sashiko <netdev-bot+sashiko@kernel.org>
-X-Mailer: b4 0.14.3
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-fib_tests mixes use of $ret for both per-test return value and global exit
-code. If an earlier subtest fails and a later function sets ret=0, the
-script will exit with status 0 even though [FAIL] lines were printed.
 
-Use RET as the per-test return value, as already defined in lib.sh. The
-exit code ret will only be set in log_test().
+On 9/25/26 11:09 PM, Breno Leitao wrote:
+> ghes_do_proc() walks every error section of a CPER record, and
+> ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+> processor section.  Both assign to "queued" instead of OR-ing into it,
+> so only the last iteration counts: a later section or entry that queues
+> no memory-failure work clears the flag an earlier one set.
+> 
+> Instead of reassigning the variable at every time, just do an `OR`, so,
+> if there was a single match, it will return "queued" as set.
+> 
+> The comment above the check says "If no memory failure
+> work is queued", which is the semantics this patch implements. I.e, only
+> SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+> if any event was not handled/queued at all, we will need something more
+> sophisticated.
+> 
+> Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+> Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>   drivers/acpi/apei/ghes.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+> index fe10ab0e02f68..ec2d5ca51db02 100644
+> --- a/drivers/acpi/apei/ghes.c
+> +++ b/drivers/acpi/apei/ghes.c
+> @@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+>   		 * and don't filter out 'corrected' error here.
+>   		 */
+>   		if (is_cache && has_pa) {
+> -			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+> +			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+>   			p += err_info->length;
+>   			continue;
+>   		}
+> @@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
+>   			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
+>   
+>   			arch_apei_report_mem_error(sev, mem_err);
+> -			queued = ghes_handle_memory_failure(gdata, sev, sync);
+> +			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+>   		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+>   			ghes_handle_aer(gdata);
+>   		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+> -			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
+> +			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+>   		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+>   			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+>   
+> 
+> ---
+> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+> change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
+> 
+> Best regards,
+> --
+> Breno Leitao <leitao@debian.org>
 
-Fixes: 607bd2e502f5 ("selftests: fib_tests: Add test cases for IPv4/IPv6 FIB")
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://lore.kernel.org/all/178961184152.22033.9267194009793243294@kernel.org
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
- tools/testing/selftests/net/fib_tests.sh | 40 ++++++++++++++++----------------
- 1 file changed, 20 insertions(+), 20 deletions(-)
+Good catch, thanks for the fix.
 
-diff --git a/tools/testing/selftests/net/fib_tests.sh b/tools/testing/selftests/net/fib_tests.sh
-index b338bfb196a2..9ce5623b049c 100755
---- a/tools/testing/selftests/net/fib_tests.sh
-+++ b/tools/testing/selftests/net/fib_tests.sh
-@@ -369,7 +369,7 @@ fib_carrier_local_test()
- 
- fib_carrier_unicast_test()
- {
--	ret=0
-+	RET=0
- 
- 	echo
- 	echo "Single path route carrier test"
-@@ -685,12 +685,12 @@ fib6_notify_test()
- 
- 	err=`cat errors.txt |grep "Message too long"`
- 	if [ -z "$err" ];then
--		ret=0
-+		RET=0
- 	else
--		ret=1
-+		RET=1
- 	fi
- 
--	log_test $ret 0 "ipv6 route add notify"
-+	log_test "$RET" 0 "ipv6 route add notify"
- 
- 	kill_process %%
- 
-@@ -732,12 +732,12 @@ fib_notify_test()
- 
- 	err=`cat errors.txt |grep "Message too long"`
- 	if [ -z "$err" ];then
--		ret=0
-+		RET=0
- 	else
--		ret=1
-+		RET=1
- 	fi
- 
--	log_test $ret 0 "ipv4 route add notify"
-+	log_test "$RET" 0 "ipv4 route add notify"
- 
- 	kill_process %%
- 
-@@ -763,9 +763,9 @@ check_rt_num()
- 
-     if [ $num -ne $expected ]; then
- 	echo "FAIL: Expected $expected routes, got $num"
--	ret=1
-+	RET=1
-     else
--	ret=0
-+	RET=0
-     fi
- }
- 
-@@ -812,7 +812,7 @@ fib6_gc_test()
- 	sleep $GC_WAIT_TIME
- 	$NS_EXEC sysctl -wq net.ipv6.route.flush=1
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection"
-+	log_test "$RET" 0 "ipv6 route garbage collection"
- 
- 	reset_dummy_10
- 
-@@ -830,7 +830,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (with permanent routes)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (with permanent routes)"
- 
- 	reset_dummy_10
- 
-@@ -848,7 +848,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (replace with expires)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (replace with expires)"
- 
- 	reset_dummy_10
- 
-@@ -868,7 +868,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 5 $($IP -6 route list |grep -v expires|grep 2001:20::|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (replace with permanent)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (replace with permanent)"
- 
- 	# Delete dummy_10 and remove all routes
- 	$IP link del dev dummy_10
-@@ -923,7 +923,7 @@ fib6_gc_test()
- 	# rt6_nh_dump_exceptions() just skips expired exceptions.
- 	$NS_EXEC sysctl -wq net.ipv6.route.flush=1
- 	check_rt_num 0 $($IP -6 route list cache | grep 2001:10:: | wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (promote to permanent routes)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (promote to permanent routes)"
- 
- 	$IP neigh del fe80:dead::3 lladdr 00:11:22:33:44:55 dev veth1 router
- 	$IP link del veth1
-@@ -960,7 +960,7 @@ fib6_gc_test()
- 	# Wait for GC
- 	sleep $GC_WAIT_TIME
- 	check_rt_num 0 $($IP -6 route list |grep expires|wc -l)
--	log_test $ret 0 "ipv6 route garbage collection (RA message)"
-+	log_test "$RET" 0 "ipv6 route garbage collection (RA message)"
- 
- 	set +e
- 
-@@ -1589,7 +1589,7 @@ fib6_ra_to_static()
- 	# Expire is back, on-link route is now owned by RA again
- 	check_rt_num 2 $($IP -6 route list |grep expires|wc -l)
- 
--	log_test $ret 0 "ipv6 promote RA route to static"
-+	log_test "$RET" 0 "ipv6 promote RA route to static"
- 
- 	# Prepare for RA route with gateway
- 	$NS_EXEC sysctl -wq net.ipv6.conf.veth1.accept_ra_rt_info_max_plen=64
-@@ -1606,7 +1606,7 @@ fib6_ra_to_static()
- 
- 	check_rt_num 2 "$($IP -6 route list | grep -c "nexthop via")"
- 
--	log_test "$ret" 0 "ipv6 RA route with nexthop do not merge into ECMP with static"
-+	log_test "$RET" 0 "ipv6 RA route with nexthop do not merge into ECMP with static"
- 
- 	set +e
- 
-@@ -1651,18 +1651,18 @@ fib6_temp_addr_renewal() {
- 	# Restore it
- 	$NS_EXEC ra6 -i veth2 -s fe80::1 -d ff02::1 -P 2001:12::/64\#LA\#3600\#3600 -e
- 
--	ret=1
-+	RET=1
- 	for i in $(seq 1 25); do
- 		sleep 1
- 		num_dep="$($IP -6 addr | grep -c "temporary deprecated" || true)"
- 		num_tot="$($IP -6 addr | grep -c "temporary" || true)"
- 
- 		if [ "$num_dep" -eq 1 ] && [ "$num_tot" -ge 2 ]; then
--			ret=0
-+			RET=0
- 			break
- 		fi
- 	done
--	log_test "$ret" 0 "IPv6 temporary address cleanly deprecated and regenerated"
-+	log_test "$RET" 0 "IPv6 temporary address cleanly deprecated and regenerated"
- 
- 	set +e
- 
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20260928-self_fib_tests-0d05f96eafbb
+Thanks.
 
-Best regards,
--- 
-Hangbin Liu <liuhangbin@kylinos.cn>
+Shuai
 
