@@ -1,311 +1,220 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011060.outbound.protection.outlook.com [52.101.70.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8374F4C6535;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF324CDDCE;
 	Tue, 29 Sep 2026 08:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671751; cv=none; b=DoJpBJ/C03UdFRGkAqqaPcxBMTvOhfH0tQbw12jEPGM+S5pXisfrAIDEmJYLTcG78KC0i/3N3sNgCI9Sx0e1Ea7jXKuzZLRAQY1+J4RAvqBFLxJ3XsXdZjeB4ciK/5YIhlDLJ4sap0vGyXwvW+oMtQUcn+nfeCoSXLrKP0XDtTk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671751; c=relaxed/simple;
-	bh=GeRbolGkRr40FWu3ik7N3Vv2bkK9bU16sOeBMCfR+RM=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=V7pnQMFI3ymHK36fxqmU+2MJwXzROanreQJKWY9jJtHqRvT0B1TB04srW2+NCHWijXIGX2EmxKC0AGFnTyPZcAEoYU+XBk8f5LlWrQDfLEm42MEfK8qnPk292BI+Kc3gsWpN810zac7TOKIAy/idKRys8QYWXzuFnFD4bZsqBJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z+Ry2pZw; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790671747; cv=fail; b=X/PA4YSrW+DMqpnhpOKEW8BMyIZ2tfHpE2DtYivUmH4VTvdqJ6SLOL5IEobcd3l8ENGbavbvMJ9CtqCLp6OC2DNPQlv1vmEoOhl0VKVtUw7OOj/q0sNxtoRL3A7yFrHUun3OXIOUhLv7RX6EzrUlF9BzNPztwiizPOaMWlSGB3U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790671747; c=relaxed/simple;
+	bh=8SFhofZWJ4jN8PWnhi/quLseYVMmU5E7RdJI0Voojr8=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=ABE+yrbe55YPDCJrZrazq6UR5Sgz/aZ9ANWOEPQBZyMDgO4VQcyUGkjUIe1DmJwlekvPDy7hRYl8jrE+LQf2uL05mF43PZmv7m6FQr+wk/xRiDoVsZrm9mVIAUtdwAPpb6Is/pV+gT6QdnGAXEfT3dRR7bXI/puwJLkne3CDM2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HcnWSTa3; arc=fail smtp.client-ip=52.101.70.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z+Ry2pZw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790671743; x=1822207743;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=GeRbolGkRr40FWu3ik7N3Vv2bkK9bU16sOeBMCfR+RM=;
-  b=Z+Ry2pZw9pFLeLoGgq2pq5rMMLDoFylAl3tOjTW+xL/FxI0rj6a5ta4P
-   qtVZ8S1K0AbWn2Glfy+NUK2zvIz/o6j0+upbhDb4fuWSjGSM4L5gr6ykE
-   1L3YsyfxnjkSja2BhP5rbZBitwp5bmCoXoKzGQEo0CRtTiKrJd142Ee/8
-   eXvA094lLyfq/7TBxVcBIsqYZ52Tt+pe6oVGrq6siC/5VfG+4aod1hvxC
-   hzu5SZ90hXPLpi3IliXIM4hMU8XRBxgbH/pF+oyHhc3TaUrW89DpLG8PX
-   nfZ6JDK4c2XSkmVuOvITgoAkYjLco8TehVJJJdOV8c30AV3l4rtqHONh9
-   Q==;
-X-CSE-ConnectionGUID: d7vHLkIXSieppGaAn5oCQQ==
-X-CSE-MsgGUID: iFQg3YNvQkCPqIgz33rJAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90336359"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90336359"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:48:57 -0700
-X-CSE-ConnectionGUID: M3HkRzwlQBiXSlERqb3VYw==
-X-CSE-MsgGUID: 2+7AT7l0RYmTcnFCTcWMCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="274415256"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.234])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 01:48:53 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 29 Sep 2026 11:48:49 +0300 (EEST)
-To: Mingyou Chen <qby140326@gmail.com>
-cc: W_Armin@gmx.de, foxido@foxido.dev, Hans de Goede <hansg@kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, nika@nikableh.moe, 
-    platform-driver-x86@vger.kernel.org, vlku.milos.fun@gmail.com, 
-    i@rsplwe.com, wolf109909@outlook.com, rahulbheda131313@gmail.com
-Subject: Re: [PATCH v5 4/6] platform/x86: redmi-wmi: Drop redmi-wmi driver
-In-Reply-To: <20260816100813.300450-5-qby140326@gmail.com>
-Message-ID: <f61202da-fbbf-cf26-1f8f-d586cf440e78@linux.intel.com>
-References: <20260816100813.300450-1-qby140326@gmail.com> <20260816100813.300450-5-qby140326@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HcnWSTa3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uqg8bHqFzZ75/WYFHFEbelpwzsVM5a518O+h6xLfHQaoj8nvjqTuwrs8H71jLFlGwpXnmsmrB0/5W7A2Jmt2tpWTiLTOKr5+iWjtuhIDQzrrzvoLKPBMXrXVdSENkTDAk8EnD+flvZDg2JbA6omwdf5amudRyNDvIjAMpennWEc1DdWqBWWbTWyEe19WOoS8P7NtLIqcD6JRMtKiIOubO22ji1t/vTJMB4pA5nhIQc4DNrmm350I/JnjL3B2Y/L7Uwq/uJv3PppNRU6K4Pd42tisPdPX0vy5OzF+2yfyqmxr8e3VheKDHTRLSILZI/cADKWsmi3pVtYSBeXYdZpeFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4oeyltPOAwUK19A521tLWDn4dQJLYRrlrHw3RP2SX2k=;
+ b=sTU3GArMjfS7KcS+WRlo2JdvgCOK9FUeDAGXA23AliKgFwtY/9QEXF5iMEuyQ09a+A4T+e0Lh6j6P1nHitKQ9bfYemR5Gfn1l324XUp8UAudbFCVUVK0mcJXsg/QdkXhp4QO2bAAQ5YcbwmIYKZ1/L9axVFlqdFLupb/jwQTSUg4BwPayJ77fMA1o1nt0cU8ekmkR3y7L/yOAGdNP6pzL9Lj+PJd32EIcFAgdUXtpc7IOeu1DRCZUWHyMI92bdzGAXNZLZoUYds4sMu3cWsjPoes3XTx6s2E5Pwphz9ZAkRuUo/pINs6fBSiUA601xaOZrBW3HHgJIvEm8jBnxeWFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4oeyltPOAwUK19A521tLWDn4dQJLYRrlrHw3RP2SX2k=;
+ b=HcnWSTa3Ndg6yuchEuO5k1PHzmFCJs4w5J37lYbRYTLirJlDfy/dlVfn6i/kes0OsKwLvyGbU5NQaAVdLfrTLI8KngDf1W4bTqMvmrxJaDTq8JG5V+gtFKyRWa4bKPXIrzllCi8viCmZw3YEa/njkf//EbwDEtok7a32FeJ3lpwxWOUaUQH3TDh8M7bJvrvXWeuB6SHRHYst/Pq/n9Z5A8sBrvcsqlTHnd1JCYoJ/2UqbLhw0rgRiJimod77B9euVHPlBmbkXse/vK7/4NxTaGh+XIRARNUKyWDWn1Nevtv8PJVc/zUyOhm8HWs0LF7fW7R7DNE/xrdgOHcbTjYdMQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com (2603:10a6:10:10e::22)
+ by AS8PR04MB7815.eurprd04.prod.outlook.com (2603:10a6:20b:28a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 08:48:50 +0000
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960]) by DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 08:48:50 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Date: Tue, 29 Sep 2026 16:52:28 +0800
+Subject: [PATCH v4 07/11] media: imx8-isi: Select MSB-aligned RAW input
+ from pixel link on i.MX95
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-isi_imx952-v4-7-e69f89c7c651@oss.nxp.com>
+References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+In-Reply-To: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790671948; l=3074;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=8SFhofZWJ4jN8PWnhi/quLseYVMmU5E7RdJI0Voojr8=;
+ b=EkLmWrBROai4MD7TJ3VcpFhg+j4AmNGmN5L1O/ZIGEcYzSJH8riPtHNkS9xDo3pAVBN5fCuxg
+ mBufttuD+9ADWFClEqCVEPQPEVBAALXlBa8XgtJgXpDlsSLTSz5C2a3
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: SG2PR02CA0131.apcprd02.prod.outlook.com
+ (2603:1096:4:188::6) To DB8PR04MB6667.eurprd04.prod.outlook.com
+ (2603:10a6:10:10e::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB8PR04MB6667:EE_|AS8PR04MB7815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 831b7e44-c200-4001-2908-08df1e067be3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|19092799006|1800799024|10067099003|11063799006|56012099006|921020|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4YjFkyVG3GzvXqipZZTlIM6a69PA7MO5FjpYp8reptnjh1STjCmMqCWLmwURukV/4IdvHvm0rKxsr7KqNhClUP9Shvsu7szer38s4DRz0q3JPZ7GdzNhN6XfXaBGWmOd3eOdKmFmGWVNo8MJe14BbFUoehPyNzj7LjgYkc0psDyinVqqM8qrd7rYGza6ASQ8xfTKMTtaNyAKG3kiHWm2slORN2ZmHUs1CWHUOhHmTj7yW+PWHRGzrrGWaBu0FO8iTk3c6C4MixoRbninb1tqm4yjyh21wMhiSiv3AoONLHSqYVt0cdHOcUeDT4OAD6c6bZbFtQYm0nY1+E3iITI0M1T9rBrFfx3BW/7H0jxaFTck7m/tcYdF+p1rYsTFUoAI+uCgAmZ3l+XHYC2eMHJ7op+iM5Gbwy+IWDZMz8wfrceNOjvsDcmQPz6HHkuQZ1P95MkJfHc7yZMHbgIr3XFBRsCOxqQZvIZFRW+lV1DMjHAaMoF36yfAfM+rH3zsU3uR47gvQvhN4klbilqgt0TeOzWjZSS87N+3Wu8S9KHK7qYGNzXlmOOpsBqvYtju/r8TgJKo9nKvsVPAOKVMHXdhbPQgFpihAs9O8Wu1d5Gfd6Kg3CxOScr7dPvhMX7/yVQY5loWStgA7hcaR9O4d97P+kXlfqO+vZGfu2pE5h8WLoP0gp/0N4V3v5UWKmZS49yZpTJq23ZVdxud4YcOihUuaQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6667.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(19092799006)(1800799024)(10067099003)(11063799006)(56012099006)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXBqbEJnSGhyM2VJSXZKMlJDS3ZaZ2luTmdQRDBDSFozYXVxZ08wTXlwMFNk?=
+ =?utf-8?B?OXNvRzU2U0dWUDlLR1BMTnRiTEtjZFAwbUxMNWNDaWxPSHYyeWxBZ2lQcEtk?=
+ =?utf-8?B?TjJvRWxDSUlTY0RNUFMxdFFqTkpuc20vZkZWQW1uOC82UVhHQTFxREt6ckR2?=
+ =?utf-8?B?RXpSam9TSENRTW1sdWhkdUZRMjF1U1NyTE9Vcjh0MGdINmVEUEhCaGRoaTNn?=
+ =?utf-8?B?bFI1ZmN5dnZYNGkvamZUdGFQVUtnbGppQ2ZiOTYvVGczNHM3cnpENGgyMzdT?=
+ =?utf-8?B?UzU1L1pjTW10b0ROTDI0QmZwQTRvcHNLU2dMWTVaem9VWG4yeGlET3NCcFAv?=
+ =?utf-8?B?SDNDN1NUTHlzSkpPZmcralhwWjlybVR5d3lCQ2pmdzBMS2kwTUlLd3BFZFdF?=
+ =?utf-8?B?YXEwTmU5RHhsMFRkOHFReDRSZGdHdWdRNVNmcVRvbHlUaThIbDkrbWIyRE1L?=
+ =?utf-8?B?cGFVcmVaaFdjTWZ1d0xQaFVaeE1GZHNuWHZPd2FYWVdXWXlIbnRMMnkxYUNq?=
+ =?utf-8?B?c2VZcTFINEllb1RtWm9hSmpkT2NCdld6WG1LbnRFS0ZLOVdBVDBUZlhlL3VU?=
+ =?utf-8?B?K0UvQko5cVcyQ29rMXpoc0t6M3V0eHhqRGtKeU1wNG1iYWQ1ZHI4RTRpT05V?=
+ =?utf-8?B?WHU4VC9TeVNETCtzSE1mSDNidEdRL1FIdFF3L1FwOFBESzM2bVNwUHJJbUZB?=
+ =?utf-8?B?TEhEdng0NzVZWURvQm0vaWZnRm1DdjNYR1ZJbVhCTjlubEt4aUVualNYdTdz?=
+ =?utf-8?B?b1NZV04rNkNUOHZibU0rbFN2am5GRCsyZGUxamY4YjVKdDZ2c2dDNEhPMEQy?=
+ =?utf-8?B?OTBRWnNtOUIrMWVCY2IxdVVmNXhyaHBocFJHYlBNSWZnMHdaWE9HM0ZpYWFl?=
+ =?utf-8?B?d2d5QjlFUVE2VUJjQWhMeVRnQ2hyNFVObWl4am1LdkR3b0RKTzVpZnFQRlBn?=
+ =?utf-8?B?dHBuOXV1WjNlbU92VGJaZVR2ckdkSHYwZ21xNlJ5ek5kTWg1TUtSUXdGVmYv?=
+ =?utf-8?B?a3F1bTZSZVpWam1HN203bFlDRlpyaFpjenpYbTdjTmpHQ3AzYU5TeTFrbHJJ?=
+ =?utf-8?B?QTJYY1hER2JjVXRQanVVODhDOUxmemVGbEpBQ3pUU01nRkxEdEdOaHRweG1Z?=
+ =?utf-8?B?aG5aYWV2dkNUdWhyZ3pXaDlGUlNXZTRDSTVLcnRDZFRVb3lacmdqNElXSytC?=
+ =?utf-8?B?U3dxWmVyR0NBdVl6VE5zRlBnNGU3N3ZkL1h4T2pXZUEzR2VZOXVzNER0ekRx?=
+ =?utf-8?B?ZU0xaTlwUENIeHA1VGJjVWVnNkI0UzMwV1V1ckFNcFpYM0FsSkhUdU8vTUVW?=
+ =?utf-8?B?bEp6K25wOTgrQlh3SVlxZ3FjcmxmdDhEYS85eEI0MXd5YTVLVGZDaFpuOXZl?=
+ =?utf-8?B?QndoUERuZGIzYWZYdzI1b0RYTE5KZFdRQ0FnVWlFdzJLdkMzdmdENmM1a09J?=
+ =?utf-8?B?aWJnMnpQaGhCelJYOExzQ242OEN6TXhhVmovQUU2dVc0MjRpbUtOdFdUbU1j?=
+ =?utf-8?B?Q0libkF2K2pKTkZJSHVaUVdPa1ZSUS9ya1NnU09JWjJjOWtWOVhiMnpYUGM0?=
+ =?utf-8?B?eEp4R0NmWkhEK0xaQUpES0FSRVB2OEVHeXJHcFgza3dpNEZBalZFMGt0emM3?=
+ =?utf-8?B?UnBoRlZOM2VBUHdTMURURmkyY2V1VU1LM0JZdjJpcHNsaVdFQnROd2FSN0tD?=
+ =?utf-8?B?enFrbTd2b01GWFJhaEZVc2xHSUNhNitTZFlDTmRCL0ZxSnpSTmNmS2kzY1ZN?=
+ =?utf-8?B?WXRIODVvK0oxT0VzSFZpRVRlZGxWd2JJb1ZZN05JZUZ2d3pzYlNXS3pYU1Ny?=
+ =?utf-8?B?SVR4T0pVWkVFV3d3QWNJWnROekRwZW9VUmZSOTJhK3NKeGYxVVpMVFc0ME8y?=
+ =?utf-8?B?cnlham5Nd0dRK0hXT3ZsYS8zbG9NSUpGQVNBeWpwaVBid25jYlBDUU1wWi9w?=
+ =?utf-8?B?S25wbnROM0xUSDJMaWFtZXo2Y2ZVN0k5dkI0RDhRTk5hS3VGSXFlTjlhNmFl?=
+ =?utf-8?B?YURPSEJXTzBaOFZZV3BpUTFjd2ZUOWs1VndQbzJzekl1ZEpSbGJNRjhTNmVO?=
+ =?utf-8?B?THd4WXpYRitRaXpvVnhJWjFzVFY4bHlrb1E3c2V0ME4zLzFBRzBxeVpMdnJo?=
+ =?utf-8?B?L05rdlhrYUV2bkRqUjhZL0QrWld1SDhXczZiSCtuam5vVEFXZ09vZWJHY0R0?=
+ =?utf-8?B?YklXblZJeEVUeDM0YlhrTStHUHJoY09XTDV3NmRGZTUvNkpoalZzclIydlIz?=
+ =?utf-8?B?SHRrbnNqNm1lWmE3TGR1QnRSWEpnSUM0Wm5YVFpQRTlTUExwTTB0Lzd1RjBk?=
+ =?utf-8?B?VVRncEw5L2gzOHE0SjF1ZlQvMldvdHNhVVRNRHJNWDdtc1JnM3pFSjlSclVV?=
+ =?utf-8?Q?82Ov2L+iU8dSBx1KA4l61Sr9Ba1KocmKPYlwp?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 831b7e44-c200-4001-2908-08df1e067be3
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6667.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:48:50.8094
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VbOOUUsfcB/vTTMUC0eQBj05di2tjjTiickQbRhix/6Q0o4Pz8z02u9sEE32AEouAv1FRemq+pvhPPr2CGQEiUDNv5VkvW+RP/HyGFdaWTUZudCSGRsB+CKx68YQ7peK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7815
 
-On Sun, 16 Aug 2026, Mingyou Chen wrote:
+The ISI receives RAW data from the Pixel Link, whose alignment is
+determined by the SoC integration. Before i.MX93, the Pixel Link
+provides LSB-aligned RAW data to the ISI. Starting with i.MX93, both
+LSB and MSB alignment are supported and can be selected via
+CHNL_CTRL_RAW_IN_MSB_ALIGN, with the default keeping LSB alignment
+for backward compatibility. From i.MX95 onwards, the CSI formatter
+replaces the gasket and only provides MSB-aligned RAW data.
 
-> The redmi-wmi driver is no longer needed because its functionality
-> has been superseded by the new generic bitland platform driver.
-> All supported Redmi laptop models are now handled properly via the
-> updated WMI interfaces in bitland-mifs-wmi.
-> 
-> Remove the obsolete code, Kconfig entries, and Makefile references
-> to clean up the platform directory.
-> 
-> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+Set CHNL_CTRL_RAW_IN_MSB_ALIGN on i.MX95 so the ISI selects RAW
+samples from the high bits of the Pixel Link bus.
 
-Hi,
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+---
+Changes in v4:
+- New patch
+---
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c   | 20 ++++++++++++++++++++
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h |  1 +
+ 2 files changed, 21 insertions(+)
 
-What are your plans with this series?
-
-This patch no longer applies cleanly as there were redmi-wmi side changes
-which I think this series does not not properly cover.
-
--- 
- i.
-
-> ---
->  MAINTAINERS                      |   6 --
->  drivers/platform/x86/Kconfig     |  12 ---
->  drivers/platform/x86/Makefile    |   1 -
->  drivers/platform/x86/redmi-wmi.c | 154 -------------------------------
->  4 files changed, 173 deletions(-)
->  delete mode 100644 drivers/platform/x86/redmi-wmi.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index af86b1df1a94..b92bc4816fa6 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22768,12 +22768,6 @@ S:	Maintained
->  T:	git https://github.com/pkshih/rtw.git
->  F:	drivers/net/wireless/realtek/rtw89/
->  
-> -REDMIBOOK WMI DRIVERS
-> -M:	Gladyshev Ilya <foxido@foxido.dev>
-> -L:	platform-driver-x86@vger.kernel.org
-> -S:	Maintained
-> -F:	drivers/platform/x86/redmi-wmi.c
-> -
->  BITLAND LAPTOP DRIVER
->  M:	Mingyou Chen <qby140326@gmail.com>
->  M:	Gladyshev Ilya <foxido@foxido.dev>
-> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-> index b54b5212b204..036fc76f62df 100644
-> --- a/drivers/platform/x86/Kconfig
-> +++ b/drivers/platform/x86/Kconfig
-> @@ -90,18 +90,6 @@ config XIAOMI_WMI
->  	  To compile this driver as a module, choose M here: the module will
->  	  be called xiaomi-wmi.
->  
-> -config REDMI_WMI
-> -	tristate "Redmibook WMI key driver"
-> -	depends on ACPI_WMI
-> -	depends on INPUT
-> -	select INPUT_SPARSEKMAP
-> -	help
-> -	  Say Y here if you want support for WMI-based hotkey events on
-> -	  Xiaomi Redmibook devices.
-> -
-> -	  To compile this driver as a module, choose M here: the module will
-> -	  be called redmi-wmi.
-> -
->  config GIGABYTE_WMI
->  	tristate "Gigabyte WMI temperature driver"
->  	depends on ACPI_WMI
-> diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-> index 872ac3842391..0da4876f766e 100644
-> --- a/drivers/platform/x86/Makefile
-> +++ b/drivers/platform/x86/Makefile
-> @@ -12,7 +12,6 @@ obj-$(CONFIG_HUAWEI_WMI)		+= huawei-wmi.o
->  obj-$(CONFIG_MXM_WMI)			+= mxm-wmi.o
->  obj-$(CONFIG_NVIDIA_WMI_EC_BACKLIGHT)	+= nvidia-wmi-ec-backlight.o
->  obj-$(CONFIG_XIAOMI_WMI)		+= xiaomi-wmi.o
-> -obj-$(CONFIG_REDMI_WMI)			+= redmi-wmi.o
->  obj-$(CONFIG_GIGABYTE_WMI)		+= gigabyte-wmi.o
->  obj-$(CONFIG_BITLAND_MIFS_WMI)		+= bitland-mifs-wmi.o
->  
-> diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/redmi-wmi.c
-> deleted file mode 100644
-> index 58898630eda6..000000000000
-> --- a/drivers/platform/x86/redmi-wmi.c
-> +++ /dev/null
-> @@ -1,154 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0
-> -/* WMI driver for Xiaomi Redmibooks */
-> -
-> -#include <linux/acpi.h>
-> -#include <linux/bits.h>
-> -#include <linux/device.h>
-> -#include <linux/input.h>
-> -#include <linux/input/sparse-keymap.h>
-> -#include <linux/module.h>
-> -#include <linux/mutex.h>
-> -#include <linux/unaligned.h>
-> -#include <linux/wmi.h>
-> -
-> -#include <uapi/linux/input-event-codes.h>
-> -
-> -#define WMI_REDMIBOOK_KEYBOARD_EVENT_GUID "46C93E13-EE9B-4262-8488-563BCA757FEF"
-> -
-> -#define AI_KEY_VALUE_MASK BIT(8)
-> -
-> -static const struct key_entry redmi_wmi_keymap[] = {
-> -	{KE_KEY, 0x00000201,	{KEY_SELECTIVE_SCREENSHOT}},
-> -	{KE_KEY, 0x00000301,	{KEY_ALL_APPLICATIONS}},
-> -	{KE_KEY, 0x00001b01,	{KEY_CONFIG}},
-> -	{KE_KEY, 0x00011b01,	{KEY_CONFIG}},
-> -	{KE_KEY, 0x00010101,	{KEY_SWITCHVIDEOMODE}},
-> -	{KE_KEY, 0x00001a01,	{KEY_REFRESH_RATE_TOGGLE}},
-> -
-> -	/* AI button has code for each position */
-> -	{KE_KEY, 0x00011801,	{KEY_ASSISTANT}},
-> -	{KE_KEY, 0x00011901,	{KEY_ASSISTANT}},
-> -
-> -	/* Keyboard backlight */
-> -	{KE_IGNORE, 0x00000501, {}},
-> -	{KE_IGNORE, 0x00800501, {}},
-> -	{KE_IGNORE, 0x00050501, {}},
-> -	{KE_IGNORE, 0x000a0501, {}},
-> -
-> -	/* Xiaomi G Command Center */
-> -	{KE_KEY, 0x00010a01,	{KEY_VENDOR}},
-> -
-> -	/* OEM preset power mode */
-> -	{KE_IGNORE, 0x00011601, {}},
-> -	{KE_IGNORE, 0x00021601, {}},
-> -	{KE_IGNORE, 0x00031601, {}},
-> -	{KE_IGNORE, 0x00041601, {}},
-> -
-> -	/* Fn Lock state */
-> -	{KE_IGNORE, 0x00000701, {}},
-> -	{KE_IGNORE, 0x00010701, {}},
-> -
-> -	/* Fn+`/1/2/3/4 */
-> -	{KE_KEY, 0x00011101, {KEY_F13}},
-> -	{KE_KEY, 0x00011201, {KEY_F14}},
-> -	{KE_KEY, 0x00011301, {KEY_F15}},
-> -	{KE_KEY, 0x00011401, {KEY_F16}},
-> -	{KE_KEY, 0x00011501, {KEY_F17}},
-> -
-> -	{KE_END}
-> -};
-> -
-> -struct redmi_wmi {
-> -	struct input_dev *input_dev;
-> -	/* Protects the key event sequence */
-> -	struct mutex key_lock;
-> -};
-> -
-> -static int redmi_wmi_probe(struct wmi_device *wdev, const void *context)
-> -{
-> -	struct redmi_wmi *data;
-> -	int err;
-> -
-> -	/* Init dev */
-> -	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
-> -	if (!data)
-> -		return -ENOMEM;
-> -
-> -	dev_set_drvdata(&wdev->dev, data);
-> -
-> -	err = devm_mutex_init(&wdev->dev, &data->key_lock);
-> -	if (err)
-> -		return err;
-> -
-> -	data->input_dev = devm_input_allocate_device(&wdev->dev);
-> -	if (!data->input_dev)
-> -		return -ENOMEM;
-> -
-> -	data->input_dev->name = "Redmibook WMI keys";
-> -	data->input_dev->phys = "wmi/input0";
-> -
-> -	err = sparse_keymap_setup(data->input_dev, redmi_wmi_keymap, NULL);
-> -	if (err)
-> -		return err;
-> -
-> -	return input_register_device(data->input_dev);
-> -}
-> -
-> -static void redmi_wmi_notify(struct wmi_device *wdev, union acpi_object *obj)
-> -{
-> -	struct key_entry *entry;
-> -	struct redmi_wmi *data = dev_get_drvdata(&wdev->dev);
-> -	bool autorelease = true;
-> -	u32 payload;
-> -	int value = 1;
-> -
-> -	if (obj->type != ACPI_TYPE_BUFFER) {
-> -		dev_err(&wdev->dev, "Bad response type %u\n", obj->type);
-> -		return;
-> -	}
-> -
-> -	if (obj->buffer.length < 32) {
-> -		dev_err(&wdev->dev, "Invalid buffer length %u\n", obj->buffer.length);
-> -		return;
-> -	}
-> -
-> -	payload = get_unaligned_le32(obj->buffer.pointer);
-> -	entry = sparse_keymap_entry_from_scancode(data->input_dev, payload);
-> -
-> -	if (!entry) {
-> -		dev_dbg(&wdev->dev, "Unknown WMI event with payload %u", payload);
-> -		return;
-> -	}
-> -
-> -	/* AI key quirk */
-> -	if (entry->keycode == KEY_ASSISTANT) {
-> -		value = !(payload & AI_KEY_VALUE_MASK);
-> -		autorelease = false;
-> -	}
-> -
-> -	guard(mutex)(&data->key_lock);
-> -	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease);
-> -}
-> -
-> -static const struct wmi_device_id redmi_wmi_id_table[] = {
-> -	{ WMI_REDMIBOOK_KEYBOARD_EVENT_GUID, NULL },
-> -	{ }
-> -};
-> -
-> -static struct wmi_driver redmi_wmi_driver = {
-> -	.driver = {
-> -		.name = "redmi-wmi",
-> -		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> -	},
-> -	.id_table = redmi_wmi_id_table,
-> -	.min_event_size = 32,
-> -	.probe = redmi_wmi_probe,
-> -	.notify = redmi_wmi_notify,
-> -	.no_singleton = true,
-> -};
-> -module_wmi_driver(redmi_wmi_driver);
-> -
-> -MODULE_DEVICE_TABLE(wmi, redmi_wmi_id_table);
-> -MODULE_AUTHOR("Gladyshev Ilya <foxido@foxido.dev>");
-> -MODULE_DESCRIPTION("Redmibook WMI driver");
-> -MODULE_LICENSE("GPL");
-> 
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+index cc52a90c2477..b3f32b9796d5 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+@@ -303,6 +303,22 @@ static void mxc_isi_channel_set_panic_threshold(struct mxc_isi_pipe *pipe)
+ 	mxc_isi_write(pipe, CHNL_OUT_BUF_CTRL, val);
+ }
+ 
++/*
++ * The ISI receives RAW data from the Pixel Link, whose alignment is
++ * determined by the SoC integration. It originally selected RAW samples
++ * from the low bits of the Pixel Link bus. Starting with i.MX93,
++ * CHNL_CTRL_RAW_IN_MSB_ALIGN was introduced to allow the ISI to select
++ * RAW samples from either the high or low bits, as both LSB and MSB
++ * alignment can be selected in the gasket.
++ *
++ * On i.MX95, the CSI formatter provides MSB-aligned RAW data, so the ISI
++ * must select RAW samples from the high bits of the Pixel Link bus.
++ */
++static bool isi_raw_in_msb(const struct mxc_isi_plat_data *pdata)
++{
++	return pdata->model == MXC_ISI_IMX95;
++}
++
+ static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+ 					enum mxc_isi_input_id input,
+ 					unsigned int vc,
+@@ -357,6 +373,10 @@ static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+ 			val |= CHNL_CTRL_VC_ID_1(vc >> 2);
+ 	}
+ 
++	/* Select MSB-aligned RAW data from the Pixel Link when needed. */
++	if (isi_raw_in_msb(pipe->isi->pdata))
++		val |= CHNL_CTRL_RAW_IN_MSB_ALIGN;
++
+ 	mxc_isi_write(pipe, CHNL_CTRL, val);
+ 
+ 	mutex_unlock(&pipe->lock);
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+index 5f66b7c9cd1c..35438abf3172 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+@@ -20,6 +20,7 @@
+ #define CHNL_CTRL_CHAIN_BUF_NO_CHAIN				0
+ #define CHNL_CTRL_CHAIN_BUF_2_CHAIN				1
+ #define CHNL_CTRL_SW_RST					BIT(24)
++#define CHNL_CTRL_RAW_IN_MSB_ALIGN				BIT(22)	/* i.MX{91,93,95} */
+ /*
+  * CHNL_CTRL_BLANK_PXL: i.MX8{QM,QXP} only
+  * CHNL_CTRL_VC_ID_1, CHNL_CTRL_VC_ID_1_MASK: i.MX95 only
 
 -- 
- i.
+2.34.1
 
