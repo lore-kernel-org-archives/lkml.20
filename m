@@ -1,103 +1,336 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA573CAA55
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876823C342B;
+	Tue, 29 Sep 2026 03:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651641; cv=none; b=nYRD33oxBnJwfsM5CUVhz+Boovc81rbQgyOfcPFVA64HE7hgzAGXHFbEnun2FEXi3fuas+y4c04tC8w/ZPid7pOd0y2EHeV+SrVyUZwfQ/Dr6zv042kOcnIJZCsoNSXS39b9pGOFh6nfSuxQvZqVhM6E0JTm6LvIBvJwCXVleA8=
+	t=1790651645; cv=none; b=JnvU9iVziqCNOHgU2vru7khKaCNAuLSTpUcUWhiMDtv5tHg1NJmI4cyzBw1vLJHQ4ANUQZcdjT6kSZ9nVvWLv9qpXQ5JZp/8DDl7Fcfb4eU+IoMJeSY9UqzJ9kgnNCwpe/BgNUBimdnTVZQbizMrR4AUnktw7b7dBXoaz2gz5D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651641; c=relaxed/simple;
-	bh=2vfPUlJ9QuD5zVqreMFjCUsWeeE/7HPHd4gRkma4Hyw=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Rv0kvzOBXO/pHHskR4ePOAwLnhID6n6A0oMGd+G1n9Icug/VBDRBEFl0lkmSMBjOv5nmfrBjRzrXTzFZMF/0TR+npqoQGk5ake7/X1hWzI0/tprnGzG1Z5qxW3gMgEZSRE5Crc3sTIZISwtxHF1tKQGQvnLz/w8H+LVwBKz1wRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IkjVMT5k; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1790651645; c=relaxed/simple;
+	bh=b2OfSb2+SciWkRMpuXJSyGid0M8VY1bTxEUNQw1US6c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PIkZ4G2SwkjW0WWnR2vUdurbcj/q53eybeZgGdeuoER5juZgGCyQLu2BrZfdxqDqmzbyx1d4eyJORU5tvbvN5m/wr6a7/JVuO230XRR6defNZpEltGlnjr9uOiIqAFU6Os0j2lvHUGlNiTudCpZyG0ll1Rarg6ME5dGXiPsfdWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUu8MX2W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IkjVMT5k"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7695f6a30so3914029a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:13:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790651635; x=1791256435; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d06E3RJ83rKJqFl5RbOdW9hfiekgl+b6M3WlzGTpcCo=;
-        b=IkjVMT5k5kZzGVSUKa8bYAmFmyfKE55dzMV7Pl3C6ZhlxC4dPYbDA5t8bSjF2ErpPx
-         IyZ70WlSnteZumAidFdsWVXY2k/U8Nj194JtjPyJrHF0b2By326dTM//o/UGo/VqHQY7
-         2lNsFA4KvCD2Dt/Ba/0F7kTG0ORw45tSptDw6YLiXjYzHt4zJajpsrq9tO2tU4TlSgd6
-         vmKjMcsWyn0+Cn2Jw2m7ITptsse9kpX9fqocIx4YbCPcQOMF/UVdLY1eBouaFUkfZRhd
-         i25ULDU+hj9+Ulp9BtY379G3ZtEDcT8ohtgnYIry+NwVVWB2UIE54YiJ2C19k+Ksskw6
-         b4KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651635; x=1791256435;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d06E3RJ83rKJqFl5RbOdW9hfiekgl+b6M3WlzGTpcCo=;
-        b=jPK58HhRtPcg1xlX8cfahoJKW8V7qMsZZPy0Fp5cTCcYYzaKPqR90m8kAs6JYCZfHi
-         +i/22YVvpJtXZmLuhZbpg9Z+aiI6xzGZw2PPtvXlwMgRLim5mnt923RHv6B4lFc57wsp
-         VhxC+lk8Bk8VCwrINkls2EvV87fO2ilI8RABjvoKwB8oJeNZL4XZS3k7ARLioGpTeASW
-         zzAO0SBkbIfwTSlK4ciYgNxL0bn/mJlQdTfrGDnithK9Zd5Y8bee9NymXf5bMNpyExg+
-         DszJlHUpV/HB5/xvRvd6M6NWb/DvF63e+O1qfIi5LRFgyg7pfP+KUMEnDtZh7u5wax0T
-         ds9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwylv5nkELC+AoTdDrrnt/6FLrT7KL16dncbN2cg4ircA3dZKFFENt12WBRe8SM/zBWeP//VdRllQJ5RSU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJRyIOv6C9pLJhCm5NxxFr18GH6cGODuh0/5UBaXnGYseDJSE4
-	lzmPmNz1Iw6xGT7sO3FwXdQZXPd1y6ATxfPBJcyTvbm+LY2/liQ2CgGrWY1gL7wJLvnjsbdQVSn
-	sAThS1Em3ODdd0xv3N1EWaQ==
-X-Received: from pfhc1.prod.google.com ([2002:a05:6a00:cbc1:b0:883:a484:b2de])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:4eab:b0:3dd:a196:539c with SMTP id adf61e73a8af0-3de0e960800mr13032389637.62.1790651635019;
- Mon, 28 Sep 2026 20:13:55 -0700 (PDT)
-Date: Tue, 29 Sep 2026 11:13:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUu8MX2W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83041F000FF;
+	Tue, 29 Sep 2026 03:13:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790651639;
+	bh=f+/2mu3Kkhj/XCxEL4wgAbPmQ6fjcskhKTYYG5//9qU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nUu8MX2Wiieaf7rfl4Y1Mvf1kGn1hZkY0W+2rILeSupK33V4YwL0jwsHW5tR3Cm/J
+	 dbsM3hZV5/MiP9zh2oeDrZ+YuZo4oaIOipoO5JxMbyvmLRjbL2RqSbS+n9CzqANilz
+	 veQNUbrbxD67iKRh4u9br1vlAPd1TQh4agbi9SrA1dqxfsHTZvDon3+TqQp7RaU9xh
+	 wLTFDVJ5v96oZ42pW3YqYjOQAkO1Aq/Q55A5HqlGt3yyhz0qY2/feuttXOz5t6P6ej
+	 y+ges4gzYCTuvsBPIwc+fnXkJ5dF4r3bFF2QKymEyPC9ZoAZ+c8IE3Zhy+ONq61CB5
+	 01EI0crIMzIXA==
+Date: Mon, 28 Sep 2026 22:13:56 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
+ Replace old sound nodes, enable DisplayPort audio
+Message-ID: <arssv5dH5ywjQWUw@zenbook>
+References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
+ <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929031352.1355691-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: ufs: rpmb: Fix power-on UNIT ATTENTION retry
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
-	Damien Le Moal <dlemoal@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
 
-A merge conflict resolution dropped SCMD_FAILURE_ASCQ_ANY from the
-retry added by commit a8a34238e5e6 ("scsi: ufs: rpmb: Retry power-on
-UNIT ATTENTION on the RPMB WLUN"), so only 29h/00h is retried, not
-the other 29h ASCQs.
+On Tue, Aug 25, 2026 at 04:07:45PM +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> The Windows Dev Kit 2023 has no built-in speakers, microphones or
+> headphone jack. Likewise the device with the same mainboard, Surface
+> Pro 9 5G [1]. The previous WCD938x / WSA / VA sound card definition
+> was therefore non-functional.
+> 
+> Replace the unused codec nodes, SoundWire controllers, LPASS macros
+> and related pinctrl with DisplayPort DAI links (DP0/DP1/DP2) so that
+> audio is available over the DP connectors. Add the required
+> sound-name-prefix properties and update the card model name to the
+> conventional SC8280XP-MICROSOFT-BLACKROCK form.
+> 
+> [1]: https://support.microsoft.com/en-us/surface/models/surface-pro-9-features-and-specs
 
-Link: https://lore.kernel.org/linux-scsi/yq1jyo4onqe.fsf@mail.kernel.org/
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
-Tested in QEMU on top of "scsi: ufs: rpmb: Drop the unregistered
-ufs_rpmb bus" (RPMB v5 3/3).
+Computer says:
 
- drivers/ufs/core/ufs-rpmb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+arch/arm64/boot/dts/qcom/sc8280xp-crd-el2.dtb: displayport-controller@aea0000 (qcom,sc8280xp-edp): Unevaluated properties are not allowed ('sound-name-prefix' was unexpected)
+    from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml
++ 5 more times...
 
-diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
-index 50ef63afd528..7b9b59c9e968 100644
---- a/drivers/ufs/core/ufs-rpmb.c
-+++ b/drivers/ufs/core/ufs-rpmb.c
-@@ -47,7 +47,8 @@ static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t le
- 		{
- 			.sense_key = UNIT_ATTENTION,
- 			.sense_code =
--				POWER_ON_RESET_OR_BUS_DEVICE_RESET_OCCURRED,
-+				POWER_ON_RESET_OR_BUS_DEVICE_RESET_OCCURRED |
-+				SCMD_FAILURE_ASCQ_ANY,
- 			.allowed = UFS_RPMB_UA_RETRIES,
- 			.result = SAM_STAT_CHECK_CONDITION,
- 		},
+What am I doing wrong?
 
-base-commit: f09d2c7485b32adb82336d0d748935c8237a649e
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Regards,
+Bjorn
 
+> 
+> Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition for WDK2023")
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> ---
+>  .../boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 135 +++------------------
+>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi             |   4 +
+>  2 files changed, 21 insertions(+), 118 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+> index 4f4b5f4285ec2..ac22f44020a64 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+> @@ -28,32 +28,6 @@ aliases {
+>  		serial1 = &uart2;
+>  	};
+>  
+> -	wcd938x: audio-codec {
+> -		compatible = "qcom,wcd9380-codec";
+> -
+> -		pinctrl-0 = <&wcd_default>;
+> -		pinctrl-names = "default";
+> -
+> -		reset-gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
+> -
+> -		vdd-buck-supply = <&vreg_s10b>;
+> -		vdd-rxtx-supply = <&vreg_s10b>;
+> -		vdd-io-supply = <&vreg_s10b>;
+> -		vdd-mic-bias-supply = <&vreg_bob>;
+> -
+> -		qcom,micbias1-microvolt = <1800000>;
+> -		qcom,micbias2-microvolt = <1800000>;
+> -		qcom,micbias3-microvolt = <1800000>;
+> -		qcom,micbias4-microvolt = <1800000>;
+> -		qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000 500000 500000 500000 500000>;
+> -		qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+> -		qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+> -		qcom,rx-device = <&wcd_rx>;
+> -		qcom,tx-device = <&wcd_tx>;
+> -
+> -		#sound-dai-cells = <1>;
+> -	};
+> -
+>  	dp3_connector: connector {
+>  		compatible = "dp-connector";
+>  		label = "DP-3";
+> @@ -852,23 +826,19 @@ &remoteproc_nsp0 {
+>  	status = "okay";
+>  };
+>  
+> -&rxmacro {
+> -	status = "okay";
+> -};
+> -
+>  &sound {
+>  	compatible = "qcom,sc8280xp-sndcard";
+> -	model = "microsoft/blackrock";
+> +	model = "SC8280XP-MICROSOFT-BLACKROCK";
+>  
+> -	wcd-playback-dai-link {
+> -		link-name = "WCD Playback";
+> +	dp0-dai-link {
+> +		link-name = "DP0 Playback";
+>  
+> -		cpu {
+> -			sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
+> +		codec {
+> +			sound-dai = <&mdss0_dp0>;
+>  		};
+>  
+> -		codec {
+> -			sound-dai = <&wcd938x 0>, <&swr1 0>, <&rxmacro 0>;
+> +		cpu {
+> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
+>  		};
+>  
+>  		platform {
+> @@ -876,15 +846,15 @@ platform {
+>  		};
+>  	};
+>  
+> -	wcd-capture-dai-link {
+> -		link-name = "WCD Capture";
+> +	dp1-dai-link {
+> +		link-name = "DP1 Playback";
+>  
+> -		cpu {
+> -			sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
+> +		codec {
+> +			sound-dai = <&mdss0_dp1>;
+>  		};
+>  
+> -		codec {
+> -			sound-dai = <&wcd938x 1>, <&swr2 0>, <&txmacro 0>;
+> +		cpu {
+> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
+>  		};
+>  
+>  		platform {
+> @@ -892,67 +862,23 @@ platform {
+>  		};
+>  	};
+>  
+> -	wsa-dai-link {
+> -		link-name = "WSA Playback";
+> -
+> -		cpu {
+> -			sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+> -		};
+> +	dp2-dai-link {
+> +		link-name = "DP2 Playback";
+>  
+>  		codec {
+> -			sound-dai = <&swr0 0>, <&wsamacro 0>;
+> -		};
+> -
+> -		platform {
+> -			sound-dai = <&q6apm>;
+> +			sound-dai = <&mdss0_dp2>;
+>  		};
+> -	};
+> -
+> -	va-dai-link {
+> -		link-name = "VA Capture";
+>  
+>  		cpu {
+> -			sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
+> +			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
+>  		};
+>  
+>  		platform {
+>  			sound-dai = <&q6apm>;
+>  		};
+> -
+> -		codec {
+> -			sound-dai = <&vamacro 0>;
+> -		};
+>  	};
+>  };
+>  
+> -&swr0 {
+> -	status = "okay";
+> -};
+> -
+> -&swr1 {
+> -	status = "okay";
+> -
+> -	wcd_rx: wcd9380-rx@0,4 {
+> -		compatible = "sdw20217010d00";
+> -		reg = <0 4>;
+> -		qcom,rx-port-mapping = <1 2 3 4 5>;
+> -	};
+> -};
+> -
+> -&swr2 {
+> -	status = "okay";
+> -
+> -	wcd_tx: wcd9380-tx@0,3 {
+> -		compatible = "sdw20217010d00";
+> -		reg = <0 3>;
+> -		qcom,tx-port-mapping = <1 1 2 3>;
+> -	};
+> -};
+> -
+> -&txmacro {
+> -	status = "okay";
+> -};
+> -
+>  &uart2 {
+>  	pinctrl-0 = <&uart2_default>;
+>  	pinctrl-names = "default";
+> @@ -1076,31 +1002,12 @@ &usb_2_qmpphy0 {
+>  	status = "okay";
+>  };
+>  
+> -&vamacro {
+> -	pinctrl-0 = <&dmic01_default>, <&dmic23_default>;
+> -	pinctrl-names = "default";
+> -
+> -	vdd-micb-supply = <&vreg_s10b>;
+> -
+> -	qcom,dmic-sample-rate = <4800000>;
+> -
+> -	status = "okay";
+> -};
+> -
+> -&wsamacro {
+> -	status = "okay";
+> -};
+> -
+>  &xo_board_clk {
+>  	clock-frequency = <38400000>;
+>  };
+>  
+>  /* PINCTRL */
+>  
+> -&lpass_tlmm {
+> -	status = "okay";
+> -};
+> -
+>  &pmc8280_1_gpios {
+>  	misc_3p3_reg_en: misc-3p3-reg-en-state {
+>  		pins = "gpio1";
+> @@ -1302,14 +1209,6 @@ usb2_en_state: usb2-en-state {
+>  		output-low;
+>  	};
+>  
+> -	wcd_default: wcd-default-state {
+> -		reset-pins {
+> -			pins = "gpio106";
+> -			function = "gpio";
+> -			bias-disable;
+> -		};
+> -	};
+> -
+>  	wlan_en: wlan-en-state {
+>  		pins = "gpio134";
+>  		function = "gpio";
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> index fbcfd3883bbb4..baca36b151853 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> @@ -4903,6 +4903,7 @@ mdss0_dp0: displayport-controller@ae90000 {
+>  				phy-names = "dp";
+>  
+>  				#sound-dai-cells = <0>;
+> +				sound-name-prefix = "DisplayPort0";
+>  
+>  				operating-points-v2 = <&mdss0_dp0_opp_table>;
+>  				power-domains = <&rpmhpd SC8280XP_MMCX>;
+> @@ -5168,6 +5169,7 @@ mdss0_dp1: displayport-controller@ae98000 {
+>  				phy-names = "dp";
+>  
+>  				#sound-dai-cells = <0>;
+> +				sound-name-prefix = "DisplayPort1";
+>  
+>  				operating-points-v2 = <&mdss0_dp1_opp_table>;
+>  				power-domains = <&rpmhpd SC8280XP_MMCX>;
+> @@ -5252,6 +5254,7 @@ mdss0_dp2: displayport-controller@ae9a000 {
+>  				operating-points-v2 = <&mdss0_dp2_opp_table>;
+>  
+>  				#sound-dai-cells = <0>;
+> +				sound-name-prefix = "DisplayPort2";
+>  
+>  				status = "disabled";
+>  
+> @@ -5327,6 +5330,7 @@ mdss0_dp3: displayport-controller@aea0000 {
+>  				operating-points-v2 = <&mdss0_dp3_opp_table>;
+>  
+>  				#sound-dai-cells = <0>;
+> +				sound-name-prefix = "DisplayPort3";
+>  
+>  				status = "disabled";
+>  
+> 
+> -- 
+> 2.53.0
+> 
+> 
