@@ -1,64 +1,65 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B2351A139
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB283CF1E5
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683665; cv=none; b=LHUWJQf8Xs2ZOySJIl4+aqqgv6keQT6Psr+MwRCpe+o6g6uQGeMLy9L376Zj97a5Ltzowpc0HYIfAUyuJ9powpjfA7jKjO+/w2KzRjWRbc/gBiV01vYj3OoBU8L88p6z5RjJA8Y8z+/PDoUVJmz0Z6i8n1SlYCYr/gnwBschDO4=
+	t=1790683676; cv=none; b=H2rLMIqlRYg6FnWXM2Fi7sg7AEVGYB6Kr1NvVd1/lszj6+CobpnP2jX8V/floJbRH61R3BuNr+Nvvs2yX38PsITEk6xwUJ7YTb7EW2GLKlw49sNeiy4i2HYfTc1W3Z5Q+gPCzh3PZrWQTu/ncc1mrrvaVMJ6PUF/nF0CFhBJFhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683665; c=relaxed/simple;
-	bh=kBDmS9ScXYh3OceeJDBOuIN+LbxuDIjfEfFQxBN3uYk=;
+	s=arc-20240116; t=1790683676; c=relaxed/simple;
+	bh=0Ll4i5qwdxy1n+9kzp+J6DAKRPK4dddbBgYhPreuD/g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o//fRGKzUlStwvrt/YTfIugiUXbq88Z8/Bfzlx+ViK8MITWEBlCEru0cqAIaaqC5Z6avJ2rCpg57DsAuPXS9FSl8IV1C8jPyRpPT3yznspoo0a2NDsEQLpm88qzpF8+9XIYOiv96FfZ19xgVCPl7lUjjPsDuVNyeNldI8MR4ejY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YOKUeCWp; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=PgNl9errvfjNAXM1er3crxa4sNZBMumZKhf+ZREnR0/HUEMznma2vQKoFOLtyoUxtmTKzBohBQ+beovXthRrB3UGExB7mhyP1IrisO3JD1xkelOX8nagVuezVQecJ1eOjPhKA2QzKYIqFWsgdUwYlr/fssrJqTroEV5h9Kkwpd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UDaNr2IK; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YOKUeCWp"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso2491493f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:07:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UDaNr2IK"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af0707d41so397485f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:07:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790683662; x=1791288462; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1790683673; x=1791288473; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RSJ6Eh7p5qNfcpLHmBuzlyK3Qib81LELDrV9ggTB99M=;
-        b=YOKUeCWpxP4rGgYs8s44CiJR0hy5DLqDWCvi5NnKRao6QKSj8wEoUCVdD5vB6XJOkl
-         Pc7KnN2PJ2b/tpZvYwE21uP0aUf35OvsOpC6suMBAQpTrf/dqTfIRFu8EFuvNpv8LfND
-         6T3r01m6Qxxbepr6+4HV47Gb1TPJXyVO5XzHEGtDMI1aZ9JpLHJogUQe60ElAP2JYrrK
-         Qm7D1eXUDfcJPj/1wZHRxWEFDwEbc10XDD+nLEYqB0FJO1658PJJkiAXAUzVxUv0Btpw
-         Ste1Encvif5ZI7SRWpsjfi6JyAUVKXkAjmFJx7Z861NXsmAdyc+EjjS5/3QjLoxpnbrM
-         CdGg==
+        bh=cZfDP8VRt6pSeRBryzIA/0Zz7DW3osTGUkY7XrICjRQ=;
+        b=UDaNr2IKKomtJ8HZzn7acKSdmIa82JtPPRKJJh6bxJRnQmTl6axEw2utt8dS/GFEpg
+         31Bc/Z1iNkzAFjbFPaN+U5cEipFfWXrHAP265+71jErz2G312y0De4Rx4jr2puEY9xzS
+         /kkZnqonAXoddSNSrc79H9aiGQ7ozwjt3gGTVP+gVgvM/8oym05xAXSoDB18gBfIgyIL
+         /waOQFVyYj6lCbxG/poYopP+Y1gpPLe+zgp1Piui12Pzn8GdKHBNPZ4xx44b9w9nALXL
+         vzlE0xT1iQpM4EyfG1xgUhOQC31k8mow7o7YYF5t5u3tyGwc3G5D+tp/oOBm5xQHP0zG
+         FMDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683662; x=1791288462;
+        d=1e100.net; s=20260707; t=1790683673; x=1791288473;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RSJ6Eh7p5qNfcpLHmBuzlyK3Qib81LELDrV9ggTB99M=;
-        b=e/q1ySaSW1/0DHN4Fn47tcARJ/MBr0FQg2qEjAToWST71P03ZeDdx3lYpW0NBTjSex
-         TpMMpbM8QEmV6O90DoH9TxoarAAcJCzcZBX2b8EeSmNW1ZjUXyEOzbeJmzxguEugPCM1
-         8t8DzZuTUv6KO0JsJJT79CQi6zeLCkSJf3arQxMxFDKiOqroIDhWDUkyX1EhoS/nhG6O
-         tZxgE1EWJR9ZqJfIFDXFJqPjKrZd2Jk/Y8YQtaJ/wimM/OrjIBrkZeWi5yFoI/GvjScp
-         jo2yPL17sfsLY0Ou1z7E3SugJcy3dqIDI99guJKbDpfAZr+ARSkTQx1iEEvmr1XgTAp6
-         dYnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoyMo+8fZPND9JCv/zA+vLX/jgMfQM6ozdzs6bc5gTEcmvPjPua60jHEg2fa348clwHa/H6CDzj52AmJM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzuYbGQn+y6f2K+RoxPvOPDJP3vdm9E+fs1R3Hpx8rhlX3+cIB
-	M4vAEAzR++Fk7JJquTsRXwmGWqNNV1L+6HhiB/+ZRx0nuPeZv+gnLWQOo5qRV8t7uyk=
-X-Gm-Gg: AYBFou0akmAGFCVmeAI/8bXYfMzAtcMgu+C6wP5BbUUKBec/L0M0s6SveJTZRCwTb75
-	cTZ252IQh02wpwhhW4fgzU4VSmaZ6EwP+n7GbUcLEOlDSQSTt/pq9TP78KrYOJO5zr5VyB4DuuP
-	Tl4eNLAknZ08mC77XElLlMJvaPdX2Q3218WKlcL/A3UrXEbQJK+RV5Vo9V/PMTXer3dX/+jccVL
-	3o5ECnqH3b+RGbL1NDVLc8TQnSq7xHy3r7XNCdHjoHuRKRfKAgQKiAgHuouZTjfkx52frCYX3t/
-	xgDiLAIwUgJ/2ba/mhShqcJ18+PJufM/L5oWYx20EveSzbAQzv8WFZEL0V6uI3M1OANF06JJsoh
-	91OKXKC/O4PeBWth2dol9Ns8KwY5eQ/jFj2Rt0ZyQ8dLyWtN9Eto1exbcs9nmLgKNhv68AQkM8h
-	EQpZvNuv6/X5KjiL3AEoHZ7TQUpfB32xpzqsiva4ZlL+rV1X1pUE2LQgYueze4f+W0+bBHMj7ET
-	noI2xpY
-X-Received: by 2002:a5d:5e88:0:b0:487:9a9:6d24 with SMTP id ffacd0b85a97d-4887171a503mr26770138f8f.19.1790683661598;
-        Tue, 29 Sep 2026 05:07:41 -0700 (PDT)
+        bh=cZfDP8VRt6pSeRBryzIA/0Zz7DW3osTGUkY7XrICjRQ=;
+        b=XvLQjNCHYdKB0QNXt+48fNHBxK5Fd5w0GKUYrSWxhk5n4dVlzSfMBdLdqp1+XvbShw
+         /RXT60hdu0IHpPKQXYq8J1M2iN/MX2XjbfEv54oYFJSPBwW/AeyxFZ/WoqB/VI+Is4Nm
+         +zo2Xl/X83qkCY+UL1E25fw5Rfp3qep6yBfjp5tBWuKtSU2zCx46pfFQa0jmm2DQ5atp
+         OOasfNH4sttl2Bw33Ww7E5nqTwLKAiOdjxtHc2cizrhVgphORul+0NAhcTJdc61Exh9b
+         JlFWctZkBshVHwj086IFSxfZKUBBcW9c96hK5oy4W0GR55/MRfWplD7Lt42XTEktjejs
+         FOPA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Y5n0BKKAtw313nIwq96iapHiraKcDSkXHSr/bAzhHcssdzcqgvZap3n6P0YsyVaDEjsHoid/IJJiuNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6brBFX1zoVSXESTIEmD6yV1c+mLYjCHIxi6kv0BuVUNoGzQlc
+	+kRWWS7ZxaztBQhbbqYnOTP++2kKzqGs3oM9ptNQVqXKSgbD4FXMcn69ibkadWU3s+GoHdY8uTP
+	8N/vfx1U=
+X-Gm-Gg: AYBFou0NvFsSBdRaDAVniZAAJpfPQOtHuCbYnqyrVuwGfiLfh2NCwoPW3V8Vz58QlWr
+	B0O7PLbydsd7wfcV9e0X0OaNSlJoBBP1aafe7eJ4aSPHF08Ypak3dA62u+49wNVWSsZDpRLz1yT
+	wrCIQ+xOMXIOsvy6b3c8Ynsc6Pky5ktJeYYDeyggYfIvO7GV7QcPp03zyypfiClFReVw+2Vklcr
+	3F2I7DCmmmMlwuYTNjhObSJIU9miVqJ4JpYV32s8zQezUpk+1T2L0xOHdeAH/S9OpFKTlYuDuGs
+	ddG7GMp3NXGJN43pON+VTgSDNFQN1sazfyHYjxLiC0MeL2L+9Oy3XLJz3fO601wcM90Xzrxk2B9
+	rXoSV8FmqeDPMvRjuQZF0wnXf4kGfmGRZM/6fHyBYGhcrECLMhfmrwwt9ANYb/v6dWa1kQ3zhJB
+	vvDDQSrvxxn/Gs1mtXoqqyulw/YIFLfNIP/mYNb6AHfwufxoYK8NuY8OGdt+iwrkQj5Q8jfGzuU
+	UckV1A=
+X-Received: by 2002:a05:6000:240e:b0:487:13a9:80d with SMTP id ffacd0b85a97d-48af1ac8c4amr4832536f8f.10.1790683673346;
+        Tue, 29 Sep 2026 05:07:53 -0700 (PDT)
 Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af4f886b6sm3963567f8f.1.2026.09.29.05.07.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5056a16sm3398058f8f.18.2026.09.29.05.07.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:07:40 -0700 (PDT)
+        Tue, 29 Sep 2026 05:07:52 -0700 (PDT)
 From: Petr Mladek <pmladek@suse.com>
 To: John Ogness <john.ogness@linutronix.de>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
@@ -68,9 +69,9 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v5 09/16] printk: Allow to override options via the command line
-Date: Tue, 29 Sep 2026 14:05:39 +0200
-Message-ID: <20260929120546.328616-10-pmladek@suse.com>
+Subject: [PATCH v5 10/16] printk: Allow to debug misuse of add_or_update_preferred_console()
+Date: Tue, 29 Sep 2026 14:05:40 +0200
+Message-ID: <20260929120546.328616-11-pmladek@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929120546.328616-1-pmladek@suse.com>
 References: <20260929120546.328616-1-pmladek@suse.com>
@@ -82,72 +83,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Consoles can be preferred either via the console= command line parameter
-or by some platform specific code, e.g. SPCR, device tree.
+__add_preferred_console() should always be called only when either @name
+or @devname is defined. Allow to debug the case when they are misused.
 
-Historically, the preferred console options are stored only by the first
-caller who prefers the particular console. The ordering is:
-
-  1. acpi_parse_spcr() is called via setup_arch(). Also some platforms,
-     for example, s390, powerpc, x86 Xen, explicitly call
-     add_preferred_console() before or in setup_arch().
-
-  2. console= command line parameter adds the preferred consoles via
-     console_setup().
-
-  3. The device tree is read in setup_arch(), see unflatten_device_tree().
-     But the preferred console entries are added later when probing
-     particular devices in do_initcalls(), see of_console_check().
-
-It means that users could override console options via the command line
-only for entries defined via the device tree but not for entries added
-via SPCR or another platform-specific code.
-
-I looks like a bug. It should always be possible to override any
-platform-specific defaults via the command line. Also it is usual
-that the last variant wins.
-
-Be conservative when Braille console is wanted and prefer the Braille
-variant.
-
-The change might theoretically break setups where users passed wrong
-console options and they used to be ignored. But the fix seems to
-be worth the risk.
+Use WARN_ON() because it is rather an implementation problem, it should
+never happen. Also the consoles are typically added during boot so this
+should not panic a running system even when panic_on_warn is enabled.
 
 Signed-off-by: Petr Mladek <pmladek@suse.com>
 ---
- kernel/printk/printk.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ kernel/printk/printk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 4670787195d1..b458a920ce5a 100644
+index b458a920ce5a..683083405230 100644
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -2563,6 +2563,9 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
-  *
-  *   2. Only matching entries can be updated.
-  *
-+ *   3. Allow to override @options via the command line. Last one wins
-+ *	except that the Braille variant is preferred.
-+ *
-  *  [*] A valid @name and @idx will get assigned for a devname later when
-  *	@devname matches during the device initialization, see
-  *	match_devname_and_update_preferred_console().
-@@ -2632,10 +2635,11 @@ static int add_or_update_preferred_console(unsigned int i,
- 	}
+@@ -2585,7 +2585,7 @@ static int add_or_update_preferred_console(unsigned int i,
  
- 	/*
--	 * Historically, the preferred options are stored only by the first
--	 * caller who prefers the particular console.
-+	 * Allow to override options via the command line but always
-+	 * prefer the Braille variant.
- 	 */
--	if (is_new_entry) {
-+	if (is_new_entry || brl_options ||
-+	    (user_specified && !is_braille_console_preferred(pc))) {
- 		pc->options = options;
- 		braille_set_options(pc, brl_options);
- 	}
+ 	pc = &preferred_consoles[i];
+ 
+-	if (!name && !devname)
++	if (WARN_ON(!name && !devname))
+ 		return -EINVAL;
+ 
+ 	if (devname) {
 -- 
 2.55.0
 
