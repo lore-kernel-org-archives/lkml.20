@@ -1,77 +1,190 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09C52D3225;
-	Tue, 29 Sep 2026 08:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6B423EA83
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:05:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669104; cv=none; b=EuvQk1AfEQTGmv5oa5q/G2fMBrSJScbyC3CMxYG+q0VkpAWm2C1offSpUyEciQQYHVdcZzvF8yIkvvvmWHmRwvhwgwzqw/71H/NSeIP+nuy00Ns5AqD+4mjfp754q2FEwwqCKmN2Z+ZS0MAry8/MOgHw53wjQO7JbmoW64s09LU=
+	t=1790669122; cv=none; b=m9nnWphCrFc10evrItmSwxUMj+50hKpdAEASifYQG0PJ4Dfg4+CXkdVnv+izcYJQ3Lf0Mlcupiuyesn8Wcoc1I6LfiV9H7wUZTxAVsTuUCaD9/bz7kgQLL3PKV8UpzYwvs9h4uKgFpBo646qE19HyoWyA1ob4Hi7OzaiDogs2FE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669104; c=relaxed/simple;
-	bh=H/u1bp9WWsdpdARAjI+1PMs8EE941fO4oZ+dTqpHuvA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OjKS6K6v9ytRpfjd3zGAQot0HRsNZz1KrHkEUBAzsmoEc1rnepVHnECVgUDwl5Y01FY00GdD0ZH1BWQtyilHgrvSakHXmlaitD7MI8Dy9w4+BDtWmBlbGoXQGDnbOASav5I0Bn/E2Q9w3jWZd6coIPuOrLadodzHn+SilTyo5Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=AY29NCue; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790669122; c=relaxed/simple;
+	bh=Cu3PmaM4+usDuxduqOqsYpNfFf0tzadb722O33EBlFs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=lt6eLhg4cx12j8o3f4G52AHDPedHRG/imAXYpAoOLh4l68tWils3pJOAoyihoWQPjUnDRXbhmd3YZMvpLcXZY4HEpXAxYOahGsCqRYf5RdL/4iRDpsG020SCHpv8O5NJ1YZphtUCfpPnkQsjXIeQL96/0ZpM/mMpZs+OdB/Ik1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pEiS4CAq; arc=none smtp.client-ip=91.218.175.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AY29NCue"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f78dd921;
-	Tue, 29 Sep 2026 16:04:57 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: ymfpci: avoid changing control access under spinlock
-Date: Tue, 29 Sep 2026 16:04:51 +0800
-Message-Id: <20260929080451.2048040-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <871pad5yev.wl-tiwai@suse.de>
-References: <20260927135301.777475-1-runyu.xiao@seu.edu.cn> <871pad5yev.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pEiS4CAq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Cu3PmaM4+usDuxduqOqsYpNfFf0tzadb722O33EBlFs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790669116; v=1; x=1791273916;
+ b=pEiS4CAqRhKAXEpY5GJeEoHPtjNXppUWTKZwpVgTWqQ+f4ccdJlJfOyFFbl7qcspQgQYvred
+ qxzvHh8eshC1Cub/8Sh0lCirl+W64+dUIFIAdhMiecoIM31bOfsoVsxfuW9wCpTXUrJHdBJD2Ld
+ SKgcBOqqFQ1YRoheW1caIrrA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id dcefedb6d7c8165b;
+	Tue, 29 Sep 2026 08:05:14 +0000
+X-Mizu-Trace-ID: dcefedb6d7c8165b
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ec320a9703a1kunm3b96ee5322fb34
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRpOVkJPH0kfQ0xJHkhMH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVU
-	pLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=AY29NCuefG2QmVxd+s7HcFtynnyuWetEFfNBTUJ6j+gKNP0sYVIp5ODc96aQAzuu+J9QrE9XfOFGgW43v5BfAM2jtat8erOmzW4X+1kyuiNKuY3b7fF+tuul8e1Io4gMaXQtGEJrFqrY7XYs6Ur/HHIASA1/BouEcyETUlhGD00=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=H/u1bp9WWsdpdARAjI+1PMs8EE941fO4oZ+dTqpHuvA=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v5 05/12] mm/sparse-vmemmap: prepare DAX vmemmap
+ population for compound page orders
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <deecea10-589f-4e2c-9c17-5e5dd4e81250@kernel.org>
+Date: Tue, 29 Sep 2026 16:04:55 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Lance Yang <lance.yang@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <77523FDF-D7CC-4B79-AF35-DF2E6673F0A1@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260927025441.741633-6-songmuchun@bytedance.com>
+ <deecea10-589f-4e2c-9c17-5e5dd4e81250@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-Hi,
 
-On Mon, Sep 28, 2026 at 8:54 PM Takashi Iwai <tiwai@suse.de> wrote:
 
-> Although the intention is clear, this is just an overkill. There is no real
-> race, and introducing the offloading work just for using
-> snd_ctl_activate_id() makes little sense for this old code.
->
-> If any, we should rather make snd_ctl_activate_id() to be callable from the
-> irq context, instead. But this would need a redesign of the control-led
-> layer implementation -- that's the very reason of being sleepable context.
->
-> thanks,
->
-> Takashi
+> On Sep 29, 2026, at 15:24, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 9/27/26 04:54, Muchun Song wrote:
+>> Device DAX still uses vmemmap_populate_compound_pages() to populate =
+its
+>> compound-page vmemmap mappings. That helper allocates the head and =
+first
+>> tail vmemmap pages explicitly, then reuses the first tail page for =
+the
+>> remaining tail page mappings.
+>>=20
+>> Device DAX is being moved to the section-based vmemmap optimization
+>> infrastructure, but it cannot switch to the generic section-based
+>> population path yet. Once a later patch records the DAX compound page
+>> order in section metadata, DAX head and first-tail PFNs can look
+>> optimizable to the generic helpers as well.
+>>=20
+>> Add a DAX-specific population flag for this transition. It keeps DAX
+>=20
+> Well, you're not adding flag, your reusing an existing one and =
+renaming it?
+>=20
+> And then you're specifying it on more paths.
 
-Thanks for the review. I understand your point and will drop this
-workqueue-based patch. Making snd_ctl_activate_id() callable from IRQ context
-would require a separate redesign of the control layer, so I will not pursue
-it in this driver change.
+You're right. The commit message need to be more precise.
 
-Regards,
-Runyu
+>=20
+> [...]
+>=20
+>> mm/sparse-vmemmap.c | 27 +++++++++++++++------------
+>> 1 file changed, 15 insertions(+), 12 deletions(-)
+>>=20
+>> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+>> index e4dae98ba7f8..2457ea2c6dca 100644
+>> --- a/mm/sparse-vmemmap.c
+>> +++ b/mm/sparse-vmemmap.c
+>> @@ -35,8 +35,8 @@
+>> /*
+>>  * Flags for vmemmap_populate_range and friends.
+>>  */
+>> -/* Get a ref on the head page struct page, for ZONE_DEVICE compound =
+pages */
+>> -#define VMEMMAP_POPULATE_PAGEREF 0x0001
+>> +/* Vmemmap population for ZONE_DEVICE compound pages */
+>> +#define VMEMMAP_POPULATE_DAX 0x0001
+>=20
+> Cleaner.
+>=20
+>>=20
+>> #include "internal.h"
+>> #include "mm_init.h"
+>> @@ -243,13 +243,17 @@ static inline struct page =
+*vmemmap_shared_tail_page(unsigned int order,
+>> #endif
+>>=20
+>> static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
+>> -  			struct vmem_altmap *altmap)
+>> + 			struct vmem_altmap *altmap, unsigned long flags)
+>> {
+>> 	struct zone *zone;
+>> 	struct page *page;
+>> 	const unsigned int order =3D pfn_to_section_compound_order(pfn);
+>>=20
+>> - 	if (!vmemmap_optimizable_pfn(pfn))
+>> + 	/*
+>> + 	 * Device DAX still relies on vmemmap_populate_compound_pages() =
+for
+>> + 	 * head/first-tail allocation and tail-page reuse.
+>> +	 */
+>> + 	if (!vmemmap_optimizable_pfn(pfn) || flags & =
+VMEMMAP_POPULATE_DAX)
+>> 		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
+>>=20
+>> zone =3D pfn_to_zone(pfn, node);
+>> @@ -271,7 +275,7 @@ static pte_t * __meminit =
+vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>> 		pte_t entry;
+>>=20
+>> 		if (ptpfn =3D=3D (unsigned long)-1) {
+>> - 			void *p =3D vmemmap_alloc_pte(pfn, node, =
+altmap);
+>> + 			void *p =3D vmemmap_alloc_pte(pfn, node, altmap, =
+flags);
+>>=20
+>> 		if (!p)
+>> 			return NULL;
+>> @@ -286,7 +290,7 @@ static pte_t * __meminit =
+vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>> 			 * and through vmemmap_populate_compound_pages() =
+when
+>> 			 * slab is available.
+>>  			 */
+>> - 			if (flags & VMEMMAP_POPULATE_PAGEREF)
+>> + 			if (flags & VMEMMAP_POPULATE_DAX)
+>> 				get_page(pfn_to_page(ptpfn));
+>> 		}
+>> 		entry =3D pfn_pte(ptpfn, PAGE_KERNEL);
+>> @@ -546,6 +550,7 @@ static int __meminit =
+vmemmap_populate_compound_pages(unsigned long start_pfn,
+>> 	unsigned long size, addr;
+>> 	pte_t *pte;
+>> 	int rc;
+>> + 	unsigned long flags =3D VMEMMAP_POPULATE_DAX;
+>=20
+> const and at the top?
+
+No problem.
+
+Thanks,
+Muchun
+
+>=20
+> --=20
+> Cheers,
+>=20
+> David
+
+
