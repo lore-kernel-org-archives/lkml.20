@@ -1,134 +1,92 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A130F390200
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 7669D38D3FE;
+	Tue, 29 Sep 2026 07:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.206.215.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665235; cv=none; b=ZOS2hJJaaAiIhT+y3yc6HHMbmJfWRP3gT/5S7gaPqgtEe5nS0LfYUHGRc4dTqOrQL5wNQ4Vtr5sEScurTfMqZMK+/8rvnHsjqbB7HrNxUFePNGv3YUuLYNPFljjrEZIg79yRtqnI1ogMagnmVmzvpFR4cI21ZKh9q1zkSYanfUA=
+	t=1790665237; cv=none; b=fbfEqy3QVZrTNviXxldqBBJuaJc7mNH5RvlPq1VcGbM7yt+Ux6PLtDE139whZIU71hcDm5PkK18rGN9m4wtddwJHZMQdpcB+N1dlXPoiZmDmIY0PiZr5EWdjb1yXHowXmuy+0HYpTyNnNVfQey+iAMbshatqntBvZ2/d2HSXHAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665235; c=relaxed/simple;
-	bh=NAnqs6N7n/nAen4EwvyGaHI+I/6sBbz3UyF+MK31NRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LMq0hXu6Q1j1ETZZ+uhMRvz8RoK/9nciS9ihBucN7cuBU6Bzig46720jvvTDKrILHEWGUe08snT0oDOGHDAEQqgjmD90Odlb0g+RsJD5rTvpMo6Yg9kFMb0hUNL44Y2rQ14lD7FBnHUDCmXqGqzI24d1eSfiI7kS8uqk717TfEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=JOkq7WUG; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1790665237; c=relaxed/simple;
+	bh=he2Jhog2fO6QthrLvj+Qgd+uJiyktRleTSC9oYPV/tE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D17LcHEx/UpcWy/sEY12+YaGR3yogjSpou6+kLHmjUGNvSy9SKFBQdDgmEiZWXqsCjPMONFPeItBVlORs26OHkQcDkGe3UD9MaiQWvQ+qb7dikF68JfNF4kNZWjTTQqszKMf+1EL76oBk2v9Ul9qHDQ5MAL1W/aBiSmmMe0W9+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=dCiHeIrI; arc=none smtp.client-ip=111.206.215.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="JOkq7WUG"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf8415866so4816637a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:00:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1790665226; x=1791270026; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ws2h3bosbvJzvMsBsOio9tc0WwhcuTWN1Wq8pMYYGpY=;
-        b=JOkq7WUGbXOvN1cHOm65L1dbgSs8oKijm+yngdaGHQtDfOxATW0WN1OmzCvAqOhMka
-         92sO8qNbJIjtz/O59zychUFUzdXVBPLOQxv+6MDavGZQMV54yvrHcscG32vR5/W5nduH
-         PUX9CkImo1jfvITwzyL8KD5i4Jo7Jk14yNDwY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665226; x=1791270026;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ws2h3bosbvJzvMsBsOio9tc0WwhcuTWN1Wq8pMYYGpY=;
-        b=l3ceG7bML1QV1lfycwTxlqR08tAUVtudt7GVFXihgA9i7CPW+a8ApxY7gkSQSD8acD
-         577UZbOWp5Bv+JSSPMTsSBgcSxCzIeNljLnCfK+2vSVqSFwFpAejrSaLzUDS3u5a0aYf
-         ZFPt8CtYfoSGlZ9peDpIgLDDQ/0ZSrlP5YZHBpzqgr2G9wHb4ytXa+nY6PDM8iuN6Jfu
-         yrBl1xX2ZGECr8s3VZ/UkxoQMbYQjjTCjQZYAAyZR4rDIljMrIns9A/QZ8sywofCqyUq
-         aXo12lqm9pN0AVSNBWr9gA6nU6tM86I5/CUH3m37kWUpZ5kga6560jsWvAEEVOWgQwEk
-         /6Tw==
-X-Gm-Message-State: AFq9FYJOrzCs/E95Lpt6P6oaDtUzzGDqw1VFuiDDn4JshlBAqTpWdly4
-	gnDVPr/wCUyb2UzdXhZPNju5xdg2DmjdXKN8URFd4f2SoG0Dp9N8W+rqnI3P03pSzT0=
-X-Gm-Gg: AYBFou0tVKP7NohMXlZxTYqanC4pd5bwQKOc34abIEUyEsxSlZ/UW9XzBqhwvqcw3XM
-	2rahjYlfgjnCqeH6hnhzzRENi2xrwXeM9AA8KhrfnGYdZWGJ1MpS0gXxic9t6JwwWbehDEY8HQ+
-	m8w5W1kGM9C9+tRSjlTGUMuvXucR1KE7LchvfBgxGtH2yWlFaiGNkbUP+1BW5bdl4BwRGNfISHr
-	tUUPWsu2HbSdnYEl4McAwoBbZDwCgJIDPLJ/PwODRzMP7Qb/xg/FOuF2JOQA23XS0hqzwGXToxU
-	eShdUGY2UYwhrSRIf1nHZTkqwSPesoW7ogZH/KKszczUxAvga3Qz7VL06TZD4zS41vBsX2IZz5E
-	wETHArGtokjvDCifHwtJQQRsye2PMQn3phwlRpVjiiDqhoCE+k0E2GSb/D99AQNyg7VKy47ml8q
-	1WVv5XnThQm1iJDejceb4G5fQESMy51exOAT9ck0fK+8Kj5/Kp8YgeRyRVhBgbL1Nc/daCp0hku
-	oAO
-X-Received: by 2002:a05:6402:a28f:20b0:6aa:e589:87dd with SMTP id 4fb4d7f45d1cf-6aae589896cmr6466271a12.14.1790665225756;
-        Tue, 29 Sep 2026 00:00:25 -0700 (PDT)
-Received: from carbon.k.g ([85.187.61.220])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb90281besm271310a12.23.2026.09.29.00.00.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:00:24 -0700 (PDT)
-Date: Tue, 29 Sep 2026 10:00:23 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	arnemaximilian.richter@draeger.com, martynas.grybauskas@draeger.com
-Subject: Re: [PATCH v2 2/2] arm: dts: nxp: imx: Add devicetree files for M48
-Message-ID: <20260929070023.GC10296@carbon.k.g>
-References: <20260924183855.1393302-1-petko.manolov@konsulko.com>
- <20260924183855.1393302-3-petko.manolov@konsulko.com>
- <ba275cd1-2d86-4ab1-a6e7-6758ddbc31c9@kernel.org>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="dCiHeIrI"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andreas
+ Hindborg <a.hindborg@kernel.org>, <linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] ublk: use global index for reported zones
+Date: Tue, 29 Sep 2026 15:00:12 +0800
+Message-ID: <20260929070012.2325-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ba275cd1-2d86-4ab1-a6e7-6758ddbc31c9@kernel.org>
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc12.internal.baidu.com (172.31.3.22) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1790665220;
+	bh=D2EK+Epbkq5EfN506jVqMJ4gve+oBKhx2WfKjHKTbdM=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=dCiHeIrI7MVFNfXuDz3hCfxGWLPOebZJzyuYi63OBcqow6JGhKNG4XnA2U4w6SN3g
+	 YtAHmisoseKBXxHQexGbW7mq5DQwEuqsC9yt9F6EStdBujaKWXAWaR2XtafxZSRlPQ
+	 WKLcQRSIiB+R1pTze2neLU2AANYwNPR0e3SbgRRn733ug+nCniCeyV0jvCMvhFQoRI
+	 kak0V7I5HBdozmOzletUnShx6anFmaqlqXOgEZui8I2JHrh5/x0Xk0qyPGfIEIIm2g
+	 eAbi8aqewpOh1HK/TcxaFxCedNnY25+a592yF2BR4gZQ3WnTn3W7Lrro7k2XGWmGv+
+	 oUiDW/yQHB2/A==
 
-On 26-09-28 09:31:56, Dinh Nguyen wrote:
-> Hi Petko,
-> 
-> On 9/24/26 13:38, Petko Manolov wrote:
-> > M48 is a heterogeneous board made by Draeger that is based on two
-> > independent cpus, that are monitoring each other.  One of them is
-> > imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-> > independently off qspi.
-> > 
-> > This one adds the DT for the two variants of M48 that are based on
-> > imx6q and imx6dl.
-> > 
-> > Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
-> > ---
-> >   arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
-> >   .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
-> >   .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
-> >   .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
-> >   .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
-> >   5 files changed, 495 insertions(+)
-> >   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-> >   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-> >   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-> >   create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
-> > 
-> > diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> > index 1a2539fa19b4..44b393256235 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> > +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> > @@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
-> >   	imx6q-dmo-edmqmx6.dtb \
-> >   	imx6q-dms-ba16.dtb \
-> >   	imx6q-ds.dtb \
-> > +	imx6q-draeger-m48.dtb \
-> > +	imx6dl-draeger-m48.dtb \
-> >   	imx6q-emcon-avari.dtb \
-> Please remember to run get_maintainer on the file that you're submitting.
-> For this case, for the arch/arm/boot/dts/nxp, you need to also Cc'd :
+From: Li RongQing <lirongqing@baidu.com>
 
-Oops, my bad.  Apologies.
+ublk_report_zones() may split a zone report into multiple requests when
+the number of zones exceeds the temporary buffer capacity. The index
+passed to disk_report_zone() must refer to the zone position in the
+whole report, rather than the position within the current request.
 
-> Frank Li <Frank.Li@nxp.com> (maintainer:ARM/FREESCALE IMX / MXC / LAYERSCAPE
-> ARM ARCHIT...)
-> Sascha Hauer <s.hauer@pengutronix.de> (maintainer:ARM/FREESCALE IMX / MXC /
-> LAYERSCAPE ARM ARCHIT...)
-> Pengutronix Kernel Team <kernel@pengutronix.de> (reviewer:ARM/FREESCALE IMX
-> / MXC / LAYERSCAPE ARM ARCHIT...)
-> Fabio Estevam <festevam@gmail.com> (reviewer:ARM/FREESCALE IMX / MXC /
-> LAYERSCAPE ARM ARCHIT...)
+Currently, the per-request loop index is used as the callback index,
+causing each chunk after the first one to restart from zero. This can
+make userspace callbacks receive duplicate zone indices and may result
+in blk_revalidate_disk_zones() updating incorrect entries in its zone
+state array.
 
-Will do.
+Use the number of zones already reported as the base index for each
+request so that zone indices remain continuous across all chunks.
 
+Fixes: 29802d7ca33b ("ublk: enable zoned storage support")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ drivers/block/ublk_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-thanks,
-Petko
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 66eb55e..007e703 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -649,6 +649,7 @@ static int ublk_report_zones(struct gendisk *disk, sector_t sector,
+ 		unsigned int remaining_zones = nr_zones - done_zones;
+ 		unsigned int zones_in_request =
+ 			min_t(unsigned int, remaining_zones, max_zones_per_request);
++		unsigned int batch_start = done_zones;
+ 		struct request *req;
+ 		struct ublk_zoned_report_desc desc;
+ 		blk_status_t status;
+@@ -687,7 +688,7 @@ static int ublk_report_zones(struct gendisk *disk, sector_t sector,
+ 			if (!zone->len)
+ 				break;
+ 
+-			ret = disk_report_zone(disk, zone, i, args);
++			ret = disk_report_zone(disk, zone, batch_start + i, args);
+ 			if (ret)
+ 				goto out;
+ 
+-- 
+2.9.4
+
