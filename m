@@ -1,134 +1,193 @@
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8913C1D65
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690445; cv=pass; b=QSzuMyf19xyfiKC63ClC6Cg519OGyTDD1jZdnrjaSpUzMf92IhUIbj+wENC982bqFgCTjB+A3Fxf92RhuU94/GXFqDxOrOuXl2jiMEkgoYZNelAyB5Qen5Cy1Vl8o2rIbdgZyZOMjFuNTyGbKVx65cx2Pb2o6K8aMscwaYKIhR0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690445; c=relaxed/simple;
-	bh=Wn1QoVgHTJ6cjt9lFMZsBajm92SE7QOLkOx8BbsowoA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pRuH/AcoapGJdPqd0XWgVdWAzFqUfdMyMMPTVDUelwNz02e2Cb/AIPjqkGNmYG+T1A7hk7wRZp9Q1/LpRe3fLqT7I3VcxCdQr9wU5Fr4xZPcHyGI0yWZkU5lMvPTC6PpMJ+2f1Gmjs9IHx21pNqF81FvRS5g3jgPQkCP1Gt+ST0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y0MKLwJY; arc=pass smtp.client-ip=74.125.229.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF403358399;
+	Tue, 29 Sep 2026 14:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790690462; cv=none; b=AF1y53zC6pJIK+v17f4A4j9mi+ixiMT+t3sTUZH5vQw1chH4esbEnEURqqNz+PZrlY9dnV1Cy7f4UNfZ3S2UFsR9bM6MvPMqgdeaYUpQl1th2QvuAPAgMtbr1wsG8uHRWtDlonjtM8h9aDoHpgyWkFqNQPhnGHQdyJ8AuoMSz+w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790690462; c=relaxed/simple;
+	bh=hHXBHcUCrIplq/Wbvx/jiQO/FmwElDLURzK8n9eyhEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BiGitDxfzcp0yAKxsjaF2ojiUMpoTaQ6RAOZjnIfT5eTMnzoq5OUbqdh934dQJ18tuVlFfEK7ErBHXr27ejmimQDQVZo/ZE9mAbdBKyCtsmnKIBPA1TE1HEP6d4Zqh2NkuK2/0dqn8ZiMp9Fy4I7Ssh7ooQRHhQI4LwdZoAK5yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ovo4oitI; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y0MKLwJY"
-Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so2969980c88.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:00:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790690443; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dUZycvBZoK33JJtlS5+kuBmRaFlXy6SUwJXIpXtNke9Duz7Xwjnr5TujQQjsxHT/xN
-         lpEIgto4HRyf95E70MJySAPUv/XElQPrdGhh+AtjUhD297iFycI5w4dG8/DMHt4Bc6CO
-         vMVU51dQnzlU9JN6hRip0vq6AsDbSKYmvPDd15RVoDlFZOGHAXsfTWv7KMSi7/PndqUB
-         BgoHoJn9+AIflvQ2DLFyOP2ze46xf8pZo3xm3s6Y5JCdaugNQtAe4o//nXheN9WFLYY3
-         QdpO/Uyq+DsRMwd3NMFt/t7gB6UYz+IBU9mCT7cXJ0l63ZPCJ4vTJqZgBU1ikiC4xGQh
-         KtvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
-        fh=l8JUa0Ycfd0+j0Yie9NkYMDyd8mhKCQYqtvJEeGBaRM=;
-        b=l59TQhxADOpV57F2bJADo3n/Z8PbZ+CzDVSaw+JGwBfpdZo0bDBuke+q7pwDzJjnKj
-         wUpVeNARhGPd25QGr7mW+b8wDis9wjg5k78qsu4rCWjeiXW9YtR8gQD790L0fIQHTEa2
-         1yWvomvaqLRtbVFIiUAPpAwnKE88wyC1Cloc90bSg6fxFWA5xPVGi9xEOPjjdGoVBbwo
-         xhSjMkHRLSUbohoxFASjw6tAUt5RH80DKupANCsyFF2b4vA6r3mB7I9r11Q+kCEgrM+Z
-         7D2zY33g7oPZkm2xlkgP7Y+HP3E/bULO24IGSz+CbDp0zKuGB8d4rYmUxzBNfArR97C+
-         qZ5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790690443; x=1791295243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
-        b=Y0MKLwJYqgEO5rLhQU0l7Vf0foYZk0U5NPeEUJaFd4Usun4vfO5xbIWTOIQeUhBw8v
-         EJ5CL+zOiHo6vHGJcO9iNpjYwzhZq79anmIJYg3b/mFIyBBkSLKJb7H2zQ6l0oGSMP1F
-         Fxjb4RyCvQwsqt0VmYxtQLj9Yq0J85xPwdchbO2yYQ8nnAugUv6ZK65h0BVGX4dVjTIx
-         FRZkEdcWBhDcETv5RNuw/iPVvEtW5oJ3uXBHq56B+NAFXUsx0yDyze42BM3sCtm/2KGb
-         0dl9BDxta6ZlQqJm5Gg5giq4EkD1ANpBGEuKxIL+611BqIFvrbmJBn8hJcReZXKAMZ9o
-         Z0Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790690443; x=1791295243;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
-        b=jI2y2Nh83WchKJuiTRIigkQaw2SuBJlTVbHzN9UnxseyXzTc1vJrEAinKosMD6o1E7
-         LEiNGu+XuGyzNvVAS2I30Ou2bQBmn9Io48rYvedv+wbBiEAZ/Xm6GnjYjolh/H3xD4ei
-         LRG4GJO/JeeZldSE8IjAxSSsCcokUbECVaMMReg/eiivIv8daw2eRs9U1FMcG7RgK4Op
-         v4u9Jl25Ki5MGFxEtsfKpzw/kdWeATgJFouNQvlZg81MZ3gSV/rw2BA7Gd/y2B11DTnw
-         7NPaGNGMuG+kfcG+oADDhKpc84JClrgO3uizUXhljciLSCA4yZW10+kzS7X/kAuClYBZ
-         SaKg==
-X-Forwarded-Encrypted: i=1; AKwUvBy20nZ3G9W79X85SW6j30NCWBkjf9qur/amc/xBJQ8cNi3buleisCqeNInaYAKKA06/B5OQUdqMoWXVe9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+kfMO+Uli7Yon/Dd3xLyMEEM+jsMBn61vk/FFhCLRYI8MTGxr
-	nU3BPIVlOKNFqPN1RGIobfbtVDErpV4DGRyvOULz3Fx1OX7ESIy2hHP+nTJ1db0vLUo1ZgErc0u
-	W+OI6klf+ezTRCztp1d2UrCemhJs85po2QB/SbLTI
-X-Gm-Gg: AYBFou3akR3HVi5ULKBw42YB4riZGdzUAvAv21hqXAWScET4PId4woP/bOUy2K6Wf7M
-	wjRLD5Z5gVH1950N/e6QhbLuSsrdZ9j+GFz4128T3pxMbb3DBqkBCBcnQ36Ux4aTXW9pYQQmJiy
-	bbutSd0Knee1Zk2H66AAWCo47nM8dXaOHfy/KiKh9zt/0hgpmqi4XETlYXNVNJS/Pp4Sg5ZLTbK
-	HfjbmdFQzvBewEC6Ck+aWf3gGwMs1QHIb0N8u2/Q200QGsuQGWcn5KgkQww7ke0zpmq32KXCoa/
-	e0t+IWvJagsKLavZDeNay7hE5BT2NwxN3QtoaoOdhbR4FjnCjmKjvTOf+jZeAa4VpURMo4G6sFc
-	RATK+G9pIGQ==
-X-Received: by 2002:a05:701b:4203:10b0:144:e246:a0b5 with SMTP id
- a92af1059eb24-146d077bc5amr12816455c88.40.1790690441906; Tue, 29 Sep 2026
- 07:00:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ovo4oitI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=P7
+	+Vtttm2uMFnng78VS5Um+xosrpZpAVlqn0HxUOE0g=; b=ovo4oitIGFGryFz4A5
+	UZt1yTJrhBLg1U1H5Dz2ApGkVw4vvfdmsUV8FntmhQJ0HgsYRk29n26IrdNTyiO7
+	sWZtkUAVUc1iFvv7cOK9IXFmIU7IXJmmfE3zSaRDbhgOaMPRVVfcfXF9SuvspeKX
+	NVhzOeFCz1SdJ+4IRxgk/i7xM=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDX8L8hxLtqbwr+Bg--.43938S2;
+	Tue, 29 Sep 2026 21:59:03 +0800 (CST)
+From: Kaiqi Guo <chaoji_xinren@163.com>
+To: rust-for-linux@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Jesung Yang <y.j3ms.n@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Kaiqi Guo <chaoji_xinren@163.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	bjorn3_gh@protonmail.com,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	work@onurozkan.dev,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Charalampos Mitrodimas <charmitro@posteo.net>,
+	Shivam Kalra <shivamklr@cock.li>
+Subject: [PATCH v6 00/10] rust: add conversion derives and exhaustive From support
+Date: Tue, 29 Sep 2026 21:58:45 +0800
+Message-ID: <20260929135855.36775-1-chaoji_xinren@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com> <20260915160207.2952-2-dmytrokoziuk68@gmail.com>
-In-Reply-To: <20260915160207.2952-2-dmytrokoziuk68@gmail.com>
-From: Alexander Potapenko <glider@google.com>
-Date: Tue, 29 Sep 2026 16:00:05 +0200
-X-Gm-Features: AclHuK-0nrksZ7YEGRoxYPzzxSAUz-0Dn6NeWJoWfkNhrjPIZe7YkKonvpSq2vA
-Message-ID: <CAG_fn=Wx-SPUH+wyTnihtjTKAp+4fF_H8LT-mbyj9kUCe1i1oQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm: kmsan: fix ioremap error cleanup
-To: Dima Koziuk <dmytrokoziuk68@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>, 
-	Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgDX8L8hxLtqbwr+Bg--.43938S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xr4fCr4UXr1xAFy5KF1xXwb_yoWxGF47pF
+	4qk3yYkr48C3WfG39Fya1UZa45GFWfJFW5XF17Jw4DursIkr10qrWDKw4Y9F9rC340v39I
+	9r1Fyr1kCa4jva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
+X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4QnEQGq7xCnaGgAA3Q
 
-On Tue, Sep 15, 2026 at 9:02=E2=80=AFPM Dima Koziuk <dmytrokoziuk68@gmail.c=
-om> wrote:
->
-> Looking further at kmsan_ioremap_page_range(), I found three cases where
-> error cleanup leaks metadata blocks. Fault-injection testing confirmed
-> all three:
->
-> 1. If the first iteration fails, clean is zero and cleanup is skipped,
->    leaking any allocations that succeeded in that iteration.
->
-> 2. If shadow mapping succeeds but origin mapping fails, the shadow
->    pointer has already been cleared. Removing its mapping loses the
->    backing block.
->
-> 3. On failures after completed iterations, cleanup removes the earlier
->    metadata mappings without freeing their backing blocks.
->
-> The cleanup needed here is the same as for iounmap, so it makes sense to
-> reuse kmsan_iounmap_pages(). Track the end of installed mappings with
-> mapped_end and advance it after each successful shadow mapping. This
-> includes the current shadow block if origin mapping subsequently fails,
-> while the PTE walk skips the missing origin mapping.
->
-> Run cleanup whenever err is non-zero. Free allocations that have not been
-> mapped directly, and use the shared helper to unmap and free the installe=
-d
-> metadata, including blocks from completed iterations.
->
-> Fixes: fdea03e12aa2 ("mm: kmsan: handle alloc failures in kmsan_ioremap_p=
-age_range()")
-> Signed-off-by: Dima Koziuk <dmytrokoziuk68@gmail.com>
-Reviewed-by: Alexander Potapenko <glider@google.com>
+Nova register enums need conversions to and from integer fields. This
+series adds Into and TryFrom derives and a shared convert helper, then
+adds From for enums that cover every possible input value. Two Nova
+register enums use the derives without changing their conversion results
+or error types.
 
-Note that I'd rework patch 1/2 to use a non-checked version of
-vmalloc_to_page() (see the other email)
+This continues Jesung Yang's work. The first five patches preserve his
+authorship and implementation from the unpublished tryfrom-into-macro.v6
+branch [1], rebased onto rust-next. Jesung has not formally posted this
+v6 series. The remaining five patches fix test and name-resolution issues,
+add exhaustive conversions, and exercise them in Nova. The last public
+submission I found is v5 [2]; the v6 branch was announced in March [3].
+The v6 numbering here follows that public submission history.
+
+Alexandre requested an infallible Bounded-to-enum conversion when the enum
+covers the entire field [4], referring to bounded_enum!'s compile-time
+exhaustiveness check [5]. This version adds:
+
+    #[derive(kernel::macros::From, kernel::macros::Into)]
+    #[convert(Bounded<u8, 2>)]
+    enum Mode {
+        A = 0,
+        B = 1,
+        C = 2,
+        D = 3,
+    }
+
+The direction-specific spelling is #[derive(From)] with #[from(...)].
+From also supplies the standard blanket TryFrom with Error = Infallible;
+an explicit TryFrom derive for the same input would conflict with it.
+
+The exhaustiveness proof reuses the existing per-discriminant range
+assertions and Rust's rejection of duplicate discriminants. It checks
+that the number of distinct variants equals the input domain size,
+comparing spans to avoid overflowing a full-width cardinality. The
+generated function compares all but the final variant, then returns that
+variant. Missing values, gaps, and out-of-range discriminants fail at
+compile time even without a call site. No panic or unsafe path is needed.
+
+This count-based proof is a new implementation choice, rather than the
+MAX.. match pattern suggested in the thread. Review of this choice and
+the From/from spelling would be welcome. No new conversion trait or
+Bounded abstraction is introduced.
+
+Changes since the public v5:
+
+- Preserve Jesung's shared convert helper and replacement of from_expr
+  with per-variant Bounded::new const-generic constructors.
+- Preserve his separate private Into and TryFrom doctest patches.
+- Rebase onto d266640c6c76, retaining the new ForLt/CovariantForLt macros.
+- Correct repr(C) negative examples that still used structs, and make
+  the negative unsigned Bounded tests exercise conversion overflow.
+- Add From/from and compile-pass/fail tests for exhaustive conversions.
+- Reject generic arguments on primitive helper types and qualify generated
+  Result and Bounded backing-type names against local aliases.
+- Migrate Architecture to TryFrom/Into and FalconCoreRevSubversion to
+  From/Into, preserving EINVAL and Infallible respectively.
+
+Two earlier API questions remain deliberately visible for review:
+
+- The absence of an explicit integer repr still defaults to isize.
+- Helper arguments still override the repr-derived conversion type;
+  they do not add an extra implementation for that repr type.
+
+These retain Jesung's v6 choices. TryFrom also retains Error/EINVAL;
+context-specific errors remain the caller's responsibility. This series
+does not change Chipset's ENODEV conversion or add a configurable error
+API. Bounded constructor support is unchanged (up to 64-bit and pointer
+width backing integers); primitive u128/i128 domains are checked too.
+
+Validation on Debian arm64, Rust 1.85.1, LLVM 19.1.7, bindgen 0.71.1:
+
+- Rust and drivers/gpu/nova-core.o builds passed.
+- rusttest: 128 doctests passed, 4 existing examples ignored.
+- rustfmtcheck, CLIPPY=1 builds, and rustdoc passed.
+- rust/.kunitconfig under arm64 QEMU: 360 tests passed.
+- Exhaustive before/after comparison of the actual Nova declarations:
+  Architecture 64/64 inputs identical (6 successes, 58 EINVAL), and
+  FalconCoreRevSubversion 4/4 identical, including round trips and the
+  Infallible error type.
+- Separate negative-test probes checked the expected diagnostic for
+  missing values, gaps, overflow, and duplicate discriminants.
+
+No NVIDIA hardware testing was performed. checkpatch reports no errors;
+the preserved original patches retain a new-file MAINTAINERS reminder
+and one 120-column doctest line warning. The five follow-up patches have
+no checkpatch warnings. Previous review/test tags dropped by Jesung are
+not restored, and no new review, test, or ack tags are claimed.
+
+Base: rust-next d266640c6c760c9bc215bf5a3ece122ca488b6f5
+
+[1] https://github.com/J3m3/linux/tree/2ea456bd5f26bd66c766b462a7d606d9842c208a
+[2] https://lore.kernel.org/rust-for-linux/20260129-try-from-into-macro-v5-0-dd011008118c@gmail.com/
+[3] https://lore.kernel.org/rust-for-linux/DH939HK0611M.22A8T9BJ3NG8@gmail.com/
+[4] https://lore.kernel.org/rust-for-linux/DHHJCEG8BC47.2VC6GLDRRZH1B@nvidia.com/
+[5] https://lore.kernel.org/rust-for-linux/DHHK2OJ6O83V.2MZNHRQYK21EU@nvidia.com/
+
+--
+This series is based on Jesung's five commits below, followed by five
+separate continuation commits.
+
+Jesung Yang (5):
+  rust: macros: add derive macro for `Into`
+  rust: macros: add derive macro for `TryFrom`
+  rust: macros: add `convert` helper attribute
+  rust: macros: add private doctests for `Into` derive macro
+  rust: macros: add private doctests for `TryFrom` derive macro
+
+Kaiqi Guo (5):
+  rust: macros: exercise the intended conversion doctest failures
+  rust: macros: derive From for exhaustive enum conversions
+  rust: macros: test exhaustive conversion derives
+  rust: macros: validate and qualify conversion helper types
+  gpu: nova-core: use conversion derives for two register enums
+
+ drivers/gpu/nova-core/falcon.rs |   19 +-
+ drivers/gpu/nova-core/gpu.rs    |   22 +-
+ rust/macros/convert.rs          | 2093 +++++++++++++++++++++++++++++++
+ rust/macros/lib.rs              |  522 +++++++-
+ 4 files changed, 2633 insertions(+), 23 deletions(-)
+ create mode 100644 rust/macros/convert.rs
+
+
+base-commit: d266640c6c760c9bc215bf5a3ece122ca488b6f5
+
