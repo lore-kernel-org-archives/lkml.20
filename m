@@ -1,172 +1,87 @@
-Received: from va-2-113.ptr.blmpb.com (va-2-113.ptr.blmpb.com [209.127.231.113])
+Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8F31DF748
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7078C53C3CE
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694668; cv=none; b=Qc6x2SRhEdI6wrwOW3nTFGKO/qPhuRWcEW/a4OK1E//ka4SK4tU5PWMqqBinpR6sokwk3TnOpQVynoxUjiYe0Z1RJ7noQynkO70IcXwLHdgCO9j4rI9OM6TWL9i6F+CzIdYBF2zOg389iXJcR3LqoGowqw2BDkkE8odH9LZ7YVE=
+	t=1790694694; cv=none; b=sue9rpAilBDreKMgeZ0oHbmkJWvdon5I6J4x9gko7pbT1Z5QfWRo5AfiUURmrquMOoMC6c5rZ18iJHOp6kRxsDn7HFG9d82BHXqO9zoklMHFw7yfUR2tu/SkgtUt074NIcZVshSn8b/1j7/NseTjmTsE1b1LFKC62K341tmS4rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694668; c=relaxed/simple;
-	bh=JOeaS9aUeBrTQEvyJy9Zvse1y4Ni9NeQZu5p2BMSjbc=;
-	h=Content-Type:To:Subject:Mime-Version:From:Date:Cc:Message-Id; b=BwNHPyTHbiOe3w+8XOrKA17wLaIYAavE03UiB2F7inIoQ8EgemItiaIJyaiS3DNJ5j+tJXGjJddGew8V/SnE+01ywE7+BoUdkbyz5Kmx7G+rvhU5/4nH6M4Gm5svWDsEwHFgMU11WVxOJxGY0V05DFiigbMRfHapES6050T+4bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=I2Xkefmb; arc=none smtp.client-ip=209.127.231.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790694694; c=relaxed/simple;
+	bh=Guq7vvdBrs+2LAbftC06J/zCNpDu/2cevbftm5NnBUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tspsy4l9mUw2wdI9V3EO4WpvMyVNi2q/kfX3HBhF+NEx/80xRfNnCqHSOioyJoxQ11Num9yid8WuZWl5xBXQtKTG5O5Wz0R6CJfRmj6aKJboR/pQL7u4NeHfVTY9AJUU2sMs18LdpS1MW7l/R6wnAq/ZwL5VQswTyRS9rT204v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xZ4Fp5Jx; arc=none smtp.client-ip=95.215.58.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="I2Xkefmb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790694638; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=O3IJCO3Fxa+KIWY5We9OpQjzjeolrtdQXzDOuRowT8k=;
- b=I2XkefmbFfmQpL440lQWV3tlrRHyscqqfYz16Cdy7RzsLyQBkV7h05w2bgadcACFs840Ic
- tgpPfAmlHyPHFMpXf72FQXJIe6gXfDBeNdVc7XlgGgwRjgpqXQc2GlGb8RbTM21ngjuEsj
- RpI3mkltFy42I+HqQHRJwqybJP8g06pKJg93nfRe2roEvVFzaHpyjRmDudlRPf2f0evD0h
- meso99d7f1ou7kcKTjridkw5doC4HKHBE9angLrG566Q+nZ8K+eUqW2KpNcNXKdY/oOozU
- UCnDnIMKMDKEw/QgiVARD1Rbjtc8fNxzsY8WcWPD7t3dMoBEbEZAGuH0ynhnXw==
-Content-Type: text/plain; charset=UTF-8
-To: <x86@kernel.org>
-Subject: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xZ4Fp5Jx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Guq7vvdBrs+2LAbftC06J/zCNpDu/2cevbftm5NnBUc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790694682; v=1; x=1791299482;
+ b=xZ4Fp5Jx19Vf4EL35G1UoKjFhmiS0lTJtkEjHRF0A+XtrwmYftKheSrramBuJmj2BJOUQhOu
+ 7nfLMOKkMN87pIqV7K6rOggY6DOOb9JurN4Vv4x8ddBEfz0LNUrNl1UA8kcP9XHU6Rj5OZcJdyM
+ UHJXVS8vx7nh2vMFwF7lKSIs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ae535aabe25c8bac;
+	Tue, 29 Sep 2026 15:11:22 +0000
+X-Mizu-Trace-ID: ae535aabe25c8bac
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b8f42bb8a9so8179e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:11:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxaugPHbpr0G7fLy/m4SAYbwYrtp5pKQofZaS5e2sa3Xg+2NPxLv+rkLNUx+Rl/jCm4Si4r4WVudihHIvs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSqX99AODuhZ3OewK6NrKp2MG2QIb4EuizYlDkS/Tw0ejseQcW
+	tiUROVlQjLU3wtS8zyjg+gaDNYWBy9TcuQjQs2FI6LfWQfoUYl9tnvnDxtHdEf39zygZqwVRCpE
+	Hy9LjWJjAQSahymTaH6GiCB6liWvkP3rRttYSFqcH
+X-Received: by 2002:a05:6512:39ca:b0:5b8:eb6b:2a62 with SMTP id
+ 2adb3069b0e04-5ba2e7e1189mr155370e87.4.1790694681036; Tue, 29 Sep 2026
+ 08:11:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26abbd4ec+58b1c1+vger.kernel.org+weiguixiong@bytedance.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Date: Tue, 29 Sep 2026 23:10:06 +0800
-X-Mailer: git-send-email 2.50.1
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Message-Id: <20260929151013.81562-2-weiguixiong@bytedance.com>
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+MIME-Version: 1.0
+References: <20260929090031.3829185-1-fuad.tabba@linux.dev>
+ <20260929090031.3829185-2-fuad.tabba@linux.dev> <lfkiqqw72uqjih442pozc3gsydxwmdj3kacgl7c2572kxzx3sf@vivqilohtwqn>
+In-Reply-To: <lfkiqqw72uqjih442pozc3gsydxwmdj3kacgl7c2572kxzx3sf@vivqilohtwqn>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 29 Sep 2026 16:10:44 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwrOhVHQ+Kv2dbimsZknRttscwmr+nfurgyL31hzxVwwg@mail.gmail.com>
+X-Gm-Features: AclHuK-bF-Gg2TRO1voI3bbJx08FqrvL74I7XxHF_wOtMWk4sUktlPjaZGhwxI4
+Message-ID: <CA+EHjTwrOhVHQ+Kv2dbimsZknRttscwmr+nfurgyL31hzxVwwg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Quentin Perret <qperret@google.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The fpstate embedded in struct fpu only accommodates the default
-xfeatures. When a task first uses a dynamically enabled xfeature,
-fpstate_realloc() installs a larger fpstate allocated with vzalloc().
+On Tue, 29 Sept 2026 at 15:54, Wei-Lin Chang <weilin.chang@arm.com> wrote:
+[...]
+> This reads a bit mechanical to me, can I suggest:
+>
+> ```
+> FGUs don't actually require hardware support, so don't gate fgt trap
+> config insertion on FGT. This is the only action required to allow FGUs
+> always, as kvm_calculate_traps() already computes the FGU bits with or
+> without FEAT_FGT.
+>
+> This also fixes a spurious WARN when a TLBI OS is run on a guest in vEL1
+> without FEAT_TLBIOS on non FEAT_FGT hardware. In this configuration the
+> course-grained HCR_EL2.TTLBOS trap reaches the handler handle_tlbi_el1(),
+> which expects an EL1 TLBI only from vEL2. With FGUs enabled the UNDEF
+> will be injected without needing the specific handler.
+> ```
 
-fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec()
-without freeing the dynamically allocated one. Once the pointer is
-overwritten, arch_release_task_struct() cannot free the allocation when
-the task exits.
+I cannot write commit messages! :) Thanks for the suggestion and the
+review. I'll reword if I respin.
 
-Preserve the old fpstate pointer across fpstate_reset() and free it only
-after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
-This ordering prevents a context switch from saving FPU registers through
-a freed fpstate pointer.
-
-Make fpstate_free() operate on the fpstate pointer itself so it can free
-the detached allocation. Use it for the existing reallocation and task
-release paths as well.
-
-On an AMX-capable system, 1000 iterations of requesting XTILEDATA
-permission, executing TILEZERO and calling execve() on the same image
-left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
-/proc/vmallocinfo. None remained after this change.
-
-Fixes: 500afbf645a0 ("x86/fpu/xstate: Add fpstate_realloc()/free()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
- arch/x86/include/asm/fpu/api.h |  6 +++---
- arch/x86/kernel/fpu/core.c     | 11 ++++++++++-
- arch/x86/kernel/fpu/xstate.c   | 10 ++++------
- arch/x86/kernel/process.c      |  2 +-
- 4 files changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/arch/x86/include/asm/fpu/api.h b/arch/x86/include/asm/fpu/api.h
-index 90c63fe19c0fb..3e0c3b7dce73b 100644
---- a/arch/x86/include/asm/fpu/api.h
-+++ b/arch/x86/include/asm/fpu/api.h
-@@ -123,11 +123,11 @@ extern void fpu__resume_cpu(void);
- DECLARE_PER_CPU(bool, kernel_fpu_allowed);
- DECLARE_PER_CPU(struct fpu *, fpu_fpregs_owner_ctx);
- 
--/* Process cleanup */
-+/* Dynamic fpstate cleanup */
- #ifdef CONFIG_X86_64
--extern void fpstate_free(struct fpu *fpu);
-+extern void fpstate_free(struct fpstate *fpstate);
- #else
--static inline void fpstate_free(struct fpu *fpu) { }
-+static inline void fpstate_free(struct fpstate *fpstate) { }
- #endif
- 
- /* fpstate-related functions which are exported to KVM */
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index d1aeecd57f5ed..08f5c77d990aa 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -866,8 +866,17 @@ void fpu__clear_user_states(struct fpu *fpu)
- 
- void fpu_flush_thread(void)
- {
--	fpstate_reset(x86_task_fpu(current));
-+	struct fpu *fpu = x86_task_fpu(current);
-+	struct fpstate *oldfpstate = fpu->fpstate;
-+
-+	fpstate_reset(fpu);
- 	fpu_reset_fpstate_regs();
-+
-+	/*
-+	 * Free the old state only after register state ownership has been
-+	 * invalidated. Otherwise, a context switch could save into it.
-+	 */
-+	fpstate_free(oldfpstate);
- }
- /*
-  * Load FPU context before returning to userspace.
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index a7b6524a9dea2..ea3736a74fd43 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -1556,10 +1556,10 @@ static int __init xfd_update_static_branch(void)
- }
- arch_initcall(xfd_update_static_branch)
- 
--void fpstate_free(struct fpu *fpu)
-+void fpstate_free(struct fpstate *fpstate)
- {
--	if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
--		vfree(fpu->fpstate);
-+	if (fpstate && fpstate->is_valloc)
-+		vfree(fpstate);
- }
- 
- /**
-@@ -1640,9 +1640,7 @@ static int fpstate_realloc(u64 xfeatures, unsigned int ksize,
- 		xfd_update_state(fpu->fpstate);
- 	fpregs_unlock();
- 
--	/* Only free valloc'ed state */
--	if (curfps && curfps->is_valloc)
--		vfree(curfps);
-+	fpstate_free(curfps);
- 
- 	return 0;
- }
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index 346c438ac8801..b7306f257f4b0 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -118,7 +118,7 @@ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
- void arch_release_task_struct(struct task_struct *tsk)
- {
- 	if (fpu_state_size_dynamic() && !(tsk->flags & (PF_KTHREAD | PF_USER_WORKER)))
--		fpstate_free(x86_task_fpu(tsk));
-+		fpstate_free(x86_task_fpu(tsk)->fpstate);
- }
- #endif
- 
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.50.1 (Apple Git-155)
+Cheers,
+/fuad
