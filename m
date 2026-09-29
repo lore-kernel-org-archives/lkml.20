@@ -1,115 +1,139 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F385351C33E;
-	Tue, 29 Sep 2026 16:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F133CB2C7;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699584; cv=none; b=I7IzY7JFrnipejRVdOIYM4341zdXy1u7k0meMttMqKKnfnjuazg4Aej6VpraMCwFFm82yqiquQGT0c/Bh/xaNpx8UKDV3Ss3RKG920kMjeO+aUEqx2unqBUUasjYYd2/RJhCvi7SUYVeZCLJ91/6wnS/QG1ugQLstr1kXxfxDxs=
+	t=1790699587; cv=none; b=oZOrzFdrlah5rnO/rNTrUfRsPuw8jRybVnnAAlMmLHDEm//H8zR76J7Afmo8odkdpgmlQ1nVaiyTuJ18ym2tkobGFLa67wPXFPwQdIpoQUXI80q1tpnIInPpO46Tz3DHg8C4g/Tgj7soEKJmlVRroTvpHXuLCsPi3pYFsX/ng+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699584; c=relaxed/simple;
-	bh=M9ynqIpgrPrsaaforEaebtCSBtxUAGGFzr/xRYxiCEU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CMLQ/IBE0LBN7HDnuWaGItzghInt8c7xt9CVaYIxBzIGYU/mEkBqGpRSVhmiKbUhIocJbxo+/AkUIeHBKbzUN03MFTB5tP323celLNtu7pTpC72Wr4cNoXQtZspzEnBHXj033lEABAp61rbmVPGH7GPnCFPg5d5ByxsYqmuCZhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=pmOyb4bM; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790699587; c=relaxed/simple;
+	bh=0RUTTWkAztuBE6kNH8F0KG1K63UvbLEBc1iYCnmJwiQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F9m6L9WjaXz/YXcwmTVSleZxUGPMj5G05H/jpu1KYJVo+4gaSNBiGHI1LkVlXrliEl1TyBgaFTp5wuMK2vlr0sh9dxiD8Gjmw69tEFIxhRHE3+ZCiN9q3m+VcZ29F7aKCwNpq61qadaf/n0L6IhUQkJ2GqsM3FIoti3hqN8RBQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqdKaM/C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="pmOyb4bM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=NjFgvSSC1jcBqJxa7KmFR2SqKxMrTZQsYjrInIMQ+Yw=;
-	t=1790699582; x=1791909182; b=pmOyb4bM2srHMAHRiOSpd7yL8Mt6RJSx7YvQXbMehaa/2DU
-	Y+/qjIUBSBS/DEy/qe7OlQ/XLdfscZjloSyTNlQsMnAXmaJBmUJCwkbJT5Cc1FaWho8oikqgkoQM+
-	DX3hkQ3YGy+ACehr7xf1mT2fEIqsNdvgbuXbaf+YHJ+oiZZUcWd0Biz6jjrZjBjLYICwyGbreabRy
-	GoQw+MTY2Y5s3woRZik7a7ZvJdm1pix/9GZ5ugDmypkbk7/JlTHI5EME9oTze1SBl7FDS7OugM8JN
-	xJeRZk1cC1Z3yTKYyF7bfpSrW2juBx/NCjMfCsaEmnUQ8YrBJ6LxK32wg+ZKneRg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xBalF-0000000FAWd-3ih7;
-	Tue, 29 Sep 2026 18:32:58 +0200
-Message-ID: <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
-Subject: Re: [PATCH 1/1] wifi: mac80211: ignore PM bit in non-bufferable
- MMPDUs for PS start
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Lee Jones <lee@kernel.org>
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>, Luca Coelho
-	 <luciano.coelho@intel.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 18:32:57 +0200
-In-Reply-To: <20260928142434.GA2112133@google.com>
-References: <20260928100508.3487525-1-lee@kernel.org>
-	 <9b3efaebb9f5460f6bfaaa284fd235e76c940361.camel@sipsolutions.net>
-	 <20260928142434.GA2112133@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqdKaM/C"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B6AFEC4AF0B;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790699586;
+	bh=0RUTTWkAztuBE6kNH8F0KG1K63UvbLEBc1iYCnmJwiQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=AqdKaM/C9shv7K4p87qMEdsdgC6ywFh2ZnedXGpLU6O74lFpfhYYX5UZtMawuMsnJ
+	 LgEwStb8FyzfqKJOcoIpG5H9Ym/A0Ol/MKcm/bCRDAiMBNmUJq4DKkhA9fBy+8TmXS
+	 8JBOgKGwCB4+xIYddejgj7NMlhoh5pqZ8YJatMQZchRei5FuzLYAdXxfSOj0Qhtl67
+	 F9VZL+MDLTw0pjc7WGuJELeuUGsuwuTAms87HSuSCPDXs3hgE3oYSVyLV2QLkkdlrT
+	 jhNWxRX6GvFZHqQIKxH7ftdrJ3qXCP8cOQ08sXeGoq+brW2q/oBm8VXFb5r7POT20U
+	 EkWEfqdByUMSw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 918DBCA5FA5;
+	Tue, 29 Sep 2026 16:33:06 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Tue, 29 Sep 2026 18:33:04 +0200
+Subject: [PATCH net] vsock/bpf: release sock lock while waiting for data in
+ recvmsg
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swubjVjqr4iHtN3YVYiStCKU/
+ nujHmdgZkXRbFpwblZkfVuxZ6rgDg2GKaSbko2VISwn7qSjRz95csQiFO1D/sgh+NhGbh1q9Mp
+ a9W94QdIZ178sS3/XYf6usG07HflYVHcAAAA=
+X-Change-ID: 20260929-kbh3-1-022-fix-340aa3f7f071
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Bobby Eshleman <bobby.eshleman@bytedance.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
+ Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699585; l=2593;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=4IPBHLtgo8ghTbbKAwJ8yZ9NmPZQTYBQyUYCEEc51UE=;
+ b=a5k/85Mme7ztf5MTcaik5O/66KyvJ3vqg/NckJwjUvqqNN5AX0f09Nk7mbJKtmd2bED+s22s3
+ o2QNttsa+atCbSNoqOIKaMTU4xeuiPQ5/JHuHN5r0C3z65nhuT8jNyQ
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-On Mon, 2026-09-28 at 15:24 +0100, Lee Jones wrote:
->=20
-> The commit message was purposely vague due to the fact that the change
-> fixes a security issue and I didn't want to publish a HOWTO guide for
-> exploiting it.  However, I obviously overdid it a little and left out
-> the reasoning you'd need to review the patch.  The short version is that
-> an unauthenticated peer can currently change an associated station's
-> power save state with frames that shouldn't be able to have that
-> capability which can be used against the station.
->=20
-> Happy to send you the details off-list.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-I think I've (conceptually) known about this issue for ... years?
+vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the whole
+receive loop, including vsock_msg_wait_data(), which sleeps in
+wait_woken() without dropping the lock. When data arrives, the
+transport's delivery context (the vsock-loopback worker, or the
+virtio/vhost rx path) calls virtio_transport_recv_pkt() -> lock_sock()
+on the same socket and blocks. That context is the only one that would
+queue the skb and call sk_data_ready() to wake the reader, so neither
+side makes progress. A blocking recv() hangs until a signal arrives (a
+finite SO_RCVTIMEO also breaks it); while it lasts the shared delivery
+worker is stalled, so all vsock rx on that transport stops, not only
+the affected socket. The hung-task watchdog reports the worker blocked
+in D state:
 
-First, arguably wake-to-doze are _less_ interesting to attack, since
-then the TIM bit will end up getting set and if the STA isn't sleeping
-it'll see the beacon and recover fairly easily (though not entirely sure
-we actually implement that in mac80211), and if it keeps sending traffic
-then the state corruption is short-lived.
-OTOH, corrupting doze-to-wake could lead to traffic getting dropped if
-TX filtering status isn't implemented well on the AP side/driver since
-the STA is actually sleeping and won't see any frames.
+  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
+  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
+  Call Trace:
+   __schedule
+   schedule
+   __lock_sock
+   lock_sock_nested
+   virtio_transport_recv_pkt
+   vsock_loopback_work
 
-Second, I don't think in general this issue is fixable, and while it's
-good to implement this closer to the spec, security wise it doesn't
-really do anything as is?
+The reader holds the same sk_lock-AF_VSOCK it is waiting on, taken in
+vsock_bpf_recvmsg().
 
-If, for example, there's any bufferable MMPDU the attacker can just
-replay it - we've been doing this before MIC/replay check forever
-(unless that's offloaded). It can also - although this is harder -
-intercept and modify the PM bit, since it's not protected by the AAD.
+This code is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
+drops u->iolock around wait_woken() and re-takes it afterwards. The
+vsock port substituted lock_sock() for that serialisation lock but
+omitted the unlock and relock. tcp_bpf and the native
+vsock_connectible_wait_data() both drop the lock across the wait;
+vsock_bpf is the only one that does not.
 
-It's also wrong that we're doing this *after* the reorder buffer, since
-that potentially holds the frames for a long time, and the spec says to
-look at the PM bit after the frame exchange sequence completes (REVmf
-11.2.3.2). We should fix that too, but it doesn't really matter for this
-discussion:
+Release the socket lock around the wait and re-acquire it before
+re-checking for data, so the caller's locking is unchanged.
 
-Any unprotected complete frame exchange sequence can modify the state
-anyway, QoS NDP for example.
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+---
+ net/vmw_vsock/vsock_bpf.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  - Rewrite the commit message to explain the problem and the reasoning
->    properly, rather than just quoting the spec.
->=20
->  - Make the PM handling consistent in both directions, so it doesn't
->    honour the bit in one case and ignore it in the other, while keeping
->    the re-authenticating station case from 9fef65443388 working.
->=20
-> Does that work for you?
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..bb7d81a95baa 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	ret = vsock_has_data(sk, psock);
+ 	if (!ret) {
++		release_sock(sk);
+ 		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
+ 		ret = vsock_has_data(sk, psock);
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
 
-Well, I think it's really only a spec compliance cleanup, but then we
-might as well try to fix some of the other issues?
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260929-kbh3-1-022-fix-340aa3f7f071
 
-I also think we might be better off making sure that as a client we
-handle the TIM indicating traffic while awake and send a wake frame, and
-perhaps checking AP side handles filtered/un-acked traffic well.
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-johannes
+
