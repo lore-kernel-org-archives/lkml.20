@@ -1,149 +1,120 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2A53DB620
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5643E00B3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790655215; cv=none; b=UmC1RafXNqGlwGceVmwXTqbqUY2GEf9l3i98wonMPL3uMtblGQ88w6PLWGLJxMI01dRttT2j06lcjscs7484Bg5MIKf7xb1tGc2jKgt7m/LacQIovaenWDW2xa/v05qLxHVWKijx74Nl5MugOdWqG1QGaBPrpyWGIOAEt9LRc/g=
+	t=1790655295; cv=none; b=C9Z2Xv0s/qPUfCxvnaTYrgj3wlXficC7HpqgLLW2qMHg0/U54sdNo4z4LP64sZg61kx3IOOJFYpZ8VmqcThuxwzDATtWsPgycpZpRdivCK8iorG2vzZWtbW6dd7mydZ2yf4ahymYnVRwctd8vII9PsGIUyp32yAOZrEeI00nRtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790655215; c=relaxed/simple;
-	bh=zIvEOC+XsP3lXg3aRF4/tY6ZEjP4/7XrWVFSulwDxkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jKJhSloP3q5nudZTcbNyjW+YpnRs9vw4I8GDH/MEhHmz5dWB1MVd2scCLWFo6IMLZu34+oXx4HnTBlXKV5R9dzs6zZDzWvUzaS4kXEb2RxXYntThiQjMlnR6040gZAqX1QkFvOXBT2T+7fr2uShgMjPqpjpgl19HIx+gEGTKUE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Pb5LyQcH; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790655295; c=relaxed/simple;
+	bh=cFXjq2JXCSfmvvjsjl7kaIwIGpfd3uICNYyzTRRVr6A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RGtskiMPN38n7FmjJuVEkNotp2IhBcA2Q6JQJxY3jF7Dc4Hbsn25uCj+dJ0f2t2DM+NGOXHXstefhGNiSSXFNTmRqcqFV1wKF27x/P24eZTdrLmBUCl1gTPIbkB9AUAgAhPR3vTXJaciVxg584q6G+pKthBPWdrgGx9K69tLmD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=U2qJSkGL; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Pb5LyQcH"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af51f6182so6374f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:13:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="U2qJSkGL"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so22510945ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:14:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790655211; x=1791260011; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=901GbOx2BRhQA8Zxfo2Ky3itLYYimn6S4GN4hXMrzZw=;
-        b=Pb5LyQcHKkNCwHcR3dH9w5cV0olhF1deDeCcLsHTDN5Cl5aABnBYqlJElXHn/kzVt1
-         Dy0BnDQYfNq7XeGUcvFdPq05oVk3nrwQ88Y99ND0AhMRoyTk2Ph00VRKEhwtCot0a7VD
-         hsujZ7m1/V2ro3HBdcXv1hUPRGzikw+LJ/lP6v8vBdUpy0njyUMFW1pOfOSNM6Y62ojt
-         A1Cm3BMOC9U23nt8mlfxiSEtsjwaAWP+XGTaQVBAhc6wuZ1c9epQNZdpzu5al/oXqocZ
-         dHq+4oEXGi1fViap1CqEPLMH0wJrHAJbAVN4yICml0pIlhUAh373pq9B+RNmEhSmH654
-         eIGQ==
+        d=quora.org; s=google; t=1790655293; x=1791260093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z/00Ko7gZUPuAiTpJB4dBnk2KXfjE/uS38djV/L4NvE=;
+        b=U2qJSkGLwVHNC75N3D7jHJg6yXV34LZXxTC1qYxxz2WxEbXt/G4Ai8Sb6x18hcbyDj
+         UJWewIbqzQCXsom078jmIevHvMWaTLYNWnkPBGzhxEWYl8ozBK85lzx77xxTxo2O7aUS
+         axhS7hTfDqSp1CLVlYUw0ryWS3cMozc7uD+iI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790655211; x=1791260011;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=901GbOx2BRhQA8Zxfo2Ky3itLYYimn6S4GN4hXMrzZw=;
-        b=H6sNpI/36v8DYBqYbswxHZ2XGHvJ1NIyREbV0J6dBFwiYazoyLPlSpLI0TG+KugwhN
-         lsoG8jVHgf8iWv+V07qbHAy5jwE9p2wbwu504/zBxlfN7XhofeUFgG9uK1ttaBmNNj7c
-         ql+alCz8dMJIV8dO8H+a//VPlZ8pZatOa/IA9ZrVAlsA7V+VjKVFz7FlVIw2M0wi6z0z
-         yIvPcpd93nGghVdwRJ5v4f1XuXWevsPOlsAmUpCz5y/imCd3rSOVvUbgAINJeLambn0G
-         ycgLJ5q3bnLEIC1FlNIRBKkUsf6ok4javPQIx0pJG/nHadEXR/7c1zEPhaHr7bw/ESmG
-         mMhw==
-X-Forwarded-Encrypted: i=1; AKwUvByzgR0yECyAnFcH7SzUJ6nWdEx6vHomCilfOtBllwgsJUXgzIjUHs0J2EPJ3dYrpOI7Rjhaij3VIqr5rxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhaXJ/qllsQXm4P3skN0zCRyksTvYW/Bh2iIw+/qZuqn3hz5K2
-	1Qj8IUr8/hLF9t4cSWC/gIrUdEnXz3e1UxvM99Vs/65vGGnJc2m4iqmtnGMkzorKYgU=
-X-Gm-Gg: AYBFou2BHCa9aObDMOd8B2PoJwrNybOvaSp2YSwo7jdrmzc4nQi6+CKMWTujX3EB+zm
-	bsYM6wp00VJQoem7xc+lOeBQPNh2DE0CEp07WrAvYmSP4HWOXFyNql77u0W+4lG1he8Qz309hRU
-	WKIo2+Q4JE2TnpfZ9wdZf8KkJrvqGLb6fbH1/lR5V/hkyKESUtO4y5cP/rPYZoilSvFXDHSiPX6
-	XKf+qDOvcJvN8OAjQuN/5X/mxAaksKf4O/5UOiyJ6LmoNlw22/SeBiZ2J66fFDRtYbsU09LWgs4
-	zEH74BdFXegTUltk0Rtrx8CsxnZUabEpEnsXjaqf+3YOc2Q1fD9SD9i/J5rGYPkdFQz5EM+3V9Z
-	gyqN4thocv+YEvhoF7G11kMNfRU4xLeomKJncisovpKWVmoidafPmUqI4YD/uJCSK/PieP+YxSb
-	iBojQ/QECXZ6jN95kqp1Mz/czgBneIqgea+mPVPWRaJerRnRl+wtwcMl2Ki3vA/1rfYFk3
-X-Received: by 2002:a05:600d:b:b0:4a0:1a3:bf6 with SMTP id 5b1f17b1804b1-4a001a30da8mr77286095e9.0.1790655211608;
-        Mon, 28 Sep 2026 21:13:31 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9140545bsm48849465ad.39.2026.09.28.21.13.29
+        d=1e100.net; s=20260707; t=1790655293; x=1791260093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z/00Ko7gZUPuAiTpJB4dBnk2KXfjE/uS38djV/L4NvE=;
+        b=tXfiXTM+YJFLsGBPzvzoL70L8gIYnxJi7obzbBI/9IrVqibWMBNuaZ3AexCyE4Nsna
+         jXW1Se0hI2ZmPwgylh7cjThj8K6YvDsCDHKt8tOUenIhhmUszV/V+yhhOvN3Gmdqyr2S
+         /FddibFoLk/Ck95qiIPhfKZmK9Qfd6eeHgbhUTW7NUwSQp1IBkX4ffCX3hb/u1mQErko
+         Qqbw0x4GfeW6gOO6cS6lmpAWjCnYVD0KbpAkf6UsoZFX+iRhxavxQLjRyDehqhjF3OUa
+         6EGd6ygraebPGyVje8IRJFQmrbCEuX79QV7VCyA3vCD96tvK51bTlMLPaumzTSmgBQjT
+         AgpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzRSys5KBu3r5Wvx8XNEnwnN8rie8cHv1Tk6bfI4xxrx+DThzr3wlxl+DrLdkmwgOytUWqUYvQep3OpAZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3eRg3t0UBJJ0/1iKZf0v2cG8vC/KjkfdCOZhY+r9DshVd8Oyz
+	vikv94JND08uPl7c/RBW9APT/20LJ1u7SIZhdwlM2ddF6wB1wMar4jpmS0tcDi9NKT1hCZGfZV7
+	GtocC
+X-Gm-Gg: AYBFou2OpGeCItHgWLNIXWEksmGHm3Zk5AxWcu9EyODmvb25zGqPC/xQa5VZqZKEx3t
+	viLxNwmR3eBxomDy+X7f5pNgjAvTDiM6BrChEnRQFIFtn0zgoosJUQspHfyZ6VrbQqxr8vmbV+/
+	FECmGt0r1i9uWVviDLIADvG3yxoC2O6jLStzSqS/LZDn45JRmFm8f8nWqv8syLVlXqEqj/sm5/G
+	jWscPEsFtnJ5nbf6/Nhn0/GKLE0Mpz3LzIGKfVZv+n90kkwx0Ol0dcg3lIcFEA9FUaPM7ctaH/2
+	Lq020c4xV5EpzE/uW0uVIwKvcbjg6CXfrwEjoc/BD8FepeN+Bl+lOX62hgI+5utCrYF64RX9Hqa
+	1BTUGAI2SeOQkxw5FzzlYNnEbLK131mSqX7IMWsdnc/F1qUWluLjPxjfTHKYx0TaT5g9ofNa7ia
+	VOnrdYAZ0XUb1OhidbRLLr/zzlL8ClopI/raHf+jJXytchDTob52kXC6Arl6EA/Cmi6Krwo2ONO
+	8sTeHoxOIMKHIzJTkg4cyTIhELrdT+uOQu7jZXxZmtARqi1lCLpg1NMJiDu55QCz8uE2/8myCB1
+	XzteaTTjQ1K8lHHRgAVfWAvr3BgUxcDUioilhXWWUXvIg11hqtuGRY3eaY1SkzcTEMhSPO9nlCe
+	+fN4FpmF+jczSBuyvVD4DOzD3kGLeXNeGUbaupOjboG0=
+X-Received: by 2002:a17:902:f544:b0:2df:98a2:a2e2 with SMTP id d9443c01a7336-2df98a2b3b0mr90144685ad.30.1790655292825;
+        Mon, 28 Sep 2026 21:14:52 -0700 (PDT)
+Received: from aegis ([175.158.243.214])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2c6f46976sm3192895ad.22.2026.09.28.21.14.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 21:13:30 -0700 (PDT)
-Date: Tue, 29 Sep 2026 12:13:27 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: d.morgun@ispras.ru
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>, Mark Fasheh <mark@fasheh.com>, 
-	Joel Becker <jlbec@evilplan.org>, linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org, 
-	ocfs2-devel@lists.linux.dev
-Subject: Re: [PATCH] ocfs2: validate la_size before ocfs2_clear_local_alloc()
-Message-ID: <ars491U6UjiFdf1_@p15>
-References: <20260810113508.8513-1-d.morgun@ispras.ru>
- <2927fd14-46be-4cb1-8dac-0f4249f16014@linux.alibaba.com>
- <e13b47fa02d27dbf4c44ae300fc082a6@ispras.ru>
+        Mon, 28 Sep 2026 21:14:52 -0700 (PDT)
+From: Daniel J Blueman <daniel@quora.org>
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Daniel J Blueman <daniel@quora.org>
+Subject: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
+Date: Tue, 29 Sep 2026 12:14:43 +0800
+Message-ID: <20260929041444.9837-1-daniel@quora.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e13b47fa02d27dbf4c44ae300fc082a6@ispras.ru>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 02:04:05PM +0300, d.morgun@ispras.ru wrote:
-> On 8/11/26 9:57 AM, Joseph Qi wrote:
-> > I think we can validate localalloc inode during block read in
-> > ocfs2_validate_inode_block(), which will drop the duplicate code in
-> > callers.
-> 
-> Hi Joseph,
-> 
-> Thanks for the suggestion. I moved the la_size check there, and it
-> does catch the current reproducer during mount. Before dropping the
-> duplicate checks in ocfs2_begin_local_alloc_recovery() and
-> ocfs2_load_local_alloc(), I'd like to raise two concerns:
-> 
-> 1. ocfs2_begin_local_alloc_recovery() reads the inode with
->    OCFS2_BH_IGNORE_CACHE, and ocfs2_read_blocks() skips validation
->    for dirty buffers. I traced through jbd2 replay: ocfs2_replay_journal()
->    calls jbd2_journal_flush() right after jbd2_journal_load(), and
->    jbd2_journal_recover() itself calls sync_blockdev(), which should
->    clear the dirty flag before ocfs2_begin_local_alloc_recovery() runs.
->    So this may not be reachable in practice, but I haven't been able
->    to confirm it directly. The current reproducer hits the
->    validator with a clean buffer during the initial mount, before
->    recovery is reached at all. Is it possible to confirm that the
->    buffer is guaranteed to be clean by that point?
+Commit cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in
+SE_GENI_CLK_SEL") allowed GENI to use 32MHz clock. This changed I2C
+timing, making the Yoga Slim 7x keyboard (ITE 048D:8987) unusable
+on all boots, and touchpad unusable on some boots, resulting in:
 
-In my view, OCFS2_BH_IGNORE_CACHE tells the lower layer to bypass the cache.
-If the buffer is dirty on this code path, that would be a separate bug.
+  i2c_hid_of 1-003a: unexpected HID descriptor bcdVersion (0x0000)
+  i2c_hid_of 1-002c: failed to fetch HID descriptor: -110
 
-> 
-> 2. The check is gated on OCFS2_LOCAL_ALLOC_FL, but
->    ocfs2_validate_inode_block() doesn't receive the inode's expected
->    type, so it can't verify that the on-disk flags actually match
->    what the caller expects. A corrupted local alloc inode with the
->    flag cleared would skip the check, even though
->    ocfs2_clear_local_alloc() still treats its id2 as i_lab. Is there
->    an existing way to check this correspondence? Otherwise, this
->    might call for a separate per-type validation helper that takes
->    the expected inode type, which could also help elsewhere.
-> 
-> My inclination is: v1 (the check directly in
-> ocfs2_begin_local_alloc_recovery() and ocfs2_load_local_alloc())
-> has held up in testing so far, with a small additional fix on my
-> end. Both call sites operate in the LOCAL_ALLOC_SYSTEM_INODE context
-> and check la_size before using id2 as i_lab, so they do not depend on
-> OCFS2_LOCAL_ALLOC_FL for deciding whether to validate la_size.
-> Returning this new error also made a separate, pre-existing bug in
-> the recovery thread reachable, for which I have a small follow-up
-> fix.
-> 
-> If the two concerns with ocfs2_validate_inode_block() can be
-> addressed without too much churn, I agree it is the better place
-> for this check, since it would cover every caller uniformly.
-> Otherwise, I'd rather keep it in v1's approach.
-> 
-> Does this seem reasonable, or would you weigh it differently?
-> 
-> Thanks,
-> Dmitry
-> 
+With this change, t_high_cnt 3 and clk_div 4 gave a tSCL of 375ns
+versus the previous default of 521ns, however the I2C spec has a
+minimum tSCL of 600ns.
 
-Hope I understand your concerns correctly.
-You can reject further operations in ocfs2_begin_local_alloc_recovery() when
-OCFS2_LOCAL_ALLOC_FL is not set, while keeping the la_size check in
-ocfs2_validate_inode_block() guarded by OCFS2_LOCAL_ALLOC_FL.
+Restore tSCL to the spec with t_high_cnt 5 giving a 625ns tSCL,
+verified on Lenovo Yoga Slim 7x X1E-80100.
 
-Thanks,
-Heming
+Fixes: 506bb2ab0075 ("i2c: qcom-geni: Support systems with 32MHz serial engine clock")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Daniel J Blueman <daniel@quora.org>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 6a39e21d5ed4..1336a09ca183 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -193,7 +193,7 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_19p2mhz[] = {
+ /* source_clock = 32 MHz */
+ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
+ 	{ I2C_MAX_STANDARD_MODE_FREQ, 12, 9, 10, 26 },
+-	{ I2C_MAX_FAST_MODE_FREQ, 4, 3, 9, 19 },
++	{ I2C_MAX_FAST_MODE_FREQ, 4, 5, 9, 19 },
+ 	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 2, 3, 5, 15 },
+ 	{}
+ };
+-- 
+2.53.0
+
