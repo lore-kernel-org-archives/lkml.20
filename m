@@ -1,166 +1,190 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F84535C69B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:15:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22BA376A07
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666123; cv=none; b=rU6cPRwyfiXnTSL+KDYgity5xLKElbMMUuFVD7E6j4bPpxtMlQBkGXYevFH3wb4N610LJLNf9Wx0GTdguOe2Wwi4LI/jkQROhDSZ/nexMYqkpFdD4bB1xaB/RcQE+jCEHE6SjC7XL9VTLH4YtXwgIUNfM3rpBUzy9lSRhu1HqHo=
+	t=1790666172; cv=none; b=RxPN+U/jjzORUuBbSwi83rtp8rfhx1QcXQGl4amAhY2D9L5vcCYiW/G8s9uD6GLyRnHUyovggl3Dg12/4hJ27+PU7vNaxJXG59z61+hryU1Um1RDgVtxMi6tAeAMUQW2FqqY/t9OHCJzTZ91TR3AeBfmWLAooYioOBXGI/kb2kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666123; c=relaxed/simple;
-	bh=qszUiDvaOO/n1E+7SSEf0ZKynE5xJbrnBglcmF9RpRg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jdt853KQW8kXIMEpN9Bi+/W1lezyEvzKz9cdxxpDHfdWvPul3A7zvW43rCNO6zDRodSHZ0O8KCJHADFth7oquOZd0k/EiQXdfoY64kDijx+5i7EGeLMwb4i1UroP9OeEOQou/vjlZroIAlo5ctPyV1mtsNyymdjyyID2uK8lOD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I2N8kMTZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EdIZSgeH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790666172; c=relaxed/simple;
+	bh=6jwGK/RpDDVIi9XxA9dCge2nNTpeuKH0rCMjPJqRD/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aSzqaSlBqYD7QEituYQxfnaNnrSvBWdI2aaS38+516vrpIb71FnQZ3RNj1bQMFW+gMoQv39u2z3/k5yUV5vw1keuOMBG0AqAyJBZvZDsSe919TOlmbMmgeAl0wSOmwICj5WI44SEvMTOjEZWIMD0JXH8x2fZCQKFFO3NC2KHP+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bscL93fb; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I2N8kMTZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EdIZSgeH"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47T1I2991310
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:15:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/utobSwhxghVA2xnPXVZCi3XdzkIWIdMCAeXFlgaONU=; b=I2N8kMTZGHQUaCTS
-	cfu1f1pKXwfVUf+TcGGez2yj0leuv+1uMJLmWRaeCYMaOuoklGOaGM3srSVhePBg
-	QgOcnyNbKc3TmVKIbymmWpnkEoiV81kE3OqOSpv5AWUtJg/GOMmZ5rOy+QdEK1c0
-	ci4cjR/5G8sVnIRhLpkku6ywTlwKmh0YmUBCfl80oGRV0vl+Qyev09fuEeDpazRd
-	XNsVffcSLDE/JaGzMYO6lK+HR+FRH+q91UOIOSGh3wg3ZafqaUlg5lE7FVLzn7zu
-	kMy/lIkdxqtJm4h6oytwB3zeBaRHtESWbPRZqFkZgumyia/EkqSCk4UVYGs6DpDv
-	i1Z3jg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyvwnaqqv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:15:21 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93c63d960aeso428840585a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:15:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bscL93fb"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd046b87so2769960c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:16:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790666120; x=1791270920; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/utobSwhxghVA2xnPXVZCi3XdzkIWIdMCAeXFlgaONU=;
-        b=EdIZSgeHh65ovBoSHvFu3Xv//a/h6NvfIYcDkup8MoDLUZEoyJOepaEEVYYab+PJ/t
-         EDNC+tta7f6cAtMqKeqGCzI9+7yPyx0XILLV+q8CgtaIfst9itN1Gs/XiC5Ny3apk0E7
-         qy1grRjT6K7cFTeOAMYD7w21K3KFmBBdGQH+PC7unxhteLxiP3YiNv2x+/OTx/4PP+HR
-         XvwoN2yhr1u+mVww9A/bS2KIitsPfFZ+/7JNTliPKM64WdtXSW3H7M0AYI3d0/U5IjGX
-         29yXQFkT2AVttERpHK3FONo91YTD3OrF3VaxbD7ynfKLA1KVC//t44wBeh/05PcksjWl
-         bJmg==
+        d=gmail.com; s=20251104; t=1790666170; x=1791270970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tV37dXjm0XTJJYPlLCuDvkniyGjzFz1oUiZO7WcjuN4=;
+        b=bscL93fbGvFmEAMCi8aNEYLkJYj4A/tyYrozgrOvZnrRjeJ/Rg9VvQ7waY6z2lnQj0
+         58Ll8FM8snDOqa0EVvYpfI52z31JdQNA15Dl4xQqZCcmBU4TKna9Zxzu4mgyghnXHDnj
+         QXCLr8f7Fg+IF0pwjy2OOlgl5D7AUlkMV9RvDUMldrUq8/E5Vz1iziY5owYmATRIT9Mf
+         WHpRr9ulWzLDTFcDdXZNrkmoFwNunJCng5tkGLvXNZM0GZyAWsFAMWeUdCOopeAmylWr
+         M0AStjZ/izEf/Pi0wX4/19sokpJk1IkOhCCqC+thW/t/QkCqeQllsJFGm7dXT4SBGrXb
+         zSLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666120; x=1791270920;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790666170; x=1791270970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/utobSwhxghVA2xnPXVZCi3XdzkIWIdMCAeXFlgaONU=;
-        b=IF+QijwYwhHtSsCO442tH16GJwc3hj4hKHYBgHnG8wNibakX68q07BrRNaMKYQaDOh
-         fchRylOUoHFgUlLOCH8TuKm0h+a7imAxEDOnJhUy21aK/7phS2I5uZhyddYbPfWKuZbo
-         U93ZfP5tesjARJA3Uw8mn9lATo0prALhAwYLW8VAKy9nVFi5SU3H+lxad91qvm/1T3mv
-         Mdr8/2u0F4+TBIvTNtHW0kvti4mFeZ7pqJ+QVhJyXL0JkddefOBQ3wkXDJDvQqfKaKAl
-         bZdgXrjYNgkZAFPO4dTz1/I4yQhMmgL7t+viWrZwfKmqCMH62idH89U7EjzUst3tqIbQ
-         eH2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxT/ZdAc9yhbXAgLo1pVz7urJ5hbVUmLfztv8QtE+v0jY56GConbGkVwB8yQod0fi154T7pu4R8hjd3C20=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKAYK4eQYoWaFvNFj4lxJ/Kbcg82jB93WYjEvL3HXkSsYms9YZ
-	AAWeLag83AYp7raCsdVjSlmbNyFbYcTps+Z/2Sb3nZYViwD9mdZ03bUR3c0EIcP6YiIv4Svl0GS
-	4OY8NSYgIFX6pQ0sc05NiVEwLF1ClXdCvdVOYXpWvxeHz2n8BIhkTdt7z/YJcA4s5iVo=
-X-Gm-Gg: AYBFou2fQMvkdpU0YCxWvAkdXuj5SAcbk0hLjCAUEVLiQeAPbcpzdkHf0Mhupu+KL/o
-	QpkUCFmrZBRvImm/zJd4wZnBDwPVTyWn5TkIw7eP01pkP+9c0OmS5z8jbAIOv2s6tW5ptSqtHei
-	9tImqObxa0RUbJ/XC2AM4O1h2aRCmLCn6UUFg9RZhA5evecSNgjlsaS01ywd+SjNozSbXkLOvOZ
-	3Z6TSXU4JjdV08XfIlUVRN3OPYSBRbna8NA6nwsfjRKjk4FxKxrOXa5STHqWizg4AEHEmV/l3JD
-	EcF2hfC2RAJzn0UFtHPUL9i/PQSNVAbmsLUjI0puhhNsu6jDJcAnoUuEu62eGgz6EZVwp9hNyse
-	c2wrmwdYK698/q+MtrWwlnRprGC9yRqzvR4Zyu3C/ggHY3ZUuwrDB/Ya+g4bgyA==
-X-Received: by 2002:a05:620a:801a:b0:93c:6f0e:8468 with SMTP id af79cd13be357-93c6f0eb1e6mr1223984585a.43.1790666120459;
-        Tue, 29 Sep 2026 00:15:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:801a:b0:93c:6f0e:8468 with SMTP id af79cd13be357-93c6f0eb1e6mr1223979785a.43.1790666119968;
-        Tue, 29 Sep 2026 00:15:19 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00c0730a8sm58408545e9.0.2026.09.29.00.15.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 00:15:19 -0700 (PDT)
-Message-ID: <4005518f-5ca7-4849-a256-5c3fd481f2f0@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 09:15:17 +0200
+        bh=tV37dXjm0XTJJYPlLCuDvkniyGjzFz1oUiZO7WcjuN4=;
+        b=Bq9gO5KLJOTNYcfTeWL2CPLKcIQqGkDLUxYq5hIMYOfvzuV4SlrY7GnOiOKULtkvcB
+         GwJKM/fpEa/a16GxsM0OAsvBOkpuh8wipc7dpGv/wVqZEk1O+nNJJyNkCKAuJK1c5yfJ
+         s/+9Sb/U+tNvLgvZvizWhgSv8rmZhiRDGqF57GXo2dkQ0X/wl2Zfa26tWIwYyOCnf8Ll
+         DLwgzZyAzw2++WbhH95/cywXYZj2+nl7SrSsFJa1eje6JEaB8oSvb8+mvAHmrmbcjHX7
+         DKV6/APNhUaFnGcRmgciBohsMUOr2aEVanMHzgsEEJ5QDLu93cFXsDdVlJ8CSqNaUvx8
+         ggHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwat30zbeJCGujv8uD0X4DEczH5qqM0uRhGfStUQiru1ZAqDTBn/vd5R8Pov/L7EyTo1CkFD2lOP9RUh/w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA1YvED5Z7PYZSkeWLgpc0/Sv2sjk+kKY5uyLCeQ+vGwlokeOw
+	admyAU5Z7JOOLYwLmFR8S9Cx3fZzjXALUqgImm8O0gDO8gY+7s1Dy/sDcVRjm/+h
+X-Gm-Gg: AYBFou0HNt3VL165GzrGasliyiOrGD++uN3lli7MeLOzdFvq48aJ0KBRKt2UkGkk4pg
+	Y8DiTviwZNOm9Y1R6DpJeWfn1uIeZda84RbFINNGSuEcUzvPu/J+QQTBqtDI3+3BCxO8TY5RqGO
+	A/uHGfEM5nw0Rv1kE312hHppdx8IoddmCtd1KDBk/tJ0V8fIm9rqqjT2PWaX8oOTEqyJKnRoinS
+	ygaTowM1cRaWlIPXBAvJsRYyvTh8L879dXz3EDHmHFj2eYwK+T0mLpWKnCQjHER+xBLpBbSSWZD
+	hlJAp4irBYtVKCaCrL9YqcEmn+NEEMh0cD84HkEU2IZJdY7ds81yrCKFMio/LofuQFlA675pfKH
+	qGDNVRwhSBdzGC8FshDzOiDatCyCddHJGAuBmLa8a8Uc135f2u8H4UhLJzuUZ4ic5eE3gwGrkuO
+	y7cufF+fxCxRVb7BJdymXGxepIV5K2L6mI1ob/Z5XusFoJqKDlWJhc62JcKtJLxTDOZxdRoz1x+
+	nBKcmLIR1zA57DxyA25tVX55gMLnTca8cNMenwTEP/IoQ4ZBz7xRizypmta
+X-Received: by 2002:a05:701b:2511:b0:14a:c6cf:1449 with SMTP id a92af1059eb24-14ac6cf14e6mr3420039c88.32.1790666169513;
+        Tue, 29 Sep 2026 00:16:09 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm27867713c88.17.2026.09.29.00.16.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 00:16:09 -0700 (PDT)
+From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+To: maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	mkchauras@linux.ibm.com,
+	mkchauras@gmail.com,
+	ruanjinjie@huawei.com,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [PATCH] powerpc: fix NMI exit ordering: restore soft masks after irqentry_nmi_exit()
+Date: Tue, 29 Sep 2026 12:46:00 +0530
+Message-ID: <20260929071600.2963954-1-mkchauras@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] thermal/drivers/ti-soc-thermal: Cancel pending alert work
- on remove
-To: Weigang He <geoffreyhe2@gmail.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>
-Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        linux-pm@vger.kernel.org, linux-omap@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260926124931.3599746-1-geoffreyhe2@gmail.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260926124931.3599746-1-geoffreyhe2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: bKchfUlRJiZfUQy8lXkXGeNsqdZE9LzI
-X-Authority-Analysis: v=2.4 cv=W42txhWk c=1 sm=1 tr=0 ts=6abb6589 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=pGLkceISAAAA:8
- a=xTF1z28j0uidfqTO1jQA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfXyvAmXQkyvrYy
- y+8rzEY5Pq6mblAcJiAZgDILZBJsXpVGxAs03xgaowL6wV4c7zH6QL2mX19iDUhyqDuRScrB4LT
- feZrNJ+Ekko5zOa6UgTL4gHTdHjEBkt09p2uYLy7r+rGZu/GpX1XDLgg0TIyQavqIJ4mmBByVKm
- wtaN0NE5+7AsqgJZYkKvCNGmsGx6KLxNKPujw615X6EPKpDn5zcxgT2LGqOQhtgTW/uiOdvydSp
- 5M4+cEWm+oyGCRwrzGOKOQPBzAmaUZ/egBKy8S5z58kp0B4AoNaSyKkDUOT8sC4v7gBF/jNpcHw
- ly4EHzDZcZvK0CL2/+Qv4yENSvPVuOPW8EayrrRq41bODRhb9ZKDB62YvHYjTyDLxHz3Qy6FbBV
- mQ6HTnPwRxcxH9Vx8bZp/qTwsXNi65MTPVMYAwavgO22h41dJ0Ld555rnD6QKFTivkXbgzBSeF3
- cF0mbxKSa080JyYXurA==
-X-Proofpoint-GUID: bKchfUlRJiZfUQy8lXkXGeNsqdZE9LzI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX8JBEspAD5YJd
- Cyu5e9qsHwTfJyHF1lrwduhg8p5tDjt0e0rGCC9yE9hz9J1nZYma5SL0r4CmTnfIOaFQAYM+Q6W
- iL8dbK1I7JztblajMHlnRNpXnCPibXI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290028
+Content-Transfer-Encoding: 8bit
 
-On 9/26/26 14:49, Weigang He wrote:
-> On a threshold crossing, the talert IRQ handler calls
-> ti_thermal_report_sensor_temperature(), which queues the work embedded
-> in the sensor's ti_thermal_data on the system workqueue. Nothing ever
-> cancels or flushes that work.
-> 
-> ti_bandgap_remove() frees the talert IRQ last. free_irq() waits for a
-> running handler, but not for the work the handler has queued. When
-> remove returns, devres unregisters and frees the thermal zones and then
-> frees the devm-allocated ti_thermal_data, so a work item that is still
-> pending runs ti_thermal_work() on freed memory:
-> 
-> 	ti_thermal_work()
-> 	  data = container_of(work, struct ti_thermal_data, thermal_wq);
-> 	  thermal_zone_device_update(data->ti_thermal, ...);
-> 
-> Free the talert IRQ before removing the sensors, so that no new work
-> can be queued, and cancel the work in ti_thermal_remove_sensor().
-> 
-> This needs an OMAP4460/4470 or OMAP5 SoC (DRA7 has TALERT but no
-> ->report_temperature, so it never queues the work), a threshold crossing
-> just before the driver is unbound or unloaded, and the work still
-> pending when devres frees the data.
-> 
-> Found by static analysis tool CodeQL.
-> 
-> Fixes: 445eaf871bf9 ("staging: omap-thermal: common code to expose driver to thermal framework")
-> Assisted-by: LLM codeql
-> Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
-> ---
-Sounds correct to me, so if nobody is against this change I'll apply it
+When running with CONFIG_PPC_IRQ_SOFT_MASK_DEBUG=y and LOCKDEP=y, an
+Oops is triggered during NMI exit:
 
-Thanks
+  [  202.258332] Oops: Exception in kernel mode, sig: 4 [#1]
+  NIP [000000000003e178] 0x3e178
+  LR  [c00000000003e174] arch_local_irq_restore+0x2a4/0x328
+  TRAP: 0700  MSR: 0000000000081000 <ME>
+
+The faulting instruction at NIP is a 'trap' (0fe00000) inside the
+rfi_flush_fallback trampoline at a userspace-looking low address, reached
+after a bad rfid caused by an incorrect SRR0 value.
+
+Root cause
+----------
+DEFINE_INTERRUPT_HANDLER_NMI used to call arch_interrupt_nmi_exit_prepare()
+*before* irqentry_nmi_exit(), giving this sequence:
+
+  arch_interrupt_nmi_enter_prepare()   // saves irq_soft_mask, irq_happened
+  irqentry_nmi_enter()                 // __nmi_enter() -> nmi_count++, in_nmi()=true
+  ____func(regs)                       // NMI handler body
+  arch_interrupt_nmi_exit_prepare()    // RESTORES irq_soft_mask=0 (IRQS_ENABLED)
+                                       // RESTORES irq_happened with pending bits
+  irqentry_nmi_exit()                  // instrumentation block runs here...
+    trace_hardirqs_on_prepare()        //   ...with in_nmi()==true still
+    lockdep_hardirqs_on_prepare()      //   ...and irq_soft_mask already restored to 0
+      -> arch_local_irq_restore(0)     // mask=0 -> enable path entered
+           WARN_ON_ONCE(in_nmi())      // FIRES: __nmi_exit() hasn't run yet
+    __nmi_exit()                       // nmi_count-- (too late)
+
+arch_interrupt_nmi_exit_prepare() restores irq_soft_mask to whatever
+the interrupted thread had (IRQS_ENABLED / 0) and restores irq_happened
+with any pending deferred-interrupt bits that were present when the NMI
+fired.  This is correct and necessary before rfid back to the interrupted
+context, but it must not happen until irqentry_nmi_exit() has fully
+completed.
+
+With irq_soft_mask=0 and pending bits in irq_happened, the
+trace_hardirqs_on_prepare() call inside irqentry_nmi_exit()'s
+instrumentation block reaches lockdep_hardirqs_on_prepare() which
+calls __trace_hardirqs_on_caller(), which eventually calls
+arch_local_irq_restore(0) (the IRQS_ENABLED / enable path).
+
+arch_local_irq_restore() with mask=0 hits the CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
+guards at irq_64.c:217:
+
+  WARN_ON_ONCE(in_nmi());   // TRUE: __nmi_exit() not yet called
+
+The WARN_ON_ONCE fires a 'trap' instruction (tw 31,0,0 / 0fe00000) in
+kernel mode with MSR_PR=0, MSR_IR=0 (real-mode).  The program check
+handler (TRAP 0700) takes the sig:4 (SIGILL) path via do_program_check()
+and calls die(), producing the Oops.
+
+The RESTART_TABLE mechanism in arch_local_irq_restore then causes the
+bad rfid that lands at the userspace-looking address visible in the NIP.
+
+The bug is invisible with LOCKDEP=n because trace_hardirqs_on_prepare()
+is a no-op when CONFIG_TRACE_IRQFLAGS is not set (TRACE_IRQFLAGS is
+selected by PROVE_LOCKING which selects LOCKDEP).
+
+Fix
+---
+Move arch_interrupt_nmi_exit_prepare() to after the irqentry_nmi_exit()
+block, so that:
+
+  irqentry_nmi_exit()                 // __nmi_exit() -> nmi_count--, in_nmi()=false
+  arch_interrupt_nmi_exit_prepare()   // now safe to restore soft mask state
+
+The instrumentation inside irqentry_nmi_exit() now executes while
+in_nmi() is still true (nmi_count not yet decremented), but
+irq_soft_mask is still IRQS_ALL_DISABLED (NMI-entry value), so
+arch_local_irq_restore() is never called with mask=0 from that path.
+After __nmi_exit() returns, arch_interrupt_nmi_exit_prepare() restores
+the pre-NMI soft mask and irq_happened, which is the correct state for
+the rfid back to the interrupted context.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Closes: https://lore.kernel.org/all/d4cccba9-ce5c-424b-864c-2248fb0d99e6@linux.ibm.com/
+Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+ arch/powerpc/include/asm/interrupt.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
+index 1b45a49e9bed..56f855c6f07e 100644
+--- a/arch/powerpc/include/asm/interrupt.h
++++ b/arch/powerpc/include/asm/interrupt.h
+@@ -301,7 +301,6 @@ interrupt_handler long func(struct pt_regs *regs)			\
+ 		state = irqentry_nmi_enter(regs);			\
+ 	}								\
+ 	ret = ____##func (regs);					\
+-	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
+ 	if (mfmsr() & MSR_DR) {						\
+ 		/* nmi_exit if relocations are on */			\
+ 		irqentry_nmi_exit(regs, state);				\
+@@ -317,6 +316,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
+ 	} else {							\
+ 		irqentry_nmi_exit(regs, state);				\
+ 	}								\
++	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
+ 									\
+ 	return ret;							\
+ }									\
+-- 
+2.55.0
+
