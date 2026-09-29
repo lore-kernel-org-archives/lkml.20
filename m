@@ -1,100 +1,153 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58F451C33E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DFB52E05C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699387; cv=none; b=lw1KJ1loKtr//ELrl7DEZg7ongmyvRX8ly3BLOGAom/VJ+7HHRFycYW7i4Uj0ybonpGvNqGYj9Ge1IT+DxKz47xLHaG5IhWSrSJg+ssJfNxHzDV5cwF8H7lQONI5y1bMIhaaMqNoLs7VsSzGRl0lmTxWpOSIWJw8j5xg7+ncPWU=
+	t=1790699392; cv=none; b=qE2pzf/mivKa0A913Q5k21wV8BtsaTtsc1wYqpL08tU8+t7bYo3leDV43PAeULfcx1qMNRwdDNngN9cXgbWolrlyIjyVhnzSi7kysn5an+BWpZ+gOp00bBHmnbsW+31UXau31bBMCgDQqyW7djyCLKd6KizkWAJPYl+yS5tP0+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699387; c=relaxed/simple;
-	bh=1v42kf6QbSA3YM4j5AXbRMkgXRvycLkyiH4QtoAzOWM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=HkQb7xKF+90PTXMzF574JbRQdhr38/Uk0mExXzsOGhdql6jMStyRZmxun3QiLfvHECEuzDgIiR2xTdwwxbA6mKoUZXLL+ftGPJxbPjBeZfGgo4gr/SCuGxwLwfUpLKj7wCpFSFdX1T6RNRoo2rg4rxDRcAWuRLrFeUBCgM9phLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L6xx2Tej; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1790699392; c=relaxed/simple;
+	bh=at9caQSNlDirzi19HDDan4Y2L3uJCRt9I9RlxktvPA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVNpwdPCyHktqkMTeoLl4xTy4EskV0s/FO59N/8CvrdwLaKWE/twFK1BrOUgTGhcOycnGQd2pxswTgyE5KUrAtSmePHztNDoaXTjEZHEfsY5BsC3kGWxXMsZCSp0BOaIOVyf11QxfcdyhW0BTTiYVaHO1nVFbMMgHoM7KlfAbdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TBR5IXRm; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L6xx2Tej"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so2002398a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TBR5IXRm"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2119190a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790699385; x=1791304185; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5gmBRPrdCcT1/ykMZonXArmE29LxS0sCmqHY0q+fG44=;
-        b=L6xx2TejdRqIhaBrMBIb3iOcbTsSSHWSDFs4OCbNfSBPxKXKZXh9T9erFgbQ9iJYws
-         VVvau+elTqmwv1S/n6WNBbzLZAyRENxuZzxBzE/Tlm5ez/eTjf+400gdvuQoSpUyp0rP
-         q56037nOmS49ZdG09AaforitURhLYLCyasQ8AJmC+6gp9D7alAtaaFqWLP0FGzNTlFME
-         WylL/WvQBlkW9dRpVKKSZvaU67xwbp3E89K+qUACRTQhdh+/KO3Zqzx/qw0M29aNtc/C
-         aRldIGDeOOjr+B6mhe6nb+QLP71NWsQUl9+aK1mSijOeI6oOZXAXY65YdaDs9fpQ7lsi
-         MW5w==
+        d=gmail.com; s=20251104; t=1790699389; x=1791304189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tH7cezq+gJXVplHNKlxZez1fJO97a08MzeloZBiVfiI=;
+        b=TBR5IXRmomUpK6uuo+27sfEnZuB9z+QyyX8PQNBGyA9EofMqSFJ4CzTvYilbflTLXA
+         YDkJQ5KHZezf3pP9kfsLw6h7c+Yd4wXq/ktDQHOc1T+4De2u5ufNhg8qIKOzPNkJ3cYL
+         QXoprhz0+JkE3Tm/YlJQwtsqea+JO6yj4KimQ6qQdPGOb2bI/+/A8eB1+1wxZ13JNTdc
+         vy3XSsNm73eWblGUVQapLKtnO7uSEtCeTkzB6XjFfonUv/o5DzePowvWRO1l+87W1kQ2
+         wRJFgz0Ukunx3Avf8/n517AgyLENjuSLwpUXVnN/2BLmEZL23W+x2Dz3hvZ9t9wGPhev
+         soXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699385; x=1791304185;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5gmBRPrdCcT1/ykMZonXArmE29LxS0sCmqHY0q+fG44=;
-        b=oyp98M+FUVY1ck4JqfEFhEE87G4T1vYkF2aP9Ei+42bu6lytIoV53qHN5mX6g4HdX+
-         RDIeiFhrXxXvh5+a4UHe3nH3SV/uwz6qdNxgP4dfj0zgnYulUay7hrbX8BBA6bXS4dlI
-         KJLBCgnZTNHN6t172w4SN/7MgXicBW/Bd2ylVtjvudDlfyoOgiuqjVP3HlhHDlF+yX7y
-         NiMVRPRA7uqqhU7M3GN8R+S0tz0Z5F0UBv7dCQ+FUekma7MR92jhcg/qVL9mp0gxyln2
-         ySK3l8eLoh4DpynLizkk7PFOg6mbKMKVq0JnnTL3wp+tKE5AQSeOjyEhjDVLXtwyFdek
-         JDAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2sJZka80bY0gOS4FKZLoZyXmPWNI6r21g26OBYwaB0/5TzBO8X9im2X4TVwQ4Sznjd2CF1GgRw7DL7C8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKT6+8TLKzkyQP3Zc+Oa1y9sAw8RlutrNHR9Ke4s2M6H9qmjFlc
-	K/VD0uEfoKAETKfC36f7E78+yl/eOhukZwvpELBPEnEg+fCfq7IkUZY6
-X-Gm-Gg: AYBFou3UsuVRMSaxJg2XVQ6OQ0s+EjAHRHd5Fm2HNwQiremFGrHuwdjViPc2N1Nbx50
-	S6lf070xgnI584TbBy1MNyJ5jOlN4+GK7dg/VMC/5YTySEtPacCuBwlMElXA72KAT4DhFuYHKV1
-	RZP/8yUjATDXo8Mnea/mbgxfHuEG2avQM5YiUMxPc9c9MMKuUvo7icITq/no5PDXQeGNznnk6Zw
-	q44uOQW7cgGrcjPPK2bz5Em3NZdyeUUf82FSb4VhaJnTfFzrfyrtJUlrYtfSXhrJ/j20aLJUMQx
-	UMsq2mE0ID1zlEej6C9+6xNhFPdmIXzwpcsbzgjq96v8d5vdyUWQeA5S+9uJ40XRsMyNywc9ikc
-	7TXKCXpKvuPwV12gQ+kya11wTndOZ2/68ME1DqPSDFG3Qpw+5J34Jfu9jGj+VV9yPKz0bAs//sn
-	trm6ASvYG6MWaeEVbLfNADtaYHSEljGc6/1UieViMRG+qD8xJyLzsg7XRowmOY2MokC+mjC50oO
-	T5Ar+QJyzlfPFiPU3oRObxAE20hs9HO1WS7PleLRgRjZBWWiTEDuOG05jZDw7iUDnv1Beru/Qrz
-	kys=
-X-Received: by 2002:a17:90b:4a89:b0:39e:6c69:34da with SMTP id 98e67ed59e1d1-3a098fc84eamr14040423a91.62.1790699385067;
-        Tue, 29 Sep 2026 09:29:45 -0700 (PDT)
-Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498596aefsm7239381a91.6.2026.09.29.09.29.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 09:29:44 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 16:29:43 +0000
-Message-Id: <DLRXYC55FZOH.3CRQ4XBJ7K3CV@gmail.com>
-Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Puranjay Mohan" <puranjay@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Pu Lehui" <pulehui@huawei.com>
-Subject: Re: [PATCH bpf-next 5/5] selftests/bpf: Update DENYLIST.riscv64
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Pu Lehui" <pulehui@huaweicloud.com>, =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?=
- <bjorn@kernel.org>, <bpf@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260929083924.1851840-6-pulehui@huaweicloud.com>
-References: <20260929083924.1851840-1-pulehui@huaweicloud.com> <20260929083924.1851840-6-pulehui@huaweicloud.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1790699389; x=1791304189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tH7cezq+gJXVplHNKlxZez1fJO97a08MzeloZBiVfiI=;
+        b=pCoy4WRQxEnvChWsTX/1A5OXILPoSghkk1xDpwdyP6QhcMFBxqS1tUmQ4/GP/Y5Wny
+         iYE59tudMh6BAnw+VcuxhDZnW76apGTud/bmNb2RFdRJKVoLskWPg8P64/eUJUQ8JExV
+         xeqi4vAGYFVlVOomODy0MeYANtXf8CicWZAdOTh1cgISBgnK1hYfB31EXyahDeGvsSLZ
+         GFmc+EHWNHbS9vLwt8OE1I94NjqsBd0fHdDOlP0BzdO+6E6zWuP56XuhcNn2KL4NiMak
+         lmQ+jqM5taflBSJd0nfLBEf6SKudcYH8xoIosypP6v1/c46IFkWTds3FMR5CnDoD/miM
+         9mAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJaDVMX+OaLqDquzCbC/40AX1Ju7NcbgAeUulIIL2mGVP2YziWXps/dZk7XW2OJPYh/wsBPJwYOldVSh0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3MvWLOx1zevk5l3wF+utZ9BLDZWfwQqvLEXU797Yq8/yODU7z
+	EKz+9JcOVn6Wcc/8nlDGOPXT0soaCnlvknz+foBOxIfdUfhaxvEjdeW4
+X-Gm-Gg: AYBFou1fOH7Q45Ii2wkL+ZxEE/UBUg4bENRc1L3JoheBD1inX5JXMtxBO3uiQO5XHrL
+	oL+VJLlKm2R80ynI478fBvl0mzwITezsDVhL78sqED50c91QOQrdSaC+1boCBsdyAFLx8lS7Dxu
+	hSFiZy9pLzSkWKHKWIou5GzNvS83eAUwAFHfpb/8S/VsrbJ1XWJiY8vFnfX1KKPCbMnX0QXFoik
+	j31ccrb4ZbB4dcbVBQMqkTA3W5IAxDQGogVN0dIFBFVa1HZmCaCkiFyRKgTRKFbHCYfkrJZ+4iI
+	F209mePO/74dngzwGiUn9iC6eatYbBHgF0r6aksxqZOpXCDxgcl+mcUizUGWZaXb4bjoHdWYf6S
+	O9jXSj78f+lbwq69qGnocdsguaHByKM4+1Qn5hdGIcjV2ai1/xJ9DcoNbSmjRpGNs6ROPDLJ/Og
+	gdM7yNzJzop0BFD/eC9H0i5WoMn7Q3jZ2tZjRDU6rXgRZb071yHuSnEVPn6Nnupk88MNRfVVFeI
+	cQ2z+jSp4UNrrv0nk5wQA==
+X-Received: by 2002:a17:90b:2882:b0:3a4:b8fd:5d67 with SMTP id 98e67ed59e1d1-3a4b8fd5e29mr379785a91.50.1790699389050;
+        Tue, 29 Sep 2026 09:29:49 -0700 (PDT)
+Received: from x1c ([2405:9800:b670:b64b:8c3c:36b:3374:1c96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497ecef67sm6481678a91.6.2026.09.29.09.29.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:29:48 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	shuah@kernel.org
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH v2] KVM: selftests: Verify KVM_MSR_EXIT_REASON_INVAL on non-canonical FS_BASE write
+Date: Tue, 29 Sep 2026 23:29:40 +0700
+Message-ID: <20260929162940.14610-1-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 08:39 AM Pu Lehui <pulehui@huaweicloud.com> wrote:
-> diff --git a/tools/testing/selftests/bpf/DENYLIST.riscv64 b/tools/testing/selftests/bpf/DENYLIST.riscv64
-> @@ -1,2 +1,4 @@
->  # riscv64 deny list for BPF CI and local vmtest
->  exceptions					# JIT does not support exceptions
-> +probe_user					# kprobe hit in trap
-> +stacktrace_build_id				# kprobe hit in trap
+The msr_filter_deny test covers the FILTER and UNKNOWN MSR exit
+reasons, but nothing exercises KVM_MSR_EXIT_REASON_INVAL.
 
-stacktrace_build_id is already in the generic DENYLIST.
+Have the guest write a non-canonical value to FS_BASE and verify
+that the write exits to userspace with KVM_MSR_EXIT_REASON_INVAL along
+with the attempted value.
+
+FS_BASE writes are passed through to hardware, i.e. a plain WRMSR
+takes #GP directly without exiting, so use forced emulation to route
+the write through KVM.
+
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+---
+v2:
+ - Use a write of non-canonical to FS_BASE value instead of 
+   reserved EFER bit 63 because writing non-canonical can't 
+   become valid without massive architectural changes unlike EFER reserved bit
+   (suggested by Sean).
+Tested on Intel Core i5-10210U (VMX). Not tested on AMD.
+---
+ .../kvm/x86/userspace_msr_exit_test.c         | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
+index 2808ce727e5f..40b084cba2c0 100644
+--- a/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
++++ b/tools/testing/selftests/kvm/x86/userspace_msr_exit_test.c
+@@ -309,6 +309,14 @@ static void guest_msr_calls(bool trapped)
+ 	/* Invalid MSR, should always be handled by user space exit */
+ 	GUEST_ASSERT(rdmsr(0xdeadbeef) == 0xdeadbeef);
+ 	wrmsr(0xdeadbeef, 0x1234);
++
++	/*
++	 * Writing a non-canonical value to FS_BASE is rejected by KVM, but
++	 * FS_BASE writes are passed through to hardware, so force emulation
++	 * to route the write through KVM and get an INVAL exit.
++	 */
++	if (is_forced_emulation_enabled)
++		test_em_wrmsr(MSR_FS_BASE, NONCANONICAL);
+ }
+ 
+ static void guest_code_filter_deny(void)
+@@ -627,6 +635,13 @@ static void handle_wrmsr(struct kvm_run *run)
+ 		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_UNKNOWN,
+ 			    "deadbeef trap w/o inval fault");
+ 	}
++
++	if (run->msr.index == MSR_FS_BASE) {
++		TEST_ASSERT(run->msr.data == NONCANONICAL,
++			    "MSR_FS_BASE data is not NONCANONICAL");
++		TEST_ASSERT(run->msr.reason == KVM_MSR_EXIT_REASON_INVAL,
++			    "MSR_FS_BASE trap w/o inval fault");
++	}
+ }
+ 
+ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
+@@ -667,7 +682,9 @@ KVM_ONE_VCPU_TEST(user_msr, msr_filter_deny, guest_code_filter_deny)
+ 
+ done:
+ 	TEST_ASSERT(msr_reads == 4, "Handled 4 rdmsr in user space");
+-	TEST_ASSERT(msr_writes == 3, "Handled 3 wrmsr in user space");
++	TEST_ASSERT(msr_writes == (is_forced_emulation_enabled ? 5 : 3),
++		    "Handled %u wrmsr in user space, expected %u",
++		    msr_writes, is_forced_emulation_enabled ? 5 : 3);
+ }
+ 
+ KVM_ONE_VCPU_TEST(user_msr, msr_permission_bitmap, guest_code_permission_bitmap)
+-- 
+2.53.0
+
