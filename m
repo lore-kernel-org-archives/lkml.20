@@ -1,302 +1,190 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E90E42E43D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653549; cv=pass; b=AtduXI1hvymx44qJDg8uwvq9+TEX4qCq2JJAfncASEocpccUtBBHZGnvBqG6IMycpfhmSL7x/WR4gmc/mY+R4ftISZp4RpeB10aIfd/vSgvVs81bKxgNoE7TwT/3OLH08oMcUnaMibhSgsdNQH8P2cfSehXvaB019xyNzi0iQ1s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653549; c=relaxed/simple;
-	bh=gjre2d//pLL35O2CFo/5bmFFpp2uslvlgfO9zx+gAgY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eHzFpKtQcTnlKglL6OPPVYLtKfEbaA4KKvSJCdSP35zYs6YboxiLf4YLguGf1GzuoRyWLa5LweTdY+UjshrvCNsxAU1+3Ne2R3NoM2Ql3A4+wojmhkcSkX/GwyxFs0vRslwKM6+UJX8KgAiglxtLqkSEcThWXKezq02T1eXOqrU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Q0EUze3I; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C134F430309
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790653550; cv=none; b=bXicGG9h/EcmQZrrwBxmgoeo+Sb/7RiobXevqiX5moCprGjg2TY1E1dbtIpBkp+OQpc1F57fpOL1n7Xo2zONsZ+NNNU9c/NUgffghGRGMCyr/sp1zKb+HrbLBF33ykVs0QExYYnZ6qvpv0wVFUzK3y1YXxK+Dsoad+wUET3fmQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790653550; c=relaxed/simple;
+	bh=emN7DAxtSRLF415z6jBFS1BVT82Ombe4VPgOdgIfbVQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=D45V8BZidmUM0446Y/wBQnqbvEFJKNOgGwFZN7VVvGjfg1kvfhQXhvuGmcDAm3WMIs+5CggZVXpr0gRytI2oDAT7qExigJcYOB9L50/WRVE3Ox8CSrtEGqWcY0NqXwtYFpAxvs/9vL+ZGdk2AlOCM+uj4tVLiDpXWhN88p5P/4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GOCwsQxq; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Q0EUze3I"
-ARC-Seal: i=1; a=rsa-sha256; t=1790653520; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ieYuSxNoAxZyTTqIFlOBq3rC1JQpLpHFclf+MoohmqWMxsYxpcDpLdXRzlNLhZlah1kfxYKFhpw/zsw4vmCXcbtyrje4IdNnltjxgcuYtswg96UyNCnn0iVI6vexMhj9WdvRDsQg50uCejSPx5t4SofPlEAOugqDQmLRV4XW9n0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790653520; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qigAaY9WXoJkoUdhy+BS7+ht2S8XyDcYsJXfsXz1pnY=; 
-	b=OPioZsnjLJ9djR3EuYfWTZqFmb5nbhQ4VxVB9GryRYVv0+DwNGTfU/qJOYiMDZoBCvvUingo83Un3uI5LUZoaLtgvKuzXgAEkuMMIRfZB3D8PtlhCa/JJ6cQK5oGD/RGerrMnWixlCmA7fgV+sCs8Tq43+9tCad0MTqHCeFg+mk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653520;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=qigAaY9WXoJkoUdhy+BS7+ht2S8XyDcYsJXfsXz1pnY=;
-	b=Q0EUze3IsY17LLKpt4otRwAN1aBUVCRdlKKCleq0dpH6uaKLQjXBqYVDp+tJraOj
-	lw/VOGJCzQBbio31oxKrPKdMJqqaHRjIVFOvqE+uLWB2ecdmQWEAEZKy/OMUb2tPcra
-	+cV+366deHEqeUassiTpDHnGP2uHjBBXCd/bCP2c=
-Received: by smtp.zohomail.com with SMTPS id 1790653520496251.20932067064382;
-	Mon, 28 Sep 2026 20:45:20 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Tue, 29 Sep 2026 04:44:39 +0100
-Subject: [PATCH v12 05/15] drm/panfrost: Consolidate device clock
- management and reset
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GOCwsQxq"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc51591102fso2532126a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790653547; x=1791258347; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DJUc8W66LdXd5niQlho6vVTddWB/e8RRGn6UCJy7ACg=;
+        b=GOCwsQxqdyIXirXzgGoj+9nuGcbeM9taIC6m5ob5HMGb2y2JzwP9cXG2zgUkKhwzLU
+         eiCIxAh2AfftNZMmLvnFDiuDeq6J5jjUTQB7vDhjWW864Aif8u9lz0vqKJGkmhNpr1VA
+         tClcnt/6kUQPpaCcBewiH9s6Qx5GwsTl/qHpmXmeTES6V/4W/dIfoIFmVTzmObROtPUe
+         /54IyXjDefYxufYT2maPgcf4XaWuUdITm0HjmSzwJrSJ4lN6D2KYPJBLKSWknN0ilMen
+         bPcvea/UzuSvDqQ6yVuJQksePP7iAoDcUTfgtujK/zA0igVZjSwFGkO7nthr9gWaaI8c
+         TdKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790653547; x=1791258347;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DJUc8W66LdXd5niQlho6vVTddWB/e8RRGn6UCJy7ACg=;
+        b=OM5mnlO4Oo9x6I7AT0yIpw3RK1sJohIydQxgC67MTROkGnLp96Rn5OizShqF3GmKmF
+         tkvfu6rK51g5fDL9P2HMWrdo+GX8vKyZIfotawqTcxxM2dTLLzcaA+zPYWpgAyukI5mi
+         MpOkFGS+wkhaEZzmhVvtaKTckTaocpYbrWI0dqto3RE/6imrxnns+6cv70IlTcDJNEP7
+         eoThHGZ5ws4m7iBN59/35qCIepcr0XcjIGbKKJkyv/s8HOM/r0oWOCZ9H6Vy3LzAYsJY
+         PpuB2avRrJCzbbdCaqO6ItpRvgkyvgYlz7XIfWfm3oxAZBwL0iFmjDaSGdSyawjxPevw
+         KyMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpRUU7xD3CfMCZL4boTjZ3GW3z3Jtn35+/pd/NsAiT3+FPSLOOrPf4oIb2Ry272ALpb+8mWLBxB8BgtII=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0SJQo6B7MYlOKrZpEvDYUGzI3i88pEwDvHIUKlIj3cWU8v6MZ
+	vs3YLmCHd5BHJPICyqaYI4eRhX7kO6j8/oMnINK96WxreUBiZwpBPQSMc+oUnwvU/m3CV6J+ya1
+	zbw==
+X-Received: from pgdf1.prod.google.com ([2002:a05:6a02:5141:b0:cc7:56f1:71ad])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6f06:b0:3d3:ae40:51e5
+ with SMTP id adf61e73a8af0-3de0e750b0dmr13391618637.25.1790653546468; Mon, 28
+ Sep 2026 20:45:46 -0700 (PDT)
+Date: Tue, 29 Sep 2026 03:45:05 +0000
+In-Reply-To: <20260929034510.2023173-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-claude-fixes-v12-5-62beb08de207@collabora.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-In-Reply-To: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6334;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=gjre2d//pLL35O2CFo/5bmFFpp2uslvlgfO9zx+gAgY=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQuBjPApIrFJq61wf937pJUl/VWflnovlrHk
- PhjUCamdJOJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
- PSJ4C/0Y6DM5TY8gK/6RGJUrptVxgo8P+0HH5kxkLE45v8bv1bsU4K14ouM2DPx0l4FvmhhgTYg
- Pw8A8Nnuxsm80xM8OGsbFwrGfv6bdx1iR3f1gsaHORHCIxKLy7qnq5D6WN9ou8ysOMRUO5C5ana
- reoL8oPyxcw+fdxKk+F7qf2/RMZq0NneaOqueKjp0uCcymZsCjQzkVbnASDA5qUjrGh6VZ85YZW
- Gs8+ZRjZDj+jyyH2aHIr/0yWWjlN/XCd4j6kX3QNy0u6hqLMIoT11urX4NM0oPQhptZ8mk/iX0e
- qbN+hBOqUAU5/REvMgCayVc6GrDiUVcA5MIFsqT41fjsYAM1+kuAw1pHe+/vYFNcfIZGt3jTvMm
- +5TnHaLRlLTVvt0vu2/IeWW+EzAaHAZ8NgNsOOcRZNCbvQ4G7JktD35h4WNoc9qBcHn1yQwshfw
- uWh9PJNseash1y3x8ZvMbkDLqrOW6aLqSCDX6nHBjS5sn8nlHS/2+tNWprvwDytkXgoSw=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Mime-Version: 1.0
+References: <20260929034510.2023173-1-praan@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929034510.2023173-12-praan@google.com>
+Subject: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to gate
+ CMDQ submissions
+From: Pranjal Shrivastava <praan@google.com>
+To: iommu@lists.linux.dev
+Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Daniel Mentz <danielmentz@google.com>, 
+	Ashish Mhetre <amhetre@nvidia.com>, linux-arm-kernel@lists.infradead.org, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org, 
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+	Pranjal Shrivastava <praan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Gather all clock enables and disables into a single function to avoid
-repetitions between driver init/fini and device resume/suspend, since
-these clocks are always handled in bulk.
+Introduce a new bit flag, CMDQ_PROD_STOP_FLAG (bit 30), in the command
+queue's producer index to safely gate command submissions during device
+suspension.
 
-Also do clk (un)prepares and dis/enables at the same time, since the
-clk_prepare_* family of functions can simply increase the refcnt of
-an already prepared clock.
+The flag embeds the suspend state directly into the existing global state
+The flag is checked in the cmpxchg loop in arm_smmu_cmdq_issue_cmdlist(),
+which acts as a Point of Commitment, ensuring that no indices are
+reserved or committed once the SMMU begins suspending.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+This prevents a situation of "abandoned batches" where indices are
+incremented but commands are never written, which would otherwise
+lead to timeout during the drain poll.
+
+Update queue_inc_prod_n() to preserve this flag during index
+calculations, ensuring that any in-flight commands that successfully
+passed the point of commitment can proceed to completion while the
+flag remains set.
+
+Suggested-by: Daniel Mentz <danielmentz@google.com>
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+Signed-off-by: Pranjal Shrivastava <praan@google.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------------
- 1 file changed, 52 insertions(+), 66 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 35 +++++++++++++++++++--
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  5 +++
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index b3a53504bd01..9f2b1967a398 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_device *pfdev)
- 	reset_control_assert(pfdev->rstc);
- }
- 
--static int panfrost_clk_init(struct panfrost_device *pfdev)
-+static int panfrost_clks_enable(struct panfrost_device *pfdev, bool on_resume)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index a123810fac57..7f89e2306942 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -218,7 +218,8 @@ static int queue_sync_prod_in(struct arm_smmu_queue *q)
+ static u32 queue_inc_prod_n(struct arm_smmu_ll_queue *q, int n)
  {
- 	int err;
+ 	u32 prod = Q_POS(q, q->prod) + n;
+-	return Q_OVF(q->prod) | Q_POS(q, prod);
 +
-+	err = clk_prepare_enable(pfdev->clock);
-+	if (err)
-+		return err;
-+
-+	err = clk_prepare_enable(pfdev->bus_clock);
-+	if (err)
-+		goto disable_clock;
-+
-+	if (on_resume) {
-+		err = clk_prepare_enable(pfdev->bus_ace_clock);
-+		if (err)
-+			goto disable_bus_clock;
-+	}
-+
-+	return 0;
-+
-+disable_bus_clock:
-+	clk_disable_unprepare(pfdev->bus_clock);
-+disable_clock:
-+	clk_disable_unprepare(pfdev->clock);
-+
-+	return err;
-+}
-+
-+static void panfrost_clks_disable(struct panfrost_device *pfdev, bool on_suspend)
-+{
-+	if (on_suspend)
-+		clk_disable_unprepare(pfdev->bus_ace_clock);
-+	clk_disable_unprepare(pfdev->bus_clock);
-+	clk_disable_unprepare(pfdev->clock);
-+}
-+
-+static int panfrost_clk_init(struct panfrost_device *pfdev)
-+{
- 	unsigned long rate;
-+	int err;
- 
- 	pfdev->clock = devm_clk_get(pfdev->base.dev, NULL);
- 	if (IS_ERR(pfdev->clock)) {
-@@ -48,53 +84,31 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
- 	rate = clk_get_rate(pfdev->clock);
- 	dev_info(pfdev->base.dev, "clock rate = %lu\n", rate);
- 
--	err = clk_prepare_enable(pfdev->clock);
--	if (err)
--		return err;
--
- 	pfdev->bus_clock = devm_clk_get_optional(pfdev->base.dev, "bus");
- 	if (IS_ERR(pfdev->bus_clock)) {
--		dev_err(pfdev->base.dev, "get bus_clock failed %ld\n",
--			PTR_ERR(pfdev->bus_clock));
- 		err = PTR_ERR(pfdev->bus_clock);
--		goto disable_clock;
-+		dev_err(pfdev->base.dev, "get bus_clock failed %d\n", err);
-+		return err;
- 	}
- 
- 	if (pfdev->bus_clock) {
- 		rate = clk_get_rate(pfdev->bus_clock);
- 		dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate);
--
--		err = clk_prepare_enable(pfdev->bus_clock);
--		if (err)
--			goto disable_clock;
- 	}
- 
- 	pfdev->bus_ace_clock = devm_clk_get_optional(pfdev->base.dev, "bus_ace");
- 	if (IS_ERR(pfdev->bus_ace_clock)) {
- 		err = PTR_ERR(pfdev->bus_ace_clock);
- 		dev_err(pfdev->base.dev, "get bus_ace_clock failed %d\n", err);
--		goto disable_bus_clock;
-+		return err;
- 	}
- 
--	err = clk_prepare_enable(pfdev->bus_ace_clock);
--	if (err)
--		goto disable_bus_clock;
--
--	return 0;
--
--disable_bus_clock:
--	clk_disable_unprepare(pfdev->bus_clock);
--disable_clock:
--	clk_disable_unprepare(pfdev->clock);
--
--	return err;
-+	return panfrost_clks_enable(pfdev, true);
++	return Q_OVF(q->prod) | Q_STOP(q->prod) | Q_POS(q, prod);
  }
  
- static void panfrost_clk_fini(struct panfrost_device *pfdev)
- {
--	clk_disable_unprepare(pfdev->bus_ace_clock);
--	clk_disable_unprepare(pfdev->bus_clock);
--	clk_disable_unprepare(pfdev->clock);
-+	panfrost_clks_disable(pfdev, true);
- }
+ static void queue_poll_init(struct arm_smmu_device *smmu,
+@@ -726,13 +727,42 @@ int __arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
+ 	do {
+ 		u64 old;
  
- static int panfrost_regulator_init(struct panfrost_device *pfdev)
-@@ -436,34 +450,17 @@ static int panfrost_device_runtime_resume(struct device *dev)
- 		if (ret)
- 			return ret;
- 
--		ret = clk_enable(pfdev->clock);
--		if (ret)
--			goto err_clk;
--
--		ret = clk_enable(pfdev->bus_clock);
--		if (ret)
--			goto err_bus_clk;
--
--		ret = clk_enable(pfdev->bus_ace_clock);
--		if (ret)
--			goto err_bus_ace_clk;
-+		ret = panfrost_clks_enable(pfdev, true);
-+		if (ret) {
-+			reset_control_assert(pfdev->rstc);
-+			return ret;
++		/*
++		 * If the SMMU is suspended/suspending, any new CMDs are elided.
++		 * This loop is the Point of Commitment. If we haven't cmpxchg'd
++		 * our new indices yet, we can safely bail. Once the indices are
++		 * committed, we MUST write valid commands to those slots to
++		 * avoid indefinite polling in the drain function.
++		 */
++		if (Q_STOP(llq.prod)) {
++			local_irq_restore(flags);
++			return 0;
 +		}
- 	}
++
+ 		while (!queue_has_space(&llq, n + sync)) {
+ 			local_irq_restore(flags);
++
++			/* Avoid waiting for space if the SMMU is suspending */
++			if (Q_STOP(READ_ONCE(cmdq->q.llq.prod)))
++				return 0;
++
+ 			if (arm_smmu_cmdq_poll_until_not_full(smmu, cmdq, &llq))
+ 				dev_err_ratelimited(smmu->dev, "CMDQ timeout\n");
+ 			local_irq_save(flags);
+ 		}
  
- 	panfrost_device_reset(pfdev, true);
- 	panfrost_devfreq_resume(pfdev);
++		/*
++		 * If we exited the polling loop because the queue finally
++		 * has space, but the STOP_FLAG was set during the poll,
++		 * we must abort immediately. If we proceed, we will
++		 * commit new commands beyond the Point of Commitment while
++		 * the SMMU is suspending.
++		 */
++		if (Q_STOP(llq.prod)) {
++			local_irq_restore(flags);
++			return 0;
++		}
++
+ 		head.cons = llq.cons;
+ 		head.prod = queue_inc_prod_n(&llq, n + sync) |
+ 					     CMDQ_PROD_OWNED_FLAG;
+@@ -779,7 +809,8 @@ int __arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
+ 		/* b. Stop gathering work by clearing the owned flag */
+ 		prod = atomic_fetch_andnot_relaxed(CMDQ_PROD_OWNED_FLAG,
+ 						   &cmdq->q.llq.atomic.prod);
+-		prod &= ~CMDQ_PROD_OWNED_FLAG;
++		/* Strip all metadata flags */
++		prod &= CMDQ_PROD_IDX_MASK;
  
- 	return 0;
--
--err_bus_ace_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->clock);
--err_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		reset_control_assert(pfdev->rstc);
--	return ret;
- }
+ 		/*
+ 		 * c. Wait for any gathered work to be written to the queue.
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index deefb17e31eb..794b258550dd 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -394,6 +394,11 @@ static inline unsigned int arm_smmu_cdtab_l2_idx(unsigned int ssid)
+ #define CMDQ_ERR_CERROR_ATC_INV_IDX	3
  
- static int panfrost_device_runtime_suspend(struct device *dev)
-@@ -480,9 +477,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
- 	panfrost_gpu_power_off(pfdev);
+ #define CMDQ_PROD_OWNED_FLAG		Q_OVERFLOW_FLAG
++#define CMDQ_PROD_STOP_FLAG		(1U << 30)
++#define Q_STOP(p)			((p) & CMDQ_PROD_STOP_FLAG)
++
++/* Mask out software-only metadata flags to get the pure queue index/wrap bits */
++#define CMDQ_PROD_IDX_MASK		~(CMDQ_PROD_STOP_FLAG | CMDQ_PROD_OWNED_FLAG)
  
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
--		clk_disable(pfdev->bus_ace_clock);
--		clk_disable(pfdev->bus_clock);
--		clk_disable(pfdev->clock);
-+		panfrost_clks_disable(pfdev, true);
- 		reset_control_assert(pfdev->rstc);
- 	}
- 
-@@ -506,13 +501,9 @@ static int panfrost_device_resume(struct device *dev)
- 	}
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		ret = clk_enable(pfdev->clock);
-+		ret = panfrost_clks_enable(pfdev, false);
- 		if (ret)
- 			goto err_clk;
--
--		ret = clk_enable(pfdev->bus_clock);
--		if (ret)
--			goto err_bus_clk;
- 	}
- 
- 	ret = pm_runtime_force_resume(dev);
-@@ -523,10 +514,7 @@ static int panfrost_device_resume(struct device *dev)
- 
- err_resume:
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
--		clk_disable(pfdev->clock);
-+		panfrost_clks_disable(pfdev, false);
- err_clk:
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
- 		dev_pm_opp_set_opp(dev, NULL);
-@@ -542,10 +530,8 @@ static int panfrost_device_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		clk_disable(pfdev->bus_clock);
--		clk_disable(pfdev->clock);
--	}
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
-+		panfrost_clks_disable(pfdev, false);
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
- 		dev_pm_opp_set_opp(dev, NULL);
-
+ struct arm_smmu_cmd {
+ 	u64 data[CMDQ_ENT_DWORDS];
 -- 
-2.55.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
