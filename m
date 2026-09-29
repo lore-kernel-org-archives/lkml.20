@@ -1,229 +1,132 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1221E53B358;
-	Tue, 29 Sep 2026 16:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700972; cv=fail; b=u8tnsnbsmxGYCcT3HU+PIfE0Ui9ha9RIb9EwzZIpCH6GW6dozJS1QQ+7bzb3DunyLnaBNAat9J0NssI821N8I2UGx0epXPD1dg7j9GBP14SwAiic/WQ+v4BM1pJyly4+22GiAE+v/vO5r8WsR1hW+vcjiCqCNuLDm84LwK5I6N4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700972; c=relaxed/simple;
-	bh=Ad5XmpCI6OIjQQUiX9AFAFF8jPw92d16/9UZOqTLJ4A=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CF95335B6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790701044; cv=none; b=T3hoKKa0/k5bX90d0ZIkaOKrcugKVp4SqHboxg46EuGVglICNcEOdK04QOgU3Hv7++3ND12t72n+H2Kxz45TVd3LRafdFWWNZMu+d/zYwDVCTEsPJuSfMWWL8KpdTaq6X8Y2YJ3hdJGrvLUnuyyYbAmJ6HfY2oLb8LEVLMRgJAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790701044; c=relaxed/simple;
+	bh=1X+I4s/Qc88Q3mt8n2I89ghISwk4YJ11K1+GkdEX0lo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CEicpANpFddF3+/q2eW0Rmm2aLr/Nn2ok22wbli0HN/i10ruT6v/ODGp5JlqSLOOk9SxBPkGhc6VR1YgdMXK5R5wAX6g4Rte3rkdIDJY4kfl2//9BOXzu9HUE9Ku338aOO68uihk7V7IrGbPkc/xEbY7EOR8CYrxLircZTtkqms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MeP26QnZ; arc=fail smtp.client-ip=40.107.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version; b=O3mAYsx6uPCMVZcr2+HHiGTYWXSs4bnKBccbZ12CEFYi6Z7ppwyIUN97vJySSQkLVPB5cA/LKIEIqhPfErRl1illtA65IMRfWcW8r2NEGGwGOvwAl3uLMARKZfV3dXLTxDQ84vE0y679wy0maQgikLj4rKXNA6MQfum2598YR/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEs1KQ5X; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MeP26QnZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pqLTtenB7+qgI8SWhVtC0YnF9apjNJdOvka8bztRGmbRY2qZ2kO8ju57HDa44OJf++W0+2H9RSo8PG2S4r1d+1qCtSbYolvfqOleID3Fv+BKzpwBHdFKVBnSv2pEALULqmHNX2FVc5iNVT2bHm5cWM9rsq3sqqrKFEnvMp38z4/Mfy+uRQ/nJD7SQza8a0H9W3GSpZ8ELfXtQSsnOlNGL37lFUbv/N7pZkNCQvGzI1Be4HZuJpgCeqKnjOdU7RRzO2ZZLICmlKmRH9iLMpL1fTTRUbFafQJKP7jxjzhO8uvkhQAe6R5KS0Bma7MqwGm78zPncKv4/Ynm7ayN2Y3FRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K3EgK+Pq2OSa8tGuyR+9zwVemQJ87+rRd+5XFuCg3RA=;
- b=s4w3k3xFc8CfcwKvOrzTptb0ONOn4X1xM6wHOXI7XJd0opERVG9iCkw0qpyk3W4/EimVN5KnC/jwQDjUkqP7nSP9E9n9nYP8AW2QeCCyYf1zmnmyvTXJurQ2j1NJj3mkEp4up1HI+n/4VwVB60Pm6vQlWqEtOWjDYGr5McrThQuncB/6rfdgDG9Ki11m8Q5XI3N0QQVuYAEbabZbnc+53fg9r9FEJ/beVpv33/NHdc+eCk5b4p5M9DB0rvXtWQDlIG3CXE7LYHNnE2vJYBTHCD2yyezhJoXKZMmRQj6XW5rgaVmqzwVthXqZ/7ybVTzsEn2HzNHHSX0q8Cj60YOgIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K3EgK+Pq2OSa8tGuyR+9zwVemQJ87+rRd+5XFuCg3RA=;
- b=MeP26QnZXveB9K00eK+Gd4B5CnTk0+h7xQXwSwwGG/DAE4cQ2uFbQHJvFL8fwaLd/N/dy73OwJXz+Dw1DB32iZJcG50nqgbbrFdr6am+wbO3a3wiJ9CI7RWWcTnmyCViIMTKIuFbp4aL34h3xiCdQDUen5S53ycYR2kkPPgZtiAPLLGx/nUAyJntqFGVpgSpG8q870kvO6sjeJJch+8DceT242YxuNiKqyrzmafIfg95fU79m1VYY06oDyFaKhuZrCffYBCo/qaIZCyH9WHSQ3/mGqkvHhTl0BNqZICV1ryFk2o4jPgQbJlw1IU+4RRjylltvzVLge4mHroQaBcS6Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH3PR12MB7620.namprd12.prod.outlook.com (2603:10b6:610:150::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 16:56:03 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 16:56:03 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Will Deacon <will@kernel.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Srikar Dronamraju <srikar@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Phil Auld <pauld@redhat.com>,
-	Breno Leitao <leitao@debian.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lee Trager <ltrager@nvidia.com>,
-	Vikram Sethi <vsethi@nvidia.com>,
-	Kayra Cizmeci <kayracizmeci@gmail.com>,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEs1KQ5X"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c5so3969351f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:57:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790701041; x=1791305841; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wJFH2IjoTkwJen4b0adRNofV230zNzAQykwUxRXPcMY=;
+        b=oEs1KQ5XYeGt6Uno3GqAIF3EWs3zFQZroy8GNmPiespyfCko8nwviONyA5Zdg6itHu
+         CbUbaMZlL3abWttJK8soCb4BDg8wzAN/jXbP8PlsdpDSM25Da7cGNpR7e0mL5ITd+DSr
+         vde1BJV6v6in7krdH8rCbwPGRXnaaQ+nNURkfAysF6qKnMENUOLgaOGxixqRToyWqENF
+         +FdEZ+5Z+Tfiv8Nbweb8xg9MumJYMsEd09hvb8gMFq40yDJmaOOS06VlKF49h2bDx4/Z
+         +zE1ySBuw5c1Rzy7nCztAwSkiuj3Kd+CxFgcAeQ0+zvHMdHPc+mnnF/hi+s48kn3h709
+         TfqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790701041; x=1791305841;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wJFH2IjoTkwJen4b0adRNofV230zNzAQykwUxRXPcMY=;
+        b=sGNVX0HQ39bhUJhvVfaq3abrVHJAfBwyzafrk81mkKuLtfEEAcSx/siA6aeB5knXYw
+         K1BsihQXZR05KrTy0oDbwi3KiteuVi6NLNB08+myXiTFTP0B6WhjGZ33DU6c64/JLQju
+         KB0IIt0YGRpl9yixqGFIyi2gm+4sTgBfuh91T1lgWwXSHDHv+7FkiqidzMRPRP3rA+Dj
+         RHTOgm1i7nOV/GsiRgkvPRN7iDE29y9QGTJb8T1EoiOQ4aA0+82EDjC20H+Kmli9bNIf
+         eSLuNgOM4wFtEijg5ySVBvVtZDdf3GqZj0uOP7+e4vyuanGIGoiS7fNs9GEZUTHG69AK
+         czJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXka4Iv8znphkNH7CIOtVX3p3ztpWrufb+vhJKdCinvkWJN+gBjSOVXLf3V5EkmOX7L9I4r+KuVepiZeM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6/Begn829BnOJ4MVfJKJURN1cq0tgP7uGNgNuuIBqm3HdVG9j
+	HoVCK3MhNelJvHWUpFykHoq9UmXRP+lUlBDF7Gr2iv9D6LvtM9KaM4X4
+X-Gm-Gg: AYBFou0OSyt9If1xEeKBpi6z9yxvJsqyqgKa8ipUy0hxFeRVirZj3b9YLe1rRLErdVM
+	dsaF//NKd8Eef4MKY3IGWE8ehY4lXQkUxHR2UaiuM8FfPDBB7gmxb2b31HQ/9cBx4+jGvrU13yE
+	w4zB9SyT9pzF6cURm1rJGqLTB6FKlnzA7SdIY3UDMxMqPFqNOxs3H9cfcZZ5mq421f7Vzc++xGb
+	bXqf20QICwb8kUUZ8oVIqIFT/EloW4BHcXYA6b8SbRfpjXw6RSNnJD4yZpEc/E5Vavpn0TJlYrv
+	vgSMXGSmpfTqhqqQ0+AejzA7Uv0WKV09Ih0GJn3OyMi0bHVdlpb6ByqlXGOuRy7igPANi1HB4ui
+	MzaP/lI2yFu5xDeppBvUM2eSXq67/PAvMQdG64UA+zMfIF8FEAwL3tIU/6JnhNz7r2Bzjw5QaCw
+	zFdYIvkTr8P1D+gBc+V2FVTA5A5Z5NjIdNMbYxkYYDAdUyx0WkE1ducXcSPVBOV6lDRdb6LnnZn
+	37pKy/x0ywnl8t/dD5UTkx+uxlXL6kXATBKNosS
+X-Received: by 2002:a05:6000:98f:b0:488:8823:f9ec with SMTP id ffacd0b85a97d-488882404c7mr18420237f8f.34.1790701040835;
+        Tue, 29 Sep 2026 09:57:20 -0700 (PDT)
+Received: from ws1-mint.emulab.it ([2a01:b600:90d3:0:7e:12ca:700a:85e0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe61c876sm57777f8f.3.2026.09.29.09.57.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:57:20 -0700 (PDT)
+From: Simone Chifari <simone.chifari@gmail.com>
+To: Adamyno <padamyno@gmail.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Stefan Schaeckeler <schaecsn@gmx.net>,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] sched/topology: Add asymmetric SMT packing override
-Date: Tue, 29 Sep 2026 18:54:41 +0200
-Message-ID: <20260929165538.726616-3-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929165538.726616-1-arighi@nvidia.com>
-References: <20260929165538.726616-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI1P293CA0024.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::6)
- To DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+Subject: Re: [PATCH v3 1/1] i2c: imc-skylake: add Intel Skylake-X iMC SMBus adapter
+Date: Tue, 29 Sep 2026 18:57:19 +0200
+Message-ID: <20260929165719.403487-1-simone.chifari@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928080640.550879-1-padamyno@gmail.com>
+References: <20260928080640.550879-1-padamyno@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH3PR12MB7620:EE_
-X-MS-Office365-Filtering-Correlation-Id: f82fac17-70bd-4bd6-c783-08df1e4a8c07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|7416014|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	HrWlNETenyLEDs2QM6+uAPfKoMc5ju3917ucMl4EIJOXaaKylqA8OL8zAI7zE4tY/KGNcILkG5mDLbIg4l0odOASeLJPqhMNZA8tkHC1FgexePcVjJp8T2iXofPyt8v7I/isqNFUwjrEG8zLxH0sHhe2wKVKWC7lbOcfiy64680m43gsQ7Ee2ug+ZHfI9LFuLdINjVHb5FrwQsLhiw56L6d7HeKaduQcnUAgzPgYBMoNHoGURTOV89vjSXQgS0tJxJkildPqg/8mIkDBI5ZEBsiAF+uq1W1wanR1EjxWZjmC3YiPAWuSpaJtUNjU3grqf972TJ7CeCIcPKG/tDK2ZDyfWJsJjLE4K2loJhI7wIJt9TIHCe9SACbEOaT2OlflSPXFjR3wXBDvyjTQhG35pQAiepZCwXaWR4o+3f94kClAOyMfMQTNHBh3tCoa3j9dOYUbkVQ2xwVxT0Uyb7Mf15Dndi7SGXZQnfDyaWYgq9/guiHRdhD6ZNDqEsDHg26II3vzjWnE7omvlH0wqcfRpSp5YugEq+uMr8kcbJVuvXhKWLCe/ZZaT+UzDMAPXN4Ukve7I8M61S8zUP+hPmZ5h3BbLGKmEwMpLQuUZIdhnV4y4ZgHdkObKWezxxK/9Kbw6RmGYMOsxWXiYIs6b7SFIy8i21ZLnGPajYQK6+wN7jI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(7416014)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2I5/dBKR8uBrkBiMTOJvHx2NfrHrChIYVMgcvOVnNg/uAeBXhO/PYKYcBtf8?=
- =?us-ascii?Q?AwZzIv2U54YLBmxPOJMNDARzewgQB+iBxztLaLaXFijrehl1MM6FWj3J+PHg?=
- =?us-ascii?Q?W72TgNEpDCsuiWkNrQds/VCOdipCUSiwUHpa5L2McZ0jq1RbHRNlNDJdkkod?=
- =?us-ascii?Q?xiad225ofvxxqoK/zuN6GtBmIJs4hQKADV6zopdJ9Gc+PLDqr7WNpS53oMGi?=
- =?us-ascii?Q?xDmpANRCn3eLddDI/4dlJQniIkv+1EXSlsIC5sqaU777Dfu5azonhtdVRC9x?=
- =?us-ascii?Q?IJWcaTObQL1zlBP9Ofmbk7mmDo31iuJ0nKbGWArg4IHWFq160RED1JCM04GW?=
- =?us-ascii?Q?Nb7EC45GSJJnsF5Cf6EtPVjIO8UQLEMdvIDBPPllEbZ/L3bbFKEmQBW2Ck6l?=
- =?us-ascii?Q?UVwJBw5plA8iVGwfS6AO8p5mubxUgAPy41HTQ9qRivlxVORLf2RpZKIxJN1L?=
- =?us-ascii?Q?dU2eT/oFK7ICUVcsyyUPaIaJg2fCmqG1sRZ1fzJUtHVjLEMwlOMQMJ+xP79w?=
- =?us-ascii?Q?FVdNIh4w2PF/OMiocZgFhrZ+tomktjcMuffrFRdhNrv6bObdnwvkn0ynknRY?=
- =?us-ascii?Q?Vhui/igFxOFT0EpYBlcZabSYrvCnqwnIEve/7Oxf6TiolgzQJIHeyrd55OvU?=
- =?us-ascii?Q?9B9ZckBcCJqNFkVJo8h9pQ1gFIKyGujpxwgNqbZj6W7R9FFayLRk6JImGWlk?=
- =?us-ascii?Q?taZPl8NMaQgzHPNUJseiH2WC6y8Hz7XN4Qwx9W68uRZtpt6WOyL+1bGb3T/H?=
- =?us-ascii?Q?BgA8FInljGWYazLqzkfnmdkPn76R+KlNFjFbmc4tmMyl8nenlVn035WxTYF0?=
- =?us-ascii?Q?0Rhq25u7xgCDO7cW3nRLLnQAEgBN4HAfJutUFdjISg9dHskEbWBg9iHckEjj?=
- =?us-ascii?Q?NrDmx4AFlnZO1z4+V4SnDrDufkb5A03dqQSFgN+3rBzACUMyvhlF2Gq1H2NK?=
- =?us-ascii?Q?XZM2SS8h+6V+6ZZSv8cQm1mPukVxS8aOIwwMjpMeEHv+HWSP1XKxiz9sgJAI?=
- =?us-ascii?Q?w5Z+H2PV2rVzK6E3reOwkiclgFLKEiHW1KPJVkE2xuYRiFwH+rTYKjRBiPBz?=
- =?us-ascii?Q?j+tU8675pRzfyCC9KCXRIhhlLSk7AXK4kP6D2NhGjrUl8v0Jn1E8ViZz8Ylx?=
- =?us-ascii?Q?W+B5ZpJaYXV+DVHdULNZ7zYGx03ATLm+rErfGw6rj2NgfwJAUyae29p7poxq?=
- =?us-ascii?Q?gWwpXU4ltfCwVNjNiLxqf9/vppOoUv/h3aomm3PU2Abtlj2qvt0zpJocJa8t?=
- =?us-ascii?Q?vRHCS9Ym/x+YXCS3uDYHyPe9fcOBAmaYL9PuNW5/iGpRhb5wQL6uVjdRTic6?=
- =?us-ascii?Q?c4VTKnOTUNMk2q1EsCCIal2P0IJxy1iCz/tto3zmsUxQoiHv37t/bbvwKPv7?=
- =?us-ascii?Q?nKib1LWWRIlLRiYWZUxZgbkRDPfQF0AJ1NIkm8nPsmG4FKSFkpNuQOtXl1mF?=
- =?us-ascii?Q?2P4cO/LYqEMsgg23P1jmzvwS0MlXwtSp4na+9O2xum+qVf4WbqB2r9PPa1sf?=
- =?us-ascii?Q?wjge5mY42aGJPED0hYiTBOEdb1sGgPlzPnsOfTKF+Qe47Niy1oGAQ6Q1IYar?=
- =?us-ascii?Q?WDFd3F142GwTAxF8z9j7eQrdvv5RcyebU8+g3bxBhveyZYvvV/bMmsO+LwoS?=
- =?us-ascii?Q?+iQ/UcUbdmd+zMFntUk3VVTZCRd+zqO1J2EWrtka0OqCbbeoD1JHf1mQ3wKb?=
- =?us-ascii?Q?aJk+skLYQPnF2vGM/1MnWR7wINXna0asw+obKgmogA426pw67eM41A7t9NVd?=
- =?us-ascii?Q?/xZOBqu1ug=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f82fac17-70bd-4bd6-c783-08df1e4a8c07
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:56:03.7948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nppver5+eef1PVVVcBS9XH6nahf3jXo/APkM4H5+Di3H8MpHP6mlbSK4OllO/JWS1lHcU0B3cDow0QmX7sahlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7620
+Content-Transfer-Encoding: 8bit
 
-Architectures can use SD_ASYM_PACKING to describe preferred CPU ordering
-at the SMT scheduling domain. Some systems benefit from this policy, but
-their firmware cannot describe the preference and inferring it from the
-CPU model would embed a platform-specific policy in the kernel.
+On Mon, Sep 28, 2026 at 10:06:26AM +0200, Adamyno wrote:
+> I tested this driver end-to-end on real hardware. Code as published at
+> https://github.com/systempal/i2c-imc-skylake (matching the v3/v4 series;
+> the v4 rework did not change anything relevant to this test).
 
-Add sched_smt_asym_packing=on boot option to force SD_ASYM_PACKING at
-the SMT level. Omitting the option preserves the topology provided by
-the architecture or firmware.
+Hi Adamyno,
 
-Apply the override centrally to domains with SD_SHARE_CPUCAPACITY so it
-also covers architectures with custom SMT topology callbacks, including
-powerpc.
+thanks for testing, and for the detailed report. It is the first
+report from a board other than mine, and it will go into the next
+cover letter as such: a second vendor and BIOS, SMBCNTL reading 0 where
+mine reads 0xac000000, ee1004 on all eight modules, and the RGB write
+traffic through both adapters.
 
-When enabled, priority remains defined by arch_asym_cpu_priority(). The
-weak default prefers lower-numbered logical CPUs, while architecture
-overrides remain authoritative. Siblings with equal priorities remain
-unordered. In particular, x86 with CONFIG_SCHED_MC_PRIO normally gives
-both SMT siblings the same core priority, so enabling the option there
-does not prioritize a sibling.
+For the record, since the tag lands on the v3 thread: the GitHub main
+you tested has the same transfer path as v4 and only adds shutdown
+handling that is not part of the series. I will carry
 
-Tested-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
- .../admin-guide/kernel-parameters.txt          | 12 ++++++++++++
- kernel/sched/topology.c                        | 18 ++++++++++++++++++
- 2 files changed, 30 insertions(+)
+Tested-by: Adamyno <padamyno@gmail.com>
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index e75344f4e0cde..8157ff434cb5e 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6800,6 +6800,18 @@ Kernel parameters
- 			solution to mutex-based priority inversion.
- 			Format: <bool>
- 
-+	sched_smt_asym_packing= [KNL,SMP]
-+			Format: on
-+			Force asymmetric packing at the SMT scheduling domain.
-+			Idle CPU selection prefers siblings with a higher
-+			arch_asym_cpu_priority(). The default implementation
-+			prefers lower-numbered logical CPUs, but architecture
-+			overrides remain authoritative. Equal priorities do
-+			not establish a sibling preference. For example, x86
-+			with CONFIG_SCHED_MC_PRIO normally assigns the same
-+			core priority to both SMT siblings, so this option
-+			does not favor either sibling.
-+
- 	sched_verbose	[KNL,EARLY] Enables verbose scheduler debug messages.
- 
- 	schedstats=	[KNL,X86] Enable or disable scheduled statistics.
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 3dab0253976fb..919d0fb00bd9f 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -32,6 +32,20 @@ static int __init sched_debug_setup(char *str)
- }
- early_param("sched_verbose", sched_debug_setup);
- 
-+#ifdef CONFIG_SCHED_SMT
-+static bool sched_smt_asym_packing __read_mostly;
-+
-+static int __init setup_sched_smt_asym_packing(char *str)
-+{
-+	if (strcmp(str, "on"))
-+		return 0;
-+
-+	sched_smt_asym_packing = true;
-+	return 1;
-+}
-+__setup("sched_smt_asym_packing=", setup_sched_smt_asym_packing);
-+#endif
-+
- static inline bool sched_debug(void)
- {
- 	return sched_debug_verbose;
-@@ -1954,6 +1968,10 @@ sd_init(struct sched_domain_topology_level *tl,
- 	if (WARN_ONCE(sd_flags & ~TOPOLOGY_SD_FLAGS,
- 		      "wrong sd_flags in topology description\n"))
- 		sd_flags &= TOPOLOGY_SD_FLAGS;
-+#ifdef CONFIG_SCHED_SMT
-+	if (sched_smt_asym_packing && (sd_flags & SD_SHARE_CPUCAPACITY))
-+		sd_flags |= SD_ASYM_PACKING;
-+#endif
- 	sd_flags |= asym_cpu_capacity_classify(sd_span, cpu_map);
- 
- 	*sd = (struct sched_domain){
--- 
-2.55.0
+in the next revision, unless v4 is applied as is.
 
+If you have time for more, two read-only measurements would help with
+the question this series still leaves open: whether the firmware uses
+the engine behind the driver's back. The numbers in the v4 cover letter
+come from my board only, and yours has a different BIOS. Both scripts
+are in tools/ of the same repository (see tools/README.md) and only
+read config space:
+
+  # OpenRGB closed, driver unloaded: anything that moves is firmware
+  sudo modprobe -r i2c_imc_skylake
+  sudo ./tools/watch-engine.sh --seconds 3600
+  sudo ./tools/dump-pcu-config.sh --settle 10
+
+The raw output is what matters, and it would be credited to you in the
+cover letter. A suspend/resume cycle during the watch-engine hour would
+make it even more useful.
+
+> One observation that may be worth adding to the driver documentation:
+> the RGB controller ICs on G.Skill Trident Z RGB DIMMs answer at SMBus
+> addresses 0x70-0x73 on this bus (4 per channel), not the 0x39-0x3D
+> range that older OpenRGB-era documentation assumed.
+
+Useful to know, but I think it fits OpenRGB's documentation better
+than the driver's: the driver does not know about the devices behind
+it, and ENE controllers can be re-addressed at runtime (OpenRGB's
+detector does exactly that), so the address depends on the modules and
+on the firmware or software that set them up.
+
+Thanks,
+Simone
