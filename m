@@ -1,77 +1,46 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F15B50B432;
-	Tue, 29 Sep 2026 12:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022DC4F85D7;
+	Tue, 29 Sep 2026 12:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684997; cv=none; b=hvct5JF6sp4syV9czCmcyl68Kq5q1GiyvaQCYTUvX++KC0IVGegoEApAcVRoL6z3cb3u1l5hfgKrLX/QlBENpoHde7WZ+jdogG+HZF6Nb0LlX0G97+oOWRwlcXFcfYgePM/xxTXQ1JJc4ttn58jhpDmUftVguLgGwiYIh9BgaB4=
+	t=1790685022; cv=none; b=CvPYnDqb6oeOQRRkmvN6++q8zo8w9hPBcBibZYjif6Y/PGB/T5pGQtrkrrm/hqcJ6Tc+BWw0cRmM6Hx5WWHI6h65UnzSOFt3c5Hd55xWuCDG0tvf1bcdfcBl/WMhWA0bMmP+J0+ZHaWcCU51GK+QkLGNYqeUx45bFZLfTxC7TQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684997; c=relaxed/simple;
-	bh=De5Jw1KJiDJSyRBdRbxh/06pAZuV3uzth4IIILPRif4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YizU+V9tjhwxUL3qkzmfMIqwetXrRxpXBZbTgc1nSmNeREr6zJs7LzqcGdkbTzoN0fEki1pIEK/aH+gU7hit1o4BKaBtcGg4CFe+MzGdjyz2MmOh0ABRuCtLz2GAcM2YT83ju03hk+5Od0yjWVD5K/AWctEXn7HP9TnQAmYvFxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WXyuMFUk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dWsL9DgE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uIb3PBSt; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CTTDFhDy; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790685022; c=relaxed/simple;
+	bh=byrhGlL7jx/3ozk8ssV0pA7c4mj60o5DBeHZ/0z78rU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DfVRFoygnl7CTQ8zy4XqdByR1SDqYkoesHYImYi4okxp34xEu7JUzF88TFHLKCE9rukkIMrYy/6U4nXNAjNbPzhd+c0pXs9eYlp/+DK7Gt+uC+9Ymf+8gWfCPLc3ikUp8kNyICHyksCJdTfn98b8NuHwTvTVuA59FTg2gJSBurU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICPG7vJn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WXyuMFUk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dWsL9DgE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uIb3PBSt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CTTDFhDy"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 51E781F38E;
-	Tue, 29 Sep 2026 12:29:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790684989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
-	b=WXyuMFUkQJTvickO2PwsqfsZEuyZZ6WYl2UYHZO97eRLwp3mcKDiaNghPww52xinD/mvYz
-	fnfigErQTru7LFJCBhUVgoWP/knBPbARGqrX5+0GfwzoJWpoCSZWqR6t/060jfeqOqh4kZ
-	SiGrbHgN4ARf+nreWz/zZXjZrHspAR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790684989;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
-	b=dWsL9DgE7crZFbecxJBe6qCF6IBJ2CtJq1v35giDdl4Cd79GTzt2ycINlkGtNwp2nOJ2cK
-	+V6+GrvOBlsHnVDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790684985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
-	b=uIb3PBSteJM/p3XGg86OzCraHr+708RAVOqbj+f4gHwnxVseniZsCbi1/yiyKQ6TnZMSUX
-	2M4+P7GtaGtWbBBGWLPrD+oqeL6LTzBMSHr8GJDLCRKGbLwDjZHqjYhlkLZPR9HRiYoCPI
-	cJE1DevO5w2DsfXst+g3n76bfrmgEgs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790684985;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=fK8rfxU57OGuKQ5dV1SHwXIpRVqG6a6rbD5Y5fiC2YU=;
-	b=CTTDFhDyGU0WqBosTqpHegA9g8wo4jxYAOQb52LWo8Xp/jjc7/Bvvhq2dbW8pVYfuwoyI3
-	VGh50CUYcwqfs8Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1DBF5133F1;
-	Tue, 29 Sep 2026 12:29:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BJsYOjivu2rIWQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 12:29:45 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: Jan Lentfer <jan.lentfer@web.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICPG7vJn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DEB1F000FF;
+	Tue, 29 Sep 2026 12:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790685020;
+	bh=QVSxnwIJqZkRreJjQfIbbsxCcEJwuhlGaTzg7HTiWVo=;
+	h=From:To:Cc:Subject:Date;
+	b=ICPG7vJnAzgTQM2w+rZppwMb+SCGx+5MYluqDgDo7PyScOsCn4Rr/0zi+A14DkDJf
+	 BR+q9nX5vKv7YBXjFb7KQShAOujypriP/jyGlj7H0jMoLA1aA5y0/x5O/RFdicgu6M
+	 wzFRCEgYfxCj14u0bTMTERETJUWIq2dikDw2O7IGNRdm1jRWMNTwDjFH35SELcfBXw
+	 jh9SSsQZdozVlPUsFPEkUH/P4Q79ZpSKAjt5IpXiNVo2LRHKo+zAfoYpgzhimNHdbJ
+	 bwopsB+IAvgauJa/ALSnSOd8s5w6DKCU2rkoBdn+mIohsKdPDx9OpLabR+OeFV5TNO
+	 //DNVUdkT/77A==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Apply boot quirk for Behringer models generically
-Date: Tue, 29 Sep 2026 14:29:25 +0200
-Message-ID: <20260929122938.1471867-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] net: stmmac: Disable checksum insertion for XDP frame TX
+Date: Tue, 29 Sep 2026 20:10:25 +0800
+Message-ID: <20260929121025.20821-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,79 +48,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[web.de,vger.kernel.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
-	FREEMAIL_ENVRCPT(0.00)[web.de]
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
 
-Jan reported that a few Behringer devices became broken since the
-recent optimization to avoid usb_string() call at probe time at the
-commit b364a0d23cae ("ALSA: usb-audio: Use strings in struct usb_dev
-for manufacturer & co").  Interestingly, the devices seem requiring
-the explicit descriptor read at probing time, and the optimization
-above dropped it.
+stmmac enables TX checksum insertion for XDP frames whenever the queue
+supports it. XDP frames carry no TX checksum offload request, so this
+can overwrite a checksum already present in the packet.
 
-There is already a boot quirk for another model, Behringer CM1A
-(1397:1234), that adds a device descriptor read, and this seems
-working for them, too.  As the quirk is safe and cheap, just apply the
-same boot quirk to all Behringer devices for avoiding the pitfall
-again.
+Pass false to stmmac_prepare_tx_desc() when transmitting an XDP frame
+so that the packet is sent with its checksum fields unchanged.
 
-Fixes: b364a0d23cae ("ALSA: usb-audio: Use strings in struct usb_dev for manufacturer & co")
-Reported-by: Jan Lentfer <jan.lentfer@web.de>
-Closes: https://lore.kernel.org/e7087d42-5e74-4d85-b1c5-b11eff235d41@web.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: be8b38a722e6 ("net: stmmac: Add support for XDP_TX action")
+Fixes: 8b278a5b69a2 ("net: stmmac: Add support for XDP_REDIRECT action")
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-This is a revised solution from the previous patch
-  https://lore.kernel.org/20260929120309.1460348-1-tiwai@suse.de
-
- sound/usb/quirks.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 1c248075c48e..9207504e9b82 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1784,13 +1784,15 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
- 	switch (id) {
- 	case USB_ID(0x07fd, 0x0008): /* MOTU M Series, 1st hardware version */
- 		return snd_usb_motu_m_series_boot_quirk(dev);
--	case USB_ID(0x1397, 0x1234): /* Behringer CM1A */
--		return snd_usb_cm1a_boot_quirk(dev);
- 	case USB_ID(0x2717, 0xd005): /* Xiaomi audio connector */
- 		snd_usb_xiaomi_boot_quirk(dev);
- 		return 0;
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 24656b35350b..8fe75b00974f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5184,7 +5184,6 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+ {
+ 	struct stmmac_txq_stats *txq_stats = &priv->xstats.txq_stats[queue];
+ 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
+-	bool csum = !priv->plat->tx_queues_cfg[queue].coe_unsupported;
+ 	unsigned int entry = tx_q->cur_tx;
+ 	enum stmmac_txbuf_type buf_type;
+ 	struct dma_desc *tx_desc;
+@@ -5229,7 +5228,7 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+ 	stmmac_set_desc_addr(priv, tx_desc, dma_addr);
  
-+	/* Behringer devices may need explicit device descriptor read at boot */
-+	if (USB_ID_VENDOR(id) == 0x1397)
-+		return snd_usb_cm1a_boot_quirk(dev);
-+
- 	return 0;
- }
+ 	stmmac_prepare_tx_desc(priv, tx_desc, 1, xdpf->len,
+-			       csum, priv->descriptor_mode, true, true,
++			       false, priv->descriptor_mode, true, true,
+ 			       xdpf->len);
  
+ 	tx_q->tx_count_frames++;
 -- 
-2.55.0
+2.53.0
 
