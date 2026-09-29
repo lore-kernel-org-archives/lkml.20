@@ -1,206 +1,164 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013048.outbound.protection.outlook.com [40.93.196.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FDC50E5A0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683723; cv=none; b=i2pktqtsDLbGIzAs0V+VF++qxQjMwZojLRzveuHErf/jXlF30XRg7gA2r+FE+3rM6z+7g1oAkzjbME1R31Adm2M405TjCG/RtnsdxcXWQwB1fUphjadMxoGhN6l1qYDWaSNFDnsYOQON2xZHgJzOENq/8rdqKGUJIs2vvpnhDCU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683723; c=relaxed/simple;
-	bh=GmdHBVg5K3EDa2/xqvNjCHMOTYCKoFH8Z7i9n2yx/tM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AunBRsEN/idD3UYvAnxp1agrpDw6UCiGDJ6Z4CM5vCW3ztnixCgzDRNdgRawKCNcfSdU0eOVyZNN33SrGJeWhw+0KCuFup5ToIWIPVB4DVUbC65I/ZkD80L0pWXgQAc4oSNB9Cb4AJttAh2hUQHYzRpcVQpOJ49Um8IMAk4LKYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fso6avUu; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A288F516174;
+	Tue, 29 Sep 2026 12:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790683734; cv=fail; b=CYpDcob0ttXTlTKNWpe+8mWTH9ZUO24vGmziVwEWC7+D7px2SnS681uGLVsWruDnG/pRURu2ET3dhvDRoZpp8NWitKU/xMi5h3QNVDs3cW6bTo+1Ugx/+vz/XeZ03NZClgP66LeAW2h8P1EIsdEH/hs/I95RKp3T/VpOBLQOsMk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790683734; c=relaxed/simple;
+	bh=vL4PxMbcmVEL6ikfih+M/m7DVla17klcruCCs4crcQY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=I0tuQ2vPeshcly9pi7HLe+5o/CPVbJmb1GUzBO4RwoQ04ix/Hf3lnizfIY0q6DraUzK325B9ZdTgarQ+VzPVK9WbM1BPErsow1AtqtbCXZJ+sLCaDT+H9MSp7gpJt2J2QluN6zwTo/BWW0iY6pGUfmg238y8TjFmYfNObI++iJk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KONfK1uC; arc=fail smtp.client-ip=40.93.196.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fso6avUu"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so32392325e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:08:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790683720; x=1791288520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8KHWQjpWIkKdxM5wAaOyfBYxH6+bTkvqAS/gh1JEuPo=;
-        b=fso6avUugUfVrG4299MUdn7RlmXwnULWxalRziMEXDZYfN6eBkYfAL7BzuNFKPh1zv
-         v7vIOr1opxbc6o6qrwhUsz+AJmCUaWD+oG50Q3VkjHKmBj7bp4WpRQxPIvIVRSuHzBmb
-         RSw3tbplbjiQZWsRP3nap9OmvBCNwycpnNBGM5SOutnvKQXQAfJ7FCOZ5p0EjCGBER7g
-         kZySu1pPQY1mmZrN8irqfEdmvZHq+8mmT1pqsJRLu6N7Md11cdwk1VKFYfQLSR+RCSum
-         mBvFNCF+TKZvqUSt+sTa10fRL8lodY1tZO7+kYhgRI/TbzCDqY8ObuNFot0s9Lh7e36R
-         8vRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683720; x=1791288520;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8KHWQjpWIkKdxM5wAaOyfBYxH6+bTkvqAS/gh1JEuPo=;
-        b=g9Ks5zEujYQB6UliPrl/IANBT7nepccMrnNwvxojGY68Ev91p8c4e7bNucaY7n1HTw
-         4jq/4iPTgXZLZ6PvJfK/DF+N3rfc3Y/ZpQ94YaJBrizh9TmOeZ2P2SwT7uECXscZTsc+
-         iW5gyHjc1gUnC8KY+Tx7y1KZqZFgl1tkHvrdISBwGONfodQWrrkcH1+xkfPhrRwZUJDu
-         e4CE5WI+brXncN7XrQ8SEZziDXGPRuIzLrKxN0bpINQSdubB7/9/6vP9JUDcH8jTjLJt
-         HSd8rts/YsoRAMZFx3ISplMmPhkCoYlZPIQKnN/VSkfrftMo3KWZroCbG2C2FQO5GHLj
-         P4vA==
-X-Forwarded-Encrypted: i=1; AKwUvBwlFPeubfeMYByn7Xbh9tGqKwg6ooVWwwQdFanE33o/g8Qrz5qmetCa4r6/yNb/348levDHlR8Ln0pZNSw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo35HiYcxGo/YAbaLgiqZABI7JFxYX2ADg6Qt0rypwM18EMrHp
-	l38cSBLKXVKk4wvrvlnfEqHqR15AWR5kyRgrYKXaPerPlGmYGbNO4GNPFtCq0/fnPy8=
-X-Gm-Gg: AYBFou2ZD+bfR/3PRfWItWtukfGymuGjpLiqB4APV+0kI5w1UgGNkcl8yd4dgLCb2zg
-	IEBldlEb1hLpM2c4bN8P0Q68rg+t9dSxYy6jTMFAKTAFLf6m66UQtcZEhmqvwgkqvoMxLMjeNsl
-	ccM80ahGzS3pdDZLPdoTH5zdz/9K0TfmgeGNd4Z9T0hZNN39g/srmvAQG5eizLMVcuGE0yXcN8F
-	+0N9DUJjhYpEp1T3JiOAjv5L2XsePPItBqcBfajdeDQfY7Mbb/beBh3Amg0bRfFD54HRdglvqv7
-	zIqf/v8iput/jSxD4c6gKD+/XAhxSh3KlP2KW41d/95CHqAoig2aRwN2A7qx7NlFusvRKzrTQ71
-	NcMuxphiMx4wkxGvUJ3k072hN2ImtDuZexDqaj7V41fa9tACCS+FCx4Dvof8gTZN9zbQEnJMxmj
-	TqMYzgGcbJXluCxPwEDypI7PEdS1fD+6vhU8jZ5zUGig3qfcOgRofrTYMMly2gFs90RJqTZmx32
-	BX9JXPC
-X-Received: by 2002:a05:600d:8652:10b0:49f:feca:b3bf with SMTP id 5b1f17b1804b1-49ffecab799mr101425555e9.8.1790683719537;
-        Tue, 29 Sep 2026 05:08:39 -0700 (PDT)
-Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013c64fecsm222435e9.0.2026.09.29.05.08.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:08:39 -0700 (PDT)
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v5 14/16] printk: Do not set Braille console as preferred_console
-Date: Tue, 29 Sep 2026 14:05:44 +0200
-Message-ID: <20260929120546.328616-15-pmladek@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929120546.328616-1-pmladek@suse.com>
-References: <20260929120546.328616-1-pmladek@suse.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KONfK1uC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZqEQErbJ0qZLOTA4+WodOZ9AxsHjDxCT+vEkEOqAteN/C7pHz3b5gzTEEuyr7o0Uhza4IWnjm4EQDzEAUEv35WmHsssRpMjekFnftNmL7cibzvkTFgY8qd6Dt6SuqpQ/L/f53HFwyTsKL+mr3GJGYmR1W1fR4LZjSMc8W4UViMsDcys9asd97E9vOk/vR2taq1OrxkKuQ+qfKVHQMtw85qY+c0X4rtj7XQgEisMzwKETcKm+BK+3H9t8//XEG2+g6RCn0e8JnTB8SSQkYhtpbFQtyx2Y5Y5YegvryGV9GOFqp9PYLSQ1XisLj+KdnS5e13vB4YBjYKURzpqwL6dGpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W/MTd+6V2MnF27F0L/18/PabkKqmSf/LP2ayaOZ93QQ=;
+ b=akFT3svV/DNB24a4nSspyEHeigUHBULTTgU/c7/XrXclP+tYkAoEFG97XncFRAdB/kBXF9IjzNqPJu5UvSObiYpGfmp8LFY6uzeIeT2C+Y4lMQ/4UicAQAHpzzKWAc5ew02kuzMIIJYdhj2pRU1WpG4g9ABVf4nFypmHpNkUJJ7KI9mIAVwBVY3SxawEByiYB0LMCahOVm6zlijxx88dFCUZ07LFLXznvJ0mMoM1HblSvhqXp6MeczR+tiMv9dmj9p4p9QiJDKXgI3pqrMWdxPB5CIYCQCiqd/UAhn7RCFwLKKwjN5S0gr3IDcS6JTcalK4c6gmyCQDp1eO/vEnzLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W/MTd+6V2MnF27F0L/18/PabkKqmSf/LP2ayaOZ93QQ=;
+ b=KONfK1uCEDJyFTevS8lkB1kbD3OUbZ+VMelRkqyxkghCgzvP3trIxqF0dRcJVnePD5VjWZfPp/qS8G4AtCCFlvhVZ2BSca4k6vWS4d2ywPP2rGoNZ+qNZ4G/wCpY1eYbXUb5ddbD7Ctii7ihrqkyamt3x/vGUfKOYg2rZ3hlz78=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8068.namprd12.prod.outlook.com (2603:10b6:930:75::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 12:08:49 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 12:08:49 +0000
+Message-ID: <7b54a4ef-600f-4e10-af1e-16790207b74a@amd.com>
+Date: Tue, 29 Sep 2026 14:08:45 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] udmabuf: respect the device's maximum segment size
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20260926071258.77202-1-kmehltretter@gmail.com>
+ <ea7da508-131e-4146-a737-5e8778866e03@amd.com>
+ <20260928125853.GG163130@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260928125853.GG163130@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR5P281CA0051.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f0::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35e48743-54a2-462f-bea8-08df1e226b84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|6133799003|10067099003|11063799006|5023799004|18002099003|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	B4GwGfPbxJ+kvNFfeXEGKOYiYkRVyxm2hMHr+P6FBjel/AOWWPsqp6sjB8MLV+rXEknNtB3aqUF5bBJSMkHf5yqpDEX468r3WSc20Jv8fb/WwSq20egPZEGv1N2SAOay+ulEviZhVbt1zqzlUWODPGddTNGmMQuAYh2i0or4cKYiJa7nPOT2wC9rOhvWMcwcxwaBgVnS9GOj7DHapPtl15ZzZOmXpzAopzodfEtDzGX0BcmVH79hFXjYPaAe7KZwoutwN7EKgt4N3kvbcbB1KkYGqENy1xsZdni2b/MwJAl9x4y5+/9sLthi0Z70Htmk6E7fX52U9ydQmzpJVLwmUkmyYHEXseKTShPOzlSTcUnHFq9l9Sgx/fmxuYD9CekElI/F1qSflAFrtqxF6cVxlRWSqFgO4ur2k+19cHk9QrMoGwTMFnOB/8qjKscq9300mNd+RUC48tglwvlHFsKr/MBy11FQGn2h500mkUOGAj8Yam/e40kRVIEKX6fLPv+0xyFvNvyKwBd7pT3ehajZ1NjklTiKFchD8vckji9Q7QUHzRS9UugSd6C5CWBQeFb3RWImR2xTRqOyY+B8dJlXITn7uzkkYhRwEXHC1L71sLJAkozfCLGh0Apme5dLIJsF10cTbMd2ptobLStkxLvZUT3u4jYPnY0lxvrDX7GAE20=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(6133799003)(10067099003)(11063799006)(5023799004)(18002099003)(4143699003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dkxLaUszeklzdUpWWUhnZ1U3dVFZelNRb0NaQmN1RzYxZHYxNW9NVFVIU25q?=
+ =?utf-8?B?VjQzcCtnbFpmUEd2ck4wQUVhd2o1akEyNmZaNmhicTZpbW92MThCUGRMSGIy?=
+ =?utf-8?B?b3VBd1JNaWZmMkViWURyMFg2U1A1L2RiRWlDRFVzWVpRc08yWTdWcHNQUzV4?=
+ =?utf-8?B?djNzYlFHZ1dQNC9rYjl5VmJIY01mNjRPczM0dThoU2J0VFZRUTNwSjNOWHZS?=
+ =?utf-8?B?dEtFdy92bXlqT1l4bkswbWxoNDZaUjFXSVE4Z1hRYW9oMTE1cW1wSHFJNWF1?=
+ =?utf-8?B?RWRHTlBBL2ZWbzFEcTcrV2FTV0pBYVJ1Q21ZUzQyMjdvNEc2UlU1bnMwL0lR?=
+ =?utf-8?B?V0Y1U0R0Q0RKNnc0YSs4SW1XMVVBNDNzOUhFNUZQaUZXQTdIMjhvci9NNHNa?=
+ =?utf-8?B?SUxXYllhbmdCM1dSaVZsUVlvREU3NkdlMjREOEloa0JvMTFyWUpManEyS3Vn?=
+ =?utf-8?B?RkdEc2t1WCtoTUdPTWFlNnBqbEVhV2h3bnFYSDN6WE1WMlBZZGpBOXdLc3BU?=
+ =?utf-8?B?RUNRaGxJdDk1NnFaMFZQc0FkdUlzSU9HUkxZV0c2TzBjdVl6QzBWMGdTODZR?=
+ =?utf-8?B?cytVaUFEaVIxSkp4ek8yY1hRMUpEZ0p3ZVhMcGgxdnFuSzh3dS9tNUs2SDBK?=
+ =?utf-8?B?ajZxL0RSU1B0Z1Q2NXRkOEFiOWY0UjN6Y2Vyc0JtMG82MVNNbTA1d1EveGow?=
+ =?utf-8?B?VWRnY2orYTdVNDJQSjhJb2xmMysyR3RaakJjUkxSRHh3S1dEamhJSE5heFhz?=
+ =?utf-8?B?ZURVdy9LK2FTTjQxV2NlOFFMSFo3VkhhWG95YnBEV3AzdWhXQmVpbXBhZ05T?=
+ =?utf-8?B?M0NUZURDL1F3WU94Sm11Tm01Zm5ua1h4S3J1ODQzOFV1NzlaNDVzbGhHbjNx?=
+ =?utf-8?B?aHA3Ymp1aWcwVVI5NHpQa1VmZ3Fwekhnd21YUTdsejdzU0lzVEJYSC92Q296?=
+ =?utf-8?B?WVJOZDNMWXdLVkkvR29mN2gvRFEwUVVKbzVXL2FsWlVOQlFFT1ZvYjluWTNY?=
+ =?utf-8?B?aUlyM3lMZkdPZUpNM2NaeklyYlgwYXgyNGVNUEhtY1pKa2p1TlpOblVMekJz?=
+ =?utf-8?B?QWdIaG5QWkRscitGTUMyNDhOazkrSDcycUhMTEFHMkVlRDQ0SXg1SXM2SVBy?=
+ =?utf-8?B?d21iQWZ0eXA3Qm54dUxxL095MnRmNnZaLzFHbUVETmEwelhOK1puNVQ5TmFV?=
+ =?utf-8?B?VVo1Q0J6NVNTMU1UeUdieWI1bFhIcU16ZXZreDNRb3RXVmQ3d0hVckhSOFBM?=
+ =?utf-8?B?QmhsSUdORDFuKzRvSGxJeExpVCtsb2VJcE1DOXgwbjRKejhVNnhGNThpYVpl?=
+ =?utf-8?B?TGlubHZlZ3lYd2Z2VW1keHg3S2wyZ1diYkRURzlHRGdjaDdYN05rcmZwTVVJ?=
+ =?utf-8?B?RFpBK0VkdkI3MzFRNWNoYmFlYTVENEp0clA4RWtoVFNDR1Rtbjk2bTBBenhP?=
+ =?utf-8?B?NWRCRi9VWUk1Smpsd0tUbHhSV29vQVV6cFhIY2xUMUFrdHBQQkZlYzEwbG96?=
+ =?utf-8?B?V2RTQTVETUJjTGxRalJ4Q0ZqblZCMGRxOUwweXpQSms1UjFXZllBZXN2WmhH?=
+ =?utf-8?B?Z0NBd1dLaGhnUUU2OEExTEw5SGJqb3IzNldJSFdqd1FzWmJLSWpaUWdsdk1Y?=
+ =?utf-8?B?T2FHWk1uMjV0NjhpZ1p4R1VMczJaUDJQUVFsNW1MRDE3MG9LcDl2RXpySmJI?=
+ =?utf-8?B?RHRoOVdjQTMvakdrY1RPSVBlcFJwZ0h5SWNLREpPZXZ6Kzlvb2ZQQVBRZlYx?=
+ =?utf-8?B?UzNmL2QzS1dxRmF5UzZIQlpQQ2FXYkgrdmlwNEZUWDRHaTRmYVFoYU42ajIz?=
+ =?utf-8?B?ZjUvWWlDUVgzRWpWdXRvUGlCU3JGeGd1SWFLemlLd3VNY0xraXVjWWhqZENN?=
+ =?utf-8?B?TEppc3BzaUtIZVFiVjVydEdaS1pyaThkOG5acGV6ZmNsMFFwSnd0OUtSQUJi?=
+ =?utf-8?B?SmkwbjhLTSsyR0tXcTgycThTMkoyVlNNaFg5SlFjei9WeG9DMklzNnVtZkJw?=
+ =?utf-8?B?dXVnM3pkam4xVDZCcG9aNkZ5bWhuNDMzVUdkSm5yNDhvTkMrQmFLK0gyanEx?=
+ =?utf-8?B?WWlxOGZGZUpXWEFPVjFWK204ci8vWnJtZ2JnVURlREtURmpwei96MnBNb210?=
+ =?utf-8?B?cG1jWk5TcndubTVtQnRCaWVPNmhNY3VHZDdOVVBtU212cm0zSjNLV2pGdWhz?=
+ =?utf-8?B?RXVZdnRUWURZMEc1dGcxQ2hadU1aYkpMckhab1liMGVISTVVTEFTT0VPdWFx?=
+ =?utf-8?B?TEFRUEhUVldlZGVvZnVESlZjYnZsckJnQ3BMdU9pYmJmQ3BpSENsMEhadTIz?=
+ =?utf-8?Q?Oy6F0I9NKRVGHVa7xA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35e48743-54a2-462f-bea8-08df1e226b84
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:08:49.5275
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l1HfGnvZ6YGEar6PDlUFZfz1BsSLPSIrh56SLk7JP0Bs0075ZV/6GSFulN3p3FUA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8068
 
-The Braille console reuses the framework for handling consoles preferred
-via the command line. However, it is a special-purpose interface that
-neither receives standard printk messages nor associates with
-/dev/console.
+On 9/28/26 14:58, Jason Gunthorpe wrote:
+> On Mon, Sep 28, 2026 at 10:27:32AM +0200, Christian König wrote:
+> 
+>> In general I think that the sg_alloc_table_from_pages_segment()
+>> approach is because of the broken design of the old DMA API.
+> 
+> The scatterlist and the DMA API use of it is very specialized to serve
+> the needs of the storage stack without performance cost. Segmentation
+> is intended to make the sgl entries map 1:1 to HW entries so the block
+> layer can schedule correctly.
 
-Currently, the "preferred_dev_console" variable can point to a Braille
-console entry in the "preferred_consoles[]" array. This occurs if an
-entry was first created for a non-Braille console, but a later 'console='
-parameter redefined it as a Braille console.
+Yeah and that is a clear violation of the principle that kernel APIs shouldn't be designed with the use case in mind.
 
-Since a Braille console will only ever be enabled as such, it should not
-be tracked as the primary system console. Adjust the logic to ensure
-"preferred_dev_console" continues to point to the previously designated
-normal console instead.
+Instead the API should reflect what the HW does and needs, e.g. in this case what the bus systems and IOMMU engines can or can't do.
 
-Signed-off-by: Petr Mladek <pmladek@suse.com>
-Assisted-by: gemini-1.5-pro
----
- kernel/printk/console_register.h |  3 +++
- kernel/printk/printk.c           | 33 ++++++++++++++++++++++++++------
- 2 files changed, 30 insertions(+), 6 deletions(-)
+How it is used in the end should be irrelevant to that, it only servers as validation if the design fulfills all requirements or not.
 
-diff --git a/kernel/printk/console_register.h b/kernel/printk/console_register.h
-index 9ab3e1cc749b..64cf12fd6ea5 100644
---- a/kernel/printk/console_register.h
-+++ b/kernel/printk/console_register.h
-@@ -2,6 +2,8 @@
- #ifndef _CONSOLE_REGISTER_H
- #define _CONSOLE_REGISTER_H
- 
-+#include <linux/list.h>
-+
- struct preferred_console
- {
- 	char	name[16];			/* Name of the driver	    */
-@@ -12,6 +14,7 @@ struct preferred_console
- #ifdef CONFIG_A11Y_BRAILLE_CONSOLE
- 	char	*brl_options;			/* Options for braille driver */
- #endif
-+	struct list_head preferred_dev_node;
- };
- 
- #endif
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 75d2a1085926..a2cc7bf3a62e 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -366,7 +366,7 @@ static int console_locked;
- 
- static struct preferred_console preferred_consoles[MAX_PREFERRED_CONSOLES];
- 
--static int preferred_dev_console = -1;
-+static LIST_HEAD(preferred_dev_console);
- static bool want_braille_console;
- int console_set_on_cmdline;
- EXPORT_SYMBOL(console_set_on_cmdline);
-@@ -2567,9 +2567,16 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
-  *   3. Allow to override @options via the command line. Last one wins
-  *	except that the Braille variant is preferred.
-  *
-+ *   4. Braille console is never associated with /dev/console.[**]
-+ *
-  *  [*] A valid @name and @idx will get assigned for a devname later when
-  *	@devname matches during the device initialization, see
-  *	match_devname_and_update_preferred_console().
-+ *
-+ * [**] Braille console is using the mechanism for registering consoles
-+ *	but it is very special. It is primarily used for user interaction
-+ *	with the system. It neither gets printk() messages nor is
-+ *	associated with /dev/console.
-  */
- static int add_or_update_preferred_console(unsigned int i,
- 					   const char *name, const short idx,
-@@ -2645,10 +2652,24 @@ static int add_or_update_preferred_console(unsigned int i,
- 		braille_set_options(pc, brl_options);
- 	}
- 
--	if (brl_options)
-+	if (is_new_entry)
-+		INIT_LIST_HEAD(&pc->preferred_dev_node);
-+
-+	/*
-+	 * The last preferred console should get associated with /dev/console.
-+	 * Except for the Braille console which can't get associated with
-+	 * /dev/console.
-+	 */
-+	if (brl_options) {
- 		want_braille_console = true;
--	else
--		preferred_dev_console = i;
-+		if (!list_empty(&pc->preferred_dev_node))
-+			list_del_init(&pc->preferred_dev_node);
-+	} else if (!is_braille_console_preferred(pc)) {
-+		if (list_empty(&pc->preferred_dev_node))
-+			list_add(&pc->preferred_dev_node, &preferred_dev_console);
-+		else
-+			list_move(&pc->preferred_dev_node, &preferred_dev_console);
-+	}
- 
- 	if (user_specified) {
- 		pc->user_specified = true;
-@@ -4020,7 +4041,7 @@ static int __try_enable_preferred_console(struct console *newcon,
- 				return err;
- 		}
- 		newcon->flags |= CON_ENABLED;
--		if (i == preferred_dev_console)
-+		if (list_is_first(&pc->preferred_dev_node, &preferred_dev_console))
- 			newcon->flags |= CON_CONSDEV;
- 		return 0;
- 	}
-@@ -4091,7 +4112,7 @@ static int try_enable_console(struct console *newcon)
- 	 * Note that a console with tty binding will have CON_CONSDEV
- 	 * flag set and will be first in the list.
- 	 */
--	if (preferred_dev_console < 0) {
-+	if (list_empty(&preferred_dev_console)) {
- 		if (hlist_empty(&console_list) || !console_first()->device ||
- 		    console_first()->flags & CON_BOOT) {
- 			try_enable_default_console(newcon);
--- 
-2.55.0
+Regards,
+Christian.
+
+> 
+> Nothing else needs something like this but still has to tip toe around
+> these rules. It makes it more complicated to map and then in some
+> cases you have to undo it when programming HW :\
+> 
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> 
+> Jason
 
