@@ -1,156 +1,215 @@
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8246E346ADB;
-	Tue, 29 Sep 2026 19:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62B23F4DD9;
+	Tue, 29 Sep 2026 19:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709794; cv=none; b=f6OusgKsDkV4aJiuqhASQs7kN4cHJNo6oIXxMv+iHrN+qDYJMMj6SEZXjT7GyyyST6u4PkrB0Wmakzl30UKeUBhUOvNO9SOUHyc48dm+/qNonpuSD2i0va0iub9lOdb5KFHcTqCzdEkBXmn5KNzRroCEmWQ9WcvLO7zPKNRiIvw=
+	t=1790709865; cv=none; b=cCuubDEgAT3kCpDun9xCkKGlll3qovPc9mzG+20sUHqABAaq+Jmd+a+GptdswCmawHF6VcT7pLJ4QJw5wvHM9n+KlntlYyDedQWhvYq6rEGpsbA/Y5SWNx5YGX8hvMdPDLo5j2GTuBQBEtinFDLtYvtaVkuZ1YJZ/lZ5jhlSF1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709794; c=relaxed/simple;
-	bh=cSQ7YCu+UoGfjz8hkxjPBkniKzoBGa1mW6bgEpORYvU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=oCVM6r93zTICVjnuXIXYvDqxdYFwU2Peom6S+hqYcPdpfc7eJFU4I1sB4OI/mcP1MDh4JZPkWw+ZGWY0Tg6uySEeYR+G4wwfigLY4R9znJhhcZjyp+SROSTYhrL7HaWEtrK35wULzgDePLDjPQkAtvawtj56hPBrfmnhMxn5WNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
-Received: from [192.168.2.104] (91.78.6.248) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 29 Sep
- 2026 22:07:53 +0300
-Message-ID: <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
-Date: Tue, 29 Sep 2026 22:07:52 +0300
+	s=arc-20240116; t=1790709865; c=relaxed/simple;
+	bh=QbK+E8OtIzF32QonND+KHJdCfdBfayxRrD0iDnQSt0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ddmxKqsF4sbZeUiar+aTvU+Y5vm5zeCIXLiFjt3H98UTOkKJbVorGlPWHngbjNRSyWvRPkqqhKyQ1ZRrw9p9nWLHPJ3hlDWCU5bWtm9fcxuzUw8EqECKrkg9a6LgEnb6mtIQNnhRgFSJD1oZqUnijR9yia12tSvhAA1zqeVB9yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLeVPkRh; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLeVPkRh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A9C1F000FF;
+	Tue, 29 Sep 2026 19:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790709863;
+	bh=+4lcFV7BWlJxo0mkhLOYTkZFGAJFfiTavqhBD4KO1lY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FLeVPkRh1a34ogB9TpRqthY2RcbpuPqQsAGNc8EBMC8NIGvoauZPvtJdN18aNpI85
+	 m5+apCTFoKPSgyD80h3yqAunUkZBSHhpsRtktMeQU6PmoV9plQ7nxsmRnEdZpzeITd
+	 iuw7p12XnIonSLvhM0cCedPFuSbrmDNrcnUJJ6ZkbtgzLKV3vq5Rk8YPLs3Zsj2Tem
+	 vtYbJG/7wRtE8fsTUkKYkWlHUVEShd1dUSTrq5K+X+n/Dn2Af17dIsj1rG6KW+RDD9
+	 UFRZdZ7Avco2qztl/Zdyx7lN7s5vlRb0NWHXIq+UPEs1nanv/2dE8haepp2+acg6/1
+	 +FekM+w1yBvmA==
+Date: Tue, 29 Sep 2026 20:24:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Cc: Radim Krcmar <rkrcmar@qti.qualcomm.com>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"spacemit@lists.linux.dev" <spacemit@lists.linux.dev>,
+	"sophgo@lists.linux.dev" <sophgo@lists.linux.dev>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	Andy Chiu <tchiu@tenstorrent.com>,
+	Florian Weimer <fweimer@redhat.com>,
+	Peter Bergner <bergner@oss.tenstorrent.com>,
+	Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
+	Mark Harris <mark.hsj@gmail.com>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Chen Wang <chen.wang@linux.dev>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>,
+	Guodong Xu <guodong.xu@oss.qualcomm.com>
+Subject: Re: [PATCH v8 01/11] riscv: Add B to hwcap and hwprobe
+Message-ID: <20260929-operative-anointer-7f54be845b54@spud>
+References: <20260920-rva23u64-hwprobe-v2-v8-0-5f14bc5c23d3@oss.qualcomm.com>
+ <20260920-rva23u64-hwprobe-v2-v8-1-5f14bc5c23d3@oss.qualcomm.com>
+ <9d058591-466e-4c06-a820-b8ecc7d319a6@canonical.com>
+ <15151b8ab012ca7444d4117e393cf999.guodong.xu@oss.qualcomm.com>
+ <DLRWB8R7P6SF.1XIL0OXLZ2F23@qti.qualcomm.com>
+ <70a3451c-db31-41d0-af9d-8c9e123557f6@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-To: Jiale Yao <yaojiale02@163.com>, =?UTF-8?Q?Niklas_S=C3=B6derlund?=
-	<niklas.soderlund@ragnatech.se>, Paul Barker <paul@pbarker.dev>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Mitsuhiro Kimura <mitsuhiro.kimura.kc@renesas.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <stable@vger.kernel.org>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-In-Reply-To: <20260927144741.1320558-7-yaojiale02@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/29/2026 18:54:33
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 206322 [Sep 29 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.27
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 125 0.3.125
- 408a76d0ab6a6a06c054d212c38932c1e9d7db86
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info:
-	omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 91.78.6.248
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 09/29/2026 18:57:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 9/29/2026 5:22:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rW7jw50OZvM/1nk9"
+Content-Disposition: inline
+In-Reply-To: <70a3451c-db31-41d0-af9d-8c9e123557f6@canonical.com>
 
-Hello!
+--rW7jw50OZvM/1nk9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   I guess you used scripts/get_maintainer.pl -- if so, I suggest that
-you add --no-git-fallback next time. Your current To: list is painfully
-long and contains some long defunct addresses (like mine)...
+On Tue, Sep 29, 2026 at 06:30:49PM +0200, Heinrich Schuchardt wrote:
+> On 9/29/26 17:12, Radim Krcmar wrote:
+> > 2026-09-24T06:38:17-04:00, Guodong Xu <guodong.xu@oss.qualcomm.com>:
+> > > On Mon, 21 Sep 2026 16:24:53 +0200, Heinrich Schuchardt wrote:
+> > > > On 9/20/26 09:18, Guodong Xu wrote:
+> > > > > [ ... ]
+> > > > >    	__RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_Q),
+> > > > >    	__RISCV_ISA_EXT_SUPERSET(c, RISCV_ISA_EXT_C, riscv_c_exts),
+> > > > > +	__RISCV_ISA_EXT_SUPERSET(b, RISCV_ISA_EXT_B, riscv_b_exts),
+> > > >=20
+> > > > Hello Guodong,
+> > > >=20
+> > > > The RISC-V Unpriviledged ISA specification has this description of
+> > > > extension B:
+> > > >=20
+> > > > "The B standard extension comprises instructions provided by the Zb=
+a,
+> > > > Zbb, and Zbs extensions."
+> > > >=20
+> > > > __RISCV_ISA_EXT_SUPERSET would imply that something else but
+> > > > riscv_b_exts is in B. But such an extra seems not to exist.
+> > > >=20
+> > > > So shouldn't __RISCV_ISA_EXT_BUNDLE be used here? Some code further
+> > > > change may be needed to set extension B if riscv_b_exts is fulfille=
+d.
+> > >=20
+> > > Thanks for the review. Intentional, and the difference between the two
+> > > macros is whether the extension gets a bit of its own.
+> > >=20
+> > > __RISCV_ISA_EXT_BUNDLE carries RISCV_ISA_EXT_INVALID as its id: parsi=
+ng
+> > > the name only sets the bits of its parts. That fits zk, zkn names, wh=
+ich
+> > > are shorthands with no identity of their own beyond the ISA string.
+> > >=20
+> > > B is different: it is a single-letter standard extension with its own
+> > > misa bit (in the same way as A), and AT_HWCAP on RISC-V is the bitmask
+> > > of exactly those single letters, so the kernel needs a bit for B itse=
+lf.
+> > >=20
+> > > A is declared the same way; with the spec defines A in the same words=
+ as
+> > > B. If I can take that as a precedence.
+> > >=20
+> > > IMHO, "superset" in this table means "also sets these subset bits", n=
+ot
+> > > "contains something extra".
+> >=20
+> > Zba, Zbb, and Zbs are equivalent to B for our purposes.
+> >=20
+> > Are we sure that B will always be listed in the ISA string when Zba,
+> > Zbb, and Zbs are present?
+> >=20
+> > We could incorrectly lose RVA23U64 bit otherwise, and I think this was
+> > Heinrich's concern as well...
+> >=20
+> > (The "A" extension has the same issue...)
+> >=20
+> > Thanks.
+>=20
+> If Zba, Zbb, and Zbs are present the kernel should set the B flag in
+> hwprobe. This is why RISCV_ISA_EXT_SUPERSET() cannot be used to describe =
+the
+> B extension. RISCV_ISA_EXT_BUNDLE looks more appropriate but may lack
+> functionality.
+>=20
+> RVA23U64 looks like an RISCV_ISA_EXT_BUNDLE() to me, too.
+>=20
+> Unfortunately these macros are not properly documented.
+>=20
+> It would be helpful to first align on the meaning and usage of the macros
+> and document them properly.
 
-On 9/27/26 5:47 PM, Jiale Yao wrote:
+The intended meaning was "bundle contains no additional features beyond
+the components" and "superset contains additional features beyond the
+components".
 
-> ravb_remove() frees the netdev before devres releases the managed IRQs.
-> The handlers use the netdev as their data pointer, so an interrupt during
-> that window can access freed memory. Probe error paths have the same
-> ordering problem.
-> 
-> The remove callback also returns when runtime resume fails. That leaves
-> the netdev registered while the driver core still releases its managed
-> resources. A running interface already holds a runtime PM reference, so
-> the extra get cannot invoke a failing resume. A resume failure therefore
-> occurs while the interface is down and ndo_stop() will not be called.
+IIRC the reason for differentiation between the two was to simplify
+things in the kernel and avoid having code which requires y feature checking
+for "bundle extension xyz", because firmware might only set "component
+extension y" and therefore get a false negative on support.
+Probably ditto for userspace parsing /proc/cpuinfo, since I don't think
+hwprobe existed at that point. The things that are using superset now
+don't quite match that, because some extensions have been retroactively
+changed by RVI to match the bundle definition (due to new extensions being
+created for subsets of an existing extension) and superset was used also for
+the xlinuxenvcfg stuff.
 
-   Seems like a separate problem?
+At this point, I think we could probably just cull the differentiation
+entirely, retaining a macro called "bundle" that has the behaviour of
+the current "superset". People should just know to check the minimum
+required extension (that's common sense surely?!?) and the kernel will
+always propagate support down to components. This is at least the 3rd
+time recently that I have seen confusion over what each is supposed to
+do.
 
-> Place the IRQ resources in a dedicated devres group and release it before
-> freeing the netdev. Continue unregistering and freeing software resources
-> when runtime resume fails, but skip the unmatched runtime PM put.
-> 
-> Fixes: c156633f1353 ("Renesas Ethernet AVB driver proper")
-> Fixes: 48f894ab07c4 ("net: ravb: Add runtime PM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+
+>=20
 > ---
->  drivers/net/ethernet/renesas/ravb_main.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index ea1c7e536791..a25f5ac7062f 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-[...]> @@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
->         pm_runtime_disable(&pdev->dev);
->         pm_runtime_dont_use_autosuspend(&pdev->dev);
->         clk_unprepare(priv->refclk);
-> +out_release_irqs:
+>=20
+> The benefit of an additional hwprobe flags for B is limited. When I want =
+to
+> check for B I can already use:
+>=20
+> RISCV_HWPROBE_EXT_B =3D
+> RISCV_HWPROBE_EXT_ZBA | RISCV_HWPROBE_EXT_ZBB | RISCV_HWPROBE_EXT_ZBS;
+>=20
+> if ((value & RISCV_HWPROBE_EXT_B) =3D=3D RISCV_HWPROBE_EXT_B) {
+> 	// Hurray, I have the B extension.
+> }
+>=20
+> There is more utility in the RVA23U64 flag because it combines values from
+> RISCV_HWPROBE_KEY_BASE_BEHAVIOR, RISCV_HWPROBE_KEY_IMA_EXT_0, and
+> RISCV_HWPROBE_KEY_IMA_EXT_1.
+>=20
+> Best regards
+>=20
+> Heinrich
 
-   Somewhat unobvious label name, given the following call...
+--rW7jw50OZvM/1nk9
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +       devres_release_group(&pdev->dev, priv);
->  out_reset_assert:
->         reset_control_assert(rstc);
->  out_free_netdev:
-> @@ -3141,9 +3150,10 @@ static void ravb_remove(struct platform_device *pdev)
-> 
->         error = pm_runtime_resume_and_get(dev);
->         if (error < 0)
-> -               return;
-> +               dev_warn(dev, "failed to resume device: %d\n", error);
-> 
->         unregister_netdev(ndev);
-> +       devres_release_group(dev, priv);
->         if (info->nc_queues)
->                 netif_napi_del(&priv->napi[RAVB_NC]);
->         netif_napi_del(&priv->napi[RAVB_BE]);
-> @@ -3153,7 +3163,8 @@ static void ravb_remove(struct platform_device *pdev)
->         dma_free_coherent(ndev->dev.parent, priv->desc_bat_size, priv->desc_bat,
->                           priv->desc_bat_dma);
-> 
-> -       pm_runtime_put_sync_suspend(&pdev->dev);
-> +       if (error >= 0)
-> +               pm_runtime_put_sync_suspend(&pdev->dev);
+-----BEGIN PGP SIGNATURE-----
 
-   Hm, definitely seems like a material for a separate patch...
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwQXwAKCRB4tDGHoIJi
+0gsNAP4zCeyU0ECIOLqFYp7eKcSULXfObTdh0pHUxJ7mwe9PCgD9HL3G732aWACU
+0okpHhU7u0xbfNAkhsrFUz0MfF4L9A0=
+=Sl5P
+-----END PGP SIGNATURE-----
 
-[...]
-
-MBR, Sergey
-
+--rW7jw50OZvM/1nk9--
