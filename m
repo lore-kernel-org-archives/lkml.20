@@ -1,169 +1,172 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1206428690;
-	Tue, 29 Sep 2026 01:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790644532; cv=none; b=S1nVdrmdJV3q39U/uK6DtGuLw/ePoSdgmDSg0OaCkeo08FCAb16QG2Y3zJVmh35hL1YyLXXrqSxDBs1nvnZt0RUtdhSxrTaMrmAAyxG33Rvl32f1iSw8IDPXI5mrGdA1FZayq8wAjJLvvbD74Y8oG2R4sq7a9FfaDfGIV4jeuNM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790644532; c=relaxed/simple;
-	bh=YRD/Fj6bzCAH445n+r/x55IVrEBL91SCzr/HsPTOwC4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tFWCydnKh+WL6dm8aJDrE6mId2gFuP3KIGxgmiCjomMoWc5ytMvCafBk56E5oH0pOP45dxC0HzuM9S3oUViZ6FaUbuloU/tvneoFNkAz5O2BIlQYR5VjQxS37O/j6EdZK01b8u+97Ta/SsdoyBP8UmUi4OHe0iRYW5B7OF9yvc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ZWOwtBhb; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11EC265621
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790644555; cv=pass; b=uGGj8VCsOAbuIJvOASn4+izgT1pi6MwDHI6Vf/3fHINDStqMBgFbzpKRsPP3R0QLq+e6sM756q/d5dDY7X38chPyy5lYsJV1cxtuAP+QzT4v50560IIqdABbDlYyEWfU675RL6EsBmIdMfjy+DVb5fDAuif30n6YVv6VxM1MGbE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790644555; c=relaxed/simple;
+	bh=6KsV4rDAdDxcusMqf5nBXP8iJDyqcK6OlXAetdFDhjI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iQtx+7NU+EKkqrC9/kr4GlbmyzgkN8PqrOsYLnzakdwKnMUgabfa253YHWrUA5f8lUz9Fq7Q/JMRKLqpu+lfIqpp9feIuCSW4mLE9lkRw9f8kwdx5Eg3QuE/0GoIN7yKIrZ1qE6k2NFhhYKJGzX5EHigV+cHZWuk8NJa9g21d5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=WLLPde6Q; arc=pass smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ZWOwtBhb"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68T1FIsO4840118, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790644518; bh=YRD/Fj6bzCAH445n+r/x55IVrEBL91SCzr/HsPTOwC4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=ZWOwtBhbUdS2tk+cxeYb3+vjc8D3rCzwC8bBWz2wY91HGWfnW76J4LLmsgKjeHirW
-	 SAy+P2oxQcx9y59ab1ZsvDa7KyEMgFiWb7AjrhNlaqbYu/5vBxl45c5BRHuwULm1e/
-	 aqT0ABkcsMWhR7Mz3msgsaukGgnlDXhZ2Ix9pCM7A+N9HlM4pG12GEgznFyBNnW3bH
-	 2un0CTUkOpYPgKCH2XiZnLOE/kqCaO1ziVqo0F/bqPqtOjornEd2yf+HVG4bfv5Pex
-	 ksaOhfy1MbgwsVpjNZcJN3l6t7/e7Z0DFH2o4KLHpraHfBHHXbFrXRyVdvncBAWC1w
-	 ZJRgysq2B7qZA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68T1FIsO4840118
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 29 Sep 2026 09:15:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 29 Sep 2026 09:15:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 29 Sep 2026 09:15:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 29 Sep 2026 09:15:18 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Topic: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Index: AQHdS6ORhAIu01Pc706RGB6onKA0grbc7Ynw///IiYCACAbNMA==
-Date: Tue, 29 Sep 2026 01:15:18 +0000
-Message-ID: <c7069bdf8e9845e3b26898f545b0d3e5@realtek.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
- <afb044e0aef8425880ddb24add9340ab@realtek.com>
- <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
-In-Reply-To: <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="WLLPde6Q"
+Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-81c2131b1ecso246322a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:15:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790644552; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Stixs6ZLEZf5YXq39brhwQvxRTCyJCPd9Haju5icGTh1LAPIhX5edigbM3lpvinQGX
+         n5ENt24v9B0Yxn2WLaWJhxPMkeqKD7TQnCleGSBwu2sxrZo4mrNdjduw/apfuylwMH2y
+         SK0N3yblizMDiQ6k4MtDGqLscIKL1yCUVCBFWAa88NuWl4OY750xdY/5OseHkvjqbXAf
+         FTgk3O8NUnD0VMJ+Fu4FR62I7hcAh49eOKpumrXhH/XL7o+5/LQcUcIzjHx4mMYdufLr
+         wQUImEZ8L9mckjInWFnCxKhlbY+Nu4AoErsstaZ0Vl9J3IBvjaKt3l1zfJBZwogy0Cse
+         p+0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
+        fh=Nf2GQxaz8zVavDrckPJlCh5kXjvrMNUcI0YAqkkYQzU=;
+        b=c/K3+8OvhX24goX0+VH8TNKX6M07BVeHGxsjRmcdzCo8H5WEwLbkL3phdm/bo/wBPg
+         TLrv75z8iSXfeAgIXhR4zclPaniMa5heGqe+u8dQVpKGYLMFP7Eff1Y4JfRji5I1WDqf
+         BKepiuZy+HKZvby3ZauRdnuN8n/XrOFocHSecOM0dZ/K8B8RZE1R21XrfTTEcXUJ/1qk
+         qh9KcL33Pgx6VwDDP+kSxybLeJ7V7Z305el/zLIwSHddYdA30sFaFcIjlu/xz9QW8kT6
+         l3FqXN8anekHADGqrPWZx1rOoNtAdSNQ5uqxZct66iUJv+Yy10dbOFRhM+VRBTD08c+C
+         vTUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1790644552; x=1791249352; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
+        b=WLLPde6QqrGEQ7TlZnh6GBtwyEECzYPwNnwovqyCfe1nP6Rtl6cWfxOeP3v27T7+P3
+         JO0RswXenQ3JCaWZLyrCZkHn/AqJHIeWnIVkVqqK7Bh4ONqjh6AJ3ZMIxqKxOF8tTBYs
+         DGVx/ZdRRA3ng/3HZmmZD/Ugj2AGjzLyF8HdvvxasSWEujXdLZ4nUmvCXCRYa3RE0yRC
+         URNtGEhe5UkwBmRgEecwiBRJ1kmnjqbw95t4pkc/S9muhj+DYZzBdnsaKKtNyIfLwjLH
+         1D/kEnjt7dUyOT5ifyQp6U/0PPYcmijYeqVcAiqlt9Id3+2ViYXJFnlMm7rxBisMolUG
+         LaVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790644552; x=1791249352;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
+        b=yQ32oRA99wJZFvISa2Djq4f91o0gfI/DYf/Gk1RLDJG4H57NCc+HZ1aIWA1byrCeWO
+         lYV9Ulr/5GlOblXty5R2WnPTqZr1xxioqYQaOP/eH7lal0fVBoh3sQxw9dbwXfbbXQ7x
+         4YG0c+Ns/g4pcNZ6uBcP6+31835zcnyOJsuwqwp+yjduSDrEE3WjJF2G5roTh/emB1aH
+         SyEDdXQKwvVaxzPHDOCLQz2EHHG7hUaZi3PW46WNOvV0dIsUDvT9b35kOh1LCfb8UZwV
+         VRvKMbSJJy0E5NEzcVF7UoevGF4z/w0AFdXiHt22fyZiJniBDitt6KaRjh2UxYiIr6pm
+         7eWg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8q+h3H6jzY7MIK2yWuGjj05gCX3ouHcychXWj1DQS2jhzKUs2wVaHTfdQeCO/N2iXAYe/hNi9Y2UUmdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJN6JH/5jrz+1Bk5NqCL3SECCtaYk/MkoGlh3hO3Wwbjlxvml6V
+	nmtm9Ro+e6FHt8vfnjcB5jc9m5YT1GZdst3p/u14gcPO5PNIi6wreVKssHmcl1Pdkfcd7ZHyD9/
+	wu5sXUfhaiIyRnwRt9nMMJtPdpwyys8ZlsweAY9Drkw==
+X-Gm-Gg: AYBFou1auKPpDQVgWLKeprtBuD2amNdtJY74I2gVnGDh4KkJg+vhraO1M+yTZwn4u7Z
+	C4xOlCnN1SmIoVQR+XYsFgrEnuP8DOFuXmSCDShSdkb6ZRToiCcc0W2z2PIwKIve2/DytGZuT+O
+	YfFsY4yeEb/lZCoDIEWd7of42QsFw/3E/DUQb6qHOp48H1GK8WNDwMAIH/V0CViuGDqg4zf9PDV
+	RdzVg/zNOEPe0cEu3kwsHuOEDRWQehSHmx/FqO9/iLDi3+JkkX010XcsTW/2UnexVqpK7jWqMvs
+	revQ6wSTuxeoXgTgy9z9pLlS1V+ScjxBVbzuDTDUjln7H5nE/sAXcGk=
+X-Received: by 2002:a05:6870:f114:b0:47d:4630:5998 with SMTP id
+ 586e51a60fabf-4930a82b841mr16313646fac.4.1790644552340; Mon, 28 Sep 2026
+ 18:15:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260909222836.2475352-1-csander@purestorage.com>
+In-Reply-To: <20260909222836.2475352-1-csander@purestorage.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
+Date: Mon, 28 Sep 2026 18:15:41 -0700
+X-Gm-Features: AclHuK9y1BkUmfj2CwBKzqVvJvr4htN1Ij_BtBFRlnLw9fnPEz3avSjdBXHF6AQ
+Message-ID: <CADUfDZorm3WsYxvKQkqr1DVAps=ejF7M4U5PLD4O-94GzmYt1g@mail.gmail.com>
+Subject: Re: [PATCH 0/6] io_uring/nvme: support fixed buffer for metadata
+To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: io-uring@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBPbiBUaHUgU2VwIDI0
-LCAyMDI2IGF0IDM6MjQgQU0gQ0VTVCwgUGluZy1LZSBTaGloIHdyb3RlOg0KPiA+IEx1a2EgR2Vq
-YWsgPGx1a2EuZ2VqYWtAbGludXguZGV2PiB3cm90ZToNCj4gDQo+IFsuLi5dDQo+IA0KPiA+PiAr
-UkVBTFRFSyBSVEw4NzIzQiBXSVJFTEVTUyBEUklWRVIgKHJ0dzg4KQ0KPiA+PiArTTogICAgIEx1
-a2EgR2VqYWsgPGx1a2EuZ2VqYWtAbGludXguZGV2Pg0KPiA+PiArTDogICAgIGxpbnV4LXdpcmVs
-ZXNzQHZnZXIua2VybmVsLm9yZw0KPiA+PiArUzogICAgIE1haW50YWluZWQNCj4gPj4gK0Y6ICAg
-ICBkcml2ZXJzL25ldC93aXJlbGVzcy9yZWFsdGVrL3J0dzg4L3J0dzg3MjNiKi5jDQo+ID4+ICtG
-OiAgICAgZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydHc4OC9ydHc4NzIzYiouaA0KPiA+
-PiArDQo+ID4NCj4gPiBJIHRoaW5rIG5vIG5lZWQgdGhpcyBlbnRyeS4NCj4gPg0KPiA+IEp1c3Qg
-d2l0aCBiZWxvdyAnUicsIHRoZSAuL3NjcmlwdHMvZ2V0X21haW50YWluZXIucGwgd2l0aCBydHc4
-OCBwYXRjaCBjYW4NCj4gPiBvdXRwdXQgeW91ciBuYW1lLCBubz8NCj4gPg0KPiA+PiAgUkVBTFRF
-SyBXSVJFTEVTUyBEUklWRVIgKHJ0dzg4KQ0KPiA+PiAgTTogICAgIFBpbmctS2UgU2hpaCA8cGtz
-aGloQHJlYWx0ZWsuY29tPg0KPiA+PiArUjogICAgIEx1a2EgR2VqYWsgPGx1a2EuZ2VqYWtAbGlu
-dXguZGV2Pg0KPiA+PiAgTDogICAgIGxpbnV4LXdpcmVsZXNzQHZnZXIua2VybmVsLm9yZw0KPiA+
-PiAgUzogICAgIE1haW50YWluZWQNCj4gPj4gIFQ6ICAgICBnaXQgaHR0cHM6Ly9naXRodWIuY29t
-L3Brc2hpaC9ydHcuZ2l0DQo+ID4+IC0tDQo+ID4+IDIuNTUuMA0KPiA+DQo+ID4gQnkgdGhlIHdh
-eSwgeW91ciBwYXRjaCBzaG91bGQgdGFnIHJ0dy1uZXh0IChpLmUuIFtQQVRDSCB2NSBydHctbmV4
-dF0pLg0KPiA+IE90aGVyd2lzZSwgTklQQSB0ZXN0IHlvdXIgcGF0Y2hlcyBvbiB3aXJlbGVzcy1u
-ZXh0IHRyZWUsIHJlcG9ydGluZw0KPiA+IGVycm9ycyBbMV0uDQo+ID4NCj4gPiBJIGRvbid0IGtu
-b3cgaWYgc29tZW9uZSBpcyByZWFkaW5nIHlvdXIgcGF0Y2hlcy4gSSdkIHNraXAgdjQuDQo+ID4g
-UGxlYXNlIHdhaXQgYSB3aGlsZSBhbmQgc2VuZCB2NS4NCj4gPg0KPiA+IFsxXSBodHRwczovL3Bh
-dGNod29yay5rZXJuZWwub3JnL3VzZXIvdG9kby9saW51eC13aXJlbGVzcy8/c2VyaWVzPTExNzI1
-OTINCj4gDQo+IFRoYW5rIHlvdS4gSSB3aWxsIGhvbGQgYW5kIHNlbmQgdjUgdGFnZ2VkIFtQQVRD
-SCB2NSBydHctbmV4dF0sIGFuZCBJIGFtDQo+IHJlYWRpbmcgdGhlIGxpc3QgaW4gdGhlIG1lYW50
-aW1lLg0KPiANCj4gT24gdGhlIGVudHJ5OiBpdCBpcyBhIG1haW50YWluZXIgZW50cnkgZm9yIG9u
-ZSBkcml2ZXIsIHdoaWNoIGlzIG5vdCB0aGUNCj4gc2FtZSB0aGluZyBhcyB0aGUgcmV2aWV3ZXIg
-bGluZS4gVGhlIGZpbGUncyBsZWdlbmQ6DQo+IA0KPiAgICAgICAgIE06ICpNYWlsKiBwYXRjaGVz
-IHRvOiBGdWxsTmFtZSA8YWRkcmVzc0Bkb21haW4+DQo+ICAgICAgICAgUjogRGVzaWduYXRlZCAq
-UmV2aWV3ZXIqOiBGdWxsTmFtZSA8YWRkcmVzc0Bkb21haW4+DQo+ICAgICAgICAgICAgVGhlc2Ug
-cmV2aWV3ZXJzIHNob3VsZCBiZSBDQ2VkIG9uIHBhdGNoZXMuDQo+IA0KPiBUaGUgbmFtZXMgaXQg
-cmVwb3J0cyB0aGVtIHVuZGVyIGFyZSAibWFpbnRhaW5lcjoiIGFuZCAicmV2aWV3ZXI6IjoNCj4g
-Z2V0X21haW50YWluZXIgZ2l2ZXMgdGhlIE06IHJvbGUgdGhlIGZpcnN0IGFuZCBwdXNoZXMgUjog
-ZW50cmllcyBhcyB0aGUNCj4gc2Vjb25kLiBXaXRoIFI6IGFsb25lIHRoZSBlbnRyeSBzYXlzIG15
-IG5hbWUgc2hvdWxkIGJlIENDZWQgb24gUlRMODcyM0INCj4gcGF0Y2hlcywgd2hpY2ggaXMgY29y
-cmVjdCwgYW5kIEkgaGF2ZSBrZXB0IHRoYXQgbGluZSwgYnV0IGl0IGRvZXMgbm90DQo+IHNheSB0
-aGF0IGFueW9uZSBpcyBleHBlY3RlZCB0byBsb29rIGFmdGVyIHRoZSBjaGlwLg0KPiANCj4gRG9j
-dW1lbnRhdGlvbi9tYWludGFpbmVyL2ZlYXR1cmUtYW5kLWRyaXZlci1tYWludGFpbmVycy5yc3Qg
-Y292ZXJzDQo+IGV4YWN0bHkgdGhpcyBjYXNlLCBhIG1haW50YWluZXIgZm9yIG9uZSBkcml2ZXIg
-aW5zaWRlIGEgbGFyZ2VyDQo+IHN1YnN5c3RlbToNCj4gDQo+ICAgLSAiVGhlIHRlcm0gbWFpbnRh
-aW5lciBzcGFucyBhIHZlcnkgd2lkZSByYW5nZSBvZiBsZXZlbHMgb2YNCj4gICAgIGVuZ2FnZW1l
-bnQgLi4uIHRvIHBlb3BsZSByZXNwb25zaWJsZSBmb3IgYSBzbWFsbCBmZWF0dXJlIG9yIGENCj4g
-ICAgIGRyaXZlciI7DQo+ICAgLSAiRHJpdmVycyBhbmQgYWxpa2UgbW9zdCBvZnRlbiBkbyBub3Qg
-aGF2ZSB0aGVpciBvd24gbWFpbGluZyBsaXN0cw0KPiAgICAgYW5kIGdpdCB0cmVlcyBidXQgaW5z
-dGVhZCBzZW5kIGFuZCByZXZpZXcgcGF0Y2hlcyBvbiB0aGUgbGlzdCBvZiBhDQo+ICAgICBsYXJn
-ZXIgc3Vic3lzdGVtIiAtIHdoaWNoIGlzIHdoeSB0aGUgZW50cnkgZGVsaWJlcmF0ZWx5IGhhcyBu
-byBUOg0KPiAgICAgbGluZSBhbmQgcGF0Y2hlcyBrZWVwIGdvaW5nIHRocm91Z2ggcnR3LW5leHQ7
-DQo+ICAgLSAiTWFpbnRhaW5lcnMgbXVzdCByZXZpZXcgKmFsbCogcGF0Y2hlcyB0b3VjaGluZyBl
-eGNsdXNpdmVseSB0aGVpcg0KPiAgICAgZHJpdmVycywgbm8gbWF0dGVyIGhvdyB0cml2aWFsIiBh
-bmQgImFuIEFja2VkLWJ5IG9yIFJldmlld2VkLWJ5IHRhZw0KPiAgICAgLi4uIGZyb20gYSBzaW5n
-bGUgbWFpbnRhaW5lciBpcyBlbm91Z2ggdG8gc2F0aXNmeSB0aGlzDQo+ICAgICByZXF1aXJlbWVu
-dCIgLSBhbiBBY2tlZC1ieSBvbiB0aGUgbGlzdCBmb3IgODcyM2IgcGF0Y2hlcyBpcyB0aGUNCj4g
-ICAgIHJvbGUgSSBhbSBhc2tpbmcgZm9yLCBub3QgYSB0cmVlIG9mIG15IG93bjsNCj4gICAtICJN
-b3N0IG5hdHVyYWwgYW5kIGNvbW1vbiBjaG9pY2Ugb2YgYSBtYWludGFpbmVyIGlzIHRoZSBhdXRo
-b3Igb2YNCj4gICAgIHRoZSBjb2RlIiwgYW5kIHRoZSBmaWxlICJpcyBub3QgYSBsaXN0IG9mIGNy
-ZWRpdHMgLi4uIGl0IGlzIGEgbGlzdA0KPiAgICAgb2YgdGhvc2Ugd2hvIHdpbGwgYWN0aXZlbHkg
-aGVscCB3aXRoIHRoZSBjb2RlIi4NCj4gDQo+IEkga25vdyB0aGF0IGxlYXN0IG9uZSBwZXJzb24o
-d2l0aCBteSBoZWxwKSBpcyB3b3JraW5nIG9uIGFuIFJUTDg3MjNCRSAoUENJZSkNCj4gYnVpbGQg
-YW5kIEkgZXhwZWN0IGFuIFJUTDg3MjNCVSAoVVNCKSB0byBiZSBhZGRlZCBldmVudHVhbGx5LiBy
-dHc4NzIzYiouYyBhbmQNCj4gcnR3ODcyM2IqLmggYWxyZWFkeSBjb3ZlciBhbGwgdGhyZWUgdmFy
-aWFudHMsIHNvIHRoZSBmYW1pbHkgaGFzIG9uZSBuYW1lZA0KPiBvd25lciBhcyBpdCBncm93cywg
-YW5kIHRob3NlIHBhdGNoZXMgZG8gbm90IGFsbCBoYXZlIHRvIHJlYWNoIHlvdSBmaXJzdC4NCj4g
-DQo+IEl0IGlzIG5vdCBhIGNsYWltIG9uIHJ0dzg4LiBUaGUgcGF0dGVybnMgY292ZXIgcnR3ODcy
-M2IqLmMgYW5kDQo+IHJ0dzg3MjNiKi5oIG9ubHkuIE5vdGhpbmcgZWxzZSBpbiB0aGUgZGlyZWN0
-b3J5IGNoYW5nZXM6IGdldF9tYWludGFpbmVyDQo+IG9uIHJlZy5oIHJldHVybnMgeW91IGFzIG1h
-aW50YWluZXIgYW5kIG1lIGFzIHJldmlld2VyIHdoZXRoZXIgdGhlDQo+IHNlY3Rpb24gaXMgcHJl
-c2VudCBvciBub3QsIGFuZCB0aGUgUjogbGluZSB5b3Ugc3VnZ2VzdGVkIGlzIHdoYXQgcHV0cyBt
-ZQ0KPiBvbiB0aG9zZSBwYXRjaGVzLg0KPiANCj4gVGhlIG5lc3RpbmcgaXMgbm90IG5ldzogdGhl
-IGF0aCBmYW1pbHkga2VlcHMgc2VwYXJhdGUgZW50cmllcyBmb3IgYXRoNWssDQo+IGF0aDlrLCBh
-dGgxMGsgYW5kIGNhcmw5MTcwIGluc2lkZSBBVEhFUk9TIEFUSCBHRU5FUklDIFVUSUxJVElFUywg
-d2hvc2UNCj4gRjogaXMgZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoLyogYW5kIHdob3NlIE06IGlz
-IEplZmYgSm9obnNvbiwgYW5kIGF0aDVrDQo+IGFuZCBjYXJsOTE3MCBjYXJyeSBNOiB3aXRoIG5v
-IFQ6IGxpbmUsIGFzIHRoaXMgb25lIHdvdWxkLg0KDQpJcyB0aGlzIGEgZ29vZCBleGFtcGxlIHRv
-IHlvdXIgY2FzZT8gSmVmZiBpcyB0aGUgbWFpbnRhaW5lciBvZiBhbGwgYXRoIGRyaXZlcnMuDQoN
-Cj4gDQo+IFRoaXMgaXMgYWJvdXQgdGhlIG9uZSBjaGlwIEkgaGF2ZSB0aGUgaGFyZHdhcmUgZm9y
-LCBub3QgYSBwcm9wb3NhbCB0bw0KPiBzcGxpdCB0aGUgb3RoZXIgcnR3ODggY2hpcHMgb3V0IG9m
-IHlvdXIgZW50cnkuDQo+IA0KPiBjaGVja3BhdGNoIC0tc3RyaWN0IG9uIHRoZSBNQUlOVEFJTkVS
-UyBwYXRjaCBpcyAwIGVycm9ycywgMCB3YXJuaW5ncy4NCj4gDQo+IElmIHlvdSB3b3VsZCBzdGls
-bCByYXRoZXIga2VlcCBpdCB0byB0aGUgUjogbGluZSwgc2F5IHNvIGFuZCB0aGUNCj4gc2VjdGlv
-biBnb2VzLCBpdCBpcyBvbmUgcGF0Y2gsIGFuZCBpdCBzaG91bGQgbm90IGhvbGQgdXAgdGhlIHNl
-cmllcywNCj4gYnV0IHBsZWFzZSB0YWtlIHRoZXNlIHBvaW50cyBpbnRvIGFjY291bnQuDQoNCkFz
-IEkgbWVudGlvbmVkIGVhcmxpZXIsIEkgc3VnZ2VzdGVkIHRvIHN1YnNjcmliZSBtYWlsaW5nIGxp
-c3QgYW5kIHJldmlldw0KcnR3ODggcGF0Y2hlcyAoSSByZWFkIHlvdXIgbGltaXRhdGlvbiwgYnV0
-IEkgdGhpbmsgaXQgaXMgZWFzaWVyIHRvIGZpbmQNCmFuIGFsdGVybmF0aXZlIHdheSwgbm8/KS4g
-DQoNCkFzIHlvdSByZXBsaWVkIFsxXSwgSSBzdXBwb3NlIHlvdSBoYXZlIHN1YnNjcmliZWQgdGhl
-IGxpc3QsIHJpZ2h0Pw0KDQpJIHN0aWxsIHRoaW5rICdSJyBpcyBlbm91Z2guIFdpdGggeW91ciBz
-dWJzY3JpcHRpb24gb2YgbWFpbGluZyBsaXN0LCANCkkgZXZlbiB0aGluayB3ZSBjYW4gZHJvcCB0
-aGlzIHBhdGNoLCBubyBuZWVkIHRvIHVwZGF0ZSBNQUlOVEFJTkVSUy4NCg0KQml0dGVyYmx1ZSBT
-bWl0aCB5b3UgQ2MnZCBpcyBhIG1haW4gY29udHJpYnV0b3Igb2YgV2lGaSBkcml2ZXJzIChub3QN
-CmxpbWl0IHRvIFJlYWx0ZWspLiBJIGRvbid0IHNlZSBhbnkgZGlmZmljdWx0IHRvIGhpbSB0byBy
-ZXZpZXcgYW5kIA0KY29udHJpYnV0ZSBwYXRjaGVzLiAoSWYgSSBtaXNzIHNvbWV0aGluZywgcGxl
-YXNlIGNvcnJlY3QgbWUsIEJpdHRlcmJsdWUpLg0KQW55d2F5LCBJIHdhbnQgdG8gc2VlIHBlb3Bs
-ZSByZWFsbHkgY29udHJpYnV0ZSBjb21tdW5pdHkgYW5kIHRoZW4NCmFkZCB0aGVpciBuYW1lcywg
-bm90IHJldmVyc2Ugd2F5LiBJIGRvbid0IGxpa2UgdG8gY2xlYW4gTUFJTlRBSU5FUlMNCnNvbWV0
-aW1lLg0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtd2lyZWxlc3MvMjAyNjA5
-MjYxODAwMDcuMjgwMzAtMS1sdWthLmdlamFrQGxpbnV4LmRldi8jdA0KDQpQaW5nLUtlDQoNCg0K
-DQo=
+Hi, any feedback on this series?
+
+On a 4 KB io_uring NVMe passthru read workload with metadata, we
+measure 14% of the CPU time spent under iov_iter_extract_pages()
+(called from bio_integrity_map_user()) and bio_integrity_unmap_user().
+Using io_uring registered buffers for the metadata avoids this
+significant overhead.
+
+Thanks,
+Caleb
+
+On Wed, Sep 9, 2026 at 3:29=E2=80=AFPM Caleb Sander Mateos
+<csander@purestorage.com> wrote:
+>
+> io_uring NVMe passthrough supports using a "fixed" (registered) buffer
+> for data, but not metadata. On high-IOPS workloads, the pinning and
+> unpinning overhead for the metadata pages is significant and could be
+> avoided if fixed metadata buffers were supported.
+>
+> This patch series adds the necessary plumbing to allow NVMe passthrough
+> commands to use fixed buffers for their metadata. The metadata and data
+> fixed buffer indices can be specified (or omitted) independently.
+> Supporting separate fixed buffers is important as metadata buffers are
+> often stored in separate memory from the corresponding data buffers. For
+> ublk zero-copy I/Os, sharing a buffer index would be impossible as the
+> data buffer is a kernel registered buffer while the metadata buffer is a
+> userspace registered buffer.
+>
+> My main question is which layer the metadata fixed buffer should belong
+> to: core io_uring, io_uring_cmd, or NVMe passthrough? In this initial
+> implementation, the io_uring_cmd layer stores the metadata buffer node
+> and the NVMe passthrough layer defines the UAPI.
+>
+> The main argument for moving the implementation to a more generic layer
+> would be to reuse it for other io_uring request types. For example,
+> IORING_RW_ATTR_FLAG_PI could also benefit from a fixed metadata buffer
+> option, though this series doesn't implement it yet.
+>
+> On the other hand, core io_uring_sqe and io_kiocb space is very limited,
+> so it may be undesirable to dedicate it for a somewhat niche use case.
+> The metadata buffer node storage could be pushed to the NVMe passthrough
+> layer after my in-flight series [1] to reclaim nvme_uring_cmd_pdu space.
+> However, managing request-scoped resources from a ->uring_cmd()
+> implementation is a pain, as the same request can call ->uring_cmd()
+> multiple times and may or may not complete when ->uring_cmd() returns,
+> depending on the ->uring_cmd() return value. io_req_uring_cleanup(), in
+> contrast, provides a single cleanup path for all uring_cmds.
+>
+> [1]: https://lore.kernel.org/io-uring/20260909155848.2069290-1-csander@pu=
+restorage.com/T/
+>
+> Caleb Sander Mateos (6):
+>   bio-integrity: remove dead bio_integrity_copy_user() error path
+>   nvme/ioctl: remove struct nvme_uring_data
+>   blk-integrity: pass iov_iter to blk_rq_integrity_map_user()
+>   nvme/ioctl: pass iov_iter to nvme_map_user_request()
+>   io_uring/cmd: support fixed buffer for metadata
+>   nvme/ioctl: support fixed buffer for metadata
+>
+>  block/bio-integrity.c           | 51 ++++++++++--------
+>  block/blk-integrity.c           |  7 +--
+>  drivers/nvme/host/ioctl.c       | 91 +++++++++++++++++++--------------
+>  include/linux/bio-integrity.h   |  1 +
+>  include/linux/blk-integrity.h   |  6 +--
+>  include/linux/io_uring/cmd.h    | 12 ++++-
+>  include/uapi/linux/nvme_ioctl.h |  5 +-
+>  io_uring/rsrc.c                 | 28 ++++------
+>  io_uring/rsrc.h                 | 17 ++++++
+>  io_uring/uring_cmd.c            | 30 ++++++++++-
+>  10 files changed, 160 insertions(+), 88 deletions(-)
+>
+> --
+> 2.55.0
+>
