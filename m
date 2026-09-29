@@ -1,531 +1,190 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2B6528420
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163D652CCC9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687535; cv=none; b=E17aAcRaYtH+gZXR+pbXE1X/6JwUyCb2hHt4s4JNCxrNQamnRM0Ui0iTSsTMWuBjiQB1U5wja9ElzLFV8H6hncvtsUgregzqD6XdnknN/1aYsl8AuIse8O328qCR7fm/tIqzMuZTMJdJN7/YPT7a7j0TpjgR1jZo2Z+CujNnqI0=
+	t=1790687543; cv=none; b=KbNbLB8UYLgmsU+iJQWVxH9CZYl8UsdLbJKKseEYe/KYY31QpxjRbz++tebnaqMKOkQWtadsCo2RLikOtx/6kX7uArTr0EbhmB8q+4Vx3jAuKEhYpPqM8A6m30Da7I4oIJk8IE/QS8x8wHG55KadpQ/Hl+fe1km0IeBPPvU+cms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687535; c=relaxed/simple;
-	bh=ojnjk/wbNTHwXEe8jBo3xTGAZd2HsptAJf6O4Zf1yK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OSD0wTZrnPB1zfVy6Dcs5uiQxn1rnRhETX+OO9rDnut5hEvB0Evt20ptQ0namNO0NtX3AjmP9A4rctBrzuhXpgC/ENyT2IBnBSy8zInuRkfnvQd86hyEUTlWSwE3on66amEJe1p9qBeN9qhBrb7P97syJsfm956xZyfCXLXDY3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hJqld45D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Fe0MUiNt; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790687543; c=relaxed/simple;
+	bh=wOjzlOoYB90lyjfFiVBHTNDKDKGt6bPwugUnMawhWc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dTWGoUntOKxbPc1w9jIiC7Bwu04Ypemv2DWcslSvFxsMWPm0acE2Adh6tX0yvuNUE5TVOV5ERlTcSumxJITZmPx94588QaZqtAOCVExmJF8O8LUjZoG/k3D9yXNLRm28QoKRbwi2xvUTZN2No++PhZsu+aOfQtODW7GM3JPJXis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=HwPu+TmK; arc=none smtp.client-ip=74.125.231.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hJqld45D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fe0MUiNt"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqh4n3842806
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:12:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EjG8/uIKj4fF9C0fjKOLgLTr
-	otKBVJW8kyX0llTR/J8=; b=hJqld45DWBgRyjXu3jt5hm6P9E0kR2qFRF08wYTH
-	Waz7kNuLocJCbNN7ad/5E7ahQcso85HSQd0Yjrlaf0tLLjrZTA95XAXcQd66+4Jy
-	MyXG/TQPV4iFY6O1RXJygO2njMjjL/qNIXmVJKGLDxQivAyEYZlRzose8NLHbrH7
-	92XqDuYQGAj6BTAuCPg2uR+tkY+p7Lbs12L/U4L8Lt9vRCEkk5qu4op3mi1bmq5o
-	eMCl+GBME6NwIFBS+XmgaazME3rAMxLtZDgGQN539aJZQAyOLmcF18vcE8sK5tL4
-	smkQXiYzP3gaYuZImAr8tES2JANLCVQgVc/P5lqDsu9Brw==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0b0v8u2h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:12:12 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7b7da952536so1620623137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:12:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="HwPu+TmK"
+Received: by mail-oo2-f36.google.com with SMTP id 006d021491bc7-6d77b3455bbso1525904eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:12:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790687532; x=1791292332; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EjG8/uIKj4fF9C0fjKOLgLTrotKBVJW8kyX0llTR/J8=;
-        b=Fe0MUiNt9dn4zLVGLXvJLjeZhG/X+vi7R5pifHGoC7g7JE07BOOiXl8oZYVgHypWM3
-         QYJF6aK14ss6VSG8nF/hDWy4Ppfpe93GZvM59ogH0MvLEydUhQ28wAbBkxeGQDk6Doqo
-         h/Gw8E92B3jHulPxqs1k/0pSuHop85OFrJSg8Q4tCofcucxXPfMo1gpGFcfKa7qbvNiY
-         a5o+knPRLtqCo9M51Qr+J94TDnkuAzLUHP9QMtd66UOm1DMUzKZlqoHQEotFlTCpaP0V
-         mPiZMv+AQYtgPz91fPgKbZVZ8UahhDOhPB5BsWoS54j9P4HzD0u6F7t7JWri3mpLtIaq
-         Lrfw==
+        d=sifive.com; s=google; t=1790687540; x=1791292340; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FSKiUJRQhiLhPi0pr/mU+MmO5Nu+j31ELjJx/f3jfj4=;
+        b=HwPu+TmKVQyVgdqw8atSaQoVOE5z+qT/44x+yo701WfkGLui9wMWFcyuZFzl4ZvFMZ
+         84wdieWdMGI5TS2cJqaLel5iTUP2otlah8yQIoOjAOEiQj3SN47PhJmOSbduu4NBhEME
+         TTsbTukxuV3ff5LNxcjs1+2zk3dYBHUy/RT0G/RCYifr1vOooHvXgm0v+FwdM5DbC6ED
+         jByQbNLDsSpr6TZ1HNuAOplHgJ06ZHwaJJVzvgH/m8hsx44uxlKQq3/YXiJb96XWMUWG
+         viZn7hPmTqLyuIX+5+jbjdDeedFvsaIyCHY4bCpdNuhPf6VNQPOc94SE3vMJlRT/ZPuF
+         Jpsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687532; x=1791292332;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EjG8/uIKj4fF9C0fjKOLgLTrotKBVJW8kyX0llTR/J8=;
-        b=qtNmArqP4zhoL5qGVtYzo+U3pEcyGnGGctNTSvTUWBman639M7c/9VmaNq5+kWcVpZ
-         E/Cz0RsjRiktLomfVC77sUvfLn687jzcdH7u8W3H2HQpFUegfpp1rWS3u4ZtVIcVfLXc
-         GN/t7J0h5Vut7beb6u7YmQ89z6jeacNMZSxoLYVmj1NmYH1D75eJJaw+GDjzgBRS3r/r
-         DTuukOT/Xn1SuPj3lLZ+MdhAihnDRpKBaTdLHCQCiul06yXwu5BBCFMlATXHYYHrRAtg
-         pgzZ3n7UJUG5gothftg9QwMh+f78yFMtpnEkawMJrIgeztgbOSe59gBoGIRV0js+3Eyj
-         w6Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGjO0rb1bafB6cGqd9utVxr1vZBg5jXArMvDC4mSv2qZ3i6tD0GXSfq00OPgIcvZc1jGE5NjSWOIO3ruY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7F4oUoXaWATptjv/766TmpSECojgMrIHAsmTTC/DaYTtruxXz
-	XFeQ5NFpemZvta0PqvdtFTM2/Qy4jEIXXLN46Mwp0EBJqR2pKoCQN/FpkvOnuQjCmGSDxssC3fc
-	wlHFD5JRvGFyQ+luQQJTtMEX4Ja9XWXPBUc+Uu1ZI58u/KhKmZD/nyKkktEpf5ZT6KXQ=
-X-Gm-Gg: AYBFou3E64XgQCxmWzLhao4S00XzCdqd0F9zc9w8gQ4WkeWnRymX/7r2XfZg4FeJwYM
-	gC5Dk3ujF4ws65+vHUMzGBflHBXIaC2/gvp0zeutQfUFwmnnzKSKnbB2CTQlVBkc+9z2QAfE71Q
-	wFXWiK7HNUNk+GogQCVDf2usI6i3sKcCDHCtjucTxI1XDWs/gwyVWHj6GVFU1uLvy2546LV80fA
-	LYKO5afzIpSUA8V1HLr1Caf/ywBEIhvGDn7jpGFk9dyE5VPANG3uClG7MWPNr6BdB9G19erbhsr
-	+SaFTa2GCQz3zIbtBoUBLP1gTA/2re2pW7knI7LqWDvz8NmxI+3jQlVmfKwVOB1ofx2adgaCrWC
-	ouYk6dLg8ETqBKA==
-X-Received: by 2002:a05:6102:3e8e:b0:7a7:198b:6748 with SMTP id ada2fe7eead31-7af1edf1724mr6690858137.29.1790687531768;
-        Tue, 29 Sep 2026 06:12:11 -0700 (PDT)
-X-Received: by 2002:a05:6102:3e8e:b0:7a7:198b:6748 with SMTP id ada2fe7eead31-7af1edf1724mr6690822137.29.1790687530476;
-        Tue, 29 Sep 2026 06:12:10 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af4f8b1eesm4223084f8f.3.2026.09.29.06.12.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:12:09 -0700 (PDT)
-Date: Tue, 29 Sep 2026 15:12:08 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-        mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-        richardcochran@gmail.com, Jose.Abreu@synopsys.com,
-        netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: stmmac: propagate PTP addend and system time
- programming errors
-Message-ID: <aru5KHddKAOBUT5f@lore-desk>
-References: <20260924-stmmac-ptp-added-systime-error-v2-1-beb2a6b5f866@oss.qualcomm.com>
- <179033656748.2160803.6725984933967085758@kernel.org>
+        d=1e100.net; s=20260707; t=1790687540; x=1791292340;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FSKiUJRQhiLhPi0pr/mU+MmO5Nu+j31ELjJx/f3jfj4=;
+        b=p037CEX8Gd/VOe3JwvoiinS/pgIlk9IKvEUC4DQ1/rLFzP9lxpUDhEWCCubQQt+NvB
+         NKrbSwMspFZvnKKEah06TZIja6d3oT1lvQUJ85a+Yqd0FFym1GjEtqLvDYUhU/nnJaRD
+         EvlpQwGv/Uzv1QBwjRL/8bRS0F6hoZksOCxi/k4wSW1WTumeNOmX3NBblQhuRD0X6TnD
+         f1rqiVVVMhDeYpEl+4FhlUbp7x/mBG9ou9ICu4qAgbWdrS46aXQhrUll2bip18IUj1JY
+         M3wBQMHiwcLK7caEIAfMIJufmoeNzKoAKxunBanUouPzi8ShHCoxl7Z4/dsuzsX773Ol
+         wqOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzG4QGHPFbxyrbC+caBbielW25R+ZGrkr/AGgAtOvsTlBsbjDIpf52VjgiRxH/6Tio/z2wANjwukYiZwdo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTQa30bZX1RMk8KtGQx6b9/q+F/NgaV+DEgFixbTHSq+Pco2OI
+	wQ/2dJ0oYjSh+0dbNgGwN7S0bMerR7r0V8ehpvCBuLddxfwHK0IEiLk0CDrXFElUNv4=
+X-Gm-Gg: AYBFou0tHZIagp4XCiUyoSC7OOTfBpN4IZMkqJGXa2a89EtW7QQtr9uNyHWKxOjdTm2
+	vb437g4rk8rXuc3IJsMtQSROZYrIXzyGD5w6gq65uOFFjBonNnuP1zMldvyo5CtZL57rwMNtqEV
+	639/wbmfl5FuAuHz4csQDKvwjAbjIWlbnkBuSBWd30g/iyQfXcUoHRXFYVfd+VhIqtRhtYp12mO
+	my28PeAzGcid0xmjfYKbic4GvRJfaQ1N27eBWb4qK+4q9rr9BoBQmxLN8Q1F9wAWPn7WVRO3FST
+	Lp6r1eslwrJkJ3mNhmE5Q0W3hQnQDICK0NXiLvIpoliruHMQ5gS7hYDONDP+w22hFgUDYuswQNW
+	aFZyO7zQRS6lObUyDezqb90rPK3ZfvONoMzOhdu3NYwl3cfZ8ELpRacYjrOH+phynUGwgD9mVDU
+	bsmdc8qgbowv3WDw/LBI1ntUAhVHMKR+davexxM874yaLHO3N6SDpVyUibPW9Z1MCQQlGv8W0=
+X-Received: by 2002:a05:6820:1524:b0:6c1:598a:d80a with SMTP id 006d021491bc7-6d440eea6aamr17324629eaf.62.1790687539902;
+        Tue, 29 Sep 2026 06:12:19 -0700 (PDT)
+Received: from [100.64.0.1] ([170.85.13.74])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d8822199cbsm8598079eaf.5.2026.09.29.06.12.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 06:12:19 -0700 (PDT)
+Message-ID: <e27dd631-73a8-444a-8747-84d51ca3a57c@sifive.com>
+Date: Tue, 29 Sep 2026 08:12:17 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aVQ8ZswR1ZqLphIm"
-Content-Disposition: inline
-In-Reply-To: <179033656748.2160803.6725984933967085758@kernel.org>
-X-Proofpoint-ORIG-GUID: srcl-OXJiFNczJOrFPZj3ksni5FbEXJr
-X-Proofpoint-GUID: srcl-OXJiFNczJOrFPZj3ksni5FbEXJr
-X-Authority-Analysis: v=2.4 cv=Z+55j3RA c=1 sm=1 tr=0 ts=6abbb92c cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=9R54UkLUAAAA:8
- a=EUspDBNiAAAA:8 a=32yqpjcMs3itML3eInoA:9 a=QEXdDO2ut3YA:10
- a=xloJuupI3-Lpbi46SewA:9 a=gYDTvv6II1OnSo0itH1n:22 a=YTcpBFlVQWkNscrzJ_Dz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1MiBTYWx0ZWRfXxa64Zy7A358b
- NRN/Lhdx9XI9r3KTKJXVpdNd/h8Kqqhz+AD8eXhTkmINO+AD3x+GKBmkTdoh6sFOZYvtt5vH2EO
- 9O3wnZMtij4gTe87pB/xh7Ow5WCddJvDUpmpEQT5JM+dN2JACWz/N4Mns/j1r4rjr7B8rGpEOz8
- O6n2Ew0Jl8dMBLWlxJfrDWmqOmPhjSc7WeCA7czCgeK0iYviitvld79bTe93XcoukHQyRo+g127
- e644Phvnyf10LLTs/NQlF7Wp+HUkY3NDESYso9Ws3tUncK7l+SowvDqiJw4i1llQVwew5GK3q5a
- gkxTgk61XjYpNT9JaWrvSzVdJUv51JbSAQ4vWJKv8fUUV+ULbVpRfDvL5WBLeaTwjN5Z+xZWhwz
- VAJ9AkLwxZDK5DSspiwzR3Y+gu/1WD8m61trXt3JLQAde3DYv0S6dnNUCO+KHHElkGj0G+jskmq
- QRMM5yeQdP/rJrjkjMA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1MiBTYWx0ZWRfXxSjzizEhtcrd
- JyC0OK0HTcNZqeBQbi+d/G5KzNnrVT6I9fJ/rH1kOOEcYOxAfCum7cLQ21ePPRa/MmG4MACuI7H
- UvkWKFN1TuiO478YctJi5z3QmWDriHY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290052
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/7] riscv: dts: eswin: add watchdog support
+To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+Cc: Yulin Lu <luyulin@eswincomputing.com>,
+ Darshan Prajapati <darshan.prajapati@einfochips.com>,
+ Pritesh Patel <pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Andi Shyti <andi.shyti@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Min Lin <linmin@eswincomputing.com>
+References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
+ <20260814070007.1662455-8-pinkesh.vaghela@einfochips.com>
+From: Samuel Holland <samuel.holland@sifive.com>
+Content-Language: en-US
+In-Reply-To: <20260814070007.1662455-8-pinkesh.vaghela@einfochips.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---aVQ8ZswR1ZqLphIm
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Pinkesh,
 
-> Thank you for your contribution! Sashiko AI review found 7 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 1 (1) =C2=B7 Medium: 4 (1) =C2=B7 Low: 2
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
->=20
-> - [High] The fix stops at returning an error.
-> - [Medium] The patch is titled 'propagate PTP addend and system time
->   programming errors', but the PHC callbacks that call the same hooks=E2=
-=80=A6
-> - [Medium] The new failure paths leave timestamping enabled with stale
->   state.
-> - [Medium] The patch reorders stmmac_dl_ts_coarse_set() so that
->   priv->systime_flags is copied into a local variable at entry, all=E2=80=
-=A6
-> - [Medium] stmmac_restore_subsecond_increment() calls
->   stmmac_config_addend() unconditionally and ignores its result,=E2=80=A6
-> - [Low] stmmac_dl_ts_coarse_set() can now return -EINVAL (sub-second
->   increment computed as 0) or -ETIMEDOUT (TSADDREG poll timeout in=E2=80=
-=A6
-> - [Low] The new rollback in stmmac_update_subsecond_increment() (line
->   658) passes priv->default_addend to=E2=80=A6
->=20
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the devlink
->   'phc_coarse_adj' param (priv->tsfupdt_coarse) is not honoured when=E2=
-=80=A6
-> - [Medium] This problem wasn't introduced by this patch, but
->   stmmac_update_subsecond_increment() and the new=E2=80=A6
->=20
+On 2026-08-14 2:00 AM, Pinkesh Vaghela wrote:
+> From: Pritesh Patel <pritesh.patel@einfochips.com>
+> 
+> Add watchdog node for ESWIN EIC7700 SoC and enable them for HiFive
+> Premier P550 board
+> 
+> Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
+> Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+> ---
+>  .../dts/eswin/eic7700-hifive-premier-p550.dts | 16 ++++++++
+>  arch/riscv/boot/dts/eswin/eic7700.dtsi        | 40 +++++++++++++++++++
+>  2 files changed, 56 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+> index 5dddcf13fd25..103c3dab184f 100644
+> --- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+> +++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+> @@ -207,3 +207,19 @@ &uart2 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&uart2_pins>;
+>  };
+> +
+> +&wdt0 {
+> +	status = "okay";
+> +};
+> +
+> +&wdt1 {
+> +	status = "okay";
+> +};
+> +
+> +&wdt2 {
+> +	status = "okay";
+> +};
+> +
+> +&wdt3 {
+> +	status = "okay";
+> +};
 
-I will fix the issues reported by sashiko in v3.
+The watchdog timers have no dependency outside the SoC, so they can be enabled
+by default (omit the status property). There is no need to separately enable
+them for each board.
 
 Regards,
-Lorenzo
+Samuel
 
-> --
->=20
-> net: stmmac: propagate PTP addend and system time programming errors
->=20
-> This patch makes stmmac_update_subsecond_increment(),
-> stmmac_init_tstamp_counter() and stmmac_dl_ts_coarse_set() return the
-> errors from addend and system time programming instead of always
-> returning success. It also adds stmmac_restore_subsecond_increment() to
-> roll back the PTP configuration when programming fails.
->=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/driver=
-s/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index 1fb5f804ea234..fae2a90283ce4 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -601,31 +601,63 @@ static void stmmac_get_rx_hwtstamp(struct stmmac_=
-priv *priv, struct dma_desc *p,
-> >  	}
-> >  }
-> > =20
-> > -static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
-> > +static void stmmac_restore_subsecond_increment(struct stmmac_priv *pri=
-v,
-> > +					       u32 default_addend,
-> > +					       u32 systime_flags)
-> >  {
-> >  	bool xmac =3D dwmac_is_xmac(priv->plat->core_type);
-> >  	u32 sec_inc =3D 0;
-> > +
-> > +	stmmac_config_addend(priv, priv->ptpaddr, default_addend);
-> > +	stmmac_config_hw_tstamping(priv, priv->ptpaddr, systime_flags);
-> > +	stmmac_config_sub_second_increment(priv, priv->ptpaddr,
-> > +					   priv->plat->clk_ptp_rate,
-> > +					   xmac, &sec_inc);
-> > +	priv->default_addend =3D default_addend;
-> > +	priv->sub_second_inc =3D sec_inc;
-> > +}
->=20
-> [Severity: Medium]
-> Is it safe to call stmmac_config_addend() again here and ignore its
-> result?
->=20
-> When this rollback runs because config_addend() has just timed out in
-> stmmac_update_subsecond_increment(), PTP_TCR_TSADDREG may still be set.
-> One way to get there is a PTP ref clock domain that is not running,
-> since stmmac_setup_ptp() only warns when clk_prepare_enable() fails.
-> config_addend() then overwrites PTP_TAR and sets TSADDREG again while
-> the previous update is still pending:
->=20
-> stmmac_hwtstamp.c:config_addend() {
-> 	writel(addend, ioaddr + PTP_TAR);
-> 	/* issue command to update the addend value */
-> 	value =3D readl(ioaddr + PTP_TCR);
-> 	value |=3D PTP_TCR_TSADDREG;
-> 	writel(value, ioaddr + PTP_TCR);
-> 	...
-> }
->=20
-> The DWMAC programming model expects this bit to read 0 before it is set
-> again. The call also adds a second 100 ms readl_poll_timeout_atomic()
-> busy-wait, so the failing devlink path spins for about 200 ms.
->=20
-> If the pending update latches later, TAR could end up holding the old
-> value (or 0 on the first open after probe) rather than the one just
-> computed.
->=20
-> On the TSINIT timeout path in stmmac_init_tstamp_counter(), the TCR
-> read-modify-write in config_addend() also writes the still-pending
-> TSINIT bit back as 1, so the pending system time load is not cancelled.
->=20
-> In every case, the helper then sets priv->default_addend and
-> priv->sub_second_inc as if the old configuration had been restored in
-> hardware.
->=20
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but
-> stmmac_update_subsecond_increment() and this new helper program
-> PTP_TCR, PTP_SSIR and PTP_TAR, and update priv->default_addend and
-> priv->sub_second_inc, without holding priv->ptp_lock. Both run from the
-> devlink set path while the PHC is registered.
->=20
-> The PHC callbacks use that lock around the same registers:
->=20
-> stmmac_ptp.c:stmmac_adjust_freq() {
-> 	...
-> 	write_lock_irqsave(&priv->ptp_lock, flags);
-> 	stmmac_config_addend(priv, priv->ptpaddr, addend);
-> 	write_unlock_irqrestore(&priv->ptp_lock, flags);
-> 	...
-> }
->=20
-> stmmac_enable() also reads priv->sub_second_inc and
-> priv->systime_flags under ptp_lock for PEROUT.
->=20
-> Could a concurrent adjfine and phc_coarse_adj devlink set lose a TCR
-> mode change, or program a TAR derived from a stale default_addend? This
-> error path adds one more unlocked config_addend() plus
-> config_hw_tstamping() sequence.
->=20
-> > +
-> > +static int stmmac_update_subsecond_increment(struct stmmac_priv *priv,
-> > +					     u32 systime_flags)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	ret =3D stmmac_config_addend(priv, priv->ptpaddr, val);
-> > +	if (ret)
-> > +		goto error;
-> > +
-> > +	priv->sub_second_inc =3D sec_inc;
-> > +	priv->default_addend =3D val;
-> > +
-> > +	return 0;
-> > +error:
-> > +	/* Restore previous configuration */
-> > +	stmmac_restore_subsecond_increment(priv, priv->default_addend,
-> > +					   priv->systime_flags);
->=20
-> [Severity: Low]
-> Is priv->default_addend really the previous configuration here?
-> stmmac_adjust_freq() programs an adjusted addend into PTP_TAR but does
-> not update default_addend:
->=20
-> 	addend =3D adjust_by_scaled_ppm(priv->default_addend, scaled_ppm);
->=20
-> If a phc_coarse_adj devlink set fails (for example with sec_inc =3D=3D 0),
-> the rollback writes the nominal addend into PTP_TAR. That drops the
-> frequency correction the servo had applied, so a failed operation still
-> changes the PHC frequency, which the "Restore previous configuration"
-> comment doesn't reflect.
->=20
-> > +	return ret;
-> >  }
-> > =20
-> >  /**
-> > @@ -864,25 +896,37 @@ static int stmmac_hwtstamp_get(struct net_device =
-*dev,
-> >  static int stmmac_init_tstamp_counter(struct stmmac_priv *priv,
-> >  				      u32 systime_flags)
-> >  {
->=20
-> [ ... ]
->=20
-> >  	/* lower 32 bits of tv_sec are safe until y2106 */
-> > -	stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec, now.tv_nsec=
-);
-> > +	ret =3D stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec,
-> > +				  now.tv_nsec);
-> > +	if (ret)
-> > +		goto error;
->=20
-> [Severity: Medium]
-> The subject says addend and system time programming errors are now
-> propagated, but the PHC callbacks that call the same hooks still drop
-> the result:
->=20
-> stmmac_ptp.c:stmmac_set_time() {
-> 	...
-> 	write_lock_irqsave(&priv->ptp_lock, flags);
-> 	stmmac_init_systime(priv, priv->ptpaddr, ts->tv_sec, ts->tv_nsec);
-> 	write_unlock_irqrestore(&priv->ptp_lock, flags);
->=20
-> 	return 0;
-> }
->=20
-> stmmac_adjust_freq() also ignores the return of stmmac_config_addend()
-> and returns 0.
->=20
-> When the TSINIT or TSADDREG poll times out, clock_settime() or
-> clock_adjtime() from ptp4l or phc2sys still reports success. Should
-> settime64 and adjfine return the error too, since the ptp_clock_info
-> callbacks are allowed to fail?
->=20
-> > +
-> > +	priv->systime_flags =3D systime_flags;
->=20
-> [Severity: High]
-> This is a pre-existing issue, but this path is being reworked here:
-> stmmac_init_timestamping() always sets PTP_TCR_TSCFUPDT and ignores
-> priv->tsfupdt_coarse:
->=20
-> 	ret =3D stmmac_init_tstamp_counter(priv, STMMAC_HWTS_ACTIVE |
-> 					       PTP_TCR_TSCFUPDT);
->=20
-> Suppose phc_coarse_adj is set to true and then the interface goes down
-> and up (or through suspend/resume). config_sub_second_increment() then
-> programs the fine mode SSINC (2e9 / clk_ptp_rate) and the ~2^31 addend.
-> priv->tsfupdt_coarse stays true, so stmmac_dl_ts_coarse_get() still
-> reports coarse mode.
->=20
-> The next SIOCSHWTSTAMP clears TSCFUPDT in stmmac_hwtstamp_set():
->=20
-> 	priv->systime_flags =3D STMMAC_HWTS_ACTIVE;
-> 	if (!priv->tsfupdt_coarse)
-> 		priv->systime_flags |=3D PTP_TCR_TSCFUPDT;
->=20
-> It then only calls stmmac_config_hw_tstamping(), and SSIR and TAR are
-> not reprogrammed.
->=20
-> Does that leave the hardware in coarse mode, adding twice the clock
-> period on every cycle, so the PHC runs about twice as fast?
->=20
-> > =20
-> >  	return 0;
-> > +error:
-> > +	/* Restore previous configuration */
-> > +	stmmac_restore_subsecond_increment(priv, default_addend,
-> > +					   priv->systime_flags);
-> > +
-> > +	return ret;
-> >  }
->=20
-> [Severity: Medium]
-> Can this failure path leave timestamping enabled with stale state?
->=20
-> stmmac_hwtstamp_set() sets priv->hwts_rx_en, priv->hwts_tx_en,
-> priv->tstamp_config and a priv->systime_flags value that includes TSENA
-> and the RX filter bits. None of these is cleared on close or suspend.
->=20
-> On a later open or resume, if stmmac_init_tstamp_counter() fails, this
-> rollback writes the old priv->systime_flags, filter bits included, back
-> into PTP_TCR. The rollback in stmmac_update_subsecond_increment() does
-> the same. stmmac_init_timestamping() then returns early:
->=20
-> 	if (ret) {
-> 		netdev_warn(priv->dev, "PTP init failed\n");
-> 		return ret;
-> 	}
->=20
-> and never reaches:
->=20
-> 	memset(&priv->tstamp_config, 0, sizeof(priv->tstamp_config));
-> 	priv->hwts_tx_en =3D 0;
-> 	priv->hwts_rx_en =3D 0;
->=20
-> TX timestamp requests and RX timestamp delivery in
-> stmmac_get_rx_hwtstamp() would then keep running on a counter whose
-> init just failed, and stmmac_hwtstamp_get() reports the stale config.
->=20
-> Before this patch, these paths always reached the reset, and TCR was
-> left at STMMAC_HWTS_ACTIVE | PTP_TCR_TSCFUPDT with no filters.
->=20
-> [Severity: High]
-> The error now reaches stmmac_init_timestamping(), but do any callers
-> act on it?
->=20
-> stmmac_resume() ignores the result:
->=20
-> 	stmmac_init_timestamping(priv);
->=20
-> 	stmmac_init_coalesce(priv);
->=20
-> After the MAC reset in stmmac_hw_setup(), a TSADDREG or TSINIT timeout
-> here leaves the PHC registered at open still in place. gettime64,
-> adjfine, settime64 and tc_taprio_configure(), which calls gettime64 for
-> the EST base time, keep using a counter that was never re-initialized.
->=20
-> On open, stmmac_setup_ptp() only skips registration:
->=20
-> 	if (stmmac_init_timestamping(priv) =3D=3D 0)
-> 		stmmac_ptp_register(priv);
->=20
-> The interface still comes up. stmmac_hwtstamp_set() only checks the
-> timestamp capability bits and netif_running(), so SIOCSHWTSTAMP can
-> still turn on packet timestamping with the uninitialized counter and
-> return 0.
->=20
-> The commit message describes the problem as the driver that "keeps
-> operating as if timestamping were up" and names TAPRIO/EST. On the
-> resume path, the only visible change seems to be the "PTP init failed"
-> warning. Isn't that still the situation this patch is meant to fix?
->=20
-> > =20
-> >  /**
-> > @@ -7693,18 +7737,23 @@ static int stmmac_dl_ts_coarse_set(struct devli=
-nk *dl, u32 id,
-> >  {
-> >  	struct stmmac_devlink_priv *dl_priv =3D devlink_priv(dl);
-> >  	struct stmmac_priv *priv =3D dl_priv->stmmac_priv;
-> > +	u32 systime_flags =3D priv->systime_flags;
-> > +	int ret;
->=20
-> [ ... ]
->=20
-> > -	stmmac_update_subsecond_increment(priv);
-> > +	ret =3D stmmac_update_subsecond_increment(priv, systime_flags);
-> > +	if (ret)
-> > +		return ret;
->=20
-> [Severity: Low]
-> This now returns -EINVAL or -ETIMEDOUT to devlink without filling in
-> the extack it receives. Would an NL_SET_ERR_MSG_MOD() help user space
-> understand why setting phc_coarse_adj failed?
->=20
-> > +
-> > +	priv->tsfupdt_coarse =3D ctx->val.vbool;
-> > +	priv->systime_flags =3D systime_flags;
->=20
-> [Severity: Medium]
-> Does moving these assignments after the hardware programming widen a
-> race with stmmac_hwtstamp_set()? The devlink set callback runs under
-> the devlink instance lock and stmmac_hwtstamp_set() runs under RTNL, so
-> the two paths share no lock.
->=20
-> CPU0 (devlink, vbool =3D true)
-> stmmac_dl_ts_coarse_set()
->   systime_flags =3D priv->systime_flags, TSCFUPDT cleared
->   stmmac_update_subsecond_increment()
->     writes TCR in coarse mode and the coarse SSIR
->     config_addend() polls TSADDREG for up to 100 ms
->=20
-> CPU1 (SIOCSHWTSTAMP)
-> stmmac_hwtstamp_set()
->   reads priv->tsfupdt_coarse =3D=3D false
->   priv->systime_flags =3D ACTIVE | TSCFUPDT | filters
->   writes TCR back to fine mode
->=20
-> CPU0
->   priv->tsfupdt_coarse =3D true
->   priv->systime_flags =3D stale copy, no TSCFUPDT and no filters
->=20
-> The hardware ends up in fine mode with the coarse SSIR and addend, so
-> the PHC runs at the wrong rate. priv->systime_flags then matches neither
-> the hardware nor the hwtstamp request, and it is used later by flex PPS
-> in stmmac_enable() and by the new restore paths.
->=20
-> The old code set tsfupdt_coarse before the MMIO programming, so the
-> window was only a few instructions. Here it covers the whole
-> programming sequence, including the poll.
->=20
-> > =20
-> >  	return 0;
-> >  }
->=20
-> --=20
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260924-stmmac-ptp-added-systime-error-v2-1-beb2a6b5f866%40oss.qualcom=
-m.com
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> index c13432d14504..f873e9eeb929 100644
+> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> @@ -265,6 +265,46 @@ syscon: syscon@50440000 {
+>  			};
+>  		};
+>  
+> +		wdt0: watchdog@50800000 {
+> +			compatible = "snps,dw-wdt";
+> +			reg = <0x0 0x50800000 0x0 0x4000>;
+> +			interrupts = <87>;
+> +			clocks = <&clk EIC7700_CLK_GATE_LSP_WDT0_PCLK>;
+> +			clock-names = "tclk";
+> +			resets = <&reset EIC7700_RESET_WDT0>;
+> +			status = "disabled";
+> +		};
+> +
+> +		wdt1: watchdog@50804000 {
+> +			compatible = "snps,dw-wdt";
+> +			reg = <0x0 0x50804000 0x0 0x4000>;
+> +			interrupts = <88>;
+> +			clocks = <&clk EIC7700_CLK_GATE_LSP_WDT1_PCLK>;
+> +			clock-names = "tclk";
+> +			resets = <&reset EIC7700_RESET_WDT1>;
+> +			status = "disabled";
+> +		};
+> +
+> +		wdt2: watchdog@50808000 {
+> +			compatible = "snps,dw-wdt";
+> +			reg = <0x0 0x50808000 0x0 0x4000>;
+> +			interrupts = <89>;
+> +			clocks = <&clk EIC7700_CLK_GATE_LSP_WDT2_PCLK>;
+> +			clock-names = "tclk";
+> +			resets = <&reset EIC7700_RESET_WDT2>;
+> +			status = "disabled";
+> +		};
+> +
+> +		wdt3: watchdog@5080c000 {
+> +			compatible = "snps,dw-wdt";
+> +			reg = <0x0 0x5080c000 0x0 0x4000>;
+> +			interrupts = <90>;
+> +			clocks = <&clk EIC7700_CLK_GATE_LSP_WDT3_PCLK>;
+> +			clock-names = "tclk";
+> +			resets = <&reset EIC7700_RESET_WDT3>;
+> +			status = "disabled";
+> +		};
+> +
+>  		uart0: serial@50900000 {
+>  			compatible = "snps,dw-apb-uart";
+>  			reg = <0x0 0x50900000 0x0 0x10000>;
 
---aVQ8ZswR1ZqLphIm
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaru5KAAKCRA6cBh0uS2t
-rP53AQDlqQsb9Nw3V9lI5TNUSFSF54usPiT/0grzpx6PlOWmbgD/SP6S7pnXE11A
-Lhyu6Hvg3EIdyDsitgRQa1/HEDiXkQE=
-=en7k
------END PGP SIGNATURE-----
-
---aVQ8ZswR1ZqLphIm--
