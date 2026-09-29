@@ -1,189 +1,176 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013003.outbound.protection.outlook.com [40.107.159.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C335304DF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692664; cv=none; b=iHBe+XKHRC9tuwbszGntCXIb/RAUcewMFeQGEnxuJiLzz8f6NGKG9SzVvlbDJv1qEkKmwIgEDM/KsFORfy/KnvbKvoPmbvVdl3mQeS4Xhq5Oya1uXBhHBsgosk7Ev+Fgoo63HZpvVGjSI06PHDWSSU9NL4aZdY6dpV6zeuycCkY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692664; c=relaxed/simple;
-	bh=d27ZelXQKR/wSde/tghjrO0nUulIuc70YQmNVyALwQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CH4O5KQ+4AbEGu7ccH8NoYkeeSEC8qKJSZ8odFB9g4BO08qFOcmmNsepKPPDys2DM5ksjYsYiIo5iRmjtDCp5mQO7LGvPUvGNz9bGsTQAjGvfhIGNt3uNnFGrYPKoDU4DmqlMkD098LuctcJsuBKbri/YoPldqkNmt1J/CY7R8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFh2KhFB; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8FA5172CC;
+	Tue, 29 Sep 2026 14:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790692711; cv=fail; b=T4gibt6J864sAYfgwYg0H2jIiyn0hDapsVEUY+H5DenHVIJNAtZbGJEgocSfuuwb8EjY5G/5fAkoy+II0jkoiLPKJnYqke5bb+wPhu+7NbQS0cVWimUodFdQ6WnRk3MoyYxkWIf7S7axx/yitUROT2yT6whdF7A9FbXd8c2Ptug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790692711; c=relaxed/simple;
+	bh=aPM+7bH1R1EdFGJrUqsG7FjuZ/mdNIePeSpF2/VJ8Lo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=W/qh7/PK20Ma91Ef38XIEITz06JEj1dQqdHJ51bz76ewJaUarZBFq+XY3MEamHYbjSZN13ry6gO6WI20OISvo9aamg6F458seP2JKKK4bSdUscBbuDoOhzqhgkpZpIBAsZhvFZp8ZtYV2ja4u3PCt5JlzXZmWBn8bhllm1dVn98=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=H8qRRb4k; arc=fail smtp.client-ip=40.107.159.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFh2KhFB"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4888129c46eso2429584f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:37:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790692657; x=1791297457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pmNAjK5szAdBHkEVJ9XXUgS7YROss1M18tgbGJczwlc=;
-        b=sFh2KhFBSYP0nrtK6uSmTpyUmoWqNOUT2E3ugg8Gf2pyCOfPIWBylWhOBwcLbe/n4R
-         kvLJIuVaIJG6InvFPZEKw31UfqFNMKOtnIzprFeARbxyMDfiYbZBrKLrEQVUpRYdwpdP
-         WCMG+YB3G6CUH++J3LdIvJJVrnPoavOOrv2Zf8BmZOWK0jSGHto4lZL5nRE6CIY6C2oU
-         IK7/0CSsrT/Sn1kNwprHg+8rIEvOvvO9zIzy0o9CLV8b7GAvLcVi25/Qd7g7G6kLsw6G
-         ZgccQdrsopQTbBsLFlOMY3vpOZXCXDrz9fqXEt8Qahd37CKxGYAe6KdyAfYJ9NwgSCiN
-         qa7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790692657; x=1791297457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pmNAjK5szAdBHkEVJ9XXUgS7YROss1M18tgbGJczwlc=;
-        b=IlgVsTTi6kLuXYD9I+Jf5cEmy9P4SjOcHQ3anZslTUrLWdqN+IpmnRnCzZzDtOPcbU
-         qmVxZz3A6rqgUas+KzWBXCh599v3c2PdjHQxXZP5wLvNrxppCKeUau2plqdcs4NoHbvQ
-         IyQ/PZTpijfKskMoQYEyodQsui6uBvMVahrsCYbAFu49hFQSy0b1triGI9kUwwCfSb4R
-         UpPhmO8mW//GOzbufze90/EAEmEjZTn39i18cUaHjhQud2WYVwcK+8tusQVdo89T9sRB
-         wjZfTrwBEd1WmC1IlbogpufmHzYLDgHYDUYB4Iz1Ot7n4ZOcBT+dvXUP3aXNcIOh6ofS
-         MAFA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/LAvczYN+jzoCE2GT7RsYOmJLaENQlQFZElnNnxdP3cnufyqwb5L4+R8mjBpE5UajUIXT4+HNx0QLEFI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+q9qbSMcG7ICh18IlGuzqfVEoZrkl3wfwB9koCGEaaUxOGQPp
-	IjZ9aLwvdOmHLOsfkzN5ySw+/V8gFxJb3ph1zlN5aePGBEtvAWKwNWKa
-X-Gm-Gg: AYBFou15JQaVuyk46ZwXZcUKkWdLtuhyUf0jBPzw8plMlYULOWOHj/1xGlEbfZVnV9N
-	dg7K3EW5NOLsmD1o/t2fZxCQms/T7TgroyMIdWl5PWWOvW7qSSyffDDOZDjJ3yjp0uRZcNOpFDW
-	8/RqeNhvxiLMa1dvw5IPFz2Vo19Up4TgqO4QRhAL53bjH/TrJcRaxYXTfAD+r3FZuzt+dIs+Ypf
-	DORs8ZCFt1Yt3CPb3LcArX+GPtjH031KpdG+JFYMKVc1De3Fmoi5QJ2eP0bL/YaqXsTsssc0LNY
-	cOKU176LBWDA9uZtABYZoqsDBFJhuUi+EV1U7rF848M9fjkkNvHG7y8arXZrVn7ck4HnA3oWjBM
-	hJdRUaa+qRXIHgcKb3A9XFOX3Kgs9pxR/lcOyW+jzdYzfIfBdAOin/7UvEZn3ui01RhfrdP1GP7
-	34jE6W1287k1EmKix3CVZxf2xQVVU8vnQ8fhSIie3LjZvZfSQlX8+VwHfxEwqbUAbc/PzKgL4wB
-	GGKpAwYnuL70ttfqXKBJqyMBnDWfxlMDfaDX5BOQtG/TE0E3GNh3rtXFus=
-X-Received: by 2002:a05:600c:19d3:b0:49e:6777:da79 with SMTP id 5b1f17b1804b1-49fe66fb4a7mr278687585e9.26.1790692656888;
-        Tue, 29 Sep 2026 07:37:36 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8f93csm89716995e9.5.2026.09.29.07.37.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:37:36 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sarang Sapre <sarang.sapre@intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] media: ipu6: Fix firmware config leak on stream start
-Date: Tue, 29 Sep 2026 15:37:30 +0100
-Message-ID: <20260929143731.43358-3-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929143731.43358-1-devnexen@gmail.com>
-References: <20260929143731.43358-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="H8qRRb4k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WhXya2emNZMVjqKQfZbnZ6qFKZ+dZ7BcjuLTvq4YxusQJWC+oO4DqGhvWFqHu+lc5Qknwdkn59wT9hAZqP0t2XsVGWXWnF9gRR46aNbkpS9IfVAXm8RW21g09/7MPyaepeO5h7Z0Zx3zLz6rI1z6YxTo0ksS4VV01mXoNAwhScWrBSjANyCMkDkCtba8pC4mIPAS/c0ncgYCQPPfyFPUGX9zQNXtaENlL+hqnPEi9GQd8FKmzJRtLg2YY38nsCbN4ZWFvqH4pHyThYrT6Q/1kiJ4hp2Un8jELcgvz7jRyZMQJpQtkmnot851y/3VBYHBg/K16sXq3CcDqYw/mILaKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hp+IRLWCM5hlZrQZwlm0ehr7Zc/WhYNBQ10bt0bMHs0=;
+ b=Kgky/dG0Jz9XnrCvDojJC5YppUjsR0En8rgkVBPHMnr/T19lZ6c/FgJFPuJ3xdfxhLn8rkkOUyPmVaftfudgEcHju8gE2ePASi1amIywlPpto+Q/Xsri8Ex2xRqmlcflnTFHdR9N79lS6g6R55P/9i4550wzehWXNLjvWm3KAjBSx1RHYvP4pOR6cNBjtB2JpEPDOPP51iis0wUnf/4o4l56Et0Z8ENbS5u94wkwrRErUNFMLsNEJIvwJM8DZdgsBfdxeDH0v0TROqgzJu/jH1Id2eHCdyJg45NMB26Bc/Atd5xvlx1WZx9uhnepKpHry6aPhuurFLmsyh5EZkzoLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hp+IRLWCM5hlZrQZwlm0ehr7Zc/WhYNBQ10bt0bMHs0=;
+ b=H8qRRb4k0EqZkHA0m3QQ2dIfInoz3tOwO9ydAaZaN27YbREKltoOAO3y9BxF5sYUDjJozJHRW9IlXmsIhG1u0QjPKbNDjEi40OHVJsX4NrDcRffBuAKPnejadB0FwjPh4Aqi1b7h7siuywqwMEtS9B56q65lngbk0PmpAR+EFsYCdcM6uGIGI7dujTh7i6wUP27jWa/XKcDYh+JhbKdQQw5qIP8bHqHkVIvlTtDhgBnBPPmcGi2n/4/6HuMKpI56EMXBE/P6Rl/hntrWN/ZG/rDQQBtWeUH9Sa9y31DdPiEs9ADU2kJZqEhEDXlIHLlP+8oQmRPh96KSg9wiPkaVMg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8066.eurprd04.prod.outlook.com (2603:10a6:20b:3eb::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 14:38:23 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 14:38:23 +0000
+Date: Tue, 29 Sep 2026 09:38:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ming Qian <ming.qian@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Ming Qian <ming.qian@nxp.com>, Zhou Peng <eagle.zhou@nxp.com>,
+	Elliot Chen <elliot.chen@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	linux-imx@nxp.com, imx@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: amphion: Add V4L2_FMT_FLAG_DYN_RESOLUTION for
+ VC1L
+Message-ID: <arvNVv4nyXoB8iC9@SMW015318>
+References: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
+X-ClientProxiedBy: CY8PR11CA0041.namprd11.prod.outlook.com
+ (2603:10b6:930:4a::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8066:EE_
+X-MS-Office365-Filtering-Correlation-Id: d181d1e3-3d5e-4768-9b87-08df1e37507b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|19092799006|18002099003|22082099003|3023799007|10067099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	5sRX/O246OFPfjffP8RmGdYMac+ojjLBF/xSBYKN3F3AGzWYSNi3wz7dT896cUjyLRq6oPZev//oZdOHHkuTziZbcdNXY9iIGU3GjQsWw73dKtb4mNEhZ6hX66A5zvz09u1atTI7FC0NAGPRyOma4+Dp1BQb8yjGTBvTu6kPyX7lITXIZEajH87Vqgd/r/3S6lDzcRTNWBUyKTmSydRLe+of5clxyEqopYDX9r0/aERlodJ7lghCnk57LH5MLbQHyZN7zweNapdD+G1A3HXDswLaDtBiF3plbQylKBnoFJ8ZHJPl7QfKNKhePeuOkG7BCpPXypUqPhX2yODEswE8Yec2dhpw/KrbGVjFyxCbV/90kbEAjP+3E6YTAMo3Q5gatFwSi1s80Ie+pnJ4G90q9l68V/jvgJqjjjWNyGXcAP4386KMLWnPhQyPIrkdTbNYZrhzp7nAayVoW6AMkvOvPBANqcNjV/QrvteQoUHUvtr/sm2TL9dH40U4xbS0Pwvbdo26O0QNpi1xNF8DSV/f9momV1AZeaTkPzb3+7Aa5E8tzLxvZjoR95YPZhA00SkIwEsqQNshZDoDbozQqcGJBQ/iaqEF/Zi9OiVPKQ/fi9xGp/7aST5CdKUB41XmWT3P
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(19092799006)(18002099003)(22082099003)(3023799007)(10067099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uYYl82cHYuruUe2e+Ceo1S7g+R1LD+BH68R2TW8zR3iErVfzlemvOWi4H/84?=
+ =?us-ascii?Q?1aZIBZ6oUrWb2YzDQhNJiQqiGJxm7hqaOttEn9JLsy3znGnUU4OnITI8d8Y+?=
+ =?us-ascii?Q?iNQj7RyeIVoqL6lhWO49vqBKXL6DZ33Jz2V4d0C6CDs4n8ClD7QrRFdLeXXi?=
+ =?us-ascii?Q?L7S7xcvsGl/M+kTdZ1anhe7j8V49iqT2OYNG582Pjec1vBQjDlJZuuuja4kY?=
+ =?us-ascii?Q?7RlMkHBtGnpyHPcXfVjIIPk3Ot9Zri2GVch8Zzqi0Ks45acSQQgXq+bk7KGr?=
+ =?us-ascii?Q?AemoR3ry+Ssuz2YTOvWHWR/7ZwJKHtxiwnwvW3wyrTpGkgt+izeJUVd4KFIh?=
+ =?us-ascii?Q?PZOXzuPZPQKDrIQzKCl9+gK82vvS5gK+ySaC4sxnkJso/AYnTtJ7epwLizvu?=
+ =?us-ascii?Q?N6xGK+Zft4n3Ft/JCuRwTh03qBtFCAB//WmZgMNkIN+XZj0TqPX93MYkScfF?=
+ =?us-ascii?Q?NS6tRcIGNOyFvhbpCCBhyopFC7PeqjVL9j6tfAMrO2lu1BpTqGFl6ENy+K7I?=
+ =?us-ascii?Q?auvg0tEW4EpZtP5QMdrTz4fgZlnFyYkxfjnyHaGljmmSblU5KF3KeXGJU3gJ?=
+ =?us-ascii?Q?myEJmqNfUkJPD2L7Y0zApmhpWWMwdXkLBMKhD4NbgyIucDyHnX/osJjxusip?=
+ =?us-ascii?Q?hOI4QCe4Tf77sCu+Qrrw9291sPMIykokv4qqZYYZ5lj6JezyL4OA98DVsAEO?=
+ =?us-ascii?Q?0K5ugszphtHcGAXHiBnmGWnaIOONPQ2vKRGcmRz2cdDjEMNb0zLX8CdPmVH/?=
+ =?us-ascii?Q?0AEN5i0qirSvKlVN+uFVFRLPhPNzn4F2KzyL5Dbp9q3aYLSs9KGsvhYmFF/7?=
+ =?us-ascii?Q?0WYjbd8cHQ+epP98AYTlLSU5H6LJjpVVZm76ZsNN7I3mLR5kfjFkBLE+GZii?=
+ =?us-ascii?Q?ItZbIxmk8KGkNptXC++4SHxrFoaoNpjupJMNHYf68FZ6FmFQ2JP1FpzKbnWg?=
+ =?us-ascii?Q?LaG82ADjk8OTxeSQus2zVIpLiVvVI1TXl/JkfyB72SDYIc7mR69x0hNvq7gW?=
+ =?us-ascii?Q?TjPN8d9HTTY09DDYZNy/LVOV/fkZV8Zp6/kf9y6ho9dF43kF0yq3LCuBOcCk?=
+ =?us-ascii?Q?zxSM5FJe+sBjEQGLFmcHbtmSg5Cc4HF7kJwTAnUuFgsVHEydvms+pqdIe7lc?=
+ =?us-ascii?Q?/JM0m/uW5qnsMaedacUosmiUwWutATUuncYlEQ24IPe1mULUI32KOZhhcT2Z?=
+ =?us-ascii?Q?WufOF51HJMe4SSVXTXBvO2OfVq6jffRJvsirV1mjhC11ZuBls1gSFtxFicnX?=
+ =?us-ascii?Q?cvIuU/D7wReo+hafOBvrG/R8kEbUcEN4qPgp7AtrP1qSkgKJUtRICbLL8Rsj?=
+ =?us-ascii?Q?T2iBLmeL6LbN+BEqcszziSwV2d3Y+V+rF+huHubaiDUmY8BiIpvPV9Wz9yw3?=
+ =?us-ascii?Q?cQNmA82Ky8Cil2VZel4YBhsKlNJEcW0ZwGBuSlivEXn8zUTHKvWPHE92/ap4?=
+ =?us-ascii?Q?g1062zeLvKXzzV0Il4CNa5djNSiCB1sysX18t7nj/Lo/fMiap7aqq5rM/lPP?=
+ =?us-ascii?Q?/CkdPEH5AQtvkK3r4YkTO54wq3Ml74fLQmuqPOb3M1TVdltHKFTSYTlHyUPJ?=
+ =?us-ascii?Q?9w96/ZMz8qhY/AB4N5j/7GayRtRQEyULqorKZZMxMO8NDbAcwZjr6fgu+nDF?=
+ =?us-ascii?Q?zB8eoKy/GpBeJEgrAd+hzp4wlLLt3Bv/+Xv+Aj+9EAYpEkefMRm8gMNW2chB?=
+ =?us-ascii?Q?wJSViZw2ULorYpOJ9AhCb3uPg3lVwcW/2nbKAj/qD5GbNr7B8bfCASzqAe/a?=
+ =?us-ascii?Q?iQMnj1lV50SZR4kyNoB0ABuXv4paGalpapaqTnbFBRvWQeRh8nny?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d181d1e3-3d5e-4768-9b87-08df1e37507b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:38:23.5689
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G8AjDCGhoLkt5FQnU67b7rUbQUx6trzY6jCywHrqo7Eyi05dhKtcKNCmTPq9Dpsx6PDOTw8gIJwiEXkxamyfDMZwQ6351x4bkr1FlZIAyKGReOKkLFiBWMgEww3aWnAR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8066
 
-ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
-the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
-cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
-copied them, so free them right after. Also check the return value, an
-allocation failure would otherwise make ipu6_fw_com_prepare() dereference
-a NULL queue config.
+On Tue, Sep 29, 2026 at 04:30:28PM +0900, Ming Qian wrote:
+> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
+> event after parsing the resolution from the stream header for VC1 Annex
+> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
+> GStreamer) cannot determine that the driver will signal the initial
+> resolution, causing it to skip waiting for the event and fail to set up
+> the CAPTURE queue properly.
+>
+> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
+> indicate that the decoder will emit the source change event during
+> initialization, consistent with other coded formats supported by this
+> driver.
+>
+> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence startcode for vc1l format")
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
 
-Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 34 +++++++++++++++------
- 1 file changed, 24 insertions(+), 10 deletions(-)
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index 3cad7d8f9ca9..22452f3916ba 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -212,7 +212,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
- 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
- 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
--	struct device *dev = &isys->adev->auxdev.dev;
- 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
- 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
- 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
-@@ -222,7 +221,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
- 	u32 num_in_message_queues;
- 	unsigned int max_streams;
--	unsigned int size;
- 	unsigned int i;
- 
- 	max_streams = isys->pdata->ipdata->max_streams;
-@@ -230,7 +228,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
- 	max_devq_size = isys->pdata->ipdata->max_devq_size;
- 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
--	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
-+	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
- 	if (!isys_fw_cfg)
- 		return -ENOMEM;
- 
-@@ -242,15 +240,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
- 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
- 
--	size = sizeof(*input_queue_cfg) * max_send_queues;
--	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
- 	if (!input_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_fw_cfg;
- 
--	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
--	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
-+					IPU6_N_MAX_RECV_QUEUES);
- 	if (!output_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_input_queue_cfg;
- 
- 	fwcom_cfg->input = input_queue_cfg;
- 	fwcom_cfg->output = output_queue_cfg;
-@@ -315,6 +312,20 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
- 
- 	return 0;
-+
-+err_free_input_queue_cfg:
-+	kfree(input_queue_cfg);
-+err_free_fw_cfg:
-+	kfree(isys_fw_cfg);
-+
-+	return -ENOMEM;
-+}
-+
-+static void ipu6_isys_fwcom_cfg_free(struct ipu6_fw_com_cfg *fwcom_cfg)
-+{
-+	kfree(fwcom_cfg->specific_addr);
-+	kfree(fwcom_cfg->output);
-+	kfree(fwcom_cfg->input);
- }
- 
- static int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
-@@ -328,10 +339,13 @@ static int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	};
- 	int ret;
- 
--	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	if (ret)
-+		return ret;
- 
- 	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
- 					  isys->pdata->base);
-+	ipu6_isys_fwcom_cfg_free(&fwcom_cfg);
- 	if (!isys->fwctx) {
- 		dev_err(dev, "isys fw com prepare failed\n");
- 		return -EIO;
--- 
-2.55.0
-
+> ---
+> Changes in v2:
+> - Drop the documentation patch. Nicolas pointed out that
+>   V4L2_FMT_FLAG_DYN_RESOLUTION postdates the stateful decoder spec, so any
+>   driver setting it is already required to follow that spec. The
+>   non-compliant drivers (coda, s5p-mfc) are pre-spec history and not worth
+>   bending the spec text around.
+> - Drop the RFC prefix, as requested by Nicolas.
+> - Link to v1: https://patch.msgid.link/20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com
+> ---
+>  drivers/media/platform/amphion/vdec.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platform/amphion/vdec.c
+> index a9f0521f2e1a..75808482d090 100644
+> --- a/drivers/media/platform/amphion/vdec.c
+> +++ b/drivers/media/platform/amphion/vdec.c
+> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] = {
+>  		.mem_planes = 1,
+>  		.comp_planes = 1,
+>  		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+> -		.flags = V4L2_FMT_FLAG_COMPRESSED
+> +		.flags = V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
+>  	},
+>  	{
+>  		.pixfmt = V4L2_PIX_FMT_MPEG2,
+>
+> ---
+> base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+> change-id: 20260608-flag-dyn-resolution-f39fd24a0ba2
+>
+>
