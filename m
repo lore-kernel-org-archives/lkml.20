@@ -1,206 +1,251 @@
-Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8706B4FDA71
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686625; cv=none; b=F6pgjwjtVVv2wKFVkrAOjf24cGlb1RFNG0mkBonIo1VXwXAuIUEbOrVCJE4ebkSZtVdSS+UosfuyQlBZDKN2MtMgw1Hd+TLWqv1uZksKggp7Q7FgcES/A3iYeDE1GEMpz8KWmqKLaHl5rLo8aW7PRYnpP82FfsV7KFcFebd4bKU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686625; c=relaxed/simple;
-	bh=IT8gVRGXya2e+TKe/9MJqHZqpuYRMfUDKEqSHRLf71A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
-	 References:In-Reply-To; b=nb0D5F47erbzq8cxssQlRKbvPyGMTrj4DSmqjiCiN2i7QpYMq2Zoki4ZYS2k4R/VuMmG+szSu/U7DBaKeqWyWzVHgwqJGQCYW74Dz28a3Fvpxdz7fShiaXChTCPRvRpv4OnNl12s9BZs9VfZTUckwehi9YXGhiwJE4rVEBVCsNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=walle.cc; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
-Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 3B51B72;
-	Tue, 29 Sep 2026 14:56:54 +0200 (CEST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2E45218A0;
+	Tue, 29 Sep 2026 12:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790686628; cv=pass; b=F5PiUorBFcjQ8tc/Yt+G1OGVNviR7dkd2VniJ3YJqGN5vYOOhHGKrrHHjuA7JWhDak+9m37+DyXWDhSeCrQzaI978Pqkg0P+/ojZte7ZD/G05oXhcdo0gJaApq6UgXKeZ4G0wsjUCHbGjYzaBqP2MXQI3+N6o+ghoMCd4wYUyqc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790686628; c=relaxed/simple;
+	bh=YT06j9/V28dQXmdEuPafK8KsgPylDSS5+L3CsxadAX8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BVgu82zlWggFVJ8KLdVWBcWLn1MdIjNfXjvV7QfUemcLqzderBztYVrYqHv29XOsMjEzNUCRQLPhMGOyZG4+WkMMwoujqo8qgD/Zinxgyt6TOT6j1loDJfFJaAsIVTFFRxlAXkA9M29gZq9Ry4d60d1NT6wmYSVxnNECrcG6HcM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=RgJwRajf; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="RgJwRajf"
+ARC-Seal: i=1; a=rsa-sha256; t=1790686616; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Rt7F9cTQIqsjz0/NLpXxFU/ERhBy0Wq5tUNyvR0qSmXf+sbVn5wEqTfdOoyD6Jvuug97tgA9DIwfcw0AfIBeIugiu3B4q0/tjOvQvVlmr6vS8YyidT61uSPlXVM37ukrwZtcT4nYfG7IyzPieKbU3fzueVl8v7pQ7sMCVQZuMcU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790686616; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dw2G6qHIZr2q4Bt6ggK8RCIkbrjHTRhw+FWlDVwXhMw=; 
+	b=Y4j6sHPHlglWJ/oKpZoONft9cPvUrJh3rTAi/SfU2Qm7gB6A0lMTFnKkdjT4yxVGi/ZBxO2xsrz73GvFnO9Dl/JMoIhTW+09rzQaNL1Xh7U3Eik+cDFALzkdDmPihi1AOheVFsV83L1pxX7TJNazG5D/XzgdAC8M/KTjv0ydZLk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790686616;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=dw2G6qHIZr2q4Bt6ggK8RCIkbrjHTRhw+FWlDVwXhMw=;
+	b=RgJwRajfRURzMAck6XuHxeKK9XLgC4qoJTbyTeubCqyQnoIui8KFgVN5y/kFby1D
+	8paaPKm9XKd4B+sSHGNLJ19lfeeKISnD2LpEnA1nD0fiFN1m6YSYKGKLsjl+X43NvgI
+	jn06RIF6os8JMUwmNNVbIqXVi+V/JjzsJJWffMo0=
+Received: by smtp.zohomail.com with SMTPS id 1790686613886757.8277621120569;
+	Tue, 29 Sep 2026 05:56:53 -0700 (PDT)
+Message-ID: <e0699ffb-5e73-4fd5-b3e2-79cc7c2d49aa@collabora.com>
+Date: Tue, 29 Sep 2026 14:56:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: rockchip: add radxa camera 4k on rock 4d
+To: Amin Gattout <amin.gattout@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 14:56:53 +0200
-Message-Id: <DLRTFDVTU3XS.2Z1O4PO8PBM1D@kernel.org>
-Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>, "Miquel Raynal"
- <miquel.raynal@bootlin.com>, "Richard Weinberger" <richard@nod.at>,
- "Vignesh Raghavendra" <vigneshr@ti.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Subject: Re: [PATCH v2 2/2] mtd: spi-nor: issi: Add support for is25wx01g
-X-Mailer: aerc 0.20.0
-References: <20260914-mtd-spi-nor-new-issi-chip-v2-0-3cd4d7e434b2@analog.com> <20260914-mtd-spi-nor-new-issi-chip-v2-2-3cd4d7e434b2@analog.com> <DLF3H41RCZJF.37WOY30CYJ4AY@kernel.org> <aqgRsP3cxzcLok5C@nsa> <DLGK0FH8L7PM.1JRX5777NZQQF@kernel.org> <aqpTO-5LTLtRXaY4@nsa> <DLIC1UB6I4TK.20EG74BVIVUGC@kernel.org> <arqBm7OpMHuVhzg0@nsa>
-In-Reply-To: <arqBm7OpMHuVhzg0@nsa>
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi,
+Hi Amin,
 
-On Mon Sep 28, 2026 at 5:03 PM CEST, Nuno S=C3=A1 wrote:
-> On Fri, Sep 18, 2026 at 11:25:54AM +0200, Michael Walle wrote:
->> On Wed Sep 16, 2026 at 10:44 AM CEST, Nuno S=C3=A1 wrote:
->> > On Wed, Sep 16, 2026 at 09:14:52AM +0200, Michael Walle wrote:
->> >> On Mon Sep 14, 2026 at 5:31 PM CEST, Nuno S=C3=A1 wrote:
->> >> > On Mon, Sep 14, 2026 at 04:04:40PM +0200, Michael Walle wrote:
->> >> >> On Mon Sep 14, 2026 at 3:42 PM CEST, Nuno S=C3=A1 wrote:
->> >> >> > (*): I should note that the command actually failed with -EIO bu=
-t it
->> >> >> > actually unlocked the chip! And the reason is because the flash =
-as the same
->> >> >> > FSR register than the micron-st flash. So WEL is set to 1 but ca=
-n only
->> >> >> > be cleared when clearing the FSR register.
->> >> >>=20
->> >> >> Why doesn't this affect only the locking operation? WEL polling is
->> >> >> used also during write and erase.
->> >>=20
->> >> Sorry I meant WIP.
->> >>=20
->> >> > Not sure if I fully understand. But AFAICT, the reason why erase an=
-d
->> >> > write is silent is because the default spi_nor_sr_ready() only look=
-s at
->> >> > SR_WIP [1]:
->> >>=20
->> >> So usually, the WEL is cleared automatically by whatever needs the
->> >> WEL in the first place, i.e. program or erase, write (status)
->> >> register. That should also be the case for this flash.
->> >>=20
->> >> Now for this flash (as well as the st/micron ones), there is one
->> >> peculiarity. Whenever there is an error bit set in the FSR, the WEL
->> >> cannot be cleared by a write disable command. Which we shouldn't
->> >> need anyway because it should be cleared automatically if nothing
->> >> goes wrong.
->> >>=20
->> >> Also the write status register won't set the error bits if i read
->> >> the datasheet correctly and it will always disable the WEL, see
->> >> Table 29 ("WRITE REGISTER Operations") in the MT35XU512ABA datasheet
->> >> and Table 8,8 ("WRITE REGISTER Operstaions") in the IS25WX01G
->> >> datasheet.
->> >>=20
->> >> > OTOH, on the unlock path we do spi_nor_write_sr1_and_sr2_and_check(=
-) and
->> >> > give no special handling to WEL so I imagine that we try to set it =
-as 0
->> >> > but read it as 1 (given that it clears only with FSR) and hence I g=
-ot
->> >> > the -EIO in [2].
->> >>=20
->> >> We do a RMW, so my guess is that it's the other way around. We read
->> >> it as 1, but then after writing the SR, it's 0 (see above). That
->> >> actually assumes, that if the WEL and any error bit in the FSR is
->> >> set, a write status register will clear the WEL anyways. Could you
->> >> debug that so we are sure, this is what actually happens?
->> >
->> > Sure I'll do some debugging on the unlock path. The DS seems a bit
->> > unclear. It also states (for the WRITE DISABLE)
->> >
->> > "...In case of a protection error, WRITE DISABLE will not
->> > clear the bit. Instead, a CLEAR FLAG STATUS REGISTER command must be i=
-ssued to
->> > clear both flags.
->> > "
->>=20
->> Not sure, this contradicts each other. As I read it:
->>=20
->>  - Write (status) register will always clear a WEL, the only open
->>    question is, does it also clear it if the protection bit in the
->>    FSR is set
->>  - Write disable won't clear the WEL if the protection bit in the
->>    FSR is set.
->>=20
->> > But the truth is that the second unlock I did came without an error.
->>=20
->> Which might indicate that a write status will clear the WEL anyway.
->> But then it might also be interesting to see if the PROT bit in FSR
->> is still set. IOW, if a new write enable is sent, a write disable
->> might fail even if there was no actual error.
->>=20
->> >
->> >>=20
->> >> But the question is who is setting the error bit in the first place.
->> >> And I guess it's the testing sequence for the locking when you try
->> >> to write to a locked range. So you could also actually test the
->> >> locking/unlocking without writing any data to the flash just to see
->> >> if that is the case.
->> >
->> > Pretty sure the above is the case! If you look at other tests after
->> >
->> > "Once we trust the debugfs output we can use it to test various
->> > situations. Check top locking/unlocking (end of the device):"
->> >
->> > Everything worked nicely given we were just doing lock/unlock. The DS =
-is
->> > also clear about this (table 8.11):
->> >
->> > "...When a command is applied to a protected sector, the command is no=
-t executed,
->> > the write enable latch bit remains set to 1, and flag status register =
-bits 1 and 4 are set.=20
->> > If the operation
->> > "
->>=20
->> Ok.
->>=20
->> > I also did tested with basically the same code as in micron-st and the=
-n
->> > ERASE and PROGRAM commands just return -EIO.
->>=20
->> But the unlocking does not return EIO anymore when it's executed
->> successfully?
->>=20
->> >> >> > AFAICT, we should do something similar as micron so the writing =
-to an
->> >> >> > actual protected region fails rather than being silently discard=
-ed with
->> >> >> > that status bit set. The question would be how to do it? The cod=
-e is
->> >> >> > pretty much identical to [1]. The masks, the opcoded... So shoul=
-d we
->> >> >> > somehow handle this in the core (by having some common helper) t=
-hat
->> >> >> > could be set in .late_init() under a common MFR_FSR flag? Or jus=
-t keep
->> >> >> > both implementations separate for now?
->> >> >>=20
->> >> >> I'd like to keep that out of the core.c, but also like to avoid an=
-y
->> >> >> code duplication esp. because there is already handling for the
->> >> >> intel spi controller in there. So maybe move it it into a new
->> >> >> common.c.
->> >> >
->> >> > Also don't like the dup tbh. Could that be a follow up or should it=
- be
->> >> > v3. From the top of my head I could think on a mfr_common.c kind of=
- thing.
->> >> > Don't thing this FSR register is standard?
->> >>=20
->> >> Not really.
->> >>=20
->> >> But (at least) parts of the datasheets are actually copied verbatim
->> >> between micron and issi, I wonder if we shouldn't just put the ISSI
->> >> part in micron-st.c. (Yes vendor will be wrong, but I plan on
->> >> deprecating that sysfs property anyway).
->> >
->> > Also works for me. Say the word and I can send v3 with this in
->> > micron-st.c.
->>=20
->> Yes. But also please verify the our guesses about the root cause of
->> this and what's the actual behavior of the write disable.
->
-> Pinging this one :). I sent the debugging results in another message.
+Thanks for the patch, LGTM!
 
-What is this one? I thought you'll send a v3 with the flash added to
-the micron-st.c? I presume the code for clearing the FSR in there is
-working for this flash, too.
+On 9/25/26 14:16, Amin Gattout wrote:
+> Add a device tree overlay for the Radxa Camera 4K (featuring the Sony
+> IMX415 image sensor) to be applied on the Radxa ROCK 4D camera
+> connector. The camera connects to CSI HOST1 through the MIPI D-PHY0
+> in full mode.
+> 
+> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 
--michael
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+
+Best regards,
+Michael
+
+> ---
+>  arch/arm64/boot/dts/rockchip/Makefile              |   5 +
+>  .../dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso   | 105 +++++++++++++++++++++
+>  2 files changed, 110 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> index e7936a21c118..82b2afd420d5 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -183,6 +183,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-nanopi-m5.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-nanopi-r76s.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-roc-pc.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-rock-4d.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-rock-4d-radxa-cam4k.dtbo
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3582-radxa-e52c.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-armsom-sige7.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-armsom-w3.dtb
+> @@ -311,6 +312,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-evb1-v10-pcie1.dtb
+>  rk3576-evb1-v10-pcie1-dtbs := rk3576-evb1-v10.dtb \
+>  	rk3576-evb1-v10-pcie1.dtbo
+>  
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3576-rock-4d-radxa-4k-cam.dtb
+> +rk3576-rock-4d-radxa-4k-cam-dtbs := rk3576-rock-4d.dtb \
+> +	rk3576-rock-4d-radxa-cam4k.dtbo
+> +
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6a-wifi.dtb
+>  rk3588-edgeble-neu6a-wifi-dtbs := rk3588-edgeble-neu6a-io.dtb \
+>  	rk3588-edgeble-neu6a-wifi.dtbo
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso
+> new file mode 100644
+> index 000000000000..613a3e351500
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso
+> @@ -0,0 +1,105 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Device tree overlay for the Radxa Camera 4K attached to the camera
+> + * connector of the Radxa ROCK 4D.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/clock/rockchip,rk3576-cru.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
+> +
+> +&{/} {
+> +	savdd_cam: regulator-savdd-cam {
+> +		compatible = "regulator-fixed";
+> +		enable-active-high;
+> +		gpio = <&gpio3 RK_PD0 GPIO_ACTIVE_HIGH>;
+> +		regulator-min-microvolt = <2900000>;
+> +		regulator-max-microvolt = <2900000>;
+> +		regulator-name = "savdd_cam";
+> +		vin-supply = <&vcc_3v3_s0>;
+> +	};
+> +
+> +	sdvdd_cam: regulator-sdvdd-cam {
+> +		compatible = "regulator-fixed";
+> +		regulator-min-microvolt = <1100000>;
+> +		regulator-max-microvolt = <1100000>;
+> +		regulator-name = "sdvdd_cam";
+> +		vin-supply = <&vcc_5v0_device>;
+> +	};
+> +
+> +	siovdd_cam: regulator-siovdd-cam {
+> +		compatible = "regulator-fixed";
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +		regulator-name = "siovdd_cam";
+> +		vin-supply = <&vcc_3v3_s0>;
+> +	};
+> +};
+> +
+> +&i2c5 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c5m3_xfer>;
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+> +
+> +	imx415: camera-sensor@1a {
+> +		compatible = "sony,imx415";
+> +		reg = <0x1a>;
+> +		assigned-clocks = <&cru CLK_MIPI_CAMERAOUT_M1>;
+> +		assigned-clock-rates = <37125000>;
+> +		avdd-supply = <&savdd_cam>;
+> +		clocks = <&cru CLK_MIPI_CAMERAOUT_M1>;
+> +		dvdd-supply = <&sdvdd_cam>;
+> +		orientation = <2>; /* External */
+> +		ovdd-supply = <&siovdd_cam>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&cam_rstn &cam_clk1m0_clk1>;
+> +		reset-gpios = <&gpio3 RK_PC7 GPIO_ACTIVE_LOW>;
+> +
+> +		port {
+> +			imx415_output: endpoint {
+> +				data-lanes = <1 2 3 4>;
+> +				link-frequencies = /bits/ 64 <445500000>;
+> +				remote-endpoint = <&csi1_input>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&pinctrl {
+> +	cam {
+> +		cam_rstn: cam-rstn-pinctrl {
+> +			rockchip,pins = <3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +};
+> +
+> +&csi1 {
+> +	status = "okay";
+> +};
+> +
+> +&csi1_in {
+> +	csi1_input: endpoint {
+> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +		data-lanes = <1 2 3 4>;
+> +		link-frequencies = /bits/ 64 <445500000>;
+> +		remote-endpoint = <&imx415_output>;
+> +	};
+> +};
+> +
+> +&csi_dphy0 {
+> +	status = "okay";
+> +};
+> +
+> +&vicap {
+> +	status = "okay";
+> +};
+> +
+> +&vicap_mmu {
+> +	status = "okay";
+> +};
+> 
+> ---
+> base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
+> change-id: 20260925-rock4d-cam4k-6e3521c61b55
+> prerequisite-change-id: 20260819-rk3576-dphy-2304f848215b:v2
+> prerequisite-patch-id: fbe2d84f88709b8bf846debe6b8ce62c4392ca63
+> prerequisite-patch-id: 9bce33933ae69e8cc7f7ef2f0d9acb969620bc85
+> prerequisite-patch-id: bff0c668524f94b0b7901c682d5ccdccfe18d46e
+> prerequisite-patch-id: 8f45701f840680a35e044f43ebd3087282847990
+> prerequisite-change-id: 20260825-csi-2-rcv-dts-7712bd834de6:v2
+> prerequisite-patch-id: fbe2d84f88709b8bf846debe6b8ce62c4392ca63
+> prerequisite-patch-id: 9bce33933ae69e8cc7f7ef2f0d9acb969620bc85
+> prerequisite-patch-id: bff0c668524f94b0b7901c682d5ccdccfe18d46e
+> prerequisite-patch-id: 8f45701f840680a35e044f43ebd3087282847990
+> prerequisite-patch-id: bdbb3e9b072469900cac21031cd799265b52d734
+> prerequisite-patch-id: c91ceb74abc8bc79ac036990abdef4cbd7328f97
+> prerequisite-change-id: 20260828-vicap-rk3576-6e7118ea0246:v2
+> prerequisite-patch-id: fbe2d84f88709b8bf846debe6b8ce62c4392ca63
+> prerequisite-patch-id: 9bce33933ae69e8cc7f7ef2f0d9acb969620bc85
+> prerequisite-patch-id: bff0c668524f94b0b7901c682d5ccdccfe18d46e
+> prerequisite-patch-id: 8f45701f840680a35e044f43ebd3087282847990
+> prerequisite-patch-id: bdbb3e9b072469900cac21031cd799265b52d734
+> prerequisite-patch-id: c91ceb74abc8bc79ac036990abdef4cbd7328f97
+> prerequisite-patch-id: d4120ad9def5effeda632f831b6fd0cd59295285
+> prerequisite-patch-id: e0c7e587fcaffe58b61fe78508efccec86dc7c79
+> prerequisite-patch-id: 6a87bd22798d58cc8f9b30733f5b28a2fced05c1
+> prerequisite-patch-id: a94c687ac3f648079b18dbb5109657fb038bd516
+> prerequisite-patch-id: 76e36df1aab8a9853440aa28b4bda528ce2adfd7
+> 
+> Best regards,
+> --  
+> Amin Gattout <amin.gattout@gmail.com>
+> 
 
