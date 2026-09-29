@@ -1,175 +1,355 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F25523785;
-	Tue, 29 Sep 2026 14:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693373; cv=pass; b=a+S1zl8Idd3P6s8ZJtAZashvLdHU1vRiKz1S2pMTEIlY+47Q3nB2z758+TpbfnzAhG3pWEyEAJ9zQzXDN0Ogu0XU3BWDKlY5ox8TK7J2C4QMG3iEIeJChX4ujzDzUD3K3eBcjLTHyRoHfdluF8T+RDtkAxIWUxqv31vHLJaFdDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693373; c=relaxed/simple;
-	bh=TaqxQzJdb/h4+8/Ys3HoOegEqZZ4kXLBC6w/iwIKyOI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6E652E042
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790693507; cv=none; b=lHIUWb4ZUzDgsbUqH4rU07mpwPT9AAz2RakfvoWlnIoPXiFIlGhokZUcLAUvBQ1DjG+ESFWlTOpVwSQNsoySsHgB0lcGB2C4erHb5KlJXUFHMlK+8CZHAZvWUDpSiYv0ZpUf5iYQY+nq3JvFEBE0GzxYGlVuwK3GEgHOLMgoP58=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790693507; c=relaxed/simple;
+	bh=XZPyfvt4g57ouREqJbckahQeqiNknydY9I/3u2/4oGg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pseBjJmlwmdp3gX0YC4NWaw/LjBDn3aC4WSTsDcQXwur20jU1atOK2upESVKmfDJmxcoSgCO61TJ9SUhSa6pKUh/55aKrHL0+x7Ywr/mXA5eYYA8TVpilPwvoZ+CP+3EJkIKpkGYO84VPNHHjIMb4K0q72ralcObtSR7wZ8aKm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=aXyLxl1L; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=d5jlPFi0CdER2FKEDskzH5vc86hqwtui+PhvzTrV7b1nyzlzwDhDhfZwSU2fcXFfeCbKfZpZXFKYAfYTPBLLFZm4iAyxMQHjOgocFoa2fXUjtPYDLiqPIpMr1RDW3t591/iiP5G3K66VulWNOLtCMC29+TiB2JPoPHnPaOXhaeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OpqieAXn; arc=none smtp.client-ip=95.215.58.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="aXyLxl1L"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E59AC2007CD;
-	Tue, 29 Sep 2026 16:49:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790693363;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bPUEHERCZ6LDzfLIoin3oQMo59FUmux2pr8dzqcDHSM=;
-	b=aXyLxl1LElftUDxMAFOlOqRX0r2jvt0Nu65HaO48rTuFhNEyP2hC5J9bt5SI3YeJ+iqq8b
-	MFfONcOoc8BSHmlNT+iZdpdLY1h+hbCzZd0DgC7HNrkQb57eDIHy6B4Jg/D8lhS/q1Ep8D
-	lHM14UP8DzTYS7Q1ATi1+itFIweDkr86fCVNaowWn30WQit18ovJHGUF3Mbc8iF1HXrO8c
-	0ajvOgWh78WejjpfybXZP0hloEtBMnORawFdkEU6hqUEOPlaljvhor5JA0ImlQsMAQ3NXO
-	5yJdD/Wk3XrKmuetcrMfX2GSTGXV+TBeaQMXG2hHjnZC4FMQYq+xGuEixTVi8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790693363;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bPUEHERCZ6LDzfLIoin3oQMo59FUmux2pr8dzqcDHSM=;
-	b=Y/YwporjMwqvNKm0seNf+EaYRV9NaSZrfoHTkqvuYsctH+0RXH/Jstz9tkEAq74zwH425l
-	z+z0q3gPc853E/oaF+T2zxZ7frSOwgnHWLCzbrRgZlxZOHTrEBXgII9IX/P1HOUVhnEB79
-	jobsaEQesAEgJ3DMOz+p7DZXwEywjI8pf4xhnPrkSdmN+c9dkLscdX4uoqNXpzNxuMRpiP
-	U3WK7LQdsqZ4Q9YtY0CSg6wKKwu+G462wDCHE1oMqF/iWkciaJTMwS4W1KEqRff/F9BRJ+
-	OGle59X8GymhqzoMOig7/OlDx4u7Xq19apV7pCmEDZte1EXPGnhwrMqcPavuSw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790693363; a=rsa-sha256;
-	cv=none;
-	b=CkZraLE1oRMDRSCpvi+ry3BTDxPdbJFfe9Ec0h3aeX846jcaxCjeX+nkNht/r86k+LT51l
-	XCSqd13qWiFPf6PgzELm9e5E2yhYSgsZyStFUHCINIhc+3HLoOZw5WQ3ZffPdNjBFgzTqk
-	EbVSMHie6zsuhOahwjhc2h8j0j2XfZJjgyWrOh++hnqay7ueKj/W87eY/rCvE5+zeB3uTY
-	0DTA7VB60i12/bDqSbj0KS/9evZuI9DyHYFFgT5dz78gXqf4Jvaxbmw5CNcOILKfm0hN8Q
-	/wytvfa71jfbF2ZrGVA0+L7xCEFaLUIIgbODJIJFZfUHfLf/luwdtRF/SnNbkQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBZ91-003PNQ-2f;
-	Tue, 29 Sep 2026 16:49:23 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 8863B5B4988;
-	Tue, 29 Sep 2026 14:49:23 +0000 (UTC)
-Date: Tue, 29 Sep 2026 16:49:23 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Chris Strong via B4 Relay <devnull+chris.strong.flocksafety.com@kernel.org>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Thomas Kopp <thomas.kopp@microchip.com>, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Chris Strong <chris.strong@flocksafety.com>
-Subject: Re: [PATCH net] can: mcp251xfd: flush RX offload queue during long
- IRQs
-Message-ID: <20260929-intrepid-hopping-ibex-f5349c-mkl@pengutronix.de>
-References: <20260922-upstream-can-rx-offload-batching-v1-1-099e7ca12c91@flocksafety.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OpqieAXn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XZPyfvt4g57ouREqJbckahQeqiNknydY9I/3u2/4oGg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790693503; v=1; x=1791298303;
+ b=OpqieAXnVDqAUnSi8lpcNf9AxSZ3XGmM6QJ3FWVLq+Re3EPF2FcXUsH+17IYR+9VTxLHQ0F8
+ lmtJPIFrO3lYOAI2SVj/rcJHh7TQudyPOjAGyeWqVzhy6t4WCd2xBJBlGibDR8X/p4jFpUwo5gO
+ KuCa70v7QooDp0ozX1cNds2k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a86e1109c0f04003;
+	Tue, 29 Sep 2026 14:51:43 +0000
+X-Mizu-Trace-ID: a86e1109c0f04003
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 29 Sep 2026 22:52:04 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Chen Yu <yu.c.chen@intel.com>, tony.luck@intel.com, tglx@kernel.org,
+	bp@alien8.de, mingo@redhat.com, dave.hansen@linux.intel.com,
+	hpa@zytor.com, fenghuay@nvidia.com, babu.moger@amd.com,
+	hongyu.ning@intel.com, x86@kernel.org, linux-kernel@vger.kernel.org,
+	Hongyu Ning <hongyu.ning@linux.intel.com>
+Subject: Re: [PATCH v8 4/9] x86/resctrl: Attach ACPI ERDT information to L3
+ mon domain on CPU online
+Message-ID: <arvQlK5X-hRhIKsG@three-body>
+References: <cover.1789705667.git.yu.c.chen@intel.com>
+ <1299d05391a5095a151d6204a459d6ca0f431462.1789705667.git.yu.c.chen@intel.com>
+ <f79a0d30-2a3d-49dc-9632-b8a81e4fa7d8@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gnihgytx26xrye4l"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922-upstream-can-rx-offload-batching-v1-1-099e7ca12c91@flocksafety.com>
+In-Reply-To: <f79a0d30-2a3d-49dc-9632-b8a81e4fa7d8@intel.com>
 
+Hi Reinette,
 
---gnihgytx26xrye4l
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: mcp251xfd: flush RX offload queue during long
- IRQs
-MIME-Version: 1.0
-
-On 22.09.2026 00:01:06, Chris Strong via B4 Relay wrote:
-> From: Chris Strong <chris.strong@flocksafety.com>
+On Mon, Sep 28, 2026 at 02:44:19PM -0700, Reinette Chatre wrote:
+> Hi Chenyu,
+> 
+> On 9/17/26 9:50 PM, Chen Yu wrote:
+> > Reading LLC occupancy counters via MMIO requires the per-domain ERDT
+> > information, parsed from the ACPI ERDT table, to be reachable from the resctrl
+> > L3 monitoring domain. Nothing links the two yet, so the monitoring code cannot
+> > locate the MMIO registers of a domain.
+> 
+> Last sentence sets this change up as a bugfix when it is actually a preparatory patch.
 >
-> Under sustained receive traffic, the threaded interrupt handler can
-> continue draining the controller indefinitely. Received SKBs accumulate
-> in skb_irq_queue, but can_rx_offload_threaded_irq_finish() only splices
-> them into the NAPI-visible skb_queue when the handler finishes.
+
+OK, let me rephase it to:
+In preparation for MMIO-based LLC occupancy monitoring, link the per-domain ERDT information
+to the resctrl L3 monitoring domain, so the MMIO read path can locate a domain's MMIO registers.
+ 
+> > 
+> > ERDT and CPUID enumerate CPU-to-L3-domain membership independently: CPUID leaf 4
+> > describes the L3 cache topology, while the firmware CACD sub-table lists the
+> > CPUs of each ERDT domain. Both views must agree on a CPU's L3 domain for that
+> > CPU to be monitored safely.
+> > 
+> > When a CPU comes online, validate that firmware and CPUID agree on its L3 domain
+> > before adding it to any resctrl domain. Exclude the CPU from all resctrl domains
+> > on a mismatch because a topology inconsistency between ERDT and CPUID indicates
+> > a firmware defect that makes the CPU's domain placement unreliable for any
+> > resource. Otherwise attach the matching ERDT domain information to the L3
+> > monitoring domain so that monitoring data can be read via ERDT and its
+> > sub-tables.
+> > 
+> > Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> > Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+> > Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
+> > ---
+> >  arch/x86/kernel/cpu/resctrl/core.c     |  16 ++++
+> >  arch/x86/kernel/cpu/resctrl/erdt.c     | 109 +++++++++++++++++++++++++
+> >  arch/x86/kernel/cpu/resctrl/internal.h |   5 ++
+> >  3 files changed, 130 insertions(+)
+> > 
+> > diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> > index 54cfdf12dfbb..3514d73a8056 100644
+> > --- a/arch/x86/kernel/cpu/resctrl/core.c
+> > +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> > @@ -34,6 +34,9 @@
+> >   * the domain list must either take cpus_read_lock(), or rely on an RCU
+> >   * read-side critical section, to avoid observing concurrent modification.
+> >   * All writers take this mutex:
+> 
+> Above sentence ends with ":" since the definition used to follow it, adding
+> text below it breaks this reference. 
 >
-> The RX-offload overflow checks inspect skb_queue rather than
-> skb_irq_queue. If the handler does not return, the IRQ-local queue can
-> therefore grow without bound while NAPI remains unscheduled. This can
-> exhaust memory and prevent received frames from reaching the networking
-> stack.
+
+OK, let me move above sentence above the "All writers take this mutex".
+ 
+> > + *
+> > + * This mutex also protects the ERDT domain_info_list, which is modified when a
+> > + * CPU comes online.
+> 
+> Please read the comment that is above this added line ...
+> 
+> >   */
+> >  static DEFINE_MUTEX(domain_list_lock);
+> >  
+> > @@ -564,6 +567,8 @@ static void l3_mon_domain_setup(int cpu, int id, struct rdt_resource *r, struct
+> >  		return;
+> >  	}
+> >  	list_add_tail_rcu(&d->hdr.list, add_pos);
+> > +
+> > +	erdt_l3_mon_domain_setup(id, &d->hdr);
+> 
+> ... the comment above domain_list_lock's definition explains how the domain list
+> is managed between resctrl fs and the architecture. Even though this change is made
+> with domain_list_lock held the above setup _after_ adding the domain to the RCU list
+> changes the resctrl monitoring domain _after_ it is made available to resctrl filesystem
+> via the RCU list.
+> 
+> This issue was also flagged by sashiko:
+> https://sashiko.dev/#/patchset/cover.1789705667.git.yu.c.chen%40intel.com?part=9
 >
-> Add a small RX-offload predicate that reports when the IRQ-local queue
-> has reached the NAPI weight. Use it to stop the dedicated RX interrupt
-> loop, process TEF and the other pending interrupt sources, and then
-> publish the batch. Publish additional batches from the main interrupt
-> loop while the controller remains busy. Since one RX pass can enqueue a
-> complete hardware ring, this keeps each splice near the NAPI weight
-> rather than enforcing a strict limit.
+
+The writer l3_mon_domain_setup() not only holds domain_list_lock but also the cpus_write,
+because l3_mon_domain_setup() is invoked in cpu hotplug path. And the reader  mon_event_read()
+which access the monitoring domain hold cpus_read_lock(), so the race might
+not be triggered. But for safety reason in case in the future there is other reader
+uses list_for_each_rcu() to access the domain without the lock, we should move erdt_l3_mon_domain_setup()
+before the rcu publish.
+
+> 
+> Apart from above I think this is the first hint that SNC and ERDT is not quite
+> integrated. Sashiko also found a couple of SNC vs ERDT sticky points.
+> For above, please consider that when SNC is enabled then resctrl sets the scope
+> of the L3 resource's monitoring domains to be RESCTRL_L3_NODE. That means that
+> @id parameter of l3_mon_domain_setup() could be the NUMA node ID, not L3 cache ID.
+> 
+> erdt_l3_mon_domain_setup() seems to assume an L3 cache ID and just searches for
+> a matching ERDT domain.
 >
-> Keep this policy in mcp251xfd because its controller-draining loops are
-> the source of the unbounded handler. Accounting for skb_irq_queue in the
-> generic overflow check would cap memory use by dropping frames, but
-> would still leave NAPI unscheduled.
+
+Yes, I did not deal with SNC much in this version because it seems that SNC and the
+current ERDT cannot co-exist. According to the RDT spec, Table 0-1 (Glossary, Acronym):
+"RMD - Resource Management Domain: A set of features defined within a particular cache
+domain, such as an L3 cache supporting a number of logical processors."
+This implies that the smallest domain in ERDT is cache scope, it can not be node scope,
+so dividing a single LLC into several SNC nodes is not supported by the current RMD.
+
+If ERDT's support for SNC scope is added in the future, we can update erdt.c to handle SNC 
+(hopefully the ERDT tables will contain SNC ID information).
+
+> >  }
+> >  
+> >  static void domain_add_cpu_mon(int cpu, struct rdt_resource *r)
+> > @@ -742,6 +747,17 @@ static int resctrl_arch_online_cpu(unsigned int cpu)
+> >  	struct rdt_resource *r;
+> >  
+> >  	mutex_lock(&domain_list_lock);
+> > +	/*
+> > +	 * A CPU whose ERDT and CPUID L3 domain views disagree is not added to
+> > +	 * any domain. resctrl_arch_offline_cpu() still tries to remove it when
+> > +	 * it goes offline and warns that no domain contains it. That warning is
+> > +	 * expected.
+> > +	 */
+> > +	if (!erdt_cpu_valid(cpu)) {
+> > +		mutex_unlock(&domain_list_lock);
+> > +		return 0;
+> > +	}
+> > +
+> >  	for_each_capable_rdt_resource(r)
+> >  		domain_add_cpu(cpu, r);
+> >  	mutex_unlock(&domain_list_lock);
+> > diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
+> > index 0dfe5eda166c..249ba547d7c8 100644
+> > --- a/arch/x86/kernel/cpu/resctrl/erdt.c
+> > +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
+> > @@ -209,6 +209,115 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
+> >  	return false;
+> >  }
+> >  
+> > +bool erdt_cpu_valid(int cpu)
+> 
+> The function name "erdt_cpu_valid()" that returns a bool creates impression that it
+> just does a validity check without changing any state. This function does more than this.
+> How about something like "erdt_try_bind_cpu(int cpu)" and then the supporting text in changelog
+> can be "... validate and bind the CPU to its ERDT domain ...".
 >
-> Publishing smaller batches narrows the timestamp sorting window.
-> Ordering across batches is already best-effort; RX and TEF events from
-> each controller-status pass are processed before the batch is published.
+
+OK, will rename the function and update the changelog.
+ 
+> > +{
+> > +	struct erdt_domain_info *d, *cpu_dom = NULL;
+> > +	int dom_id;
+> > +
+> > +	/* Without ERDT there is no firmware topology to disagree with. */
+> > +	if (!erdt_enabled)
+> > +		return true;
+> > +
+> > +	dom_id = get_cpu_cacheinfo_id(cpu, RESCTRL_L3_CACHE);
+> > +	if (dom_id < 0) {
+> > +		pr_warn(FW_BUG "Can't find L3 id for CPU:%d\n", cpu);
+> > +		return false;
+> > +	}
+> > +
+> > +	/*
+> > +	 * Find the erdt_domain_info that contains this CPU, then bind that ERDT
+> > +	 * domain to this CPU's L3 id. A CPU whose L3 id does not match the binding
+> > +	 * of its ERDT domain cannot be covered by resctrl.
+> > +	 *
+> > +	 * For example, the CACD sub-tables report:
+> > +	 * domain0: CPU0, CPU2, domain1: CPU1, CPU3
+> > +	 * while CPUID/cacheinfo reports the L3 cache is shared by:
+> > +	 * id0: CPU0, CPU1, id1: CPU2, CPU3
+> > +	 * With the CPUs coming online in order, CPU0 binds domain0 to L3 id0 and
+> > +	 * CPU3 binds domain1 to L3 id1, so CPU1 and CPU2 are not covered by
+> > +	 * resctrl.
+> > +	 */
+> 
+> Please move this comment block to be the comment of the entire function. It does not
+> have to be kernel-doc but it could borrow some of the style, for example, "this CPU"
+> can be @cpu to make it clear it refers to the function parameter.
 >
-> Fixes: c757096ea103 ("can: rx-offload: add skb queue for use during ISR")
-> Assisted-by: LLM
-> Signed-off-by: Chris Strong <chris.strong@flocksafety.com>
-> ---
-> Hi all,
+> The "With the CPUs coming online in order" also seems to describe whole function
+> and not just the snippet below it. With the function comment describing the example
+> entirely the smaller snippets within functions can refer to it more coherently.
+> 
+
+OK, will move them to be the comment of the function.
+
+> > +
+> > +	/*
+> > +	 * A possible new binding. Check if another ERDT domain shares the same
+> > +	 * L3 id. If yes, this is a conflict and this CPU should not be considered
+> > +	 * by resctrl:
+> > +	 * When CPU1 is brought online, a new domain1 is found. But then it found that
+> 
+> Above is mixing tense
 >
-> This is my first upstream Linux kernel patch submission, so feedback on b=
-oth
-> the implementation and the submission format would be appreciated.
 
-You're using b4, this is a good choice and the best tool for this job.
+OK, will fix all of them.
+ 
+> > +	 * domain0's ID is 0, which is the same as CPU1's dom_id, so CPU1 is ineligible.
+> > +	 */
+> > +	list_for_each_entry(d, &domain_info_list, entry) {
+> > +		if (d == cpu_dom)
+> > +			continue;
+> > +
+> > +		if (d->dom_id == dom_id) {
+> > +			pr_warn(FW_BUG "CPU%d's id=%d is already used by CACD domain(%*pbl), skip this CPU\n",
+> > +				cpu, dom_id, cpumask_pr_args(&d->cpu_mask));
+> > +
+> > +			return false;
+> > +		}
+> > +	}
+> > +
+> > +	/* Eligible new binding, assign the L3 id. */
+> > +	cpu_dom->dom_id = dom_id;
+> > +
+> > +	return true;
+> > +}
+> > +
+> > +/*
+> > + * Associate ERDT table information with this domain.
+> > + */
+> > +void erdt_l3_mon_domain_setup(int id, struct rdt_domain_hdr *hdr)
+> 
+> @id is unnecessary, function can just use hdr->id (but keep above comment about
+> @id not always being an L3 cache ID in mind).
+>
 
-Please split the changes into 2 patches, first add the rx-offload
-helper, then the mcp251xfd changes.
+OK, will remove the @id parameter.
+ 
+> > +{
+> > +	struct rdt_hw_l3_mon_domain *hw_dom;
+> > +	struct erdt_domain_info *d;
+> > +
+> > +	if (!erdt_enabled)
+> > +		return;
+> > +
+> > +	hw_dom = resctrl_to_arch_mon_dom(container_of(hdr, struct rdt_l3_mon_domain, hdr));
+> > +
+> > +	list_for_each_entry(d, &domain_info_list, entry) {
+> > +		if (d->dom_id == id) {
+> > +			/* Assign the ERDT information to hw_dom */
+> 
+> This comment is just duplicate of function comment and does not add any information
+> to the code it aims to describe.
+>
 
-The changes look pretty good to me! Good Work!
+OK, will remove it.
+ 
+> > +			if (hw_dom->d_info) {
+> 
+> Is this necessary? hw_dom has just been kzalloc'ed so it cannot have any value here 
+>
 
-If you want to improve you can shorten the patch description. The
-subject already states what you do, the patch description should explain
-in more detail (if needed) and why. Finish with describing your changes
-in imperative mood. See [1] for details.
+Right, this is not needed, the duplicated case has been covered in erdt_cpu_valid().
+ 
+> > +				pr_warn(FW_BUG "Duplicated ERDT domains are mapped to an existing L3 domain\n");
+> > +				return;
+> > +			}
+> > +			hw_dom->d_info = d;
+> > +			return;
+> > +		}
+> > +	}
+> > +}
+> > +
+> >  void erdt_exit(void)
+> >  {
+> >  	struct erdt_domain_info *d, *tmp;
+> > diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+> > index 156206088372..2e8fb36ad804 100644
+> > --- a/arch/x86/kernel/cpu/resctrl/internal.h
+> > +++ b/arch/x86/kernel/cpu/resctrl/internal.h
+> > @@ -97,14 +97,19 @@ struct rdt_hw_ctrl_domain {
+> >   * @arch_mbm_states:	Per-event pointer to the MBM event's saved state.
+> >   *			An MBM event's state is an array of struct arch_mbm_state
+> >   *			indexed by RMID on x86.
+> > + * @d_info:		ERDT table information of this domain
+> >   *
+> >   * Members of this structure are accessed via helpers that provide abstraction.
+> >   */
+> >  struct rdt_hw_l3_mon_domain {
+> >  	struct rdt_l3_mon_domain	d_resctrl;
+> >  	struct arch_mbm_state		*arch_mbm_states[QOS_NUM_L3_MBM_EVENTS];
+> > +	const struct erdt_domain_info	*d_info;
+> >  };
+> >  
+> > +bool erdt_cpu_valid(int cpu);
+> > +void erdt_l3_mon_domain_setup(int id, struct rdt_domain_hdr *hdr);
+> > +
+> 
+> Why did these two erdt related prototypes land here instead of with the
+> other erdt related prototypes?
+>
 
-[1] https://github.com/torvalds/linux/blob/master/Documentation/process/sub=
-mitting-patches.rst#describe-your-changes
+They were added near the introduction of const struct erdt_domain_info *d_info, let me move
+them near other erdt_* helpers.
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---gnihgytx26xrye4l
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCarvP8QAKCRDMOmT6rpmt
-0uauAQC2PcALnd2PIzvRWvzVO0xtfBqU+ewwvy6Q88UdXtA4VwD/Zq3jdiG+BMH4
-x8+FL5fgQPIEMSlRKwyXFhrCvPr+rQw=
-=J1qn
------END PGP SIGNATURE-----
-
---gnihgytx26xrye4l--
+thanks,
+Chenyu
