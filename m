@@ -1,148 +1,192 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3781638D40C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7E2399354;
+	Tue, 29 Sep 2026 07:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666652; cv=none; b=A1aN+85JMNsScseL++qE1z6DqR4zvBTNayQ7la8c2DYqLm6bmcB2vZnDlFjq6fASri5LwsJpxhivcfBOWKY0YiAjLME3f8CeEEG2FJ511E6Fa0w2HPt5R2wT6g0YvkXXH2xAxXgFRiT3tlpZ4lLi7fQgVXBmHm0b5CVJWVCZmrI=
+	t=1790666653; cv=none; b=YJFavDYrP7T8O+ozRq26y1oAhTcX6NmJVpmI3BorK09mo+Z0QoeA4iqTOtRFIXRrZIvbO3NIlrtcwtNGfiaQ93NQta+//QSJKeEbEmK87ZSQGemNGVs8r+4rz9QEDBNlsRLoGbsotWvywKa+S/1jwwOtaFz+zUqSIq5unonA6lI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666652; c=relaxed/simple;
-	bh=9w6nTAHB8G5P+NtmTJepYiRl0Ypkzk1jCmGQQ79jht4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i+D5u3YAZ2hTdJplcBdU9E5822pEDn3lrY2RF7zX0r1sGJWwIqlAiz2jyUnCSjo9Zk6OVawH63DKQKiQ1URE6JyhGJaffbfqF1SuFIoOHAcmb8IZfEBwL1Iv65ZGNqycHlxC25AUlDd3ImPqnXjdV/61sVIRm+x/01Ugtlpvr3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svDm7tJB; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790666653; c=relaxed/simple;
+	bh=9OJFrXkMPFlQtVTNM1EYM7wZo8LqpsR+r5Hv7zoLFlw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PKpfluoGqmCVvK43Xi7nVjOMVUbSN38eGABUHcNrCMTDgid/wIEGZkkSqilzQOqkhjoQq6tmuJyGqmtG/oPJDprDmdUyZelM7OhGerD/SnpQCTgvF9QgweutlmZGON2Ln0ZGuR5doe3EmPo/fCHMI0z5mP6MmlDSbctE/wf9O8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibkey2yU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svDm7tJB"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-880cb967dffso356599b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790666650; x=1791271450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jh7IxIMeGWVcAIbqfyHopn8hAOw8pMEoVf8MFSMNyOc=;
-        b=svDm7tJBte90Aqee88XpM+247mX54dlDXQp02HbkBZiAPpCDOhvYpTtVvscNVRmuA1
-         uPnfb6mxxh1WzHJ+VOZCHBik5mQSsY3p3SkGYXqsP6yxTfNnvE8+XwLPz6ZaepLSq4R6
-         TA7GudUWaS/C0vjfGWwNtfBIShStGT/zQav4JmXobnsmSRZFbCLbq9PsOPIDY3Xm876Y
-         EnxdmgWyo6TYtoAK1mksZ7nmWYT5tt5yuDhOIG5BsE+ods8coMKYHcSjOMewi4DwPIA/
-         uATcAytjweVKYs2qguZKoIhYIxgSm54ODh4tLjlMNywI2aptOpc10SraeiHQSZrD7CNk
-         Beuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666650; x=1791271450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jh7IxIMeGWVcAIbqfyHopn8hAOw8pMEoVf8MFSMNyOc=;
-        b=Iugr+iM0TtS2kdTzNO+5opLD1Cifw6WFwY61y89h1KvS6F5nsFhsHMjc/Ea8DHzuuf
-         T8opSjIJDZ131ifn2qHWTohbItV4aa+vZ9EguCKN8u4KL+E+Pkvg88nUp00H2i3/ALCy
-         ToDb3jxkqVYgOB+FsgI01eXRR+GIoleGsf7ggaS9b58c7ynYCntZTfvph20NXZf4DsxR
-         o5bRm48Mg1BVMTa23VQuJGUCsxZR5UGmIQwql/dkApRE0/4YoFigwX6cd1bkurEMtkb6
-         KlQclc9qNra9AQa1GYDlvybApKxw5vDY+SsTbvjrvsbi8O2s/zj+8OGv7eZGvwWzc3/h
-         v3gQ==
-X-Forwarded-Encrypted: i=1; AKwUvByz+MqPpfq/0ujqUUImi9zXioSDCFwezXePBcObpKSrAwJwVTHRxC3XFTCvDdWCm8dGAWUDhO6azRPE1ys=@vger.kernel.org
-X-Gm-Message-State: AFuF++kugyNvVJRFYf0P0B/XB3r5nvf0uQUUVlVczApmVH0Bmy7z/pkO
-	pwva0vXBm9thN3nIU6jaHxr86EEoevUGMVXEaBhGqaXglzCwl2mk0P28
-X-Gm-Gg: AYBFou1IGyfeSLPO0noHwAk5aMEImOGeAeJRK9x6BvZ34h0CSEGVSq14AY2sT9uy1Ud
-	Ecu2xgShgFj8J7kM13yUMH3b1/ia4LkrjuPp9GcGbhafLInIYM2dNS/+YCsuvgPt4f95SzlPduO
-	jXymUdIeuwYl10y+X9eBxdwj5YLAN1cdSwSWm/qoozcKE5h0PK9YS0mYyPpasvWs7fBGnKNLDsN
-	m4uBXdmxbDDxF9pMstTTYOBaXtGTsN5sDG4o05NMW+ti+/aW1M3eXFFGLKWfh8UHqK5R/dO4oKl
-	ikEKn/vHQfLsX6JvDp+dUS1g6hZPnaHjvgN3tu8nM+jURByL5g6z8MdAsL5GY/+xoMyTUfGqT2E
-	yowIlXZ3yjeM6p/cIb/OK6urHuMMPb8h14rZbpE5vU9639Zcx4da0/5iS16IAtw6n18BUvF/xNM
-	6rTZQDB+rrQ+K6E7tlGzExNu65JhY0Fvmem1DnvMfN3fZtz0Kr5UKalrhwHxg2A8GZ/D5xdw==
-X-Received: by 2002:a05:6a20:a104:b0:3dd:85ba:acd with SMTP id adf61e73a8af0-3de7ce947a7mr1379360637.32.1790666650250;
-        Tue, 29 Sep 2026 00:24:10 -0700 (PDT)
-Received: from gmail.com ([106.16.239.60])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a4b03082sm3483547a12.11.2026.09.29.00.24.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:24:09 -0700 (PDT)
-From: Xue Boyang <fuchen.dust@gmail.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xue Boyang <fuchen.dust@gmail.com>
-Subject: [PATCH ntfs] fs/ntfs3: fix out-of-bounds read in check_log_rec()
-Date: Tue, 29 Sep 2026 02:24:05 -0500
-Message-ID: <20260929072405.61860-1-fuchen.dust@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibkey2yU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE16C1F000FF;
+	Tue, 29 Sep 2026 07:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790666652;
+	bh=yvxJPj3k2vjV6D8HUDd8QkKGWeBMIhXhJhVwkCPhP3Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ibkey2yUqqbiVM76d/2jZTGyjIdUdz2aZM6YaiTOTz9joywkD+nsB2wdU5GPHSSHW
+	 Uxe6UNjvfBnxPaLAJiLIH+gsRzsY2K3p6sj1jwCatttOSR5PmQJWeYyMS7R0gTipDx
+	 91toSUwKUs91yGhn4NOpNTCFOAR4QjdipsKpKZKrVdgP4YFHgv2ipVUjpAgmvec1Sg
+	 nwUgjtnXkrBuf1mAFgFG+g0dFlvx/XpzAYRP1+O1d6y22DmRT+IkA3jEDVM8r9eqqu
+	 gWm26joLY6CvegjTpmEF/XdyrAUPtvOP2B8YcOfRZfiDX7H+Xr/UGrRS9OQkV2HyLu
+	 Y9EqZQaCIOopw==
+Message-ID: <deecea10-589f-4e2c-9c17-5e5dd4e81250@kernel.org>
+Date: Tue, 29 Sep 2026 09:24:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/12] mm/sparse-vmemmap: prepare DAX vmemmap
+ population for compound page orders
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
+ <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260927025441.741633-6-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260927025441.741633-6-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-During $LogFile replay, check_log_rec() validates the alignment of
-redo_off/undo_off and that the record holds the fixed header, but never
-checks that the declared data window fits inside the record:
+On 9/27/26 04:54, Muchun Song wrote:
+> Device DAX still uses vmemmap_populate_compound_pages() to populate its
+> compound-page vmemmap mappings. That helper allocates the head and first
+> tail vmemmap pages explicitly, then reuses the first tail page for the
+> remaining tail page mappings.
+> 
+> Device DAX is being moved to the section-based vmemmap optimization
+> infrastructure, but it cannot switch to the generic section-based
+> population path yet. Once a later patch records the DAX compound page
+> order in section metadata, DAX head and first-tail PFNs can look
+> optimizable to the generic helpers as well.
+> 
+> Add a DAX-specific population flag for this transition. It keeps DAX
 
-	if (le16_to_cpu(lr->redo_off) & 7)
-		return false;
-	if (le16_to_cpu(lr->undo_off) & 7)
-		return false;
-	...
-check_length:
-	if (bytes < lrh_length(lr))
-		return false;
+Well, you're not adding flag, your reusing an existing one and renaming it?
 
-Every consumer of the window reads from (lrh + redo_off, redo_len) with
-no source-side bound: the analysis-pass OpenNonresidentAttribute handler
-memcpy()s bytes_per_attr_entry from lrh + redo_off into the open
-attribute table, and the redo/undo passes feed the same pair to all
-do_action() memmove()/memcpy() sources. Since redo_off is a raw u16
-taken from disk, a crafted log record makes the kernel read up to ~64K
-past the kmalloc(log->page_size) page buffer holding the record.
+And then you're specifying it on more paths.
 
-The destination side of do_action()'s UpdateNonresidentValue already
-applies the equivalent bound (lco >= cbo + roff + dlen), so the
-invariant exists at other call sites; check_log_rec() is the omission.
+[...]
 
-Reproduced deterministically on rw mount of a hand-crafted $LogFile
-(QEMU x86_64, v7.3-rc4-0094-gf49a343b305c, CONFIG_KASAN=y): a single
-RCRD page with an LfsClientRestart record followed by an
-OpenNonresidentAttribute record with redo_off=0xFFF8, redo_len=0x28
-triggers the read on every mount, no race. Multiple records with
-different redo_off values were verified to select the read offset.
-The KASAN report of the triggering record:
+>  mm/sparse-vmemmap.c | 27 +++++++++++++++------------
+>  1 file changed, 15 insertions(+), 12 deletions(-)
+> 
+> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+> index e4dae98ba7f8..2457ea2c6dca 100644
+> --- a/mm/sparse-vmemmap.c
+> +++ b/mm/sparse-vmemmap.c
+> @@ -35,8 +35,8 @@
+>  /*
+>   * Flags for vmemmap_populate_range and friends.
+>   */
+> -/* Get a ref on the head page struct page, for ZONE_DEVICE compound pages */
+> -#define VMEMMAP_POPULATE_PAGEREF	0x0001
+> +/* Vmemmap population for ZONE_DEVICE compound pages */
+> +#define VMEMMAP_POPULATE_DAX		0x0001
 
-  BUG: KASAN: use-after-free in log_replay.cold+0x3b12/0x4251
-  Read of size 40 at addr ffff88800420a028 by task mount/71
-   ...
-   __asan_memcpy+0x23/0x60
-   log_replay.cold+0x3b12/0x4251
-   ntfs_loadlog_and_replay+0x2cb/0x300
-   ntfs_fill_super+0x1375/0x22d0
-   ...
+Cleaner.
 
-Both operands are u16 so the sum cannot overflow u32; with the checks
-in place every consumer reads inside the record buffer itself.
+>  
+>  #include "internal.h"
+>  #include "mm_init.h"
+> @@ -243,13 +243,17 @@ static inline struct page *vmemmap_shared_tail_page(unsigned int order,
+>  #endif
+>  
+>  static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
+> -					 struct vmem_altmap *altmap)
+> +		struct vmem_altmap *altmap, unsigned long flags)
+>  {
+>  	struct zone *zone;
+>  	struct page *page;
+>  	const unsigned int order = pfn_to_section_compound_order(pfn);
+>  
+> -	if (!vmemmap_optimizable_pfn(pfn))
+> +	/*
+> +	 * Device DAX still relies on vmemmap_populate_compound_pages() for
+> +	 * head/first-tail allocation and tail-page reuse.
+> +	 */
+> +	if (!vmemmap_optimizable_pfn(pfn) || flags & VMEMMAP_POPULATE_DAX)
+>  		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
+>  
+>  	zone = pfn_to_zone(pfn, node);
+> @@ -271,7 +275,7 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>  		pte_t entry;
+>  
+>  		if (ptpfn == (unsigned long)-1) {
+> -			void *p = vmemmap_alloc_pte(pfn, node, altmap);
+> +			void *p = vmemmap_alloc_pte(pfn, node, altmap, flags);
+>  
+>  			if (!p)
+>  				return NULL;
+> @@ -286,7 +290,7 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>  			 * and through vmemmap_populate_compound_pages() when
+>  			 * slab is available.
+>  			 */
+> -			if (flags & VMEMMAP_POPULATE_PAGEREF)
+> +			if (flags & VMEMMAP_POPULATE_DAX)
+>  				get_page(pfn_to_page(ptpfn));
+>  		}
+>  		entry = pfn_pte(ptpfn, PAGE_KERNEL);
+> @@ -546,6 +550,7 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>  	unsigned long size, addr;
+>  	pte_t *pte;
+>  	int rc;
+> +	unsigned long flags = VMEMMAP_POPULATE_DAX;
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS3 filesystem")
-Assisted-by: GLM:zhipu-coding-plan/glm-5.3
-Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
----
- fs/ntfs3/fslog.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+const and at the top?
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index ed50c1d0c23e..498f63da2b96 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -710,6 +710,13 @@ static bool check_log_rec(const struct LOG_REC_HDR *lr, u32 bytes, u32 tr,
- 	if (le16_to_cpu(lr->undo_off) & 7)
- 		return false;
- 
-+	/* The declared data window must fit inside the record itself. */
-+	if (le16_to_cpu(lr->redo_off) + le16_to_cpu(lr->redo_len) > bytes)
-+		return false;
-+
-+	if (le16_to_cpu(lr->undo_off) + le16_to_cpu(lr->undo_len) > bytes)
-+		return false;
-+
- 	if (lr->target_attr)
- 		goto check_lcns;
- 
 -- 
-2.53.0
+Cheers,
 
+David
