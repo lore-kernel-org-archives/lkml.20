@@ -1,214 +1,98 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0A6525A6D;
-	Tue, 29 Sep 2026 13:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EED25392A;
+	Tue, 29 Sep 2026 13:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687630; cv=none; b=c6M6Uvfs/pWX+9sFQUILe0oEKYDCzqUqQ77mOVDPFatx9WpQrUddH0UCVmf6dDSpg+e5JtC6hHnqULwPYVhDdjv3NKGFvOzZ0Ixs4DQzlheclTOv582Dzq28YZEhCV0I2/LwRjMKLeVQuFuaDlWmX4Yf3PCwWw1QkXpAOKWLPYI=
+	t=1790687643; cv=none; b=DTBumQf0R0efYerhDjJeupUKTMAUxvtHeLRTXEae6jna9NJCWuRS8tWfwDSoprqFicuJ2xkdJNNCh7OKSxQZdnJS2RAint2Cq9I5AuDngl5Gcg+ZLSad/4N9xTvg8x6zNRT9Wz6AYDRoPHTrwCl0UV7WRu1ZafvLH+yl5esyh/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687630; c=relaxed/simple;
-	bh=y1wjWVcU+j+9ZpZTUMYHvIL0oZ1Wj4JWUiES3uPnuhE=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=PtxScpVCVKp5l63su+cW1uEHcAt6pga+TlaGpgMDeXYxNlJ/vDuM/wvaPhmGyZlWuHFQzLH05jRk3A9kz41dFUJucDpOm5WuLYSbxB17V6hVQUgJhgwTLixewQiKx7O/MlolC3WNYcyzqZctCEpG1pl27iYzaDQqMZRiTavS3mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=WVJgNEJ+; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790687643; c=relaxed/simple;
+	bh=+zwQ1fNOYdUA0AudHfbZPfRHU2Iud9SG1OTHg1x7iSM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lSWGdLas4pfngUfL6kTYNBZlEVKDCcj/nEiAqahHwsMl42u9CFBkYj+y9j0qn0fxeOsWpINjK8f1bzGp0qbLdiYcJHYKFuzEcDwrn6ZbCKXuRCx4Ml/HLX4XR39VBOXRNcB0nlX2LTW9586Rj3w8QsNlhcHj0W83rMFf/2tasHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/bY9CYl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="WVJgNEJ+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=vJFFJY231nf7risPXtqxH8qnFdHBeahiw5q4JkrgAcw=; b=WVJgNEJ+fzeLTaRKISMcKuvUqk
-	jmgyH6HU92o0cG+8OVb9aOFTb3WlTGiYyCgi0MC+/Zat6QLcTienCtaO+FdR5fP32LR+9lt/AmUOI
-	4op42N5HFplbJZDClQvPR6dNfzB+k8Q1Xpp0ubbPdXu6sD/yqTQJcG1YxQ68pFj9LXMEp+4P1Q2K/
-	IJZKeI1MTlmmNWe0cOAICHC7R/kjNm86Z1eLDFjlgdNvIH2Kj/FOBchviaGLkzqevdz7K5gP4zJnx
-	NEsPrrDbnTXikf7QYtU9cQxSgV0RmtiVrKt1mtTdP0vk6u1TY16uJ7G8qZCdJyb+dJm3gl3Pk3sqm
-	uLpsJiAA==;
-Received: from [::1] (port=43034 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xBXeU-0000000DwxS-2p4v;
-	Tue, 29 Sep 2026 15:13:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/bY9CYl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AAD1F000FF;
+	Tue, 29 Sep 2026 13:14:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790687642;
+	bh=f64aLfTdVxWrjtrUwkspl8bIs4OXL/VTzUbYA6bmSkA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S/bY9CYl2cWtkcuP3tAjsAizgYmWsOXEKm4h1179aTu0xsjeFDZLNqO88ddeUg+1w
+	 c2uwQC/dN55iiuQoJ20B5jzFwvXoTvb8QZa+fyDCe1EZJ7ZiDWGIhM1XU7CZVknMz7
+	 mOL/6pzE40vhtSkEs7d9ysgKaXpnJ3FgWCQOGmx/i3FF3UPzigMcDsao5273vzl9ab
+	 NzBNboVv9Bp7cFbCm7RYTOsnd/6GPd/P7WVuZQHoGPJO0lj8QmNce6gdPoQUmLRXAj
+	 3albEWcLG8FqnMAmEVyAgj01kx/hmHzLMZfVoWIw+BE7WylSIWef7EGqsT4OEOSSvt
+	 prLcD7oZvmcJQ==
+Date: Tue, 29 Sep 2026 14:13:56 +0100
+From: Will Deacon <will@kernel.org>
+To: Jann Horn <jannh@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH] refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for
+ UAF-related errors
+Message-ID: <aru5lCCF50puV8GM@willie-the-truck>
+References: <20260812-refcount-bug-on-data-corruption-v1-1-c6da63566101@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 15:13:44 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
- nonce reuse
-In-Reply-To: <aru2Y-gyrgcZsyUD@krikkit>
-References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <arqToNCxIwi9CZ--@krikkit>
- <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
- <arr8x3a9Vqkg-ooM@krikkit>
- <29a10d01b87fb1c5f9af445aa7864351@oss.cyber.gouv.fr>
- <aru2Y-gyrgcZsyUD@krikkit>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <a0d39c52b6169ce5e00869abbe2162dd@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-refcount-bug-on-data-corruption-v1-1-c6da63566101@google.com>
 
-On 2026-09-29 15:00, Sabrina Dubroca wrote:
-> 2026-09-29, 11:47:47 +0200, Jérémy Jean wrote:
->> Hello Sabrina,
->> 
->> On 2026-09-29 01:48, Sabrina Dubroca wrote:
->> > 2026-09-28, 21:33:41 +0200, Jérémy Jean wrote:
->> > > On 2026-09-28 18:19, Sabrina Dubroca wrote:
->> > > > 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
->> > > > > An off-by-one error in esp6_xmit() advances the IV counter before
->> > > > > encrypting each software-GSO segment. For N segments with sequence
->> > > > > numbers X through X+N-1, the IV counters are therefore X+1 through
->> > > > > X+N.
->> > > > > The following non-GSO packet uses X+N for both its sequence number and
->> > > > > IV counter, repeating the last segment's AES-GCM nonce under the same
->> > > > > key.
->> > > >
->> > > > I find this description very unclear. All I'm managing to understand
->> > > > from this is "there's some situation where a packet isn't getting the
->> > > > seqno it should". I don't know where the "+1" comes from since for GSO
->> > > > the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
->> > >
->> > > I tried to be as explicit as possible, but I apologize if it was not
->> > > good enough. My understanding on the full GSO processing isn't as
->> > > deep as yours, so here is another try at explaining.
->> > >
->> > > The bug happens after software segmentation in GSO. When a large
->> > > amount of data needs to span across several packets, software
->> > > segmentation splits it into N smaller skb. After this split, each
->> > > smaller skb holding the individual packets has skb_is_gso(skb)
->> > > returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
->> > > that this skb resulted from a segmentation. Consequently, the skb
->> > > goes through the increment below in esp6_xmit():
->> > >
->> > > net/ipv6/esp6_offload.c:
->> > >    355		if (xo->flags & XFRM_GSO_SEGMENT) {
->> > >    356			esp.esph->seq_no = htonl(seq);
->> > >    357
->> > >    358			if (!skb_is_gso(skb))
->> > >    359				xo->seq.low++;      // <<< increment here
->> > >    360			else
->> > >    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
->> > >    362		}
->> > >
->> > > There are N calls to esp6_xmit() for all the smaller packets, and for
->> > > each of them, the current sequence number is first written into the
->> > > header, and then the shared counter for the next packet is
->> > > incremented. However, the value esp.seqno used to construct the IV is
->> > > derived from the counter value _after_ the increment.
->> >
->> > Ok, I see now. One call to validate_xmit_xfrm() that calls
->> > skb_gso_segment() and feeds those N non-GSO skbs to ->xmit one by one.
->> 
->> Yes, precisely.
->> 
->> > In that case, the seqno used in the IV wouldn't match the one that the
->> > peer will reconstruct using the bottom 32b of seqno present in the
->> > header, and it would never manage to decrypt anything we sent.
->> 
->> I don't think the peer uses its internal counter to reconstruct the 
->> IV?
+On Wed, Aug 12, 2026 at 08:56:38PM +0200, Jann Horn wrote:
+> Some refcount issues are not necessarily associated with memory corruption,
+> but REFCOUNT_ADD_UAF suggests that a UAF either just happened or is about
+> to happen.
 > 
-> For some reason when looking at this last night I thought it was
-> rebuilding it from the seqno in the esp header.
+> REFCOUNT_SUB_UAF is also an indicator that reference counting is wrong, and
+> suggests (less strongly) that a UAF access might have happened recently.
 > 
->> The IV is part of the GCM ciphertext and the peer uses that value it
->> received to decrypt the payload. AFAICT, the decryption is ultimately 
->> done
->> in seqiv_aead_decrypt(), where one can see the IV copy (121), and the
->> actual decryption call (123).
->> 
->> crypto/seqiv.c:
->>     99	static int seqiv_aead_decrypt(struct aead_request *req)
->>    100	{
->>                 // ...
->>    116		aead_request_set_callback(subreq, req->base.flags, compl, 
->> data);
->>    117		aead_request_set_crypt(subreq, req->src, req->dst,
->>    118				       req->cryptlen - ivsize, req->iv);
->>    119		aead_request_set_ad(subreq, req->assoclen + ivsize);
->>    120
->>    121		scatterwalk_map_and_copy(req->iv, req->src, req->assoclen, 
->> ivsize,
->> 0);
->>    122
->>    123		return crypto_aead_decrypt(subreq);
->>    124	}
->> 
->> > But luckily, it seems commenting out the memcpy(iv, seqno) line has no
->> > effect (I think that's because all algorithms rely on either seqiv or
->> > echainiv).
->> 
->> I may misunderstand, but which memcpy() do you refer to ?
->> If you do not memcpy, then IV is always null, and the nonce reuse is 
->> even
->> worse, no?
+> In these cases, BUG() is appropriate if CONFIG_BUG_ON_DATA_CORRUPTION is
+> set.
 > 
-> Yeah right. I thought there was something dodgy there.
+> Signed-off-by: Jann Horn <jannh@google.com>
+> ---
+> MAINTAINERS specifies no specific maintainer for lib/refcount.c, but it
+> does have an entry for include/linux/refcount.h, so I guess I should
+> route this patch based on that.
 > 
->> > > For example, if
->> > > the last packet produced by segmentation has sequence number 100, the
->> > > IV is constructed using counter value 101. Then, a subsequent
->> > > ordinary packet not going through segmentation is allocated sequence
->> > > number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
->> > > there is no increment, and its value is constructed from value 101 as
->> > > well. Hence the nonce repetition.
->> >
->> > I don't think that happens? The other packet will go through ->xmit
->> > too and use the wrong seqno too.
->> 
->> Which "wrong seqno"? The other packet will indeed, go through ->xmit,
->> but its lack of XFRM_GSO_SEGMENT will make it skip the increment and
->> reuse the previous counter value.
+> I decided to send this patch after wondering how exploitable it would be
+> to have a refcount_inc() call on an object which has reached refcount 0,
+> but is not yet freed because of something like an RCU grace period.
+> ---
+>  lib/refcount.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
 > 
-> Eh, ok. I thought you were saying one goes through ->xmit (with the
-> wrong seqno because it has been incremented) and the other through
-> ->output.
-> 
-> Then I guess this makes sense.
+> diff --git a/lib/refcount.c b/lib/refcount.c
+> index a207a8f22b3c..c0f0dc5296eb 100644
+> --- a/lib/refcount.c
+> +++ b/lib/refcount.c
+> @@ -10,6 +10,15 @@
+>  
+>  #define REFCOUNT_WARN(str)	WARN_ONCE(1, "refcount_t: " str ".\n")
+>  
+> +#ifdef CONFIG_BUG_ON_DATA_CORRUPTION
+> +#define REFCOUNT_CORRUPTION(str) ({		\
+> +	pr_err("refcount_t: " str ".\n");	\
+> +	BUG();					\
+> +})
+> +#else
+> +#define REFCOUNT_CORRUPTION(str) REFCOUNT_WARN(str)
+> +#endif
 
-Good that we agree then, thanks :)
+Can you use CHECK_DATA_CORRUPTION() here instead of open-coding the BUG()?
 
-> Could you:
-> 
->  1. fix both bugs you found so that the code looks similar, probably
->     bundled as a small series (this stuff is not ipv*-specific, so
->     there's no reason for it to be implemented differently)
-> 
->  2. rewrite the commit messages based on this thread to be much more
->     precise and also less verbose
+Either way:
 
-Yes, I will try do this shortly.
+Acked-by: Will Deacon <will@kernel.org>
 
-> I'd also reduce the amount of crypto detail about GCM, I don't think
-> it's super relevant. Or move it to a cover letter.
-
-I purposedly emphasized the crypto part about GCM to make it clear to
-non-crypto people that the nonce reuse impact is catastrophic (all zero 
-or
-even a single reuse). I will move it to the cover letter then.
-
-Regards,
-Jérémy
+Will
