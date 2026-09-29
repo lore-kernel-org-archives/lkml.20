@@ -1,568 +1,273 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADED3B83F9;
-	Tue, 29 Sep 2026 21:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790716359; cv=none; b=XFCq3bNabLqX+VJWoTbz0NobxI4we0cNMgaQrOrUtLvivOc5H2KlPbK2fDV2c5Qn32zfnoO0d/jKCJetMNG2Y4qD9a8BW3YV8ehOkrrsqw+dO6Gp8oBDNhHFbWYHOzrlHGSBpj1bk6au4AY7IHwlnVclTlQ9GnLY97rEVK65o6Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790716359; c=relaxed/simple;
-	bh=qmkq2jrzBa7FErUE58lKcVXjb99HTKuaMCom9YNHfSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A05hkf0w6SeWWvzlrW9E9l81ZRR06wijQmE3nLLR1EG/JXF+2cDk8mNxtYQYFj7fpJZcz56TSi0qF321/RGmAMr72zECZ8XZAX+1Z9vinn8ZMtiZkGp7hydsZlsw7i2MtFlwAYqpXFNsdzLIXGOw9Ypw2jV8e/uU91T66dkn8wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=jYG74vOv; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E2A3B6BFD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:12:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790716363; cv=fail; b=TmRUqe9mL0TlmMGjD2TorTQ18NPKloPrY1iB3CiVVCEfjXszi88ltTLUnaDVknTmxIrpZzXYQ/0jDtoxlGuSAphI8hS62tFolP62RvzXXoaz9vKPAGcmtdgdCdTwG6QF5HsT78zaH1XdCTHeDVURSmWf19eNYpCf3i8TA0UQJYs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790716363; c=relaxed/simple;
+	bh=hMQTLKpRaOP92Um3t1DN/QsgepZHyGaXKjDWA27EYfs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Y/qkTEiWangOiZr+TWwF6KxeQOI6409mPtm2ZVzciaOnJVy3v0DDQxk29nkfRdTmYOUp918FsAbkqMcXr5sZrfeCeRS0cxc9+2BLYt8jqQzZH/HWPZXjj2QSgiuCRXBDMLSzaXr+oBkClnwopMNfFbJ46f65V3GtbXIGU4u7WQg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=CNyWL6FD; arc=fail smtp.client-ip=52.101.48.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="jYG74vOv"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1790716354;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=FVlHNq9H8anSiXiv8AFbp3vNlS/CKb+xmPhdx1yfTH8=;
-	b=jYG74vOvJQinyRKaCmcJrrQ98jB/WwvyPIzqSWbrVMlZmtnS13cLxtk7y96zXrMvVoexlC
-	IKPrtqqUZwu1ctwUplHLhxT1Z4uTEgxwfexHIbhkFqIRCfru0n/KTqIZsogITTRqeyZNAJ
-	Aa/gXsuMsJosDwbUDlO3gMM8m7nhEQQ=
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	linux-crypto@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH] lib/crypto: sparc/aes-xts: Add optimization using the AES opcodes
-Date: Tue, 29 Sep 2026 23:12:18 +0200
-Message-ID: <20260929211218.4194135-1-stian@itx.no>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="CNyWL6FD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oEznLyJZLOWWCV6EpDZKmYNjJAD1AHx5QL5gXfd2ysLlBEgmeFe8gQT+0VFyBcoQWpvl5YZgjgyfjBDgDlvnZdaRp53Q73FiNgnA1rnEztdbsSk6k7DJTFR0sCYs1X0tmG1LUblNZwrFe/NpD2wMNhWFnhyZ5nJNSwFhe8VJ66WoHx5mz+tNLAUtZTPbXEwXhbulKArh0bNZ9cgOwNMuWVf78jJM8y6EyNYelopghQdmr4Okh69uWG20Iv8h3afem4BZSiKZJFfqaXZH2ksT66a9oH9QGMMMf4xfgtc7toj3XyaEU939tGnYczfzntSEZS0+bKfY51Un1qfzciNBWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DHTMlUaOlxqR2xRRksanG+GbdWUIE+GncLK6zNx12+g=;
+ b=HoxbUmA3AEUra0d5CNn/jBg9oeHrsbNMKL2jxPZG8YjHirD8kjx1W3SVdBUe0H5KLoeCxpde1ikkfdJKCZZU6jj1s+KyxsCKri6LYT+rP6ajYr2IXI1e6q9U1RiH9G7bDEDiANf8gqbk86ouldzeZzzgs53KTuchzhb/e8Iw/2iNJ+FpRGyGU9VjY/caF/YTB0KOTaltJ6pU7iAAFkz8dnO9D0YPMfqUH8KtTrz1DVSkby34ClqIWdAXbuhxqnmDyS/Pz1ZtCu+bVUnjIuQPZQfB4s1P3RG7iRQ0ysqKazyEYX6FjZ6Ay+M0Cc6xjD1h3S/fUvN+GcHBLTJT6pnNNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DHTMlUaOlxqR2xRRksanG+GbdWUIE+GncLK6zNx12+g=;
+ b=CNyWL6FDlZxrsCe6dVPPCLdz01dgPd5LWS5C1UNiVjFDmQi1raSiCWoAqtYz8Z41LEwbHsJHhl5YKIL6uJv4BqBxG5wiMVBRbuyLiUBu8fXpUIzI0Qg7jDVF6uoH+icPjDb5A6hprLj9BEr0D97g493GY3OdCjX9K6cPABMTbWE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15) by SA3PR12MB9089.namprd12.prod.outlook.com
+ (2603:10b6:806:39f::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 21:10:36 +0000
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 21:10:36 +0000
+Message-ID: <2d3f2b27-c978-4ba9-9f51-a4666c4030bb@amd.com>
+Date: Tue, 29 Sep 2026 17:10:32 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
+ import
+To: David Carlier <devnexen@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260929193432.100694-1-devnexen@gmail.com>
+Content-Language: en-CA
+From: Mukul Joshi <mukul.joshi@amd.com>
+In-Reply-To: <20260929193432.100694-1-devnexen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0375.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fd::10) To PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|SA3PR12MB9089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 393c77d1-91b9-4d67-18ee-08df1e6e1b7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|5023799004|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	gshGno6WhMBRkx43j+ojTEJ7UIPoiELabI9329RlimezsaHibbCoecWo2zONpcpCR0he5QJ+7TRIq/LpdP4HqbfXsC/S9mwFh8og9Tgk8kmTTsN+53xJQmgHP9BSm1Sx45otp6tI41iA40z/BFEUinrAT0Ha/+i/PoVjUUYZWhAKkeXNLTpB5tE9J8iq2ev9cJJIDNlDfi7kWh1Eg11/WJ+EGTY3y4vUPTJ6WF31weeSJ/rbvhUJxtFtTd/x2QiMdbXuqO5dzHBXG6lQp/NzaagsVerJYFVPxlPy/pGw/zfKXJFPiex7dznk6RsKqQVRPreTpNL+sFv9PoUG3Z2y3uMS5Jrr0ng7UpbLbrBVuy/2GdrTXkZmuRBL2GTXqFpv3tPthiRxsAbtMbjKMfn+isZAAkh4dcmq/Mu67iLpFrcYuO5tJXae6qjBidq9nhsiBcUsMuzHsxRzxtC4P7hbFOOYUBIv99tt3qa4XTLfL85Kyg+GnAUl+GrpGlisdBLN9N0Ufi6/PCUDG7qByHQhbk63vfgjOWrYc0FnDsAe8zTB+xRYc7WKnclvCwtBmlkmfDE7IZOqNhxF2pddUGrwJ5CuPYJ6VSlZd6EvjJzJs6ibTDaKZrg2MQ/p2+EfqN9dHK4kSbtkHZBV5UIamiz8I9PXYXWxcxosPGcxd5XrKxs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PHXPR12MB999256.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(5023799004)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZFI5UWtWYTNTZW5iRHdpV3lrc3Jpem9GQWYwTitsQWZ1NzhUZzBOelRqeUEy?=
+ =?utf-8?B?bXIzbEtlbEd0eFdwejUrSjFKcnFJRjhxUWRJTGJZbkN1L25ja2xJMEJ6dVVt?=
+ =?utf-8?B?Y3ZMaHhTMlcvUDUvY09YMncvTU5wZ1BpZHRXaVJRYStBNHlTMllDTS9nNWRq?=
+ =?utf-8?B?WjlVK1hVUUpzQUdYU3dJUFRhOHhubzAraFZQR3JqSTBmUklrb3lpNExGRUxF?=
+ =?utf-8?B?eDNOUU5LVldoOXhyN3FKYmVoVEIxL0JXVmpxMklCRnN0NzJMY2svZjEvejNJ?=
+ =?utf-8?B?bm9CbVlqNVY5MU5XYXBKSkFvd0hhQlBkWFpSWEpINEZINkk0eG9ncUZLMkpy?=
+ =?utf-8?B?a2ltUVhXY0lVQ0tNMUVkN0p2blhENXFocjJpakpadUU4ZkN3cXNGcmNjeld1?=
+ =?utf-8?B?R0dQZTZQZ0xnaDJJazVlcmoxOVN1WmxHc3FzT3FBazNJM00xUmtvNE0yb3NC?=
+ =?utf-8?B?cUNkU3Q1T0lHeDJHeTBXa2VRWnVtcGxMeDVkQ3FYNEpuZTl3UCtqOW4zNzFG?=
+ =?utf-8?B?WjBDbDhsdmFSWndyRldETEhvc0dFT1Y3VWcydWMzdDlwNGhTZUVmdXlXdE5y?=
+ =?utf-8?B?NkVRVGdnazEzMU1FSFZqMUVsczU5M2xyRFFGM2QxeElqcTRuZ0M3OEJIRXRT?=
+ =?utf-8?B?TWkvMHRhd20va1FaaWZoMjNYaXFadVllTEFoREdYdXU4OUhMQW1LcjJZUGov?=
+ =?utf-8?B?RVo4U2h6bUduWm9rcktuZEZCZHgrS0MzWVhWVC9NSGIweDRTb2FlYUdDNWZj?=
+ =?utf-8?B?ZXFCQ2psN2Fsem9BcittczhCV2dNMndzSWYzdDJWc3JoQWdKMmJMUCtWQlhw?=
+ =?utf-8?B?dnpjU2VLanF1ZXdDN3FmTlB2WVBDN0FoQ2VmOXdzb2hFV1VjcTdtYTQ2TTYw?=
+ =?utf-8?B?RXczbXVWMXkzckswaUtvZVRFbUsrbUcydmhGN1RjMUNhRm12MnpOUXlGUFBq?=
+ =?utf-8?B?Q0x0c0JiZDdETE50TXZxRVBqNEsvWnM3WkdCNEdLZC9ZZkVsVUNWK2RXaTJw?=
+ =?utf-8?B?bFI0UlNIeVkyVHFaeVc0NlBXRDBVZElWTTB4UWExWmdoODBSZ3BqYnVaRFpu?=
+ =?utf-8?B?MWk1WThjNGZqK2Yxb0JhKzNoWDBya21nYjZocFFlME5KWVQ5N05GUU9sVFJ2?=
+ =?utf-8?B?TkFhaDNCRlorOEsyNEJzUy9oVzMvSk5QZTJtRHNJSUdJbjBMbzhaNFRCeCtV?=
+ =?utf-8?B?QWFWMlhYL3lwVkFTQlZmcHA1Q2xoT0lNTkRCOFdGaDh6MUQ5WHA5dmt3aldN?=
+ =?utf-8?B?LytYaHN1M25GVkZ1QlJQb2w0TzliNzdrNVBDZ2VXRmo1d1Z5d0hlUDl4bFlB?=
+ =?utf-8?B?WnJYYkh5RVd2cFVnRVpZTWYwZW9YcUlWMW5wTDVUYXBvaXRtTXM5cm1wOUtx?=
+ =?utf-8?B?ME1DbVU3VHd4UWFQa1crYTdpb3ZCYmNZV1M1cGF5UzFDQjZlaFNITUUxb0Nu?=
+ =?utf-8?B?SE9qRlgycXp5cFlIQ0NFeGx4Szc0RzM4NmVwTVJuYWxaak0zOUhyZGRXMkxx?=
+ =?utf-8?B?UEFmNkZDZm16LzI0eHB1emJkZnE4U1FKWG83c0FJbVRXcStKOEh4Ky9UUUV0?=
+ =?utf-8?B?TEZaU1hQZTA5ZnZUbWdDS2hRd3RkbktkOTdQZ0padGQ5a0NsSlg4Wk9sVW1W?=
+ =?utf-8?B?UTN0Y0dsa1hVb3B6emM0MnJpSnh0M3YvRDlTVzJaTXNTZkUrdTJrYURYWWZS?=
+ =?utf-8?B?Z3BLNUx1OUJMQUxjbU9SMHErN1hDVzFNTm1rSnBLdVVHSFhXdVhqRnhSRk05?=
+ =?utf-8?B?T2lka1NhaUV1a3ZQZGhJUXd6SUg5dURlQTQ1a1BNaFNWOTFiWncrOTFzMllN?=
+ =?utf-8?B?NHdPdCtzNlpCdGlKcDFtS2hiRFNqS0JHT2ZIa2FJNVhYOWYyRHBmN3c3WnpW?=
+ =?utf-8?B?bm5aYURYSnJUaExyaVp0QUw1YlpIZFRleUwzZkp5WWthTE5IN1JKM1dUNGdh?=
+ =?utf-8?B?QVdLMFlpekhzcHRRYTJHblgvcXNuSmxYVEtvVUs3aU1wVVZ1WWIyWGwzdXoz?=
+ =?utf-8?B?bXFSVVlpWGZmUStrV3gvTVVvVnB4QXd5anRMQzNYU3pZTDkzTUxvQ0IrQmgy?=
+ =?utf-8?B?Q1RjVUFMblVsam9PbFpEbnBxWTFYK2hyQi8yd2lIcURLczhWWFI3M0FMNzhG?=
+ =?utf-8?B?OGdvVGpld2JCaVpMdXQxWnMzbHQ0UXcrUHpBZmdWN00rN0dscFBHNHdTYW1G?=
+ =?utf-8?B?bEt6cHFWa3JKK3lTNSs2anhRV1dRL2dhM0Q1YmVZU3dhMGp6S2toNGhPUDlN?=
+ =?utf-8?B?R3dFVjY4dGoraUo2YW00TTlqbWxFZEtTT2pBL1hMYU0xYm9jaERpbFhyam53?=
+ =?utf-8?B?RFQ1Q3l5d3NOUkpVWHFPTXlESDZnSHIrR1A0dTAwYldQZjJqNkdhQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 393c77d1-91b9-4d67-18ee-08df1e6e1b7b
+X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 21:10:36.6924
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FTGnpFgyV1h73hHgVvw12hMSUj0xKjGcVdpPsU592k5Eg2mEIg+TlaPIFfa3g/UxJOhOruiL3V8rtl5Qu8VoMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9089
 
-Since commit 94efa0c9fb36 ("crypto: aes - Add XTS support using
-library"), xts(aes) on sparc64 is xts-aes-lib.  sparc64 has no
-aes_xts_*_arch(), so that goes block by block through aes_encrypt(),
-where 7.2 got the xts template over ecb-aes-sparc64.  On a SPARC M7,
-AES-256-XTS through AF_ALG fell from 390 to 144 MiB/s.
 
-Implement aes_xts_encrypt_arch() and aes_xts_decrypt_arch() with the AES
-opcodes, for AES-128 and AES-256, two blocks per iteration.  AES-192,
-which IEEE 1619 does not specify, and data that is not 8-byte aligned
-are left to the generic code.
+On 9/29/2026 3:34 PM, David Carlier wrote:
+> The exporter records an importer when it answers NPA-REQ, so it can send
+> NPA-REVOKE as soon as the BO is freed, before the importer has finished
+> building the dma-buf for that handle. The revoke handler assumes a fully
+> imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
+> until the import completes, and drops the xarray reference the importing
+> thread still relies on. The importer then links the node and marks it
+> READY regardless, so the node can be freed while still on the per-remote
+> list.
+>
+> Only tear down a node that is READY. A PENDING node is still being
+> imported and nothing has been handed to user-space yet, so only mark it
+> for teardown and send NPA-RELEASE. The importer checks for teardown under
+> the xarray lock before linking the node and marking it READY, and unwinds
+> otherwise. As NPA-REVOKE always follows NPA-RSP, a revoke that finds the
+> node NOT_READY is stale, and one that finds it in teardown hits a node
+> that is already being released, so both are ignored.
+>
+> Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
+> Assisted-by: LLM
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-The tweak is kept as little-endian words, so that multiplying it by x is
-a 128-bit shift done with addcc and the VIS3 addxc.  A little-endian
-store and an ordinary load through a stack slot give it in the byte
-order of the data, and the slot is cleared on return.  The routines open
-a register window, as %g4-%g6 belong to the kernel.
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
 
-On a T7-1 (M7), MiB/s unless noted:
+I will get this tested first internally before pushing this.
 
-                               xts(ecb-aes-sparc64)  before  after
-  AF_ALG, 64 KiB, AES-128                     415      149   1092
-  AF_ALG, 64 KiB, AES-256                     390      144    936
-  dm-crypt on brd, AES-256:
-    sequential read                          1399     1217   2559
-    sequential write                         1472     1591   3480
-    4 KiB write latency, QD1 (us)            40.6     60.1   32.7
+Thanks,
 
-dm-crypt now matches aes-cbc-essiv on the same ramdisk.  On a T4-1,
-AES-256 goes from 238 MiB/s with the template to 544, and AES-128
-from 252 to 616.
+Mukul
 
-Tested with CONFIG_CRYPTO_SELFTESTS_FULL, and against OpenSSL over
-random keys, tweaks and lengths, on both machines.
-
-Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
-Closes: https://github.com/sparclinux/issues/issues/106
-Signed-off-by: Stian Halseth <stian@itx.no>
----
-
-Notes:
-    This fixes a regression from 7.3-rc1, so I would like it to go into
-    7.3 if possible.  It applies to libcrypto-fixes, v7.3-rc5 and
-    libcrypto-next, and on top of the x86/riscv migration series.
-    
-    xts-aes-lib keeps priority 110.  Nothing else registers xts(aes) on
-    sparc64, so it is what dm-crypt gets.  An xts(ecb-aes-sparc64) instance,
-    if something asks for one by name, still outranks it until the sparc64
-    ECB code moves into the library.
-    
-    Tested on 7.3-rc5 on a T7-1 and a T4-1: CONFIG_CRYPTO_SELFTESTS_FULL;
-    200 random messages per key size against OpenSSL, both directions;
-    AES-192 and ciphertext stealing against xts(ecb-aes-sparc64); misaligned
-    source and destination through AF_ALG.
-
- arch/sparc/include/asm/opcodes.h |   6 +
- lib/crypto/sparc/aes.h           |  75 +++++++
- lib/crypto/sparc/aes_asm.S       | 340 +++++++++++++++++++++++++++++++
- 3 files changed, 421 insertions(+)
-
-diff --git a/arch/sparc/include/asm/opcodes.h b/arch/sparc/include/asm/opcodes.h
-index ebfda6eb49b26..f1cb1a26be8fc 100644
---- a/arch/sparc/include/asm/opcodes.h
-+++ b/arch/sparc/include/asm/opcodes.h
-@@ -96,5 +96,11 @@
- 	.word	0xbbb02303;
- #define MOVXTOD_G7_F62		\
- 	.word	0xbfb02307;
-+#define MOVXTOD_L4_F56		\
-+	.word	0xb3b02314;
-+#define MOVXTOD_L5_F58		\
-+	.word	0xb7b02315;
-+#define ADDXC_L1_L1_L1		\
-+	.word	0xa3b44231;
- 
- #endif /* _SPARC_ASM_OPCODES_H */
-diff --git a/lib/crypto/sparc/aes.h b/lib/crypto/sparc/aes.h
-index e354aa507ee07..e1a060cf49539 100644
---- a/lib/crypto/sparc/aes.h
-+++ b/lib/crypto/sparc/aes.h
-@@ -133,6 +133,81 @@ static void aes_decrypt_arch(const struct aes_key *key,
- 	}
- }
- 
-+#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
-+void aes_sparc64_xts_encrypt_128(const u64 *key, const u64 *input, u64 *output,
-+				 size_t len, u64 tweak[2]);
-+void aes_sparc64_xts_encrypt_256(const u64 *key, const u64 *input, u64 *output,
-+				 size_t len, u64 tweak[2]);
-+void aes_sparc64_xts_decrypt_128(const u64 *key_end, const u64 *input,
-+				 u64 *output, size_t len, u64 tweak[2]);
-+void aes_sparc64_xts_decrypt_256(const u64 *key_end, const u64 *input,
-+				 u64 *output, size_t len, u64 tweak[2]);
-+
-+/* len is always a positive multiple of AES_BLOCK_SIZE here. */
-+static __always_inline bool
-+aes_xts_crypt_sparc64(u8 *dst, const u8 *src, size_t len,
-+		      u8 tweak[AES_BLOCK_SIZE],
-+		      const struct aes_xts_key *key, bool cont, bool enc)
-+{
-+	const struct aes_key *k = &key->main_key;
-+	const u64 *rk = k->k.sparc_rndkeys;
-+	const u64 *rk_end = rk + 2 * (k->nrounds + 1);
-+	const u64 *in = (const u64 *)src;
-+	u64 *out = (u64 *)dst;
-+	u64 t[2];
-+
-+	/* The assembly code has no AES-192 and needs 8-byte aligned data. */
-+	if (!static_branch_likely(&have_aes_opcodes) ||
-+	    k->len == AES_KEYSIZE_192 ||
-+	    !IS_ALIGNED((uintptr_t)dst | (uintptr_t)src, 8))
-+		return false;
-+
-+	if (cont)
-+		memcpy(t, tweak, sizeof(t));
-+	else
-+		aes_encrypt_arch(&key->tweak_key, (u8 *)t, tweak);
-+
-+	if (k->len == AES_KEYSIZE_128) {
-+		if (enc) {
-+			aes_sparc64_load_encrypt_keys_128(rk);
-+			aes_sparc64_xts_encrypt_128(rk, in, out, len, t);
-+		} else {
-+			aes_sparc64_load_decrypt_keys_128(rk);
-+			aes_sparc64_xts_decrypt_128(rk_end, in, out, len, t);
-+		}
-+	} else {
-+		if (enc) {
-+			aes_sparc64_load_encrypt_keys_256(rk);
-+			aes_sparc64_xts_encrypt_256(rk, in, out, len, t);
-+		} else {
-+			aes_sparc64_load_decrypt_keys_256(rk);
-+			aes_sparc64_xts_decrypt_256(rk_end, in, out, len, t);
-+		}
-+	}
-+	fprs_write(0);
-+
-+	memcpy(tweak, t, sizeof(t));
-+	memzero_explicit(t, sizeof(t));
-+	return true;
-+}
-+
-+#define aes_xts_encrypt_arch aes_xts_encrypt_arch
-+static bool aes_xts_encrypt_arch(u8 *dst, const u8 *src, size_t len,
-+				 u8 tweak[AES_BLOCK_SIZE],
-+				 const struct aes_xts_key *key, bool cont)
-+{
-+	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, true);
-+}
-+
-+#define aes_xts_decrypt_arch aes_xts_decrypt_arch
-+static bool aes_xts_decrypt_arch(u8 *dst, const u8 *src, size_t len,
-+				 u8 tweak[AES_BLOCK_SIZE],
-+				 const struct aes_xts_key *key, bool cont)
-+{
-+	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, false);
-+}
-+#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
-+
- #define aes_mod_init_arch aes_mod_init_arch
- static void aes_mod_init_arch(void)
- {
-diff --git a/lib/crypto/sparc/aes_asm.S b/lib/crypto/sparc/aes_asm.S
-index f291174a72a1d..640e2ff8716b0 100644
---- a/lib/crypto/sparc/aes_asm.S
-+++ b/lib/crypto/sparc/aes_asm.S
-@@ -2,6 +2,7 @@
- #include <linux/linkage.h>
- #include <asm/opcodes.h>
- #include <asm/visasm.h>
-+#include <asm/asi.h>
- 
- #define ENCRYPT_TWO_ROUNDS(KEY_BASE, I0, I1, T0, T1) \
- 	AES_EROUND01(KEY_BASE +  0, I0, I1, T0) \
-@@ -1541,3 +1542,342 @@ ENTRY(aes_sparc64_ctr_crypt_256)
- 	retl
- 	 stx		%g7, [%o4 + 0x08]
- ENDPROC(aes_sparc64_ctr_crypt_256)
-+
-+#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
-+	/* XTS.  The tweak is kept in %l0/%l1 as little-endian words, so that
-+	 * multiplying it by x is a 128-bit shift.  XTS_TWEAK_BE stores it to
-+	 * a stack slot little-endian and reloads it big-endian, the byte order
-+	 * of the data.  The slot is cleared before returning.
-+	 *
-+	 * A register window is needed because %g4-%g6 belong to the kernel.
-+	 * %l6 points at the slot and %l7 holds 8: an access with an immediate
-+	 * ASI cannot also take an immediate offset.
-+	 */
-+
-+#define XTS_DOUBLE							\
-+	srax		%l1, 63, %l2;					\
-+	and		%l2, 0x87, %l2;					\
-+	addcc		%l0, %l0, %l0;					\
-+	ADDXC_L1_L1_L1						\
-+	xor		%l0, %l2, %l0;
-+
-+#define XTS_TWEAK_BE(A, B)						\
-+	stxa		%l0, [%l6] ASI_PL;				\
-+	stxa		%l1, [%l6 + %l7] ASI_PL;			\
-+	ldx		[%l6 + 0x00], A;				\
-+	ldx		[%l6 + 0x08], B;
-+
-+	.align		32
-+ENTRY(aes_sparc64_xts_encrypt_128)
-+	/* %i0=key, %i1=input, %i2=output, %i3=len, %i4=tweak */
-+	save		%sp, -192, %sp
-+	mov		8, %l7
-+	add		%sp, 2047 + 176, %l6
-+	ldxa		[%i4] ASI_PL, %l0
-+	ldxa		[%i4 + %l7] ASI_PL, %l1
-+	ldx		[%i0 + 0x00], %g1
-+	subcc		%i3, 0x10, %i3
-+	be,pn		%xcc, 10f
-+	 ldx		[%i0 + 0x08], %g2
-+1:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	XTS_TWEAK_BE(%l4, %l5)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ldx		[%i1 + 0x10], %o5
-+	xor		%o5, %l4, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F4
-+	ldx		[%i1 + 0x18], %o5
-+	xor		%o5, %l5, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F6
-+	ENCRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
-+	MOVXTOD_G3_F60
-+	MOVXTOD_G7_F62
-+	MOVXTOD_L4_F56
-+	MOVXTOD_L5_F58
-+	fxor		%f0, %f60, %f0
-+	fxor		%f2, %f62, %f2
-+	fxor		%f4, %f56, %f4
-+	fxor		%f6, %f58, %f6
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+	std		%f4, [%i2 + 0x10]
-+	std		%f6, [%i2 + 0x18]
-+	subcc		%i3, 0x20, %i3
-+	add		%i1, 0x20, %i1
-+	brgz		%i3, 1b
-+	 add		%i2, 0x20, %i2
-+	brlz,pt		%i3, 11f
-+	 nop
-+10:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ENCRYPT_128(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F4
-+	MOVXTOD_G7_F6
-+	fxor		%f0, %f4, %f0
-+	fxor		%f2, %f6, %f2
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+11:	stxa		%l0, [%i4] ASI_PL
-+	stxa		%l1, [%i4 + %l7] ASI_PL
-+	stx		%g0, [%l6 + 0x00]
-+	stx		%g0, [%l6 + 0x08]
-+	ret
-+	 restore
-+ENDPROC(aes_sparc64_xts_encrypt_128)
-+
-+	.align		32
-+ENTRY(aes_sparc64_xts_encrypt_256)
-+	/* %i0=key, %i1=input, %i2=output, %i3=len, %i4=tweak */
-+	save		%sp, -192, %sp
-+	mov		%i0, %o0
-+	mov		8, %l7
-+	add		%sp, 2047 + 176, %l6
-+	ldxa		[%i4] ASI_PL, %l0
-+	ldxa		[%i4 + %l7] ASI_PL, %l1
-+	ldx		[%i0 + 0x00], %g1
-+	subcc		%i3, 0x10, %i3
-+	be,pn		%xcc, 10f
-+	 ldx		[%i0 + 0x08], %g2
-+1:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	XTS_TWEAK_BE(%l4, %l5)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ldx		[%i1 + 0x10], %o5
-+	xor		%o5, %l4, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F4
-+	ldx		[%i1 + 0x18], %o5
-+	xor		%o5, %l5, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F6
-+	ENCRYPT_256_2(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F60
-+	MOVXTOD_G7_F62
-+	MOVXTOD_L4_F56
-+	MOVXTOD_L5_F58
-+	fxor		%f0, %f60, %f0
-+	fxor		%f2, %f62, %f2
-+	fxor		%f4, %f56, %f4
-+	fxor		%f6, %f58, %f6
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+	std		%f4, [%i2 + 0x10]
-+	std		%f6, [%i2 + 0x18]
-+	subcc		%i3, 0x20, %i3
-+	add		%i1, 0x20, %i1
-+	brgz		%i3, 1b
-+	 add		%i2, 0x20, %i2
-+	brlz,pt		%i3, 11f
-+	 nop
-+10:	ldd		[%o0 + 0xd0], %f56
-+	ldd		[%o0 + 0xd8], %f58
-+	ldd		[%o0 + 0xe0], %f60
-+	ldd		[%o0 + 0xe8], %f62
-+	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ENCRYPT_256(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F4
-+	MOVXTOD_G7_F6
-+	fxor		%f0, %f4, %f0
-+	fxor		%f2, %f6, %f2
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+11:	stxa		%l0, [%i4] ASI_PL
-+	stxa		%l1, [%i4 + %l7] ASI_PL
-+	stx		%g0, [%l6 + 0x00]
-+	stx		%g0, [%l6 + 0x08]
-+	ret
-+	 restore
-+ENDPROC(aes_sparc64_xts_encrypt_256)
-+
-+	.align		32
-+ENTRY(aes_sparc64_xts_decrypt_128)
-+	/* %i0=&key[key_len], %i1=input, %i2=output, %i3=len, %i4=tweak */
-+	save		%sp, -192, %sp
-+	mov		8, %l7
-+	add		%sp, 2047 + 176, %l6
-+	ldxa		[%i4] ASI_PL, %l0
-+	ldxa		[%i4 + %l7] ASI_PL, %l1
-+	ldx		[%i0 - 0x10], %g1
-+	subcc		%i3, 0x10, %i3
-+	be,pn		%xcc, 10f
-+	 ldx		[%i0 - 0x08], %g2
-+1:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	XTS_TWEAK_BE(%l4, %l5)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ldx		[%i1 + 0x10], %o5
-+	xor		%o5, %l4, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F4
-+	ldx		[%i1 + 0x18], %o5
-+	xor		%o5, %l5, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F6
-+	DECRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
-+	MOVXTOD_G3_F60
-+	MOVXTOD_G7_F62
-+	MOVXTOD_L4_F56
-+	MOVXTOD_L5_F58
-+	fxor		%f0, %f60, %f0
-+	fxor		%f2, %f62, %f2
-+	fxor		%f4, %f56, %f4
-+	fxor		%f6, %f58, %f6
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+	std		%f4, [%i2 + 0x10]
-+	std		%f6, [%i2 + 0x18]
-+	subcc		%i3, 0x20, %i3
-+	add		%i1, 0x20, %i1
-+	brgz		%i3, 1b
-+	 add		%i2, 0x20, %i2
-+	brlz,pt		%i3, 11f
-+	 nop
-+10:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	DECRYPT_128(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F4
-+	MOVXTOD_G7_F6
-+	fxor		%f0, %f4, %f0
-+	fxor		%f2, %f6, %f2
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+11:	stxa		%l0, [%i4] ASI_PL
-+	stxa		%l1, [%i4 + %l7] ASI_PL
-+	stx		%g0, [%l6 + 0x00]
-+	stx		%g0, [%l6 + 0x08]
-+	ret
-+	 restore
-+ENDPROC(aes_sparc64_xts_decrypt_128)
-+
-+	.align		32
-+ENTRY(aes_sparc64_xts_decrypt_256)
-+	/* %i0=&key[key_len], %i1=input, %i2=output, %i3=len, %i4=tweak */
-+	save		%sp, -192, %sp
-+	sub		%i0, 0xf0, %o0
-+	mov		8, %l7
-+	add		%sp, 2047 + 176, %l6
-+	ldxa		[%i4] ASI_PL, %l0
-+	ldxa		[%i4 + %l7] ASI_PL, %l1
-+	ldx		[%i0 - 0x10], %g1
-+	subcc		%i3, 0x10, %i3
-+	be,pn		%xcc, 10f
-+	 ldx		[%i0 - 0x08], %g2
-+1:	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	XTS_TWEAK_BE(%l4, %l5)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	ldx		[%i1 + 0x10], %o5
-+	xor		%o5, %l4, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F4
-+	ldx		[%i1 + 0x18], %o5
-+	xor		%o5, %l5, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F6
-+	DECRYPT_256_2(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F60
-+	MOVXTOD_G7_F62
-+	MOVXTOD_L4_F56
-+	MOVXTOD_L5_F58
-+	fxor		%f0, %f60, %f0
-+	fxor		%f2, %f62, %f2
-+	fxor		%f4, %f56, %f4
-+	fxor		%f6, %f58, %f6
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+	std		%f4, [%i2 + 0x10]
-+	std		%f6, [%i2 + 0x18]
-+	subcc		%i3, 0x20, %i3
-+	add		%i1, 0x20, %i1
-+	brgz		%i3, 1b
-+	 add		%i2, 0x20, %i2
-+	brlz,pt		%i3, 11f
-+	 nop
-+10:	ldd		[%o0 + 0x18], %f56
-+	ldd		[%o0 + 0x10], %f58
-+	ldd		[%o0 + 0x08], %f60
-+	ldd		[%o0 + 0x00], %f62
-+	XTS_TWEAK_BE(%g3, %g7)
-+	XTS_DOUBLE
-+	ldx		[%i1 + 0x00], %o5
-+	xor		%o5, %g3, %o5
-+	xor		%o5, %g1, %o5
-+	MOVXTOD_O5_F0
-+	ldx		[%i1 + 0x08], %o5
-+	xor		%o5, %g7, %o5
-+	xor		%o5, %g2, %o5
-+	MOVXTOD_O5_F2
-+	DECRYPT_256(8, 0, 2, 4, 6)
-+	MOVXTOD_G3_F4
-+	MOVXTOD_G7_F6
-+	fxor		%f0, %f4, %f0
-+	fxor		%f2, %f6, %f2
-+	std		%f0, [%i2 + 0x00]
-+	std		%f2, [%i2 + 0x08]
-+11:	stxa		%l0, [%i4] ASI_PL
-+	stxa		%l1, [%i4 + %l7] ASI_PL
-+	stx		%g0, [%l6 + 0x00]
-+	stx		%g0, [%l6 + 0x08]
-+	ret
-+	 restore
-+ENDPROC(aes_sparc64_xts_decrypt_256)
-+#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.43.0
-
+> ---
+> Changes in v3:
+> - Handle the node state with a switch: tear down READY nodes, mark
+>   PENDING ones for teardown, ignore the rest (Mukul).
+> - Drop the npa_done completion on a NOT_READY node: the exporter only
+>   records the importer after sending NPA-RSP, so such a revoke is stale
+>   (Mukul).
+> - No longer send NPA-RELEASE for a node already in teardown (Mukul).
+> - Use dev_dbg() for the revoked-during-import message (Mukul).
+>
+> Changes in v2:
+> - Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
+>   in teardown neither dereferences a NULL dmabuf nor drops the node
+>   reference twice (Sashiko).
+> - Complete npa_done when a revoke arrives before NPA-RSP, so the importer
+>   fails right away instead of timing out into a connection reset (Sashiko).
+> - Use the current Assisted-by format.
+>
+> Found by code analysis and compile-tested with W=1. Not tested on hardware,
+> as it needs two UALink-connected accelerators in a vPod.
+>
+> v2: https://lore.kernel.org/all/20260926174406.346253-1-devnexen@gmail.com/
+> v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 51 +++++++++++++++++-----
+>  1 file changed, 39 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 8411ea17172f..ea18e7f2e0a3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -3288,16 +3288,35 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>  		return;
+>  	}
+>  
+> -	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> -	list_del_init(&imp_xa_node->list);
+> -	xa_unlock(&adev->ualink.imp_xa);
+> +	switch (READ_ONCE(imp_xa_node->node_state)) {
+> +	case AMDGPU_UALINK_NODE_READY:
+> +		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> +		list_del_init(&imp_xa_node->list);
+> +		xa_unlock(&adev->ualink.imp_xa);
+>  
+> -	/* Invalidate the GPUVM mappings */
+> -	bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
+> -	amdgpu_ualink_invalidate_import_mappings(bo);
+> +		/* Invalidate the GPUVM mappings */
+> +		bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
+> +		amdgpu_ualink_invalidate_import_mappings(bo);
+>  
+> -	/* Drop the refcount for the node */
+> -	amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+> +		/* Drop the refcount for the node */
+> +		amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+> +		break;
+> +	case AMDGPU_UALINK_NODE_PENDING:
+> +		/* The import is still building the dma-buf and nothing has
+> +		 * been handed to user-space yet. The importing thread sees
+> +		 * the teardown state and unwinds.
+> +		 */
+> +		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		break;
+> +	default:
+> +		/* NPA-REVOKE always follows NPA-RSP, so a NOT_READY node means
+> +		 * a stale revoke, and a node in teardown is already being
+> +		 * released by whoever moved it there.
+> +		 */
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		return;
+> +	}
+>  
+>  	r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+>  	if (r)
+> @@ -3760,9 +3779,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+>  		return r;
+>  	}
+>  
+> -	/* Add this node to the imported handles list for the remote GPU */
+> +	/* Add this node to the imported handles list for the remote GPU,
+> +	 * unless the exporter revoked the handle while the import was in
+> +	 * flight. The dmabuf is released with the last node reference.
+> +	 */
+>  	xa_lock(&adev->ualink.imp_xa);
+> +	if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		dev_dbg(adev->dev,
+> +			"IMPORT: handle:%llx:%llx revoked during import\n",
+> +			handle.handle_hi, handle.handle_lo);
+> +		return -EINVAL;
+> +	}
+>  	list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
+> +	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
+>  	xa_unlock(&adev->ualink.imp_xa);
+>  
+>  	return 0;
+> @@ -3938,9 +3968,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+>  					"IMPORT: XA import failed for handle:%llx:%llx\n",
+>  					handle.handle_hi, handle.handle_lo);
+>  			goto cleanup;
+> -		} else {
+> -			WRITE_ONCE(imp_xa_node->node_state,
+> -				   AMDGPU_UALINK_NODE_READY);
+>  		}
+>  	}
+>  
