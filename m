@@ -1,215 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 062654FDA51;
-	Tue, 29 Sep 2026 16:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDA951FCD1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699299; cv=none; b=WneRla1WGskF2MJ8N54HWt1IClWaDTPYWpZ6CFn+YYha7kqq/FaGmej2s1835rtcyO5GzHk4Ic7NDN6q25dMXFRFrZUPrHV2Nba9PXI1FKaqbXEy71OcHZ1NOb/adnbu10hWnUSSSj4Vh4UEbJzmq6jdZ5DrFlHnf3OBkBGua8g=
+	t=1790699301; cv=none; b=nbhF4cVK+7ZeAJGZRZILvcoaPee7zg6qT7CXECD2md4AM4rTTGwoHkqYEonOkLJ6tLMJ+Ox8G1mGjnEF0HFfRdffX3hVdH4UAO3M54Y22DuUFbiLjuUwwudXiRWJZ0oSj9+NSm0/r3tNbko2jViuB1kKiw/trflKXKxF2jdG2vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699299; c=relaxed/simple;
-	bh=oRtOh33Fesqsuut+x1rNUXPIlp0nseB6LrUdXjuiRLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F8znGMuZURlA9SefhpZDSoEKcR5Tp731Iw8hirzbL3yBeOj/K0+3TQlXxsLxwt28s2F8ul8nVTmaxWOS0YgQKSqL7v8F2QdW2WrYuDrsJrTjjte1UO+f2iGlAP1LDXtHV3pRjBy4IB4Abn6QJi/GSOc+RBdLNIXLGpCmBfSeWDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fLQfaulU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790699301; c=relaxed/simple;
+	bh=SzIosLDQg7snE9UfrT+BODzU4lO9sxWMvYyaifhgwXQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n1UwxmWEADtybc054Wv+X0el1uEZUuSjKXKtUPxrARLILb486VsM5Y57Trbz6CchCdljtPQfXg/jeoGC/pSm9ht69R43JoH1QnVIVe/D7CqQ2Y/OhzET1q83oLt+5xOyFbWgUESNKFhZf/drFnqGn9RsZN7Ol++oLzxHdS6NBqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=NfBiNLfv; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fLQfaulU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB8EE1516;
-	Tue, 29 Sep 2026 09:28:13 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D13F3F85F;
-	Tue, 29 Sep 2026 09:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790699297; bh=oRtOh33Fesqsuut+x1rNUXPIlp0nseB6LrUdXjuiRLw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fLQfaulU0csNG4XSuuPMVX0sXYZcXQ+mm4Xg0cHYi6yvmJvMHlVlEqdR2aMMidlyN
-	 Hd3VWaDL5422G1rUM//uLmMXWjsmi1BShVtOUMM8kT37owJfBiv6NZ3fu3oLuFfZZw
-	 Zr+44rsBk4SoIczcvrlWBqY0pYjdtsi5lWOa+aZQ=
-Date: Tue, 29 Sep 2026 17:28:13 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 04/11] kselftest/arm64: Use exit_error() rather than
- SIGABRT in fp-stress
-Message-ID: <arvnHYROxZ6rbUMv@J2N7QTR9R3.cambridge.arm.com>
-References: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
- <20260901-arm64-fp-stress-kvm-v1-4-31bce995b49b@kernel.org>
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="NfBiNLfv"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso440164eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1790699299; x=1791304099; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EIUT7gLZI+rQeOH5s3bmQw/tw87mS5D6Yw6a8lMvT+Y=;
+        b=NfBiNLfvFezRNZyPbzatwBdqeAYME0qXx4ugFjGTaq5+ZERa6AbWw6XqEWMVmm9nYO
+         lNzPCoR7AKbuxrCsXI7lMqdPaZZP2pttwLveriOINRCKVtdQM/sq7bVZCUGzVRx5pXkV
+         1fyGQ1w9AHHEXpLYWtZdonKFxPGXuOqjFnWbTPWlAj3Kv5vjicMma1DEYITp9mTuKWsC
+         La31l6pTrK67od91fExtRE0hE+8rsCvdhcEYPh7QR5L1AltSfMEtIKQMglIo9gsywGx8
+         ZfW827mPjTYbskyxXWso/wPod9scVVS/lGacIMhnhvvg0hov31oPky263Uocnru62n/Z
+         KvSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790699299; x=1791304099;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EIUT7gLZI+rQeOH5s3bmQw/tw87mS5D6Yw6a8lMvT+Y=;
+        b=R7pXp8t35YzYGzH8tnoRBVw4zaNEw8BmgXpXlmPUxG4xyluirFBwjAKeJcx0xqt1YT
+         lPQB3itPzbuD0ks+isJv2+Zvjspx16sr8nO/lhsovX7PTYSN+AzfFs2TFZi2jTHCI46V
+         aEC2cnwCb+ULLP675cZjvE76DhOE1kQzKa3h+J93p9s1Cv+eWsyRaBKngQuEMVfunkqe
+         JBItwqt0PiV3pbZcc0b0r0LzSQ3kBPJzZ2ueqPYZyWWtCpDjIBpmXa1AL/auSXwIuOcZ
+         kaqCZTLRoOLP3hTBuTJSGY2UNSxdQ1b4GTMC1E0ii2pPlYliU2OdRZz/zWm2eHn5+x6D
+         wVjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwo7RRRb17+oeR4G7l2UI2gFwmdo+wnJbkAHXrhLoda86G4NJ8hMQG+brl6w+kLKOfJ0TyDRspGtF57dJg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIzshlmbMG7PHExJ2n1nvQ+lkWKuV0Cnwab6H9+AOPsljKqY8n
+	MOqOpcdi/w0wQFIta4A0yzJnXe7iirrBKbsj/YPVlhSfBKsgF3Jvv2Zpgu8qwlYNfS/wZHl0gl5
+	NWJn6NXU=
+X-Gm-Gg: AYBFou12yB/QRdetLUkhy50gEBLpAbO012EbGUje5EgD2wQdxCFnOoCC9e/9XNsgH3v
+	pc124h/cuNjTXKZzYFBivaGgGN81oj6DKSZP3/Tgo18ZuXHx0IHTz+CPSiBvcWDFHcY9CIk7fuu
+	mS2Iwd9VB9LVlzrcPwJa2inD1y2O8Z7l77d8pScQrl0W+4a+l62MYKPh0u4cFPL1L8cLjUJw9w1
+	0zBFkUdJ6AKHb3byMahmXmlEFngjcqvI5zNNX2lJ5b+11AidmqGffC30XoRgH7hoaQyMecfnW7g
+	dY2ChctNYbpUY9n/CAxV6Kkjhl/T+p5LgkiHk5CpxC0U91eczjblvbOCdaYCx54EPyvCqkWVrdq
+	mnjyYYgBUF3vVk7LO8X+edPVuEU58eLXAa6N6x0Sc3grUcU4NgqROhYQEOe4V5R1DRavNzo0wxX
+	jnpJ/pmOhCHqnU0uZps72j5JfaF9Whr87NAlw3f3dXr/h+wu0KiajqO+MQBQcvmkHERWYe9pqR1
+	jk8Mkz2kpPs
+X-Received: by 2002:a05:7301:201c:b0:340:f5ba:9670 with SMTP id 5a478bee46e88-34af4723c4fmr3538573eec.1.1790699299076;
+        Tue, 29 Sep 2026 09:28:19 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:28:18 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH 0/2] misc: eeprom_93xx46: add Microchip 93LC86C
+Date: Tue, 29 Sep 2026 09:28:15 -0700
+Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-arm64-fp-stress-kvm-v1-4-31bce995b49b@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6DIBCF4Vcxsy4JIiLTV2lctDjqGG+BakiM7
+ 16qq5Nvcf4DAnmmAM/sAE87B17mhPyRgevfc0eCm2RQUhmJCgXR6pdJYBGjNmlGZ40TSpcSK91
+ Yizmk7+qp5Xh1X/XtsH0Gct9/DM7zB3FciFp5AAAA
+X-Change-ID: 20260929-eeprom-93xx46-93lc86c-2450974d8891
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Cory Tusar <cory.tusar@pid1solutions.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=759;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=SzIosLDQg7snE9UfrT+BODzU4lO9sxWMvYyaifhgwXQ=;
+ b=QH6GMoz2gvT8CuoOPTd/O5Ygd0WGNmy3k6SjZEqGtLZFlHWFV1LNXms5PFaGasY1VMiZJ9+/u
+ OAEtqr+9EE6Ca/WtsNOBP03TfNgABXFtfCNoBMYHc+ulQ4FHO8ZZ1ws
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-On Tue, Sep 01, 2026 at 06:06:44PM +0100, Mark Brown wrote:
-> The fp-stress test loads all deliver a SIGABRT to the process group to
-> report some errors they detect. There is no particular reason to use
-> this mechanism over exiting with an error code, the fp-stress harness does
-> not care.
+The 93LC86C is the 16 Kbit member of the family, 2048 bytes. Like the
+93LC46B it clocks an extra cycle out after the address during a read, so it
+takes the same quirk.
 
-That's not quite true; sending a SIGABRT to the entire process group
-will kill the harness and other tests, resulting in lost output.
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Abdurrahman Hussain (2):
+      dt-bindings: eeprom: microchip,93lc46b: add Microchip 93LC86C
+      misc: eeprom_93xx46: add Microchip 93LC86C
 
-I mentioned that in the patches I linked you to a while back:
+ .../devicetree/bindings/eeprom/microchip,93lc46b.yaml         |  1 +
+ drivers/misc/eeprom/eeprom_93xx46.c                           | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260929-eeprom-93xx46-93lc86c-2450974d8891
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=922d15ef46cb486a79f168949e103f6df26f4fba
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-That aside, this is a good cleanup.
-
-Mark.
-
-> In order to facilitate running as KVM guests replace this with
-> use of the exit_error() function we added.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  tools/testing/selftests/arm64/fp/fpsimd-test.S | 10 ++--------
->  tools/testing/selftests/arm64/fp/sve-test.S    | 10 ++--------
->  tools/testing/selftests/arm64/fp/za-test.S     | 10 ++--------
->  tools/testing/selftests/arm64/fp/zt-test.S     |  8 +-------
->  4 files changed, 7 insertions(+), 31 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/arm64/fp/fpsimd-test.S b/tools/testing/selftests/arm64/fp/fpsimd-test.S
-> index 5ee8ef51ea4e..fcbb3a872490 100644
-> --- a/tools/testing/selftests/arm64/fp/fpsimd-test.S
-> +++ b/tools/testing/selftests/arm64/fp/fpsimd-test.S
-> @@ -176,7 +176,7 @@ function setsignal
->  	cbz	w0, 1f
->  
->  	puts	"sigaction failure\n"
-> -	b	.Labort
-> +	b	exit_error
->  
->  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
->  	ret
-> @@ -224,7 +224,7 @@ function _start
->  1:	puts	"Bad vector length: "
->  	mov	x0, x19
->  	bl	putdecn
-> -	b	.Labort
-> +	b	exit_error
->  
->  2:	puts	"Vector length:\t"
->  	mov	x0, x19
-> @@ -266,12 +266,6 @@ function _start
->  
->  	add	x22, x22, #1
->  	b	.Ltest_loop
-> -
-> -.Labort:
-> -	mov	x0, #0
-> -	mov	x1, #SIGABRT
-> -	mov	x8, #__NR_kill
-> -	svc	#0
->  endfunction
->  
->  function barf
-> diff --git a/tools/testing/selftests/arm64/fp/sve-test.S b/tools/testing/selftests/arm64/fp/sve-test.S
-> index 3447fe0e5554..26efdbdd88f9 100644
-> --- a/tools/testing/selftests/arm64/fp/sve-test.S
-> +++ b/tools/testing/selftests/arm64/fp/sve-test.S
-> @@ -344,7 +344,7 @@ function setsignal
->  	cbz	w0, 1f
->  
->  	puts	"sigaction failure\n"
-> -	b	.Labort
-> +	b	exit_error
->  
->  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
->  	ret
-> @@ -397,7 +397,7 @@ function _start
->  1:	puts	"Bad vector length: "
->  	mov	x0, x19
->  	bl	putdecn
-> -	b	.Labort
-> +	b	exit_error
->  
->  2:	puts	"Vector length:\t"
->  	mov	x0, x19
-> @@ -474,12 +474,6 @@ function _start
->  
->  	add	x22, x22, #1
->  	b	.Ltest_loop
-> -
-> -.Labort:
-> -	mov	x0, #0
-> -	mov	x1, #SIGABRT
-> -	mov	x8, #__NR_kill
-> -	svc	#0
->  endfunction
->  
->  function barf
-> diff --git a/tools/testing/selftests/arm64/fp/za-test.S b/tools/testing/selftests/arm64/fp/za-test.S
-> index 33dc4ce8bfa1..7208bb2db9f1 100644
-> --- a/tools/testing/selftests/arm64/fp/za-test.S
-> +++ b/tools/testing/selftests/arm64/fp/za-test.S
-> @@ -189,7 +189,7 @@ function setsignal
->  	cbz	w0, 1f
->  
->  	puts	"sigaction failure\n"
-> -	b	.Labort
-> +	b	exit_error
->  
->  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
->  	ret
-> @@ -240,7 +240,7 @@ function _start
->  1:	puts	"bad vector length: "
->  	mov	x0, x19
->  	bl	putdecn
-> -	b	.Labort
-> +	b	exit_error
->  
->  2:	puts	"vector length:\t"
->  	mov	x0, x19
-> @@ -288,12 +288,6 @@ function _start
->  
->  	add	x22, x22, #1	// Everything still working
->  	b	.Ltest_loop
-> -
-> -.Labort:
-> -	mov	x0, #0
-> -	mov	x1, #SIGABRT
-> -	mov	x8, #__NR_kill
-> -	svc	#0
->  endfunction
->  
->  function barf
-> diff --git a/tools/testing/selftests/arm64/fp/zt-test.S b/tools/testing/selftests/arm64/fp/zt-test.S
-> index c67242c2d5ab..c6cfbdeb2f0c 100644
-> --- a/tools/testing/selftests/arm64/fp/zt-test.S
-> +++ b/tools/testing/selftests/arm64/fp/zt-test.S
-> @@ -158,7 +158,7 @@ function setsignal
->  	cbz	w0, 1f
->  
->  	puts	"sigaction failure\n"
-> -	b	.Labort
-> +	b	exit_error
->  
->  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
->  	ret
-> @@ -222,12 +222,6 @@ function _start
->  
->  	add	x22, x22, #1	// Everything still working
->  	b	.Ltest_loop
-> -
-> -.Labort:
-> -	mov	x0, #0
-> -	mov	x1, #SIGABRT
-> -	mov	x8, #__NR_kill
-> -	svc	#0
->  endfunction
->  
->  function barf
-> 
-> -- 
-> 2.47.3
-> 
