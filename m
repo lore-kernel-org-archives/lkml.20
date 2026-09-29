@@ -1,103 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AADC37CD33
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3FA2459E1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689836; cv=none; b=PJPs0X6v2UvNv0b8Ef2IxNWPjJD9aTzL4fJO++Xidt9Z77ZNRPrDMZW/kEZh4CHScN8/U7BseWvMoGnHm/5cNwgRBix++TbhkwLEQk9S+/C5IgpzHY9cPEILnMQfcgph4eU7wXeDG2tN/+x7NmfsYP9Ahln9EWfWs3KIvIrTSnQ=
+	t=1790689879; cv=none; b=az1IXqkZgOBKJkijh95Ai/BBCj+YuS0wUEdWYezzma6GGs0guR5QoOEn6HOkkyA5fJFPqcemuSNtsGCawKFu8ftqLnppxfHW4fBnXxy3Z70FoeUuSl1GbHOB5VHyW2nblkKymD7AyWcQjVCXeCIuD8fvOlN+9M/kWp1UqJ/lvMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689836; c=relaxed/simple;
-	bh=pkAjWq2qsb19Kk+6tfhOQNlRNmYwaVCv5Tvkoq23pbI=;
+	s=arc-20240116; t=1790689879; c=relaxed/simple;
+	bh=TYF29B8WG+iQvzzIrANYNP3KFNzNJZq/Q0IdpOUlnts=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fPljJXHzT+Ia3DjhdDegy5LTpKM+9L9doCgPvJYA0v/8tuU73A9g+Gr7uoD+z0GVJvjNnn0JnpifRGswvxcXt5E9EPkPe7OSM5r7McPkvXxM2WbaKySito2MPjHg3EJ/vGu8iIGc+QXedBqD6qKSqw2RjT2xrnYpEQmHiGMWGeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyacP3nW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DxRgQyHhsPQ04tI5ctGOvyMLfu8UVzMJ8qtWsn5hkvB5qbFBz+numDDFeINUHcU1LZNjvL/0t3TjiEYlgRUxcKFKZqwhhi5tdN2M4vh9FixWWAQteX0ZxKsPIzI/GKriBjS2XF5/MZUYunUs0kaFnvh7rjtyTMwUk/+NKv68erE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=aGLFW+Mp; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyacP3nW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AC21F000FF;
-	Tue, 29 Sep 2026 13:50:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790689834;
-	bh=d138TUO/Ve/2vyNV5jB3KW2+RQ5rrXezbHRlOxWZDsQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SyacP3nWMNBV1SC6yyhzxJ+HX5GPxeyKX0jmfrqPjjF0bkiowzwoPsABDbSAwzJZV
-	 XQgmhmMjUPrRhBFmHuWC0mQ725Qg72Da1bZ4aB+39lB+Uq9nxgvVJCZIC6sU2hW3wo
-	 Ode8YQaH74wF9w1RTS4yI/ZMxe5SXenH5d9IG7yI+brD82yZQQtXy5PxUrZwuOdt5s
-	 B6nKHxsQvZZJJVK6QSuHFAbntn+9e0nqZykWOvYeu0m8npDJ/j/kvg+k6tftE1kSdr
-	 Vpls2MRHNiHjmg5Zn532+cnVOYTu966sZzDE5f9MX6pOoxfBxqCbW4unRSajZo0urG
-	 WYr22xJw6Azhg==
-Date: Tue, 29 Sep 2026 15:50:31 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Ahmed Shaltout <ahmedshaltout.payment@gmail.com>
-Cc: tglx@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] /proc/stat idle time exceeds wall clock since v7.2
-Message-ID: <arvCJzz35oBW3AjY@localhost.localdomain>
-References: <E76BE609-83E4-4FB6-88B8-191F7816EFD6@gmail.com>
- <arJ6NjfdHUPjN2Kc@localhost.localdomain>
- <CAORRHKj1EUum3O6ToGek0A-tuUf7HsCUwFHiXUc+53ZLKOrSFw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="aGLFW+Mp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zFuTF/YqpoHkqpDwBGXiRlU4Ww8ZRrUwfgBzvlLnBEY=; b=aGLFW+Mpk9muBwNh+BGdSwObeZ
+	8/eDBDvf31XQ4dXmKNxpSP4A30wYSz93OcsmK78OtLFxixEO0/DuKqEIVJ53XlrXAJ8VGILSMwqGu
+	IfX/Yq4LGsXrepS7XbBRP67Z4+uM5NhGqmPX4MJAXkZ5RWFYJbFEfbh0flPOMcJFd2wq+ylQNz8aj
+	ivRlRPfNExkzQUQcGRqXtqphQr/5PV1mZvvpTG/ir3bSQjnNG451f+VhsYTugW9o6t4isQ34KaehV
+	7d2kr2Bmrjarvdkfuity+15oxTgCuDtIOxQjzdY2LyAhqnpkKEyUrNqjK0UquN5GqW9/ZIgQVjFqh
+	c/qvnRMg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xBYEi-008SFT-0J;
+	Tue, 29 Sep 2026 13:51:12 +0000
+Date: Tue, 29 Sep 2026 06:51:07 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Marco Crivellari <marco.crivellari@suse.com>, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH wq/for-7.4 v2 3/3] workqueue: add a
+ percpu_concurrency_managed workqueue attribute
+Message-ID: <arusuF5mAEukjuJ0@gmail.com>
+References: <20260925-wq_final-v2-0-860ee052169e@debian.org>
+ <20260925-wq_final-v2-3-860ee052169e@debian.org>
+ <1bcd7a71f382de147d7e26ee14f00ac7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAORRHKj1EUum3O6ToGek0A-tuUf7HsCUwFHiXUc+53ZLKOrSFw@mail.gmail.com>
+In-Reply-To: <1bcd7a71f382de147d7e26ee14f00ac7@kernel.org>
+X-Debian-User: leitao
 
-Le Tue, Sep 22, 2026 at 07:53:23PM +0400, Ahmed Shaltout a écrit :
-> Hi Frederic,
+Hello Tejun,
+
+On Mon, Sep 28, 2026 at 11:31:11AM -1000, Tejun Heo wrote:
+> On Fri, Sep 25, 2026 at 06:09:52AM -0700, Breno Leitao wrote:
+> > Introduce percpu_concurrency_managed, similar to the discussion in [1],
+> > and use it when deciding to do concurrency management, instead of
+> > relying on WQ_PERCPU (the only WQ type that does CM as of now).
 > 
-> Le Mon, Sep 21, 2026, Frederic Weisbecker a écrit :
-> > I can't manage to reproduce that, neither on latest mainline nor on 7.2.7
-> >
-> > Can you share your whole .config file?
-> 
-> Attached: config-7.2.5-1-default, taken from /boot/config-$(uname -r) on an
-> affected node. It is the stock openSUSE Tumbleweed/MicroOS package
-> kernel-default-7.2.5-1.1.x86_64, unmodified, no custom build. It differs
-> from
-> config/x86_64/default in openSUSE:Factory/kernel-source at the 7.2.5 source
-> revision only in toolchain-detection and build-metadata lines (CC/AS/LD
-> version, LOCALVERSION, MODULE_SIG_KEY, CC_HAS_*), no functional option:
-> https://api.opensuse.org/public/source/openSUSE:Factory/kernel-source/config.tar.bz2?rev=4dabae0b715184e35b05b9a168bde6b7
+> Once PERCPU is its own scope, the scope picks the backend, and concurrency
+> management and the per-cpu max_active follow from that. Opting out of
+> concurrency management on the per-cpu pools is what WQ_CPU_INTENSIVE already
+> does, and I don't see a need to change that at runtime. How about dropping
+> this patch for now?
 
-I fear I still can't reproduce with the config in attachment.
+Ack, I will continue to decide about concurrency management by looking
+at the affinity scope other than a new knob.
 
-> 
-> The unaffected control box runs kernel-default-7.1.8-1.1.x86_64 from the
-> same
-> distribution, also stock, same VM type, same command line. Between the two
-> configs the only change among the scheduler, tick, accounting, preemption
-> and
-> RCU options is CONFIG_SCHED_CACHE=y appearing in 7.2.5.
-> 
-> Environment, in case it is what your test box does not share:
-> 
->   - Every node is a KVM guest (Hetzner Cloud, QEMU, "AMD EPYC-Rome
-> Processor",
->     8 vCPUs, one with 4), clocksource kvm-clock.
->   - No steal-time accounting at all: there is no kvm-stealtime line in the
->     boot log and the steal column has read exactly 0 on every node for the
->     75 hours since boot, so the hypervisor does not seem to expose the MSR.
->   - CONFIG_VIRT_CPU_ACCOUNTING_GEN=y, CONFIG_CONTEXT_TRACKING_IDLE=y and
->     CONFIG_NO_HZ_FULL=y are built in (SUSE default) with nohz_full= empty,
->     so the CPUs run idle dynticks, not full.
->   - CONFIG_HZ=1000, CONFIG_PREEMPT_DYNAMIC=y, psi=1 on the command line:
->     BOOT_IMAGE=/boot/vmlinuz-7.2.5-1-default root=UUID=... rd.timeout=60
->     rd.retry=45 quiet systemd.show_status=yes console=ttyS0,115200
->     console=tty0 ignition.platform.id=openstack security=selinux selinux=1
->     psi=1
-
-I ran on KVM too, overcommiting the vcpus like you did (16 vCPUs on 8 CPUs)
-and still nothing wrong.
-
-I'm wondering if this is specific to opensuse somehow. Can you try to build
-the latest upstream kernel?
-
-Thanks.
-
--- 
-Frederic Weisbecker
-SUSE Labs
+Thanks for the review,
+--breno
