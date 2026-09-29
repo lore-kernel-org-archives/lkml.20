@@ -1,1680 +1,299 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazolkn19011009.outbound.protection.outlook.com [52.103.66.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CA61F30A9;
-	Tue, 29 Sep 2026 01:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790645183; cv=none; b=a0LoAhArNE2Q7chVQK9fgGaSknt2XIYwp+kVVTDu7mfEorZ8w2BG5EF4QwYKQvQz5VQaobA8PUzcuV0GSFU1iv2BtXn3X45u5TPFv95iMI8pBnvkB5jugPr6EMzVyH250G5WHCbehUu524t+f9gdokSVOl8FXcmZepu8AQRD2bE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790645183; c=relaxed/simple;
-	bh=Q/ts0cCNbn2aByTea3fsY+zlVY4dvhEOnMPOPpmvWso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BcjLk0PA6WQDgYS4yHtlioyzZ3rNdN9ln6MaW9obpXwAxZKp4v5RluCwmdku8nfqUdaz1/HxuvNH9N/8O9Z/dIL/Tw2h3cBjROFiLnnHzFkfjxtZt1Nx9LrvSs42UUmkYLvI7e2SMZOGwZduZtsM3ll+nCwKG7xCpai6BrGQc38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YqEcsiKd; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028642848BE;
+	Tue, 29 Sep 2026 01:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790645369; cv=fail; b=s4cV10gwks5RFQ2QLRYoDx8l5H61Nw8Atyg4M/j79bqjALFZRLMrwZmNsnDwlm7Cl4O0rlNyCTjRDU8txanaw4y/feJjzjrwhjj4Ii2TgE10cxmWtZ3WUz6aaKsmMbcJga9PZpRorDNXPe/8Xvbub7W0uUsu/FX6uS50o9c6M4w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790645369; c=relaxed/simple;
+	bh=8WKrY1SoqI1VYYUudwWuXsridiAhVRbGrKspxnzn9mc=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lX6l48S4RIcpeb91v1BNHpyIaBAJ5kWrgxdq7ad4A2SgDKwc6wk86He0ceLKdvscjeGXCG6L1HHRMEUNEe1GOJQiWkzaGrfFo1IdcG7InMN0TwwSdI48zSc8r9qc4oMBl34/pOa1W4xk14UxqnHZbOr6eenZScmC4Ygicp1iyeU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=j+PZ5Ojy; arc=fail smtp.client-ip=52.103.66.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YqEcsiKd"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9ED362E9;
-	Tue, 29 Sep 2026 03:24:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790645067;
-	bh=Q/ts0cCNbn2aByTea3fsY+zlVY4dvhEOnMPOPpmvWso=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YqEcsiKd16m6ZXqawQNg5FU+0zY0VFL4K90eQahIiRwVAEvZLdmpei69sBE9cwtdw
-	 B5NTNfnPUtiXmeC5IqYnmwxYCn0/6jjx1ANXncgGPbM+CVWOpRbyvfsUfb633Dzw3K
-	 fqTMg6ehvZ8tL4ghMGHL2ncreuafju4TL3OyHEeU=
-Date: Tue, 29 Sep 2026 04:26:15 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Lachlan Michael <lachlan.michael@sony.com>, devicetree@vger.kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	kieran.bingham@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <20260929012615.GD171869@killaraus.ideasonboard.com>
-References: <20260828064843.65047-1-lachlan.michael@sony.com>
- <20260828064843.65047-3-lachlan.michael@sony.com>
- <179000809637.3701737.17026819145311474886@freya>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="j+PZ5Ojy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WGp3tVwwv3g+tyJz9V2ddl/heL+2/jqXiBmgOVOT3Qy0DlkhBYT9itq2V9K1OHObS2wEnmTDf/mf9H36m9SMDxYoFqDRKGmSgONqbsne/SQ+MIH1XDMolQMlghDJsGHE5kQUVKPwJKgXYhyCctQp7IyqfcFJr1M9KRV1EbsOJ7p2RxfSfHGIwq9EREIGvIZ7xJsgdzy0CDKJXmUrE+OSWdeTUKzayP33/HONiNPPGrlc9bBLj3Aeow2Je+50lI9q+XvMJYCOZmHev0bFLM4dS9PEWMJnNjMPlCQ+J6+1Co3IAxLmS/RZ15qD/S5E49nL0RgteD27pP7SprTuLdZNTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4woQ4Rp6i1A08QQxT2jwMZVcSSIgzOV8W7WCTykZQ00=;
+ b=EVgeW87QaNtanDyYIDO5cSOa4rbwScPztrAL+HHvUWYB8twEyv2wlxuDNBzWykjxy7DaUbChcQoWtnURKVIwqcrQ3pxxZfRi2asdv4iL4bi7IpBZOprmeQggYYot7eG96+fbVTu/AwGI1/N9Dd/lJCuTOASpLR3Ra+Ts5+H1+9Swfv0egQQecuNhQQympWpj/qPm+YBdZGBYzlI+vAwJ75437zqvVlW0OJ0066JFonoMzxAGsWokEdpubv+QP2OQUE37M0gzHJXBS0bqGE3y+0puBTrWCkw/Dk4LNCzy6T7N7XmDIm3z8PiCU/fYHUm3aQuaxvB66e94q6kK240qWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4woQ4Rp6i1A08QQxT2jwMZVcSSIgzOV8W7WCTykZQ00=;
+ b=j+PZ5OjyqUmAGdb/8iy6v2RJ3tuJf+ZW8wT9RjND3ukS56+VLath54sp0d50edDJDJ0ZjvxzsY/1SH3gyhcIIAhBOmwlo9rDF52lv6ybM9Wg7ZNIPf7HmqqrWUqrfF2l1tyHGZ78U/A97SOdnSmb+RiODCJ6NGfY+ohkWeVE075eOyhMXzJkxFOXrS83QmR2l38rc31kimb23dRfnwKHzsArY0nVg7oDVAH51/0z9wMRCfr4JtsoWzfnSiU1FMcXojgilOs8EtVX7pTiWK01MSHtgV+YHIRStjDCa5vFL3w46l4SM6RBMV0SoIMmGblCTfBVuWqsyXniOyPrX5JwOg==
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com (2603:1096:604:1a5::10)
+ by TYCPR01MB7162.jpnprd01.prod.outlook.com (2603:1096:400:f3::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 01:29:24 +0000
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b]) by OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 01:29:24 +0000
+From: Shiji Yang <yangshiji66@outlook.com>
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org,
+	Shiji Yang <yangshiji66@outlook.com>
+Subject: [PATCH] wifi: mac80211: add missing fmt line break
+Date: Tue, 29 Sep 2026 09:25:13 +0800
+Message-ID:
+ <OSZPR01MB814085194DDA24DAC2759477BC8C2@OSZPR01MB8140.jpnprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TPYP295CA0021.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::11) To OSZPR01MB8140.jpnprd01.prod.outlook.com
+ (2603:1096:604:1a5::10)
+X-Microsoft-Original-Message-ID:
+ <20260929012513.1089719-1-yangshiji66@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179000809637.3701737.17026819145311474886@freya>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSZPR01MB8140:EE_|TYCPR01MB7162:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c60a5b9-0e8e-4d72-d4d3-08df1dc897fa
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|22121099003|15080799012|260925184616899003|5072599009|5062599005|25010399006|39105399006|8060799015|19110799012|24121999003|22091999003|41001999006|21061999006|24021099003|4140399003|12121999013|3412199025|440099028|12091999003|40105399003|2607281247196008|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?eix/hNqd+/tw9zD81pknM1KKDz7m2tUx1tJw0rKEXCItAT490HYBcucA++DJ?=
+ =?us-ascii?Q?aETjpKr9wrR0fLVr4FdKl4WPdW50ZOt2kPSG9Zlqt71gQl9KM3sS9ZvrQ6E8?=
+ =?us-ascii?Q?C6xXMt2ZBXxtQejH2o4g9eXpAExsEg144nnNCgm5YnX/G+k/8G74oeFfMD6s?=
+ =?us-ascii?Q?A1erercGxh9vZH+2rCQMB1l1Grn5Rz88kz4QlUF5peswP3Ofg/DN3N2LV8Vo?=
+ =?us-ascii?Q?b3+LmcsNSKxz1iHrhFhIsLJhutl9WrNqVYSS9vyy+OqIvtSmEQKniV4XbWfJ?=
+ =?us-ascii?Q?od7vTk/h/zw2FPiB9JY/eYpWI+S31o33UEiIMVQGAdDgwX8Uz8JT+DzUrH4u?=
+ =?us-ascii?Q?scMIFSoiCFFMgOb/8IXmmm0/bR+IL7Rh1lKWnUhVGeCqw/Yowz1+EASjdMlI?=
+ =?us-ascii?Q?bAKgs+gV3GbRNEYU6rLYC4kE4Dc5iRDfbN5TTZGlSZzeyKJoZ/tGXTzmSq6G?=
+ =?us-ascii?Q?HBrzZSZT0AF8LGf3hNm0k+LPFiJ4lwimq3YTUmHgn6yoRgVBuagRpbgcl/tP?=
+ =?us-ascii?Q?6p5nMf5FwF+ZY+E3EAUzFBowMMK0XsTl8+lKJUytP7gJfjJmRikmCORbsNpE?=
+ =?us-ascii?Q?0TPTQ5uRyiTUGE34x56K/1TRaqAvtWiEybxPA06pIU6RDL0Kji4K8KbT3k+P?=
+ =?us-ascii?Q?l4lg19Zz2BTmcSxuNjbGpNYH9gO2x0a+gKXcaKaoam2phdNDhtyqmFxH4tW6?=
+ =?us-ascii?Q?itCpYGlchsOoCLx7UJuWObJZKSAs3EASyWO75nazkUmCOkkTEfPMeB2AIk4f?=
+ =?us-ascii?Q?eblNpFa0s8fI2mChCv0e4inSS/6acGzlL2NV1a2gZMBkRYSQ3ipDrNnTfENX?=
+ =?us-ascii?Q?DQXCTfN5KaCtQ74dS+V5p7wr+sY4tTAqqzcpm7AhwPFh0Ua3Q7ji+Vx9284o?=
+ =?us-ascii?Q?6uKZoOUyMuQeUExgIDwJsJGDqK6MobwJcJ+e9Affai5PtG5zhLNsG+UqIOYS?=
+ =?us-ascii?Q?mcLHNQR2HeqUad4RRoF1XUY7sm5yGlxKm1oST+P85kRfNWC2rFtE9HtzecKZ?=
+ =?us-ascii?Q?/uCIzxYPrbHHXse3yDVl8HOzalGjm+NlyfV/kjObVEWCw8p2lJeKVUi9NEHS?=
+ =?us-ascii?Q?olp3K6Kh3VvHiDFqR4+FVgiqXwBONuVgEMKNlRedF4yiLDp+c33RxbeDsEEy?=
+ =?us-ascii?Q?0W4r4IPB2YLhva4iBiLs3BjYXcBHezUMiNAkqtV7Y0SIpmuvfDtoO2+mRZMr?=
+ =?us-ascii?Q?JsshjLcyS86EvRrF4FztptAQaEHQs3ncQD/4Zw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2qCUl1+S+MnsX5eNcJ2hlCmRxt4W+jomyZ7vzB3ulzALkVuPWprwmGCkb66v?=
+ =?us-ascii?Q?uyi6v92fjg6qC0NvY/sNXSswEzQMu7LXdKQivetjaZXPbpsjZ96XHai7+F/t?=
+ =?us-ascii?Q?CuW/ZDx40rO1v07i4Bj1cyKPS/y2sjLtK6p5guuutGUR71z1WVr6CixqilJe?=
+ =?us-ascii?Q?8OFkWVRhwfmUr3QD86KxFMNpG3dVfqlf77MMVUicHTUK/NDhSzO+uQxwiX0S?=
+ =?us-ascii?Q?2wnwGS0vvl7uzq1PVYuL5ADRrMUf6v3JKqehiWQSAW3zCKViR/RbxJ06HrNN?=
+ =?us-ascii?Q?hyAbbil92zFSAEfDCuhBGkYEKU6zlOXYi7TNsntH/GJnlVqdTAhgfNJPYhod?=
+ =?us-ascii?Q?ryqai6pooMk6AiMZp+T2d5wt4EtVYIKUP3b9UIHDnXoT1HPryF3YppYP5PYW?=
+ =?us-ascii?Q?asr7JE5KiWEbQC18QhgBycah/4ZijruFjR02tNAwHsJVhJrNlYPeM6WkKFVt?=
+ =?us-ascii?Q?kJCE93MMJvMwUbVu6FWGOGoQP9Ttd+Uzwj3XPVGwMZPd8+Ly6hIQQwKlE5Qn?=
+ =?us-ascii?Q?Db+1CfSWN1y0o4Doc8iS4JitZEMY2GQzlQ0Q5DWHs2CeGnM81FmmEuDEffqD?=
+ =?us-ascii?Q?BeXN42vF+07Hh4mOtNdh9S2hjex79eImHGMv+x0KJGkX38S7SCoqw1vbCHNr?=
+ =?us-ascii?Q?nAWOxax+BSeuc7zNOn/3kun2uO1b/3IMpzluCpq0B+VD70Z+ZuCgLG40KNvL?=
+ =?us-ascii?Q?HIQ+epj/9WGHhDrMaa4TJBg0jKCebJQdlgKCdQMeLWaYA2v8BYUs6kV9SPzW?=
+ =?us-ascii?Q?UJ7G4DDubJUwLLcHXhfoAA44G2Q7fdyDYQvT5ruWMgRjjesxpogLfk8pd7YE?=
+ =?us-ascii?Q?Q7iIX6eJlQhRhH7hLTyaWkU7vETJ391IxF9xN0ztVkWONo41eMqWu2MotRLy?=
+ =?us-ascii?Q?BAXKAdNLp1Kz840STk17fFoIDbs104ulzx825iMHHqtRH5gyDpkX2uK9I4pu?=
+ =?us-ascii?Q?Hu2ANnINcYMF07+Iv+3S6Uk9VbPvaX3rWO8Q5sMw7Fy6wo8Gx6pTNf3DRMd1?=
+ =?us-ascii?Q?vm4S7DVWtEQ+2vjibechBRJSQJW/sKFgtPtEXulrOph0TyAhsgTKY0mz6I0v?=
+ =?us-ascii?Q?+kZlQkSfAW1OrFEk2mo+tyZhYyDi35YugyK9giUo/tjYCy+PMD3e/jc9eCvs?=
+ =?us-ascii?Q?oBXZHzexCHXxl8Q9Y5+/3SK4GbjCKhAyulTFcMOcXqm5u13CSvPOyw+h16D5?=
+ =?us-ascii?Q?/2pBgA1kTpTXfMJ1mMhpFdp1x2Y+Kbj9oOmmYKE9tbdDo0uPFzxUdLwvolRb?=
+ =?us-ascii?Q?GlCHr8lajnTDCpuDUQuy1Dqd1DBPDm02ZIg78hu1EzqTz0VyqveAlPorG1Ie?=
+ =?us-ascii?Q?a2XCInGZTzNWnBDFOkn9R3tM4zI/57Ttot72O9If90LtMIpgFxmL7aVMixlo?=
+ =?us-ascii?Q?m3KsUwp1nN1tdO10BfH0uOkPX5im?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c60a5b9-0e8e-4d72-d4d3-08df1dc897fa
+X-MS-Exchange-CrossTenant-AuthSource: OSZPR01MB8140.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:29:24.2799
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB7162
 
-On Mon, Sep 21, 2026 at 09:58:16PM +0530, Jai Luthra wrote:
-> Hi Lachlan,
-> 
-> Thank you for your patch.
-> 
-> And thanks for fixing my comments from v2. I have a few more, some I missed
-> the last time around, but some are new.
+It was noticed that dmesg sometimes cannot read the last log entry.
+Queried using the regex pattern `[^\n]"[,)]`, then manually checked.
 
-I've added a few small comments and a couple of clarifications.
+Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+---
+ net/mac80211/fils_aead.c  | 6 +++---
+ net/mac80211/key.c        | 2 +-
+ net/mac80211/mesh.c       | 6 +++---
+ net/mac80211/mesh_plink.c | 4 ++--
+ net/mac80211/mlme.c       | 6 +++---
+ net/mac80211/rate.c       | 2 +-
+ net/mac80211/vht.c        | 2 +-
+ 7 files changed, 14 insertions(+), 14 deletions(-)
 
-> Quoting Lachlan Michael (2026-08-28 12:18:43)
-> > The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-> > with a MIPI CSI-2 output interface, configurable as either 2 or 4
-> > data lanes.
-> > 
-> > Add a V4L2 sub-device driver for the sensor. The driver supports
-> > RAW10 and RAW12 output formats, exposure and analogue gain controls,
-> > horizontal and vertical flipping, horizontal and vertical blanking
-> > controls, window cropping and test pattern generation.
-> > 
-> > HDR modes and RAW16 output are not currently supported.
-> > 
-> > Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
-> > ---
-> > Changes in v3:
-> > - Correct link-frequency indexing mapping to match the sensor
-> >   DATARATE_SEL values and the frequency ordering
-> > - Changed the pixel_rate to 16-pixel-per-clocks based on datasheet
-> >   mode values
-> > - Clean up the constant names, register definitions and comments in
-> >   response to review feedback.
-> > - Remove various (uneeded) checks in code based on feedback
-> > - Remove cached vmax/hmax and recalculated where necessary
-> > - Drop pixel_rate and test_pattern pointers from struct
-> > - Remove read-only controls set_ctrl switch
-> > - Remove event handlers
-> > - Remove uneeded delays at startup 
-> > - Simplify runtime_resume/suspend functions
-> > - Remove the 4k recording-area in favour of larger active area
-> > - Use the same constraints for VMAX for crop and all pixel mode to
-> >   simplify the driver logic by removing branching
-> > - Rework HMAX based on the fact that the whole line is always read
-> >   even in crop mode. HMAX varies in all modes now, but not with 
-> >   horizontal crop.
-> > - Minor edits and bugfixes 
-> > ---
-> >  MAINTAINERS                |    1 +
-> >  drivers/media/i2c/Kconfig  |   11 +
-> >  drivers/media/i2c/Makefile |    1 +
-> >  drivers/media/i2c/imx908.c | 1367 ++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 1380 insertions(+)
-> >  create mode 100644 drivers/media/i2c/imx908.c
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index bb7adcfd4767..a17c31234ec7 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -25542,6 +25542,7 @@ SONY IMX908 SENSOR DRIVER
-> >  M:     Lachlan Michael <lachlan.michael@sony.com>
-> >  S:     Maintained
-> >  F:     Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> > +F:     drivers/media/i2c/imx908.c
-> >  
-> >  SONY MEMORYSTICK SUBSYSTEM
-> >  M:     Maxim Levitsky <maximlevitsky@gmail.com>
-> > diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> > index 5c52007f9cbe..cfa1359d8c7d 100644
-> > --- a/drivers/media/i2c/Kconfig
-> > +++ b/drivers/media/i2c/Kconfig
-> > @@ -310,6 +310,17 @@ config VIDEO_IMX678
-> >           To compile this driver as a module, choose M here: the
-> >           module will be called imx678.
-> >  
-> > +config VIDEO_IMX908
-> > +        tristate "Sony IMX908 sensor support"
-> > +        depends on GPIOLIB
-> > +        select V4L2_CCI_I2C
-> > +        help
-> > +          This is a Video4Linux2 sensor driver for the Sony
-> > +          IMX908 CMOS image sensor.
-> > +
-> > +          To compile this driver as a module, choose M here: the
-> > +          module will be called imx908.
-> > +
-> >  config VIDEO_MAX9271_LIB
-> >         tristate
-> >  
-> > diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> > index d04bd5724552..d91ed1bc6427 100644
-> > --- a/drivers/media/i2c/Makefile
-> > +++ b/drivers/media/i2c/Makefile
-> > @@ -63,6 +63,7 @@ obj-$(CONFIG_VIDEO_IMX412) += imx412.o
-> >  obj-$(CONFIG_VIDEO_IMX415) += imx415.o
-> >  obj-$(CONFIG_VIDEO_IMX678) += imx678.o
-> >  obj-$(CONFIG_VIDEO_IMX471) += imx471.o
-> > +obj-$(CONFIG_VIDEO_IMX908) += imx908.o
-> >  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
-> >  obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
-> >  obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
-> > diff --git a/drivers/media/i2c/imx908.c b/drivers/media/i2c/imx908.c
-> > new file mode 100644
-> > index 000000000000..ca85a5cd058a
-> > --- /dev/null
-> > +++ b/drivers/media/i2c/imx908.c
-> > @@ -0,0 +1,1367 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * V4L2 driver for Sony IMX908
-> > + *
-> > + * Diagonal 6.42 mm (Type 1/2.8) CMOS image sensor with 8.39 M pixels.
-> > + *
-> > + * Copyright 2026 Sony Semiconductor Solutions Corporation
-> > + *
-> > + */
-> > +
-> > +#include <linux/align.h>
-> > +#include <linux/array_size.h>
-> > +#include <linux/bitops.h>
-> > +#include <linux/clk.h>
-> > +#include <linux/container_of.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/err.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/math.h>                /* DIV_ROUND_UP */
-> > +#include <linux/math64.h>      /* DIV64_U64_ROUND_UP */
-> > +#include <linux/minmax.h>
-> > +#include <linux/module.h>
-> > +#include <linux/pm_runtime.h>
-> > +#include <linux/property.h>
-> > +#include <linux/regulator/consumer.h>
-> > +
-> > +#include <media/media-entity.h>
-> > +#include <media/v4l2-cci.h>
-> > +#include <media/v4l2-ctrls.h>
-> > +#include <media/v4l2-fwnode.h>
-> > +#include <media/v4l2-mediabus.h>
-> > +#include <media/v4l2-rect.h>
-> > +#include <media/v4l2-subdev.h>
-> > +
-> > +/* ---- IMX908 Registers --------- */
-> > +#define IMX908_REG_STANDBY     CCI_REG8(0x3000)
-> > +#define IMX908_STANDBY_EN      BIT(0)          /* Standby mode */
-> > +#define IMX908_STANDBY_CANCEL  0x00            /* Operating mode */
-> > +#define IMX908_REG_XMSTA       CCI_REG8(0x3002)        /* [0] Init 1h */
-> > +#define IMX908_XMSTA_START     0x00
-> > +#define IMX908_XMSTA_STOP      0x01
-> > +#define IMX908_REG_XMASTER     CCI_REG8(0x3003)        /* [0] Init 0h */
-> > +#define IMX908_CONTROLLER_MODE 0x00
-> > +#define IMX908_REG_INCK_SEL    CCI_REG8(0x3014)        /* 0:74.25 1:37.125 2:72 3:27 4:24 */
-> > +#define IMX908_REG_DATARATE_SEL        CCI_REG8(0x3015)
-> > +
-> > +/* ---- Crop */
-> > +#define IMX908_REG_WINMODE     CCI_REG8(0x3018)        /* [3:0] */
-> > +#define IMX908_WINMODE_ALLPIX  0x00    /* All-pixel readout mode */
-> > +#define IMX908_WINMODE_CROP    0x04    /* Window cropping mode */
-> > +
-> > +/* ---- Flip */
-> > +#define IMX908_REG_HREVERSE    CCI_REG8(0x3020)
-> > +#define IMX908_HREVERSE_NORMAL 0x00
-> > +#define IMX908_HREVERSE_INV    0x01
-> > +#define IMX908_REG_VREVERSE    CCI_REG8(0x3021)
-> > +#define IMX908_VREVERSE_NORMAL 0x00
-> > +#define IMX908_VREVERSE_INV    0x01
-> > +
-> > +/* ---- Internal Analog to Digital conversion bit width */
-> > +#define IMX908_REG_ADBIT       CCI_REG8(0x3022)
-> > +#define IMX908_ADBIT_10BIT     0x00    /* 10-bit */
-> > +#define IMX908_ADBIT_12BIT     0x01    /* 11-bit + digital dither */
-> > +
-> > +#define IMX908_REG_MDBIT       CCI_REG8(0x3023)
-> > +#define IMX908_MDBIT_RAW10     0x00
-> > +#define IMX908_MDBIT_RAW12     0x01
-> > +
-> > +/* ---- VMAX  Frame length in lines */
-> > +#define IMX908_REG_VMAX                CCI_REG24_LE(0x3028)    /* [19:0] */
-> > +#define IMX908_VMAX_MAX                0xfffff
-> > +#define IMX908_VMAX_DEFAULT    2250
-> > +/*
-> > + * VMAX restrictions, documented for window cropping mode:
-> > + * VMAX >= PIX_VWIDTH + 70
-> > + * VMAX >= 1206
-> > + */
-> > +#define IMX908_VMAX_MARGIN     70
-> > +#define IMX908_VMAX_MIN                1206
-> > +
-> > +/* ---- HMAX Line length in clocks */
-> > +#define IMX908_REG_HMAX                CCI_REG16_LE(0x302c)    /* [15:0] */
-> > +#define IMX908_HMAX_MAX                0xffff
-> > +#define IMX908_HMAX_DEFAULT    1100
-> > +
-> > +/* ---- Cropping related */
-> > +#define IMX908_REG_PIX_HST     CCI_REG16_LE(0x303c)    /* [12:0] Init 0h */
-> > +#define IMX908_REG_PIX_HWIDTH  CCI_REG16_LE(0x303e)    /* [12:0] Init 0F10h */
-> > +#define IMX908_REG_LANEMODE    CCI_REG8(0x3040)
-> > +#define IMX908_LANEMODE_2LANE  0x01
-> > +#define IMX908_LANEMODE_4LANE  0x03
-> > +#define IMX908_REG_PIX_VST     CCI_REG16_LE(0x3044)    /* [12:0] Init 0h */
-> > +#define IMX908_REG_PIX_VWIDTH  CCI_REG16_LE(0x3046)    /* [12:0] Init 0884h */
-> > +#define IMX908_CROP_ALIGN_VSTART       4
-> > +#define IMX908_CROP_ALIGN_VWIDTH       4
-> > +#define IMX908_CROP_ALIGN_HSTART       4
-> > +#define IMX908_CROP_ALIGN_HWIDTH       16
-> > +#define IMX908_CROP_MIN_HEIGHT         1136
-> > +#define IMX908_CROP_MIN_WIDTH          1040
-> > +
-> > +/* ---- Shutter */
-> > +#define IMX908_REG_SHR0                CCI_REG24_LE(0x3050)    /* [19:0] */
-> > +#define IMX908_MIN_SHR0                7
-> > +
-> > +/*
-> > + * Analogue gain control
-> > + * Range is from 0 to 100 (0dB - 30dB) with 0.3dB step size
-> > + * Values from 101 to 240 are valid but correspond to additional digital gain
-> > + * (0.3dB - 42dB) so don't expose it to userspace
-> > + */
-> > +#define IMX908_REG_GAIN                CCI_REG16_LE(0x3070)    /* [10:0] */
-> > +#define IMX908_ANA_GAIN_MAX    100
-> > +#define IMX908_ANA_GAIN_MIN    0
-> > +#define IMX908_ANA_GAIN_STEP   1
-> > +#define IMX908_ANA_GAIN_DEFAULT        0
-> > +
-> > +/* ---- XVS/XHS output mode */
-> > +#define IMX908_XXS_DRV         CCI_REG8(0x30a6)        /* [1:0] XVS_DRV [3:2] XHS_DRV */
-> > +
-> > +#define IMX908_REG_BLKLEVEL    CCI_REG16_LE(0x30dc)    /* [15:0] black level */
-> > +
-> > +/* ---- Test Pattern Generator (TPG) registers */
-> > +#define IMX908_REG_TPG_EN      CCI_REG8(0x30e0)
-> > +#define IMX908_TPG_EN_BIT      BIT(0)
-> > +#define IMX908_REG_TPG_PATSEL  CCI_REG8(0x30e2)        /* [4:0] pattern idx */
-> > +#define IMX908_REG_TESTCLKEN   CCI_REG8(0x4900)
-> > +#define IMX908_TESTCLKEN_BIT   BIT(3)
-> > +
-> > +#define IMX908_REG_TYPE_ID     CCI_REG16_LE(0x4c0c)
-> > +#define IMX908_CHIP_ID         0x038c
-> > +
-> > +/* ---- IMX908 Common Register List ---- */
-> > +static const struct cci_reg_sequence imx908_common_regs[] = {
-> > +       { IMX908_XXS_DRV, IMX908_CONTROLLER_MODE },
-> > +       { CCI_REG8(0x039c), 0x03 },
-> > +       { CCI_REG8(0x3416), 0x20 },
-> > +       { CCI_REG8(0x3417), 0x00 },
-> > +       { CCI_REG8(0x3456), 0xf4 },
-> > +       { CCI_REG8(0x345d), 0x01 },
-> > +       { CCI_REG8(0x3460), 0x00 },
-> > +       { CCI_REG8(0x3461), 0x0b },
-> > +       { CCI_REG8(0x3471), 0x00 },
-> > +       { CCI_REG8(0x3472), 0x23 },
-> > +       { CCI_REG8(0x347b), 0x02 },
-> > +       { CCI_REG8(0x3481), 0x01 },
-> > +       { CCI_REG8(0x380c), 0x00 },
-> > +       { CCI_REG8(0x380f), 0x0c },
-> > +       { CCI_REG8(0x381c), 0x11 },
-> > +       { CCI_REG8(0x3820), 0x22 },
-> > +       { CCI_REG8(0x3824), 0x33 },
-> > +       { CCI_REG8(0x3828), 0x22 },
-> > +       { CCI_REG8(0x382c), 0x33 },
-> > +       { CCI_REG8(0x3830), 0x33 },
-> > +       { CCI_REG8(0x3838), 0x05 },
-> > +       { CCI_REG8(0x383c), 0x07 },
-> > +       { CCI_REG8(0x3840), 0x06 },
-> > +       { CCI_REG8(0x3848), 0x17 },
-> > +       { CCI_REG8(0x384c), 0x0b },
-> > +       { CCI_REG8(0x3850), 0x10 },
-> > +       { CCI_REG8(0x3854), 0x12 },
-> > +       { CCI_REG8(0x385c), 0x20 },
-> > +       { CCI_REG8(0x38c4), 0x64 },
-> > +       { CCI_REG8(0x38c5), 0x64 },
-> > +       { CCI_REG8(0x38c6), 0x64 },
-> > +       { CCI_REG8(0x3c4a), 0x15 },
-> > +       { CCI_REG8(0x3c4c), 0x13 },
-> > +       { CCI_REG8(0x3c4d), 0x13 },
-> > +       { CCI_REG8(0x3c4e), 0x13 },
-> > +       { CCI_REG8(0x3c50), 0x77 },
-> > +       { CCI_REG8(0x3c51), 0x07 },
-> > +       { CCI_REG8(0x3db4), 0x00 },
-> > +       { CCI_REG8(0x4419), 0x06 },
-> > +       { CCI_REG8(0x441c), 0x00 },
-> > +       { CCI_REG8(0x4426), 0x00 },
-> > +       { CCI_REG8(0x4538), 0x20 },
-> > +       { CCI_REG8(0x4539), 0x19 },
-> > +       { CCI_REG8(0x453a), 0x19 },
-> > +       { CCI_REG8(0x453b), 0x19 },
-> > +       { CCI_REG8(0x453c), 0x19 },
-> > +       { CCI_REG8(0x453d), 0x19 },
-> > +       { CCI_REG8(0x453e), 0x19 },
-> > +       { CCI_REG8(0x453f), 0x19 },
-> > +       { CCI_REG8(0x4540), 0x19 },
-> > +       { CCI_REG8(0x4544), 0x11 },
-> > +       { CCI_REG8(0x4545), 0x11 },
-> > +       { CCI_REG8(0x4546), 0x11 },
-> > +       { CCI_REG8(0x463c), 0x20 },
-> > +       { CCI_REG8(0x465e), 0xcf },
-> > +       { CCI_REG8(0x4684), 0x20 },
-> > +       { CCI_REG8(0x46a6), 0xcf },
-> > +       { CCI_REG8(0x46e2), 0xf3 },
-> > +};
-> > +
-> > +static const u32 imx908_bit_depth_regs[] = {
-> > +       CCI_REG8(0x3d78),
-> > +       CCI_REG8(0x3d79),
-> > +       CCI_REG8(0x3d80),
-> > +       CCI_REG8(0x3d81),
-> > +       CCI_REG8(0x3d88),
-> > +       CCI_REG8(0x3d89),
-> > +       CCI_REG8(0x3d90),
-> > +       CCI_REG8(0x3d91),
-> > +};
-> > +
-> > +#define IMX908_EXPOSURE_MIN    1
-> > +#define IMX908_EXPOSURE_STEP   1
-> > +
-> > +/* ---- Internal image-data interface clock */
-> > +#define IMX908_VTPXCK_HZ       74250000ULL
-> > +
-> > +/* Fixed pixel rate: 16 pixels per video timing pixel clock cycle */
-> > +#define IMX908_PIX_PER_CLK     16
-> > +#define IMX908_PIXEL_RATE      (IMX908_VTPXCK_HZ * IMX908_PIX_PER_CLK)
-> > +
-> > +/* ---- Subdev Pads */
-> > +#define IMX908_SOURCE_PAD      0
-> > +
-> > +#define IMX908_DEFAULT_MBUS_CODE MEDIA_BUS_FMT_SRGGB10_1X10
-> > +
-> > +/*
-> > + * IMX908 total area includes active area height plus
-> > + *  4 pixels effective pixel ignored area
-> > + * 10 pixels vertical direction effective OB
-> > + * 10 pixels OB side ignored area
-> > + */
-> > +static const struct v4l2_rect imx908_total_area = {
-> > +       .top = 0,
-> > +       .left = 0,
-> > +       .width = 3856,
-> > +       .height = 2200,
-> > +};
-> > +
-> 
-> The "Pixel Arrangement" section in the datasheet for IMX678 (Starvis 2,
-> same resolution) mentioned a horizontal margin of 8 and 9, and vertical
-> margin of 10 + 10 + 4 + 8 and 9, thus the total came out to be 3857x2201
-> 
-> Which also explained why the CFA readout stays R->G->G->B irrespective of
-> VFLIP and HFLIP, the extra pixel allowed shifting the readout start.
-> 
-> > +static const struct v4l2_rect imx908_active_area = {
-> > +       .top = 0,
-> > +       .left = 0,
-> > +       .width = 3856,
-> > +       .height = 2176,
-> 
-> Shouldn't this have .top = 24 (10 + 10 + 4)?
-> 
-> At least on IMX678, while the diagram shows the OB area at bottom, that's
-> where the scan starts from (N12 pin) when HREVERSE/VREVERSE are 0.
-> 
-> It would be good to confirm if IMX908 is indeed different in its behaviour
-> from Starvis2 sensors.
-> 
-> > +};
-> > +
-> > +static const char *const imx908_supply_names[] = {
-> > +       "avdd",  /* Analog (3.3V) supply */
-> > +       "dvdd",  /* Digital Core (1.1V) supply */
-> > +       "ovdd",  /* IF (1.8V) supply */
-> > +};
-> > +
-> > +static const u32 imx908_mbus_codes[] = {
-> > +       MEDIA_BUS_FMT_SRGGB10_1X10, /* RAW10 */
-> > +       MEDIA_BUS_FMT_SRGGB12_1X12, /* RAW12 */
-> > +};
-> > +
-> > +/*
-> > + * Link frequency indices, ordered so that the index is also the
-> > + * DATARATE_SEL register value. Keep in descending frequency order.
-> > + */
-> > +enum {
-> > +       IMX908_LINK_FREQ_1188MHZ = 0x00,
-> > +       IMX908_LINK_FREQ_1039MHZ = 0x01,
-> > +       IMX908_LINK_FREQ_891MHZ  = 0x02,
-> > +       IMX908_LINK_FREQ_720MHZ  = 0x03,
-> > +       IMX908_LINK_FREQ_594MHZ  = 0x04,
-> > +       IMX908_LINK_FREQ_445MHZ  = 0x05,
-> > +       IMX908_LINK_FREQ_360MHZ  = 0x06,
-> > +       IMX908_LINK_FREQ_297MHZ  = 0x07,
-> > +};
-> > +
-> > +static const s64 imx908_link_freqs[] = {
-> > +       [IMX908_LINK_FREQ_1188MHZ] = 1188000000LL,
-> > +       [IMX908_LINK_FREQ_1039MHZ] = 1039500000LL,
-> > +       [IMX908_LINK_FREQ_891MHZ]  =  891000000LL,
-> > +       [IMX908_LINK_FREQ_720MHZ]  =  720000000LL,
-> > +       [IMX908_LINK_FREQ_594MHZ]  =  594000000LL,
-> > +       [IMX908_LINK_FREQ_445MHZ]  =  445500000LL,
-> > +       [IMX908_LINK_FREQ_360MHZ]  =  360000000LL,
-> > +       [IMX908_LINK_FREQ_297MHZ]  =  297000000LL,
-> > +};
-> > +
-> > +/* Allowed clock values in Hz */
-> > +static const u32 imx908_inck_table[] = {
-> > +       74250000,
-> > +       37125000,
-> > +       72000000,
-> > +       27000000,
-> > +       24000000,
-> > +};
-> > +
-> > +struct imx908 {
-> > +       struct v4l2_subdev sd;
-> > +       struct media_pad pad;
-> > +       struct device *dev;
-> > +
-> > +       struct regmap *cci;
-> > +
-> > +       struct clk *xclk;
-> > +       struct gpio_desc *reset_gpio;
-> > +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx908_supply_names)];
-> > +
-> > +       u8 inck_sel;
-> > +
-> > +       u8 num_lanes;
-> > +       unsigned long link_freq_bitmap;
-> > +       unsigned int link_freq_idx;
-> > +
-> > +       struct {
-> > +               struct v4l2_ctrl_handler handler;
-> > +
-> > +               struct v4l2_ctrl *exposure;
-> > +               struct v4l2_ctrl *vblank;
-> > +               struct v4l2_ctrl *hblank;
-> > +       } ctrls;
-> > +};
-> > +
-> > +static inline struct imx908 *to_imx908(struct v4l2_subdev *_sd)
-> > +{
-> > +       return container_of(_sd, struct imx908, sd);
-> > +}
-> > +
-> > +/* ----------------------- Basic Helper Functions --------------------------- */
-> > +static bool imx908_mbus_code_supported(struct imx908 *imx, u32 code)
-> > +{
-> > +       for (unsigned int i = 0; i < ARRAY_SIZE(imx908_mbus_codes); i++) {
-> > +               if (imx908_mbus_codes[i] == code)
-> > +                       return true;
-> > +       }
-> > +
-> > +       return false;
-> > +}
-> > +
-> > +static u16 imx908_calc_hmax(u32 width, u32 hblank)
-> > +{
-> > +       u32 hmax = DIV_ROUND_UP(width + hblank, IMX908_PIX_PER_CLK);
-> > +
-> > +       return min_t(u32, hmax, IMX908_HMAX_MAX);
-> > +}
-> > +
-> > +/* Horizontal cropping is digital, so the full width is always read out */
-> > +static u16 imx908_calc_min_hmax(struct imx908 *imx, u8 bpp)
-> > +{
-> > +       u64 link_hz = imx908_link_freqs[imx->link_freq_idx];
-> > +       u64 num = (u64)imx908_active_area.width * bpp * IMX908_VTPXCK_HZ;
-> > +       u64 den = (u64)imx->num_lanes * link_hz * 2; /* DDR */
-> > +
-> > +       /*
-> > +        * den can exceed 32 bits (e.g. 4 lanes * 720 MHz * 2 = 5.76 GHz), so
-
-I think the first line of the comment is missing .
-
-> > +        * DIV_ROUND_UP_ULL / do_div would truncate the divisor to u32. Use a
-> > +        * full 64/64 division.
-> > +        */
-> > +       return DIV64_U64_ROUND_UP(num, den);
-> > +}
-> > +
-> > +static u32 imx908_calc_min_vblank(const struct v4l2_rect *crop)
-> > +{
-> > +       u32 min_vmax = max_t(u32, crop->height + IMX908_VMAX_MARGIN,
-> > +                        IMX908_VMAX_MIN);
-> > +
-> > +       return min_vmax - crop->height;
-> > +}
-> > +
-> > +static int imx908_set_exposure_lines(struct imx908 *imx, u32 exposure_lines)
-> > +{
-> > +       const struct v4l2_mbus_framefmt *format;
-> > +       struct v4l2_subdev_state *state;
-> > +       u32 vmax, max_lines;
-> > +
-> > +       state = v4l2_subdev_get_locked_active_state(&imx->sd);
-> > +       format = v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> > +
-> > +       vmax = format->height + imx->ctrls.vblank->val;
-> > +       max_lines = vmax - IMX908_MIN_SHR0;
-> > +
-> > +       /* Guards SHR0 underflow when VBLANK+EXPOSURE are set together */
-> > +       exposure_lines = clamp_t(u32, exposure_lines, 1, max_lines);
-> > +
-> > +       u32 shr0 = vmax - exposure_lines;
-> > +
-> > +       return cci_write(imx->cci, IMX908_REG_SHR0, shr0, NULL);
-> > +}
-> > +
-> > +static u8 imx908_bits_per_pixel(u32 code)
-> > +{
-> > +       switch (code) {
-> > +       case MEDIA_BUS_FMT_SRGGB12_1X12:
-> > +               return 12;
-> > +       case MEDIA_BUS_FMT_SRGGB10_1X10:
-> > +       default:
-> > +               return 10;
-> > +       }
-> > +}
-> > +
-> > +static u32 imx908_hmax_to_hblank(u16 hmax, u32 width)
-> > +{
-> > +       return hmax * IMX908_PIX_PER_CLK - width;
-> > +}
-> > +
-> > +static int imx908_update_hblank_limits(struct imx908 *imx, u32 old_width,
-> > +                                      u32 width, u8 bpp)
-> > +{
-> > +       u16 min_hmax = imx908_calc_min_hmax(imx, bpp);
-> > +       u32 max_hblank = imx908_hmax_to_hblank(IMX908_HMAX_MAX, width);
-> > +       u32 min_hblank = imx908_hmax_to_hblank(min_hmax, width);
-> > +       /* Re-derive the line period at the old width to preserve line time */
-
-I wonder if this is worth the extra complexity. Changing the output size
-is only allowed when the sensor is stopped, and I think we can expect
-userspace to set the hblank and vblank controls when reconfiguring the
-sensor. Dropping this would simplify the code. Up to you.
-
-Same comment for vblank.
-
-> > +       u16 hmax = imx908_calc_hmax(old_width, imx->ctrls.hblank->val);
-> > +       u32 hblank = imx908_hmax_to_hblank(hmax, width);
-> > +       int ret;
-> > +
-> > +       hblank = clamp_t(u32, hblank, min_hblank, max_hblank);
-> > +
-> > +       ret = __v4l2_ctrl_modify_range(imx->ctrls.hblank, min_hblank,
-> > +                                      max_hblank, IMX908_PIX_PER_CLK, hblank);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       if (imx->ctrls.hblank->val != hblank)
-> > +               __v4l2_ctrl_s_ctrl(imx->ctrls.hblank, hblank);
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_update_vblank_limits(struct imx908 *imx,
-> > +                                      const struct v4l2_rect *crop,
-> > +                                      u32 old_height)
-> > +{
-> > +       u32 min_vblank = imx908_calc_min_vblank(crop);
-> > +       u32 max_vblank = IMX908_VMAX_MAX - crop->height;
-> > +       /* Preserve frame length across height changes when possible. */
-> > +       u32 vmax = old_height + imx->ctrls.vblank->val;
-> > +       u32 vblank = clamp_t(u32, vmax - crop->height,
-> > +                            min_vblank, max_vblank);
-> > +       int ret;
-> > +
-> > +       ret = __v4l2_ctrl_modify_range(imx->ctrls.vblank, min_vblank,
-> > +                                      max_vblank, 1, vblank);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       if (imx->ctrls.vblank->val != vblank)
-> > +               __v4l2_ctrl_s_ctrl(imx->ctrls.vblank, vblank);
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +/* ------------------ Pattern Generator (TPG) ----------------------- */
-> > +static const char * const imx908_tpg_menu[] = {
-> > +       "Disabled",
-> > +       "All 000h",
-> > +       "All FFFh",
-> > +       "All 555h",
-> > +       "All AAAh",
-> > +       "555h / AAAh Toggle",
-> > +       "AAAh / 555h Toggle",
-> > +       "000h / 555h Toggle",
-> > +       "555h / 000h Toggle",
-> > +       "000h / FFFh Toggle",
-> > +       "FFFh / 000h Toggle",
-> > +       "Horiz Color Bars",
-> > +       "Vert Color Bars",
-> > +};
-> > +
-> > +static int imx908_update_test_pattern(struct imx908 *imx, u32 index)
-> > +{
-> > +       int ret = 0;
-> > +
-> > +       if (index == 0) {
-> > +               /* Picture (not TPG) output setting */
-> > +               cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_EN_BIT,
-> > +                               0x00, &ret);
-> > +
-> > +               /* Disable TESTCLKEN (write-only register) */
-> > +               cci_write(imx->cci, IMX908_REG_TESTCLKEN, 0x00, &ret);
-> > +
-> > +               return ret;
-> > +       }
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_TESTCLKEN, IMX908_TESTCLKEN_BIT, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_TPG_PATSEL, index - 1, &ret);
-> > +       cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_EN_BIT,
-> > +                       IMX908_TPG_EN_BIT, &ret);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_update_framing_limits(struct imx908 *imx,
-> > +                                       struct v4l2_subdev_state *state,
-> > +                                       u32 old_width,
-> > +                                       u32 old_height)
-> > +{
-> > +       const struct v4l2_mbus_framefmt *fmt;
-> > +       const struct v4l2_rect *crop;
-> > +       int ret;
-> > +
-> > +       fmt = v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> > +       crop = v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-> > +       u8 bpp = imx908_bits_per_pixel(fmt->code);
-> > +
-> > +       ret = imx908_update_hblank_limits(imx, old_width, fmt->width, bpp);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = imx908_update_vblank_limits(imx, crop, old_height);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       u32 vmax = fmt->height + clamp_t(u32, imx->ctrls.vblank->val,
-> > +                                        imx908_calc_min_vblank(crop),
-> > +                                        IMX908_VMAX_MAX - fmt->height);
-> > +
-> > +       return __v4l2_ctrl_modify_range(imx->ctrls.exposure,
-> > +                                       IMX908_EXPOSURE_MIN,
-> > +                                       vmax - IMX908_MIN_SHR0,
-> > +                                       IMX908_EXPOSURE_STEP,
-> > +                                       imx->ctrls.exposure->default_value);
-> > +}
-> > +
-> > +/* ----------------------- HW Programming ---------------------- */
-> > +static int imx908_set_mode(struct imx908 *imx,
-> > +                          const struct v4l2_mbus_framefmt *fmt)
-> > +{
-> > +       u8 adbit, mdbit, value;
-> > +       u16 blklevel;
-> > +       int ret = 0;
-> > +
-> > +       switch (fmt->code) {
-> > +       case MEDIA_BUS_FMT_SRGGB10_1X10:
-> > +               adbit = IMX908_ADBIT_10BIT;
-> > +               mdbit = IMX908_MDBIT_RAW10;
-> > +               blklevel = 50; /* datasheet recommended value for 10-bit */
-> > +               value = 0x0c;  /* register map value for 10-bit */
-> > +               break;
-> > +       case MEDIA_BUS_FMT_SRGGB12_1X12:
-> > +       default:
-> > +               adbit = IMX908_ADBIT_12BIT;
-> > +               mdbit = IMX908_MDBIT_RAW12;
-> > +               blklevel = 200; /* datasheet recommended value for 12-bit */
-> > +               value = 0x05;   /* register map value for 12-bit */
-> > +               break;
-> > +       }
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_XMASTER, IMX908_CONTROLLER_MODE, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_ADBIT, adbit, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_MDBIT, mdbit, &ret);
-> > +
-> > +       for (unsigned int i = 0; i < ARRAY_SIZE(imx908_bit_depth_regs); ++i)
-> > +               cci_write(imx->cci, imx908_bit_depth_regs[i], value, &ret);
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_INCK_SEL, imx->inck_sel, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_DATARATE_SEL, imx->link_freq_idx, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_LANEMODE, imx->num_lanes == 2 ?
-> > +                 IMX908_LANEMODE_2LANE : IMX908_LANEMODE_4LANE, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_BLKLEVEL, blklevel, &ret);
-> 
-> Has the BLKLEVEL register handling changed from Starvis2 -> Starvis3?
-> 
-> For IMX678 the default value recommended by datasheet were the same, 50 and
-> 200, but with a note that increasing register by 1 in 12-bit mode meant an
-> increase of 4 in the output. Thus the register always reads 50 (or 0x32) by
-> default.
-> 
-> > +
-> > +       if (ret)
-> > +               dev_err(imx->dev, " register write failed: %d\n", ret);
-
-cci_write() logs a message on error already, so I would drop this.
-
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_program_window(struct imx908 *imx,
-> > +                                const struct v4l2_rect *crop)
-> > +{
-> > +       bool all_pixel_mode = v4l2_rect_equal(crop, &imx908_active_area);
-> > +       int ret = 0;
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_WINMODE,
-> > +                 all_pixel_mode ? IMX908_WINMODE_ALLPIX : IMX908_WINMODE_CROP,
-> > +                 &ret);
-> > +
-> > +       if (!all_pixel_mode) {
-> > +               cci_write(imx->cci, IMX908_REG_PIX_HST,    crop->left,   &ret);
-> > +               cci_write(imx->cci, IMX908_REG_PIX_HWIDTH, crop->width,  &ret);
-> > +               cci_write(imx->cci, IMX908_REG_PIX_VST,    crop->top,    &ret);
-> > +               cci_write(imx->cci, IMX908_REG_PIX_VWIDTH, crop->height, &ret);
-> > +       }
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +/* ----------------------- Start/Stop streaming ---------------------- */
-> > +static int imx908_start_streaming(struct imx908 *imx,
-> > +                                 struct v4l2_subdev_state *sd_state)
-> > +{
-> > +       const struct v4l2_mbus_framefmt *format;
-> > +       const struct v4l2_rect *crop;
-> > +       int ret = 0;
-> > +
-> > +       crop = v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-> > +       format = v4l2_subdev_state_get_format(sd_state, IMX908_SOURCE_PAD);
-> > +
-> > +       cci_multi_reg_write(imx->cci, imx908_common_regs,
-> > +                           ARRAY_SIZE(imx908_common_regs), &ret);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = imx908_set_mode(imx, format);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = imx908_program_window(imx, crop);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = __v4l2_ctrl_handler_setup(imx->sd.ctrl_handler);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CANCEL, &ret);
-> > +       fsleep(24 * USEC_PER_MSEC); /* >=24 ms stabilization after standby cancel */
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_XMSTA_START, &ret);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_stop_streaming(struct imx908 *imx)
-> > +{
-> > +       int ret = 0;
-> > +
-> > +       cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, &ret);
-> > +       cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_XMSTA_STOP, &ret);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +/* --------------------------- V4L2 controls ------------------------------ */
-> > +static int imx908_set_ctrl(struct v4l2_ctrl *ctrl)
-> > +{
-> > +       struct imx908 *imx = container_of(ctrl->handler, struct imx908,
-> > +                                         ctrls.handler);
-> > +       const struct v4l2_mbus_framefmt *format;
-> > +       struct v4l2_subdev_state *state;
-> > +       int ret = 0;
-> > +
-> > +       state = v4l2_subdev_get_locked_active_state(&imx->sd);
-> > +       format = v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> > +
-> > +       /* Update exposure control limits even if the sensor is not streaming */
-> > +       if (ctrl->id == V4L2_CID_VBLANK) {
-> > +               const struct v4l2_rect *crop;
-> > +
-> > +               crop = v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-> > +
-> > +               u32 min_vblank = imx908_calc_min_vblank(crop);
-> > +               u32 max_vblank = IMX908_VMAX_MAX - format->height;
-> > +               u32 vblank = clamp_t(u32, ctrl->val, min_vblank, max_vblank);
-> 
-> The above 3 lines are redundant for simple VBLANK control updates. V4L2
-> control framework would ensure new values are within the defined min/max
-> range before the drivers .s_ctrl is triggered.
-
-That's right.
-
-> > +
-> > +               u32 vmax = format->height + vblank;
-> > +               u32 max_exposure = vmax - IMX908_MIN_SHR0;
-> > +               u32 current_exposure = clamp_t(u32, imx->ctrls.exposure->cur.val,
-> > +                                       IMX908_EXPOSURE_MIN, max_exposure);
-> 
-> Same here. No reason the exposure->cur.val would be out of bounds when user
-> requests an update to VBLANK value. So this should be:
-
-But this isn't I think. The control framework will indeed ensure that
-the exposure value is within the min/max bounds, but here we're updating
-the max value *for exposure* based on the new current value *for
-vblank*.
-
->     u32 current_exposure = imx->ctrls.exposure->cur.val
-> 
-> > +
-> > +               ret = __v4l2_ctrl_modify_range(imx->ctrls.exposure,
-> > +                                              IMX908_EXPOSURE_MIN,
-> > +                                              max_exposure,
-> > +                                              IMX908_EXPOSURE_STEP,
-> > +                                              current_exposure);
-> > +               if (ret)
-> > +                       return ret;
-> > +       }
-> > +
-> > +       /* Hardware writes only when powered; cached ctrls applied on resume */
-> > +       if (!pm_runtime_get_if_active(imx->dev))
-> > +               return 0;
-> > +
-> > +       switch (ctrl->id) {
-> > +       case V4L2_CID_EXPOSURE:
-> > +               ret = imx908_set_exposure_lines(imx, ctrl->val);
-> > +               break;
-> > +
-> > +       case V4L2_CID_ANALOGUE_GAIN:
-> > +               cci_write(imx->cci, IMX908_REG_GAIN, ctrl->val, &ret);
-> > +               break;
-> > +
-> > +       case V4L2_CID_VBLANK: {
-> > +               u32 vmax = format->height + ctrl->val;
-> > +
-> > +               ret = cci_write(imx->cci, IMX908_REG_VMAX, vmax, NULL);
-> > +               /* SHR0 derived from VMAX, re-apply exposure after changes */
-> > +               if (!ret)
-> > +                       ret = imx908_set_exposure_lines(imx,
-> > +                                                       imx->ctrls.exposure->val);
-> > +               break;
-> > +       }
-> > +
-> > +       case V4L2_CID_HBLANK: {
-> > +               u16 hmax = imx908_calc_hmax(format->width, ctrl->val);
-> > +
-> > +               cci_write(imx->cci, IMX908_REG_HMAX, hmax, &ret);
-> > +               break;
-> > +       }
-> > +
-> > +       case V4L2_CID_TEST_PATTERN:
-> > +               ret = imx908_update_test_pattern(imx, ctrl->val);
-> > +               break;
-> > +
-> > +       case V4L2_CID_HFLIP:
-> > +               cci_write(imx->cci, IMX908_REG_HREVERSE,
-> > +                         ctrl->val ? IMX908_HREVERSE_INV
-> > +                         : IMX908_HREVERSE_NORMAL, &ret);
-> > +               break;
-> > +
-> > +       case V4L2_CID_VFLIP:
-> > +               cci_write(imx->cci, IMX908_REG_VREVERSE,
-> > +                         ctrl->val ? IMX908_VREVERSE_INV
-> > +                         : IMX908_VREVERSE_NORMAL, &ret);
-> > +               break;
-> > +
-> 
-> Any reason the register values for HREVERSE/VREVERSE are inverted now w.r.t
-> the userspace HFLIP/VFLIP settings?
-
-Are they inverted ? As far as I can see, the register is written with
-0x01 (IMX908_VREVERSE_INV) when val is true and 0x00
-(IMX908_VREVERSE_NORMAL) when val is false. This should be the same
-behaviour as in v2, the change in the code seems to be there to avoid
-depending on the true value of the boolean control being 1. I don't mind
-either way, I think I would have kept v2, but this seems OK too.
-
-> Ah, and is this why imx908_active_area.top was 0 and not 24 ?
-> 
-> What v2 did (writing ctrl->val directly to the registers) seemed okay to
-> me. It's usually a good idea to mention functional changes in the
-> changelog. If there is a valid reason for the swap, maybe also add a code
-> comment here explaining why.
-> 
-> > +       default:
-> > +               dev_warn(imx->dev,
-> > +                        "ctrl(id:0x%x,val:0x%x) is not handled\n",
-> > +                        ctrl->id, ctrl->val);
-> > +               break;
-> > +       }
-> > +
-> > +       pm_runtime_put(imx->dev);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static const struct v4l2_ctrl_ops imx908_ctrl_ops = {
-> > +       .s_ctrl = imx908_set_ctrl,
-> > +};
-> > +
-> > +/* ------------------------ Pad/video ops ------------------ */
-> > +static int imx908_enum_mbus_code(struct v4l2_subdev *sd,
-> > +                                struct v4l2_subdev_state *sd_state,
-> > +                                struct v4l2_subdev_mbus_code_enum *code)
-> > +{
-> > +       if (code->index >= ARRAY_SIZE(imx908_mbus_codes))
-> > +               return -EINVAL;
-> > +       code->code = imx908_mbus_codes[code->index];
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_enum_frame_size(struct v4l2_subdev *sd,
-> > +                                 struct v4l2_subdev_state *sd_state,
-> > +                                 struct v4l2_subdev_frame_size_enum *fse)
-> > +{
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       const struct v4l2_rect *crop;
-> > +
-> > +       if (fse->index > 0)
-> > +               return -EINVAL;
-> > +
-> > +       if (!imx908_mbus_code_supported(imx, fse->code))
-> > +               return -EINVAL;
-> > +
-> > +       crop = v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-> > +
-> > +       fse->min_width  = crop->width;
-> > +       fse->max_width  = crop->width;
-> > +       fse->min_height = crop->height;
-> > +       fse->max_height = crop->height;
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_set_pad_format(struct v4l2_subdev *sd,
-> > +                                struct v4l2_subdev_state *sd_state,
-> > +                                struct v4l2_subdev_format *fmt)
-> > +{
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       struct v4l2_mbus_framefmt *format;
-> > +
-> > +       if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-> > +           v4l2_subdev_is_streaming(sd))
-> > +               return -EBUSY;
-> > +
-> > +       format = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-> > +
-> > +       if (imx908_mbus_code_supported(imx, fmt->format.code))
-> > +               format->code = fmt->format.code;
-> > +       else
-> > +               format->code = IMX908_DEFAULT_MBUS_CODE;
-> > +
-> > +       /* Fully define metadata */
-> > +       format->field        = V4L2_FIELD_NONE;
-> > +       format->colorspace   = V4L2_COLORSPACE_RAW;
-> > +       format->ycbcr_enc    = V4L2_YCBCR_ENC_DEFAULT;
-> > +       format->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-> > +       format->xfer_func    = V4L2_XFER_FUNC_NONE;
-> > +
-> > +       /* Limits track the real controls only for the ACTIVE state, not TRY */
-> > +       if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-> > +               /* set_pad_format() never changes width, so old == new here */
-> > +               u32 old_width = format->width;
-> > +               u32 old_height = format->height;
-> > +               int ret = imx908_update_framing_limits(imx, sd_state,
-> > +                                              old_width, old_height);
-> > +
-> > +               if (ret)
-> > +                       return ret;
-> > +       }
-> 
-> I see program_window() only looks at crop size, so changing format
-> width/height to something else using S_FMT will not change anything on the
-> CSI-2 bus.
-> 
-> For freely-configurable sensor drivers like these, I think the usual
-> pattern is to allow S_SELECTION to configure the window size, and S_FMT
-> always snaps format->width = crop->width (same for height).
-
-Unless I'm mistaken, that's what this function does. format->width and
-format->height are propagated from imx908_set_selection() and they are
-not modified here. Am I misunderstanding your comment, or missing
-something ?
-
-This being said, the imx908_update_framing_limits() is a bit overkill,
-as the old and new width and height are guaranteed to be the same here.
-What can change is the format though, and therefore the bpp, so hblank
-has to be recalculated, but vblank doesn't need an update. I'm however
-fine keeping the full imx908_update_framing_limits() call for
-simplicity.
-
-> > +
-> > +       fmt->format = *format;
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_set_selection(struct v4l2_subdev *sd,
-> > +                               struct v4l2_subdev_state *sd_state,
-> > +                               struct v4l2_subdev_selection *sel)
-> > +{
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       struct v4l2_mbus_framefmt *format;
-> > +       struct v4l2_rect *r = &sel->r;
-> > +       struct v4l2_rect *crop;
-> > +
-> > +       if (sel->target != V4L2_SEL_TGT_CROP)
-> > +               return -EINVAL;
-> > +
-> > +       if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-> > +           v4l2_subdev_is_streaming(sd))
-> > +               return -EBUSY;
-> > +
-> > +       crop = v4l2_subdev_state_get_crop(sd_state, sel->pad);
-> > +       format = v4l2_subdev_state_get_format(sd_state, sel->pad);
-> > +
-> > +       /*
-> > +        * Round the crop rectangle size down to the hardware alignment
-> > +        * constraints, then clamp it to the supported size range.
-> > +        */
-> > +       r->width = clamp_t(s32, ALIGN_DOWN(r->width, IMX908_CROP_ALIGN_HWIDTH),
-> > +                          IMX908_CROP_MIN_WIDTH, imx908_active_area.width);
-> > +       r->height = clamp_t(s32, ALIGN_DOWN(r->height, IMX908_CROP_ALIGN_VWIDTH),
-> > +                           IMX908_CROP_MIN_HEIGHT, imx908_active_area.height);
-> > +
-> > +       /*
-> > +        * Round and clamp the crop position similarly, with the maximum value
-> > +        * chosen so that the crop rectangle remains fully inside the active
-> > +        * pixel array.
-> > +        */
-> > +       r->left = clamp_t(s32, ALIGN_DOWN(r->left, IMX908_CROP_ALIGN_HSTART), 0,
-> > +                         imx908_active_area.width - r->width);
-> > +       r->top = clamp_t(s32, ALIGN_DOWN(r->top, IMX908_CROP_ALIGN_VSTART), 0,
-> > +                        imx908_active_area.height - r->height);
-> > +
-> > +       u32 old_width = crop->width;
-> > +       u32 old_height = crop->height;
-> > +
-> > +       *crop = *r;
-> > +
-> > +       /* IMX908 has no binning, so the output size matches the crop 1:1 */
-> > +       format->width  = crop->width;
-> > +       format->height = crop->height;
-> > +
-> > +       if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-> > +               int ret = imx908_update_framing_limits(imx, sd_state,
-> > +                                              old_width, old_height);
-> > +
-> > +               if (ret)
-> > +                       return ret;
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_get_selection(struct v4l2_subdev *sd,
-> > +                               struct v4l2_subdev_state *sd_state,
-> > +                               struct v4l2_subdev_selection *sel)
-> > +{
-> > +       switch (sel->target) {
-> > +       case V4L2_SEL_TGT_CROP:
-> > +               sel->r = *v4l2_subdev_state_get_crop(sd_state,
-> > +                                                    IMX908_SOURCE_PAD);
-> > +               return 0;
-> > +
-> > +       case V4L2_SEL_TGT_NATIVE_SIZE:
-> > +               sel->r = imx908_total_area;
-> > +               return 0;
-> > +
-> > +       case V4L2_SEL_TGT_CROP_DEFAULT:
-> > +               sel->r = imx908_active_area;
-> > +               return 0;
-> > +
-> > +       case V4L2_SEL_TGT_CROP_BOUNDS:
-> > +               sel->r = imx908_active_area;
-> > +               return 0;
-> 
-> nitpick: can be simplified as
-> 
->        case V4L2_SEL_TGT_CROP_DEFAULT:
->        case V4L2_SEL_TGT_CROP_BOUNDS:
->                sel->r = imx908_active_area;
->                return 0;
-> 
-> > +       default:
-> > +               return -EINVAL;
-> > +       }
-> > +}
-> > +
-> > +static int imx908_enable_streams(struct v4l2_subdev *sd,
-> > +                                struct v4l2_subdev_state *sd_state,
-> > +                                u32 pad,
-> > +                                u64 streams_mask)
-> > +{
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       int ret;
-> > +
-> > +       ret = pm_runtime_resume_and_get(imx->dev);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = imx908_start_streaming(imx, sd_state);
-> > +       if (ret) {
-> > +               pm_runtime_put_autosuspend(imx->dev);
-> > +               return ret;
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_disable_streams(struct v4l2_subdev *sd,
-> > +                                 struct v4l2_subdev_state *sd_state,
-> > +                                 u32 pad,
-> > +                                 u64 streams_mask)
-> > +{
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       int ret;
-> > +
-> > +       ret = imx908_stop_streaming(imx);
-> > +
-> > +       pm_runtime_put_autosuspend(imx->dev);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_init_state(struct v4l2_subdev *sd,
-> > +                            struct v4l2_subdev_state *sd_state)
-> > +{
-> > +       struct v4l2_subdev_selection sel = {
-> > +               .which  = V4L2_SUBDEV_FORMAT_TRY,
-> > +               .pad    = IMX908_SOURCE_PAD,
-> > +               .target = V4L2_SEL_TGT_CROP,
-> > +               .r      = imx908_active_area,
-> > +       };
-> > +       struct v4l2_subdev_format fmt = {
-> > +               .which = V4L2_SUBDEV_FORMAT_TRY,
-> > +               .pad   = IMX908_SOURCE_PAD,
-> > +               .format = {
-> > +                       .code   = IMX908_DEFAULT_MBUS_CODE,
-> > +                       .width  = imx908_active_area.width,
-> > +                       .height = imx908_active_area.height,
-> > +               },
-> > +       };
-> > +
-> > +       imx908_set_selection(sd, sd_state, &sel);
-> > +       imx908_set_pad_format(sd, sd_state, &fmt);
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static const struct v4l2_subdev_video_ops imx908_video_ops = {
-> > +       .s_stream = v4l2_subdev_s_stream_helper,
-> > +};
-> > +
-> > +static const struct v4l2_subdev_pad_ops imx908_pad_ops = {
-> > +       .enum_mbus_code      = imx908_enum_mbus_code,
-> > +       .enum_frame_size     = imx908_enum_frame_size,
-> > +       .get_fmt             = v4l2_subdev_get_fmt,
-> > +       .set_fmt             = imx908_set_pad_format,
-> > +       .get_selection       = imx908_get_selection,
-> > +       .set_selection       = imx908_set_selection,
-> > +       .enable_streams      = imx908_enable_streams,
-> > +       .disable_streams     = imx908_disable_streams,
-> > +};
-> > +
-> > +static const struct v4l2_subdev_internal_ops imx908_internal_ops = {
-> > +       .init_state = imx908_init_state,
-> > +};
-> > +
-> > +static const struct v4l2_subdev_ops imx908_subdev_ops = {
-> > +       .video = &imx908_video_ops,
-> > +       .pad   = &imx908_pad_ops,
-> > +};
-> > +
-> > +/* ----------------------- Power management ---------------------- */
-> > +static int imx908_power_on(struct device *dev)
-> > +{
-> > +       struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +       int ret;
-> > +
-> > +       ret = regulator_bulk_enable(ARRAY_SIZE(imx908_supply_names),
-> > +                                   imx->supplies);
-> > +       if (ret) {
-> > +               dev_err(imx->dev, "failed to enable regulators\n");
-> > +               return ret;
-> > +       }
-> > +       /* XCLR already asserted by GPIOD_OUT_HIGH */
-> > +       udelay(1); /* >= 500ns T_low */
-> > +       gpiod_set_value_cansleep(imx->reset_gpio, 0); /* Sensor start */
-> > +
-> > +       ret = clk_prepare_enable(imx->xclk);
-> > +       if (ret) {
-> > +               dev_err(imx->dev, "failed to enable xclk: %d\n", ret);
-> > +               goto err_reset;
-> > +       }
-> > +
-> > +       fsleep(20); /* T_1 >= 20us before first SDA/SCL */
-> > +
-> > +       return 0;
-> > +
-> > +err_reset:
-> > +       gpiod_set_value_cansleep(imx->reset_gpio, 1); /* assert reset */
-
-I'd drop this comment, the code is explicit.
-
-> > +       regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supplies);
-> > +       return ret;
-> > +}
-> > +
-> > +static void imx908_power_off(struct device *dev)
-> > +{
-> > +       struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +
-> > +       clk_disable_unprepare(imx->xclk);
-> > +       gpiod_set_value_cansleep(imx->reset_gpio, 1);
-> > +       regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supplies);
-> > +}
-> > +
-> > +static int imx908_runtime_resume(struct device *dev)
-> > +{
-> > +       return imx908_power_on(dev);
-> > +}
-> > +
-> > +static int imx908_runtime_suspend(struct device *dev)
-> > +{
-> > +       imx908_power_off(dev);
-> > +       return 0;
-> > +}
-> > +
-> 
-> You could use imx908_power_off and imx908_power_on directly as the
-> RUNTIME_PM_OPS below.
-
-I'd recommend pass the struct imx908 pointer to imx908_power_on() and
-imx908_power_off() and keeping imx908_runtime_resume() and
-imx908_runtime_suspend(), as done in v2. Sakari has requested the
-opposite though. I very strongly disagree with him on this, but I don't
-want to delay merging this driver because of that.
-
-> > +static DEFINE_RUNTIME_DEV_PM_OPS(imx908_pm_ops,
-> > +                                imx908_runtime_suspend,
-> > +                                imx908_runtime_resume, NULL);
-> > +
-> > +/* ------------------------------- Probe/remove --------------------------- */
-> > +
-> > +static int imx908_get_inck_sel(struct imx908 *imx, u32 xclk_freq)
-> > +{
-> > +       for (unsigned int i = 0; i < ARRAY_SIZE(imx908_inck_table); i++) {
-> > +               if (imx908_inck_table[i] == xclk_freq) {
-> > +                       imx->inck_sel = i;
-> > +                       return 0;
-> > +               }
-> > +       }
-> > +
-> > +       return dev_err_probe(imx->dev, -EINVAL, "unsupported xclk %u Hz\n",
-> > +                            xclk_freq);
-> > +}
-> > +
-> > +static int imx908_get_regulators(struct imx908 *imx)
-> > +{
-> > +       for (unsigned int i = 0; i < ARRAY_SIZE(imx908_supply_names); i++)
-> > +               imx->supplies[i].supply = imx908_supply_names[i];
-> > +
-> > +       return devm_regulator_bulk_get(imx->dev,
-> > +                       ARRAY_SIZE(imx908_supply_names),
-> > +                       imx->supplies);
-> > +}
-> > +
-> > +static int imx908_parse_fwnode(struct imx908 *imx)
-> > +{
-> > +       struct v4l2_fwnode_endpoint bus_cfg = {
-> > +               .bus_type = V4L2_MBUS_CSI2_DPHY
-> > +       };
-> > +       struct fwnode_handle *ep;
-> > +       int ret = 0;
-
-No need to initialize ret to 0.
-
-> > +
-> > +       ep = fwnode_graph_get_next_endpoint(dev_fwnode(imx->dev), NULL);
-> > +
-> > +       /* Only data-lanes and link-frequencies are used from the endpoint */
-> > +       ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-> > +       fwnode_handle_put(ep);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       imx->num_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-> > +
-> > +       if (imx->num_lanes != 2 && imx->num_lanes != 4) {
-> > +               dev_err(imx->dev,
-> > +                       "only 2 or 4 CSI-2 data lanes are supported (got %u)\n",
-> > +                       imx->num_lanes);
-> > +               ret = -EINVAL;
-> > +               goto out_free;
-> > +       }
-> > +
-> > +       ret = v4l2_link_freq_to_bitmap(imx->dev,
-> > +                                      bus_cfg.link_frequencies,
-> > +                                      bus_cfg.nr_of_link_frequencies,
-> > +                                      imx908_link_freqs,
-> > +                                      ARRAY_SIZE(imx908_link_freqs),
-> > +                                      &imx->link_freq_bitmap);
-> > +       if (ret)
-> > +               goto out_free;
-> 
-> The above two lines could be dropped.
-
-That would result in a possibly weird value being printed in the debug
-message below, so I think keeping the goto would be better.
-
-> > +
-> > +       imx->link_freq_idx = __ffs(imx->link_freq_bitmap);
-> > +       dev_dbg(imx->dev, "using %u lanes at link freq %llu Hz\n",
-> > +               imx->num_lanes, imx908_link_freqs[imx->link_freq_idx]);
-> > +
-> > +out_free:
-> > +       v4l2_fwnode_endpoint_free(&bus_cfg);
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_init_controls(struct imx908 *imx)
-> > +{
-> > +       struct v4l2_ctrl_handler *hdl = &imx->ctrls.handler;
-> > +       struct v4l2_fwnode_device_properties props;
-> > +       struct v4l2_ctrl *ctrl;
-> > +       int ret;
-> > +
-> > +       /* Read rotation and orientation properties from the firmware node */
-> > +       ret = v4l2_fwnode_device_parse(imx->dev, &props);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       ret = v4l2_ctrl_handler_init(hdl, 11);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       /* PIXEL_RATE is always read-only, so it needs no s_ctrl() handling */
-> > +       v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_PIXEL_RATE,
-> > +                         IMX908_PIXEL_RATE, IMX908_PIXEL_RATE, 1,
-> > +                         IMX908_PIXEL_RATE);
-> > +
-> > +       /* LINK_FREQ is informational only and has no s_ctrl() handling */
-
-Eventually we should make the link frequency selectable, but that can be
-done later.
-
-> > +       ctrl = v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ,
-> > +                                     ARRAY_SIZE(imx908_link_freqs) - 1,
-> > +                                     imx->link_freq_idx, imx908_link_freqs);
-> > +       if (ctrl)
-> > +               ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > +
-> > +       u32 min_vblank = imx908_calc_min_vblank(&imx908_active_area);
-> > +       u32 max_vblank = IMX908_VMAX_MAX - imx908_active_area.height;
-> > +       /* Default to the datasheet 30 fps operating point */
-> > +       u32 def_vblank = IMX908_VMAX_DEFAULT - imx908_active_area.height;
-> > +
-> > +       imx->ctrls.vblank = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> > +                                             V4L2_CID_VBLANK, min_vblank,
-> > +                                             max_vblank, 1, def_vblank);
-> > +
-> > +       u8 bpp = imx908_bits_per_pixel(IMX908_DEFAULT_MBUS_CODE);
-> > +       u16 min_hmax = imx908_calc_min_hmax(imx, bpp);
-> > +       u32 min_hblank = imx908_hmax_to_hblank(min_hmax,
-> > +                                              imx908_active_area.width);
-> > +       u32 max_hblank = imx908_hmax_to_hblank(IMX908_HMAX_MAX,
-> > +                                              imx908_active_area.width);
-> > +       u32 hblank = imx908_hmax_to_hblank(IMX908_HMAX_DEFAULT,
-
-I would name this variable def_hblank to mimick def_vblank.
-
-> > +                                          imx908_active_area.width);
-> > +
-> > +       /* Default HMAX can be infeasible at low link freqs; clamp into range */
-> > +       hblank = clamp_t(u32, hblank, min_hblank, max_hblank);
-> > +
-> > +       imx->ctrls.hblank = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> > +                                             V4L2_CID_HBLANK, min_hblank,
-> > +                                             max_hblank, IMX908_PIX_PER_CLK,
-> > +                                             hblank);
-
-Add a blank line here to separate hblank from exposure.
-
-> > +       u32 max_exp = IMX908_VMAX_DEFAULT - IMX908_MIN_SHR0;
-> > +
-> > +       imx->ctrls.exposure = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> > +                                               V4L2_CID_EXPOSURE,
-> > +                                               IMX908_EXPOSURE_MIN,
-> > +                                               max_exp,
-> > +                                               IMX908_EXPOSURE_STEP,
-> > +                                               max_exp / 2);
-> > +
-> > +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-> > +                         IMX908_ANA_GAIN_MIN, IMX908_ANA_GAIN_MAX,
-> > +                         IMX908_ANA_GAIN_STEP, IMX908_ANA_GAIN_DEFAULT);
-> > +
-> > +       /* Set test pattern. Menu (13 entries: Disabled + 12 patterns) */
-> > +       v4l2_ctrl_new_std_menu_items(hdl, &imx908_ctrl_ops,
-> > +                                    V4L2_CID_TEST_PATTERN,
-> > +                                    ARRAY_SIZE(imx908_tpg_menu) - 1, 0, 0,
-> > +                                    imx908_tpg_menu);
-> > +
-> > +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_HFLIP, 0, 1, 1, 0);
-> > +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_VFLIP, 0, 1, 1, 0);
-> > +
-> > +       v4l2_ctrl_new_fwnode_properties(hdl, &imx908_ctrl_ops, &props);
-> > +       if (hdl->error) {
-> > +               ret = hdl->error;
-> > +               goto err_free;
-> 
-> Instead of the goto you could directly return here:
-> 
->         v4l2_ctrl_handler_free(hdl);
->         return ret;
-
-Gotos are nice for error handling, but when the error path is reached
-from a single location, direct error handling is fine too.
-
-> > +       }
-> > +
-> > +       imx->sd.ctrl_handler = hdl;
-> > +
-> > +       return 0;
-> > +
-> > +err_free:
-> > +       v4l2_ctrl_handler_free(hdl);
-> > +       return ret;
-> > +}
-> > +
-> > +static int imx908_identify_model(struct imx908 *imx)
-> > +{
-> > +       u16 chip_id;
-> > +       u64 val;
-> > +       int ret;
-> > +
-> > +       /*
-> > +        * The TYPE_ID registers are not accessible after power-up while
-> > +        * the device remains in standby. Exit standby and wait for the
-> > +        * required stabilization period before reading the chip ID.
-> > +        */
-> > +       ret = cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CANCEL, NULL);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       fsleep(24 * USEC_PER_MSEC); /* >=24 ms stabilization after standby cancel */
-> > +
-> > +       ret = cci_read(imx->cci, IMX908_REG_TYPE_ID, &val, NULL);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       chip_id = val;
-> > +       dev_dbg(imx->dev, "IMX908 chip ID: 0x%04x\n", chip_id);
-> > +
-> > +       if (chip_id != IMX908_CHIP_ID) {
-> > +               dev_err(imx->dev, "unexpected chip ID 0x%04x (expected 0x%04x)\n",
-> > +                       chip_id, IMX908_CHIP_ID);
-> > +               return -ENXIO;
-> > +       }
-> > +
-> > +       /* Set to standby mode to save power */
-> > +       ret = cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, NULL);
-> > +       if (ret) {
-> > +               dev_err(imx->dev, "failed to enter standby state: %d\n", ret);
-> > +               return ret;
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int imx908_probe(struct i2c_client *client)
-> > +{
-> > +       struct imx908 *imx;
-> > +       int ret;
-> > +
-> > +       imx = devm_kzalloc(&client->dev, sizeof(*imx), GFP_KERNEL);
-> > +       if (!imx)
-> > +               return -ENOMEM;
-> > +       imx->dev = &client->dev;
-> > +
-> > +       v4l2_i2c_subdev_init(&imx->sd, client, &imx908_subdev_ops);
-> > +       imx->sd.internal_ops = &imx908_internal_ops;
-> > +
-> > +       imx->cci = devm_cci_regmap_init_i2c(client, 16);
-> > +       if (IS_ERR(imx->cci))
-> > +               return dev_err_probe(imx->dev, PTR_ERR(imx->cci),
-> > +                                    "CCI regmap init failed\n");
-> > +
-> > +       imx->xclk = devm_v4l2_sensor_clk_get(imx->dev, NULL);
-> > +       if (IS_ERR(imx->xclk))
-> > +               return dev_err_probe(imx->dev, PTR_ERR(imx->xclk),
-> > +                                    "failed to get clock\n");
-> > +
-> > +       ret = imx908_get_inck_sel(imx, clk_get_rate(imx->xclk));
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       imx->reset_gpio = devm_gpiod_get_optional(imx->dev, "reset",
-> > +                                                 GPIOD_OUT_HIGH);
-> > +
-
-You can drop this blank line.
-
-> > +       if (IS_ERR(imx->reset_gpio))
-> > +               return dev_err_probe(imx->dev, PTR_ERR(imx->reset_gpio),
-> > +                                    "failed to get reset gpio\n");
-> > +
-> > +       ret = imx908_get_regulators(imx);
-> > +       if (ret)
-> > +               return dev_err_probe(imx->dev, ret, "failed to get regulators\n");
-> > +
-> > +       ret = imx908_parse_fwnode(imx);
-> > +       if (ret)
-> > +               return dev_err_probe(imx->dev, ret, "device tree parse failed\n");
-> > +
-> > +       ret = imx908_power_on(imx->dev);
-> > +       if (ret)
-> > +               return dev_err_probe(imx->dev, ret, "power-on failed\n");
-> > +
-> > +       ret = imx908_identify_model(imx);
-> > +       if (ret) {
-> > +               dev_err(imx->dev, "failed to identify model: %d\n", ret);
-> > +               goto err_power_off;
-> > +       }
-> > +
-> > +       /* Device is powered; keep it resumed across registration, release at end */
-> > +       pm_runtime_set_active(imx->dev);
-> > +       pm_runtime_get_noresume(imx->dev);
-> > +       ret = devm_pm_runtime_enable(imx->dev);
-> > +       if (ret)
-> > +               goto err_pm_put;
-> > +
-> > +       pm_runtime_set_autosuspend_delay(imx->dev, 1000);
-> > +       pm_runtime_use_autosuspend(imx->dev);
-> > +
-> > +       ret = imx908_init_controls(imx);
-> > +       if (ret)
-> > +               goto err_pm_put;
-> > +
-> > +       imx->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> > +       imx->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> > +       imx->pad.flags = MEDIA_PAD_FL_SOURCE;
-> > +       ret = media_entity_pads_init(&imx->sd.entity, 1, &imx->pad);
-> > +       if (ret)
-> > +               goto err_hdl;
-> > +
-> > +       /* Share the ctrl handler lock so s_ctrl can access the locked state */
-> > +       imx->sd.state_lock = imx->ctrls.handler.lock;
-> > +
-> > +       ret = v4l2_subdev_init_finalize(&imx->sd);
-> > +       if (ret)
-> > +               goto err_entity;
-> > +
-> > +       ret = v4l2_async_register_subdev_sensor(&imx->sd);
-> > +       if (ret)
-> > +               goto err_subdev;
-> > +
-> > +       /* Balance get_noresume; allow the sensor to suspend after probe */
-> > +       pm_runtime_put_autosuspend(imx->dev);
-> > +
-> > +       return 0;
-> > +
-> > +err_subdev:
-> > +       v4l2_subdev_cleanup(&imx->sd);
-> > +
-> > +err_entity:
-> > +       media_entity_cleanup(&imx->sd.entity);
-> > +
-> > +err_hdl:
-> > +       v4l2_ctrl_handler_free(imx->sd.ctrl_handler);
-> > +
-> > +err_pm_put:
-> > +       pm_runtime_put_noidle(imx->dev);
-> > +
-> > +err_power_off:
-> > +       imx908_power_off(imx->dev);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static void imx908_remove(struct i2c_client *client)
-> > +{
-> > +       struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> > +       struct imx908 *imx = to_imx908(sd);
-> > +
-> > +       v4l2_async_unregister_subdev(sd);
-> > +       v4l2_subdev_cleanup(sd);
-> > +       media_entity_cleanup(&sd->entity);
-> > +       v4l2_ctrl_handler_free(sd->ctrl_handler);
-> > +
-> > +       pm_runtime_disable(imx->dev);
-> 
-> This should be dropped given devm_pm_runtime_enable() was used in probe().
-> 
-> > +       if (!pm_runtime_status_suspended(imx->dev))
-> > +               imx908_power_off(imx->dev);
-> > +       pm_runtime_set_suspended(imx->dev);
-> > +}
-> > +
-> > +static const struct of_device_id imx908_of_ids[] = {
-> > +       { .compatible = "sony,imx908" },
-> > +       { /* sentinel */ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, imx908_of_ids);
-> > +
-> > +static struct i2c_driver imx908_i2c_driver = {
-> > +       .driver = {
-> > +               .name           = "imx908",
-> > +               .pm             = pm_ptr(&imx908_pm_ops),
-> > +               .of_match_table = imx908_of_ids,
-> > +       },
-> > +       .probe  = imx908_probe,
-> > +       .remove = imx908_remove,
-> > +};
-> > +module_i2c_driver(imx908_i2c_driver);
-> > +
-> > +MODULE_AUTHOR("Lachlan Michael <Lachlan.Michael@sony.com>");
-> > +MODULE_DESCRIPTION("Sony IMX908 Sensor Driver");
-> > +MODULE_LICENSE("GPL");
-
+diff --git a/net/mac80211/fils_aead.c b/net/mac80211/fils_aead.c
+index 293590976489..1686fed0b98b 100644
+--- a/net/mac80211/fils_aead.c
++++ b/net/mac80211/fils_aead.c
+@@ -271,7 +271,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 					 ies, frame + *frame_len - ies);
+ 	if (!session || session->datalen != 1 + 8) {
+ 		mlme_dbg(sdata,
+-			 "No (valid) FILS Session element in (Re)Association Response frame from %pM",
++			 "No (valid) FILS Session element in (Re)Association Response frame from %pM\n",
+ 			 mgmt->sa);
+ 		return -EINVAL;
+ 	}
+@@ -301,7 +301,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 	crypt_len = frame + *frame_len - encr;
+ 	if (crypt_len < AES_BLOCK_SIZE) {
+ 		mlme_dbg(sdata,
+-			 "Not enough room for AES-SIV data after FILS Session element in (Re)Association Response frame from %pM",
++			 "Not enough room for AES-SIV data after FILS Session element in (Re)Association Response frame from %pM\n",
+ 			 mgmt->sa);
+ 		return -EINVAL;
+ 	}
+@@ -309,7 +309,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 			      encr, crypt_len, 5, addr, len, encr);
+ 	if (res != 0) {
+ 		mlme_dbg(sdata,
+-			 "AES-SIV decryption of (Re)Association Response frame from %pM failed",
++			 "AES-SIV decryption of (Re)Association Response frame from %pM failed\n",
+ 			 mgmt->sa);
+ 		return res;
+ 	}
+diff --git a/net/mac80211/key.c b/net/mac80211/key.c
+index f45e792abede..294336b1c1c9 100644
+--- a/net/mac80211/key.c
++++ b/net/mac80211/key.c
+@@ -337,7 +337,7 @@ static void ieee80211_pairwise_rekey(struct ieee80211_key *old,
+ 		}
+ 		if (!wiphy_ext_feature_isset(local->hw.wiphy,
+ 					     NL80211_EXT_FEATURE_CAN_REPLACE_PTK0)) {
+-			pr_warn_ratelimited("Rekeying PTK for STA %pM but driver can't safely do that.",
++			pr_warn_ratelimited("Rekeying PTK for STA %pM but driver can't safely do that.\n",
+ 					    sta->sta.addr);
+ 			/* Flushing the driver queues *may* help prevent
+ 			 * the clear text leaks and freezes.
+diff --git a/net/mac80211/mesh.c b/net/mac80211/mesh.c
+index d4507e4e6ec1..c6047d0daf6c 100644
+--- a/net/mac80211/mesh.c
++++ b/net/mac80211/mesh.c
+@@ -1529,7 +1529,7 @@ int ieee80211_mesh_finish_csa(struct ieee80211_sub_if_data *sdata, u64 *changed)
+ 
+ 	*changed |= BSS_CHANGED_BEACON;
+ 
+-	mcsa_dbg(sdata, "complete switching to center freq %d MHz",
++	mcsa_dbg(sdata, "complete switching to center freq %d MHz\n",
+ 		 sdata->vif.bss_conf.chanreq.oper.chan->center_freq);
+ 	return 0;
+ }
+@@ -1633,14 +1633,14 @@ static void mesh_rx_csa_frame(struct ieee80211_sub_if_data *sdata,
+ 
+ 	if (!sdata->vif.bss_conf.csa_active &&
+ 	    !ieee80211_mesh_process_chnswitch(sdata, elems, false)) {
+-		mcsa_dbg(sdata, "Failed to process CSA action frame");
++		mcsa_dbg(sdata, "Failed to process CSA action frame\n");
+ 		goto free;
+ 	}
+ 
+ 	/* forward or re-broadcast the CSA frame */
+ 	if (fwd_csa) {
+ 		if (mesh_fwd_csa_frame(sdata, mgmt, len, elems) < 0)
+-			mcsa_dbg(sdata, "Failed to forward the CSA frame");
++			mcsa_dbg(sdata, "Failed to forward the CSA frame\n");
+ 	}
+ free:
+ 	kfree(elems);
+diff --git a/net/mac80211/mesh_plink.c b/net/mac80211/mesh_plink.c
+index 268857467f29..77a54f28fc70 100644
+--- a/net/mac80211/mesh_plink.c
++++ b/net/mac80211/mesh_plink.c
+@@ -681,7 +681,7 @@ void mesh_plink_timer(struct timer_list *t)
+ 	 */
+ 	if (time_before(jiffies, sta->mesh->plink_timer.expires)) {
+ 		mpl_dbg(sta->sdata,
+-			"Ignoring timer for %pM in state %s (timer adjusted)",
++			"Ignoring timer for %pM in state %s (timer adjusted)\n",
+ 			sta->sta.addr, mplstates[sta->mesh->plink_state]);
+ 		spin_unlock_bh(&sta->mesh->plink_lock);
+ 		return;
+@@ -691,7 +691,7 @@ void mesh_plink_timer(struct timer_list *t)
+ 	if (sta->mesh->plink_state == NL80211_PLINK_LISTEN ||
+ 	    sta->mesh->plink_state == NL80211_PLINK_ESTAB) {
+ 		mpl_dbg(sta->sdata,
+-			"Ignoring timer for %pM in state %s (timer deleted)",
++			"Ignoring timer for %pM in state %s (timer deleted)\n",
+ 			sta->sta.addr, mplstates[sta->mesh->plink_state]);
+ 		spin_unlock_bh(&sta->mesh->plink_lock);
+ 		return;
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index f51167f0fc46..b323d302ef4f 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -6623,7 +6623,7 @@ ieee80211_determine_our_sta_mode(struct ieee80211_sub_if_data *sdata,
+ 			     IEEE80211_VHT_CAP_EXT_NSS_BW_MASK))) {
+ 		conn->bw_limit = IEEE80211_CONN_BW_LIMIT_80;
+ 		mlme_link_id_dbg(sdata, link_id,
+-				 "no VHT 160 MHz capability on 5 GHz, limiting to 80 MHz");
++				 "no VHT 160 MHz capability on 5 GHz, limiting to 80 MHz\n");
+ 	}
+ 
+ 	if (req && req->flags & ASSOC_REQ_DISABLE_HE) {
+@@ -8733,7 +8733,7 @@ ieee80211_parse_neg_ttlm(struct ieee80211_sub_if_data *sdata,
+ 			map = ieee80211_get_ttlm(map_size, pos);
+ 			if (!map) {
+ 				mlme_dbg(sdata,
+-					 "No active links for TID %d", tid);
++					 "No active links for TID %d\n", tid);
+ 				return -EINVAL;
+ 			}
+ 			pos += map_size;
+@@ -11011,7 +11011,7 @@ ieee80211_process_ml_reconf_resp(struct ieee80211_sub_if_data *sdata,
+ 
+ 	if (len < 1 || len < 1 + *pos) {
+ 		sdata_info(sdata,
+-			   "mlo: reconf: invalid group key data length");
++			   "mlo: reconf: invalid group key data length\n");
+ 		goto disconnect;
+ 	}
+ 
+diff --git a/net/mac80211/rate.c b/net/mac80211/rate.c
+index 64768abb0a5f..3b5820a0c593 100644
+--- a/net/mac80211/rate.c
++++ b/net/mac80211/rate.c
+@@ -318,7 +318,7 @@ void ieee80211_check_rate_mask(struct ieee80211_link_data *link)
+ 		return;
+ 
+ 	sdata_dbg(sdata,
+-		  "no overlap between basic rates (0x%x) and user mask (0x%x on band %d) - clearing the latter",
++		  "no overlap between basic rates (0x%x) and user mask (0x%x on band %d) - clearing the latter\n",
+ 		  basic_rates, user_mask, band);
+ 	sdata->rc_rateidx_mask[band] = (1 << sband->n_bitrates) - 1;
+ }
+diff --git a/net/mac80211/vht.c b/net/mac80211/vht.c
+index 92a4e0450593..958d9ed52fef 100644
+--- a/net/mac80211/vht.c
++++ b/net/mac80211/vht.c
+@@ -365,7 +365,7 @@ u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
+ 			}
+ 		} else {
+ 			sdata_dbg(sdata,
+-				  "Ignore NSS change to invalid %d in VHT opmode notif from %pM",
++				  "Ignore NSS change to invalid %d in VHT opmode notif from %pM\n",
+ 				  nss, link_sta->pub->addr);
+ 		}
+ 	}
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
