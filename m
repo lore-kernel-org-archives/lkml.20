@@ -1,344 +1,276 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EC73EEAD2
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653562; cv=none; b=ENBE124sfSljE9RfFb8c+xQ1ZMkPFYa0bCIZtUlP2kgfciuZb+cB+dslnLnz7+Y3gGTe3oSO4cOrkOBLFOP5DycD8CHJKdKFcGnCVJUH0mJ0rU0pSEyyOYczn7ndhCRtQKPYOpr+QUk2or5zVTCHL7oY1FLBtBgdJZUV8IkSFOU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653562; c=relaxed/simple;
-	bh=RV9BRd3bDPRHxs8h+GEdjYXEZL77i6dCc2nVia+FuaU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KsH47+W1VKD3aFPuWdp3o2ccfnOckkudqHIAPR+m4aqR3PQmS1DULkK7IGce7bULu1aAzmLooLP2u6dan5jdo2+voyKBU77JKVJecdi0XSwjiMqgy7LqTSyzVrf4Z0+8aNZKrbKtNv1bOwTQDo1eDUcqmepEtkf61xZta/SwaLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FQmJp0R9; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8378946EF94
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790653564; cv=pass; b=kKg7VzQHbQIo8XkZEUbhGY8G1ahwiCObDV4riojcAY4Goz9p1u1lp4yaU5DRQ0XWuDdJWzzi3ZuF5Yr10LkY7COHWz0CuoDZP1P0Ju4lZ/NcjHRAADor4e7r6DVJRbesD1cybgbSx/MY5rW8GgHXU3jy+ckxdIh+XxKyduslrPw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790653564; c=relaxed/simple;
+	bh=f7AtK5MLeAUCfPkCWWnY8jVHZLXs96cptA6x3dMpXsg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=J6nH9Z86TuHu7muSdVnus9TwLxR4/Blu4j5j6sY+BBq3Ejl/91rdoeMH7RuhqEEyhpNYjSQsGqfV3IlJroXVHq96Epzg9pBO+5ZPwf5qsuwDSqaCC0iakkXmN6KMZiwHItKBVfHZageO7e4tyYCninezoDwJYU7p+Y1r+DCaXMs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=eXcbIAb2; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FQmJp0R9"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a47a81e70bso1390948a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790653560; x=1791258360; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1q1rUCYuMozZipImZqMvE4+Ndw0NLK5Ay3DBtmbY5AU=;
-        b=FQmJp0R9uLochS0W7RuF9C8OcsNQ6uV5cyqzI+xdNISq1d34fKiTfBb5udn7qDgtXf
-         8jjB1FM7n8+3IVlJh+cVypoAbrGi3cFE/Ihwe/Xx7pFCQw51k8nLkp+m89fKGloEWcYR
-         o5aDn7aVJ7Gh7JHUU0ckvdSB6/3SWBENuizfoJNdBZYnrrlYwjKdeOt+dXnpP6v3llFs
-         jOBfhvsw5rVFQKctrNPrQ+AUSSZr9SRoizHm7KkG2I3t7L73Yz1sjxle5vRw0dOgJvMo
-         ebzRH0xa/CjZZb582eLTqg5gKBxhK5NtrWMi54NUmd/M0jfuTxVPwdvfVucPxYFq867O
-         9PuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790653560; x=1791258360;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1q1rUCYuMozZipImZqMvE4+Ndw0NLK5Ay3DBtmbY5AU=;
-        b=geAtaPtWnGBNsFM0q45ourZ+lwGBesOOhlY09PzalRbVqs7Ju2y4NJV9Kiwo423BMP
-         SVZi/JWCLb7DdiQDa1dmeQi4MskSrUZt2rIh3shOOQ17ZdH0ZIh/G8ikm0l2OnzKVdCK
-         6d74RnSODBYvj6MdX4Z/WwERihUI+v7oeXNv5KGNgfDOgUDu2IikPo/Zd/QmMZ0YsJfR
-         2AqMTiLiWn59h8G8UoI7FvSiVe/KbKGC6WHkrMA0ZTVPh20fyC+SLQPqQzIiDbmqemxZ
-         5oAo7fxpnCx1JHBtGz+7ATYalz81U13ijUk3XeKabwfAXte72lXh7RfqTmUgdLPTU4AY
-         TnWA==
-X-Forwarded-Encrypted: i=1; AKwUvBx4FMvlkHOjKwbXF1esZNdfjs9bfgzQXAN7ZZs/9ttohLAQwqQMiCANjdprcNe20hU1maUTbRQbIb/nmMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIEohkqHFLNZpQ5qd/tZSD0OD7/IOpK9d3kV8PlawcEfFS9iRz
-	SGb1QjdWSoD48rUOztPJZvx970HR9D87XFpmXT1GKie+Tu+pP/mGbZLX3idoC/t0Bps0RQO9iFt
-	hvg==
-X-Received: from pgbcw4.prod.google.com ([2002:a05:6a02:4284:b0:cc7:b387:6d4b])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:55d0:b0:398:9bd5:490b
- with SMTP id 98e67ed59e1d1-3a098cdbb1fmr12417808a91.18.1790653559658; Mon, 28
- Sep 2026 20:45:59 -0700 (PDT)
-Date: Tue, 29 Sep 2026 03:45:10 +0000
-In-Reply-To: <20260929034510.2023173-1-praan@google.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="eXcbIAb2"
+ARC-Seal: i=1; a=rsa-sha256; t=1790653536; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lKvdO+k1cK97yNJ5ea5tOvdxhc8xNdbr6Wtn7yyhCm5RViZKDqKEXTbQhABNrpwUQqZLejCE7BejLV2u5jj4vP9/lfbZBMITpfigRVS8LmCd1eq2OYQm/iFcDsac0SrL5KWx+h3izSRl9yH03uKEMRMIPkTWfIjPDrsC3N2ZkCo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790653536; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=SamyGAq1nTps3UPpW7W33rjK4xeY0oXwuwjKZ1OD1yw=; 
+	b=h2IgT/90sal2euUmGZNzOMcpCLo4tBxmADVhpyw7qz9sH9KG3leiNRbDiarZSiC5tqFuAgODLNd/rkIDUuIlbm2s6HH+OtQfHOtFsFQ+R0x3iZzioIuTtSX5wx1Touuq6tKzyuI+dwivF9+fPJ+vWKNYn1r81ywZP9/LbTjYM74=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653536;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=SamyGAq1nTps3UPpW7W33rjK4xeY0oXwuwjKZ1OD1yw=;
+	b=eXcbIAb2hs3REc0fHQGMwV9aMgeVtzH4E1Yw5O9vfs8/RYL8yf8ar3Jc9/H/2W1g
+	AinF4YlSAYv7yy9dg4R0pXCFHSQZbuvXEckRSVq5VTVYwNVKbOO0FTDzKm5Fdrh/M24
+	+YObbqQ+6hT0xJNjWf9YZB2hM7tl8BKS7Z7HXqWk=
+Received: by smtp.zohomail.com with SMTPS id 1790653536666883.6461767392873;
+	Mon, 28 Sep 2026 20:45:36 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Tue, 29 Sep 2026 04:44:42 +0100
+Subject: [PATCH v12 08/15] drm/panfrost: Move all DRM device initialisation
+ into device_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260929034510.2023173-1-praan@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929034510.2023173-17-praan@google.com>
-Subject: [PATCH v11 16/16] iommu/arm-smmu-v3: Add KUnit unit tests for Runtime PM
-From: Pranjal Shrivastava <praan@google.com>
-To: iommu@lists.linux.dev
-Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, Daniel Mentz <danielmentz@google.com>, 
-	Ashish Mhetre <amhetre@nvidia.com>, linux-arm-kernel@lists.infradead.org, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org, 
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
-	Pranjal Shrivastava <praan@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+In-Reply-To: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6295;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=f7AtK5MLeAUCfPkCWWnY8jVHZLXs96cptA6x3dMpXsg=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQuE3zNyzy1ci2EDsylWdCO0JtvskChhgXus
+ n/sQXx1Z96JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
+ Pd3LDACwLHkv3VSKtvEoI6bAxuo7M3wNxVBrkpoXCCuWC/+dxH5NpQxGbdOz4Zoz8Avldvv89XJ
+ /EuV3zz/qGAZeYg3bz1pgXhqua5VvS/zeB+Fy47DDpqUcIy9Ti8iFOegtnlKez6KGBG4i52OHl3
+ lSnRRjSsHq9hng78YYTjj60smTDD7zJi+xnM+nRuYVQCMxk6VihUP5MEX9MJEDzspZ1NQOEXr9S
+ GPKkzzlXcPS2z33lYKVP6PSTPMI5bLuyQPTDPMtdQQxQ00AIW9RqE7C7XkHAA05zyJS7Cx256sV
+ gk62q+t0VrrEctM9r9hP/0S8QeE3XaWXC69wqBZsFpqEX6CiUMrIBM4OGRT0Gu8E+fALkFK5RVV
+ oXKAo3accsbLGC8JthLgoOFgcKDN0yZzi5KVBJbz5K7WBZY4dcQD2hQwmUZfah+0BNUKeEmocXk
+ u1nIKwwxIHqOVVe2aQa9+sBVthLZXGenrvX0VGxFNHPFv6j+TDKKY+LL6tswxga2lKEZI=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Introduce kunit selftests to verify the Runtime PM elision gating,
-post-suspend elisions and progress on resumption under active
-invalidation load. Simulate concurrent HW suspension using a timer.
-Mock all HW registers and CMDQ buffers by allocating them on RAM.
-Make the mock CMDQ self-consuming to avoid hitting queue_full scenarios.
+Ideally the probe() function will do as little as possible, and all device
+initialisation and registration should happen inside the panfrost device
+subsystem, just like it's done in Panthor. This also simplifies resource
+unwinding in the error path.
 
-Signed-off-by: Pranjal Shrivastava <praan@google.com>
+Do the same thing for DRM driver remove, as in, sweep most of the action
+into panfrost_device_fini(), just like we did for device probe.
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- .../iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c  | 215 ++++++++++++++++++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   |   1 +
- 2 files changed, 216 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 49 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 52 +-----------------------------
+ 2 files changed, 50 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-index add671363c82..97c1e907717d 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-@@ -3,6 +3,10 @@
-  * Copyright 2024 Google LLC.
-  */
- #include <kunit/test.h>
-+#include <linux/delay.h>
-+#include <linux/kthread.h>
-+#include <linux/sched.h>
-+#include <linux/timer.h>
- #include <linux/io-pgtable.h>
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 9f2b1967a398..c6bf3d0663df 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -8,6 +8,7 @@
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <drm/drm_drv.h>
  
- #include "arm-smmu-v3.h"
-@@ -771,6 +775,215 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
- 	kfree(test_b);
+ #include "panfrost_device.h"
+ #include "panfrost_devfreq.h"
+@@ -228,8 +229,15 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
+ 
+ int panfrost_device_init(struct panfrost_device *pfdev)
+ {
++	bool device_initialised = false;
+ 	int err;
+ 
++	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
++	if (!pfdev->comp)
++		return -ENODEV;
++
++	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
++
+ #ifdef CONFIG_DEBUG_FS
+ 	mutex_init(&pfdev->debugfs.gems_lock);
+ 	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+@@ -291,8 +299,35 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_perfcnt;
+ 
++	device_initialised = true;
++
++	/* The reason we must manually set the PM status and usage counter is
++	 * we have just powered the device up but did not go through the PM
++	 * runtime resume callback, so we need to update these ourselves.
++	 */
++	pm_runtime_get_noresume(pfdev->base.dev);
++	pm_runtime_set_active(pfdev->base.dev);
++	pm_runtime_mark_last_busy(pfdev->base.dev);
++	pm_runtime_enable(pfdev->base.dev);
++	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
++	pm_runtime_use_autosuspend(pfdev->base.dev);
++
++	/*
++	 * Register the DRM device with the core and the connectors with
++	 * sysfs
++	 */
++	err = drm_dev_register(&pfdev->base, 0);
++	if (err < 0)
++		goto err_disable_rpm;
++
++	pm_runtime_put_autosuspend(pfdev->base.dev);
++
+ 	return 0;
+ 
++err_disable_rpm:
++	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
++	pm_runtime_disable(pfdev->base.dev);
++	panfrost_gem_fini(pfdev);
+ out_perfcnt:
+ 	panfrost_perfcnt_fini(pfdev);
+ out_job:
+@@ -311,11 +346,22 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	panfrost_reset_fini(pfdev);
+ out_pm_domain:
+ 	panfrost_pm_domain_fini(pfdev);
++
++	if (device_initialised) {
++		pm_runtime_set_suspended(pfdev->base.dev);
++		pm_runtime_put_noidle(pfdev->base.dev);
++	}
++
+ 	return err;
  }
  
-+struct arm_smmu_mock_cmdq {
-+	/*
-+	 * Mock register in RAM. Typed as __le32 to match writel_relaxed()
-+	 * endianness without calling readl_* accessors directly on RAM.
-+	 */
-+	__le32 mock_prod_reg;
-+};
+ void panfrost_device_fini(struct panfrost_device *pfdev)
+ {
++	pm_runtime_get_sync(pfdev->base.dev);
 +
-+/* Helper to allocate a self-consuming mock cmdq */
-+static void arm_smmu_v3_test_init_mock_cmdq(struct kunit *test,
-+					    struct arm_smmu_device *smmu,
-+					    struct arm_smmu_mock_cmdq *mock)
-+{
-+	struct arm_smmu_cmdq *cmdq = &smmu->cmdq;
-+	unsigned long *mock_valid_map;
-+	u64 *mock_base;
++	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
++	pm_runtime_disable(pfdev->base.dev);
 +
-+	mock_base = kunit_kzalloc(test, 1024 * sizeof(struct arm_smmu_cmd), GFP_KERNEL);
-+	mock_valid_map = kunit_kzalloc(test, BITS_TO_LONGS(1024) * sizeof(long), GFP_KERNEL);
+ 	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+@@ -326,6 +372,9 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
+ 	panfrost_clk_fini(pfdev);
+ 	panfrost_reset_fini(pfdev);
+ 	panfrost_pm_domain_fini(pfdev);
 +
-+	KUNIT_ASSERT_NOT_NULL(test, mock_base);
-+	KUNIT_ASSERT_NOT_NULL(test, mock_valid_map);
-+
-+	smmu->features = 0;
-+	/* 1024 entries */
-+	cmdq->q.llq.max_n_shift = 10;
-+	cmdq->q.ent_dwords = CMDQ_ENT_DWORDS;
-+	cmdq->q.base = (__le64 *)mock_base;
-+	cmdq->valid_map = (atomic_long_t *)mock_valid_map;
-+
-+	/* Self-Consuming, prod == cons always ensures queue empty */
-+	cmdq->q.prod_reg = (__force void __iomem *)&mock->mock_prod_reg;
-+	cmdq->q.cons_reg = (__force void __iomem *)&mock->mock_prod_reg;
-+
-+	atomic_set(&cmdq->q.llq.atomic.prod, 0);
-+	atomic_set(&cmdq->q.llq.atomic.cons, 0);
-+	atomic_set(&cmdq->owner_prod, 0);
-+	mock->mock_prod_reg = cpu_to_le32(0);
-+}
-+
-+struct arm_smmu_test_timer_context {
-+	struct arm_smmu_device *smmu;
-+	struct timer_list timer;
-+	bool suspended;
-+};
-+
-+static void arm_smmu_v3_test_rpm_timer_callback(struct timer_list *t)
-+{
-+	struct arm_smmu_test_timer_context *ctx =
-+		timer_container_of(ctx, t, timer);
-+	struct arm_smmu_cmdq *cmdq = &ctx->smmu->cmdq;
-+
-+	/* Simulate a concurrent suspend event interrupting the invalidations */
-+	atomic_or(CMDQ_PROD_STOP_FLAG, &cmdq->q.llq.atomic.prod);
-+	WRITE_ONCE(ctx->suspended, true);
-+}
-+
-+/*
-+ * Verify SMMU PM Runtime gating, elision, and post-suspend resumption
-+ * safety sequentially under active stress.
-+ */
-+static void arm_smmu_v3_rpm_test_stress_race(struct kunit *test)
-+{
-+	struct arm_smmu_cmd cmd = arm_smmu_make_cmd_cfgi_all();
-+	struct arm_smmu_test_timer_context timer_ctx = {0};
-+	struct arm_smmu_device mock_smmu = smmu;
-+	struct arm_smmu_cmdq *cmdq = &mock_smmu.cmdq;
-+	struct arm_smmu_mock_cmdq mock = {0};
-+	u32 stopped_prod;
-+	int i;
-+
-+	arm_smmu_v3_test_init_mock_cmdq(test, &mock_smmu, &mock);
-+
-+	timer_ctx.smmu = &mock_smmu;
-+
-+	timer_setup_on_stack(&timer_ctx.timer, arm_smmu_v3_test_rpm_timer_callback, 0);
-+	mod_timer(&timer_ctx.timer, jiffies + msecs_to_jiffies(10));
-+
-+	/* Execute the unmap storm until the timer triggers */
-+	while (!READ_ONCE(timer_ctx.suspended)) {
-+		if (arm_smmu_cmdq_issue_cmdlist(&mock_smmu, cmdq, &cmd, 1, false))
-+			break;
-+		usleep_range(50, 100);
-+	}
-+
-+	timer_shutdown_sync(&timer_ctx.timer);
-+	timer_destroy_on_stack(&timer_ctx.timer);
-+
-+	/* Establish the post-storm prod_reg index */
-+	stopped_prod = le32_to_cpu(mock.mock_prod_reg);
-+
-+	/*
-+	 * Attempt multiple unmaps while the SMMU is disabled (STOP_GATE is set)
-+	 * Every single invalidation must get elided and return 0. The prod_reg
-+	 * shall remain completely frozen after all of these submissions.
-+	 */
-+	for (i = 0; i < 1000; i++) {
-+		if (arm_smmu_cmdq_issue_cmdlist(&mock_smmu, cmdq, &cmd, 1, false))
-+			break;
-+	}
-+	KUNIT_EXPECT_EQ(test, stopped_prod, le32_to_cpu(mock.mock_prod_reg));
-+
-+	/*
-+	 * Clear the STOP_FLAG (resume the SMMU). A new invalidation must
-+	 * now successfully commit prod_idx & move the prod_reg by exactly 1.
-+	 */
-+	atomic_andnot(CMDQ_PROD_STOP_FLAG, &cmdq->q.llq.atomic.prod);
-+	KUNIT_EXPECT_EQ(test, 0, arm_smmu_cmdq_issue_cmdlist(&mock_smmu, cmdq, &cmd, 1, false));
-+	KUNIT_EXPECT_EQ(test, Q_POS(&cmdq->q.llq, stopped_prod + 1),
-+			le32_to_cpu(mock.mock_prod_reg));
-+}
-+
-+struct arm_smmu_test_kthread_context {
-+	struct arm_smmu_device *smmu;
-+	int error;
-+};
-+
-+static int arm_smmu_v3_test_kthread_worker(void *data)
-+{
-+	struct arm_smmu_cmd cmd = arm_smmu_make_cmd_cfgi_all();
-+	struct arm_smmu_test_kthread_context *ctx = data;
-+	struct arm_smmu_cmdq *cmdq = &ctx->smmu->cmdq;
-+
-+	while (!kthread_should_stop()) {
-+		if (arm_smmu_cmdq_issue_cmdlist(ctx->smmu, cmdq, &cmd, 1, false))
-+			WRITE_ONCE(ctx->error, 1);
-+		usleep_range(50, 100);
-+	}
-+	return 0;
-+}
-+
-+KUNIT_DEFINE_ACTION_WRAPPER(kunit_action_kthread_stop, kthread_stop, struct task_struct *);
-+
-+static void arm_smmu_v3_rpm_test_kthread_race(struct kunit *test)
-+{
-+	struct arm_smmu_test_kthread_context *ctx;
-+	struct arm_smmu_device *mock_smmu;
-+	struct arm_smmu_mock_cmdq *mock;
-+	struct task_struct *thread1, *thread2;
-+	u32 stopped_prod;
-+	int i;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	mock_smmu = kunit_kzalloc(test, sizeof(*mock_smmu), GFP_KERNEL);
-+	mock = kunit_kzalloc(test, sizeof(*mock), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	KUNIT_ASSERT_NOT_NULL(test, mock_smmu);
-+	KUNIT_ASSERT_NOT_NULL(test, mock);
-+
-+	*mock_smmu = smmu;
-+	ctx->smmu = mock_smmu;
-+	arm_smmu_v3_test_init_mock_cmdq(test, mock_smmu, mock);
-+
-+	thread1 = kthread_run(arm_smmu_v3_test_kthread_worker, ctx, "smmu_w1");
-+	if (IS_ERR(thread1)) {
-+		KUNIT_FAIL(test, "Failed to spawn kthread 1\n");
-+		return;
-+	}
-+	if (kunit_add_action_or_reset(test, kunit_action_kthread_stop, thread1)) {
-+		KUNIT_FAIL(test, "Failed to register cleanup for kthread 1\n");
-+		return;
-+	}
-+
-+	thread2 = kthread_run(arm_smmu_v3_test_kthread_worker, ctx, "smmu_w2");
-+	if (IS_ERR(thread2)) {
-+		KUNIT_FAIL(test, "Failed to spawn kthread 2\n");
-+		return;
-+	}
-+	if (kunit_add_action_or_reset(test, kunit_action_kthread_stop, thread2)) {
-+		KUNIT_FAIL(test, "Failed to register cleanup for kthread 2\n");
-+		return;
-+	}
-+
-+	/* Wait for worker threads to start and issue initial commands */
-+	for (i = 0; i < 20; i++) {
-+		if (le32_to_cpu(READ_ONCE(mock->mock_prod_reg)) > 0)
-+			break;
-+		usleep_range(1000, 2000);
-+	}
-+	KUNIT_EXPECT_GT(test, le32_to_cpu(READ_ONCE(mock->mock_prod_reg)), 0);
-+
-+	/* Gate the CMDQ */
-+	atomic_or(CMDQ_PROD_STOP_FLAG, &mock_smmu->cmdq.q.llq.atomic.prod);
-+
-+	/* Wait for in-flight submissions to settle */
-+	for (i = 0; i < 50; i++) {
-+		stopped_prod = le32_to_cpu(READ_ONCE(mock->mock_prod_reg));
-+		usleep_range(1000, 2000);
-+		if (stopped_prod == le32_to_cpu(READ_ONCE(mock->mock_prod_reg)))
-+			break;
-+	}
-+
-+	usleep_range(1000, 2000);
-+	KUNIT_EXPECT_EQ(test, stopped_prod, le32_to_cpu(READ_ONCE(mock->mock_prod_reg)));
-+
-+	/* Open the gate and wait for worker threads to resume */
-+	atomic_andnot(CMDQ_PROD_STOP_FLAG, &mock_smmu->cmdq.q.llq.atomic.prod);
-+	for (i = 0; i < 20; i++) {
-+		if (le32_to_cpu(READ_ONCE(mock->mock_prod_reg)) != stopped_prod)
-+			break;
-+		usleep_range(1000, 2000);
-+	}
-+	KUNIT_EXPECT_NE(test, stopped_prod, le32_to_cpu(READ_ONCE(mock->mock_prod_reg)));
-+
-+	kunit_release_action(test, kunit_action_kthread_stop, thread2);
-+	kunit_release_action(test, kunit_action_kthread_stop, thread1);
-+	KUNIT_EXPECT_EQ(test, 0, READ_ONCE(ctx->error));
-+}
-+
- static struct kunit_case arm_smmu_v3_test_cases[] = {
- 	KUNIT_CASE(arm_smmu_v3_write_ste_test_bypass_to_abort),
- 	KUNIT_CASE(arm_smmu_v3_write_ste_test_abort_to_bypass),
-@@ -797,6 +1010,8 @@ static struct kunit_case arm_smmu_v3_test_cases[] = {
- 	KUNIT_CASE(arm_smmu_v3_write_cd_test_sva_clear),
- 	KUNIT_CASE(arm_smmu_v3_write_cd_test_sva_release),
- 	KUNIT_CASE(arm_smmu_v3_invs_test),
-+	KUNIT_CASE(arm_smmu_v3_rpm_test_stress_race),
-+	KUNIT_CASE(arm_smmu_v3_rpm_test_kthread_race),
- 	{},
- };
- 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 89ffa8346478..62fc758d8044 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -991,6 +991,7 @@ int arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
- 
- 	return ret;
++	pm_runtime_set_suspended(pfdev->base.dev);
++	pm_runtime_put_noidle(pfdev->base.dev);
  }
-+EXPORT_SYMBOL_IF_KUNIT(arm_smmu_cmdq_issue_cmdlist);
  
- static int arm_smmu_cmdq_issue_cmd_p(struct arm_smmu_device *smmu,
- 				     struct arm_smmu_cmd *cmd, bool sync)
+ #define PANFROST_EXCEPTION(id) \
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 907d4a14a0b5..f77780c72a1a 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver = {
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+-	int err;
+ 
+ 	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
+ 				   struct panfrost_device, base);
+@@ -839,50 +838,7 @@ static int panfrost_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, pfdev);
+ 
+-	pfdev->comp = of_device_get_match_data(&pdev->dev);
+-	if (!pfdev->comp)
+-		return -ENODEV;
+-
+-	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
+-
+-	err = panfrost_device_init(pfdev);
+-	if (err) {
+-		if (err != -EPROBE_DEFER)
+-			dev_err(&pdev->dev, "Fatal error during GPU init\n");
+-		goto err_out0;
+-	}
+-
+-	/* The reason we must manually set the PM status and usage counter is
+-	 * we have just powered the device up but did not go through the PM
+-	 * runtime resume callback, so we need to update these ourselves.
+-	 */
+-	pm_runtime_get_noresume(pfdev->base.dev);
+-	pm_runtime_set_active(pfdev->base.dev);
+-	pm_runtime_mark_last_busy(pfdev->base.dev);
+-	pm_runtime_enable(pfdev->base.dev);
+-	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+-	pm_runtime_use_autosuspend(pfdev->base.dev);
+-
+-	/*
+-	 * Register the DRM device with the core and the connectors with
+-	 * sysfs
+-	 */
+-	err = drm_dev_register(&pfdev->base, 0);
+-	if (err < 0)
+-		goto err_out1;
+-
+-	pm_runtime_put_autosuspend(pfdev->base.dev);
+-
+-	return 0;
+-
+-err_out1:
+-	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+-	pm_runtime_disable(pfdev->base.dev);
+-	panfrost_device_fini(pfdev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+-	pm_runtime_put_noidle(pfdev->base.dev);
+-err_out0:
+-	return err;
++	return panfrost_device_init(pfdev);
+ }
+ 
+ static void panfrost_remove(struct platform_device *pdev)
+@@ -891,13 +847,7 @@ static void panfrost_remove(struct platform_device *pdev)
+ 
+ 	drm_dev_unregister(&pfdev->base);
+ 
+-	pm_runtime_get_sync(pfdev->base.dev);
+-	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+-	pm_runtime_disable(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+-	pm_runtime_put_noidle(pfdev->base.dev);
+-
+ }
+ 
+ static ssize_t profiling_show(struct device *dev,
+
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.55.0
 
