@@ -1,139 +1,144 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013047.outbound.protection.outlook.com [40.93.196.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077823DA7C0;
-	Tue, 29 Sep 2026 22:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790722800; cv=fail; b=G1mpITII3LGtKw5DvcGNsrPMXCffuJfjYlFuhkFXWz9sEAKdmG/foqsXnoKA2KjyYsa0KI+UcVv9/9Ixuol0NkDmmvWZWUKYdIdsGjL0f4gAdcujsfFFi3/+EsAoTrRZvwNiLFJU/piW/nTkjKer/oeXUp+wwzDnd8sRVFp55UQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790722800; c=relaxed/simple;
-	bh=Te6Z8E8OCzHSv7Aam560DWCYgBerwS0QrfjPhmVPfTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Un61jgkXwcDF3Ry/Xo6edz8n3/kZXnB/OO/SV74CyRT5cXN39P+bLO2GH2PEyz6KNBkRbg8vIQPXDUg/oO5UAQRYPJk5an3g7l2fMINS18bsfOV4OeI1Gvbhsu4IQaqgTEF5ngZFLJhi2paYnLk9LWx3mzLXSXuaje5VDCFe/8Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nsLMFS6O; arc=fail smtp.client-ip=40.93.196.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730E33DD526;
+	Tue, 29 Sep 2026 23:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790722802; cv=none; b=OT6h+y6y55DxlzqAetlFTRHwUiLw2hKxfqwajfJFBkdguZbwWrGbg1GvwQwk6fY0IemSZ9OOLHxutb/X7u1+a1k5hdFcz2Af5SsZKXvhYW4NvMjwjIc0aLipWVLQFZTRHPelBYSbARbzJHxYrdkRPLvw5ioJy3/OEJ6gitVFPIM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790722802; c=relaxed/simple;
+	bh=KCmLIXUl2UzeoIhT2ORXpA3bNkdrxiygSBBf4A1hvGA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kFTs+DHVgHftHfitZHgaAgDGzbekI7KjS/qH8ayyuiPgw9L/fEfH3U/wIKrz76pDlriFPvfzXCkaVXGnYxz8FKywwZ9FVZR/7eQzhBOoWg8I/YvAMPkmb/HB6HaNyEtWP3Ha6C1Ku5gvUDrypksqxacFuXkWta5xA1uJp7Noc5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnPa72df; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nsLMFS6O"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=urtsyd6VDEQE68+fEATE90H3s7MhpTgD6jBMTrUU13tDFo+fM/2/E19mEFhwjj1s3Sr5ACiajzTmQxxVPX7FEMhKD65chXwR4GKrY2urzuKxrHQdUgEIgdm85NX5e1+cBoXYKN5Dn8Oxl9n/7hme3z8hggUJjunnacef0FUSxf44WUKxgMiBnNwA6muMsOr9ViZ+yEgMQnbUvybq9HeLAUuEwQ55e6BlVXxLUTtKmJ2cx9FqH7dbIc+yF0yIe4Dl1UqiOh7rQyo6bxoiIh0Tq9gtTf2zU3E8/ywHaa4Ef6VdmVurl3bWMa49xvcjqTcGUcq66UkYAanOT12TwvJq1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SEby59092FJmWzyn7Hyp13aDdXHHj71JLTk0EX4vdBU=;
- b=MyQ0tiFgxxP2pN6X6jH6qJwOD7AgKwEJhxzdJzF8oxDsL5GmMlrcM82K0gPIaG/dFWurF9hnvNcOXpyus6FF6z4EUMVaMXGntkJQ/Rh10uO2IfYWRkKvu3UFTQubH1cgL1DsE46PbaDTL4J3XkIIo6a/lTt5YGfrT3eQDn0vIH4ZjUqyN55S0Tv+pEMhZ46z7DWFPmsLm+z0Z8cPQf3OjWvBj1FyOY/2Ae67CRTf9ySoNc4YGvK7NU7GivznMTvOT+IjJOx7eJ7Ttr6Sy3478Y0F+KMAVJjtSx7KXnO2L6ENrj3deAiQkVQh4h7xz0xIOkmjJgnzban9rMjj9LuQqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SEby59092FJmWzyn7Hyp13aDdXHHj71JLTk0EX4vdBU=;
- b=nsLMFS6O8K+7akB6AC+abEKpz88WePtWkem97V93CZpTe04PU8ZsJhQcxA4oyAfbOPUOENGlelELthQFTSKQMSF6kqvaEfXyzlp0VeWavv7gVqsQB5qsiCj+REwtkAn8m//YSuFP3K56pNRhKT1cI4kKvAEgpHKJTccje+9rEdKj3oVj617UxQFtmAHDkOkftZQf+GgUd3vcCC4O7HzH32+7Jri0wXnBauo049TxPEKloIyZubKipg093OTVIHWCPmXHeYc3KgSzM1kqqbsdLJm/HsAEihUEHpeaAJypEyFhI4bncTSzDK0crMysAirbEz7fbkmmbO8fqCHRODpDwQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by SJ2PR12MB8034.namprd12.prod.outlook.com
- (2603:10b6:a03:4cb::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 22:59:56 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
- 22:59:56 +0000
-Date: Tue, 29 Sep 2026 19:59:54 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Serhat Kumral <serhatkumral1@gmail.com>
-Cc: Bernard Metzler <bernard.metzler@linux.dev>,
-	Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/siw: Fix length of first chunk in siw_try_1seg()
-Message-ID: <20260929225954.GB2446731@nvidia.com>
-References: <20260927115351.12245-1-serhatkumral1@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927115351.12245-1-serhatkumral1@gmail.com>
-X-ClientProxiedBy: SJ0PR03CA0389.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::34) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnPa72df"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A151F000FF;
+	Tue, 29 Sep 2026 23:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790722801;
+	bh=jDBZFkLz0GggeQl7SlWwkqdUmwc7HPIN1BkTH8Y1iZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OnPa72dfC8teWOzySRtS1+oOP4l6EM26lnfhkoDLScdBQn7mcgGaoF3QPfpoyWXcO
+	 rz0CoAWmDS19pHfyRb8awgt0CimJq2Ij+4DqMZmObiRw2mcHuy+iMH2zgViUS5VobF
+	 y84si221qWShTl8trROLRPJbpufBLxVWZRu+2yt1UiWGjVhgsNnQ0aukxmBP3PVRfi
+	 GdfeaK5HR+PMH2VKF2ISntx5GRVl+yEkcyGoqzqt+43V/7LTSUquyemVgAV61shxy8
+	 Xh7vhitFiZuGr+cYjj3bx1392mFs7nPJZSSnPedIctRpK9WySGjdVY5a698+pX6bXB
+	 zk+joXQjOUIOQ==
+Date: Tue, 29 Sep 2026 15:59:59 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Colton Lewis <coltonlewis@google.com>
+Cc: kvmarm@lists.linux.dev, Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Check ID_AA64DFR0_EL1.PMUVer in
+ reset_pmevtyper()
+Message-ID: <arxC7w36HrgRQiRy@kernel.org>
+References: <20260929220411.3756519-1-coltonlewis@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SJ2PR12MB8034:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3248805a-2b01-4f95-5470-08df1e7d6120
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|18002099003|22082099003|3023799007|6133799003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	4sb5El0yYyl0+E4IXSCubmdRn2DZTU/YgMXXBNOf5urZbPKUNtElR5CNQbeAnFSpx7BZIxGBhwP4zG31xzxXSyViDAOzon9XOM+sWmfDjzXN77oXANWuORT7Mt50B3z+wTEsf2DO4Khs5Z1Lc8LYlyxgLI78ZZ585gZahinbWVL9aGsEmRmDfMfKt61zTqJSvpsgOo60okLEqsptdNeiuQltTVgQKYpdL19wOW1XXGubeF+paBJ4UjX5GBs36uidas8T5zxB2dBB21Imok1hl/rLuAWv8O/bzlezf+HA0kj4j6qJ+w0uvwILNM4SIHYcNlhleWoVpYs4T5SavKpTYPLqT8WYpTwYfIB6WcPpKB833n4cikcG60HySbEbolQc4lqXBCNsXR8RGPkgO1A1Pmtae4gVcXMiMAaYFVw12o129gAF3ODDY75Cxc1cqvr4buf57TrTnKA7lPv8v9zGv6A+7inyAEcYeA2tjJrQwU4SbWuqHhIUUC6bvEWr1nYM1vu7AX8QSFN4GTFUnqH3MOXX+DYgTiIO6DfdHdmLLCOlJ858Ka4Ts6OfO8jbL8aN0rBJP7GKRizKN8lZcXFPGPJgSs882cT6kUoBUOA2WdYKjKbessQeYu5byAPGAfCxnoe1RTPr9Aivho3yRJ8zz1/4aRoYXlOue9ULV/PlKnU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?oWcVP6LP4PwPzIa8C8bu4e+X2DsXJ20S/9TtzNnshZ5v7dtdSgDxhQ6Wvffa?=
- =?us-ascii?Q?r/DE5+ie72TiZY+bl3B8fJ9iQn+crdPhMywCmbXfHflJWgZwk8VlsTsQ9IC7?=
- =?us-ascii?Q?EzIIW+ZOFOnOcvZPukJGpZ+g58zln/tcV/roOY1lGFKIl9uXYs5NuSfF0NfY?=
- =?us-ascii?Q?lNGzzwBTe9j4IahR9vvk73m7zxanJXeu7SVNkLOYl1WTx39fWfutHGokqq52?=
- =?us-ascii?Q?bNELS7tTymNj5hbUkJdsgbqyDAzl5FKKkFrrtzSJuJFzLt7UpZLDZcUTdCl2?=
- =?us-ascii?Q?dxlqBMo357ryTyFWYJBknE1mWkHfEZahsUPrS/dSGUv9pCW3e/EBFkpWZqUJ?=
- =?us-ascii?Q?NX24Fg8RErnH5shRtTEf2wuETI8Tzy38j1jv+T0y0iDWBWuQpnlLsFAll5oX?=
- =?us-ascii?Q?rZ3Z2S4ww7uamviuLs3vsf1+/Pn5irvLzDE9uEkjB8Axf3zmhshFf79E173A?=
- =?us-ascii?Q?BlfnShHP+sf4AhqB2o/uP1fSWoAPORTdp3qNjud4hOTFQvGCZhVpJBm+hedX?=
- =?us-ascii?Q?1JkGTtz478jIP3dzuIoY8Vn+KxuRW/Vi5Slh+4tzpluuzpGM2S2a0coJRvdo?=
- =?us-ascii?Q?zVQQC7YKKq0VQawP4JfvzZJrrGeFhBTgqE4FMz6TqROJV0eNpMoPWTn9qHoB?=
- =?us-ascii?Q?fjc5r6/SyKnW8yRRGU1xeuu7FWP/tWnIakKmYTTg46uhkzlsSN4Y5IsfbBIv?=
- =?us-ascii?Q?unalR51WE8UPgE7Y9YJVs8hl/i6grs2rb8CTBnuzUxpaX8yy/1CMFWJDBZD3?=
- =?us-ascii?Q?JOOcpqmIru1WAc5YRmFzgVIRq63FO5ueEI+AOM9YsVz4si9DJXBelvwz189U?=
- =?us-ascii?Q?axvLmD5gHQLO+1M3YFxHLKMz/MLQHp5kr1a/87iBThyFgAn3LsNkEQJAOv2L?=
- =?us-ascii?Q?SsIVuxpLWqfW1WQbm10uh155GYL18p4yc+2uBBj62O6wARpv+hfySZzQRRJY?=
- =?us-ascii?Q?xDnunSNbGJx0XREapewudGkLv4jMkRByuDgGQGV2J3W9IYiC8znaYrA7rY+9?=
- =?us-ascii?Q?KcC7c6ZfkhunQhYzKA+nkTTNZHz1TgQcEw+nMgt1UHi3gqbrrwjJ4/UZPgbA?=
- =?us-ascii?Q?5Ugi/PyXYAYKZdrCXPjB7fbN7cc5dwsYLAXCRTUv9m8gsWSYE+0huDgW19tb?=
- =?us-ascii?Q?8tsYtwFetJH/nE+rnXLIm/gP2MepJdJOA4ViuXVn7VhgJUOR13yVMw7webay?=
- =?us-ascii?Q?ohos7Rmzoyd428hxt+V65icK/jk5ElMyid3L6kQtBghDGXsh8/XXu8w65UbZ?=
- =?us-ascii?Q?UpDGazWSHyt6nyA9+q0nNFFm9ADyPOCnqOmbjL+x6hrFK0SjF56ZpScmhnMu?=
- =?us-ascii?Q?bRL85L6YShL5csVTKb8T2+6NhaYNXxVOxd1bVANCWgSjofj+QyAr8LcPJKEd?=
- =?us-ascii?Q?ktE3oAL3pGyEHAaX72HGHVjXTUPXOyrRAtQ8okNf9TGZWkM7fs3PUaqlp7a6?=
- =?us-ascii?Q?HCo/ajEBWIhZVD1WzRlT0HIm2YRAElpq0oLf6amMJ8SqDzxGIhAR951vQnGQ?=
- =?us-ascii?Q?DXz6fcRzPuyCUqjcSCUrpATgXwl+aONgY390pLV4RKdzeC0sTx9GTmZYqhnI?=
- =?us-ascii?Q?SJHO0xkfC4T6PBQbsJbM/iQl3YZhgnS4th8dyDhmUoSpZwHPFHlqTITWoVIj?=
- =?us-ascii?Q?g9wy86KvFAnXmAK47JI4YkzmMVDsymHyJ1bTTrELNSlxBalpKORXDYITCJwP?=
- =?us-ascii?Q?hNtPYjcY+l+K3X4GpK3gzpYWfDYMjZj1ex7U5v7oTBgx13qX?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3248805a-2b01-4f95-5470-08df1e7d6120
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 22:59:56.0121
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G+xDlZegkAhUilHtp3Bgq3NEwPQSfQXIRCuXNvQyboEPkCZPv6ua3w1u4T35TPhL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929220411.3756519-1-coltonlewis@google.com>
 
-On Sun, Sep 27, 2026 at 02:53:51PM +0300, Serhat Kumral wrote:
-> When a short-single SGE payload crosses a page boundary, siw_try_1seg()
-> computes the length of the first chunk as the amount that spills into
-> the second page instead of the amount left in the first page
+Hi Colton,
+
+On Tue, Sep 29, 2026 at 10:04:11PM +0000, Colton Lewis wrote:
+> When userspace initializes a vCPU with KVM_ARM_VCPU_PMU_V3 but sets
+> ID_AA64DFR0_EL1.PMUVer to NI (0) or IMP_DEF (0xf, which is sanitized to
+> NI), resetting the vCPU invokes reset_pmevtyper(). Because
+> reset_pmevtyper() only checks kvm_vcpu_has_pmu(), it proceeds to call
+> kvm_pmu_evtyper_mask(), which reads PMUVer == 0 from ID_AA64DFR0_EL1 and
+> triggers a WARN_ONCE("Unknown PMU version 0") in __kvm_pmu_event_mask().
 > 
-> 	part = bytes - (PAGE_SIZE - off);
-> 
-> Use the remaining length of the first page as the first chunk.
-> 
-> Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
+> Check ID_AA64DFR0_EL1.PMUVer directly in reset_pmevtyper() via
+> kvm_has_feat() instead of kvm_vcpu_has_pmu() so that PMEVTYPER<n>_EL0
+> resets to 0 without querying the event mask when PMUv3 is not exposed to
+> the guest.
+
+So this goes a bit further than just this WARN_ONCE()... Ultimately if
+FEAT_PMUv3 is hidden via the ID registers then we should expect KVM to
+emulate these sysregs as UNDEF.
+
+> Fixes: bc512d6a9b92 ("KVM: arm64: Make PMEVTYPER<n>_EL0.NSH RES0 if EL2 isn't advertised")
+> Suggested-by: Oliver Upton <oupton@kernel.org>
+> Cc: stable@vger.kernel.org
+
+Avoiding a WARN_ONCE() is not stable material.
+
 > Assisted-by: LLM
-> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
-> Acked-by: Bernard Metzler <bernard.metzler@linux.dev>
+> Signed-off-by: Colton Lewis <coltonlewis@google.com>
 > ---
->  drivers/infiniband/sw/siw/siw_qp_tx.c | 2 +-
+>  arch/arm64/kvm/sys_regs.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index a2f4e769a4282..0bb3c2f10a22c 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -1060,7 +1060,7 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+>  static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+>  {
+>  	/* This thing will UNDEF, who cares about the reset value? */
+> -	if (!kvm_vcpu_has_pmu(vcpu))
+> +	if (!kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
+>  		return 0;
 
-Applied to for-next, thanks
+I have this diff locally, separating the visibility change into a
+separate patch. Do you want to give it a spin?
 
-Jason
+Thanks,
+Oliver
+
+diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
+index 5b1af7e2176f..e2b28dbc0451 100644
+--- a/arch/arm64/kvm/pmu-emul.c
++++ b/arch/arm64/kvm/pmu-emul.c
+@@ -50,8 +50,11 @@ static u32 __kvm_pmu_event_mask(unsigned int pmuver)
+ 	case ID_AA64DFR0_EL1_PMUVer_V3P5:
+ 	case ID_AA64DFR0_EL1_PMUVer_V3P7:
+ 		return GENMASK(15, 0);
+-	default:		/* Shouldn't be here, just for sanity */
++	default:
++		/* Shouldn't be here, just for sanity */
+ 		WARN_ONCE(1, "Unknown PMU version %d\n", pmuver);
++		fallthrough;
++	case ID_AA64DFR0_EL1_PMUVer_NI:
+ 		return 0;
+ 	}
+ }
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 44aae52c473d..8315a188676f 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -1028,7 +1028,7 @@ static unsigned int hidden_visibility(const struct kvm_vcpu *vcpu,
+ static unsigned int pmu_visibility(const struct kvm_vcpu *vcpu,
+ 				   const struct sys_reg_desc *r)
+ {
+-	if (kvm_vcpu_has_pmu(vcpu))
++	if (kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
+ 		return 0;
+ 
+ 	return REG_HIDDEN;
+@@ -1058,10 +1058,6 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ 
+ static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ {
+-	/* This thing will UNDEF, who cares about the reset value? */
+-	if (!kvm_vcpu_has_pmu(vcpu))
+-		return 0;
+-
+ 	reset_unknown(vcpu, r);
+ 	__vcpu_rmw_sys_reg(vcpu, r->reg, &=, kvm_pmu_evtyper_mask(vcpu->kvm));
+ 
