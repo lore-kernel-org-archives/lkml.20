@@ -1,321 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC953A783B;
-	Tue, 29 Sep 2026 07:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667680; cv=none; b=pquDd/XtIq6X+UItrpJtyGrWTUhDcADb2ISdsi1kNf1I498TQ9Q+eGceFPUljA/NdgHX3GEcRxQFjvbL5lCgCuY+BnPFtWVumNzlrlcOMQG9seJ/T6wlSlCdksXCeKyZbSKWtAj2XLVZHjUEgvBAXhAyGRt8JGzubml80ekJKAI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667680; c=relaxed/simple;
-	bh=LV+hQ0AayB3QFGS0DcnwDRiR/tuYZGzADYXXZwjooyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VO8O2yCqGbur7Z5lKcnP+Yuqknc61dl0czdu8DG4GBGQmB9DFISGynnMrQZlRlmtEM5LkCqL34IZiq+4xkhL3b0q+gBjmTc1EAw3USOXtvNs+836BBCxQq39BW2+6iDuVhmNYdcGYuljLhbpULbhU9eY0rXj6daWxaQAphu9kVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=emgW0q88; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948B3A7F49;
+	Tue, 29 Sep 2026 07:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790667696; cv=fail; b=OQa2qzwVVJDbeTmHjI7Gs3/Bkr9zS+osYwyEeC5uDJSNZLn6tcPNdktzWdbjyD2Ew0EUWYb4hRnBe7GUSy7pgDISMR/mzqOLYwIwTqUVZG6ZUcBSQbkYvMtJnYHtHTA95wZ0AatHcDd9m4fQDWF0uJxfrMe2jRozXwxA2Evt0CE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790667696; c=relaxed/simple;
+	bh=gSTYwFGIz/TvpqknU+4SVJq3RSunQ+gPnUTKSw2QiyI=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=DA7DsYuXlpKuIjuHKPC76Pz5lJHa5Lsfs9djOVIEzpNuOJJtzHs27E/vIQFFt7SL3RFdLCqrjN7wAR+89ygRyLZSBCdHW1Lcv9CAGkIqRdywDnPBkYVrvPRxdXuC0GbqGM9V/DyNAPl2Y8kAOHdG6S7DGYh08WxDqnAvcFzKarA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dNAbVXWw; arc=fail smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="emgW0q88"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151E01F000FF;
-	Tue, 29 Sep 2026 07:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667678;
-	bh=lp8HPohqDlYue43nKivi4PzrHaMIyFPMrf7SP81dPUU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=emgW0q88+A8RGjvzRWT8Epq6xR4Ciezfv7NlGaYCL3R3A0/2NznEkIidNn/bs/lws
-	 BzsM0ui6r+AEmL+ZBNg+qZp5XqbSFlvwUooP3daVH9/BW6+0T6nROD3RUbzHsXZI97
-	 3C7C1WtHGH758WTfRB+HpryVIZDRndOlVG1oebobTKjfex19rSAP3j++jNOoPHO2LZ
-	 5UYeV8uKrUfkSFNnJqlwdliWjs85UFMQIdrJ39RspaDXKZBEGdMu1zVGlSgh8Q/tFw
-	 QIZ7GNgdO5rmOcEuzht1yxIgBDj0gA/cxx4VAg6TPt/Mk9+F+9Icw1jiF8Ph32VSWA
-	 noIykQlUwS27A==
-Date: Tue, 29 Sep 2026 09:41:15 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <artpBMeM13Dd0lLy@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dNAbVXWw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790667694; x=1822203694;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=gSTYwFGIz/TvpqknU+4SVJq3RSunQ+gPnUTKSw2QiyI=;
+  b=dNAbVXWw3XYzLL8sU+p/3q0qafSQPhGSXOnbU2OOZxwy3ECe2Bdo060H
+   CvFCR0mqXeg9kqn4UL0bmoIVeAIA2I3a6MZiy+cIvOsV7mW4QmOBULjV3
+   hUYXHlQmiTWg3zKRhoDVXehxdlzDGVXFPdiFa/ZPQ43eXZxPMltGLClIV
+   //+xu3RcAjTW6yNl4dGQ7/823LfM2Hwo6jRNWSnyYQKbDBlioGCd9LYCt
+   w8vNytXDSJAgr6isLKCGAKwvSQfX1g1/GACmkEMqQ8rHJUpwMUzFy/wZj
+   ThsIESsoV3v3zOOh20/ZLmveHOpXYzTxGjLGLUAojOqpIQD6RxYZZxS1W
+   Q==;
+X-CSE-ConnectionGUID: fyqxRMzgR5uju8IeQ1qxWw==
+X-CSE-MsgGUID: 0fnXzNd8T1W/Ez8O/GQ4nQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91238919"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="91238919"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:41:33 -0700
+X-CSE-ConnectionGUID: 72sfCPidSPCIMP0tv3M4CA==
+X-CSE-MsgGUID: EUxpfpzNSVu+tuDarPcYUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="303251137"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:41:33 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 00:41:32 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 00:41:32 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.50) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 00:41:32 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cqbOtYXSX9W9wLEH10JN0OsorfVfqQI4/2551yVLt/gqptOiZRIyC/bdBzvRDn36WLGSxLugLVTvzKNpssW92zUFPYU0zRNvOEqsO5cMA9tKlbqAnd0Og6/zBzT5cr03aHWf3Yq1ltmCbPTwEDM/nL6GaE0GIiClZc9idDeDjaZI/fRkKc1Rga5/LLx6UdneeTSqTgPEpWzzpQRffYQvxAksxSUCggXY1KCjIeiYgpo32bmEv2OztJwgGmsMDCmkMrf9Z/rMV6plFMxuzaptkHpmYX+I710ea2h7rFsXCaAJWgbi7pYEb0zk1lI/D7cdcuyPl+2wIGH8Mwl+gDYHdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qT2/fJcO6Qd0xYTgC6V/+xidqhDDUCsdxeRPH8tm1p8=;
+ b=DbeyUnNX04BsQ+MuFNpGgOxWpPtvDU6ZHeHnCqy7tE677gYstkvMSFW7xog35rEi5Mq/Dy0jNtRoNXiozqCe1sX2jJPjJNxNBq0ync9ywNJJsOr0pkJaVACini+1Sy3za1eh4ShtgTq6aBblsT1ypbXatmWEX7wrdwpCoNW9t0KHMFsl3otuVZtHWxMVopCLxrEkymmap+ycNU3jvEcNorXRhNiZ4EBzLusnVoZxsDcIq5Qa5LzCO/ucuBtmOu7oXVNvy0NaUxfAhOrL85mzfcCjZDgueBAkxT+BZ/h066hVajxRJINNwRE1aMHNbftz7GVslVwz4tYl3+NcTuhFMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8) by PH0PR11MB5878.namprd11.prod.outlook.com
+ (2603:10b6:510:14c::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 07:41:28 +0000
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd]) by CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 07:41:28 +0000
+Date: Tue, 29 Sep 2026 00:41:26 -0700
+From: Peter Fang <peter.fang@intel.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+CC: Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau
+	<kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, "Kuppuswamy
+ Sathyanarayanan" <sathyanarayanan.kuppuswamy@linux.intel.com>, Thomas
+ Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	<linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<kvm@vger.kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, Tony Lindgren
+	<tony.lindgren@linux.intel.com>, Sean Christopherson <seanjc@google.com>,
+	Artem Bityutskiy <artem.bityutskiy@intel.com>
+Subject: Re: [PATCH v5 2/6] virt: tdx-guest: Give the Quote buffer an
+ explicit type
+Message-ID: <artrprfgz7Q5CEz7@intel.com>
+References: <20260928100913.2265687-1-peter.fang@intel.com>
+ <20260928100913.2265687-3-peter.fang@intel.com>
+ <bd46aaba-2c07-4b4d-b76a-30a1dff21b0f@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <bd46aaba-2c07-4b4d-b76a-30a1dff21b0f@linux.intel.com>
+X-ClientProxiedBy: SJ0PR03CA0299.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e::34) To CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="awnkanmfkorvoczc"
-Content-Disposition: inline
-In-Reply-To: <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB435924:EE_|PH0PR11MB5878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 462b9b83-286d-4a61-4a92-08df1dfd1287
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: khMHzGXoxDh7Fki0uoJSTv0s1QrKuvBup0pwv4+damTNXmj5i3Rwtrqfmy2+RNxUwGn2PxiB98jlg7KQNc/pqGEOZlDb+WM8809SA7vh924urqHM2xQkTJHaCu9ifnK4n7Wh0FRAkAdQ3QHmwqtt+ephpjZ2Ibw8b70nIeoU2rCU6kolofuYIFDLpmOKWi+hAC5TYTfv46fbx7zxH1Q7MteRbRUY29kb71ud/4ajS87EH9JBAS7Y5+YNooC2f25WDUAxzO9XkUVvDYT6oPOLbyObvRjiMyoXQweBunj2WG338ohsCW1rAgXcPM90oDyGr+TAe7k5ajKv47bcM32Dft2se991Ra7V7/uLPzgqviyvUb89zhdd2Xzj+q+KOku7U+NsYmkmfkBb9rlEX16A9iw9dbjPyQWFlfrGKVkY8E99y8HO+HrpcL4gpZiCAol6JUCbWiNuieyMZ1+9Kylis1OaJ5Zf73nVlTuSzBC1+nKJRJyyvgo3qLUfa/vRU6NF3vBm9nCCSibSQ0Mb0PnmgBl1+tUOb5Xx/FX+8pguyPZ3oLrzC4IjfHnEC2kVFT6UqPFJqiiou8pGqLu0XkBp/VHeannhrcqX1uqZZqaqVADDZE8Sxh0gdcQf1RpHAJ3iDuQQuEElHTv4PSfOwSVo1+m9z/eLJbLbYLVdDiFpW0k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB435924.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ot34WJbw7w5285NLmtD3KtJupBxsEqLTYbdOzkPdfQxx9sIbRmdTmMNuEcQr?=
+ =?us-ascii?Q?/P3m1iCL8qo0AODDpsBG0aO0NMV7IofEkqNkxIrYaxeeOTX/aIWfhtwK/QWD?=
+ =?us-ascii?Q?xx7E8DLfibH1U0rIbcs3EuKwXMrqPFrfFXREH7tCfeddLTPNYto+cBGmNbY7?=
+ =?us-ascii?Q?IxljJU6CCOneKjh/YYAYpLNPb1awsd5L6BVxVQfQ/hBZS1n8ih3ybAT2BSaB?=
+ =?us-ascii?Q?JfFUKrIDkYW11+Vg1fYs2DtGI6IhQMMoY2xYDT7zk6gfrLZSlVejTxvUJmmf?=
+ =?us-ascii?Q?wV5Wdiqt5QfjOM1wcjzhtp84/xn0NYoqgf76SksaqNAnwr4lUlQlI646ODvQ?=
+ =?us-ascii?Q?dt6P3huZb9DVOIuLaDY8PAbb9oiK7pS+Ih9ntKX5+ik91KYHC5/O5MVeojTg?=
+ =?us-ascii?Q?TOmhL7sHiaO9hFVQfmAqcV5xT6FDmt2kB4INEioXOOUgN+6EQU7lxT8OlDw0?=
+ =?us-ascii?Q?AZxh/8ZSNS0kUwK3UgW88hE90lDTknovYp1ZIFUbkuFB6CeEcQuPVGl5mFO1?=
+ =?us-ascii?Q?HJcpcAkEmBowvrGr5bC0KpcENf77bWepiNcXzwrr3dHnE4SXLlVr8B8vDnZ2?=
+ =?us-ascii?Q?N1+vmlTAHHdtZMLRsRwDzd9lB2Q4a7ehfhiWoAAb3wavsGzAEDsVQJzHWzxR?=
+ =?us-ascii?Q?Pi8k+2wx21xmI6F3orid6HGy3r/SULR7SXlXYUvWQNlleoPogJnG7ZWaUmDA?=
+ =?us-ascii?Q?g2buBoGhxG39EWFpdKCUhRQWpSn9JG1vjuao/3LBNP3iIYSdW41q6r1bt6PL?=
+ =?us-ascii?Q?XfkTqgTrCcMcxuPE8tcFbHMVbxOxT1L/AOYE+Md0yBzsEPevAlb67G/ebIR1?=
+ =?us-ascii?Q?fs9OkMQdxBrZJHuSfHkrERlajY9nhjASFIn3w/43bUTIDPVS0+W1m17I9brL?=
+ =?us-ascii?Q?RpyAMCJWvlakH4ALRKeaV2ciD6SdIHC2uvnNj6jSfcdgWZ600HT7NQGrRvd6?=
+ =?us-ascii?Q?746h98t/raHHRPEZT57HOKpLy98Gf/RsPa8QGEfjhF1zzZrFv78MjWHx1gtV?=
+ =?us-ascii?Q?kZNO72asneqw2B0DWfaS3XXy8w6b9Xg7ke+o0OChweKcKFjDWYt5uSC0iSz0?=
+ =?us-ascii?Q?akvXgzdFtDEy2+2YO8MZSZy8mjVAdxxtbrv6aJRInof+NEgSi1NMGl8tvkl6?=
+ =?us-ascii?Q?6mWf8b8nThkC1/K3+JKw45ZzFR2UU6lb6umqX3zHutX8W+4qY0o2kSxkK3Ds?=
+ =?us-ascii?Q?yEYx7pCHlQqHP9P86e9xO0oHBMu+shUxxk5gXkuspENFswJwajXhgWF5Z4Bi?=
+ =?us-ascii?Q?dv1kIhOaVbsjXHUCND2IHdmi0VqENqu/4CIt4wKhJsWVhBq7FELjUQzW6W3A?=
+ =?us-ascii?Q?1SUE2/zM7iTQ9jI8vk+AShrQrkgBRB4IVm8WTq1niejqbpBCQ9YMfiHRMTAV?=
+ =?us-ascii?Q?8z9WZ+A3maiTOvy3XX0gRtoPqKTGGVd/Qonk/Gg9fe2GXqk3fmRuYB/BKabs?=
+ =?us-ascii?Q?cNwfrrzHvu6C4VniI58sAE8f0NcVMadVF/wKeKd/m6Yjo3CGF3lEup6NdJKR?=
+ =?us-ascii?Q?t7b45Aa4E1dagRRzifMGA+i2i9V3xWTfpGt1/YwT6JHj39cDsxQXlh8gqPAF?=
+ =?us-ascii?Q?QJxSb4VsL+SL0l8q4+VPluoUT5xPnDGLmAilsoedlO11MDP9W3k5VAIaeMBi?=
+ =?us-ascii?Q?FeiFdBWDmSzT8kWJHzRB4kA5rWNO6mONCVqBWgDJk/oT5Scms08LEII8bz+U?=
+ =?us-ascii?Q?ukHKvMLdX1H/B8FCyQWfORYb8bUIPJqcU3xs1al6u10VHWX7OXRShxiEqSTD?=
+ =?us-ascii?Q?t4Zx/szyww=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 2OecawYOvVV9oTG+MFoHFnAIJTlDfmE++5ezeu+nJU1/nyqFShQWDRzQF2p4M7YoQw/lHLxfMaBhGFiLAT/6DGGKQWZ/lAm+Ws51wK8oQcOaOWSQpuajmS5owdRTn+T0wlnLVNDNm7zRJrXxzO2F8yqwsRpi1xtlMlsQgUw1BvuumcG2kBmE0qdD11C+4SUmKLqwCaCDGOF93ZqtXcqC3/stKE0+aS7wsQ3eUSYT/6GU3eh00lERYFfRuYHUi4wjRHfygktSqOU6CRlWUesH0P98+3WCqDMjSI1EpBll03qJjWd8sGh9n+UIPMjCIZrfBHl+S5D2JCEFwsQuPEJZfA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 462b9b83-286d-4a61-4a92-08df1dfd1287
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB435924.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:41:28.5633
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /hDRzx49J8OjVyStX82Kuzxa8Gw2aScuMLkzCvey7gs9AynOttiHQoQts0duH8flZytmXX/VJPE1nL409FkibQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5878
+X-OriginatorOrg: intel.com
 
+On Tue, Sep 29, 2026 at 10:13:32AM +0800, Binbin Wu wrote:
+> On 9/28/2026 6:08 PM, Peter Fang wrote:
+> > The Quote buffer is always a "struct tdx_quote_buf", but its global
+> > pointer is a "void *". A function would have to convert it back to make
+> > sense of it.
+> > 
+> > Declare the global with its actual type, and give it a better name.
+> > 
+> > This creates variable shadowing in wait_for_quote_completion(), so
+> > rename its parameter for clarity.
+> > 
+> > AI was used under supervision to collect/apply feedback, review code and
+> > workshop logs.
+> > 
+> > Signed-off-by: Peter Fang <peter.fang@intel.com>
+> 
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
---awnkanmfkorvoczc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+Thanks Binbin!
 
-On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
-> On 9/28/26 21:48, Benjamin Tissoires wrote:
-> > On Sep 28 2026, Neil Armstrong wrote:
-> > > On 9/28/26 19:24, Benjamin Tissoires wrote:
-> > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > Hi,
-> > > > >=20
-> > > > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > > > Hi,
-> > > > > >=20
-> > > > > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > > > > difficult to support and require pretty much a panel driver for=
- each
-> > > > > > panel produced. Most of them are pretty simple, and require an =
-opaque
-> > > > > > initialization sequence that is usually poorly documented.
-> > > > > >=20
-> > > > > > This creates a tension between OEMs and distros because OEMs wi=
-ll
-> > > > > > typically get a new panel to react to a sourcing issue during
-> > > > > > production, and thus need some swift turnaround between getting=
- their
-> > > > > > new panel and it being operational in the OS. Distributions on =
-the other
-> > > > > > hand can take years to ship a kernel with that new panel driver.
-> > > > > >=20
-> > > > > > To solve this, I followed the example of HID-BPF and wrote a pa=
-nel
-> > > > > > driver that will rely on BPF programs to perform the panel
-> > > > > > initialization. That way, we can ship the programs separately f=
-rom the
-> > > > > > kernel, and with a different lifecycle. If this driver is accep=
-ted, the
-> > > > > > plan is to have a userspace component started by udev to identi=
-fy and
-> > > > > > load the right BPF program for the panels found on the device.
-> > > > >=20
-> > > > > This is kind of late for serious applications except if we manage=
- to
-> > > > > solve the bootloader to Linux display engine transition.
-> > > > >=20
-> > > > > >=20
-> > > > > > This driver is fully functional and works with both 5" and 7" T=
-ouch
-> > > > > > Display 2 panels for the RaspberryPi. However, it breaks away f=
-rom the
-> > > > > > typical panel driver in multiple ways:
-> > > > > >=20
-> > > > > > - BPF programs can only be loaded by userspace. This leaves us =
-with two
-> > > > > >      choices:
-> > > > > >=20
-> > > > > >      * We prevent the driver from loading until the script itse=
-lf is
-> > > > > >        loaded. This has the side effect of preventing any other=
- output to
-> > > > > >        be used until the initramfs is ran at the earliest, and =
-possibly
-> > > > > >        ever if the loader isn't installed for example.
-> > > > >=20
-> > > > > This adds a dependency on user-space behavior and if somehow the
-> > > > > initramfs doesn't load for a reason we won't have a way to display
-> > > > > an error.
-> > > > >=20
-> > > > > >=20
-> > > > > >      * Or we probe the driver all the time, but only report it =
-as connected
-> > > > > >        once a program has been registered. This is somewhat unc=
-onventional,
-> > > > > >        but allows the other outputs to be functional, *and* all=
-ows the user
-> > > > > >        to force the output if their panel doesn't require any
-> > > > > >        initialization or during debugging. I chose this solutio=
-n.
-> > > > >=20
-> > > > > Both options are not really great...
-> > > > >=20
-> > > > > >=20
-> > > > > > - It's not a panel driver, but a bridge one, which is also pret=
-ty
-> > > > > >      unconventional. This is required because panel drivers don=
-'t have
-> > > > > >      access to a detect callback that is required for the above=
-, but I also
-> > > > > >      think that the recent work from Luca blurs the line from p=
-anels and
-> > > > > >      bridges and we'll end up going that road anyway.
-> > > > >=20
-> > > > > On this point, DDIC _are_ bridges, but in the current panel API w=
-e blur the line between
-> > > > > the panel and the DDIC. So being a bridge is fine, but in a gener=
-al way we lack
-> > > > > a proper way to describe the display/panel/monitor independently =
-of the DDIC.
-> > > > >=20
-> > > > > At first glance it's a nice driver, but moving the timings into a=
- blob moves something
-> > > > > into possible proprietary binaries with possible closed licence a=
-nd distribution
-> > > > > restriction so it's a downgrade for the same of bringing up a pan=
-el faster.
-> > > >=20
-> > > > Quick answer on this, because I had the very same questions regardi=
-ng
-> > > > HID-BPF:
-> > > > - in BPF, you can require (and by default it does) that only GPL
-> > > > 	compatible BPF programs are loaded, closing the argument of "closed
-> > > > 	licence and distribution restriction"
-> > > > - also, a BPF program can be disassembled much easier than a binary
-> > > > 	blob, and I remember Alexei showing me an example where you get al=
-most
-> > > > 	the source code from the BPF object in just one pass.
-> > >=20
-> > > Right, it "solve" one of my question, but doesn't really solve the is=
-sue
-> > > of vendors providing "GPL" bpf programs with source available "somewh=
-ere".
-> > >=20
-> > > Another big issue is the API, I don't want to keep the current API as=
--is,
-> > > we plan to support more advanced panel features and use try to use the
-> > > atomic states to support rate switching for example, and I'm not conf=
-ident
-> > > it's a good idea since there's no "simple" and "forever valid" API
-> > > to initialize panels...
-> > >=20
-> >=20
-> > That's exactly where BPF shines. The simple rule of thumb is: there is
-> > no API stability guaranteed. Basically, thanks to the verifier and CORE
-> > (Compile Once Run Everywhere), you don't need to keep the API stable and
-> > available forever. There are multiple ways of dealing with it, but the
-> > gist is that if a BPF is trying to load an "old" API, it will be
-> > rejected by the verifier.
-> >=20
-> > Then it's a matter of being nice enough in the kernel and provide ways
-> > to deal with those.
-> >=20
-> > To give you a few examples:
-> >=20
-> > - in HID-BPF, in userspace, we keep old versions of APIs in separate
-> > 	compiled objects. Each is incremented (by 10 so we have a little bit
-> > 	of room in the middle). Then the loader tries first
-> > 	0020-device-with-new-api.bpf.o, and if it fails, it tries
-> > 	0010-device-with-old-api.bpf.o
-> >=20
-> > 	I'm not saying we should do the same here, but that's one idea
-> >=20
-> > - recently, a BPF commit broke the ABI of a function while removing
-> > 	implicits: bpf_wq_set_callback_impl() was replaced by
-> > 	bpf_wq_set_callback() with a different number of arguments. I simply
-> > 	had to add a new function in my header which basically does:
-> >=20
-> > 	static inline int
-> > 	hid_bpf_wq_set_callback(struct bpf_wq *wq,
-> > 	                        int (*callback_fn)(void *, int *, void *),
-> > 	                        unsigned int flags)
-> > 	{
-> >        if (bpf_ksym_exists(bpf_wq_set_callback))
-> >                return bpf_wq_set_callback(wq, callback_fn, flags);
-> >        if (bpf_ksym_exists(bpf_wq_set_callback_impl))
-> >                return bpf_wq_set_callback_impl(wq, callback_fn, flags, =
-NULL);
-> >    }
-> >=20
-> >    And then I changed the bpf.c to use hid_bpf_wq_set_callback() and the
-> >    bpf is compatible with both APIs
-> >=20
-> > - with CORE, struct fields are relocated on the fly when you load the B=
-PF
-> >    So for instance, if my BPF only accesses fields .name, .phys and .id
-> >    in the BPF, I can define:
-> >    struct hid_device {
-> >      char                       name[128];
-> >      char                       phys[64];
-> >      unsigned int               id;
-> >    }
-> >=20
-> >    Then when loading the bpf, the verifier replaces all offset to the
-> >    ones actually used by the running kernel, and the program loads
-> >    transparently, even if you add fields before/after or change the
-> >    fields order in the kernel.
-> >=20
-> > Changing the mindset is the hardest part of it. But once you are making
-> > the shift, it's actually much better to work with. It doesn't mean you
-> > can go yolo. You still need to be careful in your choices knowing the
-> > impact on your users. But the API at version 0 is not frozen and you
-> > don't need to maintain it forever, especially if you control the loader
-> > and the headers used to compile the BPFs.
->=20
-> It's really impressive, but there's no way this would become the de-facto
-> way to program the panels
+> 
+> One nit below.
+> 
+> > ---
+> > v5:
+> >  - New patch. [Dave]
+> > ---
+> >  drivers/virt/coco/tdx-guest/tdx-guest.c | 35 ++++++++++++-------------
+> >  1 file changed, 17 insertions(+), 18 deletions(-)
+> > 
+> > diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> > index d0303e31e816..896eb0a09c4a 100644
+> > --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
+> > +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> > @@ -192,7 +192,7 @@ struct tdx_quote_buf {
+> >  };
+> >  
+> >  /* Quote data buffer */
+> 
+> The comment should be updated as well.
+> 
+> "Quote buffer" or "Quote request buffer"?
 
-Nobody said it would? And like I said in my previous mail, I actually
-expect us to keep merging panel drivers. Do I think it should become the
-go-to solution for simple panels? yes. But we can always make
-exceptions, and for more complex panels we should totally do a more
-complex driver. Like HID has been doing.
+Hmm... I think with this refactoring, either one becomes kind of
+redundant. I was thinking of adding something like "GHCI Quote buffer",
+but that's pretty much documented by struct tdx_quote_buf itself.
 
-> and if the motivation is to make it simpler this implementation
-> requires adding bindings and bpf programs which that are the same as
-> native panel drivers, but won't be able to work until user-space
-> starts and will require to be in initramfs or rootfs to have
-> functional display.
->=20
-> Not sure to understand what are the positive features here except
-> isolating the panel code in a safe bpf program (is this really needed
-> ?).
+How about I just drop the comment?
 
-=46rom the cover letter:
-
-"""
-Panels in general, and MIPI-DSI panels in particular, are pretty
-difficult to support and require pretty much a panel driver for each
-panel produced. Most of them are pretty simple, and require an opaque
-initialization sequence that is usually poorly documented.
-
-This creates a tension between OEMs and distros because OEMs will
-typically get a new panel to react to a sourcing issue during
-production, and thus need some swift turnaround between getting their
-new panel and it being operational in the OS. Distributions on the other
-hand can take years to ship a kernel with that new panel driver.
-
-To solve this, I followed the example of HID-BPF and wrote a panel
-driver that will rely on BPF programs to perform the panel
-initialization. That way, we can ship the programs separately from the
-kernel, and with a different lifecycle.
-"""
-
-You can disagree with the solution, that's fair, we can also discuss on
-how to solve this problem, but I'd appreciate it if you weren't claiming
-it's all useless.
-
-Maxime
-
---awnkanmfkorvoczc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCartrmgAKCRAnX84Zoj2+
-dsKUAYC8Yf758EiKcDyhQWZ5poYP/4BzkIwGnBu33xDgVUbwLrsq/eECmYghsepO
-I7GythUBgMVxrlav8z0vqHl5OZELvXofcsDP7Z+pA7qc/aoLR5e5IFTAegxGTqt+
-STdABml/AQ==
-=qeDZ
------END PGP SIGNATURE-----
-
---awnkanmfkorvoczc--
+> 
+> > -static void *quote_data;
+> > +static struct tdx_quote_buf *quote_buf;
+> >  
