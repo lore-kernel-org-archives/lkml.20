@@ -1,181 +1,119 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A7151357C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8EC51598F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681467; cv=none; b=VNGrnHunb1A42IYu6Pkq/L08/OUGo8vjNPE7rJ0JMsDcD3VXwbgrm5bZcF6IA5dXwwDP3zdCHOwS43CcHQevKrM0OVJHCz9iviUlgp98dF+X6LJitP3meTTvBrxG5Pfrem5dhG15ULAQt9GxcrYU7O/dPUdOeK1Q60UMC/wj/lA=
+	t=1790681471; cv=none; b=DqehP5La8yAPml6W8wdbDqHuZrBr6lqAJz5ijEbhpqd+73GXYyYZpwGeKfvAukZzogF8SsBEQObpPRl58JEGLTyeON5vZiv1r/sJJtIbcM2KtBskC2YdiTKzbQ8iDCdxZgc6F4sZD/Aq9Nl9+66Ror9cWJxW2JqsR4mwSzi+f/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681467; c=relaxed/simple;
-	bh=wqs3vpKaDCWtWgprbaqXrOrXrz0kKNMOWmvho3fZQ3Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=MB57d3R3V5RinK5smMT1zLIPBHL2MdyUQF7USglTAaQWhipn7EmHxiGJD9qydS7gCAk9U06sacERPTTeyth4VF8t9TdhqRvYPWltf9v/oWsmAOQU6mZF2KjaTCK4NUbEMgumnq2t1kq5RvWU0VkU1HNSLpaW6fAPhD1EwIIT7jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=IS67ruVh; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790681471; c=relaxed/simple;
+	bh=f6KBpWSD8KZE3hI0Ct4C0aM23U/v75euL1NEB+FxjNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nLZIzQp+84mkh7c3Ve7khiTc4Ryf3XSoP6r+giHr0BxJVEsCc/emiZ1NOpehwRJSgEaIbDTqB4KHjpgcK2135r0y2dzg1qqisHBHQlQl9YmNARFzgAno8lr4Apusb26Uwfij3vACHW0+4872vaCeagv37rs0XoEitOQglvRftzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=O6zFNuYv; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="IS67ruVh"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=i999MGH5SdNPcu4Q8VB0Q3AdAc6DTMs0HY0/qk7ot9g=;
-	b=IS67ruVhdS/g2OwlEG9o0G9CqS+WcM/qqKiiXSqtCwqQ0In275KUqJnyy6fjdepPQnCc+cdiE
-	EXSs8oNfsVBWwoCv7CrDKzK4diJNMtcNdqxQZ8m/uUaCQRv5yoC6O+fYDu8VbMT+mcjhwfo1eOc
-	n8cXeuqeY5dDOZAdlOzHBC4=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hvG146RK8z1cyPY;
-	Tue, 29 Sep 2026 19:19:52 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 05A164057C;
-	Tue, 29 Sep 2026 19:30:59 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 29 Sep 2026 19:30:58 +0800
-Message-ID: <3e23f91a-38d0-486a-b3f8-d94bd24d377f@huawei.com>
-Date: Tue, 29 Sep 2026 19:30:58 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="O6zFNuYv"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB6XTq3838338;
+	Tue, 29 Sep 2026 11:30:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pGMMFh
+	GtLkbpTo5BkkjAp7rmRhjpzIdbQsitzbW4W9s=; b=O6zFNuYvBpQMkE6qkzsHwX
+	oqZ/+VPm0vjOgYD0Hz82m+GWTGbS0lNWZX94vyYPmJIurU9l/dByUxs5uFiS8jWq
+	FbeLJvl/dxG+Z/Z5t7Sf760ct9Gxm0p7wetCH26C+gfdkTKAxd1iHn2zf+4F4vGA
+	xKvakCd9dlvhieAZalISdCjodgkE/G/nSjEh5Vi8ar8b3zp6+kt5GxXL4OJTfPJJ
+	FtUje250Ftab9+JUSJ/uX3WHsdG1Lp9aydo/NNceWnNlTcU7yZFfl3cfPc5u4SgA
+	41aOXJY4e68UkspPbL7eqx/CI8iBUKN5W3td8xiYEINstxt1q3Ji2nwD70Bz2/ww
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk6bhv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 11:30:44 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAllpa1647352;
+	Tue, 29 Sep 2026 11:30:43 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y98h4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 11:30:43 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TBUgr646334394
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 11:30:42 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0336220040;
+	Tue, 29 Sep 2026 11:30:42 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 101AA20043;
+	Tue, 29 Sep 2026 11:30:39 +0000 (GMT)
+Received: from Linuxdev.ibmuc.com (unknown [9.43.88.139])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 11:30:38 +0000 (GMT)
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+To: Geoff Levand <geoff@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Thorsten Blum <blum@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/ps3: Simplify control flow in ps3_{virq,irq_plug}_setup()
+Date: Tue, 29 Sep 2026 17:00:37 +0530
+Message-ID: <179066556652.265207.13341414387667650453.b4-ty@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914215900.84712-2-blum@kernel.org>
+References: <20260914215900.84712-2-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on
- migration
-To: Leonardo Bras <leo.bras@arm.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-References: <20260901171558.2674031-1-leo.bras@arm.com>
- <20260901171558.2674031-6-leo.bras@arm.com>
- <497c6239-a75f-4087-83c8-efface3fe3d7@huawei.com>
- <arE_Jh4UHiUdjrSi@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <arE_Jh4UHiUdjrSi@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: F02PVFWzm4BdsmXK6AmM9hVjBTSTjdWy
+X-Proofpoint-GUID: -2P3pPcoE22_OH_xwNSLumhBlyAJFXLQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX26B3NI9LRGED
+ XOzcrQlRNormMfrn/ql4vQ90gRbE+Oj5mY2OGTL3c4XUJmRMGAFrZ0i8dPehPXO4YDv6IcFJi/y
+ V9CWRmaqyN6LqHArGSUnfHiWWs+5H5Y=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abba164 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=d86c0OqMtwPQ0Kf90R0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX+JFDL/y8Dd2C
+ WyN5UfLvSV+tIxS8qp6qyJk6UOnkonhlAoCSfY1RySdK6EFb5fKA4zZ6c13Rqrv7PXeECADH3ki
+ 7tb9/HOfzavWv1v8c9OlYeRF12WJBi66RWPIEI1luXhIsSebedUqxBCQpWsUuBzhkTMgFRaAlZA
+ Fu4tbeStWwqRxuBs2LeQA7Alij0d+RWi/LvL+pqe2gtdDxhld75y/GCM84lguZHPxEAJUGCOeAj
+ f/zr3mA7LhmrGopNZsEczv8+BTHHlQlZ891J13ShH+VGNdbIXbFk28qEdqS2/DoeiMbxLgFowy0
+ ZLTMZQ1d9/Ssj+xN9k/x8DikNWaeQKv11qO4o6dwBjXA47WU3zyQr46mxJmgLcJhSkjqGZvLj9Z
+ lB28Lz8/R7F9jHQU/Fx0LNVOTfaxIkmlBx0FwlnNszULWOzaY7RKPwnILMuzDD4TpmEEPa94YJN
+ p6yQ8e6XrD/UP+dGIFQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290044
 
-
-
-On 9/21/2026 10:28 PM, Leonardo Bras wrote:
-> On Fri, Sep 18, 2026 at 07:58:43PM +0800, Tian Zheng wrote:
->>
->>
->> On 9/2/2026 1:15 AM, Leonardo Bras wrote:
->>> @@ -2570,53 +2571,76 @@ int __init kvm_mmu_init(u32 hyp_va_bits)
->>>    out_destroy_pgtable:
->>>    	kvm_pgtable_hyp_destroy(hyp_pgtable);
->>>    out_free_pgtable:
->>>    	kfree(hyp_pgtable);
->>>    	hyp_pgtable = NULL;
->>>    out:
->>>    	return err;
->>>    }
->>> +static void kvm_set_hafdbs(struct kvm *kvm, bool set)
->>> +{
->>> +	/* Check if no action required */
->>> +	if (!!(kvm->arch.mmu.vtcr & VTCR_EL2_HD) == set)
->>> +		return;
->>> +
->>> +	if (set)
->>> +		kvm->arch.mmu.vtcr |= VTCR_EL2_HD;
->>> +	else
->>> +		kvm->arch.mmu.vtcr &= ~VTCR_EL2_HD;
->>> +
->>> +	kvm_make_all_cpus_request(kvm, KVM_REQ_RELOAD_STAGE2);
->>> +}
->>> +
->>
->> Hi Leo,
->>
->> HD alone is architecturally a no-op. According to the Arm spec, the
->> VTCR_EL2.HD field description reads: "When the Effective value of
->> VTCR_EL2.HA is 0, this field behaves as 0 for all purposes other than a
->> direct read of the value of this bit." So patch 5 as it stands never
->> actually enables stage-2 dirty management.
+On Mon, 14 Sep 2026 23:59:00 +0200, Thorsten Blum wrote:
+> In ps3_virq_setup() and ps3_irq_plug_setup(), remove the goto statements
+> and handle errors directly.
 > 
-> Oh, right, I missed that. :/
-> 
-> For the above to work it would need to have the HA bit:
-> 
-> +	if (set)
-> +		kvm->arch.mmu.vtcr |= VTCR_EL2_HA | VTCR_EL2_HD;
-> +	else
-> +		kvm->arch.mmu.vtcr &= ~(VTCR_EL2_HA |VTCR_EL2_HD);
 > 
 
-Hi Leo,
+Applied to powerpc/next.
 
-Yep, I've already fixed this in v5.
+[1/1] powerpc/ps3: Simplify control flow in ps3_{virq,irq_plug}_setup()
+      https://git.kernel.org/powerpc/c/4d9f2ca2e37ce7fe7567761b2392748456e1ce43
 
->>
->> In the combined series, I'm planning to replace both kvm_set_hafdbs()
->> and our earlier enable/disable hooks with a single derived mode:
->>
->> ```
->> /*
->>   *   logging && HDBSS-capable  ->  HDBSS  (HD|HA|HDBSS)
->>   *   logging, no HDBSS         ->  off
->>   *   !logging, HAFDBS-capable  ->  HAFDBS (HD|HA)
->>   */
-> 
-> Yes, seems correct, if the performance numbers can show patch 5 provides
-> performance improvements.
-> 
-
-Right, I've added this function in patch 12 of the HDBSS v5 series.
-Performance numbers look good so far.
-
->> void kvm_arch_update_hw_dirty_mode(struct kvm *kvm)
->> {
->> 	bool logging = atomic_read(&kvm->nr_memslots_dirty_logging) != 0;
->> 	unsigned long target;
->>
->> 	if (logging && kvm_supports_hdbss(kvm))
->> 		target = VTCR_EL2_HD | VTCR_EL2_HA | VTCR_EL2_HDBSS;
->> 	else if (logging || !kvm_supports_hafdbs(kvm))
->> 		target = 0;
->> 	else
->> 		target = VTCR_EL2_HD | VTCR_EL2_HA;
->> 	...
->> }
->> ```
-> 
-> Humm, do we actually need the atomic_read being ran when we are enabling
-> dirty_logging? Maybe we can restrain it only to the disabling part.
-> 
-
-True, but it's just a plain load. Keeping it unconditional avoids
-tracking the transition direction, so I'd prefer to keep it. Looking
-forward to your further review.
-
->>
->> HA is always set alongside HD by construction, so the no-op issue goes
->> away.
-> 
-> Right.
-> 
->>
->> I'll fold this into the HDBSS v5 series when I send it out. Let me know
->> if you'd rather keep it in your v2 instead.
->>
-> 
-> Feel free to merge your part on top of that, I will work on collecting the
-> numbers, though.
-> 
-> Thanks!
-> Leo
-> 
-
-Sorry for the late reply. I was running HDBSS+DBM tests over the past
-few days. The HDBSS v5 series with your DBM code merged is now sent out
-to the community. Feedback welcome:
-
-https://lore.kernel.org/all/20260929103655.85107-1-zhengtian10@huawei.com/
-
-Thanks!
-Tian
-
+cheers
