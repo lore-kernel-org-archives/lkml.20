@@ -1,90 +1,174 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1470E3A6B70;
-	Tue, 29 Sep 2026 07:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A5039EF2A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667648; cv=none; b=J+ebBKEWwEvTXWEXj3UqoxLeZ8zE9q4YJoBMpgI+30QNSyR9fJW3pFmHKG+3+wGjX617Nhx/vMAeAApkEXalgpVLP/jGskkZ3kKApyiDNsnNsnQ2AaUs+/7AOGRCTSfwZNfnmhMZm5HNfGux3BTm2av8r/NZIL2swZhGIEordR0=
+	t=1790667657; cv=none; b=h+7f+mcbVVGHnOh5rTXuqt/tSijNwZBVwNyswsJjiLe/KBL4dP6c3rYDhO6Fp69++Iv8HeIMxPF4EMHhn64zNPIei1kQkOEegICGuX53Bb+8Hce8nsPBKVm9HTMXsSIpFbZYohJuIbh8XOBNEHhbaQNZTnvEef2ZVQnbLGlaCEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667648; c=relaxed/simple;
-	bh=YXqx610E00e7fcUhtcu6ud3StVP4tLskTRzZ8Qwhwnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dbdg8dulO7MGPYdpSH42Wr/7LvwMhewDeklJATywJIm/dp0c90EBzPHpBF++aRa4OgYP4VHFAbaAqWQI/uCuXrLofR9TjGnGOVdOB1+pxG//IgUv0nxbtZouoXqMRuKE02YvpeJup2/lxeD3JcyZIKETv67vapygwstHb1cAxMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cS/ivYBO; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790667657; c=relaxed/simple;
+	bh=eBA2dsoEYS/wtSZz82k25VGaT71+syN4FN5MUymZna0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZTAH5HxaaZscnEJke9yuqIzU0eI0NAL1Yb5Tuh2HWPcwP7Z86vBG5y8Irv0hkUUm1Ny0UmLawGBjK30Rkn4HWFHVcJL7poEHL/5he/VoqjVhfdV4WC5XKVqrYGIQqhKflust3xWTBQPiqEgsiSXcbashW14eZpmvjRs8vHMj6k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KNnv5PBA; arc=none smtp.client-ip=91.218.175.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cS/ivYBO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=IvwdLgBs9Hvw14RFZPBYMDJ6o9ITGxttFHp+DWDtiMs=; b=cS/ivYBOV0PqqYPLHlB1tZ+2RU
-	e71Ss1jKhKy65OgYr+ewCsIVVLV8Wxq8+2ohxGrv86g9TXEzczd1kwbGhnr/R5LXTSM1aWc2uMfBR
-	R22IRwb9yCRjhi96xL9do5wPap/Vj6Tb5sf81xdus4evQfIrfUHLU7XnDp1Q5ScXnaKkjCfLIiSfl
-	wsx/WK+sNq6S8AkTUprfCeRwMyN+or4hSFODe7iBFBToT07Zpg7KYTsIH5Bu4B5BjHbe+vokbKgs9
-	Jq5h5NVjokQcRzQnfzwRD0Uw6RRd0gOhwlsvWuSOXwaROKc1TRjLL6DMAW9RYQiQGN425kJRp9Yha
-	jkNiqsrw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xBSS7-0000000BWbA-1ivW;
-	Tue, 29 Sep 2026 07:40:39 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 797E7300446; Tue, 29 Sep 2026 09:40:38 +0200 (CEST)
-Date: Tue, 29 Sep 2026 09:40:38 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Yiwei Lin <s921975628@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] rbtree: update augmented data on the way down in
- rb_add_augmented_cached()
-Message-ID: <20260929074038.GQ2009045@noisy.programming.kicks-ass.net>
-References: <20260928213736.GA2947991@noisy.programming.kicks-ass.net>
- <20260929052446.159008-1-s921975628@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KNnv5PBA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eBA2dsoEYS/wtSZz82k25VGaT71+syN4FN5MUymZna0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790667652; v=1; x=1791272452;
+ b=KNnv5PBAUPHONP872XcsV3YHT2kf3boMwF+KeJBf3DElF3WXfHav1InnYRf0yWu4Z7S/oquS
+ AcDw4u2eHJV401uHgP71Ob4pA8MJClASb0t7+BwxLqITp4FCjLSxO1VdpATvzynNUl5lMY9ORIk
+ K6bJImb343AIoXG+h+FJHtEI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df226f34b7057ee0;
+	Tue, 29 Sep 2026 07:40:33 +0000
+X-Mizu-Trace-ID: df226f34b7057ee0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
+Date: Tue, 29 Sep 2026 15:40:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929052446.159008-1-s921975628@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
+ state switching fails
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
+ <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Hui Peng <benquike@gmail.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928235159.515654-1-longman@redhat.com>
+ <941e5affde16b803741ddaf87b937f3d@kernel.org>
+ <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 01:24:46PM +0800, Yiwei Lin wrote:
-> On 2026/09/29 05:37, Peter Zijlstra wrote:
-> > This builds and boot, so it must be perfect, right ;-)
-> >
-> > Assisted-by: Brain
-> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> 
-> Right, thanks.
-> 
-> If you're fine with me carrying it, I can take it into v2 with and
-> derive ->merge() from the same RB_AUG() list, so
-> rb_add_augmented_cached() folds the new node into its ancestors in
-> the one pass down instead of the ->propagate() round trip.
-> 
-> One thing I am aware here:  RB_AUG()'s cmp only
-> expresses "pick one of the two", so min/max style aggregates; a sum or
-> a count (subtree size, total weight) can't be written, where the old
-> RBCOMPUTE could do anything.  Nobody in-tree needs that today, so it might
-> be acceptable as is, but it's a regression in generality for the same
-> price:
-> 
->         RB_AUG(val, aug, fold)  /* _val = fold(_val, child->aug) */
-> 
-> keeps the register-local recompute exactly as it is, drops RB_MIN /
-> RB_MAX in favour of the existing min()/max(), and a sum is just
-> "a + b".  For sched that's min, max and a wrapping-safe min for
-> min_vruntime. Do you think this can be accepted as is, or should I try
-> to make it more general?
 
-The fold() thing is indeed an excellent suggestion. Make it so ;-)
+Hi Waiman, Tejun,
+在 2026/9/29 11:16, Waiman Long 写道:
+> On 9/28/26 10:07 PM, Tejun Heo wrote:
+>> Hello, Waiman.
+>>
+>> The following is a Claude-generated review.
+>>
+>> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
+>>> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
+>>> don't leave any housekeeping"), the partition state can be freely switched
+>>> from "root" to "isolated" and vice versa. After that commit, the switch
+>>> from "root" to "isolated" can fail if it exhausts all the housekeeping
+>>> CPUs. Later on, the switch from "isolated" to "root" can also fail if
+>>> some of the partition CPUs are boot-time isolated by "isolcpus".
+>> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
+>> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
+>> add a Fixes: tag for it too?
+> 
+> Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition") comes after 103b08709e8a. From my point of view, the first commit is the one that introduces the bug. The second commit comes along assuming the existing code is right. That is why I didn't tag the second one even though the second one is easier to trigger than the first one.
+> 
+>>> The partition is made invalid when the switch fails. However, the
+>>> remote_partition flag for a remote partition can remain set and the CPUs
+>>> from the invalidated partition aren't cleared from subpartitions_cpus.
+>>> Fix this by properly disable the partition in this case.
+>> The reproducer below is a local partition and the fix covers that case
+>> too. The CPUs weren't given back to the parent, which is what leaves them
+>> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
+>> both? Also, "properly disable" -> "disabling".
+> OK, will update the commit log.
+>>
+>>> In the case of remote_partition flag, it should be cleared for a
+>>> invalidated remote partition. To be safe, the reset_partition_data() is
+>>> now enhanced to always clear the remote_partition flag. So there is no
+>>> need to explicitly clear remote_partition in remote_partition_disable().
+>> After the update_prstate() change, every path that invalidates a remote
+>> partition goes through remote_partition_disable(), so the other
+>> reset_partition_data() callers never see the flag set. If one did,
+>> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
+>> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
+>> this part?
+> Yes, I can drop this part.
+>>> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
+>>> and more than 16 cores, the following commands was executed after boot.
+>> "a x86" -> "an x86", "commands was" -> "commands were".
+>>
+>>> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>>>            */
+>>>           if (((new_prs == PRS_ISOLATED) &&
+>>>                !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
+>>> -            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
+>>> +            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
+>>>               err = PERR_HKEEPING;
+>>> -        else
+>>> +            disable_partition = true;
+>> If a root -> isolated switch fails isolated_cpus_can_update() under an
+>> isolated parent, partcmd_disable hands the CPUs back to the parent and
+>> partition_xcpus_del() adds them to isolated_cpus, which is the state the
+>> check just rejected. Switching to member ends up in the same place, so
+>> this may be fine as is.
+> If the parent is a valid isolated partition before the child partition is created, it had passed the isolated_cpus_can_update() check. So returning the CPUs back to its parent is fine.
 
-Thanks!
+However, after the parent is created, the ownership of full housekeeping
+CPUs can still change, so passing the check at creation time doesn't seem
+to guarantee that returning CPUs later is still safe.
+
+I tested with this patch applied on a 32 vCPU VM booted with:
+
+    nohz_full=1,3 maxcpus=4
+
+CPUs 0-3 are online, and CPU0 and CPU2 are initially available as full
+housekeeping CPUs:
+
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+
+    mkdir A C
+    echo +cpuset > A/cgroup.subtree_control
+    mkdir A/B
+
+    echo 0-1 > A/cpuset.cpus
+    echo isolated > A/cpuset.cpus.partition   # isolated={0,1}, full HK={2}
+
+    echo 0 > A/B/cpuset.cpus
+    echo root > A/B/cpuset.cpus.partition     # isolated={1}, full HK={0,2}
+
+    echo 2 > C/cpuset.cpus
+    echo isolated > C/cpuset.cpus.partition   # isolated={1,2}, full HK={0}
+
+At this point, CPU0 is the last CPU that is neither domain-isolated nor in
+nohz_full. Then:
+
+    echo isolated > A/B/cpuset.cpus.partition
+
+    cat A/B/cpuset.cpus.partition
+    isolated invalid (partition config conflicts with housekeeping setup)
+
+    cat cpuset.cpus.isolated
+    0-2
+
+The root -> isolated switch of A/B is rejected as expected, but the new
+disable path then hands CPU0 back to the isolated parent A, and
+partition_xcpus_del() puts it right back into isolated_cpus.
+
+In the end the domain-isolated CPUs are {0,1,2} and the nohz_full CPUs are
+{1,3}, so no full housekeeping CPU is left.
+
+Also, as Tejun pointed out, switching A/B to member leads to the same
+problem. What I tried in patches 2-3 of [1] was: if returning CPUs to an
+isolated parent would consume the last full housekeeping CPU, invalidate
+the outermost isolated ancestor and return its CPUs instead. Maybe this
+part can serve as a reference. The implementation there may not be good
+enough - it was an earlier idea and I am not sure whether it helps :)
+
+[1] https://lore.kernel.org/all/20260910094546.5852-1-guopeng.zhang@linux.dev/
+
+Thanks,
+Guopeng
