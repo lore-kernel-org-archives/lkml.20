@@ -1,206 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665533EB0E8;
-	Tue, 29 Sep 2026 05:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0EB355F5F;
+	Tue, 29 Sep 2026 06:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661571; cv=none; b=hGrP62UWjIEP8aqjVEzS7jfqeM27/fthSLl5c5CfwE5mEIu83fIa+U6RAbAmhcbVLVGeAURiluPYyZXP759XUVZxsGwkbaY9636S70GJtEX7j9XZTTL2QtkJCVvm7GiMW1utMXu44C22MNFeq8G+H3hLV8uDv+eByAaT1kj+A1E=
+	t=1790661628; cv=none; b=bePIbxCDUsGDC+32vExUz3iBczdIqqy1dgsFPem785gkpjJ5ST0m3DhiUm96vwDSkEHgDCwPDMhfy0yqu8FAWKqEZuzkEV6kdtmhKcxzk/QG1bvIQbTQ101VZFVZSgwcYOqGLJpQHya357WxAaUEw1jhO+FRIoj/jBrLALIGwCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661571; c=relaxed/simple;
-	bh=D9JLd4dpIZzZZ7DE9txpT2El/UV4sRsYdrIuSBZkI7A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tQqMMX/1eOuf1Wc8VbQRlmVGu5pwcCQ9fdbX28Kx6x08DMAP9M7krvkf25Lb2ND8cJrHfAEvmlRye5g2MV5V79n2hN/VBI/2E1FACnTFSktpFT7/LcGQzAL8KUOGdB/xVaGnjC9J1eTiODZC7ExVASt1aRPlug6tA+8X5rGjSuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=U9W4vr1h; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790661628; c=relaxed/simple;
+	bh=6zvgkwHGM3IYXt4bhTQK6rVG+b5tVzrDniAM/UIpvhc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dNikhNEa2Rv0Vuj8y/AGxkZbuuL47ULxshMdAH0E3MxgM2iCHng9cUFqaSp5fLnK61QVQ1ZpN0I+pCPoTUZnvbcer6jXzOClMZplXyWHqZuNGD0qgI7lFNkyElIgMYwVNwtXG6BGQUVKSRpP3jrNocuNTL3+n4JbScdvrTPTPd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fah8C/kZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="U9W4vr1h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Y9
-	4BlHEBr2KvDHcQY3ow1m8Cf6wzf7CF6maD4AwfmVU=; b=U9W4vr1hCQYE24v2tG
-	nSOcjKVFRQZDqiijIATSJMqjUOA0ehtav+C4XqfQfFgnOA93umLe7e+Mc/HjqKmn
-	lYWf0algWK3btpOb0LM3vLVVFX0dlW4aYgLttVfN3FTHEu0xwtV2spzZBeV8Yvbc
-	z4RuRFnXSsGwXsgYxtN0xMEnE=
-Received: from localhost (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDH71qqU7tqpgbuBw--.44037S2;
-	Tue, 29 Sep 2026 13:59:08 +0800 (CST)
-From: Honggang LI <honggangli@163.com>
-To: zyjzyj2000@gmail.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Honggang LI <honggangli@163.com>
-Subject: [PATCH v2] RDMA/rxe: Fix out-of-range unsigned-to-signed conversion for RDMA message in 2GiB size
-Date: Tue, 29 Sep 2026 13:58:53 +0800
-Message-ID: <20260929055853.164026-1-honggangli@163.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fah8C/kZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB601F000FF;
+	Tue, 29 Sep 2026 06:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790661626;
+	bh=OVz0v9wYmsxbPEfBPKUnNadFzZc9eqoExIFQ5MnwmNY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Fah8C/kZgpM9LCP6hJ536sx1XW4LVjuRMccBVIMt8kceYElOHtAf7MFtXdKMgEP+N
+	 j2mxHXcdrtQ+co+0sTUZf86QgE5OuzFjZCMLjFoDifbfugTa0gVQtqxl0ETbuG4KYk
+	 b+DF4NfGLzUQR2K9Is1WBQH3YH0xr3sjLtqok+58OYdz80j2UkMvgB8BYDDP98JDG1
+	 QwcWDiHJ2ZfZvRTZkJQa/fvqrolUsUE87WV5m2/Y+ogJZtSWtvC8dBiVkED7h672Y2
+	 MfRZHK6bwh0w8+sUA4v3YvzGY4H0ZUILncFvXogFJhpQFxY/4aGixnMTswmfs9CrEr
+	 1678NXMqQrYJw==
+Message-ID: <3b1e23f0-76d5-489c-a5eb-0774a21b0f63@kernel.org>
+Date: Tue, 29 Sep 2026 08:00:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDH71qqU7tqpgbuBw--.44037S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Ar1DKr1fGw47CFyDCF15urg_yoW7AF45pF
-	W8Jw1Ykr4fXF429Fs7Ar4DZrWay3Z8Ga4DGF9Iq3yYvF15C3yYgFnFkry7uFW5GFyUGa1x
-	tw12yryDGr43GFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRp6wXUUUUU=
-X-CM-SenderInfo: 5krqwwxdqjzxi6rwjhhfrp/xtbC6wyJzmq7U6xZwAAA3X
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+To: Zhentao Guo <zhentao.guo@amlogic.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
+ <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+ <20260928-efficient-secret-manatee-2fcca6@quoll>
+ <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+ <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+ <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When RDMA READ request for 2GiB in single WR, res->read.resid is u32
-0x80000000, which is INT_MIN (-2147483648).
+On 29/09/2026 07:57, Zhentao Guo wrote:
+> Hi Krzysztof,
+>> On 29/09/2026 04:59, Zhentao Guo wrote:
+>>> Hi Krzysztof,
+>>>
+>>>> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
+>>>>> Add bindings for Amlogic hardware decoder accelerator.
+>>>>>
+>>>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>>>>> ---
+>>>>>    .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>>>>>    1 file changed, 114 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>>> new file mode 100644
+>>>>> index 000000000000..751043c3d9cc
+>>>>> --- /dev/null
+>>>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>>> @@ -0,0 +1,114 @@
+>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>>>>> +%YAML 1.2
+>>>>> +---
+>>>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>> +
+>>>>> +title: Amlogic Video Decode Accelerator
+>>>>> +
+>>>>> +maintainers:
+>>>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>>>>> +
+>>>>> +description:
+>>>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>>>>> +  It supports stateless h264 decoding.
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    const: amlogic,s4-vdec
+>>>>> +
+>>>>> +  reg:
+>>>>> +    minItems: 2
+>>>> What is happening here? Previous version was different.
+>>> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos
+>> Since when?
+> It should have been minItems:2 ever since v1,I must admit that this is a 
+> long-standing mistake.
 
-    payload = min_t(int, res->read.resid, mtu);
+No. Since when 1 item is allowed?
 
-The `min_t` function will return -2147483648 for payload. The wrong
-size is propagated through call chain, `read_reply` -> `prepare_ack_packet`
--> `rxe_init_packet` -> `alloc_skb` . `alloc_skb` failed because of
-invalid size. The passive side failed to emit response packet for RDMA
-READ request.
-
-After fixed it, the active side of RDMA READ failed with error code
-"IB_WC_LOC_PROT_ERR". When RDMA_READ_RESPONSE_FIRST packet recived by
-the active side, `do_read` call `copy_data`. dma->resid is u32 0x80000000.
-
-   int resid	= dma->resid;
-
-This conversion set resid to -2147483648. `copy_data` abort as length
-greater than resid.
-
-RDMA SEND and WRITE 2GiB message works too, after fixed these two bugs.
-
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Signed-off-by: Honggang LI <honggangli@163.com>
----
-Change log:
-v2 -> v1:
-Use u32 for must-be-unsized quantities, no unsigned-to-signed conversion
-
- drivers/infiniband/sw/rxe/rxe_loc.h  |  4 ++--
- drivers/infiniband/sw/rxe/rxe_mr.c   |  8 ++++----
- drivers/infiniband/sw/rxe/rxe_net.c  |  2 +-
- drivers/infiniband/sw/rxe/rxe_resp.c | 17 +++++++++--------
- 4 files changed, 16 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
-index 64d636bf80fd..b5aaba7cf76f 100644
---- a/drivers/infiniband/sw/rxe/rxe_loc.h
-+++ b/drivers/infiniband/sw/rxe/rxe_loc.h
-@@ -64,7 +64,7 @@ int rxe_flush_pmem_iova(struct rxe_mr *mr, u64 iova, unsigned int length);
- int rxe_mr_copy(struct rxe_mr *mr, u64 iova, void *addr,
- 		unsigned int length, enum rxe_mr_copy_dir dir);
- int copy_data(struct rxe_pd *pd, int access, struct rxe_dma_info *dma,
--	      void *addr, int length, enum rxe_mr_copy_dir dir);
-+	      void *addr, u32 length, enum rxe_mr_copy_dir dir);
- int rxe_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg,
- 		  int sg_nents, unsigned int *sg_offset);
- enum resp_states rxe_mr_do_atomic_op(struct rxe_mr *mr, u64 iova, int opcode,
-@@ -91,7 +91,7 @@ void rxe_mw_cleanup(struct rxe_pool_elem *elem);
- 
- /* rxe_net.c */
- struct sk_buff *rxe_init_packet(struct rxe_dev *rxe, struct rxe_av *av,
--				int paylen, struct rxe_pkt_info *pkt);
-+				u32 paylen, struct rxe_pkt_info *pkt);
- int rxe_prepare(struct rxe_av *av, struct rxe_pkt_info *pkt,
- 		struct sk_buff *skb);
- int rxe_xmit_packet(struct rxe_qp *qp, struct rxe_pkt_info *pkt,
-diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-index 71d9ea477289..f2ffbefb9675 100644
---- a/drivers/infiniband/sw/rxe/rxe_mr.c
-+++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-@@ -418,13 +418,13 @@ int copy_data(
- 	int			access,
- 	struct rxe_dma_info	*dma,
- 	void			*addr,
--	int			length,
-+	u32			length,
- 	enum rxe_mr_copy_dir	dir)
- {
--	int			bytes;
-+	u32			bytes;
- 	struct rxe_sge		*sge	= &dma->sge[dma->cur_sge];
--	int			offset	= dma->sge_offset;
--	int			resid	= dma->resid;
-+	u32			offset	= dma->sge_offset;
-+	u32			resid	= dma->resid;
- 	struct rxe_mr		*mr	= NULL;
- 	u64			iova;
- 	int			err;
-diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-index 53daaf4c1eb2..f548f312b393 100644
---- a/drivers/infiniband/sw/rxe/rxe_net.c
-+++ b/drivers/infiniband/sw/rxe/rxe_net.c
-@@ -536,7 +536,7 @@ int rxe_xmit_packet(struct rxe_qp *qp, struct rxe_pkt_info *pkt,
- }
- 
- struct sk_buff *rxe_init_packet(struct rxe_dev *rxe, struct rxe_av *av,
--				int paylen, struct rxe_pkt_info *pkt)
-+				u32 paylen, struct rxe_pkt_info *pkt)
- {
- 	unsigned int hdr_len;
- 	struct sk_buff *skb = NULL;
-diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-index 02b16e2b49b8..4e71bc985721 100644
---- a/drivers/infiniband/sw/rxe/rxe_resp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-@@ -612,7 +612,7 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
- }
- 
- static enum resp_states send_data_in(struct rxe_qp *qp, void *data_addr,
--				     int data_len)
-+				     u32 data_len)
- {
- 	int err;
- 
-@@ -827,20 +827,21 @@ static enum resp_states atomic_write_reply(struct rxe_qp *qp,
- static struct sk_buff *prepare_ack_packet(struct rxe_qp *qp,
- 					  struct rxe_pkt_info *ack,
- 					  int opcode,
--					  int payload,
-+					  u32 payload,
- 					  u32 psn,
- 					  u8 syndrome)
- {
- 	struct rxe_dev *rxe = to_rdev(qp->ibqp.device);
- 	struct sk_buff *skb;
--	int paylen;
--	int pad;
-+	u32 paylen;
-+	u32 pad = 0;
- 	int err;
- 
- 	/*
- 	 * allocate packet
- 	 */
--	pad = (-payload) & 0x3;
-+	if (payload % 4)
-+		pad = 4 - payload % 4;
- 	paylen = rxe_opcode[opcode].length + payload + pad + RXE_ICRC_SIZE;
- 
- 	skb = rxe_init_packet(rxe, &qp->pri_av, paylen, ack);
-@@ -934,9 +935,9 @@ static enum resp_states read_reply(struct rxe_qp *qp,
- {
- 	struct rxe_pkt_info ack_pkt;
- 	struct sk_buff *skb;
--	int mtu = qp->mtu;
-+	u32 mtu = qp->mtu;
- 	enum resp_states state;
--	int payload;
-+	u32 payload;
- 	int opcode;
- 	int err;
- 	struct resp_res *res = qp->resp.res;
-@@ -982,7 +983,7 @@ static enum resp_states read_reply(struct rxe_qp *qp,
- 
- 	res->state = rdatm_res_state_next;
- 
--	payload = min_t(int, res->read.resid, mtu);
-+	payload = min(res->read.resid, mtu);
- 
- 	skb = prepare_ack_packet(qp, &ack_pkt, opcode, payload,
- 				 res->cur_psn, AETH_ACK_UNLIMITED);
--- 
-2.54.0
-
+Best regards,
+Krzysztof
