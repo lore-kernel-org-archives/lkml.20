@@ -1,164 +1,129 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-33.mta1.migadu.com [95.215.58.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5C83E4107
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8724B25B090
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790657724; cv=none; b=aAD+xmgmNwyn/sghGjKYAZMbUi0nKhF3Chxa+xQsJbvUvtQ7T/k2raBitnp8wsx9aNCHVWW4NogpPVTKHfvlzo2r0gdxlrl16cnn68GeOOuJ6Gsm3QLa6/SMEPTUMQTRSBUq/N9k+l7OcdVGBHzLHsAExpE7J9ZOWErKlkOfVAw=
+	t=1790658292; cv=none; b=m7kkCJMKKcTCqbNAbR4oF2oQ7OiTcSn3ZeR1qCbrNHHCiMPl7ydijPRbs/nnN4JcFEILGzCfebPM1cfeNhryr8Jb/d3sDJbjBzEhbVByPvFhCCWtZAMMox4HCZ6PYMHn4UuDIkHfQXkBbpvtkmRyh5oQvhaEtPbrvl2uOcvlorM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790657724; c=relaxed/simple;
-	bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bcoVFyUZCCByw/BHu2DQvIeZLoBgTCw2K/eFwBcNGJPRFFp/B732kZKAa/uVQ5IigdKmvPkCjv4W75XiAk2LgdSPMF2tlEoROEprA3miblNgBi6tjjU2NMGITQvihV7KzfuvVNYmDsatyzk/rkO0Uc8Z1mrnZDRvfXSVgPaJC88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech; spf=pass smtp.mailfrom=lolli.tech; dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b=RLXnHLDl; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=3rZUOArk; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lolli.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lolli.tech
+	s=arc-20240116; t=1790658292; c=relaxed/simple;
+	bh=X2Er36dW6b9JrfFpTHvUORetkfRXInvG1FR10LsA37o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ka4lXNWm6yCkyTiBkFEna7VDC4o5gPeOF6Gn5IkZWDvM6zFcYBKuhZ56TKeHfwkUFWKHI78nQttBoj4hzdsh0K3aak9xHlPQa6hTlyg2wwIILMXVxaIaBiWHwdRDv7bYX0Ee9pHMobx9Pa1G49o498Hr9o/pV/jav67aHLJlgEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pTMhf3Uo; arc=none smtp.client-ip=95.215.58.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lolli.tech header.i=@lolli.tech header.b="RLXnHLDl";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="3rZUOArk"
-DKIM-Signature: a=rsa-sha256; b=RLXnHLDlVdsRyqYcSA6XB+bss/sVXboUDxzKw9R2b9MhnTg/SzsRXAF9uE2cPO9BCYV0eZiaQYEZmuMoypBlL+V7ZgWu7ZCT0qr+FeBcIczl+PH2UyLSuetMSqo9lvZPXArnYJOg2uybOA9+xZs4F0aNxrVjdU4hA2C04VmRpUdyol/msIPH6LaLhTIcoNyWRoc3ED+hARUQFocmS+mJEH6EiQvGrc0xvBdf4Uy6Zz36EQMZu8BHEM1Sjlb9Yh/JP/t4iUKpPgmVsL+IIgVUvSU/HYAdZZ0ByJ+ADyRR+GlPuWaWDtfp523a6EwuAwY5casUH5TUdqnsbJlnoiWHNA==; s=purelymail3; d=lolli.tech; v=1; bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=3rZUOArkBleziwM4FQ5wYPYkk6gZZRmDmiigk8AaEVHGOW1vSpyHccBfFu9ChDwyzy+yq+U04Zt/c4fM6VC3g/5KhNwVqDxQB/tGmsq/nJKFhrhlFBGNtRiGpHhAXsO8/ZrWDeFHfbsk2pwUEd98YIjqc3qXODeKgo8Yi95+G6hTzkfaZk9+fy/oX/hIBdgi6ByndPkdlU7lIQ9eAhVF3OK77RSOwly5jgJNCs39pgsKOdK9Whei8NF0V7SXP8wfzet8hSzAakQBgi9KUuniC6jrvELhuJG3Vi5/5pjp/ElLmZDHihuXblJWryYXheBy/CKZMLxITNxsNbg4mUI4kA==; s=purelymail3; d=purelymail.com; v=1; bh=DQy9kMeP46ETkmDAA5NHAlK2UZeyCZDRJAADxhAESiE=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1437734:55302:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1755747678;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 29 Sep 2026 04:55:08 +0000 (UTC)
-From: lollipopkit <a@lolli.tech>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	io-uring@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lollipopkit <a@lolli.tech>,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/cmd_net: drop unextractable TX_TIMESTAMP skbs instead of requeueing
-Date: Tue, 29 Sep 2026 12:54:33 +0800
-Message-ID: <20260929045433.59435-1-a@lolli.tech>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pTMhf3Uo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X2Er36dW6b9JrfFpTHvUORetkfRXInvG1FR10LsA37o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790658287; v=1; x=1791263087;
+ b=pTMhf3UohD5bwsXuI0wgI1yW9DU/U4kpawbS3utkt3TTAzWQ2QkjMmFlZm8HbmvH6jJAmp+7
+ 7wDFrc/SbvDz0Cow+ShJJn+kAJPE/8UE7zXMUXGJMFVEZDfy8hjA7vkW6G9OyJJfg05Ty++Fw1V
+ bUqQ1e9YCOK9Trqd4mq9P2ZA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 31ac00f7d822a3a5;
+	Tue, 29 Sep 2026 05:04:47 +0000
+X-Mizu-Trace-ID: 31ac00f7d822a3a5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8fce9ea9-1947-4ec4-9154-cb71fbd75671@linux.dev>
+Date: Tue, 29 Sep 2026 13:04:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf] bpf: Zero-fill non-target CPU slots on BPF_F_CPU
+ insert of new per-CPU element
+To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
+ ast@kernel.org, daniel@iogearbox.net
+Cc: andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928214932.544124-1-omermetekaya0@gmail.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20260928214932.544124-1-omermetekaya0@gmail.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SOCKET_URING_OP_TX_TIMESTAMP selects error-queue skbs with
-skb_has_tx_timestamp() but extracts the timestamp with
-skb_get_tx_timestamp().  The two use different checks and can disagree:
-a skb the walk accepted can be rejected with -ENOENT forever.  When
-that happens the processing loop stops and skb_queue_splice() puts the
-unprocessed skbs back onto the HEAD of sk_error_queue.  The rejected
-skb is selected first on every following run, fails again, and blocks
-every skb behind it: new timestamps keep arriving and keep re-running
-the command, but nothing is ever delivered again.
+On 29/9/26 05:47, Ömer Mete Kaya wrote:
+> pcpu_copy_value() with BPF_F_CPU copies the value only to the target
+> CPU's slot and returns immediately, leaving all other CPUs untouched.
+> When inserting a *new* element, the backing per-CPU area may be reused
+> from bpf_mem_cache or a prealloc freelist without being zero-initialized,
+> so non-target CPUs retain stale contents of a previously-deleted
+> element in the same map — a same-map information disclosure.
+> 
+> pcpu_init_value() is used to initialize newly allocated elements, while
+> updates to existing elements call pcpu_copy_value() directly; non-target
+> CPU slots intentionally retain their previous values there.
+> 
+> The onallcpus=false path in pcpu_init_value() already handles new
+> element initialization correctly by explicitly zeroing non-current CPUs:
+> 
+>   if (cpu == current_cpu)
+>       copy_map_value(..., value);
+>   else
+>       zero_map_value(...);
+> 
+> Fix by adding a zero-fill pass in pcpu_init_value() after
+> pcpu_copy_value() returns, covering only the BPF_F_CPU new-element
+> path: iterate all CPUs and zero-fill every slot except the target.
+> This leaves pcpu_copy_value() unchanged so the update-existing-element
+> semantics are not affected.
+> 
+> Fixes: c6936161fd55 ("bpf: Add BPF_F_CPU and BPF_F_ALL_CPUS flags support for percpu_hash and lru_percpu_hash maps")
+> Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+> ---
+> Tested with a reproducer:
+> - Before the fix: CPU 1 retained 0xDEADBEEFCAFEBABE from the deleted
+>   element.
+> - After the fix: the non-target CPU read back zero.
 
-The disagreement is reachable without a race.  With
-SOF_TIMESTAMPING_BIND_PHC the walk never looks at sk_bind_phc, but
-skb_get_tx_timestamp() converts the hardware timestamp through
-ptp_convert_timestamp(), which returns 0 when no virtual clock matches
-sk_bind_phc (for example when the vclock was destroyed after the
-socket bound to it).  ktime_to_timespec64_cond() then fails and the
-extractor returns -ENOENT permanently.  Any skb with a non-zero
-hwtstamp is selected while SOF_TIMESTAMPING_RAW_HARDWARE is set, so a
-single such skb blocks even the software timestamps queued behind it.
+Could you add a selftest to prove the issue?
 
-Measured on real hardware, an I219-V (e1000e), using
-/sys/class/ptp/ptpN/n_vclocks to create and destroy the vclock the
-socket was bound to: 22 error-queue skbs generated (16 software + 6
-hardware).  Of the 21 extractor calls, 20 failed with -ENOENT and the
-one that succeeded delivered 1 software timestamp; deliveries then
-froze while 8 further sends kept re-running the command, and the
-remaining 21 skbs (15 software + 6 hardware) sat in the error queue.
-Both control arms (vclock kept alive; no BIND_PHC) delivered
-everything.
+You said a reproducer. But, I don't know what it looks like.
 
-With this patch applied on top of the CQ-full fix ("io_uring/cmd_net:
-end TX_TIMESTAMP multishot when the CQ is full"), A/B tested in a KVM
-guest from a single kernel binary, with the new behaviour behind a
-test-only runtime switch (the switch is test scaffolding and is not
-part of this patch).  The guest needs no special hardware: QEMU's igb
-model emulates hardware TX timestamping (TSYNCTXCTL/TXSTMPL/TXSTMPH)
-and the igb driver registers a PTP clock, so the guest reproduces the
-same failure the same way.  The two arms are separate runs with their
-own sockets and sends; the device holds one pending hardware
-timestamp, so how many of the 16 sends get a hardware skb varies per
-run (12 and 8 here).  Switch off: 28 skbs generated (16 software + 12
-hardware), deliveries froze at 1 and the remaining 27 (15 software +
-12 hardware) sat in the error queue.  Switch on: 24 skbs generated (16
-software + 8 hardware); all 16 software timestamps were delivered, the
-8 hardware skbs the extractor rejected with -ENOENT were dropped, and
-the error queue drained.
+> 
+>  kernel/bpf/hashtab.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index 8cc07e54daaa..dff4321f2828 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+> @@ -1099,6 +1099,16 @@ static void pcpu_init_value(struct bpf_htab *htab, void __percpu *pptr,
+>  		}
+>  	} else {
+>  		pcpu_copy_value(htab, pptr, value, onallcpus, map_flags);
+> +		if (map_flags & BPF_F_CPU) {
+> +			int target = map_flags >> 32;
+> +			int cpu;
+> +
+> +			for_each_possible_cpu(cpu) {
 
-recvmsg(MSG_ERRQUEUE) already treats such a skb as skippable:
-sock_recv_errqueue() dequeues it, returns the error message without a
-timestamp, and frees it.  Do the same here and keep the deliverable
-timestamps moving: drop the skb the extractor rejected and continue
-with the rest of the list.  The CQE-full case keeps its
-requeue-and-end-multishot behaviour.
+But wait, the 'map_flags & BPF_F_CPU' has been check in the first 'if
+()' condition in pcpu_init_value(). See the previous fix:
+https://lore.kernel.org/bpf/20260924102321.2120434-1-donggeunyoo.kernel@gmail.com/
 
-Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
-Cc: stable@vger.kernel.org # needs the CQ-full fix above
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: lollipopkit <a@lolli.tech>
----
-This applies on top of axboe/for-next (3769bc31a5b7).  The CQ-full fix
-is 3a3d93070c5e in io_uring-7.3; the two touch adjacent lines of the
-same loop, hence the stable note.
+Thanks,
+Leon
 
-Reproducer: a single-file liburing program that runs the three arms
-(destroyed vclock, live vclock, no BIND_PHC) against any NIC with
-hardware TX timestamps, plus a KVM guest setup using QEMU's igb model.
-Happy to post it or turn it into a selftest if that is useful.
-
-One behaviour change worth calling out: skb_has_tx_timestamp() and
-skb_get_tx_timestamp() read sk_tsflags independently, so a concurrent
-setsockopt(SO_TIMESTAMPING) can also make the extractor reject a skb
-the walk selected.  Before this patch that skb was delivered on a later
-run; now it is dropped, as recvmsg(MSG_ERRQUEUE) would.  With a thread
-switching sk_tsflags about 800k times against 20000 sends on loopback,
-this patch dropped 320 such timestamps.  Reading sk_tsflags once per
-run and passing it to both helpers removes that case (0 rejections, 0
-lost in the same test); it changes both helpers' signatures in
-net/socket.c, so I left it out of this fix.  I can send it as a
-preceding patch if you prefer the two together.
-
- io_uring/cmd_net.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-index 90d4ec7cc761..406fbe8b7d52 100644
---- a/io_uring/cmd_net.c
-+++ b/io_uring/cmd_net.c
-@@ -138,6 +138,21 @@ static int io_uring_cmd_timestamp(struct socket *sock,
- =09=09if (!skb)
- =09=09=09break;
- =09=09ret =3D io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-+=09=09if (ret && ret !=3D -ENOBUFS) {
-+=09=09=09/*
-+=09=09=09 * The walk selected this skb, but skb_get_tx_timestamp()
-+=09=09=09 * cannot extract a timestamp from it: the two use
-+=09=09=09 * different checks.  Splicing it back would put it at
-+=09=09=09 * the head of sk_error_queue, where every later run
-+=09=09=09 * selects it first and fails on it again, so nothing
-+=09=09=09 * behind it is ever delivered.  recvmsg(MSG_ERRQUEUE)
-+=09=09=09 * frees such a skb without reporting a timestamp; drop
-+=09=09=09 * it here as well.
-+=09=09=09 */
-+=09=09=09__skb_dequeue(&list);
-+=09=09=09kfree_skb(skb);
-+=09=09=09continue;
-+=09=09}
- =09=09if (ret)
- =09=09=09break;
- =09=09__skb_dequeue(&list);
-
-base-commit: 3769bc31a5b79ec406df085592fd9dc14ce7df12
---=20
-2.54.0
+> +				if (cpu != target)
+> +					zero_map_value(&htab->map,
+> +						       per_cpu_ptr(pptr, cpu));
+> +			}
+> +		}
+>  	}
+>  }
+> 
+> --
+> 2.55.0
 
