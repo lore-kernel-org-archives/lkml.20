@@ -1,248 +1,128 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2AD53A3A8
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4568539791
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700771; cv=none; b=NK84dnm6nmJdUO+MLjC+jY5gGDnLLvPOgfC4ymKnqYNL7LU6Zmq9IrbKFcpQyZ+DDW/CKewCF7WPyVVHzuNY6agsquu2aqHdtUyhAaYaJ9OnF2wKKbtzGSkM15oKE3CSewOlS3mB8bFfIf3kVslnCTEP3BoRm8vN6afIgkuhl50=
+	t=1790700779; cv=none; b=DYdtIoq5DLpqO3mv/hPr3aVdSukTJFOq3kbvKKnGU0UQm5DLwO54btH/VVAjkuF6NsHjdkvmXqYOZBiUar73pF/NVxEOu7F5Uwii1Jqcn/8l50nCdY6yeerWSSUADj5QtNqK2OkrWkUlRAimEYiFLuA39gCfnWs030dXkHmYKjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700771; c=relaxed/simple;
-	bh=CaGRYcmoudXU11QZBW+RXEllJE8sR+maRTwVpD6ZkwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OKP9XvWKtvkfmYUTyZJRedO2V/Oxnuzxr5oIruVD2wIjx6acLi4bVRIicj9giZBEkcbine+qk0Y6m21rL3PKNHW4drRaWfaJSMmCKNkjllccJf8N9IYDI1YjmGzOGdEWbsmoRA3nA/4BD7gmQPh4t3mhLMY9ysHCoR1L8DrQBIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5tdsQNQ; arc=none smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790700779; c=relaxed/simple;
+	bh=qaFCsp8c7CGfKFzZ18kTQk2ARCzvSbrZ20wb3yYF6SM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=I8SRIl9H4Jq2CgCDoRmrmO5cydSAj6KPX96oKp6IoJW7X3tf33ISGAVXgX+zOYBSYaUb3Qc9QRsjrmvTCoU5JrnHWWwz2JXnkKbMSaUsuDc0ZsFnpEG9ypJOrlMzAAm5MH8SRgIUZvbFL+iOkiHh6yOpKSt3+wpN7GcgTHdKBtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dUcghjw9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=egRAHL+q; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5tdsQNQ"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a49bc59559so36271041fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dUcghjw9";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="egRAHL+q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790700776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
+	b=dUcghjw9gZVrWVqhnBexcq9veeCro3FTcgwcEutZxrnS+sips9AMeQZ915hQJkIHtf8SU/
+	gEnKbsBypd3YhJAE7QU7IDAKBnIc00o2yOpVWVlyGu9+ONKeAK0c9PsnwQXVTqCkIl9FTf
+	A/twVWewIOjCZ0fM6WIVxJPsuCKsI9g=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-110-qYti6g5PM9-P3PMEn3ot2A-1; Tue, 29 Sep 2026 12:52:55 -0400
+X-MC-Unique: qYti6g5PM9-P3PMEn3ot2A-1
+X-Mimecast-MFC-AGG-ID: qYti6g5PM9-P3PMEn3ot2A_1790700775
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9175cbd3beaso41519666d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790700754; x=1791305554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1790700775; x=1791305575; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gg3hFgqk0ZsxaUG+QumlUoTIw9JpugzQWPqN5D8ejLw=;
-        b=n5tdsQNQw6McahZ4i3WgMLZ85kk0JP9fP92+maZg3pJI/OJoahM8EnLJtwAtDOolYj
-         m/g+c8RN4oo6+QOHUji9c6n5hXkHM/SgKP1B1wg6DwRnEZxrIe258Q+uKzNcSAI3CDln
-         1GXOL5ycQTtCdz8De+r4gjfm+kIWerXRcwmL9zTsjeduweYLbOpoSdjPbBUn0S07aDas
-         rOwQ+nUkzmjoazhEy8cV/44nU6gQOyzX7RE7GNQ2GRMTQHCYs3M9elW2bRGzErjM1Mek
-         fDGPrjBUrtGrzZToTRpj+LP39xtSWbHXlhdq4KDqdJxxOCmlmCVtthHp82tQuVfKzTg9
-         rAVA==
+        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
+        b=egRAHL+qQ5CsChrxeHhQheTQlicf6Zg5ZZZ0h4csWN29n8Jl3FgT0q5I+5Q51oOimO
+         qCDCsJvFpt/iGoRiGOv31u+KmRrRxXVyamegl8jj3aD7X/hIf7hbjs7wI9gKaocBAd38
+         75bf1arsMHLrg9FEZkhg2PCidZVnb93XFAR8dxWuhTBfWaZEt25rhv8xo7ONYtqcNS67
+         AYn7sjQuMLbUaI8LYHvriFz866tzGfyjsX6Pk5T0e9BQhNi3EDxBJjh6gmUhgH9XgxQ7
+         nwcBAhoUo4n0rGN8BZ/AeP7WJyO16RauklOZMUtYpxa8hiU5vX8SI5BCohZ98/Bz7oxL
+         JuqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700754; x=1791305554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gg3hFgqk0ZsxaUG+QumlUoTIw9JpugzQWPqN5D8ejLw=;
-        b=gegTWKT88KXzga1x7vxHXiJpO9/8eR0tDmmAfSiSuqDlk5lGbGfgYP9sVgNirnR/M0
-         AdLYKTAIil1p1qtesVWcOTUpOikVEdbgo6c45gStql4RyZmk7JwLAEp7F7fcwuvKNP8G
-         h2VrB/LJYZNPHBtIT6K1iONEHxoG4rTxzr+O/gRHYs77zwJEF+UJEOsOcI+EAL+mYsoj
-         MeQbPsoW2WCGh/FVc53pDrWHQqTepfMCEicrXMmEzUKK/oULi1a4cDVHtjyU7zlfOhpY
-         OPPZYSxX4TLlgQk4opcPF89rB/RrW7fvyull5v4Sd/EuBsvsB+QeMDh48/0J5gWu9YL8
-         yIaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfjOLMH/6DV84k7ywNXjuNemRf6LiDnlUJmC1y/PkuigFpJdZqH7cYHtvOQFAC/P1BjvAmvVc09zKS4OA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFuzZWYwjql18F+i7tTr7ENYYEsuS+Igw/jcoZEZOjE4bBBo/p
-	+iygCtDXokFK22cdgMdEi4BhPvXt9XJ1gRXRGZ2b2RlFP0rdGBEyv9WbYF3kUjs=
-X-Gm-Gg: AYBFou0KSDZmcoWNtaEtX10MyvSMZ/PM348t2VbA0UUYDowf4HDYSTJ8Io1iZaUyZ3X
-	uZZAwSRMcjoeNw0UizMqzWB05aa55FROkmcPLBOyHBtOed+EUCkXpa+ivaMfqO3X3pRVqk1CV55
-	1AzkY7Ng1ubQPcfJQhdLDWKlWz41eLhnid5Cid9z7PvOPgoz2PFJB1W4Ijn4E9lBChzQif2r1hB
-	r37hhj0YEM3RA2a4XkUDs4y9tPJifiueJKNS70k+Sqs7IIh2geH50sLI/VScIulbtnV7o3wj3RN
-	oGadDw6K+Dq3L+DVBW+OtDKcQFohU3nwcANlBRhJtzCMb3/cMK88oNEzKzDfcfVHp70g00n61/s
-	rEB2dUu+sGSV6sAcYvGcIEWoP1U07r/b/LIuX2td3FphyMqtKz5pJIxG9g2YNOIv9Rs5x1+2fVJ
-	7fWyGAaoaoG3RV2aB5H6DyHcvMRObn+maK1BJw0/8QnRM7qa/RXjWY/dEIOzS5Qw==
-X-Received: by 2002:a05:651c:19a7:b0:3a7:71d2:2f9c with SMTP id 38308e7fff4ca-3a771d2306bmr33601fa.23.1790700754468;
-        Tue, 29 Sep 2026 09:52:34 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a771947b14sm137751fa.32.2026.09.29.09.52.33
+        d=1e100.net; s=20260707; t=1790700775; x=1791305575;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
+        b=Hn5U8Q4U9XZymKnC3CwezC6sTZwOKplo8MyyLXa4tpvrVeyOTzjodNHMPKtTe62+O4
+         0UmI8Kerpl1c6G5ghEALgqUGW87A4XvokJY5/0nD1DsJmROLNSTETXqyaP3Z6mbQpChD
+         DhwsGGbhUshZ6y4O5ESHVuTDcmncMqQnUb5u405Me1ENLF5P5lM0GSWski66F0IK4uF+
+         smlatHq5Yevwta4xIz/QAImbg2i7kVhi4YebnYuJ8x164Qgu7IZgOcVvCDy7FXJD5jtX
+         1/l6MWMTwzHgN0rsRtAHDEJsWf8P/zyyc/7JXwxNZZfeDSzVkbKVAaBJKdyw6Y5K+Cws
+         yx2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzfQd+OMgarkoWuMAM+kOLO1wSb4A9kY2jVtt9oA/OhiDWYV+cJD+2cQki050KmDM7MiGhkqyZbwymRSSs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKvn25+NFoAuKdaRZsjA6/qPT/sr6mkPZXM5D20PuLZE5rKN/d
+	psMPiq1d82HeB8Ek47YC+frWcebN+aRY8PY2BZVJTmhmCd99nN81MI1E2WYojc8OoOqkARzyftG
+	sidv9V3VV9abjHfx3rQ0Tq+VBw1ARXTij/iQZTd8TBMA7+DmWhc8EKJJafrxLI3yE5A==
+X-Gm-Gg: AYBFou0aCy71xWwE9trP/nbLl7W4VEhiMo71oAlC+xf6EK20XAfhEbrTNtFnDvYzy46
+	A0rPrY6jtV808o5Z+gVcRTMrdsVYSxceli9uaVKgSQm/VRbFW6wpmgE6p4riVi1UXOI4iPKbZ+q
+	EbGdpYr5D3Zn0Vd9ajo7qyEUyb8uvx1oV5sYlFgHYLDISSm5AobRDayuHMttImkZrmCyQxj2V3l
+	J6B5wGv5tnxftlZQrZBmNWiH0Y8kIfnWiZx6bpdB6/q4+ZVEorJfKmOrpkH2gjcaYD2U2s5eOxn
+	04FFoLMIxB4ux/YfEx+wgwgyiwHCHRp23HoiF1vZu9nfJWVBFesNGoFkdb1qO7Wzto7iy+Jg/2V
+	Xw/lO2989K5bFfZMbs1b5Agp6BYSNJfJGQXwXdjoTGFMDjYzB6EI=
+X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302167356d6.14.1790700774726;
+        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
+X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302166736d6.14.1790700774056;
+        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d343c11sm14454746d6.25.2026.09.29.09.52.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:52:34 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH v3 4/4] thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
-Date: Tue, 29 Sep 2026 19:52:09 +0300
-Message-ID: <20260929165209.69669-5-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929165209.69669-1-sochnev.v.74@gmail.com>
-References: <20260929165209.69669-1-sochnev.v.74@gmail.com>
+        Tue, 29 Sep 2026 09:52:53 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Tero Kristo <kristo@kernel.org>, Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
+References: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: clock: ti,dm816-fapll-clock: Convert
+ to DT schema
+Message-Id: <179070075682.199845.16100370158110486691.b4-ty@b4>
+Date: Tue, 29 Sep 2026 12:52:36 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=329; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=bJDs7mdWAsDC2TJlkeIHEoIE2dsMin2hdtYBCmAzCEU=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v3m0NebrBsm9mQ4Hl9y92DZzMu/iiz+4DlU0rzR9M
+ 1FA12daXEcpC4MYF4OsmCLLklyjgojUVbb37miywMxhZQIZwsDFKQATuenP8M9CTMaqS9xVQDf2
+ cnxPoWMZh/VbFoG9r95JzwtcvCnyym2G//7vCvlD08qexIVmN324cEI2b/GkzxeO7uRkE1lgW8F
+ bzwQA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-AN7583 has three temperature sensors and the driver has constants for
-all of them, but it registers one zone and reads only the bandgap sensor.
 
-Register a zone per sensor; the thermal sensor cell selects it. A device
-tree may describe fewer zones than sensors. EN7581 still registers one
-zone.
+On Sun, 06 Sep 2026 02:52:04 +0530, Bhargav Joshi wrote:
+> dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
 
-Idle and with both cores loaded on a Nokia XG-040G-MF:
+Applied, thanks!
 
-  bandgap  56.9 C -> 59.3 C
-  GbE      58.7 C -> 61.5 C
-  CPU      57.0 C -> 61.1 C
+[1/1] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
+      commit: 64461f89a37a788789a1ce22979e3c0695ae0497
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/thermal/airoha_thermal.c | 64 +++++++++++++++++++++++++-------
- 1 file changed, 51 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 0f0e6f3af3cd..7c63a1b44a6b 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -245,6 +245,11 @@ enum airoha_thermal_chip_scu_field {
- 	AIROHA_THERMAL_FIELD_MAX,
- };
- 
-+struct airoha_thermal_zone {
-+	struct airoha_thermal_priv *priv;
-+	int sensor;
-+};
-+
- struct airoha_thermal_priv {
- 	struct regmap *map;
- 	struct regmap *chip_scu;
-@@ -263,6 +268,9 @@ struct airoha_thermal_priv {
- 
- struct airoha_thermal_soc_data {
- 	u32 pllrg_protect;
-+	/* Sensor mux value per zone, NULL without a sensor mux */
-+	const int *sensors;
-+	int num_sensors;
- 
- 	const struct thermal_zone_device_ops *thdev_ops;
- 	int (*probe)(struct platform_device *pdev,
-@@ -348,7 +356,8 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 
- static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
- 	int min_value, max_value, avg_value, value;
- 	int i;
- 
-@@ -374,7 +383,8 @@ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- static int en7581_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 				    int high)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
- 	bool enable_monitor = false;
- 
- 	if (high != INT_MAX) {
-@@ -642,8 +652,9 @@ static int an7583_thermal_read_diodes(struct airoha_thermal_priv *priv,
- 
- static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
--	int sensor_idx;
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
-+	int sensor_idx = zone->sensor;
- 	int delta_diode, delta_gain;
- 	int coeff, slope, offset;
- 	int tries = AIROHA_THERMAL_MUX_TRIES;
-@@ -651,9 +662,6 @@ static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- 
- 	int diode_zero, diode_d0, diode_d1;
- 
--	/* Always read sensor AN7583_BGP_TEMP_SENSOR */
--	sensor_idx = AN7583_BGP_TEMP_SENSOR;
--
- 	coeff = an7583_thermal_coeff[sensor_idx];
- 	slope = an7583_thermal_slope[sensor_idx];
- 	offset = an7583_thermal_offset[sensor_idx];
-@@ -717,7 +725,7 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 	const struct airoha_thermal_soc_data *soc_data;
- 	struct airoha_thermal_priv *priv;
- 	struct device *dev = &pdev->dev;
--	int ret;
-+	int ret, i;
- 
- 	soc_data = device_get_match_data(dev);
- 
-@@ -739,11 +747,31 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	/* register of thermal sensor and get info from DT */
--	priv->tz = devm_thermal_of_zone_register(dev, 0, priv,
--						 soc_data->thdev_ops);
--	if (IS_ERR(priv->tz)) {
--		dev_err(dev, "register thermal zone sensor failed\n");
--		return PTR_ERR(priv->tz);
-+	for (i = 0; i < soc_data->num_sensors; i++) {
-+		struct airoha_thermal_zone *zone;
-+		struct thermal_zone_device *tz;
-+
-+		zone = devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
-+		if (!zone)
-+			return -ENOMEM;
-+
-+		zone->priv = priv;
-+		zone->sensor = soc_data->sensors ? soc_data->sensors[i] :
-+						   AIROHA_THERMAL_NO_MUX_SENSOR;
-+
-+		tz = devm_thermal_of_zone_register(dev, i, zone,
-+						   soc_data->thdev_ops);
-+		if (IS_ERR(tz)) {
-+			/* A DT may describe fewer zones than sensors */
-+			if (i && PTR_ERR(tz) == -ENODEV)
-+				continue;
-+
-+			dev_err(dev, "register thermal zone %d failed\n", i);
-+			return PTR_ERR(tz);
-+		}
-+
-+		if (!i)
-+			priv->tz = tz;
- 	}
- 
- 	platform_set_drvdata(pdev, priv);
-@@ -751,7 +779,15 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 	return soc_data->post_probe ? soc_data->post_probe(pdev) : 0;
- }
- 
-+/* The bandgap sensor stays zone 0 */
-+static const int an7583_zone_sensors[AN7583_NUM_SENSOR] = {
-+	AN7583_BGP_TEMP_SENSOR,
-+	AN7583_GBE_TEMP_SENSOR,
-+	AN7583_CPU_TEMP_SENSOR,
-+};
-+
- static const struct airoha_thermal_soc_data en7581_data = {
-+	.num_sensors = 1,
- 	.pllrg_protect = EN7581_SCU_THERMAL_PROTECT_KEY,
- 	.thdev_ops = &en7581_thdev_ops,
- 	.probe = &en7581_thermal_probe,
-@@ -759,6 +795,8 @@ static const struct airoha_thermal_soc_data en7581_data = {
- };
- 
- static const struct airoha_thermal_soc_data an7583_data = {
-+	.sensors = an7583_zone_sensors,
-+	.num_sensors = AN7583_NUM_SENSOR,
- 	.pllrg_protect = AN7583_SCU_THERMAL_PROTECT_KEY,
- 	.thdev_ops = &an7583_tz_ops,
- 	.probe = &an7583_thermal_probe,
+Best regards,
 -- 
-2.55.0
+Brian Masney <bmasney@redhat.com>
 
