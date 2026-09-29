@@ -1,345 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2572563FAE;
-	Tue, 29 Sep 2026 19:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711221; cv=none; b=nJh1Gno+9AC7/nC+v7t8vadEUtNw0fM45LLf68tpNxdgtLbmmfrHx5STv9gvqKNEgXIZvRHNSMwr9YJSL6ImHw/lcNvlMmizXcXarlLYmLvuv2USekcsiGYged3hrHpPy9qffQIG0nM49TTu2OEud830MGhbcXq3zKxdV+RE1Js=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711221; c=relaxed/simple;
-	bh=wH/dwFvDVQbeyUnQoPA8e6l433TlwlBl8onkNJyr0uA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BG9+BYT0kYD4rG9flBrVoAU+wydVQT+lPgEA/YmIJJkOpO7jseN1w4LUHBgp75/hCecSA9DQbF9jF1oM1hWCUUYWJJKfAU3X7yqYvE6iYuAAPDIP8sQL3TXRleDnPZpwGe1lZ4B/eXCVP2c+74xo0YSGeyx3rP6Vf1lqS0Alxlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNvqdL2c; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF2246D567;
+	Tue, 29 Sep 2026 19:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790711241; cv=fail; b=aU3IpQZUUvcjwaklnysUmISlDmdig5PBZqvWnjugFgx/brrgSnHHx2eJuoF9oOTTtGA/z2xn9ZbwkH0dEirBh6cV2eTEGUtB9JHF46E1hRiaKl3L7/IL1yDggFIlRptAE2nVZQVQJfvOHPnxzToAgWmNoGWdcuQmj/OPI5qw8+c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790711241; c=relaxed/simple;
+	bh=S0IIw8g/K9Zd7P4lMSjHxUtLlx1AdScSp4+yojx7fLM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AhMmsmSynVrJGA6SQ66EeJfo3r45JxM3usXmORWR35UVvdWeX9m0dc2n57pgR5sRTyMxkmQyloxogC8jPLZNBY2G5lehW0kzTr7ngOXaWPnKoYnq/f7cvsqWsV2V/cPgdv4d+A3rykb/cM7l/uCVEJ6fR6APaLDlKXkyeL1kuJE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HLzCtlbE; arc=fail smtp.client-ip=40.107.208.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNvqdL2c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7431F000FF;
-	Tue, 29 Sep 2026 19:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790711219;
-	bh=HiNTupmKwpfKkS3g9iNzLPQ0hs/1u+N8ruRyY8+XoYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UNvqdL2cKc38mjozqD7PUzdm+2vHKtkorsESKmgrgCEpz25D0NnjnQ6bRCSrxXhm6
-	 LX+QqFM1ozAqGgTyZRQmsKlvvbqD2arvR8UY5GETNP697pWIZBc/foOZv8Wu/7sz/o
-	 WFcw24KeL6Eukj2j04hm3LXLRvfq7aUadK5h69KZVbnnEAl3OrNeZzFopAZn/sPP7n
-	 Gw4JdWx2m3IF/Gik4j7cBl+5xSoTDmGDWf3Pdt9S4b+garshxpxESKaPhn827aWbm2
-	 cE1gDIiGtpIr77KaTgTdV1PAmUGyj3ygB/jvOKKfAQiYyb/rElCCW7/QDShNGOXr5W
-	 b9TgTVzGdUxOQ==
-Date: Tue, 29 Sep 2026 20:46:52 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 15/20] dt-bindings: clock: add Synaptics SL261X clock
-Message-ID: <20260929-triage-unpiloted-cf3734477487@spud>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-16-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HLzCtlbE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mFu56/dK0CtnmzBYzrkhYUv0FB1Opwn5YZYocDP+Q0KFwcpPGZQSiauC5wSJ0Gr/owYQG6YYmrNpOqGuB0wP99RzkKJyqasazFEP8pOXEWrLJDXvYyZU/+3zXuaHdefGiPSTUIlO58FpNnuJavClmdphbDpB/rJvTcAEzW4kWJ8oB6xvguPxZBQfsOr/IPy5rKCRJ4UfFf253m3ILPdGjUm4kYdzboMBIlgdbnrOrdvYgT1MmzqeU5dLfH9dF/1vGPyG86jFg5PO9kuXe8+55Wx0sCrhldX6fC8axy0orrCIWQFSWklQ5B0GjVaeX/DTWjJ/cJ6rfJJuK34Ec5EutA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7FJnGdb5j6DzzQLEZaScLrgjD/pzJxj1rr+Zp+vLejg=;
+ b=gmvZSIPM2dvTuUhx8SOiGl5WMRkDBl8sI+dSEWIBaRx9AxLvTJENOqcCdKwvPyEIxCRM3sA3cTh2RtUEpbWUOpJgYLitgIM35XtJE14t/KHvr69BQ4E+9DsUFgIYgDhK6Yv3BqpHWIs6m6pUr9osDqNfAXJrbWDB8XdvYATmBRY2oIZ2GLTdpdmNQuDAwjYa/Z9tWJSF72vwtpbwzd3lfjBO0jiDG1COFIBlOalZVArJiOyAfHPOuUhinoyDHupIO8i78w6N50I9d6OGwo+ez/DwasDW83BgPLoOzKZ2pArW7o552qmrip4/3qMYHBhQvXh93ZglTsQbD0oxSgBESg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7FJnGdb5j6DzzQLEZaScLrgjD/pzJxj1rr+Zp+vLejg=;
+ b=HLzCtlbE7z5FohsZ/DuX6vpPr69jJaU+ieiLnysYE1NnmnR0hLwo32QZOhYrPHJ3a4SkBAOczmnw8pnsY9zhi5+gI9EvIWZnSKkTbMFrkZak4cOj+yUeD8XHnGh2L5SfY50wFl6e193eErkcjsE4o4ddcG9wNQ0R8BUh+q9hZkAeyFbucTHrgMmMYvR/xHt++8QBfDU19V1jxSVPBDIMQJqP1GoKyEt2vlDUBsQaybe1zxNxkWEUBwv5YV4sbsLUVK+D86un8iINbL0GRFlXeAwr+cRUq0wkhP9r5ak1s17v4eaJ5ZeAtCa8C5do00aAnRCJEobdJx9pQAxwRK8Dxw==
+Received: from BN9PR03CA0687.namprd03.prod.outlook.com (2603:10b6:408:10e::32)
+ by BL1PR12MB5755.namprd12.prod.outlook.com (2603:10b6:208:392::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 19:47:10 +0000
+Received: from BN3PEPF00022BC1.namprd04.prod.outlook.com
+ (2603:10b6:408:10e:cafe::26) by BN9PR03CA0687.outlook.office365.com
+ (2603:10b6:408:10e::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
+ 29 Sep 2026 19:47:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BC1.mail.protection.outlook.com (10.167.248.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 19:47:09 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 12:46:39 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
+ 2026 12:46:38 -0700
+Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 29 Sep 2026 12:46:36 -0700
+Date: Tue, 29 Sep 2026 12:46:34 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, Jonathan Cameron
+	<jonathan.cameron@oss.qualcomm.com>, <joro@8bytes.org>,
+	<bhelgaas@google.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<kees@kernel.org>, <smostafa@google.com>, <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>, Eric Auger <eric.auger@redhat.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<skaestle@nvidia.com>, <mmarrid@nvidia.com>, <skolothumtho@nvidia.com>,
+	<bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/15] iommu/arm-smmu-v3: Drain in-flight fault events
+ on domain detach
+Message-ID: <arwVmg0CHKKAZjCJ@nvidia.com>
+References: <cover.1789446520.git.nicolinc@nvidia.com>
+ <cc7eabdd07e7705c84e30b04c85271d4ddf66055.1789446520.git.nicolinc@nvidia.com>
+ <179018862538.3334538.17643821143626392419.b4-review@b4>
+ <arRTojIlWBOF57zO@nvidia.com>
+ <20260923233920.GJ2545495@nvidia.com>
+ <arrqLmlco3TeC/lV@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8PUm9dCOOcXFVem5"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260929061417.20733-16-jszhang@kernel.org>
+In-Reply-To: <arrqLmlco3TeC/lV@nvidia.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC1:EE_|BL1PR12MB5755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 921864be-d3e7-44ea-ee4e-08df1e62734a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|7416014|82310400026|5023799004|56012099006|4143699003|6133799003|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	6AJE6N1Gt+7XzEV9c3kF7p1PevUX2xcvdzWiOA4SYKVtCo4geKBuWm0BYEve/+cKvEJu78FEVHvzEqs0t8VZIul52TSSk4orwZdQybUyM6Hpvamf8DBmaXV90v1fsZAjHG23LqNJj50GgHpTbSQCKy0EUpfMVuF4fV93Og4T/tf/Uqs0SC5jk+H20dBcK6lc/XUp5xsg8yjwFMur5ZwO18dHjzyltWZ/zItWn4cd0k0DU+4MC0dkASgvhX9kl45eG4tDwRVJVPzSifO7jo90R5l2VUwPkB4fktvOpphVz/fSa3xiy0bg5N2UlxcTFzJ+D9c3J1dUJPCOHS7AcIv3KC98JF/cZMDVD00j7ZHBqXnPZwPLcchx5ZZqbS3YZh0RsHBgVBG2Fazn0OFdLf7Un1pFOA7eZy9ANDUVrMFkYqiGmtWe4hMJclYrZB5kQOA5G54LLz1XTvR6+n5ugFdOYoHxTuTeedraPPq4P8+wJZ8ZisZx4+KWkugzNP/CClZX8zt7iKry4u8whMGV/ODT6n+bJRpXTy0NUE1hmgVL8d+aAsBBNJxfoLCNZmormJEnsHYCHjApJmBHjoJp3nvhTnelusO37e71ybvIsdiwrpIFc82tOClBLTupLpSB2y8pJp2rGv6X/8Hc2mjj0nl5XEBltUU4Xgk3RJ+ELobfsDk0qiSgQcxozwEdEvmcrNRfAU/gf/R0GC7kSoKaf9s/6w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(7416014)(82310400026)(5023799004)(56012099006)(4143699003)(6133799003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	VsNCok/rsMhKx10MrppqmUGzbOd3t3taXI9WQMdZR/965Rj7jNZVfXeNevZw8KKJAONW3jZGJm9rAEU3yZ1ZLfubNFeNLSVeDmbzr4JPMSfyx6wluRTVk86NDY+0IubomhGZdAtEHQhkRryIfzwxPKZais9H2Ixpxv5xW8LHZeDNqOmaKqaTSZRohUpLgvuTWBDkow37fvARgkTjGSZc9fZsDWXIqOhcxMEsHkwK+P5mGOpolPN05Cqq/r+y93tsso5vbXbXRdHspytFC6xtaQuh0G85P6OwBVyZklmN7dkfJBcwnycYFPKpi+9yOeRyx9nw/604NKs1JJgOSHybRiHzTRwr+44HbBVbDK3o197nyaoe5H9t0X9ZiZQATjSHjw4Wgoq/UMod/xbMZRGAnKIPHXcdIn+8wTALnSCMDrLLIdJHNcr19w82rh7wnfTD
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 19:47:09.7913
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 921864be-d3e7-44ea-ee4e-08df1e62734a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5755
 
---8PUm9dCOOcXFVem5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, Sep 28, 2026 at 03:29:02PM -0700, Nicolin Chen wrote:
+> On Wed, Sep 23, 2026 at 08:39:20PM -0300, Jason Gunthorpe wrote:
+> > On Wed, Sep 23, 2026 at 03:33:06PM -0700, Nicolin Chen wrote:
+> > > > But I wonder if the point of this has been lost? Prior to calling the
+> > > > driver attach functions the core code already changes the xarray:
+> > > > 
+> > > > 	curr = xa_cmpxchg(&group->pasid_array, pasid, NULL,
+> > > > 			  XA_ZERO_ENTRY, GFP_KERNEL);
+> > > > 
+> > > > That immediately makes the threaded IRQ safe since it calls
+> > > > iommu_attach_handle_get() which now fails.
+> > 
+> > Hmm, actually that's a sneaky cmpxchg that is only doing reserve..
+> > 
+> > > I am not sure about that. Looking at iommufd_hwpt_replace_device(),
+> > > there can be a old_handle != NULL, in which case the cmpxchg() would
+> > > not change the xarray?
+> > 
+> > I think this is wrong, there is no way it can work like this where the
+> > attach continues to see the to-be-detached domain across the
+> > flushes. No amount of flushing can fix it.
+> > 
+> > Somehow we broke it :\
+> 
+> I'm trying to fix this by replacing xa_cmpxchg() with xa_store().
+> 
+> However, an asynchronous iommu_attach_handle_get() could return the
+> old_handle in the iopf path, before xa_store() in the detach path:
+> 
+>  - If a different domain is replaced, a driver callback is invoked
+>    calling synchronize_irq() and iopf_queue_flush_dev(). And this
+>    closes the window on any the old_handle reference before being
+>    released.
+> 
+>  - If a different handle is replaced on the same domain, the driver
+>    callback is skipped. Then, the iopf path could hit UAF while the
+>    old_handle being released by the detach path?
 
-On Tue, Sep 29, 2026 at 02:14:12PM +0800, Jisheng Zhang wrote:
-> Add support for clocks, plls in Synaptics SL261X SoCs.
->=20
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  .../bindings/clock/syna,sl261x-clk.yaml       |  92 ++++++++++++
->  include/dt-bindings/clock/syna,sl261x.h       | 131 ++++++++++++++++++
->  2 files changed, 223 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/syna,sl261x-c=
-lk.yaml
->  create mode 100644 include/dt-bindings/clock/syna,sl261x.h
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml=
- b/Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml
-> new file mode 100755
-> index 000000000000..3fd380c1dd39
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml
-> @@ -0,0 +1,92 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/syna,sl261x-clk.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Synaptics SL261x clock controllers
-> +
-> +maintainers:
-> +  - Jisheng Zhang <jszhang@kernel.org>
-> +
-> +description: |
-> +  The SL261x clock hardware is divided into SoC, CPU, AIO, and system
-> +  manager register blocks. Each clock controller is a child of the node
-> +  containing its register range. The CPU clock node has a phandle to the
-> +  global chip control syscon.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - syna,sl261x-soc-clk
-> +          - syna,sl261x-cpu-clk
-> +          - syna,sl261x-aio-clk
-> +          - syna,sl261x-system-clk
-> +      - items:
-> +          - const: simple-mfd
-> +          - const: syscon
+False alarm. It's actually not reachable today. There is only one
+caller from iommufd, where a domain reattachment doesn't swap the
+attach handle but bypass that:
 
-What's going on here? You're entirely missing specific compatibles for
-your syscon nodes (which aren't clock controllers and shouldn't be
-defined here.
-Similarly to the reset stuff, why can't these just be parts of their
-parent nodes?
+	if (hwpt == old_hwpt) {
+		mutex_unlock(&igroup->lock);
+		return NULL;
+	}
 
-Thanks,
-Conor.
+I will send a small iommu-core series for review.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  syna,gbl-syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle to the SL261x global chip control syscon.
-> +
-> +  '#clock-cells':
-> +    const: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: Reference clock used as the input to the PLLs.
-> +
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: syna,sl261x-cpu-clk
-> +    then:
-> +      required:
-> +        - syna,gbl-syscon
-> +    else:
-> +      properties:
-> +        syna,gbl-syscon: false
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    osc: clock-osc {
-> +        compatible =3D "fixed-clock";
-> +        #clock-cells =3D <0>;
-> +        clock-frequency =3D <25000000>;
-> +    };
-> +
-> +    chip: syscon@f7e10000 {
-> +        compatible =3D "syscon", "simple-mfd";
-> +        reg =3D <0xf7e10000 0x10000>;
-> +
-> +        clk: clock {
-> +            compatible =3D "syna,sl261x-soc-clk";
-> +            #clock-cells =3D <1>;
-> +            clocks =3D <&osc>;
-> +        };
-> +    };
-> +
-> +    cpu_wrap: cpu-wrap@f7e30000 {
-> +        compatible =3D "syscon", "simple-mfd";
-> +        reg =3D <0xf7e30000 0x4000>;
-> +
-> +        cpuclk: clock {
-> +            compatible =3D "syna,sl261x-cpu-clk";
-> +            #clock-cells =3D <1>;
-> +            clocks =3D <&osc>;
-> +            syna,gbl-syscon =3D <&chip>;
-> +        };
-> +    };
-> +...
-> diff --git a/include/dt-bindings/clock/syna,sl261x.h b/include/dt-binding=
-s/clock/syna,sl261x.h
-> new file mode 100644
-> index 000000000000..4649b233f08a
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/syna,sl261x.h
-> @@ -0,0 +1,131 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> +/*
-> + * Synaptics SL261X clock tree IDs
-> + *
-> + * Copyright (C) 2025 Synaptics Incorporated
-> + *
-> + * Author: Jisheng Zhang <jszhang@kernel.org>
-> + */
-> +
-> +/* SoC domain */
-> +
-> +/* GBL common clks */
-> +#define CLK_CPUFASTREF		0
-> +#define CLK_MEMFASTREF		1
-> +#define CLK_CFG			2
-> +#define CLK_SYS			3
-> +#define CLK_PERIFSYS		4
-> +#define CLK_APBCORE		5
-> +#define CLK_APBSER		6
-> +#define CLK_ATB			7
-> +#define CLK_HPC			8
-> +#define CLK_EMMC		9
-> +#define CLK_SD0			10
-> +#define CLK_SD1			11
-> +#define CLK_GETHRGMII		12
-> +#define CLK_GETHRGMII1		13
-> +#define CLK_GE0_PTP_REF		14
-> +#define CLK_GE1_PTP_REF		15
-> +#define CLK_USB2TEST		16
-> +#define CLK_USB2TEST480MG0	17
-> +#define CLK_USB2TEST480MG1	18
-> +#define CLK_USB2TEST480MG2	19
-> +#define CLK_USB2TEST100MG0	20
-> +#define CLK_USB2TEST100MG1	21
-> +#define CLK_USB2TEST100MG2	22
-> +#define CLK_USB2TEST100MG3	23
-> +#define CLK_PERIFTEST125MG0	24
-> +#define CLK_PERIFTEST200MG0	25
-> +#define CLK_PERIFTEST200MG1	26
-> +#define CLK_GPU			27
-> +#define CLK_NPU			28
-> +#define CLK_AVIOSYS		29
-> +#define CLK_AIOSYS		30
-> +#define CLK_AVIO_LCDC2SCAN	31
-> +#define CLK_AVIO_IPI		32
-> +#define CLK_AVIO_P		33
-> +#define CLK_AVIO_DPHYRXTXESC	34
-> +#define CLK_AVIOFPLL		35
-> +#define CLK_AVIO_RX_SCANBYTE	36
-> +#define CLK_AVIO_RX_SCANTEST	37
-> +
-> +/* GBL gate clks */
-> +#define CLK_USB0CORE		38
-> +#define CLK_SDIOSYS		39
-> +#define CLK_EMMCSYS		40
-> +#define CLK_GPUAXI		41
-> +#define CLK_GETHRGMIISYS	42
-> +#define CLK_SDIO1SYS		43
-> +#define CLK_USB1CORE		44
-> +#define CLK_GETHRGMII1SYS	45
-> +#define CLK_USB0PHYREF		46
-> +#define CLK_USB1PHYREF		47
-> +#define CLK_APBUART0		48
-> +#define CLK_APBUART1		49
-> +#define CLK_APBUART2		50
-> +#define CLK_APBUART3		51
-> +#define CLK_APBI2C0		52
-> +#define CLK_APBI2C1		53
-> +#define CLK_APBSPI0		54
-> +#define CLK_APBSPI1		55
-> +#define CLK_APBSPI2		56
-> +#define CLK_APBSPI3		57
-> +#define CLK_APBGPIO		58
-> +#define CLK_APBTIMERS		59
-> +#define CLK_APBSYSCNT		60
-> +#define CLK_APBWDT		61
-> +#define CLK_APBDMA		62
-> +#define SL261X_CLK_MAX		63
-> +
-> +/* cpuss */
-> +#define CLK_CPU0		0
-> +#define CLK_CPU1		1
-> +#define CLK_DSU			2
-> +#define SL261X_CPU_CLK_MAX	3
-> +
-> +
-> +/* sysmgr domain */
-> +
-> +#define CLK_CFG_UART0		0
-> +#define CLK_SER_UART0		1
-> +#define CLK_CFG_UART1		2
-> +#define CLK_CFG_UART2		3
-> +#define CLK_CFG_UART3		4
-> +#define CLK_CFG_GPIO		5
-> +#define CLK_CFG_I2CM0		6
-> +#define CLK_CFG_I2CM1		7
-> +#define CLK_CFG_SPIM		8
-> +#define CLK_CFG_SPIS		9
-> +#define CLK_CFG_I3C		10
-> +#define CLK_CFG_XSPI		11
-> +#define CLK_AXI_XSPI		12
-> +#define CLK_CFG_PVT		13
-> +#define CLK_CFG_ADC		14
-> +#define CLK_CFG_PWM		15
-> +#define CLK_BUS_CAN0		16
-> +#define CLK_BUS_CAN1		17
-> +#define CLK_CFG_PDM		18
-> +
-> +#define CLK_SER_UART1		19
-> +#define CLK_SER_UART2		20
-> +#define CLK_SER_UART3		21
-> +#define CLK_DEB_GPIO		22
-> +#define CLK_SER_I2CM0		23
-> +#define CLK_SER_I2CM1		24
-> +#define CLK_SER_SPIM		25
-> +#define CLK_SER_SPIS		26
-> +#define CLK_SER_I3C		27
-> +#define CLK_SER_XSPI		28
-> +#define CLK_HS_PVT		29
-> +#define CLK_CORE_ADC		30
-> +#define CLK_SER_PWM		31
-> +#define CLK_SER_CAN0		32
-> +#define CLK_SER_CAN1		33
-> +#define CLK_SER_PDM		34
-> +#define CLK_REF_CALIB		35
-> +
-> +#define CLK_MCU_REF		36
-> +#define CLK_MCU_PLL		37
-> +#define CLK_MCU_IO_PLL		38
-> +#define CLK_MCU_APB		39
-> +#define CLK_MCU_AXI		40
-> --=20
-> 2.53.0
->=20
-
---8PUm9dCOOcXFVem5
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwVrAAKCRB4tDGHoIJi
-0lBNAQDZMOYK+Svkt7bavpqwDnNzw0s9RrPE7ghr2xnd802PkwEAz6WsjFxD+d2k
-18PAB7WNfoQN2zckLdyXXfOvE+NmmQw=
-=A6nB
------END PGP SIGNATURE-----
-
---8PUm9dCOOcXFVem5--
+Nicolin
