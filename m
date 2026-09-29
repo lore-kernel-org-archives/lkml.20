@@ -1,56 +1,56 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA63459AFC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E947044D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:59:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665156; cv=none; b=sfsM3RjrdACq7ZxONgekW0bB+BGWALKThexhumhOlq4oWLqELbAFXNk+VwAk/NliOcgY5RZ7KhS5+OZn8ClEwp9TDPYF5JKMMOalpXZK0jzWKi7bRhIfs8tkcz4K/a4WVxC/5WlD7Mceqc+duCD9AssambMxLx37PwccOS52x2s=
+	t=1790665157; cv=none; b=dneGkdUTKjsmM0TIBmPWrZXTlZmm86IKi++sPFX4NKGyUSAhDbYjcAEOCuG8a7VqfP0L6qKpnoMtoV1FKp2GEsbOp4MDnXnlJwbcJNt4K3ywEEM80wV8dc+wXAqcHyUok7id8nhciK5p60Z/K9yZEBZ8bUzfZM10xK4iBbECsl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665156; c=relaxed/simple;
-	bh=P+MsrHFEjrElGIN7hMAk1Fg8wsWDhle8TK7KpcN/sH4=;
+	s=arc-20240116; t=1790665157; c=relaxed/simple;
+	bh=EzNAQc+zqELLfEsqlQ1kpZ+oVvfzTZI1o5rnigTKwoY=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=joaDxaTYrBPLaHzhbX9Tbj/GsaaqD3cwjkMaEAqfq+znGeZDgX38hf0YYmuEndjc8YMo7Np6b+pDHDHGqSXcUJt1CaDYlFc/unJT33Rcqn/YHnKcAUz7wWheGdjJVNUfn+M2H9WnJyAIWydv6X4EvPf/eGM3NtrnlhJ51JlmwVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Byt+rzdz; arc=none smtp.client-ip=74.125.82.70
+	 To:Cc:Content-Type; b=jkffTy43FhG0UfdxTFL6889i5Yx3a05flk6kYW8UgzAq/ydbOTSmp6TFmuCEnYUJZz32xAI6YmqUYGsPIYo7XmcFxvxEbCSE559RaPW2Amv/UxUgyZ2sloNKp7SQHe1LjofOWxIMtFoogqX/wZyhQ4ZRnZQ7wVadqeR7FVvQVKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P3q9Vrjx; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Byt+rzdz"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14373747468so3590562c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P3q9Vrjx"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-14373747468so3590610c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790665153; x=1791269953; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790665155; x=1791269955; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tJCPYv9x3XltGBwvKs/62P1gUROuXoCewbM+ScxfAAk=;
-        b=Byt+rzdzXbFRZ481H2oa59lXEZ1Ey7vNNkSoFjuBtH3d+a+fp0mSs69FJukc3oLEoG
-         GeH4ExG2xI+mwo6Flkc3tQjKiHu6LsISLYLt/pR4wjIrSOaMePFxPK+RL1l35rvRoCs3
-         ptSqfNyBRbLTqZqVDbUtvnwGJnbiBmtH+r14s87CaYyKz5LfdaCtBwiWw3Uycc76Ntuz
-         Zqqq9ijr9OXVI+uLaZCimGcy6gesZXIglQrHjb8wOViK+3NAuWNZIiFC+KPEa+OH08L8
-         0z1E73CbRc4d6aK+C0zR99IllaoPASkF+MIU1kb+h3b4nEN/jm/0DQAT775qP+I7dvOr
-         do6Q==
+        bh=f4/IsA7upi/zbnOhoxbNy0tZ5zJbyc70QixREWB/C8w=;
+        b=P3q9VrjxPyAEUOv8epBOBhlrWXiBBbZPkXE7HVjIUnO4kMc7UgUzxU7Q63ooY57XaV
+         dgmpWX5mYtQocJJrXmXWyMz0VpKlYKz/6dQV3yR8KFWOI96Vt9Fhrpt3WttyfplRElV7
+         6EKx9yhYTs1TFxomljPPYGfomgO4RAnKtyVnzbNI9REOTl9uBIrU+wnCrAyNPai1vDVn
+         QBhQ4P8NZEFsQQS97coVNOF7qnrYzwX5Q1dTndB4+lVEBbAg4SJ6HeHAZs+Az4IYRz0D
+         IoCyeaCQV/RZJenLAQTRXSu0OZgEt41ATCuFmhDgZgJQ21+gZDietBUSdz0RVYHZM853
+         xrFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665153; x=1791269953;
+        d=1e100.net; s=20260707; t=1790665155; x=1791269955;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tJCPYv9x3XltGBwvKs/62P1gUROuXoCewbM+ScxfAAk=;
-        b=HPnD9ojw+H39ApPXuIpaCoDYaJMV0wJk+gbwAOTACwjv4CC3fNdqfbAFYfvwTo+pIi
-         oCrSGDzhXFdv3JOLmv7A6vWNPwN6FPBr0VD+7WyE1tk/Mn8bW/sZwujB3xJ6Lataq4OX
-         Ej/CzyOblASnZ4aT8d/I502wzCNZPm142YJfFcGPV61xrZkLRuv43YjgtRGIYzOLMIWL
-         V7YdvGlRAgUaTXgtBdtHAG3JauUh5Df0LEllDAiVUf7pvTaG1QP4px824+DuD8gb+3xL
-         Cy+0bS87PX18xwRSh/yFq9toS89+HFAu7RP94GbBPfZWsKVzwLf99KzBfnL07pHvzyBG
-         xsZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMM9ZXbmi6/9S0wKEOAAaoFkDy5NG2aCU2NDODKDW5a8M9NKG7YfPgWqe/moOhXy+wMbF9zKtvIMr56ZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k62mV2wy7Ri29bWlHR6XO5256Gyc37ku7Ffhxi4CywJhCcskzl
-	TMMKXPM9MeZV3al5mik9nRe9n/WDqjgHR/j6zuO1+qza/WvtE0o7NFC0uPjDfKDRoU32qCP24Yl
-	hv7JoEXV7JA==
-X-Received: from dlbsw8.prod.google.com ([2002:a05:7022:3a88:b0:146:40d5:dd6b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:42c1:20b0:143:2982:1046
- with SMTP id a92af1059eb24-146d039e8e0mr13027199c88.39.1790665153145; Mon, 28
- Sep 2026 23:59:13 -0700 (PDT)
-Date: Mon, 28 Sep 2026 23:58:37 -0700
+        bh=f4/IsA7upi/zbnOhoxbNy0tZ5zJbyc70QixREWB/C8w=;
+        b=r1jx170+lUzBeTxHARLwo84a1y42Ke/X+slqD6SXBN0D88qcgB0z7l08y1uDqZJGfu
+         GVE9c+GZ7MMGTb0TU/MdNKjFjtILCY9BroX66JOhEL2CzZ0HqlrukIkqTNjkLzpdHgAQ
+         QIReJA7sNAw5FLRkq9lHO0t5LiEOVbdXz7owEuYPGSKibrphg5kNeM6Ij3KlzbMiOw2V
+         hd9YAny5jQOrcL1QBwqe3V5RKxsuZ/8uY8thpgzA0TxF2a/DcFqbS3TAa4wZ6bkO8Ys5
+         oZHcbRzQeIqBCEAm32vOgY2PRkjV0jWWT9sfb2BZfY7mNORHLNVD4F7HhIBmJMwE/ZAj
+         YUvg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/J56MHo1HXc1tM7S5cuuI2aArMuwitgBsirbZYU7KuK5JGNaWtYE4YRfuhg/z0h3ANL1f081bqJ7Zgv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVoG/AGivgqQ4eOqJn1WGfDOImgxQQPcXyhFN29kXW7/ugIOkY
+	yMWP2nYPDThL/JmP2o+T0C7zNB8WRu4spbvsnE/aknjRvPqzp+IQruFXxAJXd2ey29FtW0TRanm
+	2ed4YwrCrAQ==
+X-Received: from dlbrn7.prod.google.com ([2002:a05:7022:1507:b0:143:8a67:84b5])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2413:b0:14a:8cff:fbb8
+ with SMTP id a92af1059eb24-14a8cfffce7mr4019736c88.28.1790665155069; Mon, 28
+ Sep 2026 23:59:15 -0700 (PDT)
+Date: Mon, 28 Sep 2026 23:58:38 -0700
 In-Reply-To: <20260929065839.407062-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929062937.374137-1-irogers@google.com> <20260929065839.407062-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929065839.407062-8-irogers@google.com>
-Subject: [PATCH v3 7/9] perf python event_analyzing_sample: Default to
- in-memory SQLite database
+Message-ID: <20260929065839.407062-9-irogers@google.com>
+Subject: [PATCH v3 8/9] perf python: Initialize debug output on module load
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -70,117 +69,48 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-When -d/--db is not specified, event_analyzing_sample.py created a
-temporary file in /tmp via tempfile.mkstemp() and deleted it in
-trace_end(). As noted during review, creating the database in a shared
-/tmp directory does not reserve SQLite's auxiliary sidecar filenames
-(-journal or -wal), and a temporary on-disk file is unnecessary when the
-caller did not ask to persist the database.
+Unlike the perf binary's main(), PyInit_perf() does not call
+perf_debug_setup(). As a result, the first warning or error printed from
+the perf Python C extension hits debug_file() with _debug_file == NULL
+and emits 'debug_file not set' without a trailing newline before the
+actual diagnostic message.
 
-Default to sqlite3.connect(":memory:") when db_path is not provided,
-removing the temporary file creation and cleanup logic, and test both
-the default in-memory mode and explicit -d file mode in
-test_event_analyzing_sample_python.sh.
+Call perf_debug_setup() in PyInit_perf() and add the missing trailing
+newline to the fallback warning in debug_file().
 
-Fixes: eeb70645a809 ("perf python: Port event_analyzing_sample to perf module")
+Fixes: ec49230cf6dd ("perf debug: Expose debug file")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/event_analyzing_sample.py   | 35 ++++++-------------
- .../test_event_analyzing_sample_python.sh     |  8 ++++-
- 2 files changed, 17 insertions(+), 26 deletions(-)
+ tools/perf/util/debug.c  | 2 +-
+ tools/perf/util/python.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/python/event_analyzing_sample.py b/tools/perf/python/event_analyzing_sample.py
-index 15b47cff9fa3..b4efee88d94b 100755
---- a/tools/perf/python/event_analyzing_sample.py
-+++ b/tools/perf/python/event_analyzing_sample.py
-@@ -17,10 +17,8 @@ from __future__ import annotations
+diff --git a/tools/perf/util/debug.c b/tools/perf/util/debug.c
+index 6b5ffe81f141..b7095519419e 100644
+--- a/tools/perf/util/debug.c
++++ b/tools/perf/util/debug.c
+@@ -55,7 +55,7 @@ FILE *debug_file(void)
+ {
+ 	if (!_debug_file) {
+ 		debug_set_file(stderr);
+-		pr_warning_once("debug_file not set");
++		pr_warning_once("%s not set\n", __func__);
+ 	}
+ 	return _debug_file;
+ }
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index 690a94fb4f62..95140dfaef9c 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -5157,6 +5157,7 @@ PyMODINIT_FUNC PyInit_perf(void)
  
- import argparse
- import math
--import os
- import sqlite3
- import struct
--import tempfile
- from typing import Any
- import perf
+ 	/* The page_size is placed in util object. */
+ 	page_size = sysconf(_SC_PAGE_SIZE);
++	perf_debug_setup();
  
-@@ -117,16 +115,11 @@ session: Any = None
- 
- class _DB:
-     con: sqlite3.Connection | None = None
--    temp_path: str | None = None
- 
- def trace_begin(db_path: str | None = None) -> None:
-     """Initialize database tables."""
-     print("In trace_begin:\n")
--    if not db_path:
--        fd, db_path = tempfile.mkstemp(prefix="perf_events_", suffix=".db")
--        os.close(fd)
--        _DB.temp_path = db_path
--    con = sqlite3.connect(db_path)
-+    con = sqlite3.connect(db_path or ":memory:")
-     try:
-         # Drop any pre-existing tables so repeated runs do not accumulate duplicate events.
-         con.execute("drop table if exists gen_events;")
-@@ -297,28 +290,20 @@ def show_pebs_ll() -> None:
- def trace_end() -> None:
-     """Called at the end of trace processing."""
-     print("In trace_end:\n")
--    try:
--        if _DB.con:
--            try:
--                _DB.con.commit()
--                show_general_events()
--                show_pebs_ll()
--            finally:
--                _DB.con.close()
--                _DB.con = None
--    finally:
--        if _DB.temp_path and os.path.exists(_DB.temp_path):
--            try:
--                os.remove(_DB.temp_path)
--            except OSError:
--                pass
--            _DB.temp_path = None
-+    if _DB.con:
-+        try:
-+            _DB.con.commit()
-+            show_general_events()
-+            show_pebs_ll()
-+        finally:
-+            _DB.con.close()
-+            _DB.con = None
- 
- if __name__ == "__main__":
-     ap = argparse.ArgumentParser(description="Analyze events with SQLite")
-     ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-     ap.add_argument("-d", "--db", "--database", dest="database", default=None,
--                    help="Database file name (defaults to a temporary file cleaned up on exit)")
-+                    help="Database file name (defaults to an in-memory database)")
-     args = ap.parse_args()
- 
-     try:
-diff --git a/tools/perf/tests/shell/test_event_analyzing_sample_python.sh b/tools/perf/tests/shell/test_event_analyzing_sample_python.sh
-index 5f0a41080acf..cddb12b67698 100755
---- a/tools/perf/tests/shell/test_event_analyzing_sample_python.sh
-+++ b/tools/perf/tests/shell/test_event_analyzing_sample_python.sh
-@@ -45,8 +45,14 @@ test_file_mode() {
- 		exit 2
- 	fi
- 
--	# Run the script
-+	# Run the script with default (:memory:) database and with explicit -d path
- 	if ! perf script event_analyzing_sample -i "${temp_data}" \
-+		> "${temp_dir}/perf.mem.out" 2>&1 || \
-+	   ! grep -q "Statistics about the general events" "${temp_dir}/perf.mem.out" || \
-+	   grep -q "Error creating/inserting event" "${temp_dir}/perf.mem.out"; then
-+		echo "Default in-memory database mode test failed."
-+		err=1
-+	elif ! perf script event_analyzing_sample -i "${temp_data}" \
- 		-d "${temp_db}" > "${temp_dir}/perf.out" 2>&1; then
- 		echo "File mode test failed."
- 		err=1
+ 	Py_INCREF(&pyrf_evlist__type);
+ 	PyModule_AddObject(module, "evlist", (PyObject *)&pyrf_evlist__type);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
