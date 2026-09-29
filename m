@@ -1,64 +1,64 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9410F5304DC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CD63AC0C1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692661; cv=none; b=FUjJ33zGivzU69mwBRJlAnvR/aJkgnyj1r5/CSYaxvT1lp/w3t5GTrtnenrX1GwN1ULmrczQcV1A8KvpzNULzmuPqt/hxJ8FIPzKC3WUBEhu6Hb5Bbdi5UOxjURJTGWf3WF680CeKY8XemAEGUQCnTimdQpt7cvsXvM2qd7mjsQ=
+	t=1790692663; cv=none; b=Ky4zmDwW0KibAv2w9wls0E+o0xN+txC8SMKUJDI2CcsYhvV5WdUnoMjsnk4GTOksTAFjEe9Iu7UWbqjIpvf+za0fDOhe/QeYlzFtmO4sCbEx2n5pC2ERRLt3YzVMMNfKJxS0s8NH1C68yZ/oZzPg2ra+dlsRJIMydDfwTtRorlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692661; c=relaxed/simple;
-	bh=RNYVs1b2MfUS3C5igwUlM1MYoRVC16+Xnu5/VdpynTA=;
+	s=arc-20240116; t=1790692663; c=relaxed/simple;
+	bh=9u3a2NWAPRmai8vcI0/NGUrf/F7BbV2a0ai78l+zKMQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NYntqNoGPtXdaZiOJ3AQdox0EN2PFDMxTffOKOktD9AA8Isi+0BgpOM/AswJmF/JCGKsfFennyZCNHyR8P3gb3ZvWKRNMogbCe8p3CJlmYfaaENCsqx5OckOKmbw8J0QT8XT+f3E/mFE5hvH/OgVuu8vlYzmBHhwi4TsXCvYtoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AAVcNd2E; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=P42kyUBg9vKQmg/wB9tttlZ6+jy7AB2rLPO3LSnW1GFa0b68cZ9qcCU/CAVrcyhZjYNOOSvg2FxXveN2ey+AIdr0XzJ7xUeGfLcTtpDtCmTn5Xaie7zUoDmktWCAMimBamFCg2IWGI1RCgO8b6+RwUfQypaYt8xDHZ0zheRgCWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4VBhVZJ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AAVcNd2E"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so3237485f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:37:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4VBhVZJ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so26603855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:37:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790692656; x=1791297456; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790692658; x=1791297458; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u4gDb/OXaflwzpAJhKZ5ukG9Fa/2I6AjoWfAGtPX1sk=;
-        b=AAVcNd2E4z6PPyBX8qC9NEaF0NrbCQwqNG4P+q488OCDf/LWpWtXSf3JYt91MPN/z7
-         C/+cT6x8jHNeo7amuudgJdW7HVdEJwjVwtRJ0KLtfP0wUZmh8y0bKt4OWGRXfJJgK4qS
-         RUjnqBNZ1b+WBPmyLGVvIomXObilyOyW7n3Tym20vganwcvzMJKTxOGUQW0b/5kXhdRw
-         iF5GCfc7XreSxX5y7A18CQ3Zs5g11/DMO0jXKTdftY8vnrUvgjbtsScO7+NbpXP7DFBn
-         sBBEhJSHZ8DccHVxIA0IBZu/1MMqm/BMcBm7vr7MkVKC2Ch7VR1aMHt6Y5gG18VhnfpN
-         LGXg==
+        bh=Jy7sEpmEwJbZl5O5isZiPG/sgCmuKe0E6KT8jBOOk0U=;
+        b=O4VBhVZJyV0UQgvfbm1KW9DF4eXHUY77nfwmjXxavbuewBG1ijVmlttnopGNNRP1WV
+         xXhvAR+nU+VCNqqfbflvAEKnnMuIbodlhCXYK/FuyfONNazfsNWAPvzzNnYhOR/JmjBl
+         fJ4C0QSwu4Mi0OWinAave6799AGaHx5vQwwb8gT7I2nulGbA2VtAx4R+5uejT05GkM9Q
+         GFfWIDn1exX6/gSeQ05/A/Z32B+O8Rc3ZL7YhAR8uwPZvjIwO68y36/szzA/zMryN+lQ
+         JpSUmI0eIvUChKiowun0eAMN39uTS7nFGK4z3CNNjrANYeJO6r+E1PjOwTimJMN7MeOP
+         IDnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790692656; x=1791297456;
+        d=1e100.net; s=20260707; t=1790692658; x=1791297458;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u4gDb/OXaflwzpAJhKZ5ukG9Fa/2I6AjoWfAGtPX1sk=;
-        b=RFteTtRXWvuU6kjjdNgY0Sq83IVTNRetIVC3z79DZnF9zDvTsxPL38438NbjF5L1zL
-         G98K3zf4Ex2n4D4452P+40styO8mRNeM17qUuLM2Ij/NbgMOLgRazwf3LPVBnFrlAAYY
-         k+l3BojobzFSgaICKWJrmaBkh4HoqH3ZEkmsd6u3GuOW0Kbitr64FuVUiVG2GAJGo2Vy
-         d5Ss5CAtd0xg4TwkLB4orcJEoIh4PtfzELd+7M2zaBgsJlN7FyaDY5noEfS/o+LsSel1
-         ZZcH4CtxiuV6TlWtuXh1nPfUDRyO5FKp3Xua7D3mR4E4sPoyknlIGxPYJm+DBmLlnLO7
-         LVBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkCt34VS7bqDAURz/1mrOGnp889CFlYqGdNvvzbyeFQI17BIc5aIja/9APTR1aSPGZnacRgDRSpvJCDuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSmfLMiVx00Tkvcx5xR7kxlvSy0rLjIRJgc0+PDTbQfYeIhOS7
-	7Bq4Mbq5QZx3+gKJeqBPxV0cf0AZIk452GwWCqnpLqzsMS76lH8gsjnh
-X-Gm-Gg: AYBFou0cl7ex9pkGlNesQVd8abv/O5o/bODLX0ZX76cyS3jO75cpcP0Q02NjlndwlzI
-	827hvKkywQVYqvl815LMAAEAE6ilLgwKzNiGvfrQ+a60oElDAJikNLiCJCOu8FBC88Gl+GMKnFq
-	T5szwsD6SOq5xKR0E4hH1kAIKUV4ngTru2xG/XtogXX1HESktEDW6ZuGKU2YGQ+Y71nDySC94CJ
-	G7PSumr+/HWJqr1W+cXG8MjWz+QFXuhD2Ai2Q0522Rnb3rBHXMV3bZxNwzYaS1pSyLqxuQxIanF
-	ccFql+AgyCTXz9PNl0nN11EthEjvNUGrjF/+Q1mfpyTm4OLnM8IJUgVJjXiEYE+fdaqOpOUSnmA
-	WGAHTpEIPNzJPO//7kZM0JDooCIJNB4XCwvl8tXvv2ARpafhOrgr8pDOM1GDgNxQ5EHs2yvwzzD
-	ZV6YH4ngwI+SgG4YySo6ILYgKkgzTvlCDCmcKc/jpwxEFjr56CRrhgNV5QtcCNPV1oKrvPMiYv3
-	H4IZkj5vhkobjnQvhoUq8aL0Vx/GKvphJIQAU3ymeBe4QlU9swDj/gnk1k=
-X-Received: by 2002:a05:600c:8b34:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a000b647f1mr130365475e9.0.1790692655838;
-        Tue, 29 Sep 2026 07:37:35 -0700 (PDT)
+        bh=Jy7sEpmEwJbZl5O5isZiPG/sgCmuKe0E6KT8jBOOk0U=;
+        b=2RbE+FSBdQHkOyVujwrTJdOSRNsdhuFH83M4EDZmuKU9Kw+WA4fIm86W4qhC9uFkey
+         kWiJh7aDoZvDg8viIqTlvJH2yGhybL9jdLgntiHyrYSGLDy4m7WeDUc7DqkhtemAUyoU
+         Tgt8UL2IhgEg7Y4pdv0ZpemEFweDa21BZTuSRtS1k0SRJ4Uz5iPDaH01CfOZvRKtTvkt
+         5yuVpYIKN6ILnRqD0B6tgIqb0aZTaxJK4EGPVKd1AipWULqQZHjfJvxeqNhFtgczOKd3
+         m5ii7iXmITtgyp5scOiyWaCxurG/hQr09Kp7fh9uW/E2DcCQ1HgO5Oyv+R9Rtu/pfWuW
+         LsEw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0WQcIY4F4XIOzP4sZ/k/dT4IIWb4nDwjyuOaHK5584etDqLOcW1IJmD6mAWjjCStqJmvBayAdSVPewxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kG796YWYpk3M/NteKA02LCzuEy/0fCpF5n4uidDTw0fbuYf9J3
+	si3+cVcsUi+DCxI+7m7t0N0Y34iyq7X3XMqY8so9ubpRhCM0dFd1X2E5
+X-Gm-Gg: AYBFou11x/GK6GTfEVBu8HONeMbVs0AhPbviZu9Xay+7mFZrfDQp86IcvnF0a5uzrAA
+	KtlZDFQC7VeTpu41hUJUYNvxhD8oZtrFufBPe0meXuRfDlabvI0cbwu9lmNdkPhk7wioPycIFMX
+	dThxYZwZdc5NDwbtHv8nP8NLdGSGeCHAQuVv9Paoc7bBZLHLCqwadQdCtv/JVWoZ+EzbMvkYPrK
+	IifF8e5aSGAemiYa3A95ZsVVyezqIZFRD74B1znydkfKghEc0Qat30XX2wCdVxeO8eHeZsWgf34
+	5NLH7ZL2UnOoZt5U7XI0u4tQqLrztDpgG5EPgeXnPHOV5gsu2Cmx9lv+5rwVVCuGHlP3DL5m1Km
+	WHC4iuZ5PVdFosCA4qSk5sc8M0WRwEye2qjoaQ8abH3iMdA/vu2e780zclILsAYgqOXAfrUrha1
+	48WdokkeXXdn2zN9trHJsK4vw9jNW8/JB8kpYAznw8Q6oxIYhfJbH+6FJjgD3Jm/xDzLz3iVWba
+	r4qOvTjGJskmpnm+El9+NjTpjunhPdXw36ilJh1KWmz6dUQ8ZxjBiwKHEU=
+X-Received: by 2002:a05:600c:530e:b0:4a0:13ea:2ec3 with SMTP id 5b1f17b1804b1-4a013ea30d3mr4647925e9.35.1790692657899;
+        Tue, 29 Sep 2026 07:37:37 -0700 (PDT)
 Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8f93csm89716995e9.5.2026.09.29.07.37.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8f93csm89716995e9.5.2026.09.29.07.37.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 07:37:35 -0700 (PDT)
+        Tue, 29 Sep 2026 07:37:37 -0700 (PDT)
 From: David Carlier <devnexen@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -69,9 +69,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v2 1/3] media: ipu6: Fix ipu7 firmware context leak on stream start
-Date: Tue, 29 Sep 2026 15:37:29 +0100
-Message-ID: <20260929143731.43358-2-devnexen@gmail.com>
+Subject: [PATCH v2 3/3] media: ipu6: Check the ipu7 output pin queue before completing a buffer
+Date: Tue, 29 Sep 2026 15:37:31 +0100
+Message-ID: <20260929143731.43358-4-devnexen@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929143731.43358-1-devnexen@gmail.com>
 References: <20260929143731.43358-1-devnexen@gmail.com>
@@ -83,80 +83,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipu7_fw_isys_init() runs on every first stream start, but allocates the
-firmware context and queue configs with devm and never frees them, so
-each STREAMON/STREAMOFF cycle leaks them. Use kzalloc and free them in
-ipu7_fw_isys_cleanup().
+A PIN_DATA_READY response for an unconfigured pin dereferences a NULL
+output_pins_queue entry in interrupt context. Check the queue like the
+ipu6 path does.
 
-Fixes: 9ab793dbc176 ("media: ipu6: Add ipu7 fw isys ops")
+Fixes: f268203d74ff ("media: ipu6: Add ipu7 isr handler")
 Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 23 ++++++++++++++-------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
-index aee9227fd66c..379a84b595fd 100644
+index 379a84b595fd..d92d4cad30e6 100644
 --- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
-@@ -34,6 +34,8 @@ static void ipu7_fw_isys_cleanup(struct ipu6_isys *isys)
- 	}
+@@ -644,7 +644,8 @@ static int ipu7_isys_isr_one(struct ipu6_bus_device *adev)
+ 					   struct isys_fw_msgs, dummy);
  
- 	isys->fwctx = NULL;
-+	kfree(fwctx->queue_configs);
-+	kfree(fwctx);
- }
- 
- static int ipu7_fw_isys_open(struct ipu6_isys *isys)
-@@ -67,8 +69,7 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	int ret;
- 
- 	/* Allocate and init firmware context. */
--	fwctx = devm_kzalloc(dev, sizeof(struct ipu7_fw_com_context),
--			     GFP_KERNEL);
-+	fwctx = kzalloc_obj(*fwctx);
- 	if (!fwctx)
- 		return -ENOMEM;
- 
-@@ -76,11 +77,10 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	fwctx->num_output_queues = IPU7_INSYS_MAX_OUTPUT_QUEUES;
- 	num_queues = fwctx->num_input_queues + fwctx->num_output_queues;
- 
--	queue_configs = devm_kcalloc(dev, num_queues, sizeof(*queue_configs),
--				     GFP_KERNEL);
-+	queue_configs = kzalloc_objs(*queue_configs, num_queues);
- 	if (!queue_configs) {
--		ipu7_fw_isys_cleanup(isys);
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto err_free_fwctx;
- 	}
- 	fwctx->fw_entry = adev->fw_entry;
- 	fwctx->queue_configs = queue_configs;
-@@ -111,8 +111,8 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 				   &fw_config_dma_addr, GFP_KERNEL, 0);
- 	if (!fw_config) {
- 		dev_err(dev, "Failed to allocate isys subsys config.\n");
--		ipu7_fw_isys_cleanup(isys);
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto err_free_queue_configs;
- 	}
- 	fwctx->fw_config = fw_config;
- 	fwctx->fw_config_dma_addr = fw_config_dma_addr;
-@@ -144,6 +144,13 @@ static int ipu7_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 		ipu7_fw_isys_cleanup(isys);
- 
- 	return ret;
-+
-+err_free_queue_configs:
-+	kfree(queue_configs);
-+err_free_fwctx:
-+	kfree(fwctx);
-+
-+	return ret;
- }
- 
- static struct ipu7_insys_resp *ipu7_fw_isys_get_resp(struct ipu6_isys *isys)
+ 		ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
+-		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS)
++		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
++		    stream->output_pins_queue[resp->pin_id])
+ 			ipu6_stream_buf_ready(stream, resp->pin_id,
+ 					      resp->pin.addr, ts, 0);
+ 		else
 -- 
 2.55.0
 
