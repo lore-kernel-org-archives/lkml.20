@@ -1,102 +1,109 @@
-Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D60D4E77E5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0DA14E8E06;
+	Tue, 29 Sep 2026 09:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673474; cv=none; b=J8KWvKdMUapn7ZIQQtLuZ+UCoCjsIyaVMKaF3PBm4yKcZXA/dmCML2aJARGslfHKKXSRSdKh9aluYdZ6ZE/nBqjVZeJHPIyNFIIHmahmvDApjRJ0DdMAg2kUY3I+0RwcJdEHvRXx4sO3jYXGPLludnIODysrafhiGRlFjWC3Quo=
+	t=1790673488; cv=none; b=RqnGRbufC0Fp5iVlmVnkET2nbvNB+qJCwLxXvDrkScwipJl84CJdxDc+tX7prY5nAvyi6IdHAsrJ9Awq0OIs8OscYqibBv9LEHtSiFWM2fEu4TGkccOAnRa7h5NJ1EuZdv0LuL7TXMYQEUbWSotHyGV+V/ONXDqo5rvwuH8f3bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673474; c=relaxed/simple;
-	bh=iSukeeK7Al6PNeJotCXePCjE/8w/Cz5/cLnryJ5km90=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=MGO6+Wfmaq9sVOm8ZB/0kKSJZEzNl+oSYONnvam27VWMKLBY+EB365nf3lJ2JYeVBjJXFgz6RU693np7HDr3joDWysuQ8hZLWI9pt88m4Teah39PPlYFknp3W3jkqE/Uam1Mtd2UGq0xQZP7epavy6JnSWALJz1pixB+OfG78/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Hou/j0do; arc=none smtp.client-ip=91.218.175.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790673488; c=relaxed/simple;
+	bh=nOSEEl79eSk48PAKP3/2NBE1Ft2bwBsVgVFfWHWUJic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fy7FHsi6kpYOF8ZxVjkPZyPRCO7AA+vv72EvJJ6l1U4sa1O3xfNF4d2/S9bA73dZ5M30AaLo0B7iY66c99bd5lkYWxJ7CZaPcC7B2BdzWzgbWWdwMAzK7O5feK0vDtI3GSq64hnPauOH1pItiCoiIKNvrrOtBJyqhLShO1jViWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q8KFZd3B; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Hou/j0do"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iSukeeK7Al6PNeJotCXePCjE/8w/Cz5/cLnryJ5km90=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790673461; v=1; x=1791278261;
- b=Hou/j0doJ+qZJh8dGopI+sM3NWwd8w6EWjNjtH4msqqvs2dwVlgfOOycw4B8n9ssm8Zp0pDP
- dvUf1lriMcl6LjpxhBQQ3iOlpX2cDNJOZGmhSrmeljTZMIN9B0qMlixYQTdB33NR7dTH+K03A/q
- lsKy7eGT5rnhAyrkfYflwoJY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec4e120924e067b0;
-	Tue, 29 Sep 2026 09:17:41 +0000
-X-Mizu-Trace-ID: ec4e120924e067b0
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q8KFZd3B"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1CC601516;
+	Tue, 29 Sep 2026 02:17:52 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 60D093F85F;
+	Tue, 29 Sep 2026 02:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790673475; bh=nOSEEl79eSk48PAKP3/2NBE1Ft2bwBsVgVFfWHWUJic=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=q8KFZd3BBRBMJlgeMlWCKTfZDXQpc/UYxzhqcGtJ3aV/FDT5ME+QXAg3YCkZlL6Rq
+	 AUMJUmTWDbftCUh2+hDIII0FpkYzmhCqwziZkSilBbPkuW4/3qguitLTadWAhQdEYx
+	 Y3ll8F4B24bnf4hQfC8CHD0dtxvi5f0VmKw/xEmo=
+Message-ID: <62fc6a5b-2eaf-462b-af90-ecdc52673f4a@arm.com>
+Date: Tue, 29 Sep 2026 14:47:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 09:17:41 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <ac5f41d6e13f2331fdbbebd66fc28748e4e22502@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-To: "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael   
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- luka.gejak@linux.dev
-In-Reply-To: <6cd39b84d1b14bfd82887c07f28e154b@realtek.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
- <afb044e0aef8425880ddb24add9340ab@realtek.com>
- <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
- <c7069bdf8e9845e3b26898f545b0d3e5@realtek.com>
- <e38d50f20a710ae0b1424924b16ad260cdb04b99@linux.dev>
- <b6c4c35b28b1262b390d5c05993426e3b6d4ee95@linux.dev>
- <6cd39b84d1b14bfd82887c07f28e154b@realtek.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND 2/9] selftests/mm: mremap_test: skip test when
+ userfaultfd is unavailable
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
+ <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924050009.19974-1-sarthak.sharma@arm.com>
+ <20260924050009.19974-3-sarthak.sharma@arm.com>
+ <49b0b8c5-4605-41af-9a83-26ec6a07bb96@kernel.org>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <49b0b8c5-4605-41af-9a83-26ec6a07bb96@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-September 29, 2026 at 11:08, "Ping-Ke Shih" <pkshih@realtek.com mailto:pk=
-shih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E >=
- wrote:
+Hi David!
 
+On 9/29/26 1:30 PM, David Hildenbrand (Arm) wrote:
+> On 9/24/26 07:00, Sarthak Sharma wrote:
+>> The userfaultfd syscall can return ENOSYS even when __NR_userfaultfd is
+>> defined by the architecture headers, for example when the kernel is
+>> built without CONFIG_USERFAULTFD. The test currently skips for EPERM
+>> when the caller lacks permission to use userfaultfd but treats
+>> ENOSYS as a failure.
+>>
+>> Handle ENOSYS like EPERM and skip the mremap_move_multi_invalid_vmas()
+>> test when userfaultfd syscall is not implemented.
+>>
+>> Fixes: 742d3663a577 ("selftests/mm: add test for invalid multi VMA operations")
+>> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+>> ---
+>>  tools/testing/selftests/mm/mremap_test.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+>> index 5532d3151ed0..a5813a5e8f5b 100644
+>> --- a/tools/testing/selftests/mm/mremap_test.c
+>> +++ b/tools/testing/selftests/mm/mremap_test.c
+>> @@ -721,7 +721,7 @@ static void mremap_move_multi_invalid_vmas(FILE *maps_fp,
+>>  	if (uffd == -1) {
+>>  		err = errno;
+>>  		ksft_perror("userfaultfd");
+> 
+> Should we rather move that below the if? Doesn't quite make sense to print the
+> error if we are skipping and printing a proper message.
 
->=20
->=20>=20
->=20> > I even think we can drop this patch, no need to update MAINTAINER=
-S.
-> >  >
-> >  I little confused, as this conflicts past emails and this above.
-> >=20=20
->=20>  I *am little...
-> >=20=20
->=20>  So how would you like to proceed?
-> >=20
->=20You are the first people who asks me to add MAINTAINERS, and I have n=
-ot
-> thought about that before.
->=20
->=20After thinking this weekend, I think the basic requirements are:
->=20
->=20>=20
->=20> > Anyway, I want to see people really contribute community and then
-> >  > add their names, not reverse way. I don't like to clean MAINTAINER=
-S
-> >  > sometime.
-> >=20
->=20So, if you ask my personal opinion now, I'd say let's drop this patch=
-.
->=20
->=20As you subscribed mailing list, give suggestions and reviewed-by to t=
-he
-> patches after reviewing.=20
->=20
-> Ping-Ke
->
+Yes, I'll put it below the if block.
 
-Understandable, will do in v5.
+> 
+> Maybe that should go into the previous patch?
 
-Best regards,
-Luka Gejak
+Yes, will include in the ksft conversion patch.
+
+> 
+>> -		if (err == EPERM) {
+>> +		if (err == EPERM || err == ENOSYS) {
+>>  			ksft_test_result_skip("%s - missing uffd\n", test_name);
+>>  			return;
+>>  		}
+> 
+> Apart from that LGTM.
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Thanks!
+
