@@ -1,39 +1,81 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5134ED1AC;
-	Tue, 29 Sep 2026 09:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2286F4F4CE1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674958; cv=none; b=l7C+mIg/cSLkUlNd4mFmEm5e/KOgq6abYyQfY/mNYNK7Kj6J8kmyRUkofj8b98bGYVqR2S4XyLDHJOY1NxADYiTUjFnOiyjU7THZWrHJTGXhO03wer7YROQ7pcWQ9Sqa1YznY0GvMuAK/8p/2zHvEOHlsCjE460ktp6FQhuCKIw=
+	t=1790675010; cv=none; b=GllWlnZC+GvHItOoGVhmMJq4JDC/2EQojOjPHL8wyw6uSIAvvoDD264vFofuOdVgzJuPq+cmNb9v6LHtAX7Io5S5qcHjovhJF9DfIeQUCGoHqTwmn9hyhLy1V3STf93W9rcPqxUz0eD3D6xMtHLTViw8nF8p7gGo4tjzKFX470A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674958; c=relaxed/simple;
-	bh=VnYrNWJVmU9MCGcyPogJztfGV446YXDWQsf2nvHzMhQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=X8BUX3pWzsaAD9BR6TyLg33UkzmUe7XNX/ONEqu5383Bu9Amffe4euBz2+nbZYGiedkhGnDC9svbpEtFlIzSic7ikn7cozqlqiBPCf0lpBZr1p1IsxAySPTBtP9s+C272df9ZoWPXph6Li0cump96Cz06QXocycJ3/RUwvXfd2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GvLqbRrx; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790675010; c=relaxed/simple;
+	bh=OdQgp1gL3QtlQrsCyzRykVIHp+LSRj6Wvz9fNOlGfq0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NoEa50X6BlP0JdiFMlLAE+6SWaj1qdYhWTsmzJmf67Ge48S9VHyPO1GiA43LddELJthMHh4cPfppAn8gqE2wzfvGqekttqbZLesqIAwtOiKFIFnEvJFuHuMjcIpwoG3d2j+0CXAdZ2a8t6oDPkqyLSa1ilq83SpPyNOUcoY70EU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nwiugqug; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GvLqbRrx"
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7d6b327;
-	Tue, 29 Sep 2026 17:42:29 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nwiugqug"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-347866278b6so941925eec.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:43:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790675008; x=1791279808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MMNDGpCcXlVn+K/qHQzmlZIK4VMU5usMdqSK6Jfjkss=;
+        b=nwiugqugEBxWXwJ1f6Cn10SKxcinGVJ9OPvnea2HzFntgMPpgfvr33JXiDSezYcdBL
+         MjNgwzuVOkt2VDMRsT7QLVM+6j4zmdIVgvb5/dLd9ObzWU6iEnC5vaMpPCR8gEp/11Gi
+         9yWy9dPgH/AWA7Mt239c3HbpRV+d+pTz2ip+i4CpqQBTl2GvCd7d9tgO6qupRsrJ/Bzd
+         unbba4Hctgj18nwCA5cqAazUKh/r44tpbiqS50BW4LijFanSu4bWQoOM0gR3cVEylvas
+         boiI8dUxcKKFY37xZhVNIvHjBR3q9hlnMy2dBfdtPiW58hV9WJ76BW596sFKSo7D8iMH
+         iTeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790675008; x=1791279808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MMNDGpCcXlVn+K/qHQzmlZIK4VMU5usMdqSK6Jfjkss=;
+        b=ErC6dUeSPUZLIN5VCa9/Umrfe4nWPASUEiqQ+qRi6nqVV02ztSCdEq2dAGYDB0EyOc
+         q/qkgu5BSZLcnpJGgI7IO+DB8jl8LeZibT+yf5ZGA6giRynim9M8G00Ts1L8Jn2BDEUA
+         ZmMyvGB1Pziwhf7CXcarSYHOkjNT6xSUFeB+uXUU+oSxGHdZrZCX8bfQZ/YXRyiR9cZu
+         9K6iYCdjCvBYYe0pUUzp80doSCoMu0/ZZ4ra7JiBYqDgIrUIGcujPjo+Ik/tiHQvYBuO
+         P3cL4/bab4dal++B3ORVfeH1n3QOVz7J9wI11ETApQ5Vxb03cuqFxn4TIH2OkgKhvkkF
+         XJIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxN632hThr7auZ106VC4OSzk+GRe1wF77TJ2lyJYQiRareYjd/5d6zFzg2byASOjr7XhbacVB3wtS9xPbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm4VLGFqjXP3NayjDJwZPP8BeL4epe4l0ZlaTGRlfe+cmbyuzK
+	NuBUpY7xeEUCN/Qq16MnjftKGR+/mp18NmkW2/kayFBHiQB/cqWxQZm8
+X-Gm-Gg: AYBFou163dAlvGf1AguADGFXLK9XTUbRfDyBbRttf1ribTw9YkKuvulZJhYpDE39TO1
+	25wZRYemMbvKT8WICnGHfyGKjbKz7tIrjPPgba6Vga5Z9lnh2oEKN/R3Ol1k0qawg8HRG5xI1AO
+	6Kx1OMMVRYTvdcs69XfLnmnFtHwxK4a6Fk5CX5VPAm+JeOwdqwTBIsinUC5/MtzLn65xiIZB+Rk
+	NuFW5YeVNnQD54zRuoj7fLV/xszEsm3ePgfk+2eIQF3RU4b90CWyr2NWkLOcV7RCATiMs9dRXn5
+	EBgUHyzSEFRMu5lq6XPrZTYdnQxcKoVW6obe315foctOlO+ysDeYqTI7cjQvFwbTQLxwsG92fon
+	YbzvDgLHVmT5PZnbRQMWLENSx49I3Qtj2OYkn9SVTEvadkmEm6Gbd4DZArC8luWwhXEjN/ikE4F
+	4onC0AA3nafMP+x0ytx+L6XWh8Ca17nvgaXnYxY16wIonnjxX/7bXXQMq/RA==
+X-Received: by 2002:a05:7300:3e95:b0:33b:c29a:7c3b with SMTP id 5a478bee46e88-3426cddfb00mr11220105eec.0.1790675008092;
+        Tue, 29 Sep 2026 02:43:28 -0700 (PDT)
+Received: from evangelion-g ([2a09:bac5:40e4:11cd::1c6:2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141a4a5ecsm36247742eec.3.2026.09.29.02.43.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 02:43:27 -0700 (PDT)
+From: Ayush Yaduvanshi <ayush37735@gmail.com>
+To: Edward Cree <ecree.xilinx@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-net-drivers@amd.com,
 	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] ASoC: codecs: wcd937x: use devm_free_irq() for watchdog IRQs
-Date: Tue, 29 Sep 2026 17:42:23 +0800
-Message-Id: <20260929094223.2086750-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	Ayush Yaduvanshi <ayush37735@gmail.com>
+Subject: [PATCH net-next] sfc: fix kernel-doc description for efx_ptp_timeset
+Date: Tue, 29 Sep 2026 15:12:11 +0530
+Message-ID: <20260929094211.48125-1-ayush37735@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,113 +83,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ec8b556503a1kunmd3a60ad42352c2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkJKVkwfHklKGhpNH0pCSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=GvLqbRrxZ96hmKW72qzePjJAFK/KCXNGRAFnUseef/viKdUpo2lIHN3GI+2ui7L8RCe5Fi13SMWURqjwTBvRePMMrbLUx1+3wIRov8p04DkxBzD66zKnwTQ1tg5yECTv5IwstWVVDz3wkxQCisoeGRYd//x42oE4lTW7kIOHgxs=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=zPoTI/RMsEj8z90RqksdLYgjap1eGGOdbOg7FzjEGjQ=;
-	h=date:mime-version:subject:message-id:from;
 
-The watchdog IRQs are requested with devm_request_threaded_irq() from the
-codec component probe, but the remove callback frees them with free_irq().
-The devres entries remain in place. Component teardown later tries to free
-the same IRQs again.
+Remove excess @valid struct member description from
 
-The IRQs must be released before the SoundWire components are unbound. Use
-devm_free_irq() to remove each IRQ and its devres entry at that point. Fail
-component probe if an IRQ request fails, and unwind only IRQs that were
-successfully requested.
+efx_ptp_timeset.
 
-Fixes: 9be3ec196da4 ("ASoC: codecs: wcd937x: add wcd937x codec driver")
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
 ---
- sound/soc/codecs/wcd937x.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+ drivers/net/ethernet/sfc/ptp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-index 0dd05604f5b88..ec902c81d5a4e 100644
---- a/sound/soc/codecs/wcd937x.c
-+++ b/sound/soc/codecs/wcd937x.c
-@@ -2540,19 +2540,19 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
- 					"HPHR PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request HPHR watchdog interrupt (%d)\n", ret);
-+		goto err_free_clsh;
- 
- 	ret = devm_request_threaded_irq(dev, wcd937x->hphl_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
- 					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
- 					"HPHL PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request HPHL watchdog interrupt (%d)\n", ret);
-+		goto err_free_hphr_irq;
- 
- 	ret = devm_request_threaded_irq(dev, wcd937x->aux_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
- 					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
- 					"AUX PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request Aux watchdog interrupt (%d)\n", ret);
-+		goto err_free_hphl_irq;
- 
- 	/* Disable watchdog interrupt for HPH and AUX */
- 	disable_irq_nosync(wcd937x->hphr_pdm_wd_int);
-@@ -2564,24 +2564,34 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 						ARRAY_SIZE(wcd9375_dapm_widgets));
- 		if (ret < 0) {
- 			dev_err(component->dev, "Failed to add snd_ctls\n");
--			wcd_clsh_ctrl_free(wcd937x->clsh_info);
--			return ret;
-+			goto err_free_irqs;
- 		}
- 
- 		ret = snd_soc_dapm_add_routes(dapm, wcd9375_audio_map,
- 					      ARRAY_SIZE(wcd9375_audio_map));
- 		if (ret < 0) {
- 			dev_err(component->dev, "Failed to add routes\n");
--			wcd_clsh_ctrl_free(wcd937x->clsh_info);
--			return ret;
-+			goto err_free_irqs;
- 		}
- 	}
- 
- 	ret = wcd937x_mbhc_init(component);
--	if (ret)
-+	if (ret) {
- 		dev_err(component->dev, "mbhc initialization failed\n");
-+		goto err_free_irqs;
-+	}
- 
- 	return ret;
-+
-+err_free_irqs:
-+	devm_free_irq(dev, wcd937x->aux_pdm_wd_int, wcd937x);
-+err_free_hphl_irq:
-+	devm_free_irq(dev, wcd937x->hphl_pdm_wd_int, wcd937x);
-+err_free_hphr_irq:
-+	devm_free_irq(dev, wcd937x->hphr_pdm_wd_int, wcd937x);
-+err_free_clsh:
-+	wcd_clsh_ctrl_free(wcd937x->clsh_info);
-+	return ret;
- }
- 
- static void wcd937x_soc_codec_remove(struct snd_soc_component *component)
-@@ -2589,9 +2599,9 @@ static void wcd937x_soc_codec_remove(struct snd_soc_component *component)
- 	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
- 
- 	wcd937x_mbhc_deinit(component);
--	free_irq(wcd937x->aux_pdm_wd_int, wcd937x);
--	free_irq(wcd937x->hphl_pdm_wd_int, wcd937x);
--	free_irq(wcd937x->hphr_pdm_wd_int, wcd937x);
-+	devm_free_irq(component->dev, wcd937x->aux_pdm_wd_int, wcd937x);
-+	devm_free_irq(component->dev, wcd937x->hphl_pdm_wd_int, wcd937x);
-+	devm_free_irq(component->dev, wcd937x->hphr_pdm_wd_int, wcd937x);
- 
- 	wcd_clsh_ctrl_free(wcd937x->clsh_info);
- }
+diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
+index 6ca9a75af01d..00cfd8d5b46e 100644
+--- a/drivers/net/ethernet/sfc/ptp.c
++++ b/drivers/net/ethernet/sfc/ptp.c
+@@ -193,7 +193,6 @@ struct efx_ptp_event_rx {
+  * @wait: Number of NIC clock ticks between hardware timestamp being read and
+  *          host end time being seen
+  * @window: Difference of host_end and host_start
+- * @valid: Whether this timeset is valid
+  */
+ struct efx_ptp_timeset {
+ 	u32 host_start;
 -- 
-2.34.1
+2.53.0
+
