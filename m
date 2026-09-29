@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1121B397332;
-	Tue, 29 Sep 2026 05:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14F83F23B1;
+	Tue, 29 Sep 2026 05:43:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790660450; cv=none; b=pkv5IMAmLxoeOKifRl8VAvtlNJEWGKT5rrFJiM6FUJf8W0zVfRAy2jbr/+O8PJ89olCVMokdPPzg53uhrz3eudsQWkXGLlCOz8kLAz2W1uKZHA29fe7snY6fwbiWyC1dgaiqGVOULfwO1Xn9xr3b5RMN4M3e3DPsNRtaFrC/dOc=
+	t=1790660602; cv=none; b=GWEY1rbicbdAROXzWtGIirRc6aMWus+LgSt6Rq4etG+H2oT7Q8gsfTvEU2dKQRt5+mMnlmzrCAV7A0NnbqCTihyme/ofM9nJmmLM5IjK1kdBRwWIT0Z6tFuWglxVRZoeoQwva76vIR3A0qUM0HtLMyK4Jq3NaYO8qqYyH/OWrac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790660450; c=relaxed/simple;
-	bh=Jvh9Whl1In4SUVRCPtGO1qryBBcjpLgJ8JLqul1VEtw=;
+	s=arc-20240116; t=1790660602; c=relaxed/simple;
+	bh=KBY0rfZa9w4lWDRkHNw1raeRvRbei4EVLl0Pyv0p0Pg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VE2eR1gVYR3IwsavRHY6YrHhXSSfjwhhc2+8ZUd7Kz+gxsfKcStVi03GOusDvaDytrYjahgNUJaImZb/Y0tiL4sWSzJbx15f37fIwt6lSn6dwRD9NtDYf5w4gEVCFr+CnmKVoyac+OFbljyscFU8F9tCCwxjZQ8T2drquoHHi3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjWVifi5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Lm9AQh88aKUaRoQekOpZ2lYPU5RSdm4/tPYv/8b7rErSx8W0PvsAVqrwjkoEWAo9aVdCF2Y543h+TX/80GOQJismp2s+VNj5TSCBqmbEc4MVkkX2koorkP/FtTSUMDK3AJ68aJQOeDPEVZiSMYTbBtWXlKiFz8K0P2rz2dB/e+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrjqYJIE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjWVifi5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F2B1F000FF;
-	Tue, 29 Sep 2026 05:40:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrjqYJIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7451F000FF;
+	Tue, 29 Sep 2026 05:43:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790660448;
-	bh=EulcM3Sez+szsCjpIOBGwG5tjCkG7m4d88gy5OahXvI=;
+	s=k20260515; t=1790660600;
+	bh=gtP8IqSzqQqjSXO/gR1w94Q4JndPAg4CmY6Ja2LAJvA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TjWVifi50PlhyMwHlCn+/EPVWx27OtgK+/1gaxTsveJKzQf/197wj5N1N0Ka/xo8R
-	 NlVCpjlnX1m502N9OcsE8jGrPQwj9RZV+loFmPoW1YDM4nlsqzBDfXlfHi0mVppWFn
-	 9PzIUJl/KVw4TZ+pkrU3/b1fmqIkk5Ws9lVI42N0uQNml6dFBlkykZXdGognVBl6rY
-	 v8c7XxE2uJZ0VgbcqsLZ38To98Cy1u0Ex5jMy27/EqCxgFhVdPQ9yGNSol4Zg2dFfd
-	 qxNtjH4csoJtHc6nLycXLfAL/Gs1L7/19KLnL8uMIuh7BhzxLkBk3x967t8irQBroi
-	 Jpl4iZKdug4vQ==
-Message-ID: <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
-Date: Tue, 29 Sep 2026 07:40:42 +0200
+	b=hrjqYJIEK/o/khodU8aWLL20wutTUKBgZeW7h5RR6G1GQT+RJW5CeT3WTMDRxbca0
+	 TjEpKCwvWDlIMudjWe4Ni1WfhzNDLeL4+l39lGtje2TAznHxWpDATkYWQLF0QmV9wg
+	 xFKrJr9CLCjRYLYqO7jJLXIyzqRMYnU5Hxl+OpGTMZjPt/d0vUNHfgk2gUPMIxUMyA
+	 99ylW5/HHin+A8/V7c01lHXU+0dQY8PYHaGjfNAA1IFhbLA72xfcWvzP0atUSTtEUp
+	 ywv/QapQ62ejszG+eoftl/VMOCNkfHESiaiJVjKrt5NGzVPVFUsWL89cWDDTjTa61w
+	 liiS6wwCTy0QQ==
+Message-ID: <ba1939f5-c528-42b8-971a-4b16998c37f9@kernel.org>
+Date: Tue, 29 Sep 2026 07:43:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,21 +35,20 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 00/16] arm64: dts: exynos: Format with dtfmt
+To: Waqar Hameed <waqar.hameed@axis.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
- <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
- <20260928-efficient-secret-manatee-2fcca6@quoll>
- <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+ <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>,
+ Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: kernel@axis.com, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790629313.git.waqar.hameed@axis.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,63 +94,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+In-Reply-To: <cover.1790629313.git.waqar.hameed@axis.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/09/2026 04:59, Zhentao Guo wrote:
-> Hi Krzysztof,
+On 29/09/2026 00:38, Waqar Hameed wrote:
+> I was looking through the notes for the last Devicetree microconference
+> at Linux Plumbers (LPC) 2025 [1], and realized that the tool I have been
+> working on might be of interest here: dtfmt - a Devicetree Source
+> formatter [2].
 > 
->> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
->>> Add bindings for Amlogic hardware decoder accelerator.
->>>
->>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->>> ---
->>>   .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->>>   1 file changed, 114 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>> new file mode 100644
->>> index 000000000000..751043c3d9cc
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>> @@ -0,0 +1,114 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Amlogic Video Decode Accelerator
->>> +
->>> +maintainers:
->>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
->>> +
->>> +description:
->>> +  The Video Decoder Accelerator present on Amlogic SOCs.
->>> +  It supports stateless h264 decoding.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: amlogic,s4-vdec
->>> +
->>> +  reg:
->>> +    minItems: 2
->> What is happening here? Previous version was different.
-> 
-> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos 
+> dtfmt uses a parser with lexical grammar (tree-sitter) directly ported
 
-Since when?
+We do not use dtfmt. I think you missed entire recent work and recent
+commits, where `git log` would point you.
 
-> and dmc) to work, so minItems:2 makes sense here.
-> 
-> The same applies to |power-domain| and |interrupts| below. At least 2 
-> power-domains to make the hardware work, and at least 2 interrupts 
-> needed for the two sub-cores.
-
-
-
+https://lore.kernel.org/all/20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com/
 
 Best regards,
 Krzysztof
