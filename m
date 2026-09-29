@@ -1,110 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1288313293
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690748; cv=none; b=JZipNeSdvynlvDoHSOW5cxKFvZD/NeS8cyjjzQblvMIJnDYsMJc+lXafzhC+wcHy2ikmocDgUnn6+BSGS6BToXC7EQcZvYhN+YcyBixNbTgIIGvli2T0t60Ghz6tHo0d76b8IqZPuvoX0+BDOZKTEKCvupXbtf6I93f0ZjsSIDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690748; c=relaxed/simple;
-	bh=VWqrz0PQBQafrnuUvM872YR0gmn76hR2P3X1h/x+F9Y=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417FB337107
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790690780; cv=pass; b=DgYPAXGO1RV9++IHdM176yx+w4FjOAAWGK/z3CESlH0IevDWGo9TsnqEPO/Z0/Z42H0+Cgcb/FVQcH/yAO9m15M3mPueXBDEk/+YHO/qpz0Y9C4EEYXqEBs667KHW1mEUULffh19z5SaujJma3PWP67t0BVocF0L/hb4pkdsyw4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790690780; c=relaxed/simple;
+	bh=fhR9qb/Hb1WbvE1d2mf3NQKyepj3kvNi8JDNlOX8T8Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rXwcsrQpY/Q1WrQeiIZGn5F53EaApk8wuoDGhszsCzeath43o4zu9h/NM5IJWe14F0K+rlZppH54uxReN+vAI/ckRa+A2ZtVYNbcqbPXkf5tENsFv/rUDdlmPl5SFOv2A22NVkCLrL0JWioNwo9LHmT08z9gNH7pHLs3aurYXuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8fFKJzD; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=dAjbuJyuw1ybUxaw9zxQj/+6Yeor1gLMcPU6vnooEbadirDIRTIfnZGAr01/+5502MK7Y+r5THDeF0Ye4RV07tgDtIveJrpE2u3I9lOprYxOB9YgEpaJ3XPfzS/NuVEiarXgR1EKZT74mORpzktDAIJLKvKBvLAN7tf3SlCbCJ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QydAqF5e; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8fFKJzD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B281F000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790690745;
-	bh=VWqrz0PQBQafrnuUvM872YR0gmn76hR2P3X1h/x+F9Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=U8fFKJzDg9VQJ1MYquviyTW94rOZ4p99G0Xw30YywoGMHBURtvTab3kbcdQOGxerG
-	 piXitQq2oob4KKGq1zIWZM/9qMfhC58FKSLKFNhvKto6R0w6GxG9NKw0i0pnfYeBQP
-	 yYbwSD6LAUF9zUTJQsxN8odfsrmW6S8c7yKYmorq6iXCcrY/0wpCbo2oAwgFYQ+WWv
-	 MeQmbhYN+HWLnx3vosB/nSUMAEzPZ+gEOTWEKA2FTJ8DMCgRe4A0tJ4GrQxiYRkb7Y
-	 Ph3A6+350CRXxFR91AqzSYdsN2jV0QFIeIbpxxjdDkOPKom2tC+pumkRP1Qvle6Bi0
-	 YEfT3fduPUMBA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a302c06eceso36372551fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:05:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxUfFnepTpmgNpKSByWXl/0GYA/tO8nXHjr5qRBfcfRWQN2XGMMd4MjrfvfpmNMgEOUiPul3YP0dkaTnB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlgVV8WMrsGehLnfjVgz4+nz0rMc97AhZwSm3YHUKb5BrfxLxb
-	mEhkiE4FemHqlqEhFAxBW/Kv7yebWVu/kEKf3ZcKO+h1L64Peg4eQBumt+xhh/3ghizlT4HPlII
-	qs7IcHl6Zjg6ktoZkIPklytanwHe/ucqXzkNCsfD7Ww==
-X-Received: by 2002:a2e:a590:0:b0:3a7:635c:d563 with SMTP id
- 38308e7fff4ca-3a7635cd713mr10714931fa.26.1790690744454; Tue, 29 Sep 2026
- 07:05:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QydAqF5e"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8facae850so52755ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:06:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790690778; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DAH1AoRCsBa8TGzsJaQ13jnE0XGIPhCUnwfYcrQ7GmMiOSVSpjUKseKVfrKX81MnYb
+         dD/qQOIw0x/mlTQ1Rnbh3wDU3x+yo8pQ2VQPVA9+Id9bZ90gsDAqX+khyTvhTUflbx57
+         ibeyz3KmDPJ5qrwpXZF9oeIEVgp/yfy1Eemyhczn4zNDb10n9AqV4L6WZ13SyRgpU1/e
+         b+KXnzV7K0lJGY+a+wM7kn82Y+h3RYfmh/SN6cp+qPo9Z6dBDgi6dGkrVs0RYhisD9zi
+         SqDqOieKZmh2Qg7ZO4ZnYB6FmQrDsi29quuIBG1Yr4FNCsNy+WwkZTHriXT1PPRc7aN3
+         h+pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bjuSCtHrD4hJ6bIOwYxSF2S+dabm2wOYtiRT9In2WKk=;
+        fh=mnPCIUe4sbSpjzTzfmpNC/lL0ljmKL6WjTV5fsiwztA=;
+        b=HJo51/shH292yVeU89/tpKa0B08XqGewgSszz6fCbxdg+Vn/d4OfxalGjYyyYOdf9l
+         MHV4APXjUKlDhQkSjonK+/Vx7udM37vqANbyq6e6CWNjelVTthY+hGLfBTqTciNckqjL
+         dK0nCuhbud2qQAkA08OXeZqD77TbEzPCd1hPKInpmOJTeRQLz3H/Cb37Tg5mhhPJvN12
+         yymXytq1mfhIwrblZHslQKnFBIvK89B3w7EVyoiGODWVLbjdpGIY84/dJtN27oDQct53
+         oD0kN7d4b76c/QeVxFU1h/bgT/D9xcXIIL5oPlNgVJYiqUQDrrcLVrYmi+4wB8aVrR29
+         1tSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790690778; x=1791295578; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bjuSCtHrD4hJ6bIOwYxSF2S+dabm2wOYtiRT9In2WKk=;
+        b=QydAqF5eUj6KA5YwOyHVodV8I5FDURpQumR5kyUv/5Z1akvffwH+HqmOzvswRRIhsA
+         QiP7zfJQ2e8QR1Pnfm5ZMMcvev1tjcS39GQY7KtSXbYhte06bK9RvGyklikWHsHxVtBS
+         hZk5vEnSs1Wj+/qSH0KrhU+qnGNTn92h89UtGpqUy/sz/UgI+SsJLVUxg3a7Du8XLHAg
+         AEr4rpHwHan3GDY//PMefThDbX31uymrhWjgg2vKx2ifB6b48EUVC8WnBe34rJE3PURF
+         I1bwZcnr2Na50w8c9Wllbp/++A4wXNL0AaB+w7wTBXpsZj3NDyCAUXgtq9ng1aEnoq2d
+         e7mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790690778; x=1791295578;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bjuSCtHrD4hJ6bIOwYxSF2S+dabm2wOYtiRT9In2WKk=;
+        b=HpuQFZT0ESRCJs12ruRlHISs900m3pXs3hr8sF0Oodj2FuleMgsAKyb02+XVn02bqd
+         utAYAyliO4SJN5Fgkp3+8H4usZhOxN7JL/Z8XWmTp7dSeKPenpGy7SIOX4hppZyg5C+a
+         4fiHq7hIZ/V32Nqnsv0lyB2DdQT46SRssCgsmwY2ZiuaKNGVcY7VSsprLeFxrsK2TSZk
+         3R+p4cSWudQ4VD8QuTNzO7oizPPhyklLxcZN8nUBYcUGH9fxs1rmoP6tAWngFR0OPWCQ
+         0jbfUBRMzRTHnWR//7GuB6PYl2x8SLgHyRu877LXeF9zvImVPbHWcfIKGGx/S+ck1fwW
+         xsUA==
+X-Forwarded-Encrypted: i=1; AKwUvByiSepulEszoBW1ssxr+a43xGhkAODcHHYjKheSXTavxSkK1V05O3gS/jOiDUsykaCnAi3d8Q2MKCITOCU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4GdCRt2/ZwEUkdyr/LAMXIfvtCsotSmG9umAuqNTvn9r95QxN
+	ylVrCOI83ed0f+yGffeSxBcwmg2C0JjLZZ8xeYJz4xGWcsyMufAe1e6MAOdtPXyh1wnnZd6s8NT
+	G2oGfIi4ea+nBSGVCGnC4qcbSCXP1gZSOhsMOKNYg
+X-Gm-Gg: AYBFou1Y5Py4F2HMYtq+wH35UF8WErAw2r+Mpn/fPCNGBSH17XxqQMmPHmGBCJY2Yub
+	B2wtHbMQkqPgJPOQzTz5k8pfSWAsmcZyVY/zXPQsuV1eowjVS8owm64/85guqJ3oMFDZ1couCoP
+	8Mh3aQ3syoF9p8bKijWXghSX+ABhaF8RxQY4qD3ab8Hw3FvHy8pbONyby4nGTkWlllZFUq6DgEP
+	FYieiH5aMuFvjxA8p1PxfQnHJ+2mI1KIo1ztRLzhneep3GvCXU+QRi4RYsWi22lzc+cHl2xCLyR
+	drf9g5lNJJWke2eBuamLW5EV7hsP2ZJrsQPbTRUAImngsoxHrqz0saPPlY7rOxDIymCekYfFAIg
+	kJsebIZRFvPhSPORuyuOM+ckCylB3UtV+C3dB4d5bmB217DePJ9Vc
+X-Received: by 2002:a17:902:ecc7:b0:2c9:b404:b55 with SMTP id
+ d9443c01a7336-2e2c6355633mr3888815ad.6.1790690777520; Tue, 29 Sep 2026
+ 07:06:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
- <arZRZfa7AmDxmwoJ@ashevche-desk.local> <20260925125433.GY106095@black.igk.intel.com>
- <araGjQoaffMhDMLz@ashevche-desk.local> <20260926100727.GB106095@black.igk.intel.com>
- <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
- <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
- <20260928123446.GH106095@black.igk.intel.com> <CAHp75VfxMwLMPDQr9f=3ea8Z+5zja=kT01o-fhkyrc-V1rh3Hg@mail.gmail.com>
- <8fa77d7021ddf66f344c139d3bbeebcdb47ebfa8.camel@linux.intel.com>
- <CAHp75VcqqsTSiyGxeZeNXHAVM2ujux26Nmc5C4CNJA-Fqxn5Kg@mail.gmail.com>
- <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com> <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
-In-Reply-To: <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Tue, 29 Sep 2026 16:05:31 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
-X-Gm-Features: AclHuK_bsMCOZtLrUWL95SwI-0lCshARGsgrcXW2Ask3cdoimum8AEXwpOm32xs
-Message-ID: <CAMRc=MciOaDqMtY7nb7Zz=XZJpqUKrfiSTJGZyBzfFTw10OjXA@mail.gmail.com>
-Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, Lixu Zhang <lixu.zhang@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mika Westerberg <westeri@kernel.org>, 
-	Israel Cepeda <israel.a.cepeda.lopez@intel.com>, Hans de Goede <hansg@kernel.org>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+References: <20260812-refcount-bug-on-data-corruption-v1-1-c6da63566101@google.com>
+ <aru5lCCF50puV8GM@willie-the-truck>
+In-Reply-To: <aru5lCCF50puV8GM@willie-the-truck>
+From: Jann Horn <jannh@google.com>
+Date: Tue, 29 Sep 2026 16:05:40 +0200
+X-Gm-Features: AclHuK-fOXsoweB1C7GwlqeBps4yNhb8dBqPbcZDfr5o7KnCnMropqZvBr1B7_8
+Message-ID: <CAG48ez3v9uKzoNTj0xz+ec1qV6sAerkmqi8orJE4ghdPfJxz2Q@mail.gmail.com>
+Subject: Re: [PATCH] refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for
+ UAF-related errors
+To: Will Deacon <will@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 3:31=E2=80=AFPM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
-> > >
-> > > Just send it now, in any case my series is blocked as I have not seen
-> > > a consensus on what to do. Or do we? Bart, Sakari?
-> > >
+On Tue, Sep 29, 2026 at 3:14=E2=80=AFPM Will Deacon <will@kernel.org> wrote=
+:
+> On Wed, Aug 12, 2026 at 08:56:38PM +0200, Jann Horn wrote:
+> > Some refcount issues are not necessarily associated with memory corrupt=
+ion,
+> > but REFCOUNT_ADD_UAF suggests that a UAF either just happened or is abo=
+ut
+> > to happen.
 > >
-> > If I didn't make myself clear: I would love it if there was a single so=
-urce
-> > of intel GPIO pull-requests (most likely Andy) for *all* intel GPIO dri=
-vers
-> > even if they have additional reviewers. I'd also love for them to live =
-in
-> > a single subdirectory at drivers/gpio/intel/. Otherwise, it's still cha=
-os like
-> > right now, just worse.
+> > REFCOUNT_SUB_UAF is also an indicator that reference counting is wrong,=
+ and
+> > suggests (less strongly) that a UAF access might have happened recently=
+.
 > >
-> > This is in line with pinctrl vendor directories. I also don't see a rea=
-son for
-> > moving Kconfig options into their own vendor submenus if we keep the to=
-p-level
-> > entries sorted by driver type.
+> > In these cases, BUG() is appropriate if CONFIG_BUG_ON_DATA_CORRUPTION i=
+s
+> > set.
+> >
+> > Signed-off-by: Jann Horn <jannh@google.com>
+> > ---
+> > MAINTAINERS specifies no specific maintainer for lib/refcount.c, but it
+> > does have an entry for include/linux/refcount.h, so I guess I should
+> > route this patch based on that.
+> >
+> > I decided to send this patch after wondering how exploitable it would b=
+e
+> > to have a refcount_inc() call on an object which has reached refcount 0=
+,
+> > but is not yet freed because of something like an RCU grace period.
+> > ---
+> >  lib/refcount.c | 15 ++++++++++++---
+> >  1 file changed, 12 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/lib/refcount.c b/lib/refcount.c
+> > index a207a8f22b3c..c0f0dc5296eb 100644
+> > --- a/lib/refcount.c
+> > +++ b/lib/refcount.c
+> > @@ -10,6 +10,15 @@
+> >
+> >  #define REFCOUNT_WARN(str)   WARN_ONCE(1, "refcount_t: " str ".\n")
+> >
+> > +#ifdef CONFIG_BUG_ON_DATA_CORRUPTION
+> > +#define REFCOUNT_CORRUPTION(str) ({          \
+> > +     pr_err("refcount_t: " str ".\n");       \
+> > +     BUG();                                  \
+> > +})
+> > +#else
+> > +#define REFCOUNT_CORRUPTION(str) REFCOUNT_WARN(str)
+> > +#endif
 >
-> So, as of now it doesn't seem like an agreement among all parties. My
-> opinion is that it's good to have PMIC be separated from the other
-> code, although I don't know if the camera PMIC GPIO driver that is
-> used with IPUx is good to go under the intel/pmic subfolder. I also
-> believe that camera related drivers are the best to be handled by the
-> media tree (as it's done, exempli gratia, for int3472).
->
-> At the end of the day you will have a single PR from me, but it won't
-> include camera stuff unless Sakari agrees to send a PR to me (which I
-> think won't be the case).
->
+> Can you use CHECK_DATA_CORRUPTION() here instead of open-coding the BUG()=
+?
 
-I thought we agreed usbio would be moved out of drivers/gpio/ and into
-media? That leaves intel/pmic as the only subdirectory IIUC.
+I was considering that, but decided not to for two reasons:
 
-Bart
+1. CHECK_DATA_CORRUPTION() uses WARN(), while the refcounting code
+uses WARN_ONCE() so that a saturated refcount doesn't WARN() every
+time it is touched.
+2. CHECK_DATA_CORRUPTION() is currently marked with __must_check
+(which can't reliably be suppressed on all compilers by casting the
+result to void), see
+https://lore.kernel.org/all/20260812-data-corruption-mustcheck-v1-1-5f59bd3=
+bc2b8@google.com/
+.
+
+> Either way:
+>
+> Acked-by: Will Deacon <will@kernel.org>
+
+Thanks!
