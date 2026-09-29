@@ -1,68 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73F339CD0D;
-	Tue, 29 Sep 2026 07:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925CD37A821;
+	Tue, 29 Sep 2026 07:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667566; cv=none; b=eJSqO/VCq3LgSB7ihAF+keR2b/NStCzOMfv9kqI0ZfSoJqZv+ADrtBdDWIykQ/5HPhgtwQsjtrlGH6GvrzKgdVs85Q0Y1JFFPOFIVtIfK8OWku9WwT1vhLL4oUGwbpwzze/5+adXTmIWW5qiFnoFv5Lt26yIrLL1PijwF/Zcues=
+	t=1790667599; cv=none; b=O8s+NoTuL/ClzgQfult4fpTFCpJ9P5eCjNC4MGbkXmw5wS8LqdXkVUxG0Oq8OHqgPV9lYHibv9cl1pAfIMkkamIfOZYByUSfahh5xfKUzhnS1ipC8HY9FnRxBnLfUlLagaPYy+kB51rOzNHUWixBqOo+APxAqXtnVKpvBcyw88I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667566; c=relaxed/simple;
-	bh=kHczxQIhar+3hTedxOPpdeuURuyFZHYgP2oSr202qIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lb4pkaehBoGzMhxbFNBHOpJRArGCwq/kljO0so5MQ/rsXcz+T0kHaq6yMWrrc3dZZCUKjNag8+BHBXQNHca9W1D4iPTk7uroyqaqL4r6UVKZr46iLtuvGcRRt8wfnrR2spMrD7t0y5rSVu+e4aPPgJyjgfOJ50qdPVbqNdbtX8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUzdntVT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667599; c=relaxed/simple;
+	bh=y0dzu7ob3UmPk/H1zTfNyDfnolxfGhUWR2dqtm3KL1g=;
+	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Vfb7RWCPwGzj7nlHyeh6FyseWlMiy068f6VzLAeQKFI6cbuv63CMztRc/FMm8cbTicm3jawl+YojyWagYnVqqthdVNUD7Ddg/wWIadMPeqtMJHUAdHQZZ1KpMD98xBz+bMHdI04GExSyBeLqXiBXnNMR/ZVPxi7yIAjwM1XX/EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEJ7zX5b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUzdntVT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7251F000FF;
-	Tue, 29 Sep 2026 07:39:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEJ7zX5b"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D039B1F00898;
+	Tue, 29 Sep 2026 07:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667565;
-	bh=kHczxQIhar+3hTedxOPpdeuURuyFZHYgP2oSr202qIg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iUzdntVTNNaa7QriEIAQl0CTMAZghah28bwQeZqG+C6lKgkdL3AOeJjVcHSUcBgqf
-	 XUryiy5cfEBzqUW05v1B+9a4/gy+SDqtqjHjlAoXPnS2E+uWmT1J/uYoL4JhU26v6m
-	 QGeOVdqyI+m+TwOsuHYlFDfcMsVUGdxpk9LsAhgXLH91Fe45ll81tyUGzuYM/pQlr6
-	 WLYG0vuSR69+VkiGYsK1uravZ/rM/Z7X6DizwCTsy6jJyzLZ3XPHYyoq3sGLWiaPzB
-	 9PBcYeGjPT/MzC/SZYtf/PLfAYFl9Vmj9uktHX6w5efjopuC6mznbLdWju39s/1oen
-	 KIlD7cloe/Fig==
-Date: Tue, 29 Sep 2026 09:39:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Petr Vorel <petr.vorel@gmail.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] dt-bindings: display: panel: s6e3ha8: Adjust to
- reflect the DDIC and panel used
-Message-ID: <20260929-eager-heavy-ibex-2c959d@quoll>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
+	s=k20260515; t=1790667598;
+	bh=vDL0qwhi/Q8PBC/n1Ot2vI5BEahLy6mimceHsqZsJiM=;
+	h=From:To:Cc:Subject:Date;
+	b=oEJ7zX5bpahzWjFnsSca/uOGkdgYKDhQd7dQcuuDE8kGLBJJ7u7cugyIhChJ72KqP
+	 smiWlSdQhhTHsY1m1ZeW9ODCuhvjfblrOH1i2R7sqkVbWxfvSAUH900TK8kcPaVs2u
+	 lEE0BvtvpHmoF3uCVUh5JvgCsETGT/tdjmoMeczyfKXHESVs2IQs3WLwTtdaPaSjEj
+	 8ZrCgHkdR4nVOl1P9fuVzg7Q6+JFcJAWcEZhjpYR3ZtNNd8aSsIPJWeinKv+zpQous
+	 eBAon51s1RlyDIGiV/yxcllw91O0wbwOsweuZifV7iHhNQzrrCdiLvDXQ7BMzrJGLv
+	 K+MDccY6zVGcQ==
+From: "syzbot" <syzbot@kernel.org>
+To: syzkaller-bugs@googlegroups.com, Slawomir Stepien <sst@poczta.fm>, "Henk Vergonet" <Henk.Vergonet@gmail.com>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, <linux-input@vger.kernel.org>
+Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
+Subject: [PATCH] Input: yealink - abort URB submission on fatal errors
+Message-ID: <fcf3ed99-54ce-4049-9f7d-611827e7adad@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Tue, 29 Sep 2026 07:39:57 +0000 (UTC)
 
-On Thu, Sep 24, 2026 at 04:01:29PM +0200, David Heidelberg wrote:
-> S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
-> the Samsung AMB577PX01. Introduce a compatible reflecting that, adjust
-> the example, and deprecate the DDIC-only samsung,s6e3ha8 compatible.
+From: Slawomir Stepien <sst@poczta.fm>
 
-You need to explain why. The difference in panel might completely not
-matter if DDIC is always used with that panel. Why do we need more
-precise compatible?
+The yealink driver uses two URBs (interrupt and control) to communicate
+with the device. When an URB completes with an error status (such as
+-EPROTO), the completion handlers (urb_irq_callback and urb_ctl_callback)
+log the error but do not abort. Instead, they proceed to process the
+potentially invalid data and unconditionally resubmit the URB.
 
-Best regards,
-Krzysztof
+Because control URBs are not rate-limited by the USB core, resubmitting a
+failing control URB in a tight loop floods the console with error messages
+and keeps the CPU completely busy in the softirq context. This eventually
+triggers an RCU preempt stall:
 
+yealink 3-1:36.0: unexpected response 0
+yealink 3-1:36.0: urb_ctl_callback - urb status -71
+rcu: INFO: rcu_preempt self-detected stall on CPU
+Call Trace:
+ __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
+ console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
+ dev_vprintk_emit+0x338/0x400 drivers/base/core.c:4996
+ dev_printk_emit+0xee/0x140 drivers/base/core.c:5007
+ usb_generic_driver_probe+0x10b/0x150 drivers/usb/core/generic.c:252
+ ...
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5953
+ worker_thread+0x92d/0xe10 kernel/workqueue.c:3486
+ kthread+0x388/0x470 kernel/kthread.c:436
+
+Fix this by checking the URB status for fatal errors (-ECONNRESET, -ENOENT,
+-ESHUTDOWN, -ENODEV) in both urb_irq_callback() and urb_ctl_callback(). If
+a fatal error is detected, the callback now returns early, breaking the
+resubmission loop. For other non-zero statuses, skip processing the
+response data and jump directly to resubmission. Additionally, use
+dev_err_ratelimited() instead of dev_err() to prevent flooding the console
+and triggering an RCU stall.
+
+Fixes: aca951a22a1d ("[PATCH] input-driver-yealink-P1K-usb-phone")
+Assisted-by: Gemini:gemini-3.8-flash syzbot
+Reported-by: syzbot+78e2288f58b881ed3c45@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=78e2288f58b881ed3c45
+Link: https://syzkaller.appspot.com/ai_job?id=89a6c0c7-a0c4-4f05-b1b1-e36a92e373e0
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+
+---
+diff --git a/drivers/input/misc/yealink.c b/drivers/input/misc/yealink.c
+index 560f895a0..f0ec4c5ea 100644
+--- a/drivers/input/misc/yealink.c
++++ b/drivers/input/misc/yealink.c
+@@ -405,9 +405,19 @@ static void urb_irq_callback(struct urb *urb)
+ 	struct yealink_dev *yld = urb->context;
+ 	int ret, status = urb->status;
+ 
+-	if (status)
+-		dev_err(&yld->intf->dev, "%s - urb status %d\n",
+-			__func__, status);
++	switch (status) {
++	case 0:
++		break;
++	case -ECONNRESET:
++	case -ENOENT:
++	case -ESHUTDOWN:
++	case -ENODEV:
++		return;
++	default:
++		dev_err_ratelimited(&yld->intf->dev, "%s - urb status %d\n",
++				    __func__, status);
++		goto resubmit;
++	}
+ 
+ 	switch (yld->irq_data->cmd) {
+ 	case CMD_KEYPRESS:
+@@ -429,12 +439,13 @@ static void urb_irq_callback(struct urb *urb)
+ 
+ 	yealink_do_idle_tasks(yld);
+ 
++resubmit:
+ 	if (!yld->shutdown) {
+ 		ret = usb_submit_urb(yld->urb_ctl, GFP_ATOMIC);
+ 		if (ret && ret != -EPERM)
+-			dev_err(&yld->intf->dev,
+-				"%s - usb_submit_urb failed %d\n",
+-				__func__, ret);
++			dev_err_ratelimited(&yld->intf->dev,
++					    "%s - usb_submit_urb failed %d\n",
++					    __func__, ret);
+ 	}
+ }
+ 
+@@ -443,9 +454,21 @@ static void urb_ctl_callback(struct urb *urb)
+ 	struct yealink_dev *yld = urb->context;
+ 	int ret = 0, status = urb->status;
+ 
+-	if (status)
+-		dev_err(&yld->intf->dev, "%s - urb status %d\n",
+-			__func__, status);
++	switch (status) {
++	case 0:
++		break;
++	case -ECONNRESET:
++	case -ENOENT:
++	case -ESHUTDOWN:
++	case -ENODEV:
++		return;
++	default:
++		dev_err_ratelimited(&yld->intf->dev, "%s - urb status %d\n",
++				    __func__, status);
++		if (!yld->shutdown)
++			ret = usb_submit_urb(yld->urb_ctl, GFP_ATOMIC);
++		goto out;
++	}
+ 
+ 	switch (yld->ctl_data->cmd) {
+ 	case CMD_KEYPRESS:
+@@ -462,9 +485,11 @@ static void urb_ctl_callback(struct urb *urb)
+ 		break;
+ 	}
+ 
++out:
+ 	if (ret && ret != -EPERM)
+-		dev_err(&yld->intf->dev, "%s - usb_submit_urb failed %d\n",
+-			__func__, ret);
++		dev_err_ratelimited(&yld->intf->dev,
++				    "%s - usb_submit_urb failed %d\n",
++				    __func__, ret);
+ }
+ 
+ /*******************************************************************************
+
+
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+-- 
+See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
+The person who has signed off on the patch is responsible for
+addressing comments.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
