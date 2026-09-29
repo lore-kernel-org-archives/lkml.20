@@ -1,95 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4652C4EC65C;
-	Tue, 29 Sep 2026 22:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC44E4BB267
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790719413; cv=none; b=MJmTDZkXRoZvbwVjVA/qZDi9IjY2NhyAtItD+vSv7clo2tzwJMoCuW0mCR9tPcX+Tc7m16/bnLx8PolKE0GJvbXA9sil8pkAQSlpTjqYMrV0UXoJeTj0ZLo6YMlhi65vB/HLJNq1dfFK4vBxU13g37pYzwtGQOS498ZLzNXcPSM=
+	t=1790719455; cv=none; b=VStLObTVoz7bQftBvlBZ1Q6ICeeP3zG4LWIqRBsPxGOeyIGmsGRKPYfjDsCpDvh+TtgbF1Jos1z6LcCSZSTvm33xlmzfd4tlYVPpbINiUFRGEZh102RwxGK3G37qq4Tesh1QA00Jki1gaFR12CJR3eXbl0YoR3awP9Rcv2IpoEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790719413; c=relaxed/simple;
-	bh=xv8YOZN5Exepypbq24b/k1Km7GfktNrqLP2hJw1SNC4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BSttU/JfEd2MourEf6C6h/BDFsJFe8BAG+zNgnvELGkhYv45ttZ/0OdH2tvrGcYOOtzih2nk7y5n9M7XQWCGjzlSBcNkeraqxkvCS+6P0KjYLZzShYZq/NPbp5zNb1E5iCvjgPdacuExRxXhgo+giaUUG0Pk1D8ch/zqS5OsOWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMO3s90B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790719455; c=relaxed/simple;
+	bh=YxAlMmfVcm2W4cU7DakMAjMJLU1Lttxry7DoFyXpeys=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=XjQCCiAWfCt+uLKxHvIHYWLWq7YcfODClFdELqtqwYmkc56s9FkC6uriCFchGk0UeBrJL7Hr1SaSJCYqHgiIrvIQxx3FjUw52bCKehx6Gt6hW5JglpAsM+/iyjEzCcuo2uPlzhULEkwVcwx4CovFcFyueRuERICchMPLqaBbf3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=boaIMtN2; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMO3s90B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B401F000FF;
-	Tue, 29 Sep 2026 22:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790719411;
-	bh=v/nJ4k1u78ke7ZIHZ4IMT2+oEY9uF0eOOz//6bbIgqY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mMO3s90BPyVNAf3nUTt7RP3vpKU1sWdUZrUeRmMYdW/AKChDH4asRiPP6HJwxqnyB
-	 B1zy1qrfD/5nHEfgGSU1E9IIIEQ1MIHwxuMke8DCbWfqMnf0myGRguUW/8ScsTYajh
-	 qz94KFKNJtSIGMHhgdpoksf+uJuLDgGTpj0u/Zo0kU2rM++IUD2qk+jE6cVNpE77wz
-	 aYMorE41+yHTgN4bBWx2Yhb572oTvAs+9aWhlC023k50o2sTVgow2/6ZKEtZPoemgo
-	 bvktGTajcnXcxEAxxKURHAZ8p4vrR7ZKgm6Lob1JpEtk507QyPnQYbEzinEldEG7kh
-	 PgOKbB8HgOlMw==
-Date: Tue, 29 Sep 2026 23:03:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 03/11] kselftest/arm64: Move exit calls out of fp-stress
- loads
-Message-ID: <489314ca-0bdd-4d19-8f53-cf0b38130da4@sirena.org.uk>
-References: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
- <20260901-arm64-fp-stress-kvm-v1-3-31bce995b49b@kernel.org>
- <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="boaIMtN2"
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b26d8d2498so7475778b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:04:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790719453; x=1791324253; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
+        b=boaIMtN2F6SKV2UXWEPsvgpSaMqoKNFG/ApU+MhZ+og2UKQrQP7mNh6kTpcpcIzVcS
+         yNkgdsT6pe/Jf8/OfpIbSRozzY6/k0c2U/4TSTds7WBfIK1AivvQh9Bg38Z9Z56++j+k
+         +pHOX8lPnIhBhF6kQo9i798bMg54JxcZqJ1Sftz0uxcLZhkKaD48VjvT9oa+MUS/cNLM
+         pCGCXYP9bQ24ZNQni2pLLVVAZ0SuxFOa6Frnkp493wo6hcw1rjshn5sBnskxjTBnbaUi
+         Z1/qsjSpufk6NvF9kAV+xeZDIwgx4rVTgvpfM3G7stq1mIl+YWgNKFEB6otNjTUuV7H0
+         b9Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790719453; x=1791324253;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
+        b=QRw17Bfjlq7bS5IdbdMvgXFylOT3rUecs8Ul8MX9UdXcbbgIBBk6pDVnL7kcHBarXh
+         5hjX/+XB8eXRifKoBZrBTxm31smvM4/NrQ33a+0XyPqb9IgABIvAvSSYgWwBy0kzSNaP
+         n3eas7FZjSwx3pZVF+coAkQN0BFW5f4E0CMofLDxAf6KZg6rhY7Ca2SqOpY4eJ1v1d6N
+         rqata5vHZGoV33ApIG8rDjl4uIDL9lgYIzKgfYiDjXLiCN/tzurhMkbYYPyUrZ1vzbIO
+         yMvYrgImhF1zDPQ0fs5psk9Se0EIUDMfxw2rR+nw/Lu9SR2fGU5nM7XPzCdUeXQj1y5D
+         d3HA==
+X-Forwarded-Encrypted: i=1; AKwUvBxw0UYqwclIjV3mDSydyNZ6H1yZEbIMC1NFBIdtkPNSOfq+gLOZIAe2in2XWIz88tnoyMnv11KUV9mnlEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/K6d8CqpbL0AsV1/gIxrB4g/nOLmFgiPp0DTC3SmWCHDCRbmj
+	+QSsQSkCc2lZ8ipTPXduj+V7dNp0A5k3zi399dChNt6oOF15mmnwReiabU0JeGzNsCWTlCZrlYk
+	XANYA71EhKpSHlyt6aP9K/37z+Q==
+X-Received: from jabgg6.prod.google.com ([2002:a05:6638:6906:b0:5f6:798e:166d])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1927:b0:4ec:f57c:f81a with SMTP id 5614622812f47-4f074dcd517mr1045481b6e.12.1790719452327;
+ Tue, 29 Sep 2026 15:04:12 -0700 (PDT)
+Date: Tue, 29 Sep 2026 22:04:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yhcXNUoMVHeEzr/M"
-Content-Disposition: inline
-In-Reply-To: <arvm8O6kL1I9Plrw@J2N7QTR9R3.cambridge.arm.com>
-X-Cookie: 1 bulls, 3 cows.
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929220411.3756519-1-coltonlewis@google.com>
+Subject: [PATCH] KVM: arm64: Check ID_AA64DFR0_EL1.PMUVer in reset_pmevtyper()
+From: Colton Lewis <coltonlewis@google.com>
+To: kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Colton Lewis <coltonlewis@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+When userspace initializes a vCPU with KVM_ARM_VCPU_PMU_V3 but sets
+ID_AA64DFR0_EL1.PMUVer to NI (0) or IMP_DEF (0xf, which is sanitized to
+NI), resetting the vCPU invokes reset_pmevtyper(). Because
+reset_pmevtyper() only checks kvm_vcpu_has_pmu(), it proceeds to call
+kvm_pmu_evtyper_mask(), which reads PMUVer == 0 from ID_AA64DFR0_EL1 and
+triggers a WARN_ONCE("Unknown PMU version 0") in __kvm_pmu_event_mask().
 
---yhcXNUoMVHeEzr/M
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Check ID_AA64DFR0_EL1.PMUVer directly in reset_pmevtyper() via
+kvm_has_feat() instead of kvm_vcpu_has_pmu() so that PMEVTYPER<n>_EL0
+resets to 0 without querying the event mask when PMUv3 is not exposed to
+the guest.
 
-On Tue, Sep 29, 2026 at 05:27:28PM +0100, Mark Rutland wrote:
-> On Tue, Sep 01, 2026 at 06:06:43PM +0100, Mark Brown wrote:
+Fixes: bc512d6a9b92 ("KVM: arm64: Make PMEVTYPER<n>_EL0.NSH RES0 if EL2 isn't advertised")
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Colton Lewis <coltonlewis@google.com>
+---
+ arch/arm64/kvm/sys_regs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > When they detect corruption the fp-stress test loads print load specific
-> > diagnostics and exits with a failure status.  In preparation for
-> > building versions intended to run as KVM guests factor the exits into
-> > asm-utils-linux.S.
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index a2f4e769a4282..0bb3c2f10a22c 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -1060,7 +1060,7 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+ {
+ 	/* This thing will UNDEF, who cares about the reset value? */
+-	if (!kvm_vcpu_has_pmu(vcpu))
++	if (!kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
+ 		return 0;
+ 
+ 	reset_unknown(vcpu, r);
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-> This is a good cleanup, but I do think it'd be worth noting that some of
-> the existing asm was wrong and worked by coincidence.
-
-> I did mention that in the patches I linked you to a while back:
-
->   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=922d15ef46cb486a79f168949e103f6df26f4fba
-
-Ah, so you did.  To be honest I'd initially forgotten what was in there
-when I wrote these, though I did go check them after writing and should
-have updated the changelogs when I did.
-
---yhcXNUoMVHeEzr/M
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq8Na4ACgkQJNaLcl1U
-h9B6XQf/afmbwqYeX8wC1xYdsrffIp0UYaX5YWRV++8pmaaLaLV1J+8tGXCUQ+yB
-iio51yiXRE4/24GNDnX0AdMaxsruqbgUi2Oy9EWMcY9/juQqWkNAfz9iXo1cUEPm
-mJ4Nl6LNNC7GRdO0a1vdLaM7bPQVmb/bS6hl7tmDwgf6Ysz8YEfsd3ww5ARQmlHp
-ybmzWIytlXREenELwE2+iTu3x2iIS3pjWIbqSnKF94oNZt+MeoFKo9yoc7T/4qbu
-VFUPBK50gtAq1Xx8M1yPk3urF2sWsbgV/Ya5hwQik1haeEBr/E3i/BTLnXDg7K/1
-vLmUZuilkfnFkfJkR6XfF6WLOAc+4w==
-=8oJI
------END PGP SIGNATURE-----
-
---yhcXNUoMVHeEzr/M--
