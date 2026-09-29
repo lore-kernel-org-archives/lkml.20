@@ -1,111 +1,139 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124165226AA;
-	Tue, 29 Sep 2026 13:22:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548E55293F1
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688125; cv=none; b=n5yAz0Op8Z96jZmGY+OAQmWUiFU0WL4onxX0v3kxYlb7hVzyBgNLz+mVysqTPW3D0fqRNaFkGjZ7I4nC9yGqxX0HQmthSl0hk7qPmKMHoOF6LQFHTwnG9dla23LnoGBRbVz6K1CPC+K/qHuz2GTcLtOwrJiPOCdxZWFMeHZ5ALw=
+	t=1790688127; cv=none; b=mqUJ1bkFZAqJ9cLa0JAkHBg8Whtn+uuBwVNAdZEUGDvbGNY5GRHz3Uahgy4tYqFERaULQSW6h8NKMZ8ZgNr7iJv08MFiNgwXCmp+WqsVpETlYOXcvTfOhRcYUdmPd5PLRJghUg2YxK02Ab2pf7szNYumyVTKCnsEbkyBg491Hp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688125; c=relaxed/simple;
-	bh=jofquaWAYODr/UgreamCLltZG/YeYsMeiMAfxsINRmo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pWWR99trgv5kGliuJmnAD7aScNFtwyNBH+gpQNMA+O9g8seLbJAlxAyss0kGkZdaLz6LzORO6j/tljRr1wpIAjdpnIxfVYA0Avn7MWm2K8tjEv/dqwfkQJekz4epm6aMzW0ho3iTwRtNv+bFjtxV2TCO98ZAY/lX4ccK4oEzjog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=bHnt/LS/; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790688127; c=relaxed/simple;
+	bh=qraalZWdh8TQQ6BSeD/tfmfJyOuvPZNTzPY+wsAjPps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ejXuq+8c6Cyr0fqZwax6TJP/IYNyujqrGmwh/yJK981thvSUL8hmcZelDEjhH5E1uv3Kd1ClhJ/yC4MfLLM5QQKpDeimIFn23UvenniX5dFC3C9q0ukG9vN4IDMiB+Krp9hMtFBrA6mg1UZIgWbmxwU4McvJyYEy/kRWc/zujOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=a0FmGXIp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WwxYyGkV; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="bHnt/LS/"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="a0FmGXIp";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WwxYyGkV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790688125;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XWJfgnj00gCkz7CXTr/d8e8qYHqPtAX3JIZh4ekkrdI=;
+	b=a0FmGXIpNxJbQKkdq/JCFhl5BprvmzhP68xMVMOiuLTChJhEwZcpCx0L089FLgE8h0YjTS
+	lpPxhQkHemwqePMuzkF4J7gSiH95FQAqFspSFhuNOtczfgh9cwXg+iVFHuhnmx66A1L3vK
+	8mFVRGUrdJuPG9SnhlP/Dn3rmEIHaEk=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-359-YN2IY9RENVWQXWkHzcMqtg-1; Tue, 29 Sep 2026 09:22:03 -0400
+X-MC-Unique: YN2IY9RENVWQXWkHzcMqtg-1
+X-Mimecast-MFC-AGG-ID: YN2IY9RENVWQXWkHzcMqtg_1790688123
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e745d5dabso40224855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790688124; x=1822224124;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=NB7hpKyiD3BFL2XDrDPPY5lgZEdsfSIldEvfHJXPBOM=;
-  b=bHnt/LS/NnG5KXZ75mHa7SY5+c/AtizI0XO6AV5ZMYs2Gb/ORIKElA/5
-   WUavnywp44sgNy5vGA0qSuRmrtRIs6W5ZsjTe+TQk8OCfQTU+dixc4c+J
-   tXT7f2qVg3RQ9raxvAOPzI8YN3Q/F8xpv5CJRUxB81/MZObEd3K/b+5nd
-   ZCtoSNQmdEkHrLjy6K5QAIeh6xIyagoMWTCXlixhF8kO1naWeAKecLNs2
-   QnQBS3U9s4eFdrLln6JOF15bX6E6RprmEpwwvodP6+xp39OqoCwHTkU8O
-   63X8UFrqT1B8tKWp6MXEf4pbdQDJrXsd2u6R7yXoeHR4U118ErPbGguUK
-   Q==;
-X-CSE-ConnectionGUID: syAV1fRlQK2P5eFpXG4Gbw==
-X-CSE-MsgGUID: 8v0jxBA0SAK2WQitTAlqwg==
-X-IronPort-AV: E=Sophos;i="6.27,130,1787011200"; 
-   d="scan'208";a="29920886"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 13:22:01 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:19224]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
- id c090e9e5-78ba-4c90-8429-056fade416b7; Tue, 29 Sep 2026 13:22:01 +0000 (UTC)
-X-Farcaster-Flow-ID: c090e9e5-78ba-4c90-8429-056fade416b7
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 29 Sep 2026 13:22:00 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 29 Sep 2026 13:22:00 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: <jarkko@kernel.org>
-CC: <graf@amazon.de>, <gunnarku@amazon.com>, <jgg@ziepe.ca>,
-	<joshlev@amazon.com>, <linux-integrity@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
-	<peterhuewe@gmx.de>, <surenkj@amazon.com>
-Subject: Re: [PATCH 1/2] tpm: Add per-chip timeout for transient unavailability
-Date: Tue, 29 Sep 2026 13:21:56 +0000
-Message-ID: <20260929132156.52496-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <arabPv2YCddSMu_b@kernel.org>
-References: <arabPv2YCddSMu_b@kernel.org>
+        d=redhat.com; s=google; t=1790688123; x=1791292923; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XWJfgnj00gCkz7CXTr/d8e8qYHqPtAX3JIZh4ekkrdI=;
+        b=WwxYyGkVD7MHp4SE/0lUe87IOvdeqC1gUm5jutJ8DqYGgDpZO84ng7HVsGjVDofDcG
+         gs9PYUACOIDF/rGZlinOE7dOrKLIQxvZfmWqM40t6zCiAEb6E47/1EIrJoPMf08Q+SR9
+         p+GKZUL+EGb7P8QkNildybJ3d1k12Tcvr4g7vMZeOOSTq7eoLCdS012GB0RT0/gx3+iY
+         mm32k+LIaxwhXQl6xkW2d1UgxLo+sEQ7LiPjdoo+XoOOHcKJfVv1B6SSOhvlGvwXNIRa
+         dGkZboFj8S1y/z6VonyTo3PWhJt6H30e9wt5scwydD9iUxuPV9Qth10vggkjXrDdp4yP
+         rPFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790688123; x=1791292923;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XWJfgnj00gCkz7CXTr/d8e8qYHqPtAX3JIZh4ekkrdI=;
+        b=yHQKf28RyeSslgvEPS0iza/WTNmLwdMQThvJDdnIY68LS/meWSIALxPHtVfCoQEjo4
+         oF1Pr28VQ9o1lW50M12rbwOnzbxpupgS9ECa93cJuzdLYzcu2FbAMbzPRC0LzRZ2pUON
+         htYCX9eQN7eCiBgO38hSksly/ll36f9/wACxwgAyXfwgrtlVT+LqIql/PxtbKHRFUJE7
+         0OfiUhpDX2tGgzjb7OjYCCEVtNm5DL8lSk1oEzbbM7IbkcIW9rAFglK1X529J/H10Zw+
+         HRlTE5bqQmFsCtn8yEuiLZuUrdndSGEJnPhrRgNJSJINKP+8y1GMO5vUbVHvQU1vweZC
+         Jqww==
+X-Forwarded-Encrypted: i=1; AKwUvBwmJiueZjlj5QOn/DjiO/zwNrYDlR7m2Tq6QW+pXmlt90dbOVOdZTkqZo43yf1tZYDuUp8mjcReCvMoSi4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQEQ8KIuGH7Zkp6F6gQlBsDQKUxzzFnT8y5cLRnEmodh+6hMRx
+	6Rzhze6BqMkDsen4cR/jOtUiSs/CjUudBuhGV00TW0zKfUeoBAPKDwup0djv7XH3tiec6z32l0F
+	rIV/WAW3NCBBrFQgb9nKs7TFmLr97TLXmZ41d0q06pcDnV69ciCoSCDPwhQWOBuXQIg==
+X-Gm-Gg: AYBFou3BgkPcytNqRfWPLV3+vqN48XQFoFjBFCX38AmprGpQPmCyIXUi+gBBSlI0fns
+	RqtxMRy+StJqWKr/AvNGZuu1InASEc3RVkxo9YLlo2alQ675KE3r/MNOhWyAIqn+wrB++IRfmQf
+	6XNkdl+TFv2VmEqw9t2/WIVMoI99jetLJ4Pnrf558R9NrlSsorDds18jj+7qhUdEdCBdQfKuceM
+	rui/nUBvXy8C/GladoMqsfhZYWuKku9VehtNhW7s3012Z2dJXD30cYY+PIbl2eUMDV9IfmR/g3c
+	TZlXQOFkUxb0vntTDxVmZI1U1BMG6ZEA/qTtzckGDrSdERIWCAjNLeCVzz8S+fzGolAZ5SNsU/O
+	/zv+KRocRNEVrwEe8GYbjQY+uCe9yRGM2UaqsUgBkuLYw3CrIslgREvhRZoIBEZNeQC+DEPNglQ
+	==
+X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fe66f4c72mr283832945e9.19.1790688122609;
+        Tue, 29 Sep 2026 06:22:02 -0700 (PDT)
+X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fe66f4c72mr283832245e9.19.1790688122023;
+        Tue, 29 Sep 2026 06:22:02 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf2d973sm93471735e9.0.2026.09.29.06.21.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 06:22:01 -0700 (PDT)
+Message-ID: <a3275288-1eae-463e-ba9f-dbb2d715d1b4@redhat.com>
+Date: Tue, 29 Sep 2026 15:21:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D038UWC001.ant.amazon.com (10.13.139.213) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] net: axienet: bound TX completion cleanup by the
+ NAPI budget
+To: Sagi Maimon <maimon.sagi@gmail.com>, netdev@vger.kernel.org
+Cc: radhey.shyam.pandey@amd.com, michal.simek@amd.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ robert.hancock@calian.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260924135052.185129-1-maimon.sagi@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260924135052.185129-1-maimon.sagi@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026, Jarkko Sakkinen wrote:
-> On Wed, Sep 23, 2026 at 02:28:33PM +0000, Surendran Kanagaraj wrote:
-> > +	unsigned int busy_timeout_ms;
->
-> So I think this is a wrong solution.
->
-> Instead this should be tpm_crb internal and you should simply patch
-> chip->duration[]. See tpm_tis_core for example.
+On 9/24/26 15:50, Sagi Maimon wrote:
+> axienet_tx_poll() passes lp->tx_bd_num to axienet_free_tx_chain() as
+> @nr_bds, and @budget is only forwarded to napi_consume_skb() as its
+> bulk-free hint.  Nothing limits the cleanup loop to the NAPI budget, so
+> the number of packets returned is bounded by the TX ring size rather
+> than by the budget, and the poll can report more work than it was
+> given:
+> 
+>    eth0: NAPI poll function axienet_tx_poll+0x0/0x180 [xilinx_emac]
+>          returned 96, exceeding its budget of 64.
+> 
+> Returning more than the budget breaks the NAPI contract.  It also makes
+> the "packets < budget" test in axienet_tx_poll() false, so
+> napi_complete_done() is skipped and TX completion interrupts are not
+> re-enabled on that pass.  NAPI reschedules the poll, so this recovers,
+> but the accounting is wrong either way.
+> 
+> In steady state fewer descriptors complete per poll than the budget
+> allows, which is why this is rarely observed.  Triggering it needs more
+> than @budget completions outstanding at once - for example when TX
+> completion interrupts have not been taken for a while and a full ring is
+> reclaimed in one go.
+> 
+> Stop the loop once the budget is spent.  
 
-Thanks for the review. Agreed that this belongs in tpm_crb.
+Napi can process as much TX descriptor as available, even above `budget`
+see:
 
-TPM2 doesn't read chip->duration[] today. Commit 207696b17f38
-("tpm: use a map for tpm2_calc_ordinal_duration()") removed the
-ordinal to class lookup so patching the array would mean bringing
-that back. Something like:
+https://elixir.bootlin.com/linux/v7.2.8/source/Documentation/networking/napi.rst#L68
 
-1. tpm2_get_timeouts() fills chip->duration[] with the TPM2 defaults
-   and calls ->update_durations() the same way tpm1_get_timeouts()
-   does. tpm_tis_update_durations() only handles 1.x, so I would make
-   it return early on TPM2.
+The solution would be capping axienet_tx_poll() return value to `budget`.
 
-2. For the command durations, bring back the class lookup, so
-   tpm2_calc_ordinal_duration() returns chip->duration[class] like
-   tpm1_calc_ordinal_duration() does. SELF_TEST (3000 ms) and
-   VERIFY_SIGNATURE (30000 ms) need special care since they don't
-   fit the old classes.
+/P
 
-3. tpm_transmit() takes the TPM2_RC_RETRY cap from
-   chip->duration[TPM_LONG] instead of TPM2_DURATION_LONG.
-   tpm2_get_timeouts() sets it to TPM2_DURATION_LONG, so other chips
-   keep the same 2s.
-
-4. tpm_crb implements ->update_durations() and raises the values to
-   30s for NitroTPM.
-
-Does this match what you had in mind?
-
-Thanks,
-Surendran
