@@ -1,143 +1,111 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BF7527582
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687932; cv=pass; b=HYbtg/TFs0wCI7Mm0Tj1CNBPRzmKWdWQdlF2vKWLzbMb8nShxL+ZBw7oUGVPlk08qMQmlEp0F9Y21MN2QsHTDYJduMjep2UPAuuNdYI4/uOxyOD5batK2tk0eDIU2PoZWxwse3TG8xqK8LHCApuTGzGpSsSu7/VjD70C/Q6H6gs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687932; c=relaxed/simple;
-	bh=dnRZgOZPN8h1C48So+KfFB399+wu5SK9LTEtwCEcT2E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lGrUttlcNf9P3sLvEdcYtYZ7nCgwQlkDjDZzDifLQnojSte8WpyuXVAv8gyzKRRudjaFXs6ASc3DivuBUzFBN/xYvRiumUDO+yaOc0tjffIRtHWSRQ3Rvn8ybSx6QRbcbEHkm4/kTyNSpix3NnsRF+gdmcWrCgfcoi/qmU/m8jM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcZF7L3O; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9060D5187E6;
+	Tue, 29 Sep 2026 13:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790687940; cv=none; b=b+pkWJy4POgbtFWywN85jyXS6oLb4rXo+nVLDbiq5JhwayY2B2cs95PINNIRUc++Sg/m5YLIO+K+NUnS/+mDN0+SmcWkYc5qIG1zTjhe8nUVf9NIl6n8ceuCAMLgeBvbfIQDl66bzC0IKqJ1UefupP2/cRIAyMXDAUlT/Jgwz1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790687940; c=relaxed/simple;
+	bh=TpyfktK//0FD3fzt2W3VOH+D4O6TdLUvy3qKZ2gg8jM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=gNuw8NTZWVnXc486E/yRii8cE+cUpOLCXR0w9xIcywmi3l4PolQT5DWecR3jtTbCh/hw1NlhbWMYcDW5i40XphvOyHPen6Vv68cydzsCY9EuxcthSWCqtBhs2BDL4YkZ4jhM8Js9MJKPBfmVvmgjp1DayIYiaGqNZecbAe9TqaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oQ3OHl0F; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcZF7L3O"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8f00cd132so200836e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:18:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790687929; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oFQYp8Ws6bq7pWkPtr+yqlXj7Dy5D3Iy4G5rpssphToj2bDBF7x10RkTpq7TSyQS/X
-         MAHB1/agS5LbdWOC4TRdsP+kyWo98AFghR2ftDbbA0X+G1z0dQlVLiERTPuAZkLYaDYa
-         Kqlu7qkwWpn6ym8VQcW7nGi4IQlQLhhZzIOIPeeweoWsMMH7rFUwo+XPl9fqVLTvkyCn
-         BobFds5ur2d5MfKoqVmhhwi9pFeviRnmGrGZ2NLMNLr0YQo9RgGFAQb335hJthVFzdZS
-         Ig1bHFIglPwxf9A1tqWjz0sv+4U5FFg9Cil7jwsMHhtP1y0S2KReqbCD5MNK0gIG7VwQ
-         hzfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gRqL4mq8l9b/8+1doI0jfOmB5WaZxv0ewJ/nUke/hgQ=;
-        fh=n8/EpQLExlcN3e6Mc6B1qUQRbxur0uo63WWXWAX4xCo=;
-        b=r12qgwYxinb7XJfRZij8/u6ttP3DrbaHvxILhlPFTWULzuVvXOpO5jzMtmaNuBwYao
-         2ikvofwEhcDf0mx7qlov5HTCskzKC7PTbe4niiIzGl2a4FNtMd4hs+/b2bdTYCEaXO+E
-         AnbKyt6NGqy96qUi4y2IIFGDWnzjtlXBUz/UoZMDOOpFJEEwF/lCJHmuTQJgAtUhFYm+
-         flhxLt7LGH8xpi7MHST/YiQb3LkU0g2qw0QVdqi1FN3BnM2iwfunUpJJi0TzuNNYI5an
-         PyObFB6RS7oyKvZg4wYgjFQguwPFM9oVkP76IoYwqWjvhJhp3e7NPA4Ce612nUMraIC8
-         +lWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790687929; x=1791292729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gRqL4mq8l9b/8+1doI0jfOmB5WaZxv0ewJ/nUke/hgQ=;
-        b=qcZF7L3OnrfiKm8Z+a+sMqBBK/erb1XVb+acvu7SHvhz4HD4v/VgDy9RWTE/Tc2iQ/
-         m3L28MVnczYZ9jBAYJyzw0XFgN2UieVZF57ZaZ8iwu3I4vTmU9UHQIJe6NlfVO2dKdBk
-         mjKUUAEhSgNnqzaBueuxHASqHxqJVmLw6zRmatTf6rzmJPNbvWIlpQADLkeEXLxV4B0H
-         wGqc09VYdp+Z77+fXbwMopLYyJ0mukcoyNp47B9LJkXmdYlb7Q6eMOiU8mRPNbIUaA8G
-         yEtUqvRCV5PH8uSlXNu85tAcgy+iz/efYcSKXjrJtpw9JVm0QiqPqkmvYbaaGxrU2N/w
-         s/7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687929; x=1791292729;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gRqL4mq8l9b/8+1doI0jfOmB5WaZxv0ewJ/nUke/hgQ=;
-        b=DgE6Fr3sigun1g+yXeKeb2c0S4rn/vE28YVuC2ds6SIleJJ4lJ6tFBEhWZva8Tw8yW
-         +/iSuvhAgRQNBIswnsF+jpBufL29rmI1IJsTYZbNCqc9ygyU1yp0mCKKUgURDPUXxWRP
-         vsNXDIpeWppw/QGKFdLghbX1ewJIK+OAfAvGNFYa99IL38NPYJe8kvI+OtJTArGtxx5h
-         zI9OVT9v5tvjm4utz8/kOgdWZXdPk8zpZaIe6qy+GTq5/lvjvphTvqlZE7MK1cVSEf8s
-         dPzRxtSXFrWJ0RqT7i1d96/ahosApqO6ZYaV0o4miPNQFAgvvYvsCpelodakGmuoPoFk
-         HBAw==
-X-Forwarded-Encrypted: i=1; AKwUvByDUVg0cjwKXYFlhB/lI9+Kozi1H58w1RNRJmHq4wHyXz4MJN44Wrl1VAiyW53fkJqz7uCrQwnW/XY/tt4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTTbi72JzKPBnV2pOHckWWJmcd4+9/sN1ePEwggJ4eCZk8YuIB
-	MA7ZyI61XLmjXYYFYQwDScf9pHNMUoCNJhATxxSlXF1zFhyZoKkQG0lt2AS28Rp15JL64meNkaS
-	U74l3sGhit4XmaD1bQ+/v4DX32nsPlBQ=
-X-Gm-Gg: AYBFou1DnUy3TfWQIkQj3Xn1vRGFV+ghQekJ3Q1iVeogCDg+/rTKCjeORMdjI+odvT/
-	f7H0/D2BKLDO/Gj5cJorqDfHAEojXNrrTO9z8HeWI0XpYip73/eN3KgLUrBET3hTucl3VXkfE6z
-	puI6Z6t/YaZ8n8zQBOJK2Ey+8PQGos7k6lE44RGr+eXS414gWmAgiOalj8PgKII+lo/Dzp7Ve7x
-	NDv7I2NM7D4gFnqN+6ziWy8MIhdtCKYnLA+9BW31p9JxiQijPig1StNkOvLEqFtbYN9J2prl+F3
-	cBuRVX+LkNMZ88tmc9CcNfa2EgmUNp4zHOxHx+69sUUnmxyLd1jNVsLSdy6efDcZyumxqD41F2w
-	1nKTR2FHjTutv9a/Uxku+HIqQ5vb5aTVgJjMrLfzMxBMhmzng
-X-Received: by 2002:a05:6512:4020:b0:5b8:f0a4:350b with SMTP id
- 2adb3069b0e04-5b8f0a436bdmr3345652e87.1.1790687928678; Tue, 29 Sep 2026
- 06:18:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oQ3OHl0F"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BCB231A1065;
+	Tue, 29 Sep 2026 13:18:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B59C601BD;
+	Tue, 29 Sep 2026 13:18:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8661210328354;
+	Tue, 29 Sep 2026 15:18:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790687927; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=HTahn3OCQfrZM5NApRyAEMP67DTIGs+u7+3aS8XJ5nU=;
+	b=oQ3OHl0FvATBzcm419B9LA8f74qyf9KUlR9Ue7tTB/ndleZdO5uhgjuozrZKYrB8Syr3Fd
+	EqOKL9eS3wSd1DCvdU/bGNtt+ibwe5nzKtn+TvDt9Pp0AyBzuvYLd5A2flgxD2t9e85VJ2
+	Z+QzYx6L96UWbRVv5aCIwObWUGI77VGkxZHP7mq7pxferRqQPBEM0fBCf31UxCF4mcqOR7
+	jFUkKJP+Sg9SbvQ7o4Aza0J0Nv+2r/qmVdbBSNv0UiPoJufJh0rM4CA8Q9Qe3WJBWnGdOB
+	+4obJ0y6HPH8/53+1gG+BNlB42Z9vaRipb8kbTDCr9OL5mwzRRGMEJ4EG1M5yw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260929115956.229610-1-chenyou910331@gmail.com> <CAOB9oOY2V68_qnv6DFyDJL2d=50zN_oQ6=6+Fs7=Ez+9TnuDmg@mail.gmail.com>
-In-Reply-To: <CAOB9oOY2V68_qnv6DFyDJL2d=50zN_oQ6=6+Fs7=Ez+9TnuDmg@mail.gmail.com>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Tue, 29 Sep 2026 21:18:36 +0800
-X-Gm-Features: AclHuK8JI9A3jbYNFYQfj8FyUPccoS-iBb3m2QeZc47P98WPh-RJeMF-A3fYA6A
-Message-ID: <CAKspUh+rJ7qm7VKXTYcqqPxwNWnNJ09p3DAciwGXGzpBCOJ=NA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/7] docs/zh_TW: remove duplicated maintainer contact information
-To: Yizhou Tang <tangyeechou@gmail.com>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org, 
-	si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andy Deng <theandy.deng@gmail.com>, 
-	Bailu Lin <bailu.lin@vivo.com>, Bernard Zhao <bernard@vivo.com>, Bryan Wu <bryan.wu@analog.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Chucheng Luo <luochucheng@vivo.com>, 
-	Dave Martin <Dave.Martin@arm.com>, Dave Young <hidave.darkstar@gmail.com>, 
-	Dongsheng Song <dongshneg.song@gmail.com>, "Eric W . Biederman" <ebiederm@xmission.com>, 
-	Eugene Teo <eugeneteo@kernel.sg>, Fu Wei <tekkamanninja@gmail.com>, Fu Wei <wefu@redhat.com>, 
-	gao chao <gaochao49@huawei.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hailong Liu <liu.hailong6@zte.com.cn>, Harry Wei <harryxiyou@gmail.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, Hu Haowen <2023002089@link.tyut.edu.cn>, 
-	Junhua Huang <huang.junhua@zte.com.cn>, Kangkai Yin <e12051@motorola.com>, 
-	Leigang Zang <zangleigang@hisilicon.com>, Li Yang <leoyang.li@nxp.com>, 
-	Li Zefan <lizf@cn.fujitsu.com>, Maggie Chen <chenqi@beyondsoft.com>, 
-	Nicolas Pitre <nico@fluxnic.net>, Punit Agrawal <punitagrawal@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	TripleX Chung <xxx.phy@gmail.com>, Wang Chen <wangchen@cn.fujitsu.com>, 
-	Wang Cong <xiyou.wangcong@gmail.com>, Wang Wenhu <wenhu.wang@vivo.com>, 
-	Wan Jiabing <wanjiabing@vivo.com>, wheelz <kernel.zeng@gmail.com>, 
-	Will Deacon <will@kernel.org>, Wu XiangCheng <bobwxc@email.cn>, 
-	Xiaochen Wang <wangxiaochen0@gmail.com>, Xudong Guan <xudong.guan@gmail.com>, 
-	xu xin <xu.xin16@zte.com.cn>, yaxinsn <yaxinsn@163.com>, Yinglin Luan <synmyth@gmail.com>, 
-	Zhang Le <r0bertz@gentoo.org>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 15:18:35 +0200
+Message-Id: <DLRTVZPMORU3.1FBSI0I9UQBM2@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 0/7] drm: remove deprecated *_of_get_bridge() from
+ non-OF drivers (fixes build regression)
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
+ <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave Stevenson"
+ <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
+ <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
+ <geert+renesas@glider.be>
+X-Mailer: aerc 0.22.0
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 29, 2026 at 8:14 PM Yi Tang <tangyeechou@gmail.com> wrote:
-> I have no objection to removing the duplicate contact information. I
-> noticed that some translations in these commits were changed to
-> traditional Chinese terminology, such as changing "=E7=A1=AC=E4=BB=B6" to=
- "=E7=A1=AC=E9=AB=94". I
-> suggest submitting these changes as separate commits to make them
-> easier for everyone to review.
+Hello,
 
-Thanks for looking, Yi.
+On Tue Sep 29, 2026 at 12:36 PM CEST, Luca Ceresoli wrote:
+> After commit Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
+> drm_panel.c") some drivers fail building:
+>
+>   error: implicit declaration of function 'devm_drm_of_get_bridge'
+>
+> This is because devm_drm_of_get_bridge() (and drmm_of_get_bridge()) have
+> been moved to drm-panel.h.
+>
+> The affected drivers are those which:
+>
+>  * can be built without CONFIG_OF, and
+>  * don't include drm_panel.h
+>
+> The affected drivers are 3, fix them (patches 1-3) by replacing the
+> deprecated *_of_get_bridge() calls with of_drm_get_bridge_by_endpoint().
+>
+> While there, do the same for all drivers which be built without CONFIG_OF=
+,
+> even if they don't fail (patches 4-7).
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-That change is not part of this series.  What you saw is in the
-range-diff, which compares the v1 and v2 patches as text, context lines
-included.  v1 was based on v7.2 and v2 on docs-next, where the zh_TW
-process/ series has already landed; that series did the terminology
-update in separate commits, e.g. 5f0178db86a3 ("docs/zh_TW: process:
-localize terminology in embargoed-hardware-issues.rst").
+In the rush for sending fixes I introduced some bugs caught by sashiko,
+mostly of the kind "bridge ref will leak if this function fails later". I'm
+sending a v2 in a moment.
 
-So "=E7=A1=AC=E4=BB=B6" -> "=E7=A1=AC=E9=AB=94" only shows up as a changed =
-context line (note the
-blank second column).  The v2 patches themselves change no wording;
-they only delete the credit and contact lines.
+Sorry I guess I have to remove the review tags received. :-/
 
-Thanks,
-Chen-Yu
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
