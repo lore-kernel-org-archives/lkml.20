@@ -1,171 +1,470 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695A6511E72
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 038AA513557;
+	Tue, 29 Sep 2026 10:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677828; cv=none; b=CbzCf09nFhzxC5HPs+gbIeHBRapuYr0kPbcvBs6mT1eqi3ZVOy2CjxKELTmGK6cgyOslEkOSwAbGRZhBz68qLXgzuQHep12vC28svqNIcbKjXzlAzkIkVrUL39Wq0/brMnZzOcBhJRVIXCKLfNSQTyWp9dNGaJdrAuhyyn0B420=
+	t=1790677828; cv=none; b=HXOnZJY9JVW2wLwXFcRztZtntjBNE7IFvLLTGp0PyFw7rIr2m4LXAOhnndaaHDpPIBuBAm8346KG4UiUoa3/nyFIczKB5A6qbz7ATtWmQAZI/qSktMX4R52qFUyDvWC4xbJkZhZK8I73YsSQOEwaULyIjg7XLnTi41FzhIkGQNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790677828; c=relaxed/simple;
-	bh=DntTCIUQ0j7NgeaLTznwteean8OpyslV/Zs4s5i2tdw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=UP0FiAlUpNs2XoQKOVmai7ppOqsvgGk+y8Tbn34NUMSdBZEP4D8tbLZB3MYFjjyUojrpO86zbUHxh3tmdSQLgF9NgtTaRFVY9t4+PGAnhlV0iqkPiAY8+MGCrs48UXU5SxE4BOpKcfLvoTlRgrAhgVpUZfleCsj3DH6Luh35qII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=oQDMyzVG; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	bh=xS8x1mldMghmrCSOEjbKLPjPW9hVvNYyF4FyTD+8fDc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QswgGlU0wpw3l7AfYd0w/J6Oj9iMD7sJw3nA8WZorGaDzjZcf9/zjMkHxsZYNygiMb22GJxFL/RtdweX4oZF8cHqmjOa13JA110voUaKkg/xsI9W0yegKbER+KkT7apR9czOwWtUCriklfbJwDfFeTSc9d587iF6deVnLADmwn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ny5icgY/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="oQDMyzVG"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=EkLqdPxdSLJ7raVGNPbHVI/2jD90kTakfFHeUisjhwo=;
-	b=oQDMyzVG0KUbNXrlQWQVUUgqlaxkHcIvP0UyRXSYha/jMxqpVXzhuX7JzocEF+KHQ8CFuZWfQ
-	RVkrmt5LsNqvHKSsgtLnndDZqHoZkw0pdq20Iamax3CgIsFWe1TahupnpVNy6Uctf2+KKGlgdsJ
-	lnasTD8Tzgck/G26vQR3kaw=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hvDdv3WJpz1T4dr;
-	Tue, 29 Sep 2026 18:18:11 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 924A140537;
-	Tue, 29 Sep 2026 18:30:11 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 29 Sep 2026 18:30:10 +0800
-Message-ID: <10e3784d-fcb0-4d61-b9e1-27a0ad5c9113@huawei.com>
-Date: Tue, 29 Sep 2026 18:30:10 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ny5icgY/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8A5A1595;
+	Tue, 29 Sep 2026 03:30:14 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.52.74])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 57BB03F86F;
+	Tue, 29 Sep 2026 03:30:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790677818; bh=xS8x1mldMghmrCSOEjbKLPjPW9hVvNYyF4FyTD+8fDc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ny5icgY/6wAajRcWWshF6pD/dlrxscwre83V70t8Z+QS9lavePjuegP5dordCs5JQ
+	 FF2KtCe8e/BrEizuQhnIHq1AaO3lD4rwQV8UuSzWgY0K07dHHhS3A/3dhkHZ7qkglQ
+	 a0PE170Ac1tWSpePf7Yv+EUlgLb+eJZ1zKZS37cU=
+From: Christian Loehle <christian.loehle@arm.com>
+To: rafael@kernel.org
+Cc: zhenglifeng1@huawei.com,
+	zhongqiu.han@oss.qualcomm.com,
+	viresh.kumar@linaro.org,
+	linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Perry Yuan <perry.yuan@amd.com>,
+	"Gautham R . Shenoy" <gautham.shenoy@amd.com>,
+	Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
+	Shubhang Kaushik <sh@gentwo.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	jonathanh@nvidia.com,
+	zhanjie9@hisilicon.com,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH 2/3] cpufreq: CPPC: Resolve frequencies to performance levels
+Date: Tue, 29 Sep 2026 11:29:56 +0100
+Message-Id: <20260929102957.2591657-3-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260929102957.2591657-1-christian.loehle@arm.com>
+References: <20260929102957.2591657-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from
- S2AP_W to DBM
-To: Leonardo Bras <leo.bras@arm.com>
-CC: Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>, Fuad
- Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden
-	<seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
-	<yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Raghavendra
- Rao Ananta <rananta@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-References: <20260901171558.2674031-1-leo.bras@arm.com>
- <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org>
- <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org>
- <aqp73SxO78o7LJTs@LeoBrasDK>
- <eb629070-a02f-426a-92ee-b2c8f9e2aa9a@huawei.com>
- <arE8EOPh1-NWtFIU@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <arE8EOPh1-NWtFIU@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Transfer-Encoding: 8bit
 
+Different kHz requests can select the same CPPC performance level.
+Implement ->resolve_freq() so governors such as schedutil can skip
+redundant writes.
 
+Precompute the affine conversion and invert its integer rounding directly.
+Share bounded conversions with ->target() and ->fast_switch(), choosing the
+first performance level when several share a kHz value. Recompute limits
+from each policy snapshot to avoid caching sysfs-shared mutable controls.
 
-On 9/21/2026 10:15 PM, Leonardo Bras wrote:
-> On Fri, Sep 18, 2026 at 05:39:17PM +0800, Tian Zheng wrote:
->>
->>
->> On 9/16/2026 7:22 PM, Leonardo Bras wrote:
->>> On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
->>>> On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
->>>>>> Yes, the HW should ignore it. But we have also
->>>>>> seen quite a few broken designs in this area...
->>>>>>
->>>>>
->>>>> I lack experience on what bad thing could happen. So I will expand on what
->>>>> I belive to understand up to here:
->>>>>
->>>>> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
->>>>> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
->>>>> - For HW pagetable walking, maybe some faulty implementation may rely on
->>>>>     bit51 being RES0, and fault otherwise.
->>>>>
->>>>> If that's the case, then we would have to actually support both encodings,
->>>>> and only enable the new one if HAFDBS is available in the system.
->>>>>
->>>>> I just wonder how high are the chances to have such a broken design,
->>>>> or other broken designs did not come to my mind, and if we have to start
->>>>> with that multiple-encoding option.
->>>>
->>>> FWIW, the host stage-1 already uses the DBM bit unconditionally,
->>>> treating it as a software bit on implementations without HAFDBS.
->>>> Although given the quality of any garden variety Arm MMU I understand
->>>> where Marc is coming from.
->>>>
->>>> I don't think the HAFDBS enablement is complicated enough to be done in
->>>> a separate series without any meaningful users, nor would I really be
->>>> interested in taking it without, say, HDBSS.
->>>>
->>>> Can you please work with Tian to get a combined series out for this?
->>>>
->>>
->>> Hi Oliver, thanks for reviewing!
->>>
->>> Sure, one of the reasons I sent like this is so Tian could use it as a base
->>> for his next version.
->>>
->>>
->>
->> Hi Oliver, Leo,
->>
->> Works for us. I plan to send HDBSS v5 maybe next week with this series
->> merged in. Both dirty-tracking consumers are already built on top of the
->> DBM approach: dirty ring and dirty bitmap.
->>
->> Leo, with your blessing, I'd like to pick patches 1-4 into the HDBSS
->> tree with your Signed-off-by preserved and mine added on top, plus some
->> bug fixes on top of this RFC series.
-> 
-> Yeah, no problem on my side. I would just observe the maintainers' comments
-> on those before merging them.
-> 
+Cap intervals at or below nominal kHz at Nominal Performance, excluding
+boosted levels that alias it. Unchanged frequency limits then imply
+unchanged performance limits across boost toggles.
 
-All right, thanks.
+After clamping to CPU limits, snap the limits to supported frequencies.
+If none lies in the interval, collapse both limits to the highest supported
+frequency not above its maximum, as frequency-table verification does.
 
-Tian
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/cpufreq/cppc_cpufreq.c | 257 ++++++++++++++++++++++++++++++---
+ 1 file changed, 239 insertions(+), 18 deletions(-)
 
->>
->> For patch 5, I'd like to rework it into a derived hardware dirty mode
->> that replaces both kvm_set_hafdbs() and our earlier HDBSS enable/disable
->> hooks, so the whole thing lands as one series.
->>
-> 
-> My intention when I wrote that patch was to add a base so you could add
-> HDBSS on kvm_arch_commit_memory_region() with new patch such as:
-> 
-> 	/* Disable HAFDBS when dirty-logging starts */
-> 	if (kvm_supports_hafdbs(kvm))
-> 		kvm_set_hafdbs(kvm, 0);
-> +	else
-> +		kvm_enable_hdbss(kvm);
-> ...
-> 
-> 	/* If dirty-logging was canceled, set HAFDBS back on */
-> 	if (kvm_supports_hafdbs(kvm) &&
-> 	    atomic_read(&kvm->nr_memslots_dirty_logging) == 0)
-> 		kvm_set_hafdbs(kvm, 1);
-> +	else
-> +		kvm_disable_hdbss(kvm);
-> 
-> 
-> That being said, I need to run tests to make sure the usage of HAFDBS
-> outside of dirty_tracking makes any sense in terms of performance, but if
-> that's not the case, it would be fine to rework it so it does not
-> enable/disable HAFDBS there.
-> 
->> Performance looks good in both dirty ring and dirty bitmap scenarios so
->> far.
->>
-> 
-> Awesome!
-> 
-> Thanks!
-> Leo
-> 
-
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 4ea444ff889e..fa85efb9f701 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -18,8 +18,10 @@
+ #include <linux/cpufreq.h>
+ #include <linux/irq_work.h>
+ #include <linux/kthread.h>
++#include <linux/math64.h>
+ #include <linux/mutex.h>
+ #include <linux/time.h>
++#include <linux/units.h>
+ #include <linux/vmalloc.h>
+ #include <uapi/linux/sched/types.h>
+ 
+@@ -29,6 +31,24 @@
+ 
+ static struct cpufreq_driver cppc_cpufreq_driver;
+ 
++struct cppc_perf_freq_map {
++	s64 offset;
++	u64 multiplier;
++	u32 divisor;
++};
++
++struct cppc_cpufreq_data {
++	struct cppc_cpudata cpu_data;
++	struct cppc_perf_freq_map map;
++	unsigned int nominal_khz;
++};
++
++static struct cppc_cpufreq_data *
++cppc_cpufreq_data(struct cppc_cpudata *cpu_data)
++{
++	return container_of(cpu_data, struct cppc_cpufreq_data, cpu_data);
++}
++
+ #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
+ static enum {
+ 	FIE_UNSET = -1,
+@@ -302,11 +322,159 @@ static inline void cppc_freq_invariance_exit(void)
+ }
+ #endif /* CONFIG_ACPI_CPPC_CPUFREQ_FIE */
+ 
++/* Precompute the affine mapping used by cppc_perf_to_khz(). */
++static void cppc_cpufreq_init_perf_map(struct cppc_perf_caps *caps,
++				       struct cppc_perf_freq_map *map)
++{
++	if (caps->lowest_freq && caps->nominal_freq) {
++		if (caps->lowest_freq == caps->nominal_freq) {
++			map->multiplier = (u64)caps->nominal_freq * KHZ_PER_MHZ;
++			map->divisor = caps->nominal_perf;
++			map->offset = 0;
++		} else {
++			map->multiplier = (u64)(caps->nominal_freq -
++					   caps->lowest_freq) * KHZ_PER_MHZ;
++			map->divisor = caps->nominal_perf - caps->lowest_perf;
++			map->offset = (s64)caps->nominal_freq * KHZ_PER_MHZ -
++				div64_u64(caps->nominal_perf * map->multiplier,
++					  map->divisor);
++		}
++	} else {
++		map->multiplier = cppc_get_dmi_max_khz();
++		map->divisor = caps->highest_perf;
++		map->offset = 0;
++	}
++}
++
++static unsigned int
++cppc_cpufreq_perf_to_khz(const struct cppc_perf_freq_map *map, u32 perf)
++{
++	s64 freq = map->offset + div64_u64(perf * map->multiplier,
++					    map->divisor);
++
++	return freq > 0 ? freq : 0;
++}
++
++/*
++ * Invert integer-kHz rounding: L finds the first level at or above the
++ * target frequency, H the last at or below it, within the supplied bounds.
++ */
++static u32 cppc_cpufreq_perf_for_freq(const struct cppc_perf_freq_map *map,
++				      unsigned int target_freq,
++				      u32 min_perf, u32 max_perf,
++				      unsigned int relation)
++{
++	s64 scaled_freq = (s64)target_freq - map->offset;
++	u64 perf;
++
++	switch (relation) {
++	case CPUFREQ_RELATION_L:
++		if (!target_freq || scaled_freq <= 0)
++			perf = 0;
++		else
++			perf = mul_u64_u64_div_u64_roundup(scaled_freq,
++							   map->divisor,
++							   map->multiplier);
++		break;
++
++	case CPUFREQ_RELATION_H:
++		if (scaled_freq < 0) {
++			perf = 0;
++		} else {
++			perf = mul_u64_u64_div_u64_roundup(scaled_freq + 1,
++							   map->divisor,
++							   map->multiplier);
++			perf--;
++		}
++		break;
++
++	default:
++		WARN_ON_ONCE(1);
++		return min_perf;
++	}
++
++	return clamp_t(u64, perf, min_perf, max_perf);
++}
++
++static void cppc_cpufreq_perf_limits(struct cppc_perf_caps *caps,
++				     struct cppc_cpufreq_data *data,
++				     unsigned int min_freq,
++				     unsigned int max_freq,
++				     u32 *min_perf, u32 *max_perf)
++{
++	u32 policy_max_perf;
++
++	/* Do not include boosted levels that alias the nominal frequency. */
++	policy_max_perf = max_freq <= data->nominal_khz ?
++			  caps->nominal_perf : caps->highest_perf;
++	*min_perf = cppc_cpufreq_perf_for_freq(&data->map, min_freq,
++					       caps->lowest_perf,
++					       policy_max_perf,
++					       CPUFREQ_RELATION_L);
++	*max_perf = cppc_cpufreq_perf_for_freq(&data->map, max_freq,
++					       caps->lowest_perf,
++					       policy_max_perf,
++					       CPUFREQ_RELATION_H);
++}
++
++static unsigned int
++cppc_cpufreq_resolve_freq(struct cpufreq_policy *policy,
++			  unsigned int target_freq,
++			  unsigned int min_freq,
++			  unsigned int max_freq,
++			  unsigned int relation)
++{
++	struct cppc_cpudata *cpu_data = policy->driver_data;
++	struct cppc_perf_caps *caps = &cpu_data->perf_caps;
++	struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
++	const struct cppc_perf_freq_map *map = &data->map;
++	u32 min_perf, max_perf, perf;
++
++	cppc_cpufreq_perf_limits(caps, data, min_freq, max_freq,
++				 &min_perf, &max_perf);
++	if (WARN_ON_ONCE(min_perf > max_perf))
++		return cppc_cpufreq_perf_to_khz(map, max_perf);
++
++	switch (relation) {
++	case CPUFREQ_RELATION_L:
++	case CPUFREQ_RELATION_H:
++		perf = cppc_cpufreq_perf_for_freq(map, target_freq,
++						  min_perf, max_perf, relation);
++		break;
++	case CPUFREQ_RELATION_C: {
++		u32 lower = cppc_cpufreq_perf_for_freq(map, target_freq,
++							min_perf, max_perf,
++							CPUFREQ_RELATION_H);
++		u32 upper = cppc_cpufreq_perf_for_freq(map, target_freq,
++							min_perf, max_perf,
++							CPUFREQ_RELATION_L);
++		unsigned int lower_freq = cppc_cpufreq_perf_to_khz(map, lower);
++		unsigned int upper_freq = cppc_cpufreq_perf_to_khz(map, upper);
++
++		if (lower_freq >= target_freq)
++			perf = lower;
++		else if (upper_freq <= target_freq)
++			perf = upper;
++		else if (target_freq - lower_freq < upper_freq - target_freq)
++			perf = lower;
++		else
++			perf = upper;
++		break;
++	}
++	default:
++		WARN_ON_ONCE(1);
++		return target_freq;
++	}
++
++	return cppc_cpufreq_perf_to_khz(map, perf);
++}
++
+ static void cppc_cpufreq_get_perf_limits(struct cppc_cpudata *cpu_data,
+ 					 struct cpufreq_policy *policy,
+ 					 u32 *min_perf, u32 *max_perf)
+ {
+ 	struct cppc_perf_caps *caps = &cpu_data->perf_caps;
++	struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
+ 	unsigned int min_freq, max_freq;
+ 	u32 min, max;
+ 
+@@ -315,11 +483,11 @@ static void cppc_cpufreq_get_perf_limits(struct cppc_cpudata *cpu_data,
+ 	if (unlikely(min_freq > max_freq))
+ 		min_freq = max_freq;
+ 
+-	min = cppc_khz_to_perf(caps, min_freq);
+-	max = cppc_khz_to_perf(caps, max_freq);
++	cppc_cpufreq_perf_limits(caps, data, min_freq, max_freq,
++				 &min, &max);
+ 
+-	*min_perf = clamp_t(u32, min, caps->lowest_perf, caps->highest_perf);
+-	*max_perf = clamp_t(u32, max, caps->lowest_perf, caps->highest_perf);
++	*min_perf = min(min, max);
++	*max_perf = max;
+ }
+ 
+ static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
+@@ -330,6 +498,26 @@ static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
+ 				     &cpu_data->perf_ctrls.max_perf);
+ }
+ 
++static unsigned int
++cppc_cpufreq_update_perf_ctrls(struct cppc_cpudata *cpu_data,
++			       struct cpufreq_policy *policy,
++			       unsigned int target_freq)
++{
++	struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
++	u32 min_perf, max_perf, desired_perf;
++
++	cppc_cpufreq_get_perf_limits(cpu_data, policy, &min_perf, &max_perf);
++	/* Use the first level when several share the same integer-kHz value. */
++	desired_perf = cppc_cpufreq_perf_for_freq(&data->map, target_freq,
++						  min_perf, max_perf,
++						  CPUFREQ_RELATION_L);
++	cpu_data->perf_ctrls.min_perf = min_perf;
++	cpu_data->perf_ctrls.max_perf = max_perf;
++	cpu_data->perf_ctrls.desired_perf = desired_perf;
++
++	return cppc_cpufreq_perf_to_khz(&data->map, desired_perf);
++}
++
+ static int cppc_cpufreq_set_target(struct cpufreq_policy *policy,
+ 				   unsigned int target_freq,
+ 				   unsigned int relation)
+@@ -339,12 +527,9 @@ static int cppc_cpufreq_set_target(struct cpufreq_policy *policy,
+ 	struct cpufreq_freqs freqs;
+ 	int ret = 0;
+ 
+-	cpu_data->perf_ctrls.desired_perf =
+-			cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
+-	cppc_cpufreq_update_perf_limits(cpu_data, policy);
+-
+ 	freqs.old = policy->cur;
+-	freqs.new = target_freq;
++	freqs.new = cppc_cpufreq_update_perf_ctrls(cpu_data, policy,
++						   target_freq);
+ 
+ 	cpufreq_freq_transition_begin(policy, &freqs);
+ 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+@@ -361,13 +546,12 @@ static unsigned int cppc_cpufreq_fast_switch(struct cpufreq_policy *policy,
+ 					      unsigned int target_freq)
+ {
+ 	struct cppc_cpudata *cpu_data = policy->driver_data;
++	unsigned int resolved_freq;
+ 	unsigned int cpu = policy->cpu;
+-	u32 desired_perf;
+ 	int ret;
+ 
+-	desired_perf = cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
+-	cpu_data->perf_ctrls.desired_perf = desired_perf;
+-	cppc_cpufreq_update_perf_limits(cpu_data, policy);
++	resolved_freq = cppc_cpufreq_update_perf_ctrls(cpu_data, policy,
++						       target_freq);
+ 
+ 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+ 	if (ret) {
+@@ -376,12 +560,39 @@ static unsigned int cppc_cpufreq_fast_switch(struct cpufreq_policy *policy,
+ 		return 0;
+ 	}
+ 
+-	return target_freq;
++	return resolved_freq;
+ }
+ 
+ static int cppc_verify_policy(struct cpufreq_policy_data *policy)
+ {
++	struct cpufreq_policy *cur_policy;
++	struct cppc_cpudata *cpu_data;
++	struct cppc_cpufreq_data *data;
++	struct cppc_perf_caps *caps;
++	unsigned int min_freq, max_freq;
++	u32 min_perf, max_perf;
++
+ 	cpufreq_verify_within_cpu_limits(policy);
++
++	cur_policy = cpufreq_cpu_get_raw(policy->cpu);
++	if (WARN_ON_ONCE(!cur_policy || !cur_policy->driver_data))
++		return -ENODEV;
++
++	cpu_data = cur_policy->driver_data;
++	data = cppc_cpufreq_data(cpu_data);
++	caps = &cpu_data->perf_caps;
++	cppc_cpufreq_perf_limits(caps, data, policy->min, policy->max,
++				 &min_perf, &max_perf);
++	min_freq = cppc_cpufreq_perf_to_khz(&data->map, min_perf);
++	max_freq = cppc_cpufreq_perf_to_khz(&data->map, max_perf);
++
++	/* Favor the maximum if no supported frequency lies in the interval. */
++	if (min_perf > max_perf || min_freq > policy->max ||
++	    max_freq < policy->min)
++		min_freq = max_freq;
++
++	policy->min = min_freq;
++	policy->max = max_freq;
+ 	return 0;
+ }
+ 
+@@ -618,12 +829,14 @@ static void populate_efficiency_class(void)
+ 
+ static struct cppc_cpudata *cppc_cpufreq_get_cpu_data(unsigned int cpu)
+ {
++	struct cppc_cpufreq_data *data;
+ 	struct cppc_cpudata *cpu_data;
+ 	int ret;
+ 
+-	cpu_data = kzalloc_obj(struct cppc_cpudata);
+-	if (!cpu_data)
++	data = kzalloc_obj(struct cppc_cpufreq_data);
++	if (!data)
+ 		goto out;
++	cpu_data = &data->cpu_data;
+ 
+ 	if (!zalloc_cpumask_var(&cpu_data->shared_cpu_map, GFP_KERNEL))
+ 		goto free_cpu;
+@@ -640,6 +853,10 @@ static struct cppc_cpudata *cppc_cpufreq_get_cpu_data(unsigned int cpu)
+ 		goto free_mask;
+ 	}
+ 
++	cppc_cpufreq_init_perf_map(&cpu_data->perf_caps, &data->map);
++	data->nominal_khz = cppc_cpufreq_perf_to_khz(&data->map,
++						     cpu_data->perf_caps.nominal_perf);
++
+ 	ret = cppc_get_perf(cpu, &cpu_data->perf_ctrls);
+ 	if (ret) {
+ 		pr_debug("Err reading CPU%d perf ctrls: ret:%d\n", cpu, ret);
+@@ -651,7 +868,7 @@ static struct cppc_cpudata *cppc_cpufreq_get_cpu_data(unsigned int cpu)
+ free_mask:
+ 	free_cpumask_var(cpu_data->shared_cpu_map);
+ free_cpu:
+-	kfree(cpu_data);
++	kfree(data);
+ out:
+ 	return NULL;
+ }
+@@ -659,9 +876,12 @@ static struct cppc_cpudata *cppc_cpufreq_get_cpu_data(unsigned int cpu)
+ static void cppc_cpufreq_put_cpu_data(struct cpufreq_policy *policy)
+ {
+ 	struct cppc_cpudata *cpu_data = policy->driver_data;
++	struct cppc_cpufreq_data *data;
++
++	data = container_of(cpu_data, struct cppc_cpufreq_data, cpu_data);
+ 
+ 	free_cpumask_var(cpu_data->shared_cpu_map);
+-	kfree(cpu_data);
++	kfree(data);
+ 	policy->driver_data = NULL;
+ }
+ 
+@@ -1056,6 +1276,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
+ 	.flags = CPUFREQ_CONST_LOOPS | CPUFREQ_NEED_UPDATE_LIMITS,
+ 	.verify = cppc_verify_policy,
+ 	.target = cppc_cpufreq_set_target,
++	.resolve_freq = cppc_cpufreq_resolve_freq,
+ 	.get = cppc_cpufreq_get_rate,
+ 	.fast_switch = cppc_cpufreq_fast_switch,
+ 	.init = cppc_cpufreq_cpu_init,
