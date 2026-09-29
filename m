@@ -1,153 +1,152 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013036.outbound.protection.outlook.com [40.107.201.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2671047C0F8;
-	Tue, 29 Sep 2026 08:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646803A872C;
+	Tue, 29 Sep 2026 08:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671295; cv=pass; b=M5xT5YKbifPoLocQaECLICEr77h6cvBYBZxuRzy4yMb+1O+Jxbk37ObOSEb+0Jc7AY2dK1Zyg5JZ+eZ2h3722yQuqhvFQUeHYK7+jZh21b3kqZfKNRmxvw/GG2cS7etVZmUJM3KwNQQp84cMk6z2IhkENIrEBIBl7WnU5dKzZA8=
+	t=1790671304; cv=fail; b=T+Vw6M+w9PnAQ2/d9HIo/ntc7E+dEiFAadQwA0Q1TMzTSuog1sgH0xtDds7Kph8Ea7fO6aGNUlP+LcwlKtzF/cbRiVfyxv2y/hI2aHUI65VVJ/dVYzkw+DJngLfdg7y+so7qZSqToc10GZ5hQMzEP5jyFzPgHv3zmOaJ5NJ73mw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671295; c=relaxed/simple;
-	bh=ifyLTMeuVsDv458JUi7PRhLOPSp/EvgHwNpABos9HrM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IlIiAAVGWS0sRpFJHug+mEd5MB/KhtLSRWZ58b/MRk2vUXUAFHfEHogdZVyYHt0W/gHZ3NAzkDgzD3mnZo90qTR0OIRkT9jxLaRyRR29hRaZv6RUHP32aHwvdwHPuMA/nGKy4VnfnSprWIgjyJx8Bzri3tUrgQ8E85f6WiHg6KQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=WK7ifxOk; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1790671304; c=relaxed/simple;
+	bh=ZlVQocRhOgNHEUG0TYY5Gj0Gt+dpp9GyQBJqjEbkROQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PSumwhNpbw/o004TRQFVJlukfXna5TKvhp/H4GFu7MKBBNoxbzK0wEpuITiWYyjDj0CMnBfrvwUz1qPzRiZRuilf+hrAAhCXTwZNla29oTXjZWr3mlhPcVLqOwpP1RcTvESnOSzA8Jocwj9ttkyS47nxXxPy5ic9JUBraEDqiGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iDunn7yL; arc=fail smtp.client-ip=40.107.201.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="WK7ifxOk"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BAF31201E6E;
-	Tue, 29 Sep 2026 10:41:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790671289;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dP0/8tUZqbkGFMkFxlQW3Pa2i+aTX2eHvc6W1tWwX2k=;
-	b=WK7ifxOkcVdKKf21R4Hfgadrml9iukZE+adL+xhRAxkJ1G+2qavtQXw/qPumtxfeXPq1ua
-	x6JyG4TJSt3wXgmyxTpRr9LSdY3gwIAmvkqo/KZRnLaa0L/5su72UtD2Out3v3g8m2Nq7W
-	OiPPh+5ovgXqGjTV0mYWqZlQHxyWBwRnWC+VWyTpge84ejum/WhogtLkgLiPjT6bp9bW65
-	peBdo4hPBRwajWEj8+q6ISwlv0Yx/T+m2gcEE5xxESxTI6hD4BlOta+TRE3sv8nQn8ARCl
-	K8gIGq2VhAwHMzECNvB09pCzsmeXaFB0Zth2xaps7QFCrVddCXOXae3/kgza6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790671289;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dP0/8tUZqbkGFMkFxlQW3Pa2i+aTX2eHvc6W1tWwX2k=;
-	b=H2fMGd4gRvE8maW4OF4zYJxgeefCHLEm+Ww39n7oIpj5EIgwjRt0Wy319gSYLEVY4TZ0aX
-	6v4bTAW1KRR5igfuGKP6p5gLuShLBgutOivXRZslszMyys4LniBBIHeA/akmFhFtHxhhwM
-	fXpLnl3EAaNUDkE0IK7QTS41CpzKeXkiQq0NajIiTEzlzSXo14oG6Taif4qcA555+LunxI
-	gTHWxcA8kNtxvl9/SaohdBgrlSKF3kp7V09ZP4nvSe4jWNXrzY4fEoEDPeMRP+xN/WvTDD
-	d6ZJZiienerNQH7+WtNfvjQXExfmiv8ff2uxSNljfF/5XWhYwds2NSNWzupj2A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790671289; a=rsa-sha256;
-	cv=none;
-	b=RcHS8aNCR5lX+vB5bLbTp0z4RB18lauJwP2+6D5qDJytg9KChK4yL2NdUMpVMviYlSJ42y
-	F1V78SqbS8kjj3ucFjWOazKyCLgFT5Wxgz5yijTKlvXM+h/medAboQs0L7hFzA1I5SdgsT
-	5wTfma0i0dhVkK26p1SbWoORKDlVEBaqE6nyl8nhB3G3LCqBgcuYRALDEKAmLX4Cgmukwb
-	6R6HLlmaDb6kDkQW5s01L6ei0BVS6TL+rzEbTvUWDB9l3hoqrZ4vUlbDZLkOcIWVpPKn/p
-	Pta28Vs/+GpCU/6IlDcS+gVUtlCWclSiU0w3aXLLq210fztRldPrqUc9e9sE5w==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBTOz-003MdW-2A;
-	Tue, 29 Sep 2026 10:41:29 +0200
-Received: from hardanger.blackshift.org (unknown [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 5C46D5B32F1;
-	Tue, 29 Sep 2026 08:41:29 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Tue, 29 Sep 2026 10:41:16 +0200
-Subject: [PATCH can] can: esd: acc_start_xmit(): do not touch skb after
- can_put_echo_skb()
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iDunn7yL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W6xGw1GDSnl8Nu1kExDtXOrBfcG6gHXDL22VWtoFRK0duYY4u/qPiu5w8cCw65Xn523V1FW0qBSSjTun9KItGNBZyvIMfTvXJoZJJ1aQQ0qSgJ1HI4ftJan8wvbTZIQBkhqCofMhvXtVdXgwXOS10LpCCYxFKHtDXLDU99smk+OSwxTKwDfrKH1kZ7SFpBHYvDXT/3cbtpbLKmbeh6Ng6F+PqU6Jbqw4pvBJG6kmgOsCbvwxKfOF81o3IvhNEcSo/CDrXTr1VTi+ATjoDW2jBP/QJ/ywv06MZaYPbuqyoLWMwaFWor7rA52mY1q1VF2aUd3YYkW+gxdStx6giDMtCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j1vYFT9RSrqpv7qfig0xPyf3CXgxWrBB82C7m/vt0gA=;
+ b=m/e1nZphObSe7KM9md5xjUEOOc5B11JUYxHEwMAT+otswm130/RPm+ItiD2PZO7Yqoqs9ldnyJ7ZM6uJ7iibVw01KJUsh84KBmfKiRlzF7IzVpWqtHzwFbxZuxkTx+YhYUiEbrOKUGUIXJwEiaawSowGHBqpdbWR/p1s98M9DqkidQhzepVVk42O67fqmr6w64xtNID3eNQIsHaPRzQr+qUzk9ZsA7T7jVMZlQiRNhUGaHfDifGJnWdgeiN/uin97XNsgCdj+ZCA5jp0anLFUE0M8oPPiSi7vIOZYHZv2cqij/hIJgKzQUKLhNwKWR93biTnpl+MjWwypTVKGEfzmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j1vYFT9RSrqpv7qfig0xPyf3CXgxWrBB82C7m/vt0gA=;
+ b=iDunn7yL95cDelaTxsR94fZazDi/LITiA9EwPg07bk5D4aiqlaOJxVAwBB8r/B20dUV4+fjArnXpgQPM6r7Ez/lD6RFe1KBKMP1WwPm0FgQy0JtjCEPmk1MnnqNgDjKg+myi8ucAMu5SWeGssmxsGYev7B6r2nwU9WoI7WhTb/iQGjqu2KgjPsBt6LqLAX9a5oDoT3o18gEjqwv9y7STSIXrNCRdBTeMUwe+t6MJKExWRZevfybtCE8GKwzjju1WdppK5bWGSjU4OB8nDhjhtFeXLbGUVzCCwIgQrAv3U5HExTXb6wOnIC2esskfLPUl+oIl1+HMTPcJ7Z0J2aMBpQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by PH0PR12MB7816.namprd12.prod.outlook.com (2603:10b6:510:28c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 08:41:38 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 08:41:38 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	sched-ext@lists.linux.dev,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET sched_ext/for-7.4] sched_ext: Add scx_bpf_cgroup_nr_cpus()
+Date: Tue, 29 Sep 2026 10:37:37 +0200
+Message-ID: <20260929084124.626693-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4PR09CA0026.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5d4::9) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-esd-fix-skb-deref-v1-1-fa2529fbacdc@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQqDMBAGX0X23AWNaNFXKT3k50u7FdKStUUQ3
- 91UjzMws5IiC5TGaqWMn6i8U4HmUpF/2vQASyhMpjZ9PZiBoYGjLKyT44CMyLZH13YNYnRXKt2
- nSFmO5428TXQ/pX7dC37+32jbdg3h+MN6AAAA
-X-Change-ID: 20260929-esd-fix-skb-deref-a6e5351effb7
-To: =?utf-8?q?Stefan_M=C3=A4tje?= <stefan.maetje@esd.eu>, socketcan@esd.eu, 
- Vincent Mailhol <mailhol@kernel.org>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1924; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=ifyLTMeuVsDv458JUi7PRhLOPSp/EvgHwNpABos9HrM=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsjaXblN+fxevUz7s6y3g4qnMXh8Ud39McDxdhqT5D+Bv
- in+3A52HaUsDGJcDLJiiixLf5xQFAh0KO19mTAJZg4rE8gQBi5OAZjIWwGG/5W5uUdXdTGLMe/Y
- +FlDuUT6XmeX2z73tc+Vuh7WPsmuesnI8JpvfsJCq16dqalGFXzTHjYJhafdc5EXvlM/vfCz5nc
- uBgA=
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH0PR12MB7816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6801d1ac-bf6f-454d-f236-08df1e0579f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|11063799006|6133799003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	pnDAhIYwWfENBCJTydOSACZ/gIoRiE+sAmw05CDqJ8wDL7UR4nf06rSjy+IaTUY5wHe5Gd2v75vNEwYgkaGTdoiAxeCp7O/CqCkkz0cIOtvL+RxHxRHnFnTFnkWp7JdR4huRbHv8FrGSwl6mQ1mNkxJQPL63fPEZtAlgLOEPNGCC0IKFpOa5k5AKn7feGJoD9RYRIMl6BAACar9RcVjK2BOSHlDi4jwFn73e50qwO/eMBSxIiLtPhARu7L9uCbl1aR/NcW0n2zAui/Kc5V7zfHereYP0/KOACwIxRD4C6NG+IWVq6I2PX8OTwhKwb1OWQwk2XmZpoULOATi4ibte5vDeIbwAicsCjABbOMOocIX6BZtboO2wuUOvTMv2sUFeZDVi6Q1CQbDCGvLGsjUHkn131wUsTvXhi7TmDLEiZIa/Ouud5n+MKhSa96KJfQax/liNeICf4fi5i4Da1xmmKw51P/+WyvDtXyzp5TOS0quOp6EH0cXQVdAnKnq4mlb1tAV0IS223dmog+beT1pUhAAGEy6J5vHyN8QFI6WeQ+lM4Vp7xVf+J3DIlytPQT8G3WoYaTtE5ZDXiI2N8vSIsnRP7YZi5SGyFf/5PFfIJuuYraojLGD+7kPtHnjabofuENiO6e6Xk7Jzf/EHgHRS4oCmJoOWGEB/6F7P7NPebv4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(11063799006)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?v9pPvGlw/9dH7CdQ1cJnbNiJoGJDxcCSmkA/7De3+r+8NpLjUFbv961WO5SG?=
+ =?us-ascii?Q?G4ENrT5F+Spy10vKPtCaL8nZ0qJu0AaKj2sAQMPVO7jy/aEjF8O+3v92dXqw?=
+ =?us-ascii?Q?3wNladq+ihuH3DjrCRqfuaBBBkZIDVWvbOGm4c/+gBpjgcU/HUcG3pD40iWy?=
+ =?us-ascii?Q?tS6QKM1Q2pI4fJdWCnIE26mxNwKCuhWey8WYP9gtys0QCzS3zPwQmlQTtQPK?=
+ =?us-ascii?Q?QrZEYsERRBV0Xl2SDkW00q5/7ayqM/LQKBddAg2kPopL+e1sYzJ2RTSFqp0q?=
+ =?us-ascii?Q?Ju/EGNVme94jqnEPNjGiM1DXyievAbkULekLmKhAqykyN7cQUmRBZ0XV6uwC?=
+ =?us-ascii?Q?m18UJ52SstnNHBlBmxZ4pTSKygDy4DynvTGB5CuC+27jmNF9ILOqI/vSbiDC?=
+ =?us-ascii?Q?kZNbCp8rloOGM/f3YdOSrd2B9wMBMyScpzX9S0dPnuZ03YvU2NFPdCSSvzfn?=
+ =?us-ascii?Q?grp7gZpnpiLfBrUwKI4zYkVRq5Nn23kMgWHprnjEDr0a64EnRHAIpoYBipac?=
+ =?us-ascii?Q?+vhoCcCurzOfVBInQJy96mNMcFbTuukwLwoUX3tp9jHd3QmqVp9QsFgE8yo0?=
+ =?us-ascii?Q?HANWz8RwS8QMij3TWQ7AuxzBzjzoOU5cz6T3lGCmrR9Rcv8axPvlTI52YAiH?=
+ =?us-ascii?Q?7Zt6ua8/3tQ8a/Xd2OdaPwXuVcpplbUky0cTmqEslpOmBWRUSdgamw4Y/BJ7?=
+ =?us-ascii?Q?mwYpf9Y9yUQQyoCiJ27TIMLSrZJwKaBGSyRI2DMn+fnwpQwaAX34Lt/pUcaV?=
+ =?us-ascii?Q?hWGk1ksAABeLkWNNE60IPFR+zUvLU0oWpVqEbUl4nPH1NBuuA3+aGe3H4LLf?=
+ =?us-ascii?Q?EhspPKoV+8bNEjC/73wrQC/mGet6NbwqiUl6BIdID+7ruKQQLM57fVUqkOcD?=
+ =?us-ascii?Q?JXCFSW28dZH+XQHlcRk1IhoSG1Ln9WClSLqNx/euTzwVnBeh/wcN7RXsKBlF?=
+ =?us-ascii?Q?WvSlJZGuKg/A2Bv+ARZQjQd0BhVHSUjYGXKYLL0YWHm8yrmM6aWSz6jPkcNW?=
+ =?us-ascii?Q?SPzmqlLzWvLH+bSmShbpUWEetBeq5hiDbwACthhSaXe/JoyApfBSalYq+8dZ?=
+ =?us-ascii?Q?91pxM5QJQpoY7cmY14fSY4xVoka/tMxAcvme1+axuY1WMcsPUt/UNlv01+aE?=
+ =?us-ascii?Q?iag0wi6s9Zzp0hHAC7EpIbE05eksSm47Bs+OgdUk5K2Js3Zr+blJJSlarMf5?=
+ =?us-ascii?Q?dhp1S5MsMU3scaGoGi5nvpZRVSegW/MouYQFbxXA/piOlALNEAL9oWNBbSaA?=
+ =?us-ascii?Q?3PNOZv7F4dOSAsQLaNcknioWmXwObf5qFNZ2ibnipjnPLayssAPBy9LVUvu5?=
+ =?us-ascii?Q?V+GpVmS5d1bQ1TA9PZXMnDdE0VHlxoX9rQfetX3NupLOWB+Vd3xmFta7Acne?=
+ =?us-ascii?Q?r6hSeFtuSNyUx385tfBnLKVJjco6ZCrqGP163VI6vdftPZyAUTeiev9OVTsI?=
+ =?us-ascii?Q?u2Dt/9XdLDAk54nPEyhjMY+T1hK5Zs/denc2VT4EqdTk6ke7B0ePgasHWsxJ?=
+ =?us-ascii?Q?N/aUEf9B1SWadoSx5tHdrR4qESClN7v+KkiyG6S+Hy1OMSu+J4DRuSnC3qZv?=
+ =?us-ascii?Q?sVLeevUZtYswRWe4edBmBcIAM3zH0ogtHaKSOBC0wLbPCtbk95iTSDD57Ifk?=
+ =?us-ascii?Q?m5bhGdEJrH5tl5TzQtu7koDOvSdY3TPQm+dIWRwnU+QYzYjUrkDk16NDBCz+?=
+ =?us-ascii?Q?gjAyC64yNaDvFalO6nnGJ2euPb5sd/o8sr9Z6e2Q1/saQo7d2Jth9lD1pXoz?=
+ =?us-ascii?Q?EDYrz2H0WQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6801d1ac-bf6f-454d-f236-08df1e0579f2
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:41:38.1159
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0oe+0JTBM8HTPgQynfVX/MT2VRJG2OB1w+3jWsmgpz4WZPFNwgWpet4dq9khZwIN52LVPBrzqrrVs6vv/8S5uQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7816
 
-After the call to can_put_echo_skb() in acc_start_xmit() the skb should be
-considered invalid and not accessed anymore, but acc_txq_put() will access
-the skb's data.
+Hierarchical BPF schedulers need to know how many CPUs a cgroup can run on when
+distributing group-wide weights. For example, fair's group share calculation
+scales a group's weight by the smaller of its estimated runnable task count and
+the number of CPUs in its effective cpuset (tg_cpus() -> cpuset_num_cpus()).
+Without that count, a BPF scheduler can only use the machine-wide CPU count and
+may give a group confined to a few CPUs excessive shares.
 
-So far acc_txq_put() first loads the CAN data into the controller then
-starts the TX. Move the start-TX functionality into the acc_txq_start()
-function.
+This patchset adds scx_bpf_cgroup_nr_cpus(), a kfunc that returns the same count
+fair uses. This allows scx_eevdf to implement proper group scheduling, computing
+per-cgroup shares the same way fair does, including for groups confined to a
+subset of CPUs through cpuset.
 
-In acc_start_xmit(), first load the data into the controller using
-acc_txq_put(), then can_put_echo_skb() and finally start the TX with
-acc_txq_start().
+Andrea Righi (3):
+      cgroup/cpuset: Protect is_in_v2_mode() in cpuset_num_cpus()
+      sched_ext: Introduce scx_bpf_cgroup_nr_cpus()
+      selftests/sched_ext: Test scx_bpf_cgroup_nr_cpus()
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- drivers/net/can/esd/esdacc.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/can/esd/esdacc.c b/drivers/net/can/esd/esdacc.c
-index 73e66f9a3781..2a02dae3be9f 100644
---- a/drivers/net/can/esd/esdacc.c
-+++ b/drivers/net/can/esd/esdacc.c
-@@ -70,6 +70,10 @@ static void acc_txq_put(struct acc_core *core, u32 acc_id, u32 acc_dlc,
- 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_0,
- 			   *((const u32 *)data));
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_DLC, acc_dlc);
-+}
-+
-+static void acc_txq_start(struct acc_core *core, u32 acc_id)
-+{
- 	/* CAN id must be written at last. This write starts TX. */
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_ID, acc_id);
- }
-@@ -287,11 +291,12 @@ netdev_tx_t acc_start_xmit(struct sk_buff *skb, struct net_device *netdev)
- 		acc_id = cf->can_id & CAN_SFF_MASK;
- 	}
- 
--	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
-+	acc_txq_put(core, acc_id, acc_dlc, cf->data);
- 
-+	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
- 	core->tx_fifo_head = acc_tx_fifo_next(core, tx_fifo_head);
- 
--	acc_txq_put(core, acc_id, acc_dlc, cf->data);
-+	acc_txq_start(core, acc_id);
- 
- 	return NETDEV_TX_OK;
- }
-
----
-base-commit: 37e02c42a00be692c06343e11779aadc45f45971
-change-id: 20260929-esd-fix-skb-deref-a6e5351effb7
-
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
-
+ kernel/cgroup/cpuset.c                             |   6 +-
+ kernel/sched/ext/ext.c                             |  22 ++
+ tools/sched_ext/include/scx/common.bpf.h           |   1 +
+ tools/sched_ext/include/scx/compat.bpf.h           |   7 +
+ tools/testing/selftests/sched_ext/Makefile         |   6 +-
+ .../selftests/sched_ext/cgroup_nr_cpus.bpf.c       |  60 +++
+ tools/testing/selftests/sched_ext/cgroup_nr_cpus.c | 419 +++++++++++++++++++++
+ tools/testing/selftests/sched_ext/config           |   1 +
+ 8 files changed, 519 insertions(+), 3 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.c
