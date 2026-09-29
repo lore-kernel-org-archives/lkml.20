@@ -1,148 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7F050EBFE;
-	Tue, 29 Sep 2026 13:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CE651A14F;
+	Tue, 29 Sep 2026 13:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688957; cv=none; b=ifJq0lEBieA+zD+QhRt8Sn59L/zLb/GhdKl2M/GgYmwv4REWHrEGIePVBkloWOkiDzcDF543ReNuDR1etipE5wo7rHAXAs1FFI54BaSMZ/W6dXPj6tlOk+WqS07qn/ugRgi6GbR8IKctJLE/fgpGiH8X7z1ExYiRqc6cONZwsDE=
+	t=1790689023; cv=none; b=SyuNwreO10LeldhsbKXYTaJSXESD2xrEB1TE/xhSLQTN7g5o7JpML/K3GOOVC6xlFRvjaItLJeAY8ZHQiyiX4XYNLTsv4q/lvl8ulG+PoJxlE/pb+eaesP3gcizOEw52ub5LBCbnXsuDDQLB8F5UwVNc/2Ig1n/cdWZidpRZMJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688957; c=relaxed/simple;
-	bh=/6lSb3CpeLl7SwGfTsg4YHsaXjtvjbZO91QqGbf4VSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UgrkIWghct5g1NiLZ53kDGQmk6AJCcsIYjJcQidFxHZPfAqs0BiiDqJOcsmdhnjtEwnXWYks/d2nMolK32aYb0QwggBOexXzkEwxKqgJhtI+TRV0JXJfeKvzhBo0ar3K05VyWTT/9rEaMguvwzKUM0sQt/67Q3+U/SArFC/sDQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MEpyx26A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790689023; c=relaxed/simple;
+	bh=NymeSRCGc3epSd3a3DMl4aJo+57fIwHhOT0VpOhz3VY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aVUDTHb8qc1OiK2Tg4Tlw/ihoUsW9wvndT1CScx2VO6jKA0jES3LsO+yBtvGSyL6TTXmZ6D8Z8mkOF2XbFXW/cqgq1LJYXxcIfNwDQEOIIGSrLbEHjttEyePBbGa3aFzcLSCxCCwpbPtUmz/hQLCmpSyGI/O9vokC055+QNdhg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYktaFd1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MEpyx26A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4031F000FF;
-	Tue, 29 Sep 2026 13:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688955;
-	bh=Rj7aC/lleh8azgssOlkAV+winU+3efLg2rqC9Qnh824=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MEpyx26A6lPZETrDGEk/3KWIWp4QM6mzmtVfpoWQJVeQYHJKAnzSzfLoPLofCCWUF
-	 KkfldSdHdOm9qzjCVH5G2CwkqckQX0B6VPL+nmjlSHvRuk/SQpoZyeCYTc3Y4G2BGr
-	 gLxIpkhVvNcQ0qqWuIytOO1mEfv5MKRGs7VIL99AE54C8fkAQ33ZZFaCOYEvTNF2ca
-	 vlPZqtss8Jkz8W5vS5RhMrsU+SQFNNPentS5WIzOp/hURmE0lF0AH+FcoTAIN8GzAL
-	 YD8mPqHJXTbwWzjJv0FMLYzFUhwK1IYC/3DBqf/+RH05R6y7VG3+4ofZQ0bb9w8m3K
-	 rtTjBSJTKaZFQ==
-Message-ID: <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
-Date: Tue, 29 Sep 2026 15:35:45 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYktaFd1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8FDD1C2BCF6;
+	Tue, 29 Sep 2026 13:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790689021;
+	bh=NymeSRCGc3epSd3a3DMl4aJo+57fIwHhOT0VpOhz3VY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=eYktaFd1akJddvRPR703VoTzLEKeMEYukiB5HWc9Wta2+bXunOlnSMHPgpet+ZNGr
+	 sSUxr0J4rqkxVzsw7SGAlIFmq+73k7HKvm/mCZKPpjj7NZZSXUx40tum9ADM6eg933
+	 a/unkxof/firm/nonA8ePgvGA2K/bSVBPPDEpg2mTE00ZFcyKRm9KcCSzB16Xrn/Yx
+	 exFdqbW72+JvEDDfSBvNWBSrF/ypwNBGe1vHQQtLcMBDJogDCz6jOdXp9eHM98M9U1
+	 RxJCBuKzpq0g467azhTQxdh5qii2vsD4fOUpp+wQmNFPsxOg1QWnSgAtJvE2P3xdR6
+	 jZfuTzJNLF7Sw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68905C9832A;
+	Tue, 29 Sep 2026 13:37:01 +0000 (UTC)
+From: Simon Sudarushkin via B4 Relay <devnull+simonsudarushkin.gmail.com@kernel.org>
+Date: Tue, 29 Sep 2026 18:36:05 +0500
+Subject: [PATCH] docs: kdoc_output: don't add a man page tail for
+ filtered-out symbols
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-To: Linus Walleij <linusw@kernel.org>
-Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-kdoc-man-filter-v1-1-5f70268885d1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNL3eyU/GTd3MQ83bTMnJLUIt3UpETDtDQLU/OUxBQloK6CotS0zAq
+ widGxEH5xaVJWanIJyBil2loADW3KxXMAAAA=
+X-Change-ID: 20260929-kdoc-man-filter-eba1ff857dad
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Simon Sudarushkin <simonsudarushkin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790689020; l=4424;
+ i=simonsudarushkin@gmail.com; s=20260929; h=from:subject:message-id;
+ bh=7qfTgo6duH0WRWjeeHKXDb3grkC/ilrK0Zp16EaWK3o=;
+ b=OwMup/W3ZTK+Nrxuzs6i2M+/WE3A5E283qymGds/Gbugm35cpCGuv8YnxXIB4VlgiYJ/Mhy+C
+ JHhkYL3A5+zASmOJnonLFThrbjx2Ea8GH0wGZIIDGGDD36BLYuzx/Lq
+X-Developer-Key: i=simonsudarushkin@gmail.com; a=ed25519;
+ pk=yr+Zf16IVZZq8kE1LwDB48Z/iOOIAkvBRA07CDmvH2M=
+X-Endpoint-Received: by B4 Relay for simonsudarushkin@gmail.com/20260929
+ with auth_id=1081
+X-Original-From: Simon Sudarushkin <simonsudarushkin@gmail.com>
+Reply-To: simonsudarushkin@gmail.com
 
-On 29/09/2026 14:54, Linus Walleij wrote:
-> On Mon, Jul 27, 2026 at 10:29 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
-> 
->>> +  reset-gpios:
->>> +    maxItems: 2
->>> +    description: 2 reset pins for 2 physical panels
->>
->> Won't work. gpio-consumer-common expects only one reset line. You need
->> two separate properties.
-> 
-> Hm that is a big confusion for the head.
-> 
-> reset-gpios is by it's very nature plural, because we structured
+From: Simon Sudarushkin <simonsudarushkin@gmail.com>
 
-So GPIOs are plural, but not reset-gpios. Just like shutdown-gpios. If
-you have two pins to turn off one device, how does it work? Maybe you
-have simple two devices?
+ManFormat.msg() appends the "SEE ALSO" tail after every call to the base
+class msg(), even when the -e, -i, -s or --nosymbol filters dropped the
+symbol and nothing was written for it. With -s, every other symbol in
+the file leaves a stray "SEE ALSO" block behind the requested page. With
+-e on a file that exports nothing, the output is only such blocks, with
+no .TH header at all:
 
-> all GPIOs like that, exactly in order to indicate that they can be
-> arrays. :/
+  $ tools/docs/kernel-doc -man -s string_get_size lib/string_helpers.c \
+      | grep -c 'SEE ALSO'
+  13
+  $ tools/docs/kernel-doc -man -e include/rdma/ib_mad.h | grep -c '^\.TH'
+  0
 
-Yes, in many cases.
+Only add the tail when the base class produced a page, and add unit
+tests for both cases.
 
-> 
-> I think it's appropriate to patch gpio-consumer-common to accept
->> 1 gpios, in a separate patch, can even be sent outside
-> of this series.
-> 
-> Unless the DT maintainers have some good reason to slap my
-> hands for that suggestion...
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Closes: https://lore.kernel.org/all/fc7978bb-a71f-456d-84bb-670c8f0426ed@infradead.org/
+Fixes: 104e0a682e12 ("tools: kernel-doc: add a see also section at man pages")
+Assisted-by: LLM
+Signed-off-by: Simon Sudarushkin <simonsudarushkin@gmail.com>
+---
+Randy, this takes a different route from your patch in August [1]: the
+out_tail() call stays in ManFormat.msg() and is skipped when the base
+class produced no page, so OutputFormat does not need to know about it.
+DOC blocks that are shown keep their tail, since they get their own .TH.
 
-Make a case, can be an exception in gpio-consumer-common. But if you
-have two panels, why can't it go to the graph for each of them?
+[1] https://lore.kernel.org/all/20260816054826.3988516-1-rdunlap@infradead.org/
+---
+ tools/lib/python/kdoc/kdoc_output.py |  5 +++-
+ tools/unittests/test_kdoc_parser.py  | 52 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 56 insertions(+), 1 deletion(-)
 
-This entire binding seems like stitching two devices together, which
-might be fine (I don't even remember this stuff... two months old) or
-might be artificial grouping of separate devices.
+diff --git a/tools/lib/python/kdoc/kdoc_output.py b/tools/lib/python/kdoc/kdoc_output.py
+index 618b0d765ef5..659a2c6fb6be 100644
+--- a/tools/lib/python/kdoc/kdoc_output.py
++++ b/tools/lib/python/kdoc/kdoc_output.py
+@@ -763,7 +763,10 @@ class ManFormat(OutputFormat):
+         Add a tail at the end of man pages output.
+         """
+         super().msg(fname, name, args)
+-        self.out_tail(fname, name, args)
++
++        # Symbols dropped by the output filters produce no page
++        if self.data:
++            self.out_tail(fname, name, args)
+ 
+         return self.data
+ 
+diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+index c4a76ed13dbc..bcb1b1a5ccc6 100755
+--- a/tools/unittests/test_kdoc_parser.py
++++ b/tools/unittests/test_kdoc_parser.py
+@@ -301,6 +301,58 @@ class CToMan(unittest.TestCase):
+         self.assertEqual(result, expected)
+ 
+ 
++class ManFilterTail(unittest.TestCase):
++    """
++    Symbols dropped by the output filters must not leave a man page tail.
++    """
++
++    source = dedent("""
++        /**
++         * foo - First function
++         * @a: an argument
++         */
++        int foo(int a) { return 0; };
++
++        /**
++         * bar - Second function
++         * @b: an argument
++         */
++        int bar(int b) { return 0; };
++    """)
++
++    def setUp(self):
++        config = MockKdocConfig()
++        kernel_doc = KernelDoc(config, "mock.c", CTransforms())
++
++        with patch('builtins.open', new_callable=mock_open,
++                   read_data=self.source):
++            _, self.entries = kernel_doc.parse_kdoc()
++
++        self.out_style = ManFormat()
++        self.out_style.set_config(config)
++
++    def run_filter(self, **kwargs):
++        args = {"export": False, "internal": False, "symbol": None,
++                "nosymbol": None, "function_table": set(),
++                "enable_lineno": False, "no_doc_sections": False}
++        args.update(kwargs)
++
++        self.out_style.set_filter(**args)
++
++        return self.out_style.output_symbols("mock.c", self.entries)
++
++    def test_symbol_filter(self):
++        """Only the selected symbol gets a page, with a single tail."""
++        result = self.run_filter(symbol=["foo"], function_table={"foo"})
++
++        self.assertEqual(result.count(".TH "), 1)
++        self.assertEqual(result.count('.SH "SEE ALSO"'), 1)
++
++    def test_all_filtered_out(self):
++        """No exported symbols: no output at all."""
++        self.assertEqual(self.run_filter(export=True), "")
++
++
+ class CToRest(unittest.TestCase):
+     out_style = RestFormat()
+     config = MockKdocConfig()
+
+---
+base-commit: 4f041d7b65b8007403cce30ecf69ad42d48ec315
+change-id: 20260929-kdoc-man-filter-eba1ff857dad
 
 Best regards,
-Krzysztof
+--  
+Simon Sudarushkin <simonsudarushkin@gmail.com>
+
+
