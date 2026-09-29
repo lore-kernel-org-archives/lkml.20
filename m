@@ -1,131 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E01C4D7D51;
-	Tue, 29 Sep 2026 09:32:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EFD37AA7A;
+	Tue, 29 Sep 2026 09:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674380; cv=none; b=dieD84ia6GpaJwSHFE2V3/eD3ZNIEwmFZVRWLg6agk9yjCthbm+gPeQ/Bxp2nI8td7P9tCbHEC2k8JLLPsLS+OnNAmXSkPXxI/T1QdD66hTUPC+O6TyRo7+MQpK2Ih5QSdY/Ue0QNpSdBwVhha9NeRxjYgW5GqrIJ/rzc4Df7CE=
+	t=1790674387; cv=none; b=l8l+/3uL4gjCebyTi68G8cKWxeuM76zfqU3AGXCwcvSO80M/vltiVz59g97TU1VYs/Ukp/vYv/YP1J+z7N3clTFM4JBfSRXl6aRIebGCjjZ52AFhN/GJF7TC/U05FmuX9bc2X2XqEIq0Mu1irZyYsExjupHeO0TAC6s3/KR5XoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674380; c=relaxed/simple;
-	bh=kBDr+ZJf23/vh8n1DSnlnaIX5ncnAWXAnnruov8i9yg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G6mguCqPUDjOFIj4qQOmrgmRbSuJeyIfe5Bt6ZXDrovtyPg7ji5H3IksRsQkI/7+bg5C9gSG3ImLYQXY192sQgU6E/RND17FFkbnoLDX2071A1asUZYifjIkix/Vy3yPeXuVhlMbV1Rg0zclpIFZ5Qq3scIiLXDwT4GOwU8V5sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iU3cLlbe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790674387; c=relaxed/simple;
+	bh=egp61g4fx32yp6WAEsrcn+kHQU8ltab5JqPn7OiECDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oipCc0wtYj13YyQFiOvaOb4yiK1wMEdogM5HRNsBOWAy5/rgQz4X4x96ogHYuZ46OU9Nz0IAfH4YFM3S3U/LC4F4n34PKysj8Y/kk597co7jU6upql+oMEpxsJUSCehzCifQ5cyYBMgaKzL0vbNaX4nA5mznuw79zO0PJuPpuP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1fEQqx6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iU3cLlbe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5B61F000FF;
-	Tue, 29 Sep 2026 09:32:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1fEQqx6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EC61F000FF;
+	Tue, 29 Sep 2026 09:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790674378;
-	bh=++wV3Zt2udoWYiUUtrDx/gCc/FAUTtgZkZ/1rAIvgfo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iU3cLlbeFbcZlcKFHunOYFNLa6u1q6WFXU51gdk1f8hMxkM+K7i05JBWrnP4CAYaX
-	 I0A/0Q0mQSXxp6D4hPgIazjuryq5G49+ZQXd5sdHv38XGzRxngUTfn9v1dLbfe1ArL
-	 3UHQ8DOTsM4tfgIi6kSApR/1qlMpORUWbbboWCnRU55IUZhHL2MJgwO4Q29Q0dg2cW
-	 CohAT7KQuONDl90DkeWTwpLikQx1ktl6S+woRH5p1w8qSHn4ahWKhHOxOjPziFjfeh
-	 XBBxn8jssSelTB6QBQL8IfixVGxjxsN071F5auLNjap5bbotm5lhHzRXKOkKofDTVb
-	 ThSvrKTdEACPg==
-Message-ID: <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
-Date: Tue, 29 Sep 2026 11:32:45 +0200
+	s=k20260515; t=1790674386;
+	bh=7my33tHkcnAh5NzGYvJklT1PtJEphsrY3nRhIAu2WEM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g1fEQqx6q9GJjmXIa4fL4LunigoQ8sYi2oCnV0YG6aD4gqsX6MV47f2rOQBdyupOR
+	 ZDxf/muo0fXP9Ml6XxfjgNPPwvXz2a3H/ma4tOKFvuPcDQp8QRg5hb5NjKMDWi7qHN
+	 lJ5bX1GB8/u+X5Kk26FqdWLRuotq6M/89CVYEYjsPQ/VvOgAd6e8A7qefsNexpVjbO
+	 pv29vxAcIhf798lWkQL0VXtsEuguV0bopYfBjxfp9H9xT7akHCUxNpl3QDa6NuaIPU
+	 masy6oFHXPWXl/kzWZSoL3BEHwMMMMrWOs9IwXJaDxiz865Aa/NxzzudsvYWCX5F3t
+	 SZ/A6FUd2Y6uQ==
+Date: Tue, 29 Sep 2026 11:32:57 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <aruD5kwOEsvFhW2e@beelink>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] dt-bindings: arm: fsl: Document Variscite
- i.MX6UL boards
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
- Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>,
- Daniel Baluta <daniel.baluta@nxp.com>, Joseph Guo <qijian.guo@nxp.com>,
- Josua Mayer <josua@solid-run.com>,
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
- Mehmet Fide <mehmet.fide@screeningeagle.com>,
- Markus Niebel <Markus.Niebel@ew.tq-group.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Maud Spierings <maudspierings@gocontroll.com>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-References: <cover.1790512621.git.stefano.r@variscite.com>
- <a4e262cfb08153c23c80cd3098a684816993f1e9.1790512621.git.stefano.r@variscite.com>
- <20260929-logical-fanatic-quail-2ff20b@quoll>
- <art_faJ7Zx5CaWfW@Lord-Beerus.station>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <art_faJ7Zx5CaWfW@Lord-Beerus.station>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
 
-On 29/09/2026 11:06, Stefano Radaelli wrote:
->> Also, look at other examples here, like Toradex. The actual variant
->> should be the last.
->>
+On Sep 29 2026, Jani Nikula wrote:
+> On Mon, 28 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > difficult to support and require pretty much a panel driver for each
+> > panel produced. Most of them are pretty simple, and require an opaque
+> > initialization sequence that is usually poorly documented.
+> >
+> > This creates a tension between OEMs and distros because OEMs will
+> > typically get a new panel to react to a sourcing issue during
+> > production, and thus need some swift turnaround between getting their
+> > new panel and it being operational in the OS. Distributions on the other
+> > hand can take years to ship a kernel with that new panel driver.
+> >
+> > To solve this, I followed the example of HID-BPF and wrote a panel
+> > driver that will rely on BPF programs to perform the panel
+> > initialization. That way, we can ship the programs separately from the
+> > kernel, and with a different lifecycle. If this driver is accepted, the
+> > plan is to have a userspace component started by udev to identify and
+> > load the right BPF program for the panels found on the device.
 > 
-> Could you clarify what you mean by “the actual variant should be the last”?
-> For a board with eMMC, SD card and WM8731 mounted on SOM, would you prefer
-> variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto or
-> variscite,var-som-imx6ul-concerto-emmc-sd-card-wm8731?
-> I had used the former ordering following examples such as
-> toradex,colibri-imx6ull-emmc-aster. (som - som variants - carrier)
+> I'd think for most panels it would suffice to have a declarative
+> language describing what to do at what points in time. For example, at
+> poweron, enable this GPIO, wait a little, write this set of DSI
+> commands, etc. You rarely need actual programming, or even ability to
+> read-modify-write something.
 
-Indeed, the carrier board is the last part. Just to be sure - in your
-case the emmc and WiFi are on the board?
+TBH, that's exactly how Maxime presented the idea to me before
+submitting this.
 
-Best regards,
-Krzysztof
+> 
+> It could be, say, YAML converted to some binary representation. Maybe
+> that could be in the DT, or maybe you could override it with the
+> firmware loader. And obviously any vendor "blob" could be trivially
+> converted back to YAML and upstreamed.
+
+Ouch. This immediately raises the "let's implement a parser in the
+kernel" flag, or "let's create a new langage".
+
+That's exactly what BPF is: ou have a source file (in C, rust, whatever)
+that is converted to a binary blob that the kernel already knows how to
+use and that is safe to load, and we can easily go back to the sources.
+
+> 
+> Where that falls short, you could always have a dedicated driver, or
+> extend the declarative stuff.
+
+See Maxime's answers: yes, falling back to dedicated driver is still
+encouraged.
+
+> 
+> Now, the question is, how much more BPF solves over that, without
+> requiring a dedicated driver, and is the added complexity worth it?
+
+You'd still need a dedicated driver for your new blob parser, with far
+fewer people who had had a look at it than BPF who has been working on
+for several years.
+
+The integration of BPF and the kernel is honestly transparent nowaday:
+calling a struct_ops BPF function is just a function call away, and from
+the bpf calling anything in the kernel is also just a call away.
+
+> 
+> FWIW, on the Intel platforms that support DSI, all of the
+> initialization, poweron/poweroff, backlight on/off etc. sequences like
+> that are stored in the BIOS, defined by the OEM. A plethora of DSI
+> panels, one driver. Don't look at it for examples how to implement it,
+> but I think the basic idea is workable.
+
+Isn't that what Maxime wants to have? One driver for a plethora of DSI
+panels, with the same ability the BIOS has to also do function calls to
+set things up?
+
+Cheers,
+Benjamin
