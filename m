@@ -1,120 +1,127 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E3A3E6DD5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700734; cv=pass; b=rGks6RVFJ0ir9v0Hi+zStElBDON3DcvNvDUPFGFV1ruU+u1hQ8d2LEaEjnAxropW/IRNdB+f0nNjb2wU2LtPhHon1Q2DUL2b+7g3m+hIOElv7KUNBmSavs2/HRgzDhaOXOHOjKnlhPG7ORx6du91G+qpQF06TEHo2dzdW8bsVFs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700734; c=relaxed/simple;
-	bh=jwf0l5Fw+HV9E6x2wX8XBAM0k7K/aBNmScMWv44UYSk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I4x3DJigTjAF2f3SR4XZ+8Up0mRLLLQ4rECQIFwlYlmAnTcBxRUfc4ePp9Qu3Lp92SVzjKJ6fir6elZWD/I8eGD/9eU/MCynV7sFgqazc6oU++ylGjCzxvmfceqWlMmi5uiKtUjghDVgIMZ1qsZHg8mkAbZMbyVxxwiN+lImawU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bw+61bMV; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF7B5304D6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790700736; cv=none; b=N9XSVdPWyDLT5TQQcLE1j4DTxY0rY/2F28DZmpcPdL45A8lEXxXV0j5XjEh17SKQN82FUlTkHlrwV0WzPbmZY54D3UjUhZqQMqNvoykRD7tMElvDr6CLBxvyeCZwxiNEnl3du/6Lpgwb3bucCi4BS1L9PYRiburC6ncsQlt7744=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790700736; c=relaxed/simple;
+	bh=u8UUARJnM9dWTuc1nPtuk8G4AIrxZXkyqftRXwXnkoQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JQ8Ou4G0yGunEzriQ2LGTCiI7/PdDQUuqEBXLUVZ9FJ51NyWC9bJOZQ29LzAdis4jwdmoZUUzVRP1AQYqLNBVNwaHNpH/qgZsF3MKAgTGbA2/UiahTi8az0QuYy58mJx0FLes6hzKlrHM9nQ1DGhry1JbSh8eUwv0PYiMet2KRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dyuoqX4x; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=g6QTIBsI; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bw+61bMV"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3b8a5187so81772e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790700731; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ciql3VUx3RM8W9Bbo2xUnWC2lQxS72Txg+QPOzXx3lKKNM6p7Dqsp7UdcVaRWRDncv
-         z6GSWPf16r2Cim3Ynm6SABRBnIbSmGM0bsr0vUBOKp09FTSUdcOfj2JfTay7UelzFgWS
-         JsfMBT/QKK/PL+0QbTC2YkhxQmDfOfNsusowLme6xqjj33s5/fYvHhBSsY9Evj/QwtnJ
-         WcQnIIcDJvo41IfK0uu/4lCsZu6BCuzAR8f6CuwcYnAmsce42ypprU0zQzzmTf5owgi4
-         LJDD2fLHtkduFWIWmIUW7jcgmvRFgZlutmelyh4LP4oLwpmPtnsDFt4+da3zuCx8flSL
-         LjXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=JetRDdCxvex9qzj4077GQtsI0JjV0QDP5tFqeoVoSsM=;
-        fh=q3Sd+4R7B+1vB0+vOPpq0BVDO8nxlkO2Np7g/gDtIiM=;
-        b=OYPcQW32jH6se16BxCevjJZbgtOmuCjX2Pee1VGu4XNYa45eVwg724DOxE/IdFUW3i
-         bTIfjLsx+sJoO4+MFfZ6b6FpuKyz3XNRy1fi8Gt6gbVvST8RENcWfiaoZ8v/b3gd3Sp5
-         wBzCI1kZwr6HNQ+kgLZw/cnz6kpuGyXTsAj344K+vA+WqgKChUz9PQCu3E/IHDMsYElq
-         6y+sHpofAqpvv0j7A5uq/J5DE3fang5jcrCv/fLg65WHkGnpSdlxj3qjlike1SaCgVY9
-         nIg5FodM7Oc55ZDdzkAkjrdKRbN2fIbmkK1uJOX6sRQY6HPXOt+b8yVcYGD16e/R2oWg
-         MT1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dyuoqX4x";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="g6QTIBsI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790700733;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ntaMCk3istfCuNAuKpSk63vz+dko19iSPj+OOJ65RUc=;
+	b=dyuoqX4x4Qb6oGkWsPBVQG7UuW4p8xRlIzrcY8mVK5jcMLjhbNVDnVlkG7LnijEjdnAnCv
+	9uNpF23mMnSXtacNFB6iZUwHBbiGdSINynjsBSf5uIraC2HvmeESRBrMA+QdnCOI3FtroY
+	dFd1j3wkCQpzmPOHb4BkRhBzSJJHgu4=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-385-_o5m7TG7N2ypkH2KbGqiYA-1; Tue, 29 Sep 2026 12:52:12 -0400
+X-MC-Unique: _o5m7TG7N2ypkH2KbGqiYA-1
+X-Mimecast-MFC-AGG-ID: _o5m7TG7N2ypkH2KbGqiYA_1790700732
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93c7d1c402dso346410885a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790700731; x=1791305531; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JetRDdCxvex9qzj4077GQtsI0JjV0QDP5tFqeoVoSsM=;
-        b=Bw+61bMVBinqQ0CDl+3rQBZ6DRBZ6gbftIAuZvd8jr/NHo+Omd2FfNvmYZLjrYG3li
-         usR9Dt9pA0dM6zq49VC+RUslPcfyG2MKqG/rSTWKyPy3++bvIWN4lSH0VjNpMcxkdymf
-         HEv8nwldvaO+qzzcZKAjeEyBltNHzTOstv4738Q7roJR+3SkeJwhRiPR7qBXNRgTgxMC
-         Uxx8H21dy59XesoB7JKuQ5nx+vd3z0XhI4HyX1IjX6pqP4bu66zN66LkFGb7TFt+qO/Z
-         qojRZgf3w39g8JKfMN0PKcrfMOUQm/cg82mefKV6USlVNKQjfMdJyX0oIjDx1MT4qT5I
-         mfzA==
+        d=redhat.com; s=google; t=1790700732; x=1791305532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ntaMCk3istfCuNAuKpSk63vz+dko19iSPj+OOJ65RUc=;
+        b=g6QTIBsIcEX8K5BLKffnt3BWb7+Rji+pS0EuHst0jYaTlBzHq8VPhJlSzq4HwmkrZy
+         AppDdoj1jhuogAWHfOxEmhv0wix8ZDYiVtuypZE0I73knMdRW7R5YZ699hNoH72mK7NO
+         ImkYTETGRZgWf36Aj3L9aRu5OnjA7IhgiFnk8aoKglmjdXpsTylZEISHEMoo4APZAhNI
+         Yqz213pcSxPEwJplavrYatTVuiLUP6x626EmZ8Gu2Okrw6wUxSN34Qx307OUHagvEntO
+         7IbruPuWUC1HLRAMNdaegVqw4wPzK/JXdW+iRbIuh/xCM40MVa7H9zloSaetQ7y35NAo
+         W1OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700731; x=1791305531;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JetRDdCxvex9qzj4077GQtsI0JjV0QDP5tFqeoVoSsM=;
-        b=zQbjZvd0PEG7LNG9k2yiGF5SVjeHgk0150Z10r7wmW49+/3fnHXxJCEDrdOmCMXblf
-         7RUPDwzTbFwJYN1iseAT49sZRW9SfEa00yw08JV4ctmeBpEonb04FxHguD/ax5T6f0iy
-         8QnB3pV+Cxj9kQ+3CoisjLdLQqNC46AM+isZWTvKhBsKEfb7Q1m4Raamv7INwxVu6E9F
-         B1stkJR93NfD450Q+ZhpRdoe+5tGLxglJwBkeEXcwuEMz0O5LHbpe5DQf89OLouVJQ5G
-         0xiqi5VoJ6TjTWTYYbZ2CowAukuSy+826SBx4qVz/NhKOxN6vT7CHyv+Mz09SzBQOiKU
-         vWxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqvOOv3l2NDK3clfDMFI+FhiEpDBshXt+9iWFksaP+e8snhWjxkPpRC4HBEUOSClHkdU3+Z5SBvP4v21w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsEw+EEkKlaAjC3TQTOeTBAT4Vxdgol3/CS7u4yd76njhP6Y5u
-	wokKCbmGBogFgZUhJtpqX2tYkBtgGK2TeU/sTJKf/Eb69WF5kgsLvSS9TR2EJRdV0xy4PCbPE5X
-	rQmop08VTiG2UzEIZzUOtFY4Eeufh3/g=
-X-Gm-Gg: AYBFou1aRxIyzYVycEUOITE+uWK6GG0lwzvelGpVW6w8/XjIVzeh0tkPX8fvnR4vnef
-	FS3Kwe5JG+jBKix8Xwy3rovjShY9LzJnp6GQXpCYhWTJj0seKktiR+HIBZ6+P9otM4j3knzGTi6
-	ut91DqFoL0Cu3lYP4lsUCfagrBsvv7/uoxesTUIyFa7mbIcXpx/O0E4lYcg9r3kuzvfJTxG0wOp
-	4CuybaGytex2QhNQs2CTEn6uw8hcf5fOq2hX09DwYiLW4r945IfzHoBzWgdkhuVWvYawTo2OTYP
-	G/KGFQO+K7AZEbD+uEa6PCH/O01y+7tDSL27J9i6cPRDDoXQrcjXM5vgW4nndsggu1Gw9koXQJ2
-	W32yE0kI+eRQ8f/WODJs=
-X-Received: by 2002:a05:6512:3daa:b0:5b6:1a7c:30 with SMTP id
- 2adb3069b0e04-5ba3becf14bmr41478e87.51.1790700730984; Tue, 29 Sep 2026
- 09:52:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790700732; x=1791305532;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ntaMCk3istfCuNAuKpSk63vz+dko19iSPj+OOJ65RUc=;
+        b=xY9UBaT+NOvPKngdR8ADFSv9MHKoFE5h7OWTsiYirH3ZI7qxgjNdAJPWMznREQiWgM
+         cmUf9+t2za2bkNobXpwiUdRX1Egq1EFWirH+BWbGIouAPKekk77jrtF2cyPPAPXdqa+p
+         71LEV64beaZFNYaw2wpp44RlS93NEjJYWKnup38zG2sWwPP95kKmJ2RbXHl0icuVQJzq
+         4QqgCXIAx6Whw4VPDJvYs831r/eybQDlkBNCxsCm/CWqdl4qy+af93J8vxSm81PLhLLn
+         wnwSQirRm3ywi+btXtQSfQTvH8ECqJKtZCseuZHrWlPvSvTDRQhxt0+tqhun0Etd350m
+         oh3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxdfEVzFwQ6xR7g1ADzFrnyCGZ2QuI2L24t3wU5D1jc2m2CGkPj+ks12xleTk5KN3a43RTOKC6WdMxM2uQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8whpUyGREZyrxa4L3mF5HVxUKT1hCLHCypEpWRR+og7fxuecP
+	L/RrIcTQavYjsk2hJQO5loTN59Kgslh0tZ2GhI6OtaADpbq/PqQ74Z779YNrsozRWlPBIvx0xP2
+	S9fMyB++k9xX9WIgDe6iEpsezADFCamCvWtjJjToApimTeQnqV/0LF3aL3DOYrSvIcQ==
+X-Gm-Gg: AYBFou1Yo6EP9skoCTOV56GUg1CieVd12EtxCqnwxO+Qwj+QwG7ttNVXr2xnYdxY/G1
+	M/EuoBL2oKB8yY790YjGIyLtam+iAZN79TWjP+/NmAiFORbbzUBb2q+aoAYbkEFnZPq1iP/wIKY
+	JQZniDeflSg+XSZXfqmtcEss+ckZc3nrGVycOgaHs3Uw0laxan+NPALzrUdXtzeXIITG/9Eh9GY
+	EPY4+hKG0Iq1zLMu8uvOUYYj5SM5YUAvqbRbM7TTZXdWUBOQpWvl/1rGUrNb1SrNxMsfJGxeoke
+	DbIHCplVdL4r1gxNU0nCo4fYc5prkKmwF6WSJWgIIjxksXwrZbi0OyFcrp6f4CN8Go0WEud9myS
+	qyDPKP46OyxhUr9FZ/EGNR92R29uRSz5eThJIWRxv1Ppfq+kLNjI=
+X-Received: by 2002:a05:620a:288f:b0:93b:d79b:9a61 with SMTP id af79cd13be357-93c9fc468b3mr9236085a.66.1790700731815;
+        Tue, 29 Sep 2026 09:52:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:288f:b0:93b:d79b:9a61 with SMTP id af79cd13be357-93c9fc468b3mr9229885a.66.1790700731258;
+        Tue, 29 Sep 2026 09:52:11 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f546693sm11365585a.40.2026.09.29.09.52.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:52:10 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com
+In-Reply-To: <20260906-ti-adpll-v3-1-1f1ccda49c62@gmail.com>
+References: <20260906-ti-adpll-v3-1-1f1ccda49c62@gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT
+ schema
+Message-Id: <179070070989.199845.5903281798262570768.b4-ty@b4>
+Date: Tue, 29 Sep 2026 12:51:49 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926042757.2109927-1-geoffreyhe2@gmail.com> <2c521063-9f79-4c6f-a9cc-c1128066aa6b@oss.qualcomm.com>
-In-Reply-To: <2c521063-9f79-4c6f-a9cc-c1128066aa6b@oss.qualcomm.com>
-From: he geoffrey <geoffreyhe2@gmail.com>
-Date: Wed, 30 Sep 2026 02:51:59 +1000
-X-Gm-Features: AclHuK9BoLCeKcX60rOMfghguTPx1LnlcbeSQfOdhwtwXJywamBYVzyznEB7WQ4
-Message-ID: <CAHAtOKHeFMLoHG8NspQcEec3BvsneSNODhd+AW7yGF+vFLOO_A@mail.gmail.com>
-Subject: Re: [PATCH] thermal/drivers/sprd: validate the sensor id from the
- device tree
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=319; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=62+rscG0QJEUA2vTuNN1rLF/alg1AFPw4/CBZ/gPGqc=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v9nxpU6gZIpqoMOv2qN7MxR+P3aJZ/Nfr/qqWivdW
+ mDarE8PO0pZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZjIu/mMDF+Np9U3JvrMuJ5y
+ iuH73XLVVIZnOWwNokfzbp62f2zWHMLwT1/pcIfrOnbFvQYnjv85a1V1yS+oxI1p0r3ed5MPvc7
+ 04AEA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On 9/29/26 10:46, Daniel Lezcano wrote:
-> Why is there a mismatch between this check and above in the code:
->
->          thm->nr_sensors = of_get_child_count(np);
->          if (thm->nr_sensors == 0 || thm->nr_sensors > SPRD_THM_MAX_SENSOR) {
->
-> (note the "thm->nr_sensors > SPRD_THM_MAX_SENSOR" instead of
-> "thm->nr_sensors >= SPRD_THM_MAX_SENSOR"
 
-Hi Daniel,
+On Sun, 06 Sep 2026 02:58:32 +0530, Bhargav Joshi wrote:
+> dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
 
-Thanks for the review.
+Applied, thanks!
 
-The two checks bound different things. nr_sensors is a count, so eight
-sensors is still valid and only a count above SPRD_THM_MAX_SENSOR is
-rejected. sen->id is an index into thm->sensor[SPRD_THM_MAX_SENSOR], so
-it must be below SPRD_THM_MAX_SENSOR, hence ">=".
+[1/1] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
+      commit: 307bee2e5a6ede1c50dcbf1ef803c7be44fbbcb6
 
-Thanks,
-Weigang
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
