@@ -1,132 +1,130 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491C93E5EEA;
-	Tue, 29 Sep 2026 19:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A12E2ECD32;
+	Tue, 29 Sep 2026 19:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709374; cv=none; b=LAGZVFahJO9kld9lcK4pjMCbZIL+0m8NAMep+x4yLXMUVi+R1CNh1j1fLkamNnCjGPCa18VSSMlf6gxTirAKrvfpuAq88Dk+c16aHJy1qBIucjMKnktyOP4tSo6cuJ1mRjAhivNUQVPFd2YfcK5/hJrXM6xwRBoNj2gjEEoCMqc=
+	t=1790709412; cv=none; b=ssjl9cFb/OBRSrgGujiQh63DIMraKc+FOO6D7GkbZEuRSROwDAD0H68uLygDQBtYd9zRdisGDzj8+fYmrTUFzYoJ0WyiQlNf8tHI4SFtvEhNLy0TBtXCvkSkRZ+vV4Kb4bcfNoZS2V3z2YlBlTgcFAkrsFlky2U9e6KxKs2qwUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709374; c=relaxed/simple;
-	bh=mNzy8maBYeYok8N/7hq3xImT8LPT08UrlkEbS8+lzRc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vw54aTUP93yX8hn7nyRubEBKHdEKvlOn044PHH81vJkue4LH4QmGB90jEx3Sx4yhbZaVjDrHGJhrpZ4ruRYqQNGXcGkSPB3GQdmP1qyxOly8ovhKrDdo1OUxxemcnmSoV4L1S2ZYCFthj8td3gAUPK6Y23PSiRXkYhfSpa2jYn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Ttf5nKWL; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790709412; c=relaxed/simple;
+	bh=9x4QkvDA9RUOHApROQ3+nJmNbFpTckZDBVT9Srq9lHU=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=BF0lbllXA+Z7VOFrhPUzlO99qoNB2lbqqljQSCpDAW8xpaHxQsljIC/MDYRme1I6WlC+6gx18FHgXNiOdTdsxs6vXj+xSSGVI4jNyNd59VtJUEFCqqLHmcegTaD0ppU0xUBqpiLrchXEcNzZ/1TIbfiZfhqiYIg9tOahAsO15kE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LrHs3dNb; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wZru9dzQ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Ttf5nKWL"
-Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id D6755C0003C7;
-	Tue, 29 Sep 2026 12:15:56 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com D6755C0003C7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1790709356;
-	bh=mNzy8maBYeYok8N/7hq3xImT8LPT08UrlkEbS8+lzRc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ttf5nKWLd018NU3//izgxCK5YFhOYz2RtVRHynfLtWmPncd37T74KGvO19kZmg1tv
-	 TndmM9FLyk/BzCiL5ls2Wyhhw52spK0WwZ1hTCRf+TFXVTpo4aSwU/ff7e3sRa98Dn
-	 U0nCiKapQSylg28n3UcwUtNVEbm3PKzD49caRsAU=
-Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 755E7AEA2;
-	Tue, 29 Sep 2026 15:15:55 -0400 (EDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: stable@vger.kernel.org
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nick Terrell <terrelln@fb.com>,
-	David Sterba <dsterba@suse.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_))
-Subject: [PATCH stable 5.15 2/2] perf test bpf: Address error about non-null argument for epoll_pwait 2nd arg
-Date: Tue, 29 Sep 2026 12:15:41 -0700
-Message-Id: <20260929191541.264038-3-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929191541.264038-1-florian.fainelli@broadcom.com>
-References: <20260929191541.264038-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LrHs3dNb";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wZru9dzQ"
+Date: Tue, 29 Sep 2026 19:16:46 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790709407;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PcBM0nXgHg9E31+vamTS3D4T/qM4JWT3rSTYYPaYVD8=;
+	b=LrHs3dNbzTnbrHodxB3H3Bhwsa4z9RSIAZKRUoIB9qD1QUCutAnT8TeADrTGqMlZIHmeId
+	GGEPXwekmrq6nuTZ6pZrOH/IjMOk3A4lw8wiiKBy+V5bdXmfYUu/t1Ean8s8mh6Ngx9sQk
+	OkCFQxZb7rmDOd3RiAE1LH0PDxh0sUBhpFtHyTlYX1qyFZfqcBR/p6lWwAj6Az225WOoRr
+	h4YYRaSr8s5cEtHMn+UlFZ/BTWixLocc/u0TUzEuNxHA/19b/2JJmZCpgtKQiXDbNzSVpM
+	eUGoCsVTe8zrqjpYW0hWJhkTrlCBrilMJ5zxgf6rKZzxaDFoQXj5np1oEXAZiw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790709407;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PcBM0nXgHg9E31+vamTS3D4T/qM4JWT3rSTYYPaYVD8=;
+	b=wZru9dzQr0KGVgH2CKInwaHVyTJcwRpKQ6m2Y8x+5Rq1pR1VwbAdEuXEGnlZfOzllFdfao
+	VdIdptt1k8OzYPAw==
+From: tip-bot2 for Thomas =?utf-8?q?Wei=C3=9Fschuh?= <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/core] timekeeping: Use READ_ONCE/WRITE_ONCE() for
+ ktime_sec to prevent tearing
+Cc: thomas.weissschuh@linutronix.de, Thomas Gleixner <tglx@kernel.org>,
+ John Stultz <jstultz@google.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260903-timekeeping-ktime_sec-v1-1-b33017536aa9@linutronix.de>
+References: <20260903-timekeeping-ktime_sec-v1-1-b33017536aa9@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <179070940608.3910103.1078374896040856655.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+The following commit has been merged into the timers/core branch of tip:
 
-commit ed847e30f001b207013b6136c264454d7560557f upstream
+Commit-ID:     bc5b66c300b87544e6861b8dff8c45958603cba5
+Gitweb:        https://git.kernel.org/tip/bc5b66c300b87544e6861b8dff8c4595860=
+3cba5
+Author:        Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
+AuthorDate:    Thu, 03 Sep 2026 09:11:47 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Tue, 29 Sep 2026 21:13:26 +02:00
 
-First noticed on Fedora Rawhide:
+timekeeping: Use READ_ONCE/WRITE_ONCE() for ktime_sec to prevent tearing
 
-  tests/bpf.c: In function ‘epoll_pwait_loop’:
-  tests/bpf.c:36:17: error: argument 2 null where non-null expected [-Werror=nonnull]
-     36 |                 epoll_pwait(-(i + 1), NULL, 0, 0, NULL);
-        |                 ^~~~~~~~~~~
-  In file included from tests/bpf.c:5:
-  /usr/include/sys/epoll.h:134:12: note: in a call to function ‘epoll_pwait’ declared ‘nonnull’
-    134 | extern int epoll_pwait (int __epfd, struct epoll_event *__events,
-        |            ^~~~~~~~~~~
+The timekeeper update path uses a bulk memcpy() to synchronize the
+timekeeper structure, which is not guaranteed to be atomic. This allows for
+torn reads in ktime_get_seconds() which bypasses the sequence counter
+protection for performance.
 
-  [perfbuilder@27cfe44d67ed perf-6.5.0-rc2]$ gcc -v
-  Using built-in specs.
-  COLLECT_GCC=gcc
-  COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/13/lto-wrapper
-  OFFLOAD_TARGET_NAMES=nvptx-none
-  OFFLOAD_TARGET_DEFAULT=1
-  Target: x86_64-redhat-linux
-  Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,objc,obj-c++,ada,go,d,m2,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --enable-libstdcxx-backtrace --with-libstdcxx-zoneinfo=/usr/share/zoneinfo --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl=/builddir/build/BUILD/gcc-13.2.1-20230728/obj-x86_64-redhat-linux/isl-install --enable-offload-targets=nvptx-none --without-cuda-driver --enable-offload-defaulted --enable-gnu-indirect-function --enable-cet --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux --with-build-config=bootstrap-lto --enable-link-serialization=1
-  Thread model: posix
-  Supported LTO compression algorithms: zlib zstd
-  gcc version 13.2.1 20230728 (Red Hat 13.2.1-1) (GCC)
-  [perfbuilder@27cfe44d67ed perf-6.5.0-rc2]$
+To prevent reading a torn ktime_sec value, enforce atomic-like
+access by using WRITE_ONCE() for the critical field before the bulk
+memcpy() in timekeeping_update_from_shadow(). Correspondingly, use
+READ_ONCE() in ktime_get_seconds() to ensure a fresh, consistent load
+from memory.
 
-Just add that argument to address this compiler warning.
+The same was done for xtime_sec and ktime_get_real_seconds() in commit
+d7fc133bf91f ("timekeeping: Use READ_ONCE/WRITE_ONCE() for xtime_sec to
+prevent tearing").
 
-Cc: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Ian Rogers <irogers@google.com>
-Cc: Jiri Olsa <jolsa@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Link: https://lore.kernel.org/lkml/ZMj8+bvN86D0ZKiB@kernel.org
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Thomas Wei=C3=9Fschuh (Schneider Electric) <thomas.weissschuh@=
+linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: John Stultz <jstultz@google.com>
+Link: https://patch.msgid.link/20260903-timekeeping-ktime_sec-v1-1-b33017536a=
+a9@linutronix.de
 ---
- tools/perf/tests/bpf.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/time/timekeeping.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/tests/bpf.c b/tools/perf/tests/bpf.c
-index fa03ff0dc083..4486de74eca9 100644
---- a/tools/perf/tests/bpf.c
-+++ b/tools/perf/tests/bpf.c
-@@ -29,11 +29,12 @@
- 
- static int epoll_pwait_loop(void)
- {
-+	struct epoll_event events;
- 	int i;
- 
- 	/* Should fail NR_ITERS times */
- 	for (i = 0; i < NR_ITERS; i++)
--		epoll_pwait(-(i + 1), NULL, 0, 0, NULL);
-+		epoll_pwait(-(i + 1), &events, 0, 0, NULL);
- 	return 0;
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index ea2e6e5..d54c4d3 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -861,8 +861,10 @@ static void timekeeping_update_from_shadow(struct tk_dat=
+a *tkd, unsigned int act
+ 	 *
+ 	 * Write xtime_sec first so that even if the memcpy() tears the store
+ 	 * data integrity is provided for ktime_get_real_seconds().
++	 * The same goes for ktime_sec and ktime_get_seconds().
+ 	 */
+ 	WRITE_ONCE(tkd->timekeeper.xtime_sec, tk->xtime_sec);
++	WRITE_ONCE(tkd->timekeeper.ktime_sec, tk->ktime_sec);
+ 	memcpy(&tkd->timekeeper, tk, sizeof(*tk));
+ 	write_seqcount_end(&tkd->seq);
  }
- 
--- 
-2.34.1
-
+@@ -1169,7 +1171,7 @@ time64_t ktime_get_seconds(void)
+ 	struct timekeeper *tk =3D &tk_core.timekeeper;
+=20
+ 	WARN_ON(timekeeping_suspended);
+-	return tk->ktime_sec;
++	return READ_ONCE(tk->ktime_sec);
+ }
+ EXPORT_SYMBOL_GPL(ktime_get_seconds);
+=20
