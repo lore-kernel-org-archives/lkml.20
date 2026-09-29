@@ -1,172 +1,628 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11EC265621
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790644555; cv=pass; b=uGGj8VCsOAbuIJvOASn4+izgT1pi6MwDHI6Vf/3fHINDStqMBgFbzpKRsPP3R0QLq+e6sM756q/d5dDY7X38chPyy5lYsJV1cxtuAP+QzT4v50560IIqdABbDlYyEWfU675RL6EsBmIdMfjy+DVb5fDAuif30n6YVv6VxM1MGbE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790644555; c=relaxed/simple;
-	bh=6KsV4rDAdDxcusMqf5nBXP8iJDyqcK6OlXAetdFDhjI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iQtx+7NU+EKkqrC9/kr4GlbmyzgkN8PqrOsYLnzakdwKnMUgabfa253YHWrUA5f8lUz9Fq7Q/JMRKLqpu+lfIqpp9feIuCSW4mLE9lkRw9f8kwdx5Eg3QuE/0GoIN7yKIrZ1qE6k2NFhhYKJGzX5EHigV+cHZWuk8NJa9g21d5s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=WLLPde6Q; arc=pass smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B99231832
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790644724; cv=none; b=d7MK+6GqZApwMmI/eIU3IzAwYk0UfqowjWKo6prOPM9T9Nh4N4ieRCUj9IvtGusw18ZIdZc1WB1hMKriUYJA1hR6f2xQIeJc5Pm4spsAamnqG1XvrC9cpzb+RSpktcxk/x7cva+G5yl6KVxCvz7HZ2tJb05Mx02gBRAYvBZZ+OE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790644724; c=relaxed/simple;
+	bh=q6ByfQ5MeNNy5BGNZgbdLnKlQtttV6y6cGFFQRM8Gzc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=mOUWkkqsHaDJQBjPjyF3GzHMu50EQ6HEG4QzrX6EdCZrEHJlSMmMEyj6IsO4+joI0YkkMXVU1Pm2qgUMR3SuYiKjVK7tz/1IXqAKY9D1oKuga8HFQ0shvXaG8Z1crK+YRrpm6C1JCgl0IPIPpxReNEsQmtztobVilxrTQqVKHds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gtzRUls7; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="WLLPde6Q"
-Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-81c2131b1ecso246322a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:15:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790644552; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Stixs6ZLEZf5YXq39brhwQvxRTCyJCPd9Haju5icGTh1LAPIhX5edigbM3lpvinQGX
-         n5ENt24v9B0Yxn2WLaWJhxPMkeqKD7TQnCleGSBwu2sxrZo4mrNdjduw/apfuylwMH2y
-         SK0N3yblizMDiQ6k4MtDGqLscIKL1yCUVCBFWAa88NuWl4OY750xdY/5OseHkvjqbXAf
-         FTgk3O8NUnD0VMJ+Fu4FR62I7hcAh49eOKpumrXhH/XL7o+5/LQcUcIzjHx4mMYdufLr
-         wQUImEZ8L9mckjInWFnCxKhlbY+Nu4AoErsstaZ0Vl9J3IBvjaKt3l1zfJBZwogy0Cse
-         p+0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
-        fh=Nf2GQxaz8zVavDrckPJlCh5kXjvrMNUcI0YAqkkYQzU=;
-        b=c/K3+8OvhX24goX0+VH8TNKX6M07BVeHGxsjRmcdzCo8H5WEwLbkL3phdm/bo/wBPg
-         TLrv75z8iSXfeAgIXhR4zclPaniMa5heGqe+u8dQVpKGYLMFP7Eff1Y4JfRji5I1WDqf
-         BKepiuZy+HKZvby3ZauRdnuN8n/XrOFocHSecOM0dZ/K8B8RZE1R21XrfTTEcXUJ/1qk
-         qh9KcL33Pgx6VwDDP+kSxybLeJ7V7Z305el/zLIwSHddYdA30sFaFcIjlu/xz9QW8kT6
-         l3FqXN8anekHADGqrPWZx1rOoNtAdSNQ5uqxZct66iUJv+Yy10dbOFRhM+VRBTD08c+C
-         vTUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gtzRUls7"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso5667384eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1790644552; x=1791249352; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
-        b=WLLPde6QqrGEQ7TlZnh6GBtwyEECzYPwNnwovqyCfe1nP6Rtl6cWfxOeP3v27T7+P3
-         JO0RswXenQ3JCaWZLyrCZkHn/AqJHIeWnIVkVqqK7Bh4ONqjh6AJ3ZMIxqKxOF8tTBYs
-         DGVx/ZdRRA3ng/3HZmmZD/Ugj2AGjzLyF8HdvvxasSWEujXdLZ4nUmvCXCRYa3RE0yRC
-         URNtGEhe5UkwBmRgEecwiBRJ1kmnjqbw95t4pkc/S9muhj+DYZzBdnsaKKtNyIfLwjLH
-         1D/kEnjt7dUyOT5ifyQp6U/0PPYcmijYeqVcAiqlt9Id3+2ViYXJFnlMm7rxBisMolUG
-         LaVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790644552; x=1791249352;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790644721; x=1791249521; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5pLeu4YqgZECtiedNQxbKwtzen0HMS5vwbUNTX6n4u0=;
-        b=yQ32oRA99wJZFvISa2Djq4f91o0gfI/DYf/Gk1RLDJG4H57NCc+HZ1aIWA1byrCeWO
-         lYV9Ulr/5GlOblXty5R2WnPTqZr1xxioqYQaOP/eH7lal0fVBoh3sQxw9dbwXfbbXQ7x
-         4YG0c+Ns/g4pcNZ6uBcP6+31835zcnyOJsuwqwp+yjduSDrEE3WjJF2G5roTh/emB1aH
-         SyEDdXQKwvVaxzPHDOCLQz2EHHG7hUaZi3PW46WNOvV0dIsUDvT9b35kOh1LCfb8UZwV
-         VRvKMbSJJy0E5NEzcVF7UoevGF4z/w0AFdXiHt22fyZiJniBDitt6KaRjh2UxYiIr6pm
-         7eWg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8q+h3H6jzY7MIK2yWuGjj05gCX3ouHcychXWj1DQS2jhzKUs2wVaHTfdQeCO/N2iXAYe/hNi9Y2UUmdI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN6JH/5jrz+1Bk5NqCL3SECCtaYk/MkoGlh3hO3Wwbjlxvml6V
-	nmtm9Ro+e6FHt8vfnjcB5jc9m5YT1GZdst3p/u14gcPO5PNIi6wreVKssHmcl1Pdkfcd7ZHyD9/
-	wu5sXUfhaiIyRnwRt9nMMJtPdpwyys8ZlsweAY9Drkw==
-X-Gm-Gg: AYBFou1auKPpDQVgWLKeprtBuD2amNdtJY74I2gVnGDh4KkJg+vhraO1M+yTZwn4u7Z
-	C4xOlCnN1SmIoVQR+XYsFgrEnuP8DOFuXmSCDShSdkb6ZRToiCcc0W2z2PIwKIve2/DytGZuT+O
-	YfFsY4yeEb/lZCoDIEWd7of42QsFw/3E/DUQb6qHOp48H1GK8WNDwMAIH/V0CViuGDqg4zf9PDV
-	RdzVg/zNOEPe0cEu3kwsHuOEDRWQehSHmx/FqO9/iLDi3+JkkX010XcsTW/2UnexVqpK7jWqMvs
-	revQ6wSTuxeoXgTgy9z9pLlS1V+ScjxBVbzuDTDUjln7H5nE/sAXcGk=
-X-Received: by 2002:a05:6870:f114:b0:47d:4630:5998 with SMTP id
- 586e51a60fabf-4930a82b841mr16313646fac.4.1790644552340; Mon, 28 Sep 2026
- 18:15:52 -0700 (PDT)
+        bh=AKrJX5WKeOQbSaNOGM5Lknf7dlUvmlUDCkY5FkCljkk=;
+        b=gtzRUls7IrgPVSDDICYtQf4tisQy4eJL/SJKFxexasu2RjMtlKCgvA+7+S5pI3h6fp
+         L0mBY3EDwc+zDEIvYasVJk0lGoZ3AhNt8dx7U06M/L7vuMCgChm+Ro0a2UelfzNw3OmO
+         JCHN4iA5KXUCZDNZLIpOaSC8rLdkfRP/a57vfLjiWTs+t2FXnPRHkAVy4NDbcLxv0yT5
+         vJiorcW2Q+SqNBz+OHYXDfFHoTsL+VoDTYyMc2xdNvjr5bE6x+BZNFsMqS2qHxFVWOZV
+         n6PJD4QGcSeplYa+hqmpD3yqVpof8PiyLpTB9eU2JrzvgAKc2gtRdD7Xk9AGL9dSAyQl
+         kv4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790644721; x=1791249521;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AKrJX5WKeOQbSaNOGM5Lknf7dlUvmlUDCkY5FkCljkk=;
+        b=Q+ssggYh88RpXaUl1ZVCsErfdjTL3rezcga57ECa1+eXwoddK4cddmpdJmhSOZWZ1F
+         HgfE9eUbqGhfIS35nTo2oS2dZwWMI2Aak7CQJ3J1o2vk3zXnWSLuvJjvdyVbPeq+qWfR
+         dWzbA9gtzGcT0eVJgpsUZI2vrRXepSweglwhh9j0a+k6ucQZw5OZPXPPJh8vbmrb+g7m
+         /C2n6webOmQ0enbTx0tRrjOwEShktKeK7+Go+8ewdapgP+bXgOfc4NG+Edh+zjJ8C3/t
+         +UAy5MU3NAHQB6p8XOBBQztoVuWw5cay4dQNOBHe9ItWZSW26OiKlHLhwGEaHdVQgmwV
+         0+zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwStJrODFEoNJLhBbRoR+Ayn1D6sacjb/gx8YuIIzkw1n4/n7ueuwJG3mUOpKz3aUaTFLVvRpFMwM0HFSY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNummvCALs4LcksOizUXbjDxkdLYo/PxmQ/6WdaooN9b3naNtY
+	190DJ/5kYn14yKHvDKs5vAaF+OWdAPrKrg8aQWhDcI/Len07aV6rlPNZeiwl4W9oKYFaWt1RAJO
+	v0jVbA/MdDA==
+X-Received: from dybmh11.prod.google.com ([2002:a05:7301:f0b:b0:33c:e9:49e3])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:a2d:b0:33c:e82:70c7
+ with SMTP id 5a478bee46e88-34272b598d8mr11264860eec.30.1790644721085; Mon, 28
+ Sep 2026 18:18:41 -0700 (PDT)
+Date: Mon, 28 Sep 2026 18:18:35 -0700
+In-Reply-To: <20260928210144.3925224-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260909222836.2475352-1-csander@purestorage.com>
-In-Reply-To: <20260909222836.2475352-1-csander@purestorage.com>
-From: Caleb Sander Mateos <csander@purestorage.com>
-Date: Mon, 28 Sep 2026 18:15:41 -0700
-X-Gm-Features: AclHuK9y1BkUmfj2CwBKzqVvJvr4htN1Ij_BtBFRlnLw9fnPEz3avSjdBXHF6AQ
-Message-ID: <CADUfDZorm3WsYxvKQkqr1DVAps=ejF7M4U5PLD4O-94GzmYt1g@mail.gmail.com>
-Subject: Re: [PATCH 0/6] io_uring/nvme: support fixed buffer for metadata
-To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: io-uring@vger.kernel.org, linux-nvme@lists.infradead.org, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20260928210144.3925224-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929011837.4157334-1-irogers@google.com>
+Subject: [PATCH v2 1/2] perf test: Add per-test timeout support
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
+	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi, any feedback on this series?
+When a test hangs in 'perf test', the entire test run hangs and makes it
+difficult to inspect output from other tests.
 
-On a 4 KB io_uring NVMe passthru read workload with metadata, we
-measure 14% of the CPU time spent under iov_iter_extract_pages()
-(called from bio_integrity_map_user()) and bio_integrity_unmap_user().
-Using io_uring registered buffers for the metadata avoids this
-significant overhead.
+Add a new TEST_TIMEOUT result category and a per-test timeout (default
+60 seconds, configurable via '-t'/'--timeout', with 0 to disable). When
+'-F' ('--dont-fork') is specified, timeouts are disabled.
 
-Thanks,
-Caleb
+To enforce the timeout:
+- Place each forked test child into its own process group via
+  setpgid(0, 0) in the child and setpgid(pid, pid) in the parent so any
+  subprocesses spawned by shell or workload tests can be terminated
+  together.
+- Arm an ITIMER_REAL periodic timer with a SIGALRM handler (using
+  SA_RESTART so /proc status reads in check_if_command_finished() are
+  not interrupted by EINTR while poll()/usleep() waits still wake up).
+- Check elapsed child runtimes against test_timeout in finish_test() and
+  finish_tests_parallel(), sending SIGTERM first and escalating to
+  SIGKILL after 1 second if the child process group has not exited.
+- Report timed out tests in red ('TIMEOUT!'), track and display them in
+  the test summary, and emit '<error message="TIMEOUT" type="timeout">'
+  counted under the 'errors' attribute in JUnit XML output.
+- Document '-t'/'--timeout' and '-F'/'--dont-fork' in perf-test.txt.
 
-On Wed, Sep 9, 2026 at 3:29=E2=80=AFPM Caleb Sander Mateos
-<csander@purestorage.com> wrote:
->
-> io_uring NVMe passthrough supports using a "fixed" (registered) buffer
-> for data, but not metadata. On high-IOPS workloads, the pinning and
-> unpinning overhead for the metadata pages is significant and could be
-> avoided if fixed metadata buffers were supported.
->
-> This patch series adds the necessary plumbing to allow NVMe passthrough
-> commands to use fixed buffers for their metadata. The metadata and data
-> fixed buffer indices can be specified (or omitted) independently.
-> Supporting separate fixed buffers is important as metadata buffers are
-> often stored in separate memory from the corresponding data buffers. For
-> ublk zero-copy I/Os, sharing a buffer index would be impossible as the
-> data buffer is a kernel registered buffer while the metadata buffer is a
-> userspace registered buffer.
->
-> My main question is which layer the metadata fixed buffer should belong
-> to: core io_uring, io_uring_cmd, or NVMe passthrough? In this initial
-> implementation, the io_uring_cmd layer stores the metadata buffer node
-> and the NVMe passthrough layer defines the UAPI.
->
-> The main argument for moving the implementation to a more generic layer
-> would be to reuse it for other io_uring request types. For example,
-> IORING_RW_ATTR_FLAG_PI could also benefit from a fixed metadata buffer
-> option, though this series doesn't implement it yet.
->
-> On the other hand, core io_uring_sqe and io_kiocb space is very limited,
-> so it may be undesirable to dedicate it for a somewhat niche use case.
-> The metadata buffer node storage could be pushed to the NVMe passthrough
-> layer after my in-flight series [1] to reclaim nvme_uring_cmd_pdu space.
-> However, managing request-scoped resources from a ->uring_cmd()
-> implementation is a pain, as the same request can call ->uring_cmd()
-> multiple times and may or may not complete when ->uring_cmd() returns,
-> depending on the ->uring_cmd() return value. io_req_uring_cleanup(), in
-> contrast, provides a single cleanup path for all uring_cmds.
->
-> [1]: https://lore.kernel.org/io-uring/20260909155848.2069290-1-csander@pu=
-restorage.com/T/
->
-> Caleb Sander Mateos (6):
->   bio-integrity: remove dead bio_integrity_copy_user() error path
->   nvme/ioctl: remove struct nvme_uring_data
->   blk-integrity: pass iov_iter to blk_rq_integrity_map_user()
->   nvme/ioctl: pass iov_iter to nvme_map_user_request()
->   io_uring/cmd: support fixed buffer for metadata
->   nvme/ioctl: support fixed buffer for metadata
->
->  block/bio-integrity.c           | 51 ++++++++++--------
->  block/blk-integrity.c           |  7 +--
->  drivers/nvme/host/ioctl.c       | 91 +++++++++++++++++++--------------
->  include/linux/bio-integrity.h   |  1 +
->  include/linux/blk-integrity.h   |  6 +--
->  include/linux/io_uring/cmd.h    | 12 ++++-
->  include/uapi/linux/nvme_ioctl.h |  5 +-
->  io_uring/rsrc.c                 | 28 ++++------
->  io_uring/rsrc.h                 | 17 ++++++
->  io_uring/uring_cmd.c            | 30 ++++++++++-
->  10 files changed, 160 insertions(+), 88 deletions(-)
->
-> --
-> 2.55.0
->
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+v2: Address Sashiko review of v1:
+ - Reset SIGALRM to SIG_DFL in the forked test child so tests relying on
+   default alarm() behaviour aren't affected by the parent's no-op handler.
+ - Replace the blocking waitpid(-1) loop with a bounded, non-blocking wait
+   that only runs when the test was interrupted by SIGTERM/SIGINT, avoiding
+   hangs on normal test failures.
+ - Ensure the SIGKILL escalation reaches the whole process group even when
+   the direct child exits after SIGTERM, by killing the group before the
+   zombie is reaped (so the PGID can't be reused).
+ - Factor out timespec_diff_secs() and TEST_KILL_GRACE_SECS.
+---
+ tools/perf/Documentation/perf-test.txt |   7 +-
+ tools/perf/tests/builtin-test.c        | 241 +++++++++++++++++++++++--
+ tools/perf/tests/tests.h               |   7 +-
+ 3 files changed, 233 insertions(+), 22 deletions(-)
+
+diff --git a/tools/perf/Documentation/perf-test.txt b/tools/perf/Documentation/perf-test.txt
+index 859df74e62ef..16d940e8d221 100644
+--- a/tools/perf/Documentation/perf-test.txt
++++ b/tools/perf/Documentation/perf-test.txt
+@@ -45,10 +45,15 @@ OPTIONS
+ 	Run each test the given number of times, by default once. This
+ 	option can be useful to determine if a test is flaky.
+ 
++-t::
++--timeout::
++	Timeout for each forked test in seconds, by default 60 seconds. Specify
++	0 to disable the timeout. Ignored when -F/--dont-fork is used.
++
+ -F::
+ --dont-fork::
+ 	Do not fork child for each test, run all tests within single process, this
+-	sets sequential mode.
++	sets sequential mode and disables the per-test timeout.
+ 
+ --dso::
+ 	Specify a DSO for the "Symbols" test.
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index d2f594921e25..4ecbaf757095 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -11,8 +11,11 @@
+ #include <execinfo.h>
+ #endif
+ #include <setjmp.h>
++#include <signal.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ 
+ #include "util/config.h"
+ 
+@@ -60,6 +63,8 @@ static bool sequential;
+ static unsigned int runs_per_test = 1;
+ /* Number of lines to include in failure snippet. */
+ static unsigned int failure_snippet_lines = 10;
++/* Timeout per test in seconds (0 for no timeout). */
++static unsigned int test_timeout = 60;
+ const char *dso_to_test;
+ const char *test_objdump_path = "objdump";
+ static const char *workload_control;
+@@ -330,8 +335,11 @@ struct child_test {
+ 	struct strbuf err_output;
+ 	int result;
+ 	bool done;
++	bool timed_out;
++	bool sigkill_sent;
+ 	struct timespec start_time;
+ 	struct timespec end_time;
++	struct timespec timeout_time;
+ };
+ 
+ static jmp_buf run_test_jmp_buf;
+@@ -351,20 +359,68 @@ static void child_test_sig_handler(int sig)
+ 	siglongjmp(run_test_jmp_buf, sig);
+ }
+ 
++/* Grace period between SIGTERM and SIGKILL for a timed out test. */
++#define TEST_KILL_GRACE_SECS 1.0
++
++static double timespec_diff_secs(const struct timespec *end, const struct timespec *start)
++{
++	return (end->tv_sec - start->tv_sec) + (end->tv_nsec - start->tv_nsec) / 1000000000.0;
++}
++
++/*
++ * Reap subprocesses of the test, such as shell scripts running trap cleanup
++ * handlers, for at most TEST_KILL_GRACE_SECS. The wait is bounded so that
++ * subprocesses that ignore the signal can't hang the test, the parent kills
++ * any that remain.
++ */
++static void wait_for_test_subprocesses(void)
++{
++	struct timespec start, now;
++
++	clock_gettime(CLOCK_MONOTONIC, &start);
++	for (;;) {
++		pid_t pid = waitpid(-1, NULL, WNOHANG);
++
++		if (pid > 0)
++			continue;
++		if (pid < 0 && errno != EINTR)
++			break; /* ECHILD, no subprocesses remain. */
++		clock_gettime(CLOCK_MONOTONIC, &now);
++		if (timespec_diff_secs(&now, &start) >= TEST_KILL_GRACE_SECS)
++			break;
++		usleep(10 * 1000);
++	}
++}
++
+ static int run_test_child(struct child_process *process)
+ {
+ 	const int signals[] = {
+ 		SIGABRT, SIGBUS, SIGFPE, SIGILL, SIGINT, SIGPIPE, SIGQUIT, SIGSEGV, SIGTERM,
+ 	};
+ 	struct child_test *child = container_of(process, struct child_test, process);
+-	int err;
++	int err, sig;
+ 
++	/*
++	 * Place the forked test into its own process group (pgid == pid) so
++	 * that any subprocesses it spawns (e.g. shell tests running via
++	 * system() and their child perf/workload processes) inherit this
++	 * process group. On timeout or interruption, signaling -pid kills the
++	 * entire test process tree without leaving orphaned background
++	 * processes or affecting the parent perf process and other tests.
++	 */
++	setpgid(0, 0);
++	/*
++	 * The parent's no-op SIGALRM handler, used to wake it for timeout
++	 * checks, is inherited across fork (interval timers aren't). Restore
++	 * the default so tests using alarm() still terminate.
++	 */
++	signal(SIGALRM, SIG_DFL);
+ 	close_parent_fds();
+ 
+-	err = sigsetjmp(run_test_jmp_buf, 1);
+-	if (err) {
++	sig = sigsetjmp(run_test_jmp_buf, 1);
++	if (sig) {
+ 		/* Received signal. */
+-		err = err > 0 ? -err : -1;
++		err = TEST_FAIL;
+ 		goto err_out;
+ 	}
+ 
+@@ -378,20 +434,30 @@ static int run_test_child(struct child_process *process)
+ 
+ 	check_leaks();
+ err_out:
+-	fflush(NULL);
+ 	for (size_t i = 0; i < ARRAY_SIZE(signals); i++)
+ 		signal(signals[i], SIG_DFL);
++	/*
++	 * SIGTERM and SIGINT are sent by the parent to the whole process group,
++	 * on timeout or interruption, so subprocesses were also signaled. Give
++	 * them a chance to finish cleaning up. Other failures don't signal
++	 * subprocesses so don't wait for them.
++	 */
++	if (sig == SIGTERM || sig == SIGINT)
++		wait_for_test_subprocesses();
++	fflush(NULL);
+ 	return -err;
+ }
+ 
+-#define TEST_RUNNING -3
++#define TEST_RUNNING -4
+ 
+ static struct pollfd *global_pfds;
+ static size_t *global_pfd_indices;
+ static unsigned int summary_tests_passed;
+ static unsigned int summary_subtests_passed;
+ static unsigned int summary_tests_skipped;
++static unsigned int summary_tests_timed_out;
+ static unsigned int summary_tests_failed;
++static struct strbuf summary_timed_out_tests_buf = STRBUF_INIT;
+ static struct strbuf summary_failed_tests_buf = STRBUF_INIT;
+ 
+ static int strbuf_addstr_safe(struct strbuf *sb, const char *s);
+@@ -507,6 +573,18 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 			color_fprintf(debug_file(), PERF_COLOR_YELLOW, " Skip\n");
+ 	}
+ 		break;
++	case TEST_TIMEOUT:
++		summary_tests_timed_out++;
++		if (test_suite__num_test_cases(t) > 1)
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d.%1d: %s\n",
++				    curr_suite + 1, curr_test_case + 1,
++				    test_description(t, curr_test_case));
++		else
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d: %s\n",
++				    curr_suite + 1,
++				    test_description(t, curr_test_case));
++		color_fprintf(debug_file(), PERF_COLOR_RED, " TIMEOUT!\n");
++		break;
+ 	case TEST_FAIL:
+ 	default:
+ 		summary_tests_failed++;
+@@ -532,7 +610,11 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 		strbuf_addf(&junit_xml_buf,
+ 			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
+ 			    escaped_class, escaped_test, elapsed);
+-		if (result != TEST_OK && result != TEST_SKIP) {
++		if (result == TEST_TIMEOUT) {
++			strbuf_addf(&junit_xml_buf,
++				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
++				    escaped_err);
++		} else if (result != TEST_OK && result != TEST_SKIP) {
+ 			strbuf_addf(&junit_xml_buf,
+ 				    "      <failure message=\"FAILED\">\n%s\n      </failure>\n",
+ 				    escaped_err);
+@@ -561,7 +643,7 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 
+ static const char * const fail_keywords[] = {
+ 	"error", "fail", "segv", "abort",
+-	"signal", "fatal", "panic", "corrupt", NULL
++	"signal", "fatal", "panic", "corrupt", "timeout", NULL
+ };
+ 
+ static const char *find_next_keyword(const char *str, size_t max_len, size_t *kw_len)
+@@ -748,6 +830,63 @@ static void print_test_failure_snippet(FILE *fp, const char *buf)
+ 	free(line_lens);
+ }
+ 
++static void cmd_test_alarm_handler(int sig __maybe_unused)
++{
++}
++
++static void check_child_timeout(struct child_test *child, const struct timespec *now)
++{
++	pid_t pid;
++
++	/*
++	 * Once the test process has exited, kill_timed_out_group() handles any
++	 * remaining members of the process group before the test is reaped.
++	 */
++	if (!test_timeout || !child || child->done || child->process.finished)
++		return;
++
++	pid = child->process.pid;
++	if (pid <= 0)
++		return;
++
++	if (!child->timed_out) {
++		if (timespec_diff_secs(now, &child->start_time) >= test_timeout) {
++			child->timed_out = true;
++			child->timeout_time = *now;
++			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
++				  test_timeout, child->suite_num + 1,
++				  child->test_case_num + 1, pid);
++			kill(-pid, SIGTERM);
++			kill(pid, SIGTERM);
++		}
++	} else if (!child->sigkill_sent) {
++		if (timespec_diff_secs(now, &child->timeout_time) >= TEST_KILL_GRACE_SECS) {
++			child->sigkill_sent = true;
++			pr_debug3("Sending SIGKILL to timed out test %d.%d (pid %d)\n",
++				  child->suite_num + 1, child->test_case_num + 1, pid);
++			kill(-pid, SIGKILL);
++			kill(pid, SIGKILL);
++		}
++	}
++}
++
++/*
++ * Kill subprocesses of a timed out test that outlived the test process, such
++ * as ones that ignored SIGTERM. Must be called after check_if_command_finished()
++ * reports the test process exited but before finish_command() reaps it. The
++ * unreaped (zombie) test process still holds its pid as the process group ID,
++ * so the ID can't be reused and signaling -pid can't hit an unrelated group.
++ */
++static void kill_timed_out_group(struct child_test *child)
++{
++	if (!child->timed_out || child->process.finished || child->process.pid <= 0)
++		return;
++
++	pr_debug3("Sending SIGKILL to remaining processes of timed out test %d.%d (pgid %d)\n",
++		  child->suite_num + 1, child->test_case_num + 1, child->process.pid);
++	kill(-child->process.pid, SIGKILL);
++}
++
+ static void finish_test(struct child_test **child_tests, int running_test, int child_test_num,
+ 		int width)
+ {
+@@ -797,6 +936,12 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 			  .events = POLLIN | POLLERR | POLLHUP | POLLNVAL,
+ 			},
+ 		};
++		if (test_timeout > 0) {
++			struct timespec now;
++
++			clock_gettime(CLOCK_MONOTONIC, &now);
++			check_child_timeout(child_test, &now);
++		}
+ 		if (perf_use_color_default) {
+ 			int running = 0;
+ 
+@@ -837,10 +982,14 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 					err_done = false;
+ 					buf[len] = '\0';
+ 					strbuf_addstr_safe(&err_output, buf);
++				} else if (pfds[0].revents & (POLLHUP | POLLERR | POLLNVAL)) {
++					close(err);
++					err = -1;
++					child_test->process.err = -1;
+ 				}
+ 			}
+ 		}
+-		if (err_done)
++		if (err_done || child_test->timed_out)
+ 			err_done = check_if_command_finished(&child_test->process);
+ 	}
+ 	/* Drain any remaining data from the pipe. */
+@@ -858,7 +1007,10 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 		fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
+ 	}
+ 	/* Clean up child process. */
++	kill_timed_out_group(child_test);
+ 	ret = finish_command(&child_test->process);
++	if (child_test->timed_out)
++		ret = TEST_TIMEOUT;
+ 	child_test->process.pid = 0;
+ 	if (child_test->err_output.len > 0) {
+ 		struct strbuf merged = STRBUF_INIT;
+@@ -872,7 +1024,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 	}
+ 	if (verbose > 1)
+ 		fprintf(stderr, "%s", err_output.buf);
+-	else if (verbose == 1 && ret == TEST_FAIL)
++	else if (verbose == 1 && (ret == TEST_FAIL || ret == TEST_TIMEOUT))
+ 		print_test_failure_snippet(stderr, err_output.buf);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &end_time);
+@@ -1018,6 +1170,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 	while (next_to_print < num_tests) {
+ 		size_t running_count = 0;
+ 		size_t p;
++		struct timespec now;
+ 
+ 		while (next_to_print < num_tests &&
+ 		       (!child_tests[next_to_print] || child_tests[next_to_print]->done))
+@@ -1027,6 +1180,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			break;
+ 
+ 		num_pfds = 0;
++		if (test_timeout > 0)
++			clock_gettime(CLOCK_MONOTONIC, &now);
+ 
+ 		for (i = next_to_print; i < num_tests; i++) {
+ 			struct child_test *child = child_tests[i];
+@@ -1034,6 +1189,9 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			if (!child || child->done)
+ 				continue;
+ 
++			if (test_timeout > 0)
++				check_child_timeout(child, &now);
++
+ 			if (!check_if_command_finished(&child->process))
+ 				running_count++;
+ 
+@@ -1096,7 +1254,10 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 					close(child->process.err);
+ 					child->process.err = -1;
+ 				}
++				kill_timed_out_group(child);
+ 				child->result = finish_command(&child->process);
++				if (child->timed_out)
++					child->result = TEST_TIMEOUT;
+ 				child->process.pid = 0;
+ 				clock_gettime(CLOCK_MONOTONIC, &child->end_time);
+ 				child->done = true;
+@@ -1141,7 +1302,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 
+ 			if (verbose > 1)
+ 				fprintf(stderr, "%s", child->err_output.buf);
+-			else if (verbose == 1 && child->result == TEST_FAIL)
++			else if (verbose == 1 &&
++				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
+ 				print_test_failure_snippet(stderr, child->err_output.buf);
+ 
+ 			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
+@@ -1218,14 +1380,20 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
+ 		(*child)->process.stdout_to_stderr = 1;
+ 	}
+ 	(*child)->process.no_exec_cmd = run_test_child;
++	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
++	err = start_command(&(*child)->process);
++	if (err)
++		return err;
++	/*
++	 * Also set the child's process group in the parent to avoid a race if
++	 * the parent signals -pid before the child executes setpgid(0, 0).
++	 */
++	setpgid((*child)->process.pid, (*child)->process.pid);
+ 	if (sequential || pass == 2) {
+-		err = start_command(&(*child)->process);
+-		if (err)
+-			return err;
+ 		finish_test(child, /*running_test=*/0, /*child_test_num=*/1, width);
+ 		return 0;
+ 	}
+-	return start_command(&(*child)->process);
++	return 0;
+ }
+ 
+ /* State outside of __cmd_test for the sake of the signal handler. */
+@@ -1245,6 +1413,14 @@ static void print_tests_summary(void)
+ 	pr_info("Passed main tests : %u\n", summary_tests_passed);
+ 	pr_info("Passed subtests   : %u\n", summary_subtests_passed);
+ 	pr_info("Skipped tests     : %u\n", summary_tests_skipped);
++	if (summary_tests_timed_out > 0) {
++		color_fprintf(debug_file(), PERF_COLOR_RED, "Timed out tests   : %u\n",
++			      summary_tests_timed_out);
++		pr_info("List of timed out tests:\n");
++		pr_info("%s", summary_timed_out_tests_buf.buf);
++	} else {
++		color_fprintf(debug_file(), PERF_COLOR_GREEN, "Timed out tests   : 0\n");
++	}
+ 	if (summary_tests_failed > 0) {
+ 		color_fprintf(debug_file(), PERF_COLOR_RED, "Failed tests      : %u\n",
+ 			      summary_tests_failed);
+@@ -1265,12 +1441,15 @@ static void print_tests_summary(void)
+ 				unsigned int total = summary_tests_passed +
+ 						     summary_subtests_passed +
+ 						     summary_tests_skipped +
++						     summary_tests_timed_out +
+ 						     summary_tests_failed;
+ 				fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+ 				fprintf(fp, "<testsuites>\n");
+ 				fprintf(fp,
+-					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" skipped=\"%u\">\n",
+-					total, summary_tests_failed,
++					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\">\n",
++					total,
++					summary_tests_failed,
++					summary_tests_timed_out,
+ 					summary_tests_skipped);
+ 				fprintf(fp, "%s", junit_xml_buf.buf);
+ 				fprintf(fp, "  </testsuite>\n");
+@@ -1288,6 +1467,7 @@ static void print_tests_summary(void)
+ 		}
+ 	}
+ 	strbuf_release(&junit_xml_buf);
++	strbuf_release(&summary_timed_out_tests_buf);
+ 	strbuf_release(&summary_failed_tests_buf);
+ }
+ 
+@@ -1327,12 +1507,27 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 			pr_debug3("Killing %d pid %d\n",
+ 				  child_test->suite_num + 1,
+ 				  child_test->process.pid);
++			kill(-child_test->process.pid, err);
+ 			kill(child_test->process.pid, err);
+ 		}
+ 		goto err_out;
+ 	}
+ 	signal(SIGINT, cmd_test_sig_handler);
+ 	signal(SIGTERM, cmd_test_sig_handler);
++	if (!dont_fork && test_timeout > 0) {
++		struct sigaction sa = {
++			.sa_handler = cmd_test_alarm_handler,
++			.sa_flags = SA_RESTART,
++		};
++		struct itimerval timer = {
++			.it_interval = { .tv_sec = 1, .tv_usec = 0 },
++			.it_value = { .tv_sec = 1, .tv_usec = 0 },
++		};
++
++		sigemptyset(&sa.sa_mask);
++		sigaction(SIGALRM, &sa, NULL);
++		setitimer(ITIMER_REAL, &timer, NULL);
++	}
+ 
+ 	/*
+ 	 * In parallel mode pass 1 runs non-exclusive tests in parallel, pass 2
+@@ -1430,6 +1625,12 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 		for (size_t x = 0; x < num_tests; x++)
+ 			finish_test(child_tests, x, num_tests, width);
+ 	}
++	if (!dont_fork && test_timeout > 0) {
++		struct itimerval timer = {};
++
++		setitimer(ITIMER_REAL, &timer, NULL);
++		signal(SIGALRM, SIG_DFL);
++	}
+ 	print_tests_summary();
+ 	free(global_pfds);
+ 	free(global_pfd_indices);
+@@ -1762,6 +1963,8 @@ int cmd_test(int argc, const char **argv)
+ 		    "Run the tests one after another rather than in parallel"),
+ 	OPT_UINTEGER('r', "runs-per-test", &runs_per_test,
+ 		     "Run each test the given number of times, default 1"),
++	OPT_UINTEGER('t', "timeout", &test_timeout,
++		     "Timeout for each test in seconds, default 60s (0 to disable)"),
+ 	OPT_STRING('w', "workload", &workload, "work", "workload to run for testing, use '--list-workloads' to list the available ones."),
+ 	OPT_STRING(0, "record-ctl", &workload_control, "fifo:ctl-fifo[,ack-fifo]",
+ 		   "Write enable to the fifo just before running the workload and disable after, with optional ack from ack-fifo"),
+@@ -1824,8 +2027,10 @@ int cmd_test(int argc, const char **argv)
+ 		return 0;
+ 	}
+ 
+-	if (dont_fork)
++	if (dont_fork) {
+ 		sequential = true;
++		test_timeout = 0;
++	}
+ 
+ 	symbol_conf.priv_size = sizeof(int);
+ 	symbol_conf.try_vmlinux_path = true;
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 9c96f33483d1..2de66dc2e701 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -6,9 +6,10 @@
+ #include "util/debug.h"
+ 
+ enum {
+-	TEST_OK   =  0,
+-	TEST_FAIL = -1,
+-	TEST_SKIP = -2,
++	TEST_OK      =  0,
++	TEST_FAIL    = -1,
++	TEST_SKIP    = -2,
++	TEST_TIMEOUT = -3,
+ };
+ 
+ #define TEST_ASSERT_VAL(text, cond)					 \
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
