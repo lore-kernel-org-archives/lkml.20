@@ -1,190 +1,171 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B029852BE2A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FB152CCE4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688870; cv=pass; b=WSjHLzjeYN/lLws5ySUrqvzyeaDrTLyLlmQoRlXqFOdtM9xah5O7ZIL/yWR3miy8zbkAAvgHE1qcct1pU09agCZVuuHOad9o47g9aJ7kBXUIzHu8klPRblHWnq10m0kwWSLAnK0sQAzKSSnl6qrcoXy6EuMb+h2t8mTVJvzh6Ic=
+	t=1790688874; cv=pass; b=ZTkQ0HhLV/KJugFoNgmMoRXTqThqroAkSJtr8GuU4rexxMGZUC82bFn/fUYtGFapZjqVpbYgrWHdHgStx+B01FnXSeeOq17+alOYh/x6f9pXlTf38glv/xfVQMT6hju1eCodAhnwd+Iw7NHgk+hiPZ4Tc8sZNaRt3yJI1AQf90E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688870; c=relaxed/simple;
-	bh=aatIQCpb5b6E18tOT607YiK+lREgF4JTQbKPFrO+iVw=;
+	s=arc-20240116; t=1790688874; c=relaxed/simple;
+	bh=Dq+JjZndauK+vhVyUCj0a7b3BEr7XKM3Pdyht8lKtAc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hbOkNIt7FBGfRbNW8SkHfCyv3XqeBHa0+J+x2nURHupgY9qEWskuOYDcB9v4FbzH0vMpQ1m2SA+vf6FtFvtFiSN5/x+5+qnRjkiwafEL8RNxgu/V7M1UvvToYly9/npbYi47HwRNVzn+SdWknMTbUFdnuJU2U5l2/yt46OCDZAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hk6mvLlV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MnW5UteW; arc=pass smtp.client-ip=205.220.168.131
+	 To:Cc:Content-Type; b=hRgnxdF84cvaeifHjl7dy8BWtjvx2J6m0QWdlte5XGHrhTsqmNlyh6wv0i3UbLJ8XZ2lCcx6qIoFNfoxfUlYe0aT4Yoxg5nNXSl6KGyoGsJBac3lhgDNsdJGH4PEd4b93yTGqRKVygIZ95FKr0Afd51y04J82E9SUCs2RVuwdho=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NVAQWXKu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ffo052H+; arc=pass smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hk6mvLlV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MnW5UteW"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqfq7611555
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:28 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NVAQWXKu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ffo052H+"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqeuc1016868
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ApZtp9mCDzFhUghEqNRHfpNQRpHQIPz3H5GND00+/Q8=; b=hk6mvLlVWv66MepN
-	iXjqUBQgGPOer5qnBJte12x4wjPvxOCEYL7J06CYjn0EHwKp/mQIZhzGf/7PTCrr
-	JPVMRa5P31yNjd0syZbjgMb1SqSQl0EhM88wLqYun1EFTHMdFhjcUQaYctLQJvLB
-	m8rrLNP8N82Uo9R+rz0dot2NO2Ag+BRrRZy3QHNaATzsOSBlDlmyQoF67xxVYAwr
-	6AvhbgJpiztMCqAaEVjfmc1yrAp8Qnex8FnEzTZH2Oi00Q9D6r5JmaAxiFebRClG
-	r3l0ApPic+NoNoV0+qGAVh5h3Rn6Nx3BILxnO83SaAFd/J++STdI9TWC1odBWbQy
-	41skTw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4uar8-1
+	Z6wo6dq2auYma40qLsQxQ9lWAE5Nz9b936lWajd77mc=; b=NVAQWXKuWSV3fZEs
+	3znWvx2M8K6IobiSvlaWsQaYZ512bUGrwQR2En582K4WHvNJEveCGy+kWwkDBpvT
+	GdKDFYVdwm+bV5tEH2QFO/JfXjHw6FtYmP+e29UARIAc599CkofJ/3SuU4uSQ1Np
+	4R+euLdhR18gStIGyFBeu4WjCTojMSFXAw/WgFXaAPWZe06aYuFppQeI8NV4RNlD
+	38JtqDGRnDk/nyZsm4HHjKo06g/CgmhvZsCdshmjq21Z2baDIRSCJe0qsJBMQ8Ic
+	BIjeRBaq8red2PhnVPTdqpb5EehyUvm9ihnlk6hweI41oJkGbAxcIfFvn/Wc1P11
+	2s2o0g==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h05yxj86m-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:28 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d9336581a2so62301095ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:34:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790688867; cv=none;
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:34:31 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-882359f93ccso2149264b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:34:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790688871; cv=none;
         d=google.com; s=arc-20260327;
-        b=GwXcuc1LqfV3BmyTE6Qe0dxWiY6tqnYZ40mlQ2IDnmAlMOpPiQx70IYgJAN2rs5TiT
-         ZSQoOyI93m44KiuzX3y81T0e9OwO9T/Xr8etUMfp82aNYly4ZHRSyWB86cjE3birJ4us
-         OFu23Z6Y8GeDs2n4mlUw/IJ1iEsNTkyWvflp95KTtzrdpeu2G1UdoOzxCcyXrLOEKZiP
-         6aFnM8zCHJ/P9jgoCEuDUEu2WojfcI4/wjXKrbGp3Uv5LP+L/A5k4zsGVxL0ndJspuR1
-         m97PS8vZ/whiYaZHdDnGnIP2Ykfi7yCqdEAUphRVROlMQwCOpg7GroHe8GlwPqH3kMau
-         gkyA==
+        b=L8vpic/spnPD7ul8of1iKOWQXf6wO6VsCuLyPx3xOqqL5MB7lmo86xKjB7FDBb4Gkt
+         x/ZrASVI2lLdPNdTFzCEZASKPCtNgEtsHX9PTJraOspx3k3feo7s3I/oFdd4Azfq2Mk+
+         Z+3+3ZIIXvzhbkkp1vMgmjfGYraFsHrvfnc6apiCA+mEI/Yat72jMRaFAFTxhy5AZ2Ik
+         mGY4tVSgiJIN62fn9j14oV4BJ5I0IiSLPj0n+wPens0D3nK+mNSBbOcjpA1p5Cduxjan
+         F3eqmHHK7emU9GgdiozxW8DTltaZ65O+Hg1DAnai79RHMtGIrEJkg2dpO6xdmhPNFX0d
+         nHpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ApZtp9mCDzFhUghEqNRHfpNQRpHQIPz3H5GND00+/Q8=;
-        fh=M1jt7A2Btln/oyejZydIG9WP4x9kNGJ6fP9uwwVHCyI=;
-        b=P237Tmb6Se9Go4ofn1FfQYG37KJjF8/BlkaDSuEiuqWG+Y5sS6BsKIa2xMK7unY9+q
-         NE4m5GjrzIh5XJ56j+pMDMzeIUgxux9szOFIzaHC/N7dwwHm/THFhHZ/taVe0r04AM3Y
-         9EgQMDX1rEW5TG8umHn2M/lEQu9r6RKrSYKFLQT0IqerSjSR034IzEfHsb2BkRu5Upci
-         2D1MJDEuo5t50P4++MPTUmIcqHim4++MJ70qpe34ngmfUcUy9AiHra4ISPpXJb83ed/v
-         w3uFweiD7840T2ri3QnvD3fDH1qyvkWBf3BnGOW99UXqAy0w86OUudAe6cLnY26E+VNB
-         LG1w==;
+        bh=Z6wo6dq2auYma40qLsQxQ9lWAE5Nz9b936lWajd77mc=;
+        fh=VQTYmULVjvI3nlVCD0Q6P7cO8vMEdEFsznCpEuwO0Zw=;
+        b=j0g9NYksN7wQ8bJvzugIaqMFhJrYBCyoBxKSsNru5fxaKKWyNCrMWccZtk5pXGPSqH
+         S8X0CyrgA0W3oz7eMNs87DtqLYB8fQDEb2vcOZMn+lr7HrwZHFtsNRkCu3Qp4bBItvyN
+         rfaDDG3h31PFJzsyuXQ6S0aWCVeqa+SG92U6JgTxbDB8IG1xeT9Qq6NgKz7Wmtfn/0p3
+         ZtQAYM9STYiMK3HHABQj9/j937otPhVS2nwwe/RQd7uX9Cp5BhwKqebLyD0PoxAuLPih
+         TQt3joV158Dzyw6aGWoyr3fllLQB1PR8aJO+QcjWsxywHrOhGN1ln0LFUehISvy1Wup5
+         uaGA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790688867; x=1791293667; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790688871; x=1791293671; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ApZtp9mCDzFhUghEqNRHfpNQRpHQIPz3H5GND00+/Q8=;
-        b=MnW5UteW5tCkE0domqFe0WMEddVoAo24BrHbfCGicKqHJ7zswfoA07vSpvD8NfqOnE
-         fF8ELmym2xBwXyl8/OfGKwGsoqqQxQokZj3gd+Dq32ZPO3DRhsUh73z2LfN2tdHpGy/H
-         EPBeds6ekZJPCl8GDtF9YdK/apasEgcCZd5m+U8eKxUnzX94w6I8HytVWl5AvvjGs3zR
-         DpK+qksSdODDf/RHW+WZU/BkBWAdIHCAI/QR4tzPiMQzi530jEw/yRRLhlCn3CDzzxlv
-         lqWsAjIxiU5+U2yWw0xsJgp1V2E0KCF+z32vgJSxHnU3S1tTCcTS6PAXS2gHKiJQLrhb
-         2M1A==
+        bh=Z6wo6dq2auYma40qLsQxQ9lWAE5Nz9b936lWajd77mc=;
+        b=ffo052H+FKSczEMT+V8sedwvEIveWR4PUBgZkQgmWBDlFBZEQFNyEktkppwP67g5KS
+         F4oy/25spRX+n6jmuuUR3nMybVO9YnoSa76ykdcxeKQJAjn/svHtdF/nsP3QonhGHdWm
+         i72foBOTe5LAILZ9OwgJCj8iMoET2GtfkXv2aOXjFbQXv2cmdLW8Ae5mPcuBxUml9BFf
+         ceLe1E4s/mNMz6OBrrwxK1YuhHtguBkXyn1pVOspNK7/d9y8ElMW+StZ6tpTkTCblFba
+         pORaKvf2GwP56jnxdfx4ReLe6UIYOt7OFvNKzLo19m/ogtDBWuoJaa9wt1yDSIJlqzut
+         6bdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790688867; x=1791293667;
+        d=1e100.net; s=20260707; t=1790688871; x=1791293671;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ApZtp9mCDzFhUghEqNRHfpNQRpHQIPz3H5GND00+/Q8=;
-        b=RDck7W9S9TaS8CL8jNvoCGcItiZjVAV380T4LmqbM76U+Z53Rd/JXdcgbchLTaE0jp
-         Lne9NPqI0QqTDJOoGiJBj+pSZiGo7Hx7TX4X46qopoBgUDL2cU4J00AUCXptqf2/addI
-         iWbfuPyBZmFNtADK+TvMvFkTFFc/66JQ2E2xpEZxKuwSTKgjpoTMz+QzpIwQjYlvgL71
-         RmxIqCtelQYl4lAFwcydAbwGmf3mFM/vhpPBk4O8IFUaaNVyGwkajKJrorzThyrUJg9x
-         C389Bk+QfVWgVFUVgIsARlEqCSWxRA788rQQDoJy/NzDM2t6L/0qwUZc3sMOsAVdJPBN
-         vn7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxbGi015q23DnUPsWTmKGaHDavsNh8x4HKzLZYCSyynhWweHemNMUPL7fX4D0tAPfuiF61A29Ayg0CBShg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7qDZ8Gt0j+fMugSnTyvPU7FR4jLb6VNRP3DhW3JKENsl2LIyU
-	6qtwi/mLH68AjAIWcM2q0R05dp6L3UQ4xt13KZ1p/Ooy9WdZIMdP6T5RkmV7SVzaDknBe5lpRyh
-	4g4su8OG5suocpIm6eFe0s1p0gMuUGmWOTLNJUMLPsxP/4+kuFxI7Qb6M0YyijgktNBNwDdTIkm
-	TJpawBmncHfQWAjdObu8bfoeE7TyXZ14tb+64fviI4lQ==
-X-Gm-Gg: AYBFou0WlCxyKZdYsWFCVyjG0wmnKSz160/2ELsBX7w0RaLZhw3XErzIIpch0GK9y5o
-	1RFpleLQTjghMRVOgLvbxI3HoCxdpgIXHO84LhEqIy9sSn2jNt6+uzIlYdysXGkNouDews1VEw+
-	2a10vQXjReMlt1o5DSdVbM53zpKIj7c2eaLrH2SM8Nvo08ClsEZoA1Vp3gmQ==
-X-Received: by 2002:a17:90b:2b8c:b0:3a0:574f:5854 with SMTP id 98e67ed59e1d1-3a0bb60e74cmr11071552a91.39.1790688867366;
-        Tue, 29 Sep 2026 06:34:27 -0700 (PDT)
-X-Received: by 2002:a17:90b:2b8c:b0:3a0:574f:5854 with SMTP id
- 98e67ed59e1d1-3a0bb60e74cmr11071507a91.39.1790688866886; Tue, 29 Sep 2026
- 06:34:26 -0700 (PDT)
+        bh=Z6wo6dq2auYma40qLsQxQ9lWAE5Nz9b936lWajd77mc=;
+        b=CfIl46ylTjdLzGu0n2XP7AQeGj7qA0gpcqgLB/ySX9Ii7w+UmLfOGER3LCjYrnYVzj
+         6A7VXVAJk9y0ynDFrulFsHX8bP3PJY7a36AhGZc7JO4reyiVX1800/Kd4piY7QCJh2O/
+         9gL/hWyMNCbKO1g0YFa3wQezUMgIi62cmp2rbqORNoinfY1wCWl40+SOlNyyyZo1+Svm
+         rE6tk/wGeLBNNiteUP0ZKSgWIFyWR4TiwxYjOg44Z3kNSUjQW6gaOGDtWokDHUDwKVsC
+         gz0i4kVFkfSqKZXo7Cpx8NKspWD5om5tckmXHA1m8m67NSafc8LIVW7r0sNCXTNXTkPD
+         7rNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLp+Jx7zzGeDsIWixnXgSkb9bIhz7bjxcLY39KOGPHHRt4+/+aTMwxnxZ718vvkbnUqJK8QT/fN0f4/Tw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngr6XmLpXiPlmAtce4cCuKbk+/hmoOPeiRIhNUr2TJ4jND567C
+	RQv5+cTi2KlfrHCM8sLK/e+ukgqD4SMDl4YkZEQXmIpiE2esnM4YHAJ8D9NGiygVjGAEgrJ9bHb
+	flcArBfFwyfyvKouRsjTpwfhF8KKlfFzh67eidkK3tQXNJvGewmLZ+duY0AJridEV8f3XWFxZh7
+	pa51L3ZY1JmmiQDWXrn2QmEawPmzlyY9e8BHfzIXDTvTiG+5LKMg==
+X-Gm-Gg: AYBFou3Y00mlUkxxfq9VP2/h7go+fuTek7IauU/XmK17eRXn1rt/oFjAjMvyO2R7X2D
+	B2wBVSgB8S2ESzvYct+fs0VGKvSpW2SSFjXdqwj6lcsSaqGkrAJ5GddqNTejHALOgwHxdlOfKdy
+	H30hj48zZ4OLX8ymEAIzn6SsCAgq4EuZH8OF1GXzepusHPnWRbHA2tRx3DZw==
+X-Received: by 2002:a05:6a00:4004:b0:882:4e65:4ddb with SMTP id d2e1a72fcca58-8824e65524fmr6521607b3a.23.1790688870569;
+        Tue, 29 Sep 2026 06:34:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4004:b0:882:4e65:4ddb with SMTP id
+ d2e1a72fcca58-8824e65524fmr6521588b3a.23.1790688870075; Tue, 29 Sep 2026
+ 06:34:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
-In-Reply-To: <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
+References: <1790070007-11769-1-git-send-email-shawn.lin@rock-chips.com>
+In-Reply-To: <1790070007-11769-1-git-send-email-shawn.lin@rock-chips.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 15:34:16 +0200
-X-Gm-Features: AclHuK_IsoMVZ8jA--KFIskLK5LDOvw3Q0lyiLyhAEn2l6B1awM5w3Hl8Ax8gbg
-Message-ID: <CAPx+jO9qPRgae_VqWrGQ8bhDOHBf+zDzw3A-BxCMa25XfPaa7Q@mail.gmail.com>
-Subject: Re: [PATCH v3 05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
-To: muzafferkadir@mainlining.org
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
-        linux-input@vger.kernel.org
+Date: Tue, 29 Sep 2026 15:34:18 +0200
+X-Gm-Features: AclHuK8G5nGoHGTpzw0zhB2zp1tTVD0jeruGQoLq-x6OFpzxeQoeqBWHKQUtrtQ
+Message-ID: <CAPx+jO-Yne-pT4CAMR6G0miUTsptKGSfB6Mq=3Mu3-viaJA+0g@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci-of-dwcmshc: Disable CQE error halt request for Rockchip
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+        Adrian Hunter <adrian.hunter@intel.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NCBTYWx0ZWRfXygKObyHnswqN
- CCpbySz8uT7NCgyvAvYI44NR7SvkwB2cg5rLQY4rlVolWTBGJNnfbvsEwspoSbs3S4mURojy7YQ
- XZlDnwgxYWzx42iXR7+O5B7oy4Io8Ns=
-X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abbbe64 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NCBTYWx0ZWRfXzx21Nly86r1a
+ DVM1boSjCppeXUvMEIEIQByF9ekf6RftbL5JmObLprJZufF0ZU/uJ2ywu9LA5mIAUcrTlGr4hV1
+ 9mYlzlRBACtq/mLb6xSSG4K1RBiUAZA=
+X-Proofpoint-GUID: rI4lRCue3abu39F3oV9-N-dk6tDzYF1e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NCBTYWx0ZWRfX1PDFwykuRUgG
+ a5eRlw0STKAwobqZv91yD3UUG4/57790EZtg2F/wd2fJY/i8ABXySgvRgp4OG4HHrL4DPMNGrw2
+ lRsdsRRruczRlfPNPCAV+vYuGG6rvMXe1fSEaDnEq2E+U4jSr2m912HgnX4phzPjoU1LaMYPm/B
+ sPPrya4RUwcUWzcL7ptNGoiZVq71zc4LGFYNOgWYKDth5eSII20fZVoIdVqVRlRUw65pM2/o8/D
+ ru5ojJ9iMSytEIaMGejiLmNYPREO2v75NOPDmNNmB8t9Dg+Xs/3WvJhHqbi8GEBG1otn/ecN+hP
+ +mCVruZB0DxWcqVoLwEuVKUnhrroMeB/s450Wr633ZIlLqWEBh/qx8iVi408L0ybqibgZk9CWdM
+ H1hlKattG56QTkEd3D705TTn2kjg5+kMkd4y9uR1MApMgQ9j5VL4MmOjOUpDJZPN3RRtBjUiGfA
+ Jx8qsiiI0vayhKn3w4w==
+X-Proofpoint-ORIG-GUID: rI4lRCue3abu39F3oV9-N-dk6tDzYF1e
+X-Authority-Analysis: v=2.4 cv=SaFi5fRu c=1 sm=1 tr=0 ts=6abbbe67 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=OuZLqq7tAAAA:8
- a=wO7LUizMVtHDz2nkp9wA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
- a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NCBTYWx0ZWRfX8xykHJ6U+JaJ
- JRtQ345BEvc8ftH/huaTemcwfW2oxvSLlODhkfws5rc+8Ws+7WhUlH9Ume6mjWhfV4/SmRCAVUF
- xhGSS4mNFmeSXhvvGOwwQaIJo8CNY3VllYPLP6VgXtnbW01KSEDNIzB+hVZrj0CuuplzctUBZzq
- sDwYk80I/71e/hQMKUa3GnIgzdKD8vBBlcKSk3OS1iI8c6/NIvm82SRTF4dpBogHpFnb4dS18lP
- WuJuDzVijBGVlABJRf6Kqlwa0J3NWsmdloGP3QNSA6ZqDVm6m9NzCjhgvSORm/ELP3M/k3LRtYK
- 8p3ZvobQbqYPp7JDZfvSIbvJ385FLBC7XLmT8erVFn7i99gXAYwRI9X4wKaz28W1LggdKQn9MlA
- i6OnOEpBBF47V3jRg47vGpHNuao4f1G4WuK0iG+WxQ0mzLvCeEczOeq2Z6QDjaybL6tOfNDCnmS
- 3sM4w75+GHaeqCmA6Eg==
-X-Proofpoint-GUID: 32sFhHIqe1RYy3_1uQRU6LME6wA1M7y7
-X-Proofpoint-ORIG-GUID: 32sFhHIqe1RYy3_1uQRU6LME6wA1M7y7
+ a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8 a=s8YR1HE3AAAA:8
+ a=r684gp1BP3o6S36M1wEA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=jGH_LyMDp9YhSvY-UuyI:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290054
 
-On Mon, Sep 21, 2026 at 8:19=E2=80=AFPM Muzaffer Kadir via B4 Relay
-<devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
+On Tue, Sep 22, 2026 at 11:40=E2=80=AFAM Shawn Lin <shawn.lin@rock-chips.co=
+m> wrote:
 >
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> In CMDQ mode an I/O error in one task (data_crc_err, data_end_bit_err,
+> etc.) makes the controller raise a halt request. While the halt request
+> is pending, the controller rejects doorbell writes with a slave response
+> error, which hangs the CPU (or raises SError on ARM) on Rockchip
+> platforms.
 >
-> Document the compatible string for the SDHCI controller on the
-> MSM8952 platform.
+> A software workaround[1] clears CQHCI_CTL right before ringing the
+> doorbell to narrow down the window, but a race remains: an I/O error can
+> still happen in another slot between the CQHCI_CTL write and the
+> doorbell kick, so the hang is not fully solved.
 >
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> To fix this once and for all, newer silicon introduces
+> SW_ERR_HALR_REQ_DISABLE (CQHCI_CTL[1]) which stops the controller from
+> raising a halt request on I/O errors. Set the bit when the CQE is
+> enabled, which is the last CQHCI_CTL write before any doorbell write.
+>
+> Older SoCs keep this bit reserved, so writing it is a no-op and nothing
+> changes in the wild, thus no fixes tag is needed.
+>
+> [1] https://github.com/rockchip-linux/kernel/commit/4b7ea0500a1a5c186807b=
+737fecfc6bb4d4e06f8
+> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
 
 Applied for next, thanks!
 
@@ -192,25 +173,57 @@ Kind regards
 Uffe
 
 
-> ---
->  Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
->  1 file changed, 1 insertion(+)
 >
-> diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/=
-Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-> index 69bd44e65ad7..9d4409c958fa 100644
-> --- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-> @@ -26,6 +26,7 @@ properties:
->                - qcom,ipq4019-sdhci
->                - qcom,ipq8074-sdhci
->                - qcom,msm8226-sdhci
-> +              - qcom,msm8952-sdhci
->                - qcom,msm8953-sdhci
->                - qcom,msm8974-sdhci
->                - qcom,msm8976-sdhci
+> ---
+>
+>  drivers/mmc/host/sdhci-of-dwcmshc.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci=
+-of-dwcmshc.c
+> index 1baa237..0970202 100644
+> --- a/drivers/mmc/host/sdhci-of-dwcmshc.c
+> +++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+> @@ -239,6 +239,8 @@
+>                                          SDHCI_TRNS_BLK_CNT_EN | \
+>                                          SDHCI_TRNS_DMA)
+>
+> +#define CQHCI_SW_ERR_HALT_REQ_DISABLE  BIT(1)
+> +
+>  #define to_pltfm_data(priv, name) \
+>         container_of((priv)->dwcmshc_pdata, struct name##_pltfm_data, dwc=
+mshc_pdata)
+>
+> @@ -702,6 +704,8 @@ static void rk35xx_sdhci_cqe_pre_enable(struct mmc_ho=
+st *mmc)
+>  static void rk35xx_sdhci_cqe_enable(struct mmc_host *mmc)
+>  {
+>         struct sdhci_host *host =3D mmc_priv(mmc);
+> +       struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> +       struct dwcmshc_priv *dwc_priv =3D sdhci_pltfm_priv(pltfm_host);
+>         u32 reg;
+>
+>         reg =3D sdhci_readl(host, SDHCI_PRESENT_STATE);
+> @@ -712,6 +716,15 @@ static void rk35xx_sdhci_cqe_enable(struct mmc_host =
+*mmc)
+>
+>         sdhci_writew(host, DWCMSHC_SDHCI_CQE_TRNS_MODE, SDHCI_TRANSFER_MO=
+DE);
+>
+> +       /*
+> +        * Disable the halt request raised on an I/O error, otherwise a
+> +        * doorbell write gets a slave response error while the halt requ=
+est
+> +        * is pending and hangs the CPU. This bit is reserved on older So=
+Cs,
+> +        * so the write is a no-op there.
+> +        */
+> +       sdhci_writel(host, CQHCI_SW_ERR_HALT_REQ_DISABLE,
+> +                    dwc_priv->vendor_specific_area2 + CQHCI_CTL);
+> +
+>         sdhci_cqe_enable(mmc);
+>  }
 >
 > --
-> 2.55.0
->
+> 2.7.4
 >
