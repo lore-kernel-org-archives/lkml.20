@@ -1,52 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95387358399;
-	Tue, 29 Sep 2026 20:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4603EFD17;
+	Tue, 29 Sep 2026 20:34:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714060; cv=none; b=UX2zP639Z3tryC06IVIfby7aYykoMhON7ZzpuGNvky2xBa7pcoS65WU2zoPyUNU0rMlCZYfM+Itrztkdm8yxaHcVjz3NheFuLfp5PDgGnmt7S3gxEeD5QcFIm6FWbsIMuGA6ARps8KZEytVher0cHHUb0ANRfVDQckEjsC2/j6c=
+	t=1790714062; cv=none; b=RCmZK3IcAIYm+WECCW/czSojGdpBc2uvons1wTYalg6eE35HyqDV2gNYTatbQsO5e4WidsJDEUDlcsXrIJswz/wxKh0LveTuTSMuHhrPXJS9yOu2yTKri7jjT9XNTJSP6NMdI6vQjzlAhhnyqbQID+dvfj0EKDbqCTcSsTJtdHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714060; c=relaxed/simple;
-	bh=Qcc3CuiGR8F6BmSpgb/iA2D6hQ3P7hKSHh4btT7sfx4=;
+	s=arc-20240116; t=1790714062; c=relaxed/simple;
+	bh=BfZcupWhI5ahJDjeC4wsNbIVI4Nbw24z0Adm8BqPlVg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gJDaDQcnEb9nJNuCd91XHZ5fbyxfDTp/u8zPhTCssL93MEBLrNxRBf3jzEzSUKP4KGqz3cuCVwbKHhztzkFFxNHrNYeG7u39EJkQSSgDHTGSOVJhF0Cf3Q1TPJr+OYOaPqbRqaaLXKRtFr6VfxC42Cz6USrXLOLMHZiZUmAq4+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSrp1J4+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Rf7qnGiUvMTQJzNiv5pOTdx9DKKCDtVWOtFZbf4yNdzxZMqm1Jts3nRw1tC8/iSrLmjilSveh67VHA+yu/TVlsYMIfOBR7zlu7AFZRKlKjyXz3DMbi0RL18WfMtwRM3lok591uvuxBg0BUPl7mMAgqpxh3AXzUBermMUhQydzxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lu8uI9HA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSrp1J4+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22821F000FF;
-	Tue, 29 Sep 2026 20:34:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lu8uI9HA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB031F0089B;
+	Tue, 29 Sep 2026 20:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790714059;
-	bh=0glIlyA2h3h7vHM0aS45Ph4Kslhdwq+2jFa+9j6F0C4=;
+	s=k20260515; t=1790714060;
+	bh=MqxhznrnsjyG9ebH5kY/8Kl7ayyQw8UgzT4BU66fEnw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VSrp1J4+eEuBOkKZwyL8dxlRgHIaWOVFs9j0Y5+lY2hGp77+Qde85w5OmsREoX2Qs
-	 MbNIUfhOoLdmDiVdCp4CMmtEYf2irhAS55/MPS9Ei9yis8+FEj+uG2/OyZi65taeu6
-	 G3/2xrH8H3rA1p6zpP5EjW9qcQ1P9hVvKKQM5DZ0l6ZfdBedMo53MsANB4prI9DIc3
-	 9xz+dHNy7mIAt/i8J6bvXQUJYaqrRiNf8vYXbL0xZQfGEDuZrTxIPoiuxM5g3WqmnX
-	 FaEsfVIhB4udSP1vbsPA3latEdYQ26bVg+2CKaJfQ7KbodFUbocid0mxr6KGG0xqfv
-	 rzK+2R0lUROYw==
+	b=lu8uI9HACYSNmIZb+hwDKpJwxAIhfaT1c+70vMyRiimc8DS3zqc8ybpRezkL6ZaUk
+	 bdqAIEmocHmN5mwt44rVsq/rLO1MCI0v4YZFgcIPVFTTYQrxo71C/uqXk7z4q0MERm
+	 aNhMyaez7qJMnq/1Q9EzhXhXWV4ohK4xKrhl5KnaeqZmjUgQgZI2DlAmKEOwZLgjQb
+	 ENunvyGW5dIJkeJ5q583zujkRIZX9GfqRk9zd/B37tcIgZLb4QNhli1Iv9zOCS5uES
+	 BwT5aqfQtXfSd6Pps4NOoifwVPGZZ7vlcHIpQaiZnrgLoV9rSvi3B53sDf91CIG1V1
+	 RSSSW5pCIZehA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: linux-arm-msm@vger.kernel.org,
+To: Michael Turquette <mturquette@baylibre.com>,
 	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	kernel@oss.qualcomm.com,
-	linux-kernel@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Jagadeesh Kona <quic_jkona@quicinc.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Yijie Yang <yijie.yang@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible for Qualcomm Maili SoC
-Date: Tue, 29 Sep 2026 15:34:12 -0500
-Message-ID: <179071404932.2903617.5656557809470041633.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v4 0/2] clk: qcom: Add camera clock controllers support for Qualcomm Maili SoC
+Date: Tue, 29 Sep 2026 15:34:13 -0500
+Message-ID: <179071404941.2903617.14660816524713513430.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
-References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
+In-Reply-To: <20260922-maili_camcc-v4-0-87704b664dde@oss.qualcomm.com>
+References: <20260922-maili_camcc-v4-0-87704b664dde@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,16 +60,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 31 Aug 2026 20:53:44 -0700, Fenglin Wu wrote:
-> The PMIC arbiter in the Qualcomm Maili SoC is version v8.5, which
-> is the same with Hawi and compatible with Glymur. Hence, add a string
-> for "qcom,maili-spmi-pmic-arb" as a compatible entry for
-> "qcom,glymur-spmi-pmic-arb".
+On Tue, 22 Sep 2026 09:26:36 +0530, Jagadeesh Kona wrote:
+> This series adds support for the camera clock controllers on the upcoming
+> Qualcomm Maili SoC.
 
 Applied, thanks!
 
-[1/1] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible for Qualcomm Maili SoC
-      commit: 769ff2033eb181cd87564aa41d3a3979e9e55377
+[2/2] clk: qcom: Add support for camera clock controller on Maili
+      commit: 4ba7bf34e60fec198b1b76470ba02b495c45788e
 
 Best regards,
 -- 
