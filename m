@@ -1,223 +1,149 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE88F32B13E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C3B345ED9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790641651; cv=none; b=nr75HC48VGSTa87XUr+ltfbWRNXj/vSixMLMmPAYV4eLS2mzuRzuCvv/j63TI4sITu9ztCIdrmfnL3EsRFQ9yeFVwA4O6Gsdd+HD0TF3imf0vITPVqrbZj27WxLe3RuOQb9qpxeXGfHcpTcs+JYVOM/2lU/tIoYUYDl03A/TVUI=
+	t=1790641668; cv=none; b=Ex3d1QtiUv3viqqwd3Yh93lfCl3E9ERe0amdxnZ1xSSi+GiuG89KGbgcQyCdb57qFz5m5dunJz5kxDTgdaJW1eXJwZcOXsnCpq98DXCP3Ik2GZnHPQM4Uquba75cQ8Mie2Nt5EHnS0ND+uOxvamYE5VNR0kfz2dooxSO1Kqht6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790641651; c=relaxed/simple;
-	bh=3uul90OrN24mufCznKvqvmn4VlshvnvWa//1jnbGPMk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A6nGOpQyJlN3QfO/gD2Fyg3EqSaLeJnPBc6e0mne7kVwIoyLcbaQHsn2sld82b9pmsHkINy8LsaCssuDtT124/KMwTj1favIxxXWso+/dHhgkcK/HQTXhig/Mt0Z8/LCNNEbo9eZ0+gLlsUIN7+4YbyM3G8sRVKnFml2f+rLzjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Wh2IAFsp; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790641668; c=relaxed/simple;
+	bh=pMvCDTEkuAALUIrceyZBHP9kCx7IfJSFKZfbXoVEGjQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=emSMiKGh9Sie1sGOra2j4k2AcXoz/R6+YoWT1uinwoqnYHvrN8Y+AK286i/vx574V6OhlnW97BBfHElzIRMY6Dhv++eG/Bao88mQ/gXUSejKd4oNi5FOMLxKlX8ugDQbgUz1TF+T/Nfj0ancNZBAks5SzdzYt4yYm4s2B9qO2SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESq97FFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Wh2IAFsp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=sz9FVmtEXV7DY+vSbP04nZCxGIcDuYTbEzEn+oX93eQ=;
-	b=Wh2IAFsppwsj74Yg8G4K8zcm72681fLPIHCQivXSYXzdAK82jJBNpjIdnMjmR7
-	OlItRptWNBAWPKWTS7a6bu7Ra5Ndd9mpiYc0KzT3GdbFStVwITXQHhzzaDcuB8/k
-	Sp3g281UmSROTBTk2QieMQIW7gPo6EKr3wzwM3+LrzoPc=
-Received: from [IPV6:2409:8949:6ca0:7910:58ab:b82f:e3cc:2f41] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3PxPGBbtq5j7bBQ--.31818S2;
-	Tue, 29 Sep 2026 08:26:48 +0800 (CST)
-Message-ID: <d1d14d76-5829-471a-ae1c-e3df1f885a9c@163.com>
-Date: Tue, 29 Sep 2026 08:26:46 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593F61F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790641666;
+	bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
+	 EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
+	 kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
+	 MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
+	 MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
+	 eAfxlQdMmxqdg==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2da4eea067so305553466b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzCfzrO5ESUXHGI8cIURlqjXMJTZ2f5D3im0P1r5zPRKgdpkwrggvn0tYbDmBDTzWXmGH76AP2p9U4IbCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWQTbIAIdMNrZ9oueG1divLw5bHqPvZNz8aS5jSFTLWkYRQZDT
+	zrYTxcIg1hUewPj+UoUL2qPBxCM+zPRYFmxHOEEWTOaDVPK+hlsGxx1fP7CvwDaNJj0I+B8fw+t
+	1L1E2ykcKKxLpTPeKBiQcotAdfimyPU83XGsvyiS8FQ==
+X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
+ a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
+ 17:27:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] ntfs: reject non-resident attributes whose sizes
- exceed their allocation
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <arMoap0ZgeORuktT@hyunchul-PC02>
- <cover.1790417653.git.matthias.goergens@gmail.com>
- <20260927050831.2739166-6-matthias.goergens@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260927050831.2739166-6-matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3PxPGBbtq5j7bBQ--.31818S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtFW8ZrWxAryxtrWkCw45KFg_yoW3Zw47pF
-	ZrCr93tw13Z34fCwsrtw45W343Ww1rXryUGrZ8tFyxZrZ3Arn3XFy8trWrurW0krn5J3Wq
-	yFyDuw4xuryDZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2hFsUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQj8x2q7BchyMAAA3s
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+ <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com> <20260928151924.2686290-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Mon, 28 Sep 2026 14:27:33 -1000
+X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
+Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
+	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>, 
+	util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
+>
+> Hi Chris,
+>
+> Thanks for resolving the conflicts yourself and reviewing it.
+>
+> > What is the high-level user-visible impact of this series?
+>
+> Being able to use more interesting swap backends and logic when the
+> machine is not under memory pressure.  It is much easier to write a
+> swap backend that may occasionally allocate memory than one that is
+> guaranteed never to, so today such backends are either unsafe as swap
+
+I actually don't know of a swap backend that absolutely will not
+allocate memory on swap out yet. Some backends allocate more than
+others. Because the proactive reclaim can write to the non-offloaded
+swap backend. That brings me back to my original question, in what way
+this series helps.
+
+So the answer seems to be that previously, some backends were unusable
+by swap, due to possible memory allocation. With this series, those
+back ends are usable for the proactive reclaim now. It is a 0 to 0.5
+improvement because direct reclaim can't use it yet.
 
 
+> or ruled out (btrfs, for example, refuses swapfiles that are
+> copy-on-write, checksummed or compressed).
+>
+> > I am curious: if we never run out of swap file space on the
+> > non-offload swap area, does that mean we don't need this patch series?
+>
+> No: running out of conventional swap isn't the point.  Without the
+> series, any active swap area may be written under pressure, so a
+> backend that may allocate can't be used as swap at all, however much
+> conventional swap there is next to it.
 
-在 2026/9/27 13:08, Matthias Goergens 写道:
-> ntfs_read_locked_inode(), ntfs_read_locked_attr_inode() and
-> ntfs_read_locked_index_inode() take a non-resident attribute's data_size
-> and initialized_size from disk without checking them against its
-> allocated_size.  The runlist ends at allocated_size and the read path
-> maps what lies beyond it as a hole, so a data_size larger than the
-> allocation makes reads return zeros that are not on disk, with no error.
-> 
-> On a crafted volume with 4 KiB clusters where a 6144000-byte file claims
-> a data_size and initialized_size 64 KiB beyond its allocation, reading
-> the file returns 16 clusters of such zeros.  A sparse file behaves the
-> same.  A compressed file instead fails with -EIO after a burst of "Still
-> have pages left!" errors from ntfs_read_compressed_block().
-> 
-> Require 0 <= initialized_size <= data_size <= allocated_size, with
-> allocated_size a multiple of the cluster size, when the inode is read,
-> as fs/ntfs3 does in mi_enum_attr(), and fail with -EIO otherwise, which
-> marks the inode bad and the volume as having errors.  initialized_size
-> above data_size is rejected too because an extending write zeroes the
-> gap it opens only from initialized_size onwards.  An unaligned
-> allocated_size ends inside a cluster that the read path treats as past
-> the end: a crafted 66440-byte file with 4 KiB clusters reads its last
-> 904 bytes as zeros.
-> 
-> Sparse and compressed attributes need no exception.  Every non-resident
-> attribute has a cluster-aligned allocated_size >= data_size, holes
-> included, on eight public test volumes (seven written by Windows, with
-> LZNT1-compressed files, a sparse $UsnJrnl:$J and a OneDrive placeholder
-> whose unnamed $DATA is one hole, and one by mkntfs), on a volume written
-> by ntfs-3g and on one written by this driver, and the patched driver
-> reads every file on them as before.  fs/ntfs3 has enforced the same
-> checks since v6.6, also without exceptions.  The layout.h comment saying
-> that data_size can exceed allocated_size for compressed and sparse
-> attributes is corrected.
-> 
-> This also covers a non-resident attribute list, which
-> load_attribute_list() reads through ntfs_attr_iget(), and $MFT, whose
-> inode goes through ntfs_read_locked_inode() after the previous patch's
-> check.  The check was already missing in the classic driver; the Fixes
-> tag names the commit that brought that code back.
-> 
-> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->   fs/ntfs/inode.c  | 38 ++++++++++++++++++++++++++++++++++++++
->   fs/ntfs/layout.h | 13 ++++++++-----
->   2 files changed, 46 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index 9c97fc3f9e5ff..126c50b5a349e 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -651,6 +651,38 @@ void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
->   	}
->   }
->   
-> +/*
-> + * The clusters of a non-resident attribute end at its allocated size.  Past
-> + * that there is nothing on disk to read, and past the initialized size reads
-> + * return zeros and writes zero the gap they open, so the sizes must satisfy
-> + * 0 <= initialized_size <= data_size <= allocated_size, with allocated_size
-> + * a multiple of the cluster size.
-> + *
-> + * Sparse and compressed attributes get no exception.  Windows, ntfs-3g and
-> + * this driver all count holes in allocated_size (the clusters actually in use
-> + * are in compressed_size), including for streams that are entirely a hole,
-> + * and fs/ntfs3 has applied the same check to every non-resident attribute in
-> + * mi_enum_attr() since v6.6.
-> + */
-> +static bool ntfs_non_resident_sizes_inconsistent(struct inode *vi,
-> +						 const struct attr_record *a)
-> +{
-> +	s64 allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-> +	s64 data_size = le64_to_cpu(a->data.non_resident.data_size);
-> +	s64 initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
-> +
-> +	if (initialized_size >= 0 && initialized_size <= data_size &&
-> +	    data_size <= allocated_size &&
-> +	    !ntfs_bytes_to_cluster_off(NTFS_I(vi)->vol, allocated_size))
-> +		return false;
-> +
-> +	ntfs_error(vi->i_sb,
-> +		   "Attribute 0x%x of inode 0x%llx is corrupt (initialized size %lld, data size %lld, allocated size %lld).",
-> +		   le32_to_cpu(a->type), NTFS_I(vi)->mft_no, initialized_size,
-> +		   data_size, allocated_size);
-> +	return true;
-> +}
-> +
->   /*
->    * ntfs_read_locked_inode - read an inode from its device
->    * @vi:		inode to read
-> @@ -1184,6 +1216,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
->   					"First extent of $DATA attribute has non zero lowest_vcn.");
->   				goto unm_err_out;
->   			}
-> +			if (ntfs_non_resident_sizes_inconsistent(vi, a))
-> +				goto unm_err_out;
->   			vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
->   			ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
->   			ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-> @@ -1446,6 +1480,8 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
->   			ntfs_error(vi->i_sb, "First extent of attribute has non-zero lowest_vcn.");
->   			goto unm_err_out;
->   		}
-> +		if (ntfs_non_resident_sizes_inconsistent(vi, a))
-> +			goto unm_err_out;
+But proactive reclaim can also use the non-offload swap area. So if we
+have plenty of non-offload swap area, both proactive reclaim and
+direct reclaim can use that non-offload area. The value of this series
+isn't apparent. If you don't have a traditional swap-capable backend,
+then your non-offload area is zero.  That is considered a special case
+of running out of non-offload swap area: never having a traditional
+swap area in the first place.
 
-Hi Matthias,
-    This covers attribute lists loaded through ntfs_attr_iget(), but 
-$MFT's own non-resident $ATTRIBUTE_LIST uses load_attribute_list_mount() 
-directly during ntfs_read_inode_mount(). The subsequent 
-ntfs_read_locked_inode() call skips reloading that list for FILE_MFT, so 
-it does not pick up this check either.
-    load_attribute_list_mount() validates initialized_size against the 
-list size, but does not check data_size against allocated_size or 
-require allocated_size to be cluster-aligned.
+>
+> > However, direct reclaim can use both types of swap areas.
+>
+> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
 
-   Could you also call ntfs_non_resident_sizes_inconsistent() in the 
-non-resident attribute-list branch of ntfs_read_inode_mount(), before 
-ntfs_mapping_pairs_decompress(), to cover this bootstrap path?
+Sorry I meant proactive reclaim can use both types, nothing constrains
+proactive reclaim.
 
-Thanks,
-Baolin.
+> debugfs eviction may write new data to an offload-only area; direct
+> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
+> your suggestion to flip it round is closer to what I want: mark the
 
+Flipping it around might provide additional benefit. I know some users
+maintain off tree patches to turn off zswap on the direct reclaim path
+exactly because zswap might allocate more memory before it can free
+some. If the kernel can be smart about it. It provides additional
+value to the status quo.
 
->   		vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
->   		ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
->   		ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-> @@ -1675,6 +1711,8 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
->   			"First extent of $INDEX_ALLOCATION attribute has non zero lowest_vcn.");
->   		goto unm_err_out;
->   	}
-> +	if (ntfs_non_resident_sizes_inconsistent(vi, a))
-> +		goto unm_err_out;
->   	vi->i_size = ni->data_size = le64_to_cpu(a->data.non_resident.data_size);
->   	ni->initialized_size = le64_to_cpu(a->data.non_resident.initialized_size);
->   	ni->allocated_size = le64_to_cpu(a->data.non_resident.allocated_size);
-> diff --git a/fs/ntfs/layout.h b/fs/ntfs/layout.h
-> index 8f5792139d719..2de83d4ca40b9 100644
-> --- a/fs/ntfs/layout.h
-> +++ b/fs/ntfs/layout.h
-> @@ -811,14 +811,17 @@ enum {
->    *                                  on XP SP2+.
->    * @data.non_resident.reserved:     5 bytes for 8-byte alignment.
->    * @data.non_resident.allocated_size:
-> - *                                  Allocated disk space in bytes.
-> - *                                  For compressed: logical allocated size.
-> + *                                  Allocated size in bytes, a multiple of
-> + *                                  the cluster size.  For compressed and
-> + *                                  sparse attributes holes count as
-> + *                                  allocated; the clusters actually in use
-> + *                                  are in compressed_size.
->    * @data.non_resident.data_size:    Logical attribute value size in bytes.
-> - *                                  Can be larger than allocated_size if
-> - *                                  compressed/sparse.
-> + *                                  Never larger than allocated_size, also
-> + *                                  when compressed/sparse.
->    * @data.non_resident.initialized_size:
->    *                                  Initialized portion size in bytes.
-> - *                                  Usually equals data_size.
-> + *                                  Usually equals data_size, never larger.
->    * @data.non_resident.compressed_size:
->    *                                  Compressed on-disk size in bytes.
->    *                                  Only present when compressed or sparse.
+> areas whose writes may allocate, and keep pressure reclaim away from
+> those, rather than tying it to what started the reclaim.  I'll work
+> that into v3, together with Kairui's suggestion to build on the swap
+> tiers work.
 
+Yes, I feel that cluster-level marking might not be needed, you can
+remember which si has the offload flag. However the per cpu cache
+needs to know which context might require using a different cached
+cluster. That is the trickiest part. The rest of the patch is just
+enough plumbing to preserve whether the swap-out context is proactive
+or not.
+
+Chris
