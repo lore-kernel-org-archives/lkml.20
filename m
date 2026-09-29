@@ -1,170 +1,144 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012022.outbound.protection.outlook.com [52.101.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9289652BE5F;
-	Tue, 29 Sep 2026 13:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689533; cv=fail; b=ZvZ4zXjfBuHITvDMuXPrwfBkclqoVOO9OK7l3jitC6XBD6UvoK0N98RpLVV7dsgxmWv7h4Vh3Zo3CI5QEQBKKnA8I6x8NsC+mmL3Ie6OH47HJ2CrJET7QpwlfIDydv1QsNcmRG0zw/g4E+KeMByFFuTeeBmJbEcSB/O87QF6wKM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689533; c=relaxed/simple;
-	bh=txwlHYzy+TU6bWP2xIriLNr/llMH0kxnhhSd/OnyJ8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dKWCTocsUazg/DlJs+ouQobgrOlIYt7N22687GO/v72Sro8xJOXLnz5uom5pPUf37RQfzGI1/snn1YQ1InGBMokjWTy3F1uXNH1+PCFkYABhbuwr3zfATyja6KfEbGWol2Hy/wRolmIpwCYbKDv/s1/Wt1djYgICs+vc/AOou4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hEYJcdZF; arc=fail smtp.client-ip=52.101.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCA352D2C9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790689538; cv=none; b=APauHgsOAivD2WerWVqQh8EL+iWVBh3ZtbqAMnLe77Bx0u7B3z8cENj2c9pnKTOMAHGOxNWE4VyVO1HcmWLLBF3ul+8DnnwChPhhwzZqWT4K3/WCAn8MIQgRGet4v/3pBG6K6N9DU1yPzCFFiHnit1xF3dl1pv48hl5RS8DLJjE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790689538; c=relaxed/simple;
+	bh=S4Houg1rUsqdLENp0bnscNw2E/ZkMSvd4UqZ3bxJeqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EaOEIhmcTdbelvf7A3jqmkgp1hEt0dcrPw2qSFM8/dLei77mzhoh0xbrwNng4lsUOFkmIOqyHli9dy9UB0zk4FEeqqDZZx4R78LQViW3xaWKBcCKZ5rcXbupIsqB5kZRx7vIumtNekoZ1YZdQxXx7yxDqqj0dXgNalDEu3EVh/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bw8AHUIn; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hEYJcdZF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OdmtHO058+NzeFNhF+b8i43CQ8UHR+j2hekn6OpzcW6XX8KFiFF5PJ2F7Orimc6eO1wuY3qu2OGPoNIu2M09fTggDHTwRkRYOqdY2sHARbFcDk8uhBqlo6VE05cndDreqlAKjlGMPGr4x3woUy0M19RxQSIRB0WveAu2+exmBd2qAbClE38wYvZ/VgbA3OGpxVrMuqiSrrkUj0gw1JAu0XujcQzkw8SMJDKNSjoJK0XFxdKnyXBDtps5WiG6vDqxy8TOxwGJTjT1ribm/K6qAlZqsg8sGEGPebn19KWKg8C8AzHrwCiKvP6lEyjJezBi6V6HW6pcJSD6tYsu6En7fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cvwHYLqezIZgrNiiB8EAisAF0bZyvs5BKjT/S4sI804=;
- b=A2zRtF5vZk9WTnvAYkdMYZJnTMy5Q1pc9fn5O52eL3YToSfpIABpcMWILzRJ0FAvbFWiXAIY4691SIqsYWrFa7ZewgsIH1/jjcJw6MntvJqqHtYEPzMc6xDqi8aTWbW9y+4PTpsGzlcxcIUxMCPWnRJ9xW5Qwo9M4dlkOvn1eLkGTSDDaX88LySxFaGq2UX03A75CPcxloyAXZ5BLAJTvZXzQY+4QAp1t8Y+TxhEbHKhhXUWQwqDrwGs58VgDyFsu45yc5cWuXP+T4xNL4YmjAwsCpQssSl9ap4hffkqcxqhltJ8DeGm6bUxZJypwF7iPOzsSDjHAP8T6LjgCpF4AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cvwHYLqezIZgrNiiB8EAisAF0bZyvs5BKjT/S4sI804=;
- b=hEYJcdZFvO7p6h4mqi3UfMFUH1sdcSvdQQNwHKN4LbJLM7a97UdalesR6zrxKVGNlsuXb14JUumEyDhu4nlca8srFZxvsVgyMNWNCuhN7S3jeXj9jB6dNQGkxb5ClhTF52w0wLCSSyZ+MNrcthw3SkY+c03ZEzQB11naBpbjgKMmeGyRIdI4umqXMpLfUIg4+RMsh9wKfAamoY7e+UIJa2nkXwNhYuMwVvcWdbt3gRPGi/jWqo89jnSAwVMS3lYdO7I1nOkjsqP+ewf5Nf4+ByjvjmCatkz7b2wEcEg8vKVC8rFqj5uW3jfOqWcLotive/EJa7dCVaBPL+KTrfQYIQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by MN2PR12MB4469.namprd12.prod.outlook.com (2603:10b6:208:268::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Tue, 29 Sep
- 2026 13:45:27 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 13:45:27 +0000
-Date: Tue, 29 Sep 2026 16:45:17 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Ido Schimmel <idosch@mellanox.com>, David Ahern <dsahern@gmail.com>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>,
-	Sashiko <netdev-bot+sashiko@kernel.org>
-Subject: Re: [PATCH net] selftests: fib_tests: use per-test return value in
- subtests
-Message-ID: <20260929134517.GA832345@shredder>
-References: <20260929-self_fib_tests-v1-1-0eab6a3c3a3c@kylinos.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-self_fib_tests-v1-1-0eab6a3c3a3c@kylinos.cn>
-X-ClientProxiedBy: FR0P281CA0261.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::15) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bw8AHUIn"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-8864c6bd0d5so129521b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:45:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790689536; x=1791294336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kbOv+6PrlEjIifh30wu1d3jM35f4SUdUb1t8Ec+wrNY=;
+        b=bw8AHUInPCxe4eHxU2aQz8npBFwrVUfk3DknmzfZZxhQiV/hxPqCa+nROZwvBjo1sb
+         5+vx01ve899vITBnumnc9PsTKDGXF5zpYwg3fap5Wxl+2iiImv4ooRsmjjz0tvMSwa3j
+         tc9I+4iFOIsn6laHHqs/sK287YFEG7CySJdXaYZrLH7WGSnFuIbU58Jiwx3foW9c3ZzU
+         rPVd4mcWWuQwcCmXTf2lb4LGWDA20MUCE+XPLc955Lt/Yr/F7LSlD6tGpX+l5x8oAcGS
+         IPp7xahs+0OsLRh7r9Sm6IU7GPWB+p5HcgEYnr+YvROWx+ZW7a5LmIMfwqMwsrNQ+kc6
+         yR4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790689536; x=1791294336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kbOv+6PrlEjIifh30wu1d3jM35f4SUdUb1t8Ec+wrNY=;
+        b=NbPxcbnEmc4NQGslVANtyG63s1SWoaA7vw/hWmHbPfo5FGSpgvqAZ0FTnG+YyUM9QZ
+         mgFEvrwqmXSHDTdevNPP916SZFRDJrC14YOjViJi6xBxPVZbxEpczenUHefR13ewWdee
+         syv4+zfsSIiGBdXbFMnm5YMKEwIHiqNhyvllG6H9I+rylPmNYb+zVBMNgdwZ+xh23rLH
+         12y/5SKT9isIrs9e6y9X8yhBH7ojWzcySvGt4b1kr8+QsDw3pOKgqZ0RoSsdZRPlOjfr
+         VClvUQ2SRQ90yLRwmcz4E6jKbt6uy0ihzPmDWV6DmOlTCbuDMp+YZP86PjY87DqWaygk
+         K4og==
+X-Forwarded-Encrypted: i=1; AKwUvBzWDykQTjbTEPVyzN5UrwJWSLPf3IurHurioEzE9WcaLseQA2lJKT/GCpe+IxFnLjbquXBBEAOfbudCzVw=@vger.kernel.org
+X-Gm-Message-State: AFuF++msjLmM/Q8oVW5wEo3zZsHYKT5X91Tb2e/Wp0eO7hjzlZ/Ii39g
+	wT6cHbAnsk1bVfK4AP6b9v/Td/IMa9nGgenFuyKxULKt+YyhYrz9oYyYVB07cffH
+X-Gm-Gg: AYBFou3RG7yOeezUTYqvDUeMtsWdXQhEXEDCRAqxR/xXOnbijFc5umVxpkdQTuPmSA0
+	zPbDHyChcA6UvsgRnL5VmR+Q4b+Ynsu0AxW6S2D3ayT96r0qdxmKlzqBEWOEmjiG6pm2WTigd6N
+	EdZi/exflEn0AZvkd4rb+lGxHdpYSLEPPWs8di4FvA280T9yo62gGBezviz/PNDEsGkn7XihOOp
+	xURFO/7v6EDBPyeAZxDjhVZ1mfFZKSf3QD0WedVTBi+vSdlKDfQ7h1YrnLDH0yiuHOssHlh0uLx
+	WKHpuAFePHG3/M5mgmpfsY4KXzzh4R6A4DNPQwFfmgY1MN9bd+3RMxdEzXBYg2DvY5FS2YPdXAJ
+	ODZ+yLpr2csFV5sj6d7C11L0h7/77ZEqEiVUVqRN8IDlxoB2jiMZf1TZzNJ8uty4ph2BQmio6m4
+	MfyZ0bjSeD9G4qP3rJu9h1UvvO5/KIOyYygUrWU8vXPYD/Kwg5fKOc
+X-Received: by 2002:a05:6a21:501:b0:3dd:a196:9076 with SMTP id adf61e73a8af0-3de0e95a387mr15675678637.64.1790689535516;
+        Tue, 29 Sep 2026 06:45:35 -0700 (PDT)
+Received: from qby-nixos-laptop ([2a13:edc0:18:16f::a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885defd736csm919555b3a.8.2026.09.29.06.45.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 06:45:34 -0700 (PDT)
+From: Mingyou Chen <qby140326@gmail.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: KentoNion <kento@kekto.ru>,
+	platform-driver-x86@vger.kernel.org,
+	ted eric <ericted8810@gmail.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	linux-kernel@vger.kernel.org,
+	Chris Taraszka <chris@miget.com>,
+	Matias Civadda <matias.civadda2342001@gmail.com>,
+	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
+	powerfullz <wleizc7319@gmail.com>,
+	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
+	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
+	Rsplwe <i@rsplwe.com>,
+	Bozhen Peng <bozhenpeng93@gmail.com>,
+	Mingyou Chen <qby140326@gmail.com>
+Subject: [PATCH v6 0/5] Merge redmi-wmi into bitland-mifs-wmi
+Date: Tue, 29 Sep 2026 13:44:58 +0000
+Message-ID: <20260929134503.17249-1-qby140326@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|MN2PR12MB4469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c7957ac-a2bd-4405-e485-08df1e2febba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|11063799006|6133799003|10067099003|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/vUCtoDKngO9rpfhuyayHKXvqvpNi2fX03krKVrp7ZmbXRDL+10qSL02CilXXPI0J9AopQ7H0WOUYA7rEjE6KK6bCLV1Nfdl03CooEeUm1bSmVNCxrsdCHKac4Y2bspF+LDGRoxZ+IcAcCTG96xlfxHFEBsDqvf4aji2SRDkCAPBBG1Djk9On5d1ZvQUeHfBlsWn2j9uPBGXqY0TZN9HTJAdRANO8+Pg1AMUn55MzrVlarWxIXDrh7LAA617usMPfFL3TgwKLMBR1rxb7pQ0IL4h2DuZLxP7mqXaKcoSyhg8BPek8oMUGgsPdLwWIFG7WaLTgafZS+KT7fyHfkYuoDuKy+u50Ztxj8EU5R0eXpo6AXwctwH1fz9qHA1aIhAB7jPJf6dbK/lYXR4GNHdreKq2Yh2kmeSJ91Mb6Xchfg7PT4G7DjpcqvDhOF1fioQsCngB7McW9/LDsZlhZDFSPd90PRUHN9aE48BiWiI5aDk71x4yZ4N+RsZ2wE5M9kFCdv/JG8oJPyPdN30HXUtHGDamolIskbd7PoObFirePkP65h/16nqX54dBCBkfF5pj212wiOQRb7CnxCXjMx8mh1EDfg2zx2JN+XjkDVCB2ZJwJtJJpeXRy0y7tynVOWL5Tmjavap2UHBS8ACVPBUIumCEImSykKkONE1Cb0V0SYo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(11063799006)(6133799003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ThvKxoswdmrfyLvbtNQXegzAxnglr83gPKkp0CXLwc6DSIgOvaXSF8qsfZwV?=
- =?us-ascii?Q?7r6lz3Zx+/xIDap11cALB2nzfgqfh7kSjft7J/TijpSsGjsCzd93qDX+VVIf?=
- =?us-ascii?Q?XrXnoixUIw2a8ElQNG4Nwy7oEgVjYeQvNoR4sQDxCXNfMEcA7mE75KXyFFfj?=
- =?us-ascii?Q?9GzYb0/ICiZ6cqesA41f003SvNspyjr23nqMSOOrJenjLwAkmfkdKHcH5p9U?=
- =?us-ascii?Q?ijiPg+/CQsMomsYDeaGdSqw+FVYxtkfWexo1s154mBt7/u535EILbDAkGG6Q?=
- =?us-ascii?Q?Z6OXxi8NwASLtlQgGxctnGLF6pvqLBVnLZcqK4mK7xgqVrbcsYqZwxIx4gaj?=
- =?us-ascii?Q?QX1c7TUwddy2+ouuh1WCoPEv2LOaRZZrQHBtMSUfLoatQLjUM4gruNcZDpHb?=
- =?us-ascii?Q?Zn9ElpssmdM6ZUEpHXA3+L2msPbiRyM3J5tW754TwdPAUiNlUxtAzhXAX25u?=
- =?us-ascii?Q?ItQfC0o8TOmUqSuRGZUNa4bRIxSnA/OaWKep3YBUa0sFY561ozvn/Dw+AstG?=
- =?us-ascii?Q?P/yR+IlY0vSHnqHg+FeNAr7Jc2JVGmat29E119Em/zPx/kTYmMMaBXI7B6IU?=
- =?us-ascii?Q?DGwTS7zn6I1JdjQLZmM5mo/+0/GZqHGrk88hbnN3D62kLNRklizaRczQQAdN?=
- =?us-ascii?Q?MK6IXvavPV2vo3/eqhXipmEkQWK2oOe0Qmx6jmQh7Q8xyvVIxKg/IKYdORXp?=
- =?us-ascii?Q?b94dqw0duK0Ty8QTWkW7FrjqpIswn0xdNAkzfc/3FxzlMsh1pnODvS2BDVe1?=
- =?us-ascii?Q?gAc8u+JxRDazr0CIYYcBrgfQ83ygxw2piz8GZWJwS1QHDITkiURsR/vcPH91?=
- =?us-ascii?Q?iBCU1pdcDawpK1eNS1k46VIKd5kf6ds9dx7zUowKn+NvpJfwd6xNh/GNFKVD?=
- =?us-ascii?Q?tEvJFsBcT7u0nzCGX8XGwpHHplTR0EcgYUZkcYt7+C8nZkJJfK+tcR4NaTOg?=
- =?us-ascii?Q?b/v39ZPU2ajBHBStOMwVfo4vfaW0wEyVrqAA7kRmc5QJiRMiy0vDM2sJvyV/?=
- =?us-ascii?Q?FtHisXy23MUsdqUFbxD2UV5O2ArC1wjwmdf2a+E4pTXc4sd/vajlzCepByNP?=
- =?us-ascii?Q?xss6u0hp/jaRJTAMSrpXue8WZwdsYNDXIjWK+niM+ZfCXIoJYsy6VaWmKUzp?=
- =?us-ascii?Q?2uAFbB2jtYbUPZxUsEUtYgNCwNEENgZ2TdhRz2SJG1r/in8xcD+lg4vANLzH?=
- =?us-ascii?Q?faYx/iAY7wwgndcPET2fS1tqqdXVdaWi4UYz/rBpBQ52zK/fJH05d9aPBR/y?=
- =?us-ascii?Q?Xf6UdRfTz2V7/3bOO6hgHQjYbSUD3/Mz+xQ0y0Lp+cmFzuRyDcTXL82GbQwR?=
- =?us-ascii?Q?8Msy6QkH7U2EIY+4e+movv+68IBX7jjo5uPWhpPHAFP6wtcNONfhOMnmR/Ls?=
- =?us-ascii?Q?EvwYmKjzUASIJVsCeiXl6+LCUmViz59ktOSNxPpFuoyk3xTSNi2Dw7f7KwFL?=
- =?us-ascii?Q?78AqbNogqKoKePpeAYifsGpe3EHyRWo0Ct4ENA1+4LfH3EQApv1jcNCly+Ym?=
- =?us-ascii?Q?AJUQfWJe+0JYH64tgr/aLqwBA9JcHd5E/OoE1mb57AGTx7MZzNquKCnv9zEA?=
- =?us-ascii?Q?iB4hSiwmF2eyrm1fFHrvfm4F4gdpYmSOp2/lcjBU5Ni6dJQdrJasxsZWxVWN?=
- =?us-ascii?Q?FiudYFTFmPF2aivUtqh2MImm8gmh4sipRiGYtdu0Wse8QEEiL6NZ8xG+f4vI?=
- =?us-ascii?Q?5+nXuQlkx9FfEDhrzr79rRCveALvpqhS0S8GZpApXgrT2eHD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c7957ac-a2bd-4405-e485-08df1e2febba
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 13:45:27.8131
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ed6wVMvkNFcxX5aTMl/4H9xprU7vTvQ25bx/yh5lhac8hRb6UHUO0uKaqeiAsC8SZS64SU7jD8IyGy3zbqAf0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4469
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 09:57:01AM +0800, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> fib_tests mixes use of $ret for both per-test return value and global exit
-> code. If an earlier subtest fails and a later function sets ret=0, the
-> script will exit with status 0 even though [FAIL] lines were printed.
-> 
-> Use RET as the per-test return value, as already defined in lib.sh. The
-> exit code ret will only be set in log_test().
-> 
-> Fixes: 607bd2e502f5 ("selftests: fib_tests: Add test cases for IPv4/IPv6 FIB")
-> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> Closes: https://lore.kernel.org/all/178961184152.22033.9267194009793243294@kernel.org
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+This patch series consolidates the standalone 'redmi-wmi' driver into the
+'bitland-mifs-wmi' driver to eliminate code duplication and centralize
+the maintenance of overlapping ACPI WMI event streams.
 
-Please target the patch at net-next and drop the Fixes tag. The patch
-doesn't fix a regression, nothing is failing (or passing when it
-shouldn't) because of it and it cannot be backported cleanly to old
-kernels anyway. I targeted similar patches at net-next in the past. See
-[1], for example.
+Bitland is the ODM manufacturer for various Xiaomi Redmibook models. Both
+platforms share the exact same keyboard event stream WMI GUID
+(46C93E13-EE9B-4262-8488-563BCA757FEF). While redmi-wmi previously parsed
+the 4-byte payload as a bulk u32 scancode, bitland-mifs-wmi deconstructed
+it into discrete type/id/value fields.
 
-[1] https://lore.kernel.org/all/20250908073238.119240-5-idosch@nvidia.com/
+Redmi operations were not contained in this patch series, future reverse
+engineering is required.
 
-> ---
->  tools/testing/selftests/net/fib_tests.sh | 40 ++++++++++++++++----------------
->  1 file changed, 20 insertions(+), 20 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/fib_tests.sh b/tools/testing/selftests/net/fib_tests.sh
-> index b338bfb196a2..9ce5623b049c 100755
-> --- a/tools/testing/selftests/net/fib_tests.sh
-> +++ b/tools/testing/selftests/net/fib_tests.sh
-> @@ -369,7 +369,7 @@ fib_carrier_local_test()
->  
->  fib_carrier_unicast_test()
->  {
-> -	ret=0
-> +	RET=0
+This series introduce a newly reported mic-mute hotkey definition for Redmibooks
+and dropped the previous redmi-wmi driver.
 
-Looks like this line can be removed (similar to fib_carrier_local_test()
-above it) given that RET is never used in this function
+I don't have a Redmi or other Bitland device. So I cannot work on the
+real device.
 
->  
->  	echo
->  	echo "Single path route carrier test"
+Features are working properly on my device (Lecoo Bellator N176).
+
+I leave the future reverse engineering work to the community.
+
+I apologize for not participating in kernel development over the past month.
+Sorry for the late reply.
+
+v6:
+Drop the wrong Redmi ops
+
+v5:
+Correct Xiaomi DMI vendor name
+
+v4:
+Map PLATFORM_PROFILE_PERFORMANCE to wmi performance mode if the device
+doesn't support full-speed mode.
+
+Mingyou Chen (5):
+  MAINTAINERS: Add maintainer entry of bitland-mifs-wmi driver
+  platform/x86: bitland-mifs-wmi: Merge the function of redmi-wmi into
+    the bitland driver
+  platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
+  platform/x86: redmi-wmi: Drop redmi-wmi driver
+  platform/x86: bitland-mifs-wmi: Add per-machine ops table
+
+ MAINTAINERS                             |   5 +-
+ drivers/platform/x86/Kconfig            |  12 --
+ drivers/platform/x86/Makefile           |   1 -
+ drivers/platform/x86/bitland-mifs-wmi.c | 251 ++++++++++++++++++------
+ drivers/platform/x86/redmi-wmi.c        | 154 ---------------
+ 5 files changed, 189 insertions(+), 234 deletions(-)
+ delete mode 100644 drivers/platform/x86/redmi-wmi.c
+
+
+base-commit: fe5030c8cc7156223f48530e9b49aa87c0305bcd
+-- 
+2.55.0
+
