@@ -1,239 +1,206 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035933B0595
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9536A42CAEB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670894; cv=none; b=YmYsVSpqRRhgPxvELyhgXLAQSen2jQYF/Q4JM/TQ4nKkPkmX/rjHWD3d611mTexaVCmDxHb8IcZWlpcXEy1jXKCShrWN2n8WJ6omt1Q4pJIRE6002V+GxgqQGRiidwY8XaMeN1yvjUNu0n3HuM+tV1DjFiOzoMp4OL5Syr6cqEM=
+	t=1790670915; cv=none; b=OiOIulDJmqGrtJmblSXD0EHAWOcj2n7s3CbA0t6U6f+bGkFAgLlmv8U4qM4BqX0fA5TxMnAyS2BYNIMHitwouIYklaznE6D6Hv+3BSObbFCl82dVYEIMkZsXDOMWj61RPPusUzT1F5QsnqhluokBgaV30A1o4cAObOnq+WEVMA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670894; c=relaxed/simple;
-	bh=t9NO8RLGfg/L6imVOchQWaM9RYI0Kykf/KtwK1c3Mmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zl0OEuAelH2mpaKIcFM/15B+iTPeB+COzcBY96K0gRc+Nh2NaDnSxpELU+87lBKcEUk9uEolqT1VXK6nC0Gnz5E0suMriJxuzycNr4w0bYklE2OYV3bfrSyP/zbukYYkMVWjOhekLpKMyltdSdEdQAKmjSd+RaqGSQwLQAdzSWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=itad8p9b; arc=none smtp.client-ip=74.125.228.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1790670915; c=relaxed/simple;
+	bh=KANagbWt5hpCauhkiqdUbkQP+nHMV9F2Ikx0ggfVSQc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fm9BUdcC+7UeVwMULwpjLQDf5rQSGH9aoLO7Uv4n0QDWmu/sNQecgapXNl46JCN0Zdbz7PwBCGTaXt8U6rPh0X8lNckRW+ARML8KxvYJUKHYnZGU3JRoRoKPsL0EuEdw//zqURdqHiDV0+A069z5anurCTJMuQfbsNd3tYM3MCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ddIgNvQo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hVUavmj4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="itad8p9b"
-Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-8807e5b8fa9so2327677b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:34:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ddIgNvQo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hVUavmj4"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7Tqix3435284
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:35:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=N0BFxVMy5WLhBOwqj477cY
+	5plIGLA43SzUJ9PBjvt8Y=; b=ddIgNvQoEZsP5FXd1vdqapbIZmTSj1wvtACnqn
+	SQ6abJvCmR5bKHMIsif1CiPDSETCohqhDaSTdRf7YqNzBko+rTTOFk4iSqEQuSoD
+	C32awfAZmXdVOJuVHowAr7QAgk4NMZKDwZoBWnALPF4Rkb/cKcle8TBNhJy/owh6
+	kdW2Rwy/+x843wRcM1R8wt3QWRRm03UbHcWgCt2n/yjbVr2WPw+IwVJZwmqfQ9mJ
+	U8OdvzeXbGtW5OXyT+MITEk6vGY1XRMYD16JJD0YnIO4/d3LnM4d4DJBzk9eBjAU
+	DZXrC7fAfUfEOZunsgUNa+tSIXU8WFlrmU6SGQFNkUlmhzVg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyvwnb2cn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:35:12 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc78c0402e7so448852a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790670890; x=1791275690; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5cwydG5wsQtN0cZkN780gx8GmDGw8aCnNB0UYeCsBrQ=;
-        b=itad8p9bN7jGgpAetd+Tf0QkhjlP7LRVjtcfO8BZrtiTZfuvNNZcgFsTOjT2uPb0kE
-         6LKEyGcByMA6Onq+YQc5RBIWJ+4m991tHHcNQA5DahQdhRcGEBIMvs9d3rw5IsKLL5sX
-         Dw36+x28LT0vAcU/PurXtr87HYM9H9S/kwm8qusc4L1knYa2mG01MNy6h6RoZXw3WGOK
-         LRMSMjYDirUQ7tTveQgBRUUpiS6f2p3uwJ2l1B/muASFjpqdnQGcgbS6lbewsxSA5zmC
-         Gq5e2hkIgq9G7WLfAJ/MjAB0B3Px2fjMyWtNGSB8SJXwzFuQadn5MV66/NKNUmTM3el/
-         eMNw==
+        d=oss.qualcomm.com; s=google; t=1790670912; x=1791275712; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N0BFxVMy5WLhBOwqj477cY5plIGLA43SzUJ9PBjvt8Y=;
+        b=hVUavmj4GLB/h8YuuNoY+zHW4+7t112t4tB/ggAENPWO8/t7IJX11yuZgcs2oLsCUX
+         UWBKhSvp+xmMx3aC4nb1PIog65p7oSygqwhGO/WtAaDXGyPlUUjiLkoadQ+xh+gv7wBU
+         HUaZMYOjKFLhJTuWgnbz/4b/VyBYMuoPqlFkGOtyp7fmnAq1nUQqeTNLllhJYk+YZIdn
+         fWn+FE4hK9z/89lpAbyQs/p0LX0d4Tep4PILrjprxySLbgssdeLtsK7DmWpNCvFw/QC8
+         Iyi1po+5szXtLyhXk8IaN+MlObQ/aprOuKFIOSMK1Q91A5BPaxOn/yuPBAz/v8IBeEir
+         qv2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790670890; x=1791275690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5cwydG5wsQtN0cZkN780gx8GmDGw8aCnNB0UYeCsBrQ=;
-        b=rcdzdJy4U2On7mcLW/8ArvnFV3GAjUhGnEhQo4m5DGi9HpLp1FG7wmhBXmB6JvB7xO
-         lOsC4Ca0r9o9aSEDO2uVGWu4D4mUswJfe3J9k2UADOs+ip/L2czY36shlPnLi4Shimfe
-         bNHj3hIYYZgXy6UmcDwLP1ge+SQ/AvpSHNFAEYsq4StxEJmmMo4X9N9r19/P1jLFuXEh
-         uyxl/cZQbm334QLMJndVoDpqyc6GztWMCLR2p2R8/Pw4G8kLoioHHimzbGTIcfXH1Y1C
-         oe5+OxFW2YMCaLLx+CT8qVlqUY9jQI9OeNjiEvaj87YmUDqpb1FwYWhEk894bUsnx+5u
-         eqfw==
-X-Gm-Message-State: AFuF++nuSKZ9w2lxWCuD2eiJqcIB7H+wu5V/PWUAPGqg0SxGBZjCrmPV
-	OXSfLy0rBcMoUtklax4SJUyOPqMLRkGPEBhbjxnKbEe6PoeTg+gmd16ZaW6VDTQ2dSg=
-X-Gm-Gg: AYBFou1/gkajYz08cuFQJ2qRY/3sEIsn5lRrC0AQxaF4hHObcbU4NcPAmT7hjgzFxMF
-	4Q6+ScimjMtoleOj9Q/HepaDyOCU5HJzbUDzQ3iiXVOBertpA9RMaqBDF4ALTw0hVUqWn97sIE/
-	VKHkMrcxacc4vFAgvLue/B3mMSuj+q6rMe5Vf6WYef+KMAoD+3QWNp36uTV5gT/hxsl+Cu0a+uS
-	eDlvBBIFsysJj5+r2fiGB7hF/qI9iPXPMxMaNxSaoMNOJ+03EqvayZJG5umUrkHtSfrrR7/tjv0
-	txvIwpcFBqP6WPnsl+pt/CHPEP/DuVC9w49xEU3ywOHuT1od/bMViqF/YDil7NPT/6OywiG02ZQ
-	r1AH4ILFyXBlFkfRBdNqEr4hTuu6O3tfDprc3rVTxNKHMncMsxCPXL65esc8P3ye3M/6WGnrl3K
-	Zl4faoMXrXZAD74ZrVlBR3lf8YjjQzatQ8UQarPNu4N82VC4jNBIkfZb+xvPM2BQAmUkS7v/jIM
-	2fRgw==
-X-Received: by 2002:aa7:914c:0:b0:881:77d6:8d91 with SMTP id d2e1a72fcca58-88177d69009mr6653281b3a.7.1790670889773;
-        Tue, 29 Sep 2026 01:34:49 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e23e9947sm420275b3a.47.2026.09.29.01.34.47
+        d=1e100.net; s=20260707; t=1790670912; x=1791275712;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=N0BFxVMy5WLhBOwqj477cY5plIGLA43SzUJ9PBjvt8Y=;
+        b=IOIODWHMmGF0sm43N/9VB4cZkruzwxUUGsHq3IHvvR2pqCbZtHYjsonJpeVd/6pM55
+         JyDHrAQpsZuqWq6+/fP+CD6tFpmz7Cnqr4uG5Hxt8J8cFMbUovwbAkEI+upwXzoOesIF
+         A00J412aHCXdiiFRfrD61xIc44J8FXrGPtl6gFWuHQ6bqM0ryAGUYwqyQUZXrmvxxquw
+         gJQLBO8IyWQf/rFnNKbub9Vcms4PjKnJ6UINpoL3RyAAZI6POghnxYxRmPUnczAv+CQw
+         No0nKsg6s+Sd+qa5mdWtqOtCQlor3j/51I7uft50tnyAj3SI6j6Uf/mxYsNcC8pXXpAu
+         zmnQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrP9LnFEJ8G34SAyow2CkhnSGtSgRZkGdgLdKXfsqfCfPL3kCJHuSCBnSHrQqcV/+o3woV3khP0GOK5EM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5QEQYPpQQCCmqhRiWfKXWoJpaqG8fNLdtHdXSvD8WxrssIfwX
+	0FCV4NGr4rEPfpff8B5qb9PAUSygiBJc/r5kQqylq0okGF3wdcnlFaYehGze90NqPcwpzFp/v4d
+	rOwA09KV55CmAhfifFzlsO9bM5W0ml8QKPqj9Bp5m5xetyP+aG6aaZRiBRysVL9mG4AM=
+X-Gm-Gg: AYBFou1l4TvH0ioEcpaZoHFtDpcztB8CRVqLlR0pG7VENaWNsgXkyqWeLMoZ5ahCxXX
+	i/B4gcEQ3APkWrmv/q2biLdjVuNPsWdr77gCKT19DXUmxL5lvuPiipsb02rItIoE419MnYaXJS6
+	D1l2pwm+CGvAMzaAtMD+PZwYQ/7xJ6AwmaoyNJ37fEr6dY5LT5frlYGb/hW23y3LkwmkLn0y9uj
+	gn/JmnexUpHowuXx14I4YUPOP7sN+ZXVnvdvgVhHhg2MV+fRg5W5y/FAXYEF7jUbGiTdSACOD8O
+	ekpG8Fx9hXCXqMRvHU12SW5P8fMDxm81rjPZ+o0/yMau/kS0d9rLOkcj/4GVbfM4MwuFVFrypCF
+	ixS4cCQgSaRYjEj8=
+X-Received: by 2002:a17:90b:28c6:b0:3a0:34a4:187e with SMTP id 98e67ed59e1d1-3a49c120f78mr889611a91.15.1790670911990;
+        Tue, 29 Sep 2026 01:35:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:28c6:b0:3a0:34a4:187e with SMTP id 98e67ed59e1d1-3a49c120f78mr889593a91.15.1790670911439;
+        Tue, 29 Sep 2026 01:35:11 -0700 (PDT)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4989739afsm1445684a91.1.2026.09.29.01.35.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:34:49 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-nvme@lists.infradead.org,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-rdma: reject a second completion for a command already answered
-Date: Tue, 29 Sep 2026 17:34:32 +0900
-Message-ID: <20260929083432.1601397-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        Tue, 29 Sep 2026 01:35:10 -0700 (PDT)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 14:05:03 +0530
+Subject: [PATCH v2] arm64: dts: qcom: shikra-evk: Add GPIO expanders
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-shikra-gpio-expander-v2-1-98ea5808c4a6@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIADZ4u2oC/4WNQQ6CMBBFr0Jm7RA6qUpdeQ/DooEBJgrFjhIM4
+ e5WLuDmJ+8n//0VlKOwwiVbIfIsKmFMQIcM6t6PHaM0iYEKOhWOLGov9+ixmyQgL5MfG45Ix7a
+ 1nlxd2hLSdIrcyrJrb1XiXvQV4md/mc2v/SOcDRo8G0fOupK9tdegmj/f/lGHYchTQLVt2xdtC
+ 6BHvwAAAA==
+X-Change-ID: 20260924-shikra-gpio-expander-25ff4a29c848
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790670907; l=1737;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=KANagbWt5hpCauhkiqdUbkQP+nHMV9F2Ikx0ggfVSQc=;
+ b=mV+I9VYgPK9ueiSbeq2IFL0RyEE4bUjlmoBFv65ajp7CUpgteN4SNpqIOzLgBVCJm8Ks2yQlP
+ ZdnskB1Ch91A6Nt8xJPz4kqcjCf6CLXRvgznPBntCckrPe8ldChhfg3
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Proofpoint-ORIG-GUID: VO7ENXxKzUASoeR2ZdvqxgpKyZjAe_-Q
+X-Authority-Analysis: v=2.4 cv=W42txhWk c=1 sm=1 tr=0 ts=6abb7840 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=v3Re7G1jAfmgFv_pawMA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX77I0tuCClhOx
+ 7KK+XYgvUhpXrFaCR4l+Ro9EReTD6UiSi8GX78E1wVh3KP/MiF2aADDPmPVpl8C4VWgdmrj8fm4
+ ZFj9bqMDXV1XT1uqY4mPxTAdiuFCxiRb7WWftHP0R7/y2pUFL8VX/o5pBoq78a3To6JDwgB3MhQ
+ lFOWommxbqY1j5DlralsnDw9QDuo++SImnwqr3IPaojXJBTZb19cD/F7SGE8bOu+AvVm57CS+8B
+ rpmE0YIUhpmIQCERw1K4IEgx5Pd+Vvoa2SYuD8wlPikWG37NyUg2z6sZpQUCDNkb84LP8nRH61u
+ OhE4dMwzj7ubK47YJgQ5k6zIMyjDQrWRptMG26ca0dPagJO00jMgLMxXx6DLsBqwwvwT+4KI85u
+ XpnOfai/+WC1VSFGWdQe9u3tvqMVHE9hgA+J09U5GBBxz1iIMnipNU7i7/8fJRcEMYQPCHu6Hvl
+ d9rBaKrwDiQCasetsbQ==
+X-Proofpoint-GUID: VO7ENXxKzUASoeR2ZdvqxgpKyZjAe_-Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfXzkb6IIDLNt2Z
+ gBT94qyYJZs7euEWY2LUX2GX4zrdhU4nrdhqIW2CsN/NxXmrT981iDVFmru10RfvmK//Sj/OoJv
+ 03CTzpAhIMs5afYGTeWIzh4UReNmNmQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290034
 
-nvme_rdma_process_nvme_rsp() does not always complete the request it just
-looked up.  When the request owns a memory region and the response arrived
-without a remote invalidation, it posts a local invalidation and returns,
-leaving nvme_rdma_inv_rkey_done() to drop the reference later.  Until that
-completion runs the request is still live and its generation counter has
-not advanced, so a controller that sends a second completion for the same
-command_id passes nvme_find_rq() and reaches nvme_rdma_end_request() a
-second time.
+Add the EVK GPIO expander definitions on the I2C3 bus. Describe the
+TCA9538 and TCA9539 expanders used by EVK boards.
 
-req->ref is initialised to 2, for the send and the recv completion.  A
-duplicate answer produces three decrements -- the send completion, the
-duplicate itself, and the deferred local invalidation -- and the last of
-them takes the reference count below zero.
-
-The generation counter added by commit e7006de6c238 ("nvme: code
-command_id with a genctr for use-after-free validation") does not help
-here: it is incremented in nvme_try_complete_req(), so it catches a
-completion that arrives after the command has completed, not a second
-completion that arrives before the first one has finished.
-
-Both outcomes are a denial of service.  A duplicate that lands inside the
-window trips the refcount_t saturation warning, which taints the kernel
-and panics it when panic_on_warn is set; one that arrives after the window
-instead trips "got bad command_id" and resets the controller.  In the runs
-below every stray decrement landed on a request that had completed but had
-not yet been reissued, and no KASAN report accompanied any of them, so
-this is not a use-after-free with attacker-controlled reuse.
-
-Mark a request once its completion has been consumed and refuse a second
-one before it can touch status, result or the reference count.  The flag
-is cleared per submission, beside the refcount it protects, so a reused
-tag always starts clean.  A command whose duplicate is refused still
-terminates normally through the local invalidation that the first response
-posted.
-
-Reproduced against a modified nvmet-rdma that answers one command twice,
-first with a plain SEND and then with SEND_WITH_INV:
-
-  refcount_t: underflow; use-after-free.
-  WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xad/0xe0,
-    CPU#0: kworker/u8:0/12
-  Modules linked in:
-  CPU: 0 UID: 0 PID: 12 Comm: kworker/u8:0 Not tainted
-    7.3.0-rc5-nvmerdma-atk-g72d3fcf802c4-dirty #27 PREEMPT(lazy)
-  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-  Workqueue: rxe_wq do_work
-  RIP: 0010:refcount_warn_saturate+0xad/0xe0
-  Call Trace:
-   <IRQ>
-   __ib_process_cq+0xe1/0x390
-   ? __pfx__raw_spin_lock_irq+0x10/0x10
-   ib_poll_handler+0x6e/0x200
-   irq_poll_softirq+0x1df/0x480
-   ? __pfx_irq_poll_softirq+0x10/0x10
-   ? __pfx__raw_spin_lock+0x10/0x10
-   handle_softirqs+0x182/0x5a0
-   ? __pfx_handle_softirqs+0x10/0x10
-   do_softirq+0x3d/0x60
-   </IRQ>
-   <TASK>
-   __local_bh_enable_ip+0x6a/0x70
-   __alloc_skb+0x5f5/0x890
-   ? enqueue_timer+0xe6/0x3f0
-   ? __pfx___alloc_skb+0x10/0x10
-   ? _raw_read_unlock_irqrestore+0x16/0x50
-   rxe_init_packet+0x16b/0x4f0
-   rxe_requester+0xeab/0x51f0
-   ? rxe_completer+0x29e5/0x38c0
-   ? wakeup_preempt_fair+0x5dd/0xdd0
-   ? __pfx_rxe_completer+0x10/0x10
-   ? __pfx_rxe_requester+0x10/0x10
-   ? wakeup_preempt+0x1d5/0x330
-   ? ttwu_do_activate+0x124/0x590
-   ? _raw_spin_lock_irqsave+0x86/0xe0
-   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-   ? pwq_dec_nr_in_flight+0x2b2/0xc60
-   ? __pfx_rxe_sender+0x10/0x10
-   rxe_sender+0xe/0x30
-   do_work+0x144/0x470
-   process_one_work+0x6b4/0x10e0
-   ? __pfx___schedule+0x10/0x10
-   ? __pfx_process_one_work+0x10/0x10
-   ? _raw_spin_lock_irq+0x81/0xe0
-   ? __pfx_do_work+0x10/0x10
-   ? assign_work+0x11d/0x370
-   worker_thread+0x45b/0xd10
-   ? __pfx_worker_thread+0x10/0x10
-   kthread+0x2c8/0x3b0
-   ? recalc_sigpending+0x15c/0x1e0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x36e/0x5a0
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x572/0xdd0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-
-The window is narrow and load dependent.  With an idle completion queue
-the local invalidation completes in about 85 us and the second answer
-arrives too late to matter; under concurrent I/O the invalidation
-completion is delayed to milliseconds and the duplicate lands inside it.
-Counting the warning is misleading because REFCOUNT_WARN is WARN_ONCE, so
-the stray decrements were counted directly:
-
-  unpatched: 18 duplicates accepted inside the window, 18 stray
-             decrements on a zero reference count, 1 warning
-  patched:   5 duplicates landed inside the window, all refused,
-             0 stray decrements, 0 warnings
-
-Every refused command still completed, and an unmodified target is
-unaffected with register_always set either way.
-
-Fixes: 2f122e4f5107 ("nvme-rdma: wait for local invalidation before completing a request")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Co-developed-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 ---
- drivers/nvme/host/rdma.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Changes in v2:
+- Moved GPIO expander nodes to i2c3 (sashiko)
+- Link to v1: https://lore.kernel.org/r/20260924-shikra-gpio-expander-v1-1-71929498ea44@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/shikra-evk.dtsi | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 9cb811a2ce1f7..f96d421518293 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -82,6 +82,7 @@ struct nvme_rdma_request {
- 	struct nvme_rdma_sgl	data_sgl;
- 	struct nvme_rdma_sgl	*metadata_sgl;
- 	bool			use_sig_mr;
-+	bool			rsp_seen;
+diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
+index da484887110b..ecc630117940 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
+@@ -11,6 +11,38 @@ &gpu_zap_shader {
+ 	firmware-name = "qcom/shikra/a704_zap.mbn";
  };
  
- enum nvme_rdma_queue_flags {
-@@ -1568,6 +1569,7 @@ static int nvme_rdma_map_data(struct nvme_rdma_queue *queue,
- 
- 	req->num_sge = 1;
- 	refcount_set(&req->ref, 2); /* send and recv completions */
-+	req->rsp_seen = false;
- 
- 	c->common.flags |= NVME_CMD_SGL_METABUF;
- 
-@@ -1738,6 +1740,15 @@ static void nvme_rdma_process_nvme_rsp(struct nvme_rdma_queue *queue,
- 	}
- 	req = blk_mq_rq_to_pdu(rq);
- 
-+	if (unlikely(req->rsp_seen)) {
-+		dev_err(queue->ctrl->ctrl.device,
-+			"Duplicate completion for command_id %#x on QP %#x\n",
-+			cqe->command_id, queue->qp->qp_num);
-+		nvme_rdma_error_recovery(queue->ctrl);
-+		return;
-+	}
-+	req->rsp_seen = true;
++&i2c3 {
++	status = "okay";
 +
- 	req->status = cqe->status;
- 	req->result = cqe->result;
++	expander0: pca953x@38 {
++		compatible = "ti,tca9538";
++		reg = <0x38>;
++		#gpio-cells = <2>;
++		gpio-controller;
++	};
++
++	expander1: pca953x@3c {
++		compatible = "ti,tca9538";
++		reg = <0x3c>;
++		#gpio-cells = <2>;
++		gpio-controller;
++	};
++
++	expander2: pca953x@20 {
++		compatible = "ti,tca9539";
++		reg = <0x20>;
++		#gpio-cells = <2>;
++		gpio-controller;
++	};
++
++	expander3: pca953x@21 {
++		compatible = "ti,tca9539";
++		reg = <0x21>;
++		#gpio-cells = <2>;
++		gpio-controller;
++	};
++};
++
+ &qupv3_0 {
+ 	firmware-name = "qcom/shikra/qupv3fw.elf";
  
+
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260924-shikra-gpio-expander-25ff4a29c848
+
+Best regards,
 -- 
-2.43.0
+Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
