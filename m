@@ -1,182 +1,194 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011002.outbound.protection.outlook.com [52.101.62.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A934DD3C8;
-	Tue, 29 Sep 2026 23:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790724663; cv=fail; b=J7HqBJfrOhGP1mTiNbJsyjHSjSduG5mMidHbdk3A+LMaYDEPrg1jn1Iz8g6rgtluwj+yJrNRfy257OfmPXksHWwguDpuOMNDQgOJIERV6d8s37q5AnskWFjN5gIrCF508E+IHjWr+LFZWk02xIjO9iv5VswRO6Qb47jFd3XZxfk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790724663; c=relaxed/simple;
-	bh=GY1o/keNep6k9v04VmCttJqMxxBoJVtbPdyxuGzXWos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=s8lNKrbTzej2+7oqyihI8at6iHEtk55YCmsIAVIeAR0fsosBb4LubSqxrv/yvXJnW+7dYqWq1Rio3SWmpMW09zxxHAG9Ze6jatqDstdSg7w+R4fG4XxI4ydmacEW1IUUjT6ssiJ4PMsG5i3X/r6l/YS7fnexwNCYPqxtoyRl25Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=izDRdKsf; arc=fail smtp.client-ip=52.101.62.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3404532FA18;
+	Tue, 29 Sep 2026 23:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790725038; cv=none; b=AM8yOkaBA6YA2p2tFDSjkcJ8o0sYhtESFEgCWTX3QbCfRpR4LbfUAW5rZehx4qqGqAE/y4p9dFdyWFHavy/cG7NXVReZBymqvzYn4wzidsfUn86u55Hk2C0pqVfAWJimcmth8ZGTybKY75dl1//XcN+FllPKGmOV3PBR4s9W7Ms=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790725038; c=relaxed/simple;
+	bh=uXvN0o/i49sd09BGH+OHO5km4+lh8+UVoNj8DyAMh2g=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=IV/LoAOU4Y7WSFCpmV4uHYt4T5csUNT5+WmD0M9o51KNjo67TD4hLBz4F43AutxWi0yhOHH6KfCSduCfQNTHJJApSZ6WFegKembplwcVLbq3rvqeKKuD29gXyq1+fC+IrfxOvbxVl2rT+NOPLM3HxjBWyTkauwTU09ktA0sxnok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5tMbgrk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="izDRdKsf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tEnsbZhPJbRNT+bsQdvTLgs5rhh7B1CDwD+OkfSV0JDvHVERlOLRoKcTUnHN0OPuxhPqwPsgEMdEb47Ijvg03uDdTr7y2U091BX7jV3ivFLcyqAQsVBiC1vN15iH7759Xc0+nC32rABx7bRE7O5ji1jIpSr8byHThX7vu6XttGtfvWPo3b7K6RTszBjZOWCHrjSjVQGpxVEu9EQwLunMmpJxC2sPccUhekxYLb8DdhKfmMwZIGgLlBBi89CdGwogTpGfqN3E07T8WOP2X/+KEwFcVr/WdC2Kz4YWb6BYyKi9ZYL++lOzMnQR/14EwqopPbHP25fMeuB5AT1fFz6bqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i83W+6kmNX1FMaqGUTEZZxF7o9EaGe0hOYvXZycjXv4=;
- b=gUAzQDdyAo4/PAteAOAVu1sASGcOheEOdja01xzl9D879Bkxw60lH4JokPn9ST6e/rGXL+26Y3upXo46TDK0mQ7XOHhloT4T/r9EvVituuO3+NL9QnP+63Sy1Q3UOpBdKyTK9ZqPAGLfdfqSHGnSWobDfwYyhG1UOfo+ovDcQ4RVmtIqVQa3OvLa2gI46pitavq20ShWtceraDW96u9u1u2iXK9kkxeWq2oHPtuIgdVTwLxDGui54Mqog8zFmFVVuBzHSMNBw9hSFxrDv8hSmhcvPHEx681biAHeGlFeeZv6vq5dIaNl0Te4odejc7dbHRCTQDB4zCujm0FyDymR8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i83W+6kmNX1FMaqGUTEZZxF7o9EaGe0hOYvXZycjXv4=;
- b=izDRdKsfYXxIg2kPVW+Ssy2jU9VJvT0mvauh5DtyvwQfE5HZn09lK23mepsUQwRH2J5RCiNA+sw3sLYnR+bwYLwXT770+jtCGsqsFQ5IkSXro/zvJOQE9fbKVhF08J+dh91BRlYfmkk0sqSQhXe9Npd/Dl4/CUbxu88gijelXW8U3mAR82tjNlRW60uE+cUv1l0pHDB1lhOzMEkwoVYLNbyxAHskP/mnXu9SwtNCJYYAYHopQY3GYnCyfN0yPgFG3QvoPfEb4dG18W4qwpgSDMOH3L7FirCmHjFb0BGXwzZOD9dhIHIVAm5hu00kCpn52hLyOFFLs6lyLyeRKdOrcQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by SN7PR12MB7812.namprd12.prod.outlook.com
- (2603:10b6:806:329::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 23:30:04 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
- 23:30:04 +0000
-Date: Tue, 29 Sep 2026 20:30:02 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Jacob Pan <jacob.pan@linux.microsoft.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
- parent
-Message-ID: <20260929233002.GQ1616761@nvidia.com>
-References: <20260928121147.GP9354@nvidia.com>
- <yq5azex1peqt.fsf@kernel.org>
- <20260928161738.GB1616761@nvidia.com>
- <20260928110854.00003ff0@linux.microsoft.com>
- <20260928182022.GD1616761@nvidia.com>
- <20260928152402.000079ce@linux.microsoft.com>
- <20260928230328.GE1616761@nvidia.com>
- <20260928225524.00002b85@linux.microsoft.com>
- <20260929123048.GJ1616761@nvidia.com>
- <20260929161527.00001275@linux.microsoft.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929161527.00001275@linux.microsoft.com>
-X-ClientProxiedBy: BY3PR05CA0047.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::22) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5tMbgrk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA53B1F000FF;
+	Tue, 29 Sep 2026 23:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790725036;
+	bh=WHiYLve/r8dKdJur6CLdF1ljoKuGu9MvD9+c1UIePVY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=M5tMbgrkov2WEkxH+jdoYNwC5CHPdy7Zt3lqertwdfZbF/qqbbbpmEvIr2GgeQMl/
+	 k1X6mb6cu+0cycJhbCZ+xCaA/MQ0l3UblRETJ9399UuLJ1POWo2dxyvoFc4cGGFQd+
+	 R2yMBXQZyZF45DB1hXqD+u/P5UPOus5mVxEyFdvKFOkouW0UzTNDh9a5RL5NXyy0cC
+	 /X9o+GxZEaNOsiKsga+hBawTLGcpXqm8mU45DFdDPS3mDafYy63Gd6gFEjOKZHgSOf
+	 Ar6j0jcUIuNsmq4ymJrfExlkwtTc6dO4uat03Vo4h42GdSQ8WkayyJKq7NRU0xZs7d
+	 XDtEYQVnYKuoA==
+Content-Type: multipart/mixed; boundary="===============6591287826219115497=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SN7PR12MB7812:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f10067c-1736-42a4-0df4-08df1e81972a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	JbpU6/mr7XA2t3aWaUMACKMf0KirqnyXBC1q8WttQHO/fy9jgJF2WIwtSMKC6XGmCa9/3+jTA0tL+lbqUUCkX/PZRw0Go/qq6Ltd8PaS/UUm2zruR3Te5AX79RY0j4kVrwnTn0M9EHlZhIqseDRNO3FAk0IiAQG0KGDukRBKkU+L848vRRLLDdI0zX9JD+W2fqpnTW3MCKuaBQaPWNEsEMid0zJpgvFQtmNZ6oKYvvePwnMgML1BfjOMd2EuLPSOKXkHUY8OuFL88UQICE4uwb5/45D0OSpCBuU1Xd9vFxvSwGoEGWZx4lAIWlIdhnQ5Ehv/CGB7EP7FxfRv08FqJnLAowTk8bXx3/t6TOFIDyXBuyfDlyPUhosr/MrnYHby4RwzxQPtD+O0PI4Sh1nb/YCa7mOKZzlkIKVgTYfR2xPoBTzt1/c4Yp3b4mZwn/yESNeTM/f2FAh9G5vN62/2CwZn0JZk6F05qNd57Ce0FOhaV7Roh34swu3cesiqKi5A2HJ8r/fRVymiwLIuu8s8zhi+lLtjBTenMUXXYKsg+Nvl/uJG02431WEQnwi9jrQ+ZdlVPuyW1Y7ics1EVh/NLD+596eXbNrzNIFIYq7XtaDlyxfNnQzJ+XwFk7paGAvmhz0ZjEO7ICHZ5BZhPabCLyo6sIj0RhpSdNSp3d3bz4k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qSd7jU19TFgHeOf7Cl4aTLlEQv5HdEcTIYOtdRVbI/eb0FTK3UzLam3PKVR4?=
- =?us-ascii?Q?xOr6axzrYBK4SBjRbNxfeA06ktGkbVoTFb5hoWboa+TEkjxHcKAwxj/JleZB?=
- =?us-ascii?Q?zO0RPkDH03lsZY4ObJ2f3zziw5WJGVXQNq/dLEbiSp4DhXA9cbnwgAbS0RwR?=
- =?us-ascii?Q?vFeUmUtjk2A3/HTi1Suj8vafVw+ycnZGFvzJQpsdDNtoowzh3zpdCOpb+36Z?=
- =?us-ascii?Q?87ME7uSxkMvNzG+D6InmoO5QVxfwGgEYjorcxG+NTORSUPn91h2LeWZwU065?=
- =?us-ascii?Q?lZKuMvTL1iBzT5ROjleY35xhb3BHRWI+Bv+bHR1n0wqjPZ0FWeLfrMoQNsn9?=
- =?us-ascii?Q?A99t8qYLmkLqq0xcvp5Hq6Lqe2fzc/pavXDWPkk1LVJkMaQa0ZXFWRgFz5AN?=
- =?us-ascii?Q?uXuPhuJCS7Xza+jMGXek3s5Q5JMS/pJ9R1foa1Fgi4kFTRpQGGRQJMeoQOtC?=
- =?us-ascii?Q?h86tVnBdlvfM3Ng7/b0miFq0Cu95Aq7z+UrozSheL0Rb08Ot/0E2GmVqZPYl?=
- =?us-ascii?Q?9n6Vw5wjSKXeSPABHprmPpSDYUulW8Ue54yG3rY5Vjm+wEfMD5VTUZqXph4N?=
- =?us-ascii?Q?aCDaa79Jm7OIgPDnAEn9po/TfNqR1A5RzqqjFgaiVSYMWxp81ftTvkBy/Pzu?=
- =?us-ascii?Q?w7qic3on/frzb0NGYXdfUoyiDUYc06n0jU9zJfZhLjiZEjltCD6s4FvNExXn?=
- =?us-ascii?Q?qmz/DdnZjyG5JUEuorxNorpB4o2CxJMsbqe7E0tGTJL5UJZIatfOgfDF/V0T?=
- =?us-ascii?Q?Mqc38TIHT7WpKfxQvNxoRwS3Mxz3af0mTxK1j0ORW/z4nxHibq5i5kqu4Jia?=
- =?us-ascii?Q?oPZnDtdBmGfsZXX4mz+Xp6SENJuRaThqPZivly4HTSIendH8IYhvKm3zGKkH?=
- =?us-ascii?Q?UeW9IeoMtq3JhXngF4QYo24mBtYLMeQxSfXx4ZzxcmErZPuefAxTHtYce8T3?=
- =?us-ascii?Q?FvmaKADi83xFuGuNHONjwcUfRe5UCc17Jd6iNDZePzgp6ElnD9TuiOed55mM?=
- =?us-ascii?Q?zGxLHmXn4GSLaxwVgaOb1mW6aiUmWskmWUzD10TzOPGLhXTx3Ay2sPFxAisc?=
- =?us-ascii?Q?EDZLW2EFuV1Iifof7MIVgrt5bNqFNicloLqq8g1CcWd3dpO3Zre378a87R+d?=
- =?us-ascii?Q?3Wd8lvbmavOvm764QbGuSP/L9jujPdj0L6dFwZdqMDiWl0jVsK6nBTQ1nZS2?=
- =?us-ascii?Q?WF164r/cDA/09FVrWjC5M5dXR/lT6Kg6HTIzQNEyXpYnw8TboNDWupakWJ33?=
- =?us-ascii?Q?fm8m1/YY0L65oTmoocf1gfg8pf8tMDLyErthClp8h/0PxFSdJIIF2Jw4uJhW?=
- =?us-ascii?Q?7NbDprG/4MZ1Hnua7KI69wtYcUSoeAds1/hi2Lr47HiikRYc4KyPrtsghILV?=
- =?us-ascii?Q?HHcd1fUn21gTkyyr54Y8Qe7CVN/tdET3hEi7y355cAOBhVO+Vj4DAOppIPn6?=
- =?us-ascii?Q?mQ6CPO0YksXE1fiIFZc/p8ab5i0YEuODSMlhIwZA1a8enNGC4VDxGY6SN0BE?=
- =?us-ascii?Q?4h6JH/Ib4KBxs/JHHNqOISn2eiupkC3P42s6NRguWwWL5qPzKhex2ihcgZai?=
- =?us-ascii?Q?C2f+oeIa/lv6FlQKf45X5PzrDSQ30RHiPD0rGSkE6nhFDwkhAUX3lKCs/xMW?=
- =?us-ascii?Q?89uI6rr21vYJc6hD2YHUkOHgz81UO0b3Sc8FM0J3TSfsPKSz7WCzPK/jlmel?=
- =?us-ascii?Q?LgclrFyEWJNSmtcszOBJ5MiSQS971nDvfmca/ZexagdqK5J6?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f10067c-1736-42a4-0df4-08df1e81972a
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 23:30:04.6526
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KIddElH7eonM10AtNnYXuOPZPfHFaGcTdEIb+52nuf4iWhTB9BdVKaAs8SzLmo0b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7812
+Message-Id: <d8aa770b82f03b9cbae1bc84c8505c32d451abde5fe4517a903f1311b940b0d6@mail.kernel.org>
+In-Reply-To: <20260929014206.4175245-1-irogers@google.com>
+References: <20260929014206.4175245-1-irogers@google.com>
+Subject: Re: [PATCH v1] perf/core: Restore header fields in sideband output callbacks
+From: bot+bpf-ci@kernel.org
+To: irogers@google.com,peterz@infradead.org,mingo@redhat.com,acme@kernel.org,namhyung@kernel.org
+Cc: mark.rutland@arm.com,alexander.shishkin@linux.intel.com,jolsa@kernel.org,irogers@google.com,adrian.hunter@intel.com,james.clark@linaro.org,song@kernel.org,ast@kernel.org,linux-perf-users@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 29 Sep 2026 23:37:15 +0000 (UTC)
 
-On Tue, Sep 29, 2026 at 04:15:27PM -0700, Jacob Pan wrote:
-> Hi Jason,
-> 
-> On Tue, 29 Sep 2026 09:30:48 -0300
-> Jason Gunthorpe <jgg@nvidia.com> wrote:
-> 
-> > On Mon, Sep 28, 2026 at 10:55:24PM -0700, Jacob Pan wrote:
-> > 
-> > > Also, we don't have a T=0 to T=1 transition, our intended external
-> > > attach can be transitioned from a blocked domain, not from a paging
-> > > domain to external.  
-> > 
-> > You kind of do, external is close to T=1..
-> > 
-> > > > I think you are going to have module dependency issues trying to
-> > > > get the mshv driver's info into the iommu driver, adding a "TSM"
-> > > > like driver would resolve that. ie mshv could just provide the
-> > > > viommu. 
-> > > I introduced a similar registration interface in hv-common to solve
-> > > the module dep issue. Will look into if I can leverage the vIOMMU
-> > > helper here.  
-> > 
-> > That doesn't sound so nice..
-> > 
-> > If we have to have registrations it is better to have the viommu
-> > registration that Aneesh drafted than several schemes inside specific
-> > drivers..
-> Agreed. Now that the commonality with the TSM provider path is clear, I
-> will adapt the MSHV support to use the generic vIOMMU provider
-> registration.
+--===============6591287826219115497==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Ah, I so I suggested he remove it as it was just for TSM.. We'd have
-to ask it to come back
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index db7b76d6b68a..2be915a293ce 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -9032,6 +9032,11 @@ static void perf_iterate_sb_cpu(perf_iterate_f output, void *data)
+>   *
+>   * For new callers; ensure that account_pmu_sb_event() includes
+>   * your event, otherwise it might not get delivered.
+> + *
+> + * Note: @data is shared across all @output calls, so any fields modified
+> + * incrementally or conditionally (e.g. header.size via
+> + * perf_event_header__init_id()) must be saved and restored by @output,
+> + * or unconditionally re-initialized on each call.
+>   */
+>  static void
+>  perf_iterate_sb(perf_iterate_f output, void *data,
 
-I still prefer the way TSM is shaping up because it solves all these
-locking and matching issues nicely. I think you would have the same
-general locking problems with a provider (regardless where you put it)
-too..
+Peter Zijlstra identified that perf_event_switch_output() also modifies
+header.type and header.size before calling perf_event_header__init_id()
+and suggested it might need similar treatment.
 
-Are you sure it can't be a TSM?
+Looking at perf_event_switch_output():
 
-Jason
+    if (event->ctx->task) {
+        se->event_id.header.type = PERF_RECORD_SWITCH;
+        se->event_id.header.size = sizeof(se->event_id.header);
+    } else {
+        se->event_id.header.type = PERF_RECORD_SWITCH_CPU_WIDE;
+        se->event_id.header.size = sizeof(se->event_id);
+        ...
+    }
+    perf_event_header__init_id(&se->event_id.header, &sample, event);
+
+The new comment mentions that fields must be "saved and restored by
+@output, or unconditionally re-initialized on each call."
+perf_event_switch_output() does unconditionally reinitialize both
+header.type and header.size at the start of each callback invocation,
+which should prevent the accumulation bug.
+
+Is this analysis correct, or does perf_event_switch_output() need the
+save/restore pattern as well?
+
+> @@ -9726,6 +9731,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+>  	struct perf_sample_data sample;
+>  	int size = mmap_event->event_id.header.size;
+>  	u32 type = mmap_event->event_id.header.type;
+> +	u16 misc = mmap_event->event_id.header.misc;
+>  	bool use_build_id;
+>  	int ret;
+>
+
+[ ... ]
+
+> @@ -9783,6 +9789,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+>  out:
+>  	mmap_event->event_id.header.size = size;
+>  	mmap_event->event_id.header.type = type;
+> +	mmap_event->event_id.header.misc = misc;
+>  }
+
+[ ... ]
+
+> @@ -10247,6 +10254,7 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+>  	struct perf_ksymbol_event *ksymbol_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = ksymbol_event->event_id.header.size;
+>  	int ret;
+>
+>  	if (!perf_event_ksymbol_match(event))
+> @@ -10257,13 +10265,15 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				ksymbol_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, ksymbol_event->event_id);
+>  	__output_copy(&handle, ksymbol_event->name, ksymbol_event->name_len);
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	ksymbol_event->event_id.header.size = header_size;
+>  }
+
+[ ... ]
+
+> @@ -10337,6 +10347,7 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+>  	struct perf_bpf_event *bpf_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = bpf_event->event_id.header.size;
+>  	int ret;
+>
+>  	if (!perf_event_bpf_match(event))
+> @@ -10347,12 +10358,14 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				bpf_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, bpf_event->event_id);
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	bpf_event->event_id.header.size = header_size;
+>  }
+
+[ ... ]
+
+> @@ -10499,6 +10512,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	struct perf_text_poke_event *text_poke_event = data;
+>  	struct perf_output_handle handle;
+>  	struct perf_sample_data sample;
+> +	u16 header_size = text_poke_event->event_id.header.size;
+>  	u64 padding = 0;
+>  	int ret;
+>
+> @@ -10510,7 +10524,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	ret = perf_output_begin(&handle, &sample, event,
+>  				text_poke_event->event_id.header.size);
+>  	if (ret)
+> -		return;
+> +		goto out;
+>
+>  	perf_output_put(&handle, text_poke_event->event_id);
+>  	perf_output_put(&handle, text_poke_event->old_len);
+> @@ -10525,6 +10539,8 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+>  	perf_event__output_id_sample(event, &handle, &sample);
+>
+>  	perf_output_end(&handle);
+> +out:
+> +	text_poke_event->event_id.header.size = header_size;
+>  }
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36643934404
+--===============6591287826219115497==--
