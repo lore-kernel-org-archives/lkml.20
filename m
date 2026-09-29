@@ -1,64 +1,64 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205E14FDA60
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D2F4FE2E4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675351; cv=none; b=h0LVLD20VCnUUPgLga22pD2kn7ylaZ0xgUkjQq47hLKN48QVWr37eztCvKIEn1HYhBqbysa3DmzFrLjJCmjymIQ1ukFZgWG/EaGUFdEqrcyQl4f84nSr6np5zb9J10psAStL4pJ3VS03/cxtF9+wX4i9d0YrtrrB6529Cd3WYYU=
+	t=1790675352; cv=none; b=FiC7KxhDWVYPZgB6KwDfgafCY6Nsri5zuaVChQ+3+dldFANAqfVe/+rg65KxHWq9PX/8KEpnRSCMeNggZcXQWv5RxmoMY3HyIrqUYkMIKlULM5oSq6O7r8HGwT4PMYeHay785y4O42n2WPt9682mrUMOtZWCBFNBcYHMddVr2R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675351; c=relaxed/simple;
-	bh=6fBGWSDApFxqLj4jBbipWgdJRy03eJeI8vzge5SGiF0=;
+	s=arc-20240116; t=1790675352; c=relaxed/simple;
+	bh=/7P1ey1OUg/HDT8+oWOBv5Ij/ywfnvZrEXxYVOOHOxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IvIrp2wHt14i9mbT1E43OKUFXltjoDoqBU38qXIxmYht/b54qcZWwkGGYyB/6h+vNZzL0vrQkNpWO917B76i+53651BZviAtR1YZqLOV11lpSDqqaGHTqTvo/2U1iLEPcyhwTBomgCCdyLLooPO4a/SG7N/7dXE7cZCoFkje1jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmK0PfLp; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=jYD5FDpK6mDHRJiDW4MHckSE+JMITHQX4dDAUBb0eJNMn/JjXt4xfzkMAcm6Art7sopG3IA/a73crldCqq+VZo555QW3blyD3dyPbyvg48vGsQ+TBWHvAHCsoa3R5lY5gAEZwGyzYZH1MOwjYNlSnSfNmopLbY7IgfFcXkTP9Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KC1AMvsv; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmK0PfLp"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so2463755f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:49:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KC1AMvsv"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so2689905e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:49:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790675346; x=1791280146; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790675348; x=1791280148; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MTnkPHgQSlDy8ZNeeMa28BcMTlxq/pJPabuX6okJ9u0=;
-        b=dmK0PfLpXD3iBR1N9bMZQDYf4RttVQEXHnkqBd/AbL2bxjZRoKYj30ppktMXVORGn5
-         t+4/0Yktv6qQ3+NWvI5214OntGbLiyyISai4uPSAy1uiZUe1FdgilIbu8Io5e1IX8xxs
-         KQyk1VC97M0Zjn86DIVqQYkVLVbLOEQ72RUjM2suwCXDuZQ3o3MRldO0iMmT7zN9Ngx/
-         iHxtU7PXxeKjW2Xdz20/1/1t6RcBmcMop2cOn7YosnI+KhilaSvISeqAFYQL1/J2q2y1
-         NJ5nsfKE3Bm7McpK3J91ZwhafSDnZmXTkAUe65/L2fOEUer1r163n7hMlcLy2vCyC68S
-         E7TA==
+        bh=TuDqyckk7bv4jr66rxPBT2/vI7BXxN7gjWxl7twUBYg=;
+        b=KC1AMvsv3HfiCXhN4Q8ESurkZ5E8+rzjs1eCOROAZwDc1T5QpIwkSB+RMJa9/Drrpo
+         G0xVRekprnsCpx3KcO3uy3vBEqS38NJlPZlKyidqh+NHD2Xw0WVBFrOQeoVTnesVvsZd
+         9FPE+0h4/AIxdwEjgxYbGrHtK2l6KXESZtVCizKyS2pGfhP4zylClLLZu806lAGXFhRP
+         ftxfS4MCWN6hzO6bdqsV3DpSF0mAr7CD3DbzJbLDdxaeF6sfcjL+uDYA5YXvMHqkSshq
+         y/4gUMCbFV93FJi5zOmjcb2c7Npj1I54Hb/n3i1o2j+MBQ3ltkBMkq7lXG3SqFGczAfk
+         BIJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790675346; x=1791280146;
+        d=1e100.net; s=20260707; t=1790675348; x=1791280148;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MTnkPHgQSlDy8ZNeeMa28BcMTlxq/pJPabuX6okJ9u0=;
-        b=kyApN2Dy3dLrseQ5Qcwv50xsDsznj9KivnHaUvf8ISmy0dYAZh/VbxTfRg+GLpFqJS
-         0sU9cLlIJoAd843XYLrM7Aw6my7y7rh1rl3qsv7w6or3G2Dq1WOA4lhZffHR1VDQwwy9
-         nOCvdzy5tOx1hisZR+GL/E2Yzc5EtDzOgJ4bH2wgiO5nZxnzv9NIqbShdAmbDZdiBoUB
-         WlFz/0hpT/2q+vRMTS0eeLUDiayWVZ2nqDD7kADnewYTVX6n0R9YGLxzRmUvwEGS8AuA
-         tZzZge0174Y9uVA3lpXqAeq0xHQe5DzUN/XV01qCfrcRwH+bVLYN4suiMkxoYqhf9wyA
-         T5Vw==
-X-Forwarded-Encrypted: i=1; AKwUvByX6/1cxfEOSkHkYZJZnAiKHjwCVKQaKtVUxSLpINi3KZrSUZExw1uBPoGCjDP5eo5cpbEmMkxSYdMGUUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNNrO0ZFQSLmJJrr7rsEOxJlC4F5L1YZiTSq9tuOsUjD5eWIrp
-	hNZGu8dnPwx2VeoPp2VrPM14xZWx8roMtxg8oiuVLG0cOAUIHHH9Ca4/
-X-Gm-Gg: AYBFou1fXgNEdW9TWnXhMVrY5YHmDFy67aZmhwle0ZZHbIYKmELf9k7ZRKlc9eZN8eq
-	hJUtEs8jPZ0ZsgjpX9rH21vCcxaZeK0mWclfTb0YeSJuZkRt6447SeWE/wBcu0+TvpnxbkTZ2l6
-	Xij6jI96GxxGlqc+CgeIbvIA7eRB9/+02zn9oeVUzBWp2cyeuyc0TWxsXbbLp43HpC12PpvVgvB
-	fnzMAu79fMlWCbS3Lv6CuIR5vDSkCRxm3noU/ui/XEuylFrB6zii7SxeVbMJI8v+MRnseiSBesa
-	qquTCcQs8lzq96jVn4kJrnXDiL9DPCNbXW53UwHkRs/KnAjGLmlRyxSrY98w4fMAQ40detgKk8l
-	WVMAMTfBTBnmO//mgU68TRcKbfBXvvojZY/N9KTfgvWMLyFbuMdLmuU3zKZB8lVxhWTiDItdXaf
-	qshOXRl32BRqsdkhIMifAZXAtzrn5j1jD5EAWUgqIkVsbnjHMnIOt2Xq+MvtDdqBnCii4hyD2gT
-	ZJq
-X-Received: by 2002:a05:600c:348e:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49ff06b2ef6mr213390545e9.5.1790675345917;
-        Tue, 29 Sep 2026 02:49:05 -0700 (PDT)
+        bh=TuDqyckk7bv4jr66rxPBT2/vI7BXxN7gjWxl7twUBYg=;
+        b=cE9WkB4AGZBSbp1YoavmXLhwKsYj5DqP8ibZ3ghR8QxwEmZdb8pdgtXglVO5r0s6PB
+         H0X7bdsYzog7osAyoRSu63ZFmNBsSzvGQ7H2+Qe9CHZMC4WWtksdupi60NoyFqntFXqc
+         dUtDk7D75RKTu3FvB80MGDpPi2U+wo+LIm3ctBnAKZ4jSYPByFbrrp3Rse/+KRaPaEmU
+         ewj6SlbL0U4Q4d9PYtWk7SYquFDNuQ2zJxhA9NOpTRshVul4vTE9w/oUEII/wChMVPw6
+         B4lt8YsQngOeHsgN+vmYJGoCdBTmauNSJrswuNRjI/huHy7LuXYQkE0ARZRX3SJMc6TG
+         wF/A==
+X-Forwarded-Encrypted: i=1; AKwUvByNbkbheE+PZ5VcU1RtQM4g3yt9moF+zp/aacXxKsGyR7mztpNVyKmR652TD5wGKPEtEadm7dpvfllEGxw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mju+gXFoE2RsNe5qzYdLrCMyUmqGcGK4dSYEVpGCBpLY5C0CFF
+	x0PrHrAKIRWacWP+fwUrG1ASqB/XaUOAC319THFIOtMGfedoj6C62wuE
+X-Gm-Gg: AYBFou2EwRXdXh8Ctx5v4boAX+o4J1R2WmuetJgVw3km1bRFZgodz2WkiTCeLJWNrKn
+	/3/esErcLduBbqt6TwDSAqOMQELgQ5OMxIngUHgXg4bf2QWykQFLIqCjp8Ab59sL/Gnf98iW4Pc
+	BKatQldyJr9n5f7k7ZOcW87TRii6tyHXZlQUkYpJdttciYFa8245InObDmgUJPng0E/24A+JSO6
+	vE683VHWRE/AFDvU0tqFLIONduE93eInFFmiRHo20m3d9tfz0phZ1sA93f0rnsEb7hJGbsFAKiO
+	nkMiMwbeVMwQjvn82IDqX4F9hcMuBVRPJfKP7E+9WhnxOpP3qQ/tMjtaVzES1p2Bl1QpMvBU6fU
+	OXdoYQX+uYqdThI4dQCtQqPiwc2ZQe5at0G9Q0a6ZWQhYZ+g/LQtqeO3fU9hA0bSwVPhVvR6R3Z
+	FoSvhKhBJ7w5SUjNSlEL5hNdUdAYEZTCGtQWm+SvQfYeEneSDV34spjz2omoK+JXKhu5exGf4wz
+	F78
+X-Received: by 2002:a05:600c:3488:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a00d766dcamr31638485e9.8.1790675347956;
+        Tue, 29 Sep 2026 02:49:07 -0700 (PDT)
 Received: from SurHub.localdomain ([196.188.113.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm89821455e9.9.2026.09.29.02.49.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9b72fsm89821455e9.9.2026.09.29.02.49.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:49:05 -0700 (PDT)
+        Tue, 29 Sep 2026 02:49:07 -0700 (PDT)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
@@ -69,9 +69,9 @@ Cc: alex@shazbot.org,
 	ioana.ciornei@nxp.com,
 	nipun.gupta@amd.com,
 	nikhil.agarwal@amd.com
-Subject: [PATCH v2 6/7] vfio/cdx: keep logical vm_pgoff in MMIO region mmap
-Date: Tue, 29 Sep 2026 12:48:47 +0300
-Message-ID: <20260929094848.7439-7-suruurism@gmail.com>
+Subject: [PATCH v2 7/7] vfio/cdx: reject non-shared MMIO mmaps
+Date: Tue, 29 Sep 2026 12:48:48 +0300
+Message-ID: <20260929094848.7439-8-suruurism@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260929094848.7439-1-suruurism@gmail.com>
 References: <20260929094848.7439-1-suruurism@gmail.com>
@@ -83,46 +83,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vfio_cdx_mmap_mmio() overwrites vma->vm_pgoff with the physical frame
-number of the MMIO region and passes it to io_remap_pfn_range().  The
-VMA is inserted into the device file's mapping->i_mmap interval tree
-keyed by vm_pgoff, which VFIO expects to be the logical file offset:
-the core links every device mmap to the device inode's i_mapping
-precisely so that unmap_mapping_range() can revoke all mappings
-associated with a device (see vfio_device_cdev_open()).
+vfio_cdx_mmap() accepts MAP_PRIVATE mappings.  A non-shared mapping
+with VM_MAYWRITE is a COW mapping, and remap_pfn_range()'s COW special
+case in get_remap_pgoff() then overwrites vma->vm_pgoff with the
+physical frame number:
 
-With a raw PFN in vm_pgoff the interval tree entry lands in the wrong
-coordinate space and unmap_mapping_range() cannot find the VMA,
-leaving stale MMIO mappings behind any revocation attempt.  Keep
-vm_pgoff in the logical VFIO offset space, as vfio-pci does, and pass
-the physical PFN to io_remap_pfn_range() explicitly.
+	if (is_cow) {
+		if (addr != vm_start || end != vm_end)
+			return -EINVAL;
+		*vm_pgoff_p = pfn;
+	}
 
-This is defensive hygiene: none of vfio-platform, vfio/fsl-mc and
-vfio/cdx call unmap_mapping_range() today, so no reachable
-stale-mapping issue exists.  Keeping vm_pgoff logical preserves the
-VFIO core contract for any future revocation path.
+The VMA is inserted into the device file's mapping->i_mmap interval
+tree keyed by vm_pgoff, which VFIO expects to be the logical file
+offset: the core links every device mmap to the device inode's
+i_mapping precisely so that unmap_mapping_range() can revoke all
+mappings associated with a device (see vfio_device_cdev_open()).
+
+A raw PFN in vm_pgoff lands the interval tree entry in the wrong
+coordinate space, so unmap_mapping_range() cannot find the VMA and a
+stale MMIO mapping survives any revocation attempt.  Without this
+check, a MAP_PRIVATE mapping reintroduces that corruption even with
+the logical-vm_pgoff fix in place.
+
+Require VM_SHARED as vfio-pci, vfio/fsl-mc and vfio/platform already
+do.  This is defensive hygiene: vfio-cdx does not call
+unmap_mapping_range() today, so no reachable stale-mapping issue
+exists.
 
 Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 ---
- drivers/vfio/cdx/main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/vfio/cdx/main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/vfio/cdx/main.c b/drivers/vfio/cdx/main.c
-index 28386fdb01f2e..ea55b7767672c 100644
+index ea55b7767672c..28dc8c8256006 100644
 --- a/drivers/vfio/cdx/main.c
 +++ b/drivers/vfio/cdx/main.c
-@@ -254,10 +254,10 @@ static int vfio_cdx_mmap_mmio(struct vfio_cdx_region region,
- 	if (base + size > region.size)
+@@ -271,6 +271,9 @@ static int vfio_cdx_mmap(struct vfio_device *core_vdev,
+ 
+ 	index = vma->vm_pgoff >> (VFIO_CDX_OFFSET_SHIFT - PAGE_SHIFT);
+ 
++	if (!(vma->vm_flags & VM_SHARED))
++		return -EINVAL;
++
+ 	if (index >= cdx_dev->res_count)
  		return -EINVAL;
- 
--	vma->vm_pgoff = (region.addr >> PAGE_SHIFT) + pgoff;
- 	vma->vm_page_prot = pgprot_device(vma->vm_page_prot);
- 
--	return io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
-+	return io_remap_pfn_range(vma, vma->vm_start,
-+				  (region.addr >> PAGE_SHIFT) + pgoff,
- 				  size, vma->vm_page_prot);
- }
  
 -- 
 2.53.0
