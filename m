@@ -1,255 +1,216 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azolkn19011026.outbound.protection.outlook.com [52.103.12.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D99235C1A1;
-	Tue, 29 Sep 2026 03:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.12.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653919; cv=fail; b=oZBgOaD3URFeSMe8zu1ewku4Kv5btqHqevjjPU8zJ6v8xDDl7E6BxuS6rPhjdVRmg2lNOWBosd6/mB03JXFgElwAJnQdV7ub7ws3an+nuTzOssNza5TEHM1ac9zInzbfatKiPkEycLqesQtUNJa6WQttlSDBI3VFpdRDsHM4Y7g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653919; c=relaxed/simple;
-	bh=1g4SnE0xZEXlAj5Oqk+oA/3+Ssrs3HFTIVDEWCIAVfc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BC/76k/xLqAqQ/eoiAIWEAJUXdrZ0dYANVIpEjddPDrEsbRzWUpxEeCpjBAwr9OH16/ZrEFetIkKomwAajMn8hZX3DLVzCRyNRM6wTsbIzW12kBFMUwD0Nb0Gur4DoefWb1fUseg38oRVzyqHSU3GPhartjFuBsUDKitHRjfGUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=C2KKuZVS; arc=fail smtp.client-ip=52.103.12.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F6038A733;
+	Tue, 29 Sep 2026 03:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790653955; cv=none; b=rruKEMWGjg5VOhp31FBhWBa2z7X1VPy0HK9wFR0tPvcL22SN5qJvhOeDTD/aZM5+eGuySYPtGEd9d7YiAjxolwUseVxdkJdaFi6RcsdmwI80LJJjl0rl2H4SAFhO8Z4otAOUBkehNXOTI4oYwHyqY8QIRbmXsDoE7ub6fRqseJA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790653955; c=relaxed/simple;
+	bh=icN1mpFI1DrJ87rs1zndjGJ+YTyXk8g9Q/9nKXEata0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=V5tGu14pLhkS+Ak7JqXDc5zNLzpoSWYvql3SiIOb9ILnJgfZQe6fho8XNNrI3aLK+h0uyUNfVS4zz8hZNYl1cX4S37ZPxTc7FabRHD5gnFKXv/pVIkq8+9hjoiGsySckcipHzNB2Yzf5XNrhfTy0Ci/T3H/2AT2Cr+CBug3uGOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMAvBlm8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="C2KKuZVS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y2s2V5Po1y+K003xZyZvdUYlFsajcygTRSCHkvfBWUDWGoW9rLEpDdJ7/J+VOyqjALwSqAXVUIrd0/lORXyG5Byx4wgiE6ocRTVy3Iaqa9vii57rIuSyGmfuKBE8+vJbwUTr9xFJG87FkEBlFNNT0Z3HLB+MIXLbnxxgZBeJFzRSulqfFDIgmKRq3V77c8qiUEZ3GX7mqF/yaND+dHAeYpUVWYgvwmcCYxSOYYfHT5Ko2R08hloMd+cQQnSjrGlKzH0wGa3SnV95CxI+TPHSUgZ9W5gYCJmH/SkNLXcT7h0Jf9UJSsb61sNnQ7LMOm5lGe1WNNIXsyJ+ycDUHTmjJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1g4SnE0xZEXlAj5Oqk+oA/3+Ssrs3HFTIVDEWCIAVfc=;
- b=GzgaOGU3L6hm8z3w6vUkKbOuFAaLwprCS3MtusU4izdzy0tVBI9E0OLNx5JIy0h0+/AYklah4EPm1z9SG9bMrbQ+xviRTCMFMcrnZib3GT7Z0EmMnVAcxSnlVBeqn1YwKz6lUkkTjhs14eGCdOOmoXYFkpUUsRvVGXmWVnhQjuQJmqaQSQUuEYRvMfzc7EkAoTkdFWdM4Tx1kBDoYZEEYVDqpX4KyIKDoPXY+7+l+NYoOfMZnHIZH4oEIITNDH5+8TqOckqpD3ywrY5XxCoz8xoDMhNV44kaM8+O/xr9vqbTv3SxSPjX1/DnsZ5M3hQXIcv8PGSPs+Op2h3nntEqLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1g4SnE0xZEXlAj5Oqk+oA/3+Ssrs3HFTIVDEWCIAVfc=;
- b=C2KKuZVS482T/QYrATkQaAyUFBJFQzWbeVbu9vLqzMqxyEuv2DsvrtoOqbGg+kRnlDLQw3oRmXx5m+AlsWMYCuJeVufTEPvnHlNrYm+KXLkhfjnpqu406r9GShV4SxPrqng/onsPMU1Z5iwEDvXGe3YS4r13NlEuugTlCo9Jw75EP8R0vtNrgRRQkH+V1m9KNjQtBRML2zKWL7uq/OqvBYcqDAWouleMG2jdFiVR2pkW3Z2wMKF60sdHe2mG6SIYprxmh1YVZgIpNZ3q5xiXQP/KbzIAQPPznELS1VdAdGOIQZmA1YFp4K9LC6IPV81JThNwcbs2KFu3yxWvZfp0eg==
-Received: from BN7PR02MB4148.namprd02.prod.outlook.com (2603:10b6:406:f6::17)
- by SJ0PR02MB8735.namprd02.prod.outlook.com (2603:10b6:a03:3e2::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 03:51:54 +0000
-Received: from BN7PR02MB4148.namprd02.prod.outlook.com
- ([fe80::6007:d1a1:bcf9:58ef]) by BN7PR02MB4148.namprd02.prod.outlook.com
- ([fe80::6007:d1a1:bcf9:58ef%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 03:51:53 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-CC: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Linux on Hyper-V List
-	<linux-hyperv@vger.kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, LKML
-	<linux-kernel@vger.kernel.org>, Linux Driver Core Development
-	<driver-core@lists.linux.dev>
-Subject: RE: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-Thread-Topic: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-Thread-Index:
- AQFaPXDaltCSjsbsGnWHrXxa2Wl6TgHIwnweAqCrIxkCHW0AebewI5kQgADFfQCABfDe4A==
-Date: Tue, 29 Sep 2026 03:51:53 +0000
-Message-ID:
- <BN7PR02MB4148BD853CAD15C755B2B472D48C2@BN7PR02MB4148.namprd02.prod.outlook.com>
-References: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
- <SN6PR02MB41577ECCDB3E757B8859AE7FD4822@SN6PR02MB4157.namprd02.prod.outlook.com>
- <SN6PR02MB41575266A4580339E186E5D9D4812@SN6PR02MB4157.namprd02.prod.outlook.com>
- <CAJZ5v0i2oawbWzrVro1gGx2=hYOhjXPNJWDJ6LsNCq1WOxfHGQ@mail.gmail.com>
- <SN6PR02MB41573FD4D03A4083E4C4C689D4812@SN6PR02MB4157.namprd02.prod.outlook.com>
- <CAJZ5v0i0cRV1cE47RvTkcvbh=O+FO_8Fj84q6QJQ7xxhqRGgyQ@mail.gmail.com>
-In-Reply-To:
- <CAJZ5v0i0cRV1cE47RvTkcvbh=O+FO_8Fj84q6QJQ7xxhqRGgyQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR02MB4148:EE_|SJ0PR02MB8735:EE_
-x-ms-office365-filtering-correlation-id: d6cea00b-d2a1-4e0c-8285-08df1ddcffe5
-x-microsoft-antispam:
- BCL:0;ARA:14566002|25010399006|8062599012|51005399006|8060799015|55001999006|19110799012|13091999003|37011999003|24021099003|31061999003|15080799012|40105399003|2607281247196008|30101999006|56899033|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- =?utf-8?B?dUVqV0wwVGlYMHYxWUxwaFQvejVlMVYxMkhnN01Gd3BsU21nNk9sdGE4M0Rl?=
- =?utf-8?B?cWxsUTh5NzJCSlBDZCtUenFBL0RMdUJGdlF5cldwUlZhaGZQOW1hbGNiSWRt?=
- =?utf-8?B?NndJYmVRSFZmNXNSb29Ib1pXQVMvKy95bzRady9scThkR0I1L3dQb0RmMlkw?=
- =?utf-8?B?WlU3emNKNFR2K2dnNEhSS1dFYTRFcmFVTXo0TlJqUnlyTFg2bHRHMjMxNDd5?=
- =?utf-8?B?WmdvUExlWnRucnZzaVJZSjRpbnNDZnFxUEQxTUtHalg4R0QrUUhXUXl4WFhk?=
- =?utf-8?B?cHhMN1dZOFEveVAycjU0eXJQaUJKTVRpK09LaTFkZWFmSnhMbm9zSUptY3VU?=
- =?utf-8?B?c0d1S0svV29xQ0NmNkdCQVZ0c21VdmRQWWtQNzVkNHNwQVh4QTZjczFUdFRl?=
- =?utf-8?B?cWRnRDNRUW1FSE8rNmpLOFhtbDYzL3E2UStJVlMwU0trc1l0MGhpSkN1bk9h?=
- =?utf-8?B?SkVvZG9HbXIzY2RLQmkxWGZRaDM3YVoxN3d1b0RMbzByVSt0b1pkNFo3ZEpC?=
- =?utf-8?B?eFRqMnNwSVpwUkt2czQwT0JnUTlza05nQUZyQkpabkR3M2dDZG1vdjJ4THVo?=
- =?utf-8?B?cnBTODNXclAwMTRvbUp3OWdXT29QSWhxOWdqMy9yWUJsRGh5K1NvUEozY2ZE?=
- =?utf-8?B?UjJtZHAwNGdVK2IvNFlZZzJwWVBPTE9nWUdMVmRrZWU0eDFNZkNsdjg0YWFR?=
- =?utf-8?B?RHlLTllpL3hKbG1mdXk3SFJSVmNucWtMSGtCZldzN0JlODk0V1FNQzlRcWFx?=
- =?utf-8?B?aHRwbzFlbzR3MWE1T1ljakV4bng0dmNvblhUNmVyTHd0VGFPYWZ3bzhGRVM0?=
- =?utf-8?B?Snk0Um83U2pqVGJwTU9lTXhFNFNRcWZMRnB5b1lWSnFnM2hpVmpPWEpiUG95?=
- =?utf-8?B?V0xTYWNRUUdQL0Z6YjB6U254MGRZUFhzZVdXWk9JbjhPSEloTnFqRGhOd05F?=
- =?utf-8?B?NjBLTVdnSG1GSXNQcEtHRkFvSysrK08vNFp4NnRGT2ppd0lsc0pncGJnSFFB?=
- =?utf-8?B?QytMMFAzc29tSEZNdjRVQnE1U2ZQVVZNS1puN2Frd3V2QXYwdHlwOXh2VGdG?=
- =?utf-8?B?c3dJSGJCMk4vYUJJNU84SlZ0N3FhOWhoYXBtUkFUNHlsYXZjQndzeHBwL1JS?=
- =?utf-8?B?OG5LRW5BTE5qM09FSzBoWTd2ejU1ckw2bUY1UjV6eFFmUTl2ekJCS3BON1A3?=
- =?utf-8?B?WTN3WTVXL3U5WkRjR3R3UE9LL01aOVp1M1hOcjZ5V09Hdm9OYmFGVlpuWXVr?=
- =?utf-8?B?eFVRTjRzR2tIaXY0NWZsc0wwNXA1L2MrWlRNeWNuaXk3NHp5NHdmR2M3Y1Uw?=
- =?utf-8?B?WUZ4MFFoNUMyUlFTUTExbUxTODM1dnRLVVhhRDFFQ2MwT2YrWjVCaTE5MVE1?=
- =?utf-8?B?QWFHMllIemFKYVZLUEwxZkhlbVhQK3o3ZlBkamlRaUFpSnZEQlEzNHR6MWVP?=
- =?utf-8?Q?AvM5Esxj?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?L3NhR2VEaEVPSjB6SHBUemF4NEdLeGh0QUN6OUM4TnFWeUMwTEZVcHJZMEkv?=
- =?utf-8?B?WTBYMDVFWCswOGxDanlwQnlZR3RpRllvaFAvWHVubi9OV1ZzMWN2Rzh6RGM5?=
- =?utf-8?B?cWFnVEYwVTUrSlI2U2NQZnVSNzAxeWdDM3kxTFNUOGZUQ2NMMG42QVI4VjZ2?=
- =?utf-8?B?aWVmeWdkMm40TkpoV2ZvK0RQeGNhWnRURXI1TEdoMnRzY0JjK0lLT0ZPRjFl?=
- =?utf-8?B?eHFnQ0RHc2VPS0lvQ1JHNzlDb1poRktlR0Y0VnIrdHRNYTdBOVVzSFFEZTZ1?=
- =?utf-8?B?T2F0L0c5dmMrTGxXTWw4V3UrVUM3b0R1YjVTSjZ6Mm5mSWVpUE45dUdIQmFp?=
- =?utf-8?B?ekRiMFpubDMxRlFmYTgwbTMvZjZDNHJGZUxVT2ZqcEdpNFRwRHFTWG5maFBH?=
- =?utf-8?B?ckR2OGN3R0pGengwRGJtRlo2UThXRTYwMXMydHFVaU5wRkdGRVovK2xnOG1E?=
- =?utf-8?B?eEx2TGxDUXcvdmNma2IwM2o2T0VmbWloalBGVUgwS3QrK3BVVzBmQll2UE5K?=
- =?utf-8?B?azlOcmtJZ3hLOSs3bkF1RXRHYnRvUTdRdHVReW0wN3MvaFV2eFByM1BQYTdl?=
- =?utf-8?B?Rk5lUTBEdG1OMlZrVzYrQmdvNFJYcktjTEhQemwyUzBVVXNGSFJIN042WXY3?=
- =?utf-8?B?Qll3SzRzZTdITkR4c3dEUS9uNjl0YTZqeTZvUnNEZVRGM0p0dmxrV052cHhH?=
- =?utf-8?B?TlVYdTFjQTh3MnNtYXV3YmkyL1BjNkhITnlQOFBleGxLeWRENE12N29KQUsr?=
- =?utf-8?B?MzRsOVhpa2RtV2dBRmVzNzVZZnlKS1I2c3hZY1BQL3lUajZLemFjQ2FSc1RG?=
- =?utf-8?B?T3dVanZZcHczdkpFQnRCMDdYS1E5MStIcXJtNTV1V0ZGTVQ3WUl3ampwaktR?=
- =?utf-8?B?RkljTDlpRWlVNXptYUpJdEI4Tk9ZTGoyZmk3eFFiUXZaNUdmTlhwNTdwSTZy?=
- =?utf-8?B?QzJROElyUmZVbU5LS2xRNSt3VFl3aEZBNUZuOFVzMEUrV0I2bWZ4TDZGdnVo?=
- =?utf-8?B?ZzhqakhOUGRaK29TYk1UNGMzOWk4WnNIU2d5ZHlsdS9NNTNUd3FxV05wd1BJ?=
- =?utf-8?B?VjFjMnNGZzhBZStMTlQxZWpKb3piK3F2TkFoK2tUVWdPTWp5K0tlemNidU9M?=
- =?utf-8?B?YXdFWThBempoMmhzd2tzZGZJMHp2ZzF2V0ZtZVd5RTIvL3dMT3B1TjhkU1po?=
- =?utf-8?B?aFFEZksxQVhHUUtOQ2kvR081SFB1TFJUK2MzRGJObFhJTk00TUlGL3c1MVFC?=
- =?utf-8?B?L3JhNUIxN0NrZEhhcjV2MzJkVTlnYmRGNnp3Q2lsbjBNWnJ6KytCSmwrRTkw?=
- =?utf-8?B?cGZpWTMyeDIybDlHUlVIRmR1RzZXSzBOWlNWbUYwbFhCRlA2WHM3TnhRVVRi?=
- =?utf-8?B?dzBNS004amM4WG9lRS9QbjNmYm9UMVNUdjQvcXFBNHNxbllhWnZsVHI2OFh6?=
- =?utf-8?B?UWRLRUJka3FEQ2Z6blBrMHZhN3hBdS9YR3RjMXRLbmd4N1QyMzFzUGV3M0xk?=
- =?utf-8?B?WFBUUUxhV25yLzNaZENxM2FoNGMydEY0MUdqU0ZEOFNtRjJlUThlMkNvYnhi?=
- =?utf-8?B?R2xJV1ZSUlB0S3owTzVleTZmSkVqS0ozRlhreCswU2RqcHhPMExmelhDOHJ6?=
- =?utf-8?B?OWk4ZEtHSlM5bkZQVkNyWGMzZVJUQWNGNXFrZWhKbS96TnBJL0xFTnluUTUr?=
- =?utf-8?B?akJERlBoQmpnaXhYaU93TXlYeXVsS2RmbnJhZXlRLyt1UFJlQ1ZwTjIyZ1Zv?=
- =?utf-8?B?ZSt0OWx4Y3c2V2EvVmhVN2g3a0JiRVJnZlZQWGE2S0g4bGVsdmhKb3VFdC9m?=
- =?utf-8?Q?p5mBs5Cqhe0Y84f51kuO4HHv4io5M4Ey3RP6c=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMAvBlm8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C777C1F000FF;
+	Tue, 29 Sep 2026 03:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790653954;
+	bh=Fft2AcEFDphF6PMMDAjg8XfKmBNd9stS3cTZIW7mGLA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fMAvBlm8t+O57xEiDfxspaDe2M1AZe7/vMO4N9pMA9TtqDwiLWJ01xt0HOFj4vPRB
+	 l5NSPKh9G+CATen9khtw2ZR4jsFFtxyF3C0/RNnMkTNJq/lViEO7hU+8V8qUdHQfR4
+	 p9HFVK9BAXfeyviepo9/e2HEeC8+0Y9sy/tefznkz59iBpLr1IRUOBaZUYPthqBIpc
+	 i3HFnVP26yhBgQcjiltrflzLu16NasyDOgsvOlRUEx7VNv4ryqpBFCbHFbR6v5/6U9
+	 bf3KfaLqKOYYs2GUMbl7O8RT27ibJdU0bMdNHOD2f02y8RE5ATjBwxM3+7xcLhNaLG
+	 nTpaKaq6MbDWw==
+Subject: Re: [PATCH] xfrm: esp4: use current ESN high bits for IV and AAD
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kuba@kernel.org
+Date: Tue, 29 Sep 2026 03:52:33 +0000
+Message-ID: <179065395333.434549.4778570879815338716@kernel.org>
+In-Reply-To: <20260925095128.446450-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260925095128.446450-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: Critical
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR02MB4148.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6cea00b-d2a1-4e0c-8285-08df1ddcffe5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 03:51:53.2818
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8735
 
-RnJvbTogUmFmYWVsIEouIFd5c29ja2kgKEludGVsKSA8cmFmYWVsQGtlcm5lbC5vcmc+IFNlbnQ6
-IEZyaWRheSwgU2VwdGVtYmVyIDI1LCAyMDI2IDI6MDggQU0NCj4gDQo+IE9uIFRodSwgU2VwIDI0
-LCAyMDI2IGF0IDExOjQ34oCvUE0gTWljaGFlbCBLZWxsZXkgPG1oa2xpbnV4QG91dGxvb2suY29t
-PiB3cm90ZToNCj4gPg0KPiA+IEZyb206IFJhZmFlbCBKLiBXeXNvY2tpIChJbnRlbCkgPHJhZmFl
-bEBrZXJuZWwub3JnPiBTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDI0LCAyMDI2IDExOjQ1IEFN
-DQo+ID4gPg0KPiA+ID4gT24gVGh1LCBTZXAgMjQsIDIwMjYgYXQgODoyM+KAr1BNIE1pY2hhZWwg
-S2VsbGV5IDxtaGtsaW51eEBvdXRsb29rLmNvbT4gd3JvdGU6DQo+ID4gPiA+DQo+ID4gPiA+IEZy
-b206IE1pY2hhZWwgS2VsbGV5IDxtaGtsaW51eEBvdXRsb29rLmNvbT4gU2VudDogV2VkbmVzZGF5
-LCBTZXB0ZW1iZXIgMjMsIDIwMjYgMTA6MDYgQU0NCj4gPiA+ID4NCj4gPiA+ID4gSGVyZSdzIHdo
-YXQgSSd2ZSBsZWFybmVkIHNvIGZhcjoNCj4gPiA+ID4NCj4gPiA+ID4gMSkgVGhlIHByb2JsZW0g
-aXMgYXBwYXJlbnRseSBkdWUgdG8gc3lzdGVtZC11ZGV2ZCBiZWluZyB1bmFibGUNCj4gPiA+ID4g
-dG8gbG9hZCBtb2R1bGVzIHdpdGggdGhlIFZNQnVzIGJ1cyBkcml2ZXIgb3IgYW55IG9mIHRoZQ0K
-PiA+ID4gPiBpbmRpdmlkdWFsIGRyaXZlcnMgZm9yIFZNQnVzIGRldmljZXMuDQo+ID4gPiA+DQo+
-ID4gPiA+IDIpIEknbSB0ZXN0aW5nIG9uIFVidW50dSAyMC4wNCB3aXRoIHN5c3RlbWQgdmVyc2lv
-biAyNDUuIFRoZQ0KPiA+ID4gPiBwcm9ibGVtIHJlcHJvZHVjZXMgb24gYSBkaWZmZXJlbnQgMjAu
-MDQgaW5zdGFuY2UuIEJ1dCBldmVyeXRoaW5nDQo+ID4gPiA+IHdvcmtzIGNvcnJlY3RseSBvbiBV
-YnVudHUgMjQuMDQgd2l0aCBzeXN0ZW1kIHZlcnNpb24gMjU1Lg0KPiA+ID4gPg0KPiA+ID4gPiAz
-KSBJZiB0aGUgVk1CdXMgYnVzIGRyaXZlciBhbmQga2V5IFZNQnVzIGRldmljZSBkcml2ZXJzIGFy
-ZQ0KPiA+ID4gPiBjb21waWxlZCBhcyBidWlsdC1pbiBpbnN0ZWFkIG9mIGFzIG1vZHVsZXMsIHRo
-ZSBVYnVudHUgMjAuMDQgc3lzdGVtDQo+ID4gPiA+IHdpbGwgYm9vdC4NCj4gPiA+ID4NCj4gPiA+
-ID4gNCkgSWYgSSBrZWVwIHlvdXIgcGF0Y2gsIGJ1dCBjaGFuZ2UgY29tcGFuaW9uX2J1c19yZWdp
-c3RlcigpIHRvDQo+ID4gPiA+IHBhc3MgInRydWUiIGFzIHRoZSBzZWNvbmQgYXJndW1lbnQgaW5z
-dGVhZCBvZiAiZmFsc2UiLCB0aGVuIHRoZQ0KPiA+ID4gPiAvc3lzL2J1cy9hY3BpL2RyaXZlcnMg
-ZGlyZWN0b3J5IGlzIGNyZWF0ZWQgYXMgYmVmb3JlLCBhbmQgZXZlcnl0aGluZw0KPiA+ID4gPiB3
-b3Jrcy4gQWxzbywgb25seSBhZGRpbmcgYmFjayB0aGUgLm1hdGNoIGZ1bmN0aW9uIGFzIHlvdSBz
-dWdnZXN0ZWQNCj4gPiA+ID4gZG9lcyBub3QgbWFrZSBhbnkgZGlmZmVyZW5jZS4NCj4gPiA+ID4N
-Cj4gPiA+ID4gNSkgVGhlIFZNQnVzIGJ1cyBpcyBlbnVtZXJhdGVkIGluIHRoZSBBQ1BJIERTRFQu
-IFRoZSBpbmRpdmlkdWFsDQo+ID4gPiA+IHN5bnRoZXRpYyBkZXZpY2VzIHRoYXQgYXJlIGxvZ2lj
-YWxseSBvbiBWTUJ1cyBhcmUgbm90IC0tIHRoZXkgYXJlDQo+ID4gPiA+ICJvZmZlcmVkIiBieSBI
-eXBlci1WIHRvIHRoZSBndWVzdCBhdCBydW50aW1lIHZpYSBhIGN1c3RvbSBwcm90b2NvbC4NCj4g
-PiA+ID4gVGhlIHN5bnRoZXRpYyBkZXZpY2VzIGVuZCB1cCB3aXRoIHBhdGhzIGxpa2U6DQo+ID4g
-PiA+DQo+ID4gPiA+IC9zeXMvZGV2aWNlcy9MTlhTWVNUTTowMC9MTlhTWUJVUzowMC9BQ1BJMDAw
-NDowMC9NU0ZUMTAwMDowMC88c29tZSBHVUlEPg0KPiA+ID4NCj4gPiA+IFdoaWNoIGlzIHJhdGhl
-ciB1bmZvcnR1bmF0ZS4NCj4gPiA+DQo+ID4gPiBUaGV5IHNob3VsZCBhcHBlYXIgdW5kZXIgdGhl
-IE1TRlQxMDAwOjAwIHBsYXRmb3JtIGRldmljZSBjb3JyZXNwb25kaW5nDQo+ID4gPiB0byB0aGUg
-QUNQSSBkZXZpY2Ugd2l0aCB0aGUgc2FtZSBuYW1lLg0KPiA+DQo+ID4gSG1tbS4gSW4gdGhlIHBh
-dGggYWJvdmUgTVNGVDEwMDA6MDAgaXMgdGhlIFZNQnVzIGJ1cyBkZXZpY2UgZnJvbQ0KPiA+IHRo
-ZSBEU0RULiBJdHMgInBhdGgiIHZhbHVlIGlzICJcX1NCXy5WTU9ELlZNQlMiLCB3aGljaCBtYXRj
-aGVzIHRoZQ0KPiA+IERTRFQuDQo+ID4NCj4gPiBVbmRlciAvc3lzL2RldmljZXMvcGxhdGZvcm0s
-IHRoZXJlIGlzIG5vIGVudHJ5IGZvciBNU0ZUMTAwMDowMC4NCj4gDQo+IC9zeXMvZGV2aWNlcy9w
-bGF0Zm9ybS8gY29udGFpbnMgcGxhdGZvcm0gZGV2aWNlcyB0aGF0IHdlcmUgY3JlYXRlZA0KPiB3
-aXRob3V0IHBhcmVudHMuICBNU0ZUMTAwMDowMCBoYXMgYSBwYXJlbnQsIHNvIGl0IGlzIG5vdCB0
-aGVyZS4NCj4gDQo+ID4gQW5kIHVuZGVyIC9zeXMvYnVzL3BsYXRmb3JtL2RldmljZXMsIE1TRlQx
-MDAwOjAwIGlzIGEgc3ltbGluayB0bw0KPiA+DQo+ID4gLi4vLi4vLi4vZGV2aWNlcy9zeXN0ZW0v
-Y29udGFpbmVyL0FDUEkwMDA0OjAwL01TRlQxMDAwOjAwDQo+ID4NCj4gPiBDYW4geW91IHByb3Zp
-ZGUgYW55IG1vcmUgZGV0YWlsIG9uIGhvdyB0aGlzIHNob3VsZCBiZT8gQW5kIGFtIEkNCj4gPiBj
-b3JyZWN0IHRoYXQgdGhlc2UgcGF0aHMgYXJlIGdvdmVybmVkIGJ5IHRoZSBwYXJlbnQgcmVsYXRp
-b25zaGlwcw0KPiA+IG9mIHRoZSAic3RydWN0IGRldmljZSJzPw0KPiANCj4gWWVzLCB5b3UgYXJl
-LCBhbmQgdGhpcyBpcyB0aGUgcGxhdGZvcm0gZGV2aWNlIEknbSB0YWxraW5nIGFib3V0LiAgVGhl
-DQo+IGZpcm13YXJlX25vZGUgc3ltYm9saWMgbGluayB1bmRlciBpdCBzaG91bGQgcG9pbnQgdG8N
-Cj4gL3N5cy9kZXZpY2VzL0xOWFNZU1RNOjAwL0xOWFNZQlVTOjAwL0FDUEkwMDA0OjAwL01TRlQx
-MDAwOjAwLy4NCj4gDQo+IFRoZSBpZGVhIGlzIHRoYXQgdGhlIG9iamVjdHMgdW5kZXIgL3N5cy9k
-ZXZpY2VzL0xOWFNZU1RNOjAwLw0KPiBjb3JyZXNwb25kIHRvIG5vZGVzIGluIHRoZSBBQ1BJIG5h
-bWVzcGFjZSBhbmQgdGhleSBtYXkgb3IgbWF5IG5vdA0KPiBjb3JyZXNwb25kIHRvIHBoeXNpY2Fs
-IHBpZWNlcyBvZiBoYXJkd2FyZS4gIFRoZXkgYXJlIHJlZmVycmVkIHRvIGFzDQo+ICJBQ1BJIGRl
-dmljZXMiLCBidXQgaW4gZmFjdCB0aGV5IHJlcHJlc2VudCBwbGF0Zm9ybSBmaXJtd2FyZQ0KPiBp
-bnRlcmZhY2VzIHRoYXQgY2FuIGJlIGFzc29jaWF0ZWQgd2l0aCBkZXZpY2VzIC0gdGhhdCdzIHdo
-ZXJlIHRoZQ0KPiBmaXJtd2FyZV9ub2RlIGFuZCBwaHlzaWNhbF9ub2RlIHN5bWxpbmtzIGNvbWUg
-aW50byBwbGF5Lg0KPiANCj4gQWNjb3JkaW5nbHksIGFkZGluZyBjaGlsZHJlbiB0aGF0IGRvIG5v
-dCBjb3JyZXNwb25kIHRvIG5vZGVzIGluIHRoZQ0KPiBBQ1BJIG5hbWVzcGFjZSBpcyBjb25mdXNp
-bmcgYW5kIGdlbmVyYWxseSBxdWVzdGlvbmFibGUuICBDaGlsZHJlbg0KPiBzaG91bGQgYmUgYWRk
-ZWQgdW5kZXIgZGV2aWNlcyBwb2ludGVkIHRvIGJ5IHRoZWlyIHBoeXNpY2FsX25vZGUNCj4gc3lt
-bGlua3MuDQo+IA0KDQpUbyBmb2xsb3cgdXAgb24geW91ciBvYnNlcnZhdGlvbnMgYWJvdXQgdGhl
-IHBhcmVudGluZyBvZiB0aGUNClZNQnVzIHN5bnRoZXRpYyBkZXZpY2VzLCBpdCdzIGEgcmVsYXRp
-dmVseSBlYXN5IGZpeCB0byBwYXJlbnQgdGhlbQ0KdG8gdGhlIFZNQnVzIHBsYXRmb3JtIGRldmlj
-ZS4gVGhlbiB0aGV5IGFwcGVhciBhczoNCg0KL3N5cy9kZXZpY2VzL3N5c3RlbS9jb250YWluZXIv
-QUNQSTAwMDQ6MDAvTVNGVDEwMDA6MDAvPHNvbWUgR1VJRD4NCg0KL3N5cy9kZXZpY2VzL3BsYXRm
-b3JtIHN0aWxsIGRvZXMgKm5vdCogY29udGFpbiBNU0ZUMTAwMDowMC4gSSByZWFkDQp5b3VyIHBy
-ZXZpb3VzIGNvbW1lbnQgdG8gbWVhbiB0aGF0IHRoaXMgaXMgY29ycmVjdCBzaW5jZQ0KTVNGVDEw
-MDA6MDAgaGFzIGEgcGFyZW50Lg0KDQovc3lzL2J1cy9wbGF0Zm9ybS9kZXZpY2VzL01TRlQxMDAw
-OjAwIGlzIGEgc3ltbGluayB0bw0KLi4vLi4vLi4vZGV2aWNlcy9zeXN0ZW0vY29udGFpbmVyL0FD
-UEkwMDA0OjAwL01TRlQxMDAwOjAwLCBqdXN0DQphcyBiZWZvcmUuIEFuZCB0aGlzIGlzIGFsc28g
-cHJlc3VtYWJseSBjb3JyZWN0Lg0KDQpGV0lXLCBldmVuIHdpdGggdGhlc2UgZGV2aWNlcyBjb3Jy
-ZWN0bHkgcGFyZW50ZWQsIHJlbW92aW5nDQovc3lzL2J1cy9hY3BpL2RyaXZlcnMgc3RpbGwgY2F1
-c2VzIHN5c3RlbS11ZGV2ZCB2MjQ1IHRvIG5vdCBsb2FkDQp0aGUgZHJpdmVyIG1vZHVsZXMuIEFs
-bCBhbG9uZywgdGhlcmUgaGFzIGJlZW4gdGhpcyBlcnJvciBtZXNzYWdlOg0KDQogICAgIEZhaWxl
-ZCB0byBzY2FuIHN1YnN5c3RlbXM6IE5vIHN1Y2ggZmlsZSBvciBkaXJlY3RvcnkNCg0KdGhhdCBJ
-IGNhbiBub3cgYXR0cmlidXRlIHRvIHN5c3RlbS11ZGV2ZCwgYmFzZWQgb24gbG9va2luZw0KYXQg
-aXRzIHNvdXJjZSBjb2RlLiBUaGUgY29kZSBpcyBhIGJpdCBoYXJkIHRvIHVuZGVyc3RhbmQgaW4g
-YQ0KcXVpY2sgcGVydXNhbCwgYnV0IHByZXN1bWFibHkgIk5vIHN1Y2ggZmlsZSBvciBkaXJlY3Rv
-cnkiIGlzDQpyZWZlcnJpbmcgdG8gL3N5cy9idXMvYWNwaS9kcml2ZXJzLg0KDQpGaW5hbGx5LCB2
-bWJ1c19hY3BpX2FkZCgpIGRvaW5nDQoNCiAgICBBQ1BJX0NPTVBBTklPTl9TRVQoJmRldmljZS0+
-ZGV2LCBkZXZpY2UpOw0KDQppcyBpbnRlbnRpb25hbCBhbmQgbmVlZGVkIGluIGEgcGVydmVyc2Ug
-c29ydCBvZiB3YXkgd2hlbg0KVk1CdXMncyBtYWluIGlkZW50aXR5IGlzIGl0cyBBQ1BJIGRldmlj
-ZSBpbnN0ZWFkIG9mIGl0cw0KcGxhdGZvcm0gZGV2aWNlLiBJdCdzIG5lZWRlZCB0byBtYWtlIGRl
-dmljZV9nZXRfZG1hX2F0dHIoKQ0Kd29yaywgYXMgaXQgZmluZHMgdGhlIEFDUEkgY29tcGFuaW9u
-IG9mIGl0cyBhcmd1bWVudC4NCldoZW4gdGhlIEFDUEkgZGV2aWNlIGl0c2VsZiBwYXNzZWQgYXMg
-dGhlIGFyZ3VtZW50IHRvDQpkZXZpY2VfZ2V0X2RtYV9hdHRyKCksIHRoZSBsb29wYmFjayBtYWtl
-cyBpdCBwcm9wZXJseQ0KZ2V0IHRoZSBETUEgY29oZXJlbmNlIGF0dHJpYnV0ZSBzcGVjaWZpZWQg
-Zm9yIFZNQnVzIGluDQp0aGUgRFNEVC4gQnV0IGlmIHRoZSBWTUJ1cyBkcml2ZXIgaW5zdGVhZCB1
-c2VzIHRoZSBwbGF0Zm9ybQ0KZGV2aWNlIGFzIHRoZSBtYWluIGlkZW50aXR5IGZvciBWTUJ1cywg
-dGhlIGxvb3BiYWNrDQpiZWhhdmlvciBpcyBubyBsb25nZXIgbmVlZGVkLg0KDQpJIGludGVuZCB0
-byBzdWJtaXQgYSBwYXRjaCB0byBtYWtlIHRoZSBwYXJlbnRpbmcgY2hhbmdlLA0KYW5kIHJlbW92
-ZSB0aGUgQUNQSV9DT01QQU5JT05fU0VUKCkuIEJ1dCBiZWZvcmUgZG9pbmcNCnNvLCBJIG5lZWQg
-dG8gd29yayBvdXQgYSBwYXJlbnRpbmcgaXNzdWUgaW4gdGhlIEh5cGVyLVYgdmlydHVhbA0KUENJ
-IGRyaXZlci4NCg0KUXVlc3Rpb246IERvIHlvdSBoYXZlIGtub3dsZWRnZSBvZiBhbnkgdXNlciBz
-cGFjZQ0KdXRpbGl0aWVzIHRoYXQgbWlnaHQgYnJlYWsgaWYgdGhlIFZNQnVzIHN5bnRoZXRpYyBk
-ZXZpY2VzDQphcmUgbm93IGF0IGEgZGlmZmVyZW50IHBhdGggdW5kZXIgL3N5cz8gSSBkb24ndCBr
-bm93IHdoYXQNCnV0aWxpdGllcyBtaWdodCBiZSByZWFkaW5nIHRoaXMgc3R1ZmYuIFRoZXJlIGFy
-ZSBIeXBlci1WDQpzcGVjaWZpYyB1dGlsaXRpZXMsIGJ1dCBldmVyeXRoaW5nIHRoZXkgbG9vayBh
-dCBpcyB1bmRlcg0KL3N5cy9idXMvdm1idXMsIGFuZCBpdHMgc3RydWN0dXJlIGlzbid0IGNoYW5n
-aW5nICh0aG91Z2gNCnRoZSBzeW50aGV0aWMgZGV2aWNlIHN5bWxpbmtzIGNvcnJlY3RseSBwb2lu
-dCB0byB0aGUgbmV3DQpsb2NhdGlvbikuDQoNCkkgYXBwcmVjaWF0ZSB5b3VyIGhlbHAgYW5kIGNv
-bnN1bHRhdGlvbi4gSSd2ZSBsZWFybmVkDQpzb21ldGhpbmcuIDotKQ0KDQpNaWNoYWVsDQo=
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
+
+Critical: 1 · High: 0 · Medium: 1 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] The patch fixes only the IPv4 ESP transmit path.
+- [Medium] In esp_xmit() (net/ipv4/esp4_offload.c), the patch stores the
+  pre-advance high half only in the local `seq_hi`.
+- [Low] The commit message never says which path is affected, and it
+  leaves out part of the impact.
+
+--
+
+xfrm: esp4: use current ESN high bits for IV and AAD
+
+This commit makes esp_xmit() save both halves of the current sequence
+number before it advances the GSO sequence state, and builds esp.seqno
+from that saved value. esp_output_set_extra() now takes the ESN high
+bits for the AAD from esp->seqno, not from the offload or skb cb state.
+
+> With AES-GCM, this assigns
+> the boundary packet the same nonce as the packet sent one complete
+> 32-bit sequence-number cycle later.
+
+[Severity: Low]
+This isn't a bug, but could the commit message say which configurations
+are affected?
+
+In esp_xmit(), the sequence only advances under XFRM_GSO_SEGMENT.
+esp.seqno and the AAD are only used by esp_output_tail() when hw_offload
+is false. That seems to limit this to GSO traffic that is segmented in
+software and encrypted through the CRYPTO_FALLBACK path.
+
+Two other details also seem to be missing:
+
+With the old code, the boundary packet carried AAD seqhi H+1. The peer
+works out H from its replay state, so it would already fail ICV
+verification on that packet.
+
+The collision with the packet one cycle later only happens if that later
+packet at low 0xffffffff is not itself a software-segmented GSO segment.
+Such a segment would get hi H+2.
+
+> diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
+> index abd77162f5e75..79f7d08325c50 100644
+> --- a/net/ipv4/esp4_offload.c
+> +++ b/net/ipv4/esp4_offload.c
+
+[ ... ]
+
+> @@ -334,7 +336,7 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+>  	if (xo->seq.low < seq)
+>  		xo->seq.hi++;
+
+[Severity: Medium]
+The saved seq_hi only goes into esp.seqno, and only esp_output_tail()
+reads that, on the !hw_offload path. On the hw_offload path, xo->seq.hi
+is still incremented here for the segment whose on-wire low seq is
+0xffffffff. skb_ext_add() keeps that value and it goes to the driver
+with XFRM_XMIT.
+
+Can the advanced high half still reach the device AAD for ESN SAs?
+
+ch_ipsec sets NETIF_F_HW_ESP but not NETIF_F_GSO_ESP. So TCP GSO over an
+offloaded SA is split in software by esp4_gso_segment(), which sets
+XFRM_GSO_SEGMENT. xmit_xfrm_check_overflow() in validate_xmit_xfrm()
+only runs for skb_is_gso() skbs, so it does not run for these segments.
+
+ch_ipsec supports ESN, and copy_esn_pktxt() builds the AAD like this:
+
+drivers/net/ethernet/chelsio/inline_crypto/ch_ipsec/chcr_ipsec.c:copy_esn_pktxt() {
+    ...
+	seqlo = ntohl(esphdr->seq_no);
+	seqno = cpu_to_be64(seqlo + ((u64)xo->seq.hi << 32));
+	memcpy(aadiv->seq_no, &seqno, 8);
+    ...
+}
+
+For the boundary segment, the device would authenticate over
+(H+1, 0xffffffff). The peer expects H and would fail ICV verification.
+The AAD would also match the packet one cycle later.
+
+nfp_net_ipsec_tx_prep() also copies xo->seq.hi, but NFP rejects ESN
+states at add time, so only ch_ipsec seems to be affected. I could not
+confirm whether this also leads to nonce reuse, because ch_ipsec takes
+the IV from the packet's IV field.
+
+>  
+> -	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
+> +	esp.seqno = cpu_to_be64(seq + ((u64)seq_hi << 32));
+
+[Severity: Critical]
+Commit 4b549ccce941 (the Fixes target) added the same wrap handling to
+both esp_xmit() and esp6_xmit(). Is the IPv6 side still affected after
+this patch? The commit message does not mention IPv6.
+
+net/ipv6/esp6_offload.c:esp6_xmit() {
+    ...
+	seq = xo->seq.low;
+    ...
+	if (xo->flags & XFRM_GSO_SEGMENT) {
+		esp.esph->seq_no = htonl(seq);
+
+		if (!skb_is_gso(skb))
+			xo->seq.low++;
+		else
+			xo->seq.low += skb_shinfo(skb)->gso_segs;
+	}
+
+	if (xo->seq.low < seq)
+		xo->seq.hi++;
+
+	esp.seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
+    ...
+}
+
+esp_output_set_esn() in net/ipv6/esp6.c also still takes the AAD high
+half from the advanced offload state:
+
+	if (xo)
+		seqhi = xo->seq.hi;
+	else
+		seqhi = XFRM_SKB_CB(skb)->seq.output.hi;
+
+For the boundary segment with on-wire seq (H, 0xffffffff), that gives
+IV (H+1, 0) and AAD seqhi H+1. This is the same problem this patch fixes
+for IPv4.
+
+esp6_xmit() also builds the IV from the advanced low half. A
+software-segmented packet with header seq S is therefore encrypted with
+IV S+1, even when there is no wrap.
+
+xfrm_replay_overflow_offload_esn() reserves exactly gso_segs numbers
+(S..S+n-1) for a GSO skb, so the next packet gets S+n. Suppose that
+packet is not GSO: it goes through esp6_xmit() without
+XFRM_GSO_SEGMENT, or through esp6_output(). Its IV is then S+n, the
+same IV the last segment of the previous batch used.
+
+esp6_output_tail() copies esp->seqno straight into the AEAD IV.
+
+Could this give AES-GCM nonce reuse within a single sequence cycle?
+xfrm_dev_offload_ok() returns true when x->xso.dev is NULL. Non-offloaded
+SAs with esp6_offload loaded would then go through:
+
+xfrm_output()
+  xfrm_replay_overflow_offload_esn()
+validate_xmit_xfrm()
+  esp6_gso_segment()
+    esp6_xmit()   /* CRYPTO_FALLBACK */
+      esp6_output_tail()
+
+Should esp6_xmit() also save both halves before the advance and build
+esp.seqno from them? Should esp_output_set_esn() then take seqhi from
+esp->seqno?
+
+>  
+>  	if (hw_offload && encap_type == UDP_ENCAP_ESPINUDP) {
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925095128.446450-2-Jeremy.Jean%40oss.cyber.gouv.fr
