@@ -1,89 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD20D3D79EF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5A1548555
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706290; cv=none; b=V32tj/0e95NsO+TECM3S0iRD+6dWJNArgPsH4WWtPWyeytQeAJixxQhzjcP94Y0+9lANPFqNTakyIlZsYqaJfTSYdc9ljpGK8/WYkNe8W+IWhF83lFX8Bhg7ApO3m9ZZu+LjEoPYL1EESpKno8ls2SyhHQ5tr2/sYdKn/SNT3TY=
+	t=1790706295; cv=none; b=sXPUYAWZOhQH/XLCN9nm5nBgfn4hcG+3IcA+377uKQ1RpM4o9g8nCE7REoNrtf5nXpY9qqENG9itT9ccBIXgED2SUdhPSlUbd1yip+CkBvM/xmzmLpzNFGYDCOkqC6whRO5vHRp+Foo93U1r1Hi4m0C2fn4aTsFLx5+35Jukh8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706290; c=relaxed/simple;
-	bh=5ZpoQ6vW9ZwnwxeQfbaTmz3p0YbxfvEbLvi9mAagRCo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LpBLl1drsesosLmngJ0w6Lgc++lmBGTcUGocKQHU3eHp2Cey14UHTIexmq+DJn0f/PJwkLRPTbhEHQruxFWnKP+VXsTmFS0DzWW2VHv3KRacfr4YM9uh+3Ln02gUHqIchOncwFuR5fglHZukUodQj6bEbBQhVF49cb90dUpnqGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kx10XmVa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790706295; c=relaxed/simple;
+	bh=Fqx3KWI7zKF5EUe6C94Wva7dKRKSJh6v1+D4Wvd7Z6w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RRLweG4yOITEAp06luBD65HPMKhJTZQx7abBUvspP1XR+adDCY/oogHmBI4RNYW8J+mpQAB265Xes17T+nf6Q6Y8uyvAqM3SvdIQhrygOz4yxuyIQtS/nvboZUddG8FSlO6fXlknhWIY0aj1/ihpUAxfENSlZJx5HlQzZCBsIeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjB1zXAV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kx10XmVa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9B81F000FF;
-	Tue, 29 Sep 2026 18:24:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjB1zXAV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D335B1F00898
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790706289;
-	bh=IrC4cWja7TCbiw78bWvPQDNptyMl3nO7KwA5wFFZroM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Kx10XmVaId7/ri+3fc2IQCfjoT77F2zkVT1y3XpBpPg1MeDypM6MiusbI3Z3/3fBF
-	 J0NIei3R+KW0yrrUGtvdIbJKuJ7jPvOnDYilQTMoMI6rPFMLkr3c8li8a5v8dVQc5w
-	 n/M5AvU8AX2zh17e8hDhJ56IklMa34rdhPZNhgcKhLyjTY9oE6hd+EKP1blcO/1dYY
-	 PoVqwOAem5fmGafiqQp/3gviF+hMWyFhwpSP5POVg2UfWsmRWxo6u4HX3JIw5wRw2i
-	 lqMtOY+rTMEPAchZT0vJlzGCCP/u3fqtGClOpvH4u3k7MACz6iFTQOQgB2UbFiVPoy
-	 kP2Vfq6YFOumQ==
-Message-ID: <aee76270-590d-4d2b-93ca-23e56bc3f482@kernel.org>
-Date: Tue, 29 Sep 2026 13:24:47 -0500
+	s=k20260515; t=1790706292;
+	bh=3LDX7+Mud3J8zpXdkSNDNa5bDkRHbdnXtamokc+3+WM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SjB1zXAVHcEWSyy04t0xKLh4vANfjZ7jkgMABnSmYpkaV75cP5FCbQMmxmUXUzONr
+	 db1qTL9LvTsNPaQNO0G/H64YNSm9xuKV0cwqI4UiBPXnsAa5Usjaxl8KaHjS7yRiXu
+	 FsPuly5tl+i7rskXFuSVPE/nZs5ftybjPmv8C/mN1s48ZflzAGL9/VrBt5cMZ/uG8r
+	 oxIfYdcVYIiWhSmhrwEfLmfdWs3I5AO4lqk3XTu9fg5g2MDaKGKlzhQOt0ugC2z4gg
+	 y5oUJLSgFSejHOdWjTtYD03AbCAqmwZmI96JEm5aWzh1ELgmAfgb5baUl522HFNa7y
+	 G0OptBkW3pWeQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330dc164so822954e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:24:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw4pc1tVg4Dy1DxxASzTrAiRLe3dQlFc7IKAvXPnBUQ5spi/8naZ1VZ9x1ikxXB2WVWxJPq8zyOGJ94eQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJinoWzYiN0xrmMdYvdj3RFyHlWWjgrtoQ+BPNitbKlADGfOj+
+	HpGNZyCV/VLw/kQzirK5UzvxKeMy67CVKoap5S47NfpXJ5lzWoBgYOEkvoIzKTBz3pGL4RJpcoi
+	Y2nOGA+SUQlqk+PHfGc7MJn0poowK+BE=
+X-Received: by 2002:a05:6512:6884:10b0:5b7:593c:244a with SMTP id
+ 2adb3069b0e04-5ba3bcc0f5cmr86226e87.44.1790706291286; Tue, 29 Sep 2026
+ 11:24:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] accel/amdxdna: Add support for AIE2 revision 9
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- karol.wachowski@linux.intel.com, max.zhen@amd.com
-Cc: linux-kernel@vger.kernel.org, sonal.santan@amd.com
-References: <20260929181459.928468-1-lizhi.hou@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260929181459.928468-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260929181056.4746-1-mhklinux@outlook.com>
+In-Reply-To: <20260929181056.4746-1-mhklinux@outlook.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 29 Sep 2026 20:23:07 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jNJBCK1Zj0cVuTK3mtyJFF3MbEH8HKvTNKCa84eMUdmQ@mail.gmail.com>
+X-Gm-Features: AclHuK-cFszhp4BxuzIJ6fUSdOus_BTEAFvvpq0fl1NsiwLrWWh5dCh7Xo8S6XY
+Message-ID: <CAJZ5v0jNJBCK1Zj0cVuTK3mtyJFF3MbEH8HKvTNKCa84eMUdmQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] PCI/ACPI: Remove Hyper-V special case in pcibios_root_bridge_prepare()
+To: mhklinux@outlook.com
+Cc: rafael@kernel.org, lenb@kernel.org, bhelgaas@google.com, 
+	linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 29, 2026 at 8:11=E2=80=AFPM Michael Kelley <mhkelley58@gmail.co=
+m> wrote:
+>
+> pcibios_root_bridge_prepare() currently has code to handle Hyper-V
+> guest root bridges with the sysdata parent field set to NULL. While
+> this special case existed when commit 7d40c0f70d92 ("arm64: PCI:
+> Support root bridge preparation for Hyper-V") was accepted, more
+> recent commit 8d21732475c6 ("PCI: hv: Propagate coherence from VMbus
+> device to PCI device") always sets the sysdata parent field to a
+> non-NULL value.
+>
+> No harm is caused by leaving the special case in place, even
+> though it is no longer needed. But in the interest of overall
+> code cleanliness, remove it.
+>
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-On 9/29/26 13:14, Lizhi Hou wrote:
-> aie2_get_dev_revision() fails to recognize AIE2 revision 9 hardware.
-> Add AIE2_DEV_REVISION_GRGH to the list of supported AIE2 revisions.
-> 
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
-> V2:
->    Fix sashiko comment: add the revision string.
-> 
->   drivers/accel/amdxdna/aie2_msg_priv.h | 1 +
->   drivers/accel/amdxdna/npu4_regs.c     | 1 +
->   2 files changed, 2 insertions(+)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h b/drivers/accel/amdxdna/aie2_msg_priv.h
-> index fd65a4236d49..8ed2b5701dcc 100644
-> --- a/drivers/accel/amdxdna/aie2_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie2_msg_priv.h
-> @@ -530,6 +530,7 @@ enum aie2_dev_revision {
->   	AIE2_DEV_REVISION_GPT1,
->   	AIE2_DEV_REVISION_GPT2,
->   	AIE2_DEV_REVISION_GPT3,
-> +	AIE2_DEV_REVISION_GRGH,
->   	AIE2_DEV_REVISION_UNKN,
->   };
->   
-> diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
-> index 15a161384625..c9648c8032ec 100644
-> --- a/drivers/accel/amdxdna/npu4_regs.c
-> +++ b/drivers/accel/amdxdna/npu4_regs.c
-> @@ -153,6 +153,7 @@ const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[] = {
->   	{ AIE2_DEV_REVISION_GPT1, "NPU Gorgon Point 1" },
->   	{ AIE2_DEV_REVISION_GPT2, "NPU Gorgon Point 2" },
->   	{ AIE2_DEV_REVISION_GPT3, "NPU Gorgon Point 3" },
-> +	{ AIE2_DEV_REVISION_GRGH, "NPU Gorgon Halo" },
->   	{ 0 }
->   };
->   
-
+> ---
+> This patch does not just do a revert of 7d40c0f70d92 because
+> an intervening commit moved the code to a new source code
+> file.
+>
+>  drivers/pci/pci-acpi.c | 12 +-----------
+>  1 file changed, 1 insertion(+), 11 deletions(-)
+>
+> diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
+> index 42d545edd7fa..452a90317c58 100644
+> --- a/drivers/pci/pci-acpi.c
+> +++ b/drivers/pci/pci-acpi.c
+> @@ -1572,17 +1572,7 @@ int pcibios_root_bridge_prepare(struct pci_host_br=
+idge *bridge)
+>                 return 0;
+>
+>         cfg =3D bridge->bus->sysdata;
+> -
+> -       /*
+> -        * On Hyper-V there is no corresponding ACPI device for a root br=
+idge,
+> -        * therefore ->parent is set as NULL by the driver. And set 'adev=
+' as
+> -        * NULL in this case because there is no proper ACPI device.
+> -        */
+> -       if (!cfg->parent)
+> -               adev =3D NULL;
+> -       else
+> -               adev =3D to_acpi_device(cfg->parent);
+> -
+> +       adev =3D to_acpi_device(cfg->parent);
+>         bus_dev =3D &bridge->bus->dev;
+>
+>         ACPI_COMPANION_SET(&bridge->dev, adev);
+> --
+> 2.25.1
+>
