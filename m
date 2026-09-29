@@ -1,133 +1,156 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6453DF00B;
-	Tue, 29 Sep 2026 19:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8246E346ADB;
+	Tue, 29 Sep 2026 19:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709742; cv=none; b=kWUaYq9fBi6ix7KwqSaafTMsSBdTq3hWqHEat+knKbjBYvYqD1SgD2U4QmtqRJoxWPlhxcAkUcPVZy6MdI9/zlhrROyeaEpM/S/n3NWpfbuHh9HB+Iwf0UChzYDIE0osubZZYy+TXpYO5M8Ja3oWAIZScUqRlyfcINit4ysVGec=
+	t=1790709794; cv=none; b=f6OusgKsDkV4aJiuqhASQs7kN4cHJNo6oIXxMv+iHrN+qDYJMMj6SEZXjT7GyyyST6u4PkrB0Wmakzl30UKeUBhUOvNO9SOUHyc48dm+/qNonpuSD2i0va0iub9lOdb5KFHcTqCzdEkBXmn5KNzRroCEmWQ9WcvLO7zPKNRiIvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709742; c=relaxed/simple;
-	bh=0TUQLwiE0x0ZXS8CLuMe8EUmSABPae9Whz3kH0OgEVk=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=qhO8Yo0LLtBz3210wYUpFviiKdv9/UrTLs2A3UNTbNUtZfJ+zpPiXYgD8gN6a37CpN+q0oSH0ttapcQ9WZsJuZ1rLiilLFWgkir1ieFL+PUlK8vvy6TH9FY5d8LPiQQOXe1Qgne9TXCQq4gcjRQ3uc51/h8rvyzaExVj4L1RXSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NjuuA8Pc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=B+oraiRf; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NjuuA8Pc";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="B+oraiRf"
-Date: Tue, 29 Sep 2026 19:22:18 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790709739;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gQSKJz4L3mjf5A1PR2ahMvfXjy8zgOtrrmV/UPzt6nY=;
-	b=NjuuA8PcgAVTMjk3ChHm3HPqQSjJFKee/roUcLSPZ1HykrYM2/ZGK1C3Q5uAcOhQz7Llz8
-	K95XHim0VWM5zjnUapP8viiGCXXXsTRpRv33gr8D4zjhuQZ5C3weStrQJ9HWEga04XLSXM
-	ReFFViG5SFIqpAaQ7Ry6gS0m57ujOtZ8sl+meKoKPPnSD1RAf3VGaW7OmVM9tac/BOlyK2
-	BdtXPj642fxi5bNtoYObOmHtN5icePi6AdmcQH/wlxzoHx6liPeHFjAfgpaf8xRVt2zwZH
-	GD1gJOy/mNP65xBeCFJzXf04ajgUgcrMLwHyZsvfLS2IJBuUTEHjr/bgUc0A2Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790709739;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gQSKJz4L3mjf5A1PR2ahMvfXjy8zgOtrrmV/UPzt6nY=;
-	b=B+oraiRf7pqVMYEWhNJPdzUWDEhtX64eY2ymOvLHtcD6SF6rl/MTzxX59tpRMDaGo8EIAF
-	5ZAjapA5MLbzLhAw==
-From: "tip-bot2 for Karl Mehltretter" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: timers/core] time: Prevent time64_to_tm() day truncation on 32-bit
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Thomas Gleixner <tglx@kernel.org>, thomas.weissschuh@linutronix.de,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260925165702.51677-2-kmehltretter@gmail.com>
-References: <20260925165702.51677-2-kmehltretter@gmail.com>
+	s=arc-20240116; t=1790709794; c=relaxed/simple;
+	bh=cSQ7YCu+UoGfjz8hkxjPBkniKzoBGa1mW6bgEpORYvU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=oCVM6r93zTICVjnuXIXYvDqxdYFwU2Peom6S+hqYcPdpfc7eJFU4I1sB4OI/mcP1MDh4JZPkWw+ZGWY0Tg6uySEeYR+G4wwfigLY4R9znJhhcZjyp+SROSTYhrL7HaWEtrK35wULzgDePLDjPQkAtvawtj56hPBrfmnhMxn5WNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.78.6.248) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 29 Sep
+ 2026 22:07:53 +0300
+Message-ID: <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
+Date: Tue, 29 Sep 2026 22:07:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179070973803.3910103.15764442265132096616.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
+To: Jiale Yao <yaojiale02@163.com>, =?UTF-8?Q?Niklas_S=C3=B6derlund?=
+	<niklas.soderlund@ragnatech.se>, Paul Barker <paul@pbarker.dev>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Mitsuhiro Kimura <mitsuhiro.kimura.kc@renesas.com>,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <stable@vger.kernel.org>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-7-yaojiale02@163.com>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+In-Reply-To: <20260927144741.1320558-7-yaojiale02@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/29/2026 18:54:33
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 206322 [Sep 29 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 125 0.3.125
+ 408a76d0ab6a6a06c054d212c38932c1e9d7db86
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info:
+	omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.78.6.248
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 09/29/2026 18:57:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 9/29/2026 5:22:00 PM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-The following commit has been merged into the timers/core branch of tip:
+Hello!
 
-Commit-ID:     2927f7ca78448781e11a4623d347cd653c28adf6
-Gitweb:        https://git.kernel.org/tip/2927f7ca78448781e11a4623d347cd653c2=
-8adf6
-Author:        Karl Mehltretter <kmehltretter@gmail.com>
-AuthorDate:    Fri, 25 Sep 2026 18:57:01 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 29 Sep 2026 21:18:42 +02:00
+   I guess you used scripts/get_maintainer.pl -- if so, I suggest that
+you add --no-git-fallback next time. Your current To: list is painfully
+long and contains some long defunct addresses (like mine)...
 
-time: Prevent time64_to_tm() day truncation on 32-bit
+On 9/27/26 5:47 PM, Jiale Yao wrote:
 
-time64_to_tm() accepts a 64-bit seconds value, but stores the quotient in
-long. On a 32-bit kernel the day count therefore wraps when it reaches
-2^31, even though the corresponding year remains representable in
-struct tm.
+> ravb_remove() frees the netdev before devres releases the managed IRQs.
+> The handlers use the netdev as their data pointer, so an interrupt during
+> that window can access freed memory. Probe error paths have the same
+> ordering problem.
+> 
+> The remove callback also returns when runtime resume fails. That leaves
+> the netdev registered while the driver core still releases its managed
+> resources. A running interface already holds a runtime PM reference, so
+> the extra get cannot invoke a failing resume. A resume failure therefore
+> occurs while the interface is down and ndo_stop() will not be called.
 
-This is reachable when formatting externally supplied timestamps. For
-example, NILFS recovery copies the little-endian 64-bit ss_create field
-from an on-disk segment summary into time64_t. Its sysfs attributes then
-print that value with %ptTs, whose formatter calls time64_to_tm(). A
-corrupted image can consequently produce an architecture-dependent printed
-date.
+   Seems like a separate problem?
 
-Keep the day quotient in s64 while leaving the seconds-within-day remainder
-as long. Use div_s64_rem() for the weekday calculation so 32-bit builds do
-not require compiler runtime division helpers.
+> Place the IRQ resources in a dedicated devres group and release it before
+> freeing the netdev. Continue unregistering and freeing software resources
+> when runtime resume fails, but skip the unmatched runtime PM put.
+> 
+> Fixes: c156633f1353 ("Renesas Ethernet AVB driver proper")
+> Fixes: 48f894ab07c4 ("net: ravb: Add runtime PM support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/net/ethernet/renesas/ravb_main.c | 23 +++++++++++++++++------
+>  1 file changed, 17 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+> index ea1c7e536791..a25f5ac7062f 100644
+> --- a/drivers/net/ethernet/renesas/ravb_main.c
+> +++ b/drivers/net/ethernet/renesas/ravb_main.c
+[...]> @@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
+>         pm_runtime_disable(&pdev->dev);
+>         pm_runtime_dont_use_autosuspend(&pdev->dev);
+>         clk_unprepare(priv->refclk);
+> +out_release_irqs:
 
-Fixes: e6c2682a1da3 ("time: Add time64_to_tm()")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: LLM
-Reviewed-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
-Link: https://patch.msgid.link/20260925165702.51677-2-kmehltretter@gmail.com
----
- kernel/time/timeconv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+   Somewhat unobvious label name, given the following call...
 
-diff --git a/kernel/time/timeconv.c b/kernel/time/timeconv.c
-index 59b922c..aed3af9 100644
---- a/kernel/time/timeconv.c
-+++ b/kernel/time/timeconv.c
-@@ -49,8 +49,9 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm=
- *result)
- 	u32 u32tmp, day_of_century, year_of_century, day_of_year, month, day;
- 	u64 u64tmp, udays, century, year;
- 	bool is_Jan_or_Feb, is_leap_year;
--	long days, rem;
- 	int remainder;
-+	long rem;
-+	s64 days;
-=20
- 	days =3D div_s64_rem(totalsecs, SECS_PER_DAY, &remainder);
- 	rem =3D remainder;
-@@ -70,7 +71,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm=
- *result)
- 	result->tm_sec =3D rem % 60;
-=20
- 	/* January 1, 1970 was a Thursday. */
--	result->tm_wday =3D (4 + days) % 7;
-+	div_s64_rem(days + 4, 7, &remainder);
-+	result->tm_wday =3D remainder;
- 	if (result->tm_wday < 0)
- 		result->tm_wday +=3D 7;
-=20
+> +       devres_release_group(&pdev->dev, priv);
+>  out_reset_assert:
+>         reset_control_assert(rstc);
+>  out_free_netdev:
+> @@ -3141,9 +3150,10 @@ static void ravb_remove(struct platform_device *pdev)
+> 
+>         error = pm_runtime_resume_and_get(dev);
+>         if (error < 0)
+> -               return;
+> +               dev_warn(dev, "failed to resume device: %d\n", error);
+> 
+>         unregister_netdev(ndev);
+> +       devres_release_group(dev, priv);
+>         if (info->nc_queues)
+>                 netif_napi_del(&priv->napi[RAVB_NC]);
+>         netif_napi_del(&priv->napi[RAVB_BE]);
+> @@ -3153,7 +3163,8 @@ static void ravb_remove(struct platform_device *pdev)
+>         dma_free_coherent(ndev->dev.parent, priv->desc_bat_size, priv->desc_bat,
+>                           priv->desc_bat_dma);
+> 
+> -       pm_runtime_put_sync_suspend(&pdev->dev);
+> +       if (error >= 0)
+> +               pm_runtime_put_sync_suspend(&pdev->dev);
+
+   Hm, definitely seems like a material for a separate patch...
+
+[...]
+
+MBR, Sergey
+
