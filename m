@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CF43EB0E9;
-	Tue, 29 Sep 2026 03:15:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F8D3EBF0F;
+	Tue, 29 Sep 2026 03:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651763; cv=none; b=K8NOML3rjUIyb63gEL19UBbX2UiuvkHXCxKuuBRuiHmkh2/Y1CJWJ+552kEqhUeh5sFTA5J8miQueMxInpid6flNjsRaq4SGqzgRhLFEo71SANqX512SZZ3jeIrmgCdMA5NUZJOHmg6DdPK6GE4bY4D0O+NR/AVy2F4dXIVLr3Y=
+	t=1790651773; cv=none; b=t4fDYBHWSfb8EWoVpVX+Wo+wigBLwrSflSlS724xAvW0DVobNavZomUpx8WYj0b26hRJNqXAy+y5Jz4DStffddxM0FnG/wV0PKwbDjOJKAwuTv+HYBLwH0G4O31Uw7QAtmZzlbcFDzDnhl90sSMd55m/mPLU5SDtFzePWCFoQlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651763; c=relaxed/simple;
-	bh=O3Ym5GveT5yhqsvUNNXSLQ5xg6HrFBYGIE7rAlVgSAA=;
+	s=arc-20240116; t=1790651773; c=relaxed/simple;
+	bh=wxsWQz5kwMs62631hKp1pV8QSzsUrJQ+PkI9dfi9uD0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ppr5lOIVxyUVbyFHcCQqtbRan1C4iOgNxconbeuaq5nbY+Hul4gvN6cO8Ay+hxWIdKKjzggGlBHTvu3U70mitbt44cZWupS8Pq1456vz1N79AUWW030AUlCGqsSYTlP6cVP7Jv12+wv2QKaL4NFdVAmCgbkZ5cUEtSOAEuk8Oao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qv6wCM6K; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=pbsenwRCm8WIq4TPAlyhfSEwgGnZA8U+lz1wdxTG9rReFoCzZfr+Xzgs5ptf05nZSVjLQZWt3ZsKJEt6qc26KIZopNhcgsKbodSjFM0xx2Rt5c4vrX48uCQeoYBhGmARDVjlQj1jpko2QC+OZ3/DPup+y4dyW14ei+WZcoXhWPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7QS5SmC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qv6wCM6K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD781F00899;
-	Tue, 29 Sep 2026 03:15:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7QS5SmC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07ED1F00899;
+	Tue, 29 Sep 2026 03:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651758;
-	bh=Db0KTAvITs673R6dWGvKRXzE0kaDkIw5GF8d1x7MB/c=;
+	s=k20260515; t=1790651766;
+	bh=bgUGDLcQgcDEbbAt8TRQhftxnoEdzxO95+EbBYRuOPM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qv6wCM6KMkUiMu2H1dzDfYxK9EDWL8HpdrNwTd6aHgFdEvqpoFKm5J2BPUERl806U
-	 UNJGKLp/iD1mLKbAO56Hz4+HnUi6En7KYmQj/z+Rpy6bl8rrtIF2PLfjfmSi4CLRY7
-	 J2oeseT2kqXkJnEzuiWXf+g6ScB6p8BkVqgwAcUqval05AEuckbtHlCYc2XH+NS7Vd
-	 CnwTIBgNLpcOgmjv3XjvBOHMwsymEI7gPI4I+NlZk51l3eHIUe1OzjT0xQcXrdXDSr
-	 KDtuwHFjTT2QupStLQ3fmo89UyrjcqhzvA8o+Koo3AxZIfJRUfYJwpo7yH1DC+iF/z
-	 SmHWpH0Wio6RA==
+	b=C7QS5SmC+Uv+EIPEF/eDkt2jEMlq7tQRkVma5FKm50peKOlPzbDcId7NTH9wkUhD8
+	 kf2gbgekQrOJ2F5by5V4Zgv+Nu1YSXs8lXFePztJGP6eOLvK3t/aAJO3NAs0pVL5Sk
+	 bszrxbHSsrofipD/IRxZfla/1O+KmvtwGcIeRbRIc7jWRI+E6hyfUDENLMtDxAl7Fo
+	 WjFxt54u4rD5PvCmkPxQ6z9iM1px39CCRCkBhbL0ASStBpIKgZdBxBnFYqUmC2Ql1t
+	 FlFFij2S730VIMA/ZsBGnp6Ey9hb8eGMNZ4uHIvLsdu0l4Hd5qgpztlCJiM5Wmouy+
+	 zMLi0b0Y3fu8A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Greg Ociepka <greg@ferrisoft.com>
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Remove RTC-through-EFIvars
-Date: Mon, 28 Sep 2026 22:14:53 -0500
-Message-ID: <179065171038.2673486.12218858875515546084.b4-ty@b4>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Yibo Tan <lhfff@tju.edu.cn>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] soc: qcom: pmic_pdcharger_ulog: prevent work requeue during remove
+Date: Mon, 28 Sep 2026 22:15:00 -0500
+Message-ID: <179065171035.2673486.11996109111446095232.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-topic-remove_uefivar_rtc_a16-v1-1-0967d8d4b3a6@oss.qualcomm.com>
-References: <20260911-topic-remove_uefivar_rtc_a16-v1-1-0967d8d4b3a6@oss.qualcomm.com>
+In-Reply-To: <20260912161210.1683266-1-lhfff@tju.edu.cn>
+References: <20260912161210.1683266-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,15 +49,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 11 Sep 2026 15:27:03 +0200, Konrad Dybcio wrote:
-> This machine, unlike older Snapdragon laptops, doesn't feature an EFI
-> variable to denote the system time. Remove the property that suggests
-> it does.
+On Sun, 13 Sep 2026 00:12:10 +0800, Yibo Tan wrote:
+> pmic_pdcharger_ulog_rpmsg_remove() cancels the delayed worker while the
+> RPMsg endpoint can still deliver callbacks. The RPMsg core invokes the
+> driver remove callback before destroying the endpoint, so a response
+> callback can run after cancel_delayed_work_sync() returns and queue the
+> worker again.
+> 
+> Device cleanup then frees the devm-allocated pmic_pdcharger_ulog while the
+> requeued delayed work still embeds and dereferences that object. KASAN
+> reports a slab-use-after-free in pmic_pdcharger_ulog_work().
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-asus-zenbook-a16: Remove RTC-through-EFIvars
-      commit: 37e8a61bf7214306889777edd8bd3df53b52d287
+[1/1] soc: qcom: pmic_pdcharger_ulog: prevent work requeue during remove
+      commit: 2354a6131c7d28523675786ca95aadccc7763117
 
 Best regards,
 -- 
