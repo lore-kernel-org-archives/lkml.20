@@ -1,108 +1,102 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bisque.elm.relay.mailchannels.net (bisque.elm.relay.mailchannels.net [23.83.212.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC44E4BB267
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44394F30E5
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.212.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790719455; cv=none; b=VStLObTVoz7bQftBvlBZ1Q6ICeeP3zG4LWIqRBsPxGOeyIGmsGRKPYfjDsCpDvh+TtgbF1Jos1z6LcCSZSTvm33xlmzfd4tlYVPpbINiUFRGEZh102RwxGK3G37qq4Tesh1QA00Jki1gaFR12CJR3eXbl0YoR3awP9Rcv2IpoEE=
+	t=1790719597; cv=none; b=l8vAuPIY2TRHBI+mpF/G77c9hAYcfhjHn+Z7aAk/i5vtsV7SQP+XxjupQ8HQlgcUWx4R6jgfwIYQqj3/Uxqzn2KHz3II/dSIuX+02dgao2dXyPQ6pJPE3ZkQs83WTWHJAci/AgXrF8caqDkxy+g1JMslQ6k8P5KTgbAmfHzBCzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790719455; c=relaxed/simple;
-	bh=YxAlMmfVcm2W4cU7DakMAjMJLU1Lttxry7DoFyXpeys=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=XjQCCiAWfCt+uLKxHvIHYWLWq7YcfODClFdELqtqwYmkc56s9FkC6uriCFchGk0UeBrJL7Hr1SaSJCYqHgiIrvIQxx3FjUw52bCKehx6Gt6hW5JglpAsM+/iyjEzCcuo2uPlzhULEkwVcwx4CovFcFyueRuERICchMPLqaBbf3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=boaIMtN2; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+	s=arc-20240116; t=1790719597; c=relaxed/simple;
+	bh=rnXRN2btfBjXlj9+UP5d7AbbpYLkqFmJlBHFxGuZnF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GLqoXksMXTW10AQAYfc4GmIkqgGq8eOr/WKEWeGMdPgVbLWbxPmazj082dBqEA7aM5+7VNh2P/QXmXDrROg0Jpeca3YuI8cGs9q/RrJ105dDDorUk3PM5J7JjUrE+GBr7WItnCL06VAXKGqz6x8MITo78/KEPiELrEUQun9g3hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=iw4O0UlV; arc=none smtp.client-ip=23.83.212.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="boaIMtN2"
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b26d8d2498so7475778b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:04:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790719453; x=1791324253; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
-        b=boaIMtN2F6SKV2UXWEPsvgpSaMqoKNFG/ApU+MhZ+og2UKQrQP7mNh6kTpcpcIzVcS
-         yNkgdsT6pe/Jf8/OfpIbSRozzY6/k0c2U/4TSTds7WBfIK1AivvQh9Bg38Z9Z56++j+k
-         +pHOX8lPnIhBhF6kQo9i798bMg54JxcZqJ1Sftz0uxcLZhkKaD48VjvT9oa+MUS/cNLM
-         pCGCXYP9bQ24ZNQni2pLLVVAZ0SuxFOa6Frnkp493wo6hcw1rjshn5sBnskxjTBnbaUi
-         Z1/qsjSpufk6NvF9kAV+xeZDIwgx4rVTgvpfM3G7stq1mIl+YWgNKFEB6otNjTUuV7H0
-         b9Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790719453; x=1791324253;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1dGp94WLO2gdDysa7HIE4Qlt4fCj3et0VUDMOFJDyak=;
-        b=QRw17Bfjlq7bS5IdbdMvgXFylOT3rUecs8Ul8MX9UdXcbbgIBBk6pDVnL7kcHBarXh
-         5hjX/+XB8eXRifKoBZrBTxm31smvM4/NrQ33a+0XyPqb9IgABIvAvSSYgWwBy0kzSNaP
-         n3eas7FZjSwx3pZVF+coAkQN0BFW5f4E0CMofLDxAf6KZg6rhY7Ca2SqOpY4eJ1v1d6N
-         rqata5vHZGoV33ApIG8rDjl4uIDL9lgYIzKgfYiDjXLiCN/tzurhMkbYYPyUrZ1vzbIO
-         yMvYrgImhF1zDPQ0fs5psk9Se0EIUDMfxw2rR+nw/Lu9SR2fGU5nM7XPzCdUeXQj1y5D
-         d3HA==
-X-Forwarded-Encrypted: i=1; AKwUvBxw0UYqwclIjV3mDSydyNZ6H1yZEbIMC1NFBIdtkPNSOfq+gLOZIAe2in2XWIz88tnoyMnv11KUV9mnlEc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/K6d8CqpbL0AsV1/gIxrB4g/nOLmFgiPp0DTC3SmWCHDCRbmj
-	+QSsQSkCc2lZ8ipTPXduj+V7dNp0A5k3zi399dChNt6oOF15mmnwReiabU0JeGzNsCWTlCZrlYk
-	XANYA71EhKpSHlyt6aP9K/37z+Q==
-X-Received: from jabgg6.prod.google.com ([2002:a05:6638:6906:b0:5f6:798e:166d])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1927:b0:4ec:f57c:f81a with SMTP id 5614622812f47-4f074dcd517mr1045481b6e.12.1790719452327;
- Tue, 29 Sep 2026 15:04:12 -0700 (PDT)
-Date: Tue, 29 Sep 2026 22:04:11 +0000
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="iw4O0UlV"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 35B04722F48;
+	Tue, 29 Sep 2026 22:06:29 +0000 (UTC)
+Received: from pdx1-sub0-mail-a214.dreamhost.com (100-96-9-151.trex-nlb.outbound.svc.cluster.local [100.96.9.151])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 6993C720333;
+	Tue, 29 Sep 2026 22:06:24 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Tangy-Unite: 530991c145c229a7_1790719589024_875164832
+X-MC-Loop-Signature: 1790719589024:2443551087
+X-MC-Ingress-Time: 1790719589024
+Received: from pdx1-sub0-mail-a214.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.9.151 (trex/8.0.2);
+	Tue, 29 Sep 2026 22:06:29 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a214.dreamhost.com (Postfix) with ESMTPSA id 4hvXM24hD3z4D;
+	Tue, 29 Sep 2026 15:06:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1790719584;
+	bh=rnXRN2btfBjXlj9+UP5d7AbbpYLkqFmJlBHFxGuZnF4=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=iw4O0UlVuUCtg4I3HvnAX7SEl9beq1gzRb52FqW071b8inV64WZoIEJ19cd/REIb+
+	 LK892wufLNL0knY0d1S+dBO+TNlEU2naQh7cfZpsuIuHaptH2/sn35Y3nvS7YkebE0
+	 uF/0z0PfETllsjo7Y1GaiN42oNdDYM49+p5htjFxXyFhcHqgFQnyJ/SyFBGUEXQzyv
+	 K0QbMPUlZn/EAK94NpBlitCNpXU9chOIR+XAjrYzkcrBKSy8+G4ZQtsVyGjjzh6yKl
+	 RnXbvd7VHNOJvq+wiIBJ3QoSg3qs8twoJcA2PjJcgAlNRNwG6RQqvIIXAiYGZ3dDpG
+	 DJpvI6Ac8OrEg==
+Date: Tue, 29 Sep 2026 15:06:18 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Bharata B Rao <bharata@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Jonathan.Cameron@huawei.com, dave.hansen@intel.com,
+	gourry@gourry.net, mgorman@techsingularity.net, mingo@redhat.com,
+	peterz@infradead.org, raghavendra.kt@amd.com, riel@surriel.com,
+	rientjes@google.com, sj@kernel.org, weixugc@google.com,
+	willy@infradead.org, ying.huang@linux.alibaba.com, ziy@nvidia.com,
+	nifan.cxl@gmail.com, xuezhengchu@huawei.com, yiannis@zptcorp.com,
+	akpm@linux-foundation.org, david@kernel.org, byungchul@sk.com,
+	kinseyho@google.com, joshua.hahnjy@gmail.com, yuanchu@google.com,
+	balbirs@nvidia.com, alok.rathore@samsung.com, shivankg@amd.com,
+	donettom@linux.ibm.com
+Subject: Re: [PATCH v8 1/8] mm: migrate: Allow misplaced migration without VMA
+Message-ID: <20260929220618.6czpcioqwwg66m7c@offworld>
+References: <20260728054356.291998-1-bharata@amd.com>
+ <20260728054356.291998-2-bharata@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929220411.3756519-1-coltonlewis@google.com>
-Subject: [PATCH] KVM: arm64: Check ID_AA64DFR0_EL1.PMUVer in reset_pmevtyper()
-From: Colton Lewis <coltonlewis@google.com>
-To: kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Colton Lewis <coltonlewis@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260728054356.291998-2-bharata@amd.com>
+User-Agent: NeoMutt/20220429
 
-When userspace initializes a vCPU with KVM_ARM_VCPU_PMU_V3 but sets
-ID_AA64DFR0_EL1.PMUVer to NI (0) or IMP_DEF (0xf, which is sanitized to
-NI), resetting the vCPU invokes reset_pmevtyper(). Because
-reset_pmevtyper() only checks kvm_vcpu_has_pmu(), it proceeds to call
-kvm_pmu_evtyper_mask(), which reads PMUVer == 0 from ID_AA64DFR0_EL1 and
-triggers a WARN_ONCE("Unknown PMU version 0") in __kvm_pmu_event_mask().
+On Tue, 28 Jul 2026, Bharata B Rao wrote:
 
-Check ID_AA64DFR0_EL1.PMUVer directly in reset_pmevtyper() via
-kvm_has_feat() instead of kvm_vcpu_has_pmu() so that PMEVTYPER<n>_EL0
-resets to 0 without querying the event mask when PMUv3 is not exposed to
-the guest.
+>We want isolation of misplaced folios to work in contexts
+>where VMA isn't available, typically when performing migrations
+>from a kernel thread context. In order to prepare for that,
+>allow migrate_misplaced_folio_prepare() to be called with
+>a NULL VMA.
+>
+>When migrate_misplaced_folio_prepare() is called with non-NULL
+>VMA, it will check if the folio is mapped shared and that requires
+>holding PTL lock. This path isn't taken when the function is
+>invoked with NULL VMA (migration outside of process context).
+>Therefore, when VMA == NULL, migrate_misplaced_folio_prepare()
+>does not require the caller to hold the PTL.
+>
+>Signed-off-by: Bharata B Rao <bharata@amd.com>
 
-Fixes: bc512d6a9b92 ("KVM: arm64: Make PMEVTYPER<n>_EL0.NSH RES0 if EL2 isn't advertised")
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Colton Lewis <coltonlewis@google.com>
----
- arch/arm64/kvm/sys_regs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index a2f4e769a4282..0bb3c2f10a22c 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -1060,7 +1060,7 @@ static u64 reset_pmevcntr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
- static u64 reset_pmevtyper(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
- {
- 	/* This thing will UNDEF, who cares about the reset value? */
--	if (!kvm_vcpu_has_pmu(vcpu))
-+	if (!kvm_has_feat(vcpu->kvm, ID_AA64DFR0_EL1, PMUVer, IMP))
- 		return 0;
- 
- 	reset_unknown(vcpu, r);
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
