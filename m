@@ -1,288 +1,221 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A978D4E9C2C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673515; cv=none; b=pK2YPi4YHDzt61/XaQ81Kuf1WWNbf0dt7pW/Gsi+gdU4iisBRE4QCxgAVvaZ5roUktDz4Raw6DHHB0cySeU5MgYh+yujPiXXTlq9rYznBjBhd4pjIwsALBAj8bP7tzgRAw8RibKg7B6f00B0hgEV5gbPRXJ3xSlAKskvIti8wqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673515; c=relaxed/simple;
-	bh=Gd5DEslAjp0F3HbJsyLFYAPL42//vOVQ1Ghf2T01Jss=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nAcSQfUuEI1VQq4xMHu800Of8gEMoB+WY7MG7ewQho2R6eLJpQTSTeT0jiPYA6Kb0ttOylh4Az2Yp//FpEUOcNqJYm2DXw+t+JetIkvcLBG+hziGY3pbhZPpG28gZCXGp8D5SI2geLCQOW4RF62FdXrdbMlA4Pv1YGtLGuf0C94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=Ab9oHK2w; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF0D3AE19D;
+	Tue, 29 Sep 2026 09:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790673519; cv=fail; b=UCzALxTmhYVH4TGwdHeohS5Fd8GJ5Inu2i355vQSMwbSerzEgXNX94Z8X/m+E3DEz0DRpbhWGHHoRZAh9zdEYV/lL9eJz2Pz7vBJpRWYC+bKoGgtyxjMwlelkkxIGfYYIExNv8nnaMR0uwWN7lL1KrmqNj5vlYW9f6O+6GhFAOE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790673519; c=relaxed/simple;
+	bh=ipD+pvH1T9ilDZpKvSzBg4xMLSNiY/Bdrcflp5/qIgk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=crlHItMUKh1uGS73F5CinqAA67UmOjVGErR6gfzXNPO6C94PkObBHoByFtDx9hyRb6+xkqSJnxIf6qHbwKU7LU1ZwHlm5ihCYWKDrhsHRQnXCkgaZ1E6dBMUe8TAEXaWASGL8Mmp2FFFuoIzcJ1rnI/ga5+jXMOHn1fWoOHRhpI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SFqAafwO; arc=fail smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="Ab9oHK2w"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f6cf16bso2462089f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:18:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1790673493; x=1791278293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qV4Q28ZD1a1XczdrerQyg+46L7FroccXV02Vmd8dVAM=;
-        b=Ab9oHK2wGZuF14P1+tZ9tdR4HiUI50h9/U8HVkfPzKHWpXtEkYNxrsAgDTQKlhNBWV
-         tZLpK6nOMk+B8yJwHhSoB2ZzVTwIRoNJFBqs4++Zhijrf3AaG+/HP7uAAyGL1LZXDbb/
-         bfZixi0FYlOPFjGQs12mirDLpn/AHDY8bBdq0izCa9pivXuDxX0mftdkb3PXLVXq5PBV
-         owdx0sgDVUKj/hgKJYdirxAf/dnO4tEIZNsXNZd0sdRD+P3oTWf6AhWeY/gp0nw/KvZE
-         A3D18AxVIsh6bThLmT4xV+sch+vDzBH528II3tngJ1MW96luuep8nkKuOO9sBdFn9okF
-         Dq9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790673493; x=1791278293;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qV4Q28ZD1a1XczdrerQyg+46L7FroccXV02Vmd8dVAM=;
-        b=kj0PnzHzWk991CWpZa999qTrjZXjZg8eq/+BgQILXlXVVQFubQa1HYkqGrfryOeHTq
-         64DL4KQKdp+1Dnjnp7vt4IvmHYdoiYCRMx/mRMpftXP4pNTCt5OPw0/65jZ5/UCf2x1/
-         04AfkMWcD9H58fGVb+M9cv8pK/dtolXlBOqnwKcqzPQiQBpflsNDuCfURM36kqkwVkrJ
-         MSiigPaJTE38k9nRy0xBQB+X/BJdcUwk2ToEvCq0pNqUfhuNfdNh7h1KhWPehZLpYnUO
-         GWkUwg18gSpsZy4zB6GPChJLIxmGORKEVUhFzZML7bHLuHuebrMa2fS3bhjrexMjvoE9
-         R7xA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8wrS6bcp5Plj/F0QreJmWeNwUwAMarUa1/aizyRicXaQvFOm5UNSmol/eb3iAo6oSO6bBbNloR5yaxqs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQopB8VEMfED35XLmDwA7KfMowOZSae36U55Fl9rWsfqvKKGBz
-	4WtucTwAX3xIxE4h+6ljzJRgxL/jP5cx96TPCVJztbx6feWu9Kgzhc9cTtbXk7m+n7Si
-X-Gm-Gg: AYBFou1XXTX6OAhazGD7vX5DlBlYcYxlEiAsyhEzj71KI8+Mb86STDVxE/XTQ8sDJzB
-	QDvGgs+DBj/QOU2SDLd+VAc3urm0mKfrgeSEbCSPyjPlkt052QAL+5GnjDYPipJedr56YJHRWS0
-	n1sCOMOuWf5g0nvLyG9fpeEOZZJEbyIOhQXa1QR+TjdSgk7nNCCXMjEk7PTDBs+9GbM7eUKoUGS
-	98whdBo3Ysg1phwH2xsW67LMnUis0cSWvCXNi3jWmvGKEQJ/3B/YNnWRjbisiHqzeW6K7stjno5
-	cHk+AYZrG+jPDsPb9zshKVB95psuVtQpPMYJaO2q8LHt/D9xzq5bShw9oWLWRmN+TfV0n23pbG8
-	Bi/+hXFY9H88ExT/Plq4ZcuAKKg7BOj8RQMB9JV4oPeKnsCsK43mz9UiYMNn0aaKKakd2YWxgY+
-	HOAwFhjMkrULnuOVrgkbjiri/r3a6NCCfzb1S2vk/5ciJxKXSWfkjuUXwStPmlVRNHP84J+zRlJ
-	vLI45d34I2nLKsa1sBtCH33PzlWqgoSbqFjWw==
-X-Received: by 2002:a05:6000:4a1d:b0:487:1470:52d9 with SMTP id ffacd0b85a97d-4887d9fa527mr21778647f8f.3.1790673492769;
-        Tue, 29 Sep 2026 02:18:12 -0700 (PDT)
-Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af51c57a0sm2155723f8f.15.2026.09.29.02.18.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:18:11 -0700 (PDT)
-From: Diego Oliva <diego@bynar.io>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	linux-cifs@vger.kernel.org
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/7] smb: client: fix OOB read of the resume name sent in TRANS2_FIND_NEXT2
-Date: Tue, 29 Sep 2026 10:16:32 +0100
-Message-Id: <20260929091636.2618227-4-diego@bynar.io>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260929091636.2618227-1-diego@bynar.io>
-References: <20260929091636.2618227-1-diego@bynar.io>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SFqAafwO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790673504; x=1822209504;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=ipD+pvH1T9ilDZpKvSzBg4xMLSNiY/Bdrcflp5/qIgk=;
+  b=SFqAafwOqlflGZhFo/vSjXUd0UBCSPS+Nf2/NUpn/xEj24BwsU/9zzn4
+   oCXcHo2hIGIwd/zPIQvAW46nvxlN+mjXInX5rG14kmlBT7BJ2GcgaRBAJ
+   ZD67oFNE0fj4zDwWMjOfTNoOvWcQs8WnU9KeRIph7Hee3MOTNftyjNSEk
+   mlsR1Iz2SZ1hUE5jZXY5dyxOO3nwWFKC8xKoZK5oJV8Hn9n4RQQd1aPNP
+   tTvHiIpvmy9veR1e1eGS+pVEiwPeDW56h8ZuNBxsOEECy6meDSdyAevr/
+   hkT0gi+3en5GLhM4HVfBX4+LT7gr+NGiRUJBBy7Sz0X/Pv3ZuWCqEvAnB
+   Q==;
+X-CSE-ConnectionGUID: yJqHIjkMTzG86trzhYCpHw==
+X-CSE-MsgGUID: PZ2+y2psQsGWMYnkjgEHUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="102048972"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="102048972"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:18:18 -0700
+X-CSE-ConnectionGUID: BdNMsZYQQNGfu3Mq2H27UQ==
+X-CSE-MsgGUID: QbBXhMEiQuaxaeDpANaYxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274850728"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:18:18 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 02:18:18 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 02:18:18 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.18) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 02:18:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P2uIZvs7O8kmFH0/XMswHN1VeKBhOTkqjPebNLHtCqlzgpBAYSax+IfqVE5DpGpmSDLPPWPKB2f6ftmwQS/ko9JRkjByRQqIMxdF8g9pXoTyA87Eb8oNLLzY+vDeOZhprqRVoYc4/T4Y+BodWW36pUU3xZQ6fTbdzaTIO6VZcbO2rHKAGsNabieo/HVPhsbT+yLkO9eR8L8V0mhbHhazHekwEOWLOTQy7oXy4yrlko7y8cu/FqxtrVnAwnynbeZhbvtH32xQ6xzffIhyz2lZ2rPxVphSNSkE0uFHuPZHNK/kdOaaOFnq5sOtX2Ql8rpKONzLSVDG9RKRAEZDVa4k3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UNnSEzlpE7Y0vloa4sydeCVYyhiK1qxrxnsxAOlhwuI=;
+ b=eUoEYW+d0Ox87eIs+WwI+ISfOcAYuFO5XLNQYiJH+CLpOBKyINAs6A1sYuOSECAkJrTZ4BjI2arAgK8ksfczIgiMAXbXqZsQG/FpxvG5fkt8E2okGbClq7A1fB6nenltIDaGMbqbGGwQ+pf3FiUlmoDez9mEbT+gTPkFD7PDD4nGG6uFniFDA1sUZXLawfMZHQ8iOon9v1V08nhSYk9lFoZYYwulqb3vs/8mxz8v3U2SywkRCjZaBUhQmzc9iwGwGu5EJpquwxmCZlUE60bLDT4wDM8BUlUcQHUHf4BLqxcMy9aYrrjvSwGuvOprtoH6KnrascaekyjQa822gdSzIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8) by DS4PPFCAADA7A6C.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::4d) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 09:18:10 +0000
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd]) by CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 09:18:10 +0000
+Date: Tue, 29 Sep 2026 02:18:08 -0700
+From: Peter Fang <peter.fang@intel.com>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+CC: Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau
+	<kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	<linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<kvm@vger.kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu
+	<binbin.wu@linux.intel.com>, Tony Lindgren <tony.lindgren@linux.intel.com>,
+	Sean Christopherson <seanjc@google.com>, Artem Bityutskiy
+	<artem.bityutskiy@intel.com>
+Subject: Re: [PATCH v5 5/6] x86/tdx: Add a helper to query maximum Quote size
+Message-ID: <aruCUJObHUV-xt6q@intel.com>
+References: <20260928100913.2265687-1-peter.fang@intel.com>
+ <20260928100913.2265687-6-peter.fang@intel.com>
+ <61a63fcb-c40c-4259-b314-9ec63b0bc847@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <61a63fcb-c40c-4259-b314-9ec63b0bc847@linux.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0127.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::12) To CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB435924:EE_|DS4PPFCAADA7A6C:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1442225c-a48d-41c9-6d9e-08df1e0a94c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|11063799006|10067099003|56012099006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info: MliZ3X+Emw1upUAXhi7cgUORrcg2K892qaUZ+JDfzSDCKAgbJKdJkAggc4CGpKkPsC2AJHcW8VPEdIW29JESLT8HhYpQDO1upgdJ36P7sjtY2teXKlxx38evdbdBfyhDT0FlQLMI8Lyae6/zN7ES9s1SVdMhMfOBXR7QkKMO5pe96yk7oDobg44hPp+HtEbfu5eP48QHVTxbqdjicY5mmKFroRn++BdPlNnDIEknHQAdi9yxUs4N+ub6TKhIyF8SbD01eYf0h1IKyHPxK/4ooFwwV1az6qCTPfpJc8JBoKMitofUV4s058rFwg1hPmixYckAygMwZk1vvIzv7hQqfOFfwrQ6YIcat1qbKnmiandijQlqpFaEdkJ7VEJ7vyRyutD6pdNTo8bvKuHc7FmdQc6FydfqwezRyqLLahNrgJsXScuangkxZ2uZlTzXnjhZUvPKoJKfmMl8eAOFbClHOMNhvog0Sd+FrA69o5MT8jZ3E42qQrfxEUEQumancfac5giRJZpqsnA/cG55rgl+mHCKxHJj+G5xUgw+rec3UGcSFUmzw1K9UbKajL3lc4SnBQ4Ar4m0YgZ7esboOlv2rfxWTrEqEHtTGYK3T5kn/S2WeGXoRlGOxEWOjpdjpwtm
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB435924.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IcjUjHnWHcENOuRBcHJlVyMX1TGQrtVDGDhw6wjvF1DFZYdMm3oQAZ2YVjmf?=
+ =?us-ascii?Q?ew8+2hZDljH5BF0eX4ccdwVs7OxjJqL+HKABjd5dBwIKOvwlGLMTflZgByJT?=
+ =?us-ascii?Q?BpNDBmHOXOWqFpYbEBWHz1Jaj7pY3z5W03To64I3pNBLWOY0y5Llm/3lJx95?=
+ =?us-ascii?Q?Viezc+a3X/CX7HConOP7hMhk/JK0o+bpDfQwOq36UTfNJ80kiztXQmlHgc0A?=
+ =?us-ascii?Q?v/gEXMYl7djF9U1vKaySQwJQkFG+8Er2+gC6gFUcar4Eb1hejR9xdQ27eJkI?=
+ =?us-ascii?Q?5ndnJW5Wy3wcMg51/eCUhwiJXFH0TE+LFLUee/njBiAjPgZgu2h9GN0tNx2j?=
+ =?us-ascii?Q?SOo8/51VYfdxJ4WATqalC7jaDz/nTTQrS+46HKpPotWRPhs8mgoJ0/pRDX1n?=
+ =?us-ascii?Q?MVF1kr3/MEpVBMqhHyzkNqeQ7HJM0GCLq1WKh76Wk2e7ttSA73zb8GBYsF0M?=
+ =?us-ascii?Q?kxNWl/9LVh1BM5WNcvm8dB4LJ0QdzWxSq02Zeb15PSiSwGznu0JXY4D7s1Fc?=
+ =?us-ascii?Q?UIcN7ntgfzX92/4HnikFHGlx37QtUOIeVxKJaS1AdrT83Kw39TWmUGPYaiZ0?=
+ =?us-ascii?Q?T8eniEBRZ2zrxYll+jknumezwYqJbM0tqgEZhMp0lCf8M9ZVmZhIkPYyDja1?=
+ =?us-ascii?Q?4xTFyn+UTKwvzNU6UYVIxYeGCB1UrkId6hn6Mr7TQqAsYllsQLxkHX05SyW/?=
+ =?us-ascii?Q?CRQUvCeFYiH1amRdd5f7Kbtf6rT3Uuf3jRUHU34SKyuDa3RkmiGAWgk/WSfj?=
+ =?us-ascii?Q?k03NALtU14Qwsx6HVPkZVF+UvGIs7xhEZcy4pq9x/a4UT14h3dkcG1g33JER?=
+ =?us-ascii?Q?0vge6zeQF+t/X4/EBuoGyqYxNFqM+xfT5UlNHBFSuDBJJglnTsnEaxCADJpm?=
+ =?us-ascii?Q?6+bVK4cchN4DcbCPnbBJU9W9LM52u6sOAZBAPsdEsQRsz98dJjsSSZcYvsJQ?=
+ =?us-ascii?Q?d6uk5NZ02IsaTwRIXAeXLFlr64wHcNofqNLsGgjHS1l07doyRHcUoi5P2DYu?=
+ =?us-ascii?Q?WXy+HRVSb7wcBEpeWZY10L7jul6cZSjgdIA3MTIQNnaVLGEZC1Xsw73y2GqK?=
+ =?us-ascii?Q?HvhKLjuyvSC66j8P/lkchL4ZFZ2ePu7RT5GG9Whtp9UCjttnPtqzqfIydxGO?=
+ =?us-ascii?Q?E800DFcrmTC+nCDQ5kJU/y3oZO7pmpJBhDZXiRjB4sezjsaFTj3w3/wqYZoS?=
+ =?us-ascii?Q?2GDamv8/QQR3s0LAl+rqXO4v80SAZRkMteXn7ZupwGyA+dka4phXknSp/Crn?=
+ =?us-ascii?Q?kfvk74l6WaXyJZaYmq/bqesvdhy/sOrkJUes1I015kauM9mSlBZLVD48z52R?=
+ =?us-ascii?Q?xMa36NH2uRRtwfM2aYXjm898BdZ/j/iW89qLlLZ5C1hQedoMC0WKqzph48MS?=
+ =?us-ascii?Q?23O4FcooBUWcNihSc287UeDDcXfFVwsqxz/pKqlzTrid+Q2Cs1yjNPBRlflw?=
+ =?us-ascii?Q?BYYhT1YKPxZFKQdH85DrwIi7ChJvrsOaXQGDfBZYhSgk71h5rubjfMHqySi4?=
+ =?us-ascii?Q?lbdxmWRNDn+w/y0a37MzgQdgCwpwS3Gt288CVugY0RP7uAXc24NsgdWBcsA9?=
+ =?us-ascii?Q?Tzs7B8CwN/w2x7hF+qRLXCHPS6Z7eNg6eNsNz92YWZ9I00n30XRUeDKS0NDK?=
+ =?us-ascii?Q?BFShC2FTyJxZz9+Cgi2sVSV1lwHtSxevydGNjJpdqDEVybH5+IMPJOL2b3ou?=
+ =?us-ascii?Q?lLzU/TwV0LIULH/cjql0Z3ePkRFMWEJAECIhFzrZ9+N+faj6lkV4/M8iq8dk?=
+ =?us-ascii?Q?qEvxS+Wfvw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: t7Lh2YnsCZg2SKGkK7lAR18xKwYwufm0QUl79PLItjl8JdsmB+LIt4b8qyQsKChkXZLNbrxm/aP/sPyG1BStrxUjSfogXMl/ONu2yqR98w1JbbTWH3kQHaLaDf3c2Nt5HkNEypfPuL1XIS9SoAQ9UHGKhQI/3rWh+xWkwJWRb2UAwEF/ryve/qDcrft0+NNlNrwbI8TUjU1prwh2Dygan/uoDFDrAm0WfXEu6CgYMiaM0r2LPpxssV+zb1skM5Wymy/Mz6kgkYnECugU6T0qrraSNxi2WyQaRuimd0uyvjQdVLND6glUeNLsgNzn6CGE6JLqWri5F2JDz9oS/gF6aw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1442225c-a48d-41c9-6d9e-08df1e0a94c9
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB435924.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:18:10.5413
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ULwBR1rP24LP6/hwpyuYqEVfHeRtP8/6rS8XA7AR56xXVpd9DE5MVIUmI8p66I+XfUFkNA3N8IyG4onXekwy2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFCAADA7A6C
+X-OriginatorOrg: intel.com
 
-cifs_fill_dirent() reads the fixed part of a directory entry and the
-name length it holds, or for SMB_FIND_FILE_UNIX scans the name for its
-terminating NUL, without knowing where the response ends.
-cifs_save_resume_key() calls it for the entry at the LastNameOffset the
-server chose, after every FindNext and after the FindFirst of a search
-rewind, and records the name it returns as the resume name of the
-search without bounding it; the next CIFSFindNext() copies up to
-PATH_MAX - 1 bytes from that name into its request and sends them to
-the server. cifs_filldir() bounds
-the name against the end of the response since
-commit f8cf09a53a0d ("smb: client: bound dirent name against end of
-SMB response in cifs_filldir"), but only after cifs_fill_dirent() has
-read the entry, and nxt_dir_entry() checks the entries it walks only
-against sizeof(FILE_DIRECTORY_INFO), for every level but
-SMB_FIND_FILE_INFO_STANDARD, and never sees the first entry of a
-response.
+On Mon, Sep 28, 2026 at 01:32:06PM -0700, Kuppuswamy Sathyanarayanan wrote:
+> Hi,
+> 
+> On 9/28/2026 3:08 AM, Peter Fang wrote:
+> > TDX attestation report ("Quote") sizes can grow with newer crypto
+> > algorithms, so guests can no longer rely on a fixed-size buffer for the
+> > Quote.
+> > 
+> > The TDX module added a new ABI that reports the largest possible Quote
+> > size via a metadata field [1]. Add a helper to query the size instead of
+> > exposing tdg_vm_rd() directly, as it can read arbitrary metadata fields.
+> > 
+> > The reported size covers every Quote type the platform can produce,
+> > including SGX-based Quotes.
+> > 
+> > Thanks to Xu Yilun for suggesting this in an off-list discussion.
+> 
+> If the patch is suggested by Xu Uilun you can use Suggested-by:
 
-Bounding where last_entry starts, as the preceding patch does, does
-not bound the read. A last entry that starts within the final bytes of
-the response still has its fixed part read past the end of the
-received data, and the name length it declares, a __le32 for every
-level but SMB_FIND_FILE_INFO_STANDARD and SMB_FIND_FILE_UNIX, is
-recorded without being checked against anything. CIFSFindNext()
-rejects only a length of PATH_MAX or more, then copies the name, up to
-4095 bytes, into its request and sends it, and as the report below
-shows that copy can run past the end of the cifs_request allocation
-that holds the response. For SMB_FIND_FILE_UNIX the name is in
-addition scanned for its terminating NUL over up to PATH_MAX + 1
-UTF-16 units, or PATH_MAX bytes, before any check. The FindNext that
-carries the name is only sent by the SMB1 dialect, which is not
-negotiated by default; reaching it requires an explicit vers=1.0
-mount.
+I think tip's preference is to use some prose rather than a tag for
+these things [1]. So I'll probably keep the prose unless you have
+objections?
 
-With KASAN enabled, a response whose last entry declares a name
-longer than the bytes that follow it gives:
+[1] https://lore.kernel.org/all/c1c9bddf-1c00-4625-a915-d545acd67fd0@intel.com/
 
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in CIFSFindNext+0x8ca/0x14c0
- Read of size 4080 at addr ffff88807c823f98 by task ls/83
+> 
+> >  
+> > +/*
+> > + * Ask the TDX module what the largest possible Quote might be.
+> > + */
+> > +int tdx_get_max_quote_size(u64 *max_quote_size)
+> > +{
+> > +	u64 err;
+> > +
+> > +	err = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, max_quote_size);
+> > +
+> > +	/* Old modules do not support this. Tell the caller. */
+> > +	if (err)
+> > +		return -EINVAL;
+> 
+> I think -ENODEV or -EOPNOTSUPP is more appropriate return value
+> for unsupported case.
 
- CPU: 0 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  kasan_check_range+0x10f/0x1e0
-  __asan_memcpy+0x23/0x60
-  CIFSFindNext+0x8ca/0x14c0
-  cifs_readdir+0xf51/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
+Hmm, I don't see either one being a common pattern for guest-side TDX
+code. -ENODEV is usually used for some basic operation failure.
+-EOPNOTSUPP is not used in the guest. But between the two I think
+-EOPNOTSUPP probably fits better. Thanks.
 
- Allocated by task 83 on cpu 1 at 13.497119s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
+> 
+> Also tdg_vm_rd() updates max_quote_size on error case as well.
+> 
+> You can reset it or use local variable to skip passing incorrect
+> value on error case.
 
- The buggy address belongs to the object at ffff88807c820000
-  which belongs to the cache cifs_request of size 16588
- The buggy address is located 16280 bytes inside of
-  allocated 16588-byte region [ffff88807c820000, ffff88807c8240cc)
- ==================================================================
+That's true, but this won't be a widely used function, and the caller
+should check the return value first. So I'd think keeping it simpler
+would be better?
 
-The read is the memcpy() that copies the recorded name into the next
-request, so those bytes go to the server.
+BTW on error, max_quote_size will be set to 0. So it's also
+deterministic behavior.
 
-Pass the end of the response to cifs_fill_dirent() and have it reject
-an entry whose fixed part does not fit or whose name extends past the
-end, before either is used, so that both callers are covered;
-cifs_save_resume_key() computes the end the same way cifs_readdir()
-does. The name bound compares the bytes left between the name and the
-end with the name length rather than adding the length to the name
-pointer, since the length is a 32-bit value taken from the entry and
-the sum could wrap on 32-bit systems. cifs_fill_dirent() is also used
-on the SMB2 readdir path; there smb2_parse_query_directory() has
-already checked every entry against the end of the response, so a
-valid SMB2 response is not rejected by the new checks. The check
-cifs_filldir() applies after the parse is left in place. The NUL scan
-for SMB_FIND_FILE_UNIX names is capped by a separate patch.
-
-An entry and its name lie inside the data area of the response, so a
-server that points LastNameOffset at the entry is not affected. One
-that points it at the file name, as MS-CIFS 2.2.6.2.2 describes, has
-its last entry rejected here; the listing is unaffected, because
-cifs_readdir() records the resume name from an entry it emitted, and
-before this series such a response could instead end the listing early,
-since a name length read from the wrong place is usually PATH_MAX or
-more, which CIFSFindNext() rejects with -EINVAL.
-
-On trees before v6.19 the type for the level 0x105 fixed part is
-spelled SEARCH_ID_FULL_DIR_INFO; adjust when backporting.
-
-Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
-Cc: <stable@vger.kernel.org> # 6.1.x: f8cf09a53a0d: smb: client: bound dirent name against end of SMB response in cifs_filldir
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
----
- fs/smb/client/readdir.c | 37 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 34 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 6ab4e687c3e4..fdbe22b24c47 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -586,30 +586,46 @@ static void cifs_fill_dirent_std(struct cifs_dirent *de,
- }
- 
- static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
--		u16 level, bool is_unicode)
-+		const char *end, u16 level, bool is_unicode)
- {
-+	size_t len = end > (const char *)info ? end - (const char *)info : 0;
-+
- 	memset(de, 0, sizeof(*de));
- 
- 	switch (level) {
- 	case SMB_FIND_FILE_POSIX_INFO:
-+		if (len < sizeof(struct smb2_posix_info))
-+			goto too_short;
- 		cifs_fill_dirent_posix(de, info);
- 		break;
- 	case SMB_FIND_FILE_UNIX:
-+		if (len < offsetof(FILE_UNIX_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_unix(de, info, is_unicode);
- 		break;
- 	case SMB_FIND_FILE_DIRECTORY_INFO:
-+		if (len < offsetof(FILE_DIRECTORY_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_dir(de, info);
- 		break;
- 	case SMB_FIND_FILE_FULL_DIRECTORY_INFO:
-+		if (len < offsetof(FILE_FULL_DIRECTORY_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_full(de, info);
- 		break;
- 	case SMB_FIND_FILE_ID_FULL_DIR_INFO:
-+		if (len < offsetof(FILE_ID_FULL_DIR_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_search(de, info);
- 		break;
- 	case SMB_FIND_FILE_BOTH_DIRECTORY_INFO:
-+		if (len < offsetof(FILE_BOTH_DIRECTORY_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_both(de, info);
- 		break;
- 	case SMB_FIND_FILE_INFO_STANDARD:
-+		if (len < offsetof(FIND_FILE_STANDARD_INFO, FileName))
-+			goto too_short;
- 		cifs_fill_dirent_std(de, info);
- 		break;
- 	default:
-@@ -617,7 +633,17 @@ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
- 		return -EINVAL;
- 	}
- 
-+	if (de->name && (end < de->name ||
-+			 (size_t)(end - de->name) < de->namelen)) {
-+		cifs_dbg(VFS, "search entry name extends past end of SMB\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
-+
-+too_short:
-+	cifs_dbg(VFS, "search entry extends past end of SMB\n");
-+	return -EINVAL;
- }
- 
- #define UNICODE_DOT cpu_to_le16(0x2e)
-@@ -672,10 +698,14 @@ static int is_dir_changed(struct file *file)
- static int cifs_save_resume_key(const char *current_entry,
- 	struct cifsFileInfo *file_info)
- {
-+	struct TCP_Server_Info *server = tlink_tcon(file_info->tlink)->ses->server;
-+	char *buf = file_info->srch_inf.ntwrk_buf_start;
-+	const char *end = buf + server->ops->calc_smb_size(buf);
- 	struct cifs_dirent de;
- 	int rc;
- 
--	rc = cifs_fill_dirent(&de, current_entry, file_info->srch_inf.info_level,
-+	rc = cifs_fill_dirent(&de, current_entry, end,
-+			      file_info->srch_inf.info_level,
- 			      file_info->srch_inf.unicode);
- 	if (!rc) {
- 		file_info->srch_inf.presume_name = de.name;
-@@ -977,7 +1007,8 @@ static int cifs_filldir(char *find_entry, struct file *file,
- 	struct qstr name;
- 	int rc = 0;
- 
--	rc = cifs_fill_dirent(&de, find_entry, file_info->srch_inf.info_level,
-+	rc = cifs_fill_dirent(&de, find_entry, end_of_smb,
-+			      file_info->srch_inf.info_level,
- 			      file_info->srch_inf.unicode);
- 	if (rc)
- 		return rc;
--- 
-2.39.5
-
+> 
