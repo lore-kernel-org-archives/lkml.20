@@ -1,169 +1,216 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f18.google.com (mail-ej2-f18.google.com [74.125.228.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ECE3E6DEB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688689; cv=none; b=o1kXZkZ1ZQmgUP1wixSftTjMPDIh/WTe/Ya7Z9lqzl//ptgHsn2LN0DLzKauPLNvzQhj2X5nQQQvcTugoLB4JhaGoWzRkoi/t3bWMIrBGwPfiB57ZrRbAnsd8D1m0jGbegM9Kvb1MWZfpj0r+7QZH8YkWamgb+PEfYbOKz/4lfo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688689; c=relaxed/simple;
-	bh=vZHQZnKzND2V3/5evi3PxqRTOZ+codyE0Rd6KAGY/NU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=LSUMZLqBHnkHSbQLLCGc2sUwJFOBHTqiHmS6Z8+Ks7lSwmtUVqNGg9Q9fHnrld5jFHzOYCozuBKYcQvvA68SmIsRXd+76vdrChxODPsKpi0gIZREWXKEzNW3kGo1jgLm+XaJenkPQ58TyE0I8AKW+IbhVTgkYMxYuR4J83jUSSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cluWDE+n; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7FA5293EC
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.146
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790688717; cv=pass; b=Gew0hbQ3xaxlljhE/ZJl9ZBMLzCzW3NUkC1RECsuqDZS+KD4HI5EGVaebbqXVNPuVcHFUdLruCjeGxp3Zcpt95OWNiVLr2BG/zlHItF03UL9S7EverXmhLNhhmXW+AF8TlTQmVEWHTwPm47oF0T8hBjaWqAkVRqfhoQhFGONRxM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790688717; c=relaxed/simple;
+	bh=D7kmmG1GuO/EhWy2JaVucoGOlHpDmY1uBa+Wvm1wk+I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mrMVQyuy9oHK09gpaEKg2qUDjZwfDcgLrulo8tukzfdDN18Dksd1dCDEISfH7GReWL3Hmr4wrVWeI4anzlNTpVdaKcoboy/KclVGDgKw+1etc/8rtumHFQ9r31H6mMT0/OCkfxKraCYsrhsAQvtasFWfXHRcHa5e7vmvJSxspjA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V7SRBFAs; arc=pass smtp.client-ip=74.125.228.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cluWDE+n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=vZHQZnKzND2V3/5evi3PxqRTOZ+codyE0Rd6KAGY/NU=; b=c
-	luWDE+n2qfSNB+jwRWl1AcPHF/Ts6yalzPxDWhosnUlWOkso14Mw7dZfxGZQdvaW
-	9UohRvp7H14Zsl1K1TTinXS897DVjS1+uzabc5SXWHWkWgaqNSSiUIC95rsF7uTc
-	lN4OZfInd5BwI86oBdVMpAcer7EudQtICmk1475PLg=
-Date: Tue, 29 Sep 2026 21:30:25 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Heming Zhao" <heming.zhao@suse.com>
-Cc: "Joseph Qi" <joseph.qi@linux.alibaba.com>,
-	"Andrew Morton" <akpm@linux-foundation.org>,
-	"Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ocfs2: validate extent list in filecheck repair
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <6e19a760.6fea.1a0e709b376.Coremail.19888972804@163.com>
-References: <20260926131848.3379842-1-yaojiale02@163.com>
- <744a70bd-5455-421f-a37d-1c0a63f54b60@linux.alibaba.com>
- <aroZaYiB-DUxFyLs@p15>
- <6e19a760.6fea.1a0e709b376.Coremail.19888972804@163.com>
-X-NTES-SC: AL_Qu2SAvqTt04p4yGZZukcn08ShO49XMOyvfoi2YFTc+YElSvC4RoGdl5RBEDrysmADR2RkSe5VRVvzuh+cbRyOs3u1iW3UET2mYnrgc5mEA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V7SRBFAs"
+Received: by mail-ej2-f18.google.com with SMTP id a640c23a62f3a-c2b40e4744eso425098566b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:31:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790688714; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zi6uVKJQYHfuxIADfT+sSacX5iWG310mD953vWToXMNMqgIzGNx/gdgMWWHCX0idJ9
+         gfrnGaQNTJb7MBUOsCxkmVBBiDcuO3GOpjkVMDSqvV5rUtrTHjZ7qLpM00O5Dt1Hj1n8
+         sorBb2vc25BXN4bbQ5s7f3j5YwBnv+Y28JVkavKQ7RUeQ2OCET2zsrbfZFuqV3WFCWUn
+         qBF7zd7mugVAabCu/3JbAj1xGFQI8HXcOYCVH7d6khhH6QtqCKqTkjVydUChxwApgGX+
+         U6iTxReOUiubGsIukJn2KDdlicwPWl+EiIL7VxUYheYDEPNV0vYZ7hidDIiT8CT1t/vi
+         fq9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WbkScVBZE8CCnigxn/KSUYXgCxDjqVU+r7tVnxGgsoU=;
+        fh=FCD5Rucn0ZSmi1hw5s+99bhBuo8liTaCSqjCj4IW4O4=;
+        b=hHwDi2e/1MwsctN1/FyE9tofEEB9dEkUK+O2EhatPMIDBEkwxrd0YcXbWbHMF+/biq
+         9VXjbg3ocsk7OP6oHnuwKqHUScG3timQ/zGkT1W/ZvkGpEF3v4jJz3Bi8YICHqvpH6nl
+         Sz6UU2n5blUwSBUB/n73Jo9nx5N57pYAD5lzWCl965XqCIKW2q7do2ecn9ZxaSYGIzk9
+         CUip+IAXndviC1h9njGBWSMdz9nOMLdYC2EtNVn6/zlar8sYeiM6kPphHuk9vVyA3lWV
+         yTrQc0crnsD9qgY+hn8mjDoTNfbZ9EVS6ofXCd56LT0OnWVudPzAIguqGhM1etMsQba4
+         Ztlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790688714; x=1791293514; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WbkScVBZE8CCnigxn/KSUYXgCxDjqVU+r7tVnxGgsoU=;
+        b=V7SRBFAsaFxF/bR8AQCChI7QDr+gdHtPCW46ieDSLtl1J74RVKh1nCru4tmUxa9pzs
+         DJyd2RzpdXCwihB+MdHYouTMz/mrdnPelARnf6G7rcSuWWCa+KPBzi+H9VL3f6uKiTTN
+         E6F6S9Y2XEj6mhXQPNSOArnDr+jC6UqZ2b3euo4Z1gCWMVeVtUHm0ZmP6R6NP71gOd94
+         PXETtMkoFrPiwkimK0LckENGT7QiT+2l0CaSK/uORYzbm197AcvneSNXYscwzehsSkT4
+         hJkECoblzvXakrtqHityJ63xVaW3D8rjIpX3kO+kEsIiEbuEoCjABD61iKxvB5mQhxW1
+         eISQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790688714; x=1791293514;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WbkScVBZE8CCnigxn/KSUYXgCxDjqVU+r7tVnxGgsoU=;
+        b=vqPpEJzBTd6ymQ911kp9kg2KI4pf+xg9ewfsDA8oD24ZxzOMtinnhI3DcaXkE5A5pW
+         sVq3pf39E97umjkmf/Abtk57mMWKGeWuaRKesVfDX/ERw8OUZEDhN0f14wpHvof/HCLw
+         zj8t3nbGD8O4CKSIV+TZZ+Q8qY1LvvzAjYyoLKet4XRWbEEcKno5VDjz4jraKj7omtKr
+         EfM/307JBOh3UA5TgL5wdUH0Zqgx0yxUvlXhxzrcM2wAY7KK4Dzb3Ytdz9V+Kx56M7a4
+         5/xMbO8AZ2gLmvFQXr53CCDnWFu0VniT/7Stm2bPLH1VILgv0ZlXwS6Eqz//x6xC2jIS
+         3JcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAevt00tMcm3te0VJYBjDmmgf2q85pEa6jsYy/cCyzRKoUPEuMzK0gj3n1pQ20LStgDamggz9uWI59a4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJh7s6tVXkd5/AEQwddQYIkZ1LBIS6QuVgIckE5/Od/XttoEge
+	b4CgnjSI4mTEKOPEtL8rhMwY76w/8/aYb1fUWYVX6w5kuQKAiDQWUdbhPxy8/L++c+mSJ0HI0z0
+	pfPIiEJM971UJRRaHbdmUib5YbpdIar0=
+X-Gm-Gg: AYBFou0TdqbsgQuKN6cMFUGDqmoQBtk2nHuEXFdtGFkfShq+VnnF2p37IiQwsbmATYd
+	f1bDniJQg/t1BNx28brztaQaDNltSj+oGEktK1kB5+EKmbGEgpHF/fqseAKyGbsX1NzWZ4YlOqc
+	P0jSgvIN3CaincCm6nWJVFfoBNPPvUxg0+iutfm0UmJpKRFUJ1bL4Tq7xw9rOZ7S9etTOdYLBj5
+	6eSHVHHy9JSlham/NfhyiTNm06o+SsLSUQ5RlfoaBCEX1aIXPHcsQJagbnqtPXVBjN93YvT2ZN3
+	d/IfHyf64VjWKGXSrZOXAZ/0+NVUgkAiwqGRzii9og3z1/J4MOa6LoV6XX0rbPAILntZCSyUGjz
+	Ah0U9wVZQ55jGkk5Wxw5f5cpmdyy/hIZLUAxVln4fg0iYLBH5ATQaJgtoNF4blDNtk7fgYBmebP
+	mrC51AJDhTyNTlcufSBOAA8zqqRusJY5ebGak8sfvL
+X-Received: by 2002:a17:907:c819:b0:c29:d77b:66a0 with SMTP id
+ a640c23a62f3a-c2ac525f320mr1303304066b.10.1790688713752; Tue, 29 Sep 2026
+ 06:31:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <699a3fcd.9ad4.1a0ed5c01e1.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bigvCgD3v0FxvbtqYfxQAA--.655W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhEVT2q7vXFarAAA3u
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
+ <arZRZfa7AmDxmwoJ@ashevche-desk.local> <20260925125433.GY106095@black.igk.intel.com>
+ <araGjQoaffMhDMLz@ashevche-desk.local> <20260926100727.GB106095@black.igk.intel.com>
+ <CAMRc=Mc-C4ptY5phhAkpq7DbE-+=G5h4XByYdj2Xx5sVS-vvrQ@mail.gmail.com>
+ <CAHp75VcctaQpSpKbr8i+LPfE8Ukazyn8=KhwsSa+4sbhvQ=WVQ@mail.gmail.com>
+ <20260928123446.GH106095@black.igk.intel.com> <CAHp75VfxMwLMPDQr9f=3ea8Z+5zja=kT01o-fhkyrc-V1rh3Hg@mail.gmail.com>
+ <8fa77d7021ddf66f344c139d3bbeebcdb47ebfa8.camel@linux.intel.com>
+ <CAHp75VcqqsTSiyGxeZeNXHAVM2ujux26Nmc5C4CNJA-Fqxn5Kg@mail.gmail.com> <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com>
+In-Reply-To: <CAMRc=McV2tpejQp_400B9u1ZJ9M4To2-uJYJp3D+XZzNeO+_jw@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 29 Sep 2026 16:31:15 +0300
+X-Gm-Features: AclHuK-nByvvmE6DU6ioowzhzoPOAiWSsnUxikS8NS0SivmigV2HdHCkEyV3rmU
+Message-ID: <CAHp75VejKaoUvCYnOErrk8AYy1dLDA-u8jZghZqi5rX6hSQY7A@mail.gmail.com>
+Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, Lixu Zhang <lixu.zhang@intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mika Westerberg <westeri@kernel.org>, 
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>, Hans de Goede <hansg@kernel.org>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-U2VlIHYyIGluLCBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA5MjkxMzI4MTguMjU5
-ODcwLTEteWFvamlhbGUwMkAxNjMuY29tLwpBdCAyMDI2LTA5LTI4IDE2OjAyOjQ3LCAiamlhbGUg
-eWFvIiA8MTk4ODg5NzI4MDRAMTYzLmNvbT4gd3JvdGU6Cj5UaGFua3MgZm9yIHRoZSByZXZpZXcu
-IEkgYWdyZWUgdGhhdCB0aGlzIHNob3VsZCBiZSB0cmVhdGVkIGFzIGFuCj5leHRlbnNpb24gb2Yg
-b25saW5lIGZpbGVjaGVjayByYXRoZXIgdGhhbiBhIGZpeCBmb3IgZDU2YThmMzJlNGM2Lgo+Cj5J
-IHdpbGwgcHJlcGFyZSBhIHYyIHdpdGggdGhlIGZvbGxvd2luZyBjaGFuZ2VzOgo+Cj4tIERyb3Ag
-dGhlIEZpeGVzIGFuZCBzdGFibGUgdGFncyBhbmQgZGVzY3JpYmUgdGhlIGNoYW5nZSBhcyBhZGRp
-dGlvbmFsCj4gICBmaWxlY2hlY2sgdmFsaWRhdGlvbi4KPi0gRXh0cmFjdCB0aGUgZXhpc3Rpbmcg
-ZXh0ZW50LWxpc3QgY2hlY2tzIGZyb20KPiAgIG9jZnMyX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKCkg
-aW50byBhIHNtYWxsIHNoYXJlZCBoZWxwZXIgaW5zdGVhZCBvZgo+ICAgZHVwbGljYXRpbmcgdGhl
-bS4KPi0gUmVtb3ZlIGVudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzLgo+LSBLZWVwIHRoZSBy
-ZXBhaXIgcG9saWN5IHVuY2hhbmdlZDogcmVqZWN0IGFuIGludmFsaWQgbF9jb3VudCwgd2hpbGUK
-PiAgIGFsbG93aW5nIHRoZSBleGlzdGluZyBjb2RlIHRvIGNsYW1wIGxfbmV4dF9mcmVlX3JlYyB0
-byBsX2NvdW50Lgo+Cj5UaGFua3MsCj5KaWFsZQo+Cj4KPkF0IDIwMjYtMDktMjggMTU6Mzk6MTQs
-ICJIZW1pbmcgWmhhbyIgPGhlbWluZy56aGFvQHN1c2UuY29tPiB3cm90ZToKPj5PbiBNb24sIFNl
-cCAyOCwgMjAyNiBhdCAwOTozMzoxMkFNICswODAwLCBKb3NlcGggUWkgd3JvdGU6Cj4+PiAKPj4+
-IAo+Pj4gT24gOS8yNi8yNiA5OjE4IFBNLCBKaWFsZSBZYW8gd3JvdGU6Cj4+PiA+IG9jZnMyX2Zp
-bGVjaGVja192YWxpZGF0ZV9pbm9kZV9ibG9jaygpIGRvZXMgbm90IHZhbGlkYXRlIHRoZSBlbWJl
-ZGRlZAo+Pj4gPiBleHRlbnQgbGlzdCwgd2hpbGUgb2NmczJfZmlsZWNoZWNrX3JlcGFpcl9pbm9k
-ZV9ibG9jaygpIG9ubHkgY2xhbXBzCj4+PiA+IGxfbmV4dF9mcmVlX3JlYyB0byBsX2NvdW50LiAg
-VGhlIG5vcm1hbCBpbm9kZSByZWFkIHBhdGggcmVxdWlyZXMgbF9jb3VudAo+Pj4gPiB0byBiZSBu
-b24temVybywgbGltaXRzIGl0IHRvIHRoZSBudW1iZXIgb2YgZXh0ZW50IHJlY29yZHMgdGhhdCBm
-aXQgaW4gdGhlCj4+PiA+IGlub2RlLCBhbmQgcmVxdWlyZXMgbF9uZXh0X2ZyZWVfcmVjIG5vdCB0
-byBleGNlZWQgbF9jb3VudC4KPj4+ID4gCj4+PiA+IFdpdGhvdXQgdGhlIHNhbWUgY2hlY2tzLCBm
-aWxlY2hlY2sgY2FuIHJlcG9ydCBTVUNDRVNTIHdoaWxlIGxlYXZpbmcgYW4KPj4+ID4gaW52YWxp
-ZCBleHRlbnQgbGlzdCBvbiBkaXNrLiAgQSBsYXRlciByZWFkIHRocm91Z2ggdGhlIG5vcm1hbCBp
-bm9kZQo+Pj4gPiB2YWxpZGF0aW9uIHBhdGggcmVqZWN0cyB0aGUgaW5vZGUgYW5kIG1ha2VzIHRo
-ZSBmaWxlc3lzdGVtIHJlYWQtb25seS4KPj4+ID4gCj4+PiA+IEFkZCBhIHNoYXJlZCBoZWxwZXIg
-Zm9yIHRoZSBmaWxlY2hlY2sgcGF0aHMgdG8gY2hlY2sgdGhlc2UgaW52YXJpYW50cy4KPj4+ID4g
-VGhlIGZpbGVjaGVjayB2YWxpZGF0b3Igbm93IHJlamVjdHMgYWxsIHRocmVlIGNhc2VzLiAgVGhl
-IHJlcGFpciBwYXRoCj4+PiA+IHN0aWxsIGNsYW1wcyBsX25leHRfZnJlZV9yZWMsIGJ1dCByZWZ1
-c2VzIHRvIHJlcGFpciB6ZXJvIG9yIG92ZXJzaXplZAo+Pj4gPiBsX2NvdW50IHZhbHVlcy4KPj4+
-ID4gCj4+PiA+IEZpeGVzOiBkNTZhOGYzMmU0YzYgKCJvY2ZzMjogY2hlY2svZml4IGlub2RlIGJs
-b2NrIGZvciBvbmxpbmUgZmlsZSBjaGVjayIpCj4+PiAKPj4+IEknZCBsaWtlIG1ha2UgdGhpcyBh
-cyBhIG5ldyBhYmlsaXR5IHJhdGhlciB0aGFuIGEgYnVnIGZpeC4KPj4KPj5BZ3JlZQo+Pgo+Pklu
-IG15IGV4cGVyaWVuY2UsIHVzZXJzIHJ1biBvbmxpbmUgZmlsZSBjaGVja3Mgb25seSB3aGVuIGlu
-b2RlIGRhdGEgaXMgY29ycnVwdGVkLAo+Pm9yIHdoZW4gZnNjay9kZWJ1Z2ZzIGhhcyBhbHJlYWR5
-IHJlcG9ydGVkIGFuIGlub2RlIGlzc3VlIHByaW9yIHRvIHRoZSBjaGVjay4KPj4KPj5UaGUgRml4
-ZXMgdGFnIHNob3VsZCBvbmx5IGJlIHVzZWQgZm9yIHRoZSBwYXRjaCB0aGF0IGZpeGVzIHRoZSB1
-bmludGVuZGVkIHBhbmljCj4+YW5kIHJlYWQtb25seSBpc3N1ZSBpbnRyb2R1Y2VkIGJ5IGNvbW1p
-dCBkNTZhOGYzMmU0YzYuCj4+Cj4+LSBIZW1pbmcKPj4KPj4+IAo+Pj4gPiBTaWduZWQtb2ZmLWJ5
-OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4+ID4gLS0tCj4+PiA+ICBmcy9vY2Zz
-Mi9pbm9kZS5jIHwgNzEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrCj4+PiA+ICAxIGZpbGUgY2hhbmdlZCwgNzEgaW5zZXJ0aW9ucygrKQo+Pj4gPiAKPj4+
-ID4gZGlmZiAtLWdpdCBhL2ZzL29jZnMyL2lub2RlLmMgYi9mcy9vY2ZzMi9pbm9kZS5jCj4+PiA+
-IGluZGV4IDE4MDEwN2ExMTA0Ni4uNTcxNjhlZDAyOTE1IDEwMDY0NAo+Pj4gPiAtLS0gYS9mcy9v
-Y2ZzMi9pbm9kZS5jCj4+PiA+ICsrKyBiL2ZzL29jZnMyL2lub2RlLmMKPj4+ID4gQEAgLTI0OSw2
-ICsyNDksNDEgQEAgc3RhdGljIGludCBvY2ZzMl9kaW5vZGVfaGFzX2V4dGVudHMoc3RydWN0IG9j
-ZnMyX2Rpbm9kZSAqZGkpCj4+PiA+ICAJcmV0dXJuIDE7Cj4+PiA+ICB9Cj4+PiA+ICAKPj4+ID4g
-K2VudW0gb2NmczJfZXh0ZW50X2xpc3Rfc3RhdHVzIHsKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElT
-VF9PSywKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElTVF9aRVJPX0NPVU5ULAo+Pj4gPiArCU9DRlMy
-X0VYVEVOVF9MSVNUX09WRVJTSVpFRCwKPj4+ID4gKwlPQ0ZTMl9FWFRFTlRfTElTVF9CQURfTkVY
-VF9GUkVFLAo+Pj4gPiArfTsKPj4+ID4gKwo+Pj4gPiArc3RhdGljIGVudW0gb2NmczJfZXh0ZW50
-X2xpc3Rfc3RhdHVzCj4+PiA+ICtvY2ZzMl9jaGVja19leHRlbnRfbGlzdChzdHJ1Y3Qgc3VwZXJf
-YmxvY2sgKnNiLCBzdHJ1Y3Qgb2NmczJfZGlub2RlICpkaSkKPj4+ID4gK3sKPj4+ID4gKwlzdHJ1
-Y3Qgb2NmczJfZXh0ZW50X2xpc3QgKmVsID0gJmRpLT5pZDIuaV9saXN0Owo+Pj4gPiArCXUxNiBj
-b3VudDsKPj4+ID4gKwl1MTYgbmV4dF9mcmVlOwo+Pj4gPiArCj4+PiA+ICsJaWYgKCFvY2ZzMl9k
-aW5vZGVfaGFzX2V4dGVudHMoZGkpKQo+Pj4gPiArCQlyZXR1cm4gT0NGUzJfRVhURU5UX0xJU1Rf
-T0s7Cj4+PiA+ICsKPj4+ID4gKwljb3VudCA9IGxlMTZfdG9fY3B1KGVsLT5sX2NvdW50KTsKPj4+
-ID4gKwluZXh0X2ZyZWUgPSBsZTE2X3RvX2NwdShlbC0+bF9uZXh0X2ZyZWVfcmVjKTsKPj4+ID4g
-KwlpZiAoY291bnQgPT0gMCkKPj4+ID4gKwkJcmV0dXJuIE9DRlMyX0VYVEVOVF9MSVNUX1pFUk9f
-Q09VTlQ7Cj4+PiA+ICsJLyoKPj4+ID4gKwkgKiBUaGUgZXhhY3QgY2FwYWNpdHkgZGVwZW5kcyBv
-biBpX3hhdHRyX2lubGluZV9zaXplLCBhbm90aGVyCj4+PiA+ICsJICogdW52YWxpZGF0ZWQgb24t
-ZGlzayBmaWVsZC4gSW5saW5lIHhhdHRycyBvbmx5IHNocmluayB0aGUKPj4+ID4gKwkgKiBsaXN0
-LCBzbyB0aGUgbm8teGF0dHIgbWF4aW11bSBpcyBhIHNhZmUgdXBwZXIgYm91bmQgdGhhdCBhCj4+
-PiA+ICsJICogdmFsaWQgbF9jb3VudCBuZXZlciBleGNlZWRzLgo+Pj4gPiArCSAqLwo+Pj4gPiAr
-CWlmIChjb3VudCA+IG9jZnMyX2V4dGVudF9yZWNzX3Blcl9pbm9kZShzYikpCj4+PiA+ICsJCXJl
-dHVybiBPQ0ZTMl9FWFRFTlRfTElTVF9PVkVSU0laRUQ7Cj4+PiA+ICsJaWYgKG5leHRfZnJlZSA+
-IGNvdW50KQo+Pj4gPiArCQlyZXR1cm4gT0NGUzJfRVhURU5UX0xJU1RfQkFEX05FWFRfRlJFRTsK
-Pj4+ID4gKwo+Pj4gPiArCXJldHVybiBPQ0ZTMl9FWFRFTlRfTElTVF9PSzsKPj4+ID4gK30KPj4+
-IAo+Pj4gVGhpcyBzZWVtcyBhIGR1cGxpY2F0ZWQgY2hlY2sgaW4gb2NmczJfdmFsaWRhdGVfaW5v
-ZGVfYmxvY2soKS4KPj4+IFNvIEkgc3VnZ3Vlc3QganVzdCBleHRyYWN0IHRoZSBoZWxwZXIgZnJv
-bSBpdCBpbnN0ZWFkIG9mIGR1cGxpY2F0aW5nCj4+PiBhIG5ldyBvbmUuCj4+PiAKPj4+IEJUVywg
-c2VlbXMgd2UgZG9uJ3QgaGF2ZSB0byBpbnRyb2R1Y2UgZW51bSBvY2ZzMl9leHRlbnRfbGlzdF9z
-dGF0dXMsCj4+PiB0byBtYWtlIHRoZSBjaGVja3Mgc2ltcGxlLgo+Pj4gCj4+PiBUaGFua3MsCj4+
-PiBKb3NlcGgKPj4+IAo+Pj4gPiArCj4+PiA+ICAvKgo+Pj4gPiAgICogaGVyZSdzIGhvdyBpbm9k
-ZXMgZ2V0IHJlYWQgZnJvbSBkaXNrOgo+Pj4gPiAgICogaWdldDVfbG9ja2VkIC0+IGZpbmRfYWN0
-b3IgLT4gT0NGUzJfRklORF9BQ1RPUgo+Pj4gPiBAQCAtMTgzNSw2ICsxODcwLDMzIEBAIHN0YXRp
-YyBpbnQgb2NmczJfZmlsZWNoZWNrX3ZhbGlkYXRlX2lub2RlX2Jsb2NrKHN0cnVjdCBzdXBlcl9i
-bG9jayAqc2IsCj4+PiA+ICAJCWdvdG8gYmFpbDsKPj4+ID4gIAl9Cj4+PiA+ICAKPj4+ID4gKwlz
-d2l0Y2ggKG9jZnMyX2NoZWNrX2V4dGVudF9saXN0KHNiLCBkaSkpIHsKPj4+ID4gKwljYXNlIE9D
-RlMyX0VYVEVOVF9MSVNUX09LOgo+Pj4gPiArCQlicmVhazsKPj4+ID4gKwljYXNlIE9DRlMyX0VY
-VEVOVF9MSVNUX1pFUk9fQ09VTlQ6Cj4+PiA+ICsJCW1sb2coTUxfRVJST1IsCj4+PiA+ICsJCSAg
-ICAgIkZpbGVjaGVjazogaW52YWxpZCBkaW5vZGUgIyVsbHU6IGV4dGVudCBsaXN0IGxfY291bnQg
-aXMgemVyb1xuIiwKPj4+ID4gKwkJICAgICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2Nr
-bnIpOwo+Pj4gPiArCQlyYyA9IC1PQ0ZTMl9GSUxFQ0hFQ0tfRVJSX0lOVkFMSURJTk87Cj4+PiA+
-ICsJCWdvdG8gYmFpbDsKPj4+ID4gKwljYXNlIE9DRlMyX0VYVEVOVF9MSVNUX09WRVJTSVpFRDoK
-Pj4+ID4gKwkJbWxvZyhNTF9FUlJPUiwKPj4+ID4gKwkJICAgICAiRmlsZWNoZWNrOiBpbnZhbGlk
-IGRpbm9kZSAjJWxsdTogZXh0ZW50IGxpc3QgbF9jb3VudCAldSBleGNlZWRzIG1heCAldVxuIiwK
-Pj4+ID4gKwkJICAgICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2NrbnIsCj4+PiA+ICsJ
-CSAgICAgbGUxNl90b19jcHUoZGktPmlkMi5pX2xpc3QubF9jb3VudCksCj4+PiA+ICsJCSAgICAg
-b2NmczJfZXh0ZW50X3JlY3NfcGVyX2lub2RlKHNiKSk7Cj4+PiA+ICsJCXJjID0gLU9DRlMyX0ZJ
-TEVDSEVDS19FUlJfSU5WQUxJRElOTzsKPj4+ID4gKwkJZ290byBiYWlsOwo+Pj4gPiArCWNhc2Ug
-T0NGUzJfRVhURU5UX0xJU1RfQkFEX05FWFRfRlJFRToKPj4+ID4gKwkJbWxvZyhNTF9FUlJPUiwK
-Pj4+ID4gKwkJICAgICAiRmlsZWNoZWNrOiBpbnZhbGlkIGRpbm9kZSAjJWxsdTogZXh0ZW50IGxp
-c3QgbF9uZXh0X2ZyZWVfcmVjICV1IGV4Y2VlZHMgbF9jb3VudCAldVxuIiwKPj4+ID4gKwkJICAg
-ICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Jsb2NrbnIsCj4+PiA+ICsJCSAgICAgbGUxNl90
-b19jcHUoZGktPmlkMi5pX2xpc3QubF9uZXh0X2ZyZWVfcmVjKSwKPj4+ID4gKwkJICAgICBsZTE2
-X3RvX2NwdShkaS0+aWQyLmlfbGlzdC5sX2NvdW50KSk7Cj4+PiA+ICsJCXJjID0gLU9DRlMyX0ZJ
-TEVDSEVDS19FUlJfSU5WQUxJRElOTzsKPj4+ID4gKwkJZ290byBiYWlsOwo+Pj4gPiArCX0KPj4+
-ID4gKwo+Pj4gPiAgCWlmIChvY2ZzMl9kaW5vZGVfaGFzX3NpemVfd2l0aG91dF9jbHVzdGVycyhz
-YiwgZGkpKSB7Cj4+PiA+ICAJCWlmIChTX0lTRElSKGxlMTZfdG9fY3B1KGRpLT5pX21vZGUpKSkK
-Pj4+ID4gIAkJCW1sb2coTUxfRVJST1IsCj4+PiA+IEBAIC0xODkzLDYgKzE5NTUsMTUgQEAgc3Rh
-dGljIGludCBvY2ZzMl9maWxlY2hlY2tfcmVwYWlyX2lub2RlX2Jsb2NrKHN0cnVjdCBzdXBlcl9i
-bG9jayAqc2IsCj4+PiA+ICAJCXJldHVybiAtT0NGUzJfRklMRUNIRUNLX0VSUl9WQUxJREZMQUc7
-Cj4+PiA+ICAJfQo+Pj4gPiAgCj4+PiA+ICsJc3dpdGNoIChvY2ZzMl9jaGVja19leHRlbnRfbGlz
-dChzYiwgZGkpKSB7Cj4+PiA+ICsJY2FzZSBPQ0ZTMl9FWFRFTlRfTElTVF9PSzoKPj4+ID4gKwlj
-YXNlIE9DRlMyX0VYVEVOVF9MSVNUX0JBRF9ORVhUX0ZSRUU6Cj4+PiA+ICsJCWJyZWFrOwo+Pj4g
-PiArCWNhc2UgT0NGUzJfRVhURU5UX0xJU1RfWkVST19DT1VOVDoKPj4+ID4gKwljYXNlIE9DRlMy
-X0VYVEVOVF9MSVNUX09WRVJTSVpFRDoKPj4+ID4gKwkJcmV0dXJuIC1PQ0ZTMl9GSUxFQ0hFQ0tf
-RVJSX0lOVkFMSURJTk87Cj4+PiA+ICsJfQo+Pj4gPiArCj4+PiA+ICAJaWYgKGxlNjRfdG9fY3B1
-KGRpLT5pX2Jsa25vKSAhPSBiaC0+Yl9ibG9ja25yKSB7Cj4+PiA+ICAJCWRpLT5pX2Jsa25vID0g
-Y3B1X3RvX2xlNjQoYmgtPmJfYmxvY2tucik7Cj4+PiA+ICAJCWNoYW5nZWQgPSAxOwo+Pj4gCg==
+On Tue, Sep 29, 2026 at 3:51=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.or=
+g> wrote:
+> On Tue, 29 Sep 2026 14:45:59 +0200, Andy Shevchenko
+> <andy.shevchenko@gmail.com> said:
+> > On Tue, Sep 29, 2026 at 3:15=E2=80=AFPM Alan Borzeszkowski
+> > <alan.borzeszkowski@linux.intel.com> wrote:
+> >> On Mon, 2026-09-28 at 16:13 +0300, Andy Shevchenko wrote:
+> >> > On Mon, Sep 28, 2026 at 3:34=E2=80=AFPM Mika Westerberg
+> >> > <mika.westerberg@linux.intel.com> wrote:
+> >> > > On Mon, Sep 28, 2026 at 02:34:44PM +0300, Andy Shevchenko wrote:
+> >> > > > On Mon, Sep 28, 2026 at 2:13=E2=80=AFPM Bartosz Golaszewski
+> >> > > > <brgl@kernel.org> wrote:
+> >> > > > > On Sat, 26 Sep 2026 12:07:27 +0200, Mika Westerberg
+> >> > > > > <mika.westerberg@linux.intel.com> said:
+> >> > > > > > On Fri, Sep 25, 2026 at 05:34:53PM +0300, Andy Shevchenko
+> >> > > > > > wrote:
+> >> > > > > > > On Fri, Sep 25, 2026 at 02:54:33PM +0200, Mika Westerberg
+> >> > > > > > > wrote:
+> >> > > > > > > > On Fri, Sep 25, 2026 at 01:48:05PM +0300, Andy Shevchenk=
+o
+> >> > > > > > > > wrote:
+> >> > > > > > > > > On Fri, Sep 25, 2026 at 12:22:15PM +0200, Bartosz
+> >> > > > > > > > > Golaszewski wrote:
 
+...
+
+> >> > > > > > > > > >  drivers/gpio/{ =3D> intel}/gpio-graniterapids.c   |=
+  0
+> >> > > > > > > > > >  drivers/gpio/{ =3D> intel}/gpio-novalake-events.c |=
+  0
+> >> > > > > > > > >
+> >> > > > > > > > > These are interesting drivers, not sure where to put
+> >> > > > > > > > > them
+> >> > > > > > > >
+> >> > > > > > > > IMHO they should be there too. We are maintaining them
+> >> > > > > > > > both.
+> >> > > > > > >
+> >> > > > > > > Do you send PRs to Bart or you just rely on him to take th=
+e
+> >> > > > > > > patches?
+> >> > > > > >
+> >> > > > > > I don't expect these two drives to get too much attention,
+> >> > > > > > and they could
+> >> > > > > > be contained nicely inside intel folder and that would help
+> >> > > > > > Bart to
+> >> > > > > > identify that these are Intel drivers. So your bandwidth
+> >> > > > > > would not suffer
+> >> > > > > > even if these two are added there. Your call.
+> >> > > > >
+> >> > > > > I'd like to avoid a situation where we have Andy's Intel
+> >> > > > > drivers under
+> >> > > > > drivers/gpio/intel/ and other Intel drivers under
+> >> > > > > drivers/gpio/. I'd prefer
+> >> > > > > to move all of intel GPIO drivers into drivers/gpio/intel/ and
+> >> > > > > have Andy
+> >> > > > > gather changes to them if he agrees.
+> >> > > >
+> >> > > > Okay, we have two parts missing:
+> >> > > > - Nova Lake driver (I would need Alan or Mika to step in as at
+> >> > > > least a
+> >> > > > designated reviewer for that)
+> >> > >
+> >> > > I suggest Alan to be the reviewer if that's okay for him :)
+> >> >
+> >> > If he agrees, he can provide a patch on top of my series to move Nov=
+a
+> >> > Lake and add himself to the MAINTAINERS at the same time.
+> >>
+> >> I agree to be the reviewer. I have the patch ready, I can send once
+> >> your series is applied.
+> >
+> > Just send it now, in any case my series is blocked as I have not seen
+> > a consensus on what to do. Or do we? Bart, Sakari?
+> >
+>
+> If I didn't make myself clear: I would love it if there was a single sour=
+ce
+> of intel GPIO pull-requests (most likely Andy) for *all* intel GPIO drive=
+rs
+> even if they have additional reviewers. I'd also love for them to live in
+> a single subdirectory at drivers/gpio/intel/. Otherwise, it's still chaos=
+ like
+> right now, just worse.
+>
+> This is in line with pinctrl vendor directories. I also don't see a reaso=
+n for
+> moving Kconfig options into their own vendor submenus if we keep the top-=
+level
+> entries sorted by driver type.
+
+So, as of now it doesn't seem like an agreement among all parties. My
+opinion is that it's good to have PMIC be separated from the other
+code, although I don't know if the camera PMIC GPIO driver that is
+used with IPUx is good to go under the intel/pmic subfolder. I also
+believe that camera related drivers are the best to be handled by the
+media tree (as it's done, exempli gratia, for int3472).
+
+At the end of the day you will have a single PR from me, but it won't
+include camera stuff unless Sakari agrees to send a PR to me (which I
+think won't be the case).
+
+--=20
+With Best Regards,
+Andy Shevchenko
