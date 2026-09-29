@@ -1,256 +1,210 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8549415B62
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790656154; cv=none; b=OtOewSJGykqFwmzvg36t7Snkg0A9x2XtkjqQuVkrius0WtNhHfQfS1dWI9DRYhLkHKVL6LS12OB31LPLELBBGb8HqxrGB4LS6O9p7tWTCYbhPh3UXK5OKPSINWqdclvSCfmscIH4TLlACUlJ53JF6eu2BC0pZvHdvp336Bf8Po8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790656154; c=relaxed/simple;
-	bh=6r0ejZlAtNiiuitmrFYzWgKZtKiCeBVKShHo1hB4+8c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aY+dy0MBl3Ts6Vp7OqtD4QQdk52BtIAGuyZTfZQG1XFHYqQ5RoYHPGzymfD59uTUCJyatP53fsTQjc2GRF0v1qCaOjJvskIGc5ieeEtYaAa95CsntjtKfurna4xP5dNT3tU3dgTza0tTHFa+QVxMmKumW3oFdkeu60WrqvWaEKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YiEo1fYg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NfukHFNR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C9721FF23;
+	Tue, 29 Sep 2026 04:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790656289; cv=fail; b=mA1FS/xrxIXFqSUPi9OE8vyw3m6s0X+5LmtvkvfNRKe1R2xtzz36qQM4zd7TkWQXi20w213T+MRKPakqQ9S/9SktTjONFGNLKYNtc8Md83icpOUx5U2hjf0djnB/AGfL0inP8xleKQIxVVPYF3shBlxnb+rv7n9oL6vgcr9JTUI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790656289; c=relaxed/simple;
+	bh=sajwWxqIhUr59cC0g7uR0ZSXFJsdZMABO21yJIx9CRA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=lg/kibb//U+AkhPLcltZdSp6lAUhr+3cCWeJMTwdbFPuNXAlLMwdT4B1B44hf+KlJDcWimx77QpWJ5kA/8oGtHZQ2JQkk2yPxHfz/D9dc7XiQW36WceWIjm1nZkYx4N1f52seosvfaTkYPMYuoMdh66rnp/YZBMMUYEzh+JEOp0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JFk9NlMj; arc=fail smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YiEo1fYg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NfukHFNR"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47Ogx3891460
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:29:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kGmOSxaugPIJYRGrz5sk5TBB1f5tCohgbLSqz9Wr2Ns=; b=YiEo1fYggdE2ThvX
-	Y/LhG9Xr8VhFGMc8tRWjJPR6/JCnbBarLTDP5XyeJMXQzTcgSfL+UNtJAuWSTfPZ
-	IhGXHry15WDn3FrOtCPAFqj78QE3Q6COklwwzkVuKnzkS6UexK6+GSZ8m6lL6YTN
-	Jy5Tey71XyE92HJB1Pfr4+RelASISh1BExUUsHssDGVtq6pqNoTEXF1aDj2/KvNK
-	8oSau+eA2J0HIg1Zribowm0O5Fae8LWayzRhj6+aNIunTxxZSJneZQSV7WmN01kp
-	wotPo8jsvqMllzdfrhcLSU/mHKbJd0Q/kvK2X2H0TKYC78DExKOu+bzk72kjnJB2
-	Ujfa+w==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynfkv3wt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:29:11 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91235881828so77539006d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:29:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790656151; x=1791260951; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kGmOSxaugPIJYRGrz5sk5TBB1f5tCohgbLSqz9Wr2Ns=;
-        b=NfukHFNRUNJJ4Y+w67oMuF9nOvGaAv7b52wTi49hUTRgBnfqE9wv1SrCqApm5OS5eF
-         e8XvBKNTdoVyCqUdcKvqugfixqfSZzMQT3w+FNYW9wNupCcA9tq8td4PQ7+r7XzbtpSQ
-         to/qrLYtGRLNTnfY/55Id8CylpQ6njYlwOdmxTCwekcuHXffngTq8mYUBRHhhfAirFqW
-         16FXtMZTGSbvoleX4GVJxGKylUiraadjqN8e/1gAg3+9Jg9l3r109iBzh7KIMKPwqP6H
-         fxzXFZV26S/M+ASR2ygsTDi03C1rXZ95y1XD1eePqyG0ncYPvXBkeMkMHPtxIH5V0moi
-         0OCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790656151; x=1791260951;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kGmOSxaugPIJYRGrz5sk5TBB1f5tCohgbLSqz9Wr2Ns=;
-        b=bjVD7WI+ie4pEJCJMFu8hSJPhC0B2gwk+O5zcu13dEYb2Ql8U5GHUtGoNGpGhB+e9u
-         Yj8+vX8WZfmcu0Ll7+r3iAHnyHhDSwVHSZzqnlJJek3p60QV20Q2iCkU3qMfiCD7ILpD
-         npvOfOzTj1hwedlbWn6RUQiqOxhbXdZDKXJyMuVYHxsZ8IxwHj1jcjVgr6TGnXj9N+qA
-         rJ+jNv+e3kFr8Npu3/Gl82+W+ddckQLL082TzUDk23bPoo7aXIKavbEBd8pTcxq8PLTZ
-         jzXlmLF7TA6eiakbHswOVcaBQGqxZUu4hUAdZhJ0kxUe4bcFjP7C6n2j/JeyRWQt6XqI
-         iT3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7xscLkGhqKw7TANJuUf0Aa7hzOtA8aoxqSBz/zptEhy80AjacA3+G3uftjLMnjp+0NfA86Ulcq5Qa060=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQ9XVawcQ0Z9V1HmrdTIYqzgoswpxGduaD4Ve4UBMxrsSl6g5D
-	nuRhlIZ1X0D4uueSNbxgdd1FmAujGFBfbehsPb3P6uZ4pNyks5LIGOYa3qqpAQ4ReMpFZthEQOI
-	w0it9MD0fF5ny6GRj28JuteZEUTQcqGYthy/mFBvy77prjbePYxbrm+iWDmzORToOAY8=
-X-Gm-Gg: AYBFou0poy6Sj+sGaRF3P73DKkAwnj4mi+sanC1xwzYD09S4yUE8cZSs9pqDEYRcXtR
-	hhmm+BmopTbJDEKNCEethv/Dy+j7H06gKRzZHcEUER+cpNNjbb7Uav8QPbQO477YP54Yr7eoG3h
-	ok7i13ZsyIB90QAQwX4HODXd0ydl401hI84OrFVaNTt5KxkfFhgrF2ousP3gZepcgixBlK5l3zO
-	n/8MarewtiNGO7ajAdwBpZ+8aqV2gmS1mjFgK/viDbB65zOc/r0YOs6Wqu79LwU4oiRQ/QuH3kU
-	mIecgZglWCBOKvRRyUInQeZG1g96dVHKnPCWEkmRGwgz1O59W9Ta3U8ykVOe7rQl9HneRJBiikc
-	VZPx3oUePXCrV5ZKEBZTotZZ0PrETlOzxnbV/KZbc4YOGNnegy/EjunSaUUrlh5E=
-X-Received: by 2002:a05:6214:2528:b0:914:4c57:510e with SMTP id 6a1803df08f44-9144c577f72mr168219166d6.19.1790656150654;
-        Mon, 28 Sep 2026 21:29:10 -0700 (PDT)
-X-Received: by 2002:a05:6214:2528:b0:914:4c57:510e with SMTP id 6a1803df08f44-9144c577f72mr168218996d6.19.1790656150286;
-        Mon, 28 Sep 2026 21:29:10 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d34d4ccsm1717206d6.30.2026.09.28.21.29.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 21:29:10 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 12:25:59 +0800
-Subject: [PATCH v7 35/35] soc: qcom: pmic-glink-altmode: skip retimer reset
- on DP IRQ
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JFk9NlMj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790656285; x=1822192285;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=sajwWxqIhUr59cC0g7uR0ZSXFJsdZMABO21yJIx9CRA=;
+  b=JFk9NlMjJ2V18QRs2bTBNnzZ6qUUeDGjN1O0UwQe2g8b8B5g69JZNiEE
+   7wes88S8a94o7sVcEK7qwgllt8WcP7EuId8/5EXfLBlnSlCY1hyFkMXKI
+   J4uRFr579zGxtFZayvmGspyWS17YXhVGrH1rU+/soBHyN1L+okRIwzzR2
+   dg2bNWQOzWF86eIpwTMOaVDeNs9amuM/Ricr8bWW6hUAruTHnIgmvoZPn
+   9DYHWPQW7rD9YfSbbD1SjAvucbyVrHq2xs33qpYpiUdIgphf+3XnFIwYv
+   3tgoUL/e6B+4ErEkjxLUhvO6Wh0vXPOuMnPTm6EuKBQN1GnwOJcZEXLAg
+   g==;
+X-CSE-ConnectionGUID: nE/CIO54QJ2hyigTMkbZ3Q==
+X-CSE-MsgGUID: 3SmWeLJqTd6O33bVs67htg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="94079450"
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="94079450"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:31:25 -0700
+X-CSE-ConnectionGUID: b7v7WaYNTxiI3vS0obxwmw==
+X-CSE-MsgGUID: +rx9AlM0RzWroVNZs1uUNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; 
+   d="scan'208";a="283334843"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 21:31:24 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 28 Sep 2026 21:31:24 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 28 Sep 2026 21:31:24 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.68) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 28 Sep 2026 21:31:23 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WoBcuvD63oryksb+CFn1W0fnbPykCSGN8IwWJqcy+u+7dHgolMt1Q14GdXUVQxTQ1guGHNetVUfKHQKQ8W8v7IwmyzZ4dBTzRWMgAKkicF/phmTUpP0xymOBHH885DuqYHXY5fDjlTWgTOsRXXfdPjG+G40NaAAasYZIaTY1WHWRy5801K+ovQpXwSycaeZ4vRL2pKNwXMA+sW0pDJXbe9vw2a7lZsfih2W9rVDRhPMA637DI7WENya18uyBIT/SedGRKKvULjIR1Tq1L05XBovCkAkouVEDo3XUGqt0hEv9pTJt4fxzfymFF0nPEjI2SZ9dAn3X+WgyeTEliX2A0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sajwWxqIhUr59cC0g7uR0ZSXFJsdZMABO21yJIx9CRA=;
+ b=Pyw2+2LEfLQ5hNhYkcZRKAEsKUzGfFQxo0JhxY+dCEyRKNVc27q9iuVNeSqGSsjVOT1M6stbVJuFWu3yJ2gK8gGlISW/sihh1cyxMjfZ15uSxICQ8ac4PUEPcgVSIzHDiRI/QaL45d+8LxrtRqA7ffkJGBWkxy0mZWYl9vGtk1V2OW4w4DeqE2Fv3LSC+yr3+M2hfg2XkjlhrvlPGhH1gS7lnGz/DfxXKoBaeJRg7HxCaA1yYYlMTanap6H8KevW+wtgdjhVD6WVHh+u2+WHNge74vOvP3CDp0blpBIzNMDTA3xpD4zvJllWyERKgtQ2mXfjQiYSZLhwfWg5P2/ozw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ0PR11MB5613.namprd11.prod.outlook.com (2603:10b6:a03:3ab::12)
+ by PH8PR11MB7048.namprd11.prod.outlook.com (2603:10b6:510:214::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 04:31:16 +0000
+Received: from SJ0PR11MB5613.namprd11.prod.outlook.com
+ ([fe80::a7ca:db6b:7913:d6ae]) by SJ0PR11MB5613.namprd11.prod.outlook.com
+ ([fe80::a7ca:db6b:7913:d6ae%6]) with mapi id 15.21.0451.014; Tue, 29 Sep 2026
+ 04:31:16 +0000
+From: "Zhang, Lixu" <lixu.zhang@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>, Sanjay Chitroda via B4 Relay
+	<devnull+sanjayembeddedse.gmail.com@kernel.org>
+CC: "sanjayembeddedse@gmail.com" <sanjayembeddedse@gmail.com>, David Lechner
+	<dlechner@baylibre.com>, =?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Jiri Kosina <jikos@kernel.org>, "Srinivas
+ Pandruvada" <srinivas.pandruvada@linux.intel.com>, Benjamin Tissoires
+	<bentiss@kernel.org>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>
+Subject: RE: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
+Thread-Topic: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
+Thread-Index: AQHdSCLIz7+mn3GAhk62JH/qThPYhrbi9VqAgAIQmmA=
+Date: Tue, 29 Sep 2026 04:31:16 +0000
+Message-ID: <SJ0PR11MB5613E265B13CA359CDD40E83938C2@SJ0PR11MB5613.namprd11.prod.outlook.com>
+References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
+ <20260927215731.59fdb69b@jic23-hlaptop>
+In-Reply-To: <20260927215731.59fdb69b@jic23-hlaptop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR11MB5613:EE_|PH8PR11MB7048:EE_
+x-ms-office365-filtering-correlation-id: 7ee445a4-61db-4a4a-ba68-08df1de2804a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|23010399003|7416014|366016|376014|38070700021|11063799006|56012099006|6133799003|10067099003|4143699003|22082099003|18002099003;
+x-microsoft-antispam-message-info: ZB/4dSEUnz+UsP+aSUvmO3vNTinkpQnqsNizR4EAu1soJ13PGIX6Qh3qA4vy4cglTlSpP1ghKenYdwBb8hjG97Gl5qPfvGgj7s2umz/QGWT4ERx0WPcfjtlp6/bTLckF7OLYRLuNLk0gDlRmokci2msH9tRizdVJ2md7/KusmIeprVXgC0RbwC8pWkHX64ziRYaYg5pr6R3y3LiyxfJOD09/s+KqjbNmftU3MxhOl1JLgJPBUxBgAJ1F3w9jlwaTDv5karHRTrM6UUunWGz+a+Ehkr3dEF9oJeCnf4FInJ8WkxyNPpGPJ4mE5pLNqq4DfDdy0Jm86DK9ZlJ6ItN5cF3IDJK3D0VaLORIW2pBRsR2e8YJrXSHPx2KetFRDIw2Pox0npw3gG87jbe1Ts/tig04iWTaOB+o2MUUdgRonFGr8fRlMG0y3AMpN5xw+zwmRPAexLooSvGRC9ILXcyDQxYje1GnorEClW1WvCtxm540L3cJKWA782y7ora4IqFKbfp23WroSE05HEJbYMBTt01zXGWaeGAE/dvkxuwioG3upH4r/TW8NSBk9r8WlmmK5dSQaDXKnDLBYmmEXqk/0+Rkk0SA0lHZqaHtpV0efHIbA78WSkwS7AoXbND7bdhMMtJ5Xf4GE2t5ue+s1r+APuSQYoxxR4PzW3hUw37qE5OrWWyzf0NDp+/vQFnKkk+3
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5613.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(366016)(376014)(38070700021)(11063799006)(56012099006)(6133799003)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?W/DDbfe6C3uLhqeK5W7uoTpFjR3xZGPESui2JjkYIXepqywHwW+b9DEXyG?=
+ =?iso-8859-1?Q?5aq7xui3nlEd65H96xE5sI6cPy14KzbxaLxeP5PzrWK7zCPBDbZZOZ8s9y?=
+ =?iso-8859-1?Q?F96Qv3eekdcuxQXrhRU2LuuTsf0Ol8erUnYE9xKnR8ziIVotJEyR4/PAA7?=
+ =?iso-8859-1?Q?jhUM4x6kcFmFLbyID3krir8eySpHUQ3rprDOtu5uRcD/ymABVdJHWHiMM8?=
+ =?iso-8859-1?Q?kK6e+S6zFUaf1ALyTZQp4HW1vaZKA4iXmc2TbxakT5acsLZBdx2j0KJEyy?=
+ =?iso-8859-1?Q?RuzuUeuJasvSw9wPFZRHAtXywKd2SZM0i79vWoqeL80PQMEXdlkW/+wQzZ?=
+ =?iso-8859-1?Q?1tzpHspaXxF6N58irePboC6IivJXzHOIMYb6NB/gYgUCUYecatdV9HOZYl?=
+ =?iso-8859-1?Q?LOOP1oXvvMSl23X8rTGcErN2VwVWAsJCrZjOEFnHlm6t5EGWtsc7tAq8OA?=
+ =?iso-8859-1?Q?Df8lpwUVBiTnRVa5zSFLQbU2hFclw0XPBnOKXnL2mL2zfgUaRCwjBQrFSV?=
+ =?iso-8859-1?Q?WEFCM4hXoGtOYhFrXzZk5Pykp0KsCvyRA9QJ6kHW95lZFN5NBIvMrE0ozf?=
+ =?iso-8859-1?Q?j6d58H56ty3PUUlbwTC3xxLZjIlC82+BpHid3nsNyYdObvqjAKtekOhMJ1?=
+ =?iso-8859-1?Q?+ti3AP+tJvjdvHxRRyAuqVCaJ6jqXlkQf0U41ZrO7VtHVHtFCg/4AbDn/w?=
+ =?iso-8859-1?Q?PYe5k11yqYb+Q9YVyg+omohGw+QIVTM5ubp34KquWnH/UTHIrgHqw2BSYv?=
+ =?iso-8859-1?Q?Byetb86yoczu6Myu+Roz7B20j+t1dze7mlwGn3gwlBk+Av3tAyhUQiyMWZ?=
+ =?iso-8859-1?Q?OK4dHR5Oc3mJN29xftRy27kjraZN9gEy1xVZaFZG33S/FZFeO+RehohZYg?=
+ =?iso-8859-1?Q?mSj/NaiHmszll05rlb0T9/V6/VIqF6oSx0pLuiSFDp9UN3tnxPW648/xjl?=
+ =?iso-8859-1?Q?pFRco84C/72AlQE1snAvBlfAcDTS2k1lZMqXuvLeUqEn02TxWbDlpi8QYQ?=
+ =?iso-8859-1?Q?aZR5lg7n/nXaj8uGX4hlvrnfm+ROr50oUp6L3bn7piOhLfB3odlJUCGWWw?=
+ =?iso-8859-1?Q?MHF7kdKLJDx5lNrniuWpjCLaocv//MvAmTV1bTcfeQoSocssRiV+ckvwxi?=
+ =?iso-8859-1?Q?VbCL/RCS/0oulOscVaJhJDAdjH2Fr0lUlAts9tmFtg1x3tnqKYPOljfeCu?=
+ =?iso-8859-1?Q?fDVY/9CJaK5Q4QG15JdG3ePVUUaEMDRrRR3IbsuOzrR6BzH80aAAEF4Avn?=
+ =?iso-8859-1?Q?cYsEmHPFH3xs9wm53eCBKAMUVqrp7ekjuQZ1joHRkv+laSCc2+owKB+k+V?=
+ =?iso-8859-1?Q?pzxBjaH2/yfFPqUK5pDKg0E+FfsdSCwRSKdDJFBYOb4SbTkLpuGq3zqMfu?=
+ =?iso-8859-1?Q?ojdRxSVCqgR+WvQ0KZbZ22WEGLzOd4QpRLQQ1omMq0KrVEy+naqb0KXNPh?=
+ =?iso-8859-1?Q?NWuHYAbbRthotAuvLN4zYQYSwjBwvWy7aR0YkXp4GEUqebXZwKdFhMvgbT?=
+ =?iso-8859-1?Q?Q/a4luuRoFPagXAyo6qYL99n7oTxxEmJAUo90HeU1lKGQ/dxTj4mLy+10H?=
+ =?iso-8859-1?Q?9c8GGBAJCdqYaLtplKr+0bDzY0q2smsj3P34DRCrmMWla1jMpuZU17zsFm?=
+ =?iso-8859-1?Q?EG1VNJ7PyemvUvgjvAZBFy6WdgUCkT4PHU/+lqzCpVgc/OL08FJIbSh1lK?=
+ =?iso-8859-1?Q?lnRHtXfUuz9pEe6lphbQBhwhE2s5ZgCpSaADiGnSpgQX654WeeobTZTxLu?=
+ =?iso-8859-1?Q?lSHECyHZZF6p2oYMDaWA8xqQF/Yek+0/IJgHiEUe2NsKfc?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-msm-dp-mst-v7-35-4b81473185e7@oss.qualcomm.com>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
-In-Reply-To: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Jessica Zhang <jesszhan0024@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790655983; l=4115;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=6r0ejZlAtNiiuitmrFYzWgKZtKiCeBVKShHo1hB4+8c=;
- b=UtJF5iVXVfQmOgSJr+NOadAJ3joackPYqRg1XJ71aS+LX/cOB+k/B4cYH2gpRTQaGVj6o3g2k
- S1JaNrh5jUEA978B10/jOwfccfpA2xnvNFUaL84QUkLrt/vE0odsEYD
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfX3ie3ZbKDMWiu
- quiw7UVnOXNatLCl+j7WoEOLyeU8LpfB9UgkRhgRXicE5ALwi3ln+kXPPHWwHWEUhXG+CSQ3cAy
- 5OivpdU/Fo9zUUGPyEUMtLOhFnIqhB8K2Tgm18Ww4oIptCRe9/DOqh74qwmEwerADAAnzPgyqwA
- x/oxWRvAlBlRw7BGdMPccTnvfYuSf+OrRmQsn4VACooRx3b1dEzZZOFxpAmavytXV79eTOpC6aV
- u4fG2/5HppGctVJENu7M28b/Fu7vTGxowDrOp4+dYZRKkSDxK3LpGHTrQQCaBsX+NI6e7iy9pb2
- sNtQ5D8Q/tnOC3sNu1Petu5yXmPoDpYIkXA7k5sicORDf80lcjz6MNormlD4KpjKM7ubuADVIiK
- Leof1+yOkRC4SCV9NID43W8Jr5T7T71PpSHMwY2Oo6d9QboRJVwW6vHBPBkM9wwEudQl43uiluw
- dxVZiS3RT5cFOZPwoYQ==
-X-Authority-Analysis: v=2.4 cv=e6aT2qp/ c=1 sm=1 tr=0 ts=6abb3e97 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=rzLW7fUJNTnmvIt_Je4A:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: IsfOAjboBlbWAiuJu2IdVasFg3oWb0Jp
-X-Proofpoint-ORIG-GUID: IsfOAjboBlbWAiuJu2IdVasFg3oWb0Jp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfXzdXjoNXDSMFx
- YVJ7no3ojbXbVdDHVKhtNeVktLBrylZsrDYBll+zWZNmQdBQRUxfTyo/wK5Yg3Xq73t1++YKm+w
- U40jtZPE9Ahuq4IDQKFhKhIU4d58ybg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290017
+X-Exchange-RoutingPolicyChecked: DuuwOFXQlgJpn1nwLpLc/QUKo7C4qp0+bvbqmix5aKAXB3COg3B0bDs4NL9OsVLYJ3fgXBuJXFLpZcJCWPU2TRiprreM5WIECel0CdgeQayOj8t6wMEplG8PfeEjIRq7P18XI9VbgFf+nqyDdFQEaGx++4gOBkiGJbuKzjVKqNbfAAhk/VFwhSgz+qWIPvVZJpN0bWQLwzLzf4DTO2RDi+K0Wdg2W8da19/C0gW5GEML+PBu7qZFghPNeiamkMD5VEvYFkUqFNKTmO/qHgM7Lzoh60/KxSwyxH9s7tdenaSfGUPmu7daM8OQ9Ow9PIv1mTiztAsqLNEAWnrh6uCsug==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5613.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ee445a4-61db-4a4a-ba68-08df1de2804a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 04:31:16.1660
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: f7fOTro67c+ZSDF4zco/zHA9DDKCPvYCMoF+Z05FEuWBcrR2gDc+p9+El1Vboz7JG/WZTIJkLx++LVIwt60+kQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7048
+X-OriginatorOrg: intel.com
 
-A DP HPD IRQ reports a sink-side event and does not imply a Type-C
-routing change. Reprogramming the retimer for every IRQ can reset or
-disturb its datapath while link training or video transmission is in
-progress, causing intermittent DisplayPort link failures.
+>-----Original Message-----
+>From: Jonathan Cameron <jic23@kernel.org>
+>Sent: Monday, September 28, 2026 4:58 AM
+>To: Sanjay Chitroda via B4 Relay
+><devnull+sanjayembeddedse.gmail.com@kernel.org>
+>Cc: sanjayembeddedse@gmail.com; David Lechner <dlechner@baylibre.com>;
+>Nuno S=E1 <nuno.sa@analog.com>; Andy Shevchenko <andy@kernel.org>; Jiri
+>Kosina <jikos@kernel.org>; Srinivas Pandruvada
+><srinivas.pandruvada@linux.intel.com>; Benjamin Tissoires
+><bentiss@kernel.org>; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.=
+org;
+>linux-input@vger.kernel.org; Zhang, Lixu <lixu.zhang@intel.com>
+>Subject: Re: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID senso=
+rs
+>
+>On Sat, 19 Sep 2026 16:06:23 +0530
+>Sanjay Chitroda via B4 Relay
+><devnull+sanjayembeddedse.gmail.com@kernel.org> wrote:
+>
+>> Following feedback from reviewers and Srinivas, v4 series was split
+>> into two additional sub-series to perform cleanup and preparatory work
+>> before adding devm support:
+>> - HID: iio: warning clean up and prefer kernel coding style
+>>
+>> https://lore.kernel.org/all/20260707-15-jun-hid-iio-alignment-v3-0-879
+>> 1574ad0fe@gmail.com/
+>> - HID: iio: basic clean up for usage_id
+>>
+>> https://lore.kernel.org/all/20260610-6-june-hid-iio-correct-usage-id-v
+>> 2-0-c3c5f0720493@gmail.com/
+>>
+>> Both series have been merged into IIO tree. This series introduces
+>> device-managed APIs and converts HID IIO sensor drivers to use the new
+>> devm-managed resources.
+>>
+>> checkpatch reports a "suspect code indent" warning on the
+>> DEFINE_FREE() declaration, but this appears to be a false positive
+>> caused by the macro expansion. The code builds cleanly.
+>If possible, Zhang Lixu, would you mind retesting this full set?
+Hi Jonathan,
 
-Cache the successfully programmed DP retimer mode, HPD level, and
-orientation. When an IRQ arrives with the same state, leave the retimer
-untouched while continuing to notify DRM so MST sink IRQ handling is
-preserved. Invalidate the cache on non-DP modes and after a failed retimer
-update so later DP transitions are always configured.
+I'm currently on vacation and will be off for the upcoming China National D=
+ay holiday. I'll retest the full set once I'm back!
+Thanks for your patience.
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
----
- drivers/soc/qcom/pmic_glink_altmode.c | 38 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 37 insertions(+), 1 deletion(-)
+Thanks,
+Lixu
 
-diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-index e903d4910e9c..5ae554dc01d9 100644
---- a/drivers/soc/qcom/pmic_glink_altmode.c
-+++ b/drivers/soc/qcom/pmic_glink_altmode.c
-@@ -121,6 +121,12 @@ struct pmic_glink_altmode_port {
- 	u8 hpd_state;
- 	u8 hpd_irq;
- 	u8 mux_ctrl;
-+
-+	/* Last DP state successfully programmed into the retimer. */
-+	bool retimer_dp_valid;
-+	u8 retimer_dp_mode;
-+	bool retimer_dp_hpd_state;
-+	enum typec_orientation retimer_dp_orientation;
- };
- 
- #define work_to_altmode(w) container_of((w), struct pmic_glink_altmode, enable_work)
-@@ -180,6 +186,7 @@ static void pmic_glink_altmode_enable_dp(struct pmic_glink_altmode *altmode,
- 					 bool hpd_irq)
- {
- 	struct typec_displayport_data dp_data = {};
-+	bool retimer_state_unchanged;
- 	int ret;
- 
- 	dp_data.status = DP_STATUS_ENABLED;
-@@ -200,10 +207,31 @@ static void pmic_glink_altmode_enable_dp(struct pmic_glink_altmode *altmode,
- 	port->retimer_state.alt = &port->dp_alt;
- 	port->retimer_state.data = &dp_data;
- 	port->retimer_state.mode = TYPEC_MODAL_STATE(mode);
-+	retimer_state_unchanged = port->retimer_dp_valid &&
-+		port->retimer_dp_mode == mode &&
-+		port->retimer_dp_hpd_state == hpd_state &&
-+		port->retimer_dp_orientation == port->orientation;
-+
-+	/*
-+	 * An HPD IRQ is a sink-side DP interrupt, not a Type-C routing change.
-+	 * Avoid rewriting an already configured retimer while DP link training or
-+	 * video transmission is in progress. The DRM HPD IRQ notification below
-+	 * is deliberately still delivered.
-+	 */
-+	if (hpd_irq && retimer_state_unchanged)
-+		return;
- 
- 	ret = typec_retimer_set(port->typec_retimer, &port->retimer_state);
--	if (ret)
-+	if (ret) {
-+		/* A failed write may have left the retimer only partly configured. */
-+		port->retimer_dp_valid = false;
- 		dev_err(altmode->dev, "failed to setup retimer to DP: %d\n", ret);
-+	} else {
-+		port->retimer_dp_valid = true;
-+		port->retimer_dp_mode = mode;
-+		port->retimer_dp_hpd_state = hpd_state;
-+		port->retimer_dp_orientation = port->orientation;
-+	}
- }
- 
- static void pmic_glink_altmode_enable_tbt(struct pmic_glink_altmode *altmode,
-@@ -214,6 +242,8 @@ static void pmic_glink_altmode_enable_tbt(struct pmic_glink_altmode *altmode,
- 	u32 cable_speed;
- 	int ret;
- 
-+	port->retimer_dp_valid = false;
-+
- 	/* Device Discover Mode VDO */
- 	tbt_data.device_mode = TBT_MODE;
- 	tbt_data.device_mode |= TBT_SET_ADAPTER(TBT_ADAPTER_TBT3);
-@@ -271,6 +301,8 @@ static void pmic_glink_altmode_enable_usb4(struct pmic_glink_altmode *altmode,
- 	struct enter_usb_data data = {};
- 	int ret;
- 
-+	port->retimer_dp_valid = false;
-+
- 	data.eudo = FIELD_PREP(EUDO_USB_MODE_MASK, EUDO_USB_MODE_USB4);
- 
- 	if (tbt->usb_speed == 0) {
-@@ -307,6 +339,8 @@ static void pmic_glink_altmode_enable_usb(struct pmic_glink_altmode *altmode,
- {
- 	int ret;
- 
-+	port->retimer_dp_valid = false;
-+
- 	port->state.alt = NULL;
- 	port->state.data = NULL;
- 	port->state.mode = TYPEC_STATE_USB;
-@@ -329,6 +363,8 @@ static void pmic_glink_altmode_safe(struct pmic_glink_altmode *altmode,
- {
- 	int ret;
- 
-+	port->retimer_dp_valid = false;
-+
- 	port->state.alt = NULL;
- 	port->state.data = NULL;
- 	port->state.mode = TYPEC_STATE_SAFE;
-
--- 
-2.43.0
-
+>
