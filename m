@@ -1,223 +1,150 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76BF390CAB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:02:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E6A390C85;
+	Tue, 29 Sep 2026 07:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665325; cv=none; b=uNUOtbCcSwi+/hjPoO8T57b2VYDgEYdwvxBkMvul/4pSkaFjRqHfjJsfLPZzMrLbIG6uk3MYZWQEi1lDLHq6iW43UGGyq8LhIKv2LL7kseeWyVky0f93HTBbwET25qllvTNPtmJCGJ2nrNynY6uV3bNrQi6maF9owwXA5r2mLLY=
+	t=1790665490; cv=none; b=tzIyVt7Snp46RQZcGmy8A5bTk6o4l+F/hbLu5JssU33eNwd3ZIndoQLCbvUVpL8w4Xf4WkobEmN0W9BXdoX+oCizpxU9gj9x46cFp3TrQUZno7m4v/+aaXti9EUHYpILG3b8X8DUSt2/RqmCzuIohirrX37vJIk1jXzTp15nX5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665325; c=relaxed/simple;
-	bh=ahaPSs6pTTg8M+OYFo9RVetP3oklKSEOmJZ1AbJjFe4=;
-	h=From:Date:Subject:Message-ID:To:Cc; b=E57CvX+M0tXuAxzTWcT+rj2MQlPleqeg7U3/i5IX0MBPicT/joehQ6DhKazTCphAxqR2B5fE2jLg32URyz+xYPDylLuxnlfMPsPyXcFVYY2nwdpaqBk/iuCZfJl7OS0Rzl3IB42QHSX2nXsZcub10grPM4Z5LOD3p6SWmWgn+WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dgu.ac.kr; spf=pass smtp.mailfrom=dgu.ac.kr; dkim=pass (2048-bit key) header.d=dgu-ac-kr.20251104.gappssmtp.com header.i=@dgu-ac-kr.20251104.gappssmtp.com header.b=lQzziN0N; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dgu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dgu.ac.kr
+	s=arc-20240116; t=1790665490; c=relaxed/simple;
+	bh=LRiNZ0PgF+p4KPYkdFl2kfIl2phZiqixNWOA0NRwLcs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hSXGOGK4ycdSnUGigmP/Eocb1iK56m8gsn4Sbd66MCfTxcfx6gSZxNzusGEYi8NzVquTzWX1xCZH+Vu4+mQBGRRhiZywelqAvu8mfRjFL0KuP3MlVK8CMqNI/EabgOJ6mJY8mEuei9rbP9bryX971LJfmRZBUI2RTatNKMCH6Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XldU8Ln7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dgu-ac-kr.20251104.gappssmtp.com header.i=@dgu-ac-kr.20251104.gappssmtp.com header.b="lQzziN0N"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0f64df6a6so1178282a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:02:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dgu-ac-kr.20251104.gappssmtp.com; s=20251104; t=1790665322; x=1791270122; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SgyANliL/9OSzsbx4LMgJ4Uc8A7rCA+xzM8G8mL5nTg=;
-        b=lQzziN0NFDZX49hrxv9IVe92KPBmXCqVFtq+eFRj3u58HTwMZwSGLgbpUUwiKB6m50
-         U4Elfv3tKMA3CnLpUFPFFdQpTU6vPBw09zdKLCCKEYDyq7TSz77wPjHVwEt0gxnUEIcS
-         XtSM7b+tIqEsgIy5Bg0CdFAcKoK32Ll55QF9N846FgxCmOJX5sHqyeywRxxoSFbG91I+
-         nKKg2Gn80EEg30lEu/9+jRBUUQts3+bgcsSYr6vKp8s0NX5KTxHPJikUpxUR5sury4Rn
-         DwDXX7S9XrNI1JOTL7DiM2Bq2/zuheh4zMkuMxYfUwjM0p4HM5r0/T4f7KUoQL0qOaPu
-         +Inw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665322; x=1791270122;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SgyANliL/9OSzsbx4LMgJ4Uc8A7rCA+xzM8G8mL5nTg=;
-        b=2Jk1DsSWLIouJaWnZ07W87P/b6o2hCK1jMjFDgBqkB77Ic4fwdGcOufO/5LTec/djb
-         PNXy7QotfuvwKTLpjFoQBkzttHOzuhHExtAVxjmJrMsce2O5WE90H3eBg9DtandGy2QJ
-         6slcWlb7jPrnly7lmMxHZF+ogP+lHkp+We+HivKEs7LFktsT4Pq8yI+4CvcCd4HLpfXg
-         knixSRWJGFR6baynYl1aYLbKSK1sd7NQwsQU9Yf+52UK5sdh93IqAH9yOGG1Y1Tb4mtx
-         mGkp9PcBx6GFKTbXeu4y4+9m/kM5OiVmFnJyl5QQhfbfoftzXJMJ292Dto99U93GXqH0
-         pXFg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1pvsskVPJamJE7x6l1l36RCoSS5WO8j7DGKt4vGRwOm3HnhW3K6EwqKlCh5qdxrdNt+M7GbCISuQO3gs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiA616s1ft3IFn2faXjRkLreNO4uB8slxynAsAyyZuA5MmRp9a
-	VcNAebPOBzWPaPKCe+dRf6Nr2Md7tNtckhcCPuORolhrsXOj25wpzbsgKwv8i1kx5Lw=
-X-Gm-Gg: AYBFou0e4+mmzF3LwdOkST9gLSG3B8honuhEEmSNTteivop7H0JrDjaWddY3hV39hHz
-	THSQdapLwI2bsyzYZlf0tJtFbjXqSJo1line+htI+pzobDlT7h1RvSgXtOnosCX5Xd/KHK5tOd3
-	2pScyUgBaA4S0cPN17hEKbvJsNY/Q5nJSnGkCu0HqMZ/Rj4tjlyF3FrIas5hWfyOX+ujHgIP6gX
-	twkBEf2BKx/16RC9xDAzx5qBV8X05LbZdIIOUFKnZT4+jTeOWkVriJFj8GfjKR9CkAAWf2U51oE
-	wTCnklm9K5PrkkLa08SPdl+BBzLr4/2UGGqKTQvROrFfa7pXa5UEWKWkQoIHChzu9z+CXcfl9n6
-	8ZsbqBPvfldo9JJtdHhzJbd9slST4D36oxe9qpe3TtoAbC/zYDuyd/zcT+l5OCm7hW9+YvXzeOZ
-	reOzLj+LWq4ExkAQ9oYKpKdbRlDCA/PoC+HAsngxZw9n/r4uwa12qz/K4=
-X-Received: by 2002:a17:90a:902:b0:3a0:d9ae:4f3c with SMTP id 98e67ed59e1d1-3a0d9aef037mr5103648a91.18.1790665322087;
-        Tue, 29 Sep 2026 00:02:02 -0700 (PDT)
-Received: from PC2. ([175.193.106.181])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49869b9fasm4329281a91.12.2026.09.29.00.01.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:02:01 -0700 (PDT)
-From: Park Tae-sun <ts930@dgu.ac.kr>
-Date: Tue, 29 Sep 2026 14:56:34 +0900
-Subject: [PATCH] mm/mlock: fix zero-length request normalization and integer
- overflows
-Message-ID: <179066531783.50175.13377521828379196177@dgu.ac.kr>
-To: Andrew Morton <akpm@linux-foundation.org>,
- Liam R. Howlett <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Park Tae-sun <ts930@dgu.ac.kr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XldU8Ln7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4491F000FF;
+	Tue, 29 Sep 2026 07:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790665488;
+	bh=2qKMY1x1duDIpfMguLIlsKcBdmxwyEv+EI2pLOyWOfE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=XldU8Ln7sNxg5k2xUAxca31wT/mlW1M1NttXvc8BhQeOhrNU9IUlGHWE3H0umACqW
+	 E2MoBsf20EzAZyVTkTeIHkOeGSGZrMQ1uJTqgfaxcFKpwEXLM+UakBEwpkavt9rBPt
+	 OtCzPOdz1MaDjmc80A1hrawN21HAZ/Ebg3z4floOZ/VDjt08lvWfQRHO1a34z8K7mX
+	 H0bee2vbO5bRg1SjpOkRXJD5Z1RFywTmSoBjqfwRa+sNFrYrMGzfrzn/62iOujg9ms
+	 BhvXZTjeE8df8UmWTz1InOcVY/NAd0CtW2WQUE/DNMvoGaemjQYnymy8wnV6j49yHv
+	 rGeiaKpzbkZvw==
+Message-ID: <f34e29d0-f679-4dfc-ab76-6005295a8e98@kernel.org>
+Date: Tue, 29 Sep 2026 09:04:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: v4l2-ioctl: zero the ext control built for
+ VIDIOC_{G,S}_CTRL
+To: Nick Rogers <nick@getfieldwork.ai>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@xs4all.nl>, Brian Daniels
+ <briandaniels@google.com>, Alexandre Courbot <gnurou@gmail.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925080206.45261-1-nick@getfieldwork.ai>
+Content-Language: en-US, nl
+In-Reply-To: <20260925080206.45261-1-nick@getfieldwork.ai>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mlock() and munlock() currently normalize the requested address range
-using:
+On 25/09/2026 10:02, Nick Rogers wrote:
+> When a driver implements the extended control ioctls but has no control
+> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
+> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
+> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
+> and reserved2[0]; the control's size and the rest of both structures are
+> left uninitialized.
+> 
+> A driver that forwards the controls rather than handling them through
+> the control framework sees that stack garbage. The virtio-media driver
+> under review takes a nonzero size as a payload to copy from userspace,
+> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
+> the stack is dirty. GStreamer's V4L2 encoders set their profile with
+> VIDIOC_S_CTRL, and cannot negotiate against such a device.
+> 
+> Zero-initialize both structures.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> ---
+> Changes in v2:
+> - Assisted-by: LLM, per Documentation/process/coding-assistants.rst
+>   (Alexandre)
+> - Collected Nicolas's Reviewed-by
+> 
+> v1: https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
+> 
+> Alexandre asked whether drivers should fill the structure themselves.
+> The core builds it and passes it down, and a driver can't tell a
+> translated G_CTRL/S_CTRL from a real extended control call, so I think
+> it's the core's to zero. He's right that virtio-media will meet kernels
+> without this, though, so the driver now guards against it too:
+> https://lore.kernel.org/all/20260925080140.44696-1-nick@getfieldwork.ai/
+> 
+> Found running the virtio-media v9 series [1] in a VMM with a host-side
+> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
+> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
+> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
+> v4l2-compliance 1.30.1 reports the same results with and without this
+> patch. Build-tested on media.git next (arm64, W=1, no new warnings).
 
-    len = PAGE_ALIGN(len + offset_in_page(start));
-    start &= PAGE_MASK;
+This is the correct patch: these two struct need to be cleared in the
+code. In fact, this needs a Fixes tag and a CC to stable. It's just a bug.
+Never been caught since there are very few drivers that do not have a
+control handler. The only driver without a control handler is uvc, and
+that does the equivalent of QUERY_EXT_CTRL to determine if the control id
+refers to a compound control (that uses the 'size' field) or not.
 
-This performs multiple arithmetic operations on user-provided values
-without validating intermediate overflows.
+I verified that there are no other places in the kernel where v4l2_ext_control(s)
+isn't cleared before use.
 
-First, a zero-length request with an unaligned address is incorrectly
-converted into a non-zero page range. Because
-PAGE_ALIGN(offset_in_page(start)) rounds any non-zero offset up to a
-full page, a request such as mlock(0x1005, 0) falsely locks an entire
-4KB page (or fails with ENOMEM if unmapped), and munlock(0x1005, 0)
-silently unlocks memory that should remain locked. Conversely, an
-aligned mlock(0x1000, 0) is a no-op. Zero-length behavior should be a
-consistent no-op regardless of address alignment.
+The virtio-media driver can try the same thing as uvc does: query the
+control and check the flags field to see if it has a payload or not
+(V4L2_CTRL_FLAG_HAS_PAYLOAD). That will work with any kernel.
 
-Second, a sufficiently large length wraps around to zero during page
-alignment (e.g., len = ULONG_MAX). Because PAGE_ALIGN(x) is defined as:
+In the meantime, this is just a plain bug fix.
 
-    (((x) + PAGE_SIZE - 1) & PAGE_MASK)
+Frankly, rather embarrassing. I'm pretty sure I wrote this, and I should have
+known better...
 
-when len is close to ULONG_MAX, adding (PAGE_SIZE - 1) wraps around:
-on a 64-bit system with 4KB pages, ULONG_MAX + 4095 wraps to 4094, and
-masking with PAGE_MASK clears the lower 12 bits, producing 0.
-When len becomes 0, the subsequent check in apply_vma_lock_flags():
+Regards,
 
-    end = start + len;
-    if (end == start)
-        return 0;
+	Hans
 
-evaluates to true and immediately returns 0 (success) without locking or
-unlocking the requested memory range. Similar wrap-around issues have
-previously been addressed in mincore() and madvise() by checking for
-zero length after PAGE_ALIGN().
-
-Finally, address addition overflow (start + len < start) is currently
-detected only inside apply_vma_lock_flags(), after mmap_write_lock has
-already been acquired and memlock rlimits checked, improperly returning
--ENOMEM instead of -EINVAL. Per POSIX.1-2024 and man 2 mlock, arithmetic
-overflow of the requested range represents an invalid argument and must
-fail with -EINVAL before modifying VMAs or acquiring locks. Note that
-apply_vma_lock_flags() already contains:
-
-    if (end < start)
-        return -EINVAL;
-
-but this was obscured because rlimit accounting preceded it.
-
-Introduce a common check_mlock_range() helper to:
-1. Return 0 immediately for zero-length requests without taking mmap_lock.
-2. Validate intermediate and final arithmetic additions using
-   check_add_overflow().
-3. Reject lengths that wrap to zero under PAGE_ALIGN() with -EINVAL.
-4. Detect start + len address overflow before taking mmap_write_lock.
-
-Signed-off-by: Park Tae-sun <ts930@dgu.ac.kr>
----
- mm/mlock.c | 55 ++++++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 47 insertions(+), 8 deletions(-)
-
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 39215a3eab1f..203017797076 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -616,6 +616,47 @@ static int __mlock_posix_error_return(long retval)
- 	return retval;
- }
- 
-+/**
-+ * check_mlock_range - Validate and page-align the requested address range.
-+ * @start: Pointer to the start address. Untagged and page-aligned on success.
-+ * @len:   Pointer to the length. Page-aligned on success.
-+ *
-+ * Return: 0 if the range is valid, or -EINVAL on arithmetic overflow.
-+ * If *len is 0, *len remains 0 and 0 is returned; callers should treat this
-+ * as a no-op and return 0 immediately without acquiring mmap_lock.
-+ */
-+static int check_mlock_range(unsigned long *start, size_t *len)
-+{
-+	unsigned long end;
-+
-+	/* Untag user pointer (e.g. AArch64 TBI / x86 LAM) before arithmetic. */
-+	*start = untagged_addr(*start);
-+
-+	/*
-+	 * A zero-length request must not be rounded up by PAGE_ALIGN()
-+	 * to a non-zero range when *start is unaligned. Return 0 so caller
-+	 * can exit early without modifying VMAs or taking locks.
-+	 */
-+	if (!*len)
-+		return 0;
-+
-+	/* Guard against addition overflow between length and start offset. */
-+	if (check_add_overflow(*len, (size_t)offset_in_page(*start), len))
-+		return -EINVAL;
-+
-+	*len = PAGE_ALIGN(*len);
-+	/* Check whether PAGE_ALIGN() wrapped a non-zero length to zero. */
-+	if (!*len)
-+		return -EINVAL;
-+
-+	*start &= PAGE_MASK;
-+	/* Reject address wrap-around (start + len < start) before taking locks. */
-+	if (check_add_overflow(*start, (unsigned long)*len, &end))
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static __must_check int do_mlock(unsigned long start, size_t len,
- 				 vma_flags_t *flags)
- {
-@@ -623,13 +664,12 @@ static __must_check int do_mlock(unsigned long start, size_t len,
- 	unsigned long lock_limit;
- 	int error = -ENOMEM;
- 
--	start = untagged_addr(start);
--
- 	if (!can_do_mlock())
- 		return -EPERM;
- 
--	len = PAGE_ALIGN(len + (offset_in_page(start)));
--	start &= PAGE_MASK;
-+	error = check_mlock_range(&start, &len);
-+	if (error || !len)
-+		return error;
- 
- 	lock_limit = rlimit(RLIMIT_MEMLOCK);
- 	lock_limit >>= PAGE_SHIFT;
-@@ -689,10 +729,9 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- 	vma_flags_t flags = EMPTY_VMA_FLAGS;
- 	int ret;
- 
--	start = untagged_addr(start);
--
--	len = PAGE_ALIGN(len + (offset_in_page(start)));
--	start &= PAGE_MASK;
-+	ret = check_mlock_range(&start, &len);
-+	if (ret || !len)
-+		return ret;
- 
- 	if (mmap_write_lock_killable(current->mm))
- 		return -EINTR;
--- 
-2.43.0
+> 
+> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@google.com/
+> 
+>  drivers/media/v4l2-core/v4l2-ioctl.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+> index 17ba1ae70..b7d248ab7 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -2357,8 +2357,8 @@ static int v4l_g_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
+>  
+>  	if (vfh && vfh->ctrl_handler)
+>  		return v4l2_g_ctrl(vfh->ctrl_handler, p);
+> @@ -2388,8 +2388,8 @@ static int v4l_s_ctrl(const struct v4l2_ioctl_ops *ops, struct file *file,
+>  	struct video_device *vfd = video_devdata(file);
+>  	struct v4l2_control *p = arg;
+>  	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
+> -	struct v4l2_ext_controls ctrls;
+> -	struct v4l2_ext_control ctrl;
+> +	struct v4l2_ext_controls ctrls = {};
+> +	struct v4l2_ext_control ctrl = {};
+>  	int ret;
+>  
+>  	if (vfh && vfh->ctrl_handler)
 
