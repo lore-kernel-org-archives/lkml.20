@@ -1,76 +1,111 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4B53519DF5;
-	Tue, 29 Sep 2026 12:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F4250AC08;
+	Tue, 29 Sep 2026 12:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684078; cv=none; b=nyuexRgSHMo7Z9AKZioRV8TYPPHMvNDxlVrdQXvAPfgo+UZD70vrk4Q0ycR8sWjpk1HGC0xFA3rHp8QsvRhZzNVKo9xYe+9h2wCGS9X9ZSWTgKA+gUMt9NnLRNf7TiXTnPk1Uj+b+V/oyShC67MPD9PcjgEJ7kD8d468koevU3Q=
+	t=1790684090; cv=none; b=hi8U0kuaEm6dBJC0AlBInlhL2hpWjoJzJQ2DkUiWIp0+RsJ66GWiG56DGv4JVPiOPkiwwH+UWWMn2sO4nUUKHdeoJ9IYyAA0qHX8BU8qeMmW/sTyOg5GnxfUfLjr/chzFSU58SjchOs62IR00rsqQYonEm/WLCrfeEl33YoF4bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684078; c=relaxed/simple;
-	bh=KpbRo5wvWYYEvhUJ8NixQglOE8FclIcuHa9+3zDEXSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r3Oa+zeybQ27WzwpvuqoXHXokIBOsc8Y2nEvrtPXKVdTJay1M8C/UrhVic4Y3XD+QVOLuyUEOSCsly84AXZ8ch0JmAlAnQ+nEDmkp50ZsOjgej2LCgJR4yZv1ymNZ40Gf4Qc97yMn1TNbEO00eJ0rAxqf85wUNvLjOlMeW9bavw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Gj3lVZyc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790684090; c=relaxed/simple;
+	bh=N5Nhi5z/usOaVfZykoGEfYu522fzvn1tNbyWE+YN1ao=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bQtOWzq8IMDmzTJ7KCJv/0FDi3BHEasCu44B3bSHbHsVgDwCcqq57Aa4I6ZTsGaUzsUqz8pFzWSH8ZcJpJLgerPYKFEUmVuhD+JegG3Q6sgtpqd7IxJw5CRVRxVUX4OU8vWtjDi9lV0n6wklQ/QaAzuyLnXmO2pQsvykVDcOgwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=NU7aZCYc; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Gj3lVZyc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C140A1516;
-	Tue, 29 Sep 2026 05:14:32 -0700 (PDT)
-Received: from [10.57.12.116] (unknown [10.57.12.116])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C2F83F86F;
-	Tue, 29 Sep 2026 05:14:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790684076; bh=KpbRo5wvWYYEvhUJ8NixQglOE8FclIcuHa9+3zDEXSg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Gj3lVZyccDDRPlbotO7N9QaG7/lLlhFDj/O4VW4/SVs/zSipgDwsdhSfIr35e/TwW
-	 Kbm62sJwIYm+/mS3vWKQOXaPkD4vwsdzVO04Ch4k4woBd0+4Jj/v8rhORtdte4EgHn
-	 f4jELitrKpY8/XVi6KsgpNC4q2ErFwxb6jvKrq1c=
-Message-ID: <b9744fc2-ecc6-406b-ae33-62ba374a87fc@arm.com>
-Date: Tue, 29 Sep 2026 13:14:30 +0100
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="NU7aZCYc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=7EYxW6eHl+vVXk5DCcuxkBfN5sk69z/6MHf2ovNOkvc=; b=NU7aZCYcyPWAEXAPhrmKW9+jx3
+	YF7tXFWAVZWluxZfKd21ec29upiLKL6ev1AyyI1+WgpFaZMhtEw9n6/mIxlnCwo2a3HRBY8VxyCuU
+	v9YeFqcjbw3GLFJLsX3pcXDddDVR6ohhv+JPHb1wJuEfwDpEQqZGyJZA0TgZdpXB/MPK9fLR43PpR
+	dpfe7tiMT8SQhuWKMtvfsOkOvU54Ma4sCC+BX4vL0Je+xR0Mm0XqnZ5SOvmlKMfmpO9X2tMUWS6yC
+	hWMjjiWbQkpG6KHrpLKDTgfTgMq3Et1gXF4RAA2Dn3Dc66zX6dx6YWcnZ1kpFSKP14jjvShSS2E/H
+	kD9cI+BA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xBWiy-008OwB-2b;
+	Tue, 29 Sep 2026 12:14:21 +0000
+Date: Tue, 29 Sep 2026 05:14:13 -0700
+From: Breno Leitao <leitao@debian.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Stanislav Fomichev <sdf.kernel@gmail.com>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH net-next 1/6] ipv6: reject a negative optlen in
+ do_ipv6_getsockopt()
+Message-ID: <arurcoXJjvorXN4w@gmail.com>
+References: <20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org>
+ <20260925-sockopt_expand_out_v2-v1-1-c3ef2e3bb5c0@debian.org>
+ <arbE6i8JZrOs-DO9@devvm7509.cco0.facebook.com>
+ <20260927075358.129e5f65@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <aruWz-QkcdD9ETbC@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aruWz-QkcdD9ETbC@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927075358.129e5f65@pumpkin>
+X-Debian-User: leitao
 
-On 29/09/2026 11:50, Catalin Marinas wrote:
-> On Thu, Sep 24, 2026 at 02:51:54PM +0100, Suzuki K Poulose wrote:
->>   arch/arm64/Kconfig                |    1 +
->>   arch/arm64/kernel/cpufeature.c    |    1 +
->>   drivers/firmware/Kconfig          |    1 +
->>   drivers/firmware/Makefile         |    1 +
->>   drivers/firmware/arm_rmm/Kconfig  |   25 +
->>   drivers/firmware/arm_rmm/Makefile |    2 +
->>   drivers/firmware/arm_rmm/rmi.c    | 1072 +++++++++++++++++++++++++++++
->>   include/linux/arm-rmi-cmds.h      |  558 +++++++++++++++
->>   include/linux/arm-smccc-rmi.h     |  505 ++++++++++++++
+On Sun, Sep 27, 2026 at 07:53:58AM +0100, David Laight wrote:
+> On Fri, 25 Sep 2026 12:02:22 -0700
+> Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
 > 
-> One more nit: patches 1 and 2 I think add new header files without a
-> MAINTAINERS entry. You can add them to arm64.
-
-Ack, I have added them. Thanks
-
-Suzuki
+> > On 09/25, Breno Leitao wrote:
+> > > IPv4's do_ip_getsockopt() rejects a negative optlen right after reading
+> > > it. do_ipv6_getsockopt() never has, and nothing downstream treats it as
+> > > an error either: len is an int, but every consumer compares it unsigned,
+> > > so -1 behaves as a huge value and each site clamps to its own reply
+> > > size.
+> > > 
+> > > 	len = min_t(unsigned int, sizeof(int), len);
+> > > 
+> > > So getsockopt(fd, SOL_IPV6, IPV6_TCLASS, buf, &len) with len set to -1
+> > > answers 4 bytes and reports 4, rather than failing.
+> > > 
+> > > This is a bug ready to bite us in the near future, let's get this fixed.
+> > > 
+> > > I've found this because testing the rest of the patch was returning
+> > > inconsistency when optlen = -1.  
+> > 
+> > If I can do getsockopt with len=-1 today and get 4 bytes back, isn't
+> > that a uapi and we are gonna break someone?
+> > 
 > 
+> Treating negative values as 4 goes way back into the pre-historic annals,
+> And I agree that there could be code out there that fails to set a value
+> so passes 'dirty stack' and it always works because it never passed 0..3.
+> 
+> I suspect all the per-protocol code ought to be passed an unsigned 'len'
+> (and return back a possibly modified value for the wrapper code to give
+> to the user).
+> Then you have somewhere:
+> 	/* Historic bug compatibility */
+> 	ulen = len >= 0 ? len : 4;
 
+Ack, I will respin it and add this approach rather than -EINVAL.
+
+Thanks for the review and suggestions,
+--breno
+
+--
+pw-bot: cr
