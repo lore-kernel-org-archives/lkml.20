@@ -1,523 +1,835 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3827374A14
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FC6379C35;
+	Tue, 29 Sep 2026 08:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668938; cv=none; b=MNcMp+Gd6DrlS8M+2Nc1pPIzE04jKKPT/izcb1V5QzBct1/5l0C7Vg2lTpmUL71YSSHQHYP7KMRCnvnglajoUUGeWapTE5hUJYz7pM1s8YxEKSEmr2NHeZQyFI6QUuMdmHehR6Z6zEMiaym8GltqXutOWhMziJwHawK+dK2dGWw=
+	t=1790668974; cv=none; b=PcZ1XqdjBdn2uGp+LDZ7Lj3jAgAX5YdqL8i/hAWKzSkQaK+Wf4DNBhoUMO4e+Q7nXSKtEUZyLjMtDEMAk/22XWB74HJVrkESbdMu1Taoz+XBfmj73dIv37nCJlcbPyLs4w30I66POi1OkAMmPP9p3MaWt7G+mnfMp2wQhjSEjow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668938; c=relaxed/simple;
-	bh=FeXLWTWSy7/QFteqTpjAlCVlNtRQPF1IIokATk/IFOE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PZBJF/jX/oskYr8/teiaBHEIQmXVqCsZuCQjw7y65IW9kBCrGeLODWQAKYu0mWBPb3XfrC2JvGrNw3+kmr71kznyaSuKHsUx/m9oZPUG61GBnT+ZPpgiCeG0i2z+NgO74ZKM4gh875Jye3gYXXwpasWvzUAVHVFwwcjzWdTVMJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsAhLlTD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790668974; c=relaxed/simple;
+	bh=/syuwGlr9m4JbixgQAbnxeW/mvhp6TNsoHjlWsce7Jg=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=NskVoBoPNcWSnokkuQQsAmC/xLhwJUSeMawJ4veKzvvyIwmEX8IEzJSm72GiuUkEcw0BXoFxSa5fIBZZXwuPS04bfYYbCbJS22+XdU2nor6f0BrZ6AmIEUKxG12cwHeZpCacp003FWvlPz9wNOp+JBbPVxQLhxq8O7y+JLTV0cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=EZoBfnb1; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsAhLlTD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6A21F000FF;
-	Tue, 29 Sep 2026 08:02:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790668936;
-	bh=hRdbAg4wqHnNe+Y3D93gmITcA/iqdJgopfMbx5PjZvk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JsAhLlTDFzydVMt1aIecvwrISNVGR+oXgE2tfWcbf5/4Ve9bRAmj+5GPmsYPiIMNE
-	 92r7qYj+1Ly/dBA/rw7EKU1keUfukU1FLjOpsI69vtPYPB1IzNP5GD8u5dBqAgT1LX
-	 b3gFxVsAEoSLSDabrY9E1cFbOw22Ueoq6X6VgWquhz6oBD8FMzZQiH6ckba8hRSNhs
-	 zp4wBeWBsf0mG3/bLn/j/nBCg5dGrL830Fu718t9TKO+82URSwPtVrHZlfKJnO2uBR
-	 9ZHHFa2kmHZAguHxPPqzIaA8cnZsi1Y+zArW40YwqEUi7Xrx4pxMOBOgDxp8hWC1Rk
-	 N6wh4si1g2PKg==
-Message-ID: <d8646877-4975-4b2d-9255-9285414d65cb@kernel.org>
-Date: Tue, 29 Sep 2026 10:02:11 +0200
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="EZoBfnb1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790668960; bh=2s3E1IRhko6dtq2FFyT/w1qXlnwWbE97ByaRrzqHX00=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EZoBfnb1dETAr770UHAEJxHU/xnUiErrtSQQS3BxD3ltUlOheB9eO5OBQKzNfsJpK
+	 B4xdgoeIlXVrR8DHZKweYdtQCV8uvIbPryxrZwLPRBaxJG+DpFUvCxytyzkoybuY0g
+	 hXeMDPRJkTOiGxhAwU6idUouRnO5Xu5FeoqbynnU=
+Received: from lzk-B860M-AORUS-PRO-WIFI7 ([2409:8a28:a83:5ba1:514f:5353:e14b:594e])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id EC4A62DA; Tue, 29 Sep 2026 15:59:04 +0800
+X-QQ-mid: xmsmtpt1790668744tw7eghsxn
+Message-ID: <tencent_3AD5E72E543F91A7A99CACECA7B6A9AB4F09@qq.com>
+X-QQ-XMAILINFO: NEco6NxS/P2H+pBZBEB1QrhbLsPi+Bg8s958rkR0UnXDSifdnyP6FZ4ehvbxvF
+	 K7lihFXiZnfd6uI4RO0Y1Rrqg+MFHqFtIshYgFJJDStDK5UrnAPIXT3pdyl3MhGYCW2avrlwthhG
+	 D0VL9Q0nevhrErwxfIlZEUmtkopKnf/+gFHop1fnWZJfo3Y13ZUYaIAbLfJ0mdU4BwP4zjUVI9rZ
+	 sEX7Dyfz/zPftAmdEhdawUJ58OxJCROh107t8T+uIGROEKDiu0+waLpgDsALZ5A6ZI+QY4d7pQf+
+	 QGqjfh0JBbICvSaTqudzcaNa/SaVZtcv7862TuRaO+t5g2902NQAFNdg3fj5zt+LCviXfdPlndeB
+	 LlVMwhnpP207QOuVMjlR8cGXAQpqs4Pw9yts7/HuK6dM4MQe48dU7e9rk+Jdk6+ATzPaPg+OiKxg
+	 zVnnGjtRJ7/lP16PduXvzab50vEYBmTJyUbwgk52/Mlbn7b+j8I0Xo9MnIUrs742Z39ZwAmbZgf5
+	 TojBn89lKnBGmHnaNYnEe6dZx28SWHpZdJ78viUlDLVJUzvS4bw66XghZH8jUfL/66zMCYClyEZW
+	 5i/HzvwW+bya06R4JM8N0rMkjtxU6ioFwkwbN7iilzQfFo8a3yhORx6LjJkoU3Fmv76laATNsfLf
+	 hMqZIPVcMqfCIr/AQzZNZKiY7YS2J1pvG/WVVOjvTI2OwhdkrGcwSKk0LOyx/RDOybBKMWmB3rP3
+	 baCk/qES2TDbuF6d2dRBKhvbK11wU43q5kjB6pYjexT42E1lm1dzzDxF8W6NC62EPcw+bYSinYYO
+	 qBKXkrWJ4D9eoKD2WFPzfRQo1MP1UujyRXjn5cMCMjBoeEOfChoFiGDs2e8pl7vJdEfvfYNvuD4m
+	 9cQGlC13Z2UEfMJ/6UhN2Qlqjes03tBje5TLv1ev6hTVw3r8kAfhxVqlc5l+eBfnjKgp5+djtZTF
+	 PKB/iR+YJrHOwqfoDbWLSWTW0LTJvHkeGDMggR1iHNp2LqfGg194DNwkFTcHeVaPnBeaopOzQCgh
+	 G7ZPs8Bi4xAwWaDNXB3Ldg2OnBfkXxpv7AcI/Rb3BvGmOz4wHFJBjen2N4sIBKgqKEd1D6MikdMB
+	 MAuX+q2cuF94AQnqb9rTbXCZTCo+IGeycm5iRsDAc+ZGNmMN0eJRsvkF7q6lvFPYtjaruHtmlBBZ
+	 520O1HjlbG+8ISTnIw2+oE+AY4DCkmcl/lc8/rjCkQMGjO2w==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Zongkun Lei <leizongkun@qq.com>
+To: linux-mm@kvack.org
+Cc: Zongkun Lei <leizongkun@qq.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [RFC PATCH 2/6] mm/hugetlb: swap-in support for anonymous hugetlb folios
+Date: Tue, 29 Sep 2026 15:59:00 +0800
+X-OQ-MSGID: <1fb02d72bb4f95156bac3033f1b6118ba6386f3e.1790663399.git.leizongkun@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790663399.git.leizongkun@qq.com>
+References: <cover.1790663399.git.leizongkun@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] mm: swap support for hugetlb folios
-To: Zongkun Lei <leizongkun@qq.com>, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Xu <peterx@redhat.com>, Matthew Wilcox <willy@infradead.org>,
- Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-References: <tencent_501F9D3CED07B66BAA97D5352FB63EE1A709@qq.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <tencent_501F9D3CED07B66BAA97D5352FB63EE1A709@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/29/26 09:53, Zongkun Lei wrote:
-> Hi all,
-> 
-> This series introduces *user-driven* swap support for hugetlb folios,
-> covering both private anonymous and shared file-backed mappings.  It
-> deliberately keeps the hugetlb reservation semantics intact: the
-> kernel never reclaims hugetlb pages on its own -- hugetlb folios never
-> go on an LRU, there is no hot/cold guessing, and nothing hooks into
-> kswapd or direct reclaim.  This is the same boundary the merged
-> hugetlb demotion keeps: the kernel never reclaims reserved memory by
-> its own judgement.  Demotion is triggered explicitly by the
-> administrator (writing nr_hugepages) and only touches free pool
-> pages; this series is triggered explicitly by the workload (madvise)
-> and acts on its own live mappings.  In both cases the decision stays
-> outside the kernel.
-> 
-> Interface:
-> 
-> - Swap-out: MADV_PAGEOUT via madvise(2)/process_madvise(2) learns to
->   handle hugetlb mappings.  For anonymous mappings the PTE becomes a
->   swap entry; for shared mappings the PTE is simply cleared and the
->   location record stays in the hugetlbfs page cache.
-> - Swap-in: a fault reads the page back from swap.
-> - Swapoff: all swapped-out hugetlb pages are read back.  If the pool
->   has no free huge pages at swap-in time, the behaviour matches a
->   first-touch fault on a full pool: after bounded retries the process
->   receives SIGBUS -- no silent failure, no data loss.
-> 
-> 
-> Motivation
-> ==========
-> 
-> Today a hugetlb reservation is a one-way street: once instantiated, a
-> huge page's memory is completely unreclaimable until the mapping is
-> torn down.  THP and 4K anonymous memory can simply be swapped out;
-> hugetlb cannot.  This gap forces operators to choose between "huge
-> page performance" and "memory overcommit".
-> 
-> VM overcommit.  QEMU guests backed by MAP_SHARED hugetlbfs files
-> (-mem-path) allocate all guest memory from the host's huge page pool.
-> Overcommit means selling more guest memory than the pool holds --
-> fine in practice because guests never all peak at once.  But the
-> extreme case is unavoidable: when every guest's load spikes at the
-> same time, the pool runs out.  Keeping the VMs alive then requires a
-> swap mechanism that moves the memory the provider judges cold out of
-> the way.  Ballooning cannot save this scenario: it reclaims memory
-> that is free *inside* the guest, and the extreme case is precisely
-> that all guests are busy and have nothing to give.  The extreme case
-> is rare, but without an escape hatch providers dare not overcommit
-> confidently, and pool utilization stays low.  This series is that
-> escape hatch: the VM management stack issues MADV_PAGEOUT on cold
-> guest memory, VM availability survives the extreme case, and "huge
-> page performance" vs "memory overcommit" stops being a choice.
-> 
-> Hot-upgrade standby.  A hot upgrade first brings up the new instance
-> and switches traffic before the old one may be touched; to keep
-> rollback fast, the old instance usually cannot be deleted right away
-> and stands by for hours or days.  During that time it has no traffic
-> and its memory is cold, yet the process and its mappings still pin
-> the pool until it is finally removed.  With MADV_PAGEOUT the cold
-> memory can be swapped out during standby and swapped back if a
-> rollback happens.  More generally: whenever the pool is full but
-> tearing down the mapping is not an option, MADV_PAGEOUT is the only
-> way to free space.
-> 
-> 
-> Design
-> ======
-> 
-> Preparation: tree-wide folio_swap_entry() conversion (patch 1)
-> --------------------------------------------------------------
-> 
-> Hugetlb flags live in folio->private (a union with folio->swap), so
-> while a folio sits in the swap cache the low bits of folio->swap.val
-> can be polluted by HPAGEFLAG (with HVO enabled, bit 4 is set on
-> virtually every hugetlb folio -- not a theoretical issue).  The fix
-> is folio_swap_entry() -- an identity transform for non-hugetlb folios
-> (round_down(x, 1) == x for order-0; THP low bits are zero anyway) --
-> plus a *tree-wide* conversion of all folio->swap readers.  What
-> review must prove shrinks from "N sites x reachability arguments" to
-> "1 helper + 1 invariant (swap entries are folio-size aligned)", with
-> zero semantic change to existing paths.  It makes *generic* code
-> hugetlb-safe instead of adding special cases in hugetlb.c, aligned
-> with the hugetlb genericization direction.
-> 
-> The companion size gate hugetlb_folio_swap_supported() (introduced in
-> patch 3) clamps both bounds at once: the lower bound (HPAGEFLAG
-> width, requiring nr_pages >= 128) and the upper bound (non-gigantic,
-> <= PMD size, so one swap cluster holds the folio).
-> 
-> Private anonymous mappings (patches 2-4)
-> ----------------------------------------
-> 
-> - Swap-in (consumer first, patch 2): hugetlb_anon_swapin() mirrors
->   do_swap_page(): get_swap_device() pins the device,
->   swap_cache_get_folio() finds in-flight folios, and on a miss the
->   folio is allocated from the hugetlb pool and added to the swap
->   cache via the new generic swap_cache_add_folio() helper (hugetlb
->   folios do not come from the buddy allocator, so
->   __swap_cache_alloc() cannot be used).  Pool exhaustion retries
->   briefly, then fails with SIGBUS, matching the
->   reservation-exhaustion contract of the no-page fault path.  The
->   lifecycle is fully 4K-semantic: fork shares swap entries
->   (copy_hugetlb_page_range() + swap_dup_entries_direct(), dropping
->   the exclusive bit); zap/swapin release them; MM_SWAPENTS is
->   balanced at swapout/fork/swapin/zap per mainline semantics (VmSwap
->   stays meaningful); swapoff drains via hugetlb_unuse_vma().
->   The read-back path must merge before the swap-out path: the base
->   hugetlb_fault() returns ret = 0 for any entry that is neither
->   migration nor hwpoison, so with swap-out first, touching a
->   swapped-out page would livelock in an endless fault loop.
-> 
-> - Swap-out (patch 3): hugetlb_reclaim_pages() /
->   hugetlb_reclaim_folio_list() are trimmed mirrors of
->   reclaim_pages()/shrink_folio_list() and live in hugetlb.c; the
->   changelog of patch 3 explains why a mirror and why there.  Swap PTE
->   installation reuses the rmap walker: a new
->   try_to_unmap_swap_hugetlb_one() (a static callback mirroring
->   ttu_anon_swapbacked_folio(): single walk, swp_pte_prepare(),
->   mm_prepare_for_swap_entries(), MM_SWAPENTS accounting) plus the
->   exported wrapper try_to_unmap_swap_hugetlb(), following the
->   try_to_unmap_poisoned_hugetlb_one() precedent.  Cost to generic
->   rmap: one added line in rmap.h, zero changes to existing code.
-> 
-> - memory-failure (patch 4): anonymous hugetlb folios can now sit in
->   the swap cache (the writeback window, the cached copy left after
->   swap-in) -- a state memory failure has never seen before.  Two
->   adaptations: try_to_unmap() routes hugetlb folios by TTU_HWPOISON
->   (set -> the poisoned handler; cleared -- the mf case that keeps a
->   dirty swapcache folio -- -> the swap handler, matching 4K swapcache
->   semantics), and me_huge_page() intercepts swapcache folios at the
->   top (mirroring me_swapcache_dirty(): keep the folio in the swap
->   cache and return MF_DELAYED), fixing the silent eviction of a clean
->   poisoned folio that would otherwise mean a 2M pool leak plus a lost
->   poison marker.
-> 
-> Shared file-backed mappings (patch 5)
-> -------------------------------------
-> 
-> The shmem model: swap-out only clears the PTEs -- no swap entry is
-> ever installed for a file folio -- and the anchor (a swap value
-> entry, swp_to_radix_entry()) is left in the hugetlbfs page cache,
-> holding a dup'ed swap count.
-> 
-> - Swap-out: hugetlbfs_writeout() -- folio_alloc_swap() allocates the
->   folio-sized slot range, the inode is linked on the per-inode
->   swaplist (for swapoff traversal), folio_dup_swap() holds a swap
->   count for the anchor, the page cache slot is replaced by the anchor
->   in place, and swap_writeout() writes out.  The reclaim loop drops
->   its anon-only gate and madvise drops the VM_MAYSHARE rejection.
-> 
-> - Refault swap-in: hugetlb_no_page() recognizes the anchor (the page
->   cache lookup reports it as a hole) and swaps the folio back in via
->   hugetlbfs_do_swapin(), replacing the anchor in place --
->   indistinguishable from a regular page-cache hit afterwards.  The
->   read-back path must never lag the producer: the base fault path
->   treats value entries as holes and would silently zero-fill over
->   swapped-out data.
-> 
-> - read(2) swap-in: hugetlbfs_read_iter() resolves anchors through
->   hugetlbfs_swapin_read() instead of zero-filling; swapin failures
->   surface as -EIO/-EFAULT, never stale data.
-> 
-> - Lifecycle: truncate/hole-punch/evict free anchors and their slots
->   via hugetlbfs_free_swap(), with two UAF guards (the swap cache
->   entry is removed before the anchor's swap count is dropped; a
->   refcount race means reclaim is isolating the folio, so the folio
->   lock is held across swap_put_entries_direct() to wait it out).
->   Inode eviction drains the swapoff traversal list via
->   hugetlbfs_evict_drain_swaplist().
-> 
-> - swapoff: try_to_unuse() hooks hugetlbfs_unuse() right after
->   shmem_unuse().  File folios install no swap PTEs, so the mm walk
->   cannot reach their slots -- the per-inode swaplist traversal can.
-> 
-> - Symmetric accounting: hugetlb_cgroup, memcg swap/hugetlb charge,
->   the global reserve and NR_HUGETLB are paired with free_huge_folio()
->   on every path; the vma-less read/swapoff swap-in charges the
->   caller's context, the same policy as shmem swapoff.
-> 
-> 
-> Base and dependencies
-> =====================
-> 
-> Based on mm-unstable; no external patch dependencies.
-> 
-> The implementation builds on Kairui Song's swap table work: the
-> folio-sized contiguous swap slot ranges (folio_alloc_swap() /
-> folio_dup_swap() / folio_put_swap()) are the primitives that make
-> this possible at all -- without them a 2M folio would need 512
-> independent swap entries.  The merged phases of that work are already
-> in mm-unstable [1].
-> 
-> Looking ahead, the swap table roadmap may move swap entries out of
-> folio->swap; removing folio_swap_entry() then is a mechanical
-> operation -- the call sites are already concentrated in a single
-> helper, so it will be easier to delete than what we have today.
-> 
-> This series is complementary to the Reserved THP RFC (Qi Zheng), not
-> competing with it.  Reserved THP explores the endgame -- reserved,
-> swappable, unsplittable large folios that may absorb most hugetlb use
-> cases.  But the LSFMM 2024 consensus is that the hugetlbfs ABI stays
-> (migrating away is a 15-20 year scale); as long as the ABI exists,
-> its unreclaimable-pool problem needs a direct solution.  The two also
-> build on the same swap table foundation, so progress on either side
-> de-risks the other.
-> 
-> 
-> Anticipated questions
-> =====================
-> 
-> Q1: Why not put hugetlb folios on the LRU and reuse vmscan?
-> 
-> Semantic layer: hugetlb's ABI contract is "reservation = latency
-> determinism", and the kernel must not tear that up unilaterally --
-> this is the historical reason hugetlb could not be swapped at all.
-> Letting the kernel reclaim reserved pages under global memory
-> pressure based on its own hot/cold guesses (folio_referenced() style
-> access-pattern inference) injects fault latency exactly where it must
-> never appear -- the hot-upgrade standby and pre-traffic-peak moments
-> are precisely why hugetlb is used.  So the split in this series is:
-> the kernel provides the mechanism, the policy belongs to userspace.
-> MADV_PAGEOUT extends to hugetlb the proactive contract 4K anonymous
-> memory already has; the workload (orchestrator, JVM, database) knows
-> its warmup windows and traffic peaks, so hot/cold decisions stay on
-> the side with the most information.  This is the same boundary the
-> only merged hugetlb reclaim mechanism, demotion, keeps: the kernel
-> never reclaims reserved memory by its own judgement -- demotion is
-> administrator-triggered (nr_hugepages) and touches only free pool
-> pages, this series is workload-triggered (madvise) and touches its
-> own live mappings; in both cases the decision is outside the kernel.
-> 
-> Technical layer: an LRU is not a neutral queue; it is the input
-> structure of the kernel's reclaim policy.  Once a hugetlb folio is on
-> an lruvec, kswapd, direct reclaim, MGLRU generation scanning and
-> cgroup v2 memory.reclaim will *all* see it -- there is no "on the LRU
-> but exempt from scanning" mode; LRU membership means "in the kernel's
-> reclaim view".  And making the LRU machinery truly understand hugetlb
-> means adapting per-memcg lruvec accounting, folio referenced/aging,
-> workingset shadows, MGLRU generations -- which is precisely spraying
-> if (hugetlb) special paths across generic reclaim code, in direct
-> conflict with the LSFMM 2024 consensus of cleaning up internals and
-> removing scattered special cases.  A likely suggestion, "on the LRU
-> but reachable only by memory.reclaim, not kswapd", fails the same
-> way: the LRU is the shared input of every scanner; there is no
-> per-consumer visibility.
-> 
-> Implementation layer: under this split the series deliberately takes
-> the minimal-invasion route -- pool management stays in hugetlb.c,
-> every reusable generic leaf operation (rmap walk, slot allocation,
-> writeout, referenced/pin checks) is shared, and only the control flow
-> is mirrored, with "keep in sync" notes.  Today hugetlb folios live on
-> per-hstate lists carrying pool semantics (reserve, surplus, demotion)
-> that the LRU machinery knows nothing about; if LRU-ification ever
-> happens, the mirrored structure folds over mechanically.  kswapd
-> integration is an explicit non-goal, not a "never": the design does
-> not close the door (the referenced check simply comes back together
-> with that series' scan_control), but user-space-driven is the right
-> default for hugetlb, in the same direction as the Reserved THP RFC's
-> "reserved but reclaimable" roadmap.
-> 
-> Q2: Why extend swap to shared file-backed (hugetlbfs) mappings?
-> 
-> Without it, shared mappings pin the pool absolutely: an instantiated
-> shared huge page is unreclaimable until truncate/unlink, however cold
-> the data.  Deployments mixing private and shared hugetlb get held
-> hostage by the shared half -- under pressure the anonymous half can
-> be swapped out, yet the pool still exhausts and new allocations
-> (including swap-in itself!) keep failing.  Concrete users:
-> 
-> - QEMU guests backed by MAP_SHARED hugetlbfs files (-mem-path): idle
->   guest memory can finally be reclaimed with MADV_PAGEOUT instead of
->   pinning the pool for the VM's entire lifetime;
-> - services that hold shared hugetlbfs files for coordination/staging
->   but rarely touch them;
-> - ABI consistency: MADV_PAGEOUT succeeds on private hugetlb and every
->   4K/THP mapping including shmem -- shared hugetlb was the only
->   mapping type returning EINVAL, an ABI asymmetry users trip over;
-> - swapoff reachability: swapoff must be able to drain every kind of
->   swapped-out page; incomplete coverage leaves swapoff stuck on
->   anchors it cannot reach.
-> 
-> The anticipated objection -- "shared huge pages are for
-> performance-critical shared data, why swap them out" -- applies
-> equally to all shared file pages, yet shmem has always been
-> swappable.  Everything here is opt-in (proactive reclaim only on
-> request): nothing moves unless userspace asks.  Pool semantics hold
-> end to end: swap-out returns the page to the pool, swap-in competes
-> for pool memory again, and reservation exhaustion fails with
-> SIGBUS/-EIO exactly like a first-touch fault.
-> 
-> 
-> Testing
-> =======
-> 
-> New selftest tools/testing/selftests/mm/hugetlb_swap.c (~1120 lines,
-> 37 assertions, 14 test functions), wired into the mm selftest
-> Makefile and run_vmtests.sh:
-> 
-> - test_pageout_basic: anonymous PAGEOUT -> PTE becomes a swap entry
->   -> the huge page returns to the pool -> fault swaps back in with
->   data intact
-> - test_fork_after_pageout: fork shares swap entries, writes COW
->   without polluting the parent, parent/child MM_SWAPENTS balance
-> - test_munmap_releases_swap: zap releases swap entries, SwapFree
->   recovers
-> - test_readfault_munmap_drains_swapcache: munmap after a read-fault
->   swapin drains the leftover swapcache copy (both the pool page and
->   the slots are returned)
-> - test_swapoff: swapoff drains swapped-out hugetlb pages
-> - test_swapin_pool_exhausted: swap-in on an exhausted pool fails with
->   SIGBUS (same semantics as a first fault; no OOM, no silent errors)
-> - test_shared_file_swap: shared-mapping pageout (PTE cleared, no swap
->   entry) -> both pread and fault swap back in with data intact, and
->   the anchor can be re-established repeatedly
-> - test_truncate_after_pageout: ftruncate(0) after pageout frees the
->   anchor and its slots; subsequent access gets SIGBUS
-> - test_reject_paths: VM_LOCKED / userfaultfd-registered / 1G gigantic
->   are rejected with EINVAL
-> - test_mprotect_mremap_smoke: mprotect/mremap over swap entries
-> - test_vmswap_accounting: VmSwap balances over the whole lifecycle:
->   +2048 kB at pageout, unchanged for the parent after fork, back to
->   zero at swapin/munmap (regression test for the unsigned-negation
->   zap accounting fix)
-> - test_soft_dirty_swap: soft-dirty bit round-trips between present
->   PTEs and swap entries, verified with clear_refs isolation
-> - test_uffd_wp_swap: uffd-wp bit set through the swap entry, carried
->   back to the present PTE at swapin, write fault delivers the WP
->   event
-> - test_hwpoison_swapcache: PAGEOUT -> swap-in leaves the folio in the
->   swap cache -> MADV_HWPOISON -> the next access must SIGBUS (must
->   not silently swap stale disk data back in)
-> 
-> Real-machine results (x86-64, 2M huge pages, QEMU + openEuler 24.03,
-> dedicated swap disk): 37 assertions, 35 pass / 0 fail / 2 expected
-> skips (mlock is a no-op for hugetlb; no free 1G gigantic page).  Both
-> the VmSwap accounting balance and the hwpoison swapcache interception
-> are exercised end to end.
-> 
-> Every intermediate patch builds individually with zero warnings; the
-> !CONFIG_HUGETLB_PAGE configuration builds as well.
-> 
-> 
-> Patch split and ordering constraints
-> ====================================
-> 
-> 1. folio_swap_entry() helper + tree-wide conversion of all
->    folio->swap readers (zero semantic change; the changelog documents
->    the union pollution mechanism, the identity argument, the
->    alignment invariant, and why the conversion is tree-wide rather
->    than reachable-sites-only);
-> 2. Anonymous swap-in (read-back first): hugetlb_anon_swapin() + fault
->    recognition of swap entries + fork/zap/swapoff/MM_SWAPENTS
->    balancing;
-> 3. Anonymous swap-out core (producer second): the reclaim trio + the
->    rmap callback (rmap.h +1 line) + the hugetlb_folio_swap_supported()
->    size gate (with the swap_state.c VM_WARN backstop) + the madvise
->    MADV_PAGEOUT entry point; the changelog carries the
->    mirror/placement rationale and the full size-gate argument.
->    The order must not be flipped: the base hugetlb_fault() returns
->    ret = 0 for non-migration, non-hwpoison entries, so swap-out first
->    means an endless fault livelock on swapped-out pages;
-> 4. memory-failure adaptations -- right after patch 3, because the
->    hole becomes reachable from patch 3 on, and a partial merge of
->    1-3 must not leave an mf hole behind;
-> 5. File-backed swap as one piece: the shmem-model anchor +
->    hugetlbfs_writeout() + the refault/read swap-in pair + the
->    truncate/evict lifecycle + swapoff traversal.  Kept together
->    because none of the four is correct without the others: read-back
->    alone is all dead code; swap-out without lifecycle management
->    leaks anchors at truncate; lifecycle without swapoff traversal
->    leaves swapoff unable to reach the anchors (file folios install no
->    swap PTEs, so the mm walk cannot find them).  Any prefix of it
->    would be unhealthy, hence a single patch;
-> 6. Selftest + documentation (hugetlbpage.rst).
-> 
-> Comments welcome.
-> 
-> [1] https://lore.kernel.org/r/20250514201729.48420-1-ryncsn@gmail.com
-> 
-> Zongkun Lei (6):
->   mm/swap: introduce folio_swap_entry() and convert all folio->swap
->     readers
->   mm/hugetlb: swap-in support for anonymous hugetlb folios
->   mm/hugetlb: swap out anonymous hugetlb folios via MADV_PAGEOUT
->   mm/memory-failure: handle swapcached hugetlb folios
->   mm/hugetlb: swap support for file-backed hugetlb folios
->   selftests/mm: add hugetlb_swap test, document hugetlb swap
-> 
->  Documentation/admin-guide/mm/hugetlbpage.rst |   29 +-
->  fs/hugetlbfs/inode.c                         |  128 +-
->  fs/proc/task_mmu.c                           |   11 +
->  include/linux/hugetlb.h                      |   58 +
->  include/linux/pagemap.h                      |    7 +
->  include/linux/rmap.h                         |    1 +
->  include/linux/swap.h                         |   23 +-
->  mm/huge_memory.c                             |    2 +-
->  mm/hugetlb.c                                 | 1408 +++++++++++++++++-
->  mm/internal.h                                |   19 +-
->  mm/madvise.c                                 |   70 +
->  mm/memcontrol-v1.c                           |    4 +-
->  mm/memcontrol.c                              |    2 +-
->  mm/memory-failure.c                          |   19 +
->  mm/memory.c                                  |    2 +-
->  mm/page_io.c                                 |   18 +-
->  mm/rmap.c                                    |  175 ++-
->  mm/shmem.c                                   |    6 +-
->  mm/swap.h                                    |   14 +-
->  mm/swap_state.c                              |   55 +-
->  mm/swapfile.c                                |   87 +-
->  mm/userfaultfd.c                             |    2 +-
->  mm/util.c                                    |    2 +-
->  mm/vmscan.c                                  |    4 +-
->  mm/zswap.c                                   |    4 +-
->  tools/testing/selftests/mm/Makefile          |    1 +
->  tools/testing/selftests/mm/hugetlb_swap.c    | 1118 ++++++++++++++
->  tools/testing/selftests/mm/run_vmtests.sh    |    2 +
->  28 files changed, 3219 insertions(+), 52 deletions(-)
+Teach the hugetlb fault path to recognize swap entries and read them
+back, together with the full consumer-side lifecycle of such entries.
+This is the consumer half of hugetlb swap support; the producer
+(swap-out via MADV_PAGEOUT) arrives in a later patch, so every path
+added here is provably unreachable until then - which is exactly why
+it lands first: with swap-out first, a fault on a swapped-out hugetlb
+page would hit the 'ret = 0' fall-through in hugetlb_fault() and
+livelock.
 
-Hugetlb is effectively in a feature freeze. There is no interest in maintaining
-even more of the special hugetlb sauce, sorry. :/
+* hugetlb_anon_swapin(), mirroring do_swap_page(): get_swap_device()
+  pins the device, swap_cache_get_folio() finds in-flight folios, and
+  on a miss the folio is allocated from the hugetlb pool and added to
+  the swap cache via the new generic swap_cache_add_folio() helper
+  (hugetlb folios cannot come from the buddy allocator, so
+  __swap_cache_alloc() cannot be used).  Pool exhaustion retries
+  briefly, then fails with SIGBUS, matching the reservation contract
+  of the no-page path.  A hwpoisoned swapcache folio kills the
+  faulter with VM_FAULT_HWPOISON_LARGE instead of being delivered.
 
+* Fork: copy_hugetlb_page_range() duplicates the slot references of a
+  swapped-out page with the new swap_dup_entries_direct() helper (the
+  swap cache folio cannot be used: it is freed back to the pool once
+  writeback completes while its slots stay pinned by the entries) and
+  clears the exclusive bit on both sides, like copy_nonpresent_pte().
+
+* Zap: __unmap_hugepage_range() returns the slot references with
+  swap_put_entries_direct(); its present-folio branch additionally
+  drains a leftover swapcache copy (anon, unmapped, non-poisoned) via
+  folio_free_swap(), since hugetlb folios never sit on an LRU and
+  vmscan cannot reclaim them later.
+
+* hugetlb_wp() refuses to reuse a swapcache folio in place unless
+  folio_free_swap() proves no slot is referenced anymore (fork may
+  have duplicated the entries); hugetlb_change_protection() passes
+  swap entries through, only the uffd-wp bit may change.
+
+* MM_SWAPENTS follows the mainline contract (+N at swapout and fork,
+  -N at swapin and zap, N = pages per huge page) so VmSwap stays
+  meaningful.
+
+* swapoff: hugetlb_unuse_vma() walks one VMA's swap entries of the
+  dying type and swaps them in through the same worker, wired into
+  unuse_mm(); try_to_unuse() must be able to drain every kind of
+  swapped-out page.
+
+* pagemap: report hugetlb swap entries with PM_SWAP, soft-dirty and
+  uffd-wp bits, like small-page swap entries.
+
+Signed-off-by: Zongkun Lei <leizongkun@qq.com>
+---
+ fs/proc/task_mmu.c      |  11 ++
+ include/linux/hugetlb.h |   2 +
+ include/linux/swap.h    |   1 +
+ mm/hugetlb.c            | 414 +++++++++++++++++++++++++++++++++++++++-
+ mm/swap.h               |   6 +
+ mm/swap_state.c         |  32 ++++
+ mm/swapfile.c           |  66 +++++++
+ 7 files changed, 531 insertions(+), 1 deletion(-)
+
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index e671b4fd8ded..7f4c5b385acb 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -2161,6 +2161,17 @@ static int pagemap_hugetlb_range(pte_t *ptep, unsigned long hmask,
+ 		if (pm->show_pfn)
+ 			frame = pte_pfn(pte) +
+ 				((addr & ~hmask) >> PAGE_SHIFT);
++	} else if (softleaf_is_swap(softleaf_from_pte(pte))) {
++		softleaf_t entry = softleaf_from_pte(pte);
++
++		if (pte_swp_soft_dirty(pte))
++			flags |= PM_SOFT_DIRTY;
++		if (pte_swp_uffd_any(pte))
++			flags |= PM_UFFD_WP;
++		if (pm->show_pfn)
++			frame = swp_type(entry) |
++				(swp_offset(entry) << MAX_SWAPFILES_SHIFT);
++		flags |= PM_SWAP;
+ 	} else if (pte_swp_uffd_any(pte)) {
+ 		flags |= PM_UFFD_WP;
+ 	}
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 900c95e346b2..b751cba214be 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1377,4 +1377,6 @@ hugetlb_walk(struct vm_area_struct *vma, unsigned long addr, unsigned long sz)
+ 	return huge_pte_offset(vma->vm_mm, addr, sz);
+ }
+ 
++int hugetlb_unuse_vma(struct vm_area_struct *vma, unsigned int type);
++
+ #endif /* _LINUX_HUGETLB_H */
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 677081238811..c2f52bb76af5 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -414,6 +414,7 @@ sector_t swap_folio_sector(struct folio *folio);
+  * a swap count > 1. See comments of folio_*_swap helpers for more info.
+  */
+ int swap_dup_entry_direct(swp_entry_t entry);
++int swap_dup_entries_direct(swp_entry_t entry, int nr);
+ void swap_put_entries_direct(swp_entry_t entry, int nr);
+ 
+ /*
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 8fa1bafa03d9..fc2077a03744 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -26,6 +26,7 @@
+ #include <linux/string_choices.h>
+ #include <linux/string_helpers.h>
+ #include <linux/swap.h>
++#include <linux/swap_ops.h>
+ #include <linux/leafops.h>
+ #include <linux/jhash.h>
+ #include <linux/numa.h>
+@@ -48,6 +49,7 @@
+ #include <linux/page_owner.h>
+ #include "internal.h"
+ #include "page_alloc.h"
++#include "swap.h"
+ #include "hugetlb_vmemmap.h"
+ #include "hugetlb_cma.h"
+ #include "hugetlb_internal.h"
+@@ -4968,6 +4970,50 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 			if (marker)
+ 				set_huge_pte_at(dst, addr, dst_pte,
+ 						make_pte_marker(marker), sz);
++		} else if (unlikely(softleaf_is_swap(softleaf))) {
++			/*
++			 * A swap entry of a swapped-out private hugetlb
++			 * page.  Share it with the child like an anonymous
++			 * swap entry: duplicate the slot references of
++			 * the whole huge page and account one more
++			 * swapped huge page.
++			 *
++			 * The swap cache folio cannot be used for this:
++			 * once pageout writeback completes, the huge page
++			 * is freed back to the hugetlb pool and leaves the
++			 * swap cache, while its slots stay pinned by this
++			 * very entry.  So duplicate the slot references
++			 * directly under the page table locks, like
++			 * copy_nonpresent_pte() does with
++			 * swap_dup_entry_direct().
++			 */
++			pte_t swp_pte = entry;
++			bool exclusive = pte_swp_exclusive(entry);
++
++			if (unlikely(swap_dup_entries_direct(softleaf,
++						pages_per_huge_page(h)) < 0)) {
++				spin_unlock(src_ptl);
++				spin_unlock(dst_ptl);
++				ret = -ENOMEM;
++				break;
++			}
++
++			mm_prepare_for_swap_entries(dst);
++			add_mm_counter(dst, MM_SWAPENTS, pages_per_huge_page(h));
++
++			/*
++			 * The entry is shared by two processes now, so
++			 * drop the exclusive bit on both sides, like
++			 * copy_nonpresent_pte() does for swap entries.
++			 */
++			if (exclusive) {
++				entry = pte_swp_clear_exclusive(entry);
++				set_huge_pte_at(src, addr, src_pte, entry, sz);
++				swp_pte = entry;
++			}
++			if (!userfaultfd_protected(dst_vma))
++				swp_pte = pte_swp_clear_uffd(swp_pte);
++			set_huge_pte_at(dst, addr, dst_pte, swp_pte, sz);
+ 		} else {
+ 			entry = huge_ptep_get(src_vma->vm_mm, addr, src_pte);
+ 			pte_folio = page_folio(pte_page(entry));
+@@ -5236,6 +5282,8 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		 * unmapped and its refcount is dropped, so just clear pte here.
+ 		 */
+ 		if (unlikely(!pte_present(pte))) {
++			const softleaf_t softleaf = softleaf_from_pte(pte);
++
+ 			/*
+ 			 * If the pte was wr-protected by uffd-wp in any of the
+ 			 * swap forms, meanwhile the caller does not want to
+@@ -5249,6 +5297,27 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 						sz);
+ 			else
+ 				huge_pte_clear(mm, address, ptep, sz);
++
++			if (softleaf_is_swap(softleaf)) {
++				/*
++				 * A swapped-out private hugetlb page: this
++				 * pte held one reference on the folio-sized
++				 * swap slot range.  Return it (reclaiming
++				 * the swap cache once the last reference is
++				 * gone), like zap_pte_range() does for small
++				 * swap entries, and drop the accounting.
++				 */
++				swap_put_entries_direct(softleaf,
++						pages_per_huge_page(h));
++				/*
++				 * pages_per_huge_page() returns unsigned int,
++				 * so negating it stays unsigned and would
++				 * zero-extend to a huge positive long here;
++				 * cast to a signed type before negating.
++				 */
++				add_mm_counter(mm, MM_SWAPENTS,
++					       -(long)pages_per_huge_page(h));
++			}
+ 			spin_unlock(ptl);
+ 			continue;
+ 		}
+@@ -5329,6 +5398,25 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 				vma_add_reservation(h, vma, address);
+ 		}
+ 
++		/*
++		 * An anonymous folio swapped in by a read fault keeps its
++		 * swapcache copy and slots pinned (only write faults and
++		 * swap-full free them at swapin time).  Unlike small pages,
++		 * hugetlb folios never sit on an LRU, so vmscan cannot drain
++		 * such a copy later; once the last mapping is gone this is
++		 * the only chance to free it.  Best effort: folio_free_swap()
++		 * rechecks swapcache/writeback/occupancy under the folio
++		 * lock and simply fails in any race, leaving the slots for
++		 * swapoff.  Keep poisoned copies: they exist to kill their
++		 * remaining owners via the swapin hwpoison interception.
++		 */
++		if (folio_test_anon(folio) && !folio_mapped(folio) &&
++		    folio_test_swapcache(folio) && !folio_test_hwpoison(folio) &&
++		    folio_trylock(folio)) {
++			folio_free_swap(folio);
++			folio_unlock(folio);
++		}
++
+ 		tlb_remove_page_size(tlb, folio_page(folio, 0),
+ 				     folio_size(folio));
+ 		/*
+@@ -5508,8 +5596,16 @@ static vm_fault_t hugetlb_wp(struct vm_fault *vmf)
+ 	 * we run out of free hugetlb folios: we would have to kill processes
+ 	 * in scenarios that used to work. As a side effect, there can still
+ 	 * be leaks between processes, for example, with FOLL_GET users.
++	 *
++	 * A swapped-in folio that is still in the swap cache may back swap
++	 * slots referenced from other address spaces (fork() duplicates the
++	 * swap entries of a swapped-out page); reusing it in place would
++	 * corrupt the copy those slots still promise.  Try to free the swap:
++	 * it succeeds only when no slot is referenced anymore, in which case
++	 * reuse is safe; otherwise we have to copy.
+ 	 */
+-	if (folio_mapcount(old_folio) == 1 && folio_test_anon(old_folio)) {
++	if (folio_mapcount(old_folio) == 1 && folio_test_anon(old_folio) &&
++	    (!folio_test_swapcache(old_folio) || folio_free_swap(old_folio))) {
+ 		if (!PageAnonExclusive(&old_folio->page)) {
+ 			folio_move_anon_rmap(old_folio, vma);
+ 			SetPageAnonExclusive(&old_folio->page);
+@@ -5985,6 +6081,10 @@ u32 hugetlb_fault_mutex_hash(struct address_space *mapping, pgoff_t idx)
+ }
+ #endif
+ 
++static vm_fault_t hugetlb_anon_swapin(struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long haddr,
++		pte_t *ptep, pte_t old_pte, unsigned int flags, u32 hash);
++
+ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+ 			unsigned long address, unsigned int flags)
+ {
+@@ -6077,8 +6177,14 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		if (softleaf_is_hwpoison(softleaf)) {
+ 			ret = VM_FAULT_HWPOISON_LARGE |
+ 			    VM_FAULT_SET_HINDEX(hstate_index(h));
++			goto out_mutex;
+ 		}
+ 
++		/* Swapped out: read it back in. */
++		if (softleaf_is_swap(softleaf))
++			return hugetlb_anon_swapin(mm, vma, vmf.address,
++					vmf.pte, vmf.orig_pte, flags, hash);
++
+ 		goto out_mutex;
+ 	}
+ 
+@@ -6588,6 +6694,23 @@ long hugetlb_change_protection(struct vm_area_struct *vma,
+ 			    (uffd_wp_resolve || uffd_rwp_resolve))
+ 				/* Safe to modify directly (non-present->none). */
+ 				huge_pte_clear(mm, address, ptep, psize);
++		} else if (unlikely(softleaf_is_swap(entry))) {
++			/*
++			 * A swap entry of a swapped-out private hugetlb
++			 * page: permissions do not apply to a non-present
++			 * entry, only the uffd-wp bit may change (like the
++			 * migration entry case above).  Anything else must
++			 * be left untouched or the swap entry encoding
++			 * would be corrupted.
++			 */
++			pte_t newpte = pte;
++
++			if (uffd_wp || uffd_rwp)
++				newpte = pte_swp_mkuffd(newpte);
++			else if (uffd_wp_resolve || uffd_rwp_resolve)
++				newpte = pte_swp_clear_uffd(newpte);
++			if (!pte_same(pte, newpte))
++				set_huge_pte_at(mm, address, ptep, newpte, psize);
+ 		} else {
+ 			pte_t old_pte;
+ 			unsigned int shift = huge_page_shift(hstate_vma(vma));
+@@ -7427,3 +7550,292 @@ void fixup_hugetlb_reservations(struct vm_area_struct *vma)
+ 	if (is_vm_hugetlb_page(vma))
+ 		clear_vma_resv_huge_pages(vma);
+ }
++/*
++ * Mirror of should_try_to_free_swap() in mm/memory.c for the hugetlb
++ * swapin path; keep in sync.  The exclusive test differs: hugetlb
++ * approximates it with the folio refcount (1 + nr_pages when only the
++ * swapcache pins the folio).
++ */
++static inline bool should_try_to_free_swap(struct swap_info_struct *si,
++					   struct folio *folio,
++					   struct vm_area_struct *vma,
++					   unsigned int flags)
++{
++	if (!folio_test_swapcache(folio))
++		return false;
++	/*
++	 * Always try to free swap cache for SWP_SYNCHRONOUS_IO devices. Swap
++	 * cache can help save some IO or memory overhead, but these devices
++	 * are fast, and meanwhile, swap cache pinning the slot deferring the
++	 * release of metadata or fragmentation is a more critical issue.
++	 */
++	if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
++		return true;
++	if (mem_cgroup_swap_full(folio) || (vma->vm_flags & VM_LOCKED) ||
++		folio_test_mlocked(folio))
++		return true;
++
++	return (flags & FAULT_FLAG_WRITE) &&
++		folio_ref_count(folio) == (1 + folio_nr_pages(folio));
++}
++
++static vm_fault_t hugetlb_anon_swapin(struct mm_struct *mm,
++			struct vm_area_struct *vma, unsigned long haddr,
++			pte_t *ptep, pte_t old_pte,
++			unsigned int flags, u32 hash)
++{
++	struct swap_info_struct *si = NULL;
++	struct hstate *h = hstate_vma(vma);
++	int nr_pages = pages_per_huge_page(h);
++	swp_entry_t entry = softleaf_from_pte(old_pte);
++	struct folio *swapcache, *folio = NULL;
++	struct swap_io_ctx ctx = {};
++	bool new_folio = false;
++	spinlock_t *ptl;
++	pte_t new_pte;
++	vm_fault_t ret = 0;
++
++	/* Prevent swapoff from happening to us, and reject a bad entry. */
++	si = get_swap_device(entry);
++	if (IS_ERR_OR_NULL(si)) {
++		if (IS_ERR(si))
++			ret = VM_FAULT_SIGBUS;
++		goto out;
++	}
++
++	folio = swap_cache_get_folio(entry);
++	swapcache = folio;
++	if (likely(!folio)) {
++		int retries = 3;
++
++		/*
++		 * Swapping out releases the huge page back to the pool,
++		 * so swap-in has to compete for pool memory again.  If
++		 * the pool is exhausted, retry briefly (userspace may be
++		 * paging out cold pages right now) and then fail with
++		 * SIGBUS, matching the reservation-exhaustion contract
++		 * of the no-page fault path.  The fault path must not
++		 * block indefinitely.
++		 */
++		for (;;) {
++			folio = alloc_hugetlb_folio(vma, haddr, 1);
++			if (!IS_ERR(folio))
++				break;
++			if (!hugetlb_pte_stable(h, mm, haddr, ptep, old_pte)) {
++				/* Raced with swapin/unmap: drop and retry. */
++				folio = NULL;
++				goto out;
++			}
++			if (PTR_ERR(folio) != -ENOMEM) {
++				ret = vmf_error(PTR_ERR(folio));
++				goto out;
++			}
++			if (!retries--) {
++				ret = VM_FAULT_SIGBUS |
++					VM_FAULT_SET_HINDEX(hstate_index(h));
++				goto out;
++			}
++			schedule_timeout_uninterruptible(1);
++		}
++
++		new_folio = true;
++		__folio_set_locked(folio);
++		nr_pages = folio_nr_pages(folio);
++		__folio_set_swapbacked(folio);
++
++		/*
++		 * If the slot got cached or freed concurrently,
++		 * just drop the fault and let it retry.
++		 */
++		if (swap_cache_add_folio(folio, entry))
++			goto out_page;
++		swapcache = folio;
++
++		swap_read_folio(&ctx, folio);
++		swap_read_submit(&ctx);
++		folio_wait_locked(folio);
++	} else if (folio_test_hwpoison(folio)) {
++		/*
++		 * hwpoisoned dirty swapcache pages are kept for killing
++		 * owner processes (which may be unknown at hwpoison time)
++		 */
++		ret = VM_FAULT_HWPOISON_LARGE |
++				VM_FAULT_SET_HINDEX(hstate_index(h));
++		goto out_release;
++	}
++
++	if (!folio_trylock(folio))
++		goto out_release;
++
++	if (swapcache) {
++		/*
++		 * Make sure folio_free_swap() or swapoff did not release the
++		 * swapcache from under us. The page pin, and pte_same test
++		 * below, are not enough to exclude that. Even if it is still
++		 * swapcache, we need to check that the page's swap has not changed.
++		 */
++		if (unlikely(!folio_matches_swap_entry(folio, entry)))
++			goto out_page;
++	}
++
++	/*
++	 * If we are going to COW a private mapping later, we examine the
++	 * pending reservations for this page now. This will ensure that
++	 * any allocations necessary to record that reservation occur outside
++	 * the spinlock.
++	 */
++	if ((flags & FAULT_FLAG_WRITE) && !(vma->vm_flags & VM_SHARED)) {
++		if (vma_needs_reservation(h, vma, haddr) < 0) {
++			ret = VM_FAULT_OOM;
++			goto out_page;
++		}
++		/* Just decrements count, does not deallocate */
++		vma_end_reservation(h, vma, haddr);
++	}
++
++	ptl = huge_pte_lock(h, mm, ptep);
++	if (unlikely(!pte_same(huge_ptep_get(mm, haddr, ptep), old_pte)))
++		goto out_nomap;
++
++	if (unlikely(!folio_test_uptodate(folio))) {
++		ret = VM_FAULT_SIGBUS;
++		goto out_nomap;
++	}
++
++	arch_swap_restore(folio_swap(entry, folio), folio);
++
++	if (should_try_to_free_swap(si, folio, vma, flags))
++		folio_free_swap(folio);
++
++	add_mm_counter(mm, MM_SWAPENTS, -nr_pages);
++	hugetlb_count_add(nr_pages, mm);
++	/*
++	 * For a swap-cache hit on an already-anon folio (e.g. another task
++	 * faulted it in first), add a new rmap reference and carry the
++	 * anon-exclusive marker from the swap PTE. Otherwise this is a fresh
++	 * allocation that becomes anon here.  A shared swap entry (e.g.
++	 * duplicated by fork) must not make the folio anon-exclusive: the
++	 * folio still backs slots referenced from other address spaces, so
++	 * writes have to COW.
++	 */
++	if (swapcache && folio_test_anon(folio))
++		hugetlb_add_anon_rmap(folio, vma, haddr,
++				      pte_swp_exclusive(old_pte) ? RMAP_EXCLUSIVE : 0);
++	else {
++		hugetlb_add_new_anon_rmap(folio, vma, haddr);
++		if (!pte_swp_exclusive(old_pte))
++			ClearPageAnonExclusive(&folio->page);
++	}
++
++	new_pte = make_huge_pte(vma, folio, ((vma->vm_flags & VM_WRITE)
++				&& (vma->vm_flags & VM_SHARED)));
++	if (pte_swp_soft_dirty(old_pte))
++		new_pte = pte_mksoft_dirty(new_pte);
++	if (pte_swp_uffd(old_pte))
++		new_pte = huge_pte_mkuffd(new_pte);
++	set_huge_pte_at(mm, haddr, ptep, new_pte, huge_page_size(h));
++	spin_unlock(ptl);
++	/*
++	 * Drop the swap slot references after mapping, so raced page
++	 * faults will likely see the folio in swap cache and wait on
++	 * the folio lock.
++	 */
++	folio_put_swap(folio, NULL);
++	if (new_folio)
++		folio_set_hugetlb_migratable(folio);
++	folio_unlock(folio);
++
++out:
++	if (si)
++		put_swap_device(si);
++
++	hugetlb_vma_unlock_read(vma);
++	mutex_unlock(&hugetlb_fault_mutex_table[hash]);
++	return ret;
++
++out_nomap:
++	spin_unlock(ptl);
++out_page:
++	folio_unlock(folio);
++out_release:
++	if (si)
++		put_swap_device(si);
++
++	folio_put(folio);
++	hugetlb_vma_unlock_read(vma);
++	mutex_unlock(&hugetlb_fault_mutex_table[hash]);
++	return ret;
++}
++
++/*
++ * hugetlb_unuse_vma - swapin anonymous hugetlb pages from one VMA
++ * Called from hugetlb_unuse_mm() during swapoff.
++ */
++int hugetlb_unuse_vma(struct vm_area_struct *vma, unsigned int type)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	struct hstate *h = hstate_vma(vma);
++	unsigned long addr = vma->vm_start;
++	unsigned long end = vma->vm_end;
++	unsigned long sz = huge_page_size(h);
++	unsigned long last_addr_mask = hugetlb_mask_last_page(h);
++	struct address_space *mapping;
++	pte_t *ptep;
++	pte_t pte;
++	spinlock_t *ptl;
++	swp_entry_t entry;
++	int ret = 0;
++	u32 hash;
++	pgoff_t idx;
++	vm_fault_t error;
++
++	for (; addr < end; addr += sz) {
++start:
++		ptep = hugetlb_walk(vma, addr, sz);
++		if (!ptep) {
++			addr |= last_addr_mask;
++			continue;
++		}
++
++		ptl = huge_pte_lock(h, mm, ptep);
++		pte = huge_ptep_get(mm, addr, ptep);
++
++		entry = softleaf_from_pte(pte);
++
++		/* Skip non-swap leaf entries: migration, hwpoison, device, markers */
++		if (!softleaf_is_swap(entry)) {
++			spin_unlock(ptl);
++			continue;
++		}
++
++		/* Check if this entry is from the swap device we're disabling */
++		if (swp_type(entry) != type) {
++			spin_unlock(ptl);
++			continue;
++		}
++
++		spin_unlock(ptl);
++
++		mapping = vma->vm_file->f_mapping;
++		idx = hugetlb_linear_page_index(vma, addr);
++		hash = hugetlb_fault_mutex_hash(mapping, idx);
++		/*
++		 * We found a swap entry matching the type. Need to swap it in.
++		 * This is similar to the swapin code in hugetlb_fault().
++		 */
++		mutex_lock(&hugetlb_fault_mutex_table[hash]);
++		hugetlb_vma_lock_read(vma);
++		error = hugetlb_anon_swapin(mm, vma, addr, ptep, pte, 0, hash);
++		/* hugetlb_anon_swapin() releases vma_lock and fault_mutex */
++		if (error) {
++			ret = vm_fault_to_errno(error, 0);
++			break;
++		}
++
++		/* Sometimes, hugetlb_anon_swapin() would return 0 for retry */
++		cond_resched();
++		goto start;
++	}
++
++	return ret;
++}
+diff --git a/mm/swap.h b/mm/swap.h
+index 19c260353e08..5e5a581cb030 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -314,6 +314,7 @@ bool swap_cache_has_folio(swp_entry_t entry);
+ struct folio *swap_cache_get_folio(swp_entry_t entry);
+ void *swap_cache_get_shadow(swp_entry_t entry);
+ void swap_cache_del_folio(struct folio *folio);
++int swap_cache_add_folio(struct folio *folio, swp_entry_t entry);
+ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+ 				     unsigned long orders, struct vm_fault *vmf,
+ 				     struct mempolicy *mpol, pgoff_t ilx);
+@@ -396,6 +397,11 @@ static inline bool folio_matches_swap_entry(const struct folio *folio, swp_entry
+ 	return false;
+ }
+ 
++static inline int swap_cache_add_folio(struct folio *folio, swp_entry_t entry)
++{
++	return -EINVAL;
++}
++
+ static inline void show_swap_cache_info(void)
+ {
+ }
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 516052efbf62..43212df961bb 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -258,6 +258,38 @@ void __swap_cache_add_folio(struct swap_cluster_info *ci,
+ 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
+ }
+ 
++/**
++ * swap_cache_add_folio - Add an externally allocated folio to the swap cache.
++ * @folio: The folio to add, must be locked and swapbacked.
++ * @entry: The target swap entry, will be rounded down to the folio size.
++ *
++ * Mirrors __swap_cache_alloc() for callers that allocate the folio
++ * themselves, e.g. hugetlb whose folios must come from the hugetlb pool.
++ *
++ * Context: Caller must ensure @entry is valid and stabilize the swap
++ * device, e.g. via get_swap_device().
++ * Return: 0 on success, -ENOENT if the slot is not swapped out, -EEXIST
++ * if it is already cached, -EBUSY on a conflicting concurrent operation.
++ */
++int swap_cache_add_folio(struct folio *folio, swp_entry_t entry)
++{
++	struct swap_cluster_info *ci;
++	unsigned long nr_pages = folio_nr_pages(folio);
++	int err;
++
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++	VM_WARN_ON_ONCE(nr_pages > SWAPFILE_CLUSTER);
++
++	entry.val = round_down(entry.val, nr_pages);
++	ci = swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(entry));
++	err = __swap_cache_add_check(ci, entry, nr_pages, NULL, NULL);
++	if (!err)
++		__swap_cache_add_folio(ci, folio, entry);
++	swap_cluster_unlock(ci);
++
++	return err;
++}
++
+ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
+ 				      struct folio *folio,
+ 				      swp_entry_t entry, void *shadow)
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index c01bb490f4fc..280a31c43c81 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2699,6 +2699,10 @@ static int unuse_mm(struct mm_struct *mm, unsigned int type)
+ 			ret = unuse_vma(vma, type);
+ 			if (ret)
+ 				break;
++		} else if (vma->anon_vma && is_vm_hugetlb_page(vma)) {
++			ret = hugetlb_unuse_vma(vma, type);
++			if (ret)
++				break;
+ 		}
+ 
+ 		cond_resched();
+@@ -3904,6 +3908,68 @@ int swap_dup_entry_direct(swp_entry_t entry)
+ 	return swap_dup_entries_cluster(si, swp_offset(entry), 1);
+ }
+ 
++/*
++ * swap_dup_entries_direct() - Increase reference count on a range of swap
++ *                             entries.
++ * @entry: First entry of range.
++ * @nr: Number of entries in range.
++ *
++ * For each swap entry in the contiguous range [entry.offset, entry.offset + nr),
++ * increase the swap count by one.  Used when duplicating a large (multi-page)
++ * swap entry, e.g. when forking a mm with swapped-out hugetlb pages, where
++ * the swap cache folio may already be gone and folio_dup_swap() cannot be
++ * used.  The range may span multiple swap clusters.
++ *
++ * Context: Same as swap_dup_entry_direct(): the caller must ensure there is
++ * no race condition on the reference owner, e.g. by holding the PTL of a PTE
++ * containing the entries, and every slot must have a count >= 1.
++ *
++ * Return: 0 on success.  -ENOMEM if the swap count maxed out and an extended
++ * table could not be allocated, -EINVAL if any entry is a bad entry.  On
++ * failure all references added so far are rolled back.
++ */
++int swap_dup_entries_direct(swp_entry_t entry, int nr)
++{
++	const unsigned long start_offset = swp_offset(entry);
++	const unsigned long end_offset = start_offset + nr;
++	unsigned long offset, cluster_end;
++	struct swap_info_struct *si;
++	int err;
++
++	si = swap_entry_to_info(entry);
++	if (WARN_ON_ONCE(!si)) {
++		pr_err_ratelimited("%s%08lx\n", Bad_file, entry.val);
++		return -EINVAL;
++	}
++	if (WARN_ON_ONCE(end_offset > si->max))
++		return -EINVAL;
++
++	offset = start_offset;
++	do {
++		cluster_end = min(round_up(offset + 1, SWAPFILE_CLUSTER),
++				  end_offset);
++		err = swap_dup_entries_cluster(si, offset,
++					       cluster_end - offset);
++		if (unlikely(err))
++			goto failed;
++		offset = cluster_end;
++	} while (offset < end_offset);
++	return 0;
++
++failed:
++	/* Roll back the references added in previous clusters. */
++	while (offset > start_offset) {
++		unsigned long cluster_start;
++
++		cluster_start = max(round_down(offset - 1, SWAPFILE_CLUSTER),
++				    start_offset);
++		swap_put_entries_cluster(si, cluster_start,
++					 offset - cluster_start, false);
++		offset = cluster_start;
++	}
++	return err;
++}
++
+ #if defined(CONFIG_MEMCG) && defined(CONFIG_BLK_CGROUP)
+ static bool __has_usable_swap(void)
+ {
 -- 
-Cheers,
+2.53.0
 
-David
