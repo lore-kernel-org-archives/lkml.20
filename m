@@ -1,93 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2DE1D416C;
-	Tue, 29 Sep 2026 10:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E16D3D0BEC;
+	Tue, 29 Sep 2026 10:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676202; cv=none; b=dffVHUTMliqQr9uiAiDPrKyMZAri3WghzEL7xAjJ4lY6T2o8SPpoko1k6RptIaJgpkj0RnFhOGGEnPwLFYVpDsmW2tBcMVD6IrhuOrb+jdg0xkR843owUyeeOwpGkkkqV3pjxfFtLYvVvUszAFywrmXJxyaGpq9moMKNnYUoMoc=
+	t=1790676204; cv=none; b=fGsQj8tNbw0ks0RR6pTPdoNn7BCv17+9/EKjtDSqZeemcazAGPsDizU4LY5RR1uw19xFDlXHVUjXlvPc6P0tbVH8esuNhTZKaCguqH6MimVlUaJYRjMsVr/F35h1kHiP3kzyOjSNtJ4LL5kwkNw9/xER6QeYWawibJQ5LnwG3FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676202; c=relaxed/simple;
-	bh=sQF1ijqj5LE8SBRqGw2k8iUqXxg3AS1UFnSFnLTDrXs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fmeNB0dBQBowx1QAu6I+LqqkTiH/RCVroHoRzNccWo8mrQtVLjS2DCgwH796scbN8QVjGqRjBAoe8Gsj1EwRCzmey7MG0ehjsnmqI9aoFHoBt9THLr7lUqRbM83EN+X/DfxWXOSqsJbUWV8B/wZRct+XwNY+nV62KpG1PrB6GJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJjHn3rE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790676204; c=relaxed/simple;
+	bh=5m8t+DqmOklJ09PVxKp0kK8/O8id53KIQfHN2u983ec=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ANOg4FKtyuXo9gShOl/Zrzt6cDRTa8JB4+rNd2tBzJc+XVKGhU6qBa/TWnovbObDKuKIwxzEeayHFYTIjvOBHFC5mHk2y6fq8n3ZyoTJ5HeB44XKCet8SM8NO6R5tJk7TlYCFQqPxfiWXNcmRE6mlDsL9sxGdub5YMr5FjBD5y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=g7y+dHa2; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJjHn3rE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902D01F000FF;
-	Tue, 29 Sep 2026 10:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790676196;
-	bh=fyV8wdbA9PD/PC0vY6GD6KQo9xffIYODnSB/nuBnSD8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OJjHn3rEtKkIZJeeoOOe8w+ALm2QpbJxV7+jT8BnRQ/3F/EHqsSocWLl7Huy2qanU
-	 oR1emfORSWeRc/W+MPRPrDbk5pxtObsTQSQIoVEGEC0FwM+YBa0nEA8Ixf7LHH0Wsa
-	 /WWn36G0FiNdFD9LSPNwSrK3sRmqMsEdFY9cCfc4ovojtR8c9lH9zPw8pjm63dvC9C
-	 9gyMvA39lIEOQg3L85O+feAwPDFd50ZTwdk5mzIKQx6n0Qn2/ZChEzesy65lVX8cWE
-	 ix7JMiGi6IELSXy/lXZJP/5bykl7oHy/i9uRmK1HIk7cNrR67koL7jj/szF7qA2hOr
-	 se8xu/QHk7RoA==
-From: Mark Brown <broonie@kernel.org>
-To: tsbogend@alpha.franken.de, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Udaya Kiran Challa <challauday369@gmail.com>
-Cc: skhan@linuxfoundation.org, me@brighamcampbell.com, 
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260825162257.77042-1-challauday369@gmail.com>
-References: <20260825162257.77042-1-challauday369@gmail.com>
-Subject: Re: [PATCH v5] spi: dt-bindings: microchip,pic32mzda-spi: Convert
- to DT schema
-Message-Id: <179063753265.139547.14430985812194627498.b4-ty@b4>
-Date: Tue, 29 Sep 2026 00:18:52 +0100
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="g7y+dHa2"
+X-UUID: f7c0bb22bbec11f18dc8c9802ae25ab1-20260929
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=dyYbTObh62hi+fWsCU7QOW9sp8JH41mugoLKDlkqq68=;
+	b=g7y+dHa2TSK84tqdvo6a8NdeubMdWavuWlXtN4l9lDYc3w6JIcTx90cDO/JlsF0DA6/ZV0betAf6mWfW3FjqyVQdRQZaEK+PFexVhics5U4xPRe+VHPsosO9S1xI6vChCDkgelnCj4SyHEboVRdEBf6sGpdsg0xB3ugIp2j81Bs=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:2fe61261-c9d3-45a1-be16-804012babc49,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:b5431909-d10d-41b3-a8f1-bc707284d0ce,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f7c0bb22bbec11f18dc8c9802ae25ab1-20260929
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
+	(envelope-from <shiming.cheng@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1036863433; Tue, 29 Sep 2026 18:03:06 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 29 Sep 2026 18:03:05 +0800
+Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 29 Sep 2026 18:03:03 +0800
+From: Shiming Cheng <shiming.cheng@mediatek.com>
+To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>, <willemb@google.com>,
+	<daniel.zahka@gmail.com>, <alice@isovalent.com>, <sd@queasysnail.net>,
+	<eilaimemedsnaimel@gmail.com>, <imv4bel@gmail.com>, <nbd@nbd.name>,
+	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>
+CC: <stable@vger.kernel.org>, <steffen.klassert@secunet.com>,
+	<lena.wang@mediatek.com>, <shiming.cheng@mediatek.com>
+Subject: [PATCH] net: gro: mark frag_list GRO packets as SKB_GSO_DODGY when a list element exceeds gso_size
+Date: Tue, 29 Sep 2026 18:02:48 +0800
+Message-ID: <20260929100256.23192-1-shiming.cheng@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=broonie@kernel.org;
- h=from:subject:message-id; bh=sQF1ijqj5LE8SBRqGw2k8iUqXxg3AS1UFnSFnLTDrXs=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu4zg6iwLt1fprBJltqdeHY8ouLDouI2p9Lnqy
- 7xSmAArFOCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaruM4AAKCRAk1otyXVSH
- 0O0SB/wI8hR/F5iAdOPJrsVZllGvzRXrzyXyatmcrHbyJjnA00uakB0tQzA3bgs1KaOa9earV2m
- ddFNgLesmHB5weSX9zv7Du4tgIoK6d/4kOAkjJwR3a2nmvZT0sGur9OZjAWhyrtgQsDKMpoGBDz
- 1wREMG8kNDMxlNRNyRZgw48Sc4JoDS3NYwTmQyexjahl+GZM/xn0YQQ0p7Aw/b7jxz7jbgtVMg9
- gYIuWXSfS1GMHSSc3By/Y/ZV6+Zg6BXiNMhtjyx6VQQlZGzK7HwxOFA5G8mkKTcMhQd2k9cE7Bu
- 2BhaS2cFmKSGvu/MlXoa71v5wsEkQajYggpvqS5fa1TOKAFX
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MTK: N
 
-On Tue, 25 Aug 2026 21:52:57 +0530, Udaya Kiran Challa wrote:
-> spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
+When RX LRO (or similar offload) is enabled, the TCP/IPv4 GRO path may
+aggregate traffic using frag_list. The resulting skb is later segmented
+via the frag_list segmentation path (skb_segment_list()).
 
-Applied to
+However, some drivers can hand GRO/LRO-aggregated frames to the stack
+where individual frag_list elements are already larger than skb_shinfo(p)
+->gso_size (i.e., an element itself contains multiple MSS worth of
+payload) and may be non-linear (nr_frags > 0). This shape is not
+naturally produced by the software GRO aggregation logic for devices
+without LRO, and can lead to unexpected behavior in the frag_list
+segmentation path.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+Detect this condition during frag_list aggregation and mark the
+aggregated packet as SKB_GSO_DODGY when a list element’s length exceeds
+gso_size. This forces a more conservative segmentation/linearization
+behavior downstream and avoids relying on assumptions that do not hold
+for LRO-produced aggregates.
 
-Thanks!
+No change for normal software GRO aggregation: the new check only
+triggers when skb_shinfo(p)->gso_size is set and a frag_list element
+length exceeds that size.
 
-[1/1] spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
-      https://git.kernel.org/broonie/spi/c/cecb86a37ac0
+Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
+---
+ net/core/gro.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 29b4d02bf519..e70ecf19b0a7 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -259,6 +259,9 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ 	skb_shinfo(p)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
+ 
+ 	NAPI_GRO_CB(skb)->same_flow = 1;
++	/* frag_list element larger than gso_size (already coalesced before list-append) */
++	if (skb_shinfo(p)->gso_size && skb->len > skb_shinfo(p)->gso_size)
++		skb_shinfo(p)->gso_type |= SKB_GSO_DODGY;
+ 
+ 	return 0;
+ }
+-- 
+2.45.2
 
