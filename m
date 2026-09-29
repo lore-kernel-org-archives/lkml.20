@@ -1,65 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56725237B6;
-	Tue, 29 Sep 2026 21:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904F43CCFD2;
+	Tue, 29 Sep 2026 21:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718427; cv=none; b=fLxgi5u7H+9ctZtYm0AWwBcd+iSgUjK0kUWvAacmqLgXxcsaKmQt9ue5ek35Zhrtx6j7E6MB6NwRdlV/CZO9/5MDLAQI740tRKGuMFEg9iES6QCQXJO51fYERm8qa+Mg13oj5reG0z3rRfYClW8yKaDNO1phKx1lp8z1lD6jcD0=
+	t=1790718512; cv=none; b=o5jwmsT8wJakvlBn5cavmSluI0oJKX4vtkMbeFb2WXUVbkus8meFoBXr8wY9LELruvA8K22UxJKObROoDIOfR0Kk61jRelj6o9XtMPqhXCOXoDrzofcquz8VA1THbB/053FS/3MmQMXlu5kji8u06Zp424nImnRIyqNE7JQT9ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718427; c=relaxed/simple;
-	bh=omq+LetL4MRKRcT8qYOdz22ZyUQKIv8D4v8p77rXEXg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=a9DKDarwoPBECvvQ4yLctex+jVKBLRF2MkARXBJ4W6HvpSLCPKvu9dwMunkUsqIDO3W1Ft+UonCqtRobvTO8PIKrs61T4/nOMf/ee4YVBC0Om1ocHtjexXG7tzAO0GGdxchwohIb1IM+RTo73u7VP5+qluF1j2kwT/2Kkx7kh8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPXfgMdd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790718512; c=relaxed/simple;
+	bh=GWmvwj+nORo0EWQgRL+UgZnBah9OR8tb06mwcbd+pgI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FeCfhtqWLaITEe2fJa9eEOzLT+wLfBKjMt9FrWsHfAc+ixZaGzweBDDkGZkeyPj3djhdu7C6sy3RzRCcdrjx7awam/vTk0taSNQ3+hEFDE4vXUnb3HRcbykJ01m8auwUHldesvhOifRnJs+BvwgK9CFRnAC/Zxiyh3KA7mXvVv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2x1BvzJA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPXfgMdd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A752C1F000FF;
-	Tue, 29 Sep 2026 21:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790718413;
-	bh=omq+LetL4MRKRcT8qYOdz22ZyUQKIv8D4v8p77rXEXg=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=iPXfgMdddkMoFD+lN7ZWr+NtRxHFZd6sePRra0iCxhuaxQliUwXuzpH/yuVCEoP+o
-	 pB8N8JJI/DG0f1+MIPwdVOEf6UPD2wP6KbtGUorsc4Kk84Sfd5IvAR2xOFWBur4mNm
-	 Rt9p0j64WjERh/DNGORuqZM+Zw8XpH5So3WehMX9Oa1UM162jQKWRJghkYlrHaPAZc
-	 lQwLhuLuPzyyFYFXpSoE5HBFaurcMqEbc7s8aH0vxySIqFkqRZMm8LIytNa8bUeYRS
-	 LgKe5n7cP5c0tIcZwQ6UGoHolM+96ZnazDYhk5T/INV/oqUuAKHgtsTfRcihwewpP8
-	 pHF4TMnt3ZpVw==
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2x1BvzJA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7AF164E410AF;
+	Tue, 29 Sep 2026 21:48:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DDE3601BD;
+	Tue, 29 Sep 2026 21:48:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 88733103295D5;
+	Tue, 29 Sep 2026 23:48:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790718500; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=tNY2nMHpXTQMwRb4EtGa7fbXYJPj910XzwZSiKsA6lE=;
+	b=2x1BvzJAZ8G7RebZNCGzug6UcptMR1h+2WFmRk7gJo4Xfw3cREvWJvFIsMysfX2x3t2YZ7
+	m4eIvK7Ff33TB7jsot7FXa4LRCkQoHxRLVrrQtwk8UHigtgxQ2/2kOIQmUj01QmpMu0puX
+	SzpG3FWCWA6Rg6Rz4q7q2rcFos7ebWND3J3znjVrUhFRmBwwuRXox/R+036RoHDUKEB4Im
+	rH/vFLUfh1MwcdZ8kK7wjpKT1mq2mJ4zNYOe2rR5Q5ueLMKfuqrDj5mtVZqgh/f+AQhe8C
+	V9teQPe5fPPYIam2ON3FvKLTnMxUzuZj9mYdgwuaAY8H8lTItR5+COIOs79taA==
+Date: Tue, 29 Sep 2026 23:48:17 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Liu Dalin <liudalin@kylinsec.com.cn>
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: Re: [PATCH] rtc: rs5c372: add missing error code for unknown RTC type
+Message-ID: <2026092921481727857dc7@mail.local>
+References: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 23:46:48 +0200
-Message-Id: <DLS4P3YCF18J.3BYXSPOVAN69L@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2] gpu: nova-core: restore the "Probe Nova Core GPU
- driver" debug print
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-References: <20260929210749.409380-1-jhubbard@nvidia.com>
- <65f49657-175d-43f1-b172-62efe5cceb28@nvidia.com>
-In-Reply-To: <65f49657-175d-43f1-b172-62efe5cceb28@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <C18300C5767FC690+20260827015846.3314353-1-liudalin@kylinsec.com.cn>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue Sep 29, 2026 at 11:34 PM CEST, John Hubbard wrote:
-> There is a trailing " at the end of that Fixes line. Even though I
-> ran checkpatch.pl on both of these patch versions, it didn't flag
-> it.
+On 27/08/2026 09:58:46+0800, Liu Dalin wrote:
+> In rs5c372_probe(), when an unknown RTC type is encountered in the
+> switch default case, the local variable 'err' is still 0 from its
+> initialization. The subsequent goto to the exit label then returns
+> success, even though probe has failed.
+> 
+> Set err = -ENODEV before jumping to exit to properly report the
+> failure to the caller.
+> 
+> Fixes smatch warnings:
+> - drivers/rtc/rtc-rs5c372.c:860 rs5c372_probe() warn: missing error
+>   code 'err'
+> 
+> Fixes: cb26b572dc394 ("[PATCH] Update the rtc-rs5c372 driver")
+> Assisted-by: smatch:2.0 [static analysis]
+> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
+> ---
+>  drivers/rtc/rtc-rs5c372.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
+> index 24bd795d9d95..84407119caba 100644
+> --- a/drivers/rtc/rtc-rs5c372.c
+> +++ b/drivers/rtc/rtc-rs5c372.c
+> @@ -857,6 +857,7 @@ static int rs5c372_probe(struct i2c_client *client)
+>  		break;
+>  	default:
+>  		dev_err(&client->dev, "unknown RTC type\n");
+> +		err = -ENODEV;
 
-Thanks, I can drop it then. (Though, I'm not sure this should have a Fixes:=
- tag
-in the first place.)
+But isn't this dead code that will never be reached? In what case would
+you be probed and not match any i2c_device_id?
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
