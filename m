@@ -1,135 +1,212 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD443DB994;
-	Tue, 29 Sep 2026 23:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723572; cv=none; b=jmB1ggp1q6PA4uDaEEESJu8xfImuCmnEOdIuU/BZNC9NYFSQxHK6pQntk4agzZJ2QptQBnk6tyR3StiaSuhbUK+PjmBDah1e98OE0nmOMgYmT67n1UZc3sklfiXZTy5sfy5lKX5EeeQRlg6+vczp5AUUoA9MB88jH8kC4ZpUw9U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723572; c=relaxed/simple;
-	bh=z4PLtxqtGwCEBgSls2uKze3odixUtuWpbTV/YAG3KIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G5AmIVL9cIrZqdNO2XuNP2kDmxXCwBz8ytaxSeasXeeGdXGqavuujYdXExCghx3xeTUNrfWPsQ4IeJVKiYDxvmleggyvFbl2foVcvpK8iQRRRdwtUDI4e6b26AH7D2kCKTp/17x56ZGSVxm6BJ5cmPQRG1SDa6G2C0fRSTHjF0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=a6N/LBSr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WjQ2m/k+; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABEA4E535D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790723590; cv=pass; b=smW+2hJnG/bDdOoMRlhMrCzhhuX0mx9lkTTPYra68hxxxxF72j+qmBsZiIAFt4LapWACA+sLVdomWPBVlzlPa6VQwbhdxdZM1Hq7tuhSlwMXzmcFq3HwGLk+QQ6kJx47jWqujUmzmLATTWcyrkMoHjtWrzaS/pvIaahQRpTSjHc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790723590; c=relaxed/simple;
+	bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AG7saBvSK6IPSdPSlOj8+wbk13lwQiUgBq95D/xRqUhOISnryx4vrd7U+/d2wWG1nM60N7hKCYxhL5FsWRyiycd6TQERT/vbyA8xRP7N0i4TEWvS66rCGmB/9hPVhWZH7BogMolHTxDH0DTShkKB8XPB1dOuGzOK6lVtk0Y+oHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5JVZJra; arc=pass smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="a6N/LBSr";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WjQ2m/k+"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D5FA414000A9;
-	Tue, 29 Sep 2026 19:12:47 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 29 Sep 2026 19:12:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790723567;
-	 x=1790809967; bh=5N8h4cDDPZVbZ0cY4qvCL0csuOeAgz31V+uoawEdTzI=; b=
-	a6N/LBSrV9poCK6KvdAdRAY2+RfNy2XWhhrVgG443xzXiMz4d4wPl1SG3IYSEENM
-	nivsMv8lYNB6ozIK45JA/V8GBr224iLsrkw4okdyUQAmFzfhVA8VhQ+WWc9Ny0/r
-	dK8Y/RBHEUqfSkEaC7TyuvQpqLrrBMQXZ/agrnjrRYc8MAxxf+9tmltTIBqWgyNN
-	Tl9qf/6J6/ZzgZAPv56LN2qdSKeGEjpq3NgEWbXsybylwcN7KBZu5ypQ24XTGrrD
-	8Xcn5x6YWFCB8kzPmZ4ytA7BAeVe9iQrxzsUZncrZ9ffsHcKMcFQTMD7eYswBXT5
-	T+m8W66b4qUkeEXtrmOUfg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790723567; x=
-	1790809967; bh=5N8h4cDDPZVbZ0cY4qvCL0csuOeAgz31V+uoawEdTzI=; b=W
-	jQ2m/k+JOr+GBHpOCjb086bC0PHeerc6wnqXfcH6MgA28lc63LRNwotxFKr39nh1
-	Y1Fa84v3kg7yNqlo3Tibz1bV4BPv2xilOB7uABoByVfI3cKgSGNxF9NKg+BPMcci
-	d6KNIQXxHFLtkDJfiGbLkfJx2BXLSqcIXRKa3Z9+Pll1JUdI6fL+RNHUk/tVk+Ub
-	HPDu39QKHLuVmNmZe//W2mPfCC0dXr0YIgQuoLu5lQJ/27KvQmNTSt+gJ0DQpBT6
-	mo6Hq2Itx2PTVAgYubv9yVYCS7OnAk+hulMuMK7dGSDycNTcTmQ2Mh7fdd2bwPSN
-	vnbZAwm9ws+zgW/t/0G/g==
-X-ME-Sender: <xms:70W8apYOhkXJBezxoQD7-XKKApbmNBro9gpH0ektkQ09twrF5kn8lg>
-    <xme:70W8amZxeWoNLolNnwupbdiEncRXjrN0PWTMe_FlyuHMaqIigcweR24_TdQcjxQJJ
-    cIki7lInl7maZAmI26jTGynNplA14ll9zNhL5rMLvxC_0NI9fr8jCk>
-X-ME-Received: <xmr:70W8amxVXwNH7tnpI3Fywv4Isw2ofxiW1gWOYO5c4QgRYNJSDyG5kt_jH4fm6w>
-X-ME-Proxy-Cause: dmFkZTGzkRVwE7IVkz7bX/VwLuT+4AbufLz94UjH4E0LDN3MKrom4+IChXgf+oHYLo0Ur4
-    dlevciSILgkCgvVzC0Y2VaN/E+vuQG69hPuFUyKi04WZdzhd76RboE6vWPmHthYEXxKNkG
-    5i/nSO82SPN3EQvxlcFZbHOJVtpvQmqtCodFq8B7sOdQGmKEOxICdt1JnarA2otuDbTxOS
-    PZZERuSmBKZGMgesXxEiKa45q+y4idVmAymZ+JVuQY261e2UsG+ekqbZSKsMtc6w8Hwvlq
-    VmA6Arunx2zuM+IZeAoR7mrwxgGTBJXNul+PXG9JCj2XZqNp9kvfiA1sYWEFTL9+ksKASL
-    qzKJwwemRAMQg8uQ3vYD2A8k9E53bYKqPn/4ErnDV2mZlbxVkpB2dL+KXd7UBKL27gKm0T
-    cfp/p4g5i3p3BVidBv+kTv58k4jdmy4YALIlRgzj6wDsLi4Oht4cy5fpkaXUpoRdlDwL04
-    2OuX422sR7yi12b4KXYgaQJ+L3t5KrhVajoi4ofhXzWmVq1APG4U4f3UaEd2ERGVD80QD0
-    TC53u+9eJf0O/8t4bnCl1NYaVxsNF3WgDPrF08qYwL4Q31sChn0Y8bOJ3MTR/K0f4/1OhA
-    E0OLkyoHUsG2YQQaXlteVYdFovLSVyxYgM14+z5oTFmtuavMiYBJx6b67utg
-X-ME-Proxy: <xmx:70W8aqd3WEAFS3CRLad4RrmZMcGJsaRV_3UY4M6tWeyudSvL4_8p4w>
-    <xmx:70W8aj6-mYqMA_tX9XUSYK84VZgly9uKc9lWDw9qau5DL4NcEibNcQ>
-    <xmx:70W8anI6AqwONJ0_uxh8h3PJyGp-guQzORBSiIEOu4TuSanDTLnt6g>
-    <xmx:70W8ajyS2_EKXxdBdrVf6y2TlCDBNZjqCft4gaYkZ1nHspAYDlW5dw>
-    <xmx:70W8aqp1z77twTCNsKk8uT76DfPXOs4AKddvkmf2afCtF9a2lGg_sfZy>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 19:12:46 -0400 (EDT)
-Date: Tue, 29 Sep 2026 17:12:44 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: lirongqing <lirongqing@baidu.com>
-Cc: Matt Evans <mattev@meta.com>, Kevin Tian <kevin.tian@intel.com>, Kees
- Cook <kees@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Ramesh Thomas
- <ramesh.thomas@intel.com>, <kvm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH] vfio/pci: Restore 8-byte ioeventfd support
-Message-ID: <20260929171244.172f0b3d@shazbot.org>
-In-Reply-To: <20260922040013.2188-1-lirongqing@baidu.com>
-References: <20260922040013.2188-1-lirongqing@baidu.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5JVZJra"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so4257432c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:13:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790723585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hrLp0oNwfedqy9HE6GPiAq4hV2Cfz0UnPdN137b97KiU3zrYjTRZIHhWMh89qxztxM
+         8UZnT8yqLKt6NF6bi43qeOUqYtNgFHRdHUkga/D1B0p0ZmVnc9OxD/24iqDUUpa786tg
+         dMXw42jeJdtxu88BXBspYM9/L2MSa+9BCu3WGmP8EI1DivbeUC7agCc9AdmONisnZUzy
+         msBcxFamB9vJ5ut/hq2o7XM5KBI1ZK6SfxscUc4OWua/dpe45j0ds4uP42CTEZvnxnOi
+         ousC04H77LNFkHCgfyNjsiV8g1o7hosr7O/gaAJBCEbSsqig/ss3yvaro5rBa8UQ2Bma
+         S7xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
+        fh=nUj075vpZfNyXD4zWHiDi3rIy9vc1WkVYF/GwnUQ9nw=;
+        b=MlJ5EXYgqEW7qOfHTWL2HE8X160ZThaQjf4/e7nXYx8dbnFUYfmvMgVktEl90bHg8/
+         EPFXYNqQsitsX1pFYTJrOKKUtl0sB6S6OzvslaoiLNakzHVz4dwE+qytytICyp+xTaUq
+         D0bFJGm3yi0rIUltr1ogvL1e+95MinnBJXfDlr8NXLS0D8sCUaTws8S11OW/q7A/x8cX
+         zxqBwV+jXSAChHkUtMtXjdtE9pYf9lzsI3r9Hl+Zft7v0WeJq7oE9f6Hm6ySmZYQTBmT
+         uKF47mTNWZ39hBbvPekO2xNJZSRuJXYv29toj5NdZu0h10fOJgLVydCvEZlQUNCW1zOR
+         JGhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790723585; x=1791328385; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
+        b=h5JVZJra0NXjN/IR922ol6FflVUo56jzzpCbGrig3DCL3Yk72ns/C0G2vLz1QRi885
+         9lRTcxNmn2ENuLHEDDefEyEo7iw8xORpxFEW7zBKC3u2fmiNnXiKZo49ZUnGHLsDOoLl
+         Mjz0svzPQtf2EL0ouFrDyysjE4Jie0IJJedi/xdWLIWUgEiPNayIBk2CBZdLGNZP7/Ns
+         WWKLEPQMEbI0H+Xb4BOBq4Mc8KgWYzljv87xMybVciuVEAn8LsO/FsVEXgxuCdBrG4lX
+         Z4wGesNfzfI+F1P64FeDUnDzy1ZJzgO2icMP6d3gKv2n5Mo6qZGHUa57owqUPVb3ZNlq
+         shGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790723585; x=1791328385;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MaUS+F0fKOr5e04hFxW3NiUiLFf0VyXmdyNTytVr2BY=;
+        b=wtlUuOtu4DDBZOdqYAu1dc/eDicZB93lh4Lmd3ndiHTon3UtKQ+sezm4+ORZ6yTTsD
+         MDYrD6+2Eu5nwd5KEOIQ1QiewddRNXHq1C4GCvAe+B8SBdMBcCeqqjdGgorE/BR+bS1D
+         LxeVGlYIuz7hQwoo/+QvSG6w0CbKUtSh5JyqUu0K+PMTfZ7Vo9Eaf4N5vAIZTtOG5gl9
+         B+o3WGnB5ZzKH5OsTPwadI7+uKw4QPTu3RKm00D/v9wSG0ektdaHRYVWRbUl2nPmqtkM
+         2ZvXEwTn7WRa6NAIX0/v7PYrVlyMlcNZeynLEO1F3mvL4g5yfB2Ri/B4CoLG1XpJDCXX
+         eFTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoqq8Q/4Kyag5YJbQvvYCLH5a1mOA/BohYNTmSlnCridOpXYMPTed8Vn3Dzt75n9TxmuF/9y6H2SV8DIY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUCfoVlwo9PbdiQAmMygWIP/riQDV/rsigGzIDyII3sZOFjqjH
+	H77JGoY9JPqOlHO6wj3PhTc4kkOOsD15zr2HYADOFbyf104UVHK0UQLSb4DAWWksbJmCw2zrbme
+	Zx9L/s/Kar5JR4KJKNCinIMnEwO3BL8E=
+X-Gm-Gg: AYBFou3yob5zyZ8yML9pKSJLQmNkltHCCgME+JokHaDNpbFBoZd5k/51ph7bGovR/rb
+	vKxbTc/MyvBCZIkKIcdD4ovtZlU2LRmaIruis7m+emjXqcP8endqVickWclUv99NcM5PMKPqP7F
+	H3X4h3v7Yq08fKMjjnZBaCX+EWigTAnJBpJwhWIwAZdWP6u+7MK3Rxi/sq8pUvsl/SvNp3LZdVT
+	HDFxqNMkaEq6siWK7cyFu1ejT3ntGEAkKZnVkFCMgqtXAtK467jwL5gfxGjJm76o16JcX6IutfC
+	61s7Nrm0THHtNoRa/BbXAl2s48/tztXHilELElMVJapiVgztOg/RIGDntdLeMo5g8TFYG/5EPdQ
+	ONw==
+X-Received: by 2002:a05:7301:fc12:b0:341:a4ed:d910 with SMTP id
+ 5a478bee46e88-34c65c622cdmr858433eec.7.1790723584981; Tue, 29 Sep 2026
+ 16:13:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <CA+2YD=Nxe25n8rmM-DS+w+Pg0N_YtOf_znJXNMi77SCwk3OUyw@mail.gmail.com>
+ <20260925205706.GA697101@killaraus.ideasonboard.com>
+In-Reply-To: <20260925205706.GA697101@killaraus.ideasonboard.com>
+From: Perry Joyce <perrygjoyce97@gmail.com>
+Date: Wed, 30 Sep 2026 00:12:53 +0100
+X-Gm-Features: AclHuK-Ap3SxujRSf8OOSV3hnZak0aESAQpvapu2LboIUe41glhlpR1xU3QT6b0
+Message-ID: <CA+2YD=P3pNVi=GJ1qoqnsgA56Hg_N6iT_AXGPDBHn9XToxh1KA@mail.gmail.com>
+Subject: Re: uvcvideo: Logitech Brio 500 (046d:0943) needs UVC_QUIRK_PROBE_DEF
+To: linux-media@vger.kernel.org
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, hansg@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 12:00:13 +0800
-lirongqing <lirongqing@baidu.com> wrote:
+Hi,
 
-> From: Li RongQing <lirongqing@baidu.com>
-> 
-> Commit b44a06bd28f2 ("vfio/pci: Remove #ifdef iowrite64 and #ifdef
-> ioread64") inadvertently converted a conditional 8-byte rejection
-> into an unconditional one.
-> 
-> Originally, 'count == 8' was rejected only if iowrite64 was undefined
-> (#ifndef iowrite64). When iowrite64 became globally available via generic
-> fallbacks, this rejection became dead code, allowing 8-byte ioeventfds.
-> However, b44a06bd28f2 removed the #ifndef wrappers but left the nested
-> 'if (count == 8) return -EINVAL;' intact, breaking all 8-byte
-> registrations.
-> 
-> Drop the unconditional check to restore 8-byte ioeventfd support,
-> matching the original intent.
-> 
-> Fixes: b44a06bd28f2 ("vfio/pci: Remove #ifdef iowrite64 and #ifdef ioread64")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> ---
->  drivers/vfio/pci/vfio_pci_rdwr.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_rdwr.c b/drivers/vfio/pci/vfio_pci_rdwr.c
-> index 7f14dd4..df88480 100644
-> --- a/drivers/vfio/pci/vfio_pci_rdwr.c
-> +++ b/drivers/vfio/pci/vfio_pci_rdwr.c
-> @@ -423,9 +423,6 @@ int vfio_pci_ioeventfd(struct vfio_pci_core_device *vdev, loff_t offset,
->  	      pos >= vdev->msix_offset + vdev->msix_size))
->  		return -EINVAL;
->  
-> -	if (count == 8)
-> -		return -EINVAL;
-> -
->  	io = vfio_pci_core_get_iomap(vdev, bar);
->  	if (IS_ERR(io))
->  		return PTR_ERR(io);
+Resending in plain text as requested.
 
-Applied to vfio next branch for v7.4.  Thanks!
+I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
 
-Alex
+uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
+
+Kernel:
+
+Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17
+Sep 2026 07:33:37 +0000 x86_64 GNU/Linux
+
+The webcam otherwise works normally.
+
+Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
+
+modprobe -r uvcvideo
+
+modprobe uvcvideo quirks=0x100
+
+After loading the module with 0x100, the device initializes without
+the probe-control error:
+
+uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter
+for testing purpose.
+uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing list.
+
+I also tested this across a reboot with:
+
+options uvcvideo quirks=0x100
+
+and the probe error remains absent. Normal 1920x1080 MJPEG capture at
+30 fps continues to work.
+
+Device information:
+
+idVendor=046d
+idProduct=0943
+bcdDevice=0.21
+Product: Brio 500
+
+Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
+
+I'm happy to provide additional logs or test a patch if needed.
+
+Kind regards,
+Perry
+
+
+On Fri, 25 Sept 2026 at 21:57, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hello Perry,
+>
+> Your original e-mail was sent as HTML, which gets silently rejected by
+> the kernel mailing lists. Could you please resend it as plain text ?
+>
+> On Fri, Sep 25, 2026 at 09:31:42PM +0100, Perry Joyce wrote:
+> > Hi,
+> >
+> > I'm seeing a reproducible UVC probe error with a Logitech Brio 500 (046d:0943):
+> >
+> > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> > uvcvideo 1-3:1.1: Failed to set UVC probe control : -32 (exp. 26).
+> >
+> > Kernel:
+> >
+> > Linux archlinux 7.2.6-1-cachyos-bore #1 SMP PREEMPT_DYNAMIC Thu, 17 Sep 2026
+> > 07:33:37 +0000 x86_64 GNU/Linux
+> >
+> > The webcam otherwise works normally.
+> >
+> > Testing with UVC_QUIRK_PROBE_DEF fixes the initialization error:
+> >
+> > # modprobe -r uvcvideo
+> > # modprobe uvcvideo quirks=0x100
+> >
+> > After loading the module with 0x100, the device initializes without the
+> > probe-control error:
+> >
+> > uvcvideo 1-3:1.0: Found UVC 1.00 device Brio 500 (046d:0943)
+> > uvcvideo 1-3:1.0: Forcing device quirks to 0x100 by module parameter for
+> > testing purpose.
+> > uvcvideo 1-3:1.0: Please report required quirks to the linux-media mailing
+> > list.
+> >
+> > I also tested this across a reboot with:
+> >
+> > options uvcvideo quirks=0x100
+> >
+> > and the probe error remains absent. Normal 1920x1080 MJPEG capture at 30 fps
+> > continues to work.
+> >
+> > Device information:
+> >
+> > idVendor=046d
+> > idProduct=0943
+> > bcdDevice=0.21
+> > Product: Brio 500
+> >
+> > Would it be appropriate to add UVC_QUIRK_PROBE_DEF for this device?
+> >
+> > I'm happy to provide additional logs or test a patch if needed.
+> >
+> >
+> > Kind Regards,
+> > Perry
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
