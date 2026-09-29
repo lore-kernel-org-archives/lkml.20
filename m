@@ -1,87 +1,73 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F7F322B9F;
-	Tue, 29 Sep 2026 18:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A31137F006;
+	Tue, 29 Sep 2026 18:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707517; cv=none; b=C8GQ+4EGNB59ZdiozFPci/RVVzJVNojSm94wgkWnPPrLuzUMk0JlrV2ioFudealGhDTWWL99L1Aeerd2UudfTSCCUzK5NVV3xOs3MCcilpgyDM/uJ0epVBouUqv87RttJfKXyM4CRxgUiE1XqttSpX3midxL8HYVlW5TRosM/ZQ=
+	t=1790707547; cv=none; b=UraDzPMFTRgWf5KW0AvdFxzEjb8fpLTnCiETqohT8C8ZBLMDDuELf8te8vxkTMAh9wKQWAuFyXvWhM6EWWm/At7jxvBPHQoweqvYVMhn2dcxJ6iYvGaF5EFUW0N947e6suxDqWP5qLW0HDuqMZ5/9b+ZQCENooFd4N9PqXG0Ox8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707517; c=relaxed/simple;
-	bh=2JdM+OMPCZBlPoQlhlqezVeWZuDcC5Zlfj3r2CMimOE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OJDcQSMkli7iZvoESzTCKdpqp0Zl0lp7YlSmtouiDeLKPXIXxAyQFPMoO9nyk6Vi9FFbn5Iv4yNzZ9FZMhKlrx7F8Rm8+/jS6Ol+2aravher/ANiFqzkgJact1Op8gmuQUa52nFrCv9w8m+FjbpxmLWQRcDP6EfQ2CEHf1F5x+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=A9s7kt09; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1790707547; c=relaxed/simple;
+	bh=LKMPUiUQbaG7cOnJgjRyRkPTA0EcqGVJ5W+21o6UC5c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=f5lLa5Hcy6jagTFxaJSJdCiXd0aytvRKomgx+9apBDT0YpNuSYpguj8MC0LKVZ/RJ6sOBCgFm1KQ19QieX837adIoslBg4yVf9oQddEZOxX5/bIbcLGM7LKGpIB9EOlQ7Z26EAzBkXWIhfvyftzv2G+F3vZfXPSHwbpV+TiqJoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQFE/Zgx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="A9s7kt09"
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id B498CA6E7E;
-	Tue, 29 Sep 2026 18:45:07 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id D3D5920012;
-	Tue, 29 Sep 2026 18:45:04 +0000 (UTC)
-Date: Tue, 29 Sep 2026 14:45:01 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Zhengchuan Liang <zcliangcn@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Ross Zwisler <zwisler@google.com>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, Peter
- Zijlstra <peterz@infradead.org>, linux-perf-users@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] tracing: Require tracepoint permission for perf
- function filters
-Message-ID: <20260929144501.3b8dcaa1@fedora>
-In-Reply-To: <95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-References: <cover.1790553331.git.zcliangcn@gmail.com>
-	<95d3721fa8d4c7a4577ec14e9d7caec4fd0cefcc.1790553331.git.zcliangcn@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQFE/Zgx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858E21F00893;
+	Tue, 29 Sep 2026 18:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790707546;
+	bh=l2pxtBc3cuHU1GiMtGKOPq9GuEl/aAoOnypp20Wc5Sk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=IQFE/ZgxJHdtLxjObg/kTivZeXbyNHdvJ2ohWeszaavcBsDFUzjl8RBVB78BEi32J
+	 45pjWFiV3GLG5YYKbm8v3tz4kfBvWe/1JmscWt4IfL/sRkYD+Acg90ThQwbRqO7rMJ
+	 DgxAZJJMk6U8bqzha+ZHGbgM5+O/rD9OLN7QZ/EOIvryYV+AE7H40qn7aAc9a7XSTt
+	 n4iPik7PvLHFYZY+/u1+ZBUYaARTyAdZuvGJZwIAvFpUCYBt0l0T4kCoH6paZsmD7R
+	 z1hcAwY7E3KFkrY9hiwnCJdP1bcVYKpiJqWjp7aknyzEbDuIf+fHjBlOm/faJAqt1X
+	 cf8+RHOd4VPQg==
+From: Leon Romanovsky <leon@kernel.org>
+To: jgg@ziepe.ca, Abhijit Gangurde <abhijit.gangurde@amd.com>
+Cc: allen.hubbe@amd.com, nikhil.agarwal@amd.com, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260925093638.3032149-1-abhijit.gangurde@amd.com>
+References: <20260925093638.3032149-1-abhijit.gangurde@amd.com>
+Subject: Re: [PATCH 1/2] RDMA/ionic: Fix XArray initialization to use
+ XArray flags
+Message-Id: <179070754326.3974961.446550706671419287.b4-ty@kernel.org>
+Date: Tue, 29 Sep 2026 14:45:43 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 4ya17dfarmkk4htb96ob3aha9eommb6e
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: D3D5920012
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18GL/mrHDhEiZ3ZbHV70hICMpCHCUrs18A=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=erBVOtzQymQefzUtqhd4VKSH1rxw2Rm3xOKAGzz55vU=; b=A9s7kt09INscftYVxj+F8EKD/EKmIQbkaztj0PetDyBg5GyrchzpvzN5FZClLbONuAhnpvQTnZIzoO0zUR5N24FNMJOIOlzKpIUmNFY7Tg0kqkdleodNBMzz4VcpgSjdb2qEJfe4EFLdlSavo4PizKqPufEECBNZ4suV1yYW240=
-X-HE-Tag: 1790707504-858915
-X-HE-Meta: U2FsdGVkX18U2j4LHPRsXH7+1ORfjtFwJBdEeS1WZcEaRhTIQfsCCILWYQnB391saFBb5LYQ7oOpnh2j+x2JIT0ZYvfEF++nUziZ+fBB2pl5Lf6hZNHtUf6j9kQGc1Bvppeof1rfyvi69c086ryIUkL7cjLB1avt2KQAsC0v+tpKDLBULZgmaDLV8TwCkoYFwkCIy6dWt1/m0Y5o6cnUai2hhKyfm5LdpZR/07aYrmfbJb875Xm37t9+nlfA8y8D1iFyt9P9mOwCVfYHn4QnStLbsQvLihhsVp81U3LwceRuFnmmgcP3qSwg7DN26n5A6dBMP9re3P96CaqYHIB1PwVyfWovNSFaMYLvq7reiZ1DjvCdcjhphw==
+X-Mailer: b4 0.15-dev-18f8f
 
-On Sun, 27 Sep 2026 17:00:31 -0700
-Zhengchuan Liang <zcliangcn@gmail.com> wrote:
 
-> Count-only perf tracepoint events can be opened without tracepoint
-> permission because they do not sample raw event data. Their SET_FILTER
-> ioctl still parses .function predicates. Numeric operands call
-> kallsyms_lookup_size_offset(), making ioctl success an oracle for
-> recovering the randomized kernel text base. Symbolic operands resolve
-> hidden symbol addresses and can also match user-controlled event fields
-> against those addresses.
+On Fri, 25 Sep 2026 15:06:37 +0530, Abhijit Gangurde wrote:
+> xa_init_flags() takes XArray flags (XA_FLAGS_*), not gfp flags, even
+> though the parameter is typed gfp_t. Passing GFP_ATOMIC leaves both
+> lock-type bits clear, so xa_lock_type() resolves to XA_LOCK_NORMAL for
+> qp_tbl and cq_tbl.
 > 
-> Pass the perf origin through filter parsing and require
-> perf_allow_tracepoint() before resolving either form of .function
-> operand. Ordinary perf count filters and tracefs event filters retain
-> their existing behavior.
+> Both tables are used with the IRQ-safe accessors: xa_store_irq() with
+> GFP_KERNEL from process context, and xa_lock_irqsave() from the event
+> queue path. When a store needs to grow the tree, __xas_nomem() drops
+> the lock using the recorded lock type before allocating:
 > 
-> Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-> ---
->  kernel/trace/trace_events_filter.c | 39 ++++++++++++++++++++++--------
+> [...]
 
-NAK.
+Applied, thanks!
 
-This is a perf issue and not a ftrace issue. It should not touch any
-code in kernel/trace/* for the fix.
+[1/2] RDMA/ionic: Fix XArray initialization to use XArray flags
+      https://git.kernel.org/rdma/rdma/c/2eca9c14e66a1f
+[2/2] RDMA/ionic: Fix double removal of CMB mmap entries in create QP error path
+      https://git.kernel.org/rdma/rdma/c/485effd117d031
 
-Looks to me the code that calls ftrace_profile_set_filter() from
-kernel/events/core.c should not be allowed by unprivileged users.
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
--- Steve
