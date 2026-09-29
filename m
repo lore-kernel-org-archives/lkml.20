@@ -1,158 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011071.outbound.protection.outlook.com [40.107.130.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E073A1A3F;
-	Tue, 29 Sep 2026 07:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667013; cv=none; b=Otg0U95xXoQZpGe3TWRe/9pHdlDXkutS3909QbsMZzZorh3Yd0OBVF3Wrr7x7MYOFLiuPhQ+x0kXtkVvBt8LKKvwFfu0r5Rs4BuO1mA9ACNBiWCuKREnBlTYPzesbIUrqklFuPZE3sm5SCCuA2cFiI0xwsN4klcM6VL16efCTIM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667013; c=relaxed/simple;
-	bh=uYmq4E6+k6sPUtxXzXAOJYXllr6c0gXTwHtHvCFaNIA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X27BTIDVusRmBICT/Es258Uea0xoTv3Lf+BtYXrdMeRJt+K8uGHM6z/lahsRVlunm7zV2cBcxqLvGQarM68KV9/so7fdv0I6TtOsifAhmXeOoh9ZcJxmF3fdwFYl8uy+lyUr/OaXbEutKNxPc/os6IFthkRnJnoY5ED1sjleJh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4heSQdz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F503A3822;
+	Tue, 29 Sep 2026 07:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790667053; cv=fail; b=pYvM5ICU5JY2pz40+mEjKlMA+ojCjjoBdKmwzPTzKSo03yigOjnsv8JHCEMPauRSHRPnKa0W9AttInYuvxAglFIn4+LQI6Y7OpsM8c9A88IjyNAI4crVtfbi/z6+cUB8k6qrt93syLHaAPFYLw8TWX7bfaS5w8iY/qeKfP2nBt0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790667053; c=relaxed/simple;
+	bh=0jTMvjfhyu9pUTelspHPktt1+3URXqYGLygczZyAnAI=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=l8/jSmWQA1yCB+ZGS7Vf2g0BRI8fiAFiTmAcxct0eKhUzUNMnaPl6J7A48GCLjuZkKSjeZlBbwpXt+7dEtmPDaQrkA8VZaP8eMc6iIPpk9SffXq8Fe63dSHKrze4wrIyx5cwc9NgX356S1atPytEIl/s0ZkslROSV8C5h1uDW9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=r8oSU2+k; arc=fail smtp.client-ip=40.107.130.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4heSQdz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D501F000FF;
-	Tue, 29 Sep 2026 07:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667012;
-	bh=fFhSlZBaUkH6xGhsYdrWxCRhPZNn++zm2ii0wkj+7yc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B4heSQdz/tMGqNY0slQOXLzlZADZOd1dREgw2hLpJuin0+Y/BvyRJVvhE9H311PiN
-	 UdkIz6MHgNClCIeaF3ktCwfACFHHvKFYNCNYvebxw9adLLf2IJYvEexDN+mVyzHuAy
-	 3k/ahn482F5vG4IHXX1ST5aRmRIq2QOx/pNZxbLPrW6/fPjaPrD6trp4WhIKWIZb1X
-	 xC3QP9ZZFOwLCfdx1AFk10bV8E4GyHCjiFxSjDv3V6OcHCOS7ftwNB4MLeMm7o98nZ
-	 sQTK8rhjbfYRyMJVzjNJ/kl1Afn+JBTTLP18zsoD7fwkwmoS6aD7FOlYqJt1FpZkXv
-	 jPO0B/TzOk3KA==
-Message-ID: <751f6586-625b-4485-9f27-409fdf38bf3e@kernel.org>
-Date: Tue, 29 Sep 2026 09:30:06 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="r8oSU2+k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yIF0wBJACT/nOhA+G/9V/yuPwwgh7BvGu/+wAJZvOTQ2KAPUO83NGv9ehmr0yY75EM9e0/aEU7JJuKlAH/H/h7lsXmWrHNeFrpOgaGuxawxkw0jYkoR2U2Q7chV6pXFWBnXqF43l2Tt1c+InxNVYNoEaM9qL29J5fyTB46R+JU7KO+kmQwo0a75iW8zug+ESaycJAS4jEk/w4ywrUjcTWimmNGcmOTQIdQZk0HCNMmrt2HewS6l/QaFGBrBp8EBQd5NNqlbTpMNtQaN8ujXC0ZKe4LUtqj/imivpiwcF6LYj8I/GzpYIQGsRCQEzSV+3dXiWfYF9epHW7GQBSbi/fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sRlN/4Zd6uvtWpNC2sSCOef+x8tqwHQEgxl+zJ3J/10=;
+ b=cJSZPZ9w0a/tgPt+JD9glVH2N80NBrmX2dURxuPt4A0vSriqAGIWswpqoxd/oRZiIZHmNnZp/pDS5TP0sEOXFx5WcP80qQc7Iuum4jcAD9LLr+qxrK36k7bLkMbpZG27SaZcqFw1VEzyyq7QZ8kifnkl9v2xs5j8mSf5VjFIBpWXWdeosM67GTZCQMH0oDohOFe41XfsRkW+GNuUKnF7MhWu64XFfV2krpyB/qibtOFGXeGdiQCU+ufJu3i9qsOVN0hnQ7mk3xD+ZTyTcRSjJ5O8caQwNQHXCIU3hmxokYzvr3sLMTSBhmxCqSVF6ZFXFuj4dMYr3ylqFTOi50wdtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sRlN/4Zd6uvtWpNC2sSCOef+x8tqwHQEgxl+zJ3J/10=;
+ b=r8oSU2+kZr5dcMEmNhfdtJrBhuXV1QwA0JOm4WIVeEKpezc1alxLJ+HA8bG12G50KfHWchj9RQjpUNjwi/UlF3AxhkNBO9l7dRqcYWOQH+5CSEKqq6JV1MKIIO3Gp+sD68j6Kf9umT8rQGFtJRcrZG1k605H4Gn9IVrk03EYRmmegigiHUPFGR3jgP0I3jNZL1iI0JCrqv9/uBgkRk1FmXgrzbf+CmqNgASpQgUSySKr4XQd0ro6a0Qs7kuz0CCaLKz87KYgkqABLTewxUrf7gNig9oge7a6qrqm+5wymUQG/8yKhZum0Ut8sYB4rXdjTqjUvamU335PwbEcEF4fYw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com (2603:10a6:10:1c::21)
+ by BESPR04MB299202.eurprd04.prod.outlook.com (2603:10a6:b10:13f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 07:30:48 +0000
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c]) by DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 07:30:48 +0000
+From: Ming Qian <ming.qian@oss.nxp.com>
+Date: Tue, 29 Sep 2026 16:30:28 +0900
+Subject: [PATCH v2] media: amphion: Add V4L2_FMT_FLAG_DYN_RESOLUTION for
+ VC1L
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
+X-B4-Tracking: v=1; b=H4sIABNpu2oC/32Nyw6DIBQFf8Ww7jVAkdiu+h+NC+ShNBYMV43G+
+ O/Fdt/lJHPm7ARt8hbJvdhJsotHH0MGfimI7lXoLHiTmXDKJZW0BjeoDswWIFmMwzxlH9z15gw
+ XiraKk7wck3V+/VafzY9xbl9WT2fqNHqPU0zb93Zhp/f/YWFAQQijZVUxyUT9iIhlWMdSxzdpj
+ uP4AEXgiOPKAAAA
+X-Change-ID: 20260608-flag-dyn-resolution-f39fd24a0ba2
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Ming Qian <ming.qian@nxp.com>
+Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>, 
+ Frank Li <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ming Qian <ming.qian@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: JH0PR02CA0013.apcprd02.prod.outlook.com
+ (2603:1096:990:5::6) To DB7PR04MB4698.eurprd04.prod.outlook.com
+ (2603:10a6:10:1c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/12] mm/sparse-vmemmap: set compound page order for
- device DAX
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
- <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lance Yang <lance.yang@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-7-songmuchun@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260927025441.741633-7-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4698:EE_|BESPR04MB299202:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf1d48a3-2d2a-4214-b9b6-08df1dfb9507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|19092799006|23010399003|1800799024|18002099003|3023799007|6133799003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/Cwr+ubGd83eD1tcVJAYJtCjylpaDjntB0Gfq51W49Gdhg6Jjtj8DC5rCyZmc2BmhG3wZ4Aw/4FBIY1vsDlj3yY7VK45FtuHfDYT6N4KeKELla3ZbOWknKNt2NMJjaZ3U3QK/nVjwYQs7Ti7tyutoZdgJRiGyq2oW+85R4CK/MQ0KoQXbfk+nX4D6dcmrPbkV96a8p4QFRiSoOI5dBnxKhKY7OAeLzQFlGasNUm/hQhcNhNs65tDqzgGMjvJ4xnjqQTtaz3yQZEO9vFDtEbQ6ZLL6U+rHrZsI3zzelGaajk+w6MK1THRHLGmfSx/RuqYdSQEUBMMbAXVxgrPyCxrj6aIMboSdcGPZE8XJ5+lsbcyf9IQOv7XLQH5tJCXyHFel4P8zinnRWqRYqbNWd5HJf7Xin0m7m5Zz3pwM8eGYMd68YGDnlxqz0FNmf9dFrJfH7hWFVNu6e7CXMYTvZZGcWK9/rXs6txYdq37UNDq4BWiH5XndBSYc6nEsYzPd/PLowBB07+97udFVza5E+63pRh9daEqHtpmX8hJ4SMIN3KkbXROOknDEJpcNYF3r6DgBj2a73w+XcZnRPYYEnCsn/dsNk31CCGR3oUWugAumaQKUkXzUGYt9wKPEkz/VN2p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4698.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(23010399003)(1800799024)(18002099003)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dnBaWkZVMTFncHc4bW0xY20wN3dJU3plbXFHZW4wUk1oeGk1ZnNVaUtjanEz?=
+ =?utf-8?B?ck1mQ1cxTVVDcXBRMHJ5RWdPeStPbFdTTk1saW4vV3VnOXdMamRqRHl4cGZF?=
+ =?utf-8?B?Sk41eWpXR09sYmVid3RUWm0xUE9NaVNRSElQYkhZNzRNOVprN2VNQzM3bFp2?=
+ =?utf-8?B?bWw4STZsVWgyTWpST3N6SVE4cWI2UmtDbmJJNStNVmx5T1BLSnhablBTMlhi?=
+ =?utf-8?B?amthd0UwbFFpVGFxSktBY1lnbDVYalErempIL29aOEFabkRRb0c3YTJ1V2Ex?=
+ =?utf-8?B?YW00V2NaRFloc3dnSC9xdTZ6ZThJeUZZOHV3eGR3ekJxKzlraEdYSllYOC92?=
+ =?utf-8?B?SGtBeE1ud0pDQ3F6ZDVzcmZybE5mWG5OQUJiUHpTNGczbklhZWcrOGlUb1Rn?=
+ =?utf-8?B?ZXpZOGttY3J1bVI3Sys4dFBaY1o0Q2pVdmNxUEFWYkRiS0kxcWhVaXFNTjRW?=
+ =?utf-8?B?MzEvUWxGZVBIYVlUL3ZiRVRpc3l0RzRJaVl6NTMvTlRoUmJrcDUwVmRnVUhS?=
+ =?utf-8?B?UExYTzNGNVZET2tBUEdpRExDUUVSVnJoYW5ISEhxeGxyTTY1aWw2TUhHNlZE?=
+ =?utf-8?B?a0hVM2VhUWU4SzVUTEVocnJpSWFDdkREV25MMXl3cVIydHNDSzVyUmZleUIy?=
+ =?utf-8?B?RU5zZkhPQ0JQWHBDeXZEZ29XSFlXNTJvY0tPZEhZY2R6QXFQcVcxaGwzQUJv?=
+ =?utf-8?B?bHdBYVRjMTZwdzZmVytIVkRUa1h0T3VXZjhiSnczWHJkY3dOd1NJemR6Q3pU?=
+ =?utf-8?B?RjlKWHdSYzljSWNVMjhHZzBBSUtGcDd4ZnJRZWFEZWZNNjJldFloT0V2QlpB?=
+ =?utf-8?B?R2RPNDZ1OWtHNVZxeWFOR08veW4rRlBBYVIzZHVML3BtS3NZUTBaUUdtSWhB?=
+ =?utf-8?B?R09qNHA2T2VlQTRhaVhDbEk2WGV5NDNvVm5QQ3p5bnIyd0MrNnU3Y3FuaE1Z?=
+ =?utf-8?B?Vk1YWVJFOE42LzQzazNZbUNzbkFrS0h4eTEwVzIyU2h6TnJoUDhWUGhMbGY1?=
+ =?utf-8?B?SlN1VmVLWkFCUTdtZ3FQcXBrMmN0WGcrWkl0RzRsTUN0N0xwM1Q5RFp5ZU5B?=
+ =?utf-8?B?ZUg5OTczcElNUU5LZS9tUURFUUtlcW1DMmlGR0d6Y1dhYkNRaXRmbzROQmFu?=
+ =?utf-8?B?VTVjdE5wb1dTSnFNcDZWS0hyU3V3T2hCYzlEVkxrWlEreHl2bU5YTXhva0lG?=
+ =?utf-8?B?azZYcXBRTG9IcFd0UFR4MGg3cFZzaUNPa1dlL1ZUWTY1ZVhneG4zeWNPanAx?=
+ =?utf-8?B?TXhyZEtDbHVvWUZyWmxMUGtzOEV6VUJEeEdob1NuZlJCcXhOZWtWOXkvV3Fp?=
+ =?utf-8?B?bUs0WWJmZkgwcUlyc05laVZtaFBYOS9xOGpFRVV6djAwblpORHFvM3V3c01O?=
+ =?utf-8?B?dVZ2R2NCbDMxL0NVQ3RtbmtkbkpyOTdEWnNka3dFSUJPbVNqUmxwdnRsTFBY?=
+ =?utf-8?B?dktGYllQbzdBWVVlSWFrVFFac21sTTA0TWRQOVZUc0NwYkVrTU02TlI2dUcw?=
+ =?utf-8?B?clNsZmc2cDdzVm0zSExkV0VOeXkzNUxWWW5VaGl0dVl5clYvd3AxemRGY2xI?=
+ =?utf-8?B?ekZZSTFWK05ORmhVaGxaQmllMDZXTGlkczBvMVFzUmJQSnFic242eEZxc0RS?=
+ =?utf-8?B?Z2tta1BVM0RJejc2OU9uR29weVJWMmRhK2txckFGNVd0Y3JGeXo1N0Ivblc5?=
+ =?utf-8?B?MEJnT0plV3l2L2Q2WVJ5eXRIYUpLVnhrT3NCUmZBR0hxS2lhVnoyUjhjbzhJ?=
+ =?utf-8?B?dVJNKzNOdGJES1haUG5nTnRobDlsOXozdk1QZ1Fqb3NYd2hpZFNaQ29PZVY5?=
+ =?utf-8?B?VERxWUZSQ1o0MG1CbldmM1cxcmxUcjM4ejZqYzVFbEs0UzdETE5NSGs3TVZZ?=
+ =?utf-8?B?a2FiV3QvRk5JY0tYcTFXK1BkSWpFZWYvZmZud3Jub2pUQXZFQUdZNHR5bWky?=
+ =?utf-8?B?UW55MzRNT20xSlp5dkVKOVhqOHpsMnhCemV0cjhhTTJyejVKNUNGaHdnMzI5?=
+ =?utf-8?B?ME1TT1lWbStoMTdiNlZMWjd3TUlUaFU5Q3VMMEVMMjNLaGhLOHVnaHdDK3pn?=
+ =?utf-8?B?NElMcjZYa2tQYmpnZWsvalJ5NUZ1N0xUWjJjcGJrTGZRTjlyUEdjeTNuMWhy?=
+ =?utf-8?B?ektXWS96K21VUlNkLzh0Z0lrM3QzRFFyUThadFlXQ3dOTXFxQ1I0SjhiNkRZ?=
+ =?utf-8?B?NGJTRHhJSFF2MVQrVXkrcjRWOU5EdzhkbWF0TmhoUTlCYmc3ZE1Kb0IxaE9L?=
+ =?utf-8?B?NFB3a3ZZRDJvaVdrK1lucG05dTFlbk85anVTVitBdXpST3hBczNMNWVzcmt4?=
+ =?utf-8?B?dU1hYnZpQlBLZXd3YVFya3NBV2lma3YyZGNQM3hpOTFtR3oyOE5XS1l4UGt5?=
+ =?utf-8?Q?YVtS4XxIwf4dVzY8uunjMX00Q54uU81znZR41?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf1d48a3-2d2a-4214-b9b6-08df1dfb9507
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4698.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:30:48.6761
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZVsSV0VG2ZL/njYtlBFRZZl6jw/1yP0fSNTgc82E3TJ+1uBd36JCrhpDHpvZRd5j8O8h/8T5iEysE3UNMNQLgS5Ju4XKQWnKW5wFRF9BXmdJNQEJBn0EDj7jkD4jcXFP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB299202
 
-On 9/27/26 04:54, Muchun Song wrote:
-> Device DAX can use vmemmap optimization only when a full section is
-> populated with a compound-page geometry. Record that geometry as the
-> compound page order in section metadata before populating the section, so
-> later vmemmap accounting and population decisions can use the section state
-> directly.
-> 
-> Clear the compound page order when the section becomes empty again. Also
-> reject partial additions to a section that already has optimized vmemmap
-> mappings. compound_nr_pages() determines how many struct pages to
-> initialize with a section as the smallest granularity. A section therefore
-> cannot safely mix optimized and ordinary vmemmap layouts.
-> 
-> Partial additions continue to use ordinary vmemmap population, so they do
-> not save vmemmap memory. Such additions are uncommon, and the lost saving
-> is negligible.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Acked-by: Qi Zheng <qi.zheng@linux.dev>
-> ---
-> v3:
-> - Update the subject and commit message to use compound page order
->   terminology
-> - Use EOPNOTSUPP instead of ENOTSUPP
-> 
-> v2:
-> - Explain why optimized and ordinary layouts cannot share a section
->   (suggested by Qi Zheng)
-> - Collect Acked-by from Qi Zheng
-> ---
+The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
+event after parsing the resolution from the stream header for VC1 Annex
+L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
+GStreamer) cannot determine that the driver will signal the initial
+resolution, causing it to skip waiting for the event and fail to set up
+the CAPTURE queue properly.
 
-[...]>
->  static struct page * __meminit section_activate(int nid, unsigned long pfn,
-> @@ -838,8 +840,13 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
->  	struct mem_section *ms = __pfn_to_section(pfn);
->  	struct mem_section_usage *usage = NULL;
->  	struct page *memmap;
-> +	unsigned int order;
->  	int rc;
->  
-> +	order = vmemmap_can_optimize(altmap, pgmap) ? pgmap->vmemmap_shift : 0;
-> +	if (nr_pages < PAGES_PER_SECTION && section_compound_order(ms))
-> +		return ERR_PTR(-EOPNOTSUPP);
+Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
+indicate that the decoder will emit the source change event during
+initialization, consistent with other coded formats supported by this
+driver.
 
-Hm. Why should we support optimizing the vmemmap in case we fall into the same
-memory section as boot memory?
+Fixes: e670f5d672ef ("media: amphion: only insert the first sequence startcode for vc1l format")
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+---
+Changes in v2:
+- Drop the documentation patch. Nicolas pointed out that
+  V4L2_FMT_FLAG_DYN_RESOLUTION postdates the stateful decoder spec, so any
+  driver setting it is already required to follow that spec. The
+  non-compliant drivers (coda, s5p-mfc) are pre-spec history and not worth
+  bending the spec text around.
+- Drop the RFC prefix, as requested by Nicolas.
+- Link to v1: https://patch.msgid.link/20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com
+---
+ drivers/media/platform/amphion/vdec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-In that case, there already is a memmap allocated during boot for the entire
-section. IOW, we really shouldn't mess with the vmemmap in case we have an early
-section.
+diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platform/amphion/vdec.c
+index a9f0521f2e1a..75808482d090 100644
+--- a/drivers/media/platform/amphion/vdec.c
++++ b/drivers/media/platform/amphion/vdec.c
+@@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] = {
+ 		.mem_planes = 1,
+ 		.comp_planes = 1,
+ 		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-		.flags = V4L2_FMT_FLAG_COMPRESSED
++		.flags = V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
+ 	},
+ 	{
+ 		.pixfmt = V4L2_PIX_FMT_MPEG2,
 
-But maybe I am missing something and this is already disallowed?
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260608-flag-dyn-resolution-f39fd24a0ba2
 
--- 
-Cheers,
-
-David
