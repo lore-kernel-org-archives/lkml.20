@@ -1,113 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D35559300
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FF5559300
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711199; cv=none; b=UHgKzGNWKzoH4Q2sr8RnWl+4+q3paJDmHlyiIueWDR78jx3x9xxUJ7V812koYdKI8Nd3STuA2ykqlzcU/1GUcSmGM20sGMCB3NXuMSVzE7oywJwuNSqNHhfS4WUoa2WN42A0+26NqHe1qXsF0unGIedKuzsh3h4YqzoM+7D27nw=
+	t=1790711207; cv=none; b=GyKu8O12tsLL2JRNjj82bATuzlKH2xnROE9EJ6bZMpfoeowE5n3iA+LeI+4e3gyXSFUE/roceRfQ+NpnYcRO8Ugf4/ORWpqtfSXZU0UhVGrMxJD+QTf1H3WgAHt0nGlti/L/1EzqOPNDrbz7B/WPkb0txboW2y0+nxScTPjIVHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711199; c=relaxed/simple;
-	bh=oBHP03uaAI4xE9Ucw+ZO1sn0UOMOxyOoZZqxP3Mxonw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gFXXTq16CHJbCqcSUXC4UmiPdy0w7OF99mL9fjtOYO9YcI7vTxTHQEjSDiQlt1W/te5soDtTqoaqUa1lbHOQICawqURvOnuRyK+SB4JjsooYFhlYftdt8UoDcdLq+jynGnUc3HZPlrvNGNdOEVhtF/S2jiXbgpPfYdLwbx6wp28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gMXe3AMJ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790711207; c=relaxed/simple;
+	bh=zbr+GU0lV+fYqZ0sTiprx6XvkzPIp4t8LPwmB7Qu5uA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pU1b+L9XLefCam67ujHBr9wVA4/KG76UOAu7TQaQFan+0K1YDHCo7tOfJyjms0x61nkUWu3hFAkRr7lxSdcz2gsOfFmzl68VOzftpagw6onA/3xtx3jg9NvYrbovVbZDE39+brGws2tuAQ5OlRSQVc+XezTGnn8R87PzDwVA42A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gozop4Me; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gMXe3AMJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790711197;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F6Bhw/LhKNlT8N8V5TmexdXj2GLS7KtsaEL7tMX2/dc=;
-	b=gMXe3AMJbY63uXMHBx+Jb6j5slZyBwkldcnwbQXHM4Jy57AkJxJg6B86+KBI1CaixNuPWu
-	oxUheQr9CNoZ/33UCz4et7ssVAPpJz0cmregy0c4doK7ui96yTYeoB8CYjCwhqNs2SLmep
-	YgkU9o56qRiW6Kcplk5qyaN3i9n8yW8=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-ugywx-MhNgiAfmrjfDG_Xw-1; Tue,
- 29 Sep 2026 15:46:30 -0400
-X-MC-Unique: ugywx-MhNgiAfmrjfDG_Xw-1
-X-Mimecast-MFC-AGG-ID: ugywx-MhNgiAfmrjfDG_Xw_1790711189
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE0C0192E257;
-	Tue, 29 Sep 2026 19:46:27 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5EE631956047;
-	Tue, 29 Sep 2026 19:46:24 +0000 (UTC)
-Message-ID: <500cb19a-549b-4055-a807-c3c40da787ae@redhat.com>
-Date: Tue, 29 Sep 2026 15:46:23 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gozop4Me"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975C91F0089D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790711206;
+	bh=BKbKMVCkvQ3lOBq0ytORD0A1sviCgIZ5GOwLudPtfBQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Gozop4Mepjh4ADUhZIb7lShoooSiMAZ0gCL5cs8ASQCtj1TC2BVZ+WQKwO9tWlqLl
+	 AL0aLsKpHcg4C5iz8LacDgPQwKlPFxDypn1kLsiN1Y1mdTwwgyouUxEVaOE1ARGt/k
+	 KNQye+oDEn7lkiLGU4eecDpR2uv69vjTTjGjo+Md12RE8C7zTQRDKec/i7QD8ANtW9
+	 Q8aztkbc8C7cjtfmxAk+OC1o0jMQlkOIOyTUnGAALa5uDiYQ1YCXJch2nhGXZv0uY7
+	 vnavPkWuCxJalH21vhVK2K2yCpW1nhX76YCDvlVLZVOr9jH4sr95rJ6cBnRgIiQk2P
+	 +xHRwPBD5zrHg==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64dff7acfso46066351fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:46:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByFM53ZTM7Re32AI2YI3diPM7cDVSsbjFrqChWzuU0i+xGX1kZiJKm+Q6sfLkiouRnUyw101j6u1gECSu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXbNDUCYGBXLodBX26NV4DuQ/mqfiNMpbtF+hVsfS/X6cZokjQ
+	Lxnv0JG64cxNJF3WY56pb7AG0Eb4WOBuW4aK/PX8Nky2ZgX7YgS7jT+sEsv8kk8T9mpwgh+NVyf
+	z5VHDGqdtx4fctWGmQyDy5WCL6lGPsIw=
+X-Received: by 2002:a05:6512:3e08:b0:5b8:eb82:4642 with SMTP id
+ 2adb3069b0e04-5ba3bf174b4mr164370e87.66.1790711204992; Tue, 29 Sep 2026
+ 12:46:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] cgroup/cpuset: Protect is_in_v2_mode() in
- cpuset_num_cpus()
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Andrea Righi <arighi@nvidia.com>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Tejun Heo <tj@kernel.org>,
- David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
- Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- sched-ext@lists.linux.dev, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260929084124.626693-1-arighi@nvidia.com>
- <20260929084124.626693-2-arighi@nvidia.com>
- <20260929-making-language-254d9c6a6605@there>
- <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com> <arv2-3-6-Ewv0gpb@gpd4>
- <b8f66cbe-bb1e-4148-b2e2-55bd95f1c8d1@redhat.com>
- <20260929190853.GE88198@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260929190853.GE88198@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <20260923174711.1283986-1-briannorris@chromium.org> <20260923104031.v2.2.Ia1cae8a40a24662df11553c225f4438eab65b7db@changeid>
+In-Reply-To: <20260923104031.v2.2.Ia1cae8a40a24662df11553c225f4438eab65b7db@changeid>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 29 Sep 2026 21:45:01 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jhhJQt8wPCL=hUA7U9vSEKxF3Mctm1kRzz=y7erhKb2w@mail.gmail.com>
+X-Gm-Features: AclHuK9Y5Zd_QKf7aBK1kVhzF4TsvkbXBzwUXDK-YtqmY4v1_OFdJlgXy62rvx8
+Message-ID: <CAJZ5v0jhhJQt8wPCL=hUA7U9vSEKxF3Mctm1kRzz=y7erhKb2w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/8] PM: runtime: More kerneldoc formatting
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-doc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Ulf Hansson <ulfh@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Doug Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/29/26 3:08 PM, Peter Zijlstra wrote:
-> On Tue, Sep 29, 2026 at 02:10:40PM -0400, Waiman Long wrote:
->> On 9/29/26 1:35 PM, Andrea Righi wrote:
->>>> I think it is simpler to just change is_in_v2_mode() to cpuset_v2(). Almost
->>>> all the cpuset functions should either take the callback_lock with interrupt
->>>> disabled (which is a RCU read-side critical section) or with rcu_read_lock()
->>>> and cpuset_mutex() acquired. This cpuset_num_cpus() function is an
->>>> exception. Given what is said in the comment, this function is not supposed
->>>> to be used with v1 mounted. We should change it to cpuset_v2().
->>> The comment says that, outside cgroup v2, cpuset_num_cpus() falls back to
->>> num_online_cpus(). However, on v1 with cpu and cpuset mounted together using
->>> cpuset_v2_mode, it returns the group's effective cpuset count and fair.c uses
->>> that count in the default "concur" group share calculation and in "max" mode.
->>>
->>> So replacing is_in_v2_mode() with cpuset_v2() would change scheduler behavior
->>> for that setup. I guess we could either preserve the current behavior, fix the
->>> comment and protect the root lookup with RCU; or make the code follow the
->>> documented v2-only behavior. Which one would you prefer?
->> I will let Peter decide if he wants to support the cpuset_v2_mode mount
->> option of cgroup v1 since he is the original author of cpuset_num_cpus(). If
->> this is supported, we have to update the function comment as well.
-> So I was not aware of this weird mount option at all. That said, ideally
-> it would work in the widest possible setting.
+On Wed, Sep 23, 2026 at 7:47=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
 >
-> The main constraint is going from a cpu-cgroup to a cpuset-cgroup. It
-> was my understanding that this transition only works in v2, but if that
-> mount option is sufficient to make that cross-cgroup transition
-> meaningful, then yay I suppose.
+> In taking another pass at these docs, I found some more inconsistencies.
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+>
+> Changes in v2:
+>  * New in v2
+>
+>  drivers/base/power/runtime.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+> index 7e75f6d5df07..dce7b6ff7e9d 100644
+> --- a/drivers/base/power/runtime.c
+> +++ b/drivers/base/power/runtime.c
+> @@ -1255,7 +1255,7 @@ static int pm_runtime_get_conditional(struct device=
+ *dev, bool ign_usage_count)
+>
+>  /**
+>   * pm_runtime_get_if_active - Bump up runtime PM usage counter if the de=
+vice is
+> - *                           in active state
+> + * in active state.
 
-The cpuset_v2_mode mount option is only for making the cpuset.cpus and 
-cpuset.mems behave like in v2. The cpu-cgroup and cpuset-cgroup can 
-still be in separate hierarchies. If cross-cgroup transition is the main 
-point, it won't work with the cpuset_v2_mode mount option. We should 
-switch to use cpuset_v2().
+I wouldn't do this.
 
-Cheers,
-Longman
+Instead, I'd change the one-line description to "Conditionally bump up
+runtime PM usage counter" and I'd explain what "conditionally" means
+in the body of the comment.
 
+>   * @dev: Target device.
+>   *
+>   * Increment the runtime PM usage counter of @dev if its runtime PM stat=
+us is
+> @@ -1635,10 +1635,10 @@ static void pm_runtime_disable_action(void *data)
+>  /**
+>   * devm_pm_runtime_enable - devres-enabled version of pm_runtime_enable.
+>   *
+
+I'd remove the empty line above.
+
+> + * @dev: Device to handle.
+> + *
+>   * NOTE: this will also handle calling pm_runtime_dont_use_autosuspend()=
+ for
+>   * you at driver exit time if needed.
+> - *
+> - * @dev: Device to handle.
+>   */
+>  int devm_pm_runtime_enable(struct device *dev)
+>  {
+> --
+> 2.56.0.rc1.310.g51773c2048-goog
+>
