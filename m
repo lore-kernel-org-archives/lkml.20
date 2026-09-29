@@ -1,26 +1,33 @@
-Received: from mail-m155100.qiye.163.com (mail-m155100.qiye.163.com [101.71.155.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A9D4FE2F3;
-	Tue, 29 Sep 2026 10:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184874EB85B;
+	Tue, 29 Sep 2026 10:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677036; cv=none; b=gqSDsxzXLeHy4Q4CGHs+sp2JPTuIlVYsVecfQtYaQZSJ3xohqrEL1HnYVeFCw7a6vgrmbFGQ9skTPz7B/N4RcO7sSOjGvexswO5DKC8TTgd4e+fHm/qeWSNl3Y3pmgvdI+iAI6yCr96PK2WBDijwHLL/fr08/3M6QPkcmZC1jss=
+	t=1790677065; cv=none; b=D2bnEpfObzmq9dm1moZZZyRGSzvnzV48YSd+25DZIX+cHk95n0nCiDIEy+8YvT0JkEzKcMx2dnMm8T4dzpzX2gQhKLULe3bvFzQR37V8hxIC60Mxq+uW4NS3HGPReQxFkTW8NrKCROSxVRuESgS/A56PDLgP3N1Buyg084bI/6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677036; c=relaxed/simple;
-	bh=gF+taqkEcxcO3WIFRjei2FuP2Hluu/NETaBeqyRE64Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=bAh5ZD7f+snoNowNrXzF1Z7YsKsiy251FlukCdCAnBL4Fx75ngN9A14qcPFIanudPcSYrNsqpilkiUCOdMGCeW52FTp/rDIUc9Saixmv1Se4iMXW93hRl2+ilGCtT4kw2IxXCO+uCkU3fwzX3Thy/4z7t6Dwl3h9pkJYpEtIkD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=gJj838I8; arc=none smtp.client-ip=101.71.155.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790677065; c=relaxed/simple;
+	bh=EyoTiEDL0JZ/rEKZ82ltdD6F7ipE2f2mNPfb1NZBO7o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KCyxa6ooZY6bo5ueH7O0OEr2s7xI1y9/aosgOH4ccQ0GxmNSlQJltd87GWimobxdCEtxv+id2yMbpF43WJUR422MqH5qcX889PtoljUs2oX8PKpjx5ffhT1D/b9LKJ6D2XnQHWAU16DovXN+uJ5+IuaFs0Q6db5+kWsp+jzThmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNI3kRQy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="gJj838I8"
-Received: from [172.16.12.11] (gy-adaptive-ssl-proxy-2-entmail-virt205.gy.ntes [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7eb7435;
-	Tue, 29 Sep 2026 18:11:40 +0800 (GMT+08:00)
-Message-ID: <8ab0f451-7be2-4c9d-8237-b27292bb3fa7@rock-chips.com>
-Date: Tue, 29 Sep 2026 18:11:40 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNI3kRQy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DDE1F000FF;
+	Tue, 29 Sep 2026 10:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790677056;
+	bh=x8A339RnUrsyIIVAeH9ijcEytAFbSbdZHOutd3Xx5VU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TNI3kRQy2kt7JF9bKeIGFEH0L3tN37yUNyp4gj86nez5/945G3tvtT0odrk8Pp11h
+	 iX3LKWuCQk4UXYF2ligzk80r8UH/1ZFgO8hhoqiHUHc3GhdRNBrinIRe8QqoiBh1Pw
+	 Uces+EUV6OMY8ASk6Jba+enXki/AXIvYETsbPen9E4WJathkQe4EukHf99qM/DsPJa
+	 zwjM2FdB0jfIqqONa1r4XqqvVrBwrDM980iLbnQR/b6pncUe2+cx1lXYYGmWj5PvNB
+	 AT90CtSGQwqOZjLPKCcehbLrEZzPGxn5wb7wIgBJP1LA0D3xr7VFe0LISDM9/uZA2Y
+	 6HRM7XUhMqPuw==
+Message-ID: <8ac6d609-0cf9-4368-be08-577f2ec2e762@kernel.org>
+Date: Tue, 29 Sep 2026 12:17:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,156 +35,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] PM / devfreq: governor_userspace: Guard against NULL
- governor_data during switch
-To: Jie Zhan <zhanjie9@hisilicon.com>, heiko@sntech.de,
- myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260723080806.1451-1-finley.xiao@rock-chips.com>
- <4e1b7360-4ab9-4c50-b4b9-61a44707068a@hisilicon.com>
-From: Finley Xiao <finley.xiao@rock-chips.com>
-In-Reply-To: <4e1b7360-4ab9-4c50-b4b9-61a44707068a@hisilicon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0eca60db203a8kunm4df5fc7a41f296
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBlLVh5OT0JOHh9CSR9CGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=gJj838I8K/H0TcZgOEiluq/SJXdmNUxakdOUJ5QT/AayTPBFXrgrZD4FuFmpXW4XYJMrnpILV0eTTxGj7DQehS/nftp0j4/WlNjmJ6aNaQaq+oDGrJfyAAT6jwrzQMr/OqAXd6is66prgrkRLPX3F64dFIWMVz60gsvLocH+lnQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=Z//izYTKBBySq35BtFboabm7+7Su7nvQvEU/xskjOvw=;
-	h=date:mime-version:subject:message-id:from;
+Subject: Re: [PATCH v4 0/4] Add Laguna/Tensor G5 SoC and Frankel, Blazer &
+ Mustang boards
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+ Douglas Anderson <dianders@chromium.org>, Juan Yescas <jyescas@google.com>,
+ RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>,
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com,
+ linux-serial@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Brian Norris <briannorris@chromium.org>
+References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
+ <179067486422.102650.10176830320558486814.b4-ty@b4>
+ <550a74bc-f0b9-4141-9fc8-db175bb0b1ae@kernel.org>
+ <CADrjBPo_V1YScLQkgbSrWCaq30k7JoF0GQQ0u5ouBiEipbEg4Q@mail.gmail.com>
+ <CADrjBPrErWJR_01+Qhuw6mu0Kpe8-tvBMjci=rBO13RaSqnfZQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADrjBPrErWJR_01+Qhuw6mu0Kpe8-tvBMjci=rBO13RaSqnfZQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 29/09/2026 12:16, Peter Griffin wrote:
+> Hi Krysztof,
+> 
+> On Tue, 29 Sept 2026 at 11:09, Peter Griffin <peter.griffin@linaro.org> wrote:
+>>
+>> Hi Krysztof,
+>>
+>> On Tue, 29 Sept 2026 at 10:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>
+>>> On 29/09/2026 11:41, Krzysztof Kozlowski wrote:
+>>>>
+>>>> On Fri, 18 Sep 2026 19:05:01 +0000, Peter Griffin wrote:
+>>>>> This series adds initial basic support for Laguna (Tensor G5 SoC)
+>>>>> found in Frankel (Pixel 10), Blazer (Pixel 10 Pro) and Mustang (Pixel
+>>>>> 10 Pro XL) phones.
+>>>>>
+>>>>> Whilst Tensor G1 to G4 SoCs (found in Pixel 6 to Pixel 9 and Pixel
+>>>>> 10a) were offshoots from the Samsung Exynos family. Laguna is an
+>>>>> entirely in-house Google designed SoC.
+>>>>>
+>>>>> [...]
+>>>>
+>>>> Applied, thanks!
+>>>>
+>>>> [1/4] dt-bindings: arm: google: Add dt bindings for frankel/blazer/mustang
+>>>>       https://git.kernel.org/krzk/linux/c/ecf6405fa6c503c34eb4e7e905957d70d4018e93
+>>>> [2/4] arm64: dts: google: Add dts directory for Google-designed silicon
+>>>>       https://git.kernel.org/krzk/linux/c/cf3df78629f24b40cd0cb2da74e3ea4a944bed82
+>>>> [3/4] arm64: dts: google: Add initial dts for frankel/blazer/mustang
+>>>>       https://git.kernel.org/krzk/linux/c/54edd8698bb1fb40c339d0cb2f15baad6993dd48
+>>>> [4/4] arm64: defconfig: enable Tensor G5 SoC family
+>>>>       https://git.kernel.org/krzk/linux/c/63f674fe8a0a8d6e4bee3e72f7ae658f0e9a0686
+>>>>
+>>>
+>>> This introduces new warnings:
+>>>
+>>> /home/buildbot/kernel/build/arch/arm64/boot/dts/google/lga.dtsi:368.37-391.5:
+>>> Warning (avoid_unnecessary_addr_size):
+>>> /soc@0/interrupt-controller@5880000: unnecessary
+>>> #address-cells/#size-cells without "ranges", "dma-ranges" or child "reg"
+>>> or "ranges" property
+>>>
+>>> https://krzk.eu/#/builders/28/builds/845
+>>>
+>>> Probably you wanted address-cells=0?
+> 
+> Yes, it should be:
+> 
+> #address-cells = <0>;
+> 
+> and no size-cells line
+> 
+> How would you like to handle it? Shall I send a v5, or would you
+> prefer to fix it up locally since you already applied it?
 
-在 2026/7/28 11:06, Jie Zhan 写道:
-> Hi Finley,
->
-> On 7/23/2026 4:08 PM, Finley Xiao wrote:
->> The userspace governor is the only one that uses devfreq->governor_data,
->> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
->> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
->>
->> When switching governors via sysfs (governor_store in devfreq.c), the
->> sequence is:
->>
->> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
->>
->> Between the df->governor assignment and userspace_init() completing,
->> governor_data is still NULL (the previous governor never touched it,
->> and the core does not clear or pre-allocate it). During that window,
->> asynchronous paths that call update_devfreq() outside of the driver's
->> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
->> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
->> devfreq_userspace_func(), which dereferences governor_data without a
->> NULL check, causing:
->>
->>    Unable to handle kernel access to user memory outside uaccess routines
->>    pc : devfreq_userspace_func+0xc/0x28
->>    lr : devfreq_update_target+0x58/0x158
->>
->> Add a NULL check in devfreq_userspace_func() and fall back to
->> previous_freq, which is the same behaviour as the existing "no user
->> frequency specified yet" branch. This closes the race for all callers
->> since every path ultimately goes through get_target_freq.
->>
->> Additionally, take devfreq->lock around the kfree()/NULL assignment in
->> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
->> under devfreq->lock could read governor_data after it is freed but
->> before it is set to NULL, constituting a use-after-free.
->>
->> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
->> ---
->>   drivers/devfreq/governor_userspace.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
->> index 3906ebedbae8..f7a485c43fd7 100644
->> --- a/drivers/devfreq/governor_userspace.c
->> +++ b/drivers/devfreq/governor_userspace.c
->> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
->>   {
->>   	struct userspace_data *data = df->governor_data;
->>   
->> -	if (data->valid)
->> +	if (data && data->valid)
-> This one is fine.
->>   		*freq = data->user_frequency;
->>   	else
->>   		*freq = df->previous_freq; /* No user freq specified yet */
->> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
->>   	if (devfreq->dev.kobj.sd)
->>   		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
->>   
->> +	mutex_lock(&devfreq->lock);
->>   	kfree(devfreq->governor_data);
->>   	devfreq->governor_data = NULL;
->> +	mutex_unlock(&devfreq->lock);
-> However, for this one, I'm not sure it's the proper place to add the lock.
->
-> Why should we allow the whole governor switching to be concurrent with
-> frequency switching?  I guess there might be something wrong elsewhere.
-> The devfreq->lock should be held around governor switching.
-> Can you have a try?  but be careful of deadlock because the governor
-> switching currently holds devfreq_list_lock.
-I tried to hold devfreq->lock around the governor switching, but the
-GOV_STOP event handlers cannot run with devfreq->lock held. There are
-three independent reasons:
+Just send a fixup patch.
 
-1. userspace_exit(): sysfs_remove_group() must not be called with
-    devfreq->lock held.  The removal waits for the in-flight sysfs readers
-    of the "set_freq" attribute to release the kernfs active reference, and
-    those readers take the active reference first and then block on
-    devfreq->lock inside set_freq_show()/set_freq_store(). Removing the
-    group while holding devfreq->lock waits for a reader that is waiting for
-    the same lock, i.e. a deadlock.
-
-2. simple_ondemand: devfreq_monitor_stop() (DEVFREQ_GOV_STOP) has to call
-    cancel_delayed_work_sync() with devfreq->lock released, because the
-    monitoring work (devfreq_monitor()) takes devfreq->lock. Waiting for
-    the work while holding devfreq->lock deadlocks.  This is also why
-    devfreq_monitor_stop() drops the lock before cancel_delayed_work_sync()
-    today.
-
-3. passive: the passive governor's DEVFREQ_GOV_STOP calls
-    devfreq_unregister_notifier() -> srcu_notifier_chain_unregister() ->
-    synchronize_srcu(), which waits for the in-flight notifier callbacks.
-    Those callbacks (devfreq_passive_notifier_call()) take the child's
-    devfreq->lock, so unregistering while holding the child's devfreq->lock
-    can deadlock if the parent's frequency transition is in flight.
-
-In addition, the GOV_START handlers take devfreq->lock themselves:
-performance/powersave call update_devfreq() under the lock, simple_ondemand
-calls devfreq_monitor_start() which takes the lock, and the passive
-governor's cpufreq path takes it.  Holding devfreq->lock around the
-switching would therefore also self-deadlock unless their internal locking
-is removed as well.
-
-Even if devfreq->lock were held around the whole switch,
-the userspace governor would still need to hold the devfreq->lock
-around the kfree itself: because of (1), userspace_exit() has to remove the
-sysfs files with the lock released, so the handler would have to drop the
-lock for the sysfs part and take it again for the kfree.  Holding the lock
-around the switching would not remove the lock from the userspace governor;
-it would only add locking around it and require restructuring all
-governors.
->
-> Thanks!
-> Jie
->>   }
->>   
->>   static int devfreq_userspace_handler(struct devfreq *devfreq,
-
--- 
 Best regards,
-
-底层平台中心 肖锋（Finley Xiao）
-************************************************************************************
-瑞芯微电子股份有限公司
-Rockchip Electronics Co., Ltd.
-福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
-No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
-Tel: 0591-83991906-8602 Mobile: 18506057603
-************************************************************************************
-
+Krzysztof
