@@ -1,123 +1,154 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA283C3792
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E4C3EEAD7;
+	Tue, 29 Sep 2026 05:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790660053; cv=none; b=kK/Nx6CMJBTROE8TxiB2u/uCIFy5CLr3WiW1e2RUSOCsXacd6E1UkkX3B1axfBRnu80SBydtoPnbYIvkKZ91jCKLPUZWhll3qkxR3bdsow7ASRo7+9C8ECz/6yuYC9TeGn/ymu11Etoxckvqo2Z80ihkwPvFprKSb6ncQQ7Kzrs=
+	t=1790660080; cv=none; b=iHBI5ib3RERcKUgqlA6BkPty6k/UdDHZLaPmRFoo9qZxbY+mgRURKa0dRgoUs2NYYcfcC8G/Htz/MDa5DGG7AS6YkUnbKkDWkDhOiq6se1xhYM8jYRHANV/siav2XapHRx9VirJ30UaGRqEL3yWhOPwj/kTTr7bxwRwX4Z8ovV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790660053; c=relaxed/simple;
-	bh=m2lqawFRROq7VOxJCYnJVdA4aB6TI0mUCVIlIeUuTzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A+jfzQkRlF4J7BG+sop6pLWPKIVUBsrppswUyv/TVaRpwvaI6yZrFFYduKwyDj0sQcO8PqZHOZX7CBEYruipufNCQobfKi4PJP8nUILv2Fn6euh9kP2zpCRZ9Ng1Ub2TtPPvZPSU62JrR7GIVy88f+7AswDtgUcWaN8364aN8Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+zLSDTB; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790660080; c=relaxed/simple;
+	bh=SjaZfvcnMjlUB/r4CGiIFCGO685RtMUV7DSyAIMhSgo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tpkNB/kqzZ2yWXxWnCCuBixW+r1hSNsPgCkvuzK2VL+3jIkSK50EOqpGwn3FNFpZEtBXPqO2xjjRrE8pEseTJ3pYyw3cfO6vhyw+YISKd7ooNKPHSTojEpwWB0yMIEYdGoaIfCH9IeDyPwHNi+1rohslsqVaJOcbq03QJVfb+3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WnWnEQOb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KqDOltKO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zuI/hQ03; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bmYADGk0; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+zLSDTB"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so2818995f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:34:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790660050; x=1791264850; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vDrRpA1W/7JjCEY/lfrVQceoo3M5nHbNKEhFmkg5umg=;
-        b=g+zLSDTBN5PBcQHF5j5AAGj8sobOayPMm/lPnpU7fFtjmd3yNMI9nSQHvybIYKg/n+
-         GnGtfnaSbNuUbTmkxDnLFRqu09paoQmpeHA9gNMpY/dnIiFV2aTWuyoV1ec/eekRx1+w
-         +cFWuPIJoHLHgXUoyu2mRuVcCvIFCsfVnszBEcOfx33IZmpH8ZPyNBUgz3kKmqunn1Tg
-         uKWjYgPIBuXLK+Cs/AqKE+2lqdLlelH0tOcKaTzbAFTopW7ebyce/4Sp1LnRuciwb8ov
-         zrfKTEZqkXuAiXYdLJdO1RPcMxP+iSEhL6TFXWJxtc9mGiJT6dynqKgOppieq46c7rex
-         nwaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790660050; x=1791264850;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vDrRpA1W/7JjCEY/lfrVQceoo3M5nHbNKEhFmkg5umg=;
-        b=Ue/3DaVzQMO/Mmbdz1hpaGfYgJS4Lbbsl4quTxzLePxCAStddYsBjnrtZuauln6SLv
-         uvNYihR3BvQFuevHt7XP2P/9tGm5jkcSKhl6yb/HKbKssiUh8l7+Hr0wv1lkwXBYxd3D
-         +YVsr1d9gh/9NogIed4IhfQekj/0ZOvE+WUol2nTf8aFhHzS/PZ7ZpOQwKmKDTtO1vGx
-         4NFdxqZjYBxR5yEsIMO+O/yflI5d+D69imQwbCkYL1TOSHemLf2+1ePpUALT9inBoX4C
-         9cFypXPigybSFe7J1YolOO+SVtkB+Mrg1dQ1fPqkKklwiQDiGh/mCu4JLVqdaeH6oV/c
-         coQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzpZ5G921rnJtGBmDf5PZYal9TDGzUKkBZiPA6C5iPTnXLZP9XsXTzcxFFu26ZVu+3VIDMpZlYr1CdHn0Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0r/+YiExKN3q1DVLmYQrNIvds3ZW+sLiJKIolSSDV/Zi6lbA3
-	sKt6cs5YD8fSmudWul1uOZbtayfSNN0Bd47k0vc9/uJVmQYKy85m5FYDX2lGKNYq
-X-Gm-Gg: AYBFou3zHVrXprbbpNhnWpZZr+2+DHnF43KL0Ky8VPRR0NoJAClwMFGfmPesh5tUuTF
-	sQTBymqg8WJIwQadFaXdKywxuUR9O0rQyzYsudRnRBundyRr/1Yg11MWcf0tdTMmTqiJ5Xn8Bnh
-	uSuw43oUS9tEauSLrhsDPdOuz5tTtDn4+Rz9UwDvowHP+UXceFWd4rLsVCM1byx/TuLhNZfG6St
-	iFTCme81xGVjwJbbylSNRbEEZyY8tDbNPohNdV5nEZBX2Gbb7Ke6hFn6Ko976v/E78q1PVNbMbX
-	uDdrWiNIyE5ZZECs3Ys3CyO61nsimk+WAE0nsNF/h/A4/yrdB5zxPb2YpoipwgyJz6b22FHjdAE
-	0YhOhf5MaRXQsH9KtZDf64JETM58K61/Dxka3Y9VdJlvlASgoAGpnwe38rjiCy1+Ypshm5C6vpW
-	724CVBJbL5qosZ4+jqouzN/qSeQoKWZo26K9sFr/EbAuHLRrGvf7m1sWCq1tjyYzwprIep4x/yG
-	JVXxUt3dpl7nKlzv1Q0kRbxF9bHZoCppXVvu/wcfSVOjVCBRgy85spdFodWiALZ56QDqNRdPn2Z
-	R5nLSuB3xxRIzv+5ZiLA/XX7GgSitg1oZQHpWwZjtvNHXYb3T8VHiDfgk0Udkte9USTaLXgX/bU
-	=
-X-Received: by 2002:a5d:5e83:0:b0:488:84bf:eedf with SMTP id ffacd0b85a97d-48884bff147mr15033151f8f.48.1790660049555;
-        Mon, 28 Sep 2026 22:34:09 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9c32-f801-0451-cc94-d3ca-f56b.310.pool.telefonica.de. [2a02:3100:9c32:f801:451:cc94:d3ca:f56b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af506fdc1sm1047634f8f.21.2026.09.28.22.34.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 22:34:08 -0700 (PDT)
-Date: Tue, 29 Sep 2026 07:34:06 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Matt Johnston <matt@codeconstruct.com.au>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] net: mctp: Make KUnit tests depend on flow
- support
-Message-ID: <artKykZLgwngX5zs@gmail.com>
-References: <20260925192510.93840-1-kmehltretter@gmail.com>
- <20260928205352.30502-1-kmehltretter@gmail.com>
- <fb39875c7fa4131e565eebf8ffc9b3b19bb5ad87.camel@codeconstruct.com.au>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WnWnEQOb";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KqDOltKO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zuI/hQ03";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bmYADGk0"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4B0EB21C4B;
+	Tue, 29 Sep 2026 05:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790660072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
+	b=WnWnEQObIPhYAP3eKCkd9206kfir4S4gyPk/MtUf9SyKVuVROpmpK8EwgoEkWHOClZTBuU
+	crZA9tgp4YwMKrLSq+m/YMxLx0se+xG9sft3AB+bWUJc7cLXK0ZTS70U2S3rAck/jxBNuc
+	1mNmCOGQPOFUed4QdVCC0uyZW8WEpeQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790660072;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
+	b=KqDOltKOjZspSME1j/e3zXiPym/Hy/sPRCGqpIY9SAycsvxLJ7WfUJmbEfIkhzpH1a8qiS
+	GYOLuFChzipfI9CQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="zuI/hQ03";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bmYADGk0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790660068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
+	b=zuI/hQ03j/3osxvJKfT5g7g6equVHvjW+3B3dH5gtlaLAeoAl2ARTkRqFXLsv7de84SUY5
+	WREQ6F5UFMD7+qWPa9zhWARVymN4OnsU4eKvyWkS/2dSF+LkUDHM3/1by+rvD+cwC4qpvl
+	XN8ziFCdrMSHvRRyLpNVZQUAE9+h/6U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790660068;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CyCIA/ALCwlqDgVFKzh+aLBduuAD/F4jpZh+nNsQxMY=;
+	b=bmYADGk0ftXAWs4TlD6tbFSSj6pbLg/JAELjbCwcYEWaTfGzzpde7QFjCvJN36QkNJ0P8i
+	zVzxyQzWBZUyYwCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC199133F1;
+	Tue, 29 Sep 2026 05:34:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vsFzMONNu2qMGQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 05:34:27 +0000
+Date: Tue, 29 Sep 2026 07:34:27 +0200
+Message-ID: <87v77o39jw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks
+In-Reply-To: <20260928182352.309457-1-danishkhateeb03@gmail.com>
+References: <20260928182352.309457-1-danishkhateeb03@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb39875c7fa4131e565eebf8ffc9b3b19bb5ad87.camel@codeconstruct.com.au>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: 4B0EB21C4B
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[suse.com,perex.cz,gmail.com,vger.kernel.org];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
+X-Spam-Flag: NO
 
-On Tue, Sep 29, 2026 at 09:02:23AM +0100, Jeremy Kerr wrote:
-> > This keeps the full flow-test coverage: the suite is available only
-> > when flow support is enabled, for example by the I2C transport.
+On Mon, 28 Sep 2026 20:23:52 +0200,
+Danish Khateeb wrote:
 > 
-> Hardware transports are typically not enabled for kunit test kernels.
+> 32-bit tasks on a 64-bit kernel can't use userspace-driven timers. The
+> compat handler for /dev/snd/timer doesn't list SNDRV_TIMER_IOCTL_CREATE,
+> so creating a timer fails with -ENOTTY. The file returned for a timer
+> has no .compat_ioctl either, so SNDRV_TIMER_IOCTL_TRIGGER fails with
+> -ENOTTY too.
 > 
-> Are you attempting to fix an actual problem you're encountering? What's
-> the aim with this change?
+> struct snd_timer_uinfo has the same layout for 32-bit and 64-bit tasks,
+> and SNDRV_TIMER_IOCTL_TRIGGER takes no argument, so both commands can
+> be passed through unchanged.
 > 
+> The utimer selftest doesn't catch this when built with -m32: it takes
+> -ENOTTY from SNDRV_TIMER_IOCTL_CREATE to mean CONFIG_SND_UTIMER=n and
+> skips.
+> 
+> Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 
-Hi Jeremy,
+Applied to for-next branch now.  Thanks.
 
-It's no real-world MCTP workload bug. This came from a similar issue in
-my 842 KUnit patch: the test selected the decompressor. Geert pointed
-out that tests should not silently enable otherwise-unused code:
 
-https://lore.kernel.org/r/CAMuHMdVcZ5cV4-HrjLYfFKh6UshiVxq5eXCNyp0Z1k_SMAvF5g@mail.gmail.com/
-
-My goal is to keep KUNIT_ALL_TESTS from pulling in otherwise-unused
-production code. An explicit opt-in could preserve the coverage,
-following CRC_ENABLE_ALL_FOR_KUNIT and CRYPTO_LIB_ENABLE_ALL_FOR_KUNIT:
-
-- MCTP_ENABLE_ALL_FOR_KUNIT depends on KUNIT=y and MCTP=y
-- it selects MCTP_FLOWS
-- all_tests.config enables it
-- MCTP_TEST depends on MCTP_FLOWS
-
-This keeps KUNIT_ALL_TESTS from enabling optional flow code, while the
-explicit kunit.py run --alltests profile opts into it and retains full
-flow coverage without requiring a hardware transport.
-
-Would that approach work for you?
-
-Karl
+Takashi
