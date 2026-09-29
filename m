@@ -1,121 +1,185 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF0A4C9DEB;
-	Tue, 29 Sep 2026 08:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6AA4BD106;
+	Tue, 29 Sep 2026 08:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671857; cv=none; b=miXOnojqCb0vFuvS3XcUBe748BPUYyT+UkPS7n/nXm/s3+98kak9OabTgjkhImXsEoJ9uRyAPFKx+sMILMZKABr8BMYh0IBvYnzpDwyroqqkEMOGI+SXfH9z2ohMcuxXwaG4GrHF0qx6Fwr+vf/sddruZGlECbEuD2wUwF1hDHQ=
+	t=1790671862; cv=none; b=odEebMW7eGP0ANHVLndtLVsY9onwmi7aYNRR9iVmIBUyOtNlWVMS8Md5sWbsdoOZomnIqzUZ8Wk4WX4BVcAn+nDQKO4XgxcTkOyO04p4mM3vF4HFqYf+Gn25UTHBGpC2ONi9m9CFW+XuTS4H7DqeTVkUhXwsXTyzsIBqpGzLYhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671857; c=relaxed/simple;
-	bh=x/2Yufj7BDckVgHIunGwns+v+3M+0W/YGsrpR6O36Cs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eX3QfnemCfhpBu5YHUjEBTIw6Aws5cn3gZsYq7qYj/kkI8peSxP9/uSvBgo9higFKB1sbseyzB2OtfihRStYrVlfAKdXOV/s9XAJdWysu2hd27DzAGeGB+qQfYgeAWmz0Sr/xnV+VwdTu/a7eVsVpqNA7DA4QAY4gIt5ihiuMJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hvBhS0YmvzYQv2B;
-	Tue, 29 Sep 2026 16:50:16 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 0437B40974;
-	Tue, 29 Sep 2026 16:50:43 +0800 (CST)
-Received: from ultra.huawei.com (unknown [10.90.53.71])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDn_iHie7tqgXJpCA--.48809S3;
-	Tue, 29 Sep 2026 16:50:42 +0800 (CST)
-From: Pu Lehui <pulehui@huaweicloud.com>
-To: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Pu Lehui <pulehui@huawei.com>,
-	Pu Lehui <pulehui@huaweicloud.com>
-Subject: [PATCH bpf-next 1/2] riscv, bpf: Support indirect calls to bpf subprogs (callx)
-Date: Tue, 29 Sep 2026 08:54:49 +0000
-Message-Id: <20260929085450.1852617-2-pulehui@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929085450.1852617-1-pulehui@huaweicloud.com>
-References: <20260929085450.1852617-1-pulehui@huaweicloud.com>
+	s=arc-20240116; t=1790671862; c=relaxed/simple;
+	bh=ZxKufniYDJUjM/W94zlP7DWtMkIq8VccOPZ+e1Xaqw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YusYxMjflBw/FCCecPd79B8pqiXEu9NliLoHDeHZ8CL4ZRRlUDtk33O9h2z4XfoBnNvMhTjvcRstZu161GLEZvYagfmBub5+HI34FeLJrJhdvin6QtL2jmxhkX6+hFeCI72JI5fRKxyIRvG2ZZikp2jOFDtVd8izuffm5EomTv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qUcAPjl8; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qUcAPjl8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A22204E410BA;
+	Tue, 29 Sep 2026 08:50:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6F1E0601BD;
+	Tue, 29 Sep 2026 08:50:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF9FF1032960B;
+	Tue, 29 Sep 2026 10:50:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790671848; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=kY9txcMTyWH2CmnwG+I/iwir1YJNr0vNHV6tRoyMll0=;
+	b=qUcAPjl8r0uafq3gEI+Xi05oWyq2iYou3PSoVqMFtIzgUnwdHIuponMikm6xpWJMuKGdRP
+	NmIxYRREgnr+GkFGOMyUBTAMStVPWLmHkkCQ1gD0LcrJ3WzVOIsjE9hiSKiyFJCuqn+MHo
+	cA6qk6iBKJtCdWmMGL3F896lURF0XwROk7inVw99e5kRMo30uzgPp895YbSQxxGvmtomv7
+	7H3Hpx0cyICS3LZ3Iu/nNQXuuqYDEeH9JzmGlY7Zt5IibZ3vlSTvl7RgV5YXeqcLo1kv4W
+	FuECr0256UxMIu7M//8UaM+dRRU/zyAb1D2yYLphzVOva5rzJYnoIKKjglaAhg==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v6 0/4] timers: Add support for RZ/N1 SoCs timers
+Date: Tue, 29 Sep 2026 10:50:30 +0200
+Message-ID: <20260929085035.57609-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgDn_iHie7tqgXJpCA--.48809S3
-X-Coremail-Antispam: 1UD129KBjvdXoWrZrW7KrW5urWDWr4kury3Jwb_yoWkCFc_uw
-	1xtayxX398JFsrXa1jyF45KFykCw4rKF1DZFnYgry2k3Z5Xa1xArWkKryDZry7XryrKF45
-	u3s3AaySyw42yjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbkkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGwA2048vs2IY02
-	0Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84
-	ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
-	AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
-	2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
-	C2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVj
-	vjDU0xZFpf9x0JUU9N3UUUUU=
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pu Lehui <pulehui@huawei.com>
+The Renesas RZ/N1 SoCs family has two timers block controller
+available.
 
-Implement callx by emitting a jalr instruction to jump to the target
-subprog address held in rd, and marking the call as it clobbers
-RV_REG_RA.
+Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
+timers).
 
-Signed-off-by: Pu Lehui <pulehui@huawei.com>
----
- arch/riscv/net/bpf_jit_comp64.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Each timer has its own interrupt, its own prescaler that can be used to
+divide the clock by 25 (timers block are fed with a 25 MHz clock) and
+all timers can work in either one-shot or periodic mode.
 
-diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
-index 7ce9f8460c59..88430825f4f5 100644
---- a/arch/riscv/net/bpf_jit_comp64.c
-+++ b/arch/riscv/net/bpf_jit_comp64.c
-@@ -2071,6 +2071,13 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
- 			emit_mv(bpf_to_rv_reg(BPF_REG_0, ctx), RV_REG_A0, ctx);
- 		break;
- 	}
-+
-+	/* indirect call to a bpf subprog via the address in rd */
-+	case BPF_JMP | BPF_CALL | BPF_X:
-+		mark_call(ctx);
-+		emit_jalr(RV_REG_RA, rd, 0, ctx);
-+		break;
-+
- 	/* tail call */
- 	case BPF_JMP | BPF_TAIL_CALL:
- 		if (emit_bpf_tail_call(i, ctx))
-@@ -2397,3 +2404,8 @@ bool bpf_jit_supports_exceptions(void)
- 	 */
- 	return IS_ENABLED(CONFIG_FRAME_POINTER);
- }
-+
-+bool bpf_jit_supports_callx(void)
-+{
-+	return true;
-+}
+This series adds support for those timers blocks.
+
+Best regards,
+Hervé
+
+Changes v5 -> v6
+  v5: https://lore.kernel.org/all/20260911150456.893761-1-herve.codina@bootlin.com/
+
+  Patch 2:
+   - Fix a comment
+   - Add 'Tested-by: Wolfram Sang'
+
+  Patch 1, 3 and 4:
+   No changes
+
+Changes v4 -> v5
+  v4: https://lore.kernel.org/all/20260721082952.215691-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.3-rc1
+
+  Wolfram sent his 'Tested-by' tag for patch 2 in the v4 iteration but
+  because of timers re-assignment done this v5, I haven't add his tag
+  in patch 2.
+
+  Patch 1:
+   - Reduce the reg area size
+   - Add 'Reviewed-by: Wolfram Sang'
+
+  Patch 2:
+   - Take into account Shashiko's feedback and avoid paths which could
+     lead to a NULL pointer dereference in the interrupt handle. Even if
+     these paths cannot be reached with our hardware timers, remove
+     them from the driver.
+   - Reassign timers usage for the first timers instance probed:
+       * First and second 16-bit timers: clock events per CPU
+       * Last (second one) 32-bit timer: clocksource and sched_clock
+       * Other timers: clock events for all possible CPUs
+
+  Patch 3:
+   - Reduce the reg area size
+   - Remove some empty lines in commit log
+   - Add 'Reviewed-by: Wolfram Sang'
+   - Add 'Tested-by: Wolfram Sang'
+
+  Patch 4:
+   - Add 'Reviewed-by: Wolfram Sang'.
+
+Changes v3 -> v4
+  v3: https://lore.kernel.org/all/20260717095552.767475-1-herve.codina@bootlin.com/
+
+  Patches 1, 3 and 4:
+   No changes.
+
+  Patch 2:
+   Took into account Shashiko's feedback
+    - Remove CLOCK_SOURCE_SUSPEND_NONSTOP flag
+    - Fix CPU ids checks against number of 32-bit timers (avoid
+      out-of-bound accesses)
+    - Enable IRQ in CPU hotpluig startup function
+    - Add CPU hotplug teardown function and disable IRQ in this
+      function.
+    - Adapt probe() to avoid IRQ handled by CPU hotplug startup/teardown
+      been enabled by default.
+
+Changes v2 -> v3
+  v2: https://lore.kernel.org/all/20260429115054.158160-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1.
+
+  Patch 1, 3 and 4:
+    - Add 'Reviewed-by: Geert Uytterhoeven'
+
+  Patch 2:
+    - Fix typos in commit log.
+    - Split Kconfig 'depends on' in 2 lines.
+    - Fix indentation, space and alignment in code.
+    - Fix dev_err_probe() conversion format.
+    - Introduce rzn1_timer_setup_timers() and rzn1_timer_register_clkevt()
+      to avoid code duplication in rzn1_timer_probe_{first,other}()
+    - Add '.suppress_bind_attrs = true'.
+
+Changes v1 -> v2
+  v1: https://lore.kernel.org/all/20260331152616.197031-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.1-rc1.
+
+  Patch 1:
+    - Drop minItems related to interrupts property
+    - Add 'Reviewed-by: Krzysztof Kozlowski'
+
+  Patches 2, 3 and 4:
+    No changes
+
+Herve Codina (Schneider Electric) (4):
+  dt-bindings: timer: Add the Renesas RZ/N1 timer
+  clocksource/drivers: Add support for the Renesas RZ/N1 timers
+  ARM: dts: r9a06g032: Add support for timers
+  MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
+
+ .../bindings/timer/renesas,rzn1-timer.yaml    |  74 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi      |  34 ++
+ drivers/clocksource/Kconfig                   |  11 +
+ drivers/clocksource/Makefile                  |   1 +
+ drivers/clocksource/timer-rzn1.c              | 481 ++++++++++++++++++
+ 6 files changed, 608 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+ create mode 100644 drivers/clocksource/timer-rzn1.c
+
 -- 
-2.34.1
+2.55.0
 
