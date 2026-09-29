@@ -1,38 +1,38 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5995251AFF0;
-	Tue, 29 Sep 2026 10:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722B44FD298;
+	Tue, 29 Sep 2026 10:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678246; cv=none; b=eEQHwlvs33HljZOHFrgwscc12AalL0k/h+UkvaX5UKY0GFokuKf1TvTd2Id4UXOOw5Vqx+TC2IsVS6Wt2M4FUdtdF5nmdhavZHp/04nUiauQdyR+to0prykQBccKCwzHGiH1nOjuhTeHFuTImb+DUaHxzsdgBekIbXDgAfEI8cc=
+	t=1790678251; cv=none; b=acK3D8J8v1mjdDluoPJtxKTmjZ7lE6Jo+AvbOGk9Z/M/AHthN6pS0vxZrnHM94RlkYQpsDu3QQ5ANJyNgU4fkK1owjMQY6BgkBoXXEsXLUwWRrtoxs/wbJOXs6WahS//gWYfXTC++JBHEu3BwNIlW1d0RngDHIN1TsrERZKi4qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678246; c=relaxed/simple;
-	bh=1bIAkXsbsfjFVOmCwUcGxRMipFXYicXZoTKfpVXnmQ4=;
+	s=arc-20240116; t=1790678251; c=relaxed/simple;
+	bh=wexqvs0yfeS2C0Bj81AiN5APyJC+KK2qBppJdH0KoDQ=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Kwn5YnoZW3V19DrTA7IOB2dMo+srOMiPWBJayD9L3wk1DBSRwdyB+yPqAAa7aDWBwHzhunCAplSI/7knS17KUq5xE+VMZ4zt53DkErR1lYgEY1M6s+oVjdjWv1XmeCcppNzDJR31hy4NNCl1KPWk8sRBE6gtiT2pu7csOFj+gVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=FJn8bMvF; arc=none smtp.client-ip=113.46.200.217
+	 MIME-Version:Content-Type; b=GgfZoqCM+0+uKxt4jqgFnKrxo7o5uYmJeTjOgwFw3aGljicjzIs6ccorxbDGVSW6PQhu/NsVtPPe6BQdHFTLs7eUkliIZZq95qhOXfqj7gB2d6ajjYDIBi8D1TyTB0KpEnGwAfo064bRImxwYaKUTGUJMjI/gvB2mIuv5lo5+mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=HvLJpW9C; arc=none smtp.client-ip=113.46.200.224
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FJn8bMvF"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="HvLJpW9C"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=Yrcv1tQpjgIhLK4FLW0aKahTYp0KRxC0JD0vGXJZB4c=;
-	b=FJn8bMvFIt5OHiANxsyr2y8qjm22EHDhXs8/Y4rtH54EMF7gRXebgSNGcRGaGhQjwYt/nFOsr
-	LKmBnonCabBTlKwTXlQDJtf6/7P0DE6sEMLGov7F3SilgXt8uSUCuDpLdAbsosPPxGnt/QVSnUU
-	bN2xdOjCYNIWoTyojnfQ5gE=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hvDpJ2nmGzcb4j;
-	Tue, 29 Sep 2026 18:25:28 +0800 (CST)
+	bh=QD12wy70TSq/tTZOlQTiNE7N6Wmf5bjie5E1X0Lng3g=;
+	b=HvLJpW9Cosxcsx/1j+ZjQo0fHaeFOExk2G1PwxmWEeqad9RWHDo8pB3EejDa9fDLm2fWh9WMD
+	dAH7tCRk/A4zNr96l+JQ6aSChhQryazK01Pojqvj6zpepgs8ATJUlTgZCfPWD395gWS1YG5meow
+	HrO/qz73uwssvQQgW+36Qh0=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hvDpq1cL3z1cyS4;
+	Tue, 29 Sep 2026 18:25:55 +0800 (CST)
 Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id AC3654056D;
-	Tue, 29 Sep 2026 18:37:03 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 4CA904048B;
+	Tue, 29 Sep 2026 18:37:01 +0800 (CST)
 Received: from huawei.com (10.50.163.32) by kwepemr100010.china.huawei.com
  (7.202.195.125) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 18:37:02 +0800
+ 2026 18:37:00 +0800
 From: Tian Zheng <zhengtian10@huawei.com>
 To: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
@@ -47,9 +47,9 @@ CC: <yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>,
 	<mark.rutland@arm.com>, <seanjc@google.com>, <rdunlap@infradead.org>,
 	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
 	<skhan@linuxfoundation.org>
-Subject: [PATCH v5 09/15] KVM: arm64: Handle HDBSS faults
-Date: Tue, 29 Sep 2026 18:36:49 +0800
-Message-ID: <20260929103655.85107-10-zhengtian10@huawei.com>
+Subject: [PATCH v5 06/15] KVM: arm64: Add support for FEAT_HDBSS
+Date: Tue, 29 Sep 2026 18:36:46 +0800
+Message-ID: <20260929103655.85107-7-zhengtian10@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20260929103655.85107-1-zhengtian10@huawei.com>
 References: <20260929103655.85107-1-zhengtian10@huawei.com>
@@ -64,112 +64,82 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemr100010.china.huawei.com (7.202.195.125)
 
-From: Eillon <yezhenyu2@huawei.com>
+Armv9.5 introduces the Hardware dirty state tracking structure
+(HDBSS), indicated by ID_AA64MMFR1_EL1.HAFDBS == 0b0100.
 
-Once the buffer is full, hardware stops promoting writable-clean
-descriptors and raises a stage-2 Permission fault with
-ESR_EL2.ISS2.HDBSSF instead. Failed HDBSS accesses, such as external
-aborts and granule protection faults, are reported the same way.
+Add CPU capability detection for HDBSS. The capability is restricted
+to VHE systems, as the buffer registers HDBSSBR_EL2 and HDBSSPROD_EL2
+are EL2-only and are programmed directly from host context. A
+system_supports_hdbss() helper is provided for the rest of the series.
 
-Dispatch from kvm_handle_guest_abort() via the new esr_iss2_is_hdbssf()
-helper. FSC == OK means the exit path already flushed, so resume the
-guest; any other FSC is an error - clear it and report -EFAULT.
-
+Suggested-by: Zhou Wang <wangzhou1@hisilicon.com>
+Co-developed-by: Eillon <yezhenyu2@huawei.com>
 Signed-off-by: Eillon <yezhenyu2@huawei.com>
 Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
 ---
- arch/arm64/include/asm/esr.h           |  5 +++++
- arch/arm64/include/asm/kvm_dirty_bit.h |  1 +
- arch/arm64/kvm/dirty_bit.c             | 29 ++++++++++++++++++++++++++
- arch/arm64/kvm/mmu.c                   |  4 ++++
- 4 files changed, 39 insertions(+)
+ arch/arm64/include/asm/cpufeature.h |  5 +++++
+ arch/arm64/kernel/cpufeature.c      | 12 ++++++++++++
+ arch/arm64/tools/cpucaps            |  1 +
+ 3 files changed, 18 insertions(+)
 
-diff --git a/arch/arm64/include/asm/esr.h b/arch/arm64/include/asm/esr.h
-index f816f5d77f1a..4b3ccd407faa 100644
---- a/arch/arm64/include/asm/esr.h
-+++ b/arch/arm64/include/asm/esr.h
-@@ -437,6 +437,11 @@
- #ifndef __ASSEMBLER__
- #include <asm/types.h>
-
-+static inline bool esr_iss2_is_hdbssf(unsigned long esr)
-+{
-+	return !!(ESR_ELx_ISS2(esr) & ESR_ELx_HDBSSF);
-+}
-+
- static inline unsigned long esr_brk_comment(unsigned long esr)
- {
- 	return esr & ESR_ELx_BRK64_ISS_COMMENT_MASK;
-diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
-index d828e6b43fe9..eb2039820777 100644
---- a/arch/arm64/include/asm/kvm_dirty_bit.h
-+++ b/arch/arm64/include/asm/kvm_dirty_bit.h
-@@ -39,5 +39,6 @@ static inline bool vcpu_hdbss_enabled(struct kvm_vcpu *vcpu)
- int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
- void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
- void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu);
-+int kvm_handle_hdbss_fault(struct kvm_vcpu *vcpu);
-
- #endif /* __ARM64_KVM_DIRTY_BIT_H__ */
-diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
-index be0d12555c84..893a8c4248bc 100644
---- a/arch/arm64/kvm/dirty_bit.c
-+++ b/arch/arm64/kvm/dirty_bit.c
-@@ -98,3 +98,32 @@ void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu)
- 	vcpu->arch.hdbss.hdbssprod_el2 = prod;
- 	isb();
+diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+index 4f04ad82ea34..0592e6f6b4d7 100644
+--- a/arch/arm64/include/asm/cpufeature.h
++++ b/arch/arm64/include/asm/cpufeature.h
+@@ -856,6 +856,11 @@ static inline bool system_supports_haft(void)
+ 	return cpus_have_final_cap(ARM64_HAFT);
  }
-+
-+int kvm_handle_hdbss_fault(struct kvm_vcpu *vcpu)
+
++static inline bool system_supports_hdbss(void)
 +{
-+	u64 prod;
-+	u64 fsc;
-+
-+	if (WARN_ON_ONCE(!system_supports_hdbss()))
-+		return -EFAULT;
-+
-+	if (WARN_ON_ONCE(!vcpu_hdbss_enabled(vcpu)))
-+		return -EFAULT;
-+
-+	prod = read_sysreg_s(SYS_HDBSSPROD_EL2);
-+	fsc = FIELD_GET(HDBSSPROD_EL2_FSC_MASK, prod);
-+
-+	if (fsc == HDBSSPROD_EL2_FSC_OK)
-+		/* Buffer full: the exit path drained it before handle_exit. */
-+		return 1;
-+
-+	if (fsc != HDBSSPROD_EL2_FSC_ExternalAbort &&
-+	    fsc != HDBSSPROD_EL2_FSC_GPF)
-+		WARN_ONCE(1,
-+			  "Unexpected HDBSS fault type, FSC: 0x%llx (prod=0x%llx, vcpu=%d)\n",
-+			  fsc, prod, vcpu->vcpu_id);
-+
-+	/* Clear FSC so hardware dirty state updates can resume. */
-+	write_sysreg_s(prod & ~HDBSSPROD_EL2_FSC_MASK, SYS_HDBSSPROD_EL2);
-+	return -EFAULT;
++	return cpus_have_final_cap(ARM64_HAS_HDBSS);
 +}
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 85a98d2c23a9..7bf82d65041c 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -15,6 +15,7 @@
- #include <asm/pgalloc.h>
- #include <asm/cacheflush.h>
- #include <asm/kvm_arm.h>
-+#include <asm/kvm_dirty_bit.h>
- #include <asm/kvm_mmu.h>
- #include <asm/kvm_pgtable.h>
- #include <asm/kvm_pkvm.h>
-@@ -2315,6 +2316,9 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
-
- 	is_iabt = kvm_vcpu_trap_is_iabt(vcpu);
-
-+	if (esr_iss2_is_hdbssf(esr))
-+		return kvm_handle_hdbss_fault(vcpu);
 +
- 	if (esr_fsc_is_translation_fault(esr)) {
- 		/* Beyond sanitised PARange (which is the IPA limit) */
- 		if (fault_ipa >= BIT_ULL(get_kvm_ipa_limit())) {
+ static __always_inline bool system_supports_mpam(void)
+ {
+ 	return alternative_has_cap_unlikely(ARM64_MPAM);
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 32102c3912fa..12fa37328dd2 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -2158,6 +2158,11 @@ static bool hvhe_possible(const struct arm64_cpu_capabilities *entry,
+ 	return arm64_test_sw_feature_override(ARM64_SW_FEATURE_OVERRIDE_HVHE);
+ }
+
++static bool has_vhe_hdbss(const struct arm64_cpu_capabilities *entry, int scope)
++{
++	return is_kernel_in_hyp_mode() && has_cpuid_feature(entry, scope);
++}
++
+ bool cpu_supports_bbml3(void)
+ {
+ 	/* CPUs that support BBML3 but dont advertise through ID_AA64MMFR2_EL1 */
+@@ -2816,6 +2821,13 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+ 		ARM64_CPUID_FIELDS(ID_AA64MMFR1_EL1, HAFDBS, HAFT)
+ 	},
+ #endif
++	{
++		.desc = "Hardware dirty state tracking structure (HDBSS)",
++		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
++		.capability = ARM64_HAS_HDBSS,
++		.matches = has_vhe_hdbss,
++		ARM64_CPUID_FIELDS(ID_AA64MMFR1_EL1, HAFDBS, HDBSS)
++	},
+ 	{
+ 		.desc = "CRC32 instructions",
+ 		.capability = ARM64_HAS_CRC32,
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 2775ba3359cf..8acb3db980c9 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -71,6 +71,7 @@ HAS_VA52
+ HAS_VIRT_HOST_EXTN
+ HAS_WFXT
+ HAS_XNX
++HAS_HDBSS
+ HAFT
+ HW_DBM
+ KVM_HVHE
 --
 2.43.0
 
