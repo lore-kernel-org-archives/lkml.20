@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19184E4336
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7999A4E56E3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718802; cv=none; b=tM+wzTRs5Y5JMgfm43VfW02Elle8xMntAvuoz01VzcpnYzZdJRLzVLTiYx1JY3ih52hCLr58f5dGSL377XcqbcfAPRZcjEsugm/I/KqJ3ONWsBPfJorzv8Go78FqgOQko15xe7FdRORSloRTlRs4P9tIKNEjSE6Hcwjf7hNE0v4=
+	t=1790718807; cv=none; b=b4l0EEgmBveZyVRD7WzsI28DWOEH1PhGC0gEd95HfgFn6qlgzP9i6M4U4RxLqj5mgNLdGf/mUizdwgUKXe0Q64erJI9VYaiTQ8vFj5EVvRH9j4+wMTsHTp3ovRZ/1CqsDdLnLqJVa24IrBwDaOhOTDrlKzkcFoEKUwDcbBLDhMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718802; c=relaxed/simple;
-	bh=7VFM+99/ZzAAejKGREvUdeb6MP4v0H61o0giPoXUx/w=;
+	s=arc-20240116; t=1790718807; c=relaxed/simple;
+	bh=WoaJr5tb+hXIrrWsuy1zRip/WZnisitGsg/RZ3PGvzs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hr1VcfGFmhDYurCZZShUmfrD27PiHe09dvdrptx1W/8AreI5J0d8g5j7w6LF3o4LrRZIHCeul6BB0ixxEmSbLh9asSOHWo1xHIkhC/sMlvMeCpk96yVC/05JC8sxWk2mn5p9tC25TvK3k/WjibzbT6NyykX6hAPTjuHXAG+8ymM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I6dUJOFt; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=ZTOhxnhCZR4NbWaDZQlWb2bHoxdT6ih6lkzwG3LMFOeBnDKeIN1zbeIyeqWvZf/zfE/N4dajgmKp29w2dfJQqOgCTzLsqveuSVQdcJeEhqaNPgLOjiCIBMlGwfDZiAnAU8QBZ2iQ6b+c3j70800B0k1PoEd2S0SOaXvFR1jzcPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p8tYE6PP; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I6dUJOFt"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-349ffa249bdso3922287eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p8tYE6PP"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34344599f01so3532795eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790718800; x=1791323600; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790718801; x=1791323601; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l9oDUPam2OtyD04KoExZWYJnbuDJYbUQdofAXr0u5VE=;
-        b=I6dUJOFtGQnxfkxRGkSJO+LodNzCuCFpqH1VqA9oiZYUsFo9VnKPtFjwpYYQxek3N1
-         4BdufDA5uYcUFPxe5HCArUxUZljVExMF+UR/FgnB6nbAJl3t+qpVnpsuziT4w4C0gEL4
-         ENn9kry9hnD5OZc2uWIoBF6usH1fGAllM0P617TpZjIRmIfpf55LkhQ1ZFI8WkRgxiV/
-         tEII14SAIoapmtHVXaQGy68YENfEnoEqhpRe5CnNaVCCCfBrqGFHVobv+x2spLhOgm22
-         0Ut7g7CLLvXV+8oISqko+o5bXC4/4pexKnP5kQOP1yLu0kZ8GKZsCNxSkJtNtwPQSiaz
-         Z84Q==
+        bh=e6MALMUB95W7jnY9HmZglriqu96XwkYJATP3d1B7IV8=;
+        b=p8tYE6PP/k2sxZfbEkEGxywpr7ugb+GXsaWP3scsEONgX9oOgK/58riNg8ZkJ1sm9f
+         lpI0m35u8hyWEp0KxFZAUsxZvnbh22IiuXnKCnU1II8CqPe/HLcYFM5p8ZM4DcMVujTh
+         ZVAYc4r2ygUMFnF10R65Ow7h2/cQES+aYmUPrLs/UouqlkYdJCjDxNHkwB6Z4msxIzwK
+         ZG1Z5mjhF0tQcfO/ULonuxA2/a8ALxcNqUDXNiOKeXLtx6E8gAX+gzh1ABW3yD6tzDMz
+         MVjCtXRtbrXkAz+kGUkGNUCggxH2tCXgPQC8Ko+bRVcQq7lYWP12dEDbR2cUt5jf6+n4
+         idJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790718800; x=1791323600;
+        d=1e100.net; s=20260707; t=1790718801; x=1791323601;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l9oDUPam2OtyD04KoExZWYJnbuDJYbUQdofAXr0u5VE=;
-        b=TB1mLT/aXokk3bBhVSYhOvMKG3lH4AUPC4bLE3FypEcyr602cUAYzB631T4+8ZOdOL
-         gQrwuAdSrSohokA228ByC9gPnGzw4kW8qCvG5fvMYQNumfcN+v5cNYA5tjjrfNerTqKc
-         pdN7zczGm9Y7UAtwJe6vS5I6MfPoKKznt1lJnPCbtlCxkvSr3+s5DuvmRvo38Lk1CQYv
-         gQT1yhJPl32NscBM43ZSQmvGHzloQzCstQbX96DrTYrX5uZoXyWdszqwGnQ0yU4QCiX5
-         Oj7ygJ+XMh96dR905TIgj2eleB3LaVesoKaN4Xsm1rWoBLqcLTZ1ferUm1gZoZcsXwDV
-         i3Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBzYUhykqBsKR8OnS+ToglGioozESRgbM83qNeWNeBmuSDSnOMdDyuxWxC5oxTO/nU2aXCHg6SusFS0QrCk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lq914FnU1bnWHcUm6kxz6XI/pOEkgNjmfh05+hbsN2nLtsIVOW
-	BBMyJyWuvt3HQBK//B/VY0M4ASzPVTxihVRhY0nMKuyiYQEUgfGiwt/4bEurGZiayI1V/8tqIrf
-	7WsQkYeTxm6T8Cw3wuzgYxw==
-X-Received: from dlbef6.prod.google.com ([2002:a05:7022:f46:b0:14a:9017:9767])
+        bh=e6MALMUB95W7jnY9HmZglriqu96XwkYJATP3d1B7IV8=;
+        b=Rm68TZv/Myo6NPh3UTtAJ1HPBCaDa0sCZ2KNlBts1eDuONBxHqV2AIoVsr2rdF0eRn
+         2kIR9d8nsrpY647CsYlH9rfT0bHJ525vAy1EsHE1M56TnzdhWFLHPlwlEuYywBYiHlOQ
+         NdxhOSrkc00qF/smygvRkxalNVelkQ+XjchoOZPKcKbasE92xecW93byrXs1Ux4WsOEH
+         NpbOuWP5/1G65d+RRrtiwkEDwbDPO3QUXxXp1yROK0lVdNn6ZfHXkH/64ec+Y7Kp+3Ff
+         jjpr//vOoORyHXmx9nwnQFGeNrqjRYQWCYNXWV6IHGzLgkdqzEPEZ8TLPQYHiKYAA7/1
+         WXqA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8xVZcX53DMQG8+93d0ChbnwV8HNI52MMpmjwK0pLzab7Qh9TX28S91hh1Tar4rkFwxElPJ88LrNwmh1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg4ynhBQ56bOsELK06V1A20V6lAZUUGLL62jhAOgJthUucMcH3
+	VG1NJwqTAKQ1+PjEKHLrt2+pZEUrjm4jjIRBYqaw9kRTXnrCsx+zkr+Wy3GJs5NFpvOsJtwwNOW
+	Rfme31VQ1JHSPYeTw/uciAw==
+X-Received: from dlbox7.prod.google.com ([2002:a05:7022:1207:b0:149:432f:988])
  (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:3b83:b0:143:50a0:56d1 with SMTP id a92af1059eb24-14c9d9ede6fmr784069c88.17.1790718799260;
- Tue, 29 Sep 2026 14:53:19 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:51:55 -0700
+ 2002:a05:701b:4314:b0:143:271a:8b82 with SMTP id a92af1059eb24-14c9e8643a8mr511036c88.44.1790718800896;
+ Tue, 29 Sep 2026 14:53:20 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:51:56 -0700
 In-Reply-To: <20260929215206.516490-1-nilayvaish@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929215206.516490-1-nilayvaish@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929215206.516490-5-nilayvaish@google.com>
-Subject: [PATCH 04/15] mm/hugetlb_vmemmap: use folio_page() for vmemmap
- address arithmetic
+Message-ID: <20260929215206.516490-6-nilayvaish@google.com>
+Subject: [PATCH 05/15] mm/hugetlb_cma: use folio_page() in hugetlb_cma_free_frozen_folio()
 From: Nilay Vaish <nilayvaish@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
@@ -73,64 +72,31 @@ Content-Type: text/plain; charset="UTF-8"
 As part of the memdescs effort, struct folio will be allocated
 separately from struct page and will no longer overlay the head page.
 
-Replace direct (unsigned long)&folio->page casts and the implicit folio
-pointer passed to copy_page() with folio_page(folio, 0) so HugeTLB
-Vmemmap Optimization (HVO) operates on the vmemmap head page rather than
-the struct folio address when struct folio is separately allocated.
+Pass folio_page(folio, 0) instead of &folio->page to
+cma_release_frozen() in hugetlb_cma_free_frozen_folio().
 
 No functional change intended.
 
 Assisted-by: LLM
 Signed-off-by: Nilay Vaish <nilayvaish@google.com>
 ---
- mm/hugetlb_vmemmap.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ mm/hugetlb_cma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 0057fa2a16a8..807c6bb23997 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -403,7 +403,7 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
- 	if (!folio_test_hugetlb_vmemmap_optimized(folio))
- 		return 0;
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index 95fd2d190f0d..e0fdd07cc6a9 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -47,7 +47,8 @@ static phys_addr_t __init memblock_node_memory_size(int nid)
+ void hugetlb_cma_free_frozen_folio(struct folio *folio)
+ {
+ 	WARN_ON_ONCE(!cma_release_frozen(hugetlb_cma[folio_nid(folio)],
+-					 &folio->page, folio_nr_pages(folio)));
++					 folio_page(folio, 0),
++					 folio_nr_pages(folio)));
+ }
  
--	vmemmap_start	= (unsigned long)&folio->page;
-+	vmemmap_start	= (unsigned long)folio_page(folio, 0);
- 	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
- 
- 	vmemmap_start	+= HUGETLB_VMEMMAP_RESERVE_SIZE;
-@@ -531,11 +531,11 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- 		goto out;
- 	}
- 
--	copy_page(page_to_virt(vmemmap_head), folio);
-+	copy_page(page_to_virt(vmemmap_head), folio_page(folio, 0));
- 	list_add(&vmemmap_head->lru, vmemmap_pages);
- 	memmap_pages_add(1);
- 
--	vmemmap_start	= (unsigned long)&folio->page;
-+	vmemmap_start	= (unsigned long)folio_page(folio, 0);
- 	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
- 
- 	/*
-@@ -578,7 +578,7 @@ static int hugetlb_vmemmap_split_folio(const struct hstate *h, struct folio *fol
- 	if (!vmemmap_should_optimize_folio(h, folio))
- 		return 0;
- 
--	vmemmap_start	= (unsigned long)&folio->page;
-+	vmemmap_start	= (unsigned long)folio_page(folio, 0);
- 	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
- 
- 	/*
-@@ -610,7 +610,7 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
- 			 * Already optimized by pre-HVO, just map the
- 			 * mirrored tail page structs RO.
- 			 */
--			spfn = (unsigned long)&folio->page;
-+			spfn = (unsigned long)folio_page(folio, 0);
- 			epfn = spfn + hugetlb_vmemmap_size(h);
- 			vmemmap_wrprotect_hvo(spfn, epfn, folio_nid(folio),
- 					HUGETLB_VMEMMAP_RESERVE_SIZE);
+ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
