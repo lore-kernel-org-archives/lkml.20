@@ -1,83 +1,151 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF883B05A2
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6817033ADAE;
+	Tue, 29 Sep 2026 11:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790680629; cv=none; b=PHqw/Y78PWGl5N72fgwPbyfDRTvie3SQi53rpNNWtM9QzZRpGYy0p+sLSljBM1coNeRMwtxGy5BahCZXsGlFQmnDaJHf5TlGlEvzywunIJnW7Q6MRlJ5H3a5jJRAvNRHHlEkptxURt3KvAR0wDOSUUHWrETSraDNN3p3qdE6D9w=
+	t=1790680700; cv=none; b=FsVmsG66vx0Z59jUQdwi0tFYYTMcpxdZTj7UVCIGapUMQcfd5neLrIG2cHkKR5c9GLtvmWtAdnW/xDSrV9jilIoIpGRmXLnt34m2JRIiMWS/DlCXJ5FNmTgnCvdHAjRLY6Smit+aS4iL4gcIWOuHUzytZOEUKPZGZvqMw23T1yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790680629; c=relaxed/simple;
-	bh=1A+5V7e23mda/eAopJEF4cs/niWxqUCVK8QHn1leIPU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=Mgb+rTql3WbXkwvQ0kmg6HnUPP+3uiO2utpUqzEqlUYAfFhG3cpr1vqRv1856zhjtxY3hGYEBXQnD0LKEjMZ12AgyCSnwkHmLeGrJFpFzKoCZNyoDd67CFsV4kANRaGcuTwLL2iSlGm72UwgvTiNU6DEChyQuO8asrMr/8NB88M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso6354297b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:17:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790680627; x=1791285427;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CTA18ieht6JE11VVsrnCtt0UiEdZAg/1E0wJcGsrEvY=;
-        b=zYRhje1U4dw1KBypyOpV3A3vmjjZMvH0LRYtd5688fPl73QLVjj4Rs5UjqWYRU88EE
-         xWcDGPpIu2jbtOVGF8yf7ORZbOQ6j9wNOe1b0SkjVorMCkRaC70/1DHvqhv2ShNrky3N
-         wsnLrGLfGK4bWNp2Y2jHt066MlVzHj+Z4f5YdAW0yVxqxPES9baa+HIkNuN0PFzQwg1N
-         2fpI3/x/xkqLlaK3COWZCCYtrN883yIv37Q+LEGZVxhyYt0nnaZGOCFQ+qYvD+n6x3CO
-         raZsJq2gM/MLqbGHx0uxvRrbkxUaOJn+0PsZlqSAFnZAyhwMs/Ko0UCtJv2GJJMnWzQx
-         su/g==
-X-Forwarded-Encrypted: i=1; AKwUvBysa0azJc5h8IfHwzL443OnndEInfw+SUSiDqU7aArvU6A1Ft6oLw6kD/O2eeFfK9Dz98Q5PuxOS+YbsyI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgGwXhWofcojSD0iNcOi/J7jwE4/3ctcceGb7uemQjL7Oe1zg4
-	7SY1Ilk4RLmPMgB9U6mosMVE1CHjMYhvteP1nO+6fV0RYA/KF7F+XTfhktZpmJIBwvoJ5F3sWr1
-	TG7gd1oeRZax/edCmcqWH2jdQTxuhfy3wnqJ3A4TUWUy1LjhwcT1bplq/1CM=
+	s=arc-20240116; t=1790680700; c=relaxed/simple;
+	bh=/qFPOCj+XneXiY0E3QXx4zmOmJhK9ESpi5gBlUONhis=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hzxEC48zbVyjsCcwheL2uaoXBWBk59UCEX7UaUwFr6W0qxU1R3d7p/ISdMoLrIor3kdEno1XB/xd80vLjMW2KFUD0QX2DueAq8PJsr4eOZhIDfFVE2aAnLvORPYL6oGuauUZ1vYhQL7xuP6YnUdwtDDoGS1YlF2OyQdnvI8u3cY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvCMWXSF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvCMWXSF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5691F000FF;
+	Tue, 29 Sep 2026 11:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790680698;
+	bh=Pbhw8nw20o2flj+Y2cQj3szIAJikId+xBxd1NvMGhrI=;
+	h=From:Subject:Date:To:Cc;
+	b=YvCMWXSF1SnAsEyMCEWiz829M0QEU1Ut5evrga6GSvJkJ1b5dT8pkiA19BtUy4WUX
+	 V2gX8zwltqGPrJItfrqmR9dr++6ujJ5KEu6eRG6vVcKlrOpS2vrtL7a3BzjF9EopZu
+	 Vpj/BGO/sBz0QmAB9x1MCbkZpKUJg1g/V5WAe1W/QQzrXRs8wHKWaHmusAlsY0aK3P
+	 slbDyM4W8rEQKcjau6OiQVsgcRO9tqvm89KQPq1PrQbH06jCx3BMuurJFVwjPERY4g
+	 jyCf0a3+nJTliEIBWPVtDmadlRxs952Us/jJ97ulHEBu/ijvN+uvPg+hzLiHz1qlhp
+	 fu1f7LIcilwNg==
+From: Daniel Gomez <da.gomez@kernel.org>
+Subject: [PATCH RFC 0/2] Support for Multiple Atomicity Mode
+Date: Tue, 29 Sep 2026 13:17:10 +0200
+Message-Id: <20260929-nvme-mam-v1-0-48dcbe79cece@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2381:b0:4ea:18f:64b0 with SMTP id
- 5614622812f47-4ea018f67a9mr6541098b6e.67.1790680627356; Tue, 29 Sep 2026
- 04:17:07 -0700 (PDT)
-Date: Tue, 29 Sep 2026 04:17:07 -0700
-In-Reply-To: <20260929111645.1954-1-nsvatoslav515@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abb9e33.c6a7fab7.e5ea7.045f.GAE@google.com>
-Subject: Re: [PATCH] Testing for a forgotten lock...
-From: syzbot <syzbot+34f63c11dab47d09ad9a@syzkaller.appspotmail.com>
-To: nsvatoslav515@gmail.com
-Cc: nsvatoslav515@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNL3byy3FTd3MRcXQNz4zSj1BRD46SUZCWg8oKi1LTMCrBR0UpBbs5
+ KsRDB4tKkrNTkEpAhSrW1AFcUdfdxAAAA
+X-Change-ID: 20260929-nvme-mam-073f2ed13bdc
+To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nvme@lists.infradead.org, Andres Freund <andres@anarazel.de>, 
+ Pankaj Raghav <pankaj.raghav@linux.dev>, Daniel Gomez <da.gomez@kernel.org>, 
+ GOST <gost.dev@samsung.com>, Daniel Gomez <da.gomez@samsung.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790680695; l=4112;
+ i=da.gomez@samsung.com; s=20240621; h=from:subject:message-id;
+ bh=/qFPOCj+XneXiY0E3QXx4zmOmJhK9ESpi5gBlUONhis=;
+ b=8IkNSGLoaEpyQKFQLIc+g0wf3lMA0rLtC/6gtlKH7uUYVwaPSvWBVCQAxEvyCM0WwOsVkT/Rb
+ AeLSKTcjdvsDNm4l3PjWBGyByp5aFtTsxmcohfbnXzyc1rVspk0oPRf
+X-Developer-Key: i=da.gomez@samsung.com; a=ed25519;
+ pk=BqYk31UHkmv0WZShES6pIZcdmPPGay5LbzifAdZ2Ia4=
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git d58dffe9ee2c
+NVMe has 2 atomic modes: Single Atomicity Mode (SAM) and Multiple
+Atomicity Mode (MAM). In SAM mode, as per spec, commands that cross
+the atomic boundaries may or may not be guaranteed to be atomic. In MAM
+mode, commands that cross the atomic boundaries will be guaranteed to
+be atomic at the LBA subrange atomic boundaries, resulting in multiple
+atomic operations.
 
-This crash does not have a reproducer. I cannot test it.
+This series adds a new block layer feature BLK_FEAT_ATOMIC_WRITE_MULTI
+that gets enabled when an NVMe controller exposes MAM guarantees. In
+this case, and when the block IO requests are SAM compliant, allow the
+block layer to merge atomic command requests that are contiguous in the
+LBA ranges, leveraging block plug-merge infra, and effectively
+increasing the size of the command up to the maximum hardware
+capabilities. The merged command is not atomic as a whole, so it becomes
+a carrier of multiple atomic commands. This is possible because the
+RWF_ATOMIC that the user has requested is honored at the LBA subrange
+later at the controller side when the carrier command is split at the
+atomic boundaries.
 
->
-> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-> ---
->  drivers/memstick/host/rtsx_usb_ms.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/memstick/host/rtsx_usb_ms.c b/drivers/memstick/host/rtsx_usb_ms.c
-> index beadc389f15f..98143e13b6a0 100644
-> --- a/drivers/memstick/host/rtsx_usb_ms.c
-> +++ b/drivers/memstick/host/rtsx_usb_ms.c
-> @@ -517,7 +517,10 @@ static void rtsx_usb_ms_handle_req(struct work_struct *work)
->  	if (!host->req) {
->  		pm_runtime_get_sync(ms_dev(host));
->  		do {
-> +			mutex_lock(&msh->lock);
->  			rc = memstick_next_req(msh, &host->req);
-> +			mutex_unlock(&msh->lock);
-> +
->  			dev_dbg(ms_dev(host), "next req %d\n", rc);
->  
->  			if (!rc) {
-> -- 
-> 2.47.3
->
+MAM QEMU NVMe series [1] covers emulation functionality for testing.
+
+While I think this small feature is worth having (hence this RFC)
+for users sending atomic write commands that are contiguous, the
+question I'd also like to discuss really is how to also expose clear
+MAM semantics to userspace for users who can send larger commands,
+so they avoid syscall overhead [2] and splitting, and still get the
+atomic guarantees in the LBA subranges. RWF_ATOMIC currently exposes
+SAM semantics, but I think MAM may be confusing for users, as it's not
+simply a larger atomic write but an atomic carrier. Thoughts? What can
+work best to leverage MAM from userspace without conflicting with SAM?
+
+Command line logs covering functionality with nvme-cli, fio and
+blktrace:
+
+nvme id-ns -H /dev/nvme0n1
+NVME Identify Namespace 1:
+{..}
+nsfeat  : 0x76
+  [7:7] : 0     NPRG, NPRA and NORS are Not Supported
+  [6:6] : 0x1   Multiple Atomicity Mode applies to write operations
+  [5:4] : 0x3   NPWG, NPWA, NPDG, NPDGL, NPDA, and NOWS are Supported
+{..}
+
+Sequential atomic write workflows can benefit from the block layer
+plug-merge as the following fio atomic write workload:
+
+fio --name=atomic-merge --filename=/dev/nvme0n1 \
+  --rw=write --bs=16k --size=64k \
+  --ioengine=io_uring \
+  --iodepth=4 --iodepth_batch_submit=4 \
+  --atomic=1 --direct=1
+
+The output below from btrace confirms the merging results into one
+single command:
+
+btrace /dev/nvme0n1
+259,2    3        1     0.000000000  2725  Q  WS 0 + 32 [fio]
+259,2    3        2     0.000003450  2725  G  WS 0 + 32 [fio]
+259,2    3        3     0.000004250  2725  P   N [fio]
+259,2    3        4     0.000005440  2725  Q  WS 32 + 32 [fio]
+259,2    3        5     0.000006400  2725  M  WS 32 + 32 [fio]
+259,2    3        6     0.000007360  2725  Q  WS 64 + 32 [fio]
+259,2    3        7     0.000007490  2725  M  WS 64 + 32 [fio]
+259,2    3        8     0.000008340  2725  Q  WS 96 + 32 [fio]
+259,2    3        9     0.000008460  2725  M  WS 96 + 32 [fio]
+259,2    3       10     0.000009270  2725  U   N [fio] 1
+259,2    3       11     0.000013460  2725  D  WS 0 + 128 [fio]
+259,2    3       12     0.000239642     0  C  WS 0 + 128 [0]
+
+Link: https://lore.kernel.org/all/20260825-nvme-mam-v1-0-afc38ac713ef@samsung.com/ [1]
+Link: https://kernel-recipes.org/en/2026/postgres-on-vs-with-linux/ [2]
+
+Signed-off-by: Daniel Gomez <da.gomez@samsung.com>
+---
+Daniel Gomez (2):
+      block: add BLK_FEAT_ATOMIC_WRITE_MULTI
+      nvme: enable multiple atomicity mode
+
+ block/blk-merge.c        |  9 ++++++++-
+ block/blk-settings.c     |  5 +++++
+ block/blk.h              |  6 +++++-
+ drivers/nvme/host/core.c | 23 +++++++++++++++++++++++
+ include/linux/blkdev.h   |  3 +++
+ include/linux/nvme.h     |  1 +
+ 6 files changed, 45 insertions(+), 2 deletions(-)
+---
+base-commit: e680312dd3990197297b485e27b53c33d371c279
+change-id: 20260929-nvme-mam-073f2ed13bdc
+
+Best regards,
+--  
+Daniel Gomez <da.gomez@samsung.com>
+
