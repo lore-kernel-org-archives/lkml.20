@@ -1,128 +1,119 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5053252F27F;
-	Tue, 29 Sep 2026 21:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8F44E3236;
+	Tue, 29 Sep 2026 21:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718206; cv=none; b=GaVu8a01HNFbGUBtMQr6TbXUkeKZc7mjTR64thSZOgZMNCJLT484pMaHy4WGqfqAOe4u7LiR2p2sLpAsr4eIa21u8pjZglfjZExRLinLtVgW7ELekLLnEAxAeSvHt/a0mTj6NceEXPBbyAbkLMPS7UJCPvr43+2XQTDh97iJ3Ko=
+	t=1790718252; cv=none; b=CqUZWMFazv0YBHANXsa1q/Ip7zqui7zkukiSTEpM9wiYqKKkc6gO9xgQX1KEJk1CmrAS7YWLv6sYQqDRf8uCXqhbvOu5e8L04BgpcGCholhRyw5J7/f7+HgA9DggpIiWRj36Iczhl/uxK6GLG6o96MuIBo8hVXZHiz5CI1qSLXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718206; c=relaxed/simple;
-	bh=AYYs+qrWjxXRo32JaM/96E9PNBHB4VuFPWz7X+U4sTo=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=J+mDUdNIqOZNFHZLqB7YtawQ6BXSDeb+cM2odvjfqIT1IKf5a00sySTl1EPuiXHrp5SSubjyKvB4B8Fb6dj0pA+ocXWqeg9hQIGZiw+VheyHIorUXfuOI3czk09xH5VhlaKTfA2H3lAHqHgBADVdQduoLSv3vAncNM1615Wn4V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DNAyFuJZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=L8r72iYe; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790718252; c=relaxed/simple;
+	bh=PXjKLtYo3w8BNPEfuBgSC85hd0B07fniJvvus+kauY0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EtZ7lQu3/3iEjyGuDODEUarbJB21eL8Lp78sdBRtT8bouGpjkaqNMAU4DRMhLoWkdcG/PcszzYrFEbB/4Y60G26Xr2G6tm2F6lcpewgYumtJwCT3emGa35E+PlWpQLSid2ltK1tlgeYn0d9IyTZzSg+Cn+v0Oaj6nbv/wvdrQFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CI9qf0yY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DNAyFuJZ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="L8r72iYe"
-Date: Tue, 29 Sep 2026 21:43:02 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790718184;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9KoIhd1++z7e0xBEFXI0dn3YEdSeou2/+toTtFoE7ps=;
-	b=DNAyFuJZt8SUlZbRvkZBMFmxnaV7N2BT0SDGJIuq5uqZnIBGYTQMmasyNTjbYfYmoA8JXo
-	MuVVVUXBf8Zd5DfxHIHHWYJTUC9P65LgVAs0HrpKx3T6lTi+y0Yvxo84WZds49sVEnpiaz
-	h1fAbZNKZ6NghqsYZobZ27wEvNa+wMmFxv6ug7EXfHCc80ErMyo/oSc/ZWOgTxOWHURurW
-	GJFQbXbj3Oguc/e1oXoyOO9qjGMkpj3/UnSzSGhKjGReyzMTaPbZMBY48gqCBVVzDa2FzR
-	GfpnorbH9xLKw17XeJN7LnPbDQv2zrQrAWT1wFJ3jmf7om0EtPaTjiOP7hqhkg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790718184;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9KoIhd1++z7e0xBEFXI0dn3YEdSeou2/+toTtFoE7ps=;
-	b=L8r72iYeg1cLPa9C7Mmoqjt3vRR+R6+fYy4inGEoP5qX2Rw87ObtVbGIJ7OBVUwVJDIPYv
-	BpHeb/+uGFtsiiCA==
-From: "tip-bot2 for Karl Mehltretter" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/urgent] hrtimer: Use the mask to clear TIF_HRTIMER_REARM
- from the exit work
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260919144027.70250-1-kmehltretter@gmail.com>
-References: <20260919144027.70250-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CI9qf0yY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412391F00893;
+	Tue, 29 Sep 2026 21:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790718241;
+	bh=2KEhu3d6YlE+Nz+gmiCdg+VCYUQv+IGjS0LzMmdH5hA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CI9qf0yYXGBU6Acr89YrQCW2sfMzQPY5FRReCxQ6HiZpV0Is0a7X0YskUC6BzoAZR
+	 73iAv/If+qQ/na/F0HbvLGU8KHAVP/W6qhjiPVRrgL2vta2SaztgmKk6jiQnZJWPo1
+	 SKYh/RI3cebBr0iu1ObM/SDFCQU+T/gCK5HiavC3AAvBNWVI/+5SZHAk6OW9jUA4SG
+	 rovd+fCbD8cafHQpx81eQQaS0CbFQsX0LwGd9XxvJcngQbvxcHoKJ/TlW72GL0IHVe
+	 5ncObZntWs/frWOLdn5GX096bC/ZK341dhC40QgS5PVU0s/z8PKzH0uyG15mDQCXSc
+	 ib/H/Gw9SAt/A==
+Date: Tue, 29 Sep 2026 22:43:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	vkoul@kernel.org
+Subject: Re: [PATCH 2/2] spi: use dmaengine_get_dma_device() instead of
+ chan->device->dev
+Message-ID: <a9a4fc5a-df79-47f7-b963-217439e0b020@sirena.org.uk>
+References: <20260929155445.3311133-1-Frank.Li@oss.nxp.com>
+ <20260929155445.3311133-2-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179071818280.3910103.4410625048347203382.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vrrxCsum5yX0Juyp"
+Content-Disposition: inline
+In-Reply-To: <20260929155445.3311133-2-Frank.Li@oss.nxp.com>
+X-Cookie: 1 bulls, 3 cows.
+
+
+--vrrxCsum5yX0Juyp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the timers/urgent branch of tip:
+On Tue, Sep 29, 2026 at 11:54:43AM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+>=20
+> Replace direct dma_chan::device::dev access with the proper
+> dmaengine_get_dma_device() for consumer API
 
-Commit-ID:     28fa9af353bed2bb738c46e31f9b7d0347b759d1
-Gitweb:        https://git.kernel.org/tip/28fa9af353bed2bb738c46e31f9b7d0347b=
-759d1
-Author:        Karl Mehltretter <kmehltretter@gmail.com>
-AuthorDate:    Sat, 19 Sep 2026 16:40:27 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 29 Sep 2026 23:42:11 +02:00
+> @@ -1174,16 +1177,15 @@ static int bcm2835_spi_setup_dma(struct spi_contr=
+oller *ctlr,
+>  				 struct bcm2835_spi *bs,
+>  				 struct bcm2835_spidev *target)
+>  {
+> +	struct device *rx_dev =3D dmaengine_get_dma_device(ctlr->dma_rx);
+>  	int ret;
+> =20
+>  	if (!ctlr->dma_rx)
+>  		return 0;
+> =20
 
-hrtimer: Use the mask to clear TIF_HRTIMER_REARM from the exit work
+This moves the use of dma_rx after the NULL check.  Possibly
+dmaengine_get_dma_device() will do the right thing but still there's
+more updates needed.
 
-hrtimer_rearm_deferred_user_irq() removes the rearm bit from the local
-copy of the TIF work with:
+> @@ -766,21 +769,21 @@ static int dspi_request_dma(struct fsl_dspi *dspi, =
+phys_addr_t phy_addr)
+>  static void dspi_release_dma(struct fsl_dspi *dspi)
+>  {
+>  	struct fsl_dspi_dma *dma =3D dspi->dma;
+> +	struct device *tx_dev =3D dmaengine_get_dma_device(dma->chan_tx);
+> +	struct device *rx_dev =3D dmaengine_get_dma_device(dma->chan_rx);
+> =20
+>  	if (!dma)
+>  		return;
 
-	*tif_work &=3D ~TIF_HRTIMER_REARM;
+Similar issue here, though things are a bit more involved.
 
-TIF_HRTIMER_REARM is the bit number (12), not the mask. That clears
-TIF_NOTIFY_SIGNAL (bit 2) and TIF_MEMDIE (bit 3) from the copy and
-leaves bit 12 set.
+--vrrxCsum5yX0Juyp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-So the function never returns true, and the copy handed to
-exit_to_user_mode_loop() lacks TIF_NOTIFY_SIGNAL. If that was the only
-work for the loop, the task returns to user space with the task work
-still pending. hrtimer_interrupt() sets TIF_HRTIMER_REARM every time,
-so the next tick repeats that. Task work queued with TWA_SIGNAL from a
-hrtimer callback stays pending until the task does a syscall, takes an
-interrupt without deferred rearm or has to reschedule.
+-----BEGIN PGP SIGNATURE-----
 
-A task which polls the io_uring completion ring in user space sees a
-timeout completion after 30ms (median) instead of 70us. 2 CPU QEMU
-guest, HZ=3D1000.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq8MRoACgkQJNaLcl1U
+h9Cfqgf/XWp6benseGwKwZKeuaOsw1cBguwAfqDmvyDi7aHwm11SxEjrkzcrIm2x
+P0g7TifMKYaCXW5j0wZEdS4bDoMzROZoh7TSc8fuWGvL9ATJqgcR/rfCjuqM46no
+wO84cvU5xrXc8rK0mG99NXFqmWZE8dYzKMnTwC1aMyid3OVl/aY62R/lwHY/ouOq
+jJ5Yr7oCUxSHvpe6U2BpfaP6uAbN+KFFnCBeziNzgNgGTFvf+GnamKxlF+RwgyU5
+QgtaYx99v37Jkl7Ecu6F8xV4vsyPMffWhQLn5vL9BovFT/mQ9i7ol5bbNMj/SiV0
+Ede1lApphqMCEsoAVYigi0mIUpfoGA==
+=Qy7q
+-----END PGP SIGNATURE-----
 
-Use the mask.
-
-Fixes: 15dd3a948855 ("hrtimer: Push reprogramming timers into the interrupt r=
-eturn path")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260919144027.70250-1-kmehltretter@gmail.com
----
- include/linux/hrtimer_rearm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/hrtimer_rearm.h b/include/linux/hrtimer_rearm.h
-index 17a8182..12e4272 100644
---- a/include/linux/hrtimer_rearm.h
-+++ b/include/linux/hrtimer_rearm.h
-@@ -45,7 +45,7 @@ hrtimer_rearm_deferred_user_irq(unsigned long *tif_work, co=
-nst unsigned long tif
- 		clear_thread_flag(TIF_HRTIMER_REARM);
- 		__hrtimer_rearm_deferred();
- 		/* Don't go into the loop if HRTIMER_REARM was the only flag */
--		*tif_work &=3D ~TIF_HRTIMER_REARM;
-+		*tif_work &=3D ~_TIF_HRTIMER_REARM;
- 		return !*tif_work;
- 	}
- 	return false;
+--vrrxCsum5yX0Juyp--
