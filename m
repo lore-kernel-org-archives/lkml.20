@@ -1,283 +1,149 @@
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7867B3EC810
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=67.231.145.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705572; cv=pass; b=NMzT259T07beVt6mHiv6gshpUBDIIJuwiaIvKOq0MRezQrD9YRe2LYG+zGaCcHIQ0aaFnecE6LgMCG/7tancr4+PpnEgPczFIbJZuITVAVUNP27q8I2D3VoazxEjzolE2gM/E5czgRgMJps3wBLNAQZV2duEtpwBAfUoujzBXzc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705572; c=relaxed/simple;
-	bh=og+/cfUijpSZAoHGwYfistXQZPsm/+cWrVsHh/GMNL8=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=AFYxUb6iCw+F2z401OxakID51Q0AvdbzPgFwxXtdzXwlQO0G178Gtavbuv9qZ4/4K/HFSINxkURQZ2DZKikUjdnu/sCn9ata+4xnh7NDIIK/4gU8ygDAfVGGWFuTyABmr2l+TpghkpIllpZDrSwWOKbhCZg6cwpLdhuy1+Z8d9I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=YNnZrxnU; arc=pass smtp.client-ip=67.231.145.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634D44E430B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790705622; cv=none; b=u86lw707O43giCr/OZBfA9pvweIiHD88IBzFvqVx5O9P+o0p3lqsewvQ15DpOYz1lXF31p2+0xfnFodts6pCs/6+0H4Wn/zYOdBDvOU+//CWDiokq4chOye9QhzQ/aXHD3xRa5XJjoKT9EDLPjs5byz6zJCKdP8MSNgUVntA2EE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790705622; c=relaxed/simple;
+	bh=8CXPcmZQ1kV8mbWikHF++D2g9HRdgHLNrpHDOlCAs8Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=GF7NLuiX4P/+f5enbfkh+lAtfPZx909ySzFWqYzKT4BzQ6jl2+GiJn/eRzWyaiSKuJFE0psT6hmkDYQXXkd89cJ9MAKE2Q5h9TpWE1Useq8MzXgH87O2ynjwWJVk/qxt6ofPZ/caQyyT1B1qUkiI1tiizNoH69SHoJ+3BmQCMgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bPes/M5M; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZYU4gd1u; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="YNnZrxnU"
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TI26u73317755
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:12:49 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:message-id:mime-version:subject:to; s=
-	pps82601-s2048-2026-q3; bh=cw5TddyzbNZYYT3wG/ekZg/7fsNBMWBQMQhmn
-	ududVw=; b=YNnZrxnUJ6kXB20J5tGEVguRDlj/S9cfF1071HlZenCTjuckJILVR
-	LO4xsMEomnI41+vpYxO/y2TiD8d9nCs79fGQ6/dxq0PJ5xObiMPfT8BgZOnI+UDI
-	NcHeaF9Lqv2C5okAqKvvm6gArN+nYgic5bFlS2t2tPEcFqALpfhaJr+9G9jE1el6
-	bwpY1ymVpRus58kif9C2cg91p6SpXbqgRefp2lrtU1bEBjaEc30IWYZX4qPWsxcE
-	BjfkfYkZx7QqJwXFO+zc+BV29kEQKdZpzEVGMFXGwEdGCRxHRUMStAr5OBrBYMu/
-	cTyqsjRasz700SPyk3H+MqFAMMXb3EsPA==
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h0c73bxup-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:12:44 -0700 (PDT)
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-45ecb9dd589so3377151fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:12:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790705555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P1cvPzbddWvxKQTOqIFudOr0w9JUqawiGnv96FK392Eb6Cu44Iah7ndhSUqjrMqi3b
-         sD2vAa77bOoaQwCjKHDtkKc6VL0DtVrAz7sfHaNnc6CVUz/rnfVQwmKXoW8bAe7esYch
-         SpaxqQF0znP3VZFAivl7ycVwQva0W5qy8MBt52uc3BPh1qhIMIAYTUd0xf8vJN+AIN1y
-         E6wLBKyB2xJh05bYwGR7/wJiX5PR/LQ0HlY3E9AYLJcK9DaeJMHNLK1h0cbknFpMvQDi
-         9qs6RG/AKKxSETdXKLltBjOhgkmoCA+gpPNrPKaUlBrrZmELyr+xS2cB675k0j7VvP7h
-         51RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from;
-        bh=cw5TddyzbNZYYT3wG/ekZg/7fsNBMWBQMQhmnududVw=;
-        fh=oFCjUD9SDflaY345InWz8jBJ8vxX0PchIJgVhHdTB94=;
-        b=jpg0F8B8XR8uX1+rUHJe6wNKd6Nfey+Uv82/weDRSMAmijIPdg0LWN4zWRChK4cgIh
-         k4Ik1ToPvKej4CCHiwk0gCaWXMBWszD1GT7MmWtJaktm1RGvbcDQ2RHs4iWj4OqMuQuH
-         8piJJ/Ig9Ba0GdgqZXy5oq3Hibs/8IisUyCm/wGC3R6Mo6WNC8pfDOt7qQFOKHEVE9nz
-         wglf14UTyzj5OCbhLCiCW1g5tMicFbBdflCNC/mVcneoyAWS4eCcvClYfw6O6xAH38m1
-         5tUf85gL5g0XYeZlCH3tyYCejccyxCoppkRUt4mwV7un57oC7eLIimjfjqKbFKIlo1Os
-         OQyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bPes/M5M";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZYU4gd1u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790705620;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+	b=bPes/M5MLuetmypeFPFeiOUysT1zJSgxVHnavUqH+ipm0qBDsOHB5e4GbXJEPmiXnPmb6z
+	MIlH+YrnRX0lB9im37aED6A+bzo/W3Qah0fNcCqcej/0oYuHrcAIdiBMtJ4TkqhKaxeiHk
+	9F1HCeD1MybeMMk49YyA6OWzCesgG5k=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-374-cZ-SCDZ7PG6EWNQuMT22fg-1; Tue, 29 Sep 2026 14:13:38 -0400
+X-MC-Unique: cZ-SCDZ7PG6EWNQuMT22fg-1
+X-Mimecast-MFC-AGG-ID: cZ-SCDZ7PG6EWNQuMT22fg_1790705618
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0c7126e7so811557285a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790705618; x=1791310418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+        b=ZYU4gd1ugqkkaLuAfb8QyMqDCQbnGXJO7zUGA+rSGjejeDRD34zUfIp7u8akhMXh09
+         voN3Ga6a0BtPDRtIb3Cpn/dTEB4g3Fdlp/qlJNfQZhRMFJi9u+QIdXKd9P1Mp+EO3gDE
+         Mv8/wKfhDPHuxB2081yYkAVmUgcH63ILj4jJGVsnNc7UxxqE13oDx4hOXaJ6mmh31PV+
+         sYX7vjFhIa6WKMMb5LA0dc2RQi2e4zoh1+Am4WmjZT+dVWrcjQVETM3pFacaT9bUaVq8
+         t0wCuF/PNlbyoT8pWIzuIJvYooXhQuhGy4Hc9Yb/AN4NZcCJ93VfKheaTs6eWjSwjfz8
+         HbJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790705555; x=1791310355;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cw5TddyzbNZYYT3wG/ekZg/7fsNBMWBQMQhmnududVw=;
-        b=YPJYimADFOIoxrEgcKFP4GcP0sdcPZpGJTON186pCiSE2BQd3o+AWY9CnQFokGMzDN
-         QZIUCpTPqykjMJo31cM9EAAXpkAA2AJ9jKx7PV0Vf2ayMqtgYcMp1GsQjrE26wiNbNrq
-         KytNHOOx/zsnuX0mPf+Sq6Wrcex+EWnE1OmMYU1snSyJ1gzVGw2fSUM/VjNrQ0Co5tLf
-         lgGPvl4eyc182ehOanXSkw56NlxvvrTMJ2z3xz35oqCAUKbp3qId7P82AjXLRDtFVtVT
-         aUYefTuH2oK2LfCEui/MPWksIGn6Q8J/3o38J+nMHetBz6eRtTawS6HwmSOELjn18gUd
-         DmKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxE94QQoTXqTU27o6YMaenPpP/wXdeN5/Iktk3aqPkar9RWo9xzWGU/lTwGzKBMMWpUvYdagXFfxiVBjqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDcfcsw4FINiKoM4Qx0y/xEcdC0d3nWzxVA8vcYZgzoz0icg6b
-	w91QpQH43C7xqwL/zyxEpOjW8LNaAX0qOyTOaDOiX8OmC1UvHcyqYvAGQxlEoSHes3WwuqhGLz+
-	8o5DlkSvmSftNG4y/TN/CBwQ+HwN4Ag9VMRc93Xt02h3KHpto/oeO634O/tis+aPzO/dVIaGXiQ
-	/T60C14QXkDfCRhBuzlpMzn7cJtZu10h7IyWIcng==
-X-Gm-Gg: AYBFou3Q4TfiL+pWu92cqAwuzyQiRV0I+8KGNP3qR1dFuO2Q5OSJrzivhqFgm7Mfhgb
-	hLsCL//PFz3FoB8iDgkst3ZC+byRH5Au6HCU5kMi0sbelvw9pfgDRRC30uP/DA5QGLuWEmzZApO
-	GQIZ447nUS3CRKAtjmZ26wNPuA88/5HedyNuMESIp4Qq2lRblyRx3h3C5dOZUcuxo=
-X-Received: by 2002:a05:6870:de16:b0:47c:eb7:eb43 with SMTP id 586e51a60fabf-49dd0d5502bmr75729fac.17.1790705554531;
-        Tue, 29 Sep 2026 11:12:34 -0700 (PDT)
-X-Received: by 2002:a05:6870:de16:b0:47c:eb7:eb43 with SMTP id
- 586e51a60fabf-49dd0d5502bmr75704fac.17.1790705553985; Tue, 29 Sep 2026
- 11:12:33 -0700 (PDT)
-Received: from 556666599688 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 29 Sep 2026 11:12:32 -0700
-Received: from 556666599688 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 29 Sep 2026 14:11:23 -0400
-From: EJ Campbell <ejc3@meta.com>
+        d=1e100.net; s=20260707; t=1790705618; x=1791310418;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+        b=cGyKqrYtR5dNz8YYX7VKOHH6ZR85oLWneDDlqxZMrBr/rQRTmMKHNwsA/hgDTPARG+
+         5NRTUeTG+eufEPWcqG5hxUPpIEkXwj7/f9g3ZWpgkTG2piUoeth4RTC4+fQ16gJEzUHr
+         093yvxTF/NnSgDlh+sdIxXFLdv2Gf862P8VCPORc2awxc+qNtHVyb1mIgu6r20anhpxd
+         GrJeU42Iu3VZcfkGGS3QFqcI0b+WW+iBK3pDORSwhiSA2HOKc1aqr+UJOZTmXmUXIv5K
+         8ReZT311WDAKvvQgnIPdHSsCPBYqHpgrap+k7oMLfRJvNiNGHSp/3jswzPyoIe4oJMzN
+         nzbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhBFUJ6ZGiSiieBhSXwGqXbavktW2kruFUPqielo+WLF3CS14LnXePXy1GEqX7YrusndqnSftfsiYjNgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcyo8YVteyCPgZk7ni8+/51ocy9ZC7Y9qWcDEzx07b+j9DuLMG
+	e+d+IxppEY4dUgs2F4DEvaZeXxrVM3Dbvgd6AaUAVWt7Al0nyzARMDQpw9GI0/XiA5YkLUGB6j4
+	MIdyQSsBsh57eFqEPQ57Oz8lTMU8Ga5UnCVFV6A44p7hYN8knRBmdqF0h8M4B+cUI6Q==
+X-Gm-Gg: AYBFou02+Zvh02JzuxWj59aVOI+V+jjdoMl6fMZnyMSUjCr0SrA6V/BWAbDhNCEXfAc
+	AMtCk1eap9TioMdnQ+xMwD//JPmvKGeyYmh8BCNXgJp85ItkPKKbXgLFaZ2b8PMNk1vC5FcKn6K
+	wj7ackotff50rv9ZO5sKcPCGmArAei8+3fyREMkcl+lRSFgIeTSuT9RadbYxMbgrkG+RDqxcL+V
+	Pf6B7UEkd6AYKCkxVSqKYJ2LFGJsoN8/6zoccmBrfbleppQ90uss2q8Zlo0RQxlhCLk+0Bf4d6G
+	EolV0H1ADNmALnyGY2GAKP16fGGcMKHdhbfv2XNbSvM2acW2aiPqZ/whvUjryGErReRWpG+nrbb
+	zlpx2s+4Bp9kxdfZBkg650ZbPBOTvCMy0mStCkOWPMn7AE2ozozU=
+X-Received: by 2002:a05:620a:4442:b0:93c:23e4:359e with SMTP id af79cd13be357-93c9faa90eamr68417085a.50.1790705618146;
+        Tue, 29 Sep 2026 11:13:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:4442:b0:93c:23e4:359e with SMTP id af79cd13be357-93c9faa90eamr68409285a.50.1790705617547;
+        Tue, 29 Sep 2026 11:13:37 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f564879sm28222085a.42.2026.09.29.11.13.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 11:13:36 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
+References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
+Subject: Re: [PATCH v5 0/6] clk/reset: anlogic: add support for DR1V90 SoC
+Message-Id: <179070556430.244235.18030041151516795666.b4-ty@b4>
+Date: Tue, 29 Sep 2026 14:12:44 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 11:12:32 -0700
-X-Gm-Features: AclHuK-0menqV2wPSclxNCnIU0qeGt1qcoIMc1LHzGBaM5EOtYHxSFhk2rGHvAE
-Message-ID: <CADkxfh-uQTca_6jB1JPDq1MsKffF_UKGQR339oQSJNcoV75GNQ@mail.gmail.com>
-Subject: [PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context
-To: Paolo Bonzini <pbonzini@redhat.com>,
-        Vitaly Kuznetsov <vkuznets@redhat.com>,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>
-Cc: Sean Christopherson <seanjc@google.com>, Andy Lutomirski <luto@kernel.org>,
-        Lai Jiangshan <jiangshanlai@gmail.com>, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        EJ Campbell <ejc3@meta.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-GUID: o4rn3Ew8GcLkfj-vqySzS7_igfSYyI3Q
-X-Proofpoint-ORIG-GUID: o4rn3Ew8GcLkfj-vqySzS7_igfSYyI3Q
-X-Authority-Analysis: v=2.4 cv=Rv9QvymK c=1 sm=1 tr=0 ts=6abbff9f cx=c_pps
- a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=-jRnnWX_dE0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=a9TSg2_WAAAA:20
- a=VabnemYjAAAA:8 a=HhdKVQOAWFZzIEBA3B8A:9 a=QEXdDO2ut3YA:10
- a=vh23qwtRXIYOdz9xvnmn:22 a=gKebqoRLp9LExxC7YDUY:22 a=bn7x_FpfJtc3yKQXRW3z:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA3MiBTYWx0ZWRfXxD/rkCQ96c9S
- QnEFJ8hwK55Th7Nn+X6PWbwi8uUFudOTg9EqpDk1uO0CDEceklHe0ryik23J4HVIgCeAfFXnuSG
- nJ93ldiX4XJwDokv7w0REI+YXI4OULQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA3MiBTYWx0ZWRfXySt+DDxM8E0X
- 2FATv2arkKLR1g1YcR7egsUdaSFx5NKV8n/zv+alGPBuKRvnQlUxFncsOWDS83SXTgVR19rnYXg
- 5ki0cNb4/jllny/6phBff/DvHI8CH5St04iyBR/ratvg0Pm+DPgftKaUyWkWQx6G7v3OYafgxL4
- OTygIRPsxDjEp5RhXifWV6EMKgobHUeIjM53qEJc1pNnslfLsgq0XVeX4nihK5q/xA/vspIDj1U
- cwUlr7n9PXio0y1ZQt2ym4lOsT+vxI/G/C5z6xOjMakOj/nzh15CpH2rEP3M6OPx4AkMaRU3MGk
- OidUliegVJGA37e0mnnskmkXXJ7mnYR7NOPimtZn4svbQmyMF3rslxQAC0WHUrBWqOTv/ZJkX41
- jQbvNjkgUud3ZLHnryh+HEpPre/8JRMDGoVluPuctwtS8o+kSNJOhpF6KnkDKJnI4EaP4KxavL3
- u0dwPLDP4Ia//U+Ft4Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1274; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=47wGTHOwHNw1GkHHo55d/Ij59Ac962ww2JNiZgwxSsM=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2/z/JcHHvrsKaC5/+sXzUj+kL2Cw+y8pY4GFhKluZd
+ Vvai7hfHaUsDGJcDLJiiixLco0KIlJX2d67o8kCM4eVCWwIF6cATKRoM8M/m8wsXed3DY9ufUnx
+ 6tm7csqlfc9qp35WLN11Y+qBFVdmSzEytGUuDfm/9O3h/q8lASaMnn/3d6X0WdRERRpeTwrd+5i
+ PFQA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-An async #PF "page not present" event arrives through the #PF vector,
-and its reason sits in the per-CPU apf_reason.flags until
-__kvm_handle_async_pf() reads and clears it. If an NMI arrives after
-the event is injected and before the #PF handler reads the flags, and
-the NMI handler itself takes a #PF, that fault reads and clears the
-flags belonging to the #PF it interrupted. It then finds interrupts
-disabled in the NMI context it interrupted, and panics:
 
-  Kernel panic - not syncing: Host injected async #PF in interrupt
-disabled region
-  Call Trace:
-   <NMI>
-   panic+0x52/0x60
-   __kvm_handle_async_pf+0xb0/0xb0
-   exc_page_fault+0x71/0xb0
-   asm_exc_page_fault+0x27/0x30
-  RIP: 0010:__get_user_nocheck_8+0x6/0x20
-   perf_callchain_user+0x147/0x1a0
-   get_perf_callchain+0x12d/0x1c0
-   ...
-   perf_event_nmi_handler+0x26/0x50
-   exc_nmi+0xe8/0x110
-  RIP: 0010:asm_exc_page_fault+0x0/0x30
-   </NMI>
+On Thu, 14 May 2026 17:27:16 +0800, Junhui Liu wrote:
+> clk/reset: anlogic: add support for DR1V90 SoC
+> 
+> Add Clock and Reset Unit (CRU) support for the Anlogic DR1V90 SoC, as
+> well as corresponding dts bindings and dts integration.
+> 
+> The CRU driver framework is built around the clock controller as the
+> primary device, with the reset controller implemented as an auxiliary
+> device. The clock part refers to the vendor's code [1] to determine the
+> structure of the clock tree.
+> 
+> [...]
 
-The last RIP line shows the NMI landing on the first instruction of
-the #PF entry. perf with user call chains takes such a fault: the
-sampling NMI walks the user stack with __get_user(), which faults when
-a saved frame pointer is not a valid user address or the walk runs off
-the top of the stack. The same window exists when KVM, running as an
-L1 hypervisor with DELIVERY_AS_PF_VMEXIT, reads the flags itself after
-a #PF VM-exit.
+Applied, thanks!
 
-The NMI entry code saves and restores CR2 for this nesting, but not the
-async #PF reason. Andy Lutomirski described the race, with perf as the
-example, when async #PF delivery was reworked in 2020 [1]. Saving and
-clearing the flags across the NMI, next to CR2, was discussed there but
-not merged.
-
-Since that rework the guest does not set KVM_ASYNC_PF_SEND_ALWAYS, so
-the host delivers "page not present" only to user mode. Read the flags
-only for a fault from user mode. A kernel-mode fault in NMI context
-(in_nmi() is also true in kernel-mode #MC and #DB) returns without
-touching the flags, and the interrupted handler finds them intact. This
-leaves the NMI entry path unchanged. A kernel-mode fault outside NMI
-context only checks whether a reason is pending, and keeps the "Host
-injected async #PF in kernel mode" panic for a host that delivers one.
-An earlier posting [2] also skipped the flags for kernel-mode faults,
-for a different reason, and removed that panic.
-
-Tested on v7.3-rc5 in a 4-vCPU, 2 GiB guest restored from a snapshot
-whose memory is served on demand through userfaultfd, so that reading
-it back takes async #PFs, while every thread samples hardware cycles
-with user call chains and points its frame pointer at an unmapped page.
-Without this patch the guest panicked as above in 3 of 3 runs. With it,
-the guest survived 3 of 3 runs of 60 seconds, and the host counted
-148,441 to 153,334 kvm_async_pf_not_present events in the first 20
-seconds of each. On 6.18.50 the results were the same: the guest
-panicked without the patch and survived with it.
-
-Link: https://lore.kernel.org/all/ed71d0967113a35f670a9625a058b8e6e0b2f104.1583547991.git.luto@kernel.org/
-[1]
-Link: https://lore.kernel.org/all/20211126123145.2772-1-jiangshanlai@gmail.com/
-[2]
-Cc: stable@vger.kernel.org # v5.9+
-Signed-off-by: EJ Campbell <ejc3@meta.com>
----
-Notes:
-
-- The reproducer is a small C program run in a guest restored by fcvm,
-  a Firecracker-based VM manager:
-  https://github.com/ejc3/fcvm/blob/9c7519f861273e8be954f9d006bc4d6654669f15/tests/data/async_pf_nmi.c
-  It fills memory, the guest is snapshotted, and the restored guest reads
-  the memory back while it samples with call chains.
-
-- For a kernel-mode fault outside NMI context with a reason pending,
-  which requires a host that ignores KVM_ASYNC_PF_SEND_ALWAYS being
-  clear, two messages change: with IF=0 the guest now panics with "Host
-  injected async #PF in kernel mode" rather than "... in interrupt
-  disabled region", and a reason other than PAGE_NOT_PRESENT panics
-  instead of hitting the WARN_ONCE. The guest requires ASYNC_PF_INT, so
-  PAGE_NOT_PRESENT is the only reason a conforming host writes.
-
-- No Fixes: tag. The race predates ef68017eb570 ("x86/kvm: Handle async
-  page faults directly through do_page_fault()"), which created
-  __kvm_handle_async_pf(). The fix relies on the host not delivering
-  "page not present" to kernel mode (since v5.8) and on "page ready"
-  arriving by interrupt rather than #PF (since v5.9), hence v5.9+.
----
- arch/x86/kernel/kvm.c | 30 +++++++++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 3 deletions(-)
-
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 6b0a5861c..87ba4e174 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -265,11 +265,37 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
- }
- EXPORT_SYMBOL_FOR_KVM(kvm_read_and_reset_apf_flags);
-
-+static __always_inline bool kvm_apf_reason_pending(void)
-+{
-+	return __this_cpu_read(async_pf_enabled) &&
-+	       __this_cpu_read(apf_reason.flags);
-+}
-+
- noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- {
--	u32 flags = kvm_read_and_reset_apf_flags();
- 	irqentry_state_t state;
-+	u32 flags;
-+
-+	/*
-+	 * The guest does not enable KVM_ASYNC_PF_SEND_ALWAYS, so the host
-+	 * delivers async #PF only to user mode (or as a #PF VM-exit, which KVM
-+	 * reads itself). A #PF from kernel mode can still arrive between that
-+	 * delivery and the read of the reason flags, inside an NMI that
-+	 * interrupted it, for instance perf reading user memory for a call
-+	 * chain. Such a fault is a real one: leave the flags for the fault they
-+	 * belong to. Outside NMI context, which in_nmi() also reports for
-+	 * kernel-mode #MC and #DB, pending flags on a kernel-mode fault mean
-+	 * the host is broken.
-+	 */
-+	if (!user_mode(regs)) {
-+		if (likely(in_nmi() || !kvm_apf_reason_pending()))
-+			return false;
-+		state = irqentry_enter(regs);
-+		instrumentation_begin();
-+		panic("Host injected async #PF in kernel mode\n");
-+	}
-
-+	flags = kvm_read_and_reset_apf_flags();
- 	if (!flags)
- 		return false;
-
-@@ -285,8 +311,6 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs
-*regs, u32 token)
- 		panic("Host injected async #PF in interrupt disabled region\n");
-
- 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
--		if (unlikely(!(user_mode(regs))))
--			panic("Host injected async #PF in kernel mode\n");
- 		/* Page is swapped out by the host. */
- 		kvm_async_pf_task_wait_schedule(token);
- 	} else {
-
----
-base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
-change-id: 20260929-kvm-apf-nmi-1911965f5e46
+[1/6] clk: correct clk_div_mask() return value for width == 32
+      commit: f036decc4434323b47b58ad9508fe27d8c9087c2
+[2/6] dt-bindings: clock: add Anlogic DR1V90 CRU
+      commit: 155d900e4c7d124dfc1fef598fecc6d17a1ea693
+[3/6] clk: anlogic: add cru support for Anlogic DR1V90 SoC
+      commit: c4e2f5e69ba4298c10ab5a64525379ca48ca921e
+[4/6] reset: anlogic: add support for Anlogic DR1V90 resets
+      commit: 9fd565971072d2d7158e15178f84b0273e294e70
+[5/6] riscv: dts: anlogic: add clocks and CRU for DR1V90
+      commit: 7849521aaac26b17820642010ab7f7a222ec73d1
+[6/6] MAINTAINERS: Add Anlogic DR1V90 CRU driver entry
+      commit: 5795c6059d10afbc0fbcfe3cd95676be69b30bcb
 
 Best regards,
---
-EJ Campbell <ejc3@meta.com>
+-- 
+Brian Masney <bmasney@redhat.com>
+
