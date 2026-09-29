@@ -1,140 +1,179 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A2B3C8C71;
-	Tue, 29 Sep 2026 02:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46527189F43
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648840; cv=none; b=b2evZMUqXHetCz9aBxBs3Hl51QpfvHO06sLu1aL2tEzRjZpGq9a3nILnA96Vsox9VKZliQCP1WRtt8LUyRZAfNr+J3UTD5OZ/ML2cCpe9JKQWQ5lfTPmNmtq1WjbGjr8nhJ6pV2rynKbmVQgfUTAfbhpCuBZOoDyfkF54jj2SAQ=
+	t=1790648939; cv=none; b=tHH2iIpEMdrNEoA70zkHL0mDHlutHu6+vRn0YOXRuEM5prgEJMQ4h2tzUmfQSpKP8gS6lY9UqmgPjjtTTIdj2Ad4Lp5Q5RMofRv6EMfryJetI6UjBGAZTd809NpQtQ9FNS+X68rn/lMzFZUvwrAQvj/M7Ig/r4WtYAPQ3N/+KMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648840; c=relaxed/simple;
-	bh=QM259V0k6Iv9mXLetJTrj6WRU+lW9FuJjU4okchEOas=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KahruD+f4sjP9SE22O13Bh2nxGFt2AB8arRgq/hob10YmrNtkWNb6EntzVPJwlnzir/ZpUBer82kMdk/hcHxu2cJqSkVQ6JRtJQkGOd/QoqRtIneX5kh5bNxeNhdNZUuQnNQ28foJKly1r1eYIATMc0AS/oCLuKLlgNBVaHJ2YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=IRNMVBFb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pklCQRTz; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	s=arc-20240116; t=1790648939; c=relaxed/simple;
+	bh=VbGa209/PfqfTjdmuyWVbflR8FG8xeNcv3V8rCLxdZM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Qu8h5uWVazmFPqZGn6++jgwaNE/tukxdeTVxRQDVd+/fx7itm9caFv9LZw1VfHXSHOPYev9gzeN01QT0cN/Jf+JLjFw6757+JaTXrqHX6jetP6pWQBXNCo3B1XVIE4qsjaAsrBU0SdaXXmGN6NvhhR1S9jesGCO748g/Re3qN0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=PtjSYnUn; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="IRNMVBFb";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pklCQRTz"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 19BC51D00126;
-	Mon, 28 Sep 2026 22:27:18 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 28 Sep 2026 22:27:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to; s=fm1; t=1790648837;
-	 x=1790735237; bh=tlOTPlxeJg48uRf0lio6IimpGMjfoaRSeSTDpus1fBE=; b=
-	IRNMVBFbzK/5Dy6MQJxl8LhpxAiX2HMTOYVqKWLOCXTGukNlanuUMhN0B+9Jty3A
-	9xF4Pl1UPJmOUrOy/SbjaD2w+/DF9V91l7pDLTHdG1e60HBXQWaEIQxI9jLcM2p3
-	bUvyixFL95fJwY5JaKJ7NsP2dzeNEOIpQghRsiFTox9r+yt6f8lNbUOcGiaSQp/S
-	OKXhWt8ThXV8UAOI4qlkYJoLAuC9oIUX6Yp5VZ13qKlvfck+hbhrPRMpA9Tqb+Mw
-	xujum+cw72Xy8LTWo5EWHdPrLhk4JHfJYkFz2KzUO+zTNorNHDSnP94DbE4VE83m
-	JeTviJyuUaEaD/hK0uasWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790648837; x=1790735237; bh=t
-	lOTPlxeJg48uRf0lio6IimpGMjfoaRSeSTDpus1fBE=; b=pklCQRTz6Y/gmFmIW
-	I2K6S6Ab0fSvqdBhlBGJE3CwsOXecitym2zFi+u9oKx97hdfL7yaZtVJ0Y7kQ57s
-	vqsNQAH1/YTJR5y7V5qL/fSrSLpqOtKyE/MebVfi7/D4U9/i2mE+9I/ZgnbgYMSl
-	Gqj2m6anPyJUMZSnvx51/PoSuvHmzRbP29EjPxxav7w4Lt9YaUchc7Na4xSh+3yZ
-	VqtDOHb/igBuX+dXzckTcg8VD9IULWRCFsn5qyY8FfTyJaBPlKEv91XSwiC+Vwhl
-	qNE2h8eluPHI3OVYzLQlt0QhqNZqmce+GWIww3sZWHtrB8IUenomc5rKSWSGV9ck
-	CIQMQ==
-X-ME-Sender: <xms:BSK7auegtllkTAvZ2kJ6dz6ajTpBWkd9qsJQibSOzNbEMysLbOZypg>
-    <xme:BSK7arQNux5Q4-WA9ZuPoZInY6_sgf4RFCa246SlPPzdl4HuoG_NZiuy1WjWI8Vaj
-    FBx-yOgJiEzREEcODYTeO-5LoHctGRDTLD_XyQ1R9LRm72HQQ>
-X-ME-Received: <xmr:BSK7aqJlAjoNrMVvJwBb0iCptyZBVasyiM2mknTRQYMnt4j2rJEV_TCUj-G2GE-EJEcjHqb1yaComPM_Rxt4SrKRzOkMdMI>
-X-ME-Proxy-Cause: dmFkZTE+bsogD40d2GxBgpnYeHp/aup6WVRLzjdWBHHPlKBynVrzNWh8QEoADNOHP+FK+Z
-    Vgqz5hC90Yp6jn9MDfo9aRFsYr2vMRz0xkNM8qRCjZwAXlP78t6WYYtP5SMZJn0d0uhQfe
-    gFgWB4/7khWSm3cmBSPuGM0BFEi9gykQl8qvlo22NeQC6/uQwRqZOUFbgyYVOtcf7rUASX
-    7Kaqhw7pe+zb3JDOIQ8+ig3BBnwuM5Xo+83Pt9mtsfvsMhL3F500p85F5BLBBgJRLOp1EP
-    +Hcng1Jy3IJ4SZQiTS20OSaSrrdwyfitMh3HWtIXcSjsNttSH1A8upFBeYFTHElHPf89sX
-    5oLGn0sJlmr2C5T4eviFDjjMl5BHPY19GMX9oHH+VfX5Cil5bLLyRok6azGMlFdhNP4n7Z
-    PiD7LsNIky5Y7+hyQ4hzGFDLvrwkh9iPCqFc3aHNfsDm10pTU0klFznURDdS5LKYD1IObA
-    a7JdmdOHoY3UNh59ThQQ/QCuOYkavq9KxxWLLkppC04a54GxyytDLzCg8NVg2wNgYuKRQ7
-    v9z7k0JcyDHtlo3nysRMeQfM94bu5i5axYNoe9fyup88D1gvRbrT9eEZPCOjVQmWP+gNPa
-    Y4jR3BG+1K3tzz2BHrppQFva73AwO/Xs0Pz8xtsWPGuc0IZ1H7fbITMdOFsg
-X-ME-Proxy: <xmx:BSK7aoJJr-BOmx4cllYX-Pb0F3snVC2d3PTVQtmoCfypibCIIx3sAA>
-    <xmx:BSK7aliBRTrI_nTZ2eCQwEayk0BN8VLkjjkJW8ZmzJ9bypkIB9Y1tw>
-    <xmx:BSK7aiMzX5E82MVqUmDl-MyDMkeH8_q-Ypo_IaK9Onr4HnFtqXVb-Q>
-    <xmx:BSK7agr6OHVOC-E-UirmBrhO75gaaqYSxlTimrTpsvnHQIBtX2uXiw>
-    <xmx:BSK7aiGCgSDJQo_GCml0hueFzx4k93-bOXXfqNNNIkayCeVgkVdnnEjn>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Sep 2026 22:27:15 -0400 (EDT)
-From: NeilBrown <neilb@ownmail.net>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="PtjSYnUn"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 2DECDD0A70;
+	Tue, 29 Sep 2026 05:28:47 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 2DECDD0A70
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1790648928;
+	bh=AyOlMOGbyQvd231IhMBOex53XSeKW1Mj9ZrDcc2VVoM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=PtjSYnUnvWge+6+Zgey9kCgJGe/3RZ3QeyHDgfo5ERhhDSqEsHkyUhlCWHGptpXtc
+	 IV/HMYOrurmGARe6ySab6hs+EnyZdG1OAZTcpnkwqvZGPvSaemK10tqcePjAkSp9RI
+	 GEw0TBli+iU9IT9Ax1bsHGlxLVVuPvI3td656MTGja2sF6R8D1P6PFbw0VBY8LneXm
+	 9Dj/YzXFrzLhyOlhkzXoe1AvwWDrjvEs8nlBx1ieQV4gHwsnQ2nUCRXN5UfJXBZA9f
+	 veUJ1VjMjLUrVecriVuial/YliOJupwuxIPM2PyqLx/E/E50qD6NTtFR6QVTc2BZ99
+	 Nzo4gRRByl4gQ==
+Message-ID: <9b32a65ad4ed4d34068bb6dafb8503cb4588638f.camel@rendec.net>
+Subject: Re: [PATCH v4] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC
+ helpers
+From: Radu Rendec <radu@rendec.net>
+To: Zhu Ling <zhuling2709@phytium.com.cn>, maz@kernel.org, tglx@kernel.org
+Cc: zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 9/9] nfs: use d_duplicate()
-Date: Tue, 29 Sep 2026 12:21:19 +1000
-Message-ID: <20260929022547.1428036-10-neilb@ownmail.net>
-X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
-In-Reply-To: <20260929022547.1428036-1-neilb@ownmail.net>
-References: <20260929022547.1428036-1-neilb@ownmail.net>
-Reply-To: NeilBrown <neil@brown.name>
+Date: Mon, 28 Sep 2026 22:28:45 -0400
+In-Reply-To: <20260928013209.7242-1-zhuling2709@phytium.com.cn>
+References: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
+	 <20260928013209.7242-1-zhuling2709@phytium.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neil@brown.name>
+On Mon, 2026-09-28 at 09:32 +0800, Zhu Ling wrote:
+> When running with UBSAN enabled, enabling a GPIO controller that uses a
+> GIC interrupt as its parent triggers several shift-out-of-bounds warnings=
+:
+>=20
+> =C2=A0 shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
+> =C2=A0 left shift of 2 by 30 places cannot be represented in type 'int'
+>=20
+> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
+> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
+> same signed-shift pattern. These masks are generated by shifting signed
+> integer constants, which invokes undefined behavior when bit 31 is
+> selected.
+>=20
+> Use BIT() to generate the masks with an unsigned type and make their
+> intent explicit.
+>=20
+> Fixes: 5c0c1f08abf0 ("ARM: 6150/1: gic: implement set_type")
+> Fixes: 567178077c36 ("irqchip: GIC: Add support for irq_[get, set]_irqchi=
+p_state()")
 
-As preparation for d_alloc_parallel() being allowed without the
-directory locked, use d_duplicate() to duplicate a dentry for silly
-rename.
+Thanks for adding these and sorry for being pedantic. The above commit
+just moved around the offending lines, and so did the previous one that
+touched them. I traced them back to f27ecacc54cc ("[ARM] Add support
+for ARM GIC") - the commit that added the GIC driver *21 years* ago.
 
-This results in an in-lookup name, so d_lookup_done() must be called.
+> Fixes: b594c6e20c7f ("irqchip: GICv3: Add support for irq_[get, set]_irqc=
+hip_state()")
 
-Signed-off-by: NeilBrown <neil@brown.name>
----
- fs/nfs/dir.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Same here. That commit just moved around gic_peek_irq(). The offending
+lines trace back to 021f653791ad ("irqchip: gic-v3: Initial support for
+GICv3") - the commit that added the GICv3 driver *12 years* ago.
 
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index e40ea471fa34..3adb8ce727f8 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -2801,11 +2801,9 @@ int nfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 			spin_unlock(&new_dentry->d_lock);
- 
- 			/* copy the target dentry's name */
--			dentry = d_alloc(new_dentry->d_parent,
--					 &new_dentry->d_name);
-+			dentry = d_duplicate(new_dentry);
- 			if (!dentry)
- 				goto out;
--
- 			/* silly-rename the existing target ... */
- 			err = nfs_sillyrename(new_dir, new_dentry);
- 			if (err)
-@@ -2870,8 +2868,10 @@ int nfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 		nfs_dentry_handle_enoent(old_dentry);
- 
- 	/* new dentry created? */
--	if (dentry)
-+	if (dentry) {
-+		d_lookup_done(dentry);
- 		dput(dentry);
-+	}
- 	return error;
- }
- EXPORT_SYMBOL_GPL(nfs_rename);
--- 
-2.50.0.107.gf914562f5916.dirty
+These UB issues have been there for quite a while :) FWIW, I did some
+research, and gcc actually generates correct machine code for these
+shifts, even though they are UB from the C standard's perspective. I
+guess that explains why they have gone unnoticed for so long; people
+started to use clang only much more recently to compile the kernel.
 
+> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
+> ---
+> Changes in v4:
+> - Add Fixes tags for the commits that introduced the affected masks.
+>=20
+> Changes in v3:
+> - Fix the same issue in the GICv2 gic_poke_irq() and gic_peek_irq()
+> =C2=A0 helpers, as pointed out by Zenghui.
+>=20
+> Changes in v2:
+> - Use BIT() instead of explicit unsigned shifts, as suggested by Marc.
+> - Drop the redundant introductory text from the email.
+> - Update the author email address.
+>=20
+> Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMb=
+bPhUatLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=3D@proto=
+n.me
+> ---
+> =C2=A0drivers/irqchip/irq-gic-common.c | 2 +-
+> =C2=A0drivers/irqchip/irq-gic-v3.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
+> =C2=A0drivers/irqchip/irq-gic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 4 ++--
+> =C2=A03 files changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-c=
+ommon.c
+> index c776f9142610..8bd1eaa54295 100644
+> --- a/drivers/irqchip/irq-gic-common.c
+> +++ b/drivers/irqchip/irq-gic-common.c
+> @@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk=
+ *quirks,
+> =C2=A0int gic_configure_irq(unsigned int irq, unsigned int type,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base)
+> =C2=A0{
+> -	u32 confmask =3D 0x2 << ((irq % 16) * 2);
+> +	u32 confmask =3D BIT(((irq % 16) * 2) + 1);
+> =C2=A0	u32 confoff =3D (irq / 16) * 4;
+> =C2=A0	u32 val, oldval;
+> =C2=A0	int ret =3D 0;
+> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+> index 6e1fa5b247fc..15110d47ddb0 100644
+> --- a/drivers/irqchip/irq-gic-v3.c
+> +++ b/drivers/irqchip/irq-gic-v3.c
+> @@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offse=
+t)
+> =C2=A0	u32 index, mask;
+> =C2=A0
+> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
+> -	mask =3D 1 << (index % 32);
+> +	mask =3D BIT(index % 32);
+> =C2=A0
+> =C2=A0	if (gic_irq_in_rdist(d))
+> =C2=A0		base =3D gic_data_rdist_sgi_base();
+> @@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offs=
+et)
+> =C2=A0	u32 index, mask;
+> =C2=A0
+> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
+> -	mask =3D 1 << (index % 32);
+> +	mask =3D BIT(index % 32);
+> =C2=A0
+> =C2=A0	if (gic_irq_in_rdist(d))
+> =C2=A0		base =3D gic_data_rdist_sgi_base();
+> diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+> index f6bc29f515fb..fb7a55f5b394 100644
+> --- a/drivers/irqchip/irq-gic.c
+> +++ b/drivers/irqchip/irq-gic.c
+> @@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_dat=
+a *d)
+> =C2=A0 */
+> =C2=A0static void gic_poke_irq(struct irq_data *d, u32 offset)
+> =C2=A0{
+> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
+> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+> =C2=A0
+> =C2=A0	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d)=
+ / 32) * 4);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int gic_peek_irq(struct irq_data *d, u32 offset)
+> =C2=A0{
+> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
+> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+> =C2=A0
+> =C2=A0	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq=
+(d) / 32) * 4) & mask);
+> =C2=A0}
