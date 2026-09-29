@@ -1,129 +1,226 @@
-Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2234F4D19
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.87.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD31B4F7CCD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675020; cv=none; b=D2srTVkNP4JuONRY7VHFMGHyIc8OPTgjguX8V59ct1g6Wolpx/uwpXCMsVHydsJlrpESROEn6OMimzv0Xx4PKDZI+3F6repjDLTpxhHsDh7EqSyT9rsVrWnxycBbN+h5BWEDoUuB0Fdxw/wsJWkPpba9m/XtqnTrv2vktpxdZ0k=
+	t=1790675072; cv=none; b=fPXj/Wdhal0KN3LyR4Gaz/CdFCrMBHRBHojS6RbSW1EDtIsxW/1RfpQAxjSkh8ykhJlLQv0rCO+zGVufagjfg+swjIr2VO3xyz63hqrTUfuqsQ9WITcAXkhSyGZHPrOKKG5wvxlbEqhLJBHCOyTLH4aHoNXzVDRB/VCjQ0kA82E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675020; c=relaxed/simple;
-	bh=pEyrc9WtdXZQz4nezh1D0cAfCkeyEW+dwWoun2bEQNk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jLRyfKbBSvjiHIqQnjJX+zNHp5q4uysmT3PHuTHJm1E2G8B5pv+RL6nP/9nE4/WLP3vscSldWbzd0e3ooRKLADIrZI1CSoSQboig9dtTDHIIGa0zy+F4U7mLfpZKRb9d3/fo5V24PAvTDTF+DRlzzTQNCpxEaRqWKJfyBgUVxeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.87.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hvCsT117DzBLdJh;
-	Tue, 29 Sep 2026 17:43:09 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
- Tue, 29 Sep 2026 17:43:32 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: <tzimmermann@suse.de>, <mripard@kernel.org>, <airlied@gmail.com>,
-	<maarten.lankhorst@linux.intel.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<sam@ravnborg.org>, <shechenglong@xfusion.com>, <simona@ffwll.ch>,
-	<stone.xulei@xfusion.com>, <chenjialong@xfusion.com>
-Subject: [PATCH v2] drm: Fix NULL pointer dereference in drm_minor_alloc() on error path
-Date: Tue, 29 Sep 2026 17:43:22 +0800
-Message-ID: <20260929094322.1874-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
-In-Reply-To: <85292368-03d6-49ce-b6df-3bf659347c0f@suse.de>
-References: <85292368-03d6-49ce-b6df-3bf659347c0f@suse.de>
+	s=arc-20240116; t=1790675072; c=relaxed/simple;
+	bh=GziMX1BvxZ3qRFjBcqAQ/miqSVR8oPrahHBt4iSYc58=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T/MK780peu9fKPywL7tafZxNIlCGfKByYvYh3WGR8OEoslYjKQgIGeCCl2m7640lLT6eVYtj4T1Rp6zgrcg20J16Ik5ri6Rqwd3LoE7pnu1uwrqJkVPoRRbro5eY0crLaOprXX98PklhxylE2ug3UGUFghLyPBsqIhoWZH2UAg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KqqBZber; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KqqBZber"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7ZWP53344821;
+	Tue, 29 Sep 2026 09:44:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=woM0FR
+	Pu09e91YfETN6qXtfmByrG4dnUmwN1bxa0RV0=; b=KqqBZberyw5BmLSX89xayy
+	Qp3x3VGYJL+PVlT1q/yRVKtnMmUFwvefWYJ9Dn6p2R36PTb9RDylbIQUgRs39qAw
+	3wU97ZkXyid+WpxTTs9scNno32neL1tKUhgFbC0rxL8HLQLwkZiFQBT2L626uaFk
+	OOVsaxdst8O+p/Qv9fHS2WMJvrlBikVOmAEUwuCyMrSeJXwEZkd2WLtDH1HBye9r
+	JdzsG/ESlCDdJDahy8f56K0LkQhrfyeWnHYHGisd+gXASEOTBcHgfVL2Y/E2gzMW
+	0DKKjsNMEArhyBjQ7kiOKSPAnw2azVpPO41BBNQrUOIiC1V4rb0oPSwd4PjSXWLA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk5xwb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 09:44:14 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7WSNe1390142;
+	Tue, 29 Sep 2026 09:44:13 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y8wbg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 09:44:13 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T9iAO449873172
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 09:44:10 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0EBCF20043;
+	Tue, 29 Sep 2026 09:44:10 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3623720040;
+	Tue, 29 Sep 2026 09:44:07 +0000 (GMT)
+Received: from [9.124.214.246] (unknown [9.124.214.246])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 09:44:06 +0000 (GMT)
+Message-ID: <9a2c2187-f0ea-42e1-a9da-81088f5065ac@linux.ibm.com>
+Date: Tue, 29 Sep 2026 15:14:06 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03048.xfusion.com (10.32.143.30) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc: fix NMI exit ordering: restore soft masks after
+ irqentry_nmi_exit()
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>, maddy@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+        ritesh.list@gmail.com, mkchauras@linux.ibm.com, ruanjinjie@huawei.com,
+        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+References: <20260929071600.2963954-1-mkchauras@gmail.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260929071600.2963954-1-mkchauras@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 7Yebalj0KqJfyT3vJGuVxLJfpTpJzC8E
+X-Proofpoint-GUID: hZzWI2TLVRV4zpaKhJNj3ptCksDBq62w
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzOCBTYWx0ZWRfX3Kwr5B1mK/MV
+ MC0dtcf+2YVtOe52m9OzvDooZBaXuJ1NiQ8y0eFEkx2kfPLLyYgIIogIWYIdMNQ/sHA2JjIkh+5
+ IcDvCeyjyvuRYKcoJSWwi9zlgyO67Ow=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abb886e cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=IGkpBAwnVNaApzdPf5QA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzOCBTYWx0ZWRfXzK9rNSlDZj9e
+ I9VoCRiCOw5huMvXriCErMFHjUdd2NHlZevgaQhun+UTQSsSarda3I+CQpv3RhY4nwiivGs7WDd
+ 8aRYIDfIguY4cKjNuJ1A2G+58Z6jrAEtTOuBa7PTikZIMQ2W7XE1C9JteXb5L03bFxvz7Z/vgGv
+ fQ+ukBiBgu+AJaLQ+70thcavgI8TDDKCT8YLi5QoShM7o579bDg99onRq5zS9GNPIW7B4TCBH0S
+ f/2zTjIQg8G3A+72FfeO6xRvNkwDKABVY5LfWEbAV7ICNYzwkIWkNxXjyKnSPVDIjEyUSSoaHpd
+ wad/cVjlmc+ElRN0vDnyHKmBO+mUJPYxlWOyMWqJt/w6O068KmQQmqEj2H/oMjnWc9SCz47IYlF
+ TxJ8tRVS2wo69vVSh9RNQ5ATh9C4JvnsdbVosTOrAYKOfDYWgeYGr6U7q1aTwLHGWp10vA4Ik5g
+ dESBdylyG+aLm1njtzA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290038
 
-When drm_sysfs_minor_alloc() fails (e.g., due to -ENOMEM), the
-following Oops occurs because an ERR_PTR is passed to put_device():
+Hi Mukesh.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000030
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  RIP: 0010:kobject_put+0xd/0x60
-  Call Trace:
-   drm_minor_alloc_release+0x1c/0x50 [drm]
-   drm_managed_release+0x96/0x160 [drm]
-   drm_dev_init+0x269/0x330 [drm]
-   drm_dev_alloc+0x3f/0x80 [drm]
-   virtio_gpu_probe+0x40/0x180 [virtio_gpu]
-   virtio_dev_probe+0x1fd/0x360
-   ...
-   do_syscall_64+0xaf/0x500
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+On 9/29/26 12:46 PM, Mukesh Kumar Chaurasiya (IBM) wrote:
+> When running with CONFIG_PPC_IRQ_SOFT_MASK_DEBUG=y and LOCKDEP=y, an
+> Oops is triggered during NMI exit:
+> 
+>    [  202.258332] Oops: Exception in kernel mode, sig: 4 [#1]
+>    NIP [000000000003e178] 0x3e178
+>    LR  [c00000000003e174] arch_local_irq_restore+0x2a4/0x328
+>    TRAP: 0700  MSR: 0000000000081000 <ME>
+> 
+> The faulting instruction at NIP is a 'trap' (0fe00000) inside the
+> rfi_flush_fallback trampoline at a userspace-looking low address, reached
+> after a bad rfid caused by an incorrect SRR0 value.
+> 
+> Root cause
+> ----------
+> DEFINE_INTERRUPT_HANDLER_NMI used to call arch_interrupt_nmi_exit_prepare()
+> *before* irqentry_nmi_exit(), giving this sequence:
+> 
+>    arch_interrupt_nmi_enter_prepare()   // saves irq_soft_mask, irq_happened
+>    irqentry_nmi_enter()                 // __nmi_enter() -> nmi_count++, in_nmi()=true
+>    ____func(regs)                       // NMI handler body
+>    arch_interrupt_nmi_exit_prepare()    // RESTORES irq_soft_mask=0 (IRQS_ENABLED)
+>                                         // RESTORES irq_happened with pending bits
+>    irqentry_nmi_exit()                  // instrumentation block runs here...
+>      trace_hardirqs_on_prepare()        //   ...with in_nmi()==true still
+>      lockdep_hardirqs_on_prepare()      //   ...and irq_soft_mask already restored to 0
+>        -> arch_local_irq_restore(0)     // mask=0 -> enable path entered
+>             WARN_ON_ONCE(in_nmi())      // FIRES: __nmi_exit() hasn't run yet
+>      __nmi_exit()                       // nmi_count-- (too late)
+> 
+> arch_interrupt_nmi_exit_prepare() restores irq_soft_mask to whatever
+> the interrupted thread had (IRQS_ENABLED / 0) and restores irq_happened
+> with any pending deferred-interrupt bits that were present when the NMI
+> fired.  This is correct and necessary before rfid back to the interrupted
+> context, but it must not happen until irqentry_nmi_exit() has fully
+> completed.
+> 
+> With irq_soft_mask=0 and pending bits in irq_happened, the
+> trace_hardirqs_on_prepare() call inside irqentry_nmi_exit()'s
+> instrumentation block reaches lockdep_hardirqs_on_prepare() which
+> calls __trace_hardirqs_on_caller(), which eventually calls
+> arch_local_irq_restore(0) (the IRQS_ENABLED / enable path).
+> 
+> arch_local_irq_restore() with mask=0 hits the CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
+> guards at irq_64.c:217:
+> 
+>    WARN_ON_ONCE(in_nmi());   // TRUE: __nmi_exit() not yet called
+> 
+> The WARN_ON_ONCE fires a 'trap' instruction (tw 31,0,0 / 0fe00000) in
+> kernel mode with MSR_PR=0, MSR_IR=0 (real-mode).  The program check
+> handler (TRAP 0700) takes the sig:4 (SIGILL) path via do_program_check()
+> and calls die(), producing the Oops.
+> 
+> The RESTART_TABLE mechanism in arch_local_irq_restore then causes the
+> bad rfid that lands at the userspace-looking address visible in the NIP.
+> 
+> The bug is invisible with LOCKDEP=n because trace_hardirqs_on_prepare()
+> is a no-op when CONFIG_TRACE_IRQFLAGS is not set (TRACE_IRQFLAGS is
+> selected by PROVE_LOCKING which selects LOCKDEP).
+> 
+> Fix
+> ---
+> Move arch_interrupt_nmi_exit_prepare() to after the irqentry_nmi_exit()
+> block, so that:
+> 
+>    irqentry_nmi_exit()                 // __nmi_exit() -> nmi_count--, in_nmi()=false
+>    arch_interrupt_nmi_exit_prepare()   // now safe to restore soft mask state
+> 
+> The instrumentation inside irqentry_nmi_exit() now executes while
+> in_nmi() is still true (nmi_count not yet decremented), but
+> irq_soft_mask is still IRQS_ALL_DISABLED (NMI-entry value), so
+> arch_local_irq_restore() is never called with mask=0 from that path.
+> After __nmi_exit() returns, arch_interrupt_nmi_exit_prepare() restores
+> the pre-NMI soft mask and irq_happened, which is the correct state for
+> the rfid back to the interrupted context.
+> 
+> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Closes: https://lore.kernel.org/all/d4cccba9-ce5c-424b-864c-2248fb0d99e6@linux.ibm.com/
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> ---
+>   arch/powerpc/include/asm/interrupt.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
+> index 1b45a49e9bed..56f855c6f07e 100644
+> --- a/arch/powerpc/include/asm/interrupt.h
+> +++ b/arch/powerpc/include/asm/interrupt.h
+> @@ -301,7 +301,6 @@ interrupt_handler long func(struct pt_regs *regs)			\
+>   		state = irqentry_nmi_enter(regs);			\
+>   	}								\
+>   	ret = ____##func (regs);					\
+> -	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
+>   	if (mfmsr() & MSR_DR) {						\
+>   		/* nmi_exit if relocations are on */			\
+>   		irqentry_nmi_exit(regs, state);				\
+> @@ -317,6 +316,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
+>   	} else {							\
+>   		irqentry_nmi_exit(regs, state);				\
+>   	}								\
+> +	arch_interrupt_nmi_exit_prepare(regs, &nmi_state);		\
+>   									\
+>   	return ret;							\
+>   }									\
 
-The call path that leads to this crash is:
+Thanks for the fix.
 
-  virtio_gpu_probe()
-    drm_dev_alloc()
-      drm_dev_init()
-        drm_minor_alloc()              // allocates minor
-          drm_sysfs_minor_alloc()      // returns ERR_PTR(-ENOMEM)
-          minor->kdev = ERR_PTR(-ENOMEM)  // stored directly
-          return -ENOMEM
-        // drm_dev_init() fails, triggers cleanup:
-        drm_managed_release()
-          drm_minor_alloc_release(dev, minor)
-            put_device(minor->kdev)     // ERR_PTR(-ENOMEM) dereferenced
-              kobject_put()             // crashes at address 0x30
+Ordering also seems right now visually and it reflects similar to code previous
+to generic entry.
 
-drm_minor_alloc() assigns the return value of drm_sysfs_minor_alloc()
-directly to minor->kdev, even when it is an error pointer.  The
-subsequent cleanup unconditionally calls put_device(minor->kdev),
-which dereferences the error pointer and causes a NULL-pointer
-dereference (offset 0x30 into a non-page-mapped area).
+arch_interrupt_nmi_enter_prepare
+irqentry_nmi_enter
+irqentry_nmi_exit
+arch_interrupt_nmi_exit_prepare
 
-Fix this by using a temporary variable to hold the result of
-drm_sysfs_minor_alloc().  If the allocation fails, we return the error
-immediately, leaving minor->kdev as NULL (the whole minor structure is
-zero-allocated).  put_device(NULL) is explicitly allowed and safe.
-
-Fixes: f96306f9892b ("drm: manage drm_minor cleanup with drmm_")
-
-Signed-off-by: chenjialong <chenjialong@xfusion.com>
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_drv.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c808958a2..9c51312cd 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -143,6 +143,7 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
- static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
- {
- 	struct drm_minor *minor;
-+	struct device *kdev;
- 	int r;
- 
- 	minor = drmm_kzalloc(dev, sizeof(*minor), GFP_KERNEL);
-@@ -164,9 +165,11 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
- 	if (r)
- 		return r;
- 
--	minor->kdev = drm_sysfs_minor_alloc(minor);
--	if (IS_ERR(minor->kdev))
--		return PTR_ERR(minor->kdev);
-+	kdev = drm_sysfs_minor_alloc(minor);
-+	if (IS_ERR(kdev))
-+		return PTR_ERR(kdev);
-+
-+	minor->kdev = kdev;
- 
- 	*drm_minor_get_slot(dev, type) = minor;
- 	return 0;
--- 
-2.43.0
-
+So,
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
