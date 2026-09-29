@@ -1,164 +1,735 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E533AFAE3;
-	Tue, 29 Sep 2026 08:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C330E3B0595
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668808; cv=none; b=gxbCnrQ8T66pR68pZhA/gOBB9eEekI76pS2h6j/fXoGolVwMfKEvBdF5/C0MIAXR67CDdgHJ8RJz/ihKLKQELoCgusW0Z5VHFs2EtBTwbRAPsgJsIHJZ/fqQXy/Xs3gK9+baR3S/nGqUl1DNykeJxM5OOEezNabR/0/FyjHuGfw=
+	t=1790668804; cv=none; b=U+1fIFY8hCkzfAB8CUq07EpQbqELVXQoGytdAWlK+gd6nUAayDs0dj5MUAHPnYM0fBZ54VRXgH6CAIb8n9iFA7Q/B8EyHld3G1/lbZK9K+mATDoERoQDW/LB+SJBnaS1ReC0vElC/A0cSbNCtii7wp3bvz9X9t15TNAkiFCqMVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668808; c=relaxed/simple;
-	bh=mJxfmuntrS6Lc1ef/BTMcihmrHnPcFu0Ms2DI2wlof0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mmYbLFOFB5e3bkajP4ecBEkulrpWpAQoerPtaim4k3i44dx/FiAYjNqQ19+jwS3unK4WEvysscVqepBTJBlPchSMd17StY6i30mV6fkNCAtsFVQEnGXnBc1N/Awlth3zrEQuhmbF4ZvOrGTabQK5P8vFM6GOvRUbIgmAOsaESDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=eEkWiXRA; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1790668804; c=relaxed/simple;
+	bh=iJcZQtl+DKvnrn/1BQ8NAbDPtJ6AboSfWK+v071P6e4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gpg7ST0+iYKHzl2RxwSt4DjOnrMxEla+oV3KLbU0rFYTtRcZD8NrpJ/uouqaSWFj1bPUV5uVJqFB7dJ9sHYb+ZyFuG67bIXtKPnej5XDhSgwfDJ5JyrTXik953XIB2TRJqlOCv+7Ijhmw7yM9h+ATjgUTlpXrhKDS3msw8Uv/Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H2XTJhdR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="eEkWiXRA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1790668794; bh=mJxfmuntrS6Lc1ef/BTMcihmrHnPcFu0Ms2DI2wlof0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=eEkWiXRA1ZRyZeLsVeKxHi4n3WFGZ8ALPOfw8dUn+P64XpG+o9AM4qdvxV9tz4MLZ
-	 jVdBhT4C010GQZOyJ3dCzRDA8HK0nZ/u2G5zquqqkClywfxChjO5E0X6GUCXtoSq+O
-	 ynG81xKVHgnd981iKbrEhisTUwkdHsgDqEDLEBZJO5cjSV0JEwCWGXbEzXWS1iXJgg
-	 cQrN8ie2sczjeTkqsUDvHKVV/Wsqf3gtkD5n/Ee4IZBpC5IIWbQHxeM+TpL8rgBm7N
-	 SBADCIzT6YmIau513x72frHTiYxHbFJRxSw2FSQuLmbgTe3yMndSjBHjAKWy6xfVGJ
-	 1m7aK47qO26oQ==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6abb6ff9-03d5-7f0000032729-7f0000018808-1
-	for <multiple-recipients>; Tue, 29 Sep 2026 09:59:53 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Tue, 29 Sep 2026 09:59:53 +0200 (CEST)
-From: Nicolas Schier <n.schier@fritz.com>
-Date: Tue, 29 Sep 2026 09:59:47 +0200
-Subject: [PATCH v2 4/4] kconfig: tests: {old,save}defconfig: Forward
- dynamic keyword arguments
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H2XTJhdR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790668798;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=THc7txEeOnUUea9Yv1GNwXdXGBD6LdESTbSxCqCT20A=;
+	b=H2XTJhdRJTLi4xdIFH5r8eUH3PqmBrQsvG29X3hzhzFpwV0f7cvDxr/VxUfFHRM9ay44st
+	B+HZwYpNAJyuo5XnSxKYhpeIeOn7RC87VDIw0fF3HUnosHErcXnYe1GUwarlocjkqqQtuX
+	AOu7yVU6ego76/1d6VvDKRFUAU98jfk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-396-kcl93TQINq-QfWZ1p88d3A-1; Tue,
+ 29 Sep 2026 03:59:56 -0400
+X-MC-Unique: kcl93TQINq-QfWZ1p88d3A-1
+X-Mimecast-MFC-AGG-ID: kcl93TQINq-QfWZ1p88d3A_1790668794
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ECDDD1808993;
+	Tue, 29 Sep 2026 07:59:53 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 049461956045;
+	Tue, 29 Sep 2026 07:59:47 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@infradead.org>
+Subject: [PATCH v12 03/10] netfs: Add some tools for managing bvecq chains
+Date: Tue, 29 Sep 2026 08:59:04 +0100
+Message-ID: <20260929075913.2740968-4-dhowells@redhat.com>
+In-Reply-To: <20260929075913.2740968-1-dhowells@redhat.com>
+References: <20260929075913.2740968-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-kconfig-tests-minor-updates-v2-4-c5902bee1d0c@fritz.com>
-References: <20260929-kconfig-tests-minor-updates-v2-0-c5902bee1d0c@fritz.com>
-In-Reply-To: <20260929-kconfig-tests-minor-updates-v2-0-c5902bee1d0c@fritz.com>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Julian Braha <julianbraha@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
- Ulf Magnusson <ulfalizer@gmail.com>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolas Schier <n.schier@fritz.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3857; i=n.schier@fritz.com;
- h=from:subject:message-id; bh=mJxfmuntrS6Lc1ef/BTMcihmrHnPcFu0Ms2DI2wlof0=;
- b=owEBbQKS/ZANAwAIAYjGvJyImm24AcsmYgBqu2/4kBtZYEHaNjRInHj7JXKTZgTjUo5f6qWZs
- TDZ1Y+8e+GJAjMEAAEIAB0WIQQO/4WJ63TpgecLpGmIxryciJptuAUCartv+AAKCRCIxryciJpt
- uNkuD/0XJr2d5PwAKvvFB7BOfx0X8FZsx+eWgvZImEejF6kjaGA5Ge8lSNtCVPIfucfG9HzSDEi
- +5ZkQ7bVQFCg5kNq06HnBIyW4CxmOIF+Xz+LYQ37Whi11ctTATWJYWWVk/p8AquUA9LuPAUwuL8
- ZDP34f4pnlmK8jQBBxA3+/Hxj4NWc+bm2pha/61gvry1Xie6vo0KB+SGiJw5ITQBoigI739Ej92
- qryATsU3jRjXM6WeGA5zy8i4df4TDNGlnLaPmXECQJN4RnKSJcfqZHnbRyLL4crMgxP3f+UH3eM
- 2Npxop+029KULitEbnAbJ2f0QjWROW7+lQaLmWylHGPJO3QFRLbSBGhT2Ui2hiWSpbwHexRwEzP
- kebUIAT8wsQKl7/CasEtSoh2i1KAWxFyvzfiSdlLklYmWHvKnQP8gz80wgOEKCYV2SK3SLE98ob
- AHe+h04BTtUrhdkeW2+kSZnmmqcSlPx7r/D/p7cUenw3nZwK2jhxOQoRVJ9jVFIncJAcxMumusQ
- VBkbzGVgQXbYYhCXpq0JI/S1jifbIL7ZR05MCj0ofXT4v9U1MjHcX0lW6AlnxQnCcsTgdnfvHFZ
- vNm2iwZ/mI2B4FsGSQ1wCGWron/o+1/t4VmGpyxbAI4YxWYdv8T/8jwZ3vmV+AcayB9FJtgKdZ3
- ItapESMN26UXBog==
-X-Developer-Key: i=n.schier@fritz.com; a=openpgp;
- fpr=7CF67EF8868721AFE53D73FDBDE3A6CC4E333CC8
-X-purgate-ID: 149429::1790668793-82FDBEF9-BFB7AAE7/0/0
-X-purgate-type: clean
-X-purgate-size: 3859
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 0C3A8A0434  external: no
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Let kconfig test framework forward dynamic keyword arguments for
-'olddefconfig' and 'savedefconfig' and update the _run_conf() calls in
-warn_changed_input to use the corrsponding wrappers instead.
+Provide a selection of tools for managing bvec queue chains and a memory
+pool for writeback to draw upon if needed.  The tools include the
+allocation, prepopulation and refcounting of bvecqs and bvecq chains.  When
+a chain is being cleaned up, the memory segments will be appropriately
+disposed off according to the flags on each bvecq in that chain, allowing
+for mixed memory cleanup types.
 
-The warn_changed_input test needed to use _run_conf() as the
-{old,save}defconfig wrapper did not provide the necessary flexibility
-for common calls.  With dynamic keyword arguments, there is no need to
-use the framework-internal _run_conf() any more.
+The main use for this is to replace the use of both folio_queues and
+kvmalloc'd bio_vec arrays in netfslib and creating a structure that allows
+network filesystems to easily build an entire message by gluing bits of
+protocol on either side of the bvecq chains and also glue chains together
+for sparse writes and compound operations.  This allows TCP-based
+transports to pass a message in a single sendmsg() call and avoid corking
+as this makes things more efficient.
 
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
-Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+This will also be used to do things like creating an encryption buffer in
+cifs or a directory content buffer in afs.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: Matthew Wilcox <willy@infradead.org>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
 ---
- scripts/kconfig/tests/conftest.py                    |  9 +++++----
- scripts/kconfig/tests/warn_changed_input/__init__.py | 11 ++++-------
- 2 files changed, 9 insertions(+), 11 deletions(-)
+ fs/netfs/Makefile            |   1 +
+ fs/netfs/bvecq.c             | 342 +++++++++++++++++++++++++++++++++++
+ fs/netfs/internal.h          |   2 +
+ fs/netfs/main.c              |   8 +
+ fs/netfs/stats.c             |   4 +-
+ include/linux/bvecq.h        | 116 ++++++++++++
+ include/linux/netfs.h        |   1 +
+ include/trace/events/netfs.h |  24 +++
+ 8 files changed, 497 insertions(+), 1 deletion(-)
+ create mode 100644 fs/netfs/bvecq.c
 
-diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
-index b2539e51e2a6..97ae0f79d03d 100644
---- a/scripts/kconfig/tests/conftest.py
-+++ b/scripts/kconfig/tests/conftest.py
-@@ -159,13 +159,13 @@ class Conf:
-         return self._run_conf('--oldconfig', dot_config=dot_config,
-                               interactive=True, in_keys=in_keys)
+diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
+index 54834cde7e56..b1ea4439c1bb 100644
+--- a/fs/netfs/Makefile
++++ b/fs/netfs/Makefile
+@@ -3,6 +3,7 @@
+ netfs-y := \
+ 	buffered_read.o \
+ 	buffered_write.o \
++	bvecq.o \
+ 	direct_read.o \
+ 	direct_write.o \
+ 	iterator.o \
+diff --git a/fs/netfs/bvecq.c b/fs/netfs/bvecq.c
+new file mode 100644
+index 000000000000..56ec6d8953b4
+--- /dev/null
++++ b/fs/netfs/bvecq.c
+@@ -0,0 +1,342 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Buffering helpers for bvec queues
++ *
++ * Copyright (C) 2026 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ */
++
++#include <linux/bvecq.h>
++#include "internal.h"
++
++void bvecq_dump(const struct bvecq *bq)
++{
++	int b = 0;
++
++	for (; bq; bq = bvecq_next(bq), b++) {
++		int skipz = 0;
++
++		pr_notice("BQ[%u] %u/%u\n", b, bq->nr_slots, bq->max_slots);
++		for (int s = 0; s < bq->nr_slots; s++) {
++			const struct bio_vec *bv = &bq->bv[s];
++
++			if (!bv->bv_page && !bv->bv_len && skipz < 2) {
++				skipz = 1;
++				continue;
++			}
++			if (skipz == 1)
++				pr_notice("BQ[%u:00-%02u] ...\n", b, s - 1);
++			skipz = 2;
++			pr_notice("BQ[%u:%02u] %10lx %04x %04x %u\n",
++				  b, s,
++				  bv->bv_page ? page_to_pfn(bv->bv_page) : 0,
++				  bv->bv_offset, bv->bv_len,
++				  bv->bv_page ? page_count(bv->bv_page) : 0);
++		}
++	}
++}
++EXPORT_SYMBOL(bvecq_dump);
++
++/**
++ * bvecq_alloc_one - Allocate a single bvecq node with unpopulated slots
++ * @nr_slots: Number of slots to allocate
++ * @gfp: The allocation constraints.
++ * @for_writeback: True if allocating for writeback
++ *
++ * Allocate a single bvecq node and initialise the header.  The allocation is
++ * rounded up to the size of the smallest slab granule that will accommodate it
++ * and all the remaining space is set as an inline slot array with max_slots
++ * set to the number of slots.  The slot array is not initialised.
++ *
++ * If @for_writeback is set, then the emergency mempool may be used for
++ * allocation.  If it does allocate from that pool, the maximum number of slots
++ * available will be BVECQ_POOL_SLOTS which may be less than requested.  Also,
++ * if @for_writeback is set, the function will not fail - though it may have to
++ * wait.
++ *
++ * Return: The node pointer or NULL on allocation failure.
++ */
++struct bvecq *bvecq_alloc_one(size_t nr_slots, gfp_t gfp, bool for_writeback)
++{
++	struct bvecq *bq;
++	const size_t pool_size = struct_size_t(struct bvecq, __bv, BVECQ_POOL_SLOTS);
++	size_t size;
++	bool from_pool = false;
++
++	size = kmalloc_size_roundup(struct_size(bq, __bv, nr_slots));
++	gfp &= ~(GFP_ZONEMASK | __GFP_THISNODE);
++
++	if (for_writeback) {
++		if (size != pool_size) {
++			gfp_t gfp_temp = gfp;
++
++			gfp_temp |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN;
++			gfp_temp &= ~(__GFP_DIRECT_RECLAIM | __GFP_IO);
++			bq = kmalloc(size, gfp_temp);
++			if (bq)
++				goto success;
++		}
++
++		bq = mempool_alloc_noreserve(&netfs_bvecq_pool, gfp);
++		if (!bq)
++			return bq;
++		from_pool = true;
++		size = pool_size;
++	} else {
++		bq = kmalloc(size, gfp);
++		if (!bq)
++			return bq;
++	}
++
++success:
++	*bq = (struct bvecq) {
++		.ref		= REFCOUNT_INIT(1),
++		.bv		= bq->__bv,
++		.inline_bv	= true,
++		.max_slots	= (size - sizeof(*bq)) / sizeof(bq->__bv[0]),
++		.from_pool	= from_pool,
++	};
++	netfs_stat(&netfs_n_bvecq);
++	return bq;
++}
++EXPORT_SYMBOL(bvecq_alloc_one);
++
++/**
++ * bvecq_alloc_chain - Allocate an unpopulated bvecq chain
++ * @nr_slots: Number of slots to allocate
++ * @gfp: The allocation constraints.
++ * @for_writeback: True if allocating for writeback
++ *
++ * Allocate a chain of bvecq nodes providing at least the requested cumulative
++ * number of slots.  Each node is a maximum of 4KiB in size.
++ *
++ * Return: The first node pointer or NULL on allocation failure.
++ */
++struct bvecq *bvecq_alloc_chain(size_t nr_slots, gfp_t gfp, bool for_writeback)
++{
++	struct bvecq *head = NULL, *tail = NULL;
++
++	_enter("%zu", nr_slots);
++
++	for (;;) {
++		struct bvecq *bq;
++
++		bq = bvecq_alloc_one(min(nr_slots, BVECQ_4KB_SLOTS), gfp, for_writeback);
++		if (!bq)
++			goto oom;
++
++		if (tail)
++			bvecq_append(tail, bq);
++		else
++			head = bq;
++		tail = bq;
++		if (tail->max_slots >= nr_slots)
++			break;
++		nr_slots -= tail->max_slots;
++	}
++
++	return head;
++oom:
++	bvecq_put(head);
++	return NULL;
++}
++EXPORT_SYMBOL(bvecq_alloc_chain);
++
++/**
++ * bvecq_alloc_buffer2 - Allocate a bvecq chain and populate with buffers
++ * @size: Target size of the buffer (can be 0 for an empty buffer)
++ * @pre_slots: Number of preamble slots to set aside
++ * @gfp: The allocation constraints.
++ * @for_writeback: True if allocating for writeback
++ *
++ * Allocate a chain of bvecq nodes and populate the slots with sufficient pages
++ * to provide at least the requested amount of space, leaving the first
++ * @pre_slots slots unset.  The pre-slots must all fit into the the first
++ * bvecq.
++ *
++ * The pages allocated may be compound pages larger than PAGE_SIZE and thus
++ * occupy fewer slots.  The pages have their refcounts set to 1 and can be
++ * passed to MSG_SPLICE_PAGES.
++ *
++ * Return: The first node pointer or NULL on allocation failure.
++ */
++struct bvecq *bvecq_alloc_buffer2(size_t size, unsigned int pre_slots, gfp_t gfp,
++				  bool for_writeback)
++{
++	struct bvecq *head = NULL, *p = NULL;
++	size_t nr_per_bq = BVECQ_POOL_SLOTS;
++	size_t count = pre_slots + DIV_ROUND_UP(size, PAGE_SIZE);
++
++	_enter("%zx,%zx,%u", size, count, pre_slots);
++
++	if (WARN_ON_ONCE(pre_slots > nr_per_bq))
++		return NULL;
++
++	head = bvecq_alloc_chain(count, gfp, for_writeback);
++	if (!head)
++		return NULL;
++
++	p = head;
++	do {
++		struct page **pages;
++		size_t unused, want, got, slot;
++
++		if (!count)
++			break;
++		if (WARN_ON_ONCE(!p))
++			goto oom;
++
++		if (p->nr_slots == 0) {
++			/* Need to clear pre slots and pages[], so just clear all. */
++			memset(p->bv, 0, p->max_slots * sizeof(p->bv[0]));
++			p->mem_type = BVECQ_MEM_ALLOCED;
++			p->nr_slots = pre_slots;
++			count -= pre_slots;
++			pre_slots = 0;
++			if (!count)
++				break;
++		}
++
++		if (p->nr_slots >= p->max_slots) {
++			p = p->next;
++			continue;
++		}
++		unused = p->max_slots - p->nr_slots;
++
++		pages = (struct page **)&p->bv[p->max_slots];
++		pages -= unused;
++
++		want = min(count, unused);
++		got = alloc_pages_bulk(gfp, want, pages);
++		if (!got)
++			goto oom;
++
++		slot = p->nr_slots;
++		for (int i = 0; i < got; i++) {
++			set_page_count(pages[i], 1);
++			bvec_set_page(&p->bv[slot++], pages[i], PAGE_SIZE, 0);
++		}
++
++		bvecq_filled_to(p, slot);
++		count -= got;
++	} while (count > 0);
++
++	return head;
++oom:
++	bvecq_put(head);
++	return NULL;
++}
++EXPORT_SYMBOL(bvecq_alloc_buffer2);
++
++/*
++ * Free the page pointed to by a slot as necessary.
++ */
++static void bvecq_free_slot(struct bvecq *bq, unsigned int slot)
++{
++	struct page *page = bq->bv[slot].bv_page;
++
++	if (!page)
++		return;
++
++	switch (bq->mem_type) {
++	case BVECQ_MEM_EXTERNAL:
++		break;
++	case BVECQ_MEM_PAGECACHE:
++		put_page(page);
++		break;
++	case BVECQ_MEM_GUP:
++		unpin_user_page(page);
++		break;
++	case BVECQ_MEM_ALLOCED:
++		__free_pages(page, compound_order(page));
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		break;
++	}
++}
++
++/**
++ * bvecq_put - Put a ref on a bvec queue
++ * @bq: The start of the folio queue to free
++ *
++ * Put the ref(s) on the nodes in a bvec queue, freeing up the node and the
++ * page fragments it points to as the refcounts become zero.
++ */
++void bvecq_put(struct bvecq *bq)
++{
++	struct bvecq *next;
++
++	for (; bq; bq = next) {
++		if (!refcount_dec_and_test(&bq->ref))
++			break;
++		for (int slot = 0; slot < bq->nr_slots; slot++)
++			bvecq_free_slot(bq, slot);
++		next = bq->next;
++		netfs_stat_d(&netfs_n_bvecq);
++		if (bq->from_pool)
++			mempool_free(bq, &netfs_bvecq_pool);
++		else
++			kfree(bq);
++	}
++}
++EXPORT_SYMBOL(bvecq_put);
++
++/**
++ * bvecq_expand_buffer - Allocate buffer space into a bvec queue
++ * @_buffer: Pointer to the bvecq chain to expand (may point to a NULL; updated).
++ * @_cur_size: Current size of the buffer (updated).
++ * @size: Target size of the buffer.
++ * @gfp: The allocation constraints.
++ *
++ * Append extra pages to a buffer to increase its capacity to the @size
++ * specified.  If the current tail has space, but is not of the
++ * BVECQ_MEM_ALLOCED memory type, a separate bvecq will be allocated to hold
++ * the new memory.
++ */
++int bvecq_expand_buffer(struct bvecq **_buffer, size_t *_cur_size, size_t size, gfp_t gfp)
++{
++	struct bvecq *tail = *_buffer;
++
++	size = round_up(size, PAGE_SIZE);
++	if (tail)
++		while (tail->next)
++			tail = tail->next;
++
++	while (*_cur_size < size) {
++		struct page *page;
++		size_t need = size - *_cur_size;
++		int order = 0;
++
++		if (!tail || bvecq_is_full(tail) || tail->mem_type != BVECQ_MEM_ALLOCED) {
++			struct bvecq *p;
++
++			p = bvecq_alloc_one(BVECQ_POOL_SLOTS, gfp, false);
++			if (!p)
++				return -ENOMEM;
++			if (tail)
++				bvecq_append(tail, p);
++			else
++				*_buffer = p;
++			tail = p;
++			p->mem_type = BVECQ_MEM_ALLOCED;
++		}
++
++		if (need > PAGE_SIZE)
++			order = umin(ilog2(need) - PAGE_SHIFT, MAX_PAGECACHE_ORDER);
++
++		page = alloc_pages(gfp | __GFP_COMP | __GFP_NORETRY | __GFP_NOWARN, order);
++		if (!page && order > 0) {
++			page = alloc_pages(gfp | __GFP_COMP, 0);
++			order = 0;
++		}
++		if (!page)
++			return -ENOMEM;
++
++		bvec_set_page(&tail->bv[tail->nr_slots], page, PAGE_SIZE << order, 0);
++		*_cur_size += PAGE_SIZE << order;
++		bvecq_filled_to(tail, tail->nr_slots + 1);
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(bvecq_expand_buffer);
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index b8591abc90a9..dd20a9f201be 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -45,6 +45,7 @@ extern struct list_head netfs_io_requests;
+ extern spinlock_t netfs_proc_lock;
+ extern mempool_t netfs_request_pool;
+ extern mempool_t netfs_subrequest_pool;
++extern mempool_t netfs_bvecq_pool;
+ extern mempool_t netfs_folioq_pool;
  
--    def olddefconfig(self, dot_config=None):
-+    def olddefconfig(self, dot_config=None, **kw):
-         """Run olddefconfig.
+ #ifdef CONFIG_PROC_FS
+@@ -203,6 +204,7 @@ extern atomic_t netfs_n_wh_retry_write_subreq;
+ extern atomic_t netfs_n_wb_lock_skip;
+ extern atomic_t netfs_n_wb_lock_wait;
+ extern atomic_t netfs_n_folioq;
++extern atomic_t netfs_n_bvecq;
  
-         dot_config: .config file to use for configuration base (optional)
-         returncode: exit status of the Kconfig executable
-         """
--        return self._run_conf('--olddefconfig', dot_config=dot_config)
-+        return self._run_conf('--olddefconfig', dot_config=dot_config, **kw)
+ int netfs_stats_show(struct seq_file *m, void *v);
  
-     def defconfig(self, defconfig):
-         """Run defconfig.
-@@ -229,14 +229,15 @@ class Conf:
+diff --git a/fs/netfs/main.c b/fs/netfs/main.c
+index 609e22e8f76a..5c8517a66dde 100644
+--- a/fs/netfs/main.c
++++ b/fs/netfs/main.c
+@@ -28,6 +28,7 @@ static struct kmem_cache *netfs_request_slab;
+ static struct kmem_cache *netfs_subrequest_slab;
+ mempool_t netfs_request_pool;
+ mempool_t netfs_subrequest_pool;
++mempool_t netfs_bvecq_pool;
+ mempool_t netfs_folioq_pool;
  
-         return self._allconfig('rand', all_config, extra_env=extra_env)
+ #ifdef CONFIG_PROC_FS
+@@ -111,6 +112,10 @@ static int __init netfs_init(void)
+ 	if (mempool_init_kmalloc_pool(&netfs_folioq_pool, 100, sizeof(struct folio_queue)) < 0)
+ 		goto error_folioq_pool;
  
--    def savedefconfig(self, dot_config):
-+    def savedefconfig(self, dot_config, out_file='defconfig', **kw):
-         """Run savedefconfig.
++	if (mempool_init_kmalloc_pool(&netfs_bvecq_pool, 100,
++				      struct_size_t(struct bvecq, __bv, BVECQ_POOL_SLOTS)) < 0)
++		goto error_bvecq_pool;
++
+ 	netfs_request_slab = kmem_cache_create("netfs_request",
+ 					       sizeof(struct netfs_io_request), 0,
+ 					       SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
+@@ -163,6 +168,8 @@ static int __init netfs_init(void)
+ error_reqpool:
+ 	kmem_cache_destroy(netfs_request_slab);
+ error_req:
++	mempool_exit(&netfs_bvecq_pool);
++error_bvecq_pool:
+ 	mempool_exit(&netfs_folioq_pool);
+ error_folioq_pool:
+ 	return ret;
+@@ -177,6 +184,7 @@ static void __exit netfs_exit(void)
+ 	kmem_cache_destroy(netfs_subrequest_slab);
+ 	mempool_exit(&netfs_request_pool);
+ 	kmem_cache_destroy(netfs_request_slab);
++	mempool_exit(&netfs_bvecq_pool);
+ 	mempool_exit(&netfs_folioq_pool);
+ }
+ module_exit(netfs_exit);
+diff --git a/fs/netfs/stats.c b/fs/netfs/stats.c
+index 9a607c4e62dd..a10d34f88597 100644
+--- a/fs/netfs/stats.c
++++ b/fs/netfs/stats.c
+@@ -47,6 +47,7 @@ atomic_t netfs_n_wh_retry_write_subreq;
+ atomic_t netfs_n_wb_lock_skip;
+ atomic_t netfs_n_wb_lock_wait;
+ atomic_t netfs_n_folioq;
++atomic_t netfs_n_bvecq;
  
-         dot_config: .config file for input
-+        out_file: defconfig file for output
-         returncode: exit status of the Kconfig executable
-         """
-         return self._run_conf('--savedefconfig={}'.format(out_file),
--                              dot_config=dot_config, out_file='defconfig')
-+                              dot_config=dot_config, out_file=out_file, **kw)
+ int netfs_stats_show(struct seq_file *m, void *v)
+ {
+@@ -88,9 +89,10 @@ int netfs_stats_show(struct seq_file *m, void *v)
+ 		   atomic_read(&netfs_n_rh_retry_read_subreq),
+ 		   atomic_read(&netfs_n_wh_retry_write_req),
+ 		   atomic_read(&netfs_n_wh_retry_write_subreq));
+-	seq_printf(m, "Objs   : rr=%u sr=%u foq=%u wsc=%u\n",
++	seq_printf(m, "Objs   : rr=%u sr=%u bq=%u foq=%u wsc=%u\n",
+ 		   atomic_read(&netfs_n_rh_rreq),
+ 		   atomic_read(&netfs_n_rh_sreq),
++		   atomic_read(&netfs_n_bvecq),
+ 		   atomic_read(&netfs_n_folioq),
+ 		   atomic_read(&netfs_n_wh_wstream_conflict));
+ 	seq_printf(m, "WbLock : skip=%u wait=%u\n",
+diff --git a/include/linux/bvecq.h b/include/linux/bvecq.h
+index 77fd07852c33..b984aaa44908 100644
+--- a/include/linux/bvecq.h
++++ b/include/linux/bvecq.h
+@@ -43,8 +43,124 @@ struct bvecq {
+ 	u16		max_slots;	/* Number of elements allocated in bv[] */
+ 	enum bvecq_mem	mem_type:3;	/* What sort of memory and how to free it */
+ 	bool		inline_bv:1;	/* T if __bv[] is being used */
++	bool		from_pool:1;	/* T if bvecq from mempool */
+ 	struct bio_vec	*bv;		/* Pointer to array of page fragments */
+ 	struct bio_vec	__bv[];		/* Default array (if ->inline_bv) */
+ };
  
-     def listnewconfig(self, dot_config=None):
-         """Run listnewconfig.
-diff --git a/scripts/kconfig/tests/warn_changed_input/__init__.py b/scripts/kconfig/tests/warn_changed_input/__init__.py
-index a5f07d4a882c..17b602dd280e 100644
---- a/scripts/kconfig/tests/warn_changed_input/__init__.py
-+++ b/scripts/kconfig/tests/warn_changed_input/__init__.py
-@@ -15,17 +15,14 @@ def test(conf):
-     assert conf.olddefconfig('config') == 0
-     assert 'user-provided values changed by Kconfig' not in conf.stderr
++/* Number of slots in a 512-byte mempool-backed bvecq. */
++#define BVECQ_POOL_SLOTS ((512 - sizeof(struct bvecq)) / sizeof(struct bio_vec))
++
++/* Number of slots in a 4K bvecq. */
++#define BVECQ_4KB_SLOTS  ((4096 - sizeof(struct bvecq)) / sizeof(struct bio_vec))
++
++void bvecq_dump(const struct bvecq *bq);
++struct bvecq *bvecq_alloc_one(size_t nr_slots, gfp_t gfp, bool for_writeback);
++struct bvecq *bvecq_alloc_chain(size_t nr_slots, gfp_t gfp, bool for_writeback);
++struct bvecq *bvecq_alloc_buffer2(size_t size, unsigned int pre_slots, gfp_t gfp,
++				  bool for_writeback);
++void bvecq_put(struct bvecq *bq);
++int bvecq_expand_buffer(struct bvecq **_buffer, size_t *_cur_size, size_t size, gfp_t gfp);
++
++/**
++ * bvecq_alloc_buffer - Allocate a bvecq chain and populate with buffers
++ * @size: Target size of the buffer (can be 0 for an empty buffer)
++ * @gfp: The allocation constraints.
++ * @for_writeback: True if allocating for writeback
++ *
++ * Wrapper around %bvecq_alloc_buffer2().
++ */
++static inline struct bvecq *bvecq_alloc_buffer(size_t size, gfp_t gfp, bool for_writeback)
++{
++	return bvecq_alloc_buffer2(size, 0, gfp, for_writeback);
++}
++
++/**
++ * bvecq_get - Get a ref on a bvecq
++ * @bq: The bvecq to get a ref on
++ */
++static inline struct bvecq *bvecq_get(struct bvecq *bq)
++{
++	refcount_inc(&bq->ref);
++	return bq;
++}
++
++/**
++ * bvecq_is_full - Determine if a bvecq is full
++ * @bvecq: The object to query
++ *
++ * Return: true if full; false if not.
++ */
++static inline bool bvecq_is_full(const struct bvecq *bvecq)
++{
++	return bvecq->nr_slots >= bvecq->max_slots;
++}
++
++/**
++ * bvecq_filled_to - Release filled slots with release barrier
++ * @bvecq: The object modified
++ * @to: The latest slot filled + 1
++ */
++static inline void bvecq_filled_to(struct bvecq *bvecq, unsigned int to)
++{
++	/* Set the slot counter after filling the slot */
++	smp_store_release(&bvecq->nr_slots, to);
++}
++
++/**
++ * bvecq_nr_slots_acquire - Get the number of filled slots with acquire barrier
++ * @bvecq: The object to query
++ *
++ * Return: The number of filled slots
++ */
++static inline unsigned int bvecq_nr_slots_acquire(const struct bvecq *bvecq)
++{
++	/* Read the slot counter before looking at the slot */
++	return smp_load_acquire(&bvecq->nr_slots);
++}
++
++/**
++ * bvecq_acquire_slot - Determine if a slot is valid with acquire barrier
++ * @bvecq: The object to query
++ * @slot: The next slot
++ *
++ * Return: true if valid; false if might not be valid
++ */
++static inline bool bvecq_acquire_slot(const struct bvecq *bvecq, unsigned int slot)
++{
++	/* Read the slot counter before looking at the slot */
++	return slot < bvecq_nr_slots_acquire(bvecq);
++}
++
++/**
++ * bvecq_append - Get the next bvecq with appropriate barrier
++ * @to: The bvecq to append to
++ * @add: The bvecq to append
++ *
++ * Attach a new bvecq to a chain using an appropriate barrier to protect the
++ * write.
++ *
++ * [!] Note that this function transfers the caller's ref to the chain.
++ */
++static inline void bvecq_append(struct bvecq *to, struct bvecq *add)
++{
++	add->prev = to;
++
++	/* Make sure the initialisation is stored before the next pointer. */
++	smp_store_release(&to->next, add);
++}
++
++/**
++ * bvecq_next - Get the next bvecq with appropriate barrier
++ * @bq: The bvecq to start from
++ *
++ * Return the next bvecq in a chain, using an appropriate barrier to protect
++ * the access.
++ */
++static inline struct bvecq *bvecq_next(const struct bvecq *bq)
++{
++	/* Read the contents of the next node after the pointer to it. */
++	return smp_load_acquire(&bq->next);
++}
++
+ #endif /* _LINUX_BVECQ_H */
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index 67e010b6994b..1723bcda86ba 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -17,6 +17,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/fs.h>
+ #include <linux/pagemap.h>
++#include <linux/bvecq.h>
+ #include <linux/uio.h>
+ #include <linux/rolling_buffer.h>
  
--    assert conf._run_conf('--olddefconfig', dot_config='config',
--                          extra_env=warn_changed_input) == 0
-+    assert conf.olddefconfig('config', extra_env=warn_changed_input) == 0
-     assert conf.stderr_contains('expected_stderr')
-     assert conf.config_matches('expected_config')
+diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
+index bf1e1f185b05..3fe3d47ba55b 100644
+--- a/include/trace/events/netfs.h
++++ b/include/trace/events/netfs.h
+@@ -817,6 +817,30 @@ TRACE_EVENT(netfs_read_progress_at,
+ 		      __entry->rreq, __entry->cleaned_to, __entry->progress_at)
+ 	    );
  
--    assert conf._run_conf('--olddefconfig', dot_config='config',
--                          extra_env=warn_changed_input, silent=True) == 0
-+    assert conf.olddefconfig('config', extra_env=warn_changed_input,
-+                             silent=True) == 0
-     assert conf.stderr_contains('expected_stderr')
- 
--    assert conf._run_conf('--savedefconfig=defconfig', dot_config='config',
--                          out_file='defconfig',
--                          extra_env=warn_changed_input) == 0
-+    assert conf.savedefconfig('config', extra_env=warn_changed_input) == 0
-     assert conf.stderr_contains('expected_stderr')
-     assert conf.config_matches('expected_defconfig')
-
--- 
-2.55.0
++TRACE_EVENT(netfs_bv_slot,
++	    TP_PROTO(const struct bvecq *bq, int slot),
++
++	    TP_ARGS(bq, slot),
++
++	    TP_STRUCT__entry(
++		    __field(unsigned long,		pfn)
++		    __field(unsigned int,		offset)
++		    __field(unsigned int,		len)
++		    __field(unsigned int,		slot)
++			     ),
++
++	    TP_fast_assign(
++		    __entry->slot = slot;
++		    __entry->pfn = page_to_pfn(bq->bv[slot].bv_page);
++		    __entry->offset = bq->bv[slot].bv_offset;
++		    __entry->len = bq->bv[slot].bv_len;
++			   ),
++
++	    TP_printk("bq[%x] p=%lx %x-%x",
++		      __entry->slot,
++		      __entry->pfn, __entry->offset, __entry->offset + __entry->len)
++	    );
++
+ #undef EM
+ #undef E_
+ #endif /* _TRACE_NETFS_H */
 
