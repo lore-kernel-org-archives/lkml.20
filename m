@@ -1,172 +1,143 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E204FE2C1
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176C23DE43F;
+	Tue, 29 Sep 2026 10:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676015; cv=none; b=EMiTEU5jaADETZGqoctMvDO3erip4OEi4TtzHbivDIu8Oda9H1HZkfLfGFbRyYhLdzKlfW/ZlGhWI2bT4b8Xr5k1uNENyemUUUH8+Fk+Znf9YegpI2aVACSBsr5Nr3UDh72Q+cci1bmnF/wW1EwHnFpJqfojy6F+NzGhP7Min1o=
+	t=1790676023; cv=none; b=Odr5nLhzkbvxFGDv2jEnJ4eiZp+F/AW6JkrhWO0jYm3GL5YhcQFtvUnpv/5teigXQV2ROr5xFgD7iLIfQMemkas3XG/O17yuJLy5SmCuyHOKYnVXM6tZwcRepXu7iQxN/IDDoS5Mrvho7a/fLlumKoXEymql6zQKjvmuav6v6QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676015; c=relaxed/simple;
-	bh=nW2BpZfMFPJe+aNQAl50PTVcOHGXLoiRKZhhr8y1y+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gteb5t8JM+aM/b47Lu/b6hTnE7f0z6b4RIqVaxxSB48hK6C1FvZcW52us5vULJmlYZDX86AYJ/B/8l5u2p+HJEcn9z0gIWtet+VWxfrgVSSl8V6yp/UCPQUGlYp0u9liSoYu42qeSeFV5Gdbs0reOgWHA1Pkd0MWa1fBra99fiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=czAYU6TD; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="czAYU6TD"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso4978895e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790676003; x=1791280803; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t0YyI8T0uXaAdN/WX1SYDvqqDpfpjOyIiMHz8pNiIDc=;
-        b=czAYU6TDs/qJpUEvcimzBjaxgvwROLjK4nR/VKetr20qgtaU081Xl4ZARCZdYI5Yyi
-         7hIdrkEmun9CrNQWgNpboFQeenC8U2N+8WK4k5Dl4/Qi2zbuCiMnALioo5UM2cEeO1pI
-         UCGwq/bdT2c9wCpBQyMlNUEDcm/3HznisXRItGBY1PEc98tCpPKU79isBWbQnIcNcCBB
-         j+G1uUtjSaDPhOtUF3nHq6OrXLg9uFPQjMCxF+6am+Agi/2CBvSgZgP2/YGnIixxFMcg
-         pIypha3+sSTgCcDIVxN14EM9MBzsTWn85bD0VqoGNWcPhU7s+zaADPo9niyqjWoI16vI
-         cZ3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790676003; x=1791280803;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t0YyI8T0uXaAdN/WX1SYDvqqDpfpjOyIiMHz8pNiIDc=;
-        b=kfXpEDy7fK0Y8JVGyzZlXanozj/8zKqGNKlevmSiXrgAl3yxMiquPMYAgQ1fgv0nBO
-         Jn76xwchr3hACPV85xH5PGwNeVB8uE01a6bgGbZBlgLM0KjUmllrSiZcP4oNXOakvzyp
-         P6KwELpy8+nQQQ7RTRodi2oJVfxx7qV2LgEs7eRs5A7O9+22Hte9D1QQQ//7iLs4mknB
-         0EVNUC5Urv+xX7OpJEeVXspj/0xJkrzR07cKYPVCOC8B7K+GD5mwexq1pmCnIJ66XOFi
-         +/1mDDJbGZVuEIFpOaov9Ei/VBhBjSlEvNwbxVID0J2kfjaoqyawJXOJtSBbs1ILaIVT
-         3btw==
-X-Forwarded-Encrypted: i=1; AKwUvByhaQil+g1G0GeSwg6u6CBdte8AbkCNJs1VGMPjusbp8jv9ed0qoYOYKrzKTst9JW5S3YZESvGtyP6/8mo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQLnMsLelVy12VMa268VpydOZMVvoieJEXTkoItIeLdK/PKlBd
-	ew8T0CrrdGVroS+LMJvqJp4L7DGypN/W2GRmXt3iCQkg5r0YnGp5psorzMxa9m9Krl4=
-X-Gm-Gg: AYBFou0688TuKCkrUKE7SyMbEKhUEDlc95O/ZLxvXBkbJhFKxaz5vgJjqZkycUTQQfw
-	KUGakUjCW/tK3HVrgDoHGej2Un7MaCbBpQ0BD+t8YipZ12vYMdaqEQfCSrF0HGbTAK38o6CQal2
-	jNUQ9q5IH9fEpF0Zfj8FinMuJ1RXEgTxHtO02UucYeaJBIL2XqNjbntFqkZaCOuSbdwAAN7rUaq
-	u5yuyP4ExKCeNUEQOK5hWPcySywO/iu2nieYT54ZmRevUrubsDAIYWvL1DrtnIStYGay2zwgpdR
-	g47Te6M8DpUWW5TVSIcqV2tEvrkgtp7B5ET+a8CJh7f24kz8GxZ4mke2IYVV0OnGHO0RXz0Df1Y
-	Uy00TvKWvrfhG/m5rT26TgUeIA4Nn7xn6ONwKXEFzGOFI3AvHIq47IDHrqDPD2ta9nqP6fee/w3
-	Ya6FuWQ/wESeNFXxIVw9GCYgRg+9EUjZG0+QyPvqytDXrOJqos2qTeJ8MIbErmMtwrgmS8QRbZB
-	/uOiFmsC9wlUu3Uu4F5bQm+Tg==
-X-Received: by 2002:a05:600c:470d:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a00d778efemr28813305e9.14.1790676003381;
-        Tue, 29 Sep 2026 03:00:03 -0700 (PDT)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf4598esm69391025e9.0.2026.09.29.03.00.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 03:00:02 -0700 (PDT)
-Date: Tue, 29 Sep 2026 12:00:00 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jim Cromie <jim.cromie@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	Kees Cook <kees@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>,
-	Jiri Olsa <olsajiri@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, live-patching@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH v6 0/3] kallsyms: Accelerate symbol name lookups by ~7x
-Message-ID: <aruMIFRPBEVX_j0N@pathway.suse.cz>
-References: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
- <20260926133859.c8232c439184dfa17472b020@linux-foundation.org>
- <20260927065728.7f159234@pumpkin>
+	s=arc-20240116; t=1790676023; c=relaxed/simple;
+	bh=JNmDqQEsqaS3LQl7YieCN8X6JrPQ2zp01edgGMu334g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ibw/5qJFSxZ3NCbz9ZB8YYp1LxFZM8Emmw4WjT9kSGUwQ4yXGtklTdHdq8xoXnWXmiK7GANjp5iAsw7y++JcZHY6T7kofKjvKAS02B2Wi38kZJMMk5mgabaVCIZpM1D6vPDsmWl53+qSOy/MxkcmBjk0aAqoVO0obDQxwb3t6y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0674362|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13581216796948058038|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jRJbyjk_1790675684;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jRJbyjk_1790675684 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 17:54:45 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v22 2/3] net: phy: Add support for Template Control register for PMA
+Date: Tue, 29 Sep 2026 17:54:29 +0800
+Message-Id: <20260929095430.508657-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260929095430.508657-1-kyle.switch@motor-comm.com>
+References: <20260929095430.508657-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927065728.7f159234@pumpkin>
+Content-Transfer-Encoding: 8bit
 
-On Sun 2026-09-27 06:57:28, David Laight wrote:
-> On Sat, 26 Sep 2026 13:38:59 -0700
-> Andrew Morton <akpm@linux-foundation.org> wrote:
-> 
-> > On Sat, 26 Sep 2026 13:40:11 -0600 Jim Cromie <jim.cromie@gmail.com> wrote:
-> > 
-> > > As measured by kernel/kallsyms_selftest across ~184k symbols,
-> > > kallsyms_lookup_names() binary search takes ~6.1 us per lookup due to
-> > > two inner-loop costs:  
-> > 
-> > We don't have a kallsyms maintainer afaik.  Petr is pretty active in
-> > there so let's give him a hopeful cc.
+Add support for the 10GBASE-T PMA Template Test Mode register
+field, which allows selecting one of eight test modes (Normal and
+TestMode1..TestMode7) used for PHY validation.
 
-I am not sure if I could find time to look at the code deeper anytime
-soon. I put it on my TODO list but I do not promise anything...
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
+ include/linux/phy.h       |  1 +
+ include/uapi/linux/mdio.h | 12 ++++++++++++
+ 3 files changed, 36 insertions(+)
 
-Anyway, the kallsyms search speed might be interesting for tracing,
-livepatching, bpf, and maybe module loader. AFAIK, Geert used to
-interested into the kernel size. Adding them into Cc...
+diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
+index 870920311f9a..c5f5753f7194 100644
+--- a/drivers/net/phy/phy-c45.c
++++ b/drivers/net/phy/phy-c45.c
+@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
+ }
+ EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
+ 
++/**
++ * genphy_c45_template_testmode - configure template testmode registers
++ * @phydev: target phy_device struct
++ * @test_mode: testmode includes Normal to Test mode 7
++ *
++ * Description: Set template testmode include Normal to Test mode 7
++ *
++ * Return: 0 on success, or a negative error code on failure (e.g. register
++ * read/write error).
++ */
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
++{
++	u16 ctrl;
++
++	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
++		return -EOPNOTSUPP;
++
++	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
++	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
++			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
++}
++EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
++
+ /**
+  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
+  * @phydev: target phy_device struct
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 7c5098a0dd6c..b9dee2655e6b 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2357,6 +2357,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
+ int genphy_c45_pma_resume(struct phy_device *phydev);
+ int genphy_c45_pma_suspend(struct phy_device *phydev);
+ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
+ int genphy_c45_plca_get_cfg(struct phy_device *phydev,
+ 			    struct phy_plca_cfg *plca_cfg);
+ int genphy_c45_plca_set_cfg(struct phy_device *phydev,
+diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+index 06f4bc3c20c7..353ca13c64fc 100644
+--- a/include/uapi/linux/mdio.h
++++ b/include/uapi/linux/mdio.h
+@@ -63,6 +63,7 @@
+ /* Media-dependent registers. */
+ #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
+ #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
++#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
+ #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
+ 					 * Lanes B-D are numbered 134-136. */
+ #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
+@@ -320,6 +321,17 @@
+ /* PMA 10GBASE-R Fast Retrain status and control register. */
+ #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+ 
++/* PMA 10GBASE-T Template Test Mode Register*/
++#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
++#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
++#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
++#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
++#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
++#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
++#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
++#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
++#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
++
+ /* PCS 10GBASE-R/-T status register 1. */
+ #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+ 
+-- 
+2.25.1
 
-Best Regards,
-Petr
-
-> > > 0. Candidate symbols are fully decompressed into a 512-byte stack buffer
-> > >    before calling strcmp(), even though non-matching steps could choose on the
-> > >    first differing character (0..N-1).
-> > > 
-> > > 1. Probes scan sequentially from 256:1 markers in kallsyms_names[],
-> > >    decoding an average of 127.5 symbols per probe (~2,170 hops across a
-> > >    17-step search).
-> > > 
-> > > This 3-patch series addresses both:
-> > > 
-> > > 0. Patch 1 introduces kallsyms_strcmp_symbol() to compare ASCII queries
-> > >    against compressed tokens on the fly, bailing out on first mismatch.
-> > >    Drops the 512-byte stack buffer and saves ~530 ns.
-> > > 
-> > > 1. Patch 2 increases marker density from 256:1 to 16:1, cutting average
-> > >    scan distance from 127.5 to 7.5 hops and dropping lookup latency from
-> > >    6,102 ns to 866 ns for +42.2 KiB of .rodata.
-> > > 
-> > > 2. Patch 3 inlines and unrolls get_symbol_seq() 24-bit reconstruction.
-> > > 
-> > > Results (kernel/kallsyms_selftest across ~184k symbols):
-> > > - Baseline (256:1):  6,102 ns
-> > > - Patch 1 (strcmp):  5,572 ns (-530 ns)
-> > > - Patch 2 (16:1):      866 ns (7.0x faster)
-> > > - Memory: +42.2 KiB .rodata, 0 bytes dynamic RAM  
-> > 
-> > Can you better explain the tradeoffs here?  Increased memory use?  If
-> > so how much?  Is any change in build time expected?
-> 
-> I've had a thought of a scheme that should give most of the ~19x
-> improvement of the original patch without increasing the data size and
-> with only a small increase in code size.
-> The downside is a slight slow down for sequential access.
-> 
-> The thing to do is replace the 24bit 'symbol number' in the 'sorted by name'
-> list with the offset of the beginning of the name.
-> (For very large kernels it may need to be 32bit.)
-> The binary search for the symbol name then doesn't need a linear scan
-> and also loses one level of indirection.
-> You then need to do another binary search over the 'offset of every 256th
-> entry' table, followed by a linear search to find the correct address.
-> 
-> For sequential access there is a reasonable chance the next symbol is in
-> the same 256 symbol block (in address order), that can be quickly checked.
-> 
-> I got the code to run in userspace yesterday (with a real kernel symbol
-> table), I might look at some changes later today.
-> 
-> David
-> 
-> > 
-> > 
-> > What isn't addressed in here (afaict) is "who cares".  Is there some
-> > workload which is kallsyms-intensive?
-> > 
-> > This info really should be right in the first para of the [0/N], and in
-> > detail.  What benefit does this work offer to our users?  Use cases,
-> > example scenarios, etc.
-> > 
-> > Apologies if I missed this in earlier discussions, but if it was in the
-> > [0/N] this wouldn't matter!
