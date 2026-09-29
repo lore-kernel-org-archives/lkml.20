@@ -1,270 +1,180 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012032.outbound.protection.outlook.com [40.93.195.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAAE3E1688
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A45C38911E;
+	Tue, 29 Sep 2026 19:20:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709566; cv=pass; b=JNawCxmvsWITkb+3FFCBL8Cy8XxicFqe8b0Qn+qk2t15yX3gKinGH1jgldRMe+Ym7KQl6aHqcRtAQDXYrxM1LeYA8LeSB2P1ySgSRD7EDqeE2z35jHMqLBv4jMoxcMS6K1eXWFRf1WPSIombotAGuUcB3j3aVmhEh9WF0MZ0TCQ=
+	t=1790709610; cv=fail; b=kzPxHwKCZkMQaOWEOKnVxHBSaJ+TZxGBAkWIaVzTAtH0qIwoG/0Ov1HtJALPNtHilpwthQqJwRt5isuBLuEM+v2Rw93tf2PeRqjkQn6/N1TKwEnMwl26SfoSnNL5JnUAAwVdYNgNc67n9SqRQig+JbaDhdTkzgJIoEF+GHZ+ip4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709566; c=relaxed/simple;
-	bh=44gjQzNxBrnR5TH9xUkmggx7BOgePD2SnGCc2dJUF84=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RUMWm9Q1DPBPwqDKgwTAlr0K7O8ve2VstJm2MFwc+Ptpp1hbEOssO16co+V1q6P+xgGzhG3YvlNIV3OUeheVpwvOHWc3lhp3DLDju1bgeAjX6hylK/sW2CveTjBb13/t3Q4fhks671ZQajOONCWLA9e90NuSoEAdPgbyPGcn27w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JMJApMI2; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790709610; c=relaxed/simple;
+	bh=DVrM7A3LuBldqzj/YTxrYRoP8CWKYdMQYhq5TLUxrIY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=f+rUJJF1WM0k6tv/8zvSs1K0n9js6N02kgxSsTLlHC7WFMdBQBgz3U8JTTFa9h3VDLTgUOc25V/Qbs7n00+TFBYyPmx5eH1UF+cijLMdwK23bmZ6nFiUqfykDBc8GidC4OJaNhZQ8Vf5k9ffK3v2YyWmD4xpCUQbmNHDNWfTC34=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PJZWEaet; arc=fail smtp.client-ip=40.93.195.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JMJApMI2"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c6d6660191so2317930b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:19:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790709563; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nGjCltmQ2GF1CfYCTXGOJjeM+Mz1P09cIOtiewWVJfmS3p9f/d3fWvxnFjbMu6SVki
-         nmn0ViRFfuzKUncFw8ukwXBZLs90ewibRLDJBzks07Aoxo67bMDGxmyQAyhQb6vEfzmm
-         g0cvXqrqi2zEiBTgn4VGWKGqiC2MzapQtW/cU/YbHEbDMPT9CsD7QNuM7TW0ZC6MwwFh
-         3fubh1OwttDqULxpAZY8+vg/GYDlPvEnUJeZjcCi0ErIdLvhSr5s56otNKEcP+fAOJC8
-         9kZ38PVIIscJyHt1AC6kDvHIOAzmehA9KihvtpdLf5Kd3Cf0HiznYZ25WlF846Ps2xE2
-         EDsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
-        fh=jqStuZmmzZXcXKgPa9if7EG8djs4K4B7imjqFhenK70=;
-        b=TocFV+TyulSl1R3rn7yVSzHqFfnReD76L/pKGCDmTCT3Vn5Ew2FcGCXaps3ttGq40/
-         233lxkNM93TtdzdAo6rXtRD4NvUGTuhzah/5WFHDLqem5VysOxAg7GCXGJloZfa0yPFN
-         L54yelHAhoXlFyiYoJsjDggRXk6IPnFvK55ql9ikj/a5KF9ywDaONoBSFf/OIiHP609y
-         3/PuE1o+Oxvm5YiGJ/SD5h1njWqRLqWjnSUp2PFUSl1pc/qD6M4QzdjQFiHxtofDzppr
-         +NfENFAtPeuvFzRDhTldr9x+RoCX2zZQSwQt4tlajTK9p8RmbRbNAE+2hIyLNFW30U1q
-         mAfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790709563; x=1791314363; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
-        b=JMJApMI2XTRZLEHtxUrZl2n2EQmY/2Ajpm+g4jhibncyJOLLXg1E8Qy8gCHbwTxqdU
-         /fLof0bDEGt4deK0s+yMemt9bhnc4IEslAPrcRhU+3JyNmlGNWrZIxasDDb+npSkLFaI
-         4o4RaJeguh7Sm+/yN6j9GMXRM1C7DN0vfSLVDuq6yK9dG6JRRBbHzV7cDr+DHW0qCG4F
-         +2/s5wlvBmuf2o/d8KjnJZT4peptqj86O9ggQU5LIiCZshCVXPyRrDyXapmRZmyZsMER
-         c+1sF/BwH5/qHsfW2A6GpceR38okqtfHxTv7OA6YsyDkaVxk+hKJhD8tfEdOT5fB6BrV
-         FmSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790709563; x=1791314363;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
-        b=wcVhOiNnRE/QtSeBz5dFpxSABjFAOyInTJMd5abgrY5joS9kLiAXK+ulW0dp5FW0Vh
-         jw1MlcPNDrNegH0E0NIc5cdn+sZYivrb0PvyG+cPL8kD9kaX7651PTDQGnILRF07lbhI
-         RrsJSI153R7BEHoUsv9PQK59OuUxyvWze2Ol4XoQdjeVMdJKzG58X//1wit8ik/XttIq
-         HVoXtLpo+NCWTK1I1OLQUQzZPzSVCaatGq36CM5z3699GabqvxFMcOdYJ449htEjNgmu
-         l56TZN6fmKj7CXgf3c6+TMKwRRyjHKpPZfUD/tJ8GgFxkLf0ucdEc0HrK6G1ubuQr0o7
-         em4w==
-X-Forwarded-Encrypted: i=1; AKwUvByPk4w2Wj5iBFrLDCZaa6i+1UIvqyKRg5VF2BOsE3kYbYzvl/TMJ/28xWQeSYdx6rM2TQNaCPfpOFeMHCg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrXMoPgDyxtvHlyCH2dGAaBe8uWzadAH7q1eJ5f+BWcqDeg0mG
-	twoGzxz+dWy6xvuOSq2BHkAazr3GiJKgk9HzMGOeYv+GKWIlkDGjkMWkSyf/6fauinLFJSQOOPI
-	A5Ycc4W6KPavYQEo/BZvZ0h6cmY9B3FY=
-X-Gm-Gg: AYBFou3xHgxWqpWt6V2XlIp9kj+JGM4CHNgYM6QD3xcybSg6SQumAR9HCRUYuwkH7sU
-	emxROAFb1c0YZqW/rlc1+j5u+J0/3eC/CsxlpDiXdIv4LhPgKAZ6p4Lt7bQz02cONcgXNUzpoZw
-	PrEKHl/DOWJEgtefoXuadnXGtKEDe0MO/1GTL8Bq4QpNrivMsA3hxp2hLDSqOh/IF3Usiad1U3w
-	XF/aChJRiTWX3HPxxmTk8M3CDBEewjNmi8tR4SXtuMkRaUa4NtsuZE35rc73rK6GyUg+ZuNWJ1h
-	QDAYQd9mDyoUTTzUePm6SwUBA57T5Jxrc5/LFweakJ/gyXDuNqo5j2ifYkT8kjdgB5v49sqtM3/
-	WuoMZDNURVw==
-X-Received: by 2002:a05:6808:1714:b0:4c3:82cd:601a with SMTP id
- 5614622812f47-4f06a4671d5mr577481b6e.32.1790709563185; Tue, 29 Sep 2026
- 12:19:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PJZWEaet"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y63LtvOvt7fsprxg3CSblwL55416WdTnxSKijtuxqy7/w8COz8fXj3ojMkVJoKdpXsyqW2+nhKZib1CzDpmR7kAsKHM8rXUgXBa7JAjo7JVZ5Oas0jWK6kkF4ZKcLvcD6wLhPOZaquf2SW/X1QlAHHk1Yu6j+4O8/RdKyBngyYe9s3OC+2UTb9yZ4znixXvQ/ec5MJxi1wipXZF5v5fmfH4erKxPYBRQyXepKaO/0oKLA1N0WLwwcoZlf1hEBVDvasHMouEoMTRheLbQhVHVV7gCKalimvNacLJkgJdSRVqNn1/P8LxPSLyXYEE89QLLUcMXqmzwO44Q0wkTFOwfaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zx6ZLt8mUpI8PjagzJq/Qi37X42TgGpBll4N6eOlTQY=;
+ b=f6GNcdts0h8HlxWKZW46PsC9A4TOVDFpBvKIqyxUCBSjD3IjH3Ipagkx9HoChq+shAb22rAHTKRVEqczQBYvNmJVpFt7YIoLOlQsm03SI/6UIoN2TyuVJEtdPQLWcxmahytk4h989dPV2SK6PExM9vs/T8cIm5cprJaT+whLKKc9ZnQyRt5UOPl13Jdt/bktO5DDJbCbXmF0bx+EhGd6jg8AuvpztObIgSgPSAWTHEyYg/hxeX6Cy0BJJGUWR9W35iP3k8PK2JJ3EjAlwCNx1hifsCGm8SLjxwAYyEAxN3R8apX7+jpcUI97ZsTUgnwSTJAooGVH+if1d0M6SecIxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zx6ZLt8mUpI8PjagzJq/Qi37X42TgGpBll4N6eOlTQY=;
+ b=PJZWEaetYZWcTUTb5kuaqihHq2rI6NmP+2hVMOoTmbkDEJuQdSqeTlwOjxG0xmUTLuICDyFVzO3Pj59c0e5a8IrrdCKUKEQd/BDUQo6FFcDcyWMG4z1hlLjHCwiBJz4lYp4SexKKYW6c7q1p9k8OuQ8IhLg9Lzn8evMkrprRX40N8XtrtlaLAA2nYNRlCFTUEkqD4idMA5eycb+PD6gHW+ySvSCtG8REamjxjtrOeSAjCCO/ppj0xuM9M3B3r60EbbI4GwYljn3kjeIpDWOxwk4D7Wa00o5WIK99V8yatrIzQauznIOdvXgI6LZ6y7/+sni+xxEE0kT3wgrUNT675A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SN7PR12MB7418.namprd12.prod.outlook.com (2603:10b6:806:2a5::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 19:19:58 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 19:19:58 +0000
+Date: Tue, 29 Sep 2026 21:19:50 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Work around pahole 1.32
+ dropping scx_bpf_task_set_lazy_resched() from BTF
+Message-ID: <arwPVufx2ZUOc_sp@gpd4>
+References: <7c139810be5ffc9764ed4236efc28794@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7c139810be5ffc9764ed4236efc28794@kernel.org>
+X-ClientProxiedBy: MI2PEPF00000B7E.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::412) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926174406.346253-1-devnexen@gmail.com> <e5b5770f-8ae1-41c3-b5d9-53798dd3fd45@amd.com>
-In-Reply-To: <e5b5770f-8ae1-41c3-b5d9-53798dd3fd45@amd.com>
-From: David CARLIER <devnexen@gmail.com>
-Date: Tue, 29 Sep 2026 20:19:12 +0100
-X-Gm-Features: AclHuK-hjcBmIezQ0GYgI88OqlUbULC7G7Y8Vcu-Rocor7p5PAhT4RVRzBr4btA
-Message-ID: <CA+XhMqzQRS4Re6YXONFmrt2rOOKoghyQqFgHu=Ziixpm2n4sLA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink import
-To: Mukul Joshi <mukul.joshi@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Felix Kuehling <felix.kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>, 
-	Lijo Lazar <lijo.lazar@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SN7PR12MB7418:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba6eca95-ee45-4c4f-2674-08df1e5ea668
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|56012099006|11063799006|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	DTdPhltc0cJ5T6XT90YTSNxOeT+0Y1rbUCslm75TGFD7Mt2yln6xsfnlBKif5/R5QLw0Dn9bxpDwpOJth/pFs7GjccfP9GmURu17o7LG7nlJyX8eaH0gKIs0L2XU2h9EylqnRiza9+3r+S3ZC9MTOykS4+ylh4RV2hH77dQBpIpiQpjaWzzwhxAuBmt1+wlxHB9bc8uxl9XXtsrsH1mlz+VnF6xw6CrJMzykOnnkWoHFVgU1WvHqpOdLKYlUmp+nmgPOAffFVKmE0foGnfoX6Pu1FG5FguBT2V82MV+3dc2NMSMZiTceCJyesBrfSkmNF+WxVtC3ssEMqG4clPKWPKr7u/FBsNWx3rpZ60x8sjfL8cJ3rBs93nJ8OSKGU8qhWlx44Nv5F5jeikPJSKE9DITJYxSpzjjrEeu6FJ9uSQhuGjg8PJudF65TiLvicixZw/GtcZ+IHjxkaGFL/0s+QNJgw4PhpVbnFE2r7N9QhWT3RSvHqPOWDXud5pntX2yzwIb5EQ6FbFdcXR4ZdUOUcKCfLn1PU8PDCewAK/QDJm4Zet6mo56q6v7O8+snMaTpfftg1YOCgH0Aa+sDBiLemxB6ZDjKz4QfLhVfVpTXqHu+tHS7Tf+s57CRfJET+m80yO52u8+mndwNs+wfR7ieLr7khTlkp/tsgRMIMc49POc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+WbswySy5mSA/HtAid9cad/7iRQb9zc6wDKK3Np2xbvVWO0QYFWXksMES8ww?=
+ =?us-ascii?Q?TNiOxdaNi94spWbwhf7n0QQIoynIov8iXlvSFbX2QfG3cbuTu+dxd8mQb6ms?=
+ =?us-ascii?Q?7xXvXixRkix1WurRkEZo+LoMS8pT0VJhfBRa2T2Z57acOcyIctwj+7AnbwJ8?=
+ =?us-ascii?Q?Mmz/iOvTXQQ5rbgGIqSyzMs5erSLrOoRWb9HIU8zJo+BYz8/ZN+SV2nnEUQh?=
+ =?us-ascii?Q?GQqjg5ZFn7/QxzEB0BmBmnk6alTqreBpYv56EJKdRLleydLq5TGFJgOVRPPe?=
+ =?us-ascii?Q?hNscfxKFroHcWwAtYcZBSFEn5OlB67I7vEXNSRu6l3yQcn+iBL7mYDv+oOqO?=
+ =?us-ascii?Q?dw43Ju/mwHChs5qKPvDQp/UmVevtZmFBNU47q9FfSeVgZFWzq6zMHmjP43IH?=
+ =?us-ascii?Q?8kzowGnNJKrQ/Jb3hm5g2s2pojKBe+oycxUQtOnNkS/NRPvhVlT2fbg0aWrq?=
+ =?us-ascii?Q?tmgwXZzi5Wz1oazFz687qrCy6tqQhIdnDwgBFtZlqs/1/hhZeq5vej5grT9Z?=
+ =?us-ascii?Q?ahdS05l18bOkpPI8R96GhEIYn3qYw6izpZaOCru67KgYpeoMPepmn3225+GC?=
+ =?us-ascii?Q?w4bRo+RExFFH5MAQ3VqspqFZu0kMS7MQrOxjxTAZuf0pBPgf595ev7tYEJHO?=
+ =?us-ascii?Q?ESZZ9JB5QmxRihQwk6SIVXVNZ0ttYuxEohkfOobdK2ys5jJZQLw/g2ZtoDb7?=
+ =?us-ascii?Q?CO5tW0JReTm4rEG8O9kuj0Fqw2Oc3MlHrBb3Rbh4giseCr3FZxA9tmJiEupy?=
+ =?us-ascii?Q?58I7kzGsNkzMShz1QVo/48nYtf6ieVw1ucY9wkfiVJDZ1thrqNjrf/4nhxy0?=
+ =?us-ascii?Q?TmSVT+leezTiKl74N6D3zvINScqkh9neVIsiQo/HkArcF5S2KH8f6LPqpTJc?=
+ =?us-ascii?Q?FxdiCgbp7iATjfkf3M8cKhKmzPw1eZ/6ttRaEPBjo7I0fXnayWmUSFV6d3wS?=
+ =?us-ascii?Q?oiAk+9dUTYJYQk96MpR8ZhECpXV4AqtdMe7tmAO5dXZu4Fg/DUmuerqgZ53h?=
+ =?us-ascii?Q?kB9A0vzFc3tRE+tjXX2IVBeW1w1+kZOR7TfIuxHtX5esWasayX1NCZMxmnnd?=
+ =?us-ascii?Q?4Hrn+Ar5RN7k7yPFDkJPJZU55nd8OpnD/zhvYM1fzH/0qdOBc4fPaT/6yO+O?=
+ =?us-ascii?Q?oq3f3kY1gOzyOmQyccl3npiLNWstoaX5/Zg9BEIlyQHoDIEvMBf7v352s2FU?=
+ =?us-ascii?Q?klCBrEds7Iv1y9psFowCrBgLcutwc+lvj2cFMzIav49hgROsqdnqFz8Z5Z56?=
+ =?us-ascii?Q?eyD0F86tSSOeFlhR8iXMXrDPChbIHxRqOlx/1TCNgo6+ol5cF2NESV+v8HJn?=
+ =?us-ascii?Q?588Hp9OJ3NwhDACLemvx8T76k0tQlUcSSb2vSpeb3ydQYiwcz6YhwpWuKHLL?=
+ =?us-ascii?Q?15JjaG3qxLQUUA000pkChTyrQN1XtmmBa197IPwKyaQFgHiPUohYyyp/Y2AK?=
+ =?us-ascii?Q?swJnp3YYiBznFBnAMBqZUhG/RUT9u2RloqGQyzVG4/t2op8pmzb55wLvwHfn?=
+ =?us-ascii?Q?g2r7gr3qB14CdGKogp/TIyhSVrRpk4duamhC/e7wdXFlTxCBLVNZhvMr6UTO?=
+ =?us-ascii?Q?DRlO7L4I7eAbWrmmnVIHjw/jdPKijUVw9fVeW/RpT9qgclnilnuqXFF0B093?=
+ =?us-ascii?Q?0V3meyqEEcXegDp1y6avjPa6Kdh5XwmqMUdsCdaG2yzaqsUyg/IREYgIjF2l?=
+ =?us-ascii?Q?jDZFNJNAY1mKWcm21AnugbboAjuWWxYws7+rjfb+pjcvgRf3zPRxiTG1TuPc?=
+ =?us-ascii?Q?q9oYGcJRjw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba6eca95-ee45-4c4f-2674-08df1e5ea668
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 19:19:57.9511
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ngeCnL5l0IAVrSEmp/REZcvbdneBB9xIBBpO1hDclAXToxIrlUZbhicI292dX9+YjfMXV20dMwyp/IduVute8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7418
 
-Hi Mukul,
+Hi Tejun,
 
-On Tue, 29 Sept 2026 at 20:05, Mukul Joshi <mukul.joshi@amd.com> wrote:
->
-> Hi David,
->
-> Thanks for the patch. Yes the race is real, however, the patch needs some updations.
->
-> More below.
->
->
-> On 9/26/2026 1:44 PM, David Carlier wrote:
->
-> [You don't often get email from devnexen@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> The exporter records an importer when it answers NPA-REQ, so it can send
-> NPA-REVOKE as soon as the BO is freed, before the importer has finished
-> building the dma-buf for that handle. The revoke handler assumes a fully
-> imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
-> until the import completes, and drops the xarray reference the importing
-> thread still relies on. The importer then links the node and marks it
-> READY regardless, so the node can be freed while still on the per-remote
-> list.
->
-> Only tear down a node that is READY. Otherwise mark it for teardown and
-> send NPA-RELEASE, as nothing has been handed to user-space yet, and wake
-> the importer if it is still waiting for NPA-RSP so that it fails right
-> away. A node already in teardown belongs to whoever moved it there, so a
-> duplicate NPA-REVOKE no longer touches it either. The importer checks for
-> teardown under the xarray lock before linking the node and marking it
-> READY, and unwinds otherwise.
->
-> I think NPA-REVOKE cannot land before a NPA-RSP so we will not hit the condition where
-> we have to wake up the importer.
-> NPA-REVOKE is sent only when the exporter's XA entry's ref count goes down to 0.
-> That will happen at the end of process_npa_req(), by that time, the NPA-RSP is already sent.
->
-> Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
-> Assisted-by: LLM
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+On Tue, Sep 29, 2026 at 07:32:26AM -1000, Tejun Heo wrote:
+> With clang and pahole 1.32, x86-64 vmlinux BTF lacks
+> scx_bpf_task_set_lazy_resched() and sched_ext fails to initialize:
+> 
+>   sched_ext: Failed to register kfunc sets (-22)
+> 
+> clang describes the lazy argument only after the prologue moves it into a
+> callee-saved register, which pahole 1.32 rejects as not being the argument
+> register. Released pahole is affected whatever the eventual fix. Keep the
+> argument on the stack with barrier_data() so that its location names no
+> register. OPTIMIZER_HIDE_VAR() would fix x86-64 but break arm64.
+> 
+> Fixes: f8e5a4e3f3be ("sched_ext: Add lazy preemption support")
+> Link: https://lore.kernel.org/r/20260925213619.2187751-1-yonghong.song@linux.dev
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 > ---
-> Changes in v2:
-> - Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
->   in teardown neither dereferences a NULL dmabuf nor drops the node
->   reference twice (Sashiko).
-> - Complete npa_done when a revoke arrives before NPA-RSP, so the importer
->   fails right away instead of timing out into a connection reset (Sashiko).
-> - Use the current Assisted-by format.
->
-> Found by code analysis and compile-tested with W=1. Not tested on hardware,
-> as it needs two UALink-connected accelerators in a vPod.
->
-> v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 34 +++++++++++++++++++---
->  1 file changed, 30 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> index 8411ea17172f..cb35026e6eba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -3265,6 +3265,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>  kernel/sched/ext/ext.c |    5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -10136,6 +10136,11 @@ __bpf_kfunc bool scx_bpf_task_set_lazy_r
 >  {
->         struct amdgpu_ualink_imp_xa_node *imp_xa_node;
->         struct amdgpu_bo *bo;
-> +       u32 node_state;
->         int r = 0;
->
->         /* Remove the entry from the Xarray. */
-> @@ -3288,7 +3289,23 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
->                 return;
->         }
->
-> +       node_state = READ_ONCE(imp_xa_node->node_state);
->         WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
-> +
-> +       /* Only a READY node is torn down here. If the import is still in
-> +        * flight, the dmabuf may not exist yet and nothing has been handed
-> +        * to user-space: leave the node to the importing thread, which sees
-> +        * the teardown state and unwinds, and wake it up if it is still
-> +        * waiting for NPA-RSP. A node already in teardown is owned by
-> +        * whoever moved it there, e.g. an earlier NPA-REVOKE.
-> +        */
-> +       if (node_state != AMDGPU_UALINK_NODE_READY) {
-> +               if (node_state == AMDGPU_UALINK_NODE_NOT_READY)
-> +                       complete(&imp_xa_node->npa_done);
-> +               xa_unlock(&adev->ualink.imp_xa);
-> +               goto send_release;
-> +       }
->
-> As mentioned above, NPA-REVOKE cannot land before the NPA-RSP is sent by the exporter.
-> So, if the node_state is NOT_READY that means its a stale NPA_REVOKE and we should just ignore
-> that NPA-REVOKE. Having said that, we should definitely do the teardown when the node_state is READY.
-> We should also handle NPA-REVOKE while node_state is in PENDING state.
-> So, maybe we can refactor this code to something like this:
->
-> switch (READ_ONCE(imp_xa_node->node_state)) {
->     case AMDGPU_UALINK_NODE_READY:
->         /* existing teardown */
->         break;
->     case AMDGPU_UALINK_NODE_PENDING:
->         WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
->         xa_unlock(&adev->ualink.imp_xa);
->         break;
->     default:
->         xa_unlock(&adev->ualink.imp_xa);
->         return;
->     }
->
-> +
->         list_del_init(&imp_xa_node->list);
->         xa_unlock(&adev->ualink.imp_xa);
->
-> @@ -3299,6 +3316,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
->         /* Drop the refcount for the node */
->         amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
->
-> +send_release:
->         r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
->         if (r)
->                 dev_err(adev->dev,
-> @@ -3760,9 +3778,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
->                 return r;
->         }
->
-> -       /* Add this node to the imported handles list for the remote GPU */
-> +       /* Add this node to the imported handles list for the remote GPU,
-> +        * unless the exporter revoked the handle while the import was in
-> +        * flight. The dmabuf is released with the last node reference.
-> +        */
->         xa_lock(&adev->ualink.imp_xa);
-> +       if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
-> +               xa_unlock(&adev->ualink.imp_xa);
-> +               dev_warn(adev->dev,
-> +                        "IMPORT: handle:%llx:%llx revoked during import\n",
-> +                        handle.handle_hi, handle.handle_lo);
-> +               return -EINVAL;
-> +       }
->         list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
-> +       WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
->         xa_unlock(&adev->ualink.imp_xa);
->
-> The changes here makes sense. One nit-pick is to change from dev_warn to dev_dbg().
->
->         return 0;
-> @@ -3938,9 +3967,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
->                                         "IMPORT: XA import failed for handle:%llx:%llx\n",
->                                         handle.handle_hi, handle.handle_lo);
->                         goto cleanup;
-> -               } else {
-> -                       WRITE_ONCE(imp_xa_node->node_state,
-> -                                  AMDGPU_UALINK_NODE_READY);
->                 }
->
-> ACK.
->
->
-> Regards,
->
-> Mukul
->
->         }
->
-> --
-> 2.55.0
+>  	struct scx_sched *sch;
+>  
+> +	/*
+> +	 * clang's register locations for @lazy make pahole 1.32 drop this kfunc
+> +	 * from BTF. Keep @lazy in memory so its location names no register.
+> +	 */
+> +	barrier_data(&lazy);
 
-True, a revoke can't arrive before NPA-RSP, so
-v3 uses your switch and dev_dbg():
+First of all thanks for figuring this out, it was really annoying, I've been
+holding pahole to 1.31 because of this.
 
-Cheers.
+I also looked a bit and it seems to be triggered specifically by the bool type.
+This is with clang 22.1.8 on x86_64 without barrier_data and only changing the
+type:
+
+  bool  movl %esi, %ebp    -> dropped by pahole
+  u32   movl %esi, %ebp    -> ok
+  u64   movq %rsi, %r15    -> ok
+
+With u32 the generated code is identical to the bool case, but clang keeps the
+RSI entry range, so pahole is happy.
+
+Should we just change lazy to u32 (or use a u64 flags) instead of using
+barrier_data()?
+
+Thanks,
+-Andrea
+
+>  	guard(rcu)();
+>  	sch = scx_prog_sched(aux);
+>  	if (unlikely(!sch || !scx_task_on_sched(sch, p)))
