@@ -1,89 +1,42 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE0225B090;
-	Tue, 29 Sep 2026 04:19:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5DF83D3481
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790655592; cv=none; b=DNhHp9HWWfOel8Rqv9T0zqWHGk3x9x/uMYhFO9prb3MoORWMmgzlvEp4Qy/6dLdpjxhYxRN7Q1yV+hQ+vKRGPIi1nzFbiwdqsUP/7f5WIeTIGA8D6V6Yyf1Ga9NSejwVHQ9NykcJ2DoAG24/tfaRKvfi65K0qMYtb0EgF6801q0=
+	t=1790655818; cv=none; b=RFVcJ2oJdV/OSpVmCIrtoTK8Urnyw4YRw2uJBlv23xrduy+Iq4N98q3DDLg4qbic0RY0GTE071W8F4uJqHmzdJfEZwnLiRw54M1lOrZ2BwRmycN8WLyy264aBk0YLJ2HZYKi3d3QzNxtr7TL6Cu9FkQa7mhMrbGXFATTa16qyS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790655592; c=relaxed/simple;
-	bh=Is7VaZP9wf3fbUcq4Yzbmr5xX6HgP4L6p/1lWgX7Rpc=;
+	s=arc-20240116; t=1790655818; c=relaxed/simple;
+	bh=38gpMZNPpqnqqQ/VxkZAtTNQl9I02Z0TkAk9crVDC7c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EvZA0vX7AOF3FzX5ImcuYNLDpQShzSu0O9NFHP0S+r1SLR3Iko8WntFhtYypVg6vhVdT9R83E5ucJA5jld5PZZYk2DhQxDVMOYugW9P1qDvwW5pBKPHU1owRP6qMqKVhcLySawqE/Ggjh9iiPulbO14kuLh2ea/8OGChmTPDukM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UpwSPBry; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BPPrI3glggOxTXWzyTX7pF9fudZWoc6ctxHSUCmb59FMi3HXOwYWBlLxkQqTv+7yyumz3voi99I66L3Gpcs/l10iOq6wXvpTdxBUE3nVed9AHIuvBgW5nFc4Jrn1JnwYGFa6xhj/f4jo6SV7pxlo3P/uFgib/lFFR92F6SAnoJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WaEAiyFO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UpwSPBry"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T46Lbe3076728;
-	Tue, 29 Sep 2026 04:19:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=UCoaHie55kyGg4JrFoWMLMH4ZYbUad
-	etcp1lLdpAeDk=; b=UpwSPBry6N6XgHidsHmWmnArIZQxz9lggpREBynZMHIehz
-	jlMokhOyEHri2vBp4URgOcJzUcrcLGHtEj2lrOYY9hefzK5L4WBF3n13PABDmpeD
-	bsHhCxtXwLxpoUOcT4sVu1aZKMbujB8AHPl3MPhvWFVo3zdl4+PYAsi8SkBrxXSt
-	JhqiKATu46tLlxfOvwFr9671R/VsZiWlslnBV7eE2IS9ojRJAHt2CwhMyN73vXT4
-	3q7F9RzrXHP89W6+QYyEQrvfsG/w8z1+D33SvT5Fr6NpMTVAmbnxEvQ7znEVfYlI
-	z5PbZGHLELBRMzPtK7petQDY3Tp0FgcWR4aYQxOw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j556dy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 04:19:28 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T4HcIr1175984;
-	Tue, 29 Sep 2026 04:19:27 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxu2y7wy1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 04:19:27 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T4JKob50921874
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Sep 2026 04:19:20 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BFBB92004B;
-	Tue, 29 Sep 2026 04:19:20 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 99A4920043;
-	Tue, 29 Sep 2026 04:19:20 +0000 (GMT)
-Received: from localhost (unknown [9.111.43.27])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 29 Sep 2026 04:19:20 +0000 (GMT)
-Date: Tue, 29 Sep 2026 06:19:20 +0200
-From: Andreas Grapentin <gra@linux.ibm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 16/29] arm64: Share arm64 headers with s390
-Message-ID: <ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-17-seiden@linux.ibm.com>
- <arqQ2Eat4VUBbl49@arm.com>
- <20260928162345.428362-C-seiden@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WaEAiyFO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69FF21655;
+	Mon, 28 Sep 2026 21:23:30 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1A5863F85F;
+	Mon, 28 Sep 2026 21:23:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790655813; bh=38gpMZNPpqnqqQ/VxkZAtTNQl9I02Z0TkAk9crVDC7c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WaEAiyFOIeFJRacHEmYjHfBnHDEOzs7PI85OKuaWjrFXIMlpxg8+Y+RmB/WUJrD7T
+	 MBU0eEE4JPAlCGYAb4X/quWV+Ho5soGIiCoiMPD3Q1XG0N/1mH7XUIFRTTHfyYlJ30
+	 n5N+50XwZD8f/U9/xZe6UEVOZniNRPvY2c3FPlmE=
+Date: Tue, 29 Sep 2026 09:53:30 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: David Rientjes <rientjes@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [patch v4] mm: vmstat_kunit: add synthetic benchmark for vm stats
+Message-ID: <sknjqkoobsbq6xljd63pon6ohksrdd4kco3tatxueqk2g2boj7@ocuy23vkghai>
+References: <cfc1edae-8aaa-8fd0-95de-af3d4774c6dd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,65 +45,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928162345.428362-C-seiden@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxNiBTYWx0ZWRfX6Nn1f/umagMM
- 1+irdbg0phEtd+BZvjSTdH7HQbGsCmhy3UprVF8arUBdsMZJ+2vmEsRH9BTFg7n6sjFwz4hBm+p
- wznk7RoGSpUUQWYHi5qisxSndJSLkEk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxNiBTYWx0ZWRfX7mGjGWpPZTDW
- BwTe+UpwAhEwgur5zlUZ6JpYhHkujlYQYmos7k2vGrn7GmfK9jN071tje6//kHoGXN4+6WTjs7Q
- E19V39a1AXE0+VbnjKAUk/aCKdGJWXFtmDSyorcFq6Pa1mBR+DuLgGrtxWWKnG8TFp7WCeHjF/E
- 4rgP5e31jDqfVLAjnnQF20yCImf6OJt4HBJ2k1Fbuv4Uv8RgORXNf7ognCXrNNZOK61mLZFrqfk
- /sxB5f6h22kO/Ge661UxZceyYENF0EOudvMUjZME0uoYEse48lopa/N+llegytw1xj4sVH5Ldlv
- XJjOzMG11Vy9FY98GMK5NSPpv4GsYzSLZfUoWHGQ/HxBPE0AXBsYfnmmQyV6NNsZ1PYbitqOy0M
- 0c7npeCv3MQuT4aihFyATVs2nY0Tu9R1Kt+4dA59dwq8opp7GmQej+vWGHmpwyvtl1hqHlHeRP1
- ZyjBHf5iNjhnQxD57Pw==
-X-Proofpoint-GUID: NCy8N2_ZnqFwaT3dU9M5d5pFwo3tFVN4
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abb3c51 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=i6sFrxAX1s6maLuQdwkA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: MHF4wWmMN9gEzyso21XKl4nvdZcx3ejq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290016
+In-Reply-To: <cfc1edae-8aaa-8fd0-95de-af3d4774c6dd@google.com>
 
-On Sep 28 26, Steffen Eiden wrote:
-> On Mon, Sep 28, 2026 at 05:07:52PM +0100, Catalin Marinas wrote:
-> > On Fri, Sep 18, 2026 at 03:30:53PM +0200, Steffen Eiden wrote:
-> > > +# Enable all code shared to s390
-> > > +KBUILD_CFLAGS	+= -DARM64_S390_COMMON
-> > > +KBUILD_AFLAGS	+= -DARM64_S390_COMMON
-> > > +KBUILD_CPPFLAGS	+= -DARM64_S390_COMMON
-> > 
-> > Do we actually need these defines? They seem only to be used as markers
-> > for the awk scripts to extract the definitions. Why do we need the C
-> > preprocessor involved at all? Could we not just have comment markers:
-> > 
-> > /* ARM64_S390_COMMON_BEGIN */
-> > ...
-> > /* ARM64_S390_COMMON_END */
-> >
-> No technically we do not need those. They could be useful if we find out
-> that AWK is the wrong tool and move to a C Preprocessor + diff based
-> approach. 
+On Fri, Sep 18, 2026 at 01:39:52PM -0700, David Rientjes wrote:
+> From: Christoph Lameter <cl@gentwo.org>
 > 
-> if the ifdev is not closed the compiler will complain, but an 'arm did
-> not destroy us' verifiaction tool ( I will send one soonish) could do
-> the same.
+> Add a synthetic benchmark that can be used to measure performance of VM
+> statistics.  This is used to analyze any improvements or regressions in
+> functions that are frequently used in hot code paths.
+> 
+> The test is run by KUnit or doing modprobe vmstat_kunit directly.
+> 
+> Sample output:
+>  KTAP version 1
+>  1..1
+>  KTAP version 1
+>  # Subtest: vmstat
+>  # module: vmstat_kunit
+>       1..3
+>       # vmstat_test_inc_dec_zone_page_state: 10000 ops: inc_zone_page_state -> 8 cycles (4 ns/op), dec_zone_page_state -> 9 cycles (4 ns/op)
+>       ok 1 vmstat_test_inc_dec_zone_page_state
+>       # vmstat_test_interleaved_zone_page_state: 10000 ops: inc/dec pair -> 17 cycles (8 ns/op)
+>       ok 2 vmstat_test_interleaved_zone_page_state
+>       # vmstat_test_count_vm_event: 10000 ops: count_vm_event -> 4 cycles (2 ns/op)
+>       ok 3 vmstat_test_count_vm_event
+>  # vmstat: pass:3 fail:0 skip:0 total:3
+>  # Totals: pass:3 fail:0 skip:0 total:3
 
-iirc the last time we discussed this we didn't think that load-bearing
-comments were the right tool here. We also briefly floated the idea of
-using a #pragma region based approach, but in the end we went with the
-#ifdef preprocessor directives instead, as the least invasive
-non-comment marker that was available.
+Is not "pass:3" misleading ? KUNIT tests here dump performance numbers,
+hence how they could be treated as pass or fail ? What's the objective
+for these tests ?
 
-Best,
-Andreas
+>  ok 1 vmstat
+> 
+> Assisted-by: Gemini:gemini-3.8-flash
+> Signed-off-by: Christoph Lameter <cl@gentwo.org>
+> Signed-off-by: David Rientjes <rientjes@google.com>
+> ---
+> v4:
+>  - included sample output in the commit description
+>  - switched to NR_MLOCK which is display only so no side effects
+>  - remove unnecessary "rem" variable
+> 
+> Once we're happy with this change, I'll apply the same treatment to the
+> proposed pgalloc and slab tests.
+> 
+>  MAINTAINERS             |   1 +
+>  mm/Kconfig              |  11 +++
+>  mm/Makefile             |   1 +
+>  mm/tests/vmstat_kunit.c | 157 ++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 170 insertions(+)
+>  create mode 100644 mm/tests/vmstat_kunit.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3b2eb2a7a89a..de09076d91b9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17161,6 +17161,7 @@ F:	mm/ptdump.c
+>  F:	mm/sparse-vmemmap.c
+>  F:	mm/sparse.c
+>  F:	mm/sparse.h
+> +F:	mm/tests/vmstat_kunit.c
+>  F:	mm/util.c
+>  F:	mm/vmpressure.c
+>  F:	mm/vmstat.c
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 604c58199acb..2d021fb5ace6 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -1511,6 +1511,17 @@ config LAZY_MMU_MODE_KUNIT_TEST
+>  
+>  	  If unsure, say N.
+>  
+> +config VMSTAT_KUNIT_TEST
+> +	tristate "KUnit test for VM statistics" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Enable this option to test and benchmark the performance of VM
+> +	  statistics updates (zone page state and VM event counters), which
+> +	  are used frequently in hot memory management code paths.
+> +
+> +	  If unsure, say N.
+> +
+>  source "mm/damon/Kconfig"
+>  
+>  endmenu
+> diff --git a/mm/Makefile b/mm/Makefile
+> index e7245cb88c66..3d4f2c43b8d3 100644
+> --- a/mm/Makefile
+> +++ b/mm/Makefile
+> @@ -147,4 +147,5 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
+>  obj-$(CONFIG_EXECMEM) += execmem.o
+>  obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
+>  obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
+> +obj-$(CONFIG_VMSTAT_KUNIT_TEST) += tests/vmstat_kunit.o
+>  obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
+> diff --git a/mm/tests/vmstat_kunit.c b/mm/tests/vmstat_kunit.c
+> new file mode 100644
+> index 000000000000..899c957091d1
+> --- /dev/null
+> +++ b/mm/tests/vmstat_kunit.c
+> @@ -0,0 +1,157 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * KUnit synthetic performance benchmark for VM statistics.
+> + *
+> + * (C) 2009 Linux Foundation, Christoph Lameter <cl@gentwo.org>
+> + * (C) 2026 Google LLC, David Rientjes <rientjes@google.com>
+> + */
+> +#include <kunit/test.h>
+> +#include <linux/mm.h>
+> +#include <linux/vmstat.h>
+> +#include <linux/timex.h>
+> +#include <linux/ktime.h>
+> +#include <linux/math64.h>
+> +
+> +#define TEST_COUNT 10000
+> +
+> +static void vmstat_test_free_page(void *arg)
+> +{
+> +	__free_page((struct page *)arg);
+> +}
+> +
+> +/*
+> + * Test 1: Sequential inc_zone_page_state() followed by dec_zone_page_state().
+> + * Net change to zone counters is 0.
+> + */
+> +static void vmstat_test_inc_dec_zone_page_state(struct kunit *test)
+> +{
+> +	struct page *page;
+> +	cycles_t time1, time2, time;
+> +	u64 t1_ns, t2_ns;
+> +	u64 inc_cycles, dec_cycles;
+> +	u64 inc_ns, dec_ns;
+> +	unsigned int i;
+> +
+> +	page = alloc_page(GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, page);
+> +	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, vmstat_test_free_page, page), 0);
+> +
+> +	/* Benchmark inc_zone_page_state() */
+> +	time1 = get_cycles();
+> +	t1_ns = ktime_get_ns();
+> +	for (i = 0; i < TEST_COUNT; i++)
+> +		inc_zone_page_state(page, NR_MLOCK);
+> +	t2_ns = ktime_get_ns();
+> +	time2 = get_cycles();
+
+get_cycles() will count for both ktime_get_ns() in the above code block.
+Is not the goal here to characterize just inc_zone_page_state() ?
+
+> +
+> +	time = time2 - time1;
+> +	inc_cycles = div_u64(time, TEST_COUNT);
+> +	inc_ns = div_u64(t2_ns - t1_ns, TEST_COUNT);
+> +
+> +	/* Benchmark dec_zone_page_state() */
+> +	time1 = get_cycles();
+> +	t1_ns = ktime_get_ns();
+> +	for (i = 0; i < TEST_COUNT; i++)
+> +		dec_zone_page_state(page, NR_MLOCK);
+> +	t2_ns = ktime_get_ns();
+> +	time2 = get_cycles();
+> +
+> +	time = time2 - time1;
+> +	dec_cycles = div_u64(time, TEST_COUNT);
+> +	dec_ns = div_u64(t2_ns - t1_ns, TEST_COUNT);
+> +
+> +	if (inc_cycles || dec_cycles)
+> +		kunit_info(test, "%u ops: inc_zone_page_state -> %llu cycles (%llu ns/op), dec_zone_page_state -> %llu cycles (%llu ns/op)\n",
+> +			   TEST_COUNT, inc_cycles, inc_ns, dec_cycles, dec_ns);
+> +	else
+> +		kunit_info(test, "%u ops: inc_zone_page_state -> %llu ns/op, dec_zone_page_state -> %llu ns/op\n",
+> +			   TEST_COUNT, inc_ns, dec_ns);
+> +}
+> +
+> +/*
+> + * Test 2: Paired inc_zone_page_state() and dec_zone_page_state().
+> + * Net change to zone counters is 0.
+> + */
+> +static void vmstat_test_interleaved_zone_page_state(struct kunit *test)
+> +{
+> +	struct page *page;
+> +	cycles_t time1, time2, time;
+> +	u64 t1_ns, t2_ns;
+> +	u64 avg_cycles, avg_ns;
+> +	unsigned int i;
+> +
+> +	page = alloc_page(GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, page);
+> +	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, vmstat_test_free_page, page), 0);
+> +
+> +	time1 = get_cycles();
+> +	t1_ns = ktime_get_ns();
+> +	for (i = 0; i < TEST_COUNT; i++) {
+> +		inc_zone_page_state(page, NR_MLOCK);
+> +		dec_zone_page_state(page, NR_MLOCK);
+> +	}
+> +	t2_ns = ktime_get_ns();
+> +	time2 = get_cycles();
+> +
+> +	time = time2 - time1;
+> +	avg_cycles = div_u64(time, TEST_COUNT);
+> +	avg_ns = div_u64(t2_ns - t1_ns, TEST_COUNT);
+> +
+> +	if (avg_cycles)
+> +		kunit_info(test, "%u ops: inc/dec pair -> %llu cycles (%llu ns/op)\n",
+> +			   TEST_COUNT, avg_cycles, avg_ns);
+> +	else
+> +		kunit_info(test, "%u ops: inc/dec pair -> %llu ns/op\n",
+> +			   TEST_COUNT, avg_ns);
+> +}
+> +
+> +/*
+> + * Test 3: count_vm_event() benchmark.
+> + * Restores counter balance with count_vm_events(item, -TEST_COUNT).
+> + */
+> +static void vmstat_test_count_vm_event(struct kunit *test)
+> +{
+> +	cycles_t time1, time2, time;
+> +	u64 t1_ns, t2_ns;
+> +	u64 avg_cycles, avg_ns;
+> +	unsigned int i;
+> +
+> +	time1 = get_cycles();
+> +	t1_ns = ktime_get_ns();
+> +	for (i = 0; i < TEST_COUNT; i++)
+> +		count_vm_event(SLABS_SCANNED);
+> +	t2_ns = ktime_get_ns();
+> +	time2 = get_cycles();
+> +
+> +	/* Restore balance */
+> +	count_vm_events(SLABS_SCANNED, -TEST_COUNT);
+> +
+> +	time = time2 - time1;
+> +	avg_cycles = div_u64(time, TEST_COUNT);
+> +	avg_ns = div_u64(t2_ns - t1_ns, TEST_COUNT);
+> +
+> +	if (avg_cycles)
+> +		kunit_info(test, "%u ops: count_vm_event -> %llu cycles (%llu ns/op)\n",
+> +			   TEST_COUNT, avg_cycles, avg_ns);
+> +	else
+> +		kunit_info(test, "%u ops: count_vm_event -> %llu ns/op\n",
+> +			   TEST_COUNT, avg_ns);
+> +}
+> +
+> +static struct kunit_case vmstat_test_cases[] = {
+> +	KUNIT_CASE(vmstat_test_inc_dec_zone_page_state),
+> +	KUNIT_CASE(vmstat_test_interleaved_zone_page_state),
+> +	KUNIT_CASE(vmstat_test_count_vm_event),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite vmstat_test_suite = {
+> +	.name = "vmstat",
+> +	.test_cases = vmstat_test_cases,
+> +};
+> +kunit_test_suite(vmstat_test_suite);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Christoph Lameter <cl@gentwo.org>");
+> +MODULE_AUTHOR("David Rientjes <rientjes@google.com>");
+> +MODULE_DESCRIPTION("KUnit benchmark test for VM statistics");
