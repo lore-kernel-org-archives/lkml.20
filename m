@@ -1,240 +1,152 @@
-Received: from mta0.migadu.com (out-169.mta0.migadu.com [91.218.175.169])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D8E349CD8
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3D537BE9F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664463; cv=none; b=DxPr+XAyglGgFUC8LzsFqiABVKr7SjzAP/pwTcld4tN1EIXZbUPbEAEV+aI24VziZH36uM8dCt7K1xpsNrt6U+JcceZJyly8hTQl8PDJfckIGrC0jX/zSvqdTm2h3CtRcsU/DdIxzSNGrNMg76Htg7PlFzxnLDN0mXOb9HvNy5o=
+	t=1790664483; cv=none; b=Hy9/fnpuDpASoV8TzZofnN975P4kNSRoTXE19oCWpbgmf6gK339E4M/hC6XMz3wHmoczPovmfe+vdrbJzmiwFkSHIdFvCxKjb+ELlZleFeMH1yH8YpMiWB3CbBE6NrlTgfMYUb07qJy/byNqjRHw6m6o/X/H9ushd85P6yRBpyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664463; c=relaxed/simple;
-	bh=wNCSm6zfXaBTfkx8iZknK6KE3A3eX+CqkKoWrIHuzeQ=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=WwLlsDvY8kmodd4it+lnF8qdZ/p3pKwjIL73SnOXTiCrD75FxNimbNSbX+onI4w0GsKWaC1wt+nG5vcCIDuw1zkFRmGDh21KiYwwTXgJxwBVNvtEdVT1vrP+m0HpcjCO88FIbdt0oYNn0mpOLKu6nYK4dA4dKXfGpuyGCOie8o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PqrFi2gW; arc=none smtp.client-ip=91.218.175.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790664483; c=relaxed/simple;
+	bh=5z84o7SmoK1MfkB9ciA9u7prts41Oso+lRT/sEz6vNQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ljUCtPWVxUqOYNk4pt52Y8Fm7iLCb67PZIfOBTACIbTVNDUuzYict9QBZFCGh5VuPhaINtMG1Cf/OW6K+VpEnffLyO26xkrG+soEAhnNdME4SLv8iQdsk1FOkcWK+N7LUNqLC5o8yuCNkAOoAY/bNukFTq2COxSQ9ksBRAErPss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hyj53bPU; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PqrFi2gW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wNCSm6zfXaBTfkx8iZknK6KE3A3eX+CqkKoWrIHuzeQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790664459; v=1; x=1791269259;
- b=PqrFi2gWuN6yKRv2KmwCLLsNXkFFX9bWtHBsdCf5uoPBt67MR3ogGDxQGmi7gLt6VdnzKCLU
- 4Sn11r2Ox3yUQATIlf3GaAnTwZZt3jKxwhhxyvYaoAGxkRivcAs+/bLdkbPXgO1fpocemZh5dU4
- cFHdY/XOLGG9JZY5+dk+tq6g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8e483f7660612dc7;
-	Tue, 29 Sep 2026 06:47:29 +0000
-X-Mizu-Trace-ID: 8e483f7660612dc7
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hyj53bPU"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b355ffso1620654b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:48:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790664481; x=1791269281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RB04FcJG3heFGxGzctuC3aaXwFFC1J6ocmOzj+rjAe8=;
+        b=Hyj53bPUyyF2fEACDc0Shtz0QejOlvrG/Vdud4wVl3S83WyE3oC87O3ccGozHD2fIt
+         1kEZkCt9VH2L6yj5kB5jZaoIfIfRFEZK6JaxJo9EMGzZC0Cq9uvfnE57t6I9UH3o2+m7
+         bszeb2ljJyhBhpuFAf8K9Y2/9oo7xj5ebi2gDpWVkDY5J+RLd/MwbcchmacdwcKuBj8V
+         RmyA8IvyUcAvq1uNzlxpVqz5zuTv8J59RZA/dtwBFzH+V1fkI1KsmxYxeosX6lt2AlNZ
+         3iAHi/sDBxUEov9B6CgCQ29I+Xk0XSXS8yS2fJymPjHolFD069x5/6vkE6mGcx5BLon6
+         a8Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790664481; x=1791269281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RB04FcJG3heFGxGzctuC3aaXwFFC1J6ocmOzj+rjAe8=;
+        b=B6gZDH70p5sVgm/wcGD2h+Svr3BR/7lM647+4Uklv2880/PPkVvq1hsIJf6/EOfuCp
+         fCsK/XOjSBlBFfKabSuBwfeb+4z2INpDyMSuodZbherslKWOL3b6jr0tdKcMaW3ljmr9
+         /Y6QDZOXf4fUkCS3uZRPiBLIko+UY55PWyTSCf8DEmXtetn4xRbgn59ctLfrJPEzGQkB
+         DwrN8l/VyzzZM/AK/Usd6cPblckGhXwWJuJgt9/uhxzsqdER0XH7NaDm2NPO2++r41wa
+         qoEyhBpnFgJk72DQgbmPZiY+JfGXJv835joHrDrfOA4YJVqfDsMKndqtyhzUOTvBXPwA
+         fjaA==
+X-Forwarded-Encrypted: i=1; AKwUvByEVa7Ur4zKeg8AUCovVKWMY9E7ua62ic15Vb8uwH8rOLrdUUv7JsILm9IUjI0G+4E1VFnGhnghaGUo6oY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kls5g1YqBn9ULc+j3vUWSEu5X7pd25SaUUPw5LijbagmlAfye8
+	mkmE+JfaFau1oaC3vXvgE00RaIMKFmKFi3HP5gk1zBYW9DCJ95uzdT2coEnnlMU6C8w=
+X-Gm-Gg: AYBFou00Ani66oCR+zbwdsiidWfbKnnUEXwfoybH2K+O7jJIcFvZXIQkpXrERxcb8cn
+	aMGD6Ebrsq9+HFZ60Dj3FQwmqP03jF+KHHc0Jyt3ygQZ3G7KLkU0OhKr8kvIiT0DHjctkCuAeq3
+	KJf6fDjcQ8MU/ybJOLWxn3npyjweOaBD5z2nJDnEZ85smLQj9Pv6l76Y80k2EwQMjP4Z5ppiR7A
+	2uYETH0HzfcZqs/up3gZmhZDksltt3fFCpi6qwrm0oFGMzZOE4jUK6/1HmiOhbRdIoZ6g2UI34N
+	uyeFLPgMdZtYFWl3YjwTe6OJNz1fFW5KAr9T6+mbym9kThPZ5YjC8+JEwde/UQYHerGysmyj/Zb
+	q2LmPsauZTFJ77TNX/VdsG64ltYqffDqLEojUBoX1dWU/6XxWZ6tcD2D/HfM8TDeqq73kj9euFg
+	xun6yXEe69Ha2eTCNNQ4VfwExWswkGbI1dKZxR3zxoEHbUclu20sGPFFj5EmCSuPgdo7hl69CF1
+	r3lPO0A0iS4Vuvqh6M=
+X-Received: by 2002:a05:6a00:6c9a:b0:880:d04d:1502 with SMTP id d2e1a72fcca58-880d04d1618mr7358024b3a.0.1790664481306;
+        Mon, 28 Sep 2026 23:48:01 -0700 (PDT)
+Received: from lsk.tail206e42.ts.net (vps-787f8425.vps.ovh.us. [2604:2dc0:202:300::17a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e1066470sm266922b3a.18.2026.09.28.23.47.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 23:48:00 -0700 (PDT)
+From: liushike <liushike123@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jmaloy@redhat.com,
+	tung.quang.nguyen@est.tech,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC net-next 0/2] tipc: notify pending connects of peer node loss
+Date: Tue, 29 Sep 2026 06:47:40 +0000
+Message-Id: <20260929064742.576651-1-liushike123@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 06:47:28 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <b6c4c35b28b1262b390d5c05993426e3b6d4ee95@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-To: "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- luka.gejak@linux.dev
-In-Reply-To: <e38d50f20a710ae0b1424924b16ad260cdb04b99@linux.dev>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
- <afb044e0aef8425880ddb24add9340ab@realtek.com>
- <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
- <c7069bdf8e9845e3b26898f545b0d3e5@realtek.com>
- <e38d50f20a710ae0b1424924b16ad260cdb04b99@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-September 29, 2026 at 08:36, "Luka Gejak" <luka.gejak@linux.dev mailto:lu=
-ka.gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E=
- > wrote:
+From: liushike <liushike@ruijie.com.cn>
+
+This series notifies pending active opens when contact with the peer node
+is lost, and adds selftests for both connection-oriented socket types.
+
+A client can send SYN and wait in connect() while the listening server
+has not called accept(). If the last usable link then disappears, the
+unmodified kernel leaves that connect waiting instead of reporting node
+loss. Registering pending connects lets node_lost_contact() notify them;
+the client receives EHOSTUNREACH. A surviving link preserves the attempt.
+
+Patch 1 changes connection registration and error notification. Patch 2
+adds selftests and their build/maintainer integration.
+
+I am proposing net-next for this long-standing behavior change, but would
+appreciate guidance on whether net is the preferred target. This is an
+RFC for review, including the target tree and historical attribution.
+
+I have not reliably identified the original introducing commit for a
+Fixes tag. Commit dadebc00299a ("tipc: eliminate port_connect()/port_disconnect()
+functions") moved existing registration logic in 2014; its parent already
+registered at connection completion, so that refactoring alone is not
+evidence of introduction. No Fixes tag is guessed here.
+
+Testing used the base-commit below for the before kernel and that base
+plus this series for the after kernel. Both ran the identical final
+selftest in x86_64 QEMU/KVM guests (2 vCPUs, 1536 MiB), with GCC 9.4.0
+and binutils 2.34. Two network namespaces communicate over veth pairs;
+fault injection disables TIPC Ethernet bearers, not physical cables.
+
+Results (SOCK_STREAM and SOCK_SEQPACKET, nine cases each):
+  Before: 8 passed, 10 failed, 0 skipped; exit status 1.
+  After: 18 passed, 0 failed, 0 skipped; exit status 0.
+
+On the before kernel, last-link loss, both-links loss and named node loss
+left connect pending beyond the two-second assertion window. Nonblocking
+connect and connection-wait timeout followed by node loss had no hangup
+event and SO_ERROR remained zero. Normal accept, surviving-link failover,
+rejection and named accept passed. These failures occurred after SYN
+reached the listener, not during topology preparation.
+
+On the after kernel all cases passed, including EHOSTUNREACH and POLLHUP
+checks for asynchronous failure. The two-second bound is a test deadline,
+not a measurement of millisecond-level latency.
+
+The kernel configurations differ only in CONFIG_LOCALVERSION. The build
+records include the base commit, patch and image hashes, configurations,
+compiler output, launch script and both guest TAP logs.
+
+liushike (2):
+  tipc: abort pending connects when the peer node is lost
+  selftests: net: cover pending TIPC connects on peer node loss
+
+ MAINTAINERS                                 |   1 +
+ net/tipc/node.c                             |  37 ++-
+ net/tipc/node.h                             |   1 +
+ net/tipc/socket.c                           |  38 ++-
+ tools/testing/selftests/net/Makefile        |   1 +
+ tools/testing/selftests/net/config          |   1 +
+ tools/testing/selftests/net/tipc_connect.py | 278 ++++++++++++++++++++
+ 7 files changed, 353 insertions(+), 4 deletions(-)
+ create mode 100755 tools/testing/selftests/net/tipc_connect.py
 
 
->=20
->=20September 29, 2026 at 03:15, "Ping-Ke Shih" <pkshih@realtek.com mailt=
-o:pkshih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%=
-3E > wrote:
->=20
->=20>=20
->=20> Luka Gejak <luka.gejak@linux.dev> wrote:
-> >=20=20
->=20>=20=20
->=20>  On Thu Sep 24, 2026 at 3:24 AM CEST, Ping-Ke Shih wrote:
-> >  Luka Gejak <luka.gejak@linux.dev> wrote:
-> >=20=20
->=20>  [...]
-> >=20=20
->=20>  +REALTEK RTL8723B WIRELESS DRIVER (rtw88)
-> >  +M: Luka Gejak <luka.gejak@linux.dev>
-> >  +L: linux-wireless@vger.kernel.org
-> >  +S: Maintained
-> >  +F: drivers/net/wireless/realtek/rtw88/rtw8723b*.c
-> >  +F: drivers/net/wireless/realtek/rtw88/rtw8723b*.h
-> >  +
-> >=20=20
->=20>  I think no need this entry.
-> >=20=20
->=20>  Just with below 'R', the ./scripts/get_maintainer.pl with rtw88 pa=
-tch can
-> >  output your name, no?
-> >=20=20
->=20>  REALTEK WIRELESS DRIVER (rtw88)
-> >  M: Ping-Ke Shih <pkshih@realtek.com>
-> >  +R: Luka Gejak <luka.gejak@linux.dev>
-> >  L: linux-wireless@vger.kernel.org
-> >  S: Maintained
-> >  T: git https://github.com/pkshih/rtw.git
-> >  --
-> >  2.55.0
-> >=20=20
->=20>  By the way, your patch should tag rtw-next (i.e. [PATCH v5 rtw-nex=
-t]).
-> >  Otherwise, NIPA test your patches on wireless-next tree, reporting
-> >  errors [1].
-> >=20=20
->=20>  I don't know if someone is reading your patches. I'd skip v4.
-> >  Please wait a while and send v5.
-> >=20=20
->=20>  [1] https://patchwork.kernel.org/user/todo/linux-wireless/?series=
-=3D1172592
-> >=20=20
->=20>  Thank you. I will hold and send v5 tagged [PATCH v5 rtw-next], and=
- I am
-> >  reading the list in the meantime.
-> >=20=20
->=20>  On the entry: it is a maintainer entry for one driver, which is no=
-t the
-> >  same thing as the reviewer line. The file's legend:
-> >=20=20
->=20>  M: *Mail* patches to: FullName <address@domain>
-> >  R: Designated *Reviewer*: FullName <address@domain>
-> >  These reviewers should be CCed on patches.
-> >=20=20
->=20>  The names it reports them under are "maintainer:" and "reviewer:":
-> >  get_maintainer gives the M: role the first and pushes R: entries as =
-the
-> >  second. With R: alone the entry says my name should be CCed on RTL87=
-23B
-> >  patches, which is correct, and I have kept that line, but it does no=
-t
-> >  say that anyone is expected to look after the chip.
-> >=20=20
->=20>  Documentation/maintainer/feature-and-driver-maintainers.rst covers
-> >  exactly this case, a maintainer for one driver inside a larger
-> >  subsystem:
-> >=20=20
->=20>  - "The term maintainer spans a very wide range of levels of
-> >  engagement ... to people responsible for a small feature or a
-> >  driver";
-> >  - "Drivers and alike most often do not have their own mailing lists
-> >  and git trees but instead send and review patches on the list of a
-> >  larger subsystem" - which is why the entry deliberately has no T:
-> >  line and patches keep going through rtw-next;
-> >  - "Maintainers must review *all* patches touching exclusively their
-> >  drivers, no matter how trivial" and "an Acked-by or Reviewed-by tag
-> >  ... from a single maintainer is enough to satisfy this
-> >  requirement" - an Acked-by on the list for 8723b patches is the
-> >  role I am asking for, not a tree of my own;
-> >  - "Most natural and common choice of a maintainer is the author of
-> >  the code", and the file "is not a list of credits ... it is a list
-> >  of those who will actively help with the code".
-> >=20=20
->=20>  I know that least one person(with my help) is working on an RTL872=
-3BE (PCIe)
-> >  build and I expect an RTL8723BU (USB) to be added eventually. rtw872=
-3b*.c and
-> >  rtw8723b*.h already cover all three variants, so the family has one =
-named
-> >  owner as it grows, and those patches do not all have to reach you fi=
-rst.
-> >=20=20
->=20>  It is not a claim on rtw88. The patterns cover rtw8723b*.c and
-> >  rtw8723b*.h only. Nothing else in the directory changes: get_maintai=
-ner
-> >  on reg.h returns you as maintainer and me as reviewer whether the
-> >  section is present or not, and the R: line you suggested is what put=
-s me
-> >  on those patches.
-> >=20=20
->=20>  The nesting is not new: the ath family keeps separate entries for =
-ath5k,
-> >  ath9k, ath10k and carl9170 inside ATHEROS ATH GENERIC UTILITIES, who=
-se
-> >  F: is drivers/net/wireless/ath/* and whose M: is Jeff Johnson, and a=
-th5k
-> >  and carl9170 carry M: with no T: line, as this one would.
-> >=20=20
->=20>  Is this a good example to your case? Jeff is the maintainer of all=
- ath drivers.
-> >=20
->=20I meant him as an example of nested maintainer, I didn't focus
-> on the size of code he is maintaining. But I will drop M as you
-> requested.
->=20
->=20>=20
->=20> This is about the one chip I have the hardware for, not a proposal =
-to
-> >  split the other rtw88 chips out of your entry.
-> >=20=20
->=20>  checkpatch --strict on the MAINTAINERS patch is 0 errors, 0 warnin=
-gs.
-> >=20=20
->=20>  If you would still rather keep it to the R: line, say so and the
-> >  section goes, it is one patch, and it should not hold up the series,
-> >  but please take these points into account.
-> >=20=20
->=20>  As I mentioned earlier, I suggested to subscribe mailing list and =
-review
-> >  rtw88 patches (I read your limitation, but I think it is easier to f=
-ind
-> >  an alternative way, no?).=20
->=20>=20=20
->=20>  As you replied [1], I suppose you have subscribed the list, right?
-> >=20
->=20Yes, I have setup lei(just need a little bit of configuring).
->=20
->=20>=20
->=20> I still think 'R' is enough. With your subscription of mailing list=
-,
-> >=20
->=20I understand and respect your decision.
->=20
->=20>=20
->=20> I even think we can drop this patch, no need to update MAINTAINERS.
-> >=20
->=20I little confused, as this conflicts past emails and this above.
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+-- 
+2.34.1
 
-I *am little...
-
-So how would you like to proceed?
-
->=20
->=20>=20
->=20> Bitterblue Smith you Cc'd is a main contributor of WiFi drivers (no=
-t
-> >  limit to Realtek). I don't see any difficult to him to review and=20
->=20>  contribute patches. (If I miss something, please correct me, Bitte=
-rblue).
-> >  Anyway, I want to see people really contribute community and then
-> >  add their names, not reverse way. I don't like to clean MAINTAINERS
-> >  sometime.
-> >=20=20
->=20>  [1] https://lore.kernel.org/linux-wireless/20260926180007.28030-1-=
-luka.gejak@linux.dev/#t
-> >=20=20
->=20>  Ping-Ke
-> >=20
->=20Best regards,
-> Luka Gejak
->
