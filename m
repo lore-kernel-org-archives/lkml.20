@@ -1,176 +1,224 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013060.outbound.protection.outlook.com [40.107.201.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F49E2FB0B2
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790646086; cv=fail; b=LVX+NiQYaSN0jI6r7jsMie2pvXy/t6mq1d0x5nrYpXYryYC6RfZtEyfhRNf8v2hpotJ6wp0Az9CNQFsbR3ulLnQqzuXpU1ORvpK99xwbOf2PcIcU3t2vaCooShLbPug2x1mOoGIi4DRsdCn/HuSuefRmhhNN0jOgTqEbZym1sjQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790646086; c=relaxed/simple;
-	bh=A5sx5LApyohOGup7XdP7i+HwhOj7FXyO5mhPS9X/DYM=;
-	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
-	 In-Reply-To:MIME-Version; b=P2RTkpoxtXpW4ZuvWbsQiVhlowVa8ldxbAulbtgavthL10ZT+jVz+3LFdon9q6QsiQfT3zaGXWuE2iSpoMkKSbXGENCFe2cxZ8e7WdIufP1Iq/EqvcRJKvhj0xNcpXdtPzEa9blH+QyxkJPSrQIMXWaj+tf4GePQ1rqwmZcxRnw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hRTOz3FF; arc=fail smtp.client-ip=40.107.201.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553552BE7DD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790646139; cv=none; b=cBU4NlzKXR2S/1dNa74U/lEwpWR8p6ToUK/PScpLrdoHUeofAOy1CajGhuxH8VPHONO4AwaPLcbG2al4YX2Er3K/PJ7WjbvT6Py3YO2B/smRjgWIMLQiCIvmdvMVNr4GJ1cbFuyzfOgNOhlaSxV1OyfN6V7SfD8wBA51XAKFr4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790646139; c=relaxed/simple;
+	bh=s5uqoUG7QDav+7ZWrcVDZitdoyc/biPAUBiOMwHCGpw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=HgFZTyPWSe9W49Hha6IIuTooYZ7lYnmhFTdYrAU5in87ZrkstfMBoZd9CssV3rJdHZ1dg0qeF527K8pAy3oZZ9yTZCzd0Lj+Hq4fK1P+aLcsOjORReo8IeTRC414oRVIaNUFImzP+SxFwOGe3+nzp3N8+RbJ1PJo8ZlbHOhtR4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DTCAvQLh; arc=none smtp.client-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hRTOz3FF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RVRubF/IV/DQyXoV2F/mnXhdq3iFHV+kgN9WGI16dT1Yna/zAG9IDbmMtLWIZdKZOIOpLgYN0X+sIW9cb31sqse8e09pykB/BfkKbjAxTs79Dl+kchAVN2CUVNsdhrDIUTj9JnLBe/yVNpHSdp/b+RN6XkRY3CClADthd6SJvgvLXUz7yYz16O4gvLh/Jc1icTP0IMNODOxOqR74MZCJVtFmn2jrNkZs2iVDD8phBCo4yIypIQVSzK/66FRfkzWBdPYdRk51Kd5Wjx/pCdG6+5e3ZxQ/ebsvjIEiNzlB9NXmt6tp8+0jKd0FAoV98aPkoIiJ/fHwqB3NV5+fvdMZGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SuBMatndbDU95iys7SeuFwHaDdkYK5FhQrMAFuOIAT0=;
- b=XXEkkLqddoPGzaapku2WEphKpbPwCKdNpENwtwahKp/Mnf6dpcoV4lATkbOV6UhPFXKgKPKaLXfKS66z1+/PTWWsyHcgnkkc14eeW+zmfBYoF8NUtiV0tAEPUjEGjWsXx5FJBjRTuqbtxX3lWZ8Z9X4dl4RVpaISoyIfL/6O5A+tH/fu58R4TMyhjYhrJbTURfX7omDX1p+9VxSjtlqETuESB8bq3795zC1sBEUdSMK6RMviMrnSO5hDnm2hb42c221+WKlxHtmAr6pt/vUb9UjL+rIMjZJvAoBjyP1+5/WmH5VerUDhh22/WImE3mQdVR7C3a/KvrqIYJ5GnfGIcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SuBMatndbDU95iys7SeuFwHaDdkYK5FhQrMAFuOIAT0=;
- b=hRTOz3FFs2Xp7LM+YggFcjUSWs2UpREqhMcXasf3/2yxEaRzMKdJBmcEjAcignH7vyBjvKIkecDDZIBPK3Zcua/aXqzc+jo9Qo2Q5/RVV7AQNhw7vwUsdz1vk5s14g2Q4rM3Xo2IoP1VQ9RpEwDddX5moALDqaTSrCiUBtLR4LnCirLEZHiAWM2/jlhh9PVfG+HfG9ALLINh0CvWfUuFbFonESshCk8THSsvBa3OPyzjxf0nLg5p2ZapzzAu+wj+Bx0oyRHMI2nl5tUt6mukbBpXegPReAwGzJuGHr/VIJN214o8n9hTZgKgfUVTU8ZX2ii2ZjcGZ/WA/50IrcfwUA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH3PR12MB9078.namprd12.prod.outlook.com (2603:10b6:610:196::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 01:41:20 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 01:41:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 21:41:18 -0400
-Message-Id: <DLRF245BL299.14P8UWBF8SAJJ@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v4 08/13] mm/collapse: call collapse_file() from
- collapse_single_pmd()
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R. Howlett"
- <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
- <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
- <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
- <jannh@google.com>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>
-X-Mailer: aerc 0.22.0
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-9-kirill@shutemov.name>
-In-Reply-To: <20260928100630.21870-9-kirill@shutemov.name>
-X-ClientProxiedBy: YQZPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DTCAvQLh"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so1511179c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:42:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790646136; x=1791250936; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X58YJNIxUxKJ6QJtldaxa01wAToaRZxYcAz7pvIxPc8=;
+        b=DTCAvQLhMDrqdPMABtw/Cu+IHye4O4CVC7PzAAZepnt22hLYFHgPVqeDUdZY2k8xga
+         u28pPbAkjoh6k+RIF+u11lZw2q+MEbX778X50JbtBOB2v0nTZ6EC48UYOD5QYMFs8Cd8
+         DArkaTpfymHiZG/TaSkp0bWrAeCHWlJeMcPDume1HRHK8MmQOm3AvbR5LwEv1olAbvO0
+         2jLu3kI7rjBwo8ZJ+ffYtxw3aEtPaF9OYP3fnB6PLThpJ5w+RMfPfsG9v7GE7klwcatw
+         GsXk4bE+66sRcnOJnivDwliD3OjgMc6/oOmTbslT4ea1VerHerdmlTv2ktiRxKL8J3Nc
+         io6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790646136; x=1791250936;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X58YJNIxUxKJ6QJtldaxa01wAToaRZxYcAz7pvIxPc8=;
+        b=y5+bmga2ABniD/4mt3y+MaT7091Ssr+p5N8Ql07lm2XkXC07OORfcfDRP6PfO+UyvW
+         NJw+fGFDuTXa7WTQUyBV+k1Mla9HawvJ6bK4xWVwhI0fKOk13Nb4ZKX25Q6w5EnCSQ5r
+         PlnIpKDqNhiTFh75xctOZr02VSbxFyTcXSSZ6RxxWCEWl2qx9bPtLHifMtJCLE3DvRe4
+         qt9B34N1VVU1NDeKVXf4s+vbza/6CQ81AfWKmnEKTkKjoU/ccXInOk7Rzy6mnIzLnR4T
+         7TJrkgVDb8ynnmajzcHS/5Lwu7iCQEYU/06YvYP3ozlBhMaWoOSPhlclItCMiuyJAezm
+         iRiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxke4JesJ8M02ErEyJ2e0qzoQXHpO9pyscdBa0JpAMy4yjq2oRNALrBiw1rOgD+rMn5uQ2J+Fp+CHwt52I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHrgudl0pY3Cvc2+uI8lGygp5ZLSLOYRdQTlasSjOCWAsyUKns
+	TWblON5plZrdf+Ywr13vQcg/oOkfXpCFU5c0oE1lejnMR70rJ5lI4AKWW4pWlgZEoSsPJeRu7X8
+	GCE6/f/iqLw==
+X-Received: from dlbrn6.prod.google.com ([2002:a05:7022:1506:b0:144:dc56:6367])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4205:10b0:147:cd15:3eb
+ with SMTP id a92af1059eb24-147cd1506b8mr9485157c88.6.1790646136078; Mon, 28
+ Sep 2026 18:42:16 -0700 (PDT)
+Date: Mon, 28 Sep 2026 18:42:06 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB9078:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a6e2098-2085-46b0-ebd6-08df1dcac2d9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|7416014|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	xcG8eLa9emT/mxy5c0Pex5HQhb6nf2Jpteg19Lw/N62nrFCOLT2BFT5Net68Dp2znZnFPdxtlP1hcQnoUtGdOsUT0PnqAk5TPR4uPkl/953xUW2O0qzhdku30udN2PLUus1T6OMIV+NeqXpp4gr4ElpgzsinR5oGSP6oGK0qbXJ85TdHTE/w8CEEF+joQzCSDWrZDGEhGkfpGQpnGJxJarpqewrtXnbJDbWu/Tj7wZ6ohZov3XZaaCqcKsTap/xjC5FYUKTnmTg+xQOQmC/v5c7ha7pbPuJmw8fGDL8z4VZr5ozA7SXn5IOpHX9B08BRKZfuPioS10OUrUnExFGkjnboyPk945FcsILUf03NHcshVTiATrSrNvXUnvKoCkd3xZSyt+SfNClw3b5LJ/9fcXhEEEAudXQZPTxuIqN+mUsb+LPjPcXyveeMg12g2xXsmrwElYtbydxIZRE/FfXEEy0XF83BAQAb5CKm4qrQRADJfx8fcOPOf+h7aDGGe1X79jS0tOuU0NYByLGpEAMUUX+q1taMg8VoGHv3Jp3ysRs87KWI2JnlqEQL4pKZRhCKJemp3dtyPDbEykZrS1qiaoN0wnpWBZmvejre+92zKsxjiv0vbtAJW7I9+fr4EiDX22yAFjy4/p/Az6PvxC5x4caw+kH59NmzbDHncfW/JDk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZlNlSnI5UHIvR3ZyZUE0eGtMcDUwT1lkazJsUlhxK1N0djNGZnZsaEdmd2dr?=
- =?utf-8?B?dWtnbjU5MWVpODgwTkVWcUF5SE5UWTRCaFhiRS9yNlZOYmdLWVpmOGRHdmtP?=
- =?utf-8?B?bEVjZE9wb1JtMUFTTHpsWDlpRkRVM0JidENuVzdNVzB2NmExM0I1a055S1lq?=
- =?utf-8?B?NS9FU29Pd0hPdzFvblFHVmZNemlRSFBSN3JCYmJPYTlEdEV1SGFNME91Z2RY?=
- =?utf-8?B?TURFVEJCYnFzVEtjVXJ2enduK2d0aUo4SHk1eThGSDY2NjFDdnFORWVLbkI1?=
- =?utf-8?B?TWZGakdIR0tkdUkwa1ZPVHozNWRINE1jSTR5ejhud0Fjb24xQit6Sk43VWJi?=
- =?utf-8?B?eE1ERXhaM0FJMnVDQk85Wm1TU2JNa0JnK1g2c0xHR0lCc2lCZ3lyMEtFVDgv?=
- =?utf-8?B?SkhNUDlDUWJ4djNVcHF1djRSVkxXMTJFYy9TcTZVbVZrMFgwNlRLa1BMWW1U?=
- =?utf-8?B?QUdHUkkvRXBLdkwyWnZYYm1ZMDZNNTA2MzVjRDE1T3FhcXNSNURsNDYyZ1Mr?=
- =?utf-8?B?eVhGUFBCQ3kyd0l1eVcrWTdkcW5mTG1aRU0xQm5EOG4ya0JuRjFacnNRSFcz?=
- =?utf-8?B?SHNoRFphWEx0eVhNUjh6Tnp0ckFzRnQ3WHNqS0k5VUlyM0NWVlBML1JWUlVi?=
- =?utf-8?B?Q2J6WU5aMG1SK3NmcGhvWitwNzU0SWg0ZGR1d254N28yUHhNVXlWcXJ1NlVq?=
- =?utf-8?B?Y3YwZnBQenkzZVpDTUEwbytqSzIwVUcrQkZhVlBlekxDMXZLbG5kNElKSTJX?=
- =?utf-8?B?UldFS0FNRlRROWliU3haclAxNzN5WCtIWkNCMHlaSjZXRkVoRmp1L3h6Mk5I?=
- =?utf-8?B?dFh5YkszcnlvU2c5QktmeU9Rc0dEL2UrOXJ6QkluZE82dHFlV1lrVUwxUmVW?=
- =?utf-8?B?bGZxNmdwMG1aN1czelRsWHo5cmlCRVM2U2w4eElxWWlrQ3BLTE1HUFdMUDU1?=
- =?utf-8?B?aTFxbjZUM3laSCt3NXRCQ1FTbVBmOHlGeE9rMElkaC9vOENlRVBka3FhMlFE?=
- =?utf-8?B?Y3dyTnkxMFNmK2FST3VndFErSVpSa0pNWWkwbkYzaERLeGg5MjN1YzhJd09D?=
- =?utf-8?B?K1EwZzhRcDJxYkRoNzdrUDhsdjR6T1dReHQ1bWpEaDhhbWdzNmE2UUZzaS9a?=
- =?utf-8?B?S2tLaWNweUFyVXViOXZuWXBKa1VxZjRDYVI2dndpbStNSkR0UTF5dURQSzcy?=
- =?utf-8?B?WDJwVmo3TThoNDJvSXNkazlQdy9kY3dpazk4SkNCYnFsaEQrNlBVSTFnak53?=
- =?utf-8?B?d05USnVZMFY4TVVkY1I4MlZEY1dKZkxpTkNaNS9sMmRRT2FsZ0ErWlFZckxm?=
- =?utf-8?B?U2dVSW55Zmk1NTNnVnVrN0ozREM4eHFrbkZaN1Z2Tm01YUovTkEwNFA0N1lR?=
- =?utf-8?B?RlFFRzNhaktmK1lLMGVndGZBdDVDTEZFNFYvbzJXVjNlTG5kbWV0UVMwREJz?=
- =?utf-8?B?VUplQ1ZDQzhYdlhYbGJWS05HazdmWENtS0h6VHhyZXg3VHg4TzNvODhKZ0xJ?=
- =?utf-8?B?eUVzWTRKcTAxeDc4eXBQWE1rNld5QXpXSTg5U3g1L0l0STdEMXRpaTVDWWhM?=
- =?utf-8?B?blVDOTdWU09nK0ZYMW00dEVtcUlPU0dkQzQyaGVmMDdSWWlJL29ldGhHMFF1?=
- =?utf-8?B?Z1pQeW5ZUCtJZDNpZ3EwelNnbmJJMUZUU3lDeGVyck02THRUYTA3NFEyZUk4?=
- =?utf-8?B?K3QwSG9WMEV2YkVQbmI3LzUxR3djd1VSdSs5R2xsVjVreGVrZGRMOThNdXd1?=
- =?utf-8?B?em5COEpWSXZVK1N0d3FaZlduUlBYTlZieDJVd1FCSWtQKzlHUGR2ZjQ5b2ZI?=
- =?utf-8?B?NTNRajZObDNNTTl5YXlPb3hDK2lVWkQ1V2ZmTFNrSzB5YlAwaDl2KzJVdUZF?=
- =?utf-8?B?VVJGQ2VEOExPYUNIQkpoM3FQRXJlUjkrcGFLWmpkTlBCQTFnbUt3RVFMVFhy?=
- =?utf-8?B?UWJQTmV1dEhiYW94cmIvcDJMeVdvalg1Z0s0czkrc1VwL1hFSHAvbnZWLzYx?=
- =?utf-8?B?d3ZGa1doZC8vejg2VDFneUp6c3JvQWxCNkZBaTd1dlBmMmlMNDNIWHNHbE9Q?=
- =?utf-8?B?eWwxdlNCMzNMQXpQMmtVVG5XMlljaGU4dXE1dUlxOWdld29VQUhIM0lNcldV?=
- =?utf-8?B?MENsaGRDb0VMeHlIUUE5TkRubDdpU3BlblRzaGl0NE9SamRSZitQaGtzZGdI?=
- =?utf-8?B?Y2pFcDlMcVdwMDJUVmw1ZXBOb1pFd1VYN2wyT3pvSVE4T1o2NHEydWRsWEtz?=
- =?utf-8?B?aHJWRW5YQmx5azhuVnJLTGRWY3NHNE5xQWNzUk1EQnRVa1V0ZWg2K29YNXMx?=
- =?utf-8?Q?QPhg7OkckX/j4rm7Ko?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a6e2098-2085-46b0-ebd6-08df1dcac2d9
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:41:20.0394
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iCHX9Bc2pL7HJ/6pMtX1haRaZnVN5Yles+eu+qErLiEJR6g6PddGgLjrxv3XzdQf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9078
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929014206.4175245-1-irogers@google.com>
+Subject: [PATCH v1] perf/core: Restore header fields in sideband output callbacks
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Song Liu <song@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon Sep 28, 2026 at 6:06 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> collapse_scan_file() reads the page cache to decide whether a table is
-> worth collapsing and, when it is, calls collapse_file() itself.  The
-> caller cannot get between the decision and the collapse.
->
-> Move the collapse_file() call up into collapse_single_pmd(), so the scan
-> stops at the decision.
->
-> Two things change with it.  The writeback retry re-runs collapse_file()
-> alone instead of rescanning first; collapse_file() repeats the scan's
-> checks under the page cache lock anyway.  And mm_khugepaged_scan_file
+perf_iterate_sb() invokes its callback for each matching perf_event on
+the CPU and task context, passing a shared caller-allocated event
+structure.
 
-So the new version is a little faster by saving a file scan?
+perf_event_header__init_id() increments header->size by
+event->id_header_size. Unlike perf_event_task_output(),
+perf_event_comm_output(), perf_event_namespaces_output(),
+perf_event_cgroup_output(), perf_event_mmap_output(), and
+perf_callchain_deferred_output(), three sideband callbacks failed to
+save and restore header.size around perf_event_header__init_id():
+- perf_event_ksymbol_output()
+- perf_event_bpf_output()
+- perf_event_text_poke_output()
 
-> fires before the collapse, so for an accepted table its status reads
-> SCAN_SUCCEED; what the collapse made of the table is for
-> mm_khugepaged_collapse_file to report.
->
-> Preparation for splitting a collapse into a scan under mmap_lock and a
-> run without it.  The file scan has to stop where the anonymous one will.
->
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/khugepaged.c | 21 +++++++++++++--------
->  1 file changed, 13 insertions(+), 8 deletions(-)
->
-LGTM.
+When multiple events with attr.ksymbol, attr.bpf_event, or
+attr.text_poke and sample_id_all are active on the same CPU, each
+subsequent event receives a record whose header.size is inflated by all
+preceding events' id_header_size values while only a single id_sample is
+written, leaving uninitialized ring-buffer bytes at the end of the
+record and causing userspace perf to fail with -EFAULT ("Bad address")
+when parsing the sample_id trailer.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Similarly, perf_event_mmap_output() sets PERF_RECORD_MISC_MMAP_BUILD_ID
+in mmap_event->event_id.header.misc when event->attr.build_id is
+enabled, but only saved and restored header.size and header.type. If an
+event with attr.build_id is followed by an event with attr.mmap2 and
+!attr.build_id, the second event receives PERF_RECORD_MISC_MMAP_BUILD_ID
+in header.misc while its payload contains maj/min/ino/ino_generation
+instead of a build ID.
 
---=20
-Best Regards,
-Yan, Zi
+Save and restore header.size in the ksymbol, bpf, and text_poke output
+callbacks, and save and restore header.misc in perf_event_mmap_output().
+
+Fixes: 76193a94522f ("perf, bpf: Introduce PERF_RECORD_KSYMBOL")
+Fixes: 6ee52e2a3fe4 ("perf, bpf: Introduce PERF_RECORD_BPF_EVENT")
+Fixes: e17d43b93e54 ("perf: Add perf text poke event")
+Fixes: 88a16a130933 ("perf: Add build id data in mmap2 event")
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ kernel/events/core.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 33210aff3ee6..ea3697295bd4 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -9029,6 +9029,11 @@ static void perf_iterate_sb_cpu(perf_iterate_f output, void *data)
+  *
+  * For new callers; ensure that account_pmu_sb_event() includes
+  * your event, otherwise it might not get delivered.
++ *
++ * Note: @data is shared across all @output calls, so any fields modified
++ * incrementally or conditionally (e.g. header.size via
++ * perf_event_header__init_id()) must be saved and restored by @output,
++ * or unconditionally re-initialized on each call.
+  */
+ static void
+ perf_iterate_sb(perf_iterate_f output, void *data,
+@@ -9723,6 +9728,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+ 	struct perf_sample_data sample;
+ 	int size = mmap_event->event_id.header.size;
+ 	u32 type = mmap_event->event_id.header.type;
++	u16 misc = mmap_event->event_id.header.misc;
+ 	bool use_build_id;
+ 	int ret;
+ 
+@@ -9780,6 +9786,7 @@ static void perf_event_mmap_output(struct perf_event *event,
+ out:
+ 	mmap_event->event_id.header.size = size;
+ 	mmap_event->event_id.header.type = type;
++	mmap_event->event_id.header.misc = misc;
+ }
+ 
+ static void perf_event_mmap_event(struct perf_mmap_event *mmap_event)
+@@ -10244,6 +10251,7 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+ 	struct perf_ksymbol_event *ksymbol_event = data;
+ 	struct perf_output_handle handle;
+ 	struct perf_sample_data sample;
++	u16 header_size = ksymbol_event->event_id.header.size;
+ 	int ret;
+ 
+ 	if (!perf_event_ksymbol_match(event))
+@@ -10254,13 +10262,15 @@ static void perf_event_ksymbol_output(struct perf_event *event, void *data)
+ 	ret = perf_output_begin(&handle, &sample, event,
+ 				ksymbol_event->event_id.header.size);
+ 	if (ret)
+-		return;
++		goto out;
+ 
+ 	perf_output_put(&handle, ksymbol_event->event_id);
+ 	__output_copy(&handle, ksymbol_event->name, ksymbol_event->name_len);
+ 	perf_event__output_id_sample(event, &handle, &sample);
+ 
+ 	perf_output_end(&handle);
++out:
++	ksymbol_event->event_id.header.size = header_size;
+ }
+ 
+ void perf_event_ksymbol(u16 ksym_type, u64 addr, u32 len, bool unregister,
+@@ -10334,6 +10344,7 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+ 	struct perf_bpf_event *bpf_event = data;
+ 	struct perf_output_handle handle;
+ 	struct perf_sample_data sample;
++	u16 header_size = bpf_event->event_id.header.size;
+ 	int ret;
+ 
+ 	if (!perf_event_bpf_match(event))
+@@ -10344,12 +10355,14 @@ static void perf_event_bpf_output(struct perf_event *event, void *data)
+ 	ret = perf_output_begin(&handle, &sample, event,
+ 				bpf_event->event_id.header.size);
+ 	if (ret)
+-		return;
++		goto out;
+ 
+ 	perf_output_put(&handle, bpf_event->event_id);
+ 	perf_event__output_id_sample(event, &handle, &sample);
+ 
+ 	perf_output_end(&handle);
++out:
++	bpf_event->event_id.header.size = header_size;
+ }
+ 
+ static void perf_event_bpf_emit_ksymbols(struct bpf_prog *prog,
+@@ -10496,6 +10509,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+ 	struct perf_text_poke_event *text_poke_event = data;
+ 	struct perf_output_handle handle;
+ 	struct perf_sample_data sample;
++	u16 header_size = text_poke_event->event_id.header.size;
+ 	u64 padding = 0;
+ 	int ret;
+ 
+@@ -10507,7 +10521,7 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+ 	ret = perf_output_begin(&handle, &sample, event,
+ 				text_poke_event->event_id.header.size);
+ 	if (ret)
+-		return;
++		goto out;
+ 
+ 	perf_output_put(&handle, text_poke_event->event_id);
+ 	perf_output_put(&handle, text_poke_event->old_len);
+@@ -10522,6 +10536,8 @@ static void perf_event_text_poke_output(struct perf_event *event, void *data)
+ 	perf_event__output_id_sample(event, &handle, &sample);
+ 
+ 	perf_output_end(&handle);
++out:
++	text_poke_event->event_id.header.size = header_size;
+ }
+ 
+ void perf_event_text_poke(const void *addr, const void *old_bytes,
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
