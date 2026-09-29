@@ -1,72 +1,76 @@
 Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325443AEF54
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92158314B72
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668502; cv=none; b=q/qe51D4tF4TxntwgSopZ1q/hgFQczSoYzBgW372v2gnD/Kn0+tByF1uOuOsrHaHpRpxihm0zxv3RECFRkVEylfdm4ii4mDsexIDvNCyB2jGmOaAPaIPdXYbm5flaihwJbJsVQKNM5lKWdxrUg2JyJDCyzCXhvSzMDGCyYdiZDI=
+	t=1790668506; cv=none; b=a3eo6w5D/HVHEz1RqA+w4utjsgro15owiI/SPkKIImM6GdAgpFJbQxXORTb+S2h4Qgug6mnRzZZXZ0dz3m7mfhcf4i6EvC5x1ZHH3E7RxxBDhxamwV8Yv/NF0BOobOujFTLiGnU55VpeHkicrnX799fCXYSmZmtgFCrorYCnC/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668502; c=relaxed/simple;
-	bh=dkbdgQo2iGH3uRrOoNgwHElz5EaD8vx3Q+1mc9s1RGY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jZ6MNP4y4v7Y6GLkYlob7I6zVLHrQe755A8kBjMOcewWV+kRA9aj/taHxEsAOWeaR4H+zRBZL6ZOhjg67XL78ivRe4bWWCvwG74LINwrK4/K4oPBL1wusQ5Xqvt2Zi7/AgnM+PUT2QRUgB9MDdc4olBgX33rQcbz23p71p8HsJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cpt85CGM; arc=none smtp.client-ip=74.125.228.38
+	s=arc-20240116; t=1790668506; c=relaxed/simple;
+	bh=ZPwnTQuqWtBfGDhVm8mEJ/KjEqEJ1mZMGzmHV9RX+P0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XV0Nn6/D7kEqpS7Up0DAd4DzCxq5+vWTKQWHT7MO7M9d5vL+vHlr9DeMiTeAuZKfFNe6Y8PGbaYR+GkNDbtdgpQ1DePnYeK17aVbSygmFDSwbDzJjzvmiwjIgoTtp06mrZHXLDG3oslWBAkphPz6VnmARBgIQFta7J//l9PIIN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icJoi6F9; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cpt85CGM"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-8814e797a5bso1347962b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:55:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icJoi6F9"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-882833a9f61so1826003b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:55:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790668500; x=1791273300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6RJ/FxYuCVKMvGANdB0chLAu261gG0sMypkNzN9JtA4=;
-        b=cpt85CGMBdvsVBpYJyP4KyvvVECr7evBC1k709yYzMCp1dY2rDI/XPjfWSLxeTfeB5
-         v74b1+RdFvrpMYFZ2EsiURU4+JUd3GtF/EocoW7XL3zHh/IzxDoS8XYXD1g5ue7j4pW0
-         4DjwQM+i59gP5NIBvDqwoHzjlcI5MKj1jgX38NVu9uL1R7QhkKYhucf2JnUTO+X6bFr4
-         g8cH4KtW8DoTYPAD9VbvWZ+ZECmYkgH/4eShdFiG8D0dI/cpS9c+1gK1POtWxpQFcMM3
-         kFGv9uZv1qlrXvSE0rKm3TKVII1+g7xxspbiue48K5HkaI+C7nofaoAf2bSdrw7ixyv2
-         CvNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790668500; x=1791273300;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790668504; x=1791273304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6RJ/FxYuCVKMvGANdB0chLAu261gG0sMypkNzN9JtA4=;
-        b=qy2JnDWFXjihFQjoArSFBx5ggk5M8mVNk3G5KwU2orPcc7LsI6ZGR9vWcwIkiHsZgz
-         0yk/u91QhNs7mmpwkQUC4jFMIkJc8F3YuEjRNfWSdkSC7Z5UNaiSV3A4D+MvItzlTWbe
-         3PULqtbFAXM9OWFVrb+b2uft5F0I5o1+TF80OCo1iXtc3n61+jUhN6tLIL28+Wdg0vL5
-         UJ/0ahu6LvM1+ytx0eDXxBppxpldphahTFFMqFj0xsUEhoegTabMiD7ukNBPxYvHyXwV
-         N74b8tsNf4fBTqzN2tQ9FgJitMimKAtbPFSrjr93jIkwoy62t3m2CxiE+Uh7iiDqQ67z
-         rx2w==
-X-Forwarded-Encrypted: i=1; AKwUvBwHNfap8hwj1pKGLjA+XCX7JL/BQC1ZxPaOB9wA2RE6jfjfcX/Eb9BZFTLLog8IXBR2gABHatxNWUYatJE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhlvWbhZhj/32pTxDHOw4TlkhGjuqHIEthoRUKQca9eFF+tf8f
-	pFJwdlemaCRz8VuJA6oK+NxCJPI6/fZUkxFH09Nwc6pIHaqfO67+N3Yd
-X-Gm-Gg: AYBFou0hZW7L0ZPztiRDkUhqGgFwkw70d1y8LbYnjSbiFq5HKDCQbDDhOfN99X/jCDy
-	WiHL5WxW2Jx1ZT8BqRVWdi5uI+rr+v2WD9KBHhgBRL+2UbYA84UOwE5/onPzWqjsZZGrsCQ4rtt
-	aOaoX3yre/iO5oT0Q/lZd5CgD1fOjWvdepSQWEQGNOoA/JrmewD/L+VYvsQvKIu0IQbThpYSWnz
-	hmYNyqj5JZy9mXeW3M9Mj/TWsgnHouJtUb6gOtqZXHlc1kZNvhLMC5ZB3sCeprvYygxxh66FiWr
-	bGBZ+Mz++TgwYK7hCoToXT66qQqU9l4zuTsKPTPLrcReqJEAFdvdWu4i0e8WT5wyIbmkpaSKh5o
-	ygYtq4oIB9OnYQmUiUQL7ZMjIMVFBVQClB6Uc3ctDkaTF1ThunrSLuLmCsXxfNhQMOCBp9Rp6vm
-	4pfDoA/rCg82pxBoNwEnamcL3NKtFenG7Xq4rbCgxzGrBcRHXr7g5Zi1HO3IbukwoBSn4nKwsv+
-	Zoz1q/EhdTMG9PSXg==
-X-Received: by 2002:a05:6a00:4514:b0:885:8472:16f2 with SMTP id d2e1a72fcca58-8858472238cmr1322638b3a.50.1790668500298;
-        Tue, 29 Sep 2026 00:55:00 -0700 (PDT)
+        bh=Ulju+lbgB7hZpat+8achefWD3iZ013qQmnKJozx8hJA=;
+        b=icJoi6F9DlxdwEwZeWSci31pJcv3+vnku9VWKo/2Sp29iZhk1pOGU90yKZE7LPrxsB
+         z4wrKe3FZ5UiRZSYCkZPQQPiH/YnnC7TQMzIkQKesifPWouf9X72Lj+jaXLsh9V8+sIJ
+         RMHRoOrszUx0MR6OEZRbvWbHkc5DFS8LDnb2jUi0IZaSmhiAeIvm+EVFKuGHOEW4zOLD
+         LuPrrT+jo+841oxAVTQ4Or7KLjuYm8h9XKo174tgoSFbCsuex87mHt9tsoyKTf3A5agF
+         7bt9Q0YMD3BWWE995Lb114PlStgLZoTA5HHJAh8B7TiPPnxi/OweMBF0bnDiGDjCVaDd
+         lwLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790668504; x=1791273304;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ulju+lbgB7hZpat+8achefWD3iZ013qQmnKJozx8hJA=;
+        b=ulUU+6zY16tXVwOYbIfWx6I14ZbvBxEphMbj3CosQz6U0shGo7SHnv+K2liV+p177A
+         fV8r4ZwQ3cwz3T6jmzCJby7bXqoz5O8WGlOKfcNglmHYNmD1+yA2xrYLEDRQSMA9hE2h
+         EV/0S4iyjRiD4GxXnPJeov5JoMK0vElE5bTjr9ROaDZPOMXWgfJGqrJasQgoA/vrtMpD
+         BbNQCRP8KwVdYEUx9un7T/pKwwoSPPjlcrLvTflefeSVDcwCkK/T/sgJNNTKnYPEDdD4
+         HgiiV4rO+YmT4IdyUwBWIZ5DZpuG8EXGH9vrLQNd3SCkFIvGRHZQ90Ms8Zjob1Aiw3L3
+         UUqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGOcIttP4TiEv86QxEKCB4Is4sloWAKvDB8M6lbgzHRCKBcoO+VfQjFjcBHeHoAhOkAaL3Mp2+QoZj000=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQyR3dy4Zu+ftWbUx2fxRaJurzs+Rh5jIuvkARP/oPe1wTgX4i
+	MXfTYbtnx1k+BcTpxqEc9sKKxMNeot3Kd0aSNajf869ALyJaSNWkymFEBkBRqylj
+X-Gm-Gg: AYBFou0HY+EDHoXLWIpLp+Lcydd+qArzJwScoOI76G7TCx9UzFwlt+cvg8VT2fNoRO1
+	f0P6y9RHAk6e7j2qdu/pIAQzDKOU0vSN9dZ+H2um01Qw4G8LeTZge48wd7QEmnr+Tr2BVzGoigV
+	3IMgOw7BbP29iRqzc4/utInknTtN8t+6WDraT3MdiMOQ28GbdrI8z/tHMrf+9+y3Er+qwtCGsHK
+	4WWbZsJnfLkYKXR4JPszmRm4s7xGr5EeZrpVfIFK/ddSTjQv+3XEDAX9jBoR/VZavGOb/w7ZigF
+	SCJUwXxJUPCHbNZQo4HYhZkONu7tVQSfsMtIPkcTjGK5ImUjsf0FsSnlnJ7vs6gaxltR+uu9ERD
+	C759m4RGHvyD4r82MTrGQM5Z4bLyKklMzQGkaP6fyuGOjqe6VISrW+hrcdotTPkMa3K3/TS8mAe
+	+f2WEqTi8cFEjUI8rMebAPq2ZSlbxZCchejiWwL3nzeDp+ohlvRgNzujTogIJH9pbao7HfEdo+o
+	/l83IZERI/ozMbySg==
+X-Received: by 2002:a05:6a00:1795:b0:880:b709:cefb with SMTP id d2e1a72fcca58-880b709fc95mr8242883b3a.45.1790668503728;
+        Tue, 29 Sep 2026 00:55:03 -0700 (PDT)
 Received: from embedsky001.tail6d6b2f.ts.net ([183.12.106.39])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e22ee338sm351772b3a.45.2026.09.29.00.54.58
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e22ee338sm351772b3a.45.2026.09.29.00.55.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:54:59 -0700 (PDT)
+        Tue, 29 Sep 2026 00:55:03 -0700 (PDT)
 From: Yonghao Zhang <hyz3367@gmail.com>
 To: andersson@kernel.org,
 	mathieu.poirier@linaro.org
 Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yonghao Zhang <hyz3367@gmail.com>
-Subject: [PATCH 0/4] remoteproc: core: Fix the error unwind paths
-Date: Tue, 29 Sep 2026 15:54:49 +0800
-Message-Id: <20260929075453.2324597-1-hyz3367@gmail.com>
+Subject: [PATCH 1/4] remoteproc: core: Reset freed vring entries to FW_RSC_ADDR_ANY
+Date: Tue, 29 Sep 2026 15:54:50 +0800
+Message-Id: <20260929075453.2324597-2-hyz3367@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260929075453.2324597-1-hyz3367@gmail.com>
+References: <20260929075453.2324597-1-hyz3367@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,91 +79,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The remoteproc core unwinds failed boots, failed attaches and failed
-recoveries in a handful of places, and those paths have drifted over
-the years: an unconditional stop() here, a missing cleanup there, a
-reset value a running remote processor could misread.  This series
-fixes four of them.  The success paths are untouched, and no in-tree
-driver changes behaviour when nothing fails.
+rproc_free_vring() resets a vring entry in the resource table as it
+releases it.  Resetting da to 0 leaves the entry looking like a vring
+at device address 0; write FW_RSC_ADDR_ANY instead, the marker for an
+unallocated address, which is what the entry means from then on.
 
-The single-sided ops configuration that two of the patches guard
-against is not hypothetical.  Version 9 of the TI k3 refactor series
-briefly introduced it [1]: ti_k3_dsp registered in IPC-only mode
-with start() kept and stop() cleared, on the reasoning that
-rproc_attach() never invokes start().  The shape sat on the list for
-a month before the rework that finally landed removed the ops
-overrides altogether (commit 41d746b3423a ("remoteproc: k3-dsp: Don't
-override rproc ops in IPC-only mode")).  The point stands: nothing in
-the core would have caught the intermediate version, and a driver
-sent today with the same single-sided ops would pass rproc_validate()
-just the same.
+That matters on the error paths of rproc_start() and rproc_attach(),
+where rproc_free_vring() runs while the remote processor is already
+running: the failure originates in rp_find_vq(), called through
+virtio_find_vqs() from e.g. rpmsg_probe(), which the core only
+reaches through rproc_start_subdevices(), after ops->start() or
+ops->attach() have completed.  At that point table_ptr is the
+resource table installed in remote processor memory, and whatever
+the reset writes is visible to the remote side.  Whether and when a
+running processor reads the entry cannot be known, so the value must
+be safe for one: 0 is a plausible device address, FW_RSC_ADDR_ANY is
+not.  On the teardown paths, stop and detach, the write lands in the
+cached table or in a copy of the installed one and reaches no one.
 
-Patch 3 mostly benefits the attach-on-recovery users (imx_rproc when
-the Mcore resource is owned by another partition, xlnx_r5 when the
-RPU is already running firmware): since attach recovery was introduced
-(commit ba194232edc0 ("remoteproc: Support attach recovery after rproc
-crash")), a failed re-attach was unwound with an unconditional
-ops->stop() -- powering off a processor which, per the feature's own
-contract, "does not need help from Linux to recover... Linux just needs
-to attach", and which zynqmp_r5_rproc_stop() would additionally flip out
-of attach recovery mode by clearing the feature bit.  With the unwind
-detaching instead, the processor keeps running under its original owner
-and the next attempt attaches again; attach()/detach() stay paired
-one-to-one with the attach() calls that succeeded.
+The comment replaced along with it was written for a call graph that
+no longer exists.  It described the teardown callers only:
+rproc_stop() has run, table_ptr points at the cached table, and that
+table is NULL for a processor started by another entity, so there is
+nothing to clear.  Two facts have overtaken it:
 
- - 1/4: rproc_free_vring() writes FW_RSC_ADDR_ANY rather than 0 into
-   a freed vring entry, for the callers that reach it while the
-   remote processor is running and the reset lands in the installed
-   resource table.
- - 2/4: rproc_start() no longer calls stop() unguarded when it
-   unrolls a failed subdevice registration.
- - 3/4: __rproc_attach() rolls a failed attach back with detach()
-   when available, keeping the resource table accounting and the
-   state consistent, instead of unconditionally stopping a processor
-   that was started by another entity.
- - 4/4: a failed recovery releases the resources of the boot it was
-   trying to restore and voids the power count, which nothing else
-   can drain once the processor is offline or detached.
+- rp_find_vq() has been calling rproc_free_vring() when
+  vring_new_virtqueue() fails since commit 6db20ea8d850 ("remoteproc:
+  allocate vrings on demand, free when not needed"), and that call
+  was present, unchanged, when commit 9dc9507f1880 ("remoteproc:
+  Properly deal with the resource table when detaching") landed: it
+  runs from rproc_start_subdevices(), after ops->start() or
+  ops->attach() have completed, with table_ptr at the table installed
+  in remote processor memory and the processor running.  The comment
+  never described this caller, not on the day it was written.
 
-Testing: on an Allwinner T153 (sun8iw22) with an E907 remote core,
-driven by an out-of-tree platform driver for the Allwinner remoteproc
-hardware.
+- commit 9dc9507f1880 ("remoteproc: Properly deal with the resource
+  table when detaching") and commit 8088dd4d9316 ("remoteproc: Properly
+  deal with the resource table when stopping") later taught the
+  detach/stop paths to take a kmemdup() copy of the installed table for
+  processors started by another entity, so the NULL case the guard was
+  deciding between is gone: table_ptr is always valid where the teardown
+  callers run.  (Those callers have since moved to the rproc-virtio
+  platform driver, 9c31255ce5fe.)
 
-The error paths of patches 1 and 3 were hit on this hardware rather
-than constructed.  During development, a subdevice registration
-failure during rproc_attach(), unwound by an intermediate version
-that called detach() without the resource table reset, left the
-freed vring entries at da 0 in the installed table: the next
-rproc_attach() failed in rproc_check_carveout_da(), called from
-rproc_alloc_vring(), with "Registered carveout doesn't fit da request"
-That trace motivated the reset bookkeeping of patch 3 and the
-FW_RSC_ADDR_ANY reset value of patch 1; with the series applied, a
-failed attach can simply be retried.
+Fixes: c0d631570ad5 ("remoteproc: set vring addresses in resource table")
+Fixes: 4d3ebb3b9990 ("remoteproc: Refactor function rproc_free_vring()")
+Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 40 +++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 12 deletions(-)
 
-The failure path of patch 4 was exercised by renaming the firmware
-file once the processor was up and then crashing the remote core:
-recovery fails in request_firmware() as expected, and after the
-file is restored the next rproc_boot() performs a real new boot
-instead of silently returning success on the stale power count,
-with no "already associated to resource table" leftovers from the
-failed recovery.
-
-[1] [PATCH v9 17/26] remoteproc: k3: Refactor .start rproc ops into
-    common driver, 2025-03-17:
-    https://lore.kernel.org/all/20250317120622.1746415-18-b-padhi@ti.com/
-
-Yonghao Zhang (4):
-  remoteproc: core: Reset freed vring entries to FW_RSC_ADDR_ANY
-  remoteproc: core: Guard against a missing stop() in rproc_start()
-  remoteproc: core: Roll a failed attach back with detach() when
-    available
-  remoteproc: core: Clean up after a failed recovery
-
- drivers/remoteproc/remoteproc_core.c | 144 +++++++++++++++++++++++----
- 1 file changed, 127 insertions(+), 17 deletions(-)
-
-
-base-commit: 586a2fadadb160295a93e5d5d32db1a2558a4d3f
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 263e12f022ea..123aadb467a0 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -403,6 +403,33 @@ rproc_parse_vring(struct rproc_vdev *rvdev, struct fw_rsc_vdev *rsc, int i)
+ 	return 0;
+ }
+ 
++/*
++ * rproc_free_vring() runs while a remote processor is being torn down
++ * (rproc_stop()/rproc_detach() paths) or while a boot or attach attempt
++ * is failing.  Whether the reset below can reach the remote processor
++ * depends on what rproc->table_ptr refers to at that point:
++ *
++ * - teardown paths: the call comes from the rvdev cleanup in
++ *   rproc_resource_cleanup(), by which time rproc_stop()/__rproc_detach()
++ *   have switched table_ptr to the table the core was booted with, or
++ *   to a copy of the installed table when the remote processor was
++ *   started by another entity (rproc_reset_rsc_table_on_{stop,detach}()),
++ *   so the write cannot reach the remote processor.
++ *
++ * - error paths of rproc_start()/rproc_attach(): the failure originates
++ *   in rp_find_vq() (virtio_find_vqs() failing in e.g. rpmsg_probe()),
++ *   which rproc_start_subdevices() calls only once ops->start() or
++ *   ops->attach() have completed.  table_ptr still points at the
++ *   resource table installed in remote processor memory and the remote
++ *   processor is already running.
++ *
++ * Especially in the last case the reset has to tell the remote
++ * processor that the vring entry is not usable: with da set to the
++ * invalid FW_RSC_ADDR_ANY a running remote processor sees the address
++ * as unallocated, and notifyid is invalidated along with it.
++ *
++ * Reset the virtio device section only if there is a table to work with.
++ */
+ void rproc_free_vring(struct rproc_vring *rvring)
+ {
+ 	struct rproc *rproc = rvring->rvdev->rproc;
+@@ -411,20 +438,9 @@ void rproc_free_vring(struct rproc_vring *rvring)
+ 
+ 	idr_remove(&rproc->notifyids, rvring->notifyid);
+ 
+-	/*
+-	 * At this point rproc_stop() has been called and the installed resource
+-	 * table in the remote processor memory may no longer be accessible. As
+-	 * such and as per rproc_stop(), rproc->table_ptr points to the cached
+-	 * resource table (rproc->cached_table).  The cached resource table is
+-	 * only available when a remote processor has been booted by the
+-	 * remoteproc core, otherwise it is NULL.
+-	 *
+-	 * Based on the above, reset the virtio device section in the cached
+-	 * resource table only if there is one to work with.
+-	 */
+ 	if (rproc->table_ptr) {
+ 		rsc = (void *)rproc->table_ptr + rvring->rvdev->rsc_offset;
+-		rsc->vring[idx].da = 0;
++		rsc->vring[idx].da = FW_RSC_ADDR_ANY;
+ 		rsc->vring[idx].notifyid = -1;
+ 	}
+ }
 -- 
 2.34.1
 
