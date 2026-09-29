@@ -1,125 +1,226 @@
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756D0395ADA;
-	Tue, 29 Sep 2026 07:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E6C339B3D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665748; cv=none; b=aS+6sA3m3Y9X/DTaOm5NqTWqb15AqkWWgjWJ6kjEY5ALms3umaRKCDVVA/Z5bgZCzGo5MRxKI5pNw26yCJEzvWbkZ19GoGhvpOIoEYIEIRBbMuOsBf3xY+8X6u1AJ8QRp+weoZhhoor4XrjWYDBZCvYuTIBvEeetl48vKhUVFnw=
+	t=1790665855; cv=none; b=dGoDnOM67R1wZsEmAANeWmPUtxx58scEFvYMa16QLXep+scEugvOq9fbyMNnX7Awo6HIYlk/SfTO4im+iJkr7/3uGzOJFupA4pkSwyeccP2Fn3qt1HZtj76tgQKvuLytkMW1qrG1LxhNwjKj9gCZunY2K2xxot1X+7rhSI9ZAzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665748; c=relaxed/simple;
-	bh=opN0ophgBAoWkcRmCvvxHECSx0MgTmTQLigDgTZpwWM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fVHKmZF/u+LxJ+4pg7KF/U8RDM/P85M8dRVHtvMeCAdBxyoaIym8q8lKJsvLRq60ZC4Z38mXZlpG1FmFHkVv4LEvIlNnvs9UZRHLG43TtpwFzmOGXZCoxi8IvaL2An+sYgRR8Uti3ZaDRPWspXVeGLziE0iYi5EjjzdnpoDXrY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=iO7DkInj; arc=none smtp.client-ip=217.70.183.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	s=arc-20240116; t=1790665855; c=relaxed/simple;
+	bh=lLsSUBgEQVlXHsBeHvf4J4EvkWgzwmRzhMGQZkbTeeM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DGcauiYcA0BMqAjS7cfcIdfZASiXcl01Y7RYAvMp8fQ2/BO6q+y7JROea0XhSzoxLu6g6kMbcEr6n2pqgu/wwVF0vebjnzumPPaLbbz+udTmB1ZEceOfbrkNtddxdEOuw2a9lu3r+SLgTsyAwNKVZ/etjUHyhl6Cid4QLiBjY70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DX6ZhtWi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bREHOwJV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="iO7DkInj"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 616053ED03;
-	Tue, 29 Sep 2026 07:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1790665744;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w9D2kUR7R279hz9z6RiS1dtj9gZjtDtF0tTMRuWfTyk=;
-	b=iO7DkInjaUo2llNTS9reSVo6dbxpIc0X6qLzRs9G4epQNB8Sjk18yz+OWdKKyiaGsOg5RJ
-	cj3KtRmYYefl2DubL0511BRAqLskrI9mdpFksWXBAmTREjveix48qkqQoLXvAVRCbXMW0n
-	tdeYQQ7Y+qP5M4gr9stxopqlUyEck6icZ8jly15eTggFP9s1VaNcCbFe0mG0wwbsERztQ3
-	RqeLxYRApvaysuIiJs/wlmepw48kXgUQPM2TScrt5o4TnhqgibT4obDxahBJE5ltZlDgz2
-	l7uFxi1/dg/JoyBq5OdbdQz6wVw1p7BDRG+kX+jgRAhj9AdXJI+Rmf3T8FujZQ==
-Message-ID: <72690a8d-40b6-4109-8211-32e1dcdb8a39@gtucker.io>
-Date: Tue, 29 Sep 2026 09:09:01 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DX6ZhtWi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bREHOwJV"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T473X9318006
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:10:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tIGmr+KvNWef7LSTquglUqpd
+	DXRoxpli+2obPHQ+hnQ=; b=DX6ZhtWica0BFeSKF1fZplVB4QfjMX01tZgHePdy
+	t3r/iZdKeFHh4IrRNDnIQMwftXwKLEQZjxikUDgxG2nlrj44mNp/neBgKluoSK4n
+	YtXToHMDRDx9vNoFsNi221QOLAcLQymvX0tDG8hvfyR+Ul1SZ9dWYdjBCTQGWfSt
+	OwSRzKUjfltDm94Qr/yWp1kUooYDOyGP2Pw/LPYC9DqpJhZjhLf8KVp+wfdHLsQH
+	y+rYKkXGG4Selym37s8n+V9MrPU7KO0tjpvbhON5pfr+5nMe/x1zRFtDoMQchEPr
+	HN8VqHm5rbQKj7pJF9xiqSPZ2vbUS6Rad9sCMkJp9dVI2g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyw03jq6a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:10:53 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c5ab5c136so469884285a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:10:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790665852; x=1791270652; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tIGmr+KvNWef7LSTquglUqpdDXRoxpli+2obPHQ+hnQ=;
+        b=bREHOwJVt0VfmgHYxVJyQpaMWO0DPIT/92O72SDxEOzl/VInIoc11/MtV24nlq2Rxw
+         azMC3hus2J9nysqS4Ng+10N+5z4TunfxAANncunR4gPUQ1fl/R9l37W/DlwbfYdLtuOg
+         HQIgQKdaEGa+LU1ZowrcvAF0bIMHA5Xa/WMZYRa8DprG+iTfgJbHZc0ZMDaSiSjEyc0M
+         P/H7j1FVShoAMjJYKBHNhit7mwVqt+0rs9Md4UksylvVQgFNQLeNwr83qm58bf8DjBQ7
+         CC/c0tAE3OM2RuZgzoD1gEMpB3ZeggsmvHw+PNHOShgBFVdLljvnigyhd4qjzENOBOhe
+         8W+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790665852; x=1791270652;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tIGmr+KvNWef7LSTquglUqpdDXRoxpli+2obPHQ+hnQ=;
+        b=DgxzFT15m94Q7Jc68NN0e515wXRYjxgPFjjCfUrAAz4zOxGleblMHc37XAwvp6IOHa
+         BP9/EQy8r7NApo5moIVmjocRnRq3OMZhHz53mAwhASMGHrY5RfOQpQ0EtjGGTjzVBZrP
+         1ytyLoej1COGQtaVN3v8dBAe3fUZaFDSucz7RihWp6KIkx2BYLrki7ibOakdVWSO4+2T
+         pRVTIq3jtL5OgVpHO5xNAnlAI6ENZLC9wzcGIhYVS2AiP2cEL0hycWcz476NbJ2qu3Ut
+         K5p7iQ4PXXetf1r+5WcYeEl5p1P7URA2khWSEYtIKG8LImHWo2v7fejTK+NMJ844Ni43
+         +GtA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5LJNzWDijSDYKGpXDVsxVoU1TP24Jn4uUIhH5ZRj5ROQmKBVwSjjkkB5eXGe/LfssrSyAc61KKD5WhIA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwuV7C4k7+lnMB7TUGH2/fNt9hx4YYRqbF25d+qRxN0XTPyXKY
+	LmzIQXDi7bXLmXaP1UB9mIgtosQVnPHOqcYmOccjWGaY4pLOSCJBTn5cp2zq1bzdGYl8Gx3Y04M
+	AmdmbQCbeIzmj0Qr+NHfHTw77N19A6VhMh1LfyCRVVNuDpy1lCmXFAk/m4lm8ENIprfY=
+X-Gm-Gg: AYBFou2c0IiKJI1EXmdH4KUDap+wmr76GFubCSXrmJ96ildTap1KIgbN4Xwr5x7GRji
+	Jzez+gBwmTVApnvhNSUlOR+X5zY4B+1c/CIT2LS6YV/IYiXvl7XPkpdQeBy7jdN9raS+z89wZpw
+	Ph3JFgLFpoVGju4sPdp9vir78gn9XAaCgZoJ1u7Ay5/63C8wFj0tcH2vIRbag447Lam4npsSZ3F
+	l7GlkSoy3eAOld/kA1YqeK4C8pwydtdmFJH2xPp4FM8Auw1xekPjB2cQbWzYnb0FCnjSbpWcvZQ
+	dB4fpKkmaJynVZyw6wnUnNV1t4+iypJqZ7/dYwTYaN/ZaBkh7MMafwgdpFjeN3toux3xyUu0Jcg
+	eYwMI9Kp7VAx3zg==
+X-Received: by 2002:a05:620a:2586:b0:93b:d7a0:d9e2 with SMTP id af79cd13be357-93c43d43f47mr2464692085a.60.1790665852293;
+        Tue, 29 Sep 2026 00:10:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:2586:b0:93b:d7a0:d9e2 with SMTP id af79cd13be357-93c43d43f47mr2464687985a.60.1790665851689;
+        Tue, 29 Sep 2026 00:10:51 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5056b1bsm1729250f8f.17.2026.09.29.00.10.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 00:10:50 -0700 (PDT)
+Date: Tue, 29 Sep 2026 09:10:49 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+        davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Nicolai Buchwitz <nb@tipi-net.de>,
+        Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>,
+        thomas.petazzoni@bootlin.com,
+        Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        Peter Robinson <pbrobinson@gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] net: stmmac: Introduce a helper to check
+ RSS support
+Message-ID: <artkeRrj8cIntC5Q@lore-desk>
+References: <20260928145043.1228968-1-maxime.chevallier@bootlin.com>
+ <20260928145043.1228968-2-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] scripts: add TOML config to container tool
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Miguel Ojeda <ojeda@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
- kernelci@lists.linux.dev, automated-testing@lists.yoctoproject.org
-References: <68b14a76a4cb2e6437c869bab948983a98acffbd.1788779245.git.gtucker@gtucker.io>
- <03e8513a-3480-42a5-9d1b-fad6c36ed07a@gtucker.io>
- <20260918214804.GA1849926@ax162>
-Content-Language: en-US
-From: Guillaume Tucker <gtucker@gtucker.io>
-In-Reply-To: <20260918214804.GA1849926@ax162>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Cause: dmFkZTFenxi55h2HBRShrkenX+7C3lnxqudytjtg3MfMLMOvzVQksYNZDyiz06KgEyx/pFrpwWWrCdcxrYqmCYdyzMLl4Mhahq0XMT37B0AYGHfNy6TT1dsdE93geegPHS58w2IdjuPf3RhlHtJiGrTalRzyveMs0c35rKwcEY9+mzchD9kzOikL8J629xh0Szp6bhqvwWMSnP9RYXS67YaJCOs6UlcPvGoCUVJET/zanBS0DiEgPh22+YQn/yP/ql/46RNRD7bMTCZydJ40Esu5MoiUAt6yO+qtqQSAbMkTwLhJ1+umiafwjTbo3thmLsb6MzVozx5F1W/QFpUNZA1u11/dgZc2g2SiUOnGqiVDezAUcu9to6nkoflz40Vh/tNsjW7SV9LQgfgkgtcsLXDjUZAybO/8t37QZznPIG1d7w1p2z8e8Mc9+EhaoenLnKhPyTYPElAifxkGCjtlrlrDHzRqP3xF2/j4TVMLfK95WFKhm4JYteKSdnNmg0M7Mz0YCDb/CuMliTn+ZkBdb1jSh56IHpUvOGaPaE8zlu5N7Sp1NH8NQrnhj0fhdon4E85UfqkEuZB9qj4/9PBzp874fvYxO8f3USY0UTx62SXfxnuky+JKO4O0v11jIg5hSLJLSK66s+FxT064EG9Ba83Yd9ld6BKUPFQLT2H27Pfgd2VRRw
-X-GND-State: clean
-X-GND-Score: -100
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4AbA0v2YJAqeW/6p"
+Content-Disposition: inline
+In-Reply-To: <20260928145043.1228968-2-maxime.chevallier@bootlin.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX8wU6ZgHH1/kC
+ QGDQ43LsptrqAQiuNqOrVMPytOJ/e9Uz1g80lL4EKCJ7307Z8bowbjPBusY9vpQOeHjUAqmKYvY
+ khNb2NJSh9kKdtRvlNg6UMGfgP4mhHk=
+X-Authority-Analysis: v=2.4 cv=SIbXx+vH c=1 sm=1 tr=0 ts=6abb647d cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=P-IC7800AAAA:8
+ a=EUspDBNiAAAA:8 a=dmaecK2fVo5vuBnwg-kA:9 a=CjuIK1q_8ugA:10
+ a=9DQBYnkIQOUhDWc-jbMA:9 a=PEH46H7Ffwr30OY-TuGO:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX00i5e8ktkl7G
+ 70Mime1AH+m2WkFNw4KeVszbYNmF5Tz8JnyZKBs84o3YadYt3Xy0igUeVcBed4L6Pkk0tb97M2z
+ 6LcV3bguIbKFSfbH68O7pwciurNFreHat4E1In8pbjCBcjyUVMF8wWbKDScrTVByKI0O0LMonFA
+ efCzbs9BEGE7Pv/IvOXYiUELDGN3To4t/wWhn6wCXssRViDBr7i6Cd+upFRgYCUs2UCcMbLx0kT
+ aqNE1P9c4H5Xrw/xrhQ0A5IJLbTd89FPkCm7jDWWbxDob6abyDlSMzThkbyGft7vrhQJ/hGvINM
+ GBuvN0GjFmHae0Dc/JADVm4akx9aq94Spv4VXrA5EmqZ1shbWtA1Vhm5LWAGMHIVxQvY3jITK1n
+ MRwwOAkYcDXeGI/DyXhEoeaJZmjXAUHREvnjSDXlenA1OfRj4EEsrFI9vMxkujrblmZAsCf1KPf
+ gAxl/gViXIPc797AtLQ==
+X-Proofpoint-GUID: YSM0SG5nr083KXDmrJWoSCvEhmDGpJLJ
+X-Proofpoint-ORIG-GUID: YSM0SG5nr083KXDmrJWoSCvEhmDGpJLJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290028
 
-Hi Nathan,
+--4AbA0v2YJAqeW/6p
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 18/09/2026 11:48 pm, Nathan Chancellor wrote:
-> Hi Guillaume,
-> 
-> On Fri, Sep 18, 2026 at 12:04:09PM +0200, Guillaume Tucker wrote:
->> On 07/09/2026 13:10, Guillaume Tucker wrote:
->>> Add support for a TOML configuration file to the scripts/container
->>> tool.  This improves user experience by not having to keep passing the
->>> same command line options all the time or overly relying on built-in
->>> default values.  Include the concept of 'profiles' with different
->>> named sections in the file to cover various use cases.
->>>
->>> Command line options take precedence over the config file, and values
->>> defined in profile sections take precedence over the default one.
->>>
->>> Add a -c option to override the location of the .container.toml config
->>> file which should otherwise be located in the current working
->>> directory.  If not found, the file is silently ignored as it is not
->>> strictly required unless the -c option is used.
->>>
->>> Add a -p option to choose a particular profile section in the config
->>> file rather than the default.
->>>
->>> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
->>> Acked-by: Nicolas Schier <n.schier@fritz.com>
->>> ---
->>>
->>> Notes:
->>>      Changes in v2:
->>>      - fix uid / gid handling when set to 0 (root)
->>>      
->>>      Changes in v3:
->>>      - fix logic when loading config profiles using None
->>>      - fix typo with missing whitespace in help message
->>>      - clarify how UID gets used as default value for GID
->>>      
->>>      Changes in v4:
->>>      - drop registry option from TOML config
->>>
->>>   scripts/container | 86 ++++++++++++++++++++++++++++++++++++++++-------
->>>   1 file changed, 74 insertions(+), 12 deletions(-)
->> Thanks for the reviews so far.
->>
->> Do you guys need anything else regarding this series?
->>
->> There's no rush of course and we're all busy, just making sure I
->> didn't miss anything.
-> 
-> No, my apologies for not responding to this sooner. I plan to take a
-> look soon, I just keep getting preeempted by other stuff.
-> 
+> The RSS feature is only available in stmmac if the hardware reports it
+> through the DMA caps and if the platform glue sets rss_en.
+>=20
+> Introduce a helper that checks both.
+>=20
+> For now, no platform sets rss_en, but there's interest in the topic so
+> leave the door open instead of dropping the feature altogether.
+>=20
+> No functional changes intended.
+>=20
+> Suggested-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Sure, no worries.  On a related topic, I also just started a new
-thread about hosting container images[1].  And I'll be at Plumbers
-next week so we may also catch up there and discuss next steps etc.
+Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-Best wishes,
-Guillaume
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 5 +++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+>  2 files changed, 7 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/e=
+thernet/stmicro/stmmac/stmmac.h
+> index 7582fca63741..e2873d46e049 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -433,6 +433,11 @@ struct timespec64 stmmac_calc_tas_basetime(ktime_t o=
+ld_base_time,
+>  					   ktime_t current_time,
+>  					   u64 cycle_time);
+> =20
+> +static inline bool stmmac_rss_is_supported(const struct stmmac_priv *pri=
+v)
+> +{
+> +	return priv->dma_cap.rssen && priv->plat->rss_en;
+> +}
+> +
+>  #if IS_ENABLED(CONFIG_STMMAC_SELFTESTS)
+>  void stmmac_selftest_run(struct net_device *dev,
+>  			 struct ethtool_test *etest, u64 *buf);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 4dee3542df3b..08feb18d62ba 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3538,7 +3538,7 @@ static void stmmac_mac_config_rx_queues_routing(str=
+uct stmmac_priv *priv)
+> =20
+>  static void stmmac_mac_config_rss(struct stmmac_priv *priv)
+>  {
+> -	if (!priv->dma_cap.rssen || !priv->plat->rss_en) {
+> +	if (!stmmac_rss_is_supported(priv)) {
+>  		priv->rss.enable =3D false;
+>  		return;
+>  	}
+> @@ -8037,7 +8037,7 @@ static int __stmmac_dvr_probe(struct device *device,
+>  	for (i =3D 0; i < ARRAY_SIZE(priv->rss.table); i++)
+>  		priv->rss.table[i] =3D ethtool_rxfh_indir_default(i, rxq);
+> =20
+> -	if (priv->dma_cap.rssen && priv->plat->rss_en)
+> +	if (stmmac_rss_is_supported(priv))
+>  		ndev->features |=3D NETIF_F_RXHASH;
+> =20
+>  	ndev->vlan_features |=3D ndev->features;
+> --=20
+> 2.55.0
+>=20
+>=20
 
-[1] 
-https://lore.kernel.org/all/01a87de4-8de5-4ff0-941b-2e5932a3a19c@gtucker.io/
+--4AbA0v2YJAqeW/6p
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCartkeQAKCRA6cBh0uS2t
+rKlgAP9BrJf6LgP4y529UEKl/BwyjNkwWuBoOJca9HEjS70dawD/W/Zd/sqjZ93X
+o19uP0B7YwHzyKwrFC+mqd5ths/LnQA=
+=Wv2k
+-----END PGP SIGNATURE-----
+
+--4AbA0v2YJAqeW/6p--
