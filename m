@@ -1,129 +1,172 @@
-Received: from mail-pz2-f17.google.com (mail-pz2-f17.google.com [74.125.228.17])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDD7541E5F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B0F2D662F;
+	Tue, 29 Sep 2026 18:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705472; cv=none; b=sv+me7EchSd6U+r+o6otZbqFjcN7mYBNXEQWQc/HFHkZ+P8ZqvVKG1QaC03OqqYT5M6Uq2uW8NNhhQCRjr9fDXG0WDzBg15u+91WTjn1I5NR0+0UAEj3OAwkxdVdqoaSZem/zdAk0m3VLf7S5NQE/MqyeAeS8N1tdhGSnCCDA/I=
+	t=1790705492; cv=none; b=EpF3lNjT6ishsloGthpfSpuPT+gMtHpeqWPWIdwlLgmcxLpsSuO/JlhUDN3LWCTpW3RgcEBO4KRVP+I9qbxSm201AMCxU+Dt18MMONgKqN5gIYpklQhKUQOG5LqPh1AYMqu+cihGlN4babjfbnjlLF2uGuNlsDE2jnOvkgF1lu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705472; c=relaxed/simple;
-	bh=bFC+TshhTmM0v4253iAy7r1VYxcLXC8treYolVAgLgs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bTk1bjTV2XKmh2XPPH8c5NqkAEs6Ch1TK1aESIpAKUPnd5rMo4vBBvPxQFeV4IfzLp1vx9x6LEVL3RDStaoFQ3YYN6wNVJGziZtf8BWNkxfVbxGEOGgVQy6Jxyz3q8cnVB+qttaziqBKvTn6sTDfSB9wqP2gfC6ryixxUVxhenE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r2QO3N/y; arc=none smtp.client-ip=74.125.228.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790705492; c=relaxed/simple;
+	bh=ZC/1BAGTEGyUZTJ5wnEnOfra8VAiWtX8d1bOgYEgIQc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iX1jCCxN+2xXs/P1ubKNKTXKjy94UN24mAbwVrYJOsl8aM9pHONJ22wPqsnmoyGabv9bUdoa3W6lPkh6McH+vGtxr2NUB9L8AJrBy4F9FdOP/mr6wzv9wwKy/9ZW9lPAFVvMW60G7xTNKv9vhcXJ3LOMByUubCLleONXNp+M6ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=08edolbw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=H3eI1mdw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=W6FmG3ev; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qDH59VVG; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r2QO3N/y"
-Received: by mail-pz2-f17.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1935062a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790705470; x=1791310270; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Civ9zmYjZCgx8nR3DY84Bu2yh9FlAvluUU+pFA8atcM=;
-        b=r2QO3N/yy1gTU4TdtEND5KbMyxGJaaa0GqoLLmfW2PJYZO9FiqOjXHKNeioo/SEya9
-         69YO68PyWk0FV2blPUiLJFmO6tDGKTxN9YnVnxtaQ4JvQTRnadn8BhHRJJ9RiUrdQea4
-         69TSf9aLC0Xc8o9vt5tJOnK4lmJCFG6ILmO3xarxX172BR43Kuk8Rb188/oXYz8arUDb
-         xW/u+E88awQYcahT4aVnyiAWbBWzJ90LZ8ZiOYLJOx8v2dV2niffUHSVmLyPM3Siip7U
-         IKX1FCl5iL/nMSfORbJPxzS6APRi+1JCopuQaAZDFSG9S9wYAFTLGxfY9mEVfWluStkJ
-         kYqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790705470; x=1791310270;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Civ9zmYjZCgx8nR3DY84Bu2yh9FlAvluUU+pFA8atcM=;
-        b=wdzq/uR5oP6TWh59+w2pQAYq6LX5R3c23L705sN+c2uX8BUhfQVrvNFA75jjP/SXn0
-         N9Y/jLlXjFbul8V4E0oEmltSdqjkVXVpgck21QBnu/dCAysc0tPrftkQUubYA/lw4880
-         sCpzGb54Hf6qHUy6LtEEx3KtFs2xdsGIPoENDojThu28EQ30GF2i3Bk1A/qPSBl82P5t
-         hVsatvxFE9sl8FInphhqBUBWxykXS7Jir8m6cDAW5QPMVgXxNSZVdnMTXJ+kUUL/oOU2
-         2vggyeWNxf5AUw/zgpkSSMRf2YllVHjLSIPR/RB8bM9K+t2ySTz9c2wMeKvRNX8TVH62
-         1KCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxn2vLC61gmrX/R/TT5FUVZ38KRNXUcPMkW7542MxesGZvEICYC0T9NTuYlFSwf1og4p6mXrHZZr2Liebs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqKz2Pb65sk9C9IEbx5+I3LydPhb5rO0Q3LfNsMt6KTALSpkfa
-	CqjtJ+OWP59QYNpynWZjptd9mcgLyaPXqa8YNdun8HIbn1ZbalsbuU8r
-X-Gm-Gg: AYBFou3dpHXaf/fl8ikHfOh/OcfLgc0Mj81qpQS1pGDya2v3FJ9Wn5v23xTEdAdkFUN
-	0MtnfakJxB66oxFPGC3yvdQr/86u7GcT24v9hNWRSfwhKmyvw3F0xhSu8JvbZkGBaf0d7aEHBNo
-	NCoQ3zyJf5bYJKCYsbc8O32VI8LB+srkiNKgAsHZBuQ2qh4r3udAzs4Xibhp+M1OWbuX/uuze6g
-	juRe9HgrH2mC9RBLUbeOKPSU8nMXdfEHpbnWs3mYB8rAviyzCrqmSCGHyJHmW7y9W9inUt2hgAL
-	Je/ZCJBWCX2tJyglDf5sixt0EagU/44OnzlyZmwhfXvVbXzX/apClrTsQTFl6zi9pMbhHC2J3QS
-	qJq6gI80Y/PXwBeC+Dt1V2torEUWVf/XjpC+DlxM9rn5EVw53yQuzwpBNj+k2dA9IxTLUaXF49t
-	yYjSgUGJ/ZUrDBfYkWQHQJKjKkDqFjvg4nT+24VdhO6TvkKrFLznyBfFhVXrPhIRhHDkOJGqfQj
-	+yQPuS+cy0nntukh1LG9wWoedKthCI1gttxz7j9VPSZLJ9tQGe7z4fu4BJC8a8m
-X-Received: by 2002:a17:90b:4b87:b0:3a0:c13d:8b2b with SMTP id 98e67ed59e1d1-3a4bfedd2fcmr109934a91.33.1790705470160;
-        Tue, 29 Sep 2026 11:11:10 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986a1910sm6914590a91.14.2026.09.29.11.11.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:11:09 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: rafael@kernel.org,
-	lenb@kernel.org,
-	bhelgaas@google.com
-Cc: linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="08edolbw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H3eI1mdw";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W6FmG3ev";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qDH59VVG"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0CFF41F449;
+	Tue, 29 Sep 2026 18:11:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790705481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
+	b=08edolbw8g7+vJPSbYvQQNz2pKRxDjRl7gmMN4O4qjlMYiG849ohRaKyyZXdGC0IH6DreK
+	5WkLp7HcHYcsdPnQsNpAnPT3SuaYjLvtjU3Xg52dCw3DqjDdsui/KEQbiJ8Wqz9Z1VvZkQ
+	BIMxVylgswpkk2egSIgJk4mO/9xDKZw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790705481;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
+	b=H3eI1mdwMFwiKtdIFXU/IXmBXwy9Dl/AqllhiPZjycPv2IPX31sZzF/ltWR/MtOsR29q9a
+	dxhMoDCYSymetuAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790705477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
+	b=W6FmG3evGc2agAAPPzkZSLth6uDFUBYm+FiMzWxgUjX3oDZlrO+Yolq4NyD2cJfq7RbBgN
+	3kuhNOhLm+SJTxGiwSZG1fZOdH6V53u7tQsMLl6ejQhlg+NdcGu9QN+4ewos8UsFK04o31
+	lMWhGXQzGZ5Z88rt4rAO5eyIDdN8Awg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790705477;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NgcLbakM2L9wTwco9aUXFMr5hk4/sbbU9mjRuZYCqy0=;
+	b=qDH59VVGH0KasGFaV/Jjs1DwcBFPkd47By4LHgmMtlFH8YIksuvEwjDuVJaTFJfryrkHlE
+	aj2ogJ6DHhwMFrAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96166136D1;
+	Tue, 29 Sep 2026 18:11:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0ZQPG0T/u2oxUQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 18:11:16 +0000
+Date: Tue, 29 Sep 2026 20:11:16 +0200
+Message-ID: <87a4p0ylkr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <treding@nvidia.com>,
+	linux-sound@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org
-Subject: [PATCH 1/1] PCI/ACPI: Remove Hyper-V special case in pcibios_root_bridge_prepare()
-Date: Tue, 29 Sep 2026 11:10:56 -0700
-Message-Id: <20260929181056.4746-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+In-Reply-To: <CALHNRZ8RLs6mXkYiZ4qRimmf4WzpWpnJ9racWTPH__Op2Nk8kg@mail.gmail.com>
+References: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com>
+	<aruc3qx7izFQYOhC@orome>
+	<CALHNRZ8RLs6mXkYiZ4qRimmf4WzpWpnJ9racWTPH__Op2Nk8kg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.995];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-pcibios_root_bridge_prepare() currently has code to handle Hyper-V
-guest root bridges with the sysdata parent field set to NULL. While
-this special case existed when commit 7d40c0f70d92 ("arm64: PCI:
-Support root bridge preparation for Hyper-V") was accepted, more
-recent commit 8d21732475c6 ("PCI: hv: Propagate coherence from VMbus
-device to PCI device") always sets the sysdata parent field to a
-non-NULL value.
+On Tue, 29 Sep 2026 19:22:25 +0200,
+Aaron Kling wrote:
+> 
+> On Tue, Sep 29, 2026 at 6:12 AM Thierry Reding
+> <thierry.reding@kernel.org> wrote:
+> >
+> > On Sat, Sep 26, 2026 at 02:24:19AM -0500, Aaron Kling via B4 Relay wrote:
+> > > From: Aaron Kling <webgeek1234@gmail.com>
+> > >
+> > > This workaround was originally added for Tegra194, but no longer gets
+> > > applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
+> > > tegra30 soc") changed the guard to tegra30-hda, which worked because all
+> > > affected archs had the fallback compatible. However, commit 7f0ea5acfc19
+> > > ("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
+> > > the fallback compatible for Tegra194, causing this to break.
+> > >
+> > > Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > ---
+> > > ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+> > > ---
+> > >  sound/hda/controllers/tegra.c | 3 ++-
+> > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > Maybe we should move this out of of_device_is_compatible() conditionals
+> > and into hda_tegra_soc instead. That would make the checks for this a
+> > lot more consistent and robust.
+> 
+> I received a notification from Takashi Iwai that this has already been
+> picked up, but it was only sent to me and not the list. Not sure why.
+> But looking at -next, it's already there. Not sure if you would want
+> to have that pulled back for updates or do followups later.
 
-No harm is caused by leaving the special case in place, even
-though it is no longer needed. But in the interest of overall
-code cleanliness, remove it.
+Ah, I overlooked that your mail had 'Reply-To', and my mailer followed
+it as default.
 
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-This patch does not just do a revert of 7d40c0f70d92 because
-an intervening commit moved the code to a new source code
-file.
+And yes, the patch was already queued for 7.4.  But if anyone has a
+better alternative, feel free to submit as an incremental fix.
 
- drivers/pci/pci-acpi.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
-index 42d545edd7fa..452a90317c58 100644
---- a/drivers/pci/pci-acpi.c
-+++ b/drivers/pci/pci-acpi.c
-@@ -1572,17 +1572,7 @@ int pcibios_root_bridge_prepare(struct pci_host_bridge *bridge)
- 		return 0;
- 
- 	cfg = bridge->bus->sysdata;
--
--	/*
--	 * On Hyper-V there is no corresponding ACPI device for a root bridge,
--	 * therefore ->parent is set as NULL by the driver. And set 'adev' as
--	 * NULL in this case because there is no proper ACPI device.
--	 */
--	if (!cfg->parent)
--		adev = NULL;
--	else
--		adev = to_acpi_device(cfg->parent);
--
-+	adev = to_acpi_device(cfg->parent);
- 	bus_dev = &bridge->bus->dev;
- 
- 	ACPI_COMPANION_SET(&bridge->dev, adev);
--- 
-2.25.1
+thanks,
 
+Takashi
