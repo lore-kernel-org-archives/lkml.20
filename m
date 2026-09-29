@@ -1,153 +1,137 @@
-Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD366189F43
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F693246E8;
+	Tue, 29 Sep 2026 02:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648788; cv=none; b=kM9TM3oRqw7TMX+GKhgJm9gtAyqCdI6xZZSm+VvwvkJdHZREDUYSqtlsIFJtccbIQAxhHUyPaTpQHeGqWhiCAjyKq9TJafaBYtMT6eia4ccRz4s8hIEGJtnzc58yqp4vCcuoKQ9FKmGkHHViFhNu4eAYtyELgH6waTCfsI/tiB0=
+	t=1790648790; cv=none; b=qq+DfKNZCzTv+hLrSHvaCyhSTRpL9kaX1InMZv3o8UPo2UAymbHMs8MP2NWPEBtIlvxc/XKvxdgW5aFUSmRR2SXjewz6AsKOnz3ZvKI+fTRMQGNi3sv44An3RbFS6BPts9oaMAJxonOvbD10XFG1A0I9z0Sqoep9PTCnOLrQczA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648788; c=relaxed/simple;
-	bh=7hcvDt/KF3PWmAvcB/zfAjgw/un2tvPo1JKcEB9J/h0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r+EEAWTpg/3uQXL35SkhG2WVxIy8Hgmzx6ATbCGeBuhxeF+cJeyZ9yJ57SIOBaoTgP+elqr+LL3k6c12AK7PcGz54Uv6t0WVw+Hwvufzcbf1sQLdapbBRdyWMi8pD8PF2omgJqGdhLSIH6qJLszgUKZ0J+ByVYO4Cza7qL9zxQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=R0b4O71q; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790648790; c=relaxed/simple;
+	bh=i/lKgAsH/C/AV7pVWtaiq1i4qrbxjN2LinNdz1jk+jk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QvnDgkxJplqFicG5ToP59+OwK1I0buRX2ZpukxCL2xVOvgnWbYuddsKmbtjdrK2uGwOeE+R5gy7Tfqe+/kmfxqrb1PEm5+czYu15BeDGo6jQWw9rg01ntdjImfVtHyrl6xj6InKF/BJMEQvCU0S4CdJ6aukCd1idokpAf9eneXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=dzD8g4gv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=F8N95+iB; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="R0b4O71q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7hcvDt/KF3PWmAvcB/zfAjgw/un2tvPo1JKcEB9J/h0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790648782; v=1; x=1791253582;
- b=R0b4O71qeCnu0hPBPJzcI4LbVELLJs24OdzXssIMp2WUSlSCHAElLqpvrGvOAp5fQC1blg+K
- kC0ZBaapDdtkkuGAYyrwMjg9Xuy/DbvfX2bTo0IEf+LMHgi6w5tTmlvvxAvg/I8QnYohmeFYNSI
- TYFr7Xwk65EN8f0++GG/Feu8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 3b4518477d6de36e;
-	Tue, 29 Sep 2026 02:26:22 +0000
-X-Mizu-Trace-ID: 3b4518477d6de36e
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 29 Sep 2026 10:26:15 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="dzD8g4gv";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="F8N95+iB"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1337D1D0010E;
+	Mon, 28 Sep 2026 22:26:27 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Mon, 28 Sep 2026 22:26:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm1; t=1790648786; x=1790735186; bh=fQfipOJolE
+	kHsmqImv36lHB5+tqfbMddkfK+T0q8pyo=; b=dzD8g4gvk6ccjhyrboNoDbYvzc
+	rY0jbbZAR4Y74bafRixxZFxVOFIzVJjsIVj5bPwkhigw18S/Th0YxAjaY5b2QaWu
+	caFCV53k3gH5ZkpmUvTsi7LYIndAXoQ+HFPEtlzypvxrnU1h5qdIwFsjyjOQe+P+
+	rZlaeheHRIubb5boFzMQ2lmM7+MjEYJqzh/xmgLQ+K1uE+JLACVhclrH1I+3q0BS
+	xQLyewPtwQGRVv3IMNPTrTxyLWfVwbMzj4lrD8CgmiDee+agy4GHtgR5u+GGS6Xz
+	E9sUvNC58JKuYn0ByItVCgRYMa5+SomyHawQPVyg5ZNLAZpxCyzxIC/kusjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790648786; x=1790735186; bh=fQfipOJolEkHsmqImv36lHB5+tqf
+	bMddkfK+T0q8pyo=; b=F8N95+iBaQqvKrFMwCmZxu+LhSHCZmSv6wlBhPZG+ZE8
+	Ajx/+jxn7jeTEkB9kcKwCZAt0Pnvfuw8yxTVn9Ha3w6STLmykWEKfPpYkiBmghvN
+	yC4bpequntXs9Xv6fCAzi6s7Vx/aLlp1uFORn5fCyIrbw7ZtRY4OKorIA+XUow4W
+	NJ7p63OzMMsP/2ylgnAEr7GVsInn3w61mzEfATep0B0T7eKwRMpzSL67QHJV68qL
+	IL6ZCfAMW0EBphcPRgptEUmZ94Qs7Dav7lVFuwIw8oYqXGwPp9g8kmVi6OteS18H
+	T2J3Zo5yjnRzYctp4hbT52asFbGSjzqHFSLaOEBSjg==
+X-ME-Sender: <xms:0iG7atMavhIjwEhlH66k8-NOCHf1brSrQ9ZhO9NiID-50ERjw6b8OQ>
+    <xme:0iG7ajD_A6zFrmD7WnLdaaO_bu8ODZntkbkTVf1-j6YAJ9wQK_qp6erls63Rv4dPA
+    X8g0By8MPAL_-UiQciMM_0D1pGCet4DFAFSa9w8dmMehZNX>
+X-ME-Received: <xmr:0iG7am6fVhF8dfc_oKKkmkSfP7XiOoV4AH0nbUdq7AsVs-lgg_zfBAnv5PUC9pP6_n-nuu_HPOr9HKfnrauL0En_IaNi6gg>
+X-ME-Proxy-Cause: dmFkZTGLLDYQTXj5BdO/E4j628mUGGgHEeIjGN+IUdKDHlUNcmhGbvXTpGYZ82xelyoMp9
+    iOCQhEshaVrLMKBvzE+CUFCf+V8K1VongVdcTlpT4gEzHejYMJIFVB9tcLkRIljcA5ciZM
+    t8opHSyP6q79YHQoxDtGcUuwyUkR+uR3ygjcgDgayZWqTH7FwHCHCQHlWOmQbWGjoosDV8
+    vR9i96supiDiNaOWnZinNrk18ZzNVmL1G28s5sNi0HTDi4aTTToHTYtXrp3LQMqAg5Ahfw
+    2caUVqZxm7SgyJ1VEEJsKM98R4KTRyMcZq8FA5cbGPqpmC9HvA+aIoMnm0g/iwQbicGupS
+    1cOehSSF+SRWNuDa+ib07N9iztfZkzEdNrQdidQHOzT0DSAUJGlKYeeaoRU+RtKp+Ml/5q
+    vuaz7kkmQmZoGHFdNlqiepRuia9DGAiOvi7We6wNRzHhNdTnjogs69K7ymCi3/aRq2HdcN
+    zPXFmWKxGcwXccgywc9j5+dRwHIBEqJUVJEG54keEzsr6m/x7a29JeUiq1kXO4KTTEj56+
+    BlJsgoMEH2jOJvz6sjjPidxSQpKQZdF7yN05lkvCpANiWsZWPDfmtoTDUgMHmsuchIUfWR
+    DZtnKx3urJS6whpsVH+PdJjplw+YSVOtB81oGXgbCokXQoGPBrmXQqSXIe3A
+X-ME-Proxy: <xmx:0iG7al4tiWsIdtxI5FAlxvw2MvN5IAytb-9dInev8f4O-JTHrklGFg>
+    <xmx:0iG7agQuk_KCuteTRnzfMuXw8Yl3H_wrKX17V63LoIPPVwZfaJ-RVA>
+    <xmx:0iG7al9AJCpPEEi2NwYQcTyOaTvAlPVOJiyteFHRtkZrrLlNAcv5ew>
+    <xmx:0iG7apaEU8Y0YeKxqqbKPpFV1dY1aWRtQgHRgy7IGhOXE7DS4j6ZNg>
+    <xmx:0iG7ap1P3kNBgW5Qht5UXOZH0mjErFedG7uMOWz8K18UwbEyv5yctnjD>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 22:26:23 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3] seg6: reallocate the skb head on L2
- encapsulation only when needed
-Message-ID: <arshx6IzKqhloiHJ@fedora>
-References: <20260925-seg6-l2cow-v3-1-fc83821542a7@gmail.com>
+Subject: [PATCH v2 0/9] nfs: prepare for VFS locking changes.
+Date: Tue, 29 Sep 2026 12:21:10 +1000
+Message-ID: <20260929022547.1428036-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-seg6-l2cow-v3-1-fc83821542a7@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 11:49:53PM +0900, Yuya Kusakabe wrote:
-> The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
-> on every packet, where the IPv6 encapsulation modes reallocate only when
-> they have to.  Ask for the whole encapsulation up front instead, so that
-> the reallocation happens at most once and only when the headroom really
-> is too small:
-> 
->   skb->mac_len + sizeof(struct ipv6hdr) + ipv6_optlen(tinfo->srh)
->   + dst_dev_overhead(cache_dst, skb)
-> 
-> __seg6_do_srh_encap() then finds the room it needs and its own
-> skb_cow_head() becomes a no-op.
-> 
-> Drivers reserve more than that on the forwarding path, so the
-> reallocation usually disappears altogether.  A single-segment policy
-> on ixgbe needs
-> 
->   14 (mac_len) + 40 (ipv6hdr) + 24 (SRH) + 16 (LL_RESERVED_SPACE) = 94
-> 
-> against the 206 bytes the driver leaves.  Where the headroom is
-> smaller, as on a veth pair, pskb_expand_head() is called once per
-> forwarded packet instead of twice.  Asking only for skb->mac_len would
-> still take two whenever the skb is header-cloned, because the cow that
-> unclones it does not also make room for the outer header.
-> 
-> The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
-> distributions enable: every new head is zeroed in full, and that memset
-> alone accounts for 16% of the datapath profile.
-> 
-> Throughput at 0.5% packet loss, 64-byte frames forwarded through one
-> 2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
-> binary-searched over 10 runs of 10 s:
-> 
->   Before: 654.6 kpps
->   After:  965.7 kpps
-> 
-> Assisted-by: LLM
-> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-> Reviewed-by: Eric Dumazet <edumazet@google.com>
-> ---
-> Changes in v3:
-> - No code change.  Rebased onto net-next, which now has 87cd6b717e40
->   ("net: ipv6: keep room for the mac header in dst_dev_overhead()").
->   That fixes the headroom shortfall Sashiko reported on v2, which
->   predates this patch and affects every seg6, ioam6 and rpl
->   encapsulation.
-> - Link to v2: https://patch.msgid.link/20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com
-> 
-> Changes in v2:
-> - Ask for the whole encapsulation headroom at once, so that a cloned
->   skb no longer takes a second reallocation inside
->   __seg6_do_srh_encap() [Eric]
-> - Re-measure against unpatched net-next rather than an older base
-> - Link to v1: https://lore.kernel.org/r/20260902-seg6-l2cow-v1-1-e823ce216454@gmail.com
-> ---
->  net/ipv6/seg6_iptunnel.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-> index 61c6a27bf202..ecd8146089ee 100644
-> --- a/net/ipv6/seg6_iptunnel.c
-> +++ b/net/ipv6/seg6_iptunnel.c
-> @@ -400,6 +400,7 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
->  	struct dst_entry *dst = skb_dst(skb);
->  	struct seg6_iptunnel_encap *tinfo;
->  	struct seg6_lwt *slwt;
-> +	unsigned int headroom;
->  	int proto, err = 0;
->  
->  	slwt = seg6_lwt_lwtunnel(dst->lwtstate);
-> @@ -446,8 +447,13 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
->  		if (!skb_mac_header_was_set(skb))
->  			return -EINVAL;
->  
-> -		if (pskb_expand_head(skb, skb->mac_len, 0, GFP_ATOMIC) < 0)
-> -			return -ENOMEM;
-> +		headroom = skb->mac_len + sizeof(struct ipv6hdr) +
-> +			   ipv6_optlen(tinfo->srh) +
-> +			   dst_dev_overhead(cache_dst, skb);
-> +
-> +		err = skb_cow_head(skb, headroom);
-> +		if (unlikely(err))
-> +			return err;
->  
->  		skb_mac_header_rebuild(skb);
->  		skb_push(skb, skb->mac_len);
-> 
-> ---
-> base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
-> change-id: 20260902-seg6-l2cow-77dc3ba41232
-> 
-> Best regards,
-> --  
-> Yuya Kusakabe <yuya.kusakabe@gmail.com>
-> 
+sashiko reported some problem with the previous posting.  A lot
+were false positives as it used the wrong base.  However:
+3/9 had inverted the return code from nfs_neg_need_reval() - it returns
+    1 for "must revalidate" unlike d_revalidate which returns 0.
+8/9 didn't handle and error from nfs_lookup() correctly - it
+    should be fatal rather than triggering a retry.
 
-LGTM
+Original intro below.
+Thanks,
+NeilBrown
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+I am working on changes to directory locking.  The medium term goal is
+to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+can be run unlocked, and consequently cannot be called when ->i_rwsem is
+held.
+
+The requires:
+ 1/ the d_alloc_parallel() not be called while i_rwsem is held.  NFS does
+    this in a few places. New interfaces d_alloc_trylock() and d_duplicate()
+    are now available and can be used instead.
+
+ 2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
+    unlocked d_alloc_parallel() would then be able to create a new
+    dentry with the same name.  In particular d_rehash() must be phased
+    out as it won't be safe.  Various techiniques are used to avoid the
+    need for d_drop(), particularly that d_splice_alias() is now able to
+    splice a hashed alias.
+
+Further, the first two patches here fixes bugs that I found while
+developing and reviewing these changes.
+
+The patches depend on patches recently added to the vfs tree.  I would
+prefer these land in that tree too with an Acked-by or similar from NFS
+maintainers.
+
+Thanks,
+NeilBrown
+
+ [PATCH v2 1/9] nfs: fix open-blocking with d_fsdata
+ [PATCH v2 2/9] nfs: fix nfs_call_unlink()
+ [PATCH v2 3/9] nfs: remove d_drop()/d_alloc_parallel() from
+ [PATCH v2 4/9] nfs: use d_splice_alias() in nfs_link()
+ [PATCH v2 5/9] nfs: don't d_drop() before d_splice_alias()
+ [PATCH v2 6/9] nfs: don't d_drop() before d_splice_alias() in
+ [PATCH v2 7/9] nfs: Use d_alloc_trylock() in nfs_prime_dcache()
+ [PATCH v2 8/9] nfs: use d_alloc_trylock() in silly-rename
+ [PATCH v2 9/9] nfs: use d_duplicate()
