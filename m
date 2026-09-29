@@ -1,33 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE90014A60F;
-	Tue, 29 Sep 2026 07:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463EE3A901D;
+	Tue, 29 Sep 2026 07:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668736; cv=none; b=kkJ/j72yfZiBdmTxgJ5C9rlxshtucWHRyRRBwCEpAC69bejXuCjDjBen3mevqnWSFuTPmnn0UiBXYv4OHJ/p3a6lQxuy0gYrEfJ1GFXfK6aEfnU4v8Utr6Mt1rS+ssDWKmCwHLNHOeBc7xDV3/iU9w/rtCFjVKCzmgT6Opx+YyA=
+	t=1790668767; cv=none; b=a44S0U38tCjj1PgfUqzHYwS/PmkVX7W1Je4Ml63qFe0HFxFAEvKaUJiIfSsQx/1D7fR6bGsBMXCBwqPX+hDOOEE/41gAUo9zqSq0MH7tpaJmebBK/gtV7Jt9m1x8xyg/FeZhjlHxAL/UkO0+FtCUbbIerY1BuU4BtJx81Hut2/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668736; c=relaxed/simple;
-	bh=m/15/Y98HcsXIHQ2cjH89Yem0jJenowOvSgx3AheMGU=;
+	s=arc-20240116; t=1790668767; c=relaxed/simple;
+	bh=XatRpQaf0QzysXxX+7yxAEVKzUZoXkival6gfjqGo4U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qj1VZezYTNdfVhMAejqTf9Hi/wniWEwFGK3BhUqjJ243GB4iWd48sj859odtQSHoqUzDQAgqazGlvIQ1IYNqnSZC/72zLRTi2vrkQ0CcNHzCtDWzxKsC0LZmI5+Ro5MG4iO2g1pW3uhfj1zbL2zF74+/GWyHtjbcHRI2dkPqpDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpg3NxSK; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=adE3sZ6RIKDwhghCGD9r0/5hfwIB7M/kcjnA/sIQJZEvkQKx1Qb8cNBnuJHmoISE4LlrzDym3CWCHD4j8ky9s79Zvg+s2g+eLx9mvCC90+Ys2JyyJbPngWphyVjiaQmcIr+n+ku6Zq6bhyzALzyQpoBlmW/xOUnLSmc90V6Et70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FZrVLgXk; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpg3NxSK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3C81F000FF;
-	Tue, 29 Sep 2026 07:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790668734;
-	bh=7pk1v3z+VGNvnZ31sDmqvV8W/43hqaDHhcD0ieAuWqM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dpg3NxSKrMNJWRZNr2K0ov4/Q0jMbqr0pMwW/bMcZLPvUNEU7KxfLvevHMN58VSMB
-	 iyrFoBNb2JfTJEPKfsBZCnESvjtg38WlSV13uOFUD4H7DpQ4J6SBpwCB4dyfKLbmOd
-	 5r36xxXmVk0xudeYIGqs3y1+3uyIP78/AVcOH67+Hi9U0GvgYOKBy6OO4mAgVxI8ZF
-	 8Lj3Wg2NXS+RLiMl9EyO3dqDGGargFsV20R61Ca+UhP9LUUwh30yI2R+t2ePZhA8N8
-	 imlbYivATAtcPbTXIOF/+u/0hvU1mhOIWRKZsVFeJ/lZWBKysrznRulAGFff2kLfvh
-	 2RLfq+e2mvgYw==
-Message-ID: <6c349d10-2160-4166-8b63-3d60b42a5b69@kernel.org>
-Date: Tue, 29 Sep 2026 09:58:48 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FZrVLgXk"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7ZhLG3344955;
+	Tue, 29 Sep 2026 07:59:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vNnz6B
+	VUPMu+4LfEGiTwwlWfV6MDi2XPBEGzS7tQZuM=; b=FZrVLgXkNwrxwXoZCeQ+tP
+	aHaEhiTJ9zwf+hENEKks0pZAgOXtIXX/gUvskvhH6iT3Ma6VhJbY/qv+Lsa6v86I
+	3q9B3b6zz89ADpRVlW2/5eNYFs/Tkxj4jZQUUysuyZcSKyuLWFJbht3JoSdAU7+s
+	lE0W5G6PmhoQTF0YiBm3IU2WProrh8blAo51OJ2uUm2GDwXCd5USFoSXsYRAHFky
+	FvDKRqCDpwx6v4n+LY/gfj0/W1k7AqZTFeIxvQ5d+OU4JlJznEAXJSjRRNa8tnJa
+	2ibn/J+eOupe9xY0us4M8+sUfuGAHa9ay11V6ZEhuMRGbn93KIg1phlRe/i+SsxA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk5hqj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 07:59:17 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7WTV81399784;
+	Tue, 29 Sep 2026 07:59:17 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gxrcpryr0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 07:59:17 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T7xCtE30671386
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 07:59:12 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3B4EF2004B;
+	Tue, 29 Sep 2026 07:59:12 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B46D020040;
+	Tue, 29 Sep 2026 07:59:11 +0000 (GMT)
+Received: from [9.111.133.97] (unknown [9.111.133.97])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 07:59:11 +0000 (GMT)
+Message-ID: <b6352a09-c9d8-44ee-850d-24731bdda69e@linux.ibm.com>
+Date: Tue, 29 Sep 2026 09:59:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,201 +62,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 1/9] selftests/mm: mremap_test: use kselftest
- helpers
-To: Sarthak Sharma <sarthak.sharma@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
- <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924050009.19974-1-sarthak.sharma@arm.com>
- <20260924050009.19974-2-sarthak.sharma@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
+To: netdev-bot+sinfo@kernel.org
+Cc: Aswin Karuvally <aswin@linux.ibm.com>, Gerd Bayer <gbayer@linux.ibm.com>,
+        David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Julian Ruess <julianr@linux.ibm.com>, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev
+ <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        stable@vger.kernel.org
+References: <20260928151420.383105-1-wintera@linux.ibm.com>
+ <179060878011.31693.9560616938197921438@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260924050009.19974-2-sarthak.sharma@arm.com>
+From: Alexandra Winter <wintera@linux.ibm.com>
+In-Reply-To: <179060878011.31693.9560616938197921438@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: Dq6oxlTlGgjWbDKUF6Laq3E-DEFTiGtJ
+X-Proofpoint-GUID: LX339yYhOmkuhCuHNvupgdyJPLuVlVi2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzMCBTYWx0ZWRfX47Pt4eTPiKPy
+ k/EjrQWQ5DFOE5LGiGPiwvninrOXwRGSXCRjqFH3lXuFu0a5sA61VN0ZmmrxhVxKCSaUkvNB/r1
+ jRKqPFCslJ9CeFSoCHuXhIgKFQlWiro=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abb6fd6 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=xiR1IYxcKOTdaxYgfMsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzMCBTYWx0ZWRfX0pt70fkGDxW7
+ XXk7PMNpleH0FxCYJPO0P3hb1eC0nmUm9xoKCOByjBW2UA6MpCxo6CFVqmZfwCghNpXzuZsQpcB
+ 1KQtp/fNXINRc2DHeuyHMFydoeQpxCDxVy91xxub3VqE6iwUzhDQlgR1CL8ypCR08h/xhlGEo+c
+ fl7/RA+8pK4S43FOPx4s0c7XWymbeZXiUnKFTT6SqXjKf7GEnCxHPd6guMij9pzZm00n8iywLD9
+ O82L692RZrKzuWWW6T9Og5nS3hffGowxRuaOEo7HmWHdzwNL5E0n29B1psYjoi2+qxUp29t4nOE
+ bnKoXiwivQzgDUMEYOz1kqbL/+ulUCg2k++HOs7AaH/0KWGgXeW3er8Gsve66n7+0fV6WWaBrrv
+ fG2f5dEpGICanDZWcSod4Pf3QSErX0ajVjHP5FL34DDf1w5r5X7idTHxc60CNUb43heQCbX7TXR
+ 7rOZ1wOTQTVYOmAYEEg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290030
 
-On 9/24/26 07:00, Sarthak Sharma wrote:
-> mremap_test currently uses a lot of fprintf() and perror()
-> calls. It also uses a variable "failures" to track the number
-> of failed table driven tests.
+
+
+On 28.09.26 17:19, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
 > 
-> Use ksft_print_msg() and ksft_perror() for diagnostics.
-> Remove the variable "failures" and let kselftest counters
-> handle the final exit status. Use ksft_finished() at
-> the end instead of manually checking if failures > 0. Replace
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> if (success)
-> 	ksft_test_result_pass(...);
-> else
-> 	ksft_test_result_fail(...);
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 > 
-> calls with ksft_test_result(success, ...);
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 > 
-> Also correct the duplicated "mremap" in "mremap move within
-> range" and the spelling of "dontunmap".
-> 
-> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> ---
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-[...]
 
->  #endif /* __NR_userfaultfd */
->  
-> @@ -1124,7 +1096,7 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
->  	void *new_ptr = mremap(src + SIZE_MB(1), SIZE_MB(1), SIZE_MB(1),
->  						   MREMAP_MAYMOVE | MREMAP_FIXED, dest + SIZE_MB(1));
->  	if (new_ptr == MAP_FAILED) {
-> -		perror("mremap");
-> +		ksft_perror("mremap");
->  		success = 0;
->  		goto out;
->  	}
-> @@ -1145,59 +1117,49 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
->  
->  out:
->  	if (src && munmap(src, c.region_size) == -1)
+For reference:
 
-While at it ... why the comparison with -1. And why do we worry about munmap()
-failing at all? We generally ignore these errors on the exit path, as it's
-unlikely we would ever hit them, and there isn't a lot we can do.
+On 28.09.26 17:14, Alexandra Winter wrote:
+> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
+> uninitialized kernel memory to be exposed in the receive message buffer'.
+> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
+> general the smc kernel module (dibs client) will only push newly received
+> data to userspace. We still should not have uninitialized data in a receive
+> buffer.
 
-So maybe just remove printing errors entirely?
 
-if (src)
-	munmap(src, c.region_size)
+As mentioned in the commit message this issue was reported by Sashiko and found
+valid by me. I do not see a simple reproducer.
 
-...
-
-> -		perror("munmap src");
-> +		ksft_perror("munmap src");
->  
->  	if (dest && munmap(dest, c.region_size) == -1)
-> -		perror("munmap dest");
-> +		ksft_perror("munmap dest");
->  
-> -	if (success)
-> -		ksft_test_result_pass("%s\n", test_name);
-> -	else
-> -		ksft_test_result_fail("%s\n", test_name);
-> +	ksft_test_result(success, "%s\n", test_name);
->  }
-
-[...]
-
->  static void usage(const char *cmd)
->  {
-> -	fprintf(stderr,
-> -		"Usage: %s [[-t <threshold_mb>] [-p <pattern_seed>]]\n"
-> -		"-t\t only validate threshold_mb of the remapped region\n"
-> -		"  \t if 0 is supplied no threshold is used; all tests\n"
-> -		"  \t are run and remapped regions validated fully.\n"
-> -		"  \t The default threshold used is 4MB.\n"
-> -		"-p\t provide a seed to generate the random pattern for\n"
-> -		"  \t validating the remapped region.\n", cmd);
-> +	ksft_print_msg("Usage: %s [[-t <threshold_mb>] [-p <pattern_seed>]]\n", cmd);
-> +	ksft_print_msg("-t\t only validate threshold_mb of the remapped region\n");
-> +	ksft_print_msg("  \t if 0 is supplied no threshold is used; all tests\n");
-> +	ksft_print_msg("  \t are run and remapped regions validated fully.\n");
-> +	ksft_print_msg("  \t The default threshold used is 4MB.\n");
-> +	ksft_print_msg("-p\t provide a seed to generate the random pattern for\n");
-> +	ksft_print_msg("  \t validating the remapped region.\n");
->  }
-
-That looks odd, as we will now print this as "# ". I would have assumed that
-removing all parameters as the first patch would make things cleaner?
-
-So as a first patch I think we should just remove the parameters entirely. They
-are unused by our infrastrcture:
-
-	run_vmtests.sh:CATEGORY="mremap" run_test ./mremap_test
-
-Does anything speak against that?
-
->  
->  static int parse_args(int argc, char **argv, unsigned int *threshold_mb,
-> @@ -1232,7 +1194,6 @@ static int parse_args(int argc, char **argv, unsigned int *threshold_mb,
->  #define MAX_PERF_TEST 3
->  int main(int argc, char **argv)
->  {
-> -	int failures = 0;
->  	unsigned int i;
->  	int run_perf_tests;
->  	unsigned int threshold_mb = VALIDATION_DEFAULT_THRESHOLD;
-> @@ -1260,7 +1221,7 @@ int main(int argc, char **argv)
->  	pattern_seed = (unsigned int) time(&t);
->  
->  	if (parse_args(argc, argv, &threshold_mb, &pattern_seed) < 0)
-> -		exit(EXIT_FAILURE);
-> +		ksft_exit_fail_msg("Invalid arguments\n");
->  
->  	ksft_print_msg("Test configs:\n");
->  	ksft_print_msg("threshold_mb=%u\n", threshold_mb);
-> @@ -1282,7 +1243,7 @@ int main(int argc, char **argv)
->  	rand_addr = (char *)mmap(NULL, rand_size, PROT_READ | PROT_WRITE,
->  				 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->  	if (rand_addr == MAP_FAILED) {
-> -		perror("mmap");
-> +		ksft_perror("mmap");
->  		ksft_exit_fail_msg("cannot mmap rand_addr\n");
-
-Would be better combined like:
-
-ksft_exit_fail_msg("cannot mmap rand_addr: %s\n", strerror(errno));
-
-?
-
--- 
-Cheers,
-
-David
+Alexandra
