@@ -1,116 +1,92 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9A355D889
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF474F7CD8
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707775; cv=none; b=k2ZwtRPAVkkgaTIGbj2drf+pFhw8IZ1Sxo4pkMkAc0d6VO8N0Jglx7KXypH4hDRa933oW1ncjCenL7bcmVZ6l/P/QlrvT0Cw/zWpQGo+NouKLzp1TG0+FCVXYRdg8HEWZsbSgnOdF5XGKVBmWSX1OWonoNCpkO+KildtTFvAj2M=
+	t=1790707773; cv=none; b=ITMod8ckN7uV1VoTESJr/RTEO1R3NMTcgsSQpKAHpFC/hWCVUachip7Fjaeyd90ft0bHHT8hHJII4Agfx3rvSJIUmS/SPKuc1EHkJw1BuRX0dsMNlRVK8TOWYt1NAsrGf2REXPM4DURjBsWKchimtGCOSJKjWFcTj5jtYYSoKHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707775; c=relaxed/simple;
-	bh=7IbtXTxlmArJ+BFQWMkEj7Rrtt7najQ4NMwV2C1OO6k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iFSiyJqZ1W9Z5wyhSR/4uaPohFs/UXoLW5kkrJaNCWcJ0gSEf9EWB58auPf5YEtVDbnX7qob+/PfufWzHeRxpUa1Wm/6p5d+EZEvT7j4vVHgqFv4Zq0ZweMg0ld7cSTR+P99wfqDgsAmOAZr7V2vheDXRAeusrqbddMTrKJpuPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rdvvnDxQ; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790707773; c=relaxed/simple;
+	bh=tk42NzrzXbr1Uok25QKaPiKnEEUg6KnyoDuB9rEXUrM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Cr8ZioKw/OyRNfXsrAyWDndrAt9dCznsSxoGMTCt4bReohyo1oX2l5SyA/J1N5qXzjWTiJaTcQaXNpbzj2SyVOVre6INaPrKvzNdICZnCGXU8xhgaMR8IDcN0e0KjJup5MuHISfYz42HggEWvlS5qk1WeDXv0/u0Rztfuk3/+uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=Lf7mNpHr; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rdvvnDxQ"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aff58e6abso21751f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:49:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790707772; x=1791312572; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=njjB9DtfVySoR684665xgHbK33P3Y+Sqpm+bMczxzHk=;
-        b=rdvvnDxQatRyWl3gyJmmL6g/sTbxuyle62EueDS9lLkIqaixMQgWrVi5G+0rWqofvq
-         j1XFBGSvWTC3sYASdbeaF4g2XC8lERlgjxqZFb+8XDkUTe8te7WM69izDEPtd/5SkVxZ
-         FIlGAykF1dTYHsmCM9hJL7XhhftsLAUzpnvYZmY3+n7Zv6N92AMdIgzIX8fCyNeO9lQi
-         VFR8cvNP++A6iKex86GYdkYQAab7T5ufc6ss7/d2S69IK/U/LAjfO1t6crE3v8kQvcfY
-         soiwnwdTR2I28nvtVMLH5QKhMa4ixItHlz7h0f5djcK2AoWQKDaGmfl+B0wNOXz8PHvT
-         qyvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707772; x=1791312572;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=njjB9DtfVySoR684665xgHbK33P3Y+Sqpm+bMczxzHk=;
-        b=IpSoT5nVzfbniibvFqhM7e/tqSexaBBaqIz6wIA5QKN6CzYTVi18bN4pdGjnVLaVU9
-         shAzUr3vvRYB717qJ5p83ATCyMsjvY/bN6G88eof97uURtkR0McGWlV7farHpsvkQN9a
-         sKPf0cl4nQze63I3qV/VpHKBr2RNI50p6cPb/HZccQH1HatwHXpFkiN9pKH2r4kvCRKW
-         gMUTiQNVh1/Ap0voIPGNdNxM3MohoS5uLFOwK12K1IcCqhP4frPCmAFV21MZYM9GeyRR
-         I2Sc9mm8O5gZABpZBOYE/fXHIC07CONLybseXYHFSbDBHaV/H875XvYdXicWcvxxbIup
-         MeuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF1PWizJYQp1OS3vIxFQxtw/1ysAee7tBlcSUzR29pvYDRwZPxFX6BV4PeQFmifrxBGHZlR3GJOq10hF8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1FLLfL+dh3ZSqC3WmOcl7xb9o8/PwloAn+MEW/O+YBGHfrD7G
-	XLl8nxsv2HzkqpNvE1wmXuSfPsBbMSjcPemVvC7jvBkW3AUnNKTHstC9
-X-Gm-Gg: AYBFou2FrDPbzdGyRp76UFJmto7Kqg7vW6IittBdKN+exnSrO7HZmTj0JRW3T6wsfCc
-	xernxAEZT7DzqFaXkGIAc89vW8uzRR4qM3iLtOyuxc2keBYcczIhNfYa+Vx1NTThfTiqxlUGMWd
-	Omo2fRB8UNhKXOHRlXVA6Uae8gvmBY1bXgVV2pJG4b0tWH/Ph+mUwVi0+208BIV10eQEy1kic4x
-	bD1H4wBKjiTEKhuxV0RRUIaz4EruqASNiicIpTZHQ2/l7R/XIrkST+0lQkWrwnIyHgRQzDNmSjr
-	dS5NtqmehjAfQZXVVXAl9Zg+6WkMahu24GnDNntvmdqCVsOOHnaxRPtO78HDWNce1Nw3UqXQyu5
-	9sUE7IXhq1MyIyHTsE6sKBhu2OZvJ+rZEoIa7Eo7ZQnnkqi4PLL5sAGrzLB+NZQD/0rcVsdBh9p
-	rRM/eTAgvySMfpNCcA95+ZlAU0CEDPGeDox+eNNmo+rqTjKhlNd9UH/eeTc07Mf9PGsIXUn+lop
-	b2KoC0MUmsn/FlCH/X/vcCnH6erNB4=
-X-Received: by 2002:a05:6000:603:b0:488:823d:5060 with SMTP id ffacd0b85a97d-48afe9c2eaemr300741f8f.48.1790707771742;
-        Tue, 29 Sep 2026 11:49:31 -0700 (PDT)
-Received: from fedora ([154.182.121.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe6b8d1esm452569f8f.30.2026.09.29.11.49.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:49:31 -0700 (PDT)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: jic23@kernel.org,
-	gregkh@linuxfoundation.org,
-	nuno.sa@analog.com,
-	Michael.Hennerich@analog.com
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	joshua.crofts1@gmail.com,
-	error27@gmail.com,
-	narcisaanamaria12@gmail.com,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH 0/3] staging: iio: accel: adis16203: fix axis mapping and cleanups
-Date: Tue, 29 Sep 2026 21:48:57 +0300
-Message-ID: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="Lf7mNpHr"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hvRzq2BXGzMlqp;
+	Tue, 29 Sep 2026 20:49:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
+	t=1790707767;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YxGsR26vdUt0dLRkmfJ6DMuoIFvZS7PYUYqwNoaoH98=;
+	b=Lf7mNpHrmJCDzUQ1Pu05FeBsEVuBRTKcVPbPcpRAPXhM68QIJX1zUjasn6/lynR1as4TSc
+	7NrBSum9bRai3btPiutAh6Ln9az/p+pmN+2o5OyNXBBF/MCYhlLnSsMqUM6OiQXvif3hzD
+	zE7WljtLdQ5Rx2v2XCnrSnM2UJnYC6/+CrTW+TOL1Dvu9/KP4UMCHDOrIMJdS6XCVBaXpj
+	kHxiBmTMOcso5Z4s3scPGsTF8FqAYqU8BHs0dm5m8Yki4sgmvOMbfqvUx2ChfbPYprMN8z
+	wEcuz+OZgudiNmPoWy65BhaCicnFz2lhATrCJCaFvUYny/YBKq4vuXegXPbRdA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of gabriel@krisman.be designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=gabriel@krisman.be
+From: Gabriel Krisman Bertazi <gabriel@krisman.be>
+To: Mohammed EL Kadiri <med08elkadiri@gmail.com>, hughd@google.com,
+ baolin.wang@linux.alibaba.com, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] shmem: fix unicode_map leak on remount with casefold=
+In-Reply-To: <ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com>
+References: <ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com>
+Date: Tue, 29 Sep 2026 14:49:21 -0400
+Message-ID: <87h5j7yjta.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Rspamd-Queue-Id: 4hvRzq2BXGzMlqp
 
-Hi all,
+Mohammed EL Kadiri <med08elkadiri@gmail.com> writes:
 
-This patch series addresses a fundamental hardware mapping error in the
-ADIS16203 driver and performs a few necessary cleanups.
+> shmem_parse_opt_casefold() calls utf8_load(), which allocates a fresh
+> struct unicode_map, and stores it in ctx->encoding.
+>
+> On mount, shmem_fill_super() takes ownership of it via sb->s_encoding,
+> and shmem_put_super() frees it with utf8_unload().  On remount nothing
+> takes ownership: shmem_reconfigure() never looks at ctx->encoding, and
+> shmem_free_fc() only frees ctx itself.  The map is leaked.
+>
+> 50000 x "mount -o remount,casefold=utf8-12.1.0 /t" on a casefolded tmpfs
+> grows kmalloc-32 from 660 to 50574 active objects, and nothing is
+> reclaimed on umount.  A tmpfs mounted without casefold stays flat.  With
+> this patch kmalloc-32 stays flat too.
+>
+> Clearing ctx->encoding after the transfer is what makes the unload in
+> shmem_free_fc() safe: otherwise a failure later in mount would free the
+> same map twice, once via put_super and once via fc->free.  This mirrors
+> what shmem_reconfigure() already does with ctx->mpol.
+>
+> This is easy to hit once casefold= is reported in /proc/mounts, since
+> mount(8) then passes it back on every remount of a casefolded tmpfs.
+>
+> Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 
-The ADIS16203 is a single-axis inclinometer. The current driver mistakenly
-exposes two separate axes (X and Y), leaving a FIXME comment on the Y-axis.
-According to the datasheet, these are actually just two different output
-formats for the same axis (0 to 360 degrees, and +/- 180 degrees).
+Thanks,
 
-This series removes the unsupported Y-axis, fixes the inclination naming,
-adds a missing SPI device ID table to ensure proper module autoloading,
-and cleans up the register macros to align with kernel coding style.
+I gave this a spin as well and it looks good.  Feel free to add:
 
-Best regards,
-Abdelnasser Hussein
 
-Abdelnasser Hussein (3):
-  staging: iio: accel: adis16203: fix inclination naming and remove
-    unsupported Y-axis
-  staging: iio: accel: adis16203: add missing spi_device_id table
-  staging: iio: accel: adis16203: clean up register definitions and drop
-    redundant comments
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
 
- drivers/staging/iio/accel/adis16203.c | 108 ++++++--------------------
- 1 file changed, 24 insertions(+), 84 deletions(-)
+Thanks,
 
 -- 
-2.54.0
-
+Gabriel Krisman Bertazi
