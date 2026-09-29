@@ -1,91 +1,137 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4A7C4E13EF;
-	Tue, 29 Sep 2026 21:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AADA3B52FA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:27:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790717146; cv=none; b=oyuZWXC/qse7sjLocT7oDcryzvVpHNoFfGF8/uYgGFAjFdeRxzXkW2Bw9O0fEAYBsCwE3x8sVV004ulh0tXA0ARbFZnqLBuz2jBOI0ZwfFbFKuHdCnKst2HORWJQjZBPV+WTriTYP2/eHTLUEArG2TwmTZRdCAf9fI+WODEsAkk=
+	t=1790717230; cv=none; b=uwde3oF2hFEmzoJ1KvaI3JKtjLdjqH8qOuNkV0g/RTMKAonc+I6fO9DLLzue+Cf28ki/U71z79nHp6n306uIe6Kdc+IS5Z3GJIjgMnCYGF81CjIqSctOhI70PcmpPhQdXY1u/KkyDWOIwBtufQ1do4V2QjIGsMicgIB2XZVBGXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790717146; c=relaxed/simple;
-	bh=J3aoHidNLwIQXT4rllO1lG2m2ABVYl/SETOziV8bip8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EcQuBQIitOkrzEFe/hIyizMF29AhZK1HwK5jwhxVvzp7Ea5CF+Yvi9Q8dXsaZtmFTOmGEBLay44qFUGJ7nx6bMLtr1S80LQs67Y3GZMiEl7mzdubYdYWEGdc/aNKMU0OBCSu7e5udiydc1ZmjkY5CRp53rPpoI5hgnHnlsNX1g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=HuQPKTIa; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790717230; c=relaxed/simple;
+	bh=tyCWPKcs7/u/awFV7vdEON0Q6Y8m/fWoaG5L+nCraDc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=MChE3Sf4Ya27BugJVGmNELfjOp6X8iWxEbS0xZXzBYxapkaczs0FbxQkDGIvZ0HBoGhclQvvsFNJjSoNsJA6n5MOVdYtcQ00TQ6Cyp1NCnLecf8fpb6xVykKDTlwpujyiNXH9dDswi2/lv2cX3Uha9CH9YOufw9bqgQZqI9ceg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hEDAHwYa; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="HuQPKTIa"
-Received: from localhost (unknown [40.65.108.177])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5465E20B7166;
-	Tue, 29 Sep 2026 14:24:51 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5465E20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790717092;
-	bh=qWV/+kwDScxqWsdgmvbejHverx+0lYJpag1/QdsRBs8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=HuQPKTIaFJGP4PMRVWOu5L9lsJbCNytzk2oZd3QqTnRFBTocZxb8MLXDaRbM6G2Kh
-	 KG9JI4yMM83Cr3VygrrxK3oIPy8lnZsK/A06v10LMHVU/QKClNy/7+6MvvqD5Z2B9r
-	 Gcf5dqXDbgrJM0C+vcIN7W9dTs7oSU9Wchqmhj0o=
-Date: Tue, 29 Sep 2026 14:25:42 -0700
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, baolu.lu@linux.intel.com
-Cc: Yu Zhang <zhangyu1@linux.microsoft.com>, linux-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, iommu@lists.linux.dev,
- linux-pci@vger.kernel.org, linux-arch@vger.kernel.org, x86@kernel.org,
- wei.liu@kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
- decui@microsoft.com, longli@microsoft.com, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, bhelgaas@google.com,
- kwilczynski@kernel.org, lpieralisi@kernel.org, mani@kernel.org,
- robh@kernel.org, arnd@arndb.de, jgg@ziepe.ca, mhklinux@outlook.com,
- tgopinath@linux.microsoft.com, easwar.hariharan@linux.microsoft.com,
- mrathor@linux.microsoft.com, suravee.suthikulpanit@amd.com,
- vasant.hegde@amd.com, jacob.pan@linux.microsoft.com
-Subject: Re: [PATCH v5 4/5] iommu/hyperv: Add para-virtualized IOMMU support
- for Hyper-V guest
-Message-ID: <20260929142542.0000575e@linux.microsoft.com>
-In-Reply-To: <179071228738.122959.14326374887826159868.b4-review@b4>
-References: <20260904075512.174154-1-zhangyu1@linux.microsoft.com>
-	<20260904075512.174154-5-zhangyu1@linux.microsoft.com>
-	<179071228738.122959.14326374887826159868.b4-review@b4>
-Organization: LSG
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hEDAHwYa"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9F2604E410BD;
+	Tue, 29 Sep 2026 21:27:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 527F9601BD;
+	Tue, 29 Sep 2026 21:27:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42A3E103295D5;
+	Tue, 29 Sep 2026 23:26:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790717218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tyCWPKcs7/u/awFV7vdEON0Q6Y8m/fWoaG5L+nCraDc=;
+	b=hEDAHwYakn5fRG4BUqIJO2Nc30p4PMlNz2fj/hv9u5oIYxFTNITCpy13PVRNtyY3TfIP4D
+	k7jJU1roWG08YKb+1I8DM4KpYXcjGdkvBVVnmNFMn5+EBn9jC6Uh0jXXV5PKV+GhHpJQsT
+	S9iWGlmrD0ZOKOKCkpyyRoR7Ao382WBj9MX7dbQoYWZHjooOEl+IQvBYTAOTixSWzsHJc9
+	e5d+9lXIl5FrPOnUx1GVztDB5fjD4JBjpieZrAZa/M4aJuOhVPcFY0tDHEAl5pfc5S6c9p
+	WxdZmPtYu1kfOZIBzqMvqblrCge95WF2E0SmMoPMsQqDkPM0SRajhSjVeMKaHg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 23:26:43 +0200
+Message-Id: <DLS49QCTEANL.D6E2UDEOG4O9@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
+ devm_drm_of_get_bridge()
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
+ <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+ "kernel test robot" <lkp@intel.com>
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave
+ Stevenson" <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
+ <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
+ <geert+renesas@glider.be>
+X-Mailer: aerc 0.22.0
+References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com> <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com> <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
+In-Reply-To: <e044caae8c2160d96a29073bb1e60efff5883513.camel@iscas.ac.cn>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Jason,
+Hello,
 
-On Tue, 29 Sep 2026 17:04:47 -0300
-Jason Gunthorpe <jgg@nvidia.com> wrote:
+On Tue Sep 29, 2026 at 4:42 PM CEST, Icenowy Zheng wrote:
+> =E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 15:39 +0200=EF=BC=8CLuca Ceresoli=
+=E5=86=99=E9=81=93=EF=BC=9A
+>> devm_drm_of_get_bridge() is deprecated, switch to
+>> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint()
+>> returns
+>> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>>
+>> Fixes build failure when CONFIG_OF is disabled.
+>>
+>> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to
+>> drm_panel.c")
+>> Reported-by: Arnd Bergmann <arnd@kernel.org>
+>> Closes:
+>> https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes:
+>> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.co=
+m/
+>> Closes:
+>> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.co=
+m/
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>
+> Checked the code in drm_bridge.c, and it looks like the lifetime of
+> next_bridge should be indirectly managed by devm when
+> devm_drm_bridge_alloc() successes and the next_bridge field assigned,
+> so the only explicit put needed here should be in the alloc failure
+> path.
 
-> > +config HYPERV_PVIOMMU
-> > +	bool "Microsoft Hyper-V para-virtualized IOMMU driver for
-> > Linux guests"
-> > +	depends on X86_64 && HYPERV
-> > +	select IOMMU_API
-> > +	select GENERIC_PT
-> > +	select IOMMU_PT
-> > +	select IOMMU_PT_X86_64
-> > +	select IOMMU_IOVA  
-> 
-> Should this be IOMMU_DMA ?
+Exactly.
 
-I agree. I guess we should also delete "select IOMMU_API", since
-IOMMU_DMA selects both.
+I think vs_bridge_init() could be simplified a bit by moving the 'next =3D
+...;' statement (with error management trailer) to after
+devm_drm_bridge_alloc. This would avoid the explicit drm_bridge_put() call
+added by this patch.
 
-Noticed vt-d driver has the same option, maybe it should also
-be changed. Baolu, is that due to historical reasons?
+However for this regression fix I preferred to keep the diff minimal. The
+cleanup mentioned above can be done later.
 
-config INTEL_IOMMU
-	bool "Support for Intel IOMMU using DMA Remapping Devices"
-	depends on PCI_MSI && ACPI && X86
-	select IOMMU_API
-	select GENERIC_PT
-	select IOMMU_PT
-	select IOMMU_PT_X86_64
-	select IOMMU_PT_VTDSS
-	select IOMMU_IOVA
+> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+
+Thanks for reviewing!
+
+>> Changes in v2:
+>> - fix bridge reference leak on attach error path
+>
+> It should be `bridge alloc error` instead of `attach error`, but I
+> don't know how to correct the error in the changelog, and anyway it
+> won't be part of the final commit.
+
+Ah, right, that's a copy-paste leftover. It's correct that it won't appear
+in the commit, so I won't sent a new iteration for this.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
