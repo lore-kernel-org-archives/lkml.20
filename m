@@ -1,130 +1,214 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBE84FE2D4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0A6525A6D;
+	Tue, 29 Sep 2026 13:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687620; cv=none; b=IgMZAV7rgUqTYeIkY90kX94Yx1i5efpYDFBYf/2ocS5rIx/d26bgWIai+Nd26PMFqtpu7J8fRW8CfrVRGLeRUbv/zHlW/78cXzPqOCzADkxOnnbKticr9iQS3QQYfNOjBh8OfBVKo8Zl7CCVupJC1Vu9q+lByzBNyVMxqtPKf0w=
+	t=1790687630; cv=none; b=c6M6Uvfs/pWX+9sFQUILe0oEKYDCzqUqQ77mOVDPFatx9WpQrUddH0UCVmf6dDSpg+e5JtC6hHnqULwPYVhDdjv3NKGFvOzZ0Ixs4DQzlheclTOv582Dzq28YZEhCV0I2/LwRjMKLeVQuFuaDlWmX4Yf3PCwWw1QkXpAOKWLPYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687620; c=relaxed/simple;
-	bh=zduaw5St9ljvYjN0QUPscxMeCgGMcXMWWdurL4fk/EM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rZ5eNj2686Jik8mSEnO1jKTtBTTk4heO1vgG9+fQMzxdAcAQrllFPF5hblSF7QkiLK0io2YdnPq4uz//eqcH/H3uCIWbmVoG3dKZm+IAPq3LENYrOS9T+d7vBXGSQKMgj2qZrBU6RuircjEmfskYFHg2vXu6iM7qkUqptSndz5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n44gfBEt; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790687630; c=relaxed/simple;
+	bh=y1wjWVcU+j+9ZpZTUMYHvIL0oZ1Wj4JWUiES3uPnuhE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=PtxScpVCVKp5l63su+cW1uEHcAt6pga+TlaGpgMDeXYxNlJ/vDuM/wvaPhmGyZlWuHFQzLH05jRk3A9kz41dFUJucDpOm5WuLYSbxB17V6hVQUgJhgwTLixewQiKx7O/MlolC3WNYcyzqZctCEpG1pl27iYzaDQqMZRiTavS3mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=WVJgNEJ+; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n44gfBEt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so31209515e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:13:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790687617; x=1791292417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qCT9DoPWiXJMvBzM02aoXjnaw6xD/j8g116oRTfEDZ4=;
-        b=n44gfBEt3MAj0yXQlkdcIrxJ5+idWLMEjlykGF4Wfo0+43RyX7Yvv/t5JEE6fL8pkU
-         PBvm5nr0OEejmwFzYC5olAC7YFwo28s1nRSIELsTZdVa9ZdpPdx40F43FO1xsZDS/PnS
-         c1RhD6XJ8jx0xvyattTYzJoSjIK0I/z7xtJmnuPkDdSMAMtSKGvL/s6jCEQeBBfHmaZR
-         Igi2ofAfJYt7dd+YLiQCRNlIGbpB0JN+RS2HlXrl5rGlakm/gj1jIQVufD4WaZJrb9TK
-         ar+ywxAGrk7sPVdcW5sSprIxe0CyTN/ToR1XlrPbaWszHtklgwX2Vq74X7Jo/KgFkrLh
-         BDaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687617; x=1791292417;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qCT9DoPWiXJMvBzM02aoXjnaw6xD/j8g116oRTfEDZ4=;
-        b=1XdTwWKkiIoz6XI64pwfu5iPEBbWwYtn2E3eNyX0tgoMv/HJxSfV9Xhj1zLeXq1ECk
-         m0Fn1OjQfb6HsW88/bZ53cbh6tL9tIVNv3nvNr0JJw0XchfYHMus4hbQ+CoHwjLE5hkG
-         /d2qqzVrB1bCCtdwHJifVIZ5VPGxsF4ONxf/5VP6LOJNNFTXaiA/wFq5MmSZmtRIe4fJ
-         d7Nu0pCHTQwnMalQZk5gZHe39mewBMYcQUOmzIhxO6JuWTxCgjmXWWz6OFgRdKjHokdu
-         P9BglYIDa2zOSbr9TRJjVOTwewkx4elqJ86hAoXiuAKcmJWPdrE7hRl/gwdXzsGzZk7Z
-         fdxg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0Nwn1tEB4ByK3ngyvfRQ5cR7gD9uSqV9sw4H7YLrlkaAWVNcpm1cWmvNGkyRbDMYyKNjqORctVRDzA2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kePC+lV1GrsTNJunM41q+kFceh6nuNcmU5tSpgbLtOg0OjAnTW
-	NEazeJiWummOZH+DTdeeosF56CPwvvGHjg/wqpBurW0lG1HU2hCw88w7HNsvZD9SCg==
-X-Gm-Gg: AYBFou3Vel3cYjGhVMEwL8IgEQOokJO6Rndoia/jeNECbWVKb7esFGfDtFe50GMy8WZ
-	nPmHuz+SoYJqo7pcT4mua64bWmm+IKZLFEx7OQhHgP/ExPC8BF6Bpj13ShcoR+N+1zd8pSu5d9C
-	yVy4K7kM3mnJC8/xiHHDda8Xg+D5KdrBt7o8OxjKmWvsHzUyFt2wZaEzUw7UDuweL+AxL8s+Yoy
-	+i6pmPWuatJBiMJKtFC/3Ejn7btyZQslBxnBQFroQ5nv8tApJrbjfOx0vMMw0clDfiu6LovXbii
-	S5Mj27+xd/VzMALDYpaIoW/7O8hNv0w0J/eFEAfbtOPv3CEn4bxy/lqw9r+iE0tC9ZqQnQoL0dN
-	VGevtf4QkZq/eUAmlcGWFfKc9yPiu2+wryW+mEVccyglp+KteC88oJjXRQgYAMR3wWAWToHy+BR
-	Y0EV6PkLVmZRZqYmbrnb9Bk6Cd9NaV8NxxG1M6V9lwZhwwdjALr+cVXQSNfOQlkRdXPcCDAXZv+
-	tdl9X4KOigrSq05vtb0tYrYBpAwYmbR9fZLb9HrrUrJJa9rPxU8f8hbu5ln3zb8oTS7snpWlAUH
-	7QMf0Jw=
-X-Received: by 2002:a05:600c:1d1c:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49fe66c9ae3mr274819225e9.3.1790687616568;
-        Tue, 29 Sep 2026 06:13:36 -0700 (PDT)
-Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5049419sm3566825f8f.14.2026.09.29.06.13.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:13:36 -0700 (PDT)
-From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-To: hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] shmem: fix unicode_map leak on remount with casefold=
-Date: Tue, 29 Sep 2026 15:13:24 +0200
-Message-ID: <ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="WVJgNEJ+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=vJFFJY231nf7risPXtqxH8qnFdHBeahiw5q4JkrgAcw=; b=WVJgNEJ+fzeLTaRKISMcKuvUqk
+	jmgyH6HU92o0cG+8OVb9aOFTb3WlTGiYyCgi0MC+/Zat6QLcTienCtaO+FdR5fP32LR+9lt/AmUOI
+	4op42N5HFplbJZDClQvPR6dNfzB+k8Q1Xpp0ubbPdXu6sD/yqTQJcG1YxQ68pFj9LXMEp+4P1Q2K/
+	IJZKeI1MTlmmNWe0cOAICHC7R/kjNm86Z1eLDFjlgdNvIH2Kj/FOBchviaGLkzqevdz7K5gP4zJnx
+	NEsPrrDbnTXikf7QYtU9cQxSgV0RmtiVrKt1mtTdP0vk6u1TY16uJ7G8qZCdJyb+dJm3gl3Pk3sqm
+	uLpsJiAA==;
+Received: from [::1] (port=43034 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xBXeU-0000000DwxS-2p4v;
+	Tue, 29 Sep 2026 15:13:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Tue, 29 Sep 2026 15:13:44 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xfrm: esp6: fix off-by-one IV counter causing AES-GCM
+ nonce reuse
+In-Reply-To: <aru2Y-gyrgcZsyUD@krikkit>
+References: <20260925095105.446269-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <arqToNCxIwi9CZ--@krikkit>
+ <c443bad568f4e03d05b848b1b245707d@oss.cyber.gouv.fr>
+ <arr8x3a9Vqkg-ooM@krikkit>
+ <29a10d01b87fb1c5f9af445aa7864351@oss.cyber.gouv.fr>
+ <aru2Y-gyrgcZsyUD@krikkit>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <a0d39c52b6169ce5e00869abbe2162dd@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-shmem_parse_opt_casefold() calls utf8_load(), which allocates a fresh
-struct unicode_map, and stores it in ctx->encoding.
+On 2026-09-29 15:00, Sabrina Dubroca wrote:
+> 2026-09-29, 11:47:47 +0200, Jérémy Jean wrote:
+>> Hello Sabrina,
+>> 
+>> On 2026-09-29 01:48, Sabrina Dubroca wrote:
+>> > 2026-09-28, 21:33:41 +0200, Jérémy Jean wrote:
+>> > > On 2026-09-28 18:19, Sabrina Dubroca wrote:
+>> > > > 2026-09-25, 09:51:06 +0000, Jérémy Jean wrote:
+>> > > > > An off-by-one error in esp6_xmit() advances the IV counter before
+>> > > > > encrypting each software-GSO segment. For N segments with sequence
+>> > > > > numbers X through X+N-1, the IV counters are therefore X+1 through
+>> > > > > X+N.
+>> > > > > The following non-GSO packet uses X+N for both its sequence number and
+>> > > > > IV counter, repeating the last segment's AES-GCM nonce under the same
+>> > > > > key.
+>> > > >
+>> > > > I find this description very unclear. All I'm managing to understand
+>> > > > from this is "there's some situation where a packet isn't getting the
+>> > > > seqno it should". I don't know where the "+1" comes from since for GSO
+>> > > > the function does +N (xo->seq.low += skb_shinfo(skb)->gso_segs).
+>> > >
+>> > > I tried to be as explicit as possible, but I apologize if it was not
+>> > > good enough. My understanding on the full GSO processing isn't as
+>> > > deep as yours, so here is another try at explaining.
+>> > >
+>> > > The bug happens after software segmentation in GSO. When a large
+>> > > amount of data needs to span across several packets, software
+>> > > segmentation splits it into N smaller skb. After this split, each
+>> > > smaller skb holding the individual packets has skb_is_gso(skb)
+>> > > returning false, yet each skb keeps the flag XFRM_GSO_SEGMENT stating
+>> > > that this skb resulted from a segmentation. Consequently, the skb
+>> > > goes through the increment below in esp6_xmit():
+>> > >
+>> > > net/ipv6/esp6_offload.c:
+>> > >    355		if (xo->flags & XFRM_GSO_SEGMENT) {
+>> > >    356			esp.esph->seq_no = htonl(seq);
+>> > >    357
+>> > >    358			if (!skb_is_gso(skb))
+>> > >    359				xo->seq.low++;      // <<< increment here
+>> > >    360			else
+>> > >    361				xo->seq.low += skb_shinfo(skb)->gso_segs;
+>> > >    362		}
+>> > >
+>> > > There are N calls to esp6_xmit() for all the smaller packets, and for
+>> > > each of them, the current sequence number is first written into the
+>> > > header, and then the shared counter for the next packet is
+>> > > incremented. However, the value esp.seqno used to construct the IV is
+>> > > derived from the counter value _after_ the increment.
+>> >
+>> > Ok, I see now. One call to validate_xmit_xfrm() that calls
+>> > skb_gso_segment() and feeds those N non-GSO skbs to ->xmit one by one.
+>> 
+>> Yes, precisely.
+>> 
+>> > In that case, the seqno used in the IV wouldn't match the one that the
+>> > peer will reconstruct using the bottom 32b of seqno present in the
+>> > header, and it would never manage to decrypt anything we sent.
+>> 
+>> I don't think the peer uses its internal counter to reconstruct the 
+>> IV?
+> 
+> For some reason when looking at this last night I thought it was
+> rebuilding it from the seqno in the esp header.
+> 
+>> The IV is part of the GCM ciphertext and the peer uses that value it
+>> received to decrypt the payload. AFAICT, the decryption is ultimately 
+>> done
+>> in seqiv_aead_decrypt(), where one can see the IV copy (121), and the
+>> actual decryption call (123).
+>> 
+>> crypto/seqiv.c:
+>>     99	static int seqiv_aead_decrypt(struct aead_request *req)
+>>    100	{
+>>                 // ...
+>>    116		aead_request_set_callback(subreq, req->base.flags, compl, 
+>> data);
+>>    117		aead_request_set_crypt(subreq, req->src, req->dst,
+>>    118				       req->cryptlen - ivsize, req->iv);
+>>    119		aead_request_set_ad(subreq, req->assoclen + ivsize);
+>>    120
+>>    121		scatterwalk_map_and_copy(req->iv, req->src, req->assoclen, 
+>> ivsize,
+>> 0);
+>>    122
+>>    123		return crypto_aead_decrypt(subreq);
+>>    124	}
+>> 
+>> > But luckily, it seems commenting out the memcpy(iv, seqno) line has no
+>> > effect (I think that's because all algorithms rely on either seqiv or
+>> > echainiv).
+>> 
+>> I may misunderstand, but which memcpy() do you refer to ?
+>> If you do not memcpy, then IV is always null, and the nonce reuse is 
+>> even
+>> worse, no?
+> 
+> Yeah right. I thought there was something dodgy there.
+> 
+>> > > For example, if
+>> > > the last packet produced by segmentation has sequence number 100, the
+>> > > IV is constructed using counter value 101. Then, a subsequent
+>> > > ordinary packet not going through segmentation is allocated sequence
+>> > > number 101, yet since it does not have the flag XFRM_GSO_SEGMENT,
+>> > > there is no increment, and its value is constructed from value 101 as
+>> > > well. Hence the nonce repetition.
+>> >
+>> > I don't think that happens? The other packet will go through ->xmit
+>> > too and use the wrong seqno too.
+>> 
+>> Which "wrong seqno"? The other packet will indeed, go through ->xmit,
+>> but its lack of XFRM_GSO_SEGMENT will make it skip the increment and
+>> reuse the previous counter value.
+> 
+> Eh, ok. I thought you were saying one goes through ->xmit (with the
+> wrong seqno because it has been incremented) and the other through
+> ->output.
+> 
+> Then I guess this makes sense.
 
-On mount, shmem_fill_super() takes ownership of it via sb->s_encoding,
-and shmem_put_super() frees it with utf8_unload().  On remount nothing
-takes ownership: shmem_reconfigure() never looks at ctx->encoding, and
-shmem_free_fc() only frees ctx itself.  The map is leaked.
+Good that we agree then, thanks :)
 
-50000 x "mount -o remount,casefold=utf8-12.1.0 /t" on a casefolded tmpfs
-grows kmalloc-32 from 660 to 50574 active objects, and nothing is
-reclaimed on umount.  A tmpfs mounted without casefold stays flat.  With
-this patch kmalloc-32 stays flat too.
+> Could you:
+> 
+>  1. fix both bugs you found so that the code looks similar, probably
+>     bundled as a small series (this stuff is not ipv*-specific, so
+>     there's no reason for it to be implemented differently)
+> 
+>  2. rewrite the commit messages based on this thread to be much more
+>     precise and also less verbose
 
-Clearing ctx->encoding after the transfer is what makes the unload in
-shmem_free_fc() safe: otherwise a failure later in mount would free the
-same map twice, once via put_super and once via fc->free.  This mirrors
-what shmem_reconfigure() already does with ctx->mpol.
+Yes, I will try do this shortly.
 
-This is easy to hit once casefold= is reported in /proc/mounts, since
-mount(8) then passes it back on every remount of a casefolded tmpfs.
+> I'd also reduce the amount of crypto detail about GCM, I don't think
+> it's super relevant. Or move it to a cover letter.
 
-Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
----
- mm/shmem.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I purposedly emphasized the crypto part about GCM to make it clear to
+non-crypto people that the nonce reuse impact is catastrophic (all zero 
+or
+even a single reuse). I will move it to the cover letter then.
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 07b2855dfb7b..49b3cbe0c324 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -5202,6 +5202,7 @@ static int shmem_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	if (ctx->encoding) {
- 		sb->s_encoding = ctx->encoding;
-+		ctx->encoding = NULL;	/* transfers ownership */
- 		set_default_d_op(sb, &shmem_ci_dentry_ops);
- 		if (ctx->strict_encoding)
- 			sb->s_encoding_flags = SB_ENC_STRICT_MODE_FL;
-@@ -5302,6 +5303,10 @@ static void shmem_free_fc(struct fs_context *fc)
- 	struct shmem_options *ctx = fc->fs_private;
- 
- 	if (ctx) {
-+#if IS_ENABLED(CONFIG_UNICODE)
-+		if (ctx->encoding)
-+			utf8_unload(ctx->encoding);
-+#endif
- 		mpol_put(ctx->mpol);
- 		kfree(ctx);
- 	}
--- 
-2.53.0
-
+Regards,
+Jérémy
