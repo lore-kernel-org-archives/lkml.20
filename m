@@ -1,120 +1,191 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB5530E0A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A3535FCD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692867; cv=none; b=VT9n8BJHye0OAIKl2rDpg3IkE30H94/l6XJKhDFtZ3iKGV1JPNSjhgtS4OGr0QmG/XVhdU/Iegqts3ViGXxlxftM65guiKub0rkrlsKnrK8Et/gnUQcHxGgqz+FBEAlUhY0H0AETOVwJR6FPCRpgTskA8fXP7ewza7ao+xJyvXU=
+	t=1790692901; cv=none; b=bSynwCLEBkAKkGZRYlxsABCpjyb1+wHQm743QoEeXLd+uou1LaW/aG3WLCdXenxe0PwXOyowuVGAJy4G17KZp42hTcq1lhV43Zj2E3j5BPmN4RfiG2LHZJLokSGvSPC/yZ3xaovB8ntQIO4YMYF6eAgsp9eN31z+yJrRFU0d5vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692867; c=relaxed/simple;
-	bh=eP6IkLTU9GzzyxyXPQFzqLgSIaHX1gDJ/z9Vd+Sz9zg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qp4Hq7K7BQrViRlfdCjglPtVfD2v+H7L1e8si524UBjp2I5sgNJ+wXh9Ljs6s1/69Mmn85xMT7/1CMtKTC9DSQ4xv1v3eBnhWvugE/fG5A8B/jQgonDkI++mk+CtrSuxSk/iKh8uuE3yYHtPw4670z+a6RQh+6dWhFxxzZXrjUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=c0wCDkMf; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790692901; c=relaxed/simple;
+	bh=I+1TtXq3U+1B/VQR2q2ohCXl8X3baiWAnbXgVNkqxsQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bWH8ZoHSqcyCMmidUDvAK7d7pu/fEzJEuqDzYzP2fHXx7kLzCu84+/E4pwC+qg1HgTWoEAnxG7SKSHDs//pqgAK7AnI07T4IPhNq4UpCUC45j27bPHwiExlh+rc65UdQllA/jez/EEZGJXy7RI8CTWDo9nr6I4FN9b+lk2p22Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vnWGGL9s; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="c0wCDkMf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+cda74Tbl3la0e4Lr3R/amwawlQi9HkJDH0Uf2cIhFA=; b=c0wCDkMfhcT18J9AevFaOh/eG8
-	AhU6maKihhCo9lkNFj6E8xDCSw/qhWM8NdZemAw9SScIdwR0UUbgq68loYJolGv1o4MX6qzAyxsak
-	fSVyMpA7Gbax9p48Xh5X0RSqhNRBZY99DKaR+X3azz+Z9wdTE0zB0mEpODAR/d5wwlHFyMmXfzInS
-	kvf+8DgIv6MGYF8fvLODRWKiR+IU/XNLRq1hclqqCOPSc9/PKC2D6vSO3C5a8UsLjKKqsOf4GrQZw
-	PzjpUo/9Z43LXVIqIGTokKeOs5oPPorn0jO9GAZDj1nmgfxibGW/nUoUXuNxWVXsWsBQ3/6+0OlZ2
-	Ka1GUeeA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xBZ0r-008TrU-2j;
-	Tue, 29 Sep 2026 14:40:58 +0000
-Date: Tue, 29 Sep 2026 07:40:54 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Marco Crivellari <marco.crivellari@suse.com>, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH wq/for-7.4 v2 2/3] workqueue: Keep the limits of both
- max_active domains current
-Message-ID: <arvJTBx7L0oSuPDm@gmail.com>
-References: <20260925-wq_final-v2-0-860ee052169e@debian.org>
- <20260925-wq_final-v2-2-860ee052169e@debian.org>
- <79e8fdf844e1aa9358dd4c2c3e5f888b@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vnWGGL9s"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso574514666b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:41:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790692890; x=1791297690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ljt9qo4CbaNAhZ8NBb8RScI9+T0M5HBa8xMXa6k6Vt0=;
+        b=vnWGGL9suXiT6pmulhc0TuLPLp+MGcpywAt5jGtpAhUMxTa9Kj8UArKV5m7xFTDGKS
+         snHc7FvvnZeUxsB9iiDVm68mLoXruxMbWIZD+i7Ege1yCkddHWO08KJfUkSQ7hIf4BSh
+         qg6SMuJLsEiKS2JpT6JKSOb5V4J/S88z3tMl3D61LeEi14SRuFSFl1H3zBhrf5NfsEa2
+         6J0Z5Uup12+gsZfpISX6D6J8ZEr5y1vqq0drfFL6i+dRLfsbFINmkevJLpDGp7YdUmHp
+         9SPJcoRmOnoqANjhxeErCYregFBZCpKmq8HgxN6VcgLe62A4EpN3RisOwUkbYxWNaNQ2
+         rucw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790692890; x=1791297690;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ljt9qo4CbaNAhZ8NBb8RScI9+T0M5HBa8xMXa6k6Vt0=;
+        b=KGT+FJRSZyQhc+8f1TbOpdXYuAsAf7gctBpqkDth8DF1OqZoTyVB7QT6UK3HtSNIpd
+         PkNepNPR+FH9TT/z+okkQnjgSTHOWKPdLAqS5rE4Go02nVDDtUizajsNa/dxKl6ZQago
+         OVqPqbhrGypbK9pDMwpMrf8rBI7pwBopgU1tM1mHJa8C/rMBrvnkU6eCrqTale4NeYeX
+         uVoewnD8EAkPLwuWug/GwzwrreUjwCMZC66hkpDStUdVtL0g49BY6NyiMfmemVgs216V
+         6bBTNX3X5BjRmAUklPsAhpvgX7xatJUR0Pb/1ANl+mh3qxx1nX9fRIkxVNm4/dBN0+hp
+         UQsg==
+X-Forwarded-Encrypted: i=1; AKwUvBxu4GKRJ5nNTlLgGZR1vgq1fT+FpeqvAVjgTvCJ9tqEYudwoY6RS07QMbDFtr1/+sKTMwqVFE+4Uge/0QM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+vdQJZmWQnK7LgHU4Ki4fC+CAZr/FUOysG5CfqUj6Perzcoh+
+	svaElIrRYhWMYgBfhjlysm5yvBIuvkzI4WfE1OsAAYw9g1sBGVFLphcKE83ocKCX3JI=
+X-Gm-Gg: AYBFou24Eh6pF+UxEEphSGjcu88RcqJk093PG4QcX9YYaaSpo/82D/qoUmhIMAMARF+
+	sA3kVAZ/yDg7dKlDluGoIKxczsGsJtIxau24ZnwW2CxzLHmDPn6GII4jZ+ev1YhoTjAgOdj9sDa
+	8ZoyCf6pXyxfIx5d+gUXNvXKcoOV9cbmzU8UPlll2BBBFZoY6frECwU3EkywEEy5nV6zVl9z4Tg
+	jK4+QiSUWOXKECdioFg5quPsJoL6BE2uwWgGakYKD9I5m87QzgJXVa0L2uyF578WDOEFGaFBpsb
+	JJGethLIIJ56b8lBMDesgumcgs3Jw7t6WJteTdBKfa8G9NT4vlRvMk98obfVJyS1++n3Puo9zb8
+	UrT7C2QFi6OCo95hromr6adCtwy3GE3EXGsCMcx7qaiaT34FuMktwLWEGz1+TVYDpfhlCsoJ2I5
+	R/7BGblBKK6SrzSdBUGDOxTKiCLt9NC8Xv6qjMFHwajp5oX3vfzuuxKlfir3GD
+X-Received: by 2002:a17:907:c310:b0:c25:32b0:e56c with SMTP id a640c23a62f3a-c2ac23862eemr1446037966b.4.1790692889352;
+        Tue, 29 Sep 2026 07:41:29 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb905c6f4sm966711a12.37.2026.09.29.07.41.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 07:41:28 -0700 (PDT)
+Message-ID: <8094040d-cb75-4f44-9662-97987f6eadef@linaro.org>
+Date: Tue, 29 Sep 2026 15:41:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <79e8fdf844e1aa9358dd4c2c3e5f888b@kernel.org>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/14] perf cs-etm: Fix bogus branch samples on
+ exceptions
+To: Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Tejun,
 
-On Mon, Sep 28, 2026 at 10:15:31AM -1000, Tejun Heo wrote:
-> On Fri, Sep 25, 2026 at 06:09:51AM -0700, Breno Leitao wrote:
-> > Given that we are introducing a WQ_AFFN_CPU which will be able to do CM,
-> > we want to keep both values set, so, the transition from scopes would be
-> > able to succeed.
+
+On 23/09/2026 16:21, Leo Yan wrote:
+> CoreSight currently models exception entry by changing the preceding
+> instruction range into a taken branch. This can give an IRQ the source
+> PC of an instruction that already retired and overwrite a real branch
+> immediately before the exception.
 > 
-> This would be the new PERCPU scope rather than WQ_AFFN_CPU.
-
-yes, sorry, that is waht I meant. 
-
-> > +	int nr_cpus = wq_nr_online_cpus(wq_unbound_cpumask);
+> For an untaken B.LS followed by an IRQ, perf script currently reports:
 > 
-> Workqueues from workqueue_init_early() and early initcalls are created
-> before smp_init(), when only the boot CPU is online, so nr_cpus is 1 for
-> them. For example, system_dfl_wq ends up with percpu_max_active 2048 where
-> 32 would be right on a 64 CPU machine, and nothing rederives it once all
-> CPUs are up. Maybe rederive the other domain in workqueue_init_topology(),
-> which already walks all workqueues to update node max_active?
-
-Very good point, and I've just tested it and reproduce the behaviour you
-raised.
-
+>    hw int  4000f8 => ffff800080010c80  b.ls #0x400118
+>    ...
+>    iret    ffff800080012284 => 4000fc  eret
 > 
-> > +	} else if (wq->flags & WQ_BH) {	/* BH implies !WQ_UNBOUND */
-> > +		wq->max_active = effective_max_active;
-> > +		wq->min_active = effective_max_active;
-> > +		wq->percpu_max_active = effective_max_active;
+> The hardware trace supplies 0x4000fc as the preferred return address.
+> For an IRQ, this is the architectural resume PC (Arm ARM, R_VBQMV).
+> B.LS has retired, and the saved PC identifies the boundary before the
+> following MOV. Using this PC as the IRQ source reflects the
+> architectural state at exception entry:
 > 
-> Maybe set these in the WQ_BH branch at the top so that BH is handled in one
-> place?
-
-Ack!
-
-> >  	} else {
-> >  		wq->percpu_max_active = effective_max_active;
-> > +		wq->max_active = wq_scale_to_unbound(effective_max_active,
-> > +						     nr_cpus);
-> > +		wq->min_active = min(effective_max_active, wq->max_active);
+>    hw int  4000fc => ffff800080010c80  movz x2, #0x1796
+>    ...
+>    iret    ffff800080012284 => 4000fc  eret
 > 
-> max_active can't be lower than percpu_max_active here, so min_active can
-> just be percpu_max_active. Same in workqueue_set_max_active().
-
-Ack!
-
-> >  	max_active = wq_clamp_max_active(max_active, wq->flags, wq->name);
-> > +	nr_cpus = wq_nr_online_cpus(wq_unbound_cpumask);
+> The IRQ sample represents the transfer from this architectural execution
+> position to the handler. The series synthesizes exception entries from
+> exception packets, preserving the preceding branch and its outcome.
 > 
-> For unbound workqueues, nr_cpus should match what
-> wq_update_node_max_active() distributes max_active over, the online CPUs in
-> unbound_effective_cpumask(). With wq_unbound_cpumask, percpu_max_active
-> comes out too low for a workqueue with a narrowed cpumask, e.g. 8 instead of
-> 64 for max_active 256 on 4 of 64 CPUs. Same in workqueue_set_min_active().
-> wq_unbound_cpumask is right for percpu workqueues.
+> The supporting changes:
+> 
+> - Let decoders supply sample.ret_addr so later instruction fetching cannot
+>    change thread-stack return addresses. Apply this to Intel PT
+>    asynchronous samples as well.
+> - Prepare packet ISA and instruction-size handling and share sample
+>    synthesis helpers. Mark untaken branches and break history when
+>    instruction memory is unavailable.
+> - Add a thread-stack regression test and four AArch64 CoreSight tests.
+>    IRQs and page faults must resume at the entry PC; SVC and emulated MRS
+>    must resume four bytes later.
+> 
+> Based on the AI search and test on my x86 machine, this matches perf's
+> Intel PT handling of IRQs. Intel PT records the next instruction's IP in
+> the FUP packet, and Perf uses that IP as the interrupt sample's source.
+> 
+> This series is verified on Orion6 board with "perf test coresight".
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+> Changes in v2:
+> 
+> - Rework the fix around exception packets to preserve both exception
+>    entries and preceding branches.
+> - Add explicit return addresses and the Intel PT asynchronous-branch fix.
+> - Split out packet/synthesis preparation, record not-taken branches and
+>    handle unreadable instruction memory.
+> - Add thread-stack regression coverage and four CoreSight tests.
+> - Link to v1: https://lore.kernel.org/r/20260713-perf_cs_etm_fix_non_taken-v1-0-4561607fc69f@arm.com
+> 
+> ---
+> Leo Yan (14):
+>        perf sample: Allow decoders to supply branch return addresses
+>        perf intel-pt: Preserve return addresses for asynchronous branches
+>        perf cs-etm: Break branch history when instruction memory is unavailable
+>        perf cs-etm: Centralize packet ISA initialization
+>        perf cs-etm: Use the recorded instruction size for A32 and A64
+>        perf cs-etm: Mark branches that were not taken
+>        perf cs-etm: Factor out final instruction sample synthesis
+>        perf cs-etm: Centralize branch sample synthesis checks
+>        perf cs-etm: Classify exception calls using the exception packet
+>        perf cs-etm: Synthesize exception entries separately from branches
+>        perf tests: Check CoreSight IRQ entry and exit
+>        perf tests: Check CoreSight syscall entry and exit
+>        perf tests: Check CoreSight abort entry and exit
+>        perf tests: Check CoreSight emulated instruction entry and exit
+> 
+>   tools/perf/tests/Build                             |   1 +
+>   tools/perf/tests/builtin-test.c                    |   3 +
+>   .../perf/tests/shell/coresight/abort_entry_exit.sh |  21 ++
+>   tools/perf/tests/shell/coresight/irq_entry_exit.sh |  37 ++++
+>   .../tests/shell/coresight/syscall_entry_exit.sh    |  21 ++
+>   .../perf/tests/shell/coresight/trap_entry_exit.sh  |  24 +++
+>   tools/perf/tests/shell/lib/coresight_exception.sh  | 165 +++++++++++++++
+>   tools/perf/tests/tests.h                           |   3 +
+>   tools/perf/tests/thread-stack.c                    | 106 ++++++++++
+>   tools/perf/tests/workloads/Build                   |   4 +
+>   tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++
+>   tools/perf/tests/workloads/page_fault_loop.c       |  37 ++++
+>   tools/perf/util/cs-etm-decoder/cs-etm-decoder.c    | 106 +++++++---
+>   tools/perf/util/cs-etm.c                           | 222 ++++++++++-----------
+>   tools/perf/util/cs-etm.h                           |   2 +
+>   tools/perf/util/intel-pt.c                         |   7 +
+>   tools/perf/util/sample.c                           |   1 +
+>   tools/perf/util/sample.h                           |   5 +
+>   tools/perf/util/thread-stack.c                     |   5 +-
+>   19 files changed, 656 insertions(+), 147 deletions(-)
+> ---
+> base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
+> change-id: 20260713-perf_cs_etm_fix_non_taken-5b4d7f73f41e
+> 
+> Best regards,
 
-Right, thanks for catching that. I'll change both setters to use
-unbound_effective_cpumask() once the workqueue has a pwq installed, and
-only fall back to wq_unbound_cpumask before that (percpu workqueues, or
-unbound ones still being set up), so it lines up with what
-wq_update_node_max_active() already does.
+Reviewed-by: James Clark <james.clark@linaro.org>
 
-Thanks for the review,
---breno
