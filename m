@@ -1,124 +1,73 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9C2E7397;
-	Tue, 29 Sep 2026 20:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95387358399;
+	Tue, 29 Sep 2026 20:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790713944; cv=none; b=lwAgA8ZUxfrpQO/lkFRNM/62Xx9sioDYIitv8dhKo2oFFGnu36iqgpLdGBtE33O99vQ28XCENOKBVEwG/KwLI7Kevx+rEDStCsGYCut41CVooeOKG5Xm+EUEImGlK/5COSfsS/DxSK8iWXIyjjdIWQ7Dwt/8rkNIzbWnwYk1crA=
+	t=1790714060; cv=none; b=UX2zP639Z3tryC06IVIfby7aYykoMhON7ZzpuGNvky2xBa7pcoS65WU2zoPyUNU0rMlCZYfM+Itrztkdm8yxaHcVjz3NheFuLfp5PDgGnmt7S3gxEeD5QcFIm6FWbsIMuGA6ARps8KZEytVher0cHHUb0ANRfVDQckEjsC2/j6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790713944; c=relaxed/simple;
-	bh=SyRbOsqp7ra3/hOFVINyjtCpID/Psn2PVKspaO8Y23E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DusxXkPJcnnW2B0uN2XdxT6BQwr1mLYLx5A1N9GFwQWN12pfuwJRCdYjorAUaaUtFiqLdYUfiNBl8kLUXumC7o9kRU7Fmw7jxhDFfUo19sy8Nz8df78wVknWRyLwr2KebhDzXCOrht5FBkjNaJwBdsSb/gVRDkNyIQzs6IEVSoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be; spf=pass smtp.mailfrom=krisman.be; dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b=yWMFwYSs; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krisman.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krisman.be
+	s=arc-20240116; t=1790714060; c=relaxed/simple;
+	bh=Qcc3CuiGR8F6BmSpgb/iA2D6hQ3P7hKSHh4btT7sfx4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gJDaDQcnEb9nJNuCd91XHZ5fbyxfDTp/u8zPhTCssL93MEBLrNxRBf3jzEzSUKP4KGqz3cuCVwbKHhztzkFFxNHrNYeG7u39EJkQSSgDHTGSOVJhF0Cf3Q1TPJr+OYOaPqbRqaaLXKRtFr6VfxC42Cz6USrXLOLMHZiZUmAq4+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSrp1J4+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=krisman.be header.i=@krisman.be header.b="yWMFwYSs"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hvVGP72jzzKp1b;
-	Tue, 29 Sep 2026 22:32:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=krisman.be; s=MBO0001;
-	t=1790713934;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aMO1TFFilty1lMotj3PlOLCIGv6KB3kYrfoPUAD1Z/c=;
-	b=yWMFwYSsvctbfxkt7eVRBy+y+3biYN91XB5dSY0SloUoKQlZO8CDVN9xzIlQj6p2L3Dl/z
-	bBc4kwbeJ7ae2K32oenVkhiBhdVpZIMqK0pkfPzo7+tOcXVvPAPXZ2ohk4pgQ0ln3344qL
-	OEA0eXMPu33AEt/EoiP0d+XoVZNsXfNpQLqn2wM8ZrPN4+TfX4tWMrmjfHsrUD/I29eoeW
-	DsgvEmUm93vJoij0jfVSpUPN5efHlV4+9RszhD1Tx2YSu81CMQqe6/N5VgF4RD+6/qjcH7
-	35/MTHeaStrsEYMSZ+W19ydqgGH0u87DLIhN5QP8cHTt+LEeZhM+BBgOtMYa8Q==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of gabriel@krisman.be designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=gabriel@krisman.be
-From: Gabriel Krisman Bertazi <gabriel@krisman.be>
-To: Mohammed EL Kadiri <med08elkadiri@gmail.com>, hughd@google.com,
- baolin.wang@linux.alibaba.com, akpm@linux-foundation.org
-Cc: brauner@kernel.org, andrealmeid@igalia.com, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] shmem: fix unicode_map leak with repeated casefold= option
-In-Reply-To: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
-References: <3a57ec70731165b4b1244fa89bba95c82a666df8.1790712330.git.med08elkadiri@gmail.com>
-Date: Tue, 29 Sep 2026 16:32:08 -0400
-Message-ID: <878q4jyf1z.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSrp1J4+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22821F000FF;
+	Tue, 29 Sep 2026 20:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790714059;
+	bh=0glIlyA2h3h7vHM0aS45Ph4Kslhdwq+2jFa+9j6F0C4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VSrp1J4+eEuBOkKZwyL8dxlRgHIaWOVFs9j0Y5+lY2hGp77+Qde85w5OmsREoX2Qs
+	 MbNIUfhOoLdmDiVdCp4CMmtEYf2irhAS55/MPS9Ei9yis8+FEj+uG2/OyZi65taeu6
+	 G3/2xrH8H3rA1p6zpP5EjW9qcQ1P9hVvKKQM5DZ0l6ZfdBedMo53MsANB4prI9DIc3
+	 9xz+dHNy7mIAt/i8J6bvXQUJYaqrRiNf8vYXbL0xZQfGEDuZrTxIPoiuxM5g3WqmnX
+	 FaEsfVIhB4udSP1vbsPA3latEdYQ26bVg+2CKaJfQ7KbodFUbocid0mxr6KGG0xqfv
+	 rzK+2R0lUROYw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: linux-arm-msm@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	kernel@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Yijie Yang <yijie.yang@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible for Qualcomm Maili SoC
+Date: Tue, 29 Sep 2026 15:34:12 -0500
+Message-ID: <179071404932.2903617.5656557809470041633.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
+References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Rspamd-Queue-Id: 4hvVGP72jzzKp1b
-
-Mohammed EL Kadiri <med08elkadiri@gmail.com> writes:
-
-> Each casefold= option makes shmem_parse_opt_casefold() allocate a
-> unicode_map with utf8_load() and store it in ctx->encoding.  When the
-> option is given more than once in the same mount, the later call
-> overwrites ctx->encoding and the earlier map is never freed.
->
-> Reproducer:
->
->   mount -t tmpfs -o casefold,casefold tmpfs /t; umount /t
->
-> Repeating this 50000 times grows kmalloc-32 by about 50000 objects,
-> and kmemleak reports them as allocated from:
->
->   utf8_load+0x21/0x110
->   shmem_parse_opt_casefold.isra.0+0x65/0x100
->   shmem_parse_one+0x368/0x510
->
-> Free the old map before storing the new one, so only the last
-> casefold= is kept.  On a normal mount with a single casefold=,
-> ctx->encoding is still NULL at that point and utf8_unload(NULL)
-> does nothing, so nothing changes there.
->
-> With this patch the same loop leaves kmalloc-32 flat and kmemleak
-> reports nothing.
->
-> Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-> ---
-> This is a separate leak from the remount one fixed in
-> https://lore.kernel.org/all/ba38f80f629fd093c77f3a49fdab7b71ee7bbc5f.1790687276.git.med08elkadiri@gmail.com/
-> which Gabriel has reviewed; I found it while testing that patch.
-> The two apply in either order.  Tested on mm-unstable, alone and
-> together: kmalloc-32 stays flat for duplicate casefold=, single
-> casefold= and remount, and kmemleak is clean.
->
->  mm/shmem.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 07b2855dfb7b..262f1bcb6144 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -4731,6 +4731,7 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
->  	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
->  		unicode_major(version), unicode_minor(version), unicode_rev(version));
->  
-> +	utf8_unload(ctx->encoding);
->  	ctx->encoding = encoding;
-
-IMO, nack, this is not the right fix.  There is no point in accepting
-multiple casefold parameters and we shouldn't allow it.  If
-ctx->encoding is already set, we should -EINVAL and fail the mount.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
->  
->  	return 0;
->
-> base-commit: 90ddfbd1963659ca4a5d3d7f20717a4222682a8e
-> -- 
-> 2.53.0
->
+On Mon, 31 Aug 2026 20:53:44 -0700, Fenglin Wu wrote:
+> The PMIC arbiter in the Qualcomm Maili SoC is version v8.5, which
+> is the same with Hawi and compatible with Glymur. Hence, add a string
+> for "qcom,maili-spmi-pmic-arb" as a compatible entry for
+> "qcom,glymur-spmi-pmic-arb".
 
+Applied, thanks!
+
+[1/1] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible for Qualcomm Maili SoC
+      commit: 769ff2033eb181cd87564aa41d3a3979e9e55377
+
+Best regards,
 -- 
-Gabriel Krisman Bertazi
+Bjorn Andersson <andersson@kernel.org>
