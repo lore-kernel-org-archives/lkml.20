@@ -1,54 +1,53 @@
 Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011060.outbound.protection.outlook.com [52.101.70.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EB84C33E9;
-	Tue, 29 Sep 2026 08:48:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165714C6526;
+	Tue, 29 Sep 2026 08:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671732; cv=fail; b=YjFI6tsBXTohYS0JZEDoxdojBhLf7lj9pH8Ip2gvl1nZE+HcmV6OwHRecqaF0m7i3BepBw6iHR9miUyPOp0lQLuukxRmEsVKxV3V9kLKzM5DFfddfS08SrjMfVCKZG/AcOiy975nNQ/TiSdAbrcUNOtofS9QWa2RhCWkCCHi4do=
+	t=1790671741; cv=fail; b=ljoh3e3haWTwQCvmi3/n85cgkXxzIZfeh/HuyuQdieY8sTPgDKVtWaI9qyRnIox4G6HMzWOgCGRyfSUwU5ohDQSiUbSDZHF2rAYDHXzSBiXpiID+yYcyiJNxP3eNILV1u0mNzoX7Qsu8tDwo7V+wGEduzsrPE8ua39vXvbs5sR8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671732; c=relaxed/simple;
-	bh=q23o/ATBla5cGPDyTf7iFQ2XM2LOnjh6Pz7JZ2CPFGE=;
+	s=arc-20240116; t=1790671741; c=relaxed/simple;
+	bh=wdOiqrF1X43oiBwIbfof/EatI6Sfq0gOhaWygbF/Uys=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=pTjsQf0L1MF9gL4KMhHt8Z9WHXw+q2PBzGE3r3Ly19JFpY2ps/AgW4IyV8ewsO82wmzWipQKYWiGeytow9WLHhdCGm2dotRKdTyy7LpyNCvj2pNNHy4CqLkuvjRuyN7mv6d6FpmB/uS0tXVkOPy3L8zu1gdCsCc/a40ByMQPOPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=inWmpTY0; arc=fail smtp.client-ip=52.101.70.60
+	 To:Cc:MIME-Version; b=id1f0yWHnmxxoZ0KHFUg3fU9rkg2N+0nfeXi0284US8dOi6f9Hrs46E1WQLfk677A7J2+/2PGcV4cpvyY4vN4mAcCtLmVzrrubNvpScyRDvpGUhfUuVkQtK/LxHGlBlfLUfhxbQ2c176zImgMMR2FDIjxV7DjF9bcyWhliKWBRo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=bWPkWRIb; arc=fail smtp.client-ip=52.101.70.60
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="inWmpTY0"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="bWPkWRIb"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NkygattS5xSZislueDlFnqid8Rp6JHd5v5OiNLYAN2UlH9AywqGsN6oB65etpRHQTuBSqeBzXepkfQUDpTZSfA1jggakfynce9jp/afhvMOFO9Z2W4KJEx/XOP/iuxvCGuEp5U6MlaQ+pI5Py80pFYzWAqAi0TZB3G45R92pXj2Pcd7QUqQTuPIlWBwgS6EK9+Oyy269+C6wcyhxisA2cfYViOKW5WU3smdM7GSZCgOG7QW/j1+aXdKFSGqmrk4USB1qxMsRecrOF3OSnlEDCoHEusqvr6s8s4sHp17cmUgzJkFQS9Wh2KElQjD4vcn0tiwXRk3QS2y3ueUV8OZwgg==
+ b=GwKN9HkVoPdTRr9B9OWytkwWxi6B3RiWQeFxBcaGSnZEsaRzTkU8hgkvAqEcV1AhucUqtmZMCYG0kdH6n1clR6aE1nU8PGKCHVdRBZANvg1gP8jD9CkIthVgXqGZ9l5xIm7qweHyxzRTG7tZgQwN8DgHQ/I842CbpxHZpBnL3xNbQCcjt9SalfCMdRnveKZ3KAdwOSaYw9GyfLDk/AGdCnpE8LoMUYY+/NYGwMLn5cFYPl1tnQ3uaIbnR4Ck7DZ0KY8hA7wium1DGaxTehV21PEMs/QGu1pDflmUJz4cJKyoDdYHJCektLBhs2mzNdIjEVq08tvFtIE/JMRKCoCacQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UdbO5Alud8E+Cv5PfJIgXknqXHqFWzLaj9XEdNqICQ4=;
- b=dTXuRtbk6q27PIV3cV3/MMgCn+p/vtQqsE/XfvpP65UFGI+PR4l7HVGvwFAx48qe1MXzKWIU0ApVjNwRviUWdD/ceygBCeGWCSYG8F1hLq5enMHYqRxyRZ7pJBW1pGmEpJFgrudIVcsBCk/i5UQm/s6YhoN9oGcwtvoWu4ieL+yEc3IOIAluP+DUzOZBnUukuHrt4GhVwrsLqfH84pA73V7A377QBw+2k/FnvojQGhuIV9GEFjw5Izr9zGcsAgoFWFmJeWdb9BbEt+icJanIYg4+D5IiTgcdwLeb4QL0NTZdyq8uionxjb/+mY0NFYUniy0jTEPiEGu6S4iH1e3jPw==
+ bh=2TzJSlGBBT5pNKKTB7YG/R5hSjJpR1x3miUqYmi5+Fo=;
+ b=bIwthtjwsZBi5R0QgEygIL5ujdXCAu8fMmfIYbsbvraaz3cX4E/kIzmrKNtkfKgr/TUEvS8kZ8/buQVapDXa19JjaMm+RrQdLSAhp04HkLIinsq5ddW/ShTTLSUljA/2AZZhOBoLYzC9shKlrpqgeS9j93e+hY96sEuikTy8b+IqAgr3qzOOEuNoYR+47c7Cocv5iTG5emQ5hE1pFSLWXC+p8bifGhOyUgyVZh1DEQplKTQaRHPl+Q2seFr2NVWVnhyFP5p81mca1Suj7FA4E4ApDrUVRs44IZv2WOiVJEjImMZAWnQe/ENgMbz/ID46U+aJGZUVIstnMltNjN6rQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UdbO5Alud8E+Cv5PfJIgXknqXHqFWzLaj9XEdNqICQ4=;
- b=inWmpTY05PoIk8ivHu1MzSyB+JwMcYYJsOyI8VVxp43wIRRIy4fbPNuJpxvWdgcjEbjsspYA+POuN2bCmVUB+A4GOWbVngfYEvQ2yRFyOIq7YjhesznGySc34zaYUILBXj1S+ZNO4Yqa+NgA0bNGaBYioQL7VQB5cWX1WPcMUQlMhgKk9qC3KpkQdHmy6UmV/Yly/zt54U6fd4zVR1NyRFgvzn54VSTxLWtJfp3yIxZoNfsBWaz6QC3zJeF0K1Ynjo8VOa8Za8e4aianoH4tfol5uxJdtPosnvU7iyzgqZ9ljpMnZqH51+U6A5lXY43v1Qu5qhtQ2ENYqnKQOYenEQ==
+ bh=2TzJSlGBBT5pNKKTB7YG/R5hSjJpR1x3miUqYmi5+Fo=;
+ b=bWPkWRIbe24H/a4OMkgsiKhiX1h74de1NF6h1frnVUvxt9PnUVz3mXgTOO74tsNaqH/Q7FLVbfpDjk+Pcnep3UswufwuaIz9UmfjsxDY/ttwGg7K9uB9YAD9HSx/jz/g265LojBTnmxYJ+JccBbBFSiZidl8+oK3oTIVy1G1om1gKK9ME+SGq4Ea1+9m1gqtx8QKWJ9qvYW9QzKuuA6aay9daFfFxoMdJEhervkh7O3IdkDAV825OTCJI4d7A4kk4vGkB+9q7n5zw61UlzeOYa3EJ01uUFSFnUfs3l5hJsBgT2rJ8WrT9skhE3HUVHBgALbUaJIu4PzJ+09LXQvXrQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from DB8PR04MB6667.eurprd04.prod.outlook.com (2603:10a6:10:10e::22)
  by AS8PR04MB7815.eurprd04.prod.outlook.com (2603:10a6:20b:28a::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 08:48:38 +0000
+ 2026 08:48:44 +0000
 Received: from DB8PR04MB6667.eurprd04.prod.outlook.com
  ([fe80::e1b:d361:7aba:6960]) by DB8PR04MB6667.eurprd04.prod.outlook.com
  ([fe80::e1b:d361:7aba:6960%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 08:48:37 +0000
+ 08:48:44 +0000
 From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Tue, 29 Sep 2026 16:52:26 +0800
-Subject: [PATCH v4 05/11] media: imx8-isi: Apply RAW output format
- workaround at runtime
+Date: Tue, 29 Sep 2026 16:52:27 +0800
+Subject: [PATCH v4 06/11] media: imx8-isi: Add RAW14 output format support
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-isi_imx952-v4-5-e69f89c7c651@oss.nxp.com>
+Message-Id: <20260929-isi_imx952-v4-6-e69f89c7c651@oss.nxp.com>
 References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
 In-Reply-To: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -63,15 +62,15 @@ Cc: linux-media@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790671948; l=7179;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790671948; l=3683;
  i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=q23o/ATBla5cGPDyTf7iFQ2XM2LOnjh6Pz7JZ2CPFGE=;
- b=yvS9ueHwuhcPgxWqJz/atf563YpBTrfAvHAqSvgJpsfDhmywgXOs4SXR/TZkLG6XmRblb5ggB
- iAV2kpsAl+MB7FlXkjuVKT5f3a+yQlOLbBKGzEk+dOT3YO6HwVNr0lO
+ bh=wdOiqrF1X43oiBwIbfof/EatI6Sfq0gOhaWygbF/Uys=;
+ b=4I3kuxri8HrUmTgZGGVne1vhEUe6ehIXGC0kubruUGsBN2GY3HC2qHQ0R/kCur8xin1YQ2jk8
+ OfkXLc8utjnAzJn2zEQxEeqoGR28GdQFnhMA1EX4rf/eGTPeWuoMUMq
 X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
  pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: MA0PR01CA0064.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ad::6) To DB8PR04MB6667.eurprd04.prod.outlook.com
+X-ClientProxiedBy: MA5P287CA0114.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::11) To DB8PR04MB6667.eurprd04.prod.outlook.com
  (2603:10a6:10:10e::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,242 +80,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DB8PR04MB6667:EE_|AS8PR04MB7815:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3590f4e1-8c32-4069-797b-08df1e06741f
+X-MS-Office365-Filtering-Correlation-Id: 0728bf1d-92ef-407d-3e5e-08df1e0677ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|19092799006|1800799024|10067099003|11063799006|56012099006|921020|3023799007|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ozKE9TkYJ7ly51rQEXCkaDYno4GDaaKrohLFn+HBBhpDHWZ6Kng5748BnLe34/6vDrs1Khxh8IJecwZqP8+UHE/qPCNHXy050C6PcCl89hncCl6jENBAGrv7WbWI6t2/OZCviWF8jDTRoWMNcpwy7Al9pPAYwgEdbAtKiolKoN2kFnkR/4dVAr+OMcJtGBhCjrq+URuGPRqZ6evs6gzPFYt6d0vllL6bhEzYb6OSkTmLXKgSo7G6INv4P6gLFofcxVOUfJNbVrDpxm3PmV1wZd79ijIvAMyZ6B6bPzYLdd4us9+pemrlCofNEl0XbyiAtMqqLhOsNH2EyGOFud+yn4e2tN1iGONQtukfXxnfCiQVAcFvqltCsngnDkKLo28Fl3gVlpbWhm/HDOOSc38hhErUBv9zcKcAmA4PLcV8yaSZw5KzHM6S4k0SqdeyN3PnFRQNc2R//rLobfPH4ELapSb6LkQ2ZOY5AHVeSOEXiDkofwzJd9l+kLJPC2nwBBtZF9KI/kGXEWGpmhnnPs/fQw9LsyzamJgilJJPnmsdm+Wbw1Pn0yw0awo4PqNfB4unTEFHZac3x38JBh/hFCx6dzBwUcJwVonESDoOxOMNRNCuf9awPWMxScCWJDbGbXohmKIMZQAA9/xhEvFhrzWfNW/9xaOmW9gsnjATdLHx7ZpaU8nfmBVEHXTNznHqKQM/LCKXpvHvCdOdA2suaScgwg==
+	IzLQ3vFXW/7JQdyYE1My2HukmSwgbpTGpXZR8iOEhd6PBvrBQ+noxZl0xGKc9LTFEVSWMDFWit1WKuzOHxj3ZZhet9Y+eRy8lrHHatzf2CffCDeWbCTG5sgHwEIXsQ9iDkede11g/vQTLnQeB26Ef6ko/Vu3wjX83+UQpaUJaylKm8hxPeSQj8W4Wb0vBkl37LQOqK7c3wryACFjGglihubjabKv+wru8UyJdOB/JCuVU8UcgAHikzbTSwu6OrAYlavHM9K1mGjj68b0o2aYaYgTHm/f9o2dbpwF9tcfwerke+1XuaxDcyiK3BdxybBEU/cFO/zvursXqyv4BTISr6xyG2ieHeM+ZdtWclixGZ10Pevw0b4kjXkAXj1+6XKuaDB4TF4oES1RmyW0BwSW0yajhc8zpGBbTxSzy7Lo496A/QF6zZZJ/H3+8EWnJeLoihbxHj5Y4pIJnziVN4dfGyC9+67u5Nx7W34oai2XQ3YJMI3SpFSt9UaiRMMLwEmM0RgfRbwuguZ98io9PLCodB8lNZHaoXjTxz0R1bzPxnjmTlNKykgtQy6qw/vPqTYvgmRtGuSWnQPbTXX5I/NP/6QE2eD9S8wszZF/MiATxu4QRM7ltRsf9yyrGP7E7WoXpnlbgGOPVaBchfZ650xw1X4Dre8jiytTk6nizf2lborS/qfmM2CFrL6u2GHaBYVuKBVKPesU6fnRxkFYYBNKWQ==
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6667.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(19092799006)(1800799024)(10067099003)(11063799006)(56012099006)(921020)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QW1OQ0NKWnk1eWVqT25ocHRQSDRQRW5hdWIvRnpYM2ZPNFh1UVlQWUJ4N0M3?=
- =?utf-8?B?UHJxdk1EcWJrbUs5aDhPcGxnejM5N2JjdVVFUDAyb0NkMkg4b1FpSFdZbmxH?=
- =?utf-8?B?Z0ZUSS8wUFhsMWtCVGtTZkFHZS8yK3oyZEhrNWtTcjk3dDJETGpibU5GdG5F?=
- =?utf-8?B?cHRITE85dUswUVI0blZ0eVFzSHJQclg3Z3BZeExZRzZESnMyMnBRY3JjbGlv?=
- =?utf-8?B?QllnTElDdXBLQ0ZNUm9jdElXRjduQ3ZUeGZ4WHhTbXlBVmRicTNlOHNLc2pq?=
- =?utf-8?B?aHp5ZGVwWTk1Yk8vREpXblltOFliamdYa0Jxa0YrbjNycG01bUNjR1RVSlNF?=
- =?utf-8?B?cTYwbVcxODBYbGFLZWZKcHp6dTFFMCtya1k2ZHU1YlRhTDlVOEt5NCtuRVJ4?=
- =?utf-8?B?WGZaaUdlS2U2K3c5bDQ1b2Z1RUlFdlFKRXU2bXd0K2NhSkhQN3FWRTl0U1Nm?=
- =?utf-8?B?R3kya1JDdXUvVEdMWm93QVpGUlBvMitCVjhScUtwcjliUi91VkxQZEhkSjMv?=
- =?utf-8?B?VytIN2h0dU54cERZRUF6T1UyZWliSmdqNmdxbVY5c3NqbGFZWWxSMWZ6bmhD?=
- =?utf-8?B?SXlIU2Z6OHpHMmVCcUtLenZmc2lrd1pLY1F6aGplMzVUQUZScTV3MWFHMVo3?=
- =?utf-8?B?QUFoVDB6UHliUWMzNGs4NTlObFNUYVRPQy9oV29qRWl2azNXMGdVS1oySkdU?=
- =?utf-8?B?emlpM0VtU3FXay9hQklHL3pSZFIvanAySE90a2JFalVQbUhyOHFBM2NqYU5J?=
- =?utf-8?B?TVJHbEhKQ3kzRnlid3BtN3I2UDRkZ2hENEZMaFBuQW9hQVJSYjFVdndTZEhq?=
- =?utf-8?B?cWZVRnNxZmxpbHI1azkzNUpWZkM3L2dsdkx3R3BVcm5wMkVsM2xhVlpYL3Zq?=
- =?utf-8?B?OHJQamd0bGNVOWZOekZDL0JiQktYcWxUU3FLaUluc1B4VURkL1dSemFXQkp3?=
- =?utf-8?B?djRQaG1sdk9VU2YxdWJ1QXFPK3VNZlUzcGVCM1VXWFdMVjZJdDlvUlpKeVNv?=
- =?utf-8?B?WU5yV3BGK0lkbUhKNXkzSTVTdFhqYnVvanZJcmQ4Q0k4S1lFZVY3YXVsNUhL?=
- =?utf-8?B?cEZqZ0lwNDdjMlppb3o0czM3aGxUMkM5WGdWQlNWam9zby9rOEtaZ3o4NVRS?=
- =?utf-8?B?TnVxVm1IWmhTVnlqM1RCbUx5M1ZZdDdmZjhGcmhWZ1BPNGprRFBqRTI2bUdX?=
- =?utf-8?B?alpDQ2cxTDN5ajZkakNrVkdLakFKVExiTHI2cDY2a1RRSkZTZWlnSnhNZmxE?=
- =?utf-8?B?UlkvRTR3YlNPaG51Mkx2RVFMVk84MlY0aHFjSlJUV0U0WUttQUlZM2RSZ2FU?=
- =?utf-8?B?YVdTaGZLVUNKY3Z0M3pJZzI2MjAzK0JXbGZQME1QVmZuUEFSWGFDOStjTU1X?=
- =?utf-8?B?QTQxNVdXcnBRamluek93WnRLUytjQlc0QkJUOFhNWkRQcHN5QmtIeWc5Nzhn?=
- =?utf-8?B?bGx6ZWlhcUtqdENXaTV3emVmK2R5dWhFdWhBNzVneUFIdG9UdUZHa2poWUZx?=
- =?utf-8?B?U29LYUFLUWd6Z1FaUWNLNWxxbks4VmU4eGRxNUlqZEtwL3BJUVVZYlVTSnJX?=
- =?utf-8?B?K3owOEMzR3hCRHcrbXdZYzNUcXN4V0Fsb202UWYvQ283T1p1ZS90RDI3N0ZJ?=
- =?utf-8?B?Mkk2d2ZreS9JYzdWbmJ3amhpcWtHUnZ5Z0tQa1RDd1I3UDR6b3Vzd2J1NkF6?=
- =?utf-8?B?ZkRHTExmWGVZRXFDcHMvcUo5QTNXbkp0S1N6UWp5WmxHSXBFN2piK2lsU3F2?=
- =?utf-8?B?a3kweGdjNUlrS2R5cHhpYjdwRGRNNW8yc1VFZ0NBYldmWlFVUmR4NkpQQWNx?=
- =?utf-8?B?TlF5SzZxYkwrKzF6ZGE1b0F1RFNHNWxRSXFBMEJZY1dzU1BqaFdHY2h0UHNX?=
- =?utf-8?B?S3ptWCtKNzg1bDdQQkE2RVJENG1FbllMQzRiZjc2UERXS2VETThHYkhJbWR0?=
- =?utf-8?B?eGNqdVIydkQ2YjlkcEJIek1zdVBTdG45WEFlQVV4T042ZW5Hem5nd0FNQ2F4?=
- =?utf-8?B?d09JVTZ0QUtPWUJOdXlvd3AxUVg5b0QraVdUWjdsVU5wVVVhOElQeGNiV1pZ?=
- =?utf-8?B?LzZXMlZkb1JweWJuS1pnRExMMmlxaGk3UUFwUTRBL2FYNjlLRm9FNXlnUDNh?=
- =?utf-8?B?Q2Mra3dnYkwzUG5zdkJiYmlsRkswc1g4OGpUVlI5dmxnUkh2ckVJWlllUXk3?=
- =?utf-8?B?UHR0OWY4Kzk1N2NrdmxnRXhuM2JGekkwREF3ckdNWXc0MmNISmhoN0RCNkJR?=
- =?utf-8?B?MnNOa0hHQzE1VVVSakhOcVg1K2F5Q01Ic0hCUC9OV2VQVHlXQVRCa245RmFn?=
- =?utf-8?B?aEw1VkhTUHR0VmJJdGh4dGYyQzg4TEl0UjVublNHa1ljSXZDdUpwVDVyNzMr?=
- =?utf-8?Q?bQZYuCHCGmFfV+bhgAmql3PfnBBGY3Aincmf1?=
+	=?utf-8?B?S2hqWFU1d3Z1Tm9GL2hqMkdTV3o1TWZ2TVRSN1RCRFFpVVR0ZkxuS0xtS3ov?=
+ =?utf-8?B?V1BiaDEvYTZkSE44MndTcGlPV05FYUxtUUVtMU52TU9JUXRQYU1mcHIxQ2xK?=
+ =?utf-8?B?QkkxOVlsV2l6Nmd4eitpQjlpVjFxd3VBUlBpWkRtYlpCMVlTVWtxNHdzVm9v?=
+ =?utf-8?B?US8wektxZGR2V1U5TCtHQkNsbVVYR1FseUpXRTN3R1U3ZXlRT09hTnROeDZY?=
+ =?utf-8?B?R201N2kxUkRyNU9aYkpXclBaMjRIZUNXYzlsU3pYQ3luUnZBZElxZ29EUUJF?=
+ =?utf-8?B?cTlNcUJidFlrckdmK3VLSElnU09pYUhnVU5HWDEwU2FkczlLZHJ3RnB2T2p5?=
+ =?utf-8?B?eVNOSksyTEJNK1crdWR6dGxvcy9qN1V2M082T0RRNHlGdUhnZG1MN0RrTXEx?=
+ =?utf-8?B?eE9SRTh2UkYzSS94ektwSnJGTk5DeEVveUNCaGt3OTQvYjNyUDIwWmdBaysy?=
+ =?utf-8?B?MlF2cm1MU3hDMUYwQzZIZXlXMzJvYUFpc2FHU25IWFpDWjBXOWdpUTJ3bjh1?=
+ =?utf-8?B?a3JPNkNKSlRLb0pBZXNzaHh0L3VDWk9CQ0J0RFJYREd5VHo2ajhEbHZTNUp0?=
+ =?utf-8?B?REpHekxUWjdUbzdLMWgydGpXMU1PRWRqM3NNMjdDUGJMclljM05FN2hpTGFr?=
+ =?utf-8?B?c01COXVpMHhpZTl6YldLc2FJcWpMVGNwL285Mng5aVVxT2w5d2lLLzJBU2Iz?=
+ =?utf-8?B?aDBLeVdGSnRSUmNsZWNQMW9NWk8zTERmb2h1Q2FkMFN6eXhwSU4vRzh1ejQy?=
+ =?utf-8?B?L09OK0J1R0pzMTRBeE5QQThrREI1RmM3YlZBQllVYlRndDJLVVlLZWNodGgz?=
+ =?utf-8?B?NEZ5eEp5OGJWYUJ4L0xUUDMzR01ST3hmOTVmZHlpZ0YrQllzK0Z5SEl2Uzkw?=
+ =?utf-8?B?SUgvMWw1a0pYNnkyR0tBNHlpZ1YwL0owTFBWM0NiSGp0aEJTcVpQOC84dUI0?=
+ =?utf-8?B?VUpTUi9LZEwrbnRmRTdyRG9PRW55MHZyV0tEckFRQi91SkR3dTIwVmtHZVN6?=
+ =?utf-8?B?YlNCQUNDT1BwRmhaRGkvaDNuUk9YTzlrd1dxTkZ4bGNCTm15OTB5RVQ3MnZJ?=
+ =?utf-8?B?S2pKNXpyU2RwRGhNQUtQb2ZQOG9DSWRSUUphS1Q3Z0hZaTZVaDlaSUVOTlp3?=
+ =?utf-8?B?N0U3cXZPVnhkWGtWcitDQ3loV2ZOVXRqa3RrR1U2ZnNPaFVSUDhVSGUvRUVa?=
+ =?utf-8?B?UTY0VjlBL1l4cDNmQ042RW9EQXpYSVJmQnc4SWZLRmh4V3dWalp0WWphZHNa?=
+ =?utf-8?B?cnRkaDY3YnovUGpPL2VJRG1BZ2g1c21VREJZaWZZS0oreVRlZEQwaEV4cnhZ?=
+ =?utf-8?B?YWZSa1F5OEJNV0VSS1pZSjh4SEFaNTVsWWpWblMzaG04d093Z0hOd2QwQ091?=
+ =?utf-8?B?QXRDNXpQdG5WbHZ4b05zbW1CV3NPMklOSmpvSENXcmIxNlZtdTJIa1hITitS?=
+ =?utf-8?B?T3V4dER0NHlRYjY2cUwxdHYvVjNlMlJ5ZGtUemhGN3NSbXNMNXVrbGVRV0FO?=
+ =?utf-8?B?UjFUY1UrcU44M2tSbVRFaUFqVGFsV3laWTJLV2ZZcnZkVnpUaTRmOXU5MlVh?=
+ =?utf-8?B?N1BlNGJoYzBNVGMzbVV1YTExYVY3VDJXNWV1WTFRZUZyMFowNC9hbWlCaHJC?=
+ =?utf-8?B?SGxpU2lybjFnMUhLQ0U2TW5sYzJUU3l4eDV1ZjdSeUp3TUgwc1o2ZUhRU1l1?=
+ =?utf-8?B?VWE2ckphSUhHbk9IcWNmVlF5cktoeFJNSUdaSjc4TjhpYmdYNmFmUjJzb1BD?=
+ =?utf-8?B?bFMrZEUzOTZsd2RqOExuQmVCNTNpU2h5RUE0c2RyYUZXQWRHdEtldFBGQk1P?=
+ =?utf-8?B?bzI1NGlqcWpoUlJBRndoc2I0RUhLaDNhKzc5ZWwyVnd6dG5malNUQTlBZzdr?=
+ =?utf-8?B?M0xsa3h5ZXZDRGgzRjV3RjR2a0pFVTVrOUVNdTNvNEhodnViQzRRTGNBbEpw?=
+ =?utf-8?B?ekhnK09sRG1pdnpJUDlXNXBwZkF0a0xwYTNSS3hGbzVDZ0cwSUtFdXJxenQz?=
+ =?utf-8?B?VC9sVmJUeU43cE1ua1VabjJMU1RHYVE2eFBVUTBjMnB1Y1YzbW14dTEwaGVC?=
+ =?utf-8?B?cHYxNjI5dG1tRDE5eUtrQTJmcGFVR0NvNnBxZGtTU2pNSlZsUGQrQzRDbUFK?=
+ =?utf-8?B?V1A2cmVXeFJLL3M0YWxUVndnai9FdGhWNkVyai9nL3pTR1E5MUt2eUMrbWtn?=
+ =?utf-8?B?SWtFQWFOeTZ0b3BsT2d6akw2dXFIa1d0R1ZtVFMwN2JoUnU2SGhUNmpZK3VF?=
+ =?utf-8?B?ckxQT1VaN3hwb3dXN01FeUtpSTgreVJyU1RJdThXQ1Y5NUl0NmdzbWlvdmxN?=
+ =?utf-8?B?V1NVWHBmYXpUTHgwbmZzeTBIWExFOTNBS2dKbExlMVg1bXhBNTVRZ2NPZTlh?=
+ =?utf-8?Q?vMZdXLA1s8QsQrllf+VbExnIBGD6fQx8hu9v8?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3590f4e1-8c32-4069-797b-08df1e06741f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0728bf1d-92ef-407d-3e5e-08df1e0677ef
 X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6667.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:48:37.7813
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:48:44.3101
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OuiTvXh3Da/jEs3wsi3qtOG9yeZDsLeEaFurgXESeEt08dIeT8fylxg9osquY0WtRQ5s/Wiodv5NaH48NNtj8jaOQbTZ2LCxO3AD0RQP/coRnLUcCi4blDIJOORnL+Yv
+X-MS-Exchange-CrossTenant-UserPrincipalName: TYqVkcjTEYOgNuDjat8Az6lC2IiOrOBDUqhX8Iw3wu3hcC7nY3X64BpZmXAGar0j+0QDwKDXSmQDB3VQV52XlWPzUePq+IOScbh7YZou/3i9yx07rEu7T2L5Cg3zHZmC
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7815
 
-Refactor the RAW format handling by storing the actual hardware output
-format (RAW10/RAW12) in the format table instead of the workaround value
-RAW16. The RAW16 workaround is now applied at runtime in
-mxc_isi_channel_set_output_format() via the new isi_out_raw_shifted()
-helper in imx8-isi-regs.h.
+From i.MX8ULP onwards, the ISI added RAW14 output format. Add its
+register definition and use it for all 14-bit RAW formats in the format
+table instead of RAW16.
 
-This makes the format table accurately reflect the real hardware
-capability.
+Include RAW14 in isi_out_raw_shifted() so the RAW16 workaround covers
+it on platforms that lack LSB-aligned RAW output.
 
 Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 ---
 Changes in v4:
 - New patch
 ---
- drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c  |  7 ++++-
- .../media/platform/nxp/imx8-isi/imx8-isi-regs.h    | 13 ++++++++++
- .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 30 ++++++++--------------
- 3 files changed, 30 insertions(+), 20 deletions(-)
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h  |  5 ++++-
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 10 +++++-----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-index 6aa760ce3605..cc52a90c2477 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-@@ -411,13 +411,18 @@ void mxc_isi_channel_set_output_format(struct mxc_isi_pipe *pipe,
- 				       struct v4l2_pix_format_mplane *format)
- {
- 	u32 val;
-+	u32 fmt;
- 
- 	/* set outbuf format */
- 	dev_dbg(pipe->isi->dev, "output format %p4cc", &format->pixelformat);
- 
-+	fmt = isi_out_raw_shifted(info->isi_out_format)
-+	    ? CHNL_IMG_CTRL_FORMAT_RAW16
-+	    : info->isi_out_format;
-+
- 	val = mxc_isi_read(pipe, CHNL_IMG_CTRL);
- 	val &= ~CHNL_IMG_CTRL_FORMAT_MASK;
--	val |= CHNL_IMG_CTRL_FORMAT(info->isi_out_format);
-+	val |= CHNL_IMG_CTRL_FORMAT(fmt);
- 	mxc_isi_write(pipe, CHNL_IMG_CTRL, val);
- 
- 	/* line pitch */
 diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-index c704be882705..0f3ada30e71e 100644
+index 0f3ada30e71e..5f66b7c9cd1c 100644
 --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
 +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-@@ -421,4 +421,17 @@
- /* Channel Input Buffer Extended Address Bits */
- #define CHNL_IN_BUF_XTND_ADDR					0x00b8
- 
-+/*
-+ * The ISI shifts the 10-bit and 12-bit RAW formats left by 6 and 4 bits when
-+ * using CHNL_IMG_CTRL_FORMAT_RAW10 or CHNL_IMG_CTRL_FORMAT_RAW12 respectively,
-+ * to align the bits to the left and pad with zeros in the LSBs. The
-+ * corresponding V4L2 formats are however right-aligned, so
-+ * CHNL_IMG_CTRL_FORMAT_RAW16 must be used to avoid the left shift.
-+ */
-+static inline bool isi_out_raw_shifted(u32 format)
-+{
-+	return format == CHNL_IMG_CTRL_FORMAT_RAW10 ||
-+	       format == CHNL_IMG_CTRL_FORMAT_RAW12;
-+}
+@@ -89,6 +89,8 @@
+ #define CHNL_IMG_CTRL_FORMAT_YUV420_3P10P			0x3a
+ #define CHNL_IMG_CTRL_FORMAT_YUV420_2P12			0x3d
+ #define CHNL_IMG_CTRL_FORMAT_YUV420_3P12			0x3e
++#define CHNL_IMG_CTRL_FORMAT_RAW14				0x41	/* i.MX{8ULP,91,93,95} */
 +
+ #define CHNL_IMG_CTRL_GBL_ALPHA_VAL(n)				((n) << 16)
+ #define CHNL_IMG_CTRL_GBL_ALPHA_VAL_MASK			GENMASK(23, 16)
+ #define CHNL_IMG_CTRL_GBL_ALPHA_EN				BIT(15)
+@@ -431,7 +433,8 @@
+ static inline bool isi_out_raw_shifted(u32 format)
+ {
+ 	return format == CHNL_IMG_CTRL_FORMAT_RAW10 ||
+-	       format == CHNL_IMG_CTRL_FORMAT_RAW12;
++	       format == CHNL_IMG_CTRL_FORMAT_RAW12 ||
++	       format == CHNL_IMG_CTRL_FORMAT_RAW14;
+ }
+ 
  #endif /* __IMX8_ISI_REGS_H__ */
 diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-index 21849af3121b..365057db47bd 100644
+index 365057db47bd..feef79b1b718 100644
 --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
 +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-@@ -218,15 +218,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.depth		= { 32 },
- 		.encoding	= MXC_ISI_ENC_RGB,
- 	},
--	/*
--	 * RAW formats
--	 *
--	 * The ISI shifts the 10-bit and 12-bit formats left by 6 and 4 bits
--	 * when using CHNL_IMG_CTRL_FORMAT_RAW10 or MXC_ISI_OUT_FMT_RAW12
--	 * respectively, to align the bits to the left and pad with zeros in
--	 * the LSBs. The corresponding V4L2 formats are however right-aligned,
--	 * we have to use CHNL_IMG_CTRL_FORMAT_RAW16 to avoid the left shift.
--	 */
-+	/* RAW formats */
- 	{
- 		.mbus_code	= MEDIA_BUS_FMT_Y8_1X8,
- 		.fourcc		= V4L2_PIX_FMT_GREY,
-@@ -240,7 +232,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
- 		.fourcc		= V4L2_PIX_FMT_Y10,
+@@ -250,7 +250,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+ 		.mbus_code	= MEDIA_BUS_FMT_Y14_1X14,
+ 		.fourcc		= V4L2_PIX_FMT_Y14,
  		.type		= MXC_ISI_VIDEO_CAP,
 -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
++		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
  		.mem_planes	= 1,
  		.color_planes	= 1,
  		.depth		= { 16 },
-@@ -249,7 +241,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_Y12_1X12,
- 		.fourcc		= V4L2_PIX_FMT_Y12,
+@@ -376,7 +376,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR14_1X14,
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR14,
  		.type		= MXC_ISI_VIDEO_CAP,
 -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
++		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
  		.mem_planes	= 1,
  		.color_planes	= 1,
  		.depth		= { 16 },
-@@ -312,7 +304,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+@@ -385,7 +385,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+ 		.mbus_code	= MEDIA_BUS_FMT_SGBRG14_1X14,
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG14,
  		.type		= MXC_ISI_VIDEO_CAP,
 -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
++		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
  		.mem_planes	= 1,
  		.color_planes	= 1,
  		.depth		= { 16 },
-@@ -321,7 +313,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+@@ -394,7 +394,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+ 		.mbus_code	= MEDIA_BUS_FMT_SGRBG14_1X14,
+ 		.fourcc		= V4L2_PIX_FMT_SGRBG14,
  		.type		= MXC_ISI_VIDEO_CAP,
 -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
++		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
  		.mem_planes	= 1,
  		.color_planes	= 1,
  		.depth		= { 16 },
-@@ -330,7 +322,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
- 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
+@@ -403,7 +403,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
+ 		.mbus_code	= MEDIA_BUS_FMT_SRGGB14_1X14,
+ 		.fourcc		= V4L2_PIX_FMT_SRGGB14,
  		.type		= MXC_ISI_VIDEO_CAP,
 -		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 16 },
-@@ -339,7 +331,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
- 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
- 		.type		= MXC_ISI_VIDEO_CAP,
--		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW10,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 16 },
-@@ -348,7 +340,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
- 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
- 		.type		= MXC_ISI_VIDEO_CAP,
--		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 16 },
-@@ -357,7 +349,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
- 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
- 		.type		= MXC_ISI_VIDEO_CAP,
--		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 16 },
-@@ -366,7 +358,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
- 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
- 		.type		= MXC_ISI_VIDEO_CAP,
--		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 16 },
-@@ -375,7 +367,7 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
- 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
- 		.type		= MXC_ISI_VIDEO_CAP,
--		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW16,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW12,
++		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RAW14,
  		.mem_planes	= 1,
  		.color_planes	= 1,
  		.depth		= { 16 },
