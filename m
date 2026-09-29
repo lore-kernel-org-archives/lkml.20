@@ -1,156 +1,144 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F82C5226AC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B7050EBEF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684825; cv=none; b=CuA0V70T/1nF0C6IRkwAj/+QIeifkSqm2XZFokJGfxDds+o2SaqnyS6fQbAD3mzRnF93+KM4jN4hqQ//7ZK3hU60DMgWQu81QtHXzYRiBJgCjSYl6AJku2l5hj/U1ueOE5i9AkP9bYuMXQ+ckMmALjWP92EEbH7S+Se9zvOg2a8=
+	t=1790684849; cv=none; b=ikKrx78dbcQ3S7nwE/hUIwaXXdReb/wjyEWbRXi7WzP8Ctrb6r9txKBMcCL/c3SRw/8bF7GmeBiYdO9fLmdOaBYNzvONMI7s0O2BT7nGd7IxTrfL0Z1DXv52FVeA2eWdaHnHW8fGFdhAo6gJvYclFbM+re2eYVwMwqU4mcXeccE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684825; c=relaxed/simple;
-	bh=wVX9Tr7HnaivYfdSnTdnsZDeQROujyVaYQOXyN9yjvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AyA8EEbtGvGJBHKH6Kq4w/z8AYdYWeBxBAzWDQyRCYLB45G440G/YD+fwShhzaeJec9s/c+52dV6R+UBkLYTmvNyVK7p3+DTHY0Sa/2TtDVLDT1gMyHi2sF4aYA+XCLurnUeWDIp33aNXTkm1DqXe+NQ+WGFXwG3uS5V+WLT2js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DK6MxPi2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JUajyaQE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790684849; c=relaxed/simple;
+	bh=/KtnBFmDTL40qZlciB0ej448hHsFTaerw9rQXD5K2n8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgheI/gxxi1LvRSDk2xmQM339sf/lQHSveGJMeDZBnPR1Ny0mRI6hTk/yy4zdHCeoTVllTBFA6DVBC3xD5Hy1Ruk/bzxtS7EM10MLVYVYGI0fmUrOma8Ufm8m7ZF+Aiocn65sRCZDXLcB12eRRp/oFhWZfOa/nXgAk+iREt5Yqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PpEY3WCP; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DK6MxPi2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JUajyaQE"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCEdbO1392347
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:27:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	asf0KM7+58qKrDcBQ2kvBbjz43o0vuPlNwfun278XbQ=; b=DK6MxPi2HYGW1rqE
-	P8QYmuq9m3OkjpyQFmXRsNteTDjf5RdqJABeXwH9/iSVB3/QaZ7uDQfDz8V+O7jN
-	mraYnpAiObh2bFgfNQd3lavmAH+s2VEHzu53LusLNQkqfO74M73K1CgZ/IUmGUeG
-	YnkHHBtUU0Rka4gVHZi0u/nnbyAEYEAGH0ruto3Xwim8lXTm5m/6tKspngPxOAlR
-	GGgttRdPPV37XukytVtZdE38Xfkplqi/khg6VrhVhRXlv7hm6ls0MQDL3Fipl6yS
-	BXsDA9Cj+9fm31Zb4XJRHy2dzuiJcdmQkYRnp++CXC4Bvbx8sZlDBHX6bhHEQY/0
-	4LiVIw==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyw03kyp8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:27:02 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9144e34ab79so3043426d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790684821; x=1791289621; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=asf0KM7+58qKrDcBQ2kvBbjz43o0vuPlNwfun278XbQ=;
-        b=JUajyaQE1CMmEZOfYk4Q+aGWorPc6nrMO0ji26SUdaD6pG3njfV73ZcKLCmaFBtUVC
-         kRbtJUJm/7wLttejjUHyquKFBAxJdkNG0+Z9fDRi9ZP08CgITi6bRsaiEq9xECGiGVvA
-         clP69exxyp4vOrjFHDpqX26GdJzQSUe57aHKm+BWHmUWCo9yyGY/oxC85Ylr+sRDGmQ8
-         nCKonjtSgfhgXXwi2NUF/QHg2RoZ+osSk3rEnmVONJemCE456BNwpRaMO9hN8k7rvHMN
-         bNfidNErKLeXZ4NbqcAHTztq9I6V1yyKgWLHpK6NErrNS2hlr3klZg9zWnlLfb96X8fI
-         X1nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790684821; x=1791289621;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=asf0KM7+58qKrDcBQ2kvBbjz43o0vuPlNwfun278XbQ=;
-        b=RRMgEeW+1SWwh6jOtd/Dq0entC8iL4kwDJKtX6uyJIcmuEjPQUJtv8WBhd1JZlorSd
-         1ZB98iDd/7tSXiSL1oerJHodfkWlbSSFB0YluhhT9aEGBWrlf9Gc9EcUXTiHTL+IPWJb
-         cvn4s4Zzpv/kA5Uh8uRGr2/7jNDOBWsQR51Wtf91hWJdxOYllQe2N7G3pDRxG1RoF3HI
-         MP3QPJasxs7IiY7YunNuPGhihKoWLYJITot2+cbC4GKZizzPBTZK4eugkXzojC7Rk1fh
-         IGSClKpIDiH6MVw4U2/4jsR14UXQew/qb+bqfDB1nTgCcJHyxmCvYAhpMvfvZ3lEM0tf
-         vg3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwih55b+1t/hfPVjAzDA2OddmKvHd/ZCuh5Sq5NRWkojc4EoRcFQyjz00UfqtFXm9M4SIVfgv3foCB3Ljw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJenae03xgNt2b9zUN99IvNVHMZt+OTQo4ZWAoZUHCBfppACrj3
-	POmY/T5QGiyRY7YtB6H5OwpH/rOreJlU19R86ShnxTh0OfWQ4yxn24bwAveOQSP16zxiGGey0KQ
-	UIw4alKpSvROrPBba5pM7WSLBziGVSfwdj7pzGMhOtL2eyEWhQ9svFIk2OQwM9gIXtzI=
-X-Gm-Gg: AYBFou0ZTOep7dnIQbWkhBSDifexUqlC8e3sCV7gQPrY/K2lJzdYgBx4lK04HxgS58u
-	qGskPw4m0fOMQDy+YVtwFa2RT31WmBoK6FtLUPKLsncBY0a6nHwf0AIxpoSBIVqOZR4E6a5DsPH
-	taIO0BK0h6bvBJz2BbqFvKbO2YsFziagWzbe2GOIx33yU5VTBBRKpJndM+aeGy2Dh6miH0KMF59
-	PJ5xbFG9C0pCKKJ3FCRjHj9Y8UoZElWWLqcHblWAxSo5j8XvF9XK0Qc1gMduVLHtMOldBaLcMy1
-	VzMrJhVzOrONJPTfgv5asw3g7ATJbayfRXsOJUD5fT8SWnHdFFsNO4dc0wxCWBny3ytQ2fxjnh6
-	akEn334ftTuoOBTYljOzQPQ==
-X-Received: by 2002:a05:6214:2d46:b0:917:8b9f:d54 with SMTP id 6a1803df08f44-9178b9f138bmr19819066d6.2.1790684821145;
-        Tue, 29 Sep 2026 05:27:01 -0700 (PDT)
-X-Received: by 2002:a05:6214:2d46:b0:917:8b9f:d54 with SMTP id 6a1803df08f44-9178b9f138bmr19818326d6.2.1790684820138;
-        Tue, 29 Sep 2026 05:27:00 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb9036092sm724336a12.26.2026.09.29.05.26.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 05:26:58 -0700 (PDT)
-Message-ID: <b4daa3e9-6055-425c-a5b5-7e3dbcef45c3@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 14:26:57 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PpEY3WCP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=41
+	JWrsYh/cspRpIQjNgHRcF6wjTsc90EPIdTG13fYCs=; b=PpEY3WCPN/6jr+fzyj
+	pUOeO/wDQS6BcaeI3Odio9jJcH+R+QrFsJI3cKbPkEEqkB9x5mhoyx0LXOIFmLOw
+	HEHIOeix5+U4SdmaECuKtnKUtxTlbUsQUkWxqScPG5EAKo3NvrV2kzk/PPllAYvQ
+	cL75xXsRyWmE78KxAur8/cSms=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3_7WPrrtqNUX9BQ--.13990S2;
+	Tue, 29 Sep 2026 20:26:57 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: marcel@holtmann.org,
+	johan.hedberg@gmail.com,
+	luiz.dentz@gmail.com,
+	brian.gix@gmail.com,
+	patchwork-bot@kernel.org,
+	tedd.an@intel.com,
+	kuba+nipa@kernel.org
+Cc: linux-bluetooth@vger.kernel.orgg,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH net v1] Bluetooth: 6lowpan: add the device to the list after
+Date: Tue, 29 Sep 2026 20:26:52 +0800
+Message-ID: <20260929122652.138886-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Remove cdsp compute-cb@9
-To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@kernel.org
-References: <20260929-shikra-dts-cdsp-compute-cb-fix-v1-1-90e4abb873d6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260929-shikra-dts-cdsp-compute-cb-fix-v1-1-90e4abb873d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0OSBTYWx0ZWRfX44C6MvgL6mxO
- BmxTCXj1PMmVGnj9y6rGrf7d8mTvij9WwsVS6gos2V77hdtX/MDb4Xxro58qTk7fSHDbeEfx2HH
- i/D6CGBjLqtVAHRjvXluIrn/K+TnLjU=
-X-Authority-Analysis: v=2.4 cv=SIbXx+vH c=1 sm=1 tr=0 ts=6abbae96 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZlKZNMP1RgdhJ0d1o6cA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0OSBTYWx0ZWRfXyI5cIq0xBbwD
- gx+70lOlBPRn8YpsH5Estd3bSDRNSuInsEPwTFgDm7J43JrBHHdEkGueJbHFdfrSRYyJdz1DVd6
- +O+NBhUF/sUf2TsvYcOmOOlCzZGFESKrZkrxY7F4VwKp7KDgxi80CZabmStZ8V29TBbUF+YYj7u
- HTKaruvHIP53X3PewCRzzAvnvRMkbGGcjr2dGAxVhij5o0lUTB5lWY0/l89t+VeW2FEAHlnQGlM
- MRLXArgHNbSYSGfdD4663ndz8jdeoeSyo5qU4ENTjGdKMbxpX2NtcJHU9aS6EhhX5bpfODyNIEx
- aKALyUMszazEX07YwVls6lUoT2hJK+cPwn+Ahvn4cZvEvtPxllkxUx/swBECClyEs/8optmm/tS
- elOCU93m7dVphTZQzaVvllJSuAuckHFIbgE6yZ8Ddh8eWSEA90UH7bBIuiTwthvzQf2zpw8tjxS
- 3Lpoy/95GDYIqqhyVGg==
-X-Proofpoint-GUID: rvnB2Piuxi1T8kc_qQhZQSylM2fRDGSy
-X-Proofpoint-ORIG-GUID: rvnB2Piuxi1T8kc_qQhZQSylM2fRDGSy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290049
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_7WPrrtqNUX9BQ--.13990S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4fGrWUGry3WFyrXF1DZFb_yoW5tw4kpr
+	y5KFWrCrW8Ar4jvFsFyr18WFWUtw4j9w47Gr92kryakr45ArW3uFWak3429ryrC3yFya45
+	uFyUtryYq34kCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U01v-UUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-BFZPWq7rpHK8AAA3d
 
-On 9/29/26 6:15 AM, Anandu Krishnan E wrote:
-> Remove the context bank compute-cb@9 as it is a secure context bank
-> used for secure use cases. Secure use case support is not currently
-> implemented upstream, and allowing other use cases to be offloaded
-> onto this context bank results in an SMMU fault.
-> 
-> Fixes: 8b6f81f7801a ("arm64: dts: qcom: shikra: Add CDSP, LPAICP, MPSS remoteproc PAS nodes")
-> 
-> Cc: stable@kernel.org
+KASAN reports a maybe wild-memory-access in chan_ready_cb() while it
+walks bt_6lowpan_devices via lookup_dev(). setup_netdev() publishes the
+new lowpan_btle_dev to bt_6lowpan_devices with list_add_rcu() before
+calling lowpan_register_netdev(), and when registration fails the entry
+is removed from the list without waiting for a grace period: during the
+rollback of register_netdevice() the NETDEV_UNREGISTER handler
+device_event() removes it with list_del(), the error path of
+setup_netdev() removes it again with list_del_rcu(), and free_netdev()
+frees the net_device immediately because registration never completed. A
+reader inside rcu_read_lock() that already holds a pointer to the entry
+keeps walking the list through the removed node and dereferences
 
-nit: strange empty \n above
+Oops: general protection fault, probably for non-canonical address 0xfbd59c0000000021: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0xdead000000000108-0xdead00000000010f]
+Call Trace:
+ <TASK>
+ ? __pfx_chan_ready_cb+0x10/0x10
+ l2cap_recv_frame+0x5f4e/0x83c0
+ ? _raw_spin_lock+0x7f/0xd0
+ ? __pfx_l2cap_recv_frame+0x10/0x10
+ ? __mutex_unlock_slowpath.isra.0+0x259/0x500
+ ? __pfx___mutex_unlock_slowpath.isra.0+0x10/0x10
+ ? kasan_save_track+0x14/0x30
+ ? mutex_lock+0x81/0xe0
+ ? __pfx_mutex_lock+0x10/0x10
+ ? hci_event_packet+0x518/0xb20
+ l2cap_recv_acldata+0xa64/0xd40
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __pfx_l2cap_recv_acldata+0x10/0x10
+ hci_rx_work+0x4ca/0x730
+ process_one_work+0x633/0x1030
+ ? assign_work+0x11d/0x370
+ worker_thread+0x45b/0xd10
+ ? __pfx_worker_thread+0x10/0x10
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x2c6/0x3b0
+ ? recalc_sigpending+0x15c/0x1e0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x36e/0x5a0
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? __switch_to+0x572/0xdd0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-> ---
+Fix by adding the device to bt_6lowpan_devices only after registration
+succeeded, so an entry whose netdev is about to be freed is never
+visible to the lockless readers.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Fixes: 90305829635d ("Bluetooth: 6lowpan: Converting rwlocks to use RCU")
+Signed-off-by: Binbin Deng <18983559317@163.com>
+---
+ net/bluetooth/6lowpan.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-Konrad
+diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
+index 30f4afa18bc8..1668fce253d9 100644
+--- a/net/bluetooth/6lowpan.c
++++ b/net/bluetooth/6lowpan.c
+@@ -695,21 +695,18 @@ static int setup_netdev(struct l2cap_chan *chan, struct lowpan_btle_dev **dev)
+ 	(*dev)->hdev = chan->conn->hcon->hdev;
+ 	INIT_LIST_HEAD(&(*dev)->peers);
+ 
+-	spin_lock(&devices_lock);
+-	INIT_LIST_HEAD(&(*dev)->list);
+-	list_add_rcu(&(*dev)->list, &bt_6lowpan_devices);
+-	spin_unlock(&devices_lock);
+-
+ 	err = lowpan_register_netdev(netdev, LOWPAN_LLTYPE_BTLE);
+ 	if (err < 0) {
+ 		BT_INFO("register_netdev failed %d", err);
+-		spin_lock(&devices_lock);
+-		list_del_rcu(&(*dev)->list);
+-		spin_unlock(&devices_lock);
+ 		free_netdev(netdev);
+ 		goto out;
+ 	}
+ 
++	spin_lock(&devices_lock);
++	INIT_LIST_HEAD(&(*dev)->list);
++	list_add_rcu(&(*dev)->list, &bt_6lowpan_devices);
++	spin_unlock(&devices_lock);
++
+ 	BT_DBG("ifindex %d peer bdaddr %pMR type %d my addr %pMR type %d",
+ 	       netdev->ifindex, &chan->dst, chan->dst_type,
+ 	       &chan->src, chan->src_type);
+-- 
+2.43.0
+
