@@ -1,123 +1,111 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B7C501281
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4824ED1AF
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698081; cv=none; b=AUKPSLjec6OYdwnGCvOFyVtwMTBYkGNQUXyHvj9ovoCiXN2iSNwSNvGpPbwpKFRQM2RPC9dgzi86Z8QqiSHiryXZ3ML0wjjusuosAfRgEdQgWT455uM5q7qNt41P6HbGLhlJxYgALmx0tOCL82om1CmqSRW3CC9u0qZyRw9Uf3Q=
+	t=1790698103; cv=none; b=qVoFBhioAdEKlhhs1N+jZNS8hXHFq2Ruk4MUmANvB6hGU6EP23bzF1tWeUcH6RfnleZKAhUf+3d7w0RBdclQNleNkOiRqhnUu4XCLQreo+p/nZOD3zgme5QXZc8y87gLYw7ieWc2+EI3HNEA1xSexMavL/bXEDEiIZv9pZEPg+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698081; c=relaxed/simple;
-	bh=oO20afitQI3DRoBEJ+TYTGZ3k4nyS/yHP02w42WrpM4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=MkLVxhhew5tSxE8IKcKymAtJspkQci+62HZz2/AjTtlr0zhRUszbvqLfp6sBMEJ+KkMK71J7B/OAAd8JFSHVAMtMqEQo32hHs0Em1SsOtLZNALThezCWkfukaF8RCwZ5m7LQGCL/WfDdjAjfukuxCLMPxGG3lPjIGGF7FIbT/3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QqFGpr7l; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CxoH9Ds2; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790698103; c=relaxed/simple;
+	bh=mJ9tvcXfVa1pMa0zT+towPPM94a7YZ0aB36t0A/lU08=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Lt5cUlxlRXBv46/XrS35K+mBNYZGJGaGuBpAiKgVwgNocncFR9dcHqe8pgRjVdWxS/NBzCzZPkufA7VBoMEXRI//ffzXiixuh7O6VDQy7eP4md7bn/wtmJiKLu+oFLmj1PdC0Ry++lG/h3ttgTvSft9rcFrET38vtAYIekHNS3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tadamsjr.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JjnATNyn; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tadamsjr.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QqFGpr7l";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CxoH9Ds2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790698078;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YICz6wkOnVYmVxpwpf1GoF6EDBToHXCYtSEDFbfB/RM=;
-	b=QqFGpr7lGNa8eTVPqvPIpd/v7izSZOsEko30eGJWtjT/cKBkDZMp/yBJLbm1+pGPPEgeVG
-	aUk6/C9D+1sv7osZPeJWCd0AnM9Eng+bv452H2GUQJuhhiTmYns3JJ2NhPvIER6BjMhoEX
-	ObbVkeb7g2CJQmLVtblJkUJSTZFe5vA=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-478-QgtPI7e-OLys-GryoITsVQ-1; Tue, 29 Sep 2026 12:07:57 -0400
-X-MC-Unique: QgtPI7e-OLys-GryoITsVQ-1
-X-Mimecast-MFC-AGG-ID: QgtPI7e-OLys-GryoITsVQ_1790698076
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5328dae1305so72933631cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:07:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JjnATNyn"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so4300376a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790698076; x=1791302876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YICz6wkOnVYmVxpwpf1GoF6EDBToHXCYtSEDFbfB/RM=;
-        b=CxoH9Ds2ARZfsdH0wvHPlvg93wGI2pVCbbFL6t37PEeCgnzYbwXlmk9aQ5yhlKI/1e
-         RPRKTJaVPbyH/Fsb2BBgwNtmVAcJioYy+A81eTDX4xqepT1oSo+bi42r+cEO6ag+vrF7
-         VeJfGOmEYw7+o+GSfBA6wPYvthEVe1lOon8E9qWvcl692Qoj2eU58qofD3o832JwrGPb
-         DKn/Rq1LOKnbyxShJV4+b57Qy4xEUXPpXckvwkVuAxDVeLlOG3tkFgw9RLAllMt2laem
-         ai6SzfeZMXgqhrvrf4mKpGh5jQFzj8Uv0yFrSJ7SaydZFpMLNL1Hyu8xH1ODbUO5PWOi
-         5vUQ==
+        d=google.com; s=20251104; t=1790698101; x=1791302901; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iUFYZBBxsO9sVJ8mJtnVnz6Y+mSx3S7AjcZnY2SauxU=;
+        b=JjnATNynrmTHNs9ZbqD9R1BsWh1U8i58FZO8VmsglZJwO7J3261fNMj0NCCgfb3kXB
+         8X9N4urUrMUPv6ZaoSXwByKn9+PEw0MopwRFfYCAnXhCWy1wrI+G6nbmJdhvOMcWP6uz
+         T5tAqu+IM9rR49cqLIrlf5W0eD1xhzflYbq49qffmGd9UU6grGzsVJhPCcCpRaSEchDq
+         IXiMQomoqUJDpg3F1z6hrFcHPEyD6BIwBub0T4Z9AwK1Lj1QgZkos+jZdR2tyRDUIT/z
+         4GII4wklx86P+1a412ktppu6Xvra4ieszcCKK5loFOZAZbAFuP3FRqmadPnizWxNiDBL
+         ykoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698076; x=1791302876;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790698101; x=1791302901;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YICz6wkOnVYmVxpwpf1GoF6EDBToHXCYtSEDFbfB/RM=;
-        b=gGSA1vkotww9Kecp5gWvwJgyg2vyfKqdODNCQ+pQ5EUj7Fm1OgNa7sJrYgzg0UFvXZ
-         apCeARzjzB7u51arIjDzzSga9fHcwxIUiVLUenrDr4E9Gpn4Cjt0dnaRiA1A69Zod2OR
-         A2OxwR0fnQLFee6i8Q7bD0B0TtQMcpQmshKiE/wDJrhqkRFWl70ZML5FiFj72tjJr6bd
-         KhVLZvozteLD+zw/HFvgM2Rwi3NecVWIH24PnkyaNh1hAPDaJ1UV3ICvJRQr6HwcfvPe
-         xJMeBaspBInl7vY9gI5YrCz9CrvhLpV7i+27pQX+yeSNIOk2sb/Rt4Xel6Sxw6Mq5V9k
-         fvsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuVxFbvrcK5rtJ1PO+/qVPnsrW91Zc3myrm0X+oeTFBYWXz5ZTIxN8koMsoP3e2ntRQkFFrbZqIsfZJqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5eSjjs1zHdPsGNSDaJFBWz1pdPuDsDsyd77OyiwxRaNRixvQJ
-	UNOUj3u7v8+YDGBKHoJvCGqbpyfDaq0E61MS1j9WigeCZQnbX57jTbyKTBFWsxP8qVxz+MksdSE
-	QPkmJutaLqFNlq/6HZaJDwLfGvTi79LGmK5BAUkU1aInTghHgTp76sibYLyZVsFqS9w==
-X-Gm-Gg: AYBFou0eXXpqvNuku15jRwUB4/ShPL1SxsAqo64o3Dx7ULV6CLFI94rvr6n2+qPomim
-	vxGgLW9DXws2Ns5JtgNysVd/9jxq7pbmH+++rFHMDEc2Spsh/37La/PeGF38Rr6ZYb+AcA7FmH8
-	O4JOrgtyi2BOMT99ug0R4r+oNbTCReiZvEgS7fpg4YWJGih3cdxi4bbMF8HFPXvPicv7yu+dRwy
-	mfOrnsI+6glqgarmIP3lbSDPgGf04sE7cSuDqMUBHiO9oQas2VvGV5uCg6vZHYqtMmfDWbEi3xp
-	I7rZRTHWeIysvAmr4BzBMOq0es5VINEPrnOdVj7upUgKUac0DMMyH/0a8WWn11fx7LNfG9ul+TB
-	0q66Fyhq6BytbDh0paRFM6ad+SbRF2PWBZss7YIr7VWnwyf2f6NY=
-X-Received: by 2002:a05:620a:4381:b0:93c:7955:afd9 with SMTP id af79cd13be357-93c7955d94emr1435196685a.52.1790698076391;
-        Tue, 29 Sep 2026 09:07:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:4381:b0:93c:7955:afd9 with SMTP id af79cd13be357-93c7955d94emr1435188685a.52.1790698075843;
-        Tue, 29 Sep 2026 09:07:55 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f4c06a5sm2828085a.22.2026.09.29.09.07.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:07:54 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: kernel@esmil.dk, hal.feng@starfivetech.com, mturquette@baylibre.com, 
- sboyd@kernel.org, Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260604064314.3772678-1-vulab@iscas.ac.cn>
-References: <20260604064314.3772678-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] clk: starfive: jh7110-isp: fix refcount leak in
- jh7110_ispcrg_probe()
-Message-Id: <179069805856.199845.4030674011944202692.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:07:38 -0400
+        bh=iUFYZBBxsO9sVJ8mJtnVnz6Y+mSx3S7AjcZnY2SauxU=;
+        b=Ytjg4H6Xqa7xOu2dFxb7LJMcS4f2MnwKQcCx0q08VK9UNStS+4WfRUuCgz4CNuU2fP
+         2f65O5SsPI13mBxk6KEEBUyLCd7z9zfoqpHTuvTNax4L0T7v7ztIuLdob4oY66ChKNAb
+         WwjjuHOw1Vcp/P9lPOX0K/O4kS1GYQ24838OcpOwn9S4mk1mgJ2KQ0emRlZccqNvG1cy
+         brQCZF6fsR0yLWasKTkKkRKbruEmPQuviJPcuz9UWleaRN2BfinW8ed7+pwcX6xI7CgT
+         KzTe/BwDKabZpetvZyger2Tt7WRX2bLnqXTTuoVPllJQ6mqGLo+6inASKkF3v7bZEOlc
+         djwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcLTEb7uiTy2d/Gte3+GWYfBL6FjXvDd25PJI3V/g06GTfT1Mp4j4XUgBHznxaKk1TQ+MqN2dG2r8Alsg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJacr7766zGUt5tdGEONs0du+2/CcIGjLXK293O3OVAjtbqEcCY
+	OlrL6jnTWQSR6YIXOCRKBbkJNLGQ8OIenmlCBdoP+8M4tgAZxFw94/6QeodOZ1936BdwGaqfGU2
+	HCTEA1wwJvEjlig==
+X-Received: from pgbdp8.prod.google.com ([2002:a05:6a02:f08:b0:cc7:a092:edd9])
+ (user=tadamsjr job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4b0f:b0:39e:4c80:f67f with SMTP id 98e67ed59e1d1-3a098983faemr14188233a91.30.1790698100830;
+ Tue, 29 Sep 2026 09:08:20 -0700 (PDT)
+Date: Tue, 29 Sep 2026 09:08:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=342; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=aDDleVR0etIFnvKWHzkitvvdqIxKDBW1b3ZUHEDccRY=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2Pwpf9/BMceonriV3lBM1e9Pniza9DLq+cUXppA/b7
- 0+/O0P9T0cpC4MYF4OsmCLLklyjgojUVbb37miywMxhZQIZwsDFKQATKYpjZFh894RSWHDcsnl+
- hUklcyz2m7oLMM2bnqAqrHWwMv5VoQkjw9f/zVHJk3V2WfGHecwWE14qMcngxbP5J7unBn37fE8
- pjRcA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929160813.1599129-1-tadamsjr@google.com>
+Subject: [PATCH] block: advance iterator after copy-in for SG_DXFER_TO_FROM_DEV
+From: TJ Adams <tadamsjr@google.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: "Christian A . Ehrhardt" <lk@c--e.de>, Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, TJ Adams <tadamsjr@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+When a passthrough request uses transfer direction SG_DXFER_TO_FROM_DEV,
+bio_copy_user_iov() sets up a temporary iterator iter2 with
+data_source = ITER_SOURCE to copy user data into the bio pages before
+execution.
 
-On Thu, 04 Jun 2026 06:43:14 +0000, Wentao Liang wrote:
-> clk: starfive: jh7110-isp: fix refcount leak in jh7110_ispcrg_probe()
+bio_copy_from_iter(bio, &iter2) copies the data and advances iter2, but
+the original iter is never advanced. Consequently, iov_iter_count(&i)
+remains non-zero in the caller loop in blk_rq_map_user_iov():
 
-Applied, thanks!
+	i = *iter;
+	do {
+		if (copy)
+			ret = bio_copy_user_iov(rq, map_data, &i, gfp_mask);
+...
+	} while (iov_iter_count(&i));
 
-[1/1] clk: starfive: jh7110-isp: fix refcount leak in jh7110_ispcrg_probe()
-      commit: 1c4f9480473917558908c083d1293b4ebb3d50c5
+Because i is never advanced, blk_rq_map_user_iov() loops indefinitely,
+continually allocating bios and consuming map_data pages until it
+exhausts pages and fails with -EINVAL.
 
-Best regards,
+Fix this by calling iov_iter_advance(iter, bio->bi_iter.bi_size) in the
+map_data && map_data->from_user branch after bio_copy_from_iter().
+
+Fixes: 13f3956eb568 ("block: Fix WARNING in _copy_from_iter")
+Signed-off-by: Terrence Adams <tadamsjr@google.com>
+Assisted-by: LLM
+---
+ block/blk-map.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/block/blk-map.c b/block/blk-map.c
+index 9cb9605d1f62..2685f6177ceb 100644
+--- a/block/blk-map.c
++++ b/block/blk-map.c
+@@ -236,6 +236,7 @@ static int bio_copy_user_iov(struct request *rq, struct rq_map_data *map_data,
+ 		ret = bio_copy_from_iter(bio, &iter2);
+ 		if (ret)
+ 			goto cleanup;
++		iov_iter_advance(iter, bio->bi_iter.bi_size);
+ 	} else {
+ 		if (bmd->is_our_pages)
+ 			zero_fill_bio(bio);
 -- 
-Brian Masney <bmasney@redhat.com>
+2.56.0.rc1.315.gc6ed9934b7-goog
 
