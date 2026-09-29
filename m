@@ -1,171 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A930547A87E;
-	Tue, 29 Sep 2026 08:38:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A803475349;
+	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671121; cv=none; b=jzgwNF9jQYcm/GOUXFdDVbW9PrCs78sNw6zkxPuPpCuAlg55vjcOPrNCH8EvKYV32isc3F55FHkUU6AWHi8wZqT5AZw0zVUYynqE2RW7Vq5X6aOveMDdmdHnOig8Ta8bJdeoIsbcTYqGtmbPYNtZOogNDGIougbOA0JmaqvTUxQ=
+	t=1790671169; cv=none; b=PSQRo4xskuk/c0bz+gGm+qkdvACfTD/tzhmfEqkCK46U9BG4hTWG/PI7uaj3X57IuW/kqLCoY9FeMie7E67+Kl7i7USv4ehDHKsATkWrTo+vOa6Q9X2VEI3rzxaQvHHciTz7Sg/j9cGd4rRx0Tq17u6flNnbAs5ZMKCAQ+owLA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671121; c=relaxed/simple;
-	bh=0GVvXEuzwAKDIxOM8y6ylU7wEsz+hIJdDpvl5iDy73A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gw6wlZTV9yhSnK9/hKIPfOCvia+QIItkKA2tDRuNJNLgTIk2ovtww3mVmj+PkFieXjP8dWN7tql2/q85dM5xGF+X9wl289MEcE6nXzM3bCiojXu6vJRUlqTlm+jjzlhZj5gIcDJnIey8qTXdOt4UKV5umSR8mEhvB9D/esGJGB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuvrMQGR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671169; c=relaxed/simple;
+	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IUcelLslPKn5kvEzsJCe6w6Mu/7WUiQqRYreXLBV4UM8btED73SjWyUomRMEG81JE5RffiDDwxMi1p5JzmMMfzvYdpX3jLVHGx55ygM/2DEWZWUIluEmR5BLBHyg1Lyhvfhz67Z81hNHsDEhJkNcALq2vXFOinA0qRxbAiVcQBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyMSysAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuvrMQGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70DB81F000FF;
-	Tue, 29 Sep 2026 08:38:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyMSysAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAC01F000FF;
+	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671120;
-	bh=VVg9tIviq7YUO40JFcy0O8SZzEsGUatvPj+P4Q6Op00=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YuvrMQGR50vF5/C2Pg7JH9fh8I3EySZ3ClfQ0UCUAC/lb+wXF83p+bET0Xjy49Ztq
-	 qLbOXalNS++fdnEy1tIhAyF+NhGI2w17UPRdB5Z8Tdh/uauwHCrBpCeZCNyt72qQvO
-	 JnJSe3aaq7goVO8r2GtwMB7zipImZqkUulC/maBWAUmfmxc3udncoocfG5yH+c3Wtk
-	 HkdiDBY1VRaSt4lhe//G/ybXxW+IbR7XtROxlnGFy8t6pR8299AtpvzgxB4MOr2ELA
-	 csROmrqXiJhvw7kiNnpNobHnbwwou/qWJ0F5LRqxaphudXR7ZaCzlbbxTU102XQDvp
-	 uJLqoNbJF+CEQ==
-Message-ID: <447e0be9-836d-4324-9a36-77f8a0cbecf9@kernel.org>
-Date: Tue, 29 Sep 2026 10:38:33 +0200
+	s=k20260515; t=1790671167;
+	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VyMSysAvAo7ngdUGShaeaSS7dNAOWwUOlTJuYF0veHDkZPuwBGplCxkq3zYfmMXso
+	 /zwdaYLvq0ftT23TrtAk+3Q/V507oCqtKiCaTTa3dU+SPoJfI6z5TEMDwY4f2FboHw
+	 sLiQOF8ZyUV+QafHjHlodL/KuvuTwUt11h1537m7TDAiuUmK+N7DYsgklbj5HWVVdd
+	 qFKGSRvAvZFoogC74Yzbmqp4YKJ42qAt7YcwtMXwwNEDLY8WHX9fs1dB1x3Z2YlSxi
+	 DznitOMAhJeq5fTWgmuwINB1mdpeXesqzXKCKJgoYsc4bj4ZlorP346HLkA6U2tMSr
+	 YL3DYq2Kc+dMQ==
+Date: Tue, 29 Sep 2026 10:39:24 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <artyl8fD3zzng8Uh@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] kselftest: mm: fix intermittent failure khugepaged
- test
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-References: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
- <20260923-fix_khugepagd_fail-v3-2-b387e92fe1a9@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260923-fix_khugepagd_fail-v3-2-b387e92fe1a9@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 9/23/26 17:29, Yeoreum Yun wrote:
-> There are intermittent failures in collapse_max_ptes_swap() and
-> collapse_max_ptes_shared() when using the khugepaged_context:
-> 
->   // while running ./khugepaged -s 2
-> 
->   # Run test: collapse_max_ptes_shared (khugepaged:anon)
->   # Allocate huge page... OK
->   # Share huge page over fork()... OK
->   # Trigger CoW on page 1023 of 2048... OK
->   # Maybe collapse with max_ptes_shared exceeded.... OK
->   # Trigger CoW on page 1024 of 2048... Fail
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 23)
->   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
->   # Run test: collapse_max_ptes_swap (khugepaged:anon)
->   # Swapout 257 of 2048 pages... OK
->   # Maybe collapse with max_ptes_swap exceeded.... OK
->   # Swapout 256 of 2048 pages... OK
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 17)
->   # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
-> This happens because khugepaged may collapse the pages before wait_for_scan()
-> is called, causing a sanity check that expects uncollapsed pages to fail.
-> 
-> For example, in collapse_max_ptes_swap(), after faulting the pages back in
-> and paging out up to max_ptes_swap pages, khugepaged may collapse them again
-> before c->collapse() is called.
-> 
-> To prevent this, mark the VMA with MADV_NOHUGEPAGE after it has been
-> collapsed by wait_for_scan() for anon. This prevents khugepaged from
-> collapsing it again before c->collapse() is called.
-> 
-> This failure was observed on NVIDIA Spark with 16KB page.
-> 
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  tools/testing/selftests/mm/khugepaged.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index 2aa7c9197158..b0cb02bf1a73 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -618,6 +618,9 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
->  		usleep(TICK);
->  	}
->  
-> +	if (is_anon(ops))
-> +		madvise(p, len, MADV_NOHUGEPAGE);
-> +
-
-Any reason we just do that unconditionally?
-
-After all, we set the
-
-	madvise(p, len, MADV_HUGEPAGE);
-
-unconditionally?
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="gzxryrlughoococo"
+Content-Disposition: inline
+In-Reply-To: <20260928204059.GA515872-robh@kernel.org>
 
 
--- 
-Cheers,
+--gzxryrlughoococo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+MIME-Version: 1.0
 
-David
+Hi,
+
+I'll merge the two discussions in that thread.
+
+On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > regulators and GPIOs, perform a reset pulse with specific timing,
+> > send a vendor-supplied sequence of DSI commands, then enable the
+> > display. The only truly panel-specific part is the init sequence
+> > and power-on/off timing.
+> >=20
+> > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
+> > with a single generic driver whose panel-specific behavior is
+> > provided by BPF programs loaded from userspace at runtime,
+> > following the HID-BPF model. This enables new panel support
+> > without kernel patches.
+> >=20
+> > Panel DT nodes use a two-entry compatible with the panel-specific
+> > string first and "panel-mipi-dsi-bpf" as fallback. The generic
+> > driver matches on the fallback, while the first compatible is used
+> > to identify which BPF program to load.
+>=20
+> If you need the 1st compatible anyways, what is the point of the
+> second one?
+
+The whole point of this driver is that you don't need to modify the
+kernel when you add support for a new panel.
+
+> Also, I assume there is at least some panel supported in the kernel
+> you might want to convert to this. That panel would not have the
+> fallback (and the DT is fixed).
+
+Yeah, that's true. I'd still need to identify the parts though. I guess
+using a generic compatible but a specific model would work?
+
+> And I agree with Neil's comment. At least until we start embedding BPF=20
+> into DT directly. ;)
+
+And from Neil:
+
+> I don't see how this can be a valid hardware description, bfp is a
+> software implementation and has nothing to do in the bindings.
+
+I'm quite a bit surprised by that argument though.
+
+We have in the main dt-schema repos bindings like:
+
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/opti=
+ons/u-boot.yaml
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/boot=
+ph.yaml
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/post=
+-init-providers.yaml
+
+Or, in Linux:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/sound/simple-card.yaml
+
+All of them have been reviewed or acked by you, and yet none of them
+relate to any hardware description.
+
+panel-mipi-dsi-spi is a generic panel that will load a firmware, and
+quite similar to this one. google,android-pipe and qcom,fastrpc don't
+attach to anything and will just open a tunnel to userspace, which is
+somewhat equivalent but more dramatic than what this driver is doing.
+simple-card or its variations will just instantiate a kernel driver from
+the DT and is used pretty much everywhere.
+
+I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
+by rob, and acked by a panel maintainer, and 4 years ago, so we're way
+past the "oh but we didn't know what we were doing back then" argument.
+
+So, let's phrase this differently: what's different about the
+description than panel-mipi-dsi-spi, or any other binding already in
+tree?
+
+If it's the BPF part, BPF is not Linux-only, and there's hardware with
+direct BPF support these days, so it can be considered OS-agnostic and
+not an implementation detail.
+
+Maxime
+
+--gzxryrlughoococo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCart5NwAKCRAnX84Zoj2+
+dq+3AXsHKGDW5rCG290Y1fx+OohFSBUrfr+SjWPzYJbv3AsWDJ+tyk6pJ0aj+C5d
+QReuRzgBf1XMASoAKO+JAW9hFCf/nZfVfklcUBc5TR6bE1h5DcpFLGIlYksltuZo
+cQcGQ3gsrw==
+=YrNa
+-----END PGP SIGNATURE-----
+
+--gzxryrlughoococo--
