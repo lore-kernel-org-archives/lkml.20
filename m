@@ -1,81 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 464EC513579;
-	Tue, 29 Sep 2026 11:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF883B05A2
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790680533; cv=none; b=chg8i5IEPXs49bC9W6ljozLfilsh2VnuCLJi4Co/o9s2vy/GbwsNbS/nnslWf3JxpbX+qYYqZOqIf1+QWlWZ7sE0W/l3FvYFhpsFvhFX/DLVA4fw1SILHmqNTr2JTf5GeMsZQhyHLkTrcnhlsby6goteZyCweBEXGF5yU2or/nw=
+	t=1790680629; cv=none; b=PHqw/Y78PWGl5N72fgwPbyfDRTvie3SQi53rpNNWtM9QzZRpGYy0p+sLSljBM1coNeRMwtxGy5BahCZXsGlFQmnDaJHf5TlGlEvzywunIJnW7Q6MRlJ5H3a5jJRAvNRHHlEkptxURt3KvAR0wDOSUUHWrETSraDNN3p3qdE6D9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790680533; c=relaxed/simple;
-	bh=EtNt9F69mUNykSq1XAoSHpVt3uxqbxoxtVDWc5Yc2vI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SFYhA7VqhcIrHz5GpywmYjA+IPy448i8WbhKlLrt4gDRMOHvjRlWXSTuYmd/pOYr3+LaPjGJkAj7IjWQEbm9mHjMNBtEdcTEtE2Rn4VGtfJ/vV2EShazrtqD/4mZGGFOG0+KMXVplrUm6bJ1EkBQW1mCnWFDXIZLe4NrGuZldHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HKKnIXWO; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HKKnIXWO"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A4DA1476;
-	Tue, 29 Sep 2026 04:15:27 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF92B3F85F;
-	Tue, 29 Sep 2026 04:15:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790680530; bh=EtNt9F69mUNykSq1XAoSHpVt3uxqbxoxtVDWc5Yc2vI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HKKnIXWO9ePgXYN5lZU7WKIkJ0Y694l06KK62Inm5ufByUbczpRB9bQBMtH9v5bnQ
-	 AQkn5Lmrvfbs93lO7iRfn0fUAa7py5AwI87D0K+JsmeaV7B0LWyNW19HOQLOPTjr9a
-	 oZT4lHdURk5GeAsxycjGKA6wrzyHdzI0gOaRcxuA=
-Date: Tue, 29 Sep 2026 12:15:21 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
-Message-ID: <arudWVBPXcnUvYNh@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-6-suzuki.poulose@arm.com>
- <arZmXFw5Jw2IbAmA@arm.com>
- <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
- <araketG70TIKeNuf@arm.com>
- <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
- <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
- <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
- <arqrZ_Auk9BYOopa@arm.com>
- <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
+	s=arc-20240116; t=1790680629; c=relaxed/simple;
+	bh=1A+5V7e23mda/eAopJEF4cs/niWxqUCVK8QHn1leIPU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=Mgb+rTql3WbXkwvQ0kmg6HnUPP+3uiO2utpUqzEqlUYAfFhG3cpr1vqRv1856zhjtxY3hGYEBXQnD0LKEjMZ12AgyCSnwkHmLeGrJFpFzKoCZNyoDd67CFsV4kANRaGcuTwLL2iSlGm72UwgvTiNU6DEChyQuO8asrMr/8NB88M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso6354297b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:17:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790680627; x=1791285427;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CTA18ieht6JE11VVsrnCtt0UiEdZAg/1E0wJcGsrEvY=;
+        b=zYRhje1U4dw1KBypyOpV3A3vmjjZMvH0LRYtd5688fPl73QLVjj4Rs5UjqWYRU88EE
+         xWcDGPpIu2jbtOVGF8yf7ORZbOQ6j9wNOe1b0SkjVorMCkRaC70/1DHvqhv2ShNrky3N
+         wsnLrGLfGK4bWNp2Y2jHt066MlVzHj+Z4f5YdAW0yVxqxPES9baa+HIkNuN0PFzQwg1N
+         2fpI3/x/xkqLlaK3COWZCCYtrN883yIv37Q+LEGZVxhyYt0nnaZGOCFQ+qYvD+n6x3CO
+         raZsJq2gM/MLqbGHx0uxvRrbkxUaOJn+0PsZlqSAFnZAyhwMs/Ko0UCtJv2GJJMnWzQx
+         su/g==
+X-Forwarded-Encrypted: i=1; AKwUvBysa0azJc5h8IfHwzL443OnndEInfw+SUSiDqU7aArvU6A1Ft6oLw6kD/O2eeFfK9Dz98Q5PuxOS+YbsyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgGwXhWofcojSD0iNcOi/J7jwE4/3ctcceGb7uemQjL7Oe1zg4
+	7SY1Ilk4RLmPMgB9U6mosMVE1CHjMYhvteP1nO+6fV0RYA/KF7F+XTfhktZpmJIBwvoJ5F3sWr1
+	TG7gd1oeRZax/edCmcqWH2jdQTxuhfy3wnqJ3A4TUWUy1LjhwcT1bplq/1CM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
+X-Received: by 2002:a05:6808:2381:b0:4ea:18f:64b0 with SMTP id
+ 5614622812f47-4ea018f67a9mr6541098b6e.67.1790680627356; Tue, 29 Sep 2026
+ 04:17:07 -0700 (PDT)
+Date: Tue, 29 Sep 2026 04:17:07 -0700
+In-Reply-To: <20260929111645.1954-1-nsvatoslav515@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abb9e33.c6a7fab7.e5ea7.045f.GAE@google.com>
+Subject: Re: [PATCH] Testing for a forgotten lock...
+From: syzbot <syzbot+34f63c11dab47d09ad9a@syzkaller.appspotmail.com>
+To: nsvatoslav515@gmail.com
+Cc: nsvatoslav515@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 28, 2026 at 07:28:20PM +0100, Suzuki K Poulose wrote:
-> On 28/09/2026 19:01, Catalin Marinas wrote:
-> > possible, to defer the RMM activation until the first user (still do the
-> > RMI probing as an initcall). If we run on RME-capable hardware and
-> > firmware but don't care about realms or TSM, we still get the normal OS
-> > functionality.
-> 
-> Would you prefer this in the first drop of the RMM ? Or is this
-> something we could add as a separate series ?
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git d58dffe9ee2c
 
-I think we could add the deferring as a separate patch, maybe together
-with the KVM bits. An advantage of keeping it here if we merge this
-first is that we still exercise the activation path without full realm
-support or TSM. Otherwise a lot of this would be dead code until the
-other series arrive. Either way, do it as as separate patch on top of
-this series.
+This crash does not have a reproducer. I cannot test it.
 
--- 
-Catalin
+>
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> ---
+>  drivers/memstick/host/rtsx_usb_ms.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/memstick/host/rtsx_usb_ms.c b/drivers/memstick/host/rtsx_usb_ms.c
+> index beadc389f15f..98143e13b6a0 100644
+> --- a/drivers/memstick/host/rtsx_usb_ms.c
+> +++ b/drivers/memstick/host/rtsx_usb_ms.c
+> @@ -517,7 +517,10 @@ static void rtsx_usb_ms_handle_req(struct work_struct *work)
+>  	if (!host->req) {
+>  		pm_runtime_get_sync(ms_dev(host));
+>  		do {
+> +			mutex_lock(&msh->lock);
+>  			rc = memstick_next_req(msh, &host->req);
+> +			mutex_unlock(&msh->lock);
+> +
+>  			dev_dbg(ms_dev(host), "next req %d\n", rc);
+>  
+>  			if (!rc) {
+> -- 
+> 2.47.3
+>
