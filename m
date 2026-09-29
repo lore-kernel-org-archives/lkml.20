@@ -1,170 +1,186 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130043A6EE6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730053A5E6F;
+	Tue, 29 Sep 2026 07:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.69
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667181; cv=pass; b=ZV2o0+5svmcKMXjn1A3CdPjtvI6mskXW6g5ydJR13eCXbP8v/l+pNSeuWs/NRjq+zg7SibPPHK93oJeWnviy54cI4oGM+Kr8UE65lqnojeF/PYY6CTrjqpb57OwyniYezxWTsgRdPIomQWFntYUju9SwzMHWL7DMEZT5o5XQVtM=
+	t=1790667188; cv=fail; b=ISs1upU/7Htsp0DebVupKTAy1AGVUVnIDjmTPzzhhZJrKbCMUM71W0keuKI4sx3qjlby1muWtD8Xdjz69+PzY1uhLjajNjw1hWQpJzRuRzIhL9tvh20siTHrHQwmhncAqkLKYyskau3DztkVSVYnaQ4hepPW3ZSfVR0PLSMzlA8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667181; c=relaxed/simple;
-	bh=R7xCnuy/7g5iJFczMExEfQo/POzPplLTdlE3AdQob64=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fWpMWaDXt8DiKNOTZEpmD6wvTbsz43o0786mOw4sYdcKJZa+snf+5e10O7DLIPkcHwpFoqx6Izijl4tNCQYZuts34PBfyOrB+S6Xy9+PN67vKq4IS8jzLQ1X56+sxNenu0DPEoU+Grq0iIeQceqIareo408oHqqCjlhwdnioHRM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H1HB3XiL; arc=pass smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790667188; c=relaxed/simple;
+	bh=xrMRJuj4A6RqTkfhMLE1X4XgVwsRf0z0p9hUO94KjD0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=T2N/Daed26smsBXP7tdoOplNNRV+wtgU6S2EKDHJnWYTPzwrxWdhnZ/qf2ite9qdX1AxJQZos57Uq7zVu0/pj5AyBZMTZ/tfK5ASnpT7AOlwZBy0Tz0xPVTJm4H0Ik84v5blosRnL8yiKQL1K+Fny3HTPjVU8ONnBH8RonvVs/I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JMaSMBM3; arc=fail smtp.client-ip=52.101.65.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H1HB3XiL"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d3b445a84fso29215ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:32:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790667179; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jtDxsxVXqjb0gG5Cvq9CQLADCU1/qlEdCOfs+TnKzbViCQNnaVWv4gxnwPR8kbEii8
-         llhQ+yn/b8jx9gQpyaUCwstt5chSYDI0N3WiqWfdlPjwxRQwM1QBDHhQycmAhANG42hW
-         p1/8W5KCZS8qZJkj0iPzpDu56IDJF0/YRljDP8KbdoqD9gx0iYP/D2OflyRhcpFP5J1+
-         KLEq0Hzteo25Uw7d/C3ucADQRnTF9H0t66hXdoG+CpUz1XZEsnTZULcwHmp3DDHODwSq
-         H+OsxFy3KZ0tdqGZ5d9UANIqS9YuGKUK/5m5tlJ07NW8XIBdTq1VT81oRLqBBxNVi9RX
-         PRCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=R7xCnuy/7g5iJFczMExEfQo/POzPplLTdlE3AdQob64=;
-        fh=Djg08bPgJVVntnt0PRob49g9WB26gInNCVJqd6X1pIU=;
-        b=fTFEQCDQn7VlGQ0EdjUKV7GBmC8DeVwg4C9WRgPAq4Y9pLsEU10rdI+W5bt28ewhFW
-         x4BxekkocwIJhh989R0rjmWd3bBplEckqdliMLcG9327pXYY8zHSPj/+hfft+ye9FXGO
-         HqcjmQpeFp15jfGV9q3h5jTRBQGJnJw+LeXCImjPs2h/73SIndRbQqvdiaL260e5M6Pd
-         EjD/k6CpViuU/O7f/Jwjk9ZV6n0OxzbKniypQHBuFEPFRxAJTyNcMBSd/jLW3uCcDnnH
-         Q7BSEJCjq1/M9XfYvsuLx07HZlAD+7++pNkpeqxqN1XbnLqD622A57ymwOtx4wVJS7Bw
-         BsMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790667179; x=1791271979; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R7xCnuy/7g5iJFczMExEfQo/POzPplLTdlE3AdQob64=;
-        b=H1HB3XiLmsZi7HaOCEcuh3B6nJGFQxSfm5yue3dl7CWNnO0f4kncfZMf3Le4GKCTTp
-         DnocZtOTC7/9DnvzKYeQ7jZ9ZUkKgOWwXxGYhTNq0WKGrdHmHxs4oUbSFMema+izDL8V
-         N0uetuS1j6qSVq5N/2phKqVGfYlnW+GVeUh9/VyLj6CXqyU/KuBCGmz6McB+HwbQPzn8
-         2d4gFHe7L/lEWI4kXazUFzNWu4or4dXFb5vK+sMvPcCIl0XC67gVYAT/A/dvrAFMrUBe
-         2pdx67bRtSnfwsdAlI2Fu+WeKPnqmU3tpmxwfEVUueGtGSp2vOhQzwXhJRgbYZOP1cmj
-         CMcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790667179; x=1791271979;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R7xCnuy/7g5iJFczMExEfQo/POzPplLTdlE3AdQob64=;
-        b=kq4JtkbUNzpCDhX59XFdzE2VjS4U26+U47kCyYIg6UnT5kYiBeeppYPRwhku3PxF+g
-         7st5fph1uhppVGOpTdnM+4pwmXfgfBc9l02COCahnCXjxQ8QlrYirftBZYxqKNNrEhWc
-         XssHcUWGJ8HM/cK0w/SpMZ/ZDzQSubc5gGvYmACsh2EAYC0IRpVzziuczUjhkl/icoxH
-         ZUgsrbrbtGhJGOnuDKQElo2uCvmCGlYZMqq3LXTwVYsQGWVz/YspKuKK2wXmlz2YhIZs
-         /eY3iccIxXi1um7HobDA4MTbUnPMOdNNjQnKCyJVWDDbPZfhzX1a3IZjsJTEA3B5Ccja
-         d63w==
-X-Forwarded-Encrypted: i=1; AKwUvBxvzpZL5e1dlkzXAvBAlIuTok3TTWc5FDqWxa0Rt517TcOFInWuXXGJTQfldhGFoVYLTx3wxSomeGXDO2k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK39wbhJ0mcWsnILoTrSOO5GmPs8qq25BW8t9zNOVdYBPYgwQwu
-	pmsKkmfAN/lGUcW96/d/Z5FW9ZtgAiFlf5eHumdj9jHCQrgqwfoXgmSrtrP+gcn3+RLizj7RVWP
-	6UolhTc4i49eOFpOdI/ZqkaU77BSGySCz3Ln7ztEw
-X-Gm-Gg: AYBFou1D46CwzbRnXkwreLxwR2EApR1hzxlCj1UCpvwSLV8xBnbvLeGx+Zv//1xf03d
-	EKHijYuT/0zf5oe4WfIOrsyUgApM+cwKjc1IF7x4aKpwYwSnrwIn1XS3bxIJ0sINN7fArsL/DGY
-	RjiY3WUZ9y0m40c0VENcrJcE6F4t75Jlk1SuafcuT3K3qfEiaqlD/uLBQng0Uxp3GKbiMjvRYZc
-	gJ/67mTkHFymSzP8R2nVOvqiR/s7pOAh6cm9bVlo0vE1bMZ7bRVFfnZmPEXLLsOizy6AmSDZDkF
-	3sbwUUQF1Jl/rS81UhWuS45AMEIE3CSR/Gko995aSuqJ1vkVw06ZkXJOLNynYXD2c6/t2Xy8Hyc
-	kYp/ihoJCTe7W
-X-Received: by 2002:a17:902:ccce:b0:2d5:db3d:1a44 with SMTP id
- d9443c01a7336-2e2c7a23584mr2335885ad.17.1790667178733; Tue, 29 Sep 2026
- 00:32:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JMaSMBM3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KRneS6mdO7ilDqy3ylMRqYr+RHQfbZifGPRG8iGXtodYmMPbTIKKtOmTXSzdS+pSyUJiqZsQv/a60GeKgsHSpIgNTaqvRfYtkNqv+49O6IWKDrhncNX0d+6kC7HT0J259YAEms1RJLMHMT4MnUpscrGRItbAG60FPROD0SU/iWz1LnNNBKGz/0fD6daqKtphWT0wiUqnqSNNnEuAFw+S1JSgq5hYU9vqgIeZ3RIW9GC3LYx4Msfe02aioKqF/hPCBH+wXiv2wxLsbJf7l0AlbMssilRc2Is+s8I+wmIb7m+YmXuYmfKeL1QwjU+jInfF2soQ6Fxu2vjhkO3DGMJ9yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TuawTHsM1yGRclrLR+dHsVlCGNH/+LURpBu7yJNoMl4=;
+ b=ZC7FDUKe9NwMvnC55y/pwoPbqReZhtegfLDwizJA3Efa4aEArcggu94AfapIY6sAGdnm6HHLbdGw2Zh1sUEG57gcswDAMUCeWvcx/NpM78hQEnkyflUDQaWe2JHFF24tHNvfzVzviHRFYUSt3AXm4g1jrp8cbeXuyV/4khfG4VTcx7Z1/QOn7vDsdsFmgB4KxpjMA6tb4wDmKD3Hlt6cL06FIq1ypiiS4EoyU5xpH1EZfPIMw/3zdavL0M2ug8bRPzD5ZSuzK2psiHFCApE1rg3JEVGRyhY6LWoTU08/yiE5+dRCj6Doi7Gtl6XN9qKcgQRfITViPoJzoGVdtl/mAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TuawTHsM1yGRclrLR+dHsVlCGNH/+LURpBu7yJNoMl4=;
+ b=JMaSMBM3rP+cvuXB1FolRA2PGjFPj9RcCtyibuh+g1z6CUm9BHWtfcJhVVY4mxrfnB1B9Ixd2NeHlOuUuInmtZI5Pm+LRxBHP/pdO+wV12izsioDYc9VoiGqkcjKNa7i71fUMepocpoquiH4sFJ0+gjlgWcvD9YsYjNKL4YGFOlafKISMYBCnEL7v8vmnLTzuAgGAajpRUJ6jbo79SD//H6EE6bGvf8KwnEK2QhHe8+NvyJuTADQRJxqlPsjs8NEJW5cU6Iqa5Py3XhNmkt+a5GnhvvAQ9r5OY+ZLPUYvniQ3TkHcFkQakK4ZrvXFnUGEUNKl4lgpsYbdKnYQwIaqA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB9809.eurprd04.prod.outlook.com (2603:10a6:800:1dc::15)
+ by MMZPR04MB606764.eurprd04.prod.outlook.com (2603:10a6:190:50::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 07:33:02 +0000
+Received: from VI1PR04MB9809.eurprd04.prod.outlook.com
+ ([fe80::32dc:96e4:da45:6bb3]) by VI1PR04MB9809.eurprd04.prod.outlook.com
+ ([fe80::32dc:96e4:da45:6bb3%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 07:33:02 +0000
+Message-ID: <a5584929-43a6-4074-8d9b-d3b9612e2ebd@oss.nxp.com>
+Date: Tue, 29 Sep 2026 15:32:53 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/2] media: amphion: Add V4L2_FMT_FLAG_DYN_RESOLUTION
+ for VC1L
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: Zhou Peng <eagle.zhou@nxp.com>, Elliot Chen <elliot.chen@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>, linux-imx@nxp.com, imx@lists.linux.dev,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com>
+ <20260608-flag-dyn-resolution-v1-2-44dc65516148@oss.nxp.com>
+ <54bdf44f368e90bce879dab51475230726a630e0.camel@collabora.com>
+From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
+In-Reply-To: <54bdf44f368e90bce879dab51475230726a630e0.camel@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2P153CA0011.APCP153.PROD.OUTLOOK.COM (2603:1096::21) To
+ VI1PR04MB9809.eurprd04.prod.outlook.com (2603:10a6:800:1dc::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924050009.19974-1-sarthak.sharma@arm.com> <b8da4a73-296b-47f9-95dd-b8a74f3a0984@arm.com>
-In-Reply-To: <b8da4a73-296b-47f9-95dd-b8a74f3a0984@arm.com>
-From: Kalesh Singh <kaleshsingh@google.com>
-Date: Tue, 29 Sep 2026 00:32:46 -0700
-X-Gm-Features: AclHuK8NL08FRy_baDRvYY73Pdr5_fLWqFBgJkAq-JJf_OGtsBih00TomEM-M5M
-Message-ID: <CAC_TJvexEaehZno0P=xsoCbLw7wgfz+22iV4fwzcuGCiu3vAAw@mail.gmail.com>
-Subject: Re: [PATCH RESEND 0/9] selftests/mm: improve mremap_test
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Shuah Khan <shuah@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun <ts930@dgu.ac.kr>, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB9809:EE_|MMZPR04MB606764:EE_
+X-MS-Office365-Filtering-Correlation-Id: 509a6a8c-3060-4868-a027-08df1dfbe4a8
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|18002099003|22082099003|56012099006|3023799007|6133799003|10067099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	t6c2zPS25GRGbHSKJVS366ho0C3okhx7EC14H0NZ3FUEY7++XS+6buijtI38O1IcjKaK+4/9viaAfMOkKg3FvnR5052gAJgBe18IgMLxL1q+sVNh1O/cTaTHxjjJcBaxUd0YIFRZ7BXtGAiq63H7I0BeudvfBW8LqARxh3SXSxUacOv6is0TNbiLOmMqcKRgo5i6NQyblH/ZbFqAkLJcGIttjVFpXWMU4eEL+OBdkcMkmEfrcNdqEgsQ6DmAILAtQPeL8szYHr8GADA5mwzZwB9mxT2xTBnNdEb1u81RP9D9+lqXo/US2egl9NTi5FWCrN1Hq4BbOlyAVkDDTj5N/lgjB28OJE4zJCPvLIHK0iKpRyU+f5wnRU1pQ5ZHy4N105/30CYhLKjQovoQ4yem3it3L7Mc6/Qp0gpWpIJY0VLr/tfNARsV9JeksmYeV41yBYK+/ICHrnWtYwX0uYK42RBEs4s613WKPmCc7vO45FBSObFHoaFHomHIpyRxUMN3N/8on2UGWCFOdeDliwTLcYe6IUD3U45NeIC8Ip17/wjVaG6BvfpCF/4TB3AII75iyz8QgOED34sFT2scvCcsh/LL6HE0OMCrgmVByUfPh06dEOsE0OA6tlGqfTv5Sawasc6XSmWCpjM8x/DsNvfyqla/lVp+pZArlULWJ2q7edY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB9809.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(18002099003)(22082099003)(56012099006)(3023799007)(6133799003)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VjVXUm9oL1pRZlNPWjZTOUZncEE5T290QTgrR0lCTEJxT3hWTHFucU9zQnN3?=
+ =?utf-8?B?S1pPWVhFdmZ3dTRSaHBuMyt0WW5qUTd0TEJpMVBHTHdPWUxla0czOUNPZFpG?=
+ =?utf-8?B?bmRlbDJaNnVxdTV5Wm9BUWw0ZldvMG0veFgyZ3FBYnVJWWl0TDhvd3BsK2gr?=
+ =?utf-8?B?aWdIMHdDcUUxTnVURGVTY0JiSjBEWlVVazhkMEprcDhJWjl6RVV1dFVsZDRN?=
+ =?utf-8?B?ZjA2cFpPU3lGZmRRaXh3NTRnNmFIYlU5SWNlWVZ2ZzdaamFvYklrRjRtWWU1?=
+ =?utf-8?B?NXR0NTE4MGxmMUNQaFowSktKOVpBY2FqOE1YTTFRZXpvRDNqa1pBbnZqUVBi?=
+ =?utf-8?B?YW5saTFhaHo4YUhaUXUwd1cxTHVpZlZweWxjbGxDN1M3WlRmM0VBRTBaczVw?=
+ =?utf-8?B?QitaUnFmLzI2N2ZZdmNPcmNOR296c0NmaTJaRFFWUkxyMXN0emY3aXd6OWZZ?=
+ =?utf-8?B?bmdMSGtMdVlVTFJhdEdMV1d0SGpsNU0wancrTExtVS9wRXFvSFlGNStvUVpw?=
+ =?utf-8?B?ZFRQR1BhdmRVWWdhSUJKWitRT2N2ZTZVc1p3SktDd3ZVOU54UDlRYUlYbXJQ?=
+ =?utf-8?B?T1Y4MHBpUjk5dG9MZ3VVSVBOeW9naCtSRmJUOXRGOUI0V1B0a2NpSUZOMWFu?=
+ =?utf-8?B?SXJORGRBRHpPZVZxejZtelZPamlzYzNkUEhpZHh0b3ZXR3dHUXFsbjgya2ZS?=
+ =?utf-8?B?ZG9VZlNseGovaTZ3WlFTUFNBNUd1QlNHa1FCQ3htNkkzWjFHbkhyNVNza1du?=
+ =?utf-8?B?SWcvaHNDeHRIVDZGTFpaV3ZaMHlpUzdRSVNkaWY2dktkWnRFT2tMakpaSVZX?=
+ =?utf-8?B?OUQ3M3pnTWlEVlVVQUs1Z3VxSWZTVnJHYWFhbGdxaFZIc3ByZE12WGErOWIz?=
+ =?utf-8?B?WHpjRmE3N2ZsMGZvSnVhNU9wU1FxdERyUDN3ME1HQnJDRkdlYlJDR0FkK1VC?=
+ =?utf-8?B?OUw0NzZpZmxuN2d0ai8wSUx5QmxoRWZGRjh0TEg3ODBnRlIyakplaHh0WDFa?=
+ =?utf-8?B?Uy9MbVJ0ckYyS2dWTkR0TDVEVUNNdTEvZTFSU1UzS01EMEU1VlpnRjAvdjNa?=
+ =?utf-8?B?QkVpdTl4ZWJURHNGZlIyWnVHZ1hYUXFsb0NITjdUUTlPamN3MzZaVURLd1Fl?=
+ =?utf-8?B?WS9URkJKaG84SkVLdEhSU0c4clFqcUtjV1hmR3dhUk05TklRc0pGRGM2NUpK?=
+ =?utf-8?B?OEtOdDN2bERZNm5Oc0NiK3pveEp0M3dTaE9aMXgxUGFPVngvK3p5RlhRczlO?=
+ =?utf-8?B?UGhLMHRsODdEY0pONG8wbDIwOENETUdyV3NTOGYwcGV2MjlnTE15cWdEdGtG?=
+ =?utf-8?B?M3RydGdIaGdXZVdXSHBKTTM0UU95dUZvdXE2QjhBaE00Y0RQMEdramM1TG1p?=
+ =?utf-8?B?VXo1K2Z5dlQ3MURISlFTWDd1a2J6TW9wSUlMK3BPemUzbnFSQ0UxS2ZyVWI3?=
+ =?utf-8?B?Sms0Yy9vaE9HMXkrY05mWGVuM0NTUDU0c3ZZczVYMkNLZUZpODVROGJVcld4?=
+ =?utf-8?B?NTN0bUFScXZvZkhBWHdIVURicXl1SVMzbTA5dytEYnNWKzZTdyt0QnlYZjVO?=
+ =?utf-8?B?cFQ1TFBKU0R2bjNlOFF1MFdFR0NnUThXclFqQUVVT2dVazlKZVdPbG5qRmp2?=
+ =?utf-8?B?bXZmakFXWXBGU2xoT1NjZ2ZDT3hjcEJVcHl2THJiNG81M3JZQzhrL0U3UUx5?=
+ =?utf-8?B?b3FadDZtV01yVkI5b0pUeDN3SXVJRWRqbkRkR0RBbUgxc1ZNRlJVcUo2OVNJ?=
+ =?utf-8?B?L1k3SUQ0bTM3NU1majF6SnhpckRzWFphcVRQWExUaElXcWlDTlRFUjcyeDFH?=
+ =?utf-8?B?SDdXYVo4Vi9JVWo0bFpKS0tKSDc4VlR6VjNHaWJWTTI0dDZoS0ZJQ3dZK21X?=
+ =?utf-8?B?Q1R3K2hudURROW5kV3ZDM3NkYWFYenJrc0dnMDNQeGNETXZuWnBXaHNnUXY1?=
+ =?utf-8?B?TEg0TE9oV3drUkI5dE5mcmlBdkFjZk1VSHNpUVFFem85WWFlMXIzYnJKdEZ4?=
+ =?utf-8?B?ZDFtTzdCKzVMQmFBcVY5WlVsWk1SZDRDMEFsbGdsYU05WlVOL2Z0VTdXU1lF?=
+ =?utf-8?B?dmhFVnRHdFRURjdhNWVWaHpwR0szR2FPUVZ6dEttZnpqdHF1STljVGV0MFNK?=
+ =?utf-8?B?aVJ2eXdMTUxubE5ZeE9LelAxKzc3K3g3SXBIbldyNlllVll4cWpSQnBTa1Rs?=
+ =?utf-8?B?U1ZCV1d2QUREM0p2R0lPUURTMlB4K1VvWkRmc2ZybTh1U1QvcDdTVFZKcXlO?=
+ =?utf-8?B?d0lpVFF0OHBSaDRGRlB2bUVsQTFiak1sUW1LV1hybDN1bVVJRlE3cy9vRXFR?=
+ =?utf-8?B?SlFtOXdJYXRHclZpc1NLUHBwQTlEYzZOdDFtNnBJaFZpUXhsdVgyZz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 509a6a8c-3060-4868-a027-08df1dfbe4a8
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB9809.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 07:33:02.4682
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NKThI3OXhKKdD3b6N1pQkB6q2hZ3lJjtDxJaSytU3ptZ3vCmUarBeRBwfd1GgmmzOldNRtBDzsjAq4TMk8iC/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB606764
 
-On Mon, Sep 28, 2026 at 10:54=E2=80=AFPM Sarthak Sharma <sarthak.sharma@arm=
-.com> wrote:
->
->
->
-> On 9/24/26 10:30 AM, Sarthak Sharma wrote:
-> > This series fixes several correctness issues in mremap_test and
-> > simplifies and strengthens its data validation.
-> >
-> > Patch 1 converts the mremap_test to use kselftest helpers, removes
-> > manual tracking of failed tests and corrects some spelling errors.
-> >
-> > Patches 2 to 5 fix userfaultfd skipping, unexpected mremap success
-> > handling, multi-VMA data validation and failure reporting when data
-> > corruption is detected.
-> >
-> > Patch 6 removes the randomization and uses a simple pattern based appro=
-ach.
-> >
-> > Patch 7 removes perf tests and timing infrastructure.
-> >
-> > Patch 8 removes validation threshold and always validates complete mapp=
-ings.
-> >
-> > Patch 9 strengthens the multi VMA validation by also checking the
-> > mapping state of holes after remapping.
->
-> Hello everyone! Just wanted to check if someone has had a chance to look
-> at the series.
->
-> Also, Sashiko has a concern [1], and I had the same while posting the
-> series. I hope I can get some opinion from the community.
->
-> Currently, for PUD remap tests, we allocate a source mapping of 2GB. We
-> only fault in the first threshold_mb amount of memory, remap the whole
-> region, and validate the already faulted threshold_mb amount of memory,
-> which is, by default, equal to 4MB and can be changed by the user by
-> supplying a command line option.
->
-> Since we plan to remove all command line options from teh selftests, I
-> removed threshold_mb altogether, following some discussion on the list
-> [2]. This would now cause a 2GB source mapping, and its contents copied
-> from another 2GB buffer. This causes the process to have a 4GB RSS.
-> Sashiko says that this can cause OOM killing in small CI machines.
->
-> Would it be okay to keep a 4GB RSS in this case, or should we find some
-> other way of validating a part of the whole range instead?
+Hi Nicolas,
 
-Hi Sarthak,
+On 9/29/2026 3:39 AM, Nicolas Dufresne wrote:
+> Hi,
+> 
+> Le lundi 08 juin 2026 à 12:56 +0900, Ming Qian a écrit :
+>> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
+>> event after parsing the resolution from the stream header for VC1 Annex
+>> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
+>> GStreamer) cannot determine that the driver will signal the initial
+>> resolution, causing it to skip waiting for the event and fail to set up
+>> the CAPTURE queue properly.
+>>
+>> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
+>> indicate that the decoder will emit the source change event during
+>> initialization, consistent with other coded formats supported by this
+>> driver.
+>>
+>> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence startcode for vc1l format")
+>> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+> 
+> 
+> Can you send a non RFC version of this.
 
-IIRC when I initially introduced the test, John was concerned that
-validating the whole range would significantly increase the duration
-of the mm selftests; this is why the threshold was introduced. Please
-check how much it increases if we validate the full range (with
-David's suggestions) and if it's no longer a concern from other folks.
-I am fine with removing the threshold.
+Sure, I have posted the v2 and drop the documentation change.
 
-Thanks,
-Kalesh
+Regards,
+Ming
 
->
-> [1]
-> https://sashiko.dev/#/patchset/20260924050009.19974-1-sarthak.sharma%40ar=
-m.com
->
-> [2]
-> https://lore.kernel.org/all/2e34b619-085f-4a9c-bb41-bc024fd40dd7@kernel.o=
-rg/
+> 
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> 
+>> ---
+>>   drivers/media/platform/amphion/vdec.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platform/amphion/vdec.c
+>> index a9f0521f2e1a..75808482d090 100644
+>> --- a/drivers/media/platform/amphion/vdec.c
+>> +++ b/drivers/media/platform/amphion/vdec.c
+>> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] = {
+>>   		.mem_planes = 1,
+>>   		.comp_planes = 1,
+>>   		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+>> -		.flags = V4L2_FMT_FLAG_COMPRESSED
+>> +		.flags = V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
+>>   	},
+>>   	{
+>>   		.pixfmt = V4L2_PIX_FMT_MPEG2,
+
