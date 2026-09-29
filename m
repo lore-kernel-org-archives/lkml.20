@@ -1,154 +1,132 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2634E0B91
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790717083; cv=pass; b=XsPqkE4M3BATxoW7d/7wZdV6y9vHi7/eFG0LL/Vt4lLqrR038USx7Z0MFIlg0vJyYHx6Aq1nN/sDWVrBZq+5Ld6TP4RNiB4TePZBC+imT5Sgl2N+e547gZ08IJhbv/h27bDYpxkfBK1gzC7JmEjvi5RTvLem9Vunx0aawWZsFLc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790717083; c=relaxed/simple;
-	bh=iLXo43O7JmOuus9Fwsu7TvH61/8erOqVOuqqIrToHow=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pdu55oQOaHiaFlzv4FHNhPax2pV5VXGQHSziMQMFiqHo1IxXHiXgwimxQUS7JDiFJuUapbggclZYLJT5YSnU9WavYv+WuxhhoviAj9V4qUJvUeDuczJrXZ3NGaxy8II947NoN+KxZuqvzRAhTrorDXWEneaBWNqVZG3RoeF6pJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=kZ3JRQWR; arc=pass smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693373B101C;
+	Tue, 29 Sep 2026 21:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790717090; cv=none; b=JSYq6FyxO0bfX6fMBCp09MagGgXMFepQv448x9ftSxThFNSwghTc8J/30rH63K4eae8g71e5ZYASU5q18d9Xgg6DJTDGJyu0SuIc+TBNQc+Ewcoks/96maaIqvHQupDb5pBHHj/B9wlUoW7D97s4UfhxcEkoADYjFCHqjhT7xdk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790717090; c=relaxed/simple;
+	bh=hl/GJq+lBD80Hn/PMYx2ViilH0jQaejr1LEgM8N0frA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=nQzvRgcPfb8IbwKpjSbuaIH9zcMlJjtlZoUzXDILj9JsQehnaEsHQYmEvxWLSLvLUMxD7G0vEDh9KiFeH9bPXPxJCHGreSirB8Eb0xEYO+ytDeyo18sAWGds/qQiA1aYjtxvnBFfea241LFYtbn23j6p8GjyANveUQYgYZjhxuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ctj7u5wo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="kZ3JRQWR"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66c9995ca60so988295d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:24:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790717081; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Yy8FxjYZMM3zpyJIjtMlgvA4XGl/m0cDU9uFiuc0AFOcuE7EeIZ4g50JgamEfD+onB
-         7wKkNbVXFzVonvgcBMHkpHMHF4CxwMVKTg1d8eO84A97TCjh1tEXLUacL3cBHsPP/3SR
-         vsXp56vIv23lt55m8mChENtXBtlMyh8/H2urws6WLx30VGfJ3Gf8QR96qjjM6xTsLCEE
-         NEqpQ+NNTkKhD2orrTFTKQOvc0D4sMbwx4skw+RpUI04CNAlQJ0kMrl8fE+wqB+0FXCc
-         /J2Pu9If/femRalg60WXPqGgbdF0xitc4R4zFVB5fB8X/iUJ/D+MYJ0/RWED/qw/yTgt
-         OcEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XsxJSbC/0qpT3PgH/uznE1JYs4z7KKK2Tw1kr61c3yI=;
-        fh=q26wS7jh9DjCEN3N10xLFcmqnrYRpwLw1BboYJxcCGA=;
-        b=crNSyCaUnITmPP5QuXhD8ZiyWs3EXYcQ4XKh3qVOBSdW2gKFxKiGrC144r/iBPD+Fx
-         NlB/JFenlQzC9q5YmmnT3RezamWcTnx5VaKWTuupdY05IdG15ASK6L6FpntTE9Q+QOwe
-         c7F6NEs9caAUYQOb05chz6OiZ5F+/Y9jFX9GkfCpy1JY0Z/p4h1LKGOwnL0JHDWE1cep
-         m4Ay438C/WuHX0+TQA8AyGs7/8cZUmpqIfTE1Uql9hmNo90AWtP/GJ+EE/Nz4hrpXv9+
-         bOSstxL4Uty7DWeaO/6Ddll4wvOkwMIMJnguoCeJrcgOE89Qz1awEq5DdWqWl9fOAtG+
-         I5OA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790717081; x=1791321881; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XsxJSbC/0qpT3PgH/uznE1JYs4z7KKK2Tw1kr61c3yI=;
-        b=kZ3JRQWRs+OYJ98JSBjxauOL9k9ApdE0uxNiXuDTEPfbt3NU3XdEkY1NQU3NThkjJt
-         dY9ikm7H2XNYTv8wX3lxb1fZlI8oIw751GGU7sh6/uX6L+JA3MNAEexGedR9SIeo4A2M
-         T1ZT7YlpGdkqPm15ehtFQF9xXNU3VYHcz//mQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790717081; x=1791321881;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XsxJSbC/0qpT3PgH/uznE1JYs4z7KKK2Tw1kr61c3yI=;
-        b=bfOWXTKVHnlGm86gs5fyzNHr+sIIVtcEYGeLE9r326tqCcTUU4oC7QVdIrpxGrKe2O
-         X348VQikHWnWih9iecAYWwxtWmRdxj8fqLv/b7sQrnPi/A4u1Wp2od6ydKf8Dfr6NhiP
-         +mK7dfGGk9U1Ko7y6xJBRwZlSxQpdsNVpVgzQJXkITGtIFXA69GXW8yi75HaZQ5vDbp5
-         st9ZlRcJZtqZe7rsqH+I70xfNtOuViUSAuOog0ewWM/WuVwq8AGZN/o44lxoWmlgckHy
-         5PCvGx4cY3bnexU2PBW6Gk0575FPtv9srS5PmX6I2QqqFFmcWsRyuJw0lYIfyWUN4xOs
-         Io7A==
-X-Forwarded-Encrypted: i=1; AKwUvByqsBQ6V2hAw+UnZvlS6aL1mDw5GxoIbwUMb7f5nKvAd50qOFQ8DapS7kJ4RCGAmaBJKT2GveVUUmvM0eE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjNMHcSFJsWNcCvfmF+rNCu6kaWfJNFXd4j/58JhJZzm738TUr
-	PVMOlYVI6O2xWmB2usVQYkdZc059eaApb4KqFDyPEYHO7sAGkc2oMMOlrV3VbY9HLhAjtrO1a1c
-	rYAEUB7du6VN3wQ35MQTksSWcymfo+dVHqxthhMCSPg==
-X-Gm-Gg: AYBFou3g9ykXBX6HQ/j6NHF4usgebvy95UXNYBqjrgVpB+otcRwo9iMWDijIr8JNWBP
-	wVEc91LjkGVgUso7IsFdYWvQa1/fUUdfpmwh4qQdQdBhblWKdTym0JsyDUY+18u43aB4S4WXjjr
-	xXE2Yfv1DKO64h67wgN4KeHCYAEycoj3ItMboDYC7WhnwpIPwpcfxuTnXjXTTKgCmCKdaG+JAcG
-	TXTfMLVcvyn0eZdpDBtZvimxwzH7I+pxQpv5saJZCyrYFUOJFo4rCb0CWlHCbrGrTzN6eiDyae7
-	K3+QJRitSlSE76f3jppQr79EANHcCd2X5asaB/+5bDCvcL97IOHnQPni2mVRo/gy6o8QkSytFK3
-	w/jlJjuejWWY=
-X-Received: by 2002:a53:d019:0:b0:675:300c:3938 with SMTP id
- 956f58d0204a3-67560b590aamr1239328d50.14.1790717080747; Tue, 29 Sep 2026
- 14:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ctj7u5wo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1CC1F000FF;
+	Tue, 29 Sep 2026 21:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790717089;
+	bh=xrUvbY2XS9zfmj593JZTmLqFqRTgjCWGJ4x+Rrl6zwg=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Ctj7u5woYiswL4CpuhbxlzRiM2H9NAHfrGWOvo/pDYZJI3eKOy/gqbjDnnE5gg1dh
+	 FtvoR593w4HcTf8cnu6U1Os0QzZtQ5m5FfFDcPltbuLk5U2eMuvGKcJJAoD6eXW1XA
+	 NkGBYNnzBYdgP1qi/R5pycy64TFPayWqegpxYkLJXrJg0vIQ/2MPmmaozAF1rdX0o9
+	 oRrirBxdbebHOLS8mf5hOdy8MamP8XPQmvjOAUpDiI87+Skymf4OYGb46Hq4VKsPys
+	 M/j1s7JikWKuudPv+4KrCW0uKmNntOLFvFOxIRrtvDhghKVGVjWJ3k0htZ0WiwCOt/
+	 IvqTp2io4hygg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id E7581F40066;
+	Tue, 29 Sep 2026 17:24:47 -0400 (EDT)
+Received: from phl-imap-04 ([10.202.2.82])
+  by phl-compute-02.internal (MEProxy); Tue, 29 Sep 2026 17:24:47 -0400
+X-ME-Sender: <xms:nyy8ajUGHxxkmrO8o9Ab5bEq3_iMhsRq9bbFPsx2HPNR3N_tpx2pGA>
+    <xme:nyy8amYWNGPOtlELasc3wmTEXOuWadrc_-o7Z-8ja6zSnmO8__p71FpzGsaRNFBuw
+    cY-1Hu27sr2QggmSlHQPBiIHkf_XkADfyNXOcxJA28YOG6T5GKPv2xo>
+X-ME-Proxy-Cause: dmFkZTEDV3/1yCe+FQo+fajx7AqOIr5Rxrx3oIgqUFxFLnj0QtPLZEH8zROozvhnMD7F/z
+    bxLh2IuyMIL/XFrFtL85b172Pv70LA4koJij1gAHBougsg20/EGxhfDwp9eZHd0SewJgFV
+    ut76SDPp5jQjxDbA0x9nKTNLzMdN/gk/fN/3mNXiQQcw4ID0b97l5sEsHIdqTt4UJ6wBDv
+    M2OLSORoquyKzLfw2+GZwznTxEsHUpNWshe4Gfjr732LA3ChvX8lH/EySiZwG9pYRpQ6P4
+    hGLLR5zvCUgZBx5CV1J7SZZxuzuYvLqirgRn4S1NL04m2EkKAEZ+fTHu68U/pJ7bSOuAVQ
+    Q8RNTYYMKw/Q0G31exTYs7VIzRA8xc/g7maAD4lddSVmAUD2XDn56e/9Rz2aZNXLb/eCV6
+    m8/VHDblDdbvqltGwMl2muz96Sg23FCUUAb57Nc0/CCr0Lz6g96Jwi1VdwOvK1BLJNkDnd
+    7QaQX61rT6fDSDJdYVv/25/wCJ02rHxZAE7xw0l8Rldy9Vgr+bp0vq6Y26uD/J4r/jbcvY
+    lYg6KQhhSQML3q5xiQ/Zcbb4sEWAQfPdmb0ZgZ9Fhq54C2v5hcqOdY9XJTcuVAInzIo9P2
+    rMOYJWouMLdjzZmKkO0tIq4Ccn/RStHFmod88WxKT40cxJSg0cZ1WZDrZNbA
+X-ME-Proxy: <xmx:nyy8ahhaC2jkq1l2rC5skmWScn_X9B4SYIipVuaqXfcwvws50DNvfA>
+    <xmx:nyy8asBj6TagPUgqZd_ApjbzUUg3BZd2IqM6eayipYaAc6kVXyLP4Q>
+    <xmx:nyy8ar5hvhkwFFpM7CP3DDo7evSaK6s10VEqFVg6wtDoWaLwjUBTuQ>
+    <xmx:nyy8apFieqMq8XXqonrD-HsdwKS5xUjcz9eK23gho_H7FCa3cs-gQg>
+    <xmx:nyy8auD_0LS3b8KVLuI0CjYACmMO2l_DXKfFjxiBBeq-Gkk1De2l7pwA>
+Feedback-ID: i20964851:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BB3D8B6006E; Tue, 29 Sep 2026 17:24:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
- <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com>
- <arrhc_7jvX_W2uXS@google.com> <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
- <CA+w=M=S3USeLyFNaHSjHL+cmzssWk2Bygahetzr0dNU55TZEMw@mail.gmail.com> <arv-9NWWZ14TG5Te@google.com>
-In-Reply-To: <arv-9NWWZ14TG5Te@google.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Tue, 29 Sep 2026 14:24:24 -0700
-X-Gm-Features: AclHuK9U0_hOZFiXzRILk-R0tWVBa5apQWlupDVVHBlduv0A77qNXQe3k2lPckk
-Message-ID: <CA+w=M=TFNBOr9Bxca0WmvAH3gSnr3Yc73jsubus=s4WSL-n1eQ@mail.gmail.com>
-Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
- storage, and LRU shrinking
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: AFvboQk2emfF
+Date: Tue, 29 Sep 2026 17:24:15 -0400
+From: "Anna Schumaker" <anna@kernel.org>
+To: NeilBrown <neil@brown.name>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>
+Cc: "Jeff Layton" <jlayton@kernel.org>, "Jan Kara" <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <68919e69-d97b-47a4-8695-8021f24f119c@app.fastmail.com>
+In-Reply-To: <20260929022547.1428036-1-neilb@ownmail.net>
+References: <20260929022547.1428036-1-neilb@ownmail.net>
+Subject: Re: [PATCH v2 0/9] nfs: prepare for VFS locking changes.
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-> > That is close to what patch 5/6 of my v3 does. Its index is a sorted
-> > array of fixed-size entries:
-> >
-> >    struct sym_idx {
-> >            u64     start;
-> >            u64     end;
-> >            u32     name_off;
-> >            u8      binding;
-> >            u8      type;
-> >            u8      flags;
-> >    };
-> >
-> > That is 24 bytes per symbol. The name is read from the string table
-> > and demangled only when a sample lands in the symbol. The difference
-> > from your description is that v3 then creates a regular struct symbol
-> > for the hit and inserts it in the rb-tree, because the rest of perf
-> > holds struct symbol pointers. If the entry itself were the symbol,
-> > with the name as a pointer/offset union, that extra step would go
-> > away. Ian's patch 1 would help: once every name access goes through
-> > symbol__name(), that accessor is the only place that has to resolve
-> > an offset.
+
+
+On Mon, Sep 28, 2026, at 10:21 PM, NeilBrown wrote:
+> sashiko reported some problem with the previous posting.  A lot
+> were false positives as it used the wrong base.  However:
+> 3/9 had inverted the return code from nfs_neg_need_reval() - it returns
+>     1 for "must revalidate" unlike d_revalidate which returns 0.
+> 8/9 didn't handle and error from nfs_lookup() correctly - it
+>     should be fatal rather than triggering a retry.
 >
-> I'm curious if name_off would work well for PLT symbols which come from
-> the dynamic symbol table.  Probably you need to handle them differently.
+> Original intro below.
+> Thanks,
+> NeilBrown
 >
+> I am working on changes to directory locking.  The medium term goal is
+> to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+> can be run unlocked, and consequently cannot be called when ->i_rwsem is
+> held.
+>
+> The requires:
+>  1/ the d_alloc_parallel() not be called while i_rwsem is held.  NFS does
+>     this in a few places. New interfaces d_alloc_trylock() and d_duplicate()
+>     are now available and can be used instead.
+>
+>  2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
+>     unlocked d_alloc_parallel() would then be able to create a new
+>     dentry with the same name.  In particular d_rehash() must be phased
+>     out as it won't be safe.  Various techiniques are used to avoid the
+>     need for d_drop(), particularly that d_splice_alias() is now able to
+>     splice a hashed alias.
+>
+> Further, the first two patches here fixes bugs that I found while
+> developing and reviewing these changes.
+>
+> The patches depend on patches recently added to the vfs tree.  I would
+> prefer these land in that tree too with an Acked-by or similar from NFS
+> maintainers.
 
-Hi Namhyung,
+These look okay to me:
 
-Yes, synthesized PLT symbols need separate handling, but current
-upstream already has that path and my v3 series keeps it.
+Acked-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 
-For a regular ELF symbol, name_off is its st_name: a byte offset into
-.strtab for .symtab, or .dynstr for .dynsym. So the same index format
-works for both tables. v3 uses .dynsym when a DSO has no .symtab.
-
-An @plt symbol is synthesized rather than read directly from either
-symbol table. Upstream's dso__synthesize_plt_symbols() gets its address
-from the .plt layout, finds its base name through .rela.plt and
-.dynsym, and appends "@plt". The existing code also handles .plt.got
-and .plt.sec this way.
-
-Since name_off only identifies the base string, it cannot represent
-the added "@plt" suffix by itself. I think we should keep synthesizing
-these as regular symbols, as upstream does now. v3 only makes the byte
-cap apply to them and, in lazy mode, clips the index at .plt so a
-preceding zero-size symbol cannot overlap the PLT entries. With the cap
-disabled, which is the default, PLT synthesis is unchanged.
-
-There aren't many of them. On the sample fixture, has 381
-.rela.plt entries against about 319,000 .symtab symbols, and the other
-binary has 100 against about 637,000. Therefore, I think keeping the existing
-upstream path has little memory cost compared with the main symbol table.
-
-Thanks,
-Alireza
+>
+> Thanks,
+> NeilBrown
+>
+>  [PATCH v2 1/9] nfs: fix open-blocking with d_fsdata
+>  [PATCH v2 2/9] nfs: fix nfs_call_unlink()
+>  [PATCH v2 3/9] nfs: remove d_drop()/d_alloc_parallel() from
+>  [PATCH v2 4/9] nfs: use d_splice_alias() in nfs_link()
+>  [PATCH v2 5/9] nfs: don't d_drop() before d_splice_alias()
+>  [PATCH v2 6/9] nfs: don't d_drop() before d_splice_alias() in
+>  [PATCH v2 7/9] nfs: Use d_alloc_trylock() in nfs_prime_dcache()
+>  [PATCH v2 8/9] nfs: use d_alloc_trylock() in silly-rename
+>  [PATCH v2 9/9] nfs: use d_duplicate()
