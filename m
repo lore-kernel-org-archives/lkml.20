@@ -1,130 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010047.outbound.protection.outlook.com [40.93.198.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CCC46D572;
-	Tue, 29 Sep 2026 21:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790716050; cv=none; b=DbmgAC2pXr8/do4Tw6kR+WPXvplOiWmuS1gvqWqDtSWHdA958y75qactadULhwtIjSdPlfTMzwQSy+3vo2eTF1T2knqa3/Bh3MZyvgrn2n6/AAPW3W8+2oKG04tXVH2pUBTrdZk6UWOoXgcm5p9pmCXmQGU590gl+pf1jl8Q+Pc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790716050; c=relaxed/simple;
-	bh=mQkyD0uRRPxvlpUvAn0NzuxTKFDk0eq5Tok2NBCJYqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HoMRyOVlM+pfPNuAIuxjwS0x5gq0SAX8/iiVO1csqFFa3WMMQT0WSAWnFKSw75PR3/XPJ0sFrv7GxKtIGEkVPMuTeSY4GeimlxRdEJWLq5ubK5NN8rbbpsxrqxVAGq8LgnjX4EAPLtS6dad//rTe2Wv6WPpDJMpP06x3IJJXKIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L24oDAjm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A652847A884
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790716096; cv=fail; b=c159xQEukheFt+mDO6TaUhBBYgaSPTlyxQ2ISLFSsyHk/g8QRgYHsXEHDdcGMiQ1jsBu1dTgDyjs7vQwc9Ib4EKN4qs1n111fW+OS3SeapN8d1Lzz8kFDgbUiRbBlzx2+1pyNHfTETndUJbhoHCc2hVIDCnWivV2pBbobRraBWc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790716096; c=relaxed/simple;
+	bh=UOyC1bDurSt1+LFvfcDWGGe3PRi7fuDegrBS8YpekqY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=JXTv+juz8sGuqh8wJc7ujwIxKHY5sczPyqbC4CEN0mlxgBnLzA0+rm4qfTUyTcOT6KzbW8u1wLRQSwqI3i2VhOiIvFdTT7gd2VH32xf7MiK82RN0/mMSVa2H4yLbaoBkiW58OfSaYJCRVGXg372crzYyuuO1+F6b2e5MGzWYC5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TVuVxOn3; arc=fail smtp.client-ip=40.93.198.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L24oDAjm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75551F000FF;
-	Tue, 29 Sep 2026 21:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790716042;
-	bh=i9fJttK6+QMYUHs1bQ18A+MCmMfxPcettA2nwtR9QNQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=L24oDAjm0SaDT6aP9yKy/wL223maMyenlOq1iKvz6z/H6CGJmiKzWrl7lALDUlP0+
-	 1BRc9PzMxJtxlH8ftQjPjX9XUiJo+6QMsx35nhC6kqcA1016Gu0F2eOEaAaCFTzGgK
-	 Mzwtaxw8+MBaAEmZZiV0xqyoFA0XpNy7BAVN4CxoDFOeHKL1xEerKCHkWDGEiRY/Ti
-	 xlwbxbDK7d4h4bhXv6A9yUgc8EcPCg5K3p807Kzv5OCefUoQyYwE3XvzYpkkGyPBGl
-	 Mkl80uif5x2j9FtJPE8PrSV0hkyEetElBiLKlPiNpEa/px2mS7c9ZdCMrd43jdLSit
-	 tw1PfUJEYkgEA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id AFFCACE3A57; Tue, 29 Sep 2026 14:07:21 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:07:21 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	Gustavo Luiz Duarte <gustavold@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
-Message-ID: <21dd141a-03d7-49e6-a83b-f4dda898cedf@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260925133922.1356404-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TVuVxOn3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t8gS7T+bAg9tbgsqLssCAGbGZQe093BI+ACXTQ5SrEBJdlw/0UXeCNazcIZGgAUSLPf7dpfCCuD1PabA+FT/rVNTg38SOPhc6BmkJcyMZj+MjyblEUyAp792B4OhLqm4Xm3WZ53mmtW/bdpcUcb4t6s/NqNvAMnza78dzs6GUxKyoemKIaqEdovjwdUAJNkUlcZse6etdjItRo1IIM4K0+ki4VK3GQY04HOXpnOKQcu00hZpTxo98sPrF/khMKAiLQmuUtiSAxz7OeJ3Vx5dq2jKCnqnoP+Y8Eb+AT3oweBVjXCo2GJNwffVElcJ56S0Q7nt/C/Vo/8Gb8P/ttIRhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hpgA33wezq+LWEQVgPUS+xB2KB/OhqBFEXhZTNghez0=;
+ b=Rqjdi2vRm+ZqvO1gzFNjMDCmcrmCUhPlPUlOw4hilrd7HWxtvwJXDoxmlia3LtyyLROgauxDg6iS3Mlwc56YSG7OOGOxVC0locLF5sj4O38gHeDpgkfbpL/Wf6eG1hKO0XBaVq+L9nxhJvO2BIapPb8pluPnNL4tzu+9lpaltXGom1E+5d5adnvqTYcPNU2CNPP69tiuaQA43yBI1v5fB1/TtOUE08tn2cwB4riq6LbkymhDtzf3yVzJoPTxLpYPfael7a8H7hg8v924Kkkdbpw6U8vpCRDaFemSKhQh0q+sy4ZV7ud1rWVSWy/fcR2EZ73XB3bDErgnSJZ72NkTTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hpgA33wezq+LWEQVgPUS+xB2KB/OhqBFEXhZTNghez0=;
+ b=TVuVxOn3j08HUgwSwCiyK+QvTqnNgp+EEyfhZVDOXlZw3IZltpHPBQ3w2TdaXgoHqm6VDjBazZD+WuzfWssUXQ6TLQw2gyf+ty6smn0ijkmPin1Lo8J2Ljo3yoVIzBuceS2G1qADKEC9EcFeWH5RJQkNGEQcA5fMtCS18vALpqO1oEQd8LLqx8shl1u/a3Fm9qtn7y8nMD5hNFt0RpIQ23vX6YabrZXb4r+Lqag6GDQSyurKgea5M3VXBYcHPz3n9Gclw/s+GPOShB3ob7LtKJJfUwEfqP6wESKs7dDHYkgY7ao95Y+xSk6oN5tGSAXHthHWgiwM/J7C2x8vUfDt2Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ IA0PR12MB8746.namprd12.prod.outlook.com (2603:10b6:208:490::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Tue, 29 Sep 2026 21:07:59 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 21:07:59 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH v2] gpu: nova-core: restore the "Probe Nova Core GPU driver" debug print
+Date: Tue, 29 Sep 2026 14:07:49 -0700
+Message-ID: <20260929210749.409380-1-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0153.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::8) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925133922.1356404-1-arnd@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8746:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07e22079-2e28-4b36-f64f-08df1e6dbddc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2IKJp7dMCNg/eJJOAIPy6ovVhtIPPYGgIu0vZx6UH4WVM206eu2aIJPT9J1I6sq9mqMTniH8AIdSg4UtfZsT2LsnbPI5wfclMuyiJ1iihCQKDd2PAY9s8yNcVm+1b3O37xB4NUWn/Nj2vex7fBSHs3aHJBbijEStlXW7D0NlyGivVrMGOH/+fhc+ouA2/znGBEE4V1RHek63pnVW+3zSsWkZAg9/fhlaBIhaJWRgTMvaUfbRCa+0ATo8PWPt2XTtGb4r1SrfA1khWw/ROaHp+LddY4m6F9Ky4VFO3uC4GPnW45hFfpwX4qOtfN+yhuhZH4/mI+hef5i+fzyhaVxezWbmOi8TYIQ5CsXNLMDzfJ6nQL4eDX3SAXeQen58N/u2WkSOEGYeq3KblukbTGXAsspf7VX3v2zOiywGTcncVaiA5NB5cCbmOJJYK5uMALyQefrpSSW71A0qWBdchmVgEgdBJ+5/UhUioVREaxyQqkNXaTPwx7iaAx1oVYqLlfRF6H1dScsKGvVysXetbiw/4sivM2Zk2ud5+Fk/ofV45eVShzXAptPxlPeqUx6X7epxAuugteo8atK0Hio2KR5QRhDO8xD2wrTytTIex4SrEw/WJY7wrsgbcyGL59fnAUyxrOXlgJlVlT/a3xte2lmYDsNBjtcnjSUMkAFrurv63Yo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?C/p0nhYPmhNqdGGQ5Pt+dN5bN2hg7ybAASpdqQ1L4iF8lDVU/ENZVNrLl8jr?=
+ =?us-ascii?Q?73bRTZWdXf0dpv9ecje05bcQvtB9f72Ph0wlUsoGD/gcqTUrJcjfzgSWPjEv?=
+ =?us-ascii?Q?8pGg85I4cROtIEWiLZyLN7LrUtP3Npa08u6LzglpWpB5bmyYWQposwkDpiS3?=
+ =?us-ascii?Q?u+kfphsxPwn2RcLcTJJfJjb01YZ3TME4PG5nG1IQVWTUJr/lLbzRg0GC8TGn?=
+ =?us-ascii?Q?NS1JycBtrhkWvPRReEMqze1dq9na+J1A6kVkiqhgOYH+mLM0INJh6R/HL78d?=
+ =?us-ascii?Q?sJN7ghWGCQmZzeVLIel2Qa2WrDfl+JfU19A1jRSHY051PiXMZ0SxdDeJPj3X?=
+ =?us-ascii?Q?HDTtmrGx3mE1PCgznQ4fSt1RQ9iI2BoTRdnQ7r+1MzQASaUyJr8gNqtG1pbX?=
+ =?us-ascii?Q?JzONa9BLDUu6ilqcLfthxORhXXu10G2OyIoTfQia8YHKdK7kR5+g+7iFKDwT?=
+ =?us-ascii?Q?M3wILOkFNnzLYpbqCiKe1+97aIK4EzMhpQ7qcKjD1XqbOp4YQduubwDvg+AQ?=
+ =?us-ascii?Q?xMBhEpH/ZABOQtCPDGHNy56WKzzKYitHD9O/uYX407mnqPBjKQDvDu8fRZrL?=
+ =?us-ascii?Q?nX6szT0aW7ttwjCtzdDCXUD8jHao5RTIH2EYz9fYRoRF7wCfyrvrCyeW8BiD?=
+ =?us-ascii?Q?zdgzAhNmU3R5oPI8HJ4B1CjtmwBFs1Hz/j5Qmj6RN5UyxSt98ELDuEuXNfZz?=
+ =?us-ascii?Q?k+zKnExdkio6akEd3dpWqPQg7/dGzXm1EYmfVkIjJbwk6r8oNkaTZMBPzKEO?=
+ =?us-ascii?Q?t9RMPgxn4lD//6C4uFc0aV4g5gVba0kK4osp9hU71vhEq5MpKcrPvmHD9E5S?=
+ =?us-ascii?Q?FQZt/GGsROTTaZ4AsvcRxtwekbyyJFpyTaUAXo+K3CTB5+3dbAfy0irXHkT/?=
+ =?us-ascii?Q?5yQpKbtRvbP8d6zXdNDAPUYYFNGJZKZVjdmbiv2KFmn0wga1LHX2WX6buq+0?=
+ =?us-ascii?Q?EkccYPONfPlsqLJbGyP8JtRXmNIy8PedA9KUBZGcpkNIz32ZuOG9YMLhJXT3?=
+ =?us-ascii?Q?WmwNBsiRuiyPlku1ln8K3szhe0zjwqfW898zTdM/fIjHt67FVEGBTlAeKVbz?=
+ =?us-ascii?Q?kkWAO09INhCvEnjKqoHxfAuHgynjpxrh94yLhJTOZCss5THH4ujjuIoHjlS4?=
+ =?us-ascii?Q?ENsTYMzKYW7EjNFHOikJaogNQZn+27juxEBXUQ/rzC6lmdIQSEzKs3JLNQgT?=
+ =?us-ascii?Q?qZr5syPARBXqK/g7dKVWhYLZ0WHywSP1Yi9d3zIkrN4Edt3N3W+kEaQJujnQ?=
+ =?us-ascii?Q?j6hzPlrXwG0YzIv/NW1iNyETVnhAORbH739w4y2iCs+V6ui2i0eu+O3WmBiL?=
+ =?us-ascii?Q?5dt/5WWek00eoPEtp0IHigfUYHNdLrBK8o1HVGQ8PjlzPZLn5/1r+bymqHLh?=
+ =?us-ascii?Q?lNy890GmPhbJbMVOsi+c2a2NVZdP23Vo8LJn0RY4rt4RRm48c4f2AMukNHIV?=
+ =?us-ascii?Q?0h7lVv8lux1ANXIc/6LdnjlR+K1zeVXuOyEQ8joqZzjMaVn4F1L0tBmWRvDs?=
+ =?us-ascii?Q?acGXrUTNQnZTp67z7MdaT8f8MjLv2iebHrujLLdUp86HX9SekYmnxizJW+nJ?=
+ =?us-ascii?Q?5cIEA5PlDJJQPIuT1WVxIqHjOclh7PsroVGjXQrvvhFXZzVy5ql524Sqa11x?=
+ =?us-ascii?Q?etqGCvzlD2poAW3gHllr6YwbSbNUkHe4HGgcmHjv/sVQJ45EHYZvrUwxPaWR?=
+ =?us-ascii?Q?IqMMc+Pgoas9Vxxfn7nRbciYpjKKoKBImxVcfeahwFHurwvpJwmkC6qn55hY?=
+ =?us-ascii?Q?sozYXhyxcQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07e22079-2e28-4b36-f64f-08df1e6dbddc
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 21:07:59.8410
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UIpVSssgIj4lPSw8qT9hxTcNlADZ3tgoGyzg977yB9vHPljCOlJ+PJ/41LHB8LAvEhbIqqa36vK+4o7eajJIdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8746
 
-On Fri, Sep 25, 2026 at 03:39:04PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The added call to rt_mutex_owner() makes this fail to build in
-> some configurations:
-> 
-> In file included from kernel/rcu/tree.c:5121:
-> kernel/rcu/tree_stall.h:333:8: error: call to undeclared function 'rt_mutex_owner'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
->   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->       |                             ^
-> kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and integer ('int' and 'struct task_struct *') [-Werror,-Wpointer-integer-compare]
->   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
-> In file included from kernel/rcu/tree.c:5124:
-> In file included from kernel/rcu/tree_plugin.h:14:
-> kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting types for 'rt_mutex_owner'
->   231 | static inline struct task_struct *rt_mutex_owner(struct rt_mutex_base *lock)
->       |                                   ^
-> kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is here
->   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
->       |                             ^
-> 
-> There are already a couple of inclusions of "../locking/rtmutex_common.h",
-> so assume this is safe to do here.
-> 
-> Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> I wonder if it would be better to either move the rt_mutex_owner()
-> definition into a global header like include/linux/rtmutex.h, or to
-> move the code out of tree_stall.h into a .c file, as this feels like a
-> layering violation.
+This is a high value thing to print, because it acts as kind of a
+bookend, showing the beginning of trying to boot up.
 
-Good catch, and thank you!!!
+Cc: Danilo Krummrich <dakr@kernel.org>
+Fixes: 658c5f0042e6 ("gpu: nova-core: use a single try_pin_init!() block in probe()")"
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
 
-What I am going to do in the name of bisectability is to merge this into
-the commit that added that call to rt_mutex_owner(), which attribution:
+Changes in v2: moved the print statement outside of try_pin_init!().
 
-1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
 
-I am also removing the #include of that same file from it old place in
-kernel/rcu/tree_plugin.h, where it has lived since 2014.
+ drivers/gpu/nova-core/driver.rs | 2 ++
+ 1 file changed, 2 insertions(+)
 
-But you are right that this is the only #include of that file outside
-of kernel/locking.
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 291a047e4d86..623d59dcde6e 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -100,6 +100,8 @@ fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+         _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
++        dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
++
+         try_pin_init!(NovaCore {
+             _: {
+                 pdev.enable_device_mem()?;
 
-Fair enough?
+base-commit: 658c5f0042e6e897338dd04330a363aa7022c85d
+-- 
+2.55.0
 
-							Thanx, Paul
-
-> ---
->  kernel/rcu/tree_stall.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> index 5dded1e89197..803a56af3259 100644
-> --- a/kernel/rcu/tree_stall.h
-> +++ b/kernel/rcu/tree_stall.h
-> @@ -12,6 +12,7 @@
->  #include <linux/rcu_notifier.h>
->  #include <linux/smp.h>
->  #include <linux/rtmutex.h>
-> +#include "../locking/rtmutex_common.h"
->  
->  //////////////////////////////////////////////////////////////////////////////
->  //
-> -- 
-> 2.53.0
-> 
