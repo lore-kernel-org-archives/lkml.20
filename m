@@ -1,65 +1,65 @@
 Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66125187E6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D9C52D2C3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687516; cv=none; b=DcKpl3gOAXJFLAdjmi4v2CS7jNgjY66BcTt4PAaXDH7mcgdZjoCwMRwROO8o6nR9Vh4V9FIW1/Tsa6fxclOOK3+/0FyUlQ6MNtOqrbkATGHcHwSIQIdlmBJtJG5U2BzjVORhENhQIDUUuMwUN4aAbEyDB5oqDWq7nnEbFuADEVo=
+	t=1790687524; cv=none; b=leSag7Jv0SvF9PIric7Hsb4f5814E5AhQPbN1IO32emxCXCQRBWN6U2kFTbAw3uX2JajnhKB9Wkru+zJqaE4HnUZZ95yVgaZCxJPMlIzTznZxGRXbqgnlMh4QYjCZofzo+fSOyqjYoHJNUMzNTJNPhYP9qAy/+0iUnzxt6b2TTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687516; c=relaxed/simple;
-	bh=f9OWPjywnn9cieTQadkrLXGaYCUgFX+jTUi1OC4QSDQ=;
+	s=arc-20240116; t=1790687524; c=relaxed/simple;
+	bh=HTirRA90UalDWnFdFzCITcI7hIB/YN/mxlnPD1vae+I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kFSO0yMrN288WtxzItZKgusgL4LitbPDTTF0+v1N7yGwbJQXkpAKMr4rt8wOt+Ssjf+9AEAvDv4Oear3HskJ4IG3kRqTpbV7ofDpxVguouWtvSKYxGU98IeAl58ByNY8sYizuIVfcL0wIV+Bsz0oroj7iMxyDmEzp2s2EFIYrGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gTsXFcXJ; arc=none smtp.client-ip=74.125.227.167
+	 MIME-Version:Content-Type; b=NeldK8TRMJPzXI5IcD5+0uI68p03Ip3FS8pLFYj+kSJcm3N+jb1N6DCi7t/ykT92PBumwXU9BjNcpOyMAVqEkQzDg8Df0Irr/rFRETeRW8qX6k/ayCWhcjRpDUoGOdmfSXYA2I5tuLpm+6uSQD8399EQi7VNFhifWZdDoTB5QNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j2tLd/+L; arc=none smtp.client-ip=74.125.227.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gTsXFcXJ"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49ec27989so119978a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:11:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j2tLd/+L"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a4a98a79b8so79685a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:12:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790687514; x=1791292314; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790687521; x=1791292321; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XIcMA9FcwOdRmoFTj6kPSo7KelWNNXEGT3aOLQGVOS0=;
-        b=gTsXFcXJWkhW/r8hgmP9EgYlEW0aMcpTA9aA8jd5X4WB0aIAChlYNwR9O31WDZ0hOW
-         3S0VEAgQ6sVTOkBkqhvgMqvcVM4NlmI6UYwSM2IFDQN4zyL8CsoYBsSkspRMv43UBNL/
-         1JwAoNYfKtCJMY6+sxGtSOGtH50dRbB+XoQ9C8PoFyEEHpIT2iW5Ti3rKNqQPalUyEMj
-         Hm8PCxRwYCLaB37c128N4vskr5H3hFYp8ltqFuIgqeo6gixEkm4kc9hVGR6efBTmzmeH
-         qtRTrzt0YuGoES7IfxlYOzUYIEBSITo79h12qQ76jrRdeqvV2iVeY/pdYVyidGUfScEU
-         RYSw==
+        bh=UBGD0ul96jtIpbbV7jZQH0Vpd8aSl2z94lNjdsQZDSA=;
+        b=j2tLd/+LDOV1eS1hccl82NizgR8KKMVRcl/gmOsJVRMuP8AreuP5ZNZwAKbllmRHax
+         +V7D0eNpSHrvOH3T4sXXzk+bRZO2WMYQDh7EwdNOGYQt+3co2aSajL1RXRGb8dCeOCSB
+         11MGb7ruIW4xVRoxjYnlgnUixmde8W9KdbCrdalFBp7ETHY44N2DJx3tQeJoKBLEJ5D1
+         ZXMVdbrO50/p2385ceoRPYEfbfDCznzr7CHF3lHc2kSnie5Gs72ejAzujxo+vjhRfHh6
+         BaPE2aVeiKYAe8uQBJ9B6OAyJwSH6c58Nd5djcZxk0vbj16dN0EWvFs9POgTVL9JRc+C
+         zmAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790687514; x=1791292314;
+        d=1e100.net; s=20260707; t=1790687521; x=1791292321;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XIcMA9FcwOdRmoFTj6kPSo7KelWNNXEGT3aOLQGVOS0=;
-        b=j0hUEHkZBYgkkR9vxEw03VItERONBQyrBAgP5CDgaJtH0fmLilprXdnllFbrSeGurJ
-         8BUN7Hibin6hGFcAYvWfhe6C0v1aYcHAjLJLyAnShsvaklq7TN9d9oeMlJ0iy+7CyIM1
-         rpVEfyiOyIcTnXSB/VR7rn+5+nZCmqStuC6R8coVXywK4VzRYHrrWU2Tm8Ow+PDPQWIg
-         pEaokgLPBpzF8P9hOOfi5Cclq6qbvYXv2SWtAjm5GzWXQXkHhJPfljuZy4YqUVYxV7e4
-         5yu9WtcSIgaac7yD43S2o3Mf2WHYFEjQi5ft7b4ed7hajA+vFrQHEreoUtkHWdJKBI47
-         T1bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxa3v+9MpO00wUevrx6pIap3JSwZhH7w2YEIXsJN1RDpesi4idlHrzaLfobUQ7tuC+nSOnMpddrKZRGleM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/nUslWCEeKssCFA+Mdu/UXbzzQUZg3+cftqE3DIyW1qRR8O20
-	/B1ZEp7IKhaa0+kdgndCv4ZxD2kn3uiSeHkrgtP9G613IUgzkEh3tWdO
-X-Gm-Gg: AYBFou3LvcbLjbhsWxwzJLuPpdBK44hQDMJSxRcg13YsBpppsQxEMn7A66WgnE2V2ki
-	Ffb4v4l09g7BVPDetdQW7EwrwvL8sSUGsCywkhlbZ+jL2glemvZwbs69Gd3QBbMCHakmoVvxrKf
-	KNZjwdzNvgdR0LcfpYpSZmLswokweZbOMNo/BOtUSU1K8zveTstqNF2UATOJySUrjhIRmA/7Vys
-	XdpCBj1+m7IX5kMqa5LYS7Ndu8vcB49l4h/wlTIEvYb34L22i4Hl3f4JzMWxI3bZ8MKYd5JM7TE
-	mh/9UMkMvtKAtnEt2B0XtOgcCsvi63Y/lPuI6cQbAF4icEdb9p4bcLgU5NFYzhCU6+CoBEo7bh7
-	ub35Hd8Ix42Z7TdmtgGlah1OwN68hcOT2VP5IplI+/mqn7aGWwlwZ0fzExKIDgSJdp2GQ7RZNwR
-	DWkleRb4t78spGU6oo5PK+fFfTcqPPdv1IWzsxE3MLVm+cfe7RxyzYsVlPh/QnP819Jm7/NzFb8
-	3O2kceyM4v2tWK1MUs220NHfLn2OFeicEhZKiDEajqDw9pqyYiCaqCpLQ==
-X-Received: by 2002:a17:90a:157:b0:3a0:bcc8:1549 with SMTP id 98e67ed59e1d1-3a0bcc8160dmr10751630a91.6.1790687513525;
-        Tue, 29 Sep 2026 06:11:53 -0700 (PDT)
+        bh=UBGD0ul96jtIpbbV7jZQH0Vpd8aSl2z94lNjdsQZDSA=;
+        b=B978adNU6pmV493zHwomFA0RA3/CFLUe7bkVUQ8VkuaLzyOcuCTWr4aYmbCi/uuRMD
+         rVkFyKIe/72APRWlsNF3iFRBU5ZvhxFSWsfEptqAbAaqx/Zw/BDG3riF93nS/5e/7d6v
+         Ekr8/07iI/XOcKViNv92bMCkZ4UTVMbl6oVmwTr6WFeyGbmxg0iNSsIwKj6SfAGI6+xn
+         /cY3548rzREt7YmFOd8Y/kmqKJl7hojf69TkCQz0EyxjpmEns51vvsPKuwOf8aSiKZwC
+         NwjE1uHqsoCrlL49ZY5HuOm3+iqc39GmDb1RoQByijgPCSErvhYOEgN3a7y3rL5wCgtP
+         wY5A==
+X-Forwarded-Encrypted: i=1; AKwUvBw1LchDxvAZj7O22uQjdXzNHtXV28Yh6ZhRWyULEFpHb3xvaxKEVBB9K6pQ918sPWHg9CJphiLP1HZRR7s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK9eFzNLpowcnv4KDU79CjtVwtAmn1eJYIzjjK93ZjoioiKsbo
+	L1ZLbMj5vlAhKX0WZzDN1g394WLtlkfBh/xnV9AMF2lL5Rfo+zo+s6q2
+X-Gm-Gg: AYBFou0BrIPrDy1CqK2HLNJwaLn378ox98npBvoZyzvwTI0zGsMP2LgjSxx87fk0/FS
+	cfw58SINghwy1jBKRJ3Dj7tFnoTYQ11kgBBDWKZjmg9TimC/QWLCNtXYOEINtx+zN/oBBK/B/mE
+	WKvHMNosmepeAkcervPfU+yNYfryQvCeWQ5f4qjzDhZglwFuMJTS9tHl1+oHwb5H+7gWEe2LrgP
+	tqtWnSZ6vDKE3G0GAliB1sBsmwEtFyVJBUDLOzlaIyrP9yO04MDRhHFkNus2UHe/mNS5cpMrgkU
+	Dgae1Ag7JYrgUo32o5QfPDwqUjLAw4QOQ9yz68iVTfo8Xd4VqEVJcxKqH0aLJuEnV5TfOoSMYu2
+	rRW0wOeUjBBa4Em6tyN9BSns7S5RhCVgc2LjLdleHZlBT92ObecsHI/IWA+gbWg3MfB3ssHmWTl
+	LszjPJALlFUNZcDqgdYMXkepAPfugeJ+dpHWZ81LxiFWeL8+lZw5xdCXLSQh+w4rD+oVVzN43v+
+	Yz58ZGYw2zPVV6Jc8SLOL0mcSZ8aLH2AW7IdjgCsYXo9wXuyJ+pSJXHvw==
+X-Received: by 2002:a17:90b:3c4e:b0:3a4:88c2:32b8 with SMTP id 98e67ed59e1d1-3a488c245e0mr6140505a91.1.1790687520329;
+        Tue, 29 Sep 2026 06:12:00 -0700 (PDT)
 Received: from chenyou.. ([140.116.39.229])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4985fed22sm5582137a91.9.2026.09.29.06.11.50
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4985fed22sm5582137a91.9.2026.09.29.06.11.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:11:52 -0700 (PDT)
+        Tue, 29 Sep 2026 06:11:59 -0700 (PDT)
 From: Chen-Yu Yeh <chenyou910331@gmail.com>
 To: corbet@lwn.net,
 	alexs@kernel.org
@@ -70,9 +70,9 @@ Cc: dzm91@hust.edu.cn,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 1/3] docs/zh_TW: add a notice for translations not kept in sync
-Date: Tue, 29 Sep 2026 21:11:38 +0800
-Message-ID: <20260929131142.266819-2-chenyou910331@gmail.com>
+Subject: [PATCH 3/3] docs/zh_TW: link filesystems/ and cpu-freq/ from the index
+Date: Tue, 29 Sep 2026 21:11:40 +0800
+Message-ID: <20260929131142.266819-4-chenyou910331@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260929131142.266819-1-chenyou910331@gmail.com>
 References: <20260929131142.266819-1-chenyou910331@gmail.com>
@@ -85,69 +85,161 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-As agreed in the zh_TW scope discussion, translations that nobody keeps
-in sync with their English originals should say so in the file itself,
-rather than leave readers to find out.  Add the notice as a shared file
-included at the top of each such translation, the way
-disclaimer-zh_TW.rst already is.
+filesystems/ and cpu-freq/ each have an index.rst, but nothing links to
+either, so their translations cannot be reached from the rest of the
+zh_TW documentation.  As agreed in the zh_TW scope discussion, link them
+rather than drop them.
 
-The notice carries no :orphan: marker.  Included after
-disclaimer-zh_TW.rst it would not be at the start of the document, and
-Sphinx would render it as an empty "orphan" field; Sphinx does not warn
-about a file that is only ever included, so the marker is not needed.
+The English documentation reaches both through subsystem-apis.rst,
+which the zh_TW index lists only as a TODO item.  Translate
+subsystem-apis.rst, with the two translated areas in its toctrees and
+the rest under TODOList as zh_CN does, and link it from the index.
+"Core subsystems" is rendered as 基礎子系統 rather than
+核心子系統, which would read the same as the page title
+now that "kernel" is 核心.
 
-Start with the two files in process/ that are not in sync.  process/ is
-the part of zh_TW that is kept current, but security-bugs.rst and
-debugging/gdb-kernel-debugging.rst only moved there with the recent
-relocations and have not been updated yet; they carry the notice until
-they are.  The rest of the tree follows in the next patch.
+Like the pages it links to, the new page carries the notice for
+translations not kept in sync.
+
+update to commit 4f10f1dfb235 ("net: remove ISDN subsystem and Bluetooth
+CMTP")
 
 Link: https://lore.kernel.org/linux-doc/CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com/
-Link: https://lore.kernel.org/linux-doc/aqFPBQxq5asHzvtn@wyuan.org/
+Link: https://lore.kernel.org/linux-doc/ap5xEtMdwXS8Pvcf@wyuan.org/
 Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- .../zh_TW/process/debugging/gdb-kernel-debugging.rst        | 1 +
- Documentation/translations/zh_TW/process/security-bugs.rst  | 1 +
- Documentation/translations/zh_TW/unmaintained-zh_TW.rst     | 6 ++++++
- 3 files changed, 8 insertions(+)
- create mode 100644 Documentation/translations/zh_TW/unmaintained-zh_TW.rst
+ Documentation/translations/zh_TW/index.rst    |  6 +-
+ .../translations/zh_TW/subsystem-apis.rst     | 99 +++++++++++++++++++
+ 2 files changed, 104 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/translations/zh_TW/subsystem-apis.rst
 
-diff --git a/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst b/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-index a9ca1156fea6..45f178c0bf59 100644
---- a/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-+++ b/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-@@ -1,6 +1,7 @@
- .. highlight:: none
+diff --git a/Documentation/translations/zh_TW/index.rst b/Documentation/translations/zh_TW/index.rst
+index 1dddf5963864..001680d040ea 100644
+--- a/Documentation/translations/zh_TW/index.rst
++++ b/Documentation/translations/zh_TW/index.rst
+@@ -39,12 +39,16 @@ TODOList:
  
- .. include:: ../../disclaimer-zh_TW.rst
-+.. include:: ../../unmaintained-zh_TW.rst
+ 開發人員使用的內核內部交互接口手冊。
  
- :Original: Documentation/process/debugging/gdb-kernel-debugging.rst
++.. toctree::
++   :maxdepth: 1
++
++   subsystem-apis
++
+ TODOList:
  
-diff --git a/Documentation/translations/zh_TW/process/security-bugs.rst b/Documentation/translations/zh_TW/process/security-bugs.rst
-index 76a78746ca4e..783d7c77b5fa 100644
---- a/Documentation/translations/zh_TW/process/security-bugs.rst
-+++ b/Documentation/translations/zh_TW/process/security-bugs.rst
-@@ -1,6 +1,7 @@
- .. SPDX-License-Identifier: GPL-2.0
+ * core-api/index
+ * driver-api/index
+ * 內核中的鎖 <locking/index>
+-* subsystem-apis
  
- .. include:: ../disclaimer-zh_TW.rst
-+.. include:: ../unmaintained-zh_TW.rst
- 
- :Original: :doc:`../../../process/security-bugs`
- 
-diff --git a/Documentation/translations/zh_TW/unmaintained-zh_TW.rst b/Documentation/translations/zh_TW/unmaintained-zh_TW.rst
+ 開發工具和流程
+ --------------
+diff --git a/Documentation/translations/zh_TW/subsystem-apis.rst b/Documentation/translations/zh_TW/subsystem-apis.rst
 new file mode 100644
-index 000000000000..4b4eb63d749c
+index 000000000000..5c874aafe70c
 --- /dev/null
-+++ b/Documentation/translations/zh_TW/unmaintained-zh_TW.rst
-@@ -0,0 +1,6 @@
++++ b/Documentation/translations/zh_TW/subsystem-apis.rst
+@@ -0,0 +1,99 @@
 +.. SPDX-License-Identifier: GPL-2.0
 +
-+.. warning::
-+     本翻譯目前無人維護，沒有與英文原文保持同步，內容可能已經過時。如有
-+     出入，請以英文原文（見下方的Original欄位）為準。如果您願意協助更新本
-+     翻譯，歡迎將補丁提交給繁體中文文件的維護者（見MAINTAINERS檔案）。
++.. include:: ./disclaimer-zh_TW.rst
++.. include:: ./unmaintained-zh_TW.rst
++
++:Original: Documentation/subsystem-apis.rst
++
++==============
++核心子系統文件
++==============
++
++這些書從核心開發者的角度，深入介紹特定核心子系統如何運作。這裡的大部分
++資訊直接取自核心原始碼，並視需要加上補充材料（或者至少是我們設法加上的
++部分——很可能 *並非* 所有需要的材料都已具備）。
++
++基礎子系統
++----------
++
++TODOList:
++
++* core-api/index
++* driver-api/index
++* mm/index
++* power/index
++* scheduler/index
++* timers/index
++* locking/index
++
++人機介面
++--------
++
++TODOList:
++
++* input/index
++* hid/index
++* sound/index
++* gpu/index
++* fb/index
++* leds/index
++
++網路介面
++--------
++
++TODOList:
++
++* networking/index
++* netlabel/index
++* infiniband/index
++* mhi/index
++
++儲存介面
++--------
++
++.. toctree::
++   :maxdepth: 1
++
++   filesystems/index
++
++TODOList:
++
++* block/index
++* cdrom/index
++* scsi/index
++* target/index
++* nvme/index
++
++其他子系統
++----------
++
++**Fixme**：這裡還需要更多的分類整理工作。
++
++.. toctree::
++   :maxdepth: 1
++
++   cpu-freq/index
++
++TODOList:
++
++* accounting/index
++* edac/index
++* fpga/index
++* i2c/index
++* iio/index
++* pcmcia/index
++* spi/index
++* w1/index
++* watchdog/index
++* virt/index
++* hwmon/index
++* accel/index
++* security/index
++* crypto/index
++* bpf/index
++* usb/index
++* PCI/index
++* misc-devices/index
++* peci/index
++* wmi/index
++* tee/index
 -- 
 2.43.0
 
