@@ -1,86 +1,73 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FD84F4022;
-	Tue, 29 Sep 2026 09:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790F8377553;
+	Tue, 29 Sep 2026 09:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672957; cv=none; b=B3UtaWMkhY2pWLakVDvnFPWgkeXRbReragksEyaLovizxj9B9zApD6uldRDB7E26MeVVUDOp6Ddb54xQY1LS7iDnNAq6qZvbCL6kgEMwvztl3+BeZxfg/yd4KMHsMCXSHl8ST/V4NOazSYNyrdAvxXHwMuoenn77JTXylQ8vims=
+	t=1790673017; cv=none; b=B3YaNVCyxgcXlsBfGkfHerdPZlIFT8TiWxPUe0xxxq6HLQN3IfcuJSBJl2Sse3OaPt8BTuBgQojtW67tGNIzXarpYNVyLHXB8fT9NtkGSZ/XTWBQOhxlYHUl5dbjANtSQFfqVOvDbXGEqf90ul7mOo3WateWibvFHE4ZLeme7gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672957; c=relaxed/simple;
-	bh=VNk8rW11KmdkRMkfbrmZszLCHAhqLRqUKrJIUrw1/VI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=q04f0b4bHzVzdkHVzVVtWRViin6Jsin+0tSkkz+d/vUa+tUF8uZqHopJNtiyxlcB4PZPVtbifOsgfisQ0cbMc8STN1q2TT9hJXmIau28Jazp2a+SsdgZecBOqWReUAUXnalVakAF58w5QgSDw4JGp7svr+P1dMC5GigHuqgX2WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=QuT1Fykg; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790673017; c=relaxed/simple;
+	bh=XqsGxJWFeM2JKpsbti1igrEjp/0X/lcfxuoU6FF2O5c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V/clJaBZP3U3EZ7csXlYLtcVgQYStvGyRy2huRfpxvVCNYQon/faElsrgo7wksmUS50gKqHWMJNFYT71CZaJvpMw/e7W+Yfy+pbPi5/n6iiD5tmh/+D/pUHPVNesuljTwCHO1MSbpGSf3KfOTqxBT8m8YBbWIppiE+pMqQPB4b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaLB89uN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="QuT1Fykg"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68T98nKwA1168102, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790672929; bh=VNk8rW11KmdkRMkfbrmZszLCHAhqLRqUKrJIUrw1/VI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=QuT1FykgInPy9uPRahe7tm9rxKAQd4cjVWyWxsdaZW0dlx5YAk6Whfo3F+7D9Vy09
-	 pOMn86+8/sDuWHBz2b72ZsL26YAnVGYTMtjYS4OoU5a/TcrwjI5C4LLGOWcybDj0V/
-	 iGoMdun9Y5rbSGQDKJwcdT0GoKX9eLRvl7U6E27+VvgPgzCgO1kfx+CXfGjpkwgrrQ
-	 W7uT31iH9ahKMyRUG6Aq+1M44Z+FRKlLYqSaAPZbui2c+yTVHmJNlVaPJfMzHiTm9Z
-	 U3iaJvjI03kpYU+VKiMBs43YcThWnR7Po8m+Pjxl3lrSGscTZl22hvS3X8NZGeYN1U
-	 oaW6enb9o8O3g==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68T98nKwA1168102
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 29 Sep 2026 17:08:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 29 Sep 2026 17:08:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 29 Sep 2026 17:08:49 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
-   Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Topic: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Index: AQHdS6ORhAIu01Pc706RGB6onKA0grbc7Ynw///IiYCACAbNMP//326AgAADGACAAJ/DsA==
-Date: Tue, 29 Sep 2026 09:08:49 +0000
-Message-ID: <6cd39b84d1b14bfd82887c07f28e154b@realtek.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
- <afb044e0aef8425880ddb24add9340ab@realtek.com>
- <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
- <c7069bdf8e9845e3b26898f545b0d3e5@realtek.com>
- <e38d50f20a710ae0b1424924b16ad260cdb04b99@linux.dev>
- <b6c4c35b28b1262b390d5c05993426e3b6d4ee95@linux.dev>
-In-Reply-To: <b6c4c35b28b1262b390d5c05993426e3b6d4ee95@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaLB89uN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5927E1F000FF;
+	Tue, 29 Sep 2026 09:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790673007;
+	bh=7hobKu0Z07N6or8zXwQQWgMpUzmaUE0G3nAWF4QvHBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AaLB89uNrO6S9EsS/BukOAdcy2WqzqY3404fnFjlbrldBsG56vFTgHLooke1oL9X0
+	 x1B5UPUXl6C6tivcGq51fXhUKuc16AkILFo2ZlDWxDVbcscbgOy3akSM3v0iIrrVFb
+	 K6hXuUZWhFgLYEfdZdaVf58UA+tHby2tta4E2jNLFHZUTnfmjUJ70NvuEzccx7LJeA
+	 koESqZ++BZhQAEYRamUsjUO4j1TQ2sXVMsVK43PVKDI7qXLVh5sFOxdXGVDEN9hUR4
+	 VCl8WZmAwnqmPKJKW2enqYceTWVKlEh7mOt2qFDD5m0tvL49lRew8hmrOOgvU9O4ST
+	 9t528JNFqve+w==
+Date: Tue, 29 Sep 2026 11:10:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alex Robinson <alex@ironrobin.net>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, 
+	platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: embedded-controller: Add Lenovo
+ ThinkPad X13s EC
+Message-ID: <20260929-discreet-rose-coua-c0fec9@quoll>
+References: <20260928222056.10044-1-alex@ironrobin.net>
+ <20260928222056.10044-2-alex@ironrobin.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260928222056.10044-2-alex@ironrobin.net>
 
-PiA+ID4gSSBldmVuIHRoaW5rIHdlIGNhbiBkcm9wIHRoaXMgcGF0Y2gsIG5vIG5lZWQgdG8gdXBk
-YXRlIE1BSU5UQUlORVJTLg0KPiA+ID4NCj4gPiBJIGxpdHRsZSBjb25mdXNlZCwgYXMgdGhpcyBj
-b25mbGljdHMgcGFzdCBlbWFpbHMgYW5kIHRoaXMgYWJvdmUuDQo+IA0KPiBJICphbSBsaXR0bGUu
-Li4NCj4gDQo+IFNvIGhvdyB3b3VsZCB5b3UgbGlrZSB0byBwcm9jZWVkPw0KDQpZb3UgYXJlIHRo
-ZSBmaXJzdCBwZW9wbGUgd2hvIGFza3MgbWUgdG8gYWRkIE1BSU5UQUlORVJTLCBhbmQgSSBoYXZl
-IG5vdA0KdGhvdWdodCBhYm91dCB0aGF0IGJlZm9yZS4NCg0KQWZ0ZXIgdGhpbmtpbmcgdGhpcyB3
-ZWVrZW5kLCBJIHRoaW5rIHRoZSBiYXNpYyByZXF1aXJlbWVudHMgYXJlOg0KDQo+ID4gPiAgQW55
-d2F5LCBJIHdhbnQgdG8gc2VlIHBlb3BsZSByZWFsbHkgY29udHJpYnV0ZSBjb21tdW5pdHkgYW5k
-IHRoZW4NCj4gPiA+ICBhZGQgdGhlaXIgbmFtZXMsIG5vdCByZXZlcnNlIHdheS4gSSBkb24ndCBs
-aWtlIHRvIGNsZWFuIE1BSU5UQUlORVJTDQo+ID4gPiAgc29tZXRpbWUuDQoNClNvLCBpZiB5b3Ug
-YXNrIG15IHBlcnNvbmFsIG9waW5pb24gbm93LCBJJ2Qgc2F5IGxldCdzIGRyb3AgdGhpcyBwYXRj
-aC4NCg0KQXMgeW91IHN1YnNjcmliZWQgbWFpbGluZyBsaXN0LCBnaXZlIHN1Z2dlc3Rpb25zIGFu
-ZCByZXZpZXdlZC1ieSB0byB0aGUNCnBhdGNoZXMgYWZ0ZXIgcmV2aWV3aW5nLiANCg0KUGluZy1L
-ZQ0KDQo=
+On Mon, Sep 28, 2026 at 10:21:29PM +0000, Alex Robinson wrote:
+> Add a standalone binding for the embedded controller in the Lenovo
+> ThinkPad X13s. Although its I2C command transport resembles that of the
+> T14s EC, its keyboard-backlight, event and power-management interfaces
+> differ.
+> 
+> Describe the event interrupt and the separate host-controlled power-state
+> signal, which is high during normal operation and low in the low-power
+> state. Require this GPIO and allow wakeup-source to describe wake
+> capability.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Alex Robinson <alex@ironrobin.net>
+> 
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
