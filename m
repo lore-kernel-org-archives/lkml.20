@@ -1,178 +1,98 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f32.google.com (mail-yx2-f32.google.com [74.125.224.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BDD52CCD1
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566224E66AD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690068; cv=none; b=cdYsBAtd1yRuooVHlbvmZoOW1dtqV5El2plyIOaX/ikufu1vT7B0MGf59z8O69pBBR+3D5MwLXOVyqKLG1UjrxwR4OVTLrT+Wphb5X4s4fzc3rLQJjvI+up88YfgGFy+1A3uuR9GvqVRQJ6nlVMbr2TpPXTGVQRcjPs8TSOO8Yk=
+	t=1790690069; cv=none; b=UieGcuj4VkHaeMJ/aA6lpSW5dqnGHP6n1XAnbWmYLLPORs10TKY1csVxh46zuLcXVKMZlqohdj534lZGuk8Rd21DjS/cjXBLEiEuerjReoLK8bnWWxDWcxtw0V0KZNFD1pVeEvrgjYRBfhl5J3ekTVug+o/pquLoMcyqPbrYB/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690068; c=relaxed/simple;
-	bh=2kkUUFp0qagaU/gKBiglRLEWrZQHJpp5922EOC53ExQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R4PCkol5FRirv8JqobhfLJlL5egUJ4JftEoSBAvVz+6yKjWFq/3+YOEPPKDOnArOts5aT/dGpzfhVFoJmnm+5e9yrEKLr8E2bg5ZEJXiTjP8a2cvjsQiRt3j5g6FJwTdil37uSBStvMs1kF7RKgX1LAjpF+8+Iu9LUkEEdk9nDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZxtttK78; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OzlNcmzq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790690069; c=relaxed/simple;
+	bh=CW9yN3YZmbe25hp94V4rxhoU6iFYnKzB87Z5cCPMl8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RG0ZCss1JKK1FbsNMmHeENp5WHASIILFIy9SjU3fTRVsP5m2H4Tb2zVEyIi2RgryIU8QWFTZhltIpLc7U9iV3cxDGY1H9JwwNpw5ewGCqcogh84PTBpi8h/MPgiz+4ZY46hQGzHv01scQYE7wseaqYA5Z+75uK8glAeKNePR/LI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYIZoH28; arc=none smtp.client-ip=74.125.224.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZxtttK78";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OzlNcmzq"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCvsaW3300547
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:54:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lvd7lu4mno/Z990JhVXgfPPLfxZWBbM2OSjnR4iGsbs=; b=ZxtttK78tsI17zTa
-	oEMJjOXzY8l8UNNCrtK0HnDa3Ic7phPrwafncq7VjFwgEK5geFUzG1IrrLtE2KWR
-	52NUIha3IJNOjid4b8nAmxUwQDsJxJ9fM8TXXUCf3++3MQVeaDOQrXsQqHUafRqr
-	PLG7XAwvtFXEHHCKlZkQi6kEWDI2kc3dn+phUkoiN6io7AtJ6rC2E7Sq8rRJ8KJq
-	yIcrYdP32yZAN/maK/ULIYicqJ/RJsUnPyHE/kGGDtcw7AICqkqMD6xKpr9/k4Qt
-	EV65Sx/dU/OdvsWbzc/RxRQfIQ00ECAN9BJQAKYIXJn9FpPuk8NReg9pNlKw0yvn
-	rmsMzA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0dsx08wt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:54:26 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c6049cd16so25069885a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:54:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYIZoH28"
+Received: by mail-yx2-f32.google.com with SMTP id 00721157ae682-8aa75b33a26so22589097b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790690065; x=1791294865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lvd7lu4mno/Z990JhVXgfPPLfxZWBbM2OSjnR4iGsbs=;
-        b=OzlNcmzq3Skx+AeVpBPSJETB1DaqzV7Tn3r3Kd8GcVw3c1tPSuLFdZjtFDjzHFc9z4
-         MnHABAUIfVCnkee0EroYZXIsdFthra69y2ATPp8SH/Ilt+8ur+4mMsjP2BZA2Yv+q4g7
-         urgZty//o7qepoGM0pRBVxpqNyFDVI9Tem2qB2cjV/F4ZdGmB/0zuyLpYBi4PGPM2Wgi
-         txzNUS942G2MOIRXgrFNvnMgrkExqeVjN0Q3DiSOlOkptTzt5sGWuFmDwcR5uT0hWn3P
-         hidUMAphNlSmFjB8r3/+IunuXdEvCPI/1qAIq9O5pT5WvIxx8PyHRtUrlj+YyLD62eNH
-         YuEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790690065; x=1791294865;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790690067; x=1791294867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lvd7lu4mno/Z990JhVXgfPPLfxZWBbM2OSjnR4iGsbs=;
-        b=Pkkx0iPEYYkUthRT9eiHa24vVax3oJgTUZPvHUm56wnXhI5L2iRzcB7BJDoe+ITH8t
-         yYJcWVtCH339X8SH8V73oTMxGjMd0JXHE1U2ylT6mm9xN2C96yvAqoIFPLvU0NC4E7pi
-         SX5uvwF8UtxrImkvy0dwrKrKPFh5L9SGzoLRGrVhxQL7nasQ8gsOd/TWY8mFBE+XS2X/
-         4mNZJPPuT+815viXBQJa0h3gVjzldhIAZjEMN+Q5QL9XoamzOW3zP+40T0mV2IFv0Ohn
-         0hv6cpgk/F+2Nc7A7MIAqqQnXBj30Xp/BQQBBXMD9/itVzFqs6OV87p4UdVKHUwDRoru
-         Uscg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCZLYZFDSS1F++vMxuR+EYxAaed1MMYgP03NUaxAHNNkqENcRQKfWn6sclkO+oBQP80+DAE0Kpz07h9CM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxTD5osbcot8OwqTrJVBzXWqE0YCBS8TMGO5/odZJAJTVbBElc
-	78lkEAS8pRx4AAqhGL7g0CHKvhfP+zgK/XAT5Uv/HsS4/64013DcDnc+haPjAR/3UwGThcypwbM
-	qhpzUKHj5icEp57uYn6Vfce6OwHdc7LHPsDfcBWLF6a0AN0z/+j2ihr/iolQKWv0iocvfC7Dw4W
-	s=
-X-Gm-Gg: AYBFou0v/5YkO05jHr2GTzvOfDvBor4/rsKDcPP4yzqtKt4T5t3puX3eO/X8BRr6Fa+
-	yw44+T+ehl2nQi+3Wq0tMWLrWYpBLKOPhg8FHigWC2Xlg+LPxgF70MwO4PqPHyoJ6IAIFGm+Cs1
-	xOcg0zobP1nbvmFTrhEahJLXUjHDRaW16jC2jSdcjbwK4SEKh+7bu6TkbttPrbiSB47BWIa4BHr
-	V1ZmHcrPJ+T0O+bR4375Qh45aPE7Ct3iupKk6NYM6dMUoAAOJ3IimdX1XLQ3c/vsuYpsBUGlAXZ
-	I+TJYHOETpKkdBrnNGikDEC3X98TKtrNoui1XkH98nYmlidobCq9KBdvnr5v206t5suoZPgKE12
-	TVhG6HdcV+0InyQuSSgqxuw==
-X-Received: by 2002:a05:620a:1a15:b0:939:9205:4d78 with SMTP id af79cd13be357-93c43d40617mr2603509485a.3.1790690065168;
-        Tue, 29 Sep 2026 06:54:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a15:b0:939:9205:4d78 with SMTP id af79cd13be357-93c43d40617mr2603504885a.3.1790690064613;
-        Tue, 29 Sep 2026 06:54:24 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9e873f45esm1414207e87.82.2026.09.29.06.54.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 06:54:23 -0700 (PDT)
-Message-ID: <3aa4a96f-76b4-4961-8c9f-4eb099016a01@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 15:54:21 +0200
+        bh=CW9yN3YZmbe25hp94V4rxhoU6iFYnKzB87Z5cCPMl8g=;
+        b=AYIZoH28nnVLCnlmaqQ3RUUJmKTYGvAHfvkjQCA+naE0ULLZjAnFu88Eba6BPmAUmg
+         9abJZqb3xwsJ/zhc7qFMD+Dlvyjg7mnX8AEIm1om2MGxbQXxpgNCJB/gf5X8xVek+eZH
+         s9lUtoGSjZJlAl4s9HNW0DBj9oQGx7DFKlqr2iG024jzEXtAN+dkJuqoOFgYK1CDYsLi
+         UTYjZo4XBpd/U2uCMBWy7SYusUlwN7na95FljdvGi4TuMfTH3RTn8GUGVgiFHGmKIo/t
+         jonFUfpOuCTmw8ldWCIqzxCCeCzCdirb9/K2rqBWkcKGr8dTtS4qEIhfM+F/XYU7l0JF
+         ZGHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790690067; x=1791294867;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CW9yN3YZmbe25hp94V4rxhoU6iFYnKzB87Z5cCPMl8g=;
+        b=Xb3ArhOnAjfJ8Ni7gkkSiwNcN1wKoQX3IviyP4OD7jVw7GB3wgMoipNvbqgRECVGy8
+         YDvTNJtaij2Z4LvUJexpTK0e+TYCPqJluYSgEI/1+5WHVFSOkh1IQvVZD6x+gc5KP5P4
+         3RHlZiIHloiZKKsjbNBEq8oXsqdY5dOXAyTCAn96k3hJVTlD4XwePGHnfo4VNU1fRNQU
+         hiz7agXf7JSPugEZbMC+pIxywuBbbHGBbzjDf3kOhyiA7Z8AtZPxxDP+K5ymzm2ZW56Z
+         +o/aNAN8Is8kqqL6YEfCS394x79QdKjTMFemj0AtBEnVp6jCBJXW4XZyjlyvHjAMBjEH
+         w3ww==
+X-Forwarded-Encrypted: i=1; AKwUvBzhosjh9b8qo/PwJfJeAFVaEGsOs9yABAkkL1Kg+KwwLWaYEjjZFP0xzv5k+YnDwDH/EtR5ZMGrv+cASE4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKBawF+cB6tdY3IWMxpDe5Pav2wO8GU2QFA9k2j3uMuc3+sChG
+	Gex4UJR8vVVHPpIaCKhC6Hv4pWcjH3fFE8RyUQsK0Kte+NpbgiDpPiKE
+X-Gm-Gg: AYBFou3jnv4lC4fp8kfy36yoQUrGuv7s3QvYV8jAWU2MHmjc3nXi8Cdp9ojfTb4xzHS
+	b2Zi64AzBJCzo73v0AinZps9KnPSkfqOPD321zToA4XWysxTE1v/c1uTwBauK0fxmWPYqZQpPmq
+	ZpupU6VA2DCjPn8GZoII68oufwoz8T8yhU8jBKZ/5J1r/objiU1wNqufWXBYRbozbeJPZr97gGN
+	d3Qgd334nrOV2RfW3e4olruIPCWBnWbe1pbl89u60q7qF3SVXVLidMgumY8nK71uLPIbv3oMot2
+	7cT/4S2DNBWv7qsb0wBc1qPeyWQFkKADPU40GGrQBXf4s4RRLncchNM8/8rUiRwruglMJndTihv
+	tDH8c+e5GLBvQaKyweTrFH/HaWmbBDjgt9CmbUytL/Vf4EFQv0RfHCJ6O6Aj5vtU9ul5XNEzMFU
+	8MGqV7asfdq6124/F3Zny7yRgS1xi0jqsrYvKpVAYnept3ahyjfnhC3zESLBeIckQbZzDr8amH1
+	n2jHeBQ3H281l5w38sD5TMDgq6aNQITuZdmuPyZphf82TRdUbicIg==
+X-Received: by 2002:a05:690e:1c0b:b0:674:1d59:a129 with SMTP id 956f58d0204a3-6741d59b018mr4502993d50.93.1790690066952;
+        Tue, 29 Sep 2026 06:54:26 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef31df6sm5943091d50.13.2026.09.29.06.54.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 06:54:26 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] media: uvcvideo: report AUTO_UPDATE controls as volatile
+Date: Tue, 29 Sep 2026 09:54:25 -0400
+Message-ID: <20260929135425.976157-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260929123422.GA349401@killaraus.ideasonboard.com>
+References: <20260928215021.819064-1-jordan.mymail@gmail.com> <20260928215021.819064-2-jordan.mymail@gmail.com> <20260929123422.GA349401@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded
- controller
-To: Alex Robinson <alex@ironrobin.net>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Steev Klimaszewski <threeway@gmail.com>,
-        platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928222056.10044-1-alex@ironrobin.net>
- <20260928222056.10044-4-alex@ironrobin.net>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260928222056.10044-4-alex@ironrobin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX9DoomrubZiTN
- D2xLqocDXTVv7NM9bGsmh/E8LcT4fFHKXmgMzbgZ39OuDjVJFPde8EkQ4QvRkPKVwhmtHphL6xb
- WjgnpHoJ1+msW7dAW2NVg5RBlMpsL7CPtZcbqrl3tiMvhD2t7e/uD5nTgGlashvrSBbPoOQOL/3
- Fffx9VAvWNfKEmZrS2LD3Z5bdAukqNy0szWqHcX7Rp2Gsre8FXaBORpfweix/ikgt/uIiKfjXqh
- m1Yz3f1/ucy25bNhmfRuDn5OiZGR0dva3uhuc7Txjdt25/T34WKM7p0lAELRkPzzHbyxaZAgZMo
- e2WT5tolY5DZWVQEc+muE59jq67e3kqErGWWuSrr4xkPwZS5Kq//JWd2oAqgFr1qpHRyrM+Rqk6
- JcctrBI/8JoqXxgJciorV+biucVv9q1apf7gzcsjNgwzlRts4Cv7TWbfrZBWnMxu29QwkR4V3yH
- t4CE+bo30unL0JsKOnw==
-X-Proofpoint-ORIG-GUID: wSINxQ7gScaaI144DD7jjWUchabpMert
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX8ME9nadzZN6a
- 0rhs8lr6W4oYbYawAxDJCPtj8Ql4ls0GQ9eRJ8SutDGyyi1GwbHdwVaXz434SUhz08X5Hgsv4RY
- JKgZwd8LXuzEdC819OIOh1q8z+4cEP8=
-X-Proofpoint-GUID: wSINxQ7gScaaI144DD7jjWUchabpMert
-X-Authority-Analysis: v=2.4 cv=DqvDa2/+ c=1 sm=1 tr=0 ts=6abbc312 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=USHUXImS27okXdFuVjEA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 phishscore=0 adultscore=0 malwarescore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290055
+Content-Transfer-Encoding: 8bit
 
-On 9/29/26 12:21 AM, Alex Robinson wrote:
-> Enable the embedded controller at address 0x28 on i2c8, with GPIO103 as
-> its falling-edge, wake-capable event interrupt.
-> 
-> Configure the QUP8 bus on GPIO43 and GPIO44 with 2 mA drive strength and
-> pull-ups, matching the working firmware-established pin configuration.
-> 
-> Configure GPIO103 as an input without overriding its existing pull
-> configuration. Describe GPIO176 as the separate active-high power-state
-> output and configure it initially high with bias disabled.
+Hi Laurent,
 
-Most of this commit message is unnecessary and repeats the contents
-of the diff, please direct the clanker to:
+You're right. The driver already sends the writes regardless of
+EXECUTE_ON_WRITE. I'll correct the commit message and add the blank
+line.
 
-Documentation/process/submitting-patches.rst
+I also missed the restriction on write-triggered CH_VALUE events.
+Reporting VOLATILE needs corresponding changes to the event handling.
+I'll check the write-notification paths, including asynchronous
+completion, and test those changes before sending v5.
 
-[...]
-
-> +	ec_int_n: ec-int-n-state {
-> +		pins = "gpio103";
-> +		function = "gpio";
-> +		input-enable;
-> +		/* Preserve firmware pull configuration; no bias override. */
-
-Please find that value (read it back at boot) and place it here
-
-> +	};
-> +
-> +	ec_power_state: ec-power-state {
-> +		pins = "gpio176";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +		output-high;
-
-Drop this line and assert the state in the driver as necessary
-
-Konrad
+Thanks,
+Michael
