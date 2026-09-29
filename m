@@ -1,102 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BB8541E54;
-	Tue, 29 Sep 2026 17:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C032653FD49
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701991; cv=none; b=Mafmi903v/A7z3z7jaQI/8eEQ3cIal4ioqOzM3B6VUAzJGbfhYAQXMHV1UqrJ+UTKSSKs+jwI0OE0Dtj6AxurzoswHcc3eqxruFZ+UR9iZoVofdVvp92hsecQXMsdUqSSgSzNlnI4vB6jzb3Rvt5uu4nPlb6IScXctWvrmO9Hgc=
+	t=1790701991; cv=none; b=TIFFHmNuszypbOe73Im1P+uRd7rtnQ5pAMqTgx00VD07+TyiNvwG1C80BChvuT9AaW1sOCVaK5RCBbNx0aZkBQ7FgloiSA8hH9vodoskGugJfQhSz3G157Ly6cRySBj/neSaVmb6O7VCfEFIZjz5a6A0XHPlZKUkpvoIBphbjMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790701991; c=relaxed/simple;
-	bh=xFDKMr5DK2h91h03vW071U4vTKM8zAHo7FKLlN1bdTk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ReV4CcXjYeKL2VqtD4zJscVWEJoOkSFS0YyB31B1IRbQppHyiKSez6pIlAuqRG28KXiRCBrVVJO8bCVbMGQX4hkboJ+J0jqRDJ5ycRZsV7LJSUVQ0BG+ZBDAYccvGJ8VR/J/xsLWcyZyvsnf1g/87EKGpnCNfnamh1hvMlGog+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpeHi8yo; arc=none smtp.client-ip=100.103.45.18
+	bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SJNNhwoUlsVejlHLG8OBfYLnabZwbYBjexGXLTOeJWGFPonGdkkZ7w9pzDC8z6JyHMvTAfu6oSeDxfy2OJJUntvKe/yauq7TPWNjXggq3IsTDdDwQn8SHIcy1hrDHAk1CXHSecWXJAGlEukX4QP9vSPBxZmjpjkmaAr+vaMepDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Josx8TFN; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpeHi8yo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB95D1F0089A;
-	Tue, 29 Sep 2026 17:13:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790701988;
-	bh=UEnBatGOjskBy0G7AdUJQlLIW3YPCRCXytYyANMQefo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TpeHi8yo/xP+Cn2Om4uBEDmdt6JKR1zwVMYdQhAIKqk8cN9ceW/TICRrh/BRchLHC
-	 kX5HFawcRPPSnyj+zR+aJr4GlckqKdRtTM2/Og2hNeZpSRfnmP7z9DvpoDTY07S16L
-	 91jJs8bmfR3kZ+b99vEH+3z4jDsdteJHumkGSztktShZDWckT2KEUbyYoL/dIS3n9I
-	 VsHp+aM5pezdwLmu+ZuN/SIwPDuZh5NQVxkrnnKZg7+k8/R6KIlJrtL7A1fFkEuZd0
-	 kkvdRI2Je/l8P/CitTF8lr4+usM3QO0bqAD9JDc/+SEyymmMQs/oLNFseT8YbvaTrl
-	 e6g3nCFQVmEDQ==
-Date: Tue, 29 Sep 2026 07:13:07 -1000
-Message-ID: <46f4b66249f016b675fa16446b2f2f99@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Kuba Piecuch <jpiecuch@google.com>, Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>,
- Changwoo Min <changwoo@igalia.com>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET sched_ext/for-7.3-fixes] sched_ext: Fix missing
- ops.dequeue() on remote local DSQ moves
-In-Reply-To: <20260929161730.185271-1-jpiecuch@google.com>
-References: <20260929161730.185271-1-jpiecuch@google.com>
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Josx8TFN"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5b166acdso347001685a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:13:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1790701988; x=1791306788; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
+        b=Josx8TFNADFHn4MGndADwv8m0cNAMz5DVvpJ94i+Nn/07RzBYPGTQ37ly1+ubPl5n2
+         cXwJkptnOv5b2gITlpuzZ1ej2u9aQdxRLid7H0hsRYfoVh8dt9opfNAVLEGs6DF7VsEy
+         0T+jJ5DccMOXK7MLcnukwjWxpfigioOiOvfipx9hePS1cvNL0iO4SuUKiTtw1oa4y/r1
+         e0RS2dW8YAl3qXEQqd1O/nR+sM31vuBrgcQB1ck8dxaQsVD6vLekTUyTxqJm+4EVh1vj
+         JsZKznmZwYJufXviKf2g+UF3UsFvETp0RLINVgwDt3K7E8EU4lRtLgbL8toBhdvfjdHe
+         4B4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790701988; x=1791306788;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
+        b=PQfCnVD9Vq2gXCrRMqC8fu6Nha22kPNicVMQMbkyRrLkke0EWVYliLVpOql6LWBqWU
+         6Guh+PEuFThDbk3MEBaJVG/Ziy8Ah308tT/+vw/zBUrlZ4J8tDX4h9pj/rhVfrHoL6Hr
+         2/mEeWERWScrXXAq15YlCViMmyyBEgYdAVo6aEMvkK5LeGT1IxmP5wvvQAHhcfzdQr+v
+         0cv0U/3LA0IpBD39t2uaYHj3oFmYO5j6VN55giMqW52Myp0xXkQpaS28I4SdWQhrmqyx
+         e3Po600I2C0f3btGUE96C3GDgTgW8lVANDTpWg9y6XgBiRumYP14R6x3SURtX8lnstHK
+         v1DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNN09rlFUlIePDLTORXpmCTmmgo7r62baOaDvg7Fo0AOc6VIiIZD2BQVBTwh+YvRrFRdwUUBAVA48ucjI=@vger.kernel.org
+X-Gm-Message-State: AFuF++muozQeD0VRSNQ+yE9gAyYg3C5uFzP23YOP0+7Q72g2xhhRFjH1
+	pojV1EUza7Fc5fcFjj7Ed0uPSNonHY9j0j/T4dxVYFkeFDeVgkzmTlF1PU7lPTy2S0A=
+X-Gm-Gg: AYBFou3I+CGD0aKaM3QCvAFD5ET38EDojNZpHi1A/dtC2bcQFLA7mFRL0jI+Tg6GRtg
+	PbCrTJGN26QFak2TGEOte10TB5lO+dmU9u5y8FUPKzk/CkZ6n7rEf65uCovkK5ZOHFWrZ5nIHOT
+	4bSYVBtrZxY+MrkuiQqOc3qR8kc3E2kuA+1N3ttneY0mpx9Hnwlt21WMu5vd3/Bc5EGvOO+D+5r
+	g0JsYj6GzQ/K//I4MRykVr5nGjqswwz0I7TN9yQNLg4+D6irA+DVCz7R4KcC1z1oK/b6PCMVTrq
+	9X699/p3HPa86pT3MhI8lgAHPT1AGY6AGXSGvvfj5qZAjIkrrhlbJo8o0MmR97CFyQulEzG7cRk
+	BYH2F3Bl4IZ4AUj1giBlB3SnUFPUu9tnwaufw5m+QRqp0sCkTNEseQBCxw9oeSiPPuckS+art32
+	KAq9Z0aWrT3D3ovVUUWE0i1IQUSytSRQeqeY+B377OryG8h3nxrpe9KDyI4R5JhiWTaFFrOAnuv
+	ReQYq9aBsTn1r9T
+X-Received: by 2002:a05:620a:4050:b0:93c:2dae:ec5c with SMTP id af79cd13be357-93c9f8db738mr36680185a.42.1790701987489;
+        Tue, 29 Sep 2026 10:13:07 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.251])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f4c4e73sm16349585a.24.2026.09.29.10.13.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 10:13:06 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 29 Sep 2026 17:07:24 +0000
+Subject: [PATCH v6 07/14] x86/kprobes: Take a Tasks Trace reader in the
+ optprobe template
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-b4-rcu-tasks-preempt-qs-v6-7-c111ee02caca@toxicpanda.com>
+References: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
+In-Reply-To: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ rcu@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790701681; l=3977;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDWamZGwRXHqlZDYRICgP71g719tFuAgZKe5M/0MnijoM4CsVGa3hA93Sod04FIiuoO+tFQoc5F
+ zV/o3zGZ2BQo=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Hello,
+The jump-optimized kprobe template calls optimized_callback() from a
+dynamically allocated slot with preemption enabled, and only Tasks RCU
+keeps that slot alive under a task preempted in the callback.  For
+HAVE_RCU_TRAMPOLINE_READERS that means the template must be a Tasks
+Trace reader across the call, so open-code rcu_read_lock_trace() and
+rcu_read_unlock_trace() around it as ftrace_64.S does.  The template
+lives in .rodata and is memcpy()d into each slot without relocation
+processing, so the references to current_task and
+rcu_tasks_trace_srcu_struct are absolute (R_X86_64_32S, relocated for
+KASLR like any other) rather than %rip-relative.  %rax and %rcx have
+already been saved by SAVE_REGS_STRING and are dead after the call.
 
-On Tue, Sep 29, 2026 at 04:17:23PM +0000, Kuba Piecuch wrote:
-> Since ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics"), every task
-> entering the BPF scheduler's custody gets exactly one ops.dequeue() when
-> it leaves it. A dispatch to a terminal DSQ ends custody with a flag-less
-> ops.dequeue() at insertion time.
+The slot itself is dynamically allocated text, so the instructions
+before the lock and after the unlock are covered by the irq-exit check.
+64-bit only; 32-bit x86 does not take part.
 
-The fix looks good to me. It effectively reverts the enqueue_task_scx()
-half of b75aaea24c9f ("sched_ext: Properly mark SCX-internal migrations
-via sticky_cpu"), which as far as I can see only ever suppressed this
-ops.dequeue(). Andrea, can you confirm?
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ arch/x86/kernel/kprobes/opt.c | 44 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-- dequeue_remote.c isn't built until 3/3, so 1/3 can't be built or run.
-  Can you put the fix first, followed by the test with its Makefile entry?
+diff --git a/arch/x86/kernel/kprobes/opt.c b/arch/x86/kernel/kprobes/opt.c
+index 3f8fea52619f..68a5de6cdabe 100644
+--- a/arch/x86/kernel/kprobes/opt.c
++++ b/arch/x86/kernel/kprobes/opt.c
+@@ -31,6 +31,7 @@
+ #include <asm/set_memory.h>
+ #include <asm/sections.h>
+ #include <asm/nospec-branch.h>
++#include <asm/asm-offsets.h>
+ 
+ #include "common.h"
+ 
+@@ -101,6 +102,47 @@ static void synthesize_set_arg1(kprobe_opcode_t *addr, unsigned long val)
+ 	*(unsigned long *)addr = val;
+ }
+ 
++/*
++ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() around the call
++ * to optimized_callback(), see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the
++ * equivalent macros in ftrace_64.S.  The template is memcpy()d into the slot
++ * without relocation processing, so memory references must be absolute
++ * rather than %rip-relative.  %rax and %rcx are free at both points.
++ */
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++#define OPTPROBE_TRACE_RCU_MB	"	lock addl $0, -4(%rsp)\n"
++#else
++#define OPTPROBE_TRACE_RCU_MB
++#endif
++#define OPTPROBE_TRACE_RCU_READ_LOCK						\
++		"	movq %gs:current_task, %rcx\n"				\
++		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
++		"	incl " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		"	testl %eax, %eax\n"						\
++		"	jnz 1f\n"							\
++		"	movq rcu_tasks_trace_srcu_struct+" __stringify(SRCU_srcu_ctrp) ", %rax\n" \
++		"	incq %gs:" __stringify(SRCU_CTR_srcu_locks) "(%rax)\n"		\
++		"	movq %rax, " __stringify(TASK_trc_reader_scp) "(%rcx)\n"	\
++		OPTPROBE_TRACE_RCU_MB						\
++		"1:\n"
++#define OPTPROBE_TRACE_RCU_READ_UNLOCK						\
++		"	movq %gs:current_task, %rcx\n"				\
++		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
++		"	subl $1, %eax\n"						\
++		"	jnz 2f\n"							\
++		"	movq " __stringify(TASK_trc_reader_scp) "(%rcx), %rax\n"	\
++		"	movl $0, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		OPTPROBE_TRACE_RCU_MB						\
++		"	incq %gs:" __stringify(SRCU_CTR_srcu_unlocks) "(%rax)\n"	\
++		"	jmp 3f\n"							\
++		"2:	movl %eax, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		"3:\n"
++#else
++#define OPTPROBE_TRACE_RCU_READ_LOCK
++#define OPTPROBE_TRACE_RCU_READ_UNLOCK
++#endif
++
+ asm (
+ 			".pushsection .rodata\n"
+ 			".global optprobe_template_entry\n"
+@@ -114,6 +156,7 @@ asm (
+ 			"optprobe_template_clac:\n"
+ 			ASM_NOP3
+ 			SAVE_REGS_STRING
++			OPTPROBE_TRACE_RCU_READ_LOCK
+ 			"	movq %rsp, %rsi\n"
+ 			".global optprobe_template_val\n"
+ 			"optprobe_template_val:\n"
+@@ -122,6 +165,7 @@ asm (
+ 			".global optprobe_template_call\n"
+ 			"optprobe_template_call:\n"
+ 			ASM_NOP5
++			OPTPROBE_TRACE_RCU_READ_UNLOCK
+ 			/* Copy 'regs->flags' into 'regs->ss'. */
+ 			"	movq 18*8(%rsp), %rdx\n"
+ 			"	movq %rdx, 20*8(%rsp)\n"
 
-- 2/3: 7.1.y also needs 18d62044cda7 ("sched_ext: Preserve rq tracking
-  across local DSQ dispatch"). Without it, the nested ops.dequeue() trips
-  lockdep when ops.dispatch() uses scx_bpf_dsq_move() to another CPU's
-  local DSQ. It's tagged for stable too, but maybe note it as a
-  prerequisite?
+-- 
+2.55.0
 
-- 2/3: With sub-scheds, scx_resolve_local_dsq() can divert the task to the
-  reject or rescue DSQ, so "inserted into the local DSQ" in the comments
-  isn't always accurate. Maybe "destination DSQ"? The new comment in
-  enqueue_task_scx() could be two lines, and the description could lead
-  with the late SCX_DEQ_CORE_SCHED_EXEC and be a lot shorter.
-
-- 1/3: A task can only be picked straight out of custody through
-  sched_core_find(), which only returns tasks with a core cookie. Checking
-  p->core_cookie on SCX_DEQ_CORE_SCHED_EXEC would be exact and would
-  remove core_sched_in_use() and the skip.
-
-- 1/3: _SC_NPROCESSORS_ONLN ignores affinity. With the runner confined to
-  one CPU, the test fails instead of skipping. sched_getaffinity() and
-  CPU_COUNT()?
-
-- 1/3: Nits. If the /proc scan stays, PR_SCHED_CORE_GET writes a u64, so
-  the cookie should be u64. ops.dispatch() pops one entry per call, so a
-  stale one idles the CPU until the next kick. Maybe loop a few times?
-  missed_dequeue_cnt and core_sched_exec_dequeue_cnt aren't printed
-  per-scenario like the other counters.
-
-- 1/3: The variants, error conditions and core-sched caveat are repeated
-  across the cover, description, file header and comments. Can you say
-  each once? Also, single-line comments are usually lowercase in
-  sched_ext.
-
-Thanks.
-
---
-tejun
