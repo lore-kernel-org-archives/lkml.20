@@ -1,229 +1,259 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3185293EC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689974; cv=fail; b=BuP93FOENmEOriTy3CSsq0xpD3HPPZH1i1FjE9zcEwm1dYWkHgORrs6Bq4nfYASmN2XigtBBit1+i0BlScvll94nMwBxm5R6cOcpX+WvkvR9vmjc4PnE2u8ct2RrMk5k6vFDDW09EfESsoFyZX94g6SqjcSZqyxT7rDuL1E1f7k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689974; c=relaxed/simple;
-	bh=nbue0Fneu3CtvWeecZNVr1ZJ2BFNjTAzgiEr1g2iTKM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=jMobYJ8evqu1h3wJ7wLUxrMs0DK8/B7a1LZmIkD0jgUULmieUwYP8UsU68KvFlLxn6PyaKrP4l36LbeEMX3H9+1ZLKVxbqoV+m5FqvcA1SgoPpUfCWdgNq310GlzW7l3+e5vdBRgqtbstoJXjGZvBcl7bqZ7PKzGZW+iv3viIHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WbooHIcl; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D474E66AD
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790689999; cv=none; b=a1yRXIdvfQ6yieqqgFwqcrzwfe+EsFNX6GGjQvQ2iVsXVZuQYB7w2xKiJb5rqROl++y+ES0n3y7l4CZrS4uwWctVGZ+Skgjj1DoZJOaS0lRGOCEblkpul5zxlf36VR5tReTZRfVk4V/BQ8eIMQ05DfcwLjdpgUZjrlyvAzTi1sQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790689999; c=relaxed/simple;
+	bh=NGcQBUy/y8+mknsQ9ej+7KsYaNPkF4KzJOkKQV5Ibxs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MPyvEKmFokx7LivhZNTITczrvNrqaWQdEnE9+2Aogd4XVg3dGBMM+54pW2b7K6bI0xTv4kLRQqKtFDynX+hFmCr6YbwpxTvCAeVP48Ni3CgD0gVEcYZwmZdw0IAiIVhdShUyxakpvFkGoySSbgo1O9uBZVUUJftD0wcLfcz9/1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AtVSE2VZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KeNndwCe; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WbooHIcl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790689971; x=1822225971;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=nbue0Fneu3CtvWeecZNVr1ZJ2BFNjTAzgiEr1g2iTKM=;
-  b=WbooHIclYAF2MH7AgFruXOiV8Y9LtefVfww6rP+tOoygDK9mYWutDVV2
-   T6eH1zou+Y71o8wa/pgSojN4lU6769PeL+gJO3+1gEUCifnndsLtDJujQ
-   4tszXUzVWjdAtJC88mhR1db5qoaf8dxkHxkmvzr4PPBG9Lc+ivCuAnzsa
-   hzEc0Mpxq9Y+KQyZ0NcoEv15kIEyzvXrlSBA0V37I5dSYOfY+KLfn7sHu
-   g1u1pAsxLfIKjaTxKi6mRpjj8ILh4jQLuTgZmA3h026sVY+F8+nBLKLWE
-   mip4SoDgJ2vm47ped3E7tP54M4H6gz+uFQPHymbWllUzB5oP5ATTQdU3y
-   w==;
-X-CSE-ConnectionGUID: tnjbSiVCRLmF7hSoeDtskQ==
-X-CSE-MsgGUID: PbKwDG0MREOdB9qOUMM/xg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="107793835"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="107793835"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:52:51 -0700
-X-CSE-ConnectionGUID: P8YZhwIgRtqwMovhv7vK2Q==
-X-CSE-MsgGUID: TrM9TOC0TYaJ6CGWLD7lXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="275408432"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:52:50 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 06:52:50 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 06:52:50 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.3) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 29 Sep 2026 06:52:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aspyd0/CtaS9PZvNsSX9bNoorUlwBQPB1wb3uWkLOXBVRvHmm+Vv2IfqafewcvoWJ2+9INArcSwhQgsdeonTFrxKdfykn/ZvCTptotum1L6xpkHLfN59IKVaQ5d4U987X+Z8XTNo8oNVLxxILfMIHA+n/pPFUhuttAvsNz8GsW86nz/azxnqgMpTVOe9L89aHoFIoan+mxobMhg5AGisgf66NQhjz24Cu3z2wLeyVzBZAxMOIrdbMmo1HU7lpsSKLqezzv5QglJmn4MInU4v27h0pYXrq6bgkrrUGjE0SJUqzurZUZW+XxTFe5Gu7FOxGYzeZxQwCFNfrTEVmLdRoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nbue0Fneu3CtvWeecZNVr1ZJ2BFNjTAzgiEr1g2iTKM=;
- b=B1xzrOaJNbZvFpod0srMcDa/fESdPBdvTpkWWVfCfsyegt6ytUKEU3iCl1s2kwIAIS4QAE/2+Kw/Ta5BwH/H0p06b3d5nwltV8kCYXR+09wFwa2MAWzEeoeBqKR+Lb+LOrZCFivLC9IQqypRDzgEMm5mQNfjhxoQEuSZHPslZb2vmxBAwgTs0WBxde9B1tpOr+GBmtZgLinUy1xOUhyp3cKKrkbiW/Jx/79/uCSX31qux83vAEh1kJ35FxowmrOut8wmx6C6BMGj7cA7x6T3cUZq4VdalZhTGvRAOgB69KY4Xw5Nl6Mq/YKdAqrRNxiLJzHnoU6O6az2Djobbx/XkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SA1PR11MB6824.namprd11.prod.outlook.com (2603:10b6:806:29e::8)
- by DM6PR11MB4690.namprd11.prod.outlook.com (2603:10b6:5:2ae::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 13:52:47 +0000
-Received: from SA1PR11MB6824.namprd11.prod.outlook.com
- ([fe80::e9b0:be93:d665:7096]) by SA1PR11MB6824.namprd11.prod.outlook.com
- ([fe80::e9b0:be93:d665:7096%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 13:52:46 +0000
-From: "Deng, Pan" <pan.deng@intel.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-CC: Pedro Falcato <pfalcato@suse.de>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>, "liam@infradead.org" <liam@infradead.org>,
-	"vbabka@kernel.org" <vbabka@kernel.org>, "jannh@google.com"
-	<jannh@google.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Li, Tianyou"
-	<tianyou.li@intel.com>, "Guo, Wangyang" <wangyang.guo@intel.com>, "Zhou,
- Zhiguo" <zhiguo.zhou@intel.com>, Tim Chen <tim.c.chen@linux.intel.com>
-Subject: RE: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Thread-Topic: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Thread-Index: AQHdTQJ2IWgb0v7YE0+qNmQ/GCpDurbfbz2AgAAHEACABJzHcIAACOaAgAF73mA=
-Date: Tue, 29 Sep 2026 13:52:46 +0000
-Message-ID: <SA1PR11MB682442BFF6B76F68ED38BAED968C2@SA1PR11MB6824.namprd11.prod.outlook.com>
-References: <20260924054301.2330822-1-pan.deng@intel.com>
- <araI4WsI0XMXOR10@gremlin> <araVBBBVY-jafePL@pedro-suse.tail5790ac.ts.net>
- <arab1d8-4b3SzoI6@gremlin>
- <PH8PR11MB68327CAD97AC4E0B161BB997968D2@PH8PR11MB6832.namprd11.prod.outlook.com>
- <arp_gP_o9eacNXre@gremlin>
-In-Reply-To: <arp_gP_o9eacNXre@gremlin>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB6824:EE_|DM6PR11MB4690:EE_
-x-ms-office365-filtering-correlation-id: 3ae62d47-fc5c-4e08-6dff-08df1e30f185
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: 3gq1sPPNM0n91Gsl2P8imSf7SCRA/k3oQTRsrDLSX8IKOulnt7fSZ+ssoTNpP8kVB8lAturOH/vO0pGNrQa6qV5pexoWHceAxpwCCVD6J/qMLXtR/vzWwGJaDD46d9wye0csuB5nbXCfNYLsm5pUmjdlGWh5nU5i6lmBtVfmDhQDv0RWX13BKsELS7u2n9mwUDOnmsPsN2yKXV6K5hdJwb6JvFEWY4Hnmg2PAYBBRiFJJHJLTVk+svDY6N0KYOtP1E0ROIe6Iimk4tmQLo+bptut/oRBN8jRqGaW3LbqRTmGYw53bUZ92REKyZlF3kwpvakFaPso5163bkqDLZwYGYEaqCp9F4QGco73zNKhoN0HD0dOvw9KErTWOTvFpRyCz+IyAY2wPobOB0M2EW32gTSekK0UmXgmRvslIumQqppUak3if0usW1E0+6dS+ysW6wcWUy33EFR9EHzVjSYeEHstab/trnR6iKWPwBJ4zBUVxggF6I8bEc0+RbCS9qanPhY4s+xStRYWBujjGptQKm8D2jvPCOgczXeEDiXbuMn3jBI84jbZjhNJb1tFkLCVYOYzrBxu4b0vflu5RYIaabM9vDQIqECk23TEFwdb3CsMaHVHfHXtigQ45bomV4i5amN1aG2FR30DhJEDBwYmLBh75r3anE3+8v1stz9itZgUBJq9FYfDScMA4JTWWTNGkT2M3HoenCP0mWLCeBPjXM2S061tyL9FE7qrpxAeffE=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6824.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?voDMh8qPgRpzvWtI8gBJ1iNnMQL8PMMyxaGx3On201ldFzok71pufIKh+DrY?=
- =?us-ascii?Q?ZdxspS8RmFgCy+1uZGAxw3E0inOePw5SDgATvwmLOlcsg0avVwSQ19Pm+wtc?=
- =?us-ascii?Q?6OsCUDOz5xWvKYtMiMnkM1XrV5+2OLQc5ViYAlvOO0ox0wrZ7aY46eQtdp4R?=
- =?us-ascii?Q?pGp7iwq0rqNAy62EN3vffxpkpQr6cIJ9OZlNTRjkPHJ20s3OqhYPW8BG8tAm?=
- =?us-ascii?Q?ypsUWHEUhyLZCXFzTvZl2qoUVhFiliMGU8uvmC7FWxnOhV2QcBwAc559YToW?=
- =?us-ascii?Q?LePYB3HEZ1G3qm5Nsay+/YrN4G5+1JCsMMThaYqSgcDK5Ppebg23CTqY+L95?=
- =?us-ascii?Q?1fMythHVyj9c1a4li4xRkcdNrwlUJRvs019E2Zvbojh8tQEjZJeUbRImiVMG?=
- =?us-ascii?Q?iEECgrGYvbL0EtGyOQdR8QZxQbPqgHHGh8LwYgLcciwxbxC1czy1D//usn/G?=
- =?us-ascii?Q?6yQbwkOc9mrK+De2yROr5ufnjXfDvFRqxhwVKSbqqLW/2ni9WgOPflyJSTKo?=
- =?us-ascii?Q?XclAUYa4N5lzmaq/5UVLD74f8QFdhAN6CjdaQSppXXOlMQ7uL5F1Mt4FnWpN?=
- =?us-ascii?Q?ykVS0VLWLEW6PkGRkl4HLZ30z49kdGqX07nlgFak9PnMDBvs6Rj2ueeqxeNm?=
- =?us-ascii?Q?QGK2CAtrj3w+yo7JeZZ3WP98f1QBBTTfoa9YMKBD1jieW5el7sWKJzb8Ityc?=
- =?us-ascii?Q?+onEQX5ED114WNoo9dNZZ72MqnnfcQXV6hjhNzxT31JFHmcQlb8oN0a9Nr4k?=
- =?us-ascii?Q?+181/oAM7aNqqzKgCqy7sHiYzFbSefcySUTXr56HI75zdILm1pCKqSRNBj37?=
- =?us-ascii?Q?+dF6vFr6ZJa8+dru0QHiU662Eh8OSdhIP94B1WltrHDottL+ZkniNMlukizs?=
- =?us-ascii?Q?gD/KbS37CqriHb95VDFfHIZH+2LQrb+eulb4Gufu+TNZUBFExOYREAFGQYpF?=
- =?us-ascii?Q?kGnn6gSDTkl3oV9h6dMW+ITnnGhzf4cxX2R6/51+FWT+1ZxyNYTNqblGT/3M?=
- =?us-ascii?Q?4TvgvyJxHCHWdXhjRfnQ8P4l7FDtR98JV8duot/24IWAyEDd+scA5B7zMBB+?=
- =?us-ascii?Q?wWl1eJlBl7hnkb6i0DV1hvfuI23PQzwc8zkgLfStpuEZlhssEhIg7jduaTnv?=
- =?us-ascii?Q?Ka9wtCB826EEVdcEqJJeXWR6H/n2e8SaH7aoSS3sfTgJIqkVrJ8CNtbiJTYb?=
- =?us-ascii?Q?lEOh8XCATJZNxNiQSodDkTP64+T5rvZDV94NnGb+kQcjToZ7bEmRsDq/9UzA?=
- =?us-ascii?Q?aUhLmobI7zTJX7x+knsuUr3oAAJ8vT1Hvhr1pOw0En2wvFdcKAv0hUCXSIaU?=
- =?us-ascii?Q?ud2gghWULzu4Dam3pjjxEBK5wI8fkl0Mj6XfIJo+waOt4mJBzHjKwENF5x4u?=
- =?us-ascii?Q?x9r+N9Pon4wAIcBaazbbQjpymrPBw4COZw3tVmQdi+nmo+eyKqTwsRRc9nW7?=
- =?us-ascii?Q?9plgutvAfgTakzY64n0wSRn8PUZGzrQnXlFhfgbhAq1SWJpwqfePCmx/IsdI?=
- =?us-ascii?Q?sGdkQp6Do9Ocpil49tvY1kHTI+7iWzZOfm1vCMNalYZtza4YrWWmlxpeK/aM?=
- =?us-ascii?Q?OGS1r9IbR34zwPGP5Ti85rjQC7BCPuUw4xNzrN7Dt+RM5WeDNr0XRr2vjSto?=
- =?us-ascii?Q?XERvuf+dYIz4WWL73tte7MUuLkh9chllSjKZTkmsQeWISUIXveEuUj+hnh/b?=
- =?us-ascii?Q?22UATvcd3iD8IGPFKD9Fd3mh7We3zGU/HK0Eu0LLFpC1b0bK?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AtVSE2VZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KeNndwCe"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqdxu349929
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:53:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XDG8O2Xi893kxZ1X4lsNGubwTtFSLtBJs+F+MPecEKo=; b=AtVSE2VZCHpsPd3K
+	a2Qpu0EXbIc9jcHhFlbYKAzRZJW8XXTAh7k4AhWO+FU4BPOKuJwejJJYh10KMzfq
+	jIMH/fLMm8wq65O3gTxWKEoz0LIeCgcXDfdAJafqULodZtrorCcm17k31AA737VK
+	7xSKevuykbRRNqXNBQvA3UQeSscf2zsHKzZnhr3yvopm+FvqFpOtPU5QBN+67uOg
+	XrbX+uMHVCWQkgQOawy5Ae+HQtgKeKP7mHDjVf/NbOfL3Uiv3TduWe8zI/udL6WA
+	RqBH/e8ErhZlmLBMkIHFOzIvfPAgS7IjDNx9A1bGSOthFePVig6izjFFhlnpedGG
+	KhxbIA==
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h01vkk50f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:53:17 +0000 (GMT)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a45b3f0bdfso7104603b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:53:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790689996; x=1791294796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XDG8O2Xi893kxZ1X4lsNGubwTtFSLtBJs+F+MPecEKo=;
+        b=KeNndwCetlJY7Lil6unBS3vKFuA0CbOkCE9mSdkf0Gb76hFemG6EtauSWfWrv5VEGm
+         gb3lGxn7LRn00a2JOrE1xPiIIy9uhZSmXIwdYSN95u3o56lFVJP6asQpEAwURIsMf/Rp
+         tI0lvb+agzlToh1g5wRcw6/txbrOo4CwpPTrcVUks/cWtsZVE3opMBwAOrwuHif8ocBd
+         4PQh7+axECjarFJzeFTO0T4jxNFOoz6apTeClsfC78LS+5Y0UWyeIt9I2R/hbAgKHNyG
+         7JUWHdLbFrI6TW2ezS18mrssJwjTOqS+ldSo4e4yVpvq7XiNU5C/ZJ2X1TFJOflMYVaS
+         M2BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790689996; x=1791294796;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XDG8O2Xi893kxZ1X4lsNGubwTtFSLtBJs+F+MPecEKo=;
+        b=atW18OohI9N7MSqwzMkyjU++TZh34X4Jyur3PeSSZGeZZAbwLOdJ0Xpki4Rqn/+ANa
+         FIrMIjKb01r8gwaJPXgI9UaevMCOPgU3yKxA14ECaYsSwFNSOds+gDg7hPHOQEG5ompc
+         2sd5CZ7t43yp4mx3jkG9ZtSCAPOunwxd+1UpxGLquhJf14wN/HZHdq56K9MZzte7OoYe
+         AFupFqvbBLPvc2MtKSOgY6n3LovUK+XTkNpJfrmquHta1V8vRTRynJqz+FAIjCVWkelN
+         AzI2NwIcTwxKEQXfO5eM4dpkhdwtGmIC4KQjkB5rMl+liO58vxVy/JmATmqjagTaUnru
+         NXKw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaoqv/v08G5AVvr/Nf6y6U5aWj/DHB4MSmrbJzwIx1nrIxsaBxE6hBR0je/HBj9O1H8m5/zECNN7Jwdc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nv3OmNo9XjHaTm1iIYZ8UEJgTvgORTbwYMf3fesazI6gT/bpyz
+	PFXnTYUIFPYQ0nDNNJ5DjSgBTZ10aZqMJoRluxu30mTzDEybKPqr83BXz/afN1rEHV8i4QhewRU
+	nqRW5tO1OGWJpJR6ik4Zgzm+LwnbfWvANRaCLJYbVL2N1XVAmY/SVHDd64jrQtJG/PEU=
+X-Gm-Gg: AYBFou3hlUP84dMeaErlq1ExsV32i856LzTI5DZeHbYbdFW0DcNDKEXjDHtpYptf3us
+	kXzOvBt/LY4LDhYwQH7ZiX8+ZdtTdSxtWTZkNIFdVro041Gf4EgzrLm0FXUh34thv/e+byDnD1k
+	xJ0jzT+IBwgTN1i/453Cs01h/aAEMXQsi+Dpj5He3YJ7VQnLzUlsdt56S6qiyaKfpdgnbZvwxFg
+	YsasSoGpsTz9kBHHRNyocVkFUSgceSW+tJ4UoOpSzMFFOlz90DIgUyXvFe6Y5hS66rtn5KXi9Wf
+	C4HGHUVqftwmUNJyUbEUOITNxxxUCQDWBrs/Ka0N8maTZZSC6+563VsRNUoecPE2nZe/MbMdksv
+	ClHpUvMRWbE7eZris+v+CSZEjHEwBThu+lzY3teWTsF0FFjLHPBxcbqBtpysr
+X-Received: by 2002:a05:6808:508d:b0:4e4:fbfb:efc1 with SMTP id 5614622812f47-4e4fbfbf617mr9776233b6e.58.1790689996288;
+        Tue, 29 Sep 2026 06:53:16 -0700 (PDT)
+X-Received: by 2002:a05:6808:508d:b0:4e4:fbfb:efc1 with SMTP id 5614622812f47-4e4fbfbf617mr9776209b6e.58.1790689995778;
+        Tue, 29 Sep 2026 06:53:15 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ebbbb2324csm4691834b6e.8.2026.09.29.06.53.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 06:53:14 -0700 (PDT)
+Message-ID: <58cf630b-94a8-4f72-a025-f9db0f2adad7@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 06:53:12 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: LgA71e5u+M/HJhsk9heijEtwE2uisTz2TwAhppQ0ih1HJjr+om2mzpinXLqTRjJ5Q0eXo0h22yf9ag92PrRNnIb5KbqGpQJxIFZvseLEvTnuZEnfxJ6tYf1Yk1FIL2WX9v/14gLHAKYM8G+RdX3Y60tGXLhLF1HyItHUOLf9SIcumuhvSwvudxZ/pvSetz6MW/vv07dc0MZitHdRDBcJE+93XLW+Ppk3obT5LiEmJMpv0zevOlybhB28d/8yCokj5UJZS4ygWM0GRLL55YIGeCWSlG1bZgYojPtZFvfjTOqxobc527gVa72Nz16jBOD9vcqnmGxseJ5rjsVM9r8JLw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6824.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ae62d47-fc5c-4e08-6dff-08df1e30f185
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 13:52:46.8587
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NDezEhTD+QvWJD4HYGyp+y4JkmEhvFZbrzyZKa4L1J7oUx+GXOnKXjKZ1WON+HpQCwOY39NGTiCeCZHwropuiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4690
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] wifi: ath12k: avoid IDR mutation during pending mgmt
+ TX cleanup
+To: jiale yao <19888972804@163.com>,
+        Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Cc: Jeff Johnson <jjohnson@kernel.org>,
+        Bhagavathi Perumal S <quic_bperumal@quicinc.com>,
+        Balamurugan Selvarajan <quic_bselvara@quicinc.com>,
+        Baochen Qiang <quic_bqiang@quicinc.com>,
+        Wen Gong <quic_wgong@quicinc.com>,
+        Carl Huang <quic_cjhuang@quicinc.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260926154824.75224-1-yaojiale02@163.com>
+ <20260926154824.75224-5-yaojiale02@163.com>
+ <773e57da-a9d3-41dc-805c-cb38b38b1dc4@oss.qualcomm.com>
+ <77a815e.77f1.1a0e71f6167.Coremail.19888972804@163.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <77a815e.77f1.1a0e71f6167.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX32xJj9XW+4pG
+ ByCwt4yWx9cwXYsyxmwF39BQPyTKF1kGj2UQaAmOdz0Cyli8Q98lrFPqhnefUNtl0O7WwtHt0TD
+ 0Mb5p14pjsvzzlBlyXp8le659cQbA3n7LLTb1ZSsM+myEr6m7C0XfQ13s4XYVzZAd4LRDRHRMXF
+ wH0gD6/XFh0VPg2BEzMeTKGHi8Lzz9xf6yxHlqihPoK5Q13H+l8Zn9+u3UTRMPu1nshMIksoHSk
+ x82/EWLRGyi5poJaHEZ3mT1Jb3NLDFxJyPIveFHhFR1QRPtSFbiEBKYwwZqZvCDsjkbjEdWoLaU
+ +AgHPNNlsbbMG9oAIunQede+IXnTSsKyDz7yweN0b3T1svK3T4e/Ud9vKLNJBvPCXlf6KPfgkVi
+ ybJ8Imm7KprADXnWwhRZftfW10kn4LgmvT423qXbHv9oKZVey5Yv9gXrpo06Bcz7/rihqPqhT2+
+ kTBxa6PdaH6OEwBRfMg==
+X-Proofpoint-GUID: notQo1dc5dW5IOz6sjhXI6c4-rn3c9pu
+X-Authority-Analysis: v=2.4 cv=VcVir1p9 c=1 sm=1 tr=0 ts=6abbc2cd cx=c_pps
+ a=4ztaESFFfuz8Af0l9swBwA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=Byx-y9mGAAAA:8 a=uR8-w7941YXdG5CN1KQA:9 a=QEXdDO2ut3YA:10
+ a=TPnrazJqx2CeVZ-ItzZ-:22
+X-Proofpoint-ORIG-GUID: notQo1dc5dW5IOz6sjhXI6c4-rn3c9pu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NSBTYWx0ZWRfX8EXMzIOl4oPv
+ IDnKW9H6YXc3V2IBvbry7ZU4Q7iWlkAjByK8GIU64sYlj9VLf3sE2Bq11XSSjz7fk9JTsMDeP+8
+ nw2CscgDAyOGY6zoc3PQfuMiAkfhm3k=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290055
 
-> >
-> > I just saw Lorenzo has picked over this work in
-> https://lore.kernel.org/all/20260925-speed-up-inplace-rmap-v1-1-
-> babc48ce7c83@kernel.org/. I've read through the new patch, which extends
-> the scope to anonymous and covers merge and shrink scenario, more
-> complete than I just sent, it is great. I fully agree that it is a very s=
-ubtle and
-> fragile part of the kernel, I did spend time and struggled with the patch=
-, very
-> appreciate your help.
->=20
-> Thanks :) and thank you for your understanding.
->=20
-> If you are able to test that locally with whatever workloads you've been =
-using
-> and report back there that'd be helpful? Thanks.
+On 9/28/2026 1:26 AM, jiale yao wrote:
+> At 2026-09-28 13:49:54, "Rameshkumar Sundaram" <rameshkumar.sundaram@oss.qualcomm.com> wrote:
+>> On 9/26/2026 9:18 PM, Jiale Yao wrote:
+>>> ath12k_mac_tx_mgmt_pending_free() is passed as an idr_for_each()
+>>> callback and removes the current entry from txmgmt_idr. This can
+>>> invalidate the radix-tree iterator retained by idr_for_each().
+>>>
+>>> Both callers destroy the IDR immediately after the walk, so removing
+>>> each entry in the callback is unnecessary. Split skb release from IDR
+>>> removal and let the callback release the supplied skb without updating
+>>> the IDR. The following idr_destroy() tears down the IDR itself.
+>>>
+>>> Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+>>> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+>>> ---
+>>>   drivers/net/wireless/ath/ath12k/mac.c | 25 +++++++++++++++----------
+>>>   1 file changed, 15 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+>>> index 99bf5cf79d10..7695b21149d1 100644
+>>> --- a/drivers/net/wireless/ath/ath12k/mac.c
+>>> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+>>> @@ -9166,18 +9166,11 @@ static void ath12k_mgmt_over_wmi_tx_drop(struct ath12k *ar, struct sk_buff *skb)
+>>>   		wake_up(&ar->txmgmt_empty_waitq);
+>>>   }
+>>>   
+>>> -static void ath12k_mac_tx_mgmt_free(struct ath12k *ar, int buf_id)
+>>> +static void ath12k_mac_tx_mgmt_free_skb(struct ath12k *ar,
+>>> +					struct sk_buff *msdu)
+>>>   {
+>>> -	struct sk_buff *msdu;
+>>>   	struct ieee80211_tx_info *info;
+>>>   
+>>> -	spin_lock_bh(&ar->txmgmt_idr_lock);
+>>> -	msdu = idr_remove(&ar->txmgmt_idr, buf_id);
+>>> -	spin_unlock_bh(&ar->txmgmt_idr_lock);
+>>> -
+>>> -	if (!msdu)
+>>> -		return;
+>>> -
+>>>   	dma_unmap_single(ar->ab->dev, ATH12K_SKB_CB(msdu)->paddr, msdu->len,
+>>>   			 DMA_TO_DEVICE);
+>>>   
+>>> @@ -9187,11 +9180,23 @@ static void ath12k_mac_tx_mgmt_free(struct ath12k *ar, int buf_id)
+>>>   	ath12k_mgmt_over_wmi_tx_drop(ar, msdu);
+>>>   }
+>>>   
+>>> +static void ath12k_mac_tx_mgmt_free(struct ath12k *ar, int buf_id)
+>>> +{
+>>> +	struct sk_buff *msdu;
+>>> +
+>>> +	spin_lock_bh(&ar->txmgmt_idr_lock);
+>>> +	msdu = idr_remove(&ar->txmgmt_idr, buf_id);
+>>> +	spin_unlock_bh(&ar->txmgmt_idr_lock);
+>>> +
+>>> +	if (msdu)
+>>> +		ath12k_mac_tx_mgmt_free_skb(ar, msdu);
+>>> +}
+>>> +
+>>>   int ath12k_mac_tx_mgmt_pending_free(int buf_id, void *skb, void *ctx)
+>>>   {
+>>>   	struct ath12k *ar = ctx;
+>>>   
+>>> -	ath12k_mac_tx_mgmt_free(ar, buf_id);
+>>> +	ath12k_mac_tx_mgmt_free_skb(ar, skb);
+>>
+>> this now keeps the freed skbs in the idr for the whole time 
+>> idr_for_each() runs as opposed to previous implementation which removed 
+>> the idr entry as well which looked safe.
+> 
+> Thanks for the review.
+> 
+> The original issue is the same as the one fixed by commit c38b1e19485a
+> ("firmware: arm_scmi: Avoid IDR updates while cleaning channels").
+> ath12k_mac_tx_mgmt_pending_free() is called from idr_for_each(), and
+> ath12k_mac_tx_mgmt_free() removes the current entry from that same IDR
+> before the iterator advances. This can invalidate the iterator state.
+> 
+> You are right that my patch leaves freed skb pointers in the IDR until
+> idr_destroy(), which is undesirable.
+> 
+> I will send a v2 using idr_for_each_entry(), which performs a fresh
+> idr_get_next() lookup for each iteration. The entry will then be removed
+> from the IDR before its skb is freed, avoiding both the invalid iterator
+> state and stale skb pointers.
+Thanks, I just came here to comment that my AI agent spotted the same thing:
 
-Reported back in that thread.=20
+The patch introduces a real UAF window that did not exist in the original
+code.
 
-> >
-> > One last thing, and please read it as a question rather than a request.=
- I read
-> submitting-patches.rst, and it says "Reported-by" tag is intended for bug=
-s.
-> While I wasn't reporting a bug, so would you consider "Suggested-by" inst=
-ead
-> (or even "co-developed-by") if you feel that describes it better? I'm fin=
-e with
-> which tag you think is accurate, and I'm not trying to reopen the decisio=
-n to
-> take the work over. Again, very appreciate your review and looking forwar=
-d to
-> your help in the future.
->=20
-> Yeah it's not quite the right match, but often the resultant final patch =
-is
-> quite substantially different than that submitted, and Suggested-by gener=
-ally
-> implies:
->=20
-> Person X: 'hey I want to do ...'
-> Person Y: 'have you thought of doing it using <great idea>'
-> Person X: 'oh yeah great thanks will respin with that!'
->=20
-> Whereas in this case where it seems it's end-to-end LLM, none of that rea=
-lly
-> matches.
+The window:
 
-Oh, it is not end-to-end LLM, actually a lot of human intelligence is invol=
-ved :)
+In the new callback (ath12k_mac_tx_mgmt_pending_free /
+ath11k_mac_tx_mgmt_pending_free), ath12k_mac_tx_mgmt_free_skb() frees the skb
+but leaves the IDR entry pointing to it. idr_destroy() only runs after the
+entire idr_for_each() walk completes. So between the callback freeing skb N
+and idr_destroy() removing entry N, the IDR still holds a dangling pointer.
 
-> And if any tags are to be given then Reported-by, Closes is closest.
->=20
-> However, since you're explicitly asking for it and the idea itself is nic=
-e, I'll
-> ask Andrew to switch it out :)
+The concurrent path is wmi_process_mgmt_tx_comp() in wmi.c:6436, which does
+exactly this sequence:
 
-Thanks a lot!
+spin_lock_bh(&ar->txmgmt_idr_lock);
+msdu = idr_find(&ar->txmgmt_idr, desc_id);   // returns freed skb pointer
+...
+idr_remove(&ar->txmgmt_idr, desc_id);
+spin_unlock_bh(&ar->txmgmt_idr_lock);
 
-> (One small note - please wrap your lines to ~75 chars in emails makes lif=
-e
-> easier!)
+skb_cb = ATH12K_SKB_CB(msdu);                // UAF: msdu already freed
+dma_unmap_single(..., skb_cb->paddr, ...);   // UAF
 
-Got it, will do!
+Why the original code was safe:
 
-Best Regards
+The old ath12k_mac_tx_mgmt_free() callback called idr_remove() under
+txmgmt_idr_lock before freeing the skb. So wmi_process_mgmt_tx_comp would
+either win the race (remove and free the skb itself, leaving the IDR entry
+absent when the cleanup callback ran) or lose it (find the entry already
+removed, print the "invalid msdu_id" warning, and bail). In neither case could
+it get a pointer to an already-freed skb.
+
+
