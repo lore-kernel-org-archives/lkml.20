@@ -1,208 +1,216 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.2])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EEE49C4C4;
-	Tue, 29 Sep 2026 17:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701281; cv=pass; b=MESb6fUmCdV/7gdVro+gRAcWxPFe5hjiTEH5UvexmURqSr5usTdxzqGHrCiPlUxXxYJh4cDtFW5HAa0/O1VHuTNtwJ8jkdo/cQW4KYUB3SxX/Y2lPfG5Nv7puqDO8tN59NQQc4uVeVzvp7X3GVuSLAb4P58jPSRxPg/6bO1/8SE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701281; c=relaxed/simple;
-	bh=NEO6eN6wS0lPN8V/79gLlvdQ8qhVcM1fQpGV/gBb6rU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kWURECP5NID/Sqrf5fRqhkQ2zbYuX9oMbrBxm8FEpGd+Nvu9RMbXCcZquEoxf6BwtyF6LzhOZPj66fQUiTBqlUBx+eSi72r1wCmOsCdgTADvdJDJlD9onKiW1zsTVIThXy5VH/D05E6lslW/k/zYHZ0abA54nFbm4oqs9YJ8DFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=P0ZLNd9/; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=C0OvlziK; arc=pass smtp.client-ip=185.56.87.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC53468C13;
+	Tue, 29 Sep 2026 17:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790701305; cv=none; b=qlnpAV/AdKe0R+k/gLeHJYpwgkG80CrtYE2ynjSGkpXRpWO1MX5jbDL7cY5wr1HH8XZwUNhUfE8Zam7fb2p5cNMROREh4MirZdhQCQ8kIW7Jw57WAJWmu8D6x5DOdw4sTKptmBIxD6s4TLeuJjveXakMMd2quHcW8HGhzbOFYqE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790701305; c=relaxed/simple;
+	bh=AfBEMVmyTpRdR2g6jgEzF3TCI4T6leeIkDBrd28vK2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JwpuryUZa4j3ohyIHK+Hk41Ib6rsCOQUFXhovYLAJRZM05anA1wf0e0I95M+qTbDtEd/U5goV2rFVxTXuajfsg2V4DfTS4mMZONo9kgUFp+8+2u19wN9pCn1REFazROzadJpr82m3k9ISaMVPULX87ngC+k3NHBHjRLIJ6Bh57k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=0BpbijLy; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="P0ZLNd9/";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="C0OvlziK"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-ccx6.prod.antispam.mailspamprotection.com; s=arckey; t=1790701279;
-	 b=aQhPKFRdwnffR+4bXq4Byw6oWOV+BmDVjJoM8GC8BKvLuHRu0UHfB88k/maxQ18jGCECX33s43
-	  w7cS9X9x3CNuWYDu6dR9/RmPF39nQbO9llx136/hnh6v+IUMWn21hkURQ1KmXC9YjefGDSApwi
-	  YDUOdk87VctQ+p9pX+GS0We1Jgx50RWjOydNwbYZL2p8RBZX6JaKt+1sftsFk+Pp66w2hj02t+
-	  yhPMJ8ujGxty6v0kdNS1ZYsilLYYrMxG59oy2PsKhVj6vyLzXY/gBynYibNM0R0xwdxMwmUsGU
-	  qwfQznw0MPhrVI6YF8+nlaUSR7jJb+o8EjNB5GsOuZgPfQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-ccx6.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-ccx6.prod.antispam.mailspamprotection.com; s=arckey; t=1790701279;
-	bh=NEO6eN6wS0lPN8V/79gLlvdQ8qhVcM1fQpGV/gBb6rU=;
-	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
-	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=XEXfVzo8OItxVAM8vUKuFXcf09sz9685vLOjZ0noHcH8Jqb6n4qfQCwHU2f6/dZ/i7B+RMpF/t
-	  F/DCHuKA2Zy7t9/rPKcU9HCGKltPXOLqNxS8Xrr0Alrua6LmM49l9yZjuyaIidJbOqNvPXFnKA
-	  JiDrNhu472VRoRI8/b4SAByTfoVNXEtXRBZ36gNzgTzWWkBoptCVSFiYhNJZEojTW5WdYTvXxZ
-	  Zv8Xcdy/RC5oCcibEd+awJYtlSFLKxwQzUxN1bvQASrS9JicxLuqbA3DRPEaPlvZPUdhDGPsfS
-	  WvPns2WDMN/zNJV34WNWCLBj9wU/uvk/lH5lbqUMQ2SXmg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=GZnRLTX8nqK922cINDfyYF7LUeobLxPNi6zQddqL96w=; b=P0ZLNd9/8y2pIT/cfU5U5JKR6B
-	6oQF3+bdhHdjyZBpTy2YmHCa6swnA9gZkVkYo0nxS8VlEwFkcXvz08T6pgmEoHMDnFSYi5+WfWZHx
-	uDCcTQJ2nk5KxUlXLA5FzakTC/CVUDQxR2PXynSDK9RMakwcYVoDwxdrTGCQ0C/zcHIs=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-ccx6.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBauh-00000000RGz-2mp0;
-	Tue, 29 Sep 2026 16:42:44 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=GZnRLTX8nqK922cINDfyYF7LUeobLxPNi6zQddqL96w=; b=C0OvlziK0x75uMAV1h1PiXonjd
-	Fr4GQnyaJ/Xvvngq4KrpN2iJ+e0qsrS6+0dJTtHLjZDGjc9hgfRtOU4m3tx6AN9j1Xu1dcaIrcq+B
-	UR+qb0cCBVT4mhk5Cjtkk4D+cJvMjxHjcN14Y8ZuQ9mzohVP9ycaL3SE6by/b8N/82Dk=;
-Received: from [87.14.44.235] (port=61710 helo=[192.168.178.175])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBauc-0000000058o-2w5Z;
-	Tue, 29 Sep 2026 16:42:38 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Tue, 29 Sep 2026 18:41:55 +0200
-Subject: [PATCH 1/2] dt-bindings: spi: add bindings for spi-virtio
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="0BpbijLy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=7xE0E0ndrr7YByn7ye5GJZRRPPDTwp49LLUupyjojAA=; b=0BpbijLyKgTmLntAjV2uQmlz8L
+	a9bB0e4fcKHLtpWduH8mvw27UgdGm5QLZauBk566fYJE7b/VxtRcwcXdp2IgAtG5jqjGTuWY+SRat
+	QCbKnRujVA/B4YmxmfIite19nSY/u7x6rrlFPgQpIrrYi93kH57IblEpRDHD17q2aMFtS5QC3Jds3
+	SwxSTHqnEa8gXsLpX8LE2Pyruf/cUp8G5FsOwnVcYLLv5tiWW17BKgm1GH4HQcjkimWBMBJpFY9K/
+	XTU1bMMAl16tOHcS5BNGgBWUdn0yXVQD1mUH3hNkEY/khxNosAlp8BV2Q+Fx8uFIYViOD1oggNaXA
+	iclzn5nQ==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xBbCN-0000000GLbs-2LrY;
+	Tue, 29 Sep 2026 19:00:59 +0200
+Date: Tue, 29 Sep 2026 19:00:58 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczyyyski <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	"Uwe Kleine-KKKnig (The Capable Hub)" <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v7 0/6] riscv: spacemit: Add PCIe RC controller support
+ for K3
+Message-ID: <arvuyt6eD0bwTb9c@aurel32.net>
+Mail-Followup-To: Inochi Amaoto <inochiama@gmail.com>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczyyyski <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	"Uwe Kleine-KKKnig (The Capable Hub)" <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+References: <20260929083755.458238-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-spi-virtio-bindings-v1-1-6a0eef3213b3@valla.it>
-References: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
-In-Reply-To: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
- Jason Wang <jasowangio@gmail.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
- Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2447; i=francesco@valla.it;
- h=from:subject:message-id; bh=NEO6eN6wS0lPN8V/79gLlvdQ8qhVcM1fQpGV/gBb6rU=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFm7X1XPNfFK/nbpun+WSs3a8kjnrQm103iMXF28l2xY8
- X+zu+vxjlIWBjEuBlkxRZaQdTfu7Zlr/i1tA+MjmDmsTCBDGLg4BWAii18xMiyt0eIJ8BUx4Wdh
- r33ummq75pGY9Unf9XJ5NprPE/8kfGNk2NsZxTzv4aPJIobZvacFUu+1SBf+99RoWJL24OiXvr5
- jjAA=
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 132c8cd9f1c7a1454edd65c9008c4892
-X-AntiAbuse: ID - 132c8cd9f1c7a1454edd65c9008c4892
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xBauh-00000000RGz-2mp0-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-ccx6.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083755.458238-1-inochiama@gmail.com>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-Add bindings for spi-virtio based on virtio-device, reflecting what
-already exists for gpio-virtio and i2c-virtio. A node using the bindings
-is not used to instantiate the device, which is registered by the
-transport (e.g.: virtio-mmio), but to define its properties and
-establish dependencies with other nodes.
+Hi,
 
-Add the new bindings inside the MAINTAINERS file.
+On 2026-09-29 16:37, Inochi Amaoto wrote:
+> The PCIe controller on Spacemit K3 is almost a standard Synopsys
+> Designware PCIe IP with extra control and external MSI controller
+> (IMSIC).
+> 
+> Add binding and driver support for PCIe RC controller support on K3.
+> 
+> Since v5, multiple vendor fix are included in this series, you can find
+> in [1]. And this version required [2] for phy bulk data support.
+> 
+> [1] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+> [2] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
+> 
+> Changed from v6:
+> - https://lore.kernel.org/linux-pci/20260923015016.64069-1-inochiama@gmail.com/
+> patch 6:
+> 1. Keep PERST# when init failed like the deinit.
+> 
+> Changed from v5:
+> - https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
+> patch 1:
+> 1. Return ENODATA for no device data found.
+> patch 2:
+> 1. Add power_on/power_off suggested in [2].
+> 2. Add zero phy check in the driver.
+> patch 5:
+> 1. Add K3 device description.
+> patch 6:
+> 1. Update comments.
+> 
+> Changed from v4:
+> - https://lore.kernel.org/linux-pci/20260709040027.958400-1-inochiama@gmail.com/
+> patch 1:
+> 1. fix comments
+> patch 2:
+> 1. Use phy bulk data to simplify the code
+> patch 3:
+> 1. Rebased to latest master
+> patch 6:
+> 1. Apply several fix from the vendor code
+> 2. Use separated init/deinit function for K3.
+> 3. Add some error handle for K3 init function
+> 
+> Changed from v3:
+> - https://lore.kernel.org/linux-pci/20260703020003.485436-1-inochiama@gmail.com/
+> patch 5:
+> 1. Add missing interrupt/interrupt-names check for K1
+> 
+> Changed from v2:
+> - https://lore.kernel.org/linux-pci/20260517014841.254085-1-inochiama@gmail.com/
+> patch 2:
+> 1. Use unify PCIe phy get/enable/exit function for both K1 and K3.
+> patch 3:
+> 1. New patch for updating device id for both K1/K3
+> patch 5:
+> 1. Reuse binding for spacemit,k1-pcie-host
+> patch 6:
+> 1. Multiple cleanup for the logic already generalized in the previous
+>    patches.
+> 2. Use generic description for the Kconfig entry.
+> 
+> Changed from v1:
+> patch 1:
+> 1. Remove post_init callback.
+> patch 2:
+> 1. Fix devm_kmalloc_array arguments order and error check.
+> patch 3:
+> 1. Apply Rob's tag.
+> 2. Change check from oneOf to anyOf.
+> 3. Fix spelling mistakes in commit message.
+> patch 4:
+> 1. Add comment about PHY handle.
+> 2. Remove interrupt "app".
+> 3. Fix spelling mistakes in commit message.
+> patch 5:
+> 1. Remove all logic related to link up interrupt.
+> 2. Clean up all unused macros.
+> 3. Fix devm_kmalloc_array arguments order and error check.
+> 4. Remove unnecessary start_link logic.
+> 5. Make all magic number as a macro.
+> 6. Fix spelling mistakes in code and commit message.
+> 
+> Inochi Amaoto (6):
+>   PCI: spacemit-k1: Add device data support
+>   PCI: spacemit-k1: Add multiple PHY handles support
+>   PCI: spacemit-k1: Add device id update helper
+>   dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
+>   dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
+>   PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+> 
+>  .../devicetree/bindings/pci/snps,dw-pcie.yaml |   7 +-
+>  .../bindings/pci/spacemit,k1-pcie-host.yaml   |  55 +++-
+>  drivers/pci/controller/dwc/Kconfig            |   4 +-
+>  drivers/pci/controller/dwc/pcie-spacemit-k1.c | 237 ++++++++++++++++--
+>  4 files changed, 270 insertions(+), 33 deletions(-)
 
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
- .../devicetree/bindings/spi/spi-virtio.yaml        | 53 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 54 insertions(+)
+Thanks for this new version. Patches 1, 2, 3, 6 are:
 
-diff --git a/Documentation/devicetree/bindings/spi/spi-virtio.yaml b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-new file mode 100644
-index 000000000000..5b8639dd2e1f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/spi-virtio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Virtio SPI controller device
-+
-+maintainers:
-+  - Francesco Valla <francesco@valla.it>
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-controller.yaml#
-+  - $ref: /schemas/virtio/virtio-device.yaml#
-+
-+description:
-+  Virtio SPI controller device, see /schemas/virtio/virtio-device.yaml for
-+  more details.
-+
-+properties:
-+  $nodename:
-+    const: spi
-+
-+  compatible:
-+    const: virtio,device2d
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    virtio@3000 {
-+        compatible = "virtio,mmio";
-+        reg = <0x3000 0x100>;
-+        interrupts = <41>;
-+
-+        spi {
-+            compatible = "virtio,device2d";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            sram@0 {
-+                compatible = "microchip,mchp23k256";
-+                reg = <0>;
-+                spi-max-frequency = <20000000>;
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 360977678f70..f91340fc6e7f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29062,6 +29062,7 @@ VIRTIO SPI DRIVER
- M:	Haixu Cui <quic_haixcui@quicinc.com>
- L:	virtualization@lists.linux.dev
- S:	Maintained
-+F:	Documentation/devicetree/bindings/spi/spi-virtio.yaml
- F:	drivers/spi/spi-virtio.c
- F:	include/uapi/linux/virtio_spi.h
- 
+Tested-by: Aurelien Jarno <aurelien@aurel32.net
 
 -- 
-2.55.0
-
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
