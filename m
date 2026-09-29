@@ -1,49 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6ED3F20E8;
-	Tue, 29 Sep 2026 03:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8DC3EC810;
+	Tue, 29 Sep 2026 03:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651751; cv=none; b=Q62BJDqK9sFdSYx2gHAg7aoXXDEk+KgPxR813pfma73drnvHgufvobdKKLIVp2ywdObPQTB8QBpuvC7/cP3TJlO+wkt4nU2PsZcKAcdBtnfTNyD7lWQdrLvEPwueqih9IiAt9zpgYn5DmXKPsoqKIk5+mj3vIWTNIa21Ya7ZUP8=
+	t=1790651751; cv=none; b=JHBSHE6FQhQD6n/5mgS2/6AvimNZN3g2OIfbQPY0DhgWxm/2eiRCV629cAVSBlnmOijz3lCYYpEu5HnNs9Yu12AnpiXyG3IzH+/Sq2sM3VPfv8cIIEqyPZ7aP38Y+nviH0yPd5s2x2qldbyfN8ZfsokESSQAnBKYwRjmZ8q1NxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790651751; c=relaxed/simple;
-	bh=72/F2aNhuSnc3MEbfVSyM1BAb/Te5/TQjhwJ3SAy6lc=;
+	bh=JvIk8cGWvFYlUdnU1mzs5gNGzb+vemyTsGs1/mYNUTo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GpErRRDE7aaGOgT/6MV96UbLtynTjUtJvAZx+S4rN4JLi3QbVGhBXf59N3ta878kBOv/dcDzTYZykvNxW8ntqvZbMaOOjf13GD6qDvRzhboWUErKR6UtMNJ0kGnankJsCwg/DwdRNx/I5Mptt+ebE9OK5DBZP2u7LfR6nQbEZdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJ3s4y4D; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Mw/PEbAFnUiNAEaVIVKuyggzQ+jwtZwJSUpzPMtlpaVGSbCoKDp/VN3sHC+0YHcO5RghTIPcLfzfI64C3zVIpi+AX8boevNPUGL93Izy6T4iiVlNrdvNRM6KGTXnzW2LXaXivPb17UoY8qS2xhEY0gPYKG4oYRM7CCS789ylltg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEHHFuAu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJ3s4y4D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811DC1F000FF;
-	Tue, 29 Sep 2026 03:15:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEHHFuAu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FB21F0089B;
+	Tue, 29 Sep 2026 03:15:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651748;
-	bh=AI6UoST/jDauPauCWqJFOm84ifgr+WJw7qrObpigugU=;
+	s=k20260515; t=1790651746;
+	bh=E37Lm/6ycJKqFZ/gqmGthLRMJOnLdjFVZQMCvSelV+I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eJ3s4y4DIZuySQhubqf0ybFkP43sBEi6mZpWSl11tJsxWhTcbKN391HD25JT2gXmg
-	 /+APYMvsQ5vMyJuo5sX/XGHIhzvLPk6TnZlfz5opjHwQJZtJRZNP9+/aAcPhFjkGi8
-	 +WNyHp3L9w73942RNGb+xonPXz47goRIN6XflaZ/oy3UORiXmJ8zY1fiN0EsncuoUs
-	 wXw3bzBJ1DvMzmlMv9dQvq7EIA3NEhafhw3qL9zs51aN87riQG5ZZMlyM2xkBwoMKv
-	 O9qQMRekvkQPgzpNvesZ2ktTpxShYasPJOMXGOps4HtzhlkJnLGlqkjdNpfL3gaV76
-	 WJG0qIszmu/gQ==
+	b=EEHHFuAuAr2WGu/9iSzkc3zL9lJUgoInj62fWmPubn2p+VOFe4dC9z/Jr51k5SiU6
+	 G5C2TD6gSgFv/94j/dazJ7R0AEkUl74KTjntPguqCmUtCvqvqK/CxacN67og8Mvu0A
+	 of2eHhWp6yMqGI/HKuY8q+NUiQ41n0WIPYQJMfH4HahsxIFIjQMpUTzYX++3b/T3Fh
+	 qu3OBR5QVynlkqCTc7hPLy6J4JhVdPxnHc5eUKOEH/45RtXv0F1uIb2b1oxVGf59ZD
+	 ve7GKDVhXtAXRNERK5YsjCtK3PzfaqIb6mf7ouADbOx+Yt5cvtvPnIA4JSkqcVXvGi
+	 m6p7DT4zQhlwQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hongcheng Zhang <hongcheng.zhang@oss.qualcomm.com>
-Cc: hangtian.zhu@oss.qualcomm.com,
-	miaoqing.pan@oss.qualcomm.com
-Subject: Re: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: Add PCIe wake GPIO
-Date: Mon, 28 Sep 2026 22:14:46 -0500
-Message-ID: <179065171033.2673486.15991071931097951658.b4-ty@b4>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v7 0/5] arm64: dts: qcom: Add Kalambo SoC and CRD
+Date: Mon, 28 Sep 2026 22:14:44 -0500
+Message-ID: <179065170979.2673486.6848499438612886113.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915012020.2667577-1-hongcheng.zhang@oss.qualcomm.com>
-References: <20260915012020.2667577-1-hongcheng.zhang@oss.qualcomm.com>
+In-Reply-To: <20260909-b4-kalambo-crd-v7-0-f5685804478a@oss.qualcomm.com>
+References: <20260909-b4-kalambo-crd-v7-0-f5685804478a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,20 +59,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 15 Sep 2026 06:50:20 +0530, Hongcheng Zhang wrote:
-> The QCS6490-based RB3 Gen 2 Industrial Kit cannot wake from suspend via
-> PCIe Wake-on-WLAN.
+On Wed, 09 Sep 2026 00:18:13 -0700, Gopikrishna Garmidi wrote:
+> Qualcomm Kalambo SoC is derived from Mahua SoC with CPU cluster 0
+> removed,leaving only cluster 1 present.
 > 
-> Add the wake-gpios property to the PCIe port so the WLAN wake signal is
-> propagated as a system wakeup source.
-> 
+> This series documents the board compatibles and adds the SoC and
+> Compute Reference Device (CRD) device trees. It also adds the Kalambo
+> compatible to the UBWC configuration table and allowlists the Kalambo
+> CRD for QSEECOM to enable access to efivars.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: Add PCIe wake GPIO
-      commit: 9910a98c1341dfec409b4a1f7ce57ced7c143b5e
+[5/5] soc: qcom: ubwc: Add Kalambo UBWC config
+      commit: d9df37ba39ea32f834800103d1a3e62ced8525b8
 
 Best regards,
 -- 
