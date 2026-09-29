@@ -1,250 +1,276 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429D63612DB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063923451D6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666344; cv=none; b=sOVZ1bW4tgAu7NFCvkd7xW5myoahAriifZXSe9zwc6Bnb9Cyl2IGk1pSHthB0FIYV9S5MQx2qvsARdVNSiwo4p/t8MxDvbKMVSG42ylxcHIlUGzxD5SHhOYTZD6psK8pFR4K5WWP2myd9352mQPr/67t34REUgTzAcMjlDu8s54=
+	t=1790666395; cv=none; b=CZ3nbH+/BjDIQhhL0ZsehiXvw2rsaXerf2oDAyodMqwsdVd3GBhMtT3Wi2tZEbzwkIreMpTUtHL3MI7UZPS2hF54yNL3A9bf3ql2CaoomRAjTCUlD6Q7qLdDKNWIsUKiLlgwLnqqklz+7kTWMEY0WkxzIOzOibuZ85bumvYRzlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666344; c=relaxed/simple;
-	bh=bnEXWvKJF57lCv/hfP6HgDOvGMB5vUts2zsKKU8VlVc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=REAeHfIuAHNvnvDad6cCjrz2w6PG3G6uxYvcQOS7ulYPR8aMD/s0sOke376CmuaAo5wXL+32Zcs7uZCWV5qX/ShWUQHxDzo7nqDoYLUIasLD9EWfROj2VfpXMIgT4EqTppELrBNeIx6Q7bh+YFrFDeSbK5uijtUbYzYwpt15bh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mfvxpjST; arc=none smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790666395; c=relaxed/simple;
+	bh=XN2L7fZ4uJ0WfAuh+cusDAbs3iAuT+OUMY2ssNV6vLc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=rAxy1NFfAHCnAUCOMn9XXMyz87YWiQdqymbVobgWs4X5kL4WjhUCMMRdmmQwXHUkapvrmYq9JbD0oCbhARlJ/UTTwoEE3LHu6YsxfnXb01EyLMB2DYPzrfd5cWjOB5YfGOckG77Ofe3RHd4O8Ov2zXjuy83iZRxom/GTlbnM2mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gCK9s467; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mfvxpjST"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6abc27842b6so3907943a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:19:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gCK9s467"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4c1fc9ceaso2260260a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:19:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790666341; x=1791271141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KF0t7lF1YQsUy6xMrljRa81d87fO5cJ7MZDzH2vsnqc=;
-        b=mfvxpjSTsm6WeJ5NnxLqEiRKhonqueip8v7lJEM484MD/csm+uKEu8gyLpsvP6oh8T
-         rvNZQrmZiAsKygcfuZu1gr6QMnNJjDlbMnd7Jq2kafxWXta2otOtc3bbfFk953oR0IeE
-         4sM73I2eH2Nf7/foDOaNDZkXXapvHwN67+yJ7l+TmzczBPUvzedYto/5cfETQ/PpmmAl
-         GvsDUEnUmBc6l8T8NY1O3RxBiYk6gdCqqLVIMk67EV4qo8MxS9MJ5Q2+Mh82c7JInESe
-         odfWkynr34OOmZyeqMlFLW+i0yyBtU2EBpo1vZlhYNyu1qegBgbnNET1uN88IbcQe6w8
-         J6Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666341; x=1791271141;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1790666393; x=1791271193; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KF0t7lF1YQsUy6xMrljRa81d87fO5cJ7MZDzH2vsnqc=;
-        b=KKrLKa+7+NTBFnACMrhFOs1ZVz9/FdW/xGaFLnRstSKYgblrAjU8e9Vbfk2lpaTTHM
-         6x2wbcvgZnxlX/BYNnZOJcJ8Pi2CNj504CspP7P3N9QCMpNR5EIxa0TtWpbIKlXIhBP4
-         ynUl3I3PeSPk+yfr3lfFocAo1SyisHdRLXF0wCIq3XdLRz3wjWnGoBRSdJCEVWNybzKu
-         AmhyFi5qpJM//6+1jVV/frRpaTMbLtTyGdhrXK5ARe1Vp7w3kN/aGwGt3L6eJZPLF7qr
-         caFs8aW0IEjN1wrI4B1OVvCyRQPT1T/PA9SnA94Rugkc7zCOb0PR7fvFWJ7XZuP0dc9F
-         EP5w==
-X-Forwarded-Encrypted: i=1; AKwUvBw/jTDnCLsn7JmfVe0enWFM2S8sPBWdk9kBg0pQJJuFKwP4/Q7a9dCB/HowwLkCLxipmfHeJMVxKLpU8Ac=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW8zA+LjnpUAznvcLSwuIYq/wuHy3tXgwFbf3y3oPQndZmQXIA
-	BfXmBHYuTOuWgU4gCXnHxF3yfg4y6dQRRL+odgDR+yOcnRwrw+HlRYaaMjnQHmNn
-X-Gm-Gg: AYBFou0OMq85yzIyeO1LJ26UkcKI/FTSTVK6hCxwdNhbvPSvmYUyCzE6nMEWgbpgtKm
-	uQscr6sA3DRD5T7kBHvO9pN3b9lYFmwCB37xD9hEBaQSaJU7PHnsjNiMW7UYpLLo8vOXeVm/kDd
-	hzRsXqQoaVyjcgo4QCPHwZGuqFbm1h6FfU7JQ6dgtG4dCzDR0ikyT/0jGRKuamb/VuCVFur01qO
-	k3TMSKB0hPNYAvffeW3pB8xxFPZ8HkAVWpRpd9F0x+jz1xvFA+bZfOp+rWsAXBhldkROqPgF6BC
-	o4sQZ5qdt6lUd+nS17Yt/NwKr5wE8Ck7cYDmag7+CUDmYzSgTZB75VtTvmv4+nzmK1SgsqZLjt5
-	PrJXqtwzYQq3GkJG+g27ynZh9ZRqbdQ1d8Pec6jPyr9QAZiK1cFk8ds/on3P9NRv3S/z0tHHf2r
-	ewQbT8DiebxcYXTW4TPABF+aVddVWH/F/1+whum4QC18RGEmf8O/wFOq0REDdZCeNfv3SLZRRls
-	SW8MZ9Ih4AuVM/AgGc/oHBaaej07FuXLmemP6gef9uihXWuecUrPnzxgUujPJqIDPDAbJOyRgjr
-	PCsU3ESHSCQAOrHwdaTOdg==
-X-Received: by 2002:a17:907:e1c1:20b0:c2d:bd95:874a with SMTP id a640c23a62f3a-c2dbd958b3cmr403241966b.17.1790666341214;
-        Tue, 29 Sep 2026 00:19:01 -0700 (PDT)
-Received: from localhost.localdomain (84-216-182-59.customers.ownit.se. [84.216.182.59])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dc6b7f2f4sm344709666b.10.2026.09.29.00.19.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:19:00 -0700 (PDT)
-From: Pooyan Azad <pooyan.azadparvar@gmail.com>
-To: Minchan Kim <minchan@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] zram: fix short reads from block_state
-Date: Tue, 29 Sep 2026 09:18:46 +0200
-Message-ID: <20260929071846.24829-1-pooyan.azadparvar@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928164826.24858-1-pooyan.azadparvar@gmail.com>
-References: <20260928164826.24858-1-pooyan.azadparvar@gmail.com>
+        bh=0QkpnEIdbuhsyhHvyTGjlw2S9g9xsutWV9HU9W/cLGk=;
+        b=gCK9s467EQPCGoWMVGu/OksralT0Cz7T9E6gBlRotXcs1cwZ8oVh1rdhLbtqoeMj/3
+         I/IAuPrbDqspcWt1huMCDtfv7zDujvUEfge8ut3kZmzWxbWkmHvuqjE/CGXT/B4rgmtY
+         aRH0kWbysGMO4G7gVyPGpbuqdOw/FNU6GLDF4LP/YhPSn3JcF5OEMVt4AomyMM3iBn1m
+         5xZ5bvcVudXmYKeyau1khtEVkxRI8VfdHFfMjJxnb3R+vX6uL6IWbiVcGZrebdcndsDv
+         41jQ5pOfYK/mxpW8duQVGW9tNuKFaDrFqVLFXQUMLl4rhrYyailuR4F6EGOq6uddlGtl
+         gfXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790666393; x=1791271193;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0QkpnEIdbuhsyhHvyTGjlw2S9g9xsutWV9HU9W/cLGk=;
+        b=nn7Npjk4JuOv1ibYqOZiXLGKwcF63a0+w9g5kY7vknAO2phzlCYjlIPOX/Mj5Xj4AO
+         1C2RHh09IVvh2TsPpDDX+wFqJ4GmkgFPifY2K3lTtAy8YdWTgRVu+EnL+6ekPwQQD59J
+         kHqKe5pP0np8zYRUyC1ukayg64E7sfieCUwZaMA4qS0x0Nq+kqhDjwCF+/ts7Pw3xpZr
+         y9TjRuL4QePatzhkw2EXKZwKRqANKT1BHQUfj+3Obr5MIrP5VmFry2Ge4ugJkmMyK9h0
+         PP5MJM35ULORUBxhtYlfp81RJJvQb9BXo0MLieM/QdCfxzmjrsQRhMmCmVAE/OVH6v/K
+         2bzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzTs5SXaGwxlJrdrWWKdjRyLLFY1bkU2ghP0xDWruVLR82zxmpEhvpvlwVdVnC52Vh0bSeU5HVFMl9Su1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhjxIoyjxi57IbN1HiNhF1cdEkJ86K9ohGpM7PBYVeeGL2QpbJ
+	LkrN3RLzfEK38C0aIgc0czRajQ0gTjf5li4UwY+RHNhzRVy6ABSnxvTvuBA0R5z/qK199pueSmg
+	WSA==
+X-Received: from pgbgf2.prod.google.com ([2002:a05:6a02:2cc2:b0:cc1:cba6:484c])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7352:b0:3da:5eda:d167
+ with SMTP id adf61e73a8af0-3de0e7136efmr15088339637.5.1790666393084; Tue, 29
+ Sep 2026 00:19:53 -0700 (PDT)
+Date: Tue, 29 Sep 2026 07:19:41 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929071950.2710070-1-praan@google.com>
+Subject: [RFC PATCH v1 0/9] iommu/arm-smmu-v3: Implement Live Update support
+From: Pranjal Shrivastava <praan@google.com>
+To: iommu@lists.linux.dev, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@nvidia.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, David Matlack <dmatlack@google.com>, 
+	Vipin Sharma <vipinsh@google.com>, Mostafa Saleh <smostafa@google.com>, 
+	Daniel Mentz <danielmentz@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Pranjal Shrivastava <praan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-read_block_state() formats each entry directly into the buffer supplied
-by read(). If the remaining buffer is too small for one complete record,
-snprintf() returns the full record length and the function stops without
-copying data or advancing the file position. A read smaller than a record
-therefore returns zero at a non-EOF position and cannot make progress.
+The IOMMU Live Update framework [1] preserves the IOMMU hardware state and
+the translation (HWPTs) of devices assigned to userspace via iommufd/VFIO
+across a kexec based Live Update, using KHO and the DMA allocation
+preservation API [2]. This series implements the arm-smmu-v3 side of it,
+allowing an SMMUv3 to keep translating the DMA of preserved devices,
+without any disruption, while the kernel underneath is replaced.
 
-Convert block_state to seq_file so formatted records are buffered
-independently of the userspace read size. Keep dev_lock held across each
-seq_file iteration and continue to protect individual entries with their
-slot locks.
+We have an alignment session planned on IOMMU Live Update at LPC 2026 [3].
 
-Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
-Closes: https://lore.kernel.org/r/CANC3H+LdtoydSp+o2ecErAw7k6R2+gRf9LyxcaoHv_mGhJmyQQ@mail.gmail.com/
-Signed-off-by: Pooyan Azad <pooyan.azadparvar@gmail.com>
----
-Changes in v2:
-- Return the seq_file position from the iterator callbacks.
-- Treat the iterator value as a pointer to the current offset.
-- Avoid SEQ_SKIP for unallocated slots.
-- Runtime-tested full and repeated one-byte reads under UML.
+Design
+======
+The arm-smmu-v3 operates almost entirely out of in-memory data structures
+(Stream Table, CD tables, page tables) that the HW registers point to.
+Hence, a Live Update boils down to preserving these structures, keeping
+the SMMU enabled across the kexec and having the incoming kernel take
+them over without ever reprogramming anything that the HW is walking.
 
-The one-byte reader is a boundary-case regression test. The same
-zero-progress behavior occurs with any userspace buffer smaller than one
-formatted block_state record.
+1. Preservation (outgoing kernel)
+  a. .preserve (per SMMU): Serializes the SMMU identity (the MMIO base is
+     used as the token, similar to VT-d), STRTAB_BASE_CFG and the Stream
+     Table. A linear Stream Table is preserved as a whole, for a 2-level
+     table the L1 table is preserved, along with an array of L2 tokens
+     indexed by the L1 index.
+  b. .preserve_device (per master): Preserves the L2 Stream Tables holding
+     the STEs of the master, since .preserve only runs for the first
+     preserved device. For an S1 domain, the CD table of the master
+     (linear, or L1 + active L2 tables) is preserved too. SVA domains and
+     masters with active PASIDs are rejected, matching the granularity of
+     the core. The ASID/VMID tagging the translation is recorded in the
+     attachment_id of the device state.
+  c. For S2 and nested domains only the STE is needed. The page tables
+     come from the preserved domain, and a guest-owned (nested) CD table
+     lives in guest RAM, which is preserved with the guest memory anyway.
+  d. The Event queue memory is preserved as well, as it stays enabled
+     across the kexec. Only its preservation token is serialized; its
+     base, size, PROD and CONS are left in the EVTQ registers.
+  e. .unpreserve_device and .unpreserve undo the above. An L2 Stream
+     Table is unpreserved once no preserved master uses it.
 
-Runtime testing was performed under UML with
-CONFIG_ZRAM_MEMORY_TRACKING=y. A full read and repeated one-byte reads
-produced matching output, and every short read advanced the file position.
+2. Shutdown (outgoing kernel)
+Instead of clearing SMMUEN, .shutdown:
+  a. Masks the SMMU interrupts and waits for a running EVTQ handler.
+  b. Installs abort STEs for all the unpreserved masters and clears the L1
+     descriptors of L2 tables that have no preserved stream.
+  c. Issues CFGI_ALL + TLBI_{EL2,NSNH}_ALL.
+  d. Disables the CMDQ and the PRIQ, leaving SMMUEN and EVTQEN set for the
+     preserved devices.
+If any of this fails, it falls back to the regular full disable.
 
- drivers/block/zram/zram_drv.c | 102 +++++++++++++++++-----------------
- 1 file changed, 52 insertions(+), 50 deletions(-)
+3. Restoration (incoming kernel)
+  a. arm_smmu_init_strtab() takes over the preserved Stream Table instead
+     of allocating a new one. The layout read back from STRTAB_BASE{,_CFG}
+     is validated with the common kexec helpers from the kdump series [4]
+     and the in-use ASIDs/VMIDs are reserved, such that new domains can
+     never alias the preserved ones.
+  b. arm_smmu_alloc_cd_tables() takes over the CD table of a restored
+     master, validated with arm_smmu_kexec_check_ste_cdtab().
+  c. arm_smmu_init_queues() adopts the preserved EVTQ, resuming from the
+     live EVTQ_BASE/PROD/CONS, so any event recorded across the Live
+     Update is left pending for the EVTQ handler of the incoming kernel.
+  d. The stream tables and the EVTQ are restored with the managed (dmam_*)
+     variants of [2] as they're devres allocations tied to the SMMU, while
+     CD tables use the unmanaged (dma_*) variants, as their lifetime
+     follows the master.
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index a9b3bb1d3bef..6b39c22823f5 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1542,68 +1542,70 @@ static void zram_debugfs_destroy(void)
- 	debugfs_remove_recursive(zram_debugfs_root);
- }
- 
--static ssize_t read_block_state(struct file *file, char __user *buf,
--				size_t count, loff_t *ppos)
-+static void *zram_block_state_start(struct seq_file *seq, loff_t *pos)
- {
--	char *kbuf;
--	unsigned long index;
--	ssize_t written = 0;
--	struct zram *zram = file->private_data;
-+	struct zram *zram = seq->private;
- 	unsigned long nr_pages;
- 
--	kbuf = kvmalloc(count, GFP_KERNEL);
--	if (!kbuf)
--		return -ENOMEM;
--
--	guard(rwsem_read)(&zram->dev_lock);
--	if (!init_done(zram)) {
--		kvfree(kbuf);
--		return -EINVAL;
--	}
-+	down_read(&zram->dev_lock);
-+	if (!init_done(zram))
-+		return ERR_PTR(-EINVAL);
- 
- 	nr_pages = zram->disksize >> PAGE_SHIFT;
-+	if (*pos >= nr_pages)
-+		return NULL;
- 
--	for (index = *ppos; index < nr_pages; index++) {
--		int copied;
-+	return pos;
-+}
- 
--		slot_lock(zram, index);
--		if (!slot_allocated(zram, index))
--			goto next;
-+static void *zram_block_state_next(struct seq_file *seq, void *v, loff_t *pos)
-+{
-+	struct zram *zram = seq->private;
-+	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
- 
--		copied = snprintf(kbuf + written, count,
--			"%12lu %12u.%06d %c%c%c%c%c%c\n",
--			index, zram->table[index].attr.ac_time, 0,
--			test_slot_flag(zram, index, ZRAM_SAME) ? 's' : '.',
--			test_slot_flag(zram, index, ZRAM_WB) ? 'w' : '.',
--			test_slot_flag(zram, index, ZRAM_HUGE) ? 'h' : '.',
--			test_slot_flag(zram, index, ZRAM_IDLE) ? 'i' : '.',
--			get_slot_comp_priority(zram, index) ? 'r' : '.',
--			test_slot_flag(zram, index,
--				       ZRAM_INCOMPRESSIBLE) ? 'n' : '.');
--
--		if (count <= copied) {
--			slot_unlock(zram, index);
--			break;
--		}
--		written += copied;
--		count -= copied;
--next:
--		slot_unlock(zram, index);
--		*ppos += 1;
--	}
-+	++*pos;
-+	if (*pos >= nr_pages)
-+		return NULL;
-+
-+	return pos;
-+}
-+
-+static void zram_block_state_stop(struct seq_file *seq, void *v)
-+{
-+	struct zram *zram = seq->private;
- 
--	if (copy_to_user(buf, kbuf, written))
--		written = -EFAULT;
--	kvfree(kbuf);
-+	up_read(&zram->dev_lock);
-+}
-+
-+static int zram_block_state_show(struct seq_file *seq, void *v)
-+{
-+	struct zram *zram = seq->private;
-+	unsigned long index = *(loff_t *)v;
-+
-+	slot_lock(zram, index);
-+	if (slot_allocated(zram, index)) {
-+		seq_printf(seq, "%12lu %12u.%06d %c%c%c%c%c%c\n",
-+			   index, zram->table[index].attr.ac_time, 0,
-+			   test_slot_flag(zram, index, ZRAM_SAME) ? 's' : '.',
-+			   test_slot_flag(zram, index, ZRAM_WB) ? 'w' : '.',
-+			   test_slot_flag(zram, index, ZRAM_HUGE) ? 'h' : '.',
-+			   test_slot_flag(zram, index, ZRAM_IDLE) ? 'i' : '.',
-+			   get_slot_comp_priority(zram, index) ? 'r' : '.',
-+			   test_slot_flag(zram, index,
-+					  ZRAM_INCOMPRESSIBLE) ? 'n' : '.');
-+	}
-+	slot_unlock(zram, index);
- 
--	return written;
-+	return 0;
- }
- 
--static const struct file_operations proc_zram_block_state_op = {
--	.open = simple_open,
--	.read = read_block_state,
--	.llseek = default_llseek,
-+static const struct seq_operations zram_block_state_sops = {
-+	.start = zram_block_state_start,
-+	.next = zram_block_state_next,
-+	.stop = zram_block_state_stop,
-+	.show = zram_block_state_show,
- };
-+DEFINE_SEQ_ATTRIBUTE(zram_block_state);
- 
- static void zram_debugfs_register(struct zram *zram)
- {
-@@ -1613,7 +1615,7 @@ static void zram_debugfs_register(struct zram *zram)
- 	zram->debugfs_dir = debugfs_create_dir(zram->disk->disk_name,
- 						zram_debugfs_root);
- 	debugfs_create_file("block_state", 0400, zram->debugfs_dir,
--				zram, &proc_zram_block_state_op);
-+				zram, &zram_block_state_fops);
- }
- 
- static void zram_debugfs_unregister(struct zram *zram)
+4. Hitless reset
+When there's incoming preserved state for the SMMU (a failed restoration
+fails the probe, so this implies a restored Stream Table),
+arm_smmu_device_reset() shares the kdump adoption path, which already
+solves the problem of a live Stream Table:
+  a. SMMUEN and ATSCHK are retained, CR1/CR2/STRTAB_BASE are left alone,
+     as updating them with SMMUEN=1 is CONSTRAINED UNPREDICTABLE.
+  b. The CMDQ and the PRIQ (already disabled by the outgoing kernel) are
+     reset as usual, while EVTQEN and the EVTQ registers are left alone
+     for the adopted EVTQ.
+  c. Any GERROR latched across the kexec is acked before the CMDQ is
+     re-enabled.
+  d. The interrupts are re-wired to the incoming kernel. The IRQs are
+     masked, hence IRQ_CFGn can be reprogrammed with SMMUEN=1. The EVTQ
+     thread is then woken up to handle the events already pending.
+  e. CFGI_ALL and TLBI_NSNH_ALL/TLBI_EL2_ALL flush everything cached for
+     the previous kernel. The preserved devices merely re-walk the
+     preserved tables.
+
+5. Hitless re-attach
+The IOMMU core restores a preserved domain by allocating a new paging
+domain around the preserved page table and attaching it to the restored
+device [1]. A new domain comes with a new ASID/VMID though, while the
+device is still doing DMA through the preserved CD/STE.
+
+Similar to the Intel driver reclaiming the preserved Domain ID, the
+restored domain inherits the ASID/VMID of the live CD/STE on its first
+attach (the ID was reserved in 3.a, so it's just handed over). The stage,
+the page table root and the ID recorded in 1.b are cross-checked against
+the live CD/STE, failing the attach if the restored domain isn't what the
+HW is walking. With this, the CD/STE computed for the restored domain are
+identical to the live ones and the re-attach is a no-op for the HW.
+
+Relation to the kdump adoption series
+=====================================
+Nicolin's kdump series [4] factored the parsing and validation of the
+previous kernel's SMMU tables into arm-smmu-v3-kexec.c with Live Update
+in mind. This series builds on it: ARM_SMMU_V3_KEXEC is also enabled by
+IOMMU_LIVEUPDATE, the restore paths use those helpers, the kdump reset
+path is shared via arm_smmu_strtab_is_live(), and a small
+arm_smmu_kexec_check_cdtab_l1_desc() helper is factored out of the ASID
+scan to be shared with the CD table restoration.
+
+Open issues and discussion points
+=================================
+1. Stage of the restored domain: The core restores a domain with
+   iommu_paging_domain_alloc(), i.e. flags == 0, which gives an S1 domain
+   on SMMUs supporting S1. This covers VFIO/iommufd paging HWPTs, but a
+   preserved S2 (NEST_PARENT) domain can't be restored as such. The core
+   has to preserve the allocation flags. For now, such a mismatch fails
+   the attach instead of switching the device to a different translation.
+
+2. Hitless domain replace: A restored domain is immutable (no map/unmap),
+   so the VMM has to replace it with a new HWPT after the Live Update.
+   With S1, the ASID and TTB0 live in different CD qwords, making the
+   replace non-hitless today; [11] addresses it with a temporary ASID.
+   S2 has the same problem with the VMID and S2TTB and needs a temporary
+   VMID.
+
+3. Queue drain: The shutdown doesn't drain the CMDQ before disabling it,
+   as the final invalidations are synced, there are no other submitters
+   left at shutdown and the incoming kernel invalidates everything again.
+   However, the CMDQV VCMDQs assigned to guests may need to be quiesced,
+   which is future work along with the ATS and PASID support.
+
+4. RMR SIDs: The outgoing kernel parks the unpreserved RMR streams in
+   abort, and the incoming kernel skips installing the RMR bypass STEs, as
+   it does for kdump, since they're written assuming a Stream Table that
+   isn't live yet.
+
+5. A failed restoration fails the SMMU probe instead of falling back to a
+   full reset (which would at least keep the system usable). Also, a
+   partially restored CD table isn't unwound on failure yet.
+
+6. PASID granularity, PRI and ATS state of the preserved PCI devices are
+   not handled yet (e.g. arm_smmu_enable_pasid() at probe for a device
+   that still has ATS enabled).
+
+7. The kdump [4] and invalidation [5] series both define ARM_SMMU_OPT
+   bit 5; this tree moves ARM_SMMU_OPT_KDUMP_ADOPT to bit 6.
+
+Dependencies
+============
+This series depends on the following series, applied in this order on
+top of v7.3-rc5:
+ 1. iommu/arm-smmu-v3: Invalidation rework (v7), by Jason [5]
+ 2. iommupt: Generic IOMMU page table for SMMUv3 (v2), by Jason [6]
+ 3. iommu/arm-smmu-v3: kdump Stream Table adoption (v10), by Nicolin [4]
+ 4. dma: DMA allocation preservation (RFC v2), by Samiullah [2]
+ 5. vfio/pci: Live Update preservation of VFIO cdev (v5), by Vipin [8]
+ 6. iommu: IOMMU Live Update state preservation (v5), by Samiullah [1]
+
+The luo_file internal APIs [10] and the PCI Live Update series [7] are
+already merged in linux-next.
+
+The VFIO series is taken as carried in [9], along with a small build
+fixup for the stack.
+
+A tree with everything applied is available at:
+https://github.com/pran005/linux/tree/arm-smmu-v3-liveupdate-rfc
+
+[1] https://lore.kernel.org/all/20260921004834.2601285-1-skhawaja@google.com/
+[2] https://lore.kernel.org/all/20260708234854.4044652-1-skhawaja@google.com/
+[3] https://lpc.events/event/20/contributions/2612/
+[4] https://lore.kernel.org/all/cover.1788130528.git.nicolinc@nvidia.com/
+[5] https://lore.kernel.org/all/0-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com/
+[6] https://lore.kernel.org/all/0-v2-563ee63886f0+1209-iommupt_armv8_jgg@nvidia.com/
+[7] https://lore.kernel.org/all/20260918200640.887030-1-dmatlack@google.com/
+[8] https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
+[9] https://github.com/samikhawaja/linux/tree/iommu/phase1-v5
+[10] https://patch.msgid.link/20260723202912.1467112-2-skhawaja@google.com
+[11] https://lore.kernel.org/all/20260925011308.3381953-1-skhawaja@google.com/
+
+Pranjal Shrivastava (9):
+  iommu/kho: Extend IOMMU KHO ABI for ARM SMMUv3
+  iommu/arm-smmu-v3: Implement KHO preservation for STEs
+  iommu/arm-smmu-v3: Implement CD Table preservation
+  iommu/arm-smmu-v3: Implement Live Update Stream Table restoration
+  iommu/arm-smmu-v3: Implement Live Update CD Table restoration
+  iommu/arm-smmu-v3: Implement Live Update shutdown
+  iommu/arm-smmu-v3: Retain SMMUEN across a Live Update restore
+  iommu/arm-smmu-v3: Inherit the ASID/VMID of restored domains
+  iommu/arm-smmu-v3: Adopt the Event queue across a Live Update
+
+ drivers/iommu/arm/Kconfig                     |   2 +-
+ drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
+ .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c |  44 +-
+ .../arm/arm-smmu-v3/arm-smmu-v3-liveupdate.c  | 997 ++++++++++++++++++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 119 ++-
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  56 +
+ include/linux/kho/abi/iommu.h                 |  38 +
+ 7 files changed, 1220 insertions(+), 37 deletions(-)
+ create mode 100644 drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-liveupdate.c
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-2.43.0
+2.56.0.rc1.315.gc6ed9934b7-goog
+
