@@ -1,98 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D5452B1F4;
-	Tue, 29 Sep 2026 13:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74214FD7B2;
+	Tue, 29 Sep 2026 13:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688626; cv=none; b=uGmd6Goc96R2CwNDYq6INnledxEeNwzVt3ocgy2wVs9bS93xhdhWiiNbzRSxH5SrvPcd0IteXI4OxBrA4iF8R8TryrVQduQ7ER3/0E3SF0g6TfmXYrRYxUTnwwlRWWdtC4GjDy5U++kqjuNQrJ4wDv/Cf1S6PIdm33Wn7K7jsmA=
+	t=1790688638; cv=none; b=bayIW6pbLzBaSOtH9B8S+qE/2OsCck2s0PePF5Kt2hSnKhRrS0k9txJXSkawyGLW5+eV8RsYL9QHoriSJBjaz/DVkpJ/JtX5a91qO4MFP5ceLkBXYPMWOjlVLO9eL4ozeE+gNUBPSxNLLilkSrFDY7Vbt0Kc5h1HaHFJUACGVFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688626; c=relaxed/simple;
-	bh=jDaZ9QN1PfNQN7ekeOwptKaWTdUXlHDdlPTWkH0ZRkc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BHeyJvSguEZxSGcSvu4It7RVMlPTnNdGvKXdaW3sLOZik14YUh6UYhW2XDhgM7dmdhJsfuO+P097UF6XCSS9xsE2RV2K3QX1rSpGJMX6w3oNunYOlI6LEyTpGJ1TjGEY62MgchEfDOOQXTSmW2uW/8UUHEqFF2xiXo8RmlCN6zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIuUtXQ7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790688638; c=relaxed/simple;
+	bh=CRSnFDcudn+O1z3dXdbQUFJ7Fo6ozes9yh9CgLUwIMs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=me/Qv0MLiGOR0+Wu++zdXYbldY9fs2dRbgTTN/DNpxfxXmGAPe0B0s5LmvMDgb7JvArp/g+78A9BIVbpYDgFTQttSoZNpTuQCcS8LbpQS5Z/bvYCF1LbPkOt2tx5+KpBQWKicFRDjme3vDaY2D2O41QV2CSCpITxaZIEovWX4gE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwQw2msT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIuUtXQ7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67FB61F00893;
-	Tue, 29 Sep 2026 13:30:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwQw2msT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA871F00893;
+	Tue, 29 Sep 2026 13:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688624;
-	bh=YddyNBlBeMGDVbqSqWAWeupeImPN1+vt/HIPaYWlt0Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RIuUtXQ7pN1ntHH5E9SHtFiVxk4VlC3Lx05nbDdqWgnrCoGrr5Kaw9EB3EurZOqnd
-	 ver7PIljjQDwRadvVv/c0J+hSkjXNlJWDffpZQLU4o93+0nCvAAl0Ux4SYrhGz087x
-	 /Em+ZWodHWV8OvgVNkTQErGD8adcsGYl1RKaedB7Hpt6DTY+b0QeVKsaMmFWtR0wIy
-	 1brTzz3b1fmLHV899/10+jQutIesNgOTsfOa5laHgSWmjnUC6CSWuXFwsRIMHGnLYv
-	 HGMSS19MSaUoKNmt7xqQq6t+vM1Gswc7Xht5EjiEDmf4hpi5r6Q6EcIVHkhsOwMVNz
-	 JNZ4Kdafpc/Lw==
-Message-ID: <45963e29-f896-4e67-87ee-ac90131773e2@kernel.org>
-Date: Tue, 29 Sep 2026 15:30:16 +0200
+	s=k20260515; t=1790688637;
+	bh=CktuKaVpQF4v7fUWgp1B/FLtTW+0VHvulKFUhKzny6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OwQw2msTwGYBWjPIoGKWVaY9WOrD1EfK00LheuYYhSxVBHTi2aKUA3nRNzWydFewU
+	 WgoXCi06D905T8lhQFKvNWjqkRDrHGUNbaaLm/N0HEKKq0Bs6jb0MR3YwfUqs18DLQ
+	 4eHYqxCVQZmmQvSDMZVWPugfwOuA70ZEOktwOaEICARldtAvNcN6MuQeA++r4KqfXR
+	 IS1k+/0fdIHSaG+OXsD/WvDZo6VQWrFxON6f4A60vmBvvJWBP7yeOfEhHm6+enA7zR
+	 5+8oou/1UJFxgoVbvH6Gm+5GZw0Crq5dBu/hEmLy1BLSsR6wM9kUBlWoLjUXidPRan
+	 sgp66J7A8QPaw==
+Date: Tue, 29 Sep 2026 14:30:35 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v6 RESEND 1/5] mm/memcontrol: flatten try_charge_memcg
+ control flow
+Message-ID: <aru8sLRda2q3DMoF@thinkstation>
+References: <20260928192349.3432886-1-joshua.hahnjy@gmail.com>
+ <20260928192349.3432886-2-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: core: Use EOPNOTSUPP for disabled blob return value
-To: Inochi Amaoto <inochiama@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Damon Ding <damon.ding@rock-chips.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- Longbin Li <looong.bin@gmail.com>
-References: <20260929084739.467082-1-inochiama@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20260929084739.467082-1-inochiama@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928192349.3432886-2-joshua.hahnjy@gmail.com>
 
-On 2026/09/29 10:47, Inochi Amaoto wrote:
-> Currently, the phy subsystem uses ENOSYS for dummy blob functions,
-> it does not reflect the function state correctly. As kernel already
-
-s/function state/hardware capability ?
-
-s/As kernel/As the kernel
-
-> has EOPNOTSUPP for disabled blob function, replace ENOSYS with
-
-What is "blob function" ? Are you talking about all the phy_xxx() functions?
-
-> EOPNOTSUPP for a clear return value. Also adapt the return value
-> changed in the following affect file:
-
-s/affect/affected
-
-> - ata/libahci_platform.c
-> - drm/bridge/analogix/analogix_dp_core.c
-> - usb/dwc2/platform.c
-> - usb/dwc3/core.c
+On Mon, Sep 28, 2026 at 12:23:44PM -0700, Joshua Hahn wrote:
+> Refactor try_charge_memcg by flattening the nested memsw/memory
+> page_counter operations to separate the logic between the two.
 > 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> When page_counter_try_charge is made stock-aware, this flattening makes
+> the control flow easier to follow since each page counter now has its
+> own success/failure paths.
+> 
+> No functional changes intended.
+> 
+> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> ---
 
-The ata bits looks OK, but this still feels like a lot of churn for no
-functional change since the error is an internal one that is not exposed to the
-user, as far as I can tell. The code in many places also uses -ENODEV, so the
-error returned does not seem to be consistent anyway.
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
 -- 
-Damien Le Moal
-Western Digital Research
+Cheers,
+Harry / Hyeonggon
