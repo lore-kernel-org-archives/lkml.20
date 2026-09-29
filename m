@@ -1,302 +1,209 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57607538D69
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41693203B4;
+	Tue, 29 Sep 2026 16:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699506; cv=none; b=jZKntjTajfb6R2PIVGRBRBMl09fTxzNctHHViBzXY4eaImMXDDwf69liOgfxZ1lsmnQlH8wXowJs/ovjpaZtr1SwPUr526fJT8mHCIPe0/YahMP9T/QxqI6OKCOSPhm8rOHWjhYNzpkK3eqUM4xzZ9Oz5C8JrpQvAJWLYVvvuSA=
+	t=1790699514; cv=none; b=vBfDSaiPnUb3dp7jDcbXqaGwTrb4pubY9aJLb8xfdEWQvZ/l5WO6rgEnbJr0r9+7Z9UAhpGVXNBS+U+XYftM82q99lG+J1HvH6Anwlc46GzhS1DX3xH9JVLoTF3WScRTVp4y3biF4FXDTwg+XR7u0CBVBFVApPk8WkNZfSHtYd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699506; c=relaxed/simple;
-	bh=ACkbBal0nlT1sxSxF2JEsy4COwHihI5bTLwhlQYWO1I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mPS4B7Vl0eOaSvksWzs+drTtJoEfJV6u/rvtvaZDMofV7A09oJuIeIvBgq8dAAn25y0DaiNlmeFfvkcqWXSSBoeAXKGxD1l8UXvEDoQvAY7u4e1fslZT5WTNeqaOa0nAyV+JD+zjBt7Rh6RG0enrUS0iifV5uesxQ6h6ipA4+JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b30fVjaF; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790699514; c=relaxed/simple;
+	bh=xGIC9ukH6gEyDgetd1+zTYJ3M1yE8a1OlcNiEMpB11Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SdSEi92OIpOkLcdCIEPTSmMo4Wlv2rW1PfetzEFuSoKby4fsvtLSHZ/FR2eWvnf6zP4QIiqQTzdBe9KvnQFT32DyzTgAfGJ3GwJEg4GsmZUwrHCi2ryCNP2OIef9e7j2EvmlgW0SxNqTQM0GF7aSZfDu7hU5H35d/ZFSSXKknmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcS4VX9B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b30fVjaF"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49e65a8f70eso47395e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:31:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790699501; x=1791304301; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2FO00La5ZtkB/p1RA8QGR+OID5CnVwwV2duHKQoCTfQ=;
-        b=b30fVjaFSJIXchzO/H/0nNWDhI/lYpT3c81gaZN4MYBDSih16M3g2M9/zu+RHEY5QQ
-         gmmLYSGvgSsY+dHtciKVzQzerjHd8TaBrMKDY/4sqAgtn4oxEKXgx/p4NUqRG8VBn+yB
-         xFi5RJJ33hfBIfpeEDv4pA2w7TzlN1qphW/cguk259MDx+GngWo9pXJ+gxqyLSirQ1+n
-         DlmRGKDCGGg4tZoyNXKbF9VjPp7L1Vf1ltPh6Z/rB7DQ4HnwkV8/x6PzpWAuxsbJtYms
-         AqsTFOcZ27nzpxwRnEIFyET/JCPhTYb2rDHbVtCIY12awVSNi4yihFESA4jmJ04kREXY
-         E5iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699501; x=1791304301;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2FO00La5ZtkB/p1RA8QGR+OID5CnVwwV2duHKQoCTfQ=;
-        b=NNsrtxf96VrFcsCF+K3A9yrxMVT0E4NepU+NSGAleH4gCtwkf5PiigpLzzpF6lLMRl
-         R/aIfGqdMRnr/iIQqrkjULeTINdLJ9pS3xemuQVpQTGOBrKEbuf2ymDFATKP/cxG9rsi
-         7fmdpVIzDfHTzX++LE1VxIfpqSzTj0yq0r/l2DOr7hXks04GEPpMHtVMwgOOWBCUMzJm
-         xPUfxG8P0x0ErBkoZRbmBWsfMCi3YWUgZxP/FKuorwELgjfAwmjawk32OqVI3U95nn9g
-         avfRGYB1XVomY0KtvzqKUaCdLwmHEYyWGsIS2EeG75b6dRna1QqhOxCVCO54iUltXYZS
-         MYnw==
-X-Gm-Message-State: AFuF++mls5XD5jEA6gEcVHdHtG97eRImDmDA62AC9jrC64Gwr7gEM+cA
-	BlxL2w36EZHt9TZr0p4kALL3pCm3eVe2Qnzppc+dja9UAWtlaEDmGsNhYZjPuaq9IjxzkMqGsNq
-	e9OX6EmCB
-X-Gm-Gg: AYBFou2XdiZHkff0rFOud/F70nAR21hk+nORmyQAVjil9mfIRip8tVUCxzI/sOzV5fX
-	nIPRt2u1NMAPYcXzHPH9tK37acYrMr8Wb0NWy/nDxFNpewcURx0PT5jRXw62Z14g1v6/K5gn9gg
-	YWz4XRhyGEZ3pdZJxUxLqT5EZ8k+qYfNdtn2oE+VMttGeP2/Uhhz5E9Pz+1AJpXXbKw2QGPSr+T
-	ACL+XmEoMkQR7wEZ/cu5Sp20AJq6egOZ/kxD0qLHQZ1ETei8sqJXTQs1f8dKvsxwlKXBhAsnSLv
-	/6Gd3biIQRS3MoJkRSK5yEFl9zw+c2rVV2nylwjv+7mDRozKETgZNMkkH5FPHaEFFMMmF9fKS0i
-	DQTc7tsLtpUtwu5abMK8Nfu7YV0N8qXRJyIHpUeokBPEwyWZBTW78QNFVTASBecR7DsX+pInrvJ
-	LsLBVVPdy9K0quusdQDnIM3MwLRcBnxtoIStKkWydcWYcXEDbB1dQRCSK+NiBVNCLBXr6dgHFYP
-	OTqTsdVpLyJ6PteHQLX7e3sYXKz8i0QawsU9CN6wN0L9L0kPCpcNkeaNi4/hGWR9yxThA==
-X-Received: by 2002:a05:600d:8487:20b0:49f:e8bf:c6e with SMTP id 5b1f17b1804b1-4a00e44f039mr810245e9.1.1790699501078;
-        Tue, 29 Sep 2026 09:31:41 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:5882:1599:48ff:7c0e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5049419sm4740891f8f.14.2026.09.29.09.31.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:31:39 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Tue, 29 Sep 2026 18:31:32 +0200
-Subject: [PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcS4VX9B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B708C1F000FF;
+	Tue, 29 Sep 2026 16:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790699512;
+	bh=Cb55vnZF0tji/8Hh7HeRYE1TJ+5qLvHUb2TCyUud44s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PcS4VX9BuDADAWvHThcEJciJY8c5U2DPax2tVe8SdFV7Mkp31FoPXSqUD5dSSGefA
+	 Bg/kOJTWfilZL/6bkjpnmj703FLEgDBc8kj4N/+wBXrKv9u2D0zlgMHTAus+zaiFZ4
+	 Im2dFqcd0CruZgxVNOcr9CtWWhgN958brBYZbHscPIuBL+iCUH/eGKWGrPtHUlbyN/
+	 D+C1Rma06ypZTSMlreRztrmzxiFSsybfJyQsdTJdnZ2ao9cYm15jEaMwUIFifLs3Oz
+	 KmMsLcbbCxLP8BWls60LvMm8yljReK6pg03Aah04/NVAexiuccKepILidhuIR3x86/
+	 /izHOM4pJBJXg==
+Date: Tue, 29 Sep 2026 17:31:47 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 04/11] kselftest/arm64: Use exit_error() rather than
+ SIGABRT in fp-stress
+Message-ID: <arvmJ50r86WCk9RY@gremlin>
+References: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
+ <20260901-arm64-fp-stress-kvm-v1-4-31bce995b49b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com>
-X-B4-Tracking: v=1; b=H4sIAOPnu2oC/yXMUQqDMBCE4avIPndBIxrTq5Q+aBx1BbVktQji3
- Zvq4zcw/0GKIFB6JgcFfEVlmSOyR0J+qOceLG00mdSUqTOOu23FztOkQx3Qcic7W1+VeWGdRVZ
- QPH4C4nxFX+/bujUj/Pov0Xn+ALW1xdV2AAAA
-X-Change-ID: 20260929-futex-mmshared-fix-7c8635797e15
-To: Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699495; l=7765;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=ACkbBal0nlT1sxSxF2JEsy4COwHihI5bTLwhlQYWO1I=;
- b=Fk/TfOftOkeMqQKaGdIKYO5VZnfh6TA3w/IH4chtdUxhXSFH09I+KJPkevzvWTsxHJehUL4os
- 1WpxJmf9cYpB4TiEUhrZ9qrcmTb7UrVI4kw/SIBRPIK7F/aPAftiLot
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-arm64-fp-stress-kvm-v1-4-31bce995b49b@kernel.org>
 
-A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
-It is possible for a process to wait on a shared futex with a different MM
-because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
-futex by another process.
-This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
-wakeups intended for a newly allocated MM at the same address.
+On Tue, Sep 01, 2026 at 06:06:44PM +0100, Mark Brown wrote:
+> The fp-stress test loads all deliver a SIGABRT to the process group to
+> report some errors they detect. There is no particular reason to use
+> this mechanism over exiting with an error code, the fp-stress harness does
+> not care. In order to facilitate running as KVM guests replace this with
+> use of the exit_error() function we added.
+>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
-Leave private futexes as before to avoid influencing the performance of the
-hotpath.
+LGTM, so:
 
-(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
-setting clear_child_tid such that it points into anonymous memory, which
-causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Cc: stable@vger.kernel.org
-Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
-Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
-Signed-off-by: Jann Horn <jannh@google.com>
----
-I've added a stable tag since, due to clear_child_tid, this can
-probably be used to prevent pthread_join() from completing in
-another process or to brute-force the addresses of pthread
-instances in other processes.
----
- include/linux/futex.h       | 19 ++++++++---------
- include/linux/futex_types.h |  2 ++
- kernel/futex/core.c         | 51 +++++++++++++++++++++++++--------------------
- 3 files changed, 39 insertions(+), 33 deletions(-)
+> ---
+>  tools/testing/selftests/arm64/fp/fpsimd-test.S | 10 ++--------
+>  tools/testing/selftests/arm64/fp/sve-test.S    | 10 ++--------
+>  tools/testing/selftests/arm64/fp/za-test.S     | 10 ++--------
+>  tools/testing/selftests/arm64/fp/zt-test.S     |  8 +-------
+>  4 files changed, 7 insertions(+), 31 deletions(-)
+>
+> diff --git a/tools/testing/selftests/arm64/fp/fpsimd-test.S b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+> index 5ee8ef51ea4e..fcbb3a872490 100644
+> --- a/tools/testing/selftests/arm64/fp/fpsimd-test.S
+> +++ b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+> @@ -176,7 +176,7 @@ function setsignal
+>  	cbz	w0, 1f
+>
+>  	puts	"sigaction failure\n"
+> -	b	.Labort
+> +	b	exit_error
+>
+>  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+>  	ret
+> @@ -224,7 +224,7 @@ function _start
+>  1:	puts	"Bad vector length: "
+>  	mov	x0, x19
+>  	bl	putdecn
+> -	b	.Labort
+> +	b	exit_error
+>
+>  2:	puts	"Vector length:\t"
+>  	mov	x0, x19
+> @@ -266,12 +266,6 @@ function _start
+>
+>  	add	x22, x22, #1
+>  	b	.Ltest_loop
+> -
+> -.Labort:
+> -	mov	x0, #0
+> -	mov	x1, #SIGABRT
+> -	mov	x8, #__NR_kill
+> -	svc	#0
+>  endfunction
+>
+>  function barf
+> diff --git a/tools/testing/selftests/arm64/fp/sve-test.S b/tools/testing/selftests/arm64/fp/sve-test.S
+> index 3447fe0e5554..26efdbdd88f9 100644
+> --- a/tools/testing/selftests/arm64/fp/sve-test.S
+> +++ b/tools/testing/selftests/arm64/fp/sve-test.S
+> @@ -344,7 +344,7 @@ function setsignal
+>  	cbz	w0, 1f
+>
+>  	puts	"sigaction failure\n"
+> -	b	.Labort
+> +	b	exit_error
+>
+>  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+>  	ret
+> @@ -397,7 +397,7 @@ function _start
+>  1:	puts	"Bad vector length: "
+>  	mov	x0, x19
+>  	bl	putdecn
+> -	b	.Labort
+> +	b	exit_error
+>
+>  2:	puts	"Vector length:\t"
+>  	mov	x0, x19
+> @@ -474,12 +474,6 @@ function _start
+>
+>  	add	x22, x22, #1
+>  	b	.Ltest_loop
+> -
+> -.Labort:
+> -	mov	x0, #0
+> -	mov	x1, #SIGABRT
+> -	mov	x8, #__NR_kill
+> -	svc	#0
+>  endfunction
+>
+>  function barf
+> diff --git a/tools/testing/selftests/arm64/fp/za-test.S b/tools/testing/selftests/arm64/fp/za-test.S
+> index 33dc4ce8bfa1..7208bb2db9f1 100644
+> --- a/tools/testing/selftests/arm64/fp/za-test.S
+> +++ b/tools/testing/selftests/arm64/fp/za-test.S
+> @@ -189,7 +189,7 @@ function setsignal
+>  	cbz	w0, 1f
+>
+>  	puts	"sigaction failure\n"
+> -	b	.Labort
+> +	b	exit_error
+>
+>  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+>  	ret
+> @@ -240,7 +240,7 @@ function _start
+>  1:	puts	"bad vector length: "
+>  	mov	x0, x19
+>  	bl	putdecn
+> -	b	.Labort
+> +	b	exit_error
+>
+>  2:	puts	"vector length:\t"
+>  	mov	x0, x19
+> @@ -288,12 +288,6 @@ function _start
+>
+>  	add	x22, x22, #1	// Everything still working
+>  	b	.Ltest_loop
+> -
+> -.Labort:
+> -	mov	x0, #0
+> -	mov	x1, #SIGABRT
+> -	mov	x8, #__NR_kill
+> -	svc	#0
+>  endfunction
+>
+>  function barf
+> diff --git a/tools/testing/selftests/arm64/fp/zt-test.S b/tools/testing/selftests/arm64/fp/zt-test.S
+> index c67242c2d5ab..c6cfbdeb2f0c 100644
+> --- a/tools/testing/selftests/arm64/fp/zt-test.S
+> +++ b/tools/testing/selftests/arm64/fp/zt-test.S
+> @@ -158,7 +158,7 @@ function setsignal
+>  	cbz	w0, 1f
+>
+>  	puts	"sigaction failure\n"
+> -	b	.Labort
+> +	b	exit_error
+>
+>  1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+>  	ret
+> @@ -222,12 +222,6 @@ function _start
+>
+>  	add	x22, x22, #1	// Everything still working
+>  	b	.Ltest_loop
+> -
+> -.Labort:
+> -	mov	x0, #0
+> -	mov	x1, #SIGABRT
+> -	mov	x8, #__NR_kill
+> -	svc	#0
+>  endfunction
+>
+>  function barf
+>
+> --
+> 2.47.3
+>
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index 18ed18d5cbc1..7eb645e49dd4 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -23,28 +23,32 @@ struct task_struct;
-  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
-  *	mapped on a file (reference on the underlying inode)
-  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
-- *       (but private mapping on an mm, and reference taken on it)
-+ *       (but private mapping on an mm)
- */
- 
--#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
--#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
-+#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
-+#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
- 
- union futex_key {
-+	/* For FUT_OFF_INODE */
- 	struct {
- 		u64 i_seq;
- 		unsigned long pgoff;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} shared;
-+
-+	/* For FUT_OFF_MMSHARED or private */
- 	struct {
- 		union {
--			struct mm_struct *mm;
--			u64 __tmp;
-+			struct mm_struct *mm; /* for private */
-+			u64 mm_seq; /* for FUT_OFF_MMSHARED */
- 		};
- 		unsigned long address;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} private;
-+
- 	struct {
- 		u64 ptr;
- 		unsigned long word;
-@@ -152,11 +156,6 @@ static inline void futex_set_vdso_cs_range(struct futex_mm_data *fd, unsigned in
- static inline void futex_fixup_robust_unlock(struct pt_regs *regs) { }
- #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
- 
--
--#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
- void futex_mm_init(struct mm_struct *mm);
--#else
--static inline void futex_mm_init(struct mm_struct *mm) { }
--#endif
- 
- #endif /* _LINUX_FUTEX_H */
-diff --git a/include/linux/futex_types.h b/include/linux/futex_types.h
-index d320c0571f0c..34b16f2828e7 100644
---- a/include/linux/futex_types.h
-+++ b/include/linux/futex_types.h
-@@ -85,10 +85,12 @@ struct futex_unlock_cs_ranges { };
-  * struct futex_mm_data - Futex related per MM data
-  * @phash:	Futex private hash related data
-  * @unlock:	Futex unlock VDSO critical sections
-+ * @unique_id:	Unique ID of the MM, for FUT_OFF_MMSHARED futexes
-  */
- struct futex_mm_data {
- 	struct futex_mm_phash		phash;
- 	struct futex_unlock_cs_ranges	unlock;
-+	atomic64_t			unique_id;
- };
- #else  /* CONFIG_FUTEX */
- struct futex_sched_data { };
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index a061f54b606d..3593d8a328e9 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -437,45 +437,51 @@ struct hrtimer_sleeper *futex_setup_timer(ktime_t *time, struct hrtimer_sleeper
- }
- 
- /*
-- * Generate a machine wide unique identifier for this inode.
-+ * Generate a machine wide unique identifier for this object (inode or mm).
-  *
-  * This relies on u64 not wrapping in the life-time of the machine; which with
-  * 1ns resolution means almost 585 years.
-- *
-- * This further relies on the fact that a well formed program will not unmap
-- * the file while it has a (shared) futex waiting on it. This mapping will have
-- * a file reference which pins the mount and inode.
-- *
-- * If for some reason an inode gets evicted and read back in again, it will get
-- * a new sequence number and will _NOT_ match, even though it is the exact same
-- * file.
-- *
-- * It is important that futex_match() will never have a false-positive, esp.
-- * for PI futexes that can mess up the state. The above argues that false-negatives
-- * are only possible for malformed programs.
-  */
--static u64 get_inode_sequence_number(struct inode *inode)
-+static u64 get_object_id(atomic64_t *object_seq)
- {
--	static atomic64_t i_seq;
-+	static atomic64_t last_assigned_seq;
- 	u64 old;
- 
--	/* Does the inode already have a sequence number? */
--	old = atomic64_read(&inode->i_sequence);
-+	/* Does the object already have a sequence number? */
-+	old = atomic64_read(object_seq);
- 	if (likely(old))
- 		return old;
- 
- 	for (;;) {
--		u64 new = atomic64_inc_return(&i_seq);
-+		u64 new = atomic64_inc_return(&last_assigned_seq);
- 		if (WARN_ON_ONCE(!new))
- 			continue;
- 
- 		old = 0;
--		if (!atomic64_try_cmpxchg_relaxed(&inode->i_sequence, &old, new))
-+		if (!atomic64_try_cmpxchg_relaxed(object_seq, &old, new))
- 			return old;
- 		return new;
- 	}
- }
- 
-+/*
-+ * This relies on the fact that a well formed program will not unmap
-+ * the file while it has a (shared) futex waiting on it. This mapping will have
-+ * a file reference which pins the mount and inode.
-+ *
-+ * If for some reason an inode gets evicted and read back in again, it will get
-+ * a new sequence number and will _NOT_ match, even though it is the exact same
-+ * file.
-+ *
-+ * It is important that futex_match() will never have a false-positive, esp.
-+ * for PI futexes that can mess up the state. The above argues that false-negatives
-+ * are only possible for malformed programs.
-+ */
-+static u64 get_inode_sequence_number(struct inode *inode)
-+{
-+	return get_object_id(&inode->i_sequence);
-+}
-+
- /**
-  * get_futex_key() - Get parameters which are the keys for a futex
-  * @uaddr:	virtual address of the futex
-@@ -681,8 +687,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
- 			goto out;
- 		}
- 
--		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
--		key->private.mm = mm;
-+		key->both.offset |= FUT_OFF_MMSHARED;
-+		key->private.mm_seq = get_object_id(&mm->futex.unique_id);
- 		key->private.address = address;
- 
- 	} else {
-@@ -2053,13 +2059,12 @@ static void futex_robust_unlock_init_mm(struct futex_mm_data *fd)
- static inline void futex_robust_unlock_init_mm(struct futex_mm_data *fd) { }
- #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
- 
--#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
- void futex_mm_init(struct mm_struct *mm)
- {
-+	atomic64_set(&mm->futex.unique_id, 0);
- 	futex_hash_init_mm(&mm->futex);
- 	futex_robust_unlock_init_mm(&mm->futex);
- }
--#endif
- 
- int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
- {
-
----
-base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
-change-id: 20260929-futex-mmshared-fix-7c8635797e15
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+--
+Cheers, Lorenzo
