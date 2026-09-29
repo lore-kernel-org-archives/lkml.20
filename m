@@ -1,199 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3572C5208C6;
-	Tue, 29 Sep 2026 12:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2107651EE0A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684581; cv=none; b=p6+tg2oIm3lp7q25aMsIrh9sNu+VGKMoFbiqOTqv6238R67tehheAgKlbaDErvlaROheZDxPlFUUOT+q/5ow7mz6xHO6QNtzAAZTHWNKYRVyQ2BCLoxKG8oi4OhniKCZ2prBnnh/Fr310Ikg3yHdQjco3EsEVDpg2UqiUpAoYoo=
+	t=1790684583; cv=none; b=Ep1WxL8/By5ShJgvth8bJjvJdlr6bC16Qkjw+ouNgY2Wcwbhd2HlHmBJW/LtuAQ+m6gqgkVDipKTtwbe9FIzE00mFgrEa8qKqbTDwGItMh6TDhFk5CRIFmcdQkVhbOECEmt4/y0010OKYf9qUzkSQueD62D24JI5gd7L6AF+Tj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684581; c=relaxed/simple;
-	bh=6QEaADfaXLCRdOUWWu0nY6VbePuVEBMcOGAcZQncT5Q=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=P6TUGDNSfGorMTm8tCT0aOTNi3G4T8y1aymW0zx5V7TnW7/Lg5J+WNiZc2ixU3EvBC1WB8CS2uzfpNVMKWmsBc9JfHrJrhYmwzQr5LXYEKGf8Iv23taBr6cAa6Vu/Q7Yk90KGkzHc5czOFrhnH+rEV68wJJzvHWFftKtnI4m7Mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d80sDkKt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790684583; c=relaxed/simple;
+	bh=WT4gq31nqrP8Fe2y3D59ZEOHqafYjC83nzbUyNfaSfw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mXRqsy+sxxQ8NermyoTpmENTIzuc6MhMw1C7qqG1A0XK6kH7C670RG1MGR0urVHgCo6nXt+CFRgKbvXBiV8ISeDFBsumJCEOtVrddvo1zehw6ownnUrcbMClebu/QBALPY8oklVaVCK2YJUyn5O8XOUF3DwH4I6JGWtfaEZsshA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vtdMnr07; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d80sDkKt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB98C1F00893;
-	Tue, 29 Sep 2026 12:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790684577;
-	bh=iSzVu9OwDDKxOSjGO9fkBCYVmRFSj5orb28UskQyMkM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=d80sDkKtMEyVQkdw2pshzKKKdx98S4oV3YJfHZSRJgT/PlHGMvzY8Z6Z3Ol+6SCU6
-	 cgxWlVKkNyEdvo4W238v4C0WLQeTWfjX87Msv19olm/48XgUACRHKYoiT0kkevsxoi
-	 pIWeJNorj7ojYlr/666p/I4SX7CO5Nui1bWu5ozfFW4TbcKykjS/yTPgC8KY+GYpY7
-	 Zj5vram10u6m4Z2ETZS42snGUEPg/6SXMRP/869ie+lPsmxDrq1R/Ene3Uyst3lipL
-	 4G6RgNQNfaNDvxrSzZ4o32k5oLxHKqaSObq3Ia2I7p9P//9rCbrdYU25v5y2cgWrG3
-	 eNwBR2kZob+AA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 11F151980050;
-	Tue, 29 Sep 2026 08:22:55 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 29 Sep 2026 08:22:55 -0400
-X-ME-Sender: <xms:nK27atFqomlGV2UEjoqFdmOK3Y8IOZP3H5K6BHxv4YJSW82tZz2C3Q>
-    <xme:nK27atIUWnhxcFpsf6mQHoXvOkjAo1PiJP2OB02I_j8CtElNsezTkhNEvi1etIwX8
-    jImmgpK3hi2kVctHaZyPQBFh2CFLWSVIJ_B0NKgSZEuZH4afrHmyWvX>
-X-ME-Proxy-Cause: dmFkZTEDFjcPpHlmpkQRZITCYrIcMttwRfx+2D/INT7R3trpwOZHl4PWCw5n4lgiDnG85h
-    HoxMVL9u8TrY/SzF1B75DE0C2B57mS8Erprifw+yAoB7NCv0R2o/vqeXE5Twas2a9Js/TE
-    B/BCvis7tHqJM8o5Ha9WguGhk0bAmD2VOFoCm540fWGtejPMXzLGVqDZvFf2WeB+WqRPG6
-    sOD/vsTrwxMmqZA5SxHt9eQ0AQQtwrAmhpz7QCoZjbXMIyJ9Et/u+3Z9IWQ7YAH/HWMN7o
-    cxEho1rZaYTDnu3zfzBz4vDCZuDL+qPIiHFWdiNGRKtRb924KVsxYKUrR9NHyIUqm6x8rd
-    OXluILFCRMtuqZnv8m4vI378VfHv40BQQbo5knaglo/dVqg9dUY5Ork/NPpSVVDHaBgzTM
-    RZvMM5Tohpzg+52ZBw1wGnqWIrQKgjjntkxGC3+eLAJzIKIxOxNEgATpgwsGLi9CAnPNQO
-    Ir7iUsaqlCrDBKS63xhp72dsVXtSI7mkZiHLbm/YbdWXCSXicEN19I3Cn4/glSy2HkfSUg
-    YqJItdoo8UpUOClJ4zE99qm9aplhtkqnoN1A8AslXqM2RLOBqpxYqjoVLS+Gx7M9uD4IYb
-    Zwip3/pRir4PwgwhpcOFCw4QGfstSb/OEPnp0QOwjj5EEdVkd4L7f5THmALA
-X-ME-Proxy: <xmx:n627ai3_wYBiwMYAVwqs9t59pqrX0DOHBpL9nVgBncHmfHZb261T8g>
-    <xmx:n627avcojehXun9VOwoFJT5tqumgvF0vTOQzMw_3T3astm3oEKHRjg>
-    <xmx:n627ahD7YnlvrWz8teuu59MphbWLdas-u2vnc0TNdLaj98lsHvNBOw>
-    <xmx:n627au9p3AqdVNaTtgTFbkn0mQG8646iSw8s46aMwFginBrz_Cwe5w>
-    <xmx:n627atrZhCVR34YjziFKbxbsQZkvsELvpNgC05WfaJcbGhMwwnLchXHD>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 072BFF80080; Tue, 29 Sep 2026 08:22:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vtdMnr07"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so23480815e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:22:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790684578; x=1791289378; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oAoykZR6asRmW0K7OS4CG9fLxAWwLUV9JiX7VJ+7PxE=;
+        b=vtdMnr07bJcUkuZTfu9JC10LPUaKBIRrSsmVxC5kkk1iT5n2m21mc5ZuluCdy+T6E3
+         Im4/As1WCA7eQQCfr3T7fPHYOLh5Qcz0Xc3MQLeJyKjs3BwBTMC78DmOo8cu/ytx8aQw
+         H2uoLSLmLGGO5qm4svRrQB1yKih2UZ34Qo4MUA/3fatviBBK8SMcn6SyB2TfABkXf9kl
+         x5J2MfrCrM5VhZ/QRsJgHI75aaR7zXUJwc2deU7qkkM4GL6OQBncLhVTmmSRiZuAArd7
+         3cLND1QlTyK5m2UVy0TLa4s9nlxsBjC4AgCy61jvHd3iKHI0/EclMqmTnfJ1zq3w8HHv
+         yxYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790684578; x=1791289378;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oAoykZR6asRmW0K7OS4CG9fLxAWwLUV9JiX7VJ+7PxE=;
+        b=mjiy1vFwrs/9Y7LvVNLakQ4r97L7Y9gynvI68mPa16376gGrlKnw66R0zS/2GgXOJh
+         uN+AuAdJzKfiAsmKBJU0xp7TV+XdD34+Ey9l2iyyKqXKw5swCJneKvdo+3ldOC/DHKmU
+         F/h2kmcG0kHn7UdC+/nfvXP87tYL6PhQg1QMmJAHOYi7ivWmvfKmDztDy53f1We46b7D
+         SDCYUVG8pa4KDLABFjxlsaIGDXXgRbVd/YF4u7OPW3HqQskLVsK0+VvlsyqeI/ilBnaE
+         tcJyCUhf3gDlH6mo16P4CJILJVuUwzfKcgaiHIe/zeefd6Mghh2ZNwP5hKEFX79Aupt3
+         NUcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxql3xenOM49LLzUe51sYk8Q0adllGW6zFF6Ue5w17V6070lFEhR4rCI7jAvmFovZKwo1rWWAszDu/6UtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9gRcs5GIiK1Zu3eohysBCfJLRGBQsOjZxTsvruSJHjJFNJERI
+	LTlpNl3tqHN2OsyyDJyJLBRzh8Og9foj0AS6xDkl7Y2Pr54JFaxms3L4xKNNicTOcnBkvDlw/aV
+	AmzfpvkI=
+X-Gm-Gg: AYBFou0AIlq1d3Z+bm/cyLtkNa5GAty6FeXWiOsCWkeLVCU/K75XaF1zLgfyW4tAclK
+	ttqTpenD6j5ValCCLOCkDioAx6iSnQgGHeZ/cxGkP/UHh9Dy5tmP82xMt+4Rr2OR9IKPpgwFEL9
+	GxOPNjTdjTy21oLcVJh7htv7eZwWCaPp+KjulFPTKKxRJDmOw5MkMp4bDgS7biAQhqO238LJ/f5
+	lH4vu4KOfCqaz2IIWW/2Aca7Wwpsk6n9gmPBoUnZk6VIclcP288AqURrTLFocjnwvc/sF0Pl4xq
+	LbvSaYFwpw7D1oSp6DP5SBLEdmgDp/GCKGTZ9AFpl22YXSo3un+qW82jz5fxvGdv1XpzATI7tK0
+	VHYmr2UqPzxcFJ+8fTjuLDL1bE5qhlg13D03y6seiZnBAi/2s4ibFTB/Kwija1VMjOX2Fs2fE8P
+	NBoyAPP0hAOHLHiP/mmVK6GReheTkwS7Qh36eIAIhRpOmQNezCT5j33BRnziNOARg53/ol2VXbJ
+	Is=
+X-Received: by 2002:a05:600c:4ecf:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a001e8c316mr100957425e9.32.1790684577698;
+        Tue, 29 Sep 2026 05:22:57 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013b8f6f5sm5072545e9.10.2026.09.29.05.22.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 05:22:57 -0700 (PDT)
+Message-ID: <d371220f-9ad2-41ca-a2a5-930c46801c31@linaro.org>
+Date: Tue, 29 Sep 2026 13:22:55 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 29 Sep 2026 14:22:31 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>,
- "Prashant Singh" <singhpra@juniper.net>
-Cc: "Jeremy Kerr" <jk@ozlabs.org>, "Clark Williams" <clrkwllms@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>,
- "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
- "Steve McIntyre" <93sam@debian.org>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Message-Id: <59d5452c-42b1-4784-a593-5e549a2a0f12@app.fastmail.com>
-In-Reply-To: <20260929074312.v3jT8uel@linutronix.de>
-References: <20260928203445.72318-1-singhpra@juniper.net>
- <20260929074312.v3jT8uel@linutronix.de>
-Subject: Re: [PATCH v4] efivarfs: add nostatfs mount option to skip QueryVariableInfo()
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/14] perf tests: Check CoreSight IRQ entry and exit
+To: Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
+ <20260923-perf_cs_etm_fix_non_taken-v2-11-6ab8c07a5455@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-11-6ab8c07a5455@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Sebastian,
-
-Thanks for taking a look.
-
-On Tue, 29 Sep 2026, at 09:43, Sebastian Andrzej Siewior wrote:
-> On 2026-09-28 13:34:45 [-0700], Prashant Singh wrote:
->> QueryVariableInfo() is an EFI runtime service that, on some firmware,
->> takes tens of milliseconds and runs with preemption disabled, stalling
->> the CPU that services it. efivarfs_statfs() calls it (rate-limited since
->> commit b2326338dc68 ("efivarfs: Rate limit statfs() handler")) to report
->> the variable-store used/available capacity, so any statfs(2) -- e.g.
->> every "df" -- can inject that stall into unrelated latency-sensitive
->> workloads on the same CPU.
->> 
->> Add a negatable "nostatfs" mount option: with nostatfs, statfs(2) skips
->> QueryVariableInfo() and reports zero used/available; with statfs it
->> reports the capacity as before. It defaults to nostatfs on
->> CONFIG_PREEMPT_RT so real-time kernels do not take the stall out of the
->> box, but statfs can be passed there to force reporting back on -- e.g.
->> for tools such as fwupd that need the efivars free space to update Secure
->> Boot key databases.
->> 
->> The option can also be toggled on a live mount via remount, so reporting
->> can be enabled only for the duration of a firmware update without
->> unmounting the boot-time efivarfs mount:
->> 
->>   mount -o remount,statfs   /sys/firmware/efi/efivars   # reporting on
->>   mount -o remount,nostatfs /sys/firmware/efi/efivars   # reporting off
->> 
->> Tested on an Intel Xeon E5-2628L v4, 6.12 kernel, via
->> "strace -T -e trace=statfs df" on the efivarfs mount.
->
-> This until the end looks extremely verbose. Even if that statfs takes
-> ages, that important part is that it does so with disables preemption.
-> There has been also the introduction of the efi_runtime workqueue which
-> can be pinned to a single CPU. I guess this doesn't work for you or the
-> EFI firmware takes all other CPUs down until the all completes.
->
-
-Yeah the most severe issue is that entering SMM requires a rendez-vous
-of all the cores, and so whether preemption is enabled or not is
-actually kind of irrelevant, given that all the other cores just
-disappear.
 
 
-...
->> diff --git a/Documentation/filesystems/efivarfs.rst b/Documentation/filesystems/efivarfs.rst
->> index f646c3f0980f..cd81ee84115b 100644
->> --- a/Documentation/filesystems/efivarfs.rst
->> +++ b/Documentation/filesystems/efivarfs.rst
->> @@ -37,6 +37,22 @@ accidentally.
->>            |4_bytes_of_attributes + efivar_data|
->>            +-----------------------------------+
->>  
->> +Mount options
->> +=============
->> +
->> +statfs / nostatfs
->> +      Control whether ``statfs(2)`` reports the variable-store used/available
->> +      capacity. Obtaining it requires the ``QueryVariableInfo()`` EFI runtime
->> +      service, which on some firmware takes tens of milliseconds and runs with
->> +      preemption disabled, stalling the calling CPU. With ``nostatfs`` the call
->> +      is skipped and ``statfs(2)`` reports zero. The default is to report,
->> +      except on ``CONFIG_PREEMPT_RT`` where it defaults to ``nostatfs``; pass
->> +      ``statfs`` there to force reporting back on (e.g. for tools such as fwupd
->> +      that need the free space for firmware updates). The option can also be
->> +      flipped on a live mount with ``mount -o remount,statfs`` /
->> +      ``mount -o remount,nostatfs``, so reporting can be enabled only for the
->> +      duration of a firmware update without unmounting efivarfs.
->
-> could this be, I don't know something smaller not including the
-> commandline where I would expect that people know how to use it.
->
-> ===================     
-> =========================================================
-> (no)statfs		Control whether ``statfs(2)`` reports the variable-store
-> 			used/ available. Disabling it skips the EFI runtime 
-> 			service call, which might block the CPU for a few milliseconds,
-> 			reporting 0 for used and capacity. Enabled by default on
-> 			PREEMPT_RT.
-> ===================     
-> =========================================================
->
+On 23/09/2026 16:21, Leo Yan wrote:
+> Add an AArch64 branch_not_taken_loop workload and a CoreSight shell test
+> checking IRQ entry and exit PCs. Use cpu-clock generates timer
+> interrupts.
+> 
+> Retry at different timer frequencies and skip if no complete pair is
+> captured.
 
-+1
+Maybe we need to look into storing existing recordings somewhere or 
+committing small ones into the repo again. This test took 3 minutes to 
+run on my N1SDP, which is 3x longer than the entire Coresight suite, and 
+then it skipped anyway:
 
-> It might make sense to add this knob to 
-> Documentation/core-api/real-time/hardware.rst.
-> I am not sure yet but slowly we are getting more knobs that I have
-> expected.
->
->> +
->>  *See also:*
->>  
->>  - Documentation/admin-guide/acpi/ssdt-overlays.rst
->> diff --git a/fs/efivarfs/internal.h b/fs/efivarfs/internal.h
->> index f913b6824289..0cb053884b4b 100644
->> --- a/fs/efivarfs/internal.h
->> +++ b/fs/efivarfs/internal.h
->> @@ -11,6 +11,7 @@
->>  struct efivarfs_mount_opts {
->>  	kuid_t uid;
->>  	kgid_t gid;
->> +	bool nostatfs;		/* skip QueryVariableInfo() in statfs() */
-> Here and below you add a comment to every change you make. What about
-> focusing on the important parts, that deserve an explanation why a
-> change has been made. For instance why nostatfs has the READ_ONCE/
-> WRITE_ONCE accessors and sometimes it does not.
->
+173: CoreSight IRQ entry and exit:
+---- start ----
+test child forked, pid 6804
+Recording timer IRQs at 1000 Hz
+No complete exception entry/exit pair
+No complete IRQ pair in this recording
+Recording timer IRQs at 4000 Hz
+No complete exception entry/exit pair
+No complete IRQ pair in this recording
+Recording timer IRQs at 10000 Hz
+No complete exception entry/exit pair
+No complete IRQ pair in this recording
+[Skip] No complete IRQ pair after three recordings
+---- end(-2) ----
+173: CoreSight IRQ entry and exit
 
-AIUI the READ_ONCE/WRITE_ONCE were added because Sashiko warned about
-potential KCSAN splats? It would be nice to mention that.
 
-In any case, KCSAN is runtime instrumentation, and efi_reboot_required()
-is only called after all other CPUs have been brought down. So if anything,
-this should just wrap the read on the reboot path in a data_race() so
-that we don't trigger any instrumentation inadvertently on the way down.
+Really this test is only looking for how a single exception on a single 
+branch is decoded, it shouldn't be affected by how it was recorded. Even 
+a few bytes of trace would be enough to test it. Or maybe we could add 
+some kind of unit test framework that mocks out OpenCSD and allows us to 
+script how different packets affect the decoder?
+
+But we have to be careful to not add slow tests because it means they're 
+much less likely to be run, or results ignored as it's so hard to 
+iterate quickly. Or also in this case, silently skipped if something 
+regresses.
+
+> 
+> For example, an expected hw int/iret pair is:
+> 
+>    hw int           5cc928 => ffff800080010c80 insn: 63 04 00 f1
+>    ...
+>    iret   ffff800080012284 =>           5cc928 insn: e0 03 9f d6
+> 
+> The entry PC is the architectural resume address, here SUBS X3, X3, #1
+> at 0x5cc928. After the IRQ is handled, ERET returns to the same PC to
+> continue execution.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   tools/perf/tests/builtin-test.c                    |   1 +
+>   tools/perf/tests/shell/coresight/irq_entry_exit.sh |  37 +++++
+>   tools/perf/tests/shell/lib/coresight_exception.sh  | 165 +++++++++++++++++++++
+>   tools/perf/tests/tests.h                           |   1 +
+>   tools/perf/tests/workloads/Build                   |   2 +
+>   tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++++
+>   6 files changed, 239 insertions(+)
+> 
+> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+> index 6259ed805c5f75799d52ac742b77cf278f98bd9d..8eab221f115e75a3ef90be975d4ed0558ceb2b16 100644
+> --- a/tools/perf/tests/builtin-test.c
+> +++ b/tools/perf/tests/builtin-test.c
+> @@ -171,6 +171,7 @@ static struct test_workload *workloads[] = {
+>   	&workload__datasym,
+>   	&workload__landlock,
+>   	&workload__traploop,
+> +	&workload__branch_not_taken_loop,
+>   	&workload__inlineloop,
+>   	&workload__jitdump,
+>   	&workload__context_switch_loop,
+> diff --git a/tools/perf/tests/shell/coresight/irq_entry_exit.sh b/tools/perf/tests/shell/coresight/irq_entry_exit.sh
+> new file mode 100755
+> index 0000000000000000000000000000000000000000..f164daa222b0550ceb106aa6a1215740a1432017
+> --- /dev/null
+> +++ b/tools/perf/tests/shell/coresight/irq_entry_exit.sh
+> @@ -0,0 +1,37 @@
+> +#!/bin/bash
+> +# SPDX-License-Identifier: GPL-2.0
+> +# CoreSight IRQ entry and exit (exclusive)
+> +
+> +# shellcheck source=../lib/coresight_exception.sh
+
+No need for these anymore, see 
+https://lore.kernel.org/linux-perf-users/20260921-james-perf-shellcheck-source-v1-1-adcfc107c997@linaro.org/
+
+> +. "$(dirname "$0")/../lib/coresight_exception.sh"
+> +
+> +test_irq_entry_exit()
+> +{
+> +	# IRQs must return to the interrupted PC. Retry at different timer
+> +	# frequencies if trace gaps leave no complete entry/exit pair.
+> +	for freq in 1000 4000 10000; do
+> +		echo "Recording timer IRQs at $freq Hz"
+> +		if ! record_trace_with_cpu_clock "$freq" branch_not_taken_loop; then
+> +			cat "$tmpdir/record.log"
+> +			echo "Failed to record the IRQ workload"
+> +			return 1
+> +		fi
+> +
+> +		decode_trace || return 1
+> +
+> +		check_exception_pairs "hw int" "iret" 0
+> +		result=$?
+> +		case $result in
+> +		0) return 0 ;;
+> +		1) cat "$tmpdir/script.log"; return 1 ;;
+> +		2) echo "No complete IRQ pair in this recording" ;;
+> +		*) return "$result" ;;
+> +		esac
+> +	done
+> +
+> +	echo "[Skip] No complete IRQ pair after three recordings"
+> +	return 2
+> +}
+> +
+> +setup_exception_test || exit $?
+> +test_irq_entry_exit
+> diff --git a/tools/perf/tests/shell/lib/coresight_exception.sh b/tools/perf/tests/shell/lib/coresight_exception.sh
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f0133c258625147405ba4641ff7e442437fc66b8
+> --- /dev/null
+> +++ b/tools/perf/tests/shell/lib/coresight_exception.sh
+> @@ -0,0 +1,165 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +# Common helpers for CoreSight exception entry and return tests.
+> +
+> +cleanup()
+> +{
+> +	case $? in
+> +	0|2) rm -rf "$tmpdir" ;;
+> +	*) echo "Test files retained in $tmpdir" ;;
+> +	esac
+> +}
+> +
+> +record_trace_with_cpu_clock()
+> +{
+> +	local clock_opts=()
+> +
+> +	record_freq=$1
+> +	shift
+> +
+> +	# A zero frequency omits the cpu-clock event.
+> +	if [ "$record_freq" -gt 0 ]; then
+> +		# Generate timer IRQs without delivering a signal to the workload.
+> +		clock_opts=(-e cpu-clock:u -F "$record_freq")
+> +	fi
+> +
+> +	# FIFO control bounds the trace to the workload.
+> +	# --kcore supplies the running kernel's instructions for decoding.
+> +	taskset -c "$cpu" perf record -B --no-bpf-event --per-thread --kcore \
+> +		-e cs_etm/timestamp=0/uk "${clock_opts[@]}" \
+> +		-m,4M -D -1 --control fifo:"$tmpdir/ctl","$tmpdir/ack" \
+> +		-o "$tmpdir/data" -- \
+> +		perf test --record-ctl fifo:"$tmpdir/ctl","$tmpdir/ack" -w "$@" \
+> +		> "$tmpdir/record.log" 2>&1
+
+There's a shellcheck warning here:
+
+   (warning): Word is of the form "A"B"C" (B indicated). Did you mean 
+"ABC" or "A\"B\"C"?
+
+You can avoid it by passing the whole path as "$cf" and "$af" like the 
+other coresight tests.
+
 
