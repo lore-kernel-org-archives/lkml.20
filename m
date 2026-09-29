@@ -1,169 +1,111 @@
-Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B2F3A4F30
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EDD3A4F30
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670174; cv=none; b=Qxpv1recQx7pTj1y77FmdnnbvLTBx6sOg+cw4yfdo7Q0JEwcAi0OHc0JSzQqYeIw9wpfdxIejTlES9sF+v8EjhoaJDudqJxqi6YQFwyWQw+KuHUn/cWUEKDtpxRtE21tv+1coQmGe+8PrL0T3hJgo/6jLX6XLCE9ilIWnIhjnHg=
+	t=1790670200; cv=none; b=mtrgNeoPKx1VLqwGSF1bVbi1vxof2JePi2APi67RF6yk1ZUv6p+/ZlBdk71jnEy5OJ6OL8AAdNHwKVKLyb8jc3zM2UXbKmrwPdfek+8FIwMQiyHF+0mLnIa9kD4DLwNYa3sYOtAt7l3c7Os93MExnEcJ6Ue0BFSZIhkaZw7bCNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670174; c=relaxed/simple;
-	bh=on/JchLIm7ReTjkHsHsqt/RBkZgWaTOn8Aj08/8SF5A=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Ih5JDiea+tQks9lvpkor8IKsNoHIJhJLzotkH3CZD5jeho/YSOl/lA0aeN2bw1UFCgY1rDHaT9qnrIvuBgHBnZXYtn2u+ztxykVdrt+pyD/lU9heQxCqRbpfq9AxC/3+d7FoG0j4SyaW4Ee8GktgnlcUTjeOcaEbiI4DOlT93cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Sz0RinNF; arc=none smtp.client-ip=95.215.58.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790670200; c=relaxed/simple;
+	bh=1y9Fke8rC9V8N/NzK5xLdB7SpFDtZwdMXiFJX4Q4qKo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gaTTEMAdNC+sFmAxtyq+3ieHcBg6dtmZKAftfNgNvMBy0ZY3wgsnVnaBUo6TVxG9m3lY+iKkKB/CM6Ra4lcFhqwVp1typxQjr4dbwzWYiglKNPgtoXlwK+w/5eo6tHdfj4UQscfftWcEUsvncfNjW/SfR7+9u+4+8ynrNbPEDLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2agg/1bA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Sz0RinNF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=on/JchLIm7ReTjkHsHsqt/RBkZgWaTOn8Aj08/8SF5A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790670170; v=1; x=1791274970;
- b=Sz0RinNFmiKdVAVddhMu3kIoX3ZxK28AKwddLyOdiX0cJJEgwsz5utrXn+KgFlmzUsIAn9fq
- U1KrdVB11KZb3o0NopaqAyq0Jhw0NupOCTn3A4ZP2TeSRUL66baUVhN4r8YkD0kk0egDPyTPW1B
- 4sX9wI16Le8m2jpiqJti63M8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 94a06a54ff95dd08;
-	Tue, 29 Sep 2026 08:22:50 +0000
-X-Mizu-Trace-ID: 94a06a54ff95dd08
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2agg/1bA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7CF1E1A0FE0;
+	Tue, 29 Sep 2026 08:23:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 430D0601BD;
+	Tue, 29 Sep 2026 08:23:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB555103297A6;
+	Tue, 29 Sep 2026 10:23:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790670194; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BZho5NU2J1k/6TkVIQ7kSNkpmYeTDm7thl3IqkMW6R4=;
+	b=2agg/1bAAnLOjBulIJEP+QXGD+D9LPaNS3t8wqnOKJ/XDLim/A5G+6ux4a+Mj2aygjkwAw
+	4TtKXZJh+jN3sx0z0MgTHuOm8cc8/Fps1ye3uu97kJM1AMyjB0r4xCKdjXZHwlWmE+1Fjd
+	AkBvge2Okp+fbkE09tuZJsFewDeoC5jTUAvadEfGUwO55FpmDwgH1hhtnCSkeHyOrnczL5
+	98C11OOu2XPY3YUaQD+yOK2wYMmSQet6aGMf7tJ6cltLkraTFgajbPUZlwPPDQJPe/eE6E
+	7G7diBC+lIsa5pxhrPMPL9bzOiCJ0i921wi3lmAkQmWhltQpfdo4sIFEffB+GA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: haibo.chen@oss.nxp.com
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  michael@walle.cc,  Haibo Chen
+ <haibo.chen@nxp.com>
+Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode when
+ entering Octal DTR
+In-Reply-To: <20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com> (haibo chen's
+	message of "Tue, 29 Sep 2026 14:53:07 +0800")
+References: <20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 29 Sep 2026 10:23:08 +0200
+Message-ID: <87zex05uvn.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v5 06/12] mm/sparse-vmemmap: set compound page order for
- device DAX
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <751f6586-625b-4485-9f27-409fdf38bf3e@kernel.org>
-Date: Tue, 29 Sep 2026 16:22:29 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Jonathan Corbet <corbet@lwn.net>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Lance Yang <lance.yang@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <A77F22EE-0C10-483E-83D6-CC88D8485E88@linux.dev>
-References: <20260927025441.741633-1-songmuchun@bytedance.com>
- <20260927025441.741633-7-songmuchun@bytedance.com>
- <751f6586-625b-4485-9f27-409fdf38bf3e@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-Last-TLS-Session-Version: TLSv1.3
+
+On 29/09/2026 at 14:53:07 +08, haibo.chen@oss.nxp.com wrote:
+
+> From: Haibo Chen <haibo.chen@nxp.com>
+>
+> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35). In
+> 8D-8D-8D mode the opcode is extended to two bytes per cmd_ext_type, but
+> the resulting command is not a valid SR2 read for these flashes, which
+> access their status/config registers through a vendor-specific indirect
+> register space. Since spi_nor_cache_sr_lock_bits() now reads SR2 during
+> init, i.e. after the switch to Octal DTR, the extended RDCR gets no data
+> back and the read times out (on i.MX FlexSPI: -ETIMEDOUT and a controller
+> WARN() during probe with Micron MT35xU and Macronix octal parts).
+>
+> Clear read_sr2 when the switch to Octal DTR actually succeeds, so the SR2
+> read is skipped (a cleared opcode already means "unsupported"). Doing it
+> in spi_nor_set_octal_dtr() keys off the real runtime protocol: a flash
+> that advertises Octal DTR but runs in (x)STR because the host lacks
+> support keeps its usable RDCR.
+>
+> Assisted-by: LLM
+> Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
+> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status sup=
+port")
+> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+> ---
+> Changes in v2:
+> - Rework the fix following review: instead of guarding the read at runtime
+>   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once, at =
+the
+>   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
+
+I don't get that choice. Why switching when Octal DTR succeeds only? SR2
+is either supported or not supported, I don't think it is anyway
+different when entering octal DTR mode, is it? So I would expect SR2 to
+be cleared earlier than that, once we know the chip is octal DTR
+capable. And this must be early enough so that manufacturer drivers can
+still set their own value.
+
+I am wondering whether we should simply drop sr2 opcode in the QER SFDP
+parsing entirely for octal DTR devices (Michael?).
 
 
+> - Key the clear off the real runtime protocol so a flash that advertises
+>   Octal DTR but runs in (x)STR (host without 8D support) keeps its
+>   RDCR.
 
-> On Sep 29, 2026, at 15:30, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> On 9/27/26 04:54, Muchun Song wrote:
->> Device DAX can use vmemmap optimization only when a full section is
->> populated with a compound-page geometry. Record that geometry as the
->> compound page order in section metadata before populating the =
-section, so
->> later vmemmap accounting and population decisions can use the section =
-state
->> directly.
->>=20
->> Clear the compound page order when the section becomes empty again. =
-Also
->> reject partial additions to a section that already has optimized =
-vmemmap
->> mappings. compound_nr_pages() determines how many struct pages to
->> initialize with a section as the smallest granularity. A section =
-therefore
->> cannot safely mix optimized and ordinary vmemmap layouts.
->>=20
->> Partial additions continue to use ordinary vmemmap population, so =
-they do
->> not save vmemmap memory. Such additions are uncommon, and the lost =
-saving
->> is negligible.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->> ---
->> v3:
->> - Update the subject and commit message to use compound page order
->>  terminology
->> - Use EOPNOTSUPP instead of ENOTSUPP
->>=20
->> v2:
->> - Explain why optimized and ordinary layouts cannot share a section
->>  (suggested by Qi Zheng)
->> - Collect Acked-by from Qi Zheng
->> ---
->=20
-> [...]>
->> static struct page * __meminit section_activate(int nid, unsigned =
-long pfn,
->> @@ -838,8 +840,13 @@ static struct page * __meminit =
-section_activate(int nid, unsigned long pfn,
->> 	struct mem_section *ms =3D __pfn_to_section(pfn);
->> 	struct mem_section_usage *usage =3D NULL;
->> 	struct page *memmap;
->> + 	unsigned int order;
->> 	int rc;
->>=20
->> + 	order =3D vmemmap_can_optimize(altmap, pgmap) ? =
-pgmap->vmemmap_shift : 0;
->> + 	if (nr_pages < PAGES_PER_SECTION && section_compound_order(ms))
->> + 		return ERR_PTR(-EOPNOTSUPP);
->=20
-> Hm. Why should we support optimizing the vmemmap in case we fall into =
-the same
-> memory section as boot memory?
->=20
-> In that case, there already is a memmap allocated during boot for the =
-entire
-> section. IOW, we really shouldn't mess with the vmemmap in case we =
-have an early
-> section.
->=20
-> But maybe I am missing something and this is already disallowed?
-
-Yes, this is already handled.
-
-For a partial addition to a normal early section, after updating the
-subsection map we return the existing boot-time memmap here:
-
-	if (nr_pages < PAGES_PER_SECTION && early_section(ms))
-		return pfn_to_page(pfn);
-
-Therefore, neither section_set_compound_order_range() nor
-populate_section_memmap() is called. The fully populated boot memmap is
-simply reused, and no vmemmap optimization is attempted.
-
-The check above handles the other case: if the section already has an
-optimized vmemmap layout, as indicated by section_compound_order(ms),
-a partial addition is rejected because we cannot mix optimized and
-ordinary vmemmap layouts within one section. This also covers an early
-section whose vmemmap was already optimized during boot.
+Are you sure this is a valid case?
 
 Thanks,
-Muchun
-
-
->=20
-> --=20
-> Cheers,
->=20
-> David
-
-
+Miqu=C3=A8l
