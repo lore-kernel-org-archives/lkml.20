@@ -1,55 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBB13CC7CC;
-	Tue, 29 Sep 2026 09:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2EA4BF936;
+	Tue, 29 Sep 2026 09:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672925; cv=none; b=MJVGI/O/17juH020hSAmK3URhT2NMRGtzfyoZMv6ZGzwLyCf34r5Lmk/Uvzczupa8SkX4IBH0RNBRE6Zymeb7eRwVaM7FxT8xxSexH1NJsakzlJ8N05y7jB8i3lhVak6DVci+31MlGStLZ0jaQ60YRjPNPJ6nqJjbI73JO8hYDw=
+	t=1790672922; cv=none; b=QW2T68mUzQ/yTJ81MEVObgu8iAZ0xAU3gM86sDzGEyA7FUw921J4XdhtM97vkXOWfDWM4wTHk1m+X+oy0ryyyNFuCfi+PRzTFyySiG4hRUQUAIMY2Xlcc2KOneeffkoKqIbWY3rUVKQfZYdp9b/BSgPPzcctOGfemXUfci4yMRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672925; c=relaxed/simple;
-	bh=eEtRv/2uHSLvUQwgzDzPqeBjWWuua1qb3PTEn5xCOEU=;
+	s=arc-20240116; t=1790672922; c=relaxed/simple;
+	bh=m1Kg2+YeJeivJxsBfOWC501ehjI+0hjwdQFQz6IieNk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FQhnfPNcojMewq0mbSVXy1pAyz6HCSp+X/ibNgSJ23zju3sYUjebjjfN+m8Y2p0TcEP0RENDd9F8q96log0pF7bA5K8sfdJsm6re9M8um1To2xpoHisw2tI4XrCsfVtWd2NGo9r5afBUgkx4NNUNZQ22RA35FqHNFne0hGatzJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJf2FHMB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fh4R49HmrrUOUc54tUdx9szKyFGN1qosytimB57XitGfPZxq24P+LAQ42zayRqvbyl4Kd9L3cBdBIPcAOLwx2ktGjzWXsIDL+nb0RTcHhs0WWCq57RNKOkR/oybvoTXkDriDrm/lfKWWSd83MxocJ/+V/L69C07OhM/HpfBp0qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ez42vH7S; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJf2FHMB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12A41F00898;
-	Tue, 29 Sep 2026 09:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790672911;
-	bh=DskPakrblykgd1IR4QWGnMrjJqt+wQp+Dsf8QUYxap8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HJf2FHMBbg35sc3bxHaD5ZYbpT0VElBggLPsiql0lbyS3XQTnmiNqwpijnkSABSwb
-	 XXGSaiECMI9QmpWi8smCfIlZpwFANaKUx2H28XffJ1GeZoe9/EE6rk0YuNBGX+HPUB
-	 Yo3IKttqYhZDgaoaX9HJxJRpVis7nqciqBXharjs8X6jDcBIhQsv6kUqXYMg+gLWNv
-	 hEvpKPyA56hXyDb6p7nkwWZJWDodYn6acZnfR1BKLFTm+P4vb/xaVdwwUUz4HAEgVV
-	 eQ4shxisXIue5FuNPMCKOyV0/bRnVOrJjGqDZuHNOUKdigKc0McaVlA4HZ2R2KF1g7
-	 fhIWiRntanCGQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Soheil Hassas Yeganeh <soheil@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ez42vH7S"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790672904; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=eFQ4vreHXDUaO3HsKcHYviwry83Esj7w8plbIxQJJDY=;
+	b=ez42vH7S94t6cXtoSNdBuRyQlyxr+GU8OoXtEq0RIB/ksRC05exGLaKCVkm+Si/Q4cSProTZYPv90l6OLMejpcIScx093dIvXKBocoDritZrdxZU4OKPMEnB87sTUnpALpmmm9RnB/0y7oCSs+wR6JI0kZKTg9ntGGXNn1+xWpA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R321e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XBsgidE_1790672898;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBsgidE_1790672898 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 17:08:22 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: acme@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	leo.yan@linux.dev,
+	john.g.garry@oracle.com,
+	will@kernel.org,
+	mike.leach@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	guoren@kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [STABLE v5.15.y v2 3/9] eventpoll: use hlist_is_singular_node() in __ep_remove()
-Date: Tue, 29 Sep 2026 09:07:10 +0000
-Message-ID: <20260929090724.1461557-3-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260929090724.1461557-1-lee@kernel.org>
-References: <20260929090724.1461557-1-lee@kernel.org>
+Subject: Re: [PATCH 2/2] perf tsc: Replace the compile-time TSC support check with a weak hook
+Date: Tue, 29 Sep 2026 17:08:13 +0800
+Message-ID: <20260929090818.2651-1-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260929092850.697bce16@pumpkin>
+References: <20260928094739.2605-1-cp0613@linux.alibaba.com> <20260928094739.2605-3-cp0613@linux.alibaba.com> <20260929092850.697bce16@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,39 +62,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+Hi David,
 
-[ Upstream commit 3d9fd0abc94d8cd430cc7cd7d37ce5e5aae2cd2b ]
+Thanks a lot for the review.
 
-Replace the open-coded "epi is the only entry in file->f_ep" check
-with hlist_is_singular_node(). Same semantics, and the helper avoids
-the head-cacheline access in the common false case.
+> If you mark the prototype in the .h file "weak" you don't need a default
+> - instead check the symbol for being NULL.
+>
+> Then you can do:
+> 	if (!rdtsc)  {
+> 		pr_debug("Test not supported on this architecture\n");
+> 		return TEST_SKIP;
+> 	}
 
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-1-2470f9eec0f5@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 605963b245b2c436803cbbefddf5ee5cb326ceaa)
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- fs/eventpoll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I've just sent v2, which declares the support from the build system
+instead, following the existing PERF_HAVE_JITDUMP pattern, so the
+decision is made at compile time and there is no symbol left to test for
+NULL.
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 9e63923196fc..4a39ed132c3d 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -738,7 +738,7 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
- 
- 	to_free = NULL;
- 	head = file->f_ep;
--	if (head->first == &epi->fllink && !epi->fllink.next) {
-+	if (hlist_is_singular_node(&epi->fllink, head)) {
- 		/* See eventpoll_release() for details. */
- 		WRITE_ONCE(file->f_ep, NULL);
- 		if (!is_file_epoll(file)) {
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Keeping the __weak rdtsc() stub also means the callers that already call
+it unconditionally don't have to grow a NULL check.
 
+Thanks again for the suggestion.
+
+Best regards,
+Pei
