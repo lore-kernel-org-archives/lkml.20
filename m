@@ -1,304 +1,198 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023101.outbound.protection.outlook.com [52.101.127.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE813EC81F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661472; cv=none; b=QG2cJmsYLgJ6l0C6PcS6on1tOc0E9pRgoNbD8dktxkvQBQLFqN6SE6BnbLgPq+j1fOyTIcHjebmLnU0EYJbAR1K2w9oKCZlwiaaYyhie/DWx9RsTAlEshHxiyQ/IWqAQ/J/JglnsK+ry6XEtjMlZtObkIqH2SCkvqdJPsVYNPWg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661472; c=relaxed/simple;
-	bh=8GeD1rGFh7Sr4ZZ4qudEj72V5sCZrYz5g3zvNBQtZW4=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q5Se/DD7t22vSGYallt/+DyV1wf9Hx6kc+GWfiB4oSAdrWMR15kfAwzdMF0B1kKWQgk36guqnS38KTZC7BCWoUk9+W1RdNXh16Z1bFgJwAIzAlX24mt1OUcaABeiS3CnOi4Kws7b88TZq0WKd0hzws3wNiwMxs++iJIsI9Z10r4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxErdAJT; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD422DEA68;
+	Tue, 29 Sep 2026 05:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790661487; cv=fail; b=Z/knyDBmy1VmXb877XZ3B4aEsRnK4rp1+x9Z/uqfLnx36ZwG+hgtliOHw66GVVk4Vbqg8ocXzwz8NmNZrrdwnlBtSn+6OS9rfAERvrsH3YrDiz1rV4ubjlnCTFxz9EwAUTcvtKKf9Z0WdLgfarX4lfm1D0NCqxJJ0pIBOUxYAf0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790661487; c=relaxed/simple;
+	bh=x9QXiCQu9/eFU7IAafYTyEB6YtMuUWUNclxvy73uy+g=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KyHQ7BjDB+f7Er4NyM5JxdDPuyzguvbUrgyiRnoVygwzuAGBcV3Z+cz7FiP4YfC0nohS9DZaadEFnIzSTNQqsrk3SZt3d8aE5akStXUt32fF2e/IuY7WPYeXHnE3OyIc2W0Lzq2xTg7nD3i0SVPK9y0vkw6D4keoLW0lJgD5fs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=xsQZIPKl; arc=fail smtp.client-ip=52.101.127.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxErdAJT"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso28018585e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 22:57:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790661469; x=1791266269; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1GXVESBfLCGBvUWXT3oiO+mxnjJmlmx/9o26nbyYTUA=;
-        b=VxErdAJT8+e0H+m0/+O1gXSc9InKpEq3StE6uy39tFEmB61rXVJoY40iEPMZVJcZaC
-         McwC488APP8JYlL3PD19Grg3z3Zn9SyHSauVUAe677HAFU/Nfy1pVhK0z7gIE56RUWMC
-         NxZUEorThSLhQFlpoX2QtGnbJzDA/oLNpl/6B/mQ17F707oSF4w9bxsBq6SlA9alelKn
-         7k1+Okr6Ul2W2deRIg3VY8kKNnpojlXHGObXQff8WXrjAz5fQfPd7pxckI+hE0buNbeJ
-         aFZbdXLFoZekEt6RDDMTC/nHSiGW75hk0fgzEiadtpnV2qcP8LqR3285dmRevHNnVPXi
-         NjxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790661469; x=1791266269;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1GXVESBfLCGBvUWXT3oiO+mxnjJmlmx/9o26nbyYTUA=;
-        b=HQLXEcExofdXrTezM/AwYre8JPVabUlu4Ts8ehKYzBVBHg31XrYEgSrnZeCAn1R7Zp
-         7bmYxedm5dbbP9zNvk/R6sFHzQ7SxIipmQctrqtSsZGthrUdMaNCnVa53AmHC99luy4h
-         QWIPRlYlxLnRucCN9bn3HMv418SEhmwrrdV0gb+SRJIJTm2ld/ckbnKSKVJnFDO5u0+A
-         Io2HWzU6J7ZF2ruA1Jep5dwXtZOE9QMGAEif6H1tgDh+zf9L8iO1shn4wiop5pe8CXYY
-         asIkmEiPXyuqN1W1NmdV00voJhJ40lZrQE16h7TAE4rfAOmJaJH1RLVup8tm1AZbl4NA
-         e5Yg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ3xfuH5QI7EkE64MonJzyqpmZ/7Zs4xBm36Zw0Vw4C9FV3Xzsbk8cDct9IzePB1HSQwvTU3rduABx+SY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxgfOysDsbxjxEI1Q8/wuqa5h2kzkvUNXmUnlqWeRBY1wQ6Wwm
-	FSqan2XgN+I18zQWCGEWGetyyHSijudhE7xqjGHtArRMLjV+OtkDf6ir
-X-Gm-Gg: AYBFou3SH1qt8cC+JawGimttvvOE1nElN8+elgrALBid0C1Fu+D3rLxS7ClfJBzMxdz
-	Cm4hgoAMJIrE+FlJ9wCjYvgA0kv5X7D4noFFqRYOzgVoSu7O5jazCchs+Yzc37FOr05WkpNLaNR
-	jsxJBQyFf8GCncU2ewk6Wr+uX39eoy8DX7GU4lLnuTv+mrzQEhN6BjsTJ9yxohZ8O13VfLzSsBN
-	ghoGmbmUg8l1ByLMg2irZRpJ2RAj+M8KXTASZVCRbOydaNnSibId3mo5SVzyQXkvaAENUmZLosn
-	5VKaRCgiJSZPTZvYTpFTBeokxqOOddqMj84aI2Xe2v7yn+CTGhFavzKmziJ/em2OiAgUW51s8eK
-	2vUrYTf/4vahEJ0V2JeugbsHsXRMvHGTe3+HpCB2S6YRWl5VBOMxqt1iHRi5QiVM+wPx/q3YlJC
-	TWttup/4n9AtoTQ2CdMrPZ8dvfBfJZrQ4cJQw/AWie5WtOu82zI/sR0AcJtWTauZPnQHnFeeMca
-	hn2CGgnczCVK5ohqLpbI73BUfkeXwinA/uotoTbxLEeoZM8krhTymRSXQ==
-X-Received: by 2002:a05:600c:4754:b0:49c:c96a:d36b with SMTP id 5b1f17b1804b1-49fe66d1663mr267010055e9.12.1790661468906;
-        Mon, 28 Sep 2026 22:57:48 -0700 (PDT)
-Received: from Ansuel-XPS. (host-82-57-191-234.retail.telecomitalia.it. [82.57.191.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf2d973sm60122945e9.0.2026.09.28.22.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 22:57:48 -0700 (PDT)
-Message-ID: <6abb535c.8fb0a6ce.10321.5538@mx.google.com>
-X-Google-Original-Message-ID: <artTWbIkfjiekJiR@Ansuel-XPS.>
-Date: Tue, 29 Sep 2026 07:57:45 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Yongzhao Chen <yongzhao.derek@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org, Ziyang Huang <hzyitc@outlook.com>
-Subject: Re: [PATCH net-next v4 2/3] net: dsa: qca8k: serialize CPU MAC pause
- during MTU changes
-References: <20260928220811.1880-1-yongzhao.derek@gmail.com>
- <20260928220811.1880-3-yongzhao.derek@gmail.com>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="xsQZIPKl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GuU6/Sx+PjoxbqGtE0uQcZ6F2Eq4TGqJdD8ViPKUCyYXD29rAX3fXPYWJFcMFtg/e2vp+JDK34QQL4ve0om0gC00+eaYzfE6c3P+/l17Fx6tJqEaJnUi5gBLcaexHwn9UZmJ+C+SeJ1QbH7eXH6DGiMlKuZqG4A0JnM87mPJ1wi1/zj/H1a+4IrGmxwPtsK8C3u5gJLP15f7E+4l2anUjkT8EicxWjYwNz1buRcgU7xhhDcQUQh4QOW0HFQ+aMZU1pp6rQIvCpbwO5oxDee2+EK7z8vSgcWRsFihCQRvhaKnK5GAcbbBgHv3Fi0Mj2mzRjWl5FBQ38uoOU8AmysoIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Lh8BeN+/KqmxEd2b3ZzVTXo92SpPK4fOtDMDxMjE1U=;
+ b=Bm6ZhAgSoFsnjC7KiCewP+wnRRO8R8RsrCBttHuNrUvUuAvFY5Hp2++BkijIU3y1D1aU44+vkEv9Qwlgu/L/+CIwM/u36mZ8Pf3iyTR7v5oC/RpGVsQuJ5MvG74aVOosmiNtQEdtNtLQOqsby5RcFHE2UFYAQP4u8Hf5hNyZSCjCKGcP5TI0zbPL1dddNS+Z2g9D0NH+c8thcUiIGoFHB35MawrHsgtD2gFZ4Yhvg6SY4YHVSf/EE272wY+OO8bYcKP72MpdUqp8CGi5kRx5+xty/vAZAet8JgrNqmhVfzBeiLviQSI/+1Cjn41LZkROHtOxv3LisOGtEyAllLugeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Lh8BeN+/KqmxEd2b3ZzVTXo92SpPK4fOtDMDxMjE1U=;
+ b=xsQZIPKl7qIm7P42LbD3JW0PulH7vL02yWxaj4g5Xre0A1CWwVHfZH52Xqk8U/O7XHEU/+8a9p0mCz+FixGkpezisifi0ExGbJodTyonlztgzWNn6oi6jLBs0UaS/cpRZJVtW/dpA/ZM/m+IRCvLutcthwREhSmla7GNGZvQcxUwrPKDMDlVrqWLGwHmbQjAqGm4E4Kq7TPVagvodmDHbBVeeyK4rM1qpDvglcZap2RNnJbH0ClGwM2eZBPWJDNzeCrmpvOvGeQhRmGtQQdZNIowxEpkGEhuBmw3e2k1W04QnRnXjc+kZPTgLbvNlAXMiHcs4nNwIxe6RXL2meuNxQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by SI6PR03MB8707.apcprd03.prod.outlook.com (2603:1096:4:253::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 05:58:00 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 05:58:00 +0000
+Message-ID: <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
+Date: Tue, 29 Sep 2026 13:57:56 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
+ <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+ <20260928-efficient-secret-manatee-2fcca6@quoll>
+ <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+ <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SEWP216CA0051.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2bd::12) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928220811.1880-3-yongzhao.derek@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SI6PR03MB8707:EE_
+X-MS-Office365-Filtering-Correlation-Id: d78a7dbc-3707-4b2d-b811-08df1dee9e01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10067099003|56012099006|11063799006|3023799007|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RjTAxHG00cApzJnzBX8DEmQH8S4oGzKVJvdX0OjxFkAGboDRLMwRdyJWYpn3pFiRNttPk7yBa6JpB18tjjn3Jj68VOtonF9poGL5DKXrRauLG9VsfwNyMS6pvXPGRPidSJ/OXBk7tgz7XtZn17vWDonpzGbeeJADMnvsKMVriI4MEN7ewY2cUMSqobvB+nJ7P+e/34DB0ZoXJBoeQ4osgoCLTd/WlfMJ3FZOuMwzUpJLfHfxEHSCamKMGuksubUMRTuoecaG0W0G+DOjJ8Gvk0We0R7KOwKcnt+2WzE5WBAkT/tNna4DZFEFx2JdXnKvdXXlrb2Qlq9JZDBwKICc9YgdUSS7ZMhY+PV+oRWogy0anIdEN0vLou3BBI/3DRJqvPq5uYkLW81RCDuCf4WmKFjWzUpdr7RwHfvrNBGxqElh4OrfM06ho/2/jCYXe3/3De0BHc6tRfn1w4lCHRIJOFYle7FRZa7AY8Qf3SWihZWkLOAV2ktsNRIAe4RERUHbZFVDAuttrmx8XZYDuD2HUb8LK+CEhWYIkx05w+oi/jnx+UsTqwVpPF+8afQ9zfUhxDW2tAQFEEu5liM5+GCkkRupLTL6xsPjtKHw95ErFSfwCXE1DBOF7yQgN/ft0n3p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(3023799007)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S3NNeUUxQ2Y1ZTZkUUN4a2hLeGp5QlpyR1lSaFU0VGZUWkU1Z25Nb0c2dlJq?=
+ =?utf-8?B?a1VLWXFUZkJIYVViKy9pWFdJK1E4UTcwMUlHTk1teFh1Z0tBZ0ZBSmRxd2dn?=
+ =?utf-8?B?bVhPWWNZT1NPNldud1FBaTdYU1hqMHV5MGhST3dBZWY2YnJ3YjJjV0FIRDRp?=
+ =?utf-8?B?cHc0MG1seUU1eFJXMC82SVBRc3M2RllvUU16YXJSWVRnNXFSbTR2U3RDVW4z?=
+ =?utf-8?B?UXBzalBOYzI5RTNtQ1RZUU1tL2tsL3NIcktsZko3MTNEVFp1ZXBCaFRVNmoz?=
+ =?utf-8?B?V3h1NTd3TWZuL2laMG4xS0wzbm9GSktrd082d1VrdDJBMFNSRG5RM1M3UE44?=
+ =?utf-8?B?NmQ0dENlcDYzemcxdTZNdUdBeUw5Y1Nud29YY21tZnBHdlYyRVovZ2o2bXht?=
+ =?utf-8?B?K2pGSEFBa3N5KzhqdlBBMlZVc2ozT2dOQ0swR2xCOG5oSGFkSVlCZVkvM2dt?=
+ =?utf-8?B?Njk1dkxzZDJuT2VoZDRZeWFoaytockdQcFFlcHlJT0VUODZSWWRoMHdmaUY4?=
+ =?utf-8?B?aXlTbFBETTVKYmN2OVl2QWtoVlZrYXdqNXZqODYwWUd2TEN5VVZOa1RNQ3Q1?=
+ =?utf-8?B?djl4UjNMUTlUd1hEc25FOHNlTmRzbExIanZPaTdDUlhWdUFYeGtYcExuSjh1?=
+ =?utf-8?B?WjZxNzhENmkwVjBRT2k4cDBPNmpoa25sNmxPMDlpRzRCRlhSZlp3WG5wWm9S?=
+ =?utf-8?B?YTNsejUxb0tOOGx5b29MUzF1Y1l1c0UwK0VXRktFMVgwOCtKaUU2OTN0NzY5?=
+ =?utf-8?B?dXFIVGhRQ1lLT1QzQXA5YlhlOGJoODYxaEpBRG4vNUJFWWZvTHpLeFZvNXg5?=
+ =?utf-8?B?em9JL3ZjenNpdTJkR1BWRWl0RWVZNUNXeE9FTkRZbGpSdjA4T3R4UmUxT1Rl?=
+ =?utf-8?B?b1o1WVJSeE5hMUNHSElTWThIZTc2ZjlnSFdzY2VjZEFEQVA0M1lTSlIvdVZF?=
+ =?utf-8?B?cFd2YXkza2NoTCszNzBrVXlUNG4zZlFIR1JzSTJySGtMTXdHeXFCQW4vdXUy?=
+ =?utf-8?B?NmJzcC9DZWJDKzU3Q1BTU0dkSU13T3FUVzhWSmxMaHR6d1k0TWlqcEJGcjJN?=
+ =?utf-8?B?UHU4dVRJNWNEZVU1KzJ5S0VHVFZIL3JXMHJaQVNRSmpVc3orU1N3cmxjdWtk?=
+ =?utf-8?B?ckR5c0hZNVBESFBMYmFVZ21OSERMbmFqUEpHcnppd0FWZGhJWjkrNE1USUcv?=
+ =?utf-8?B?ZFNvcmZKcy91ZUVqM0M5UGhMeDdUaHFvUTRmOHZqVDZCVFdqRkVkQUxpdW96?=
+ =?utf-8?B?b25SVmMyLzBqZThrRGhROEZwam5nTmswUnhBUXJQMDNYYUoxMnErZ1Z6cUIv?=
+ =?utf-8?B?c0wvMUpieUt1QUJLVEJseklTdlZHNzZXRmRieDRCTWJmeTE2MVphWktKMkM4?=
+ =?utf-8?B?VU5obmIrYW9odjdJV25ycU9WOXlDYmE1R3VPWHRqUUxielAybkNPbEI1T1di?=
+ =?utf-8?B?UGJyalZlNmt3R2lSSXlOOFJFd2NVNWIyMkJBSXJJb0xsV05DN2dYM2hXZWtv?=
+ =?utf-8?B?bnU5bmV3YjY4QXlpcFlRbENVQnRTV0RSTWhhRS9vUllnV081aXc4bkZEOXNW?=
+ =?utf-8?B?SGUvSFZSeWVmOWs5TU9JTk95SGQrTk1QNUljTldDVC9MNk4yVEtiWmJDN0V4?=
+ =?utf-8?B?ckNvZzdRbjN5OURkQ1pWTHhyTU5KY005em5uVFFqODgxYjdWNjl1a01mcTZM?=
+ =?utf-8?B?blUwYVdYdlFxU0xQd0VIMEdmN3FTdzZ0V3o0NUhxUHB2TmYydHF1akRUQXFO?=
+ =?utf-8?B?SkVIV1FhcXJVR3NZZTlhV2p1TGJ1Y1IrSmRlR1o2Mk15VWZSYjAxbitKMndj?=
+ =?utf-8?B?a2R6emd5d0NFc21BMHo2eTJ6VktNT1JzY3FLREFuRGhVZkJLZ0FheFQ2cHcr?=
+ =?utf-8?B?TlAvQ21mZCtHVCtXQS9GQjhkdkFwZXZtWnUrbUNuNUw4a2I1T1hSQjR2a0V5?=
+ =?utf-8?B?MGR5NDVJM1p4TTA1Tjg4WjdHekRZWFlPSHZiV0tFUWNWOWlhWnhuVCtGWUJG?=
+ =?utf-8?B?NTZ1b2dhTmtjUm9RSXJldERLN2dHVVhuNmUrTXFUcnJ2RnV3dHl3amJneGFa?=
+ =?utf-8?B?WmxMWFFmaWVHU3pQenRqbFZhQWUxTzVLMXpvMFd4amNIOVJEZlNoaUl6a05S?=
+ =?utf-8?B?dUt6M0VWTGpHMW9aY3E3UVZ5MHhzWTh1dHcwWFl5WE0rUlNoU2toRm1ja01W?=
+ =?utf-8?B?ejQzS1FWTzNJUjI0MG1GSlNOSmswd29HRk5YbGpic2hybWgxVmw5VzZCcjNT?=
+ =?utf-8?B?ajlMQkZvZDlSUjVDckFDUEdETVBuN1pKZGJEMVJLUW04bzlZMHcvWnNQNlB3?=
+ =?utf-8?B?OE9RZ2Yxei9hVEx2ZHErNlNUY3hsN1lvWFRWaUtLQWNlazNnZ0k1Zz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d78a7dbc-3707-4b2d-b811-08df1dee9e01
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 05:58:00.2541
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: viOLgm7UqRmUyAOljVYEapBn925bLdIYE/SUxxfAuDa55MYmoss7Ouwhps4irAAtZNiPezzDY1CzFtx7aQgUzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI6PR03MB8707
 
-On Tue, Sep 29, 2026 at 12:08:10AM +0200, Yongzhao Chen wrote:
-> The global maximum frame size must be updated with CPU MACs disabled.
-> The previous logic only paused ports 0 and 6, leaving an internal PHY
-> CPU port enabled while modifying the register.
-> 
-> Include enabled internal CPU ports in the pause sequence. Use the
-> existing reg_mutex to serialize the MTU update against port enable, port
-> disable, and phylink link-up and link-down transitions. Read and restore
-> each port's original TXMAC and RXMAC bits, ensuring ports that were down
-> remain down and preserving LINK_AUTO. Retain existing handling for ports
-> 0 and 6.
-> 
-> Abort before updating the frame size if reading port status or pausing
-> the MAC fails. Attempt to restore all ports already modified, and report
-> any restoration failures even if an earlier error occurred.
-> 
-> The standalone qca8k MDIO error-propagation fix is a prerequisite for
-> this series; that error-handling bug predates this locking change.
-> 
-> Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
-> Assisted-by: LLM
-> ---
->  drivers/net/dsa/qca/qca8k-8xxx.c   |  2 +
->  drivers/net/dsa/qca/qca8k-common.c | 79 ++++++++++++++++++++++++------
->  2 files changed, 66 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
-> index 89113d22d5d..7bd9d9abcef 100644
-> --- a/drivers/net/dsa/qca/qca8k-8xxx.c
-> +++ b/drivers/net/dsa/qca/qca8k-8xxx.c
-> @@ -1495,7 +1495,9 @@ qca8k_phylink_mac_link_up(struct phylink_config *config,
->  
->  	reg |= QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
->  
-> +	mutex_lock(&priv->reg_mutex);
->  	qca8k_write(priv, QCA8K_REG_PORT_STATUS(port), reg);
-> +	mutex_unlock(&priv->reg_mutex);
->  }
+Hi Krzysztof,
+> On 29/09/2026 04:59, Zhentao Guo wrote:
+>> Hi Krzysztof,
+>>
+>>> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
+>>>> Add bindings for Amlogic hardware decoder accelerator.
+>>>>
+>>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>>>> ---
+>>>>    .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>>>>    1 file changed, 114 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..751043c3d9cc
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>> @@ -0,0 +1,114 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Amlogic Video Decode Accelerator
+>>>> +
+>>>> +maintainers:
+>>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>>>> +
+>>>> +description:
+>>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>>>> +  It supports stateless h264 decoding.
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: amlogic,s4-vdec
+>>>> +
+>>>> +  reg:
+>>>> +    minItems: 2
+>>> What is happening here? Previous version was different.
+>> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos
+> Since when?
+It should have been minItems:2 ever since v1,I must admit that this is a 
+long-standing mistake.
+>> and dmc) to work, so minItems:2 makes sense here.
+>>
+>> The same applies to |power-domain| and |interrupts| below. At least 2
+>> power-domains to make the hardware work, and at least 2 interrupts
+>> needed for the two sub-cores.
+>
+> Best regards,
+> Krzysztof
 
-I'm not entirely sure we need to use the reg mutex here since each port
-have their own register and is independent... a dedicated mutex should be
-considered for the task...
+Best regards,
 
->  
->  static struct qca8k_pcs *pcs_to_qca8k_pcs(struct phylink_pcs *pcs)
-> diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
-> index 13005f10edb..6b32bdd75ea 100644
-> --- a/drivers/net/dsa/qca/qca8k-common.c
-> +++ b/drivers/net/dsa/qca/qca8k-common.c
-> @@ -463,7 +463,8 @@ int qca8k_mib_init(struct qca8k_priv *priv)
->  	return ret;
->  }
->  
-> -void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
-> +static void qca8k_port_set_status_locked(struct qca8k_priv *priv, int port,
-> +					 int enable)
+Zhentao
 
-Personal taste but I always feel this might be confusing...
-_locked may imply that the function will lock, not that you should lock
-before calling... I know it's already pattern in the kernel, your choice to
-use this or __ variant.
-I would use __qca8k_port_set.. and add tag to enforce that the mutex should be
-locked here.
-
->  {
->  	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
->  
-> @@ -477,6 +478,13 @@ void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
->  		regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
->  }
->  
-> +void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
-> +{
-> +	mutex_lock(&priv->reg_mutex);
-> +	qca8k_port_set_status_locked(priv, port, enable);
-> +	mutex_unlock(&priv->reg_mutex);
-> +}
-> +
->  void qca8k_get_strings(struct dsa_switch *ds, int port, u32 stringset,
->  		       uint8_t *data)
->  {
-> @@ -751,8 +759,10 @@ int qca8k_port_enable(struct dsa_switch *ds, int port,
->  {
->  	struct qca8k_priv *priv = ds->priv;
->  
-> -	qca8k_port_set_status(priv, port, 1);
-> +	mutex_lock(&priv->reg_mutex);
-> +	qca8k_port_set_status_locked(priv, port, 1);
->  	priv->port_enabled_map |= BIT(port);
-> +	mutex_unlock(&priv->reg_mutex);
->  
-
-Can port be enabled concurrently and corrupt the port enable map? Can you
-check with AI if this case is possible? If yes then this might be a good
-idea to make a separate prereq patch introducing a dedicated mutex for
-port status and protect it accordingly. (might also be worth for net)
-
->  	if (dsa_is_user_port(ds, port))
->  		phy_support_asym_pause(phy);
-> @@ -764,14 +774,20 @@ void qca8k_port_disable(struct dsa_switch *ds, int port)
->  {
->  	struct qca8k_priv *priv = ds->priv;
->  
-> -	qca8k_port_set_status(priv, port, 0);
-> +	mutex_lock(&priv->reg_mutex);
-> +	qca8k_port_set_status_locked(priv, port, 0);
->  	priv->port_enabled_map &= ~BIT(port);
-> +	mutex_unlock(&priv->reg_mutex);
->  }
-
-ditto.
-
->  
->  int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
->  {
-> +	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
->  	struct qca8k_priv *priv = ds->priv;
-> -	int ret;
-> +	u32 status[QCA8K_NUM_PORTS] = { 0 };
-
-nit. Reverse tree.
-
-> +	int ret, restore_ret, i;
-> +	u32 stopped = 0;
-> +	u32 ports;
->  
->  	/* We have only have a general MTU setting.
->  	 * DSA always set the CPU port's MTU to the largest MTU of the user
-> @@ -784,25 +800,58 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
->  
->  	/* To change the MAX_FRAME_SIZE the cpu ports must be off or
->  	 * the switch panics.
-> -	 * Turn off both cpu ports before applying the new value to prevent
-> -	 * this.
-> +	 * Include internal PHY CPU ports as well as the two MAC-only ports.
-> +	 * Toggle only MAC enables, preserving the phylink link-control mode.
->  	 */
-> -	if (priv->port_enabled_map & BIT(0))
-> -		qca8k_port_set_status(priv, 0, 0);
-> +	ports = BIT(0) | BIT(6);
-> +	for (i = 1; i < 6; i++)
-> +		if (dsa_is_cpu_port(ds, i))
-> +			ports |= BIT(i);
-
-In the context of internal PHY CPU port port 0 and port 6 won't be
-connected... Should we check that and create a mask of the cpu port right
-from the start?
-
->  
-> -	if (priv->port_enabled_map & BIT(6))
-> -		qca8k_port_set_status(priv, 6, 0);
-> +	mutex_lock(&priv->reg_mutex);
-> +	ports &= priv->port_enabled_map;
-> +
-> +	for (i = 0; i < QCA8K_NUM_PORTS; i++) {
-
-for_each_set_bit might be better?
-
-> +		if (!(ports & BIT(i)))
-> +			continue;
-> +
-> +		ret = regmap_read(priv->regmap, QCA8K_REG_PORT_STATUS(i),
-> +				  &status[i]);
-> +		if (ret)
-> +			goto unlock;
-> +	}
-> +
-> +	for (i = 0; i < QCA8K_NUM_PORTS; i++) {
-
-ditto.
-
-> +		if (!(ports & BIT(i)) || !(status[i] & mask))
-> +			continue;
-> +
-> +		stopped |= BIT(i);
-> +		ret = regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(i),
-> +					mask);
-> +		if (ret)
-> +			goto restore;
-> +	}
->  
->  	/* Include L2 header / FCS length */
->  	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, new_mtu +
->  			  ETH_HLEN + ETH_FCS_LEN);
->  
-> -	if (priv->port_enabled_map & BIT(0))
-> -		qca8k_port_set_status(priv, 0, 1);
-> -
-> -	if (priv->port_enabled_map & BIT(6))
-> -		qca8k_port_set_status(priv, 6, 1);
-> +restore:
-> +	for (i = 0; i < QCA8K_NUM_PORTS; i++)
-> +		if (stopped & BIT(i)) {
-> +			restore_ret = regmap_update_bits(priv->regmap,
-> +							 QCA8K_REG_PORT_STATUS(i),
-> +							 mask, status[i] & mask);
-> +			if (restore_ret) {
-> +				dev_err(priv->dev, "failed to restore MAC state on port %d: %d\n",
-> +					i, restore_ret);
-> +				if (!ret)
-> +					ret = restore_ret;
-> +			}
-> +		}
->  
-> +unlock:
-> +	mutex_unlock(&priv->reg_mutex);
->  	return ret;
->  }
->  
-> -- 
-> 2.43.0
-> 
-
--- 
-	Ansuel
