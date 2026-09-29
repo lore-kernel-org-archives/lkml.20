@@ -1,88 +1,190 @@
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83243812D1
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C543ABD8E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694216; cv=none; b=j/JphPzKbxbXfFIBE/yzLgvwhlHk3giGWWsCOM2ar4I+3uFC3ZjT5DVYaA3pWj/s2bA5PmcnAybsEa2klGOs7gByvY827p1A/FZ/pgZiEOxisIGahmNic8JX0sha/jhYNr4rq3L9uPIzHeWAaQFG8SFVZTN0uoFIvJuqXfD/guY=
+	t=1790694211; cv=none; b=EXWrYLuDuHxrVjtBx5VuBLJGiUOwq/ZkyUQnhviNNAxaYJGs+ATiFWi8acHTdhK1uYQvZjG+kbEvGIcZPcgNfWPhIFKSxgsajPtG135wxCih63NaJvGoYXtZFKQMulXEf7lqz+eXnyH5kn9JlPwGfmUbXuD+5TtFFOvWPMj95eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694216; c=relaxed/simple;
-	bh=sVu4FJuVOqdTN3UtOwSzlTggzp5QjPZAogLVPYYo/6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CH2586mkDodyhWnqR+wgapdomlgscq8rbVV9TyM4Noh7ykMbAoEq9ZplAJIa9k1XfNPjgv6nb+6bOwHktSiYtVVHhv+mA+gVF/LjHYXgJ3g//+Dcl3haXmrji6SIPdchJvlBD0XABdvmuGpOfYE2kPegj7orcW7I/HVB6Xx/54Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ws8XtXad; arc=none smtp.client-ip=95.215.58.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790694211; c=relaxed/simple;
+	bh=IMBdnMr73s0jPE0vT1t1QudzkHs0ksFQ9CEx91z8OLw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ofc6F7kOktAqu86BqmWnq+ibpzhqGgq6XOr/BXFnYTdJUHLfn+6gwy7GdbyIxm/4s6p1H7Ewlkq48J5W2OX9ihxDTl3Y6nzShTziiphpfxYI75E9fWEpr/j2s76i7xjzgkt+OwBgnF2qLsWxBa4OYaZco0HKPhhUiClg8YTui+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=U6evshf6; arc=none smtp.client-ip=78.46.171.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ws8XtXad"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sVu4FJuVOqdTN3UtOwSzlTggzp5QjPZAogLVPYYo/6M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790694193; v=1; x=1791298993;
- b=ws8XtXadbfIibZpSFlqZjFwX934wA7T9Lhm8hL+VwnOPLYo1TvwBDyNego1Axg156dE+SgT5
- ZB2coRwjf/gZLooRbUyVWBgHV4TqIwjTSj2lioEJrcg30Yru1t0UB0KQOgYI8s5SiN8MybGM/QC
- Ok1j2UsnJNHgJ9cJj7A3NS6A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a7b642ba91fd03ea;
-	Tue, 29 Sep 2026 15:03:13 +0000
-X-Mizu-Trace-ID: a7b642ba91fd03ea
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 29 Sep 2026 23:03:27 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Chen Yu <yu.c.chen@intel.com>, tony.luck@intel.com, tglx@kernel.org,
-	bp@alien8.de, mingo@redhat.com, dave.hansen@linux.intel.com,
-	hpa@zytor.com, fenghuay@nvidia.com, babu.moger@amd.com,
-	hongyu.ning@intel.com, x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/9] x86/resctrl: Require 64-bit x86 for resctrl
- support
-Message-ID: <arvTP1jWxuCa-CkX@three-body>
-References: <cover.1789705667.git.yu.c.chen@intel.com>
- <711a7976e0a33cd6fa2872ff10898b66d34fcd70.1789705667.git.yu.c.chen@intel.com>
- <71826bc0-df95-4f07-bd2f-dd8b4775802e@intel.com>
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="U6evshf6"
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+	by relay11.grserver.gr (Proxmox) with ESMTP id 2A7E8BFDD5
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:07 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay11.grserver.gr (Proxmox) with ESMTPS id 9DB2CBFC6F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:01 +0300 (EEST)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id D4A541FFA2C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:00 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1790694181;
+	bh=Fq7ixrFiJrmYh9E7sS71VmUBnUyVUMq7Y9wxXQgpMoA=;
+	h=Received:From:Subject:To;
+	b=U6evshf6gfAMbKLrRKvFLepOuI9kJjEhPEwI6HEsuMrtbeY+O78ma2bKdGDLBaJop
+	 FAnTlUpU8urGAOhyiSAqdhDK1Fa5sAWF+q6R4i0nYOzyarz3B8w7U4KmE8hI/CMtVM
+	 8DO0sH81Ak5w1vWz8oWSmrbR7tg+zudnK3GqNoITZqgLyIR/1Fxg5JxvA5dQFjR9ia
+	 S4dRDmvzXd0Llk0h/T+tLgGYDMnjLWgZUA8f/bdmp1SERPL/w80niYp9t58IFw9Fvg
+	 sOyX4Pvb+dAbfEbu6kARt+OlQxxxT2nBzlIWUgFOUPH0HdgDMiwKjqO0YPOio+PMas
+	 iBM37/WIdmz8A==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.228.42) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f42.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc797656e36so1349150a12.3
+        for <linux-kernel@vger.kernel.org>;
+ Tue, 29 Sep 2026 08:03:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByo/djN+e/l2ybsmiEMUSG0pcKLXEgFkcPIJKjOSjn98ENmVGrXPuYIekTdUFjK5tCCILO5YaRUZAnoSwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8cN36nS+lm1Wf/6WQ58vAGEWPLdrOVoT3J9NK4Wa2q3rYrHno
+	X2iiZVu5vmi+lfxRf6QE9enLFtHALwXWdWnT1Ip2qFmCemeDvr3GlYijve4Jwr16teHxChzL6AE
+	JroLLGt144EuoInqmadQEfJTmq3XDcoo=
+X-Received: by 2002:a05:6a20:244d:b0:3de:5212:ef48 with SMTP id
+ adf61e73a8af0-3de5212f325mr8517722637.37.1790694179386; Tue, 29 Sep 2026
+ 08:02:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <71826bc0-df95-4f07-bd2f-dd8b4775802e@intel.com>
+References: <20260924134945.3095661-1-sashal@kernel.org>
+ <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
+ <arfpV7IXRAHREMzO@laps>
+ <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
+ <arhtsrVb82vr6U-p@laps>
+ <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
+ <arkiyMt2NIydrPhE@laps>
+ <CAGwozwGc62HAJnLeYL+jq_PnJq1LsV3Ex9LtQTE1pX3144MdtA@mail.gmail.com>
+ <arvFBqreU0qahkXx@laps>
+In-Reply-To: <arvFBqreU0qahkXx@laps>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Tue, 29 Sep 2026 17:02:47 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
+X-Gm-Features: AclHuK9Ma94Rjlyw1gzwy_ntdbuZQiV23QZbvuSn28lrhRiHscyF7HyryPiPfqg
+Message-ID: 
+ <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
+Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
+To: Sasha Levin <sashal@kernel.org>
+Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179069418114.2556220.14943200790236293670@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-Hi Reinette,
+On Tue, 29 Sept 2026 at 16:02, Sasha Levin <sashal@kernel.org> wrote:
+>
+> On Sun, Sep 27, 2026 at 05:24:46PM +0200, Antheas Kapenekakis wrote:
+> >On Sun, 27 Sept 2026 at 16:06, Sasha Levin <sashal@kernel.org> wrote:
+> >> If someone adds their sign-off without understanding what it certifies,
+> >> that's on them. We can't have agents add it for them just because some
+> >> people would ignore its meaning anyway.
+> >
+> >I didn't say we should make the agent add it. I said if someone wants
+> >to do it it is up to them. Not you, not the mainline kernel config,
+> >not this patch. And disabling it does nothing because the user does
+> >not understand what a sign off is anyway and will add it later or
+> >submit without it. In which case you get broken patches anyway and you
+> >solved nothing.
+>
+> Again, that's on the user. Your argument is saying that we should just drop
+> this whole DCO nonsense because no one understands it anyway.
+>
+> We can't stop enforcing things just because users don't bother reading the
+> docs.
 
-On Mon, Sep 28, 2026 at 02:21:40PM -0700, Reinette Chatre wrote:
-> Hi Chenyu,
-> 
-> On 9/17/26 9:48 PM, Chen Yu wrote:
-> > From: Tony Luck <tony.luck@intel.com>
-> > 
-> > Intel Application Energy Telemetry (AET) provides event counts in 64-bit
-> > registers in MMIO space. For accurate results these should be read with a
-> > single 64-bit load operation from the CPU.
-> > 
-> > In preparation for the removal of the separate CONFIG_X86_CPU_RESCTRL_INTEL_AET
-> > configuration option, move the X86_64 dependency to X86_CPU_RESCTRL.
-> > 
-> > This in line with Dave Hansen's proposal[1] for an addition to Linux
-> > documentation that details the state of 32-bit x86 support.
-> > 
-> > Signed-off-by: Tony Luck <tony.luck@intel.com>
-> > Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-> > Link: https://lore.kernel.org/all/c6ab0c24-8931-4f0d-9be6-23498ab4c38b@intel.com/ # [1]
-> > ---
-> 
-> This patch is being submitted as part of two different series. That is ok
-> but the versions need to be consistent. To help with this I'll not add any
-> comments here but instead just point to most recent review:
-> 
-> https://lore.kernel.org/lkml/15de2e2f-fc2e-4d06-9179-100398865624@intel.com/
+If it is up to the user, then this patch is not needed. If it is not
+and the kernel should make LLMs prompt the user to do a better job
+with DCO, then this patch does not provide a solution.
+
+I never said anything about enforcement and this patch is not about
+enforcement anyway.
+
+> Nothing is stopping you from changing this behavior to your liking either, but
+> at that point it makes you a downstream consumer on the kernel, so you get to
+> carry that delta.
+
+I am aware. The issue of switching to a mainline tree for upstreaming
+remains. Your symlink would come back. What is the solution for this?
+
+> >> If you think a hand-written AGENTS.md would do better, feel free to
+> >> write one and propose it. For now, this one seems to be working just
+> >> fine.
+> >
+> >No, I am fine with one not existing and it would be my preference
+> >actually. Ideally it would be added to .gitignore as well.
+> >
+> >That just does not address your need of steering novel contributor
+> >plus LLM, which I tried to help with. But if you do not want to put
+> >more effort than a symlink then not breaking our workflows is more
+> >important so this patch should not merge.
+>
+> All I care about is having all these "agents" follow the rules and guidelines
+> that the kernel community set around LLM contributions. I'm not trying to
+> improve the quality or make it more efficient. This patch is purely about
+> having the majority of LLM agents follow our rules out of the box.
+>
+> If you want to spend a few months trying to massage an AGENTS.md to the liking
+> of your LLMs-of-choice, then go at it.
+
+In doing so, you should consider the environmental impact and cost
+this symlink will have by providing an unoptimized indexing blob to
+LLMs which will also prompt additional tool calls. Then, the headaches
+it will cause kernel developers that do know what a DCO is or want to
+have a custom agents.md file, specifically the git errors that will be
+caused when upstreaming as the agents.md file will be dirty.
+
+I get what you are trying to do. But you need to address the
+underlying issues here. You can't just handwave them.
+
+Contributing to the kernel has never been "out of the box" and the
+kernel is not set up for that in multiple ways. If you want there to
+be an exception for LLMs such that they do a decent job at it by
+default, if anything to prevent a flood of patches with obvious
+defects, then I would agree with that goal.
+
+But in that case, you need to make sure that people that know how to
+use LLMs and know what a DCO is are not negatively affected. No, it is
+not ok to append 2k tokens to everyone's context or 2-3 more toolcalls
+for every agent thread. It is also not ok to have to do gymnastics to
+remove the symlink when switching to a clean tree for upstreaming.
+
+And even for novel contributors this is not ok. I am blessed to have
+the disposable income to pay 100$ per month to access LLM services.
+Even so, I have to make every % of usage count. Novel contributors are
+not. They are typically using free services, 10-20$ plans, or local
+models.  Those models are disproportionately affected by a poor
+agents.md file and so is their usage.
+
+I would like to see these issues resolved prior to the kernel
+providing an agents.md file or similar (if it should do so) and this
+is a very fair ask. I do not believe I am unreasonable.
+
+Also, the above is a prerequisite for adding a default agents.md file
+and does not pertain to its contents. That is a separate discussion
+altogether.
+
+Best,
+Antheas
+
+> --
+> Thanks,
+> Sasha
 >
 
-OK, I'll pick up the latest one from Tony in the next version.
-
-Thanks,
-Chenyu 
