@@ -1,480 +1,159 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 558CD530DEC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701083; cv=none; b=MMMRpX97N7KkcoEQwVAt8zxIjNHcJaYOntzc5bNqdg8cIWW5EtFjdXgsoNrC32OEiVTDsj+0JB65YLpFHEQ/qjTYbP+Hyiwc16vE5Gv0cWKaClBa01abwjQ5zdLsMxSduGjrzbCLrAyMZv0gi6pF2TVmBbwqI9yWhm28NGKpEBc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701083; c=relaxed/simple;
-	bh=bXiaiyyrKYaeKynYCTDuAXZ/ftn4vXLYmBwDbteIdoc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BKjnY1vF6O6w6SxcWaBTtj3ZyKQ1aiGrpQctXH08W6Jpc50bbATmUab0T1c/bj+wGCXBpxrxJ+PTZz9ShvKZMRQ90geSD1JQRRuReDs5i8oWCcxRR1rzmEOHD6oTm8+FocNYXbr3fGricKuCp0DYmtm8JUNICOMonKaFSL5iZCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Aqf1PfFT; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19010022.outbound.protection.outlook.com [52.103.7.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8534E3245;
+	Tue, 29 Sep 2026 16:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790701135; cv=fail; b=TYfx14b5Qmgwn7xOX5jS73iPUhSXoONd6Px53u9P9tT9Kh+SoHVydTBu/gmZb2v8dSTjmp6W5wJWzPDLHghjmzcrDNxC7QdDICkIVtVMVqUkqniqfjSp027tSU7Ur0o91oU0oDcMHLDVFuSUikTbh7PNsGHSOkT7LRl5ezvCDhE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790701135; c=relaxed/simple;
+	bh=idpxnuu0zqgxe6lW40rKM8LJIUV+VXSJAlGfy4sAFoQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AnSdrgdZOtgUd3FoqyzfDx7IpZiWUK9LMnrDNmhDFKbibj8X3Don2hhXsWGtEkvdyeqlzdEt0I0TdUj9ALBl8otgcIrZo+muUGsH0iKiCphpMaKs/75zjh9XqnQao5JiVG/WtMcnWZS/OyxrOH9jhudgu/X/QJLIfkp/FzYqlQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=Ri2OmGQo; arc=fail smtp.client-ip=52.103.7.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Aqf1PfFT"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B0EE1516;
-	Tue, 29 Sep 2026 09:57:57 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4A2A23F85F;
-	Tue, 29 Sep 2026 09:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790701080; bh=bXiaiyyrKYaeKynYCTDuAXZ/ftn4vXLYmBwDbteIdoc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Aqf1PfFThyFHP268+LxiysKEvf5ZbojIdm9qMmy3wicEJP2InUBhu9LFoK2W5WVE9
-	 reKN9ZIzBvSYgHkkwkhskQMEHFsxuCXJX344MTtfNphjCNiUUfUvlffzGyrUnccXTS
-	 Jkw0sKF/+TNu5afbS+HM+wx58qsGycVLbJwRpMyI=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Tue, 29 Sep 2026 17:57:49 +0100
-Subject: [PATCH v2 3/3] virt: arm-cca-guest: Add support for measurement
- registers
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="Ri2OmGQo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UFhEG//G6Eg/LmQNBCJIvHVRXKrbM6DxfeyRg5lYPrFu8G9Yv6s3APc+qZlmt+EfHTQGO3V+xDBE/KLkjwP4F2bSI0yTkDvQijG6rwD8LbQFxC4yY0AkHKHTHA1QNV+zDshevrvmghmrTOWIkzK/bGrF3SLm1D4H2kVBHqtiSeW6qIUcxfm9aQyZsz1tOqJYERHfjHySfSARt60CaymDgKPvRSxbN7PVLxubwi6+wR83hLoXTk7dEwErw58EaN1kC+KyfqG2qS0TpHgzszRm+MtonQYEjA0UXeOr+zQURNqRf4SaIr1T1BchtG0Aq29uc+4AEzII2P/TQMeBTeEMWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=idpxnuu0zqgxe6lW40rKM8LJIUV+VXSJAlGfy4sAFoQ=;
+ b=TwZvr4uybmgP0KkxKcaufSXfCTT9xU4MF00gJ1E2Y0dyDJBhjHYWtg05tQffCY4GSPu0L0Mi6hsGAEWbOvEuno0ashdDUtiA7IbPtX1fXVLq3Pu1lDCZ/H27JOUktFSTEmjf0AmDKTynxdAtrsWzgzlpc8hRb0H8IQ3QtRwqDPe8Hu/UQA4fIy3zpA+qUbcQMJjPXtmtZogEljVXJE30YSqNNL3/+a1E+cWYkek/pQ1/n0lmtZA6vC8xVjneo9gRDnxWQ4GcF1ZUI7E+VqA1y1gVPBHzA55Egq/NweHf3LzPR/whKlalWoOlBwlCotlpaOkwSIGbY+yFqQzWtv2M7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=idpxnuu0zqgxe6lW40rKM8LJIUV+VXSJAlGfy4sAFoQ=;
+ b=Ri2OmGQoG0eLZj4hynurNfrn9HDfknJKfjU9aF5M3NyO2RrDK8DDdb29qI02lSPQMM8Sm7eA3s/o1Twf+x/JvjUbcG5f4OJG5nOOv4ii+7QAg8Uj7ZhaN6tyql8W4SyAnqVz6qo9N4EI8Y98cDA1JFaJhXeBhSvHPodBCwFe5L15Fs6IoaXMc8h8YA+G8wGnOfm3SLUxT2p/PXcsjN6YTKfDDvzjss7lJ3+ReaaH0zIle/H6KOPLWRJGwsbF2bgDwnN5j+Ut6vNF3Q8IymIHGoqDjZqKqms6sMEDfPvPCODRaQTgvP37pSmPpKkt6d1PjQTyw5E11VxccJzBEjUmkw==
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
+ by DM4PR19MB5932.namprd19.prod.outlook.com (2603:10b6:8:6b::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Tue, 29 Sep 2026 16:58:51 +0000
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a%5]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
+ 16:58:51 +0000
+From: Marco Giunta <marco_giunta@outlook.it>
+To: zekaixie37@gmail.com
+Cc: derekjohn.clark@gmail.com,
+	hansg@kernel.org,
+	ikepanhc@gmail.com,
+	ilpo.jarvinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	mpearson-lenovo@squebb.ca,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: ideapad-laptop: Add PrintScreen key on ThinkBook 14 G8+ IPH
+Date: Tue, 29 Sep 2026 18:58:40 +0200
+Message-ID:
+ <SN6PR19MB23031D5BA941FFCF348AE620FC8C2@SN6PR19MB2303.namprd19.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929154023.89492-1-zekaixie37@gmail.com>
+References: <20260929154023.89492-1-zekaixie37@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1PEPF000008D5.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::430) To SN6PR19MB2303.namprd19.prod.outlook.com
+ (2603:10b6:805:56::19)
+X-Microsoft-Original-Message-ID:
+ <20260929165840.35318-1-marco_giunta@outlook.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-arm_cca_mr-v2-3-1d98bba187fd@arm.com>
-References: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
-In-Reply-To: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Suzuki Poulose <suzuki.poulose@arm.com>, 
- Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
- thuth@redhat.com
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13665; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=9AuTN6i2zRxC3MG1pF6cw9iqOxAn1hLsqdSfhHhipFQ=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqu+4RLJ7NArYrSTv10NuzUCkUWWpP3VQ/2jEXA
- we4raVoCWWJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarvuEQAKCRBt1cPRWsUx
- M5hzC/4qwR5iqJHjhdnpNPge3PpOEX+8B9kZpvmnx4X49D7kRLyeVeYEha/9OxogxcMx28C2AQo
- 2tDLT81g+Nq3EM21QjEmuIZMSXCrUyPkhtZMLuV3qPiFeCByJmn/qkuqK+XVaInGUrlgzo6oJV4
- TbjBzla9inus6YS53Tp+hDoCIzNN/Bv3+Vw3KnNGbeaq0GoP8psH4F/Sz4oHzuiOUZpvx/vlumu
- I8ja0VB983eXMAeL25D+aAjKg2Euu7JZJpARvuijelJhNZxiZrOupdK/hsP5wDcAnmYPkTLdJfS
- hkLtZRM30gYIADX65jjQ86F0M5zWdztYDcHefHfBgpxW4lMXG7SWNlp8d2RcK/HkPMCKIzqTO7j
- Wk1DIduLSBwDgoTOz5LoDXmjZCMezA5NjIGdW/FkPsVTurZHVuDBJxHYfnOOWUP1SQ3xuPr5Z87
- Foz0kfQQ0shIlAltrLX+sGQ+ewsuWfZYCbpm3U9jYy4RSPgDWYEqzOs0fCK9Bkp3ZZwRk=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|DM4PR19MB5932:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce4b61c5-090f-4c31-827b-08df1e4aef09
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|19110799012|260925184616899003|51005399006|8060799015|23021999003|24021099003|55001999006|15080799012|25010399006|4140399003|440099028|3412199025|2607281247196008|40105399003|30101999006;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?4E1trTHyJTSuMrWjU6TuGekJ10RDf3nC1zfHtPD6YGbKRRFfFfjMz2rUeiPG?=
+ =?us-ascii?Q?iYKRuC6JPrEwDwjDwOlVwGGNwxy1EUt5hyGSLuw7/4Y7lEhTJ8QFOTGsyl0M?=
+ =?us-ascii?Q?D30C9Pn0+E1bigE0JS8NfYBbeGs5qkLHvnPLlrx3Gjmsxhm17T/Q9ZexxNAf?=
+ =?us-ascii?Q?LOiUnXgDtk0oVLx4GHyBukToRe9+8E2sSw2mdzaDFj7PKl4b7aysDISA6jYH?=
+ =?us-ascii?Q?b7YhYtqCrugRixzTBR7ZqQpV1oymhczhtBiN19z9QY05Ho2n5vkfVLb9dHeJ?=
+ =?us-ascii?Q?TqgMAnABXy1hTBTy4gGtbXVUMryI39T4QLBzXqpbiKwvZsNafqBtlYZul9MC?=
+ =?us-ascii?Q?wSnyM5UxBMaNmLkilIjcHGPjHHauni6Cj2bIkaE/8wqAV1Ah/Gw8eax/qzNs?=
+ =?us-ascii?Q?hw6I5MZw/Ebii4RQ0FjLF0Lg+n/sh/CCEvCyqYfMXVVTWuwRcyGBAsHYb3Mw?=
+ =?us-ascii?Q?CJfPsFMLXjKoMAVl5z48MChkTwF/1g0+9f2MZVb8Q8aERSF6XYxIBudraD8d?=
+ =?us-ascii?Q?6S6/twmA5g7tKnC+zULPPtY9WR3CGmtWRi91Jy+Ikz+CNayo3Ga3nsciolAm?=
+ =?us-ascii?Q?0eZZ9qowuRtI0rNs17HErFeTBMEFzbxwiea84RcpeDgO1iVEWu48fJxAhKyE?=
+ =?us-ascii?Q?Xp+b82Ab/sRxuvtl23Qt7aDDKJiu2JaEQYPVg0dBttTRMtZj93RojnI70DKZ?=
+ =?us-ascii?Q?8vcHdEk95fmmZjaplpONN80GQJ9LRFMPzTcjKviM8IHKyjZYAbFY4m5es9vh?=
+ =?us-ascii?Q?iOpUDjaAfH/4GRRYRLB4oQRomv30JTkqlfd2veLUCfWvNAiSL82iPP075TKa?=
+ =?us-ascii?Q?b15yh3I1AeAi6M/49QmC2Do67Y2lc9iTZ6jmSQuP5eg9QM0wQyBhUSsoKfcr?=
+ =?us-ascii?Q?mKSBq8EdKBJwg/nFwclzKxz9cf4dx3nVMWFvlu14MxL4VGHTj2ddSRzmeTGf?=
+ =?us-ascii?Q?YrQgamNdGn1EdEzeRdIYwfG2Uf8rqgXk51RHX9pA+sXHsdnR6+m3zBxxvYyb?=
+ =?us-ascii?Q?kXb8?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?INb/YN9DtyWz92wXNKRk99xIxGIEJok+AOIhTFKAf1e9JfiYlp0tp9IjbDd/?=
+ =?us-ascii?Q?ApjJZj8w0kbvpxHw2AH+dVXjH6gOuZjnfYTs/41X6nUOV7/bMz+4w4Xm0782?=
+ =?us-ascii?Q?OEn5/5G0EihTJizt+hawvScvzjy3WchSswJ4kqL9p7e786Pem753JaIlU8hO?=
+ =?us-ascii?Q?BzSLL9NNMt3yb7k5fI+7bdwRQZK2ruRg2ivP6uxnofpEflmKMfuPjpH4f+pl?=
+ =?us-ascii?Q?9JjmGBbQq6narkGTLm61H/Pbn1IqG5tTIK5uJ+CzNn9EoQorHDz8dJs6twRj?=
+ =?us-ascii?Q?FLL2wTkAIxnmQDg9S61k1FopsB5TWDoy87P9OGYPheJlFmqpjxLq8JNX0zn+?=
+ =?us-ascii?Q?+vLypI7qJCbPZxpjm3sb2M7ubfvTc+m0OeWDpFhdt5hLNLddAjANa0q5fGfI?=
+ =?us-ascii?Q?2GGK1kgOgtmKBY3kskaAmL3OCAQUS6kYdKmAn0sAXt3t9VdNINGyEA2G4f2w?=
+ =?us-ascii?Q?xCFrNKbbU23xJbo1e5rKXbOGA7Q08nlFpSr2qPoDFDW7qRrvvL9vgYbjrvRw?=
+ =?us-ascii?Q?VUdesIPUbJUnh4E0D3R2EuP5jO1bTMiZ6FXkFeA9v1SjvGelCnOYcCHPmYQT?=
+ =?us-ascii?Q?xKOtuy0ojuT02FMAN9trqQ/WxXmH+8zpkDrqLvnpbEwA71IoJBq1tE7W1unU?=
+ =?us-ascii?Q?7Fbs9gUP/1Jckw8L4/D0nQA6DmKUpg1avrjO/iJEGXsBkclVH7lE10nUhruG?=
+ =?us-ascii?Q?G2fHLAZDWY0j+Sj/OEJ5adzCrBi0F7Z229YtwYt3uz5egx+oIh+WpKHZdUKy?=
+ =?us-ascii?Q?foQ5eQ2Bd3x9jRHcxF7Kwozw+k/Oa0uNiTEWKTg8zuPEZFEYNVECHbDpAHfP?=
+ =?us-ascii?Q?NEI7GwuNbwUiwRqlRRQbpcwsDhXB4a7Ol/1uJTwzWw+ShZDUaOERhzmAeyid?=
+ =?us-ascii?Q?djkMVLuLISFFTXYv+eMHFcHC5uDUWGFI5mr6+ExHS83Y/oyM2NlZVKH5CRrh?=
+ =?us-ascii?Q?bHQ/U4ZVgrB2lIwFuEMx4fwkVDpYYF5XxLG4iRqfFBGx81P3OxecTNhBNn0S?=
+ =?us-ascii?Q?7UOklzXQ0kGeWeUpoU5n2aqrp3dhKWkbUhqZ0tRmhhiOxtvIgi2hW5XBZFvB?=
+ =?us-ascii?Q?HKizsdKxY+JPAZI0LkHtDTvRFQHTo6dUNqfx3pNE9m7LsPazI8dPIBX6+S+A?=
+ =?us-ascii?Q?7H8FLjujzSbwIhkBgPtnHkZ+IeWYRnt/YMUXSr1SVR17WLUe7hH0lQx2DKXO?=
+ =?us-ascii?Q?9hR/YwCcFDJcfCkUkKwpbx7oEth2m0haoiWkpGg9xHsskFs9ZlihYtJOz3gT?=
+ =?us-ascii?Q?bf9Yrs4M7Otb8oWj/LJ+BqcReimvEEBJhsz4tjMiw1t/dJaDleuNs7XLl/CP?=
+ =?us-ascii?Q?PS8fQjbhxUOJER6NdPxLwJU+TKUbweZnFKbGMnRAKy8V4IUKfi63xg7TF3Ui?=
+ =?us-ascii?Q?OpdygQrzxlV/w7YjmBAoT1EDW+zE?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce4b61c5-090f-4c31-827b-08df1e4aef09
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:58:51.0079
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR19MB5932
 
-From: Sami Mujawar <sami.mujawar@arm.com>
+Hi Zekai,
 
-Add support for Arm CCA measurement registers (MRs), enabling attestation
-and runtime integrity tracking from guest Realms.
+Note that scancode 0x148 is already mapped in mainline: see commit
+bc39af8c2c43 ("platform/x86: ideapad-laptop: Map Smart Connect hotkey to
+KEY_LINK_PHONE"). Your patch seems to be based on an older tree.
 
-This implementation registers a measurement configuration with the TSM
-framework and exposes measurement register values via sysfs using a
-misc device. The supported registers include the Realm Initial
-Measurement (RIM) and four Runtime Extensible Measurement Registers
-(REM0–REM3), each using SHA-256 or SHA-512 depending on Realm
-configuration.
+That commit came from my two 2025 machines, a Yoga Pro 7 14ASP10 and a
+Legion Pro 7 16AFR10H. On both, the F11 key shows a symbol with a laptop,
+a tablet and a smartphone, and the user manual says it starts the Lenovo
+Smart Connect app, so the event is mapped to KEY_LINK_PHONE.
 
-The measurement registers are located under the following sysfs node:
-    /sys/devices/virtual/misc/arm_cca_guest/measurements/
-       -rw-r--r-- 1 0 0 64 Jul 21 11:46 rem0:sha512
-       -rw-r--r-- 1 0 0 64 Jul 21 11:46 rem1:sha512
-       -rw-r--r-- 1 0 0 64 Jul 21 11:46 rem2:sha512
-       -rw-r--r-- 1 0 0 64 Jul 21 11:46 rem3:sha512
-       -r--r--r-- 1 0 0 64 Jul 21 11:46 rim:sha512
+I had a look at the ThinkBook 14 G8 user guide (I could not find the G8+
+IPH variant specifically, though), and there F10 is the screenshot
+selection tool, while F11 carries the same laptop/tablet/smartphone symbol
+as on my machines.
+Since your commit message describes the key as Fn+F11, I suspect
+the event you recorded actually comes from the Smart Connect key rather
+than from the screenshot selection tool key, in which case KEY_LINK_PHONE
+is already what mainline reports for it.
 
-As seen above the attributes for the REMs are 'rw' indicating they can
-be read or extended. While the attributes for RIM is 'r' indicating
-that it can only be read and not extended.
+In any case, if you do end up mapping a PrintScreen key in this driver,
+note that KEY_SYSRQ is the magic SysRq key rather than a screenshot key;
+KEY_PRINT, or KEY_SELECTIVE_SCREENSHOT as used for 0x04 and 0x2d if the
+key opens a snipping tool, would seem more appropriate.
 
-The sysfs node suffix for the measurement register (i.e. ':sha512')
-indicates the hash algorithm used is sha512. This also reflects
-that the Realm was launched with SHA512 as the measurement algorithm.
-
-Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
----
- .../sysfs-devices-virtual-misc-arm_cca_guest       |  38 +++
- drivers/virt/coco/arm-cca-guest/Kconfig            |   1 +
- drivers/virt/coco/arm-cca-guest/main.c             | 282 ++++++++++++++++++++-
- 3 files changed, 319 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-devices-virtual-misc-arm_cca_guest b/Documentation/ABI/testing/sysfs-devices-virtual-misc-arm_cca_guest
-new file mode 100644
-index 000000000000..878dc54e48f8
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-devices-virtual-misc-arm_cca_guest
-@@ -0,0 +1,38 @@
-+What:		/sys/devices/virtual/misc/arm_cca_guest/measurements/MRNAME[:HASH]
-+Date:		July, 2025
-+KernelVersion:	v6.16
-+Contact:	linux-coco@lists.linux.dev
-+Description:
-+		Value of a Arm CCA Realm measurement register (MR). The optional
-+		suffix :HASH is to represent the hash algorithms associated with
-+		the MRs. See below for a complete list of Arm CCA Realm MRs exposed
-+		via sysfs. Refer to the Arm Realm Management Monitor (RMM)
-+		Specification for more information on the Realm Measurement registers.
-+
-+		The Arm Realm Management Monitor Specification can be found at:
-+		https://developer.arm.com/documentation/den0137/latest/
-+
-+		See also:
-+		https://docs.kernel.org/driver-api/coco/measurement-registers.html
-+
-+What:		/sys/devices/virtual/misc/arm_cca_guest/measurements/rim:[sha256|sha512]
-+Date:		July, 2025
-+KernelVersion:	v6.16
-+Contact:	linux-coco@lists.linux.dev
-+Description:
-+		(RO) RIM - [32|64]-byte immutable storage typically used to represent
-+		the Realm Initial Measurement (RIM) which is the measurement of
-+		the configuration and contents of a Realm at the time of activation.
-+
-+What:		/sys/devices/virtual/misc/arm_cca_guest/measurements/rem[0123]:[sha256|sha512]
-+Date:		July, 2025
-+KernelVersion:	v6.16
-+Contact:	linux-coco@lists.linux.dev
-+Description:
-+		(RW) REM[0123] - 4 Run-Time extendable Measurement Registers that
-+		represent the Realm Extensible Measurement (REM) registers which
-+		can be extended during the lifetime of a Realm.
-+		Read from any of these returns the current value of the corresponding
-+		REM. Write extends the written buffer to the REM. All writes must start
-+		at offset 0 and be maximum 64 bytes in size. Attempting to write more
-+		than 64 bytes will result in EINVAL returned by the write() syscall.
-diff --git a/drivers/virt/coco/arm-cca-guest/Kconfig b/drivers/virt/coco/arm-cca-guest/Kconfig
-index 0d4ce72e2d86..3693d3bc90c6 100644
---- a/drivers/virt/coco/arm-cca-guest/Kconfig
-+++ b/drivers/virt/coco/arm-cca-guest/Kconfig
-@@ -3,6 +3,7 @@ config ARM_CCA_GUEST
- 	depends on ARM_RMM_RSI
- 	depends on HAVE_ARM_SMCCC_DISCOVERY
- 	select TSM_REPORTS
-+	select TSM_MEASUREMENTS
- 	help
- 	  The driver provides userspace interface to request and
- 	  attestation report from the Realm Management Monitor(RMM).
-diff --git a/drivers/virt/coco/arm-cca-guest/main.c b/drivers/virt/coco/arm-cca-guest/main.c
-index f97f593da6e3..9bbad43c4669 100644
---- a/drivers/virt/coco/arm-cca-guest/main.c
-+++ b/drivers/virt/coco/arm-cca-guest/main.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Copyright (C) 2023 ARM Ltd.
-+ * Copyright (C) 2023 - 2025 ARM Ltd.
-  */
- 
- #include <linux/arm-rsi-cmds.h>
-@@ -9,11 +9,280 @@
- #include <linux/cc_platform.h>
- #include <linux/kernel.h>
- #include <linux/device-id/platform.h>
-+#include <linux/miscdevice.h>
- #include <linux/module.h>
- #include <linux/smp.h>
- #include <linux/tsm.h>
-+#include <linux/tsm-mr.h>
- #include <linux/types.h>
- 
-+#include <crypto/hash.h>
-+
-+/* MR buffer */
-+static u8 *arm_cca_mr_buf;
-+
-+/**
-+ * arm_cca_mrs - ARM CCA measurement register set.
-+ *
-+ * Defines a static array of measurement registers used by the ARM
-+ * Confidential Compute Architecture (CCA). These registers are used
-+ * for attestation and runtime integrity tracking.
-+ *
-+ * Register types:
-+ *   - rim: Realm initial measurement register (RIM)
-+ *   - rem0–rem3: Runtime extensible measurement registers (REMs)
-+ */
-+static struct tsm_measurement_register arm_cca_mrs[] = {
-+	{ TSM_MR_(rim, SHA256)  | TSM_MR_F_READABLE },
-+	{ TSM_MR_(rem0, SHA256) | TSM_MR_F_RTMR },
-+	{ TSM_MR_(rem1, SHA256) | TSM_MR_F_RTMR },
-+	{ TSM_MR_(rem2, SHA256) | TSM_MR_F_RTMR },
-+	{ TSM_MR_(rem3, SHA256) | TSM_MR_F_RTMR }
-+};
-+
-+/**
-+ * arm_cca_mr_refresh - Refresh measurement registers for ARM CCA.
-+ *
-+ * @tm: Pointer to a struct tsm_measurements containing measurement registers.
-+ *
-+ * Iterates through all measurement registers in @tm and refreshes those
-+ * marked with TSM_MR_F_LIVE or TSM_MR_F_READABLE by invoking
-+ * rsi_measurement_read() for each.
-+ *
-+ * Return: 0 on success, or -EINVAL if @tm is NULL or a read operation fails.
-+ */
-+static int arm_cca_mr_refresh(const struct tsm_measurements *tm)
-+{
-+	int retval;
-+	int index = 0;
-+	const struct tsm_measurement_register *mr;
-+
-+	if (!tm)
-+		return -EINVAL;
-+
-+	while (index < tm->nr_mrs) {
-+		mr = &tm->mrs[index];
-+
-+		/* Skip if the MR is not Live or Readable. */
-+		if ((mr->mr_flags & (TSM_MR_F_LIVE | TSM_MR_F_READABLE)) != 0) {
-+			retval = rsi_measurement_read(index,
-+						      mr->mr_value,
-+						      mr->mr_size);
-+			if (retval != 0)
-+				return -EINVAL;
-+		}
-+
-+		index++;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * arm_cca_mr_extend - Extend a measurement register with new data.
-+ *
-+ * @tm:   Pointer to the tsm_measurements structure containing measurement
-+ *        registers.
-+ * @mr:   Pointer to the specific measurement register to extend.
-+ * @data: Pointer to the data to be used for extension.
-+ *
-+ * This function extends a measurement register with new input data.
-+ *
-+ * Return: 0 on success, or a negative error code (e.g., -EINVAL for invalid
-+ * arguments).
-+ */
-+static int arm_cca_mr_extend(const struct tsm_measurements *tm,
-+			     const struct tsm_measurement_register *mr,
-+			     const u8 *data)
-+{
-+	if (!tm || !mr || !data)
-+		return -EINVAL;
-+
-+	return rsi_measurement_extend((mr - tm->mrs), data, mr->mr_size);
-+}
-+
-+/**
-+ * arm_cca_measurements - ARM CCA measurement configuration instance.
-+ *
-+ * This defines the measurement set and behavior for the ARM
-+ * Confidential Compute Architecture, enabling measurements
-+ * for attestation and runtime validation.
-+ */
-+static struct tsm_measurements arm_cca_measurements = {
-+	.mrs = arm_cca_mrs,
-+	.nr_mrs = ARRAY_SIZE(arm_cca_mrs),
-+	.refresh = arm_cca_mr_refresh,
-+	.write = arm_cca_mr_extend,
-+};
-+
-+/**
-+ * arm_cca_attr_groups - Attribute groups for the arm_cca_misc_dev miscellaneous
-+ * device.
-+ *
-+ */
-+static const struct attribute_group *arm_cca_attr_groups[] = {
-+	NULL, /* measurements */
-+	NULL
-+};
-+
-+/**
-+ * arm_cca_misc_dev - Miscellaneous device for ARM CCA functionality.
-+ *
-+ */
-+static struct miscdevice arm_cca_misc_dev = {
-+	.name = KBUILD_MODNAME,
-+	.minor = MISC_DYNAMIC_MINOR,
-+	.groups = arm_cca_attr_groups,
-+};
-+
-+/**
-+ * arm_cca_get_hash_algorithm - Get the hash algorithm and digest size for
-+ * a Realm.
-+ *
-+ * @hash_algo:   Pointer to an int to receive the internal hash algorithm ID
-+ *               (e.g., HASH_ALGO_SHA256 or HASH_ALGO_SHA512).
-+ * @digest_size: Pointer to an int to receive the digest size in bytes
-+ *               (e.g., SHA256_DIGEST_SIZE or SHA512_DIGEST_SIZE).
-+ *
-+ * This function retrieves the hash algorithm used in a Realm's configuration
-+ * by invoking the `rsi_get_realm_config()` interface.
-+ *
-+ * Return:
-+ * * %0        - Success. The hash algorithm and digest size are returned.
-+ * * %-ENOMEM  - Memory allocation failed.
-+ * * %-EINVAL  - Configuration fetch failed or algorithm is unsupported.
-+ *
-+ */
-+static int arm_cca_get_hash_algorithm(int *hash_algo, int *digest_size)
-+{
-+	int ret = 0;
-+	unsigned long result;
-+	struct realm_config *cfg = NULL;
-+
-+	cfg = alloc_pages_exact(sizeof(*cfg), GFP_KERNEL);
-+	if (!cfg)
-+		return -ENOMEM;
-+
-+	result = rsi_get_realm_config(cfg);
-+	if (result != RSI_SUCCESS) {
-+		ret = -EINVAL;
-+		goto exit_free_realm_config;
-+	}
-+
-+	switch (cfg->hash_algo) {
-+	case RSI_HASH_SHA_512:
-+		*hash_algo = HASH_ALGO_SHA512;
-+		*digest_size = SHA512_DIGEST_SIZE;
-+		break;
-+	case RSI_HASH_SHA_256:
-+		*hash_algo = HASH_ALGO_SHA256;
-+		*digest_size = SHA256_DIGEST_SIZE;
-+		break;
-+	default:
-+		/* Unknown/unsupported algorithm. */
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+exit_free_realm_config:
-+	free_pages_exact(cfg, RSI_GRANULE_SIZE);
-+	return ret;
-+}
-+
-+/**
-+ * arm_cca_mr_init - Initialize ARM CCA measurement register infrastructure.
-+ *
-+ * This function sets up the internal data structures for handling ARM CCA
-+ * measurement registers (MRs) and creates a sysfs attribute group. It also
-+ * registers a miscelaneous device for exposing the Arm CCA measurement
-+ * registers to userspace.
-+ *
-+ * Return:
-+ * * %0       - On success.
-+ * * %-ENOMEM - if memory allocation fails.
-+ * * %-EINVAL - On hash algorithm retrieval or attribute group creation
-+ *   failure.
-+ */
-+static int arm_cca_mr_init(void)
-+{
-+	const struct attribute_group *g;
-+	int ret;
-+	int hash_algo;
-+	int digest_size;
-+	int digest_buf_size;
-+
-+	/* Retrieve the hash algorithm and digest size. */
-+	ret = arm_cca_get_hash_algorithm(&hash_algo, &digest_size);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Allocate a single contiguous buffer to hold the digest values
-+	 * for all MRs.
-+	 */
-+	digest_buf_size = ARRAY_SIZE(arm_cca_mrs) * digest_size;
-+	u8 *digest_buf __free(kfree) = kzalloc(digest_buf_size, GFP_KERNEL);
-+	if (!digest_buf)
-+		return -ENOMEM;
-+
-+	arm_cca_mr_buf = digest_buf;
-+
-+	/* Initialise the mr_value storage and the mr_size. */
-+	for (size_t i = 0; i < ARRAY_SIZE(arm_cca_mrs); ++i) {
-+		arm_cca_mrs[i].mr_value = digest_buf + (digest_size * i);
-+		arm_cca_mrs[i].mr_size = digest_size;
-+		arm_cca_mrs[i].mr_hash = hash_algo;
-+	}
-+
-+	/* Read the measurement registers. */
-+	ret = arm_cca_mr_refresh(&arm_cca_measurements);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Create a sysfs attribute group to expose the measurements
-+	 * to userspace.
-+	 */
-+	g = tsm_mr_create_attribute_group(&arm_cca_measurements);
-+	if (IS_ERR_OR_NULL(g))
-+		return PTR_ERR(g);
-+
-+	/* Initialise the attribute group before registering the misc device. */
-+	arm_cca_attr_groups[0] = g;
-+
-+	/*
-+	 * Register a miscelaneous device for exposing
-+	 * the Arm CCA measurement registers to userspace.
-+	 */
-+	ret = misc_register(&arm_cca_misc_dev);
-+	if (ret < 0) {
-+		tsm_mr_free_attribute_group(g);
-+		return ret;
-+	}
-+
-+	arm_cca_mr_buf = no_free_ptr(digest_buf);
-+
-+	return 0;
-+}
-+
-+/**
-+ * arm_cca_mr_cleanup - Unregister sysfs attribute group and free the
-+ * measurement digest buffer region.
-+ *
-+ * @mr_grp: Pointer to the sysfs attribute group.
-+ *
-+ * This function performs cleanup for the Arm CCA memory registers (MR).
-+ *
-+ * The function should be called during the teardown or cleanup phase
-+ * to ensure proper resource deallocation.
-+ */
-+static void arm_cca_mr_cleanup(const struct attribute_group *mr_grp)
-+{
-+	misc_deregister(&arm_cca_misc_dev);
-+	tsm_mr_free_attribute_group(mr_grp);
-+	kfree(arm_cca_mr_buf);
-+}
-+
- /**
-  * struct arm_cca_token_info - a descriptor for the token buffer.
-  * @granule:		PA of the granule to which the token will be written
-@@ -169,10 +438,18 @@ static int cca_tsm_probe(struct arm_smccc_device *sdev)
- 	if (!is_realm_world())
- 		return -ENODEV;
- 
-+	ret = arm_cca_mr_init();
-+	if (ret < 0) {
-+		pr_err("Error %d initialising MRs\n", ret);
-+		return ret;
-+	}
-+
- 	ret = tsm_report_register(&arm_cca_tsm_report_ops, NULL);
--	if (ret < 0)
-+	if (ret < 0) {
-+		arm_cca_mr_cleanup(arm_cca_attr_groups[0]);
- 		return dev_err_probe(&sdev->dev,
- 				     ret, "Error registering with TSM\n");
-+	}
- 
- 	return 0;
- }
-@@ -180,6 +457,7 @@ static int cca_tsm_probe(struct arm_smccc_device *sdev)
- static void cca_tsm_remove(struct arm_smccc_device *sdev)
- {
- 	tsm_report_unregister(&arm_cca_tsm_report_ops);
-+	arm_cca_mr_cleanup(arm_cca_attr_groups[0]);
- }
- 
- static const struct arm_smccc_device_id cca_tsm_id_table[] = {
-
--- 
-2.43.0
-
+Best regards,
+Marco
