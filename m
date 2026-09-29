@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA0E3D9027;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAB63D952E;
 	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696110; cv=none; b=oKRItVlp83uOExQ/V67/QVBtz3aMLG3P37dna+KLh+txh0ioXsfp3BzD3KYielnCVh0WcTvdSazYuetJKWLC+IantBraGV9D9B6HxpSKnAUpRM+36f9o7NSjIMIKhGhnGNfk63z0rqykVlsxOrCrBJC6ORE9akq/A9nGcNDtr9s=
+	t=1790696110; cv=none; b=knniOIksmU1MqRWuc9A9q/yZQBPIwdW5FKf9vfFGHxjqHW4XQlSRQCcydXNQT9CQccZgkzOrpJpNUkcfu+kwltjcyYUeR/3AF1G/O1BMJ1PjdXhkTUQBtOCybHjxK5DnVjyGCZzwKW7Xr285AstADSLNYs+qDhsWeHvgZUcDkGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790696110; c=relaxed/simple;
-	bh=ALOJGjXfEVnBLDMdqzQUkJ/XzdybxQcPb76lLHFJjUU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VGzeyna65UAm6TB7PS+hZWcb1aT60P8UcGT6raSt1R37TS1XS+EbTxqi/ueiXksjDhbPhJyEZjyMpKGCc3OozK8VdU1ExEP5tp9+pirFrZCWR5aO+7oGivCBxJF9IclRLeXHkOoc365BQrXci9n6PAov3k+O0/wQHfwTpjF0P4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRsbDl5W; arc=none smtp.client-ip=10.30.226.201
+	bh=3ii5g5XioV/QpJdb+r2E2qif+Mg0ka1gVPmu8OXLez8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mguTbvoBiUtCtiOkgzyLFaJtuv8u0Iits1zjX0GgRf/SREkauoQTjzxFld1EyOJLHpGB9HhvRZQOVGIUgA0WP6DhEGHtjcekhmbDqkjal8/jX+dOgQy9fNPtZVBat8a9rATIDJsnBY2lNrobpoJGhbU9XUnMdJz6B6oYgTHVr60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=abdKA26N; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRsbDl5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A182C4AF13;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="abdKA26N"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7DECCC2BCF6;
 	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790696110;
-	bh=ALOJGjXfEVnBLDMdqzQUkJ/XzdybxQcPb76lLHFJjUU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=TRsbDl5W7ny5i/N3kko98HGS4ikpShpFwkrtUTScpbu1SQF8F2wBuuFloSETzIUhl
-	 3ghZ7jI3bT5AsRoFTehPNeF0pFT4uLSd4Z3OFcs30U64ygIB790QjwFZHD2517zqdc
-	 Wncdqbbb6zp+d3NcZe4pcnR/8APT8YVwYzuxbN4HU0NmC7LVTru7kHoCNHs1tFqIVp
-	 fu+pdFoexFupR6I2Pmb6GDwpyffX2ED8ZJ1xhcosk2+Whukj1oCkTYqdwifDAHp8oW
-	 lJfSvd2ia8/gwtKXjCDJdLHgZaD8/ruMbW2e5dvGPQHg9aLzxv1iimBYM2CHT5Ej2/
-	 CyaFaEUkzo7wQ==
+	bh=3ii5g5XioV/QpJdb+r2E2qif+Mg0ka1gVPmu8OXLez8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=abdKA26NFzJiGv64crbMvzuG1s5ZkutUFGza3ppjVAektsjNw4Q/lgfzRXrp7Zod0
+	 V7hDUJwUvTH/dJZy+GNW3Tj+z7lF7IG94JJgo0wK1D6h62aOAGiufnmm8L/SAV6z05
+	 4mF8BUr1HapuAsnewlNhMtTtA5lpDdUdz40itHyh87Lr15Egb/aR26hRNEimih516p
+	 LkdRrjsxsVql7O4hyHvVSnVgpMz7xay7yb0vFfspPz1LTDVG2xWrIG0AY5FKeiMHpx
+	 qslySP73m/e1RwwvAqeoEtAK+DgcOK7wejRLZ3489XUp+wDMap2VOT/HQhLS8xSJoi
+	 aMzsxiEz9P4oQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BC59CA5FA5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B4B7CA5FAC;
 	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
 From: Chris Strong via B4 Relay <devnull+chris.strong.flocksafety.com@kernel.org>
-Date: Tue, 29 Sep 2026 11:35:01 -0400
-Subject: [PATCH net v2 1/2] can: rx-offload: add IRQ queue flush predicate
+Subject: [PATCH net v2 0/2] can: mcp251xfd: bound RX offload batches during
+ long IRQs
+Date: Tue, 29 Sep 2026 11:35:00 -0400
+Message-Id: <20260929-upstream-can-rx-offload-batching-v2-0-3b587c519f5d@flocksafety.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +41,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-upstream-can-rx-offload-batching-v2-1-3b587c519f5d@flocksafety.com>
-References: <20260929-upstream-can-rx-offload-batching-v2-0-3b587c519f5d@flocksafety.com>
-In-Reply-To: <20260929-upstream-can-rx-offload-batching-v2-0-3b587c519f5d@flocksafety.com>
+X-B4-Tracking: v=1; b=H4sIAKTau2oC/4WNwQ6CMBBEf4Xs2TW0iVU8+R+Gw7psoVFb0lYCI
+ fy7DfHu8c1M5q2QJDpJcK1WiDK55IIvoA8V8EC+F3RdYdC1NnWjFX7GlKPQG5k8xhmDta9AHT4
+ o8+B8j4YvlqQzrE4Gys0Yxbp5V9zBS4a2hINLOcRl105qr34G/d8wKVRYN42cmZTmRt3KgJ+Jr
+ OTlyOEN7bZtX1SVX3XbAAAA
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
  Vincent Mailhol <mailhol@kernel.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
@@ -50,12 +52,12 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>,
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Chris Strong <chris.strong@flocksafety.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790696109; l=1321;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790696109; l=1768;
  i=chris.strong@flocksafety.com; s=flock-workstation;
  h=from:subject:message-id;
- bh=QTrXEykdZqhdnMZDN6EuT4udd2059pFwyS2sp8cy81A=;
- b=7KUGkgsxVKmAsKHjJqIG0y2nwS7PbG4PGdycE0YPk7BGX7ro96+RWJlPPDbrwC6m2UvbDEjgz
- 7GCjvhX9v3kAXXdhlAbKpUU1Pq7huULOGvcVjqsyANJgE7Nu6vx9p8x
+ bh=3ii5g5XioV/QpJdb+r2E2qif+Mg0ka1gVPmu8OXLez8=;
+ b=sqG/OlvWVuExzBPFDZbxeZ4PhnZ1V+nWXnXMh9Zbm4RU1Ol3KT5SfoerUIo0RzgJwAD7G23Tg
+ aP3WCi8esFFCI1bTc2vINd6CUttlNo81d1C8seRnKdxEFGaM0PwI1OU
 X-Developer-Key: i=chris.strong@flocksafety.com; a=ed25519;
  pk=IaEYd0fwBUeOKjqZzp2UKZY1tn3CLcPh6JpOKznZyRE=
 X-Endpoint-Received: by B4 Relay for
@@ -63,42 +65,49 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Chris Strong <chris.strong@flocksafety.com>
 Reply-To: chris.strong@flocksafety.com
 
-From: Chris Strong <chris.strong@flocksafety.com>
+Hi all,
 
-Drivers that queue received SKBs from a threaded interrupt may need to
-publish a partial batch before the handler returns. The existing overflow
-check covers only the NAPI-visible queue after the IRQ-local queue has
-been spliced, so it cannot guide that decision.
+Under sustained receive traffic, the MCP251XFD threaded interrupt handler
+can remain active indefinitely, leaving received SKBs in the IRQ-local
+RX-offload queue while NAPI remains unscheduled.
 
-Add can_rx_offload_irq_queue_needs_flush() to report when the IRQ-local
-queue reaches the NAPI poll weight. Keep the query separate from the
-flush operation so callers can finish processing related interrupt
-sources before publishing the batch.
+Add an RX-offload helper for identifying a full IRQ-local batch, then use
+it in MCP251XFD to publish batches while the handler continues draining
+the controller.
 
-Assisted-by: LLM
+An equivalent backport was tested on a Qualcomm QRB5165
+(msm-qrb5165-4.19 vendor tree, with mcp251xfd and rx-offload backported
+from v5.15+) driving an MCP251863 over GENI SPI at 125 kbit/s. The system
+remained operational overnight under 100% CAN bus load while receiving
+more than 51 million frames.
+
+This mainline version passes checkpatch and an x86_64 build with
+MCP251XFD enabled. I do not have a setup that can run mainline with an
+MCP251863, so it is build-tested only; a hardware test would be welcome.
+
 Signed-off-by: Chris Strong <chris.strong@flocksafety.com>
 ---
- include/linux/can/rx-offload.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v2:
+- Split the RX-offload helper into a separate patch.
+- Shorten the patch descriptions and use imperative mood.
+- Keep the code unchanged from v1.
 
-diff --git a/include/linux/can/rx-offload.h b/include/linux/can/rx-offload.h
-index d29bb4521947..f9b9474f7190 100644
---- a/include/linux/can/rx-offload.h
-+++ b/include/linux/can/rx-offload.h
-@@ -62,4 +62,11 @@ static inline void can_rx_offload_disable(struct can_rx_offload *offload)
- 	napi_disable(&offload->napi);
- }
- 
-+static inline bool
-+can_rx_offload_irq_queue_needs_flush(const struct can_rx_offload *offload)
-+{
-+	/* skb_irq_queue is owned by the interrupt context queuing the SKBs. */
-+	return skb_queue_len(&offload->skb_irq_queue) >= offload->napi.weight;
-+}
-+
- #endif /* !_CAN_RX_OFFLOAD_H */
+Link to v1: https://lore.kernel.org/r/20260922-upstream-can-rx-offload-batching-v1-1-099e7ca12c91@flocksafety.com
 
+---
+Chris Strong (2):
+      can: rx-offload: add IRQ queue flush predicate
+      can: mcp251xfd: flush RX offload queue during long IRQs
+
+ drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c | 14 +++++++++++++-
+ include/linux/can/rx-offload.h                 |  7 +++++++
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+---
+base-commit: 54518e0e827f4ca9229ae657022c60bf60f5c1bf
+change-id: 20260921-upstream-can-rx-offload-batching-6c8faed6c156
+
+Best regards,
 -- 
-2.43.0
+Chris Strong <chris.strong@flocksafety.com>
 
 
