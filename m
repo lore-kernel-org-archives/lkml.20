@@ -1,174 +1,111 @@
-Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A5039EF2A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8B2353EEB;
+	Tue, 29 Sep 2026 07:40:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667657; cv=none; b=h+7f+mcbVVGHnOh5rTXuqt/tSijNwZBVwNyswsJjiLe/KBL4dP6c3rYDhO6Fp69++Iv8HeIMxPF4EMHhn64zNPIei1kQkOEegICGuX53Bb+8Hce8nsPBKVm9HTMXsSIpFbZYohJuIbh8XOBNEHhbaQNZTnvEef2ZVQnbLGlaCEY=
+	t=1790667659; cv=none; b=hcKxWm5MQhuLpA0ArrX0TMVDveFZ3a7C340psakE8H44RYSPCR8gKmjdjZsqwVkjLbTqVTg7CBwUhnRXiaM9GxDlOB1S8Bs9Thlfg/1g1ervxeu8TDwy/y5yvGoG7vr4JM6sjHh6R8NBDmXJL8IC89cITFutAtp9J/PH56k1/SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667657; c=relaxed/simple;
-	bh=eBA2dsoEYS/wtSZz82k25VGaT71+syN4FN5MUymZna0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZTAH5HxaaZscnEJke9yuqIzU0eI0NAL1Yb5Tuh2HWPcwP7Z86vBG5y8Irv0hkUUm1Ny0UmLawGBjK30Rkn4HWFHVcJL7poEHL/5he/VoqjVhfdV4WC5XKVqrYGIQqhKflust3xWTBQPiqEgsiSXcbashW14eZpmvjRs8vHMj6k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KNnv5PBA; arc=none smtp.client-ip=91.218.175.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790667659; c=relaxed/simple;
+	bh=MYMx2gylDtJrUiWAS38fKwK19h/+Z3rEEV8/GDtvrHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TPhjhIXMLg0Xw+SXfsO77+MJ/zsZfIvslA7ptpnRcLZC6t+D/wc6j5X6+jFNtvVdFoscEbfO07G67kMSxjcijrgWVhs9K4PaIUhSgCNsxwJkhVG6fQ7dEHmxXk3764PbVdJZJuM5qduX7e8j4FR3mSmS36a8UoMHt+14tJpsIb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jlwQWTro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KNnv5PBA"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eBA2dsoEYS/wtSZz82k25VGaT71+syN4FN5MUymZna0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790667652; v=1; x=1791272452;
- b=KNnv5PBAUPHONP872XcsV3YHT2kf3boMwF+KeJBf3DElF3WXfHav1InnYRf0yWu4Z7S/oquS
- AcDw4u2eHJV401uHgP71Ob4pA8MJClASb0t7+BwxLqITp4FCjLSxO1VdpATvzynNUl5lMY9ORIk
- K6bJImb343AIoXG+h+FJHtEI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df226f34b7057ee0;
-	Tue, 29 Sep 2026 07:40:33 +0000
-X-Mizu-Trace-ID: df226f34b7057ee0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
-Date: Tue, 29 Sep 2026 15:40:27 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jlwQWTro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B968D1F000FF;
+	Tue, 29 Sep 2026 07:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790667657;
+	bh=fd4A2Z+Bnb9oINYHV5jhGXCTwA1yaoQRBpuQeCIHu/k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jlwQWTroPm7tl1DzY66fPzrLaKdTCTAyGMJ1lYyTARRhA7Qx7JXEYjkTuQvbR/ZMk
+	 dxFdavsXsyFZ7TxIkrqOjBkdx43QPSWhv/c73XJghxd3jf03UJQwQBBZhBqA7HgCY/
+	 R/1zf9KeOL8PsBbryQC99PtWbURazUPR0Bk5DSJCHUUmqbJW0mr1TCgBzag4v8D571
+	 q2acn5PP2Zkg74zyipT0JMJUYmbYAaXHypmV28TtEbm2E9HnSPrABiXLshkjLNvPOH
+	 K1u/jVp2x8GUuUt184AoRsAeTNrPcash3VMV+jlIsTxhkcAGt/diW4jM2fPO/Nz074
+	 aWlV3st2mc6rw==
+Date: Tue, 29 Sep 2026 09:40:54 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Petr Vorel <petr.vorel@gmail.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 02/11] dt-bindings: display: panel: samsung,s6e3ha8:
+ Add AMB630QY01 panel
+Message-ID: <20260929-automatic-humorous-muskox-45bdfd@quoll>
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-2-08d5c7bf72fc@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
- state switching fails
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
- <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Hui Peng <benquike@gmail.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260928235159.515654-1-longman@redhat.com>
- <941e5affde16b803741ddaf87b937f3d@kernel.org>
- <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260924-crosshatch-panel-v2-2-08d5c7bf72fc@ixit.cz>
 
-
-Hi Waiman, Tejun,
-在 2026/9/29 11:16, Waiman Long 写道:
-> On 9/28/26 10:07 PM, Tejun Heo wrote:
->> Hello, Waiman.
->>
->> The following is a Claude-generated review.
->>
->> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
->>> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
->>> don't leave any housekeeping"), the partition state can be freely switched
->>> from "root" to "isolated" and vice versa. After that commit, the switch
->>> from "root" to "isolated" can fail if it exhausts all the housekeeping
->>> CPUs. Later on, the switch from "isolated" to "root" can also fail if
->>> some of the partition CPUs are boot-time isolated by "isolcpus".
->> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
->> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
->> add a Fixes: tag for it too?
+On Thu, Sep 24, 2026 at 04:01:30PM +0200, David Heidelberg wrote:
+> The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
+> 1440x2960 flexible AMOLED panel.
 > 
-> Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition") comes after 103b08709e8a. From my point of view, the first commit is the one that introduces the bug. The second commit comes along assuming the existing code is right. That is why I didn't tag the second one even though the second one is easier to trigger than the first one.
+> Assisted-by: LLM
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  .../bindings/display/panel/samsung,s6e3ha8.yaml    | 31 ++++++++++++++++++++--
+>  1 file changed, 29 insertions(+), 2 deletions(-)
 > 
->>> The partition is made invalid when the switch fails. However, the
->>> remote_partition flag for a remote partition can remain set and the CPUs
->>> from the invalidated partition aren't cleared from subpartitions_cpus.
->>> Fix this by properly disable the partition in this case.
->> The reproducer below is a local partition and the fix covers that case
->> too. The CPUs weren't given back to the parent, which is what leaves them
->> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
->> both? Also, "properly disable" -> "disabling".
-> OK, will update the commit log.
->>
->>> In the case of remote_partition flag, it should be cleared for a
->>> invalidated remote partition. To be safe, the reset_partition_data() is
->>> now enhanced to always clear the remote_partition flag. So there is no
->>> need to explicitly clear remote_partition in remote_partition_disable().
->> After the update_prstate() change, every path that invalidates a remote
->> partition goes through remote_partition_disable(), so the other
->> reset_partition_data() callers never see the flag set. If one did,
->> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
->> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
->> this part?
-> Yes, I can drop this part.
->>> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
->>> and more than 16 cores, the following commands was executed after boot.
->> "a x86" -> "an x86", "commands was" -> "commands were".
->>
->>> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->>>            */
->>>           if (((new_prs == PRS_ISOLATED) &&
->>>                !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
->>> -            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
->>> +            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
->>>               err = PERR_HKEEPING;
->>> -        else
->>> +            disable_partition = true;
->> If a root -> isolated switch fails isolated_cpus_can_update() under an
->> isolated parent, partcmd_disable hands the CPUs back to the parent and
->> partition_xcpus_del() adds them to isolated_cpus, which is the state the
->> check just rejected. Switching to member ends up in the same place, so
->> this may be fine as is.
-> If the parent is a valid isolated partition before the child partition is created, it had passed the isolated_cpus_can_update() check. So returning the CPUs back to its parent is fine.
+> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> index ca250b1b91712..acc2ea2969298 100644
+> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+> @@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: Samsung s6e3ha8 AMOLED DSI panel
+>  
+>  description: |
+>    The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
+>    Samsung Mobile Displays (SMD).
+>  
+>    Known panels:
+>      - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
+> +    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
+>  
+>  maintainers:
+>    - Dzmitry Sankouski <dsankouski@gmail.com>
+>  
+>  allOf:
+>    - $ref: panel-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - samsung,s6e3ha8
+> +              - samsung,s6e3ha8-amb577px01
+> +    then:
+> +      required:
+> +        - vddr-supply
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: samsung,s6e3ha8-amb630qy01
+> +    then:
+> +      required:
+> +        - vddpos-supply
+> +        - vddneg-supply
 
-However, after the parent is created, the ownership of full housekeeping
-CPUs can still change, so passing the check at creation time doesn't seem
-to guarantee that returning CPUs later is still safe.
+Entire allOf goes after required: block.
 
-I tested with this patch applied on a 32 vCPU VM booted with:
+Best regards,
+Krzysztof
 
-    nohz_full=1,3 maxcpus=4
-
-CPUs 0-3 are online, and CPU0 and CPU2 are initially available as full
-housekeeping CPUs:
-
-    cd /sys/fs/cgroup
-    echo +cpuset > cgroup.subtree_control
-
-    mkdir A C
-    echo +cpuset > A/cgroup.subtree_control
-    mkdir A/B
-
-    echo 0-1 > A/cpuset.cpus
-    echo isolated > A/cpuset.cpus.partition   # isolated={0,1}, full HK={2}
-
-    echo 0 > A/B/cpuset.cpus
-    echo root > A/B/cpuset.cpus.partition     # isolated={1}, full HK={0,2}
-
-    echo 2 > C/cpuset.cpus
-    echo isolated > C/cpuset.cpus.partition   # isolated={1,2}, full HK={0}
-
-At this point, CPU0 is the last CPU that is neither domain-isolated nor in
-nohz_full. Then:
-
-    echo isolated > A/B/cpuset.cpus.partition
-
-    cat A/B/cpuset.cpus.partition
-    isolated invalid (partition config conflicts with housekeeping setup)
-
-    cat cpuset.cpus.isolated
-    0-2
-
-The root -> isolated switch of A/B is rejected as expected, but the new
-disable path then hands CPU0 back to the isolated parent A, and
-partition_xcpus_del() puts it right back into isolated_cpus.
-
-In the end the domain-isolated CPUs are {0,1,2} and the nohz_full CPUs are
-{1,3}, so no full housekeeping CPU is left.
-
-Also, as Tejun pointed out, switching A/B to member leads to the same
-problem. What I tried in patches 2-3 of [1] was: if returning CPUs to an
-isolated parent would consume the last full housekeeping CPU, invalidate
-the outermost isolated ancestor and return its CPUs instead. Maybe this
-part can serve as a reference. The implementation there may not be good
-enough - it was an earlier idea and I am not sure whether it helps :)
-
-[1] https://lore.kernel.org/all/20260910094546.5852-1-guopeng.zhang@linux.dev/
-
-Thanks,
-Guopeng
