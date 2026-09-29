@@ -1,64 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA173D88E3;
-	Tue, 29 Sep 2026 02:59:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25AE3D7A01;
+	Tue, 29 Sep 2026 02:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650785; cv=none; b=VDLfjbQ4cnYd9uTNo0fRVGMJkUwfmNK6tBNW8Vi6S9MnSix75OwhHBnBKl8QzFL2Nw05X7wwabUuGv9nO9SDcrIb0zYaMEi1rCQG9n7RVLBD01fghBczWKjRDRVafbjFfWtLMKUjy9qvJfNbEkaa3opW8O9RACYQ3N0o484O/Go=
+	t=1790650789; cv=none; b=J73klK0PSGtUalFD/rqCBNChd5lZoKvIZX61Ya/nWBcx5BKdtcv5cYyBj0++0qZ0ZLTmMM+E9UJUGwcKru/niNgm4qbbJPqxGqdu8nseuGAQVNUXVmWiNeNUWHNYsU+hrVb1WYfO5ShknDbXn31W/M7rSeCzJES0qyxS3odWZ3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650785; c=relaxed/simple;
-	bh=wMDn/99kbM3cpo3YW+1f7ihtUa/ZfmESGs6kN9DTh4M=;
+	s=arc-20240116; t=1790650789; c=relaxed/simple;
+	bh=pOld+LWdavPrHVTlTj0acdRz3iSfeLcrDc/zLYHca3Y=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=UXDkT579MgIgPRvJ0q5oGXFvWvnAqDyp2gfv+LqeuYoMXJM9jjoFR9SK2O/pGJKGRV4ryM1Z9B47TOWLuO2n31pyeu1C4jCBltQzVn9wRlUfQT6PhxH38Q7yCbQ9kKTZJY+nq5Vb6anzPLo9gBMaq6+MCLbznHaa1OsLLsg7YCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=46g1dKIZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=5NK3+nA9; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=fMJ6qLTbSU4NhEdQXIWHUZQZSt3A/7hsUqGmktyIwxRe+2+HZX534m7Iv+25bGcdUgSBs9d/1FdqdLybWxk8uQVH3ec15R36jm8mHjkOtH4iSPxPfZydTgXISBBs//vGPImtV3ZsPZSEs6OfxqLpLvn7yYE83A0z82cN4QCSv/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=igrglF8U; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3eVa6jQT; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="46g1dKIZ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="5NK3+nA9"
-Date: Tue, 29 Sep 2026 02:59:31 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="igrglF8U";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3eVa6jQT"
+Date: Tue, 29 Sep 2026 02:59:32 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790650773;
+	s=2020; t=1790650774;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3gecGyLKysWreLFoIZvuxz7zDhoytzOujQLiSrcdd+o=;
-	b=46g1dKIZu9RsYW9aN+7NvYw90s64pFlGhncPAH+oODOuE8nHEHcg2JBZ1HvKPOLJdlkxGN
-	4/428xW+j8J53bOcHluq42Fh6y+7TQ+QqeD6sAfh1Tm7INto/G+RC75b0/tQMG8tecUOcY
-	1Ei+miLG5cFDy2s0PS8adDqFpRGzz1YB6PjznvsTf4LHy3AE6MoAsJlUjljnKscSPEbx58
-	qyIscnRFddJ7ReEFYARf9fdP1kKFBnGhsTFigQDifI2ud+VM0Xly0yyz3B3sZXxkYVJstq
-	9hyhbjJcNZFXu3gYfcnTIqZNlUnVkCCRfwyRae2LfUU0hKOTzbRGeAe9Vle7vQ==
+	bh=OYxQHFoH/O3Z1riPeF8v6D3SoDLHj/W+847rhYGDSdo=;
+	b=igrglF8UoCOM+aqriWHQalIQsI6M43Uqjl5znUnRSua0w0PPO5G8a0ieOsYbkUB5x5LAZt
+	xk74yHFA9VUr6uzm6mO5l3flcxexyouQ8P9H/XOUe+iYNZltmJ7jC8zb24hkPMdN0EP0jz
+	0kU1ILTWV2YlwaJ4ghaS3SWrPMvRJdIdkBGOfHEeCAJXxNXllDeOiV8UPNx7Hl8GCgUu7N
+	qOai8dw7TEMV3sam4OulgAEXpseR6Fgt54x3oWXPukueWFAkXUKGwjgI2iyUr/jXBykga0
+	FxcSYumh/xbIgcjizNz0TY9u0kuXJNhDDlS4yHYCvJW2DI+1tklMXwgG+oWNgA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790650773;
+	s=2020e; t=1790650774;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3gecGyLKysWreLFoIZvuxz7zDhoytzOujQLiSrcdd+o=;
-	b=5NK3+nA9TUI9QRZK9CvrbsIHP5lY2Hm0WieOBnKbvzUaTtbfidGEoQPjumNCPsQRF/QZ5u
-	HLeXeB+0XpkRQQAQ==
+	bh=OYxQHFoH/O3Z1riPeF8v6D3SoDLHj/W+847rhYGDSdo=;
+	b=3eVa6jQTIQn0qQBEeqeftQoklZssDuZfSJGxv37KnUjSj30BTDlC0xIM8ljS0GtcqO+YCT
+	T6kPgSPoySHPdjBw==
 From: "tip-bot2 for Ard Biesheuvel" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/boot] x86/boot: Move unaccepted memory handling out of the
- decompressor
+Subject: [tip: x86/boot] x86/tdx: Share tdx_panic() with the EFI stub
 Cc: Ard Biesheuvel <ardb@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
  "Kiryl Shutsemau (Meta)" <kas@kernel.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260925075137.44298-7-ardb@kernel.org>
-References: <20260925075137.44298-7-ardb@kernel.org>
+In-Reply-To: <20260925075137.44298-6-ardb@kernel.org>
+References: <20260925075137.44298-6-ardb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179065077139.3910103.7553960153553333815.tip-bot2@tip-bot2>
+Message-ID: <179065077287.3910103.16477447153352456973.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,209 +67,154 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/boot branch of tip:
 
-Commit-ID:     a9bc562daaf2596e6eab5f1a5e3a5880c4b2a1ee
-Gitweb:        https://git.kernel.org/tip/a9bc562daaf2596e6eab5f1a5e3a5880c4b=
-2a1ee
+Commit-ID:     0ffdb6c1ea44ddb40794b9c20a39b8fb30551875
+Gitweb:        https://git.kernel.org/tip/0ffdb6c1ea44ddb40794b9c20a39b8fb305=
+51875
 Author:        Ard Biesheuvel <ardb@kernel.org>
-AuthorDate:    Fri, 25 Sep 2026 09:51:40 +02:00
+AuthorDate:    Fri, 25 Sep 2026 09:51:39 +02:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 28 Sep 2026 17:41:46 -07:00
+CommitterDate: Mon, 28 Sep 2026 15:07:42 -07:00
 
-x86/boot: Move unaccepted memory handling out of the decompressor
+x86/tdx: Share tdx_panic() with the EFI stub
 
-arch_accept_memory() is an arch-specific hook that is required by the
-EFI stub when processing memory that the firmware reports to the OS as
-EFI_UNACCEPTED_MEMORY.
+Move the implementation of tdx_panic() into the source file that is
+shared with the decompressor and the EFI stub.
 
-This hook is called after ExitBootServices() has been called, as before
-that point, the EFI memory map may get updated behind the back of the
-running EFI stub, making it difficult to get a stable view on it while
-iterating over the entries.
+Use memcpy() and strnlen() instead of strtomem_pad(), as the latter does
+not exist in the early boot code. Avoid fortify instrumentation in the
+decompressor/EFI stub by defining __NO_FORTIFY before including
+tdx-shared.c
 
-Currently, the x86 version of this hook is implemented in its
-decompressor rather than in the EFI stub itself, in a manner that is
-problematic: when an error occurs, it calls the decompressor's error()
-routine, but without having gone through the decompressor initialization
-code. This means it will resort to direct port I/O rather than the
-hypercall based interface that TDX guests would use otherwise.
+Note that __tdx_hypercall() may call __tdx_hypercall_failed() if the
+hypercall returns with an error (while it should never return to begin
+with). __tdx_hypercall_failed() calls the decompressor's error()
+routine, which prints a message and then loops forever.
 
-Conceptually, code that is only called from the EFI stub, and never by
-the decompressor when doing legacy boot, belongs in the EFI stub and not
-in the decompressor.
-
-So move it into the x86-specific EFI stub code, replacing the error() on
-the TDX path with tdx_panic(), and dropping the error() when no CC
-support is detected - the kernel can decide what to do in this case
-after it has booted.
+When called from the EFI stub, this error() call may attempt to use port
+I/O to the default serial port rather than the TDX hypercalls which the
+decompressor uses normally to print diagnostics to the console, but this
+is fine: given that this situation only occurs after a catastrophic
+error, and a subsequent spurious return from tdx_panic(), whether
+error() uses port I/O or not is rather moot at that point, as long as it
+never returns.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
 Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Link: https://patch.msgid.link/20260925075137.44298-7-ardb@kernel.org
+Link: https://patch.msgid.link/20260925075137.44298-6-ardb@kernel.org
 ---
- arch/x86/boot/compressed/mem.c          | 42 +------------------------
- arch/x86/boot/compressed/sev.h          |  2 +-
- arch/x86/include/asm/sev.h              |  2 +-
- drivers/firmware/efi/libstub/x86-stub.c | 39 ++++++++++++++++++++++-
- 4 files changed, 41 insertions(+), 44 deletions(-)
+ arch/x86/boot/compressed/tdx-shared.c |  2 +-
+ arch/x86/coco/tdx/tdx-shared.c        | 31 +++++++++++++++++++++++-
+ arch/x86/coco/tdx/tdx.c               | 35 +--------------------------
+ arch/x86/include/asm/shared/tdx.h     |  1 +-
+ 4 files changed, 34 insertions(+), 35 deletions(-)
 
-diff --git a/arch/x86/boot/compressed/mem.c b/arch/x86/boot/compressed/mem.c
-index 0e9f84a..1721af3 100644
---- a/arch/x86/boot/compressed/mem.c
-+++ b/arch/x86/boot/compressed/mem.c
-@@ -2,48 +2,6 @@
-=20
+diff --git a/arch/x86/boot/compressed/tdx-shared.c b/arch/x86/boot/compressed=
+/tdx-shared.c
+index 5ac4376..dc38047 100644
+--- a/arch/x86/boot/compressed/tdx-shared.c
++++ b/arch/x86/boot/compressed/tdx-shared.c
+@@ -1,2 +1,4 @@
++#define __NO_FORTIFY
++
  #include "error.h"
- #include "misc.h"
--#include "tdx.h"
--#include "sev.h"
--#include <asm/shared/tdx.h>
--
--/*
-- * accept_memory() and process_unaccepted_memory() called from EFI stub which
-- * runs before decompressor and its early_tdx_detect().
-- *
-- * Enumerate TDX directly from the early users.
-- */
--static bool early_is_tdx_guest(void)
+ #include "../../coco/tdx/tdx-shared.c"
+diff --git a/arch/x86/coco/tdx/tdx-shared.c b/arch/x86/coco/tdx/tdx-shared.c
+index 1655aa5..29661d8 100644
+--- a/arch/x86/coco/tdx/tdx-shared.c
++++ b/arch/x86/coco/tdx/tdx-shared.c
+@@ -89,3 +89,34 @@ noinstr u64 __tdx_hypercall(struct tdx_module_args *args)
+ 	/* TDVMCALL leaf return code is in R10 */
+ 	return args->r10;
+ }
++
++void __noreturn tdx_panic(const char *msg)
++{
++	struct tdx_module_args args =3D {
++		.r10 =3D TDX_HYPERCALL_STANDARD,
++		.r11 =3D TDVMCALL_REPORT_FATAL_ERROR,
++		.r12 =3D 0, /* Error code: 0 is Panic */
++	};
++	/* Define register order according to the GHCI */
++	struct { u64 r14, r15, rbx, rdi, rsi, r8, r9, rdx; } message =3D {};
++
++	/* VMM assumes '\0' in byte 65, if the message took all 64 bytes */
++	memcpy(&message, msg, strnlen(msg, sizeof(message)));
++
++	args.r8  =3D message.r8;
++	args.r9  =3D message.r9;
++	args.r14 =3D message.r14;
++	args.r15 =3D message.r15;
++	args.rdi =3D message.rdi;
++	args.rsi =3D message.rsi;
++	args.rbx =3D message.rbx;
++	args.rdx =3D message.rdx;
++
++	/*
++	 * This hypercall should never return and it is not safe
++	 * to keep the guest running. Call it forever if it
++	 * happens to return.
++	 */
++	while (1)
++		__tdx_hypercall(&args);
++}
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index f904a63..a9a16d0 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -198,41 +198,6 @@ u64 tdx_hcall_get_quote(u8 *buf, size_t size)
+ }
+ EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
+=20
+-static void __noreturn tdx_panic(const char *msg)
 -{
--	static bool once;
--	static bool is_tdx;
+-	struct tdx_module_args args =3D {
+-		.r10 =3D TDX_HYPERCALL_STANDARD,
+-		.r11 =3D TDVMCALL_REPORT_FATAL_ERROR,
+-		.r12 =3D 0, /* Error code: 0 is Panic */
+-	};
+-	union {
+-		/* Define register order according to the GHCI */
+-		struct { u64 r14, r15, rbx, rdi, rsi, r8, r9, rdx; };
 -
--	if (!IS_ENABLED(CONFIG_INTEL_TDX_GUEST))
--		return false;
+-		char bytes[64] __nonstring;
+-	} message;
 -
--	if (!once) {
--		u32 eax, sig[3];
+-	/* VMM assumes '\0' in byte 65, if the message took all 64 bytes */
+-	strtomem_pad(message.bytes, msg, '\0');
 -
--		cpuid_count(TDX_CPUID_LEAF_ID, 0, &eax,
--			    &sig[0], &sig[2],  &sig[1]);
--		is_tdx =3D !memcmp(TDX_IDENT, sig, sizeof(sig));
--		once =3D true;
--	}
+-	args.r8  =3D message.r8;
+-	args.r9  =3D message.r9;
+-	args.r14 =3D message.r14;
+-	args.r15 =3D message.r15;
+-	args.rdi =3D message.rdi;
+-	args.rsi =3D message.rsi;
+-	args.rbx =3D message.rbx;
+-	args.rdx =3D message.rdx;
 -
--	return is_tdx;
+-	/*
+-	 * This hypercall should never return and it is not safe
+-	 * to keep the guest running. Call it forever if it
+-	 * happens to return.
+-	 */
+-	while (1)
+-		__tdx_hypercall(&args);
 -}
 -
--void arch_accept_memory(phys_addr_t start, phys_addr_t end)
--{
--	/* Platform-specific memory-acceptance call goes here */
--	if (early_is_tdx_guest()) {
--		if (!tdx_accept_memory(start, end))
--			panic("TDX: Failed to accept memory\n");
--	} else if (early_is_sevsnp_guest()) {
--		snp_accept_memory(start, end);
--	} else {
--		error("Cannot accept memory: unknown platform\n");
--	}
--}
+ /*
+  * The kernel cannot handle #VEs when accessing normal kernel memory. Ensure
+  * that no #VE will be delivered for accesses to TD-private memory.
+diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/=
+tdx.h
+index f20e91d..e578525 100644
+--- a/arch/x86/include/asm/shared/tdx.h
++++ b/arch/x86/include/asm/shared/tdx.h
+@@ -171,6 +171,7 @@ static inline u64 _tdx_hypercall(u64 fn, u64 r12, u64 r13=
+, u64 r14, u64 r15)
+ 	return __tdx_hypercall(&args);
+ }
 =20
- bool init_unaccepted_memory(void)
- {
-diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
-index 22637b4..62e50c2 100644
---- a/arch/x86/boot/compressed/sev.h
-+++ b/arch/x86/boot/compressed/sev.h
-@@ -14,7 +14,6 @@
++void __noreturn tdx_panic(const char *msg);
 =20
- void snp_accept_memory(phys_addr_t start, phys_addr_t end);
- u64 sev_get_status(void);
--bool early_is_sevsnp_guest(void);
-=20
- static inline u64 sev_es_rd_ghcb_msr(void)
- {
-@@ -37,7 +36,6 @@ static inline void sev_es_wr_ghcb_msr(u64 val)
-=20
- static inline void snp_accept_memory(phys_addr_t start, phys_addr_t end) { }
- static inline u64 sev_get_status(void) { return 0; }
--static inline bool early_is_sevsnp_guest(void) { return false; }
-=20
- #endif
-=20
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index 9e7a077..4b5db43 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -517,6 +517,7 @@ void snp_accept_memory(phys_addr_t start, phys_addr_t end=
-);
- u64 snp_get_unsupported_features(u64 status);
- u64 sev_get_status(void);
- void sev_show_status(void);
-+bool early_is_sevsnp_guest(void);
- int prepare_pte_enc(struct pte_enc_desc *d);
- void set_pte_enc_mask(pte_t *kpte, unsigned long pfn, pgprot_t new_prot);
- void snp_kexec_finish(void);
-@@ -626,6 +627,7 @@ static inline void snp_accept_memory(phys_addr_t start, p=
-hys_addr_t end) { }
- static inline u64 snp_get_unsupported_features(u64 status) { return 0; }
- static inline u64 sev_get_status(void) { return 0; }
- static inline void sev_show_status(void) { }
-+static inline bool early_is_sevsnp_guest(void) { return false; }
- static inline int prepare_pte_enc(struct pte_enc_desc *d) { return 0; }
- static inline void set_pte_enc_mask(pte_t *kpte, unsigned long pfn, pgprot_t=
- new_prot) { }
- static inline void snp_kexec_finish(void) { }
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/l=
-ibstub/x86-stub.c
-index cef32e2..80556a7 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -10,6 +10,7 @@
- #include <linux/pci.h>
- #include <linux/stddef.h>
-=20
-+#include <asm/cpuid/api.h>
- #include <asm/efi.h>
- #include <asm/e820/types.h>
- #include <asm/setup.h>
-@@ -17,6 +18,7 @@
- #include <asm/boot.h>
- #include <asm/kaslr.h>
- #include <asm/sev.h>
-+#include <asm/shared/tdx.h>
-=20
- #include "efistub.h"
- #include "x86-stub.h"
-@@ -1068,3 +1070,40 @@ void efi64_stub_entry(efi_handle_t handle, efi_system_=
-table_t *sys_table_arg,
- 		      struct boot_params *boot_params);
- #endif
- #endif
-+
-+#ifdef CONFIG_UNACCEPTED_MEMORY
-+/*
-+ * process_unaccepted_memory() is called after ExitBootServices(), and so th=
-ese
-+ * memory acceptance routines cannot rely on EFI protocols for detecting the
-+ * presence of TDX or SEV-SNP, or emit any kind of output if any error
-+ * conditions are detected.
-+ */
-+static bool early_is_tdx_guest(void)
-+{
-+	static bool once;
-+	static bool is_tdx;
-+
-+	if (!IS_ENABLED(CONFIG_INTEL_TDX_GUEST))
-+		return false;
-+
-+	if (!once) {
-+		u32 eax =3D TDX_CPUID_LEAF_ID, sig[3] =3D {};
-+
-+		native_cpuid(&eax, &sig[0], &sig[2], &sig[1]);
-+		is_tdx =3D !memcmp(TDX_IDENT, sig, sizeof(sig));
-+		once =3D true;
-+	}
-+
-+	return is_tdx;
-+}
-+
-+void arch_accept_memory(phys_addr_t start, phys_addr_t end)
-+{
-+	if (early_is_tdx_guest()) {
-+		if (!tdx_accept_memory(start, end))
-+			tdx_panic("Failed to accept memory");
-+	} else if (early_is_sevsnp_guest()) {
-+		snp_accept_memory(start, end);
-+	}
-+}
-+#endif
+ /* Called from __tdx_hypercall() for unrecoverable failure */
+ void __noreturn __tdx_hypercall_failed(void);
