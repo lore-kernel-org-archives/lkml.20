@@ -1,112 +1,153 @@
-Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD36550C28C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770FF511196
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677733; cv=none; b=iYpOKlNfK87TJ97i02KqZbF1xIXBcFWStZngjROB205nBkpItvNt3NQXanHJw2+WWyx4Dfj44ymGIxeslmgIjqSd1OTFkXMFgMv2Gqybje4BCztr03SB99tpcecYlO33Y8mrJNyOwPBXzJSPCf4RzMUehyMRrViRd+U5Euoy0XM=
+	t=1790677739; cv=none; b=RHC8m2HCueFtlyvHtByWxGvQEjUSXcPt3/v0zdzHtlV8aerrtA+U+WrwDWuW8YEOADQqUqMt7RcULVV3f2pbPdeN4uKw14vsT7z7V9ChW3ByznMtuAB45xxMHADHRYVkZAeyPwlSD7kJ5Qu/Sm7RWSlsJXEx3J+5bDOCrwayzJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677733; c=relaxed/simple;
-	bh=ueNQlhqhmqHM0X/l3vHJc4f9p4ZUFkO1tEMcu4/fw/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pl2RqUFid+7x5gVD041dic1/T6QwInHjlJr9D4qmdLGFbW7uKsyItL0/KFx9Qhih2+L6ZGs/2xBx/2kFXyvRNemUkIbB2/LVwrS1W59NXJCKFMA/z4ezpoy+MXXiCWCBiCDg5gkuBlfNrtA+RZRZ/d+BlPeT3yIzsK2vSYvZhqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kVc1z9RE; arc=none smtp.client-ip=95.215.58.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790677739; c=relaxed/simple;
+	bh=nD0jQ0sanXtfhte+cS4Eb6xgGbAdsdiqP+FoF7tBRHM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rJGXl3narp7xjldESfU+7YDS4ygVzk6M9GcWKmn25i35mklWtzIHiuR70c8t3on2N7uePxg9bCD3GBKcaXwZwdEkxwRgILXTt8kD+Rv15Bq3Bh5tl+YHkzxMDzB/w1ElPtgvjBaS9NwwAE8loBzuo5+6fxWUijYRegOyBeY3KXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=86AxwoQj; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kVc1z9RE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ueNQlhqhmqHM0X/l3vHJc4f9p4ZUFkO1tEMcu4/fw/I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790677712; v=1; x=1791282512;
- b=kVc1z9REDaIdE7YVr9qUQRyElY7ghb80Y/Yej3GdFzF97/0qqgaxk9Mnw5thzmoTIoXEr5iE
- tCV43wp138MMSLpBD1azW3JN1Q5xJ19Q2A87Kuxw85D/On5RaXN/zhGO03r8Xp9AjTVOcTBEoxp
- plBaYN3FOM2sUqzPTGQPnFco=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0654bdcf0b4971f0;
-	Tue, 29 Sep 2026 10:28:31 +0000
-X-Mizu-Trace-ID: 0654bdcf0b4971f0
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: maobibo@loongson.cn,
-	gaosong@loongson.cn,
-	zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	nagachaithanya9911@gmail.com,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2 0/4] LoongArch: KVM: irqchip fixes
-Date: Tue, 29 Sep 2026 18:28:17 +0800
-Message-ID: <20260929102821.36112-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="86AxwoQj"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so2854750f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:28:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1790677714; x=1791282514; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OjnLLZEy4NZ05RWw4wcrVNfIfzQkE+4cewTuv6QJdW8=;
+        b=86AxwoQjp8tyrf2rh+EQ/6k0rZuE6nFtpDLR1dJRe+laj2umkWNcfzBMQEZLMdNnkc
+         AtYlntrifj20TwAzWMaLfWxTrW9+BMDVg9PSWo32cxAO+PjIBQJ1huKgGdeQBVJ+iLm0
+         MJetV8cwW1ZyUVONHG/7NEPC9xieRWcMdOQ7D0vYqbM/qXOGQNlrv374Srxj7kWygDqK
+         iEmO6ZSSx28ifgWPLQf4pL56rgSvd+jAjb0SxCcu1mBPzFVrX+4IdM0SRqAclTmeOX8e
+         H6fws2aKiKiWhhVbePt7fV9MlwPwLYk1ZmBtHz8TmrLGQwhwGBvQc4O6fKeCNrlBnrm4
+         Loww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790677714; x=1791282514;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OjnLLZEy4NZ05RWw4wcrVNfIfzQkE+4cewTuv6QJdW8=;
+        b=X2HY9jI4ume5bwVJ6uLmsewmTrwreplVxtUrncH+CK0ExWR9gROlXLXRm7Kb8Kchib
+         OGyVQmwhTQn0nPHP3XZ9hoZ+/wcOcYXHqJvCPnni+uaNc6wLKJVunA4I/5lHHSObWt+i
+         qs8HikaHhoKLKByiCR2BLo+Y5HNfzLHSUfIYXi7J91OoF7Ev1hz6v5AUILuVa+YLrAkt
+         ZDPQkTG73gRMe1hXrnW4VpWUNi0wZ3ylCnbLRCLTieNu65ZTST6EFm7Y85Uk83dDGKNU
+         llWvBxXJAvEfupsdJRtqlXAVTH0tpDujJOsa/5ApsNR0wXSVUtHLwplnBliXhc+IkhZW
+         va+g==
+X-Forwarded-Encrypted: i=1; AKwUvBzP1o1E28G7xz/wBT7pNVVpxFi8aIpih4KpGqj5ZdAVmp+FDajVN6aIK3/azCmpz8PM4avYbHXrYEYt01g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbURkkiB8NVl+igdiEV1G4Bq+mMdg3xsAYCpROEtQuLa41l4yT
+	GO39VfK7gXPqmb/g/ycS8dgZGkeHsF9N0jaqhYLi80l0aHoAROAIgwsD0BwZf9MT5ko=
+X-Gm-Gg: AYBFou3stQsx1+Poo1z/h1NlJS7F58r98GYP4RT5MIog/2gPTtDE9luKw0S22QLG7BZ
+	VcCabOFb58di5QUjkCj6P4iR1m6BorNRn5NHpb4Qt/fXaatktwriSZz4OXZY9JMGaaJFzwPdssg
+	qKX7e7v0QZX0bGn9X8P7KfNuYELE+RK94TjoBhiaaBotZ1tnSgqaGlBhydysbR+Xx6gSSeSQskC
+	aYmTtHNG6Vm1M9Db1KTGSw37SJWZnQd66YKPXnyt4VfbOWvrr4Ahs2QLDWn7NfKor7QDw6exuVz
+	AtjjjJeqMomMkPdKS7Dn+HE6RD0NZiuxfXnu/txOReJFyZoTUmHdtn9Gxbo3aInSqzXb5rDCdjE
+	gd7wNPcj38pXRUkmtTJ3hZDh6zydqGNbYK++r/mtnhMlWl0SSgbVdfAItVzv6plkOrcXOroS5vz
+	7wYRo1ZOY069yqsVjucRkZfMYRkaMftgFDO5m40A+0LQDP2NHDI9nCcl7u62+Ux1GD0TKmRZyYD
+	r0FS649dVhcBSXohA==
+X-Received: by 2002:a05:600c:198a:b0:49f:ce78:356c with SMTP id 5b1f17b1804b1-49fe67023femr268059845e9.29.1790677714116;
+        Tue, 29 Sep 2026 03:28:34 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfb479asm66579305e9.15.2026.09.29.03.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 03:28:33 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v2 0/5] power: reset: syscon-reboot-mode: Add support for
+ Rockchip RK3576 reboot modes
+Date: Tue, 29 Sep 2026 14:28:17 +0400
+Message-Id: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0K6dkxpSwVX3sOwsHSQ8YeSaSUaw
+ t0FPIDLl7zvfZOIyIRRHLNJMI4UKfQLqF0mmu7SXxHILyyUVFZWqgRngO+6OFhgdCEkeAaP4HU
+ pDerKt9KIZTswtvTeuuf6x/HlbtikNbYaHcUU+LMdj/nq/fsYc5BgC1NaJ7XzJj+1DxoG5H2PS
+ dTzPH8B4FNEVc4AAAA=
+X-Change-ID: 20260928-b4-rk3576-reboot-mode-d3804e39df04
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Alexey Charkov <alchark@flipper.net>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Shawn Lin <shawn.lin@rock-chips.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2582; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=nD0jQ0sanXtfhte+cS4Eb6xgGbAdsdiqP+FoF7tBRHM=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtnnSR24Hn36M+tdhN73vMn2dv5+A7vic1urqA+dy0K
+ GUb2eCHHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEz1tRxGhkeGK8/VXUmyZrOYcDszYNPaNR82PKzOOuRe6b9XaZNouyHDH265n3t
+ KDv94cDB6pZ1E28/UYKuKxnWzJsVOrauLnR14lR0A
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-From: Tao Cui <cuitao@kylinos.cn>
+Rockchip RK3576 supports reboots with a specified boot device priority
+mode, allowing one to override the board-defined strapping config and the
+OTP programmed priority setting.
 
-Hi,
+Supporting it requires several changes though:
+- The boot mode request needs to be forwarded via TF-A to the boot ROM
+  (upstream since TF-A commit 2a97ba20e901 ("feat(rk3576): forward any
+  boot ROM boot mode request on reset"))
+- Some power supplies need to be kept active across the reboot to prevent
+  early boot code from running into a synchronous abort
+- The magic values for each of the supported boot modes need to be defined
+  for the OS to use
 
-Four fixes for the LoongArch KVM irqchip code:
+This series enables the above with the RK3576 EVB1 board as the example
+user. Other boards will likely need a close to identical change to make
+use of this functionality, but need testing.
 
-- Patch 1 clears the device pointer in the destroy callbacks: when
-  KVM_CREATE_DEVICE succeeds but the following fd allocation fails
-  (e.g. under RLIMIT_NOFILE), ops->destroy() frees the irqchip while
-  kvm->arch.* still points to it.
-
-- Patch 2 loads kvm->arch.dmsintc once in the MSI injection path:
-  pch_msi_set_irq() re-reads the pointer between the non-NULL check
-  and the address-window comparison, so a concurrent device removal
-  can be observed between them.
-
-- Patch 3 aligns kvm_pch_pic_create() with kvm_eiointc_create() by
-  propagating the real error code; the kvm_ipi_create() counterpart is
-  being fixed separately (Chaithanya Lagisetty).
-
-- Patch 4 rejects repeated PCH-PIC CTRL_INIT with -EEXIST, tracking
-  the state with a has_init flag so the check and the MMIO base update
-  are atomic under slots_lock.
-
-All patches carry Fixes tags.
-
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
 Changes in v2:
+- Fixed a leak of the dynamically allocated syscon_rbm->supplies (Sashiko)
+- Uninitialized access to supplies[].supply (Sashiko) is fixed separately in:
+  https://lore.kernel.org/all/20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net/
+- Link to v1: https://patch.msgid.link/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net
 
-- Drop "Guard against NULL irqchip in irq injection" (v1 patch 2) and
-  "Rebase steal time counter in vcpu context" (v1 patch 4) after
-  review discussion: their trigger scenarios are not reachable
-  through real VMM behaviour.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
 
-- Use the one-line destroy style in dmsintc suggested by Bibo.
+---
+Alexey Charkov (5):
+      dt-bindings: soc: rockchip: add boot ROM download boot mode
+      dt-bindings: power: reset: syscon-reboot-mode: allow supplies
+      power: reset: syscon-reboot-mode: enable supplies for the next stage
+      arm64: dts: rockchip: add reboot-mode node to RK3576
+      arm64: dts: rockchip: name the reboot mode supplies on RK3576 EVB1
 
-- Track repeated PCH-PIC CTRL_INIT with a has_init flag and return
-  -EEXIST instead of -EBUSY, also suggested by Bibo; move the check
-  and base update under slots_lock so they are atomic.
+ .../bindings/power/reset/syscon-reboot-mode.yaml   |  8 +++++
+ arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts   | 16 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 36 +++++++++++++++++++
+ drivers/power/reset/syscon-reboot-mode.c           | 41 ++++++++++++++++++++++
+ include/dt-bindings/soc/rockchip,boot-mode.h       |  2 ++
+ 5 files changed, 103 insertions(+)
+---
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+change-id: 20260928-b4-rk3576-reboot-mode-d3804e39df04
 
-- Add READ_ONCE() to the dmsintc pointer loads so the compiler
-  keeps each of them a single load.
-
-Tao Cui (4):
-  LoongArch: KVM: Clear device pointer in irqchip destroy callbacks
-  LoongArch: KVM: Load dmsintc pointer once in pch_msi_set_irq
-  LoongArch: KVM: Propagate real error code in kvm_pch_pic_create
-  LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-
- arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
- arch/loongarch/kvm/intc/dmsintc.c        |  7 ++++++-
- arch/loongarch/kvm/intc/eiointc.c        |  1 +
- arch/loongarch/kvm/intc/ipi.c            |  1 +
- arch/loongarch/kvm/intc/pch_pic.c        | 22 ++++++++++++++++------
- 5 files changed, 25 insertions(+), 7 deletions(-)
-
--- 
-2.43.0
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
