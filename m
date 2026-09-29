@@ -1,116 +1,119 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96CE52B1D3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C010451589F;
+	Tue, 29 Sep 2026 13:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688146; cv=none; b=WoKvdAhNXpnGmhRb34klXYKQm++z+oTYDGAwwPWGAZJMQyjBYwMlEIWJdi3wio4m2nvJGRVHvIrbMtA3Z/mZ/S8tY4735JAy2PKohTkUfBJgXjUNVjgqTLHW3PoKFu515u/5RuelFWaFTbFGN1rEUps1CNbK0zCd/jnubvogNYA=
+	t=1790688179; cv=none; b=szDgxdQFxcc/iq+/2XKahNtqGGZtDnZaxIWrlUh/fyd9gqc2HK+WhoWEYhuGE+Z+oZ/5VmwKgBOP8SF9XimwAv1U/HaMa8q5pqLcO8H8qCD5y5B/mGhK02gCEE3kiT6+ItTB05O6WKD/OGC7bkFKc4Mc/xzKuZ7uI4qrldp4X04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688146; c=relaxed/simple;
-	bh=FHgcVzckw7J9hKLtbO0xprD/AIvMCE5AqxCP6hOVswI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=a8bNQtzW1SJ9IhXQ24ICuKhXeCO+u6U5mD/vdO3mqJoQXFgMgUcAw6Vp6tLgr9BcEnoEnSPhYhJ96r87AZZo9WKnumRUp8SLrZZ7auW+m72tLi2JBe+lmyt+RrZKC8jgJJh6NfrrHCUZOjuJCTP1bz0xVADfZGz8YJEEuIqsTWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rREzCYs5; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790688179; c=relaxed/simple;
+	bh=OOQ3txDD7lpypqd+9QCjt4HfYZMYRTlZsC3KqCtpDGQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t48nUDG9U2JSLDM11PMfqIasZqPFfmCsnUnihh05ez/999iJXdKXjQnT04GHvKgqLnf1dX9x9dbRBLxaXISNI1YsC9d4PgEbR1e1xCvEZ56l9ZG05lVi8Q8k2fzQVWXg0rbTUyFotpnSCJg+u0J4UiRQqAyGLyFpu6kIsZP2zGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=BINMJshN; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rREzCYs5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 24D251A1065;
-	Tue, 29 Sep 2026 13:22:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E3F04601BD;
-	Tue, 29 Sep 2026 13:22:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E4324103297BB;
-	Tue, 29 Sep 2026 15:22:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790688136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FHgcVzckw7J9hKLtbO0xprD/AIvMCE5AqxCP6hOVswI=;
-	b=rREzCYs57TauLcCmyy1DL91h0dU96/3qi9aWRsbrKpBJlyYKn6+1p4Z1Iq1IzIeXXLaXTa
-	kkq1+U5xL+3X0/gtmGoyBH4m0XubttAXozmLBSL+g25FBjPSnoKpZB3TrzUOClghvgRGVi
-	w8kR6pqXnhXOG9/9zVP63yGDrFQq7PddFN3sovGRXnWKbiOHRb+l1kWChR17B0l039IF8A
-	JClQQixWJXQHu0hfr4dEsBEiQeHohjDiBjWnjNeh6BVE4ggU9ypyfSYmUgQUa6GIKdEb2m
-	p6Sf7W5UZ41wK7GFTTlY6rTaRLw3QYtRRD7DU9JLVi2OFD+Xb0p2Nbt4SMIefg==
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="BINMJshN"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f82b2d62;
+	Tue, 29 Sep 2026 21:22:51 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] mei: vsc-tp: initialize IRQ state before requesting interrupt
+Date: Tue, 29 Sep 2026 21:22:45 +0800
+Message-Id: <20260929132245.2152433-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 15:22:08 +0200
-Message-Id: <DLRTYPGLOGLJ.1RWIVEF7K6OCB@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 0/7] drm: remove deprecated *_of_get_bridge() from
- non-OF drivers (fixes build regression)
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
- <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave
- Stevenson" <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>
-X-Mailer: aerc 0.22.0
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com> <c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn>
-In-Reply-To: <c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0ed55152c03a1kunm664b971e23fe27
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0sYVk8eT0tPHkxNQk1MTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=BINMJshNnwi23i/B8cLCT4pKJVlavGBe08la17sljelWNohoNhYfvobXPpZ3KTxNb/fKP5R1ZoCtadmrfArP/UyvYb/T38rDR24g8pkWPEyZ49ysiaDrPJVy2frFlc8BFymACoCQ8e10Vwfh601tVly1Y+ztAzuNiDATjbdCGlk=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=J9e45uD5BKyPsbkbL8G9Z1TokeQZHUZwd6InRM+P/xE=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello Icenowy,
+request_threaded_irq() enables the interrupt before returning, so the
+threaded handler may schedule work while the probe is still initializing
+its mutexes and work item. Initialize that state first and only free the
+IRQ on paths where the request succeeded.
 
-On Tue Sep 29, 2026 at 12:46 PM CEST, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 12:36 +0200=EF=BC=8CLuca Ceresoli=
-=E5=86=99=E9=81=93=EF=BC=9A
->> After commit Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code
->> to
->> drm_panel.c") some drivers fail building:
->>
->> =C2=A0 error: implicit declaration of function 'devm_drm_of_get_bridge'
->>
->> This is because devm_drm_of_get_bridge() (and drmm_of_get_bridge())
->> have
->> been moved to drm-panel.h.
->>
->> The affected drivers are those which:
->>
->> =C2=A0* can be built without CONFIG_OF, and
->> =C2=A0* don't include drm_panel.h
->>
->> The affected drivers are 3, fix them (patches 1-3) by replacing the
->> deprecated *_of_get_bridge() calls with
->> of_drm_get_bridge_by_endpoint().
->
-> The comment of drm_of_find_panel_or_bridge() still suggests
-> devm_of_get_bridge(), and the documentation at the head of drm_bridge.c
-> also mentions it.
+Fixes: 566f5ca97680 ("mei: Add transport driver for IVSC device")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/misc/mei/vsc-tp.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Ah, thanks for noticing. I'm taking a note to fix this later.
-
-> BTW should drm_of_get_bridge_by_endpoint() has some drmm/devm variant?
-
-Maybe, but not sure, as we introduce hotplug devm/drmm becomes pretty
-useless and even annoying. However I haven't checked all the cases, so we
-might reconsider this idea as we start converting more drivers though.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/drivers/misc/mei/vsc-tp.c b/drivers/misc/mei/vsc-tp.c
+index 432bc59f1..a5f56121e 100644
+--- a/drivers/misc/mei/vsc-tp.c
++++ b/drivers/misc/mei/vsc-tp.c
+@@ -496,30 +496,30 @@ static int vsc_tp_probe(struct spi_device *spi)
+ 	init_waitqueue_head(&tp->xfer_wait);
+ 	tp->spi = spi;
+ 
++	mutex_init(&tp->mutex);
++	mutex_init(&tp->event_notify_mutex);
++	INIT_WORK(&tp->event_work, vsc_tp_event_work);
++
+ 	irq_set_status_flags(spi->irq, IRQ_DISABLE_UNLAZY);
+ 	ret = request_threaded_irq(spi->irq, NULL, vsc_tp_isr,
+ 				   IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 				   dev_name(dev), tp);
+ 	if (ret)
+-		return ret;
+-
+-	mutex_init(&tp->mutex);
+-	mutex_init(&tp->event_notify_mutex);
+-	INIT_WORK(&tp->event_work, vsc_tp_event_work);
++		goto err_destroy_lock;
+ 
+ 	/* only one child acpi device */
+ 	ret = acpi_dev_for_each_child(ACPI_COMPANION(dev),
+ 				      vsc_tp_match_any, &adev);
+ 	if (!ret) {
+ 		ret = -ENODEV;
+-		goto err_destroy_lock;
++		goto err_free_irq;
+ 	}
+ 
+ 	pinfo.fwnode = acpi_fwnode_handle(adev);
+ 	pdev = platform_device_register_full(&pinfo);
+ 	if (IS_ERR(pdev)) {
+ 		ret = PTR_ERR(pdev);
+-		goto err_destroy_lock;
++		goto err_free_irq;
+ 	}
+ 
+ 	tp->pdev = pdev;
+@@ -527,9 +527,10 @@ static int vsc_tp_probe(struct spi_device *spi)
+ 
+ 	return 0;
+ 
+-err_destroy_lock:
++err_free_irq:
+ 	free_irq(spi->irq, tp);
+ 
++err_destroy_lock:
+ 	cancel_work_sync(&tp->event_work);
+ 	mutex_destroy(&tp->event_notify_mutex);
+ 	mutex_destroy(&tp->mutex);
+-- 
+2.34.1
