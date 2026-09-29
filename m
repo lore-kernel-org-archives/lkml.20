@@ -1,142 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E3B385D8E;
-	Tue, 29 Sep 2026 07:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B623AAF74
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667917; cv=none; b=Vyr/xoPJjCLKC+SrK8k/JzSMQW/bxs7QgEApUBXVoMVdEoor8cMvBYVY91dlH4WLJCpuuWtE7QvkvwVAxa32luerYDtXPGfaM0GT621Rw+/FrEVaABsPC3M6NqkJu0z8AA1a6SgdjNqYHMtTbGJtzRd6rlf/rMsF1Uaeqm59dG0=
+	t=1790667956; cv=none; b=FAAXnYFiB9EsPlojDhWFAYmu+GyKALXSe9ByfYPUBmKDcfIynrd/1lRmVK9sjnAqSYLNBxUG1mXWmGLWLWhwulfrjYUF0TcHSCuSiIhdRANX/0o3rKLWqGbihzo83qoK8wEzfx8N/hSc04e3qjN8lXT+OpHvBnNIheKPNDKbWoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667917; c=relaxed/simple;
-	bh=mGEZY/fD7+XQLDfjaIy0mTpiYoeYRKt7VFKYzR+TcYY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F4p8m4t1oFxDKR8Eblf5U/iMjnoHTL3Z6AggyRIqO0neGSL1CxfQF1QfPwAMblBqozBmfHhL0bP+PCn85r3aakspEt3WDh+Qx7H0pZnYeFuAHBnom9ucNQ20gHiWUEqVvOum1WbyKBho2mcJKICwqaBXD7hdm5gpglra+bqcU7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBdqiyXd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667956; c=relaxed/simple;
+	bh=LpYBFMiaqN05+X5Zp0dNTYPeY13d+CylOB/zbLHiluk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=WO2cnrn8xt0ZdP/C8iBrLaKQH8y/umQYZ8QFbUuHqnMxrrmm95CVZgghsPglPSKTODWjNYNhNPlRbI7VtrfrauYy/vPzfSEnS2P0OnxrcAdrCKvt6IWXFLIwDFCtMKKrbUJvNBt47Ut9EWL1fuWE8obaQqc4SCPuvSJ1yKvUSTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ebH/8xLk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBdqiyXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EF21F00893;
-	Tue, 29 Sep 2026 07:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667916;
-	bh=nk5wMiMAX7vmm1Ap7xDUsjodqXNumTEJaxf1IBSHmDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QBdqiyXd4YSEFgEBMn2SLVp2Cy4+10t4naU40ueHRJBEEmrCXXYeFD7I2DW8Fxao0
-	 zhKfE8rVAmOOqJBX355ZAIgrBd1+s/FqzJN1uADcaPTt6Y7wyIWQr2gOXwg4OPp/vz
-	 L7L69bpmnqEX7bogFhChT8TMyfAmMWC0aSApXjiVKHkEXN6PCwmsLZNiYD/dOnIAC8
-	 3NrQ6Dg7v+yEz0HvckJ63xWwOLPNviFTKrijFFjconpxIRa1nglIFl3YFxRJhJ2SkJ
-	 jA604EDyNOQakfcAwLEVj6xdQjMXt9g8QsHJeQuBIpOhfFpWeqqB5GOh+MU93/CLf8
-	 1ahJr9WsSiaqw==
-Date: Tue, 29 Sep 2026 09:45:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Petr Vorel <petr.vorel@gmail.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
- within
-Message-ID: <20260929-dramatic-ocelot-of-support-2aa377@quoll>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ebH/8xLk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6BA3D4E4102B;
+	Tue, 29 Sep 2026 07:45:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C570601BD;
+	Tue, 29 Sep 2026 07:45:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C832C102F1E98;
+	Tue, 29 Sep 2026 09:45:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790667951; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3qTkCUIU3+CnDdX3I+t/Z/6xzpLloXPPQTR1DecDEa8=;
+	b=ebH/8xLkcfzzdsCCUyEDFqZyX+jvBfvXAJALis58m2dCw0DMJVhJpcYizDSVwCiEJ67XCr
+	kbYCGM8hjU2wN/ZHiL/eVP9G7QayiScIIXuUcCRCyXsi5VuomJOD85kBv8/piQAgeH2Fav
+	BWHToL+8oAJisdLucV30t2/x3AapBoVIravoSNzJnMBiTKfBWXlX5+0T68HG476EMjqe98
+	PRj+SvuAV8WpNg6TdgeNfCissonWSaFhw9Oc/ayEqpSJnu/vQ2Yqrc3lMlCUbIT7jnMap5
+	lVNjcPcg6ASPc/J2DKQ5bZN7+nvTid5wm50wE7k5TIkHwhhiRk2FJag6V+XZzw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 09:45:47 +0200
+Message-Id: <DLRMT6RJRL7T.3TV4K49YWR7DL@bootlin.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH] net: macb: rate limit netdev error info print in the
+ data path
+Cc: <maintainer@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
+ <netdev@vger.kernel.org>
+To: "taozj888" <taozj888@163.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260920100920.65773-1-taozj888@163.com>
+ <DLNFAUX8MFA1.3UMOGNLDKDRJM@bootlin.com>
+ <45a98260.3bff.1a0eb4e2f51.Coremail.taozj888@163.com>
+In-Reply-To: <45a98260.3bff.1a0eb4e2f51.Coremail.taozj888@163.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
-> The reset was introduced with wrong polarity. Correct for the future
-> compatibles and keep current with reverted logic.
-> 
-> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
-> gpiod_toggle_active_low() on the deprecated compatible.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> index 5e1e997b83b36..99290913de69a 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> @@ -20,16 +20,17 @@
->  #include "panel-samsung-dsi.h"
->  
->  struct s6e3ha8_desc {
->  	const struct drm_panel_funcs *funcs;
->  	const struct drm_display_mode *mode;
->  	unsigned long mode_flags;
->  	const struct regulator_bulk_data *supplies;
->  	unsigned int num_supplies;
-> +	bool broken_reset_polarity;
->  };
->  
->  struct s6e3ha8 {
->  	struct drm_panel panel;
->  	struct mipi_dsi_device *dsi;
->  	const struct s6e3ha8_desc *desc;
->  	struct drm_dsc_config dsc;
->  	struct gpio_desc *reset_gpio;
-> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
->  {
->  	struct s6e3ha8 *priv = to_s6e3ha8(panel);
->  
->  	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
->  }
->  
->  static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
->  {
-> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> -	usleep_range(5000, 6000);
->  	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->  	usleep_range(5000, 6000);
->  	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->  	usleep_range(5000, 6000);
-> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+Hello Zijin,
 
-This breaks all users and this usage of ABI was already released.
+Please use interleaved posting for replies, not top posting.
 
-NAK
+https://docs.kernel.org/process/submitting-patches.html#use-trimmed-interle=
+aved-replies-in-email-discussions
 
-> +	usleep_range(5000, 6000);
->  }
->  
->  static int s6e3ha8_amb577px01_wqhd_on(struct s6e3ha8 *priv)
->  {
->  	struct mipi_dsi_device *dsi = priv->dsi;
->  	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
->  
->  	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> @@ -203,17 +204,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->  	ret = regulator_bulk_enable(priv->desc->num_supplies, priv->supplies);
->  	if (ret < 0)
->  		return ret;
->  	mipi_dsi_msleep(&ctx, 120);
->  	s6e3ha8_amb577px01_wqhd_reset(priv);
->  
->  	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->  	if (ret < 0) {
-> -		gpiod_set_value_cansleep(priv->reset_gpio, 0);
-> +		gpiod_set_value_cansleep(priv->reset_gpio, 1);
+On Tue Sep 29, 2026 at 5:56 AM CEST, Zijin wrote:
+> Thank you very much for your kindly reply.
+>
+> For all your concerns in this mail thread and [0][1], I try to give
+> my answers here and hope it does not miss anything:
+>
+> 1. Yes, I missed the prefix [PATCH net], I will add it in my next
+> commit; I would like to send it again as the 1st version
+> since I missed this needed part [PATCH net];
 
-No, you just changed it!
+If patch stays the same it is OK, if it changes (for example because you
+add trailers) then you must iterate onto v2.
 
-Implement correct and logical fixes, not half-baked fix which is
-immediately wrong.
+> 2. For the To/Cc list, I will use `git send-email --cc-cmd=3Dscripts/get_=
+maintainer.pl` as you indicated;
+>
+> 3.=C2=A0This whole patch is  NOT LLM generated, it's really a bug hit in =
+practice, the "PHYT0036:00"=20
+> device name is the real name that showed in our console output, I can't j=
+ust imagine or made this name and it's really of out of my imagination.
+>  I think it may be related to a vendor with some of the PCI addr but I th=
+ink it may not be polite to say it directly.=20
+> Actually hallucinating a kernel log even a kernel patch is out of my know=
+ledge, if you know to how and=20
+> wish to tell me, I think it should be really interesting!
 
-Best regards,
-Krzysztof
+No I don't encourage you to hallucinate! It's what LLMs do sometimes
+when you ask one to generate a commit message for a bug fix. They have
+seen tons of commits with logs so they reproduce.
+
+[...]
+
+> 5. For the severity tag and should this carry a Fixes tag and name the
+> intended tree,  please give out a clear indication from your
+> experiences for what I described above. I really have not too much
+> knowledge about that.
+
+Yes. You put those two trailers:
+
+   Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+   Cc: stable@vger.kernel.org
+
+See documentation link below (or kernel git log for many examples).
+
+In your case you want the oldest commit that introduced one of those
+logs. The macb_start_xmit() one for example got introduced with the
+first driver commit, so that's what you target.
+
+https://docs.kernel.org/process/submitting-patches.html#describe-your-chang=
+es
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
