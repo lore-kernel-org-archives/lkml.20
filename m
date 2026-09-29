@@ -1,124 +1,151 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F5F397929
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49363451D6
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666278; cv=none; b=fn98sFrVxkzMb4JFTrWn6NWsVcx82eEPOraGhfAxtQ2KpjmNDUNSJ4w1sbqxWRfHIep6zER37izAexgBgzPq+BsbDhzEX6p4aHoWqe+Ow+2iX6NTbjoDB3h+U4Qu/TRMKwgD6QXJrpe8rSLGvxujUiqZukQXzmyMWQGJfjMa/9s=
+	t=1790666303; cv=none; b=bcyPrcSEVGg03mlm/kkSAk6sbqbLyVRzIFJ2A5dODzUPHD2QJul1RzWCLKOpu36a4bo9Jk4ycrxqsjvAEgM+dZJf34UtKtzU0yAOEjLH+GCiKKSgidk1O6OA6hmTAA7jn+l+v8ioylJth2NZiQI/dXPQhnij4lo5wKvI2o7OE4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666278; c=relaxed/simple;
-	bh=kLyXDGa8KZwfeEvwaqkbG7jW2lIJjCNaVmzFDVdm13M=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Gx7wyYwuyCaaIWu843226k0avuqhRSl+xDVhHvwH1c5sRbQpZbGj038CkN4WM34StetAcnZAp9IdYxE9dMAmaoUlOI6bzUJl4gAQIzjDHRCc0xoNaWFfaf9QhsB65uAa8hjrzGteZnTNjQPsJ6ElAqntfz38aJe6OMshImmpuRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gZfEea+5; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1790666303; c=relaxed/simple;
+	bh=QJnK+hiTvlC+rNNX506wVat7FuReEWPSNNtyFaDcZZ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PCFzJrBeqIrdko+vFZ2xsmwUEoNwBMrW4KfIgurcWqsZOCx2i3nVgpF1b0j1Ii1OVhBOcCGa268OC5oF2OeEz22NvSDwNTs05m3hnuvAijRvzGESFpwa3w3sIalzp4aZ1+1nLWumnpAqlGQjfm+3UkF5m5/y4IB1H9MDv0UmCwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gZfEea+5"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab50so1719984c88.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:17:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790666276; x=1791271076; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8+4ed2pEOUpvT4RZtU8pogb0RWHCYruOyJOR4nVdY0=;
-        b=gZfEea+5qs9bifv7Qpe2qYl3yNRlNMVf3/kMFBC0RHx/d+2uH+n4OEffjDMd5PlDMy
-         lCXoK7skn2ZTf4DVkSiCX0smg7T7ZIULq0zIQKKbW+QpWneUPA5fQN2c9Tlh2fzl/ayh
-         LOcLwlhzWfCBQTMTGFeL7pIx9qqPu06/CYKBQONAmrpLK656fnqdb4jtlxViYNQ1Nvpa
-         e0bpmjupzF+YPUkZ3/JxB4jSrW3sq1p7gt+wd5+rhZMvGO2G8IlOET3VtT/s3RIABypr
-         EXdE1zAlnPGjH8NnQ75yptCef0YgUlaFD8dKrn2jFACsWrSz1SOCgkX14qcP8s/eZJq+
-         cOiQ==
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso2515577241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:18:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790666276; x=1791271076;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m8+4ed2pEOUpvT4RZtU8pogb0RWHCYruOyJOR4nVdY0=;
-        b=MfOtno5j/NU0WSjqt+qux+58LaiVTl3uRhm8UpN2VBsK/el9H4SQt9EQLKSGrz+0id
-         7H4Wfx+4iMNq1CdndYI0xHm72jMSv74ueU1s6dkOalQb06JZ7DeXqOzo6Q/FeiGr0xNo
-         XheXniOfWWaLqXkKUv4ycEZ7F8oDDDhQwTeQ1U/dGcJvnfEaPqPTq9I4Q2WBCmXy0cFH
-         zL+JOIvsV9dBTNc2xmbBqdJE7eyiBvGkcpwRXbQSq4g0W2rag5zb70ozh5ACcPThmNMK
-         kPd+TxMveEOoccUV3EoweObneWTnFUsDctBuXNL9QknEsu3ydlFT7O+A1xanXOVU5Qac
-         x68g==
-X-Forwarded-Encrypted: i=1; AKwUvBzpPQT2lEvCA6pY46PARGuBreUCvpBfIURgI87uQ42gtUT6f71rUhYPZmgzfGYOkMXyDhivwG8He0/J3N0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mx0qDxdg9UWkmd3GgNPxK/K4n6gtocRcchoeuvmajzTlfVOq9+
-	SV4akM0pMnyRZpgp4MeapYKX00+fFa4x/hWRWTBebCYlm+z05HVOmR0s
-X-Gm-Gg: AYBFou2jEvfT4YBCrdOND8FWpigcNTTqvgYbPTbR/6ky+K98NyqlOBb0Feu3CFWKoqI
-	UVeApnEbkLxrhZ1eu4pieZgMIQLV8uBKLKFTf8VVx62dliq0wsKACfgHnEunNqj5nmwTjFIYzha
-	EA0PdsR16Ad4KlZL1Wq5kWxerN2CdsH2VoKD31I9s0wl3ixs9iYHSTUI0wP2n79AONORByFJPrb
-	mb6FY6e5wPBrzTQ42FJvcEovqU4xXgBRlX4aBkb50YxqRyi+tQX5vPfx2Q6PDBoZRD7JbxtyZyl
-	1Keaewa4giIcm2RHol9FnQJYdUUbzky1v1EOzYXO8rnjXvv6IgZTXiDPrHOMa3koQVrFzJilXoC
-	iBIJOD5Cyuh4yMEvL5y0mEG+61p3VhgkwjL0gQ6rCKNZFfEXBqEqTbpk3yDErs2bW8AhqJMH/ZT
-	aTfOZxGDJscZDFZ0QqSaQM3yEL/IVxO7/KBKHSHWcXuR05C+OMf54KDE16vMVa3Ts1b+XOVxZ4z
-	3pQYG5Hxaphyh5f3OcfHuHgx1yaqt2bsSALhQ4BqcwGsN9FWSY=
-X-Received: by 2002:a05:701b:4314:b0:143:50a0:56d6 with SMTP id a92af1059eb24-146cdfbe26dmr11752569c88.7.1790666275660;
-        Tue, 29 Sep 2026 00:17:55 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c0ccsm29980096c88.4.2026.09.29.00.17.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:17:55 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	mkchauras@gmail.com,
-	ruanjinjie@huawei.com,
-	tglx@kernel.org,
-	mkchauras@linux.ibm.com,
-	ryan.roberts@arm.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/syscall: Avoid atomic test_and_clear_thread_flag on fast path
-Date: Tue, 29 Sep 2026 12:47:44 +0530
-Message-ID: <20260929071744.2965058-1-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790666301; x=1791271101;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=urkJD58hMoHePd0JRK9qieDP4sEy8iL733/oAqpv72A=;
+        b=a3IAcYaSsLvDaqdL73OKF1yPns+0m6lGdPEdYHvKNU029YDPAgYzxWAdXNJCJ+t0Lc
+         pPIHdTi2/qeTYVEge1ETwZB/8kW3zrhr0vMN35HMZfjpnxKP/po/U6yUdNoYLL+3L3is
+         HcRzViiQ4/H+T2Q9PO8Zvq0ehi76Vql2SbWmYoLLxwN00cDmeiv4PialvoecvDlFfoln
+         GmWkg1xQSNib9pUS74HN2PGOpNTGko3L7RaQkcbsTtQrCcsjpQhAhZ4qpGQCUNkmkzdp
+         z2GyK6MG2QBvNmeaI7uS8kLtZf0gKW+Ot7IxlFmH5oadE5LhTXghgHdJOhAMId0QOSDA
+         9pzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwhwc83pzPsiYbU4KmEbTxxtulCBLFihFuu2Zpa+gRgXkMfGVjuYZsaOLoFeiY7QOQtiZHC0aW2SQsfyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4YH51rR5s9a/fFhnim5bAQ8sBUr3p1S52iLb+m3kWaCXGfRlR
+	ensXXsdC50gu4afURLsZ9Lxd+dG3gol+XcaGqWaP9D99KpB3VSuIennWxIzG2NgWgfI=
+X-Gm-Gg: AYBFou1wvwpQiCyxr7ySzju+se5EWAc6fy+Qh1/S0pOPfnjkTXvioVX7vb5C9TpczCw
+	upRjNFZjKNjkKDwM8q8JSkzKAQNPou5Fr4uamj6BU3A6zfB1myKmN5IXsop2BNeYy1KNGnIJLOC
+	kfrHmbngFFAx9PpIcbJNU4Bal0dzvt9jWvEinzxNiWaUTE3R+SQR2b7tko9GSyleP9jxvJbv+Ba
+	Jpfco520J1K5vHFQaEi2mUAGUzmYKsO7+fLXdQO7o8Dm8IlVo3+0iUd8c4KXKhR2hNhAaJDOMkF
+	qNStNEJUEB2DV7KI/xobxCPBmktAKLGE0eP2o6rFNLkU+i07UrrJRk2IyRj977NRC5k+Za56ixZ
+	ZzyHJPBLW4wM88jcPlI1ouE/qCRnQHjshIrh1qeOnrVd7Iz0XhmIkmDFOHxsKPRb6dcnTl4xWq2
+	2Ne8Pmb0bM4Do8+s8mbskgsSqxdE8a2LAM9u0q/b7+csNwjXGytu6k0AHUz1fb434g5PwKE/SUV
+	ITAnZp+Eb5W1mvSx3RZdTZ4K/9Uh4NLq3ZG
+X-Received: by 2002:a05:6102:3907:b0:7ad:3ad3:997a with SMTP id ada2fe7eead31-7af1c6914d8mr6610586137.5.1790666300661;
+        Tue, 29 Sep 2026 00:18:20 -0700 (PDT)
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889b08b6fdsm10294084241.4.2026.09.29.00.18.20
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 00:18:20 -0700 (PDT)
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-790b4aeb66bso1922862137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:18:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxtRp3yUChFP+9XMXjuTOx0vO6Q9rpW7GYv2ocqW9/V8Q39TwG3Buzlf+rEiIvF0gc+z+p0YgLO7xq9MzQ=@vger.kernel.org
+X-Received: by 2002:a05:6102:8096:b0:7a1:f7d2:e81a with SMTP id
+ ada2fe7eead31-7af1e6ef2f8mr5696434137.19.1790666300095; Tue, 29 Sep 2026
+ 00:18:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921195943.107247-1-ovidiu.panait.rb@renesas.com>
+ <CAMuHMdUGwQXvtLeQZ3KfO0giAhyEBgWSLqmxqx=7yqGqMr+hDw@mail.gmail.com> <OSCPR01MB1276943F1EAC14670506E6DF5D3822@OSCPR01MB12769.jpnprd01.prod.outlook.com>
+In-Reply-To: <OSCPR01MB1276943F1EAC14670506E6DF5D3822@OSCPR01MB12769.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 29 Sep 2026 09:18:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWoQuPv=pVOpvY45_3p0hS2Xq34RYTkhEahA65RMb2nxw@mail.gmail.com>
+X-Gm-Features: AclHuK9Q5JzW_HuTZFfkVo6R7FOP85PvaDuB-wCgnkQCGgceBABngBZwKKdNjU4
+Message-ID: <CAMuHMdWoQuPv=pVOpvY45_3p0hS2Xq34RYTkhEahA65RMb2nxw@mail.gmail.com>
+Subject: Re: [PATCH] spi: rspi: Fix DMA mode when the DMA controller is built
+ as a module
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: "broonie@kernel.org" <broonie@kernel.org>, "geert+renesas@glider.be" <geert+renesas@glider.be>, 
+	"linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-In system_call_exception(), test_and_clear_thread_flag(TIF_SYSCALL_RET)
-performs an atomic bit test-and-clear operation on every system call entry.
-This introduces an unnecessary performance regression on the syscall fast
-path.
+Hi Ovidiu,
 
-Combine the TIF_SYSCALL_RET check with the unlikely error condition from
-syscall_enter_from_user_mode_randomize_stack() using non-atomic
-test_thread_flag(). If the flag is set or entry failed, only then clear the
-flag via clear_thread_flag() and return the error value.
+On Wed, 23 Sept 2026 at 13:07, Ovidiu Panait
+<ovidiu.panait.rb@renesas.com> wrote:
+> > On Mon, 21 Sept 2026 at 22:00, Ovidiu Panait
+> > <ovidiu.panait.rb@renesas.com> wrote:
+> > > On the Renesas RZ/G2L platform, the RSPI driver falls back to PIO mode
+> > > instead of using DMA when the DMA controller driver is built as a module
+> > > (CONFIG_RZ_DMAC=m):
+> > >
+> > >     renesas_spi 1004b000.spi: dma_request_slave_channel_compat failed
+> > >     renesas_spi 1004b000.spi: DMA not available, using PIO
+> > >
+> > > The driver requests DMA channels through
+> > dma_request_slave_channel_compat()
+> > > which returns either a valid pointer or NULL and cannot handle
+> > > -EPROBE_DEFER. If the DMA controller has not probed yet, the driver
+> > falls
+> > > back to PIO directly.
+> > >
+> > > Fix this by replacing the dma_request_slave_channel_compat() call with a
+> > > regular dma_request_chan() call. dma_request_slave_channel_compat() is
+> > > always passed a NULL fn_param in all code paths, so it actually behaves
+> > > like a plain dma_request_chan() call.
+> > >
+> > > Fixes: e825b8dd2b36 ("spi: rspi: Add DT support to DMA setup")
+> > > Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> >
+> > Thanks for your patch!
+> >
+> > > --- a/drivers/spi/spi-rspi.c
+> > > +++ b/drivers/spi/spi-rspi.c
+> > > @@ -1355,6 +1339,11 @@ static int rspi_probe(struct platform_device
+> > *pdev)
+> > >         }
+> > >
+> > >         ret = rspi_request_dma(&pdev->dev, ctlr, res);
+> > > +       if (ret == -EPROBE_DEFER) {
+> > > +               dev_err_probe(&pdev->dev, ret,
+> > > +                             "failed to request DMA channels\n");
+> > > +               goto error2;
+> >
+> > Doesn't this make the probe fail if the DMA driver is not available
+> > at all?
+>
+> Yes, if the "dmas" property is present but the DMA driver is not available
+> at all, the probe will keep deferring. This matches other drivers I checked
+> (spi-rzv2h-rspi, spi-rockchip, spi-bcm2835, etc).
 
-Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
----
- arch/powerpc/kernel/syscall.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+IMHO that is bad, as it means the driver won't work at all if the DMAC
+driver is not available...
 
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index fbefe1927b10..8529827d697f 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -18,14 +18,12 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	long ret;
- 	syscall_fn f;
- 
--	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
-+	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
-+			test_thread_flag(TIF_SYSCALL_RET))) {
- 		clear_thread_flag(TIF_SYSCALL_RET);
- 		return syscall_get_error(current, regs);
- 	}
- 
--	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
--		return syscall_get_error(current, regs);
--
- 	if (unlikely(r0 >= NR_syscalls)) {
- 		if (unlikely(trap_is_unsupported_scv(regs))) {
- 			/* Unsupported scv vector */
+> > > +       }
+> > >         if (ret < 0)
+> > >                 dev_warn(&pdev->dev, "DMA not available, using PIO\n");
+> >
+> > The driver still falls back to PIO in case of a missing "dmas"
+> > property, right?
+> >
+>
+> Yes, without "dmas", the driver still falls back to PIO.
+
+But that's hardware description, so the "dmas" property will be
+present anyway, regardless of the availability of the DMAC driver.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.55.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
