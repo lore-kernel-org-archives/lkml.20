@@ -1,159 +1,160 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B934E2F3D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5582B3CC7CC
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671981; cv=none; b=gomDvs9DbphMpRRtC3FUQ5fSR1Vpjotefi3BNE1yv8Bierohvu6n5hFdAaX2adLqtfPdzF9kRCZzh6SkCXXQadkr5itt0ceBlDsMdsb0S6epam4OZSLwPhwKUQ7KEp8a/ebOV4TssnXbOp93JCNsFxXUNODigqpMg8VpdToY5PU=
+	t=1790672012; cv=none; b=hnl26KO9lt2Vy45qKMV5zfCcNo+wD/ODm7urskqYeJl0VXovR7Uk+D67cGCcgpGM5V6WnHrDgskWULSTt4LJv40icXOunnyyuLBOjgtNTcHAWf3ZvnErMHS46CbzM6NEdYTZttzVl2yv78ImhflMGzjB9eiKd5/2kMfYBq0Tbrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671981; c=relaxed/simple;
-	bh=kor4g0PeQkauNRyd0OjzQuYUAneb9p6DsERWXQ5HwI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TDHQzT4OYMa2TM3kEDYAmiu8/UZJAnMFtbwEqVFBrP+SU6goJ7CFHtl4Bmew58wfmz14aU7KBQcG8boM3ULfS01ooF/RvjpNoRpRjjCUOdo32CeGDlkytPcS2aCtZI5Y+Bh6mEET/QmXx3ZLOYCMIJ7q/HGBWNWmPomXu0gVfMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WnRqlXNm; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790672012; c=relaxed/simple;
+	bh=kbPd5aEB88RVKC5dTRS0nFWR0+S42v2EQ0FuI8qym78=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J7tZJ5ApNZYafu31FShjHgUl7a959z/kGRq6krkAm5APyvmljhzGH89V5hO6EI+0hT9Xe+fYKpiKtdAjnmb16PdSx0xtMjNtGZLtRf9clnUJLfsJTA6bQMKhSonj+2BB1g/3XA5EYqsFoj/ndhSA1/OWxY4o3Rh1GkS5Z0Dr8Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dy7lHe70; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SroB+0e9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WnRqlXNm"
-Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7cadbe09dso64509a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:52:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dy7lHe70";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SroB+0e9"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TkQm300808
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:53:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mDtlofeD7haSM+lzJFlUgBc/2wfLYIn2wjTkFseiHXg=; b=Dy7lHe70TQudM+wi
+	wL0mZ5qrqMwol9lb+JSLRrCKJxrRGAEyHZxX1mPFwjxLU1y9nDbPx3EEyftAlHtq
+	kXBFSa+SniulUWEVIssinETeZtjxG6UsK0QwHWmvGuCzOzuyAtrbQUUjpAoiWvWN
+	XTv7XNXvWtBTjLXz9NxAWAOn/2WaESwGS3Lg6RCfNi2Db31zhkVH87iQfgzKHHuY
+	OkFdID38oPXeuWUqTp2sEW/6wwk1rdUe1MdM8Sj8srtJv91V72Vv9ZMiP5Th2xJj
+	rogPFcLO4RsrSbxvt5FXCsIksUzc3ghhiAPhyYItRibKHe9MhT93aCC6pfKuVVpo
+	YRDdGA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h05yxh2rb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:53:29 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c614646e9so429458885a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:53:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671979; x=1791276779; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=natEiwM6lNYiM813fc4eYfICSWQq4v/YxBaqZ21XGiU=;
-        b=WnRqlXNmhQ9MUl/JM/LdaQPgF199Jxq5W+LqCGbVjvC9ME1nlsu+QELg0ISFkAcoDA
-         XpJTS+3L+KDilcL8ejlprfCAxA2BtKM0taOEwLrDgfu3BgJ71M/4TPOHFZC4BYvO0kM4
-         LaFC0rqMuSB+EBHCbW9qwIUveMY3toS8sRnZcvQpizX+X9EOlGE6utmDXsCZ9BKAahX0
-         L8F0VByXnFMY7fHwAwaAHRIioDt4yqfFRZMQUXKBtkkM134hR1LNp56vGJhE1aDt8b3i
-         SzgmZZfxjtpeOO30Ums4HYIffxI3f7s4GpMs+N4tMyOUK3t6iw7CP5LU/KL00OuUY5pe
-         dFcA==
+        d=oss.qualcomm.com; s=google; t=1790672009; x=1791276809; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mDtlofeD7haSM+lzJFlUgBc/2wfLYIn2wjTkFseiHXg=;
+        b=SroB+0e9JM8oaRpopi7k+Tgjm0dWHWO6iqfuy2IEKdEVg81uCSyZBkNl3jDIE91SBm
+         ZPqtkZNX9MyGpbmKi3Ovt/sfZsxkjwiRway0vHuwmR45+IOpYmEO/K4EaJbKWAonhytL
+         sf9B4sunE6lMXTEW4C7Q5AfPHEV8zAYDoRpj5/iUox1TtJlWEb6kUem+7mFHB5rY/EEG
+         k5LINt15kDkkcmWOf7C2xnb8ptapIaRSLxFgR8RaOH1z1Xlk0HZlH1r1+oLR+98aubm1
+         YvVpt2U2UewkYxReFFlulQ0INNHhaYEY+fsEThSXAMCMpF+5ru6zm99fK317xQrz7Dai
+         rzaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671979; x=1791276779;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=natEiwM6lNYiM813fc4eYfICSWQq4v/YxBaqZ21XGiU=;
-        b=lFWkW4lLjwGW5W4ld4tla9P2DOmscqaa05jyOO3JNWg/bQiEqvsKRLRu0Mz0u1MWEf
-         uyNe69w7ruUAWnMNJOjm8e15xRffiXrpDBsgUaYGgAG7qixYqFRCBY+maYYfB8+YcQPw
-         K6yFHcaf3l9OGxcEpwKx4tFzhRCYz5et0o3/6cJ5xuFvbTH60s3/2wZYi9eM0M2FRuR2
-         Rd59taowYr4ULdOrv7yuuQo7trLq0a8UZD0ed+lFtgoBRVU2HqIKZVMDy/01pGUZzMZ2
-         qTDs1jEireMSVEtjvDGsoQmctqNMmw2Sm1CNkfCDgFSlw4wSt5IEtaB4yxxyodsK0LD7
-         T7Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtT2N9msSJ8vnOyzeuj4DZR2p2GerkWKhTnKFSxTtz/NKDtNbVDqLyDDwtLfElstfyveoK5UBmqArW7KY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5Qw4hGRL6icNGlGceenVx3oOWpOe/34d0j0LoihiX1Qf5stw/
-	/6PK69lWJQ/Y0h1uwAOvLef+riS+hBwhUMpvUaXfkNnaWNckxGdjGjHw
-X-Gm-Gg: AYBFou3AlAHbv2WQlIMb3gDqJEx7sm5a3ttl44gAUvyDtPTyOE6GdmOB4Yh5MOiLBq/
-	4cUEpbfvwM/Lup98dh8b+lo3jxSMOKFU3OOpofhYY3mV6wHlPD61S1JxumTmePFn0mEnszWyMBn
-	CJw209QarLwtDxP6dCDT41L6bxGhiuRsuhFHMWSpP7OvZrEQt9lBXM2N9qRfZPai07KfaGm5gOL
-	FJICDdVG/HHDwo3+jMsbDUvoRi/tmpYy0G2p1eqWjML35Z581Xvr7c7Q1yLjZGNy+8a3iaIdAO4
-	mhbqW9rteVtuZsiES+VilalBTmH/z/oV2ph2DJkfWY4F3164FQ58qLGeh+42HC7FwJH6iCqPtEL
-	zClmhriunQkpUJ5U3RPMPVolMC6+wy273GWalToGTA4VHEjVb/jbxaJbXoNWaRcm4UZ4vmVkvpQ
-	JvV8w/puEOE+3cFCZGvnPc3f46a7LgXC0e6vaY+T1plLrcyA/qimZ4Z2VIoix1EK/xbAc6
-X-Received: by 2002:a17:903:1ae7:b0:2d3:716e:e2ae with SMTP id d9443c01a7336-2df7da5ce18mr136442545ad.6.1790671979024;
-        Tue, 29 Sep 2026 01:52:59 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986a1905sm4296499a91.13.2026.09.29.01.52.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:52:58 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rhys Tumelty <rhys@tumelty.co.uk>,
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v4 5/5] doc: phy: Document some bulk helper functions
-Date: Tue, 29 Sep 2026 16:52:35 +0800
-Message-ID: <20260929085235.469515-6-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929085235.469515-1-inochiama@gmail.com>
-References: <20260929085235.469515-1-inochiama@gmail.com>
+        d=1e100.net; s=20260707; t=1790672009; x=1791276809;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mDtlofeD7haSM+lzJFlUgBc/2wfLYIn2wjTkFseiHXg=;
+        b=v/JX7QPS6wW72x8gVm7yY48Sb+4fSoFP+jkxj0xnZGiXEv0yxhyP0HOfcNMxuurzQP
+         ITj0CDTwRY+Xlo5ZI541it/hFrrVIEwH76zRAUbF0aPcAUg7SiJXWfE3Fc8nOM1xFki7
+         j0I8vjtYWIl8x1wnaQHkawZrwu0+3jlIWmN1sgMme9xitrBa5260PebHltiT18IcWntK
+         LZYjNP6yxyDzd2dHqmd/d7Z0L7fx/QqgvPliDnqWrTu6iGA9GVLHBeiTbMl+NjNK/t8m
+         Ew8oePdL/XZEemCaGPa79Jm/K9s0zEP6hyHNljfS1G7YFMf1p44A9Yym7B/7p/cfTBJ5
+         GsJA==
+X-Forwarded-Encrypted: i=1; AKwUvByabFHEtNFSMshXYqmjjyVA50E6b4qtQqhc7syd7LolioJp52D1qWyir9DGA+1sUYwOPeDFErp/WCzRlEY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lo9EZt3Gz6Yx86Ef4mlq7llxU12i4/2i0Ji8SDRVd6zMjZIbfz
+	Wa08HJ2wOhvtg6imSptDPq27fEFnRcLk79/+JiWZP5ZdrI+XEOx+10zdrhFlvR0z1IXDmhfwEi3
+	JyJAAFW3aiOcLPOPElmEkwO88cCc7XBN52P39QN5kCxCh+p/iVlvVQIvER9tlMz8Tak4=
+X-Gm-Gg: AYBFou0j6WHnK+OG1SJlQ5cSEwCittSAdXvD0SS4tGoBnOlCu9yNeYL2ih/mGD7VzQ2
+	BpkxtlcoR4aG2aTB6GDQg0c2EvM31KsYOsBq9c/CuxNScBlwSKJNtU8a1tuWEC+j/c9RIkBQxsX
+	T3rYn3OFg8FJB0SbGfMPat+A1S18iIawJDplWiueoqwsOmueKOeEpP0zzdCDMmm/yR6kRfahjs+
+	qEKER3fEceaXc8o1dpZjhB2z6GU/U/RYXqBQVMXMExtPYUojQs+BEJpRvh6R9pBIQjTjpXyb0bg
+	03pnL+KoywclhFEmBEd+RetIF15XKPG0hta3hq/E/c/VJjYmYpYEOz9rvB2wdnsAthse8QyJ48T
+	f7uh2eo01VrxRrQCZp1155i0dKOSOOq9PJIv81h445v2xFin6Yv80GW1qeboXfw==
+X-Received: by 2002:a05:620a:2b97:b0:939:1222:b9f1 with SMTP id af79cd13be357-93c439cff38mr2562088085a.0.1790672008589;
+        Tue, 29 Sep 2026 01:53:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b97:b0:939:1222:b9f1 with SMTP id af79cd13be357-93c439cff38mr2562085485a.0.1790672008082;
+        Tue, 29 Sep 2026 01:53:28 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a012387337sm18281345e9.8.2026.09.29.01.53.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 01:53:27 -0700 (PDT)
+Message-ID: <5c0317c1-f4df-4b2a-ab03-2a7b7132b1c6@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 10:53:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] thermal/drivers/airoha: Serialise access to the
+ shared ADC
+To: Vitaliy Sochnev <sochnev.v.74@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Christian Marangi <ansuelsmth@gmail.com>,
+        Lorenzo Bianconi <lorenzo@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915191131.25214-1-sochnev.v.74@gmail.com>
+ <20260915191131.25214-3-sochnev.v.74@gmail.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260915191131.25214-3-sochnev.v.74@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX14CgCMJDULu0
+ N8sva15ZbXFdQMDNLOW+WI9JsWbVea55uIxY1ckpqakUjeJpIJ5rO1dVJe2ILFfdaw0LIvKmmP0
+ EeXz5XKlF4olTtWb3OloW2r3Gy/cuJU=
+X-Proofpoint-GUID: 3VNnvW7ZHpBIG7Y2I6xy5CxXrhQEKYt6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX3B693niy2vTU
+ pBSu0rScnTdZF2u0GNVcBXwiY1lI/slHKUTpw0olBxvxb/RCQhhgZzEiemY5vysOztiJP3VhKND
+ zErjz86nNpCFuSlRfzIT/tIDT5YyzPkyqeu4EtlSQzI0K+IL5ST6BrKMNAvNhyUla+Qfz7UtB3w
+ ExFfrCr81WAloyttm72XQXhmyJ6lnWp5ffAnjEhCvi8ylPMWMgX4cCYhUjetLnEq7LfsvPtqKNS
+ pNxEaKOsouiLRkaV15gVKGqzNUIeG5ZuZT74i4CWyjaijYx8prhbXHXvo0ooZBaKcWunXgfePEN
+ eJI7Fn9IThTToXUWJKDayurxWjlkSgcR0bRDYWbotOLh4uX2RomYciSZUQadJ3kbE25V3WFq1s2
+ WKANZBDbwCAbaetjPrTvau7G0M5k3xlg+5TNWjKk5J04JMZLxOLg4MKKEW0AQigFyfu1ljTB12m
+ 422eiAfdwtz6tnsimlw==
+X-Proofpoint-ORIG-GUID: 3VNnvW7ZHpBIG7Y2I6xy5CxXrhQEKYt6
+X-Authority-Analysis: v=2.4 cv=SaFi5fRu c=1 sm=1 tr=0 ts=6abb7c89 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=pGLkceISAAAA:8
+ a=4F_TT5Ia9pFYpsbeirgA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290035
 
-Document all newly added bulk helper function, it can be used to manage
-a set of PHYs automatically. This is useful when the driver want to
-simplify the management of multiple PHYs.
+On 9/15/26 21:11, Vitaliy Sochnev wrote:
+> A read selects the sensor and walks three diodes with a 10 ms settle on
+> each. Nothing serialises this, so concurrent reads interleave and
+> convert samples taken at another mux position.
+> 
+> Mux writes are dropped silently unless PLLRG_PROTECT is lifted, and its
+> save and restore do not nest. The cached TADC value also skips a write
+> after another reader has moved the mux.
+> 
+> With the AN7583 sensors read as parallel zones during CPU frequency
+> changes, a zone crossed its critical trip on a chip at 55 C and the
+> board shut down.
+> 
+> Serialise the sequence, drop the cache, check the selection after
+> writing and after sampling, and return -EAGAIN if it does not hold.
+> 
+> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+> ---
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- Documentation/driver-api/phy/phy.rst | 29 ++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+Should this have a Fixes: tag?
 
-diff --git a/Documentation/driver-api/phy/phy.rst b/Documentation/driver-api/phy/phy.rst
-index 0865c2e94eec..9d238ba0296d 100644
---- a/Documentation/driver-api/phy/phy.rst
-+++ b/Documentation/driver-api/phy/phy.rst
-@@ -114,6 +114,10 @@ it. This framework provides the following APIs to get a reference to the PHY.
- 	struct phy *devm_of_phy_get_by_index(struct device *dev,
- 					     struct device_node *np,
- 					     int index);
-+	int devm_phy_bulk_get_all(struct device *dev,
-+				  struct phy_bulk_data **phys);
-+	int devm_of_phy_bulk_get_all(struct device *dev, struct device_node *np,
-+				     struct phy_bulk_data **phys);
- 
- phy_get, devm_phy_get and devm_phy_optional_get can be used to get the PHY.
- In the case of dt boot, the string arguments
-@@ -129,6 +133,13 @@ Some generic drivers, such as ehci, may use multiple phys. In this case,
- devm_of_phy_get or devm_of_phy_get_by_index can be used to get a phy
- reference based on name or index.
- 
-+When a controller needs every PHY listed in a device node's ``phys`` property,
-+devm_phy_bulk_get_all() obtains them from the controller's device node.
-+devm_of_phy_bulk_get_all() does the same for an explicitly supplied device
-+node. On success, these functions return the number of PHYs and store an array
-+of ``struct phy_bulk_data`` in ``*phys``. The PHY references and array are
-+managed by devres and are released when the device is detached.
-+
- It should be noted that NULL is a valid phy reference. All phy
- consumer calls on the NULL phy become NOPs. That is the release calls,
- the phy_init() and phy_exit() calls, and phy_power_on() and
-@@ -149,6 +160,19 @@ The general order of calls should be::
-     phy_exit()
-     [[of_]phy_put()]
- 
-+For a set of PHYs acquired with devm_phy_bulk_get_all() or
-+devm_of_phy_bulk_get_all(), the corresponding order is::
-+
-+    devm_[of_]phy_bulk_get_all()
-+    phy_bulk_init()
-+    phy_bulk_power_on()
-+    ...
-+    phy_bulk_power_off()
-+    phy_bulk_exit()
-+
-+The bulk get-all APIs release the PHY references and the array automatically
-+when the device is detached.
-+
- Some PHY drivers may not implement :c:func:`phy_init` or :c:func:`phy_power_on`,
- but controllers should always call these functions to be compatible with other
- PHYs. Some PHYs may require :c:func:`phy_set_mode <phy_set_mode_ext>`, while
-@@ -221,3 +245,8 @@ DeviceTree Binding
- 
- The documentation for PHY dt binding can be found @
- Documentation/devicetree/bindings/phy/phy-bindings.txt
-+
-+Missing Bulk Helpers
-+====================
-+Currently, only a few bulk helper functions are added as they have users.
-+Function not upstreamed can be found at https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
--- 
-2.55.0
 
