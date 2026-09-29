@@ -1,179 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8706D3BFADE;
-	Tue, 29 Sep 2026 22:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BF73655EE;
+	Tue, 29 Sep 2026 22:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790721424; cv=none; b=JaNbRdHq1PAnMkzmqsZeCUU2Z9YD4UTL5BiVpndyBXxR57Pph3RHH/MTdGCJ4fxzf5H3bDg9dZ8tRlPiXPx7DXMRVTmT+RQWMj9hVVHP6d6J0KVeVtCSjp2QZwwicQxhvTD/abNXZDBi+NQGjkcyvYU7aFamNyUCiGmOqZtZfUM=
+	t=1790721541; cv=none; b=ZUXtldN7xbVZMnfHIB+VZ7XliVECR2eDY84/VIhvtH72g9AOC0rZN4s09mu3Fe2ChDmyy0rHI7rrxWbU83WtdzFz0/08wdky18QCZ3moKNK+99L/lRb5X0PY3FjJeSJo+8VDHFWMTWUD1VeYjVGBscVvvJJdU8KmgJ1p3F3sxJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790721424; c=relaxed/simple;
-	bh=0/bUjykIrp72QLvJHNFdHMLZHU8wdgAhaRLlMxZ2wvU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uB+eQvo/tN1lv84ZadOmChlYxPejgJBez8qLPXzODYso98ACKg3RDoEgrP5cfrWBgVs+htsffIdJuoHsPnMf2ycR746WH5bdLMhyCLtnLzBI958xUbLjsHwZ7EEiAcFQDAuIFB+XRQAZul0fd0B0aCIgtF+lhUkKQqthYBmI3JU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1Fv4mH5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790721541; c=relaxed/simple;
+	bh=YamFZ9pJaCzXmfRBhkW6hydcPWkrGe6lN5ITB8E1ANY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GSuehkOMG5w5qZ/XWI1HgKhdE+AAvLSDi8sHuFKvw+Kv5jSeMQcVYma2m6tdkBmXk/QTawA7y/JZwDN5yRqlC3zGnMelmnuNh1IuWm8AkAqI5RNU9deylhHa/d7STrwmGglzPToCAL7PoHasZ+ZFWZJtWQS94Ssddbif8q7ywBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZiih5CJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1Fv4mH5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7291F000FF;
-	Tue, 29 Sep 2026 22:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZiih5CJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE3A1F000FF;
+	Tue, 29 Sep 2026 22:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790721423;
-	bh=fyajHbBwa3PbgcDWFEbuxluxVFd5ikA4w22SdqV8tQY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=C1Fv4mH5KynA8vEBVfanTp6yKFVR3yx22yCvMc26gWobso96oz85HpRu4GyEFpDBu
-	 hRAZU2cWsUBsmwft2Q5uAd0Pvim6pMFFlozjRRKrUWYELMZrxCdBXU7puuCrC+B755
-	 mXrs47kEHcZ+Lh6ThL4xSr+yqEmiyYmV2mRXi8X6VhEy0rSWdWOT1CQiE1Q5RLN+yh
-	 9AcxUUpB0lB70bWcsCRngJvieR6ESHwKuEvbl5njkjVi6tG2srHGWRC5lCpqPkXAbh
-	 MJnHGPg1sLgngG6/f/2GO3v3y9b2ivlMMStkBibR99p7tWU7IKImCwRGK1+KdliYUm
-	 K/XV5fffBGzcQ==
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert hisilicon,hns-mdio to
- DT schema
-From: netdev-bot+sashiko@kernel.org
-To: robh@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
- shenjian15@huawei.com, shaojijie@huawei.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 22:37:02 +0000
-Message-ID: <179072142212.434549.1306076815346983081@kernel.org>
-In-Reply-To: <20260925215911.2950356-1-robh@kernel.org>
-References: <20260925215911.2950356-1-robh@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790721540;
+	bh=Tui9/2fNizQMJViOJ/jcDTiMpXk/WgbdMbC6Oe3y1U4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KZiih5CJsFaqq/I60AsDf6L72WDBP7Rj8aqyGWyCHw4svoG9p8VOocWBSCbpsQEpW
+	 JV0teRJCN+RqsWsMvzwl74GWrppIVqLJBl7KAqbWoWAmMxVI/WZYlW4awmjgKfuby3
+	 VGKw0oNg+2LD/mwh2jVMIfq9yCHxfbXAZQwtc3cvu9d+AeO8BhGai3r2qf+zgMa4YX
+	 YPy5Uun65k1g+XuzyNrWRh4m3mntUNx455zvaTUE4Q6sWBd2KL1NJiv4g/xNUZBEU6
+	 P9QI6iobASrVULKLwnQqAz0R7N0EMTivfnv5qh3cYCDvmAhjLrIGVBOj6ifNjcRGqA
+	 DIcILCbEpfU/g==
+Date: Tue, 29 Sep 2026 15:38:58 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V
+ Meles
+Message-ID: <arw-AtrtmdkicuBs@thelio>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-3-effdd14a76e8@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-rv-meles-v1-3-effdd14a76e8@iscas.ac.cn>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In the new
-  Documentation/devicetree/bindings/net/hisilicon,hns-mdio.yaml, two of…
-- [Low] The new schema lists 'subctrl-vbase' but doesn't make it
-  required; the required list is only compatible, reg, #address-cells…
-
---
-
-dt-bindings: net: Convert hisilicon,hns-mdio to DT schema
-
-This converts the hisilicon,hns-mdio text binding to DT schema format.
-It also adds the subctrl-vbase property. The driver and the hip06/hip07
-device trees already use that property.
-
-> diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-mdio.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-mdio.yaml
-> new file mode 100644
-> index 0000000000000..b8350794650d4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/hisilicon,hns-mdio.yaml
-> @@ -0,0 +1,59 @@
-
-[ ... ]
-
-> +  subctrl-vbase:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: syscon phandle
-> +          - description: MDIO clock enable register offset
-> +          - description: MDIO reset request register offset
-> +          - description: MDIO reset done register offset
-> +          - description: MDIO reset deassert register offset
-
-[Severity: Medium]
-Do the last two argument cell descriptions match how the driver reads
-them?
-
-hns_mdio_probe() in drivers/net/ethernet/hisilicon/hns_mdio.c reads the
-last two cells as status registers. It gets the disable and deassert
-offsets by adding 4 to the first two cells:
-
-drivers/net/ethernet/hisilicon/hns_mdio.c:hns_mdio_probe() {
-    ...
-	mdio_dev->sc_reg.mdio_clk_en =
-		(u16)reg_args.args[0];
-	mdio_dev->sc_reg.mdio_clk_dis =
-		(u16)reg_args.args[0] + 4;
-	mdio_dev->sc_reg.mdio_reset_req =
-		(u16)reg_args.args[1];
-	mdio_dev->sc_reg.mdio_reset_dreq =
-		(u16)reg_args.args[1] + 4;
-	mdio_dev->sc_reg.mdio_clk_st =
-		(u16)reg_args.args[2];
-	mdio_dev->sc_reg.mdio_reset_st =
-		(u16)reg_args.args[3];
-    ...
-}
-
-hns_mdio_reset() then polls mdio_clk_st and mdio_reset_st after it
-writes the enable/disable and request/deassert registers.
-
-The in-tree users agree with the driver. hip06.dtsi and hip07.dtsi have:
-
-    subctrl-vbase = <&peri_c_subctrl 0x338 0xa38 0x531c 0x5a1c>;
-
-These values are MDIO_SC_CLK_EN, MDIO_SC_RESET_REQ, MDIO_SC_CLK_ST and
-MDIO_SC_RESET_ST. MDIO_SC_RESET_DREQ (0xa3c) is RESET_REQ + 4, not a
-cell.
-
-Suppose a new DT follows this schema and puts the reset deassert offset
-in the last cell. Then hns_mdio_reset() would poll the wrong register and
-time out, and the MDIO bus would fail to register.
-
-Should the last two cells be described as the MDIO clock status and
-MDIO reset status register offsets? It could also help to say that the
-clock disable and reset deassert registers sit at +4 from the first two
-offsets.
-
+On Tue, Sep 29, 2026 at 06:22:47PM +0800, Han Gao wrote:
+> Connect AP6256 to SDIO1 with its fixed supplies and PMIC LPO clock.
+> Use GPIO0_20 for WL_REG_ON and GPIO0_21 for the host-wake interrupt.
+> Keep GPIO1_24 low to select the external antenna by default.
+> 
+> Use the existing BCM43456 binding and the 198 MHz board limit.
+> Keep module power during suspend and assign mmc2 to SDIO1.
+> 
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  arch/riscv/boot/dts/thead/th1520-milkv-meles.dts | 93 ++++++++++++++++++++++++
+>  1 file changed, 93 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
+> index 3714047190789bfccd8ff6810342d7ff865e74e4..92b44cb90f57f4830efd29145744c005afa73119 100644
+> --- a/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
+> +++ b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
+[..]
+> @@ -206,6 +249,26 @@ rx-pins {
+>  	};
+>  };
+>  
+> +&padctrl1_apsys {
+> +	wifi_enable_pins: wifi-enable-0 {
+> +		gpio-pins {
+> +			pins = "GPIO0_20";
+> +			bias-disable;
+> +			drive-strength = <7>;
+> +			input-disable;
+> +		};
+> +	};
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#address-cells'
-> +  - '#size-cells'
+> +	wifi_host_wake_pins: wifi-host-wake-0 {
+> +		gpio-pins {
+> +			pins = "GPIO0_21";
 
-[Severity: Low]
-Should subctrl-vbase be added to the required list?
+This node needs function = "gpio". It is interrupt-only so nothing
+selects the GPIO mux. I can fix this up when applying to save a v2.
 
-On DT systems the driver does not seem to work without it. In
-hns_mdio_probe(), if of_parse_phandle_with_fixed_args() fails to find
-subctrl-vbase, the driver only warns. It leaves subctrl_vbase as NULL
-and still calls of_mdiobus_register(). The bus reset callback then
-fails:
-
-hns_mdio_probe()
-  of_mdiobus_register()
-    __mdiobus_register()
-      bus->reset() == hns_mdio_reset()
-
-drivers/net/ethernet/hisilicon/hns_mdio.c:hns_mdio_reset() {
-    ...
-	if (dev_of_node(bus->parent)) {
-		if (!mdio_dev->subctrl_vbase) {
-			dev_err(&bus->dev, "mdio sys ctl reg has not mapped\n");
-			return -ENODEV;
-		}
-    ...
-}
-
-__mdiobus_register() then fails with that error.
-
-So a node without subctrl-vbase passes dt_binding_check, but the bus
-can never come up. The example in this schema is one such node.
-
-Both in-tree users, hip06.dtsi and hip07.dtsi, already set the property.
-Making it required would not break any existing DTs.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925215911.2950356-1-robh%40kernel.org
+Reviewed-by: Drew Fustini <fustini@kernel.org>
