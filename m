@@ -1,114 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86914C33C3;
-	Tue, 29 Sep 2026 09:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8ED3F1041
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673136; cv=none; b=XR7/5kzP5TA/WcditFtWT8YZy4/JnegsjrwwJd6ZEQDfhSuRZC9HPDMs+2YPrrXBFzdt3g33K6A6uBAMHueYJ0fCQ1ptla+crUe/mu9aNYfkP/ud3Wu+1Su6747HDsx9FC8vejs7zjaKJbl6sU0hSG3vnM5XxbhuGW0b9UFwakI=
+	t=1790673140; cv=none; b=Gz1A+3OqRqTBUkgt0UfnAQAzg9/XWHTI1JhLTcJsJhIOfFf85AqrqwiTnv/QEvOnx+1Z9KVpTSjha2ZOjDO8VigKC6bdXb09kSkD7ZxF1WtNrIt+FMSvST9EIIYJJ64eXBuIH9U0yiqzENaWUeQxC/Q0x5i/PDz6MJkNYGx+pPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673136; c=relaxed/simple;
-	bh=wgKILSXuEi7du6F+rP+bwhotws65yqXaxwnVCS6+XnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ls3MUTQjSvLqpoudXLljG7bj9xAaDwdtyS3utWuAer9CbHJGAm2AENimhRVYpI8Q29+6R6Fl4vYPGnDckiN3QWu1C0oUxMCe01SMmJOlqhlee6+xOrOX+vz7Y8rO7XJgDYT5MEqNxQE9+TuVWbJ0uxjpvZFVntqjXZhrYiRSgqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDl4xRwG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDl4xRwG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9781F000FF;
-	Tue, 29 Sep 2026 09:12:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790673124;
-	bh=TlpK6AkQLjGzwcY0xdIG2tbpzGDvPT2iBKRsp+RWEdU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eDl4xRwGJfwRtbA4uTiD+Cq5r4o89slV//hSSfqjP9f49gZJY0JvRe6fTjCKAqLwo
-	 ihWI4LXh+dqA6G7bWo7yI8feLtzng5NLDv6tQxfBcAJgHB7sBzpBwT5JhyvO+6RdQ0
-	 cUNeHDLU772oPvkjpDsH0iQW3TeYJMQJ6YBdBtNW7Q6BKT+OyMkdj2g1AWj/0tckCL
-	 qaP2m4VlJX39QSfcQN8CGgoIoiO+Yxbqi61KqYFPpqZZ33Qefras7Pii3rQUc3NiuV
-	 LYYZrzbQ882s1zfZUjnegNq6TC79tL18N7zTFzlGCbVTjFdEdAMrT4DDbOP+7fazMb
-	 xHWlkTAHQ/OWA==
-Date: Tue, 29 Sep 2026 10:11:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	"open list:MEMORY MANAGEMENT - MISC" <linux-mm@kvack.org>, 
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH] selftests/mm: cleanup -Wformat issues in hugetlb-mmap
-Message-ID: <aruA14n4S_gnCRd9@gremlin>
-References: <20260927162419.820609-1-cmllamas@google.com>
+	s=arc-20240116; t=1790673140; c=relaxed/simple;
+	bh=eD9jJiA9GPEMmX8bCB0JmdatEsivCM7gKPJYSSi9XLI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IxT0M+vm87mQUNHr/jpJ1scCHB+q0b3Fb85GUaFuXYlpE2iftLbo7TSrClXNSBzFno3W84Kdf2dplwJq775sYc0thLU+e1yS6XEMTnS4ooFLlzyMrEDqA/lCQql/roGs1v6MakB0bM3xLOnMrPmBIRkfONrZ4SK0ef7VPdef6QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-988bb9d0548so225080241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:12:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790673128; x=1791277928;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JOw0a9YdB1CwQ1gVObJylylvUx3VbrlfiDLWG9S39O0=;
+        b=jyX5l/d5Bdb9WCafaN2tMFLIlfhv9pSjBcvN6SnyRq1QSmERYryuhJH6hm4JaSCvkI
+         Bh7rssuuQLOgDt6Z+VIw/YSTeXyWkG1J7QdFu4hqOBIY4MgeCy7nakMbU51fp4RSYmSr
+         j+u/8aOme7vuhZ0QynSlkd0R7VrwC11+2KfntGvOznIvXu7IhDMJPoGmvuBASt9c+Yg6
+         wFXGvDVLXiLn6ZY3n4qlb0Y/1/374Rf6FpZmjvaC0LSPT0yP0p8sMWk92A0SEZpDfqYb
+         H3MV8KnQ76SYvY54k+KjRz3A2WltuDOemKJ8EI8Odo+fddIV+olIIF9+kV8wKHUUJxdI
+         pz8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzMOpmmQt2yghZnYBlbfCE1e1VJXcnvSmuW3yHF53fjQoNf8MyyPs67m94quvwNYG3x/UA4l4tvmErPLRM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqg/+zaj4Nud6GIsdjQRlH89cq+S4uIJd927I/QOhzfyubfCoP
+	k2WBwmJ1jVbYtVNTu4Ozwecf7geAzBe835qNP1NXpobMGNSgt8pxMfKaWI+jhEDd
+X-Gm-Gg: AYBFou229n6A+P3FKMCWs24dWFDtCruKBI9rnzxhyDdDGuWp9E2zxvsERgrKOiuXUbb
+	XMYhnJr1SbZA8wkmsPACuOLKBdjZSCJn9lRShIeiddd8KXf3NjbFq6SJ5ofDQ2wPB6ut8dXgIxa
+	FCGgMdzQgdlCoW8pq0rYMDT8rzZ972vk6whVnD+EGZCyrOhqbkg+aY3B9X5oPX53wmoRZv5MOet
+	o1Pc+pfOhmbgqMLQ4e54jdvcTVNf5jYu0mssF7t0tCM0v2lCh1kK5SWamQ10TY1h/z0mivbSWOT
+	EcMi6ofh3Ln3vhIX1J3VYesSWLEf6gSge12sqp/LPWsDbgKsSsQNfDyqn1U4fPbC80JzGdI/IrP
+	oaguRaBakVXbua95hPhppMkKV7HoBkBcdbF2IiK7wdFzn8aONNAdEA8qQ1y3wPb+L6ttQn/StOD
+	9+KU4PdCI2hhzWX9eU1s3tX7zh6dFeXK0Bbq87Cf/LZ4SWCjzKtGx14NloKcwFt3NFTtqRlqcYT
+	scyfhcWs3ck0RiEjJnWPHn+z6/ssFEETBNH
+X-Received: by 2002:a05:6102:4b0c:b0:7a7:7961:b14d with SMTP id ada2fe7eead31-7af1bb76c57mr5350302137.12.1790673128360;
+        Tue, 29 Sep 2026 02:12:08 -0700 (PDT)
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com. [74.125.227.39])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b257379sm12689418137.4.2026.09.29.02.12.07
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 02:12:08 -0700 (PDT)
+Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cca96ec1feso1115061e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:12:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByuAZ2mC7mnQA5ncMo+3SUxvZ9f2V4pUdhXneyaMREl7l2JcuExgOPl45LfyaTIFrPgMk9W7sTTyNEVgFw=@vger.kernel.org
+X-Received: by 2002:a05:6102:149d:b0:7b7:3acf:bd3a with SMTP id
+ ada2fe7eead31-7b73acfe23dmr1486747137.4.1790673127529; Tue, 29 Sep 2026
+ 02:12:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927162419.820609-1-cmllamas@google.com>
+References: <20260924213256.122530-2-blum@kernel.org> <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
+In-Reply-To: <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 29 Sep 2026 11:11:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
+X-Gm-Features: AclHuK-WMfBhqpiaX2MeBSdTA0pBWiNpHLGLXukEn385P1daLkcYPTJ9S7ydLfM
+Message-ID: <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
+Subject: Re: [PATCH] riscv: process: Use str_supported_unsupported() in compat_mode_detect()
+To: Paul Walmsley <pjw@kernel.org>, Thorsten Blum <blum@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Deepak Gupta <debug@rivosinc.com>, Zong Li <zong.li@sifive.com>, 
+	Samuel Holland <samuel.holland@sifive.com>, Zishun Yi <vulab@iscas.ac.cn>, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 27, 2026 at 04:24:18PM +0000, Carlos Llamas wrote:
-> Commit ae571cd6015c ("selftests/mm: hugetlb-mmap: add setup of HugeTLB
-> pages") and commit 9c5a65f374f8 ("selftests/mm: merge map_hugetlb into
-> hugepage-mmap") added logs of 'hugepage_size' which has a size_t type.
-> However, the incorrect format specifier '%lu' was used which triggers
-> -Wformat warnings when building for 32-bit:
->
->   hugetlb-mmap.c:125:55: warning: format specifies type 'unsigned long'
->   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
->     125 | ksft_print_msg("Default size hugepages (%lu kB)\n", hugepage_size >> 10);
->         |                                         ~~~         ^~~~~~~~~~~~~~~~~~~
->         |                                         %zu
->
->   hugetlb-mmap.c:134:47: warning: format specifies type 'unsigned long'
->   but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
->     134 | ksft_exit_skip("Not enough %lu Kb pages\n", hugepage_size >> 10);
->         |                            ~~~              ^~~~~~~~~~~~~~~~~~~
->         |                            %zu
->
-> Fix this by switching to the expected '%zu' format specifier.
->
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Hi Paul, Thorsten,
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Sat, 26 Sept 2026 at 01:48, Paul Walmsley <pjw@kernel.org> wrote:
+> On Thu, 24 Sep 2026, Thorsten Blum wrote:
+> > Replace hard-coded strings with the str_supported_unsupported() helper.
+> > This unifies the output and helps the linker with deduplication, which
+> > can result in a smaller binary.
+> >
+> > Signed-off-by: Thorsten Blum <blum@kernel.org>
+>
+> Thanks, queued for v7.4.
 
-> ---
->
-> Note that I intentionally skipped the 'Fixes:' tag as I've been
-> previously suggested _not_ to use it for kselftest patches. However, I
-> can certainly add one if someone prefers it that way. Thanks!
->
->  tools/testing/selftests/mm/hugetlb-mmap.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/mm/hugetlb-mmap.c b/tools/testing/selftests/mm/hugetlb-mmap.c
-> index 0f2aad1b7dbd..2edbc992e6bc 100644
-> --- a/tools/testing/selftests/mm/hugetlb-mmap.c
-> +++ b/tools/testing/selftests/mm/hugetlb-mmap.c
-> @@ -122,7 +122,7 @@ int main(int argc, char **argv)
->  		hugepage_size = default_huge_page_size();
->  		if (!hugepage_size)
->  			ksft_exit_skip("Could not detect default hugetlb page size.");
-> -		ksft_print_msg("Default size hugepages (%lu kB)\n", hugepage_size >> 10);
-> +		ksft_print_msg("Default size hugepages (%zu kB)\n", hugepage_size >> 10);
->  	}
->
->  	/* munmap will fail if the length is not page aligned */
-> @@ -131,7 +131,7 @@ int main(int argc, char **argv)
->
->  	hugetlb_set_nr_pages(hugepage_size, nr);
->  	if (hugetlb_free_pages(hugepage_size) < nr)
-> -		ksft_exit_skip("Not enough %lu Kb pages\n", hugepage_size >> 10);
-> +		ksft_exit_skip("Not enough %zu Kb pages\n", hugepage_size >> 10);
->
->  	ksft_set_plan(2);
->  	ksft_print_msg("Mapping %lu Mbytes\n", (unsigned long)length >> 20);
-> --
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->
+Thanks for your patch, which is now commit a06776565b9e7351 ("riscv:
+process: Use str_supported_unsupported() in compat_mode_detect()")
+in riscv/for-next.
 
---
-Cheers, Lorenzo
+This fails to build:
+
+    arch/riscv/kernel/process.c: In function =E2=80=98compat_mode_detect=E2=
+=80=99:
+    arch/riscv/kernel/process.c:138:17: error: implicit declaration of
+function =E2=80=98str_supported_unsupported=E2=80=99
+[-Werror=3Dimplicit-function-declaration]
+      138 |                 str_supported_unsupported(compat_mode_supported=
+));
+          |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+
+as it has a hard dependency on commit 5383cf280ef4f00b
+("lib/string_choices: Add str_supported_unsupported()
+helper"), which is only present in the for-next branch of
+https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.=
+git.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
