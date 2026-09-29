@@ -1,130 +1,169 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216B051C078;
-	Tue, 29 Sep 2026 12:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C0B3F327A;
+	Tue, 29 Sep 2026 12:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683864; cv=none; b=CSc9YwMpVO9Xeo1v4B/TGPnaAS8rwtGlaXU4jI4fe8fSTQKEjn3ZFWSqIyD4qUDtc5wXYZQAVMXWet1JY4FwW+vDASU8XeK8ijbwfchEl8rkdEcqvd9lt5yuB9xT3kxp/42Ql6aoUZr4UNnt8/Y6nXABODqhvLUgXYyk4njtLq8=
+	t=1790683867; cv=none; b=NM4mav0ZVddnpPPSb01Y9FrY2Inqg9oaNA16Icbhl57WYZ6WAZA5tcQdDuZMeuzTM5/MyMn08gqtlJMleSMGJaahc88pbc8ddY/DCR11VruqsRctWTRTvZDyEJGPYynbp792wZr+lcOVZjRwSLMATxxRpXclfV7SChWSNaXOQ5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683864; c=relaxed/simple;
-	bh=bmBBlXJUGQ7njJjiDQqU6/nJ0qeXLnyewGYp077riLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kZkdCiIduhnpSbqT45ccmWZvrnBypEx/lVBUMM7NIVlVzOeMUInYKk6++vj4dfJx6vVzmz6he4Oya5wielbcC3ytUUtlBgNAc0qLSV+MkMbHQ+Gc2lEkCsmV+QLN4Pu+myCeu71o0rABZS+gA4YWL/SMs6HPRe86z8dzWovNCfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LzVoXtE5; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790683867; c=relaxed/simple;
+	bh=JMpibS+emmAWxrdejAIKkVgRpGUMsskFaZuanFvenTY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Rri8xZsoueZX5edRlyhkICvSZVfCFeZgKhczZZgpSDLfx9NqgrtXv/o5XQ6GnY9w9wt2ImLOlkgKWRO12ca2C91cammPuZNzMdBCT+g3qhat0RTttXAsnrlGt99JQomlJHsMiDxowXxQvN13ktS4k4hgoG2eYXH3CAR621n0ryM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkhSEivx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LzVoXtE5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ok
-	7gh8hzf9xWkM6boOicySDPEGNZXm3WdCWyqq9eqXo=; b=LzVoXtE5Ev44qK8W8H
-	ShnByZ7NdJ8oTniqjDao1+zR0tyDGai08KadgdURSxHd4uXpMDJyaQDfwdc2jOdm
-	4YC5V9hvBULi4LXZ5o2DeHWI8XPSzIvzwz7wOrc4T8yCFmOqtTTh9A0/3d4ZKTPv
-	Ih8YvH1RAy5AbG500U9sIyrA8=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnSbCtqrtqG8FJBg--.40995S2;
-	Tue, 29 Sep 2026 20:10:22 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: chris.mason@oracle.com,
-	dave@jikos.cz,
-	jbacik@fusionio.com,
-	patchwork-bot@kernel.org
-Cc: linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] btrfs: wait for a grace period before freeing a new device
-Date: Tue, 29 Sep 2026 20:10:18 +0800
-Message-ID: <20260929121018.136850-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkhSEivx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65EE21F000FF;
+	Tue, 29 Sep 2026 12:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790683860;
+	bh=sAfgFHfkUXD+jfvtAi4J7fZQjFaGsP2RE564qdfQ5Pc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NkhSEivxCTyq0tMOyqxPLe/1KDtvBflMbVqqRdiuAi6fQ1nbZFtzd+oo9HWzXN8d6
+	 UwBtB5r7z0n305ThhQg9kTbbyeoeGQW8QMHEGbMQe7KwWf6GRm3cTQ+kTKRWqaS3Os
+	 3lUoy6I9va0dTBbfxJJckEoYLxCp6221j9qqlN4+z3clJ/5IzbFNzgKD5YToHxEssj
+	 cRs+c8e5T90jjwjUr4NijhWoXjQnQoH0T2CwIuiWD/6uGlHc8UXiw+43JB/GGkgMox
+	 /aovIO8zz3xkcco8MCjueC4HZEfznbLShl/4LwjjErACRde9BivxeixG40sAaOXIS/
+	 scgBFrK7Dl6Bg==
+Subject: Re: [PATCH net] ipv4: Fix device use-after-free in ip_skb_dst_mtu()
+From: netdev-bot+sashiko@kernel.org
+To: nicoyip.dev@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ jheffner@psc.edu, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 12:10:58 +0000
+Message-ID: <179068385893.434549.3173123670853979127@kernel.org>
+In-Reply-To: <20260927071051.3693368-1-nicoyip.dev@gmail.com>
+References: <20260927071051.3693368-1-nicoyip.dev@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnSbCtqrtqG8FJBg--.40995S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4kGw13KF45ZrW5ZF4fKrg_yoW5WryUpr
-	9Iga45JFyDJr1kAr4xCw4I9r1rX39Y9a9Ikrn3Kr4I9a4fA34Yvryvk34UuasxCrWrJFyU
-	Za4DJwn8Jw4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3u4UUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-A9fQ2q7qq+IIAAA3T
 
-KASAN reports a slab-use-after-free in btrfs_statfs() walking
-fs_devices->devices. btrfs_init_new_device() publishes the new device
-with list_add_rcu() and can fail afterwards, for example with -ENOSPC
-in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
-that is too small to a seeding filesystem mounted read-only. The error
-path removes the entry with list_del_rcu() and frees the object in
-btrfs_free_device() without waiting for a grace period, while
-btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
-the device list under rcu_read_lock().
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
-Read of size 8 at addr ffff8880096be858 by task poc/252
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? filename_lookup+0x1a9/0x540
- ? btrfs_statfs+0x11af/0x14a0
- kasan_report+0xce/0x100
- ? btrfs_statfs+0x11af/0x14a0
- btrfs_statfs+0x11af/0x14a0
- statfs_by_dentry+0x117/0x1e0
- user_statfs+0xac/0x130
- ? __pfx_user_statfs+0x10/0x10
- __do_sys_statfs+0x80/0xe0
- ? __pfx___do_sys_statfs+0x10/0x10
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Allocated by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- __kmalloc_cache_noprof+0x158/0x370
- btrfs_alloc_device+0xad/0x3e0
- btrfs_init_new_device+0x3e8/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Freed by task 256:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x121/0x380
- btrfs_init_new_device+0x4a0/0x36e0
- btrfs_ioctl+0x150d/0x6c20
- __x64_sys_ioctl+0x134/0x1c0
- do_syscall_64+0xf9/0x540
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+- [High] This fix is incomplete.
 
-Fix by waiting for an RCU grace period after the device is removed
-from the list and before it is freed.
+--
 
-Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- fs/btrfs/volumes.c | 1 +
- 1 file changed, 1 insertion(+)
+ipv4: Fix device use-after-free in ip_skb_dst_mtu()
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 85ea9c5d4536..2693dacd1da7 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 	btrfs_update_per_profile_avail(fs_info);
- 	mutex_unlock(&fs_info->chunk_mutex);
- 	mutex_unlock(&fs_info->fs_devices->device_list_mutex);
-+	synchronize_rcu();
- error_trans:
- 	if (trans)
- 		btrfs_end_transaction(trans);
+This patch wraps the dev->mtu read in ip_skb_dst_mtu() in
+rcu_read_lock()/rcu_read_unlock() and switches it to dst_dev_rcu(). It
+targets a KASAN-reported net_device use-after-free on the multicast and
+broadcast output path, where ip_mc_output() reaches ip_finish_output()
+without an RCU read lock held.
+
+> diff --git a/include/net/ip.h b/include/net/ip.h
+> index 6f602df72ee62..14d6f77f3bb89 100644
+> --- a/include/net/ip.h
+> +++ b/include/net/ip.h
+> @@ -543,7 +543,9 @@ static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
+>  		return ip_dst_mtu_maybe_forward(dst, forwarding);
+>  	}
+>  
+> -	mtu = min(READ_ONCE(dst_dev(dst)->mtu), IP_MAX_MTU);
+> +	rcu_read_lock();
+> +	mtu = min(READ_ONCE(dst_dev_rcu(dst)->mtu), IP_MAX_MTU);
+> +	rcu_read_unlock();
+
+[Severity: High]
+Is this fix complete? The commit message names the root cause as
+ip_mc_output() reaching ip_finish_output() with no RCU read lock held.
+That is still the case after this patch, so the other device reads on the
+same path are still unprotected.
+
+ip_mc_output() in net/ipv4/ip_output.c does a plain load of the device.
+It takes no RCU and no reference, then stores the pointer in skb->dev and
+passes it as outdev:
+
+net/ipv4/ip_output.c:ip_mc_output() {
+	struct rtable *rt = skb_rtable(skb);
+	struct net_device *dev = rt->dst.dev;
+	...
+	skb->dev = dev;
+	...
+	return NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+			    net, sk, skb, NULL, skb->dev,
+			    ip_finish_output,
+			    !(IPCB(skb)->flags & IPSKB_REROUTED));
+}
+
+Right after ip_skb_dst_mtu() returns, __ip_finish_output()->
+ip_finish_output2() reads the device again, before its own
+rcu_read_lock():
+
+net/ipv4/ip_output.c:ip_finish_output2() {
+	struct net_device *dev = dst_dev(dst);
+	unsigned int hh_len = LL_RESERVED_SPACE(dev);
+	...
+	if (unlikely(skb_headroom(skb) < hh_len && dev->header_ops)) {
+	...
+	rcu_read_lock();
+	neigh = ip_neigh_for_gw(rt, skb, &is_v6gw);
+	...
+}
+
+Can the same race described in the commit message now hit freed memory in
+ip_finish_output2() instead of in ip_skb_dst_mtu()?
+
+The same seems to apply to ip_do_fragment(). It calls ip_skb_dst_mtu() and
+then reads the device outside RCU when reached from ip_mc_output() via
+ip_fragment():
+
+	ll_rs = LL_RESERVED_SPACE(rt->dst.dev);
+
+There are more users of the pointer that ip_mc_output() saved in skb->dev.
+On the GSO path, ip_finish_output_gso() calls netif_skb_features(skb).
+The multicast and broadcast loopback clones go through
+ip_mc_finish_output()->dev_loopback_xmit().
+
+No caller on the UDP path from the KASAN trace provides RCU either.
+ip_send_skb() calls ip_local_out() directly:
+
+net/ipv4/ip_output.c:ip_send_skb() {
+	err = ip_local_out(net, skb->sk, skb);
+	...
+}
+
+ip6_send_skb() wraps ip6_local_out() in rcu_read_lock().
+
+The unicast path already has the full-coverage pattern. It was added to
+ip_output() by commit 1dbf1d590d10a6 ("net: Add locking to protect
+skb->dev access in ip_output"):
+
+	rcu_read_lock();
+	dev = skb_dst_dev_rcu(skb);
+	skb->dev = dev;
+	...
+	ret_val = NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+				net, sk, skb, indev, dev,
+				ip_finish_output,
+				!(IPCB(skb)->flags & IPSKB_REROUTED));
+	rcu_read_unlock();
+
+Would it be better to apply the same outer RCU section in ip_mc_output(),
+and maybe also in ip_send_skb() to match ip6_send_skb()? That would cover
+the whole ip_finish_output() chain instead of only the dev->mtu read here.
+
+>  	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
+>  }
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927071051.3693368-1-nicoyip.dev%40gmail.com
