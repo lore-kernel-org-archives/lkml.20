@@ -1,173 +1,181 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012038.outbound.protection.outlook.com [40.107.200.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F59C50EBFE;
-	Tue, 29 Sep 2026 15:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695726; cv=fail; b=ZKs9Cgxy1mUnvliHb8jUEOpU+c2H933MrAsWXJHpTi3GSu/KOdISovOzjJdOk7HIxJz351EVUJ4mGYjf9K1hyKDns6e29pgUgg6QMQGoOPxUecCLPWnjnFQ6h907c0rS2ytXoPvYRF3zidfmew0HnuNxmFgUP8TEGPuVyfxiyjA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695726; c=relaxed/simple;
-	bh=R8nbN6zvITxo+NB3OI1bK3V2peNBatrvL4HKC/4p7ms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ffgr8TsEVo0PvP112vMlqe5V1bMbgWi/qgJxG55i4ybW2yVq3I6o5n57wzB7TIRVPdltd5XRueMVeioGESmWMbMaqDusFrI/ssfhinT6t6TVFI2Wfrsp5ivFFEuIPi960sBE6GSFS0f3q3GfhcacOkw21d2Pj+GK8sI5PLGPxWs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GD66VkRy; arc=fail smtp.client-ip=40.107.200.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB6B4D09FE
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790695735; cv=none; b=qiE2b1ExFkq5bT5PrID4lcH2IWjvoC0NoFMejBGZrHeEQVGHkonN0X9hrOHHua3nlhwDzIYr7UkvyGp4CIqDk6iKrRs492IUQWAbmVMLW6jdIGJJ3eLQKLvQ50/0zYI/1NzyXQceUqPtm286h9pJ7zR8puoTKO5K2cWvYTZa+z4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790695735; c=relaxed/simple;
+	bh=5I+PG1LJwpZfrorxHQ6vHavEcbMCTKjy9jPyw9xe4Vc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=UwGHRSVu8hOHqdfC/JKJBvNcwPomHL0PKPIx8B10sAyIlbYwzn7QfbgvsAVen2xlwn4UoCWmz2V0nCWDUFL1hAXRrBPmR7VxqoMUs85+FeEEQRDuKGycbLiWx9gEnpHY6CS1geTdO442EOM8OUHgvMr8WOSVsH671x2WNvaMZN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4VnoWOc; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GD66VkRy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YM3fNYwMjzxrOZseZ+GBULuzF6zIFqQPsJRohEhEsR1pYLqrsR0HhQilIaBTQ/c9Y0f6JiQM5Atp5ClBOOPKwbUazWfyK0fEOyBaZ4gLK1xsuPWFhxEA5JD6oMTiRl/ly3isLvo317qRbY2cbqK7UYeZ+de4zu4ifD1usJ71DRlIHUA19GkK7ccEUppjNfpxnpLMPWEt8xgjukrW8BQJRp1GD0gtMYoihuXMiirKGCu6IkS/TsqNbnbMl3Y2SNnkPO/CY0c2u7aFaalTdaYsQBCbEtDLpXUPuLqV6xJ1p+4UlnwnCILy8rZcODk5x3TJCB37hfbxtjEJrN1oOVw6ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jY8j6a0hEH48yQgXc2rw4zS1aOveQSgTPymEc0qiOWs=;
- b=nnyZ7jb8P7rdOH5FwZU5Fl5xpZylfbRDgW11q+g2yZuIgVg0Qa+mSLrDogsm5bpJgoox1UCRZJZ5Fn7f6aflEChuygZEwc2+KcQvhXCWjJCmWPs192wQTVwOqUKpKHQngLc9p9JDU4KbTN4VKOllp6m8n6Rn2lh+ZFUTZq9V3EbkdOJKMTfiQUb53KlhpCCjqgw1m9jc0+IIY16EXQv8iV0ZkFdX0Hu3gRaYdVx+04/Xtt2WFXWdiypsRj94ZWkO7qa7PuEIuxoASWRNUdaFWzXkiUMrUKbZiXt7CU/bVeERxJ4pP915m3OIX9Yu5Wy3rz+jVeNVPccQ/LijYMoSNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jY8j6a0hEH48yQgXc2rw4zS1aOveQSgTPymEc0qiOWs=;
- b=GD66VkRyT4MXtyA34yTEoTArDSgtn+xpdORIJGD8JLZaZaxvmC+230JicR9Y4teQRF9itTy4Cwg1caIWNTIMV9A+6xx2cVJcqDh8z92RrV6oDSE7DqrH0QF9f/MfCIZMHwlmH8EXYEGNVqPlsS4F5iAzfh2FMe8cpiOnAZC6cF/i3WSMoNMyrKOLtCkslTAJh3JyIhTVQBEnx9P/IH+GmRevdPoIXSeDKNa8JDfiNs5j5ZW/wi4O+wYUos/885aFTHE0F+wAn+8QCStUqnjTmQavMO3K93G7WrsDW3lJZzGFpM4jeo/ZV4Mazk8x+xp8eT9+5DzoajUbI00RTkzk2g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM6PR12MB4420.namprd12.prod.outlook.com (2603:10b6:5:2a7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
- 2026 15:28:31 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 15:28:31 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Shuah Khan <shuah@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, "Liam R . Howlett" <liam@infradead.org>,
- Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com
-Subject: Re: [PATCH 1/4] selftests/mm: open pagemap and kpageflags once for
- check_huge()
-Date: Tue, 29 Sep 2026 11:28:28 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <C1FB2DE7-D93D-4CE0-A6D1-624CC0B9C8F8@nvidia.com>
-In-Reply-To: <20260929131521.153079-2-kirill@shutemov.name>
-References: <20260929131521.153079-1-kirill@shutemov.name>
- <20260929131521.153079-2-kirill@shutemov.name>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0544.namprd03.prod.outlook.com
- (2603:10b6:408:138::9) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4VnoWOc"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab42612328so9366437b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:28:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790695729; x=1791300529; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hwlExALEuIqma+phYwZ53l5lEw6aiZrSHMRC6Erf8OA=;
+        b=W4VnoWOcHwdnGGvzV85AVV6fisuTNHcLwQOmz0zjjM4q3vSQLALNqOCC+5rl/84ZJJ
+         rdcL+qwFz7Fqd05uQMEbV+JeFk5V5FMIOIUQO7SUVFUi8qNwbLiswpG+ghM9VaeKoM0z
+         4MxMzq41lsEinlTFoLVPKBiEY1MQW5liMBpzFX6KhJ+BeDThpDr9QBSkbqS4jC1GgC4x
+         Xdz2qCOWwZC5soJfJ5wcrmx40WAJAJXSpplGYUXT031ixBlFssATn/1vZPzz7yMYJhge
+         7gIxdytnpxALkHbOmyUQDl3FQxoWbgkd69oc7z3CKdYpU2oMhIYpJqjpzZFHRtf+pu9w
+         R3Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790695729; x=1791300529;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hwlExALEuIqma+phYwZ53l5lEw6aiZrSHMRC6Erf8OA=;
+        b=lhVKFlwRNfl9Z/fByQFOufspjAD2sUa3cP1wj6lFbAz9dr/jkpfFyUUWyEAsghrRZh
+         rPZBsLG4OZ3GZ35c6dxvpulO2Vn+Dys2c2bmoP7FctzU3seaTyWRrGUgkjyTZa4jdlmy
+         4Qn3ZXPid4Yskwusz371V3nYOTE1CCmm7Y8QCQAwxaMf0y02joG6jRVCiwr3fm+r7Omu
+         NdcIJHNxge2GfxJqP+HAJsi/1GvheEzD+JR6jqrSLIBLK+TyX13rsSjGUViJPJ3fd+LY
+         ZUpMa4MTLZ/F2JUH89/77Mn37T0zsVKl6aCGU/z7ksRCrN+B5+yr3ohhQ1ldGA5z5xoT
+         QHHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUFO+Il4uxSueVkV+cJgFdG8IsXl2CL0ocC2LlNqfgvy27v5HvAIDrxY8cIzfnprbKhfpkHwZRtBfNSuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9Fx4qo7lXBoTpumhP5vzx3f20DzViBbtF55uTrePy5jsJ+GDJ
+	/g/6UbbXviHgXU0RKVjDy8IesL5PBR9VbnCK9ZV+nkRVcMnq+02pbUUq
+X-Gm-Gg: AYBFou18DlNwppiw3FQzGzmNKQqdbrCOG+OMDG36hSjWBQYadWS8txgWw/ZjFwRh/5y
+	kQn/mRMXsfRdu7obQ612EMc+jbvEMWu/rQ7tNvLmb6nxZ/EVfxmMO1Hb0PQc7UcFQ3K9Ij4XzFO
+	+IpMCLm+q0Hw+fSvjHTkB/EaD7q9KeeV9i5gHvEd0Uq05yWHz3Cojnhl58M+f6nDi/HUKpMbDE2
+	EYKdi2WwpYe4dg9uA/F6wZwYZIVETo8kBEmcsTry8hKXZL+qVeNXG40hE+tLdCJMFirsVW5U1PA
+	SF0ZIWzrs1Fi3nmN6vyilxSOlNOIpKSfhHftx47gxv4AjX4YRYoa+00nkSPuouUZ7rEg5iKG3sI
+	95vaYu3zA5ft5gZCjlkwx0MO4iE6EwNJTBsRN4vbhWxkTTf01w3TupKGwNWLhqdHOeN9MpCuAY0
+	Gg4jtXh+0gmYKAG4IhjtgX6gkOlBkzzlMVs4o37vDvHe3tjXM91lE3VzNVMNX/POwQ5qZ3xFNdi
+	ecdotfJnIttvvyYLycWxFPEdscQ3vGRjTzy0nY3Q6qb3BTlI+1T
+X-Received: by 2002:a05:690c:e3c3:b0:868:505e:b96d with SMTP id 00721157ae682-8a64c3432b4mr71353467b3.2.1790695728518;
+        Tue, 29 Sep 2026 08:28:48 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm60998327b3.24.2026.09.29.08.28.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 08:28:47 -0700 (PDT)
+Date: Tue, 29 Sep 2026 11:28:47 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Shiming Cheng <shiming.cheng@mediatek.com>, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ matthias.bgg@gmail.com, 
+ angelogioacchino.delregno@collabora.com, 
+ willemb@google.com, 
+ daniel.zahka@gmail.com, 
+ alice@isovalent.com, 
+ sd@queasysnail.net, 
+ eilaimemedsnaimel@gmail.com, 
+ imv4bel@gmail.com, 
+ nbd@nbd.name, 
+ dsahern@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org, 
+ steffen.klassert@secunet.com, 
+ lena.wang@mediatek.com, 
+ shiming.cheng@mediatek.com
+Message-ID: <willemdebruijn.kernel.20906a8caa141@gmail.com>
+In-Reply-To: <20260929100256.23192-1-shiming.cheng@mediatek.com>
+References: <20260929100256.23192-1-shiming.cheng@mediatek.com>
+Subject: Re: [PATCH] net: gro: mark frag_list GRO packets as SKB_GSO_DODGY
+ when a list element exceeds gso_size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM6PR12MB4420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63771d92-8546-4e4d-091d-08df1e3e5127
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	CDCkH4d74RsU0t773I+46pL8tZZmRrGNgTmLD464HD961meIq826RUeJN7Msdxkp+oyyMKLO6/tmzi1QFDWePsZwUXePJN35B7NuR3Bjm+3BJxuxlUoPtxMJIf6ILvXZzn1Bvy4ZfuQlV2brNtCJrHCVZf67KKkz5MPCDL5n3fh2y1cPciNgLXLdL0Uewl35nlmdWdUm4LBf7bY34K/pIQUY+7cogFHaLFHN80csNRqhgjJL450NNG05n4h07qwWlNUkCRVfk3n5PoqRmW6xXCgkEY3rhxLg+QmY42f8rL98q9ldFQSyUNO1TRKTrRIxjI8TC1esBPhc02JD6H6uf6F6rh15gZXOWQIak0lbgEMxzvNImpTzWLO7SwwgcaJLLzVOlXFCCUQGTLpqDMfSuunCwDPAj9lOUAq6kp/YPV4qz+OpMqbXdeEs7On8lBDwJU7pGiK3/k9sZPJAnOMdnoQFVevkYPP97royT1qZl0qJhd3DnMh2Vp4e3VPp0xzC4SxDmBwPKtO2Nt9TkdAtfkiuDk8llgsDpiDeRHQnb0WOiV5RCi8NJE2NP90IkgidEmNvRKBZrrottkPcBBZpWIvayPmXx5RHG08GXxML3GSxN3EcbfoGNN1Y59fhr0DzVS7kFhnGsI/zl9dBSpb01XW2pp1gzpVbfn3Tu77xuQo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bk9XeFc0b2hrWGVIOW42NVlPMXROSkViZ3dxVnQ0ajQ3ODJ6Zkp5aTZ5NHk1?=
- =?utf-8?B?eHB6MUM2YUtLSkxSekNCWEZETFg1bTV6a1ZKWWg0dzl1c2xLbEdpajk4bVlo?=
- =?utf-8?B?REUreGxreEIxTkZqSEJHaEsxQmJLVUZMbzI3RGZWYlhNYkxSdWxHcUVQdTN5?=
- =?utf-8?B?a0EzRnJJUU0rc2tHQVROcFp1bHFweFhoelJDbW5HakxkNDc4NmpSbkkxckJQ?=
- =?utf-8?B?YnZDckRqSkdIcVcyM29mVVo0UXFhUTROdnh5a1VZeUpycFRRN1NYUzhrKzZV?=
- =?utf-8?B?UmR0ZjlmM3R1d2xFdVFxZEVDOVhGZ1F3allncmcrK2c3USttQkQzNEszVysz?=
- =?utf-8?B?aW5XaDM0UEVpdFRPU0dwZmJWQ2NvYlhITGFCcjNXU2ZqNmxaZDQ5VGYzUEVj?=
- =?utf-8?B?RWEyOExvNTN3ZUZ0RDB5Ujc1bDhLbHhYMkNiTlQyc2J6a05oR2lPSGJaM2pu?=
- =?utf-8?B?WmdKNFphMDA4K3p0aTZaaFRJN0RUNXBwTVBmS29iWGZ1ME9xSTU3bVY4MTMr?=
- =?utf-8?B?UGNUZEpUUUhuTHkzYWlpTlIyWWx2Rnh0ZGhUSXlxT01MbmxJQ3VsNTl6U3NW?=
- =?utf-8?B?MCtJR3RydWt6UThaTmxKbzM4MnVxZkFjTy9WUWZoc2RzN3U1VkxVNWZKYmpy?=
- =?utf-8?B?NTdHU0hIbGhLdjVSOVdyOFZRZ2M1cEtjNEpIR3NSWDZJSnFySk5nL0hUZDhV?=
- =?utf-8?B?V0Nxd3hJU29vT0JMTjNOR051VDlmY00wV05oakdhc2lYb1hDOUdTVGY3ZEYy?=
- =?utf-8?B?NmJzczZ6RWJob0srR2ZIMzJ0cWxoMUNVSXROZXVueUI2VkY4N21heWpQS2Z5?=
- =?utf-8?B?dDJZWG5wY1FLek5VanhlU1JGTFlQV1FPU0dlbG92eGtBSEtxTVJBMnk3WFhX?=
- =?utf-8?B?RjRneFo2UG1PNmprYld2RjcwNXVZZ0ZuMENvNzBZWnFuRzRFUU1NVWllanpO?=
- =?utf-8?B?NkF3b2ZQbkhuakhZQm5FRHFkSWNlbU9NVVlxWjhuYkxCQ2QxdVFnbXJNV2Rv?=
- =?utf-8?B?NEFuRUhLRFAzTDBDSlJlbUF4R3ZKeEVxaVNrMTZSNGJDb1pmMHpVUkdORVVa?=
- =?utf-8?B?M1hPeU4xTVNYMlFodCtMdDlrWXNDdzFHREN3dkRsakphNDZqbkRob1NENjBh?=
- =?utf-8?B?UlMxdmdmS3FBc2syajlYZDFxZlZjRTJJdDhLVU5UYVZoWFF1dVJiYXJ3SUc4?=
- =?utf-8?B?UzRweWpjdE8zSXZiVjFETnJjdXp1UVByZjVaUlg2UEhweHp6VUJHQmovbkRR?=
- =?utf-8?B?UFdyNnJNWWcrSHZkenMrOE9hVDVEMGpJbVlHaWcxS1FKeE9JZFd2RS8zdmRV?=
- =?utf-8?B?WEFOTHczdnhWNk1vdm95RFdTd2tpRDdybnFkT3pBelNBNWcxRC9RVnZrcGtQ?=
- =?utf-8?B?bjhzOUlwNmh5NnhaRW83RVNFOGNNbW9la2dTc1I0b2wzVzVUR3ZpWjFsZE1W?=
- =?utf-8?B?L2VWVWs4WnplNzl6dXNRN1h3amltUFBybEhFRWtSRnNidCtBSE5JWWtBRzhU?=
- =?utf-8?B?ZWUraWtwakxCQ3FoSWFIcFBBdzE4N2hTdFc4R2paaUFST3l5K3dWMklTNjJm?=
- =?utf-8?B?eUZHWGNjUzBHMnFiNHBFbzdQdUM0bzMyN240WjRlSGN4TzQxeVdmMkZCYjlU?=
- =?utf-8?B?ZGNtVG9wUjlrY3Z6MnZyTFRQcm91ZTdmK0pNbzZiN1FGYXhKeHg2TEFLSGl4?=
- =?utf-8?B?c2d1eXFNUEl1SXJUWnIzNEU3cGdJSjJ1VnNOb2pueTNsRnRNOWNGVllaV1dj?=
- =?utf-8?B?cjJqNjY2VmgrY1JQY0VoUmsvcFI1UndoN2FnM2JMQ05STGRibjZhbDFZMzMw?=
- =?utf-8?B?d3hkNWpjL3ZITmk5REs2R3FqeDA3RmQ0Vm1XeVREa1Z1dWVmRzNBYkV4S1A2?=
- =?utf-8?B?R0pveVJNV0FNNVh6ZXR2MWp0dXpJc1g5WmpENWZ2Znc3NTMrZG5mVkdpTWxK?=
- =?utf-8?B?VWNjS1VwUS92aVh2cWpPaWVsN256ejF5OEhoeHRSelh0aXVCdi85U0xRaXpv?=
- =?utf-8?B?R1lXN0k1S1psYXdDZDYxQVY0RC9XZWJDMkxyOUxkRUtEU2h6eDlJTEZnRDY3?=
- =?utf-8?B?Y29qeU9VYnF2bVlPRXFoM1h0c2tSY09DKzkrNmI5ZU1VcEdaQ2pPdmtub2Zk?=
- =?utf-8?B?VVRBajBZQ3pNWlJkQi80cW4wWE9PUzRVd0hBS1Z1UHRUbHc0T0tNZU1xZDQx?=
- =?utf-8?B?ekhzUWxrVW1wUnU5bDNnZWVMUjlnbnZqQVFXY3pzR3RhNWRMajc2Y1JoTk1T?=
- =?utf-8?B?V0VWQmhRTnhwODJpZEZwSzlGWnhTTGNXV0twNzVpdG1ZM3d0NU83aHJibFB6?=
- =?utf-8?B?cHBLQzBsOW9RaGZER2FSYUtmOThOZFMxYXVudWtGMVc0UWhJa2lPQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63771d92-8546-4e4d-091d-08df1e3e5127
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 15:28:30.9679
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yb7AcAR6z6zijqka/n8Zd+isbbCRw0FvKRqkG2IbvskkVbrBC6iVTSkjNwe9BEvI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4420
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 29 Sep 2026, at 9:15, Kiryl Shutsemau wrote:
+Shiming Cheng wrote:
+> When RX LRO (or similar offload) is enabled, the TCP/IPv4 GRO path may
+> aggregate traffic using frag_list. The resulting skb is later segmented=
 
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> check_huge_anon() and check_huge_file() open /proc/self/pagemap and
-> /proc/kpageflags on every call and read the PMD size from sysfs on top.
-> The khugepaged test calls them hundreds of times.
->
-> Open both once and keep the descriptors.  A pagemap descriptor is tied
-> to the mm of the process that opened it, and the khugepaged fork() cases
-> call check_huge() from the child, so reopen it when getpid() changes.
->
-> Cache the PMD size in read_pmd_pagesize() as well.
+> via the frag_list segmentation path (skb_segment_list()).
+> =
 
-This part might be overlapping with Yeoreum=E2=80=99s another series[1].
+> However, some drivers can hand GRO/LRO-aggregated frames to the stack
+> where individual frag_list elements are already larger than skb_shinfo(=
+p)
+> ->gso_size (i.e., an element itself contains multiple MSS worth of
+> payload) and may be non-linear (nr_frags > 0). This shape is not
+> naturally produced by the software GRO aggregation logic for devices
+> without LRO, and can lead to unexpected behavior in the frag_list
+> segmentation path.
 
-[1] https://lore.kernel.org/all/20260921-fix_hpage_macro-v4-2-cdea4fc6ce3f@=
-arm.com/
+Did you observe this with a specific driver?
 
->
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+We don't want to have to support every crazy driver scheme. The right
+approach may be to fix the driver.
+
+To understand the geometry: the driver passes a GSO skb with frag_list,
+where frag_list members may be any size, not just gso_size? I.e., these
+do not conform to SKB_GSO_FRAGLIST rules?
+
+I don't recall immediately what the acceptable behavior for regular
+GSO skbs with frag_list is. But for starters such a driver should not
+advertiserr SKB_GSO_FRAGLIST.
+
+> =
+
+> Detect this condition during frag_list aggregation and mark the
+> aggregated packet as SKB_GSO_DODGY when a list element=E2=80=99s length=
+ exceeds
+> gso_size. This forces a more conservative segmentation/linearization
+> behavior downstream and avoids relying on assumptions that do not hold
+> for LRO-produced aggregates.
+> =
+
+> No change for normal software GRO aggregation: the new check only
+> triggers when skb_shinfo(p)->gso_size is set and a frag_list element
+> length exceeds that size.
+> =
+
+> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
 > ---
->  tools/testing/selftests/mm/vm_util.c | 68 ++++++++++++++++++++--------
->  1 file changed, 50 insertions(+), 18 deletions(-)
->
+>  net/core/gro.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> =
+
+> diff --git a/net/core/gro.c b/net/core/gro.c
+> index 29b4d02bf519..e70ecf19b0a7 100644
+> --- a/net/core/gro.c
+> +++ b/net/core/gro.c
+> @@ -259,6 +259,9 @@ int skb_gro_receive_list(struct sk_buff *p, struct =
+sk_buff *skb)
+>  	skb_shinfo(p)->flags |=3D skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;=
+
+>  =
+
+>  	NAPI_GRO_CB(skb)->same_flow =3D 1;
+> +	/* frag_list element larger than gso_size (already coalesced before l=
+ist-append) */
+> +	if (skb_shinfo(p)->gso_size && skb->len > skb_shinfo(p)->gso_size)
+> +		skb_shinfo(p)->gso_type |=3D SKB_GSO_DODGY;
+>  =
+
+>  	return 0;
+>  }
+> -- =
+
+> 2.45.2
+> =
 
 
 
-Best Regards,
-Yan, Zi
