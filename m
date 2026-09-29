@@ -1,137 +1,148 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010033.outbound.protection.outlook.com [52.101.56.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26A045041C;
-	Tue, 29 Sep 2026 19:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790711011; cv=fail; b=ZVJ6hGeklDlzNyVoNZtdwn2uefB7Vgan01J6Q59r0LSGLyE1KhgGQ7lEaNBvvnl4L+ozapGIAsVF88/M3inJjSTqUNqK1L6JOR52iV9dXUlnHbCDeicHMmrOS+wgYIaJ1IDa5yEPnMfcx/99dGJxgo0dqPwRxCwhcKy2kRKexAA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790711011; c=relaxed/simple;
-	bh=lX4/k0x9BDA7K7teuXw+LLBfmlkF0SVhVaE2IIhnvR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=XyZiFlV+2BnHl9EtqQHQSj9u+n/HmQf6I1m+HXSjnlSZaig5QwGlcw3M9PNLYAkmHROGP1C1AC3H9/NGgd2rj0RLR+WnnZxOhs0dq4+Tf9W1g+daTdIX6OK2cXNAspgxgJ27CRHIkgUb4XEV3WJoxRQ1bfPHLAT0+iX8Cv2uVQQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=q0qvWt9n; arc=fail smtp.client-ip=52.101.56.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B9F23B14DE;
+	Tue, 29 Sep 2026 19:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790711039; cv=none; b=GZZiT4hnEbA1UgflPfjd7lGGr0c31T8iEtZdiHICOCLoTAA0T4d/gZiV4jPVsnyL4gqIcIxAYDSRDsNiaX5HWO1YbgvjGbW9U9CVqFuMq6dux5v4WYxlvT+sii6hZbIkuLNLolpOdSVkdI0E6UK9rX23/J0a7M/EV+42e5Cv7zE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790711039; c=relaxed/simple;
+	bh=M0Da55fAk3f5sg11hCY0mZN4G1cBSfd5x8sRoxUgQJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gUVLBuI6ps1URDqCjxO7Qqm3c7eNFJgwdWIHM8Ht1zrvDSmOiSEabeiawU/KOdfEwvo03y4IHOs7sy32U3/7CdZxtESOhAVCvFs5F6paZk72f0wF1lFXvl5b9MKNOJht18P/En0XIMSCWhW6xJnNeHESFiO7e1m7uwxjFmxtkj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=X5YInvO1; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="q0qvWt9n"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RBnCG60xhGucyOPQ27GYmQJxib+0RMeGsWr4IK79nKvrueZc3SvnJoAMvDxz/01+LKcWCb1m5gZCGI4vZ5p4iNXMnTPyFiLcuSk/HBbXG1wetAqnaSE5jSRJZVDow9cFI2tyvoqd2Tt/OK4ZnLvsFa+km/hQ6NHcyZ5rj1a+yGDKHvdj7xkW0iJFggxoRkfhLifos5xdPQdoOP8yQg6EllCsugEwtDtT6IPDBD3cchrI0l/sMeewpZo4912HcrwVJzgED2SHRj6+7VqN3TTBMcEAJ8Eh8tCmVfyFmByxvFwW/brkVRdZL+7lV5Z/qOIz9IDfxy8sZx7te5DrOF25JQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SBoM0q8bBddJa83jzosV2kv4Fzd9zo/RxwqZuwumfAU=;
- b=X/Jk2HAjucqLwGsDluV8ri41hBmTLFKRFnZ3oDT8iiph+1NSAr1UWRPyv98WhYMx/kofWWi6f/OfHfL1Cp3aSDWbxpMsdXXRv9f8uSkkeH8QhGaNCgMrBsVaLq3Hg8APT6aqFBwDJtwWKPh4S62ibJOu2El3g34Dosd6rKRj3jIoWjyvuAx4CiWrm9lZRZ8+ymz+pKwgvZJeViWC+eR+FD/vWUZp5GL9UibeFSmA/PS3ZQxhK1F6g2B/Q86dSyOfBorMoDsYWJlhsSx8qLYVj0+dNvFb6bdvafvHNDUqHCaXKKnmMysMceAkm2xjTGKX040msa4JMLrmwoa6ixYILA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SBoM0q8bBddJa83jzosV2kv4Fzd9zo/RxwqZuwumfAU=;
- b=q0qvWt9n9TdgZ2vY7qL9tj/bJ30osOHx3KrJdbIfh5//12hPqf4ETJyAk9JyJa405hZSek98LHxq+e/4I+QiQDaDq6N3KR1g9x2EBesAhTsvBiuAZOTnjLnr5Be9k1HB0iZgDYXslmx3iZgQXOI6pQazjN2mhf0YZaNGCDUD4IQAG8OjLZT0N0K0lb+48MnMDwFTgBrVRbMsHjgVM1pjHG3LdNDsyijwNlz8UyzXuBbczkLa6b4ythMQA2J2OIGcgXgI8EiDZxiZIqagkewsYrFZUtBkW7lFyBbCODFAJTW8JCqYQmG4UZ38HpgvKLmPcBgYZdZJeegjLa5KvqNRlg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by LV8PR12MB9716.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 19:43:26 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
- 19:43:26 +0000
-Date: Tue, 29 Sep 2026 16:43:25 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Simon Song <xinmengs@nvidia.com>
-Cc: alex@shazbot.org, dakr@kernel.org, acourbot@nvidia.com,
-	yishaih@nvidia.com, skolothumtho@nvidia.com, kevin.tian@intel.com,
-	jhubbard@nvidia.com, ecourtney@nvidia.com, cjia@nvidia.com,
-	smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
-	ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
-	targupta@nvidia.com, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org, zhiwang@kernel.org, zhiw@nvidia.com,
-	Alex Williamson <alex.williamson@nvidia.com>
-Subject: Re: [PATCH 1/1] vfio/pci: Remove the core dependency on driver data
-Message-ID: <20260929194325.GP1616761@nvidia.com>
-References: <20260929173102.3544151-1-xinmengs@nvidia.com>
- <20260929173102.3544151-2-xinmengs@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929173102.3544151-2-xinmengs@nvidia.com>
-X-ClientProxiedBy: BN0PR04CA0033.namprd04.prod.outlook.com
- (2603:10b6:408:e8::8) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="X5YInvO1"
+Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.167.115.14])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8964020B7166;
+	Tue, 29 Sep 2026 12:42:56 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8964020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790710978;
+	bh=XSr/FpY6Ep2Y64lvgMS/GCnnKAwRUccneELijM9K4dk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=X5YInvO10SJeiGSwh9q8U8njS2R52RaMF/ewdT7PfgPwRAcbZVaKZqEI8dRBpt8tk
+	 W0/v6GLlABhxJpjDf4l6fVWcmbSzrRS0w2C77FuwsoR69MFLHiO2PlDheP7jD1Ofny
+	 HPj5fSKCYtfmb4tA+0ZELdpJGtD2jh728EJkdGlc=
+From: jeffbarnes@linux.microsoft.com
+To: linux-pci@vger.kernel.org
+Cc: minghuan.Lian@nxp.com,
+	mingkai.hu@nxp.com,
+	roy.zang@nxp.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	Zhiqiang.Hou@nxp.com,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] PCI: layerscape: use default error response behavior
+Date: Tue, 29 Sep 2026 15:43:39 -0400
+Message-ID: <20260929194339.233271-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV8PR12MB9716:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4711abd-a0bf-4e68-2144-08df1e61ee2d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	sxDQGOI7x86Rdmtn/MvZQ0E5DlWF4MKVFkqDfRJSkCj3+qfp31a+7D+SY+beko9CB0Ju1OFMdhAdwqIYAQM2zkPcwf39GRNmy5pqEd9OZQ+JDq0y3n8Df6jSwEJQhrzMSKZbGq6u1H1cJLbkHs1TnGB/pOV/S1oWY9AF/iI2fkM6CSGplQggM3v42JTDO5lvv4WklyVibAGxIcKx6/Z0e8lnnLwUoFifAUSetj2wm4RhLhQ7GH3QX5jGeDixclNfxZq5Z134gnCALxk8cwfFTkPyBLWJnKpxeRQOc8bQibr4+2G7B1k407W1jR5Ub3VYqWJD1Oe8LnoZGbQlBx8OUwZDAgEHkJ5Xt1oa5wl653vBt77kslvjMemBvVmOCltzO8k4d7AV/nwgXuO/6MutzugObo//5PQpb1XH0+U5jNwMYmKLHC20HDQJ7NQrcZYr0dBJezmDNAa6kbnsBdcAEYnL+jC83KYSZX9Cwp70xmY3P66qSX/dQGK6wwqJmKJcq3t3+KF4FCxr+VgI+v4V/j1a4E6Pi2TGz57D4WKt3AISZBj0zME/jPhmuTq6pfsdfIYQSFDa5UttK9f196hG74FbyvecHOA0bwc4bGMwx6SnroljODXnIY6Pj3OY3BMEs70usX5qkh49DsSbdDCsQOGe2drwtdNfL5ZcOLWESJ0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fCYTQKZ/OLwSRyjPJ/TQd+VAIyGj/B8mKvaIxbYx0DaogqSnF78eum7WU7k6?=
- =?us-ascii?Q?UULlXER64J5XSJyMSxUqja5aKYQUKC8SbWJQcj8RZSj4SUg52z0CueQDRAGo?=
- =?us-ascii?Q?0uwVv92Up1ZexgOESOxyeVlMk2LO6G6IX9weBG/LLcDQJztSQ3R9SsQD/Cem?=
- =?us-ascii?Q?hzvoJoYk5uv6SrLpotWQUFG8AuFHpvQgyUhzEK+qCdIkUIfd5JaVqoL9vBnG?=
- =?us-ascii?Q?82MYYANSzKzulPxWP4BbEMU9s6wOAufJHxg6tqIghcW1SHr8uF3evFeE9xvQ?=
- =?us-ascii?Q?npmRXS6tTAb9iw379kpj37QLwSq1+sY1KO3LzRA4p8lBpkWMkb6+u9PkaHal?=
- =?us-ascii?Q?vVRgsjC6+2RaNbk7lmhrfQaM2U6HHObfPGBGHokXilg3H+pyLWsmgN5dXjsn?=
- =?us-ascii?Q?LgXTQ8jrMov0mipX5CbP/zDa2zxqt7GrF28+qQzb7ohcmDFu8UNKjAixyj4J?=
- =?us-ascii?Q?DAXo9tuD3BOxyKtpHsb/n1Vpq+hqY77cfkbIyB/pFUnaXzFBLyJE07N2EFUM?=
- =?us-ascii?Q?ccRkOQ+V9ZNV9SO+vdAtd5IOV/c8KLgNPTlo1FKSFfvOfObarVbw7cZ3IELX?=
- =?us-ascii?Q?i2XpO4glFjQFAaSdoeh7c2vEm/Eiu9/aXqjbeFQZZSr+D7d6uTVdTb6uzIi7?=
- =?us-ascii?Q?J6or7SrhJPiyjJzdCGuOippfhQIUroYgO8dJQBlKsoXDoxrTaIM9bmwc+0V5?=
- =?us-ascii?Q?d1PZi65Ehd1VeqRc2kCFmTIGI6lGpZ9qn6su42ap/HYdXwkvz7/+N+gzPcFZ?=
- =?us-ascii?Q?qMG69tezxe9qgWZjuTAE126i2uRiwCuJnkKbcyAmWRoGhmi7grXgLL9zerQc?=
- =?us-ascii?Q?nbmCTznOwCRA79j79qjs9CVbwlHyRZI1brbxKEczVdjNqpW78Z4+aKgQtOgV?=
- =?us-ascii?Q?CpTpNPWaL0Mja+CE4Oe5BySmxyibqAbBxtH16zCIcjb81js85Cg9FvP+gdqz?=
- =?us-ascii?Q?owDC3+OEK3L4MQdxOlwO0GDYNG42BsRmAEvn3thnZHkYsDevTlvkVmiZUnj3?=
- =?us-ascii?Q?iL487XUHE59SJMSi0ZB/uUjp3tX7q8CSA2YMDTZ5AQdt+697hXbSMqAnKurB?=
- =?us-ascii?Q?c7aeOKrvW43yhxf0JuaZjR8AX4mD86HBeez1MWPC+x7vsiskOTGuJCKPGuDi?=
- =?us-ascii?Q?wi+ESRO7l8unBinD0Wk4yHieSQmgKrAtMX5M1MdkmlLua+0NarBCi9xUu016?=
- =?us-ascii?Q?9g+Bk65zUXvY34UK6nSz7fW/0Om9NkbY4WFW/A2xJ090HXWdmqo+4qcmeIkC?=
- =?us-ascii?Q?1rGoTkPjGqjRAr7HZporr0F//iPXcsV3bXxbZ3ujHxtNzmm1D2nOqnx4jrfY?=
- =?us-ascii?Q?OJC3jMixCXeVaeK9kYIDQcpolonhNqigMlm+mWvtRy9Yp2tAXz8p5oWqd2K6?=
- =?us-ascii?Q?4hjKxMgaYb1H0UbGnNFdqCCWa0vbYkjbprOaQZy2AaSgBuVidO1VaZhXKInk?=
- =?us-ascii?Q?wtzsbIwEuRhXPomEvC1EnptKnykh8XVi4KnHg5PMNhs0wn3eyCFXpf0uQ/D2?=
- =?us-ascii?Q?N/b3TC5Yv8ABI0+ht4rabYo3unNgoM2pEYBEIY+u/sgK+xth+HpVOu0oUnND?=
- =?us-ascii?Q?6r1Rvte6k6eeB6TGhGF9STpm3PK/qWAdviqnQ6M/Z3ojuxlEluqveWXrhHUa?=
- =?us-ascii?Q?WAyVEw/89cv0+AC7mGiJ6+F4b49QgkD45gVO4BAB6iR447TuDsh9FvwroHEV?=
- =?us-ascii?Q?5DHoJbYDgFA2FsKeP6wZctnmBivBXoBmxQUiFcQ4l8/GNa6Q?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4711abd-a0bf-4e68-2144-08df1e61ee2d
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 19:43:26.7561
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ojvovp/LSuugKKR1iLzXaccHV7lsI642LOF1wKzBpT4+se072wkzIX/bokmUGZgw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9716
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 10:31:01AM -0700, Simon Song wrote:
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
 
-> +#define VFIO_PCI_CORE_DEFINE_CALLBACKS(name)                                  \
-> +static int __maybe_unused name##_pm_suspend(struct device *dev)               \
-> +{                                                                             \
-> +	return vfio_pci_core_runtime_suspend(dev_get_drvdata(dev));           \
+The Layerscape PCIe driver programs PCIE_ABSERR to forward errors from
+outbound non-posted requests to the internal AXI interface.
 
-That's completely not the point, these macros need to cast it to the
-drivers struct first and then dereference the core struct by member
-name.
+A PCI configuration access can race with the link going down after
+dw_pcie_other_conf_map_bus() checks the link but before the MMIO access
+is performed. When the resulting Completion Timeout is forwarded to
+AXI, it causes an asynchronous SError and kernel panic.
 
-Jason
+For example:
+
+  Kernel panic - not syncing: Asynchronous SError Interrupt
+  ...
+  Call trace:
+   arm64_serror_panic+0x78/0x90
+   do_serror+0x84/0x90
+   el1h_64_error_handler+0x30/0x40
+   el1h_64_error+0x68/0x70
+   pci_generic_config_read+0x64/0xb0
+   dw_pcie_rd_other_conf+0x1c/0x68
+   pci_bus_read_config_word+0x68/0x118
+   pcie_capability_read_word+0xa8/0xd8
+   find_device_iter+0x8c/0x160
+   pci_walk_bus+0x60/0xb8
+   find_source_device+0x78/0xb0
+   aer_isr+0x1dc/0x230
+
+Restore the controller's default error response behavior instead of
+forwarding these errors to AXI.
+
+Reproduce the race by instrumenting dw_pcie_rd_other_conf() to call
+map_bus() while the link is up, then schedule a worker on another CPU
+to set PCI_EXP_LNKCTL_LD. Synchronize the CPUs immediately before the
+Link Disable DBI write, then perform readl() using the address returned
+by map_bus() concurrently with the link transition.
+
+Without this change, the overlapping configuration read results in an
+asynchronous SError and kernel panic. With this change, the same test
+returns 0xffffffff from the configuration read. In this test, AER
+reports a non-fatal Completion Timeout, and no SError or kernel panic
+occurs.
+
+This effectively reverts the error response behavior introduced by
+commit 84d897d69938
+("PCI: layerscape: Change default error response behavior").
+
+Fixes: 84d897d69938 ("PCI: layerscape: Change default error response behavior")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+---
+ drivers/pci/controller/dwc/pci-layerscape.c | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pci-layerscape.c b/drivers/pci/controller/dwc/pci-layerscape.c
+index 14d6ac4fc53f..d333f1ae8a41 100644
+--- a/drivers/pci/controller/dwc/pci-layerscape.c
++++ b/drivers/pci/controller/dwc/pci-layerscape.c
+@@ -28,8 +28,6 @@
+ 
+ /* PEX Internal Configuration Registers */
+ #define PCIE_STRFMR1		0x71c /* Symbol Timer & Filter Mask Register1 */
+-#define PCIE_ABSERR		0x8d0 /* Bridge Slave Error Response Register */
+-#define PCIE_ABSERR_SETTING	0x9401 /* Forward error of non-posted request */
+ 
+ /* PF Message Command Register */
+ #define LS_PCIE_PF_MCR		0x2c
+@@ -103,14 +101,6 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
+ 	iowrite32(val, pci->dbi_base + PCIE_STRFMR1);
+ }
+ 
+-/* Forward error response of outbound non-posted requests */
+-static void ls_pcie_fix_error_response(struct ls_pcie *pcie)
+-{
+-	struct dw_pcie *pci = pcie->pci;
+-
+-	iowrite32(PCIE_ABSERR_SETTING, pci->dbi_base + PCIE_ABSERR);
+-}
+-
+ static u32 ls_pcie_pf_lut_readl(struct ls_pcie *pcie, u32 off)
+ {
+ 	if (pcie->big_endian)
+@@ -180,8 +170,6 @@ static int ls_pcie_host_init(struct dw_pcie_rp *pp)
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+ 	struct ls_pcie *pcie = to_ls_pcie(pci);
+ 
+-	ls_pcie_fix_error_response(pcie);
+-
+ 	dw_pcie_dbi_ro_wr_en(pci);
+ 	ls_pcie_clear_multifunction(pcie);
+ 	dw_pcie_dbi_ro_wr_dis(pci);
+-- 
+2.43.0
+
