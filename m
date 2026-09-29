@@ -1,86 +1,133 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67C53DA5B0;
-	Tue, 29 Sep 2026 03:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3713E075F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650907; cv=none; b=SBj5ZiyRVepdCHyWkJPyn89ohf3YaaSoo+hDXbjFI36DtGFNFSV0mviCIlvESXIQBAJkm7WzaBQvLKVFNt5cILWmaHlZ9EMDy8SXVepPM/xeMQ5b4QztOEuSAIZ3XNtLNE675hYU+eDLR6u3nqAK8sNX1oLCRo+EmyskdHoC3lI=
+	t=1790651054; cv=none; b=iRyiDiYSMZBHXLopZmQFevX6JaWl7eVRXbjKYKCKQYCP+BXr+d7Wg5OxTjpcqaOkISd/OL1D6YhEal5IhysJ9Je7pvfvYUd3Vco4fkMwwPW9RFa7qkyAKKKMEYgQUDrokMdHXY9rtcOSUXSItzNvtAT/6qNjuQ4kP2JmRscCOkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650907; c=relaxed/simple;
-	bh=auFnrynyRcA0eq7GmZvTDTnsdKeuO5HNHn9SWlKXYZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sR3prbo8A6iD0L3tHhJ3DgnMcYDM1aFw500pgbE6qi9uMVsQi9jLUTdOgnrp0p8CGN96HsRyS9hrNcemAMc2Hmn6b0fKwSze21e60+PjoTqNelJxfHOy2t5mteJaWhP0/gqd+ulF2EpD9pKxJJUKb2+EsdFFEaioJtxzkIW5KD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=aOhNaOqj; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="aOhNaOqj"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BE43540E015D;
-	Tue, 29 Sep 2026 03:01:30 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id DizVyJi-R1iM; Tue, 29 Sep 2026 03:01:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790650881; bh=1zsBA5L9q90S6Xmz583yr0sOxlE6J2yiX4OfSsQ85RM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aOhNaOqjQlwJ24Jw/KDQFGBTldb9xQJJah5x/5PSyVC2gcxrAJR87p4kHB8gsxHsd
-	 jF5/bFeeNQwc0UIl9wNAgoEiLbSbITRF2yhIP1IeSohg5nlHXB/OUzT/mMQNn1fouV
-	 pevAgF79w9ZLl91GYrHEWUzyJgk+yMn3iaUce0wnbUqhwwjWQ85PHRJDGxleA3yIWV
-	 u6VyGlz4KfeWk+qiz+wEzEtSvJmeBLKUMCtDp7TMa6+phllrE96Y9SvBORUVXpynsm
-	 CrugLLGP7u4VFMcGqCL115MTXvu4S54uvljTOB1nmyXYGApB9VV7/ykTP1IRmTwFhd
-	 XdweTbGUhIlz58y/7UmKoj5Fuy2VU7foakBtx6tdpEQolIAywqdNA91S/YnVcng/1R
-	 dlVPWyLGIrvTO276yvfKuB40HKR7GR9+Aj4Iat2IiGV1UuIUK/4Ug3h3uyQVp5+WsE
-	 8dzfwmXM2oyL2duzAdWl1KzkGqN+yZYQ7+c7AkeTevaK93eXAHC+lrCCJJgyZ4vCOA
-	 H7aHRAS0SrrwyHyWrYXGjARUZTVtXzQa3OoLNckTzVAlIkoMyoWjqKbOuu82kslYGs
-	 iWixnGRYXzlQ7pabG1tImJRGJzS5UKsh+I22vEeChwpsypCgYiv9YC+YXSuFETIcA2
-	 rfKWIvTQogsBxKdImsjvhQ/E=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7419840E015B;
-	Tue, 29 Sep 2026 03:01:14 +0000 (UTC)
-Date: Mon, 28 Sep 2026 20:01:11 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Subject: Re: [PATCH v2 0/3] Move memory acceptance x86 arch code into EFI stub
-Message-ID: <20260929030111.GBarsp9y94xbrKhb8k@fat_crate.local>
-References: <20260925075137.44298-5-ardb@kernel.org>
+	s=arc-20240116; t=1790651054; c=relaxed/simple;
+	bh=k6Q9Ugy2H8XSt2j/evkdLrrZlYgZvuoZoDmg+WqA2Kc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oeKoSUCishS2vocSMMHNRePBAD1PZhIMXO7X3gv2SmhVKGZGOb9LQtama4NYNMj0dWVhO9OyeR+5+caVXa4d8QVt7zeNGTiDJe0zL+IEX5rqQpDpwd4dIxo5H6KEsh0x6t0Mm+BLY7SpNNVgCk7XBD/vbWwGSI7fD1kVYpgTa84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6caf3520bbb211f19a56ed5b684f684d-20260929
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:0c7def89-41a0-48fe-9870-6a8be788afac,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:973169bfa7903bd3b1204ef97fe3155a,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|123|136|850|865|898,TC:nil,Content:0|15|
+	50|99,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
+	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6caf3520bbb211f19a56ed5b684f684d-20260929
+X-User: luoliang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <luoliang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1690560105; Tue, 29 Sep 2026 11:04:02 +0800
+From: luoliang@kylinos.cn
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Liang Luo <luoliang@kylinos.cn>
+Subject: [PATCH v2] sched_ext: Count cap-rejected local DSQ inserts in SCX_EV_SUB_REJECT
+Date: Tue, 29 Sep 2026 11:03:56 +0800
+Message-Id: <20260929030356.3454280-1-luoliang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260925070500.565561-1-luoliang@kylinos.cn>
+References: <20260925070500.565561-1-luoliang@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260925075137.44298-5-ardb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 09:51:38AM +0200, Ard Biesheuvel wrote:
-> This is a follow-up to [0].
-> 
-> Move arch_accept_memory(), which is only called by the EFI stub and
-> never by the decompressor on a non-EFI boot, into the EFI stub, and
-> avoid relying directly on decompressor APIs such as error().
+From: Liang Luo <luoliang@kylinos.cn>
 
-Ok, pushed out.
+When a task is enqueued on a local DSQ without the caps its enqueue flags
+require, __scx_resolve_local_dsq() has three outcomes: admit the task
+anyway because the rq is draining offline, the task is migration-disabled
+or a migration is pending (counted in SCX_EV_SUB_FORCED_ADMIT), divert it
+to the rescue path when the enqueue requested rescue (counted in
+SCX_EV_SUB_RESCUE), or divert it to the reject DSQ to be re-enqueued so
+that the BPF scheduler can re-decide.
 
-I've also pushed a tag for you to use:
+Unlike the other two, which require a draining rq, a task that cannot
+migrate anywhere else, or an explicit SCX_ENQ_RESCUE opt-in, the reject
+diversion has no preconditions: every other cap-missing insert lands
+there. Its traffic is currently not visible in any counter -
+SCX_EV_REENQ_REPEAT only counts it once the same task fails its
+placement again, and nr_rejected counts tasks refused by ops.init_task()
+through task->scx.disallow.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/tag/?h=tip_x86_boot_immutable_for_Ard
+Add SCX_EV_SUB_REJECT and count the reject diversion so that the events
+cover all three outcomes of a cap-missing local insert.
 
-HTH.
+Signed-off-by: Liang Luo <luoliang@kylinos.cn>
 
+---
+
+v2: Rework the rationale in the commit message and drop the Fixes: tag
+    per Tejun. No code changes.
+---
+ kernel/sched/ext/internal.h | 10 +++++++++-
+ kernel/sched/ext/sub.c      |  2 ++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 0bcceab612de..36da1a6560db 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -1308,6 +1308,13 @@ struct scx_event_stats {
+ 	 * caps for its cid and the task entered the rescue path.
+ 	 */
+ 	s64		SCX_EV_SUB_RESCUE;
++
++	/*
++	 * The number of times an insert lacked the caps for its cid and was
++	 * diverted to the reject DSQ to be re-enqueued so that the BPF
++	 * scheduler can re-decide.
++	 */
++	s64		SCX_EV_SUB_REJECT;
+ };
+ 
+ #define SCX_EVENTS_LIST(SCX_EVENT)					\
+@@ -1331,7 +1338,8 @@ struct scx_event_stats {
+ 	SCX_EVENT(SCX_EV_SUB_KICK_DENIED);				\
+ 	SCX_EVENT(SCX_EV_SUB_REENQ_DENIED);				\
+ 	SCX_EVENT(SCX_EV_SUB_CIDPERF_DENIED);				\
+-	SCX_EVENT(SCX_EV_SUB_RESCUE)
++	SCX_EVENT(SCX_EV_SUB_RESCUE);					\
++	SCX_EVENT(SCX_EV_SUB_REJECT)
+ 
+ struct scx_sched;
+ 
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 10567196be96..3429b84f319a 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -748,6 +748,8 @@ struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq
+ 		return &rq->scx.rescue.dsq;
+ 	}
+ 
++	__scx_add_event(sch, SCX_EV_SUB_REJECT, 1);
++
+ 	p->scx.reenq_reason_caps = missing;
+ 	p->scx.reenq_reason_cid = cid;
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.43.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
