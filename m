@@ -1,77 +1,60 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5F5293EA
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B62346771;
+	Tue, 29 Sep 2026 13:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.89.141.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688384; cv=none; b=gjxncWBvXFkKD/cbiP+AMZ+/JIFlMBf+lKTi8/qyvcHHMC9Oq7XUBRiU45WfvzqR4oP6WvmezrCxuCvZ9u2VlFlgklV3U/hW/lA9SPxrpOZFgFDKzwYKVheqsKqh3ZITXdZwyG51Q5G+BWq0qKy/NmLmIEnbtxYV2vVefiCD99Y=
+	t=1790688537; cv=none; b=F6eiqzgPedtsknwuuNcoyzwc02vp+lQRckTKcwEgvIuApLZqPd1ljG17KFIeobj8oBJwwO6NwUsz2jAtTp4746o7z0zc5EgN2dYiLSYmaRRprrPTlkMFpKhEfS+EqRWYi1Q4+awr9kNZTBsXcGTJAF77UEuPzZUx4drqypc3WXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688384; c=relaxed/simple;
-	bh=XYJ121tcwt8Pk1Ea6bO06cIMEmOF6Tdyk1jKVmV1gKU=;
+	s=arc-20240116; t=1790688537; c=relaxed/simple;
+	bh=Q6I7gu/AJYVtMGvHRAkWSS1JvEZWBGbBeUPBS52sG7A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkSfiHHOOjj9GL7I6SXPk5ArO8hyDIt6vFRBe0lrUiGLILUUn+zkC/f0iZ6QAyxBkDIEHPh1DP89PG8CB2Vrkl9IK51Gw9LjKjc/NNmcelN1Q08LtlP6ZvDDBWt2H450GliwI/2ZBamd64tYb90CinCBK4aWICHHkM68hIg1nn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VJx2ml2M; arc=none smtp.client-ip=74.125.229.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NVyda9Zld0Rdjz9mp1xssjIhZGwZtIN/ooPBhINWso9dNSXeKzT+1F26tu+jBMfDlEY957naVieTCIABN5ncK7dcDkfNfZEJV2PFMEZI2ltuWUin5v+VEmLPvISbrgTERjy95+eR+B1K969DUw4IWxkXG9ipPfzXGqG+fgy/Dv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk; spf=none smtp.mailfrom=ftp.linux.org.uk; dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b=DsZvHfN+; arc=none smtp.client-ip=62.89.141.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zeniv.linux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ftp.linux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VJx2ml2M"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so1438190eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790688382; x=1791293182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UhyYRQHQ87I5M5mEOfyWjhfFcg5NiKnh4Prr6HH1V6Y=;
-        b=VJx2ml2M5MLLT03X6MeyYhi7+NcPtYO2AA9TCsrl9gQg2d9AUfUwb3LnN+OJLCzp8Q
-         zojc80/3Dkw0EWr4Z/nWVPU6uZAZ/O8UGOzIKD/yXPd6CQ5r6yPAUGWh7I9p6XZbdf8T
-         WsKdAkffyp9Ca1uaA0iTLcxXnqxmo4Y+c5M+rDhL0sg1FlAn3ei15KnrJJdTrx9F0xSO
-         G69hr8ScGM9sKe4/c7PSR6FqSeiZ18ns92tl6io4f1NNNVbKbLcsY5IZKIRaR8/veg3T
-         X6rDlGVSGLfn5iE1L3HX/lVRKyAP5sPBW1VPyfo88a+T+8SruUAeByyijhVct+kfyrB/
-         XpLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790688382; x=1791293182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UhyYRQHQ87I5M5mEOfyWjhfFcg5NiKnh4Prr6HH1V6Y=;
-        b=N+2NWghheOudUwJFNJyurCaaAUA4e8dlly/o0q9ZPLW/q4ro91YyjgDWxdMMRf7Z9Q
-         jS6iHQEKLio+MFLoQ/Jqp1tJeM2U58lFsdQWPVoFXTuAlKBGqjTKUIair320rIO9r8wA
-         yRHu1Q7XR3RLJb8t9+XOYc1NGV/k8pym9SAYbCcNM68wnsPh4MLoi1M41/m+Zm+lmV2c
-         tjl5mBZEjUWQrHOnv/b4Wf3mmgYwRWk8CKI72qDGadEQ9aklrGEG38jbpLlg1tRPv8oA
-         /u1rkY5BQrVL4FejaCF1sABdJ/x4wgrHrY2CIWUPcWMmuXLit3K9dkEtjzNH0sI8Mzab
-         kuIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxItM7JGJrxCsiHAYKJPgfcCspjw+hIvM/p88hHmIGiKX+afU2xGtuK97JwSOuHwN8fpYsqpKB+5ZXB/Vw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nO/BTKCqIxze0QeqQltHtTPG7bRfd7f6EaWx/a5uxP9E6yP2vj
-	e7tA8adNB00s8FzP9LDHtYmRwgnKI6RzARyTPNktkT+SQxRtH5t3eZLG
-X-Gm-Gg: AYBFou3f63AEhcc32BANEDD6Iq5TEGo+Txy7O/PF51c6bXjPw5DqoPT8Omxt68MasXK
-	3mqyT1gtVC+4JKmXxfwyNoFaUzEKDvtXrAHAKa6E++dUMEaVo6Wgsc34jSzmjPL054X4GuLA+lp
-	o+3idNUuph23ye5qkOXEjDSrwovrBC9fD1ahJki/wi5Hq99jVeMt9NwnBA9hxgb9a/En7eP79Xt
-	ChqbsR5QAZ1gEjQPxGaOzdNJlR3+w/4vp/IA4iNV2nYy9LrENn264BlZJW0AkSpNDMIGIdc6Zio
-	D/w5bDVAtXk81/f48nPu0Flr+5vX1TC8l2FfHQO5PEVbu6SfRSX5xdskfb9UJWT0iiE00Goxu6J
-	YqQI+VUKb7hmHgfnudiraTqwIDJPsDsl8DL2V/RY2I/o+gvAISDXjQ33nN5wxVh9YL3BWIIbosK
-	IYEIaCJjLsNNC323/MJTLw3mU58oLnfBjc1nfAKzxO9es81BYNKwxBi0BQoJP1rzi1Jk0imI0v4
-	rvzYjby
-X-Received: by 2002:a05:7301:4d0f:b0:34b:8832:8706 with SMTP id 5a478bee46e88-34b883287ebmr1521357eec.35.1790688366426;
-        Tue, 29 Sep 2026 06:26:06 -0700 (PDT)
-Received: from ThinkPad ([192.220.23.71])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm36468431eec.19.2026.09.29.06.26.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:26:06 -0700 (PDT)
-Date: Tue, 29 Sep 2026 21:25:39 +0800
-From: Qiling Zhu <kmatzkaczor244@gmail.com>
-To: Ruslan Koreev <koreev.r@gmail.com>
-Cc: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
-	sylvain.petinot@foss.st.com, dan.scally@ideasonboard.com, mchehab@kernel.org, 
-	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, gregkh@linuxfoundation.org, 
-	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, pm@petermarshall.ca
-Subject: Re: [PATCH 4/4] media: staging/ipu7: Add monochrome pixel formats
-Message-ID: <aru5-aq_sPUDy8dq@ThinkPad>
-References: <arY2CULvwXGyVvH_@kekkonen.localdomain>
- <20260929092238.1765758-1-koreev.r@gmail.com>
+	dkim=pass (2048-bit key) header.d=linux.org.uk header.i=@linux.org.uk header.b="DsZvHfN+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=3+B5gTPq64xpJqdo/qwWrQuCpe/ndMdyOtlqxcyH5Y8=; b=DsZvHfN+rsjhBsxOl3JqdnWPg5
+	SndOkgWSJb432XlG43Pc2tTQf4e53zuD2GovBRMvfpMqHPdTf35PtZcDFPaUTdVzGH52WtfIskVqy
+	CmFsO9zOTkuLPNJlFJLCMQQQwWDvKubXHDsTVQ6N0D0Mua8SpGgEU929pfkZYi+vXkzt5yv63MwI1
+	OjbwN5JCIZYFb+4ZUfTn67T/LpBuXyyTrLIcQucY1PL5cRKWXQHzuPx5DvFDkc23Iw9rsgUHlZxa8
+	G0IKQunIhWDZ0VD6ZF+y+m6SlGsQrqmZyN4j21DXDiuz0j4mvvfENJ//WaMcAKQOiEgKIKi5NEf46
+	7T2qxagA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xBXst-0000000Bh2q-1gTy;
+	Tue, 29 Sep 2026 13:28:40 +0000
+Date: Tue, 29 Sep 2026 14:28:39 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
+ descriptor APIs
+Message-ID: <20260929132839.GA989762@ZenIV>
+References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
+ <arThye_219ruNbM2@google.com>
+ <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
+ <20260929044843.GA3909609@ZenIV>
+ <art7swUNAa3AyUrL@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,55 +63,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929092238.1765758-1-koreev.r@gmail.com>
+In-Reply-To: <art7swUNAa3AyUrL@google.com>
+Sender: Al Viro <viro@ftp.linux.org.uk>
 
-Hi Ruslan,
+On Tue, Sep 29, 2026 at 08:49:55AM +0000, Alice Ryhl wrote:
 
-On Tue, Sep 29, 2026 at 12:22:38PM +0300, Ruslan Koreev wrote:
+> So, I previously wrote some code that could invoke filp_close() to close
+> a given fd ... from a workqueue. This was in the scenario where the
+> process dies and the usual cleanup function gets called deferred from a
+> workqueue instead of from the ioctl like usual.
 
-> I wasn't aware the ipu6 driver had grown IPU7 support, my base was
-> 7.3-rc5. Tested now on next-20260924 with the ipu6 driver and patches
-> 1-3, the vd55g1 one reworked as you suggested: the sensor probes,
-> ipu-bridge connects both cameras, libcamera streams Y8 804x704 at 58 fps
-> from the VD55G1, and Y10 and Y10P stream with plain V4L2. So this patch
-> is not needed there; I'll drop it in v2.
-> 
-> Ruslan
+Huh?
 
-I tested patches 1-3 from v1 on another ThinkPad X1 Carbon Gen 14
-(21V8A028CD, Panther Lake, IPU7 PCI 8086:b05d) using the ipu6 driver on
-next-20260928. I did not apply patch 4.
+1) filp_close(file, NULL) doesn't do _anything_ to any descriptor tables;
+the only requirements are that it should happen in _some_ thread context
+(workqueue is fine) and that caller should not be holding any locks that
+might be taken by ->flush() of the file in question (for a workqueue
+callback it's fine as long as the callback itself is not holding any
+of those).
 
-Patches 1-3 applied cleanly without local changes. The VD55G1
-probes successfully, TBE20A1 is discovered by ipu-bridge, and the
-media topology is established as:
+2) any caller of filp_close(file, files_struct) must obviously guarantee
+that files_struct won't be freed under it; passing current->files from
+workqueue is safe in that respect, but obviously bogus.  Note that
+descriptor table in question will *still* not be accessed; it serves
+only as an opaque tag that identifies POSIX locks (and dnotify_struct
+instances) related to the descriptor table in question.  IF you have
+just manually removed the file in question from descriptor table
+(file_close_fd()), you must call filp_close() passing it the same
+descriptor table while that descriptor table is still guaranteed to
+be alive.
 
-  vd55g1 1-0010
-    -> Intel IPU6 CSI2 2
-    -> Intel IPU6 ISYS Capture 16
-    -> /dev/video16
+Rationale is memory safety, actually - for POSIX locks descriptor table
+serves as lock owner; the reference is opaque, but we don't want to have
+it outlive freeing and reuse of the object it's pointing to.  So anything
+that removes some file reference from a descriptor table is responsible
+for corresponding filp_close() call done *before* the descriptor table
+is gone.
 
-The sensor reports Y10_1X10/804x704, and /dev/video16 enumerates
-GREY, Y10 and Y10P. Setting Y10 at 804x704 succeeds with:
+Note that we only need to take care of the reference we remove from
+descriptor table; files_struct destructor will call filp_close() for
+anything still referenced from it.
 
-  Bytes per Line : 1664
-  Size Image     : 1173120
+Places where file reference is removed from the table:
+	* do_close_on_exec(); filp_close() called in the same loop as
+clearing the descriptor table slot.
+	* do_dup2() in case the new slot had already been in use;
+filp_close() called just before return.
+	* file_close_fd_locked() callers. Three of those call filp_close()
+as soon as they drop ->files_lock (close_fd(), __range_close() and
+io_uring io_close()).  Remaining caller (close_fd_locked()) leaves that to
+_its_ callers (binder_deferred_fd_close() and its equivalent Rust-side).
 
-However, VIDIOC_STREAMON returns EPIPE for Y10, Y10P and GREY,
-and no frames are captured.
+Again, normally both removal from descriptor table and filp_close() are
+done by the same primitive...
 
-Since you reported successful plain-V4L2 Y10/Y10P streaming on
-next-20260924, could you share the exact media-ctl/v4l2-ctl commands
-and any setup performed before STREAMON? I'd like to reproduce the
-same sequence before looking for differences between the two
-linux-next snapshots.
+> In this case the correct behavior was just to do nothing.
 
-My test base before applying the series was:
+... leaking an opened file?  IDGI...
 
-  6375e61c01e93e35ee7acd336a689ac1fae4b509 (next-20260928)
-
-Hardware: ThinkPad X1 Carbon Gen 14, 21V8A028CD
-Kernel: 7.3.0-rc5-next-20260928-x1c14ir
-
-Thanks,
-Qiling Zhu
+> It was a very easy mistake to make, and if such mistakes lead to null
+> ptr derefs or worse, then I think it's worth doing something to reduce
+> the bad consequences from this kind of mistake.
