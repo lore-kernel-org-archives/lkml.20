@@ -1,134 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90F1376A05
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAF93314C4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790704912; cv=none; b=bezkE/Nki+8sSIAwsarLuDn9QRneEY8BtI1j20ARUh1DWMPU5bXC+i22pAo/MeldmsPVQQviB0nW3ZYlusk9PAgjFneHOmwV6UPnXCEjgXgsRzrCMOESV23rXTb7rHNX9eN1+KzlBwc0ecSYGOsbnK5r/gY7w+NVJJ0XE1gvjpw=
+	t=1790705014; cv=none; b=ZQelQ+qgMTF2C0MCeP6kTLf278k6J4/EpsRlD5mWquKeOyE+19wh6HW1QYYrn7gjH7xjzsFZ0UkzyGiHSvYFGM6R6rnUM6YZVXNhhO2JAklM41TTAjS4a5t//1Yb5+oJgWfxNt1L+nRL+xl6IZC0oPfFD/98DHeOt4WcF8cUd94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790704912; c=relaxed/simple;
-	bh=v47biJGyTwUO9XfglPqg0Q9AVwt+InUiI+FjvQHeaQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mSbl/o8xMBIG7QByhUXfxPo0T5K5Nc0HexwRzShmgG0hm2Ubro7RyseQDpg1HphgfoTerjvnNGPEYHrIa/ILwvM65ePV9N+mbLyU149S9CRMlrN9kfHmNwkqdgGhkCo39Gm6ac2mFVG9YELx1IJovnK20mXKUmDEB55tCHxWf8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxPYem6B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790705014; c=relaxed/simple;
+	bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=f2EABmkVQutFG+2i02X7YmewQpBQFeXhxWvRppdbzgzJII5y8Od/eVinCSL5s6Hiis5FNaVeABomwxRDLZkh1H0i17Gr/PeSM0LP8pQCiwQa65zWOerAJgBbXj1khc3GhFIQ9WeQ6FrJlFk9lGQxry7I4KKIRRiuscTe2/mCgzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=P28wBM8/; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxPYem6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0C61F0089E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:01:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790704911;
-	bh=wA+/krenvKND0SGdUag51BtUkhIYeOVKdVDCo9ZLgfA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cxPYem6Bk3XVbfkpa31I3zey/VHrPC4VUUeHhHgYHnwjogGBpHcLnQJqLe2QOYrC/
-	 w23IZUODm2QracyrsZB6aLAXeKVUOv2pNmuj4yuwtOyir5O8wkStZi+KnCn2rtEBlm
-	 dIVCxi6Arrfcp/Xog8IsoIJhB7WO3kMvfjpGgd51rqjR6fsQ3cyCl1nQL+fcoCvkvb
-	 dfO7PQoDB/fcltcIwekIPmdw0jiYw02zJzMYLCWdHLOEnOJdsqXiGwB6t5NEvm4cm/
-	 Jfye8W1DWkI3OJlbZ8iHmMa1ynEygcZlhTE5scPi3+ChNDa8swa4GS6jLKaipIzxz5
-	 SS/Gzhrwl3iwA==
-Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-81be5042c56so2150297a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:01:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzzW48E+s8sBF8GN/YyWITiv4rJp7PjpOv5Pr/XILMVwN01TBFqMdxiFlKDMyWTIYLhiB37tkMze2Jls1k=@vger.kernel.org
-X-Gm-Message-State: AFuF++npCOqChI342pLmiFRJPXo4SfRF6mLCrPD6kDzCtLUff6vYcsv9
-	bK56W+5oEKWfVBz+7s+vcOC0Jn+4DJSuFE8uqdGFlyIE6S8KwSXBZxzeFXJ76+B5FlppVOzR+3e
-	yBLuxjNQVbSWW/zCyyRfR9EJch/FyBNs=
-X-Received: by 2002:a4a:ee14:0:b0:6b9:c226:ffca with SMTP id
- 006d021491bc7-6dc72543b43mr97892eaf.6.1790704910709; Tue, 29 Sep 2026
- 11:01:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="P28wBM8/"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso7686825e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:03:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790705010; x=1791309810; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
+        b=P28wBM8/xUsO3wSg7/3jXmhdIyBEWuXqJBB2rU+IJpsXpHmBgP8Fa01+p8LE0T8zWV
+         5Bfv4g2AEx6pAs3WquG19kyWUutG/3uU1bPrloUIcBiTIr/KDF8H8ZZ/figb7g17QqJ5
+         zcNAKL/55oxL3zTgQ1G4x8HH1kHBzINZwJkppRvDYfBzDctMF3UwAeook/oRX1TbzBd4
+         OwU3IuhcVN7hFWQHsKlvX07IBaKViJKHjshkqt84H187bfk2DIU5q+j7awTviohvl9zj
+         OMs5N/4iy2lYPSF9n70oJ5WUigQVrKivlxFIaAGoUZS4UnXCwnED2fC5C9IOGy5Oz3UH
+         G/hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790705010; x=1791309810;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
+        b=KYMZnwIF73JNLGcaO0/9SW34sGELcEv7q6pVfRsE4CnOdHd0TnZQAtVjXItoF11EP7
+         e/yJMjt06tEnaaNqqhFCUWkANB6EFvfzVGqhg1+/BFet/H8dpPyFJyLg4sOLSDoBiaoQ
+         n1RHl+rf0oUtqYsGy4X1qphAj5Y369iR3mHg7wHaATopz8pNh+JHECcvtf66k2/OTXD3
+         GIWj//Fgm+mhaFSunVhprt58UE/2BnPu+9oNIbourrQ8Gd5Euarr6LVo5ulU4F2Vy5t0
+         db5GKXa148iNW2/r1LH+23rnRJxkRC5ZvlwTuoiViBt5q529SVVFoRFWCdOB8VdwmD3R
+         q8xg==
+X-Forwarded-Encrypted: i=1; AKwUvBwu7h4W6EM1s7FHOyaq/ScMu1wucCeFW3duLAcpIvhq6fcaLPOLA//W8oXFretRm5tv9EWA3uxXij9S19g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY2KG8cJodW5NitK8Cbfw2SVaqVCGdxi1f9dbk4XSLA0xyF2Kk
+	wYOWZp3OfgC89v3LVzNAGmOYcYdpqTZf9LnNMyZzfRH9bSDbFnTL/pj57kFX5ObzOvQ=
+X-Gm-Gg: AYBFou2Ufrjv4ZGBmVRFG8yefxr5WKbMFDosVbPi8xcmr6WsurTe9JQFBtEfa8iHXpR
+	f/lelAGG0ja6smm90nYHmJYy9TJJiZVn8XoFjXH0kFhhvSNBBzkXolYDk9buQ6Bsp/TZYLOtNL7
+	bXbOlfEd9wSennGEGTvOkL05dTzmcJczQ0tzdJydDSH5p9i8vtQiu9fwj9IRMVdUrdTFxYjzXYD
+	J58ELUwaaV5NCCWS0iFEH9h+gWcwiNKyUz/aCsVC8Sf3GWSrS/Qh1hF2vYTIAxppPOgYU0vjoB4
+	LHu0z3JVcBrwHfFSczgSJZd9mrNwYD+/cN31RQxQGoA6RFcLj0aVMmBFBGEBPquLqB8yoRjjuyM
+	IZiZyo2iHXpmk7XlWUUgsOZtfE2Y4OsXhluc/NcByGT0BchYa+e01AyNmZCbl3p6WjbkkkJgp4P
+	7SYnEAir7cxjsF7/StSTLgQqaxxMegsCT1VgjLp1VoHs100AggTKY/9E4D5syNJ/5EdBvRKbcmI
+	0PPst1qpWmU1c4Nxg==
+X-Received: by 2002:a05:600c:8b86:b0:49f:ce73:7a9 with SMTP id 5b1f17b1804b1-49fe6701ed1mr295156035e9.34.1790705009663;
+        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0148b0590sm5696925e9.2.2026.09.29.11.03.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Junhui Liu
+ <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, Troy Mitchell
+ <troy.mitchell@linux.spacemit.com>, Brian Masney <bmasney@redhat.com>
+Subject: Re: [PATCH v5 1/6] clk: correct clk_div_mask() return value for
+ width == 32
+In-Reply-To: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
+References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
+ <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
+Date: Tue, 29 Sep 2026 20:03:28 +0200
+Message-ID: <1j7bk43pfz.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929170444.218093-1-parri.andrea@gmail.com>
-In-Reply-To: <20260929170444.218093-1-parri.andrea@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 29 Sep 2026 20:01:39 +0200
-X-Gmail-Original-Message-ID: <CAL4WiioFMQN4troVjQjCmE6Z9kwwb95SnoEupjD=PPSK6Q5f6w@mail.gmail.com>
-X-Gm-Features: AclHuK8d3O29vRQFC3ZWh-9zIhRSdBaWP-QlEB2WBkOrMqu2AG_jOc393I2UFS4
-Message-ID: <CAL4WiioFMQN4troVjQjCmE6Z9kwwb95SnoEupjD=PPSK6Q5f6w@mail.gmail.com>
-Subject: Re: [PATCH net] rtnetlink: wait for RCU readers in rtnl_link_unregister()
-To: Andrea Parri <parri.andrea@gmail.com>, Kuniyuki Iwashima <kuniyu@google.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Tue, Sep 29, 2026 at 7:05=E2=80=AFPM Andrea Parri <parri.andrea@gmail.co=
-m> wrote:
+On jeu. 14 mai 2026 at 17:27, Junhui Liu <junhui.liu@pigmoral.tech> wrote:
+
+> The macro clk_div_mask() currently wraps to zero when width is 32 due to
+> 1 << 32 being undefined behavior. This leads to incorrect mask generation
+> and prevents correct retrieval of register field values for 32-bit-wide
+> dividers.
 >
-> rtnl_link_ops_get() finds ops on link_ops under rcu_read_lock() and only
-> then takes ops->srcu. rtnl_link_unregister() unlinks ops, then calls
-> synchronize_srcu() and cleanup_srcu_struct() without first waiting for
-> RCU readers. A reader that found ops before list_del_rcu() and has not ye=
-t
-> taken ops->srcu is not waited for.
+> Although it is unlikely to exhaust all U32_MAX div, some clock IPs may rely
+> on a 32-bit val entry in their div_table to match a div, so providing a
+> full 32-bit mask is necessary.
 >
-> Such a reader then locks a cleaned-up srcu_struct and keeps using ops
-> after the module that owns it is gone. rtnl_newlink() and
-> rtnl_dump_ifinfo() both look up ops without RTNL, the latter for any
-> user that dumps links filtered by kind.
+> Fix this by using the standard GENMASK() macro. This safely resolves the
+> undefined behavior on both 32-bit and 64-bit architectures, while also
+> benefiting from the built-in compile-time type and bounds checking
+> provided by the GENMASK() macro.
 >
-> With delays added between the lookup and srcu_read_lock() in
-> rtnl_link_ops_get(), and before rtnl_link_ops_put() in
-> rtnl_dump_ifinfo(), running "ip link show type dummy" alongside
-> "rmmod dummy" on a KASAN kernel gives:
->
->   BUG: KASAN: vmalloc-out-of-bounds in __srcu_read_unlock+0x57/0x70
->   Read of size 8 at addr ffffffffc02ff318 by task ip/147
->   Call Trace:
->    __srcu_read_unlock+0x57/0x70
->    rtnl_dump_ifinfo.cold+0x30/0x3b
->    rtnl_dumpit+0x7a/0x1b0
->    netlink_dump+0x486/0x11b0
->    __netlink_dump_start+0x661/0x910
->    rtnetlink_rcv_msg+0x611/0x9e0
->    netlink_rcv_skb+0x126/0x380
->    netlink_unicast+0x605/0x830
->    netlink_sendmsg+0x6d0/0xbb0
->    __sys_sendto+0x335/0x3a0
->
-> Call synchronize_rcu() before synchronize_srcu(), as
-> rtnl_af_unregister() already does. This should be enough because
-> rtnl_link_ops_get() is the only RCU walker of link_ops, and it takes
-> ops->srcu before rcu_read_unlock(), so every reader that found ops is
-> covered by synchronize_srcu() once the RCU grace period ends. The extra
-> grace period only costs time at module unload.
->
-> Readers and the writer were serialized by RTNL until link_ops got its
-> own mutex, which is why the missing RCU wait did not matter before.
->
-> Fixes: 6b57ff21a310 ("rtnetlink: Protect link_ops by mutex.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
->  net/core/rtnetlink.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
-> index be9d1625bac31..abcd2c4ea2178 100644
-> --- a/net/core/rtnetlink.c
-> +++ b/net/core/rtnetlink.c
-> @@ -707,6 +707,7 @@ void rtnl_link_unregister(struct rtnl_link_ops *ops)
->         list_del_rcu(&ops->list);
->         mutex_unlock(&link_ops_mutex);
+> Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> Cc: Brian Masney <bmasney@redhat.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 >
 
-Patch looks good, but I would probably add a comment here, because all
-these barriers without comments
-are a pain.
-
-/* Wait for rtnl_link_ops_get() readers that found ops but have not
-yet taken ops->srcu. */
-> +       synchronize_rcu();
-
-Adding comments for the other barriers in a future followup would be awesom=
-e.
-
->         synchronize_srcu(&ops->srcu);
->         cleanup_srcu_struct(&ops->srcu);
-
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
