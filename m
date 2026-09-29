@@ -1,166 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923E13955C6;
-	Tue, 29 Sep 2026 19:29:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A10559C80;
+	Tue, 29 Sep 2026 19:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710163; cv=none; b=XyOdzrMnSow1OsUeu62r82IjmpXRQb9JmzL61uAGq8g3KoOPz8I6uzKhbizn+7/1Ua6qKKMttKI+f+GukqksHwtitGcSHlO7p5xzouCkdyjtmU/3/t4xBd4BvoSyd64K+RW7wljwSW3huXJXv5/9j1Hdko7ExverFrJ6wC6V89s=
+	t=1790710191; cv=none; b=g8cDf4wTt06v97Zd1nh+kplJWdMl32UpCenqJaCulYQTebH5t2QkVkob/d7VE7olDUadXS8pCN+zh/Akg4aOzXxmPMSKdxYCYlQzxnHaXHAjSSAlUOrKNRuL852ueNXcub0aSoA1xNNQcBaYNrXzvAQbzFggJFjWw7Y6fNMKsPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710163; c=relaxed/simple;
-	bh=bYKlQJL8BbKjM9cR+yVfNtQdWsmLrVz34kECEfdXCKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jQ2NbA3nH9PL+AZHquDSjMzn5eo57PMBMaJWFxDtjNXTdZ2xTEIioathELg1qoHF9Tn8nwOLsMu4z1lt5jAnC80s/jHgw68pxns0jeKRbhJk2TqBbLG9NPIUoFO3JHyg2vZIFtqWagboLoEr1gSagg79kthyMjjDvZ+7pgC9288=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkXmv38u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790710191; c=relaxed/simple;
+	bh=XT3TtzDfYVYwNGPJXP2iM16a0w68evK/j8Vxe5hGtsw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LiENuQRBvaSzjOaOj+xEF9utfYzaqFevjJ7X/XwsHJvXm0H8FOKZ3PzZU4ZBviJR/WOhdNNuqjD871smwqwnQ0dMidqdYChn+1sLBzZj2yA1O3J2aLWzmPaBohBKJmj8AwEMJAwnA2QyjKbYmqR+j7/sgGBaUOWGyh7vCF9QeZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OfC3r0Js; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkXmv38u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C771F000FF;
-	Tue, 29 Sep 2026 19:29:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OfC3r0Js"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5701F00893;
+	Tue, 29 Sep 2026 19:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790710162;
-	bh=zFeIx1YWIhw9HoxDMmB/id+d+114GqebHjnPRMzX0Bo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fkXmv38uL/DfHJwsGwkTlrxonIOT2GdZMuavxsXBmH/6wILmmz37ixjylixdGUPcg
-	 c0FMuHHdtmzDmnu1L8nYQUuooS/C/JLtaYm+V1EfJ0oHF+KfhyRpuw/BEuDTKpeIdC
-	 wwC8PohdUxTUZLTtPfgU9nTzqcUJg7XLTKYZ3qemQADDvM8e+Cq+zlwh2k0RRQxTlJ
-	 acAy9THqmXz/kq5bqBlVVGZszOABqegylOgVLbnhTeHIr27Ue0zGv6QVs0NPyc3NAB
-	 Z8zcyYOQxw4vUDD717t5CA5HxVeo4l1zjfC0aR26qAdFN5LAxK2IR2P+0i4H48SGV+
-	 E5gNmQmXRjd2w==
-Date: Tue, 29 Sep 2026 20:29:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: pressure: add Sensirion SDP31
-Message-ID: <20260929-decompose-skinless-6133ddff9e67@spud>
-References: <20260928215422.3720-1-m.abubakar365@yahoo.com>
- <20260928215422.3720-2-m.abubakar365@yahoo.com>
+	s=k20260515; t=1790710188;
+	bh=eeOIipdTgDA3ymgH0ud1FeNe/wu8MtjBi/zdPv1rws0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OfC3r0JsrsbeDooTbPzt9oUxW3NfMTo7GGZTl7XZoQvgq3zLPV61xnZAi582yp/1Q
+	 KlYKO5wAfI/B1lCnjzKzpgb8hRfXQc5DjZZRUDx8w4ZWhqQ/0gpvSz2Kp0F9kqbz0d
+	 LYDrhwR0vfmaQkmGWHMLHBkgo/BkKb9EJQa5cv+e9QIdjaf1IlOnK2fJ/VWNL/7YpC
+	 dPE7V1XHuyy0HJ9DXL/fJ7H/lth5Q9qb6RNGZHERxg7FFNe1RDXVk/C3k4waaB4aKu
+	 8p+WD6BsIT9uxov8MhAP/TWkr5cCbvaxZkLvBTLtG5zJ8198zjdWg2beOQRsKkMFwu
+	 as6Z3VpqplPSQ==
+Subject:
+ Re: [PATCH net 1/2] rxrpc: Fix the comments saying RFC8958 to be RFC8985
+From: netdev-bot+sashiko@kernel.org
+To: dhowells@redhat.com
+Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
+ jaltman@auristor.com, stable@vger.kernel.org
+Date: Tue, 29 Sep 2026 19:29:46 +0000
+Message-ID: <179071018682.434549.14159424380322602012@kernel.org>
+In-Reply-To: <20260925191520.2206700-2-dhowells@redhat.com>
+References: <20260925191520.2206700-2-dhowells@redhat.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cCHyIRYFvmMYQQ4j"
-Content-Disposition: inline
-In-Reply-To: <20260928215422.3720-2-m.abubakar365@yahoo.com>
 
---cCHyIRYFvmMYQQ4j
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On Tue, Sep 29, 2026 at 02:54:21AM +0500, Muhammad Abu Bakar wrote:
-> Add device tree bindings for the Sensirion SDP3x family of differential
-> pressure sensors (SDP31, SDP32 and SDP33), I2C devices that also report
-> temperature.
->=20
-> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> ---
->  .../iio/pressure/sensirion,sdp31.yaml         | 48 +++++++++++++++++++
->  MAINTAINERS                                   |  5 ++
->  2 files changed, 53 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensir=
-ion,sdp31.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp=
-31.yaml b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.ya=
-ml
-> new file mode 100644
-> index 000000000..b9d3c6441
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/pressure/sensirion,sdp31.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sensirion SDP31, SDP32 and SDP33 differential pressure sensors
-> +
-> +maintainers:
-> +  - Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> +
-> +description: |
-> +  Differential pressure sensors from Sensirion with an I2C interface.
-> +  The SDP31, SDP32 and SDP33 differ only in their measurement range.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - sensirion,sdp31
-> +      - sensirion,sdp32
-> +      - sensirion,sdp33
+Low priority / nit picks for your consideration:
 
-Given a skim of the driver, it does not seem like the difference in
-measurement range affects the programming model? In that case, you
-should probably pick sdp31 as a fallback compatible for the other
-devices.
+- [Low] Commit "rxrpc: Fix the comments saying RFC8958 to be RFC8985"
+  only changes comments.
 
-Otherwise, looks fine to me.
-pw-bot: changes-requested
+--
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +      pressure@21 {
-> +        compatible =3D "sensirion,sdp31";
-> +        reg =3D <0x21>;
-> +        vdd-supply =3D <&vdd_3v3>;
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 214aeee76..e285147be 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24855,6 +24855,11 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/chemical/sensirion,scd4x.yaml
->  F:	drivers/iio/chemical/scd4x.c
-> =20
-> +SENSIRION SDP31 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> +M:	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> +
->  SENSIRION SDP500 DIFFERENTIAL PRESSURE SENSOR DRIVER
->  M:	Petar Stoykov <petar.stoykov@prodrive-technologies.com>
->  S:	Maintained
-> --=20
-> 2.43.0
->=20
+rxrpc: Fix the comments saying RFC8958 to be RFC8985
 
---cCHyIRYFvmMYQQ4j
-Content-Type: application/pgp-signature; name=signature.asc
+This commit fixes comments in net/rxrpc/input_rack.c and
+net/rxrpc/ar-internal.h that cited RFC8958 when they meant RFC8985, the
+RACK-TLP loss detection algorithm for TCP. Only comments change. The
+compiled output is the same.
 
------BEGIN PGP SIGNATURE-----
+> Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
+> Signed-off-by: David Howells <dhowells@redhat.com>
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwRjQAKCRB4tDGHoIJi
-0twqAQCn2SQWz5kAytZDWAGrACXaePEQa98BZzyBzUamw/SboQD/WnpkfT8rsm2N
-d+OpD09JLgRBjCO0iACx6wbq1mEDTQw=
-=fONC
------END PGP SIGNATURE-----
+[ ... ]
 
---cCHyIRYFvmMYQQ4j--
+> cc: linux-afs@lists.infradead.org
+> cc: stable@vger.kernel.org
+
+[Severity: Low]
+This isn't a bug, but should the stable Cc be here?
+
+Each hunk swaps RFC8958 for RFC8985 in a comment, for example the file
+header in input_rack.c:
+
+-/* RACK-TLP [RFC8958] Implementation
++/* RACK-TLP [RFC8985] Implementation
+
+Documentation/process/stable-kernel-rules.rst says:
+
+  - No "trivial" fixes without benefit for users (spelling changes, whitespace
+    cleanups, etc).
+
+The Cc also doesn't seem needed as a prerequisite for the next patch in
+the series, "rxrpc: Fix RACK-TLP implementation". That patch's hunks and
+context lines don't touch any of the comments edited here. It changes
+rxrpc_rack_mark_lost(), the bodies of rxrpc_rack_update_reo_wnd(),
+rxrpc_rack_detect_loss() and rxrpc_tlp_calc_pto(), and the struct fields
+under the "RACK-TLP [RFC8985] state" comment, which was already correct.
+The functional fix should therefore apply cleanly without this patch.
+
+Could the stable Cc be dropped, and would this patch fit better in
+net-next than in net?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925191520.2206700-1-dhowells%40redhat.com
