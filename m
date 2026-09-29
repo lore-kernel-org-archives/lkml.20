@@ -1,129 +1,96 @@
-Received: from mta1.migadu.com (out-33.mta1.migadu.com [95.215.58.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8724B25B090
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.33
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB80338A70B
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790658292; cv=none; b=m7kkCJMKKcTCqbNAbR4oF2oQ7OiTcSn3ZeR1qCbrNHHCiMPl7ydijPRbs/nnN4JcFEILGzCfebPM1cfeNhryr8Jb/d3sDJbjBzEhbVByPvFhCCWtZAMMox4HCZ6PYMHn4UuDIkHfQXkBbpvtkmRyh5oQvhaEtPbrvl2uOcvlorM=
+	t=1790658318; cv=none; b=uwZTreJe9vjmOBixBoOjQ6FpVuH1g5E+7AxvYZCEygfP+ajIP+v3X3J6qUAGokRUQMBC41EELBCoF7r4f6ngcPsY+q73DpT8JsZIPG+rhYUifwxXsXwP3x4z6eY8SMNTmm+9fQiSAAdrw2zeOxOQWJRsZgm+avxyIBKQjfjQlhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790658292; c=relaxed/simple;
-	bh=X2Er36dW6b9JrfFpTHvUORetkfRXInvG1FR10LsA37o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ka4lXNWm6yCkyTiBkFEna7VDC4o5gPeOF6Gn5IkZWDvM6zFcYBKuhZ56TKeHfwkUFWKHI78nQttBoj4hzdsh0K3aak9xHlPQa6hTlyg2wwIILMXVxaIaBiWHwdRDv7bYX0Ee9pHMobx9Pa1G49o498Hr9o/pV/jav67aHLJlgEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pTMhf3Uo; arc=none smtp.client-ip=95.215.58.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790658318; c=relaxed/simple;
+	bh=cQ/BG6TOBdm5HgzpeS1NDsUqN0RS94kKCnbqrv4zAnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZJeMKPHQ9/UAMoQJVkzQ1QS0jSga7kFmcFGbrd8+GrFAc+yK9sSIMdiJ9ot6OsOKAoIYnUC4pTNs8qukvFOFqDtAr33q0vBYcIAECpGOljX8hk37vULvqh23ENMqWHCkcnde0av8PZ4dSppKKPnk7Xk08ss8VV0HJdqVyAPViis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I3FEtuuo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pTMhf3Uo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X2Er36dW6b9JrfFpTHvUORetkfRXInvG1FR10LsA37o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790658287; v=1; x=1791263087;
- b=pTMhf3UohD5bwsXuI0wgI1yW9DU/U4kpawbS3utkt3TTAzWQ2QkjMmFlZm8HbmvH6jJAmp+7
- 7wDFrc/SbvDz0Cow+ShJJn+kAJPE/8UE7zXMUXGJMFVEZDfy8hjA7vkW6G9OyJJfg05Ty++Fw1V
- bUqQ1e9YCOK9Trqd4mq9P2ZA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 31ac00f7d822a3a5;
-	Tue, 29 Sep 2026 05:04:47 +0000
-X-Mizu-Trace-ID: 31ac00f7d822a3a5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8fce9ea9-1947-4ec4-9154-cb71fbd75671@linux.dev>
-Date: Tue, 29 Sep 2026 13:04:39 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I3FEtuuo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 735751D31;
+	Mon, 28 Sep 2026 22:05:04 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 285983FB90;
+	Mon, 28 Sep 2026 22:05:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790658307; bh=cQ/BG6TOBdm5HgzpeS1NDsUqN0RS94kKCnbqrv4zAnU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I3FEtuuoavmCwBAEMoK1tMA9B1Ur1L0yeyx10PwOfwgFyiTnp8dWnjfXv+uqFlW+j
+	 n8ZCrGPB3AfjI6GWGIl0Ebw8QIzlYHNWktuuiebUlFHglEQQA4vHcLPiplQzDHdIH9
+	 ACCeaZGtWYOzIQVNQQenOnAl3PXPWT8z0lNDTvI0=
+Date: Tue, 29 Sep 2026 10:35:04 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Baoquan He <baoquan.he@linux.dev>, David Carlier <devnexen@gmail.com>, 
+	Dave Young <ruirui.yang@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] vmcoreinfo: export SECTION_HAS_MEM_MAP
+Message-ID: <re5kf3b7352ycybaaj4hb377kp4pic5c46z3gba2623idg7uzs@mvvvg2djilfd>
+References: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] bpf: Zero-fill non-target CPU slots on BPF_F_CPU
- insert of new per-CPU element
-To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
- ast@kernel.org, daniel@iogearbox.net
-Cc: andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928214932.544124-1-omermetekaya0@gmail.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <20260928214932.544124-1-omermetekaya0@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-section_has_mem_map-v1-1-4129f6ba2838@kernel.org>
 
-On 29/9/26 05:47, Ömer Mete Kaya wrote:
-> pcpu_copy_value() with BPF_F_CPU copies the value only to the target
-> CPU's slot and returns immediately, leaving all other CPUs untouched.
-> When inserting a *new* element, the backing per-CPU area may be reused
-> from bpf_mem_cache or a prealloc freelist without being zero-initialized,
-> so non-target CPUs retain stale contents of a previously-deleted
-> element in the same map — a same-map information disclosure.
+On Mon, Sep 28, 2026 at 10:48:21AM +0200, David Hildenbrand (Arm) wrote:
+> The crash tool currently hardcodes SECTION_HAS_MEM_MAP, and makedumpfile
+> needs similar information (although still relying on
+> SECTION_MARKED_PRESENT, it should switch to SECTION_HAS_MEM_MAP).
 > 
-> pcpu_init_value() is used to initialize newly allocated elements, while
-> updates to existing elements call pcpu_copy_value() directly; non-target
-> CPU slots intentionally retain their previous values there.
+> Let's just export the value instead, so tools that work on vmcoreinfo
+> will not have to guess.
 > 
-> The onallcpus=false path in pcpu_init_value() already handles new
-> element initialization correctly by explicitly zeroing non-current CPUs:
-> 
->   if (cpu == current_cpu)
->       copy_map_value(..., value);
->   else
->       zero_map_value(...);
-> 
-> Fix by adding a zero-fill pass in pcpu_init_value() after
-> pcpu_copy_value() returns, covering only the BPF_F_CPU new-element
-> path: iterate all CPUs and zero-fill every slot except the target.
-> This leaves pcpu_copy_value() unchanged so the update-existing-element
-> semantics are not affected.
-> 
-> Fixes: c6936161fd55 ("bpf: Add BPF_F_CPU and BPF_F_ALL_CPUS flags support for percpu_hash and lru_percpu_hash maps")
-> Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+
 > ---
-> Tested with a reproducer:
-> - Before the fix: CPU 1 retained 0xDEADBEEFCAFEBABE from the deleted
->   element.
-> - After the fix: the non-target CPU read back zero.
-
-Could you add a selftest to prove the issue?
-
-You said a reproducer. But, I don't know what it looks like.
-
+> Result of the discussion in reply to "[PATCH v2 00/13] mm/sparse: remove
+> SECTION_MARKED_PRESENT and further cleanups" [1]
 > 
->  kernel/bpf/hashtab.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> This patch can go in independently. It would be preferable if both
+> go into the same kernel release ;)
 > 
-> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-> index 8cc07e54daaa..dff4321f2828 100644
-> --- a/kernel/bpf/hashtab.c
-> +++ b/kernel/bpf/hashtab.c
-> @@ -1099,6 +1099,16 @@ static void pcpu_init_value(struct bpf_htab *htab, void __percpu *pptr,
->  		}
->  	} else {
->  		pcpu_copy_value(htab, pptr, value, onallcpus, map_flags);
-> +		if (map_flags & BPF_F_CPU) {
-> +			int target = map_flags >> 32;
-> +			int cpu;
-> +
-> +			for_each_possible_cpu(cpu) {
-
-But wait, the 'map_flags & BPF_F_CPU' has been check in the first 'if
-()' condition in pcpu_init_value(). See the previous fix:
-https://lore.kernel.org/bpf/20260924102321.2120434-1-donggeunyoo.kernel@gmail.com/
-
-Thanks,
-Leon
-
-> +				if (cpu != target)
-> +					zero_map_value(&htab->map,
-> +						       per_cpu_ptr(pptr, cpu));
-> +			}
-> +		}
->  	}
->  }
+> [1] https://lore.kernel.org/r/20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org 
+> ---
+>  kernel/vmcore_info.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/kernel/vmcore_info.c b/kernel/vmcore_info.c
+> index 5a417f8a922a..7833a36064a8 100644
+> --- a/kernel/vmcore_info.c
+> +++ b/kernel/vmcore_info.c
+> @@ -182,6 +182,7 @@ static int __init crash_save_vmcoreinfo_init(void)
+>  	VMCOREINFO_STRUCT_SIZE(mem_section);
+>  	VMCOREINFO_OFFSET(mem_section, section_mem_map);
+>  	VMCOREINFO_NUMBER(SECTION_SIZE_BITS);
+> +	VMCOREINFO_NUMBER(SECTION_HAS_MEM_MAP);
+>  	VMCOREINFO_NUMBER(MAX_PHYSMEM_BITS);
+>  #endif
+>  	VMCOREINFO_STRUCT_SIZE(page);
+> 
+> ---
+> 
+> base-commit: 57e4ac91fc62d75d84b5a03827a19ceb4094ecd9
+> 
+> change-id: 20260928-section_has_mem_map-6205dc90a09f
 > 
 > --
-> 2.55.0
-
+> 
+> Cheers,
+> 
+> David
+> 
