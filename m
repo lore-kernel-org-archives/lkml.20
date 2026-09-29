@@ -1,121 +1,145 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC3E2C08BB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:00:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7103612DB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790643650; cv=none; b=Ef5/Lw7bvMWnwThCqatqprHQaYVKuRZfFROZPTvnqO+/UC2t9yfuYYHsvx6iJkW0Z9wEb3mzeM7MMNemA33nGKi93BPM/UyN59uLh2ck4zKps1Ee6h/LDR3RuDPS00Xj7LXcQhf86dgiMAQKIj2Vwj4lwYObtGA5xFrpcM7GypY=
+	t=1790643652; cv=none; b=YoySqLoowWTS9Z0asJQ9uNXKtmxjvK/rPkgm8g3ydjMTm92nkM9gD8FxMicZ5cLmPy6QZAaiYun5eWiQcbGyZmqPTW9oTrCq9ohtIf4xvOTklPM9qQ7kUkeDaGdLpZd1w0KWAQInNCllmSd2cbOjTWnYOq41MmN8JO2XUo+2Ftc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790643650; c=relaxed/simple;
-	bh=tTvzke3DfKKWtYV8+SwzyB0UUAV5X0AJTYUDzhIU7pI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jM5Yl3w5u4okJi8lcymdDDrFDS6nHTBR9WTE2N+txQZEew4wzBiu3oiCpSFbqUSZkXvELpqMiyOHMisz0xLuR/RjUL9EALDFFu+a0edOpmjWqOz7VA5/XRs5Q2/ieoMWGM/ObvljyLPUDXMSHZIbppsvVaA8i4dBjlmC18ltbgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AoDDDKpK; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790643652; c=relaxed/simple;
+	bh=FO3o5BCighQiCbxJ8+dfAr9/rQ5WaT6s012SjgK1LmE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=hX/lDux1+FvhDAy+fSUH8AxnXA4zwmWnLhQeZonypc2pcMKE9BrTuL3XSyYxiItbrQeafH4tAPIEIE7i2igikgUa/U4zFoTsMBF0jgErQmKGHYQXphUq/gjY5O+qzX4rypwTDIIVdPk6056yx6/2SGwcXJID2hwkSpV++Y/ubDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NJ6rj8Iy; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AoDDDKpK"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6d8d3336db0so506030eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:00:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NJ6rj8Iy"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so27460795e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790643648; x=1791248448; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6it+SmeVeHMYo8qun+39zeU0I/4M6Z51mplDGX3Lxkg=;
-        b=AoDDDKpKwmXEmG4TjHmmL/aw293eFXnAK2hSnhnZPH72muSYcqOQQTj37QaccBGs93
-         uw19NqPGroF8JVWNDhdHfldDqDgshPT19+OX/bzHXKBYGdiTTDTplPetWaNrd0BnJWks
-         bSJd8Ts2U2ln5CJ9KYM/UJl7RFN8/gq+LDeJCN+9xXswFhq3fBSerWdEnHrT11vTwUjy
-         QnHfiCocnAV67fFyl4lliq970mT9C80BO8FiWajGhj8kTvj1smNoDhnNmmF7LhtGWbAA
-         cP4mwqzAMUq0WTobVnVczCpvJ+zkkf/XGwHXESg5EYBSZyUYwWcvf9tpPjt8ewLwub5C
-         qwAA==
+        d=suse.com; s=google; t=1790643648; x=1791248448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DecC3y1le92eU3qXIyUFQY40lnmAEPCsh4lD8Wws2cg=;
+        b=NJ6rj8IyhBm3F1rOiwW5OVcZdO0QER8Kk0J0JSHzAQd92hzi499FLQDqsdO3+MDtSZ
+         G+4buNdzIbjCAGmAaNFJrAQe3n6uVDJy5cVmYzFU8WyMn/OXkCX3TILU8+Z/DcBcqfCG
+         tDDie1sBfM+O/Ig1Ch3BatXhllncMBExTvjEpcZjl0WqbDoYR4Z+vjtv3UZ1/PL0plgP
+         N/xXAZn8cAHA8ftrFMv5eAX677/dzWCXXS/78BAYrUH6fOg8p6tJ+29k4g1ArBN9ogO0
+         MmNZlM53c/OPEQFiptM5FOVoWYOKzC6FFwvO8pBsvKakFGmQw9URjUXj6ksJGjEYPw8f
+         0/vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790643648; x=1791248448;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6it+SmeVeHMYo8qun+39zeU0I/4M6Z51mplDGX3Lxkg=;
-        b=rY5oaABnsxC6LIEp5ldBVJgqO1mrxRU7wYRopWE+vyHdQuMa3XT/xSjTdeuZ4JvLpL
-         hy06guhG3W2NpZ5KSkGDbzRtcZwf48n5ENprMgDmrQwesu8cXS6FIcI2ROHNihhRw8jq
-         RwA3xzIgZ48qpD1MwBfBkuvwW1CGJBPkzrxoYGfUFwcKdrudrWpMjeSr2FTb/9gF8dZd
-         ovEm7TXRPcr/1z7WVU1AToaWGhpMTYKQrUX1+Vp2iM3uALBej9r7wXE/F9a6vVyQqSoa
-         8EIOeaPYjkZI23IPsPrcH8zCmhqxJ0mAj4kaKL+M1H7zdctWqrNKZ6XNEktoSkJE8wlb
-         P3UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygsMh+7aAbK/W3QcjtYu4BfBgHgjRS/Njg7imFU3IlMa9fS6z1j+Q+1CKZAkCmGSwcw5A+firFgxH1DuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG2JyiRPcNqG/hJWcEpvJDfJsNjuAchISvWhEJFx+RltCRyUh3
-	Sfc+w+A55rcMrLOfLbqhXLAu+9TJHx3hn2ArFElz+pNDWgu1vIHttQUx
-X-Gm-Gg: AYBFou3b+sfQwfsv2rZPH1UXVkxAyg0+2RTg8nxZ/zoq/GwXWX0h/6sHzqYpo/6xZKE
-	CaMVtA228MzLpXwOiftlwR3a57jsSj2HQPHU1MNacl+1umwcuKaQDV67ctoiRkzVSH7Wv/lPgfi
-	iU9R3gVHe+K8Ueg+Aw4iNNw3B+Yz1uRv6dJadG6wL6T3ONifnHyQUP4OT7dKR9jev0EStdF6rX7
-	Ofx1z/B/KfhWR8CfkVIgEFVQWyMT1+7H5zirJhfvaNGSQtHF/vbQrFlM9cwdBSTwVrckyUS+fjr
-	UrQg8efPae7icnYAKbg95u69gFyFl7Bq48ZKTVJ7NE0fc5VfdIlpYfhpFv+tnG000hRaull1Bij
-	xIbv7AOq5GyQgZWqDUc5iiEDLfqH22rcihYXFeQceIpTiuzl5Wg8n6NtuR2uTYSW3Z+b7gPrn1g
-	uuacWqDMskZd5y9srkgzrWyNk9ZMJbpYk2BmVrlbt1ASg9QH3cmQTPN2PwBvbJqTWQOBvpjUcv6
-	ItwjR8NBqWgMTwyj87y2tY1+pvjnYNUHiR4VdyVCUKA/61L/ig=
-X-Received: by 2002:a05:6820:827:b0:6da:9dae:a22 with SMTP id 006d021491bc7-6da9dae1613mr1713830eaf.62.1790643647899;
+        bh=DecC3y1le92eU3qXIyUFQY40lnmAEPCsh4lD8Wws2cg=;
+        b=EINvq7WYLnxxMDVDF00toyHMhJQbnXB4Oqtx99JI5zn3XTdLHpmSdv3ycBIHuv6Yoa
+         9InByutb/Rh8ccWFkOR7pRFtdW8JnbuSsf91ZWCU0LogxyOuUgqhvkk7Tx6RGqr0kOT0
+         7/fc4dogtkwy0CoFN1TF/b/IS4YAAZmkTYJE8MlfWhtcqXahOxjZRaBtHs3jZY2BgEnY
+         QjCEWS6pghKSMnq/9iX5zdm5fd4LMa76Ut3zW2nyIf2JceV8P93nWgk1lYnNX726Mtsi
+         MrDq3QRoRgko6ICx7xr20gfBbBFazttsbBdMja79sFp2fHvk10A65uddQNksimOS3OjK
+         +pTg==
+X-Forwarded-Encrypted: i=1; AKwUvBznrZsDIVoBybEC/5GEEaGfHv3JHrBWKabY2j2OWKjvnFYdSaUaGGsOk370X/X+wmKrMtGCW0c3yskJOog=@vger.kernel.org
+X-Gm-Message-State: AFuF++lspIOK3OFw36pZFRtj1jEzzdVbJZZ32rGeNCZUapc73BKDlLqc
+	zt8L3/EVlDtzUl5cosKJSI0/wWlC3MEbuiuDIAmx5CnRqDG9Ve4gHESLoKEE5D/bL1I=
+X-Gm-Gg: AYBFou3/9m1vYNRABo6kcvorf93H5MMBxTCcd1kyVnoCkVXHDvdylUoJZa/1PwMpL22
+	o8lNLAHNnQu0jzQBZfyNMdEaIppH/BUPoKDJKbL54YkSI+8XbeP0WJeBXjQRQQT7qO1XGh+YgqO
+	gSZyaM7E3lXBg8QuJaOkx0qCFDfmHUNGpQ+MqR2ZRdlFSmmq9VO6y725mxf8n7k+zyt5VWCHuWQ
+	ofpmBLQlNOL+Osi8JQinFM/tOk4wa919CLAOWPMQsMfaWcOzv20tmHI7PpbL0UXxZEdqFFP7sFG
+	sj3FCFY9Pg1BQp2uf4adtFe8gFh2tQKwxWQeVRjjA7BdSJtX/M1dKk+PKVvMApRbfsE4CEs11L6
+	eMacpCbSPl6kb/qUi16FMDYZ1W+u3VwJC6+Nz2kHFgXoiJnrcxEaGKUNDjoi7vtCZp/kqiBm39Z
+	ld1ato1RlyH8OsRVBEOTXjSPVLqGl/EoIedHZABaMkOh9AVIw2uCGRPDLEbA+ogcOfISvf5Qkys
+	A==
+X-Received: by 2002:a05:600c:c114:b0:49f:fe79:62f1 with SMTP id 5b1f17b1804b1-49ffe79648fmr109332965e9.27.1790643648611;
+        Mon, 28 Sep 2026 18:00:48 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a497e942eesm2562677a91.4.2026.09.28.18.00.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Mon, 28 Sep 2026 18:00:47 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d88358bb8dsm6410092eaf.14.2026.09.28.18.00.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 18:00:46 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Miklos Szeredi <mszeredi@redhat.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH] selftests/filesystems: expect EINVAL from overlayfs in fscontext_ns_test
-Date: Mon, 28 Sep 2026 20:00:44 -0500
-Message-ID: <20260929010044.5297-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Message-ID: <b42cf37d-0fca-4d69-888d-008a6b0c43fc@suse.com>
+Date: Tue, 29 Sep 2026 10:30:37 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [syzbot] [ext4?] KASAN: slab-use-after-free Write in do_split
+To: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>,
+ adilger.kernel@dilger.ca, boris@bur.io, dsterba@suse.com, dsterba@suse.cz,
+ fdmanana@suse.com, jack@suse.cz, libaokun@linux.alibaba.com,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ojaswin@linux.ibm.com, ritesh.list@gmail.com,
+ syzkaller-bugs@googlegroups.com, tytso@mit.edu, yi.zhang@huawei.com
+References: <6abb0702.80e1c6cc.1e8e5f.0075.GAE@google.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <6abb0702.80e1c6cc.1e8e5f.0075.GAE@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Since commit a518e63c3775 ("ovl: return EINVAL instead of EIO in case of
-mismatched user_ns"), overlayfs refuses a context created in another
-user namespace with EINVAL, like binfmt_misc does. The test still
-expects EIO, so it fails:
 
-  # fscontext_ns_test.c:208:create_from_descendant_userns:Expected variant->expected_errno (5) == errno (22)
-  #          FAIL  fscontext_ns.overlay.create_from_descendant_userns
 
-Expect EINVAL.
+在 2026/9/29 10:02, syzbot 写道:
+> syzbot has bisected this issue to:
+> 
+> commit 3f757b56f1c4579fe32b810bce1d39f202964412
+> Author: Filipe Manana <fdmanana@suse.com>
+> Date:   Fri May 16 16:07:40 2025 +0000
+> 
+>      btrfs: unfold transaction aborts at btrfs_create_new_inode()
 
-Fixes: a518e63c3775 ("ovl: return EINVAL instead of EIO in case of mismatched user_ns")
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
+This bisection doesn't make any sense.
 
-Notes:
-    Tested on next-20260925 in QEMU: fails as above without this patch, and
-    all 3 tests pass with it.
+The console output is showing ext4_add_entry()->do_split() causing the 
+KASAN.
 
- .../selftests/filesystems/fscontext_ns/fscontext_ns_test.c      | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Furthermore, there is no btrfs in the whole console output.
 
-diff --git a/tools/testing/selftests/filesystems/fscontext_ns/fscontext_ns_test.c b/tools/testing/selftests/filesystems/fscontext_ns/fscontext_ns_test.c
-index 0f30a3e6e197..535bf1f4e1a3 100644
---- a/tools/testing/selftests/filesystems/fscontext_ns/fscontext_ns_test.c
-+++ b/tools/testing/selftests/filesystems/fscontext_ns/fscontext_ns_test.c
-@@ -193,7 +193,7 @@ FIXTURE_VARIANT_ADD(fscontext_ns, binfmt_misc) {
- 
- FIXTURE_VARIANT_ADD(fscontext_ns, overlay) {
- 	.fsname = "overlay",
--	.expected_errno = EIO,
-+	.expected_errno = EINVAL,
- };
- 
- TEST_F(fscontext_ns, create_from_descendant_userns)
+There must be some randomness in the reproducer.
 
-base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
--- 
-2.55.0
+> 
+> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=16bbf315580000
+> start commit:   72d3fcf802c4 Linux 7.3-rc5
+> git tree:       upstream
+> final oops:     https://syzkaller.appspot.com/x/report.txt?x=15bbf315580000
+> console output: https://syzkaller.appspot.com/x/log.txt?x=11bbf315580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+> dashboard link: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12379605580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=127f6325580000
+> 
+> Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+> Fixes: 3f757b56f1c4 ("btrfs: unfold transaction aborts at btrfs_create_new_inode()")
+> 
+> For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
