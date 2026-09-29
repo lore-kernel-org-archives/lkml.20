@@ -1,151 +1,153 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
+Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6781E9B1A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD366189F43
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648766; cv=none; b=iyqXIQ8E0IzI32GV6RzaaxtINFbKy33SK6NWzmN0lqdcfAyjDkNEh/yFrvBDvt/ngOdPdwWD2ggVa2Iw7qI667QtoVVB8JeVTbAkbUuBjLHrRi9Gn2qAT2eAjTqPD71WCKtK2FRXhGU6BlB1slF1qo25Vil21Ign4x/D3h1k22Y=
+	t=1790648788; cv=none; b=kM9TM3oRqw7TMX+GKhgJm9gtAyqCdI6xZZSm+VvwvkJdHZREDUYSqtlsIFJtccbIQAxhHUyPaTpQHeGqWhiCAjyKq9TJafaBYtMT6eia4ccRz4s8hIEGJtnzc58yqp4vCcuoKQ9FKmGkHHViFhNu4eAYtyELgH6waTCfsI/tiB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648766; c=relaxed/simple;
-	bh=RGiJFRN6CzF76TeIenyTuivjmSYoV3fBSmXB6ndMUys=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpGCrsPamNVkgQ56wryI2wTpgfjwktf1/hLOBRhGyVCQdKHRuAAzftlHUkER9oVJaSVqnmSECrRDeKNMHxw5XlMUAY+zLgipW+CmqoQV6JedV5LcUy4qcTCA66uc6Awu+i8EDJLumNqBGkZKfbgSR1MgjcwhccgezbLk03jqxQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+iAp1do; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790648788; c=relaxed/simple;
+	bh=7hcvDt/KF3PWmAvcB/zfAjgw/un2tvPo1JKcEB9J/h0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r+EEAWTpg/3uQXL35SkhG2WVxIy8Hgmzx6ATbCGeBuhxeF+cJeyZ9yJ57SIOBaoTgP+elqr+LL3k6c12AK7PcGz54Uv6t0WVw+Hwvufzcbf1sQLdapbBRdyWMi8pD8PF2omgJqGdhLSIH6qJLszgUKZ0J+ByVYO4Cza7qL9zxQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=R0b4O71q; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+iAp1do"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7b3311d3fso624273a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:26:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790648765; x=1791253565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLsU5PROWNjlhFWPCkRAR9UTl0+TaevSxI9W1D+sgh0=;
-        b=G+iAp1domIGFLQ8BKHfppyahvre11JN+guuH2iGN4H42aJumvvSYwzZEbxS5DHSARt
-         j+M4/Xx5Ahp/1vTkLUY9sdggV6ikUE/qkIg41lNTyMB5SYxm0bJ/RTXcpT5kCC1hOdzd
-         kkaeYZvbAZfYIH7KlExU5/YqVQzNasvUyfWOd3m5VKYa+L78Yl8ulH3yTGA1x7tYeRxC
-         Hu3H1mg47+ah00cbyAc0z+EsquBsIEMdIMr/TiYua3OzMB+IdhU7OfpUrZJkWB1+Fhfy
-         vafoOIueZ2XYHy9eY3qQjH1cvz/XzHMBnosPdWQP6aBWUhAT35HgR6NbmOdXHP85JnGU
-         EWYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790648765; x=1791253565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WLsU5PROWNjlhFWPCkRAR9UTl0+TaevSxI9W1D+sgh0=;
-        b=Py+93Pz8s4A4NTcApNKaNeuJb12OmNs2VXuJU0xBop81BfNcFUAveD09IDabgqagfL
-         +PLQhWdsybThb1cByJJ1FS73oo69Ctm5NAi7nAGbKdoqlvME1V3WXEmcS0eAGRL3lMyg
-         3p34VFNMPT9qbP+OOAfS/wK7RwZC26VbqH/W3NMmZmVFn1D9p6pa+uSxcAdIfCRBGrpV
-         x5cICqGkfbDCi7KCc4NxaNNJlWbQuIJaTreSTMjWcTqu+NdSjIr9xoOFalYY7RCy9/KA
-         6b9xx+6mTUSP1+Z4eJzoZYS9Xdrs2iu1t8RIsH+ByBaS6qvvSFA6H+Tp1PlthtQodgrm
-         1fuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFHiM1ybZ2fXa9xUj+SEcSMpVTYmhupnQoCuFzGfNsddgA/4W9LOWcOzs4NlUzwe45JBGka3DYKZaZAx0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJU+/AcPEZHbxYXvMaxLsNYrKbv/7ayLobdtx+sLYOyg8GNf5Lc
-	Hh4foKelRCEUYUB3Icl8ZrH1obzd/8RMX+LpwGj0rtQI1G3mTyzRbiJh
-X-Gm-Gg: AYBFou2ddgLCAc/PNSXbfACBC20/grxNAV/ddoP5RN10ROfyvFIRvyMvZAbRkTLbh7d
-	jCtcNZVywNIXPo26AIR3LeVpxObJlbc88LxgWejhVIwBaqJrrB+n9/P6uUi3LKAeWJNh00tcwhh
-	cxYE8hUb6xp6Ojejtam1i1LVYQUKQhEsx4QjZ/J4hpfrhcgjkXTiw5vuomJFhQm6b/W3X92eMjI
-	ANXiXHh7mrlca2zGyI24tT00H+QlcBpE39Tp91dnHaKu5pFsYaczDPctiUdQYMPTGZNgO620f+u
-	hPSdlt9tU7CY+RMbiFD8VJ9/fX+jmoKC4tThetUfzN+Rg5z4k4p/uzO7fJkblECv46YB+B7Nq1L
-	RaODNjGmKInrfCG5RKkW5rDdbfVgdgJ1eKV3W7swk6OuHXA4Ab7CBPnKFgV8i+kEq8Khqrft8TX
-	xO79R2p1Zgc1Xnpxn0RtpKuI0d5fbMiEUVOxGXlpM4V1FGuQChz7B1/P+3EChBnV7nGb8udjWyZ
-	FJdTJLUhrOoyRgRUpaBNc9OHHaT1+tD3LGolYuDjbPd24dCamhFZJNIwbjwBNVu+BE4YbyAYscj
-	Q3j4LvuWwxFgcQrHJPZAeiasPsfNMXHjd9IgaJHupRMi5+iJ
-X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr1691744a91.31.1790648764669;
-        Mon, 28 Sep 2026 19:26:04 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4985fd248sm2324879a91.7.2026.09.28.19.26.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 19:26:04 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-gpio@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3] gpio: mvebu: convert to noirq suspend/resume to prevent interrupt storm on resume
-Date: Mon, 28 Sep 2026 19:26:02 -0700
-Message-ID: <20260929022602.23306-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="R0b4O71q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7hcvDt/KF3PWmAvcB/zfAjgw/un2tvPo1JKcEB9J/h0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790648782; v=1; x=1791253582;
+ b=R0b4O71qeCnu0hPBPJzcI4LbVELLJs24OdzXssIMp2WUSlSCHAElLqpvrGvOAp5fQC1blg+K
+ kC0ZBaapDdtkkuGAYyrwMjg9Xuy/DbvfX2bTo0IEf+LMHgi6w5tTmlvvxAvg/I8QnYohmeFYNSI
+ TYFr7Xwk65EN8f0++GG/Feu8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 3b4518477d6de36e;
+	Tue, 29 Sep 2026 02:26:22 +0000
+X-Mizu-Trace-ID: 3b4518477d6de36e
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 29 Sep 2026 10:26:15 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3] seg6: reallocate the skb head on L2
+ encapsulation only when needed
+Message-ID: <arshx6IzKqhloiHJ@fedora>
+References: <20260925-seg6-l2cow-v3-1-fc83821542a7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-seg6-l2cow-v3-1-fc83821542a7@gmail.com>
 
-The driver uses the legacy .suspend/.resume callbacks, but sets
-IRQCHIP_MASK_ON_SUSPEND on the irq_chip. During resume, the PM core
-runs dpm_resume_noirq() first, which calls irq_pm_resume() to unmask
-interrupts, and only then runs dpm_resume() which invokes the driver's
-.resume callback to restore GPIO registers (GPIO_IN_POL, GPIO_IO_CONF,
-mask registers).
+On Fri, Sep 25, 2026 at 11:49:53PM +0900, Yuya Kusakabe wrote:
+> The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
+> on every packet, where the IPv6 encapsulation modes reallocate only when
+> they have to.  Ask for the whole encapsulation up front instead, so that
+> the reallocation happens at most once and only when the headroom really
+> is too small:
+> 
+>   skb->mac_len + sizeof(struct ipv6hdr) + ipv6_optlen(tinfo->srh)
+>   + dst_dev_overhead(cache_dst, skb)
+> 
+> __seg6_do_srh_encap() then finds the room it needs and its own
+> skb_cow_head() becomes a no-op.
+> 
+> Drivers reserve more than that on the forwarding path, so the
+> reallocation usually disappears altogether.  A single-segment policy
+> on ixgbe needs
+> 
+>   14 (mac_len) + 40 (ipv6hdr) + 24 (SRH) + 16 (LL_RESERVED_SPACE) = 94
+> 
+> against the 206 bytes the driver leaves.  Where the headroom is
+> smaller, as on a veth pair, pskb_expand_head() is called once per
+> forwarded packet instead of twice.  Asking only for skb->mac_len would
+> still take two whenever the skb is header-cloned, because the cow that
+> unclones it does not also make room for the outer header.
+> 
+> The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
+> distributions enable: every new head is zeroed in full, and that memset
+> alone accounts for 16% of the datapath profile.
+> 
+> Throughput at 0.5% packet loss, 64-byte frames forwarded through one
+> 2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
+> binary-searched over 10 runs of 10 s:
+> 
+>   Before: 654.6 kpps
+>   After:  965.7 kpps
+> 
+> Assisted-by: LLM
+> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+> ---
+> Changes in v3:
+> - No code change.  Rebased onto net-next, which now has 87cd6b717e40
+>   ("net: ipv6: keep room for the mac header in dst_dev_overhead()").
+>   That fixes the headroom shortfall Sashiko reported on v2, which
+>   predates this patch and affects every seg6, ioam6 and rpl
+>   encapsulation.
+> - Link to v2: https://patch.msgid.link/20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com
+> 
+> Changes in v2:
+> - Ask for the whole encapsulation headroom at once, so that a cloned
+>   skb no longer takes a second reallocation inside
+>   __seg6_do_srh_encap() [Eric]
+> - Re-measure against unpatched net-next rather than an older base
+> - Link to v1: https://lore.kernel.org/r/20260902-seg6-l2cow-v1-1-e823ce216454@gmail.com
+> ---
+>  net/ipv6/seg6_iptunnel.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+> index 61c6a27bf202..ecd8146089ee 100644
+> --- a/net/ipv6/seg6_iptunnel.c
+> +++ b/net/ipv6/seg6_iptunnel.c
+> @@ -400,6 +400,7 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
+>  	struct dst_entry *dst = skb_dst(skb);
+>  	struct seg6_iptunnel_encap *tinfo;
+>  	struct seg6_lwt *slwt;
+> +	unsigned int headroom;
+>  	int proto, err = 0;
+>  
+>  	slwt = seg6_lwt_lwtunnel(dst->lwtstate);
+> @@ -446,8 +447,13 @@ static int seg6_do_srh(struct sk_buff *skb, struct dst_entry *cache_dst)
+>  		if (!skb_mac_header_was_set(skb))
+>  			return -EINVAL;
+>  
+> -		if (pskb_expand_head(skb, skb->mac_len, 0, GFP_ATOMIC) < 0)
+> -			return -ENOMEM;
+> +		headroom = skb->mac_len + sizeof(struct ipv6hdr) +
+> +			   ipv6_optlen(tinfo->srh) +
+> +			   dst_dev_overhead(cache_dst, skb);
+> +
+> +		err = skb_cow_head(skb, headroom);
+> +		if (unlikely(err))
+> +			return err;
+>  
+>  		skb_mac_header_rebuild(skb);
+>  		skb_push(skb, skb->mac_len);
+> 
+> ---
+> base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+> change-id: 20260902-seg6-l2cow-77dc3ba41232
+> 
+> Best regards,
+> --  
+> Yuya Kusakabe <yuya.kusakabe@gmail.com>
+> 
 
-This ordering means interrupts are unmasked while the hardware is still
-in its reset state, potentially with incorrect polarities, causing
-spurious level-triggered interrupts before local IRQs are re-enabled.
+LGTM
 
-Convert the driver from legacy .suspend/.resume callbacks to noirq
-callbacks via dev_pm_ops. The noirq phase runs before resume_device_irqs()
-on resume and after suspend_device_irqs() on suspend, ensuring GPIO
-registers are restored before interrupts are unmasked.
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: use NOIRQ_SYSTEM_SLEEP_PM_OPS instead.
- v2: add __maybe_unused to fix compilation
- drivers/gpio/gpio-mvebu.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 267e6d5bacd0..27894acf8d34 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -994,9 +994,9 @@ static const struct of_device_id mvebu_gpio_of_match[] = {
- 	},
- };
- 
--static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
-+static int mvebu_gpio_suspend(struct device *dev)
- {
--	struct mvebu_gpio_chip *mvchip = platform_get_drvdata(pdev);
-+	struct mvebu_gpio_chip *mvchip = dev_get_drvdata(dev);
- 	int i;
- 
- 	regmap_read(mvchip->regs, GPIO_OUT_OFF + mvchip->offset,
-@@ -1046,9 +1046,9 @@ static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
- 	return 0;
- }
- 
--static int mvebu_gpio_resume(struct platform_device *pdev)
-+static int mvebu_gpio_resume(struct device *dev)
- {
--	struct mvebu_gpio_chip *mvchip = platform_get_drvdata(pdev);
-+	struct mvebu_gpio_chip *mvchip = dev_get_drvdata(dev);
- 	u32 edge_cache = ~0U, level_cache = ~0U;
- 	unsigned long flags;
- 	int i;
-@@ -1369,13 +1369,16 @@ static int mvebu_gpio_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct dev_pm_ops mvebu_gpio_pm_ops = {
-+	NOIRQ_SYSTEM_SLEEP_PM_OPS(mvebu_gpio_suspend, mvebu_gpio_resume)
-+};
-+
- static struct platform_driver mvebu_gpio_driver = {
- 	.driver		= {
- 		.name		= "mvebu-gpio",
- 		.of_match_table = mvebu_gpio_of_match,
-+		.pm		= pm_sleep_ptr(&mvebu_gpio_pm_ops),
- 	},
- 	.probe		= mvebu_gpio_probe,
--	.suspend        = mvebu_gpio_suspend,
--	.resume         = mvebu_gpio_resume,
- };
- builtin_platform_driver(mvebu_gpio_driver);
--- 
-2.55.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
