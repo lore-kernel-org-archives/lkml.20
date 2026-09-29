@@ -1,149 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4705F38DC4C;
-	Tue, 29 Sep 2026 08:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3F53F1060
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671040; cv=none; b=uGgjwfcyqQA+fTQ86yA/5ee+42eES9LkO3rtyX7+oQgK4AJysfbk3pk8BYBedtzhURgicSidinkpdCJEygNW1fXSvxjg4KCVdd1fXdwSw5TZQrwELfG921wUiQEwEpugygY7ktyFipb96MaPddnbgK/dLTTg5WI5rWRDX0Pl7h0=
+	t=1790671089; cv=none; b=lRztlk+HD13zoRsTAo1V7D3OemlRnXyoYmkfrURW3QnEwWDXmDXBZWcvR9JHSDt/Y+r/g+mFOqexIEhbnYSVa84pMfgU4zsBA6pC0C2Kh2PN5sWdlc02IoQnZw6uNZKhUxaZkIRiARQxD8G3WWnPecdM/9xNaZc98HzMe++AwOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671040; c=relaxed/simple;
-	bh=M2JXzE3zIwIkT1S8LxLIkp2+49+KV5l8uAfXQ+4e87c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GbzsP5BTXb1omnon3EQVqCCb6bgekYPLvIegw3B8Gtw1KM/4t5jEJJhSRaDGWLBxPAa5pU8jy741WxfpFs/hPOWpPBqGmBmP1oZoOo2ME0fZQuksaWB8cO0KJS0MFUe5s81R2ulzK5ySnBdwgtPapLlfn4ZTqffe1ofZGprn+lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q59h4zwu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671089; c=relaxed/simple;
+	bh=jbkQDh1WXQk+4/agGxITBZs89OQ7prZRbG+zWy3w8z0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A5RXEwaynchJUB71clPhkuvIozoFevTLnZEsDJf9WSqqcWJgt3KmbLpw+W274J+0+L6euh181JxgJBNmnLoRV1+fzvYXRvDUYvoDsCyZVZfgE6Dck3++cTrlY9o3MYfttTPo5sDSsAuhxSEBrn+/IMw8jPs0yUN2NGbXw3T3DsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dl8eYLq1; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q59h4zwu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D0E1F000FF;
-	Tue, 29 Sep 2026 08:37:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671038;
-	bh=YoTGfFpD5N52CwPyLgX/9cfP1trb40z1SuK53T9oW6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q59h4zwuWG/cfTJMlPtgyuqRwFJ0/wMiwUpAtO+U/9jwGWh4v8wRRpCScbzSwioPu
-	 XeBnIRy3HqEOwHFUKd46EAPuvHuLMNsyeG5Ndu0d2RCjIYEkSfqey5ngrZAIALXkqA
-	 3IzIj46Nj0AK7Z56JcxoBh5kgW5XN9sSCZK5yqeogCRUEyV6lcYmXBs81xhZTCGPh2
-	 3D5jn49dUK0t0zpRVbIWVDQbOfYsZANFgkBmzYhMEyu5YITyweiqsbXGQ4LRkTz782
-	 Rfqq2K1PSGVVMatLZinfZcwSEEpZsbvn+txrXFLVICeQWJdGDUNmIhI4wNzIwGFKnA
-	 E6NcgI+IFV9vA==
-Date: Tue, 29 Sep 2026 10:37:16 +0200
-From: Antoine Tenart <atenart@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Martin KaFai Lau <kafai@fb.com>, Wei Wang <weiwan@google.com>, 
-	Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipv4: Fix device use-after-free in ip_mc_output()
-Message-ID: <art4s86oKKYjHcQt@kwain>
-References: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dl8eYLq1"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so21029055ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790671087; x=1791275887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bVr9gxAZxb8ElKLswGJsmoMufAJERtFn02OY/z6PAKM=;
+        b=dl8eYLq1DnnyOXgi/GI6fg2PMZ0PE47JUQT+EX4KJrHZNFrdOd7xA3tus9e0GhyrJ8
+         eSrAhycrD+CEjmmRJqUzRQixoVC6WjL+ElVBsTdcaxHaiVOFYFEVKSge23haI+8JgQNr
+         Ps+mWDzC/ShzNJBTtAhG8/EHdYIwX0+wfZVwfHkawScaQQb3+rDF2pvjNTDI+ycHWKth
+         MpBR5dojYATLBFXCi9moQXEENtFjj96ClCf+hb4yf3U+HtomoBUqzHl2EcleFyp1WkT3
+         2Rlox7qZ8z4ZEb7cxCp9l5ZEuDFH9IP5TTgvE+tYd+SQbVJQNUfq6eZ4XdylVzNaVvAo
+         iUpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790671087; x=1791275887;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bVr9gxAZxb8ElKLswGJsmoMufAJERtFn02OY/z6PAKM=;
+        b=zOrnmToQk3JfX8XTDm8vrKYNgpOEgi3zEMvplOihFqJoSjNyH9QumtGa38ECMF6sZe
+         u6soaKiPo6c1LNLzR+1l2b0JiG+5aHn5wP9LDqmVafY6Fgzv8VK4LsTwwubYa8lYwy6b
+         KZ5FCyZJEuCILZdVrV0DfDQAT0neqejZTcNFvJ29NR3ExZ9+qZWeYdV66+knfueRraLV
+         RLb+73b7tcjGrIUIqjSSZy3OMGwnn3pOEClMAjAQ6Ob8tmiNeHO9Azlmi5VV0Q2Rn+XG
+         0SBGvRUJ6ZWSHbJ5Nv0ecoXSu8q+3Q7751ywxjan1DfiZryZFE6GGnkCC5RsO2wO2nZQ
+         0ByA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6a225ZO++Z6l7u84VR3BBexuYEcySJkX9khY+hxYCIjd+dsCXbH53gtISxTFReqUYObJhiwlwCKV1/mw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeb91k/E+mM/utoYdbJi/njYqbhnx7rxYcJDFuLNNkOAXw9JOg
+	kcIr22uKD4dzoF2hMLDLTBU46NlT+hB78zTCQVnpDf9KStcBVrvBLFLZ
+X-Gm-Gg: AYBFou2YZv4Oh3CgblEcjsEEwsXx2zT32DzGjrqY18rCAZ+2ooKlz3HL8hoZ9ggtCjh
+	WQLZnqAYCtN87al4z74Pr7xevldICTlk7alpooTVYETG+phWLFOaUJqQuAPM5buoOTLG+Sdw0Wi
+	Gd1XyZzxsPRnOHlAg+mD+d2vyTWx2R55uVJcr+w8GxJWczax6KIK2D5kLbjKu/NtHRVfKpEgNdf
+	LMlpytTWY/xfOYiXPfsgZNVuhfkw12VT/k/b6arNBSySKhzx782xnJCMkUsbPnk0zXCx3lSwJKU
+	tNcLH+hcPDtTgMI7ADMMSgIfJwXINpUw5XdgK98dl9r6PuNnhSyS3SCP55dYBr8L2mQ/GeTD1CV
+	pq+E2MCT87TTfhrM3xV5z5VayCViVD+BnenYoJ/S3xTMH1/uccEqcmQ7uWVQ2L0+f1i37cKwb0h
+	OTpBXIPCq/blidLakX2LKUeJ5uWoITXtCX7vsa652i45QeDromUs2eOYj07ZbRlfpUQIc2
+X-Received: by 2002:a17:902:d550:b0:2df:9a4d:650a with SMTP id d9443c01a7336-2e2c0b3b7f9mr20035895ad.29.1790671087430;
+        Tue, 29 Sep 2026 01:38:07 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fbcaa1sm53065915ad.4.2026.09.29.01.38.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 01:38:06 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v7 0/6] riscv: spacemit: Add PCIe RC controller support for K3
+Date: Tue, 29 Sep 2026 16:37:46 +0800
+Message-ID: <20260929083755.458238-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 12:25:34AM +0800, Chengfeng Ye wrote:
-> ip_mc_output() reads rt->dst.dev and stores it in skb->dev without RCU
-> protection.  dst_dev_put() can concurrently replace the destination device
-> and release the old device after an RCU grace period, leaving the multicast
-> output path with a stale skb->dev.
-> 
-> The stale device can be dereferenced by the post-routing path.  In
-> particular, a socket using IP_PMTUDISC_PROBE reaches ip_skb_dst_mtu() from
-> ip_finish_output() and reads the freed device's MTU.
-> 
-> KASAN reported:
-> 
->   BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
->   Read of size 4 at addr ffff88810921c038 by task poc/98
->   Call Trace:
->    ip_skb_dst_mtu+0x634/0x740
->    __ip_finish_output.part.0+0x22/0x2c0
->    ip_mc_output+0x287/0x930
->    ip_send_skb+0x11d/0x150
->    udp_send_skb+0x63e/0xdf0
->    udp_sendmsg+0x1235/0x1da0
->    __sys_sendto+0x32c/0x3a0
-> 
->   Freed by task 99:
->    kfree+0x131/0x3c0
->    device_release+0xc8/0x240
->    kobject_put+0x14d/0x280
->    netdev_run_todo+0x4cb/0xc70
->    rtnl_dellink+0x362/0xa90
-> 
-> Protect the whole multicast output path with an RCU read-side critical
-> section, as ip_output() already does.  Load the destination device through
-> skb_dst_dev_rcu() and keep it protected through the post-routing hooks and
-> ip_finish_output().
-> 
-> Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+The PCIe controller on Spacemit K3 is almost a standard Synopsys
+Designware PCIe IP with extra control and external MSI controller
+(IMSIC).
 
-Reviewed-by: Antoine Tenart <atenart@kernel.org>
+Add binding and driver support for PCIe RC controller support on K3.
 
-> ---
-> Changes in v2:
-> - Protect the whole ip_mc_output() path instead of only the MTU read.
-> - Load the destination device with skb_dst_dev_rcu(), matching ip_output().
-> - Use the commit that made dst device replacement RCU-protected as Fixes.
-> 
-> Link: https://lore.kernel.org/r/20260927071051.3693368-1-nicoyip.dev@gmail.com/ [v1]
-> 
->  net/ipv4/ip_output.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-> index a24cc8ee11d3..cf44597896cd 100644
-> --- a/net/ipv4/ip_output.c
-> +++ b/net/ipv4/ip_output.c
-> @@ -367,8 +367,11 @@ static int ip_mc_finish_output(struct net *net, struct sock *sk,
->  int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->  {
->  	struct rtable *rt = skb_rtable(skb);
-> -	struct net_device *dev = rt->dst.dev;
-> +	struct net_device *dev;
-> +	int ret;
->  
-> +	rcu_read_lock();
-> +	dev = skb_dst_dev_rcu(skb);
->  	/*
->  	 *	If the indicated interface is up and running, send the packet.
->  	 */
-> @@ -406,7 +409,8 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->  
->  		if (ip_hdr(skb)->ttl == 0) {
->  			kfree_skb(skb);
-> -			return 0;
-> +			ret = 0;
-> +			goto out;
->  		}
->  	}
->  
-> @@ -418,10 +422,13 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
->  				ip_mc_finish_output);
->  	}
->  
-> -	return NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
-> -			    net, sk, skb, NULL, skb->dev,
-> -			    ip_finish_output,
-> -			    !(IPCB(skb)->flags & IPSKB_REROUTED));
-> +	ret = NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
-> +			   net, sk, skb, NULL, skb->dev,
-> +			   ip_finish_output,
-> +			   !(IPCB(skb)->flags & IPSKB_REROUTED));
-> +out:
-> +	rcu_read_unlock();
-> +	return ret;
->  }
->  
->  int ip_output(struct net *net, struct sock *sk, struct sk_buff *skb)
-> -- 
-> 2.43.0
+Since v5, multiple vendor fix are included in this series, you can find
+in [1]. And this version required [2] for phy bulk data support.
+
+[1] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+[2] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
+
+Changed from v6:
+- https://lore.kernel.org/linux-pci/20260923015016.64069-1-inochiama@gmail.com/
+patch 6:
+1. Keep PERST# when init failed like the deinit.
+
+Changed from v5:
+- https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
+patch 1:
+1. Return ENODATA for no device data found.
+patch 2:
+1. Add power_on/power_off suggested in [2].
+2. Add zero phy check in the driver.
+patch 5:
+1. Add K3 device description.
+patch 6:
+1. Update comments.
+
+Changed from v4:
+- https://lore.kernel.org/linux-pci/20260709040027.958400-1-inochiama@gmail.com/
+patch 1:
+1. fix comments
+patch 2:
+1. Use phy bulk data to simplify the code
+patch 3:
+1. Rebased to latest master
+patch 6:
+1. Apply several fix from the vendor code
+2. Use separated init/deinit function for K3.
+3. Add some error handle for K3 init function
+
+Changed from v3:
+- https://lore.kernel.org/linux-pci/20260703020003.485436-1-inochiama@gmail.com/
+patch 5:
+1. Add missing interrupt/interrupt-names check for K1
+
+Changed from v2:
+- https://lore.kernel.org/linux-pci/20260517014841.254085-1-inochiama@gmail.com/
+patch 2:
+1. Use unify PCIe phy get/enable/exit function for both K1 and K3.
+patch 3:
+1. New patch for updating device id for both K1/K3
+patch 5:
+1. Reuse binding for spacemit,k1-pcie-host
+patch 6:
+1. Multiple cleanup for the logic already generalized in the previous
+   patches.
+2. Use generic description for the Kconfig entry.
+
+Changed from v1:
+patch 1:
+1. Remove post_init callback.
+patch 2:
+1. Fix devm_kmalloc_array arguments order and error check.
+patch 3:
+1. Apply Rob's tag.
+2. Change check from oneOf to anyOf.
+3. Fix spelling mistakes in commit message.
+patch 4:
+1. Add comment about PHY handle.
+2. Remove interrupt "app".
+3. Fix spelling mistakes in commit message.
+patch 5:
+1. Remove all logic related to link up interrupt.
+2. Clean up all unused macros.
+3. Fix devm_kmalloc_array arguments order and error check.
+4. Remove unnecessary start_link logic.
+5. Make all magic number as a macro.
+6. Fix spelling mistakes in code and commit message.
+
+Inochi Amaoto (6):
+  PCI: spacemit-k1: Add device data support
+  PCI: spacemit-k1: Add multiple PHY handles support
+  PCI: spacemit-k1: Add device id update helper
+  dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
+  dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
+  PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+
+ .../devicetree/bindings/pci/snps,dw-pcie.yaml |   7 +-
+ .../bindings/pci/spacemit,k1-pcie-host.yaml   |  55 +++-
+ drivers/pci/controller/dwc/Kconfig            |   4 +-
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c | 237 ++++++++++++++++--
+ 4 files changed, 270 insertions(+), 33 deletions(-)
+
+--
+2.55.0
+
