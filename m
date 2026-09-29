@@ -1,62 +1,64 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D442299922
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBEA3B7765
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648545; cv=none; b=uWXWvWqh9MZ66M4nuRPExPhTV65XjKGzS8s57GO4TRSsXHL4rBh9KjfBA6hOURRTv4SDfAypnsJwHeuYujzHvOPGz4GqArt17we78+F+zS4mVdg5dW1Z/iWpcoQqY8lNu1CjynJQGK9Ld9DX3pKjfiNOQRE7t3+IoZ6SQm8/Xo4=
+	t=1790648548; cv=none; b=OTZ62uIa5Fc4oOh/MWNskE4ycJY/NUW/ZogRCBpTZVeb7XwekxJjCFdjoc/aoTPKvZ3qyUrrlkK/0Rmrphx5LKpghIC/ES/kPtARsTApAYSDTeffDDQEM5Qin9zhQW84nDDz61bGFPMUEckVBjmQ+sgtwhZWBkP6kFUWvNtO2pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648545; c=relaxed/simple;
-	bh=kyMAlxwnOfHTSNvgJBI7qVIQ6wPRvlwE7lq+wZpZTko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eEMQayPSiIa9toSyK8QfCxpgan2UwVkWwRPq3uPE/hp9g2UdZtxpC/EB9C0MBihs1ehPTGRaf/0oCEhWu77mZrgVYM+Z4Ow3ojxgy7E1+IRJOlKWI8a/OOw1All31VZyQIJD6ZJY4Ny1bwo3Ym7OGaL9utmhFuT6QbHagYTbpk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GTtK60Ze; arc=none smtp.client-ip=74.125.231.170
+	s=arc-20240116; t=1790648548; c=relaxed/simple;
+	bh=4ISF6jBUzuFMOlOkasRP/H1VwejMBsAIaKXWOTE4qM8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BvH9w0hBBMe/kmsr8ANa5L/XbwIlXp7K/a/ERCcvCzPIkWDuqAgG9EZ9O6SCfOzBZiKV3IJgpxc0cRVW/z2FqmcgZYckRptHGlFxgrBaNITXcFeniyCQLrPV8bGEidHnTNVyMibuEcHBSZM9v2TdlCF/VKe+WaKHeHNsFrjFMGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sWZxdUxV; arc=none smtp.client-ip=74.125.231.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GTtK60Ze"
-Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d79b1f928cso1157591eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:22:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sWZxdUxV"
+Received: by mail-oo2-f38.google.com with SMTP id 006d021491bc7-6d89a3ebc93so388097eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:22:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790648543; x=1791253343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HvpfcFKcE/JRoU9XlOpiZhwmSIMSz6rVCTYuDZOglLg=;
-        b=GTtK60ZeHzr7YsBkImQU3R8i2L/dLqZ8Oouz7TEMx62Ay1S2KsH/Vgld1B8/7UNVDN
-         l8A1nPKi8eNQBtdD1VeRqzOGIm1avYEhX6boQxS6BzsUWc/L1IpARlu/LGCWmkTVz0hd
-         L5VLTszNWzzF9etY3/2oE2dKEpQhsLylrotRFrGljaMWivyNI7zM2TQPy1czuU256d0A
-         tppqWIctLkS1N98tfDx7wC074EJ0nZtJypYGUPY7YCK8naf0XtVDHKzMmgsSSuejP2jE
-         Y+IxNfduLScpgpkIt0a28ODG497tfYz5ZiEvnpqbXdMOVCI4g61090qIaxmlub3SaT92
-         sY/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790648543; x=1791253343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790648545; x=1791253345; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HvpfcFKcE/JRoU9XlOpiZhwmSIMSz6rVCTYuDZOglLg=;
-        b=kPEerA2LSRz2i9i4Btpk3MztLFnCqWcOLx1rtGkuGvjxiklGq96mm1bESsVeMVOHaA
-         Eu5qkX1PHpDPuseN+IDM/twmjKtvMwaor7qUIZ7i5Zwe+sOcw0xAY/C0SDNNIc87o+CH
-         cgl9xIDuYekJ14xfEXT6StSdncxm0G5UynxyVOwiQkkzClapl2VFZb8HnnlmzO24wEmk
-         YGrOQOHYnsCxP9ttTRAKJvcvPjd+FlV6/9cp3h83C7HirRF3ybbNiWaFljEVNuwrjCq0
-         FS/MbWdusnYkOQjvAXRGJ4az2ff2lUiKhR8Ozxs5ewYHTEPqIImBr6gj+24H0PDbXsqx
-         Dabg==
-X-Forwarded-Encrypted: i=1; AKwUvByd204g9/hFCXJOlPwLzkyo4k4wRWq6kIVqHY9qATdrbOBSHKijZozlLCPUckw0tKFgjW3gHbclC9B8Flk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFLBvKglaegS1fEkKznzVq2Ey6dI7LuYn29FZGx44wZedZH5nL
-	SuXUQot/S5pOdXx0FKWDqp5p8q11q37dSf5v6yAD1onqVppbDY4F7UU+
-X-Gm-Gg: AYBFou35yz7RwwVRUbzPd8PZ5SPf+IpMDXdkWXH6uputA41iKZr4gFORS+NXhlS9EM4
-	Z7hjXNWG8NSC8amKEQK7Bwes06YHME3+//5y1gRkA13YpO3do/TJXbDlkObdXCRfhCYqPZx9Hkx
-	h+VoCLo++fPvIsmPGT/r2EcZ6zQQ8SQwcixQ9P79bOT9TUa9bs5kgdMeyThf+ijkUPm0a5/+Opd
-	AHHA+EhFSN5usSFS24PBaS3F+tFiqcuYQqJTJ4AJ/pow77X1G40a36ELSShCTIppkFtXMQNGGzP
-	QzsLZJsswufjkjP44CBw88972GRIljRRaml2G9Qj49Hq5cLndnfpqCEEock3juwN/kzXG2mlpaP
-	yRVzVPVG+4oCPOzkaWN13wFPYhoOWKljRDCjbtmKYFNoV1IvdZhm0RcfyGNqFQKCueAf9xbzsuc
-	yKIMtJW46b8SsBn3zneIVILoi1x+XIfQdAbmKxDzFmybcdNsR2DLD25ZekvjTbmIJUcUVnRfM9A
-	28UFUUGukPiXXZ2PjvG4kuh7B6CWNe1wCpbSbAhVA==
-X-Received: by 2002:a05:6820:1c8d:b0:6d8:6b04:cf39 with SMTP id 006d021491bc7-6d86b04d181mr5249340eaf.51.1790648542725;
-        Mon, 28 Sep 2026 19:22:22 -0700 (PDT)
+        bh=MvEVVHaL/fx0Jmvu8S0ME41C0yUaeIVIsmEstAo+u5U=;
+        b=sWZxdUxV0UC8bFPL/r1Rn/KxVmuAQ8tH7nieO8Tg10topZOkG+4NWwuOUVwMLGfNyr
+         lY0jF99HoIbXzLbt3oVslGtYLzfqLIlMUljvbVoskJjzdFTihCHrchp5MZxGdP7AJs0T
+         Pg6Dj2bff1yOD+yqPPlca5tY3bwKMRZQnaU1jrnbJVPwmVo8DS8/SvchaQsmAoqrZI7s
+         FfLkoDdoe8tHHtA1pzBusLo89rgN0DeDYChbInw1Zp7oufhdqWSNXA3XR+6qskxNwLk/
+         dxVcXG0d2rTktUkzzsNlPw3r7nIyTEv1miEst68PJmakIwU/gfHz3d8K4VR+VMOfrm3b
+         Gnhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790648545; x=1791253345;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MvEVVHaL/fx0Jmvu8S0ME41C0yUaeIVIsmEstAo+u5U=;
+        b=NwwD7mjd4XGTKJb8IEpgIr6htXRjQX1zynhU7aTdMmbDMxzwHm4YqAAY3Qbk/HdHjj
+         1WAQIDdsOqxKsMSdcGx+AKkJiMhASLY01plrFkumcZlaKgEuT/rT+8oJQsCnxqEp3PJh
+         F83ClKHoZXjeyrdVxawokJCa+dl1b0KclBCRwB1izseZXHiahTZXUCsg8lOUGjD3oR2q
+         b1zeDUdjyjoFGSvguu6bqA9cd9muj8Jbn9dNoB2HGxqDUwT4MFgFZoTdslvVXJfiuDcj
+         PEufp1O/Sj2MozlcUXEECftcB6vh0q9hn3pn0c0j8w+slUs1f2mqlQhfR0hz7LL0Dehp
+         ZIpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpJi+MQdiSSIJetNzNyDjXXPqF4tkP5s8yATSQd2r/nYSq1HldHBeJIPnN594kn681bDSaf8cLcyJssoU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k44UZXED/F7krYCQ+hvy7bBa4BCQD9W36L5iP7ATeOILMgOcl+
+	1y3VQemihcHzjS6GQYnKiwoxGfCRWtfT9iDdGBmM4Bp3mFB1STNu3MG8
+X-Gm-Gg: AYBFou18oPwOvGcgW/Cj3vas67E6iwGoIKt3ZX9O6rG+Xt6I19UlgGjZGyf69gyry1q
+	CYM5FTnJRluspjmUGKhuAe6aILkGWEk63fF24bNDbm7xNmApDRmEW1Bhw96ZdLog62WhkxOD/oy
+	XDsg9rF/aTqJdB1Do7dojNBbF9ZlB5oUYNBQuT1XFBhCaqkRAGiTXbJz4RLM8X/kOHifbvYtd95
+	IILz4dJCSYrCeKXyV7THF/aKTMbD4RFcBrq5pMUgShE2sjDyFKhnuv9MXB0po2IT5Rcq3SsZItT
+	Y24RGBvY8qMnku+YLA7Q3Rth/MJfr/9U7WuZUHILLtrdvcxGXP7SX6KIBUvEeP8MkuUnTSpGwcQ
+	Ho8+in0Gcy8XiG78k3tnON4wyI/6tVhyxZXFHZWRfXKAs6IvXkgG6etPYmbX8SJsFgxwILvkwLW
+	0aJwCKYRc3uTcoHmoLyIOSsgw1k7ZNSPCEOGPLOukSROvDJG4mF9atkxJzE6K1f/RtjNxTl0Vyd
+	uqHRFyTY0RZ/54EnbZvOmHf5ywJbXQfk24Gazcu
+X-Received: by 2002:a05:6820:c8c:b0:6d8:fa81:61ec with SMTP id 006d021491bc7-6d8fa8175dcmr4423691eaf.22.1790648545511;
+        Mon, 28 Sep 2026 19:22:25 -0700 (PDT)
 Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d883395632sm6753798eaf.12.2026.09.28.19.22.20
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d883395632sm6753798eaf.12.2026.09.28.19.22.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 19:22:21 -0700 (PDT)
+        Mon, 28 Sep 2026 19:22:24 -0700 (PDT)
 From: Danish Khateeb <danishkhateeb03@gmail.com>
 To: Rodolfo Giometti <giometti@enneenne.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -64,11 +66,14 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Calvin Owens <calvin@wbinvd.org>,
 	Yibo Tan <lhfff@tju.edu.cn>,
 	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 0/2] pps: generators: fix use-after-free on unregister with the file open
-Date: Mon, 28 Sep 2026 21:22:17 -0500
-Message-ID: <20260929022219.212024-1-danishkhateeb03@gmail.com>
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] pps: generators: fix use-after-free when closing a removed device
+Date: Mon, 28 Sep 2026 21:22:18 -0500
+Message-ID: <20260929022219.212024-2-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929022219.212024-1-danishkhateeb03@gmail.com>
+References: <20260929022219.212024-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,36 +82,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unregistering a PPS generator while /dev/pps-genN is open leads to two
-use-after-frees, one per patch:
+The cdev of a PPS generator is embedded in struct pps_gen_device, but
+nothing ties the lifetime of that structure to the cdev: pps_gen is
+freed by the release function of its device, and an open file holds a
+device reference only until pps_gen_cdev_release() drops it.
 
-1/2: closing the file frees pps_gen in ->release(), and __fput() then
-calls cdev_put() on the cdev embedded in it. pps.c had the same bug
-before commit c79a39dc8d06 ("pps: Fix a use-after-free"). Fixed with
-cdev_device_add().
+When the generator is unregistered while /dev/pps-genN is open, that
+put_device() drops the last reference and frees pps_gen, and __fput()
+then calls cdev_put() on the freed cdev:
 
-2/2: the ioctls keep using the driver's pps_gen_source_info: TIO's devm
-memory after an unbind, and pps_gen-dummy's module data and code after
-an rmmod. They now return -ENODEV, as PPS_KC_BIND does for a removed
-PPS device since commit 3649f9a6b897.
+  BUG: KASAN: slab-use-after-free in cdev_put+0x53/0x60
+  Read of size 8 at addr ffff88801383e138 by task ppsgen64/149
+  Call Trace:
+   cdev_put+0x53/0x60
+   __fput+0x745/0xad0
+   fput_close_sync+0xd9/0x1b0
+   __x64_sys_close+0x86/0xf0
+  ...
+  Freed by task 149:
+   kfree+0x25a/0x6d0
+   device_release+0xca/0x3c0
+   kobject_put+0x169/0x320
+   pps_gen_cdev_release+0x51/0x80
+   __fput+0x36a/0xad0
 
-Yibo Tan's "pps: generators: Pin dummy provider while a file is open"
-[1] keeps the dummy module loaded while its file is open. That covers
-only the dummy rmmod case; a device such as TIO can still be unbound,
-so 2/2 is needed either way.
+pps.c had the same bug, fixed in commit c79a39dc8d06 ("pps: Fix a
+use-after-free").
 
-[1] https://lore.kernel.org/all/20260911134952.648064-1-lhfff@tju.edu.cn/
+Fix it the usual way: embed the struct device in pps_gen_device and
+register both with cdev_device_add(). This makes the device the parent
+of the cdev, so the cdev holds a device reference until the last file
+is closed.
 
-Danish Khateeb (2):
-  pps: generators: fix use-after-free when closing a removed device
-  pps: generators: don't use the driver's info after unregister
+Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
- drivers/pps/generators/pps_gen.c | 94 +++++++++++++++++++-------------
- include/linux/pps_gen_kernel.h   |  4 +-
- 2 files changed, 60 insertions(+), 38 deletions(-)
+Notes:
+    Tested in QEMU (virtme-ng, x86_64, KASAN with kasan_multi_shot, lockdep)
+    on v7.3-rc5. pps_gen_tio needs ART and can't probe in a VM, so the test
+    uses a small platform driver that registers its generator the way TIO
+    does. Unbinding it while /dev/pps-gen0 is open gives the cdev_put()
+    report above; with this patch it is gone.
+    
+    The new registration error paths were run too, under KASAN and kmemleak:
+    a 17th generator (-ENOSPC), and failslab fail-nth over each allocation
+    of a bind (dev_set_name(), cdev_add(), device_add()). No reports and no
+    leaks.
 
+ drivers/pps/generators/pps_gen.c | 63 ++++++++++++++++----------------
+ include/linux/pps_gen_kernel.h   |  2 +-
+ 2 files changed, 32 insertions(+), 33 deletions(-)
 
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index 5e207c75e340..059f4fe6c9b4 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -63,7 +63,7 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 
+ 	switch (cmd) {
+ 	case PPS_GEN_SETENABLE:
+-		dev_dbg(pps_gen->dev, "PPS_GEN_SETENABLE\n");
++		dev_dbg(&pps_gen->dev, "PPS_GEN_SETENABLE\n");
+ 
+ 		ret = get_user(status, uiuarg);
+ 		if (ret)
+@@ -77,7 +77,7 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 		break;
+ 
+ 	case PPS_GEN_USESYSTEMCLOCK:
+-		dev_dbg(pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
++		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
+ 
+ 		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
+ 		if (ret)
+@@ -89,12 +89,12 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 		struct pps_gen_event info;
+ 		unsigned int ev = pps_gen->last_ev;
+ 
+-		dev_dbg(pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
++		dev_dbg(&pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
+ 
+ 		ret = wait_event_interruptible(pps_gen->queue,
+ 				ev != pps_gen->last_ev);
+ 		if (ret == -ERESTARTSYS) {
+-			dev_dbg(pps_gen->dev, "pending signal caught\n");
++			dev_dbg(&pps_gen->dev, "pending signal caught\n");
+ 			return -EINTR;
+ 		}
+ 
+@@ -121,7 +121,7 @@ static int pps_gen_cdev_open(struct inode *inode, struct file *file)
+ 	struct pps_gen_device *pps_gen = container_of(inode->i_cdev,
+ 				struct pps_gen_device, cdev);
+ 
+-	get_device(pps_gen->dev);
++	get_device(&pps_gen->dev);
+ 	file->private_data = pps_gen;
+ 	return 0;
+ }
+@@ -130,7 +130,7 @@ static int pps_gen_cdev_release(struct inode *inode, struct file *file)
+ {
+ 	struct pps_gen_device *pps_gen = file->private_data;
+ 
+-	put_device(pps_gen->dev);
++	put_device(&pps_gen->dev);
+ 	return 0;
+ }
+ 
+@@ -151,19 +151,15 @@ static void pps_gen_device_destruct(struct device *dev)
+ {
+ 	struct pps_gen_device *pps_gen = dev_get_drvdata(dev);
+ 
+-	cdev_del(&pps_gen->cdev);
+-
+ 	pr_debug("deallocating pps-gen%d\n", pps_gen->id);
+ 	ida_free(&pps_gen_ida, pps_gen->id);
+ 
+-	kfree(dev);
+ 	kfree(pps_gen);
+ }
+ 
+ static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
+ {
+ 	int err;
+-	dev_t devt;
+ 
+ 	err = ida_alloc_max(&pps_gen_ida, PPS_GEN_MAX_SOURCES - 1, GFP_KERNEL);
+ 	if (err < 0) {
+@@ -171,46 +167,52 @@ static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
+ 			pr_err("too many PPS sources in the system\n");
+ 			err = -EBUSY;
+ 		}
++		kfree(pps_gen);
+ 		return err;
+ 	}
+ 	pps_gen->id = err;
+ 
+-	devt = MKDEV(MAJOR(pps_gen_devt), pps_gen->id);
++	/*
++	 * From here on pps_gen belongs to its device and is freed by
++	 * pps_gen_device_destruct(). The cdev holds a reference to the
++	 * device, so pps_gen stays around until the last file is closed.
++	 */
++	device_initialize(&pps_gen->dev);
++	pps_gen->dev.class = &pps_gen_class;
++	pps_gen->dev.parent = pps_gen->info->parent;
++	pps_gen->dev.devt = MKDEV(MAJOR(pps_gen_devt), pps_gen->id);
++	pps_gen->dev.release = pps_gen_device_destruct;
++	dev_set_drvdata(&pps_gen->dev, pps_gen);
+ 
+ 	cdev_init(&pps_gen->cdev, &pps_gen_cdev_fops);
+ 	pps_gen->cdev.owner = pps_gen->info->owner;
+ 
+-	err = cdev_add(&pps_gen->cdev, devt, 1);
++	err = dev_set_name(&pps_gen->dev, "pps-gen%d", pps_gen->id);
++	if (err)
++		goto put_dev;
++
++	err = cdev_device_add(&pps_gen->cdev, &pps_gen->dev);
+ 	if (err) {
+ 		pr_err("failed to add char device %d:%d\n",
+ 				MAJOR(pps_gen_devt), pps_gen->id);
+-		goto free_ida;
++		goto put_dev;
+ 	}
+-	pps_gen->dev = device_create(&pps_gen_class, pps_gen->info->parent, devt,
+-				     pps_gen, "pps-gen%d", pps_gen->id);
+-	if (IS_ERR(pps_gen->dev)) {
+-		err = PTR_ERR(pps_gen->dev);
+-		goto del_cdev;
+-	}
+-	pps_gen->dev->release = pps_gen_device_destruct;
+-	dev_set_drvdata(pps_gen->dev, pps_gen);
+ 
+ 	pr_debug("generator got cdev (%d:%d)\n",
+ 			MAJOR(pps_gen_devt), pps_gen->id);
+ 
+ 	return 0;
+ 
+-del_cdev:
+-	cdev_del(&pps_gen->cdev);
+-free_ida:
+-	ida_free(&pps_gen_ida, pps_gen->id);
++put_dev:
++	put_device(&pps_gen->dev);
+ 	return err;
+ }
+ 
+ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ {
+ 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+-	device_destroy(&pps_gen_class, pps_gen->dev->devt);
++	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
++	put_device(&pps_gen->dev);
+ }
+ 
+ /*
+@@ -244,18 +246,15 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
+ 	init_waitqueue_head(&pps_gen->queue);
+ 	spin_lock_init(&pps_gen->lock);
+ 
+-	/* Create the char device */
++	/* Create the char device, this frees pps_gen on failure */
+ 	err = pps_gen_register_cdev(pps_gen);
+ 	if (err < 0) {
+ 		pr_err(" unable to create char device\n");
+-		goto kfree_pps_gen;
++		goto pps_gen_register_source_exit;
+ 	}
+ 
+ 	return pps_gen;
+ 
+-kfree_pps_gen:
+-	kfree(pps_gen);
+-
+ pps_gen_register_source_exit:
+ 	pr_err("unable to register generator\n");
+ 
+@@ -289,7 +288,7 @@ void pps_gen_event(struct pps_gen_device *pps_gen,
+ {
+ 	unsigned long flags;
+ 
+-	dev_dbg(pps_gen->dev, "PPS generator event %u\n", event);
++	dev_dbg(&pps_gen->dev, "PPS generator event %u\n", event);
+ 
+ 	spin_lock_irqsave(&pps_gen->lock, flags);
+ 
+diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
+index 6214c8aa2e02..f26f6aac000d 100644
+--- a/include/linux/pps_gen_kernel.h
++++ b/include/linux/pps_gen_kernel.h
+@@ -54,7 +54,7 @@ struct pps_gen_device {
+ 
+ 	unsigned int id;			/* PPS generator unique ID */
+ 	struct cdev cdev;
+-	struct device *dev;
++	struct device dev;
+ 	struct fasync_struct *async_queue;	/* fasync method */
+ 	spinlock_t lock;
+ };
 -- 
 2.55.0
 
