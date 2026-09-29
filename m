@@ -1,266 +1,205 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022135.outbound.protection.outlook.com [40.107.75.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7058353A81;
-	Tue, 29 Sep 2026 06:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662987; cv=none; b=mFNi+c4uzFOkih6276ED+QlSOyFj2t80RlT4tD2QytVMu8XM4nDL/ENljZ0CXflr124r1VVDVHeFCPTH0Swm1kb8YiQ0TC5guWUhfJAza9i32TruBGq6bjNqWuJpJl8neo/Ha/PbKu/DRVoAKQ9bVy2YBIfZylXRbS/4FqLe9c4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662987; c=relaxed/simple;
-	bh=xU1e3+DxEqKhMCr8ylodRzXGFmv8z9Q3jNQYSBiVi9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hkq7MKHf92OzzlOXGrM+75Fn8vLeJh7TEvb1ea5IZ67bGRfXukRxKR7J4MmYvMf4qxHStQtSbaP1DQ48DRVaLeivXw/e0qL1bWZsw5iZBRuJt7DsjSOW2GuibqhwXQj2XCErykcxOGN0Orxq2zkYt3efuoHq/GEd0V/tjH2TdrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oW/UjGUp; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0n50FDTI; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2450B36A363;
+	Tue, 29 Sep 2026 06:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790663018; cv=fail; b=cHyRKJ7G/ysTdhq1A2nlyOf6phBpfcIHK6XPTsGpzO41l0bSiTd5xkcvfNrmTPUxVukcAJdSZpWix8p330vqv6n8V9qP6tSafihacLthNhaeyOkGJEpxmATl/5oo1s/5SeS5nE0mz6gseXBmUTrz1A+Ypzyackxe5K94GU2Ayps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790663018; c=relaxed/simple;
+	bh=jpiVqFws4jirgE7zWZ+7bmyMjDhu6Y2Ll0jPWkRgR8E=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=sa7CVlhpUtt4zx727nnhAvQ16yj9V3sdpJIDvHd2VEPuwmRKQ4ew5zQbFAmIRJWG/9zw/F0R7R6wEcELEVAi/y1kf8rUls72qVg+wNk/76NGDhqvOahiE71cxuWLWrpP+smM70pCBp7xILgjtyhEh4j+3sQj98MfD1eaCGUTdxM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=ImkQsMJZ; arc=fail smtp.client-ip=40.107.75.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oW/UjGUp";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0n50FDTI"
-Date: Tue, 29 Sep 2026 08:23:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790662983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GdNEg87cU5+xb7cXOD++DHDpoblLKSzYbAs+d70mx6I=;
-	b=oW/UjGUpOjgWJ91A2k3l5hJ28xjAqb+bgDSVKLkwXH6v+HoDpWc8AFWheJmmnT+54/7yW8
-	nzHQDZtlw7buRVlLI4Mgi4YRmhIk/uJNxOiJTUKwIkQlc8dmpN1UHkTZK+vAg2eJ4wDgMy
-	XuMS7PKh9Cc8cLFC9QegobY//v4cn8xRunBRzLg2Co2jFwcuFp6x9C0aze/i+JgDKuN8l0
-	ye4JT81945lm8w0uW2u2KWxw0IDX9gUcVv9L0i3RZI+rozNzrTCYGQ9jclxcrGVwZZEuhq
-	lp6OArdxbJsJL/0ZUrR758EgNSdr886B4xs/ipV8BYYPXoKM4OJ20Q/2a7ACrQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790662983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GdNEg87cU5+xb7cXOD++DHDpoblLKSzYbAs+d70mx6I=;
-	b=0n50FDTIC6PS0lvXTfWCuXcRCS1DLyNzKvVH27YlIV+E1TVqPmmkbVl9PvUZx7uf8zP2Gg
-	oNXeI4YWHJBudrAA==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Bill Wendling <morbo@google.com>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] fortify: add KUnit tests for __counted_by and
- __counted_by_ptr
-Message-ID: <20260929074930-f1e4add2-f8ca-43db-85fd-83be0e40c676@linutronix.de>
-References: <20260928231737.2092716-1-morbo@google.com>
- <20260929010031.2186255-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="ImkQsMJZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sXZ/Njk4x+XUbQpeTRaSN7QHxwUTRoDUWqIjSxM4Jk8AOoghZqEAVWc+fI9bCotSTNgpbF/gG966iQ+Aw/3HNMJfuxwVbv7yeIw9aAoRq100b7Jf7JhOxJ/GY9rsh77b9uW5gD9slDdacZ++4XY1hybso4/uhmKu7ZOTdoDAL8kh67s8uqOInFXnevpnwq4QcSZgGQJyFAG0Vlmbl8vIOCKpdMDOhkx6JF3yLJU+tgKuDaIAE/u5B+3lI7bjxWCPya1xsh6qGzfYj3dWJJaKM9dqr483/B/jPmIFPfA6p0DrZhqnwIDo7hifkl6WVpp0znbdKKQclCTh8ONXFy45fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QVItQ7EpBEcXIyxrf9jc1MiWuvsuSobhZRlgmLBJiBU=;
+ b=P44GLdckxcVjVl42I+5gksAIeuHmsY7/VWJd51QvqZSg65TUwk/c2C/knJvg+RHHTHHzantSMN97sfv3CwZR1wpcVolSKy1kOm+cusB1s+hbg0VnNSiL0fYz/C287ZK3TVoFOw0iwNXgYunZbM19Fz8HMuaJBhTK6eq/1pr410lpJBpJ0cWvjxhGh4TQ8SJilKQNTVsx7lnWJD0SKZ5qWA7pAXEHXw6Gb0KPKYLDaib1g0buEu1cLdqEcoFmIF+/QrrGe+0WRLP6t0iTFp456Ua6fJkZDuIC2jUr2p/pDT+N2EOXz0crbkymNugXJx/gA4iVpp/lEwBNmW0HTlrnaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QVItQ7EpBEcXIyxrf9jc1MiWuvsuSobhZRlgmLBJiBU=;
+ b=ImkQsMJZ52hK6Hp4tok4PIkwOGux3NN4cBEVizk1duuF0i7GBKIW9RhVoMJMKUO8XUEcs8+FNF6+3/TuPXW9WYis2JRliH4w3Vfj6Gz+UrvNgtTeUGTmwOTicArP15Ceri++XrqZyLRBB4IZIjv6EbCvTvpdtyM1ggvskzyfjHNyGRWoOrOLu09wwozMs+viO9htMgzfR0DKi7x/lL4kA3JASIYPLLq6SOQs84tcTkNxFE1ZTjsVUEd9qmt3k2IBC03uoddRwxFsirKwpdnlsVHyrFnKGgKatbJhAct0NBMfXiKZBi8UdrDV6Y4jd+EQSuIfhypciOHtw87haZP8Gg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by TYZPR03MB7289.apcprd03.prod.outlook.com (2603:1096:400:41f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 06:23:34 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 06:23:34 +0000
+Message-ID: <ab0e83e6-c0a1-4c8d-847d-81628c49a436@amlogic.com>
+Date: Tue, 29 Sep 2026 14:23:30 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
+ <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
+ <20260928-efficient-secret-manatee-2fcca6@quoll>
+ <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
+ <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
+ <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
+ <3b1e23f0-76d5-489c-a5eb-0774a21b0f63@kernel.org>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <3b1e23f0-76d5-489c-a5eb-0774a21b0f63@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SE2P216CA0019.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:114::15) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929010031.2186255-1-morbo@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|TYZPR03MB7289:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40ba645f-7b89-416f-68e7-08df1df23050
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|7416014|23010399003|10067099003|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IW8IRDN2T9YhdvDzF25Uv+cjbesyGerLV20+7TgeUqvr0/WQfzXB+Uc4pzelCb1dW6JZy9Bdesmi+LMgbsajEhrjIjAbii8GTCTfqHScASHqxFuUmojUbeJPu1UqFzzPuxwb+S2DKAvWAVL/S9iWhVeR964KiEiRgRrnmOxHRkTs7tk/5C0wBel9W57q1dKibh6Z0p2n60Ij0i/iaBCZ+xvG8+j7oOXOiwBOY+QYEgBDYN+bWiGk+GeSZCSTtkZeLX0NQLoMr4zNYO8jYiy5JeRnv89lWnTq/xDmESqK3G66mdDlU8VMTvFiTcfgZGWpmc+UPhgWW24ItLzJXairHrsSiEhVR4wavasRWb80YSJXPNYxEOCIDsaNEzhiRSSIdWV3FIU1i9rjMKFITjibfJai50IHWW6v/oYc5hU1nbW4Mk4rFrc/gfMYp1vXOCyXIOB/xNBiSM++gRDxquzfoGbMaAHVY+I1XHAhwgnzlmNVHDbVF8aXLn837Ov3zGOkqFXZz5M1q6s94KQfTCHCO9ho+Y+WE1C/NYcaye4AgKvXIqTwZxhIGkwAfS8nosZg6Y6zUim+XEJJNdDymKAXuHRVGaCWYXzFZjDUNL296oc/nWqcX5+1uljHKOnLYgO0
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7416014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aVBlVkdzNm5NdkwyVGNUZDkrTnVvMW0vaHlvMTNrVU5nbUkvMFQ1dDdSUkFa?=
+ =?utf-8?B?WmVVbmNuOE9DOCsrV1ZGUjZGSGNYL2ZIaFQ5MjN4UW5ybU5iT1VKbUlmMEsx?=
+ =?utf-8?B?T2kweFJ3ZzJwZmJPdklBcGh0ZlZpZWtBODNkSDh5ZDVaT25DUEQ4Zk82NDBU?=
+ =?utf-8?B?bnM4UmRHZVdPK1RhMkNyTEp1Z1Vsb1FxM1EyVVNiek1DcXVPWGVTR2xQL1U1?=
+ =?utf-8?B?L0dLMitDMkYzcGYzNWowdWZseklyelVReC9ibkxjbjNZazA1cWc3V3NIWGpR?=
+ =?utf-8?B?TDE1Sjc0NlVqdnFESlhQQXVHdk9WZkFuSFpuVHpDR2xDblY5VGhqdWhmY0dO?=
+ =?utf-8?B?VlgwL08vUFIwYW10cjNUeGN0WTUzWGdjb1dpVlZuZFFaUG8wYVV3SnNiTzZz?=
+ =?utf-8?B?dG9ZbnlrZWU4QTg2WWxlSEVPZ05LMW5lbWFRQTJka2preTlIbitkcElJMFNP?=
+ =?utf-8?B?UCs2TzJrZk93TjZ6cXovSVMvZm0ySnRkc1FVMHZTWWtLZHlIOEcrN0dSbTl4?=
+ =?utf-8?B?eS9odTJNR3E3UUhjWWE3RkNZUjhySEVXSE9iLzlqV3ZTb3RwRURrUURtT2ha?=
+ =?utf-8?B?QysyTFFISWd4azBhcW9yQWJyTjArTkppdVlrcFVwRW9LTUFnamZlZlhFa1ow?=
+ =?utf-8?B?cjhBbnY3bW9COFRnUzBhOTA4cnY1eHRYeVVzaXVFQW8xNkRBR2ptUU9qRjkr?=
+ =?utf-8?B?bGFIK1ZWQTJJSm1nTFZjckxXMVU4bnpoZWhXS0FRSi84VDJzdzFKa3kwVi9L?=
+ =?utf-8?B?aUVCWm5vTDRrTzBjZkpzKzBnRUlQTHFQRDZ0ZWhscHpQUjl3bFM4VW1SZGZU?=
+ =?utf-8?B?SFZURnZqRTMrb0M4bVgwS1I4blh2Y00wWUVlYi8vK1k2N1JUZnNibUkvTGlr?=
+ =?utf-8?B?N3FUa0NobStMbVk1azd0NjNrWTdTYnlQUzU4QU5KMk1BY1R6aVNIcW9aOUdI?=
+ =?utf-8?B?T2tPN0pBcHZLamxpWkV5WW5HVTlLbHFoVGU1SEw5NjMzNUFuV0FHRWNncDJL?=
+ =?utf-8?B?WndnZW4yYUhSckl6dVBCOE92UERSaHV1aWVTS0ZOZ1kvRUdxRWhqMDJsQkVn?=
+ =?utf-8?B?SkdlVFlDK3dnZUFXMHZJZVh1UkpwZzVVQ3ZnR3cyUm5TNDR1dHV5UWUyOERH?=
+ =?utf-8?B?MHpWMzYyMG9YektMZ2lDbDlqZy9obzVJOGhoOUFDcGlvcTMzdDhHd082QjVi?=
+ =?utf-8?B?V3A0Tmx4ajlzVUN2TWtBMmJuWVY2VkZON0FoSURZTFRMem16emNTcXdXWGJm?=
+ =?utf-8?B?Mlc5TE9zaC9aRitpUktTckZJVDRYeTFnT3Vpc05aQjcyQmtoR3R0R0tNaW9k?=
+ =?utf-8?B?TW5LSU1oWENoQnM0bjl5VW96TEJTZ2hKVFV3YnJRLzJxeHdxUm9hMUdPbERj?=
+ =?utf-8?B?dFAvVDN5SnRrM2F4eS9GUFJURnFqRXZsYzd0bGQzQVhrUW5QbE83QUE0aVlB?=
+ =?utf-8?B?aFFsL3p6NWdwcklPa1lJdWJsVytpYXI3NlA0c2VtNlZTK1cvT2Ruci9FbXJW?=
+ =?utf-8?B?MDVtZHdid2V1bDJEL08xaVRNQlFtbW1ZWHdYVmdhR282aXZwVERuajE0WGN3?=
+ =?utf-8?B?RGpMSnBLUDBzWkZ2Si9yOEUwRHk0MGs5OUpBTzJtZDNDZWFicUswR2hWdVNG?=
+ =?utf-8?B?V3lLMDFtODJ6cEJqZUNVRi9XM1pOU0JQSHV3RStrL09mZCsvcE1mS2NtN0Ru?=
+ =?utf-8?B?RkpESEF0OHdMZFVmMzhOOXZQUE1icTJJc05rRDh3emZmMVQyay8yR3dXOE9x?=
+ =?utf-8?B?RE1QdjNlRTRqSWdza3daY2tKRFQvakF6SjZ6K1JFQ1lJT1BaS041c3JsbVBw?=
+ =?utf-8?B?VFVjTGRackVjRWppQm50T255TG9Oa2dCOHJJaEZ4Zjcrd2RBRnVwMGhqQkJU?=
+ =?utf-8?B?aGNjYVBualp3OXVJazd5QlVaMUc1clFaOCtHWUVtOGJmdURzNzdtVmk3cGZj?=
+ =?utf-8?B?QkVxNjhJNzRqVC9FanltekNQaU1jN3ZPTWNJMzVLNEQxcGNKQ0hjeUp3T01y?=
+ =?utf-8?B?VWJIVGw2M1IwcnN1ZC8zblhWcFJsMUlydUZEYnExcGlkK2FudVNTT1ZjQUtH?=
+ =?utf-8?B?Sld6bktWZVFQUUs1eEQvUkdhZG5udjc2UEJlM01JbmFFWVBxQkNCTEc4UUZ6?=
+ =?utf-8?B?cWZMVExTeG10eUdWZ3YxV3U4ZTNjQkVtMlh3bUNwVXhNNlI1aGttaDd3dkov?=
+ =?utf-8?B?TndMVWMrb3VkYUFDMEZGTCt1TjYwVks5MFpzWnY4bkFvb3JkakNPMW1vcUg4?=
+ =?utf-8?B?TDAzUkRudXFQYnY0dmhkRWt0c3EyMXdjTTVwSk1RTGdNL0J5ZHg3RkVYb0l0?=
+ =?utf-8?B?eC9EaEdubmh4NzJab01WTXkrZTJVRk9VdHFLZnJlUDJiVmFkUENUUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40ba645f-7b89-416f-68e7-08df1df23050
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 06:23:34.1282
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4ywM6OHsZ7xJ2t/lWrRnDmCr2wYKE7eW38BYyLrhzEjgQWh7LmGSDUdpgW11Ehxfn9+Ic4fal1gzyFIqLCVRwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7289
 
-Hi Bill,
 
-this looks much better. Thanks for the rework.
+> On 29/09/2026 07:57, Zhentao Guo wrote:
+>> Hi Krzysztof,
+>>> On 29/09/2026 04:59, Zhentao Guo wrote:
+>>>> Hi Krzysztof,
+>>>>
+>>>>> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
+>>>>>> Add bindings for Amlogic hardware decoder accelerator.
+>>>>>>
+>>>>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>>>>>> ---
+>>>>>>     .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>>>>>>     1 file changed, 114 insertions(+)
+>>>>>>
+>>>>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..751043c3d9cc
+>>>>>> --- /dev/null
+>>>>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>>>>>> @@ -0,0 +1,114 @@
+>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>>>>>> +%YAML 1.2
+>>>>>> +---
+>>>>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>> +
+>>>>>> +title: Amlogic Video Decode Accelerator
+>>>>>> +
+>>>>>> +maintainers:
+>>>>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>>>>>> +
+>>>>>> +description:
+>>>>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>>>>>> +  It supports stateless h264 decoding.
+>>>>>> +
+>>>>>> +properties:
+>>>>>> +  compatible:
+>>>>>> +    const: amlogic,s4-vdec
+>>>>>> +
+>>>>>> +  reg:
+>>>>>> +    minItems: 2
+>>>>> What is happening here? Previous version was different.
+>>>> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos
+>>> Since when?
+>> It should have been minItems:2 ever since v1,I must admit that this is a
+>> long-standing mistake.
+> No. Since when 1 item is allowed?
 
-On Tue, Sep 29, 2026 at 01:00:31AM +0000, Bill Wendling wrote:
-> The '__counted_by' and '__counted_by_ptr' attributes associate a
-> flexible array member or pointer member with a struct field that holds
-> its element count. Supporting compilers use these annotations to
-> compute dynamic object sizes via '__builtin_dynamic_object_size()' for
-> runtime bounds checking with CONFIG_FORTIFY_SOURCE.
-> 
-> Add KUnit tests ('fortify_test_counted_by_flex' and
-> 'fortify_test_counted_by_ptr', guarded by CONFIG_CC_HAS_COUNTED_BY and
-> CONFIG_CC_HAS_COUNTED_BY_PTR respectively) to verify that:
-> 
->  - '__builtin_dynamic_object_size()' (both types 0 and 1) returns the
->    expected logical byte size for annotated flexible array and pointer
->    members.
->  - Fortified operations ('memset()' and 'memchr()') succeed within the
->    logical bounds and detect out-of-bounds read and write accesses
->    beyond the annotated count.
-> 
-> Allocate the test buffers with extra physical capacity (2 * size) in
-> 'noinline' helpers and hide the returned pointers with
-> OPTIMIZER_HIDE_VAR() so allocation-size attributes, physical slab
-> bounds, and compiler optimizations do not mask the '__counted_by' and
-> '__counted_by_ptr' checks.
-> 
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
-> v2: Move tests to the 'fortify' KUnit tests. It uses UBSAN, which is
->     what gets triggered by 'counted_by'.
+A single item was never allowed. The hardware has always required both 
+the dos and dmc register regions to work (the same applies to the 
+power-domain and interrupts) . In the previous version of this patch, 
+allowing one entry was simply a mistake, not an option we ever supported.
 
-v2 is missing in subject.
+No existing device tree relies on having only a single entry either.
 
-> ---
->  lib/tests/fortify_kunit.c | 119 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 119 insertions(+)
-> 
-> diff --git a/lib/tests/fortify_kunit.c b/lib/tests/fortify_kunit.c
-> index 413cdbf3dc0d..2335171f84d8 100644
-> --- a/lib/tests/fortify_kunit.c
-> +++ b/lib/tests/fortify_kunit.c
-> @@ -1011,6 +1011,119 @@ static void fortify_test_kmemdup(struct kunit *test)
->  	kfree(copy);
->  }
->  
-> +#ifdef CONFIG_CC_HAS_COUNTED_BY
+> Best regards,
+> Krzysztof
 
-The ugly ifdeffery can be replaced by IS_ENABLED():
+Best regards,
 
-if (!IS_ENABLED(CONFIG_FOO))
-	kunit_skip(test, "Not built with CONFIG_FOO=y");
+Zhentao
 
-It makes the code cleaner and gives some useful feedback at runtime.
-
-> +struct counted_by_flex_struct {
-> +	size_t size;
-> +	int array[] __counted_by(size);
-> +};
-> +
-> +/*
-> + * Allocate the struct out-of-line with extra physical capacity so that
-> + * __alloc_size() and physical slab bounds do not mask the __counted_by()
-> + * logical bounds check.
-> + */
-> +static noinline struct counted_by_flex_struct *
-> +alloc_counted_by_flex_struct(struct kunit *test, size_t size)
-> +{
-> +	struct counted_by_flex_struct *s;
-> +
-> +	s = kzalloc(sizeof(*s) + 2 * size * sizeof(s->array[0]), GFP_KERNEL);
-
-kunit_kzalloc() to automatically free the allocation again.
-struct_size() for the size calculation.
-
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s);
-> +
-> +	s->size = size;
-> +	return s;
-> +}
-> +
-> +static void fortify_test_counted_by_flex(struct kunit *test)
-> +{
-> +	size_t size = 128;
-> +	struct counted_by_flex_struct *s;
-> +	size_t elem_bytes = size * sizeof(s->array[0]);
-> +
-> +	s = alloc_counted_by_flex_struct(test, size);
-> +
-> +	OPTIMIZER_HIDE_VAR(s);
-> +	OPTIMIZER_HIDE_VAR(elem_bytes);
-> +
-> +	/* __builtin_dynamic_object_size() should return the logical length. */
-> +	KUNIT_EXPECT_EQ(test, elem_bytes,
-> +			__builtin_dynamic_object_size(s->array, 0));
-> +	KUNIT_EXPECT_EQ(test, elem_bytes,
-> +			__builtin_dynamic_object_size(s->array, 1));
-> +
-> +	/* Within-bounds write and read succeed. */
-> +	memset(s->array, 0x42, elem_bytes);
-> +	KUNIT_EXPECT_EQ(test, fortify_write_overflows, 0);
-> +	KUNIT_EXPECT_NOT_NULL(test, memchr(s->array, 0x42, elem_bytes));
-> +	KUNIT_EXPECT_EQ(test, fortify_read_overflows, 0);
-> +
-> +	/* Out-of-bounds write and read past logical size are caught. */
-> +	memset(s->array, 0x42, elem_bytes + 1);
-> +	KUNIT_EXPECT_EQ(test, fortify_write_overflows, 1);
-> +	KUNIT_EXPECT_NULL(test, memchr(s->array, 0x42, elem_bytes + 1));
-> +	KUNIT_EXPECT_EQ(test, fortify_read_overflows, 1);
-> +
-> +	kfree(s);
-> +}
-> +
-> +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-> +struct counted_by_ptr_struct {
-> +	char *ptr __counted_by_ptr(size);
-> +	size_t size;
-> +};
-
-In the other structure the arguments where swapped, intentional?
-
-> +
-> +/*
-> + * Allocate the struct out-of-line with extra physical capacity so that
-> + * __alloc_size() and physical slab bounds do not mask the __counted_by_ptr()
-> + * logical bounds check.
-> + */
-> +static noinline struct counted_by_ptr_struct *
-> +alloc_counted_by_ptr_struct(struct kunit *test, size_t size)
-> +{
-> +	struct counted_by_ptr_struct *s;
-> +
-> +	s = kmalloc_obj(struct counted_by_ptr_struct);
-
-We should probably also get kunit_kmalloc_obj() at some point.
-
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s);
-> +
-> +	s->size = size;
-> +	s->ptr = kzalloc(2 * size, GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, s->ptr);
-> +
-> +	return s;
-> +}
-> +
-> +static void fortify_test_counted_by_ptr(struct kunit *test)
-> +{
-> +	size_t size = 128;
-> +	struct counted_by_ptr_struct *s;
-> +
-> +	s = alloc_counted_by_ptr_struct(test, size);
-> +
-> +	OPTIMIZER_HIDE_VAR(s);
-> +	OPTIMIZER_HIDE_VAR(size);
-> +
-> +	/* __builtin_dynamic_object_size() should return the logical length. */
-> +	KUNIT_EXPECT_EQ(test, size, __builtin_dynamic_object_size(s->ptr, 0));
-> +	KUNIT_EXPECT_EQ(test, size, __builtin_dynamic_object_size(s->ptr, 1));
-
-Is this builtin guaranteed to be available?
-We have a wrapper KUNIT_EXPECT_BDOS() above.
-
-> +
-> +	/* Within-bounds write and read succeed. */
-> +	memset(s->ptr, 0x42, size);
-> +	KUNIT_EXPECT_EQ(test, fortify_write_overflows, 0);
-> +	KUNIT_EXPECT_NOT_NULL(test, memchr(s->ptr, 0x42, size));
-> +	KUNIT_EXPECT_EQ(test, fortify_read_overflows, 0);
-> +
-> +	/* Out-of-bounds write and read past logical size are caught. */
-> +	memset(s->ptr, 0x42, size + 1);
-> +	KUNIT_EXPECT_EQ(test, fortify_write_overflows, 1);
-> +	KUNIT_EXPECT_NULL(test, memchr(s->ptr, 0x42, size + 1));
-> +	KUNIT_EXPECT_EQ(test, fortify_read_overflows, 1);
-> +
-> +	kfree(s->ptr);
-> +	kfree(s);
-> +}
-> +#endif /* CONFIG_CC_HAS_COUNTED_BY_PTR */
-> +#endif /* CONFIG_CC_HAS_COUNTED_BY */
-> +
->  static int fortify_test_init(struct kunit *test)
->  {
->  	if (!IS_ENABLED(CONFIG_FORTIFY_SOURCE))
-> @@ -1054,6 +1167,12 @@ static struct kunit_case fortify_test_cases[] = {
->  	KUNIT_CASE(fortify_test_memchr_inv),
->  	KUNIT_CASE(fortify_test_memcmp),
->  	KUNIT_CASE(fortify_test_kmemdup),
-> +#ifdef CONFIG_CC_HAS_COUNTED_BY
-> +	KUNIT_CASE(fortify_test_counted_by_flex),
-> +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-
-The nesting of these conditionals looks unnecessary.
-
-> +	KUNIT_CASE(fortify_test_counted_by_ptr),
-> +#endif /* CONFIG_CC_HAS_COUNTED_BY_PTR */
-> +#endif /* CONFIG_CC_HAS_COUNTED_BY */
->  	{}
->  };
->  
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
