@@ -1,258 +1,137 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB913D3CE0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3A3258EE9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:50:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790646581; cv=none; b=vF32Tylh8wzNoGj8A9q4zuEivDmLfK+NsPF08pGMIscDboDEySge8DfdHnVCyqHVSYlAKI+PEK9u+Yuxl6i+8524GOGnE+bU7sPgQ4J54oJRiy3GtmlEYn1Jf+L4n3rshrzRofxnhWodlTi+aaIWC25YAa50frtKWUrEag30ROE=
+	t=1790646632; cv=none; b=HRn+UxpkaE2Hw2qekJ+X7ar3UGtFghXRalDf9byuR01dNGaxRKI8Sb0C64GtHL5GYRMMo+cksuF6hGvGJ+7kprsdSr9cAajuQDukVHs7E06pkJDg6vFpRXezR5UvFEcvJxC11IuERepoH2f9KbHgnC88+dTfzOEyjzOLHuje9c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790646581; c=relaxed/simple;
-	bh=2uXsmCNKJ3fYrAUlJcM4AoeiTbwzMEpZN5UMc742K0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ogYdpP8+q3cLyD9Qzhihk7i+jyBwgyyRJQw8BqBaXrPAcTw0E5Acvr3JdoOqTu0WGTHGeDImfKgQDEtu5DAKIGOH2iIx0Nw2A61aMx6dUDoJ+9kfhDxndwL30EII/MI6crJ7INsoSCysS3tsN8QSAMJbDK/9ofglG2clHS1LpHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tb4O1rEj; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790646632; c=relaxed/simple;
+	bh=yefuVjMK1ZYavhuEHMGRV0T3sUE22qFARYEmrVkxWlc=;
+	h=To:Cc:Date:Content-Type:In-Reply-To:Subject:Mime-Version:
+	 References:From:Message-Id; b=HCmgsb37tSt9bb2j5KcM+BNFrk5C/t6jL5fRqqNyhKkdp12CZRWhi7CvaFjoIa25kdVIgSlbbiGO0pL9Rg3L2Y9gfVgx63gOiLRQFHp0i+lnYySrNDnydwjJPHNvaCn5m5PEJCSLCsjV/bS/38bxycG0FgOKaNxIWny/sTu6GGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=HgmB5UDW; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tb4O1rEj"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-343479e6005so275290eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 18:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790646577; x=1791251377; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hUAmCu4dLAGCxw6PilbDzbZb7iwIhzniJHAXg+eRF9A=;
-        b=Tb4O1rEjfylcgc+HRcs8W4FO7UcL01xzzfVCZ8mIQB2V361IynDG+K8bes2xvhAMmP
-         dwtD1C9mbrsTsiUw35MEYyGyE1D/VVSbE+E+fto7CeyifjMeSML7GGFMLeqVIju8dBBG
-         RgBaWH+TLTMPd7UJCfgTBmGxr+c71yc+YqVap2OqjpmEeCv3tz39nLkW45NwtB2gwArA
-         +A6AqG+ci+kKfSbQtv9JZGePk8yRfEPGL5bBVFwaw6JEZCcp312U2W25HbDzERujKtsG
-         0/4levkYtsWI8zmcBGP36ARpJX3D3vR7kSPObcQ//5wK4pKheNs51i5sEJDPf+YWFdBJ
-         Pa3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790646577; x=1791251377;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hUAmCu4dLAGCxw6PilbDzbZb7iwIhzniJHAXg+eRF9A=;
-        b=M5Pn0AtGEn7oIQFUpLSqQr4C2QTWLXtLpn0BuGmlX6+UqN4DZMD00ryUCcAiiafj4V
-         TI+Vy8uK68VO/K6YiR7zmtuVeTpaAoUBTxquadCwu6XvuUwHpuHouEPCLaG95KXWTkuT
-         nHbKIUt5DLluwu+9S//0KFU0caYjxTP95A9FPstbjR9Z8XXtv/R9VqmEWKyC22apVOEt
-         Mi6fsOZwHW4acbP34T/LV1Q0pXceIM2CnFpn0K64UuopbsWgmD1pZMR1Lhbpehz/qhjI
-         FnyFrS19RecfhWzx3QRhwchu3PPq/25Sjnup2fRblaoJ38faajCtjXvGHXnwEr9S6A5R
-         CZXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIZtZnBGbmHZ/GsyDLngLeI5Dw8iRs3vxm3J1gqYK50X9b7WRAQY9lft3GDAiNoP8I7o3Ubb5fx+O4F7U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC3Ebnt7Ls+i8i9yO6v6Tf2XCeZmjfsb07+PG28J1ztl/M+eQI
-	jBJyB2z4Vww3O0Lc7G9X2ywGNOFp7b05WMBVQ5LKpgRbpd8ISO1ajUr4
-X-Gm-Gg: AYBFou0VzzFcnXiprOkeuq8FEhe4N55nnQc07TnLgj7jKessvyaz0/jN3XhrpqzE118
-	IK2kp7Iou8FUcBh7CrAypWBUtWphVCLw8T9yqUbQ8Xcpx9pKlQZn6QEK3pqrR0DfasSMeBhlApc
-	SOR1pVdR+4X141sRKJN+2B4qa24ODpedZV1Yz6oDi9a0evr+tLToDJG/7C2eu3LGiZm44b4qVrs
-	rIRBpwG/7nMSiAo4/DED6Ai2dw4vQPPmzo0D71RCFBOxH5JxQCu0Cl0Xrl32YMpWOvviSdXdX02
-	ASe40ErvW+wisN3PTm3JQWILAtWqRkR5GF5kEfl7Tp/FwPoRryCmojvSKRKMFJuKU0SkujJJrPR
-	cz6YQAjZ78urbTuB9QfCjyTt2YkStqZZkkbde23mL1hypMzI7fq2QwLRw5WMuiSsnyVDpl6NEz1
-	QMQHPoip2lu2E5ibisGIzPIOWFv+JQARsbhU3mADMF8e5JccrsNOZZU/aQ0E1spk9JouYBqdRjL
-	kvSXa3YNlYfAQ==
-X-Received: by 2002:a05:693c:4195:20b0:332:946c:477a with SMTP id 5a478bee46e88-34af8931057mr1416634eec.16.1790646576536;
-        Mon, 28 Sep 2026 18:49:36 -0700 (PDT)
-Received: from wujing.localdomain ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3434958c3adsm40351662eec.22.2026.09.28.18.49.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 18:49:36 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Cc: Qiliang Yuan <odys.yuan@gmail.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: x86: Clear CR3[63:32] on SMM entry when running on Hyper-V
-Date: Tue, 29 Sep 2026 09:49:27 +0800
-Message-ID: <20260929014927.151141-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929-kvm-smm-cr3-upper-bits-v2-1-622429d0cd3c@gmail.com>
-References: <20260929-kvm-smm-cr3-upper-bits-v2-1-622429d0cd3c@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="HgmB5UDW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1790646616; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=BxYVJVeargDdL2xWTmBHr9IS5rEuYql6GGXbaVald+g=;
+ b=HgmB5UDW7/MIQxGcLLWsKK0n8AA51HDwQbdLMFx9RatJK7pHAKf8HK5HWq6Uu11vnyKjcP
+ xjqiYfxAGbJB4Ow5th+fC7EgNXYUlw9XxYNgQqz/MxqeJ2Br4ZFMxlTuz5G+OhHmbJUR8T
+ 9oI0J0nDFOTjWxphdp5h8AEoiu8v0vCxAGOePuinWnOChGS+5xDhdKwXL5aH5DMNa65h30
+ T5gLMCkohnbdsrFfd3yJPepFBwgmy0jKRWOYvafsLL2O25p1Pswo+gkraT+5WH496RyNbz
+ /BNc3JvqP189Lie33WjeZkiYOMIAvPO46T14NptLL9qAMw+rL1VjfLl5r0/Rpg==
+X-Lms-Return-Path: <lba+26abb1957+5f0ff3+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>
+Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
+	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Date: Tue, 29 Sep 2026 01:50:06 +0000
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260929-fec-ptp-pps-event-uaf-v4-0-f54208df8bff@cherr.cc>
+Subject: [PATCH net-next v4 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from [127.0.1.1] ([111.42.148.12]) by smtp.feishu.cn with ESMTPS; Tue, 29 Sep 2026 09:50:14 +0800
+References: <20260929-fec-ptp-pps-event-uaf-v4-0-f54208df8bff@cherr.cc>
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260929-fec-ptp-pps-event-uaf-v4-2-f54208df8bff@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 
-Some more data on this, in case it helps either the KVM or the Hyper-V
-side.  It is also tracked, with the WSL logs, at
-https://github.com/microsoft/WSL/issues/41709
+The devm-managed PPS interrupt remains registered until after the
+remove callback returns, outliving both the PHC and the netdev.
+An in-flight handler can call ptp_clock_event() during PHC teardown,
+and a later interrupt can dereference the freed netdev.
 
+Use request_irq() and record the IRQ after a successful request,
+then release it with free_irq() in fec_ptp_stop(), before
+ptp_clock_unregister(). This removes the handler and waits for any
+running instance to finish before the PHC and netdev are torn down.
 
-1. Setup
---------
+Also free the IRQ if ptp_clock_register() fails: fec_probe() unwinds
+that error through failed_reset, bypassing fec_ptp_stop().
 
-  Host:   Windows 11 Pro 25H2, OS build 26200.9457 (fully up to date
-          through Windows Update), WSL 2.9.3.0, AMD Ryzen 9 7940HX
-  L1:     WSL2 kernel 6.18.35.2-microsoft-standard-WSL2, kvm_amd nested=1
-  L2:     Windows 11 25H2 guest, q35, 4 vCPUs, 8GiB RAM,
-          OVMF_CODE_4M.ms.fd (Secure Boot, SMM), swtpm,
-          QEMU 10.2.1, libvirt 12.0.0
+Fixes: 4ad1ceec05e4 ("net: fec: Let fec_ptp have its own interrupt routine")
+Cc: stable@vger.kernel.org
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+ drivers/net/ethernet/freescale/fec.h     |  1 +
+ drivers/net/ethernet/freescale/fec_ptp.c | 12 ++++++++++--
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-Wei mentioned that this may already be fixed in Hyper-V.  Since it
-still reproduces on the latest released build above, the fix does not
-seem to be in released builds yet.  Which build or channel carries it?
-I am happy to test it.
+diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
+index 8831da37326b..9a7ec5abc9db 100644
+--- a/drivers/net/ethernet/freescale/fec.h
++++ b/drivers/net/ethernet/freescale/fec.h
+@@ -670,6 +670,7 @@ struct fec_enet_private {
+ 
+ 	/* pps  */
+ 	int pps_channel;
++	int pps_irq;
+ 	unsigned int reload_period;
+ 	int pps_enable;
+ 	unsigned int next_counter;
+diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
+index 0574a1a18702..27603af95d00 100644
+--- a/drivers/net/ethernet/freescale/fec_ptp.c
++++ b/drivers/net/ethernet/freescale/fec_ptp.c
+@@ -790,10 +790,10 @@ int fec_ptp_init(struct platform_device *pdev, int irq_idx)
+ 	}
+ 
+ 	if (irq > 0) {
+-		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
+-				       0, pdev->name, ndev);
++		ret = request_irq(irq, fec_pps_interrupt, 0, pdev->name, ndev);
+ 		if (ret < 0)
+ 			return ret;
++		fep->pps_irq = irq;
+ 	}
+ 
+ 	fep->ptp_clock = ptp_clock_register(&fep->ptp_caps, &pdev->dev);
+@@ -801,6 +801,10 @@ int fec_ptp_init(struct platform_device *pdev, int irq_idx)
+ 		ret = PTR_ERR(fep->ptp_clock);
+ 		fep->ptp_clock = NULL;
+ 		dev_err(&pdev->dev, "ptp_clock_register failed\n");
++		if (fep->pps_irq > 0) {
++			free_irq(fep->pps_irq, ndev);
++			fep->pps_irq = 0;
++		}
+ 		return ret;
+ 	}
+ 
+@@ -869,6 +873,10 @@ void fec_ptp_stop(struct platform_device *pdev)
+ 
+ 	cancel_delayed_work_sync(&fep->time_keep);
+ 	hrtimer_cancel(&fep->perout_timer);
++	if (fep->pps_irq > 0) {
++		free_irq(fep->pps_irq, ndev);
++		fep->pps_irq = 0;
++	}
+ 	if (fep->ptp_clock)
+ 		ptp_clock_unregister(fep->ptp_clock);
+ }
 
-
-2. Not a recent regression
---------------------------
-
-The libvirt log of this guest on the same machine shows the same
-"KVM: entry failed, hardware error 0xffffffff" going back a year:
-
-  WSL kernel                    Period                    Boots  Failures
-  5.15.167.4-microsoft-...      2025-09-01 .. 2025-10-01    127       133
-  6.18.35.2-microsoft-...       2026-09-24 .. 2026-09-28     15        21
-  6.18.35.2 + this patch (v2)   2026-09-29                    1         0
-
-
-3. Testing of v2
-----------------
-
-I applied v2 to the WSL2 6.18.35.2 kernel and traced enter_smm() with
-bpftrace, recording vcpu->arch.cr3 on entry and on return, while the
-guest booted from firmware to the Windows desktop with SMM and Secure
-Boot enabled:
-
-  SMM entries in total:                        7532
-  entries with CR3 above 4GiB before entry:    1185
-  of those, CR3[63:32] cleared on return:      1185
-  VMRUN failures:                                 0
-
-For example:
-
-  vcpu=1 cr3 before=0x13aa12000 after=0x3aa12000
-
-Every one of those 1185 entries would have hit the failure without the
-patch, and the guest returned from SMM normally in all cases.
-
-
-4. The rejected VMCB
---------------------
-
-To capture the failing state without restarting WSL, I built an
-unpatched kvm.ko/kvm-amd.ko for the same running kernel, loaded them
-with kvm_amd.dump_invalid_vmcb=1 and booted the guest.  It failed at
-SMM entry again, with CR3 above 4GiB.
-
-The relevant fields are exit_code ffffffff, rip 8000 (first instruction
-of the SMI handler), cr0 00050032 (PE=0, PG=0), efer 00001000 (SVME
-only, LMA=0), event_inj 0 (no pending event), and cr3 0000000262906000,
-i.e. CR3[63:32] = 0x2 outside of long mode.  The full dump:
-
-  SVM vCPU1 VMCB 000000004a03e896, last attempted VMRUN on CPU 2
-  VMCB Control Area:
-  cr_read:            0010
-  cr_write:           0010
-  dr_read:            00ff
-  dr_write:           00ff
-  exceptions:         00060042
-  intercepts:         bddc8027 00006e7f
-  pause filter count: 3000
-  pause filter threshold:128
-  iopm_base_pa:       000000034604c000
-  msrpm_base_pa:      00000003d50da000
-  tsc_offset:         ffffbe16edc138b1
-  asid:               8
-  tlb_ctl:            0
-  int_ctl:            01000000
-  int_vector:         00000000
-  int_state:          00000000
-  exit_code:          ffffffff
-  exit_info1:         0000000000000000
-  exit_info2:         0000000000000000
-  exit_int_info:      00000000
-  exit_int_info_err:  00000000
-  nested_ctl:         1
-  nested_cr3:         0000000260eac000
-  avic_vapic_bar:     0000000000000000
-  ghcb:               0000000000000000
-  event_inj:          00000000
-  event_inj_err:      00000000
-  virt_ext:           0
-  next_rip:           0000000000000000
-  avic_backing_page:  0000000000000000
-  avic_logical_id:    0000000000000000
-  avic_physical_id:   0000000000000000
-  vmsa_pa:            0000000000000000
-  allowed_sev_features:0000000000000000
-  guest_sev_features: 0000000000000000
-  VMCB State Save Area:
-  es:   s: 0000 a: 0893 l: ffffffff b: 0000000000000000
-  cs:   s: fb00 a: 0893 l: ffffffff b: 000000007bffb000
-  ss:   s: 0000 a: 0893 l: ffffffff b: 0000000000000000
-  ds:   s: 0000 a: 0893 l: ffffffff b: 0000000000000000
-  fs:   s: 0000 a: 0893 l: ffffffff b: 0000000000000000
-  gs:   s: 0000 a: 0893 l: ffffffff b: 0000000000000000
-  gdtr: s: 0000 a: 0000 l: 00000057 b: ffff9a0133f5ffb0
-  ldtr: s: 0000 a: 0000 l: 00000000 b: 0000000000000000
-  idtr: s: 0000 a: 0000 l: 00000000 b: 0000000000000000
-  tr:   s: 0040 a: 008b l: 00000067 b: ffff9a0133f5e000
-  vmpl: 0   cpl:  0               efer:          0000000000001000
-  cr0:            0000000000050032 cr2:          ffffe7888c4ec690
-  cr3:            0000000262906000 cr4:          0000000000000040
-  dr6:            00000000ffff0ff0 dr7:          0000000000000400
-  rip:            0000000000008000 rflags:       0000000000000002
-  rsp:            ffffbf0c30b864d8 rax:          0000000000000000
-  s_cet:          0000000000000000 ssp:          0000000000000000
-  isst_addr:      0000000000000000
-  star:           0023001000000000 lstar:        fffff801b9ac1840
-  cstar:          fffff801b9ac1300 sfmask:       0000000000004700
-  kernel_gs_base: 000000caa8494000 sysenter_cs:  0000000000000000
-  sysenter_esp:   0000000000000000 sysenter_eip: 0000000000000000
-  gpat:           0007010600070106 dbgctl:       0000000000000000
-  br_from:        0000000000000000 br_to:        0000000000000000
-  excp_from:      0000000000000000 excp_to:      0000000000000000
-  rax:            0000000000000000 rbx:          fffff8014d990018
-  rcx:            00000000000000b2 rdx:          00000000000000b2
-  rsi:            0000000000000200 rdi:          0000000000000218
-  rbp:            ffffbf0c30b86500 rsp:          ffffbf0c30b864d8
-  r8:             0000000000000000 r9:           0000000000000000
-  r10:            0000000000000000 r11:          ffff89fdab000000
-  r12:            ffffbf0c30b86720 r13:          fffff8014d990060
-  r14:            fffff8014d990078 r15:          0000000000000002
-
-And QEMU's view of the same vCPU (it only prints CR3[31:0] here):
-
-  KVM: entry failed, hardware error 0xffffffff
-  EAX=00000000 EBX=4d990018 ECX=000000b2 EDX=000000b2
-  ESI=00000200 EDI=00000218 EBP=30b86500 ESP=30b864d8
-  EIP=00008000 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=1 HLT=0
-  ES =0000 00000000 ffffffff 00809300
-  CS =fb00 7bffb000 ffffffff 00809300
-  SS =0000 00000000 ffffffff 00809300
-  DS =0000 00000000 ffffffff 00809300
-  FS =0000 00000000 ffffffff 00809300
-  GS =0000 00000000 ffffffff 00809300
-  LDT=0000 00000000 00000000 00000000
-  TR =0040 33f5e000 00000067 00008b00
-  GDT=     33f5ffb0 00000057
-  IDT=     00000000 00000000
-  CR0=00050032 CR2=8c4ec690 CR3=62906000 CR4=00000000
-  DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000
-  DR6=00000000ffff0ff0 DR7=0000000000000400
-  EFER=0000000000000000
-  Code=00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 <bb> 4d 80 2e a1 38 fb 48 2e 89 07 2e 66 a1 30 fb 2e 66 89 47 02 2e 66 0f 01 17 b8 08 00 2e
-
-
-Thanks,
-Qiliang
+-- 
+2.47.3
