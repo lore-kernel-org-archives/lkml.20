@@ -1,119 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF1A34040D;
-	Tue, 29 Sep 2026 09:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EE83403EE
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673283; cv=none; b=G9b3z0idKt4R47G2FFE+fiPdJtGYXuLlaEsVGoWM1eFgapJexzKVBbrb3Kocvso2R/zYY1KIVeeusiCdCLTdawZ7IsuR3knQTa71SBE3hdmF1Fw9/UweAPHNnBfRYgpHJjo+q6R8r6mBnuD+YOwFeIfcq0p8dmJqd46IVP3zgR0=
+	t=1790673371; cv=none; b=XRg2aZveAFZstNvJ/x+zAXDGGsfyw3DOZKA0SAZUzBBURS1R7jqkqnis6X6UxvQWPXMVWjTaxigAl0DKrfTuu7UvJSibrXstKf+E+O3/XI8SG8MGG6x342tzCB++NQrCMyFLtMARIXEj9/n5gsYuh5DbbynRid7WeSfXCatBL+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673283; c=relaxed/simple;
-	bh=fgOENj9nO/C2FXtpT/dXggQEwjVxY+miBZ6vFnueYH4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=HqEMGMI91zUE4+O5jJhe+y/G5hoc4Dsh9B0ak8e9OAnp+XUly2G1xz2IpBSWGSisVLvEB7AIYZOIlnp8ePL+6KgkQ6neGkNl1YgibSLvLYMs/AMTanL7S+fYbF0vDuEW9tpbtj8Vg+BlqrLKim0lhg5Ip25nlPZqKQi0hNwQd50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A7Qsc1DH; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790673371; c=relaxed/simple;
+	bh=54EiX3+UdtxYRud7qzJ9Xdl7ocd3pBdmAA4FFSUhnKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=liRDFcKTvUOnVpVB6/o2xtk1d6crRkmtjQxuop2rWtDbVZo4gk9WFC6Ak9vVsL+GtFoFWRE7aLmRTSkR2jmL2NFRGrMnSZeQs1GMblh6sUfoFMfMU/vYdUU3Xbr10/94iRbQctAqhqCrkOfQx7hrr6qXLj+Z3CnbMhhHvDNr098=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPOrXwuL; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A7Qsc1DH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790673277; x=1822209277;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=fgOENj9nO/C2FXtpT/dXggQEwjVxY+miBZ6vFnueYH4=;
-  b=A7Qsc1DHz0XFF5v94zcB6RpTTVG6idws4N4pST2PieGohWJY+IsH94AB
-   z0LPrA+LDOB5ToCOIdktm3HpjKiVN4jjkr0TLMyUoTA64gevuKt+Nx0yl
-   lMyzUJ34tpm858xe2sjvZMwwSkTYnnPy1EMBB7w3ZDRe3Jn7EYksSNUdA
-   vEMDO3SmhaGLJirkP+yn5ibW9KHMuJCxltQwbRSEqCQbI9Nb4XiIniyZq
-   Ruvyb0Xw32S363J8KIdKHlDi8z1L1/vOOVyobbDUEw2eHOAYBYks+bM2I
-   dWFLZgJ2aOn2vscLo1KgND2V6gmnlmvdz3lIb3XmXJoZpFPKPG8nFE4HM
-   A==;
-X-CSE-ConnectionGUID: 2iZCPJv/Q6+Xwkm12OPDFA==
-X-CSE-MsgGUID: 76om3XQ2TjOy7gZVPE+lJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90516461"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90516461"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:14:32 -0700
-X-CSE-ConnectionGUID: 24bGlgs5Rsi5PNuK8hF1cg==
-X-CSE-MsgGUID: 4uW5VFGMQUu6PxZAu/RdKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="303270957"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 02:14:29 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 29 Sep 2026 12:14:25 +0300 (EEST)
-To: Matias Civadda <matias.civadda2342001@gmail.com>, 
-    Chris Taraszka <chris@miget.com>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
-    Mingyou Chen <qby140326@gmail.com>
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14
- platform profile values
-In-Reply-To: <595cf557-e386-4ca3-b8ea-2ce7fe160018@gmail.com>
-Message-ID: <622041b8-6ace-4fdf-43b5-5427ba0d88d6@linux.intel.com>
-References: <20260928153902.139956-1-chris@miget.com> <5430348c-8ff3-c31a-927f-321b2cf94883@linux.intel.com> <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com> <595cf557-e386-4ca3-b8ea-2ce7fe160018@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPOrXwuL"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-5309a20a55bso40612731cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:16:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790673363; x=1791278163; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qauo8Xd0HQhFlQMJlGhHF2NW2UaNdyZCQsI5gccJOpE=;
+        b=bPOrXwuLGnV1AP6FxwXwSIjgpFx7PhRAuFJTwjndEc7oDg1H8mpx/u30oYzYNOuVTC
+         iFDPe4rEaAZTW9vBmSy1SJBAsv+4d2GFIm4wINvu3kxCUcv1Vzh92qYBWAeii0HjBUB+
+         O262xS0UlAGnf1d4W6C6xGVyPbRDKOvBZRHLqwNarf/q2yHpSrQPuPPTTWjRYBqFhfXR
+         uCLAlTOSgmurSeK00/Qr5Q/rou2MkjbJWtQ0F/3kjd3nNfdiarKfPyQXS3qGmsR2Xbvd
+         d2JwjE1AtoFfHidXc5mO9bS3n3cQEOu+czwwzsQRg9+MwfaQduKlET9PwKMoG9f2TPS2
+         ec0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790673363; x=1791278163;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qauo8Xd0HQhFlQMJlGhHF2NW2UaNdyZCQsI5gccJOpE=;
+        b=pF4KiS5hU4KvpyL9UQ3zbZjQssqFQlCidiMFypPGx2RPJIgPJpCdurk6B3XqoQYDad
+         fczzCxVoCacRgY0v6BCab/0YHwdb8llhAIB9QVTbH8PrDIrCjwSOerUaDNNTJBnGvMnz
+         biot/8ACRxyLDc/70K1AXnEtl4Uz8h3PlUDOgMAMyuNZGY7X/X2RTgy7WcYoI9UFfyuu
+         lfMT5NyzBOVCk2akZ0fYqiohAaBPD/6frAiS9ifnijGmhzLAkcsYXkv7TWw1P/GS3BQq
+         Xz6C1AnDe0+r2NmN2ja7kYvlpAyZF08OUezT/Sc5v5R7wElDjRRwQgqqSXl6XU5Sk+QZ
+         IpBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8jGapbvp92UsCJy+Urb0GhH3F4yuwz7uD4nYFE/EtOEKjMMIFkj25+66Dn+uBuaQ5AAJXj3xBEJ36hOg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldWfjY4KR957/qD2YNrvVpnmu6oxz8DA9520blSmmIHA2CMNJm
+	DXGwEbSVfG2tspw2YTKmxSF5tsIEQZoCxL6NcXMYR1Ljf1PXUGkeTB9j
+X-Gm-Gg: AYBFou0d0shG+qishgNwbbpSsh8zwluqA9hp9OU+LKcqeSs9piyyqevzQ+rrmXgRc/f
+	2z4O20lTZUrsH8jwkhat4bSyAQHIMjqmvmTzAd2WU2TBD7vJ/BXauIbWnVt1IiXpbY2L/mxBVP4
+	U6ybZuImcHXOve7rb6Q3/7GnJduNsTWa8phAl3o2sOf0fgqn38mixY5F6siPwWUrpFRvvcX9ySf
+	NO5XSBqE07d1BtyLVMJ+2k0jL+R2XWveojxlYHxRbA8HwVaeauj4TlcwxAzV6n3aGC0zxIb+hfr
+	FQJcafnnV5E6im6nHhxuxsY3h4H3DsuM6IEgkwbqpFQNW5t5Eiu2mInnmWlnLslv5zGni+u97Zs
+	MyPAiGA9cclb/tYEsJ8lbLvO+21hxGtGQk2m7NPj8WPfxwGDDkheozgSaI4G4LH79Kcl7xW/Wu3
+	a7XOWQBZs9udTusN2YEvWI+WfrLY3q0ezAsSx1Wr7DOsIiUWjmIReXDQkT8VTM3vPum3ZtlpZsm
+	yl904M2Bk58yOsiWXGdko3WOs7nfXnIyYwuFlSSyV6W3fiZVKnzj2MYkaUnRHP6NGI5Zmwt3cRg
+	hTw=
+X-Received: by 2002:ac8:5945:0:b0:530:cc3c:c62d with SMTP id d75a77b69052e-5330b6cab33mr273215601cf.44.1790673363100;
+        Tue, 29 Sep 2026 02:16:03 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238c585sm83979351cf.20.2026.09.29.02.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 02:16:02 -0700 (PDT)
+Date: Tue, 29 Sep 2026 04:15:56 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: lirongqing <lirongqing@baidu.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Andreas Hindborg <a.hindborg@kernel.org>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ublk: use global index for reported zones
+Message-ID: <aruBzOsvpYoWAO51@fedora-laptop>
+References: <20260929070012.2325-1-lirongqing@baidu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929070012.2325-1-lirongqing@baidu.com>
 
-FYI,
-
-There are a few more of these in the queue:
-
-https://patchwork.kernel.org/project/platform-driver-x86/patch/20260826132924.179614-1-kento@kekto.ru/
-https://patchwork.kernel.org/project/platform-driver-x86/patch/fb4e0678-3028-463e-8a8c-1b680e40c4ee@gmail.com/
-
-The first one is a bit messy, as it adds some keys as well (which should 
-have been in a separate patch).
-
-And some more in Mingyou's redmi-wmi merge series's last patch:
-
-https://patchwork.kernel.org/project/platform-driver-x86/patch/20260816100813.300450-7-qby140326@gmail.com/
-
-The profile mode abstraction in that series seems not general enough 
-though so the generalization work we've discussed is still necessary and 
-should be used as a base for that series.
-
---
- i.
-
-On Mon, 28 Sep 2026, Matias Civadda wrote:
-
-> Hi Chris,
+On Tue, Sep 29, 2026 at 03:00:12PM +0800, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
 > 
-> No problem, your proposal works for me. Please CC me when you send
-> the series so I can test the shared changes and base my TM2107 v3
-> on your generic patch.
+> ublk_report_zones() may split a zone report into multiple requests when
+> the number of zones exceeds the temporary buffer capacity. The index
+> passed to disk_report_zone() must refer to the zone position in the
+> whole report, rather than the position within the current request.
 > 
-> Thanks,
-> Matias
+> Currently, the per-request loop index is used as the callback index,
+> causing each chunk after the first one to restart from zero. This can
+> make userspace callbacks receive duplicate zone indices and may result
+> in blk_revalidate_disk_zones() updating incorrect entries in its zone
+> state array.
 > 
-> > Thanks, makes sense.
-> > 
-> > Matias, one thing I ran into when trying your generic part on the
-> > Xiaomi Book Pro 14: its values are sparse (0x02, 0x03, 0x04, 0x09,
-> > 0x0a) and 0x02 and 0x0a both mean low-power. With a profile array
-> > indexed by the firmware value, the unused slots read back as
-> > PLATFORM_PROFILE_LOW_POWER (0), and the reverse lookup for low-power
-> > finds index 0, which this firmware ignores.
-> > 
-> > So I'd suggest {value, profile} pairs for the shared part. I have that
-> > as a standalone patch on pdx86/for-next, with only the profile table
-> > in the quirk struct, so your response layout and AC check handling
-> > would go on top in your TM2107 patch. If that works for you I'll send
-> > it as v2 together with the Xiaomi entry, and you can base your v3 on
-> > it. If you'd rather own the generic patch, that's fine too, I'll
-> > rebase the Xiaomi part on yours.
-> > 
+> Use the number of zones already reported as the base index for each
+> request so that zone indices remain continuous across all chunks.
 > 
+> Fixes: 29802d7ca33b ("ublk: enable zoned storage support")
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+> ---
+>  drivers/block/ublk_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 66eb55e..007e703 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -649,6 +649,7 @@ static int ublk_report_zones(struct gendisk *disk, sector_t sector,
+>  		unsigned int remaining_zones = nr_zones - done_zones;
+>  		unsigned int zones_in_request =
+>  			min_t(unsigned int, remaining_zones, max_zones_per_request);
+> +		unsigned int batch_start = done_zones;
+>  		struct request *req;
+>  		struct ublk_zoned_report_desc desc;
+>  		blk_status_t status;
+> @@ -687,7 +688,7 @@ static int ublk_report_zones(struct gendisk *disk, sector_t sector,
+>  			if (!zone->len)
+>  				break;
+>  
+> -			ret = disk_report_zone(disk, zone, i, args);
+> +			ret = disk_report_zone(disk, zone, batch_start + i, args);
 
--- 
- i.
+`done_zones` can be passed directly, then we can save one local variable,
+otherwise, this patch looks fine:
 
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+
+
+Thanks,
+Ming
