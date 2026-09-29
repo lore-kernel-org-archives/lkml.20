@@ -1,154 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-75.freemail.mail.aliyun.com (out30-75.freemail.mail.aliyun.com [115.124.30.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4FC3F0767;
-	Tue, 29 Sep 2026 03:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E9425785D;
+	Tue, 29 Sep 2026 03:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653756; cv=none; b=dQXVtyycWsJACtI9cJyCPmFzclAFEtTGJFtMCc2lGr4f2w0HxS5p3P9JPjGoa62LJ4f97d+KDjSUnuT4rW/VyKm7yTodeyQMc7KoMTtPO/ojfwQeePIqnI2rf3s7VI+9p0p03Due9lVz1nr3qVnGeZGwjfb7rtk5Gia2jSZkDrw=
+	t=1790653818; cv=none; b=qV6AzgzfWu9F5DU5f9hENxFx0DgsLXvNnZ6XpOaoPBzwiv1+aBi9QDj4dfhYc+A9IQttBpx2HKWmsf/pgqNXl0sC5TWCqBBhl36ZEnVnvDb79/jF1OXDxWLBsmXT3HieeL+1Yb8maQXc+lDuEyt08AeCsQXFqh57zGtyDyNAkgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653756; c=relaxed/simple;
-	bh=PgURvnqYOxxMXGzssBMegKU52gvK8Tx5S6sKN0AYpR4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KOZoz4Tz+HKuo/OnWrCjMa/62IVDxLiA0C9xpezUdUb5bRnOd5BKFsM2RSQGVLFl0z+trc6BVEEUbPKBdSedm5jOvtJzNwoydqSsKpdPewtvuH7SOVKQmh6GH8kxJvWeCqztbwj6t7s4CcMkJsDaZ2rq52BQD6rYcIgDpz+Yy7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6J8FYL5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790653818; c=relaxed/simple;
+	bh=d9rAtasUH0RoaDHGsWyQcvo/plcTrp2g4PerNIc67ho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZXUbdnTkCsshhRWx9/vTHq5Nl7+ctB7xnS2mml5qTbRfUl1iQLCrfVvWr0J8BIQUVrcq2Tze5Zx2/lJSTcLxUd/20urE2MY2SWNnyLc2HDFop6+AQBo2RQgtmxxv7JOJbiSJA+dFBbikj/dbiloLqQpwV68/M17RMu7LbiEUrM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aliyun.com; spf=pass smtp.mailfrom=aliyun.com; dkim=pass (1024-bit key) header.d=aliyun.com header.i=@aliyun.com header.b=ewbshE6+; arc=none smtp.client-ip=115.124.30.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aliyun.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliyun.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6J8FYL5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D721F0089A;
-	Tue, 29 Sep 2026 03:49:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790653754;
-	bh=NJxsvFFeTjN16SEabmoTPrNq8H4f01wfiVpkQzZkGDk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=G6J8FYL5faqwNyYDtStJi9kKiVCa2NFNNQvQDEZeKfaNI2cgqwMyxpfmcFWCd9XJB
-	 HqdcCZxQKGLQHaLnJ++7kvxtMqIJY/gZYOMIMmijWfzy6cU5JXF2d88cI3kqThLAxZ
-	 JLUXfrp+qu1K0MehnBwlNCam7D/JRtqvtS8mBoQHv8WeTsnKJLL+krCjif5I45QAnZ
-	 tHeR2fNCYl7dah1MyOYftFZi8Bb8EV1JZI1dSl6pJENZedCw0cgbN0fQc2YYPl0Exf
-	 y+6YB7rK05Iyk3GjhhXHEw7+BxP5v2s3Efl10UPD0Ou4i61mGYHURlBSxKIBK9mDl8
-	 bLO4JcsA8Gg1g==
-Subject: Re: [PATCH net-next v6 3/3] net: stmmac: sun8i: add support for
- Allwinner H616 EMAC1
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: richard.genoud@bootlin.com, maxime.chevallier@bootlin.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, wens@kernel.org, jernej.skrabec@gmail.com,
- samuel@sholland.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- clabbe.montjoie@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, peppe.cavallaro@st.com, joabreu@synopsys.com,
- alastair@d-silva.org, mripard@kernel.org, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, andre.przywara@arm.com
-Date: Tue, 29 Sep 2026 03:49:12 +0000
-Message-ID: <179065375273.434549.1903316827628045110@kernel.org>
-In-Reply-To: <20260927-submit-h616-emac1-v1-v6-3-e64971f4e414@gmail.com>
-References: <20260927-submit-h616-emac1-v1-v6-3-e64971f4e414@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=aliyun.com header.i=@aliyun.com header.b="ewbshE6+"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=aliyun.com; s=s1024;
+	t=1790653813; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=qxLbnCMjOsISk4dkJ+9u2CP2IpXgRDtHatTLjBExLk0=;
+	b=ewbshE6+Zkhga3pnO1bqR8Jee+A1MAyaQIZ4mLexfiOXl7b4JnazZV0zPvrFWJOqqo+AE5AZ2ql1ksfnQns+yH8h6P01HpE2lGvhwObXEQeueM56MvkKWCVSI0jidmfjK8VYyK0G9qVOz6ksUWHExlhCewtmYuhQ5m9gEuB+W6Y=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1186648|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00757088-0.000741671-0.991687;FP=16780791132089850986|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=wdhh6@aliyun.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---0XBrsXwJ_1790653808;
+Received: from localhost.localdomain(mailfrom:wdhh6@aliyun.com fp:SMTPD_---0XBrsXwJ_1790653808 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 11:50:10 +0800
+From: Chaohai Chen <wdhh6@aliyun.com>
+To: richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-um@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Chaohai Chen <wdhh6@aliyun.com>
+Subject: [PATCH] docs: Fix outdated URL in user_mode_linux_howto_v2.rst
+Date: Tue, 29 Sep 2026 11:50:06 +0800
+Message-ID: <20260929035006.2201371-1-wdhh6@aliyun.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Using an outdated website results in an error:
+  E: Failed getting release file http://deb.debian.org/debian/dists/buster/Release
 
-Low priority / nit picks for your consideration:
+It works successfully using https://archive.debian.org/debian-archive/debian .
 
-- [Low] The new H616 EMAC1 variant (`emac_variant_h616_emac1` in
-  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c) is meant to be…
+Signed-off-by: Chaohai Chen <wdhh6@aliyun.com>
+---
+ Documentation/virt/uml/user_mode_linux_howto_v2.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---
-
-net: stmmac: sun8i: add support for Allwinner H616 EMAC1
-
-This adds an emac_variant for the H616 secondary EMAC. The variant uses a
-dedicated syscon register at 0x34 and is described as RMII-only at 10/100
-Mbps. It is wired internally to the co-packaged AC200/AC300 EPHY.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> index 5691da796454d..47954537b29e4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-
-[ ... ]
-
-> @@ -143,6 +150,13 @@ static const struct emac_variant emac_variant_h6 = {
->  	.tx_delay_max = 7,
->  };
->  
-> +static const struct emac_variant emac_variant_h616_emac1 = {
-> +	.syscon_field = &sun8i_syscon_reg_field_emac1,
-> +	/* The co-packaged AC200/AC300 PHY does not use the H3 PHY controls. */
-> +	.soc_has_internal_phy = false,
-> +	.support_rmii = true,
-> +};
-
-[Severity: Low]
-Does anything actually restrict this variant to RMII?
-
-The only place support_mii, support_rmii and support_rgmii appear is in
-dwmac-sun8i.c: the kernel-doc, the struct emac_variant definition and the
-variant initializers. Nothing reads them.
-
-sun8i_dwmac_set_syscon() picks the register value from plat->phy_interface
-and does it the same way for every variant:
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c:sun8i_dwmac_set_syscon() {
-    ...
-	switch (plat->phy_interface) {
-	case PHY_INTERFACE_MODE_MII:
-		/* default */
-		break;
-	case PHY_INTERFACE_MODE_RGMII:
-	case PHY_INTERFACE_MODE_RGMII_ID:
-	case PHY_INTERFACE_MODE_RGMII_RXID:
-	case PHY_INTERFACE_MODE_RGMII_TXID:
-		reg |= SYSCON_EPIT | SYSCON_ETCS_INT_GMII;
-		break;
-	case PHY_INTERFACE_MODE_RMII:
-		reg |= SYSCON_RMII_EN | SYSCON_ETCS_EXT_GMII;
-		break;
-    ...
-	regmap_field_write(gmac->regmap_field, reg);
-    ...
-}
-
-Suppose a DT node with "allwinner,sun50i-h616-emac1" sets phy-mode to "mii"
-or "rgmii*". Probe would still succeed, and a value without SYSCON_RMII_EN
-would be written to the new register at 0x34. This MAC has no external pins.
-
-dwmac-sun8i has no get_interfaces callback, so stmmac_phylink_setup() adds
-the DT-supplied mode to supported_interfaces as is:
-
-	if (phy_interface_empty(config->supported_interfaces))
-		__set_bit(priv->plat->phy_interface,
-			  config->supported_interfaces);
-
-sun8i_dwmac_setup() also always advertises MAC_10 | MAC_100 | MAC_1000 in
-mac->link.caps. With a non-RMII phy-mode, phylink could then allow gigabit
-on a 10/100-only MAC.
-
-The commit message says:
-
-    Add an EMAC1 variant using the dedicated register and enable only RMII.
-
-There is also no in-tree binding for "allwinner,sun50i-h616-emac1" yet. As
-far as I can tell, only a correct DT enforces the RMII-only restriction.
-
-Older variants such as emac_variant_v3s have the same unchecked flags, but
-this new variant's RMII-only behaviour depends on them. Would it make sense
-to reject unsupported phy_interface values in sun8i_dwmac_set_syscon() or at
-probe? Another option is a get_interfaces callback built from the support_*
-flags. If neither fits, the commit message could say the restriction comes
-only from the DT.
-
-[ ... ]
-
+diff --git a/Documentation/virt/uml/user_mode_linux_howto_v2.rst b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
+index 9224bea5ee9f..c4d5d08e2bab 100644
+--- a/Documentation/virt/uml/user_mode_linux_howto_v2.rst
++++ b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
+@@ -123,7 +123,7 @@ jfs, etc will work too.
+ 
+ Create a minimal OS installation on the mounted filesystem::
+ 
+-   # debootstrap buster /mnt http://deb.debian.org/debian
++   # debootstrap buster /mnt https://archive.debian.org/debian-archive/debian
+ 
+ debootstrap does not set up the root password, fstab, hostname or
+ anything related to networking. It is up to the user to do that.
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927-submit-h616-emac1-v1-v6-0-e64971f4e414%40gmail.com
+2.43.7
+
