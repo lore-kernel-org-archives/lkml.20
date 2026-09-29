@@ -1,63 +1,63 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE43747F3A4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7C7483814
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671101; cv=none; b=U+/0V1TFVrXgtxByzOqFQOhAl/JIG0zWWjhzIlJccdtWEcr2TJY2mUM9//1AfemQqvXVTqk4EelmAKkHkowze7XpwQhr0yeB+cSn46azRaKGRN9vasyfdiy6FseH7TB0AmwPbqpBpkhYO2Z9idVLbieKxuFqWt/aj781QiKVtGI=
+	t=1790671103; cv=none; b=V17ADRbXES29Rfns7t6ygpogrhvlqX5O1jhW/DZNB50lOQiwOQQHW+HGVX/hhybcQw8OvJ4pcU/Shzuyqh67Aai9SQcfL6ytScDg0iCVvpfOe9fFkMC1cDhFiZrBt3yzQcrv/VcaybSf5GSjEWRUfGytBEW5NLuIjhEj0eOGKMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671101; c=relaxed/simple;
-	bh=L3fsKyGi5rpLNg8G/ROz7kxtpDKTfFUi8q+A7hQ20Dk=;
+	s=arc-20240116; t=1790671103; c=relaxed/simple;
+	bh=K3MvCrFWzEsIrhBWqxeXc3gdx6o84wogtYscdysHXgY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kn1bF4S+LcvJQpD4oPi8WTjQzD9YG74MvwA1UrComopevM4NxtraAjfGmvhTf/yAodd2ZtZLgbis6niQp9jHsSip8ptKG45U/jLAmfuXx/5qK+Lf+3m1jBJDerb7sHBhJ7TJ/uPivaxqEt3qwWPlQoLXyUCM0x5j+kngAw1I9Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfLf0uyW; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=V4CBazEhdpsRUCJ7PmP3/4KXBTOQnSwSE3hAlZso2vpJMHrxrCxKnjY8jL46fySLR+slIQKvCJAydLvjTuuijvxskrZi+dMkCSwdr0zCCj34iXTPr3vwYlRT7tkZ2V0K2PS9r/1roUHCAHfpOZWU5tcxMcpQ7V50Z1IFI+RWMyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nGQg65Ay; arc=none smtp.client-ip=74.125.227.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfLf0uyW"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso2535029a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nGQg65Ay"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e22e123350so10625225ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671098; x=1791275898; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790671101; x=1791275901; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7AEeGlWy9uXP/q/PPr93GfqgOECgNHQd0LWMUmr1tVw=;
-        b=DfLf0uyWUU5DYCLeqZXxmnCbBMN8XZfYhdj2XXgoLkQpaN4Rfk/3a8q/ujgZcpohtu
-         PFEUCIM0fb3bkSUmB7AhBX1GjpbPPElQvTEK5bL8nT/0wAXVTHgu+aWYZkwF/YPPCIoY
-         DP0k4STUBwTea3C1e1p/DYVWIAAjK11tjo61MmjGfoY39Rc56RdwpcapGVoqnDKuCjbn
-         +iSTkSTpAC4M+e3FLDeDpX2ufWNpoXo2N0IhlDD/KlAYxGOVdD+nOppzOdaQyKKJ6k4K
-         CKE3ql6ZRw4OTkSGnr50g9T7UH1DNEgm3IWtQg0Hmtu+I0emaNgHoC+4P2CptcMWdxbM
-         HcAw==
+        bh=dcDcKCilMboIAKoprvjC5MEiUMCPSH4NgyIgQJv6TvI=;
+        b=nGQg65AyuobhevuMHzwXsnFs5qSjLgL/SMKFiRLqkn5HbwApKD1PFOgTfbk2D9rAAN
+         /PwEd7rZAbZV+za9AKfzee5S960k9F9wOiq0yL5bOAYrkHky7IdOM/wV5Xt8ASeFErv1
+         fjs9JRwFSmh7vc5I1u90+VKe+vX2FXQkeqH33peS4mgwbU0wVu11EV5rx5CPr2eHT/Rx
+         GcERUxtPVI49/NvGycvMEFlH+SDe2wA66aRzKWbFQe8pJQgVhVMOYxBFyy44bfYjMXt7
+         rv4b61/32R4n8Da7tMooWqKVDvHlFW4UCGkektdBbbPHVtfT21MHpCfBMpmYcuoaR90O
+         nZpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671098; x=1791275898;
+        d=1e100.net; s=20260707; t=1790671101; x=1791275901;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7AEeGlWy9uXP/q/PPr93GfqgOECgNHQd0LWMUmr1tVw=;
-        b=Wyoic4NaU0FqGS5160tIoWBWvK44DidshZygZNO5+WnZ1G3rPNLPYr+g1ETo0ds/rb
-         P6sho5HmJ1sm9nnQxReJDicdwkFGHDILyBaqWZQnIQO7qzpCe3c6A5nZX7oxIb2GzgoG
-         hy4fxG5f6402rgU9R1DcVjRHfsCOgqtZicwraPDWAtdmYr7deOw6NEX4iq3j8akhEZCF
-         5vKxZO8HHJJ7GIfRXBp3PEFxP2VgFendsZxwwue0Mk+7fSzSC7CcTjR/b5s0g/qYNOeC
-         YRghl+ORLxH2vZGaFzVRIxsDkZ5fP8MUUxyubaGBcMIWU6OBll2xipLvdSrWhMcoVfuB
-         584A==
-X-Forwarded-Encrypted: i=1; AKwUvBxIoCJmxW4cIew1QWPbToiZLwfhILsMlovLGYzifbX+wlxZdyIPb0257YjQmfBx1zMPKtQpj7FcIMLCOQA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMwQ0enRGAyofvpK7E5VQsYaThUeBYTKLKAmr0qowJ/U9GHTBe
-	bVB2sqzl4nDFHIKn4qoES8go1ZQqNA+uwdtPrn9rTjJEvBCoAT7ew0dM
-X-Gm-Gg: AYBFou0dHEppl+4DuOHVWmTKgCxIX0g7RFx1mibnYsSkQ6RGkUJStaEFYPRRYUKVyc4
-	jZ8EbGfu/81wgtEKnCOgd+mE6QJJ9Y8kchsJ8OQE+YgpbDZK9U4fJkym+F+nQRukKNmpmf2eS6o
-	UBRpDfj0uwW7SbDr12RdhBSMHre/eigQJXeu1elCApw16YWFwJq9JCpxX+DIRR5eLwzEuw/Qqs3
-	hzFkhPR7OQ3THLiTHuWQqDk5BRLzmZYy6b4Kt689ImBsUHdHiMFjnDehFvS9zVaD7IhWZofCQA4
-	vOqJ6u72ZBNlvbYOQNTIbX3+rd6jUnrAz9vYB+B5WO4YphzwGarvIWQTWiQNCs72m3979dirmbX
-	27swqA7waVPTT/lPlWDBHH5aCkh1+23fJUgUarnWHMfSPzO60+Wu9+IHPnmAWj5XS+dFCVeJPIB
-	GeAI4Ux7N3JHjxInsI8q6iDQH9Hz9MEXYOP0UOFRiv1e/dB17ctaCGqxwHnd1EISEBuLSp
-X-Received: by 2002:a17:90b:2251:b0:3a0:9640:8031 with SMTP id 98e67ed59e1d1-3a098d4364cmr12391254a91.8.1790671098293;
-        Tue, 29 Sep 2026 01:38:18 -0700 (PDT)
+        bh=dcDcKCilMboIAKoprvjC5MEiUMCPSH4NgyIgQJv6TvI=;
+        b=XZr4aQoiRKo9cc0VYhlamn1RkvYfs2JWnnvZgctnwGposL5kh+MRk1zfi4AW+Ny/rd
+         YUqF4XLbjzMbvfs2kYERX92Jb4BmRAzhEIvKFibZKOLz7L8wvPYMAvT3a6Yxe7ib48w5
+         XS0FD8AkdUOH8+TNucuuhwYvqsv4r1nflZz6KkQo0FJb+27Vr5W9rBgslXwt91FoySje
+         SokYYM7sTQAZ3EvAZPE6tVK2saH4MeAmHP0SkUzCqESZFHGqXvbcXZmPNYIbs2lNRu9k
+         RgoJ5OZ2fF6R1p2ek+Z9xtdU5z9ErSumIvAQmfXO+7hJvhG7HvrdJUE/AvmWBSUO3ebV
+         Eu+A==
+X-Forwarded-Encrypted: i=1; AKwUvByHDc92kRDxi5c7JamV7hLwBoVnHNQ4OAVxQYsCU1D0jeC9Q+fadS+lGRq78H6mRmG2ar+wbQtxu55FgZw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTK1vVwbP4cQEz8p3TH0lUU3cBntlDZB1awRmAxoULWAv+bXj3
+	D4xIZMGyHRZ+RaFltK/0f2l1QFiMs7zZ0ALarjljP9e+DzzE++se1AHW
+X-Gm-Gg: AYBFou2PYaQPKjEdJEe1hal919Uv7b2jSq/eAgxeaDIuK3xPWVxpK7tw790zg99iG7S
+	GHKpr4SuieqCHPoikKSVjecInLGnOBXbAFH8iJz3z7ApErmoFcmX0dOY7H48LTI83PHpw67TslF
+	HhA7kiHTmQNvJSOe1Y59gl/8oS89SVTKyBkupWwHAbqHFfx1t8DGTpclbu1SZZ9LB9w4sgkyr0j
+	DYPSLguLEggzasP4oCosaeJEWM7no1B+bOfhblwf8E4KdAj0vHivS0jdqM7hNEIfYq9k1wvH3/K
+	5ym8m/JIWg8TAB9oxmn+RgZCyzPo+ao/JZ7QPL2NyPyYKRamQeQUAz8z5HT2nivVosdVrCB01IG
+	n5fd8aOckjPuqetwEdtsJU7KWHwZku6vT3N4Nywhjxxy1IWoUm6+mjXgDS8YbHTTt/vwYBmG6Zf
+	u7e+aZx7P2VCkuwoafpoX+YceeblIStMmiVwVMesjGDSLrvFjN+VXhwAhqdFXGhnjKTMlQ
+X-Received: by 2002:a17:902:d4c8:b0:2dd:c100:80ba with SMTP id d9443c01a7336-2df7e669010mr123382255ad.53.1790671100775;
+        Tue, 29 Sep 2026 01:38:20 -0700 (PDT)
 Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a3b8d70csm3751988a12.9.2026.09.29.01.38.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b002sm51326225ad.50.2026.09.29.01.38.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:38:17 -0700 (PDT)
+        Tue, 29 Sep 2026 01:38:20 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>,
 	Manivannan Sadhasivam <mani@kernel.org>,
@@ -97,9 +97,9 @@ Cc: linux-pci@vger.kernel.org,
 	spacemit@lists.linux.dev,
 	Yixun Lan <dlan@gentoo.org>,
 	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v7 4/6] dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
-Date: Tue, 29 Sep 2026 16:37:50 +0800
-Message-ID: <20260929083755.458238-5-inochiama@gmail.com>
+Subject: [PATCH v7 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
+Date: Tue, 29 Sep 2026 16:37:51 +0800
+Message-ID: <20260929083755.458238-6-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929083755.458238-1-inochiama@gmail.com>
 References: <20260929083755.458238-1-inochiama@gmail.com>
@@ -111,37 +111,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IMSIC device on RISC-V based system does not require ID
-remapping for MSI. So this device only needs "msi-parent"
-property for IMSIC-based SoC, and the "msi-map" is not a
-necessary property.
-
-Add new condition for MSI handling on IMSIC based SoC.
+Add binding support for the PCIe controller on the SpacemiT K3 SoC.
+This controller is almost a standard Synopsys DesignWare PCIe IP,
+with some extra link and reset state control.
 
 Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../bindings/pci/spacemit,k1-pcie-host.yaml   | 55 ++++++++++++++++---
+ 1 file changed, 46 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-index b3216141881c..91bbbc8924f6 100644
---- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-+++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-@@ -27,8 +27,11 @@ allOf:
-   - $ref: /schemas/pci/snps,dw-pcie-common.yaml#
-   - if:
-       not:
--        required:
--          - msi-map
-+        anyOf:
-+          - required:
-+              - msi-map
-+          - required:
-+              - msi-parent
-     then:
-       properties:
-         interrupt-names:
+diff --git a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
+index c4c00b5fcdc0..af32e427c0c5 100644
+--- a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
++++ b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/pci/spacemit,k1-pcie-host.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: SpacemiT K1 PCI Express Host Controller
++title: SpacemiT K1/K3 PCI Express Host Controller
+ 
+ maintainers:
+   - Alex Elder <elder@riscstar.com>
+@@ -12,28 +12,32 @@ maintainers:
+ description: >
+   The SpacemiT K1 SoC PCIe host controller is based on the Synopsys DesignWare
+   PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
+-  controller, and supports 256 MSIs.
+-
+-allOf:
+-  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++  controller, and supports 256 MSIs. The K3 controller uses an
++  external MSI interrupt controller and may use multiple PHYs.
+ 
+ properties:
+   compatible:
+-    const: spacemit,k1-pcie
++    enum:
++      - spacemit,k1-pcie
++      - spacemit,k3-pcie
+ 
+   reg:
++    minItems: 4
+     items:
+       - description: DesignWare PCIe registers
+       - description: ATU address space
+       - description: PCIe configuration space
+       - description: Link control registers
++      - description: Data Bus Interface (DBI) shadow registers.
+ 
+   reg-names:
++    minItems: 4
+     items:
+       - const: dbi
+       - const: atu
+       - const: config
+       - const: link
++      - const: dbi2
+ 
+   clocks:
+     items:
+@@ -66,6 +70,8 @@ properties:
+   interrupt-names:
+     const: msi
+ 
++  msi-parent: true
++
+   spacemit,apmu:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description:
+@@ -84,7 +90,8 @@ patternProperties:
+ 
+     properties:
+       phys:
+-        maxItems: 1
++        minItems: 1
++        maxItems: 6
+ 
+       vpcie3v3-supply:
+         description:
+@@ -96,13 +103,43 @@ patternProperties:
+ 
+     unevaluatedProperties: false
+ 
++allOf:
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: spacemit,k1-pcie
++    then:
++      properties:
++        reg:
++          maxItems: 4
++
++        reg-names:
++          maxItems: 4
++
++      patternProperties:
++        '^pcie@':
++          properties:
++            phys:
++              maxItems: 1
++
++      required:
++        - interrupts
++        - interrupt-names
++    else:
++      properties:
++        reg:
++          minItems: 5
++
++        reg-names:
++          minItems: 5
++
+ required:
+   - clocks
+   - clock-names
+   - resets
+   - reset-names
+-  - interrupts
+-  - interrupt-names
+   - spacemit,apmu
+ 
+ unevaluatedProperties: false
 -- 
 2.55.0
 
