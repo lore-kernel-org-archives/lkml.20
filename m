@@ -1,245 +1,307 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013064.outbound.protection.outlook.com [40.93.196.64])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazolkn19010023.outbound.protection.outlook.com [52.103.43.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A631A632;
-	Tue, 29 Sep 2026 02:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56483D669A;
+	Tue, 29 Sep 2026 02:13:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647941; cv=fail; b=Kf72bnslOeYuD5pwIme+6l1lWOmpKyRlEvObBGnJnsgFD/O6PZ1xuWQi2fcNhFzMUemCqRjhA+7vD6cT/YIhQuI5E8eHDum/ZFr7WM1px8Kyx7dvW7ELw8tGu1L1O5JSdG1nSc2B1aGknsdXD3wpfCJLwp++vH77YEjkPX7ybW4=
+	t=1790648004; cv=fail; b=ENKl8GO6Q64QJnO9HktdGXZMYLxKY6cUmxRcLrjrshkP9iFvKAWMl/nuPLI3G/AF8UDHWgQwQYAGTodppqCJ5hYIVTdg2cZV9+DktLCpv7eX3kxwDR0bHvBJle817IUxbw1rGZc+fIUdqmgyUAPZYumECZCdeVsqmg/slIYIeB0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647941; c=relaxed/simple;
-	bh=AzYIu37u22pHqb/M50reRigPIq7ehHO+XHRnK1k83kc=;
-	h=Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To:MIME-Version; b=ReAYvP+jiLgGvUjRpDVqr5Az3n/3f5grKXV+RnzxoW7HA8dBhILQLeWEwd0THBRGZeXR3eLrfJ7DGZN3pWK5p2E0r0i78SuJeyYXd6nBWyy6DvbJqvSWaWdt55zEliKK/sXh0GZ+Jc4YQBTBjDs4Bg/PWP97kZGujjDsWYw37/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nbSi06Xg; arc=fail smtp.client-ip=40.93.196.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790648004; c=relaxed/simple;
+	bh=jlvFPZAQTA5HY/kYg4VCHoNQTFyVh9+Daxwamzvppn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FryzyZbYahXidrSVpdvHZKUyrfQT+TGZW+ge9EKG5tMzvEfz/w8EtIDNYkBZWgNEi8CdM8XB37+4o0fjaVRn18HvhJSNhkl3Uwww9B1puuXlr3oVANJXd9Dm+vp+8QhD8OYfcWkGgTmUNs832i19gQ7HXuPLlxbU/Rga6lfNXCQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=W3x2b17s; arc=fail smtp.client-ip=52.103.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nbSi06Xg"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="W3x2b17s"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=leeJ8nG6kj+Isq6S32I/3jiDio4VD8pSbkms/J2QD/IoX8aLjHdso07oB/5c35shMYDpTwrel4o7mU4I1FWDN1AFAmeR/3R/NWNSVOl8pcMqS6kOgC5pT9tYA8/Ofn+tXn7rhqOudPS9JUhFuMNxboeOVhrACy5P6LkekpgZv3i5dw80SaSNAGPAMLPxZtg2+iT2IQxUpebjAPr9T0CIrXgCYf8Dqe0eh0+kNpenBcJ9k3zaXNia9AT/8Ieewx7u1VGQb19YkesBEYCMdnAf9p6qVUTkQHMWowi+2t9pL8nWE5ZUz5brT9TpM4o4VOzL/uCBGqII4umw7zkax/LubA==
+ b=FgOmg8+IJZcKPamlFCUVv0ND9xJNMaRIhYpCAv6+FYAejIz+K7SiUJD5J2x3nAJgaZ+jCQeSN5CrSzlliLlDNtWgyNJxMWEy7hl3/eR0Pl4kZiYy9PLZcUl+daSyCTP9vFrVjBb87k3QZkTlHrIWxI4r8P6NH9JwEb6VJBfESC5Z0ZpoWL9trGmi96Cof977qI32Qe2YCGu4u8LVEz/ytzXOq0hRXdTQ2BnKDdXHcnzneKWAk971TLtZWFimLZCc+o3NKhZYMPOfETYhy10qjDXIVz/tjOuHXqbXVmBsp/4ITDHo/pt8FRz3fF2hMOFDMS84KayCDwBgBS0q8kFdMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rvbe69xBIpzGsOrw6VbYQRORSyH1zSp/rLtFmlWZcCQ=;
- b=BrZGvAynJ4ponUIVOC/cXDvrF1+Etamv2w8qVqOlmhTL8aiE49f6Fr+pOZGCxpsZ8U5TWZJeYCRTF0JCQRuPP55AJVZuwoRVfyelTWQbndJxpUDeg27fFcjsLvOWUBI2Lppn2TBIn+kkt+PdquLDl+M2IX9quoD3CNvn6dG+bzbCQcY8jNjTrlvky7Kvf2JnQ3oXOrvRgEnO3TC7qBz+Li/Di6Uy5qjKJrHOPmtgB+xJpTRvLbcJxCi2zqCf+Oif/79m+P6CKx8IGZcMsnRlxfrvt6nscsBQs4/yY6DxAyUtoYbi9lMgkjHr5wnZKQfQr9weeVUnEx3FaP0LAf7nfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=vPfjLvkYevzwqKED+gbisyRijMGmm++EnFq4InWjWFs=;
+ b=SPos51c9vwAJlDHszJHdSJn9U1sztZNYH0+QiAqZAbQZ0I9vB1J4Rvb+eGIUhVgD3/BlAkcqBsY2JrdsGF9v9X14HND1uhlNqBjPPZuk0Glt63RTVS6CeK0rh3x1iol8uslrBjXF0b6tbAmUeJP+Oa+Gyx7lBirfxtbGZS5FB49YeQt2hMypTGfnBoMaP4StPTGoo7LLUBDu3FvoLt8SZi8qqYsDlh8W+MmMRxRbZuQO6TWNJr2y7RHyVsR8kPWg3UR4XQ5cxq3IukH5rVNqT+nEBdLhXs3v09jBJeuGdtFr3GjkQAIcjRg8QN5d7X6ljphQaVm10+mp9+nS3aVOKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rvbe69xBIpzGsOrw6VbYQRORSyH1zSp/rLtFmlWZcCQ=;
- b=nbSi06XgCR12RiFIHX53tm05VV6tvR8/+VLSfACKpV0nx74Nc/5S3tSezV1wqhbi0cq7fG5akeV+5ugVQEXZx8Ie72mN77tyNZKtIUXyfDpSyG/LqGOli/zt8QYC6byGtv4stGz12SOqQoiRkvlmC5mA4TMRiAQjpdyH1OJDE8LjQT4riv3BdU3C10yuHgc7649NY12R+CP4T1Tx1zYNsnEdcUpL0LVGqJ3HBYH4wwX1QmohJ86A9KA7M9mf/oIfEsTLcjSvbAqkkynzOcQySH2+tGANArdLXGiXQ1vmHAEC4/c4SlOl4OsmwIK78JCfEw4GrAkf2wlBAgXZBE6c6Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA1PR12MB8161.namprd12.prod.outlook.com (2603:10b6:806:330::7) with
+ bh=vPfjLvkYevzwqKED+gbisyRijMGmm++EnFq4InWjWFs=;
+ b=W3x2b17s5Zk4wcHs52yft6OA1Z8qFD1U2X0AdgMgzKd07JNzReBkzO9x55ts2Ygd7GOizyJHrHfcL4AOQ8rlUFQQorWlWJvlfB/3MIdrIdmBCIfQvcCk4oNfZN6uuS685ThzPlqKCMadsZnd5pienh+YTlDwA/NYYm/jdcnKDz23cJS8o4k9zVpWKtNwXkNGaQgyLLh+BwZ52lVxPI5w4HEKya67k8kKroZTUSDM3TrCRVGqV7XE/SKj+FFtVaolPi4wPg5thTSKMFCKeOwFtxFoBjcpuL2poOnK7NxCcCdB8x1UJwWRes9UHYLX6de+wkgzxSeMjDpVvZiLnZuTWQ==
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com (2603:1096:604:1a5::10)
+ by TY3PR01MB10453.jpnprd01.prod.outlook.com (2603:1096:400:311::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 02:12:09 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 02:12:09 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 22:12:02 -0400
-Message-Id: <DLRFPN5JH235.34HHA5QDQGSBT@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
- Moore" <paul@paul-moore.com>, "Stephen Smalley"
- <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
- Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
- Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
- <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
- <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
- <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
- Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
- <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
- <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
- <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
- <vincent.guittot@linaro.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
- Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
- <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
- <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
- <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
- Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
- <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
- <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
- Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
- He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
- <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
- <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
- Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
- <xu.xin@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v3 25/40] mm/vma: enforce that only kernel-owned
- mappings may set VMA_IO_BIT
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
- <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org> <20260917-b4-mmap-prepare-vma-flag-sanify-v3-25-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-25-4583d8a23bca@kernel.org>
-X-ClientProxiedBy: YQBPR0101CA0340.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::17) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ 2026 02:13:19 +0000
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b]) by OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 02:13:19 +0000
+From: Shiji Yang <yangshiji66@outlook.com>
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org,
+	Shiji Yang <yangshiji66@outlook.com>
+Subject: [PATCH wireless-next v2] wifi: mac80211: add missing fmt line break
+Date: Tue, 29 Sep 2026 10:12:40 +0800
+Message-ID:
+ <OSZPR01MB814067378662FBBB72CB11F3BC8C2@OSZPR01MB8140.jpnprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI3PR01CA0010.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::16) To OSZPR01MB8140.jpnprd01.prod.outlook.com
+ (2603:1096:604:1a5::10)
+X-Microsoft-Original-Message-ID:
+ <20260929021241.1144804-1-yangshiji66@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA1PR12MB8161:EE_
-X-MS-Office365-Filtering-Correlation-Id: 929b79cd-7fd3-4fe7-b0ea-08df1dcf10e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: OSZPR01MB8140:EE_|TY3PR01MB10453:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7540edd-b608-43c2-2cfa-08df1dcf3a7c
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|921020|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+	BCL:0;ARA:14566002|19110799012|8060799015|24121999003|25010399006|22091999003|12121999013|4140399003|24021099003|21061999006|41001999006|15080799012|260925184616899003|5062599005|23021999003|5072599009|52005399003|40105399003|12091999003|1602099012|10035399007|2607281247196008|3412199025|4302099013|440099028|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	55V5jLLqnKa+bap2rTDpyXvJ3MS2KeCN1v66hI6BgDtw24iIHyBtnFcsj40HGTzEsTDv6VVOvLjR+3RKHA13ORaZjm94lG+Mm6zU/Gi5YMuUYQVpJFkYr14j9O2JEahCemsUkSAvCXrpWSlLjvgVYmWUWb2pMyw+ENNOeNu9ib40HzVvAlZ1hnYPKjBOGJmIhdSQahYFF2kBaQUuxI+GQ4Ggj6FQYrR3/VE+qJZJpfwcECIAFB4twVQa+hLHa0Ve0J3DSJT24HEHLYU4q4AkQdTVE/lEl/AIeXhgOUupKjHD9yu256BAbRce7VT6kw5gebvfaLB6PeRavLv8twn1I6OdyXfs2CsChLXJoeTSySz6laOIKou7jk9lJDIHvpn2NJ5j7FFWDYru8bNGIOYxS1D+oJOd1no8EYCKcS4FoVqOMZu8SxD6nI5W5LesieW6vo4Z8G5btadzb3CVLJi4YBw3XHQLNI+VkzVKhIJ3Kfq7hEkvvjn5jzX89cxCQekRNonJwLSUjc/eR/gZhHhBjnF7/pvLR4MhCfy5mos6X7sd77iTwY9mB+IEyGRt4oEGSOqPdlvWFtngelGgsZMcvRpKdOIJw9eZjxzu9+i3vf8mLI9h8wzHVv4jGxA0NzZEI8IofRgVaKEHJFZm2obMyU03kiQn9zErw/yXQeNHOCl8QWdt64j6Ft1G9PwSg+AhwwMh3EGQOYEH+UNFKOBvCw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	=?us-ascii?Q?n1CBXJrsZzh5IdCG6BNltc8GkizAlk/2VVuVqJzTiTZfD8h6T9JbOnwEflBp?=
+ =?us-ascii?Q?z9Xt5gCmtJUjQlVInvc0H+YZ0r27ZtI/4lkCAsIzQQSFH9DtdkoH20SjXqoI?=
+ =?us-ascii?Q?+RTyQ8QrQggbVAx6A3tgfIkcVOodxRmSZ2+arwNu80H3QAERWhUbK9LQ9+Qq?=
+ =?us-ascii?Q?dChLs3s2Hjfk6wwrMGV+9gHLeNSSgs8BZlVFJ9qZCiqJKxIaV+xEloLuH9gM?=
+ =?us-ascii?Q?Cr6eiOCZ735ad5qzITeLjJncHdaEpq1fnwGeQU0M6Z2SmdAmRBcIn3qDuY8d?=
+ =?us-ascii?Q?xZ9xEcs39GMGy9gfQKABKlpsFigx++fOVUIeUgWzSQWyh5DaPvDwgEsljIB+?=
+ =?us-ascii?Q?CRmbSalElllksuHERTHXn1mjWuYsiT0dWoVBy8U7svQGRWOCxF0YpqHLgjDG?=
+ =?us-ascii?Q?B57XvSAQoUu7TBOBRFdA5cpYm/6C8PzYUnzgZPL6ztkIzPo3Z2GkMVYFZwok?=
+ =?us-ascii?Q?X0hUnl3ZrpDau4ZeoCxOc6fwxSuRYYVEgXnv8f92ZZ86wXfK5ZVmrPz5r94/?=
+ =?us-ascii?Q?ogKL65QKkfHcxcisqHzG1SSrXA4ECQBaPtWgKy8WQdbGG5ke9ut49eySDGAY?=
+ =?us-ascii?Q?tJdnGR5DiPr2JGH22MSwR5gc3grhO4Gw78TaMJCZyu9eMQa8Ec73iTeQ24IG?=
+ =?us-ascii?Q?OjVmp1O3P6XsYi7hPxhE26UwusSGDMFgH4gSNslNQJk1WpabviLx1Hf/lgw5?=
+ =?us-ascii?Q?a5JN2ruqVJJgjXcEd2EE+vl+UDiI1iMDL1fsh52GrIR5IMcjy+t1H6lZVMTQ?=
+ =?us-ascii?Q?5k4Ggmv89/wDNtAxMxXf7mx8b2HUVJzlyQ3k2R943QHp6xQyyoxrg0VoYeo8?=
+ =?us-ascii?Q?7IzB5lprBvTCm9hWDrMPNXFMmneToIq7ib0B4SNtzmpS4DPS7A2AIrOlMs6I?=
+ =?us-ascii?Q?1MpRmQ0+D3aPdglHTBZAGS/Akm5eMuy5+ezZ0In88ZKg0m8G8EggI7DlVSe3?=
+ =?us-ascii?Q?I37dWCN2REDBNk26iWYGIqTiQeEZrqubCigLW7JAKg2g35SlCyjPFmpIZ/OY?=
+ =?us-ascii?Q?Do+19WLJD8oOI0CLgi7tYVHHpaWI1qivwB42/4wOO/xblqBadPkvCVcVXdKg?=
+ =?us-ascii?Q?cAqpMJ+sRb2z2V0rBRXQiIpAvHjNhsFmLajrW8jcojIdAWdab9Ane95g6nak?=
+ =?us-ascii?Q?kAMW/pyUIX4eFxlVicWUgK2xrOj8Jemv79n9stT/BdH+MaTuIj4OOBnn4bqE?=
+ =?us-ascii?Q?lml62/KBZbPZtcGZqlssKJIC1dn+XzuuT3o+GHYCChPBS9GCOYTfJ2++cvo?=
+ =?us-ascii?Q?=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZmpGRzdZTUhYUEpidGovM2ltbThTWDBuQlNLbW1uZHRGTXl4Y05XRWxVcDVz?=
- =?utf-8?B?YXh6OFhPd3JhNTdtSytoMm91Yi9lVlp0NWJueS9wM3RRMW80QURYV29RUWg1?=
- =?utf-8?B?dnlVRWpVN1pMS2lkZlFOb0U1UGtzeVNkZjFUdFdXcEZTOEVGcWdzcU5zdlpv?=
- =?utf-8?B?QnJnL0JXQjBDVHVsNWt1SFB6LzZGWjlzRWdXTVYvNC9EVFJBTVlSRE9iQUJh?=
- =?utf-8?B?b3cvcWV6NTZXT2dOS1VmVUk2NHBHeE5NbGlYdithNC9VUHV4c1FMcnM3MXpX?=
- =?utf-8?B?cExGellJTFBXOU4xUlpwWkNnSTM1dzU0WkpRTytlNTQydUw2WGtTbHdJSEc4?=
- =?utf-8?B?M0dudWh6d2JMQUVKWWlZajhGMGhHZU9DWUNYckVUWG1YWDA2TFU0SEliL0RN?=
- =?utf-8?B?dERYNHEvQVJzWkNma3hSVndMVCtoc3o1MGhWdVNET3F1MGRjQUxPQmdaRmZC?=
- =?utf-8?B?Nzc5WFhkbVRkcldBdmVvZjF2T2tKVG1iRXdqWGVmdzYxaS80N0U0RWczNkpC?=
- =?utf-8?B?OWFjamVLOVBsVTNJR0U4V2lWVFRxSDJVSGZFZkhrY3BPTmRKei9YbXFuZ21L?=
- =?utf-8?B?UGx4R2VkM0sxMnZhd0RsejdGbTEzcUUxdmRyY2J3Ry9DWXc3Q2lVSHozbng3?=
- =?utf-8?B?c3hQMEJpWWdPdFpqZ3dybUxabmdOK1JQSE5UM0RyOGxRSVBwQzVneXF5UzRi?=
- =?utf-8?B?bEhJM3NMcjNiK1Evd2Y1eFNVRHQ3WnQ3c2RJNTNPZWwzM1dBTDN0RzZZQU1D?=
- =?utf-8?B?QWw2SDNwbCtsa010aEd2aVZoYnBXN1BKd3NxeW42WCtLUmFtdnRzVnkwbVlR?=
- =?utf-8?B?OWxkL1RQNlUrSTBkRTBsZ04zbG9iUy9jYTdqRjVudmg5RDlmWkhwNDRQUFlp?=
- =?utf-8?B?a2l0ZkFOdStOL1V4OVIzbDRFVFB6TWViQVc3OWRUZDducUlDMTZBZTNMcmVD?=
- =?utf-8?B?Ry90emRCTHd3NnQxZWFxelZDM2ttY2xrMklDd3M4dXJwV0Y3b2hhd0lnQnlr?=
- =?utf-8?B?bXlyOWt1NkNJZXc0VjNHLzFFT0NsQ1hwLzgwUzZKQ1VsNkk5eU5rR3F0cWRH?=
- =?utf-8?B?T3Zkc2Q4ZHh0cWhMbkwvQ3JCc0J0OWtuaTRVa1RFbnFBT1BQckJkS1FGN1ZV?=
- =?utf-8?B?QzM3Q2JSVzBzUzFJQWNZN3dOSEErZ2Q2dVl3WEk5dnBFRmxTc0RLWHFtNUZa?=
- =?utf-8?B?V01xWTI0R2hEbnp6d1RiekZGL0wwUzdkVjZ2RFVhTFU1OU5qZ1J2SXZQL05t?=
- =?utf-8?B?SzZSRzRiWWtDZ3MrL1FEVnVNUE1TZzh4UnV4a2w5R2RiQktjdmhWMEo5Y1Yz?=
- =?utf-8?B?YXoyYUQxd2J4WUo5Q0d1TUw0YVBDbUxjbEQwbEZpQStPZjVOQmZTakdTdVkw?=
- =?utf-8?B?elU2ZkZod2JERHpXek94UUJDTFZMVjF1Rnd5bVNTSUJ5bUVQRlpCamtCWkdq?=
- =?utf-8?B?bVJLbG1JS1BCS1dhQ0hMUTJNc3A5UFliOTkrWmdhMzFjbTh6OXZyMk9sa1p4?=
- =?utf-8?B?R2pyelhlU1BMZDg2VFN4SW5XbGdrWmQwOWdHV0l1ejBKS0hzK1AvMmJjRW5q?=
- =?utf-8?B?clh4cjhkb3VNdDA5T3pVNTc4dUFCUEJ2ZzZiSjlhY0pYRmF5Y1RDU1F3OVkw?=
- =?utf-8?B?VG1SdDdFTFRKU2FFL241cnhWNEFKWnRHdW15OXhaTUp2UjF0TnpiMUt4REdE?=
- =?utf-8?B?T01ETHRmdHRXcmpBcThpUE9ocFgrK2huT2N6bElBNWc2MkVEL2YvdHR1Z1M0?=
- =?utf-8?B?UXBkdTc0cVdjWEw4Sld2RHlFUkJnellpaUR5ZGUxNnIwRGJIa0RxY2pGWkFa?=
- =?utf-8?B?aGphNUFOL3c5dG1Lb0w5Y29DampLbGNIbHg4OThUY2NCRG1FTHdxaFg2OG0w?=
- =?utf-8?B?MkoyanMyY3BTVUl6dUZmcjF0MmZLNFZNSGpKY0w0NGtsVWYwOWJZbk9Xb2sy?=
- =?utf-8?B?NTE1Z2ZWZDZjMFVFdnZ5VUJmVmRyV1JDN1ErZFBwZ1E2VlJGQUYrck1WRzRa?=
- =?utf-8?B?aVROVjZRMW5mb1lWY1lZSlh3aVVzeEpWNmp3NGw2RG5oczIrS1YrUTlIYXNX?=
- =?utf-8?B?Zk9XRWt2VFVYc211ZVR4dUwzendWSkg3WWRKYkljWk5pUFNTcGxFMDd6UXE1?=
- =?utf-8?B?WmNHcVJlR1ZSYmRNWHFHdzVyeGJGQ1pRVVQyanhJUmpvUjRNb2dId1k3TDAr?=
- =?utf-8?B?T29MU2QrYTEyMWhudFFBN2FGQTd2ekZDMnJ4c2pubzBOdk9kcTBxSVFRSnJi?=
- =?utf-8?B?K3Y2QWJVRVZ4YmZHbGhFazFSdDdadkp2cEUyMmVQRUdMdzNVaENVd2hFUmxC?=
- =?utf-8?Q?nxE//RYebAqK4lZhk9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 929b79cd-7fd3-4fe7-b0ea-08df1dcf10e1
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+	=?us-ascii?Q?dJMx5LhOKMz3S8K21UVi3GjA7osgvf2l+QhVF32bvFvlcysxwb6nMNTVgVAR?=
+ =?us-ascii?Q?9EVBtCdPp/kLRaa7QiedbcG6BvjR/vDGmbmvZeAFiQoZ+d45G2pzl68X0rvZ?=
+ =?us-ascii?Q?EpDr/mINXNGHdPIgLJ8TGwkBahkCZ9Y+UM4vH3IPTgVbZn+KBNw1k1am6Y5k?=
+ =?us-ascii?Q?uwNBvlSal5+t2YrO0Bf9pUZNeIjgjTAHUF8wMN5v4wXfeBEgqXJzQiutoV0P?=
+ =?us-ascii?Q?Ug5y/9wy2ZLkUjCgQB2Srv0x4BnREjuiL4IN72lOb4NQJGG8XA4l6tBnkRFZ?=
+ =?us-ascii?Q?ZALdOXmqLapV0NBqJRlZOgYNxBVxXiJKYsbNKGyTCy6wQusaqEUydwaF/SzR?=
+ =?us-ascii?Q?wE0bDjgYCAfPmYQIPnhmGSZklL+2lcKP6L5qC9ugaGJVb8FkSKC6RKLU9xAm?=
+ =?us-ascii?Q?d2HKBR5j3wxNtyv/9KNJD/Pc6UPdg67kROvJ86BqOvBrqh1WCZCHwfL0fKjQ?=
+ =?us-ascii?Q?aP2twWlLbwqrdeYXl36Zbr0wXCem3X5LxwZ65fLfO9bHkDsnRx78if+rBE59?=
+ =?us-ascii?Q?7PNm1oUbcLcDgbq6SJLMKocl9pxmedR7RAtaS2g9+RqyIkUj9bcWqiLkvJnw?=
+ =?us-ascii?Q?ixtCfdg/rtrkrl6hQTWCQIBENaUFQMo6wF/ZmJg/ekxd18Jba0e9odecnRAI?=
+ =?us-ascii?Q?A4+kLW5qAFHYEYeIk0LxEAKU9KYvPnJ3nqgd18nFGI7iJGQNxYZ4xDJvPLax?=
+ =?us-ascii?Q?/EXL6t/6BIZ4aLombxANuZYed1HtyqxTzIovjOArhtVWmWpAayPGCuvyFcb2?=
+ =?us-ascii?Q?u40xBY1BlaiyNm3l0FD+TGlu5mNXj7ZWd7QU6x2B7xAizwFNYQfVFjrVNmuO?=
+ =?us-ascii?Q?kRqSoy9EDd84WC7oD6czVyrRuB03C6p9+936VT4GnWRctmga+c4Gy3sntieE?=
+ =?us-ascii?Q?/KUjOOoWInbnr4ea6O4akkgbC+5WUC028e5A3Xp6ggIy1kM2UZb5SdDp5c+Y?=
+ =?us-ascii?Q?Ib+qQIAObmeCxdY//+wGq5oAU7DNieuxtVO+Wrk+khTWhATcOpLYS4ybA0ut?=
+ =?us-ascii?Q?YYqOUJHXjNrGeImdecpyhMY6gWIioWd8H1qhz+3QtCTerLWUTyZeXwaWQ1RI?=
+ =?us-ascii?Q?Ge5+KeX9vli+Lp+5NZGkppam5S3U+wWcRZDaKwSL4D7dApX7dtyXMR3hN0CT?=
+ =?us-ascii?Q?oSIz29yGrA8tW3iti/n8DRkhNxucPMupiie6Okqwgu2ZAlkM2GaOHYWBvMz9?=
+ =?us-ascii?Q?NX3BojmVQtCjbdlVkEXfLCXEjgoKItnHX7yd7x/UqOC3WHYL6tbY37Zbs7we?=
+ =?us-ascii?Q?5wMmiNpEjPWGApfYktBH44URKwYkmgJ0ejh7hUp5WaH5DlMW3QreQKFlBl6S?=
+ =?us-ascii?Q?oUjU5mAeWTcibXmc6TW9vejvR+1fhUQweg/ls4sWuBcXUwJ7MlJqc9gQS7yC?=
+ =?us-ascii?Q?SokRH/vdwfGC5ZDkvonOJ3i8mPB4?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7540edd-b608-43c2-2cfa-08df1dcf3a7c
+X-MS-Exchange-CrossTenant-AuthSource: OSZPR01MB8140.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:12:09.0376
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:13:19.0960
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iGPiS2Ywd+V6AhZ66j60qQ5UQnjbvbizvRjnGHh57Z10grwgY/ZHiviWZgnay2r+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8161
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10453
 
-On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> It makes no sense for a mapping whose contents the kernel does not own to
-> specify that the range is MMIO.
->
-> Prior to this patch, all in-tree drivers which did so have been updated
-> such that they are marked as kernel-owned. The check WARNs and fails the
-> mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kern=
-el
-> mapping.
->
-> No functional change intended for in-tree code.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/vma.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 1db8b218fe64..56a0cd154419 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2787,6 +2787,12 @@ static int mmap_validate_vma_flags(const vma_flags=
-_t *flags)
->  		return -EINVAL;
->  #endif
-> =20
-> +	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
+It was noticed that dmesg sometimes cannot read the last log entry.
+Queried using the regex pattern `(?<!\\n)"[,\)]`, then manually checked.
 
-I thought why not just using vma_flags_is_kernel_owned(), then realize
-that function is still checking VMA_IO_BIT. And you convert it in the
-next patch.
+Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+---
 
-LGTM.
+Changes in v2:
+- Correct pattern in the commit message `[^\n]"[,)]` --> `(?<!\\n)"[,\)]` 
+- Add wireless-next label
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+V1: https://lore.kernel.org/linux-wireless/OSZPR01MB814085194DDA24DAC2759477BC8C2@OSZPR01MB8140.jpnprd01.prod.outlook.com/
 
+ net/mac80211/fils_aead.c  | 6 +++---
+ net/mac80211/key.c        | 2 +-
+ net/mac80211/mesh.c       | 6 +++---
+ net/mac80211/mesh_plink.c | 4 ++--
+ net/mac80211/mlme.c       | 6 +++---
+ net/mac80211/rate.c       | 2 +-
+ net/mac80211/vht.c        | 2 +-
+ 7 files changed, 14 insertions(+), 14 deletions(-)
 
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/net/mac80211/fils_aead.c b/net/mac80211/fils_aead.c
+index 293590976489..1686fed0b98b 100644
+--- a/net/mac80211/fils_aead.c
++++ b/net/mac80211/fils_aead.c
+@@ -271,7 +271,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 					 ies, frame + *frame_len - ies);
+ 	if (!session || session->datalen != 1 + 8) {
+ 		mlme_dbg(sdata,
+-			 "No (valid) FILS Session element in (Re)Association Response frame from %pM",
++			 "No (valid) FILS Session element in (Re)Association Response frame from %pM\n",
+ 			 mgmt->sa);
+ 		return -EINVAL;
+ 	}
+@@ -301,7 +301,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 	crypt_len = frame + *frame_len - encr;
+ 	if (crypt_len < AES_BLOCK_SIZE) {
+ 		mlme_dbg(sdata,
+-			 "Not enough room for AES-SIV data after FILS Session element in (Re)Association Response frame from %pM",
++			 "Not enough room for AES-SIV data after FILS Session element in (Re)Association Response frame from %pM\n",
+ 			 mgmt->sa);
+ 		return -EINVAL;
+ 	}
+@@ -309,7 +309,7 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
+ 			      encr, crypt_len, 5, addr, len, encr);
+ 	if (res != 0) {
+ 		mlme_dbg(sdata,
+-			 "AES-SIV decryption of (Re)Association Response frame from %pM failed",
++			 "AES-SIV decryption of (Re)Association Response frame from %pM failed\n",
+ 			 mgmt->sa);
+ 		return res;
+ 	}
+diff --git a/net/mac80211/key.c b/net/mac80211/key.c
+index f45e792abede..294336b1c1c9 100644
+--- a/net/mac80211/key.c
++++ b/net/mac80211/key.c
+@@ -337,7 +337,7 @@ static void ieee80211_pairwise_rekey(struct ieee80211_key *old,
+ 		}
+ 		if (!wiphy_ext_feature_isset(local->hw.wiphy,
+ 					     NL80211_EXT_FEATURE_CAN_REPLACE_PTK0)) {
+-			pr_warn_ratelimited("Rekeying PTK for STA %pM but driver can't safely do that.",
++			pr_warn_ratelimited("Rekeying PTK for STA %pM but driver can't safely do that.\n",
+ 					    sta->sta.addr);
+ 			/* Flushing the driver queues *may* help prevent
+ 			 * the clear text leaks and freezes.
+diff --git a/net/mac80211/mesh.c b/net/mac80211/mesh.c
+index d4507e4e6ec1..c6047d0daf6c 100644
+--- a/net/mac80211/mesh.c
++++ b/net/mac80211/mesh.c
+@@ -1529,7 +1529,7 @@ int ieee80211_mesh_finish_csa(struct ieee80211_sub_if_data *sdata, u64 *changed)
+ 
+ 	*changed |= BSS_CHANGED_BEACON;
+ 
+-	mcsa_dbg(sdata, "complete switching to center freq %d MHz",
++	mcsa_dbg(sdata, "complete switching to center freq %d MHz\n",
+ 		 sdata->vif.bss_conf.chanreq.oper.chan->center_freq);
+ 	return 0;
+ }
+@@ -1633,14 +1633,14 @@ static void mesh_rx_csa_frame(struct ieee80211_sub_if_data *sdata,
+ 
+ 	if (!sdata->vif.bss_conf.csa_active &&
+ 	    !ieee80211_mesh_process_chnswitch(sdata, elems, false)) {
+-		mcsa_dbg(sdata, "Failed to process CSA action frame");
++		mcsa_dbg(sdata, "Failed to process CSA action frame\n");
+ 		goto free;
+ 	}
+ 
+ 	/* forward or re-broadcast the CSA frame */
+ 	if (fwd_csa) {
+ 		if (mesh_fwd_csa_frame(sdata, mgmt, len, elems) < 0)
+-			mcsa_dbg(sdata, "Failed to forward the CSA frame");
++			mcsa_dbg(sdata, "Failed to forward the CSA frame\n");
+ 	}
+ free:
+ 	kfree(elems);
+diff --git a/net/mac80211/mesh_plink.c b/net/mac80211/mesh_plink.c
+index 268857467f29..77a54f28fc70 100644
+--- a/net/mac80211/mesh_plink.c
++++ b/net/mac80211/mesh_plink.c
+@@ -681,7 +681,7 @@ void mesh_plink_timer(struct timer_list *t)
+ 	 */
+ 	if (time_before(jiffies, sta->mesh->plink_timer.expires)) {
+ 		mpl_dbg(sta->sdata,
+-			"Ignoring timer for %pM in state %s (timer adjusted)",
++			"Ignoring timer for %pM in state %s (timer adjusted)\n",
+ 			sta->sta.addr, mplstates[sta->mesh->plink_state]);
+ 		spin_unlock_bh(&sta->mesh->plink_lock);
+ 		return;
+@@ -691,7 +691,7 @@ void mesh_plink_timer(struct timer_list *t)
+ 	if (sta->mesh->plink_state == NL80211_PLINK_LISTEN ||
+ 	    sta->mesh->plink_state == NL80211_PLINK_ESTAB) {
+ 		mpl_dbg(sta->sdata,
+-			"Ignoring timer for %pM in state %s (timer deleted)",
++			"Ignoring timer for %pM in state %s (timer deleted)\n",
+ 			sta->sta.addr, mplstates[sta->mesh->plink_state]);
+ 		spin_unlock_bh(&sta->mesh->plink_lock);
+ 		return;
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index f51167f0fc46..b323d302ef4f 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -6623,7 +6623,7 @@ ieee80211_determine_our_sta_mode(struct ieee80211_sub_if_data *sdata,
+ 			     IEEE80211_VHT_CAP_EXT_NSS_BW_MASK))) {
+ 		conn->bw_limit = IEEE80211_CONN_BW_LIMIT_80;
+ 		mlme_link_id_dbg(sdata, link_id,
+-				 "no VHT 160 MHz capability on 5 GHz, limiting to 80 MHz");
++				 "no VHT 160 MHz capability on 5 GHz, limiting to 80 MHz\n");
+ 	}
+ 
+ 	if (req && req->flags & ASSOC_REQ_DISABLE_HE) {
+@@ -8733,7 +8733,7 @@ ieee80211_parse_neg_ttlm(struct ieee80211_sub_if_data *sdata,
+ 			map = ieee80211_get_ttlm(map_size, pos);
+ 			if (!map) {
+ 				mlme_dbg(sdata,
+-					 "No active links for TID %d", tid);
++					 "No active links for TID %d\n", tid);
+ 				return -EINVAL;
+ 			}
+ 			pos += map_size;
+@@ -11011,7 +11011,7 @@ ieee80211_process_ml_reconf_resp(struct ieee80211_sub_if_data *sdata,
+ 
+ 	if (len < 1 || len < 1 + *pos) {
+ 		sdata_info(sdata,
+-			   "mlo: reconf: invalid group key data length");
++			   "mlo: reconf: invalid group key data length\n");
+ 		goto disconnect;
+ 	}
+ 
+diff --git a/net/mac80211/rate.c b/net/mac80211/rate.c
+index 64768abb0a5f..3b5820a0c593 100644
+--- a/net/mac80211/rate.c
++++ b/net/mac80211/rate.c
+@@ -318,7 +318,7 @@ void ieee80211_check_rate_mask(struct ieee80211_link_data *link)
+ 		return;
+ 
+ 	sdata_dbg(sdata,
+-		  "no overlap between basic rates (0x%x) and user mask (0x%x on band %d) - clearing the latter",
++		  "no overlap between basic rates (0x%x) and user mask (0x%x on band %d) - clearing the latter\n",
+ 		  basic_rates, user_mask, band);
+ 	sdata->rc_rateidx_mask[band] = (1 << sband->n_bitrates) - 1;
+ }
+diff --git a/net/mac80211/vht.c b/net/mac80211/vht.c
+index 92a4e0450593..958d9ed52fef 100644
+--- a/net/mac80211/vht.c
++++ b/net/mac80211/vht.c
+@@ -365,7 +365,7 @@ u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
+ 			}
+ 		} else {
+ 			sdata_dbg(sdata,
+-				  "Ignore NSS change to invalid %d in VHT opmode notif from %pM",
++				  "Ignore NSS change to invalid %d in VHT opmode notif from %pM\n",
+ 				  nss, link_sta->pub->addr);
+ 		}
+ 	}
+-- 
+2.53.0
 
