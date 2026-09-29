@@ -1,326 +1,171 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8A648641D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A930547A87E;
+	Tue, 29 Sep 2026 08:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671106; cv=none; b=QJRqJ1PGxiy3mr+xz0vKO5HYwn8tSdcOXFEowUqPkeYiacIoGPDH+kxzp6/q+7xIgg26o8D7IzJvYCHaKO+p5dEfC+ojZBQysVLbRPdoJl/jxfL9lP30b2r8ElqrRydU0z3qQju5oxr8Dz+p2z2trwB40lVBltV9GIvjK2pZD+c=
+	t=1790671121; cv=none; b=jzgwNF9jQYcm/GOUXFdDVbW9PrCs78sNw6zkxPuPpCuAlg55vjcOPrNCH8EvKYV32isc3F55FHkUU6AWHi8wZqT5AZw0zVUYynqE2RW7Vq5X6aOveMDdmdHnOig8Ta8bJdeoIsbcTYqGtmbPYNtZOogNDGIougbOA0JmaqvTUxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671106; c=relaxed/simple;
-	bh=4JdfCyLALDJ6xYLBR2RbOX+FqRbOvU8Uw5004bIWvpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uoiL9lqbtAbHJ6Hwc1xf6Ct9J6mjnl8F4lHHZs6b+vqlNaGWH9nwsbMteKwjKWaw+9oJNwbp0vhhjloFWC8PowjwhLdTxza9nFMVcrkEx9m4mrQm+6mJVoKFxGjXD4QkNSGrVrMGVwZG2mSlzcH/Jg0NvtIi/c2At8YlmQkpVFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tMKF30br; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790671121; c=relaxed/simple;
+	bh=0GVvXEuzwAKDIxOM8y6ylU7wEsz+hIJdDpvl5iDy73A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gw6wlZTV9yhSnK9/hKIPfOCvia+QIItkKA2tDRuNJNLgTIk2ovtww3mVmj+PkFieXjP8dWN7tql2/q85dM5xGF+X9wl289MEcE6nXzM3bCiojXu6vJRUlqTlm+jjzlhZj5gIcDJnIey8qTXdOt4UKV5umSR8mEhvB9D/esGJGB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuvrMQGR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tMKF30br"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so21030775ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671104; x=1791275904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9taEhUKeB1oizn7sfoRMW1tAn++l1MHVxmwejzHWtjA=;
-        b=tMKF30brxCvVBh1oZldnJvUS1n0UaPrhmk+IIqtWJNGv3pfMWMYCFmgapYC7xa46gV
-         i16x4xxW4PhVz3zoh1AI7p5LaEwn0Dyj4fffrn75G7kl1o6mEF1ORzcZLOIeIDK/l0Uk
-         CpXMS9MgjzHMrouL4iGTzkUiqy2AXDZTqJVeRu2h+pKVQqQGnL/ZVIgXsVzKAwnMdE/A
-         vlfxtMIgWSocOnzLZQ6ljjHq6ubEzp7E9+gWXKhWE3nml35F7PFkOdA7lbWY1yE4nZN1
-         QAf5aglWZz6rxOS6YmXDxWdCq2lqvW3mC5yYjUy3HZDUrWAkfOP3GCYTGbGTL9eXt/Ns
-         b4rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671104; x=1791275904;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9taEhUKeB1oizn7sfoRMW1tAn++l1MHVxmwejzHWtjA=;
-        b=mNkQtnpSQGSm4pkBFcMwc/+8R3dcpZUrOBzuMs8ytFqNHrji1HzDF5hZUZatv5sIK+
-         5vViGdQ/DTcDbSuOUmpN/bbtaJpp4YRbXn9y6yAk2rZxb8szXNMMEmbgI5whCFrZ+bVr
-         0wxIeT8whc968tUkKgt83ckFo8d+mBvdQy/AmSDBfpUR+8yVFaErEQ89/HXP/cFQNYyG
-         ZIvhI/llYSDu9l1CgFZ53m/bjt7oa5ix4NTG54R+XHemehBEy6qxjFhbkrkVa+8gaFUt
-         9Ad8RHKmHvaI1FlGPIDocif/sKGICfNg/mgmNE9owas1MVZTIEXCiNLeAJF0qy/tB630
-         Ed+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxTH8rHVM3Hx/cauO/SnfynKa2ls9gtLyoB7Y3QtbWPeHHbIYioZspUApjU556ldfNpnQ8uM+yna2UpY18=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhtZeqxbe3v3UpY3X2dnGHHue/iVSEuIjzzdtctke+31BuO0eN
-	YysbC9dhp0h5EZ3Adv+EOOEuBti/ncB2S6rPnH6B01qqB1VFT+R1VQaf
-X-Gm-Gg: AYBFou18lAwEVHpq23o23ZzsoIG2PhjEizAmbXBgZ312QbXvCVDPgnxp6OfPK0o/+pj
-	8gMhkIhPp0CHEpzyA0hxVTVWj/epl0DoDzA1rLsOnSa+TvrVkNcLV7svSHXpKEarYzJB6tipYJt
-	C7RhxFQm/vdeFQ8QOYM9y83cou8cb2dzwEkZMeWNqHxGVa5EwjgznP4CkT6nu51k2iFxR2y6pMz
-	e1QdM2sdQRn5RsbVt87Qo+Xp1RG2TuFHNJ3h6bIkHCw+VnLeDpSAN0Zytm6sQcOCl5EPuBBIv+U
-	uK8CiAPTGEDuhAetR82NyEcwvz/SKDdGIOVcym9hR6lHqj1TpCpjLiOzBgKofL4X40YNNbATxzM
-	NjK+EI5voi+Mvehw1799uGo/JhXqA6Mfj467xOfONrzK1Rf3ZYya34kEQtN0NjTatgSKXASP3as
-	UptqwmqHvQ8W8onggi3wMUrEPvDZNT83a0bH2tqtRsNsevIN1A6cU0dETR/WpSqwByQeWK
-X-Received: by 2002:a17:903:2312:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2df7da9eccemr117563315ad.24.1790671103914;
-        Tue, 29 Sep 2026 01:38:23 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91475206sm51407475ad.82.2026.09.29.01.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:38:23 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
-Date: Tue, 29 Sep 2026 16:37:52 +0800
-Message-ID: <20260929083755.458238-7-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929083755.458238-1-inochiama@gmail.com>
-References: <20260929083755.458238-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuvrMQGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70DB81F000FF;
+	Tue, 29 Sep 2026 08:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671120;
+	bh=VVg9tIviq7YUO40JFcy0O8SZzEsGUatvPj+P4Q6Op00=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YuvrMQGR50vF5/C2Pg7JH9fh8I3EySZ3ClfQ0UCUAC/lb+wXF83p+bET0Xjy49Ztq
+	 qLbOXalNS++fdnEy1tIhAyF+NhGI2w17UPRdB5Z8Tdh/uauwHCrBpCeZCNyt72qQvO
+	 JnJSe3aaq7goVO8r2GtwMB7zipImZqkUulC/maBWAUmfmxc3udncoocfG5yH+c3Wtk
+	 HkdiDBY1VRaSt4lhe//G/ybXxW+IbR7XtROxlnGFy8t6pR8299AtpvzgxB4MOr2ELA
+	 csROmrqXiJhvw7kiNnpNobHnbwwou/qWJ0F5LRqxaphudXR7ZaCzlbbxTU102XQDvp
+	 uJLqoNbJF+CEQ==
+Message-ID: <447e0be9-836d-4324-9a36-77f8a0cbecf9@kernel.org>
+Date: Tue, 29 Sep 2026 10:38:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] kselftest: mm: fix intermittent failure khugepaged
+ test
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
+References: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
+ <20260923-fix_khugepagd_fail-v3-2-b387e92fe1a9@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260923-fix_khugepagd_fail-v3-2-b387e92fe1a9@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The PCIe controller on Spacemit K3 is almost a standard Synopsys
-DesignWare PCIe IP with extra link and reset control. Unlike
-the PCIe controller on K1, this controller supports external MSI
-interrupt controller and can use multiple PHYs at the same time.
+On 9/23/26 17:29, Yeoreum Yun wrote:
+> There are intermittent failures in collapse_max_ptes_swap() and
+> collapse_max_ptes_shared() when using the khugepaged_context:
+> 
+>   // while running ./khugepaged -s 2
+> 
+>   # Run test: collapse_max_ptes_shared (khugepaged:anon)
+>   # Allocate huge page... OK
+>   # Share huge page over fork()... OK
+>   # Trigger CoW on page 1023 of 2048... OK
+>   # Maybe collapse with max_ptes_shared exceeded.... OK
+>   # Trigger CoW on page 1024 of 2048... Fail
+>   Bail out! Unexpected huge page
+>   # Planned tests != run tests (26 != 23)
+>   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+>   # Run test: collapse_max_ptes_swap (khugepaged:anon)
+>   # Swapout 257 of 2048 pages... OK
+>   # Maybe collapse with max_ptes_swap exceeded.... OK
+>   # Swapout 256 of 2048 pages... OK
+>   Bail out! Unexpected huge page
+>   # Planned tests != run tests (26 != 17)
+>   # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+> This happens because khugepaged may collapse the pages before wait_for_scan()
+> is called, causing a sanity check that expects uncollapsed pages to fail.
+> 
+> For example, in collapse_max_ptes_swap(), after faulting the pages back in
+> and paging out up to max_ptes_swap pages, khugepaged may collapse them again
+> before c->collapse() is called.
+> 
+> To prevent this, mark the VMA with MADV_NOHUGEPAGE after it has been
+> collapsed by wait_for_scan() for anon. This prevents khugepaged from
+> collapsing it again before c->collapse() is called.
+> 
+> This failure was observed on NVIDIA Spark with 16KB page.
+> 
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  tools/testing/selftests/mm/khugepaged.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+> index 2aa7c9197158..b0cb02bf1a73 100644
+> --- a/tools/testing/selftests/mm/khugepaged.c
+> +++ b/tools/testing/selftests/mm/khugepaged.c
+> @@ -618,6 +618,9 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
+>  		usleep(TICK);
+>  	}
+>  
+> +	if (is_anon(ops))
+> +		madvise(p, len, MADV_NOHUGEPAGE);
+> +
 
-Add driver to support PCIe controller on Spacemit K3 PCIe.
+Any reason we just do that unconditionally?
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- drivers/pci/controller/dwc/Kconfig            |   4 +-
- drivers/pci/controller/dwc/pcie-spacemit-k1.c | 139 ++++++++++++++++++
- 2 files changed, 141 insertions(+), 2 deletions(-)
+After all, we set the
 
-diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index dcfbe7e229fd..f9c27165260e 100644
---- a/drivers/pci/controller/dwc/Kconfig
-+++ b/drivers/pci/controller/dwc/Kconfig
-@@ -443,7 +443,7 @@ config PCIE_SOPHGO_DW
- 	  Sophgo SoCs.
- 
- config PCIE_SPACEMIT_K1
--	tristate "SpacemiT K1 PCIe controller (host mode)"
-+	tristate "SpacemiT PCIe controller (host mode)"
- 	depends on ARCH_SPACEMIT || COMPILE_TEST
- 	depends on HAS_IOMEM
- 	select PCIE_DW_HOST
-@@ -451,7 +451,7 @@ config PCIE_SPACEMIT_K1
- 	default ARCH_SPACEMIT
- 	help
- 	  Enables support for the DesignWare based PCIe controller in
--	  the SpacemiT K1 SoC operating in host mode.  Three controllers
-+	  the SpacemiT SoC operating in host mode. Three controllers
- 	  are available on the K1 SoC; the first of these shares a PHY
- 	  with a USB 3.0 host controller (one or the other can be used).
- 
-diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index ec59ccb710ec..61b430f2294a 100644
---- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-+++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -28,8 +28,18 @@
- #define SMLH_LINK_UP			BIT(1)
- #define RDLH_LINK_UP			BIT(12)
- 
-+#define INTR_STATUS				0x0010
-+
- #define INTR_ENABLE				0x0014
- #define MSI_CTRL_INT			BIT(11)
-+#define RDLH_LINK_UP_INT		BIT(20)
-+
-+#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-+
-+#define K3_ADDR_INTR_STATUS1			0x0018
-+
-+#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
-+#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
- 
- /* Some controls require APMU regmap access */
- #define SYSCON_APMU			"spacemit,apmu"
-@@ -44,6 +54,9 @@
- 
- #define PCIE_CONTROL_LOGIC			0x0004
- #define PCIE_SOFT_RESET			BIT(0)
-+#define PCIE_PERSTN_OE			BIT(24)
-+#define PCIE_PERSTN_OUT			BIT(25)
-+#define PCIE_IGNORE_PERSTN		BIT(31)
- 
- struct k1_pcie;
- 
-@@ -315,6 +328,123 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
- 	return ret;
- }
- 
-+static int k3_pcie_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct k1_pcie *k1 = to_k1_pcie(pci);
-+	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-+	u32 val;
-+	int ret;
-+
-+	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-+
-+	k1_pcie_toggle_soft_reset(k1);
-+
-+	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
-+			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
-+
-+	ret = k1_pcie_enable_resources(k1);
-+	if (ret)
-+		goto failed_resources;
-+
-+	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-+	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-+
-+	ret = phy_bulk_init(k1->phy_count, k1->phys);
-+	if (ret)
-+		goto failed_phy_init;
-+
-+	ret = phy_bulk_power_on(k1->phy_count, k1->phys);
-+	if (ret)
-+		goto failed_phy_power_on;
-+
-+	msleep(PCIE_T_PVPERL_MS);
-+
-+	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-+
-+	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-+	val = u32_replace_bits(val, BIT(7),
-+			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-+	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-+
-+	k1_pcie_set_device_id(k1);
-+
-+	/* Finally, as a workaround, disable ASPM L1 */
-+	k1_pcie_disable_aspm_l1(k1);
-+
-+	return 0;
-+
-+failed_phy_power_on:
-+	phy_bulk_exit(k1->phy_count, k1->phys);
-+failed_phy_init:
-+	k1_pcie_disable_resources(k1);
-+failed_resources:
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
-+			   PCIE_PERSTN_OE);
-+
-+	return ret;
-+}
-+
-+static void k3_pcie_deinit(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct k1_pcie *k1 = to_k1_pcie(pci);
-+
-+	/* Assert fundamental reset (drive PERST# low) */
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
-+			   PCIE_PERSTN_OE);
-+
-+	phy_bulk_power_off(k1->phy_count, k1->phys);
-+	phy_bulk_exit(k1->phy_count, k1->phys);
-+
-+	k1_pcie_disable_resources(k1);
-+}
-+
-+static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	u32 val;
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+
-+	/* For IMSIC interrupt */
-+	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-+	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-+			       K3_CACHE_MSTR_AWCACHE_MODE);
-+	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-+
-+	dw_pcie_dbi_ro_wr_dis(pci);
-+
-+	return 0;
-+}
-+
-+static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-+	.init		= k3_pcie_init,
-+	.deinit		= k3_pcie_deinit,
-+	.msi_init	= k3_pcie_msi_host_init,
-+};
-+
-+static int k3_pcie_parse_port(struct k1_pcie *k1)
-+{
-+	u32 status0, status1, status2;
-+
-+	/* Clear the status registers */
-+	status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-+	status1 = readl_relaxed(k1->link + INTR_STATUS);
-+	status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-+
-+	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-+	writel_relaxed(status1, k1->link + INTR_STATUS);
-+	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-+
-+	return k1_pcie_parse_port(k1);
-+}
-+
- static int k1_pcie_probe(struct platform_device *pdev)
- {
- 	const struct k1_pcie_device_data *data;
-@@ -392,8 +522,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
- 	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
- };
- 
-+static const struct k1_pcie_device_data k3_pcie_device_data = {
-+	.host_ops	= &k3_pcie_host_ops,
-+	.ops		= &k1_pcie_ops,
-+	.parse_port	= k3_pcie_parse_port,
-+	.max_phy_count	= 6,
-+	.device_id	= PCI_DEVICE_ID_SPACEMIT_K3,
-+};
-+
- static const struct of_device_id k1_pcie_of_match_table[] = {
- 	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data },
-+	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
+	madvise(p, len, MADV_HUGEPAGE);
+
+unconditionally?
+
+
 -- 
-2.55.0
+Cheers,
 
+David
