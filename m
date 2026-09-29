@@ -1,189 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010014.outbound.protection.outlook.com [40.93.198.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D264F7CBD
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:30:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674206; cv=none; b=P771f6OkHLy1FXSquakZwJX3A7yQU1Ed8l4ArfjgJKHugcP4ddjOKUQKQHixVsVvdDX/zW87+byA6UmonpbsQRCQiKnNF82InKKUteXuMhq52AdUt1zxGwdE1GzPWLZKKcJDiZQC5pEquvzCTg9Q/JnfME8sH/w0Q3L1qDTpdfE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674206; c=relaxed/simple;
-	bh=8G5gXQyXRQwwX7f43Ne7m+CsLz/u4b+l3A+714FBABI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nPwbhvFErHXOVAjYbofgDgi4NS3CXckhQuraKBkwqx6tflnJ2S2vMsK6IFNUgyKOzg1mS8dE3I9BW2IiLUDEhlfCbrZuwyurdtk/vJ4SpAMmWITPY8aTrrs3l1n73+CTz01rXeX4tnAHqe5DqbPLeEyR16cCrD4mmAtz5cSPPEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=myc+tZGn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a8hkPjvD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDECD30F95A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790674228; cv=fail; b=Lzkpjfwt/JRMPzsR1TnZkTfB3iuBAVixADARDKrsCDTuPoagzjUaLBU22KDQ+dUqOWVHp1CusdZbsw5XV6HfrrOtBMSnv05x3JvsLqGsuxehnwxIgyM3J64KVA/1byzTn5AdYnPV7grJErGza2PYdgos6GrM6akHv+GyptgEzM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790674228; c=relaxed/simple;
+	bh=mu/R1/fkhWtqNbX50X5OexH3d2Lv0JslUo41cCAF2+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EY/ev8jRLqE3XoNRETecE0QAVeuBkQHmzdMbufyxC8xfDu+CIRBtpvb3qS2hKSRjKhVDDqlUkU0zYCPJRY4iYqdGflRlRgojBgTrnFq9Vdipj34dKMEs/RH57nxbnvxCj3ltaHZh8QJoJvkE8XYdshE/ngMm24bMVoZsKm6U1so=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=fail (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LwB8AA+B reason="signature verification failed"; arc=fail smtp.client-ip=40.93.198.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="myc+tZGn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a8hkPjvD"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TqmY2570996
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:30:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SL
-	qrVGutvs=; b=myc+tZGneM4FK7d+SYaxWaJi/68m7QFJ+k7jV5+ZhtIdzRFIlL0
-	/l+dLGSZrYAemY5O/b1TI5tFdT5O7QSQBPo23YijsboocglxUODuWMeLquTSc+kG
-	WEnZhOmfD8NPMlHyjcyW/7EJusRHV/ORgWWlEbaInUHu/w/52dCUVjJGykQ1OnyL
-	NvEefa0AkWzj1Tmr++VHBfI4KiKwXfVAaNahIWGefXYU9hqE/9AWqRH2Ld8CiBp1
-	X3u7Xykk/n6CG/iUrkkSPWBOKzFf+AT8X7dAhEGxLTS3Qr/O+cr0LAHQ80T+KiHQ
-	lxN7PYl4VTus8IcoSjLTM8fAs2F+PubwYSA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn9xg9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:30:01 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39de4a68f7cso3345842a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:30:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790674201; x=1791279001; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SLqrVGutvs=;
-        b=a8hkPjvDF/U1/cZnuGjxavuA2HviXJB0gGVf0NYl7Sfl+7118u6lNmcOlIYKIWHUNi
-         Dr7e93tvxfSUjQTaEbhU1jIGmbK7OlCqRDogI+naJ4ITglSNBzPx15HSs2qbuPjU5qRI
-         VDAFnA6nSkXHCSbEf5A6hP4bmsqtMZdXTOa/KxbxH1rb55LsKFSu8ibKZgtPRC4Fybtu
-         3T0+e4fcR1BXMx2IszbL+SMixqlb/ytThmeVIx2Yj3NYKEa13rjBENpneDg0Zy7gk9i2
-         T4UgSsxDvkQ7G954cQ5hHEOHZDzUFu0ujy486C7OX5o3NC3JFCki5zEiewjldg7DAM8z
-         WnFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674201; x=1791279001;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uopSwhhdcz9IXu3XnYnIyA5siTYr06KZ8SLqrVGutvs=;
-        b=e92JTA0MJq9uhyFxkTe1D8LsRy5cyfSGXk2HMXJAlkYbNl6y2rIyif6btDWW8XXIEJ
-         I7dOGGO+/g/eKVjfeZotEugDSy+T2sFdKnSDWK74no8s8SLvmkW0h9UA3bBBJ2XYGZnf
-         9fjFH/cy67gpOQA2bc20e5NPcVuwplx+NtJ7sdBJiedTXJIAzDlofCEpLnYUfwA0QIK+
-         3UKBD2jPvGNIKGKWCo9YG9JL5YiiRxK/+g7alcvpnV6hT8Hs9UGy92+mIhe48nWfBll9
-         KAvDUxLfk1FUX/hDuITsZZUlVixZQOU+os1goTxd1t+ZVWeiom4hu1IyI4jxrJ1tr9Nq
-         v8kw==
-X-Forwarded-Encrypted: i=1; AKwUvBw21QZVNFiEVohtEKIaFFK44gLy+PvtCkhBPiUeq48n8Fo67MExf5qldMRc3s7YNcuQf70PI80SmBlaPsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKNAF7uQ1gdf/PCbuwIw93cA24KoDVZX2GFIygwTjPAIFSNZ5l
-	Xll9NR+1hWtZrgpnVm6Y7X2my/bdeN/8XZpte8p41tL5stA8Q5eiOxC2awlKm9sir1Q2/e24Lps
-	IuUzKkqd9JLiDfu79mC0Qw8ZI0nsV1Or8Mlh+NXxcHOl9iMvb2F+S9IzmvZCuPfAiQAs=
-X-Gm-Gg: AYBFou2HSbKkSlsBTRF0TUqkm432Fo5IQg5esrhT2PSzjYwCZkTto0YerffbyR6vel6
-	FHg3W3QHsuJHema6eRHcGiMkW9zO8c0DshpqB6/J/7gauvyb3pynzmk4Ql5qy81j/Cd/VSMk3T/
-	0X8CAkzVOIhTvp8rufHhWfsGBHvf6mwnvgDxiZIsERufbXx0euzqf8yE2gISijiNFTjOrQQy2Df
-	7D7D73RfK+QEXl+nRbBouoQct9nwfpPxpwiQ9gZv3uW1qDh6qQjwYKYIfjcgBp0vBc9csKVRuVX
-	na18PeE6gyXI9c23kmtHmzwucF6NTS9xEHkVilVlXvb8OhDSJOfHJ0wNO4jze1FJ7ad3PMewB28
-	amj0gCPvU1spD6wyD5BVqlo5SBGpK7bXaRfF4dw==
-X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr2108199a91.31.1790674200825;
-        Tue, 29 Sep 2026 02:30:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c92:b0:3a4:7c19:6a0c with SMTP id 98e67ed59e1d1-3a47c196e00mr2108188a91.31.1790674200346;
-        Tue, 29 Sep 2026 02:30:00 -0700 (PDT)
-Received: from hu-uaggarwa-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a492da42a3sm2266775a91.2.2026.09.29.02.29.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:29:59 -0700 (PDT)
-From: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Hans de Goede <hdegoede@redhat.com>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
-Subject: [PATCH v2] usb: typec: ucsi: Set ucsi->connector before enabling notifications
-Date: Tue, 29 Sep 2026 14:59:39 +0530
-Message-Id: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LwB8AA+B"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dNAQyY+oryokfgUqvnviLg2j48l11y3ZTTWT9BxAXDDGGrXRXUrTd+DZTSKdRFyOFReV7IYfQxhV0KwpPNb833JwSdP23E+mTXAEVhzeeqezGKPRYs9432jj4zrHQobgb5Un7yTT3SA7GFxzly8zbO5gOStf5XKItRXar6lgjAEhAohkeuFcOCCFWd7mqetzTEtQ9Cr6O1Crc8otUqZJ5QbuYi+oNq+boDeOcGAQbMJ4333mnTXd7G2BHvadKA9xlth70vnQSPgyK/cqPCfa+nM1y0EjYM0hEmABC7KPg5Yo93BvEAMBRokz66NqTMQG6jV+wO58V9ULJDHV5FHYBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YObycJCeI1+3yZbs6FA8eBoiPieMWY7WrY52mvhHp8w=;
+ b=AUwHRvgHmanPOZ03+pwKoDJ4VyNaPSixmQvBr5mi/Ec4XmBE5pFGZfmh9SgW3mkdCQVyY9Q//1dojCmMCJmwOLGZ9l4mVt5XA9Dhy7A5A21LQtqkiv70uTVV7Zix83Faijq47JdUSKw43vXHZsMZ+TtHK04XQqamS/Ir4AHstIbTm1pWnc3OkNnKlHsMCN8B+pgcJI7RvtO4q4nLBzaQg8LdFmYrFdAhPEvDl5tprRMhSKG/BWeEPnGoLAmeQDnqb6PUCfLEwu395v7Q3B9BkkRIRrL/eaulRrt0p4LKl2XqyZ3uWZHVQrqiqR/ByAD6ODbVBU1IsrfCSW7t0wf9rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YObycJCeI1+3yZbs6FA8eBoiPieMWY7WrY52mvhHp8w=;
+ b=LwB8AA+BTzQyz6JMwuqnOCrqTVOFHA2q6C3hHwy7JtKGTe813jVXSvIOBxeTbm43QpqS1yppUQoqnrxIe36eoqtCdlju3wXbawibkByFTz0JjtUwDr4kFtdK/fV36uEoQJxa6pRDXteFzN0z3i68dRO2SbBzkECmho6giQJSFiKkAIF7VnFZPljO7Uk+vKVocWZD1L0ZNDbNmRmE/3MLr1jSGaviyF5lKIwGXks4sRgfh8EMGLO6kG4RE+meCyyzWDMmgKg9eFV1RF8q8e4NZHUYbNSEEnIvSpHcrm/nkKUzzc1OnjTIinQ94CrrP0X6G1Gey4mfaQRq+vVjMqkW2Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CH1PPF0316D269B.namprd12.prod.outlook.com (2603:10b6:61f:fc00::604) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 29 Sep
+ 2026 09:30:20 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 09:30:20 +0000
+Date: Tue, 29 Sep 2026 11:30:11 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: Sechang Lim <rhkrqnwk98@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] sched: set TIF_NEED_RESCHED before calling
+ __trace_set_need_resched()
+Message-ID: <aruFI9rG45Xtmxeo@gpd4>
+References: <20260630084750.2792851-1-rhkrqnwk98@gmail.com>
+ <arqhnt6lW8qiCo19@gpd4>
+ <96b3b5d5ec0eae499f1a98845720776b6fab84d4.camel@redhat.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <96b3b5d5ec0eae499f1a98845720776b6fab84d4.camel@redhat.com>
+X-ClientProxiedBy: ZR2P278CA0023.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:46::18) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb851a cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=aR1d7MnS8zDfWtQP9dEA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: 2axQAc3oHPxN9jm0gsdT-IFAtPUhFvra
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNyBTYWx0ZWRfX7+6aG7vXmhn4
- dcut8R4vENSYORsJ70gw0jjp2yKnZaleWxrn44VhlXQ2W/3nl5/NvWQdzvbKkh1YomFiKpsZYzk
- cuoEzAk0B1ZBvfSZ3b4vRKc121JZShc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNyBTYWx0ZWRfX6k/0VDQcVYIx
- TNcZybTlG/IyjsaqzEsiDH+3+f1J8frkWljek3s7hkGo6a2YgvMjYKOmugrF0eHtlOFcZZuCmLe
- SKfq3g82zSFC32TmFCOQCYtWwDDQ3wVaOMcLM+G3WQ7wmQqfSj8JXzMOLkWa95yBXYOR9wyEqNA
- 2E8gs/dW+LsXlM2rfz1Ydc8Iizcbm7o3JdRWc/1hI5GzzBsh/BS0jAKoX6UN73jH3MQF9hqrAa8
- S4QN4XHu0qe+dDt5orQT8YnQQDVYE31qFXyCFx18zXFLdjCi9d+WogQqm68b0LOuqIXrUMBDc33
- hh9F5E3JBo0VqKLLA5ZwDx4AA3iHHt5czhNB+JdtR4V4T6oTd03tTkCDPDk/Y33AIhc8ojZLDAf
- t/6zmknfOO3irsV+8gcepL3zuDjJcoM+KcjTMQEP6aQmdlR5SWVx77GR9axYF5SZuwSw0LyiVVZ
- wGt+WvzsGj4m+UUb7uQ==
-X-Proofpoint-ORIG-GUID: 2axQAc3oHPxN9jm0gsdT-IFAtPUhFvra
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
- bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290037
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH1PPF0316D269B:EE_
+X-MS-Office365-Filtering-Correlation-Id: acd23ce0-4f61-4c96-0950-08df1e0c4780
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|11063799006|6133799003|4143699003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	/+B2CpMPumEpxITc2t3htPOplpebHyGjgzzwBrZWDK5iltuPfbqG4gj8W92Se8kZZgpVr0jx+M+rWheUiu527JNWpSbko3x0BnFVLzT59jH93aLSiBTrBGZoAHICRfY0GP2ST3yYIK9i9pOnQ9nVbni2M48Sv0vcoIX8I0Bfn9F6dcuWt0eWlv0OMEkVC9iQVvFG0TX8UcyKRbwJpyg65KWgALp3YKdWW1ARYanNadh6z76Kv+OlFM0d3Iw5YOBXL8yzN0Rl2aFgIQcbGPeLmdYPslFeo9Z84XF3RCkgrla2XZFyv9VhmKEevK4pBFksKgYcl5cWXgXWxXmxv/S3Kg4uSe7rJzc9hX6lqsQ2VEnqQEeEN3gjScd9JmKiqJYMXMl7Mdtg91TsL+XaAZgPJIS+2jfNwAkgHqRnOH1L3IQi2hKbPsQ1091kDodjeSykNFNsG3RHsKMoPgv72kg6VP18NbscvUHfpXi5A3v8kwFovzxQCbKDW7lcmpqipRc8WjxLB4Hrxf6PORUvqUMgMn7HhXsqMqUYl2kdCenj1K4zdmrbOFM//wy4s5mqkSCgLuh2tRA5hyAgT98xjvYcxx1REM3Yqh5v2mCKnHDLmxWkKkUJUioRbu+EdqDTllXmUUD3e2IQGtHeHG/wJ1Z5pxc5TabJ8jhCd8HCh/sRKp8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(11063799006)(6133799003)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?2VyDGVRIDLhc1Bvp1KVa2KNqslcrkcsEviY+b3zWjzO42uBPhMTpR4Nu6t?=
+ =?iso-8859-1?Q?xbcI1vp96mToixKYYB7mZCyOp12lsCz05EbRwifY9cAL1Q3R7bQeMYSi/w?=
+ =?iso-8859-1?Q?EYdpy44xXWQiObl7Sh+FAOaBaElXdrfHbOCHG4nr9iUUvbxlZmn7+CXIP8?=
+ =?iso-8859-1?Q?Ky8oxRhUGIbh4+n7UA5qY7DbxTNd7PZZOBdC/AfQW+heQwpm1Ke/rFqarN?=
+ =?iso-8859-1?Q?ubItt/R7dGKTH4wsez47LAMf9370YCLZlxci+XqZeGWcW8wjeRzm7EFG7D?=
+ =?iso-8859-1?Q?w4WJmOyLzo0VGKXBUpZQLzke9OeK14tkCrr4x+weIz3v6AYu2PT/7wkxW+?=
+ =?iso-8859-1?Q?87h6Vqcim97XjuV/zk6meHmt3iascLoBjdAZggeGBuaxHfDJOXMmDbEqRq?=
+ =?iso-8859-1?Q?ADTR6fIvv2qAEQD2Dj/NuEcKdU+IK48RM3Oicrcdf9PU+VA9CtAwSyIg+1?=
+ =?iso-8859-1?Q?4mC3YbEnT4FHVO5LaevPAt5P0hY45OXKX3emJnm5w6MzA7GKCN7kQN9SO7?=
+ =?iso-8859-1?Q?uYAoC3hLxcCdjK0sgLga05CIq2BvEG09brdaQrh5CUgicGzjUH8CAkOseF?=
+ =?iso-8859-1?Q?FHm/L6ecx6cffd/YP1YEN7rMv1RTc9k2FiP73fPwtDFNMx3K9VI7j7Iafe?=
+ =?iso-8859-1?Q?ET0vO9RUYSDNyPlQ+U0dy8n90epgjt/NdwGdYhdqKg7LxNaZRmCPDcdV12?=
+ =?iso-8859-1?Q?C/xToBd8Cvvhquj1GhcOFogYdWji79sylzdC3iwFORPiwMGj7RbQ/OQRJL?=
+ =?iso-8859-1?Q?PnfjDGxDNAs+iQyh3jw/7JQfubxGCSvn99lVxpOf9Y/XU7KhN6WKqFkfU4?=
+ =?iso-8859-1?Q?QxNWHyrLlU4eDYQ5jKUfVf/S6alXISLI/WIWX3qGGRuQFWTRe6FsaL65VQ?=
+ =?iso-8859-1?Q?B4yQ1zlPIiuxv5U3Vww1UG7QUU4G1oy3/RUUmD1YBZqrPpmPs01aOxEYsN?=
+ =?iso-8859-1?Q?kRBHj3pmNI/A9B8TMSso3Rv1Ep7cfgtV0auhfPBaYvRL9YBOsDlq7lYYWB?=
+ =?iso-8859-1?Q?P5RGDN3gx6Un7VYSGoXHtpfZzFTT6Gu7YD1sATEQqymS/l/z36YgnJ30Q+?=
+ =?iso-8859-1?Q?jSD3amiYyrcRKZgBEutSeuWk1czALAw7aa/mJnj9MUy3yo1obRq7yWu+sW?=
+ =?iso-8859-1?Q?Ugy1pCpsu3vwj6OPNW59qoqiJH6agVTDlrQPdAjW8tIXLAChrnhf1TwxQs?=
+ =?iso-8859-1?Q?SUThZ+wq/PBu9J93lwrgl8v81iTo+PMJWj8SMulfDoof0EXSbP3JKkoRbf?=
+ =?iso-8859-1?Q?2AvGva8m6ivhfv3xKbHNlyoCgj2IsBB1A3IH7Zfg5Eg4ag/wSUuV4hFkfV?=
+ =?iso-8859-1?Q?qRZ3Hta6ZdZUzaQ2L1+rxhgsA9RRuZwK0cAt0NyBsaJhhN3gCR6JPyY4vH?=
+ =?iso-8859-1?Q?+Qwg12DbPnfI62b2qE0bA8jwLNPMVGoapnpb/cIZSjlQHWJ3C7WXD1X3aF?=
+ =?iso-8859-1?Q?6zVQTVxYfrkuTWypp6Yujm0M4zf953AAamQG9xiE5Y5/Y0DJbYoIBU+jRU?=
+ =?iso-8859-1?Q?Mr4bsFzhTdaJWqA+Ib8k7RyR8zWz8Y86LQ7QJNbBeZoQOp6CQPtKaxKZyI?=
+ =?iso-8859-1?Q?H/72x406HZ4S9vuhyTj10qMZPudO5bh1+43QEd7XwYrwfkM6DAr1f74OcY?=
+ =?iso-8859-1?Q?plazkoUQmZzET3w3KazGzXHX7U07heiqaBFeGKAz+qs3lZV027LqInTemy?=
+ =?iso-8859-1?Q?7Mrt9jZKXznj7t/AWVImRl+mGuR2mE3Ta5YtIVddc2SNrPZwfQG6ePGh9j?=
+ =?iso-8859-1?Q?Anr1grnavVwwcURTPHJhW7ngXgCeYyxpKaPPQvTlpcjOe5AX4/Xns94Uvb?=
+ =?iso-8859-1?Q?61Xe+zapCw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acd23ce0-4f61-4c96-0950-08df1e0c4780
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:30:19.9504
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d1Q7BwOk4yHaxAzgcYvE/caSc5I3mou9ncQMDkB/9V8oE5gNjwsYtv9QJE3DvBZmg4lPVfns+oJgl+NltsosfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0316D269B
 
-In ucsi_init(), ucsi->connector is assigned only after the
-UCSI_SET_NOTIFICATION_ENABLE command completes. But once that command
-is sent, the PPM is free to raise a connector change notification at
-any time, which is handled through:
+Hi Gabriele,
 
-    ucsi_notify_common() -> ucsi_connector_change()
+On Tue, Sep 29, 2026 at 10:50:48AM +0200, Gabriele Monaco wrote:
+> Hi Andrea,
+> 
+> On Mon, 2026-09-28 at 19:19 +0200, Andrea Righi wrote:
+> > This leaves the race Prateek described in the v2 discussion: a remote CPU sets
+> > TIF_NEED_RESCHED under rq->lock, but the target CPU can emit sched_entry_tp()
+> > before acquiring that lock, ahead of the need-resched tracepoint.
+> > 
+> > I reproduced it with this applied to tip/master. With the RV nrp monitor
+> > enabled, 300 runs of "perf bench sched messaging -g 20 -l 100" produced:
+> > 
+> >   rv: monitor nrp does not allow event schedule_entry_preempt on state
+> > any_thread_running
+> > 
+> > Applying the following on top fixed the ordering, the same 300-run test then
+> > completed without an RV violation. If it makes sense, could you fold this
+> > change into v4?
+> > 
+> > Thanks,
+> > -Andrea
+> 
+> thanks for looking into this. Is this change required for anything else besides
+> fixing the nrp monitor after changing the order with need_resched?
 
-ucsi_connector_change() indexes into ucsi->connector to get the
-connector and schedule its work item. If this notification arrives
-before ucsi_init() reaches the "ucsi->connector = connector;" line,
-ucsi->connector is still NULL and the driver crashes dereferencing it.
+No, I was mainly trying to help get this fix upstream: a sched_ext kselftest I'm
+working on hits that issue and I'm holding off on submitting the test until the
+fix lands. Moving sched_entry was only my attempt to address the nrp warning I
+saw while testing the fix.
 
-Fix this by setting ucsi->connector right after the connectors are
-registered, before notifications are enabled, so it is always valid
-by the time a connector change event can be delivered. Also clear
-ucsi->connector in the err_unregister path so it isn't left pointing
-at freed memory if a later step in ucsi_init() fails.
+> 
+> I believe this would break the sts monitor which expects sched_entry before
+> disabling interrupts.
+> 
+> Both monitors could be adapted to either case, but if your change is just for
+> the sake of nrp, I think it's easier to just allow this race, since nrp is
+> already allowing the race with interrupts.
+> I haven't tested yet, but something like allowing a sched_entry_preempt without
+> need_resched set but provided it's going to be set before sched_exit would
+> probably do (it'd allow also independent need_resched there, but those will then
+> need their own preemption too).
+> 
+> I'd say if you don't need to move sched_entry for other reasons we can wait to
+> apply this change until I see what's better for the models.
 
-Fixes: 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race")
-Cc: stable@vger.kernel.org
-Signed-off-by: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
----
-Changes in v2:
- - Add Fixes tag pointing to 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race").
- - Add Cc: stable@vger.kernel.org.
- - Link to v1: https://lore.kernel.org/all/20260923060434.2599545-1-uttkarsh.aggarwal@oss.qualcomm.com/
+That makes sense, we can ignore the sched_entry change for now. With that,
+Sechang's fix looks good to me.
 
- drivers/usb/typec/ucsi/ucsi.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index bef3f9b71d71..8f7b73a9f4f4 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -2122,6 +2122,14 @@ static int ucsi_init(struct ucsi *ucsi)
- 			goto err_unregister;
- 	}
- 
-+	/*
-+	 * Set ucsi->connector before enabling notifications. A connector
-+	 * change event can be handled as soon as the notifications are
-+	 * enabled below, and ucsi_connector_change() indexes into
-+	 * ucsi->connector, so it must not be NULL at that point.
-+	 */
-+	ucsi->connector = connector;
-+
- 	/* Enable all supported notifications */
- 	ntfy = ucsi_get_supported_notifications(ucsi);
- 	command = UCSI_SET_NOTIFICATION_ENABLE | ntfy;
-@@ -2129,7 +2137,6 @@ static int ucsi_init(struct ucsi *ucsi)
- 	if (ret < 0)
- 		goto err_unregister;
- 
--	ucsi->connector = connector;
- 	ucsi->ntfy = ntfy;
- 
- 	mutex_lock(&ucsi->ppm_lock);
-@@ -2143,6 +2150,7 @@ static int ucsi_init(struct ucsi *ucsi)
- 	return 0;
- 
- err_unregister:
-+	ucsi->connector = NULL;
- 	for (con = connector; con->port; con++)
- 		ucsi_unregister_port(con);
- 	for (i = 0; i < ucsi->cap.num_connectors; i++)
--- 
-2.34.1
-
+Thanks,
+-Andrea
