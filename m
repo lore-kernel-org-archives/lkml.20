@@ -1,119 +1,108 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3525352BE5F;
-	Tue, 29 Sep 2026 10:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12814516160;
+	Tue, 29 Sep 2026 10:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678270; cv=none; b=i3R2axpQ+Ej7WMTQLMNvCuYi7du8LqJn8W//iau3e4ktsnmVbo2Cc/LsLK/4Jaw7ipXlKwRvrkdzL8XeCYqWDQTrJRsXPRLZoH5BfObUFTyKLgwGTUxySgtLU2B8QpC1VL7b5yLJMaCUI7TbDFUmPZ1i5tFE1WqrYupgcUw/RU0=
+	t=1790678316; cv=none; b=GVlKBfIoxKterf25PRHEgVF7cakpqzPY69g7Lr7vj2FVztgqDodCmRza7le2Py6/Z9gyaHC4mokLLUmXsWxdk4u08O8ku5ODxkQEq6r9XjnBhiLpxqf1QmLXfq7LE9hjOCApJMpl9LfMKlvdfMCUfss3hJ1xRRzFN7Ze1mCmY4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678270; c=relaxed/simple;
-	bh=kMg9CyEpRG6j7s4GHZ0KuFt0d9OuafQqS3yLuECoiB0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LYw9E5KGnXG16eXoFQK5KSTxHCWSMJ0LT05j+p6p13bjyt+ly8KiebyCu1/8V42b6DhePGY778q8a83L3+pzi+t/EAcx5X7deHp4gqexFLJKYT/BYhppW9+l8Mh9OcW5f2nW9qgmMGZ25wOjreABooznrCwqmPzy4hMgA7aK7H4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xFWWeVC+; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790678316; c=relaxed/simple;
+	bh=jS141X4c3OMFBTtEjLJAKaXarrTHW1pMnwbWixyREe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kfcj1YNslEtom+JqLX/E6Jw0Cy6PzFzTFnGQv+geZN8vkCjb2qSps/UIQxJu+hUwzlsf9Leb3J4r18IokLpPWNpoRP+NglypuieT3wynt4p3rKwPbDuSiRoMaXngT36/20D1Y+OJ6o77MrQjrT1CtjCY5TetTo8v1G0tAiOWpV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ezm1GZhH; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xFWWeVC+"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 115134E410BC;
-	Tue, 29 Sep 2026 10:37:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D24AB601BD;
-	Tue, 29 Sep 2026 10:37:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A6BBB103297AF;
-	Tue, 29 Sep 2026 12:37:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790678253; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Aq/miDDh+FHesOvczcSzM5kxiy3v5uRbviWlnSzPe50=;
-	b=xFWWeVC+oeNOjqXAdOi77g+AXgAib7PPbvOa6ZG181NE2dQGdrSTU4VLiyGxXRwcIlXA9a
-	IuntcrYc3PDfrZ7K8pWtNJvwhaW1jsaM0iyBAebn8La4S600cbQBhcpDfEAqvoH2kXrKct
-	/Om21RGpyULsuJKb0QZ5WVh/Phg6TO2TvMjdz5tmA7qfvwiWJ1tajgbpkHFPj/V4mmqYCo
-	d6hNljqygdk0a22n+iXBdh6I1abYB2aMR+1gQfGyVh3zP4BDdhhAuGLhMCkpkI7Il9+6KW
-	EfNXZ8ICN74ad3DTYMKCMbg2Qa7fyDRcKF1gxMxilTgUUEcnJk8YoGlO4mE+HQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 29 Sep 2026 12:36:39 +0200
-Subject: [PATCH 7/7] drm: renesas: shmobile: stop using deprecated
- devm_drm_of_get_bridge()
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ezm1GZhH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cf
+	ld2cwTrYOuPLcQ+rdijj5y4bobOtCa+l0ukmiFTmc=; b=Ezm1GZhHfIly1H55b1
+	7xG7E/VxNTcSjSlZAn326GRjavNgULazVttJAmEKUSyUIen2r7KPBT1YgclzeQXR
+	U9DLfTG6zrDvOAWz4ZrQIFMwXU1RtyuE36vPQNMkwxUttBdpY0OR1cHRGgm+PzAQ
+	Ftl6Gd+ou1jeHHkxBmObZ9l0E=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f73HlLtqMY85Bg--.27154S2;
+	Tue, 29 Sep 2026 18:36:56 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH] cpufreq: schedutil: Serialize start against rate limit updates
+Date: Tue, 29 Sep 2026 19:36:35 +0900
+Message-ID: <20260929103635.3780346-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-drm-fix-of_get_bridge-build-regression-v1-7-ccb7e602daad@bootlin.com>
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f73HlLtqMY85Bg--.27154S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF13Xr1rAFy3Cr43WF45Jrb_yoW8CryDpr
+	ZIgFW8Aw4UK34jvrZIkw4kur48ua1DC347tryfCrs3Crn8Gw1Fg3s7KFnxXFWI9Fs8Cana
+	y3WYvay7Ar10yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pROdbbUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgjgQGq7lMjaGAAA3l
 
-devm_drm_of_get_bridge() is deprecated, switch to
-of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-a refcounted bridge, ensure it is put.
+rate_limit_us_store() is called with the governor attribute set
+update_lock held, but sugov_start() updates freq_update_delay_ns from
+the same tunable without taking that lock.
 
-drm_panel.h becomes unused, drop the include.
+This allows the two paths to interleave as follows:
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+        sugov_start()             rate_limit_us_store()
+
+        read old rate_limit_us
+                                  write new rate_limit_us
+                                  publish the new delay
+        publish the old delay
+
+The sysfs tunable then contains the new value while
+freq_update_delay_ns contains the old one. Unlike a transient torn
+read, the stale delay remains in effect until another rate limit update
+or governor restart.
+
+Serialize sugov_start() against sysfs stores by taking the existing
+governor attribute set update_lock around sugov_update_rate_limit_us().
+This keeps the fix off the scheduler hot path.
+
+Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
+Signed-off-by: Hui Su <sh_def@163.com>
 ---
- drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+kernel/sched/cpufreq_schedutil.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-index 328a36215e39..51bae2008cc6 100644
---- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-+++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-@@ -28,7 +28,6 @@
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_modeset_helper.h>
- #include <drm/drm_modeset_helper_vtables.h>
--#include <drm/drm_panel.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_vblank.h>
+diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+index 49ccd6f1c185..e759f09be638 100644
+--- a/kernel/sched/cpufreq_schedutil.c
++++ b/kernel/sched/cpufreq_schedutil.c
+@@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy)
+ 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
+ 	unsigned int cpu;
  
-@@ -447,7 +446,6 @@ static const struct drm_encoder_funcs shmob_encoder_funcs = {
- int shmob_drm_encoder_create(struct shmob_drm_device *sdev)
- {
- 	struct drm_encoder *encoder = &sdev->encoder;
--	struct drm_bridge *bridge;
- 	int ret;
- 
- 	encoder->possible_crtcs = 1;
-@@ -463,7 +461,8 @@ int shmob_drm_encoder_create(struct shmob_drm_device *sdev)
- 	}
- 
- 	/* Create a panel bridge */
--	bridge = devm_drm_of_get_bridge(sdev->dev, sdev->dev->of_node, 0, 0);
-+	struct drm_bridge *bridge __free(drm_bridge_put) =
-+		of_drm_get_bridge_by_endpoint(sdev->dev->of_node, 0, 0);
- 	if (IS_ERR(bridge))
- 		return PTR_ERR(bridge);
- 
++	/* Serialize against rate_limit_us_store(), which holds this lock. */
++	mutex_lock(&sg_policy->tunables->attr_set.update_lock);
+ 	sugov_update_rate_limit_us(sg_policy);
++	mutex_unlock(&sg_policy->tunables->attr_set.update_lock);
++
+ 	sg_policy->last_freq_update_time	= 0;
+ 	sg_policy->next_freq			= 0;
+ 	sg_policy->work_in_progress		= false;
 
--- 
-2.55.0
+base-commit: 63de2367f6d280904a9c5e5bbc7c75bb91c5b3d8
 
