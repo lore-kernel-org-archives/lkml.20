@@ -1,122 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCD13AD51A;
-	Tue, 29 Sep 2026 14:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F573CB2F8;
+	Tue, 29 Sep 2026 14:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691921; cv=none; b=ErRTQ/wc2k7Y1GTS0krKQlHtnfDIiWH3uHv0rkRWC8Yshk/9XRwyMMrywmRlAWv0vY9KS8ZBhQ9zUadSTq6OpFFAdgboVfB0Clwyb7gEObQXo9t68qqCcBOWTwz9E/JaiTrRQSYSkUpYiKwj/nA4vPfd8eB4nbE4Z6f6LdZBq+M=
+	t=1790691979; cv=none; b=TdiuTG1c2mHmo1uKlq2nu+qbphEtqYNjwFUCmuHYach0Rd66eKvR1JbLvLgewQ8/Eqn0Q11nbpk0N1Oa4xf2+pWWV0UKZTzP559Foz0vqEHsxkmKd7wGtJqSDbN+eSNnuryWiMZm3N4DlG1082zQQL1Ef9PEJy0Y45nqihLW8Uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691921; c=relaxed/simple;
-	bh=TT0Zt52k3q2ow7MKikl7hFJZzV58Jn3m5Ro9MRuThwY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GGNnHacGQH9kOT9Q8C6w9HBOz0unK8A/EmeOAyX0l7KCE8RyzZ+5wCu2O42Hq/a3JqFGMVZGlair9xsxT7cc4XeY94kHkBL79iRj9iePwPsJ9BVAxpYFxr6tPrrHaaavB15LJr0/RW8YP4WqpjW7VUgWKiap7iSF/k1tfV115GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNdaWX3f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790691979; c=relaxed/simple;
+	bh=AI/78WJhD4CPIbJy+nlJpnGWgauJNLp0Y3rc2dalCGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lSvJ/izxswyb0DkF6edbutoOY/mYTMV4MF6adY7JyuiIMvmsyiyx6NWrflIVvdsXdVQlDpn0+RHsCCcNhfNX01mCj+TaYxYwDSoBUG5yPXmPwZ2Zi2AIUQiJgjslj/LlERsDq7tOXyNkpQ0q+jJ8TLfcyT05s6nnPPJzZw35gtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ErCl8NV5; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNdaWX3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAE31F000FF;
-	Tue, 29 Sep 2026 14:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790691920;
-	bh=85xj1wiXSyoLF/yht4C9mQFJLHCdiogKv9fjMvxDEbU=;
-	h=From:Date:Subject:To:Cc;
-	b=PNdaWX3fJr0zA9do0cpO0iD4bfd9trkRlljYRzLaKUMogzCmXjLituLo6iUb1Zn5e
-	 wOHAhUmUbKOqaYtDZHbGo9GjUH4ag8gM5m8xwGASX00V13oWWrsLWDJD+i49w0pLGu
-	 sX/yhlalW4js8ByOcM+1omnlLPOAeCKhnsgRLnENDRrarUibC7koJ38nShdJObjRia
-	 Iq7eNnJTOFiZTubg0UPUK0/pL1iVV82w2dcmgu2ZM3S8qxAPtTWCH9VnszTJX7cqh0
-	 xZGyGVQpOsuwMGWu8OAdWlVyDfOhUIZ3zO+NIRdzZSQ02PFXQzjF+b11rU6bE1Wd7d
-	 OE2uwldjCYN2Q==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Tue, 29 Sep 2026 16:25:00 +0200
-Subject: [PATCH] nvme: fix swapped ZRASF zone state values for full and
- read only
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ErCl8NV5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8DMiTrHEuHAfAfHczM3479xqIi6gNKMUHt0Q9Yhupb0=; b=ErCl8NV51ZUSe5AJcfBmq4kN8P
+	2TLVoAo84HDsopf6r7NEQlOe3C7Ftiy7oukl5U6W+9fgjL5LUeJHnCopcsfjOkQjv/jDlVCv/glIf
+	zzwEMZsQV+VhHepotwgXSgbQmidrYM8GJVI6NcTln5piQvcQB87+OFq8Kve0FvVHAp61r4RGLqyiS
+	NrHJS9JuMKRMVwiHaSJ0rgKKVkmp05nkJ6E30/FzcBdxkybvkpPlgh4bLNChB0Bo4b05rSMhBb9nH
+	PTjWHeBqf4Ed0IsZeNByfu/OkyrsspUCx93ZO5w3XL4pWaTC9LyhBdNR5c6+nDd5hplWza8tCb8F9
+	HTPRZVbQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xBYmN-0000000E8Bs-340X;
+	Tue, 29 Sep 2026 14:25:59 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 48ABF3006DD; Tue, 29 Sep 2026 16:25:59 +0200 (CEST)
+Date: Tue, 29 Sep 2026 16:25:59 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Shivang Upadhyay <shivangu@linux.ibm.com>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, sv@linux.ibm.com,
+	alexandre.chartre@oracle.com, alexghiti@rivosinc.com,
+	aliceryhl@google.com, ardb@kernel.org, bp@alien8.de,
+	chleroy@kernel.org, elver@google.com, ihor.solodrai@linux.dev,
+	jpoimboe@kernel.org, kees@kernel.org, legion@kernel.org,
+	lossin@kernel.org, maddy@linux.ibm.com, masahiroy@kernel.org,
+	mpe@ellerman.id.au, nathan@kernel.org, npiggin@gmail.com,
+	nsc@kernel.org, ojeda@kernel.org, pmladek@suse.com,
+	rostedt@goodmis.org, tamird@kernel.org,
+	thomas.weissschuh@linutronix.de, thuth@redhat.com,
+	yuxuan.zuo@outlook.com, sourabhjain@linux.ibm.com
+Subject: Re: [PATCH v2 4/6] objtool/powerpc: Skip jump destination analysis
+ and unnanotated intra-function call warnings for --ftr-fixup
+Message-ID: <20260929142559.GC88198@noisy.programming.kicks-ass.net>
+References: <20260929055138.43489-1-shivangu@linux.ibm.com>
+ <20260929055138.43489-5-shivangu@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
-X-B4-Tracking: v=1; b=H4sIADvKu2oC/yWMQQrCQBAEvxLm7MC6ZAPxK+JhsunoiK6yo0EM+
- bujXrqpOtRChqow2jULVcxqeisO201D+STlCNbRmWKIXehjz2W+gt/FeJKhavZXXEbfF6fQTdK
- mFkmEPHCvcP2L7w9/tudwRn58i7SuHw9B87Z+AAAA
-X-Change-ID: 20260929-nvme-zns-fabrics-field-fix-506fa454e5aa
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Damien Le Moal <damien.lemoal@wdc.com>, 
- Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Karl Bonde Torp <k.torp@samsung.com>, stable@vger.kernel.org, 
- Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1805; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=39griNeA2J0KiajlOS+aLyu1xGxKZDOPR0HfUFHRsds=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqu8pCjVSm53/mKAnzsB6IaZZ0D2CpCsEgMqydj
- Ww97FRhhguJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCarvKQgAKCRD6UCkIqsW9
- 0Ax8D/9paMIkK6BptR6CRhOinxpYa+oKyelk9FHZYfAFuU6gWSFUHlzhg2kicu1aGPwz2RB5LQU
- IbbrcxPd6tjp1NH5yu9PIqef/KZfl7PU6fK/NhIdE1pwdkJnYuxa5mH6qnw2U9uiIOk7JaIUX15
- qE0UaeetckZBmpNmQVom1SS+FXCk0ky0qf/ZAyIUizPxxPKNR4Efb7Y4BbijBk5PeDjLTP2CpRc
- /PoePNp6+sim9T/S7Ip5NMWX+cVGoK4Wj/UddJn19zzfeeRqx1Z0uGYzXT+3lPXNNQlcbx2jV/l
- MXQMkaK3plOS3/jCI4AQcB6LiDQADVz2H2mDXT5lxIxIRGb2o1TCPt7GJmYqkuXtE111lCynVvK
- O5zO0kAhzhBi62Gew4J0PhxgzSu39FdKUXj9MRBxglGGWy/HmEe83tQSGNu0KwCgFMCbw2trHhv
- wjXrFj87ot0TjFy1CiTyTxdtiDZu8I+o0tLNv0TyHIRDGJb9dLufrVVnN6Q2h0Wh3NJ0yOlsJR3
- O9Dk4RpK9sJhqg2cGnvF/i03i35oD5DHy7PiAzvSxnNDAJwp2GOHKzKN6hZNYncPzlc9+b4rWLV
- 8xKuEK1QFuJxSyGnuuAvKK5gyUQl1MU9Sb4YzjnlPflsN7CQlDWBYvxVvJY3PYXH87T7x27aK1G
- GdPQxGys4Lx7L7Q==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929055138.43489-5-shivangu@linux.ibm.com>
 
-From: Karl Bonde Torp <k.torp@samsung.com>
+On Tue, Sep 29, 2026 at 11:21:35AM +0530, Shivang Upadhyay wrote:
+> From: Sathvika Vasireddy <sv@linux.ibm.com>
+> 
+> Objtool is throwing unannotated intra-function call warnings
+> when run on vmlinux with --ftr-fixup option.
+> 
+> One such example:
+> 
+> vmlinux: warning: objtool: .text+0x3d94:
+>                         unannotated intra-function call
+> 
+> .text + 0x3d94 = c000000000008000 + 3d94 = c0000000000081d4
+> 
+> c0000000000081d4: 45 24 02 48  bl c00000000002a618
+> <system_reset_exception+0x8>
+> 
+> c00000000002a610 <system_reset_exception>:
+> c00000000002a610:       0e 01 4c 3c     addis   r2,r12,270
+>                         c00000000002a610: R_PPC64_REL16_HA    .TOC.
+> c00000000002a614:       f0 6c 42 38     addi    r2,r2,27888
+>                         c00000000002a614: R_PPC64_REL16_LO    .TOC.+0x4
+> c00000000002a618:       a6 02 08 7c     mflr    r0
+> 
+> This is happening because we should be looking for destination
+> symbols that are at absolute offsets instead of relative offsets.
 
-The Zone Management Receive command Zone Receive Action Specific (ZRASF)
-reporting option values for the Full and Read Only zone states are swapped
-compared to the NVM Express Zoned Namespace Command Set Specification,
-Revision 1.5, Figure 35:
-
-- 5h lists the zones in the ZSF:Full state.
-- 6h lists the zones in the ZSRO:Read Only state.
-
-The nvmet ZNS backend uses these constants to map the ZRASF value received
-from the host to a block layer zone condition when filtering zones in
-Report Zones. Because of the swap, a host asking for full zones was given
-the read only zones, and a host asking for read only zones was given the
-full zones.
-
-Swap the values of NVME_ZRASF_ZONE_STATE_FULL and
-NVME_ZRASF_ZONE_STATE_READONLY to match the specification.
-
-Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Karl Bonde Torp <k.torp@samsung.com>
----
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
- include/linux/nvme.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index 91ce434a7e8d..6248711784b3 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -1266,8 +1266,8 @@ enum {
- 	NVME_ZRASF_ZONE_STATE_IMP_OPEN	= 0x02,
- 	NVME_ZRASF_ZONE_STATE_EXP_OPEN	= 0x03,
- 	NVME_ZRASF_ZONE_STATE_CLOSED	= 0x04,
--	NVME_ZRASF_ZONE_STATE_READONLY	= 0x05,
--	NVME_ZRASF_ZONE_STATE_FULL	= 0x06,
-+	NVME_ZRASF_ZONE_STATE_FULL	= 0x05,
-+	NVME_ZRASF_ZONE_STATE_READONLY	= 0x06,
- 	NVME_ZRASF_ZONE_STATE_OFFLINE	= 0x07,
- 	NVME_REPORT_ZONE_PARTIAL	= 1,
- };
-
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260929-nvme-zns-fabrics-field-fix-506fa454e5aa
-
-Best regards,
---  
-Andreas Hindborg <a.hindborg@kernel.org>
-
-
+Again, confused. We run objtool on objects, this is pre-linking, there
+are no absolute offsets.
