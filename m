@@ -1,103 +1,96 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE69F4E3235
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 23:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C42E43BB124;
+	Tue, 29 Sep 2026 23:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723614; cv=none; b=HUxXsOUq5W9NDO0ErpS1Fmg5otifOa9mLU/5ZIIe5gcNRbMGVo1VmVYlrduFYab8PTJiGauDM6QLqCiG2uhxRVf0yuItGqEGAH2sMpkONVg5w4zoQdU2TVtrS+rfksDgqk1q43OrdAC9X0jlQ5FcJ1wwMITyB7T3DucVzYjhDs8=
+	t=1790723731; cv=none; b=jIXuj7fvB0aGmzPhAzXHG7hqxjsX2OiCN83VdSpa/kNwFvsvtrOcgXAs8gproxiOOcCog0JjISH4aPKOm+sJ1XYfPS3FvZo5z6lv4uSTsHIvNQaPl/iZsku0/exVRNgRBW4YZj0PDAXPE/B0sisW3QVGpVw7Op2I/Bm74NZY7wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723614; c=relaxed/simple;
-	bh=XIEY32W/6MFskFcdYDmnQYcCJnPcJ5eAtl20vIeGctA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X76LTW4Fxb0EJVy6/L9NBa7+cWrcX5JUfhE+JraV8VyJ+gT2NPBID1tMTFYM6JPaKT+s1GyzzZaiWPToeYyK0w0S0C5tyUxCzjKcGCKso3TjMa7Fd9fO3NpqH23ck9Pr9hTJZ04sSU9JLzBZblAWO9dseDKztbegI3Nh4awIeZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=SQpH1NPY; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1790723731; c=relaxed/simple;
+	bh=iwFCjjCK0ZoHGnGUdHuRorHP5xMsXd648CaC1O/m5QA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s7feK5vEi6W25U2370yNxU42HwuN5FbEdGh77xA/9SUWl3o/9NmskrXYE/kJmhtMQlSTYuFbH+65vTT5P/JAv9d6lLwU+BJtbwcZUBmeJzRInEgxMpn4Hl+8Z6Y2aB1dHD0BlOkt0kLpVrfLKeNSFiX5KsLb1oeAQgwvlLJBUO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=XTJGUGuX; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="SQpH1NPY"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba91so2233533a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:13:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790723612; x=1791328412; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Iu2FY06cIBJ7op43/g8hAlSSeLFMSuwtqMFeIARMq1U=;
-        b=SQpH1NPY96fV9pPARaHYxSDrLWtuDAlYYQmDR6A5+ZOwU81NlkaD2C0qNsAXAFtMJR
-         RJ+KoV39agJRP3wHJDawjS++sCg+AQtKewV3RmBFMJrMK7UoI6tEH6sJsiBMO/dw/L9v
-         Lc+cSlFgW+Gq3Nxhm8dwYRdcco8OCkmolbuPF4sFoy3EfRaaZDPkO3iJEJ5HTT1DrRQZ
-         iGplC1y9puO2cNY4k3/Xyn0vGAa1OSXsW4ulcuJnE8ReBs+EhmI6iKOoj/z50xJA1E6x
-         9br6/aOBtU7hWDc6XEItEfrHKrp7vPGJFoysfwyC8KhNkU/T6P62V3RtNGniGIupQKSH
-         vH9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790723612; x=1791328412;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Iu2FY06cIBJ7op43/g8hAlSSeLFMSuwtqMFeIARMq1U=;
-        b=wPZeZqHiXQwTrcEOKI96jubrbGV0mOZxes+eZO9n5rs1VHVS0eFlDgpgmJcsAHzCGP
-         xbTCMpbN2xks6fWjOxDAPauQNkrqqWBHSkAOSb+OTx4DqAos9ODpFo2BAzc146+h//RM
-         Qa4T6WfY2watHrttwi8N+3l4hemM6wTfrw9j9bFFCixcFwGUMzC5iMDU1lntjLYQjLHR
-         lnc4jO9OwrRn6y3iGvPxNRLFOt8eAF2/TYXr4bdoJBVSRg2iISU8bFUeuvTY2ct072QZ
-         HyY7kqOoMTfTBdU+ZPZMn/PT4Aj0iT2rc8isr81rDR1Lx5DmFPbKO3WFV1arj7rFsONe
-         UbvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxCM+yJK5ITDsqNT47KFGNHZEn2hURAjo3G1YkRyngYTMTSN1qxP8l8VBVEpTKhu7N8hg4rFLWPHzfcUPQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmIPGhIttc7IceoyV32+7I8DkV3eyG2co0KOkJ3QL9ULw1UCak
-	oPgSTM+mt4o9tWgvRQPE2e/7fSDYjkGKj1XV+S+u482zKp9ltmhRkq4XeyHnnWKd5GA=
-X-Gm-Gg: AYBFou2PEZEFrpAKrj376k4ikZ9uzDXz9K9LGScpOiBagPFj7py8hALI/W9CGIEEw0p
-	JPC+8ML/sKGW+0Ul7esOH8INruafCZeLeaKbsBbmdf/VegZOe+j2RqZ3HQbPO8o8mddYiHITdyl
-	CxEK8x9aIDwqo5+yd1msoUC6QFhecZDncQQw4/hEp+BrIZ8Wa08AyZSOF6a0SndPyd1gjV+KKO8
-	q8tBjgDO85CBBuSuXxgN9Hm5akrm0q+pQasmUgxGznlYUp5EqpTDMpxGPeBtpmqsSNh3WDrnm8e
-	VdSbrLX/ha30cKHCKub0rJ04WRYvyqB5pRWDNggFe/St2nX7l79iUYy1l91nLJyDEeAaGIiuSJj
-	1qAnLVWZiVuEbp3jxkgEw1/zyBL4XhBzqhnhynXztTVeFiAVvK7oMA0I8N8H51nrnThw5ZDrjKO
-	0hHexy7IiYABtE+IUs4XgvwbVA1YK7MlWUyoKogKaImWimLHZUMUNGEV5VDF4/vG/y548rPq4RG
-	GG1wGCbc//D
-X-Received: by 2002:a17:90b:6cd:b0:3a4:a3e8:22ff with SMTP id 98e67ed59e1d1-3a4bfd9ec43mr734665a91.19.1790723604565;
-        Tue, 29 Sep 2026 16:13:24 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:43::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ca3f3d67sm152927a91.8.2026.09.29.16.13.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 16:13:23 -0700 (PDT)
-Date: Tue, 29 Sep 2026 16:13:23 -0700
-From: Joe Damato <joe@dama.to>
-To: Filip Balluch <fballuch@redhat.com>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com,
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] e1000e: rename init/exit module functions to avoid
- confusion with e1000
-Message-ID: <arxGE+eYEmkxNQ61@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Filip Balluch <fballuch@redhat.com>, anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915122639.64936-1-fballuch@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="XTJGUGuX"
+Received: from localhost (unknown [52.148.138.235])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 6CBFC20B7168;
+	Tue, 29 Sep 2026 16:14:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6CBFC20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790723677;
+	bh=SCR8BZy5m3MNNjZFeD4xV7VLw+Wr0Y/lqzbK2ZUbZgE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=XTJGUGuXlNb7sFYYsoaeI5eKIAk1S20Lp73ctaC9YVAyQeLetTbsW6W/l2LIbh2Ip
+	 zxnkWbw1zzYf5WSfUAulBveJm9Ey73RhYKMTIWsBascnnFHT1/ev9WbNO6yvA8phGi
+	 xV79BuDJn7qIBuD6Fk7nlBKIdWK2DmjDKTUQ//8Y=
+Date: Tue, 29 Sep 2026 16:15:27 -0700
+From: Jacob Pan <jacob.pan@linux.microsoft.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alexey Kardashevskiy
+ <aik@amd.com>, Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel
+ <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, Kevin Tian
+ <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
+ <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
+ <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
+ <yilun.xu@linux.intel.com>, Shameer Kolothum
+ <shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, jacob.pan@linux.microsoft.com
+Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
+ parent
+Message-ID: <20260929161527.00001275@linux.microsoft.com>
+In-Reply-To: <20260929123048.GJ1616761@nvidia.com>
+References: <20260925122305.GG9354@nvidia.com>
+	<yq5a5wzpr7b9.fsf@kernel.org>
+	<20260928121147.GP9354@nvidia.com>
+	<yq5azex1peqt.fsf@kernel.org>
+	<20260928161738.GB1616761@nvidia.com>
+	<20260928110854.00003ff0@linux.microsoft.com>
+	<20260928182022.GD1616761@nvidia.com>
+	<20260928152402.000079ce@linux.microsoft.com>
+	<20260928230328.GE1616761@nvidia.com>
+	<20260928225524.00002b85@linux.microsoft.com>
+	<20260929123048.GJ1616761@nvidia.com>
+Organization: LSG
+X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915122639.64936-1-fballuch@redhat.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 02:26:38PM +0200, Filip Balluch wrote:
-> The e1000e driver uses e1000_init_module and e1000_exit_module as its
-> module init/exit function names, which are identical to those used by the
-> older e1000 driver. Rename them to e1000e_init_module and
-> e1000e_exit_module to clearly distinguish e1000e from the legacy e1000
-> driver.
+Hi Jason,
+
+On Tue, 29 Sep 2026 09:30:48 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
+
+> On Mon, Sep 28, 2026 at 10:55:24PM -0700, Jacob Pan wrote:
 > 
-> Signed-off-by: Filip Balluch <fballuch@redhat.com>
-> ---
->  drivers/net/ethernet/intel/e1000e/netdev.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-
-Reviewed-by: Joe Damato <joe@dama.to>
+> > Also, we don't have a T=0 to T=1 transition, our intended external
+> > attach can be transitioned from a blocked domain, not from a paging
+> > domain to external.  
+> 
+> You kind of do, external is close to T=1..
+> 
+> > > I think you are going to have module dependency issues trying to
+> > > get the mshv driver's info into the iommu driver, adding a "TSM"
+> > > like driver would resolve that. ie mshv could just provide the
+> > > viommu. 
+> > I introduced a similar registration interface in hv-common to solve
+> > the module dep issue. Will look into if I can leverage the vIOMMU
+> > helper here.  
+> 
+> That doesn't sound so nice..
+> 
+> If we have to have registrations it is better to have the viommu
+> registration that Aneesh drafted than several schemes inside specific
+> drivers..
+Agreed. Now that the commonality with the TSM provider path is clear, I
+will adapt the MSHV support to use the generic vIOMMU provider
+registration.
