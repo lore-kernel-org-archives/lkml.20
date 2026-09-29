@@ -1,177 +1,135 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010027.outbound.protection.outlook.com [52.101.193.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8364F68D8;
-	Tue, 29 Sep 2026 16:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698314; cv=fail; b=CW0DiMygX0eUfxLhAotMOdFD+xwm2Q7KCD2MYBLouWMxI5A/oajrQ0b3OIYix7s/1HLj+SMVpuAixXD8sKiNW2ZdQbz1MtaGpDXdsVRBv00VqWdP5avFpGWLPJalCBC28TKO9NCi6N/v8D9qLj2nOITpdxFr5ZjZ0H/qupChXYg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698314; c=relaxed/simple;
-	bh=f+JmzeWa1c9lgEMVRWCYz1iYp1x/tngMzHWyXPil2/U=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CHqCGElY4PyvpH0azsnhVRsuiV3g692zSCDIqiCAfS4+ABnGpnsUBw0L57o5BiGsbh9+jxAoOcZ/yiYjf02sMPoFeLp7cWplYc/ztldxDDAb8R6hyvg1Wsmz/axLn/WcftRexB1Szof1v6UpWNu4sBhuhukClkDwfpNiUyljKl4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DJyXB2s7; arc=fail smtp.client-ip=52.101.193.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEF74FE2C3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790698356; cv=none; b=XRk2D+U0B6K/Gw1sVqKcJEUkFp/LmzOi+Zn6I071jpQmlOIvM54IEpsC44uruhYHGTr2v9z8ht6sPs//2mYKTmHB4Ry5JbUtU0dwssGHU/xKDTMBIXx8QID71VnRDaf9RymGM0NTbOB5BmhPILxLzV4/Wt3pw4J+X5zX7rAyVsE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790698356; c=relaxed/simple;
+	bh=0LOLrF1o0H9W9E6lsAQJ0sYu2ieVD2z9H4HDPExvv78=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V0zqvHSEHhwcnfOrNMo6oNfC20SuL/jchA4fcOK5fin9brJKB/2ZYjzwckSN1sLRi8SJpCzN64plrhFRixXHQ2/IuZZ+AntxFJ4iMcDoI0A3GyNEFk4Le5LLUIagL/+uC0YNYOGC45V8aazDOhydSNE16F4PjDYbbieZaW9dPGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfcvS/Ll; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DJyXB2s7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sPTltaRiCLOwpstBNkawJu675Akl8LAI6pLMuzIQgC4/AHZaOA3tGX8m5KUo+/ZRNbzi+5l8l/sV3o2Fr/dWwjOjL/CraQAEGLBJ7qSOLlUDG/UldBBENz9hgbE8XBtvhEKuw6ze7SuFVBlz/1TINXSvW7UPBglN3Kb2Fk/IFyVS5X700Jco6Baf5SskbuHPkWXukBoeGbrAbgOfwgBF+XmMEaPk4rc46031BcFJdjA/BN+dC7yVa8WwKwcGbLhA8mjhSQpVX/ZcLyWoDUy+PiVGm5fG+rL5NH17re4Jj9OdvkXr6jvx0DCcnlGZzzgPW0vqYUuyDDaSLTGrQ7dBkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F801WrOzZxejFe30ahp0VaYp+9TkEGIGjlIKKwSttlg=;
- b=QFyXZyfJB+XY5go3EF+XH1OgehUOZMlnT3LJAYqRORXoen0mWqR4Ki0CNfgUxtRgn2DX5oetfWeP6nv7TnNnbtsTrosVA9LkhLiJd5vHcwCsozPrfFmRt8HPIxPAQ0iXooy9gwYM998LLXkHO67WjJ5cKOPlOEODyk6z8sMssCwpap8jBi6WnvkcIv/ov5cQ74N/Fn9MbRRfY4Wubmj9Cit9+uzmvsaAaRN7ucDMlfXVFM7U2n9n6+dwnvjcnaj7UA3c07fHK+NcT9B56frHW33FLl1pNGSZO/sCD1zRyQQs2KeJSLwKg5GBcebj1ngpDJvOc5rPFhu6lAV5rH5Miw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F801WrOzZxejFe30ahp0VaYp+9TkEGIGjlIKKwSttlg=;
- b=DJyXB2s77Gi8tOczHoCF+09l9cvR6H11Q6NYRNCWWW+AAPwpS7KCBhg5C4+SQyuG9vgP2/GeHsVVg9JgCkyqJoLURkRXmUyibIYowQW+c2nH0NVHApzAoBat/awIfT0y0bhjzRIISxjRKdbjJjPTVIojztj+batU2ZJptDahoDVKAGtevkRUmprRznbaohM8TvM65gBtFeRRWkwibxeZkGfaKTtTp3aEME5Ze0OO2CZKIQ0/Dx9KBIl8XzHMkA9W89EPHQ77hw+54xZZRcSfBV0eryv/pR2MxWlQwDspfgKhPcIgrHNT+889uw2JR8lknieTsw6+/8464LrZ4bZjRg==
-Received: from SN7PR04CA0056.namprd04.prod.outlook.com (2603:10b6:806:120::31)
- by IA0PR12MB8648.namprd12.prod.outlook.com (2603:10b6:208:486::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Tue, 29 Sep
- 2026 16:11:44 +0000
-Received: from SA2PEPF00003F65.namprd04.prod.outlook.com
- (2603:10b6:806:120:cafe::aa) by SN7PR04CA0056.outlook.office365.com
- (2603:10b6:806:120::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 16:11:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SA2PEPF00003F65.mail.protection.outlook.com (10.167.248.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 16:11:41 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 09:11:04 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 09:11:03 -0700
-Received: from inno-dell (10.127.8.10) by mail.nvidia.com (10.129.68.6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 29 Sep 2026 09:11:00 -0700
-Date: Tue, 29 Sep 2026 19:10:57 +0300
-From: Zhi Wang <zhiw@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-CC: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, Gary Guo
-	<gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>, Timur Tabi
-	<ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
-	<nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
- a sub-module
-Message-ID: <20260929191057.7203a154@inno-dell>
-In-Reply-To: <DLRVMM6HVO54.NV3FUAYPC7UU@nvidia.com>
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
-	<20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
-	<20260928122015.3df66b3e@inno-dell>
-	<DLQX62L47S38.1D5416RRETLY3@nvidia.com>
-	<20260928181106.06eca8fc@inno-dell>
-	<DLRVMM6HVO54.NV3FUAYPC7UU@nvidia.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfcvS/Ll"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4cacd3409so2571379a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790698354; x=1791303154; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SRgYI8NB5ZWXSObwPxIXtQXSAtJDMAfETTCC86XuwMA=;
+        b=FfcvS/LlOZGRP8i1Uz3J8NQeK27rRNokW10EtT3NyS9/zoJq6VgJAgy7f+9Buf89S7
+         oTOgiJmLu9aI5OY857h2ji3eZncrCBsURBC/RQrKdwgTfYGr/KR1ke6yZ/ixdMv+EPEw
+         +wwPoOLd2gM/kqKAA+vLzQYBCnkCok8sU68Jub0eCyHY8g9Q92AnTwv48Ij7fpe3HTj1
+         ipyUM8X+LRG3to48HeqdfUDg0oITIO6cFxRTUjbxJZkQC36vdyXaXFBkqriPnzyeqqor
+         9SvPFRv5BNCHrpQfcjQe4600e8HakF8i+WeoYO+eRgvcZoJyVVfCoq201IJTfE3aKbZI
+         ZiCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790698354; x=1791303154;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SRgYI8NB5ZWXSObwPxIXtQXSAtJDMAfETTCC86XuwMA=;
+        b=1Q8UvK/ql4HCjMQM8cOuDvf0gqdP5oRp/1DyYf+BIIyUTr6rjsYDFeRBa8Zsc0iTgQ
+         gBfH1feai888y7CRv0w3sv21ZhmQlzn4wvb2+EWu7+yj7f0kyvxUZQqsw1cEJF6v8ess
+         Aw1iLpi7KFiGGgT8xolGlyCxuRIqAMIJ08kFIr2ACHSxAV2mzGOQ5+qvR6HcEQN1MQwh
+         rYLn5e0NZNxkCTafoFaa7HllD4Mb7qEhRu2rVsDoqAyDojJMwR9VPTSJvyn9cUJNjFPX
+         yJ3FY8NoTqkiwx/XQJS1q2mPQJfvhMWCpAGbh9PnuQZSZLjK2ylj/EIA30+6zYv895W9
+         vzvg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxkd2vEfm9NCYeoByNGhQroa66Qkm8kCgbLnS+AqDN13RENQCih3uHHIYf49vpiDATURIo3puP8GG2BCM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4gFi8Wds8QWFXTI7pzdaI3zeLud01XJN0Wp51/QK7Hem5fDyg
+	8KOem0szIrzO2NHPxL7SDzfFQkI+5HOzXkO17R8dblDkfIBFNMr0syBe
+X-Gm-Gg: AYBFou35gh4c8voEO1bsO0IlVcsTjdaJLlTc6BQBj9584A/t8PaEsStUIRSArJDmsXi
+	v0qZrENNRbkZOLg/zjMVmC0UCCTFC/6X/vlivUkkC/4ix3TyhX5hXfol+jUFM54O//RjhfB4fGF
+	zqte/xRyC/9pOMjLM3pDruHeaswZC0pki8F/Kmn/+rEf/DVBKuyF9g6X7zKJV92O61DQRRhn4rY
+	38dHcXeT4e7SGGFz6JrNfkdJrtg1181l+7lTIS/hXOJM2zRh4ioAZG8TTVTVZOsiPRMqDu3hTLn
+	2bBizJCZZTRDRlE4XNigwPCxlYKJ4jGYdlySDMvGv1bvTg5piR5wb4QKgKFmdjNxkzXbwYB/blk
+	Hb1ot7o21iQDut74NXNa9w4t+YbV6jun9BaJMGhFK42XTWvWxMqjaMYkD13Xx15CNNMGfQEOuGR
+	BltYaUcTcYxP/SLcbcQz7ObtikFVaMJO7mv4SxeX0OlPkz1YLYz+PQaIisMvgD0Ub5/HfySg==
+X-Received: by 2002:a17:902:e741:b0:2e2:dc0c:1615 with SMTP id d9443c01a7336-2e2dc0c1643mr65525ad.31.1790698353862;
+        Tue, 29 Sep 2026 09:12:33 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::246:e4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2d8cf1457sm4227315ad.15.2026.09.29.09.12.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 09:12:33 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+	Maxim Levitsky <maximlevitsky@gmail.com>,
+	Alex Dubov <oakad@yahoo.com>,
+	Raj Ojha <rajojha047@gmail.com>,
+	linux-mmc@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+3ee5da0319ca17ef1f4e@syzkaller.appspotmail.com
+Subject: Re: [PATCH] memstick: core: reclaim the request before freeing a timed-out card
+Date: Tue, 29 Sep 2026 23:12:28 +0700
+Message-ID: <20260929161228.128616-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAPx+jO9iva6YnKba8aEuOHURiZKjh2+wvhfC97bZ22UjGsXgNw@mail.gmail.com>
+References: <20260919100408.113979-1-ngocthang2710.1999@gmail.com> <CAPx+jO-JBBLNCUrnB0UaMSPu7ajwsrEQMPJ1SfH2PccCR5VnCA@mail.gmail.com> <CAPx+jO9iva6YnKba8aEuOHURiZKjh2+wvhfC97bZ22UjGsXgNw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F65:EE_|IA0PR12MB8648:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5dca87b-b02c-4bd8-1e92-08df1e445933
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|7416014|11063799006|10067099003|3023799007|18002099003|22082099003|56012099006|4143699003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ZRBl55wsJkYML2AbCHt3XkB7ZDdBgO8LiOigG7Ti+ID0TV9Tj8YE0PqAYoDCjdGxR9CxRD0zGYsLV2oUrXMLNFhr8dxI7KJw+UmtheIEyXXieDM/iqTBx6Nl3OlCsBZ3brNAAqEMqWxi7VUzaUlJjDxf7RoDvZF/pFn8TtHZlI8ADHW4+h7OdvNBRnoOU5JfJKvYRB2A+b1Fpo+t4BE/EuGUfpA/0rPNMGR1Scj10ccExDXNuTPdXREcXQAOl+VgsXqJ5rBe+lTMkty4rPOw8cq0IEKY7axGmQaMWHtFYy4kjZyqbrJJLRLuzpQgCt/UlJdA7iTQVvlxu8BjvQpGS/7SSR6odxEb9lKuVYzTZWXFJFC3N61qjbzVBwqazorVa0tRKSsEBTA03XxmWT5pqR8SiPlpW9Mna8EDXAXPZqgqlDoHdxcd5XlngmuZypfgMEhRjJU25jCyXMOUZG6BU15TCLYEXYovsnJjZULehOLdbLaeaNrAFlYnLNDW9xf/YlCNxjJFxYf0919QpOpFhT1w7SgV2B+PzFcLI+rgZIg6uBGzuljbJHRLajOnOmWrSzgc9GtoBF+EEnpA5HQV6qjepbW3Xp5EoxOAJdDBs3xyQFvqXD/Pms1xm3264j0/pb+O8ZqYfxlTWPWgJECwpLMKhsehGJ9/35izXxzFrx4B3hqI8o8KsIDmhPe5Od3hA1gM7ZFBaBDl8/uiA2rWzg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(7416014)(11063799006)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(4143699003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vr63DmddEKq2aE8rwg0sVlFWm2VjIannNq3E9Ho57SlHLbbnnKhpCZQ3WN4a/p5nwejF2xb5RQr5jRv5+2pXhLT8W+Qp9RO84zWLFghnMRIAJeu3Fjua1wdgxu/0W7eaCtR0AeJThXtYk2JT1Eh/X0N59/wqoQQqKQfuOu4RSHDqbyr5I0t63YKuo3A06frYdRwUaBBI+jv0rpqxMfuryyRoHdqyCBdXBsbik84Z6Y4y8h7WWN93XeDkoycFZhhy+iTXfPkMaU+wczeVFH0uG30OoSRRR/g7E4uv4xgPlTRiTWYEtvS2KcwvULJU6ssTxcpWVeZwQ1+jf2FrTSoaXRibbmRIjjwDKmatqSmXDMB3LE4B2RGynQkeODMvrNDcID5kwingtvYUahvBppvVp2zZrmfQZBfTLgS6eNtLwRxOTzkNRmgoejuS15EjYyGc
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:11:41.1980
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5dca87b-b02c-4bd8-1e92-08df1e445933
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F65.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8648
+Content-Transfer-Encoding: 8bit
 
-On Tue, 29 Sep 2026 23:40:22 +0900
-"Alexandre Courbot" <acourbot@nvidia.com> wrote:
+On Tue, Sep 29, 2026 at 12:57 PM Ulf Hansson wrote:
+> Reviewing another patch [1] for the same issue, indicates the memstick
+> host drivers are already managing the timeout themselves. So, even if
+> your approach seems reasonable, I decided to go with the other
+> solution for now.
 
-> On Tue Sep 29, 2026 at 12:11 AM JST, Zhi Wang wrote:
-> > On Mon, 28 Sep 2026 20:40:08 +0900
-> > "Alexandre Courbot" <acourbot@nvidia.com> wrote:
-> >  
-> >> On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:  
-> >> > On Sun, 27 Sep 2026 22:46:25 +0900
-> >> > Alexandre Courbot <acourbot@nvidia.com> wrote:
-> >> >    
-> >> >> Move the types and code related to RPC commands into the
-> >> >> `rpc` sub-module, and update their users to reference them from
-> >> >> their new location.
-> >> >> 
-> >> >> This is a pure move commit, with no functional change intended.
-> >> >>     
-> >> >
-> >> > Hi Alex:
-> >> >
-> >> > What would be the plan for commands.rs in the future after the
-> >> > movement? I was adopting the similar code structures
-> >> > (fw.rs/command.rs) for vGPU manager's RPCs and GSP plugin RPCs,
-> >> > e.g. having RPC typed code and function handler(wrapper)s, it
-> >> > would be nice that I can align with the idea accordingly.    
-> >> 
-> >> Can you point me to the the structure you have if it is posted?
-> >> (sorry, too many series in-flight and I cannot find where it is
-> >> ^_^;) 
-> >
-> > No worry.
-> >
-> > I am trying to maintain vGPU-related RPCs and GSP plugin RPCs in
-> > below two files. Basically the maintaining schema is similar to
-> > current nova-core fw.rs and commands.rs. 
-> >
-> > IMO, nova-core and vGPU managers bindings should stay together, but
-> > there can be quite many vGPU RPCs. Would it be a good idea to
-> > maintain them together with nova-core's fw.rs and commands.rs?  
-> 
-> Unless there is a good reason not to do so, I'd put all vGPU commands
-> into their own submodule. This makes it easier to e.g. create a
-> version of the driver without vGPU support, which I feel like we may
-> end up putting behind a Kconfig option since it won't be relevant to
-> consumer-grade GPUs.
-> 
-> Bindings are a different story, they are generated in one go and
-> unused ones are just optimized away, so having them all in the same
-> file is fine.
-> 
+Fine with me. Raj's patch fixes the UAF in my reproducer as well.
 
-I see. Thanks for the clarification. This is the exact direction in my
-current code. We can plan more on the detailed parts when you are
-reviewing my patches. :)
+One concern: it is effectively a revert of b65e630a55a4 ("memstick: Add
+timeout to prevent indefinite waiting"), which was the backstop for the
+rtsx_usb_ms remove race that 99d7ab8db9d8 ("memstick: Fix deadlock by
+moving removing flag earlier") only narrowed.
+
+memstick_check() can still pass the host->removing check just before
+rtsx_usb_ms_drv_remove() sets eject/removing. Its next request then
+reaches rtsx_usb_ms_request(), which drops it because eject is set, so
+nobody completes mrq_complete. With an unbounded wait, memstick_check()
+never returns and memstick_remove_host() blocks in flush_workqueue()
+forever. (cancel_work_sync() in drv_remove cancelling a queued
+handle_req before it picks up the request looks like another way to
+get there.)
+
+I reproduced it in QEMU with dummy_hcd + raw-gadget emulating an
+RTS5129, widening the window with a debug msleep() right after the
+host->removing check and unplugging the device during it:
+
+  INFO: task kworker/u10:3:65 blocked for more than 20 seconds.
+  Workqueue: kmemstick memstick_check
+   __wait_for_common
+   memstick_check
+
+  INFO: task kworker/1:1:33 blocked for more than 20 seconds.
+  Workqueue: usb_hub_wq hub_event
+   __flush_workqueue
+   memstick_remove_host
+   rtsx_usb_ms_drv_remove
+   platform_remove
+   ...
+   rtsx_usb_disconnect
+   usb_disconnect
+   hub_event
+
+The same test on mainline (500 ms timeout) recovers fine.
+
+Since memstick hosts are expected to always complete a request, I think
+the right follow-up is in rtsx_usb_ms: complete requests with an error
+after eject instead of dropping them. I can send that as a separate
+rtsx_usb_ms patch on top of Raj's, if that works for you.
+
+Thanks,
+Thang
