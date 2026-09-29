@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89D72E8B83;
-	Tue, 29 Sep 2026 14:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CE62BEFEB;
+	Tue, 29 Sep 2026 14:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691518; cv=none; b=lzzFoekV44j4VIqAvYtoAP5/03C2Thb0Xf0AXIEVuYTq1WYi+9PnT+ZLtg4o37Uoi6yCcW32jUaVhz5QO/2dy4yAAECKCNGChN+zCOtBahikMWii1jPIWEnUz8kOUmGS3NPGiNBTdLrcHLcBWD5RkTGoQCEZKCEMUMX+4vQfDWA=
+	t=1790691530; cv=none; b=N92CSQavZGFiB9ChTIKs9eUflV/vVE6p1w8xCHMsOxUJTYz8VX8ZH/jHDFaJJ6MYYLJCBp6co1lZfXyVn84PVcyhNCnNryoy9mh4ycY5r5KM+JJUrYF+zoySQ4zmBTV6aSnIKvw9hVaqjs4e2/4DxWex1ECi99IyasUUjMLTb4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691518; c=relaxed/simple;
-	bh=LqkNb6abpVDJXMXtvFunz9ROyI+WRLfictPOxtgcly0=;
+	s=arc-20240116; t=1790691530; c=relaxed/simple;
+	bh=vV3dpOhH7E5KTP+X1/3hXr4cJ3NNA1N87N4qlOCmZK4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Oie6RbxQJEZIP0mWpdw9zecdClSYDJ8PpnnMNcosWY/Fn5sc94ERo1RtvX6tMxD1AKUi79ogzlyOTdPr2dnkD5cw8wtDUaaDuS7FCjgyb3i5/rq2WNfVj2sAU9QBQu1bDrRtJzwjo+AXyU2DNDYGGMdSt7V1X/LeStDHPUNvG64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wi8prc5l; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=ofv1PNkHkZJgxOxyUqxvFKKSaMGTizwXInOzoKl3vOU5rSb7Gv+LV1Wot2SV66S7w1Jk8iXcWtBwvjONCKRk+NCUBrnEN8siLmsye/NKw0aBkHU3AouBuBXtCnrzO5b53du8LGH9wxKNULl+Q51QatWWDS9ylvvYd7sRs865IGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HauA4Wbd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wi8prc5l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790691517; x=1822227517;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=LqkNb6abpVDJXMXtvFunz9ROyI+WRLfictPOxtgcly0=;
-  b=Wi8prc5ll2lQufwyFFpSfUNR/lcPizKyUzXCmvRlbbwwLjaIWbSUfTuD
-   18LZgBJ0ku2zTn/7TGkkUC0t3SvdXSh/qQBM15fNWw2VuQYpSw81jMCFL
-   uBIdQHTVKGEMx4l+wqzoeTXRAd8M3PqY0HcvieyEKnyan9wTYIZyMl+W9
-   CYCLizYq0gSd3wt3mO6tnM5fm5iAqSSm7SUKqHToj4rBkWTvt4JKai/7a
-   dko7jq7spVGVxJvBW4K26/1MWSQdVZSS8BwxeI3Ue/FjBlr1oEAEoBKO/
-   vD5HEUHePg9T+PmAZcjRgnhNslJ4tAHJVDZ1uw4PJfQUsY1Shqg4/kK3q
-   g==;
-X-CSE-ConnectionGUID: pFbBu0mPTz6dy3jFWu5GJA==
-X-CSE-MsgGUID: E6DtAjU1S8q980VSZNkG7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="94123530"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="94123530"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 07:18:37 -0700
-X-CSE-ConnectionGUID: QEj2zho0R0aScPJ8qcrnvw==
-X-CSE-MsgGUID: 3S5G5ID3SqGUYGjpu4sFLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="301659883"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 07:18:34 -0700
-Message-ID: <d71b319c-5a72-4e2a-b46d-c22a5817a854@intel.com>
-Date: Tue, 29 Sep 2026 07:18:33 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HauA4Wbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48481F000FF;
+	Tue, 29 Sep 2026 14:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790691529;
+	bh=WHZHSX8cRu/7/N33fTuRJpkBnX/fMb/1SxVzpaZbqe4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HauA4Wbd8IIVvjR+dnKtbWAgqLHFacHuGPzIt5RXkCF+osvlaHzhm9z2uVXgihdKW
+	 EsbdtoTz9gAoFqqu3Qr4/N4duOqPNk3555qRUoABxdQUPeOESsjP6l+lHa6AjViFAg
+	 UqY5s/f/rWZpRrW83q2ZXHoHXTxF5sdVy+T+lfXADKhfqzRPMpeEGeyMKlVSeAsSCg
+	 BfgHBqR1yotzMSyA8EwTKD2sSezHd+/h0Jm59aalB5xraXb13K9pWUar/gjrI37Vgv
+	 RZGFtWv80Gnsbc+5DYk5GZEmN4XZZCKn2un8eRH1+HRi/1MiK0tZvlmQBTeC7sCZ30
+	 pRHLzGt9sTMzw==
+Message-ID: <a385d1e2-cca9-446e-b855-818fa61fb64a@kernel.org>
+Date: Tue, 29 Sep 2026 16:18:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,127 +35,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] x86/tdx: Add a helper to query maximum Quote size
-To: Peter Fang <peter.fang@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
- kvm@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260928100913.2265687-1-peter.fang@intel.com>
- <20260928100913.2265687-6-peter.fang@intel.com>
- <61a63fcb-c40c-4259-b314-9ec63b0bc847@linux.intel.com>
- <aruCUJObHUV-xt6q@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <aruCUJObHUV-xt6q@intel.com>
+Subject: Re: [PATCH] media: uvcvideo: Remove unused active field
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/29/26 02:18, Peter Fang wrote:
-> On Mon, Sep 28, 2026 at 01:32:06PM -0700, Kuppuswamy Sathyanarayanan wrote:
->> On 9/28/2026 3:08 AM, Peter Fang wrote:
->>> TDX attestation report ("Quote") sizes can grow with newer crypto
->>> algorithms, so guests can no longer rely on a fixed-size buffer for the
->>> Quote.
->>>
->>> The TDX module added a new ABI that reports the largest possible Quote
->>> size via a metadata field [1]. Add a helper to query the size instead of
->>> exposing tdg_vm_rd() directly, as it can read arbitrary metadata fields.
->>>
->>> The reported size covers every Quote type the platform can produce,
->>> including SGX-based Quotes.
->>>
->>> Thanks to Xu Yilun for suggesting this in an off-list discussion.
->>
->> If the patch is suggested by Xu Uilun you can use Suggested-by:
+Hi,
+
+On 30-Jun-26 12:28, Ricardo Ribalda wrote:
+> The active field in struct uvc_streaming is not used anymore, drop it.
 > 
-> I think tip's preference is to use some prose rather than a tag for
-> these things [1]. So I'll probably keep the prose unless you have
-> objections?
+> Reported-by: Hans de Goede <hansg@kernel.org>
+> Closes: https://lore.kernel.org/linux-media/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org/T/#m3078f0d5fd71435b5cfacaa5c99f23a446db581f
+> Fixes: c93d73c9c2cf ("media: uvcvideo: Use vb2 ioctl and fop helpers")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+
+Thank you for your patch.
+
+I have merged this into:
+
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+
+Regards,
+
+Hans
+
+
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 2 --
+>  drivers/media/usb/uvc/uvcvideo.h  | 1 -
+>  2 files changed, 3 deletions(-)
 > 
-> [1] https://lore.kernel.org/all/c1c9bddf-1c00-4625-a915-d545acd67fd0@intel.com/
-
-Actually, I'm not a huge fan of the prose in this case either.
-"Suggesting this" is not specific. What's the point of even mentioning it?
-
-Responding to a minor review comment does not need to get documented,
-either in prose or in a tag. What part of the suggestion was so
-important that it needs to be remembered for all time as coming from Xu
-Yilun in the commit log?
-
-It doesn't seem that important because I don't even see Xu Yilun on cc. ;)
-
->>> +/*
->>> + * Ask the TDX module what the largest possible Quote might be.
->>> + */
->>> +int tdx_get_max_quote_size(u64 *max_quote_size)
->>> +{
->>> +	u64 err;
->>> +
->>> +	err = tdg_vm_rd(TDCS_QUOTE_MAX_SIZE, max_quote_size);
->>> +
->>> +	/* Old modules do not support this. Tell the caller. */
->>> +	if (err)
->>> +		return -EINVAL;
->>
->> I think -ENODEV or -EOPNOTSUPP is more appropriate return value
->> for unsupported case.
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index fc3536a4399f..0167f0f8e846 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -2229,8 +2229,6 @@ int uvc_video_init(struct uvc_streaming *stream)
+>  		return -EINVAL;
+>  	}
+>  
+> -	atomic_set(&stream->active, 0);
+> -
+>  	/*
+>  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
+>  	 * Cam (and possibly other devices) crash or otherwise misbehave if
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index b6bcee4a222f..021fd9af78b5 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -456,7 +456,6 @@ struct uvc_streaming {
+>  	struct list_head list;
+>  	struct uvc_device *dev;
+>  	struct uvc_video_chain *chain;
+> -	atomic_t active;
+>  
+>  	struct usb_interface *intf;
+>  	int intfnum;
 > 
-> Hmm, I don't see either one being a common pattern for guest-side TDX
-> code. -ENODEV is usually used for some basic operation failure.
-> -EOPNOTSUPP is not used in the guest. But between the two I think
-> -EOPNOTSUPP probably fits better. Thanks.
+> ---
+> base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
+> change-id: 20260630-uvc-remove-active-8843181bcbb4
+> 
+> Best regards,
 
-Just leave it alone. All that matters is that it is non-zero. If it were
-going out to userspace, we could argue all day about it, but it's not.
