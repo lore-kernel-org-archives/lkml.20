@@ -1,196 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF643655EE;
-	Tue, 29 Sep 2026 22:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAED4582DC;
+	Tue, 29 Sep 2026 22:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790720905; cv=none; b=FE71H8YMXypGuzJxvwoZYVyyeoWSWw6kLgV9JlZivjeFdua2FyqGROyefhlY/Ha0nChMfhNqn02IEOa5CYUdsfVhJiJpvkrZoncHyM2JngGLF7WyuBscChODUPc9xRGlWbMxoG8eeBIyBbL8ZOX8T9o4ZJCkDbhwHTN/s7NiCd8=
+	t=1790720913; cv=none; b=M+9lc6hM6/dJlkqIjlwdjb3quF8S56DICGxckvFjcJK4pUG0350gzjFAFYMerItrETahUKWUk4aWiw6LYJHdGQ012+g7rjvlGBb0GL/MWB/QdoFY/TuK8dYnATfY8iSYuruTrhhs1h4wp9K6lyGDjmEB4fJg1WEf9W4vCjJYBUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790720905; c=relaxed/simple;
-	bh=IjJFkVoow9lHuhMr+xYKiGwuAIazdHHcppA/oWYAze8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fm1mV4W/68JejNuf78ywC66ysWghKgdGumvxpeFAVLJ4BkpO7VR3Gqq4G1bRmwIw1FwTFCoX6NX6y8K94NaQ7ldDThBsjlnnmOxFZTthDH111tXhKJWpmlcccuDJJKoEn3wt7wkH/tMZ76h2PcRxlEjZblUww2KwLfDJBKpKWC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNnxeGjE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790720913; c=relaxed/simple;
+	bh=HICilK2qBUmcQw3dKJAn48mP2HaeF31VHil5ewha7lk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kF2v+I4b1ibDvpdPTdGavsOK5bXdOQ21kA/WuYlqdDOeGszBNy0pvYr2Kzi5fezSfT4qCVCPcPLt2SFUIQJacD1daauEzXnw66thhyE9st3bksvJxpGu8fv4r2pR6awqqQ7uCQQFCqyJlZvPXrJ1wPwd0DNJSRW9ceCve7qI614=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPqGydfc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNnxeGjE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9861D1F000FF;
-	Tue, 29 Sep 2026 22:28:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPqGydfc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8221F000FF;
+	Tue, 29 Sep 2026 22:28:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790720903;
-	bh=rXq3sk0b5j6u45a9CW2UEsFy+jV3+6YxcNYu19hQgAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NNnxeGjEGa2lNFXQY4Jt8RsbdsDI2wc8Zt4KAWsug0FBbZjoRZzn8arTtFcgouBrS
-	 l+sfIQE8bWIkRCtjSKTe2ld6W2GKOJAHd7i1fLUnhKNB8PHZIhUMakbFnyGcBE8GNK
-	 eZYJysdjyAXMPFHJp2MNckOIGNE1znNiNefIUcRngdEcAoWA768zqTorf/lOl49rxS
-	 YORcCbRLMNwWEiHkpcKWjD5G8R2zA7QeOR8LplKWQALfyhKKeRSY5NzDIpG0o6Bapo
-	 s7SGsU5WGHJ7Wql0St4LqfGFJxvE6K9HztquQ/4T4rgw7UdsYi0cl5G/bHlHMe1jlL
-	 peOZDphH/qfxw==
-Date: Tue, 29 Sep 2026 17:28:22 -0500
-From: Rob Herring <robh@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Albert Esteve <aesteve@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <20260929222822.GA2933878-robh@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org>
- <artyl8fD3zzng8Uh@houat>
+	s=k20260515; t=1790720911;
+	bh=yTXe4WKxmhZ5mHyk/oIcjQ85h1OJ6xagE2yWgHSIDms=;
+	h=From:To:Cc:Subject:Date;
+	b=dPqGydfcttP1NDSDKWB9RVAVx+22ck9bc3uL2hVZ9SqTaOcLmsnhpeYRYVjxQcxM+
+	 mO71SQgu+zrW7Lo3pizwHFolqdhaQM3l+oT7U0Lg2/e82e7P7m/wMnV/d1TZ+f36jF
+	 cWz8RsUWnNuqYWB4QuwOwxHTIo2xGZdtLR8SUjOYnijGrj81YByGqJRzEPhXojVcTF
+	 ifaQKzufNE16bcZCBaPJ5eZImyWPr1J+q/Ck5TvivYRy9xq9nKItS3L49OCGavNV3o
+	 wPPXUWs/vecF8Q6Uu0Mi9ZJx5nMF4xyMQHiFrzuC/g6bB9HTqKRKpUje+4Eq8pvDy4
+	 /Rpsun92+8SUA==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Stian Halseth <stian@itx.no>,
+	sparclinux@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH v3] crypto: aes - Fix undesired override of some optimized AES modes
+Date: Tue, 29 Sep 2026 15:27:52 -0700
+Message-ID: <20260929222752.36427-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <artyl8fD3zzng8Uh@houat>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
-> Hi,
-> 
-> I'll merge the two discussions in that thread.
-> 
-> On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > > regulators and GPIOs, perform a reset pulse with specific timing,
-> > > send a vendor-supplied sequence of DSI commands, then enable the
-> > > display. The only truly panel-specific part is the init sequence
-> > > and power-on/off timing.
-> > > 
-> > > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-> > > with a single generic driver whose panel-specific behavior is
-> > > provided by BPF programs loaded from userspace at runtime,
-> > > following the HID-BPF model. This enables new panel support
-> > > without kernel patches.
-> > > 
-> > > Panel DT nodes use a two-entry compatible with the panel-specific
-> > > string first and "panel-mipi-dsi-bpf" as fallback. The generic
-> > > driver matches on the fallback, while the first compatible is used
-> > > to identify which BPF program to load.
-> > 
-> > If you need the 1st compatible anyways, what is the point of the
-> > second one?
-> 
-> The whole point of this driver is that you don't need to modify the
-> kernel when you add support for a new panel.
+The new library APIs for AES encryption modes were wired up to the
+traditional crypto API via crypto/aes.c.  However, for now the kernel is
+still in a transitional state where various architectures still have
+architecture-optimized implementations of AES modes in arch/*/crypto/,
+wired up to the traditional crypto API only.  Because of that, the
+crypto/aes.c algorithms were given a cra_priority of only 110 to prevent
+them from overriding arch/*/crypto/ in the traditional crypto API.
 
-What reads the most specific compatible?
+However, because of how the traditional crypto API works, the
+cra_priority trick doesn't work in cases where the relevant algorithm
+isn't directly implemented by arch/*/crypto/ but rather is provided by a
+template instance using other code in arch/*/crypto/.
 
-> > Also, I assume there is at least some panel supported in the kernel
-> > you might want to convert to this. That panel would not have the
-> > fallback (and the DT is fixed).
-> 
-> Yeah, that's true. I'd still need to identify the parts though. I guess
-> using a generic compatible but a specific model would work?
+For example, x86 doesn't have its own "ccm(aes)" but rather relies on
+the "ccm" template constructing it from the x86-optimized "ctr(aes)".
+The existence of the library-based "ccm(aes)" prevents that, even though
+its priority is lower than what the template would produce.
 
-What? You can't add a generic compatible in these cases.
+Thus, "ccm(aes)" ends up using the slower single-block AES code.
 
-> 
-> > And I agree with Neil's comment. At least until we start embedding BPF 
-> > into DT directly. ;)
-> 
-> And from Neil:
-> 
-> > I don't see how this can be a valid hardware description, bfp is a
-> > software implementation and has nothing to do in the bindings.
-> 
-> I'm quite a bit surprised by that argument though.
-> 
-> We have in the main dt-schema repos bindings like:
-> 
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/options/u-boot.yaml
+Therefore, skip wiring up the relevant library-based code to the
+traditional crypto API on architectures where this problem can occur, as
+determined by what exists in arch/*/crypto/ for each architecture.
 
-Self contained in a node that's specifically not h/w.
+This is ugly, but it's also temporary: these conditions will go away as
+architecture-optimized implementations of AES modes are migrated into
+the library.  But until then, we need to prevent performance regressions
+by ensuring that the optimized code continues to be used.
 
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/bootph.yaml
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/post-init-providers.yaml
+Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using library")
+Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
+Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
+Fixes: 94efa0c9fb36 ("crypto: aes - Add XTS support using library")
+Closes: https://github.com/sparclinux/issues/issues/106
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
 
-Extra hints that are safe to ignore.
+This patch is intended to taken through libcrypto-fixes
 
-> 
-> Or, in Linux:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
+v3: Also suppress xts(aes) on SPARC, and improved comments
+v2: Fixed PowerPC config option, and resent as standalone patch
 
-Virtual h/w which tends to have special needs.
+ crypto/aes.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 47 insertions(+), 4 deletions(-)
 
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+diff --git a/crypto/aes.c b/crypto/aes.c
+index 94791f481e98..51eee78396ea 100644
+--- a/crypto/aes.c
++++ b/crypto/aes.c
+@@ -637,7 +637,18 @@ static struct skcipher_alg skcipher_algs[] = {
+ 		.decrypt = crypto_aes_cbc_decrypt,
+ 	},
+ #endif
+-#if IS_ENABLED(CONFIG_CRYPTO_CTS)
++	/*
++	 * Don't register library-based "cts(cbc(aes))" on architectures where
++	 * it might block a "better" implementation from being instantiated via
++	 * the "cts" template.  These exclusions are temporary and will go away
++	 * as the arch-optimized AES code is migrated into the library.
++	 */
++#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC))
+ 	{
+ 		.base.cra_name = "cts(cbc(aes))",
+ 		.base.cra_driver_name = "cts-cbc-aes-lib",
+@@ -687,7 +698,13 @@ static struct skcipher_alg skcipher_algs[] = {
+ 		.decrypt = crypto_aes_xctr_crypt,
+ 	},
+ #endif
+-#if IS_ENABLED(CONFIG_CRYPTO_XTS)
++	/*
++	 * Don't register library-based "xts(aes)" on architectures where it
++	 * might block a "better" implementation from being instantiated via the
++	 * "xts" template.  This exclusion is temporary and will go away when
++	 * the library AES-XTS is optimized for SPARC.
++	 */
++#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
+ 	{
+ 		.base.cra_name = "xts(aes)",
+ 		.base.cra_driver_name = "xts-aes-lib",
+@@ -980,7 +997,20 @@ static __maybe_unused int crypto_aes_ccm_decrypt(struct aead_request *req)
+ }
+ 
+ static struct aead_alg aead_algs[] = {
+-#if IS_ENABLED(CONFIG_CRYPTO_GCM)
++	/*
++	 * Don't register library-based "gcm(aes)" and "rfc4106(gcm(aes))" on
++	 * architectures where they might block a "better" implementation from
++	 * being instantiated via the "gcm" and "rfc4106" templates.  These
++	 * exclusions are temporary and will go away as the arch-optimized AES
++	 * code is migrated into the library.
++	 */
++#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_RISCV) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC))
+ 	{
+ 		.base.cra_name = "gcm(aes)",
+ 		.base.cra_driver_name = "gcm-aes-lib",
+@@ -1012,7 +1042,20 @@ static struct aead_alg aead_algs[] = {
+ 		.chunksize = AES_BLOCK_SIZE,
+ 	},
+ #endif /* CONFIG_CRYPTO_GCM */
+-#if IS_ENABLED(CONFIG_CRYPTO_CCM)
++	/*
++	 * Don't register library-based "ccm(aes)" on architectures where it
++	 * might block a "better" implementation from being instantiated via the
++	 * "ccm" template.  These exclusions are temporary and will go away as
++	 * the arch-optimized AES code is migrated into the library.
++	 */
++#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_RISCV) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC) || \
++	  IS_ENABLED(CONFIG_X86))
+ 	{
+ 		.base.cra_name = "ccm(aes)",
+ 		.base.cra_driver_name = "ccm-aes-lib",
 
-Shrug. Weird Qcom shit...
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0
 
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/sound/simple-card.yaml
-
-Just a container... Though I can't say I really like any of the audio 
-bindings.
-
-All really irrelevant to this discussion other than the panel binding...
-
-> 
-> All of them have been reviewed or acked by you, and yet none of them
-> relate to any hardware description.
-
-There are things which aren't h/w, but this is h/w and we've already 
-made decisions about how panels in particular are represented. We of 
-course have some remanents of how we don't want to do things.
-
-> panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> attach to anything and will just open a tunnel to userspace, which is
-> somewhat equivalent but more dramatic than what this driver is doing.
-> simple-card or its variations will just instantiate a kernel driver from
-> the DT and is used pretty much everywhere.
-> 
-> I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> past the "oh but we didn't know what we were doing back then" argument.
-> 
-> So, let's phrase this differently: what's different about the
-> description than panel-mipi-dsi-spi, or any other binding already in
-> tree?
-
-There's all of 3 panels supported. Compared to all the other panels we 
-have, hardly the rule over the exception. You can always fine "bad" 
-examples or exceptions.
-
-That one defines a single supply. Any other MIPI SPI panel with 
-different supplies or GPIO controls probably has its own binding. Trying 
-to parameterize that in DT doesn't work. We've rejected trying to do 
-that in DT over and over. What's your story here for that?
-
-
-> If it's the BPF part, BPF is not Linux-only, and there's hardware with
-> direct BPF support these days, so it can be considered OS-agnostic and
-> not an implementation detail.
-
-Really that's the least of my concerns.
-
-Rob
