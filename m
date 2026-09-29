@@ -1,79 +1,83 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A513D0903
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E421A3D47B8
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650746; cv=none; b=n9Hv6RE6JWwOJlI4pPlQqVy4rvRU1ffnldoWdp6rVbiPLW5XVOiVlELMLE/wMlAz9DYNC6luNdTgOJsFv7y74SV4G60zL95KZKSgRBwwibnTw6/6NebDBjFX7cGU/Ih9HbTQn2CZsv62LUDRA5wwrxW4cICqr3SNELZnRXudLUU=
+	t=1790650748; cv=none; b=q5/gJkQJF/ZRRrnrcKfTqILphJV+oRpXkvWeux+T13OBktJ0mib1IkknbZzC5ZjTJIEzeppNgKB5FQoyJMKQJAp492ue0nDbgEsPXve2vh3Fm7FzMUwVUGRELIi6OmivgvcZ5bs1OmMzBaX38mA3ID49iUe5NiZlVC0E9BAR72A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650746; c=relaxed/simple;
-	bh=HJyTeXVijHdk4eWMa4QoVfAxeX/wDGbJNl64bB2L/eM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qhHOpLsyMV3KrXQLgq/wQx6nM8N7GEAptcSdrJ/8sVIg4jrUTqPj33D95l7BJK2Bix708WTy59UUhqM0ebFpmq7fCk0ZHQFiekCSojFRZUSHdh8X4/7Xrs6ECBRKtSFTkBdyv0kaZWxqD0nAn8DRd7nSBKh0qERJc/zBlKbxdNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=adxscrNS; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790650748; c=relaxed/simple;
+	bh=kXrjLhbsK2Ocn4zMaQ96UrnybhAn/fYYRhsUrgKCtIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YXgA++ezfl1opx79QMxutwgI308B++umshAjQphV7Lnmm1F2HeIeDreGXTYGb+jfO9qKt4fw89bW/QWHF0V37fxeLxEu0oy7qqvaP6vnN/XxXU98MWBQ+FtFF7N1HhQ2Qs1roWSEG9dpZF5tNUgCS+SkhroYsxdfTVpK2jAG7HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=CWsPMkz0; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="adxscrNS"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-3468ec309afso1310320eec.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:59:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="CWsPMkz0"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so4335273eec.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790650742; x=1791255542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UFhWeC8nK54inRKs6I+y3KfLb6ie98THlXPGgVHMi+o=;
-        b=adxscrNS0SZFlILvax0Rwzos3fkSpLC8i/kEVM/kXJ3D8ZD86ZQFb5k4bzeUy9/p+n
-         jYDJLv+MggeJLPyBausWyooZaHjoTMxZDB5SImSzcvHM4tBwWHbwlvIQsds/7YekO0oy
-         m/fqWezeDh0pOKZKNT7Fbet6NtOnAF2C5H72T6PUlci5PRGujDDrdZqucVDCFrB7OcyJ
-         kCNxM9Uz42fVnW4K0ge6LNoYuP1NGuduAxO0fZ0SEJ5UqdWp0QMxbVIgo3cEikKmKI38
-         D0oYEi59FtEsbAUYOJokjBY4/XKRYhwcbaNAASh1RCxSU8tuP8hmWzH+y8k9sTXlA1TA
-         YotQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790650742; x=1791255542;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1790650744; x=1791255544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UFhWeC8nK54inRKs6I+y3KfLb6ie98THlXPGgVHMi+o=;
-        b=XLTEzoJJZd5ISHO5Q8SQ1Cglk0AzA/ifC5mcGkz4phCJOJ1qIgfzkbSUWTyBdjt9p1
-         y79Dl79R9PBWfIRkthRwDurMlDA9VMGPAE0/BI0ZrGL7FSMmoHQebZsXCjaXq52ZwYuy
-         1471EF5ugRt5ocZZU0dlIbNUjYVNnglOoJ+PNF/szVEpfzAekFR3dvYWUS9lq6v2daI+
-         uRhoHO5urKGrdRFE6T0BVtqOCGI2v5QWjP6UUgvWPTW/P79znRB+I/bjzRiac6CrrgI7
-         BT4FjSV6+vk8zKKYNKDDszpqBw+/MU9rymj00Tjplj6BMYGLb4ZD6b3urRilfVXoJJsx
-         GW7g==
-X-Forwarded-Encrypted: i=1; AKwUvByS8rTUxKyAhF7+RzZEPWWFFCxTBwdl999Nzckg/lVtsithh219VxbliDZel+DNRoSW3iKZIMvMg2fWric=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXbOa2InGSQ3NHMHJ1Nf6RJTTk/FqHpb+0MeZbd3Efzc6cimHi
-	v50ClfSYW/33qroigfIW8tFW7mpQ3rcr/JmYGnUo+PqdO1KkK1Zm4zVzeqz4lBnJsKE=
-X-Gm-Gg: AYBFou0qbeghVlsInO3SUyXKWxIjoQBoxi3xNHW12jD2vydFnVrm41Iv5KNahBGo++G
-	ALFaqeRD4Fph53pZV+8br5WLoWfP9mQ4mLMvyTY38UJ3jFOl5gL1aEnTqt8qzdpMNh5MEzKeS0Y
-	telAvQc7PpFQQEOuHB9FVrsoyj/kJvdK+YLDvdDkZhqnjk6rdk4mNK4IOfRrAp4Yf7aPngMc0am
-	J1gwF+EmEPjHVNYPql2DXkFEGutT4iDMG6qe0kdj7UBevPW3izJYcUG527UIrLYVpkWAa/0ycQ+
-	Lv1NJEk3KcS/sD3vsoZFqYkZegBLzqowP90pe+PsfEIycM7XigIvviJE+3Z4t5CDxQpfEpoz4RG
-	Vgb4cgxCYRYJu6wWuT6nxW/HPTywrdf22hc4aeIJ5ivfhNwIZ/vxgFR+PILOIjOlVCAzoSPE4y6
-	HxKc7AvxeKwwmKxDK/gATyPrfsxIYv57nYc67JuL7im9Yx5VFV6CNuACaVzqUHXwNlmG/lTN6Vv
-	W79sWdyNnMhBD7Ta2PxUXR87cRdmSNSdHD2z4Lg/YIlm1r5u/oKEJQZW256AY+QiSuo0goeejqH
-	jQo+J8A=
-X-Received: by 2002:a05:7301:1f15:b0:33e:6bd8:8f1a with SMTP id 5a478bee46e88-3426cfdf68cmr15624231eec.0.1790650741745;
-        Mon, 28 Sep 2026 19:59:01 -0700 (PDT)
+        bh=RjnvcjGV1fxpLT6EIE5odbTgRtwNmnowIubP3qX9FiY=;
+        b=CWsPMkz0svNA+FvS9DwtqJNEVTY4hMUxZhBZ124gzHRKCiguggmTnvwGkwYqblYSqa
+         vZ+YR6KqPLBtXckLODkJF3hwaAHDv0xRFmzMhddnxlQnkqnr4rZQ2JKvMSF7vsbq4ZxV
+         ZtmAyc6V/3QJ+Rw6+0Khcr/Opo9bCufo6n3krRi7c4d6NpBwSEOEqCURf7nn9NYfeEFp
+         qH53FmmttwQ9OKbHYSo0yyu17nxfl6cSZOIohtqfERUm0zB2vI5LLf13fip/ENowHxI3
+         X7ASRuEbi+ene09g4O5dTj/XY0VKZM8NJkK+iA4WqbQDqoxa6XtKtFudFJoooJCpCBiL
+         NiOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790650744; x=1791255544;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RjnvcjGV1fxpLT6EIE5odbTgRtwNmnowIubP3qX9FiY=;
+        b=T8q5wOquohHN/4McnNiGefhuMpsTd6M/zyOTiK5rtvYqGAxuXgiEtviDEV+Z/vnH+y
+         7AEYDB7ZjPrQPfI38WZgm2whmAH/9YXpRN6UzC6RTOe2l1xEf+dA1SjQQrUnySJBOGic
+         uebZmzsQK1aUjc3K8Yr0iWRhq0uaRjLgGKPl/qIfc0sxNno4dVDfFcMOHnf7S5FQM/jI
+         zJZNMM6rPbsROK4tu3Cw48vXxCf2rGd11OoxNzZ3BSq8OTX7ijaiK+aninFPvrQjlvOv
+         0zoXJ0NitcwVG+eDErocRriAhqooEr5JxA4mz5NuBT0oqjRaBOcoTB3mi/z1R/r7PPu6
+         kMuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvJAul4PLSdJpy++w3BzC9xhg2melIEi0fxIzBZSNMdOpFD/FeoJ0/xUKfuul+Kbv52YXQch9k4iTc6hk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKI/E9BWo6Ezi1AgZB3/BGvcJlDMAtKpTacfbwsAMge2/u7nbCw
+	sqsX9ZOITYgfhCqAxWw+n4eGn0t89CKQg6Ye5rwvHVhpk+UxhlA3Xisu1FE9fY1CExw=
+X-Gm-Gg: AYBFou0GNwbo4kEFHn0xMtOxwgMa7wO8oyfDFOP9WQIjTCoZWWd0ROakPoyoFAWfiDB
+	562gV9Ybu+mo1AWCXs4DlA/zci7BB3bPD0QmpTrNFQKfGsqzA+8hL7I5oPeROxxQkvfgcQ+uiIo
+	Ya0JE/kyej6vvgUKRIB1+AFU8j8Xcg76QJgr/8ngSLxkwWwPYqfoziVJIuhfNPIxs/nHzGCb1Il
+	3D3eU/iABV90aV3X1rphcSs/zE/OrP8Gx3ykPoRX6QuIvdVCESfprd4cFvWyov6I4GRwV/S6+yi
+	JdzbIKWuTka5FTOjqOuL+bBJT+536ThyUnceWp0egSSwLaRCGi9b2178rRrLRzGEIOXDUxed/eS
+	T80NtsaV8Mn1N1hPUedJsTQtEwHMLDk6g+m3aUxobWnP4iOhVI2Du7a9BKFsH6fb2gmBOxE223z
+	Lt6aYvaePyFj/zIqD4d+nKFNsjz9KMip6bsLbTlaHHUg6PZ+4ygug5PdSzcrX5+DwuCN1epQmta
+	xweXJ6agmT4AVXKD0xO8xKbn14aGWoYYhFOUwcxv+RcB5hhZTODNnSHINQg/lrU/T/uAWs=
+X-Received: by 2002:a05:7300:e11c:b0:33e:633c:7f70 with SMTP id 5a478bee46e88-34272b3bbb7mr13637894eec.35.1790650744286;
+        Mon, 28 Sep 2026 19:59:04 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34571658054sm13111683eec.8.2026.09.28.19.59.00
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34571658054sm13111683eec.8.2026.09.28.19.59.03
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 19:59:01 -0700 (PDT)
+        Mon, 28 Sep 2026 19:59:03 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
 	Baochen Qiang <quic_bqiang@quicinc.com>,
-	Kalle Valo <kvalo@kernel.org>,
 	Jeff Johnson <jjohnson@kernel.org>,
+	Kalle Valo <kvalo@kernel.org>,
 	ath12k@lists.infradead.org,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	quic_jjohnson@quicinc.com
-Subject: [PATCH 6.6.y 0/2] wifi: ath12k: backport CVE-2024-40979 fixes
-Date: Mon, 28 Sep 2026 22:58:52 -0400
-Message-ID: <20260929025856.85683-1-artem@trailofbits.com>
+	quic_jjohnson@quicinc.com,
+	Kalle Valo <quic_kvalo@quicinc.com>
+Subject: [PATCH 6.6.y 2/2] wifi: ath12k: check M3 buffer size as well whey trying to reuse it
+Date: Mon, 28 Sep 2026 22:58:54 -0400
+Message-ID: <20260929025856.85683-3-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929025856.85683-1-artem@trailofbits.com>
+References: <20260929025856.85683-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,21 +86,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+From: Baochen Qiang <quic_bqiang@quicinc.com>
+
+[ Upstream commit 05090ae82f44570fefddb4e1be1d7e5770d6de40 ]
+
+Currently in recovery/resume cases, we do not free M3 buffer but
+instead will reuse it. This is done by checking m3_mem->vaddr: if it
+is not NULL we believe M3 buffer is ready and go ahead to reuse it.
+
+Note that m3_mem->size is not checked. This is safe for now because
+currently M3 reuse logic only gets executed in recovery/resume cases
+and the size keeps unchanged in either of them.
+
+However ideally the size should be checked as well, to make the code
+safer. So add the check there. Now if that check fails, free old M3
+buffer and reallocate a new one.
+
+Tested-on: WCN6855 hw2.0 PCI WLAN.HSP.1.1-03125-QCAHSPSWPL_V1_V2_SILICONZ_LITE-3.6510.30
+
+[ Backport to 6.6.y: mapped the M3 size validation onto the target's
+  older QMI allocation layout. ]
+
+Fixes: 303c017821d8 ("wifi: ath12k: fix kernel crash during resume")
+Signed-off-by: Baochen Qiang <quic_bqiang@quicinc.com>
+Acked-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+Signed-off-by: Kalle Valo <quic_kvalo@quicinc.com>
+Link: https://msgid.link/20240425021740.29221-1-quic_bqiang@quicinc.com
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
 Hi Greg, Sasha, and wifi ath12k maintainers,
 
-These patches are a backport for CVE-2024-40979 on 6.6.y.
-The second patch depends on the first, so I kept the upstream ordering
-instead of folding either change into the other.
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-40979. It also validates the reusable M3 buffer
+size and reallocates an undersized buffer.
 
-Both patches are already present in 6.12.y, 6.18.y, and 7.2.y. Could you
-please queue this series for 6.6.y?
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+The target-specific adjustment is recorded in the bracketed note above.
 
-AI assistance: An LLM helped identify, adapt, and validate these backports;
-I reviewed the resulting code and validation evidence.
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2024-40979
+Upstream: 05090ae82f44570fefddb4e1be1d7e5770d6de40
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
 
 Thanks,
-Artem
+Artem Dinaburg
 
-Series:
-  1. wifi: ath12k: fix kernel crash during resume
-  2. wifi: ath12k: check M3 buffer size as well whey trying to reuse it
+ drivers/net/wireless/ath/ath12k/qmi.c | 39 ++++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 7a9868dbab02d7..48d0043fcee93b 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -2511,6 +2511,19 @@ static int ath12k_qmi_load_bdf_qmi(struct ath12k_base *ab,
+ 	return ret;
+ }
+ 
++static void ath12k_qmi_m3_free(struct ath12k_base *ab)
++{
++	struct m3_mem_region *m3_mem = &ab->qmi.m3_mem;
++
++	if (!m3_mem->vaddr)
++		return;
++
++	dma_free_coherent(ab->dev, m3_mem->size,
++			  m3_mem->vaddr, m3_mem->paddr);
++	m3_mem->vaddr = NULL;
++	m3_mem->size = 0;
++}
++
+ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ {
+ 	struct m3_mem_region *m3_mem = &ab->qmi.m3_mem;
+@@ -2518,9 +2531,6 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 	char path[100];
+ 	int ret;
+ 
+-	if (m3_mem->vaddr || m3_mem->size)
+-		return 0;
+-
+ 	fw = ath12k_core_firmware_request(ab, ATH12K_M3_FILE);
+ 	if (IS_ERR(fw)) {
+ 		ret = PTR_ERR(fw);
+@@ -2530,6 +2540,17 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 		return ret;
+ 	}
+ 
++	/* In recovery/resume cases, M3 buffer is not freed, try to reuse that */
++	if (m3_mem->vaddr) {
++		if (m3_mem->size >= fw->size) {
++			release_firmware(fw);
++			return 0;
++		}
++
++		/* Old buffer is too small, free and reallocate */
++		ath12k_qmi_m3_free(ab);
++	}
++
+ 	m3_mem->vaddr = dma_alloc_coherent(ab->dev,
+ 					   fw->size, &m3_mem->paddr,
+ 					   GFP_KERNEL);
+@@ -2547,18 +2568,6 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 	return 0;
+ }
+ 
+-static void ath12k_qmi_m3_free(struct ath12k_base *ab)
+-{
+-	struct m3_mem_region *m3_mem = &ab->qmi.m3_mem;
+-
+-	if (!m3_mem->vaddr)
+-		return;
+-
+-	dma_free_coherent(ab->dev, m3_mem->size,
+-			  m3_mem->vaddr, m3_mem->paddr);
+-	m3_mem->vaddr = NULL;
+-}
+-
+ static int ath12k_qmi_wlanfw_m3_info_send(struct ath12k_base *ab)
+ {
+ 	struct m3_mem_region *m3_mem = &ab->qmi.m3_mem;
+-- 
+2.39.5
+
