@@ -1,132 +1,137 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CF95335B6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A02D8530DEC
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701044; cv=none; b=T3hoKKa0/k5bX90d0ZIkaOKrcugKVp4SqHboxg46EuGVglICNcEOdK04QOgU3Hv7++3ND12t72n+H2Kxz45TVd3LRafdFWWNZMu+d/zYwDVCTEsPJuSfMWWL8KpdTaq6X8Y2YJ3hdJGrvLUnuyyYbAmJ6HfY2oLb8LEVLMRgJAQ=
+	t=1790701078; cv=none; b=qZJG93+0AzVuv5e8SU+FpVl4rs7T0MROVYldhsNhyf9okqZGddjNW+Tvu6mW2ncgsd7lhSEVHcSBXQ6KLaqbRjNQjPkknsfF6UWGvUnp0DYLDcisVAp+xhxc8TeKeyUhRsSpvR8E+CkuuZjNLOQ5aLVABZi+teDOJiXAObN69/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701044; c=relaxed/simple;
-	bh=1X+I4s/Qc88Q3mt8n2I89ghISwk4YJ11K1+GkdEX0lo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O3mAYsx6uPCMVZcr2+HHiGTYWXSs4bnKBccbZ12CEFYi6Z7ppwyIUN97vJySSQkLVPB5cA/LKIEIqhPfErRl1illtA65IMRfWcW8r2NEGGwGOvwAl3uLMARKZfV3dXLTxDQ84vE0y679wy0maQgikLj4rKXNA6MQfum2598YR/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEs1KQ5X; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790701078; c=relaxed/simple;
+	bh=8fXuBMTuT7/ajr1ByNzkN+6WlqLmt7pB0qIvAjl7yUs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RCXfyeHNNltGAISeu4uhRh1vZSik4iHCWKasEuMSlBQwpBp9Y922uygjmbzVhDSd1s0jpsDyHp/yCcbi/STfkXQN+aldXKyZyQcStitODAiDBka4pruB5HSnwTpE/DU3J2rQfQTRodtaLQZ1L9BYm8YjNvHp2aKBGpaHE28LVhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=D3gyaQMk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEs1KQ5X"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c5so3969351f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:57:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790701041; x=1791305841; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wJFH2IjoTkwJen4b0adRNofV230zNzAQykwUxRXPcMY=;
-        b=oEs1KQ5XYeGt6Uno3GqAIF3EWs3zFQZroy8GNmPiespyfCko8nwviONyA5Zdg6itHu
-         CbUbaMZlL3abWttJK8soCb4BDg8wzAN/jXbP8PlsdpDSM25Da7cGNpR7e0mL5ITd+DSr
-         vde1BJV6v6in7krdH8rCbwPGRXnaaQ+nNURkfAysF6qKnMENUOLgaOGxixqRToyWqENF
-         +FdEZ+5Z+Tfiv8Nbweb8xg9MumJYMsEd09hvb8gMFq40yDJmaOOS06VlKF49h2bDx4/Z
-         +zE1ySBuw5c1Rzy7nCztAwSkiuj3Kd+CxFgcAeQ0+zvHMdHPc+mnnF/hi+s48kn3h709
-         TfqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790701041; x=1791305841;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wJFH2IjoTkwJen4b0adRNofV230zNzAQykwUxRXPcMY=;
-        b=sGNVX0HQ39bhUJhvVfaq3abrVHJAfBwyzafrk81mkKuLtfEEAcSx/siA6aeB5knXYw
-         K1BsihQXZR05KrTy0oDbwi3KiteuVi6NLNB08+myXiTFTP0B6WhjGZ33DU6c64/JLQju
-         KB0IIt0YGRpl9yixqGFIyi2gm+4sTgBfuh91T1lgWwXSHDHv+7FkiqidzMRPRP3rA+Dj
-         RHTOgm1i7nOV/GsiRgkvPRN7iDE29y9QGTJb8T1EoiOQ4aA0+82EDjC20H+Kmli9bNIf
-         eSLuNgOM4wFtEijg5ySVBvVtZDdf3GqZj0uOP7+e4vyuanGIGoiS7fNs9GEZUTHG69AK
-         czJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXka4Iv8znphkNH7CIOtVX3p3ztpWrufb+vhJKdCinvkWJN+gBjSOVXLf3V5EkmOX7L9I4r+KuVepiZeM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6/Begn829BnOJ4MVfJKJURN1cq0tgP7uGNgNuuIBqm3HdVG9j
-	HoVCK3MhNelJvHWUpFykHoq9UmXRP+lUlBDF7Gr2iv9D6LvtM9KaM4X4
-X-Gm-Gg: AYBFou0OSyt9If1xEeKBpi6z9yxvJsqyqgKa8ipUy0hxFeRVirZj3b9YLe1rRLErdVM
-	dsaF//NKd8Eef4MKY3IGWE8ehY4lXQkUxHR2UaiuM8FfPDBB7gmxb2b31HQ/9cBx4+jGvrU13yE
-	w4zB9SyT9pzF6cURm1rJGqLTB6FKlnzA7SdIY3UDMxMqPFqNOxs3H9cfcZZ5mq421f7Vzc++xGb
-	bXqf20QICwb8kUUZ8oVIqIFT/EloW4BHcXYA6b8SbRfpjXw6RSNnJD4yZpEc/E5Vavpn0TJlYrv
-	vgSMXGSmpfTqhqqQ0+AejzA7Uv0WKV09Ih0GJn3OyMi0bHVdlpb6ByqlXGOuRy7igPANi1HB4ui
-	MzaP/lI2yFu5xDeppBvUM2eSXq67/PAvMQdG64UA+zMfIF8FEAwL3tIU/6JnhNz7r2Bzjw5QaCw
-	zFdYIvkTr8P1D+gBc+V2FVTA5A5Z5NjIdNMbYxkYYDAdUyx0WkE1ducXcSPVBOV6lDRdb6LnnZn
-	37pKy/x0ywnl8t/dD5UTkx+uxlXL6kXATBKNosS
-X-Received: by 2002:a05:6000:98f:b0:488:8823:f9ec with SMTP id ffacd0b85a97d-488882404c7mr18420237f8f.34.1790701040835;
-        Tue, 29 Sep 2026 09:57:20 -0700 (PDT)
-Received: from ws1-mint.emulab.it ([2a01:b600:90d3:0:7e:12ca:700a:85e0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48afe61c876sm57777f8f.3.2026.09.29.09.57.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:57:20 -0700 (PDT)
-From: Simone Chifari <simone.chifari@gmail.com>
-To: Adamyno <padamyno@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Stefan Schaeckeler <schaecsn@gmx.net>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] i2c: imc-skylake: add Intel Skylake-X iMC SMBus adapter
-Date: Tue, 29 Sep 2026 18:57:19 +0200
-Message-ID: <20260929165719.403487-1-simone.chifari@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928080640.550879-1-padamyno@gmail.com>
-References: <20260928080640.550879-1-padamyno@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="D3gyaQMk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 458461516;
+	Tue, 29 Sep 2026 09:57:52 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 638A73F85F;
+	Tue, 29 Sep 2026 09:57:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790701075; bh=8fXuBMTuT7/ajr1ByNzkN+6WlqLmt7pB0qIvAjl7yUs=;
+	h=From:Subject:Date:To:Cc:From;
+	b=D3gyaQMkTzjF+zqrbqpopa+65GMPLxMhu+D1ujRmUDG7ojcA6NDLEL+Ib51MN9+rq
+	 QAYocfxNcMn8vZErRDPgIrO8+7yg28YRZIVH4usQI/kSrRUaeXbV2De3tgGj8tvVsA
+	 ViBqk2MVwNewyUm+TV2MvyYyfQEvbP0QjnAgGUO0=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v2 0/3] arm64/virt: Add Arm CCA measurement register
+ support
+Date: Tue, 29 Sep 2026 17:57:46 +0100
+Message-Id: <20260929-arm_cca_mr-v2-0-1d98bba187fd@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAruu2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNL3cSi3Pjk5MT43CLdRENLkySjVEujZENzJaCGgqLUtMwKsGHRsbW
+ 1AALSt7FcAAAA
+To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Suzuki Poulose <suzuki.poulose@arm.com>, 
+ Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
+ thuth@redhat.com
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2943; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=8fXuBMTuT7/ajr1ByNzkN+6WlqLmt7pB0qIvAjl7yUs=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqu+4QUPDb2QnF/a5utA7oW1E4VdgU7ErT9zJCU
+ VfWeKFUbM2JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarvuEAAKCRBt1cPRWsUx
+ MyXWC/9eYmpMk5a1yC3S4+KZ+qKJOFsNto/1lpqsbF8A/D2V36i1aCAMWEdX2XsNR2J2jgD1ALt
+ P3QdRjM4UhAyoSOuwbT1stx4gY3Ai1sCHHBV5jXgg+4hst8YWTK39b4S9pWs9MqQ5SJahAImtIM
+ iOoPQ8OAoFxarJ88ypRyvX93MSpwhzcRYN457V4mwuT62LdZXSVVD7MAkzTpClqjl9J5P7kQAS8
+ QK3+wkUlzkckkHH94iqrz9W1X3uLGer7/2cySwFlFIGpuwQWnFWwuNV/L4Ay+x62yYKBjh0EtwW
+ ArM4024fwerybc95IOI3Oogp6pEGamptHlYmAEEz14VQ6mhsxljGX4KebsdfS+5PW46CEjdnNXE
+ d9nscgXteIizAWbpC1PZsLOWVf/sX9pseWwU/bc3cPyO36+0ZTIGgEJdgFRqVhucMAGcwCiy4sh
+ oYpYPDXKtnaHkchtO0VKG7WYD/Byux2Jo/Hl7x5zlPZ/43ibrUXjV8BdmiuZS9L4P3sBM=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On Mon, Sep 28, 2026 at 10:06:26AM +0200, Adamyno wrote:
-> I tested this driver end-to-end on real hardware. Code as published at
-> https://github.com/systempal/i2c-imc-skylake (matching the v3/v4 series;
-> the v4 rework did not change anything relevant to this test).
+This series adds support for Arm Confidential Compute Architecture (CCA)
+measurement registers in the Linux kernel, enabling guest Realms to
+access, extend, and expose measurement values for attestation and runtime
+integrity tracking.
 
-Hi Adamyno,
+The Realm Management Monitor (RMM) defines a set of measurement registers
+consisting of a Realm Initial Measurement (RIM) and a number of Realm
+Extensible Measurements (REMs). This series introduces the necessary
+infrastructure to interact with these registers via the RSI interface
+and exposes them to userspace through the TSM measurement framework.
 
-thanks for testing, and for the detailed report. It is the first
-report from a board other than mine, and it will go into the next
-cover letter as such: a second vendor and BIOS, SMBCNTL reading 0 where
-mine reads 0xac000000, ee1004 on all eight modules, and the RGB write
-traffic through both adapters.
+At a high level, the series includes:
+ - Helper interfaces for reading and extending measurement
+   registers via RSI
+ - Definitions for Realm hash algorithms as defined by the 
+   RMM specification
+ - Integration with the TSM measurement subsystem and sysfs
+   exposure for userspace visibility and interaction
 
-For the record, since the tag lands on the v3 thread: the GitHub main
-you tested has the same transfer path as v4 and only adds shutdown
-handling that is not part of the series. I will carry
+After applying this series, measurement registers are exposed under:
+    /sys/devices/virtual/misc/arm_cca_guest/measurements/
 
-Tested-by: Adamyno <padamyno@gmail.com>
+  Where:
+   - rim is read-only (initial measurement)
+   - rem[0-3] are read/write (extensible measurements)
+   - The hash algorithm reflects the Realm configuration
 
-in the next revision, unless v4 is applied as is.
+Patch summary:
+ 1. arm64: rsi: Add helpers for Arm CCA measurement registers
+   - Introduces RSI helper APIs to read and extend RIM/REM registers
 
-If you have time for more, two read-only measurements would help with
-the question this series still leaves open: whether the firmware uses
-the engine behind the driver's back. The numbers in the v4 cover letter
-come from my board only, and yours has a different BIOS. Both scripts
-are in tools/ of the same repository (see tools/README.md) and only
-read config space:
+ 2. arm64: rsi: Add realm hash algorithm defines
+   - Adds definitions for SHA-256 and SHA-512 identifiers returned
+     by the RMM
 
-  # OpenRGB closed, driver unloaded: anything that moves is firmware
-  sudo modprobe -r i2c_imc_skylake
-  sudo ./tools/watch-engine.sh --seconds 3600
-  sudo ./tools/dump-pcu-config.sh --settle 10
+ 3. virt: arm-cca-guest: Add support for measurement registers
+   - Integrates with TSM measurement framework
+   - Implements measurement register refresh and extend operations
+   - Exposes registers via sysfs using a misc device
+   - Dynamically configures hash algorithm and digest size per Realm
 
-The raw output is what matters, and it would be credited to you in the
-cover letter. A suspend/resume cycle during the watch-engine hour would
-make it even more useful.
+This enables a consistent mechanism for attestation-related measurements
+in Arm CCA guests and aligns with the kernel TSM measurement abstraction.
 
-> One observation that may be worth adding to the driver documentation:
-> the RGB controller ICs on G.Skill Trident Z RGB DIMMs answer at SMBus
-> addresses 0x70-0x73 on this bus (4 per channel), not the 0x39-0x3D
-> range that older OpenRGB-era documentation assumed.
+This patch based on arm64 tree's for-next/smccc-bus
 
-Useful to know, but I think it fits OpenRGB's documentation better
-than the driver's: the driver does not know about the devices behind
-it, and ENE controllers can be re-addressed at runtime (OpenRGB's
-detector does exactly that), so the address depends on the modules and
-on the firmware or software that set them up.
+---
+Changes in v2:
+- rebase to arm64 tree's for-next/smccc-bus
+- Link to v1: https://lore.kernel.org/all/20260413084957.327661-1-sami.mujawar@arm.com/
+---
 
-Thanks,
-Simone
+---
+Sami Mujawar (3):
+      arm64: rsi: Add helpers for Arm CCA measurement register operations
+      arm64: rsi: Add realm hash algorithm defines
+      virt: arm-cca-guest: Add support for measurement registers
+
+ .../sysfs-devices-virtual-misc-arm_cca_guest       |  38 +++
+ drivers/virt/coco/arm-cca-guest/Kconfig            |   1 +
+ drivers/virt/coco/arm-cca-guest/main.c             | 282 ++++++++++++++++++++-
+ include/linux/arm-rsi-cmds.h                       | 105 +++++++-
+ include/linux/arm-smccc-rsi.h                      |   7 +
+ 5 files changed, 430 insertions(+), 3 deletions(-)
+---
+base-commit: bce57945f5e7207960b2bd567a6e880f90258ffb
+change-id: 20260929-arm_cca_mr-a194b2e92c17
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
+
