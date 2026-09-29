@@ -1,61 +1,45 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C42E43BB124;
-	Tue, 29 Sep 2026 23:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EEB329E5D;
+	Tue, 29 Sep 2026 23:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723731; cv=none; b=jIXuj7fvB0aGmzPhAzXHG7hqxjsX2OiCN83VdSpa/kNwFvsvtrOcgXAs8gproxiOOcCog0JjISH4aPKOm+sJ1XYfPS3FvZo5z6lv4uSTsHIvNQaPl/iZsku0/exVRNgRBW4YZj0PDAXPE/B0sisW3QVGpVw7Op2I/Bm74NZY7wE=
+	t=1790724089; cv=none; b=FbwORRZ7/9sm78PIOQNG8/s8tQ/JsmM0Jmwhk+EudylA1p9Y3KOIOQLG3GFXMWUrjC+RcNHCwyGley4rxOELO5J25fp1HOdoyAPcAhPMjUZSRU3gTFVd9V8aY7jCnkN+dxpSBYDOghffQT1U+w23u7pl5SwbTGq7oRO4hDzX4ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723731; c=relaxed/simple;
-	bh=iwFCjjCK0ZoHGnGUdHuRorHP5xMsXd648CaC1O/m5QA=;
+	s=arc-20240116; t=1790724089; c=relaxed/simple;
+	bh=TSzzyK88U/K/2L1P70gc7juloow+Bn/2g8YpC2al1/Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s7feK5vEi6W25U2370yNxU42HwuN5FbEdGh77xA/9SUWl3o/9NmskrXYE/kJmhtMQlSTYuFbH+65vTT5P/JAv9d6lLwU+BJtbwcZUBmeJzRInEgxMpn4Hl+8Z6Y2aB1dHD0BlOkt0kLpVrfLKeNSFiX5KsLb1oeAQgwvlLJBUO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=XTJGUGuX; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 MIME-Version:Content-Type; b=VYBe3etQVG+2aNqMahwcy0IrAxmUjVIbnAcDi17/2Khff/GN80xFQ9BSkOT/zOBBFJC8JR52kt3xdEDmNB0zPk8MxjKK6Vp2nrLUWpUTDTUysUjgLhnT0B6NjyW4W3T1Nv2ErFqXsxeITP69tO31xtuMm1TZy2dVKT1F6rZokDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oddUbWUy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="XTJGUGuX"
-Received: from localhost (unknown [52.148.138.235])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6CBFC20B7168;
-	Tue, 29 Sep 2026 16:14:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6CBFC20B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790723677;
-	bh=SCR8BZy5m3MNNjZFeD4xV7VLw+Wr0Y/lqzbK2ZUbZgE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=XTJGUGuXlNb7sFYYsoaeI5eKIAk1S20Lp73ctaC9YVAyQeLetTbsW6W/l2LIbh2Ip
-	 zxnkWbw1zzYf5WSfUAulBveJm9Ey73RhYKMTIWsBascnnFHT1/ev9WbNO6yvA8phGi
-	 xV79BuDJn7qIBuD6Fk7nlBKIdWK2DmjDKTUQ//8Y=
-Date: Tue, 29 Sep 2026 16:15:27 -0700
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alexey Kardashevskiy
- <aik@amd.com>, Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel
- <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, Kevin Tian
- <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
- <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
- <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
- <yilun.xu@linux.intel.com>, Shameer Kolothum
- <shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini
- <pbonzini@redhat.com>, jacob.pan@linux.microsoft.com
-Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
- parent
-Message-ID: <20260929161527.00001275@linux.microsoft.com>
-In-Reply-To: <20260929123048.GJ1616761@nvidia.com>
-References: <20260925122305.GG9354@nvidia.com>
-	<yq5a5wzpr7b9.fsf@kernel.org>
-	<20260928121147.GP9354@nvidia.com>
-	<yq5azex1peqt.fsf@kernel.org>
-	<20260928161738.GB1616761@nvidia.com>
-	<20260928110854.00003ff0@linux.microsoft.com>
-	<20260928182022.GD1616761@nvidia.com>
-	<20260928152402.000079ce@linux.microsoft.com>
-	<20260928230328.GE1616761@nvidia.com>
-	<20260928225524.00002b85@linux.microsoft.com>
-	<20260929123048.GJ1616761@nvidia.com>
-Organization: LSG
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oddUbWUy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9DB1F000FF;
+	Tue, 29 Sep 2026 23:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790724088;
+	bh=YWC5CYXuxTUv8G0istiMuS24MKP8wRUGra3Hzs7V2vs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oddUbWUylZZS5umWoYXO8nPfuTzgJozBSi1D4Kz3svnydyXiFDDcrlmbmTgvpep4V
+	 X9yCqHkNyKfyflWP2i184+pGnpTnxeMoIdDD/mep+4969DRpy2GtOGOL9TiJpT96ep
+	 vePw302gib/kk9bbqat59o0NR8egeNtY1vRoNM17CVKqVfHZ4z/0297/dKFERW0cMX
+	 LVB67OvZItz7m3nS4K2EVhnrxyY/gCtQDt/U8QWIaq0y9aFIUjUvXmtkoXvualuNtB
+	 4g8iLdYrDLuxjvixJsZ2Frlaqwr3yF1aGTN5Ka961DS+g+8o9U/E5bfK45MFPPEulz
+	 Zg45HQipUzM6g==
+Date: Tue, 29 Sep 2026 16:21:26 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Abhijit Gangurde <abhijit.gangurde@amd.com>, jgg@ziepe.ca,
+ brett.creeley@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, allen.hubbe@amd.com, a.k@amd.com,
+ nikhil.agarwal@amd.com, linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [for-next v3 0/5] RDMA/ionic: add SRQ support and firmware
+ assigned CQ and SRQ IDs
+Message-ID: <20260929162126.5b3ec458@kernel.org>
+In-Reply-To: <20260929185857.GL563127@unreal>
+References: <20260925082802.2675902-1-abhijit.gangurde@amd.com>
+	<20260929185857.GL563127@unreal>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,32 +49,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Jason,
+On Tue, 29 Sep 2026 21:58:57 +0300 Leon Romanovsky wrote:
+> > are available in the Git repository at:
+> > 
+> >   https://github.com/abhijitG-xlnx/linux.git ionic-shared
+>
+> It doesn't apply, please rebase and resend.
 
-On Tue, 29 Sep 2026 09:30:48 -0300
-Jason Gunthorpe <jgg@nvidia.com> wrote:
-
-> On Mon, Sep 28, 2026 at 10:55:24PM -0700, Jacob Pan wrote:
-> 
-> > Also, we don't have a T=0 to T=1 transition, our intended external
-> > attach can be transitioned from a blocked domain, not from a paging
-> > domain to external.  
-> 
-> You kind of do, external is close to T=1..
-> 
-> > > I think you are going to have module dependency issues trying to
-> > > get the mshv driver's info into the iommu driver, adding a "TSM"
-> > > like driver would resolve that. ie mshv could just provide the
-> > > viommu. 
-> > I introduced a similar registration interface in hv-common to solve
-> > the module dep issue. Will look into if I can leverage the vIOMMU
-> > helper here.  
-> 
-> That doesn't sound so nice..
-> 
-> If we have to have registrations it is better to have the viommu
-> registration that Aneesh drafted than several schemes inside specific
-> drivers..
-Agreed. Now that the commonality with the TSM provider path is clear, I
-will adapt the MSHV support to use the generic vIOMMU provider
-registration.
+Let's pull the shared branch, and then they can repost the patches
+themselves to RDMA? The branch should pull for both of us. Pulling now..
