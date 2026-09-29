@@ -1,166 +1,104 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB853D955C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA0E3D9027;
+	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696098; cv=none; b=hvuOuglgXLOvKZ8XnYQdHno3+HO7F1PemQTDC1nAA1qmEckaQkiK5f/uY4LoOYYqLHNLzlOMw9qkW6MeSatgGQyDUJC2g5lndYfij74+5eTNFpb9nMMQsmkKQnuEVwYOoo+Tzlu9gpwHOG3b0NQaFxQE4vPM4xrvgpdbd8d86C8=
+	t=1790696110; cv=none; b=oKRItVlp83uOExQ/V67/QVBtz3aMLG3P37dna+KLh+txh0ioXsfp3BzD3KYielnCVh0WcTvdSazYuetJKWLC+IantBraGV9D9B6HxpSKnAUpRM+36f9o7NSjIMIKhGhnGNfk63z0rqykVlsxOrCrBJC6ORE9akq/A9nGcNDtr9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696098; c=relaxed/simple;
-	bh=CSu1cXiqbY/jfZtGsZTi+5MN622ll/b5t0C05YWaEAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LdMqrHHrpOcmVo/uH5+E1ZuatdWPz51BxDGAIIv+q88fwM3jl2ocEIxFy1bzpnB346jXQAiFUF0CUSp1bdJWR21GsIi/GtF/gXsSLJDXD4RbP+9ND7Sb7ZArxHRyHXUbP6anyj4oabi6eVAv/WTqtydvvRffYmTGjLhi9/RixIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TNanFD3t; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790696110; c=relaxed/simple;
+	bh=ALOJGjXfEVnBLDMdqzQUkJ/XzdybxQcPb76lLHFJjUU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VGzeyna65UAm6TB7PS+hZWcb1aT60P8UcGT6raSt1R37TS1XS+EbTxqi/ueiXksjDhbPhJyEZjyMpKGCc3OozK8VdU1ExEP5tp9+pirFrZCWR5aO+7oGivCBxJF9IclRLeXHkOoc365BQrXci9n6PAov3k+O0/wQHfwTpjF0P4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRsbDl5W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TNanFD3t"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso19226555e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:34:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790696094; x=1791300894; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bK1kRsPsOXdZFtj24JVUR5GYlNpzvwaq05tohnScRrQ=;
-        b=TNanFD3tMdr3qxAyG/YamAhZSglLIl5FKaJrSDYj3abZDaBc0mrzSec56Jxqg9ozyi
-         1UAtNVpfVKKpeOLRJ1ihZ/7COJaHHi1xI9wObDFnW7xk/pWit6WnXByryLHp24hGNnr0
-         omrUzZKQjLvnrbe2S2hmegXU0vtK3pJlR6AicRXo6OhFH/Ur3OYgHRHgIGFzb5Nde13q
-         E0pSLXG4nZ2FopCw4gMiMyVtHML0ZKiRpC2rGuJXTdopgVdSHANKP4QxPWJlUruSKASF
-         wjpNv9/928m0/QJE9r78PF2k4B8gIi8MnOrgtXNhnefcdJB73fFJ9J7EagfDZ8vGGkM9
-         OOdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790696094; x=1791300894;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bK1kRsPsOXdZFtj24JVUR5GYlNpzvwaq05tohnScRrQ=;
-        b=aqoxvs0s8KZBB4JBboytzqxeV9nx5MoOvpRR4wXJFpJ2CjTI/JO7XZvJ/deGg1V9jY
-         tz71Vmbht5sygpCfDguD8kd8TEWXeSQcvMEfSMDGBO7NSu1JsgDQY/7K0KhHWbjPm+2t
-         3WV+qaNS9QXM9Bo0+qHX1wgju+S3LjjxccxFHaVbk8iWvd6u3fIraa0LRttsgHzA7eKl
-         1RmEIVtCbHf/WnfxeKZfeijva9SMVheEiVSAZOpXiAUQbciV//Al06mdZTVc/7KYPsEu
-         wDYINnvUjLamQTm2l9wUb3gvPRZv6aFzi+sNei3Hcfayl9iXsssh15gE1CXbwvMA0964
-         j0gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRPiu0mfYV84WQYXPD/gY6mbzbb2/J56zSZFAERIr4hnWMy93HXHQ4KoeFE7LT4bGDKfRa8OENs5bA0pQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGeJpSCTJ87g+9eqZSsuGgdg6WKaNUjJShYhKEEqAKqlU69kxV
-	rvbFENHc5TVdJKtWP0O8s+4IAXaEp82P9gPfo4PUNzsyVGJEmm2TsY17Vx+ARZxVZVc=
-X-Gm-Gg: AYBFou1qohjppHakHy6XR7ulEnjLJ2d83mxOqD1Ng96HEPM9CV39xetJWtan/jVZ817
-	LMahXL15DhfrBeZVzTAcoRBvGnfEtZpekd3SmtNgwgKJrJKpZFxDCEIohRC0qhterDD9BhgHNLO
-	t9EvuG8In/vx/Pxia83PwWj5rl6tOX7d1jOJb5rpemZAnzk/b5Q+/9k9SZOCV5nA4WtFg0+Z19U
-	cTXJAQ2WW2BjHmpLgvORvZqCbjIHG68gseA6+2N0aI9iQy8K8bXd+tDV35AYB1ptU28f5W+GLNn
-	PRBKJI6Stu8AXVaJdWfROw52dn67E/JCSo0RG6nVvwqKAveNTwqvKiGZLASfBXQbVeioXK/vz3o
-	No476wV1jF26u5yPqgYtJXva1akVCe/m3KsHX8IKLd/lWcizXA+8kXQnOW8WZ3TJ7D1aVcnABWh
-	m3tncm0M2XfpdIWqwhl5IERkTHi48inHFBTvP367Sbztwe13XzCNuX+DrAgGnHNUKWKv67358kD
-	UtNzkVqih9Kyfq1LO0OrMFYpYFVVE8pZz+ppj6KWun9WezuhZ9gyGchWeCMT6Xqlmj08qjM
-X-Received: by 2002:a05:600c:8b6c:b0:49f:ffd0:9a9a with SMTP id 5b1f17b1804b1-49fffd09b09mr145822235e9.25.1790696094266;
-        Tue, 29 Sep 2026 08:34:54 -0700 (PDT)
-Received: from localhost (p200300f65f19a904123cb16e9a8bb736.dip0.t-ipconnect.de. [2003:f6:5f19:a904:123c:b16e:9a8b:b736])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a00d0f442dsm81897025e9.13.2026.09.29.08.34.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:34:53 -0700 (PDT)
-Date: Tue, 29 Sep 2026 17:34:52 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org, 
-	mfd@lists.linux.dev, linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 14/20] pinctrl: berlin: support Synaptics SL261X SoCs
-Message-ID: <arvZnEsAdJ5R9mBi@monoceros>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-15-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRsbDl5W"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A182C4AF13;
+	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790696110;
+	bh=ALOJGjXfEVnBLDMdqzQUkJ/XzdybxQcPb76lLHFJjUU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TRsbDl5W7ny5i/N3kko98HGS4ikpShpFwkrtUTScpbu1SQF8F2wBuuFloSETzIUhl
+	 3ghZ7jI3bT5AsRoFTehPNeF0pFT4uLSd4Z3OFcs30U64ygIB790QjwFZHD2517zqdc
+	 Wncdqbbb6zp+d3NcZe4pcnR/8APT8YVwYzuxbN4HU0NmC7LVTru7kHoCNHs1tFqIVp
+	 fu+pdFoexFupR6I2Pmb6GDwpyffX2ED8ZJ1xhcosk2+Whukj1oCkTYqdwifDAHp8oW
+	 lJfSvd2ia8/gwtKXjCDJdLHgZaD8/ruMbW2e5dvGPQHg9aLzxv1iimBYM2CHT5Ej2/
+	 CyaFaEUkzo7wQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BC59CA5FA5;
+	Tue, 29 Sep 2026 15:35:10 +0000 (UTC)
+From: Chris Strong via B4 Relay <devnull+chris.strong.flocksafety.com@kernel.org>
+Date: Tue, 29 Sep 2026 11:35:01 -0400
+Subject: [PATCH net v2 1/2] can: rx-offload: add IRQ queue flush predicate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qdr5pu2vmyb2k4sk"
-Content-Disposition: inline
-In-Reply-To: <20260929061417.20733-15-jszhang@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-upstream-can-rx-offload-batching-v2-1-3b587c519f5d@flocksafety.com>
+References: <20260929-upstream-can-rx-offload-batching-v2-0-3b587c519f5d@flocksafety.com>
+In-Reply-To: <20260929-upstream-can-rx-offload-batching-v2-0-3b587c519f5d@flocksafety.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Thomas Kopp <thomas.kopp@microchip.com>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Chris Strong <chris.strong@flocksafety.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790696109; l=1321;
+ i=chris.strong@flocksafety.com; s=flock-workstation;
+ h=from:subject:message-id;
+ bh=QTrXEykdZqhdnMZDN6EuT4udd2059pFwyS2sp8cy81A=;
+ b=7KUGkgsxVKmAsKHjJqIG0y2nwS7PbG4PGdycE0YPk7BGX7ro96+RWJlPPDbrwC6m2UvbDEjgz
+ 7GCjvhX9v3kAXXdhlAbKpUU1Pq7huULOGvcVjqsyANJgE7Nu6vx9p8x
+X-Developer-Key: i=chris.strong@flocksafety.com; a=ed25519;
+ pk=IaEYd0fwBUeOKjqZzp2UKZY1tn3CLcPh6JpOKznZyRE=
+X-Endpoint-Received: by B4 Relay for
+ chris.strong@flocksafety.com/flock-workstation with auth_id=1045
+X-Original-From: Chris Strong <chris.strong@flocksafety.com>
+Reply-To: chris.strong@flocksafety.com
+
+From: Chris Strong <chris.strong@flocksafety.com>
+
+Drivers that queue received SKBs from a threaded interrupt may need to
+publish a partial batch before the handler returns. The existing overflow
+check covers only the NAPI-visible queue after the IRQ-local queue has
+been spliced, so it cannot guide that decision.
+
+Add can_rx_offload_irq_queue_needs_flush() to report when the IRQ-local
+queue reaches the NAPI poll weight. Keep the query separate from the
+flush operation so callers can finish processing related interrupt
+sources before publishing the batch.
+
+Assisted-by: LLM
+Signed-off-by: Chris Strong <chris.strong@flocksafety.com>
+---
+ include/linux/can/rx-offload.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/include/linux/can/rx-offload.h b/include/linux/can/rx-offload.h
+index d29bb4521947..f9b9474f7190 100644
+--- a/include/linux/can/rx-offload.h
++++ b/include/linux/can/rx-offload.h
+@@ -62,4 +62,11 @@ static inline void can_rx_offload_disable(struct can_rx_offload *offload)
+ 	napi_disable(&offload->napi);
+ }
+ 
++static inline bool
++can_rx_offload_irq_queue_needs_flush(const struct can_rx_offload *offload)
++{
++	/* skb_irq_queue is owned by the interrupt context queuing the SKBs. */
++	return skb_queue_len(&offload->skb_irq_queue) >= offload->napi.weight;
++}
++
+ #endif /* !_CAN_RX_OFFLOAD_H */
+
+-- 
+2.43.0
 
 
---qdr5pu2vmyb2k4sk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 14/20] pinctrl: berlin: support Synaptics SL261X SoCs
-MIME-Version: 1.0
-
-Hello,
-
-On Tue, Sep 29, 2026 at 02:14:11PM +0800, Jisheng Zhang wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please rely on <linux/platform_device.h> to pull in the definition of
-of_device_id and drop the inclusion of <linux/mod_devicetable.h>.=20
-
-Including <linux/mod_devicetable.h> creates a bunch of unneeded
-dependencies on subsystems you will never need in this driver.
-
-> [...]
-> +static const struct of_device_id sl261x_pinctrl_match[] =3D {
-> +	{
-> +		.compatible =3D "syna,sl261x-soc-pinctrl",
-> +		.data =3D &sl261x_soc_pinctrl_data,
-> +	},
-> +	{
-> +		.compatible =3D "syna,sl261x-system-pinctrl",
-> +		.data =3D &sl261x_sysmgr_pinctrl_data,
-> +	},
-> +	{}
-
-Please use { } (with a space) to match the most common style for these
-arrays.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, sl261x_pinctrl_match);
-> +
-> +static int sl261x_pinctrl_probe(struct platform_device *pdev)
-> +{
-> +	return berlin_pinctrl_probe(pdev, device_get_match_data(&pdev->dev));
-> +}
-> +
-> +static struct platform_driver sl261x_pinctrl_driver =3D {
-> +	.probe	=3D sl261x_pinctrl_probe,
-
-Not a fan on aligning the =3D, still more if it's done inconsistently in a
-single struct. If you ask me, just use a single space before the =3D.
-
-> +	.driver	=3D {
-> +		.name =3D "sl261x-pinctrl",
-> +		.of_match_table =3D sl261x_pinctrl_match,
-> +	},
-> +};
-> +module_platform_driver(sl261x_pinctrl_driver);
-
-Best regards
-Uwe
-
---qdr5pu2vmyb2k4sk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq72pkACgkQj4D7WH0S
-/k6pzAf+PhNU58V7LTtOu13Q7FpXZuGYfITE5o06ZTODsXEE48OgW8ZdwP7VY1Rr
-OASvkk8I0b2igulZlmDQF6y/Uo8vr7BFFtBnDNLOlskSrwtGlRdlA+OxtblggT3/
-ZtDs4aXeswkygIA/WvR5ypgSrpFZbf3ulmLpJxoG7wyWd2z20AE0RMgHMxWnRRRK
-u1HPQWxqFS3vW0NsDLIGQ8yxAhuvL3DkQrfMVQONTNlqb9YbbJ5Ei9pHPDcYiggC
-2NvAR0+Iczq3x7p1plWpq1ism4qNBPatzP3vOw+KMQXMHzNrOEICQ0lR54jlGDtd
-U3aErEDsuZZpCY/HwikxQiabfzr3uA==
-=ieOW
------END PGP SIGNATURE-----
-
---qdr5pu2vmyb2k4sk--
