@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DC4530E04;
-	Tue, 29 Sep 2026 18:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093103A257C;
+	Tue, 29 Sep 2026 18:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707185; cv=none; b=bopdBFTbJ+xE9dPHRcnSH+slkB9jOyhSPHk/82oqis4ySgGalPNqcHWBfglyLFE91Yo4n7ijKmRS4DRaP73OvsUixItNaf1fQh2GWfdcQh73/Fl/PPeHQI9K6yHSMuFqMBP4MciIrAEID/uHfho8h8Xj/4ahurs4ywxN5csN5f0=
+	t=1790707202; cv=none; b=T3Qi7IlzzP25tPFZk+AjX+EpwILPxX+DLiSjALJiX/tP//aqxwRVEa2iIwdS9fYYTojBtChLGTVF4wLCH3GVn8HVD8t+P71LX1uY4Ray7Lle/1c/OD6CF6LB8nLsjS76Zz1RY7ruzmgmUm3VG7pxn0U6am3cCCz78995F8yrBZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707185; c=relaxed/simple;
-	bh=ph9bHsYI3JqLzB4PWc/Eu+4+s7+BpjjhNBexqghz8Y0=;
+	s=arc-20240116; t=1790707202; c=relaxed/simple;
+	bh=8W3+/xo9Gn/jbFdhqOev6Xyd9anH3iet/EsJU96tzvg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DwJjPEzf69b0EU8RMOsfMqlWJSTRWTUKJ1qFaYjOq9LZgzh1HE2S5hcMyTC444GeabpaK3muxpmi2tGdR4UFDxvwIDOl7OhkepV2W0qpNWI/t5wFhmO/HcxqhZlC2gs6kWAs4/RADxVOyRYmE5MSnssFyBKt2PQMewS2UWWH//Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsq+MtNW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JaZLxlHQ1QmhgYkE6a5XC4sYlmVWU+wdOWdpR7dHAW5aJKqEvmdn7DObetrcrt98Wpi+nVplfuK4g0EY1Cj/Aw1gZ7F66LABQkOlLtwxGNPNcQ65YpPGt+9JeyU12cgfziJAS6dFwKavmjKl56Uq74NdATGSP8MPrllZcIM8hJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZ6hA5aS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsq+MtNW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10C51F000FF;
-	Tue, 29 Sep 2026 18:39:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZ6hA5aS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E065B1F000FF;
+	Tue, 29 Sep 2026 18:39:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707183;
-	bh=eoY6gHtBmU6a534BKFQNg6hiDEc/4mQhGdZ4OCtJxeQ=;
+	s=k20260515; t=1790707200;
+	bh=3LfD9MzjTfhl3+bTEOPV+6Z6Y1Bi4IoJYOgpesG71ng=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bsq+MtNWtOdA2aq+jJuJnDVkljsirbp93Y5SrZcHi14dt0uaKoWpyhZ/rbbQBd7vt
-	 XVyIEV0VOlNgIor4uAWUz/xisoDqPgJJPxHNmWSBSgyAn50jJwS3oy8atqrVH2Nuai
-	 XaIk6M37xjlp6hWy61bSibBbRVBiljmy6yQTzmcrEMaa5eMjcZGMamnFDKNM+9s+5Z
-	 N2DfxO52obWbANfCpTuRhA2brNAZ7RLFiWIGMuOdPYBeG+1WnCtb1uSIsEgcSkPaOY
-	 ChyUj47kxyIld535jBIctREbkI6Dj5g0tymHTgh+L1cVoDtftXbdRcmb3bcxQgBKAW
-	 dAYoJMRNTM1vA==
-Date: Tue, 29 Sep 2026 19:39:41 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <arv8J7ysrdazJmfY@thinkstation>
-References: <20260929174553.175333-1-kirill@shutemov.name>
+	b=JZ6hA5aS0FLxUjOmUF+6ZzuZfUi7vSOg42WS34HoILWrQ9jHEiF/zf6ApG/ZlvQpG
+	 +The80c6gZy/6Dr+y7sFThzA5dTvQn5YHMd6pd5lLQSTP85nIjxqm9bpAeES2azIig
+	 G3jogervk6d+rXgsNRwMBgs9RnmptBxcy+hEjHLVBtBnxscRmednYvz7ANjHN5fl60
+	 k/GzV0BfKk74UJ0OPiyFtUItIieGxy7zuVmlJS3G0K3ddx9X0aGTBOAB873iiwkWCq
+	 FwopGeCEe9vWoO+t/PiZ12IYpt3E0ugHbu5wSWLGGNhg6pEnNYoh0Prb7vGkxKUjv1
+	 Xd0Cr3hplQCXw==
+Date: Tue, 29 Sep 2026 20:39:55 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>, Chun-Tse Shao <ctshao@google.com>
+Cc: namhyung@kernel.org, peterz@infradead.org, mingo@redhat.com,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
+	bwicaksono@nvidia.com, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] perf jevents: Add NVIDIA Tegra410 uncore DDR and
+ PCIe metrics
+Message-ID: <arwF-9Optt_gsPJb@x2>
+References: <20260928175127.1032535-1-ctshao@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,146 +46,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929174553.175333-1-kirill@shutemov.name>
+In-Reply-To: <20260928175127.1032535-1-ctshao@google.com>
 
-On Tue, Sep 29, 2026 at 06:45:51PM +0100, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-> storm in defrag_mode"), direct reclaim and compaction for non-movable
-> requests under defrag_mode run at pageblock_order, to produce the whole
-> blocks that ALLOC_NOFRAGMENT needs.
+On Mon, Sep 28, 2026 at 10:51:25AM -0700, Chun-Tse Shao wrote:
+> Add DDR bandwidth/latency and PCIe bandwidth metrics for the NVIDIA
+> Tegra410 SoC to arm64_metrics.py. The metrics use the sysfs events of
+> the Tegra410 UCF, CMEM latency and PCIE PMUs, and follow the formulas in
+> Documentation/admin-guide/perf/nvidia-tegra410-pmu.rst.
 
-> The retry decisions that follow still use the request order.
+Ian,
 
-Indeed, good catch!
+	Can you take a look and please provide your Reviewed-by?
 
-> An order-0 request can therefore retry
-> indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
-> 
-> - Reclaim at pageblock_order gives up after one pass as soon as a zone
->   looks compaction_ready(), and do_try_to_free_pages() then returns 1
->   even though nothing was reclaimed. It returns before the retry that
->   would reclaim memory.low-protected cgroups, so when most memory is
->   protected, the pass that did run finds next to nothing.
->
-> - Compaction at pageblock_order fails or is deferred.
-> 
-> - should_reclaim_retry() takes the reported progress as progress for
->   the order-0 request and resets no_progress_loops. The request
->   retries.
+Thanks,
 
-Makes sense to me.
-
-> Order 1-3 requests loop the same way, and should_compact_retry() also
-> checks their pageblock_order compaction result against the request
-> order.
+- Arnaldo
+ 
+> Patch 1 adds the DDR metrics and makes pmu-events/Build also run
+> arm64_metrics.py for the nvidia vendor models. Patch 2 adds the PCIe
+> metrics, in total and per PCIe Root Complex (RC).
 > 
-> On a production host (64G, defrag_mode, memory.low covering most of the
-> workload), 95% of direct reclaim runs were order-9 runs that returned 1
-> with nothing reclaimed, at up to 60k runs per second. Across ~200M
-> should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-> The spinning allocations were SLUB slab refills for inode and dentry
-> caches. The time spent registers as memory pressure, and pressure-based
-> OOM killing takes down both workloads and system services.
+> Tested on a 2-socket Tegra410 system:
 > 
-> Treat promoted requests like costly orders:
+>  - memcpy with multiload (from multichase) on socket 0 CPUs and memory:
+>    lpm_ddr_bw is 740-744 GB/s at steady state (perf stat -I 2000),
+>    multiload reports 708063 MiB/s (742 GB/s).
+>  - Read only (stream-sum) and write only (memset) loads on socket 1:
+>    lpm_ddr_rd_bw is 608 GB/s with 2.4 GB/s of writes, lpm_ddr_wr_bw is
+>    628 GB/s with 1.1 GB/s of reads.
+>  - memcpy on socket 0 CPUs with memory on socket 1: socket 0's
+>    lpm_ddr_rem_rd_bw and socket 1's lpm_ddr_rd_bw count nearly the same
+>    bytes (258.03 vs 258.73 GB).
+>  - lpm_ddr_lat idle is 150 ns in the default aggregation, and 132 ns and
+>    194 ns for socket 0 and 1 with --per-socket. Under the memcpy load it
+>    is 555 ns by default and 563 ns for socket 0 with --per-socket, and
+>    stays at 551-558 ns per interval with -I 1000.
+>  - 8 GiB O_DIRECT dd read from an NVMe drive behind RC 0 of socket 0:
+>    lpm_pcie_wr_bw_0 counts the 8 GiB at 8.7 GB/s (dd: 8.7 GB/s). With
+>    the buffer on node 0 it shows up in lpm_pcie_loc_wr_bw_0, with the
+>    buffer on node 1 in lpm_pcie_rem_wr_bw_0. With --per-socket, socket 0
+>    shows the same and no metric of either socket is nan.
+>  - With the nvidia_t410 metrics forced on a machine without these PMUs
+>    (PERF_CPUID=0x000000004e0f0100 on an x86 JEVENTS_ARCH=all build), the
+>    PCIe metrics read 0 rather than failing to parse, also with
+>    --per-socket.
+>  - "perf test 10" (PMU JSON event tests) passes on the Tegra410 system
+>    and with the x86 JEVENTS_ARCH=all build.
 > 
-> - Reclaim progress does not reset no_progress_loops for them.
+> Chun-Tse Shao (2):
+>   perf jevents: Add NVIDIA Tegra410 uncore DDR metrics
+>   perf jevents: Add NVIDIA Tegra410 uncore PCIe metrics
 > 
-> - should_compact_retry() checks the compaction result at the promoted
->   order. It does not retry COMPACT_SKIPPED, since the request can fall
->   back, and it does not escalate compaction to COMPACT_PRIO_SYNC_FULL.
+>  tools/perf/pmu-events/Build            |   2 +-
+>  tools/perf/pmu-events/arm64_metrics.py | 126 ++++++++++++++++++++++++-
+>  tools/perf/pmu-events/metric.py        |   2 +-
+>  3 files changed, 126 insertions(+), 4 deletions(-)
 > 
-> When the fallback is taken, reset the retry counters, so that the
-> fallback attempt gets a full retry budget before the OOM killer is
-> considered.
 > 
-> In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-> 
->                                         before    after
->     should_reclaim_retry() calls           63M     293k
->     peak memory pressure (PSI some avg10)  99%      12%
-> 
-> File creation runs 5.7x faster.
-> 
-> Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-> Cc: <stable@vger.kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/page_alloc.c | 85 ++++++++++++++++++++++++++++++++-----------------
->  1 file changed, 56 insertions(+), 29 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..608487672d93 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4127,6 +4127,31 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
->  	return page;
->  }
->  
-> +/*
-> + * If fallbacks are not permitted (defrag_mode), we either need to
-> + * reclaim space in a block of matching type, or clear out an entire
-> + * block to allow __rmqueue_claim() to convert.
-> + *
-> + * Reclaim by itself is primarily freeing space in movable blocks,
-> + * since that's where the LRU pages live. So this works for movable
-> + * requests, but not for others.
-> + *
-> + * For those, promote the order of reclaim and compaction to help make
-> + * blocks, instead of spinning in reclaim alone unproductively. Retry
-> + * decisions based on the outcome of that work - reclaim progress and
-> + * compaction results - must account for the promotion as well, see
-> + * should_reclaim_retry() and should_compact_retry().
-> + */
-> +static inline unsigned int nofrag_promote_order(unsigned int order,
-> +						unsigned int alloc_flags,
-> +						const struct alloc_context *ac)
-> +{
-> +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> +		return max(order, pageblock_order);
-> +
-> +	return order;
-> +}
-
-I think we should start distinguishing order and compact/reclaim_order
-in __alloc_pages_slowpath(). Silently overriding it makes it harder to
-follow and easy to make a mistake.
-
->  /*
->   * Maximum number of compaction retries with a progress before OOM
->   * killer is consider as the only way to move forward.
-> @@ -4256,8 +4266,11 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
->  	bool ret = false;
->  	int retries = *compaction_retries;
->  	enum compact_priority priority = *compact_priority;
-> +	unsigned int compact_order;
->  
-> -	if (!order)
-> +	/* Check the compaction result at the order compaction ran at */
-> +	compact_order = nofrag_promote_order(order, alloc_flags, ac);
-> +	if (!compact_order)
->  		return false;
->  
->  	if (fatal_signal_pending(current))
-> @@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
->  	/*
->  	 * Compaction failed. Retry with increasing priority.
->  	 */
-> -	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
-> +	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
->  			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
-
-This would change how hard we try to compact with defrag_mode in direct
-compaction as it won't try compaction with MIN_COMPACT_PRIORITY anymore.
-
-It doesn't make much sense to change that as part of this fix?
-
->  
->  	if (*compact_priority > min_priority) {
-
--- 
-Cheers,
-Harry / Hyeonggon
+> base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
+> --
+> 2.56.0.rc1.315.gc6ed9934b7-goog
