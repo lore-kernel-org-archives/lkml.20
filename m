@@ -1,119 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8F44E3236;
-	Tue, 29 Sep 2026 21:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FD54C4F62
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718252; cv=none; b=CqUZWMFazv0YBHANXsa1q/Ip7zqui7zkukiSTEpM9wiYqKKkc6gO9xgQX1KEJk1CmrAS7YWLv6sYQqDRf8uCXqhbvOu5e8L04BgpcGCholhRyw5J7/f7+HgA9DggpIiWRj36Iczhl/uxK6GLG6o96MuIBo8hVXZHiz5CI1qSLXE=
+	t=1790718277; cv=none; b=gpUDCGbYiQxtG5yoDuVen27SrzPO74UooMF2CFLluBhrvkzKujJE7YWHeC3lsrwHOd1R883d7d2s3uS2JBUj1eAp874NekPtUFsxEll1jvOSsjAva5yJQNOdv1UAuVAW2g8XSF3nZ+BtRQnlJheTYkm+FqwpECMDeOCWcGAk0mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718252; c=relaxed/simple;
-	bh=PXjKLtYo3w8BNPEfuBgSC85hd0B07fniJvvus+kauY0=;
+	s=arc-20240116; t=1790718277; c=relaxed/simple;
+	bh=sSS5ujNqwDF2ukOfHcgyrFNo6NxMTwMpa3kXviLIz/s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EtZ7lQu3/3iEjyGuDODEUarbJB21eL8Lp78sdBRtT8bouGpjkaqNMAU4DRMhLoWkdcG/PcszzYrFEbB/4Y60G26Xr2G6tm2F6lcpewgYumtJwCT3emGa35E+PlWpQLSid2ltK1tlgeYn0d9IyTZzSg+Cn+v0Oaj6nbv/wvdrQFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CI9qf0yY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E4JltsbUri8YRqtLwMQZUh6AEe+Oljr2PcuFtw9VPvXlGjqVZfs5SyqjlT8TKuaIgvStfVf4BCqYy1PaSsztJ1YutjcjvGzPlzpSoJOk68yBE5FjiPxV9ax4RBBw11j6HGORfLZkwt9YMcTV6D9yl+p5nhspSANra6MKCCQWR9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=H+lzIbEH; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CI9qf0yY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412391F00893;
-	Tue, 29 Sep 2026 21:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790718241;
-	bh=2KEhu3d6YlE+Nz+gmiCdg+VCYUQv+IGjS0LzMmdH5hA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CI9qf0yYXGBU6Acr89YrQCW2sfMzQPY5FRReCxQ6HiZpV0Is0a7X0YskUC6BzoAZR
-	 73iAv/If+qQ/na/F0HbvLGU8KHAVP/W6qhjiPVRrgL2vta2SaztgmKk6jiQnZJWPo1
-	 SKYh/RI3cebBr0iu1ObM/SDFCQU+T/gCK5HiavC3AAvBNWVI/+5SZHAk6OW9jUA4SG
-	 rovd+fCbD8cafHQpx81eQQaS0CbFQsX0LwGd9XxvJcngQbvxcHoKJ/TlW72GL0IHVe
-	 5ncObZntWs/frWOLdn5GX096bC/ZK341dhC40QgS5PVU0s/z8PKzH0uyG15mDQCXSc
-	 ib/H/Gw9SAt/A==
-Date: Tue, 29 Sep 2026 22:43:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	vkoul@kernel.org
-Subject: Re: [PATCH 2/2] spi: use dmaengine_get_dma_device() instead of
- chan->device->dev
-Message-ID: <a9a4fc5a-df79-47f7-b963-217439e0b020@sirena.org.uk>
-References: <20260929155445.3311133-1-Frank.Li@oss.nxp.com>
- <20260929155445.3311133-2-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="H+lzIbEH"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso1654006a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:44:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790718257; x=1791323057; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9q+E3Xh65cY9+ofmYDsNL60Gz/7NdFCbD28qz8ceGUE=;
+        b=H+lzIbEH0CsH7v/l30swJkvpVn3XHKoSAo9HoKhEy2SEc7JlGBbqcFXxn7BUe5Ba+G
+         p2+UxujFXJCKVImMUOocgIYGEI2VoeEyY24BVzm2RM2xrqacJU1xn1mPyFv1uogeMLKy
+         UuItenqrVT3P2Yp8V2pLJvFfIxv9hTBeipU2Px8M11xBDIJzEK/dQCzQpUr1HMvj7sjW
+         ZNRYHZPcpMthHDYaIylnS75EspGe7iIK6CCTiN1jyaBOroeAYJNAKJPXarNHF2GudH4f
+         06+jJiOfvOP1yaxsEwqx1vUDRlM1cgEwhwzqfVGwRPZjXw814N954rjBAKVLL0F0XMhR
+         Gt3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790718257; x=1791323057;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9q+E3Xh65cY9+ofmYDsNL60Gz/7NdFCbD28qz8ceGUE=;
+        b=eme2SFdTjqaKD18ejOXUpdB/EK4HJe9qXxf5+pQU+9YTMvdgAGKI8x0cZjZTsX5lxB
+         o/CQLpZHhwePUagnaZbwh4g05dwWrlUVs8DFs5KcOULlSfbOG7gNGs7wQH8k5bTXqxLV
+         E/BUXM2w7/RLWdwA/26xnqbA0pqtd/cx8S5dnPhBz2VBXMIFmO+fj7T+9bmyZkrflDvI
+         9ru5KnNIdinXCkHf8PO+YNnYYat4IIBlbpVfVWRIGq27xKidAjtg/3ydBHeUI9drq7Ai
+         t+nJPaARgO7jX87stI5tz32bQp7yzjEvqN4s6gIJliEsFSwn644quGyH/0Tn0QzkFeZ0
+         Wdsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzE1WRH03X1Ff6eYQ4Z0sjAvhr7OR0JhdNav6ttCLwcZTMbeIdyDEldv3W7az+oztLxjcB+pt7fuKUr6jE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfwM+/su8hhMHaKbqNSwjiGH62OoOfuEt7r8FqtixKpK+oUZs3
+	5lsvc9UXwd+QizOZGqwQkDZ2JtEZIKLz8LhSLsvn1qlPno0RQVIB6bp9FBpjLW1f2cI=
+X-Gm-Gg: AYBFou1aCaQ0nzjDCsKU3m4aGhrm7gYzpg8YlXnhzeL4aNCQhYCeZxbL3JdKTBqH1WP
+	uym701xlDcGpKwz5vg1n4Tdj1K4ft824UMGhPqYRs5slm290XcdstolgO+hSx4Srw8KT4Nco+02
+	V0UdLuUG8bb2JIXsVhJMVKq/1xCnza7YaWCvDF9AWEjffpZcOtWGOpxbGOoynb3WgeZJI/l6pRX
+	cRKey39aUcBbJKJt4ZnKBZ1r4sAlNHiyT5fgtWUzX70O1474RHo98j3H63EeFkTlyrAjqzjFMgA
+	VORNfGQGgI0CH8DAHDbtHhtQHNiwCVjT7tF4/37eGv1Cqd0S16ShkGw2usIYP548/Y0hrFl/2GM
+	KuxQZeX0sKI1LwH/vS5k7WcQx7QVTUPcL6n3rfHEFifB7YOW9AHwjF+NmX4n5rxc7sHuU2DK1Fl
+	L2Vzfaxnmy9dikPfx69QdUmE5GSMFetT7cOfCpMTgR4r7TjodznMb5iAAON6p2kE2asbd2M75Dw
+	NDTRNKnry3b1Lt50qw5xksC
+X-Received: by 2002:a17:90b:5109:b0:3a4:b8f3:8192 with SMTP id 98e67ed59e1d1-3a4bfeddacemr290081a91.52.1790718257035;
+        Tue, 29 Sep 2026 14:44:17 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4c::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4c6142209sm74299a91.0.2026.09.29.14.44.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 14:44:15 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:44:14 -0700
+From: Joe Damato <joe@dama.to>
+To: Ayush Yaduvanshi <ayush37735@gmail.com>
+Cc: Edward Cree <ecree.xilinx@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-net-drivers@amd.com, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH net-next] sfc: siena: fix kernel-doc description for
+ efx_ptp_timeset
+Message-ID: <arwxLnscbs05f84x@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Ayush Yaduvanshi <ayush37735@gmail.com>,
+	Edward Cree <ecree.xilinx@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-net-drivers@amd.com, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel-mentees@lists.linux.dev
+References: <20260929100625.50380-1-ayush37735@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vrrxCsum5yX0Juyp"
-Content-Disposition: inline
-In-Reply-To: <20260929155445.3311133-2-Frank.Li@oss.nxp.com>
-X-Cookie: 1 bulls, 3 cows.
-
-
---vrrxCsum5yX0Juyp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260929100625.50380-1-ayush37735@gmail.com>
 
-On Tue, Sep 29, 2026 at 11:54:43AM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->=20
-> Replace direct dma_chan::device::dev access with the proper
-> dmaengine_get_dma_device() for consumer API
+On Tue, Sep 29, 2026 at 03:36:24PM +0530, Ayush Yaduvanshi wrote:
+> Remove excess @valid struct member description from
+> 
+> efx_ptp_timeset.
+> 
+> Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
+> ---
+>  drivers/net/ethernet/sfc/siena/ptp.c | 1 -
+>  1 file changed, 1 deletion(-)
 
-> @@ -1174,16 +1177,15 @@ static int bcm2835_spi_setup_dma(struct spi_contr=
-oller *ctlr,
->  				 struct bcm2835_spi *bs,
->  				 struct bcm2835_spidev *target)
->  {
-> +	struct device *rx_dev =3D dmaengine_get_dma_device(ctlr->dma_rx);
->  	int ret;
-> =20
->  	if (!ctlr->dma_rx)
->  		return 0;
-> =20
-
-This moves the use of dma_rx after the NULL check.  Possibly
-dmaengine_get_dma_device() will do the right thing but still there's
-more updates needed.
-
-> @@ -766,21 +769,21 @@ static int dspi_request_dma(struct fsl_dspi *dspi, =
-phys_addr_t phy_addr)
->  static void dspi_release_dma(struct fsl_dspi *dspi)
->  {
->  	struct fsl_dspi_dma *dma =3D dspi->dma;
-> +	struct device *tx_dev =3D dmaengine_get_dma_device(dma->chan_tx);
-> +	struct device *rx_dev =3D dmaengine_get_dma_device(dma->chan_rx);
-> =20
->  	if (!dma)
->  		return;
-
-Similar issue here, though things are a bit more involved.
-
---vrrxCsum5yX0Juyp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq8MRoACgkQJNaLcl1U
-h9Cfqgf/XWp6benseGwKwZKeuaOsw1cBguwAfqDmvyDi7aHwm11SxEjrkzcrIm2x
-P0g7TifMKYaCXW5j0wZEdS4bDoMzROZoh7TSc8fuWGvL9ATJqgcR/rfCjuqM46no
-wO84cvU5xrXc8rK0mG99NXFqmWZE8dYzKMnTwC1aMyid3OVl/aY62R/lwHY/ouOq
-jJ5Yr7oCUxSHvpe6U2BpfaP6uAbN+KFFnCBeziNzgNgGTFvf+GnamKxlF+RwgyU5
-QgtaYx99v37Jkl7Ecu6F8xV4vsyPMffWhQLn5vL9BovFT/mQ9i7ol5bbNMj/SiV0
-Ede1lApphqMCEsoAVYigi0mIUpfoGA==
-=Qy7q
------END PGP SIGNATURE-----
-
---vrrxCsum5yX0Juyp--
+Reviewed-by: Joe Damato <joe@dama.to>
