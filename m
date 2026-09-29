@@ -1,41 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E301A38F9;
-	Tue, 29 Sep 2026 19:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769661A38F9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790708680; cv=none; b=HdOl5uRUDWlcBl5Edw5Cq4yut+ui6I0damja7dSG1+5lhgpOsH53uwRfu8V7uwcfJmSFuBOTRs0oxZIXoA2VuukCSu8TgVZXfFbdO00mmRsM8Bri6eRkJ06m0g6KMJgopO01sNUm7wi2K9F5dD2YejYv3sIVuW84r/zI0jppEvc=
+	t=1790708695; cv=none; b=Qxau9qzlA/prFT2fiHS7QIwich5Y0xcjmgFuofpoJLrC+v8+j0BWOP01H3vsRwKShn/Io7bRazgT6OUGnp/p7QucDZ9oRT5n8HYB+p2mobEBot4NW8yrwdi3BfAby+DQdQ0JFxtAtA5l1bhJJrg9dZNWC1TfnBmwththEzmZ3TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790708680; c=relaxed/simple;
-	bh=cuteT0xc98zu7wYh9flsBJW9aeiuujy2n4scgjzyDac=;
+	s=arc-20240116; t=1790708695; c=relaxed/simple;
+	bh=DA0i1UnLIe05CktviLuH+FpaeQx48/dGLwB49X5lpY0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q/fcg+41kfVyRjypDjXw+YisXqPpwhkpcG6vpescwoTmOSJ44guznpyaxnWMR16XxxMZ1jrD+FED2ToMlyeQHRTWGQRMRt1zB4+jQohnAqlXRDT4dBxI+LX0Mslau+kxMRlQgHADZZWwbdEoiZg5SKRUV/zWXTt86cHoF7Ea/fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TydOuKRW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KTYASMMjbjUFc91425W5DEttoWqeWzFzdjPPbchIQshIvmzh6UynRIMHRfDSvC4uI3Wac5wp2lZckMl6Yja+tXc++0YrlJWlGSrMPWPXPg2Q66dHvR5j7qzFG9doo2At9yDhm9K67oHpOXnP+h8ROAc67v4B71Pgk6bZyHps9HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jeKYtVS4; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TydOuKRW"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7876A1F000FF;
-	Tue, 29 Sep 2026 19:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790708679;
-	bh=eHaqzCuJc1kBrB33K8XKBsjQAOa0goRZo+KTjM6jp3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TydOuKRWm2i7bEvVXXVFHjPcFiUs0cib+bMoGEEed5rLImehWFJ4Wth/rCa1HcfUi
-	 3sVZh02xiV2wLkPm40AKTnNz2KZsYafRSP3SYAav2vm3Jr5oHm/jGOwPpgsudG/37V
-	 TCzoAK9MnR2rWyyNX0iWOYQ5bqlnBMaTs1x/8LgNhefYHoPm+MvL2wT/NSuKw+d6la
-	 q7AuAGgieqATyXQmdLNqj0RI3SsMzmEAGOKiVCIRFouDEsqSCBhCOiSQNgcgVJBYVw
-	 NAbZbqcJ8HvDj6aRYThtyXq3ynKIEgYLw1btaLIi3yPwLTyTGGpR/IAiLCEgVePC30
-	 0JuyMHgisuaTQ==
-Date: Tue, 29 Sep 2026 22:04:34 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] assoc_array: discard shortcut when collapsing a
- leaf-only node
-Message-ID: <arwLwmkwMG2vuTg9@kernel.org>
-References: <20260925080548.2505640-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jeKYtVS4"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5d67aa05so401399585a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:04:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1790708692; x=1791313492; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/SA4mXTUSdd/EzJdx8NSbO7NRihun4BRn1gT/3r8Zi8=;
+        b=jeKYtVS4wxPJMpmUNNhMmbVwYZryfSegOtJHjXD5BWIbZeKBodbV6YGXUFvWolg6Dl
+         RauFwzVsS8L1qn28c5AszlF0/jlNU5R6XpuGmtw8e6LOio4DyziNt/T78v28CKq1k5sV
+         w06VhBG3fsAraXq3ys3hWXDYtMLsXz0U5q9hXAf4lu2S3tB/8EhlaBgINU62XySXyNkU
+         f4/FrgF6RwQEnGLPT9/m3e8DIgjU4j9RrmWSCYSmo11tFFKx8/wWDsZ3muT30luEgA9L
+         +nQv4Ul96pP7xEfXNBy+htti8SD9kC1SCkdLvIy807G98ndohVAVRYUAq16pPZcAcG6D
+         2vsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790708692; x=1791313492;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/SA4mXTUSdd/EzJdx8NSbO7NRihun4BRn1gT/3r8Zi8=;
+        b=aHd/fUyl+3gfJh1CeZQ25nheHJFDU4xLT1FmiVdr08Z1qiMknbnOgcc0RdRf1sVbn6
+         FUyc+aGGFGBC1wv3OKw2GC7ydVOW8QN5TUi2t6hm+Qi2xuK7gOeNR8oLMnGksUUOoQYz
+         Oy1afZdnq48iLmeYXNM9CJklMOOELdk7PGEyn9v8N2+cDIn3jocuyrryPS9fMnCde2Ie
+         9poDABJdVado+u/O+FQ8ii9TWHWn2kWecZ88JlYdxLlk9ejzTe0FUnZEaLMLdJ5CGYMe
+         aVit+X32aXbvDF0WB9gvFTbUXWcdDgQ8Gr/87B5x+PVFWJ+FDTag1KYtK6bpTFrgJbk/
+         U0yg==
+X-Forwarded-Encrypted: i=1; AKwUvBxe3mNKBG3H5FNV5ZZ8jNf2C7BgGRr4DWMsc3/BVmBjkmfByf7AUBINF4bDKSDTXekj/eyYxb3wTu6+qNY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0gDh/lkb4AkDXRk/il+7FPYdx5ZqcUwHGMds5sbtlb6ihLAm/
+	D5rLm+ot2GPUzeDYhcLuQm5ATwuQUjRc5ToSRuvzct9hLIXHIzV0ihZMU9ya7XOyyws=
+X-Gm-Gg: AYBFou2VDGjRHNxUj0uX2xMOVmKTLL26WLCU1WFif+fiar+SusGfInAVaSueyX+NXNE
+	pMz8Kpo8ZO0vwBX2AZyCPpe7lc0n/Mv2YRdxlk0KY7NcOVV4mfxwIRXfvOEstMLMtvFQYhmUprg
+	0g3w6yyw2E+zfY0ot4kRLF2eCPFtrND4kc/CyZHDCinu/2hRfOYxaVYR0yG66bRyEiIYc6IYm4q
+	BKZpXbbCjVn695EMJodTx3mbvVtsHfbjZOCx5kMXGBVDRVunC6gPYXJvU2tKFbtOYWw9uFvGEFj
+	Ydnjkda8Yni9M2eqhPpKaWrO1ihx0nlbntmzKkn79OqgkOvzJfiGW2PzoA6Xa+qGGzUh+fVek2x
+	djPhUxeKk/+j3X17k++isrJZlM/fF9vGjJZiyNZb3YtqamO+uLmwijO6Bt375mdRbf0kzItrqFr
+	uGid1OCsJaD5K9fsEgYwjcmWl61iYYBF1DCJtmEKScZp/8
+X-Received: by 2002:a05:620a:1720:b0:93b:d7a1:ba0a with SMTP id af79cd13be357-93c9fa5845cmr105191285a.53.1790708692139;
+        Tue, 29 Sep 2026 12:04:52 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f503be9sm38271785a.31.2026.09.29.12.04.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 12:04:51 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xBd8E-00000009pP9-1hGq;
+	Tue, 29 Sep 2026 16:04:50 -0300
+Date: Tue, 29 Sep 2026 16:04:50 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Jiri Pirko <jiri@nvidia.com>
+Cc: Sami Mujawar <Sami.Mujawar@arm.com>,
+	Suzuki Poulose <Suzuki.Poulose@arm.com>,
+	Dan Williams <djbw@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Catalin Marinas <Catalin.Marinas@arm.com>,
+	"will@kernel.org" <will@kernel.org>,
+	"thuth@redhat.com" <thuth@redhat.com>,
+	Steven Price <Steven.Price@arm.com>,
+	"gshan@redhat.com" <gshan@redhat.com>,
+	"cedric.xing@intel.com" <cedric.xing@intel.com>,
+	Dionna Glaze <dionnaglaze@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>
+Subject: Re: [PATCH 0/3] arm64/virt: Add Arm CCA measurement register support
+Message-ID: <20260929190450.GM163130@ziepe.ca>
+References: <20260413084957.327661-1-sami.mujawar@arm.com>
+ <20260413125925.GK3694781@ziepe.ca>
+ <514ddb27-137b-4223-84fe-2152737db3a6@arm.com>
+ <20260414122950.GW3694781@ziepe.ca>
+ <a1831d3d-af31-4fa7-b107-f4001841f051@arm.com>
+ <20260414133525.GA2577880@ziepe.ca>
+ <AS8PR08MB680669CBFA9654BC12179D5E842F2@AS8PR08MB6806.eurprd08.prod.outlook.com>
+ <20260422124041.GJ3611611@ziepe.ca>
+ <arvh6uGzue9yat9n@e129823.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,127 +100,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925080548.2505640-1-4ncienth@gmail.com>
+In-Reply-To: <arvh6uGzue9yat9n@e129823.arm.com>
 
-On Fri, Sep 25, 2026 at 05:05:48PM +0900, Daehyeon Ko wrote:
-> assoc_array_delete() can collapse a subtree into a node that contains only
-> leaves while retaining the shortcut that led to it.  If that node later
-> fills, all_leaves_cluster_together replaces it with another shortcut.  The
-> first shortcut then points directly to the second one.
+On Tue, Sep 29, 2026 at 05:06:02PM +0100, Yeoreum Yun wrote:
+> Hi Jason,
 > 
-> assoc_array_apply_edit() publishes this topology and propagates branch
-> counts from the new child node.  It skips the inner shortcut, encounters
-> the outer shortcut where it requires a node and triggers the BUG_ON().
+> > On Wed, Apr 22, 2026 at 08:57:00AM +0000, Sami Mujawar wrote:
+> > 
+> > > > So this is tying it to the same FW event log that TPM uses.
+> > > > 
+> > > > I think that strengthens my point this should all be uninform. TPM
+> > > > drivers are directly exposing the event log today, but I guess that
+> > > > needs generalization if non-TPM drivers are going to present it as
+> > > > well.
+> > > > 
+> > > > How do you imagine getting and manipulating the EFI event log to use
+> > > > with this?
+> > >
+> > > The event logs from UEFI will be handed off to the OS using CCEL
+> > > ACPI table. The CCEL table spec update can be seen at
+> > > https://github.com/tianocore/edk2/issues/11384
+> > 
+> > I ment from linux userspace. event log is well establihsed in the aCPI
+> > side for TPM and in Linux today it is only exposed to userspace
+> > through TPM.
+> > 
+> > This is not TPM, so how do you intend to give the event log to
+> > userspace?
 > 
-> Linux v7.2 and v6.12.105 are affected.  The same root remains at the
-> base-commit below and in every supported stable branch checked down to
-> 5.10.  It requires CONFIG_KEYS, but no capability, user namespace or race.
-> A UID/GID 1000 process produced:
+> The event log would be exported via /sys/firmware/acpi/tables/data/CCEL
+> with binary format just as TPM event log is also exported with binary
+> format via binary_bios_measurements.
 > 
->   CONTROL_BEGIN mode=exact uid=1000 gid=1000
->   CONTROL_CapEff: 0000000000000000
->   kernel BUG at lib/assoc_array.c:1388!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   CPU: 0 UID: 1000 PID: 154 Comm: exploit
->   RIP: assoc_array_apply_edit+0x4aa/0x690
->   Call Trace:
->    __key_link
->    __key_instantiate_and_link
->    __key_create_or_update
->    __do_sys_add_key
->   Kernel panic - not syncing: Fatal exception
-> 
-> When deletion produces a leaf-only node, bypass its preceding shortcut as
-> garbage collection already does.  Retire the shortcut and old node together
-> after an RCU grace period; reused leaves keep their references and the
-> deleted leaf is still freed separately.
-> 
-> The exact trigger reached the BUG in 3/3 unmodified v7.2 KASAN boots and
-> completed cleanly in 3/3 fixed boots.  Fixed v6.12.105 also passed 3/3.  A
-> source reproducer is available privately on request.
-> 
-> Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> Instead of Sami, I'll post v2 which rebased on for-next/smccc-bus in
+> arm64 tree.
 
-Right so we end up to topology:
+Okay, Jiri is close to posting the "attestation subsystem" which this
+needs to plug into instead of creating a bunch more sysfs files.
 
-    A -> S1 -> S2 -> B
+The CCEL log needs to come out through that interface.
 
-> ---
->  lib/assoc_array.c | 36 ++++++++++++++++++++++--------------
->  1 file changed, 22 insertions(+), 14 deletions(-)
-> 
-> diff --git a/lib/assoc_array.c b/lib/assoc_array.c
-> index b6c9723e12ced..841dfe07dc962 100644
-> --- a/lib/assoc_array.c
-> +++ b/lib/assoc_array.c
-> @@ -1210,8 +1210,22 @@ found_leaf:
->  				goto enomem;
->  			edit->new_meta[0] = assoc_array_node_to_ptr(new_n0);
->  
-> -			new_n0->back_pointer = node->back_pointer;
-> -			new_n0->parent_slot = node->parent_slot;
-> +			/* A shortcut above a leaf-only node is redundant.  Drop it as
-> +			 * GC does so that a later split can't create two shortcuts in a row.
-> +			 */
-> +			ptr = node->back_pointer;
-> +			if (assoc_array_ptr_is_shortcut(ptr)) {
-> +				struct assoc_array_shortcut *s =
-> +					assoc_array_ptr_to_shortcut(ptr);
-> +
-> +				new_n0->back_pointer = s->back_pointer;
-> +				new_n0->parent_slot = s->parent_slot;
-> +				edit->excised_subtree = ptr;
-> +			} else {
-> +				new_n0->back_pointer = ptr;
-> +				new_n0->parent_slot = node->parent_slot;
-> +				edit->excised_subtree = assoc_array_node_to_ptr(node);
-> +			}
-
-And this code consumes the shortcut.
-
->  			new_n0->nr_leaves_on_branch = node->nr_leaves_on_branch;
->  			edit->adjust_count_on = new_n0;
->  
-> @@ -1225,21 +1239,15 @@ found_leaf:
->  			pr_devel("collapsed %d,%lu\n", collapse.slot, new_n0->nr_leaves_on_branch);
->  			BUG_ON(collapse.slot != new_n0->nr_leaves_on_branch - 1);
->  
-> -			if (!node->back_pointer) {
-> +			if (!new_n0->back_pointer) {
->  				edit->set[1].ptr = &array->root;
-> -			} else if (assoc_array_ptr_is_leaf(node->back_pointer)) {
-> -				BUG();
-> -			} else if (assoc_array_ptr_is_node(node->back_pointer)) {
-> -				struct assoc_array_node *p =
-> -					assoc_array_ptr_to_node(node->back_pointer);
-> -				edit->set[1].ptr = &p->slots[node->parent_slot];
-> -			} else if (assoc_array_ptr_is_shortcut(node->back_pointer)) {
-> -				struct assoc_array_shortcut *s =
-> -					assoc_array_ptr_to_shortcut(node->back_pointer);
-> -				edit->set[1].ptr = &s->next_node;
-> +			} else {
-> +				struct assoc_array_node *p;
-> +
-> +				p = assoc_array_ptr_to_node(new_n0->back_pointer);
-> +				edit->set[1].ptr = &p->slots[new_n0->parent_slot];
->  			}
->  			edit->set[1].to = assoc_array_node_to_ptr(new_n0);
-> -			edit->excised_subtree = assoc_array_node_to_ptr(node);
->  		}
->  	}
->  
-> 
-> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
-> -- 
-> 2.55.0
-> 
-
-I checked also how garbage collector part works, compared the
-implementations, and based on that this looks good to me.
-
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-Br, Jarkko
+Thanks,
+Jason
