@@ -1,59 +1,57 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2EA4BF936;
-	Tue, 29 Sep 2026 09:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD1C4EB858;
+	Tue, 29 Sep 2026 09:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672922; cv=none; b=QW2T68mUzQ/yTJ81MEVObgu8iAZ0xAU3gM86sDzGEyA7FUw921J4XdhtM97vkXOWfDWM4wTHk1m+X+oy0ryyyNFuCfi+PRzTFyySiG4hRUQUAIMY2Xlcc2KOneeffkoKqIbWY3rUVKQfZYdp9b/BSgPPzcctOGfemXUfci4yMRU=
+	t=1790672929; cv=none; b=XzAOhCocQiDpplwxEstOAlBzDkpQmrHcolxneVqppTbXIhJ21m6qLYJqSRYjIeBR3j4jZ49bEYHEw9mAC3UVo/EUpofy2J+WrLLqvCJtSzbwckiz0/UWzb6/evZ7WlzSY2U52jWwjGdEjyFTEYRDzAr2T1sgUYs72tDyJAxkZZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672922; c=relaxed/simple;
-	bh=m1Kg2+YeJeivJxsBfOWC501ehjI+0hjwdQFQz6IieNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fh4R49HmrrUOUc54tUdx9szKyFGN1qosytimB57XitGfPZxq24P+LAQ42zayRqvbyl4Kd9L3cBdBIPcAOLwx2ktGjzWXsIDL+nb0RTcHhs0WWCq57RNKOkR/oybvoTXkDriDrm/lfKWWSd83MxocJ/+V/L69C07OhM/HpfBp0qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ez42vH7S; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790672929; c=relaxed/simple;
+	bh=01V/KEDsIkNum6euKLugEphIxa6FSwSG+QVEKSFUp9s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QVhOX/7TzJ674PUtekcVfHo5pSz+wNVjKoKhwsOxtkDbHxI7D1CokrlxCyYkMTCp1zf1UMI6dWhx+ycZlHihuw+ATCXPr8qJHUmEctiWF+oATPHv3q+evc4IMi80OtB2tyqPXKm+KAPFxUFKEAbg3R+wpT305bW+xseIYUjPON4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=N4VKjGPz; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ez42vH7S"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790672904; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=eFQ4vreHXDUaO3HsKcHYviwry83Esj7w8plbIxQJJDY=;
-	b=ez42vH7S94t6cXtoSNdBuRyQlyxr+GU8OoXtEq0RIB/ksRC05exGLaKCVkm+Si/Q4cSProTZYPv90l6OLMejpcIScx093dIvXKBocoDritZrdxZU4OKPMEnB87sTUnpALpmmm9RnB/0y7oCSs+wR6JI0kZKTg9ntGGXNn1+xWpA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R321e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XBsgidE_1790672898;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBsgidE_1790672898 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 29 Sep 2026 17:08:22 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: acme@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	leo.yan@linux.dev,
-	john.g.garry@oracle.com,
-	will@kernel.org,
-	mike.leach@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	guoren@kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] perf tsc: Replace the compile-time TSC support check with a weak hook
-Date: Tue, 29 Sep 2026 17:08:13 +0800
-Message-ID: <20260929090818.2651-1-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260929092850.697bce16@pumpkin>
-References: <20260928094739.2605-1-cp0613@linux.alibaba.com> <20260928094739.2605-3-cp0613@linux.alibaba.com> <20260929092850.697bce16@pumpkin>
+	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="N4VKjGPz"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hvC5W4KgkzKp2R;
+	Tue, 29 Sep 2026 11:08:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
+	s=MBO0001; t=1790672911;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=t/XvN0wTuT+m8uL1NARzEIBlbAsOhBjp9jhNUMF4RvY=;
+	b=N4VKjGPz/Aq5QaXUsqy7kR6LBE5M9Y4Zc6iQHy+Q8YoAHkdU3X9I/9NJEGsxxm6DTy4rgE
+	yYMmA6HGVE4IdBvDmP904PobyuXmNKbexsLM9RCSX7fKOdvJFFT4DNFB1F+B29fipKa3HO
+	Co34f+nUHCsN0X2Sarc7WIGa8irWPhkOyCut1BGEVNvyk/naydXbj7VJGAfqlsfXalqXhP
+	UjrbXnkm2G9K/fDIyxen+ZbsaDXpUuZPNk8guuiAnIn3qCoFpGGPyBRkl4eakH5JGhJK7u
+	WWHr/g3q2bXGYViZJxKB+tMIeGcjcgu1MLgepFh1bUZ8tESnBQZrxD5amSCmrA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of mail@alexanderkoch.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=mail@alexanderkoch.net
+From: Alexander Koch <mail@alexanderkoch.net>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Khanh Le <khanh.le.xr@renesas.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexander Koch <mail@alexanderkoch.net>
+Subject: [PATCH v2 0/2] ASoC: codecs: ak4619: Add PDN pin handling
+Date: Tue, 29 Sep 2026 11:08:19 +0200
+Message-ID: <20260929090821.1476257-1-mail@alexanderkoch.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,29 +59,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4hvC5W4KgkzKp2R
 
-Hi David,
+The AK4619 datasheet describes the functionality of the power down (PDN)
+pin as follows (p. 39, 'Power-up/down Sequence'):
 
-Thanks a lot for the review.
+  The AK4619 should be powered up when the PDN pin = "L". The PDN pin
+  should be set "H" after all power supplies have ramped up.
+  At that point, the reference voltage generator block (REFBLK) and LDO
+  (AVDRV) circuit are powered up and the control registers are
+  initialized. Control register settings should be no less than 10ms
+  after PDN pin = "H".
 
-> If you mark the prototype in the .h file "weak" you don't need a default
-> - instead check the symbol for being NULL.
->
-> Then you can do:
-> 	if (!rdtsc)  {
-> 		pr_debug("Test not supported on this architecture\n");
-> 		return TEST_SKIP;
-> 	}
+The current implementation of the driver does not operate the PDN pin
+in any way, it seems to rely on external control of the pin.
 
-I've just sent v2, which declares the support from the build system
-instead, following the existing PERF_HAVE_JITDUMP pattern, so the
-decision is made at compile time and there is no symbol left to test for
-NULL.
+Improve this by adding a device tree binding to enable the driver to
+set the pin 'high' during probe. Make it optional to keep the behaviour
+for existing device trees unchanged.
 
-Keeping the __weak rdtsc() stub also means the callers that already call
-it unconditionally don't have to grow a NULL check.
+Tested on an i.MX8MM board with the AK4619 connected to GPIO1 and SSI3.
 
-Thanks again for the suggestion.
 
-Best regards,
-Pei
+Changed in v2:
+ - Fix typo in bindings update subject
+ - Fix missing #include in example block for dt binding YAML
+ - Improve property description in binding YAML
+ - Switch property name to commonly used 'powerdown-gpios'
+ - Invert GPIO logic to avoid confusion (the pin is called 'power down'
+   but when driven high the chip is powered _up_)
+ - Fix power leak on error after GPIO is acquired by turning the codec
+   off again
+
+
+Alexander Koch (2):
+  ASoC: codecs: ak4619: Add optional powerdown GPIO
+  ASoC: dt-bindings: asahi-kasei,ak4619: Add powerdown GPIO
+
+ .../bindings/sound/asahi-kasei,ak4619.yaml          | 10 ++++++++++
+ sound/soc/codecs/ak4619.c                           | 13 +++++++++++++
+ 2 files changed, 23 insertions(+)
+
+-- 
+2.55.0
+
