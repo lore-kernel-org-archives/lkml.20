@@ -1,82 +1,51 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAF93314C4
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32263A257C;
+	Tue, 29 Sep 2026 18:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705014; cv=none; b=ZQelQ+qgMTF2C0MCeP6kTLf278k6J4/EpsRlD5mWquKeOyE+19wh6HW1QYYrn7gjH7xjzsFZ0UkzyGiHSvYFGM6R6rnUM6YZVXNhhO2JAklM41TTAjS4a5t//1Yb5+oJgWfxNt1L+nRL+xl6IZC0oPfFD/98DHeOt4WcF8cUd94=
+	t=1790705017; cv=none; b=JuUiCZrWPlp921M7GXahvybHhxLxqAUVii9FxU4Z9bTy2GmfBplVdf+2exM61FKsT62Gawbeq5SeVTRU63gvFte7TT83mZnxBTTldB+KRsc9LWYLuGTxS+FXPpx4xjLEHwFf3Ihni3IXmFpxj4PvyfWlLWoivTsIhMd27FVbOp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705014; c=relaxed/simple;
-	bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
+	s=arc-20240116; t=1790705017; c=relaxed/simple;
+	bh=zD2doWgwT4bqf0agVJ3k3ZxPe3/tpjLSFfMmmwoa8gQ=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=f2EABmkVQutFG+2i02X7YmewQpBQFeXhxWvRppdbzgzJII5y8Od/eVinCSL5s6Hiis5FNaVeABomwxRDLZkh1H0i17Gr/PeSM0LP8pQCiwQa65zWOerAJgBbXj1khc3GhFIQ9WeQ6FrJlFk9lGQxry7I4KKIRRiuscTe2/mCgzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=P28wBM8/; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 MIME-Version:Content-Type; b=VJrt0Je1DoDdfhdRA9O2joNcUPkMx6VCj4ri3/kkd4M5Zqa63g9QzXAPEA99Vdmx+6Su5k1L7rqTIATqenNtQNugG4ArRfY/dHSY66tkgGBcxnDYktl3Q1nXd3Z+6yD9pKfiYEO9ghPHLWgieDtsztwmpF5elon9eIW+PPss1uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGEcYizF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="P28wBM8/"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso7686825e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:03:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790705010; x=1791309810; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
-        b=P28wBM8/xUsO3wSg7/3jXmhdIyBEWuXqJBB2rU+IJpsXpHmBgP8Fa01+p8LE0T8zWV
-         5Bfv4g2AEx6pAs3WquG19kyWUutG/3uU1bPrloUIcBiTIr/KDF8H8ZZ/figb7g17QqJ5
-         zcNAKL/55oxL3zTgQ1G4x8HH1kHBzINZwJkppRvDYfBzDctMF3UwAeook/oRX1TbzBd4
-         OwU3IuhcVN7hFWQHsKlvX07IBaKViJKHjshkqt84H187bfk2DIU5q+j7awTviohvl9zj
-         OMs5N/4iy2lYPSF9n70oJ5WUigQVrKivlxFIaAGoUZS4UnXCwnED2fC5C9IOGy5Oz3UH
-         G/hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790705010; x=1791309810;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
-        b=KYMZnwIF73JNLGcaO0/9SW34sGELcEv7q6pVfRsE4CnOdHd0TnZQAtVjXItoF11EP7
-         e/yJMjt06tEnaaNqqhFCUWkANB6EFvfzVGqhg1+/BFet/H8dpPyFJyLg4sOLSDoBiaoQ
-         n1RHl+rf0oUtqYsGy4X1qphAj5Y369iR3mHg7wHaATopz8pNh+JHECcvtf66k2/OTXD3
-         GIWj//Fgm+mhaFSunVhprt58UE/2BnPu+9oNIbourrQ8Gd5Euarr6LVo5ulU4F2Vy5t0
-         db5GKXa148iNW2/r1LH+23rnRJxkRC5ZvlwTuoiViBt5q529SVVFoRFWCdOB8VdwmD3R
-         q8xg==
-X-Forwarded-Encrypted: i=1; AKwUvBwu7h4W6EM1s7FHOyaq/ScMu1wucCeFW3duLAcpIvhq6fcaLPOLA//W8oXFretRm5tv9EWA3uxXij9S19g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kY2KG8cJodW5NitK8Cbfw2SVaqVCGdxi1f9dbk4XSLA0xyF2Kk
-	wYOWZp3OfgC89v3LVzNAGmOYcYdpqTZf9LnNMyZzfRH9bSDbFnTL/pj57kFX5ObzOvQ=
-X-Gm-Gg: AYBFou2Ufrjv4ZGBmVRFG8yefxr5WKbMFDosVbPi8xcmr6WsurTe9JQFBtEfa8iHXpR
-	f/lelAGG0ja6smm90nYHmJYy9TJJiZVn8XoFjXH0kFhhvSNBBzkXolYDk9buQ6Bsp/TZYLOtNL7
-	bXbOlfEd9wSennGEGTvOkL05dTzmcJczQ0tzdJydDSH5p9i8vtQiu9fwj9IRMVdUrdTFxYjzXYD
-	J58ELUwaaV5NCCWS0iFEH9h+gWcwiNKyUz/aCsVC8Sf3GWSrS/Qh1hF2vYTIAxppPOgYU0vjoB4
-	LHu0z3JVcBrwHfFSczgSJZd9mrNwYD+/cN31RQxQGoA6RFcLj0aVMmBFBGEBPquLqB8yoRjjuyM
-	IZiZyo2iHXpmk7XlWUUgsOZtfE2Y4OsXhluc/NcByGT0BchYa+e01AyNmZCbl3p6WjbkkkJgp4P
-	7SYnEAir7cxjsF7/StSTLgQqaxxMegsCT1VgjLp1VoHs100AggTKY/9E4D5syNJ/5EdBvRKbcmI
-	0PPst1qpWmU1c4Nxg==
-X-Received: by 2002:a05:600c:8b86:b0:49f:ce73:7a9 with SMTP id 5b1f17b1804b1-49fe6701ed1mr295156035e9.34.1790705009663;
-        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0148b0590sm5696925e9.2.2026.09.29.11.03.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Junhui Liu
- <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, Troy Mitchell
- <troy.mitchell@linux.spacemit.com>, Brian Masney <bmasney@redhat.com>
-Subject: Re: [PATCH v5 1/6] clk: correct clk_div_mask() return value for
- width == 32
-In-Reply-To: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
-References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
- <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
-Date: Tue, 29 Sep 2026 20:03:28 +0200
-Message-ID: <1j7bk43pfz.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGEcYizF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2CD1F000FF;
+	Tue, 29 Sep 2026 18:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790705015;
+	bh=+veBZrMyqc9eVw5PlMkjRSIdNfyxwGCV+zfaborpVQE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=cGEcYizFp/IOrwtKIyznQVBLJq8EXnMUrH9RMR4kcU0Gf04x9UUYDUUfJPJuAZ5N4
+	 1UDmb1JOfsdHFEO994JvteJoBA67KjBYDm10dDc9IJX+TePb8AOpkOUg4hIrBGq5pO
+	 mwowKZBNoQPt1EutZ7Q7bTTVy1zkXL4JyWCsluSOniPTY2suW8Pm7Ji6dqnVyDzne5
+	 512Lf7p6b1GC2TKBrTRG51fLmY/qy9oMk0HUfgiZWciVMW9RlCH4RZ7l9p6HvHiCIG
+	 otcmaCekPszO/ftVsIWh/DAwiQoY1BAyM8r44OIGy+ccc3d70GS3i8GhGvr3lpyT9W
+	 2N8Km/fBLd2vw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Peter Zijlstra <peterz@infradead.org>, Ingo
+ Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Waiman Long <longman@redhat.com>, Gary Guo
+ <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, Lyude Paul
+ <lyude@redhat.com>, Daniel Almeida <daniel.almeida@collabora.com>, Onur
+ =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>, Miguel Ojeda
+ <ojeda@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor
+ Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre
+ Courbot <acourbot@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3] rust: sync: export lock::do_unlocked
+In-Reply-To: <DLRXW31Y0IVK.3A3NJVS2BG39M@garyguo.net>
+References: <20260929-export-do-unlocked-v3-1-f7000684178f@kernel.org>
+ <N1IBV5ko8VdO1uPeg7myJ5jVnnfJI-s5phM0IuhjOxWo1AvKFtlvojnvOBY1fnhKJpl9GKVkN0dD6GEM3f1FKQ==@protonmail.internalid>
+ <DLRXW31Y0IVK.3A3NJVS2BG39M@garyguo.net>
+Date: Tue, 29 Sep 2026 20:03:20 +0200
+Message-ID: <87zex0rl3r.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,25 +54,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-On jeu. 14 mai 2026 at 17:27, Junhui Liu <junhui.liu@pigmoral.tech> wrote:
+"Gary Guo" <gary@garyguo.net> writes:
 
-> The macro clk_div_mask() currently wraps to zero when width is 32 due to
-> 1 << 32 being undefined behavior. This leads to incorrect mask generation
-> and prevents correct retrieval of register field values for 32-bit-wide
-> dividers.
+> On Tue Sep 29, 2026 at 3:45 PM BST, Andreas Hindborg wrote:
+>> Export lock::do_unlocked publicly. Add documentation for the method.
+>>
+>> Reviewed-by: Benno Lossin <lossin@kernel.org>
+>> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+>> ---
+>> Changes in v3:
+>> - Rebase on v7.3-rc5.
+>> - Do not import prelude in example (Alice).
+>> - Link to v2: https://msgid.link/20260605-export-do-unlocked-v2-1-e23001390231@kernel.org
+>>
+>> Changes in v2:
+>> - Drop spurious space before `guard.do_unlocked` in the doc example (Benno).
+>> - Un-hide the imports in the doc example so the rendered docs no longer have a spurious blank line after them (Alice).
+>> - Link to v1: https://msgid.link/20260215-export-do-unlocked-v1-1-f5cd2203b20f@kernel.org
+>> ---
+>>  rust/kernel/sync/lock.rs | 26 +++++++++++++++++++++++++-
+>>  1 file changed, 25 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
+>> index 10b6b5e9b024..edfff9e10199 100644
+>> --- a/rust/kernel/sync/lock.rs
+>> +++ b/rust/kernel/sync/lock.rs
+>> @@ -238,7 +238,31 @@ pub fn lock_ref(&self) -> &'a Lock<T, B> {
+>>          self.lock
+>>      }
+>>
+>> -    pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
+>> +    /// Temporarily unlock the lock to execute the given closure.
+>> +    ///
+>> +    /// This method unlocks the lock before calling the closure `cb`, and re-locks it afterwards.
+>> +    /// This is useful when you need to perform operations that are not allowed while holding
+>> +    /// certain locks, such as allocating memory (which is prohibited while holding a spinlock).
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// use kernel::new_spinlock;
+>> +    /// use pin_init::stack_pin_init;
+>> +    ///
+>> +    /// stack_pin_init!{
+>> +    ///     let lock = new_spinlock!(())
+>> +    /// }
+>> +    ///
+>> +    /// let mut guard = lock.lock();
+>> +    /// let mut buffer = KVec::new();
+>> +    /// // Temporarily unlock to allocate memory, which should not be done while holding a spinlock.
+>> +    /// guard.do_unlocked(|| {
+>> +    ///     buffer.push(5u32, GFP_KERNEL)
+>> +    /// })?;
+>> +    /// # Ok::<(), Error>(())
+>> +    /// ```
+>> +    pub fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
 >
-> Although it is unlikely to exhaust all U32_MAX div, some clock IPs may rely
-> on a 32-bit val entry in their div_table to match a div, so providing a
-> full 32-bit mask is necessary.
+> Do we want to keep the name `do_unlocked` now this is public?
 >
-> Fix this by using the standard GENMASK() macro. This safely resolves the
-> undefined behavior on both 32-bit and 64-bit architectures, while also
-> benefiting from the built-in compile-time type and bounds checking
-> provided by the GENMASK() macro.
->
-> Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> Cc: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->
+> I think we can drop "do_" and just call this `unlocked`, consistent with popular
+> Rust ecosystem crates like parking_lot and spin.
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+If this is the established way, I think we should do that.
+
+I don't think we need a new version of the patch, just fix it during
+apply?
+
+Best regards,
+Andreas Hindborg
+
+
+
