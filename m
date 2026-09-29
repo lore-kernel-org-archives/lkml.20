@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D8B309EF4;
-	Tue, 29 Sep 2026 01:40:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324862DCF45;
+	Tue, 29 Sep 2026 01:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790646011; cv=none; b=MuvZ8XoXHdHuRAbxQf20zU2IC1tcmrvpCf/W4JIoR7UqiQ8iGJwAvuO65ys4+AjSzzysPbsXrUXrAWTPNJz44MKj/qNw1jC7+MJUrOZhr2NUUcjhaftFSs5TZS/viK9gJgE/ecS0M96yydfojAREoOq8Ug6gQ//dhq2rVeoY4K8=
+	t=1790646018; cv=none; b=bXGJMbiGl7COiFovlrVgYQOtQRf1UqWyNa4oRF7qE0jpx5kwZkgb+GOdDKt+we4qhTejLuXvrV/p56e6BcU1i9qJOApXknM2WCyVBPSwFfmjs/koeZzx4k72/lF/2/VZ8H1W81BsUZPDP7iC3mu4WfsDACTz4SMedHkyD9blwdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790646011; c=relaxed/simple;
-	bh=hDSkpEBx5htAt0Jen5h4yV30B5Q6hgLsZJwNsek9G3k=;
+	s=arc-20240116; t=1790646018; c=relaxed/simple;
+	bh=N7o4phRruxZwI8gd9fsjgLJFIwC8FfeeRgBPuBxpZmI=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=jZrz+tKPdvXKDsB9gww5l8Q7dnqtSv3Ot+jxdThN0EKrkj19UfyX4pjOlqiwfRPSE+Q0xQnTso4w/y9T3wsbpyEABcxHSrK3MIye85FFJzwRyKgWteFBwRJzefJfMhZZIMdodFqWd0ZIOqRJPkfrZ2PwBT+VU5viC6u9NPhGOUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPwVbEFf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=VyUvk7+YCJZoMxZt9/t2SMpMJt8MAo2OaRobaave+hwtmAggYTNdYX87EnMia49RYzXDAzJGzyNQczCllvJu+WxbTb8nTbCFhycBRFsb0UvfMnZ5gHYbbRKsEQ75CePUD6y5oHi6uvSe8g6V9rm6dCcgT/BN0hYTCKyJFhdBYSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HP/tHkaR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPwVbEFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC801F000FF;
-	Tue, 29 Sep 2026 01:40:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HP/tHkaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC08F1F000FF;
+	Tue, 29 Sep 2026 01:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790646009;
-	bh=5VD14jCxKJ7vZIYo+tRGexic9zikLAGryfEKlPSvv+o=;
+	s=k20260515; t=1790646012;
+	bh=/uX6Y2EEp7KvSdpNQYfg46B5hXLVJKLDCTXtENJKz1Y=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SPwVbEFfPBg6JqGZq3yan8y+1cSSGHFJszCUBOCBCAo/EvPqBTcL8C+nVCqlA/pPH
-	 b7haiuRgjkjz8BzwgZfSS2CeRCDwMDExg+ja+oNUobwb0CpDtMWJrY4vOlqaNqcDx2
-	 fiVDxPvn4r6W2DVftWLEO894TPoMwerjYDd8Tk/hDFy0/059nxrvgm6qmwWPPAcfWl
-	 lUD5DbbAg2Y05mRxnmJJVDYGSZeoKQP8R6+BYEZFRN/G0GsUWivuYpMc49NZGaLuAn
-	 IUJV7YrGh1LX/kv9vaAaMyVpNp9BlnFMWUEYblWTod/rQU3mYfxk8PKEy+JgyzTXty
-	 QUwQ2wgdDlYjg==
+	b=HP/tHkaRqezgyQ63YUABMnQcuwwF6OvBU4aCj9pxydhxn24SFbL9ooqi6nO/KezBt
+	 yrIcUyTb9XIZNZbBJ0BxKSsmCAxpOeoDPsdLeT/icwyOLt9XfOw/e6o+lYxGlVp6ar
+	 28qW8YneAhULBcpTwhPleLbZCevgw886Uekk7mFsZAS/LnZ9hq1HswovC4GKldBnVL
+	 IDIqy7Vkb2WkKgol/jPhRmEsxTrs5ZJbCGWYHVpF7vzok0gjX+0yh2SO93WdEOlLCH
+	 55ZrcKZyfP8xJNwW5A5Le2MLiLIG+R1gGa97ugGy2cnIrw74On+ka1n1Ivf1dsUx0r
+	 gRp9KTp3KfrTA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44FF3924FED;
-	Tue, 29 Sep 2026 01:40:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44193924FED;
+	Tue, 29 Sep 2026 01:40:12 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,44 +37,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v1] net: page_pool: fix use-after-free in
- page_pool_recycle_ring_bulk()
+Subject: Re: [PATCH] tipc: prevent GCM nonce reuse on peer key changes
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179064600827.210624.782407942985329924.git-patchwork-notify@kernel.org>
-Date: Tue, 29 Sep 2026 01:40:08 +0000
-References: <20260925144127.1445667-1-almasrymina@google.com>
-In-Reply-To: <20260925144127.1445667-1-almasrymina@google.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: aleksander.lobakin@intel.com, kuba@kernel.org, toke@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, hawk@kernel.org,
- ilias.apalodimas@linaro.org, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kaifengw@google.com,
- dongchenchen2@huawei.com
+ <179064601127.210624.12477364079034672571.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Sep 2026 01:40:11 +0000
+References: <20260924202105.3722778-1-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20260924202105.3722778-1-Jeremy.Jean@oss.cyber.gouv.fr>
+To: =?utf-8?b?SsOpcsOpbXkgSmVhbiA8SmVyZW15LkplYW5Ab3NzLmN5YmVyLmdvdXYuZnI+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
+Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Fri, 25 Sep 2026 14:41:11 +0000 you wrote:
-> With CONFIG_PAGE_POOL_STATS=y, page_pool_recycle_ring_bulk() updates
-> the recycle stats after dropping the producer lock. If it just recycled
-> the last inflight netmems of a pool being destroyed, page_pool_release()
-> can pass its producer-lock barrier and free the pool before
-> recycle_stat_add() runs.
-> 
-> Commit fcc680a647ba7 ("page_pool: allow mixing PPs within one bulk")
-> moved this stat update after the unlock. Commit 271683bb2cf32
-> ("page_pool: Fix use-after-free in page_pool_recycle_in_ring") later
-> added the barrier, but only fixed page_pool_recycle_in_ring(). Move
-> the update back under the lock.
+On Thu, 24 Sep 2026 20:21:05 +0000 you wrote:
+> TIPC can encrypt traffic between nodes using a different transmit key
+> for each node. In this mode, the AES-GCM nonce for a packet sent to a
+> known peer consists of a 32-bit prefix (a per-key salt XOR the peer's
+> address) followed by a 64-bit counter. That counter is stored in the
+> peer's RX crypto object. When the peer reports a change in which key
+> it uses to receive packets, TIPC resets this counter. The sender can
+> still be using the same TX key and salt, so subsequent packets reuse
+> earlier nonces. This nonce reuse breaks confidentiality and exposes
+> GCM's authentication key. This makes forgeries trivial: an attacker
+> can exploit CTR malleability to alter captured ciphertexts and use the
+> recovered authentication key to compute a valid tag for the modified
+> ciphertext, under the same key and nonce.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v1] net: page_pool: fix use-after-free in page_pool_recycle_ring_bulk()
-    https://git.kernel.org/netdev/net/c/bdea4980182e
+  - tipc: prevent GCM nonce reuse on peer key changes
+    https://git.kernel.org/netdev/net/c/512ccd3d0e91
 
 You are awesome, thank you!
 -- 
