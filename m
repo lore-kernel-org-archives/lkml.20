@@ -1,63 +1,63 @@
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CB75304D6
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B16A538D69
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700754; cv=none; b=VFvuf58VXGACP/B/lY5F1W2JXMT6QuCiT5vtWvyU03IMiJI6vhFXRcpmIHBC9/hH5FgpzHpleSMlzY+B0jOWrEML70wJc+ACow0Jscjb+jF0euGw/L7glLKRwmfNAB7PAZSNKBjgRLMUaeGOdL4altOZbo4PWP5u0V5TEh0ewAo=
+	t=1790700757; cv=none; b=PPn8jpfay6TwJ/3B4dg3dc8uV2yKsI+hAp3PfWwUf3u2ohSMCUMk7jjN8A//PN1iWXDP6gAfZphP5XMxf46dwt0azMdP0d+jhgWYUhPaBI3j6TxIauzdDJMY4c2c0Wo4PYX7wMZirZXgCDHIBaqbmlx0B7Rju39IPgyAkNsZVC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700754; c=relaxed/simple;
-	bh=garHynZi9tpyUpuiY2Mns/z5ds0lhdcmol6M4bRL3Dw=;
+	s=arc-20240116; t=1790700757; c=relaxed/simple;
+	bh=uLBhz9AW5lUeQ1VBBZ4BLdqgKs0ZrJxGiU4f9ODmksI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=obJ9GOkeZnTv+O2P2o7PBszNQxqlOMjbh9XcHgxTAP9x7curz3DPnKsQEGYluXFTnlM4+rFSs60L7O/2+Z0oDrBD8L4IccUZBuebCd3+lCw/plIp/44NYMFZ0xIgnrG5yFGdrznQNtG5Co0lwdOsY1sg/z6Gc14YCbE9/x7urxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q3jjTkB+; arc=none smtp.client-ip=74.125.230.98
+	 MIME-Version; b=I3aOe0KuZP7Zzq8BVWlOaKM7HJJVRmqnb7GJeMLYFOQ0eGx9eiTJOF5sfIxzGdCA6Pg6WkbUgISdldhjPENApqBMuW6olYVKeURW26bEdYYON/7tdLXLU4R1Pph5PeV1xXmy32ESuN3SgCV6AqPP9llkEzYnlkBvoi3hDa83GmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bClN/PGY; arc=none smtp.client-ip=74.125.230.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q3jjTkB+"
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a770b3ee1aso2070581fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bClN/PGY"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a60e33d456so34560861fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790700751; x=1791305551; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790700753; x=1791305553; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sds4TIuZN16FCLiHCd+CfdEgVg5/yfqoMnUiuuwQ3p4=;
-        b=Q3jjTkB+2KM879dbceItHywl4mIC5tT0HxIpVFvVV+8lOtRSWHs/vjP3uU4FiRzT6o
-         wMF0qcULMTE2Crk1jB3AB2Qr0QZtLfSbOQfKTFKDGQ5D4/A6KxQDh7vKE0IUXBcSDz+o
-         e0oaJ+G9MMkTtqJW90CscWCEyXV9xkwtwIpqLL3BCLIYoq32w0sZVmJ1aLyKzWZKUDLr
-         XoVybiRjICq9jNXHG7Sq8hWGecWtYhMVON2o/wEBFi23HQ6iob3h1se5aaycPe1Sog35
-         JrNUAs9uXFrryJtL4JPB1XCdA7EAhmac0tcmfjK7zSaRXPVaNoCTUW5CTU+vxg7NYSLr
-         bfVQ==
+        bh=MLqCht8vi02ko9LVVdoV/+Z17LWnTuXLunBgzjyMkvs=;
+        b=bClN/PGYC/g+uKuJvt/1ji4QQXLAdPCYe0WOCi9dmxg9UUKokqS8XmHPjh2Ibvk0y/
+         b1b8myIvZYo70GW7u3DXb4l6srFdRGA933Bbim995xLV0D9X9QF0s7xT/2YMeStk++N0
+         YF3OgoooyNsZTQsgrWm1MXehoqNWOqu8D+kbFZ5DKrhK9ldEOD2cSni3KbEnlSoWwisr
+         MzLULxty/GE5or5tK2RyQaF0cXGGeUJ+jzODCJrId0aZhNQmcomORMyruRkEA1+m9CPa
+         odaNCYT29rBuVF8k4yD7GwAcucfPsaGPqKEHZs7l0v9bsBs2H2kdTvKC/fb5OZUc5yZO
+         wXuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700751; x=1791305551;
+        d=1e100.net; s=20260707; t=1790700753; x=1791305553;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sds4TIuZN16FCLiHCd+CfdEgVg5/yfqoMnUiuuwQ3p4=;
-        b=RwkH8etJLqQ22AhNF57+QqXYqhR1Wtn6yk0xqWXeQVdL+PvfknixaUAzF991y3JAj7
-         fQDrpQRIrgfMAPyNMOxAi85vM4X3LjIw11UJNojviWp5p6ib10f57/8hG2ERjY8yw2Hf
-         gFHZetOWFmndzxhYNMyMvQu1IPYvDWDN3QHWnwyDMobRmNq1SpwzKvETY9IISGSNu44V
-         Z99BB87P/Jk6RCqsqtzEz2s26Pdp/GuGQ9TPtskUQWtgOnRH3mRZ95djvJ9+d/VICGSO
-         d9dnTASAm62Kabah1nixXEF+GdmR5PiOH/8JlyjFS7qh6TtYINHNY5SVbob27OzuSbj+
-         uUrg==
-X-Forwarded-Encrypted: i=1; AKwUvBx3D7by3tq94gDTOo0T5ltRa9oxcdK12RUVf0mi7jBhE1J//ULlaUJK5/qtpDb3NyqesgrAzeo5psJBClU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISiv17EnBvK+GP578AM6tOx+mZ4sVtGuPvvzPEjBKFQsJZfMVj
-	BK2QCLStGJFXQqqEGMXdr8g7Ivabox+yPir46rpJjCMhB3qq9zs7p2Y=
-X-Gm-Gg: AYBFou3YTgsjsUJHsLsqYdtNeVkmnwFats6NfR9ZExUAD6FMmjJZ0JDc3FPjxV09uVr
-	e68fsHcBedv5jZXUsLOM02a4S9YN5MhKATiKH8bOVo9etsBGQ7nUUEZpDYG/YrO9MlePzER/IvG
-	IA7SXdEVzZN+wQj6jeNSGkkO6Q0lJTzfZXhZrxi2yTYvh6bJodrdgPk2rLGf5LthR5vBqh8/gfu
-	i1Qanpfnz5fhFlKfX6RxDB2ZCTXOiS+XGI/1O9KfbpkvUOWKWSOS6p37LSTzBkA94d08hyetI0v
-	1aVexfBnwslLVQ8Dm/ufK6l24ySiBBsRh3eQeNN25UlyxuL9no/4cSWND3q7xdItkxWk+p1z3R9
-	oihMHtzp6vgRMPMg/Wkb3ykgcr1JqkKl8v324uID3P2CxeDURcSS8tD3t4vpaSkCu1rWkHPHwv7
-	Y/0fnZ9VLtcb+w87Us4w/xavS3hqaJ22/GIEGfBnWTB/NpVJXTlyJ2/5nS5ZH1
-X-Received: by 2002:a05:651c:324f:b0:3a5:8d4d:470d with SMTP id 38308e7fff4ca-3a7717d4ab2mr371471fa.18.1790700750439;
-        Tue, 29 Sep 2026 09:52:30 -0700 (PDT)
+        bh=MLqCht8vi02ko9LVVdoV/+Z17LWnTuXLunBgzjyMkvs=;
+        b=FU8ULAtOeW6vcvp95xwF2dn+Axc9HNHzVOaDyVtxHCOEfMeP0F/WMutgr8ywkKDweb
+         QVpqOKbAyQQKdOoZN43jm8FlIv1xUnBmYllyThBohTmwy4BijDQglOsl+6f4CLpkqnzY
+         tjRb48qnPiHnDHlg5k1vLkNTzEld6fzp3G00BU/cySObXioPf37mnuGcTA5ZjWXE6emQ
+         mUQvnzzUzFUboUQsUFIot0rG2ncgP3wMTC4C1gXJogRTCp5/nqYLYCQLBpnypKnfaHoi
+         5uFwZ8WxUKg1qe035LZSZpivGABi+fUH4jQpbOu67BMaWlLd7dGk/4xVtj8Y6Yn27U6E
+         Aytg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2n4JzfSmh3CdNWArp1YcgQo+AM68SfiAeOrvMrbNkIaycR3XdPTUyF3jDJGV8LTxRWf+cY+wUZbXenaI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQHlUJGvBz7tEriFKglpxp76h8PpJ5qIfrfhTSLZV4TMw6yyKC
+	OGf1b6WyX6hvsfPV2E7SNTAAeHsKnsKsWLmjVHBeZzM0QIbzf0FkSEaFgpltVwM=
+X-Gm-Gg: AYBFou0ewH/sLUGeqJVXSVNFwV9hxbO6E+kcHhSFuXcsC0jyMfJnVgdqNWJ8EcFb2+w
+	H3gFsPMelUOHDyW8cCePRkDPdYc7P4QNjBHms/25FZF5FJSZR2e3jRMdIkrwk9omgyolFYD4gxz
+	f4kR44E5g/cVulKAL5o1QLa0VUo7AJGHsqDQCJzvxDeD7JBORzgKEkAX06EZ2/t5R+3xkzsoie3
+	MnUSf35Fp/ElwMsommRgU1mcoJcEWs7sAgYsa9aVRov/yM0QpSTWn06uLoP2AdPqpCm8rnEwgFF
+	znl+CVIqr/na2qcW2/nTbhA+Q6KLQ6dcg/iZeRQ1ldK1DJOK1W1qOxIitM0aZmZx9hqiCpnw2iY
+	jlh0ip410mGCJN1IeQBHFereanguB7dg5OEMN3QAJYb5pBFFbpj7a3grM2Gn/6sL0h1+vIsDfMH
+	J2S9dzAb4JVfIlQhmUkMjuRf0tUvmguGjwvMpHbWzDfBji9pwndDq8E9Y4De38rqvWUTOahv4=
+X-Received: by 2002:a05:651c:19a8:b0:3a6:687e:9cfa with SMTP id 38308e7fff4ca-3a7719452cfmr283341fa.18.1790700753249;
+        Tue, 29 Sep 2026 09:52:33 -0700 (PDT)
 Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a771947b14sm137751fa.32.2026.09.29.09.52.29
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a771947b14sm137751fa.32.2026.09.29.09.52.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:52:30 -0700 (PDT)
+        Tue, 29 Sep 2026 09:52:32 -0700 (PDT)
 From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
 	Daniel Lezcano <daniel.lezcano@kernel.org>
@@ -72,9 +72,9 @@ Cc: Zhang Rui <rui.zhang@intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH v3 1/4] thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
-Date: Tue, 29 Sep 2026 19:52:06 +0300
-Message-ID: <20260929165209.69669-2-sochnev.v.74@gmail.com>
+Subject: [PATCH v3 3/4] dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
+Date: Tue, 29 Sep 2026 19:52:08 +0300
+Message-ID: <20260929165209.69669-4-sochnev.v.74@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929165209.69669-1-sochnev.v.74@gmail.com>
 References: <20260929165209.69669-1-sochnev.v.74@gmail.com>
@@ -86,54 +86,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On AN7583, bits 3:1 of 0x2e4 select the sensor (0 bandgap, 5 GbE, 6 CPU)
-and bits 3:2 of 0x2a0 select the diode (0 D0, 1 ZERO, 2 D1). The driver
-names them the other way round: MUX_TADC is 0x2e4, MUX_SENSOR is 0x2a0.
+AN7583 has three temperature sensors behind the chip SCU: bandgap, GbE
+and CPU. With no cells a thermal zone can only refer to the bandgap
+sensor.
 
-v5 of the AN7583 series swapped the airoha_set_thermal_mux() arguments
-to match these names. The diode index now goes to the sensor selector,
-so the zone reads mux positions 1, 0 and 2 (PAD_AVS, bandgap, core
-voltage) instead of the bandgap diodes. On a Nokia XG-040G-MF the result
-crosses the critical trip and the board powers off during boot.
+Use one cell to select the sensor. The AN7583 compatible is new in
+7.3-rc1 and no device tree uses the property yet.
 
-Swap the field definitions. MUX_TADC then selects the diode, as on
-EN7581, and the existing call order is correct.
-
-Fixes: b20d9782756a ("thermal/drivers/airoha: Add support for AN7583 Thermal Sensor")
 Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/thermal/airoha_thermal.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/arm/airoha,en7581-chip-scu.yaml        | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index ea3e2649c280..1b187c41baea 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -18,10 +18,10 @@
- #define EN7581_DOUT_TADC			0x2f8
- #define   EN7581_DOUT_TADC_MASK			GENMASK(15, 0)
+diff --git a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+index cc564dc7b414..4a10d024f5fa 100644
+--- a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
++++ b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+@@ -26,7 +26,8 @@ properties:
+     maxItems: 1
  
--#define AN7583_MUX_SENSOR			0x2a0
-+#define AN7583_MUX_TADC				0x2a0
- #define   AN7583_LOAD_ADJ			GENMASK(3, 2)
--#define AN7583_MUX_TADC				0x2e4
--#define   AN7583_MUX_TADC_MASK			GENMASK(3, 1)
-+#define AN7583_MUX_SENSOR			0x2e4
-+#define   AN7583_MUX_SENSOR_MASK		GENMASK(3, 1)
- #define AN7583_DOUT_TADC			0x2f0
+   '#thermal-sensor-cells':
+-    const: 0
++    description: Sensor index, 0 bandgap, 1 GbE, 2 CPU.
++    const: 1
  
- /* PTP_THERMAL regs */
-@@ -636,8 +636,8 @@ static const struct thermal_zone_device_ops an7583_tz_ops = {
- 
- static const struct reg_field an7583_chip_scu_fields[AIROHA_THERMAL_FIELD_MAX] = {
- 	[AIROHA_THERMAL_DOUT_TADC] = REG_FIELD(AN7583_DOUT_TADC, 0, 31),
--	[AIROHA_THERMAL_MUX_TADC] = REG_FIELD(AN7583_MUX_TADC, 1, 3),
--	[AIROHA_THERMAL_MUX_SENSOR] = REG_FIELD(AN7583_MUX_SENSOR, 2, 3),
-+	[AIROHA_THERMAL_MUX_TADC] = REG_FIELD(AN7583_MUX_TADC, 2, 3),
-+	[AIROHA_THERMAL_MUX_SENSOR] = REG_FIELD(AN7583_MUX_SENSOR, 1, 3),
- };
- 
- static int an7583_thermal_probe(struct platform_device *pdev,
+ required:
+   - compatible
 -- 
 2.55.0
 
