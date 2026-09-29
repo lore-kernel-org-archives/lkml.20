@@ -1,61 +1,54 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AEB4C9E0B;
-	Tue, 29 Sep 2026 09:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555334E5322;
+	Tue, 29 Sep 2026 09:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672943; cv=none; b=P8oyIsCNO0qQkRIwFF95fzsCniVz7O3K3u+TETBCTbaMQA2CYn3wwkw6a05TbO/lZsXq08ItWaatZP2HymOtcGcJLdooXt3U4zsdO8LeUBDbHllQ788EgK909ohWa1b/DXQiqMLFlEhX2xdOT/TvnPZVgBCRUo/1AyI1jK1Fks8=
+	t=1790672948; cv=none; b=rrUSI3rHlgQgkeJXiVXRkkSF0SZo73LMbYshEuWiXT0c4lUGf2YESoPbkLpk3idiow1FrxEhzy/r8DQv7WkxVXU1GAmYTlWGCVl2fCife5dkncMYRcTb6QmImZZKfpQdkvIaHDHSpXBq2rW1KgiLaOULAf3gu53CYTc/woeV8BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672943; c=relaxed/simple;
-	bh=njzty+l3UmU0sGa/D9jJKAHZ4pn3KDgxVfnBWJDQKhE=;
+	s=arc-20240116; t=1790672948; c=relaxed/simple;
+	bh=7mpE35sXrOZtJiDunAyy5ENg+MP4loZ7kGdeDOzUsTU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZUCx6Cr3VSysRh0ecbTMDYU4cuk3pL1QFV/gMpQROKXrSUKGcJB6M7czQFWvkKfWOQA2NSni+CNbpkyz+k18SkTPuBV/vbgcXHdeAlhk9AimRzRZOwD+RbZwrTpnnAlzVa+NCy11d0T9R39Agw7jp+yKVVl++3MJZJHB4WnyOpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=K22cUSA4; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
+	 MIME-Version; b=NZ1I8d89j1Kri1aUVIQo2/kCjyL3Y/hUK7A5HLo7g+7o75Ct5yWx1R3UYLFZiHfC/rYGVtog4eIgWcz63ogxGNRQRknM1FYJ/7voVMgqz7M/pIGIsfiSabkiKoCeIr8FmvfhsBb6Cx0uAEd8qMB/iQvT0le/YI08zm1ocFxOY7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqwCwEua; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="K22cUSA4"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hvC5b3JJJzMlnB;
-	Tue, 29 Sep 2026 11:08:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790672915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EwsvXtmXV4nEAS7BnUQpZBjOavIbbJi/FwbOVOmyzmM=;
-	b=K22cUSA4Wbrclel3fAUcV5Itsihh/lqqVD4J/PKQQKgw8W5ek5SofL/jUQaai8BGqfOxXp
-	1Y7zIl7hMT7mrRZHmHFteXcLtB1Q/5/cjSEanGYgG6ntLLG6Zy2RSAE75ox9WSvk0c4dWf
-	NHoocB+EBG+tU+/fRPyZRS0rVCEVAIK0n78058+FlBo6K8l62oCVWVVbDnsojYAc+pBuqw
-	DiEA8v6hFHh4CLiosD4B2Q7qQqkhHbdxjgKQiXeGzxv+skBQJYpq1H6ML2uSjH28uID2Sf
-	OJegYfK1UNLdxGPHZC0JCNBHgENmNJQcVUHaJ4bwgEJJgHuigxbfeKPguJ8agA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of mail@alexanderkoch.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=mail@alexanderkoch.net
-From: Alexander Koch <mail@alexanderkoch.net>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Khanh Le <khanh.le.xr@renesas.com>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Koch <mail@alexanderkoch.net>
-Subject: [PATCH v2 1/2] ASoC: codecs: ak4619: Add optional powerdown GPIO
-Date: Tue, 29 Sep 2026 11:08:20 +0200
-Message-ID: <20260929090821.1476257-2-mail@alexanderkoch.net>
-In-Reply-To: <20260929090821.1476257-1-mail@alexanderkoch.net>
-References: <20260929090821.1476257-1-mail@alexanderkoch.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqwCwEua"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF6F1F00893;
+	Tue, 29 Sep 2026 09:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790672930;
+	bh=/s9X2Wr6mSOW6vSVla2q+5ix5SjbTSWUTwgrOHWsbs4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dqwCwEuaO8ERPmQr7HKhkv0lKUIs+T2qgUMKK0xkWzT+f2LAUvZ/UMxSih6q5Ax86
+	 uPR/Se0CUNwAvEVQRr4faOI6sceayxsaWp/2nfkkQNZcHd8P/SR1k2Rp2O+MhrckUT
+	 diKhdizXwhbGJ6x1kSGMH4ujwGmt3BCdJpKAjSa4dxPKLnQHp5zPYhqCop2WmU0rRF
+	 z2LcIu0LFSCuIZIoVw9jiam9h0oVzOhJQHbZo+idj9PkoOAIfoVc8c1ZlpRJxZAQyN
+	 UrZ00DTnBgklVYTGmkev7ABCc9uAqBNdMRXWhaeP8Kk98ozZbWTAsDVGJt3BlwBQrT
+	 2OlLRsdROpEVQ==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Wentao Guan <guanwentao@uniontech.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Soheil Hassas Yeganeh <soheil@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Quentin Schulz <quentin.schulz@cherry.de>
+Subject: [STABLE v5.15.y v2 8/9] eventpoll: move epi_fget() up
+Date: Tue, 29 Sep 2026 09:07:15 +0000
+Message-ID: <20260929090724.1461557-8-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260929090724.1461557-1-lee@kernel.org>
+References: <20260929090724.1461557-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,72 +56,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hvC5b3JJJzMlnB
 
-Add optional device tree binding that enables operation of the 'PDN' pin
-during initialization:
+From: Christian Brauner <brauner@kernel.org>
 
-    codec@10 {
-        compatible = "asahi-kasei,ak4619";
-        reg = <0x10>;
-        powerdown-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;  // <--
-        #sound-dai-cells = <0>;
-    };
+[ Upstream commit 86e87059e6d1fd5115a31949726450ed03c1073b ]
 
-If defined, PDN is set high during driver probe, followed by a 10 ms
-delay as required before first register access [1].
+We'll need it when removing files so move it up. No functional change.
 
-If no 'powerdown-gpios' is defined, the behaviour is unchanged.
-
-[1] AK4619 datasheet, sec. 2 'Power-up/down Sequence', page 39
-
-Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-5-2470f9eec0f5@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
+[file_ref_get(&file->f_ref) from original commit left as
+ atomic_long_inc_not_zero(&file->f_count) due to v6.12.y missing commit
+ 90ee6ed776c0 ("fs: port files to file_ref") and its dependent commit
+ 08ef26ea9ab3 ("fs: add file_ref")]
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 7859566c519c75965b57ab2caccf8d6268717c9a)
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- sound/soc/codecs/ak4619.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ fs/eventpoll.c | 56 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/codecs/ak4619.c b/sound/soc/codecs/ak4619.c
-index d9c9f6b20028..c4f0db1e51c8 100644
---- a/sound/soc/codecs/ak4619.c
-+++ b/sound/soc/codecs/ak4619.c
-@@ -152,6 +152,7 @@
- struct ak4619_priv {
- 	struct regmap *regmap;
- 	struct snd_pcm_hw_constraint_list constraint;
-+	struct gpio_desc *pdn_gpio;
- 	int deemph_en;
- 	unsigned int playback_rate;
- 	unsigned int sysclk;
-@@ -875,10 +876,20 @@ static int ak4619_i2c_probe(struct i2c_client *i2c)
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 3c5151e08f63..95d31d23db60 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -708,6 +708,34 @@ static void ep_free(struct eventpoll *ep)
+ 	kfree_rcu(ep, rcu);
+ }
  
- 	i2c_set_clientdata(i2c, ak4619);
- 
-+	ak4619->pdn_gpio = devm_gpiod_get_optional(dev, "powerdown",
-+		GPIOD_OUT_LOW);
-+	if (IS_ERR(ak4619->pdn_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ak4619->pdn_gpio),
-+			"powerdown GPIO request failed\n");
-+	if (ak4619->pdn_gpio)
-+		msleep(10);
++/*
++ * The ffd.file pointer may be in the process of being torn down due to
++ * being closed, but we may not have finished eventpoll_release() yet.
++ *
++ * Normally, even with the atomic_long_inc_not_zero, the file may have
++ * been free'd and then gotten re-allocated to something else (since
++ * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
++ *
++ * But for epoll, users hold the ep->mtx mutex, and as such any file in
++ * the process of being free'd will block in eventpoll_release_file()
++ * and thus the underlying file allocation will not be free'd, and the
++ * file re-use cannot happen.
++ *
++ * For the same reason we can avoid a rcu_read_lock() around the
++ * operation - 'ffd.file' cannot go away even if the refcount has
++ * reached zero (but we must still not call out to ->poll() functions
++ * etc).
++ */
++static struct file *epi_fget(const struct epitem *epi)
++{
++	struct file *file;
 +
- 	ak4619->regmap = devm_regmap_init_i2c(i2c, &ak4619_regmap_cfg);
- 	if (IS_ERR(ak4619->regmap)) {
- 		ret = PTR_ERR(ak4619->regmap);
- 		dev_err(dev, "regmap_init() failed: %d\n", ret);
-+		if (ak4619->pdn_gpio)
-+			gpiod_set_value_cansleep(ak4619->pdn_gpio, 1);
- 		return ret;
- 	}
++	file = epi->ffd.file;
++	if (!atomic_long_inc_not_zero(&file->f_count))
++		file = NULL;
++	return file;
++}
++
+ /*
+  * Called with &file->f_lock held,
+  * returns with it released
+@@ -879,34 +907,6 @@ static __poll_t __ep_eventpoll_poll(struct file *file, poll_table *wait, int dep
+ 	return res;
+ }
  
-@@ -887,6 +898,8 @@ static int ak4619_i2c_probe(struct i2c_client *i2c)
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to register ak4619 component: %d\n",
- 			ret);
-+		if (ak4619->pdn_gpio)
-+			gpiod_set_value_cansleep(ak4619->pdn_gpio, 1);
- 		return ret;
- 	}
- 
+-/*
+- * The ffd.file pointer may be in the process of being torn down due to
+- * being closed, but we may not have finished eventpoll_release() yet.
+- *
+- * Normally, even with the atomic_long_inc_not_zero, the file may have
+- * been free'd and then gotten re-allocated to something else (since
+- * files are not RCU-delayed, they are SLAB_TYPESAFE_BY_RCU).
+- *
+- * But for epoll, users hold the ep->mtx mutex, and as such any file in
+- * the process of being free'd will block in eventpoll_release_file()
+- * and thus the underlying file allocation will not be free'd, and the
+- * file re-use cannot happen.
+- *
+- * For the same reason we can avoid a rcu_read_lock() around the
+- * operation - 'ffd.file' cannot go away even if the refcount has
+- * reached zero (but we must still not call out to ->poll() functions
+- * etc).
+- */
+-static struct file *epi_fget(const struct epitem *epi)
+-{
+-	struct file *file;
+-
+-	file = epi->ffd.file;
+-	if (!atomic_long_inc_not_zero(&file->f_count))
+-		file = NULL;
+-	return file;
+-}
+-
+ /*
+  * Differs from ep_eventpoll_poll() in that internal callers already have
+  * the ep->mtx so we need to start from depth=1, such that mutex_lock_nested()
 -- 
-2.55.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
