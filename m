@@ -1,63 +1,63 @@
 Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E135853B353
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2AD53A3A8
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700757; cv=none; b=KFY6sUG2CHSzR+GPNHtxQOiXqwoCJPvut6ApE8dFbW4Kl8m2DP2MXn5qshlZDC36SzjCYuyFNFzq7ynuVwdiKsweG8u6KdDYGVH9GEJessZaRRX8EZkn4MNRTEguVwcZSdliJ527drmZrKod34rjzod8Q/VIzuuNQZT+UJ8CCpM=
+	t=1790700771; cv=none; b=NK84dnm6nmJdUO+MLjC+jY5gGDnLLvPOgfC4ymKnqYNL7LU6Zmq9IrbKFcpQyZ+DDW/CKewCF7WPyVVHzuNY6agsquu2aqHdtUyhAaYaJ9OnF2wKKbtzGSkM15oKE3CSewOlS3mB8bFfIf3kVslnCTEP3BoRm8vN6afIgkuhl50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700757; c=relaxed/simple;
-	bh=r7rAzsQj8tq8hOzCk4tA2IJiAq9Flk3ypaIF/m8Mhtw=;
+	s=arc-20240116; t=1790700771; c=relaxed/simple;
+	bh=CaGRYcmoudXU11QZBW+RXEllJE8sR+maRTwVpD6ZkwU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ll3SLRk8aM5BQfqm+tbhgu2W9O7+zA8/8fhHXPJXdkCAZdJChKCnguKal3YN3KW5A5smio7W7ktv8Zm1bRsCKNaOZgK4LWNsezfknlmHGnQeIi/isUqRokKs+dwzs7qMGBZx1JdudSsOi9jFw7KRbvZDETDyZBwP5402WCWL00o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPsAGEvd; arc=none smtp.client-ip=74.125.230.99
+	 MIME-Version; b=OKP9XvWKtvkfmYUTyZJRedO2V/Oxnuzxr5oIruVD2wIjx6acLi4bVRIicj9giZBEkcbine+qk0Y6m21rL3PKNHW4drRaWfaJSMmCKNkjllccJf8N9IYDI1YjmGzOGdEWbsmoRA3nA/4BD7gmQPh4t3mhLMY9ysHCoR1L8DrQBIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5tdsQNQ; arc=none smtp.client-ip=74.125.230.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPsAGEvd"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so41515991fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5tdsQNQ"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a49bc59559so36271041fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790700752; x=1791305552; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790700754; x=1791305554; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bPqwF7x5ZyfbIT2MUR02hgJRce/NwkKWQi9i+m/u9W0=;
-        b=ZPsAGEvdr43qCCdPEzz7iTuer1yc3ntzFxSMFT7YfJSdpDCPS+Jj0RF96WIQYcfb5X
-         W20q5DgPzdzUXA0SNc4u0FEwsgqCijXm9FguDLliQ//rGPAjOzML4V24d2QNtBSkwdkK
-         2rgT+abjmmXQ7V+KVIkCUzJtR2nEzVA/ULJG8APgvzuYa+nUSq6g2gZnqRD7rbnj8l9K
-         Gb6Wg4ojXu2guiaoEb3W1K0c8JmCHIifGEf/FTRh9uAZcYvmhoVwnlhr1dGSJ/cW+/XT
-         MZWSIOH2Ty7W+uw+TBdZxWzN/gnvo4OjaCU41b+wdatjoCsAmdvxKP7ktmmZaWR8BsZk
-         lcxg==
+        bh=gg3hFgqk0ZsxaUG+QumlUoTIw9JpugzQWPqN5D8ejLw=;
+        b=n5tdsQNQw6McahZ4i3WgMLZ85kk0JP9fP92+maZg3pJI/OJoahM8EnLJtwAtDOolYj
+         m/g+c8RN4oo6+QOHUji9c6n5hXkHM/SgKP1B1wg6DwRnEZxrIe258Q+uKzNcSAI3CDln
+         1GXOL5ycQTtCdz8De+r4gjfm+kIWerXRcwmL9zTsjeduweYLbOpoSdjPbBUn0S07aDas
+         rOwQ+nUkzmjoazhEy8cV/44nU6gQOyzX7RE7GNQ2GRMTQHCYs3M9elW2bRGzErjM1Mek
+         fDGPrjBUrtGrzZToTRpj+LP39xtSWbHXlhdq4KDqdJxxOCmlmCVtthHp82tQuVfKzTg9
+         rAVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700752; x=1791305552;
+        d=1e100.net; s=20260707; t=1790700754; x=1791305554;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bPqwF7x5ZyfbIT2MUR02hgJRce/NwkKWQi9i+m/u9W0=;
-        b=IxHDdBt0WpYAeyse7o7mwOBBx8suSP7XucTpPLAMatPJKL9/XTLnU7EVgI8SBthLH5
-         dxPorXu9JCHGrXbXo9dUDBAfW5d7aFdw81JnYBDoZgM6h4PU7whbj3f6164NYV7z78i6
-         gbtVHbWNxhW41KR49frced8zp9jWrU/w2AGxkryIziyRCynvxguHggO8iFB49oMHdD80
-         0tB9PtK3iyWyW3uSy3eaGntFbmvu+7oGbY2uztUzDIXvFrS72/As1ARt2qE/YwqnqiZL
-         KAJg2IOF0TdzMQrFuWqlk49graX4pvINCJ9rKDNxyCzhecfyAdwuUDmVWZMGenQv02qs
-         DRCA==
-X-Forwarded-Encrypted: i=1; AKwUvBzp1npv/lfDGS3kboA47kj/JKeRRAwpJmFwNiUCerIPg3FsRn/qfun6gqSNWqrvCOhQy8v3hw87x5refGQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJw8VIgE44TbflGSGz8MqCx5jefVhz3ayYmYOgC/btU6JzLVWGB
-	qJ8WKrbzZwX8JiTFHbBLm1lwCUo99CPtGKCa9gX9QUXMh5xTwusTPPzEGf3tf9g=
-X-Gm-Gg: AYBFou2uYoTzjdLdRyWfbb5Ecoac5uNAZ19vFFkuNnyEsxre6gakJ9kMLs+UGWgi2/l
-	rN2hO0Qn0n+Fpm+ZqTkln59oxpFBnJxVoulw3UWd502NTFuFm50DzZN/feic6ez0BgMInU/TyOi
-	cvdTxk4qU3wDqrAhmzvHUwFj9Zax6zlp4yDTIwpHiSLjHdO/RFiYYC91Ao/DonczuCmmzNbID1D
-	lteIfJklEFgrmz3QEyZI9dKu5QheLhrdKjx5exxqglN22RP7VAyKEpf6j4Lcf22Bhr+mTaYFvdn
-	WvvybsNSwqDW5t4Su4GWXK1t2I5aj81L95ac03Gp/A5eHmNEvBOcpf61BEJWiuhJ8CtxfMkrH5P
-	j0FPo2XN7aePLX4tZsnxpfMeFg3Vyoo32aTIdkqK/8/P6UrV9K/Ct+lpCffit29IsSS32dYgMXn
-	kciY80Xb79vyotOSNLiNwj1CNoL2rbikmgkqUV5Qggb9JZh2BdczKxnk4DxQWm
-X-Received: by 2002:a05:651c:c85:b0:3a6:6aad:be56 with SMTP id 38308e7fff4ca-3a771a5d025mr218461fa.22.1790700751777;
-        Tue, 29 Sep 2026 09:52:31 -0700 (PDT)
+        bh=gg3hFgqk0ZsxaUG+QumlUoTIw9JpugzQWPqN5D8ejLw=;
+        b=gegTWKT88KXzga1x7vxHXiJpO9/8eR0tDmmAfSiSuqDlk5lGbGfgYP9sVgNirnR/M0
+         AdLYKTAIil1p1qtesVWcOTUpOikVEdbgo6c45gStql4RyZmk7JwLAEp7F7fcwuvKNP8G
+         h2VrB/LJYZNPHBtIT6K1iONEHxoG4rTxzr+O/gRHYs77zwJEF+UJEOsOcI+EAL+mYsoj
+         MeQbPsoW2WCGh/FVc53pDrWHQqTepfMCEicrXMmEzUKK/oULi1a4cDVHtjyU7zlfOhpY
+         OPPZYSxX4TLlgQk4opcPF89rB/RrW7fvyull5v4Sd/EuBsvsB+QeMDh48/0J5gWu9YL8
+         yIaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfjOLMH/6DV84k7ywNXjuNemRf6LiDnlUJmC1y/PkuigFpJdZqH7cYHtvOQFAC/P1BjvAmvVc09zKS4OA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFuzZWYwjql18F+i7tTr7ENYYEsuS+Igw/jcoZEZOjE4bBBo/p
+	+iygCtDXokFK22cdgMdEi4BhPvXt9XJ1gRXRGZ2b2RlFP0rdGBEyv9WbYF3kUjs=
+X-Gm-Gg: AYBFou0KSDZmcoWNtaEtX10MyvSMZ/PM348t2VbA0UUYDowf4HDYSTJ8Io1iZaUyZ3X
+	uZZAwSRMcjoeNw0UizMqzWB05aa55FROkmcPLBOyHBtOed+EUCkXpa+ivaMfqO3X3pRVqk1CV55
+	1AzkY7Ng1ubQPcfJQhdLDWKlWz41eLhnid5Cid9z7PvOPgoz2PFJB1W4Ijn4E9lBChzQif2r1hB
+	r37hhj0YEM3RA2a4XkUDs4y9tPJifiueJKNS70k+Sqs7IIh2geH50sLI/VScIulbtnV7o3wj3RN
+	oGadDw6K+Dq3L+DVBW+OtDKcQFohU3nwcANlBRhJtzCMb3/cMK88oNEzKzDfcfVHp70g00n61/s
+	rEB2dUu+sGSV6sAcYvGcIEWoP1U07r/b/LIuX2td3FphyMqtKz5pJIxG9g2YNOIv9Rs5x1+2fVJ
+	7fWyGAaoaoG3RV2aB5H6DyHcvMRObn+maK1BJw0/8QnRM7qa/RXjWY/dEIOzS5Qw==
+X-Received: by 2002:a05:651c:19a7:b0:3a7:71d2:2f9c with SMTP id 38308e7fff4ca-3a771d2306bmr33601fa.23.1790700754468;
+        Tue, 29 Sep 2026 09:52:34 -0700 (PDT)
 Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a771947b14sm137751fa.32.2026.09.29.09.52.30
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a771947b14sm137751fa.32.2026.09.29.09.52.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:52:31 -0700 (PDT)
+        Tue, 29 Sep 2026 09:52:34 -0700 (PDT)
 From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
 	Daniel Lezcano <daniel.lezcano@kernel.org>
@@ -72,9 +72,9 @@ Cc: Zhang Rui <rui.zhang@intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH v3 2/4] thermal/drivers/airoha: Serialise access to the shared ADC
-Date: Tue, 29 Sep 2026 19:52:07 +0300
-Message-ID: <20260929165209.69669-3-sochnev.v.74@gmail.com>
+Subject: [PATCH v3 4/4] thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
+Date: Tue, 29 Sep 2026 19:52:09 +0300
+Message-ID: <20260929165209.69669-5-sochnev.v.74@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929165209.69669-1-sochnev.v.74@gmail.com>
 References: <20260929165209.69669-1-sochnev.v.74@gmail.com>
@@ -86,185 +86,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A read selects the sensor and walks three diodes with a 10 ms settle on
-each. The zone lock serialises reads of one zone. With a zone per AN7583
-sensor, added later in this series, reads of different zones interleave
-and convert samples taken at another mux position.
+AN7583 has three temperature sensors and the driver has constants for
+all of them, but it registers one zone and reads only the bandgap sensor.
 
-Mux writes are dropped silently unless PLLRG_PROTECT is lifted, and its
-save and restore do not nest. The cached TADC value also skips a write
-after another reader has moved the mux.
+Register a zone per sensor; the thermal sensor cell selects it. A device
+tree may describe fewer zones than sensors. EN7581 still registers one
+zone.
 
-With the AN7583 sensors read as parallel zones during CPU frequency
-changes, a zone crossed its critical trip on a chip at 55 C and the
-board shut down.
+Idle and with both cores loaded on a Nokia XG-040G-MF:
 
-Serialise the sequence, drop the cache, check the selection after
-writing and after sampling, and return -EAGAIN if it does not hold.
+  bandgap  56.9 C -> 59.3 C
+  GbE      58.7 C -> 61.5 C
+  CPU      57.0 C -> 61.1 C
 
 Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 ---
- drivers/thermal/airoha_thermal.c | 85 +++++++++++++++++++++++++-------
- 1 file changed, 68 insertions(+), 17 deletions(-)
+ drivers/thermal/airoha_thermal.c | 64 +++++++++++++++++++++++++-------
+ 1 file changed, 51 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 1b187c41baea..0f0e6f3af3cd 100644
+index 0f0e6f3af3cd..7c63a1b44a6b 100644
 --- a/drivers/thermal/airoha_thermal.c
 +++ b/drivers/thermal/airoha_thermal.c
-@@ -5,6 +5,7 @@
- #include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/platform_device.h>
-@@ -191,6 +192,7 @@
- #define AN7583_NUM_SENSOR			3
+@@ -245,6 +245,11 @@ enum airoha_thermal_chip_scu_field {
+ 	AIROHA_THERMAL_FIELD_MAX,
+ };
  
- #define AIROHA_THERMAL_NO_MUX_SENSOR		-1
-+#define AIROHA_THERMAL_MUX_TRIES		3
++struct airoha_thermal_zone {
++	struct airoha_thermal_priv *priv;
++	int sensor;
++};
++
+ struct airoha_thermal_priv {
+ 	struct regmap *map;
+ 	struct regmap *chip_scu;
+@@ -263,6 +268,9 @@ struct airoha_thermal_priv {
  
- /* Convert temp to raw value as read from ADC	((((temp / 100) - init) * slope) / 1000) + offset */
- #define TEMP_TO_RAW(priv, temp)			((((((temp) / 100) - (priv)->init_temp) * \
-@@ -250,7 +252,8 @@ struct airoha_thermal_priv {
- 	struct resource scu_adc_res;
- 
+ struct airoha_thermal_soc_data {
  	u32 pllrg_protect;
--	int current_adc;
-+	/* Serialises mux selection and ADC sampling */
-+	struct mutex lock;
++	/* Sensor mux value per zone, NULL without a sensor mux */
++	const int *sensors;
++	int num_sensors;
  
- 	struct thermal_zone_device *tz;
- 	int init_temp;
-@@ -294,9 +297,26 @@ static int airoha_get_thermal_ADC(struct airoha_thermal_priv *priv)
- 	return val;
- }
+ 	const struct thermal_zone_device_ops *thdev_ops;
+ 	int (*probe)(struct platform_device *pdev,
+@@ -348,7 +356,8 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
  
-+static bool airoha_thermal_mux_holds(struct airoha_thermal_priv *priv,
-+				     int tdac_idx, int sensor_idx)
-+{
-+	unsigned int val;
-+
-+	if (regmap_field_read(priv->chip_scu_fields[AIROHA_THERMAL_MUX_TADC], &val) ||
-+	    val != tdac_idx)
-+		return false;
-+
-+	if (sensor_idx == AIROHA_THERMAL_NO_MUX_SENSOR)
-+		return true;
-+
-+	return !regmap_field_read(priv->chip_scu_fields[AIROHA_THERMAL_MUX_SENSOR], &val) &&
-+	       val == sensor_idx;
-+}
-+
- static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 				   int tdac_idx, int sensor_idx)
+ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
  {
-+	int tries = AIROHA_THERMAL_MUX_TRIES;
- 	u32 pllrg;
+-	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
++	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
++	struct airoha_thermal_priv *priv = zone->priv;
+ 	int min_value, max_value, avg_value, value;
+ 	int i;
  
- 	/* Save PLLRG current value */
-@@ -307,19 +327,17 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 		     priv->pllrg_protect);
+@@ -374,7 +383,8 @@ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+ static int en7581_thermal_set_trips(struct thermal_zone_device *tz, int low,
+ 				    int high)
+ {
+-	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
++	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
++	struct airoha_thermal_priv *priv = zone->priv;
+ 	bool enable_monitor = false;
  
- 	/*
--	 * Configure Thermal Sensor mux to sensor_idx.
-+	 * Configure Thermal Sensor mux to sensor_idx and Thermal ADC mux to
-+	 * tdac_idx. Writes can be dropped silently, so read them back.
- 	 * (if not supported, sensor_idx is AIROHA_THERMAL_NO_MUX_SENSOR)
- 	 */
--	if (sensor_idx != AIROHA_THERMAL_NO_MUX_SENSOR)
--		regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_SENSOR],
--				   sensor_idx);
--
--	/* Configure Thermal ADC mux to tdac_idx */
--	if (priv->current_adc != tdac_idx) {
-+	do {
-+		if (sensor_idx != AIROHA_THERMAL_NO_MUX_SENSOR)
-+			regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_SENSOR],
-+					   sensor_idx);
- 		regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_TADC],
- 				   tdac_idx);
--		priv->current_adc = tdac_idx;
--	}
-+	} while (!airoha_thermal_mux_holds(priv, tdac_idx, sensor_idx) && --tries);
+ 	if (high != INT_MAX) {
+@@ -642,8 +652,9 @@ static int an7583_thermal_read_diodes(struct airoha_thermal_priv *priv,
  
- 	/* Restore PLLRG value on exit */
- 	regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT, pllrg);
-@@ -596,12 +614,40 @@ static int en7581_thermal_post_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static int an7583_thermal_read_diode(struct airoha_thermal_priv *priv,
-+				     int diode, int sensor_idx, int *val)
-+{
-+	airoha_set_thermal_mux(priv, diode, sensor_idx);
-+	*val = airoha_get_thermal_ADC(priv);
-+
-+	return airoha_thermal_mux_holds(priv, diode, sensor_idx) ? 0 : -EAGAIN;
-+}
-+
-+static int an7583_thermal_read_diodes(struct airoha_thermal_priv *priv,
-+				      int sensor_idx, int *zero, int *d0,
-+				      int *d1)
-+{
-+	int ret;
-+
-+	ret = an7583_thermal_read_diode(priv, AN7583_ZERO_TADC, sensor_idx, zero);
-+	if (ret)
-+		return ret;
-+
-+	ret = an7583_thermal_read_diode(priv, AN7583_D0_TADC, sensor_idx, d0);
-+	if (ret)
-+		return ret;
-+
-+	return an7583_thermal_read_diode(priv, AN7583_D1_TADC, sensor_idx, d1);
-+}
-+
  static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
  {
- 	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
- 	int sensor_idx;
+-	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
+-	int sensor_idx;
++	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
++	struct airoha_thermal_priv *priv = zone->priv;
++	int sensor_idx = zone->sensor;
  	int delta_diode, delta_gain;
  	int coeff, slope, offset;
-+	int tries = AIROHA_THERMAL_MUX_TRIES;
-+	int ret;
+ 	int tries = AIROHA_THERMAL_MUX_TRIES;
+@@ -651,9 +662,6 @@ static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
  
  	int diode_zero, diode_d0, diode_d1;
  
-@@ -612,12 +658,14 @@ static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+-	/* Always read sensor AN7583_BGP_TEMP_SENSOR */
+-	sensor_idx = AN7583_BGP_TEMP_SENSOR;
+-
+ 	coeff = an7583_thermal_coeff[sensor_idx];
  	slope = an7583_thermal_slope[sensor_idx];
  	offset = an7583_thermal_offset[sensor_idx];
+@@ -717,7 +725,7 @@ static int airoha_thermal_probe(struct platform_device *pdev)
+ 	const struct airoha_thermal_soc_data *soc_data;
+ 	struct airoha_thermal_priv *priv;
+ 	struct device *dev = &pdev->dev;
+-	int ret;
++	int ret, i;
  
--	airoha_set_thermal_mux(priv, AN7583_ZERO_TADC, sensor_idx);
--	diode_zero = airoha_get_thermal_ADC(priv);
--	airoha_set_thermal_mux(priv, AN7583_D0_TADC, sensor_idx);
--	diode_d0 = airoha_get_thermal_ADC(priv);
--	airoha_set_thermal_mux(priv, AN7583_D1_TADC, sensor_idx);
--	diode_d1 = airoha_get_thermal_ADC(priv);
-+	mutex_lock(&priv->lock);
-+	do {
-+		ret = an7583_thermal_read_diodes(priv, sensor_idx, &diode_zero,
-+						 &diode_d0, &diode_d1);
-+	} while (ret == -EAGAIN && --tries);
-+	mutex_unlock(&priv->lock);
-+	if (ret)
-+		return ret;
+ 	soc_data = device_get_match_data(dev);
  
- 	delta_diode = diode_d1 - diode_d0;
- 	delta_gain = (delta_diode * coeff) / 100 + (diode_zero - diode_d1);
-@@ -678,7 +726,10 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+@@ -739,11 +747,31 @@ static int airoha_thermal_probe(struct platform_device *pdev)
+ 		return ret;
  
- 	priv->pllrg_protect = soc_data->pllrg_protect;
--	priv->current_adc = -1;
+ 	/* register of thermal sensor and get info from DT */
+-	priv->tz = devm_thermal_of_zone_register(dev, 0, priv,
+-						 soc_data->thdev_ops);
+-	if (IS_ERR(priv->tz)) {
+-		dev_err(dev, "register thermal zone sensor failed\n");
+-		return PTR_ERR(priv->tz);
++	for (i = 0; i < soc_data->num_sensors; i++) {
++		struct airoha_thermal_zone *zone;
++		struct thermal_zone_device *tz;
 +
-+	ret = devm_mutex_init(dev, &priv->lock);
-+	if (ret)
-+		return ret;
++		zone = devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
++		if (!zone)
++			return -ENOMEM;
++
++		zone->priv = priv;
++		zone->sensor = soc_data->sensors ? soc_data->sensors[i] :
++						   AIROHA_THERMAL_NO_MUX_SENSOR;
++
++		tz = devm_thermal_of_zone_register(dev, i, zone,
++						   soc_data->thdev_ops);
++		if (IS_ERR(tz)) {
++			/* A DT may describe fewer zones than sensors */
++			if (i && PTR_ERR(tz) == -ENODEV)
++				continue;
++
++			dev_err(dev, "register thermal zone %d failed\n", i);
++			return PTR_ERR(tz);
++		}
++
++		if (!i)
++			priv->tz = tz;
+ 	}
  
- 	if (!soc_data->probe)
- 		return -EINVAL;
+ 	platform_set_drvdata(pdev, priv);
+@@ -751,7 +779,15 @@ static int airoha_thermal_probe(struct platform_device *pdev)
+ 	return soc_data->post_probe ? soc_data->post_probe(pdev) : 0;
+ }
+ 
++/* The bandgap sensor stays zone 0 */
++static const int an7583_zone_sensors[AN7583_NUM_SENSOR] = {
++	AN7583_BGP_TEMP_SENSOR,
++	AN7583_GBE_TEMP_SENSOR,
++	AN7583_CPU_TEMP_SENSOR,
++};
++
+ static const struct airoha_thermal_soc_data en7581_data = {
++	.num_sensors = 1,
+ 	.pllrg_protect = EN7581_SCU_THERMAL_PROTECT_KEY,
+ 	.thdev_ops = &en7581_thdev_ops,
+ 	.probe = &en7581_thermal_probe,
+@@ -759,6 +795,8 @@ static const struct airoha_thermal_soc_data en7581_data = {
+ };
+ 
+ static const struct airoha_thermal_soc_data an7583_data = {
++	.sensors = an7583_zone_sensors,
++	.num_sensors = AN7583_NUM_SENSOR,
+ 	.pllrg_protect = AN7583_SCU_THERMAL_PROTECT_KEY,
+ 	.thdev_ops = &an7583_tz_ops,
+ 	.probe = &an7583_thermal_probe,
 -- 
 2.55.0
 
