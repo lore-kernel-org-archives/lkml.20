@@ -1,109 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta60.mailii.org (mta60.mailii.org [78.129.155.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076513D5661;
-	Tue, 29 Sep 2026 18:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC7225392A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.129.155.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707586; cv=none; b=WeQtQyalFWhilMbJGHoBFhQN6cuF5efJK5lO8CgEv9yBfAGy3yjPoFbtjsq172EFFjPzK/R9lZXCd/hpjogJfwjkpIK7Pd23DIsVXHAkF1/jdpqaZpybesHlfqcL3SpXRZwPuRtcyXI+QuJVIenoxRw5bT4Liw3Fgolh88Q/s7Q=
+	t=1790707613; cv=none; b=rvWzcp+fax2fvO93AeWTrQds8i8KzsfQPqo1R8NREtG57ifSDQV0oPksJcBp1g4uLXT8bj2DMFMTnp87XI15/4Yn2nYoYBcOLAkw+ZvLtoO9ds9gb6ELcTnew2LrnwG7vRXHsn+7EvSG+DLycqEmCRW4zzholPZEpfr0oB3JXxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707586; c=relaxed/simple;
-	bh=qQ0lffp+SG62vr/DVXvAlZcQhAoJ5fcbKCSvj9Ov/RY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r65hdD0VdYFc6rkOCOw9i+Xf4yaWqETybskaYQvgK8r3fcQzwu5IDusSnel1sFuM1IgZ+CGyK55ACb6wpEurH+MLG18zAHw49fmlNbB7DdTykSI3SjoNBC2o/4edKs3YNf/lbolKeRgopfYKcYtH1fVlFnWJWWQ4ffql7ynoZw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5qIHnd7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790707613; c=relaxed/simple;
+	bh=5BcuclSv2CC11HeMfuLEgsOS0onZ41ycm9dJjHThZ3c=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=Rnm9sB6SFb/52ZdIK0JyltNOu/mP6nC2S0iIHmKKDdqlxeg+P01VU5qjqTBHK2Y6lsAYKMnx1vBq9C0H07BJ3eDJFEKSpvgxG6nCy4uARGRQ/1JFDndRm2M44ShfGFhsCyANe8MZcx4cWE8URG21whC3wjU2uNnRDgan0pfIFiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net; spf=pass smtp.mailfrom=hajimohammadi.net; dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b=JsvPkHHG; arc=none smtp.client-ip=78.129.155.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hajimohammadi.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5qIHnd7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BB61F000FF;
-	Tue, 29 Sep 2026 18:46:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707584;
-	bh=GNBP1B5ElGW/DnEs/JpWQBDvoFFLmyeNzTzUB9qB/Ro=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Y5qIHnd72D+dXyes8qI9UbjisMK2FQV7LUxMa1hlBSsy8IsjpRtwsaDCNh1Mrl6eD
-	 aycixNE8OjVphXGEDaXeFM2w0AldoMC/5zKnDMbCUvdnCiThaKs92dlkhV5/5XGkj5
-	 XCOJO2gFouqiVRUB4ZpODLQuKNhTVmvqOV6Ipl9lwPE/Grju3ePqB/fokK+bk7E19d
-	 wut3FjwaVonhQKAopL+oUIi0EQD8XBNB9H0rU2Xp0AfYy/u9TEaTqO62NngFUaWp/C
-	 WV1bSorXCIZvHfCzUcQc2oMpREd1PK9lSjIpKJQlJSizSD6fA06Jxso8cASp3EEuTH
-	 CFTRODSdvPtTA==
-Message-ID: <206e75ee-7133-4fd8-964d-1e507002f6cb@kernel.org>
-Date: Tue, 29 Sep 2026 13:46:22 -0500
+	dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b="JsvPkHHG"
+X-Mailin-Tag: 95.217.242.122
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=srs.mailii.net; s=mail;
+	h=to:references:message-id:content-transfer-encoding:cc:date:in-reply-to:from:
+	 subject:mime-version:content-type:from;
+	bh=5BcuclSv2CC11HeMfuLEgsOS0onZ41ycm9dJjHThZ3c=;
+	b=JsvPkHHG7r8CHAoQLZkDegsBnk8+VJ6P5jIVrinBZGwPIfDoxRdqA3QUMMVsZ3qNR5aHdE0Hm+VBu
+	 lyuvodzLHBwEV1wMi+E6eL3KgrdbdEtuKIZ0OPNcNf92IL9UhSArgItZoG0XYhvHklwUp62TO/GEQX
+	 TbTm1rdJR1G8lyfg=
+Received: from linux1de.centraldnserver.com (static.122.242.217.95.clients.your-server.de [95.217.242.122])
+	by ukgw.mailii.org (Halon) with ESMTPSA
+	id 3eab6364-bc2b-11f1-ab49-005056a23964;
+	Tue, 29 Sep 2026 20:58:55 +0330 (+0330)
+Received: from [78.154.57.70] (port=64672 helo=smtpclient.apple)
+	by linux1de.centraldnserver.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <info@hajimohammadi.net>)
+	id 1xBbdO-000000004D3-14xf;
+	Tue, 29 Sep 2026 20:58:53 +0330
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/pmc: Add spurious_8042 to ASUS ROG Flow
- Z13 GZ302EA
-Content-Language: en-US
-To: Matthew Schwartz <matthew.schwartz@linux.dev>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Hans de Goede
- <hansg@kernel.org>, ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260929181655.26105-1-matthew.schwartz@linux.dev>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260929181655.26105-1-matthew.schwartz@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v3] staging: rtl8723bs: stop overreading monitor interface
+ name
+From: Amirhossein Hajimohammadi <info@hajimohammadi.net>
+In-Reply-To: <2026092915-luxury-shush-6b29@gregkh>
+Date: Tue, 29 Sep 2026 20:58:40 +0330
+Cc: linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Message-Id: <D45E885D-B05E-4BDB-9AB9-D5AFD5E82F47@hajimohammadi.net>
+References: <3B4B0B72-4DCE-4E40-9E87-732DCBAA4EAF@hajimohammadi.net>
+ <2026092915-luxury-shush-6b29@gregkh>
+To: Greg KH <gregkh@linuxfoundation.org>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
+X-YourOrg-MailScanner-Information: Please contact the ISP for more information
+X-YourOrg-MailScanner-ID: 1xBbdO-000000004D3-14xf
+X-YourOrg-MailScanner: Found to be clean
+X-YourOrg-MailScanner-SpamCheck: 
+X-YourOrg-MailScanner-From: info@hajimohammadi.net
 
+You are right. I noticed this during manual source inspection and
+incorrectly treated the fixed-size copy as something that should use a
+string helper.
 
+I did not measure any throughput improvement or test the change on
+hardware. The original patch was only checked with checkpatch and by
+applying the received email, so it is not sufficiently justified. Please
+drop it.
 
-On 9/29/26 13:16, Matthew Schwartz wrote:
-> The ASUS ROG Flow Z13 (GZ302EA/GZ302EAC) wakes up from suspend-to-idle
-> without any user input. With PM debug messages enabled, each unexpected
-> wakeup shows the EC raising IRQ1 at the same time as the ACPI SCI:
-> 
->    PM: Triggering wakeup from IRQ 9
->    PM: Triggering wakeup from IRQ 1
->    ACPI: EC: Query(0xa3) started
->    ACPI: PM: Wakeup after ACPI Notify sync
-> 
-> EC query 0xa3 only notifies the battery of a status change, which
-> happens when it transitions between Charging and Full while on AC.
-> The ACPI core correctly treats that as a non-wakeup event and cancels
-> the SCI wakeup, but the IRQ1 wakeup remains pending and resumes the
-> system. i8042 debugging confirms that the keyboard controller has no
-> data at that point ("Interrupt 1, without any data").
-> 
-> The detachable keyboard on this device is a USB device, so disabling
-> the i8042 wakeup source does not result in any functional loss. With
-> serio0 wakeup disabled, the same battery event is processed during
-> suspend-to-idle and the system stays asleep.
-> 
-> Add the spurious_8042 quirk for it. The GZ302EAC reports sys_vendor
-> "ASUS" while the GZ302EA reports "ASUSTeK COMPUTER INC.", so match on
-> "ASUS" and on the "GZ302EA" board name to cover both models.
-> 
-> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+On rechecking the code, ifname_mon is written and cleared but never read.
+The appropriate cleanup is to remove the unused field and its dead stores
+instead. I have compile-tested that cleanup with W=1 against staging-next
+and will send it separately.
 
-Good analysis of this issue.  It sounds like the right direction for 
-this problem.
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
-> ---
->   drivers/platform/x86/amd/pmc/pmc-quirks.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> index 09a30f333759..ff5c90510c0c 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-> @@ -143,6 +143,14 @@ static const struct dmi_system_id fwbug_list[] = {
->   			DMI_MATCH(DMI_BOARD_NAME, "RC73YA"),
->   		}
->   	},
-> +	{
-> +		.ident = "ASUS ROG Flow Z13 GZ302EA",
-> +		.driver_data = &quirk_spurious_8042,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
-> +			DMI_MATCH(DMI_BOARD_NAME, "GZ302EA"),
-> +		}
-> +	},
->   	/* https://bugzilla.kernel.org/show_bug.cgi?id=218024 */
->   	{
->   		.ident = "V14 G4 AMN",
-
+Sorry for the noise, and thanks for the review.
