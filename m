@@ -1,213 +1,154 @@
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020107.outbound.protection.outlook.com [52.101.191.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E63E4EDCAF;
-	Tue, 29 Sep 2026 15:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.191.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404C73D955D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694264; cv=fail; b=UkQOa/+U4fHqNIIhGe7iYgaR6sSl7Sm7rk8cXfLFM0Q3AvdMO4abdgn31LXi5+AHTzkCpW36WFiCoYZkWfSEs0eFHXEJTSNd3OcnWjwxbfd+wNAC0JSQ1jNbL2xevAHgtACyx6BRyt8Is+NMjjjg1s28rcEwebQQZt8EYgGkgHQ=
+	t=1790694308; cv=pass; b=jO+JNV9YOyRE3XKqD5+yJh8r6zeZcG5E9lv+aYAkpG1UNNWw4P+hdPvl5b6kpw/RPaPRROKx2c1EeM4hPf5cb2/5CTgFzaKl3o0jP6lHLgbqFJqIKRZM98ede4rXp/zNoeRvrlDl/wY/D/JVxihF+xwW/hAOSSJNeD8QIWNcFWk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694264; c=relaxed/simple;
-	bh=YoPIc6ezMTpRtGdTnPOiPbn1yL8Z18c7rK4pEvUTTXY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LCQgGjwOY20dnXAbIy6OUPf3Mb/+Tgp8LuXz62hLxV2umWa9c+eAjQ1HHumqgKhv1pRN6q4N2TZDJbcqbfAEhH1QaTXADIpeYcoDrf50WdluCa2jDuPC5bKDXZB2VRifZaK+6w7FrXjJ2BDK5J/rCbqioarUov701y4KGY14M1w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=PqtbbY37; arc=fail smtp.client-ip=52.101.191.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1790694308; c=relaxed/simple;
+	bh=RYV0Fke/zryIQypMo3pWYA4hmOw8U2yNCXU7He5u95Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cw2+wIrQ0sDCaPV5EJGUivFUNQvVPyiK4198a2U7tAZYuEq2U0mCaKv/PbF+wIgr7Q8dOs96DDX8jQ1pqwsuPByGT6odUFy3D0ust/t8QmYM3GSQuDF3n4ufva+quQjXyX5VpWY+l1i6wlax3G6/D2NsiYumLdvcTWAwxRMpATk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N3Mdx5Yk; arc=pass smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="PqtbbY37"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i6vpcU6IkmTrWt6QWp4qVb2js9lRbfXWk+70qnWdpNkWcEOvBr3FH5/4EqkzZ9uzmfaBs/vlD9aJDpolrFmpXGKLENdDFFEfsWUpdH+UgJEOhFmFvBJ+mdjrtQg7CIIbOg22QDgwO09MW+LBrRRR2kI9oZV/eEhUPkw29SuhmtQ2+3SpzZFZVlDkAdDKytipk3lD3/PIAMHJI1nI9a0bfuAVKvyZjNwEvrCEmFlWBGDVp/M2OA0Kh+wyS7Ooh9ppLd1zaM1IZoFzupd3HTo8EnzjV77U6tYqDpalF8yhtVjY3qON06biEZViwYOFZXlv1yy7srBttXMSeJjUhfQuqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S85K70cy2lM3PzPMsCC3unyEbX7a+ze2kkU2NHUSgq4=;
- b=N+NtQS3ln5cf1zCo26nx/2WqAUSlW10RIsO1CVquhcv58KO0n87kKrC1MxviXJDt9sObjMKACowMTK3hsokVJb2wBXRRSVD9PmxvH4fPujdTF5Wl5EeHJYKn2pBp0Mgb5jCdkpA5TGrQDLoHPQqmkQCfrjdbkpV9loJEyYXt5zpBT0+eNjidMeUWRz0v/CL4zEWJ87FDOXZBB1EffXpNo+SeUuWPwDYG1sClBXQWe1Yv5Nbd/osUMbyTkBGHnsTQnHqxsm3u3Tv3h9avyaAFm7rhAUKEK/BFDn9sGWIZpsmyN1EyKBUN/zYtNIcUVmKXxXQ5vFTAfGrrVldCU58KJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S85K70cy2lM3PzPMsCC3unyEbX7a+ze2kkU2NHUSgq4=;
- b=PqtbbY37SKigorixk/G5fnbVXd1IxRUTYERgP0jYQPOyz2O73X8kFs5tlSStsxnsMz/1vMx/Q+AnWqT9S41Z/cK7Pk9o3jrMDDPgBhGFmGAYOHoRWCe6Io3dLe4G7U1uPX8r7G/QPaiA1OkMlBRLnUCO9L8WfA561G0i2tzSLRgZZkFOPqko+TtXtfdwpwhoj9F167rzmM1uZwlIdSkXeqZQpPiVh08TgOjNJf8f8fIdIEhY3ylNVFOsiunC9vDJCAEikfmpxGhs7owYyTi/Bh4VgYM6KrqRQphwhOhvn6d1rZIHlQCN9EJa+IoUUa4aROXQsHWfD5rcGXXF7tQ/gw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT6PR01MB309022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1c2::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
- 2026 15:04:08 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 15:04:08 +0000
-Message-ID: <133ca8de-cf30-4bf5-9539-d0b73e347b22@efficios.com>
-Date: Tue, 29 Sep 2026 11:04:07 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH hazptr 2/4] compiler.h: Introduce ptr_eq() to preserve
- address dependency
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
- Boqun Feng <boqun.feng@gmail.com>, Joel Fernandes <joel@joelfernandes.org>,
- Alan Stern <stern@rowland.harvard.edu>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- John Stultz <jstultz@google.com>, Frederic Weisbecker <frederic@kernel.org>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan
- <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>,
- Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
- Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>,
- Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
- Mateusz Guzik <mjguzik@gmail.com>, Gary Guo <gary@garyguo.net>,
- rcu@vger.kernel.org, linux-mm@kvack.org, lkmm@lists.linux.dev,
- Nikita Popov <github@npopov.com>, llvm@lists.linux.dev
-References: <20260927155134.4740-1-mathieu.desnoyers@efficios.com>
- <20260927155134.4740-3-mathieu.desnoyers@efficios.com>
- <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <CAHk-=wgQyCdrWH3ZuSajOxZqiups6jYbPtqY8JR8OeS7yi49Mg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::17) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N3Mdx5Yk"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b36a8d5b5so1579853a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:05:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790694304; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ILsjtFQLtUU9oUDpfOQunuYVVqKLLxAActbVX+hEdF4uQ/5nTbxoDWaLmvqx/4/Y5R
+         SQyHP560VO9vqpR2Xh2q2ZnJ206MKeOMctxBrwwOJwDQgc849YV5KaJGQptZ0E1CDtMk
+         YoyyWNIf+Z2dQnylBfc87JTmrJX5MN4WEFrWdxexunR6ql38sHxHX8Zxwr6u9fQ/GlIC
+         ms8fzY9efGxGGZ1f3ft4cjcWSH6chB8O4R2v55AhyKYArmwpwpLBZxAJqEcgYuwgxBVp
+         SOYdlZelUpwn0GGpyEvQG2djxkV6nPYcgxEGvsG1P05EE1Apgw/Pn3MZIruRxScxToQC
+         y2RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
+        fh=riM5Zn1bkzv3WgMWIeJXhtOgvg4pA+MLEpM51Ygqelc=;
+        b=Ra7z4N18ycO3QbDMcOQc2ws+cl9th6WQCOnQiEyPQ+1Bb8Yt2OPMAXGAse9pqo3+Yc
+         /vJVuoZIqP+yTmPsR8ngd5mAEuiIKQVHSPCG1CDJGwSw0MGb5ND+qRihMbIBIO4EV4cW
+         2dUv7h1Q4h/HgIwlEYO82tlvXJil2tozPWmq5dlyOLkDgV/5XENMWKa0ZzUeD3A2h/Ik
+         iHcZHPbicRTQLXF8sxbxIqUA61UVx9kV2KjuThqlcomn1XvpabWHNSfztOqGR7f1AB1B
+         ddXGxHZJ+Up7LvHUNxm+OWivgrbqpJyCyUwLIcKmyPWXAD0JmrCHnmQML/NJz5zejcaj
+         sk4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790694304; x=1791299104; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
+        b=N3Mdx5Yk5e+O4SymkvAFpuNL3GaM0+aSdQkELk60n7ddOt+npYhklRR7jK7yyoUU4W
+         4HKXZYDExKE4wuAxCCRoemjM8s6zrgewf/m5irv6cHMOsCFxXmqtoHIAAVjSaeIwwUuT
+         XstAMnFp+L14Xi7msxZFuDWgzpLJFUCtCCmaJATdL4dHW0wgXsVxyD7RiTkvkdsnGg5d
+         hAqnsUigxu5/TK2c15Dw/S2KF/FEyNxq/0A6YtcZINuDdEw4aiWkg7lkn7W10Vf9c7cb
+         iA4Kz0SnDuPnCvz7+jcyc1hUsTpQWTvFJB8uEPm+eMVBrVcdnozJX1Tcj1G3zO6FSFmQ
+         /YNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790694304; x=1791299104;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
+        b=HOWAtIzsBgZK9zRy5UP8nUJUX/sfkIqBmmUh+CP3oTKVZu5l0T/gCV9DFaiH4izrU1
+         ZJ+ZxB9uMO2SC95TwsbVZxtcCzeHOaETzc9oj/3W0NSh97+/JJKWEVEjrXqItuzfqhaK
+         l2aWfgQt6GVeJju46rH4xEtcmt73vZGyv0EuAxEU6cIqUn6oeYfCEEx366dPigIs0qvg
+         T4jITqJSzBSn+YaI8Ac4679q4VaTpBahiZTN6DQjsD68ftVDYswldMD4pt/jhrjGbl1F
+         v0AvgKQptHJ+aN6jhH+EsHuBB8B5yDqURlNGcYLurRi7YvaLLuh7qE26fJ2y2e9A9PoA
+         xpNg==
+X-Forwarded-Encrypted: i=1; AKwUvBy0Ssv/iR2ikdjHbTGV/qI+guL+ia90z1t4dcoBszGGK6xO3Ghl87R/d6NJD9+jrnSPChd4qgVE0gRN480=@vger.kernel.org
+X-Gm-Message-State: AFuF++ks4w09A4abUzsJgjStX6OFBL2ebCBaKGbcVs7vyBHeZwt53b4E
+	RZNu3Pk/ZWnQqkcKmC48f4jQlui/nkVGITGyYzaOdTcehl0t5Ep7OBSueGmnkht/a95cnm44Rd8
+	o6YWpo5co05HgPmErj0fAYJzKpqIFEDU=
+X-Gm-Gg: AYBFou1sfL028DZ00yD+QJ8HWUJDu+z8DF8OWUryE4CaXHxcfoU8BvrrE25z5P4Mc/7
+	BHmls+ByjdoGmKADxHCHPxDGr7rwNnn7rL5nIBOLvZBntYiKbhmy4G6iPEl81Se/Q9BmkPYwVhC
+	yy4y4toqn0KOssjVvh4dgGCerXqJvhIlcDhdgRm6wA+Go6PgvwKbc5r7YgeS0yDwKXl0ANUi1uy
+	Ah7ea03RVHvfJ4zNO2ZiV2SqtGtSY7VGVXn2DXZHFrsfHph2anltABQy7UXFp2JEOa6mVXh5DUZ
+	TSmpUqv3qVkzJxNKhbsUywbFDaWDDcWrp04F1m9orkYDPy7+onH3KOKpbInHHD+2VrBWzuTnRzw
+	trRE5KUI7YhzPTNJHcspH2D7W
+X-Received: by 2002:a05:6809:a:10b0:4d6:90f3:74af with SMTP id
+ 5614622812f47-4dc66070a82mr7548908b6e.47.1790694304147; Tue, 29 Sep 2026
+ 08:05:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT6PR01MB309022:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2bee8a9-14c0-4d20-5854-08df1e3ae963
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|56012099006|4143699003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PWqZEan2pySRm4WxkEPjh3j90f+p96WlpItLNsOaWZVIFBl4ZT7Zfi0tu9ghCyZkH2BoKc1gCU4RrJb3DCgtC6rGfrtGaRTYtvvwDe0Ou9uW55iafU3rmbppTNBSB/WczVqmJim70eOq5mx1m2CiaLnPiGRTyDljGcI2eHcDfVpHAsIgzvR80HEz73mPXEIv3IyaGoNx8EvNbb2/AE1fCNhcYk2Y5hGyijYLIYrt7orNtWvWesiLbp/hh4nwoOm41Wci5SFuhyEu2tnPfDul/3w8B61NBR5DP2M7/YHzoo1hEukk4UJtmswf13lDcDOUy5rxZaNV1LgNmIf0NK7t7lliWvTME1BZeJsJGky3kfirnIzbw+DqUnh3t1mgyAVCIgb5Swc038PNIRz0mAr0VYPDPzWlZ+nsw+GXWHm/+61SU1txpHfn2/lP6hJEgyds99AtJkj93OFErhfGNAJbr5TuEEW3Q8PJyzh7nZElVwOYt0YwQUBcB9LGIzPpRWzPsmhO6nVFQ2ZBmvbbi8JB7rJ+8dwp/MK1Bp4x847nMHCAws2tFhJ/shRG5AtSwRhYb1EdsDerMZrVpz0vhjduwyOODchwWPSwyWJAeUaPUEQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(56012099006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NEpIQTkxTm5kVGV0UHB2MHlNOVJPTGJjSzlEK3lUYzZlWlZXbVNITHF6aGl0?=
- =?utf-8?B?UkcxYm5SMmx4ZlUzbTNjMVdIRDhESjdMR05ZYnhBdGFPWmdCaEYwR2N3UGpQ?=
- =?utf-8?B?aDFkOG1SOUhoQk5aT09tcE0wT2VOOHB0aUliMjA2b2hKbHhrdStveHUyLzdE?=
- =?utf-8?B?OHFEYXNhRjh0NzJYSkhNZFBsdDBWQUkzYU02UDd4bTBzSVROc3NuY3dIRjN3?=
- =?utf-8?B?aVlUQVhVREU0OGpSY0N4MVJwUUd2MVI2YVYybFlTeFJXS1JjQWsyRG84bnlq?=
- =?utf-8?B?aWhGQW1KZ2JER0xlV1V1S0c1MENJMEg0akFTSTQwQTI1Rk1HTjFIUUhCQ281?=
- =?utf-8?B?TE1LUDV6di9pWGVKNWI5Zmh0VjdBVEdiRklxZG0veW94Qm1rOXpCNkhlWGRi?=
- =?utf-8?B?R3hoK09xeTFuMDd1NVcrQU9lK1k4Q01GZlNEMG9FZzhXWlVLc3JYeU13cWJZ?=
- =?utf-8?B?NGhFcUl3alhuR3Z1QjJOOXVXcVhYV3piSXoyeGJmZTd5WjNjbG1nS3FNVGt2?=
- =?utf-8?B?NEYxS0JSdEw0Y1VKWVJKcmlxeEphT1dXVlRpWTZOTGM4dzJMeE1UTldBWnVw?=
- =?utf-8?B?MnZwQm9DNisrMURGWit6OFlrNllZb2pIdGtvcUNISGVZVVdEQ2VlaEU2WjlY?=
- =?utf-8?B?K0RURjB5NkVNNmRBelZxek9va2FycXRNMHJuNmFJRERBdHQ4aXhwWFdXTngz?=
- =?utf-8?B?NXd2OVkrMTNNU3ZVOS8xTURPcDNpVTY5ZWJzYUcrYk9HaTJSbUI1VUxvUytT?=
- =?utf-8?B?Wnd3cTRpRGNzbFI0SFdDVGx0enV5K2NKWWJXWFRSYVBEZnlsZHNpUHEvbUdC?=
- =?utf-8?B?dHVwWHo3eENVUGJheVIySFZIYXNILzRGMkNYQU1VUFZoajM2eTh4U1dKQk1q?=
- =?utf-8?B?dFNlS2p1ZGhNVlRVQ3dXemc1TjNSRDBtMlJodmVLQjdPcjVQQkwyOXFLcDhh?=
- =?utf-8?B?TlYzQWFxYk5uMW9iQnVCbEdjZ3hCV0JuVGxXY3ZZRVQ0NzM2VzRFb3hlR1BQ?=
- =?utf-8?B?YTdlN1FyRms5SHV2b3BTR29FQng1R1Y4NGN0dTZiZno0dThGczlXeHpSd240?=
- =?utf-8?B?SzJOMTJvR2pBekFyaGt3YlcvL0plTFBLUXNSZHdxTnFaSGJrVkV5YmhxRUNm?=
- =?utf-8?B?Y3VBL3FoYzd1VDNkYmE4Q2xrL1BYOUlENjFnMExFRDV2T1hnR291dG9QcnZz?=
- =?utf-8?B?VVFXaEFia0tPT2YzZlgrM3FFb09tbFc2L0l1dThMZytGSmRidDJXWnluTk9I?=
- =?utf-8?B?d0N3OWhsL2FkTTV3K2FiOW9xU1IvcEJBTisyTWoxYXhZOHYzR2srdlRqcHdu?=
- =?utf-8?B?cUtvaXBxTTVUTEJzUC9wL3JzY2xSZWlKTnVUMVlPK2J3ZEllbU9tM3VVM20x?=
- =?utf-8?B?YzBNekhiQWFWcTF3MWlqbHNGeXBiSXZCZnpBRDM3QmgzVGIzMkRLZDZVQmUz?=
- =?utf-8?B?cHFxdkZJc1JVa2RRbHUzQndhY3hOZFlsMFJJSTlKRTF2OHFxUlo2aVVRSzZY?=
- =?utf-8?B?bi90TEJBSm9qUm9TUXZabXhCajFMTHFOdGR0dzVMZUdnK2VSQ1hCc3lwMHlx?=
- =?utf-8?B?MmZVYm9zY2RqbmVHTzgyaEdURVNVVlZXelJrK2JrK3lOOE9xZlhmekYrQktv?=
- =?utf-8?B?WTZ5L0tNZURkYm1xYXZ1cDAwb0VHbVRYK1Y0aVJTOXpSTlJONHc2MHpDMXdR?=
- =?utf-8?B?TnJJNFpKbE9YNFVVYWVKN1VqMUhVVnQvZ0gyN1Z3MTdwcWt2M3UzQUlEZzIr?=
- =?utf-8?B?NVMwVjNBWGJObEhRc3FRa01IZ1I4cjRidVJvTXJjT0ZsUWthbVljZlNESVh3?=
- =?utf-8?B?akRHb3VzMXlkN1labzBSRVNSRlpvSHR1UDFUaUhzc0YxZUorRDR4YXpYdTJX?=
- =?utf-8?B?UWhhYkRpYmpkdlF2Z1hjSDVIZzJDdGk2cE1Hd0c3S2hURzJDOEhYNDl3a3R0?=
- =?utf-8?B?R2FXbG5FandKRCs1T3RuVE82RGV2VTVLd1dwOGxCTDduNVcxVm8yMnRHb0hp?=
- =?utf-8?B?RTNTNDE1a1FCY1ZHcFc1UWY1bzU5R2JuTm1UOFpJMXU3OEcwdTNpRGp6NTRU?=
- =?utf-8?B?eWNKYy80MFZkRi9jbFNOU1M2ODhHWVNkZmlEQWJtclkwbkorWXI5Q1pXWVNq?=
- =?utf-8?B?cVp5QVR1dmdEbWQrNXA5QTZhY2lsanVJL2ZUSHZzdHZwV09pYitiSkZEOTFy?=
- =?utf-8?B?UHpHT1RjMUNzajVmZXVoc3BIczF2NmZrTVo3cnlVOXl2L0NqVkNKNDhweVNa?=
- =?utf-8?B?SlRqc3RHU1poT1U4VVkyZERPN1Bza3Vidmd2ODR6dDFOaUEzL2tOSjRNVHNF?=
- =?utf-8?B?LzZYeDFGWUdrUFVTTGtoTXljZUJES3JlMUFIV0NtVDJ3QkloSDlZcUhzdlh5?=
- =?utf-8?Q?i2/tqz3p5ECq4rXs=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2bee8a9-14c0-4d20-5854-08df1e3ae963
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 15:04:08.3592
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 21uhG9b/R4ra6C8ANFKT5BLfL4KkH8HpQPxddDaNoc/BKWwyyUpDoLxsOu8wnXA18+7KYvn59eNldwyTUfirJ5mNYq8wnk2mNYhudnVu7/s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT6PR01MB309022
+References: <20260929115956.229610-1-chenyou910331@gmail.com>
+ <CAOB9oOY2V68_qnv6DFyDJL2d=50zN_oQ6=6+Fs7=Ez+9TnuDmg@mail.gmail.com> <CAKspUh+rJ7qm7VKXTYcqqPxwNWnNJ09p3DAciwGXGzpBCOJ=NA@mail.gmail.com>
+In-Reply-To: <CAKspUh+rJ7qm7VKXTYcqqPxwNWnNJ09p3DAciwGXGzpBCOJ=NA@mail.gmail.com>
+From: Yizhou Tang <tangyeechou@gmail.com>
+Date: Tue, 29 Sep 2026 23:04:52 +0800
+X-Gm-Features: AclHuK_KzzfKzL4l-grenIAxx1Sm9JijVCMZ7ff6XE5coebowPrLv7qkSaiuoKk
+Message-ID: <CAOB9oOYdHd3kpnj4aQOnbubTsLLgjw4n9aFMcjQqL-3unNDLAw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/7] docs/zh_TW: remove duplicated maintainer contact information
+To: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org, 
+	si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Andy Deng <theandy.deng@gmail.com>, 
+	Bailu Lin <bailu.lin@vivo.com>, Bernard Zhao <bernard@vivo.com>, Bryan Wu <bryan.wu@analog.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Chucheng Luo <luochucheng@vivo.com>, 
+	Dave Martin <Dave.Martin@arm.com>, Dave Young <hidave.darkstar@gmail.com>, 
+	Dongsheng Song <dongshneg.song@gmail.com>, "Eric W . Biederman" <ebiederm@xmission.com>, 
+	Eugene Teo <eugeneteo@kernel.sg>, Fu Wei <tekkamanninja@gmail.com>, Fu Wei <wefu@redhat.com>, 
+	gao chao <gaochao49@huawei.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hailong Liu <liu.hailong6@zte.com.cn>, Harry Wei <harryxiyou@gmail.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, Hu Haowen <2023002089@link.tyut.edu.cn>, 
+	Junhua Huang <huang.junhua@zte.com.cn>, Kangkai Yin <e12051@motorola.com>, 
+	Leigang Zang <zangleigang@hisilicon.com>, Li Yang <leoyang.li@nxp.com>, 
+	Li Zefan <lizf@cn.fujitsu.com>, Maggie Chen <chenqi@beyondsoft.com>, 
+	Nicolas Pitre <nico@fluxnic.net>, Punit Agrawal <punitagrawal@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	TripleX Chung <xxx.phy@gmail.com>, Wang Chen <wangchen@cn.fujitsu.com>, 
+	Wang Cong <xiyou.wangcong@gmail.com>, Wang Wenhu <wenhu.wang@vivo.com>, 
+	Wan Jiabing <wanjiabing@vivo.com>, wheelz <kernel.zeng@gmail.com>, 
+	Will Deacon <will@kernel.org>, Wu XiangCheng <bobwxc@email.cn>, 
+	Xiaochen Wang <wangxiaochen0@gmail.com>, Xudong Guan <xudong.guan@gmail.com>, 
+	xu xin <xu.xin16@zte.com.cn>, yaxinsn <yaxinsn@163.com>, Yinglin Luan <synmyth@gmail.com>, 
+	Zhang Le <r0bertz@gentoo.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-29 10:47, Linus Torvalds wrote:
-> On Sun, 27 Sept 2026 at 08:51, Mathieu Desnoyers
-> <mathieu.desnoyers@efficios.com> wrote:
->>
->> +static __always_inline
->> +int ptr_eq(const volatile void *a, const volatile void *b)
->> +{
->> +       OPTIMIZER_HIDE_VAR(a);
->> +       OPTIMIZER_HIDE_VAR(b);
->> +       return a == b;
->> +}
-> 
-> I had to think about why I hate this so much.
-> 
-> It's probably entirely senseless, but this just rubs me the wrong way.
-> Those OPTIMIZER_HIDE_VAR() statements are hiding the wrong thing. They
-> are telling the compiler to treat valid information (the pointers) as
-> if they had changed, so then the compiler will have to just reload
-> those pointers when they are used later (and "used later" is part of
-> the whole *point* of this, after all).
-> 
-> But it was never the pointer values that needed hiding from the
-> compiler. It's always just the comparison. And while the "optimal"
-> thing would be to just do something like
-> 
->    static __always_inline bool ptr_eq(const volatile void *a, const
-> volatile void *b)
->    {
->          bool ret;
->          asm("cmpq %0,%1":"=@ccz" (ret):"r" (a),"r"(b))
->          return ret;
->    }
-> 
-> that is an architecture-specific thing - and then have that
-> OPTIMIZER_HIDE_VAR() available as a fallback.
-> 
-> I don't know if it's really worth it, but I really do despise that
-> "hide the wrong values" thing that generates two new values just to
-> compare them and throw them away, and adds register pressure for no
-> good reason.
+On Tue, Sep 29, 2026 at 9:18=E2=80=AFPM =E8=91=89=E5=AE=B8=E4=BD=91 <chenyo=
+u910331@gmail.com> wrote:
+>
+> On Tue, Sep 29, 2026 at 8:14 PM Yi Tang <tangyeechou@gmail.com> wrote:
+> > I have no objection to removing the duplicate contact information. I
+> > noticed that some translations in these commits were changed to
+> > traditional Chinese terminology, such as changing "=E7=A1=AC=E4=BB=B6" =
+to "=E7=A1=AC=E9=AB=94". I
+> > suggest submitting these changes as separate commits to make them
+> > easier for everyone to review.
+>
+> Thanks for looking, Yi.
+>
+> That change is not part of this series.  What you saw is in the
+> range-diff, which compares the v1 and v2 patches as text, context lines
+> included.  v1 was based on v7.2 and v2 on docs-next, where the zh_TW
+> process/ series has already landed; that series did the terminology
+> update in separate commits, e.g. 5f0178db86a3 ("docs/zh_TW: process:
+> localize terminology in embargoed-hardware-issues.rst").
+>
+> So "=E7=A1=AC=E4=BB=B6" -> "=E7=A1=AC=E9=AB=94" only shows up as a change=
+d context line (note the
+> blank second column).  The v2 patches themselves change no wording;
+> they only delete the credit and contact lines.
 
-I agree that doing it in asm would generate better code. Also, I've
-been told that clang now preserves the address dependency in this
-scenario, so perhaps we'd want to use preprocessor conditionals to
-select how to implement ptr_eq based on:
+Hi Chen-Yu,
 
-- architecture (allowing asm implementation overrides),
-- compiler (e.g. if compiler is clang >= version X, just do a plain
-   comparison). Likewise for gcc if it ever decides to fix this
-   behavior.
+Thanks for your explanation. Please feel free to add:
 
-I think this "hide var" hack is a fallback which can be used as a
-starting point, and then we can specialize based on architecture and
-compiler.
+Acked-by: Tang Yizhou <tangyeechou@gmail.com>
 
-Or do you prefer this in a different order ?
-
-Thanks,
-
-Mathieu
-
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+>
+> Thanks,
+> Chen-Yu
