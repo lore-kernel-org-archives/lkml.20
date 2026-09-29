@@ -1,83 +1,84 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F72F3D9DBF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A98940F721;
+	Tue, 29 Sep 2026 03:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652525; cv=none; b=l+QPA5XNfwWaDIukGnMuOLIl68jbMERIft1zeyq/4n68APMuwAdlJzqKdV5oxI2zFnI6hJMoOeXUYpsHu95Pq5A1bYfSoYJs2eRymwJOS/qTeOSQKw6wdVqsEEpNk3J/ASTAy4Aww8JYEj2C2DZRcAV+XUBFzy4HZtI07EYg3pY=
+	t=1790652585; cv=none; b=pIoTfG0G2Pv4Qo5bgiXP290efjuKDqQEqT2z0Nl2tNGGU1LeQCKBiz9Nw9pm8oxnyP/+KvLqxKxtJpRcAF3YZ8ht2UdHyd9aTfYxKiJxnemfQcw+doz8KWvQNXjo5Fax/RZP5xHOHKjBwdQ4BlAYXAcJeo89bgH6iC9/DnIl9Xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652525; c=relaxed/simple;
-	bh=Ppa/5bvyDHu70Z7WWJJ5TYTAyJSoEiJO45Y9vEXZ7Jg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=X9EUpMunfkjs65HwK7Iz0tG82UOQHMF7BCZs38i4fMy98WD2pJxxU7I7wMYAmhNmhTRecDeHnTWK+KO+/T/R186WtcS3exPdRwQsguNHiY6shELKHfo9aRJW+UVmvzK3wJt97nqLZFV0aZI8kEuOnqrezVJQQ1bm8FYwez2scY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qhNNCmXl; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790652585; c=relaxed/simple;
+	bh=7f8Aa5fo7eEpQYWHh5EnbL2cq+jY/fb/np0MlKfS5mE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHP2dxo/i4zKyoGWuAuhnyq1hUbSVxiIxlR0JI1+I/uOsgA16oYfG3bKjiNy+/Scm6QjI2VMnqPQtIaGPUXGGT/7/RRBRXRU4B+X61N/i1Ccp/pRU0dXwqeHldva3OkQacc9jzrXZLP2B1b4s0E8k2sJuNiiIpB6B2J6KkYzx8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=UQgOCDje; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=x+dzQojf; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qhNNCmXl"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a496aea5dcso86086a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:28:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790652524; x=1791257324; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ppa/5bvyDHu70Z7WWJJ5TYTAyJSoEiJO45Y9vEXZ7Jg=;
-        b=qhNNCmXlqQmL5zuuX0SACJUz/rgCDcvpOpVhm45QmziTU6MuSIgDB5m2T+RMNcgHKy
-         VQzZkqFg6CmkKWbYJ9iOjURAk1l8rE+mCsklsiGRRbl0WDbHaghw5dYe+YPsxZRCbr4A
-         MwLOKKAad1BPCY+o5jwKBXqIFCg61chija4eqUagyCX2TDE04CnbqSgR07qqeLasFz71
-         iw+qBoBtzFWJDra+dYQMfpZP0vzgstv7SkvXUAvjfIPJOAoer3V5k4fWl4RJEJcWXNhu
-         5s1Yc9Vb82IL7y0QRMy/FTapUIoYTD3Ai1LKDmh8AUfJ9kQ3CU17m0P9cx8K+5JTZBSe
-         jG/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790652524; x=1791257324;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ppa/5bvyDHu70Z7WWJJ5TYTAyJSoEiJO45Y9vEXZ7Jg=;
-        b=BOfjQQ+YfnifJHElbcXjHRwiO+Eb5DBGKkz7bP6iEHZFsb4wcCn0HvrFsxkG+qLvlH
-         bV+jsxeXf9GFW5QQefUs+jS4OleeOYwKxKEIaAZeVhYjjPJf7QltT8Q2UBJ6jxRbDmUU
-         ShfRkPPyU9kTjoifnmdLkI+C4TpiZkGmk9GQnEhLzFr+9mEmlAQySkrgcGEo5NV5ZVRU
-         Pdi/DI2SGgHQAjN8fHcHFFtkmwk0YNsNAQ05GHlq04eGkT1KolZ0AdmK6U8SRgoQP/Li
-         QRcENUuxBlrLS7ojZ/+lALh1/OmrHbQp0KX2/mvy4NNuGbTwHyjnYoQ0/9+RoSMaWW9K
-         2xVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTse2F4AZfhDq00/A5eAdEbRu0VYoKEqEMDc7Sr4frrDVnSaTnxMs0nZzv86J6WTweptQHy9AkVhWNVi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ89XYJlTfQNGRxVLGeoMxX2ZtqhAFhq0ulmUZa6aa22az3ydgR
-	Pe3UkQdYAi0ES9Mq0Xvqy4cvwPMmh9ydxkWR/3FbkVBNtOPWPlvItsZg
-X-Gm-Gg: AYBFou36pJcKhKRT9sav2IkPhxLS1YkoA+ZVH4b9T1Xuv873UesgS17ZM4EWCcRZmyH
-	BNcIFa+p1Idf0i5ZV562Lcz/LDvhyXav/b5i9QjwdQGs27j/F151A3bl7jrGtK+yeekzNmFO2VR
-	zqw2YCCPyP35INwAjju55nwcKOEWlD9gOt43Gv0KkHPb7tawlTNzSqp+uq0rsY6UwSVIV11XV4p
-	cXdrcQiAoXVvIK4Ovf2tYoQzY+z2sudsN2csQfN4wy20bkzpbqWody2u4nLqA1cj0RZM6xyW9LZ
-	pOdwKtvqUDzJbUyRXqRTtz9SOQTPfAFEqicaqrR8ymm39yIzp7jYgaqzO3d45aCr09AL6ukGS2G
-	rlwuKAckZFOsvEo7YoWkIGXpzOyC+HF7JQPWLHn/K+by9a7PWojvkEpCw3AxeJ+htPTeluckXnd
-	MfzEunkOp/24Jlk3MFBX2XCz7zzKBW29pHlgHKdepGdDy9N5e276dVmFM1THzsAIB/hLaTow5W2
-	enu0AvGxSn0Xak=
-X-Received: by 2002:a17:90b:3c4e:b0:3a4:88c2:32b8 with SMTP id 98e67ed59e1d1-3a488c245e0mr4141496a91.1.1790652523654;
-        Mon, 28 Sep 2026 20:28:43 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986e9656sm934089a91.0.2026.09.28.20.28.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 20:28:42 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Rob Clark <rob.clark@oss.qualcomm.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	iommu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="UQgOCDje";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="x+dzQojf"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 44A4C1D00103;
+	Mon, 28 Sep 2026 23:29:43 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 28 Sep 2026 23:29:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm1; t=1790652583; x=1790738983; bh=9hJKAXpF2s
+	LzODfI9vGGcsByD6WcWqX1LcRMl5/KGko=; b=UQgOCDjeZG4VJg5oVRejslHW4Y
+	EyCZ9KYeN1C5EEVPoH4fnhzX28xuQv4A+hN2JJ0iGh4z3ZyO0nhpeJ0Rs0iyTfmu
+	7KmapBGqkNmo+TwRRtBrDc/fQ3dwFolzdBh5oBHIUOmXlA9tZexiFLwsfq6nVfIS
+	OvjqeMBF5TbqjXd9Gz8gwv3OnG9GbqZWAZvX09jDSds0VA2UM6Eox4mdEU+mhNfs
+	KP23GlV2GJn5Uq140Y2+OBNgQkb0d3nlbtFVZ5ofszXRdmC8s1t8pGVvlgB1WAgn
+	Ji/VVDkexCWjwpkLWXCUM+SyBKn7mYijbJeFEFTHRC0nWCmqsjBP6xMKyIKQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790652583; x=1790738983; bh=9hJKAXpF2sLzODfI9vGGcsByD6Wc
+	WqX1LcRMl5/KGko=; b=x+dzQojfVPAlXqYQJ5DnmOhG3zz5FyVgHs1//sG+ESR5
+	wLem9SKQ08pfubwQ5KMFgpPhGqa8be1xFEMxZmWklEckWGJxRw+rraM4Uo7P1DFE
+	VQTP0vc007Dy8Se7PTG1etkMvuowEnhkBHBiW4pfb48aCeYlOCjdDZnXuSCiSCPG
+	+zxXiB5JJ5gMC18dvAcI6o+RMzfeArsKzyAgfWXyfC3dNGhPktt/ZBcBpEy9VsDp
+	9/lkh76pHumwE4dOOYFtLHjxHtzRnHTr+xXuF8QjSscb3ZjpmM1yoQCzchLZhQmB
+	iyXMX62/oL8bDylkVNHU1E8yx7e6oncTjBB8yTWl2g==
+X-ME-Sender: <xms:pjC7ahMZ6v9izReFO24K7P3vcaQpDMcVDMYiwkA8vH7W6iLXStB0Fg>
+    <xme:pjC7ao50RO4uuJwFAhsndEi-hKj5JeuuWPmVIBTVxWg8Cx8VjvUi_USvaxtvv8t4r
+    eABtqSEzc54tABX4QnZoGL8-i8Fvvyg3EcDB3oGjRAvThigOPo>
+X-ME-Received: <xmr:pjC7akhkRQwuBRWyV-amAfvCQRYyccIukiXkP_YfeSuE5J-Yo_4o4hG46g0Z4cQ-wAneXLuaUvTJpjBvJdRJ3hIuw8FBJ9I>
+X-ME-Proxy-Cause: dmFkZTGOx/+Pvc5ych3eC+UU4wDR+ryhvnN5NAcpBNOGBHPYXabDq5OhbMpHIr5C9IfkR1
+    lvqc1KgQ5z6ZtrHK1SfezsFnqLzd2zmx0B5tPTL0kgNl6/19majMbeGZPuZMJ+G8DxfADU
+    dbP0gyawezda0oyLmKOSUFyKwEN7A+yRluSLoC4ICaVANsLb+gUOKg3D/u9y3ozLXD9s6I
+    zxb3D6wilw6aguHY4sKXyW6gCoWn9nqeOrsF1vbqzEVnBSl+dUCiXjepnwG6NzieDN8ZjY
+    OTw9WbOYGhdly37TfcVbrN13T4YY/pi+7GKAHqSIU3wv8I6KhUJbQIMZ2JLloHlgPoMrmt
+    vh5Qp7gKQBfgYcdSZzUmi6fGW6gHcLPHLRJPcP+2xJKEdQT/0JwR82ByUwst84rt9itafQ
+    4L7QfconP/9XB/Ch4bADMQafZ+Kuw53oCZj78JRlvc22YB0XgTUWlGg4AyIRdef9SyBxtP
+    zF0fOJYuF8hBPblu2yj0SidOnHMzR+1BPm9msDrLl6JFFQ+eTS/8dpkjMoOs6blB3ed9jr
+    GM0KlSLUDVaJT5PAWGcJh7QxViiIieeBErMVN6YPzXF1uSG89QSpPBuDUnHDJF5uzdFX9E
+    jhlow0VPuhLdk1ZiZjk9tu3UmjQWBIOeZYMWlMcjbNRAvQ7wdP/92bsAv3kQ
+X-ME-Proxy: <xmx:pjC7atcYpoXfAquGmy-SX1Pd_AMffrpgS3TsDVQxxQtFVFJkxP-cDw>
+    <xmx:pjC7asy5REOJfyiIUKiQV9vnjJR4bqGPyzKNHazo2kHiMipAQZgfEA>
+    <xmx:pjC7as1KDAsrkP34fdalfnT1eTNsxiExL3ILSPYhCZc4j6BMPKmvIw>
+    <xmx:pjC7aixAEu763atouj7ItlkNJ70DvbkkmEVrm7zGSYWWOSsHbE42Ww>
+    <xmx:pzC7ak23Z3Qlw_9mv69KZj6foxIAT3it_hAGDyp_qwuD23cBhZowMbbl>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 23:29:39 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] iommu: export iommu_get_dma_domain()
-Date: Tue, 29 Sep 2026 11:28:35 +0800
-Message-ID: <20260929032836.37312-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <47bf9a4c-2a47-4e93-bcdf-8d953c9a5ab8@arm.com>
-References: <20260928053901.7270-1-liujianfeng1994@gmail.com> <20260928053901.7270-2-liujianfeng1994@gmail.com> <47bf9a4c-2a47-4e93-bcdf-8d953c9a5ab8@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH 0/2] fuse: prepare for VFS locking changes.
+Date: Tue, 29 Sep 2026 13:26:14 +1000
+Message-ID: <20260929032927.1451259-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,25 +87,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Robin,
+I am working on changes to directory locking.  The medium term goal is
+to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+can be run unlocked, and consequently cannot be called when ->i_rwsem is
+held.
 
-On Mon, Sep 28, 2026 at 12:26 PM Robin Murphy wrote:
-> NAK. Read the comment - this is an internal helper for iommu-dma
-> (currently the only IOMMU_DOMAIN_DMA implementation) and is definitely
-> not for random drivers to abuse. In fact it should really move to
-> iommu-priv.h now that we have that.
->
-> If you want to do sketchy things with your device's DMA domain then use
-> the public iommu_get_domain_for_dev() interface like everyone else.
+The requires:
+ 1/ the d_alloc_parallel() not be called while i_rwsem is held.  fuse
+    does this when priming the dcache from readdir results.  A new
+    interface d_alloc_trylock() is now available and can be used
+    instead.
 
-Fair enough - I'll drop the export.
+ 2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
+    unlocked d_alloc_parallel() would then be able to create a new
+    dentry with the same name. Now that d_splice_alias() is able to
+    splice a hashed alias, create_new_entry() doesn't need to d_drop()
+    any more
 
-For the record, if the msm side of the series goes anywhere, the plan
-is to capture iommu_get_domain_for_dev(drm->dev) before msm takes the
-device over with iommu_attach_device() - at that point the device's
-current domain is still the DMA domain, so no new export is needed.
-(Christian is pushing back on the msm patch itself, so that may end up
-moot either way.)
+The patches depend on patches recently added to the vfs tree.  I would
+prefer these land in that tree too with an Acked-by or similar from fuse
+maintainers.
 
-Thanks for the pointer,
-Jianfeng
+Thanks,
+NeilBrown
+
+
+ [PATCH 1/2] fuse: don't d_drop() before d_splice_alias()
+ [PATCH 2/2] fuse: Use d_alloc_trylock() in fuse_direntplus_link()
