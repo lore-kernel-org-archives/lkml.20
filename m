@@ -1,167 +1,215 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BCD503BE7;
-	Tue, 29 Sep 2026 10:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676754; cv=pass; b=AMDXoPhWhBSVZ8xnrz0fm0Pc2Z6Avm1DuhrKYhnH+FpmnYWhObCcAkHwntTbVIlVPqd1kIkAfIFuedLV2V5Qvkl/GmXWfempq25jUFIyIoyC8dRW8LeQr2ix5yNUXGotHGxoZQ+XIW0WwgVcq5OqtC2ebsbY2tdkIV9DbXSQ2Yw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676754; c=relaxed/simple;
-	bh=XyIitUiP6AUCSd6cqj7uqBLAVwkOBK6aH7GJ5I7MbyQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XBgjcjCOaiKp6RfD9igMvgcN0kXVw6LIJ/dF8v1he+eh682Xgd6u1sasUFcJFU+82YJscUBJzAPbbctx5mdy5djnkXU3nXTZnnZDCqIbn/W7ICUC7+e8Z+xOudcaVTvEda85tLpeg+353/jfoYaHLT7c8JDqwS7TH56VAb1TTlI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=K2OlS5Bf; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099BB47ECC2;
+	Tue, 29 Sep 2026 10:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790676817; cv=none; b=gILiU0VTWAxGF7dpLR8YgojEJPTvwCDMQtWD2CIZr2iiNxfJAc7IKPhwUh5vrRc2wRlUgUxPwLR3L6ZCEVkLHyphLCKYZrOr2zmDOxaN6NaGNBriztmlihPWEkKt5lORJEmVshmF5RmmgQqEKcLIbk+0aUzxhGAPJYzMeywufZ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790676817; c=relaxed/simple;
+	bh=imsng58a+/4gTFCbL/rJKuCvk9AThAC9CqAN6MHYNas=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gAqb3AQlD5idrjKw6Rigzv9OMN7KOtrdcifNl2KM4LC7EEnIXpSMKjJHBLdz/j7cLAC2DJca3PJJsbXTtPlRYBpx9yeTg1BpcBIr/gfzOQpZbAIvWpl3uI/uCrdhFtPmx+iUTRwXfWsDHk/abAy8MSdI7Yeex+g+L27WlzkZX/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3g+Jowu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="K2OlS5Bf"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EF56C200B4C;
-	Tue, 29 Sep 2026 12:12:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790676735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ICjddjREjuGejT0MXNRqZQvp0TG3NvKLN4PVTJSpvsM=;
-	b=K2OlS5Bf03hIV61YHI135mvuHxFIRMC/C2c2s8mSWieBxoULSPtY1b8pqY+RxATSbJeZnk
-	Oz0JdTAPShqRSjA/i873w0rcIumurPABp9WZfwtXds1+puqtu4j/pXHaIKlAFGioaUcF7O
-	HikTr6R3tFXjvIxJrjDqZKIoZd5BdmRQ4qEL6xiT/aNLHSeQTJGsFVJ0F6bFXbNzMlGHcg
-	QRhDUGFBL7P0Tk6HZPeOD8Ud3mCtU83de5sXDQ6BFDKD6KhtM5jOCvm69YLlyH8ndBT9rI
-	yf2PaW83NKy7I1yItliD8D/8peDJct3yhwLw8759NjXdtm6RhSyCSjvUP2HH7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790676735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ICjddjREjuGejT0MXNRqZQvp0TG3NvKLN4PVTJSpvsM=;
-	b=C+ibAJWp0dkSBX6OlGqOJHeacYC+Mm3XtTHvBeSD2Yh3LlC0rEwNkfftYt+xle/ecdFTEs
-	CiQLe46Xzq7+GrBDZnhfcjxtNxlRupGQBjRCZmnQhwJfKCMNkA9DEZ8P30AWgqbkpKcL4I
-	/LT03K/xJW+Wg8ih/3fNJmg7a6/T9iEA682TTqGGziXwn9mWGRSl/4mdOzPEw53JODPTlH
-	Un1Y+Mm7bSXcXdS497OwMW5yb0LJy7E682+972i3Aw24iIsULy1ZmweKLdTFtnf5yU7m9V
-	mthZ5hPX4mdaAQ3Vd8r0x4SgLuXX4uBT26gmi1H3uS8JBRSLeFPnn/zrn4gJuw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790676735; a=rsa-sha256;
-	cv=none;
-	b=T29zZEf2+GRat34bISic7Ny9b/NIc0oeyuCAPci7Jw5A3lDfe3zOXf05gJPl8NGXTAperF
-	tcfC9MPs6DvYwazUmeFVH0wurYcGS66WNkBeJ3zV1jKSuP61kMATulCCDiOYlVNf2cVHDA
-	HMJFC7DuKpyiABA7vfty9TJVOxemsybBDXFWVHLWXzR/Etj8CoCXhg5BQlfgBNbBT51fR0
-	NNRoh0LfyAJiXY88Cu+e7Araf0hEOtYVZd44nJKMEn5BcLYv3iJnoTs7XV4Rvb220XuoD/
-	p+iEX8IV4jFWhFsty2jxRnfxBqyMyoasG1fzi0T+sbGrrfoA1fkYtmA30nrJWQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xBUop-003NBO-2o;
-	Tue, 29 Sep 2026 12:12:15 +0200
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 934325B3469;
-	Tue, 29 Sep 2026 10:12:15 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Tue, 29 Sep 2026 12:12:09 +0200
-Subject: [PATCH can v2] can: esd: acc_start_xmit(): do not touch skb after
- can_put_echo_skb()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3g+Jowu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82CD1F000FF;
+	Tue, 29 Sep 2026 10:13:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790676802;
+	bh=Uo2Ng6wtWC0FkzjabJoP2mHrzpD5Juo3eVHvrvGVevw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q3g+Jowu0wDH6Y3ReObcsj+O43By1MZHmxCP0MufflC6uxWFhhh1e3uslXwpRF4l7
+	 HEkMzzFScSwR6H1KmCq0ylyvPr+QWyTnhfOesJJs/8KPPV8woZCLTP1FHebW6hU4vZ
+	 dMKxXJUXyPFQ9VHvgnisQEISn/VGMHcfIz446VduYfEiW7yN2qA6M2Hnur5OM8pPj5
+	 ZQq+zwKobLnFURZGKeV9pYI73LH9LrGgzKxqAVSAtEyt15Rw24gCQvM+yGEcoADxmZ
+	 7WrMdoGuOPyi4VRk92G+0L4ejAS7CooJMfyQdRnOVXm5762ySRG8csv8qwA2/JDDhb
+	 +oQuApHTYKZDg==
+Date: Tue, 29 Sep 2026 11:13:17 +0100
+From: Lee Jones <lee@kernel.org>
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
+	Marek Vasut <marex@denx.de>,
+	Pieterjan Camerlynck <pieterjanca@gmail.com>,
+	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	linux@ew.tq-group.com, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 10/10] leds: pca995x: Add support for group brightness
+ control
+Message-ID: <179025020617.457255.2187144572484405270@kernel.org>
+References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
+ <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-esd-fix-skb-deref-v2-1-542e3e19fb25@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NzQ6CMBCEX4Xs2TW0BgyefA/DoT9bWE2K6QLBE
- N7dgnePM/nmmxWEEpPArVgh0czCQ8xBnwpwvYkdIfucQZe6LhvdIInHwAvKy6KnRAFNTdWlUhS
- CvULevXPJy+F8gDMR2l8pk32SG3fbjvUs45A+x/OsDvjPyaxQYTC60k2wxnl3f1PspjENkZezJ
- 2i3bfsCUtbXJs4AAAA=
-X-Change-ID: 20260929-esd-fix-skb-deref-a6e5351effb7
-To: =?utf-8?q?Stefan_M=C3=A4tje?= <stefan.maetje@esd.eu>, socketcan@esd.eu, 
- Vincent Mailhol <mailhol@kernel.org>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2384; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=XyIitUiP6AUCSd6cqj7uqBLAVwkOBK6aH7GJ5I7MbyQ=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsja3fc3PqlS9ts+du6Qmv1TTjNpH+tUPbS89dzfkvWcP
- 3VtP+pKd5SyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAiEvMZ/inMfWF1qNNEbP6X
- V3ZZ3zNW3SqLs1/hJt9f39znNmGHjDAjw7HTuz3MHvf2O3+LiPJY7CNXyD5T8O8Fp2qXG+3h80R
- tmQE=
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
+X-AI-Review-Draft: <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
 
-After the call to can_put_echo_skb() in acc_start_xmit() the skb should be
-considered invalid and not accessed anymore, but acc_txq_put() will access
-the skb's data.
+--- checkpatch.pl: clean (0 issues) ---
 
-So far acc_txq_put() first loads the CAN data into the controller then
-starts the TX. Move the start-TX functionality into the acc_txq_start()
-function.
+On Tue, 22 Sep 2026, Nora Schiffer wrote:
 
-In acc_start_xmit(), first load the data into the controller using
-acc_txq_put(), then can_put_echo_skb() and finally start the TX with
-acc_txq_start().
+> When LEDs are set to PWM mode with group control enabled, their
+> brightness can control using a global "group PWM" setting, modulating
+> the individual LEDs' brightness with a second PWM running at a different
+> frequency. This lowers the minimum duty cycle from 1/256 to 1/65536
+> (averaged over the modulated signal). Group brightness control is
+> particularly useful to adjust for different levels of ambient light.
+>
+> For simplicity, group PWM mode is always enabled, with the reset default
+> of 255 as group brightness. This reduces the effective duty cycle by
+> 1/256 at all individual brightness levels (the individual PWM signals
+> are modulated with the 255/256 duty cycle group PWM), which should be
+> imperceptible.
+>
+> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+> ---
+>  drivers/leds/leds-pca995x.c | 46 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 43 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> index 61d2581b976ce..d6438b576b186 100644
+> --- a/drivers/leds/leds-pca995x.c
+> +++ b/drivers/leds/leds-pca995x.c
+> @@ -35,6 +35,7 @@
+>  #define PCA995X_LED_OFF			0x0
+>  #define PCA995X_LED_ON			0x1
+>  #define PCA995X_LED_PWM_MODE		0x2
+> +#define PCA995X_LED_PWM_MODE_GRP	0x3
+>  #define PCA995X_LDRX_MASK		0x3
+>  #define PCA995X_LDRX_BITS		2
+>
+> @@ -52,6 +53,7 @@
+>  struct pca995x_chipdef {
+>  	unsigned int num_leds;
+>  	u8 pwm_base;
+> +	u8 grppwm;
+>  	u8 irefall;
+>  	u8 eflag_base;
+>  };
+> @@ -59,6 +61,7 @@ struct pca995x_chipdef {
+>  static const struct pca995x_chipdef pca9952_chipdef = {
+>  	.num_leds	= 16,
+>  	.pwm_base	= 0x0a,
+> +	.grppwm		= 0x08,
+>  	.irefall	= 0x43,
+>  	.eflag_base	= 0x44,
+>  };
+> @@ -66,6 +69,7 @@ static const struct pca995x_chipdef pca9952_chipdef = {
+>  static const struct pca995x_chipdef pca9955b_chipdef = {
+>  	.num_leds	= 16,
+>  	.pwm_base	= 0x08,
+> +	.grppwm		= 0x06,
+>  	.irefall	= 0x45,
+>  	.eflag_base	= 0x46,
+>  };
+> @@ -73,6 +77,7 @@ static const struct pca995x_chipdef pca9955b_chipdef = {
+>  static const struct pca995x_chipdef pca9956b_chipdef = {
+>  	.num_leds	= 24,
+>  	.pwm_base	= 0x0a,
+> +	.grppwm		= 0x08,
+>  	.irefall	= 0x40,
+>  	.eflag_base	= 0x41,
+>  };
+> @@ -114,11 +119,10 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
+>
+>  	/*
+>  	 * Change LDRx configuration to individual brightness via PWM.
+> -	 * LED will stop blinking if it's doing so.
+>  	 */
+>  	return regmap_update_bits(chip->regmap, ledout_addr,
+>  				  PCA995X_LDRX_MASK << shift,
+> -				  PCA995X_LED_PWM_MODE << shift);
+> +				  PCA995X_LED_PWM_MODE_GRP << shift);
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
-Changes in v2:
-- acc_txq_put() remove unused acc_id paramter
-- Link to v1: https://patch.msgid.link/20260929-esd-fix-skb-deref-v1-1-fa2529fbacdc@pengutronix.de
----
- drivers/net/can/esd/esdacc.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+If we use group PWM mode to scale brightness, what happens when 'brightness' is
+'LED_FULL'?  The 'switch' statement above sets 'PCA995X_LED_ON', which typically
+bypasses PWM entirely.  Won't this cause an LED set to 255 to ignore the group
+brightness and be fully on, while an LED at 254 is scaled down?
 
-diff --git a/drivers/net/can/esd/esdacc.c b/drivers/net/can/esd/esdacc.c
-index 73e66f9a3781..05d41ed34a02 100644
---- a/drivers/net/can/esd/esdacc.c
-+++ b/drivers/net/can/esd/esdacc.c
-@@ -62,14 +62,17 @@ static void acc_resetmode_leave(struct acc_core *core)
- 	acc_resetmode_entered(core);
- }
- 
--static void acc_txq_put(struct acc_core *core, u32 acc_id, u32 acc_dlc,
--			const void *data)
-+static void acc_txq_put(struct acc_core *core, u32 acc_dlc, const void *data)
- {
- 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_1,
- 			   *((const u32 *)(data + 4)));
- 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_0,
- 			   *((const u32 *)data));
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_DLC, acc_dlc);
-+}
-+
-+static void acc_txq_start(struct acc_core *core, u32 acc_id)
-+{
- 	/* CAN id must be written at last. This write starts TX. */
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_ID, acc_id);
- }
-@@ -287,11 +290,12 @@ netdev_tx_t acc_start_xmit(struct sk_buff *skb, struct net_device *netdev)
- 		acc_id = cf->can_id & CAN_SFF_MASK;
- 	}
- 
--	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
-+	acc_txq_put(core, acc_dlc, cf->data);
- 
-+	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
- 	core->tx_fifo_head = acc_tx_fifo_next(core, tx_fifo_head);
- 
--	acc_txq_put(core, acc_id, acc_dlc, cf->data);
-+	acc_txq_start(core, acc_id);
- 
- 	return NETDEV_TX_OK;
- }
+>  }
+>
+>  static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
+> @@ -190,10 +194,41 @@ static ssize_t has_errors_store(struct device *dev, struct device_attribute *att
+>  	return ret ?: count;
+>  }
+>
+> +static ssize_t group_brightness_show(struct device *dev, struct device_attribute *attr, char *buf)
+> +{
+> +	struct pca995x_chip *chip = i2c_get_clientdata(to_i2c_client(dev));
 
----
-base-commit: 37e02c42a00be692c06343e11779aadc45f45971
-change-id: 20260929-esd-fix-skb-deref-a6e5351effb7
+'dev_get_drvdata(dev)' again?
 
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret = regmap_read(chip->regmap, chip->chipdef->grppwm, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return sysfs_emit(buf, "%u\n", val);
+> +}
+> +
+> +static ssize_t group_brightness_store(struct device *dev, struct device_attribute *attr,
+> +				       const char *buf, size_t count)
+> +{
+> +	struct pca995x_chip *chip = i2c_get_clientdata(to_i2c_client(dev));
+> +	u8 val;
+> +	int ret;
+> +
+> +	ret = kstrtou8(buf, 0, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(chip->regmap, chip->chipdef->grppwm, val);
+> +
+> +	return ret ?: count;
+> +}
+> +
+>  static DEVICE_ATTR_RW(has_errors);
+> +static DEVICE_ATTR_RW(group_brightness);
+>
+>  static struct attribute *pca995x_attrs[] = {
+>  	&dev_attr_has_errors.attr,
+> +	&dev_attr_group_brightness.attr,
+>  	NULL,
+>  };
+>  ATTRIBUTE_GROUPS(pca995x);
+> @@ -270,11 +305,16 @@ static int pca995x_probe(struct i2c_client *client)
+>  	if (ret)
+>  		goto err_put_nodes;
+>
+> -	/* Clear errors on probe */
+> +	/* Clear errors on probe, use GRPPWM register for group brightness control */
+>  	ret = regmap_write(chip->regmap, PCA995X_MODE2, PCA995X_MODE2_CFG);
+>  	if (ret)
+>  		goto err_put_nodes;
+>
+> +	/* Full group brightness */
+> +	ret = regmap_write(chip->regmap, chipdef->grppwm, U8_MAX);
+> +	if (ret)
+> +		goto err_put_nodes;
+> +
+>  	/* IREF Output current value for all LEDn outputs */
+>  	ret = regmap_write(chip->regmap, chipdef->irefall, iref);
+>  	if (ret)
+> -- 
+> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+> Amtsgericht München, HRB 105018
+> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+> https://www.tq-group.com/
+>
+>
 
+-- 
+Lee Jones
