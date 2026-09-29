@@ -1,163 +1,179 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C1B3DCD85
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790653553; cv=pass; b=hW3t9pST14rCh7JQ5J+UJjY0EBTdE0A5QM/ItJomapo/TbDCP0aGbFRuIeCcYkzFacG/fxhlc/IPHIKZBbf6IvNDoSr7li4VPJq+sSPcOOU6hzxJmYuMBMVhOTCNkO01pLbkiz6YTMfUSOIn2Dk7qygu3FY/I/qhVp4JpA85eQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790653553; c=relaxed/simple;
-	bh=MchsDCU1R51oMCc3VpT10eY0LmlWG70F5tjOLRNzjms=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fjn7k+SmSNv3LPNiWEBtOezbE+ZKZScQlXr9BantMBybTxlqwB5Xdc+1ndSilL3VqwBUmyD2+OIKd9RRvmI8TdJCM9H+szVx1TcLZC8hF1jsOinyGJCQTdKx6uK5FYyw+B3+KJg7oM6SUpdH5i/OjtiG3Qfgonk623dCJ0eaTH8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=idV9ml+O; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EF9443C27
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790653557; cv=none; b=LZ0fjv38cdHQhVRi1hYOQaZCD/PZee/4HHUMxbOq4FCIpKQCTZrGe0gY5ztvaVMz4tzbEUd4kp4BNUIohhzsnMydM1mbKRFLh+CIDk4c0vj+An0pLxzB0wLFrCJbPSNA3ZXWJOci3E5RWl05CRmpfCdQ2ApfCxiTA3YrPrrVMBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790653557; c=relaxed/simple;
+	bh=xKzOlxV1mbMqlPwZGhd+MrehSrrNxk9EFSUjk86veO0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JykNZzoSPJI0HrogwKeX5GplnL9oSoP1UOwz+WKZlODfFdMpZmEgsLEzPB83PcqKhERwGGRxOW1KTaTcbf+reQVQhrRV8BgWOf1gEzdvzJAMxGebDFuMNFbiQkSmih3gjHP8zK9WoF0OmjuZs8tw3k5khGQh6bhDVh9VSCw5GV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VqLlyPRp; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="idV9ml+O"
-ARC-Seal: i=1; a=rsa-sha256; t=1790653526; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mPbQwCHVbEHX1venRYVJju3RLHI15qgBgV6jMGYerwfW8zeRkOqSIo3jM9eLGD3i4cECtRjaM+woEb0xXwQW5Wc5uLkVqL/VqVpakQcNwStM3Ni05qX5s1TMKf9xrixoGRgicdxa/+xdK/5xfHLVeNQuVo2LZ0pKysF8KsYwBFw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790653526; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1l5Ny1atPb8EZLxEhWkpMhPhmjy5rNhNeS6uEnxIXJI=; 
-	b=HZFTQHL8r25F4WPsiOzfCpgM1mR9qcwBNVrDL31L1Bs479CTmXUntSix0tZNHllUdep9xOATTNba+CsVWLuskZnJTR6bF0FdQDqiAsAD/NMpgaZ0fZwv+c/L3vlF3WfWvX4A7WFnC1hv4Ch9W9Y4gBhCw5SKlChwxU3rbDrQIdg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653526;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=1l5Ny1atPb8EZLxEhWkpMhPhmjy5rNhNeS6uEnxIXJI=;
-	b=idV9ml+Ow4iTQ/RIbTbHd5NSClUvBwespulChMEiwMQOwXNfu6lpCKMRL85fBfOV
-	7rrksmp6lNnYNCJ+0cS7peTUcufvExIBLtwh5zvZF9uPia/c2hVZCIp42RdbOikjHAH
-	yKrxtf0s/8pUTxAimCBgpbDWHsR31WM6IqPoi7XU=
-Received: by smtp.zohomail.com with SMTPS id 1790653525951216.049987039185;
-	Mon, 28 Sep 2026 20:45:25 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Tue, 29 Sep 2026 04:44:40 +0100
-Subject: [PATCH v12 06/15] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VqLlyPRp"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b6416441eso6595338a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790653554; x=1791258354; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jIxR9gKP4j1PYg6iofZ/XK63ShN3XaQLf38quAwtMeA=;
+        b=VqLlyPRpGnwf6VC5R/F2b7dnT5NJ53CXvuwEStE0M1Wqrud5cj3zkwTDz9CfL68jmC
+         WylxYpe+pR0Vwk6ViXUhwQM5Xhd/PESiEmVB/D4IPbVDCL4o9RVxipgQnRmzBdoHa49O
+         qN7OW7Qbw9DMXpXD1BCKMwQmX2VL82lxd/84t6ho/iHwAoFyx/MsNmxlHstGtYBWfTdi
+         xUDHrhL2R31HQauWQzdBmsMp7hDUYxmCpWNQVLH0hJk13YylxHBg3enkk6xWHWB406ib
+         vHebC/d5nRsd/hZ9Q+Ul3kq7KXL1A58Tx7BLMERcVv4nrUUR9WFpL/ov8uUcsbUZ24F+
+         pymw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790653554; x=1791258354;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jIxR9gKP4j1PYg6iofZ/XK63ShN3XaQLf38quAwtMeA=;
+        b=jNg46j3Aak45D8fryST6JV+TzkyyMQtNdbyAbGQD0qwQbexOqS72/Y6hKpBUSmFdC9
+         /Pp3eZhPk0XArUT79/wodPsNd1cn24Zpdh80YnX0f6FTKqy7UQ4/zsD/izL3g52WuRxz
+         c+FwXG69Be8cd1d5bU33O6JJ3Y0hNaCZ9Azi9WAqTO3u2dPfKal4IzSRzD+IjZ6/4kYD
+         FoD5g4ZRmV6yhxor7mISyKSUCQItzaJ3FFzm6Z1UuLgKGZc6p5OVHsNdOTTCDotKa0vR
+         3ntj530NlvxEUprjfHFE49r9Z6YksoSUh5m+d29J3NyK2jBr4qMvDPEJV+CIF99jJYZC
+         teBA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9qCVbtd31GpXplMSYKbw02GlU2fi/ePg9BM8oZJxvCi5EyzyXKvp4Sl+miqtf2OARs9TQko+jaRAJpDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpH84YglGjRlntTdilqQOisXX/rm0YyjrUU0KCIGVQMw/Hgyzs
+	ATU+TeJ4L7XJSBvAGq1cY8PHoPCluB1m1nCg6N/KeqJuvKEqnCO3zLFfWl2yd39iWfXfWiTllOI
+	CWQ==
+X-Received: from pgce10.prod.google.com ([2002:a05:6a02:1ca:b0:cc7:9b89:2a8d])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:51c1:b0:39e:6c68:c77b
+ with SMTP id 98e67ed59e1d1-3a098e078b8mr13128801a91.49.1790653554263; Mon, 28
+ Sep 2026 20:45:54 -0700 (PDT)
+Date: Tue, 29 Sep 2026 03:45:08 +0000
+In-Reply-To: <20260929034510.2023173-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-claude-fixes-v12-6-62beb08de207@collabora.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-In-Reply-To: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3047;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=MchsDCU1R51oMCc3VpT10eY0LmlWG70F5tjOLRNzjms=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQu6Yi1tb+FSu5BMygV/TaNGVFJsjC+v6Yi9
- mV6obkUFVmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
- PSGKC/9iyFUUnLp7Sk+Uyoy8MtY19hHaDEqgsJF88vYjbt6lgs1yYCJ299PcxMT5zFdQhR0fTwV
- 7LhXyY/Z6X3QPp+iV5Jhg4sauBGHg/OCKT7QXShgrgYuBRmpvcGcV6+SYMVUXfgYm3wN0KDHWbc
- 91NUcwDfbpjLVpJXYWshctqh6sv47Ikjq5m+Jpq39dTSpY0jdCqCHow7MKAD7p7Yn+WAyOz0+1o
- 24bTDR/f2JdN55QjNLuVBF+8DAh1CuDJyXZ+OJRAnVcXQjBN+lk5GMtmw7fDcy6Y6/bL+2vkVgw
- CPgAoHuRHiSsLep7iHuWWdVTbZzhsUIk33ccTuQrxcPiWkkW51rfWnOF7T2QifORYE+Xfsa6857
- t9NnEskUvZC6Tu08MTX5bcJx/x1TbhVHcmDkcw38PZXpz6Oqcbqs4Oo5Tiqs4Ahn6Qs7vqujyXB
- lqplMFg4kJx6iVKqsY5njuafwuzAgrN7oSzpsuu9leISAeju/e/Rq4exySWU/LNXurH1A=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Mime-Version: 1.0
+References: <20260929034510.2023173-1-praan@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929034510.2023173-15-praan@google.com>
+Subject: [PATCH v11 14/16] iommu/arm-smmu-v3: Enable pm_runtime and setup devlinks
+From: Pranjal Shrivastava <praan@google.com>
+To: iommu@lists.linux.dev
+Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Daniel Mentz <danielmentz@google.com>, 
+	Ashish Mhetre <amhetre@nvidia.com>, linux-arm-kernel@lists.infradead.org, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Bjorn Helgaas <bhelgaas@google.com>, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org, 
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+	Pranjal Shrivastava <praan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-During device probe(), failure to do a PM get() will leave the usage_count
-set to 0, which is the value assigned at device creation time. That means
-when the autosuspend delay expires, runtime suspend callback won't be
-invoked, so the device will remain powered on forever.
+Enable PM runtime for SMMUs having a power-domain during smmu probe.
+Add a devlink between the clients and SMMU device. The absence of a
+power domain effectively disables runtime power management.
 
-On top of that, failure to call PM put() during device unplug means
-Panfrost device's PM usage_count increases monotonically for every new
-module reload.
+Additionally, handle runtime PM teardown in arm_smmu_disable_action()
+and skip MMIO accesses during teardown and shutdown if the SMMU is
+already runtime suspended, as translation is already disabled and the
+hardware is in a low-power state.
 
-The outcome of both of the above meant that:
-
-- Devfreq OPP transition notifications would be printed all the time,
-  even when no jobs are being submitted. This quickly fills the kernel
-  ring buffer with junk.
-- Because MMU interrupts are only enabled when the device is reset,
-  the very first job targeting the tiler heap BO after device probe()
-  would always time out, since the driver's PM runtime resume callback
-  would not be invoked.
-
-To fix the above:
-- Manually adjust the PM refcnt at device probe and removal time.
-- Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
-- Call pm_runtime_put_autosuspend() when device is ready to accept jobs
-
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+Signed-off-by: Pranjal Shrivastava <praan@google.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 49 +++++++++++++++++++--
+ 1 file changed, 46 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 55fc22e8d4d4..907d4a14a0b5 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -852,6 +852,11 @@ static int panfrost_probe(struct platform_device *pdev)
- 		goto err_out0;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index e127e3be3a6b..2a1b5ce6ff1c 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -4511,8 +4511,28 @@ static struct iommu_device *arm_smmu_probe_device(struct device *dev)
+ 	if (ret)
+ 		goto err_disable_pasid;
+ 
++	/*
++	 * If linking fails on an RPM-enabled SMMU, abort probe to prevent
++	 * DMA transactions while the SMMU is autosuspended. Otherwise, warn
++	 * and continue since the SMMU is always powered.
++	 */
++	if (!device_link_add(dev, smmu->dev,
++			     DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_SUPPLIER)) {
++		if (pm_runtime_enabled(smmu->dev)) {
++			dev_err(smmu->dev, "failed to add devlink to %s\n",
++				dev_name(dev));
++			ret = -ENOMEM;
++			goto err_free_cd_tables;
++		}
++
++		dev_warn(smmu->dev, "failed to add devlink to %s\n", dev_name(dev));
++	}
++
+ 	return &smmu->iommu;
+ 
++err_free_cd_tables:
++	if (arm_smmu_cdtab_allocated(&master->cd_table))
++		arm_smmu_free_cd_tables(master);
+ err_disable_pasid:
+ 	arm_smmu_disable_pasid(master);
+ 	arm_smmu_remove_master(master);
+@@ -5097,9 +5117,17 @@ static void arm_smmu_disable_action(void *data)
+ {
+ 	struct arm_smmu_device *smmu = data;
+ 
+-	if (smmu->impl_ops && smmu->impl_ops->device_disable)
+-		smmu->impl_ops->device_disable(smmu);
+-	arm_smmu_device_disable(smmu);
++	/* If the SMMU is already suspended, nothing to do */
++	if (!pm_runtime_suspended(smmu->dev)) {
++		if (smmu->impl_ops && smmu->impl_ops->device_disable)
++			smmu->impl_ops->device_disable(smmu);
++		arm_smmu_device_disable(smmu);
++	}
++
++	if (pm_runtime_enabled(smmu->dev)) {
++		pm_runtime_dont_use_autosuspend(smmu->dev);
++		pm_runtime_disable(smmu->dev);
++	}
+ }
+ 
+ static void arm_smmu_write_strtab(struct arm_smmu_device *smmu)
+@@ -5912,6 +5940,17 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+ 		return ret;
  	}
  
-+	/* The reason we must manually set the PM status and usage counter is
-+	 * we have just powered the device up but did not go through the PM
-+	 * runtime resume callback, so we need to update these ourselves.
++	/*
++	 * Safe to enable RPM here as client devices cannot be probed
++	 * before this probe function successfully returns.
 +	 */
-+	pm_runtime_get_noresume(pfdev->base.dev);
- 	pm_runtime_set_active(pfdev->base.dev);
- 	pm_runtime_mark_last_busy(pfdev->base.dev);
- 	pm_runtime_enable(pfdev->base.dev);
-@@ -866,13 +871,16 @@ static int panfrost_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto err_out1;
- 
-+	pm_runtime_put_autosuspend(pfdev->base.dev);
- 
- 	return 0;
- 
- err_out1:
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
-+	pm_runtime_put_noidle(pfdev->base.dev);
- err_out0:
- 	return err;
- }
-@@ -884,9 +892,12 @@ static void panfrost_remove(struct platform_device *pdev)
- 	drm_dev_unregister(&pfdev->base);
- 
- 	pm_runtime_get_sync(pfdev->base.dev);
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
-+	pm_runtime_put_noidle(pfdev->base.dev);
++	if (dev->pm_domain) {
++		pm_runtime_set_active(dev);
++		pm_runtime_use_autosuspend(dev);
++		pm_runtime_set_autosuspend_delay(dev, RPM_AUTOSUSPEND_DELAY_MS);
++		pm_runtime_enable(dev);
++	}
 +
+ 	return 0;
  }
  
- static ssize_t profiling_show(struct device *dev,
-
+@@ -5927,6 +5966,10 @@ static void arm_smmu_device_shutdown(struct platform_device *pdev)
+ {
+ 	struct arm_smmu_device *smmu = platform_get_drvdata(pdev);
+ 
++	/* If the SMMU is already suspended, nothing to do */
++	if (pm_runtime_suspended(&pdev->dev))
++		return;
++
+ 	arm_smmu_device_disable(smmu);
+ }
+ 
 -- 
-2.55.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
