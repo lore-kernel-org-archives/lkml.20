@@ -1,62 +1,52 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 160014B7A4D;
-	Tue, 29 Sep 2026 23:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1C13438B9;
+	Tue, 29 Sep 2026 23:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723398; cv=none; b=QKmdQWjiGpkOS6okacuD6NIvtXr/UB2GyZcEY2GSgDww8ShKjAyqon48KUqGlqVXzFDQ18bxhKgSamhfWosa4d+b44ehjAbsvZa5TM9KUKDjjT1qAuPB+b8Pn2hHU+bDJiEgRhE1Ph1e29HeDtLeGmb3lPgPnUzUaB2MFvGhZHk=
+	t=1790723497; cv=none; b=d1Jh+//E2yyZMksTT/9ye+el9DsXRNR1gT9Zufv4F0LQQAhF0n5r/bkEg5cw8iaf98YFvjtELdCrzqT/8RFnBX6OBYtbY7rSDCQjBvoxtIxnHbBxOBFvrJPGcOcfy9JBDwYA/GBzBiyJb5k4VS5SRMQypRzkmMkLF/rjRwa+noA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723398; c=relaxed/simple;
-	bh=Eh9OKMokxv7hISf6O+yViQFfrtfGj+wm3beSRRyLJTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QAOulleraTRBOS/n5X30eSTYSaZOydejcQd+fTbj8GTUesK7+EzRLkyJTfkiZdgm7NuycUhkrQXBBo4+kPRnKI8IilUxRfPh5DzYPJskTuFfoPAdT9rTfo23Z/Z7p+8rx4GLQXjGdsjPWETcPJhq9/VBVmbKsBDuod5xQnRNyec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=J/5oOhz3; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790723497; c=relaxed/simple;
+	bh=IuPu+yMf9yB+vXg30wMwcp0KVm/4Ai9mZ7o97X7hE34=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=cJZLb2jlyV/DpIEvi+bscwzqMZ77fMZYNGY7X7kHycFTFkUj+1sGS0ZTk7qoGnNiwtLAE9MVjny/LK/nGueimwACHzi+i28aJDc8ld+iyij+fVLoN5g3FxI933CQwvu9SBkcC2HCEFsm/u1YjQx62QzT45Qu6jA46xeA60gKaXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mRCzRGvZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="J/5oOhz3"
-Received: from LAPTOP-F8U7OQUB.localdomain (unknown [167.220.26.102])
-	by linux.microsoft.com (Postfix) with ESMTPSA id BB93E20B7166;
-	Tue, 29 Sep 2026 16:09:03 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BB93E20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790723344;
-	bh=Eh9OKMokxv7hISf6O+yViQFfrtfGj+wm3beSRRyLJTA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J/5oOhz30yi8CC5f95jnNVOY5DAXjih4p1AnzrPwET41rEeIS8IAJbvwnoEf5BvjZ
-	 hCR7Pun6Ibf34zFhNvRb9hbCc2SExzQTbmtDSvLpSVOTIFCDoD0b6HV6eD6FJ7Kaeu
-	 RZ1tI/2nOsIYzxL/N7lzybTVeZhJtF5F4JY4bYCQ=
-Date: Tue, 29 Sep 2026 16:09:45 -0700
-From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au, raminwo0202@gmail.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, apais@linux.microsoft.com
-Subject: Re: [PATCH V1] xfrm: prevent policy_hthresh.work from racing with
- netns teardown
-Message-ID: <arxFOXGFq3GEgsLS@LAPTOP-F8U7OQUB.localdomain>
-References: <20260820211418.1409602-1-taherafahimi@linux.microsoft.com>
- <2026082106-widget-steed-ece0@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mRCzRGvZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FE91F000FF;
+	Tue, 29 Sep 2026 23:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790723496;
+	bh=IuPu+yMf9yB+vXg30wMwcp0KVm/4Ai9mZ7o97X7hE34=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mRCzRGvZIYg7IzyFLgXBfBrkHUoluWTIYWcOtLej3wDtaIMUQLkJ4aKz3cvCms0qd
+	 A4UTsf212JZRi0/itEZCDuhHIXZaFqnMscQUY24TloncaXPu8sKLF5cpF0KoBAzzFX
+	 WnTbrHEPLnZF01t69Q4yALfqP34V/Z5ibDHQDDu5IpCnXtMuoTyVUA5SGCFCjTFtJe
+	 7LddOt6t5BJIWfhg5gtahaLHljD5BQDRm+yg+ZUj0jBIz03nKkH69Fm8uX7XHOVYTs
+	 57mv1eqHeVbSQi57Dw2I4/xE0Tpfa5gx4VFB6XYjgJRzskm3jAjUkCGjkUu2v54Eui
+	 d/aCi/oyOVfgw==
+Date: Tue, 29 Sep 2026 13:11:35 -1000
+Message-ID: <c0b95acfee4d3becce0718035c45e4dd@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Work around pahole 1.32
+ dropping scx_bpf_task_set_lazy_resched() from BTF
+In-Reply-To: <7c139810be5ffc9764ed4236efc28794@kernel.org>
+References: <7c139810be5ffc9764ed4236efc28794@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026082106-widget-steed-ece0@gregkh>
 
-On Fri, Aug 21, 2026 at 06:25:45AM +0200, Greg KH wrote:
-> On Thu, Aug 20, 2026 at 02:14:18PM -0700, Tahera Fahimi wrote:
-> > [ Upstream commit 29fe3a61bcdce398ee3955101c39f89c01a8a77e ]
-Hi Greg,
-Sorry for the late reply, I was on a long vacation.
+Applied to sched_ext/for-7.4.
 
-> No it is not :(
-Agreed. This is not commit 29fe3a61bcdc; it is an independently implemented 6.6-specific fix for the
-same issue because disable_work_sync() is unavailable in 6.6.
+Thanks.
 
-I will remove the upstream-commit annotation and resend it.
-Sorry for incorrect annotation.
+--
+tejun
