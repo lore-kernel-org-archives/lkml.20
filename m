@@ -1,36 +1,35 @@
-Received: from mta1.migadu.com (out-20.mta1.migadu.com [95.215.58.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E82C54B1DD
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958AC3839A3;
+	Tue, 29 Sep 2026 18:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706957; cv=none; b=UCJQs1qOKHULPG6ZYmSLvRZFg0sHnEKFFA25Mh3BcqD/voyXEI+Y1e2Rkf1eDznZ6gVPzYfxO/JMcNi4eWosp5ftlVWoA3DogJHSnKtranZWjFCSD/H8F0VwYEOXr7Xh6XQ1YgIJWbegzTcKxNszR+KHn29OcAKLqURSJZlqffI=
+	t=1790707142; cv=none; b=XJztqLeYECUqG60ScVF61coMpQeAhlR8uhrUTvLSickKO8DikAdB/JYmfynWaS5nOX70Mq2NceF0Ioy09p4PqIL36mv6ZhO6Y8dSkBHTjCiuNeIQeNXjvt83avKgs5+AX8SupmHzQR9kYQ7aqW97JmvYUekYIOA5HmhNh8DNFQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706957; c=relaxed/simple;
-	bh=9ja1FgpbLiCsvQ+12yDPrg6EtvZUujsk6+F1ruTkNzg=;
+	s=arc-20240116; t=1790707142; c=relaxed/simple;
+	bh=PtbCrSco5yzG1FGo+RyooD+inB125yls+7pZArHYHF4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Azqem2pFUY8uo8pWvz5QZf24kPUX+IRlTT2AyKLxByKej5FflvX+6z22uMEyIN3/zC/NDV2E2pcKvwEoTykm6wIF01Wz4ibX10Els0jH+VJFcTIKNku5ma8gmHycY1T3I7TYEB3+NzFu1TQdAtIFX5uH/ZTj2+sbYxnARpbBZ7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VivjzEXv; arc=none smtp.client-ip=95.215.58.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=H6OCX5NZDI5EUvVyM8d2oQe37T25QfJPIC7ttu/I7/giCaU11xGgfT0850aZ6F9pMk/Otk2IppnwbWoPBgKQdbOBIFtnTHxsnDv7aLO6zDNB54J+80C2Xqui/lq95qUyihQxMOv9DBS5jFse5/rd858F3KwEStacol87xrGej+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=VZGtWy+T; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VivjzEXv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9ja1FgpbLiCsvQ+12yDPrg6EtvZUujsk6+F1ruTkNzg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790706953; v=1; x=1791311753;
- b=VivjzEXvHvFWumbUwmOebnKq9g5wVDEfFoLzHA28AbEnoAIUJIuaH0y8GDo0+MOP6fcS+LDr
- 7Ep0NdN3o9Nitzvcx8Q6xlhdtgRAJf/pMHBQ9b4mSobJM9dUiWsriyaqgpNZxD11QlRsZYwsbVg
- iU337h1Qmr7okZfIqJCWpU+g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a1d09175ff48b6f;
-	Tue, 29 Sep 2026 18:35:51 +0000
-X-Mizu-Trace-ID: 9a1d09175ff48b6f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6b7370d9-f913-42ab-9331-9614d149b7ec@linux.dev>
-Date: Tue, 29 Sep 2026 20:31:55 +0200
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="VZGtWy+T"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF779106CA0;
+	Tue, 29 Sep 2026 20:38:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790707133;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+mz+DR/cNP0US6qM+V0NJZZkwyCBeScDtMfTKHVJnik=;
+	b=VZGtWy+TnRRjNQTbwO2hS2qxQNoSfigFgLQtQ6lSy8wTUxCm1pSlqzLhf6Hmf2ySNOMvI4
+	1nXo68OLK7P+vcD/tS9Z75jRByo2YGJ0Ckh8JCy4jbC4gaJjheDrs6+XjLJLXVbOCOvZjK
+	aFWhTXRZy7dR7vD4exC2woOXd5Nuv3nnW+ZbL5vUzqYXKwlCDmj1AViVQCugILH2uaogI8
+	S8rMDr/EKcMVwMwQM72JxK/GjZlIqIst8zJPbjFczbIxUY2qCCwRyG3lWdSUZp/jHN5OxJ
+	8H9A8lYrbJBq3UqTsnptbFDlO7P8rqj8fK5GP5leIJeQewqlebMFSvL6Kru3Zw==
+Message-ID: <0a65ca90-2b0f-4f58-94bb-11fa2737519a@nabladev.com>
+Date: Tue, 29 Sep 2026 20:38:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,80 +37,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] soundwire: intel_auxdevice: Don't disable IRQs
- before removing children
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
- peter.ujfalusi@linux.intel.com, linux-sound@vger.kernel.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
-References: <20260925154216.3520136-1-ckeepax@opensource.cirrus.com>
- <20260925154216.3520136-4-ckeepax@opensource.cirrus.com>
- <2c4ea801-f048-405d-a163-e65691e93fc7@linux.dev>
- <aronxfoVEKfBm9Zb@opensource.cirrus.com>
- <db7d1d3a-1be3-466d-9f95-2dabe918e57e@linux.dev>
- <aruxv3Gy0yj5YzV1@opensource.cirrus.com>
+Subject: Re: [PATCH v5 2/2] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260902141312.649406-1-marex@nabladev.com>
+ <20260902141312.649406-2-marex@nabladev.com>
+ <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <aruxv3Gy0yj5YzV1@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/29/26 14:40, Charles Keepax wrote:
-> On Tue, Sep 29, 2026 at 10:34:16AM +0200, Pierre-Louis Bossart wrote:
->> On 9/28/26 10:39, Charles Keepax wrote:
->>> On Sat, Sep 26, 2026 at 05:55:06PM +0200, Pierre-Louis Bossart wrote:
->>>>  void sdw_bus_master_delete(struct sdw_bus *bus)
->>>>  {
->>>> -	device_for_each_child(bus->dev, NULL, sdw_delete_slave);
->>>> +	sdw_bus_slaves_delete(bus); <<< this would be the second call?
->>>> +	sdw_bus_slaves_put(bus);
->>>
->>> Yeah seemed the simplest way to not have to change any existing
->>> drivers, the second call is a complete no-op if the first was
->>> done.
+On 9/3/26 12:19 PM, Fabrice Gasnier wrote:
+> On 9/2/26 16:13, Marek Vasut wrote:
+>> From: Pankaj Dev <pankaj.dev@st.com>
 >>
->> humm, that seems to work but I get this layering violation after-taste,
->> and I wonder if this works for AMD?
+>> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
+>> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+>> Two such PHYs in total are present in STM32MP25 SoC, they both are
+>> slightly different, therefore they use different compatible string
+>> to discern them.
 > 
-> Nothing should have changed from AMD's perspective. I do think
-> perhaps a slightly better fix could be done moving significant
-> amounts of the IRQ handling over to the IRQ framework,
-> however that is a much bigger piece of work and more scary
-> from a regressions point of view due to it being a much bigger
-> refactoring.
+> Hello Marek,
 > 
->> AMD use a platform device instead of an auxiliary one, but overall this
->> looks like the same problem of disabling interrupts before the
->> peripheral driver is removed, no?
->>
->> static void amd_sdw_manager_remove(struct platform_device *pdev)
->> {
->> 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(&pdev->dev);
->> 	int ret;
->>
->> 	pm_runtime_disable(&pdev->dev);
->> 	cancel_work_sync(&amd_manager->amd_sdw_work);
->> 	amd_disable_sdw_interrupts(amd_manager); <<< SAME PROBLEM ??
->> 	sdw_bus_master_delete(&amd_manager->bus);
->>
->> If this is indeed the same problem then the AMD driver should use the
->> same solution...
-> 
-> I am not super familiar with the AMD stuff, so take this with a
-> massive pinch of salt but it depends on if that IRQ is actually
-> involved in SoundWire command transfers.
-> 
-> A quick look through amd_sdw_irq_thread() and amd_sdw_xfer_msg()
-> looks to me like the IRQ is not involved there. So I believe
-> the AMD host doesn't have the same problem as the Intel one.
-> Although there is perhaps debate if SoundWire alerts should
-> still function during remove, which would be broken on AMD,
-> but I am not aware of any devices that need that right now.
-I think you're right, the AMD messenging relies on polling, not on
-interrupts, so they are 'safe'. I don't see anything that would prevent
-communication with the peripheral.
+> I'm not sure if/how this fit with all below tags. For all the
+> contributions you've made, you can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Is there anything left to do with this series ?
 
-For the alerts, I guess it's the same on remove, clock stop and system
-suspend. When the manager made the decision to remove/stop the
-clock/power-down, the transition has to happen. Alerts can only be
-handled 'later'.
+Thank you for your help !
