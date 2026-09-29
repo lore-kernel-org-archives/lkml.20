@@ -1,104 +1,154 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152DE39FCB1;
-	Tue, 29 Sep 2026 20:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96B23A4F58
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790712975; cv=none; b=Qx2qLJXOBBLcNki1LaIZVNA+/lN8KCo0S3r8t0GeMKoWChIHOlNW9s7Zcsqjq1/DC+58gQI9hpW+pERsUDiYZoH3YoXHwSiVDU1C4K8uREOUHMj+Chch1s2d04UCu9vYbjt9MhZPYzxnn6977TdSGjFLQFCQs5sjlWEGGwxKkSk=
+	t=1790712993; cv=none; b=q4i2xYhrY61jDtB/swdul9PwdqokdR08Erm/DUEM9qn7e1zLj4wzvi0f2XeDi7TdyH9hm8H12kSkrYYfSGiXpCIY4NQSdYVb7zEry29upxuh3rnwq/Ur036NSuO0c2PCfG4GC8xAyfiaT8Lw3Ert6t82hYF3Iy4ELM3/Wt7TYuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790712975; c=relaxed/simple;
-	bh=CCNb0myM2bFfXS5kJPH6OE5BaOG3Wc1Bp9Rsc8Y9B0M=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=XM5nnMCXMkJJqvmPPl2U34NdNJVPbnWjEsyGsCb49kgIXFNd6nQHMTA/BAMhWRFDZ3amafDvVauLDISYh8ISa6zctG5WHaVr8K4ZV/uTtDUNKYKQGrZpupqaQ9qX7sH6fhTQ5dUb9T4Etwxu62Ktd5VrTRox6EFS3g9wGJlGOIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=X1QmKbvM; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=aohXBJhk; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="X1QmKbvM";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="aohXBJhk"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790712967; bh=b7+Geox4ud8eTAeg3+j6HDt
-	1q363PIIrzuBA/1qIzLQ=; b=X1QmKbvMB/5s7XUVbyfZ31NXs8eN1HR6bZAsQJYyBgls5geHeO
-	sxI/uPI9qD7AR+GKtCZ5k0FB4SVA9kiOS9XmfDxyjlDIl110WbhLYe+MbwCQaOPngaEqrr6gHRq
-	9DlZC9X9rBG/te3HSZCmWQaac0Ox59h8ThThKgHiCs6/EB0YTao+y7mQGfIq0RZDz3P4Qe89BcW
-	mGsJ7i0WAFTYXsQRnDb2XJKLCHcW2gqTfth0EobSiwVJXQ3YvLBB8suTMN7AY+dZtvIJ253inVY
-	hqS1QLOERfjIwMOm5fOawvoxOOrYto1fDGTogs+fJDQwERF7NLRQdby3Gjilcfd/VGA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790712967; bh=b7+Geox4ud8eTAeg3+j6HDt
-	1q363PIIrzuBA/1qIzLQ=; b=aohXBJhkdcn4jNAYTeUiUJaqenky18FS9eaOv/ZDLdn1loHoQG
-	MatyD7zBmVYyUXu2TorED2ACCUri1NRjKjBQ==;
-Date: Tue, 29 Sep 2026 21:16:08 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: salil.mehta@opnsrc.net
-CC: catalin.marinas@arm.com, corbet@lwn.net, gshan@redhat.com,
- james.morse@arm.com, jic23@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- mark.rutland@arm.com, peterz@infradead.org, ruanjinjie@huawei.com,
- tglx@kernel.org, will@kernel.org, yangyicong@hisilicon.com
-Subject: =?US-ASCII?Q?Re=3A_=5BRFC_PATCH_1/2=5D_cpu/hotplug=3A_Sk?=
- =?US-ASCII?Q?ip_disabled_CPUs_in_cpuhp=5Fsmt=5Fenable?=
-In-Reply-To: <4ca071f1678acd1d3b8ecc0266938f59b45f629a.1790692295.git.salil.mehta@opnsrc.net>
-Message-ID: <133D63B7-B1DF-4DEB-92F6-B6D785D43457@mainlining.org>
+	s=arc-20240116; t=1790712993; c=relaxed/simple;
+	bh=nl0QsIP3W6TQLtbHKs8yFo1gsvcd272qWN34a/SBZO8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Td+QrHiLp+dcUi2mqgqxD879wczFUu5nFY3hgTbPVmXoa+5AnRvCRd8llesz6c8jZWyBs2N4TIWKrxQONAgMdUgeHUyCgUT2WrxqK6ZlbHi/QPlAfCyzWLzIdhGK7tCcLBIaYFRUXeDo87qHj7e1d5T2a+ZihagS9oy5Isrum0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4eb0b989f0eso2012642b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:16:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790712990; x=1791317790;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HC9Mk7tqxMwDAfvVbboAeqH7KbTgvsLbGh6CjiIBOv8=;
+        b=URxnWYFhWGy9XrFN10BFO5azFXjvLodxu9edY8Vg7qlPTDgP1ByJ/lc4yehBz8cF15
+         ky7bAOWIEzkg01NeUd62gA3vHKjpD4l0RyjoyuVF+0nZfGsQlvs4JyfkC8xq8PrzMcDN
+         vmzzbBgrrpyYxSRaCYk+zaLvJfMFg3y+UEe5nCiaHWmmiephSbqeyZrEQ3PeFWDC2akh
+         aLMR/ZahdkJlR8/yteJuM/J7Fb86+AdPVD3JuXX/G4Nd1gc1R0JT38L3wgL8f2oQXmCa
+         TWUEm6Wm6Y3D/UdMx3QQd8SKUX7FXDJoikNlyD60jMEqV5R2+eJTadUDLuTHCAVJ7UXp
+         55OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQvLCL1x3TsH6qmq9uvNrPj6q0ued4n6TsUYBM6Wg8RnCX1RoPTvBHuZviEbhszEvClikbpNyioKjLfpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksZYuuBtUy/Y8fdNYG9FWGJjQYq3mT+75FbaVcFEEaktjrSrxK
+	NT1g0LXqnwzwD600ti1m9HG8EnU6/j/EhlnAGYQR/V7QVUnlPkW5GfqxwBt+BeIq29DbcmpCQFD
+	D6ZDMlGsS0XHPo+Rf6H8fP8BVacbhnzl3j/ktZsIZYVtu7E+oYKg3sziTRIU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:4f52:b0:4e5:a74e:d6b8 with SMTP id
+ 5614622812f47-4edd274cf37mr3419743b6e.6.1790712990555; Tue, 29 Sep 2026
+ 13:16:30 -0700 (PDT)
+Date: Tue, 29 Sep 2026 13:16:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abc1c9e.00649fcc.35d151.00e6.GAE@google.com>
+Subject: [syzbot] [ntfs3?] WARNING in truncate_setsize
+From: syzbot <syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, linux-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 29 September 2026 20:41:29 BST, salil.mehta@opnsrc.net wrote:
->From: Salil Mehta <salil.mehta@opnsrc.net>
->
->The CPU enabled mask describes whether a present CPU may currently be
->brought online. cpuhp_smt_enable() is an online operation, but currently
->walks all present CPUs and only filters CPUs that are already online or
->belong to offline NUMA nodes.
->
->This can make it attempt _cpu_up() for a present CPU which firmware has
->not enabled and which has not yet been registered as a CPU device.
->
->Use the enabled mask for the policy decision it was introduced to
->represent. This keeps present-but-disabled CPUs out of the SMT bring-up
->path while still allowing registered offline SMT threads to be brought
->back online.
->
->Present and enabled are separate generic CPU states, so callers which
->intend to bring CPUs online should not assume that every present CPU is
->enabled.
+Hello,
 
-Ok.
+syzbot found the following issue on:
 
->
->Signed-off-by: Salil Mehta <salil.mehta@opnsrc.net>
->---
-> kernel/cpu.c | 5 +++--
-> 1 file changed, 3 insertions(+), 2 deletions(-)
->
->diff --git a/kernel/cpu.c b/kernel/cpu.c
->index b3c8553d7bd6..988b7a1e8298 100644
->--- a/kernel/cpu.c
->+++ b/kernel/cpu.c
->@@ -2706,8 +2706,9 @@ int cpuhp_smt_enable(void)
-> 	cpu_maps_update_begin();
-> 	cpu_smt_control = CPU_SMT_ENABLED;
-> 	for_each_present_cpu(cpu) {
->-		/* Skip online CPUs and CPUs on offline nodes */
->-		if (cpu_online(cpu) || !node_online(cpu_to_node(cpu)))
->+		/* Skip online/disabled CPUs and CPUs on offline nodes */
->+		if (cpu_online(cpu) || !cpu_enabled(cpu) ||
->+		    !node_online(cpu_to_node(cpu)))
+HEAD commit:    165768bb7026 Merge tag 'firewire-fixes-7.3-rc5' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=167bd205580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
+dashboard link: https://syzkaller.appspot.com/bug?extid=0e70362e1726b5a7502e
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-Ehh, have you had a issue with this code? Like something e.g: a splat.
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-165768bb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8937d1c35787/vmlinux-165768bb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/04f73e6326ff/bzImage-165768bb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com
+
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+ntfs3(loop0): failed to read volume at offset 0x46c00
+------------[ cut here ]------------
+ifs_is_fully_uptodate(folio, ifs) != folio_test_uptodate(folio)
+WARNING: fs/iomap/buffered-io.c:295 at ifs_free+0x344/0x400 fs/iomap/buffered-io.c:294, CPU#0: syz.0.0/5321
+Modules linked in:
+CPU: 0 UID: 0 PID: 5321 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:ifs_free+0x344/0x400 fs/iomap/buffered-io.c:294
+Code: 41 5f 5d e9 be 47 bc ff e8 e9 9b 56 ff 90 0f 0b 90 e9 d8 fe ff ff e8 db 9b 56 ff 90 0f 0b 90 e9 12 ff ff ff e8 cd 9b 56 ff 90 <0f> 0b 90 eb c7 44 89 e1 80 e1 07 80 c1 03 38 c1 0f 8c 0e fe ff ff
+RSP: 0018:ffffc9000e557498 EFLAGS: 00010287
+RAX: ffffffff82715143 RBX: 0000000000000008 RCX: 0000000000100000
+RDX: ffffc90020802000 RSI: 0000000000000f7c RDI: 0000000000000f7d
+RBP: 000000008271cf01 R08: ffffea00004e4607 R09: 1ffffd400009c8c0
+R10: dffffc0000000000 R11: fffff9400009c8c1 R12: ffff888036fe1cc4
+R13: ffff888036fe1c80 R14: ffffea00004e4600 R15: 0000000000000000
+FS:  00007f2c7aed96c0(0000) GS:ffff88808c2bf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f2c7a1d58e0 CR3: 0000000012a58000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ folio_invalidate mm/truncate.c:140 [inline]
+ truncate_cleanup_folio+0xcb/0x190 mm/truncate.c:160
+ truncate_inode_pages_range+0x2c1/0xd80 mm/truncate.c:404
+ truncate_inode_pages mm/truncate.c:485 [inline]
+ truncate_pagecache mm/truncate.c:798 [inline]
+ truncate_setsize+0xcf/0xf0 mm/truncate.c:823
+ ntfs_setattr+0x267/0x590 fs/ntfs3/file.c:739
+ notify_change+0xbba/0xea0 fs/attr.c:556
+ do_truncate+0x1c2/0x250 fs/open.c:68
+ handle_truncate fs/namei.c:4300 [inline]
+ do_open fs/namei.c:4841 [inline]
+ path_openat+0x15b5/0x1d60 fs/namei.c:5000
+ do_file_open+0x23e/0x4a0 fs/namei.c:5029
+ do_sys_openat2+0x115/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2c79f9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2c7aed8fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f2c7a226090 RCX: 00007f2c79f9e159
+RDX: 0000000000109342 RSI: 0000200000000040 RDI: ffffffffffffff9c
+RBP: 00007f2c7a03506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2c7a226128 R14: 00007f2c7a226090 R15: 00007ffe6ba73cd8
+ </TASK>
 
 
-> 			continue;
-> 		if (!cpu_smt_thread_allowed(cpu) || !topology_is_core_online(cpu))
-> 			continue;
->
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
