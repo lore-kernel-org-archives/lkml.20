@@ -1,103 +1,143 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EF833F12EF;
-	Tue, 29 Sep 2026 05:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCB4B3C2BB0;
+	Tue, 29 Sep 2026 05:55:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661278; cv=none; b=Oi/RqXCLxC9GllbbtiIWMy3SiuhDZ+RobuqQBOI/ONckVTwaYJ9z/c51Go0Z2P+jCs+vZ7JLMxogPXHayA7aTo+AnfhxS0ShMZwWREgH0BzO0J8DiebpLDfKDHf4yZ8TTStWQU/aHtvEtrcYnJ/+/2CcgLJCJHueiwY6Ygg62t8=
+	t=1790661330; cv=none; b=fM81fA1M6O49AQOHFYM0PqvFGttU4RSLq7Sh8cHKQG4ZhSFSSauniUiQd5MY4KQaXnKfRbNvvjZSxGZ9QpKPI8FCCqB6DQa9Aq2bv8gIgmYqL1Bl+gqgr/4MZe2fQy33v0B1AVQONnfbaqdTtVEES/dFH3kax/lOLLB4FbkNGYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661278; c=relaxed/simple;
-	bh=8nkwXY0A5RFYOmpZpCVpTJMUESTE+g43aAvec0iYxIA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WeiMTGpdYJrCXULfFcXLqXOP4o5/l8sPRF3JzY+A3mWQxFgweZk+TS5ruSz80mcnvKyCzZkrkhmYCtSj9LcF6RN7G7eNjlgqVZobE2d0h1weu6y2v21RaYn/Zw8NCDWTL7ZkTHfUYU/kZ+WUsX8UUqKkco5npVj8p29jyFxcmm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=r+09+Qtn; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790661330; c=relaxed/simple;
+	bh=Fp3ASAfdwGkKv8Do8YeHQOXYlQNzOd7+pSHNk78Jv+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dWABAjaXMop+6EcfZ2cOGgjIrgZQnud02kwgH9hODq6d6XC1nz70Dzvr+I0jxHQxke4qvBdQCVMzTttYkJmIvejx3zDVbZC2ESc06z6qgjxmemu04aChig++bqdWmWTMqmEeTlUdf6AFO5CLSukYxJI6szhuAsb0elfbT/FflLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=AkPxVdjD; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="r+09+Qtn"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6BC8E1684;
-	Mon, 28 Sep 2026 22:54:31 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B643C3F85F;
-	Mon, 28 Sep 2026 22:54:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790661274; bh=8nkwXY0A5RFYOmpZpCVpTJMUESTE+g43aAvec0iYxIA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=r+09+QtnSFt+dnSfRuQGaaldiXc4mhTOPri6hVSHqcL9koINFR2ZnAgeqwsSkGa6C
-	 2jPyj+B6rBWhOoUuyCIeZnxqz3AJlFX3dC5DeZAGcgotS5umquFypWyjnXgnuLFlCP
-	 vxY8dFVP25lHN7cuNL79b6G/tNeBObrPUpdUQAeI=
-Message-ID: <b8da4a73-296b-47f9-95dd-b8a74f3a0984@arm.com>
-Date: Tue, 29 Sep 2026 11:24:28 +0530
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="AkPxVdjD"
+Received: from localhost (unknown [52.148.171.5])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9874020B7166;
+	Mon, 28 Sep 2026 22:54:35 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9874020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790661276;
+	bh=RqvZ73cpuNzHe1b0yJARkZbhTnZBRPHAmgqGr1m2fww=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=AkPxVdjDCERw9peipuPPRQynyjaW2tN6h+VXzjWNM9NWri/sqSmXwEuD3q5SsBU2j
+	 oJNGtMBTSjefMRdFCTF44Lo7OHpaCjJQTKkOqtRzvcWLxVSFhNue0DluJSVFMigZEb
+	 NRAmYqCWk3RlxrpCOzuLOBZjh0CLngPFF4wQo8m8=
+Date: Mon, 28 Sep 2026 22:55:24 -0700
+From: Jacob Pan <jacob.pan@linux.microsoft.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alexey Kardashevskiy
+ <aik@amd.com>, Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel
+ <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, Kevin Tian
+ <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
+ <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
+ <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
+ <yilun.xu@linux.intel.com>, Shameer Kolothum
+ <shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, jacob.pan@linux.microsoft.com
+Subject: Re: [RFC PATCH v6 05/11] iommu: Add a helper to validate a vIOMMU
+ parent
+Message-ID: <20260928225524.00002b85@linux.microsoft.com>
+In-Reply-To: <20260928230328.GE1616761@nvidia.com>
+References: <179027891416.104879.10365675178574704349.b4-review@b4>
+	<yq5ald8pkhj7.fsf@kernel.org>
+	<20260925122305.GG9354@nvidia.com>
+	<yq5a5wzpr7b9.fsf@kernel.org>
+	<20260928121147.GP9354@nvidia.com>
+	<yq5azex1peqt.fsf@kernel.org>
+	<20260928161738.GB1616761@nvidia.com>
+	<20260928110854.00003ff0@linux.microsoft.com>
+	<20260928182022.GD1616761@nvidia.com>
+	<20260928152402.000079ce@linux.microsoft.com>
+	<20260928230328.GE1616761@nvidia.com>
+Organization: LSG
+X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 0/9] selftests/mm: improve mremap_test
-To: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
- <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924050009.19974-1-sarthak.sharma@arm.com>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20260924050009.19974-1-sarthak.sharma@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+Hi Jason,
 
+On Mon, 28 Sep 2026 20:03:28 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-On 9/24/26 10:30 AM, Sarthak Sharma wrote:
-> This series fixes several correctness issues in mremap_test and
-> simplifies and strengthens its data validation.
+> On Mon, Sep 28, 2026 at 03:24:02PM -0700, Jacob Pan wrote:
+> > > > > +arm_smmu_get_viommu_ops(struct device *dev, enum
+> > > > > iommu_viommu_type viommu_type) {
+> > > > >  	struct arm_smmu_master *master =
+> > > > > dev_iommu_priv_get(dev); struct arm_smmu_device *smmu =
+> > > > > master->smmu; 
+> > > > >  	if (!(smmu->features & ARM_SMMU_FEAT_NESTING))
+> > > > > +		return NULL;    
+> > > 
+> > > Though I wonder why would you check for
+> > > IOMMU_VIOMMU_TYPE_HYPERVISOR in the amd driver?
+> > >   
+> > It is an early capability check. AMD vIOMMUs require a nesting
+> > parent, while IOMMU_VIOMMU_TYPE_HYPERVISOR is parentless. Returning
+> > zero prevents the core from allocating an AMD vIOMMU and calling
+> > viommu_init() with a NULL parent. As you said above, AMD doesn't
+> > have a allowed vIOMMU type yet.  
 > 
-> Patch 1 converts the mremap_test to use kselftest helpers, removes
-> manual tracking of failed tests and corrects some spelling errors.
+> I'm a bit confused why a hyperv root parition has an AMD iommu inside
+> it.. I thought that was what the hv-iommu-root driver was for?
 > 
-> Patches 2 to 5 fix userfaultfd skipping, unexpected mremap success
-> handling, multi-VMA data validation and failure reporting when data
-> corruption is detected.
+You are right, AMD iommu driver should never load in hyperv root.
+I introduced this check in AMD driver for completeness as part of the
+generic iommufd change.
+https://lore.kernel.org/linux-iommu/20260925190742.1575380-3-jacob.pan@linux.microsoft.com/T/#u
+
+> But we should fix the AMD driver to have a type (ooops that is a
+> troublesome bug!),
+Agreed.
+
+> and you should call add-on-top drivers like TSM
+> before calling the real iommu driver..
 > 
-> Patch 6 removes the randomization and uses a simple pattern based approach.
+I am not seeing a need for mshv to use the add-on driver like TSM,
+since MSHV is not layered on top of a physical IOMMU driver.
+
+Also, we don't have a T=0 to T=1 transition, our intended external
+attach can be transitioned from a blocked domain, not from a paging
+domain to external.
+
+> > > Maybe hyperv should be a TSM?  Maybe we should also route the
+> > > get_viommu through the the "kvm" fd somehow?  
+> > Just to understand this better, are you suggesting to do away with
+> > hv-iommu-root driver in the context of external domain attach,
+> > instead let mshv (hyperv) register as a vIOMMU external provider?  
 > 
-> Patch 7 removes perf tests and timing infrastructure.
+> Maybe? I don't quite understand what you've got here..
+> If the VM path doesn't interact with the iommut at all, which is how
+> these CC cases are, then sure that might be a good idea.
+I do think keeping the hv-iommu-root route is cleaner and logical. I
+misunderstood your comment about "hyperv should be a TSM".
+
+> I think you are going to have module dependency issues trying to get
+> the mshv driver's info into the iommu driver, adding a "TSM" like
+> driver would resolve that. ie mshv could just provide the viommu.
 > 
-> Patch 8 removes validation threshold and always validates complete mappings.
+I introduced a similar registration interface in hv-common to solve the
+module dep issue. Will look into if I can leverage the vIOMMU helper
+here.
+
+> But, you do have a hv-iommu-root driver so it certainly can provide
+> the viommu too, if that can be done cleanly.
 > 
-> Patch 9 strengthens the multi VMA validation by also checking the
-> mapping state of holes after remapping.
+> I guess think about it ?
+Yes, my RFC has hv-iommu-root provide the hypervisor vIOMMU directly,
+and I think the resulting layering is clean. Could you review that
+approach in the MSHV iommufd RFC thread? 
 
-Hello everyone! Just wanted to check if someone has had a chance to look
-at the series.
+> 
+> Jason
 
-Also, Sashiko has a concern [1], and I had the same while posting the
-series. I hope I can get some opinion from the community.
-
-Currently, for PUD remap tests, we allocate a source mapping of 2GB. We
-only fault in the first threshold_mb amount of memory, remap the whole
-region, and validate the already faulted threshold_mb amount of memory,
-which is, by default, equal to 4MB and can be changed by the user by
-supplying a command line option.
-
-Since we plan to remove all command line options from teh selftests, I
-removed threshold_mb altogether, following some discussion on the list
-[2]. This would now cause a 2GB source mapping, and its contents copied
-from another 2GB buffer. This causes the process to have a 4GB RSS.
-Sashiko says that this can cause OOM killing in small CI machines.
-
-Would it be okay to keep a 4GB RSS in this case, or should we find some
-other way of validating a part of the whole range instead?
-
-[1]
-https://sashiko.dev/#/patchset/20260924050009.19974-1-sarthak.sharma%40arm.com
-
-[2]
-https://lore.kernel.org/all/2e34b619-085f-4a9c-bb41-bc024fd40dd7@kernel.org/
