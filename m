@@ -1,148 +1,121 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0C84E7809
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20494D797C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:05:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672774; cv=none; b=OeMlLj+e6Medf+SavvQbbYk0Ej7wnrBZsQlTxO93AuA53S1e3hctTK3UjuAQQGrY81E7W+XJGt+UzuD0Za8mJLMQp/jtQ2IKrojnxkrwixE8gfCaKfF5KldfFWk/hQoIdIRe2we5juLFI7CkNoaWZD3okGQAuFNoF2p32nhbTpI=
+	t=1790672773; cv=none; b=BF1vfH3Rlgp1vxXFreOgJNgLCmiUtEVrLtIU9/OvdG4Oa50L7x50R9bALbHtsS2SwRARaQkfZ3Wk2nRYZTdvRAPAlvuC3ckxzdl2KPpGte/16oaDjOxd23sMT3sx7ABN/q/A+OjdOG2LpIBLCoKEU1CLTxNkh2xsnUnk8fODYZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672774; c=relaxed/simple;
-	bh=tXJ+qY81QYX6ntiL17hDKcWY+jDR6CzEofjkGotGB90=;
+	s=arc-20240116; t=1790672773; c=relaxed/simple;
+	bh=8QBQayhQNtGpDP1n1M55xxpbZasgavD+PCoPdkBpQbk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hW0lzbwWFTHLEYBpEPLk5ga+AKImHSiclSj7ooefBbeN9mi6rrNDpCRWK7c5V4zB8veZ9NosnddcF01PtXjfv7QXRNmDBWogK3NYSskrSkiFJUaUQf3mUQO7vxHvm4tyhJUv0gebWQklJTeiNnn140E7jE3bApbkUpFICdiFSU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DSNpgtnO; arc=none smtp.client-ip=74.125.225.98
+	 Content-Type:Content-Disposition:In-Reply-To; b=d0E4hY5qTnXbKIQFdOlSftOpbcP+/ATmia9gBsVGKBR5udxlso0m1sgBtj7rc3IJ1zpFanLhI0b7u+rWRZZztFB6BcYrIVB6Xt8Rgo39rTx7aT+WCl/FI7uCr6AYDqNm5lBI34+loTzg4glvD6lu4hInhSp6yoYhhtaZu+iv7mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f1WfZCkW; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSNpgtnO"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af5ae31d8so208550f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:06:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f1WfZCkW"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso9183955e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:05:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790672769; x=1791277569; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yVeHQ0WAriz76dL1hysd44dqzM4X8EtO0BJ7xNzSj4A=;
-        b=DSNpgtnOd5FV31vC8ZOmXn+8R0a9zXQAz+jVnfMhjmoh7Hs9z0pQo7KIOulBI9Rl+Q
-         ig1KgCzTuj3F2GoQ9+8KgC+ep7ywewlNc8wajiYE88md8LgJ8FBBsWaGbv31nSk/ZBT6
-         sQo2uhKeTL1QjoLi3nc2VOfVJUiQAaT8B/AW5DuXIvQCf6ICemg/VFFjD6RusGRYOMyN
-         GdiDRkjpY/JG1e8w6PmwuZ3ntqwdXX/MFon8eqqOB0kRJ3Uhxnnsn1ZzpI2u8a4aN2XQ
-         npypCMWc8XqiC0vSH4beQZ38GWb3pdJ6wuGBNaMdFbKsEqNeSNFyZnTOdWcwEtvTW8Wt
-         QF6A==
+        d=gmail.com; s=20251104; t=1790672748; x=1791277548; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7TExyK8zIEMku3wrghEduJ+4wDucgiERD4p9sT26jE8=;
+        b=f1WfZCkWoJSJP9SKuQu/OlU1rcke1hUiwlY0qZUBTbAamFQusLRIjb72bT6CHp1Yqh
+         Wh8D06X2DBJisX44YaKRpMizJCm0SIcMsV99a2Tdtw1JGfr9PLWJ0BWJ7AOE4EV4moyo
+         dsw0l1NJ4A0Rz5yAwTDOoQyKFs0MMSwPRXR0gZ3uIPOz2pxaLWGz2EBJWbmlr/S78Iif
+         IMU1jJvkKdZ4pDRuDMyB4b5+nxBgMAWm6ZplKomwACPiwPMj8PXkHni0VA3cn+w+QvxG
+         avyBz41KdVyP7/aMxReIzh3eOxHK2/HcvlXOFDzkf50En9/zj+vZYygIHkjGx7cxZ03N
+         8j6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790672769; x=1791277569;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yVeHQ0WAriz76dL1hysd44dqzM4X8EtO0BJ7xNzSj4A=;
-        b=Z2UG7IfUgPjgftis5ESJZwGnL14eFeU7k59W+xaCrCJUiD53xuc6rq+nZE6K3Bndac
-         nlgotfqOrr3xOe+X3TGrl3/KwuosGxCnQSSC3Ogi5DhhniK2NXMXU3/V4bnkAQluXxOs
-         1/mEq7P5XbL4vQYfUp4MnG6uGhofKJ/sNb0RCvSP+v2ksx36pWDpSmEkYQx8RFJVt6Db
-         J+Aw2uqtxlHcNSDfDiVImDpr/PWEKuoBmvKThyx7LgSGZFlkSaX6TbVpBZd0wbuBE1rZ
-         cN/NZ0Z7T+jUQCAJemIt2ycRzlMWvT4ro8SMmzuXq3a4SlYfdERNUsMI1N34oUeXZtn6
-         f7ww==
-X-Forwarded-Encrypted: i=1; AKwUvBw0TDXm+cuBZ9f+suHLkLP7huIMKIIKJT6B7vBMEEetH8SyDgChN2jIfSWxifBGoYx1d5JBf/mgQWfH35o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpZGfuRbDvDLgHNjqvEsrgwLGqlA/0qQvP36aQA7cVramuYeOs
-	936/H+f5EvryR8iS5sSMsVjru1Kx0GXtwjnFBgrYpFJdnBF4NVF9OKLg
-X-Gm-Gg: AYBFou11xl8F/CgfRzinahOK4bmfw68LtnjjV5Go1G6ZQ0moJX7btZfvlvIKHihteXs
-	Ki83epUGCTcKmQwOjW3OJqQiFHtUU6WmfA2D4VRj4cjg2o+eM+cikYBi+1WwknjEmtvgJHPE6zH
-	644UfDqNaBSDwDjffflY9iU3H3UfnhtzpSlswlVq4vHkxsNItWxLfNAK3vsxwr0JKELpPR24M2L
-	6bT99bUmUIhjzIHQTmKWJuA8yv32nA52bMc71RJ1m1E1C7EBoT1kSYZvTr3EclsVo7TGUrgSOKn
-	jL7OJpnFackEyLLxsOsQ6i1PaCMRbukuEGUmMrgMJR/aChjVBQ4149T8Z5UNDwJA1Ef3nHnK7Dw
-	UbTFOsMTZuOtG7Y/h2a2yOBp2pdp01Qsnq36mWp8rmvTCfEVCbLA5YIPpA1vP8ZVxchxLxf1NSR
-	l1/TI64mTTsdz+0c8cNoPDWEN8RzpSvuvbJGTPL6N0HIvev1CRShpsOR7hbQ7qqPCJpOc1AhBNG
-	9Cej4Ju3uvJXjEb83FwNhnC/4QaaPYICcR7xF69RG5RCs/hCs5f3qy9WCVPGr/Iy6G1JqJAHZb4
-	Pnb6rbZWgs6M8yEMBTnK6Wptcskw
-X-Received: by 2002:a05:600c:314f:b0:49f:e4ca:e09 with SMTP id 5b1f17b1804b1-49fe66ca9e5mr261828235e9.3.1790672768454;
-        Tue, 29 Sep 2026 02:06:08 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0ea7c0sm65937205e9.11.2026.09.29.02.06.06
+        d=1e100.net; s=20260707; t=1790672748; x=1791277548;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7TExyK8zIEMku3wrghEduJ+4wDucgiERD4p9sT26jE8=;
+        b=Omu0eGrTITXQ+YdDEe9/wTaF99yLT7OxDzpiFE2wW200x6z43PE/tbXZMHl8OyiD9W
+         T9GNTyfgjp0YIIcZKuYSERUORWN+tZOYnpocC3zqeylrXdofZTI3QwFgsxhzNfbKIMBy
+         APuBkysUhpc4zpmpr2YcBHiv7QAF44etubLqHovxPVGeMmF7NdUFXGUimaYeuGbVTbh7
+         OCCFnLQv3jsOCiWM2L21sJgy6t+C+7vYdQt0skD9McrZQkQwFXhNNsPUuVfDybXucB7P
+         wt2Mrlrzg92D2UcwmdiYXB9s9zzfDPQ6Hy3SKHLZjcCBhNy1rO1t2hi5YfYkNJBTQvLs
+         kQlA==
+X-Forwarded-Encrypted: i=1; AKwUvBw93vQ9/a4U48XCaIGT2d3VJXa0XRTFEvCqhfuEiToHc4g77N1fpKryie7KdAKKG9fDYnv5y4CgwpByDVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8pYelG+WINsjgmpS/OtFt1Mel7+PEwW5gbXxOKvExHgPD9m+M
+	NbReyZqW8+JC02XSP3VtF8HmD7EKwF2t72NYDXQgRq8zVZWFvuvFnY2T
+X-Gm-Gg: AYBFou09caF3fP4NYeHwRjXPaaouvh2fyWTcOgY72kqGN37pT3rDdAATUtw7Uk/wXq7
+	VgF1Vzq9P5WQmbqif/HW999ESJUndryUhOTFeWRp4sAh3cQrQNMBUhuUz7PZu80YDIvL3S5tpdM
+	1uv0UJKSAPQo933kIKQO+fuKcQel6JvZY8x+fYKPWxG2yjIOTXos9JHPUqOffbbRUNQG7txXvOZ
+	nxlPzpS1+bSJEBlRbIJHcM3tN1h91mkEeYIpWYw+u+2X31FF9zRNdBaYaPb1bsyrJDE0HOsuJTv
+	spae7qU+1X4T3LLU0hMeruJDrKp7VazAHRIDxURSB/VnBpIjND59XDEO3dk/ujHwfSbR7iNL+0x
+	YWs04wSVR2w59B2Dp+sgR1gUDJcYPsmXQcPFZcbz1GFcUZObmlgFzY4Wmu49OJmw0dBgFlzbiEs
+	DUHtnBlCUkXmNwOYIlvf6De/UPD9xQLeuuY5dd96/41WufGHeRYDDikRid2F8=
+X-Received: by 2002:a05:600c:4f45:b0:49f:fed0:fc47 with SMTP id 5b1f17b1804b1-49ffed0fe54mr144940245e9.1.1790672747833;
+        Tue, 29 Sep 2026 02:05:47 -0700 (PDT)
+Received: from gmail.com ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf868b5sm90738705e9.1.2026.09.29.02.05.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:06:07 -0700 (PDT)
-Date: Tue, 29 Sep 2026 11:06:05 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v3 01/12] dt-bindings: arm: fsl: Document Variscite
- i.MX6UL boards
-Message-ID: <art_faJ7Zx5CaWfW@Lord-Beerus.station>
-References: <cover.1790512621.git.stefano.r@variscite.com>
- <a4e262cfb08153c23c80cd3098a684816993f1e9.1790512621.git.stefano.r@variscite.com>
- <20260929-logical-fanatic-quail-2ff20b@quoll>
+        Tue, 29 Sep 2026 02:05:47 -0700 (PDT)
+Date: Tue, 29 Sep 2026 11:05:44 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/mm: check MREMAP_DONTUNMAP mlock accounting
+Message-ID: <art-TQZISqp3frvp@gmail.com>
+References: <20260928111055.482136-1-azpijr@gmail.com>
+ <ae606df5-7d14-47b4-8569-fe47321bfac7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929-logical-fanatic-quail-2ff20b@quoll>
+In-Reply-To: <ae606df5-7d14-47b4-8569-fe47321bfac7@kernel.org>
 
-On Tue, Sep 29, 2026 at 10:49:08AM +0200, Krzysztof Kozlowski wrote:
-> On Sun, Sep 27, 2026 at 02:46:16PM +0200, Stefano Radaelli wrote:
-> >  
-> > -      - description: i.MX6UL Variscite VAR-SOM-6UL Boards
-> > -        items:
-> > -          - const: variscite,mx6ulconcerto
-> > -          - const: variscite,var-som-imx6ul
-> > -          - const: fsl,imx6ul
-> > +      - description: i.MX6UL Variscite VAR-SOM-6UL and DART-6UL Boards
-> > +        oneOf:
-> 
-> Please do not introduce own style.
-> 
-> > +          - items:
-> > +              - enum:
-> > +                  - variscite,mx6ulconcerto
-> > +                  - variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto-board
-> 
-> "board" is redundant
-> 
+On Mon, Sep 28, 2026 at 02:08:51PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/28/26 13:10, Jose A. Perez de Azpillaga wrote:
+> > MREMAP_DONTUNMAP keeps the source VMA in place, but clears its mlock flags
+> > for the whole VMA while setting them on the destination VMA.  Two cases
+> > leak mm->locked_vm as a result:
+> >
+> >  - an unfaulted mlock-on-fault VMA moved behind itself self-merges, so the
+> >    single resulting VMA loses the flags without the accounting being
+> >    dropped;
+> >
+> >  - a partial mremap() moves only part of the range, leaving the pages which
+> >    are not moved accounted as locked in a VMA whose flags were cleared.
+> >
+> > Add three cases to the MREMAP_DONTUNMAP selftest which mlock() the source
+> > VMA, with and without MLOCK_ONFAULT, perform the operation and check that
+> > VmLck comes back to zero once everything is unmapped.  Each case runs in
+> > its own process, so it starts from a clean mm with VmLck at zero and a
+> > failure cannot propagate to the cases which follow.
+> >
+> > Verified on x86_64: the three cases fail on v7.3-rc5 and pass on
+> > mm-unstable with the fixes from the "mm/mremap: fix two issues with
+> > MREMAP_DONTUNMAP" series applied.
+> >
+> > Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> > ---
+> >  tools/testing/selftests/mm/mremap_dontunmap.c | 273 +++++++++++++++++-
+>
+> @Lorenzo, could something like this also be implemented (maybe with less churn)
+> in the vma.c selftests?
 
-Thank you for the review.
-I will keep the existing Concerto binding entries separate, use the
-surrounding items/enum style, and drop the redundant -board suffix.
+if the size is the concern, most of it is the per case process and error
+handling, and I could try folding that into one helper if you would
+prefer a smaller patch.
 
-> Also, look at other examples here, like Toradex. The actual variant
-> should be the last.
-> 
-
-Could you clarify what you mean by “the actual variant should be the last”?
-For a board with eMMC, SD card and WM8731 mounted on SOM, would you prefer
-variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto or
-variscite,var-som-imx6ul-concerto-emmc-sd-card-wm8731?
-I had used the former ordering following examples such as
-toradex,colibri-imx6ull-emmc-aster. (som - som variants - carrier)
-
-Thank you!
-Best Regards,
-Stefano
+--
+cheers,
+jose a. p-a
