@@ -1,174 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A803475349;
-	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C714772BF;
+	Tue, 29 Sep 2026 08:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671169; cv=none; b=PSQRo4xskuk/c0bz+gGm+qkdvACfTD/tzhmfEqkCK46U9BG4hTWG/PI7uaj3X57IuW/kqLCoY9FeMie7E67+Kl7i7USv4ehDHKsATkWrTo+vOa6Q9X2VEI3rzxaQvHHciTz7Sg/j9cGd4rRx0Tq17u6flNnbAs5ZMKCAQ+owLA8=
+	t=1790671179; cv=none; b=qWqm9h106BeiusAVvbtqr5I5CJRkepdLFCn0AIBK9PP5bxRIgjpdtVLsI6BnpkL5mozyLMGKbUIifI2+nCjPcYbs7WLKywjza9QbfwL2q/BZM3+UiZSiR72EJcLSedF1YKR02Td2VRsKG61JQOB0TG4IPftGY5c4MkGKI23Wb3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671169; c=relaxed/simple;
-	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IUcelLslPKn5kvEzsJCe6w6Mu/7WUiQqRYreXLBV4UM8btED73SjWyUomRMEG81JE5RffiDDwxMi1p5JzmMMfzvYdpX3jLVHGx55ygM/2DEWZWUIluEmR5BLBHyg1Lyhvfhz67Z81hNHsDEhJkNcALq2vXFOinA0qRxbAiVcQBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyMSysAv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671179; c=relaxed/simple;
+	bh=9XLVLnpAd04sheys1cEFbNRxuH25X5RyWkhQaJt/wZw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aJw7xr3iT/2ltKwk7LoL+EX0KPTrO4oiyPhsp/PbsB8D4l91GPDbyHH0FyhsgT45g00ZpbvnHNIc+ms3L+dhNGdW7txoLK6AMcOoM7qGTgcZwrWejsgzhEWlApRKs8aREuGpqs3pFvBmEYFUnCA9mlS78kJHnPBq4w9Il7Gv0dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Imd8QD70; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyMSysAv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAC01F000FF;
-	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Imd8QD70"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500C71F000FF;
+	Tue, 29 Sep 2026 08:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671167;
-	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VyMSysAvAo7ngdUGShaeaSS7dNAOWwUOlTJuYF0veHDkZPuwBGplCxkq3zYfmMXso
-	 /zwdaYLvq0ftT23TrtAk+3Q/V507oCqtKiCaTTa3dU+SPoJfI6z5TEMDwY4f2FboHw
-	 sLiQOF8ZyUV+QafHjHlodL/KuvuTwUt11h1537m7TDAiuUmK+N7DYsgklbj5HWVVdd
-	 qFKGSRvAvZFoogC74Yzbmqp4YKJ42qAt7YcwtMXwwNEDLY8WHX9fs1dB1x3Z2YlSxi
-	 DznitOMAhJeq5fTWgmuwINB1mdpeXesqzXKCKJgoYsc4bj4ZlorP346HLkA6U2tMSr
-	 YL3DYq2Kc+dMQ==
-Date: Tue, 29 Sep 2026 10:39:24 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <artyl8fD3zzng8Uh@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org>
+	s=k20260515; t=1790671178;
+	bh=APDT/Ge7NyqJm0LUEW4MYf/ImZiM+AqEbii4Z4M87Zc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Imd8QD70VLom82XyvrlV2U0dHQnHRjGOV7ix+4uE8cEUrr0obacbMCo8eJgn/fhVS
+	 L3oVS8OuztmV/SF00n1dG94dzumISFWsr+t875TzEeepJWgSXDAcvQmFGt/akTvu6E
+	 JeA+kKd0HtLXpe80LOvKyEU6bFPWrhE6UDGyTEvUi/lj9Z96JW8GpXhBZUq1LxSkcz
+	 mWurn+2V4ps4NyVKxqqj223uzkFK8lWkD+V+3To7+JJzpCl0dXoyJwstTqGsa8x8qH
+	 Q59kIplYv9lqLWJ5/jVVChT0NUOk8cCXFafvlP6y0qUTMgGMXk6SeoaMmFeltnNMWy
+	 KyWHDBLfBw0uw==
+Message-ID: <8df7fdb2-813c-402c-99c0-9de6b0dbcd0e@kernel.org>
+Date: Tue, 29 Sep 2026 09:39:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="gzxryrlughoococo"
-Content-Disposition: inline
-In-Reply-To: <20260928204059.GA515872-robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] Add Qualcomm CAMNOC ICC provider
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Georgi Djakov <djakov@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+References: <w3u_oVZRxmZkAlC5RmxuB0v5k970jezsVHDZvryQ3oYkStqmsp79LjODiA0mYkNl1jkRya-7Ncvk8KGrE1vnUQ==@protonmail.internalid>
+ <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 19/08/2026 10:32, Atanas Filipov wrote:
+> This series adds a device tree binding and driver for the Qualcomm
+> Camera Network-on-Chip (CAMNOC) interconnect provider for SM8250.
+> 
+> CAMNOC is the internal AXI interconnect within the camera subsystem.
+> Multiple camera sub-devices (IFE, JPEG, BPS, IPE, etc.) share
+> CAM_CC_CAMNOC_AXI_CLK. Direct clk_set_rate() calls from each consumer
+> cause a last-writer-wins race. This series introduces a lightweight ICC
+> provider that aggregates bandwidth votes from all consumers and applies
+> a single clk_set_rate() call.
+> 
+> Changes since v1:
+> - dt-bindings: add all SM8250 CAMNOC master port IDs to qcom,camnoc.h
+>    (IFE 0/1, IFE Lite 0-4, BPS, IPE 0/1, JPEG, JPEG DMA, CDM, FD, SBI,
+>    ICP) with a short comment per group (Dmitry Baryshkov)
+> - dt-bindings: add IFE simple consumer example alongside the JPEG
+>    OPP-based example; clarify opp-hz and opp-peak-kBps semantics in
+>    comments; fix maintainer email; align provider node name with DTS
+> - driver: register all SM8250 CAMNOC master nodes
+> 
+> Atanas Filipov (3):
+>    dt-bindings: interconnect: Add Qualcomm CAMNOC ICC binding
+>    interconnect: qcom: Add CAMNOC interconnect provider driver
+>    arm64: dts: qcom: sm8250: Add CAMNOC ICC provider node
+> 
+>   .../bindings/interconnect/qcom,camnoc.yaml    | 124 ++++++++
+>   arch/arm64/boot/dts/qcom/sm8250.dtsi          |   8 +
+>   drivers/interconnect/qcom/Kconfig             |  10 +
+>   drivers/interconnect/qcom/Makefile            |   2 +
+>   drivers/interconnect/qcom/qcom-camnoc.c       | 279 ++++++++++++++++++
+>   .../dt-bindings/interconnect/qcom,camnoc.h    |  52 ++++
+>   6 files changed, 475 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
+>   create mode 100644 drivers/interconnect/qcom/qcom-camnoc.c
+>   create mode 100644 include/dt-bindings/interconnect/qcom,camnoc.h
+> 
+> 
+> base-commit: 9e970952a9503d6ab471a2fea4c10b6a2785406f
+> --
+> 2.34.1
+> 
+> 
 
---gzxryrlughoococo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-MIME-Version: 1.0
+I'd like to see the code for actually _using_ this in CAMSS, seems a bit 
+incomplete without that part.
 
-Hi,
-
-I'll merge the two discussions in that thread.
-
-On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > regulators and GPIOs, perform a reset pulse with specific timing,
-> > send a vendor-supplied sequence of DSI commands, then enable the
-> > display. The only truly panel-specific part is the init sequence
-> > and power-on/off timing.
-> >=20
-> > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-> > with a single generic driver whose panel-specific behavior is
-> > provided by BPF programs loaded from userspace at runtime,
-> > following the HID-BPF model. This enables new panel support
-> > without kernel patches.
-> >=20
-> > Panel DT nodes use a two-entry compatible with the panel-specific
-> > string first and "panel-mipi-dsi-bpf" as fallback. The generic
-> > driver matches on the fallback, while the first compatible is used
-> > to identify which BPF program to load.
->=20
-> If you need the 1st compatible anyways, what is the point of the
-> second one?
-
-The whole point of this driver is that you don't need to modify the
-kernel when you add support for a new panel.
-
-> Also, I assume there is at least some panel supported in the kernel
-> you might want to convert to this. That panel would not have the
-> fallback (and the DT is fixed).
-
-Yeah, that's true. I'd still need to identify the parts though. I guess
-using a generic compatible but a specific model would work?
-
-> And I agree with Neil's comment. At least until we start embedding BPF=20
-> into DT directly. ;)
-
-And from Neil:
-
-> I don't see how this can be a valid hardware description, bfp is a
-> software implementation and has nothing to do in the bindings.
-
-I'm quite a bit surprised by that argument though.
-
-We have in the main dt-schema repos bindings like:
-
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/opti=
-ons/u-boot.yaml
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/boot=
-ph.yaml
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/post=
--init-providers.yaml
-
-Or, in Linux:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/devicetree/bindings/sound/simple-card.yaml
-
-All of them have been reviewed or acked by you, and yet none of them
-relate to any hardware description.
-
-panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-quite similar to this one. google,android-pipe and qcom,fastrpc don't
-attach to anything and will just open a tunnel to userspace, which is
-somewhat equivalent but more dramatic than what this driver is doing.
-simple-card or its variations will just instantiate a kernel driver from
-the DT and is used pretty much everywhere.
-
-I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-past the "oh but we didn't know what we were doing back then" argument.
-
-So, let's phrase this differently: what's different about the
-description than panel-mipi-dsi-spi, or any other binding already in
-tree?
-
-If it's the BPF part, BPF is not Linux-only, and there's hardware with
-direct BPF support these days, so it can be considered OS-agnostic and
-not an implementation detail.
-
-Maxime
-
---gzxryrlughoococo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCart5NwAKCRAnX84Zoj2+
-dq+3AXsHKGDW5rCG290Y1fx+OohFSBUrfr+SjWPzYJbv3AsWDJ+tyk6pJ0aj+C5d
-QReuRzgBf1XMASoAKO+JAW9hFCf/nZfVfklcUBc5TR6bE1h5DcpFLGIlYksltuZo
-cQcGQ3gsrw==
-=YrNa
------END PGP SIGNATURE-----
-
---gzxryrlughoococo--
+---
+bod
