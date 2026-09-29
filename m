@@ -1,86 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-113.ptr.blmpb.com (va-2-113.ptr.blmpb.com [209.127.231.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9CD53A394;
-	Tue, 29 Sep 2026 15:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8F31DF748
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694649; cv=none; b=FOXohjry4ROqoHXbz8O0KG30kaB/dyt7Swnz8PdmHB/9gH37aeDCfqjZ7tEwaj6a4VHFzjznDtpg+7Q96UAjvISwq6zA8pck/aJY5QO6b06WE7ZdEnGno6amTXn7suhsafvrPCTX18j4g9ZbnGKupVcMIrKdTEF8Yhqcrt68BQ0=
+	t=1790694668; cv=none; b=Qc6x2SRhEdI6wrwOW3nTFGKO/qPhuRWcEW/a4OK1E//ka4SK4tU5PWMqqBinpR6sokwk3TnOpQVynoxUjiYe0Z1RJ7noQynkO70IcXwLHdgCO9j4rI9OM6TWL9i6F+CzIdYBF2zOg389iXJcR3LqoGowqw2BDkkE8odH9LZ7YVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694649; c=relaxed/simple;
-	bh=KGaZEDzBSrPvLAXZ8ZJuD45jLT75zzI5KhroxQ36amQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=VhI3YhHzHHDqFwx46ZBWYVuTRliO6QPhQAgScEw66Qb842qIKmqTAXIbFI3YX8ymzf5flL4l8kG885mAlHUZXuASl9mEsZkRYTGu+zgLk86Yw/K+4QUBOEgBTHaFUHY1WgrQqWHGTTbSmWBF4Wmje7HLCnC5s/sLdsol7CAu8kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R69np1/F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790694668; c=relaxed/simple;
+	bh=JOeaS9aUeBrTQEvyJy9Zvse1y4Ni9NeQZu5p2BMSjbc=;
+	h=Content-Type:To:Subject:Mime-Version:From:Date:Cc:Message-Id; b=BwNHPyTHbiOe3w+8XOrKA17wLaIYAavE03UiB2F7inIoQ8EgemItiaIJyaiS3DNJ5j+tJXGjJddGew8V/SnE+01ywE7+BoUdkbyz5Kmx7G+rvhU5/4nH6M4Gm5svWDsEwHFgMU11WVxOJxGY0V05DFiigbMRfHapES6050T+4bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=I2Xkefmb; arc=none smtp.client-ip=209.127.231.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R69np1/F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1C91F00898;
-	Tue, 29 Sep 2026 15:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790694613;
-	bh=WMwLrw6UsXJttOAo42mNfwX0LV4PQMLTeXxkaHq+pw0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=R69np1/FlrfpEMkO9D9dXY0+bU1LkKi2PFtm0NiWG2sN5/RU8iVEWJInyj9F70KCj
-	 zPT8gh3X2Gn1eAuJ6qb5fZNEX1MaCGdaC47rM/XFCa3v6IZ/IY47rU7Am7UkELl4BW
-	 UtqRuhP/3cJOWIhR7ljEur8Fa0x1BuCoPJ2DtMZ1y3hP+C4nRxWWUS4p9GvhtSqHNK
-	 133ixDJmseu+12H1mY3J5PJRhF/zpQVWWq+8agqz0cf1Ag5NxYbY4qjyNXmAbKJ7LM
-	 cCtEYmAp/xF5H0QmHP/+TS0yiuaQVTgUgMmmpBiWDMzmw17Uw6AY2JNrEzWIJXMrRj
-	 EaFBNbzh/R2+w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773523927049;
-	Tue, 29 Sep 2026 15:10:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="I2Xkefmb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790694638; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=O3IJCO3Fxa+KIWY5We9OpQjzjeolrtdQXzDOuRowT8k=;
+ b=I2XkefmbFfmQpL440lQWV3tlrRHyscqqfYz16Cdy7RzsLyQBkV7h05w2bgadcACFs840Ic
+ tgpPfAmlHyPHFMpXf72FQXJIe6gXfDBeNdVc7XlgGgwRjgpqXQc2GlGb8RbTM21ngjuEsj
+ RpI3mkltFy42I+HqQHRJwqybJP8g06pKJg93nfRe2roEvVFzaHpyjRmDudlRPf2f0evD0h
+ meso99d7f1ou7kcKTjridkw5doC4HKHBE9angLrG566Q+nZ8K+eUqW2KpNcNXKdY/oOozU
+ UCnDnIMKMDKEw/QgiVARD1Rbjtc8fNxzsY8WcWPD7t3dMoBEbEZAGuH0ynhnXw==
+Content-Type: text/plain; charset=UTF-8
+To: <x86@kernel.org>
+Subject: [PATCH] x86/fpu: Free dynamic fpstate on exec()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v6 0/4] Bluetooth: btintel_pcie: fix D-state transitions
- and
- PM flows
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179069461202.983246.15242898200206126696.git-patchwork-notify@kernel.org>
-Date: Tue, 29 Sep 2026 15:10:12 +0000
-References: <20260928171003.2925480-1-ravindra@intel.com>
-In-Reply-To: <20260928171003.2925480-1-ravindra@intel.com>
-To: Ravindra <ravindra@intel.com>
-Cc: linux-bluetooth@vger.kernel.org, lsa.uz@pm.me, pmenzel@molgen.mpg.de,
- marcel@holtmann.org, luiz.dentz@gmail.com, kiran.k@intel.com,
- chethan.tumkur.narayan@intel.com, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26abbd4ec+58b1c1+vger.kernel.org+weiguixiong@bytedance.com>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Date: Tue, 29 Sep 2026 23:10:06 +0800
+X-Mailer: git-send-email 2.50.1
+Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
+	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
+	"Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, 
+	"Chang S . Bae" <chang.seok.bae@intel.com>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Message-Id: <20260929151013.81562-2-weiguixiong@bytedance.com>
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
 
-Hello:
+The fpstate embedded in struct fpu only accommodates the default
+xfeatures. When a task first uses a dynamically enabled xfeature,
+fpstate_realloc() installs a larger fpstate allocated with vzalloc().
 
-This series was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec()
+without freeing the dynamically allocated one. Once the pointer is
+overwritten, arch_release_task_struct() cannot free the allocation when
+the task exits.
 
-On Mon, 28 Sep 2026 22:39:59 +0530 you wrote:
-> This series fixes the suspend/resume path of btintel_pcie.
-> 
-> Patch 1 refreshes the boot-stage register before the fallback state check.
-> Patch 2 distinguishes S0ix from S3/S4 and routes thaw through a normal D0
-> transition. Patch 3 verifies the state after GP0 and completes any missing
-> RX or mailbox setup. It also serializes the alive-context claim between the
-> GP0 handler and the PM fallback so only one path reinitializes the RX ring.
-> Patch 4 clears the GP0 cause with a direct W1C write.
-> 
-> [...]
+Preserve the old fpstate pointer across fpstate_reset() and free it only
+after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
+This ordering prevents a context switch from saving FPU registers through
+a freed fpstate pointer.
 
-Here is the summary with links:
-  - [v6,1/4] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
-    https://git.kernel.org/bluetooth/bluetooth-next/c/20dfccf8d854
-  - [v6,2/4] Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
-    https://git.kernel.org/bluetooth/bluetooth-next/c/79463c0de429
-  - [v6,3/4] Bluetooth: btintel_pcie: verify and serialize D-state transitions
-    https://git.kernel.org/bluetooth/bluetooth-next/c/7ec2ab118e34
-  - [v6,4/4] Bluetooth: btintel_pcie: clear the GP0 cause with a W1C write
-    https://git.kernel.org/bluetooth/bluetooth-next/c/6091d2771395
+Make fpstate_free() operate on the fpstate pointer itself so it can free
+the detached allocation. Use it for the existing reallocation and task
+release paths as well.
 
-You are awesome, thank you!
+On an AMX-capable system, 1000 iterations of requesting XTILEDATA
+permission, executing TILEZERO and calling execve() on the same image
+left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
+/proc/vmallocinfo. None remained after this change.
+
+Fixes: 500afbf645a0 ("x86/fpu/xstate: Add fpstate_realloc()/free()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+---
+ arch/x86/include/asm/fpu/api.h |  6 +++---
+ arch/x86/kernel/fpu/core.c     | 11 ++++++++++-
+ arch/x86/kernel/fpu/xstate.c   | 10 ++++------
+ arch/x86/kernel/process.c      |  2 +-
+ 4 files changed, 18 insertions(+), 11 deletions(-)
+
+diff --git a/arch/x86/include/asm/fpu/api.h b/arch/x86/include/asm/fpu/api.h
+index 90c63fe19c0fb..3e0c3b7dce73b 100644
+--- a/arch/x86/include/asm/fpu/api.h
++++ b/arch/x86/include/asm/fpu/api.h
+@@ -123,11 +123,11 @@ extern void fpu__resume_cpu(void);
+ DECLARE_PER_CPU(bool, kernel_fpu_allowed);
+ DECLARE_PER_CPU(struct fpu *, fpu_fpregs_owner_ctx);
+ 
+-/* Process cleanup */
++/* Dynamic fpstate cleanup */
+ #ifdef CONFIG_X86_64
+-extern void fpstate_free(struct fpu *fpu);
++extern void fpstate_free(struct fpstate *fpstate);
+ #else
+-static inline void fpstate_free(struct fpu *fpu) { }
++static inline void fpstate_free(struct fpstate *fpstate) { }
+ #endif
+ 
+ /* fpstate-related functions which are exported to KVM */
+diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
+index d1aeecd57f5ed..08f5c77d990aa 100644
+--- a/arch/x86/kernel/fpu/core.c
++++ b/arch/x86/kernel/fpu/core.c
+@@ -866,8 +866,17 @@ void fpu__clear_user_states(struct fpu *fpu)
+ 
+ void fpu_flush_thread(void)
+ {
+-	fpstate_reset(x86_task_fpu(current));
++	struct fpu *fpu = x86_task_fpu(current);
++	struct fpstate *oldfpstate = fpu->fpstate;
++
++	fpstate_reset(fpu);
+ 	fpu_reset_fpstate_regs();
++
++	/*
++	 * Free the old state only after register state ownership has been
++	 * invalidated. Otherwise, a context switch could save into it.
++	 */
++	fpstate_free(oldfpstate);
+ }
+ /*
+  * Load FPU context before returning to userspace.
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index a7b6524a9dea2..ea3736a74fd43 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -1556,10 +1556,10 @@ static int __init xfd_update_static_branch(void)
+ }
+ arch_initcall(xfd_update_static_branch)
+ 
+-void fpstate_free(struct fpu *fpu)
++void fpstate_free(struct fpstate *fpstate)
+ {
+-	if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
+-		vfree(fpu->fpstate);
++	if (fpstate && fpstate->is_valloc)
++		vfree(fpstate);
+ }
+ 
+ /**
+@@ -1640,9 +1640,7 @@ static int fpstate_realloc(u64 xfeatures, unsigned int ksize,
+ 		xfd_update_state(fpu->fpstate);
+ 	fpregs_unlock();
+ 
+-	/* Only free valloc'ed state */
+-	if (curfps && curfps->is_valloc)
+-		vfree(curfps);
++	fpstate_free(curfps);
+ 
+ 	return 0;
+ }
+diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+index 346c438ac8801..b7306f257f4b0 100644
+--- a/arch/x86/kernel/process.c
++++ b/arch/x86/kernel/process.c
+@@ -118,7 +118,7 @@ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
+ void arch_release_task_struct(struct task_struct *tsk)
+ {
+ 	if (fpu_state_size_dynamic() && !(tsk->flags & (PF_KTHREAD | PF_USER_WORKER)))
+-		fpstate_free(x86_task_fpu(tsk));
++		fpstate_free(x86_task_fpu(tsk)->fpstate);
+ }
+ #endif
+ 
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+2.50.1 (Apple Git-155)
