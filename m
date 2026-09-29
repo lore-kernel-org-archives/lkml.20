@@ -1,210 +1,93 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA934C2259;
-	Tue, 29 Sep 2026 09:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4C24E9C04
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674902; cv=none; b=V4AoWTfG4X9/DbeZ+oFUQbuQjtjtt5mtu5DDlHGu8XwpmzuOQ8dW33zds49QF5Tama7iQTSctmcZEIfJaZRsjc63XlvAKVawlEHfRoxLzK0oan0XDbqZjVHRpQZ1S9kBActG/FgBZyJUhUbDYozyifA4fsIcwW61vbUwBCOh/PM=
+	t=1790674914; cv=none; b=H2pDsMNNCNBW0CQsu0BHHe3w3XushoXSQtVzUlYlQdkTqT0h37Sr7+ejMZaZgaZUhYOm0qL95fz0/ZnISsOPc/j4pTfv7Stj3/DJ2+8wE/gf49lNpWZ87WXn3R9kf6lwqUen+mJQRw3ZP2icJkreNqjPopC0qYn6mVHGkNAO/gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674902; c=relaxed/simple;
-	bh=vSyGGV86aqK0w4gGiHH6xzLPE2b/IbJZUAsCU8hRASw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jdMI6c090VeHhWbPZ37bD7S+PrMMP6lk0k99reNEN8u2o1axFLSjqvPSk1A3ose7193bxZZmiUpmNeJj/b1OchKOhu5+pBWzif892MhgLfQJ5ZmYzjtBGggpCTkfeEJY9qW2hplVPBZBS0HW9OK4CmlywIvzUkCOcmzXpQiCBmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lMSD/JeC; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790674914; c=relaxed/simple;
+	bh=gEFQcdl7qTsUXGeFDfge1bU5rQQM7owHkKfffjE/c8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kP0nR6iynYsJ1Zr+DNU9K/rM5+aafipsCuHr5p4Fa0ZV5U56CnMQyIm1wRip8yO7V12afTtO4QnkgxmD+PTqdR/pG+VeVpFJTwC1rqOhVJancDivsswY1VW5ixffPw8ayR5Hmy93huqIlDbk97Rwo3fq4OmJGyJWFnPxwSqmhN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=di9ZkO5K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lMSD/JeC"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 87438534023D;
-	Tue, 29 Sep 2026 11:41:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790674891;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wJGOOqzEs1mbvq1qJy6TGteYLvXk6pJNRTFzzZau6J0=;
-	b=lMSD/JeCoVbCM2uadFIcpeu8dTNvVFPKQUlH3dJQHsFKpEy7Cs7IYdFHC0rjmjVgVgNa3p
-	cAEldOxXlkqm47BfTonW8sVpOh8l2Zfx7oMJXYwvKGZ4HqShpJbWAm8W5AX+Qyo1U7q3lx
-	597o/nfOwGzqKpMFRzytCYR5ldbmPyo=
-Message-ID: <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
-Date: Tue, 29 Sep 2026 11:41:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="di9ZkO5K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57051F00893;
+	Tue, 29 Sep 2026 09:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790674913;
+	bh=+F5NumrZf1XyIZbQp91DpBQmedu/Ecq+2WveBOr2pps=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=di9ZkO5KspEV6z4evgG83zBoudsAPd4OAJTLUsZbjopg08XUdO0h2CvjtAM/m7GvZ
+	 UcaKiUtYl8RSDOcJGUYicjHrUgEzPDFlAsp2Mlq8tfcIsI9brGeRa4v59dRSLaf9jr
+	 ENqMa7FgPAb0v6uI1Fa3P5r43kM7QdPC0+RUmoLzeyqN35lNpn6xdCv2TjlomdgdY6
+	 KbyS5AnAFHNULK9BypuiYVpaJHDzobxM5nMVRGdBSXn8RuvI0xoDeQj4NzGG8c3BxO
+	 2Et8qZ7KPAGTlIMeafsQGTMJxxjfErPumMiFiZZSHHMKirE7dzI6Qk8NpAParF87BX
+	 3d9+Qj/wCmXZw==
+Date: Tue, 29 Sep 2026 11:41:47 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Deepak Gupta <debug@rivosinc.com>, Zong Li <zong.li@sifive.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zishun Yi <vulab@iscas.ac.cn>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: process: Use str_supported_unsupported() in
+ compat_mode_detect()
+Message-ID: <aruH26spDeM8O9dh@kernel.org>
+References: <20260924213256.122530-2-blum@kernel.org>
+ <15d659fe-c9cb-fa65-5dd6-7182fb152317@kernel.org>
+ <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
- within
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
- <20260929-dramatic-ocelot-of-support-2aa377@quoll>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260929-dramatic-ocelot-of-support-2aa377@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMuHMdVK-MzcnNgobviFf8rxkko_sBT43+gZdEG45fN+vyo1xA@mail.gmail.com>
 
-On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
-> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
->> The reset was introduced with wrong polarity. Correct for the future
->> compatibles and keep current with reverted logic.
->>
->> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
->> gpiod_toggle_active_low() on the deprecated compatible.
->>
->> Assisted-by: LLM
->> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
->>   1 file changed, 19 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> index 5e1e997b83b36..99290913de69a 100644
->> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> @@ -20,16 +20,17 @@
->>   #include "panel-samsung-dsi.h"
->>   
->>   struct s6e3ha8_desc {
->>   	const struct drm_panel_funcs *funcs;
->>   	const struct drm_display_mode *mode;
->>   	unsigned long mode_flags;
->>   	const struct regulator_bulk_data *supplies;
->>   	unsigned int num_supplies;
->> +	bool broken_reset_polarity;
->>   };
->>   
->>   struct s6e3ha8 {
->>   	struct drm_panel panel;
->>   	struct mipi_dsi_device *dsi;
->>   	const struct s6e3ha8_desc *desc;
->>   	struct drm_dsc_config dsc;
->>   	struct gpio_desc *reset_gpio;
->> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
->>   {
->>   	struct s6e3ha8 *priv = to_s6e3ha8(panel);
->>   
->>   	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
->>   }
->>   
->>   static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
->>   {
->> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->> -	usleep_range(5000, 6000);
->>   	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>   	usleep_range(5000, 6000);
->>   	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>   	usleep_range(5000, 6000);
->> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+On Tue, Sep 29, 2026 at 11:11:55AM +0200, Geert Uytterhoeven wrote:
+> Hi Paul, Thorsten,
 > 
-> This breaks all users and this usage of ABI was already released.
+> On Sat, 26 Sept 2026 at 01:48, Paul Walmsley <pjw@kernel.org> wrote:
+> > On Thu, 24 Sep 2026, Thorsten Blum wrote:
+> > > Replace hard-coded strings with the str_supported_unsupported() helper.
+> > > This unifies the output and helps the linker with deduplication, which
+> > > can result in a smaller binary.
+> > >
+> > > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> >
+> > Thanks, queued for v7.4.
+> 
+> Thanks for your patch, which is now commit a06776565b9e7351 ("riscv:
+> process: Use str_supported_unsupported() in compat_mode_detect()")
+> in riscv/for-next.
+> 
+> This fails to build:
+> 
+>     arch/riscv/kernel/process.c: In function ‘compat_mode_detect’:
+>     arch/riscv/kernel/process.c:138:17: error: implicit declaration of
+> function ‘str_supported_unsupported’
+> [-Werror=implicit-function-declaration]
+>       138 |                 str_supported_unsupported(compat_mode_supported));
+>           |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> as it has a hard dependency on commit 5383cf280ef4f00b
+> ("lib/string_choices: Add str_supported_unsupported()
+> helper"), which is only present in the for-next branch of
+> https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git.
 
-See the gpiod_toggle_active_low() usage later in the patch which keep the logic 
-for the original compatible as intended.
+Hi Geert,
 
-David
+It's also in linux-next:
 
-...
-+	if (priv->desc->broken_reset_polarity)
-+		gpiod_toggle_active_low(priv->reset_gpio);
-+
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=5383cf280ef4f00b15f1d9e2a2886d0d02c0118b
 
-> 
-> NAK
-> 
->> +	usleep_range(5000, 6000);
->>   }
->>   
->>   static int s6e3ha8_amb577px01_wqhd_on(struct s6e3ha8 *priv)
->>   {
->>   	struct mipi_dsi_device *dsi = priv->dsi;
->>   	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
->>   
->>   	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
->> @@ -203,17 +204,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->>   	ret = regulator_bulk_enable(priv->desc->num_supplies, priv->supplies);
->>   	if (ret < 0)
->>   		return ret;
->>   	mipi_dsi_msleep(&ctx, 120);
->>   	s6e3ha8_amb577px01_wqhd_reset(priv);
->>   
->>   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->>   	if (ret < 0) {
->> -		gpiod_set_value_cansleep(priv->reset_gpio, 0);
->> +		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> 
-> No, you just changed it!
-
-> 
-> Implement correct and logical fixes, not half-baked fix which is
-> immediately wrong.
-> 
-> Best regards,
-> Krzysztof
-> 
-
+Thanks,
+Thorsten
