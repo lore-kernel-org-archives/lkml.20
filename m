@@ -1,112 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1543AA4E4;
-	Tue, 29 Sep 2026 11:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535203A5453
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681286; cv=none; b=kEsXYwOcqIShO2fMIJjjwycXggO6aM9WlYVHYoOz+qniV0yAdXu7oTNZCsoOJ3jT12INphKFN26G3mMbdkYiPr+zdhmdNz2VD+8Q86Q3s2Vm3lBnJ6VpUbIA83sMNBwY5Nfdz63zH6nyhSbU4jIRYB123UYemBvbBptmTLlI5L4=
+	t=1790681307; cv=none; b=feGln6pQ9cuQsh3qptYZJ1YOM+g5s0SVqoWhTCkbNkSVisiuywHQrKyYfLRMMdr+PlTU8JkHImoLphsFKv3BwvyZEFhF0eUpk35bSiasg3+DMWsfikHB3iH3WGQiZ4Z02f9Tc2RHl8VM1mBBO+L842Pmx725uDojCNZtMcqk0tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681286; c=relaxed/simple;
-	bh=08vNLIXx98Yrj1IvpKudnUztu+PDLXSe1G9EqUOPitU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=eAnl/gjD7WPFvdzytK2PrecrMQZU1sdixE20dpmxBkXM7FTajNpEmU6AbntRbxtGzZ8pvhanOSj7S9BItU7OyYYPbzkvKP0zjNYx8NN1u4Fl0RbELXY2cRl9ooIjc2ScDZ9Fb3XbjnKv/43X6FonzetMFqupyi50ay7RRm+gROo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TaCp7VF+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790681307; c=relaxed/simple;
+	bh=7x9j/mQkz+9LqO2zN4yz7ILszVlzJ5BNxaCgRcCzcXs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lv4z3lSzIl9LTUKk7JxmRta9ceFjIwH6L+HsZgBE3Ww1QH+wxGdD5bzxsqKa3TQrj55ty/SDnZ4YHTYuV8pxmZY6KOPh9DDqa+5lPzx2UZ8JWl6rEW6l5i3enG2rqWFZJcCCrBb9/NGOiVRN8JVqPdmXWXiVIxsX+yqeZli30xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZUbOOzg; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TaCp7VF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662A91F000FF;
-	Tue, 29 Sep 2026 11:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790681285;
-	bh=SF264KM1xpFJ+Dj32T5xIH7ajqAgZoHjgLRWkmxYRhc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TaCp7VF+ghdsIp8cbipLsnUrlK+ZaDq8YiaIQrIBXgYISNADu3VqQXzhrtGHmJvKc
-	 gqNRx7/AWc6hUzZat0ZHRcHXBQAfQLCHhZbYQ+TBItz/hnJAROL1dtRJWoCMj5VSLn
-	 PGHAOZzUpzR07eJbxG0rE4LtGrC8McPTuXCymW7/UylISSKk6FS84ojbF2UZAZPbGL
-	 4frOBfmowYCl1oOF+um/befHzNptb9WK/2o21k5ktEX+ie3OuNlQLnDAW2s11Bgmm4
-	 W4a3rmWYqGWgQGv2XUrE4EZz/9i7k9IjtmyPAuPnbLE+8R4IVVtHl7l90NFS4Bjo11
-	 BD1u50XOXB1cg==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de, 
- kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, 
- nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com, 
- linuxppc-dev@lists.ozlabs.org, shengjiu.wang@oss.nxp.com
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <20260928061149.1844121-1-shengjiu.wang@oss.nxp.com>
-References: <20260928061149.1844121-1-shengjiu.wang@oss.nxp.com>
-Subject: Re: [PATCH v6 0/5] ASoC: fsl_asrc/fsl_easrc: expose
- per-pair/context DAIs and fix DMA race
-Message-Id: <179062040693.139547.920625432189790512.b4-ty@b4>
-Date: Mon, 28 Sep 2026 19:33:26 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZUbOOzg"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0aa9d356eso3172795a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790681306; x=1791286106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3uJK2jAccBhhhLsB7fWlTzcOgHsYndkPD1RuUGHrRxs=;
+        b=LZUbOOzgsSPvc5YlY72gVXwGlZCyETCXSaZxJYP7Om3RW5V+diDU21vXPPzFqWi7/c
+         dLlrahJ+5qGHaGqt2mbE8DZpqBZpZy/3ain4IJOMljspy4AGYI+txrMDnQcfmyPQMBWR
+         Wf00lHrAaEKNbhZwNpfj+2W0iOn2xP+jrQBbI37IYsNrLEeh9ls1HVOK0cS0svAyGhMX
+         uYsXBY67dsI2mBLfAK1FRArj6aEv9Ooip8IgjTxbJc7ryZrgLA7G7bkKhv6jCvDF31t1
+         GK+y0g0CGcf2amGLlPpugmBHImpRrgab0lZSbuj6MBoywxZRRGKtoTIwHECM4HwOnnYX
+         b6cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790681306; x=1791286106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3uJK2jAccBhhhLsB7fWlTzcOgHsYndkPD1RuUGHrRxs=;
+        b=2a9sRNM2O/fc38uzG3KSbOKCxyGxrfzaELAqggNh96c/+yMHpB1HNJqQuLGGsqTHA4
+         dIIRr6PYu5Ow9tVV09dthT7AgE44M3cDkmkgvSS+IL2Dv097rSlUSG0tLXIJWvnd/BgM
+         bLI912CToC/ilJsE6L5PH9NmmB8LT2LlzF9DjAoHIDIo3tPQxurW2PFNtuDxHK8PcdkR
+         0kQIkxi24dvrkg0a8tBteqoQGFU2argk+t1hQvn++qxauq7zsDt7r7QanUswBPuxgfl3
+         /8dKI20u45Hhss1v6izm0IyuqMG6cSjp1fG0M1/PQmVr7VV52ZCifdQQH3htj7xkBZri
+         FnGA==
+X-Forwarded-Encrypted: i=1; AKwUvByRmSHYyFEoIQxQYq604VdoxQJYDb3LuBALoMz1+t27dR8jDMDYjx5fgDe8aXjqtKYeQdqQIMMsQFN1hEk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID+dzSr5k7VXxc6e4wO2YOq5UWT44r8OH6UXx8oVhWPjZeyL+Y
+	FpESb73LDEKKNNFSd3sukYNoOldWbyPxpdGXl4bn4PesnSrqvqd16HfS
+X-Gm-Gg: AYBFou2VcCnJh/LXCKHWrWee7VSVNfM8gbCW3Ax1ZSDnE8QcyjBjw0bgaBohqEXCqdW
+	SRT4O0ODoI6+1SxmVUgYRihKb60wV1YYoROwfh6uMx2GnD32sgBy4buLOJpv2UW/NEkr+U/VNNw
+	1H3VZjR/RZbZVgeFc31hbLBj6HNXXcaB3cZgN8U14iKOxQmpoTmcdRLBmzJXo3gwV2cG4ITo/Ou
+	5G18KYPgaYR/2+5dzwwToCxgj+eHeuTpOb9pwhAozxzDzZw8QhR4sAiiDV3VhBkSN/CRtUkXjLq
+	pnkPoUuJjEZT8+iGwMCnbfURhVyhZxLNiWbFRRhyOse4w0VGJs6KQsEdF+e2xIcHaN8w6CR7qhX
+	Z0h3/wystfgmf/TNq/gBIlf78WysTapZYbPRUjmP2jgG9OK3MldlSSnFQoPimRf0TKfrNJucp2X
+	Krsec49aVdDdmBb/KLeM8wMnL8DmIINk7mayWx4hMpV+pNWp/rSZql7sj1H4vqEZGnCYTOdu7r3
+	IOmbtKeb5mTmMFuHsfFzpk=
+X-Received: by 2002:a17:90b:574d:b0:3a0:2900:f584 with SMTP id 98e67ed59e1d1-3a099230a7fmr14962078a91.46.1790681305497;
+        Tue, 29 Sep 2026 04:28:25 -0700 (PDT)
+Received: from localhost.localdomain ([216.236.36.150])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4986a1905sm5162218a91.13.2026.09.29.04.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 04:28:25 -0700 (PDT)
+From: xy521521@gmail.com
+To: mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hongyu Xie <xiehongyu1@kylinos.cn>
+Subject: [PATCH] xhci: check device notification type before forwarding wake event
+Date: Tue, 29 Sep 2026 19:28:21 +0800
+Message-Id: <20260929112821.60641-1-xy521521@gmail.com>
+X-Mailer: git-send-email 2.32.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1969; i=broonie@kernel.org;
- h=from:subject:message-id; bh=08vNLIXx98Yrj1IvpKudnUztu+PDLXSe1G9EqUOPitU=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqu6C+CJwhLDtBYODaVPjpkxT4PasDIRnK4w0LF
- qkt5qH1jyCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarugvgAKCRAk1otyXVSH
- 0N3fB/48ng38Yw1sNvkBArrecRxtJTVGTny+M/NNSSBoHgs1Q2g59SsOpMpPi5/8WH9Zzm0ODkZ
- QFs9Cj7cSSPA7i4+F2GgfrDJ/QpeEiGOrKo8q8TAXf3WTh91WusidXAocvUW0sah9doz5UrTlCA
- RcaR6XQK2KuuOVVvFtVdw7QmCnx8NEjSQk6yL/AohbCjc+vhSMZgEBWF1ko4w3H6RciZlvVEYQv
- Nkezy980RanQ9pcSvy8hBDTeACiphO1eJQz6ACFyl1btGd9HO6/lhDqtmpumJYS5fwFlGJ6qR6K
- qiLD6kKgTbzYrLA4jePspvzHJRO+5aXY1oRKVpogY5rxv7Km
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 14:11:44 +0800, shengjiu.wang@oss.nxp.com wrote:
-> ASoC: fsl_asrc/fsl_easrc: expose per-pair/context DAIs and fix DMA race
-> 
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> 
-> This series extends the i.MX ASRC and EASRC drivers to expose one DAI
-> per hardware conversion pair/context, allowing multiple independent
-> conversion paths to be active simultaneously.
-> 
-> [...]
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
 
-Applied to
+The xHCI driver programs the Device Notification Control register to
+only enable the Function Wake device notification (N1), so any Device
+Notification Event TRB received is expected to be a function wake
+notification. handle_device_notification() does however not check the
+Notification Type field of the event (xHCI 1.2 section 6.4.2.7, DW0
+bits 7:4), and forwards every device notification event as a function
+wake.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+A host controller that delivers an unexpected notification type (e.g.
+due to broken firmware or emulation) would trigger a spurious wake
+notification on the parent hub.
 
-Thanks!
+Parse the notification type and drop events other than Function Wake
+with a warning, mirroring the slot ID validation in the same function.
 
-[1/5] ASoC: dt-bindings: fsl,imx-asrc: update port binding to support multiple paths
-      https://git.kernel.org/broonie/sound/c/7845324094fc
-[2/5] ASoC: dt-bindings: fsl,easrc: add ports binding for multiple conversion paths
-      https://git.kernel.org/broonie/sound/c/33598785b31c
-[3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
-      https://git.kernel.org/broonie/sound/c/76915128bde2
-[4/5] ASoC: fsl_asrc: expose individual DAIs per conversion path
-      https://git.kernel.org/broonie/sound/c/6aef9cb5c797
-[5/5] ASoC: fsl_easrc: expose individual DAIs per conversion path
-      https://git.kernel.org/broonie/sound/c/788e893edb6a
+DEV_NOTE_FWAKE is the DNCTRL register bit for notification type 1
+(N1), while the event TRB carries the notification type value itself,
+so add a separate DEV_NOTE_TYPE_FWAKE constant for the comparison.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
+---
+ drivers/usb/host/xhci-ring.c | 9 +++++++++
+ drivers/usb/host/xhci.h      | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index ec278a9f9540..af5d93a4e586 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -1952,6 +1952,7 @@ static void handle_device_notification(struct xhci_hcd *xhci,
+ 		union xhci_trb *event)
+ {
+ 	u32 slot_id;
++	u32 type;
+ 	struct usb_device *udev;
+ 
+ 	slot_id = TRB_TO_SLOT_ID(le32_to_cpu(event->generic.field[3]));
+@@ -1961,6 +1962,14 @@ static void handle_device_notification(struct xhci_hcd *xhci,
+ 		return;
+ 	}
+ 
++	/* xHCI 1.2 6.4.2.7: Notification Type is DW0 bits 7:4 */
++	type = TRB_TO_DEV_NOTE_TYPE(le32_to_cpu(event->generic.field[0]));
++	if (type != DEV_NOTE_TYPE_FWAKE) {
++		xhci_warn(xhci, "Unsupported device notification type %u for slot ID %u\n",
++				type, slot_id);
++		return;
++	}
++
+ 	xhci_dbg(xhci, "Device Wake Notification event for slot ID %u\n",
+ 			slot_id);
+ 	udev = xhci->devs[slot_id]->udev;
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index c7bfa7f028d3..ec4bfeb4887c 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -187,6 +187,8 @@ struct xhci_op_regs {
+  * SW does need to pay attention to function wake notifications.
+  */
+ #define	DEV_NOTE_FWAKE		BIT(1)
++/* Notification Type value carried by a Device Notification Event TRB (6.4.2.7) */
++#define	DEV_NOTE_TYPE_FWAKE	1
+ 
+ /* CRCR - Command Ring Control Register - cmd_ring bitmasks */
+ /* bit 0 - Cycle bit indicates the ownership of the command ring */
+@@ -996,6 +998,9 @@ enum xhci_ep_reset_type {
+ #define TRB_TO_PACKET_TYPE(p)		((p) & 0x1f)
+ #define TRB_TO_ROOTHUB_PORT(p)		(((p) & (0xff << 24)) >> 24)
+ 
++/* Device Notification Event TRB fields, 6.4.2.7 */
++#define TRB_TO_DEV_NOTE_TYPE(p)		(((p) & (0xf << 4)) >> 4)
++
+ enum xhci_setup_dev {
+ 	SETUP_CONTEXT_ONLY,
+ 	SETUP_CONTEXT_ADDRESS,
+-- 
+2.32.0
 
