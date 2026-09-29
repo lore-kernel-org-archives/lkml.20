@@ -1,56 +1,62 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2B53955C6;
-	Tue, 29 Sep 2026 19:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D482947126D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790708945; cv=none; b=tDlw6x04LDRH43P1fLqYHO8CB8nHzXuEJ+F7WFhb726CTBxXAFodeX6bsZsyBRvGsqkuQR6qUMrk8X9T0ep8mJrOEvjZtrd1L5zXF50WM2G61fhX2drdS7/Pmz4nSuzB9SJwaGXFGiLbnbc2naCD8329m2YS6CHOTQ0nHKFf5DA=
+	t=1790709022; cv=none; b=NtecrJf+51dC8VBDaM0gkTcMZNV0/yTx+vYNQR5XWAb3oInSDAyb+laJRctw+8omRydnlxEP+xNr96d/U3v/nj/USYSY27LwbXIZHI0GNi+m9Kg1bKbKZlooydfQ1xZg7pq7PagxzifeeLo4tacqHgj+8f8FRrSAVh7UHmZFE0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790708945; c=relaxed/simple;
-	bh=SC6HOZFcYJzZCPX+dxp9uLuOUF4afdKYZn1w1K8DwOo=;
+	s=arc-20240116; t=1790709022; c=relaxed/simple;
+	bh=NOIA0AhIJOaacWDtLcFjg4c7jFIJA0gynFswtjRKP4I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E0x7vWLgga1EdGTMKHetaPpTQAhuqGsvHkbccNUlz4OzJu0KfVMMsGrKJny704o8BUx0Ed+HW6fLadqE85X5iGXuSdZceI7EUk5tCADYUFJLq48L/ZJoU1y3HkAAQsHFQSfJzM3pNwRbE0XJvbcBLJtuTuTaPSr/UUAA1F6yhXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=W6A85EXA; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2hA6Qt2L9fw9uc6vnKyIvhI7oPj9Tss/WmHMM14ttntmZCJEzXxQb+ZWRBg45I8oLahd/7+50pIKNTZrM5I3DJ1dFpDMfVYAY/5LiTQorFZ1piM6NfpjFaUYD8w2JD05BR1nsOe2ktsAsBroLR2q2A93hBn+8AA9CDCePbzuuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=N1hUaKNi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="W6A85EXA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=5BP/r/OD3abfcxZ5Nl2VrwziwrPOkjL7mZz1hc5au/w=; b=W6A85EXAAWy4w/3evgfbXjro/X
-	GNL1UnxuoXm0vWHUJRX4wqis2+Waiv4ciufyHYkicVgC/uR3HWHOVGN8hgZnsz6Lx43av7Q95wMab
-	JB3akywaVkjl6LZbdnzBcK04bnRxdORTOBR6jIbh0McIdLlmjXL9fSvoaqxjvLfFE5loRfE3d15d0
-	pu9dQRkQ/C9sCez9UtjM9+r9VqXv+NGvBxsfP4OQNwizpyxkRav6FblbhR97pdUmNdNpkfl+ELgP/
-	QpV2Ikxl8rU8r2GQ3bXimEqHxNT17ORJs/FJy2WpDf14zlsPLGMDrrWFzrR0fzPgCHwRSzMH6bNiy
-	VtAmH7iQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xBdCB-0000000G9mg-1Ilq;
-	Tue, 29 Sep 2026 19:08:56 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 12C0F30093A; Tue, 29 Sep 2026 21:08:54 +0200 (CEST)
-Date: Tue, 29 Sep 2026 21:08:53 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Waiman Long <longman@redhat.com>
-Cc: Andrea Righi <arighi@nvidia.com>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, sched-ext@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] cgroup/cpuset: Protect is_in_v2_mode() in
- cpuset_num_cpus()
-Message-ID: <20260929190853.GE88198@noisy.programming.kicks-ass.net>
-References: <20260929084124.626693-1-arighi@nvidia.com>
- <20260929084124.626693-2-arighi@nvidia.com>
- <20260929-making-language-254d9c6a6605@there>
- <af938567-01d2-4518-8f7e-974828e25d3e@redhat.com>
- <arv2-3-6-Ewv0gpb@gpd4>
- <b8f66cbe-bb1e-4148-b2e2-55bd95f1c8d1@redhat.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="N1hUaKNi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 08B9C1516;
+	Tue, 29 Sep 2026 12:10:11 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8AFE3F763;
+	Tue, 29 Sep 2026 12:10:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790709014; bh=NOIA0AhIJOaacWDtLcFjg4c7jFIJA0gynFswtjRKP4I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N1hUaKNiEPIGTdjn89BresTbDyQqvAZsh6KjBH1BX8GhcBrLkxlS9vDKSEPAmkKM3
+	 0tsnYty7LGAf/vqgRtt9e6bjqrbT6wBSzT+nnmoRN5ek7oGygi7thl/IDZUda9oj2s
+	 lwR9mekKjb7xkJVw7tT8cQUDtADrKOETIWPEmQT0=
+Date: Tue, 29 Sep 2026 20:10:09 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Jiri Pirko <jiri@nvidia.com>,
+	Sami Mujawar <Sami.Mujawar@arm.com>,
+	Suzuki Poulose <Suzuki.Poulose@arm.com>,
+	Dan Williams <djbw@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Catalin Marinas <Catalin.Marinas@arm.com>,
+	"will@kernel.org" <will@kernel.org>,
+	"thuth@redhat.com" <thuth@redhat.com>,
+	Steven Price <Steven.Price@arm.com>,
+	"gshan@redhat.com" <gshan@redhat.com>,
+	"cedric.xing@intel.com" <cedric.xing@intel.com>,
+	Dionna Glaze <dionnaglaze@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>
+Subject: Re: [PATCH 0/3] arm64/virt: Add Arm CCA measurement register support
+Message-ID: <arwNEWUEEk7jdGir@e129823.arm.com>
+References: <20260413084957.327661-1-sami.mujawar@arm.com>
+ <20260413125925.GK3694781@ziepe.ca>
+ <514ddb27-137b-4223-84fe-2152737db3a6@arm.com>
+ <20260414122950.GW3694781@ziepe.ca>
+ <a1831d3d-af31-4fa7-b107-f4001841f051@arm.com>
+ <20260414133525.GA2577880@ziepe.ca>
+ <AS8PR08MB680669CBFA9654BC12179D5E842F2@AS8PR08MB6806.eurprd08.prod.outlook.com>
+ <20260422124041.GJ3611611@ziepe.ca>
+ <arvh6uGzue9yat9n@e129823.arm.com>
+ <20260929190450.GM163130@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,36 +65,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b8f66cbe-bb1e-4148-b2e2-55bd95f1c8d1@redhat.com>
+In-Reply-To: <20260929190450.GM163130@ziepe.ca>
 
-On Tue, Sep 29, 2026 at 02:10:40PM -0400, Waiman Long wrote:
-> On 9/29/26 1:35 PM, Andrea Righi wrote:
-
-> > > I think it is simpler to just change is_in_v2_mode() to cpuset_v2(). Almost
-> > > all the cpuset functions should either take the callback_lock with interrupt
-> > > disabled (which is a RCU read-side critical section) or with rcu_read_lock()
-> > > and cpuset_mutex() acquired. This cpuset_num_cpus() function is an
-> > > exception. Given what is said in the comment, this function is not supposed
-> > > to be used with v1 mounted. We should change it to cpuset_v2().
-
-> > The comment says that, outside cgroup v2, cpuset_num_cpus() falls back to
-> > num_online_cpus(). However, on v1 with cpu and cpuset mounted together using
-> > cpuset_v2_mode, it returns the group's effective cpuset count and fair.c uses
-> > that count in the default "concur" group share calculation and in "max" mode.
+On Tue, Sep 29, 2026 at 04:04:50PM -0300, Jason Gunthorpe wrote:
+> On Tue, Sep 29, 2026 at 05:06:02PM +0100, Yeoreum Yun wrote:
+> > Hi Jason,
 > > 
-> > So replacing is_in_v2_mode() with cpuset_v2() would change scheduler behavior
-> > for that setup. I guess we could either preserve the current behavior, fix the
-> > comment and protect the root lookup with RCU; or make the code follow the
-> > documented v2-only behavior. Which one would you prefer?
+> > > On Wed, Apr 22, 2026 at 08:57:00AM +0000, Sami Mujawar wrote:
+> > > 
+> > > > > So this is tying it to the same FW event log that TPM uses.
+> > > > > 
+> > > > > I think that strengthens my point this should all be uninform. TPM
+> > > > > drivers are directly exposing the event log today, but I guess that
+> > > > > needs generalization if non-TPM drivers are going to present it as
+> > > > > well.
+> > > > > 
+> > > > > How do you imagine getting and manipulating the EFI event log to use
+> > > > > with this?
+> > > >
+> > > > The event logs from UEFI will be handed off to the OS using CCEL
+> > > > ACPI table. The CCEL table spec update can be seen at
+> > > > https://github.com/tianocore/edk2/issues/11384
+> > > 
+> > > I ment from linux userspace. event log is well establihsed in the aCPI
+> > > side for TPM and in Linux today it is only exposed to userspace
+> > > through TPM.
+> > > 
+> > > This is not TPM, so how do you intend to give the event log to
+> > > userspace?
+> > 
+> > The event log would be exported via /sys/firmware/acpi/tables/data/CCEL
+> > with binary format just as TPM event log is also exported with binary
+> > format via binary_bios_measurements.
+> > 
+> > Instead of Sami, I'll post v2 which rebased on for-next/smccc-bus in
+> > arm64 tree.
+> 
+> Okay, Jiri is close to posting the "attestation subsystem" which this
+> needs to plug into instead of creating a bunch more sysfs files.
+> 
+> The CCEL log needs to come out through that interface.
 
-> I will let Peter decide if he wants to support the cpuset_v2_mode mount
-> option of cgroup v1 since he is the original author of cpuset_num_cpus(). If
-> this is supported, we have to update the function comment as well.
+Agree. Thanks for sharing!
 
-So I was not aware of this weird mount option at all. That said, ideally
-it would work in the widest possible setting.
-
-The main constraint is going from a cpu-cgroup to a cpuset-cgroup. It
-was my understanding that this transition only works in v2, but if that
-mount option is sufficient to make that cross-cgroup transition
-meaningful, then yay I suppose.
+-- 
+Sincerely,
+Yeoreum Yun
