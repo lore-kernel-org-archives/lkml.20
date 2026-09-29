@@ -1,221 +1,124 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F0B3F54CB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706600; cv=none; b=M+pN/CoaQVR3G5c55khUEiQPwBk6FqIUD79vb40it0hhV9EWzRLipwRU9q70+zKBUfi4dhxup30mWOtS5a26ohPu3BFjjzT0oIElGXP2X9cSXul1/bO+NoJTRDpLpMpVURWRaQQSPZSXcue3TErwIL5Ev7U2+aeAjojxuIyljRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706600; c=relaxed/simple;
-	bh=46ET4W7WJ3gYq2z7JdfR+Os2FMA405rRKsHy5lfud0A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cnj224HcqCGCA/07xfMeiuHyJLHBxQsHKNv6SkmFCQlrFW+oEx495yQgyRuEQNiWOwHYvR5mB6odxcMj1CO9zxoMEYdgWF4m2mTdIOc2iwCmbsC745tK4gb69hsrBJnC8Ed5yvTs5kCcyBM90hV7wpT4lj5V4IJg8HTzWZjEghg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NnOCwXv1; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9508954EEB9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790706634; cv=pass; b=kY0sfUQzLmeDdIFoTPypZw/Lo1pWclIXAV/1swaTJNA9bfB7M0My8BpQO259DbKvafdSUVWchukN5Xx+ebcUMuBnLf06FM8nufASKFVurgnLPePpRNbQnRf2WN19L8B3u6zDkuwWQ9Rc/u0lFSa7IZ7juC8Fo+uChi9JhNzaXWw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790706634; c=relaxed/simple;
+	bh=so6oVerSAvlf8qQyygVkuGfJwEoQL40QCmwAvKJBtHo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ax6J43WmNpPeDE3TY0IyhIF+F/UQciV6lkr9+zG/OQziUXwTpitzpfnykJ9aHslMdUNYRGm9/4/Q0TP7SL1j7adjHS9rnmpl4pX30661wDAJw0PVMyxiE+QP++kxbU6adnny8rB3r6Cz8neCpW1sSF4eYN+n392S6itLFJo9AsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akVseL+2; arc=pass smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NnOCwXv1"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so2715806a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:29:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akVseL+2"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e79c06622so486173eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:30:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790706633; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LA8Sg5ceVQ/9H2wwEE7i5/JVJRwe//OwPsJpO5UOCU50Ek6gdqbr7r91CzMvMnklFp
+         rg9UX9FKUXn1Ru+Lh7ADoTy/7/MpYqVWkAslQhSaXVjl07Zw1r/ZhiiBSqflWSrgvsqv
+         yaBrDf1IvebEwEtz3jR8JpLnCQzy8PQSOIFoAurMK4atxqAZ87plXpnUzXywcs7o7KuC
+         NQ8HClGT+a43VL6YRxixhMuCw7ItdNp7uqYkLoQgketthxonYF4OBIk0OwD7xgwQ+cF4
+         G05dMUbfVz0nuMw5Du3bEe66FkAgkxtm7M+bajlzg/fsbXkeacEPKG0H8B/fCgAsLc58
+         5FuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=so6oVerSAvlf8qQyygVkuGfJwEoQL40QCmwAvKJBtHo=;
+        fh=IEA6m+a6VDln3SUz8TaO+XA/9+W2jiZilIIz7jjQUZk=;
+        b=S1M3xnxeFlKZ6I0B2G+QJkshmj5/Lgr2clRnWvKjDD3woiDnCVu6wyMgIl+Bf9pIce
+         DaCawnjNO7xg+saNFKa7Ajnjkg8UT1mMyW2qbGxkPdqa0VHtWq8x7FyB5bvZfb/XfLIt
+         ikXfPCKkGezk5GQAhYs9K12AyAbfkTaXgM8rMTGNvkr3+Isp3S+JM7+CIyn8FLlgcmSn
+         HFaFh4dfZQcLK2wHevUJ2WeOnSD8877+mjUAb4Uf9dgpEJEn5FpBZADCqQbhPMf7es4K
+         FI+T3JaUn3QC/mKfjyc9GU7F6fj8vH5UMwzIIfJIFBjliKNwXhjKcMa2Ol/LU6j/HQma
+         2SHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790706598; x=1791311398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qkglm9OMtLLq8niEy0BQYMv0TQkm+fqKISht2nS4MWE=;
-        b=NnOCwXv15gciJx5mhXX1kiZ6j0NC6jXmKCHu1LA+zXJE5A+4PwcNYMquJ4vhrVBDVs
-         Kh6xXm4tv/EIpW1WV22UUpaSylSJOjmnGwOvEEEPwB9DG+D9R4rCf7YURkCuCzRc3VO4
-         tWBqehVH2+D27q3Kv/W4aDhOkQEn3m0bjifB7bLaHm7SSdEPg+plLRzBnu8IeSGIi42G
-         kJIZ87Lfrku/dFKCPcABzsn5WrsUlZWco9y6HLK1yZSHOk55C4jWCaZO7cf1MlxnBhbl
-         iRpjz1tlK8HSxyF1PJMi3QnJpyyFEx8ZG8yA+gCgNn9Nk+8TtzhTRW7rSmgqnMpChjDl
-         GgIw==
+        d=gmail.com; s=20251104; t=1790706633; x=1791311433; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=so6oVerSAvlf8qQyygVkuGfJwEoQL40QCmwAvKJBtHo=;
+        b=akVseL+2Zsw75iD0d1oqrP0APaGwmGn+q4fHtfrhpUTT2nPQtaRxaXwzjfTppmbwEL
+         nHa+X+mMhmtr13qN9AHS0xC01gLZMtQE7AUvSV0asif5xU38rcWhyo7QBswnEYBJIuBs
+         C5jUtRkLrzNnHWZph3koqFyvR/ME3NBeA/9OFGMQAo30w8je3nz81K1U7NWVbNxRghlP
+         AWYQY9xMjkzeFLVT2TsM0qVbWJ5JTBuoNS3HP9clu2aEXN5hp7zSzWNgybybFhB2gwLh
+         uPAOSR4P1/kE0h1CHW14sVgDvjT32CCXyhXN8pfWhK9kfB/T9Ch0ppr9x8OGCAYrJMy0
+         0LLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790706598; x=1791311398;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qkglm9OMtLLq8niEy0BQYMv0TQkm+fqKISht2nS4MWE=;
-        b=Rqkb/PWSw7rUOpZqRjEFBIcahnn1FU/UbO5g4f0VzXISJfGkwRMJpECu2LMjfz/v+V
-         H1atiKSiRs2C5IYe1x03brCUDhBQ/ZItF4KaA4rGHJ55nyIhIZ+yUV1dklMdZrv17zM2
-         UsFRsYzgVakQMSm/UTlNs3LfgaN3ofpEVVGQ0wdetuyCcXaakOc+WgEfb8yfqay1RHyE
-         NhI2ahxN977pK9oV1xpb8LpIu3h/pgFdsAUGy63bCvUTIIObUdiF6W/32r9aP6nuqJYX
-         gu5szJmPGcnYeOuE7RidZbHVMUYSJymDcaQaOKlG4mh2yshaU633d7a9TO2HsZrG0aVd
-         ucfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDVCW9sH1gGKHE9ZYTAxiee+2ID0a8hMLXjUXgMKLBy82zIMvSccvOCwvm/VgtRtYxpccFaM8kVS5JEzQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvn4mtY41lDotKSyMwkmGP36B58cy/eX1MxhmnVcE7PPxkHpsp
-	t3BIXorUEIErHhXZ3ACvpw3VL1HW0KbQwHDMnI0bvX3wGgDJY96X1AW/
-X-Gm-Gg: AYBFou0m1ZRdYQrTtzlZHR80+y8MzV4UXiHWu+D9OPh3dKegtWwVZS/uSz6NIrpFlKM
-	l3TgYQHy/wAztnn9ajyXcO3+UunG78QG6U+NTi3F6vu7GKZ5ojb7tURKOoaSkKDIXiJ+/c8tNx5
-	DEjDO+KM/v9RmIDaRY9Ak6i2XWIJv3Kclzx7QnDvXwA1zKy7A6sIH6iVOS235lutkogpl2kk7C0
-	O/NrHguJXEVsWlF9ce9ZYlRI5siMTS2melMsinwJWN3fZRUS4sPPC5hlQUcZZk19Vu7HUvRzQMQ
-	y8vJI6847vUTv5S35a4AklEJ4mFoQYaByJcFmEsHe/QDQmRPe61aMeXqcSqKz1KHjYx/zcX1ICc
-	yO1NN+Yonr2Z+xzVO8U/7zmx5pAQc39rjva7jpxMgT8g/4EYZe2Crw2ZzA91/wznp4GE9QWI7o1
-	ptwP8TEDiZ10raAf+l5bpW2jk6I2fwDQLKQnWD6L2Wo0Ymcj4sl3LSnusKFHJiNY7DzylPPxX3c
-	pfsHWLKFZSmADuBrS0Krd2WyhLdWFf5
-X-Received: by 2002:a17:90b:2f4d:b0:3a0:e8ac:9f7e with SMTP id 98e67ed59e1d1-3a4bfe21605mr162597a91.35.1790706597837;
-        Tue, 29 Sep 2026 11:29:57 -0700 (PDT)
-Received: from carrot.home.local (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4bf8a3d6csm377766a91.6.2026.09.29.11.29.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:29:56 -0700 (PDT)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Wang Jianjian <wangjianjian3@huawei.com>,
-	syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] nilfs2: ignore non-fatal signals during synchronous log write wait
-Date: Wed, 30 Sep 2026 03:26:54 +0900
-Message-ID: <20260929182954.109470-1-konishi.ryusuke@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1790706633; x=1791311433;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=so6oVerSAvlf8qQyygVkuGfJwEoQL40QCmwAvKJBtHo=;
+        b=Ajl/4lCyUxG2kzxou9nVzlVsVGk/9YZzQEYCBX8dNM4oqQXaDKK2OPz1YiaYg2Tlm7
+         sigTkc9bV/tR79h2M6JaE2pAfnLpFjoc5M7JPQATNQeqtqcnseo8lcQktP37y+/CD/6W
+         rMyFdEzFRxpUVWIAI7rN9LOTc4zUhm9WuUK2I+qZn5ASNZ52sgdj9ojIX/Keg1GOZtFo
+         FF2/OTpCnnOQGSrYRl3ziltKEDs0rz2VlyJ2SHvYvmvgivxKo7XrElYwcoCIuCs1EKQg
+         43qPLpkg3otMaT+eFZyHtrFcqVnF7e8WCBJImjECnrtM33nflAimFcrwRiWaGr2z/6at
+         n0bw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDAvm9KPmDupLIcJtKVmc1XWe5l2DX9EiYSwv+77cZO2db50fD4FLtgAzGjfyvvHwtkDeQMLne7nkfob4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/mzeHP79LiWxtTScg2A2w/fPvbbuaP5asTYg0pt7P7X555WLb
+	nzPV80AL7ynS9fihV76+vmSIU5JZ/rwtz/jLbMRh39V2Szh2r9CY0WxywtQqnxquJ+GnEvOX2bB
+	bj4br2lLnyKnh6sRIZQERe8/okgzejBM=
+X-Gm-Gg: AYBFou1cNXVcWA0WvufCLKwTLh5ncQ8j2lnmU09lYIXpc15YkbmkXQFXY+j/OzqYFp2
+	GackD9jPq3ykN81c1SrZVBF0IprRkmYxciEO+b0DgORte8S6EVqmWHSSdnJz7cTzE+fd5KSAkSh
+	s5HijlW51MkSd7Sxla6f76pSMWI83A5LG/UFBPMq+00EntwSUUjWIk2bxyYcHj+D3DLzc8R+Tzl
+	pboYnxGDJrGNprusVkowfVVk8RuOC0ggcDvFa9Yaka89+BicYBPSLKUZcI6a8t+ysd17eCkTuRX
+	IT0yXTTM/WL1c67XWJCMuG+DXFU+NCHgXS/apB3ZNzQCxLAIIjxi0acQ6gueDvnxDmzThO2RK4e
+	T3dhQ/9iEXO7EK1vIBDAwHnhrY4VYMYizC8JNn8hqrZdwJ8vZ1YIu4CbzgsBb4P1Fcfv5x3buC6
+	Ean1hDKzeAvBKWdANZoCWea8x+duKTCcWfJMzylnijh2pjsMOF5/0=
+X-Received: by 2002:a05:7300:54c3:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34c65e57c85mr310321eec.2.1790706632561; Tue, 29 Sep 2026
+ 11:30:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org> <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+In-Reply-To: <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 29 Sep 2026 20:30:19 +0200
+X-Gm-Features: AclHuK82YPGh1_8MznSyzg_lIm_Mo3ik3GH7f918U02c_TAEwv_vWlnTK-O3zyI
+Message-ID: <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C function
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Based on a syzbot report, Wang Jianjian pointed out that following a
-successful directory operation in nilfs_rename(), a synchronous write
-requested within nilfs_transaction_commit(), triggered by a sync flag
-set by nilfs_commit_chunk(), could be interrupted by a user signal.
-This interruption leaves in-memory metadata updates intact while
-returning an error, causing inconsistency with the VFS dentry cache and
-ultimately triggering a kernel warning.
+On Tue, Sep 29, 2026 at 7:58=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel=
+.org> wrote:
+>
+> This function returns the maximum number of CPUs that can be online.
+>
+> The wrapper is needed by the Rust null block driver.
+>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-According to "signal(7)", local disks are not classified as "slow
-devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-on disk devices are not interrupted by signals.  In kernel space,
-waiting for such disk I/O should therefore not be aborted by ordinary
-(non-fatal) signals.
+I can pick this one -- it could have been an independent patch anyway, no?
 
-Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-the log writer thread to complete synchronous writes, to catch only
-fatal signals via fatal_signal_pending() and return -EINTR rather than
--ERESTARTSYS.  To complement this change and prevent the wait loop from
-busy-looping when schedule() returns immediately due to a pending
-non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-TASK_KILLABLE.
+Thanks!
 
-This serves as an effective interim stabilization measure without
-structural changes until a comprehensive fix for metadata consistency
-is implemented.
-
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Cc: Wang Jianjian <wangjianjian3@huawei.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
----
-Hi Viacheslav,
-
-Please queue this for the next cycle.
-
-This is the first step toward addressing the state inconsistencies
-during directory operations reported by syzbot or on the mailing lists.
-It improves stability by preventing errors caused by user interrupts
-while waiting for log writes, which are triggered by synchronous write
-flags following operations such as rename().
-
-As this does not fully address the underlying issues in error handling,
-I intend to continue exploring changes that allow directory operations
-to be properly canceled or rolled back.
-
-Thanks,
-Ryusuke Konishi
-
- fs/nilfs2/ioctl.c    |  2 +-
- fs/nilfs2/recovery.c |  2 +-
- fs/nilfs2/segment.c  | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 01a04080ef70..b2b67d6a1f09 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -965,10 +965,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 9a70c28ec94c..abe4101f7550 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -790,11 +790,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EINVAL		- Inconsistent filesystem state.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  */
- int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
- 			      struct super_block *sb,
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 2f0e59847d02..af0c3560444f 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2259,7 +2259,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
- 
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
- 
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2273,11 +2273,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
- 		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2311,10 +2311,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_segment(struct super_block *sb)
-@@ -2341,10 +2341,10 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
--- 
-2.53.0
-
+Cheers,
+Miguel
