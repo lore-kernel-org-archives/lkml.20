@@ -1,290 +1,171 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C51C3921CE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8714F3C2B8F
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650748; cv=none; b=HkA07s9bBcSOmONNCODgYx3ALRdUP07a7r7xVfvNul4N89bApD1n7byS9Yk7vpE0GRtJKhrvty066ttTnxAgrVWKxCDqJ3qGZYoVnG/qiyF4lMAL46kcF5Xl+689/up5kt74DyeANB2lRgCggRsyjr+UxL6RXP0ygXYOeshOGaA=
+	t=1790650759; cv=none; b=ORo4iagygSO79lIfQss3ONiLUxkL44IuLo+/oPgaW/0WcWkMTNF6U3R/HPWs7oqolFm7x7WEPOJnVLfl77Lagv9aQdWRHhWlws7KmuKH0L9/pIwNZiLRTH4RNSJDYSG/zRDPjLPILrUXC0v9mbvtK58aY9lVPwE4Dwkl09giQPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650748; c=relaxed/simple;
-	bh=R+OeSbxoAWNLSxz61jl19A3bJcZeqOhotzsemQIFDzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BinH8Tpj8GkvwP6ropqCml/f1QDZ5+QviJZCAt3yWlRExO2xboAiLTfpSTINZVykRRQKoW9QHA1nFpHcHQPUWMjutWyXf28iN8WogWj/bHTyYoTKmavwV3DkatT2v5195CnhDkBBVVtdNY0dE64y5Gf2kP3wzs/8ROAp27mKCGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ShmuWe79; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790650759; c=relaxed/simple;
+	bh=bZjqHPq+kKtEvRUgcS5nYdowvDTyVzF0bY4PH2YQgsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KHvvjmt+rWk35cBoTGijnR+QmFtL3KN5HC9ulmyUuLMvCCK5zTVgD4MRzksmi7BqlRC7Z2bBpTEw/ORZPl3ecGA2H2E6kcGcxFtFxtvZxWmuHgiyIqpdzcgtd4JZu+Yul2m+iAGUyibCbbCvqjbZ/Emzlz8IWHuENsnElTWcAKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E4qhfT3C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TwqU3OZS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ShmuWe79"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b48100af4so147952eec.3
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E4qhfT3C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TwqU3OZS"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T0jAjp3210848
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=eGL4i0Vh34TvmnFiOz4aEaIZ
+	+3T3CWRBcD11HAYc8YU=; b=E4qhfT3C/xxxrGd59AOf9r7IbhKCgG04e2npbO99
+	TjB9lnwp+RSuOdOEq3xNM2gWpYiYGQotHfVvQug8kxamM1Sn5X14C/5Oqfsy6Vv4
+	L63EW0fZMJgPNU2DPvxM+l1CQO5vNiKonsM+q4RxIaPJursf/mXTcRjaktnJEufQ
+	pCS3RSUZZ1zzBvQfcFalQcci2TS8rD4oZMpVEkCIaipUExNrUacR+epyQWM94WVK
+	HmxJMFZ7pF1bF4hCgGYlD2x2VA/oamT09OqrWquqb9MF0UGcXu4PQ015MoG7BUzo
+	eFWiMQBYZhpL5vSJuJ6u5ryY8TiFkbxpZmhLmhNv92LRPg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4rtnn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:59:13 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3282d5302ffso835384eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:59:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790650743; x=1791255543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hOMETCPD6rhV8uZSv0/8O7XOYDjSnTdePZNVI177FQs=;
-        b=ShmuWe79rCHt+PVRIy48e1bQBkceG3dgar4hDuo+GwHOcPBihfZ1PfTFqbKSmCE0vi
-         8yEmhBqzA2qFqpeIqbdRUAG4pVljh8eHjgZEjObNCCoV8mwUGrVR4RVPnyi4fpaK3/xP
-         GCgeSociyVdS3LtaRlhqNCwmm5/yr4TlQkENq0pwGOAulQTa/u2l7KoMJzzNroncSr+M
-         UYLseGFJCJDj2y4wySXIPwckyOlaTcsv3Ks2SZ57rxcoIEVsebt9lXMS3p5qwYezrs+E
-         Hr+nPL9eeUOrp8CdaR0vo7ulZ2QZ/o2L/dLRLQPi7Dl1CtxrP+yHGY9sk133Y9oysbXj
-         ljIg==
+        d=oss.qualcomm.com; s=google; t=1790650752; x=1791255552; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eGL4i0Vh34TvmnFiOz4aEaIZ+3T3CWRBcD11HAYc8YU=;
+        b=TwqU3OZSjb77s/u0xxsIetujl1PfX0NO8kDm3rsk6gT90XnBQk8eGbPHmlCyu45A/r
+         4EszBQGbIfQ5+yxx8s4upwtHpceyIRZOA6Gx0tKGzYIfw4hTIv/qd9q5zA95GV2FQ3Fx
+         ra7RV116yDdfnjgBkcDqC3rapcaY6Bf3KRbXJ2JCsDCRPjZ5rTHcqhOFQ+z1pvNG9Xkj
+         EH/tc1RkoFmjilgNRTPJkCoB0NY6Z6EJUcBPlh/YJe95W8uof2MgExtCE1ttDCZsyTRE
+         z8TdnTZavUzEgW4/0O7GXJITUMH1RPsMEXmJO7Cy8zFrzUYUqxfDRuPGLqM6tXecLNT8
+         kc8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790650743; x=1791255543;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hOMETCPD6rhV8uZSv0/8O7XOYDjSnTdePZNVI177FQs=;
-        b=aA232AO6zjcCvop7vQ6z7EXjK8ZAlRj/2O/2CAzmR+sAsxkeR0wMoHTb+x+NSJQgwL
-         2bao6BvwBx0bTaheOfdcvM3qcmnDQ8nd7In1fLcg0ZeXVF2yBxea1decbolz+ijDSxTJ
-         peybmZfXovic14HWUyZuw8/GdbdIO4esLsl0rYTLAEK1mCv3fCBa+FLdA5XNuE+HVy44
-         lBb/M7ccQwRsNbzYFe7eOZITKJj7FF32MjYkxBR8e5DPG6etijhCP3iMfDtkY/NQ6pUM
-         swFXMGorqJh7MTI3mO4BHykGIC9cHsbhixdYAxQlUD3OVSx3Z4W4I1KFuxw/+30hqLWC
-         wNEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhuHRYpWXL0eww7bUBgrF31r0EwE4xugild7SaBQ/wO24CZcwGTNcRtUQZHJMagJSBZW+u9+Tx2/6haNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOs9XtpvKNTR29nqZODfXhpQgayeg3VAcfGGMvEbOsggl+gjgX
-	pOBAVL52w7tyMrRfkIec2FNE9LMoGamoTsWXTp6e0F4w+86e81TKeJxPjuoP22jvacc=
-X-Gm-Gg: AYBFou3Fva0xQ+KnHr245uhhC6rdo+NjoesXH1jWmtY76g1z89759mp3pq5zibMC7oF
-	A5sA/O7xPnHaQ2Ve9RuIxPbXFsfQQIJFQH0p9fnDoJAgHOJbYZ9Z+KpcJEQ8U98wW00du4y1OMl
-	d+sB1wJLtl0o9Qo4dlRVLQNXjCFZH+yxJMKWKG8WpeOaiTVRIvpSzAw3DoAoh92kMe7yFh4PGPn
-	8/xP6hMNjEb8zgGCKLn9WXSq3iMnHZCB0lTZEsAUGL4zmrRyDIb5sHt6q5jL5fbT9MEBfHF3cEp
-	y09yAg7O6tlcUjHAhXcwJdJ3rlEVr+GT40Kv9ZYlZ33koRRCCgEgqjXV9tbHnGnWxjMSojiEFex
-	IC3rBEI1AdTkeyzWnTEYeSf3CAeJ0D1l6DOZ82HEpKyEGZBGMPyq1OT4AwEutyKQUraaTK7iBS2
-	NRZRCtlEjHdnqx9UAzrf9Wx+CtCa6wPy28dvAXaKBUK/D7dyZ4ii3/XSbVmTYln5cfbRX4j5dhA
-	+UW6AXvT1dahEaCipWsKtWKwO2+T5PVyqVI+LKt1cmmij4me0iShPaGZgOyAhSaMyeb1G0=
-X-Received: by 2002:a05:693c:20c9:10b0:343:4ed7:6825 with SMTP id 5a478bee46e88-3434ed76a39mr10306743eec.41.1790650743013;
-        Mon, 28 Sep 2026 19:59:03 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34571658054sm13111683eec.8.2026.09.28.19.59.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 28 Sep 2026 19:59:02 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Baochen Qiang <quic_bqiang@quicinc.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quic_jjohnson@quicinc.com,
-	Kalle Valo <quic_kvalo@quicinc.com>
-Subject: [PATCH 6.6.y 1/2] wifi: ath12k: fix kernel crash during resume
-Date: Mon, 28 Sep 2026 22:58:53 -0400
-Message-ID: <20260929025856.85683-2-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929025856.85683-1-artem@trailofbits.com>
-References: <20260929025856.85683-1-artem@trailofbits.com>
+        d=1e100.net; s=20260707; t=1790650752; x=1791255552;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eGL4i0Vh34TvmnFiOz4aEaIZ+3T3CWRBcD11HAYc8YU=;
+        b=gAn99Mpfp1hjlcQjMf5FZ/m47hGf43YL0UOsrbFQ/IK/hA9j4XWWRhw8fdw2bHlPQ8
+         76mHtIE1mheAQUc4sK5WaCTAe1CufPaYyeyGqpBgdJaSPAGcgPDOCgxYrX6ZL+ze4Dob
+         G2N0yWz1S1uJg9kvfcUzThGjqZb3ZmMuHMmb+MOlAHSTuQA+3X4rNUvMIGMxUFB4aBTJ
+         7XN5BhgWXF4uRuPVmQa59HflmiqWwW1tx0taX0la0qGJFSRog0QjbF5n+D6nOxZW/zx7
+         fbNZO8AH0tGEBSMGkLvE4Re5tPBwFMTQoq+Zqr9rhiBYiu3Eog0G5474vfucaDJR0xPv
+         vkRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2kaR7ClnCVwxPI0hDQRgYZCJyOmm6kha7Wp8j98fWsHN1ToQLaExOT0X3xJD7+xY+k/wD2PeFddPVnkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaABL7tpuNxJfLTRrbcLjodXA66evZ2sj6fvCDoczYSqhEkEvX
+	5LsTvvQC0J1Qlkrzb3WrhiRxrf4Fq5Sh7kWFgxH4RRfzNWzU8/tp9pKtQDMW7XiAP83PXLPGaWd
+	3FaF8py0oe95HDnr9pzull5vsliuNAhS+T/e7T0nlalICROuiP+qa3XueW4/s4zfgBWU=
+X-Gm-Gg: AYBFou3aT0CPtKVwJjf94S5qnHP/D/VEsOBANyQH8qmJqNNoTbAr2+lSVtNtPxTnb/J
+	7siGAsAOraDHyBUIg4Y01w9hA//5NNcsZ2jQEKEeGpdScOCN7LZcbfknOix1QX3ahCQMEjTdmwO
+	6vyijBM7XacfGn06S9Y70RXHXTChn3a6Rl7WtB4yIuCPIMH4Jbq47ZDcP2UoOKj/04CasJpUofU
+	xqk9PHTVT0csSknnJwJvUXEAb4rYc1PXMOrRDZvoFa7yefP43SmCs0j8r2AiwnbYr53TpFqAOjb
+	QhgILliP++IxXWmqdcJa5elVy5q5Wo6T6gyzvVjjEznX0y5Zwi8K9X3MlidHr+FqtRXH1iEjhA/
+	SE9t+QhutY5zyQXp6D1yX06KxGQYLQE5fljbnDZA33Q==
+X-Received: by 2002:a05:693c:6219:b0:341:2c6b:8c97 with SMTP id 5a478bee46e88-34af8240040mr1632464eec.12.1790650752301;
+        Mon, 28 Sep 2026 19:59:12 -0700 (PDT)
+X-Received: by 2002:a05:693c:6219:b0:341:2c6b:8c97 with SMTP id 5a478bee46e88-34af8240040mr1632430eec.12.1790650751743;
+        Mon, 28 Sep 2026 19:59:11 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3434958c3adsm40861471eec.22.2026.09.28.19.59.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:59:11 -0700 (PDT)
+Date: Tue, 29 Sep 2026 10:59:05 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 6/6] arm64: dts: qcom: Add initial support for Nord
+ Ride Embedded board
+Message-ID: <arspeToktu1dTN-0@QCOM-aGQu4IUr3Y>
+References: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
+ <20260920084920.2201418-7-shengchao.guo@oss.qualcomm.com>
+ <arrnd5wzif1ALS_z@zenbook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arrnd5wzif1ALS_z@zenbook>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfXxI34KZlB/bK2
+ PUPAcH7VIbHlX2wqQ49kz9jyIVCDCueAiV1EJmiHMCkf546eCFwlf3+lxGxoGBUGeEdCWBVM4OA
+ avUPEAlbh+9aLTBq/C+cE8V2DLFrZWk=
+X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abb2981 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Q5kkgCCaI_byO3yvwtkA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfXzzW7cbycrK19
+ 3KBduQx+pJF+7RwqeqKIVPnptfHZyNO1Ks4O2Asc4GG+AIgLoiKyiaJwUJQik5EnA8fI8mb/ELO
+ 8qkfAmQRzusrwryj2aAb/OTGDb1ZIk/c6kH4ZiKlGsV53sKeNGOvvlHiNSRuXdFnFukxXCSbJ2c
+ DoDNeXxRBjUZ8W8bpSnySCrtYMV4VuS4aCicvQdijdDfWlBnqJwidyFTz4vbxwYlHVjDh79IZ1v
+ jNICG5VTBXkIu9xWSfXAQc5jzw0Xs7qOIOYhiZOHAZCPrGaTY9wFW/dGk/nCAhwZ3oRwUTc0FTk
+ 1934Uxb90q3U+4CAvfMRtM+Y/eqOiBng6xVuZnJpGwpvzoL8j8LQmlIyHgGwszDA11XvYumx0xM
+ ZSCESSaJ3Nt5UmoQsn3BULsl5oOXyVymyBulP9X42Blseg4e0NqkOXcWBRntmDPb0dJbqYjySGC
+ UUqyeKO+P8KaGafL/Bw==
+X-Proofpoint-GUID: vVYpi_7K7jJpbxhFmSpx3AYRdvt7uojT
+X-Proofpoint-ORIG-GUID: vVYpi_7K7jJpbxhFmSpx3AYRdvt7uojT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290011
 
-From: Baochen Qiang <quic_bqiang@quicinc.com>
+On Mon, Sep 28, 2026 at 05:18:04PM -0500, Bjorn Andersson wrote:
+> On Sun, Sep 20, 2026 at 04:49:20PM +0800, Shawn Guo wrote:
+> > From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> [..]
+> > diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> > new file mode 100644
+> > index 000000000000..09ee525764ef
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> > @@ -0,0 +1,442 @@
+> > +// SPDX-License-Identifier: BSD-3-Clause
+> > +/*
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> > +
+> > +/dts-v1/;
+> > +
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> > +
+> > +#include "nord-embedded.dtsi"
+> > +#include "pmau0102-nord.dtsi"
+> > +#include "pmm8650au-nord.dtsi"
+> > +
+> > +/ {
+> > +	model = "Qualcomm Technologies, Inc. SA8797P Ride Embedded";
+> 
+> What is the actual name of this board?
 
-[ Upstream commit 303c017821d88ebad887814114d4e5966d320b28 ]
+Ah, I can see that "Embedded" is indeed not part of the board name.
+I will drop it, so that we have the same "model" description as
+nord-ride.dts.
 
-Currently during resume, QMI target memory is not properly handled, resulting
-in kernel crash in case DMA remap is not supported:
-
-BUG: Bad page state in process kworker/u16:54  pfn:36e80
-page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x36e80
-page dumped because: nonzero _refcount
-Call Trace:
- bad_page
- free_page_is_bad_report
- __free_pages_ok
- __free_pages
- dma_direct_free
- dma_free_attrs
- ath12k_qmi_free_target_mem_chunk
- ath12k_qmi_msg_mem_request_cb
-
-The reason is:
-Once ath12k module is loaded, firmware sends memory request to host. In case
-DMA remap not supported, ath12k refuses the first request due to failure in
-allocating with large segment size:
-
-ath12k_pci 0000:04:00.0: qmi firmware request memory request
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 7077888
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 8454144
-ath12k_pci 0000:04:00.0: qmi dma allocation failed (7077888 B type 1), will try later with small size
-ath12k_pci 0000:04:00.0: qmi delays mem_request 2
-ath12k_pci 0000:04:00.0: qmi firmware request memory request
-
-Later firmware comes back with more but small segments and allocation
-succeeds:
-
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 262144
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 524288
-ath12k_pci 0000:04:00.0: qmi mem seg type 4 size 65536
-ath12k_pci 0000:04:00.0: qmi mem seg type 1 size 524288
-
-Now ath12k is working. If suspend is triggered, firmware will be reloaded
-during resume. As same as before, firmware requests two large segments at
-first. In ath12k_qmi_msg_mem_request_cb() segment count and size are
-assigned:
-
-	ab->qmi.mem_seg_count == 2
-	ab->qmi.target_mem[0].size == 7077888
-	ab->qmi.target_mem[1].size == 8454144
-
-Then allocation failed like before and ath12k_qmi_free_target_mem_chunk()
-is called to free all allocated segments. Note the first segment is skipped
-because its v.addr is cleared due to allocation failure:
-
-	chunk->v.addr = dma_alloc_coherent()
-
-Also note that this leaks that segment because it has not been freed.
-
-While freeing the second segment, a size of 8454144 is passed to
-dma_free_coherent(). However remember that this segment is allocated at
-the first time firmware is loaded, before suspend. So its real size is
-524288, much smaller than 8454144. As a result kernel found we are freeing
-some memory which is in use and thus crashed.
-
-So one possible fix would be to free those segments during suspend. This
-works because with them freed, ath12k_qmi_free_target_mem_chunk() does
-nothing: all segment addresses are NULL so dma_free_coherent() is not called.
-
-But note that ath11k has similar logic but never hits this issue. Reviewing
-code there shows the luck comes from QMI memory reuse logic. So the decision
-is to port it to ath12k. Like in ath11k, the crash is avoided by adding
-prev_size to target_mem_chunk structure and caching real segment size in it,
-then prev_size instead of current size is passed to dma_free_coherent(),
-no unexpected memory is freed now.
-
-Also reuse m3 buffer.
-
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.0-03427-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.15378.4
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.0.c5-00481-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
-
-[ Backport to 6.6.y: carried target-memory reuse and prev_size tracking;
-  the target already retains core resources and reuses M3, whose size
-  check follows in patch 2. ]
-
-Signed-off-by: Baochen Qiang <quic_bqiang@quicinc.com>
-Signed-off-by: Kalle Valo <quic_kvalo@quicinc.com>
-Link: https://msgid.link/20240419034034.2842-1-quic_bqiang@quicinc.com
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and wifi ath12k maintainers,
-
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-40979. It tracks the actual target-memory
-allocation sizes across firmware resume requests.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-40979
-Upstream: 303c017821d88ebad887814114d4e5966d320b28
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/net/wireless/ath/ath12k/qmi.c | 20 +++++++++++++++++++-
- drivers/net/wireless/ath/ath12k/qmi.h |  2 ++
- 2 files changed, 21 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index c49f585cc39656..7a9868dbab02d7 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.c
-+++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -2152,8 +2152,9 @@ static void ath12k_qmi_free_target_mem_chunk(struct ath12k_base *ab)
- 	for (i = 0; i < ab->qmi.mem_seg_count; i++) {
- 		if (!ab->qmi.target_mem[i].v.addr)
- 			continue;
-+
- 		dma_free_coherent(ab->dev,
--				  ab->qmi.target_mem[i].size,
-+				  ab->qmi.target_mem[i].prev_size,
- 				  ab->qmi.target_mem[i].v.addr,
- 				  ab->qmi.target_mem[i].paddr);
- 		ab->qmi.target_mem[i].v.addr = NULL;
-@@ -2179,6 +2180,19 @@ static int ath12k_qmi_alloc_target_mem_chunk(struct ath12k_base *ab)
- 		case M3_DUMP_REGION_TYPE:
- 		case PAGEABLE_MEM_REGION_TYPE:
- 		case CALDB_MEM_REGION_TYPE:
-+			/* Firmware reloads in recovery/resume. Reuse an
-+			 * unchanged allocation rather than allocating it again.
-+			 */
-+			if (chunk->v.addr) {
-+				if (chunk->prev_type == chunk->type &&
-+				    chunk->prev_size == chunk->size)
-+					goto this_chunk_done;
-+
-+				dma_free_coherent(ab->dev, chunk->prev_size,
-+						  chunk->v.addr, chunk->paddr);
-+				chunk->v.addr = NULL;
-+			}
-+
- 			chunk->v.addr = dma_alloc_coherent(ab->dev,
- 							   chunk->size,
- 							   &chunk->paddr,
-@@ -2197,6 +2211,10 @@ static int ath12k_qmi_alloc_target_mem_chunk(struct ath12k_base *ab)
- 					    chunk->type, chunk->size);
- 				return -ENOMEM;
- 			}
-+
-+			chunk->prev_type = chunk->type;
-+			chunk->prev_size = chunk->size;
-+this_chunk_done:
- 			break;
- 		default:
- 			ath12k_warn(ab, "memory type %u not supported\n",
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
-index 4c1ba3196a403d..a996c6d57aa7b8 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.h
-+++ b/drivers/net/wireless/ath/ath12k/qmi.h
-@@ -97,6 +97,8 @@ struct ath12k_qmi_event_msg {
- struct target_mem_chunk {
- 	u32 size;
- 	u32 type;
-+	u32 prev_size;
-+	u32 prev_type;
- 	dma_addr_t paddr;
- 	union {
- 		void __iomem *ioaddr;
--- 
-2.39.5
-
+Shawn
