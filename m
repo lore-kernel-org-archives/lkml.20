@@ -1,120 +1,75 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F08953D9D5;
-	Tue, 29 Sep 2026 17:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAE844D2EDB;
+	Tue, 29 Sep 2026 17:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701229; cv=none; b=MRGQs41vnOpLaaEW7Dmov3c3Df64WDNpK3o6GwpdH03lN0xKSDB5j64psUOR+GSwkmdSWBunOMZSwlj84OIMkr4NnbBZyX6XIEz9R347nSTfbRmssihex+3fj6f7fFxXkRUHpNuj86IbrWrMuxW+Tw1C/pHLmxdLrZdMLN1Hfgk=
+	t=1790701275; cv=none; b=aGi6D8bfgbHejsEPOJXxVE1YTWO8RPHORdLwcym7F7TOvVCEqlCpTyz18zG/HMkkcjYroAseg1CTRHss4uUCtYcb5lCkchJJZBYWYVAGukszG5dL7kQeSh35JIPaA6pS4wU+WJ9K+WGjJXsdLE4wJMpuGQdGwipdIilrTgIEiSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701229; c=relaxed/simple;
-	bh=JOH3/jvzoj8I30I9E7kqxaEsc2Cplh2etaLYcI+/ZEo=;
+	s=arc-20240116; t=1790701275; c=relaxed/simple;
+	bh=ze/uNWr1taNBTgB17IPpAVsqleWf30GnpgdmHRoGKjs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zd7b9ff4NtA9o9X5XmnigljUk03pW1+fQethfUqW2vzFqPXphLhsgN96D9pQftrckzvqaZfWVIbbJ94X6rSIbYCgJ3gRmK69BCRu/FVNoNevVDQdoLxVmUBSHv8xlj9ORnmvuZavzGNfvnPBgGXwn/JyZIUQnHqaayEe2j5MVfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nzbmtfKi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nzbmtfKi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8F3EF1655;
-	Tue, 29 Sep 2026 10:00:23 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 55F753F85F;
-	Tue, 29 Sep 2026 10:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790701227; bh=JOH3/jvzoj8I30I9E7kqxaEsc2Cplh2etaLYcI+/ZEo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nzbmtfKi8hy7Cc/yT4F+PGL6tW6kIHItKwVzh05TXYNazNIP2VPxFmRX+iByTzJci
-	 vkpKv707Z8drHTA6cAUBWSs41lcGj8D84X8Ul4eZUyi05Lu5EFRpj5sH9ciUXEZV9J
-	 JuiircUcRlGb+buJ2IlH/gTkk8HxtKdcSyyrp3Zo=
-Date: Tue, 29 Sep 2026 18:00:12 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Andreas Grapentin <gra@linux.ibm.com>
-Cc: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>, Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v8 16/29] arm64: Share arm64 headers with s390
-Message-ID: <arvunF8epgpWh1YT@arm.com>
-References: <20260918133107.1042730-1-seiden@linux.ibm.com>
- <20260918133107.1042730-17-seiden@linux.ibm.com>
- <arqQ2Eat4VUBbl49@arm.com>
- <20260928162345.428362-C-seiden@linux.ibm.com>
- <ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=X93jFYE9/+wYE9bPP9eBS64gfz0ve6JxfFVD8vRVjlZd1qTvX7uLtV9Hll0hsG0swyV4ZqF1hy7uTXbIvXbHbiZL7kjABfZCP6NqOzc/qK34xkxCEO/T9c9jYut1ysiFSabaripd3RbZkU0f7NsUwMEIEawr6y0QZKK7K9B921o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xBbCO-0005GY-00; Tue, 29 Sep 2026 19:01:00 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id A8070C02BE; Tue, 29 Sep 2026 18:59:16 +0200 (CEST)
+Date: Tue, 29 Sep 2026 18:59:16 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Aleksandar Rikalo <arikalo@gmail.com>,
+	Paul Burton <paulburton@kernel.org>,
+	Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>,
+	Chao-ying Fu <cfu@wavecomp.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] clocksource: mips-gic-timer: Use local counter on
+ synced multi-cluster systems
+Message-ID: <arvuZDCu_1vp4Yw5@alpha.franken.de>
+References: <20260929-sync-gic-counters-v4-0-ec70c4b60434@bootlin.com>
+ <20260929-sync-gic-counters-v4-5-ec70c4b60434@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <ars6Jh5DiendDT7G@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260929-sync-gic-counters-v4-5-ec70c4b60434@bootlin.com>
 
-On Tue, Sep 29, 2026 at 06:19:20AM +0200, Andreas Grapentin wrote:
-> On Sep 28 26, Steffen Eiden wrote:
-> > On Mon, Sep 28, 2026 at 05:07:52PM +0100, Catalin Marinas wrote:
-> > > On Fri, Sep 18, 2026 at 03:30:53PM +0200, Steffen Eiden wrote:
-> > > > +# Enable all code shared to s390
-> > > > +KBUILD_CFLAGS	+= -DARM64_S390_COMMON
-> > > > +KBUILD_AFLAGS	+= -DARM64_S390_COMMON
-> > > > +KBUILD_CPPFLAGS	+= -DARM64_S390_COMMON
-> > > 
-> > > Do we actually need these defines? They seem only to be used as markers
-> > > for the awk scripts to extract the definitions. Why do we need the C
-> > > preprocessor involved at all? Could we not just have comment markers:
-> > > 
-> > > /* ARM64_S390_COMMON_BEGIN */
-> > > ...
-> > > /* ARM64_S390_COMMON_END */
-> > >
-> > No technically we do not need those. They could be useful if we find out
-> > that AWK is the wrong tool and move to a C Preprocessor + diff based
-> > approach. 
-> > 
-> > if the ifdev is not closed the compiler will complain, but an 'arm did
-> > not destroy us' verifiaction tool ( I will send one soonish) could do
-> > the same.
-> 
-> iirc the last time we discussed this we didn't think that load-bearing
-> comments were the right tool here. We also briefly floated the idea of
-> using a #pragma region based approach, but in the end we went with the
-> #ifdef preprocessor directives instead, as the least invasive
-> non-comment marker that was available.
+On Tue, Sep 29, 2026 at 02:14:12PM +0200, Benoît Monin wrote:
+>  static int gic_starting_cpu(unsigned int cpu)
+>  {
+> -	/* Ensure the GIC counter is running */
+> -	clear_gic_config(GIC_CONFIG_COUNTSTOP);
+> +	unsigned int cluster = cpu_cluster(&cpu_data[cpu]);
+> +
+> +	if (read_gic_config() & GIC_CONFIG_COUNTSTOP) {
+> +		clear_gic_config(GIC_CONFIG_COUNTSTOP);
+> +
+> +		if (cluster && mips_cm_is64 && !gic_clock_unstable)
+> +			gic_sync_counter_64(cluster);
+> +
+> +		if (gic_synced_cl_map &&
+> +		    bitmap_full(gic_synced_cl_map, mips_cps_numclusters()))
+> +			schedule_work(&gic_promote_work);
 
-The downside is that the macro affects the preprocessed code. We need to
-ensure they don't leak in uapi headers for example. Not a fan of this
-approach but I don't have a better suggestion either. At least we could
-write them as:
+do we really need the workqueue ? As far as I understand
+sched_clock_register() doesn't use the clocksource mutex, so we should
+be able to directly call gic_promote() again.
 
-#if ARM64_S390_COMMON == 1
-
-so we get an error if someone misspells the macro name (or they leak in
-uapi headers, vDSO).
-
-It would also be useful for the awk scripts look for the paired #endif
-rather than relying on the comment at the end of the line. Otherwise
-it's not really different from just sticking to comments.
+Thomas.
 
 -- 
-Catalin
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
