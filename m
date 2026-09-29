@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE074F85AB
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8174EF12C
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 21:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718812; cv=none; b=PyilDVdUXDBsbx8w5hmdYw8yUm+/T5MjQ/UBDzguy+aJSb/4F3saGepVOahslFWgRC2FgdGdKVCJpQheE5lac9ee+Eg4NOFjBt12UDk0uJn8SUR55oebNQ00e0R1jToAglxHxsAr5JlnGLYJ3zxTrPJe1gjWxBWbHRoVk/SUDdA=
+	t=1790718813; cv=none; b=NqA74rjxQaZbDVqADFM1duTKHJLXakiah9EjTKtc8aPxwpyKF84z+HYjbCN1Q6AoIA775/n9AAjyxACQNHs4QqtPm+TqVAnBdGNp5QTgULijlPGOSxQwyEmFbxDBI9ERcTftc5wRYtzJlPP5Wh0W7uGDxG9erdJI90VDn3Q1O0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718812; c=relaxed/simple;
-	bh=zy3WB88Gh+9giL7f7lt1rNCdYpvZX+8pkullc4ajsNs=;
+	s=arc-20240116; t=1790718813; c=relaxed/simple;
+	bh=zRCLwMimizOccUQZdU8RBVY7ZIBT1Z4u20d/Y3pXF4M=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JNIX70YnjVn9baHT3jNQ8PsuSGjyr4NlZf4Ipv1UKEF7xrmY0RDtF8E8u567Fkz8HHZAfwZc1H60dqbCdgsdZ3iuT1BViRN5wFlKuguC+HU+VQ3s3YzzrfSJdJV674I+lbXw3QC43EPM/WL7JAOZD8ZAB7srDrGCR1V9yo0Dnf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=axZHPMz3; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=lT+G4D+uGiiaEE4Ir3hI4LB1ykgCHV/yjuWqNj4Kr7RwydbBDHQv9QLDGxbrfwPYX8NkGRqixD9SYeuE7NljxsPV+PkdOhJhF/yN8gzgdZds/esCPJ88/QJSUtvJqiU+QeCJagKoGRSCzqJIzEV8K6RAi85D6yZs009WiUayXcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dqikI3r2; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="axZHPMz3"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso6925126eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dqikI3r2"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c0d568830so9298554eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:53:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790718809; x=1791323609; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790718811; x=1791323611; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5CeEHtfAYQ81dX38UqxtJ4tymGYkKnxF/72M2lR/Oxw=;
-        b=axZHPMz3zMa655X6tjVJvx8NKEdnhgunsp1ZBLgKkrXzVcdnJJEUOnOhQxhrAqUjUL
-         +i+hVx0CLIcYKKnzLXRD83EvK87BK1IwLPqd7sZEEh2FpW3JtBWG4D8ya9TGavWJNn7o
-         FzjjVU6QTQo0EM/+U6LMRhTFU2dSbk9BTuyTFmdnKlHlM971HMqxeggKbaTXFTkXEqLp
-         KIDH04okSyFNoE0E1+cI+bwqVxUGcT3iwVSGakBqga/jtBnvSeqOCLb1oOkhLokv2dge
-         SAYrmytGQPjGNaDcTb47hRw2cL6cmbRt+hJPBfTCqqK/kq0JMSKpri6RqAUn+8g+zOTg
-         ENwg==
+        bh=nuLNuJ1Z55MoJniNmyjLk+CRKY+iECn17Vw6UvtIrSs=;
+        b=dqikI3r2jYFo2I4YN3S767+V7iSwhvbB5kh4NB+L+/ARPC8KFZzXRrYcW8mcVFCJip
+         l7KPYheuxjPhDksJeZjz1InJ8lhAozzAdbGO/2kw8h6P+smeYBDdpX8BMbdOifdyPRWV
+         ipy2VfCtHjbCp8zF9OZ1L5gr6F8QvG5x7CqyVQpR+i3dy22Tepu+myNsdgsbGNJd00Oc
+         iN0UTrcVwJxL+SqScsMyRnFYY1JzqGHRYZ3sKtWR/bfBW/OfA6IVlECWGJNMtQ/8zpse
+         zS2L4cj6SSyVL3R6DxerlSf+n4jT3ncjdEdfhL8SlcCbudmgWISXZAuu1o3hmUSFOeIh
+         dYiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790718809; x=1791323609;
+        d=1e100.net; s=20260707; t=1790718811; x=1791323611;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5CeEHtfAYQ81dX38UqxtJ4tymGYkKnxF/72M2lR/Oxw=;
-        b=JrIT9PH+wJVWtvNtRNCrxpZWyvJt39NK1weYF6tDCeCxkq1PbDGUsDDBzTCdJFB7Fy
-         sLbmoZUBRz0Yjy1icdniOVKdqx5nknwcs5dhjdNF6VpUxGEVpKWcMAxdNRmKqMNWxhsC
-         V+NUiUi4smbsgv/hqHZiVhscYTbTZkwAJTqis2tfqWsBbLJTNwc9Msx/TUMjuq0/e4a2
-         Ylwwh+GQazRK4TFHfObqPTfcrhZZwG8b1CkXbXslCuTQixOoEdpQcu8CY7pE2ekJ+spg
-         NM0MDn3QhQmDG8cJzuEUBiS4y0zNgZn2vU5bbyW1t+1+h9jXFjc/HF5z+ADUZVFxOozB
-         vo5A==
-X-Forwarded-Encrypted: i=1; AKwUvByzmmclASV9ardCE2hb1lmypiLrhmXmiLmiuBiHKBsgi1V5Zsq9/WAYOiCoW66oXziVPuI6IQRhwWjXccM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9YTF+LhYnAbOslY6hk+XuvSfrFae10amAThh8RPef/9AfE8Is
-	zHeqvREmARRA3bypok2ItHmiZozDtZ/WZpchSh6dXGkENbj0j72952wdsUEczpNZTIZE2H6MSdF
-	VY+MIbBds0hrEVC+dCeGbCQ==
-X-Received: from dyox34.prod.google.com ([2002:a05:7300:7fa2:b0:339:75cd:ba34])
+        bh=nuLNuJ1Z55MoJniNmyjLk+CRKY+iECn17Vw6UvtIrSs=;
+        b=2iIqPffLTR2ssGbDR8WAWh/oInXB9toIlL+J0zSqAt25CS0SulbTbVvRkM9oQQ2rqS
+         MAXOVyVCanWAIw4OqXltmKpuSwl3W4W6W/tHOG/53+Q2hQVfg4TeiOHpMNTQyD7lgkVW
+         JKykfQZYSceeO3HpG59HMdPnbhzCB/y77K4mC0SiA7vjX3cikzMHY3H3tJ0BvvlvvGc5
+         Lf6OUCf9XSgPAEOfVhF8m0BYFCyJC4TTG351lXe8GZDJLljLThzNXpU5H7FlJnv6BKHh
+         mhE8wdN0NCjVF7vUe3AJ69+15N9+dH0FTQ8uKJss0SuX10urrYnz5pRqaWIL4SR1z1GA
+         xgVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/TbKkYWcJR2chL3Hg93gdujZ1KbiVGuj9NunGi+gHXx4//oP1euJVJv61BVJLu2DJ+dWoA9/xBNCXKbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH5hnj2z1LZiJNBIm2+kAYQsJomLiv9HL7bu2njOIX0J0MsXLb
+	6JOwMVvYaHl97Sqyo7bFaSsqJwZ1cd0UMjP8ApUL7qK2n4Mm01H7SsvLBOddhMNzqWo6C0pNSYB
+	ipQZiK3TQCBHb+rzDbicNcw==
+X-Received: from dlbui24.prod.google.com ([2002:a05:7022:3d18:b0:149:cd53:8931])
  (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:e109:b0:342:3bf4:77fe with SMTP id 5a478bee46e88-34c62a54248mr735000eec.11.1790718808576;
- Tue, 29 Sep 2026 14:53:28 -0700 (PDT)
-Date: Tue, 29 Sep 2026 14:52:00 -0700
+ 2002:a05:7022:f693:b0:149:cad3:302b with SMTP id a92af1059eb24-14c9feb75f3mr759810c88.34.1790718810620;
+ Tue, 29 Sep 2026 14:53:30 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:52:01 -0700
 In-Reply-To: <20260929215206.516490-1-nilayvaish@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929215206.516490-1-nilayvaish@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929215206.516490-10-nilayvaish@google.com>
-Subject: [PATCH 09/15] mm/migrate, vmscan: use folio_page() for movable_ops helpers
+Message-ID: <20260929215206.516490-11-nilayvaish@google.com>
+Subject: [PATCH 10/15] mm/memory: use folio_page() in fault and CoW paths
 From: Nilay Vaish <nilayvaish@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
@@ -72,99 +72,87 @@ Content-Type: text/plain; charset="UTF-8"
 As part of the memdescs effort, struct folio will be allocated
 separately from struct page and will no longer overlay the head page.
 
-Replace direct &folio->page, &src->page, and &dst->page uses with
-folio_page(..., 0) when calling page_has_movable_ops(),
-putback_movable_ops_page(), isolate_movable_ops_page(), and
-migrate_movable_ops_page().
+Replace direct &folio->page and &new_folio->page uses with
+folio_page(..., 0) across copy_present_page(), wp_page_copy(),
+do_swap_page(), do_set_pmd(), finish_fault(), and do_cow_fault().
 
 No functional change intended.
 
 Assisted-by: LLM
 Signed-off-by: Nilay Vaish <nilayvaish@google.com>
 ---
- mm/migrate.c | 20 +++++++++++---------
- mm/vmscan.c  |  2 +-
- 2 files changed, 12 insertions(+), 10 deletions(-)
+ mm/memory.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 7bdcdb57652f..b027c938d830 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -266,8 +266,8 @@ void putback_movable_pages(struct list_head *l)
- 			continue;
+diff --git a/mm/memory.c b/mm/memory.c
+index 330cde31bf8b..9252ba338112 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -1098,7 +1098,8 @@ copy_present_page(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma
+ 	 * over and copy the page & arm it.
+ 	 */
+ 
+-	if (copy_mc_user_highpage(&new_folio->page, page, addr, src_vma))
++	if (copy_mc_user_highpage(folio_page(new_folio, 0), page, addr,
++				  src_vma))
+ 		return -EHWPOISON;
+ 
+ 	*prealloc = NULL;
+@@ -4073,7 +4074,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 	if (!pfn_is_zero) {
+ 		int err;
+ 
+-		err = __wp_page_copy_user(&new_folio->page, vmf->page, vmf);
++		err = __wp_page_copy_user(folio_page(new_folio, 0), vmf->page,
++					  vmf);
+ 		if (err) {
+ 			/*
+ 			 * COW failed, if the fault was solved by other,
+@@ -4089,7 +4091,7 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 			delayacct_wpcopy_end();
+ 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
  		}
- 		list_del(&folio->lru);
--		if (unlikely(page_has_movable_ops(&folio->page))) {
--			putback_movable_ops_page(&folio->page);
-+		if (unlikely(page_has_movable_ops(folio_page(folio, 0)))) {
-+			putback_movable_ops_page(folio_page(folio, 0));
- 		} else {
- 			node_stat_mod_folio(folio, NR_ISOLATED_ANON +
- 					folio_is_file_lru(folio), -folio_nr_pages(folio));
-@@ -282,8 +282,8 @@ bool isolate_folio_to_list(struct folio *folio, struct list_head *list)
- 	if (folio_test_hugetlb(folio))
- 		return folio_isolate_hugetlb(folio, list);
- 
--	if (page_has_movable_ops(&folio->page)) {
--		if (!isolate_movable_ops_page(&folio->page,
-+	if (page_has_movable_ops(folio_page(folio, 0))) {
-+		if (!isolate_movable_ops_page(folio_page(folio, 0),
- 					      ISOLATE_UNEVICTABLE))
- 			return false;
- 	} else {
-@@ -1199,7 +1199,8 @@ static void migrate_folio_undo_dst(struct folio *dst, bool locked,
- static void migrate_folio_done(struct folio *src,
- 			       enum migrate_reason reason)
- {
--	if (likely(!page_has_movable_ops(&src->page)) && reason != MR_DEMOTION)
-+	if (likely(!page_has_movable_ops(folio_page(src, 0))) &&
-+	    reason != MR_DEMOTION)
- 		mod_node_page_state(folio_pgdat(src), NR_ISOLATED_ANON +
- 				    folio_is_file_lru(src), -folio_nr_pages(src));
- 
-@@ -1308,7 +1309,7 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 		goto out;
- 	dst_locked = true;
- 
--	if (unlikely(page_has_movable_ops(&src->page))) {
-+	if (unlikely(page_has_movable_ops(folio_page(src, 0)))) {
- 		__migrate_folio_record(dst, old_folio_state, anon_vma);
- 		return 0;
+-		kmsan_copy_page_meta(&new_folio->page, vmf->page);
++		kmsan_copy_page_meta(folio_page(new_folio, 0), vmf->page);
  	}
-@@ -1375,8 +1376,9 @@ static int migrate_folio_move(free_folio_t put_new_folio, unsigned long private,
- 	prev = dst->lru.prev;
- 	list_del(&dst->lru);
  
--	if (unlikely(page_has_movable_ops(&src->page))) {
--		rc = migrate_movable_ops_page(&dst->page, &src->page, mode);
-+	if (unlikely(page_has_movable_ops(folio_page(src, 0)))) {
-+		rc = migrate_movable_ops_page(folio_page(dst, 0),
-+					      folio_page(src, 0), mode);
- 		if (rc)
- 			goto out;
- 		goto out_unlock_both;
-@@ -1903,7 +1905,7 @@ static int migrate_pages_batch(struct list_head *from,
- 			 * If we are holding the last folio reference, the folio
- 			 * was freed from under us, so just drop our reference.
- 			 */
--			if (likely(!page_has_movable_ops(&folio->page)) &&
-+			if (likely(!page_has_movable_ops(folio_page(folio, 0))) &&
- 			    folio_ref_count(folio) == 1) {
- 				folio_clear_active(folio);
- 				folio_clear_unevictable(folio);
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 91295070ca33..150ffeec3d47 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1709,7 +1709,7 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ 	__folio_mark_uptodate(new_folio);
+@@ -5143,7 +5145,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 		ptep = folio_ptep;
+ 		nr_pages = nr;
+ 		entry = folio->swap;
+-		page = &folio->page;
++		page = folio_page(folio, 0);
+ 	}
  
- 	list_for_each_entry_safe(folio, next, folio_list, lru) {
- 		/* TODO: these pages should not even appear in this list. */
--		if (page_has_movable_ops(&folio->page))
-+		if (page_has_movable_ops(folio_page(folio, 0)))
- 			continue;
- 		if (!folio_test_hugetlb(folio) && folio_is_file_lru(folio) &&
- 		    !folio_test_dirty(folio) && !folio_test_unevictable(folio)) {
+ check_folio:
+@@ -5697,7 +5699,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+ 
+ 	if (!is_pmd_order(folio_order(folio)))
+ 		return ret;
+-	page = &folio->page;
++	page = folio_page(folio, 0);
+ 
+ 	/*
+ 	 * Just backoff if any subpage of a THP is corrupted otherwise
+@@ -5908,7 +5910,7 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+ 		} else {
+ 			/* Now we can set mappings for the whole large folio. */
+ 			addr = vmf->address - idx * PAGE_SIZE;
+-			page = &folio->page;
++			page = folio_page(folio, 0);
+ 		}
+ 	}
+ 
+@@ -6093,7 +6095,7 @@ static vm_fault_t do_cow_fault(struct vm_fault *vmf)
+ 	if (!folio)
+ 		return VM_FAULT_OOM;
+ 
+-	vmf->cow_page = &folio->page;
++	vmf->cow_page = folio_page(folio, 0);
+ 
+ 	ret = __do_fault(vmf);
+ 	if (unlikely(ret & (VM_FAULT_ERROR | VM_FAULT_NOPAGE | VM_FAULT_RETRY)))
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
