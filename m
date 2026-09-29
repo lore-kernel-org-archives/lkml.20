@@ -1,111 +1,137 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4640C516174;
-	Tue, 29 Sep 2026 15:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43035383F8;
+	Tue, 29 Sep 2026 15:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694553; cv=none; b=MUxVvWOquzMMnByhXahFkS2DGPY3Ex4nv9Ch998z6xPSgERKwGICeOmBhTMc9mRyDUUIuwo6W74YHo8Q2Zbck/54V4g7uUFRLMMTWIiHRqE7yhIelFHSf8SwGdho7ArZzySF4b9Iz0ZTCUKmRIxRH7XX7h9iDC46lujfnlAVt3A=
+	t=1790694577; cv=none; b=oryxeb9JFNzV17GZhmfAnjSq6IEovadKuDl+IbxCrpe9YeRx8CS4LHIh24pwOI2uaJkI67D7lQ0rd0TvFPBitI11o0W1fbNnveWFL7m/ylsfV9z8jIQ0xkw85jeBxC9bzMaT5suz5dsGIGH1UptxnSFimk66f0tU2z5Sho3bcKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694553; c=relaxed/simple;
-	bh=gpgdTcKKkQ2T93h4ye/efBPzAsnfbZjwW5J01PoQ3tY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GpucgsfP3mg65d/m56NPlENsnnQ0Lj7pZxP99RRZdN2J6LEOQg/Xm2DHQrpJlP3vc85H1GW+DbqIiCvMX1J2xwFX3qsnw6TBjqhGpMJJihAmGMKrl0fXLcggiwG7HDd4G6erj+UCoSQPAbis6wZmWrF9AdX2lDtYshzPbsJGhWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YM0tHVm9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790694577; c=relaxed/simple;
+	bh=qPE8L6OJ9BcQVpA6etspWXjhpppoEWMeLPP7UNhx5rI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a7dHa3MJplxvI0QrOT0EUeBwc5ZdQkN6BZ2B/r5XqSOIUaNV8msYKKxMcYQabCtg3jqKSkQOn4dw3PQCV2177ayqs1RQ4Tl5nbGgSC3+oXVlWsQWVJkaKmkvu94K4lWd4LzrgANfmBZ717Ku1bsAuBJyOZofJonVyzESONsZG04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SC+I9GUx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7Z/ezAyH; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HpLWIVGW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SgW/yOya; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YM0tHVm9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 568751516;
-	Tue, 29 Sep 2026 08:08:41 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9C993F85F;
-	Tue, 29 Sep 2026 08:08:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790694524; bh=gpgdTcKKkQ2T93h4ye/efBPzAsnfbZjwW5J01PoQ3tY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=YM0tHVm9z3VNtJkABsoO6KmV6xZ/52v6cdwuEd5fBZOUujUDw+b6Dsg81UEYT/jsW
-	 7SyN1XK52kKQ9oeY9xqG/XyvvwBuxgLL1cVZOBrwWnW/ynXfzVbizUQGad+RIaMd21
-	 28DTjFf/LcTRW+GKDiNGwyNvKHWTdag3sD7ZoSb4=
-From: Leo Yan <leo.yan@arm.com>
-Date: Tue, 29 Sep 2026 16:08:32 +0100
-Subject: [PATCH v2] perf/core: Fix ITRACE start suppression for inherited
- events
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SC+I9GUx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7Z/ezAyH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HpLWIVGW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SgW/yOya"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8701D21BED;
+	Tue, 29 Sep 2026 15:09:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790694554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laGINfs/vcoQYqRRn6JuowLlarLD9nHJ92K2fMjwm9s=;
+	b=SC+I9GUxceNQ9qiZRwmQrzXXD1/DA6W7LnhmJmHYsBcPnM5hCFssb9GIuyCV830L8HNy4H
+	8tEyCN+OtTwSAISAgEAsnaBtZ8gXxK2pUBqxGVu2ZqJBU6z7wsjLtE8pmGIXPpGsSi7fSW
+	wR58ALOsNRhw5YbVHIJd7l+J0MBkGu4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790694554;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laGINfs/vcoQYqRRn6JuowLlarLD9nHJ92K2fMjwm9s=;
+	b=7Z/ezAyHkGe8hLDDynMJYjh4pjSolfYhQKyVsPHwtYz+jvO45LjSBmtLhP8vVzONBJazGY
+	bPcCemmwMF9mb2Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790694550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laGINfs/vcoQYqRRn6JuowLlarLD9nHJ92K2fMjwm9s=;
+	b=HpLWIVGW9fV0mROJp7WM2RxBY1i/MzjZ5PHH1T0bu75cx77zMXXn2AjwiYLs/BAcry5Y/6
+	L/zpHeGdUroyAxruClmjZqAMWhjYXFy0rrVsS4Er3fGWW8ziKJul13cYU9+H9WiSfNmqSe
+	CWN8kCNsxh3jXo83rmobgmetFJm/yRc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790694550;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laGINfs/vcoQYqRRn6JuowLlarLD9nHJ92K2fMjwm9s=;
+	b=SgW/yOyajevmG9xbCfkMNSZFxEMyvvuEW5DXp3/b6f+z3gORPemSit6SQueyL/wByr89Kx
+	Vay5lCPcg47XGbAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 47712133F1;
+	Tue, 29 Sep 2026 15:09:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id cLjmBpbUu2rPCwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 15:09:10 +0000
+Date: Tue, 29 Sep 2026 17:09:09 +0200
+Message-ID: <87ld8kyu0a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] ALSA: sgio2audio: Only free successfully requested IRQs
+In-Reply-To: <20260929084540.2065213-1-runyu.xiao@seu.edu.cn>
+References: <20260929084540.2065213-1-runyu.xiao@seu.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-perf_core_itrace_start_fix_inherit_event-v2-1-9361a946ed56@arm.com>
-X-B4-Tracking: v=1; b=H4sIAG/Uu2oC/52NQQ6DIBBFr2JYlwYxonTVezSGUBzqLAQzENLGe
- PdSj9Dl+/l5b2cJCCGxW7MzgoIJY6ggLw1ziw0v4DhXZlJIJbTo+AbkjYsEBjNZByZlS9l4fBs
- MS5VlAwVC5nbUnZgHLUetWdVtBPV0ph5T5QVTjvQ5y6X9rX9ESstbrp7eD6CG3vr+bmm9uriy6
- TiOL+C5QXreAAAA
-X-Change-ID: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790694522; l=1913;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=gpgdTcKKkQ2T93h4ye/efBPzAsnfbZjwW5J01PoQ3tY=;
- b=TuAGK+c5/qhIpC/WOIH+7K3yWavAUKRc50/vsn3LndQHNJdnMrNDOaJe0UVyQNzrDi8t7YulE
- aqbEJX2wt+pCiIBx16dF5gXlAuyI5tBX3n8msK6zhUmp1Xdc3CZOZ5N
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.de:mid,seu.edu.cn:email,imap1.dmz-prg2.suse.org:helo];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-perf_log_itrace_start() follows event->parent before checking
-PERF_ATTACH_ITRACE, but perf_event_itrace_started() sets the flag on the
-event passed by the PMU driver. If an inherited event starts tracing
-before its parent, the parent's flag remains clear and the child emits
-redundant ITRACE_START records on subsequent schedule-ins.
+On Tue, 29 Sep 2026 10:45:40 +0200,
+Runyu Xiao wrote:
+> 
+> snd_sgio2audio_create() calls snd_sgio2audio_free() when an IRQ
+> request fails. The cleanup helper currently walks the complete IRQ table,
+> including entries whose request_irq() calls have not been attempted yet.
+> free_irq() then receives an IRQ and dev_id pair that was never registered.
+> 
+> Pass the number of successfully requested IRQs to the cleanup helper on
+> the request failure path, while retaining the full-table cleanup for
+> teardown after all requests have succeeded.
+> 
+> Fixes: 862c2c0a61c5 ("ALSA: ALSA driver for SGI O2 audio board")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Follow event->parent in perf_event_itrace_started() as well, so that the
-setter and checker use the same event. This preserves the original
-suppression policy: ITRACE_START supplies the initial task context when
-tracing begins, while subsequent task switches are tracked through
-context-switch records or trace context packets.
+Applied to for-next branch.  Thanks.
 
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
-Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
-Changes in v2:
-- Changed setter to fetch parent event instead (James).
-- Link to v1: https://lore.kernel.org/r/20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com
----
- kernel/events/core.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 634d2ccbab82d8bfe9d1bd7f8c6745f60260dbd9..85d924cce387f88de0c1efe6c22754d38430c9d6 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10568,6 +10568,9 @@ void perf_event_text_poke(const void *addr, const void *old_bytes,
- 
- void perf_event_itrace_started(struct perf_event *event)
- {
-+	if (event->parent)
-+		event = event->parent;
-+
- 	WRITE_ONCE(event->attach_state, event->attach_state | PERF_ATTACH_ITRACE);
- }
- 
-
----
-base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
-change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-
-Best regards,
--- 
-Leo Yan <leo.yan@arm.com>
-
+Takashi
