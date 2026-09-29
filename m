@@ -1,645 +1,223 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B41314B72;
-	Tue, 29 Sep 2026 07:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926F93AFB13
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668768; cv=none; b=NcqjwMyhcL2LJwCph9CEaY/d7UdfI00tQIm8EV3O3+tc0q0se8nUUJI6+OnkXIU/QuwDPliYekHKkVNh3SHvJaFuV7jHCcUhUqnz9+BoZfyEJVViwCowI1CFAIZ37mtrBFP3hzFp3Y91M1QuQ0EWtOFh55sIupBF6MP+vdklU00=
+	t=1790668780; cv=none; b=HiztftPuH9l5UIqxPTgTry4pQb+2hXMgxbotVtXFHuGVKtqT8u3Vn5X1n79C+BzAfm63f8uy/4fpjSuXmh/nNIii6hInZj/sL7csxFc2HoToaP39L1lkSQ9leMA1AwtANUdEU/0E9PdYeZytzs7IqYECjC1z3212YFvZtoHF/hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668768; c=relaxed/simple;
-	bh=2XNlLFRY+cHAxAzfJ2BVI4c5+DGJ5PqSloWx/ugmvm4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=rKI5HaXH6mxPdkEe9lBc/uW7RK10DjwudtCfuPwWPDT0DCckA21l++BNoWdA0BELTn3b4fR49MrN3BfO2s/76ycU4jDR7kQsyQZCGXYHbGEdCF6lLG/esTDygecNPecYEY7GnsnEoNbtzYRTLD1nePUR2tsJ5niO7XjOZ9V8/Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fIiRDZjY; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790668780; c=relaxed/simple;
+	bh=5YrHK4cctkzRIfTGun0k2AbKHxc2EmK5N7diHcBB30o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a4blwyB3rf0SwZo56i6i1viSX4PxXCeEk7vLTAUVJTIr1z5NMwcRnc3mGOctzp3ZPX/auF1uUQhYgC2lnU2LUSnLPYCgOKyfbvEe6yOJ8eiTjKnHQkIRsuDxpmQwRbEYeOHAMsJJq1BwGYhRAib2mBGfOA9Qchc8OwwCb07WoGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NBq+QJzN; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fIiRDZjY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790668765; x=1822204765;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=2XNlLFRY+cHAxAzfJ2BVI4c5+DGJ5PqSloWx/ugmvm4=;
-  b=fIiRDZjYD45VmVspvbXRUd1WLt1B/W9EAmQ85aXsAflNsVZVBwNHYnHE
-   ZOOcwqFn4s76wdw2Loa93dUZW6+Kps9tSjVaIvuWQENBgMcyUlMBVLtly
-   /f1vRrC1u6D4A9xHWZ9Goswr3ppwjTFipGVfnMO8qxu4PJ4C/E6QdV2kc
-   gyyfe0kruatAtVEg0DhJqW5ROtwKvVtxuLYREMBUQs/27pltYQshSWW/7
-   qyBp52MSwdl4uzuKWkxtS/pzX6aHQ9sYBiG3oLVANWRHixgbDB4F7oSiZ
-   /aD4ERkJJfHHRhNYUs4qY1YvRN9kwfuRpl60kXOcfztr4LdCzgjlyNG3g
-   w==;
-X-CSE-ConnectionGUID: OQ/7BLIHQVypajWMynL3eA==
-X-CSE-MsgGUID: yASxXoydTD6U72wwmSGMKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101951007"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="101951007"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:59:24 -0700
-X-CSE-ConnectionGUID: PiNoqnMjQXiPua/qwoSqhw==
-X-CSE-MsgGUID: hUSaU7bETAqdYfSDFjoWgg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="275442984"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.234])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:59:19 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 29 Sep 2026 10:59:15 +0300 (EEST)
-To: Alex Robinson <alex@ironrobin.net>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-    Konrad Dybcio <konradybcio@kernel.org>, 
-    Steev Klimaszewski <threeway@gmail.com>, 
-    platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC
- driver
-In-Reply-To: <20260928222056.10044-3-alex@ironrobin.net>
-Message-ID: <c24a6fb5-3281-6a6d-9913-8426fda8b842@linux.intel.com>
-References: <20260928222056.10044-1-alex@ironrobin.net> <20260928222056.10044-3-alex@ironrobin.net>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NBq+QJzN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790668777;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KKrMTjP0ZLGqrXdItKkwrT0On91XxEvvcqwyjevqycI=;
+	b=NBq+QJzNF8SSnx9UWIddV9xN8V3byK3AXs3MzvNcVni57D0gaa0EHFF2DxbKN8PKAIQf61
+	x/neI9tsOcgM1pifMBTu6y5D4SrRzr9oqGv6w84cqeC0FxghbX88/EZq65Ao9hLKHk4rqn
+	BPT7qu1zsKbdGiQrdvmct9BNUccYzB4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-15-PGUjv593MZu1j53VLEIq2A-1; Tue,
+ 29 Sep 2026 03:59:31 -0400
+X-MC-Unique: PGUjv593MZu1j53VLEIq2A-1
+X-Mimecast-MFC-AGG-ID: PGUjv593MZu1j53VLEIq2A_1790668769
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E1E8B1944EBE;
+	Tue, 29 Sep 2026 07:59:27 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D7EF71956042;
+	Tue, 29 Sep 2026 07:59:20 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 00/10] netfs, cachefiles: Changes for next, primarily occupancy tracking-related
+Date: Tue, 29 Sep 2026 08:59:01 +0100
+Message-ID: <20260929075913.2740968-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, 28 Sep 2026, Alex Robinson wrote:
+Hi Christian,
 
-> Add a standalone driver for the Lenovo ThinkPad X13s embedded controller,
-> providing keyboard-backlight control and notifications of firmware-driven
-> brightness changes. Keep the X13s-specific backlight, event and
-> power-management handling separate from the T14s driver.
-> 
-> Use STOP-separated command and response transfers and serialize EC
-> access, including keyboard-backlight read-modify-write operations.
-> Follow the EC command and power-state GPIO sequence described by the
-> X13s ACPI DSDT when entering and leaving low power.
-> 
-> Save the firmware-updated brightness in the EC on Fn+Space and restore
-> it on lid open, following the DSDT's SCMS(0x20) and SCMS(0x21) operations.
-> Also save software-selected brightness so lid opening does not reinstate
-> an older setting; this extends the DSDT's MLCS path, which does not
-> explicitly save it.
-> 
-> Defer event queries while suspended until normal resume, when the I2C
-> controller is usable again. Save the hardware backlight brightness before
-> entering low power and attempt to restore it on resume because the
-> transition can reset it. Process deferred events afterwards so a lid-open
-> restore takes precedence over a snapshot taken after lid closure blanked
-> the light.
-> 
-> Disable EC wakeup by default, following the upstream ThinkPad T14s EC
-> driver's policy. The interrupt multiplexes events and no selective X13s
-> EC wake-event mask is currently known. In particular, lid-close event
-> 0x53 can wake the system, but identifying the event requires querying the
-> EC over QUP8/I2C after the system has resumed far enough to use the bus.
-> Disable wake broadly rather than trying to filter an already-triggered
-> wakeup. This also prevents other EC events from waking the system by
-> default; normal runtime interrupt handling remains enabled.
-> 
-> Keep wakeup-source in DT to describe hardware capability. The I2C core
-> sets up the wake IRQ before probe, and the driver disables wakeup policy
-> without removing that capability. Userspace can explicitly re-enable it.
-> Feedback on a selective X13s EC event-mask mechanism would be welcome.
-> 
-> This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Alex Robinson <alex@ironrobin.net>
-> 
-> ---
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27177,6 +27177,12 @@ THINKPAD T14S EMBEDDED CONTROLLER DRIVER
->  F:	Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
->  F:	drivers/platform/arm64/lenovo-thinkpad-t14s.c
->  
-> +THINKPAD X13S EMBEDDED CONTROLLER DRIVER
-> +M:	Alex Robinson <alex@ironrobin.net>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
-> +F:	drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> +
->  THINKPAD LMI DRIVER
->  M:	Mark Pearson <mpearson-lenovo@squebb.ca>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..c20b2fb40962f1d46e896ea7f7d0b16028f92f96 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -90,6 +90,22 @@ config EC_LENOVO_THINKPAD_T14S
->  
->  	  Say M or Y here to include this support.
->  
-> +config EC_LENOVO_THINKPAD_X13S
-> +	tristate "Lenovo ThinkPad X13s Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on GPIOLIB
-> +	select NEW_LEDS
-> +	select LEDS_CLASS
-> +	select LEDS_BRIGHTNESS_HW_CHANGED
-> +	help
-> +	  Driver for the embedded controller in the Lenovo ThinkPad X13s.
-> +	  Provides keyboard backlight control, hardware brightness change
-> +	  notifications and system sleep power sequencing.
-> +
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called lenovo-thinkpad-x13s.
-> +
->  config EC_QCOM_HAMOA
->  	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->  	depends on ARCH_QCOM || COMPILE_TEST
-> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-> index 7681be4a46e94e7cb80e50bcc5b724cb0961357b..23ed6eef7ce41a5f45d48f5f83b281ebbca94cbb 100644
-> --- a/drivers/platform/arm64/Makefile
-> +++ b/drivers/platform/arm64/Makefile
-> @@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-> +obj-$(CONFIG_EC_LENOVO_THINKPAD_X13S) += lenovo-thinkpad-x13s.o
->  obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
-> diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..c600a616c9b6e8f4259caf61fd5c16d129547c90
-> --- /dev/null
-> +++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
-> @@ -0,0 +1,416 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Lenovo ThinkPad X13s embedded controller */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/leds.h>
-> +#include <linux/lockdep.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/pm.h>
-> +#include <linux/pm_wakeup.h>
-> +#include <linux/slab.h>
-> +
-> +#define X13S_EC_CMD_READ		0x02
-> +#define X13S_EC_CMD_WRITE		0x03
-> +#define X13S_EC_CMD_EVENT		0xf0
-> +#define X13S_EC_REG_POWER_STATE	0x80
-> +#define X13S_EC_POWER_STATE_ENTER	0x55
-> +#define X13S_EC_POWER_STATE_EXIT	0xaa
-> +#define X13S_EC_REG_KBD_BACKLIGHT	0xc0
-> +#define X13S_EC_BACKLIGHT_MASK	GENMASK(5, 4)
-> +#define X13S_EC_REG_KBD_BACKLIGHT_SAVED	0x15
-> +#define X13S_EC_BACKLIGHT_SAVED_MASK	GENMASK(2, 1)
-> +#define X13S_EC_EVENT_FN_SPACE	0x1f
-> +#define X13S_EC_EVENT_LID_OPEN	0x52
-> +
-> +struct x13s_ec {
-> +	struct i2c_client *client;
-> +	struct gpio_desc *power_state;
-> +	/* Serializes EC transactions, backlight RMW and suspend/event state. */
-> +	struct mutex lock;
-> +	struct led_classdev led;
-> +	enum led_brightness saved_brightness;
-> +	bool suspended;
-> +	bool event_pending;
-> +};
-> +
-> +/*
-> + * Each single-message transfer ends in STOP. Hold the bus segment across
-> + * both halves so another client cannot interleave them. Keep the 10 ms
-> + * post-command settling delay, including on failure.
-> + */
-> +static int x13s_read(struct x13s_ec *ec, u8 cmd, u8 reg, u8 *value)
-> +{
-> +	struct i2c_client *client = ec->client;
-> +	u8 buf[] = { cmd, reg, 0, 1 };
-> +	struct i2c_msg request = {
-> +		.addr = client->addr,
-> +		.flags = I2C_M_STOP,
-> +		.len = sizeof(buf),
-> +		.buf = buf,
-> +	};
-> +	struct i2c_msg response = {
-> +		.addr = client->addr,
-> +		.flags = I2C_M_RD,
-> +		.len = 1,
-> +		.buf = value,
-> +	};
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	if (ec->suspended)
-> +		return -EBUSY;
-> +
-> +	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
-> +	ret = __i2c_transfer(client->adapter, &request, 1);
-> +	if (ret == 1)
-> +		ret = __i2c_transfer(client->adapter, &response, 1);
-> +	ret = ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
+Could you pull these patches please into your vfs-7.4.netfs branch?  This
+is the third of four (maybe five) batches, in this case replacing the
+folio_queue struct with a bvecq struct, and is based upon the
+aforementioned branch.  This was split from v11 of a larger netfslib
+series[1].
 
-This looks unnecessarily convoluted. Please move this to the end and split 
-it to multiple if checks that return immediately. Preferrably make the 
-error returning checks first and leave return 0 as the last.
+This series adds a new type, struct bvecq.  This points to a bounded array
+of bio_vecs with information about how to clean up the memory they point
+to.  A number of bvecq structs can be linked together to form a chain and
+an iterator type, ITER_BVECQ, is provided that can be pointed at the chain
+and can walk it.  Netfslib is then switched to use the new type and
+folio_queue is removed along with ITER_FOLIOQ.
 
-> +	i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
-> +	fsleep(10000);
-> +	return ret;
-> +}
-> +
-> +/* Also used by normal PM callbacks while ordinary EC access is blocked. */
-> +static int x13s_write(struct x13s_ec *ec, u8 reg, u8 value)
-> +{
-> +	u8 buf[] = { X13S_EC_CMD_WRITE, reg, 0, 1, value };
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +
-> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
-> +	ret = ret == sizeof(buf) ? 0 : (ret < 0 ? ret : -EIO);
+This is intended as a more flexible replacement for struct folio_queue as
+the latter can only point to whole folios and cannot point to partial pages
+that might be extracted from an ITER_IOVEC/ITER_UBUF for direct or
+unbuffered I/O purposes.
 
-Ditto.
+These patches make a more or less straight swap between struct folio_queue
+and struct bvecq.  The change is not quite trivial as the folio_queue
+struct contains a folio_batch struct and is basically a list of whole
+folios only, whereas the new bvecq struct is a chain of bio_vec arrays.
 
-> +	fsleep(10000);
-> +	return ret;
-> +}
-> +
-> +static int x13s_brightness(struct x13s_ec *ec)
-> +{
-> +	u8 value;
-> +	int ret;
-> +
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = FIELD_GET(X13S_EC_BACKLIGHT_MASK, value);
-> +	return ret == 3 ? -EINVAL : ret;
+A further patchset will switch the netfslib unbuffered I/O code to using
+bvecqs and then the bvecqs will be passed down into the filesystem rather
+than passing an iterator.
 
-Is that ret == 3 actually a > max_brightness check?
+The primary reason behind making this change is so that bvecq chains can be
+used in the assembly of network filesystem messages.  Netfslib can furnish
+the filesystem with bvecq chains representing the data buffers that need to
+be read or written and then, for example, for a write RPC, the filesystem
+can add protocol headers and trailers onto the chain without the need to
+copy it and can also glue multiple buffers together to form compound
+operations and/or perform sparse operations.
 
-Add another variable that is called "brigthness", do not use a generic 
-return variable for this.
+One option here is to add two more fields to the bvecq struct, one to
+increase the offset of the first bio_vec and one to decrease the length of
+the last, thereby allowing a bvecq struct to point at a slice of another
+bio_vec array without having to copy the array - but at the cost of adding
+one or two extra conditional ops when getting the offset or length of a
+segment.
 
-> +}
-> +
-> +static enum led_brightness x13s_brightness_get(struct led_classdev *led)
-> +{
-> +	struct x13s_ec *ec = container_of(led, struct x13s_ec, led);
-> +	int ret;
-> +
-> +	mutex_lock(&ec->lock);
-> +	ret = x13s_brightness(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return ret;
-> +}
-> +
-> +static int x13s_set_brightness_locked(struct x13s_ec *ec,
-> +				      enum led_brightness brightness)
-> +{
-> +	u8 old, new;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	if (brightness > 2)
+I have in-progress patch sets to rewrite the cifs transport[2] and the ceph
+and rbd transport[3] to make use of bvecq chains.  With the cifs transport,
+the idea is to extend the SMB message concept further up the stack and have
+the PDU creation routines attach individual RPC requests blobs that can
+then be automatically chained by the transport when a compound is being
+assembled for transmission.
 
-> max_brightness ?
+With the ceph transport, the idea is to convert all the different data
+containers it has into just passing around bvecqs.  These can then be
+chained together in order to transmit them.
 
-> +		return -EINVAL;
-> +
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &old);
-> +	if (ret)
-> +		return ret;
-> +	/* Never interpret or overwrite a reserved current brightness. */
-> +	if (FIELD_GET(X13S_EC_BACKLIGHT_MASK, old) == 3)
+This improves efficiency in the TCP stack as we no longer need to cork the
+TCP socket, call sendmsg() multiple times and then uncork; rather we can
+preassemble the message in a bvecq chain and just send the entire messsage
+in one shot with a single sendmsg() and reduce the number of places doing
+loops.  This got an improvement in nfsd performance[4].
 
-Here too?
+I also have some changes on the TCP receive side for the cifs transport
+(which is also likely applicable to the ceph TCP transport) whereby the
+receive buffers are 'spliced' out into a bvecq in the cifs I/O thread
+rather than being copied.  Using a bvecq chain here is advantageous as we
+don't know in advance how many segments we're going to have.  This allows
+us firstly to avoid copying data with the socket lock held (thus holding up
+sendmsg) and secondly to avoid copying data in the I/O thread (copying can
+be offloaded to the app thread).  The last time I benchmarked this, it
+appeared to get fio reading tests on cifs a 5% speedup.
 
-> +		return -EINVAL;
-> +	new = (old & ~X13S_EC_BACKLIGHT_MASK) |
-> +		FIELD_PREP(X13S_EC_BACKLIGHT_MASK, brightness);
+Unfortunately, this doesn't help AFS much as that uses a UDP transport, but
+it might also help 9P, at least with its TCP transport.
 
-The indentation seems off by a bit but I think this could use 
-FIELD_MODIFY() instead.
+The patches can also be found here:
 
-> +	return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT, new);
-> +}
-> +
-> +/* SCMS(0x20): save the brightness obtained from C0 in the EC. */
-> +static int x13s_save_brightness_locked(struct x13s_ec *ec,
-> +				       enum led_brightness brightness)
-> +{
-> +	u8 value;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED,
-> +			&value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	value &= ~X13S_EC_BACKLIGHT_SAVED_MASK;
-> +	value |= FIELD_PREP(X13S_EC_BACKLIGHT_SAVED_MASK, brightness);
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-3
 
-FIELD_MODIFY()
+Thanks,
+David
 
-> +	return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT_SAVED, value);
-> +}
-> +
-> +/* SCMS(0x21): restore C0 from the EC's saved brightness. */
-> +static int x13s_restore_brightness_locked(struct x13s_ec *ec)
-> +{
-> +	u8 value;
-> +	int brightness, ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED,
-> +			&value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	brightness = FIELD_GET(X13S_EC_BACKLIGHT_SAVED_MASK, value);
-> +	ret = x13s_set_brightness_locked(ec, brightness);
-> +	return ret ? ret : brightness;
-> +}
-> +
-> +static int x13s_brightness_set(struct led_classdev *led,
-> +			       enum led_brightness brightness)
-> +{
-> +	struct x13s_ec *ec = container_of(led, struct x13s_ec, led);
-> +	int ret;
-> +
-> +	mutex_lock(&ec->lock);
-> +	ret = x13s_set_brightness_locked(ec, brightness);
-> +	/* Keep software selections across the EC's lid blank/restore cycle. */
-> +	if (!ret)
+Changes
+=======
 
-Please use guard() so that this can return error immediately (reverse 
-the logic and handle error first).
+ver #12)
+- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
+  chain"[1]
 
-> +		ret = x13s_save_brightness_locked(ec, brightness);
-> +	mutex_unlock(&ec->lock);
-> +	return ret;
-> +}
-> +
-> +static void x13s_refresh_brightness(struct x13s_ec *ec)
-> +{
-> +	int brightness, ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	/* Firmware owns the transition; save its result as _Q1F does. */
-> +	brightness = x13s_brightness(ec);
-> +	if (brightness < 0) {
-> +		dev_err_ratelimited(&ec->client->dev,
-> +				    "Backlight refresh failed: %d\n", brightness);
+[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=cifs-experimental
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=ceph-iter
+[4] https://lore.kernel.org/netdev/168979108540.1905271.9720708849149797793.stgit@morisot.1015granger.net/
 
-Add include.
+David Howells (10):
+  Add a function to kmap one page of a multipage bio_vec
+  iov_iter: Add a segmented queue of bio_vec[]
+  netfs: Add some tools for managing bvecq chains
+  afs: Use a bvecq to hold dir content rather than folioq
+  cifs: Use a bvecq for buffering instead of a folioq
+  smbdirect: Support ITER_BVECQ in smbdirect_map_sges_from_iter()
+  netfs: Switch folioq to bvecq
+  smbdirect: Remove support for ITER_FOLIOQ from
+    smbdirect_map_sges_from_iter()
+  iov_iter: Remove ITER_FOLIOQ
+  netfs: Remove folio_queue
 
-> +		return;
-> +	}
-> +	ret = x13s_save_brightness_locked(ec, brightness);
-> +	if (ret)
-> +		dev_err_ratelimited(&ec->client->dev,
-> +				    "Backlight save failed: %d\n", ret);
-
-Use braces for multiline constructs.
-
-> +	led_classdev_notify_brightness_hw_changed(&ec->led, brightness);
-> +}
-> +
-> +static void x13s_query_event(struct x13s_ec *ec)
-> +{
-> +	u8 event;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	/* One query per interrupt, with no event-draining loop or retry. */
-> +	ret = x13s_read(ec, X13S_EC_CMD_EVENT, 0, &event);
-> +	if (ret) {
-> +		dev_err_ratelimited(&ec->client->dev, "Event query failed: %d\n", ret);
-> +		return;
-> +	}
-> +	if (event == X13S_EC_EVENT_FN_SPACE) {
-> +		x13s_refresh_brightness(ec);
-> +	} else if (event == X13S_EC_EVENT_LID_OPEN) {
-> +		ret = x13s_restore_brightness_locked(ec);
-> +		if (ret < 0) {
-> +			dev_err_ratelimited(&ec->client->dev,
-> +					    "Backlight lid restore failed: %d\n", ret);
-> +			return;
-> +		}
-> +		ec->led.brightness = ret;
-> +		led_classdev_notify_brightness_hw_changed(&ec->led, ret);
-> +	}
-> +}
-> +
-> +static void x13s_process_pending_event(struct x13s_ec *ec)
-> +{
-> +	lockdep_assert_held(&ec->lock);
-> +	if (ec->event_pending) {
-> +		ec->event_pending = false;
-> +		x13s_query_event(ec);
-> +	}
-> +}
-> +
-> +static irqreturn_t x13s_irq(int irq, void *data)
-> +{
-> +	struct x13s_ec *ec = data;
-> +
-> +	mutex_lock(&ec->lock);
-> +	/* Coalesce suspended IRQs into one query; never access I2C here. */
-> +	if (ec->suspended)
-> +		ec->event_pending = true;
-> +	else
-> +		x13s_query_event(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int x13s_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct x13s_ec *ec;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> +		return -EOPNOTSUPP;
-> +	if (client->irq <= 0)
-> +		return dev_err_probe(dev, -EINVAL, "Missing event IRQ\n");
-> +	if (irq_get_trigger_type(client->irq) != IRQ_TYPE_EDGE_FALLING)
-> +		return dev_err_probe(dev, -EINVAL, "Expected falling-edge IRQ\n");
-> +
-> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-> +	if (!ec)
-> +		return -ENOMEM;
-> +	ec->client = client;
-> +	ret = devm_mutex_init(dev, &ec->lock);
-> +	if (ret)
-> +		return ret;
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	ec->power_state = devm_gpiod_get(dev, "power-state", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ec->power_state))
-> +		return dev_err_probe(dev, PTR_ERR(ec->power_state),
-> +				     "Failed to acquire power-state GPIO high\n");
-
-Braces.
-
-> +
-> +	ec->led.name = "platform::kbd_backlight";
-> +	ec->led.max_brightness = 2;
-> +	ec->led.flags = LED_BRIGHT_HW_CHANGED | LED_RETAIN_AT_SHUTDOWN;
-> +	ec->led.brightness_get = x13s_brightness_get;
-> +	ec->led.brightness_set_blocking = x13s_brightness_set;
-> +	ret = devm_led_classdev_register(dev, &ec->led);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register keyboard backlight\n");
-> +
-> +	/* Devres synchronizes the IRQ before unregistering the LED. */
-> +	ret = devm_request_threaded_irq(dev, client->irq, NULL, x13s_irq,
-> +					IRQF_ONESHOT, dev_name(dev), ec);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request event IRQ\n");
-> +
-> +	/*
-> +	 * As on the T14s, disable wakeup by default since selective EC event
-> +	 * masking is not known. Keep runtime IRQ handling enabled.
-> +	 */
-> +	device_wakeup_disable(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int x13s_power_gpio(struct x13s_ec *ec, int value)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	ret = gpiod_set_value_cansleep(ec->power_state, value);
-> +	if (ret)
-> +		dev_err(&ec->client->dev, "Failed to set power-state GPIO to %d: %d\n",
-> +			value, ret);
-
-Braces.
-
-> +	return ret;
-> +}
-> +
-> +static void x13s_exit_low_power(struct x13s_ec *ec)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +	x13s_power_gpio(ec, 1);
-> +	/* DSDT: GPIO176 high, Sleep(10), then register 0x80 <- 0xaa. */
-> +	fsleep(10000);
-> +	ret = x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_EXIT);
-> +	if (ret)
-> +		dev_err(&ec->client->dev, "Failed to exit low power: %d\n", ret);
-> +
-> +	/* Resume ordinary access even if the EC exit attempt failed. */
-> +	ec->suspended = false;
-> +}
-> +
-> +static int x13s_suspend(struct device *dev)
-> +{
-> +	struct x13s_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/* Finish in-flight access while the GENI parent is still usable. */
-> +	mutex_lock(&ec->lock);
-
-Please convert to guard() so you can return immediately as needed.
-
-> +	if (ec->suspended)
-> +		goto out;
-> +	/* Keep the previous snapshot if reading the hardware fails. */
-> +	ret = x13s_brightness(ec);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to save backlight brightness: %d\n", ret);
-> +	else
-> +		ec->saved_brightness = ret;
-> +
-> +	/* DSDT: register 0x80 <- 0x55, then GPIO176 low. */
-> +	ret = x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_ENTER);
-> +	if (ret)
-> +		dev_err(dev, "Failed to enter low power: %d\n", ret);
-> +	else
-> +		x13s_power_gpio(ec, 0);
-> +	/* Defer event queries throughout host suspend, even on EC failure. */
-> +	ec->suspended = true;
-> +out:
-> +	mutex_unlock(&ec->lock);
-> +	return 0;
-> +}
-> +
-> +static int x13s_resume(struct device *dev)
-> +{
-> +	struct x13s_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/*
-> +	 * Normal resume runs after the adapter and its GENI parent. In
-> +	 * particular, device_resume_early() has re-enabled runtime PM:
-> +	 * GENI's resume_noirq() alone is not sufficient for I2C transfers.
-> +	 * Consume the pending query under the IRQ thread's mutex, without
-> +	 * a worker that could race a new IRQ or the next suspend.
-> +	 */
-> +	mutex_lock(&ec->lock);
-> +	x13s_exit_low_power(ec);
-> +	ret = x13s_set_brightness_locked(ec, ec->saved_brightness);
-
-What if it was not stored? Or ->saved_brightness is stale (from an 
-earlier suspend than the latest one)?
-
-> +	if (ret)
-> +		dev_err(dev, "Failed to restore backlight brightness: %d\n", ret);
-> +	else
-> +		/* A software restore is not a hardware brightness change. */
-> +		ec->led.brightness = ec->saved_brightness;
-
-Braces needed.
-
-> +
-> +	/* A deferred lid-open restore must supersede the PM snapshot. */
-> +	x13s_process_pending_event(ec);
-> +	mutex_unlock(&ec->lock);
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(x13s_pm_ops, x13s_suspend, x13s_resume);
-> +
-> +static const struct of_device_id x13s_of_match[] = {
-> +	{ .compatible = "lenovo,thinkpad-x13s-ec" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, x13s_of_match);
-> +
-> +static struct i2c_driver x13s_driver = {
-> +	.probe = x13s_probe,
-> +	.driver = {
-> +		.name = "thinkpad-x13s-ec",
-> +		.of_match_table = x13s_of_match,
-> +		.pm = pm_sleep_ptr(&x13s_pm_ops),
-> +	},
-> +};
-> +module_i2c_driver(x13s_driver);
-> +
-> +MODULE_DESCRIPTION("Lenovo ThinkPad X13s Embedded Controller");
-> +MODULE_LICENSE("GPL");
-> 
-
--- 
- i.
+ Documentation/core-api/folio_queue.rst      | 209 ---------
+ Documentation/core-api/index.rst            |   1 -
+ Documentation/filesystems/netfs_library.rst |   2 +-
+ fs/afs/dir.c                                |  35 +-
+ fs/afs/dir_edit.c                           |  43 +-
+ fs/afs/dir_search.c                         |  33 +-
+ fs/afs/inode.c                              |   2 +-
+ fs/afs/internal.h                           |   6 +-
+ fs/afs/symlink.c                            |  37 +-
+ fs/netfs/Makefile                           |   1 +
+ fs/netfs/buffered_read.c                    |  34 +-
+ fs/netfs/bvecq.c                            | 342 ++++++++++++++
+ fs/netfs/internal.h                         |   7 +-
+ fs/netfs/iterator.c                         |  33 +-
+ fs/netfs/main.c                             |  13 +-
+ fs/netfs/misc.c                             |  96 ----
+ fs/netfs/read_collect.c                     |  47 +-
+ fs/netfs/read_pgpriv2.c                     |  24 +-
+ fs/netfs/read_retry.c                       |  28 +-
+ fs/netfs/rolling_buffer.c                   | 189 +++-----
+ fs/netfs/stats.c                            |   6 +-
+ fs/netfs/write_collect.c                    |  26 +-
+ fs/netfs/write_issue.c                      | 180 ++-----
+ fs/smb/client/cifsglob.h                    |   2 +-
+ fs/smb/client/smb2ops.c                     |  78 ++--
+ fs/smb/smbdirect/connection.c               | 135 +++---
+ include/linux/bvec.h                        |  18 +
+ include/linux/bvecq.h                       | 166 +++++++
+ include/linux/folio_queue.h                 | 282 -----------
+ include/linux/iov_iter.h                    |  87 ++--
+ include/linux/netfs.h                       |  14 +-
+ include/linux/rolling_buffer.h              |  42 +-
+ include/linux/uio.h                         |  17 +-
+ include/trace/events/netfs.h                |  49 +-
+ kernel/bpf/btf.c                            |   2 -
+ lib/iov_iter.c                              | 494 +++++++++++++-------
+ lib/scatterlist.c                           |  82 ++--
+ lib/tests/kunit_iov_iter.c                  | 131 +++---
+ 38 files changed, 1437 insertions(+), 1556 deletions(-)
+ delete mode 100644 Documentation/core-api/folio_queue.rst
+ create mode 100644 fs/netfs/bvecq.c
+ create mode 100644 include/linux/bvecq.h
+ delete mode 100644 include/linux/folio_queue.h
 
