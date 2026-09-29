@@ -1,236 +1,204 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C2752E06A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480923E51E4;
+	Tue, 29 Sep 2026 16:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699748; cv=pass; b=LeYRma2hxI2ZBWkKxfUa0ofeu3vO8Sqwmt1e9qczcydn2TFax+NYNDCFj/o7fgSOgKIPRIkyI6hbgiIgnHMVvOSxuVlSj2v2W7a+3LdaaFWGGUM8/8+qhDnpyzygK4cZxru7mR0+wRc+aR4E/Xz1yCG6zWWbNFzw2O3NUquovT8=
+	t=1790699790; cv=fail; b=M4chsfR3WgpzUHObKS5RAmI0KGfN/WlqxehlKep+GOhrxXLV/dQbPo8tQDWV3jdI3cBEYPNtkukUm4QrXJOAUD4w+xIkQkOuaQzyKcqEqjJu2A5rF+xIsGg3n0mBtmcbscGGAteuaYSmNsLgbc2e3zfIl7SX7iuL6nyTg3MgZIE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699748; c=relaxed/simple;
-	bh=0p3ig6siP4sHsCraok5QIGsO9n0Tprr3D6KZrCbEgbo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y2R1fA2msuP1pxxeGruEnqsr8NkSeihoGZtvixg2TELyY8tN39//e0yHq0Y9TICVBqOJLMc0uB9Eiq/xD2/LbEMduQLYSNWNP71h+2x5y9JIjg9J3Bdm7DZWvFP8ri2dXVCx/2AQ5yNObfe4GYdONxd7Dg4tRNFQ7g9HpyCUElw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QRHCKk2A; arc=pass smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790699790; c=relaxed/simple;
+	bh=TEEtM6X9M7bQN/WsmbE0dXvk0sAHCc/1AlnNpPv6TKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=cB9pQs/2Sy7I3xeLFghU99/jAWWPLnTDreS3VLmIifGPzEOCPxwOEp5BRGZMXNcLEa7RzUn4mYEP0TlO8imHrMgAfR5LoFQtvE8727NvObt9VsexP7BsRurtCVZrC+h2i/3or4aCJQ2tbIjE6zqM59rE9H3mbbGvhHZHkVbYx6w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CTwfnz+7; arc=fail smtp.client-ip=52.101.48.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QRHCKk2A"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso52985e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:35:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790699744; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qIGQFaUyGuE9tNwYNRcFjvUsx3vagTlmtVnIJWY+JyaKdlvVdeRsEqX0GtSQY+ZYwZ
-         wgFOSemDdMpvLlJg3hGBwBTmIiACQPmywTqArYyRP7CmSWKTZ71CNEFZj0oNelxU3izp
-         MJkNOBjAxAmhJtU2KixVSi2sZc/jy9VKAOyLkv4+pCUh9YrEEPIqasCsAlmvJQF5Zo81
-         oCRpTKWG/E2TnPG9xZEs8TAeMBaZ9yhrFdTG9nCRPJdOGugJpZvWujh8zstFVKvSldJG
-         6WT9Pc4v25C3fP+wKqRa2FSMgQKMjIs4G6qUzxq2OpB0H5zOZUXV6jfaH/bDVVqcIP/U
-         6leg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZzlAYjPHzUF+Xy0aA/hzlKYo4+ZBDVDnjvm4B+qH4Ao=;
-        fh=6oLtEKh3Bp0he8b2tKV6Y26IIX7HTpGjd2dSHfsFbjM=;
-        b=ANy7TcR+eTajPImgC9nXruqhh/i6Vp1a9e2j+OxcnOwFITPwVQUKOlGlqEFK9jCcuQ
-         dZBcQ6B1+chkCa9nWtMc/UoGMJcmxmUom/HoswtlzecMMecQHCgeHuahHP0sDESWG2zV
-         ofH+zp7RvqzP5oS5VFxc3GxBpuBBuRODrDpbwg4M1R6LyETDKiuL3osxk0XgvzsxFYr+
-         lIj2lMZXOdSNxY9Jeh6XuGrG1KU8bLsh+fEbpC6TjYrczJml62b7HPOeZTpV7jZ1lhKE
-         ChwbT0jDaXCfT0v67xS2f8lylTDCWWYKMy+ejHCvywMf09X7Oa9x+OyEvRuT0b1ixA50
-         3erA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790699744; x=1791304544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZzlAYjPHzUF+Xy0aA/hzlKYo4+ZBDVDnjvm4B+qH4Ao=;
-        b=QRHCKk2AH1o5UqLCJ4EkE7XehSk8K10RjrPqPAXa9csb8xl0v87anuE1k25D6UYeac
-         oE16ZYXN5oMcjBENX6d+b+Q8EYUVMLOiGym6zgFJWq0ZiqRMiWoFksSWoAYalwp4Q1jn
-         tkHUOnIhRJxXT3GCRzhQ4RrnwMVPTpegJOXqyiVwnrd7rJZfHGQcoAmeJ5sB4Qr3iluN
-         fXv985E2+BuvVx0658TGCXfRyHK1iqzrID04PhgRv4M0S1UNyWsvie0mUgxy1RWMNbTL
-         ZBt7IyagEAEKEnMfKO3v+/0J5JU6DpMMphy2FE+0aitfhpUidny77nvvlQD5nklshAut
-         GiJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699744; x=1791304544;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZzlAYjPHzUF+Xy0aA/hzlKYo4+ZBDVDnjvm4B+qH4Ao=;
-        b=VPyZHeekyP/dVbmY7sAqcEqNKFyrQYQTAFq29Qq9v+2vekpsFQuerNrXSPP9XJQ/Oh
-         2LwK28P1fIqws8Po7t0vCQIK8z1ZgWbv3dt8FZGJe/sc5IiCpG4t0tzevQ5+UmH1KX0O
-         4gp6FihOQRSI35wXsLpsYqTDiMhnKE7DxyEusOeEbc/x2f777yw1g7pP7LxY9eQzwPKs
-         5V64RyOPKfs/X3K5+EktGSGb+KqG1eB+a3DCAm52CZbfkkVpR3/6Zy0Kp90IhQ9HqH1Z
-         //gfQINgOKsC8Y3XKCGLAUi2bRz7TQjVyKZkpGkIPZS40AfC6aVUMM3t+LtOVRdvoLWe
-         F2ng==
-X-Forwarded-Encrypted: i=1; AKwUvBy/EcT6R1BFBxbINbCzscr5nEombclPva90ycC40PZkBm6Zn9VdZCTVZ83GZwRm1vTF0zirjkJ+QvEN/2M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrwCvPJgFNGv3JCW0CIzb3u9wBe1Sf1e7QEgDMj5PcJTfk/YVx
-	Aunbkj7lWaNnmat283//e2xoGIIVaeJ+zwyWVXNVeYsOrASnQ2u+FhLa67TLNae/U4ZG3hlSycv
-	oOHLH3mvVnSO02c1JJXp6iiOF0AinK4Ele34mVuAf
-X-Gm-Gg: AYBFou1OI7NVn/JudNK3QLejCmqMMP/7ZRYfdVAz+yAfACXgONl+aaY3tSh/ROwYETn
-	ZIo7PPRCuNLtl/ZfVTEu53CRY0OUjCUFJZJrcnDLJIyrOLds89thiqP5X3E340xhefkrpJQzQaj
-	mNBczilUpG7/ra4+d7IWyArFv9sIflBCBxWIwp4zgiUgRKVw6yNnSt+JANfzXKpmOajsYu5O9Ht
-	QkHExIer9MtSewoGJmi8a0SjtOFrxXy5uZWJH/X9shBkT/arQJU4a+moCcOThToZejBrw/iXXP8
-	jGUev/2zodg4SQEFwscxIAKRI0u3Y4fqpNjzr1UvrmU+Abiz8Z2TzoiW6r1FVo5zAa4/K2aeUEn
-	XUwZ8CfueCkbvcNtWwNUIRQ/l7VXDlRA7Dgw4dHEIifltDg==
-X-Received: by 2002:a05:600c:5715:b0:4a0:1282:cf4 with SMTP id
- 5b1f17b1804b1-4a012820e67mr411905e9.11.1790699743986; Tue, 29 Sep 2026
- 09:35:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CTwfnz+7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZkKF2/Be6n2ccUk+Tp/eAihIO2NBgFyun61+th/5HzIphRjdYwPH0jGW7bgCNXBrHogeahaf7q/9u1n8WG172SaPd4lnzWuc57Ac6v7i0vYHaYt/mt/qwQsn1Qh7kQ2ZtQgzD8O+QrgSpqdmMEiL1Ww0x/teQTywhgT2RjaNumSWsEaCMPxsxTuUaSHMkGsY7LvbfkNTNvQZ67OwsfDJMwuaaYfhJA06nfI36hulGi/ucwPBDYqMqhZVua04a1fJkySMmpejIfJ01HPOEAwHKuINn/4c1NZyRdfa9DbJHup1QpTRBzs25f/feQ5KQhGZI6B7TsA4h31N7gpfqmDjOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1VWHZaqYM6zRruPUI51ZS0FKaFdS3Dkcq3Dk4RgjWt8=;
+ b=VTb0c3chHNEdau6HrHdVHt4uY5MSHl6+Fx3B/BVumpczegtuxzlaqrDHLw/FWQ5iXdWGlP5MBU0+O0Rd7odpOOyFciZF0VGAsEu/oQuexO4Mp+UkZoybr9bvexKiFZyyJ6Zhqdbw9oacpTsIaJH242jGW37mE9aa8pQ8EiS0CMmSzPe+oNWC1XaWzCreWlB++Xyw80PUIYMcz/xlFByPj5NuiJFcfvb1/wDvQCFi0un8oKjrwSbsamRZ3fX8TPHCRqjNLV2UIW4JZ+ex2hZljxSzGkCcbx8jg34JaC04w0ADWYtqoYtku/a5mE3t70eebX9fLdN8MZ7GNeLNzo55zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1VWHZaqYM6zRruPUI51ZS0FKaFdS3Dkcq3Dk4RgjWt8=;
+ b=CTwfnz+7k4Tj4L66e6Mmi0EUmekGM+tBHXDXQvUD7b1FF2oYvBkrA4WxN2t72yN6nQC2VmhXG/XpUq3tpYr3CRIUWcc3ka5EcToyxPynuj8NgqUYX9HyIRPWy3QNXjGozDvYqlsCCq/0S+pmiiwrjjLXKRNdaO1rs88pUSq8nKxRCtjQ1+9u4qOFPUCvAGtAGgGqgfdGHcIvayyvmLvw01WLZEXFvEsyVfT8yblnJfR1XCOwagYPmm5nsdEu3k5LqI4mPe2wqbz35daCR76/kfyhCnon11FBJR4DgPFo/pLWkMVrkmVvwqWZumH7OkQzPSCIj7sfQ6embB+NPPRhXQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 16:36:26 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
+ 16:36:25 +0000
+Date: Tue, 29 Sep 2026 19:36:14 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
+	Wei Wang <weiwan@google.com>, Hangbin Liu <hangbin.liu@linux.dev>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipv4: Fix device use-after-free in ip_mc_output()
+Message-ID: <20260929163614.GA905623@shredder>
+References: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928162534.2122207-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: FR0P281CA0007.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::12) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928150121.1712559-2-tjmercier@google.com>
- <714f119d120fb9ba4aa7e82af621edb7bc97813a760c9dd2cb5363c55b7365a9@mail.kernel.org>
- <1b41e278-f00a-4e25-a319-ba69186d92c9@gmail.com>
-In-Reply-To: <1b41e278-f00a-4e25-a319-ba69186d92c9@gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Tue, 29 Sep 2026 18:35:31 +0200
-X-Gm-Features: AclHuK8T-LyWIRVBeNrxuScl6NHMsb-famc_6WB_6okWGHfF_SQujmf4Poi45Ao
-Message-ID: <CABdmKX3X7P5USNsJxmkVjBg6SW=UtkK=Pusviz0ibzhaL2A0CA@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v7 1/2] bpf: htab: Split htab_elem_lru and
- htab_elem_pcpu off of htab_elem
-To: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
-Cc: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, 
-	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|PH7PR12MB8177:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30c7fdbf-b5ce-45c1-61a0-08df1e47cd8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|11063799006|56012099006|3023799007|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hQXBmDIfKNsc1lNrUxmU2UZ8fC3DtFhqH7sZi/e1tocGiNYzubsJpY3Py5IVafERwvtYZxwFDWtOcRgvyXjuQwkfwFRIDrUz/ugQYGdVOACefE8Z/0M3yGb6bTJ5HDd9w3aDHfQ8xYqTTd4nyC0x6UJMvbC/SP5Ua+qba57jMMsdQONmxxAxYr8n3oUqpBBbVKOAFUTmgF5fcl15trGicCWuthVoF+xE+SaY8BWoDc9fya5Owp5kJanO46mByCYPrSPf8kaH7zb7MWmxpNlDaLqhG5jmEF1J2ieXZ6q4AfK9nJut5Zvx7nZukZy9fLEyKRD5TRik+FYVzQAog774wICHul2Fw7amNipbqfGBHnVpVw/FGSE737r6WG01lGrBbS4Uyj2Jt+LU3UXDhWjZN6R3hGTg12CP0hhUOrrDihw9giyFxgCbjbYeacjt+4dHHlPcaRVth6/P8sSVIwOOACHvhaoktJlASixBJAFdGAapdmup44qBb7kE+anITkiPFUBHGBMy5NqH5bkcdlTHAnsnmSEElNejM5q+T0YCdJ9/etLDOTxPeaWZby5BkYDBmsKwSDmU219PJNINUgDbV/EIrYv1BBmJDro2WgIj7mOmI9+TXkjgByVtig1PNO1D+JtqgWjzaSRugz94aqPGfAY/BFcW24RFCxGSUDDrr7s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zNZR01vbqMJX9M3oFQRoe8GitQ8B+GBXijjos8CJKuIwQ5kihn4ZXQw+NZPu?=
+ =?us-ascii?Q?JZRCAa/0CDAOmPQHMIvve/MOgPDmwrm5KsDYArO+fZMN8HjGb/n95le9K7Jx?=
+ =?us-ascii?Q?jwguFBH2hwrpho05dcLeHbl+Iu5F/EoX9rNHoLD0gn2LHRexm0tB04iMcv7w?=
+ =?us-ascii?Q?fh35xs6w2SLuSZXIF15cuKY9lxjkMtE8wKXyKZVfRSunqd0GciJ8D2bYXJA+?=
+ =?us-ascii?Q?BY8WL5+CDNvRtGXrWg3D2WecP5YAdXPuDw0qephv+qKoKM6y8hFleP8KP888?=
+ =?us-ascii?Q?xCr3czxK4M8kCxNOGDb4UdFu16OgaeixQ5O7KLwFlfbEQKAFyUaT7Iq1jXc7?=
+ =?us-ascii?Q?Rw8ZZSpf//2/fF0Zqd0wTImxtjyyABZtVlWpcY0YYyxB0XzPFrjt87NZLaE1?=
+ =?us-ascii?Q?DfA9Sms9XkX4GknXYG9+3NlSriHmsupKfGdlLkkDaFUaWz2Kv8o2aPSSfw4c?=
+ =?us-ascii?Q?5Fbvkhz9BXkE47joYF9K/cBYFV22pmOf1qM3RX1Fd77yFDoHcDrMV+fq0Y5y?=
+ =?us-ascii?Q?f24iu3Qs6u4d0gZt6VTA9/5VZcdx88UfP37iWNnWIjmTmjIXyXLxeXl6BNOj?=
+ =?us-ascii?Q?zNURXCwAhpBI6O6iyj8lojIVEAq6BUS3g6rWjnxrQUMUWRav+w7zddQvtUcp?=
+ =?us-ascii?Q?0eM0YKTifut5TchtZflMAjE6a57MdqbI/zpt2Kc2NeDl0S5HfvBdwRvCn9n9?=
+ =?us-ascii?Q?Spd3WL/HZ7tG377nIJkxSg3Rt7IK4BaJYkcmoTFbSHVbChnWrQg1ScvQ3gQJ?=
+ =?us-ascii?Q?IcNPBjz2QESNh0iOL3EvAuhyk2fBcSJOvCFCIEskxc4pxc7jGMJG8+mylkdE?=
+ =?us-ascii?Q?lA7m2Zj5iaoF6xg050ZryaQH9V1nrkHCYvyrK8h9d2pXBtYf336QkK0ouu6n?=
+ =?us-ascii?Q?to1MOFb0oIthd1rtmwNqt1UDg2iC5Lu3om4dzkAZQnr/CqDvpQ6CfmjyIheT?=
+ =?us-ascii?Q?eT9URFpm81aQLdl1a9wz1/cZsO7I7dUHv+VEgpDxAY2z0oy9YJCEgF/7B5gB?=
+ =?us-ascii?Q?t0PAYRUUNVne7oWDgqY+Ia2YZL1UbqTj7kjbO+cD07TD2FrJUUUb8sG5hQD+?=
+ =?us-ascii?Q?VrqncQzSkVeG3pu176uYk0OATXv0ec5rgWozGFhnIP55zPPOsqnd5mg8WQRB?=
+ =?us-ascii?Q?8+jFx4QGs5VEM+b/dO7a/DbhzFTD7rU4xzPCat5Nw3mHn568xERJATAYoetM?=
+ =?us-ascii?Q?pY6YFLPehdWpUtCeZ0/qt3sOHp2JaKSpvYfdfS2gXll0CTNxnGpRyOS0BLpK?=
+ =?us-ascii?Q?PKfGdy56Y9D8dMqfzjmd4Luhr3RmMOClCiyfnZKNn67+LYJXRiZzzwo1FBzi?=
+ =?us-ascii?Q?wrRAe2MBDLhab6QPzEwECQCuxHMSfhBynm0M4CNCx0kr4bBT2HVlysapQo4Q?=
+ =?us-ascii?Q?gIGU4hr3Eo8bDing++KW2OeObmCV50lWYjznbtKtlN6SNjNzf95vX17HteXu?=
+ =?us-ascii?Q?fFYCIzIqHlTZ6TBhKeK8qQ0qxXuvEbOoHywTk6tdMb27y1wr13BVJj2RfzIL?=
+ =?us-ascii?Q?dIATBAZIawx6J+9CHJfnWBwOI7SC3kOm7ICVJ6/puWFaEhjOo2yEBf9ibPrf?=
+ =?us-ascii?Q?289wTmly1/Ib+VTEnLTTVgNAIx177yti4zzQ41DuxH15W2fZwp1A2TtXKSAl?=
+ =?us-ascii?Q?c01BqhHauGfHgKXJyxQp+rGz0TTYSu6dQOENfEraGZZmiPUTHrTfKNuVepbJ?=
+ =?us-ascii?Q?5yV4ULCkc8oFkpqQLyflTrwsRh5ED5naElVQQr1FBUD9SivT?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30c7fdbf-b5ce-45c1-61a0-08df1e47cd8f
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:36:25.1930
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L3kqvOrRWbBdahPHDlRc6dGAJ/bTvcmRyrykT+Fy6VMrUDgiwgTvOQmIvZ7X9HJqkOR1MNpJjJjBmB5WA6SFIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
 
-On Mon, Sep 28, 2026 at 8:31=E2=80=AFPM Mykyta Yatsenko
-<mykyta.yatsenko5@gmail.com> wrote:
->
->
->
-> On 9/28/26 4:46 PM, bot+bpf-ci@kernel.org wrote:
-> >> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-> >> index 53c99fe4f176..5db11a21ce98 100644
-> >> --- a/kernel/bpf/hashtab.c
-> >> +++ b/kernel/bpf/hashtab.c
-> >
-> > [ ... ]
-> >
-> >> @@ -828,8 +861,12 @@ static __always_inline void *__htab_lru_map_looku=
-p_elem(struct bpf_map *map,
-> >>      struct htab_elem *l =3D __htab_map_lookup_elem(map, key);
-> >>
-> >>      if (l) {
-> >> -            if (mark)
-> >> -                    bpf_lru_node_set_ref(&l->lru_node);
-> >> +            if (mark) {
-> >> +                    struct htab_elem_lru *l_lru =3D
-> >> +                            container_of(l, struct htab_elem_lru, ele=
-m);
-> >> +
-> >> +                    bpf_lru_node_set_ref(&l_lru->lru_node);
-> >> +            }
-> >>              return htab_elem_value(l, map->key_size);
-> >>      }
-> >>
-> >
-> > [ ... ]
-> >
-> >> @@ -1310,16 +1349,19 @@ static long htab_map_update_elem(struct bpf_ma=
-p *map, void *key, void *value,
-> >>
-> >>  static void htab_lru_push_free(struct bpf_htab *htab, struct htab_ele=
-m *elem)
-> >>  {
-> >> +    struct htab_elem_lru *l =3D container_of(elem, struct htab_elem_l=
-ru, elem);
-> >> +
-> >>      check_and_cancel_fields(htab, elem);
-> >>      bpf_map_dec_elem_count(&htab->map);
-> >> -    bpf_lru_push_free(&htab->lru, &elem->lru_node);
-> >> +    bpf_lru_push_free(&htab->lru, &l->lru_node);
-> >>  }
-> >>
-> >
-> > [ ... ]
-> >
-> >> @@ -1500,15 +1543,18 @@ static long __htab_lru_percpu_map_update_elem(=
-struct bpf_map *map, void *key,
-> >>              goto err;
-> >>
-> >>      if (l_old) {
-> >> -            bpf_lru_node_set_ref(&l_old->lru_node);
-> >> +            struct htab_elem_lru *l_old_lru =3D
-> >> +                    container_of(l_old, struct htab_elem_lru, elem);
-> >> +
-> >> +            bpf_lru_node_set_ref(&l_old_lru->lru_node);
-> >>
-> >>              /* per-cpu hash map can update value in-place */
-> >>              pcpu_copy_value(htab, htab_elem_get_ptr(l_old, key_size),
-> >
-> > [ ... ]
-> >
-> >> @@ -2505,7 +2551,10 @@ static void *htab_lru_percpu_map_lookup_elem(st=
-ruct bpf_map *map, void *key)
-> >>      struct htab_elem *l =3D __htab_map_lookup_elem(map, key);
-> >>
-> >>      if (l) {
-> >> -            bpf_lru_node_set_ref(&l->lru_node);
-> >> +            struct htab_elem_lru *l_lru =3D
-> >> +                    container_of(l, struct htab_elem_lru, elem);
-> >> +
-> >> +            bpf_lru_node_set_ref(&l_lru->lru_node);
-> >>              return this_cpu_ptr(htab_elem_get_ptr(l, map->key_size));
-> >>      }
-> >>
-> >> @@ -2521,7 +2570,10 @@ static void *htab_lru_percpu_map_lookup_percpu_=
-elem(struct bpf_map *map, void *k
-> >>
-> >>      l =3D __htab_map_lookup_elem(map, key);
-> >>      if (l) {
-> >> -            bpf_lru_node_set_ref(&l->lru_node);
-> >> +            struct htab_elem_lru *l_lru =3D
-> >> +                    container_of(l, struct htab_elem_lru, elem);
-> >> +
-> >> +            bpf_lru_node_set_ref(&l_lru->lru_node);
-> >>              return per_cpu_ptr(htab_elem_get_ptr(l, map->key_size), c=
-pu);
-> >>      }
-> >>
-> >
-> > This isn't a bug, but would a small helper keep these call sites to one
-> > line, matching the pcpu accessors this patch adds? Each site now repeat=
-s
-> > the same container_of(l, struct htab_elem_lru, elem) boilerplate follow=
-ed
-> > by bpf_lru_node_set_ref(). The patch adds htab_elem_get_ptr_to_pptr() a=
-nd
-> > htab_elem_set_ptr_to_pptr() for the pcpu variant, but open-codes the
-> > container_of for the LRU variant at every site.
-> >
->
-> this sounds like a good refactoring:
+On Tue, Sep 29, 2026 at 12:25:34AM +0800, Chengfeng Ye wrote:
+> ip_mc_output() reads rt->dst.dev and stores it in skb->dev without RCU
+> protection.  dst_dev_put() can concurrently replace the destination device
 
-That sounds good to me, it shrinks the diff a bit. I'll do that in V8.
+It can also be rt_flush_dev(), if the dst entry is uncached.
 
-Also, thanks for the Ack!
+> and release the old device after an RCU grace period, leaving the multicast
 
+The reference release is immediate, only the free happens after a GP.
 
+> output path with a stale skb->dev.
+> 
+> The stale device can be dereferenced by the post-routing path.  In
+> particular, a socket using IP_PMTUDISC_PROBE reaches ip_skb_dst_mtu() from
+> ip_finish_output() and reads the freed device's MTU.
 
-> static inline void bpf_lru_node_set_ref(struct htab_elem *l)
-> {
->         struct htab_elem_lru *l_lru =3D
->                 container_of(l, struct htab_elem_lru, elem);
->
->         if (!READ_ONCE(l_lru.lru_node->ref))
->                 WRITE_ONCE(l_lru.lru_node, 1);
-> }
-> >
-> > ---
-> > AI reviewed your patch. Please fix the bug or email reply why it's not =
-a bug.
-> > See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/REA=
-DME.md
-> >
-> > CI run summary: https://github.com/kernel-patches/bpf/actions/runs/3644=
-1357391
->
+ip_skb_dst_mtu() reads the device from the dst entry, not from skb->dev.
+
+> 
+> KASAN reported:
+> 
+>   BUG: KASAN: slab-use-after-free in ip_skb_dst_mtu+0x634/0x740
+>   Read of size 4 at addr ffff88810921c038 by task poc/98
+>   Call Trace:
+>    ip_skb_dst_mtu+0x634/0x740
+>    __ip_finish_output.part.0+0x22/0x2c0
+>    ip_mc_output+0x287/0x930
+>    ip_send_skb+0x11d/0x150
+>    udp_send_skb+0x63e/0xdf0
+>    udp_sendmsg+0x1235/0x1da0
+>    __sys_sendto+0x32c/0x3a0
+> 
+>   Freed by task 99:
+>    kfree+0x131/0x3c0
+>    device_release+0xc8/0x240
+>    kobject_put+0x14d/0x280
+>    netdev_run_todo+0x4cb/0xc70
+>    rtnl_dellink+0x362/0xa90
+> 
+> Protect the whole multicast output path with an RCU read-side critical
+> section, as ip_output() already does.  Load the destination device through
+> skb_dst_dev_rcu() and keep it protected through the post-routing hooks and
+> ip_finish_output().
+> 
+> Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v2:
+> - Protect the whole ip_mc_output() path instead of only the MTU read.
+> - Load the destination device with skb_dst_dev_rcu(), matching ip_output().
+> - Use the commit that made dst device replacement RCU-protected as Fixes.
+> 
+> Link: https://lore.kernel.org/r/20260927071051.3693368-1-nicoyip.dev@gmail.com/ [v1]
+> 
+>  net/ipv4/ip_output.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+
+The diff itself looks fine.
+
+FTR, I'm aware of the discussion that wants an RCU critical section in
+ip_local_out(), but:
+
+1. Adding one in ip_mc_output() is consistent with other output
+functions: ip_output(), ip6_output(), ip_mr_output(), ip6_mr_output(),
+etc.
+
+2. This patch doesn't affect the fast path, unlike an RCU critical
+section in ip_local_out() [1].
+
+3. Patching ip_local_out() doesn't cover all the process context callers
+of dst_output() either.
+
+And yes, I'm aware that more places suffer from this "problem". I opened
+an internal ticket after seeing [2]. I will get to it eventually and
+will target it at net-next since these UAFs are not very realistic as
+evident from [2].
+
+[1] https://lore.kernel.org/netdev/85c6016d-fb15-4c61-aab9-61448911f934@redhat.com/
+[2] https://lore.kernel.org/netdev/20260819164528.3761320-1-jjy600901@snu.ac.kr/
