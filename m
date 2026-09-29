@@ -1,200 +1,296 @@
-Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+Received: from mail-oa1-f99.google.com (mail-oa1-f99.google.com [209.85.160.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C032653FD49
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33243367B74
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790701991; cv=none; b=TIFFHmNuszypbOe73Im1P+uRd7rtnQ5pAMqTgx00VD07+TyiNvwG1C80BChvuT9AaW1sOCVaK5RCBbNx0aZkBQ7FgloiSA8hH9vodoskGugJfQhSz3G157Ly6cRySBj/neSaVmb6O7VCfEFIZjz5a6A0XHPlZKUkpvoIBphbjMs=
+	t=1790701989; cv=none; b=Ws8Jdq82xmABLBf6bfcSy/FJt4cTWtXsgv6BwmaMSusWS4v3jPjaRroYEhES6fscVFFjYdCor7MjoCslC6hiqPKkXxou6XjFP/RyDLtG3XzUDlD0ECkkwbsxTFWKD872Q4xRf8NQcXvRIZaavH2ksV/j4eunwFgnImjXYGeTGUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790701991; c=relaxed/simple;
-	bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SJNNhwoUlsVejlHLG8OBfYLnabZwbYBjexGXLTOeJWGFPonGdkkZ7w9pzDC8z6JyHMvTAfu6oSeDxfy2OJJUntvKe/yauq7TPWNjXggq3IsTDdDwQn8SHIcy1hrDHAk1CXHSecWXJAGlEukX4QP9vSPBxZmjpjkmaAr+vaMepDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Josx8TFN; arc=none smtp.client-ip=74.125.230.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790701989; c=relaxed/simple;
+	bh=ZBQIuHsP//xyWEEwPw1iXEypxzwd/zL5w6gFOPxRX8c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AGhYylWpxa0uHWEvOYcIP4T4mSbM18I7WJ+5ZNLTu6+QavEdRWlLEEEFuUCuYQtsAVk4mGvIrHjgaDBoaoh+Q8Wm/7TaabvZjs3aCjHfVORWEtnhUHV0pTGRk1n48B811RZqEViMHCgG2SgzIK2ACaIKkCezsovmFWvR2LRN+7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=UtbREwYH; arc=none smtp.client-ip=209.85.160.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Josx8TFN"
-Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5b166acdso347001685a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790701988; x=1791306788; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
-        b=Josx8TFNADFHn4MGndADwv8m0cNAMz5DVvpJ94i+Nn/07RzBYPGTQ37ly1+ubPl5n2
-         cXwJkptnOv5b2gITlpuzZ1ej2u9aQdxRLid7H0hsRYfoVh8dt9opfNAVLEGs6DF7VsEy
-         0T+jJ5DccMOXK7MLcnukwjWxpfigioOiOvfipx9hePS1cvNL0iO4SuUKiTtw1oa4y/r1
-         e0RS2dW8YAl3qXEQqd1O/nR+sM31vuBrgcQB1ck8dxaQsVD6vLekTUyTxqJm+4EVh1vj
-         JsZKznmZwYJufXviKf2g+UF3UsFvETp0RLINVgwDt3K7E8EU4lRtLgbL8toBhdvfjdHe
-         4B4A==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="UtbREwYH"
+Received: by mail-oa1-f99.google.com with SMTP id 586e51a60fabf-483d290f398so400688fac.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:13:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790701988; x=1791306788;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1790701986; x=1791306786;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=np51Tu10kUsbuZiM0XqzCYgSo3O0Izs/ndvmBnpjIN0=;
+        b=nHOERyOJqx99KrTXSLMbiFwzSmJyAu7fsZQHCLKCkDIHFwrpTAP5RFND4McO/6VzQv
+         uTqFhplh8iPWS0k8jAT8HjrR6/8znFcIs4UC1y7D5jI1OF5pSvZcPBxEOIVv9w4g5auY
+         fp9U7Yt66ONIGelf55X9BF+D8B0vI67GCf6KLVrHFZYUnct27/IH/NJ8amb6J3NldvPR
+         0QMvtEXada5TKGeg12V8BdChZhcl3yPONpYLbocJ3kyAYJVzQUCO1CAxK7WwTpHMjBI9
+         O9rzQ8KXxQks7m7lXdeaj214DdiuO0RoOifMAzPnCZg0aeEgKdOOFTFxL+ZgOunibBXE
+         vRiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnm1fH2ntaHjXVk1TXgMloDH7ad7JYYPBAYrMX7cJbfFoCmVncCTr3afzzNCNqw+AQxJcf/0RAGSYywyY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk+/NUoQ/VZNEERclalg08y77QfWMvqBy5kyhtifvzSTggZljN
+	iXbdXsmLZ4uXGe6oDx4n4st1gZUIvgKH1e6ZxUvcIA5qyxq/Cj5AiDdXn6hlf+PNvx7VorCDqIW
+	WL5BUmdfquzN3EYqnvN+FWfJUkNAHGwc1xqfHtNMTfADX0lJ55unvVqwuiMBGxoIkbYPw7p94Ka
+	CJyCfQNzGwJKfwWCKst/7FOCNKtcsTKb35BXOAjPM8e3ixjWxRR6TQ65TyNhBi9PhAZXf5kJ0lj
+	wXCOCXKsUm2b3iz
+X-Gm-Gg: AYBFou1JmUH20kNWGmyuogfSOBlsb9q6yHdbIuhmHkeivB3EvkHO4B0whddEHwwBuqV
+	CPrHosWuAXYUUqQBiLZ+6XcpUwczxGnFZ/WX5VRqvyvqEWvEz/rojtYCsa6dKfkFlioWMN3abFi
+	S8rFmCUlPrL0x3NgIDWgmtqZepWQG6H5bG4sjVig6UV9sUpjaLcb9Rh82Gf1mT1un3AEXJT1qaN
+	S9XK2EKT8REtUlaN+dJ0fDtXXYZZUuU84//5rOCk2lA/YuZzX7URLqW1qaUhGsb0QtNSh4p38wN
+	hCCG824gVolWezhDAOdDrq1IuomPviPBqG+wul009T8VICbVQA/uk+2zJVUyaZTpMQ3byNV1d2y
+	5qTomT3avl5pV7yYo3sNf6MA6mzc/v/rykKhEMBFs3pgNq9KYLchPRKFXK4pQNZsxuGEqVi9jsl
+	In5R/HqDO2RjYyU1q4Hl/HzjZnUfUkXQkz
+X-Received: by 2002:a05:6870:d29e:b0:485:d31b:775c with SMTP id 586e51a60fabf-491e55b2f42mr15603016fac.26.1790701985460;
+        Tue, 29 Sep 2026 10:13:05 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-49aa413048asm260258fac.4.2026.09.29.10.13.04
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:13:05 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so8892831eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790701983; x=1791306783; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
-        b=PQfCnVD9Vq2gXCrRMqC8fu6Nha22kPNicVMQMbkyRrLkke0EWVYliLVpOql6LWBqWU
-         6Guh+PEuFThDbk3MEBaJVG/Ziy8Ah308tT/+vw/zBUrlZ4J8tDX4h9pj/rhVfrHoL6Hr
-         2/mEeWERWScrXXAq15YlCViMmyyBEgYdAVo6aEMvkK5LeGT1IxmP5wvvQAHhcfzdQr+v
-         0cv0U/3LA0IpBD39t2uaYHj3oFmYO5j6VN55giMqW52Myp0xXkQpaS28I4SdWQhrmqyx
-         e3Po600I2C0f3btGUE96C3GDgTgW8lVANDTpWg9y6XgBiRumYP14R6x3SURtX8lnstHK
-         v1DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNN09rlFUlIePDLTORXpmCTmmgo7r62baOaDvg7Fo0AOc6VIiIZD2BQVBTwh+YvRrFRdwUUBAVA48ucjI=@vger.kernel.org
-X-Gm-Message-State: AFuF++muozQeD0VRSNQ+yE9gAyYg3C5uFzP23YOP0+7Q72g2xhhRFjH1
-	pojV1EUza7Fc5fcFjj7Ed0uPSNonHY9j0j/T4dxVYFkeFDeVgkzmTlF1PU7lPTy2S0A=
-X-Gm-Gg: AYBFou3I+CGD0aKaM3QCvAFD5ET38EDojNZpHi1A/dtC2bcQFLA7mFRL0jI+Tg6GRtg
-	PbCrTJGN26QFak2TGEOte10TB5lO+dmU9u5y8FUPKzk/CkZ6n7rEf65uCovkK5ZOHFWrZ5nIHOT
-	4bSYVBtrZxY+MrkuiQqOc3qR8kc3E2kuA+1N3ttneY0mpx9Hnwlt21WMu5vd3/Bc5EGvOO+D+5r
-	g0JsYj6GzQ/K//I4MRykVr5nGjqswwz0I7TN9yQNLg4+D6irA+DVCz7R4KcC1z1oK/b6PCMVTrq
-	9X699/p3HPa86pT3MhI8lgAHPT1AGY6AGXSGvvfj5qZAjIkrrhlbJo8o0MmR97CFyQulEzG7cRk
-	BYH2F3Bl4IZ4AUj1giBlB3SnUFPUu9tnwaufw5m+QRqp0sCkTNEseQBCxw9oeSiPPuckS+art32
-	KAq9Z0aWrT3D3ovVUUWE0i1IQUSytSRQeqeY+B377OryG8h3nxrpe9KDyI4R5JhiWTaFFrOAnuv
-	ReQYq9aBsTn1r9T
-X-Received: by 2002:a05:620a:4050:b0:93c:2dae:ec5c with SMTP id af79cd13be357-93c9f8db738mr36680185a.42.1790701987489;
-        Tue, 29 Sep 2026 10:13:07 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.251])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f4c4e73sm16349585a.24.2026.09.29.10.13.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:13:06 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 29 Sep 2026 17:07:24 +0000
-Subject: [PATCH v6 07/14] x86/kprobes: Take a Tasks Trace reader in the
- optprobe template
+        bh=np51Tu10kUsbuZiM0XqzCYgSo3O0Izs/ndvmBnpjIN0=;
+        b=UtbREwYHygrgTxim5AZyd0PvtCUb+SuFvjOhdW1ODZ9omMBvvBudsPqRZzPkodIbXY
+         hLsJXKrtNJcseV/VULOSIFdYAkEqGskggeaoVqogdtsdS2y0QMKEZVR6IFYOB3b7AHv4
+         oFqntACeXoEIwlnBshhsE3Yg/AqxZOtDMI7gQ=
+X-Forwarded-Encrypted: i=1; AKwUvBxB21EKoUCj1MotT2fjffL86wQLRjn7A+X2YvjFLjMAw6KXXr960kAsEfQESqjC8BwMhkMEFiukYZHWyT8=@vger.kernel.org
+X-Received: by 2002:a05:7301:4908:b0:348:201a:6c8b with SMTP id 5a478bee46e88-348201a6ef2mr6324517eec.38.1790701982844;
+        Tue, 29 Sep 2026 10:13:02 -0700 (PDT)
+X-Received: by 2002:a05:7301:4908:b0:348:201a:6c8b with SMTP id
+ 5a478bee46e88-348201a6ef2mr6324466eec.38.1790701981900; Tue, 29 Sep 2026
+ 10:13:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-b4-rcu-tasks-preempt-qs-v6-7-c111ee02caca@toxicpanda.com>
-References: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
-In-Reply-To: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- rcu@vger.kernel.org, bpf@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790701681; l=3977;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QDWamZGwRXHqlZDYRICgP71g719tFuAgZKe5M/0MnijoM4CsVGa3hA93Sod04FIiuoO+tFQoc5F
- zV/o3zGZ2BQo=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+References: <20260929040256.543767-1-zack.rusin@broadcom.com>
+ <20260929040256.543767-3-zack.rusin@broadcom.com> <20260929075426.GQ4120091@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260929075426.GQ4120091@noisy.programming.kicks-ass.net>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Tue, 29 Sep 2026 13:12:45 -0400
+X-Gm-Features: AclHuK9CQF2HwjTfB3IkA5Iz-7VKmkeLlHNlajXqAX5pb_ttJ9z-UY2UurMeehQ
+Message-ID: <CABQX2QP0+Jr6gG0nZkDggvyGWCSHMNVKPPavZTYBqH+wg7rdMg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] percpu: Bound decrypted storage for all x86
+ encrypted guests
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	virtualization@lists.linux.dev, bcm-kernel-feedback-list@broadcom.com, 
+	linux-kernel@vger.kernel.org, Christoph Lameter <cl@gentwo.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org, 
+	linux-arch@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Long Li <longli@microsoft.com>, 
+	Andy Lutomirski <luto@kernel.org>, linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>, Ashish Kalra <ashish.kalra@amd.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000a1dd05065ca24b01"
 
-The jump-optimized kprobe template calls optimized_callback() from a
-dynamically allocated slot with preemption enabled, and only Tasks RCU
-keeps that slot alive under a task preempted in the callback.  For
-HAVE_RCU_TRAMPOLINE_READERS that means the template must be a Tasks
-Trace reader across the call, so open-code rcu_read_lock_trace() and
-rcu_read_unlock_trace() around it as ftrace_64.S does.  The template
-lives in .rodata and is memcpy()d into each slot without relocation
-processing, so the references to current_task and
-rcu_tasks_trace_srcu_struct are absolute (R_X86_64_32S, relocated for
-KASLR like any other) rather than %rip-relative.  %rax and %rcx have
-already been saved by SAVE_REGS_STRING and are dead after the call.
+--000000000000a1dd05065ca24b01
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The slot itself is dynamically allocated text, so the instructions
-before the lock and after the unlock are covered by the irq-exit check.
-64-bit only; 32-bit x86 does not take part.
+On Tue, Sep 29, 2026 at 3:54=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+> On Tue, Sep 29, 2026 at 12:02:51AM -0400, Zack Rusin wrote:
+> > @@ -1022,11 +1024,13 @@
+> >   * Note: We use a separate section so that only this section gets
+> >   * decrypted to avoid exposing more than we wish.
+> >   */
+> > -#ifdef CONFIG_AMD_MEM_ENCRYPT
+> > +#if defined(CONFIG_X86_MEM_ENCRYPT) && defined(CONFIG_SMP)
+> >  #define PERCPU_DECRYPTED_SECTION                                     \
+> >       . =3D ALIGN(PAGE_SIZE);                                          =
+ \
+> > +     __start_percpu_decrypted =3D .;                                  =
+ \
+> >       *(.data..percpu..decrypted)                                     \
+> > -     . =3D ALIGN(PAGE_SIZE);
+> > +     . =3D ALIGN(PAGE_SIZE);                                          =
+ \
+> > +     __end_percpu_decrypted =3D .;
+> >  #else
+> >  #define PERCPU_DECRYPTED_SECTION
+> >  #endif
+>
+> So you're page aligning something that will get different protection and
+> will thus shatter large pages?
+>
+> That is somewhat uncool. We like large pages, large pages are good.
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- arch/x86/kernel/kprobes/opt.c | 44 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+I'm a huge large pages fan too. I have a poster in my office and
+everything... And I never do things that are uncool. I have a wwcdd
+(what would cool dude do) bracelet and I look at it every time I make
+a decision, which given that I'm old gets on my wife's nerves a lot.
+That is to say I'm handsome and innocent.
 
-diff --git a/arch/x86/kernel/kprobes/opt.c b/arch/x86/kernel/kprobes/opt.c
-index 3f8fea52619f..68a5de6cdabe 100644
---- a/arch/x86/kernel/kprobes/opt.c
-+++ b/arch/x86/kernel/kprobes/opt.c
-@@ -31,6 +31,7 @@
- #include <asm/set_memory.h>
- #include <asm/sections.h>
- #include <asm/nospec-branch.h>
-+#include <asm/asm-offsets.h>
- 
- #include "common.h"
- 
-@@ -101,6 +102,47 @@ static void synthesize_set_arg1(kprobe_opcode_t *addr, unsigned long val)
- 	*(unsigned long *)addr = val;
- }
- 
-+/*
-+ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() around the call
-+ * to optimized_callback(), see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the
-+ * equivalent macros in ftrace_64.S.  The template is memcpy()d into the slot
-+ * without relocation processing, so memory references must be absolute
-+ * rather than %rip-relative.  %rax and %rcx are free at both points.
-+ */
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
-+#define OPTPROBE_TRACE_RCU_MB	"	lock addl $0, -4(%rsp)\n"
-+#else
-+#define OPTPROBE_TRACE_RCU_MB
-+#endif
-+#define OPTPROBE_TRACE_RCU_READ_LOCK						\
-+		"	movq %gs:current_task, %rcx\n"				\
-+		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
-+		"	incl " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
-+		"	testl %eax, %eax\n"						\
-+		"	jnz 1f\n"							\
-+		"	movq rcu_tasks_trace_srcu_struct+" __stringify(SRCU_srcu_ctrp) ", %rax\n" \
-+		"	incq %gs:" __stringify(SRCU_CTR_srcu_locks) "(%rax)\n"		\
-+		"	movq %rax, " __stringify(TASK_trc_reader_scp) "(%rcx)\n"	\
-+		OPTPROBE_TRACE_RCU_MB						\
-+		"1:\n"
-+#define OPTPROBE_TRACE_RCU_READ_UNLOCK						\
-+		"	movq %gs:current_task, %rcx\n"				\
-+		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
-+		"	subl $1, %eax\n"						\
-+		"	jnz 2f\n"							\
-+		"	movq " __stringify(TASK_trc_reader_scp) "(%rcx), %rax\n"	\
-+		"	movl $0, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
-+		OPTPROBE_TRACE_RCU_MB						\
-+		"	incq %gs:" __stringify(SRCU_CTR_srcu_unlocks) "(%rax)\n"	\
-+		"	jmp 3f\n"							\
-+		"2:	movl %eax, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
-+		"3:\n"
-+#else
-+#define OPTPROBE_TRACE_RCU_READ_LOCK
-+#define OPTPROBE_TRACE_RCU_READ_UNLOCK
-+#endif
-+
- asm (
- 			".pushsection .rodata\n"
- 			".global optprobe_template_entry\n"
-@@ -114,6 +156,7 @@ asm (
- 			"optprobe_template_clac:\n"
- 			ASM_NOP3
- 			SAVE_REGS_STRING
-+			OPTPROBE_TRACE_RCU_READ_LOCK
- 			"	movq %rsp, %rsi\n"
- 			".global optprobe_template_val\n"
- 			"optprobe_template_val:\n"
-@@ -122,6 +165,7 @@ asm (
- 			".global optprobe_template_call\n"
- 			"optprobe_template_call:\n"
- 			ASM_NOP5
-+			OPTPROBE_TRACE_RCU_READ_UNLOCK
- 			/* Copy 'regs->flags' into 'regs->ss'. */
- 			"	movq 18*8(%rsp), %rdx\n"
- 			"	movq %rdx, 20*8(%rsp)\n"
+The alignment isn't new. It has been there since ac26963a1175
+("percpu: Introduce DEFINE_PER_CPU_DECRYPTED") under AMD_MEM_ENCRYPT,
+which common distro kernels enable. This patch extends it to TDX-only
+builds and adds the boundary symbols. On bare metal and in ordinary
+guests nothing changes protection, so no large pages are split.
 
--- 
-2.55.0
+In confidential guests, yes, converting each CPU's page splits the
+direct map around it. The alignment doesn't cause that: a large
+mapping can't be part private and part shared, so a converted page
+can't stay inside one. The alignment only keeps unrelated per-CPU data
+out of the shared page. Because that page sits in every CPU's per-CPU
+unit, each 2M mapping that holds one of them becomes 4K mappings,
+including the ordinary per-CPU data around it. In the layouts we've
+tested that's most of the first per-CPU chunk.
 
+SMP KVM SEV guests already pay this today. sev_map_percpu_data()
+converts the same pages for every possible CPU, at the same
+granularity. What v2 adds is TDX guests and guests on other
+hypervisors.
+
+Where you're right is that v2 converts in every encrypted guest apart
+from Hyper-V vTOM, even when nothing uses the pages. VMware only needs
+them when the steal clock is enabled.
+
+If this is a deal breaker for you for v3 I could convert only when the
+hypervisor's platform setup says it will use them: VMware when the
+steal clock is available, KVM when async page faults, steal time or PV
+EOI are enabled. That decision would be made before the conversion
+(for KVM that means making it in kvm_init_platform() instead of
+kvm_guest_init()), so there's still no readiness state, and other
+confidential guests don't lose large pages to this.
+
+If you'd also like to keep large pages while the steal clock is in
+use, the alternative is to move these buffers out of the per-CPU area
+into one tightly packed allocation. That concentrates the splits in
+that one allocation, so the rest of the per-CPU area keeps its large
+pages. Kiryl preferred the per-CPU section when we discussed v1, so
+I'd like to hear from both of you before going that way. fwiw, I'd
+vastly prefer to first fix the steal-time bug for VMware before trying
+to do this though (whether it's with this series or a smaller
+VMware-only fix). x86 kernel team is notoriously opinionated, which
+isn't a bad thing, but it means that a rewrite of core x86 bits like
+that will take a long time and it's starting to feel a little like I
+stepped into something and you're all behind blast doors yelling "cut
+all the wires you coward!!!" and I'm just confused going "I just came
+here to get some blueberries".
+
+z
+
+--000000000000a1dd05065ca24b01
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIM95
+Y+wYvsgw8fhQBqM5K0hnr0Cphy3qyWfbqheI4Lz8MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDkyOTE3MTMwM1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFvC9yUf4NxqdbxrJRcyAp/5mQzhsOLZROjyygFB
+yBZ8VcJ9B6XVEIMx3ZhJzgeW/nkTMkE2njNsu0m3mo82ePcyXk1iXQ/Gi9jtgJQkGDPoDvnTYACV
+/exkyT1vYEnTQ9UwNxR0tih5JE8C8VS8OZrjIaL2gqiGuewJGFZZNha6AcjbJyVMvn0a9EGg5aUw
+VESPqWMG8KRf2gkLgDsHKgdUY0FrlFjzp/HhZ0BEkJdTGXaIu2Yfcf9ti2cBvfhvF820CEUE64xG
+kDNvoHKMDbCrGc+XZxH2F4e11DN9nq1ssLS7C+QzPQC0qSjaMKYb7leVCvjULe138pNDm0J+Auo=
+--000000000000a1dd05065ca24b01--
