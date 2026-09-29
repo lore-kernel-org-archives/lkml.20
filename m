@@ -1,186 +1,161 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC91513566
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01E0518136
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686717; cv=none; b=FZHLoDehJXtaGq1oSg29HZBnKtCCKTdShk7ai1oFtVqXd0o+CA8tiKo0wX/9LPp7Lg6oB6sUWDfikaJt5+WiE2OHJek/1x1RUUD/cASg3pMR9jQDuHevy1olMOg51a51oQB2SAv0KW9BKrbLlanLyfaL80gOM+jPxHGSlfUQFK8=
+	t=1790686717; cv=none; b=sTYl6W3koLSGQszPVA9/hCyMxR6KsvyUvPYdeE5tSHv0Sz8sUUTH0Xbm78M3h28uYj7Bq/HK6N5o1FljMNShueMHMwJfcoT93Vbsmq3PNg3xAJzDyrlfYtbW18ZpGApy/WQEGqXoAisY6dzZuKrb/p+hkun9ArMC2XvhKUcu8jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790686717; c=relaxed/simple;
-	bh=Go39NKKMwkuXXP/SejpjyZo/TgbX2bfpHuiP0B8nCjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cp9rMT0E+CiSxXCINaQljdPn3v6wibtQw/vx7S4LfJcXPS61FY3ryRQLgAxmMfuGJR2aPAplG85QthOoUu1MHjQ1PTBDYTgiwdb04yAAwFhyJjimnRkoVpiWAro3Y+4YioAHWcR8pmKX3qjjQbdb2ThE8uGsUb9dcxT0hhJZo1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Km1ZcSou; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	bh=poKTzgMcXmt/rXMV3v5aS9FWUcoH0tIk65sQFqa+kWc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nwzZfFbNXzf5gN0dPQmQ54jhKmPKMiNRADvKjVHVtfgR+BecEPgNuhhuoiHVoGF5VHPXmCXavi6zJSpVwrOMYjzPIRIrwnjMrPNlDEYy5XCl1AWvY4YcRRXn9tXZP43zYE9zThAsdRJRatDd2fH/9oCfH9W0M50FKg1+MpIgQtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MZqjhDjT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CUwdizTL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Km1ZcSou"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so39111545e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:58:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MZqjhDjT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CUwdizTL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqrca612070
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:58:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	h+dfVS2AQIbYUhZhPWcbjcXR5H77ZLShPoBFzO/u0Ic=; b=MZqjhDjT0vZVncHZ
+	Q1W4OKXD8HoQp/xNhjb/0wUlzoAvXYIbdaj7k4u/D6HSWoVbzI7MGVblODPDtovC
+	kZjv3WuEXNDvujVjaBVIj777EB/VwsrbhZOMY3hqboUWeH/jDENH5/hGtKItQfwF
+	aUcRrx5G/Y9PaQjg6r9GjyeWf3yn6oJJBDU2QMc2N+MHcQP52g8QmHzl2NFsMLsN
+	mJJ2aJ7SE3muy9AwmPucot7tlrFWBEYvtjQck6J0i4WJgeTxWWpmj5P1UBTKLIt7
+	AY4FvSE8+GvnQvaDhY+PBNyvy9Huiy6a9dfSDZ9nfcYRe4w+nEv74IVv/cFS/yWs
+	X5VG8g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4u4ae-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:58:33 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930a312222dso87941485a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:58:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790686714; x=1791291514; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
-        b=Km1ZcSouHj1xJ6Pb/cCmthnOI+xJR4FZ8KHMc+mJfjRnm7g0DbGb2R4Tix2GT56dy1
-         5Xvjv+y+Dxie1tvr9Q6e/GSdNwjmzMf4YS17su/Cki6XfZO7hleXtAUSdtDvQF8MD+k1
-         mzpdWKyiqcXsS5h5XegNivuWv8uD7ETjiMQodD481S2iCJhuYJ7bIRqxhOL/kwVs2lES
-         7T/rb+ikC1M5lMAG7+y0bjHoP9/Xp93vUWRdSmYZtdzqUGC+yefJ+Q6wGBRHITmTlhh0
-         DE29s/QAMDNb3iH5j8V/LchkpavF1S1XT16NWQDSuLmIhrRI7mdgyMMtVLhaK5z5KdOZ
-         HThg==
+        d=oss.qualcomm.com; s=google; t=1790686713; x=1791291513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h+dfVS2AQIbYUhZhPWcbjcXR5H77ZLShPoBFzO/u0Ic=;
+        b=CUwdizTLngRy4GB5Joj40ZOcmb/YMapYtMWlLDARhxPBjIMpK+aMMno1OdXZ1OI+PZ
+         /i46270vwa3opcUB09ePwFMlzW+74jI6at1ycZO4rjdCkS/ETl0Ofht8AinWujseV00H
+         x9Dp3/QUcuY9bK24jVRW1G9QjdEm2oCURgilmAbWRS0001WquSTQJ7BJTuELKwDXvtQO
+         jjeZZFB84EEqk1NULrVNkJk+dSg46gmnSfiFk4EZrOvF8wsQ+m5xvxmzy5eSQ2Qk0+7A
+         3QSpUhCTb7aLkut013751PC41PUAwdjKDnerHIuj1Pcr60xruqDjBXvVrveeOjtbLk/F
+         QMmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790686714; x=1791291514;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
-        b=yWZzkpGTjTPcoNUI63404GCEPISdbqm2iWlz/KevD15oHnQKjvo97KHgjf9G6Z6bge
-         Yz2EGJnbqY2zm8yrvuBPeyXRbtw7waCIcu8HYCpS2lei0t7VZ3YyaJw3n27dN2qhTa/Z
-         laRe5Hg+uxH5Afjj9EVlXuvZ9Bb2/J1HeFLTHzAiF6muIt9m0ga7J0JOXMna3hFIq2qv
-         jnrBJYATnI3WoPGoY45xkiiTkSFzrKArhWNnMt4ZF7ewasfFZQBYyl8eKHGoHEv4Xo5W
-         yigNYHR/iCK4SbVek6Izvq/HZ30mGOHMNxR6UYOWZXm9nOklt5T13G/7tH4g7W2Je5wH
-         1Zbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMDrdYNXUoc+CwU5rqDtC41fY0n1dfxqlTdBsItG/AwJwSJ2QzW79MRlc17x0iaukkfPoOe0q6dOswAvw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdmLdAqOHcVcLGHgeGZADR/ww6itNXxP7OZ3NvFoJ1z9vkfNrx
-	PBVZ28mr+WQ1gUsFLiBDtnnGSur7gwx62hx7BWwsdedT/PJlhuprO6zD7FUb3Yrfr7o=
-X-Gm-Gg: AYBFou1jiJOddD3fbai5CiYjLyYcat2eJ7K2t0PDeU4BnzbpfkbwBbpbIAGpSWjyyvU
-	NyORkBAQAFWh0eFItNHlZrbRpUBf4X8s730JZly/0iR5Y7Yf/nd1CANijW0tzdQ8EXoDKVoV3+0
-	NodRwXl207uID1PgukAw2fnuSTrpa0HA9C2c8eLiVQ9elihKo6LuUMnntJzv+T+iZBnFnRjYU7L
-	89axEIegSIw7WtFL0mG1Oc+C+bIPyLOrjE/VEtX88S/9xCXtv33lUD2S3ZuO9b7gNxY4OuniKRW
-	q6DlyhjhvVgNRc6yMRtH2rrylQXRUt57WTCnM/L2VefexNUNxR/YoVfnyYrz+U+vIc4NvOKqKkN
-	CmLikRE4NcG6ilLpOLDdLcsTP9VMj99tpnPWTe9FrptPsFJFJWNtfuBwEhwnx0vru+dk/SCqcVC
-	mZ8W4DvfJA/ZcXsVaUbmgLQffb6GrWZu4jSmVr4uBBIkPEOBpSYiTm4DH3FYoU+2zLofRH9vS9s
-	QntdVa1
-X-Received: by 2002:a05:600c:4ed2:b0:49f:e3f2:f5a3 with SMTP id 5b1f17b1804b1-49fe6685393mr284862965e9.0.1790686713541;
-        Tue, 29 Sep 2026 05:58:33 -0700 (PDT)
-Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe13a1sm75682335e9.5.2026.09.29.05.58.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:58:33 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>,
-	mbrugger@suse.com,
-	Sean Young <sean@mess.org>,
-	Julian Braha <julianbraha@gmail.com>,
-	"Gary Guo" <gary@garyguo.net>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v12 1/2] dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
-Date: Tue, 29 Sep 2026 15:02:11 +0200
-Message-ID: <ee0aa89faa14e0073f1271693bae28678652998b.1790686331.git.andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1790686331.git.andrea.porta@suse.com>
-References: <cover.1790686331.git.andrea.porta@suse.com>
+        d=1e100.net; s=20260707; t=1790686713; x=1791291513;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h+dfVS2AQIbYUhZhPWcbjcXR5H77ZLShPoBFzO/u0Ic=;
+        b=P7cpiQxs6NGDsyE39mlXLOBFoG51NepHw8glt7vmVfjX0kim9UqmsN5Fy5qoNtXRLQ
+         wh4a13MV10rfAY0O5N18NYTiD073JTl5NPh7x8Fq7pUBSdAbL2+BO7Ja3bEqOdJNpgeB
+         G76gosMEWTXbMFiAuy11/acNefV/ZGkOaziolyONFXM2zFKYUvUTPO78fNlUc5fxc1j2
+         XHWhxxkKJ9hahtYUr55C0hTPTy9D8wJjPsbepfNihD08fw1yeUwMSb/bOGW5kXWXwh0Q
+         Hj5jM0tUCHIhU3TZQyfjtyVis9NJ9O1MhyJLIkVVlNfMy/ezEGdQufzZ9HMPxXpy6cy+
+         9edA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHDNBaHDyAKXUIoTgaw+z0mjpO/cn/FtfqIC7Ptro8iA/RrSUIQkpzKz++FVeiC4LZkBLYvb7J8jVTi0I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqADu8gh0cd+GMsQiCZl4j6xHm5LEqW+9DmQiTtOFYHdhb12H0
+	fGQz3Y6JakYR75+Qlnus3za7bSy9eQDBauITO6gstMCRsBbRDUktXlq95u3XsUsmVEG4cfp7Zpy
+	Ap2BLQjTLw1JVfRLJfCdCmiQBH1HbcCcYYO9zsrzXWvgWStxSsefPU/PIiFo5cn2FkXo=
+X-Gm-Gg: AYBFou2VPH7SMlAT1SDNA16xw2wupmcqEkREKVqJdqd9IOFFPXbMUuCOFFBkZBKaIC3
+	7Oi2NcGn+dZ00nV0pdBh2E9fq7jbQPb0DBbvBRnO15RFUvmCawgJclVdlfzfFdNlReUZqy27qSt
+	mXgJ9N1qC/cY6IEqiNrouybGmjs5mOwn3mLTUPdaHt8Li2k/9D/pTFNHdtRZTYqJEjwI/SC+E6w
+	WtX501FF5v/xB97v4vcSFfEJG8NGpuyc3aqQtWlwK3Z06NxAq0RZZCRd0urJKRhfVaVc8YvwVN6
+	fKdtwSfEKwwB2REk+ZIPEilNOH5LQQyUCO8T5sYBwufvyIzKCsTZYyutWV9/UVaHuf1EvjPlkNc
+	8m0AToNgMzx2jVICAYt6z2w==
+X-Received: by 2002:a05:620a:600b:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93c43f5e580mr2597726185a.6.1790686712744;
+        Tue, 29 Sep 2026 05:58:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:600b:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93c43f5e580mr2597721085a.6.1790686712170;
+        Tue, 29 Sep 2026 05:58:32 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9deba80c6sm1361214e87.28.2026.09.29.05.58.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 05:58:31 -0700 (PDT)
+Message-ID: <7bc9ad48-b8fc-4feb-a5f4-56d822242773@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 14:58:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: fix sdhc interrupts property
+To: Arnd Bergmann <arnd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Abel Vesa <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Jie Gan <jie.gan@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260929104127.3156764-1-arnd@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260929104127.3156764-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1MSBTYWx0ZWRfX9WdZZCC9rm9I
+ ndQA9CSrh3YmGrM+iM5GHWLkrEbVfSV/HLRAf+YxNHaU35+o3g/1hfwvPxy1KqongaTgof8gU+3
+ GF1G/3qDco6kuUxt5CX+6jQxGPyAPpc=
+X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abbb5f9 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Eo4bF1euHd9rOWEQa6AA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1MSBTYWx0ZWRfX6D35beqQVIw9
+ bfZVYBapD76P9nOViABYcvPZAsK20vigl6+4UuOiPnBobAXbzA5xyoFajkm+lgadD/c2XynzegH
+ t4sE36epTOy5Atu2TbKrMMul2MsBotcCGsf1zmsFHXZaX1IV2wc4Qtmsfl8Cs+CrXyTWt7dMcAr
+ rJh2wMJ7Yzv6lUoiduMkAT9dcy6wGrzqv+YfjQyX/xj1vGLQfcrFGQ8t+s3MwzdwcDfyq+zomy1
+ Z5ikMOyNApxzn5uB2PAfJY8jFfyvOysfx8YoX1v52yj+sEcNxLTpQ++lwzfg5pL8s9fi6iKrtEA
+ SDGe7gIh/q9aUJm8zSmqDqRcMFErJaQXHFqXPWNjhqXmO2SpDspBUBzMeDNZBN46J9s2vcxUqnU
+ yxx5xW45fUVqqmK6kV72eTKrsup7mdyqm0HF6zJ93QAg3x5Di7M4jbClLwT/OQc/QzRiFK+rawh
+ zN3YUyXf7OxBzgQ3Hsg==
+X-Proofpoint-GUID: fP457mU1c4HAb57KEwuR_AOmQ5Sd4U7p
+X-Proofpoint-ORIG-GUID: fP457mU1c4HAb57KEwuR_AOmQ5Sd4U7p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290051
 
-From: Naushir Patuck <naush@raspberrypi.com>
+On 9/29/26 12:41 PM, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The gicv3 on this chip uses a 4-cell interrupt specifier, which
+> includes the affinity, but the newly added mmc node uses the
+> 3-cell format:
+> 
+> arch/arm64/boot/dts/qcom/shikra.dtsi:4151.4-27: Warning (interrupts_property): /soc@0/mmc@4784000:#interrupt-cells: size is (24), expected multiple of 16
+> 
+> Add a zero affinity, same as for the other I/O devices on this chip.
+> 
+> Fixes: c8e3d40457f1 ("arm64: dts: qcom: shikra: Add SD Card support")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-Add the devicetree binding documentation for the PWM
-controller found in the Raspberry Pi RP1 chipset.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-
-diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-new file mode 100644
-index 0000000000000..be020583fd0ba
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Raspberry Pi RP1 PWM controller
-+
-+maintainers:
-+  - Naushir Patuck <naush@raspberrypi.com>
-+  - Andrea della Porta <andrea.porta@suse.com>
-+  - Stanimir Varbanov <svarbanov@suse.de>
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+description: |
-+  The PWM peripheral is a flexible waveform generator with a
-+  variety of operational modes. It has the following features:
-+   - four independent output channels
-+   - 32-bit counter widths
-+   - Seven output generation modes
-+   - Optional per-channel output inversion
-+   - Optional duty-cycle data FIFO with DMA support
-+   - Optional sigma-delta noise shaping engine
-+  Serves as a fan speed provider to other nodes for a PWM-connected
-+  fan.
-+
-+properties:
-+  compatible:
-+    const: raspberrypi,rp1-pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 3
-+
-+  dmas:
-+    maxItems: 1
-+    description: |
-+      Phandle to the DMA controller and the channel specifier for
-+      the duty-cycle FIFO.
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    pwm@98000 {
-+      compatible = "raspberrypi,rp1-pwm";
-+      reg = <0x98000 0x100>;
-+      clocks = <&rp1_clocks 17>;
-+      #pwm-cells = <3>;
-+    };
--- 
-2.35.3
-
+Konrad
