@@ -1,56 +1,56 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E947044D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7418C471260
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665157; cv=none; b=dneGkdUTKjsmM0TIBmPWrZXTlZmm86IKi++sPFX4NKGyUSAhDbYjcAEOCuG8a7VqfP0L6qKpnoMtoV1FKp2GEsbOp4MDnXnlJwbcJNt4K3ywEEM80wV8dc+wXAqcHyUok7id8nhciK5p60Z/K9yZEBZ8bUzfZM10xK4iBbECsl0=
+	t=1790665160; cv=none; b=Bbht/9xeGxpOQedq5dJtPN8W+FQy779lm/jXheU3NYsWFKen7E0wvn+U6EBWFW8QKXo1bA5fPk7IKPzhzajNe1PqVG4eKEOkQxeTjSx3yxIjTH2DzXZOMH/C7Q66gT8gmdVsDT0DDC1ve7LqtO587n1Be3X1V3H8qJqyIM900hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665157; c=relaxed/simple;
-	bh=EzNAQc+zqELLfEsqlQ1kpZ+oVvfzTZI1o5rnigTKwoY=;
+	s=arc-20240116; t=1790665160; c=relaxed/simple;
+	bh=+5mCHzqdxicIbV6OEcD52f4g5tadTjdqEMtLJlys7+E=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jkffTy43FhG0UfdxTFL6889i5Yx3a05flk6kYW8UgzAq/ydbOTSmp6TFmuCEnYUJZz32xAI6YmqUYGsPIYo7XmcFxvxEbCSE559RaPW2Amv/UxUgyZ2sloNKp7SQHe1LjofOWxIMtFoogqX/wZyhQ4ZRnZQ7wVadqeR7FVvQVKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P3q9Vrjx; arc=none smtp.client-ip=74.125.82.72
+	 To:Cc:Content-Type; b=kT9mpZ93jpN2Bv2HP673FkmdR9AfZ/WS4t6E+8caw4qZ81VZb32Ba5zBGJnBEZVrwiY/1Mvk5oiLWAJQ9k4uKEErqUkOjGWNrmesADHGeTe0xzF2v2XqJHhFMG9B0W4JkVUALuTS20R+PxbUgxEEDyrFNR6oTBXeo0/11xcX4Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i9/Yw9u3; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P3q9Vrjx"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-14373747468so3590610c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:59:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i9/Yw9u3"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso378564eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790665155; x=1791269955; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790665157; x=1791269957; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f4/IsA7upi/zbnOhoxbNy0tZ5zJbyc70QixREWB/C8w=;
-        b=P3q9VrjxPyAEUOv8epBOBhlrWXiBBbZPkXE7HVjIUnO4kMc7UgUzxU7Q63ooY57XaV
-         dgmpWX5mYtQocJJrXmXWyMz0VpKlYKz/6dQV3yR8KFWOI96Vt9Fhrpt3WttyfplRElV7
-         6EKx9yhYTs1TFxomljPPYGfomgO4RAnKtyVnzbNI9REOTl9uBIrU+wnCrAyNPai1vDVn
-         QBhQ4P8NZEFsQQS97coVNOF7qnrYzwX5Q1dTndB4+lVEBbAg4SJ6HeHAZs+Az4IYRz0D
-         IoCyeaCQV/RZJenLAQTRXSu0OZgEt41ATCuFmhDgZgJQ21+gZDietBUSdz0RVYHZM853
-         xrFw==
+        bh=k2UzG9Zh3qy5dBy9lLYJhP79Gs6FI0RnVdSQ0CvU7P0=;
+        b=i9/Yw9u3x/XNSv8cVKtdzlq2NdJDXKvv9tMrf4oS3jF1DG6x5zyuh0BAD0ozvN5WrP
+         AGpIRqJ+Vm25yHzpsVVEYDI3nHi6XW85aOZsRGQ5D9kuZaR1lHlWd5Lh3mkbCFDTnENW
+         ysgGPS3bt/C3oR+8onCHSzNRulx1Xi5LoPPtoaWyAT4MecBAUCA2agQZR4+k3KDt4vZP
+         FJwF7P5IYNuyxHcAFgySm4Bo/sTgPsby6Vt8QiVoHislbPQ9u0TwoyzALlZI+xFtHdra
+         EifgIEopzBCbeltcAS/yRXqJ/wMXeAbeZMg7ngf3MzeRKv77JRJBRaIzA7Uicw1POyCc
+         5rMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665155; x=1791269955;
+        d=1e100.net; s=20260707; t=1790665157; x=1791269957;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f4/IsA7upi/zbnOhoxbNy0tZ5zJbyc70QixREWB/C8w=;
-        b=r1jx170+lUzBeTxHARLwo84a1y42Ke/X+slqD6SXBN0D88qcgB0z7l08y1uDqZJGfu
-         GVE9c+GZ7MMGTb0TU/MdNKjFjtILCY9BroX66JOhEL2CzZ0HqlrukIkqTNjkLzpdHgAQ
-         QIReJA7sNAw5FLRkq9lHO0t5LiEOVbdXz7owEuYPGSKibrphg5kNeM6Ij3KlzbMiOw2V
-         hd9YAny5jQOrcL1QBwqe3V5RKxsuZ/8uY8thpgzA0TxF2a/DcFqbS3TAa4wZ6bkO8Ys5
-         oZHcbRzQeIqBCEAm32vOgY2PRkjV0jWWT9sfb2BZfY7mNORHLNVD4F7HhIBmJMwE/ZAj
-         YUvg==
-X-Forwarded-Encrypted: i=1; AKwUvBz/J56MHo1HXc1tM7S5cuuI2aArMuwitgBsirbZYU7KuK5JGNaWtYE4YRfuhg/z0h3ANL1f081bqJ7Zgv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVoG/AGivgqQ4eOqJn1WGfDOImgxQQPcXyhFN29kXW7/ugIOkY
-	yMWP2nYPDThL/JmP2o+T0C7zNB8WRu4spbvsnE/aknjRvPqzp+IQruFXxAJXd2ey29FtW0TRanm
-	2ed4YwrCrAQ==
+        bh=k2UzG9Zh3qy5dBy9lLYJhP79Gs6FI0RnVdSQ0CvU7P0=;
+        b=1avo6ir1t1LjrXYhmxP2CPMVuMI3o8pjEDErLW4/6fRn0gjcg95FTAJUXRYIed1DDi
+         s4s3JHFFsMquwMF1dltHmQzT0TrykJQj0h93nGGa2JdKT3Ueq2G0Iz+Puj8hIAhGSpSW
+         +CaBlS569vtq+wadEWFYa/8/2hQ72d/5eUXkAmEGIRvnDGrh2XJTUpT+snP5Thz1mzqj
+         bNZfMRTtWT09U4zMEBIkMVrxmMK1b6irDRcchPV5lmzZhjp08EgF22VuJgCKosY+oWeL
+         SpHY2C5AjFNA86UO6vnNxrYiW27MvPljdHnDzzEH7RKW7BMyECTD4h6BtOodXs+TjNED
+         0omA==
+X-Forwarded-Encrypted: i=1; AKwUvBzmCZmTJg93JFIOB9k4AoLIHcaQtmLMutcYeCQcV9X11emGKH+fhdZ+qTxqNrkePoPi1ZhWUDc5F+zdpME=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+QgPiVQqh7OaqN8239DgJcuHDkcmgLLjvaijFufzxeI6b7jnT
+	kvNi8BugJHolygYAIjgz+Dz9xP12+1IhtIJqaweHM91AIbeTvh+pot9fxV1ZyOjJsY8ZpaFNaRn
+	OrqvUnXEWZg==
 X-Received: from dlbrn7.prod.google.com ([2002:a05:7022:1507:b0:143:8a67:84b5])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2413:b0:14a:8cff:fbb8
- with SMTP id a92af1059eb24-14a8cfffce7mr4019736c88.28.1790665155069; Mon, 28
- Sep 2026 23:59:15 -0700 (PDT)
-Date: Mon, 28 Sep 2026 23:58:38 -0700
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:20ce:20b0:143:33de:978f
+ with SMTP id a92af1059eb24-146d077c01cmr12387783c88.43.1790665157082; Mon, 28
+ Sep 2026 23:59:17 -0700 (PDT)
+Date: Mon, 28 Sep 2026 23:58:39 -0700
 In-Reply-To: <20260929065839.407062-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260929062937.374137-1-irogers@google.com> <20260929065839.407062-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260929065839.407062-9-irogers@google.com>
-Subject: [PATCH v3 8/9] perf python: Initialize debug output on module load
+Message-ID: <20260929065839.407062-10-irogers@google.com>
+Subject: [PATCH v3 9/9] perf pmu: Fix race with concurrent tracepoint creation
+ and removal in perf list
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -69,48 +70,121 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Unlike the perf binary's main(), PyInit_perf() does not call
-perf_debug_setup(). As a result, the first warning or error printed from
-the perf Python C extension hits debug_file() with _debug_file == NULL
-and emits 'debug_file not set' without a trailing newline before the
-actual diagnostic message.
+perf_pmus__print_pmu_events() first counts events via
+perf_pmu__num_events() to allocate the aliases array, then populates it
+via perf_pmu__for_each_event(). When dynamic tracepoints (such as
+kprobes or uprobes during 'perf test' runs) are concurrently created or
+removed between the two passes:
+- If an event is removed, state.index is smaller than the allocated len,
+  leaving trailing zeroed entries in aliases[] with name == NULL and
+  pmu == NULL, which causes qsort(cmp_sevent) or the print loop to crash
+  with SIGSEGV.
+- If a dynamic tracepoint subsystem directory is removed while scanning
+  /sys/kernel/tracing/events, tp_pmu__for_each_tp_event() returns
+  -ENOENT and aborts enumeration of all remaining tracepoint subsystems.
+- If an event is added, perf_pmus__print_pmu_events__callback() aborts
+  enumeration when state->index reaches state->aliases_len.
 
-Call perf_debug_setup() in PyInit_perf() and add the missing trailing
-newline to the fallback warning in debug_file().
+Grow state->aliases dynamically via realloc() when needed, use
+state.index as the actual populated length for sorting and printing, and
+ignore -ENOENT when a tracepoint subsystem directory disappears during
+enumeration.
 
-Fixes: ec49230cf6dd ("perf debug: Expose debug file")
+Fixes: c3245d2093c1 ("perf pmu: Abstract alias/event struct")
+Fixes: 45b6e281cb06 ("perf tp_pmu: Add event APIs")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/debug.c  | 2 +-
- tools/perf/util/python.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ tools/perf/util/pmus.c   | 21 +++++++++++++++++----
+ tools/perf/util/tp_pmu.c |  8 ++++++--
+ 2 files changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/tools/perf/util/debug.c b/tools/perf/util/debug.c
-index 6b5ffe81f141..b7095519419e 100644
---- a/tools/perf/util/debug.c
-+++ b/tools/perf/util/debug.c
-@@ -55,7 +55,7 @@ FILE *debug_file(void)
- {
- 	if (!_debug_file) {
- 		debug_set_file(stderr);
--		pr_warning_once("debug_file not set");
-+		pr_warning_once("%s not set\n", __func__);
+diff --git a/tools/perf/util/pmus.c b/tools/perf/util/pmus.c
+index e0a4cb2428ca..1355b317f3ed 100644
+--- a/tools/perf/util/pmus.c
++++ b/tools/perf/util/pmus.c
+@@ -8,6 +8,7 @@
+ #include <sys/types.h>
+ #include <ctype.h>
+ #include <pthread.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include "cpumap.h"
+@@ -571,7 +572,7 @@ static int cmp_sevent(const void *a, const void *b)
  	}
- 	return _debug_file;
+ 
+ 	/* Order by event name. */
+-	return strcmp(as->name, bs->name);
++	return strcmp(as->name ?: "", bs->name ?: "");
  }
-diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 690a94fb4f62..95140dfaef9c 100644
---- a/tools/perf/util/python.c
-+++ b/tools/perf/util/python.c
-@@ -5157,6 +5157,7 @@ PyMODINIT_FUNC PyInit_perf(void)
  
- 	/* The page_size is placed in util object. */
- 	page_size = sysconf(_SC_PAGE_SIZE);
-+	perf_debug_setup();
+ static bool pmu_alias_is_duplicate(struct sevent *a, struct sevent *b)
+@@ -581,7 +582,7 @@ static bool pmu_alias_is_duplicate(struct sevent *a, struct sevent *b)
+ 		return false;
  
- 	Py_INCREF(&pyrf_evlist__type);
- 	PyModule_AddObject(module, "evlist", (PyObject *)&pyrf_evlist__type);
+ 	/* Don't remove duplicates for different PMUs */
+-	return strcmp(a->pmu_name, b->pmu_name) == 0;
++	return strcmp(a->pmu_name ?: "", b->pmu_name ?: "") == 0;
+ }
+ 
+ struct events_callback_state {
+@@ -597,8 +598,18 @@ static int perf_pmus__print_pmu_events__callback(void *vstate,
+ 	struct sevent *s;
+ 
+ 	if (state->index >= state->aliases_len) {
+-		pr_err("Unexpected event %s/%s/\n", info->pmu->name, info->name);
+-		return 1;
++		size_t new_len = max_t(size_t, 16, state->aliases_len * 2);
++		struct sevent *new_aliases;
++
++		new_aliases = realloc(state->aliases, new_len * sizeof(struct sevent));
++		if (!new_aliases) {
++			pr_err("Unexpected event %s/%s/\n", info->pmu->name, info->name);
++			return 1;
++		}
++		memset(&new_aliases[state->aliases_len], 0,
++		       (new_len - state->aliases_len) * sizeof(struct sevent));
++		state->aliases = new_aliases;
++		state->aliases_len = new_len;
+ 	}
+ 	assert(info->pmu != NULL || info->name != NULL);
+ 	s = &state->aliases[state->index];
+@@ -654,6 +665,8 @@ void perf_pmus__print_pmu_events(const struct print_callbacks *print_cb, void *p
+ 		perf_pmu__for_each_event(pmu, skip_duplicate_pmus, &state,
+ 					 perf_pmus__print_pmu_events__callback);
+ 	}
++	aliases = state.aliases;
++	len = state.index;
+ 	qsort(aliases, len, sizeof(struct sevent), cmp_sevent);
+ 	for (int j = 0; j < len; j++) {
+ 		/* Skip duplicates */
+diff --git a/tools/perf/util/tp_pmu.c b/tools/perf/util/tp_pmu.c
+index c2be8c9f9084..5ac732e06841 100644
+--- a/tools/perf/util/tp_pmu.c
++++ b/tools/perf/util/tp_pmu.c
+@@ -151,7 +151,9 @@ static int for_each_event_cb(void *state, const char *sys_name, const char *evt_
+ 
+ static int for_each_event_sys_cb(void *state, const char *sys_name)
+ {
+-	return tp_pmu__for_each_tp_event(sys_name, state, for_each_event_cb);
++	int ret = tp_pmu__for_each_tp_event(sys_name, state, for_each_event_cb);
++
++	return ret == -ENOENT ? 0 : ret;
+ }
+ 
+ int tp_pmu__for_each_event(struct perf_pmu *pmu, void *state, pmu_event_callback cb)
+@@ -176,7 +178,9 @@ static int num_events_cb(void *state, const char *sys_name __maybe_unused,
+ 
+ static int num_events_sys_cb(void *state, const char *sys_name)
+ {
+-	return tp_pmu__for_each_tp_event(sys_name, state, num_events_cb);
++	int ret = tp_pmu__for_each_tp_event(sys_name, state, num_events_cb);
++
++	return ret == -ENOENT ? 0 : ret;
+ }
+ 
+ size_t tp_pmu__num_events(struct perf_pmu *pmu __maybe_unused)
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
