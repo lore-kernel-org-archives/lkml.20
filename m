@@ -1,234 +1,112 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C5D3DB330
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8903CB8E9;
+	Tue, 29 Sep 2026 16:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700376; cv=none; b=Qb/FxlQOYnQf4KDKKl0IUDUkcwzJUfyMRg7XuoAifeFuwlX7aBX2Qemh8JxF+jqAsIlKOmGu/1fGFynrUpDhyRGxmdm6VU9Emm9cx9lKN9InyCwxjdAeaoIdxyS208dK8cJnubGRs+JTNryuUay0jVOyKU7X9N/SbywegFtX1U0=
+	t=1790700406; cv=none; b=SloC76X/b8GEH74nVqdyLkuz8Durhdq8+hlr5nIL9v1F+UAiXJz/PKUqCDFSxwtZTggxnMn1Zgn0y4AkI3hL8QT8B5Kj42AmsILyg+6Zowm5GlO3qlUXUvNGHNnu+oKZ6RwAYWEcsTTxE1Rri8eCs6FLcsiL+ZuIiqhQ3VBG8ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700376; c=relaxed/simple;
-	bh=LiAihPoxkqZdV81WngRsOiNeAPyzqkFVESOlCfUvRLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Th+GC1GMqx6tu/VLzqGf4mx75yoQETxl5xY4xfNTQF/2oQCC+l6uMYgE+ZcOpL2+EUSFnLEhhPPkm2YfmncwzQtBhhr99/kReysRUi2wCmWHsbSYfwsvfh3Ilx5ZhHxoyt0lcNymRknyR3y3P0cc8hjuXLYSX1UfLSObZu8cU74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dEBN0i2t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bl2pSz6y; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790700406; c=relaxed/simple;
+	bh=sHuTYyM1koPNIuxDGZy0vypCtweTVkwjFHI2+UzLEFM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a+6nB1OT96Jvh9ucotPfKnfovw9XS0ZwIJrnf7IZVo9JknpHFElhYxnzXnXE1pDxva9K1blcZhOZsfoDGetgDduJqBjv2aiv9x1pg4ca03m8s0X7oTMHwSWAk3RV2ZEWoPGizZATw7/redyq+4XJe78xNs1+K9HLljs8xZK+Gbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=V72GqbEh; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dEBN0i2t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bl2pSz6y"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqsEI613936
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:46:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0skssNQvXHTm92GRJQRQsimYFU/uUs18xsPOZJ94ZoU=; b=dEBN0i2tek0zDky6
-	2xI8SRkTy6muUz4dBIrz5fe7jg4NsDeBcPu1fmFwmFPism/3Mve1tUgchm9vVWiy
-	rbGvcFEEKFcZj7H+hBGqfrNwUVs0WLk17xz4pfc/afWR25wAD6QjogN1PTTGx4zw
-	qeD7XSMnBp328oah9kwACp33yA6E075kQbHQPfJlHPBLA5JD9V2yTLZ/+QlDGCCv
-	g1GygBe2FclhSsPSm7KcP6DP/Yy584l0vcAVGOXzvdreTAF7Eado4xpA9w+2QJXH
-	/m8beGrThSCMXvlWsajxYKXc2ig1azBaBspMBFo7EgC+CbiLC61r5+ZhMM1aQtjs
-	yc1JSw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h03ew3n5s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:46:13 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so4155643a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790700372; x=1791305172; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0skssNQvXHTm92GRJQRQsimYFU/uUs18xsPOZJ94ZoU=;
-        b=Bl2pSz6ya2GNjjjeXJTauTZP1ZdPbAZSLWkEX08hFUEg/y2o/TuIQUuz1yl2sfabJo
-         ZagApknKBgb5oT05FOIagGA8+8oCJGOq571RwryE4ft5wV80aJlZBv8Aiz84U+BoPklb
-         uLPv2FWE9QImk7BU5DwCDcxwjxpscRHzUbgh/tx9mwsrJulykuxhCTjdQtmoa9wgfzze
-         ZlzxHQJHRZudYC24Y8pg2ySXSiyGUI23bpEjko7KIvGf3OEtSSvxPGIEyeXT1i8HrkuI
-         rWObMcJF0p4TRb4ui2lCP1+vaMCFO4nXc92Is1vcGDokeBQmaMPRWGR2tEyL7oYavOoj
-         xSRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700372; x=1791305172;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0skssNQvXHTm92GRJQRQsimYFU/uUs18xsPOZJ94ZoU=;
-        b=tq+nkhEeez3LYidyIakP/IWx9ABKHMWb06gsUfkFTsMPkRfUWIvywNo3KWDE2GlufG
-         y+dL3hszLWaECaGUL3zvWiJ/0P8xjfr0EPOWtRfRfy9ljmHo1KfLK3tATha/rwveLjOl
-         lB6iQy9FML5/5gduN/h8lFJ5uppPsLNpxqnFlcH4K9eMkEbJ1X4uTrOlw26Na0atqsf1
-         9ZxkhaXLDz19zPe0wZsfr7mUeiRFBziLmDghUdHZ4Iw9f8XjpdLlQ9K248RXyh4h+//K
-         jsTo/9w0dUl+YLy7v3I2cwTT0p6gi6LuvhYzh7muzA11UAXJYXS2mcOezJvpPkgD4nBF
-         m2gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9fXx1inXaFefK56stOPdYHBN5qlNSdHbsvdvXzBhHfxHOYlzpRHXhIgQUwTJs0aGxJHAabn8AhjTtGFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPIFBiwIfsLg7mh92tYQAD7bKJwWG4DapjKY7vF64Rq1cba3vl
-	Avy22xIAaYGoi2ezK8O36O0Jl3R0i0pz8FWLeDFxR+7g+1I4bfCE9FwP/UI91XdE7xvkWnuQbpX
-	q7tWB2Ju1MSgp2wmcLsUCphijVrtKnx4w1ltMSSYVDqQxsBLMm/9Jnta2+DBytoxFmOM=
-X-Gm-Gg: AYBFou03HOqCVxCX/wFxs/MHt8689LENRBQw+Wpn8GYo9Z2kzPi9oRJt09PQxXju2KC
-	Y5fBLC0umKirf2hlMQtCbtcGDRh8VwzvktvG9D+0SPKt5+Ca1sqJ1MXNKv0fcGuPYXznnmWvMmb
-	cBxwo5YQRavDHGzg649Rs9RegA36NJvEBTgKwZynJb89lwknlifQcpNHLbPpK4rB+rAd4y+q6X9
-	qEnz/YRw1QI8c/LhJa8OdhDkR6hldNWj8B+p6MW8C6ysjORr1+JELbT8fv+z2u/pzRiNXwXVnql
-	hycUVMeUMAyqCkVupi2crv5rsztULWEj8HoQae8BTns+E9dj4HNsDkuRYmHmQmsxogqb13EbDhO
-	h03FXzhi6OGTO8NuN
-X-Received: by 2002:a17:90b:384d:b0:39d:fcbe:fe04 with SMTP id 98e67ed59e1d1-3a0986eb55amr14369929a91.2.1790700372103;
-        Tue, 29 Sep 2026 09:46:12 -0700 (PDT)
-X-Received: by 2002:a17:90b:384d:b0:39d:fcbe:fe04 with SMTP id 98e67ed59e1d1-3a0986eb55amr14369900a91.2.1790700371572;
-        Tue, 29 Sep 2026 09:46:11 -0700 (PDT)
-Received: from [10.216.29.115] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49858bf27sm6367683a91.4.2026.09.29.09.46.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 09:46:10 -0700 (PDT)
-Message-ID: <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 22:15:52 +0530
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="V72GqbEh"
+Received: from L15923.iliad.fr (unknown [78.242.68.224])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id DF0D478035B;
+	Tue, 29 Sep 2026 18:45:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790700402;
+	bh=sHuTYyM1koPNIuxDGZy0vypCtweTVkwjFHI2+UzLEFM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V72GqbEhpVagYTx4eOxhRTuj9Bz+YUIRuIYO6954AGCWNrs82SWCic0LGvkDbGvUg
+	 Td9UFf1y2OdZo22obz/q6DSuGfhNSSSw+LaK59pTdlWWfdfE0lxIy4U6Ur1sA1o55c
+	 w/vp2QJpOS/FmloN1o9slMg36yQ2jHZaMrRFoHNn5ACxCtOvTiEhG8Z/TEY1F5gvVs
+	 wnFF49J41E5uEb+jwVdWq1A60jFcBE2AWWpmWbEjOyP+s1k4xqQhLjGtQpWPEmT1QL
+	 dqwm04K646w4cFKI4sUyFPVfwYYn45Fj83ZWSb8rv1/LO0Jln54yGpb9tgrU2SNSYX
+	 0bzoGknELV/PQ==
+Date: Tue, 29 Sep 2026 18:45:43 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Horia =?iso-8859-1?Q?Geanta?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gaurav Jain <gaurav.jain@nxp.com>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/3] crypto: caam/qi2 - algorithm priority configurable
+Message-ID: <arvrN8-o__juAfsk@L15923.iliad.fr>
+References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
+ <20260928224143.GA21235@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
-To: manivannan.sadhasivam@oss.qualcomm.com,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Chris Lew <christopher.lew@oss.qualcomm.com>,
-        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
-        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
- <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
-Content-Language: en-US
-From: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-In-Reply-To: <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NiBTYWx0ZWRfX+BSL7/zMFKrp
- EfZzIiiLSYFgPobQgFTocJ7YwTg3IoyOBSbIQDQtMQodaEyXNfk6YjItqBiAmEuo9qa+z1gbjMC
- cjhqBvwSuCjFE8VItA6uxxCn0WQ8xgg=
-X-Authority-Analysis: v=2.4 cv=IIOXmQvG c=1 sm=1 tr=0 ts=6abbeb55 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=4CdhTua64AM6UaT4niYA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NiBTYWx0ZWRfXy8yd8uHnsGYL
- si0SV07+AJZX/a5UN66D81xkVttBX/0DHRStBMx0YrNQmA/R3fCJrM2oDe4KcR09cONPmeXpQK4
- OY//qdw6TOhblSD99BIrqWmjX7t9SZflw7bXx0pMXLP1Wg80hbAKxHPk0fXxo8n0/lsVO+Z78xJ
- RkCmOo9ShtNKq6NS2FYxMk3RF7NVg2zioGIZeYGQ7JVw2hSLyqZYaz/hdgIk989AfDqe8i8txO6
- 3PiwDF1g6PWjr16L3hCy9enYhMJZDkeoEZ8ALwFl+EBndUHrrHtwLH+e20EKXxw5rVY8pPbXODZ
- PiQ9uNJqykObAH/FrOnRdnj8Pj72Z1TnQJg1vy1FcOWGLD575Zuux2GNKvOYUS9yceS+V/lbAuJ
- KynAGUTZHkZGpuBlkp6j97w0IWNiu74cI8z09Z6zIY+kBPuxdLjNbxa6401c5CTsPjBR3CURlEn
- sCAfJBxDuucBjV8XSDQ==
-X-Proofpoint-GUID: 6PgkNtpV8H9Ohqjo9HFKx4iaKLCu7wPA
-X-Proofpoint-ORIG-GUID: 6PgkNtpV8H9Ohqjo9HFKx4iaKLCu7wPA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290066
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928224143.GA21235@google.com>
 
+Hi Eric,
 
-On 9/22/2026 7:11 PM, Manivannan Sadhasivam via B4 Relay wrote:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->
-> Now that the QRTR driver allows using the unique node id for each device,
-> which is different from the node id received from the remote node, compute
-> a unique node id using a new API, qrtr_host_node_id().
->
-> This API takes the 'index' parameter and adds it to QRTR_NODE_HOST_BASE,
-> whose value is outside of the node id range used by the remote nodes (0 to
-> 0xffff).
->
-> Finally, call the new API from MHI endpoint driver by passing the MHI
-> controller index as the parameter. The MHI controller index is unique for
-> each controller, thereby for each MHI endpoint device.
->
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> ---
->   MAINTAINERS        |  1 +
->   include/net/qrtr.h | 21 +++++++++++++++++++++
->   net/qrtr/mhi.c     |  4 +++-
->   3 files changed, 25 insertions(+), 1 deletion(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index df8ab9b82402..9c8bb086be28 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22511,6 +22511,7 @@ QUALCOMM IPC ROUTER (QRTR) DRIVER
->   M:	Manivannan Sadhasivam <mani@kernel.org>
->   L:	linux-arm-msm@vger.kernel.org
->   S:	Maintained
-> +F:	include/net/qrtr.h
->   F:	include/trace/events/qrtr.h
->   F:	include/uapi/linux/qrtr.h
->   F:	net/qrtr/
-> diff --git a/include/net/qrtr.h b/include/net/qrtr.h
-> new file mode 100644
-> index 000000000000..745d51b4a6ba
-> --- /dev/null
-> +++ b/include/net/qrtr.h
-> @@ -0,0 +1,21 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +#ifndef _NET_QRTR_H
-> +#define _NET_QRTR_H
-> +
-> +#include <linux/types.h>
-> +
-> +/* The offset is chosen carefully to not collide with the node ids allocated by
-> + * the remote nodes. All the remote nodes use node ids in range 0 to 0xffff.
-> + */
-> +#define QRTR_NODE_HOST_BASE 0x10000u
+On Mon, Sep 28, 2026 at 10:41:43PM +0000, Eric Biggers wrote:
+> Is there *any* real-world use case in which these caamalg_qi2.c
+> algorithms are worth using?  This looks like another one of those
+> problematic drivers pushed by the hardware vendor as a checkbox feature.
+> Just doing the crypto on the CPU is almost always much faster and more
+> reliable.
 
-Can it be exposed with include/uapi/linux/qrtr.h also. There are user space clients like modem manager
-which need to calculate modified node id to distinguish same service from multi modem over mhi.
-This is same as wlan use case.
+It is not black and white, and I am working on some optimizations.
+Today, with one key, one A72 core with the Crypto Extensions is about
+2x better than the SEC, at every buffer size. However, that core is
+then at its limit: 6 to 9 Gbps of AES-128-GCM, fully busy.
 
-- Deepak
+With many keys and many buffers in flight, it changes. With 16 KiB
+buffers, 16 keys and some WIP fixes (MC firmware configuration mosty, maybe
+few kernel fixes), one A72 core feeding the SEC reaches 47.1 Gbps, while
+the same core does 9.3 Gbps with the Crypto Extensions. At 4 KiB it is
+14.4 against 8.5 Gbps. At low network packet size (WIP about 1400 octet) the
+A72 wins.
 
-> +
-> +/* Compute host node id from a per-device index. The index must be unique
-> + * among the host assigned endpoints and smaller than QRTR_NODE_HOST_BASE.
-> + */
-> +static inline unsigned int qrtr_host_node_id(unsigned int index)
-> +{
-> +	return QRTR_NODE_HOST_BASE + index;
-> +}
-> +
-> +#endif /* _NET_QRTR_H */
-> diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
-> index 3990da1a65dc..c920ab61f848 100644
-> --- a/net/qrtr/mhi.c
-> +++ b/net/qrtr/mhi.c
-> @@ -6,6 +6,7 @@
->   #include <linux/mhi.h>
->   #include <linux/module.h>
->   #include <linux/skbuff.h>
-> +#include <net/qrtr.h>
->   #include <net/sock.h>
->   
->   #include "qrtr.h"
-> @@ -127,7 +128,8 @@ static int qcom_mhi_qrtr_probe(struct mhi_device *mhi_dev,
->   	if (rc)
->   		return rc;
->   
-> -	rc = qrtr_endpoint_register(&qdev->ep, QRTR_EP_NID_AUTO);
-> +	rc = qrtr_endpoint_register(&qdev->ep,
-> +				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
->   	if (rc)
->   		goto err_unprepare;
->   
->
+For single flows, the SEC should not be used: with the current kernel code,
+one key cannot go past about 4 Gbps.
+
+So, even if it is tempting to drop caamalg_qi2.c, I believe some users
+still have a use for it. Note: I only focused on AES-128-GCM.
+
+> As shown by your other patch
+> (https://lore.kernel.org/linux-crypto/20260928-for-upstream-caam-qi-plain-keylen-v1-1-6edb56649cf9@free.fr/)
+> it also seems that this driver has been critically broken for the last
+> year, with it being unable to set keys.  Evidently, no one has tested or
+> used it in the last year until now.
+
+Agreed. CONFIG_CRYPTO_SELFTESTS caught it on the first boot.
+
+> It also has the usual anti-patterns like supporting MD5 and DES.
+
+I cannot argue with that, but I would rather not be the one who drops
+them from caamalg_qi2.c.
+
+> I really don't see the point.  Why do people put themselves through
+> these issues at all?  It seems this functionality should just be
+> disabled everywhere, without putting policy in the device tree which as
+> has been noted many times isn't the right place for it.
+
+Definitely, the device tree is not the right place, I get the point.
+v2 will move away from it.
+
+My first goal is to get these features working again on the
+LX2160A, and to be able to select the crypto backend.
+
+Best regards,
+  Vincent
