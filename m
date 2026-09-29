@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F8D3EBF0F;
-	Tue, 29 Sep 2026 03:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9AB3D9556;
+	Tue, 29 Sep 2026 03:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651773; cv=none; b=t4fDYBHWSfb8EWoVpVX+Wo+wigBLwrSflSlS724xAvW0DVobNavZomUpx8WYj0b26hRJNqXAy+y5Jz4DStffddxM0FnG/wV0PKwbDjOJKAwuTv+HYBLwH0G4O31Uw7QAtmZzlbcFDzDnhl90sSMd55m/mPLU5SDtFzePWCFoQlw=
+	t=1790651769; cv=none; b=bwTXUMg4wUQyakr5c/UYbN1akVPrvnDvAowRzOcJMDFtDkbr2k3s+z3N6JBd7ThxInT8XzRh2Vw0cWC8bHZzagJN90dIWNV+ThE7vjEvMb5iOHVBThlg2A/U3XvSJ96Ib5xlujcrdbBVCn4hCb3ZjO0k920pZJ+DBt+JBvws6Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651773; c=relaxed/simple;
-	bh=wxsWQz5kwMs62631hKp1pV8QSzsUrJQ+PkI9dfi9uD0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pbsenwRCm8WIq4TPAlyhfSEwgGnZA8U+lz1wdxTG9rReFoCzZfr+Xzgs5ptf05nZSVjLQZWt3ZsKJEt6qc26KIZopNhcgsKbodSjFM0xx2Rt5c4vrX48uCQeoYBhGmARDVjlQj1jpko2QC+OZ3/DPup+y4dyW14ei+WZcoXhWPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7QS5SmC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651769; c=relaxed/simple;
+	bh=RbACIMJ9oasMI+GZFEONoOSvqRpm0S9sLKaVJ11+IqE=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SKvSimIHPTL5NrPoxajwVZmNW+e1rkvZRpNUBHO3rVhhCN6l4pDw32ro0Ba6QlzF7C2dRygrzpMvW8jIaPDmAX5pqqHfXE+1bZSkKJ7e3JoedJand9BX9H85fBdeHcCqBJL69iR/TQGF6qkHokzf89OR1wnrMFZkw9hh1oFebo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRNJU+JU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7QS5SmC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07ED1F00899;
-	Tue, 29 Sep 2026 03:16:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRNJU+JU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFF41F0089C;
+	Tue, 29 Sep 2026 03:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651766;
-	bh=bgUGDLcQgcDEbbAt8TRQhftxnoEdzxO95+EbBYRuOPM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C7QS5SmC+Uv+EIPEF/eDkt2jEMlq7tQRkVma5FKm50peKOlPzbDcId7NTH9wkUhD8
-	 kf2gbgekQrOJ2F5by5V4Zgv+Nu1YSXs8lXFePztJGP6eOLvK3t/aAJO3NAs0pVL5Sk
-	 bszrxbHSsrofipD/IRxZfla/1O+KmvtwGcIeRbRIc7jWRI+E6hyfUDENLMtDxAl7Fo
-	 WjFxt54u4rD5PvCmkPxQ6z9iM1px39CCRCkBhbL0ASStBpIKgZdBxBnFYqUmC2Ql1t
-	 FlFFij2S730VIMA/ZsBGnp6Ey9hb8eGMNZ4uHIvLsdu0l4Hd5qgpztlCJiM5Wmouy+
-	 zMLi0b0Y3fu8A==
+	s=k20260515; t=1790651764;
+	bh=2teGGgSyOf7SGzGLzh72wNmoxvCPWrKsGv/D6UNkCVQ=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=TRNJU+JUHTTmiuQeWzVbfA2wrByxyNJgjOi5EUOfHebmE7cDltZfMZDBZEfgP4B55
+	 Pz7dHKRlEltG2DxA5eUtffuUk+rYkKC1kcY6FZjwd0sgUFJVAdVgwJ5O11tvLEEhxQ
+	 hMYGC1ZYnbSAwSq1qmUuH3aREMvvE6caJGNS2QY6bTMeZcWOLAzE64gzgwrS8vlC5X
+	 GG4vi5Pw90x5i9yyWCDQ/N9dDUXJj7cfzcCoZc7J27UpJ9L5YSbfwSaPdhlmtyys4M
+	 KJX0Wj9f9o60SkK9VkLtQXOCSaaNGl4h32+7Urlz9cJGUj/03WtXAYIEBiw2MJv50e
+	 Jsc1hDV+HuEKw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Yibo Tan <lhfff@tju.edu.cn>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] soc: qcom: pmic_pdcharger_ulog: prevent work requeue during remove
-Date: Mon, 28 Sep 2026 22:15:00 -0500
-Message-ID: <179065171035.2673486.11996109111446095232.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: Correct white-space style
+Date: Mon, 28 Sep 2026 22:14:58 -0500
+Message-ID: <179065170920.2673486.9914064510117487722.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912161210.1683266-1-lhfff@tju.edu.cn>
-References: <20260912161210.1683266-1-lhfff@tju.edu.cn>
+In-Reply-To: <20260801210343.383834-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801210343.383834-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,23 +52,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 13 Sep 2026 00:12:10 +0800, Yibo Tan wrote:
-> pmic_pdcharger_ulog_rpmsg_remove() cancels the delayed worker while the
-> RPMsg endpoint can still deliver callbacks. The RPMsg core invokes the
-> driver remove callback before destroying the endpoint, so a response
-> callback can run after cancel_delayed_work_sync() returns and queue the
-> worker again.
-> 
-> Device cleanup then frees the devm-allocated pmic_pdcharger_ulog while the
-> requeued delayed work still embeds and dereferences that object. KASAN
-> reports a slab-use-after-free in pmic_pdcharger_ulog_work().
-> 
-> [...]
+On Sat, 01 Aug 2026 23:03:44 +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like missing space before bracket '{'
+> character or spurious space, which will be flagged by dt-check-style
+> ("redundant-whitespace" warning).  No functional changes.
 
 Applied, thanks!
 
-[1/1] soc: qcom: pmic_pdcharger_ulog: prevent work requeue during remove
-      commit: 2354a6131c7d28523675786ca95aadccc7763117
+[1/1] arm64: dts: qcom: Correct white-space style
+      commit: 9f06fcd862b586678438881b5f73e373b6ba2dc2
 
 Best regards,
 -- 
