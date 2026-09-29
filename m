@@ -1,65 +1,64 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB283CF1E5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219E5519923
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683676; cv=none; b=H2rLMIqlRYg6FnWXM2Fi7sg7AEVGYB6Kr1NvVd1/lszj6+CobpnP2jX8V/floJbRH61R3BuNr+Nvvs2yX38PsITEk6xwUJ7YTb7EW2GLKlw49sNeiy4i2HYfTc1W3Z5Q+gPCzh3PZrWQTu/ncc1mrrvaVMJ6PUF/nF0CFhBJFhc=
+	t=1790683688; cv=none; b=m0SJNd3Sc0YB/nR5Rb9X+/gUCLNUQ16gy3NvOCneRUThc94eevSpZb4sCMG+U+QImocE6Cfmi/ylr0tfGoSl/8W/CQWX8S+B7fOXwsRgbxLvQ07NaEgtCKy5hAmict5Onk5MLAI/CyGGFH20ptUxc6vki+IFOr2+x8hiVFk5cHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683676; c=relaxed/simple;
-	bh=0Ll4i5qwdxy1n+9kzp+J6DAKRPK4dddbBgYhPreuD/g=;
+	s=arc-20240116; t=1790683688; c=relaxed/simple;
+	bh=W8S+hj2k3hcA2xzax4yXuJd+15t1KpbIfEzr7P3UcUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PgNl9errvfjNAXM1er3crxa4sNZBMumZKhf+ZREnR0/HUEMznma2vQKoFOLtyoUxtmTKzBohBQ+beovXthRrB3UGExB7mhyP1IrisO3JD1xkelOX8nagVuezVQecJ1eOjPhKA2QzKYIqFWsgdUwYlr/fssrJqTroEV5h9Kkwpd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UDaNr2IK; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=dCt3QwyKyOPgknbjg9lI5KSNZdq0l97+mJT+q8X5xYe0unuoJ4GB5nx/qgG49LGrrpMl+rVJZ4KQI5QSsCl8HwK4o+KPyOvGq0G1ovQ5QhPRBm4oSBrd26F6IZNcODS7xeTNqTjAkMyelaT3vLtvcx/QfAeptOxyo9JzW7B1Yjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eHGczd8U; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UDaNr2IK"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af0707d41so397485f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:07:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eHGczd8U"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso38785285e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:08:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790683673; x=1791288473; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1790683685; x=1791288485; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cZfDP8VRt6pSeRBryzIA/0Zz7DW3osTGUkY7XrICjRQ=;
-        b=UDaNr2IKKomtJ8HZzn7acKSdmIa82JtPPRKJJh6bxJRnQmTl6axEw2utt8dS/GFEpg
-         31Bc/Z1iNkzAFjbFPaN+U5cEipFfWXrHAP265+71jErz2G312y0De4Rx4jr2puEY9xzS
-         /kkZnqonAXoddSNSrc79H9aiGQ7ozwjt3gGTVP+gVgvM/8oym05xAXSoDB18gBfIgyIL
-         /waOQFVyYj6lCbxG/poYopP+Y1gpPLe+zgp1Piui12Pzn8GdKHBNPZ4xx44b9w9nALXL
-         vzlE0xT1iQpM4EyfG1xgUhOQC31k8mow7o7YYF5t5u3tyGwc3G5D+tp/oOBm5xQHP0zG
-         FMDA==
+        bh=cyxZzFkzrAEl5LVxI1X0vM4npNLmwrlKD8xz7x6rVuE=;
+        b=eHGczd8UiOc9p/vdFLLpSLp3WKwtpWW7DJV2cMg+/24ka8An/ZYMSqe2gLhL4/TJjW
+         ZdVvp4EDebeAQA3F3Fgfb0EQ5gXbEDQmqZiKEWelaBR2Ys9aEpknq+5KZvaJx1afhpeJ
+         lNqMx4SqmfTKAq/QK19wnEo33w3PC+WUK9P0TvKZ0R3FzawIW6OsPkkU2cH3FksOoBl0
+         CS9EW3olfsNb7tiEJuFIQlI+P18vX9Dvdb6bEQkhYgN4WdaP0IS0OxOOYP2h90VDVe8N
+         7nwOot4xwU6zWLxfZyrOi1yWTXZ5i2S2GefWho8Qr9fCPqiyABJcbz9nVkyd3q0hGGCv
+         v1Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683673; x=1791288473;
+        d=1e100.net; s=20260707; t=1790683685; x=1791288485;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cZfDP8VRt6pSeRBryzIA/0Zz7DW3osTGUkY7XrICjRQ=;
-        b=XvLQjNCHYdKB0QNXt+48fNHBxK5Fd5w0GKUYrSWxhk5n4dVlzSfMBdLdqp1+XvbShw
-         /RXT60hdu0IHpPKQXYq8J1M2iN/MX2XjbfEv54oYFJSPBwW/AeyxFZ/WoqB/VI+Is4Nm
-         +zo2Xl/X83qkCY+UL1E25fw5Rfp3qep6yBfjp5tBWuKtSU2zCx46pfFQa0jmm2DQ5atp
-         OOasfNH4sttl2Bw33Ww7E5nqTwLKAiOdjxtHc2cizrhVgphORul+0NAhcTJdc61Exh9b
-         JlFWctZkBshVHwj086IFSxfZKUBBcW9c96hK5oy4W0GR55/MRfWplD7Lt42XTEktjejs
-         FOPA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6Y5n0BKKAtw313nIwq96iapHiraKcDSkXHSr/bAzhHcssdzcqgvZap3n6P0YsyVaDEjsHoid/IJJiuNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6brBFX1zoVSXESTIEmD6yV1c+mLYjCHIxi6kv0BuVUNoGzQlc
-	+kRWWS7ZxaztBQhbbqYnOTP++2kKzqGs3oM9ptNQVqXKSgbD4FXMcn69ibkadWU3s+GoHdY8uTP
-	8N/vfx1U=
-X-Gm-Gg: AYBFou0NvFsSBdRaDAVniZAAJpfPQOtHuCbYnqyrVuwGfiLfh2NCwoPW3V8Vz58QlWr
-	B0O7PLbydsd7wfcV9e0X0OaNSlJoBBP1aafe7eJ4aSPHF08Ypak3dA62u+49wNVWSsZDpRLz1yT
-	wrCIQ+xOMXIOsvy6b3c8Ynsc6Pky5ktJeYYDeyggYfIvO7GV7QcPp03zyypfiClFReVw+2Vklcr
-	3F2I7DCmmmMlwuYTNjhObSJIU9miVqJ4JpYV32s8zQezUpk+1T2L0xOHdeAH/S9OpFKTlYuDuGs
-	ddG7GMp3NXGJN43pON+VTgSDNFQN1sazfyHYjxLiC0MeL2L+9Oy3XLJz3fO601wcM90Xzrxk2B9
-	rXoSV8FmqeDPMvRjuQZF0wnXf4kGfmGRZM/6fHyBYGhcrECLMhfmrwwt9ANYb/v6dWa1kQ3zhJB
-	vvDDQSrvxxn/Gs1mtXoqqyulw/YIFLfNIP/mYNb6AHfwufxoYK8NuY8OGdt+iwrkQj5Q8jfGzuU
-	UckV1A=
-X-Received: by 2002:a05:6000:240e:b0:487:13a9:80d with SMTP id ffacd0b85a97d-48af1ac8c4amr4832536f8f.10.1790683673346;
-        Tue, 29 Sep 2026 05:07:53 -0700 (PDT)
+        bh=cyxZzFkzrAEl5LVxI1X0vM4npNLmwrlKD8xz7x6rVuE=;
+        b=i/pvMM6HjGFNyGqAMEWuvg5StY+Mmm0bEzYSYYvy6q8zalMFXYe6hUqPfaT7szfUTt
+         p2f0eziKfc/t2WbAa3I5vbQwQEdT+Z0jQpdaiKlEvcTUtYFXVuNsXnTNPfl9R+niPu6i
+         i492mD0kTYsTOrTXxcz1B47BR+kI+WK3+7TzeDMxid/OKeF4R6kOWmc5KqK+Svd8ikc/
+         VGgV+rfLsZcK54qoZNM/dNlqjuhX4t2fw4B6Y8rY6YGn+Do5aM2WMjD+wuXdxoim2QPi
+         vzKRq0jsSBojAEhaxCS63idf8YH/sjeE/v/d2PJbc3HaPQbXXufj6IPiAQ6QN+/6FjEE
+         toSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzCeoqt2dMWtemBeqg5XPFxLT0gzooFUBVeyTu6YPexjBu9QhIcDrBKTuSL6poGiLT/Em08jKK4Rt1z2tI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIxHPvrrbkG0vjQ7ca9g+cigOIEMKUp91egl6t2MJpxJMuNJO6
+	JREg3cGpQuw5vNujjO9ahqtv77qB9E86nmdmge6u9SqVMvRSG4A/9FSJG4CVZXeDqa0=
+X-Gm-Gg: AYBFou3zdc6tyH0Ko45ewJAoS0c2FOGc28YOwJzzJT3ZHGOvEKYp/47Ew8jkHWj1sDq
+	a45JeAsVidmQqpIzjmfdyFjEdqHaN69F1/agW0KtgU1fNbAmo3i0aQ4xLPwY23nj6uQfYD4Zl8z
+	FO86OcxvKK7n3OfrbuocrbDA0qeyZQf42N1vfKUAAUClr0gN3M8Sc9JTHufmlGcEzTbkiBqdcfW
+	UShM8N7OfmduhFP1NFycC+bNzzGnV/iFRcUvdFbHa1RySncvWwOeeoZxdhuqC6ra/rPBvRCl5kp
+	GHfZtxYVPjnfXl+ArtxRzulf9J588JBIQcP83AP6XRs82vOeFuZfbBHT62/oImT+edO/r1rBXz2
+	g0we4Li3daK8S95GYB63/uoE0YuCIZmhGzuSVaSHcq1qf3JkysMCZaPZnptKAHfxrTo21ozjatp
+	yZ4HeYkab4p/27Lwh/B6U8KeyZWFtlXOvHah+ilXbNVkCTpazL6QBv/eeHOeEXgH2zfEyBqrU6+
+	oBnAv97GS9LQVb0Ww==
+X-Received: by 2002:a05:600c:6216:b0:49f:fbad:29be with SMTP id 5b1f17b1804b1-49ffbad2ce8mr165396115e9.34.1790683685145;
+        Tue, 29 Sep 2026 05:08:05 -0700 (PDT)
 Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af5056a16sm3398058f8f.18.2026.09.29.05.07.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf9dfdbsm107923365e9.1.2026.09.29.05.08.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:07:52 -0700 (PDT)
+        Tue, 29 Sep 2026 05:08:04 -0700 (PDT)
 From: Petr Mladek <pmladek@suse.com>
 To: John Ogness <john.ogness@linutronix.de>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
@@ -68,10 +67,11 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Chris Down <chris@chrisdown.name>,
 	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v5 10/16] printk: Allow to debug misuse of add_or_update_preferred_console()
-Date: Tue, 29 Sep 2026 14:05:40 +0200
-Message-ID: <20260929120546.328616-11-pmladek@suse.com>
+	Petr Mladek <pmladek@suse.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v5 11/16] console/braille: Lock console->setup() call during the registration
+Date: Tue, 29 Sep 2026 14:05:41 +0200
+Message-ID: <20260929120546.328616-12-pmladek@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929120546.328616-1-pmladek@suse.com>
 References: <20260929120546.328616-1-pmladek@suse.com>
@@ -83,31 +83,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__add_preferred_console() should always be called only when either @name
-or @devname is defined. Allow to debug the case when they are misused.
+In braille_register_console(), the console->setup() callback must be
+called while holding the console_lock. This prevents a race condition
+with a possible active boot console that might be using the same hardware
+registers.
 
-Use WARN_ON() because it is rather an implementation problem, it should
-never happen. Also the consoles are typically added during boot so this
-should not panic a running system even when panic_on_warn is enabled.
+See also the commit 801410b26a0e ("serial: Lock console when calling into
+driver before registration").
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260423130015.85175-1-pmladek%40suse.com
+Suggested-by: John Ogness <john.ogness@linutronix.de>
 Signed-off-by: Petr Mladek <pmladek@suse.com>
 ---
- kernel/printk/printk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accessibility/braille/braille_console.c | 10 +++++-----
+ include/linux/console.h                         |  1 +
+ kernel/printk/printk.c                          |  2 +-
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/accessibility/braille/braille_console.c b/drivers/accessibility/braille/braille_console.c
+index 7e6011f9d823..200ca305c6af 100644
+--- a/drivers/accessibility/braille/braille_console.c
++++ b/drivers/accessibility/braille/braille_console.c
+@@ -389,11 +389,11 @@ int braille_register_console(struct console *console, int index,
+ 		console_options = "57600o8";
+ 	if (braille_co)
+ 		return -ENODEV;
+-	if (console->setup) {
+-		ret = console->setup(console, console_options);
+-		if (ret != 0)
+-			return ret;
+-	}
++
++	ret = console_call_setup(console, console_options);
++	if (ret != 0)
++		return ret;
++
+ 	console->flags |= CON_ENABLED | CON_BRL;
+ 	console->index = index;
+ 	braille_co = console;
+diff --git a/include/linux/console.h b/include/linux/console.h
+index d780f6de303a..11d6b854ee63 100644
+--- a/include/linux/console.h
++++ b/include/linux/console.h
+@@ -699,6 +699,7 @@ enum con_flush_mode {
+ };
+ 
+ extern int add_preferred_console(const char *name, const short idx, char *options);
++extern int console_call_setup(struct console *newcon, char *options);
+ extern void console_force_preferred_locked(struct console *con);
+ extern void register_console(struct console *);
+ extern int unregister_console(struct console *);
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index b458a920ce5a..683083405230 100644
+index 683083405230..f2a602a05614 100644
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -2585,7 +2585,7 @@ static int add_or_update_preferred_console(unsigned int i,
+@@ -3948,7 +3948,7 @@ static int __init keep_bootcon_setup(char *str)
  
- 	pc = &preferred_consoles[i];
+ early_param("keep_bootcon", keep_bootcon_setup);
  
--	if (!name && !devname)
-+	if (WARN_ON(!name && !devname))
- 		return -EINVAL;
+-static int console_call_setup(struct console *newcon, char *options)
++int console_call_setup(struct console *newcon, char *options)
+ {
+ 	int err;
  
- 	if (devname) {
 -- 
 2.55.0
 
