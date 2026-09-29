@@ -1,61 +1,54 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1395A4F0558;
-	Tue, 29 Sep 2026 09:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2616D4F3903;
+	Tue, 29 Sep 2026 09:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672948; cv=none; b=eG8rQmIblMwwUQCPX813r/X5ImPLSO9ip1woLnLaKUwRpsxg2QiH+3ZVp3oog2/twbqog6+dBtynEKy9fXDswuf13VATMFVMN9NvuluL6KQPkMZ3Z+sNVYraNKVrPrEUqa/wqUYWa9z8xfbblwleELldP4rCIx45LP99Fb1iBMc=
+	t=1790672951; cv=none; b=Ixs3n7NMmqMqj9hHVvhhd98B+5sFk40p4rZGGBVGNAluR+bGH1O7CdjoetXCt+7NouBbIhVZR6jnGywxyvrvcu4S5s9pZKmXZ1CQkO6zp/z2YfvCME8e4KjL5yfr9fGc3t3oqFU4b3umUpdfbtpoB9tqGvbTM8DAF5ZSrglspyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672948; c=relaxed/simple;
-	bh=8jRi2qSCV5ia4QnCi5ZBs/PlstNi7J/3hHnJFaZVq9Y=;
+	s=arc-20240116; t=1790672951; c=relaxed/simple;
+	bh=+5lWwUcl+c4c5RGmHpivw5aoH1wMUoZfhSqoS/58h2A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eZWjtlPr1ae78ir/ssIsENLTLzNJroz+pl3IaLfdOI+zfl8dX804W2enbC/bDG2zy4M7BlBGjpVC1WaGUqjxERVT0/QRWHkyCOjCn7jKfayATC8JRk7H57qrodXrnTbz3TA+FmFL8jVmFtwdJvMdvYGWMaxeDq76MSMkuWpTxlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=bThWhrDH; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
+	 MIME-Version; b=LBSK/rXJRttEELKjmDXnz/NFQURDYsoM5fQ2HxmuM7yz62w4S6xHn+45TTnb4byd9l/LJe32dT4eRAdN1CPisAT3TiKhj2HVJpR+63BXNZQjGjP9P4wSTc6Mqgf9dI5KoRXZq3uf7Q6dy0IsmLYpVKhQS9FIE6Us2tRJ5Yb/rhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilhN34JV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="bThWhrDH"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hvC5g4G7FzMltx;
-	Tue, 29 Sep 2026 11:08:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790672919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E6qCjZtx6FxuSj3Qo3YQWdfcdyit89x4CHQFZ9zju4o=;
-	b=bThWhrDHxBQAWMZIt7vvPKaKKbCKsQjivtKCNSX0xNKfIxRrTYfbjhkuheoowDiUjg5qou
-	fDtIi6syFbOuW+YqTFxBS5B3jsyV6nU+0t1TAkjLTJvEkIUBnezMvCG81TdtrWQg9agWCx
-	YlWVdN+wJVGCZ1fMDbI1rLv9FlmdzauK+726nuEyVKy+0iKiTgoFumiJKOgZ907pjGXtqK
-	lGg90XGudn6bKYpNzUj2Wm6vuE4fgkigEFEbJBB2Y3LRitK7Ct41Gyn8nSEJDbSQHU1z4Q
-	XRj4QfMYiY5/yffY7SSrnAlFf9Mib1V+upe15h7kz3BmCSMYuVudDmM8lS76rw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of mail@alexanderkoch.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=mail@alexanderkoch.net
-From: Alexander Koch <mail@alexanderkoch.net>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Khanh Le <khanh.le.xr@renesas.com>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Koch <mail@alexanderkoch.net>
-Subject: [PATCH v2 2/2] ASoC: dt-bindings: asahi-kasei,ak4619: Add powerdown GPIO
-Date: Tue, 29 Sep 2026 11:08:21 +0200
-Message-ID: <20260929090821.1476257-3-mail@alexanderkoch.net>
-In-Reply-To: <20260929090821.1476257-1-mail@alexanderkoch.net>
-References: <20260929090821.1476257-1-mail@alexanderkoch.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilhN34JV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404D91F0089B;
+	Tue, 29 Sep 2026 09:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790672934;
+	bh=5/5sbJj2UOjTM0MY6dPTxrHU4W58D8Vo5wYa7xw7MQQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ilhN34JVzpNBWeHqaumUjwnaZLjwOPszZnZLA6oEzjeco2LKYfxM28ZmsXzuR6Saz
+	 T+RW5zb3ayvVsR8AvmoHjOiqoDKX0iF3OHCj3fXe9cj+SUsQmCzSTrDZDGflmf2T/7
+	 kw1XmKkNkE1wQYUhQ8c0iB7v89Il7txrv60k8Gi5ECsXEVjGqrvS1EZMzoSih5ux/c
+	 Fk+DkULaDsXlOyS8kTUEKlTPHqPH9s7/SS0L5WDvKWtQ1mNxFFsRcN0tvgbsCKXYsd
+	 mY0BmsrzpqvtCuaHDHfaFsGMLtvslm+hRemFNkR8UhnUjx9c8B8wFwZ8v17GcaK/WN
+	 nMl5Iuh0Fy2pg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wentao Guan <guanwentao@uniontech.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Soheil Hassas Yeganeh <soheil@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Jaeyoung Chung <jjy600901@snu.ac.kr>
+Subject: [STABLE v5.15.y v2 9/9] eventpoll: fix ep_remove struct eventpoll / struct file UAF
+Date: Tue, 29 Sep 2026 09:07:16 +0000
+Message-ID: <20260929090724.1461557-9-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260929090724.1461557-1-lee@kernel.org>
+References: <20260929090724.1461557-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,58 +56,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hvC5g4G7FzMltx
 
-Add documentation for an optional property that enables operation of the
-'PDN' (powerdown) pin during initialization:
+From: Christian Brauner <brauner@kernel.org>
 
-    codec@10 {
-        compatible = "asahi-kasei,ak4619";
-        reg = <0x10>;
-        powerdown-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;  // <--
-        #sound-dai-cells = <0>;
-    };
+[ Upstream commit a6dc643c69311677c574a0f17a3f4d66a5f3744b ]
 
-Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
+ep_remove() (via ep_remove_file()) cleared file->f_ep under
+file->f_lock but then kept using @file inside the critical section
+(is_file_epoll(), hlist_del_rcu() through the head, spin_unlock).
+A concurrent __fput() taking the eventpoll_release() fastpath in
+that window observed the transient NULL, skipped
+eventpoll_release_file() and ran to f_op->release / file_free().
+
+For the epoll-watches-epoll case, f_op->release is
+ep_eventpoll_release() -> ep_clear_and_put() -> ep_free(), which
+kfree()s the watched struct eventpoll. Its embedded ->refs
+hlist_head is exactly where epi->fllink.pprev points, so the
+subsequent hlist_del_rcu()'s "*pprev = next" scribbles into freed
+kmalloc-192 memory.
+
+In addition, struct file is SLAB_TYPESAFE_BY_RCU, so the slot
+backing @file could be recycled by alloc_empty_file() --
+reinitializing f_lock and f_ep -- while ep_remove() is still
+nominally inside that lock. The upshot is an attacker-controllable
+kmem_cache_free() against the wrong slab cache.
+
+Pin @file via epi_fget() at the top of ep_remove() and gate the
+critical section on the pin succeeding. With the pin held @file
+cannot reach refcount zero, which holds __fput() off and
+transitively keeps the watched struct eventpoll alive across the
+hlist_del_rcu() and the f_lock use, closing both UAFs.
+
+If the pin fails @file has already reached refcount zero and its
+__fput() is in flight. Because we bailed before clearing f_ep,
+that path takes the eventpoll_release() slow path into
+eventpoll_release_file() and blocks on ep->mtx until the waiter
+side's ep_clear_and_put() drops it. The bailed epi's share of
+ep->refcount stays intact, so the trailing ep_refcount_dec_and_test()
+in ep_clear_and_put() cannot free the eventpoll out from under
+eventpoll_release_file(); the orphaned epi is then cleaned up
+there.
+
+A successful pin also proves we are not racing
+eventpoll_release_file() on this epi, so drop the now-redundant
+re-check of epi->dying under f_lock. The cheap lockless
+READ_ONCE(epi->dying) fast-path bailout stays.
+
+Fixes: 58c9b016e128 ("epoll: use refcount to reduce ep_mutex contention")
+Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-6-2470f9eec0f5@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+(cherry picked from commit a6dc643c69311677c574a0f17a3f4d66a5f3744b)
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 3e1144d2515d28e4312e663ea05eac203101491d)
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml  | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ fs/eventpoll.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-index d412531ef9a2..86e0b8cbfc29 100644
---- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-+++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
-@@ -34,6 +34,12 @@ properties:
-     $ref: audio-graph-port.yaml#
-     unevaluatedProperties: false
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 95d31d23db60..50df3717f908 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -794,22 +794,26 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
+  */
+ static void ep_remove(struct eventpoll *ep, struct epitem *epi)
+ {
+-	struct file *file = epi->ffd.file;
++	struct file *file __free(fput) = NULL;
  
-+  powerdown-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the 'PDN' pin, if any. Needs to be set low to
-+      power down the codec, hence the GPIO must be GPIO_ACTIVE_LOW.
+ 	lockdep_assert_irqs_enabled();
+ 	lockdep_assert_held(&ep->mtx);
+ 
+ 	ep_unregister_pollwait(ep, epi);
+ 
+-	/* sync with eventpoll_release_file() */
++	/* cheap sync with eventpoll_release_file() */
+ 	if (unlikely(READ_ONCE(epi->dying)))
+ 		return;
+ 
+-	spin_lock(&file->f_lock);
+-	if (epi->dying) {
+-		spin_unlock(&file->f_lock);
++	/*
++	 * If we manage to grab a reference it means we're not in
++	 * eventpoll_release_file() and aren't going to be.
++	 */
++	file = epi_fget(epi);
++	if (!file)
+ 		return;
+-	}
 +
- required:
-   - compatible
-   - reg
-@@ -42,6 +48,8 @@ unevaluatedProperties: false
++	spin_lock(&file->f_lock);
+ 	ep_remove_file(ep, epi, file);
  
- examples:
-   - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-     i2c {
-         #address-cells = <1>;
-         #size-cells = <0>;
-@@ -49,6 +57,8 @@ examples:
-             compatible = "asahi-kasei,ak4619";
-             reg = <0x10>;
- 
-+            powerdown-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
-+
-             clocks = <&rcar_sound>;
-             clock-names = "mclk";
- 
+ 	if (ep_remove_epi(ep, epi))
 -- 
-2.55.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
