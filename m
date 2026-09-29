@@ -1,122 +1,111 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB558379C39
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DD650B8CB
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699477; cv=none; b=d5RLXuUePZpNsY/w8p7dtINRN+xKwUGjjvarwQyULknPK1ap8UVCvzVlKgGtQCiUL0Qok4o1FHMt+RnFfLF5QEv/F9I8WffuuWmxUbm9PqySFlSCaBL2NQ4BftyQOirmZIGeNJSelKKEfn6R1lIeUv4dXCBg1vlw+c/2y0KRxJE=
+	t=1790699500; cv=none; b=Q/uG2RtTFctQcjK16hfN3OymJ9PgsKtGK1CXp2gdB/CS4XxvoUkMIuW2rBNBHbC38JymcDYc9j09K41G/6VGuzZnaU4op2j0I0rm3LQoEpUYaCtnREgfZ7iJJHuEj8NL7hOrVCieopSRyPOg5Uk477bSCbMTYilQRH3hSYe0k1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699477; c=relaxed/simple;
-	bh=OEOaxWs1n1KEj9eK+tEAQuvbaxH+XlKjURmSbxlf2rU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dfMSs0Bh6XGokdwtIUClWsXP5n8PSoBZmon/f1v2xzaQZ3T4MAu1QAc2uoEIvOJtjMgZCqp+jrtR7RoJDoFGOBd0WaiSDAKMBCBWxZ10otqWvxHnce9AQzJiw6elJFe55fWrbABtldKLbaWUMqo/m68kZ4znWC+Oudb8SP1ZUl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c3ckEf/M; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dB8HAa/x; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790699500; c=relaxed/simple;
+	bh=lnpKMnLuqv+oX44Oz2gq1nLSEgp1cliwREafqFlWmDY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=YQ4Wxp5ETdAou1Mh7DrPP4RJ4H56FrxOl7CnGSSI697JJQYAlComTSgOvFlq7VBQ7OcteNRLzVmjVOWHCNXTZbDYRijgJjCCKuVdl6e0ncbyeyboQEh9DjK9f2UjaBUU2d1HD7cpbqi4VzQ0/G36FuwBuRLg1xBTdwNik/5cUrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WXLZnBkh; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c3ckEf/M";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dB8HAa/x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790699474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J0GhJ0I95kTI3KJeAMAJ7HgttEnRh8aoToTZ3EfI9hs=;
-	b=c3ckEf/MWhI0rWkQjz7FqHPG5wB+XJUuQoWfYlWS71Pi4/KInMulH5Drb8Gir1oUqkBs/R
-	0CwJKw3wcjzOlz0/c3OFQF8ChyFe+i92qpPFddwYB7rwnmfhC3AmE7OSAhBn1CItgR98Nk
-	BsRtGrp3qRcgGbCHijH+ckchM3ssFbE=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-re0YvTxrOPCgl-2pcKagyw-1; Tue, 29 Sep 2026 12:31:13 -0400
-X-MC-Unique: re0YvTxrOPCgl-2pcKagyw-1
-X-Mimecast-MFC-AGG-ID: re0YvTxrOPCgl-2pcKagyw_1790699473
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-89bce1a2012so27433427b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:31:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WXLZnBkh"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7d27b7410so101854a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:31:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790699472; x=1791304272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J0GhJ0I95kTI3KJeAMAJ7HgttEnRh8aoToTZ3EfI9hs=;
-        b=dB8HAa/xvy52dI9HzELpHCBESUkP3YZ3DJyr2SxnW1xbSlyxygkl71Y7qk0AWeWWLz
-         A9dhbu7qX/Oqbh0GOKFgiC63OsJWRM2DP00b+wt6B+S8IpOXykioxaKNfyc9/dveh/r+
-         1EM8ENgqFyfDL88j7G9OMOF/pyuLEXiIeuIin6NpXy/93OY1LETmjfG2tG7eMwshphML
-         48QsTmc72w1LnSjUWZzLu05jefkMlI4ZAShsTKkRsrsyVdJvgTVcxSBIm5Ohq6hMuXaC
-         u/CSzukyOx0AEN/M8bRW5Fx+yFTwkdnl0e2tNaTM2iAWuco8BqBnleUfcsUdXx66Df1A
-         1OsQ==
+        d=gmail.com; s=20251104; t=1790699499; x=1791304299; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vWBRVFg3TNII9e3JzDYA1qiuNTLpJveN/yke9DPuJTk=;
+        b=WXLZnBkhaQdF/n4yC0ECg3VUQDF1tfB5yHqnqXisqAp9F9pakdePCmKAKHtu4mZ3C2
+         5h7bRYuW4CKnad0F6ikmUcR7KhJECVan+A4XYV9UIm5yacC94ktORqUpxiTu85MNUbw6
+         1Zte8PAEukPCRYONDX3xeeZZVLSnhoKgEZy4zgl/7RAG64hMciGhHjZmCmn63j+e6q+e
+         jAGLTztlNpk2eHGxEhzoiMRHr4N5ZjxGrMVoVZHGRbtKyuwVTr48tfRk4RMwavxJXYI/
+         /K2C3CzsFVsSqE1nr7BqgZ0nw3YG0jIGSWml4hDAYj6mbslFeGojuj9f4tmkBu7bxRrh
+         JGjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699472; x=1791304272;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790699499; x=1791304299;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J0GhJ0I95kTI3KJeAMAJ7HgttEnRh8aoToTZ3EfI9hs=;
-        b=12pXTsk73n7kCGWAS2yxf5mWzO2wFy6dmvNSTDT/W0p9HX/0E0YLNnMlwj6jkdjBH7
-         p+Qe2JO/Twa1V4D1RkCdI4Bap4jt3c1XsXhwSUl9v0kyYO6/HqIUpfuxH3ggDtSnkd+n
-         JP/mVsnvc/tqMO7Nu06D4xZlEXlqVZKMYO+GNn/8HuuSkZ5MYuPc1lDKHFhGwrbZL8BT
-         fvapcnjnGoajaeAgU2MeDjspvr2niicuMNKq6UFlr0wmq1ErtxxwR+4hm4qfJXmRc+RO
-         ozHj7ENtYJaY6nXsELCtqrxH/lv9CGCNfmLbyPsNuKKJtcFUW8GYOUDiLwvGGaVk+4g2
-         +tHg==
-X-Gm-Message-State: AFq9FYJInTx5VM++qXqki0MA8I8TQxG1BrEsFEI1Q+SGpvIYTTBZuMaR
-	0y0DBRUk7JquVpA6DwG1o8W8D0Z5g1cpdAc70Z4r4IFPZxeN484dkQIiPFeS2gkTPCTOTA31qHz
-	HA8JvgVUWnOSf1Laq0kKlKLOLhZmknrNFerRtO6t3AJGlkTrz7hWacng5fpLdSD4+aQ==
-X-Gm-Gg: AYBFou2iqisINXafLorMd/OnViR5sMR4HMU2tsQ2NBL2wN6t840dRC8Ga69Dp6DZGUx
-	v5q9p53ZCNA6SgLCm9qStal/v4oWek8dtvUESAQxhL8nlvrzND3cqYHuN12cc/5EZpfDmOzWK8v
-	6tHsR6CPVgBc8VzL5Y2r/6QYIBAtkVvcKNwuwEYQhCGppRlAgRHktwsczn70x0Zw+BtB8Ye7Zsj
-	pUax4MOVjNgjhlHx2Hlcfwiqq1avbW7vMkuXlx04RjnJd8Ojft2DAdClS3hNTZdurnVgt8Rsboe
-	3hCOCrIjOxBy43QTxjKCrSjsVHTKXHPS6PVBm3VlukYCuWDp6E2Fxmmgnyp7ERFaas2kDREd7B4
-	oZAkrxQEkRRNZDjE4o9wCtgXayGXOxbf0yfYuwnOx6ZDYYA58DNk=
-X-Received: by 2002:a05:690c:dc6:b0:873:ea3b:6c08 with SMTP id 00721157ae682-8a64bb00581mr74547167b3.1.1790699472604;
-        Tue, 29 Sep 2026 09:31:12 -0700 (PDT)
-X-Received: by 2002:a05:690c:dc6:b0:873:ea3b:6c08 with SMTP id 00721157ae682-8a64bb00581mr74546737b3.1.1790699472127;
-        Tue, 29 Sep 2026 09:31:12 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d395791sm14017306d6.44.2026.09.29.09.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:31:10 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org, 
- phucduc.bui@gmail.com
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20260724065658.20405-1-phucduc.bui@gmail.com>
-References: <20260724065658.20405-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH] clk: rs9: restore cache_only on regcache_sync()
- failure in resume
-Message-Id: <179069944424.199845.126587794600582656.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:30:44 -0400
+        bh=vWBRVFg3TNII9e3JzDYA1qiuNTLpJveN/yke9DPuJTk=;
+        b=i4M/rA40sJYLk3TK67IVMBdJVGckyvuhD0mcFsY9dFgOpNbcwCtmvfGiqDDOK4qh/s
+         uxS55nvqZk3r5nSa7lgms5413IpHu6GkJspZwXLOL1gJJudUQVsK4dW1ZddSvHsi0u2Y
+         J8e+z1Xt3jjbsKyRMDnbK4EY7Kl9YRv4GxeuH/kF147zLkVbsdKNmfvXwnRHiN3RtgnT
+         aPU7hJgZBqRbWKfSlmNVvQqQvwtszEkaSwQGE/gMI67JisBFFITnDWb/fY3XW5rmdp4/
+         6poHpturFMA3J8ivkgn9m3yFBUbHH1+XPgnXRG4PmVzBilkYNzu2ZSjqE1HLoWqhpai/
+         Ol2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzU4KS8MPWydLJYl17I8JIyOL3Fssu2tHuajKqPeKrI0muI65EpwSkZLdPAaEAt1D1yJ4/0lFOhUPVQuRc=@vger.kernel.org
+X-Gm-Message-State: AFuF++liCCCWpfXd5CoYMwZSxrdOt7JvlHWfoNQI5wNUdLQL5rfnYZV6
+	QIz/0TopnLzkiUKdxkh7HcqCivzNh1QALoU5IpSqUIY6r/7Z+bZtaGtg
+X-Gm-Gg: AYBFou3Ieh/OL9f4ZXb0W17AQ/yMZa8SN11Tx4Bg6OaZXuR4emgNzfHPl14J1z/Mq3a
+	cqyxPqFmd3CE6gcj89TLM/RgaYxDFxIZQirbiyq0fCfdCE0kZqFsiCxwUKpeca0L+OzDHlONt+7
+	Y16WOxR8U7tPGJaDHLYT3KFeJNDOa10Mtc9mtsCJw50YElT1U3WSYBk1XWqfk0/75lhESX9OI9k
+	JsB2og4w2GF6PqM+W0ed0t+OwX/QRNPqdXld8YWEwTTEfwO1js/UBkxGFdZWBV8Bbe2yUlJ+8iF
+	s8mjbHPhfrmmMiWKJIPwyMpzp+zrzZz8pMp1oRkyIuxgGyKjBosO0ejvEtcR1qhUAXlfe03aZCd
+	DJDIDZQpDsEdxveCDLh/+19drgqsG/vd87ikV3+tXlAXw5w6gzr0L4mZYwmxLiwxB/y68cz/iHs
+	vJatOIRDO+T2EUhqeUeSLzu/s2+KwqhGFbOf4iANd9K6mKUQMKQpvOScxMzni0uWpi70Y1z8AnF
+	3PBI0kX8q6nn7Gli2cJmNvdR/bGb55S+IQqGgF9oBqk6jnP9+AGEpC/EWVCQrmKqf/UtuPEaorz
+	RHVN
+X-Received: by 2002:a05:6a20:9e4c:b0:3dd:a007:cb2a with SMTP id adf61e73a8af0-3de26db5242mr11967568637.38.1790699498710;
+        Tue, 29 Sep 2026 09:31:38 -0700 (PDT)
+Received: from localhost ([153.61.198.250])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7d2b562d8sm109617a12.24.2026.09.29.09.31.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 09:31:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=343; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=VAScFuT3EVDoLBHZgqe/DLNe+zacgtutjjxzN/a9rpw=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2Pz+zQTne5Kj2Z2mfDxdTQy5MWer25Aq739S0BX6nX
- dttOKbXd5SyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjARgTRGhmezBee877/HZMyY
- zmL95arAlKVfU/5fjLRYbjl3b9nsqp+MDNPZWN8XJry5sT24+UtK3dab/t9O3/53Qtv6HFvm6o9
- H5vIDAA==
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 16:31:37 +0000
+Message-Id: <DLRXZSBSYJ2K.3UN9IME1MKDD9@gmail.com>
+Cc: "Florent Revest" <florent.revest@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Linux Kernel Mailing List"
+ <linux-kernel@vger.kernel.org>, "Linux Next Mailing List"
+ <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the bpf-next tree with the bpf tree
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Mark Brown" <broonie@kernel.org>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Eduard Zingerman" <eddyz87@gmail.com>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "bpf" <bpf@vger.kernel.org>,
+ "Networking" <netdev@vger.kernel.org>
+X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
+References: <arvRs4KdojDnW1O6@sirena.org.uk>
+In-Reply-To: <arvRs4KdojDnW1O6@sirena.org.uk>
 
+On Tue Sep 29, 2026 at 2:56 PM UTC, Mark Brown wrote:
+> Hi all,
+>
+> Today's linux-next merge of the bpf-next tree got a conflict in:
+>
+>   arch/x86/net/bpf_jit_comp.c
+>
+> between commit:
+>
+>   17637e1a581a2 ("bpf: Skip detached progs in trampoline images that are =
+still in use")
+>
+> from the bpf tree and commit:
+>
+>   29fcf9ce4bbdf ("bpf, x86: Use global buffer for trampoline size generat=
+ion")
+>
+> from the bpf-next tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
 
-On Fri, 24 Jul 2026 13:56:58 +0700, phucduc.bui@gmail.com wrote:
-> clk: rs9: restore cache_only on regcache_sync() failure in resume
-
-Applied, thanks!
-
-[1/1] clk: rs9: restore cache_only on regcache_sync() failure in resume
-      commit: 29e5259e30012bfb0f48345ac7d89999f17e1f26
-
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
-
+all correct. It will get fixed when bpf gets cross mereged into bpf-next.
+Likely on Thu or Fri this week.
