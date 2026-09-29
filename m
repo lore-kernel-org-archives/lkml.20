@@ -1,131 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A7C3783C3;
-	Tue, 29 Sep 2026 02:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDD61C2AA
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790647640; cv=none; b=bZaqMH8U65um9LRoCGuvIlEgNTsz0TrhO2EIf9tZx6bsVS6He6/UUbb+8n3Pc0N75PaNhgD8wohZ/BmWeIj/3sMvAe5KrA9ue5J78e2V148Ch9y0B8/Z7+Wr/LnuG5p8Bsqqeq11hOoVOOxxVLKsZx0bQ6jWTBzavFEd8mPlUBI=
+	t=1790647649; cv=none; b=UXHF1IEVkVEDH8JD9jZJ6OxqwGR6NZKt26BbTUXX79pspqLIF5qYr4ujekmhLsg6qrV45QR9dSaoU0sa06959AVwilPX0YCK4ZkablPEpPSaLLPjDy1EVHIJRHWdbhVR30aKSeh1DSFIgTyL5xJECW3YJo7aWBg8qbAXvhJES3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790647640; c=relaxed/simple;
-	bh=aE96zJr67kH87ZzJpOUnfS7IQIJx8pXfv8T/Iq1xJcI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ub6arHApYPORTZt5V0BYk9koIBcGNnOiYrcFDPxzEm6BFSKcHhyg7Hp4evNfpoMnnMepcMqBdKiKV9yJjfVFgODD5W8nP+EBT3LGX/qxfLswZGuPyxe8bsSQtbCXj0UODPQE/TLFfASauexG99mnY9ngqA2r1yBIycX1imoWg4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fOAnRJKg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790647649; c=relaxed/simple;
+	bh=9gfcbmrzOmCvyf/1gnjeAcRps/PdsytRin5LsL6tW98=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=iTHlIMyEpKO7N+T6U/3hPpd/VWtpGTVc0yKBvMzdhaG09SFYuIQrWXt+BefnTyNtr/kRvo4rk4KH7lBlK7WGg06BCJ7aPsExtj5zIs4sixt17VmIet9s2r3Fmt7S7/JXwRI/pC5eL41rvoYG7LZs3IG1wHt7388KEiUDkg59hfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JnTCqlva; arc=none smtp.client-ip=74.125.229.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fOAnRJKg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B35E1F000FF;
-	Tue, 29 Sep 2026 02:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790647638;
-	bh=0oFuEd6wtq46KTeuSqyE3yQTRsrXC8YYPEexGHBfeJE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fOAnRJKg3WU49qaLOTHoQiboYV1kOch2/JcHCVX/IupmO10AfAU08bxE3//oXwS4/
-	 tnWJb07aq8bQQhvN8tZcB3XqOdSOQTYIjmCznTtUBXlqUYEpz8gDQC2r9LjjzqFgcL
-	 DO6EXz08yhbwfj/GWNgEMRW6aYLWubJHyB3vijyVSsD0GYUBjwzgIRaVBVszDUK84S
-	 0ulWCjoVXG0w8zmtBQYANpGeJMA+4WvBcworv5q1y9QQlAbxfOshilrrPceQ3/0aN+
-	 L+dvYZP4kxpRFxPq+Xcx++fplfzSu9a9IVWhva3tdwuJWhrpFFhmC7kzqg4bRXK0l9
-	 fpMwM/qJkpniA==
-Date: Mon, 28 Sep 2026 16:07:17 -1000
-Message-ID: <941e5affde16b803741ddaf87b937f3d@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Waiman Long <longman@redhat.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Hui Peng <benquike@gmail.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>,
- cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when
- partition state switching fails
-In-Reply-To: <20260928235159.515654-1-longman@redhat.com>
-References: <20260928235159.515654-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JnTCqlva"
+Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-149d5ec8e96so455857c88.3
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790647647; x=1791252447; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fbDwKzts0Y/4dxNxzvKuYePx4Mzwd+ywZtamrjsWr5w=;
+        b=JnTCqlvafBPdZUZhC8N49/E3YgMMwijfhjYhF1HemdDdWvcW5riXup8f6SYkldLhb5
+         vMvl/0FNPx9LUIYuXWdR173ew1FHAYq3B3WB3tsCv1u1FuVNvDVtHXELZTeeMXssSgNW
+         hDESh5jK4UT2W+vUDPWOesmbcujOeMeOwsYn7Nh6/xzFi1TO9MLKrG9LK80wa7SoqvA+
+         17/NieOq1nSDT0CTlEuqSnrcZRjBBza/DzOyC5xBGhwQGGN0iX6DuZwRxVnuOZK0B997
+         3JwbXlUt9X/yrMFk774JPZtEr39WNz2wUxKM3DCFR/kJs7TiT9vISf+7anKoc5fTuEx7
+         ouGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790647647; x=1791252447;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fbDwKzts0Y/4dxNxzvKuYePx4Mzwd+ywZtamrjsWr5w=;
+        b=Ezr40xOLeVUwP7E7KI2GSVNzVGhh7FMTqKUyK/7Bxfh45baIQFv9naDGouW30NRt48
+         1Ww+AubbC1PdW4BeButtPbsBOExzx6IO9gCJ+Vswa2Me7ltlV1rgI/lh7yzZdPQVKX1u
+         JA4CIkYElRQrqbETlBbb7DfO9fC2M1ruhYTxD36x/s+8UJXv59No+XFtJqhneJ/aO2hg
+         lNDvEiYhWguA0+8nhaw93Xyk8IsjHLF9gtg6/SPtdnFatdI3MmdyNCZVe4JEy8FG5A3D
+         /bcV+NNPt8bS+EasJbW1Zeyhn4ZKC7vlY73jMwWi2W083TmjSTamcED45mDxgs4j1+kn
+         z5Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDPzn7IRhn/ZiKGBglMTU95NVKpr0+gTWQdNoEn48OIXR+s1MqqFuwjoo/kxQIrshm1ocwmQXPXZRTyi0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ki13piPFVqJDxenRWwMeAoHv89Ys2PGlrb4s/ZwnWWpBpdXhvP
+	iSMLdbxc0C7m8DsbOTZqLsopdepHr9uWk19tpAhpiMjOOQnuTQVh7c1HEed2awMF
+X-Gm-Gg: AYBFou2+u1Mdg3u5pWimHUGO/myqqHdFvH2fpoAnZZWSlJwP23g1olZzLrT2AXDKxa5
+	Iylii0/1uTPea7CB8Nb+inpWPffDbB+sb1GPoUxOZVMLpdJT3hoGyB4mUgtT+38oi7Q0oTSAWvm
+	RWi/fvn+NdVtxLONrxhqj4wnu+vp1iT8tW+qjxOfZRGOB1ag9HAVKWtLV96cMT+jwW2Wecitgwk
+	3XIHlQTwGVo9B2qD2JNfh8g8dxi1Nbd1Wk2AMCLztJilQM7PLddEpZ8aTDQLRutug3jrSxf78rd
+	ySpaJx2LPDROpuPvYyhosJOWN0AO2ds75VkotOVFHaJy0AmLcMkvX0bofRquuBcOIGJhtB6TAyK
+	VdKKTQsVoCAAWLmoXAiUcrVX9d3t7RKt8V5oi1JcbiljWWD/ZOMM/Atg1FlvELqc4OpbsWz8AZ5
+	KywKli8vNAEjks7YHMJzhf2ZAYxYyKyh9t90S6YdA3IoOmbG9K4ZhbB5DY4ho25b2TceURxeem/
+	RgkpdW9E3Ud7vu/22C7/eTKTu3NnIylhwMyn+gbVQkyS1f3avx3tA==
+X-Received: by 2002:a05:7022:1586:b0:143:26eb:18e9 with SMTP id a92af1059eb24-146d00b72bdmr12928702c88.28.1790647647112;
+        Mon, 28 Sep 2026 19:07:27 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm26831012c88.0.2026.09.28.19.07.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:07:24 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Marco Elver <elver@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC 08/12] powerpc/pseries: Annotate the DTL debugfs read lock context
+In-Reply-To: <590f421ed3946c7908783d10de39a9127c4cebb8.1790517984.git.ritesh.list@gmail.com>
+Date: Tue, 29 Sep 2026 07:34:14 +0530
+Message-ID: <mrt0ke3l.ritesh.list@gmail.com>
+References: <cover.1790517984.git.ritesh.list@gmail.com> <590f421ed3946c7908783d10de39a9127c4cebb8.1790517984.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 
-Hello, Waiman.
+"Ritesh Harjani (IBM)" <ritesh.list@gmail.com> writes:
 
-The following is a Claude-generated review.
+> Clang's context analysis reports:
+>   dtl.c: error: rw_semaphore 'dtl_access_lock' is still held at the end of function [-Werror,-Wthread-safety-analysis]
+>   dtl.c: error: releasing rw_semaphore 'dtl_access_lock' that was not held [-Werror,-Wthread-safety-analysis]
+>
+> Add the necessary annotations to phy_attest_sequence_{begin|end}(),
+> to fix these errors for enabling Clang context analysis.
 
-On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
-> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
-> don't leave any housekeeping"), the partition state can be freely switched
-> from "root" to "isolated" and vice versa. After that commit, the switch
-> from "root" to "isolated" can fail if it exhausts all the housekeeping
-> CPUs. Later on, the switch from "isolated" to "root" can also fail if
-> some of the partition CPUs are boot-time isolated by "isolcpus".
+Sashiko pointed out:
+  "Does this commit message reference the wrong functions here?"
 
-The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
-Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
-add a Fixes: tag for it too?
+So here is the corrected version:
+ Add the necessary annotations to dtl_{enable|disable}(), dtl_file{open|release}(),
+ to fix these errors for enabling Clang context analysis.
 
-> The partition is made invalid when the switch fails. However, the
-> remote_partition flag for a remote partition can remain set and the CPUs
-> from the invalidated partition aren't cleared from subpartitions_cpus.
-> Fix this by properly disable the partition in this case.
+I will wait for any review comments before revising v2.
 
-The reproducer below is a local partition and the fix covers that case
-too. The CPUs weren't given back to the parent, which is what leaves them
-in subpartitions_cpus and isolated_cpus in the example. Maybe describe
-both? Also, "properly disable" -> "disabling".
-
-> In the case of remote_partition flag, it should be cleared for a
-> invalidated remote partition. To be safe, the reset_partition_data() is
-> now enhanced to always clear the remote_partition flag. So there is no
-> need to explicitly clear remote_partition in remote_partition_disable().
-
-After the update_prstate() change, every path that invalidates a remote
-partition goes through remote_partition_disable(), so the other
-reset_partition_data() callers never see the flag set. If one did,
-clearing only the flag would leave its CPUs in subpartitions_cpus and turn
-the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
-this part?
-
-> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
-> and more than 16 cores, the following commands was executed after boot.
-
-"a x86" -> "an x86", "commands was" -> "commands were".
-
-> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		 */
->  		if (((new_prs == PRS_ISOLATED) &&
->  		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
-> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
-> +		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
->  			err = PERR_HKEEPING;
-> -		else
-> +			disable_partition = true;
-
-If a root -> isolated switch fails isolated_cpus_can_update() under an
-isolated parent, partcmd_disable hands the CPUs back to the parent and
-partition_xcpus_del() adds them to isolated_cpus, which is the state the
-check just rejected. Switching to member ends up in the same place, so
-this may be fine as is.
-
-> +	}
-> +out:
-> +	if (disable_partition) {
-
-The early goto out paths never need the disable. Maybe put this block
-before out: instead?
-
-Also, update_cpumasks_hier() below gets force only when switching to
-member, to update effective_xcpus. Now that the failure path disables the
-partition too, should it pass disable_partition?
-
-Separately, a partition invalidated with PERR_HKEEPING can become valid
-again through partcmd_update without newmask (hotplug, or
-update_cpumasks_hier() from an ancestor), which doesn't check
-housekeeping. A failed member -> root enable has the same problem, so it
-isn't from this patch.
-
-Thanks.
-
---
-tejun
+-ritesh
