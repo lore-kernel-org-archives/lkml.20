@@ -1,176 +1,340 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013003.outbound.protection.outlook.com [40.107.159.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8FA5172CC;
-	Tue, 29 Sep 2026 14:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692711; cv=fail; b=T4gibt6J864sAYfgwYg0H2jIiyn0hDapsVEUY+H5DenHVIJNAtZbGJEgocSfuuwb8EjY5G/5fAkoy+II0jkoiLPKJnYqke5bb+wPhu+7NbQS0cVWimUodFdQ6WnRk3MoyYxkWIf7S7axx/yitUROT2yT6whdF7A9FbXd8c2Ptug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692711; c=relaxed/simple;
-	bh=aPM+7bH1R1EdFGJrUqsG7FjuZ/mdNIePeSpF2/VJ8Lo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=W/qh7/PK20Ma91Ef38XIEITz06JEj1dQqdHJ51bz76ewJaUarZBFq+XY3MEamHYbjSZN13ry6gO6WI20OISvo9aamg6F458seP2JKKK4bSdUscBbuDoOhzqhgkpZpIBAsZhvFZp8ZtYV2ja4u3PCt5JlzXZmWBn8bhllm1dVn98=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=H8qRRb4k; arc=fail smtp.client-ip=40.107.159.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="H8qRRb4k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WhXya2emNZMVjqKQfZbnZ6qFKZ+dZ7BcjuLTvq4YxusQJWC+oO4DqGhvWFqHu+lc5Qknwdkn59wT9hAZqP0t2XsVGWXWnF9gRR46aNbkpS9IfVAXm8RW21g09/7MPyaepeO5h7Z0Zx3zLz6rI1z6YxTo0ksS4VV01mXoNAwhScWrBSjANyCMkDkCtba8pC4mIPAS/c0ncgYCQPPfyFPUGX9zQNXtaENlL+hqnPEi9GQd8FKmzJRtLg2YY38nsCbN4ZWFvqH4pHyThYrT6Q/1kiJ4hp2Un8jELcgvz7jRyZMQJpQtkmnot851y/3VBYHBg/K16sXq3CcDqYw/mILaKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hp+IRLWCM5hlZrQZwlm0ehr7Zc/WhYNBQ10bt0bMHs0=;
- b=Kgky/dG0Jz9XnrCvDojJC5YppUjsR0En8rgkVBPHMnr/T19lZ6c/FgJFPuJ3xdfxhLn8rkkOUyPmVaftfudgEcHju8gE2ePASi1amIywlPpto+Q/Xsri8Ex2xRqmlcflnTFHdR9N79lS6g6R55P/9i4550wzehWXNLjvWm3KAjBSx1RHYvP4pOR6cNBjtB2JpEPDOPP51iis0wUnf/4o4l56Et0Z8ENbS5u94wkwrRErUNFMLsNEJIvwJM8DZdgsBfdxeDH0v0TROqgzJu/jH1Id2eHCdyJg45NMB26Bc/Atd5xvlx1WZx9uhnepKpHry6aPhuurFLmsyh5EZkzoLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hp+IRLWCM5hlZrQZwlm0ehr7Zc/WhYNBQ10bt0bMHs0=;
- b=H8qRRb4k0EqZkHA0m3QQ2dIfInoz3tOwO9ydAaZaN27YbREKltoOAO3y9BxF5sYUDjJozJHRW9IlXmsIhG1u0QjPKbNDjEi40OHVJsX4NrDcRffBuAKPnejadB0FwjPh4Aqi1b7h7siuywqwMEtS9B56q65lngbk0PmpAR+EFsYCdcM6uGIGI7dujTh7i6wUP27jWa/XKcDYh+JhbKdQQw5qIP8bHqHkVIvlTtDhgBnBPPmcGi2n/4/6HuMKpI56EMXBE/P6Rl/hntrWN/ZG/rDQQBtWeUH9Sa9y31DdPiEs9ADU2kJZqEhEDXlIHLlP+8oQmRPh96KSg9wiPkaVMg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8066.eurprd04.prod.outlook.com (2603:10a6:20b:3eb::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 14:38:23 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 14:38:23 +0000
-Date: Tue, 29 Sep 2026 09:38:14 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ming Qian <ming.qian@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Ming Qian <ming.qian@nxp.com>, Zhou Peng <eagle.zhou@nxp.com>,
-	Elliot Chen <elliot.chen@nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	linux-imx@nxp.com, imx@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: amphion: Add V4L2_FMT_FLAG_DYN_RESOLUTION for
- VC1L
-Message-ID: <arvNVv4nyXoB8iC9@SMW015318>
-References: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-flag-dyn-resolution-v2-1-ef29487f7215@oss.nxp.com>
-X-ClientProxiedBy: CY8PR11CA0041.namprd11.prod.outlook.com
- (2603:10b6:930:4a::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45BA93B0599;
+	Tue, 29 Sep 2026 14:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790692779; cv=none; b=nUYSFfuwbHWslNKQ2GobALcKtX8T7EXqjT5FDDPNjRTrxTQ6EZnU4zHl0+8CGJQwS9Q4nICvev6Pgqbi2oG/ao6Eih+mqodJ0YTgrIpLb5sKCIcnjV68sufZX3kAt53FPuY3yFkkoIsq4XPPFDkh4Z0J6yTaYSFxUtpxQGuhiCU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790692779; c=relaxed/simple;
+	bh=Iw7mcDx0RpVtRveoaa1tRxCnM6zuA/6aPN81mza5VrE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mR5CuTBTaQyO4S5Y/A5rfBI+9nK8CZJTGf4KuC51dQs/a0KBrsUITUd8be9Ysqx+V2Vqj7RsmmA91O9Or07lEZTI3ZMGCmjicKptUYtSbqfAnQuOCR1C42ptwna2oMVAn8yyx25vUxPNyQTYDuFTgLu40zOYDzlR7wIKE844CFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXn3+ZzbtqOuVGAQ--.5323S3;
+	Tue, 29 Sep 2026 22:39:22 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCX8H6YzbtqMeYWAA--.26551S2;
+	Tue, 29 Sep 2026 22:39:21 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: thomas.lendacky@amd.com,
+	john.allen@amd.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH v2] crypto: ccp - Fix use-after-free in backlog cmd advancement
+Date: Tue, 29 Sep 2026 14:38:25 +0000
+Message-Id: <20260929143825.21349-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8066:EE_
-X-MS-Office365-Filtering-Correlation-Id: d181d1e3-3d5e-4768-9b87-08df1e37507b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|19092799006|18002099003|22082099003|3023799007|10067099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	5sRX/O246OFPfjffP8RmGdYMac+ojjLBF/xSBYKN3F3AGzWYSNi3wz7dT896cUjyLRq6oPZev//oZdOHHkuTziZbcdNXY9iIGU3GjQsWw73dKtb4mNEhZ6hX66A5zvz09u1atTI7FC0NAGPRyOma4+Dp1BQb8yjGTBvTu6kPyX7lITXIZEajH87Vqgd/r/3S6lDzcRTNWBUyKTmSydRLe+of5clxyEqopYDX9r0/aERlodJ7lghCnk57LH5MLbQHyZN7zweNapdD+G1A3HXDswLaDtBiF3plbQylKBnoFJ8ZHJPl7QfKNKhePeuOkG7BCpPXypUqPhX2yODEswE8Yec2dhpw/KrbGVjFyxCbV/90kbEAjP+3E6YTAMo3Q5gatFwSi1s80Ie+pnJ4G90q9l68V/jvgJqjjjWNyGXcAP4386KMLWnPhQyPIrkdTbNYZrhzp7nAayVoW6AMkvOvPBANqcNjV/QrvteQoUHUvtr/sm2TL9dH40U4xbS0Pwvbdo26O0QNpi1xNF8DSV/f9momV1AZeaTkPzb3+7Aa5E8tzLxvZjoR95YPZhA00SkIwEsqQNshZDoDbozQqcGJBQ/iaqEF/Zi9OiVPKQ/fi9xGp/7aST5CdKUB41XmWT3P
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(19092799006)(18002099003)(22082099003)(3023799007)(10067099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uYYl82cHYuruUe2e+Ceo1S7g+R1LD+BH68R2TW8zR3iErVfzlemvOWi4H/84?=
- =?us-ascii?Q?1aZIBZ6oUrWb2YzDQhNJiQqiGJxm7hqaOttEn9JLsy3znGnUU4OnITI8d8Y+?=
- =?us-ascii?Q?iNQj7RyeIVoqL6lhWO49vqBKXL6DZ33Jz2V4d0C6CDs4n8ClD7QrRFdLeXXi?=
- =?us-ascii?Q?L7S7xcvsGl/M+kTdZ1anhe7j8V49iqT2OYNG582Pjec1vBQjDlJZuuuja4kY?=
- =?us-ascii?Q?7RlMkHBtGnpyHPcXfVjIIPk3Ot9Zri2GVch8Zzqi0Ks45acSQQgXq+bk7KGr?=
- =?us-ascii?Q?AemoR3ry+Ssuz2YTOvWHWR/7ZwJKHtxiwnwvW3wyrTpGkgt+izeJUVd4KFIh?=
- =?us-ascii?Q?PZOXzuPZPQKDrIQzKCl9+gK82vvS5gK+ySaC4sxnkJso/AYnTtJ7epwLizvu?=
- =?us-ascii?Q?N6xGK+Zft4n3Ft/JCuRwTh03qBtFCAB//WmZgMNkIN+XZj0TqPX93MYkScfF?=
- =?us-ascii?Q?NS6tRcIGNOyFvhbpCCBhyopFC7PeqjVL9j6tfAMrO2lu1BpTqGFl6ENy+K7I?=
- =?us-ascii?Q?auvg0tEW4EpZtP5QMdrTz4fgZlnFyYkxfjnyHaGljmmSblU5KF3KeXGJU3gJ?=
- =?us-ascii?Q?myEJmqNfUkJPD2L7Y0zApmhpWWMwdXkLBMKhD4NbgyIucDyHnX/osJjxusip?=
- =?us-ascii?Q?hOI4QCe4Tf77sCu+Qrrw9291sPMIykokv4qqZYYZ5lj6JezyL4OA98DVsAEO?=
- =?us-ascii?Q?0K5ugszphtHcGAXHiBnmGWnaIOONPQ2vKRGcmRz2cdDjEMNb0zLX8CdPmVH/?=
- =?us-ascii?Q?0AEN5i0qirSvKlVN+uFVFRLPhPNzn4F2KzyL5Dbp9q3aYLSs9KGsvhYmFF/7?=
- =?us-ascii?Q?0WYjbd8cHQ+epP98AYTlLSU5H6LJjpVVZm76ZsNN7I3mLR5kfjFkBLE+GZii?=
- =?us-ascii?Q?ItZbIxmk8KGkNptXC++4SHxrFoaoNpjupJMNHYf68FZ6FmFQ2JP1FpzKbnWg?=
- =?us-ascii?Q?LaG82ADjk8OTxeSQus2zVIpLiVvVI1TXl/JkfyB72SDYIc7mR69x0hNvq7gW?=
- =?us-ascii?Q?TjPN8d9HTTY09DDYZNy/LVOV/fkZV8Zp6/kf9y6ho9dF43kF0yq3LCuBOcCk?=
- =?us-ascii?Q?zxSM5FJe+sBjEQGLFmcHbtmSg5Cc4HF7kJwTAnUuFgsVHEydvms+pqdIe7lc?=
- =?us-ascii?Q?/JM0m/uW5qnsMaedacUosmiUwWutATUuncYlEQ24IPe1mULUI32KOZhhcT2Z?=
- =?us-ascii?Q?WufOF51HJMe4SSVXTXBvO2OfVq6jffRJvsirV1mjhC11ZuBls1gSFtxFicnX?=
- =?us-ascii?Q?cvIuU/D7wReo+hafOBvrG/R8kEbUcEN4qPgp7AtrP1qSkgKJUtRICbLL8Rsj?=
- =?us-ascii?Q?T2iBLmeL6LbN+BEqcszziSwV2d3Y+V+rF+huHubaiDUmY8BiIpvPV9Wz9yw3?=
- =?us-ascii?Q?cQNmA82Ky8Cil2VZel4YBhsKlNJEcW0ZwGBuSlivEXn8zUTHKvWPHE92/ap4?=
- =?us-ascii?Q?g1062zeLvKXzzV0Il4CNa5djNSiCB1sysX18t7nj/Lo/fMiap7aqq5rM/lPP?=
- =?us-ascii?Q?/CkdPEH5AQtvkK3r4YkTO54wq3Ml74fLQmuqPOb3M1TVdltHKFTSYTlHyUPJ?=
- =?us-ascii?Q?9w96/ZMz8qhY/AB4N5j/7GayRtRQEyULqorKZZMxMO8NDbAcwZjr6fgu+nDF?=
- =?us-ascii?Q?zB8eoKy/GpBeJEgrAd+hzp4wlLLt3Bv/+Xv+Aj+9EAYpEkefMRm8gMNW2chB?=
- =?us-ascii?Q?wJSViZw2ULorYpOJ9AhCb3uPg3lVwcW/2nbKAj/qD5GbNr7B8bfCASzqAe/a?=
- =?us-ascii?Q?iQMnj1lV50SZR4kyNoB0ABuXv4paGalpapaqTnbFBRvWQeRh8nny?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d181d1e3-3d5e-4768-9b87-08df1e37507b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:38:23.5689
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G8AjDCGhoLkt5FQnU67b7rUbQUx6trzY6jCywHrqo7Eyi05dhKtcKNCmTPq9Dpsx6PDOTw8gIJwiEXkxamyfDMZwQ6351x4bkr1FlZIAyKGReOKkLFiBWMgEww3aWnAR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8066
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCX8H6YzbtqMeYWAA--.26551S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?FMlrnQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhl0VXVxchKRVnqmbCwnQwHxX+fnBG59VutvSe69IvMdqgs8
+	/b6IxfG5MXLLFTbHL3+p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW3Wr4xXr43ZFyUKF1kWrWrCrX_yoWfWw13pa
+	95AFy5trWkZrWUG39rZ3y8u34fXwnY9FWDK3y8W3WSyw43KFWFgrWxCFWjya4UAFyv9F13
+	JFW29Fy5Cr48ZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On Tue, Sep 29, 2026 at 04:30:28PM +0900, Ming Qian wrote:
-> The amphion VPU decoder always emits an initial V4L2_EVENT_SOURCE_CHANGE
-> event after parsing the resolution from the stream header for VC1 Annex
-> L format. Without V4L2_FMT_FLAG_DYN_RESOLUTION, userspace (e.g.
-> GStreamer) cannot determine that the driver will signal the initial
-> resolution, causing it to skip waiting for the event and fail to set up
-> the CAPTURE queue properly.
->
-> Add V4L2_FMT_FLAG_DYN_RESOLUTION to the VC1 Annex L format entry to
-> indicate that the decoder will emit the source change event during
-> initialization, consistent with other coded formats supported by this
-> driver.
->
-> Fixes: e670f5d672ef ("media: amphion: only insert the first sequence startcode for vc1l format")
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+A CCP_CMD_MAY_BACKLOG command promoted by a queue kthread leaves the
+backlog list and is re-queued only later, by a work running on the
+system workqueue. Until that work runs, the command is on neither
+list, so the flush in ccp*_destroy() cannot reach it: the work then
+uses the ccp_device after it has been released and wakes a queue
+kthread whose task_struct kthread_stop() has already freed.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The gap between the promotion and the requeue also lets concurrent
+submissions claim the space meant for the backlogged command, so it
+is not actually reserved and cmd_count can grow past MAX_CMD_QLEN.
 
-> ---
-> Changes in v2:
-> - Drop the documentation patch. Nicolas pointed out that
->   V4L2_FMT_FLAG_DYN_RESOLUTION postdates the stateful decoder spec, so any
->   driver setting it is already required to follow that spec. The
->   non-compliant drivers (coda, s5p-mfc) are pre-spec history and not worth
->   bending the spec text around.
-> - Drop the RFC prefix, as requested by Nicolas.
-> - Link to v1: https://patch.msgid.link/20260608-flag-dyn-resolution-v1-0-44dc65516148@oss.nxp.com
-> ---
->  drivers/media/platform/amphion/vdec.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/amphion/vdec.c b/drivers/media/platform/amphion/vdec.c
-> index a9f0521f2e1a..75808482d090 100644
-> --- a/drivers/media/platform/amphion/vdec.c
-> +++ b/drivers/media/platform/amphion/vdec.c
-> @@ -136,7 +136,7 @@ static const struct vpu_format vdec_formats[] = {
->  		.mem_planes = 1,
->  		.comp_planes = 1,
->  		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
-> -		.flags = V4L2_FMT_FLAG_COMPRESSED
-> +		.flags = V4L2_FMT_FLAG_DYN_RESOLUTION | V4L2_FMT_FLAG_COMPRESSED
->  	},
->  	{
->  		.pixfmt = V4L2_PIX_FMT_MPEG2,
->
-> ---
-> base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
-> change-id: 20260608-flag-dyn-resolution-f39fd24a0ba2
->
->
+Promote the backlogged command in ccp_dequeue_cmd() itself: the slot
+freed by the dequeue is transferred to the backlog head under the
+same cmd_lock, so the space is reserved atomically, and the command
+is put on the normal queue only after its advancement callback
+(-EINPROGRESS) has run from the queue kthread, which provides process
+context and keeps the backlog completion ahead of execution. The work
+struct is no longer needed and the unused member is removed from
+ccp_cmd.
+
+Mark the device halting before stopping its queues and suppress the
+promotion wake under cmd_lock once teardown starts, so it cannot wake
+a queue kthread that teardown has already stopped.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 63b945091a07 ("crypto: ccp - CCP device driver and interface support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+
+Link to v1: https://lore.kernel.org/linux-crypto/20260907060415.575656-1-fanwu01@zju.edu.cn/
+
+- transfer the slot freed by the dequeue to the backlogged command
+  under cmd_lock, as suggested by Herbert Xu, and drop the work
+  struct and the per-device workqueue of v1.
+- mark the device halting before stopping its queues and suppress
+  the promotion wake under cmd_lock once teardown starts.
+ drivers/crypto/ccp/ccp-dev-v3.c |  3 ++
+ drivers/crypto/ccp/ccp-dev-v5.c |  3 ++
+ drivers/crypto/ccp/ccp-dev.c    | 88 +++++++++++++++++++--------------
+ drivers/crypto/ccp/ccp-dev.h    |  3 ++
+ include/linux/ccp.h             |  5 +-
+ 5 files changed, 62 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/crypto/ccp/ccp-dev-v3.c b/drivers/crypto/ccp/ccp-dev-v3.c
+index d92de4ad31..c5ab8beb16 100644
+--- a/drivers/crypto/ccp/ccp-dev-v3.c
++++ b/drivers/crypto/ccp/ccp-dev-v3.c
+@@ -501,6 +501,8 @@ static int ccp_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
+ 
+ e_kthread:
++	ccp_halt_cmds(ccp);
++
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+@@ -542,6 +544,7 @@ static void ccp_destroy(struct ccp_device *ccp)
+ 	iowrite32(ccp->qim, ccp->io_regs + IRQ_STATUS_REG);
+ 
+ 	/* Stop the queue kthreads */
++	ccp_halt_cmds(ccp);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
+index dacde9614e..3b09befa45 100644
+--- a/drivers/crypto/ccp/ccp-dev-v5.c
++++ b/drivers/crypto/ccp/ccp-dev-v5.c
+@@ -989,6 +989,8 @@ static int ccp5_init(struct ccp_device *ccp)
+ 	ccp_unregister_rng(ccp);
+ 
+ e_kthread:
++	ccp_halt_cmds(ccp);
++
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+@@ -1043,6 +1045,7 @@ static void ccp5_destroy(struct ccp_device *ccp)
+ 	}
+ 
+ 	/* Stop the queue kthreads */
++	ccp_halt_cmds(ccp);
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+ 		if (ccp->cmd_q[i].kthread)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
+diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
+index aff3348b83..12c210acac 100644
+--- a/drivers/crypto/ccp/ccp-dev.c
++++ b/drivers/crypto/ccp/ccp-dev.c
+@@ -177,6 +177,15 @@ void ccp_del_device(struct ccp_device *ccp)
+ 	write_unlock_irqrestore(&ccp_unit_lock, flags);
+ }
+ 
++/* Prevent promotion from waking an idle queue during teardown. */
++void ccp_halt_cmds(struct ccp_device *ccp)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ccp->cmd_lock, flags);
++	ccp->halting = true;
++	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
++}
+ 
+ 
+ int ccp_register_rng(struct ccp_device *ccp)
+@@ -342,41 +351,13 @@ int ccp_enqueue_cmd(struct ccp_cmd *cmd)
+ }
+ EXPORT_SYMBOL_GPL(ccp_enqueue_cmd);
+ 
+-static void ccp_do_cmd_backlog(struct work_struct *work)
+-{
+-	struct ccp_cmd *cmd = container_of(work, struct ccp_cmd, work);
+-	struct ccp_device *ccp = cmd->ccp;
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	cmd->callback(cmd->data, -EINPROGRESS);
+-
+-	spin_lock_irqsave(&ccp->cmd_lock, flags);
+-
+-	ccp->cmd_count++;
+-	list_add_tail(&cmd->entry, &ccp->cmd);
+-
+-	/* Find an idle queue */
+-	for (i = 0; i < ccp->cmd_q_count; i++) {
+-		if (ccp->cmd_q[i].active)
+-			continue;
+-
+-		break;
+-	}
+-
+-	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+-
+-	/* If we found an idle queue, wake it up */
+-	if (i < ccp->cmd_q_count)
+-		wake_up_process(ccp->cmd_q[i].kthread);
+-}
+-
+ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+ {
+ 	struct ccp_device *ccp = cmd_q->ccp;
+ 	struct ccp_cmd *cmd = NULL;
+ 	struct ccp_cmd *backlog = NULL;
+ 	unsigned long flags;
++	unsigned int i = ccp->cmd_q_count;
+ 
+ 	spin_lock_irqsave(&ccp->cmd_lock, flags);
+ 
+@@ -391,26 +372,61 @@ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
+ 		return NULL;
+ 	}
+ 
+-	if (ccp->cmd_count) {
++	if (!list_empty(&ccp->cmd)) {
+ 		cmd_q->active = 1;
+ 
+ 		cmd = list_first_entry(&ccp->cmd, struct ccp_cmd, entry);
+ 		list_del(&cmd->entry);
+ 
+-		ccp->cmd_count--;
+-	}
+-
+-	if (!list_empty(&ccp->backlog)) {
++		if (!list_empty(&ccp->backlog)) {
++			/* Transfer the freed slot to the backlogged
++			 * command, so that concurrent submissions cannot
++			 * claim the space meant for it.
++			 */
++			backlog = list_first_entry(&ccp->backlog,
++						   struct ccp_cmd, entry);
++			list_del(&backlog->entry);
++		} else {
++			ccp->cmd_count--;
++		}
++	} else if (!list_empty(&ccp->backlog)) {
++		/* No command is available for execution, but a backlogged
++		 * command is stranded: reserve a slot for it.
++		 */
+ 		backlog = list_first_entry(&ccp->backlog, struct ccp_cmd,
+ 					   entry);
+ 		list_del(&backlog->entry);
++
++		ccp->cmd_count++;
+ 	}
+ 
+ 	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+ 
+ 	if (backlog) {
+-		INIT_WORK(&backlog->work, ccp_do_cmd_backlog);
+-		schedule_work(&backlog->work);
++		/* Notify the advancement out of the backlog before the
++		 * command is made available for execution; the queue
++		 * kthread provides process context, so no work struct
++		 * is needed.
++		 */
++		backlog->callback(backlog->data, -EINPROGRESS);
++
++		spin_lock_irqsave(&ccp->cmd_lock, flags);
++
++		list_add_tail(&backlog->entry, &ccp->cmd);
++
++		/* Find an idle queue */
++		for (i = 0; i < ccp->cmd_q_count; i++) {
++			if (ccp->cmd_q[i].active)
++				continue;
++
++			break;
++		}
++
++		/* Do not wake an idle queue after teardown has started. */
++		if (!ccp->halting && i < ccp->cmd_q_count)
++			wake_up_process(ccp->cmd_q[i].kthread);
++
++		spin_unlock_irqrestore(&ccp->cmd_lock, flags);
+ 	}
+ 
+ 	return cmd;
+diff --git a/drivers/crypto/ccp/ccp-dev.h b/drivers/crypto/ccp/ccp-dev.h
+index 83350e2d98..ead87c138b 100644
+--- a/drivers/crypto/ccp/ccp-dev.h
++++ b/drivers/crypto/ccp/ccp-dev.h
+@@ -374,6 +374,8 @@ struct ccp_device {
+ 	struct list_head cmd;
+ 	struct list_head backlog;
+ 
++	bool halting;
++
+ 	/* The command queues. These represent the queues available on the
+ 	 * CCP that are available for processing cmds
+ 	 */
+@@ -630,6 +632,7 @@ struct ccp5_desc {
+ 
+ void ccp_add_device(struct ccp_device *ccp);
+ void ccp_del_device(struct ccp_device *ccp);
++void ccp_halt_cmds(struct ccp_device *ccp);
+ 
+ extern void ccp_log_error(struct ccp_device *, unsigned int);
+ 
+diff --git a/include/linux/ccp.h b/include/linux/ccp.h
+index e6c599243f..0386813361 100644
+--- a/include/linux/ccp.h
++++ b/include/linux/ccp.h
+@@ -12,7 +12,6 @@
+ #define __CCP_H__
+ 
+ #include <linux/scatterlist.h>
+-#include <linux/workqueue.h>
+ #include <linux/list.h>
+ #include <crypto/aes.h>
+ #include <crypto/sha1.h>
+@@ -637,7 +636,6 @@ enum ccp_engine {
+ /**
+  * struct ccp_cmd - CCP operation request
+  * @entry: list element (ccp driver use only)
+- * @work: work element used for callbacks (ccp driver use only)
+  * @ccp: CCP device to be run on
+  * @ret: operation return code (ccp driver use only)
+  * @flags: cmd processing flags
+@@ -653,11 +651,10 @@ enum ccp_engine {
+  *     operation.
+  */
+ struct ccp_cmd {
+-	/* The list_head, work_struct, ccp and ret variables are for use
++	/* The list_head, ccp and ret variables are for use
+ 	 * by the CCP driver only.
+ 	 */
+ 	struct list_head entry;
+-	struct work_struct work;
+ 	struct ccp_device *ccp;
+ 	int ret;
+ 
+
