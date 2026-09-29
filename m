@@ -1,69 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38503560ABF;
-	Tue, 29 Sep 2026 18:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A05560ABC;
+	Tue, 29 Sep 2026 18:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707886; cv=none; b=dBML6C43L0txa8+W13kTaK1VIY+sme90aHj/9+r5F23m6QxpJb5/GW7SPEzY9/DBfvfxrMSIbWTt5tM8c5B/8JdVW4521dP5ewMNgk5hn7swZvTNc+mmqpwShkYNyl1HGyeiFVaSz73U2a4bA0fskZVCVEfPn+NIE8ohK5w0jYI=
+	t=1790707888; cv=none; b=pQbXfjdN+SDr05IS9k7M9EludPSHKk8gyd0m302PydOCp5SY9t/3b4RGKiwOWJqdlZxdp8BTld7mRIt4104nX0mWeDoZbBoWMfZ3n7EvyuokYVxdC9iV403Aa1kjHjOYqFKuCLMh0Ntx7GBKFETqnFoEIcFwPmIBKjjsvV4KSzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707886; c=relaxed/simple;
-	bh=KfOONODzubOp30pOy4G53qHOs4mmHK4Sq86eVxoTouA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r7zpgy8o/K0PmguUCL2a+dFnv2AO8Uz6cts+4YnhGGiWcoIGwZoVQBtcRRWDRderjzQilqVICgXK0Kw70EMf0i9BbV2653/cg9KX2ETJO//VSz4LkAv9T1ivrKU3izOp1Lp/f7u53XFhobPyV6LOrvwLHGfYLO47Q0bakw6dlfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuHvziog; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790707888; c=relaxed/simple;
+	bh=VsRpLKKg8AuLklLizckVFXMKQubrVkPG/ZgxEupnPNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O8GZLcNyWmOovnCJK9W7lRwH6sAiyqES4VOMbK7vUXzy1jLJ4x8I9SiI1IZwVznf5d5wtP6cfhE6vJOeUxq5XLIG+aXBXrerxscA2Kd9l1ohH38Ko0F40RM/nyQrPR+P9mA07sHARdEg+cWluQV6QpGaohxHe9yCSreAPQHvWDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeCb5904; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuHvziog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F361F00893;
-	Tue, 29 Sep 2026 18:51:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeCb5904"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4811F000FF;
+	Tue, 29 Sep 2026 18:51:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707884;
-	bh=msHud40OIqSpq3f9V3YZxbeDa6wD/0SM5+Ku3Otx2Tg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UuHvziogyqqoB6sgRjWKmHRCY1ChY4ksOWiyPrINoQti0aErTuaUxVVS3UTwG1F2P
-	 RVzDVUSyxibpT07QGGrXXtss4Silcc1mp9BMPDYiDXaEcp2K92/wrFl0TE5eF9jiln
-	 Zz+7iFjzrlQtM4OAP9fP5StTCM+vGYju23G8UmKv3Cs7cNjX96iORCi7ssIvsJe6NZ
-	 x54zK6+65yz3zz5rbtn5w7iBcAXeAsJgG0VEE2F0MrvgOe8IXDZHdE6XJx0fWr9ryz
-	 cxKz6QPitnCK4eghbtB+3bzQAPxnnSvFbsBfqh8pUJZhHB3KsI5d3JN14sef3lgzPd
-	 r0B/JSwpcBshg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Simona Vetter <simona@ffwll.ch>,
-	jason-jh.lin@mediatek.com
-Subject: Re: [PATCH 6.6.y] drm/mediatek: Fix potential NULL dereference in mtk_crtc_destroy()
-Date: Tue, 29 Sep 2026 14:50:56 -0400
-Message-ID: <2026-09-29-daily-reply-0013-re-mediatek-crtc-destroy-null-6-6@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929031902.88182-1-artem@trailofbits.com>
-References: <20260929031902.88182-1-artem@trailofbits.com>
+	s=k20260515; t=1790707885;
+	bh=/WMI8lfF/OSrttALYjpfUBi10UnOZ9MwedFyUxvaAbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeCb5904S2ffg/WWZNEkHiFLiIst0KEkW7s7e/DKqtHosRZFbvSUM528WQUBfCrER
+	 /gIWP17U+z4/iDSTPjMDbhbRLzFydlWXFVQiwhn5mqjRYZ9aQMbpe5bsKFMbCy6GwT
+	 hwOnNd8mP9cQLkDS1lAn8hZVxnhCvd+gZi0C2G/vxbe/iD34iNOihiS/+03dSntIpk
+	 v5QFsCi2cEyLW3vfm3zsM/zS247R4LMtHB78ox9HfqkRNUr3J5HjR8ZsMJainxKnjT
+	 fs47ndSB3X8JQ49wOvTbYf1YdnxDKQ0zAoqx1R4db0bA6UiZx4H1HSbhBK5UoDgxg/
+	 /gVJJMuFXzbFw==
+Date: Tue, 29 Sep 2026 19:51:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Luna Jernberg <droidbittin@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Janne Grunau <j@jannau.net>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>, Jens Axboe <axboe@kernel.dk>,
+	linux-nvme@lists.infradead.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 2/7] dt-bindings: mailbox: Add Apple M3 compatibles
+Message-ID: <20260929-wrongful-shirt-2920bcdab205@spud>
+References: <20260925-apple-m3-nvme-v1-0-5e832e2f4aa9@jannau.net>
+ <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
+ <20260929-debonair-busy-hamster-be2fda@quoll>
+ <CADo9pHg2JyGyOA=_6orXdhDwj7NaKRBciyQMG2w7fQcPm0MNwg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="94Nbq7tBACJ51b1N"
+Content-Disposition: inline
+In-Reply-To: <CADo9pHg2JyGyOA=_6orXdhDwj7NaKRBciyQMG2w7fQcPm0MNwg@mail.gmail.com>
 
-> This one addresses CVE-2024-53056. It skips command-packet destruction when
-> channel setup failed before packet creation.
+--94Nbq7tBACJ51b1N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Queued for 6.6, thanks.
+On Tue, Sep 29, 2026 at 03:22:09PM +0200, Luna Jernberg wrote:
+> https://youtu.be/TPwe53kCJuM
 
--- 
-Thanks,
-Sasha
+Why are you linking this here? Is there something relevant to this
+series in that stream?
+
+Confused,
+Conor.
+
+>=20
+> Den tis 29 sep. 2026 kl 10:21 skrev Krzysztof Kozlowski <krzk@kernel.org>:
+> >
+> > On Fri, Sep 25, 2026 at 10:22:49AM +0200, Janne Grunau wrote:
+> > > The ASC mailbox on Apple M3, M3 Pro and M3 Max/Ultra is compatible to
+> > > the mailbox on M1 ("apple,asc-mailbox-v4"). Add their per-SoC
+> > > compatibles "apple,t8122-asc-mailbox", "apple,t6030-asc-mailbox" and
+> > > "apple,t6031-asc-mailbox" to its dt-bindings.
+> > >
+> > > Signed-off-by: Janne Grunau <j@jannau.net>
+> > > ---
+> > >  Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> >
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >
+> > Best regards,
+> > Krzysztof
+> >
+> >
+
+--94Nbq7tBACJ51b1N
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwIpgAKCRB4tDGHoIJi
+0mYQAP9UIJeKqv9AhxyIQM+FA4DJ02DszB2mvYOx9cyyt0PHiwD/TTKncTdmGbHf
+cbaZwKF3EvrrClbOBuC2WjwU1nMvGwE=
+=hd1e
+-----END PGP SIGNATURE-----
+
+--94Nbq7tBACJ51b1N--
