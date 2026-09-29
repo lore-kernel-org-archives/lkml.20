@@ -1,167 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0770537AA9C;
-	Tue, 29 Sep 2026 20:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCBB3AAF73
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790715371; cv=none; b=rS+FivgxjgPYkgLKz5hgRIx9J+6eXM/i7AC/KG7Ogs1AifpED9mOBbmpELd8vXNGSYX1pO1MJSSG04eWA2E73BgM/JwYfylPvY6VAW3pVNWTcnBzbUMSDcWMZbiRBm3ZSALrOF+rItPl8BsKFpGqx6Zl+H5WQ3pxxMNtX9mcQCs=
+	t=1790715378; cv=none; b=CVKQ2HA72ly278hbjz7i5ec13GL/VcZ1H4bHsf+TY+BFtiyX3jgNNM9kf/EkV/Edup+Q86zIboiVyvw+oDs2jrNdtPDXMbXiY+Za6IS3fEGuRZcwDkpJBrtE4bW4Dy9a41U8A9+aRVk989q8jDNJVikffHuwlU0kyobigYNWSF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790715371; c=relaxed/simple;
-	bh=Y6tLZ+MWmEK3aPAI7iP6Dz2kbWCHr5Co6SSMUqBltJw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dZUyz8jCQ6XUAm1v73HIeYY5f+Q6AIQlI2f8I2Esv0a7OHoQViMMHTFbrDDIdSraZjjAsiqTKdLIsrRhaalrQgbcmT7Ee2jyMBLtRpL20fuPa9fgHMZUZaUASf7dZ3wcj9TKA5r58R7gEEwC0pDEmKfrGaC7TtwWxvx5QuArDzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qs6W0L7O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790715378; c=relaxed/simple;
+	bh=QScy1wMKA15ZLyur8tVN/4Ox/n6+YgNwNDurfdACk04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FXLvF0Kd94kZkanJjypcCRSbOL6QLNPmKsHKLxvvsY5iy+M0kuIVhwxF6tvWkcKDvcTx3yId/zvDzfoz1yFwjzxNUH93q6F1opQoijAJbd7xAvX7d5/gqQoG5o0mrVb2oziGMZqQ0oCHR8zLiBaHs1+ot0bTlgY0CtQDFf3AOpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=BP3Vm6oB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=keiui9M0; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=d6BGZLOC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CZsmPwU+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qs6W0L7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A3F1F000FF;
-	Tue, 29 Sep 2026 20:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790715369;
-	bh=egeJiaAABQ6NN/KxfVE7y0aHVwqQk0f06ablB231vIU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Qs6W0L7ODxRwl5KzB9FwrQyINYr7k7hSASbeNZeaNn4oxg0yzRCDjlG9vXh0oElPm
-	 TU+mCK4lsMfk+TfBefehlWEG6IgNuMEYzooCzfFfArRmnb0mp/TkIvngqEhE6tgHfX
-	 Zf7cS1AMMJXpwlhr1h7CKunFIKV59ZYgzgvZ5I0Hdh41+VDUQaH+bInjD+zUBpVoUZ
-	 TNsXvzryzPY7A0CuvQtvp15dtF39kDHIXqqocxOGE1TRC8UGj/FcOVaPwKqL1RCuBF
-	 jLkCysPHFFC4NYiVswiXu98R5V8B0zFrU2CYDYcMlpvzEsqHrVZv1Z6bH0ncQZW2CC
-	 toY5jIwNFu/yA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>, Anna-Maria Behnsen
- <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross
- <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>,
- Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, John
- Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andreas
- Hindborg <a.hindborg@kernel.org>
-Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
-In-Reply-To: <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
-References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
-Date: Tue, 29 Sep 2026 22:56:06 +0200
-Message-ID: <877bk3ixp5.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="BP3Vm6oB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="keiui9M0";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="d6BGZLOC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CZsmPwU+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3F4AB1F750;
+	Tue, 29 Sep 2026 20:56:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790715370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E9V0TlxcOxSRjP0wh0jiLzTU8ACS4SGk/nUZsiX67u0=;
+	b=BP3Vm6oBEdnHFn2D8fWhCq0VKt5i1IsR58yAHONFLxo93mmteJAaK6YVYXM8z/xvlrHE7c
+	YBYESVaudcECECGykgXn+H769RAZc1sg5RXWnSghCLbVp2vMDh893nLmVuEpU1d+GvG3PO
+	VYlMGWwfFHWgMRmvfsgb7Nr6Y0TeTlg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790715370;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E9V0TlxcOxSRjP0wh0jiLzTU8ACS4SGk/nUZsiX67u0=;
+	b=keiui9M0mN0WwFWOxEBuXZIQ+y80vL6mu3QXpnhwRBJAa6f31C4O2fcx5m8b5T15b7pLsM
+	q3SefP9MyTxV0nCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790715366; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E9V0TlxcOxSRjP0wh0jiLzTU8ACS4SGk/nUZsiX67u0=;
+	b=d6BGZLOCIaLfns8okPRS149pspQZjCxfJKxfUxJJjXe0cGGNnPgf+S4RKj3dEOr7mzkQvs
+	mwQcGFAoZHstW/z7EAOZmbqcjbwibRhNYGm7deOzNgIw/Ff80hs43qw1OY1rmJBkj0NvOe
+	Krsj39Xyuujou0/zTVXIK0bTEye56Bk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790715366;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E9V0TlxcOxSRjP0wh0jiLzTU8ACS4SGk/nUZsiX67u0=;
+	b=CZsmPwU+B7zdC6de7LOQLJnAAWPDhVE84l6zrEmQQFdYPjorSlhHMVVbCpfmiav6Opxjuv
+	w8GwFPGmmhLbBkCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 134C1136E4;
+	Tue, 29 Sep 2026 20:56:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7O6JNuUlvGq/ewAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 29 Sep 2026 20:56:06 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8555AA133D; Tue, 29 Sep 2026 22:56:05 +0200 (CEST)
+Date: Tue, 29 Sep 2026 22:56:05 +0200
+From: Jan Kara <jack@suse.cz>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] quota: fix shrinker scan budget accounting in
+ dqcache_shrink_scan()
+Message-ID: <eb2mbko52tynkk6fjo3guvhr7bmpjgywezrp352loxnlr3noui@azwaqesw4yt3>
+References: <20260928-fix-dquot-shrink-scan-nr-scanned-v1-1-789c661c9dd6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-fix-dquot-shrink-scan-nr-scanned-v1-1-789c661c9dd6@gmail.com>
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Tue, Aug 25 2026 at 14:16, Andreas Hindborg wrote:
-> A hrtimer callback may modify its own expiry with hrtimer_forward()
-> and read it with hrtimer_get_expires(). Both run after
-> __run_hrtimer() has dropped the cpu_base->lock, so they race with a
-> concurrent hrtimer_start_range_ns() on another CPU, which rewrites
-> node.expires under the base lock and requeues the timer:
->
-> - The unlocked read-modify-write of node.expires in
->   hrtimer_forward() is a data race against the locked write in the
->   start path.
->
-> - The is_queued check in hrtimer_forward() is racy with
->   a time-of-check-time-of-use bug as well: a concurrent
->   start can enqueue the timer between the check and the expiry
->   update, and forwarding an already queued timer changes the expiry
->   of a node inside the timerqueue without re-sorting, leaving the
->   tree unordered.
->
-> Timer users which both forward in the callback and arm from other contexts
-> must provide their own serialization, e.g. perf's cpc->hrtimer_lock plus
-> hrtimer_active flag, see commit 4cfafd3082af ("sched,perf: Fix periodic
-> timers"). The requirement is subtle and not enforced; i915_pmu and taprio
-> currently get it wrong. For the Rust hrtimer abstraction it is a soundness
-> problem: safe code can arm a timer whose callback is running, so callback
-> context forward and expiry reads cannot be offered as safe API.
->
-> Add an alternative callback variant that removes the race
-> structurally instead of requiring serialization. An expiry injecting
-> callback receives the expiry snapshotted under the base lock by
-> value and, to restart the timer, fills a struct hrtimer_forward_args
-> and returns HRTIMER_RESTART. __run_hrtimer() then applies the
-> forward and the enqueue with the base lock held. The callback never
-> accesses live timer state.
->
-> If a concurrent start enqueued the timer while the callback ran, the
-> restart request is discarded and the start wins, matching the
-> existing "restart == HRTIMER_RESTART && !timer->is_queued" handling
-> for classic callbacks. The is_queued check is reliable here: while
-> base->running == timer, hrtimer_try_to_cancel() bails out before
-> remove_hrtimer() and the timer cannot switch bases, so only a
-> concurrent start can enqueue it, and the start path writes the
-> expiry and is_queued in the same critical section. Thus !is_queued
-> at requeue time guarantees the expiry still equals the snapshot
-> handed to the callback: the deferred hrtimer_forward() cannot hit
-> its concurrent start check, and an overrun count the callback
-> derived from the snapshot is consistent with the forward that is
-> applied.
->
-> The new callback pointer shares storage with the classic one in an
-> anonymous union, discriminated by a new is_ext flag placed in
-> existing padding; sizeof(struct hrtimer) is unchanged and the
-> classic callback path is unaffected. hrtimer_update_function()
-> rejects timers with an expiry injecting callback.
+On Mon 28-09-26 20:54:40, Qiliang Yuan wrote:
+> The dquot cache shrinker's count_objects() callback,
+> dqcache_shrink_count(), reports the number of unused dquot objects
+> via the DQST_FREE_DQUOTS percpu counter (through vfs_pressure_ratio()).
+> do_shrink_slab() reads this count exactly once per invocation and
+> derives a one-shot scan budget (total_scan) from it, then repeatedly
+> calls scan_objects() in fixed-size batches until that budget is
+> exhausted.
+> 
+> dqcache_shrink_scan() never updates sc->nr_scanned, even though
+> include/linux/shrinker.h documents that "the callee should track its
+> actual progress" in that field. The function already decrements
+> sc->nr_to_scan in place as it walks free_dquots, one per dquot
+> destroyed, and its while loop exits immediately without touching
+> sc->nr_to_scan at all when free_dquots is already empty. Because
+> sc->nr_scanned defaults to sc->nr_to_scan before every call,
+> do_shrink_slab() always believes a full batch was examined regardless
+> of what actually happened, so it has no way to tell "there was
+> nothing to do this pass" from "a full batch was scanned and none of
+> it was freeable", and keeps calling scan_objects() until the
+> original, one-shot total_scan budget computed from the percpu count
+> is drained, even though free_dquots emptied out long before that
+> budget was used up.
+> 
+> Compute sc->nr_scanned from the difference between the nr_to_scan
+> value on entry and the value left behind by the reclaim loop, and
+> return SHRINK_STOP once that difference comes back as zero, since
+> that only happens when free_dquots was already empty and no further
+> calls in this reclaim pass can make progress.
+> 
+> Tested on a loop-mounted ext4 image with the quota feature enabled:
+> chown()ing several hundred files to distinct uid:gid pairs to
+> populate allocated dquots, then triggering
+> "echo 2 > /proc/sys/vm/drop_caches" to let them drop to zero
+> references and become reclaimable, while using an ad hoc kprobe pair
+> on dqcache_shrink_scan() (this shrinker has no dedicated tracepoints)
+> to record sc->nr_to_scan on entry and the return value on exit:
+> 
+>                       total scan_objects()   calls with
+>                       calls                  freed == 0
+>   before this patch     12                    5 (42%)
+>   after this patch        5                    0
+> 
+> The last call in the "after" run returns SHRINK_STOP
+> (0xffffffffffffffff) instead of a fifth zero-progress attempt.
+> 
+> This is the same missing sc->nr_scanned accounting already fixed in
+> the analogous ext4 extents_status shrinker and the jbd2 checkpoint
+> shrinker; dqcache_shrink_scan() was found by auditing every shrinker
+> in the tree whose count_objects() reads a percpu_counter (the
+> precondition for count_objects() to report a stale, still-positive
+> value after the reclaimable list has actually drained), while ruling
+> out the much larger set of shrinkers built on the exact list_lru
+> atomic counters, which cannot observe this kind of staleness.
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Aside of the horrible name (what is "ext"?) the whole mechanism is
-creating a false sense of "safety" as the same problem exists when the
-timer callback simply sets the new expiry time without invoking
-hrtimer_forward().
+Thanks. I've added the patch to my tree.
 
-Also why is Rust special and wants to delegate the external
-serialization requirement to the hrtimer core code and thereby adding a
-boatload of extra conditionals into the hotpath to distinguish between
-the two callback variants?
+								Honza
 
-Yes, you found an example for the downside of this design in the i915
-code. That's not surprising because i915 is generally known for ignoring
-documentation and making up their own rules just because they can. So
-I'm not accepting this as an argument at all.
-
-I agree with you that the lack of enforcement of that external
-serialization rule is suboptimal. External serialization is hard to
-validate/enforce in general though it's not impossible.
-
-But let's first take a step back and look at the larger picture.
-
-The obvious question is:
-
-   Why is the base lock dropped when invoking the callback?
-
-The answer is simply that the callback might and in many cases will
-acquire a lock which is used in the reverse lock order for the purpose
-of external serialization.
-
-If you think about that then it's pretty obvious that you can introduce
-a safe variant of hrtimer_forward() which can be invoked from the
-callback:
-
-hrtimer_forward_safe_from_callback(timer)
-{
-        base = lock_running_timer_base(timer);
-        if (!hrtimer_is_queued(timer))
-        	hrtimer_forward(timer);
-        unlock_timer_base(base);
-}
-
-That prevents the scenario you described in a completely safe way, no?
-
-Coming back to validation/enforcement of external serialization. That's
-a problem which has been solved in other places already. Look at the
-seqlock code for inspiration.
-
-Thanks,
-
-        tglx
-
-
+> ---
+>  fs/quota/dquot.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+> index 9850de3955d31..b55fa7d63f56d 100644
+> --- a/fs/quota/dquot.c
+> +++ b/fs/quota/dquot.c
+> @@ -809,6 +809,7 @@ static unsigned long
+>  dqcache_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>  {
+>  	struct dquot *dquot;
+> +	unsigned long orig_nr_to_scan = sc->nr_to_scan;
+>  	unsigned long freed = 0;
+>  
+>  	spin_lock(&dq_list_lock);
+> @@ -822,6 +823,21 @@ dqcache_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>  		freed++;
+>  	}
+>  	spin_unlock(&dq_list_lock);
+> +
+> +	sc->nr_scanned = orig_nr_to_scan - sc->nr_to_scan;
+> +
+> +	/*
+> +	 * DQST_FREE_DQUOTS is a percpu counter, so count_objects() can
+> +	 * report a stale/approximate value that is still positive even
+> +	 * though free_dquots is actually empty by the time we get here.
+> +	 * When that happens sc->nr_scanned comes back 0 and we have
+> +	 * nothing further to offer this reclaim pass, so tell
+> +	 * do_shrink_slab() to stop calling us instead of letting it burn
+> +	 * through its one-shot scan budget against an empty list.
+> +	 */
+> +	if (sc->nr_scanned == 0)
+> +		return SHRINK_STOP;
+> +
+>  	return freed;
+>  }
+>  
+> 
+> ---
+> base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
+> change-id: 20260928-fix-dquot-shrink-scan-nr-scanned-b11e8550287d
+> 
+> Best regards,
+> -- 
+> Qiliang Yuan <odys.yuan@gmail.com>
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
