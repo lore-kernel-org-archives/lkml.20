@@ -1,159 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E5F3D1A81;
-	Tue, 29 Sep 2026 13:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDE33D1A81
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688589; cv=none; b=KHlcft8WZ0O2YZW0ORHY79yaCksEx1gXDwEHE5qJ2e/d9lttuPO+u3KydKzV9owxzPZN660ftYmKpYNdEovNC6WAceE6ew1KTUZBeqOIiz5BhEMuJ9AELaqT/9DG4MNJLMX0WBYZkVG9lbseWcgNVyB2ExkqPA3d9BX87MuSN4A=
+	t=1790688605; cv=none; b=BiZ2ta/fiJRyltCMMoFW8DwhFfDUnukOdtACt0rukd6soaAEr3febTXitrXHo5OvfmQ/IA2XlyDzyznAONGt6xYv2g44GVQd2zpjglDzfO7mrEXMGE4UfMkX8IOqaOHXw1tlKBUCYxLuVS+mCHJW5odqi/CMyD2e6dt0TO1pUeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688589; c=relaxed/simple;
-	bh=HZgwz1Y/hFhq9nA+gMPfaBNF/fd6YuO6C1EGtIBtQ5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cCExGU8acTsC1r2WI/MKeagjJW44/38KtsFCoJW8zOPq87lzBnhsX2aFgfh9iMyw4WRTwjcBeH7kwH7qLrUigdCT9SZvJ+IiAOmE5GryeC7TBw2ti+3qHtwO20iknr7A9TkecxklhijbYchPdELQJEE+2VWtk82yIpIAHPXSPno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fK7JE+5k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790688605; c=relaxed/simple;
+	bh=Esrns9Mizxb1R4PXUVoRdmAMeDeaiJnZ91hnKDPGR0k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RYIZ9xpQHk+XOI6LabGB+UHLNTihw6e805LqYK7dS/Pn1DfPjzcZLAH7spYQHT9FNxUyU4xve1fVx3n68PzCXUAbFY/w8vMQ5snhPcWPsdn7Y759sDDSv7DZOmUG5OvoQG94eVsZpS68/OvmlypwVtCEBrhCytAX4td8sxmmZlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=II3JiM3a; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fK7JE+5k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73511F000FF;
-	Tue, 29 Sep 2026 13:29:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790688587;
-	bh=tfN6V/0jpVSKj8us4BMTgHrYZ7PEZU7VE8KWI178lvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fK7JE+5kuq0ZqZon40ZtxqT4EpnKQlLh7t1CJdAzoeIfvZejJE8bwT7vPe/MR554B
-	 bIsWpP8icPL5GBYilqRRS1vgu2VljQFBOnK8PTQ7GW8VcPFNgWqZgxjFByhk/8RyPZ
-	 PRMjk8+IOw0KSNRXGUMSWyheKevBZccQXCj6XO4jwLs6w2XgzWvXr2DOtmTINuCd7w
-	 uqPL7wrNhQgmfV6AyvdfS+wvPsDTW3rRcNcbvYagfR4RlRwXf96XixArGa70mqM8a6
-	 4ZtZui5Yhdl8U5AQfZrqI6GkGAiWJYwFLWRDPLbt6rIu462kbvxOPg9FZ5irJ7vTUK
-	 Jf832SwU2dFmg==
-Date: Tue, 29 Sep 2026 14:29:41 +0100
-From: Will Deacon <will@kernel.org>
-To: Koba Ko <kobak@nvidia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Rob Herring <robh@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Fenghua Yu <fenghuay@nvidia.com>, Tushar Dave <tdave@nvidia.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>, rupakr@nvidia.com,
-	mohammedk@nvidia.com
-Subject: Re: [RFC PATCH v2 1/3] arm64: add CPU prefetch and cache modulation
- sysfs interface
-Message-ID: <aru9Rf7BzW3-vcm0@willie-the-truck>
-References: <20260825181701.3-1-kobak@nvidia.com>
- <20260825181701.3-2-kobak@nvidia.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="II3JiM3a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790688603; x=1822224603;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Esrns9Mizxb1R4PXUVoRdmAMeDeaiJnZ91hnKDPGR0k=;
+  b=II3JiM3aWSVNaqget96oR+RJEKfdufvbgBeL9cJ4n0U61V1jO9hd8peL
+   P1ScXN5HzJXqAssrMG/f/rofksXaSSkrE6qqyaXZeaRnPxZk5M/ne+cg/
+   xCkl493qj4yX3M4kJv2n1TDlQ1v9PTDhn0yUj6d3OegxRbmQ2D8MH4tVO
+   NmeSoi5K6VZXYD9kzwbG+nX6DeA7sftnHEQ3voBcU0gOQQc3p+wPUBjsZ
+   OOozctLzFadub5LqapXKru7+a2kwA9/oizGrt1lLF22QLOun3mku8QntQ
+   eO+oulfY2GwlOYOpGfyKQ3ruFiQDPjWk198GuW1+PovvCmVX5WYZrALQZ
+   Q==;
+X-CSE-ConnectionGUID: K33HhZk6S7yCNvROdM6iYg==
+X-CSE-MsgGUID: FXMW5aXoQyGJUh3YwCgh3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91505125"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="91505125"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:30:03 -0700
+X-CSE-ConnectionGUID: YFbiuT7ESIuBpX2kw9iDIA==
+X-CSE-MsgGUID: bztn8ROhSC2BozB68U/J5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274914589"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 06:30:01 -0700
+Message-ID: <fdacae40-f4df-43af-9f8f-7c80df5d42f1@intel.com>
+Date: Tue, 29 Sep 2026 06:30:01 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825181701.3-2-kobak@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/microcode/intel: Refresh old_microcode defines
+ with the May 2026 release
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Sohil Mehta <sohil.mehta@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ Nikolay Borisov <nik.borisov@suse.com>, Tony Luck <tony.luck@intel.com>,
+ linux-kernel@vger.kernel.org
+References: <20260928222607.3593973-1-sohil.mehta@intel.com>
+ <9c7c9b2b-2d1f-4b51-a411-e0869766e3ab@citrix.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <9c7c9b2b-2d1f-4b51-a411-e0869766e3ab@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 02:16:59AM +0800, Koba Ko wrote:
-> Performance characterization on arm64 systems sometimes needs a way to
-> inspect and bracket selected implementation-defined prefetch and cache
-> controls without exposing raw register contents. Add an RFC-only arm64
-> cpumod interface that presents a small set of named, range-checked
-> per-CPU sysfs attributes under each CPU device.
-> 
-> Establish the Kconfig and Makefile plumbing, CPU profile detection for
-> Grace and Vera from the target CPU's MIDR, register-field descriptors,
-> per-CPU kobject and attribute helpers, locking, and target-CPU read/write
-> callbacks. Common attributes are exposed for all supported profiles,
-> while Grace- and Vera-specific fields are exposed only for the matching
-> profile. Place the option at the end of the top-level Kernel Features
-> menu because these implementation controls are not tied to an Arm
-> architecture revision.
-> 
-> Per-CPU cpumod sysfs state follows the CPU lifecycle. Module
-> initialization populates subtrees for every online CPU while holding
-> cpus_read_lock(), so initial enumeration and CPU hotplug state
-> registration are serialized against concurrent topology changes. Offline
-> CPUs are intentionally skipped during initial setup because target-CPU
-> MIDR detection requires an IPI-capable online CPU; a later online callback
-> creates their subtree.
-> 
-> Profile detection reads MIDR through a synchronous callback on the CPU
-> owning the sysfs subtree and returns nonzero only when that dispatch
-> fails, so no IPI error can be hidden. After a successful read, retain
-> CPUMOD_PROFILE_UNKNOWN as the unsupported-profile sentinel. Subtree
-> creation skips that profile during both initial online enumeration and
-> later CPUHP online callbacks without blocking module load or CPU hotplug.
-> Object and sysfs setup failures remain fatal and are propagated.
-> 
-> Keep the dynamically allocated kobject state in a private per-CPU pointer
-> instead of the CPU device's generic driver-data slot. The online callback
-> is idempotent when that pointer already records a subtree. The offline
-> callback clears the private pointer before dropping the kobject reference,
-> allowing the release callback to retain ownership of the final free.
-> 
-> Register-backed controls are root-only read/write files. Reads
-> synchronously execute on the target CPU and return the live register field
-> value from that callback. Writes remain range-checked and continue to log
-> the target-CPU readback after the register update.
-> 
-> Register the dynamic CPUHP state with
-> cpuhp_setup_state_nocalls_cpuslocked(). The nocalls form avoids replaying
-> startup callbacks for CPUs already initialized by the explicit online
-> enumeration. On init failure, release the CPU read lock, destroy all
-> subtrees created so far, and return the error. Module exit removes the
-> CPUHP state with the matching nocalls helper and tears down all remaining
-> per-CPU state across possible CPUs.
-> 
-> Reviewed-by: Fenghua Yu <fenghuay@nvidia.com>
-> Reviewed-by: Tushar Dave <tdave@nvidia.com>
-> Reviewed-by: Kai-Heng Feng <kaihengf@nvidia.com>
-> Signed-off-by: Koba Ko <kobak@nvidia.com>
-> ---
->  arch/arm64/Kconfig                      |  17 +
->  arch/arm64/kernel/Makefile              |   1 +
->  arch/arm64/kernel/arm_cpumod.c          | 458 ++++++++++++++++++++++++
->  arch/arm64/kernel/arm_cpumod_internal.h |  93 +++++
->  4 files changed, 569 insertions(+)
->  create mode 100644 arch/arm64/kernel/arm_cpumod.c
->  create mode 100644 arch/arm64/kernel/arm_cpumod_internal.h
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b3afe0688919b..5e4ada4884b89 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -2417,6 +2417,23 @@ config ARM64_CONTPTE
->  	  bit, for any mappings that meet the size and alignment requirements.
->  	  This reduces TLB pressure and improves performance.
->  
-> +config ARM64_CPUMOD
-> +	tristate "Arm CPU prefetch modulation sysfs controls"
-> +	help
-> +	  Expose selected CPU implementation control register fields through
-> +	  per-CPU sysfs attributes for performance characterization.
-> +
-> +	  The exposed controls allow hardware prefetch and cache-management
-> +	  policy fields to be inspected and adjusted on CPUs where firmware
-> +	  permits EL1 access to the relevant implementation control registers.
-> +	  Systems where firmware traps or blocks these writes cannot use this
-> +	  interface.
-> +
-> +	  This interface is intended for controlled performance evaluation and
-> +	  should not be enabled by default on production systems.
-> +
-> +	  If unsure, say N.
+On 9/29/26 06:08, Andrew Cooper wrote:
+> This a known-buggy SRF ucode.  The only reason there wasn't an explicit
+> retraction of it was because a newer IPU had already been published,
+> with 0x030003b2 being believed to be good again.
 
-We don't tend to support these sort of implementation-defined features
-as:
+That's good to know, thanks.
 
-   - They're generally not something we can virtualise
-   - The registers should not be accessible to the kernel in production
-   - It's not clear what other bits are exposed in the registers
-   - These sort of controls can't always be toggled while the memory system
-     is active
-   - We can't test them or maintain the zoo of interfaces we'd end up with
-     if we started merging them
+But, for now, we've chosen to trail the ucode repo. On some level, the
+kernel is always going to be "wrong" to some degree. In this case, the
+cost of being "wrong" is that we're giving an answer to the old/new
+question that's from May and not August or September.
 
-So exposing the registers directly to userspace doesn't feel like a
-particularly good idea to me.
-
-Will
+The only real way to fix this is to be more aggressive about how far we
+trail the official repo. Is this SRF issue a strong enough reason to
+change that temporarily or permanently?
