@@ -1,157 +1,193 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1BB50B8CE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B615514747;
+	Tue, 29 Sep 2026 10:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678386; cv=none; b=pMiefcaaPsREGLPV5O3cPw7MW9dCtPjkT7tlpCvFNVz8KWPrv+CluyHnLR9vi7Kh6psy+qZzsN6+TK7RjHlF+IkwFLlP7pExR7V01otAoER0DtS9SpqGd0O0SxyItEx2Emfxl7WI5X8O9ZDkeKvDaPWCd/UcS7JpkGg7k6yEZXs=
+	t=1790678390; cv=none; b=VePGrXCoz+8DR/xorU/5akx+v6hGGejiEl0qTYMYSMYDgMoqTZqT3FbwdECLWlmJY3QMbkxjeN+A1Y7MRiImkPyavDzSPylMGQhFoMV4olIbHNIglCXkUGrgYGbrk7ePoQJY3EXUHK+KwpR2MUX9k8zb70yijDTOe96Wt0azQRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678386; c=relaxed/simple;
-	bh=Tx2eneziBlRsOioQABFzsl3/17KPc9PBgbL3eWDryv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cDJFpDl5m3F0g5Np136ROG0ewe2XhcGowiruwpczPDG4WYMCMyt42UT3vsIyx0l76fSYCyPRVfXQT4Tt2s8hBhqGYBojOBEqKr7J/tgUkOkvmZxYi0/EwbJQMj7zjGH+vQH2Y6cjwOY94RUTVF6mBseUYWfaYv6ke7afBkdwCVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=ikTYAN5N; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1790678390; c=relaxed/simple;
+	bh=6j2piQDUFgmBlu5XXZWQNNaTqk1oY46t5o3CJ2xDkg8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=GTqF3J5xuwbPjAblVQzluPjPS+zztW9urj4YtSu62QLaeBIlHdftZBS5Kvvi1zlt/HSNqZp4PqIygCFy1zffce8rcD7Xl+SqFARAbBoMul4ANB5bByLrBuHYQjG21RCtdBlIBGWwrSnbdFUClJh7tXUB716v0SvRtNWLcAT/sqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y8iHsgOz; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="ikTYAN5N"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afe9fa8e0so423117566b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1790678371; x=1791283171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pGSUCO2UQgWCXkEUCNYzi3LamPNV9IRan0Jxir3/waY=;
-        b=ikTYAN5N9jrl6D5EjPKZIDkeOftxlzPRp87nKO4bTDOAFtSZCaIScspliNvDii1Ys4
-         lHcboVWpcDfYUbBqGKqP6uARrkd5sKiovAWW+4xCF7xdgRiVEK0MkHrdJt3ANS2DyxTT
-         MlbUxKLScoodXOJUBxuc2rZIaWGlkyfZd9m0TlhlzkDko1taU25WpUXBS17j+75JUmie
-         yOh3P8ooin1SwULLeyYzccVAPLxu9/wN4rO+EdSEzEbESQGAbBfDO46O7sMDGpeQHzDI
-         FuShlPAJ0tGG9ijXuqO6r6Kp1tZFSCGjPW17hAavBW42SxzLCSW6ZhgR6OaQYEOS2WQZ
-         m8Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790678371; x=1791283171;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pGSUCO2UQgWCXkEUCNYzi3LamPNV9IRan0Jxir3/waY=;
-        b=0xJaQMq5cOxdJCQW599ULHeDLgSzdueJgwvkD9QwkCVAmlMPnQTaYX2tkPXHJFgVO7
-         lEPFreYGDo0unZcHjLVUCoBM7RxratL3SnQqcXm0If6kXcVvVtyEhJrglA+7QfXfvMxL
-         mJMzy45/BELaeSwEG6KUJv9vt0r8d9CuMiRLEgfwf0e9mPKOEl1otnmkK/iiL2esdg3j
-         OpRpzlTh/eWRkUstZM3LrCdNo5N9HvoW+6vFbBajnX67TUzLpszMAb3mesnZiFSu1r4N
-         wc9Pw7qaHsQ62aIM4lhRqPZ3dLALf3ZPRGOQG92CcHqfOqfZDWwktzuqm3Lc0xxpLkW/
-         q68A==
-X-Forwarded-Encrypted: i=1; AKwUvByrKmlFWt2jt+QsMIfbwWZe/kebaqEtjgb9/oez0MJt8j5egDYM0CFELi6BTMYJO2JOYXbYEFZoQqxTW+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzugHIzigZ1hp4f5KsNLg0hC+kezPnLIirn1a/Z8hnKjVKGIlS
-	Kcc1OQJi8tRxjvk7bjBcduF+RlGSAr23XgGE/wO3uoEIkynIuBNStmz/4nbWnWtTDoU=
-X-Gm-Gg: AYBFou2giatmpLPIM5LvdtDQuToxxJ5e37ZaFioM4yanzb/33EGZ7nsMkju+LMfd4vC
-	vO0bCf5oBGyK5i6/mzKeJbdDMv92j47t9d1VuDLeHvVNNBQ/H9qb852Rs2brfn2quMPSyzZLLnp
-	ysWfGaIvnpKr+nf4/DZRSiCryf6OTCqb6oIO9e3hDst8epR+HsGp2G7tcPQuaeqom8A495XB9Jc
-	Yw1DOeTRLOdoZsaeCkqB360oggmXaz3lW8y7prG5Q0smjlFrCpb4z5PW/6qzasy7lLj91U4vOXB
-	zTUnO37aC5kP8KBq8gLiutQ8eXakgVz5N9cnvZ2q0Zvn8kw3f/bi77njXxvRkSe44E4eAFKeYGT
-	d7EVwnN8AB0HT5tjGwv+cfUcuLbiorxDEAFj6tNbHQpVa/klvbzhLr6/dqeue3RWnmkwuTKvsvM
-	Y+bC6DP9WKTRgZuzbps1PdcCXiVSSeylr7NnFwH7hg4g8r0qs+VVg9HZnbOMRg6xicg+Fd5xqs8
-	yPSiQ==
-X-Received: by 2002:a17:907:94cc:b0:c2a:f518:1890 with SMTP id a640c23a62f3a-c2af51835cbmr962042366b.41.1790678370068;
-        Tue, 29 Sep 2026 03:39:30 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.97])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae780d2ecsm622387966b.56.2026.09.29.03.39.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 03:39:28 -0700 (PDT)
-Message-ID: <279864b5-9910-4dcb-894e-298d7ebb0fab@tuxon.dev>
-Date: Tue, 29 Sep 2026 13:39:27 +0300
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y8iHsgOz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7DCCB1A1058;
+	Tue, 29 Sep 2026 10:39:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4323360749;
+	Tue, 29 Sep 2026 10:39:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 229EF103295E3;
+	Tue, 29 Sep 2026 12:39:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790678366; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lGp4cm2Ao4TU3TW+1e8kXshs8WwzfjIeavwApsw+nKM=;
+	b=y8iHsgOzqp61uI69hlHbnIn/SOZzJaK4I0ClIaNgnr4hF/z9198ioBh7DYqGI9U233L00z
+	ityL4ZmohA70XfIBALxxdj3B2rfdgFw5h6ES+FCV6paHkLemgBSI3x91FGgUVtPSjFQeyn
+	awOVxDv33Tk02Wpn0gJXsrG4zjWvZ7vOfP46TV0dXrZnS92da4hCDQV0ADHB2rxTk1oJIO
+	B4eczD1RtoTAsKosdL9QrrjZjQxNEXqbYrMDSlOK9ko8dO0foldA0AsPlk8HEUKI0bRVI2
+	bgZI7tvR2MpxS2FJuF8WpqbEdShvEiv9PnLK6GykO6Xvl+Ylz08gtDyawQ3+kw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] thermal: rzg3e: Propagate reset assertion failure
- from suspend
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>,
- John Madieu <john.madieu.xa@bp.renesas.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260828092123.9707-1-pengpeng@iscas.ac.cn>
- <e2c60ddc-b28f-4e49-9d52-590f14f374b5@oss.qualcomm.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <e2c60ddc-b28f-4e49-9d52-590f14f374b5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 12:39:09 +0200
+Message-Id: <DLRQHX9JC9YJ.1HR59B2KFZ90L@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Arnd Bergmann"
+ <arnd@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
+Cc: "Arnd Bergmann" <arnd@arndb.de>, "Sasha Finkelstein" <k@chaosmail.tech>,
+ "Janne Grunau" <j@jannau.net>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Manikandan Muralidharan"
+ <manikandan.m@microchip.com>, "Dharma Balasubiramani"
+ <dharma.b@microchip.com>, "Nicolas Ferre" <nicolas.ferre@microchip.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
+ <claudiu.beznea@tuxon.dev>, "Jagan Teki" <jagan@amarulasolutions.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Liu Ying"
+ <victor.liu@nxp.com>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
+ <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Douglas
+ Anderson" <dianders@chromium.org>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
+ "Matthias Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Orson Zhai" <orsonzhai@gmail.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Chunyan Zhang" <zhang.lyra@gmail.com>,
+ "Jyri Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Icenowy Zheng"
+ <zhengxingda@iscas.ac.cn>, <dri-devel@lists.freedesktop.org>,
+ <asahi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
+ <linux-mediatek@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
+References: <20260928161605.2271412-1-arnd@kernel.org>
+ <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
+In-Reply-To: <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hello,
 
-On 9/28/26 19:36, Daniel Lezcano wrote:
-> On 8/28/26 11:21, Pengpeng Hou wrote:
->> rzg3e_thermal_suspend() powers off an active sensor and then ignores
->> failure to assert its reset.  System sleep can therefore continue
->> without the clean reset state expected by resume.
+On Tue Sep 29, 2026 at 9:27 AM CEST, Luca Ceresoli wrote:
+> Hello Arnd,
+>
+> On Mon Sep 28, 2026 at 6:04 PM CEST, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
 >>
->> Return the reset error and, when the sensor had been active, try to
->> restore power before failing suspend.  This remains an RFC because a
->> reset assertion failure can represent partial hardware state and the
->> preferred recovery policy needs platform confirmation.
+>> The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
+>> not all callers include this, which leads to build failures in
+>> some configurations:
 >>
->> The issue was identified via static analysis and manually reviewed.
+>> drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
+>> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declaration =
+of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+>>   404 |         bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, =
+0);
+>>       |                  ^~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
+>> drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declarat=
+ion of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+>>   306 |         next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->d=
+ev->of_node,
+>>       |                ^~~~~~~~~~~~~~~~~~~~~~
 >>
->> Assisted-by: LLM
->> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
->> ---
->>   drivers/thermal/renesas/rzg3e_thermal.c | 10 +++++++---
->>   1 file changed, 7 insertions(+), 3 deletions(-)
+>> Include the new header in all files that need it.
 >>
->> diff --git a/drivers/thermal/renesas/rzg3e_thermal.c b/drivers/thermal/ 
->> renesas/rzg3e_thermal.c
->> index c44f5b8858d0..7686a45341b3 100644
->> --- a/drivers/thermal/renesas/rzg3e_thermal.c
->> +++ b/drivers/thermal/renesas/rzg3e_thermal.c
->> @@ -499,15 +499,19 @@ static int rzg3e_thermal_runtime_resume(struct device *dev)
->>   static int rzg3e_thermal_suspend(struct device *dev)
->>   {
->>       struct rzg3e_thermal_priv *priv = dev_get_drvdata(dev);
->> +    bool active = pm_runtime_active(dev);
->> +    int ret;
->>       /* If device is active, power it off */
->> -    if (pm_runtime_active(dev))
->> +    if (active)
->>           rzg3e_thermal_power_off(priv);
->>       /* Assert reset to ensure clean state after resume */
->> -    reset_control_assert(priv->rstc);
->> +    ret = reset_control_assert(priv->rstc);
->> +    if (ret && active)
->> +        rzg3e_thermal_power_on(priv);
->> -    return 0;
->> +    return ret;
->>   }
->>   static int rzg3e_thermal_resume(struct device *dev)
-> 
-> Sounds reasonable
-> 
-> John ?
+>> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+> Thanks for the very quick reaction to this regression! However I think we
+> should fix it differently.
+>
+> I had definitely build-tested most if not all these drivers, and also
+> runtime tested a few. Now I realized the build failure actually happens
+> only in !OF defconfigs which I haven't build-tested (sorry about
+> that!). Here's why:
+>
+>  * the affected drivers (all or most of them) include drm_of.h
+>  * drm_of.h does:
+>      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
+>      #include <linux/of.h>
+>      #include <drm/drm_bridge.h>
+>      #include <drm/drm_panel.h>
+>      #endif
+>  * DRM_PANEL_BRIDGE is always set when DRM is set, so not a problem
+>  * drivers which don't depend on OF and don't include drm_panel.h now fai=
+l
+>
+> Most of the drivers changed by this patch do 'depend on OF', so they are
+> not affected. So the patch could be trimmed significantly. But still I'm
+> not in favor of including drm_panel.h in the remaining drivers, because:
+>
+>  * in the first place most/all of these drivers are now supposed to not u=
+se
+>    the drm_panel API anymore; thsy should just use the drm_bridge API
+>
+>  * devm_drm_of_get_bridge() is now a deprecated [0], complicated way of
+>    calling of_drm_get_bridge_by_endpoint(), which is rightfully in
+>    drm_bridge.h
+>    * for this reason Documentation/drm/todo.rst says it must be removed [=
+1]
+>    * removal is easy, so I plan to do it in a few weeks globally
+>    * after the removal all these #include <drm_panel.h> would have to
+>      be removed, but some might easily be forgotten
+>
+> So I see two option for a better fix:
+>
+>  * Option 1 -- fix the really affected drivers by switching from the
+>    deprecated API to the one they recommended one. Based on quick analysi=
+s
+>    there are about 6.
+>
+>  * Option 2 -- a quick surgical fix:
+>
+>    In drm_of.h:
+>
+>      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
+>       #include <linux/of.h>
+>       #include <drm/drm_bridge.h>
+>      -#include <drm/drm_panel.h>
+>       #endif
+>      +#include <drm/drm_panel.h> /* Temporary for *_of_get_bridge() */
+>
+>    This can easily be tracked and reverted once all
+>    devm_drm_of_get_bridge() users are converted to
+>    of_drm_get_bridge_by_endpoint().
+>
+> I'm working right now on option 1, hoping to get a series in a few hours
+> from now. I can switch to option 2 in case of unexpected issues with opti=
+on
+> 1, or if a fix "really right now" is wanted.
 
-John is not with Renesas anymore. I'll reply myself to this.
+Done [0]. I found only 3 drivers affected, but I fixed all the others that
+build without OF.
 
-The patch looks OK, I consider it is the best we can do to recover from that state.
+[0] https://lore.kernel.org/r/20260929-drm-fix-of_get_bridge-build-regressi=
+on-v1-0-ccb7e602daad@bootlin.com
 
-The reset driver implementation try to do its best as well to recover the reset 
-line in case the assert fails [1]. However, there is no guarantee the reset 
-recover will succeed. Still, this looks like the best we can do to recover from 
-the reset assert failure state.
+Luca
 
-You can add:
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-
-Thank you,
-Claudiu
-
-[1] 
-https://elixir.bootlin.com/linux/v7.3-rc5/source/drivers/clk/renesas/rzv2h-cpg.c#L1347
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
