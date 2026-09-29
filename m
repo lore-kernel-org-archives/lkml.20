@@ -1,419 +1,244 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010033.outbound.protection.outlook.com [52.101.84.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6034BD106
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671677; cv=none; b=I0Hco5Uc64/1n4lC9vXUVrTxOuVx1wQRjkFgK56RO9eV2mGdZ58Un9Hn7bhWQ6O/YQFoMyAY94HvEVvGs7l3OEi+bVC/dWrLHIuxtDx2bdZZhO97mekMhRd3RQzVmKQN2y/Jtcix3Jpw11dGv3Jy0mkU9wFzvh/o1b40bDT105Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671677; c=relaxed/simple;
-	bh=Z4aGSRXczRWxkdMGTkXXVDynZbO9bk2DRirqQmRGrKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Orm+EvC0hcvEhXr/Lj8gJtUVWGDPSCOzEq5nU0H6TpsDheKFqg/oxcjttR19/xjC17TCkze4jq3e2SK3fOA6L0jeQl1qybIUPtJywm+g32iJDK0f3GD0yzzUER37hYLoWtNU1T+JfqQNWW1lMdW6WpuoRezm9Z8SW+5nKiqMYbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vs5vuhsY; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A414C10CA;
+	Tue, 29 Sep 2026 08:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790671699; cv=fail; b=cJSLLAGKmzOAEXRau7qrzoOXHwctREtHyVng25KxujWYu591oo+T4tpeTHU7dr1k8nzs/xxWuT3WaoI2+fKV/ht4XrKoNoMufwbuWyAJbNKpvgzBkUC3VP6+yeoRgQ6wphYgb4G1Ucnse2LKiJFuSJHQjW4OZivxHW41ULy4XQg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790671699; c=relaxed/simple;
+	bh=tsLw4YVbdh+1k0hMVb5aVnU5euYKCzEyPQP76Bku1jU=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=PFGaCums1eTZl2mbQhXSPfcnEmpgnCaTiL36SjZvfFem1KMfMBUriyR8P2zmW4mApmN0Mpb/QPUdTAv4KA0r5R3qA05YNLgKg6PFjlkU+ZYENQK4XC+7D0KTg3EGijywaVJ3trO3bpP5ADDQYvNM85leLvNW/njoiTDk0PqvLj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=BtVnejTq; arc=fail smtp.client-ip=52.101.84.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vs5vuhsY"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so2667907a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671670; x=1791276470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L+b3HR+GEBXlqBxQ57YrkqhyM2+pU3HtshFJ6f9asNw=;
-        b=Vs5vuhsYGAZtNsiShpDj+VfessnzJSHczMONyrlSQ2rW93j4IfrLHExmCzPGprAyac
-         GJP6AAAD0hzauDlro0jawPeQTxe7pN0nkCggFQr9wkqYKbuLTwcthhUFlLblV9ZBVrSD
-         D12x0Swv9fCoWn4jESaBL42Cd3/Kivhds1uhoLbrqUU//U25tGuh4PWnKRjLqcIs2r78
-         nTrliG8EbzlkNMWBa/kPjFppQnxCia9Ze87WuQ4S4NycgOS/cZgjmitRR/nKsrbXtjSX
-         kPSrmyO0ZnSGj+tiFLv4lSjr5mgKd9ejQD/kzwvC6vFTtMnXlfdel6UOHC2OpwN7NQBT
-         ROww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671670; x=1791276470;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L+b3HR+GEBXlqBxQ57YrkqhyM2+pU3HtshFJ6f9asNw=;
-        b=R/UosvbeTnZwmqbRry1hWlKH6zJbnBmVmEwFCiF13GXADhUDckqcv6uKIWV3DtG1ma
-         p4kWCeAwbcQNOzd9QjkJCT0bugaWGvcIpdZv5oyC8vgQ1lOHEnWpk1VboOuzB/1yMX4d
-         vtdBEGDo9MwIG0Qan7/rYBSpMT7+iTD5OxoZOKN2QhdSEuTDNoedDjEFLtHN6aQ9Q13u
-         wdW6y4ghC292YZoOBm9oPhmPZNvSQ7oMbct/6nZTr5tBO9UqIC6e20KcB22ZgkntfuSv
-         35Y63AYlIx15n6+wUVMq8vJ/dhBpCjScSfDHup3heIn5OtYpKDSy2F6x6yDg8gOXC0ur
-         320A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZse+1sLdyeJz/Iv8flBXhSPX9fvlsEqjMsfk2GWIwzzitQ616oT1F/JZ5XGR73gRzEiCAd1QIESxz91o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLww/unOAnA9WgLNZrPZLE2RRUFkIUdxpZBS7RKdJyzxPdhBz/f
-	QpeiVft0Z10zwbS9aKnUZQQpF05BcgxGkSG+I/DY6km/15q3SUhVSJds
-X-Gm-Gg: AYBFou1uGiY/i1eXd7sd5QiNm3lNMo1K3y+UWD8ZKYe3s5+hCNd42jdBLbvuCFsgdXa
-	hpFf8gLtJVzcpF/6GVgcaK1Cn9mbuhTFVQ42WY7v+S6wypaGjSTSZmfXEVO/6dlzmepPUjO3Hvw
-	HoslhJ3z02q0cb8oRa/j+1ODMm6xjNuoVbOz2rJwoVPYEf9QaBb8R0rEsQk7hIICWAeCe/WSd+m
-	bTGElV3FloDxjf2V2PqfTgMSViBg1tXckZfz9UOHAwf3/hnYzbYinfegV5W75VuHHVoT2YICXkA
-	HKuNS3sFsHhpVJt+qIx9A9K9Jtw256Sgk6ymV48sV1ujuYWdvbVOcJpqE+0YOZcRQ+HNL3/nKlF
-	YQyIQlbyIpKpf+5hK/wvy4m/D+V+/H7BndoBw+e0Opm0QwRItcr4sjxGezwJySZWp9VrL4RMgGo
-	MOpa1LfcTx7rN6MGymxN9uqDw9V1sMeuuvIoFMJa9UM6wJjP+qdreGnTe07OgrhMnRTirXWhJHF
-	yTEKbc=
-X-Received: by 2002:a17:90a:38e4:b0:3a0:b223:6830 with SMTP id 98e67ed59e1d1-3a0b2236c1dmr6514691a91.7.1790671670089;
-        Tue, 29 Sep 2026 01:47:50 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a49867a4b1sm4317440a91.11.2026.09.29.01.47.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:47:49 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Damon Ding <damon.ding@rock-chips.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH] phy: core: Use EOPNOTSUPP for disabled blob return value
-Date: Tue, 29 Sep 2026 16:47:38 +0800
-Message-ID: <20260929084739.467082-1-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="BtVnejTq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZrJPDzRdUzZizppFxzfRas53yQpX8DLL2G0xFTDAuvsNDpwLl0Pn/W1mvG/Rmf1a5V2VUbLTT/kqDFW+6q0GY3O7jSTvZlN2+TcqbmEoZDw0F1zVd3Hs8UjVeACUDf+bE7SdwQagStGT+aktDALBrCLFJ05Ok2Yv1mPkB8/QLqJa27kZzKFIDHbUkka7+kTwSvCih6YgJz/8Bhb1o5aNsDlg9Kf4m3tl87t7OOZxG70cociC1XXQrrVutsaTPbM8H/mzlgTv1Ri3w7oT8hT3opdrxutcVAHBjV6hxaFvpVxi5Tj//EHM+Oj6U8fLHGJ4gCu7K802vwPZES0Qvd1sYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eLjtGfOYi8347oEjCAtmMajnlmlNdBrMCPhOeIKBQ9Q=;
+ b=q5ncgQKfv1UTc2KB5RM8YibPhGNy16uur8guvPBEcfZui6A0IdHSbOJ9sqfQY+DtcDK8wBn15JmQDe18pZ7dWeD5h7PyIde/PvQjc9dUPI8xa1WmvdOFGvfCOuQdUFufoGdUhj8prZ7fyd7lWSwVU9drYE28sR8qPFAO4RIr6WdQZJzkACuRugAPPGFZ3wN4XA8oI92TEkNYKJB7a+lnQfBvll+2Qb4tt85aVUby6FW2vRVX2mxn5O14S8wDUT0J3L7PbnxtbYOdr469v1SzRkPRnJIidVIa4lsm0jO+D33M8qDTSRZVCxeOzddsqRIfP44TstnQOkM16kG3j8IcpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eLjtGfOYi8347oEjCAtmMajnlmlNdBrMCPhOeIKBQ9Q=;
+ b=BtVnejTqKktyBG9QN77aouq9nE2w5VOCPAg9+cmx+96T3tguyz3TYSPZoq7gQVGM5JB1lD8pBsnIQOAj3d5i4VQBFOua+rWZk4zNfsadOEDqAfS+hXX7d0XcNPRIrEd+xgZk0BQtkERdoWg3r6uoAbR/JZmlj7QoEvodohw6h3BadNYgKfbsVsQmn+CoXzIW+I2bB9V+yP+krXfGuWELXphWAS2MUJ19szKgzozElEh1nfsucI4S0movmfc3UharPHYqIDIrHxaPtyuUaKYh4AUaQpa+xhHys1Ah3oxlxSNgbcfAu27KJCrXXw9PJ0Gv9WASvLyzaOhL2yOD2GiGOg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com (2603:10a6:10:10e::22)
+ by PAXPR04MB8336.eurprd04.prod.outlook.com (2603:10a6:102:1c5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 08:48:05 +0000
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960]) by DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 08:48:04 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Subject: [PATCH v4 00/11] media: imx8-isi: Add i.MX952 ISI support
+Date: Tue, 29 Sep 2026 16:52:21 +0800
+Message-Id: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEV8u2oC/2XMyQqDMBSF4VeRrBvJ5K121fcopWSsWTiQlGAR3
+ 71RClWa3Qn3+2cUbfA2oksxo2CTj37o8xCnAulW9k+LvckbMcKA1PSM88XDd1NTMQygJVSuUcB
+ rlMEYrPPTFrvd8259fA3hvbUTXX+/GQb7TKKYYK2clJI7kt91iLHsp7HUQ4fWUGI7zOkBs4ydd
+ EYJJQQY8Y/5Dze0OmCeMTe1c5QDN0Ye8bIsH446/xcgAQAA
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790671948; l=5161;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=tsLw4YVbdh+1k0hMVb5aVnU5euYKCzEyPQP76Bku1jU=;
+ b=EvmiGCrgufqqTUNMOXkhQ5TgcAimb1w1jcLhmfL06v0WtvwX5pGABGmRjEJjYEcWAxLyOxoLJ
+ lv7oNGCCdaaCOmVUqzBRuOeLafr5FpYtb7hKFxHAb4aOiZwaz50gHyF
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: MA5PR01CA0124.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a7::16) To DB8PR04MB6667.eurprd04.prod.outlook.com
+ (2603:10a6:10:10e::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB8PR04MB6667:EE_|PAXPR04MB8336:EE_
+X-MS-Office365-Filtering-Correlation-Id: baa6c81c-bf55-4d43-6123-08df1e06602e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|7416014|1800799024|366016|23010399003|18002099003|3023799007|921020|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	BgaRg5F1l+1TxSJBu5gEOkbeSEBZs7ymZf1G6IAKr48DyBCTG6D/MNN78WnqRReWw7aiSkhjeeUpLCWCvUk1u9Q0llwewc962wqkrCferoGLJWqApSsMU6Yd+ql5R5ynvCiYbOMD+c0eoIeIx5yGNf+0ODgRqbjEDRHGtH06QPviPj62fgsgdXzatwU3Fw4+tuYcK2qO6xhXYazYvTRTin9NkUEE0bg8GwDAMlX8P6oBXnhB4DDdHynVkpcgXpH+k1DB0pt/M3ygrjEHKARtDX3mESV1zJ30O4WNnifQrJzz/MHLdH1vgK4GJes8FafVAb4pbve7Pa4DeCmJvXi3k0X4Kqh9Ki4f1ZnHfgvNYVErISzGN0NSidkn5YCkQBNidgADfWhWCr3ZOd2bzwqn3BLxbkt9Zx/tNW8sBMwJRLUY6gumSzsDYvVjzWvchBuoT/EyJ49nDpYTuNfOgZz1S+Z7dwJTnbOlrb/vh47YpHqkRbmrtlpCId8PaPHYHc4Nb1OjU0X64TZUx4Em/vIvqHx2+xTR929SDuTa3xmdxkFzH+Erte8XwR1IdeLvQ0Yn6lNZTrNv+ZoNVmh222QJI0dBH3WNhXj2jgoZmyVkV8HCk+G1EuV4Z61tXX03Ih4sUBD4m8ALWDC2jxyJyyPcbTPWvPxP7lg1jN7gHb0S7kqOLDON45JOSpfZE9Yy8neT/95WGr0tvauNezO3AfgXjw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6667.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(1800799024)(366016)(23010399003)(18002099003)(3023799007)(921020)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2FRMSswR01UM1pyY0plT0poMnZCWVFjQ0tUUGd2aUtGWmo2SEdXUTlkT2ZD?=
+ =?utf-8?B?L09tRzR6R2lCbXI2SFBadzBkbVA0WEdhMWpMZlA4cERlL3JyVXhjd1FxbXdw?=
+ =?utf-8?B?Z0pBMFpTNWZKcGw2SHp6bmxzaS9pdEU0WlpTR1RHZ0lXMEFNL0VaRVJNWndx?=
+ =?utf-8?B?UGE5ZGR3alJ4TkVMTy9XUUQ0VTlMSWlMV1Z4UGpXU2gwbUZEQ0owR2F1QVhB?=
+ =?utf-8?B?TU1ENk5nVU9iRjd0cjRhQ0plaGlQNzY0UkovZCtPTWxLdkp0ZlR2NUN5RXNp?=
+ =?utf-8?B?ZFIzRkw3NktJWUFJSFhoRnNobTRUQzhld0R5bW1HR2kwZE8yNXgyNUhCRE5Q?=
+ =?utf-8?B?VCttZjZDM0VIOHZPMlN3MldEbDU1TTFKZjMzWDIwYVJ3UUJCQURiY0FpMitX?=
+ =?utf-8?B?TmphZTkwd0pDdVVETVJnSXNpOGdWbFVORkNGNEhDbkVrYVFabzNCcmtNSnZB?=
+ =?utf-8?B?bHNMSEtnUzhHY01ObVdwc0tPZS9LaGh0MHJoa0FVRURNcXZ6S0wzSGdzOHZ6?=
+ =?utf-8?B?eXhSYllhWlE0VkJNWTNNWE9ISm91Y3NVMnBSTTcvbXpxaDlMUzU1aHlyUHFr?=
+ =?utf-8?B?UiswVzB4MW11REdIcTBJZloydTlxN1ViZFJNYUhTSVEyWDRuNDQrbUtuMDFk?=
+ =?utf-8?B?dEYyUHAvUWo0K3hEeHQ3YzRRUGJWbUhKOUszK1ovM3NMTWRKdUkxV2dlNmJ3?=
+ =?utf-8?B?TU41S1lxR1NNVmZPcTJaYTdNZmYwdXJqSnZXdjVnaDd4bUtBNlc1RDFwNU15?=
+ =?utf-8?B?ZnJyYVd4ZHA0aTd4OXl6MFBHejNjSSttdUE1N25QN253TmFNOVg2V3VWYlBE?=
+ =?utf-8?B?bVBPSThHZHlCOC9mZ215WHY5RnZuSXp4UFhmelNrMlE2Y3BwME1RQ1RKTVNi?=
+ =?utf-8?B?RlBpbXMyaGpHNU5XWkVhTHlNTmZRZzJqMnJDOUw3b2pwekNrd3VKMHk1NTFH?=
+ =?utf-8?B?M2ZOWXRSY0NyZ2tMTk1CcTd3Z3U0LzkrdXJpcS8wdEVzRjRDRzhodVk3aTNk?=
+ =?utf-8?B?MlhXSllPNStjSFczT05XcWpOWkFiMWF6b3hBUUt5Q1dPM1M4aUREbS9HNUN3?=
+ =?utf-8?B?ZEx2VEJQTG1RRzc4QVdyQnlOakpPcmFQT0crVWxKUXZZck5BVWhFZGpLb3JL?=
+ =?utf-8?B?VW45Z3RldzEyRXh0UlpyUC92Zjdhc29RK08xY3hLUmtlNG14THRIWWJ4c0Nk?=
+ =?utf-8?B?NVFPcDZEQVFNNVRrSk1XN09hSFRYa3UvQ3YzdWJrejhiWmpXWlJ4MkZuOHFu?=
+ =?utf-8?B?M3AvaEhyR0lnb3NJT0N0dEY0S0ExUkRMM2M0bmJIMTRxVWRmSVFHbXdpTVlC?=
+ =?utf-8?B?YzgwaVdXbXdWSFBTdkVKcnlJSm1UQ0xWdFhkU1ppcGhZamV3UXdXOFdhNmRj?=
+ =?utf-8?B?Wm5jNjJxQmh4VWpHcG53c0xLeU4vY25yMStmd1VTU0x1TE9kZ0JwUm1VUTZu?=
+ =?utf-8?B?OGRzcDlTb0V3bExaRzN4MHBsQWs5bitPM0plMHB5d2pTdmpHVmpuRUJkSFJ4?=
+ =?utf-8?B?alZKemYzL0grUmJzN0ZXMTVSalBWQ01BQzFsalpyM1d2bUhEOHZwODgwL3Bq?=
+ =?utf-8?B?SkFuU0V2NElJRE9wOERabDZ1MGlDc3Q5OG9lRVdzSzdoa2tmcEs0TGtkQ0Va?=
+ =?utf-8?B?b0xuWnl6YnJGUWRNY056RXI2QmVkVzRVNDN0UjFMa2NIUk15RjNyZmJhQ2pH?=
+ =?utf-8?B?ajFRV041M2lXSk9xV1JmczFXWVZwVHZPRDRKcUEyNS9rZzJ3czhJeEdjQnlH?=
+ =?utf-8?B?RFRzclZsQ0xFTlc2M1Mza2hIaklLdGszNEU2c2t3d3FwY0VyVUg3Rzdpekxt?=
+ =?utf-8?B?SFF4bDZ4bG0rd01HbGcrVGhjK21EUlVzOTBDZ2JXd1hxSEZUSTYvT0pVMU1r?=
+ =?utf-8?B?VXZDT2NBcEU3bmtEQTN5WWN5dE9WR3hPd2RwK3hSaEgyRnRYZVlxV0t5aGUr?=
+ =?utf-8?B?VGtFaFpxNnJTeE1BaXg4U2xKc0JsZGI5c2VYU3IwYS9DbktaQVpjODRRakQy?=
+ =?utf-8?B?Vjc1NVVnMWhURmhZTm9ydmNrNjFDeG5XeW1qT3Ztb1NQUVhQWXRFMjNEYjg2?=
+ =?utf-8?B?SnFRMzJwMzI0RVBMeC9sN1FMRW9kYVhkOHdtMGt0UGdvcU5OY0V1T2FpTTZw?=
+ =?utf-8?B?WW9EYi9HWFUwcU1ZVTlFQ29lbG9hbmlxTGtxbFY2MVdRenFlQmRhbStuMFhj?=
+ =?utf-8?B?RE1DR0dlbk84RzFDYmVkRmZ3WWVUUG4vTndxTkRrUU8wSWJ0emlkSzZDUW5B?=
+ =?utf-8?B?RjIrN3NGbTlTOCs1Yk9GVGxGRDZ0enZzS0JON2U1SnJ1dTNuenJKNE5nZ0hP?=
+ =?utf-8?B?Vys4ZzNIOHF1dnZJSmhSUlhzY1FDSTlCZmZIdnBwM3FsSGc1RVhNMFE2NllY?=
+ =?utf-8?Q?1nJ1wc/WzVxvgCIiFtbKvgL2eMC3r+I7rGlgF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: baa6c81c-bf55-4d43-6123-08df1e06602e
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6667.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:48:04.3373
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aJMusNXbrskYD6B/qTsvWG6DSnfEoVrb8bo1w/uAKCz7VP6SA0H8amf7m51iyxPNFAuEnIRrn9qTMcQfl92ssZhlwCu1hFB72RI4xGYUYxg4BiaEtHMmzU/70+znTwTH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8336
 
-Currently, the phy subsystem uses ENOSYS for dummy blob functions,
-it does not reflect the function state correctly. As kernel already
-has EOPNOTSUPP for disabled blob function, replace ENOSYS with
-EOPNOTSUPP for a clear return value. Also adapt the return value
-changed in the following affect file:
-- ata/libahci_platform.c
-- drm/bridge/analogix/analogix_dp_core.c
-- usb/dwc2/platform.c
-- usb/dwc3/core.c
+The series adds support for the i.MX952 Image Sensing Interface (ISI),
+which is a minor silicon revision of the i.MX95 ISI.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+The i.MX952 ISI reuses the i.MX95 ISI core with the same 8-channel
+pipeline and 4 pixel link inputs. The key hardware improvement is the
+addition of RAW10/12/14 output LSB alignment, which allows the ISI to
+output right-aligned RAW data directly, matching the V4L2 format
+requirement without the RAW16 workaround needed on earlier platforms.
+
+The series is organized as follows:
+
+   1. Reorder mxc_imx95_data definition to follow mxc_imx93_data,
+      matching the order in the of_match array.
+   2. Extend output format mask to 7 bits unconditionally since
+      bit 30 is unused on older platforms.
+   3. Support mbus_code filtering in mxc_isi_format_enum().
+   4. Reuse mxc_isi_format_enum() in capture format enumeration.
+   5. Apply RAW output format workaround at runtime, storing the
+      actual hardware format in the format table.
+   6. Add RAW14 output format support (available from i.MX8ULP).
+   7. Select MSB-aligned RAW input from pixel link on i.MX95.
+   8. Exclude RAW10/12/14 output formats on i.MX95.
+   9. Add the i.MX952 compatible string to the DT binding.
+  10. Add the i.MX952 platform data and of_match entry.
+  11. Enable RAW10/12/14 output LSB alignment on i.MX952.
+
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 ---
-The related discussion for switch to EOPNOTSUPP is at
-https://lore.kernel.org/linux-phy/20260907114837.2y55l7dfqqrgcka2@skbuf/
+Changes in v4:
+- Rebase to latest media/next(2dcdfb625c3b)
+- Split the original patch 5/5 into multiple focused patches:
+  patches 3-8 are new, each addressing a specific aspect
+- [3/11] New: Support mbus_code filtering in mxc_isi_format_enum()
+- [4/11] New: Reuse mxc_isi_format_enum() in capture format enumeration
+- [5/11] New: Apply RAW output format workaround at runtime
+- [6/11] New: Add RAW14 output format support
+- [7/11] New: Select MSB-aligned RAW input from pixel link on i.MX95
+- [8/11] New: Exclude RAW10/12/14 output formats on i.MX95
+- [11/11] Split RAW_IN_MSB_ALIGN into a separate preceding patch
+- [11/11] Split RAW format table and RAW14 changes into separate preceding patches
+- [11/11] Move isi_out_raw_shifted() to regs.h in the preceding workaround patch
+- [11/11] Rewrite commit message
+- Link to v3: https://lore.kernel.org/r/20260915-isi_imx952-v3-0-3d8ff1363dda@oss.nxp.com
 
-Changed from RFC:
-- https://lore.kernel.org/linux-phy/20260922024724.191412-1-inochiama@gmail.com/
-1. Merge all patch into one to avoid function break.
-2. Improve libahci_platform's comment as Damien request.
+Changes in v3:
+- [1/5] Add Reviewed-by tag from Laurent
+- [2/5] Use unconditional 7-bit mask instead of per-platform approach (Laurent)
+- [2/5] Drop Reviewed-by from Frank Li due to significant change and request to review again
+- [3/5] Add Reviewed-by/Acked-by tag from Frank, Laurent and Dooley
+- [4/5] Extend mask globally instead of per-platform (Laurent)
+- [4/5] Add Reviewed-by tag from Frank
+- [5/5] Use CHNL_IMG_CTRL_FORMAT_MASK instead of the removed per-platform format_mask (Laurent)
+- [5/5] Derive raw_out_lsb from the model field instead of dedicated platform data (Laurent)
+- [5/5] Clarify the CHNL_IMG_CTRL_FORMAT_RAW14 comment: the format is documented
+  on i.MX{8ULP,91,93,95,952} but only used on i.MX952
+- [5/5] Rewrite commit message to explain why the RAW16 workaround fails on i.MX95+ (Laurent)
+- [5/5] Add Reviewed-by tag from Frank
+- Drop "Remove unused model field" patch; model field is now used to derive
+  raw_out_lsb capability (Laurent)
+- Link to v2: https://lore.kernel.org/r/20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com
+
+Changes in v2:
+- Use fallback compatible fsl,imx95-isi for imx952 (Frank)
+- Remove unused model field from platform data (Frank)
+- Add Reviewed-by tag from Frank Li for patch 1/6 and 2/6
+- Link to v1: https://lore.kernel.org/r/20260826-isi_imx952-v1-0-cbfaaa3f0000@oss.nxp.com
+
 ---
- drivers/ata/libahci_platform.c                |  6 +--
- .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
- drivers/usb/dwc2/platform.c                   |  2 +-
- drivers/usb/dwc3/core.c                       |  4 +-
- include/linux/phy/phy.h                       | 52 +++++++++----------
- 5 files changed, 32 insertions(+), 34 deletions(-)
+Guoniu Zhou (11):
+      media: imx8-isi: Reorder mxc_imx95_data to follow mxc_imx93_data
+      media: imx8-isi: Extend output format mask to 7 bits
+      media: imx8-isi: Support mbus_code filtering in format enumeration
+      media: imx8-isi: Reuse mxc_isi_format_enum() in capture format enumeration
+      media: imx8-isi: Apply RAW output format workaround at runtime
+      media: imx8-isi: Add RAW14 output format support
+      media: imx8-isi: Select MSB-aligned RAW input from pixel link on i.MX95
+      media: imx8-isi: Exclude RAW10/12/14 output formats on i.MX95
+      media: dt-bindings: nxp,imx8-isi: Add i.MX952 ISI compatible string
+      media: imx8-isi: Add i.MX952 ISI support
+      media: imx8-isi: Enable RAW10/12/14 output LSB alignment on i.MX952
 
-diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index 6e072d681341..b04789e7a23f 100644
---- a/drivers/ata/libahci_platform.c
-+++ b/drivers/ata/libahci_platform.c
-@@ -371,12 +371,10 @@ static int ahci_platform_get_phy(struct ahci_host_priv *hpriv, u32 port,
+ .../devicetree/bindings/media/nxp,imx8-isi.yaml    |  18 ++--
+ .../media/platform/nxp/imx8-isi/imx8-isi-core.c    |  37 ++++---
+ .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |   7 +-
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c  |  56 ++++++++++-
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c |   2 +-
+ .../media/platform/nxp/imx8-isi/imx8-isi-regs.h    |  22 ++++-
+ .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 110 ++++++++++-----------
+ 7 files changed, 171 insertions(+), 81 deletions(-)
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260817-isi_imx952-66ca65f9b638
 
- 	rc = PTR_ERR(hpriv->phys[port]);
- 	switch (rc) {
--	case -ENOSYS:
-+	case -EOPNOTSUPP:
- 		/* No PHY support. Check if PHY is required. */
- 		if (of_property_present(node, "phys")) {
--			dev_err(dev,
--				"couldn't get PHY in node %pOFn: ENOSYS\n",
--				node);
-+			dev_err(dev, "Node %pOFn: PHY not supported\n", node);
- 			break;
- 		}
- 		fallthrough;
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 30c0c0b41d5a..8e26cd772482 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1360,7 +1360,7 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 			 * phy itself is not enabled, so we can move forward
- 			 * assigning NULL to phy pointer.
- 			 */
--			if (ret == -ENOSYS || ret == -ENODEV)
-+			if (ret == -EOPNOTSUPP || ret == -ENODEV)
- 				dp->phy = NULL;
- 			else
- 				return ERR_PTR(ret);
-diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
-index ef0d73077034..62b663ef1504 100644
---- a/drivers/usb/dwc2/platform.c
-+++ b/drivers/usb/dwc2/platform.c
-@@ -243,7 +243,7 @@ static int dwc2_lowlevel_hw_init(struct dwc2_hsotg *hsotg)
- 		ret = PTR_ERR(hsotg->phy);
- 		switch (ret) {
- 		case -ENODEV:
--		case -ENOSYS:
-+		case -EOPNOTSUPP:
- 			hsotg->phy = NULL;
- 			break;
- 		default:
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index fd5c2cd36c59..6d253810c71f 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -1588,7 +1588,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
- 		dwc->usb2_generic_phy[i] = devm_phy_get(dev, phy_name);
- 		if (IS_ERR(dwc->usb2_generic_phy[i])) {
- 			ret = PTR_ERR(dwc->usb2_generic_phy[i]);
--			if (ret == -ENOSYS || ret == -ENODEV)
-+			if (ret == -EOPNOTSUPP || ret == -ENODEV)
- 				dwc->usb2_generic_phy[i] = NULL;
- 			else
- 				return dev_err_probe(dev, ret, "failed to lookup phy %s\n",
-@@ -1605,7 +1605,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
- 		dwc->usb3_generic_phy[i] = devm_phy_get(dev, phy_name);
- 		if (IS_ERR(dwc->usb3_generic_phy[i])) {
- 			ret = PTR_ERR(dwc->usb3_generic_phy[i]);
--			if (ret == -ENOSYS || ret == -ENODEV)
-+			if (ret == -EOPNOTSUPP || ret == -ENODEV)
- 				dwc->usb3_generic_phy[i] = NULL;
- 			else
- 				return dev_err_probe(dev, ret, "failed to lookup phy %s\n",
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index ea47975e288a..3e84b54a4b03 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -314,14 +314,14 @@ static inline int phy_pm_runtime_get(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_pm_runtime_get_sync(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline void phy_pm_runtime_put(struct phy *phy)
-@@ -332,35 +332,35 @@ static inline int phy_pm_runtime_put_sync(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_init(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_exit(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_power_on(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_power_off(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
-@@ -368,7 +368,7 @@ static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- #define phy_set_mode(phy, mode) \
-@@ -397,35 +397,35 @@ static inline int phy_reset(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_calibrate(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_notify_connect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_notify_disconnect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_notify_state(struct phy *phy, union phy_notify state)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_configure(struct phy *phy,
-@@ -434,7 +434,7 @@ static inline int phy_configure(struct phy *phy,
- 	if (!phy)
- 		return 0;
-
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
-@@ -443,12 +443,12 @@ static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- 	if (!phy)
- 		return 0;
-
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline int phy_get_bus_width(struct phy *phy)
- {
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
-
- static inline void phy_set_bus_width(struct phy *phy, int bus_width)
-@@ -458,12 +458,12 @@ static inline void phy_set_bus_width(struct phy *phy, int bus_width)
-
- static inline struct phy *phy_get(struct device *dev, const char *string)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *devm_phy_get(struct device *dev, const char *string)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *devm_phy_optional_get(struct device *dev,
-@@ -476,7 +476,7 @@ static inline struct phy *devm_of_phy_get(struct device *dev,
- 					  struct device_node *np,
- 					  const char *con_id)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *devm_of_phy_optional_get(struct device *dev,
-@@ -490,7 +490,7 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
- 						   struct device_node *np,
- 						   int index)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline void of_phy_put(struct phy *phy)
-@@ -507,27 +507,27 @@ static inline void devm_phy_put(struct device *dev, struct phy *phy)
-
- static inline struct phy *of_phy_get(struct device_node *np, const char *con_id)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *of_phy_simple_xlate(struct device *dev,
- 					      const struct of_phandle_args *args)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *phy_create(struct device *dev,
- 				     struct device_node *node,
- 				     const struct phy_ops *ops)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy *devm_phy_create(struct device *dev,
- 					  struct device_node *node,
- 					  const struct phy_ops *ops)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline void phy_destroy(struct phy *phy)
-@@ -543,7 +543,7 @@ static inline struct phy_provider *__of_phy_provider_register(
- 	struct phy * (*of_xlate)(struct device *dev,
- 				 const struct of_phandle_args *args))
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline struct phy_provider *__devm_of_phy_provider_register(struct device
-@@ -551,7 +551,7 @@ static inline struct phy_provider *__devm_of_phy_provider_register(struct device
- 	struct phy * (*of_xlate)(struct device *dev,
- 				 const struct of_phandle_args *args))
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
-
- static inline void of_phy_provider_unregister(struct phy_provider *phy_provider)
---
-2.55.0
+Best regards,
+-- 
+Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
