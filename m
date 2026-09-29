@@ -1,110 +1,76 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C9751814C;
-	Tue, 29 Sep 2026 12:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A40951B196;
+	Tue, 29 Sep 2026 12:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685267; cv=none; b=jS1ybcHH48n/QsNp/h+8ujWg6AFtCmtgmdpISn8MbUC4mGA5eykY7AL63YEdknQPRM/+oJzLBcAyUM75RQQMfTrAPEkL6uFsHj5Ae9A5TN2nkQI8tggk9FfVgA5FnahuOcAr7bvYWbBm/7rnlOkm2/wOQvTvt60OTNPPukvTTJY=
+	t=1790685288; cv=none; b=VdPmU+NpSHQC7THGQgCe+QPXb427GRzGM4Dfel8ml+MLiGNeAOiNIQk9KJxH87rrph+DtLCrXdYF9rd5nTvWLeSXkRyJCztFzSoZV38r49HknQWxm9jsp5FfK4iH/wL/Kq8eV0VQlhziuY0AyK3s3MvRiEUqdOdn5mulDyrmTg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685267; c=relaxed/simple;
-	bh=fCKWi2QDPT1h5kFh3IYMBx7BAmHDa64Q4UYl1zBfbDc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZRN8Nr48lXUYMh5T5tZLX9i462Vqs1QXXOH1KTnp3CBNusCQznvBbwD7bny9pNXnaOCW1PgC7geq68iPvyf+kq+YJXcbxnBUhgWHOuNPAxvGgWOrXueEGfZfScW0EkXfgmCqoS1aNECr0SwYLvLY/I6sJ69JOxt7XIu+8asd6Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=awCNgN7n; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790685288; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Lt41C0CukNbDx1RrdXv94pdsAshEFeMvAaJE3HrxzVpYgiceZcpdqf930L1ANq3CnlMBrWTD+6BRCmNgBDBE+ePzdXilQ4t6l1HoJu0KCDW6J99WYuWsEVDCSnALU2oj8g/McMPKzaS28PLWvykSRzi2KeWn5o3Jwm/taWvp1UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AS9Y8cUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="awCNgN7n"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E17B3C3D;
-	Tue, 29 Sep 2026 14:32:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790685153;
-	bh=fCKWi2QDPT1h5kFh3IYMBx7BAmHDa64Q4UYl1zBfbDc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=awCNgN7nTzR3LJ2HGhsVUMy8Ntxl0V50Y76shdD1n8gEPrBVsd9E/vGX11pP4Roxn
-	 A6ILWGewEAvVHb/nQ2iJbwJZ/gLJmMr4JjUAiAZmwUG8DWjohTaJLkoq8kBhtd73kQ
-	 tQ+yHlo9M248mvcNp6Qj5bAq7JtovmL1N4Zxtu8U=
-Date: Tue, 29 Sep 2026 15:34:22 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/4] media: uvcvideo: report AUTO_UPDATE controls as
- volatile
-Message-ID: <20260929123422.GA349401@killaraus.ideasonboard.com>
-References: <20260928215021.819064-1-jordan.mymail@gmail.com>
- <20260928215021.819064-2-jordan.mymail@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AS9Y8cUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484EF1F000FF;
+	Tue, 29 Sep 2026 12:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790685287;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AS9Y8cUU0K5Vh3g/tb3oX7MTDqTBy8lWildZ5ulIRgrK2uzt4t6slaWogKoZ1nEBR
+	 A56brpG1ZCYZVk03EJ1BAI9hdQT02YVbgEcZ2ZR0UFf1dCb/odq65Ws+RYPt9RrhsY
+	 2LuzKrqBVgUgXYauj3sKhHeidLeF0+7lxpMOBpqK+XOLwDJXqFe0JghYMYDOtxv9EZ
+	 +g6U+pUtG9jnGAzhnQ8vzqf9QMsI3Lnd9yAe3zRMNute42N50/2ldxOEIMzL0Rcmj1
+	 +bnFPw/RsWzkCQLrAmtT3vcvMNSDrSfmvArrgjiRVf9sRvy449hIhcB9yq/RH4Ppz0
+	 aKK8fa//OY/OQ==
+From: netdev-bot+sinfo@kernel.org
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: stmmac: Disable checksum insertion for XDP frame TX
+Date: Tue, 29 Sep 2026 12:34:45 +0000
+Message-ID: <179068528574.31693.11994088057366518251@kernel.org>
+In-Reply-To: <20260929121025.20821-1-jszhang@kernel.org>
+References: <20260929121025.20821-1-jszhang@kernel.org>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928215021.819064-2-jordan.mymail@gmail.com>
 
-On Mon, Sep 28, 2026 at 05:50:18PM -0400, Michael Jordan wrote:
-> AUTO_UPDATE controls can change on their own, and the driver already
-> re-reads them from the device. Tell userspace by setting
-> V4L2_CTRL_FLAG_VOLATILE, plus EXECUTE_ON_WRITE for writable controls
-> so that writes are not ignored.
+Hi!
 
-Writes are not ignored by the driver regardless of whether or not
-V4L2_CTRL_FLAG_EXECUTE_ON_WRITE is reported to userspace.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Assisted-by: LLM
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..aceb263103e9 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -1840,6 +1840,17 @@ static int __uvc_query_v4l2_ctrl(struct uvc_video_chain *chain,
->  	if ((ctrl->info.flags & UVC_CTRL_FLAG_GET_MAX) &&
->  	    (ctrl->info.flags & UVC_CTRL_FLAG_GET_MIN))
->  		v4l2_ctrl->flags |= V4L2_CTRL_FLAG_HAS_WHICH_MIN_MAX;
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-A blank line here would be nice.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-> +	if (ctrl->info.flags & UVC_CTRL_FLAG_AUTO_UPDATE) {
-> +		v4l2_ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE;
-> +		/*
-> +		 * Writes to a volatile control are documented to be ignored
-> +		 * unless EXECUTE_ON_WRITE is also reported. The driver sends
-> +		 * every write of a writable control to the device, so report
-> +		 * the flag accordingly.
-> +		 */
-> +		if (ctrl->info.flags & UVC_CTRL_FLAG_SET_CUR)
-> +			v4l2_ctrl->flags |= V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
-> +	}
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-The V4L2 documentation also states
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-  Setting a new value for a volatile control will never trigger a
-  V4L2_EVENT_CTRL_CH_VALUE event.
-
-This patch seems to break that as we unconditionally send
-V4L2_EVENT_CTRL_CH_VALUE events on control write for controls that don't
-have UVC_CTRL_FLAG_ASYNCHRONOUS set.
-
->  
->  	if (mapping->master_id)
->  		__uvc_find_control(ctrl->entity, mapping->master_id,
-
--- 
-Regards,
-
-Laurent Pinchart
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
