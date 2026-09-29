@@ -1,120 +1,77 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4DB1535FCC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1E153A394;
+	Tue, 29 Sep 2026 15:12:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694719; cv=none; b=tSNR6kHuV5RUv5ItZX1B89oTIYc2yhoWPZWWGy1VQx1QYxviMb0uqPuhOcmdL1V8eL/9tKOB0QrOR2CWyYL6UBuEMfzRgt7U1t4t3zDMN+/03F7ZAHSMGreCnMd5gIPbHxTQf+w4Hie167tA1avTs04AECVEO8JR9HtCzldKT0o=
+	t=1790694780; cv=none; b=WjzlG/ni1yD6qYzRx71i7dR4SGaX7lQK7109+JnnRb2nkHv3XUrUoIckdH+vgdCMeTk6fabSroJRJG0W+CjDGQCtnwLSzi0fGwySyB8yibk1G7iMM6yGL6iZtn0Nnkj7WU3gSdCg+zdiDqZKAsZP0M+ER0bYGBo/qKC26Tg6Qso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694719; c=relaxed/simple;
-	bh=+ZQCFWVK9WD2QuxeJ8q1+LZYa7P8Kb8YN338yRdssps=;
+	s=arc-20240116; t=1790694780; c=relaxed/simple;
+	bh=71gNwfxr6/N6vQIAikOqpfr/6urSEFtP0LH0Qflal2w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lc6X8sWOO4M7WIZOb3al6RuQEdaOrLXLXdHLhxTjM3FbnGbeqMoug81FEG9kKI7HbXtX0aIRQNuYiZgeccGu0iJJCgmZjBlIxYd7YNqqQnYcl55odQ4n6Z7XhhWICgmDqWYt55/Cu3kLBFjFMkaOAjiaguR51wAUMhqKgtaWk2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=S76rV3o9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=biCem3OcGGRk9wWmCD1NqgcmEK/sIa5XYWRH0SRhFinGat9hAq/jdbLPscRCBjAGJIEvreV7D46RpDMg58g/itOKR8XTM5Qk/nOB2Rc/+bpScHEHcjRr5wajY3qZMuZQR+tjl0isxQpOogmex7/15jUfNWUUVjK32G1BzDVxMEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOs6TUNE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="S76rV3o9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so26933165e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:11:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790694690; x=1791299490; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tKUHB7aScg13wYBFOACKps8zTxyEvZBOKjvtM5yVoyc=;
-        b=S76rV3o9l/opRiC9NcT6WzFoNFEwS5+X/2xttKpHGnYzDSOuxksCoksHzkBJjqQKLf
-         X6jeH3H7V9wwRNIjVYIV7Dzyuu4aS8Y/Umd/qSRqLpWRAU4jx6Y9wqEyrO6JSK9ZZLfK
-         v6W9VWObY+kKAVcXKPDCtW8BDEP63OLCJVR5BeYelc6jfJRXUSH3J1xQ/DVfwxupkR9f
-         ZwYUHGChuiDTqOw+zjuUTb3zhYd2b3BiMQAvwDL9mAnXNtA5jAyC8lZq5Rnrbi8vkWbe
-         dQZ6g3g8ENN94sMtQ/W/V0k6N+3qRTBAZMAGAmq0wOohoT+9ORoc8pjn4Tt6sMl0dP3q
-         V1mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694690; x=1791299490;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tKUHB7aScg13wYBFOACKps8zTxyEvZBOKjvtM5yVoyc=;
-        b=s89Ar7TumIJNt8TXKVIsvpk4ZfjqPuUU1uTWl7AqX9wAvuu9PIhw5fdga8xXQeorBN
-         21MuHVSaS1fvXc3/XjoFD7cpNsbJI4hDx9RMTTB7MlwP53BoYNtGOXV1SJeRnp7YZIEn
-         atwpRV9vZueuNvb+tFV+N2zPpevEMfALN4Dx5YspTSF0BqkbenmZEk5UrQi7ZFCiq/SJ
-         mEz3IkTpxgS9Ylb6WQkHNcG8rpF7PdUieWisHkjEcroooEGGWP6/lcQuxbq+RFv8GXKg
-         4sf3xPsWsDMWjLVAVC8SQPY085KkNFO0cUTmKSfWrSlpcF1X/F0MokmjEkIR/94f50d2
-         mGxQ==
-X-Gm-Message-State: AFuF++lv3P+6lAIPXhzr7TcVwfBuhBgCEAVCDm9KdbkEqR6QifQYESx3
-	+eFYhvv2voQyMfEzOsANS2cOFZiuo6IZ/1I+th9k4bTcF4DpRiIG/CgD1Eb2bfPNOAs=
-X-Gm-Gg: AYBFou09jMRoaiGgc6kQK1XU7TwY3CS41WFwyPMBqQp4uKqaLzq6Rw4wBPtsDMzwv5e
-	/l6cuIdy7tmbV+tp4k+Vys3hhNUGpTb5J1GSI5FcCmCRwcXEqWk5Ge0feDcq4Rw7+Bk02kvc7/h
-	vrJc+DpNysnrvCmUnTjeKzN1fR4QgYYnO3gh00sfRijJnMpKZklIqVaOnBJBetIJp/Rxeq4t+Ye
-	VqpXmRVHd3JKjaMFT36DvzbwnaP0hqKrMSH0nqWjwHOEK41hQM4Q7W93dSl9So6KO7wMeDiIz2z
-	Dg0Cwq+zCIDvFnjTuq+NXKpZWpXG0OyR/KLI7j27XPDQzlAa8zKmSVA75ffu0ydmmOALkl96zQq
-	+4q0Ik3alDlJq8NWwMkn35vXmY6Zh0qUgA7pW14XgmQ3zXpJnEPF/pZK7fgzSKsynh2/3F6jz5X
-	TYJJ+erypxvks+h7GXO0TiA4XNbcI2om0iBwKWaDWtA1hdxTaqv0WNGr5ldex0e+gsNTIT2lFqA
-	xbX+jBCb5x5QpOqzBNnUEwtNg==
-X-Received: by 2002:a05:600c:5487:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-49fe66ee809mr285616115e9.22.1790694689978;
-        Tue, 29 Sep 2026 08:11:29 -0700 (PDT)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af505e699sm4789749f8f.20.2026.09.29.08.11.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:11:29 -0700 (PDT)
-Date: Tue, 29 Sep 2026 17:11:27 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
-Message-ID: <arvVH50RJ3CdL_iW@pathway.suse.cz>
-References: <20260914143412.1sMcp89V@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOs6TUNE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55DF81F000FF;
+	Tue, 29 Sep 2026 15:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790694769;
+	bh=71gNwfxr6/N6vQIAikOqpfr/6urSEFtP0LH0Qflal2w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IOs6TUNEwsMsxtzhByZCCG5v/hE1nOaCS/c7tzIOg0Z6nTOh2fmyYWrxqbb6mLNow
+	 iKNNg0SZWY4DyQ6KtFIImMfj3fX67wu74V0lc1TTfDEWKgRuVSdaHZcYgl5Xw7gIfm
+	 EPIB+VlN9vLUovkWDO7qx1MRfiGSfspqDP/t5sKKKLfgr6OwRWtgLktbGOQVvhtU2Z
+	 fH2WADrabD7LoCH1VaDsTfHbRI3vVSm25eRwIl98UnnO8ZOzrHXw9ZIrLLoGb+5jKh
+	 u7aySXzYeee7WL/GolIBcQc44SMzL+DBbGYgR870Jvgudj1UODeiZi7C7zH+XfX2Pg
+	 eCC0goxHGE8/A==
+Date: Tue, 29 Sep 2026 16:12:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: linux-next: Tree for Sep 29
+Message-ID: <3837cbfb-dc98-4472-b685-fc07ca880158@sirena.org.uk>
+References: <arvTTZ5DDHpyfmUX@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="P9OMB+vPvsNeNoJ6"
+Content-Disposition: inline
+In-Reply-To: <arvTTZ5DDHpyfmUX@sirena.org.uk>
+X-Cookie: 1 bulls, 3 cows.
+
+
+--P9OMB+vPvsNeNoJ6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914143412.1sMcp89V@linutronix.de>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon 2026-09-14 16:34:12, Sebastian Andrzej Siewior wrote:
-> In commit b845b517b5e37 ("printk: robustify printk") initially got its
-> delayed wake up which is today implemented via the irq_work. Back then
-> it was a variable which was assigned to 1 if a pending wake up was
-> waiting. This variable was checked on each timer tick. Therefore it
-> makes sense to assign a per-CPU variable with this task to avoid cache
-> line bouncing when each CPU reads the variable on each timer tick
-> simultaneously.
-> 
-> Today we have a irq_work which is enqueued onto a list and handled if it
-> has work items assigned. This list is already per-CPU.
-> 
-> We could replace the per-CPU irq_work and the per-CPU printk_pending with
-> two irq_work structs: One for PRINTK_PENDING_WAKEUP and the other for
-> PRINTK_PENDING_OUTPUT.
-> While unrolling the conditions in __wake_up_klogd() it becomes obvious
-> that PRINTK_PENDING_WAKEUP is always passed as an argument but never
-> checked. The return value wq_has_sleeper() of does not really matter
-> it's sole purpose is to enforce the needed memory barrier.
-> 
-> Redo the irq_work by:
-> - Use one irq_work (pending_wakeup_work) for klogd wakes. Schedule it
->   only if there is a sleeper waiting.
-> - Use one irq_work (&pending_output_work) for output printing. Schedule
->   it only if PRINTK_PENDING_OUTPUT passed.
-> - Drop unused PRINTK_PENDING_WAKEUP.
-> - Remove the preempt_disable() section. Its purpose was to ensure that
->   printk_pending and wake_up_klogd_work is accessed from the same CPU.
-> 
-> Worst case is defer_console_output() where two irq_work are scheduled but
-> those get processed one after the other during the HZ tick so it
-> shouldn't get worse.
-> 
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+On Tue, Sep 29, 2026 at 04:03:44PM +0100, Mark Brown wrote:
+> Hi all,
+>=20
+> Changes since 20260928:
 
-JFYI, the patch has been comitted into printk/linux.git,
-branch for-7.4.
+Also note that I will be travelling to LPC from 2nd-9th October, as a
+result -next releases will be at best spotty during that time.
 
-Best Regards,
-Petr
+--P9OMB+vPvsNeNoJ6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq71WwACgkQJNaLcl1U
+h9CpQAf/fWcGmsVousdIjMY5SyT6K5NtKvw2DX5VVjXQ/1kGlPHzfDgmDocI56yW
+iB0qHQ2HOF2FIWzYn7I+fYi3Thn7IqCjV3XcFCF26Ra6kMOiKoylm6zf5Zg8yAmn
+yoE9QIMTVsF+ndIbtSr0OupfS/1GhS5wtuoCKd5xOY4Pz/Z+XnRLF70NXqNQw89K
+/dUjjCRnn0GeXxiTlkEn0yg5yNq7SjZFNaf4upYl6HH63UWZUs+Hl7sBMxWpZiyx
+EFn9ANB4vMOoDQ0n8vPgnee8gcTX7P3jVAgstNpDJlQCGp1vQ0HwYBzto9ci1BUi
+SyhDQkHTeE/jTpaS4/20V3/uMhwaKg==
+=L7fl
+-----END PGP SIGNATURE-----
+
+--P9OMB+vPvsNeNoJ6--
