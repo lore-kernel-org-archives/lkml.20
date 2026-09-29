@@ -1,172 +1,178 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f16.google.com (mail-dl2-f16.google.com [74.125.229.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D64E4F96A5;
-	Tue, 29 Sep 2026 13:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689054; cv=none; b=UfGPZ/XDn8j5vpJHVINXgaxgp24OJQq4sM5KOYGqPel0qRO5rAFXd8+hcRbbTlgED9NS+k/emzz+z1Id54rE1qUn5HW7Vkwsj9IdhbIybEFAvAwuZUsLQVDFEtKsIpX2YbJxoAUDF2OtoMALtcnasrCLjuC2H/gW8jGl/yNKjMQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689054; c=relaxed/simple;
-	bh=ZfOI4enPkIyHuoxQGCP7dsiWqYy6zkYOhymwAH5/upM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FROTc400QRyp8/A9j04Rz59XK3rR2ObfsSE7aWcVUkU5Jb9hNvAG14DERcXVz8Dp87NTCzL66LwmHFWJDmlVuYHMaPTBpKkVQGU4pDTvNsRU28Qn01wXYP6cgk6sCLw+6mln409TRfuQ2nGSI3ypVxlEPkjKKO9tGpidiS9oo+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EwnBxFbE; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FBA526AA9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.144
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790689057; cv=pass; b=O3ZJ+SgqO4XeOZZNCX/L8QOUg9DpCd8bkOu4pMtjGPsEJ/2eQgH8W99YgcQ4GIxdFkIW5pTCUApN7dzFUn7kfZ1lyn5Nef233vrV5ER1kSPJ1rL2RQtrMNl1379HKNGgCgyzWO2WvmM2Nd7xv3K8yF5mGDwpKZfIEkdmaj2Chl0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790689057; c=relaxed/simple;
+	bh=YagtFCBitM4qndUdbdLuLDTHnPtMJCDBGGfXIhio04o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mgmhae81oEPhsXSAtQhMHUKemztpnTIiHc6SNzrTSgTR7aVZt6ipjmfKuGJ7JosGvfiLO9m5rxpXiEjguUBwtyqnOCehvZlrcJJPoAWCPN2WqVgqr3I007DAEE6QSxx/1a3FpdpFS/Uj/NeZzy6k6R9qrn4DFyuKVZ4XnW3JeNc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bqX4aXgu; arc=pass smtp.client-ip=74.125.229.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EwnBxFbE"
-Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 00B755B3;
-	Tue, 29 Sep 2026 15:35:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790688940;
-	bh=ZfOI4enPkIyHuoxQGCP7dsiWqYy6zkYOhymwAH5/upM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=EwnBxFbE7T6vx4gMFO5ybILHXg9BWjiCSfu2hafCtjNit+3SnOHgxdk1RKUUSCLdJ
-	 GPgkFOGQ85WLCLlN77h/ZMC4sVE6hHOY1Il9HmtLcQwWG5SoPF9k2R/gGZ0NFI+95B
-	 hZFYmwqlyiZXjbO/CTei/mVnCZbo1+TEmAgAiR+g=
-From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Subject: [PATCH v1] media: rcar-vin: Implement `VIDIOC_ENUM_FRMSIZES`
-Date: Tue, 29 Sep 2026 15:37:20 +0200
-Message-ID: <20260929133720.344955-1-barnabas.pocze+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bqX4aXgu"
+Received: by mail-dl2-f16.google.com with SMTP id a92af1059eb24-1473f265b82so1013400c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:37:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790689054; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Us6TenO8VAK94h3q/rKT6kjXjpugxRHFlhXBeWwjKrOqEfBydBMy0Zp5CEW6UnX6n3
+         KseNt7T31mYbk24LrHL+XZdVZwhjn1Oafspu6saLnUEuKzDZf8M7Q5eOZXPuwryxmNAu
+         QWBBHoQ2qddyv+C9tpw1hyYeMHpDedlxndnNVi98oRTktGe4pEXwaSb+uVoJEYPzeEmJ
+         b5gWOVMjYolevs8fGBvJ2kvxPIdkvLNhxpjOyt/udP1kqFzDK2ZepwoUWnb6JQwAyr8w
+         mfnZKle4Ht5+BKVJs7H/sj2zlq6HXw1pF3rwdMIjH4wa13mzMvchiakjl8sC316AOpAC
+         EYTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=H1gd2gwEvh9R3nMhqTwmiYx3C+mNAyQraQhhd36JlyE=;
+        fh=GnNBVLUHDpMMoc5Hoq2zYzMmXY0IKuc2j3DweOAQG5E=;
+        b=KgKu4JIhwJkoHU2G3VAeeLxq/VoJ5huZaumIJuQFqnaqnRf09G0WerPAvBsRtoxaE1
+         Lrn69g0GKlF6mMei1WaAGStl4y3wtgNrgaWsLi1Ol4syOa5nitjz1yNkpGDPOS16Csg6
+         04ckpZ4m7fB6Rr+avzW2ukJYignyP4orYlK0cT5XXV/Do/zLq9N92vrZ81i01cFklgTP
+         3lpiHauBdaqp1k7Gu45LN5trpNZ+AXh1u122WZj7BIS36D1Zy0W13ecxpLrMXvvyRVrE
+         +uOZ3h+XZKk5t2pp+Qctr81nUznVvjaeN0ZNomKdawjFIj3d91eA9K2w5KoPnw3D1NtU
+         kVHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790689054; x=1791293854; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H1gd2gwEvh9R3nMhqTwmiYx3C+mNAyQraQhhd36JlyE=;
+        b=bqX4aXguXIM64dG8KBBauKLEKxx6awquv00StzPMPNmtyaZvNGE3U09HLkAzVQU7ut
+         jcEqSuXpc5ApG25jqv0UXRWlF/z7W82oAqa6a0hd8vcwibz/+Nx24iXfxV1nkPlhaXJM
+         wnUzXZDuup0ZkTBIMTdOytWpHa2igGZElIt+5KWULcX1kaIgLFcy9BBhp4hpKwAhFcI6
+         YYoi5rfXzSElnCcmMnrh8rwVvobhhXEeBpyxLGKu1GbzGS8IuP0CNvFIEL8BI0PwNCbD
+         ece534p+ZPmAmu2GRGrBZ5RluspCiJegq90LOu7ynQhorxYRB4wLjFa2AytPN0kudt24
+         p/Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790689054; x=1791293854;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H1gd2gwEvh9R3nMhqTwmiYx3C+mNAyQraQhhd36JlyE=;
+        b=nntSCoe33muvEevnMnd/98IsYCFQwJYkDo9IjpgGdQrLE2sRNh30YF2yDZOqmhy3GQ
+         APr8ZD2GMcR2LXsy4Fdf6byQi1Md8KrcaqQzU2CKMSq6rVZgj/qvDRJtVq2VVH7bBG91
+         5f4LHXVpC7rVXGLHZSoB0zc53yT3/QSV4Y96Z4dTdAL5Bm7lEAyZ0HOg74EsbZNzytqC
+         ovyXSR7GL+jQrLq9sgQ0e723tyMBn08b4DQr0XjnjZdqOnxW7RWY8+fqxQYvAgntmuWI
+         7v7vUYE+YNwwhUeKSRU6Sxjqwh8iPlJH+ipgPSPj1syVEtSXZ+6xWSzX+5ZiltjsX/0H
+         NGmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvIPAun6I3XipOflv+b9vl2ZGQhJdwfMt/paqHEEVVcNJLVzZrWs7laYt70KJmuQLyMN9AE4YblsSmBd8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiI1+KNCku1fKQ03Rw0PujcX4O6pUKJu2SNZT0jQaFjVn2C4gk
+	TLdgeZgdJV14zELC7fWF14+x8YvWRTUv8SZPN/UlCJ8yE6hFd5WMdmT5+PsB6ABizSVaQLv6PE7
+	tgS0e5l6w/1LbEkRlfMmGml6tCU1kx/j+HNTozzqa
+X-Gm-Gg: AYBFou1QDekEcXvHRZltj1q26jPBoiUGoigH3Af6cqFGaYxjKqoASf4ZPtzPvoR9Pi+
+	U/iVjSzgwvAohAFivhNZ6FTmyB66KE9ZhTqCd4d+WuieZPUOGfBflNmAIhRzqeBDEvVryAmroSP
+	SoQ9W+R0Fim7kdKpiUUFBvt97hGH5sg3kdd9VewVvCUo//eFQZDx/KyHSuRj/IKCIp+3PhCPU3b
+	4KM50yQ/wjrvb7VYO1ntNp0E7mH96ytizdMMXa4cgGtOFbOEE4Rh0236fi+PcoV1PZnlKBIFOFP
+	npom3CxmXhjuFNuGkyEik1hQvAIQQ3uuUvKs2GNlK0ovptw32A+7+oS4QexL4cdbkVQ5wgfLmr3
+	TVEDXynT/BpP2clYSXYbf
+X-Received: by 2002:a05:701b:4314:b0:144:c90f:256a with SMTP id
+ a92af1059eb24-146cdebd363mr13589594c88.5.1790689053295; Tue, 29 Sep 2026
+ 06:37:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com>
+In-Reply-To: <20260915160207.2952-1-dmytrokoziuk68@gmail.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Tue, 29 Sep 2026 15:36:56 +0200
+X-Gm-Features: AclHuK9CoiMQVngJtj4D1_HG-SY1tsnE6dhOHICgB6kvknxlkNRvieBJ03LZumE
+Message-ID: <CAG_fn=V9XMhQT=uz8zCbr=nFZU2bC+Cp6uKRyi6V+LhMpeugEg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mm: kmsan: fix iounmap metadata teardown
+To: Dima Koziuk <dmytrokoziuk68@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently there is no way for applications to query the available frame
-sizes, so implement `VIDIOC_ENUM_FRMSIZES` based on what is allowed in
-`rvin_format_align()`.
+On Tue, Sep 15, 2026 at 9:02=E2=80=AFPM Dima Koziuk <dmytrokoziuk68@gmail.c=
+om> wrote:
 
-Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
----
- .../platform/renesas/rcar-vin/rcar-v4l2.c     | 70 ++++++++++++++-----
- 1 file changed, 51 insertions(+), 19 deletions(-)
+Hi, sorry for this taking so long.
 
-diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-index 9d45e11898c13..4961d28f42c78 100644
---- a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-+++ b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-@@ -19,6 +19,8 @@
- #include "rcar-vin.h"
- 
- #define RVIN_DEFAULT_FORMAT	V4L2_PIX_FMT_YUYV
-+#define RVIN_MIN_WIDTH		5
-+#define RVIN_MIN_HEIGHT		2
- #define RVIN_DEFAULT_WIDTH	800
- #define RVIN_DEFAULT_HEIGHT	600
- #define RVIN_DEFAULT_FIELD	V4L2_FIELD_NONE
-@@ -187,6 +189,24 @@ static u32 rvin_format_sizeimage(struct v4l2_pix_format *pix)
- 	}
- }
- 
-+static u32 rvin_format_width_alignment(u32 pixelformat)
-+{
-+	/* Hardware limits width alignment based on format. */
-+	switch (pixelformat) {
-+	/* Multiple of 32 (2^5) for NV12/16. */
-+	case V4L2_PIX_FMT_NV12:
-+	case V4L2_PIX_FMT_NV16:
-+		return 5;
-+	/* Multiple of 2 (2^1) for YUV. */
-+	case V4L2_PIX_FMT_YUYV:
-+	case V4L2_PIX_FMT_UYVY:
-+		return 1;
-+	/* No multiple for RGB. */
-+	default:
-+		return 0;
-+	}
-+}
-+
- static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
- {
- 	u32 walign;
-@@ -208,27 +228,12 @@ static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
- 		break;
- 	}
- 
--	/* Hardware limits width alignment based on format. */
--	switch (pix->pixelformat) {
--	/* Multiple of 32 (2^5) for NV12/16. */
--	case V4L2_PIX_FMT_NV12:
--	case V4L2_PIX_FMT_NV16:
--		walign = 5;
--		break;
--	/* Multiple of 2 (2^1) for YUV. */
--	case V4L2_PIX_FMT_YUYV:
--	case V4L2_PIX_FMT_UYVY:
--		walign = 1;
--		break;
--	/* No multiple for RGB. */
--	default:
--		walign = 0;
--		break;
--	}
-+	walign = rvin_format_width_alignment(pix->pixelformat);
- 
- 	/* Limit to VIN capabilities */
--	v4l_bound_align_image(&pix->width, 5, vin->info->max_width, walign,
--			      &pix->height, 2, vin->info->max_height, 0, 0);
-+	v4l_bound_align_image(&pix->width, RVIN_MIN_WIDTH, vin->info->max_width, walign,
-+			      &pix->height, RVIN_MIN_HEIGHT, vin->info->max_height, 0,
-+			      0);
- 
- 	pix->bytesperline = rvin_format_bytesperline(vin, pix);
- 	pix->sizeimage = rvin_format_sizeimage(pix);
-@@ -343,6 +348,32 @@ static int rvin_enum_fmt_vid_cap(struct file *file, void *priv,
- 	return -EINVAL;
- }
- 
-+static int rvin_enum_framesizes(struct file *file, void *priv,
-+				struct v4l2_frmsizeenum *fsize)
-+{
-+	struct rvin_dev *vin = video_drvdata(file);
-+	u32 wstep;
-+
-+	if (fsize->index != 0)
-+		return -EINVAL;
-+
-+	if (!rvin_format_from_pixel(vin, fsize->pixel_format))
-+		return -EINVAL;
-+
-+	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-+
-+	wstep = 1u << rvin_format_width_alignment(fsize->pixel_format);
-+	fsize->stepwise.min_width = round_up(RVIN_MIN_WIDTH, wstep);
-+	fsize->stepwise.max_width = vin->info->max_width;
-+	fsize->stepwise.step_width = wstep;
-+
-+	fsize->stepwise.min_height = RVIN_MIN_HEIGHT;
-+	fsize->stepwise.max_height = vin->info->max_height;
-+	fsize->stepwise.step_height = 1;
-+
-+	return 0;
-+}
-+
- static int rvin_remote_rectangle(struct rvin_dev *vin, struct v4l2_rect *rect)
- {
- 	struct media_pad *pad = media_pad_remote_pad_first(&vin->pad);
-@@ -564,6 +595,7 @@ static const struct v4l2_ioctl_ops rvin_mc_ioctl_ops = {
- 	.vidioc_g_fmt_vid_cap		= rvin_g_fmt_vid_cap,
- 	.vidioc_s_fmt_vid_cap		= rvin_mc_s_fmt_vid_cap,
- 	.vidioc_enum_fmt_vid_cap	= rvin_enum_fmt_vid_cap,
-+	.vidioc_enum_framesizes		= rvin_enum_framesizes,
- 
- 	.vidioc_g_selection		= rvin_g_selection,
- 	.vidioc_s_selection		= rvin_s_selection,
--- 
-2.55.0
+>
+> While studying the code, I noticed that kmsan_iounmap_page_range() calls
+> __vunmap_range_noflush(v_shadow, vmalloc_shadow(end)) inside its per-page
+> loop, and does the same for origin. The first iteration therefore unmaps
+> the entire metadata range, removing the PTEs for later pages before the
+> loop can recover their backing pages.
+>
+> Looking at the page lookup, I found another problem. The only callers of
+> kmsan_vmalloc_to_page_or_null() pass shadow and origin addresses, but the
+> helper accepts only regular vmalloc and module addresses. KMSAN metadata
+> lies outside those ranges, so the helper returns NULL and the backing
+> blocks are never freed.
 
+My bad, kmsan_vmalloc_to_page_or_null() is indeed bogus.
+But what if we factor out the page walking part of vmalloc_to_page()
+into a separate helper, so that it looks like:
+
+struct page *vmalloc_to_page(const void *vmalloc_addr)
+{
+        /*
+         * XXX we might need to change this if we add VIRTUAL_BUG_ON for
+         * architectures that do not vmalloc module space
+         */
+        VIRTUAL_BUG_ON(!is_vmalloc_or_module_addr(vmalloc_addr));
+        return __vmalloc_to_page(vmalloc_addr);
+}
+EXPORT_SYMBOL(vmalloc_to_page);
+
+Then kmsan_vmalloc_to_page_or_null() will start working:
+
+struct page *kmsan_vmalloc_to_page_or_null(void *vaddr)
+{
+        struct page *page;
+
+        page =3D __vmalloc_to_page(vaddr);
+        if (page && pfn_valid(page_to_pfn(page)))
+                return page;
+        else
+                return NULL;
+}
+
+, and we'll only need to fix kmsan_iounmap_pages() to vunmap the pages once=
+:
+
+static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
+{
+        unsigned long shadow_start =3D vmalloc_shadow(start),
+                      shadow_end =3D vmalloc_shadow(end);
+        unsigned long origin_start =3D vmalloc_origin(start),
+                      origin_end =3D vmalloc_origin(end);
+        unsigned long v_shadow, v_origin;
+        struct page *shadow, *origin;
+        int nr;
+
+        nr =3D (end - start) / PAGE_SIZE;
+        v_shadow =3D shadow_start;
+        v_origin =3D origin_start;
+        for (int i =3D 0; i < nr;
+             i++, v_shadow +=3D PAGE_SIZE, v_origin +=3D PAGE_SIZE) {
+                shadow =3D kmsan_vmalloc_to_page_or_null((void *)v_shadow);
+                origin =3D kmsan_vmalloc_to_page_or_null((void *)v_origin);
+                if (shadow)
+                        __free_pages(shadow, KMSAN_IOREMAP_META_ORDER);
+                if (origin)
+                        __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
+        }
+        __vunmap_range_noflush(shadow_start, shadow_end);
+        __vunmap_range_noflush(origin_start, origin_end);
+        flush_tlb_kernel_range(shadow_start, shadow_end);
+        flush_tlb_kernel_range(origin_start, origin_end);
+}
+
+I think this is cleaner than reimplementing the page walk exclusively for K=
+MSAN.
