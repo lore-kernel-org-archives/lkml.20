@@ -1,118 +1,161 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546653DA5DC;
-	Tue, 29 Sep 2026 20:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BD63DA7FB;
+	Tue, 29 Sep 2026 20:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790712634; cv=none; b=m0ZbixyaYQ8CWcWU10qVDZbY0oMf5CMLZRYF2KNrcNtayIjJP//klG6sSuQiOgHRg4vE573+9FaIiccmXr99SyAw4Vl3cNAl8Z5oLlYSv0AUtsCTcS8wywKshZZxt6ZdTlMgzS/tmlky2DnXQ8a03CALlHrgGK13SGAn0hl4aOY=
+	t=1790712686; cv=none; b=L6UxppQ147K26ScGAGsc+Uw2UtxQy8aHJ0OgTDAKhpINk3mBPCBF6aY3EDNsrGnzzcPkjPQEkSGtgkwwTn/CepspfiiSJLISmQraoc8v+9omJ2GQc/xRK2sbQlHLSk4TG8/5uXSyzmVm+3iJb0rIbqTqsEueTU8gupjK3LSOGmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790712634; c=relaxed/simple;
-	bh=Sicuho4icjfTu0+nBtNXBidKVp2riLNXWxAlEonvAQE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=seYjz4JoN52G7IdPuXM1vThVg3lD6Trp8Uvd5f3sn8zFbdvQufRYmnVAZ3B+YsDp6CV/ZVQ7+7ONqarrDFpmmaKcUQqqweWQhnW1A8S3W21v+AYlrFAwRpXy+3IcEIWVmPSqs2Way5zs0ZB/YQrNtJgGzSWM8JIn/q73BwzhKaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=roLIJiSx; arc=none smtp.client-ip=192.19.144.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790712686; c=relaxed/simple;
+	bh=bDuMYlPEa0AAmMMpU9ra82upyp5n/ne9CXaVAn+1oPw=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=RAvlRcoiUQHrmt01E81mnk1jU141zHISwq6HTujXAeFzmmwVvHLZ5gA/RCBi1Rb1oIDv888ZiFtL31YjCEF4xaJy7vEaffPwxqV42i9yoqXgu//26B5Ypmp8y6VZ/dokXwbNBuhv5RwpMAVdjDd5mfuKoUhtL9huQGdDQCrWnHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CV5gnUU5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YBCHZxPY; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="roLIJiSx"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 50BE2C0003C7;
-	Tue, 29 Sep 2026 13:10:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 50BE2C0003C7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1790712632;
-	bh=Sicuho4icjfTu0+nBtNXBidKVp2riLNXWxAlEonvAQE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=roLIJiSxplEeYDDzJeg3SayNl+C7synq++bDARBaxoT0UXpjrEW3G+MqT5HFiMj1o
-	 E3Y9/yqlEHrx8Mu6nLCsc3p6wuLw9/AwEGgXQfsQw2oJvGPgkBrVZJh/hOWDu3oDjt
-	 5V2/gDT+pFkTMzV8y5Po0Qa277xbiebpzl0VSQFU=
-Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id E97E8A8A;
-	Tue, 29 Sep 2026 13:10:31 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: stable@vger.kernel.org
-Cc: Florian Eckert <fe@dev.tdt.de>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org (open list:THERMAL),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH stable 6.6] tools/thermal/tmon: Fix compilation warning for wrong format
-Date: Tue, 29 Sep 2026 13:10:24 -0700
-Message-Id: <20260929201024.319015-3-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929201024.319015-1-florian.fainelli@broadcom.com>
-References: <20260929201024.319015-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CV5gnUU5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YBCHZxPY"
+Date: Tue, 29 Sep 2026 20:11:21 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790712683;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egHTbs6R9u3RyquDZQOU9N9uSwL+t5saiNu0O8JsGFA=;
+	b=CV5gnUU5YBT52WOQq/EApQ+wk+cxq2en9tpvCCYIkSAKjLE6zC61NJjbeVsOVw2w06Mole
+	yeloXNo5n2HwouSe9M6/FHNxpR291JhIVs2OYm38fO4rakm16ZxHBU1912qXNBgBnnG2I7
+	lkYPf+rfbUUxhC/5PT4nvntOjPKWG0YxDz2fyaUAC3vY5oQicQ734ZYWtkwxNW8t5TV8yc
+	2YoT957JHtieoqDwKMFHqWXbcACwFKNIr5VX1bvstgKRkiCm08hQT+xxYRLbdolTf8jQNK
+	PRE/A9K5f4A/sBneuvHNZdchOolniLBSzhJFwcJ4c87R6JZ083J7dcY2Get8gw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790712683;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egHTbs6R9u3RyquDZQOU9N9uSwL+t5saiNu0O8JsGFA=;
+	b=YBCHZxPYeU7vHC4YI9PPfRU2b5pJTewmBhY49QNA3MHqt+g/ysbvhrVFt7izOnDzodv8bF
+	MBpQmUZoeq+vYMCQ==
+From: "tip-bot2 for Qingshuang Fu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/core] selftests/timers: clocksource-switch: Fix
+ unchecked open()/read()
+Cc: Qingshuang Fu <fuqingshuang@kylinos.cn>, Thomas Gleixner <tglx@kernel.org>,
+ John Stultz <jstultz@google.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260825064605.472889-1-fffsqian@163.com>
+References: <20260825064605.472889-1-fffsqian@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179071268156.3910103.1493041610848293334.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Florian Eckert <fe@dev.tdt.de>
+The following commit has been merged into the timers/core branch of tip:
 
-commit 9da39ef332c417ce52732564c1c682a6e1209302 upstream
+Commit-ID:     348f54c435bf3177baa78201952810b255d44b30
+Gitweb:        https://git.kernel.org/tip/348f54c435bf3177baa78201952810b255d=
+44b30
+Author:        Qingshuang Fu <fuqingshuang@kylinos.cn>
+AuthorDate:    Tue, 25 Aug 2026 14:46:05 +08:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Tue, 29 Sep 2026 22:05:04 +02:00
 
-The following warnings are shown during compilation:
+selftests/timers: clocksource-switch: Fix unchecked open()/read()
 
-tui.c: In function 'show_cooling_device':
- tui.c:216:40: warning: format '%d' expects argument of type 'int', but
-argument 7 has type 'long unsigned int' [-Wformat=]
-   216 |                         "%02d %12.12s%6d %6d",
-       |                                      ~~^
-       |                                        |
-       |                                        int
-       |                                      %6ld
- .....
-   219 |                         ptdata.cdi[j].cur_state,
-       |                         ~~~~~~~~~~~~~~~~~~~~~~~
-       |                                      |
-       |                                      long unsigned int
- tui.c:216:44: warning: format '%d' expects argument of type 'int', but
-argument 8 has type 'long unsigned int' [-Wformat=]
-   216 |                         "%02d %12.12s%6d %6d",
-       |                                          ~~^
-       |                                            |
-       |                                            int
-       |                                          %6ld
- .....
-   220 |                         ptdata.cdi[j].max_state);
-       |                         ~~~~~~~~~~~~~~~~~~~~~~~
-       |                                      |
-       |                                      long unsigned int
+get_clocksources() and get_cur_clocksource() open and read the
+clocksource sysfs files without checking the return values and without
+NUL-terminating the buffer.
 
-To fix this, the correct string format must be used for printing.
+If open() fails, read() is called on fd -1 and returns -1, which is
+stored in a size_t as SIZE_MAX.  The token-scanning loop in
+get_clocksources() then walks past the uninitialized stack buffer,
+reading and writing out of bounds.  Even on success the buffer is not
+NUL-terminated, so a fully read buffer makes the inner scan run past the
+data, and get_cur_clocksource() lets change_clocksource() call strlen()
+on a non-terminated buffer.
 
-Signed-off-by: Florian Eckert <fe@dev.tdt.de>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-Link: https://lore.kernel.org/r/20231204141335.2798194-1-fe@dev.tdt.de
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Check the open()/read() results, use ssize_t for the read length,
+NUL-terminate the buffer, and close the fd in get_cur_clocksource().
+
+Fixes: 7290ce1423c3 ("selftests/timers: Add clocksource-switch test from time=
+test suite")
+Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: John Stultz <jstultz@google.com>
+Link: https://patch.msgid.link/20260825064605.472889-1-fffsqian@163.com
 ---
- tools/thermal/tmon/tui.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/timers/clocksource-switch.c | 23 ++++++++++--
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/tools/thermal/tmon/tui.c b/tools/thermal/tmon/tui.c
-index 031b258667d8..7f5dd2b87f15 100644
---- a/tools/thermal/tmon/tui.c
-+++ b/tools/thermal/tmon/tui.c
-@@ -213,7 +213,7 @@ void show_cooling_device(void)
- 		 * cooling device instances. skip unused idr.
- 		 */
- 		mvwprintw(cooling_device_window, j + 2, 1,
--			"%02d %12.12s%6d %6d",
-+			"%02d %12.12s%6lu %6lu",
- 			ptdata.cdi[j].instance,
- 			ptdata.cdi[j].type,
- 			ptdata.cdi[j].cur_state,
--- 
-2.34.1
-
+diff --git a/tools/testing/selftests/timers/clocksource-switch.c b/tools/test=
+ing/selftests/timers/clocksource-switch.c
+index db62a76..2e86f56 100644
+--- a/tools/testing/selftests/timers/clocksource-switch.c
++++ b/tools/testing/selftests/timers/clocksource-switch.c
+@@ -40,16 +40,23 @@
+ int get_clocksources(char list[][30])
+ {
+ 	int fd, i;
+-	size_t size;
++	ssize_t size;
+ 	char buf[512];
+ 	char *head, *tmp;
+=20
+ 	fd =3D open("/sys/devices/system/clocksource/clocksource0/available_clockso=
+urce", O_RDONLY);
++	if (fd < 0)
++		return 0;
+=20
+-	size =3D read(fd, buf, 512);
++	size =3D read(fd, buf, sizeof(buf) - 1);
+=20
+ 	close(fd);
+=20
++	if (size <=3D 0)
++		return 0;
++
++	buf[size] =3D '\0';
++
+ 	for (i =3D 0; i < 10; i++)
+ 		list[i][0] =3D '\0';
+=20
+@@ -74,11 +81,21 @@ int get_clocksources(char list[][30])
+=20
+ int get_cur_clocksource(char *buf, size_t size)
+ {
++	ssize_t len;
+ 	int fd;
+=20
+ 	fd =3D open("/sys/devices/system/clocksource/clocksource0/current_clocksour=
+ce", O_RDONLY);
++	if (fd < 0)
++		return -1;
++
++	len =3D read(fd, buf, size - 1);
++
++	close(fd);
++
++	if (len <=3D 0)
++		return -1;
+=20
+-	size =3D read(fd, buf, size);
++	buf[len] =3D '\0';
+=20
+ 	return 0;
+ }
