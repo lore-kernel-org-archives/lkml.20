@@ -1,92 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22B54EBACC
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 17:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0763154B1D3;
+	Tue, 29 Sep 2026 17:58:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790704735; cv=none; b=kp7VuAwwDbmm3N9/Ey9D0sMg3M+o4owThi6w39twTjIvnOpDuyjI8HJcLhEP0JJuVY3nu5UGH+li9Kxq084wOdpiKWw8HOyxiwt7uPLejiCwGDswycW7KS9wAvQqWHdiggryC7cC3W/RVB6RtSI6BKvRWcFSnu3lFTltOTuiyNY=
+	t=1790704739; cv=none; b=dygbaWe9dVMpdVZGCiCTQ6+QEy5/lVxNrWL3/U8C2WcUjgHr5yrbLucIIWtaQWWUVb/oLohjQlxBB7lAbaj6lq3dwxYArU1xlCtef15lZDBE+CPX1OFH0AscjFAKv5orIiUDoqvGaV/CsajiLp01nEH4tC2A1Z8uaGLGGORMsuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790704735; c=relaxed/simple;
-	bh=qFAx/pnngE/A8wI8Zu9QmS4CjpyUWSL8VwdOu9yr0KU=;
-	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=Cm+Yelio26SHggg256ke3stdf1wu7oJbmH0yVEfGDprflLCIO/LNDH/V+GDTy4SE/+8gMd2a5N98p3WDia2Vf4ovA7cI9RayzE3h87AW0A8kLYUuWMNVhISK0LPqhnEdvaj4GiKcj8yXXV+RRwVYMipA1wB1flkIl0cMcfZ5uGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKUtNz0O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790704739; c=relaxed/simple;
+	bh=XyboGnsSgHeCD39ehSzEBEC7YjYR3gOQlEKhHnzGYhU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rthYwtlZj1BhW2aR8h3oavsxNqQI3E52VOL8wlGmOW4HWgJLahcM7t0I5ov57U97Mun2mesy5E6IBjkVrZmyV5Lwf3LCIbczx4nKZn+VFcaR5ptnE2/auFeQV5a7Qam1TW/6ch1Dd5jnxLcXED4enYP5G7T/8U4R1QV9soPkXwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWIEExcf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKUtNz0O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827061F000FF;
-	Tue, 29 Sep 2026 17:58:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWIEExcf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E7B1F000FF;
+	Tue, 29 Sep 2026 17:58:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790704734;
-	bh=vk3nxwp/7lZZyp5CGxF5TgatcwDjt9KZTeaXzgNAE2I=;
-	h=Date:From:To:Cc:Subject;
-	b=UKUtNz0OGYJcm4trvq+cBEKFIwHEtOln0ej9SvH+RCOz2VdQujJo3RG7egLWGrg2A
-	 vEpZs5la1aIlchPjzCaQnrCcXaNOehTe+G10L7ZRgm7Qq4861S030WUyTPTNf99RKz
-	 LhWd4rB4pXWqhZZ1jEaSkHdXHukdi06NZbpt88khVRibSrHsr6qCnhWz2Yq6OR1UWj
-	 se1U9BiKXOMYZXZcTDvevYhjlsEIEzYdofSy+10MV6jttA2QxtDJ8cCqpTE4FR5AK5
-	 x7ubb6c7xKx+328SVZDx9BpL/wXODJlAT43syyakIp4W52ggoz7EHDylAJoQ2Q06KJ
-	 q9ZCRjpn+uluA==
-Message-ID: <edb955af-9153-4db1-8a9e-3d729cb99753@kernel.org>
-Date: Tue, 29 Sep 2026 10:58:53 -0700
+	s=k20260515; t=1790704737;
+	bh=D8IsblU8nmE28Btv5b/ZkJyD4K5wSxbscAgK5JZqxKw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UWIEExcfN6jUovdJmatCAMu5OMD6YHLVKZLm4cwex0sANOgJ6vPEjlkalfQRzeyk1
+	 HIAuV12wZ9IO9kr8cpQEcoScoW432HEkDlXR4y5ZpNlxQaXm/jw05ouD1qd1CsVN9m
+	 3Gt001PNnIvK6A0HEBpRnJ5EDl9PT4w/lSUe+3be5PkkjdYNbwA4nUkHZ3J7G6mZls
+	 CUuSPXxVNpzgnTJkJyx6pcWtIwMHe0a7gvAeVwu2ddCGSxiFyMqDXJvS8qYjYDgJt9
+	 1HW3sDhHDfkJPJqJ4beFmeBW+7KVeMURYf+f7sveglgtD2EZmYctQc2ubNmGnhu3D2
+	 TGhaDjjZy1qTw==
+Date: Tue, 29 Sep 2026 07:58:56 -1000
+Message-ID: <d594ecb783f0f6838a52099fdba3de8e@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Liz Fong-Jones <lizf@honeycomb.io>
+Cc: Christian Brauner <brauner@kernel.org>,
+ Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jens Axboe <axboe@kernel.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Xin Yin <yinxin.x@bytedance.com>,
+ linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org,
+ cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ ian@honeycomb.io
+Subject: Re: [PATCH v3 1/2] writeback: let foreign flushes reach dying cgwbs
+In-Reply-To: <20260928-wb-dying-cgwb-flush-v3-1-e35374884667@honeycomb.io>
+References: <20260928-wb-dying-cgwb-flush-v3-0-e35374884667@honeycomb.io>
+ <20260928-wb-dying-cgwb-flush-v3-1-e35374884667@honeycomb.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vineet Gupta <vgupta@kernel.org>
-Content-Language: en-US
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: lkml <linux-kernel@vger.kernel.org>,
- arcml <linux-snps-arc@lists.infradead.org>,
- Bradley Morgan <brads@mainlining.org>, blaze <1466528493@qq.com>,
- Anthony Iliopoulos <ailiop@suse.com>, "Paul E. McKenney" <paulmck@kernel.org>
-Subject: [GIT PULL] ARC updates for 7.3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
 
-Hi Linus,
+Hello, Liz.
 
-A bunch of fixes for ARC. Please pull.
+On Tue, Sep 29, 2026 at 01:40:49AM +0000, Liz Fong-Jones wrote:
+>  	if (test_bit(WB_registered, &bdi->wb.state) &&
+>  	    blkcg_cgwb_list->next && memcg_cgwb_list->next) {
+> -		/* we might have raced another instance of this function */
+> -		ret = radix_tree_insert(&bdi->cgwb_tree, memcg_css->id, wb);
+> +		/*
+> +		 * We might have raced another instance of this function.  A
+> +		 * dying wb keeps its slot until released; take it over.
+> +		 */
+> +		slot = radix_tree_lookup_slot(&bdi->cgwb_tree, memcg_css->id);
+> +		if (!slot) {
+> +			ret = radix_tree_insert(&bdi->cgwb_tree, memcg_css->id, wb);
+> +		} else {
+> +			old_wb = radix_tree_deref_slot_protected(slot, &cgwb_lock);
+> +			if (wb_dying(old_wb)) {
+> +				radix_tree_replace_slot(&bdi->cgwb_tree, slot, wb);
 
-Thx
--Vineet
------->
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+This can also replace the wb of a removed memcg:
 
-   Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+1. A cgroup with io enabled is removed. Killing its io css makes
+   cgroup_get_e_css() return the parent's right away, but
+   memcg_cgwb_list->next stays set until wb_memcg_offline().
 
-are available in the Git repository at:
+2. In between, wb_get_create() for the memcg, e.g. from
+   __inode_attach_wb() or inode_switch_wbs(), kills the dirty wb on
+   blkcg mismatch and a new wb takes over its slot.
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc.git/ 
-tags/arc-fixes-7.3
+3. wb_memcg_offline() kills the new wb. Foreign flushes for the memcg
+   now find the new wb while the dirty inodes stay on the old one, as
+   css_is_dying() keeps wbc_attach_and_unlock_inode() from switching
+   them, so the stall comes back.
 
-for you to fetch changes up to f050c3e61d2a1aaece3170d459e4ce5fa2486c12:
+Can you also fail the link when the memcg is dying?
 
-   ARC: arch_cmpxchg_relaxed to use size of pointed type not pointer 
-(2026-09-24 21:17:09 -0700)
+	if (test_bit(WB_registered, &bdi->wb.state) &&
+	    blkcg_cgwb_list->next && memcg_cgwb_list->next &&
+	    !css_is_dying(memcg_css)) {
 
-----------------------------------------------------------------
-ARC fixes for 7.3
+CSS_DYING is set before the io css is killed. Testing it here, after
+the blkcg lookup and under cgwb_lock, catches every removal that could
+have made the old wb replaceable.
 
-  - cmpxchg snafu [Bradley] and other miscll fixes
+Thanks.
 
-----------------------------------------------------------------
-Anthony Iliopoulos (1):
-       arc: remove unused profile.h includes
-
-Julian Braha (1):
-       ARC: cleanup dead ARC_CANT_LLSC option in Kconfig
-
-Vineet Gupta (1):
-       ARC: arch_cmpxchg_relaxed to use size of pointed type not pointer
-
-blaze (1):
-       arc: kernel: Fix clk reference leak in show_cpuinfo()
-
-  arch/arc/Kconfig                      | 4 ----
-  arch/arc/include/asm/atomic64-arcv2.h | 6 ++++++
-  arch/arc/include/asm/cmpxchg.h        | 4 ++--
-  arch/arc/kernel/setup.c               | 1 +
-  arch/arc/kernel/smp.c                 | 1 -
-  5 files changed, 9 insertions(+), 7 deletions(-)
+--
+tejun
