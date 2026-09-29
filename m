@@ -1,196 +1,232 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9C2313293
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D393DC87A;
+	Tue, 29 Sep 2026 15:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790696958; cv=none; b=OVoCOwBUktiwSPCVouzNz9bChAXMEBGXYNny/zrAh49GiXGIgjSvqfs/LXC9LQZYnkcd3tNKOMnRVnViZWnhOwzTo7pOeRhE/A7ZXZ4ZuIq6w1O13Dds1lWcgtX+4P3u++ocZNyHl/9rqPGmuEv/QQSEX64M0T9+IJ6uTLNHnMM=
+	t=1790697073; cv=none; b=qpAU/tHbMImmWaC03wBu7fgjiDulKqZmFNw5ygQ1G4v4QjpzD2rbibPyAbkEXp5ZGG0akmnJFqzSpRYKch9nvcrGhZ/NPrPV6kkHG1wMq3lSPys5CEGE174DEFXkNIS51uRDTKCQaDuZ4tBjH6j8hYWduJH2SHZ+o9rkeeLJ3gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790696958; c=relaxed/simple;
-	bh=hfqSadXKzYCOZRlrIClDG8QwzisMRXfTC7gb1kz0cc8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nMsVMPc9P7DHnM4/FVDzkLfVOpcEgBDE/0/KbFMu1hJsZP2I4JXNUGCdt1M9Ad2KsUE1zFnwdlFWWkbYYuoOcgV2XwtEyWLZ3LcoGd12dxZ6rA7nM83rMz3rRVMnSgvc59OUpc7S9zYGkYqfPFEQB5xYxFebWKTL6SXDbshoIAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KFxjYG4d; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790697073; c=relaxed/simple;
+	bh=CWevSBXALK5VJGZwqUIRc64Xktm5k8Pt6yH/lhSUznI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tQDrnC2Bx58DVO75hsbdMoDum7G0f7iBPXTQcwGn3X6+domzSu5bBmucNj/VcH92ZQ6v5lxzDq1/iilwkE2drYz9u4hHiBIHbaX5x0c0OGIxKfWVwuuINv/LmBjHUuswRNvqwcGi/1Sjk6RyokV628O4OGVfU9HHQuUjHh+eolc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFZ7xqsO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KFxjYG4d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790696956;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+sAysMV0IYJ7rpTH8SIbs7ESaO2lMO4W2Vnw+qB0UCo=;
-	b=KFxjYG4d/WQlnty+9jMj5Gnv0lQQgdrHZwlhbJP08VX5wwLDexFo7VaWz7Cv+xxuBL6HN0
-	buOFUTzf8T5/+liPsSy+7uyMkLDD93twmzEeZfA9hEeRVS/5XqfLsURgK4CRAxsBGnZs+c
-	DN5YXTaixIMYnv8o54AP4yt4PVlWlzQ=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-584-WOd-ikfhNIazC_UOav6ZvA-1; Tue,
- 29 Sep 2026 11:49:12 -0400
-X-MC-Unique: WOd-ikfhNIazC_UOav6ZvA-1
-X-Mimecast-MFC-AGG-ID: WOd-ikfhNIazC_UOav6ZvA_1790696951
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CD898195394C;
-	Tue, 29 Sep 2026 15:49:10 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7403E30000E7;
-	Tue, 29 Sep 2026 15:49:09 +0000 (UTC)
-Message-ID: <8a711efe-075c-48d6-a1b0-4642bce87065@redhat.com>
-Date: Tue, 29 Sep 2026 11:49:08 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFZ7xqsO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B70A9C2BCF6;
+	Tue, 29 Sep 2026 15:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790697072;
+	bh=CWevSBXALK5VJGZwqUIRc64Xktm5k8Pt6yH/lhSUznI=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=PFZ7xqsO5sDbjEoJj0SF5EiMHbMl10MmCCIgeL1ZMKYIf2e9QDspLeP/EFK1LJYAJ
+	 sjAPJCDthJLEvRnaWBRV3zf9d8NyehoLDzSPkxNCQvcMGh32uRxoaUMJGdW0cwcIVZ
+	 UBl+Ik90CcguMgHv5bLq3I5zVa+F+6J6mHZM8TWOmuZzeKYXMH9U5z3P8iPMW8By8h
+	 MahTWwWO6f/pzBRKFNE686yAl0Tr2suqVzZmZkQj6FwcUi3s10/atWIuLiCOicbxnj
+	 crBOwGxrSXsCFecEPA980ZQ7TEKrNO2VtS7XHXrkflLOChUuWyPhVwAiWKWLfobMgV
+	 PFBVidaGw6eNQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5199CA5FAC;
+	Tue, 29 Sep 2026 15:51:12 +0000 (UTC)
+From: Simon Sudarushkin via B4 Relay <devnull+simonsudarushkin.gmail.com@kernel.org>
+Date: Tue, 29 Sep 2026 20:50:32 +0500
+Subject: [PATCH] kunit: tool: report executor errors when listing tests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Properly disable partition when partition
- state switching fails
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
- <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Hui Peng <benquike@gmail.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260928235159.515654-1-longman@redhat.com>
- <941e5affde16b803741ddaf87b937f3d@kernel.org>
- <07403332-9fc3-41cf-ba2c-63a1f83a231c@redhat.com>
- <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <5e658521-1d8f-47bd-87a2-809a79a10186@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-kunit-list-errors-v1-1-16bf855e2ec3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IIoTqVYoLjWM7tcQyE0UQ7
+ 26qy7f4fwclYVJoih2EVlaeY4YtCwjvLr4IecgGZ5w3tatxWiIn/LImJJFZFH0VbF8Z7x/WQe5
+ +QiNv1/PZ3tal/1BI/xEcxwmVASRgdQAAAA==
+X-Change-ID: 20260929-kunit-list-errors-63c1b3066812
+To: Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ linux-kernel@vger.kernel.org, 
+ Simon Sudarushkin <simonsudarushkin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790697071; l=6951;
+ i=simonsudarushkin@gmail.com; s=20260929; h=from:subject:message-id;
+ bh=WISOKMy68itHiwuQRD0Fmjjiui3rz30qfn+eKl1cbEg=;
+ b=2hMvzP9MHwfL3ht8v7Ws1fJh00YzKB+GZ4aNPMQ1ISqxKx64d4UVbVckhrceLlFRU2LbpB8oC
+ HFNoguCEPH/AY1vr10POZLabd8eQEMQTxLWKAj3qU6s90J3QxIC41Qq
+X-Developer-Key: i=simonsudarushkin@gmail.com; a=ed25519;
+ pk=yr+Zf16IVZZq8kE1LwDB48Z/iOOIAkvBRA07CDmvH2M=
+X-Endpoint-Received: by B4 Relay for simonsudarushkin@gmail.com/20260929
+ with auth_id=1081
+X-Original-From: Simon Sudarushkin <simonsudarushkin@gmail.com>
+Reply-To: simonsudarushkin@gmail.com
 
+From: Simon Sudarushkin <simonsudarushkin@gmail.com>
 
-On 9/29/26 3:40 AM, Guopeng Zhang wrote:
-> Hi Waiman, Tejun,
-> 在 2026/9/29 11:16, Waiman Long 写道:
->> On 9/28/26 10:07 PM, Tejun Heo wrote:
->>> Hello, Waiman.
->>>
->>> The following is a Claude-generated review.
->>>
->>> On Mon, Sep 28, 2026 at 07:51:59PM -0400, Waiman Long wrote:
->>>> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
->>>> don't leave any housekeeping"), the partition state can be freely switched
->>>> from "root" to "isolated" and vice versa. After that commit, the switch
->>>> from "root" to "isolated" can fail if it exhausts all the housekeeping
->>>> CPUs. Later on, the switch from "isolated" to "root" can also fail if
->>>> some of the partition CPUs are boot-time isolated by "isolcpus".
->>> The isolated -> root failure came from b1034a690129 ("cgroup/cpuset:
->>> Ensure domain isolated CPUs stay in root or isolated partition"). Maybe
->>> add a Fixes: tag for it too?
->> Commit b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition") comes after 103b08709e8a. From my point of view, the first commit is the one that introduces the bug. The second commit comes along assuming the existing code is right. That is why I didn't tag the second one even though the second one is easier to trigger than the first one.
->>
->>>> The partition is made invalid when the switch fails. However, the
->>>> remote_partition flag for a remote partition can remain set and the CPUs
->>>> from the invalidated partition aren't cleared from subpartitions_cpus.
->>>> Fix this by properly disable the partition in this case.
->>> The reproducer below is a local partition and the fix covers that case
->>> too. The CPUs weren't given back to the parent, which is what leaves them
->>> in subpartitions_cpus and isolated_cpus in the example. Maybe describe
->>> both? Also, "properly disable" -> "disabling".
->> OK, will update the commit log.
->>>> In the case of remote_partition flag, it should be cleared for a
->>>> invalidated remote partition. To be safe, the reset_partition_data() is
->>>> now enhanced to always clear the remote_partition flag. So there is no
->>>> need to explicitly clear remote_partition in remote_partition_disable().
->>> After the update_prstate() change, every path that invalidates a remote
->>> partition goes through remote_partition_disable(), so the other
->>> reset_partition_data() callers never see the flag set. If one did,
->>> clearing only the flag would leave its CPUs in subpartitions_cpus and turn
->>> the WARN_ON_ONCE() in partition_xcpus_del() into a silent leak. Maybe drop
->>> this part?
->> Yes, I can drop this part.
->>>> On a x86 test system with boot option "isolcpus=10 cgroup_debug" set
->>>> and more than 16 cores, the following commands was executed after boot.
->>> "a x86" -> "an x86", "commands was" -> "commands were".
->>>
->>>> @@ -2946,27 +2947,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->>>>             */
->>>>            if (((new_prs == PRS_ISOLATED) &&
->>>>                 !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
->>>> -            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
->>>> +            prstate_housekeeping_conflict(new_prs, cs->effective_xcpus)) {
->>>>                err = PERR_HKEEPING;
->>>> -        else
->>>> +            disable_partition = true;
->>> If a root -> isolated switch fails isolated_cpus_can_update() under an
->>> isolated parent, partcmd_disable hands the CPUs back to the parent and
->>> partition_xcpus_del() adds them to isolated_cpus, which is the state the
->>> check just rejected. Switching to member ends up in the same place, so
->>> this may be fine as is.
->> If the parent is a valid isolated partition before the child partition is created, it had passed the isolated_cpus_can_update() check. So returning the CPUs back to its parent is fine.
-> However, after the parent is created, the ownership of full housekeeping
-> CPUs can still change, so passing the check at creation time doesn't seem
-> to guarantee that returning CPUs later is still safe.
+--list_tests, --list_suites, --list_tests_attr and --run_isolated first
+ask the kernel for the list of tests. extract_tap_lines() keeps the
+"kunit executor:" lines printed before the KTAP header, but the list
+code then drops the first line as the dummy header and filters the rest
+by name, so an executor error is silently lost:
 
-With additional thought after my email, I realized that my statement 
-isn't quite correct. So invalidating the partition handing the CPUs back 
-to its rightful parent may not be right. A simpler way to handle this is 
-to keep the status quo and return an error to the users instead.
+  $ ./tools/testing/kunit/kunit.py run --list_tests --filter 'nosuchattr=1'
+  ...
+  $ echo $?
+  0
 
-Cheers,
-Longman
+The kernel log has "attribute not found: nosuchattr=1" and "error
+filtering suites: -22", while a normal run with the same filter reports
+the error and exits with 1. If the kernel prints no KTAP output at all,
+the same pop() raises ValueError and kunit.py exits with a traceback.
 
-> I tested with this patch applied on a 32 vCPU VM booted with:
->
->      nohz_full=1,3 maxcpus=4
->
-> CPUs 0-3 are online, and CPU0 and CPU2 are initially available as full
-> housekeeping CPUs:
->
->      cd /sys/fs/cgroup
->      echo +cpuset > cgroup.subtree_control
->
->      mkdir A C
->      echo +cpuset > A/cgroup.subtree_control
->      mkdir A/B
->
->      echo 0-1 > A/cpuset.cpus
->      echo isolated > A/cpuset.cpus.partition   # isolated={0,1}, full HK={2}
->
->      echo 0 > A/B/cpuset.cpus
->      echo root > A/B/cpuset.cpus.partition     # isolated={1}, full HK={0,2}
->
->      echo 2 > C/cpuset.cpus
->      echo isolated > C/cpuset.cpus.partition   # isolated={1,2}, full HK={0}
->
-> At this point, CPU0 is the last CPU that is neither domain-isolated nor in
-> nohz_full. Then:
->
->      echo isolated > A/B/cpuset.cpus.partition
->
->      cat A/B/cpuset.cpus.partition
->      isolated invalid (partition config conflicts with housekeeping setup)
->
->      cat cpuset.cpus.isolated
->      0-2
->
-> The root -> isolated switch of A/B is rejected as expected, but the new
-> disable path then hands CPU0 back to the isolated parent A, and
-> partition_xcpus_del() puts it right back into isolated_cpus.
->
-> In the end the domain-isolated CPUs are {0,1,2} and the nohz_full CPUs are
-> {1,3}, so no full housekeeping CPU is left.
->
-> Also, as Tejun pointed out, switching A/B to member leads to the same
-> problem. What I tried in patches 2-3 of [1] was: if returning CPUs to an
-> isolated parent would consume the last full housekeeping CPU, invalidate
-> the outermost isolated ancestor and return its CPUs instead. Maybe this
-> part can serve as a reference. The implementation there may not be good
-> enough - it was an earlier idea and I am not sure whether it helps :)
->
-> [1] https://lore.kernel.org/all/20260910094546.5852-1-guopeng.zhang@linux.dev/
->
-> Thanks,
-> Guopeng
+Move the code shared by _list_tests() and _list_tests_attr() into
+_run_list_action(), which raises ListError on executor errors or when
+there is no KTAP output. exec_tests() prints the error and returns
+TEST_FAILURE, as a normal run does.
+
+Fixes: ff9e09a3762f ("kunit: tool: support running each suite/test separately")
+Fixes: 723c8258c8fe ("kunit: tool: Add command line interface to filter and report attributes")
+Assisted-by: LLM
+Signed-off-by: Simon Sudarushkin <simonsudarushkin@gmail.com>
+---
+Tested with kunit.py on arm64 (QEMU with KVM): a bad --filter now prints
+both executor errors and exits with 1 for --list_tests and
+--run_isolated, while normal listing, --list_suites, --list_tests_attr
+and --run_isolated=suite behave as before. In run_checks.py,
+kunit_tool_test.py and mypy pass; the UML smoke test could not be run,
+as UML does not build on this arm64 host (it fails the same way
+without this patch).
+---
+ tools/testing/kunit/kunit.py           | 57 +++++++++++++++++++++-------------
+ tools/testing/kunit/kunit_tool_test.py | 18 +++++++++++
+ 2 files changed, 54 insertions(+), 21 deletions(-)
+
+diff --git a/tools/testing/kunit/kunit.py b/tools/testing/kunit/kunit.py
+index 91d234ac3b579..6db09144d7cfc 100755
+--- a/tools/testing/kunit/kunit.py
++++ b/tools/testing/kunit/kunit.py
+@@ -109,8 +109,12 @@ def config_and_build_tests(linux: kunit_kernel.LinuxSourceTree,
+ 
+ 	return build_tests(linux, request)
+ 
+-def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> List[str]:
+-	args = ['kunit.action=list']
++class ListError(Exception):
++	"""Represents an error from the kernel while listing tests."""
++
++
++def _run_list_action(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest, action: str) -> List[str]:
++	args = ['kunit.action=' + action]
+ 
+ 	if request.kernel_args:
+ 		args.extend(request.kernel_args)
+@@ -121,31 +125,34 @@ def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest)
+ 			   filter=request.filter,
+ 			   filter_action=request.filter_action,
+ 			   build_dir=request.build_dir)
+-	lines = kunit_parser.extract_tap_lines(output)
++	stream = kunit_parser.extract_tap_lines(output)
++	lines = []  # type: List[str]
++	errors = []  # type: List[str]
++	while stream:
++		line = stream.pop()
++		match = kunit_parser.EXECUTOR_ERROR.search(line)
++		if match:
++			errors.append(match.group(0).strip())
++		else:
++			lines.append(line)
++
++	# The executor reports a bad filter or action instead of listing.
++	if errors:
++		raise ListError('\n'.join(errors))
++	if not lines:
++		raise ListError('Could not find any KTAP output. Did any KUnit tests run?')
++
+ 	# Hack! Drop the dummy TAP version header that the executor prints out.
+-	lines.pop()
++	return lines[1:]
++
++def _list_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> List[str]:
++	lines = _run_list_action(linux, request, 'list')
+ 
+ 	# Filter out any extraneous non-test output that might have gotten mixed in.
+ 	return [l for l in lines if re.match(r'^[^\s.]+\.[^\s.]+$', l)]
+ 
+ def _list_tests_attr(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> Iterable[str]:
+-	args = ['kunit.action=list_attr']
+-
+-	if request.kernel_args:
+-		args.extend(request.kernel_args)
+-
+-	output = linux.run_kernel(args=args,
+-			   timeout=request.timeout,
+-			   filter_glob=request.filter_glob,
+-			   filter=request.filter,
+-			   filter_action=request.filter_action,
+-			   build_dir=request.build_dir)
+-	lines = kunit_parser.extract_tap_lines(output)
+-	# Hack! Drop the dummy TAP version header that the executor prints out.
+-	lines.pop()
+-
+-	# Filter out any extraneous non-test output that might have gotten mixed in.
+-	return lines
++	return _run_list_action(linux, request, 'list_attr')
+ 
+ def _suites_from_test_list(tests: List[str]) -> List[str]:
+ 	"""Extracts all the suites from an ordered list of tests."""
+@@ -160,6 +167,14 @@ def _suites_from_test_list(tests: List[str]) -> List[str]:
+ 	return suites
+ 
+ def exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> KunitResult:
++	try:
++		return _exec_tests(linux, request)
++	except ListError as e:
++		for line in str(e).splitlines():
++			stdout.print_with_timestamp(stdout.red('[ERROR] ') + line)
++		return KunitResult(status=KunitStatus.TEST_FAILURE, elapsed_time=0.0)
++
++def _exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -> KunitResult:
+ 	filter_globs = [request.filter_glob]
+ 	if request.list_tests:
+ 		output = _list_tests(linux, request)
+diff --git a/tools/testing/kunit/kunit_tool_test.py b/tools/testing/kunit/kunit_tool_test.py
+index 85ae21754bdf9..d0cb3340a328d 100755
+--- a/tools/testing/kunit/kunit_tool_test.py
++++ b/tools/testing/kunit/kunit_tool_test.py
+@@ -991,6 +991,24 @@ class KUnitMainTest(unittest.TestCase):
+ 				     kunit.KunitExecRequest(None, None, None, False, False, '.kunit', 300, 'suite*', '', None, None, 'suite', False, False, False))
+ 		self.assertEqual(got, want)
+ 
++	def test_list_tests_executor_error(self):
++		self.linux_source_mock.run_kernel.return_value = [
++			'[    0.100000] kunit executor: attribute not found: nosuchattr=1',
++			'[    0.100000] kunit executor: error filtering suites: -22']
++
++		with self.assertRaises(SystemExit) as e:
++			kunit.main(['exec', '--list_tests'])
++		self.assertEqual(e.exception.code, 1)
++		self.print_mock.assert_any_call(StrContains('attribute not found: nosuchattr=1'))
++
++	def test_list_tests_no_output(self):
++		self.linux_source_mock.run_kernel.return_value = []
++
++		with self.assertRaises(SystemExit) as e:
++			kunit.main(['exec', '--list_suites'])
++		self.assertEqual(e.exception.code, 1)
++		self.print_mock.assert_any_call(StrContains('Could not find any KTAP output'))
++
+ 	@mock.patch.object(kunit, '_list_tests')
+ 	def test_run_isolated_by_suite(self, mock_tests):
+ 		mock_tests.return_value = ['suite.test1', 'suite.test2', 'suite2.test1']
+
+---
+base-commit: e38f53f0482468efd04397f66bda4648b70ac9fa
+change-id: 20260929-kunit-list-errors-63c1b3066812
+
+Best regards,
+--  
+Simon Sudarushkin <simonsudarushkin@gmail.com>
+
 
