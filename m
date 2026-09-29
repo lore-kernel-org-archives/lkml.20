@@ -1,177 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B3C2D3EF2;
-	Tue, 29 Sep 2026 08:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671269; cv=none; b=fxps5qJ26Y/9H+a3H5lBa0GgIRteFrlIp8H2C6pMKSJmRAZrVW25hiLXzelEHarLBWGiGcf6KddzrWHaAPoQ28lQTNwC5qgH4nakstchxnwfvX1pK++Cq51EJla4hA0IoW6PK8UmGa6LTHOpu2ccFz++6Tysa1OlxJ5DTh52/iQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671269; c=relaxed/simple;
-	bh=RXL3VKCB8JmZhe72jnR/7nxayEB0x35O9P+qAzxLhn8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OY63yUgatEsSEN9LdM/miJ/W3n3tZLcOC47ZlJVk8TuNXRENWuTOeaO/8wbPReu/D9UDqzF8zeagwpoI50ld4heMuYyhEFWK6GnNrvfNmruKmvCLOuQ8iRJ4Gx7cwrcn2KEEXD7+yD7DefTf7ro7xvuheltjrEP6OzASa0xPn/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCGBkWTv; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2671047C0F8;
+	Tue, 29 Sep 2026 08:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790671295; cv=pass; b=M5xT5YKbifPoLocQaECLICEr77h6cvBYBZxuRzy4yMb+1O+Jxbk37ObOSEb+0Jc7AY2dK1Zyg5JZ+eZ2h3722yQuqhvFQUeHYK7+jZh21b3kqZfKNRmxvw/GG2cS7etVZmUJM3KwNQQp84cMk6z2IhkENIrEBIBl7WnU5dKzZA8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790671295; c=relaxed/simple;
+	bh=ifyLTMeuVsDv458JUi7PRhLOPSp/EvgHwNpABos9HrM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IlIiAAVGWS0sRpFJHug+mEd5MB/KhtLSRWZ58b/MRk2vUXUAFHfEHogdZVyYHt0W/gHZ3NAzkDgzD3mnZo90qTR0OIRkT9jxLaRyRR29hRaZv6RUHP32aHwvdwHPuMA/nGKy4VnfnSprWIgjyJx8Bzri3tUrgQ8E85f6WiHg6KQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=WK7ifxOk; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCGBkWTv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6341F1F000FF;
-	Tue, 29 Sep 2026 08:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671267;
-	bh=Wwlrc4OA5be2l/cOfc4ELm7R1PPcfoHaHpyuiOxuo3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VCGBkWTvGAAys65g5LYILlIf9iKCwcLFlV12HZy7R3l3OCLy1pRSBhaJqK+tCxWRz
-	 BUnQFxvHg6mQzXfdE+oz29U01ZlFC8iLJjcGONGJkaisQMhx91Xij1XTfiiuadGmyq
-	 GbbpAtRx3iDnN8Ww78FVy+tCsZrLdgLPuSBOi5yX3sNAU3D3Tmz/fsQ2pa2nSFfJZm
-	 pOy1YV1sMgN2pMi+a4tIMsr0qTuzYGSnUZT5KVKpvZuumLNLb8BtXQNjDfHO2T2o7A
-	 zggDnaI5j2j4H+pHzoWRWhQQxUY8Z2+LdINYb3duFXB/fMYG0Aqjhf21xu/+2S6i1b
-	 g8QJ2utxwgAig==
-Date: Tue, 29 Sep 2026 10:40:59 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Ashok Raj <ashok.raj@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, driver-core@lists.linux.dev,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-Message-ID: <art5m5QPXAOAvkvW@red-moon>
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
- <arr3IhF0bwN4uzUP@hu-ashoraj-lv.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="WK7ifxOk"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BAF31201E6E;
+	Tue, 29 Sep 2026 10:41:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790671289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dP0/8tUZqbkGFMkFxlQW3Pa2i+aTX2eHvc6W1tWwX2k=;
+	b=WK7ifxOkcVdKKf21R4Hfgadrml9iukZE+adL+xhRAxkJ1G+2qavtQXw/qPumtxfeXPq1ua
+	x6JyG4TJSt3wXgmyxTpRr9LSdY3gwIAmvkqo/KZRnLaa0L/5su72UtD2Out3v3g8m2Nq7W
+	OiPPh+5ovgXqGjTV0mYWqZlQHxyWBwRnWC+VWyTpge84ejum/WhogtLkgLiPjT6bp9bW65
+	peBdo4hPBRwajWEj8+q6ISwlv0Yx/T+m2gcEE5xxESxTI6hD4BlOta+TRE3sv8nQn8ARCl
+	K8gIGq2VhAwHMzECNvB09pCzsmeXaFB0Zth2xaps7QFCrVddCXOXae3/kgza6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790671289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dP0/8tUZqbkGFMkFxlQW3Pa2i+aTX2eHvc6W1tWwX2k=;
+	b=H2fMGd4gRvE8maW4OF4zYJxgeefCHLEm+Ww39n7oIpj5EIgwjRt0Wy319gSYLEVY4TZ0aX
+	6v4bTAW1KRR5igfuGKP6p5gLuShLBgutOivXRZslszMyys4LniBBIHeA/akmFhFtHxhhwM
+	fXpLnl3EAaNUDkE0IK7QTS41CpzKeXkiQq0NajIiTEzlzSXo14oG6Taif4qcA555+LunxI
+	gTHWxcA8kNtxvl9/SaohdBgrlSKF3kp7V09ZP4nvSe4jWNXrzY4fEoEDPeMRP+xN/WvTDD
+	d6ZJZiienerNQH7+WtNfvjQXExfmiv8ff2uxSNljfF/5XWhYwds2NSNWzupj2A==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790671289; a=rsa-sha256;
+	cv=none;
+	b=RcHS8aNCR5lX+vB5bLbTp0z4RB18lauJwP2+6D5qDJytg9KChK4yL2NdUMpVMviYlSJ42y
+	F1V78SqbS8kjj3ucFjWOazKyCLgFT5Wxgz5yijTKlvXM+h/medAboQs0L7hFzA1I5SdgsT
+	5wTfma0i0dhVkK26p1SbWoORKDlVEBaqE6nyl8nhB3G3LCqBgcuYRALDEKAmLX4Cgmukwb
+	6R6HLlmaDb6kDkQW5s01L6ei0BVS6TL+rzEbTvUWDB9l3hoqrZ4vUlbDZLkOcIWVpPKn/p
+	Pta28Vs/+GpCU/6IlDcS+gVUtlCWclSiU0w3aXLLq210fztRldPrqUc9e9sE5w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xBTOz-003MdW-2A;
+	Tue, 29 Sep 2026 10:41:29 +0200
+Received: from hardanger.blackshift.org (unknown [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 5C46D5B32F1;
+	Tue, 29 Sep 2026 08:41:29 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 29 Sep 2026 10:41:16 +0200
+Subject: [PATCH can] can: esd: acc_start_xmit(): do not touch skb after
+ can_put_echo_skb()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arr3IhF0bwN4uzUP@hu-ashoraj-lv.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-esd-fix-skb-deref-v1-1-fa2529fbacdc@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQqDMBAGX0X23AWNaNFXKT3k50u7FdKStUUQ3
+ 91UjzMws5IiC5TGaqWMn6i8U4HmUpF/2vQASyhMpjZ9PZiBoYGjLKyT44CMyLZH13YNYnRXKt2
+ nSFmO5428TXQ/pX7dC37+32jbdg3h+MN6AAAA
+X-Change-ID: 20260929-esd-fix-skb-deref-a6e5351effb7
+To: =?utf-8?q?Stefan_M=C3=A4tje?= <stefan.maetje@esd.eu>, socketcan@esd.eu, 
+ Vincent Mailhol <mailhol@kernel.org>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1924; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=ifyLTMeuVsDv458JUi7PRhLOPSp/EvgHwNpABos9HrM=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsjaXblN+fxevUz7s6y3g4qnMXh8Ud39McDxdhqT5D+Bv
+ in+3A52HaUsDGJcDLJiiixLf5xQFAh0KO19mTAJZg4rE8gQBi5OAZjIWwGG/5W5uUdXdTGLMe/Y
+ +FlDuUT6XmeX2z73tc+Vuh7WPsmuesnI8JpvfsJCq16dqalGFXzTHjYJhafdc5EXvlM/vfCz5nc
+ uBgA=
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On Mon, Sep 28, 2026 at 04:24:18PM -0700, Ashok Raj wrote:
-> 
-> On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wrote:
-> > To describe and map GSIs for firmware nodes created out of ACPI static
-> > table entries in a uniform way it is required to define some standard
-> > properties and attach them to ACPI static fwnode as secondary nodes.
-> > 
-> > Define properties names to describe GSIs and their trigger-mode/polarity,
-> > and implement an irq_get() callback for static fwnodes so that core code
-> > can retrieve and map IRQs for ACPI static fwnodes in standard manner.
-> > 
-> > An empty stub for property_read_string_array() is also added, so that
-> > the fwnode_irq_get_byname() interface falls back (through
-> > fwnode_property_read_string_array()) to the secondary
-> > fwnode to grab the "interrupt-names" property.
-> > 
-> > Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> > Cc: Bartosz Golaszewski <brgl@kernel.org>
-> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > ---
-> >  drivers/acpi/property.c | 69 ++++++++++++++++++++++++++++++++++++++++++++++++-
-> >  include/linux/acpi.h    |  4 +++
-> >  2 files changed, 72 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-> > index 8ee5a1f0eb48..c609100c08db 100644
-> > --- a/drivers/acpi/property.c
-> > +++ b/drivers/acpi/property.c
-> > @@ -1766,7 +1766,74 @@ static int acpi_fwnode_irq_get(const struct fwnode_handle *fwnode,
-> >  
-> >  DECLARE_ACPI_FWNODE_OPS(acpi_device_fwnode_ops);
-> >  DECLARE_ACPI_FWNODE_OPS(acpi_data_fwnode_ops);
-> > -const struct fwnode_operations acpi_static_fwnode_ops;
-> > +
-> > +static int acpi_static_fwnode_read_u32_prop_index(const struct fwnode_handle *fwnode,
-> > +						  const char *propname,
-> > +						  unsigned int index, u32 *value)
-> > +{
-> > +	u32 *values;
-> > +	int ret, count;
-> > +
-> > +	count = fwnode_property_count_u32(fwnode, propname);
-> > +	if (count < 0)
-> > +		return count;
-> > +
-> > +	if (index >= count)
-> > +		return -ENOENT;
-> > +
-> > +	values = kcalloc(count, sizeof(*values), GFP_KERNEL);
-> > +	if (!values)
-> > +		return -ENOMEM;
-> > +
-> > +	ret = fwnode_property_read_u32_array(fwnode, propname, values, count);
-> > +	if (!ret)
-> > +		*value = values[index];
-> > +
-> 
-> You lookup with a propname, and then qualify with and index? is it
-> possible to have the different index but same propname? 
+After the call to can_put_echo_skb() in acc_start_xmit() the skb should be
+considered invalid and not accessed anymore, but acc_txq_put() will access
+the skb's data.
 
-What is the question :) ? It is to retrieve a property value at a specific
-index.
+So far acc_txq_put() first loads the CAN data into the controller then
+starts the TX. Move the start-TX functionality into the acc_txq_start()
+function.
 
-> Alternately you can send the list to caller and they can use the ones
-> they need?
-> 
-> 
-> > +	kfree(values);
-> > +	return ret;
-> > +}
-> > +
-> > +static int acpi_static_fwnode_read_string_array(const struct fwnode_handle *fwnode,
-> > +						const char *propname,
-> > +						const char **val, size_t nval)
-> > +{
-> > +	/* Route string handling to secondary software nodes */
-> > +	return -EINVAL;
-> > +}
-> > +
-> > +static int acpi_static_fwnode_irq_get(const struct fwnode_handle *fwnode,
-> > +				      unsigned int index)
-> > +{
-> > +	u32 gsi, trigger, polarity;
-> > +	int ret;
-> > +
-> > +	if (!fwnode->secondary)
-> > +		return -ENODEV;
-> > +
-> > +	fwnode = fwnode->secondary;
-> > +
-> > +	ret = acpi_static_fwnode_read_u32_prop_index(fwnode, ACPI_IRQ_PROP_GSI,
-> > +						index, &gsi);
-> > +	if (ret)
-> > +		return ret == -ENOENT ? -ENXIO : ret;
-> > +
-> > +	ret = acpi_static_fwnode_read_u32_prop_index(fwnode, ACPI_IRQ_PROP_GSI_TRIGGER,
-> > +						index, &trigger);
-> > +	if (ret)
-> > +		return ret == -ENOENT ? -ENXIO : ret;
-> > +
-> > +	ret = acpi_static_fwnode_read_u32_prop_index(fwnode, ACPI_IRQ_PROP_GSI_POLARITY,
-> > +						index, &polarity);
-> > +	if (ret)
-> > +		return ret == -ENOENT ? -ENXIO : ret;
-> 
-> Consolidate return to one place? 
+In acc_start_xmit(), first load the data into the controller using
+acc_txq_put(), then can_put_echo_skb() and finally start the TX with
+acc_txq_start().
 
-Yes it can (and trigger and polarity can be just one property "flags", FWIW),
-if we agree that's what will do, which I doubt.
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/esd/esdacc.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Thanks,
-Lorenzo
+diff --git a/drivers/net/can/esd/esdacc.c b/drivers/net/can/esd/esdacc.c
+index 73e66f9a3781..2a02dae3be9f 100644
+--- a/drivers/net/can/esd/esdacc.c
++++ b/drivers/net/can/esd/esdacc.c
+@@ -70,6 +70,10 @@ static void acc_txq_put(struct acc_core *core, u32 acc_id, u32 acc_dlc,
+ 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_0,
+ 			   *((const u32 *)data));
+ 	acc_write32(core, ACC_CORE_OF_TXFIFO_DLC, acc_dlc);
++}
++
++static void acc_txq_start(struct acc_core *core, u32 acc_id)
++{
+ 	/* CAN id must be written at last. This write starts TX. */
+ 	acc_write32(core, ACC_CORE_OF_TXFIFO_ID, acc_id);
+ }
+@@ -287,11 +291,12 @@ netdev_tx_t acc_start_xmit(struct sk_buff *skb, struct net_device *netdev)
+ 		acc_id = cf->can_id & CAN_SFF_MASK;
+ 	}
+ 
+-	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
++	acc_txq_put(core, acc_id, acc_dlc, cf->data);
+ 
++	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
+ 	core->tx_fifo_head = acc_tx_fifo_next(core, tx_fifo_head);
+ 
+-	acc_txq_put(core, acc_id, acc_dlc, cf->data);
++	acc_txq_start(core, acc_id);
+ 
+ 	return NETDEV_TX_OK;
+ }
+
+---
+base-commit: 37e02c42a00be692c06343e11779aadc45f45971
+change-id: 20260929-esd-fix-skb-deref-a6e5351effb7
+
+Best regards,
+--  
+Marc Kleine-Budde <mkl@pengutronix.de>
+
