@@ -1,289 +1,74 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49DE339394
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790642046; cv=pass; b=cP+a+5Ycr6G4COZap+0LrcpT6L2eR7DP4TsTuJijfOYQYPGPfYG67d/Q8/lWG1tZcFruZx+ENv32Ahjv9uvrx6uapWLs1QVUYaYwN3aaiy0Q3XkWrou8uczzL1SKdipjgXGwwGpodCdvFQyVqgtuhEWTf+qTQw3aoZpQP3AVIxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790642046; c=relaxed/simple;
-	bh=mqqf+qQWt+Rbqdkot/GN8JguHjkq9KCxIN9/UveGBuw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fq3AUgNT2DaVyzv59ZIEJH+u5aZ2myyi4Aiw8K8t3I9e7zGATHdcaH4gepWJkHWkSJwU88XE6tFWzMA7tJ8Z+l1eNSBcp9Crk/jd1RcLz70R0AFKAGRGzqIc+s5fA3Ip0iUH465Qm6G1eVsCCSfJuYn/sYEq4Vnja4tpY9vvg6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n7iBESiK; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CC93815DC;
+	Tue, 29 Sep 2026 00:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790642309; cv=none; b=oSbbMZOc8EQR3x9G8P9G516foAq7TeMFDEcXfxe6TfpRFLxc9aiExU0XZ7/rlCFqnD3XOdFe+oKMPgq4fmXN+2lgqb72hUoBx46F5RidrjgJCR5LjuIpcbto5yIm44gaXDWDuaEc9tzXxMeXds3nBkjS7DXhNlFwDR8oeuop63o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790642309; c=relaxed/simple;
+	bh=TynLa5x1Zba9mZqlZKYp5nY6gCIz99l4QxPfYRO/C3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P1QsJI3apjwz4gBxXuyISbL2w1p0JlYu8bKQCtwjv0wo2s8gdD4ko8vXaT6rYl/+OsxCoDTyHomRhK65hkUtANBaPq/VtpRHJD0T6kMb7CSDyQ5YIlBun2ym7hdP3OZKNOc2AKp1tgADgBzA84Ot2CbnObYIdu1UL5vUVVdTHr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNH8rqtE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n7iBESiK"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334e72so14565345ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 17:34:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790642044; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nO6urufgWwmxxQFTW4eSBzoL843tWVCgJWcN2M0ivUkM6aNoaPSAcOSvhdFucV5r4X
-         ckcoSIspq7MoiifITjL9V5eEDz9OCE/60I5yIinGy3QJCT+UC+2rvy+hH96m3dHrooRd
-         qFrc9e17deT0in/vq/b8PHjkM62ExIWaPzZLShSplFlFSIRHrJwezpRmCHUaDgUXFAw7
-         4UoHXggKQkFIYDV0Oki5Wwj5g3ApjegUs1mmhcdpg8SMFKVxvuLGvJq+SBeCPkhjHUSN
-         ch+jBp2U42anlMLrtztalcYnjTBWiHfKM+wStPikCfSwV5uqIQMNzF1eTNlxhm7x94R3
-         vsxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
-        fh=qUVtq3TaYu3ln/t6v/bGDAIHXnHlKKaTWDM47SCuM9A=;
-        b=nfGPmuHWVJ5yde5n/yjO+h0CslHAWuOSHn4OL6GGYqn0wsa7z/ikHkuLr4y2/jIes5
-         3KwxPGZLrsDGKtzKN35DKvdntbjk6To/LkahmV83h6BCjHBTX8KX6IvFDwXW8OHuzQoE
-         P1VsMNOeH9DRA39DPZljbdVT30f35XCDVBTh5RyvF0R/uUf1oOKAFFwCTc4uDYlNm81t
-         Y8E/MfHa5UkRNWdG9QUxqNMAy0RpF0ZGSOKSg0M/5y5ySblRGfpC/uE5vUib2dnriWUj
-         Xlj6DTSb66fyv4LVAEUEoFRUs9GdO0kg1UH7maC/xaf6mu2deTStERJIc8F2HjJG/Dfl
-         uwfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790642044; x=1791246844; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
-        b=n7iBESiKQuXPl+D1SnhYCYUtZp8c2Ol/jzYYR/hVn8ErMURwt82lFz12MoGlOwaRdk
-         nteXEKXL2S825s+ImVdSJZYoSF2q+w4EmE1BXPwa8Gh7qAV8tU0tiaWeQQA2jDirFk49
-         f5brpDOXk1KWrsoldKuyCojmftqwTPQSvnOXRRb+8QIAIqBsaub1HF0qPT0DlnZxKwcM
-         nb+ZSg+/CsOY9aWUIdux3RhV0zAQPkw+dw+gkmIjpFFf7neewsWZuI7/9w6cgDjLM2j5
-         OHApmLI7jCSj9Lv7sNLQUug3/dbuX+9qLEmZLsxHLhVWU0twhGysgqhJlyY4Tirtju7k
-         CkfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790642044; x=1791246844;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XJgia+oGABNjKIVqlZno+TYa0ToXTohZneVjpc1WXaQ=;
-        b=SIr1u1XmnUyEynayhxFlFezGsb4MSUmg5dAceuwgLIn/SdGIkuxAj8crhLC3iARrhd
-         RH23RYQ2itc/NCXZRObBkMROwTjMNqNu7DD7LIsoUbyXimh/Y9+qHfTfMAd5ZZXORUpo
-         vSbT8h4STUf5FaN/Z+AOZgA8LQ8gfADdZZwo47C1PXf9jDTouiwBn4k9baSEe+ZOB99x
-         ClGEWZfZmbSY+CtW52z3kGV/cCkuHmFAgKGeSKT3L14NAglVNhLuM00dRg9lBgaPyC4X
-         ZqVcmcjk0Q5bDzlOQmsjDjULawo75kY5zeOV9Kk3yHaMxY7T4Lb/LCuolmwUtBn/IYMT
-         iCUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF2b9s1aLDGMCk4YnPFOCVg9IR6a95Aw64cH+Z1i+RxJk5UJT+tT787+ickYWEQ4O4gCPVP1dBEhAot2Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFFsxhLyiGlVMXGt2KJJesWKzqrEWp9OdQmGkARVhD8PFP35Xs
-	vPBYRS50vcvQsrgJlwhbWkybWMajaUc548AhR2keeJsoJNePV9xnu0JAI9Xh5TghghjV9Nz/bZJ
-	q/iFjbhenTMPKR+goNVlwjyFp0Mr2/qk=
-X-Gm-Gg: AYBFou23VAnN67xcUf0imyry23nDnVZVFcy4w+q8wD5U9nIQkCMbsccVN8tFzqF3wmf
-	e95Ta5RCfHBG9v2ZEIKWBnpNwMXEBcviGWwmDpGgRly9gi/VyhKv6qveUYXvpIaYiuE3JoqR8d7
-	ELmV0hudrM3tlDnQWymdWFD0cSENSiF5Axz123S8p0KkOyO/RBbvFlANR90M81j+lcN9fbhOdSm
-	IxGVb6vs2p9oO/u+9L26TONpn8MZp9E6O35FPoakTO09Svtg0oU+7DP8BCngBGdQ137SHynSkq7
-	s5IA7LuUJPrqsXUkJHk6FhJrO45WwP5lpjxkoqYVryRWt0qd47Kw1vQDBDj0qwB3XDGWAJOTE0Q
-	otUgHhvpa2BOsTrgAG/P3ygjv2spmrvLPPjGN
-X-Received: by 2002:a17:903:1b2e:b0:2df:9e2d:862a with SMTP id
- d9443c01a7336-2df9e2d8d3fmr73249655ad.54.1790642044011; Mon, 28 Sep 2026
- 17:34:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNH8rqtE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E122A1F00893;
+	Tue, 29 Sep 2026 00:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790642301;
+	bh=pUpov82pH5U9yDhAoooUrXt0W+MZxWOPFVA+HkPrrIQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YNH8rqtECK0LKhjMRQQPWkCxZLGKSxtwVpcrR9WOAlhUkAjDYsxugnRegcAr21V0f
+	 xC3Lfgjt26HozOnKDwyIgg7mKx1lJUQ6uER+0c24Mh8u10PX+wx7sOPk5JlbDq5d96
+	 lHcaDyNQ88H7DD4XgGHaWYr20dcWp4OYEA3QhiF8BXkqig12eUVTAdFjHbiW8GweeU
+	 DDV1++Js2fKQYF1iHXTtlSuyI9YpwO2cWAzke7QIr2MJtZ7c1JmyChaS7KtGlyaEQs
+	 OvYPgjoH3dFS9IfHMsrzRcudpeMLAH4/pkDr458HlEH7/AcbgngUV+RCu1wuapAguI
+	 kZbNRAKN2wZhA==
+Date: Mon, 28 Sep 2026 17:38:19 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Subject: Re: [PATCH v1 0/8] perf tools: Cleanup dso debug info access
+Message-ID: <arsIe8Rd4CNg2aNd@z2>
+References: <20260928055055.95144-1-namhyung@kernel.org>
+ <arqZrMG4klapZNcU@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <179060575297.372125.10581329083761385407.stgit@devnote2>
- <f593867e-dcef-4f68-b609-a253f489f7b8@paulmck-laptop> <20260929082828.cd9844b5e632a23fd8308dbf@kernel.org>
- <b39d3368-fc5c-49a6-b47e-c58224a23e07@paulmck-laptop>
-In-Reply-To: <b39d3368-fc5c-49a6-b47e-c58224a23e07@paulmck-laptop>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Mon, 28 Sep 2026 17:33:50 -0700
-X-Gm-Features: AclHuK_dKxBmfWWtMMiZMhNO8faLQ6MSkCT-v4tR7n5AaQQqt0IRUGrLd9FCGkc
-Message-ID: <CAEf4BzZGdpbX5TdtgbDvDZEsj4wDQiLX94dz-wKfM9aCQJHzzg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] fprobe, rcu/tasks, rhashtable: Switch fprobe and
- BPF kprobe-multi to Tasks-Rude RCU
-To: paulmck@kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Thomas Graf <tgraf@suug.ch>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, rcu@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Chris Mason <clm@meta.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <arqZrMG4klapZNcU@x2>
 
-On Mon, Sep 28, 2026 at 5:04=E2=80=AFPM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
->
-> On Tue, Sep 29, 2026 at 08:28:28AM +0900, Masami Hiramatsu wrote:
-> > On Mon, 28 Sep 2026 09:25:02 -0700
-> > "Paul E. McKenney" <paulmck@kernel.org> wrote:
-> >
-> > > On Mon, Sep 28, 2026 at 11:29:13PM +0900, Masami Hiramatsu (Google) w=
-rote:
-> > > > Hi,
-> > > >
-> > > > Here is an RFC patch series which removes standard RCU read lock
-> > > > (guard(rcu) and rcu_read_lock()) from fprobe callback paths
-> > > > by switching fprobe and BPF multi-kprobe to Tasks-Rude RCU.
-> > > >
-> > > > Motivation & Problem
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > Currently, fprobe entry and exit callbacks (fprobe_fgraph_entry,
-> > > > fprobe_return, and fprobe_ftrace_entry) execute in the tracing hot
-> > > > path where preemption is disabled.
-> > > >
-> > > > However, fprobe was forced to wrap hash lookups with guard(rcu)() a=
-nd
-> > > > rcu_read_lock() because:
-> > > >
-> > > > - rhashtable defers bucket table deallocation using standard RCU
-> > > > - unregister_fprobe() and BPF waited for a standard RCU grace perio=
-d
-> > > >
-> > > > Taking standard RCU read locks in the tracing fast path introduces
-> > > > several drawbacks:
-> > > >
-> > > > 1. Unnecessary Runtime Overhead:
-> > > >    Every probe hit manipulates current->rcu_read_lock_nesting with
-> > > >    memory barriers, and rcu_read_unlock() adds conditional branches
-> > > >    to check for special quiescent processing.
-> > > >    On debug kernels with CONFIG_PROVE_RCU=3Dy or CONFIG_LOCKDEP=3Dy=
-,
-> > > >    this additionally acquires and releases lockdep maps on every hi=
-t,
-> > > >    introducing severe lockdep hashing overhead and tracer recursion=
- risks.
-> > > >
-> > > > 2. Fragile Dependency on rcu_is_watching():
-> > > >    Standard RCU treats idle CPUs (and user-space on nohz_full CPUs)=
- as
-> > > >    Extended Quiescent States (EQS). If a function is traced while
-> > > >    rcu_is_watching() is false, standard RCU is blind to the read-si=
-de
-> > > >    critical section. In such contexts, synchronize_rcu() does not w=
-ait
-> > > >    for the reader (risking Use-After-Free), and lockdep emits an
-> > > >    "RCU-illegal: rcu_read_lock() used while not watching!" warning.
-> > > >    To avoid this, ftrace callbacks normally require FTRACE_OPS_FL_R=
-CU,
-> > > >    adding extra trampoline check overhead.
-> > > >
-> > > > 3. Asymmetric Synchronization with fprobe_return():
-> > > >    fprobe_return() executes under preempt_disable_notrace() without
-> > > >    holding rcu_read_lock(). Prior to this series, unregister_fprobe=
-()
-> > > >    only waited on synchronize_rcu(), which does NOT wait for pure
-> > > >    preempt-disabled sections, leaving a potential Use-After-Free wi=
-ndow
-> > > >    during probe unregistration.
-> > > >
-> > > > I've tried to fix the last UAF with simply introducing guard(rcu)()=
-[1]
-> > > > but Sashiko found the 2nd problem [2]. So I decided to implement th=
-is
-> > > > series.
-> > >
-> > > Unless I am missing something subtle, Sashiko needs to be taught a
-> > > little bit more about RCU.  Preemption-disabled regions of code reall=
-y
-> > > are valid RCU readers.  If you have a reproducer showing that this is
-> > > not the case in some situation, that would be a bug in RCU.
-> >
-> > Thanks for the clarification!
-> > So I think we can replace rcu_read_lock() with rcu_read_lock_sched_notr=
-ace()?
-> > (also, maybe we need to add rcu_is_watching() check)
->
-> That would work, and yes, you are quite right that if !rcu_is_watching(),
-> RCU is studiously ignoring you completely, no matter what your preemption
-> state is.
->
-> > Current code may involves lockdep in fprobe, that is not good.
->
-> Agreed, that could be problematic in any number of contexts.  ;-)
->
-> > BTW, if we want to trace some code in extended quiescent state, do we
-> > still need this Tasks-Rude RCU?
->
-> Well, you need something other than vanilla RCU, anyway.  And Tasks Rude
-> RCU is one candidate, though it is also a candidate that might annoy
-> people wishing to minimize IPIs.
->
+On Mon, Sep 28, 2026 at 06:45:32PM +0200, Arnaldo Carvalho de Melo wrote:
+> On Sun, Sep 27, 2026 at 10:50:47PM -0700, Namhyung Kim wrote:
+> > Hello,
+> > 
+> > This is a preparation for DSO file access cleanup work.  IIUC DSO
+> > access has three types - symbol table, binary data and debug info.
+> > Those information can be placed separately like stripped binaries and
+> > split debug files.  I've added dbginfo_type to DSO to track location
+> > of debug info like others.
+> > 
+> > I'm sending this out before it grows too much.  This patchset focuses
+> > on debuginfo open path.  Once it looks good to others, I'll update
+> > other places accessing DWARF info to use this info and cleanup other
+> > file type accesses too.
+> 
+> Sashiko found an issue, apart from that:
+> 
+> Reviewed-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Would RCU Tasks Trace be a better candidate given uprobes and
-sleepable BPF depends on it? Would it work here?
+Thanks for the review!
+Namhyung
 
->                                                         Thanx, Paul
->
-> > Thank you,
-> >
-> > >
-> > > Adding Roman Gushchin and Chris Mason on CC for their thoughts.
-> > >
-> > >                                                     Thanx, Paul
-> > >
-> > > > [1] https://lore.kernel.org/all/179055575009.241711.635805264749978=
-7191.stgit@devnote2/
-> > > > [2] https://lore.kernel.org/all/20260928005114.9C9FC1F000FF@smtp.ke=
-rnel.org/
-> > > >
-> > > >
-> > > > Solution: Tasks-Rude RCU
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > > >
-> > > > Because fprobe callbacks already run strictly within preempt-disabl=
-ed
-> > > > contexts, we can transition fprobe and its deferred table reclamati=
-on
-> > > > to Tasks-Rude RCU:
-> > > >
-> > > > - Tasks-Rude RCU detects grace periods via schedule_on_each_cpu(),
-> > > >   forcing a schedule on every online CPU. This guarantees that all
-> > > >   preempt-disabled sections that began prior to the grace period ha=
-ve
-> > > >   completed before memory is reclaimed.
-> > > > - Unlike standard RCU, Tasks-Rude RCU does not rely on dyntick-idle=
- /
-> > > >   EQS tracking. It does NOT require rcu_is_watching() to be true an=
-d
-> > > >   does not trigger lockdep warnings in pre-RCU/idle execution paths=
-.
-> > > > - Within fprobe, guard(rcu)() is replaced with guard(rcu_sched_notr=
-ace)(),
-> > > >   reducing the lookup lock to pure, non-tracing preempt counter
-> > > >   increments without lockdep or RCU state manipulation.
-> > > >
-> > > > Feedback and suggestions from RCU, BPF, and tracing maintainers are=
- welcome!
-> > > >
-> > > > Thank you,
-> > > >
-> > > > ---
-> > > > base-commit: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
-> > > >
-> > > > Masami Hiramatsu (Google) (3):
-> > > >       rcu/tasks: Export call_rcu_tasks_rude()
-> > > >       rhashtable: Add use_tasks_rude parameter to defer bucket tabl=
-e free
-> > > >       fprobe: Switch fprobe and BPF kprobe-multi to Tasks-Rude RCU
-> > > >
-> > > >
-> > > >  include/linux/rcupdate.h         |    6 +++
-> > > >  include/linux/rhashtable-types.h |    2 +
-> > > >  kernel/bpf/syscall.c             |    2 +
-> > > >  kernel/rcu/tasks.h               |    8 ++---
-> > > >  kernel/trace/fprobe.c            |   66 +++++++++++++++++++++-----=
-------------
-> > > >  lib/rhashtable.c                 |    5 ++-
-> > > >  6 files changed, 54 insertions(+), 35 deletions(-)
-> > > >
-> > > > --
-> > > > Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> >
-> >
-> > --
-> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
