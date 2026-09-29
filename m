@@ -1,144 +1,144 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC7B4F402D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740004F3EDA;
+	Tue, 29 Sep 2026 09:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674063; cv=none; b=O860/ZgnRrHRVEvqquws+oUqmWQv/Ls5RjemEF3WMnpyzIri1i8CmnZcQakVZalJL2Gzco/j7bSM7xoZH+kxfjPnMKeF72MsOAk5FEfhKrjOpSSCYhBRtDgPVjHzOAMwVXR1ShhTFRBTSVTR5WX0tqsjUZRBn+aJ64M0UD7A0Dc=
+	t=1790674067; cv=none; b=QxEwtdnJ/SDMGlhC/q3QR5jHeQddFM7y14bEeJlCwh2PWMZOqLolGh9nVqxRmpMBHDPHkNiOJvFNjNw4wsRrABxIGa4oWcSRKfYXUXD8HQE9UloT4Y5UaCrqVATTztWS2pkvAo3GwpR7fex/1bf+7oFXbVQd6yTq5Gx0Nbmou5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674063; c=relaxed/simple;
-	bh=O8PhFpxI17oW/vbzW6HN/MPMmKUlMGYmDzM7IKeIbfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BnXJj1oCz67mNGhcmOSQUlSN0G/tajIyZ6gamuS4Kv+n29cpW4ALIqxi4mprxSj1+J/hj2PskqMvw0va/zWckByIvYljtMYHD9OthxN1mfavt+rEsHe/INKjBTlBKOCMH/WBV8vZDFKOa+8gA5uvAydHgNhxMRW0trkw3qM0CL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qn8KNB2m; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790674067; c=relaxed/simple;
+	bh=uog8vJYYL5IhAKN6S+Qy1BzGIfoavnO99rAuCWu3kYk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G2uTAt/4pfUzwtRyFLsYKaQJtw8OMTXF2cbtTSgsXuyUj4B9sp9MNscJ1d0vLxh5c4zwgDVEaOFpgqN3m1JEjfcKAQVds2A3hEaqxsoCspDreP5ogumk2gxWYqSXb0Cbx5U3lT+QY+tvAYoc5AyY/k74PodIYkYwDqX/cSpowYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=J6Hz7YsY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7u4yOqJd; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=sMNZTxxT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HBtbcg8M; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qn8KNB2m"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8eb3a9d9bso3413748e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790674056; x=1791278856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ABjDV4UR8/eQ3hvNLqGbMylL6htZv7lqq13CDQYKfE8=;
-        b=qn8KNB2mwVpAsk8t4oIXwDd06xCCcls3U2XQgFE1CsERDrAnvht5zLeqMkwXR0y2wi
-         SIuuc0zV005J1XEhv6u0KMzEMjAhfI+AZ3uMJrq6dGm0W/a5upqINcxgAK4NWP/aQyvR
-         thZDkmcMhZnybsEwhGjErdJttcgKNzBaqgT6o5ZZ3V2RqQhXU/uwzk6/Zk/6oO1qM5im
-         n1v3gxDrtOkiGK0mwFPfmlqCGvHiggy+XsfrFrPGyThz+ukn5EikjSbNqeBF0wqb+AXW
-         qnWrzyW63H+n52rII+MWbNTZuJITxUvoMSAQicfAtUuJVMJna620EVyIFVqSdIyoPZKM
-         4UVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674056; x=1791278856;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ABjDV4UR8/eQ3hvNLqGbMylL6htZv7lqq13CDQYKfE8=;
-        b=HyAZ+xzzaPiwus0XBbwtEXaiSQc/w6AvRPXmlNvf4yl7wz756NI/au/aKRkEuoCs8c
-         KMYLFdInzA1HlTcSuElVuH3fV1AU0oDb9m4HZMbtyGCBm8GcBA13lu2oPKdRZ/qJY2QI
-         ID39hO8WVhfLwxPULu0UloTmt9fMAd9edpG9S0zcQFSPguN8bJReyq82NjsZWkMSLbKF
-         bjDgbi2HUf7gfraT/BNavbWfRggPIdQVMcexd7xq0kXJVOWJPhzDakGHP101ey00pIO2
-         kgoU9s4fQBY3hbW7ciC6qknBENt27Z3WMqUKA7XyfQlI5dxGNEEY6uqWM+GBKUpkYqAe
-         L30A==
-X-Forwarded-Encrypted: i=1; AKwUvBzuM4FluDVLEW0kqwCi8PuFE1kaSNxGiEN+ZH2Rhd7Q7saFoZgdm+UgbYVjtgXtEQkst9f7xRUL4IX6/p0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmsZg5Y/Qx/Aezgf5n5A5qO5kFiqlbbhyDlAxDqU2gKix3yY8u
-	HDf/bOmiywtwhygjIJ31T5jz4BzFkGKZVO8zS4+R543Slo7W7QkW4Kkl
-X-Gm-Gg: AYBFou0+06VQ5RCyrg2OHxOvmE+L/9fw8FyD5f+Y/KDuBfZR1r0QL/SaVPSoKjB4Q5H
-	tMbkh0SJyoVb4Xz0YjzkrVCaHNF1YmidljuedF5IjZxkcd1qT4Kj+o+JA1rUNxuMQkkLQM7QxEh
-	96DhjzgMFUif6oDkrAbH4aSzl/Otn5/+9mEXTdgpCBy+lapMVlL33IS8asqPfSc5eBeVDWrZRpZ
-	qd1SwM6ilAmAxj0OgkMKsGdjhfF0Z+GiWxno8xhns6UwvQD6Zzz3NfrJcxfA6LAy28yF8UQa/lD
-	8/g9FPM0XYgrkFRJNYDh0IIZJfCg5r5rE663fISa3zu05XTkJzx9iZnQ+zIqx0t0ye8KaazDxcY
-	HHdrsfD6/3ESIEvY5pciIknd6Cj1DU0R2eJv1a8I0YD1m4CoBCz3qDz+i7tQrAt1QO0Eobe251q
-	ePhv2wWwVZBp3QdS+T4Wgomb9rpiV1cQwUeKPL1Cm8dXlZg1p068GN7KbIwGItyOJmeDRTLTxZN
-	Ju7mU8jH/ovPf6+vNRNqQ==
-X-Received: by 2002:a05:6512:2c9a:b0:5b8:f4f4:ef23 with SMTP id 2adb3069b0e04-5b8f4f4f06bmr2313674e87.3.1790674055569;
-        Tue, 29 Sep 2026 02:27:35 -0700 (PDT)
-Received: from quietus.tail91f8a6.ts.net ([169.40.47.10])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b9debb0bb2sm1216403e87.37.2026.09.29.02.27.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:27:35 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	benjamin.mugnier@foss.st.com,
-	sylvain.petinot@foss.st.com,
-	dan.scally@ideasonboard.com
-Cc: mchehab@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>,
-	Ruslan Koreev <koreev.r@gmail.com>
-Subject: [PATCH v2 0/4] Lenovo ThinkPad X1 Carbon Gen 14 IR camera: ST VD55G1 on Intel IPU7
-Date: Tue, 29 Sep 2026 12:26:56 +0300
-Message-ID: <20260929092700.1776966-1-koreev.r@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J6Hz7YsY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7u4yOqJd";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sMNZTxxT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HBtbcg8M"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3FD7721BC4;
+	Tue, 29 Sep 2026 09:27:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790674056; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xS6XOymtSgVb3OBZr0OuBppDquAOavTfRG3W0KiULNE=;
+	b=J6Hz7YsY7713bAWMHxL4KexZBO+EBxYFjCBVA2oKyOVF1EanV9Lke8mFrVTXYenLkPoAOR
+	wR2d7cTf+n+njRYWnFAWG0PcBpO89A/49frCbIkEnlypLK3wykrf9if4T083psf5A3z+sa
+	m5qkfQsbvxHpbtGExjL9V1ORp2jylvs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790674056;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xS6XOymtSgVb3OBZr0OuBppDquAOavTfRG3W0KiULNE=;
+	b=7u4yOqJdaTTp6TTrzcir4EZmAOeTY/abFhJL534cXzQvP/uA5GigAb+2CB6bVuBH9/XeaT
+	QD7wZee039l859Cw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790674052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xS6XOymtSgVb3OBZr0OuBppDquAOavTfRG3W0KiULNE=;
+	b=sMNZTxxTOzO/wgI1FEHoGfUuNYqPlwbwyLkmFITac1393vCv9TyVQAlwE5UntxWtp+8gsc
+	bjDMoyM432YX+1l3Rf9sNzf0Q8fjiwueqMHpXUEp4wggUs3Ll7wpw4F+OFHJhe5H0D4KFT
+	VKeikKT0TvJuUgmGO8JRR4m2B011zKI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790674052;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xS6XOymtSgVb3OBZr0OuBppDquAOavTfRG3W0KiULNE=;
+	b=HBtbcg8MiABpSAmj0gd1RC6MkAx+Vd3Qr9JpacyWqdTCBBCFnhLxqF8sB2ssHDztiW7nrx
+	xQeNzYAHP+lxMNCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D8A7B136D1;
+	Tue, 29 Sep 2026 09:27:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LlDlIYOEu2owEQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 09:27:31 +0000
+Date: Tue, 29 Sep 2026 11:27:27 +0200
+Message-ID: <87fqys2yrk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Muhtasham Nawr al-Mahmud <muhtaseem2005@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kailang Yang <kailang@realtek.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ALSA: hda/realtek: Fix speakers on ASUS PM3406CHA
+In-Reply-To: <20260924144512.3989-1-muhtaseem2005@gmail.com>
+References: <20260924144512.3989-1-muhtaseem2005@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-The ThinkPad X1 Carbon Gen 14 (Panther Lake, Intel IPU7) has a second
-MIPI camera for Windows Hello: an ST VD55G1 monochrome global-shutter
-sensor, enumerated by ACPI as TBE20A1, with one CSI-2 lane. It is
-powered through an INT3472 discrete device that provides a power enable
-GPIO, a reset GPIO, a privacy LED and a 19.2 MHz clock. Only the analog
-supply has a GPIO; vcore and vddio fall back to dummy regulators. The
-RGB camera of the same laptop (Sony IMX471, TBE20A0) is already
-supported.
+On Thu, 24 Sep 2026 16:45:12 +0200,
+Muhtasham Nawr al-Mahmud wrote:
+> 
+> The ASUS ExpertBook PM3406CHA uses an ALC256 codec with subsystem
+> ID 1043:1664. On Linux boot, the internal speakers are silent even
+> though playback is routed to the codec and the speaker pin is
+> configured for output.
+> 
+> The codec starts with coefficient 0x10 set to 0x1d20. Writing 0x7f20
+> to coefficient 0x10 immediately restores internal speaker output.
+> 
+> This was reproduced on the affected hardware from a fresh boot using
+> hda-verb. Reducing a larger initialization sequence showed that this
+> coefficient write alone is sufficient; no GPIO, EAPD, pin-control, or
+> other coefficient changes are required. After applying the coefficient
+> in userspace, speaker output also remains functional across suspend
+> and resume.
+> 
+> Add a machine-specific HDA fixup that writes the required coefficient.
+> 
+> The fixup has been compile-tested, but could not be boot-tested because
+> the affected hardware is no longer available.
+> 
+> Closes: https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/2162718
+> Signed-off-by: Muhtasham Nawr al-Mahmud <muhtaseem2005@gmail.com>
 
-Patch 1 maps the INT3472 power enable GPIO to the supply name the
-vd55g1 driver expects, patch 2 adds the ipu-bridge entry, patch 3 lets
-the vd55g1 driver defer its probe while the bridge has not attached the
-CSI-2 endpoint yet, and patch 4 adds the ACPI match.
-
-Tested on next-20260924 with the ipu6 driver handling the IPU7: the
-sensor probes, ipu-bridge connects both cameras, libcamera streams Y8
-804x704 at 58 fps, Y10 and Y10P stream with plain V4L2, and with the IR
-illuminator on the frames are good enough for face authentication with
-howdy.
-
-About the privacy LED Benjamin mentioned on v1: the V4L2 core switches
-it when streaming starts and stops, not when the sensor is powered, so
-powering up at probe does not light it. vd55g1 does not hand the LED to
-the core yet, as it registers with v4l2_async_register_subdev() rather
-than v4l2_async_register_subdev_sensor(), so for now the LED also stays
-off while streaming. I can send that change as a separate patch.
-
-Peter Marshall's VD55G0 series (linux-media, September 2026) adds the
-SMO55F0 HID to the same ipu-bridge and INT3472 tables, so whichever
-series lands second needs a trivial rebase.
-
-Changes in v2:
-- Dropped the staging ipu7 patch: the ipu6 driver, which takes over
-  IPU7, already has the monochrome formats (Sakari).
-- Split the vd55g1 change in two and let vd55g1_check_csi_conf()
-  return the endpoint parser's error code instead of checking the
-  endpoint beforehand (Sakari).
-- Trimmed the commit messages, moved the hardware description here and
-  dropped the comment above the ACPI table (Sakari).
-- Added Benjamin's Acked-by to patches 1 and 2.
-- Rebased on media-committers next.
-
-v1: https://lore.kernel.org/linux-media/20260924171820.1179823-1-koreev.r@gmail.com/
-
-Ruslan Koreev (4):
-  platform/x86: int3472: Map the VD55G1 power enable GPIO to "vana"
-  media: ipu-bridge: Add the ST VD55G1 (TBE20A1)
-  media: i2c: vd55g1: Return the endpoint parser's error code
-  media: i2c: vd55g1: Add ACPI support
-
- drivers/media/i2c/vd55g1.c                    | 14 ++++++++------
- drivers/media/pci/intel/ipu-bridge.c          |  2 ++
- drivers/platform/x86/intel/int3472/discrete.c |  1 +
- 3 files changed, 11 insertions(+), 6 deletions(-)
+The code change looks OK, so I applied this now.  Thanks.
 
 
-base-commit: 58348f64125e9a3e44d3abb275ca7f4e6c9641e5
--- 
-2.55.0
-
+Takashi
