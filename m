@@ -1,50 +1,30 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C503A873A;
-	Tue, 29 Sep 2026 07:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F393A963E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667808; cv=none; b=bc7JWVVj1zANBre67TMVkg5c3IGhS/VW90AgSdhagnqjP/eHzaOceBB81QG1p8yf8vP8EcJOxj+DYKWRXJ35++4TZOsfJkXO5tw/WeBL2kpGLuThA89BZq4+3mm3lMzlbrVpWxKZnWtq9dSfaYjvuXH5YLU0bChwTEyiOfPSX5I=
+	t=1790667856; cv=none; b=V8NL3qBz38ZPtpbMRqOO+KDcX0rJTqt86avHi+lUXBn1lBkAUl3MUySlqulAnlEqKtwO0Y6EuTtVsyC3jYdgMVoyY9N2Au2PLN6QDp4xb+W3cNoVDt7/YGEuE4jt13E5K+MivGIpslsPutc8G7uG7Apvp687GlU5zEsAftZ72jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667808; c=relaxed/simple;
-	bh=ZS3Uwb8xM0JRyf4ECojhTiKdryKdMbYSqg1pPBs1pAo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fheHdztWBQTrAJZhMGyLBRbVZRNsxUiBv5TArEtTmrh4LOuDvGk/M+YVQGYaYsW4Puh2LyTtkeDiB5N5F93V21Ct4OTWvMygwfz5rSmSuQRDnGGn5+OWO3+Mi69fbeJvod2H/KL8solOIAc9xWWij6XCDaRgFLxmOrtPDcIqdIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=awT5NkRY; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="awT5NkRY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790667807; x=1822203807;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZS3Uwb8xM0JRyf4ECojhTiKdryKdMbYSqg1pPBs1pAo=;
-  b=awT5NkRYfiFzJjZqKEEZdphcvt+nzEwwUJlHzuAVhWiXyeK+xpnQAt45
-   thZFUj7FfhEE6fZqzAwGfT5Mdm52oXul/Ii32W5rtFyF9P73JgI9eXp8O
-   mph/Y9PUUvI216Oc9TLp9L7NuTWLZe4f8K0DQ/xAxYGE3kPMXnezV2lTK
-   ZqpmOjX0ddVz0VHvOY8/1f2ap1ObXBGrBrbW1U5K8VYeKBWVHp07pm/pg
-   9BHo0ShiMWJZ0aReF3p/KQJ0HKTc8JQw6yYr3TS9jJTqQPjIBhsk/dgvZ
-   OM+1svgbngvSX2RtRdmvtsd+hBl+DAkynRYElpUleEmH1+SidmlQU/xx8
-   g==;
-X-CSE-ConnectionGUID: Ej1FIA5gRoa5Rk+UgE5WqA==
-X-CSE-MsgGUID: GJExWsfTQy++5/4edc9G/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90431648"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="90431648"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:43:24 -0700
-X-CSE-ConnectionGUID: q5CLkmCiQ6WWyZgTlePKGA==
-X-CSE-MsgGUID: Bx4OISMOSya+fzByzBmhhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="274403098"
-Received: from unknown (HELO [10.238.1.46]) ([10.238.1.46])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:43:19 -0700
-Message-ID: <6df0a7cf-e88f-409b-8601-1e98367e4930@linux.intel.com>
-Date: Tue, 29 Sep 2026 15:43:17 +0800
+	s=arc-20240116; t=1790667856; c=relaxed/simple;
+	bh=tJ/GkpllDs+9KzENUtp4AAlxIv2f+JlgRwf8HGdoizc=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=Z7o0V/lRrCuZWV+C3gMcu0JM8CPe/SUU67DO6PnepWFZNyF/QRrVvJmUp31UYgw8u4sxjHd7awHxui+tNbZECUhqoMBVKrWNnUZac1mIq7Ds2wTEdci58Ofc0vcMuoC60PC2O3UIbKzco7li38L4O9NR3cuIKtrEnElr2hCfahU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 68T7i642074066
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:44:06 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 68T7i57J074063
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:44:06 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <30036c14-ea5f-49ef-b3c1-fe00d1babbf9@I-love.SAKURA.ne.jp>
+Date: Tue, 29 Sep 2026 16:44:05 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,91 +32,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] virt: tdx-guest: Give the Quote buffer an explicit
- type
-To: Peter Fang <peter.fang@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Xiaoyao Li <xiaoyao.li@intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260928100913.2265687-1-peter.fang@intel.com>
- <20260928100913.2265687-3-peter.fang@intel.com>
- <bd46aaba-2c07-4b4d-b76a-30a1dff21b0f@linux.intel.com>
- <artrprfgz7Q5CEz7@intel.com>
 Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <artrprfgz7Q5CEz7@intel.com>
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH] can: j1939: cancel pending address claim timers on rx release
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav215.rs.sakura.ne.jp
+X-Virus-Status: clean
 
+syzbot is reporting "struct j1939_ecu" refcount leak, for
 
+  j1939_ecu_get(ecu);
+  priv->ents[ecu->addr] = ecu;
 
-On 9/29/2026 3:41 PM, Peter Fang wrote:
-> On Tue, Sep 29, 2026 at 10:13:32AM +0800, Binbin Wu wrote:
->> On 9/28/2026 6:08 PM, Peter Fang wrote:
->>> The Quote buffer is always a "struct tdx_quote_buf", but its global
->>> pointer is a "void *". A function would have to convert it back to make
->>> sense of it.
->>>
->>> Declare the global with its actual type, and give it a better name.
->>>
->>> This creates variable shadowing in wait_for_quote_completion(), so
->>> rename its parameter for clarity.
->>>
->>> AI was used under supervision to collect/apply feedback, review code and
->>> workshop logs.
->>>
->>> Signed-off-by: Peter Fang <peter.fang@intel.com>
->>
->> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> 
-> Thanks Binbin!
-> 
->>
->> One nit below.
->>
->>> ---
->>> v5:
->>>  - New patch. [Dave]
->>> ---
->>>  drivers/virt/coco/tdx-guest/tdx-guest.c | 35 ++++++++++++-------------
->>>  1 file changed, 17 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
->>> index d0303e31e816..896eb0a09c4a 100644
->>> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
->>> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
->>> @@ -192,7 +192,7 @@ struct tdx_quote_buf {
->>>  };
->>>  
->>>  /* Quote data buffer */
->>
->> The comment should be updated as well.
->>
->> "Quote buffer" or "Quote request buffer"?
-> 
-> Hmm... I think with this refactoring, either one becomes kind of
-> redundant. I was thinking of adding something like "GHCI Quote buffer",
-> but that's pretty much documented by struct tdx_quote_buf itself.
+in j1939_ecu_map_locked() from j1939_ecu_timer_handler() can succeed
+even after
 
-Agree.
+  priv->ents[ecu->addr] = NULL;
+  j1939_ecu_put(ecu);
 
-> 
-> How about I just drop the comment?
+in j1939_ecu_unmap_locked() from j1939_ecu_unmap_all() from
+__j1939_rx_release() from j1939_netdev_stop() has completed.
 
-It's OK for me.
+  unregister_netdevice: waiting for vxcan1 to become free. Usage count = 3
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_ecu_create_locked+0x1c9/0x400 net/can/j1939/bus.c:159
+       j1939_local_ecu_get+0xeb/0x220 net/can/j1939/bus.c:293
+       j1939_sk_bind+0x70a/0xc60 net/can/j1939/socket.c:529
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-> 
->>
->>> -static void *quote_data;
->>> +static struct tdx_quote_buf *quote_buf;
->>>  
+  ref_tracker: netdev@ffff8880710f0700 has 1/2 users at
+       __netdev_tracker_alloc include/linux/netdevice.h:4496 [inline]
+       netdev_hold include/linux/netdevice.h:4525 [inline]
+       j1939_priv_create net/can/j1939/main.c:140 [inline]
+       j1939_netdev_start+0x387/0xb20 net/can/j1939/main.c:268
+       j1939_sk_bind+0x946/0xc60 net/can/j1939/socket.c:506
+       __sys_bind_socket net/socket.c:1920 [inline]
+       __sys_bind+0x2e3/0x410 net/socket.c:1951
+       __do_sys_bind net/socket.c:1956 [inline]
+       __se_sys_bind net/socket.c:1954 [inline]
+       __x64_sys_bind+0x7a/0x90 net/socket.c:1954
+       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fix this race condition by calling j1939_ecu_timer_cancel() before calling
+j1939_ecu_unmap_all() from __j1939_rx_release() from j1939_netdev_stop().
+Calling j1939_ecu_timer_cancel() here is safe without holding priv->lock
+because the CAN RX path has already been unregistered via
+j1939_can_rx_unregister(), meaning no concurrent network events can mutate
+the priv->ecus list.
+
+Reported-by: syzbot+e2af46126e0644cbebdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e2af46126e0644cbebdd
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928193312.553632-1-mkl%40pengutronix.de # [PATCH net 06/22]
+Assisted-by: Gemini-Pro gpt-6-astra opus-5-5
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+---
+ net/can/j1939/main.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/net/can/j1939/main.c b/net/can/j1939/main.c
+index 5e5e6c228f22..151f8f1063c7 100644
+--- a/net/can/j1939/main.c
++++ b/net/can/j1939/main.c
+@@ -212,8 +212,17 @@ static void __j1939_rx_release(struct kref *kref)
+ {
+ 	struct j1939_priv *priv = container_of(kref, struct j1939_priv,
+ 					       rx_kref);
++	struct j1939_ecu *ecu, *tmp;
+ 
+ 	j1939_can_rx_unregister(priv);
++
++	/* Cancel all pending address claim timers before unmapping the ECUs.
++	 * This prevents an orphaned timer from re-mapping an ECU after the
++	 * rx path has been completely torn down.
++	 */
++	list_for_each_entry_safe(ecu, tmp, &priv->ecus, list)
++		j1939_ecu_timer_cancel(ecu);
++
+ 	j1939_ecu_unmap_all(priv);
+ 	j1939_priv_set(priv->ndev, NULL);
+ 	mutex_unlock(&j1939_netdev_lock);
+-- 
+2.52.0
 
