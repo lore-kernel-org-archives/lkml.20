@@ -1,215 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62B23F4DD9;
-	Tue, 29 Sep 2026 19:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AEB53B613
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790709865; cv=none; b=cCuubDEgAT3kCpDun9xCkKGlll3qovPc9mzG+20sUHqABAaq+Jmd+a+GptdswCmawHF6VcT7pLJ4QJw5wvHM9n+KlntlYyDedQWhvYq6rEGpsbA/Y5SWNx5YGX8hvMdPDLo5j2GTuBQBEtinFDLtYvtaVkuZ1YJZ/lZ5jhlSF1U=
+	t=1790709882; cv=none; b=RixcF6PtuUYJSKhtsDyUFCd55sImTKnCY99pVWhJX3vDSaeJrogTFqkLrNdzV/jU5xHG0RlqUpyO2FdMsxwRspK8Yc9Bfz5/cQMew4M63VZaOc2hJFIbRw7WDWHkaUO8gENdVRrsAOZc10Z+P/k8uL0vOA8nQdK+UlSU/8nqiC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790709865; c=relaxed/simple;
-	bh=QbK+E8OtIzF32QonND+KHJdCfdBfayxRrD0iDnQSt0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddmxKqsF4sbZeUiar+aTvU+Y5vm5zeCIXLiFjt3H98UTOkKJbVorGlPWHngbjNRSyWvRPkqqhKyQ1ZRrw9p9nWLHPJ3hlDWCU5bWtm9fcxuzUw8EqECKrkg9a6LgEnb6mtIQNnhRgFSJD1oZqUnijR9yia12tSvhAA1zqeVB9yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLeVPkRh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790709882; c=relaxed/simple;
+	bh=RvBlO2Tj+oD4izUACOcTsnJXXEePaYc3n30436iNNw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FmLuf4s7bykl7q6m1q93cgeCkrfqpsrOWdkOKs1fywwyYFvJ3HHc6xalz+gO/IhTsqNDanrx6ICjhiSJQpt3lr5gA5NWWgWMKEISNHbLYYaDpVsHw3sL7wQkSoW3ZG/30YPx2KUCx4/XwEzsMj8tLVpswmEeKvxolDFt9rP/pQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JQ086+nY; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLeVPkRh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A9C1F000FF;
-	Tue, 29 Sep 2026 19:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790709863;
-	bh=+4lcFV7BWlJxo0mkhLOYTkZFGAJFfiTavqhBD4KO1lY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FLeVPkRh1a34ogB9TpRqthY2RcbpuPqQsAGNc8EBMC8NIGvoauZPvtJdN18aNpI85
-	 m5+apCTFoKPSgyD80h3yqAunUkZBSHhpsRtktMeQU6PmoV9plQ7nxsmRnEdZpzeITd
-	 iuw7p12XnIonSLvhM0cCedPFuSbrmDNrcnUJJ6ZkbtgzLKV3vq5Rk8YPLs3Zsj2Tem
-	 vtYbJG/7wRtE8fsTUkKYkWlHUVEShd1dUSTrq5K+X+n/Dn2Af17dIsj1rG6KW+RDD9
-	 UFRZdZ7Avco2qztl/Zdyx7lN7s5vlRb0NWHXIq+UPEs1nanv/2dE8haepp2+acg6/1
-	 +FekM+w1yBvmA==
-Date: Tue, 29 Sep 2026 20:24:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-Cc: Radim Krcmar <rkrcmar@qti.qualcomm.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"spacemit@lists.linux.dev" <spacemit@lists.linux.dev>,
-	"sophgo@lists.linux.dev" <sophgo@lists.linux.dev>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	Andy Chiu <tchiu@tenstorrent.com>,
-	Florian Weimer <fweimer@redhat.com>,
-	Peter Bergner <bergner@oss.tenstorrent.com>,
-	Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
-	Mark Harris <mark.hsj@gmail.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Chen Wang <chen.wang@linux.dev>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-riscv <linux-riscv-bounces@lists.infradead.org>,
-	Guodong Xu <guodong.xu@oss.qualcomm.com>
-Subject: Re: [PATCH v8 01/11] riscv: Add B to hwcap and hwprobe
-Message-ID: <20260929-operative-anointer-7f54be845b54@spud>
-References: <20260920-rva23u64-hwprobe-v2-v8-0-5f14bc5c23d3@oss.qualcomm.com>
- <20260920-rva23u64-hwprobe-v2-v8-1-5f14bc5c23d3@oss.qualcomm.com>
- <9d058591-466e-4c06-a820-b8ecc7d319a6@canonical.com>
- <15151b8ab012ca7444d4117e393cf999.guodong.xu@oss.qualcomm.com>
- <DLRWB8R7P6SF.1XIL0OXLZ2F23@qti.qualcomm.com>
- <70a3451c-db31-41d0-af9d-8c9e123557f6@canonical.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JQ086+nY"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e22e123350so14623655ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:24:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790709880; x=1791314680; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lzp9+chQ6iocMfXVjqbrn94FQKdp8G+cswYdgKOgF0w=;
+        b=JQ086+nY5kJDLHKyAbdl0+rEpv8Mvc4WKEGAZBVgQVlLfLm6bWyhV0R+cOZt82lCX/
+         z+zeEHbkX4aTok2m0hyQ3gGCDbU8EnaSjqfV4TNyugBb9YDVo5M6GMnRfAM4x7rDIx2f
+         aOAWZV6Mgp88HSGqP0x7TETh5reoEqwi/yLbbMNXBp3XAFGzr47tlD/Ro+yAOPQuQxGa
+         8BKFHFCAgNiFquCPIc1rBmr1wtZFODks4LFMTAfiShjaGb9abUR4jokaWpryP8Wbfh4Q
+         3UkNL89bfbMqDT9a5gQRW19Qc0LUzEMg3SWUFNgmoqUP9JmCvONCGPxDpwbobFpc26mL
+         30wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790709880; x=1791314680;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lzp9+chQ6iocMfXVjqbrn94FQKdp8G+cswYdgKOgF0w=;
+        b=g1EJMlEKfTlaJ8RKgcr2JXgy0ZaSOtzbYZgncrehkRlWrpztDAzn/N7wiZZ4uwvxUH
+         UqSIhZlMmf9iucSbVKMtfEUCf6N9YrLTgsPqVn73gHZ69DITrjERCA/uJcPQP/djj5z+
+         /FXFFkUKqE/6FbEcRcgW0vX6CMx2tLBtCuOC6h6dA4ZefJgLQNoqQ7qZakCYR5bAZE9t
+         omO7ir1IKrTSGD1xmdMu29kdq04d7SLWH22C/roeOY3jLNf99/yMdbGnJmxSUuBqS+xe
+         shw49uv4avSB2CETgn3qPCl4d8O4K9FlCu6Sawk1DH25pxgbknGFTnxpUn4/6WtXr1iI
+         Lipg==
+X-Forwarded-Encrypted: i=1; AKwUvBxS6iShxPxt1fC+pEt/QZCQoOStGcz4jh53ykcB5tLbsccG7KiVNXIXsOihsyFFEVszqy95gFogXuPDW5g=@vger.kernel.org
+X-Gm-Message-State: AFuF++njn+QdfpRemRw0/TrE1hSnJVmCT4mU5R2Wj66+giiIABTeo0TC
+	LSzjERPqkfONbBkb7GmkTwkh1XaiAJzHsShzAMYuQpQO16XfJwG6Cnb6
+X-Gm-Gg: AYBFou2SXYbCZrmxB/LnrJgoNtHr9INUOBW+pd3NMeU6FGCZk5bjoIaHEbISSphFKfD
+	g1gJAh2feh3ElTPfCsUsNvRKrJ1ruVy9kFqtu+QI61NPernyiZY7ghv8ihIe7k2s6ku2JcvxbIi
+	BLZCBrPbM2cpAdYFKu3kNb4grpXxnfrvnLFAgql5X9dJqZqI7Yyosfn0QKHwlUSWJ/z6ISbGKxS
+	GcxL19ZDGpH6JqJZ7AOaYSnHm07/rze0FCjbRhwbdqtkE5I2ap0+qqsvSDnfJ23yQ3G4TsL/oP6
+	sc74vbny/yzDr7xUvOiSJgdQYH+AcL/A1yvoHOehEVdVl+j82ItkjxJLGZRC+adQSqas/T8hMDR
+	bjiBCNfqPDla1AjrgpsgV/JjLrcLf5+zsHsp43f7H+sNnKzL9ljsjxs2++Kwv3PI8GBqs9IyddQ
+	a1cdaKsDFBMobobq3xiJANXLGob/rwDZZR2o6EsygfrD4svH6SrH5eLe4ysYETjF4dZHdSM1bQH
+	mu1+OF/TWVXnNuFNPkTbhk7cvTlUdTHbioRuVgSk3SUqZeE4Qag0I60D+sVQtp4HtT42c93eD9L
+	Jl6rgsyr+GGU7ikyFW6/5nGQnb0FYymo3GhiU7gfp4tgtcxY
+X-Received: by 2002:a17:903:32d2:b0:2df:b5c7:d0f1 with SMTP id d9443c01a7336-2e2de565bcamr475215ad.44.1790709879930;
+        Tue, 29 Sep 2026 12:24:39 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2dd39be7csm611795ad.3.2026.09.29.12.24.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 12:24:39 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-clk@vger.kernel.org
+Cc: Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
+	linux-kernel@vger.kernel.org (open list),
+	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
+Subject: [PATCH RESEND] clk: tegra: bmp: remove kcalloc
+Date: Tue, 29 Sep 2026 12:24:37 -0700
+Message-ID: <20260929192437.27775-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rW7jw50OZvM/1nk9"
-Content-Disposition: inline
-In-Reply-To: <70a3451c-db31-41d0-af9d-8c9e123557f6@canonical.com>
+Content-Transfer-Encoding: 8bit
 
---rW7jw50OZvM/1nk9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Use a flexible array member to avoid allocating separately.
 
-On Tue, Sep 29, 2026 at 06:30:49PM +0200, Heinrich Schuchardt wrote:
-> On 9/29/26 17:12, Radim Krcmar wrote:
-> > 2026-09-24T06:38:17-04:00, Guodong Xu <guodong.xu@oss.qualcomm.com>:
-> > > On Mon, 21 Sep 2026 16:24:53 +0200, Heinrich Schuchardt wrote:
-> > > > On 9/20/26 09:18, Guodong Xu wrote:
-> > > > > [ ... ]
-> > > > >    	__RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_Q),
-> > > > >    	__RISCV_ISA_EXT_SUPERSET(c, RISCV_ISA_EXT_C, riscv_c_exts),
-> > > > > +	__RISCV_ISA_EXT_SUPERSET(b, RISCV_ISA_EXT_B, riscv_b_exts),
-> > > >=20
-> > > > Hello Guodong,
-> > > >=20
-> > > > The RISC-V Unpriviledged ISA specification has this description of
-> > > > extension B:
-> > > >=20
-> > > > "The B standard extension comprises instructions provided by the Zb=
-a,
-> > > > Zbb, and Zbs extensions."
-> > > >=20
-> > > > __RISCV_ISA_EXT_SUPERSET would imply that something else but
-> > > > riscv_b_exts is in B. But such an extra seems not to exist.
-> > > >=20
-> > > > So shouldn't __RISCV_ISA_EXT_BUNDLE be used here? Some code further
-> > > > change may be needed to set extension B if riscv_b_exts is fulfille=
-d.
-> > >=20
-> > > Thanks for the review. Intentional, and the difference between the two
-> > > macros is whether the extension gets a bit of its own.
-> > >=20
-> > > __RISCV_ISA_EXT_BUNDLE carries RISCV_ISA_EXT_INVALID as its id: parsi=
-ng
-> > > the name only sets the bits of its parts. That fits zk, zkn names, wh=
-ich
-> > > are shorthands with no identity of their own beyond the ISA string.
-> > >=20
-> > > B is different: it is a single-letter standard extension with its own
-> > > misa bit (in the same way as A), and AT_HWCAP on RISC-V is the bitmask
-> > > of exactly those single letters, so the kernel needs a bit for B itse=
-lf.
-> > >=20
-> > > A is declared the same way; with the spec defines A in the same words=
- as
-> > > B. If I can take that as a precedence.
-> > >=20
-> > > IMHO, "superset" in this table means "also sets these subset bits", n=
-ot
-> > > "contains something extra".
-> >=20
-> > Zba, Zbb, and Zbs are equivalent to B for our purposes.
-> >=20
-> > Are we sure that B will always be listed in the ISA string when Zba,
-> > Zbb, and Zbs are present?
-> >=20
-> > We could incorrectly lose RVA23U64 bit otherwise, and I think this was
-> > Heinrich's concern as well...
-> >=20
-> > (The "A" extension has the same issue...)
-> >=20
-> > Thanks.
->=20
-> If Zba, Zbb, and Zbs are present the kernel should set the B flag in
-> hwprobe. This is why RISCV_ISA_EXT_SUPERSET() cannot be used to describe =
-the
-> B extension. RISCV_ISA_EXT_BUNDLE looks more appropriate but may lack
-> functionality.
->=20
-> RVA23U64 looks like an RISCV_ISA_EXT_BUNDLE() to me, too.
->=20
-> Unfortunately these macros are not properly documented.
->=20
-> It would be helpful to first align on the meaning and usage of the macros
-> and document them properly.
+Use __counted_by for extra runtime analysis.
 
-The intended meaning was "bundle contains no additional features beyond
-the components" and "superset contains additional features beyond the
-components".
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/clk/tegra/clk-bpmp.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-IIRC the reason for differentiation between the two was to simplify
-things in the kernel and avoid having code which requires y feature checking
-for "bundle extension xyz", because firmware might only set "component
-extension y" and therefore get a false negative on support.
-Probably ditto for userspace parsing /proc/cpuinfo, since I don't think
-hwprobe existed at that point. The things that are using superset now
-don't quite match that, because some extensions have been retroactively
-changed by RVI to match the bundle definition (due to new extensions being
-created for subsets of an existing extension) and superset was used also for
-the xlinuxenvcfg stuff.
+diff --git a/drivers/clk/tegra/clk-bpmp.c b/drivers/clk/tegra/clk-bpmp.c
+index 067a8555c4e7..15b976162b59 100644
+--- a/drivers/clk/tegra/clk-bpmp.c
++++ b/drivers/clk/tegra/clk-bpmp.c
+@@ -32,7 +32,7 @@ struct tegra_bpmp_clk {
+ 	unsigned int id;
+ 
+ 	unsigned int num_parents;
+-	unsigned int *parents;
++	unsigned int parents[] __counted_by(num_parents);
+ };
+ 
+ static inline struct tegra_bpmp_clk *to_tegra_bpmp_clk(struct clk_hw *hw)
+@@ -518,20 +518,14 @@ tegra_bpmp_clk_register(struct tegra_bpmp *bpmp,
+ 	unsigned int i;
+ 	int err;
+ 
+-	clk = devm_kzalloc(bpmp->dev, sizeof(*clk), GFP_KERNEL);
++	clk = devm_kzalloc(bpmp->dev, struct_size(clk, parents, info->num_parents), GFP_KERNEL);
+ 	if (!clk)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	clk->num_parents = info->num_parents;
+ 	clk->id = info->id;
+ 	clk->bpmp = bpmp;
+ 
+-	clk->parents = devm_kcalloc(bpmp->dev, info->num_parents,
+-				    sizeof(*clk->parents), GFP_KERNEL);
+-	if (!clk->parents)
+-		return ERR_PTR(-ENOMEM);
+-
+-	clk->num_parents = info->num_parents;
+-
+ 	/* hardware clock initialization */
+ 	memset(&init, 0, sizeof(init));
+ 	init.name = info->name;
+-- 
+2.55.0
 
-At this point, I think we could probably just cull the differentiation
-entirely, retaining a macro called "bundle" that has the behaviour of
-the current "superset". People should just know to check the minimum
-required extension (that's common sense surely?!?) and the kernel will
-always propagate support down to components. This is at least the 3rd
-time recently that I have seen confusion over what each is supposed to
-do.
-
-
->=20
-> ---
->=20
-> The benefit of an additional hwprobe flags for B is limited. When I want =
-to
-> check for B I can already use:
->=20
-> RISCV_HWPROBE_EXT_B =3D
-> RISCV_HWPROBE_EXT_ZBA | RISCV_HWPROBE_EXT_ZBB | RISCV_HWPROBE_EXT_ZBS;
->=20
-> if ((value & RISCV_HWPROBE_EXT_B) =3D=3D RISCV_HWPROBE_EXT_B) {
-> 	// Hurray, I have the B extension.
-> }
->=20
-> There is more utility in the RVA23U64 flag because it combines values from
-> RISCV_HWPROBE_KEY_BASE_BEHAVIOR, RISCV_HWPROBE_KEY_IMA_EXT_0, and
-> RISCV_HWPROBE_KEY_IMA_EXT_1.
->=20
-> Best regards
->=20
-> Heinrich
-
---rW7jw50OZvM/1nk9
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwQXwAKCRB4tDGHoIJi
-0gsNAP4zCeyU0ECIOLqFYp7eKcSULXfObTdh0pHUxJ7mwe9PCgD9HL3G732aWACU
-0okpHhU7u0xbfNAkhsrFUz0MfF4L9A0=
-=Sl5P
------END PGP SIGNATURE-----
-
---rW7jw50OZvM/1nk9--
