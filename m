@@ -1,154 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0EB355F5F;
-	Tue, 29 Sep 2026 06:00:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DA4402422;
+	Tue, 29 Sep 2026 06:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790661628; cv=none; b=bePIbxCDUsGDC+32vExUz3iBczdIqqy1dgsFPem785gkpjJ5ST0m3DhiUm96vwDSkEHgDCwPDMhfy0yqu8FAWKqEZuzkEV6kdtmhKcxzk/QG1bvIQbTQ101VZFVZSgwcYOqGLJpQHya357WxAaUEw1jhO+FRIoj/jBrLALIGwCA=
+	t=1790661631; cv=none; b=E1fIYsUyLLG9HI20GGCgoou3lR/2J/ZKNUn3gEKnlKWyLgbkXFr7BqhoH8MAbif7xoEPFP6CluVw8i3Kl21KiR+d9uf1gHg7dNA2fXiP/zsd68uOuHj0/Ah+Vco1cwav0fkpQ5LdhE30xrlvIb+fZb/pjz0o0tavLosCIhBmb9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790661628; c=relaxed/simple;
-	bh=6zvgkwHGM3IYXt4bhTQK6rVG+b5tVzrDniAM/UIpvhc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dNikhNEa2Rv0Vuj8y/AGxkZbuuL47ULxshMdAH0E3MxgM2iCHng9cUFqaSp5fLnK61QVQ1ZpN0I+pCPoTUZnvbcer6jXzOClMZplXyWHqZuNGD0qgI7lFNkyElIgMYwVNwtXG6BGQUVKSRpP3jrNocuNTL3+n4JbScdvrTPTPd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fah8C/kZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790661631; c=relaxed/simple;
+	bh=MxIjbY+nCFDzb/mYxJRGXsjLBXyWtF3PH/c/tyPnNYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n9s2Fxsmq5gUr2E/lZDsQfuPIgu4X6rB5PkXzRK7bcc1GDWN/czBlyWrgyfgC0OBX0p3fRSTda8IekD1icBTDXcyYSxCajMRKUhe3IcPZMSD6x0F6DUaAaBOzRg2gnFdoDU+g9wTnr7Sdn7wRBEHQd16KF/hhx2tsRDZmgkFGl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G1J1Klur; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fah8C/kZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB601F000FF;
-	Tue, 29 Sep 2026 06:00:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G1J1Klur"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4262A1F000FF;
+	Tue, 29 Sep 2026 06:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790661626;
-	bh=OVz0v9wYmsxbPEfBPKUnNadFzZc9eqoExIFQ5MnwmNY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Fah8C/kZgpM9LCP6hJ536sx1XW4LVjuRMccBVIMt8kceYElOHtAf7MFtXdKMgEP+N
-	 j2mxHXcdrtQ+co+0sTUZf86QgE5OuzFjZCMLjFoDifbfugTa0gVQtqxl0ETbuG4KYk
-	 b+DF4NfGLzUQR2K9Is1WBQH3YH0xr3sjLtqok+58OYdz80j2UkMvgB8BYDDP98JDG1
-	 QwcWDiHJ2ZfZvRTZkJQa/fvqrolUsUE87WV5m2/Y+ogJZtSWtvC8dBiVkED7h672Y2
-	 MfRZHK6bwh0w8+sUA4v3YvzGY4H0ZUILncFvXogFJhpQFxY/4aGixnMTswmfs9CrEr
-	 1678NXMqQrYJw==
-Message-ID: <3b1e23f0-76d5-489c-a5eb-0774a21b0f63@kernel.org>
-Date: Tue, 29 Sep 2026 08:00:19 +0200
+	s=k20260515; t=1790661629;
+	bh=NGAaPG7jRPlDWonCV4b+j4uXcMNeRtG8skJ3xbe0MqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G1J1KlurOMHR2PzfPmLqvKZVPWFENwQ7lGYp5wHCb6STEmfpu+YTIdGFm/P26tDer
+	 u9iLlW8TR3EqgH1goqWA4Y6RBjM/S4hoDQPnKwtZ4n85wrf5YJZMpXKi6MMtaHz2R7
+	 c/MaNz9qBFoA3yfgN4QGSGYFC1zUpPz9lQJZ5I1zUhm+GDdgY0fhww2WNOxEEOk9SN
+	 l9WCJzjspLycZ4ONuwCwBJQ+HM7/EkFVtx7P+Gw6+A+nca6fwnm/gWT4I2QJInGzMY
+	 qt2MMSQ/m32D1w7kTg0gwLw4xI9ONRjluFmOk3M9RaShB7si6G5HmylGvP+Z2mZSRT
+	 PaD+MaI/CdpQg==
+Date: Tue, 29 Sep 2026 08:00:26 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Manush Prajwal <manushprajwal555@gmail.com>
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: tiehrpwm: fix copy-paste error in obsolete DT
+ binding fallback
+Message-ID: <artTMprq3aNbVrLN@monoceros>
+References: <6abaa9fd.8a95a640.187520.71d6@mx.google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
- <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
- <20260928-efficient-secret-manatee-2fcca6@quoll>
- <7fe35ef7-e894-4137-975a-9a5f621a8156@amlogic.com>
- <33499600-5df7-48fb-a2ac-5a703df8dc2d@kernel.org>
- <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <59541a34-eba9-4699-ba19-69e7b5b1525a@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p4amw4ytnox6vduk"
+Content-Disposition: inline
+In-Reply-To: <6abaa9fd.8a95a640.187520.71d6@mx.google.com>
 
-On 29/09/2026 07:57, Zhentao Guo wrote:
-> Hi Krzysztof,
->> On 29/09/2026 04:59, Zhentao Guo wrote:
->>> Hi Krzysztof,
->>>
->>>> On Thu, Sep 24, 2026 at 03:55:10PM +0800, Zhentao Guo wrote:
->>>>> Add bindings for Amlogic hardware decoder accelerator.
->>>>>
->>>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->>>>> ---
->>>>>    .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->>>>>    1 file changed, 114 insertions(+)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>>>> new file mode 100644
->>>>> index 000000000000..751043c3d9cc
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>>>> @@ -0,0 +1,114 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: Amlogic Video Decode Accelerator
->>>>> +
->>>>> +maintainers:
->>>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
->>>>> +
->>>>> +description:
->>>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
->>>>> +  It supports stateless h264 decoding.
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    const: amlogic,s4-vdec
->>>>> +
->>>>> +  reg:
->>>>> +    minItems: 2
->>>> What is happening here? Previous version was different.
->>> maxItems: 2 implies that a single items is also allowed,but the hardware actually requires at least two register regions (dos
->> Since when?
-> It should have been minItems:2 ever since v1,I must admit that this is a 
-> long-standing mistake.
 
-No. Since when 1 item is allowed?
+--p4amw4ytnox6vduk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: tiehrpwm: fix copy-paste error in obsolete DT
+ binding fallback
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+Hello,
+
+On Mon, Sep 28, 2026 at 11:25:09PM +0530, Manush Prajwal wrote:
+> ehrpwm_pwm_probe() attempts to provide backward compatibility for older
+> device trees where the functional clock "fck" was supplied by the parent
+> PWMSS device rather than within the PWM child node itself.
+>=20
+> However, when devm_clk_get() for "fck" fails, the fallback checks:
+>=20
+> 	if (of_device_is_compatible(np, "ti,am33xx-ecap")) {
+> 		dev_warn(&pdev->dev, "Binding is obsolete.\n");
+> 		clk =3D devm_clk_get(pdev->dev.parent, "fck");
+> 	}
+>=20
+> Because this logic was copied from pwm-tiecap.c, it mistakenly checks for
+> "ti,am33xx-ecap" instead of "ti,am33xx-ehrpwm". An eHRPWM node matches
+> ehrpwm_of_match ("ti,am3352-ehrpwm" or "ti,am33xx-ehrpwm") and will never
+> be compatible with "ti,am33xx-ecap". Consequently, for any device tree
+> using the obsolete "ti,am33xx-ehrpwm" binding, the fallback never triggers
+> and probe fails with "Failed to get fck".
+>=20
+> Fix the check to test for "ti,am33xx-ehrpwm" as intended.
+>=20
+> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+
+Looks right, I guess it needs:
+Fixes: ae5200d22716 ("pwm: pwm-ti*: Get the clock from the PWMSS parent whe=
+n using old bindings")
+=2E
+
+I wonder: Did you find this because you still use the old bindings, or
+by code inspection somehow? If the latter, maybe it's time to drop the
+handling instead?
+
+Best regards
+Uwe
+
+--p4amw4ytnox6vduk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq7U/cACgkQj4D7WH0S
+/k5ovwf/f6jpWHuSdLq1BR8LCX/XnBPZPFkh+mDOzSq5xhz4IFCBIIEmJj06cJ9e
+s0NC/hBxiwNxqN25PVG87FCjkmOn5C8cBaKhYUdZxDIlnbHn/kcjjFuVV0bIzKue
+5Dc4N6v6WR1wSttsJ3pIO/LiEbD09BH1RDhT+2hhaWxgTantqW3Y1BEIcedjVPxB
+Cwb0xnXCgr+EANDMqsq/UDRYqtoapNxq4MSupNemOFPkjpbPe8xIjHfmGwPMXioN
+RiAGPYUH8RZJwfMFhJpJmALjO25ws/+R95uwwWQdM4aaKsTXRBo09pFxG2gXWsaZ
++Qhb90NN2uYzCVTgtVrbTiQPrMC6xQ==
+=1zr6
+-----END PGP SIGNATURE-----
+
+--p4amw4ytnox6vduk--
