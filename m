@@ -1,179 +1,119 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46527189F43
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD61397E9A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648939; cv=none; b=tHH2iIpEMdrNEoA70zkHL0mDHlutHu6+vRn0YOXRuEM5prgEJMQ4h2tzUmfQSpKP8gS6lY9UqmgPjjtTTIdj2Ad4Lp5Q5RMofRv6EMfryJetI6UjBGAZTd809NpQtQ9FNS+X68rn/lMzFZUvwrAQvj/M7Ig/r4WtYAPQ3N/+KMY=
+	t=1790648941; cv=none; b=pnnnSBErKhLa/hBykMqmbl7Ro08fQq+nhV5MyH7aYtg3dqNi71ti//8YC2+TXpOZrSXzFAZWDRNyAXgPwen/Mx39YTs1o5utulGJelc0tZ9UX7+28OMQ1lWD6PpEOZJ9KwKBzTSu4jFikkDf+329hVmNShHLgD4vlNtiJ0Ovo8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648939; c=relaxed/simple;
-	bh=VbGa209/PfqfTjdmuyWVbflR8FG8xeNcv3V8rCLxdZM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Qu8h5uWVazmFPqZGn6++jgwaNE/tukxdeTVxRQDVd+/fx7itm9caFv9LZw1VfHXSHOPYev9gzeN01QT0cN/Jf+JLjFw6757+JaTXrqHX6jetP6pWQBXNCo3B1XVIE4qsjaAsrBU0SdaXXmGN6NvhhR1S9jesGCO748g/Re3qN0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=PtjSYnUn; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1790648941; c=relaxed/simple;
+	bh=Xi0oR93X+EwbqsjKmkBEu1JbxzRdobz9nUK2TrbX1ZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RPI8uUxClBMvAbr7R37VAFCuvZscXk2+tuqhCkigPmSmOnoW+ENzRvHr31CZXoeDRhOfKrY1x2NB+sKnxwgr/EbKlRyAvUuohGAigqpoU/dPHM/Us88uTN4WaqcylizM6JU51GGSr3ux+tClkYPw8Np/ldiUB8bivd25+K6bk5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zgx7TL3X; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="PtjSYnUn"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 2DECDD0A70;
-	Tue, 29 Sep 2026 05:28:47 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 2DECDD0A70
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1790648928;
-	bh=AyOlMOGbyQvd231IhMBOex53XSeKW1Mj9ZrDcc2VVoM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=PtjSYnUnvWge+6+Zgey9kCgJGe/3RZ3QeyHDgfo5ERhhDSqEsHkyUhlCWHGptpXtc
-	 IV/HMYOrurmGARe6ySab6hs+EnyZdG1OAZTcpnkwqvZGPvSaemK10tqcePjAkSp9RI
-	 GEw0TBli+iU9IT9Ax1bsHGlxLVVuPvI3td656MTGja2sF6R8D1P6PFbw0VBY8LneXm
-	 9Dj/YzXFrzLhyOlhkzXoe1AvwWDrjvEs8nlBx1ieQV4gHwsnQ2nUCRXN5UfJXBZA9f
-	 veUJ1VjMjLUrVecriVuial/YliOJupwuxIPM2PyqLx/E/E50qD6NTtFR6QVTc2BZ99
-	 Nzo4gRRByl4gQ==
-Message-ID: <9b32a65ad4ed4d34068bb6dafb8503cb4588638f.camel@rendec.net>
-Subject: Re: [PATCH v4] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC
- helpers
-From: Radu Rendec <radu@rendec.net>
-To: Zhu Ling <zhuling2709@phytium.com.cn>, maz@kernel.org, tglx@kernel.org
-Cc: zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 28 Sep 2026 22:28:45 -0400
-In-Reply-To: <20260928013209.7242-1-zhuling2709@phytium.com.cn>
-References: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
-	 <20260928013209.7242-1-zhuling2709@phytium.com.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zgx7TL3X"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86212a185dcso2603937b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:28:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790648939; x=1791253739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N2Q7/Tr8R4pY/MWK1/a6+UXwdCPjDDbiUS19/ruPYIY=;
+        b=Zgx7TL3X5mHC0+3qW5EYJenWTTuMwjptOfE3a1ouQwlcZa4TlRvZ3/xUbexa8+/IyW
+         YOmxLMrpoi4Ggh7vXVF3SYaEvUIYzlartve97OG0yujfDhwkXKBzTYX7SloYfUWYzzqh
+         VNU+clbyeG78IxujH1xQ4XWY0GtCgPbkPZUusQfib73w0sJZeedCxG+NpRz/QCYqXlAI
+         1zHZ5LJ8BhNmjzofftzSXWx3g7PAghb6H7Q35GLSMiAMWED4Ohta8UBi3Pfd7/GSiOuA
+         czFXzRiJbpOrnr8j7TdQbjXINiw7pKUkLX+8Rp4dmqseZeSazV6ChXQT2gulbamo/68W
+         tePQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790648939; x=1791253739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N2Q7/Tr8R4pY/MWK1/a6+UXwdCPjDDbiUS19/ruPYIY=;
+        b=mH3VAMu7gmjEmj4DZsHDP/aF3JAfuM5W8kYEZfpltvxJmmeBGeD2bUhU/Wz+J9bOTH
+         QzR5atVIq9LMNBfQdDf+w/lmQxtjcsDHlqE2ONsLiaO2HsxD9+gMUmTdqwDBQFuBtN1O
+         mreJDqlCIbIjSwQonkY7Xp01eL8Wukvx3LenUEEiLQJA2uannEcVRGQbvafso5JQYLoc
+         azZFv4T6CeWz6sP9MyyMEIhVBbizLJKPwJPhyeRdzqNiSMiez2x0HE45NXttBRzBXOC9
+         QaGmMjDTLIFYpDQ7XHKG8bfkX3fHg+EB89TyMgF6JQ91UYym3/AFNfYpQlfspUmwSWM2
+         1ucA==
+X-Forwarded-Encrypted: i=1; AKwUvBzA8Wp8CtRxE0KX0dvY03pc3AUgcK6eYiTX468TwMyySKJd3WVmdR1FgF3Y8lOB77pB8fgo8CR33FeAOp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKSjVNyyEDfRKIxXH3gG/v4XPZ/I9OPrAWb8HB8WhOl9aDdgdC
+	mMRnuatUx6Jf/mlg5/LFnDZ0ouMqg9E+G2kErsiOYggjwN0nAvPtpY9G
+X-Gm-Gg: AYBFou1j7zb9STLFEmuKEdui2+krtEy28NKRs+A7twPEH5LHoxdbrGbBvbhxizoeijr
+	l2THLep+H2jO7a01GIK/yKH350MOCZzsfr1T+ffZLH+5JCvPHkYDrphOIGFgQA5jsysFAvNTg3S
+	46A5RuGBkRx75OT0Rpp2DDXJYxxpN+ciin7x/YZW0QGamuI0S+WB87MSMW85UDMudLYG8a+SiLh
+	QR3Fcp1cANQhE1TUz6+xOgHLNAf5GNlV2PxikeL6l4rAyOPs9ZPjbaPSAXlCwYANu9sWuUXDdEJ
+	GlZhnDFpGebCrSY8M5vhT0tyvOo+gz4n2CKyhBx5MrMa0gj0Fv//rnKCeH/5wwePq5kVtx4E5xK
+	zvAO74g4EgAKL4V7jXnx/oA71onYD3C3JI5+A/212CyEgyraLuL3TcoUsvty7eidq8IzaWqyDFY
+	CqskCh4QCgdSDUJPP5JkzV9rlYBJmQfWAyIVCzpYxT6ABf6jB7wSVkaeVi4twr5DZwd+Ygr0lI2
+	brq01rsocjkeSYHg/ivdc6HrH//GwPjMthVfJ42OHUPg5vJgPSGX6CXlNHM2VJqLmvhZ5jzMXiv
+	6nPjJ3+pJFvDLwCj7j1LMnQlcvdP2mRlqbEDBXH5vKKp75jePA==
+X-Received: by 2002:a05:6a20:c709:b0:3dd:ff93:a99 with SMTP id adf61e73a8af0-3de0e73d7b6mr14414466637.25.1790648939195;
+        Mon, 28 Sep 2026 19:28:59 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc79219db77sm4919997a12.14.2026.09.28.19.28.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:28:58 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] powerpc: dts: eiger: add placeholder reg to ndfc node
+Date: Mon, 28 Sep 2026 19:28:55 -0700
+Message-ID: <20260929022855.24484-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-09-28 at 09:32 +0800, Zhu Ling wrote:
-> When running with UBSAN enabled, enabling a GPIO controller that uses a
-> GIC interrupt as its parent triggers several shift-out-of-bounds warnings=
-:
->=20
-> =C2=A0 shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
-> =C2=A0 left shift of 2 by 30 places cannot be represented in type 'int'
->=20
-> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
-> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
-> same signed-shift pattern. These masks are generated by shifting signed
-> integer constants, which invokes undefined behavior when bit 31 is
-> selected.
->=20
-> Use BIT() to generate the masks with an unsigned type and make their
-> intent explicit.
->=20
-> Fixes: 5c0c1f08abf0 ("ARM: 6150/1: gic: implement set_type")
-> Fixes: 567178077c36 ("irqchip: GIC: Add support for irq_[get, set]_irqchi=
-p_state()")
+The ndfc node of eiger.dts has no reg property, U-Boot fills it in at
+runtime.  The new IBM NDFC binding makes it required, so dtbs_check
+now reports
 
-Thanks for adding these and sorry for being pedantic. The above commit
-just moved around the offending lines, and so did the previous one that
-touched them. I traced them back to f27ecacc54cc ("[ARM] Add support
-for ARM GIC") - the commit that added the GIC driver *21 years* ago.
+  ndfc@1,0 (ibm,ndfc): 'reg' is a required property
 
-> Fixes: b594c6e20c7f ("irqchip: GICv3: Add support for irq_[get, set]_irqc=
-hip_state()")
+Add a zeroed placeholder, as the nor_flash@0,0 node in the same file
+already does.
 
-Same here. That commit just moved around gic_peek_irq(). The offending
-lines trace back to 021f653791ad ("irqchip: gic-v3: Initial support for
-GICv3") - the commit that added the GICv3 driver *12 years* ago.
+Tested with dt-validate on eiger.dtb.
 
-These UB issues have been there for quite a while :) FWIW, I did some
-research, and gcc actually generates correct machine code for these
-shifts, even though they are UB from the C standard's perspective. I
-guess that explains why they have gone unnoticed for so long; people
-started to use clang only much more recently to compile the kernel.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: fix default reg
+ arch/powerpc/boot/dts/eiger.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
-> ---
-> Changes in v4:
-> - Add Fixes tags for the commits that introduced the affected masks.
->=20
-> Changes in v3:
-> - Fix the same issue in the GICv2 gic_poke_irq() and gic_peek_irq()
-> =C2=A0 helpers, as pointed out by Zenghui.
->=20
-> Changes in v2:
-> - Use BIT() instead of explicit unsigned shifts, as suggested by Marc.
-> - Drop the redundant introductory text from the email.
-> - Update the author email address.
->=20
-> Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMb=
-bPhUatLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=3D@proto=
-n.me
-> ---
-> =C2=A0drivers/irqchip/irq-gic-common.c | 2 +-
-> =C2=A0drivers/irqchip/irq-gic-v3.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
-> =C2=A0drivers/irqchip/irq-gic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 4 ++--
-> =C2=A03 files changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-c=
-ommon.c
-> index c776f9142610..8bd1eaa54295 100644
-> --- a/drivers/irqchip/irq-gic-common.c
-> +++ b/drivers/irqchip/irq-gic-common.c
-> @@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk=
- *quirks,
-> =C2=A0int gic_configure_irq(unsigned int irq, unsigned int type,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base)
-> =C2=A0{
-> -	u32 confmask =3D 0x2 << ((irq % 16) * 2);
-> +	u32 confmask =3D BIT(((irq % 16) * 2) + 1);
-> =C2=A0	u32 confoff =3D (irq / 16) * 4;
-> =C2=A0	u32 val, oldval;
-> =C2=A0	int ret =3D 0;
-> diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-> index 6e1fa5b247fc..15110d47ddb0 100644
-> --- a/drivers/irqchip/irq-gic-v3.c
-> +++ b/drivers/irqchip/irq-gic-v3.c
-> @@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offse=
-t)
-> =C2=A0	u32 index, mask;
-> =C2=A0
-> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
-> -	mask =3D 1 << (index % 32);
-> +	mask =3D BIT(index % 32);
-> =C2=A0
-> =C2=A0	if (gic_irq_in_rdist(d))
-> =C2=A0		base =3D gic_data_rdist_sgi_base();
-> @@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offs=
-et)
-> =C2=A0	u32 index, mask;
-> =C2=A0
-> =C2=A0	offset =3D convert_offset_index(d, offset, &index);
-> -	mask =3D 1 << (index % 32);
-> +	mask =3D BIT(index % 32);
-> =C2=A0
-> =C2=A0	if (gic_irq_in_rdist(d))
-> =C2=A0		base =3D gic_data_rdist_sgi_base();
-> diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
-> index f6bc29f515fb..fb7a55f5b394 100644
-> --- a/drivers/irqchip/irq-gic.c
-> +++ b/drivers/irqchip/irq-gic.c
-> @@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_dat=
-a *d)
-> =C2=A0 */
-> =C2=A0static void gic_poke_irq(struct irq_data *d, u32 offset)
-> =C2=A0{
-> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
-> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
-> =C2=A0
-> =C2=A0	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d)=
- / 32) * 4);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int gic_peek_irq(struct irq_data *d, u32 offset)
-> =C2=A0{
-> -	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
-> +	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
-> =C2=A0
-> =C2=A0	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq=
-(d) / 32) * 4) & mask);
-> =C2=A0}
+diff --git a/arch/powerpc/boot/dts/eiger.dts b/arch/powerpc/boot/dts/eiger.dts
+index dc4d74c523ec..33ce507e71d4 100644
+--- a/arch/powerpc/boot/dts/eiger.dts
++++ b/arch/powerpc/boot/dts/eiger.dts
+@@ -196,7 +196,7 @@ partition@3fa0000 {
+ 
+ 				ndfc@1,0 {
+ 					compatible = "ibm,ndfc";
+-					/* reg property is supplied by U-boot */
++					reg = <0x00000001 0x00000000 0x00000000>; /* Filled in by U-Boot */
+ 					ccr = <0x00003000>;
+ 					bank-settings = <0x80002222>;
+ 					#address-cells = <1>;
+-- 
+2.55.0
+
