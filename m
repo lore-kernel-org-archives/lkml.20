@@ -1,183 +1,113 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9F53DAADE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1301D3FCB3A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652463; cv=none; b=TNZ3n60GHE5EdLMXYDC58lSN1g5ooT5MWYLE2tS710SrZ4EI/Q9udYKFw4qDCDuBSUAKAnCQTXC5NuBK5A/s8r8457YnZ0Ih02nP0NnR1Od8De/lTRLyM0GVfYNgAI/eQBhbvy1QyDw0Lgqqy7HoXj42ZmEMAISUUepgsx5hvtU=
+	t=1790652477; cv=none; b=bSntAKWr8zv3WKCYavjwBPGDnF4yYaNvxP0JoTBWLvon0ELxZ8pzS76fKBhjjPbsVpmo3GWCmkD1WA/p/RqhQ8fUUVXYcEjWhuClHSIZht0Gf1shCSaf2O4JkYCLrRxnS/mViqL0+ShbNeB4RyOoM1g6x3J39FfFRIHy/X6+QsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652463; c=relaxed/simple;
-	bh=WOGGLpXSCI90H+DnhSoqxVv8CAcr/BoRVaY19KPznzs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rkrD2m7XWtdATljjg1eso9O6QYUHadLt3hIDlJy8XqCBsOtvu5/fX8r0yTtzG7Yc7VC77SwztGCFJDbrlSRq2qSJY8uZJOBQoWPVNeiF7rw9p7m14MREXrAfkteD0fhBiP4jt4Zm4Nzt0dfBQnDMBHRUhHc/oojXxs2iHsNMbtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=QUWOZXeF; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790652477; c=relaxed/simple;
+	bh=6QSUtlX44JIgP+u3oKbQIiZVdGF4goIexVu+fwaljK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=J2nyef6cdsfXf3f+erZH8D2SkhEjgLR2+asR9TqdEN9PstODFPwhQxgOIpmClNtJKMVWX59Lo0NRgd9WsxKU6kBX9m0ZaZvtDikdt0VwhivuNp60EZIdBKRWFHnmBItUZxUv0fEjdlvEj2YS4BGADcafZecw969XqnVcH/uuXE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJQMQGRg; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="QUWOZXeF"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id C45ED40E015D;
-	Tue, 29 Sep 2026 03:27:38 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id bYOyyVNZL7w0; Tue, 29 Sep 2026 03:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790652448; bh=1dJIS7CpyO3dX9/V0UgZpHpRmGkmqqeOJJ4hhyIBwwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QUWOZXeFGyfoaYA4K7muWI/h/KHe1/7yI4bkDb5xWaInEETYtRF3UxjMnt87gpfuT
-	 62+rqfxW6BqUE0llJ5jNLOU8hg5YWNRZFtyuWTYHlJL5LD1ATnjK+EmBAYfZNm9eqZ
-	 aO5yg+Fz2jeTUigc2JUiPZGst/RI0O8dTjZ/cSxQO3gDVfBcIsSsXQ/v1oVoCXR96T
-	 BxOJdDwtq+dG8NJzg4ouLpwYD7USLp3k9UWSynHpif4Y3LiEMsiTWHzNASgR9hUQHr
-	 3SxOgD3BgukmhGsWFzFaHjuaYhL58s0CCJgrLLLOoG6EhuCHd9mzQRzzObELpk2eoT
-	 qY5kLaGVhd1HV6SEPtQcSV4r6TS83Ue7t6CgK4WcXfohbB293fWBlT6SK3SY7fCP5+
-	 MwQC4qaY3itDfX14cX4+NTv8DxtghgbhYyW0W8rXM5KmWml91M4hStGSbPpgwo8Tc7
-	 dwKvMvnv+G07Q8LjJTDQSfXR6j8v2MrkG/U688hkH56aBzhkKwzN2U2mZWSI3enaEC
-	 bAmbJY1DAps9OZQMo1W0eVvjPlIdwSLZOvZQv5Ytd5L+owQExr8bVFihz6S8DGrEgn
-	 VDpR17ia+X/e/KBcyzzpC9pc9TCXRN8rWH7NnETMmH5jZbDAOTRkmCBNAjEgq4HkUI
-	 9chMNnMBnpSNiH06Dv6ZSqSs=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8BCE940E00E8;
-	Tue, 29 Sep 2026 03:27:15 +0000 (UTC)
-Date: Mon, 28 Sep 2026 20:27:11 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Naveen N Rao <naveen@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>,
-	Manali Shukla <manali.shukla@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Robert Richter <rrichter@amd.com>,
-	Christian Ludloff <ludloff@gmail.com>
-Subject: Re: [PATCH v5] x86/apic: Use EILVT register count from APIC_EFEAT
-Message-ID: <20260929032711.GCarswDzl77hv5PaEX@fat_crate.local>
-References: <20260925161706.1619042-1-naveen@kernel.org>
- <20260926003833.GCarcUCXmT6B5hfSBV@fat_crate.local>
- <aroJFq8GxwZNhqk8@blrnaveerao1>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJQMQGRg"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc796f8c309so251107a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790652475; x=1791257275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CZw5mMt24fjggJ7CV/G4ShOOKQS8QFK14O73CG5mjTo=;
+        b=dJQMQGRgPwya9C7Hk23Gp7GWdweQlKLCgub/Ph1A9Xv5PT2sOhfOjkW0XBhbSpb27N
+         L3oyFnaq2Z4lXIb926BCMAPoJF/UIV4Xmuc4fmqm6MlmWrm87BVg8rfoV6uo+IFmxaHr
+         vlLLld9wF+PNSEqmBlIle4NmzS8noA72OIpY9LjPjiufLYVbicrPlMjiFmdNhNedfU1X
+         JaCFgQ5oEhibAf/OIIq1lX3xrd0rVfN5ZRf8ksHRZkTsCVUiB2UrGOefV9ABZFjQ5V01
+         /6VUwz15tUEMOrXBxP2CP/K7Uzd3O7P/KObOfWLdplxfKg3q5NkoTRy+n6FZqFVCsoUb
+         gsdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790652475; x=1791257275;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CZw5mMt24fjggJ7CV/G4ShOOKQS8QFK14O73CG5mjTo=;
+        b=nN78MaOQVADd7itmxX8gk0pyNUHVKRvBPMYaNiTPGyz4HZi78FuEPWvYOa+q/KuOF8
+         9FyXberGyBN6LQDgtroTKcGizPSzfyObfzBlakbEo6eDAL3Tg4yHP3IWsgPVQwZp+n4v
+         GF1KvAkCMGaNW+/wz0hji5wmNiHam5LQrvhBvxSf+gT39+tBss15Der+2Y56/8IRuDY1
+         fiUSafW4prGQdULeRakY2BIb9RuYSsanmX4zK6wkwRQWI/zmgDR3dq4QZO9bKYBFztye
+         QDXpmeKUgxclosVF2FVydXbEq8yFJqRwRoYVmqJt20cjmRXxGaYcAXNt3vuMLamx2isi
+         IgPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwaaraMtpv7T3UlYuodFM+2McTpH/oh4IjAxDo8DHD5yQp2TPNGJo6iLYMhsD3AwDzYdh2lqTV0mDiSt8w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0n7oED5J6rbxXp913zKlSK1u/6mtrdcV2lFf8xWV4/Lwk+Pje
+	Zels/p5bKJHpWEU5XUK+m4ukblU10tYHBnllJnufbvdXn0yFCDl+eIE2
+X-Gm-Gg: AYBFou0MDISV8bVmZGt+nbSCesoWWnJdpYgTuxgCXdYM2xx7ARBQ3rb3Rr0Tke+Jgdw
+	GNXfPOSF6l0AMcw0nJBwAtIYsf0wlDrI4qCCLvxXET8TgXMb6NnH/LkiGhMNFUwo8VA0jc1kAvK
+	CtSRJM+yH7QFnW4SylZ6ze8BnOF/yuSanVFTUbs5x3NAUdGMUsPXihJuS05SNzPbtwWZexZ8Apc
+	lXbpq0K3tvkVVMo66feSa1UQI/91cU5L7k9MrWVFbhzogbZOyPL2hVLWaa/sNVpwVMp8WRLJAtO
+	8LbPMH5topxCTH/+7bITmoqK3KypOVZgKvaRkcaJLs+ClrGBX8m5+Jx5Tfwz7n2Zrj6ic15kIgZ
+	7wTKzICcNbDx5ExHJwpJJJw752kamgGFoCV0E23WL6S7/M91Ni6pUGsfxa8XY6tQxHXNop3FYHb
+	Tcaq7rUIiSV4+xSceitFoWtqX0xWnozr26MXBwWdB79QztpS2o8ujUsRNwrDWpUtJ75tCecH6DS
+	P2H1+fbdI/+lg==
+X-Received: by 2002:a05:6a00:7106:b0:881:4a2d:5c3c with SMTP id d2e1a72fcca58-8814a2d614emr7689172b3a.2.1790652475306;
+        Mon, 28 Sep 2026 20:27:55 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885e1066926sm48883b3a.19.2026.09.28.20.27.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 20:27:54 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Bryan O'Donoghue <bod.linux@nxsw.ie>,
+	Robin Murphy <robin.murphy@arm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] drm/msm: map page-less imported sg_tables from their DMA addresses
+Date: Tue, 29 Sep 2026 11:27:35 +0800
+Message-ID: <20260929032744.37269-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <bd4e5ece-1358-4e0b-bb04-ba9de62d26f6@amd.com>
+References: <20260928053901.7270-1-liujianfeng1994@gmail.com> <20260928053901.7270-3-liujianfeng1994@gmail.com> <bd4e5ece-1358-4e0b-bb04-ba9de62d26f6@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aroJFq8GxwZNhqk8@blrnaveerao1>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 12:20:04PM +0530, Naveen N Rao wrote:
-> On Fri, Sep 25, 2026 at 05:38:33PM -0700, Borislav Petkov wrote:
-> > On Fri, Sep 25, 2026 at 09:47:06PM +0530, Naveen N Rao (AMD) wrote:
-> > > Future AMD processors will be increasing the number of EILVT registers.
-> > > Rather than hardcoding the maximum EILVT register count and using that
-> > > everywhere, introduce a variable in 'struct apic' to track the EILVT
-> > > register count.
-> > > 
-> > > The number of EILVT registers is exposed through the extended APIC
-> > > Feature Register (APIC_EFEAT) bits 23:16 on platforms that support the
-> > > AMD Extended APIC Register space (X86_FEATURE_EXTAPIC).  Use this to
-> > > initialize the count and fall back to the current default from AMD
-> > > family 0x10 (APIC_EILVT_NR_AMD_10H, which is 4) otherwise. Since this
-> > > value is no longer a compile-time constant, update eilvt_offsets to be
-> > > dynamically allocated.
-> > > 
-> > > Drop the now-redundant APIC_EILVT_NR_MAX macro. Other than during EILVT
-> > > register offset allocation (which now uses apic->eilvt_regs_count), that
-> > > macro was being used in the IBS driver for determining the EILVT offset
-> > > for AMD family 0x10 since the EILVT offsets were not assigned by the
-> > > BIOS. Switch that to use APIC_EILVT_NR_AMD_10H, which reflects the
-> > > correct EILVT register count for that family.
-> > > 
-> > > Note: because the EILVT register count is now derived from APIC_EFEAT,
-> > > it is possible that the register count is less than 4 (1 or 0 even) on
-> > > some AMD K8 parts (rather than the previous default of 4), which should
-> > > more accurately reflect the correct EILVT register count on those parts.
-> > 
-> > Please, do not talk about *what* the patch is doing in the commit message
-> > - that should be obvious from the diff itself. Rather, concentrate on the
-> > *why* it needs to be done and why your patch exists.
-> > 
-> > It is perfectly fine to explain non-trivial aspects of the code the patch is
-> > touching but do not regurgitate what it does.
-> 
-> I thought I have explained the why. What am I missing?
-> 
-> Perhaps you are saying paragraph 2 is not needed? Though I fail to see 
-> how it can hurt (it does clarify why the fallback is the value that it 
-> is).
+Hi Christian,
 
-I went and rewrote your commit message without the code explanations:
+On Mon, Sep 28, 2026 at 12:09 PM Christian König wrote:
+> That is not in any way better than illegally using struct page. The
+> point is we need to get away from using phys_addr at all here.
 
-"Future AMD processors will increase the number of EILVT registers. Track the
-EILVT register max count in a variable. Use the current default of 4 EILVT max
-count from F10h times as the fallback.
+Agreed, I won't push this further.  With your "import a shmemfd, not
+a DMA-buf" remark in mind, the direction that makes sense to me is
+the allocation model one: userspace allocates the decoder capture
+buffers from msm GEM and the V4L2 device imports them, so msm stays
+the exporter and never has to interpret memory it did not allocate.
+Rob's series (drop the page array, mmap via the exporter) is the
+prep work for that and is already in good shape.  It is also how
+panfrost/panthor already work - they program their own pagetables
+from the sg_table's DMA addresses and never look at pages for
+mapping.
 
-Use the APIC_EILVT_NR_AMD_10H macro only in force_ibs_eilvt_setup() which is
-F10 specific anyway."
+I'll withdraw this series and come back once Rob has had time to
+look at the msm side.  Patch 1 is withdrawn too - Robin NAKed the
+iommu_get_dma_domain() export, which is moot now anyway.
 
-That's it. Everything else can be read out from the patch itself and you don't
-need to spell it again in the commit message.
+Thanks for the review, and for the earlier pointer to what msm is
+doing wrong here.
 
-> > Also, that second note about clamping it:
-> > 
-> > https://sashiko.dev/#/patchset/20260925161706.1619042-1-naveen%40kernel.org
-> > 
-> > does sound relevant.
-> 
-> I had addressed this in the cover note on the previous version and 
-> didn't repeat it here:
-> https://lore.kernel.org/all/cover.1788425679.git.naveen@kernel.org/
-> 
->   3. Need to clamp the maximum EILVT register count to prevent incorrect 
->      MMIO accesses: this is not an issue since all offsets being 
->      programmed are appropriately clamped at the source.
-
-"Table 16-2. APIC Registers
-
-...
-
-500-570h	Extended Interrupt [7:0] Local Vector Table Registers	00000000h"
-
-I'm reading this as, EILVT max cannot be more than 8 regs. Right?
-
-So doing a  if > 8 at read time would be a good sanity-check, no?
-
-> Oh yeah, and no amount of me calling this out explicitly in the commit 
-> log seemed to help. See patch 2 here, where I added that it is the 
-> actual count:
-> https://lore.kernel.org/all/39d39c3b91d174f4090fb954c6690edae9ed8295.1784619898.git.naveen@kernel.org/
-> 
-> Sashiko review of that:
-> https://sashiko.dev/#/patchset/cover.1784619898.git.naveen@kernel.org
-
-Recent experience tells me that I cannot trust AI one bit.
- 
-> No, and I never claimed they did. If anything, I have called this out 
-> explicitly as part of the changelog:
->   - Pick up Bharata's Tested-by, and retain Manali's tag since the change
->     is minimal
-> 
-> Retaining their tags was a deliberate decision on my part knowing the 
-> tests they are doing and that they would not be exercizing the fallback 
-> path, which this version changes.
-> 
-> I'm absolutely ok to drop that, but no, I didn't claim they tested this 
-> version.
-
-Just drop the Tested-by tags. They haven't tested the patch and that's it.
-It's not like you fixed comments or something else immaterial to code.
-A Tested-by should mean what it says, not the person tested some old version
-of the patch.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Regards,
+Jianfeng
