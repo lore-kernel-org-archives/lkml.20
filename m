@@ -1,190 +1,111 @@
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C543ABD8E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AA752120C;
+	Tue, 29 Sep 2026 15:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694211; cv=none; b=EXWrYLuDuHxrVjtBx5VuBLJGiUOwq/ZkyUQnhviNNAxaYJGs+ATiFWi8acHTdhK1uYQvZjG+kbEvGIcZPcgNfWPhIFKSxgsajPtG135wxCih63NaJvGoYXtZFKQMulXEf7lqz+eXnyH5kn9JlPwGfmUbXuD+5TtFFOvWPMj95eE=
+	t=1790694239; cv=none; b=QGdEQSINA5mMDvPnp5N77Go9aKZdeuHfpqnXG8f0Scp1waqW4MZ4ibDhPmhnxNFOZJiRpyGW9F54mBerNzsKzHpkJlKSHUj1CbuBoJJMWe4cDF14qgJRCBHNYlY33bsxFgrD8TuEYAJe/DnQbQNCryyhmv3rx+yw5iJ/dasrzSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694211; c=relaxed/simple;
-	bh=IMBdnMr73s0jPE0vT1t1QudzkHs0ksFQ9CEx91z8OLw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ofc6F7kOktAqu86BqmWnq+ibpzhqGgq6XOr/BXFnYTdJUHLfn+6gwy7GdbyIxm/4s6p1H7Ewlkq48J5W2OX9ihxDTl3Y6nzShTziiphpfxYI75E9fWEpr/j2s76i7xjzgkt+OwBgnF2qLsWxBa4OYaZco0HKPhhUiClg8YTui+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=U6evshf6; arc=none smtp.client-ip=78.46.171.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790694239; c=relaxed/simple;
+	bh=WaXKcasx1zPtgDUCMIWSKVCSS6YKjFzv63033xnjo/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=kRgMadeDRWZ9MffedSj5bo5+QG+pzJNsJXj3QTLbP51xVe042D0JwN+Nr8QBaW376S5871ogrqgQYoSVB8sHQ81P5c2IPJCENYH2OiXGr1yYI0xF8z1Pmo4yhAfQhzXEVjYf0pklZmmvYU6X/XaHEBx/ULVLZ+j6Nzl1YhfrHGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib49nVso; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="U6evshf6"
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id 2A7E8BFDD5
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:07 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id 9DB2CBFC6F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:01 +0300 (EEST)
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id D4A541FFA2C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:00 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790694181;
-	bh=Fq7ixrFiJrmYh9E7sS71VmUBnUyVUMq7Y9wxXQgpMoA=;
-	h=Received:From:Subject:To;
-	b=U6evshf6gfAMbKLrRKvFLepOuI9kJjEhPEwI6HEsuMrtbeY+O78ma2bKdGDLBaJop
-	 FAnTlUpU8urGAOhyiSAqdhDK1Fa5sAWF+q6R4i0nYOzyarz3B8w7U4KmE8hI/CMtVM
-	 8DO0sH81Ak5w1vWz8oWSmrbR7tg+zudnK3GqNoITZqgLyIR/1Fxg5JxvA5dQFjR9ia
-	 S4dRDmvzXd0Llk0h/T+tLgGYDMnjLWgZUA8f/bdmp1SERPL/w80niYp9t58IFw9Fvg
-	 sOyX4Pvb+dAbfEbu6kARt+OlQxxxT2nBzlIWUgFOUPH0HdgDMiwKjqO0YPOio+PMas
-	 iBM37/WIdmz8A==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.228.42) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f42.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pz2-f42.google.com with SMTP id
- 41be03b00d2f7-cc797656e36so1349150a12.3
-        for <linux-kernel@vger.kernel.org>;
- Tue, 29 Sep 2026 08:03:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByo/djN+e/l2ybsmiEMUSG0pcKLXEgFkcPIJKjOSjn98ENmVGrXPuYIekTdUFjK5tCCILO5YaRUZAnoSwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8cN36nS+lm1Wf/6WQ58vAGEWPLdrOVoT3J9NK4Wa2q3rYrHno
-	X2iiZVu5vmi+lfxRf6QE9enLFtHALwXWdWnT1Ip2qFmCemeDvr3GlYijve4Jwr16teHxChzL6AE
-	JroLLGt144EuoInqmadQEfJTmq3XDcoo=
-X-Received: by 2002:a05:6a20:244d:b0:3de:5212:ef48 with SMTP id
- adf61e73a8af0-3de5212f325mr8517722637.37.1790694179386; Tue, 29 Sep 2026
- 08:02:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib49nVso"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E800C1F000FF;
+	Tue, 29 Sep 2026 15:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790694224;
+	bh=w+du77RpD5Dku94/DfThISuzR+k3i9B0QTaacDqh74c=;
+	h=Date:From:To:Cc:Subject;
+	b=ib49nVsoB5GIyLxx9V83HQd5RYb4IS7nwDzfjuO2cSHbfypD9g9Xy1WOXYSOINMXQ
+	 FboFI1SAV7JccdX3peJTgK4QEn/+AFUATVfJKnjseB8g9aE4IJF5n3oLfIGiU4VjnM
+	 SUUVgP6xPeWqJYQyYet9iw16+F65ww/sXkNt142MlbyqUi9GHRlIXqyK/37GJXFLml
+	 y2rZGW0lLTun/jnXzgvlKIhL8Lnvo6FnxDLG0oCyC8MIrLT10pQUFbfRCwq8RKAxQP
+	 TyoVGy+FC0eSYXB3pz3V1UBt5vW6UWCmJ7HRVJIoab3d3E5+4uaG1wNP7OgkZ/KALr
+	 RifZjgZg3btSg==
+Date: Tue, 29 Sep 2026 16:03:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Sep 29
+Message-ID: <arvTTZ5DDHpyfmUX@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
- <arfpV7IXRAHREMzO@laps>
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
- <arhtsrVb82vr6U-p@laps>
- <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
- <arkiyMt2NIydrPhE@laps>
- <CAGwozwGc62HAJnLeYL+jq_PnJq1LsV3Ex9LtQTE1pX3144MdtA@mail.gmail.com>
- <arvFBqreU0qahkXx@laps>
-In-Reply-To: <arvFBqreU0qahkXx@laps>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Tue, 29 Sep 2026 17:02:47 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
-X-Gm-Features: AclHuK9Ma94Rjlyw1gzwy_ntdbuZQiV23QZbvuSn28lrhRiHscyF7HyryPiPfqg
-Message-ID: 
- <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-To: Sasha Levin <sashal@kernel.org>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179069418114.2556220.14943200790236293670@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tCj8I6rAsUis+mI2"
+Content-Disposition: inline
 
-On Tue, 29 Sept 2026 at 16:02, Sasha Levin <sashal@kernel.org> wrote:
->
-> On Sun, Sep 27, 2026 at 05:24:46PM +0200, Antheas Kapenekakis wrote:
-> >On Sun, 27 Sept 2026 at 16:06, Sasha Levin <sashal@kernel.org> wrote:
-> >> If someone adds their sign-off without understanding what it certifies,
-> >> that's on them. We can't have agents add it for them just because some
-> >> people would ignore its meaning anyway.
-> >
-> >I didn't say we should make the agent add it. I said if someone wants
-> >to do it it is up to them. Not you, not the mainline kernel config,
-> >not this patch. And disabling it does nothing because the user does
-> >not understand what a sign off is anyway and will add it later or
-> >submit without it. In which case you get broken patches anyway and you
-> >solved nothing.
->
-> Again, that's on the user. Your argument is saying that we should just drop
-> this whole DCO nonsense because no one understands it anyway.
->
-> We can't stop enforcing things just because users don't bother reading the
-> docs.
 
-If it is up to the user, then this patch is not needed. If it is not
-and the kernel should make LLMs prompt the user to do a better job
-with DCO, then this patch does not provide a solution.
+--tCj8I6rAsUis+mI2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I never said anything about enforcement and this patch is not about
-enforcement anyway.
+Hi all,
 
-> Nothing is stopping you from changing this behavior to your liking either, but
-> at that point it makes you a downstream consumer on the kernel, so you get to
-> carry that delta.
+Changes since 20260928:
 
-I am aware. The issue of switching to a mainline tree for upstreaming
-remains. Your symlink would come back. What is the solution for this?
+The configfs-rust tree was added.
 
-> >> If you think a hand-written AGENTS.md would do better, feel free to
-> >> write one and propose it. For now, this one seems to be working just
-> >> fine.
-> >
-> >No, I am fine with one not existing and it would be my preference
-> >actually. Ideally it would be added to .gitignore as well.
-> >
-> >That just does not address your need of steering novel contributor
-> >plus LLM, which I tried to help with. But if you do not want to put
-> >more effort than a symlink then not breaking our workflows is more
-> >important so this patch should not merge.
->
-> All I care about is having all these "agents" follow the rules and guidelines
-> that the kernel community set around LLM contributions. I'm not trying to
-> improve the quality or make it more efficient. This patch is purely about
-> having the majority of LLM agents follow our rules out of the box.
->
-> If you want to spend a few months trying to massage an AGENTS.md to the liking
-> of your LLMs-of-choice, then go at it.
+The bpf-next tree acquired multiple conflicts with the bpf tree.
 
-In doing so, you should consider the environmental impact and cost
-this symlink will have by providing an unoptimized indexing blob to
-LLMs which will also prompt additional tool calls. Then, the headaches
-it will cause kernel developers that do know what a DCO is or want to
-have a custom agents.md file, specifically the git errors that will be
-caused when upstreaming as the agents.md file will be dirty.
+The drm-xe tree acquired a conflict with the origin tree.
 
-I get what you are trying to do. But you need to address the
-underlying issues here. You can't just handwave them.
+The gpio-brgl tree acquired a conflict with the iio tree.
 
-Contributing to the kernel has never been "out of the box" and the
-kernel is not set up for that in multiple ways. If you want there to
-be an exception for LLMs such that they do a decent job at it by
-default, if anything to prevent a flood of patches with obvious
-defects, then I would agree with that goal.
+Non-merge commits (relative to Linus' tree): 11014
+ 11334 files changed, 618644 insertions(+), 208239 deletions(-)
 
-But in that case, you need to make sure that people that know how to
-use LLMs and know what a DCO is are not negatively affected. No, it is
-not ok to append 2k tokens to everyone's context or 2-3 more toolcalls
-for every agent thread. It is also not ok to have to do gymnastics to
-remove the symlink when switching to a clean tree for upstreaming.
+----------------------------------------------------------------------------
 
-And even for novel contributors this is not ok. I am blessed to have
-the disposable income to pay 100$ per month to access LLM services.
-Even so, I have to make every % of usage count. Novel contributors are
-not. They are typically using free services, 10-20$ plans, or local
-models.  Those models are disproportionately affected by a poor
-agents.md file and so is their usage.
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
 
-I would like to see these issues resolved prior to the kernel
-providing an agents.md file or similar (if it should do so) and this
-is a very fair ask. I do not believe I am unreasonable.
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
 
-Also, the above is a prerequisite for adding a default agents.md file
-and does not pertain to its contents. That is a separate discussion
-altogether.
+Below is a summary of the state of the merge.
 
-Best,
-Antheas
+I am currently merging 431 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
 
-> --
-> Thanks,
-> Sasha
->
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
 
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--tCj8I6rAsUis+mI2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq700wACgkQJNaLcl1U
+h9BN/Qf9E8wisE0nKOFWaBJoKOs5O/7HNuxl0QOFkzRompGmKkqSEp2k2bswf1HY
+Cz3ZQ/mgWPtiy9S5nBfWrfQcvX79yyzDwG8TqgabWsU2lmQUB069ekQ6wFp/1ZIP
+GiPgRNVbJrHZ7KMR+KWxaqAaMyq2xCBW+0dHTt2oL5jSQM8eZwMUkbNuqX+HpeXj
+5+0m/CnkwaLK2zGsQFyPjuuZ4fmUcdvCA4vBSBC3V+74dJi2x2e7MIAep3rmIrKw
+/8eCz4K6bXu3YGSFbyjqBljfiPlHV2H5zsvVG04+cqwGZQC/VBn9b5zFF+/bsSHI
+NdFxH1qXspcQ4Cm+fCMP7hFqszQQqg==
+=tNRP
+-----END PGP SIGNATURE-----
+
+--tCj8I6rAsUis+mI2--
