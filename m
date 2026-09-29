@@ -1,108 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CE62BEFEB;
-	Tue, 29 Sep 2026 14:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB8C2D73B6;
+	Tue, 29 Sep 2026 14:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691530; cv=none; b=N92CSQavZGFiB9ChTIKs9eUflV/vVE6p1w8xCHMsOxUJTYz8VX8ZH/jHDFaJJ6MYYLJCBp6co1lZfXyVn84PVcyhNCnNryoy9mh4ycY5r5KM+JJUrYF+zoySQ4zmBTV6aSnIKvw9hVaqjs4e2/4DxWex1ECi99IyasUUjMLTb4s=
+	t=1790691550; cv=none; b=kjP28KuwcQVX9hiR+QKop7vfmDZJWxfsOSLyehd4+XolLswdBfACgfbEoGGsf9WMXBNPL+dCs4hZfVF29nDstlc7XhkvFGBVRCLKe8LXu3ctjzXaXhdmccCKb6hAYvCkfbXPt0ea4psCT14y594Ks/50Dn1clw62Hgy0RDcK4NI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691530; c=relaxed/simple;
-	bh=vV3dpOhH7E5KTP+X1/3hXr4cJ3NNA1N87N4qlOCmZK4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ofv1PNkHkZJgxOxyUqxvFKKSaMGTizwXInOzoKl3vOU5rSb7Gv+LV1Wot2SV66S7w1Jk8iXcWtBwvjONCKRk+NCUBrnEN8siLmsye/NKw0aBkHU3AouBuBXtCnrzO5b53du8LGH9wxKNULl+Q51QatWWDS9ylvvYd7sRs865IGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HauA4Wbd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790691550; c=relaxed/simple;
+	bh=msv1VfbxMouMfpJOqYtUp1zpAM93akbatSRAxanX0bU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fyNhUbZQdRQ9N0yI6mlHQ1UiV1aVucJL3O8FJ9/V5POEqr93sUAEDDuhQlrX44zoy2lfigVVqRZI/RyqoTEhne5ImJvqy6cn5SoKoe4LsOwB5FYdAYit+/f2nYTjbzgXays/BtWepWtgLcv8po11eXNJgH8j2zw7Ao8ZGVRObFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxexv7PO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HauA4Wbd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48481F000FF;
-	Tue, 29 Sep 2026 14:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxexv7PO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C0E1F000FF;
+	Tue, 29 Sep 2026 14:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790691529;
-	bh=WHZHSX8cRu/7/N33fTuRJpkBnX/fMb/1SxVzpaZbqe4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HauA4Wbd8IIVvjR+dnKtbWAgqLHFacHuGPzIt5RXkCF+osvlaHzhm9z2uVXgihdKW
-	 EsbdtoTz9gAoFqqu3Qr4/N4duOqPNk3555qRUoABxdQUPeOESsjP6l+lHa6AjViFAg
-	 UqY5s/f/rWZpRrW83q2ZXHoHXTxF5sdVy+T+lfXADKhfqzRPMpeEGeyMKlVSeAsSCg
-	 BfgHBqR1yotzMSyA8EwTKD2sSezHd+/h0Jm59aalB5xraXb13K9pWUar/gjrI37Vgv
-	 RZGFtWv80Gnsbc+5DYk5GZEmN4XZZCKn2un8eRH1+HRi/1MiK0tZvlmQBTeC7sCZ30
-	 pRHLzGt9sTMzw==
-Message-ID: <a385d1e2-cca9-446e-b855-818fa61fb64a@kernel.org>
-Date: Tue, 29 Sep 2026 16:18:45 +0200
+	s=k20260515; t=1790691549;
+	bh=aQjpqFcUieJT14AJF/TfTki/tjD9DIi/u1j262xyIRk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dxexv7POcq5Ca3nMeu4cnL+K3yWPXLpvA37q6s38MeC9cM3qAbNanJLK5YuQ3FXoi
+	 3e5HxPl3oEz+2rDnEZcMm9HuWi18s3BeEaPxedw8xOWs8ffialIb9zIsePUK6doG6L
+	 LNArvcZeX0ohwwwBRbLIgHTHv1dW1tQgfDROSRGkNFIxUS0hr2LGJW8LIxHMmcmt9g
+	 5We4/ZNB6C7+gJx83BYYNtFAz8f9nmHgAZlK+MOJgS/LEfKUQTfqDg+txEiqH15ixN
+	 Cu89DLNreVX1nA1UIgvXxjTJoBEnLnw65SnDJGQ+X1A+841Be4GChZZbvFu5XH5qPJ
+	 qFa3flWGRWO2Q==
+Date: Tue, 29 Sep 2026 15:19:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Joseph Steel <recv.jo@gmail.com>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] spi: dw: use threaded interrupt and optimize the
+ threaded ISR
+Message-ID: <ae2432cd-5dcd-46a4-94e4-195b4ac9235e@sirena.org.uk>
+References: <20260929121817.20896-1-jszhang@kernel.org>
+ <20260929121817.20896-6-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: Remove unused active field
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260630-uvc-remove-active-v1-1-ed1421b99429@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-Hi,
-
-On 30-Jun-26 12:28, Ricardo Ribalda wrote:
-> The active field in struct uvc_streaming is not used anymore, drop it.
-> 
-> Reported-by: Hans de Goede <hansg@kernel.org>
-> Closes: https://lore.kernel.org/linux-media/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org/T/#m3078f0d5fd71435b5cfacaa5c99f23a446db581f
-> Fixes: c93d73c9c2cf ("media: uvcvideo: Use vb2 ioctl and fop helpers")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-
-Thank you for your patch.
-
-I have merged this into:
-
-https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
-
-Regards,
-
-Hans
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2fWoiYUH4oomEPrZ"
+Content-Disposition: inline
+In-Reply-To: <20260929121817.20896-6-jszhang@kernel.org>
+X-Cookie: 1 bulls, 3 cows.
 
 
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 2 --
->  drivers/media/usb/uvc/uvcvideo.h  | 1 -
->  2 files changed, 3 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a4399f..0167f0f8e846 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -2229,8 +2229,6 @@ int uvc_video_init(struct uvc_streaming *stream)
->  		return -EINVAL;
+--2fWoiYUH4oomEPrZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 29, 2026 at 08:18:17PM +0800, Jisheng Zhang wrote:
+> To avoid blocking for an excessive amount of time, eventually impacting
+> on system responsiveness, hard interrupt handlers should finish
+> executing in as little time as possible.
+
+>  static irqreturn_t dw_spi_transfer_handler(struct dw_spi *dws)
+>  {
+>  	u16 irq_status =3D dw_readl(dws, DW_SPI_ISR);
+> @@ -245,7 +296,13 @@ static irqreturn_t dw_spi_transfer_handler(struct dw=
+_spi *dws)
+>  			dw_spi_mask_intr(dws, DW_SPI_INT_TXEI);
 >  	}
->  
-> -	atomic_set(&stream->active, 0);
-> -
->  	/*
->  	 * Alternate setting 0 should be the default, yet the XBox Live Vision
->  	 * Cam (and possibly other devices) crash or otherwise misbehave if
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4a222f..021fd9af78b5 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -456,7 +456,6 @@ struct uvc_streaming {
->  	struct list_head list;
->  	struct uvc_device *dev;
->  	struct uvc_video_chain *chain;
-> -	atomic_t active;
->  
->  	struct usb_interface *intf;
->  	int intfnum;
-> 
-> ---
-> base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
-> change-id: 20260630-uvc-remove-active-8843181bcbb4
-> 
-> Best regards,
+> =20
+> -	return IRQ_HANDLED;
+> +	if (spi_controller_is_target(dws->ctlr) || !dws->rx_len || !dws->tx_len=
+ ||
+> +		!spi_get_csgpiod(dws->ctlr->cur_msg->spi, 0)) {
+> +		return IRQ_HANDLED;
+> +	} else {
+> +		dw_spi_mask_intr(dws, 0xff);
+> +		return IRQ_WAKE_THREAD;
+> +	}
+>  }
 
+If we're handing a short transfer in the first interrupt then we will
+already have completed the transfer at the point we check have which
+would allow another CPU to start another transfer first.  If things go
+very badly this might mean that the length checks look at the values
+=66rom a new transfer and wake the thread.  We should probably set a local
+flag before we complete the transfer and use that to decide if we wake
+the thread.
+
+--2fWoiYUH4oomEPrZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq7yNgACgkQJNaLcl1U
+h9CcPAf/QV5YoaXMJYh9cM78e+oU3PR9jRB/zbOq0ZtTbw6oFHF5r7E43RhOkEva
+y0J2VHJZBYeq/akr+8Td4WLoDY1pQcjtzLXaGUQxb9QzGRnuJUUOxgFQIFSQoWV+
+0FYdu13z8MBAn7vyBh1jH1qWUBNMBR+PioP6NWDyqIYAGPsth8H30R/Tzn7/E23P
+cqeQuwF5ujNeThdK3q/emAZy1LKESNxjdQzxl7h1fs0ILM4Wl5w1Ki+lWpMJfC4e
+s24IVRo0/H6wrN4kBog/fRNkHrZwhEYJx+1hHp0H1UHaZeCRIEB3SWBbmkH/x4Fa
+PBDgOi2sSXantLSXcor/py36mZFreQ==
+=Ueez
+-----END PGP SIGNATURE-----
+
+--2fWoiYUH4oomEPrZ--
