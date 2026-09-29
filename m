@@ -1,144 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C61148594B;
-	Tue, 29 Sep 2026 09:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70DE43A8753;
+	Tue, 29 Sep 2026 09:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674547; cv=none; b=UdwZ8zZ/CyGTSX9vQyGeoHBWRziGnoR+QjCrX4Nlf8ZjaSdPP0Ngv5FZBfm4mR10zGRCdHY0dotuGwe4lc+pFifP8lV2RWl4jVma9CI5z3CZGsVH7INz9n/Kw80Vz155sK4vOh/Bwr5K1+RsLNBiZQvVir3glCvA7lmM1RPzJA4=
+	t=1790674611; cv=none; b=BPEYLIPSVaepy4ZNNPVKs3sVqJ6IIGxsFKz5+YzQtlIlHXyuVMlxWobMekI6YK0EhlAfwdijhAgIX2FaMKN9rdqt7g3NozjLFw/b6R5U9q6taSLHYuQSjA7oXikRTSvqOw9uCiBrYKtR8Hq+KJkqpe4xgHyvu3B4BbLwpB4ZacI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674547; c=relaxed/simple;
-	bh=JWUgTW58DKJa+SF20VPBKXZN5xw3rbFKDUJVZsaDaUs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A4W3PZSUjJT4fayAhMmrH9yFk8jPSPlNd4djIolGfuqwlQQ/4uKUxedmHYhJ024z/17AecvD+DZQP/S/OTUDRYbCheFtWHGInA++Y7WMYeTojNJZMa/ea2G8q5vEzI65ELt9Rv1DNy/n39Fol9kN1TWNXNmNKEe9iZdHRVjo5A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdWMe9T6; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdWMe9T6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C7F1F000FF;
-	Tue, 29 Sep 2026 09:35:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790674546;
-	bh=StXmc2LqbHdixuPvvg8ubUtbQsp0wahYjgdRPfdzTKM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VdWMe9T64Z/qCJaqlBMit803Sq1//0IIpO67rg3qEgmAYlUPijxj10JHpi3LFYEuQ
-	 NpJLDsLAJ7ewRxyvTBDFk1u8fvZkJzNsli8apmii/pDz12ZEUoO1IlsBV0WwTF3wCK
-	 w9GhCJdhIOmLfAayBWmF5oSfURxTthrMjhPA2VKp7pLe2fgXpJ1X4wKxMAqhKCHrzF
-	 u85ypEcaDviItMKC8xIGPGVaOI9zumpBkRWuhQt9axwNoHOX04IhcmLCrUdKoZNu9S
-	 uxZb3AY1VbKhZpcYBptisYL61jnf4G7PqF11RWmd6iSNXbVUqevqvQJyRs15z7BA3O
-	 XglKgFIxQe/Rw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Tue, 29 Sep 2026 11:34:03 +0200
-Subject: [PATCH GIT PULL 5/9] rust: block: gen_disk: set fops.owner from
- driver module pointer
+	s=arc-20240116; t=1790674611; c=relaxed/simple;
+	bh=h91sJdvhM7q216OZHwfDSWOw4W5YEZquMkBzf6TLKqI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aLU6tYiuCxKf0g3lQYBACntiK48TRstvDPvFbguHH7FJdALp2/XLbm2vlzrhzCvxX1shHfn8dRFLTMMJsaR8LXheAy/aNkbft6JP48kIa4BdIIFmwp9n5i2ggX37kaFe9FzijTfhKWPgiRFjJqQrDPrDuMgozmPIqhG+dxPGFdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXQz2hhrtq7ztGAQ--.39143S3;
+	Tue, 29 Sep 2026 17:36:34 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with UTF8SMTPA id zC_KCgCX7nyhhrtq2QsWAA--.19477S2;
+	Tue, 29 Sep 2026 17:36:33 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: brgl@kernel.org
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	songl@zju.edu.cn,
+	linusw@kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: Re: [PATCH v2] gpio: mpsse: fix race when arming the IRQ poll worker
+Date: Tue, 29 Sep 2026 09:35:36 +0000
+Message-Id: <20260929093536.18396-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
+References: <20260928112546.631440-1-fanwu01@zju.edu.cn> <CAMRc=Mf0+O7393fxkcupH2Gs3q9L4-hZn=ORE_zC_c9FFM67KQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-rust-block-for-v7-4-rc1-b4-v1-5-642a4c1aebd7@kernel.org>
-References: <20260929-rust-block-for-v7-4-rc1-b4-v1-0-642a4c1aebd7@kernel.org>
-In-Reply-To: <20260929-rust-block-for-v7-4-rc1-b4-v1-0-642a4c1aebd7@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2664; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=b7Nrhx/lRf7Kc2gzxnShGkiGd+OZ0loDoAZS400fyJ4=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqu4YXOBxIGpTgdJX+iVF3j8XKtuPXRAgCJISQH
- h3cm7q6dbWJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaruGFwAKCRD6UCkIqsW9
- 0HwlEACX0HM/3ggs+3LqLGQ63dtAgm8A7dz/vIGMfOrEacwEb2J8pQu2eTnrlY6JAB3MgRE+jMh
- co0UGascrc7YFEIJKYGsWXLrpfs/Tzvd0fgTDysTRDqSz5mFAPUfFM6AftjzNMmZffyIhmiCVYY
- T8sbKZLn4T+lmIAWeQua10EojUr4wZkXVM9hBzZ/sXOc02ArPLaV331g0AYR4ik+DtCrlKPPRVw
- CeWb2qUll+xedow/R1nXSe0n3B/wXH2oyYZ5IWprXNPDGPsthAwShFObyotC0HU/uwjS2/XN54f
- Fg6WViiNsd6dTxKG8zXuK5StJNfYfchcSi3s9k1ZDTjjAWtnGgSnnX1/LNXyQq4+zgZ46d62MZ+
- txHWWsNiQfA6J6h8eFqhAkrBxm8npGBzVR35LH0VGtuSvkTeqPS37l7+AhmAC8jgn76XGRSJKPO
- uWHCdlTYdMqzaO0//yYmNN+qLBDFkQeD+l9VNDlkyaAosj7S6wpo5VlDSxssfVnuHYb3e3EfL5m
- 8Iwm92dwKl+Da+kjbohmlaX1V/TPysFwL4u2I6WdmGf2jvlBmPPWCQGMfx/BXgAZBNvcgcohOus
- lVFqssbq/O4CfMRqWB9Mtk8DmTUFzjTiUl0JA0XC7KBmnDSJfv4zrNZsCCcXXZPV98/wiIfQn1g
- XrEE9Osk8oVlJGA==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCX7nyhhrtq2QsWAA--.19477S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?YPRd7gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVvLbuoOKy0xUR2OEh/Lyhlr+l17lfOb9luG9nUURQsfQnozS4PQS7OmbKlSFdaBJfy9
+	PIj7FnqIhDcjlHOtZvGp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29K
+	BjDU0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26c
+	xKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vE
+	j48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxV
+	AFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x02
+	67AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc
+	804VCY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY
+	67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y4
+	8IcxkI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC2
+	0s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
+	0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
+	14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
+	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8
+	JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-From: Alvin Sun <alvin.sun@linux.dev>
+On Mon, 28 Sep 2026 12:22:28 +0000, Bartosz Golaszewski <brgl@kernel.org> said:
+> Please always include the changelog between iterations of the same series. I
+> have no idea what changed since v1.
 
-Set `fops.owner` from the driver module pointer via
-`this_module::<T::OwnerModule>().as_ptr()` instead of defaulting to
-null, so the module cannot be unloaded while a block device is still
-in use.
+Sorry about that. v3 (fresh thread) spells out the changes since v1 in
+the changelog below the ---.
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Link: https://msgid.link/20260811-fix-gendisk-owner-v1-1-c0fe4a449ecb@linux.dev
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
- rust/kernel/block/mq/gen_disk.rs | 34 ++++++++++------------------------
- 1 file changed, 10 insertions(+), 24 deletions(-)
+When comparing with the posted v2: v3 expands the comment above the
+deferred free and rewords the commit message; there is no functional
+change since v2.
 
-diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
-index 080dedb5d5d9..90d364ab3bf2 100644
---- a/rust/kernel/block/mq/gen_disk.rs
-+++ b/rust/kernel/block/mq/gen_disk.rs
-@@ -137,30 +137,9 @@ pub fn build<T: Operations>(
-             )
-         })?;
- 
--        const TABLE: bindings::block_device_operations = bindings::block_device_operations {
--            submit_bio: None,
--            open: None,
--            release: None,
--            ioctl: None,
--            compat_ioctl: None,
--            check_events: None,
--            unlock_native_capacity: None,
--            getgeo: None,
--            set_read_only: None,
--            swap_slot_free_notify: None,
--            report_zones: None,
--            devnode: None,
--            alternative_gpt_sector: None,
--            get_unique_id: None,
--            // TODO: Set to `THIS_MODULE`.
--            owner: core::ptr::null_mut(),
--            pr_ops: core::ptr::null_mut(),
--            free_disk: None,
--            poll_bio: None,
--        };
--
--        // SAFETY: `gendisk` is a valid pointer as we initialized it above
--        unsafe { (*gendisk).fops = &TABLE };
-+        // SAFETY: `gendisk` is a valid pointer. We have exclusive access,
-+        // since the disk is not added to the VFS yet.
-+        unsafe { (*gendisk).fops = &GenDisk::<T>::VTABLE };
- 
-         let cleanup_failure = ScopeGuard::new_with_data((gendisk, data), |(gendisk, data)| {
-             // SAFETY: `gendisk` came from `__blk_mq_alloc_disk()` above and
-@@ -223,6 +202,13 @@ pub struct GenDisk<T: Operations> {
-     gendisk: *mut bindings::gendisk,
- }
- 
-+impl<T: Operations> GenDisk<T> {
-+    const VTABLE: bindings::block_device_operations = bindings::block_device_operations {
-+        owner: crate::module::this_module::<T::OwnerModule>().as_ptr(),
-+        ..pin_init::zeroed()
-+    };
-+}
-+
- // SAFETY: `GenDisk` is an owned pointer to a `struct gendisk` and an `Arc` to a
- // `TagSet`. It is safe to send this to other threads as long as these two are `Send`.
- unsafe impl<T> Send for GenDisk<T>
-
--- 
-2.54.0
-
+Thanks,
+Fan Wu
 
