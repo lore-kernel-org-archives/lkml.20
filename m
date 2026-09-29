@@ -1,40 +1,33 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FD833D512;
-	Tue, 29 Sep 2026 14:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FAC1DF748;
+	Tue, 29 Sep 2026 14:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693314; cv=none; b=lIj6q8Kne11Pp5d3nDeUu+9ctDf1r20n5OtAOpgGdorAEVcKSCro7CThJj/6ksfbCN/402rPaOBe3GYx49oBiOc54fUpy/XVfrZVIQmBLopaLF+0A3qk77b2lUt1uYshM1ptliKQVeTBIY8P8uKZcUgjCOoxGP4ZGPNNUaJr+p0=
+	t=1790693326; cv=none; b=Eu+AFeJihGB36jvE6bnk0boOPmB56YqfCXYAXE0hKvzoERaoAjno2QWE0+KL3JiO4is4A2hlqpQg61SGGFID2KX4ZtAxy+VNs1uEvfxHvKrEbwd5Ut6Q2zyZifb+nvcG0q6aOH8HNtpVCoANEXs8fVgmYShq2CO/DA5+lOQM3fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693314; c=relaxed/simple;
-	bh=NDu4M0kZOKOrt9+9JCIT2AepNE4F7VsXIjsuT1CNR2I=;
+	s=arc-20240116; t=1790693326; c=relaxed/simple;
+	bh=L9t2Par57RVjHecI7nYs/b1rSeqUDJVuRULt6+FZQsk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eOIG5WufOuPP9nFvYqeoM7rBrqdsm7hymjjNblOvcM1jj5D21lCmE94o1ORRE3EA0SyAVjXs9BCXB6a5YIVxjfWeh4M4PaOTBZKmJVgl+QhnwyvKslw60l2g2MYKt+cNmFYRvfmW2Sorfl+aO3QN+VAe+A7ax/SOt81ydcqYCcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OCOkIor3; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=HKPUFCoyXoZx/BUazDr2zDS2NWE05iteDOmV0b03cMsTHCr+6d+l2Fi5uwDjcBfFNqPkUiHLzGCWYrVcKamqYM7FKNoqxmutObl3Ew5CLUrLLc7powSgxC9g7x583gchKlJ6kSvm6kjJrQueIKntFi8GX8jpvUSNRlsekVeb7rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FVJAU006; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OCOkIor3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A60521A1062;
-	Tue, 29 Sep 2026 14:48:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6C932601BD;
-	Tue, 29 Sep 2026 14:48:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D9F710329572;
-	Tue, 29 Sep 2026 16:48:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790693305; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=fCafFHWhPYsRxNTfyjiRHEDy7bTCAxI/LbWiWAoWyZI=;
-	b=OCOkIor3lNGhu9rgg1YAA7Imzg2OVP+0KN7DtTgbaE0QxWMHXOMVA/LXqyQe0r7kZMxV4X
-	gQ423VoCvGBOpPLsoi7mfBsGqKEel/m6GqPPRjSejY69DsV/R+uq6CfIih8ifH4ndmq2VP
-	065CYV9fK3GjnPWwaoLV3FF750II1hrMox8J3vfj26oh9kkudsLIXWhHouqnXOlMFGAGiH
-	W5TkEgMOPp/qArsObvezUrk7BDjtMUyF9ZBoQbX+b3v2OJGKcC5UtdwXeDfmPV11C9P621
-	8T6tinQc+lssTclwkNDu6JP0kTEOcYWLJvmSy1K+eTozZiFueuHbgmqIfS7G9g==
-Message-ID: <5e4d7332-e756-4014-98f8-22edd2a36802@bootlin.com>
-Date: Tue, 29 Sep 2026 16:48:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FVJAU006"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070621F000FF;
+	Tue, 29 Sep 2026 14:48:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790693324;
+	bh=I9X4U7BvKdhfzPkylrAkQ7XYLNAWNJVOd5c9E00Jn3I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FVJAU006/P9MSKnk0RmiD4AM7X4oMnhDDkFLkSzEEcTDgEgyTNBh3JDwLsu40j+N/
+	 BsGdCkdenWxx8MYtMcdrwsnUlzFFzmrjKudeGbStmxoNw6vSHW4X/qMTVuNoGta1Na
+	 klpbXM7CTIVUZVCSTv1CKNulvzLHWwF/Izn9P18p/wVCvPirMuM50dj7KEpEpwUymV
+	 WW/HEre4oeQoixxWAzbRr0dod1gXUnsnmzMboSbkDwYD3Gp+stJdXLGIGep1cpVJfO
+	 ROuccSH56lVZFy3oOWYZRRxX8xHhYvLdsZyDmC/NZLDmk8ohK1qbC5i9j4wAOcjHQp
+	 RwDu8s28YznRA==
+Message-ID: <2724369e-1e16-44dc-8c93-835aec73b415@kernel.org>
+Date: Tue, 29 Sep 2026 16:48:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,100 +35,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 07/11] net: dsa: microchip: extract
- compute_width
-To: netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- pascal.eberhard@se.com, miquel.raynal@bootlin.com,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260925-ksz-perout-v4-7-d675bd21ce49@bootlin.com>
- <179068488049.434549.2405268057372474748@kernel.org>
-Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <179068488049.434549.2405268057372474748@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
+To: raoxu <raoxu@uniontech.com>, laurent.pinchart@ideasonboard.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi all,
+Hi,
 
-On 9/29/26 2:28 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+On 13-Aug-26 09:46, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
 > 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
+> usb_fill_int_urb() takes an endpoint interval value and stores the
+> period expected by usb_submit_urb() in urb->interval. For high-speed
+> and SuperSpeed interrupt endpoints, it converts the logarithmic
+> descriptor encoding to the corresponding microframe period.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> The UVC status URB is initialized once in uvc_status_init(), including
+> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
+> that report bInterval using the old full-speed convention. The first
+> submission therefore carries the intended interval.
 > 
-> - [High] The new check in ksz_ptp_compute_perout_cycle() does not fully
->    stop the divide-by-zero on restart that the commit message says it…
-> - [Medium] The new `request->period.sec < 0` check in
->    ksz_ptp_compute_perout_cycle() fixes a crash that userspace can…
+> Both status resubmit paths, however, overwrite urb->interval with the
+> raw endpoint bInterval before submitting the same URB again. On
+> high-speed and SuperSpeed devices this mixes the descriptor encoding
+> with the already converted URB interval representation. For devices
+> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
+> quirk adjustment after the first status completion, making the
+> workaround effective only for the initial submission.
 > 
+> This has been easy to miss because the initial status submission is
+> correct, full-speed interrupt endpoints do not have the same
+> logarithmic encoding mismatch, and the status endpoint carries
+> relatively infrequent control and streaming notifications rather than
+> the video payload itself. The problem only appears after the status URB
+> has completed and is resubmitted, and the externally visible effect
+> also depends on how the host controller handles the resulting period.
+> 
+> Do not restore bInterval when resubmitting the status URB. Reuse the
+> interval established by usb_fill_int_urb() and usb_submit_urb(), which
+> also preserves the quirk-adjusted value. No additional state or
+> interval conversion is needed because the same URB is being reused.
+> 
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+
+Thank you for your patch.
+
+I have merged this into:
+
+https://gitlab.freedesktop.org/linux-media/users/uvc/-/commits/for-next/
+
+Regards,
+
+Hans
+
+
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
+>  drivers/media/usb/uvc/uvc_status.c | 1 -
+>  2 files changed, 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 3ca108b83f1d..6552f541aa0d 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+>  		return;
+> 
+>  	/* Resubmit the URB. */
+> -	w->urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
+> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> index b632cf5e3fe9..680c6c7f4ad7 100644
+> --- a/drivers/media/usb/uvc/uvc_status.c
+> +++ b/drivers/media/usb/uvc/uvc_status.c
+> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
+>  	}
+> 
+>  	/* Resubmit the URB. */
+> -	urb->interval = dev->int_ep->desc.bInterval;
+>  	ret = usb_submit_urb(urb, GFP_ATOMIC);
+>  	if (ret < 0)
+>  		dev_err(&dev->intf->dev,
 > --
-> 
-> net: dsa: microchip: extract compute_width
-> 
-> This moves the period and pulse width calculation out of
-> ksz_ptp_enable_perout() into a new helper, ksz_ptp_compute_perout_cycle().
-> The helper will be reused later for KSZ8463 periodic output support. It
-> also adds checks that reject negative or zero periods, so that a restart
-> of the periodic output cannot divide by zero.
-> 
->> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
->> index 79520d345efcf..4b57cf076bb4f 100644
->> --- a/drivers/net/dsa/microchip/ksz_ptp.c
->> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
->> @@ -203,12 +203,50 @@ static int ksz_ptp_get_pin(struct ksz_device *dev,
->>   	return pin;
->>   }
->>   
->> +static int ksz_ptp_compute_perout_cycle(struct ksz_device *dev,
->> +					struct ptp_perout_request const *request,
->> +					u64 max_pulse_width,
->> +					u64 *cycle_width_ns,
->> +					u64 *pulse_width_ns)
->> +{
->> +	struct timespec64 tmp;
->> +
->> +	if (request->period.sec < 0)
->> +		return -EINVAL;
-> 
-> [Severity: Medium]
-> Is this check fixing a crash in the existing code? If so, should it go to
-> net with a Fixes: tag?
-> 
+> 2.50.1
 
-I added these checks to address Sashiko comments from last iteration. I 
-don't think they worth a fix in net.
-
-[...]
-
-> 
-> [Severity: High]
-> Can a zero cycle width still get through here on 32-bit kernels?
-> 
-> ptp_perout_request.period.nsec is a __u32. Neither ptp_perout_request()
-> nor the sysfs period_store() checks that it is below NSEC_PER_SEC. On
-> 32-bit, struct timespec64.tv_nsec is a signed 32-bit long, so the
-> assignment to tmp.tv_nsec can wrap to a negative value.
-> 
-> Take period.sec = 1 and period.nsec = 3294967296 (0xC4653600). Both new
-> checks pass. tmp.tv_nsec becomes -1000000000, so timespec64_to_ns()
-> returns 0, and the TRIG_CYCLE_WIDTH_M check accepts 0. The pair
-> sec = 2, nsec = 2962947296 also gives 0.
-> 
-
-In these two cases the nsec field is greater than one second, it seems 
-very unlikely to me to receive this kind of request.
-
-
-Best regards,
-Bastien
