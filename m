@@ -1,98 +1,183 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF17947278C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B222BE655
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790670977; cv=none; b=ohJGkYm9rNv49zBmV3OMEbsNZm2jIkuycSWUK5LyAS4YQ8vIfdH1S2NkM1sN0S5ZZyGcXBYlVjgf2a6g71Xc85fDkkTrcYdrgYmuyffOHTg42GiuxMTYKyzgKi2XGlq6JTfycZug2pNCo+cnKSh9S4a4zAYG+/JfE+BJYlC9kEk=
+	t=1790670995; cv=none; b=XNDBF9J8RFrJyVCALZmonhD0RZeE4odlpqOlCvOi63hQFDbAe8M1IZeRAL/+3KP6CwHRjcjohhAKE0AACDCx+OVgTO/N22+xCEL4XeZcZnLzCHR/xAqlNfFIe4GI/0WYAGLYa7f6P2UDSD/NUalDzrbN+SdkYg6H6TDe6vZMzWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790670977; c=relaxed/simple;
-	bh=VRAOKD8IQiv5Doj3zfyFa4TmmxoE+pNf7XnBp7cBamM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oScue/XPsW5RvRz+Se/tLv5C2iDlYCT3I5JTcMtnwHp21+sRsvESFQUZ4iuD/6uTGywHOZkIQ8v8HIt5bmvXawy8llMPhnkqntRbbfbptlTv9nvo8QMtZ8FDBr2gwdCikT8VsICKwa3p3rflB5VEx5rxB6KDqEh2yKE6VbWvmhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gCKSrm8k; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790670995; c=relaxed/simple;
+	bh=8vfz9yom+ls/aQov6CVfDaBZr7Ko9IZV3QMRLqEpVmM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=aeXhkl0lFXm+83OU3oHBvdDQSyqgYYDIc65wMA/1/LUUCqPLP+eXsvgGpJjHuFG0c/VOWDkm5OzJCHM7gV2ZuVLAQu3nPLrK6LkSnDMzLdieuf4MFYTC3vgtS61/7seAZyB9R31tq2B2GiY1gBA8pjAEvOoZMkJBKi79Z7+nSrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WMXbedJM; arc=none smtp.client-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gCKSrm8k"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1964537a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:36:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790670967; x=1791275767; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wqIX/K8+VwYyF/xC9PmKKDDvSH4cgd5EwORlAHhZrEs=;
-        b=gCKSrm8kWVAQuscs8wlwU0pm78XNEwx96TPwSd1D7QSM41nZ9IgUycfbIMNk8oXEz/
-         +9Gzcb7XDuQI3KK0Ufpap2f8MbdpJBu5cdjWK//V/LItFlBO60fv/TRXUnisbMSW1DrK
-         kScCkr+CyDoRtfy1KlPyuY0IjKIQuj/pHVjYU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790670967; x=1791275767;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wqIX/K8+VwYyF/xC9PmKKDDvSH4cgd5EwORlAHhZrEs=;
-        b=PeZY2/qoVuPIJRHGEsn/TOvrtB5et/zFyYUIcAezrmf0qYvfy4aFhYw67CTXYj+jwR
-         glbdK4ncaJq9+urU6Nkgz06aO7uxo7hPkTZcbJs/KGPqEETMUamjd17URi+U5GURPJ/C
-         LAlFam+7kP19c4aLfTs6YamOCFhS2/XZk4NU8P/29lGPhvSTeKpy/P7tybrfq7yX9YQv
-         7Hy030ZgzAntS0xz2vSS6j2Y4dHet3uUyU0HnIz0ak877A8AgDugCovCaDir2DpqPt74
-         fUpqlTc9l+diupFXENX5OLF1koLP2w2HfgCRsdD3e1vDqVInfzGkrYtPwDAPFvcrZrwE
-         hqmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoKX8AhOx4n2es1Ovsk1IOYEM9JTjNDrvKMkCrMGEhAmVtWIFDx0U1OdwmF+8Ck14sWgW9u4lQ2wEG0L0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqCgWyAP1yll+aIhpqDdoyEiUaZw6cRYeDpe8F8n7ow+eBfPVK
-	bvYDHF85NMSoXMtn54I9+55a08rQHViIvJmIwe3PPsPUbLHLtlkrii8tldbVTz909w==
-X-Gm-Gg: AYBFou3wIHciYadG/y/6LBYxwwc85EPx/HTNqSKx6EHgJVYaaCKk4MZ70RWO1GerEfm
-	A6Mjoc+ecWMQaoQjCJ+k27jrcs2wfXJrLco0cxjnJ451rdm5G3bCFjunxwT8l4S42nbweiiBRT3
-	3Aifwmo7c5UGWYIw6shRtbUemr/cXBE67wmISvfONo3rgLqrVF3/M+SI3/b0bQQXCKhBdTpchax
-	7e7oVd4tXSYNk3+1IyBhKk36x3hJVRIbp1pf1+uJB1Qcb45jH096rAa1PRYiFDQNZT9SY6qu8Ag
-	EhKO8ebEBiyyzO9YM+nsxsdF7KePmF9bDnrV4X/wNID4P5VyCpZZMt+cj2IzilwtPbbwZn2YLfC
-	ihYay2r4Cuuowk9VFqXuvkR2AT8wO3xlwaEszMh0j58OEQ1cUrslvhyCzhS9Yj4Qu2E2GGMF2h/
-	Q9XGW6ssSImcijBs4mYlu4zd7xO1cheyip3wefvaTQNU8vVKA6OVvhX8qstQ017P2lBIGH1RpIf
-	FWC3wy31ND9cl+NouvsppWkQKE79RTEqrhDrmuwCHTXIlni2gk=
-X-Received: by 2002:a17:90b:55cb:b0:3a0:f4ee:d2a6 with SMTP id 98e67ed59e1d1-3a0f4eee43emr6338930a91.19.1790670967013;
-        Tue, 29 Sep 2026 01:36:07 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:31b3:f8c3:893a:d0bb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a492dfc5absm2202607a91.3.2026.09.29.01.36.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:36:06 -0700 (PDT)
-Date: Tue, 29 Sep 2026 17:36:03 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	Pooyan Azad <pooyan.azadparvar@gmail.com>
-Cc: Minchan Kim <minchan@kernel.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] zram: fix short reads from block_state
-Message-ID: <art30sD5xpFZx9QG@google.com>
-References: <20260928164826.24858-1-pooyan.azadparvar@gmail.com>
- <20260929071846.24829-1-pooyan.azadparvar@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WMXbedJM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8vfz9yom+ls/aQov6CVfDaBZr7Ko9IZV3QMRLqEpVmM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790670991; v=1; x=1791275791;
+ b=WMXbedJMmbqaftd1IpCIhlKKzGIzCRayG9NJsx7HkivNiVYX7SV3JIweXkHE+jmSxSGZGFY8
+ cOpVlP8jKib3bYDO45TF0mzuc9vNN19kzoQfIv0Dl7DmxdKGdmnTYmyYPURpDDWxQSCsyxwG715
+ JozrFQ1Ypj7BSyJi0O8Z7r2w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 7b4496e5929f9e79;
+	Tue, 29 Sep 2026 08:36:29 +0000
+X-Mizu-Trace-ID: 7b4496e5929f9e79
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929071846.24829-1-pooyan.azadparvar@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v5 07/12] mm/sparse-vmemmap: switch device DAX to shared
+ tail vmemmap pages
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <1b542015-8e5a-41af-9e98-9810333e6725@kernel.org>
+Date: Tue, 29 Sep 2026 16:36:07 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Lance Yang <lance.yang@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <53A73178-93E5-414D-8ECE-96B3082384C4@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260927025441.741633-8-songmuchun@bytedance.com>
+ <1b542015-8e5a-41af-9e98-9810333e6725@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-On (26/09/29 09:18), Pooyan Azad wrote:
-> read_block_state() formats each entry directly into the buffer supplied
-> by read(). If the remaining buffer is too small for one complete record,
-> snprintf() returns the full record length and the function stops without
-> copying data or advancing the file position. A read smaller than a record
-> therefore returns zero at a non-EOF position and cannot make progress.
-> 
-> Convert block_state to seq_file so formatted records are buffered
-> independently of the userspace read size. Keep dev_lock held across each
-> seq_file iteration and continue to protect individual entries with their
-> slot locks.
-> 
-> Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
-> Closes: https://lore.kernel.org/r/CANC3H+LdtoydSp+o2ecErAw7k6R2+gRf9LyxcaoHv_mGhJmyQQ@mail.gmail.com/
-> Signed-off-by: Pooyan Azad <pooyan.azadparvar@gmail.com>
 
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Tested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+
+> On Sep 29, 2026, at 15:36, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 9/27/26 04:54, Muchun Song wrote:
+>> HugeTLB vmemmap optimization now uses per-zone shared tail vmemmap =
+pages.
+>> Device DAX has not been switched to that mechanism yet.
+>>=20
+>> Switch device DAX to vmemmap_shared_tail_page() as well. This aligns =
+DAX
+>> with HugeTLB by using the common per-zone shared tail vmemmap page.
+>>=20
+>> The optimization is enabled only for DEV-DAX through =
+pgmap->vmemmap_shift,
+>> which supplies the compound page order recorded in section metadata =
+before
+>> vmemmap population. Unlike FS-DAX, DEV-DAX does not modify tail =
+struct
+>> pages, so sharing them is safe.
+>>=20
+>> Since the shared tail page can now back ZONE_DEVICE vmemmap mappings,
+>> initialize its entries with PG_reserved for device zones. Also skip
+>> poisoning vmemmap-optimizable sections while their struct pages may =
+be
+>> shared.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>> ---
+>> v3:
+>> - Move device_zone() after the definition of NODE_DATA() to fix
+>>  non-NUMA builds.
+>> - Update the commit message to describe the compound page order =
+stored
+>>  in section metadata
+>> - Collect Acked-by from Qi Zheng
+>>=20
+>> v2:
+>> - Explain why sharing tail vmemmap pages is safe for DEV-DAX
+>>  (suggested by Qi Zheng)
+>> ---
+>=20
+> [...]
+>=20
+>> -
+>> static int __meminit vmemmap_populate_compound_pages(unsigned long =
+start_pfn,
+>>      unsigned long start,
+>>      unsigned long end, int node,
+>> @@ -551,21 +536,18 @@ static int __meminit =
+vmemmap_populate_compound_pages(unsigned long start_pfn,
+>> pte_t *pte;
+>> int rc;
+>> 	unsigned long flags =3D VMEMMAP_POPULATE_DAX;
+>> + 	struct page *page;
+>> + 	unsigned int order =3D pfn_to_section_compound_order(start_pfn);
+>=20
+> const and all the way to the top.
+
+OK.
+
+>=20
+>=20
+> I did wonder about the poisoning change ... because the memmap usually =
+gets
+> initialized once the memory section gets moved to a zone.
+>=20
+> SO now I'm a bit confused about the ordering of events :)
+
+Yes, the normal memmap entries are initialized later when the range is
+moved into the zone. The shared tail entries are the exception, though.
+
+The ordering for device DAX is:
+
+1. sparse_add_section() sets the section compound order and populates
+   the vmemmap.
+2. During vmemmap population, optimizable tail entries are mapped to
+   the per-zone shared tail page, which is initialized by
+   vmemmap_shared_tail_page().
+3. page_init_poison() is reached after that population.
+4. Later, move_pfn_range_to_zone() calls memmap_init_range(), but the
+   latter deliberately skips vmemmap_optimizable_pfn() because those
+   entries have already been initialized.
+
+Therefore, an unconditional poison here would overwrite the initialized
+shared tail page, and the later zone initialization would not restore =
+it.
+The non-shared entries are still initialized later as usual.
+
+I agree that this ordering is not obvious. I will update the comment to
+make it clearer, for example:
+
+  /*
+   * Poison uninitialized struct pages to catch invalid flag =
+combinations.
+   *
+   * Tail struct pages in a vmemmap-optimized section are initialized =
+and
+   * shared during vmemmap population, so they must not be overwritten =
+here.
+   */
+
+Thanks,
+Muchun
+
+>=20
+> --=20
+> Cheers,
+>=20
+> David
+
+
