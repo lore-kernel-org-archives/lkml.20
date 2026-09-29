@@ -1,88 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2BA38DC4C;
-	Tue, 29 Sep 2026 07:38:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2260A3A71A8;
+	Tue, 29 Sep 2026 07:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667485; cv=none; b=EwicjcDHoxupWWIzd4YDiiwqY2ZvWacAYdc6vlPR8FhgSYsKGFb5ulBziyGJLHTOXMjvD5PgJ3xtHnV89iiKqmZc7nodT1N21WH8B2JoyBsFDPuOHtBKZDiGsGRHiLQrKYV0sB+SiQBI+74MBX43y3BnnoITSPWYz3g5jGsTaYs=
+	t=1790667516; cv=none; b=RM2UUD4AAU5XTzvbHsjbqAJNnJXhqYYWmkjxoW7h4bxjQPt3R8fRK3tpqlIrVJRgNKhlxLFZXGwr2hCICiSX+RcSWQ7+hzSaC90LXzt/PJpa13X1C0mVSvmISqNGxYNFLpwncnOHwDa1ZG4Q5FwSHrY+FVSsrsbSO618qJHGdHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667485; c=relaxed/simple;
-	bh=XNt2tdvBamn3hwmJfP2ky4nu8Rx+vcRTAT6cuA3Wkiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aka0zcmY/kvl+mk37y9hgI0MU5ZcrxTtMAKbcHcjmzPbb3bnujG8y9X9JZIMIzDMrAPvga8C/FA5rQinjYZaqeQ4kDet2Le6rcVR8+5OP0DQeRKjhL80riHVvq1nGuEGW5uBsxJz42W5MmRmUyc8o3w7symZ7o40gFWaEhZn0TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHfdWgy9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667516; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EPx2MrvsAl0XHr04mZUk7FRwXtwDITJvIvPjqUP3BqluUP0ioVDJdhQo3nCaNQJWzWYEfV/j1le+bEQE4ehieZusHLEpcTxUyiDg3J6t1r3Ad1TyMM4gFlPitdBoBN8AI/OTP7IwA42am3cBUg88AI74nYJaMLJBCx1Pb8fesNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcSU90Ad; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHfdWgy9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9D71F000FF;
-	Tue, 29 Sep 2026 07:38:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcSU90Ad"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BFD81F000FF;
+	Tue, 29 Sep 2026 07:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667483;
-	bh=5HnRXrs+e0AqpzRjn+shTqMWuU/hbBqeJRuBsbkIwvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RHfdWgy9V70spBOBQLciFeRoTZR9mSynic53Gs97IFN2mcJTdQm5xttXW0no6V2dR
-	 V6X2bZlJD8oWgoJ1ClbEyrdx0XI2YxjWzFQsEK2XB55jHkzpqXJxwxGuMVAIZT7adF
-	 nsTvc0M/ih2RhSY071/EIKRbtrS9vvXtmNw2fC0ZbiSpUXTFU30TqzcSsf4IZkphsL
-	 +AVHmqAzOsvx1tFuZynCe2EzuayQwkAlfaTi35tyrRpZAI77Ga6Blyw6hY/LrzaR/l
-	 uKoR7xex+/bI8pb7jl18w2BA5gQsLjF2hwwjvLQ7iFJiZvSMRVPW6MGSWb9V8T6Hvm
-	 aH7ScS55FNtaQ==
-Date: Tue, 29 Sep 2026 09:37:59 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20260929-heavy-intelligent-guillemot-da269b@quoll>
-References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
- <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
+	s=k20260515; t=1790667514;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fcSU90Adnp98yCJypomf3WB79+psLhtiUWYQ2ZPgHod2TnBC7PWDOGjmnQJakhUnA
+	 xehASfu9CifQ8FjnnBACDMXF5XgdZmQJ1pt1fH6lteSzXpnWCXHiW2wP0vQTahX0xA
+	 lOcWZksHU/+kw2grns45lRdWhootoyjgQ5KPVP1gxcd8+DXiSXtkR9fMWypZRUKOkO
+	 CRAco2xaK+0XYpkte8QBNJbdFlRizCSdtXC/qdPCNJGS2YoKoUiT9lN0E2FX9C0LDN
+	 eFYJSafWvy91n4hZBfMvTI/7CA1UQsxMh65Jl2PIvZwnPtRUrLulCb9KYuG96/g3MW
+	 RC03Gv2ud+eZA==
+From: netdev-bot+sinfo@kernel.org
+To: Zxyan Zhu <zxyan0222@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, richardcochran@gmail.com,
+ maxime.chevallier@bootlin.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
+ rohan.g.thomas@altera.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 0/3] net: stmmac: dwxgmac2: timestamp
+ interrupt support + Agilex5 fix
+Date: Tue, 29 Sep 2026 07:38:32 +0000
+Message-ID: <179066751275.31693.16105226302048502437@kernel.org>
+In-Reply-To: <20260929073553.4136336-1-zxyan0222@gmail.com>
+References: <20260929073553.4136336-1-zxyan0222@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
 
-On Thu, Sep 24, 2026 at 03:14:15PM +0200, Neil Armstrong wrote:
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        sensor@10 {
-> +              compatible = "maxim,max34417";
-> +              reg = <0x10>;
-> +
-> +              #address-cells = <1>;
-> +              #size-cells = <0>;
-> +
-> +              channel@0 {
-> +                  reg = <0>;
-> +                  label = "ch0";
-> +                  shunt-resistor-micro-ohms = <5000>;
-> +              };
-> +
-> +              channel@1 {
-> +                  reg = <1>;
-> +                  label = "ch1";
-> +             };
+Hi!
 
-Run 'scripts/dtc/dt-check-style --mode strict' on the code
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> +
-> +              channel@2 {
-> +                  reg = <2>;
-> +             };
-> +        };
-> +    };
-> 
-> -- 
-> 2.34.1
-> 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
