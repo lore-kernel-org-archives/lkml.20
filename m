@@ -1,146 +1,186 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C630823394A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707345; cv=fail; b=jcVf7UdJI3JwLGFWEIj7s8/6bVMspaHTGtnyfo5Fdi0H6oiVA2EqR/s7WIhUEtvt/6PJFXgslKSfFCsrSVxRp+exKxwk/pwBmB8aC7eL832vlU1GorfEzT94263+opkD67G6lA6MQtkqgqhZTjLR65zH5TUauDzHrZpu8SqS3wY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707345; c=relaxed/simple;
-	bh=iY4xDTTMvheI3atnMJm7PDHFBLoSPLNZ7hksIQg5ogc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=SOs0Tyfqub6CaRG9nsHeirJXzzoltprzpjetD8DO0jBo06S9XnPfc+jJOpV66h5qg57ymGc6agB85yrXqwCPoS8OcC3Sr3hFEmAtZd6VrONXrUU7QNCB009wQBq1DTtn1w654VoJAP5GyG+ne2T0dqDIJSSNkx649Cc0KlGxGzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ixatvkh0; arc=fail smtp.client-ip=40.107.209.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFD3530E04
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790707362; cv=none; b=JHpSYYy6xKVjG0a/ZGTrrJSFSg0AJgdYQWTFxK+vHf7RcxxA2ClDf3SKdXXDJvOB5bWQnSiWleX7L2iFyaYflTvHEUKgeA54wIwecQDu5r3nBGT77JZC8v+ArYqpq+yNXZnJORpvFnRJtOk7q1Hp5KFPkQB/9WsRSgeCyT9Uz1Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790707362; c=relaxed/simple;
+	bh=PPJGcCM0sx6er+/xcCz8HP+65T75ADwxPymHBvvsnVo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=skJNrXTcxDlNj9dEWmrvdTqzDf7xMXCi02RZgT40PUnT0TLGcfsdIV3tYpTdELjwPkYVmPq8Wo6BYm5ihAzAcsk028TMq8HiG00Ka+jIpDP3oiGvL87Z7F1CSB/MmFmWg03rd1t8ri27CLvqx/8j+A+8A8fcS+Anu1mUnCbDiXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=oj06MDRn; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ixatvkh0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=feQ3WSsppRQC+4vKEoi9asfz7MeTZNMQ4hEVS1GWxpT/OYdE72awRTbrcfjedftttxoOaFFcGd9ujgtazfoGGZ3pfy26Tub3tnLjmwsp3mLMef5I73iYF4b9aPRQeza86B9ePan3Uu97Kv2Du/lszZR5E2mU1TKXpsep0+g3+C/oNhM3Wzrob4C4JRVyuK2YHcT1w8zzDTLi69p2vyuFNhKKKF1gORVzp2hDi00xKgApmR0El2Nb0dI8wf4HSRFLHZdzFC76JIENupHirSqCrhRQBxLds/iK+OIP1M9Yt4+hbpdqmeYiSvfmJ6EP4lo1LlM1V93Sd+Akx6ILXNnklw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6/2TT0IDfqZF4DvZQ7I57VGFygMtB5c0rV7N3e6xZWE=;
- b=YHUVfU7iKJ2ER6dZZmR/IqDeMCDFeoseJREGEI3pldy1vRvxripT4gubRBX3J8IjNrJoLgZr4HOZP6eZfdD9HpVEY/gHP3ywfU5iOULEY9tBGtsHafmcijqnEmpxBkbVEJ/YfGrlliI2mxo6mwYywCvL6Mi0DNlxCWu288E9QuhImPIB9JvPBIhUf951Hgl11rpEMpNPUf3D8ka3MBtBxSoAL6pd/I6euj0gGIYrtcWAU/aioGVdPAbC7DC4te07sYqUc0AiASg8epM2qXzGCJPz0lky7wGKmPbUfi+ojEKQR9RWVNi5P//UOGjlAXgGuIiqbVLybUpsav/F3yNWVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6/2TT0IDfqZF4DvZQ7I57VGFygMtB5c0rV7N3e6xZWE=;
- b=ixatvkh0P+dtwL4srtdl4PcfA7F9pwIfwaasn4r79ADgdtrp2Y8jGy5SYdtKLGUM6ylwM1S0SHEJpTMO0wRJV1zJlomqMvxvpgLp5q8+wiCtP+Vjt/RXoztgJ6M4+HdYMnJsvG6C157qlSMqhhKWpEkV4AVFEn6n4/Ve+HCyfVA=
-Received: from LV3P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::26)
- by CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Tue, 29 Sep
- 2026 18:42:18 +0000
-Received: from BN2PEPF0000A893.namprd04.prod.outlook.com
- (2603:10b6:408:234:cafe::6b) by LV3P220CA0005.outlook.office365.com
- (2603:10b6:408:234::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 18:42:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A893.mail.protection.outlook.com (10.167.248.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 18:42:18 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 13:42:14 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 13:42:14 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 29 Sep 2026 13:42:13 -0500
-Message-ID: <d97ef627-e90d-dbd2-0ccc-4970d23de11d@amd.com>
-Date: Tue, 29 Sep 2026 11:42:13 -0700
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="oj06MDRn"
+Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7b2d5062bcaso2028880137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790707360; x=1791312160; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5xU2IbXhE/z5ABDUOgveshtAzBWv4hsn4Hu2VpZqugQ=;
+        b=oj06MDRnSA7tz9HbTB5i1da6HLxSCKZFik46vLf7h0fokVHesrXHOePRbkJG9X7LSM
+         N5BWiZrUZVb8BFR18pEiF4BO4WYNLykaLIYTBaVUgB4hieUZK1CKubzFKuNElaB/ip9M
+         eNiLp7rTQSU+j291xrtS6bV49/cF2ZkVgzU0KIYPalAKFLA2hnZ2fQVlCBq2vSnWpIrz
+         c1Ws48MATjJfvXAxPsWVSFeoaed5c05bH9sJatycc5gGlpUO4wsclpjykk17rg2z8U1W
+         bdZkVDRK600uRFAuSE8dObwZVwLY8a272BBt1t513xjnAjxRjPDduXgrAphxTnUjajZM
+         sZ0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790707360; x=1791312160;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5xU2IbXhE/z5ABDUOgveshtAzBWv4hsn4Hu2VpZqugQ=;
+        b=bFRAfWCgt6FL5Tn5JG+MzkZeqa2mFMjz979z4KRK4yC9Bt4IdV+/EohTPP7o1SgGaL
+         /oD6xuSCVwUK6am7chBpVmkEY+ysFSn+7CPV3Hhhmlkhcv2TQrTJRFryazdqRjuHzBVD
+         3q3yEU3pHN/TzH0XcrwhrNVLlOZVa+KM1DYk3c9Mvvn3EuNUMERgbrizGkIf19LCzAU/
+         JBmeD9Cb0Ghl5blDpq+gZ8XaDgJkPtAQOhLoOmazzchDAsI7SLqTtscsplgP0O8ft3Tm
+         X3qlGya/YS+iDufOKTo8qYrJLC2y8J38jAehW8AavqCmwTCa8BRMIwgS2rgDmZ+mzQw4
+         phGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyXtFZaB0yPVa3IW6qZ+Yavhlqi1DmoAXkfWcA0NDjhrlmvzzEzbJAW0Qvf7/Lr7xgmpvgmP86WvSn8q0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnh6c8kT9zAlf2o6w9cq1qR1eEJ6E9iVc/04E7msJ3Oep1Eisw
+	1xm0PJkPCiUNbNKwvguFg901wv0Ixs2JPANlgwIz+yXaj4/K4ynGaLhxaoR4vG8kuZY=
+X-Gm-Gg: AYBFou0fkY1ih8tk5geISagJwn+E3oyCht04vwslLy4qvFZiWhDBDjsPkcgRtbEFRpo
+	PECtGYQRBEBFoGSpC5PDUCXNmyXSqGriBDfbKn+iBLLE6OYKyhgNv2tEUKsMJpLU2AZ7M/xyRFX
+	ItfwCP+XPToOznkwPJ6cdwRmhsdmIsFjsb/zpbvObUSN5i5cbfyWc2I0jXcXFzqwBB3xVTz5lPN
+	t+lFKP/mgiIxW4IagqViPQuiRoDx7kBIya3TUeZQGHYNYF8ubaMTvjsV09YMHplb0GWL0C8lmWR
+	HT0YZFm3Ow4nNjUQV4CftY1if438Spz5yckPrVry4Q3rft2ifmIZg4TWLaXPtJ5s5TaaVqIesiv
+	cucbWJN9aYQswQHV9BLw7YVImW0Sqa1Gm97k35+gZIb5xTk98jzJBhgBPU0lGZLEE1m5d11cJhN
+	+4eeZkRRHHguNCo1GsKEwL713oYKoAg2eH1KuPHooA7u+uPvPW1QOQcTr1LMPql9AuNIyyoZwLf
+	/Kj7QalMEYAfg==
+X-Received: by 2002:a05:6102:3e96:b0:7a8:2a34:433a with SMTP id ada2fe7eead31-7bc3c0968b9mr194936137.9.1790707359677;
+        Tue, 29 Sep 2026 11:42:39 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bc7de014a3sm373692137.11.2026.09.29.11.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 11:42:38 -0700 (PDT)
+Message-ID: <6cbde49a7440bb59faa9eab91dfb8e99947be993.camel@ndufresne.ca>
+Subject: Re: [PATCH v3] media: rockchip: rga: fix rotation on rev0 hardware
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: John Keeping <jkeeping@inmusicbrands.com>, linux-media@vger.kernel.org
+Cc: Jacob Chen <jacob-chen@iotwrt.com>, Ezequiel Garcia	
+ <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>,  Heiko Stuebner	 <heiko@sntech.de>,
+ linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 29 Sep 2026 14:42:36 -0400
+In-Reply-To: <20260929094142.928758-1-jkeeping@inmusicbrands.com>
+References: <20260929094142.928758-1-jkeeping@inmusicbrands.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ILpt8SK1pUoNPTw2qXEH"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/2] accel/amdxdna: Replace create_singlethread_workqueue
- with alloc_ordered_workqueue
-Content-Language: en-US
-To: George Karagounis <taterraster@gmail.com>, Min Ma <mamin506@gmail.com>,
-	Oded Gabbay <ogabbay@kernel.org>
-CC: Koby Elbaz <koby.elbaz@intel.com>, Konstantin Sinyuk
-	<konstantin.sinyuk@intel.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <mail@taterr.org>
-References: <20260925124804.58808-1-mail@taterr.org>
- <20260925124804.58808-2-mail@taterr.org>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260925124804.58808-2-mail@taterr.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A893:EE_|CY5PR12MB6132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0904b550-6872-443c-f243-08df1e59638e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xIQtk+bLB6vr6p1BD7IuGCHdiWq+M45kVXIQbBToCN2s5EPEQudrZ38c5Bc2n1X2dnAy52SEYXrNYEh6PJEJmWrHQjHEuWiqnn5Rl/Rf6gbDxOwTNSeKgAuKb04Vpu2/jCnoUE2uxJCYw5IPVj1JYJPtkUoQ/sURNEUZRNDXGWnxle3W8+C8skeg0i83HFOQaMydWVeXMfZNjZF6Qdj9p4ebrS6D+VMDXnS84mjsM9j7THt5FtK2hIcoOK6FUIFknHxk0zH3mux2hhGGuLFEB71InUIcaQPMSMUSdZtvMQx2LDk6rErKs0rm0qR69YSJMG6woyYLGtpsmuwWauXPygLj6nfpmWUi4QkSFqS33QLDNPdMVOfevgbbsILkFQe0SbAjxGIjHXcwxL5H+NVd1GwyuzUiBGukn5g+lL4+zcxMdXDAl739wtLweTBCebXTQ9aChiPoyvhexfXfEEPxfmV/8VuFGAgFbNJN8b+Mm7kmmuahgjHa37HRUu3pw5TBNlP7WdpUu2Q/kmSuP+xDV97nJKr8aXb9il3N7PtqnilFpozALi/ovZIGTgAZtOlcTZ0/3blO9kz+38COmPd+IvltThL2/IJjw/+AAsIGgfJAeJDgBYbN/23VYQFoiqVrCdZUzktx3V9bM2XzawCWZyASvWcs84XBFWLSPyg2JVtWuhgxZVCAb34WTjKUKZNIAOkv+D3WB7NO4nw2r0uvnw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lxwMrihzSHngWoQ0kiSNMxJsdCDXwrt1AXLl9ePouc6fnMTx51RGHwmQ7IOU5aZsBrXw+NClqtCNGmbUCrbV9m5OfV8bKI/OXcTYOuxixTVIKbm5d3RKCN5YOfGUsS17J+Rd9H9mYiPUazjwsn7fiqtidcMFk84IbVNn+nGdNYd5ZWxMhxlv2sdTrsWwS+mWvBwI286QY1Gh8UqD88hb+p/dUUqCq40hNOQXm+EKoo007TBSdhSExPCPZXVXEIyVftmiFqAuTqBFm/MiZIXcI179Lzqkfm2MfAfbKUPUogClHvFKV8vVAZvVZZwEWZrVlXM//5CBKC3imycrfJNp4GjUCBFQnX9fTr8yAZhVLRai+WlyV4HArPn2upF1ZG9JIdwbu38PVlBU6EsEZ+cGVkwpjRyJURqAhK5mgi2UyWmOmMBNwIBbM2GugNndwyDr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 18:42:18.0701
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0904b550-6872-443c-f243-08df1e59638e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A893.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6132
 
-Applied to drm-misc-next
 
-On 9/25/26 05:48, George Karagounis wrote:
-> create_singlethread_workqueue() is deprecated. Replace it with
->
-> alloc_ordered_workqueue() to use the shared system workqueue
->
-> infrastructure more efficiently.
->
-> WQ_MEM_RECLAIM is added to ensure the mailbox can process
->
-> interrupts under memory pressure.
->
-> Signed-off-by: George Karagounis <mail@taterr.org>
+--=-ILpt8SK1pUoNPTw2qXEH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mardi 29 septembre 2026 =C3=A0 10:41 +0100, John Keeping a =C3=A9crit=C2=
+=A0:
+> On RK3288 where the RGA reports version zero [1], rotating a buffer
+> gives corrupt output where one edge will be truncated.  This is a result
+> of some adjustment done specifically for hardware revision zero.  But it
+> seems this is not necessary and there is no evidence for why this
+> adjustment should be applied on these hardware revisions.
+>=20
+> Comparing the TRMs between RK3288 with revision zero and RK3588 with
+> revision 3.2 there is evidence of new features supported by later
+> hardware, but nothing indicating any difference in behaviour for
+> rotation which is supported by all hardware revisions.
+>=20
+> The logic here looks wrong anyway, since it's bizarre that minor
+> revision zero would need the adjustment for _all_ major revisions.  This
+> was added with the initial version of the driver in commit f7e7b48e6d796
+> ("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
+> Git history to indicate why this special-case might be needed.
+>=20
+> [1] Comparing with the vendor code, it seems this is actually 1.3 with
+>     the hardware reporting zero more by coincidence than design since the
+>     version register is not defined for RK3288.
+>=20
+> Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
+
+Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
+Cc: stable@vger.kernel.org
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
->   drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> index cc8865f4e79c..05c3786de135 100644
-> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> @@ -481,7 +481,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
->   		return NULL;
->   
->   	INIT_WORK(&mb_chann->rx_work, mailbox_rx_worker);
-> -	mb_chann->work_q = create_singlethread_workqueue(MAILBOX_NAME);
-> +	mb_chann->work_q = alloc_ordered_workqueue(MAILBOX_NAME, WQ_MEM_RECLAIM);
->   	if (!mb_chann->work_q) {
->   		MB_ERR(mb_chann, "Create workqueue failed");
->   		goto free_chann;
+> base-commit: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
+>=20
+> v3:
+> - Rebase on media-committers/fixes and add base-commit to hopefully make
+>   CI happy (patch content is completely unchanged)
+> v2:
+> - Remove variable that is unused after this change
+> ---
+>  drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
+>  1 file changed, 8 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
+/platform/rockchip/rga/rga-hw.c
+> index be1bc8ddbd03b..2e7ec8b7c20f7 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx,=
+ dma_addr_t dma_addr)
+> =20
+>  static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+>  {
+> -	struct rockchip_rga *rga =3D ctx->rga;
+>  	u32 *dest =3D ctx->cmdbuf_virt;
+>  	unsigned int scale_dst_w, scale_dst_h;
+>  	unsigned int src_h, src_w, dst_h, dst_w;
+> @@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *c=
+tx)
+>  	 */
+>  	if (src_info.data.rot_mode =3D=3D RGA_SRC_ROT_MODE_90_DEGREE ||
+>  	    src_info.data.rot_mode =3D=3D RGA_SRC_ROT_MODE_270_DEGREE) {
+> -		if (rga->version.major =3D=3D 0 || rga->version.minor =3D=3D 0) {
+> -			if (dst_w =3D=3D src_h)
+> -				src_h -=3D 8;
+> -			if (abs(src_w - dst_h) < 16)
+> -				src_w -=3D 16;
+> -		}
+> -
+>  		scale_dst_h =3D dst_w;
+>  		scale_dst_w =3D dst_h;
+>  	} else {
+
+--=-ILpt8SK1pUoNPTw2qXEH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarwGnQAKCRDZQZRRKWBy
+9I5zAQDENsSWZWYp+AVmTDcFYwYqOZBs5vG6vPbEM8JLE0qmywD+L4sImLRB2DW8
+3eXQUNCT5EOVLkntXGgixskKFIem2ww=
+=3GCb
+-----END PGP SIGNATURE-----
+
+--=-ILpt8SK1pUoNPTw2qXEH--
