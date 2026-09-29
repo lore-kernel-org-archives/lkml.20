@@ -1,104 +1,149 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2069A3B2D06
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB653515DE;
+	Tue, 29 Sep 2026 09:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675746; cv=none; b=qBNPQku80+TKDQ4of3KnmGwm+AS9YRHTz1uy24OUQsBnQIfyY6Uh7/aKYJORXYFbdTzauzoXH0vtN2RDINW25brhotJ0snIl0lAI3oamun+Y1LuGPnO3CQOOCHVAalrajFuooZPCvNPvIaSpFuSqXbmN5x7eWyyFwh3rawOpoNo=
+	t=1790675779; cv=none; b=oNkGEOF7WKLJOx9KBNgHQy6nu8qNLjI3HFukQtCwe7y8O5waLlInme9a/QzlSNvzlEZa7ALdbqf6oDBMMIoC4EcVqGYnGuhAak0KFqszpr0nrGtEBWLBnqVrXfP4dSolJ7gd2863E/4f6yk9Nhs1UeL+OTn0y16fp2RepQYNAhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675746; c=relaxed/simple;
-	bh=07se/JviETlMYDRCO0tPeNRK6E3kx+s1WEeNG38MRU4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mg7W3YDQFf+waO/d+U+0m6og26Fp+ZEoJdk7lV6Dp3d3v1lcu395bfXxozzYOhsEmNU3e30BcnoPVu2ptqndiE89G9MaMGsOh/s6o5H2aIROSeDRT3S2TGTle0MX5+R2exHrdOTxE03jdz1eoi3ADmK7Phz89aUB9Np1ioHvWJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ouCN2Gqs; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790675779; c=relaxed/simple;
+	bh=wSllchzPwUiUjlJm3J24sZ6nYsz/dGw0ssPUjNCX4Tk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sIK40D10kGxc61tyDsUAQDQrNp9QMgdn3LwQnV6G5S65FbYQGlcWikdD4Pa/AR/JVi1D1hjfI/Z45g0NJwW17b6ENvQgjN9RQTOPrXlAS6yevj5Ws4Z6u0ERN+mHHIuzGAvOEAFOMiBWH5knzt6LmE97bQYrC0HVspp3jcSrwbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDLYn3Uw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ouCN2Gqs"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2afe9fa8e0so416589566b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790675743; x=1791280543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=07se/JviETlMYDRCO0tPeNRK6E3kx+s1WEeNG38MRU4=;
-        b=ouCN2GqsTA7bAtO/V/w8geFI9GhJJ8LPSpsPkiKmWpCVYPSn0lHisUJrocuRTN2Ky4
-         X+CD/k7qB7CZYVci82VyOomR8H9Xv5AESATOMuU0hq8x0HF28nBHPbnKFF7R2nzMFxUY
-         j7oy3+wgvxPeKxNjJcniLjLT64Y8qy7d6KeuAKPwr5OvWh47Wmr+NSTooRvL5hGF2VFG
-         qC7fuO6A2RnVZtX4/woJiOwF6wog3NRsPSA4cfCECDam6kPSFKux/LwIZMoKuqIbQoAI
-         BB80lT541nYHE6eQKvWprNB6V0z27ONvGtwMrqtRMAK5HTG8FharwBpkkYjcQUlbZ5l7
-         ZvbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790675743; x=1791280543;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=07se/JviETlMYDRCO0tPeNRK6E3kx+s1WEeNG38MRU4=;
-        b=D8eWYvqsYG5BvWOAArnkyp1HnHrHEN3wRis16hVrQWXH4VCsAr8IipQjfC249U1pgV
-         R8HxEKe//SYhex/XbxRhrUr7yL6xClbOzt9/mEoloH++7XuoOluRdNA2Bc6Y0GfW89tU
-         beQSqzlNLnNypoEQPZXio4gm44bxKPIU/TwRpmKGl3r2X6EIVqb0Vh/91OHtcLRhfWTY
-         96/YyYnnsXJUhCmwwdA/DaeQwb8covU3aB2n3IljOd9I/rbOz0OVnJP/p6OVxTiYD3OD
-         s7J6BlZfK0y40E7ruCwa1PXCRQ0TR2e2gJ5gAe5rvIF/u1iCGVn9uWlGacvUhOvhLjJC
-         orHg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNP0ouDXHGuVtjqrLxPYF+nJefSPemGRB1lCdDwfYkXn4sDq8BfuUQsaotM3Lty9dF8KYQVCl+PHRxWYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZ1mH6vpg6LbjLq7Vdrm4BSLDL6WrZvPeFttz2Js7pPND/XWXh
-	o8ZurhUQT91x5Y9aiiVMh5XIPs9x5/OzENfh8JmEWjV42wuaqAkDe2/D
-X-Gm-Gg: AYBFou3d0DoWjbpOBoMu79toRsnNoeGjOWtPLneFc1Jq5vDUnwB/OZiiHe8ziUJ0+gx
-	dKcoEOe0BjZ19k8M1c9oxYDawHVtypJ+Snn6fSpIvrxRocRzqNTC5gNK0MKvIuVildrnsXBpUGn
-	CZlSS6jro78kdomhQaY0FdbB+ZXTX01BLoLPIRowbqJ2EaHR6nVNPboQbsvYPLuSq1z/n4zzm4u
-	9FHaEOp4BE0qUymAC2mtk3nocOBRVZwXiVRRgd3irWz1AwdE8ZlRz+4Qe5EVf8LVy0Eo492w2ZQ
-	rICIYgREogmciIj0GdTRM4kl1lcwPOYjWwMfGSqMhDIoAqZDtr5dy2aE7qnkuhPACzDG3fRkbaH
-	mj9dQ8AEyxnsPn5FqlFLB7W4el3+HY3qdHTfI9OyHwtny3h8PjQP3NMASjVepvd3Mbc84sVyzD0
-	y0gRB2kZ5kqpN3nKV0YvVS2uhGu/YhmOzFRrbSePfHHTWPH6oxKjldCFKGq0vT9BZcQq+B6+1mZ
-	WQZC6MPSqlagyp0/rc2lHfcVSDnyiqVPOod0ZhEEYHqu9JjPA4=
-X-Received: by 2002:a17:907:1c89:b0:c29:65ef:b907 with SMTP id a640c23a62f3a-c2ac24bcbe6mr1252123466b.26.1790675743155;
-        Tue, 29 Sep 2026 02:55:43 -0700 (PDT)
-Received: from sp1der-OptiPlex-7080.epfl.ch (dhcp-122-dist-b-107.epfl.ch. [128.178.122.107])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dd1153f09sm323000566b.15.2026.09.29.02.55.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:55:41 -0700 (PDT)
-From: spidermana <xuyiwen14@gmail.com>
-To: miguel.ojeda.sandonis@gmail.com
-Cc: a.hindborg@kernel.org,
-	acourbot@nvidia.com,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	boqun@kernel.org,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	gary@garyguo.net,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	lossin@kernel.org,
-	mehmet.mkoseoglu@gmail.com,
-	ojeda@kernel.org,
-	rafael@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	tamird@kernel.org,
-	tmgross@umich.edu,
-	viresh.kumar@linaro.org,
-	work@onurozkan.dev,
-	xuyiwen14@gmail.com
-Subject: Re: [PATCH v3] rust: cpufreq: reject NULL from cpufreq_cpu_get()
-Date: Tue, 29 Sep 2026 11:55:39 +0200
-Message-ID: <20260929095539.1398671-1-xuyiwen14@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANiq72ki8M1KmxhO4vSkMUfLcuqOMvZtuTNdDpS-UcJy8rqWpA@mail.gmail.com>
-References: <CANiq72ki8M1KmxhO4vSkMUfLcuqOMvZtuTNdDpS-UcJy8rqWpA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDLYn3Uw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B129B1F000FF;
+	Tue, 29 Sep 2026 09:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790675777;
+	bh=8h8J0IOs4ABVh0RRJQWq2tQs9g6ThnkfheamgiiqUY4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PDLYn3Uwk8+LD47yZkI2u2eZQ7r/EjVT5S6AwaUZyFtUzuo9wXyFUftmpKv7PrkuP
+	 UMvbgw0SpJihprGyGDajRJi4+W2KyA+OpU+te8rRyHwify1eFIJeWuVGxRA6GMKeru
+	 2w07sD5+YI0fcW02DDbw9Gw+YgzNOiY+iGxVdrwLLR4BrkMfpMJBIRURy5iWaGGwtU
+	 qHCA4Gslb6sNC9dvObCEx7yqDSKIjcSq5xFVtUHbe35eaj61nuX7c2D0BIQbrFGD4f
+	 TIo7PxZo0gwblv2wil9LYFDQwiwOZwsIRU+xlP/NMfZCPUjY2i8xL/MbD/oJYqjVHM
+	 DMkOIfvUKnySQ==
+Message-ID: <550a74bc-f0b9-4141-9fc8-db175bb0b1ae@kernel.org>
+Date: Tue, 29 Sep 2026 11:56:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/4] Add Laguna/Tensor G5 SoC and Frankel, Blazer &
+ Mustang boards
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Peter Griffin <peter.griffin@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
+ Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>,
+ Brian Norris <briannorris@google.com>,
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com,
+ linux-serial@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Brian Norris <briannorris@chromium.org>
+References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
+ <179067486422.102650.10176830320558486814.b4-ty@b4>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <179067486422.102650.10176830320558486814.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026 19:17:08 +0200, Miguel Ojeda wrote:
-> The From: doesn't seem to match the email of the tag, is that intended?
+On 29/09/2026 11:41, Krzysztof Kozlowski wrote:
+> 
+> On Fri, 18 Sep 2026 19:05:01 +0000, Peter Griffin wrote:
+>> This series adds initial basic support for Laguna (Tensor G5 SoC)
+>> found in Frankel (Pixel 10), Blazer (Pixel 10 Pro) and Mustang (Pixel
+>> 10 Pro XL) phones.
+>>
+>> Whilst Tensor G1 to G4 SoCs (found in Pixel 6 to Pixel 9 and Pixel
+>> 10a) were offshoots from the Samsung Exynos family. Laguna is an
+>> entirely in-house Google designed SoC.
+>>
+>> [...]
+> 
+> Applied, thanks!
+> 
+> [1/4] dt-bindings: arm: google: Add dt bindings for frankel/blazer/mustang
+>       https://git.kernel.org/krzk/linux/c/ecf6405fa6c503c34eb4e7e905957d70d4018e93
+> [2/4] arm64: dts: google: Add dts directory for Google-designed silicon
+>       https://git.kernel.org/krzk/linux/c/cf3df78629f24b40cd0cb2da74e3ea4a944bed82
+> [3/4] arm64: dts: google: Add initial dts for frankel/blazer/mustang
+>       https://git.kernel.org/krzk/linux/c/54edd8698bb1fb40c339d0cb2f15baad6993dd48
+> [4/4] arm64: defconfig: enable Tensor G5 SoC family
+>       https://git.kernel.org/krzk/linux/c/63f674fe8a0a8d6e4bee3e72f7ae658f0e9a0686
+> 
 
-Oops, no, thanks for noticing! Please disregard the tag in my
-previous reply. the correct one is:
+This introduces new warnings:
 
-Reviewed-by: spidermana <xuyiwen14@gmail.com>
+/home/buildbot/kernel/build/arch/arm64/boot/dts/google/lga.dtsi:368.37-391.5:
+Warning (avoid_unnecessary_addr_size):
+/soc@0/interrupt-controller@5880000: unnecessary
+#address-cells/#size-cells without "ranges", "dma-ranges" or child "reg"
+or "ranges" property
+
+https://krzk.eu/#/builders/28/builds/845
+
+Probably you wanted address-cells=0?
+
+Best regards,
+Krzysztof
