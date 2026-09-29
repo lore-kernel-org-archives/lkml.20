@@ -1,87 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5973F9F4C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FE83F0767
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790656131; cv=none; b=ZVrgOHnAVKVwvkRAtkNFImvB2xkHiTsycUYgthmdCHFiSOY20nOo4IhBthktYkjXwmpzWNA3lUiyQLqQ1rCazDS7Ia4qZbBfCQiDDpdp3VgVY2zDDYcrrN5l5mK0d7QOBCR/XJuq51ZKoyhUOP6bBX0AC2UiS1IMlINZ2FhV9ro=
+	t=1790656136; cv=none; b=ohjzu5omnG3q09YWcCddLh/h3E2H1hRSKMgtF5oZbaqt8TP32MwKVe2cfFyccFrQnV/Lgs6/iXJOrDNcV3soHI+BnB/EGNXPir/qrXx5eR5PQ/0+uZRxUmOiJ4itX6IvICIAVtqrXKTtkW9jeGFCLrAfv9a/Yl2uZnLBzyTKBrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790656131; c=relaxed/simple;
-	bh=Y5WKvcrT3sY0cmegGW+rmXFiS2A8julPxpShHDKZOUQ=;
+	s=arc-20240116; t=1790656136; c=relaxed/simple;
+	bh=dlX5BtjgU30Mpwy53Vc7kqbKtziu5xsv1Bn+E6LPXDo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dsno3DhnZBg/BKokMMXfgM5wHDPzV/JVM+bWZu6BjmFaN1KjObx0iSQjogSnsZI8Ij4NH51ln/+s0XYuL2/I3KZajxzUZttKdlipW9zYjVInt1i+BlMZpzzp22lt+0kKehf0VpIfriFhmS9gtkYrSV2oltleHjDfhLBRfn133Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MbaXQNuK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V0Qp7NpD; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=lODDs7x1v0ay+iSsP8f9Ya2uVTDD/4mpfR9OoOp/X3OdCzIliUMBOASJmP3t9QjEw13c8RhjryCLvJwHP7z44xrJRMUYSGPar8oLRsUNo+mydMdv/Oq8WDaEKTZlPLTFjo+U8LmZKUyJFBviubnFYUynDceESAyE1hzejxw18hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V052ugJ4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XAIJmVYg; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MbaXQNuK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V0Qp7NpD"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47BlP419798
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V052ugJ4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XAIJmVYg"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T47Agb2126506
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+ENKG4ciOBR4DhpOu/7pksSLF2ffxLUwnpK+XxHaCBA=; b=MbaXQNuKniADOB6I
-	wvOXDw71XgLGu1eIVnAjx2cIibO+IzpwAsTmNpzoZ3QE3hl8AAA/3NVGmoPGy4Iu
-	IdgDySYNyMVYKsVoIsO3XGiTNTtPeEjz4cAju82qmRX3o6bJ+MHq38+rYbMsFskm
-	w3rG+dW1eN1DURSHH8RWaY+OUsHjKaikQd8Skrptzc/NhA+vq2HNSU6DzOXvsGlk
-	D6Jk3Z7o/GwMqaCTRKw7VCuS7RN2GgTb2Pt5qelVvAY12K3OokYi+1KlgvatrJes
-	eUjRiE9Xgs+uedZ51xCuyt5OVypCgvc/EVsGf5Vp4SnLDbaRe4c6hmG3ZEkfRcWZ
-	6PoZew==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyxmu9kh4-1
+	hOq7VIBslc55pX7juh2Nxe8h7Akt+B0A2pEl6naHBj8=; b=V052ugJ4zHcSbCLp
+	exXlAEviZdoyGPqnTUzfB7bUtuC1Cp97ryz6+6pqc3Pi6hI/00+tReypjDAtCtv7
+	F8PGp53oUvT8qrjCTaqNGi84g68zwcILEl+W6urYivlSlyNX1VKfLYMPwKD+0Xiy
+	Equ1WuFecjTUYp3cxywgj2XCiENPpMW5IviVxWxQvN4NHFXvSHFGtfzsnEtqAIAJ
+	y1vAaCFGponvKTk7UoLe1BCEGx6ORSBI4DJ/TuqY0b7ARxh0T1AUBxSdF4EL1fbs
+	ldv/dOuR1gehCNQLTwEeXG/EmhVJLRA2kHjUm2kR0bG9+C+WQJDchASM3yX/Lhh3
+	E4vhCQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mn8qut-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:49 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936708f129aso758357585a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:28:49 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 04:28:53 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91785bd637bso13083846d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 21:28:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790656129; x=1791260929; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790656133; x=1791260933; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+ENKG4ciOBR4DhpOu/7pksSLF2ffxLUwnpK+XxHaCBA=;
-        b=V0Qp7NpDdFj5GzXmKUNb0gAWixqFNBHnRX3Xp/4fmsOExlyO86L4ld7BtNjMCOwZlo
-         Beq6rQOQ1S7+K42c7UuIuWirkslMxMA0qObRF/rhzlE4MBHF7Fk7iZ8OdbVI5vAj9ns8
-         r8hX4cfkALO0wpKHX/tdca770kGWcjnO+1cGkSEPJYlqO9HHuTyYwBd/5GWamlYRNH0i
-         hQevgvjSrwFsCX0C68ZndCP/UvzbACCk5XLq5mwkPGZcG9JnAWB4sPkGsEbgOrguKrwJ
-         odCPGacWTrqB/fx2fYFBHo3449U2UVug6l7O9vB+LTC0l4XEh6bS7OkMIrjnLPOzq7gK
-         jG/g==
+        bh=hOq7VIBslc55pX7juh2Nxe8h7Akt+B0A2pEl6naHBj8=;
+        b=XAIJmVYg2w/tmSqPavOCSKCYFbbOqG+JWMuQwvoT7cdGWZG2/5X4+GD1mTaCfJ2j7f
+         qUm10rSXtRKYZNk1Wqntb7c4AGBeuzrgy5mW0atdfg8tzjTDcMF4J9Oq7cnwwnOuX2Q6
+         bdjrJTckAKh7g4EJDnLdsP4lSlJTI9tFQYu0+qNxqVy6Gz1PZagZIdtCtDZKsAVe1xK/
+         cOj9rLfo1TodCj7lN0hIFjVQCuCflsZNw/B9Sv1Fppw0VhokVQ2adajfJuwiePNAU8d7
+         DeWNTxlZdNOVVAorKrYgtBnqft8ybg64BpNvG4Vlro2sq5QPvZ7aQg3SKNjSAYHh7Bks
+         EBIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790656129; x=1791260929;
+        d=1e100.net; s=20260707; t=1790656133; x=1791260933;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+ENKG4ciOBR4DhpOu/7pksSLF2ffxLUwnpK+XxHaCBA=;
-        b=yii1ZEmJoriJvPV54zSOLhq7qCQnnmR74Ak36J9Uvn3wR1dXwIjqNhcMws0D/sJrw3
-         HJH9Hs+mkDMdpj8z3f+NnJ3fsM4j6OizGP9fDtp43huKs862Yh5LOTt5/VxPQbVuL42y
-         Otct4ZxZH+DQykWGvbiGD+LwwAb3+AuADmf22xdLC+bX0DYbp1bh6qAk9EgcfiiqZjyF
-         uDus5ztqoWPOKpci8/fQsaXvBxtsqQEItdAycZNfLd2Srz1rKU6p3ERRgb0wugiFqypG
-         h8M6FPp6zFEFz8AbWxm6ExXA+dEuKZph+1RWBD9H/e4dSjBbOZAX+sSjoYsMyrJlPkbf
-         Mmww==
-X-Forwarded-Encrypted: i=1; AKwUvBzVLiAEscGJMxiOWGlfNUC4GinTd/pk3nXNqtcxJPGq+7QhThsuCa02y2MHOUOUfcN9CzHUIOd6oy/1I68=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcvzfcjqSXTK8rakpULZtbCcPoHDdl91TirKiC9SFNmDizfM5E
-	Z4JC4ufs2TSbzEq2W0nUJgEzMPhg0mMG2CiISlPQDDcdVgFZTCJmIXqpjCt8ymB6ZXSA/lzdPpZ
-	M7e5HJvk7rgP3YF9IS2Lfj230uv2LNTlSCzNXWcxUo7zJI5t7QdMMqEXJl16j4ICobmE=
-X-Gm-Gg: AYBFou0+CuN/KyJXFXEgGQqGI4F9W9LP8tmWcaT7LtTeHb5Wnt5q7eTQtQCKFo2DwKM
-	M8Bw0+Yun36AvBoaC+MM8w5eP6lqcluVh8pPDnaRRY2xUL2SVyHcIVZG+Gcd1pk3Zv/ytX1SBBH
-	tj5xzuZQ+1CTWkwmb76tTTiWrhtwL97UijUNaCsf5XNWwTm/IlwnXm4SccT5Hjcp7UCvG0NbGGY
-	s42FV4OyYPVvWGskn0MvHmoZPzh93cg8dFzLDeNl/7CzPGbmWrcEIq/iz5Qes3xuMLABjIXb84t
-	L5juAKDVl24j/NSzYwAyET6sd9Slqok1G2C63qeHTJmeYTiBSmxKRJHylx1gXS661gp7u2kekXK
-	vAFRA0tz850tMIzlsN9Rqc28cTTBTf95qgUHWOD64Tf7sbz54ngVDvHD3OMlu9Yw=
-X-Received: by 2002:a05:6214:aca:b0:914:53ca:99e0 with SMTP id 6a1803df08f44-91453ca9a0emr151400996d6.11.1790656128588;
-        Mon, 28 Sep 2026 21:28:48 -0700 (PDT)
-X-Received: by 2002:a05:6214:aca:b0:914:53ca:99e0 with SMTP id 6a1803df08f44-91453ca9a0emr151400746d6.11.1790656128067;
-        Mon, 28 Sep 2026 21:28:48 -0700 (PDT)
+        bh=hOq7VIBslc55pX7juh2Nxe8h7Akt+B0A2pEl6naHBj8=;
+        b=lOHHX1O2RanqvSSU1gs7FvON9QPyJBNKLjIuQ3csddCy3G3HTjxuAPhYJye7rQ0a5v
+         qL5Zo8T8hzcc/PKvoOVeos7NjHbOq8o6Zrq7Ka5+CrHDROU3+kwyk4wYZtIGUoinxUQp
+         wMmEgvx8AyO/tbDhcOQxq89enGOv1q6YAjxR3M6kfrSlukfT7xGh4LjZc4pT10AoiGE0
+         ZDlqX8o/FYGscRXEq/vNfAoD99YWxiNjImLl7FtcGvny/Vliafh0N5rDG+T+IymNbo76
+         L05VgLh7GY3FSMhEwl8ttH8uwIz5alWpUqNNNa8BHKXcdkgG7Q/exHg3eFR9osZQ0ukw
+         L45A==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Q5q4iDQhfT/ozkSD0xMipS4V4bNHjri8cPvTXP2lsrJ94ZyU7r1QvfcGsCHm0cQUJrMmvc4jPWk7Z0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWYDAguZfHd0gOeBSRgInxfGEcHGXPvAj0R91G5tonMrgSnFog
+	ABCUrk8zwfdO/SbW/mOwEiaZBKYVhn/t/pTGESkN1tZVbF4T7NQ2TZ5jV7n7c/Uq361qV0dpBHK
+	W3bi+olft2j70Ougm4FhuIOZdq3XG4oGTsCfScY8NvdlL9SavzexemgQCF4szYtbA+8w=
+X-Gm-Gg: AYBFou0+57e8Pml3OqHFecgtXd+dxOUG90672HoLfGRjPVbHHPdzLayitWBNFREO4/s
+	/Yp6CpsLUEeZ2awFK9lwGCcD27k/IqhFYJDiZKyy6S1bZOUOsjuyURPYJy7EAIbEFyo5KqtHyAw
+	D2+fCpX3XA+WTfpx5drLUdlY9wuIiiy0+S2zJj9efFkV36yeURwL6MFIA0DKEkYfT+njEgXof10
+	GfmSFv5vkftst9GdOxkIp5Tq/kEiRYi1/V/UiYDXAh+JI0Ul2ODrJZHRRdruLPChgZwhLcVJirf
+	LHUVvS5rxKfEVLNZ5MfMkNj1EvJBvxMC8p0DNooFsJvyaPHSRcjk8FWRzOGrXpu/O7c+AnZ4J3q
+	j3HuC0xq5C16fy0umdgWT/R9VMz5YhYR59mk/bQXbQ7pQgj9kg5H1E43fBM/W+8c=
+X-Received: by 2002:ad4:5766:0:b0:916:57f9:6b6 with SMTP id 6a1803df08f44-91657f93836mr79982046d6.46.1790656133080;
+        Mon, 28 Sep 2026 21:28:53 -0700 (PDT)
+X-Received: by 2002:ad4:5766:0:b0:916:57f9:6b6 with SMTP id 6a1803df08f44-91657f93836mr79981786d6.46.1790656132652;
+        Mon, 28 Sep 2026 21:28:52 -0700 (PDT)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d34d4ccsm1717206d6.30.2026.09.28.21.28.43
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d34d4ccsm1717206d6.30.2026.09.28.21.28.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 21:28:47 -0700 (PDT)
+        Mon, 28 Sep 2026 21:28:52 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 12:25:54 +0800
-Subject: [PATCH v7 30/35] drm/msm/dp: enable MST on capable sinks
+Date: Tue, 29 Sep 2026 12:25:55 +0800
+Subject: [PATCH v7 31/35] drm/msm/dp: mark the SST bridge disconnected when
+ an MST-capable sink is present
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-msm-dp-mst-v7-30-4b81473185e7@oss.qualcomm.com>
+Message-Id: <20260929-msm-dp-mst-v7-31-4b81473185e7@oss.qualcomm.com>
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
 In-Reply-To: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -105,194 +106,75 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
         Abhinav Kumar <quic_abhinavk@quicinc.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790655983; l=5626;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790655983; l=1383;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=muilqxsIon54At01bJOHUzArib8qjlI/9ldYi+c8yck=;
- b=uBsFGayk7ULb5FBxF1nJhbNrgsid+4gzwtzpx4+ROUpDq6R3a7Y/oZA0xnGtIhhq9zXNu1Wf1
- SDKjnlhaXZ3A1xlUdjHeY3hjk4KazDa+vGOtMH46tDUi58/CZb9qc64
+ bh=Q0M9eu0gJ8kozUV6W/p0p4f4GrBEI4mkkt4w23E91HU=;
+ b=rvmfUrXoCdDbySP7zij2KQN5vq44q01KMRK9e9P5BIlKVibYvveFS4CBnqdfrCJVQzhl1vJhY
+ /lVN0vF1HkRAbTd1wpuGzKQ46jUv197v2BH3LTo66D3YbABQT/OO5gn
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfXzEFQALIAqKV4
- Sav3+3NfSxRN51hClTk2DvOtpR0otUGkbupIauwKX7crMfh4fIpjrT2tQxnhjJbZG7oC9w8J65m
- p0RMMNb98QsoBZKjcFa6+KMCTijoQKVQPEdEAnYsIJ3Ez85bwt4VfM9IU0JCirLtsE/En3pDAWf
- d3nmgUs+HjyROniEx2rPpKMaJuSLRslm5tOFnuHG4EfMRmTB2R/UBRMxUC5fHT+k3U3BB8cASZf
- XeTmwbcmS1vmIo0rcubD3xQrxyLlRF+q3kYnvXsRCdcZt3+XZHxmtCjNbFzrZ1jOZyG+NwtUvZm
- mvX4R+737qahtZsdtrSA2QbDfswvttzDDg33r4PF6odca5V6v0JFZT3CpfwKm+ymYih3QEZsTT+
- fICj+IeT9LhovyythWmXxxkinlq4qohNPxQSwoqeDEvOFxkdjUnaoIdvrVJ2VezM56LnxV+Ksc/
- S8EuiinuZ8tpVeVM8/Q==
-X-Proofpoint-GUID: XL9Pja2DzTsFb_mSPxfzjLeqfpn5UWoy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfXwvUUgRUIRyS7
- xuylqOl+Gh1/lMPPBuY35EelssIwe7TxlKQ9kkMF+FBMeip1w+NIj8UW1KMwQ6rl/VQWXTKwywx
- jn4Q5NiLUyWg+TRIZ1fzWLdyYjiYv40=
-X-Proofpoint-ORIG-GUID: XL9Pja2DzTsFb_mSPxfzjLeqfpn5UWoy
-X-Authority-Analysis: v=2.4 cv=c70+0h9l c=1 sm=1 tr=0 ts=6abb3e81 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb3e85 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=-w6CXN-5EBmt9i3D_LUA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=E_DJWZ853T03DlUWG8wA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: OQLCMQ4l-hfjIiL_wUQGYl-PCWWoHJi_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfX1qFHkk/TRhE5
+ rxxnUVHjwXM1b1ekMv3I4vrAfkrEgxmJcOyEveLJVbOxEEwYOluNm2010iJt6wmhIL8T65KW28V
+ kWH+bGGBYFgHa/yavHVlrg94FIZhrdQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxNyBTYWx0ZWRfX4oTwReAGsWKH
+ CtyFV24qOSgn7oz5uNYl3yIH5zO8BCq+V5/ngwbG7cvPDMPNGeHFNwBp5z9e1iIKyMgr1GBZgb1
+ rKSRYHTftU7h3QOaCiq7roH+Fbd8knhAGXZGY38MWCqnpHTfVYFxsWxvumlrgkXVgSvOnFb/QFU
+ LDyGEI8UuYKSTBOqey7gkGa+cMQJi/dWymNQKY6o5lrlB790wD+zCOUj9MgnH//Qdx/ScJBGg95
+ QHeIoAYHwMe4d2LTRocIP7/bxdeFRsX+plrU1fTzjomOYR70gMpUK8OR434TuLIU5czh78L/ZQO
+ I+IuRyy/8Eoi+BmpUpsFWBNC4XDJFWzpfzU9GsPKdQr6yV7X/ASLZ/EWbJhf+TxDaRE6QEjyWw9
+ uHf+v5fVKhnWuMgvziDDnIRwBM1e1/AA6Ms4ALeZFwg9XlHKa/Drz30cgd2mb0wc9TD7NCV89Vx
+ 7yUVM+Hyg/1t3ysTyTA==
+X-Proofpoint-ORIG-GUID: OQLCMQ4l-hfjIiL_wUQGYl-PCWWoHJi_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290017
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-MST topology discovery requires the sink to operate in MST mode.
-Enable MST on sinks that advertise MST capability and are connected
-to a multi-stream capable DP controller.
+When a DP cable is already attached at boot, msm_dp_bridge_detect()
+runs from the connector notify path before MST has been activated on
+the sink. The DPCD capability read at that point already indicates
+that the sink supports MST.
 
-Once MST is enabled, downstream sink discovery and EDID retrieval are
-handled through the MST topology rather than the primary DP connector.
-Activate the MST topology manager on connect and disable it on
-disconnect to track the sink topology lifecycle.
+Return connector_status_disconnected from the SST bridge whenever the
+controller supports multi-stream (stream_cnt > 1) and the sink reports
+MST capability, so that connector detection is handled by MST
+connectors instead of the SST bridge.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 52 ++++++++++++++++++++++++++++++++-----
- drivers/gpu/drm/msm/dp/dp_mst_drm.c | 15 +++++++++++
- drivers/gpu/drm/msm/dp/dp_mst_drm.h |  1 +
- 3 files changed, 61 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 21dadc2e6cdc..e913ed91bbfd 100644
+index e913ed91bbfd..0e8181932c27 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -14,6 +14,7 @@
- #include <linux/string_choices.h>
- #include <drm/display/drm_dp_aux_bus.h>
- #include <drm/display/drm_hdmi_audio_helper.h>
-+#include <drm/display/drm_dp_mst_helper.h>
- #include <drm/drm_edid.h>
- 
- #include "msm_drv.h"
-@@ -269,10 +270,34 @@ static int msm_dp_display_lttpr_init(struct msm_dp_display_private *dp, u8 *dpcd
- 	return lttpr_count;
- }
- 
-+static void msm_dp_display_mst_enable(struct msm_dp_display_private *dp)
-+{
-+	struct msm_dp *msm_dp = &dp->msm_dp_display;
-+	int ret;
-+
-+	/* Clear any pre-existing MST state before enabling MST. */
-+	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL, 0);
-+	if (ret < 0) {
-+		DRM_ERROR("failed to clear DP_MSTM_CTRL, ret=%d\n", ret);
-+		return;
-+	}
-+
-+	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL,
-+				     DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
-+	if (ret < 0) {
-+		DRM_ERROR("sink MST enablement failed\n");
-+		return;
-+	}
-+
-+	msm_dp->mst_active = true;
-+	msm_dp_mst_display_set_mgr_state(msm_dp, true);
-+}
-+
- static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- {
- 	struct drm_connector *connector = dp->msm_dp_display.connector;
- 	const struct drm_display_info *info = &connector->display_info;
-+	enum drm_dp_mst_mode mst_mode = DRM_DP_SST;
- 	int rc = 0;
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 	const struct drm_edid *drm_edid = NULL;
-@@ -287,14 +312,19 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- 	if (rc)
- 		goto end;
- 
--	drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
--	drm_edid_connector_update(connector, drm_edid);
-+	if (msm_dp_ctrl_get_stream_cnt(dp->ctrl) > 1)
-+		mst_mode = drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd);
-+
-+	if (mst_mode != DRM_DP_MST) {
-+		drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
-+		drm_edid_connector_update(connector, drm_edid);
- 
--	if (!drm_edid) {
--		DRM_ERROR("panel edid read failed\n");
--		/* check edid read fail is due to unplug */
--		if (!msm_dp_aux_is_link_connected(dp->aux))
--			return -ETIMEDOUT;
-+		if (!drm_edid) {
-+			DRM_ERROR("panel edid read failed\n");
-+			/* check edid read fail is due to unplug */
-+			if (!msm_dp_aux_is_link_connected(dp->aux))
-+				return -ETIMEDOUT;
-+		}
+@@ -1057,6 +1057,11 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 			status = connector_status_disconnected;
  	}
  
- 	msm_dp_link_process_request(dp->link);
-@@ -316,6 +346,9 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
- 	 */
- 	msm_dp_link_psm_config(dp->link, &dp->link->link_caps, false);
- 
-+	if (mst_mode == DRM_DP_MST)
-+		msm_dp_display_mst_enable(dp);
++	/* Mark SST connector as disconnected in DP boot-up case */
++	if (msm_dp_ctrl_get_stream_cnt(priv->ctrl) > 1 &&
++	    drm_dp_read_mst_cap(priv->aux, dpcd) == DRM_DP_MST)
++		status = connector_status_disconnected;
 +
- 	msm_dp_link_reset_phy_params_vx_px(dp->link);
- 
  end:
-@@ -499,6 +532,11 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
- 						 dp->panel->dpcd,
- 						 dp->panel->downstream_ports);
- 
-+	if (dp->msm_dp_display.mst_active) {
-+		msm_dp_mst_display_set_mgr_state(&dp->msm_dp_display, false);
-+		dp->msm_dp_display.mst_active = false;
-+	}
-+
- 	/* signal the disconnect event early to ensure proper teardown */
- 	msm_dp_display_handle_plugged_change(&dp->msm_dp_display, false);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-index 4c0ad3dc5793..35193cf45a6f 100644
---- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-@@ -361,6 +361,21 @@ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
- 	return 0;
- }
- 
-+int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state)
-+{
-+	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
-+	int rc;
-+
-+	rc = drm_dp_mst_topology_mgr_set_mst(&mst->mst_mgr, state);
-+	if (rc < 0) {
-+		drm_err(dp_display->drm_dev,
-+			"[MST] failed to set topology mgr state to %d rc:%d\n", state, rc);
-+	}
-+
-+	drm_dbg_kms(dp_display->drm_dev, "[MST] set_mgr_state state:%d\n", state);
-+	return rc;
-+}
-+
- void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display)
- {
- 	int rc;
-diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-index 3bd3e66b4eac..84de7ca0c689 100644
---- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-@@ -12,6 +12,7 @@ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, struct msm_dp_link *link,
- void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display);
- int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
- 			      struct drm_encoder *encoder);
-+int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state);
- void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
- 
- #endif /* _DP_MST_DRM_H_ */
+ 	/*
+ 	 * If we detected the DPRX, leave the controller on so that it doesn't
 
 -- 
 2.43.0
