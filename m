@@ -1,63 +1,63 @@
 Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2C452CCCE
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BD052CCF3
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689550; cv=none; b=Ucrm3rMmB3X1SX0bvXVTRWd6+FIOFnuQE2KJ0zm4sevxhpAWnXNQpw41092bHIjgfyUwLqRnInFJlrwUKR/fGNeZ1BA95HNl/BNtx0sxftU6hOmNq1Yd+7xt9oTdXzfHjI7QxQdiq7NQd1k2/5jh4hHQyg9T3NPhj3rJYpK1xZ4=
+	t=1790689556; cv=none; b=UGaB/cYiXol9V0gqnyEV4pWkY0zQhJ3hoY4Gi1Y4f+DoUVZJWrehDOyKxlq7gpNLpwbd/kr/w7VdvZiKTB7wdheJsVPPCMN/kGfvvV6zSVRdSLsokiaN3XRBT+9YnuBVsyTlJv1rkmCIY0ucXbmiTPEHEH1+XGaCdkGnrLJ8a/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689550; c=relaxed/simple;
-	bh=bpchTysybU56LQWL9AKqRH5XzeEHLu8YCRZSZ1N51f4=;
+	s=arc-20240116; t=1790689556; c=relaxed/simple;
+	bh=CkPHq3FUuYucrdqsssRbgtC5+6P2aMT9rT65cSJsoN0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l46KaX7Kbv+ioJ7tNNfug94OtZwkLgaPD5U1tHR+iPgxwZiIOKI+CD0op8IVlVY6HbYDbf9alqxgLd8bRewffCk2xShCQQENnCSyiiWwO62F+0MO3HbV7QaoSPLxCD81CzTj9nGQBZybqEZY7DqviMHAXHIMTPYTjUZuvn7Kf0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JIQfx3A9; arc=none smtp.client-ip=74.125.228.40
+	 MIME-Version; b=mFNk2x2/l4Bt/wQPQ8f/UVnz3NtKEHubBZFXQyAjK5NkYWbMsUO1Q0i89I7gm1VUoL1sxTI5NT0f9pDsgH2yZEM+mBbsYH9BTQjt3zojNKtJcQK3U32U14fc+6vZLq3SwTHrkfUfNUUNn10VDUyL42nuy24gLWq80Dnc9kwtm+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rlP907yo; arc=none smtp.client-ip=74.125.228.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JIQfx3A9"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso1668090b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:45:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rlP907yo"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso1668197b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:45:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790689548; x=1791294348; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790689555; x=1791294355; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o6cB0hhLRXzjQq/s96YCADj9vckGIlHHoNzX0TUnO+s=;
-        b=JIQfx3A9H1/xcS9NFxwNh9h1i4qqe9BgN7TkI5tftRc7vzls5ujWVQAtfFH17g3jAo
-         QZG9xnEoFNGUdYFEFkD2uYi16mIDLYTe04UBUrm/X70d8AXpDfVhv9i1aeuaHBdvf6pE
-         38WzI81ej+zZpehI/gD87Re5F68NJ2zKBeN8XcnKgPv1xmQPaazh6oSL+RZI9RBdn5iQ
-         axhfoQ5Ng1W7oJEkl7rxYs1UhH4j8LQK+gpxUlrpoRfB/t+edKypOOzIIn0hLSMtT3ko
-         wym0Oitqk8CG71gM+/x3+9OihL8M7Rkr1wwS5/+lFHp0AqCRH8zWkEF+8CAJVJy6ziNJ
-         CJVg==
+        bh=RLH5W/87FZdmLURDb7OK4+4f+lis6lqDHMP46iSlwM0=;
+        b=rlP907yo+SUMvDkAEscuWKL0L6OoK8g17QEyA/Qh2CSZ5MczfpiPzd9S6HMVQTNWbV
+         gVQ7P1w72my8H0vAQ6xyRgTmukminm3f4QcUAkxcYp5w857l/5kP1pcGqXvu79273WhQ
+         7k4rmfe38k6slzY0qE1kM2NvXluzOyu0uwh8FcbJgBnx/wvvPNTPJJ2tARIZu+L7yNUe
+         QiFbhUCSii4BEyD2ys1rWitVlLrJZx75R8Iyyywo1HdVPdTifNUp1x4NECrWcAhaQi9b
+         dD+AJwOIr2bawrYngSLlaw5KadwItgsWqVGUW9WEf32sHclUPR4NanOjoIGbyf5YYQWZ
+         FI5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790689548; x=1791294348;
+        d=1e100.net; s=20260707; t=1790689555; x=1791294355;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o6cB0hhLRXzjQq/s96YCADj9vckGIlHHoNzX0TUnO+s=;
-        b=i4VmBIOP9yWtVqJ3kdkecDBydqOZFnqyjNeppQXtHT6KZ8rZvaixbqgnFChuPLSEHp
-         WnJtPy++o1lPgoiUNTJvy9SvXXtV6I2zUhN/bXU3ayXGCq96qx88tHB52Cvke7ekliH7
-         RXDDWchEP4aQ090YTF3/GE2NKGP+UWI6EIHgOwMObbxS1Kxd47f7inNuBr5ebZV0UTJY
-         82EeYD6uACpSFvMRPXizBo8yvriAcUm5w6V4+NzYxoCR+OO9M9Q3Qt8pKpK7qV5Y6bKk
-         ciuX73ZV4j9J6CppSvLY2gygOrj0CWVj5ckFcGMBCnSSAclf67fJQAdjdP/5ifPGvNZ6
-         BwgA==
-X-Forwarded-Encrypted: i=1; AKwUvBzi0IqEjXk97IwXaRqdEY0M9d8CAKF85wzyJKi28XmVZ0azOi4v9d4OV7W/15w4CSrW0rMuRTKYxTQYKN8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+05MMpxp703AX2PjHVuhIM2CSffY4wfVCdaUWe5p4e37ggTGR
-	1alSL4m3UkGxsytqUB3YOa7zM9vb+mjJ2PtuPeWKn6VXFYucnfKdrF0C
-X-Gm-Gg: AYBFou23YztPuy/az+Pq7rSKMT0ty85Aa7udkPCjNN0pkEJwunfuRSG4xcyk0/PJ5xD
-	+qusHz/T5ZXJ1aYMYFG4QZKd2QTzZMkI+/gzRfxpnOkQYSYmhAN3EUJz0ua+FDi8dPyg376wsem
-	tF3OFo028Zt4620RQRAeBh0/tbB/sRTFc1ZjYC8oHTqeG4/6GkJ2oANc2UsmUELEOwQhMFRlpJp
-	xjp8GvL0MXhC14hqjYNYP5VaaKHq6MEo2XArtfu2o1JRon6fhAT1ppw+FsQi3J70ePB4+gPLdzF
-	s/B8VNpBfdoUviS6B5UHXRbPAHoKj3960NxGXkyu1aq7X8Ue1a0mW2Kva3d2d9Xf7kP6nJYe7n1
-	xGfLINUx5zXE3vpUS4YFrVwcN7zCyTqRu6WyfUQseXHkRlF6Lcjuh45swolp/sLY9uFbMWGjb9d
-	+2aJxi4jnQiwVds3rG1OURZBBH4pyStBnvmL3/gqv7erBNybLKva3l
-X-Received: by 2002:a05:6a00:298a:b0:882:a8cd:c2f6 with SMTP id d2e1a72fcca58-882a8cdc785mr5333870b3a.50.1790689547780;
-        Tue, 29 Sep 2026 06:45:47 -0700 (PDT)
+        bh=RLH5W/87FZdmLURDb7OK4+4f+lis6lqDHMP46iSlwM0=;
+        b=i9QHW8HOo1Uzk8S0QkuRQNXkOaPQVj3z0SOAhmNqy5oWP0+c0r6RUirPHMVuHYoPoK
+         RKx/RKp6ZpiC/2BQVvvWBgf0/gkSMC+KC2PtBFVMN7skOjy/aTSodoJ7az66nfXfmTio
+         jz26o5OBY8lM7UYNIJhZZGMYCPdyM9hffAQkfwk25TSUwD+VoSPpynDpbh0Sw353AAnX
+         7yWeVsXEvtctWBPwlSE71Rd6clqFVQOsKvEB2z4uecEJHWczdljeCnFRf7QDIb0bdQ4a
+         5YdtqPOFQ6xiNESpW0KDzgszqVlPQ6l7gg7sjgi3nI25uGgwxjbg2E/PLHNBrdBul+2B
+         Ev+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxtmxiCPhPhZDe3N5UWDc4b+WB7SNzRIMMe5n8aFy3nfxpt7JALKm2aLnXPquB+2WE5QWTfIW4M56zL1tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYDfk7IOKuZkIXSasGbg7+s+IW7mM222e9YxQLsIN1Jb2SAfqH
+	00xsX5GMUUUcv47ItLKx/UAWXjvJBlM8tQRv9XwGviecHkjGX3EZhf3P
+X-Gm-Gg: AYBFou3CFw9mOFehwGtj1sJ2ml8M5+l6xVXr45do7+DzjGiPreY5tuoeEpi7XAuRhMh
+	BY1I6GANAYjlWSNAKJi5hW39gdSzycJ62ZY0HZITsbPUu4v2Q79hNmeDWoVGCuAsYIvPKIiEph3
+	VFxVSWSzEgHE/KSjRrf14Pj1uuMz7OYE+kRNfoSTJ3BMd5H1LhbSd37wRTBEZ/oQ9Yr0iLC/QtD
+	0dMFVcBK0wqM6GyB8bbCpBq1URXoGeGL5j3Y8ksfyFgpxaW73/Ex2Q/Xzg+brNy5k+qBxpDlQKj
+	unJWLpET+dtQaFPoOnuynxLW/as7iXbUqalC+sBkfHGDQHxvMALvTSnHSsFU1Jo2Z4E3UBjr5aO
+	a5F19s8EaaK1rZp+wwIS9aRi6Bo1zYA7nYrc16/0EjoOsls0U0N6VDDQRWWPSgPYO7DphKXS8ri
+	bquVEJCqDVNJzZ98g60C1o4PFhWISk26SYWCiryqIExfSoxDKrjyQK
+X-Received: by 2002:aa7:88c2:0:b0:86b:43f6:67c4 with SMTP id d2e1a72fcca58-87e9869458amr12988815b3a.1.1790689554401;
+        Tue, 29 Sep 2026 06:45:54 -0700 (PDT)
 Received: from qby-nixos-laptop ([2a13:edc0:18:16f::a])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885defd736csm919555b3a.8.2026.09.29.06.45.41
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-885defd736csm919555b3a.8.2026.09.29.06.45.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:45:47 -0700 (PDT)
+        Tue, 29 Sep 2026 06:45:53 -0700 (PDT)
 From: Mingyou Chen <qby140326@gmail.com>
 To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Hans de Goede <hansg@kernel.org>
@@ -76,9 +76,9 @@ Cc: KentoNion <kento@kekto.ru>,
 	Bozhen Peng <bozhenpeng93@gmail.com>,
 	Mingyou Chen <qby140326@gmail.com>,
 	Nika Krasnova <nika@nikableh.moe>
-Subject: [PATCH v6 2/5] platform/x86: bitland-mifs-wmi: Merge the function of redmi-wmi into the bitland driver
-Date: Tue, 29 Sep 2026 13:45:00 +0000
-Message-ID: <20260929134503.17249-3-qby140326@gmail.com>
+Subject: [PATCH v6 3/5] platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
+Date: Tue, 29 Sep 2026 13:45:01 +0000
+Message-ID: <20260929134503.17249-4-qby140326@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929134503.17249-1-qby140326@gmail.com>
 References: <20260929134503.17249-1-qby140326@gmail.com>
@@ -90,221 +90,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The bitland-mifs-wmi and legacy redmi-wmi drivers both attempt to bind
-to the same WMI GUID (46C93E13-EE9B-4262-8488-563BCA757FEF). This
-overlap causes a device registration conflict, preventing one of the
-drivers from loading properly depending on the module initialization
-order.
+Add the missing Redmibook mic-mute hotkey definitions to the shared
+sparse keymap table:
+- 0x00002101 (Fn-lock disabled state)
+- 0x00012101 (Fn-lock enabled state)
 
-Merge the event handling logic from redmi-wmi into bitland-mifs-wmi. By
-handling both device layouts within a single driver, we eliminate the
-GUID ownership conflict.
-
-Tested-by: Nika Krasnova <nika@nikableh.moe>
+Reported-by: Nika Krasnova <nika@nikableh.moe>
+Link:
+https://lore.kernel.org/platform-driver-x86/20260531123345.237521-1-nika@nikableh.moe/
 Signed-off-by: Mingyou Chen <qby140326@gmail.com>
 ---
- drivers/platform/x86/bitland-mifs-wmi.c | 139 ++++++++++++++++--------
- 1 file changed, 96 insertions(+), 43 deletions(-)
+ drivers/platform/x86/bitland-mifs-wmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index dd1648b7de77..e1a81e89856e 100644
+index e1a81e89856e..df317aa6f555 100644
 --- a/drivers/platform/x86/bitland-mifs-wmi.c
 +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -35,6 +35,11 @@
- #include <linux/units.h>
- #include <linux/wmi.h>
+@@ -634,6 +634,10 @@ static const struct key_entry bitland_mifs_wmi_keymap[] = {
+ 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), { KEY_SWITCHVIDEOMODE } },
+ 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
  
-+#define BI_HOTKEY_CODE(id, low, high) \
-+	(((u32)(high) << 24) | ((u32)(low) << 16) | ((u32)(id) << 8) | WMI_EVENT_TYPE_HOTKEY)
++	/* Mic-mute key */
++	{ KE_KEY,    BI_HOTKEY_CODE(0x21, 0, 0), { KEY_MICMUTE } },
++	{ KE_KEY,    BI_HOTKEY_CODE(0x21, 1, 0), { KEY_MICMUTE } },
 +
-+#define AI_KEY_VALUE_MASK    BIT(8)
-+
- #define DRV_NAME		"bitland-mifs-wmi"
- #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
- #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
-@@ -607,18 +612,59 @@ static const struct attribute *const laptop_attrs[] = {
- ATTRIBUTE_GROUPS(laptop);
+ 	/* AI button has code for each position */
+ 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
  
- static const struct key_entry bitland_mifs_wmi_keymap[] = {
--	{ KE_KEY, WMI_EVENT_OPEN_APP, { KEY_PROG1 } },
--	{ KE_KEY, WMI_EVENT_CALCULATOR_START, { KEY_CALC } },
--	{ KE_KEY, WMI_EVENT_BROWSER_START, { KEY_WWW } },
--	{ KE_IGNORE, WMI_EVENT_FN_J, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_F, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_0, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_1, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_2, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_3, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_4, { KEY_RESERVED } },
--	{ KE_IGNORE, WMI_EVENT_FN_5, { KEY_RESERVED } },
--	{ KE_END, 0 }
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_OPEN_APP, 1, 0), { KEY_PROG1 } },
-+
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_CALCULATOR_START, 1, 0), { KEY_CALC } },
-+
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_BROWSER_START, 1, 0), { KEY_WWW } },
-+
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_J, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_4, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 0, 0), {} },
-+
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_2, 0, 0), { KEY_SELECTIVE_SCREENSHOT } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_3, 0, 0), { KEY_ALL_APPLICATIONS } },
-+	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 0, 0), { KEY_CONFIG } },
-+	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 1, 0), { KEY_CONFIG } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), { KEY_SWITCHVIDEOMODE } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
-+
-+	/* AI button has code for each position */
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
-+
-+	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
-+
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0x80), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 5, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x0a, 0), {} },
-+
-+	/* Xiaomi G Command Center */
-+	{ KE_KEY, BI_HOTKEY_CODE(0x0a, 1, 0), { KEY_VENDOR } },
-+
-+	/* OEM preset power mode */
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 1, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 2, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 3, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x16, 4, 0), {} },
-+
-+	/* Fn Lock state */
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 0, 0), {} },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_FNLOCK_STATE, 1, 0), {} },
-+
-+	/* Fn+`/1/2/3/4 */
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_F, 1, 0), { KEY_F13 } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_0, 1, 0), { KEY_F14 } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_1, 1, 0), { KEY_F15 } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_2, 1, 0), { KEY_F16 } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_3, 1, 0), { KEY_F17 } },
-+
-+	{ KE_END }
- };
- 
- static void bitland_notifier_unregister(void *data)
-@@ -736,12 +782,35 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- 				       &drv_data->notifier);
- }
- 
-+static void bitland_mifs_wmi_report_key(struct wmi_device *wdev, u32 payload)
-+{
-+	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
-+	struct key_entry *entry;
-+	bool autorelease = true;
-+	int value = 1;
-+
-+	entry = sparse_keymap_entry_from_scancode(data->input_dev, payload);
-+	if (!entry) {
-+		dev_dbg(&wdev->dev, "Unknown WMI hotkey with payload 0x%08x\n", payload);
-+		return;
-+	}
-+
-+	/* AI key quirk */
-+	if (entry->keycode == KEY_ASSISTANT) {
-+		value = !(payload & AI_KEY_VALUE_MASK);
-+		autorelease = false;
-+	}
-+
-+	guard(mutex)(&data->lock);
-+	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease);
-+}
-+
- static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
- 				    const struct wmi_buffer *buffer)
- {
--	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
- 	const struct bitland_mifs_event *event = buffer->data;
- 	struct bitland_fan_notify_data fan_data;
-+	u32 payload;
- 	u8 brightness;
- 
- 	/* Validate event type */
-@@ -758,24 +827,13 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
- 		blocking_notifier_call_chain(&bitland_notifier_list,
- 					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
- 					     &brightness);
--		break;
-+		return;
- 
- 	case WMI_EVENT_PERFORMANCE_PLAN:
- 		blocking_notifier_call_chain(&bitland_notifier_list,
- 					     BITLAND_NOTIFY_PLATFORM_PROFILE,
- 					     NULL);
--		break;
--
--	case WMI_EVENT_OPEN_APP:
--	case WMI_EVENT_CALCULATOR_START:
--	case WMI_EVENT_BROWSER_START: {
--		guard(mutex)(&data->lock);
--		if (!sparse_keymap_report_event(data->input_dev,
--						event->event_id, 1, true))
--			dev_warn(&wdev->dev, "Unknown key pressed: 0x%02x\n",
--				 event->event_id);
--		break;
--	}
-+		return;
- 
- 	/*
- 	 * The device has 3 fans (CPU, GPU, SYS),
-@@ -783,6 +841,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
- 	 */
- 	case WMI_EVENT_CPU_FAN_SPEED:
- 	case WMI_EVENT_GPU_FAN_SPEED:
-+		/* Redmi refresh rate toggle quirk */
-+		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED &&
-+		    event->value_low == 0 && event->value_high == 0) {
-+			payload = BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0);
-+			bitland_mifs_wmi_report_key(wdev, payload);
-+			return;
-+		}
-+
- 		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED)
- 			fan_data.channel = 0;
- 		else
-@@ -793,27 +859,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
- 		blocking_notifier_call_chain(&bitland_notifier_list,
- 					     BITLAND_NOTIFY_HWMON,
- 					     &fan_data);
--		break;
--
--	case WMI_EVENT_AIRPLANE_MODE:
--	case WMI_EVENT_TOUCHPAD_STATE:
--	case WMI_EVENT_FNLOCK_STATE:
--	case WMI_EVENT_KBD_MODE:
--	case WMI_EVENT_CAPSLOCK_STATE:
--	case WMI_EVENT_NUMLOCK_STATE:
--	case WMI_EVENT_SCROLLLOCK_STATE:
--	case WMI_EVENT_REFRESH_RATE:
--	case WMI_EVENT_WIN_KEY_LOCK:
--		/* These events are informational or handled by firmware */
--		dev_dbg(&wdev->dev, "State change event: id=%d value=%d\n",
--			event->event_id, event->value_low);
--		break;
-+		return;
- 
- 	default:
--		dev_dbg(&wdev->dev, "Unknown event: id=0x%02x value=0x%02x\n",
--			event->event_id, event->value_low);
- 		break;
- 	}
-+
-+	payload = get_unaligned_le32(buffer->data);
-+	bitland_mifs_wmi_report_key(wdev, payload);
- }
- 
- static const struct wmi_device_id bitland_mifs_wmi_id_table[] = {
 -- 
 2.55.0
 
