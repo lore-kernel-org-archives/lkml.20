@@ -1,87 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB0B4DAF8F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B7151A754
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686351; cv=none; b=qckQSLSZbIYCAtBxBafFODYdKmiv9g9nrTbsfT2eLLo3/i7ItQCMoo2BBH3p2HtleOVHeAEmZIw8OoO5PAkdPvuug92AybI94cyF/zBBuKTksKZiOI1OPI+CSFb9mMcrUuzLYbvx3agWwd0dF4FAisJEMndXa21kwz4o7oBf9B8=
+	t=1790686377; cv=none; b=UnHqa5/7m9oy0jx1m8tH8tYsCRO+E69UkFvj3uLRdtWhK9HU19tqkdH69s/N6w+55TAgDnXvAyaImpFgUEgWEHjoaWnFQCDYh8QUk3pN6+C25RCZpW27m23IjmdWeMJixma4gq+rftAMKeWP9N8DlGclq7VxJbuOdimDsP9lZJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686351; c=relaxed/simple;
-	bh=Z3kbtPEfllJjrVcxV4Wsk7nVwVhApu945emFW2VOZ5s=;
-	h=From:To:cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=RB1wDXSGlGj62exLLOg5CEx6kNJiCdw0DOeydFBS71EvFVDdGep0j2C3B6L52XewtameiwKJtofKV0DyLH5p2mVKg6WcXhw+TGBdHfsD2Q+0MGdRljJA1QW5fWb1zYNpafQmzHl9xo99TzQFJ1XM1aOpbWrYPjz9aMrZYYp2Wz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KP2dAK5o; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790686377; c=relaxed/simple;
+	bh=P/c1snDOFgpdovNskKlCF1xc096CVenS9d1WfWHBJtc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MuzLpD+hLStjYPx7Dy6GPr2MRJvL91P5MsIGykivEN7Ft1MPYz/2yihP0+EXQReL6m0sMplYWYLphfUCXd4/me8RE10njWZYwElecrpFTytTQurNqFWoInVN6bY4rYVRKXPZtbVTh1RA/quvGvepuEQQFfytVOaeH7rDsV5TbDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ShcHyj78; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KP2dAK5o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790686349;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=I1tT4w3UHin/AieBETFD0ZCHCtjCAxTz0zUFSdGN+NU=;
-	b=KP2dAK5onvvddkS+d9DlMflS++OStL86E6mThZ6uefZ7RXje4I1oHbp2PfJnYPfrEdmFN6
-	DuG3IykUwIb8eWmbnkbyoq8zjXsE3AhZPia8GQELF6jGO/qxBcvUkgO2NHHz73xyJ6th1u
-	ozzbqaaDEnG1oHAWzOGhTMVU+L9hGTU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-204-n9oqEOOHNASfTz54GBFy3w-1; Tue,
- 29 Sep 2026 08:52:28 -0400
-X-MC-Unique: n9oqEOOHNASfTz54GBFy3w-1
-X-Mimecast-MFC-AGG-ID: n9oqEOOHNASfTz54GBFy3w_1790686346
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 93C871964CE6;
-	Tue, 29 Sep 2026 12:52:26 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1C4E430000E4;
-	Tue, 29 Sep 2026 12:52:23 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Matthew Wilcox <willy@infradead.org>
-cc: dhowells@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-    Christoph Hellwig <hch@infradead.org>, linux-block@vger.kernel.org,
-    linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Folio-related bug in __iov_iter_get_pages_alloc()?
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ShcHyj78"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso21959265e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:52:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790686374; x=1791291174; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mgpBdFFJVnb1Jele4m29rAnxkAAsd/6RdwPNkfN1m4A=;
+        b=ShcHyj78eggNffKiedGoHhzNrwjPeiNjEkOSbD4XNWi+GmZglmeyd+W7Abqh72i38+
+         S+0/J4avgduQGPudQXlCwSX2twdmXFNaQnkJteD08CecCNosgd6BXN6RFR7RWD1BrMuo
+         W7PjTc/ymqL77Rzma494CZcjqy8Jd+XwnhKemXjjqviWIgiKwA4ovtU/wBC5dtexpQ0e
+         CrO0INGrd9vTHD2xTvhvWKPmGLigJ2wBW38t8Pfq+66jvC6M7b4UOXOx7ZJn12xFMGPd
+         mKB0NN9q1c5EdvgcDNWOgha6VJ/211ZJqUSB3Q0QgK8iyo+6k4nFOuFhu/HS7mjcBCFt
+         r4Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790686374; x=1791291174;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgpBdFFJVnb1Jele4m29rAnxkAAsd/6RdwPNkfN1m4A=;
+        b=lq2Xjn6R1Zk559LKgskIdirMJj8vZLtFx8XgGM6oiqRbPHy9buIuvwykUPJrkM4YeN
+         MnpfVocQq3HEnU9VMQ7UT0/GHptnqgDmKDPXn/b3ZbPp6kiCvbu9Fyd/f/BWQ3fs17S0
+         Moa6ZmvKphRh3PFpROVWwcK8mTeBzpDZms/OeakPcpmYW7QoPgFB0+coogZXi0rpXPOF
+         EEqrRPV54Yhs9ut8k0/Wg9qgUJd1iIoeBViPR7nYGEM2bUr2ATFJVKgO0qrgRbXjM9Ss
+         Fq3t02z3DUJTRA/uychim3U0DAx5jClb6QpxXEiRFsGKhmT7DrPBgsyDMGaaeRnAJuHY
+         5png==
+X-Forwarded-Encrypted: i=1; AKwUvBwTVy7DWinU06bl033Z3iwNF+K1FZSMAosJLc2QVgqzyh9opu/XiZWJ689j9PV8I4gjfsUnPUVYMsyLN7w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkMfF6YuKEyr5ZjfYUJtAPceRCNCw8zpr9fkUBNeVMnuymOXXq
+	UkQTScpZLd5slm4IvFnUhtEuoaicFEtkkO8vSb00mcN2oIbXx/o8GgFFnkhoAOOoBT0=
+X-Gm-Gg: AYBFou0Kq6EyovePZizdcVUgiVjoGRqe1eOVSlJCIJGENJ0c6etVOE/DMFu42W6zhi/
+	Pm4l/8OP5ubYYdBdq4FAcKuyxbclwbF5thm/7BQ/KyIhnAAUFJCthxrrYkfaVvARPBxgOkrKWzb
+	XjtVVAXncq1Yg9oHmk2vI0PZXUt6eJ5LoXr8wPNKNB+n/di2JjMRbn2NcB2trDrQMoDk9w4AqYn
+	KKYLbZQSYm035styrvXpdoCzRd5ioLtvJ/oVnperwKQWO1yCWOvZR7VyCpJECEL+0ummMuKR20A
+	5PIWn2oZxy1eVH4M/cirNXpwpJ2NAdsVDEDFXBhlgLy+nHAOzKVJsXj3aTtQgGfNhGPf6SlcGir
+	ZkPkjS5B1vwlj8K7nW4RsVReyJ5OPQAPt7PuUfb2jwEpbFRRL/+FQRYq0nUXUIWJZ0/Rcqlcijz
+	MuSB/uzksjBG/3HKbCivkRDAuOf4Lv7bL3jtnyhi/ug8aru4zBar5XnISGtfUHrYbX+5d6+ZSpc
+	nOZeGpxr72K2Wg=
+X-Received: by 2002:a05:600c:a09:b0:49f:bcce:13f5 with SMTP id 5b1f17b1804b1-4a0099c361cmr63999585e9.24.1790686373920;
+        Tue, 29 Sep 2026 05:52:53 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0f66cfsm88772945e9.14.2026.09.29.05.52.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:52:53 -0700 (PDT)
+Date: Tue, 29 Sep 2026 14:52:51 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
+	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
+	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] braille: nbcon: Allow using a serial driver
+ converted to nbcon API as a Braille console
+Message-ID: <aru0o0G-YpgGa7pp@pathway.suse.cz>
+References: <20260922072558.98854-1-pmladek@suse.com>
+ <87ik3tiim7.fsf@jogness.linutronix.de>
+ <araAvkIB5XatHPNk@pathway.suse.cz>
+ <87a4p5iejg.fsf@jogness.linutronix.de>
+ <araJ-EBntyqOGPkT@pathway.suse.cz>
+ <877bk9id6f.fsf@jogness.linutronix.de>
+ <araWJhKdVZnfCQcg@pathway.suse.cz>
+ <87ld8pp2wq.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2810984.1790686342.1@warthog.procyon.org.uk>
-Date: Tue, 29 Sep 2026 13:52:22 +0100
-Message-ID: <2810985.1790686342@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ld8pp2wq.fsf@jogness.linutronix.de>
 
-Hi Willy,
+On Fri 2026-09-25 21:11:41, John Ogness wrote:
+> On 2026-09-25, Petr Mladek <pmladek@suse.com> wrote:
+> > I used on the command line:
+> >
+> > 	console=brl,ttyS0,115200 console=tty0
+> >
+> > The serial console driver is not in console_list. But it shows
+> > all printk() messages because tty0 is in console_list and
+> > the messages are shown there.
+> 
+> Got it. So from the perspective of printk() we have a legacy
+> console. The legacy console is (mis)using the write callback of a
+> console driver to write to the underlying device. And since the driver
+> for the underlying device is NBCON, these contexts do not match. But
+> actually it is more complicated than that, because the console driver
+> callback is being used for all vt updates, not just those from printk().
 
-I'm looking at __iov_iter_get_pages_alloc() and when it's extracting from an
-ITER_BVEC, I see:
+Yes. This looks like a good description of the situation.
 
-		for (int k = 0; k < n; k++) {
-			struct folio *folio = page_folio(page + k);
-			p[k] = page + k;
-			if (!folio_test_slab(folio))
-				folio_get(folio);
-		}
+> Since the 8250 driver (and so far all NBCON UART drivers) use the port
+> lock for the ->device_lock() callback, it would be enough to do:
+> 
+> 	con->device_lock();
+> 	con->write_thread();
+> 	con->device_unlock();
 
-Isn't this wrong?  You can't assume the page you're looking at is a folio, and
-so you shouldn't use page_folio() on it until you've checked what it is.
-Granted, it's quite likely to be a folio, but not only could it be a slab
-page, it could also be a randomly allocated page used as a buffer, a network
-receive buffer or something allocated with a fragment allocator.
+I'll play with this and use it in v3 when the code looks reasonable.
+I'll try to get the nbcon context as well. It will be for !PREEMPT_RT anyway.
 
-Can we actually safely use folio_get() with all of those, or do we need to use
-get_page()?  (I know, at moment, get_page() is a wrapper around folio_get(),
-but that's likely not to remain the case).
+> if it is NBCON. That would at least provide proper locking (port lock)
+> for the underlying device during runtime. The only downside is that
+> panic could deadlock if the panic occurred while a CPU is holding the
+> port lock.
 
-David
+Yup, we would need some special handling in panic and rely just on
+the nbcon context.
 
+Best Regards,
+Petr
