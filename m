@@ -1,227 +1,329 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011029.outbound.protection.outlook.com [40.107.208.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C82E299922
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648551; cv=none; b=ntSu+H4YYf47gN04FQBCuOZCbWfa7FDBqfJoD7DeEa71m1kaomcO29SeBI0QHPFnoe/kAX3pZw+fDR6S4hsY5t+SMnAhy9cUppWIkF8YrXNkMRlSBrdXASfgmnQ61k8CJ+XVKJ/0fH5si2pvvzq/D1RHxzIRaYUbM63EbmYX0yU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648551; c=relaxed/simple;
-	bh=OZK2EBvCadBSzaFNkc39QqbFt8cnzS1lZ4EvwlWh0Rs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=itUGVniujOMaX0XacZlN8KarVvBa09oFExSvpCwAgjVYIQ5MO55xpCJv4Uz00qS9P80qcCHCq6JVRu3kUYy0BPU3L76CVaC5o8nwY4ITpQQDnMNrSkWj1wUMFM8TUQVTsXA5hV5At49pc0vkygqAkKvYVLDD45DOoHrinuq9Dj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8pUSqAQ; arc=none smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AA52D77F5
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790648577; cv=fail; b=sYSBUAqkhr8f3XY4F7XwG3DDTCVhdyoklQBR9UxAS56wQXG3MBYVroBBfcBTp3+IDH+hpPAGh2oWX+wV+Z2ALGLQhkAMLdh3i/0Fzi9SMQYSlUPGT2bjkkvbsrqfmaien7/VtZ1qdJjEZ9wpDBBw97I2Nw7DJJnA1wgIkzdQKEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790648577; c=relaxed/simple;
+	bh=qrJ/CBoaaWS/fu5cOjblKi+fEo1MjZBXJurBGeVJBqY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=AvGRebaChPJ+0pMXfuMS/vE7yj/vT38CyA8aMn1XC1foU7jwu9yEZp3aq/Shz0aD4+/JUokkOHG+LGfn8xIScM5Bez0o2HwlL1mek/3uHDWx8Xo7rtWGAo4OTf5SyixGmdRkqUi4iZh/TpAPQn2VKT+oT6Z6a2fiGeEBjty0TwE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HGYpu6Ns; arc=fail smtp.client-ip=40.107.208.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8pUSqAQ"
-Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6d797cfdd1fso712169eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790648548; x=1791253348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dfm68eCGiOBdIIwi0K4+F8jgrgA0hYS6eGRHLZQOjpA=;
-        b=V8pUSqAQ8DxH1qBGIYz8UwjdJGhatZE3HKh8zmmUbrP7ZgZ5ALQ1n4ZnXe1I/y5C4B
-         wHzeZBSvui35jiHnU5oBdO07svthw7/kNzRwXFjptKtsix2a0cCaeyUZm2mXmgJ6plBE
-         jRxmCMosqBOzytWtZZQkXlSwj+UZ/xrMMctkw5fyu/pucmMb2AVNcDiL/Y3/Jua308C0
-         ZloytYek3ICqSa+oELoZTNjaMjcS97lkYdnDqP3SsU4l7/vC/G4uMR9r9JtpRAYeDX7t
-         fxsFopTjjZmsldPeiDeqVjZeXXnKjMzrOiFrJAMllLFSCp47SRr+pB68E47nRQTGAYxZ
-         HZbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790648548; x=1791253348;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dfm68eCGiOBdIIwi0K4+F8jgrgA0hYS6eGRHLZQOjpA=;
-        b=aYKrtGk0Hsa4Nba+uw6/coPDwNVi+/E9Aqco0H7UZqEqYMTBYIpPVdTlVX+IBpeMOl
-         ZDUTXyIqEB+ZHJXbVNYFWyLCXi/jdHIYDFlSCmvqPqDnEPPLVXE4esD6sFA2N+iPIg/C
-         KTfjXfn4phzLMBjccbKP+arLHuYYUZ8K4XmWIqm5+oOqOYNiAqApuTQZC1YdAtovmJQd
-         yuKe7xpsk+UZHARm1fBRllNp2mxPq8Qlx/Lft6swe0+JhQQmDq14VcAWTGeY/ltr1ZsB
-         bAzX5LiL3B7NnlAyDxXJJp1TY77GLzkxVS5IxITC5oXx3lcwbPuzBV8RmBJQnuu8Gtkn
-         BcYw==
-X-Forwarded-Encrypted: i=1; AKwUvBySKJFr8AwzxqJSXmYBgxSzVtVE5wtYh4Ko+zM9oLZ4VTZLDxryQkcQiCM3riHU2wmLQm8M/Ix/I9/2GU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nry73jg6PmDoTzhM0GL4IWWo0/Vcqio0hYaJ43YVo62MljU8S1
-	sU7nFMcIX8Qm4zsW2F921DNYFqaBh7/qpBu6CpBac56HXC0qzQy1pJgf
-X-Gm-Gg: AYBFou390231qbkYvpYZwSkPWEoW5HR34VJ32LRZNDBg/22NUO1/uhYSuJi7MqqxGSY
-	186s+C/yHVJqyDNECWqeeXX3mNPuiA1lsB395UdEZz70CoMusFHEyTbTCgfczDtL4WDrISvlb94
-	yJ0s7yjkt1JOZWFKlgIgvU9lYX0xIXWKzV92NdycfLG4LLfPTeCPfOpnRP4vHm5wuf8ZRlBZ757
-	n7RJwwDD5vfJiUWfu8hNWEBulhMc/8ewBsa5srgl+GHRBCBmoKQKvXK2v7sWWjssqNhvYdf1Wxd
-	WtwvZcT41gJrAVWdXC7WdBg8dQR1s7nr0YudO+tapBzM55r9sMcixAnBd7DNANrsLj5oqvSIx1t
-	hFkSmS/YYy6OEAo9H2HWIiAxy+PZGuWFalDNm3DrM+L+3jHP1swUrD7J2g1XtlGex8uvmeJS0AT
-	FbZotfyJbvv0V7ViqHQ+l/ktBXD0cBi1i5tSAfvgcyiwg03j7tS3fpg2TrR6YT9qjL68lE2TdT5
-	h8QVACLVnPrz/Uh5dsKuzM+qsJK+6XR8CWsscD6m75Fno3XTVw=
-X-Received: by 2002:a05:6820:81ce:b0:6d8:eb59:42b5 with SMTP id 006d021491bc7-6d8eb5953e0mr4692318eaf.18.1790648548336;
-        Mon, 28 Sep 2026 19:22:28 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d883395632sm6753798eaf.12.2026.09.28.19.22.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 19:22:27 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Rodolfo Giometti <giometti@enneenne.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Calvin Owens <calvin@wbinvd.org>,
-	Yibo Tan <lhfff@tju.edu.cn>,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] pps: generators: don't use the driver's info after unregister
-Date: Mon, 28 Sep 2026 21:22:19 -0500
-Message-ID: <20260929022219.212024-3-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929022219.212024-1-danishkhateeb03@gmail.com>
-References: <20260929022219.212024-1-danishkhateeb03@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HGYpu6Ns"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZVmO+UOjzlnjRRa1iE73WlgAjZGpci1lmEQF1MFAbcpXwDggZ20BUDLycltKvtf6o4abpMQTpdZP1/CZbERXsjb6uycvpUQNsm1sxzJDCQJCWOlx+3x1ufDiI0dmi5UOay/1/MTcW7091DVgSqGKkjyi/QgZGUwJBL2ueGttx6j/wiSQyib74Z/x1fx+obsRHMA6+crgvigOE0aroIfw1BVOOG8RxjwZNECASDlEfehTaJQkxD8ZbaT5D6E5rq0qeHVe6toDDK9H0PiW85CN4LMtJ4FcUtGE5K6Xbd1uxGV22BF+L4Wdeqm0hcXIad/AYvcCQu4+ml3qnwDi7S+7Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2ngi65xzURwX2GKt3gysuD3mFb+MmKsVvS4gibV8pwk=;
+ b=d7WfGbWL0TBkm3gqNCi5AdjKiuX2LtzY48sHj0nb6Cy93/NB1R69ep9ZSlx3uXubxCHkjO4nvYixSf3cHKPvQGfk0NnkntZjvwtUlcP9AGQjF+Sdd2ZQhi8C4rq0oQyNkfhDSNHCNfJuR4b8cFldl0D1zetjQ5cxVidKzSdsj0eSIWHZRs2Z0M+kQiI8Wq7V70xnIxz9voNAJWYCICy1eupMctklpGQnyKteyXOS5MXeRPNXtRsjr7VcRX2byyqphHintxDNoOW4R6cp/VlEeja3TKvF1YCgfvIjxuAtHcwLHhbBWQO5MpIEs7VsOkUSj/XRcdxTUYK/Xb6ACninKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2ngi65xzURwX2GKt3gysuD3mFb+MmKsVvS4gibV8pwk=;
+ b=HGYpu6NsM+sJwDb81/GnzcXX/Q4glm8e6mjIzFS+sro6C3ddxO9JpG9tMjzKekChZAZ1C21Gh0R7Fw8fkIc/Uyj55WK+CRJXt5e3oD6Tt6OlYxRxL1AbzolmQ5ISzeSdvj6w1x4cLbczMoFQtnho9rvcV50H2U5Sq6TXW6EpAA0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by PH7PR12MB5655.namprd12.prod.outlook.com (2603:10b6:510:138::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 02:22:52 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 02:22:51 +0000
+Message-ID: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Date: Tue, 29 Sep 2026 10:22:41 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ dmitry.osipenko@collabora.com, airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+ <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SE2P216CA0078.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c6::15) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|PH7PR12MB5655:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc8ef4f1-fd97-4e78-53b7-08df1dd08f99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10067099003|5023799004|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	QsSHVOx/SbBZaD25aufxDm5i5MD2vfivDbAjoV6ZuMykAEnkGe/xkoFHPN1LLTneD4ktTIl4HsbdH3GApIVZtfS0gwtLvtHsxwFA++nnolEgEWklutrUr5MB5o16iD19mP5St2AP8XftCnGlQoaHA/fXF/cQVQlR3SwqvCwnsOsEdYH4pQvv/+BF2emdCCdWWebDoQXse5CvtYGQ6U5P26yyXbsfgfl6oCVE2WMJuQzao/wsuJUr6Ibgf2MD7vRrRLuOBaKHrUuQK2EcJyVCo7Ksg1I7zHh+71A4bm7/YjojSi3jMaWeqleE7nBOlnL+mJFBzfNuDM3LNpj2xyRVfgL524RSKMteqUigXzvvQO0gGZqnba5tCJmcD+UmWqEB5bEnYrubMM65wQU0OIionCoh4B9+6cs154ppvlAABKEpir/XakrguEn1u4bThjdFTuJEX9rovjh4HTxD0p4EWx2oRtEsd54mZbx3gMeodtDJpSr+DUDAQ7PR6rnbQnYUmnsL35IuWjWNlm6xPAvJqUk6CHam+fO9ML9it95NLW2aQ4RGQvgd5hXGxpiAWPTyRZICDliU6E+3GHohpB59LVfbgKFeajZ5i5gOxalzJXrTrbQ4olIP6i1iICD/rY1Gr09Cif+hQHJwJRbCUjTTUSZVh4IfQOK09bYgBMtJSZY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(5023799004)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXJTdytkV2dtQnNoUWh2cHBIVnp2UVZnYk9ITjJUZlBWNzZaWFVYQmhJUWt4?=
+ =?utf-8?B?aVdsRXJTdStraHQxVDY5ZGJlbThRcC8ydG53QUk0cUdMUGlXSllJb29GM1NE?=
+ =?utf-8?B?M0lab1grTUZNN3pHdDRhYnRubWtOdjlsditXTmt6eEJXaW54SGxjNlo5UktG?=
+ =?utf-8?B?aGx6MGZLbWJ3TjZFSXdkbVF0bGh2WkMzUDIyMkNZb2NLMDJ6YUVVNDFhejFT?=
+ =?utf-8?B?TE52SVJJSENpYmpnYks4Ry9oUmRaempveWV0M29xTlFYY2QzazZHbUZIMkVE?=
+ =?utf-8?B?eEl1cUdrOHJPdXVyc3BsRThmejkxN0tFWVhsVUNWOS9GaWU3SWpSSnFWTmdC?=
+ =?utf-8?B?Z3d1SDJOS2xCOGVSWlBEMTNrZEVIZFROUUo5U1BpN0h6Vjl0aXZrZzFUaTJC?=
+ =?utf-8?B?S0xrUE9kbklNVFAwVjc3VmZzbVBDUHYvZnhUZXBZaFhyV0h6aHRBWGZ3TmtO?=
+ =?utf-8?B?MHJWT1ZZV2p5UlJlLzVuTHB5MGFpRlU0aklvUGQ0S1BOdm1xMFJacC9JSXdM?=
+ =?utf-8?B?Mk1RUHlPOGZ5Y1lkd1Raa2g1WGhaMUEyd2xCSld1WEVHZXY4MDNwb0MwS2ti?=
+ =?utf-8?B?TnBiRjJDMFp0RHdwcE1CTHVRakdBU05kSS9DeUJ0bUNHRS9LTVhxRnVKR0ly?=
+ =?utf-8?B?KzRxMHFOT0tZZUZ3akJKcHFYSS9FaGI0MFNSeDg1bUljWFBVbERBREExYzVa?=
+ =?utf-8?B?S1lXOFVJL3grMHhpZGJUa05pQkx5WnB1bXg4WlZ0ZjgycnAzZDZUU0l2SDdt?=
+ =?utf-8?B?bnZncVpsRTVpUXZBbjBmSGdtM2oxU3JWTWRyZVd5aDVrR3RJcTNFRU5zUzI2?=
+ =?utf-8?B?WUQzeWovSGpqVXdseGNLWEJSU1ZaRkV5Myt1UGRFZUV2NVQ5L0dpQnBsREhC?=
+ =?utf-8?B?TVlKaTA2VCtwcitZOXJESGZXT1o4c09XWC9LSVVJQUF4SEdmbURzakN2UVdF?=
+ =?utf-8?B?UUE3Z3NsWEFMUGE1RlgyNWU3N3VqS3VGazlpcDViQjM4QjI0N1BiaXo3UmVa?=
+ =?utf-8?B?SXhTblg2Y1dZZGhXMURzTWl6R1l2TzhvQUJLVEtVdTZRQU1wVVZlYmRxYkJE?=
+ =?utf-8?B?QW5MeUk1SUVKRWtCdDBNalNySHRES3loWm1OQ0RNT1dzM3djWDNMOVNQNksz?=
+ =?utf-8?B?QmtWamdXTEZtUFJOUnhZdmRNM25SbW1zbHduRm1HY2VJZ3QxMHloSGdVNFhH?=
+ =?utf-8?B?TmZOZ05QUy95dmRGcWtENlo5a0FCbG9lOTdKQjV0elg5ZmwvRjRJcGYvM2tS?=
+ =?utf-8?B?TGRtZEl1ZDhBODVtazMxM1pDbjMxMjhNVEVpcVpNMEttbzdqMml0SUZ6UXZn?=
+ =?utf-8?B?ZU9aMjkyRHNOTkR3My84U0ZmOUovUE9IbTNjU0dWVlNpcVROWGNKdHZmWFhB?=
+ =?utf-8?B?bXpRbXRIMUVYMHM3TkdDTHN1NkU4OVlmZ2EwSElYdlpMd3IrT3VnT1lPeGxk?=
+ =?utf-8?B?NjlscUQyWncrMHR2RjhONllRek1VVFM0MVVqU2daMmZzZVh2S3J4UEk1V2Rw?=
+ =?utf-8?B?dU9NVENNenNwMDZERXhnNkFjanlZU3pKVVpXTU03ZGRUUktlc1lCU0dadUht?=
+ =?utf-8?B?QXZWdTV6Sm9ZSzFWQW51cGZyN1FmTUdQWDEyS3BucjN0SXZ2SzVIL1VIYzNi?=
+ =?utf-8?B?Q3ppMFNPN0tTbllXdjRWeHV0a1d1WXJnQnRRNjJYMjZvcG14MVBvbFVUQ1lv?=
+ =?utf-8?B?TjVMcE92Rkp6UzBRNXN6SG91MFlQT3hKTkNqTHdweW5vdTVVeWorUWZtVi9v?=
+ =?utf-8?B?NGhDeVIzc056Rjh5L2pNZy9zMXV1Nk5tNERJWE1HOU1teXJtYVBocUxyZ1VV?=
+ =?utf-8?B?KzRzWU9EQTJNTmR6ZmVWc01qbkN1Ty9Xd3kxdkxMV0Z6eDZhWDdnK2htaUJV?=
+ =?utf-8?B?bDhJSjhOK2tidWVrR0RRVXpBdW9kVTAwSHM0OWszQUEyZzU3OVRhOXFMUW43?=
+ =?utf-8?B?R3lSa0dScE1KRm9UOVg1L29kOTRnSG1WYWFsQmo5d2s5TFk2ZzU0WUN2a3po?=
+ =?utf-8?B?WTBwV3pEVUtvY3JxUWg1TlE1Rjd2S0xDWDhsVUkvaUFiK3JPdkpLd0ZReTRw?=
+ =?utf-8?B?MytmV1ZMU1B0aGxXMDdKbkZTMTFmU3AralIrYnVGM3drODhQQWJ6MlA3WlBa?=
+ =?utf-8?B?TGMyOEgwNlFUUENFby9XWFE3cDhLT29aMFhlYU84YlB2Sm55aFpYR2ltNTVk?=
+ =?utf-8?B?WHdzbmZFQ2dRYWxTL2Z3RXlJVTM1dU1vakdGL09KTWZLbHpSYVBwVjgzYmNn?=
+ =?utf-8?B?aktnK1gveFFYaGM3Q2dSb1NxTzlKR1plUFpBVExVL2dSZVM5aDdSank1M0xQ?=
+ =?utf-8?Q?G+VV3bGE2Ky1z67xzP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc8ef4f1-fd97-4e78-53b7-08df1dd08f99
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:22:51.3190
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SE5SD5dFvQvuRo6IEW1kLDtbzKaZwM5LirXqe7GxNRfi/cNWAECwpXMF0ZjUnGZTVQ6CtGj2iEWU35kCHlFarg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5655
 
-A file that was opened before pps_gen_unregister_source() keeps
-pps_gen, and with it the pointer to the driver's pps_gen_source_info.
-PPS_GEN_SETENABLE and PPS_GEN_USESYSTEMCLOCK keep using that pointer
-after the driver has gone:
 
- - pps_gen_tio allocates its info with devm_kzalloc(), so after an
-   unbind both ioctls read freed memory, and SETENABLE calls the
-   driver's enable() with its freed private data.
 
- - pps_gen-dummy does not set info->owner, so it can be unloaded while
-   the file is open, and the ioctls then read the unloaded module's
-   data and call its code.
+On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
+> On 2026/09/29 1:22, Huang, Honglei wrote:
+>>
+>>
+>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>>> Add userptr blob objects so the guest kernel can pin an existing
+>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>>
+>>>> - New virtio_gpu_object_userptr type for userptr resources
+>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>>> - Mark writable pages dirty when unpinning
+>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>>    cleanup_object() on the unref response or on create failure
+>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>>> - Reject unaligned or overflowing userptr ranges at create time
+>>>> - Disallow PRIME export of userptr objects
+>>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>>    hibernation without using the shmem restore path
+>>>>
+>>>> The hibernation restore path maps with the same attrs and direction
+>>>> used at create time, as documented next to the call. Like shmem
+>>>> blobs, the DMA API can still bounce through a buffer there. This
+>>>> design only avoids a second guest side shmem allocation and memcpy,
+>>>> nothing more.
+>>>
+>>> I don't see the restore path is documented though this says 
+>>> "documented next to the call".
+>>
+>> Will fix in next version
+>>
+>>>
+>>>>
+>> ...
+>>>> +        goto err_cleanup;
+>>>> +    }
+>>>> +
+>>>> +    userptr->sgt = sgt;
+>>>> +
+>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>>> +        enum dma_data_direction dir =
+>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>>> +
+>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>>> +                      dir, 0);
+>>>
+>>> I checked the ROCm code and documentation, and I do not see how this 
+>>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>>> explicit DMA cache maintenance are required.
+>>>
+>>> HIP distinguishes two coherence models:
+>>>
+>>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>>  > after synchronization performed using hipDeviceSynchronize(),
+>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>>  > accessed by a part of the system while simultaneously being 
+>>> written by
+>>>  > another, the memory is made visible only after the caches have been
+>>>  > flushed.
+>>>  >
+>>>  > Fine-grained coherence: The memory is coherent even while being
+>>>  > modified by a part of the system. Fine-grained coherence ensures that
+>>>  > up-to-date data is visible to others regardless of kernel boundaries.
+>>>  > This can be useful if both host and device operate on the same data.
+>>>
+>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>>> hip_runtime_api/memory_management/coherence_control.html
+>>>
+>>> Fine-grained access requires coherence throughout execution; copying
+>>> between the original pages and a bounce buffer only at kernel boundaries
+>>> would not suffice. Coarse-grained access could support such copies, but
+>>> they must occur at the required synchronization points. I found no code
+>>> that synchronizes this DMA mapping at those points.
+>>>
+>>
+>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+>> SWIOTLB behind the device, not by we request. attrs=0 here just 
+>> matches the existing shmem blob path, and is exactly what native (non- 
+>> virtualized) ROCm's own userptr support does too:
+>>
+>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+>> kfd_mem_dmamap_userptr()
+>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+>>
+>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+>> property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
+>> as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
+>> set by whichever driver programs the real GPU's page tables for this 
+>> memory:
+>>
+>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+>>
+>> I really want to disable the bounce buffers in DMA, but it is a 
+>> platform behaviour, can not disable it in this layer. And in XEN, the 
+>> dmapping for it is another form of iovector/simple sgtable. And if use 
+>> the virtio-iommu or somthing else, the efficiency and the complexity 
+>> of driver integration are both lower than using iovector/sgtable 
+>> directly.
+>> And for how to handle the DMA thing for userptr, since we have so many 
+>> concern about it, maybe we can drop this part in next version. But we 
+>> may have the AI review warn/error.
+> 
+> Documentation/core-api/dma-attributes.rst says:
+> 
+>  > DMA_ATTR_REQUIRE_COHERENT
+>  > -------------------------
+>  >
+>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+>  > system where SWIOTLB or cache management is required. This should only
+>  > be used to support uAPI designs that require continuous HW DMA
+>  > coherence with userspace processes, for example RDMA and DRM. At a
+>  > minimum the memory being mapped must be userspace memory from
+>  > pin_user_pages() or similar.
+>  >
+>  > Drivers should consider using dma_mmap_pages() instead of this
+>  > interface when building their uAPIs, when possible.
+>  >
+>  > It must never be used in an in-kernel driver that only works with
+>  > kernel memory.
+> 
+> This is exactly our use case. Although the platform decides whether a
+> mapping requires bouncing or cache maintenance, 
+> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+> meet this requirement.
+> 
+> The shmem path serves a different use case, but amdkfd is a relevant 
+> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+> configuration and the DMA mapping established by the kernel driver. GPU 
+> page table attributes alone cannot make a bounce buffer coherent with 
+> the original userspace pages.
+> 
+> The amdkfd mapping you cited therefore warrants discussion with its
+> developers as well. I have CCed the maintainer.
 
-TIO can't probe in a VM, as it needs ART. A test driver that registers
-its info in devm memory like TIO does, unbound while /dev/pps-gen0 is
-open, gives:
 
-  BUG: KASAN: slab-use-after-free in pps_gen_cdev_ioctl+0x4c1/0x580
-  Read of size 1 at addr ffff88800e647f38 by task ppsgen64/145
-  ...
-  Freed by task 146:
-   kfree+0x25a/0x6d0
-   release_nodes+0xd1/0x140
-   devres_release_all+0x10e/0x1a0
-   device_unbind_cleanup+0x71/0x250
-   device_release_driver_internal+0x41b/0x570
-   unbind_store+0xd9/0x100
+Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
+And are there some places else need to be modified?
 
-and unloading pps_gen-dummy while its file is open oopses:
 
-  BUG: unable to handle page fault for address: ffffffffa0203040
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:pps_gen_cdev_ioctl+0x372/0x580
+Regards,
+Honglei
 
-Protect info in the ioctl handler with a mutex, and clear it under the
-mutex on unregister, so that unregister waits for the ioctls using it
-and later ones fail with -ENODEV. PPS_KC_BIND does the same for a
-removed PPS device since commit 3649f9a6b897 ("pps: don't allow
-PPS_KC_BIND on removed devices"). The sysfs attributes need nothing
-new: they are removed, and their callbacks drained, before info is
-cleared.
-
-Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
-
-Notes:
-    Tested in the same setup, with patch 1/2 applied. After an unbind, and
-    after unloading pps_gen-dummy with its file open, both ioctls return
-    -ENODEV with no KASAN report, and closing the file is clean. Normal use
-    of pps_gen-dummy is unchanged.
-
- drivers/pps/generators/pps_gen.c | 31 ++++++++++++++++++++++++++-----
- include/linux/pps_gen_kernel.h   |  2 ++
- 2 files changed, 28 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-index 059f4fe6c9b4..d80e28dc31dc 100644
---- a/drivers/pps/generators/pps_gen.c
-+++ b/drivers/pps/generators/pps_gen.c
-@@ -69,17 +69,28 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 		if (ret)
- 			return -EFAULT;
- 
--		ret = pps_gen->info->enable(pps_gen, status);
--		if (ret)
--			return ret;
--		pps_gen->enabled = status;
-+		scoped_guard(mutex, &pps_gen->info_lock) {
-+			if (!pps_gen->info)
-+				return -ENODEV;
-+
-+			ret = pps_gen->info->enable(pps_gen, status);
-+			if (ret)
-+				return ret;
-+			pps_gen->enabled = status;
-+		}
- 
- 		break;
- 
- 	case PPS_GEN_USESYSTEMCLOCK:
- 		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
- 
--		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
-+		scoped_guard(mutex, &pps_gen->info_lock) {
-+			if (!pps_gen->info)
-+				return -ENODEV;
-+			status = pps_gen->info->use_system_clock;
-+		}
-+
-+		ret = put_user(status, uiuarg);
- 		if (ret)
- 			return -EFAULT;
- 
-@@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
- {
- 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
- 	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
-+
-+	/*
-+	 * An open file keeps pps_gen around, but the driver may free info as
-+	 * soon as we return. The sysfs files are gone now, so wait for the
-+	 * ioctls using info and make later ones fail.
-+	 */
-+	scoped_guard(mutex, &pps_gen->info_lock)
-+		pps_gen->info = NULL;
-+
- 	put_device(&pps_gen->dev);
- }
- 
-@@ -243,6 +263,7 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
- 	pps_gen->info = info;
- 	pps_gen->enabled = false;
- 
-+	mutex_init(&pps_gen->info_lock);
- 	init_waitqueue_head(&pps_gen->queue);
- 	spin_lock_init(&pps_gen->lock);
- 
-diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
-index f26f6aac000d..c4d22b1af118 100644
---- a/include/linux/pps_gen_kernel.h
-+++ b/include/linux/pps_gen_kernel.h
-@@ -11,6 +11,7 @@
- #include <linux/pps_gen.h>
- #include <linux/cdev.h>
- #include <linux/device.h>
-+#include <linux/mutex.h>
- 
- /*
-  * Global defines
-@@ -44,6 +45,7 @@ struct pps_gen_source_info {
- /* The main struct */
- struct pps_gen_device {
- 	const struct pps_gen_source_info *info;	/* PSS generator info */
-+	struct mutex info_lock;			/* protects info */
- 	bool enabled;				/* PSS generator status */
- 
- 	unsigned int event;
--- 
-2.55.0
+> 
+> Regards,
+> Akihiko Odaki
+> 
+>>
+>> Regards,
+>> Honglei
+>>
+>>> Regards,
+>>> Akihiko Odaki
+>>>
+>>>> +        if (ret)
+>>>> +            goto err_cleanup;
+>>>> +
+>>>> +        userptr->dma_dir = dir;
+>>>> +        userptr->dma_mapped = true;
+>>>> +    }
+>>>> +
+>>>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
+>>>> &nents);
+>>>> +    if (ret)
+>>>> +        goto err_cleanup;
+>>>> +
+>>>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
+>>>> params, ents,
+>>>> +                        nents);
+>>>> +
+>>>> +    userptr->base.params = *params;
+>>>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
+>>>> +
+>>>> +    *bo_ptr = &userptr->base;
+>>>> +    return 0;
+>>>> +
+>>>> +err_cleanup:
+>>>> +    virtio_gpu_cleanup_object(&userptr->base);
+>>>> +    return ret;
+>>>> +}
+>>>
+>>
+> 
 
