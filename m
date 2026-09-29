@@ -1,122 +1,138 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4650A50B43F;
-	Tue, 29 Sep 2026 10:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCECF511E69;
+	Tue, 29 Sep 2026 10:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678241; cv=none; b=oUaOv1HFfctYVLz6DW0JryjUQLZFHW8xgU/Tp1cCm06qLy3Y0UtKvxy84ZYgyugsflJFyE9BMKNJMp8qRbToowjDlf7vGeLBO5eWm07a1nP48wuU0bNxaR/tt0zT194fTR8NiTd1fhil2qT2Tqikq7k38D4DuRL8jFaaRv+8r/Y=
+	t=1790678241; cv=none; b=YbX+YFO84PNSK2Sh2Er75skJ5QJKBZZTb2wrX3vcR2LL1qOOMXnVjQTlktpPZTNMMolUHjoEu5ib6WSyaF2fLbMUTANACTjpCX401kRaqGtbLNLUxefuT9IklI1Dd0UlD6XpFDMxob6J1OSmEufNl+njA/U0gshaCBiAVu+COFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790678241; c=relaxed/simple;
-	bh=69fvRkToTeX+F/KMnL03LHrqFoA/tWT4JJWe2Rr5SjE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FE2Js5jPa1hfzaFbmYNYWCSo5MXZIDuFoWHZCRDefWd2PzoU/VX93Ip7sD7r4o1Cm55cSGJOM3T9yTWcDb0zIlTcKUrx3c4wfnwhiRxRCcOK+sK0rLS7iKPP3eVs2ji2+FKpWej2sJmSuIBBKR4xf3bSA2dEgMIqN4Z21oZzS1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=I8GkUGEY; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	bh=Jx2My6QgxWrCNaGVNxRidyoZVc2RbLQWB3KollVEGXU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=r8HfwNoiM1UVrqBsF3wvbhMY2NkQjvTqMIVskfrwiJIVQDXTfD1kEI6LaBVXhIDQK3zlbvhy0kgAKOPS5FQviJZcxSTQlsr/Ycu6oh+EYpvXaw3j6fgCICT1yeznbINWR/p5++5sKpIQBr/gCJxYPfZpky5JLrxKxGBvlTOOavM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HkhamXZz; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="I8GkUGEY"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=xOVL/ev52VgGnekwG/3m+mVjJWWVs31DVf2kAXdZSbk=;
-	b=I8GkUGEYFz/IyJR89y3PpljGHROkV3uzvpo0o85CwNU0uwy8xop+8WpfuHAF56cropz3WZvs/
-	w+Z9RJ9CHS9wdYpPEGDYsQbmtHhai4AziCPZ1s/ZPkiaNGqykONORyg1DtzLXixbCgt6AyPJX/J
-	ukSnbe7QgnLI/KO8XM6rN1U=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hvDnr2Qwpz1T4Fq;
-	Tue, 29 Sep 2026 18:25:04 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6CAA34058E;
-	Tue, 29 Sep 2026 18:37:04 +0800 (CST)
-Received: from huawei.com (10.50.163.32) by kwepemr100010.china.huawei.com
- (7.202.195.125) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 18:37:03 +0800
-From: Tian Zheng <zhengtian10@huawei.com>
-To: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
-	<zhengtian10@huawei.com>, <leo.bras@arm.com>
-CC: <yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>,
-	<yangjinqian1@huawei.com>, <caijian11@h-partners.com>,
-	<liuyonglong@huawei.com>, <tangchengchang@huawei.com>,
-	<yezhenyu2@huawei.com>, <yubihong@huawei.com>, <linuxarm@huawei.com>,
-	<joey.gouly@arm.com>, <kvmarm@lists.linux.dev>, <kvm@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>,
-	<mark.rutland@arm.com>, <seanjc@google.com>, <rdunlap@infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<skhan@linuxfoundation.org>
-Subject: [PATCH v5 10/15] KVM: Add kvm_arch_dirty_ring_size_updated() hook
-Date: Tue, 29 Sep 2026 18:36:50 +0800
-Message-ID: <20260929103655.85107-11-zhengtian10@huawei.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20260929103655.85107-1-zhengtian10@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HkhamXZz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0E4004E410B7;
+	Tue, 29 Sep 2026 10:37:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D5209601BD;
+	Tue, 29 Sep 2026 10:37:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A5A2E103297BD;
+	Tue, 29 Sep 2026 12:37:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790678226; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MclBdn8qJNnkVxx6agDK+453pDYr2WeUrlYel3GftU0=;
+	b=HkhamXZzgsVwqQsF7Kmnz7704aC5HD1bfqTX3uzG6BqJoUGvqaSUI9zNcnKgIBSEbn+JpB
+	9DJ8JEXRm/gt1JAQxriQDyv0LM4Xuf49tr3Bt1+BPC6M2+g0vYsjlXDFXSMh42vFmyjiK7
+	HGFOKUFbsIZqM431WrmtlAdsht6DuqfcsU+ZQ/gqIBOc5QlE7V3MQ3S5BCCfQWzZPFPkf9
+	cfNpZ5qWD3YhOpqCLCDiDxGz/YLurO+vR6RNkc/gGZNR63uPUSHA3jE9WJxUUPh8Ysq5JF
+	KHQDoOo40uMZz+P+VkI1Db8JucLABcWmeR6xbP3G/wV+dYvheg21Dn4R0DYlsQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Tue, 29 Sep 2026 12:36:36 +0200
+Subject: [PATCH 4/7] drm/bridge: dw-mipi-dsi2: stop using deprecated
+ devm_drm_of_get_bridge()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-drm-fix-of_get_bridge-build-regression-v1-4-ccb7e602daad@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Draining a CPU-side dirty log buffer into the dirty ring requires
-sizing that buffer against the ring, which reserves room for a full
-flush. Add a kvm_arch_dirty_ring_size_updated() hook called right
-after kvm->dirty_ring_size is recorded, with a __weak no-op default.
+devm_drm_of_get_bridge() is deprecated, switch to
+of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
+a refcounted bridge, ensure it is put by using bridge.next_bridge.
 
-arm64 will use it to pin its HDBSS buffer size in dirty-ring mode.
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
 ---
- include/linux/kvm_dirty_ring.h | 1 +
- virt/kvm/dirty_ring.c          | 4 ++++
- virt/kvm/kvm_main.c            | 1 +
- 3 files changed, 6 insertions(+)
 
-diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-index eb10d87adf7d..c2b922791530 100644
---- a/include/linux/kvm_dirty_ring.h
-+++ b/include/linux/kvm_dirty_ring.h
-@@ -73,6 +73,7 @@ static inline void kvm_dirty_ring_free(struct kvm_dirty_ring *ring)
- #else /* CONFIG_HAVE_KVM_DIRTY_RING */
+Unlike other commits in this series, this is not a fix: this code can be
+built only when CONFIG_OF=y. Do this change to keep dw-mipi-dsi
+dw-mipi-dsi2 as similar as they are already.
+---
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
- int kvm_cpu_dirty_log_size(struct kvm *kvm);
-+void kvm_arch_dirty_ring_size_updated(struct kvm *kvm);
- bool kvm_use_dirty_bitmap(struct kvm *kvm);
- bool kvm_arch_allow_write_without_running_vcpu(struct kvm *kvm);
- u32 kvm_dirty_ring_get_rsvd_entries(struct kvm *kvm);
-diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-index 572b854edf74..784f53c95b54 100644
---- a/virt/kvm/dirty_ring.c
-+++ b/virt/kvm/dirty_ring.c
-@@ -16,6 +16,10 @@ int __weak kvm_cpu_dirty_log_size(struct kvm *kvm)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+index 7fd2f1e60654..a008450d83aa 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+@@ -192,7 +192,6 @@ struct cmd_header {
+ struct dw_mipi_dsi2 {
+ 	struct drm_bridge bridge;
+ 	struct mipi_dsi_host dsi_host;
+-	struct drm_bridge *panel_bridge;
+ 	struct device *dev;
+ 	struct regmap *regmap;
+ 	struct clk *pclk;
+@@ -528,12 +527,12 @@ static int dw_mipi_dsi2_host_attach(struct mipi_dsi_host *host,
+ 	dsi2->format = device->format;
+ 	dsi2->mode_flags = device->mode_flags;
+ 
+-	bridge = devm_drm_of_get_bridge(dsi2->dev, dsi2->dev->of_node, 1, 0);
++	bridge = of_drm_get_bridge_by_endpoint(dsi2->dev->of_node, 1, 0);
+ 	if (IS_ERR(bridge))
+ 		return PTR_ERR(bridge);
+ 
+ 	bridge->pre_enable_prev_first = true;
+-	dsi2->panel_bridge = bridge;
++	dsi2->bridge.next_bridge = bridge;
+ 
+ 	drm_bridge_add(&dsi2->bridge);
+ 
+@@ -565,8 +564,6 @@ static int dw_mipi_dsi2_host_detach(struct mipi_dsi_host *host,
+ 
+ 	drm_bridge_remove(&dsi2->bridge);
+ 
+-	drm_of_panel_bridge_remove(host->dev->of_node, 1, 0);
+-
  	return 0;
  }
+ 
+@@ -884,7 +881,7 @@ static int dw_mipi_dsi2_bridge_attach(struct drm_bridge *bridge,
+ 	encoder->encoder_type = DRM_MODE_ENCODER_DSI;
+ 
+ 	/* Attach the panel-bridge to the dsi bridge */
+-	return drm_bridge_attach(encoder, dsi2->panel_bridge, bridge,
++	return drm_bridge_attach(encoder, dsi2->bridge.next_bridge, bridge,
+ 				 flags);
+ }
+ 
 
-+void __weak kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
-+{
-+}
-+
- u32 kvm_dirty_ring_get_rsvd_entries(struct kvm *kvm)
- {
- 	return KVM_DIRTY_RING_RSVD_ENTRIES + kvm_cpu_dirty_log_size(kvm);
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 85f42289748d..d109062f6a1c 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -5011,6 +5011,7 @@ static int kvm_vm_ioctl_enable_dirty_log_ring(struct kvm *kvm, u32 size)
- 		r = -EINVAL;
- 	} else {
- 		kvm->dirty_ring_size = size;
-+		kvm_arch_dirty_ring_size_updated(kvm);
- 		r = 0;
- 	}
-
---
-2.43.0
+-- 
+2.55.0
 
