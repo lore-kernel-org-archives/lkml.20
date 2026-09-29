@@ -1,110 +1,108 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C712248B3
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650020; cv=pass; b=h+taCwEnH36JP9WozUBH/M3yxIlzto50iSrkICEKgbeCkl0VI5y5wDc6UTfAS4yE8+UXvEZ6AluCzuXX76IUUharF8HHTLJ+8YQeyj52riVcEZvdzukFwha5TzhG8uDtVk6YzJyQMd3GlK3SY3fRMlYxKc9xRrNEAUilu5Pgc/4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650020; c=relaxed/simple;
-	bh=+JMu39k8t90lMml2PTuqt/SuNIgtnLZvu803sFgpUCc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BgBCXCVNQzcA5OFNIOgo/vzROJ6QdjuJnBv/zIOMcZaN3eQdpTxewWR2qEAxNhhU3+R2kSqqr5dRlPCCq50O1gl9c6v5Nie338sT/yXhWuckTiUZyz+nqlR9gqZNNxiLtqzyOZnMmzgebdw9OQ+I3el7YwAQ8a0AjFOXeo5MjDo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VzBAyVhw; arc=pass smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8411721B192;
+	Tue, 29 Sep 2026 02:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790650356; cv=none; b=pna6atzw59mAgeoQrjVDpN4qGJ59zCQj2fhQG4n0zmpvWDtO9XqHNE2vb7vrbQL86YR3uEKff6oCJxq0t4kx7sNSIj942ES2qYcdplNYbx56RlYMJnF3SrXVM2QeawK12Mzuwx3nIanvIcZZmmGj+oZnivR3I0kPzNCL3ZP0iU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790650356; c=relaxed/simple;
+	bh=ch7VmLk7QqYZUv4lmc8jiEhZj+S/jc2XhT/mUeMsN04=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMA9LWkUezkKmZF+rRVOtNNKJgsrj7Bywyf6cRcte3x5pGSoQbfzcN6qlkYQ10R3bkZuS/H2wIcivIkf5OTA/mkDxt1YkH/q27NovEbyT9AxnsBZ4HzsQQteE0nOp/xrJSvVDIXRkVjQmFDowTSG/oYrVuK/AiokjWyjzXfyZVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=anavgqJo; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VzBAyVhw"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e667873c38so1104242b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:46:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790650018; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q16WvDVYWkeWoIpSEZm7KVGLNTnyxDkB6ahtKCnomkkgTBKhYgSsLMV4RMy3OH54X/
-         gQJsV4uisrKbjJ/PeZMz9GpKSUaQsYqlO55cziqu3MK6U45xtrXYAW9ALEkMpCBMXWph
-         O9XrunESpFsTckYEMx752jJT7O3laASQdda8lea8e5B4JZYm2bX8OlG4umxRRC34ygEd
-         PtwbfVHsaGbxHhAgogvuWswc6wYqB9/eaonFj+5oELjfRyIUsAb6Fh9xTqksD4jIKc3/
-         fYYE2jIP9rSO0tCsC1K+yuEz3TJTNjAuKbnjSZ+OuqDwotmJZe9X70PKV9Z4NaTGUUDJ
-         Qvbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0GLky+zMwV+lXLc5wxi80Ewpo+ygveBV5zL10ZyTdtk=;
-        fh=nDkAGug1JzIQ7PE7x/E1DzKbaxu+lpcaa+ga9dY78dA=;
-        b=c33l5JUH0Jcbb157WTCj0OCYFp7lyDQVveQ833CpEZqpQ333d9309iFhgl0a2YcCJe
-         TVumY1uaKh5NpfmDZhQuOI+4kbr5dGThzJmnHt/fez9Vd3a1h8RNXjBMbStPay3ZbjJA
-         WLH74SDuVJP1gIH5AvLz4TTtt8lg9HKwR+8NBvu0nzn8AW/1Ibb/AjdM92gmxG1zeiJV
-         QssUGGUbv9KzGUFxr+2hNEunzLC5ABz/lZtUSgv7/y/WGDCPIk3ddnCxR3+IdVbpMIUX
-         CqksKiqa9W2XpzMd8gSxLDzPk4gq0oR0AKzlXW5qybz0ngBAUaGqzAoHN3lKxvYRIGGx
-         Dekw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790650018; x=1791254818; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0GLky+zMwV+lXLc5wxi80Ewpo+ygveBV5zL10ZyTdtk=;
-        b=VzBAyVhw9SwP1TgQ4tHJ3WPOIPefHO1HSpIIF+x2Wf0Sn4CUv2snLPi1oFw8pIrb9X
-         q4nDbjtaU1h32kpL/7nNAuRnFWxc70yZmRa/PiCLgiHWe7ULKzzPfRuwh6Z0nToxYIX2
-         Ks9OxCPv9tVKTsdAzMA2xczlV8u5M3rzc1SOmq4jdSHVelPt9p15CMEpm1ZenwypzO25
-         v2xJcfbcf3RZIYmFwwLUz3g69AUttvKqvPV3+MgqBLMNR9XVuf9otucDLSevY/EMM1rj
-         x5Uz+wzO3mW1CeqmgPzpnx4nCV8+qrV/5Euqp1Ae8VvzZcJRF8a0C7AwmIj1GdapkEGQ
-         K8ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790650018; x=1791254818;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0GLky+zMwV+lXLc5wxi80Ewpo+ygveBV5zL10ZyTdtk=;
-        b=dfRMbqx0EDWqBZ2JzS5I5WXg5/IJWVMe8vuJ+GzTAD68Pxhx8pQlUB3qrmZQZ+rtTT
-         BX+xbpfg76oLZuGrzzy5EX5Chq3haWtNsDS5l5EciJ84MZOaG05FgTWh3YRrltsCp9i/
-         QVbu1tXtL7rOSmjeTgB/csybih045h/5jhQrX2Z+zTbFTYMUk8iJcOwBn3RseSzesyBD
-         K+E9thCNO9qKUVhsSTaVUETSSKzxDyz537lZhv0yCNPFzjiv+XfGSkVbta2GHwvKdnBM
-         yc05j6X3r99QwKdynHFZrbVlwMFEcf9FNiPrezVSOuBC/Q1h/2LFeQh19q2LyWtHtfNz
-         K3Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxmn8sHAaspMN/sEnTSW37aauJ7sDp0Iad9pK1EzIz8SN5r1IlMaOZNPh7dvGC7BxCtzSQsnrcF6JcCvc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLRsIrAxEuTbBfhC8d7ss7ZDMOykuSS9PETiN5dKutvasrRsYk
-	UhoE4Gwtk1+2gUjLHZH1nktui1VLqtl2Rc/oyeh5mgV+OHBQHZjtR9mGAkJqakgq+rY94EdPMPq
-	XO3WP4tuxGLVeTNGssUIaarn5drP5PMw=
-X-Gm-Gg: AYBFou3XstzmSDfZexC77HlU768ihCxuVCjaCDAoj6CENuDGxi53qI/0frp4KlRrfW9
-	+T7xw189oY6iSoT3ydvjaEdytc1bHlH3jWKFKSh+RyUAspMrXDpQ2CF9OAT4AC7OJh1Su9m4Jci
-	t9jyHJzWuQaYZZK/pXcJAtWXNQcgtTCssqCth73FF2BmPvFKNwf+iHoK5vh8X/v/HzY2lyo9IHF
-	JcXYNHFIQZ95rOR3846LFmniB8NBX5E05lSIvIJhfCjpvaDRNza3aHE1NTIzQOGwJkKLo+X8zl2
-	aj21dXaI4y1NvH/W4bO7rTOSfE/KAK6GYSVSjnPSVVztC6Wuo3RxIHG8MNexrbk6tQ==
-X-Received: by 2002:a05:6808:1495:b0:4cb:f21c:a7a0 with SMTP id
- 5614622812f47-4d72ac548c1mr17435493b6e.40.1790650018230; Mon, 28 Sep 2026
- 19:46:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="anavgqJo"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T1YT7o2904052;
+	Mon, 28 Sep 2026 19:52:27 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=T
+	3lwBcQxJ6NrmDuJGUmonvrgjZFMfRrNzzkZ5tPCLmo=; b=anavgqJoOXYTQp00x
+	T4SeUNO0LgDDerZjelq5srPym7t/b12VINB4lR3mfFYDNtqvsPZxnh/fLOGLvlSR
+	yvEe5Gndn10RqYt2j79MWb2y8m4S1Zkva4u/NVtGES9A+5N1AjrH3/Kg79Vy1q5h
+	PvjASak4mFi3F9VkHPZ5soo8yG8AfvqQpDua3RLjyr7gAt4u/PVikAdM8gT7Bf0b
+	B+tlWqjX8DCpoEBKblvL0rRmUPGsL9WnT4V5vIGb6APndE1J1zMHYOwLCH0SrwtV
+	OEKJHNhl5XiN7Szh/8/tfb727Mx5km8E+UJ+MES+HQTXuc1ktPZjPR2SLK+jqEyP
+	bsrvw==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gyub5txv0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Sep 2026 19:52:26 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 28 Sep 2026 19:52:18 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Mon, 28 Sep 2026 19:52:18 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id 676A63F706F;
+	Mon, 28 Sep 2026 19:52:15 -0700 (PDT)
+Date: Tue, 29 Sep 2026 08:22:09 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <sgoutham@marvell.com>,
+        <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>
+Subject: Re: [PATCH net] octeontx2-af: fix partial NIX Tx scheduler queue
+ allocation
+Message-ID: <arsn2WKWIqzAahZg@rkannoth-OptiPlex-7090>
+References: <20260924082128.1944674-1-rkannoth@marvell.com>
+ <179058435280.3145.10954316639683713234@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820123512.87236-1-duankeqiangcym@gmail.com> <arrwQKQJpFZtARmN@google.com>
-In-Reply-To: <arrwQKQJpFZtARmN@google.com>
-From: Keqiang Duan <duankeqiangcym@gmail.com>
-Date: Tue, 29 Sep 2026 10:46:46 +0800
-X-Gm-Features: AclHuK8mMnu4MvWcyqvFMSXacZLsQfPg_SuyLmkpDnlhsh7cHQGVbBVXMe35tyo
-Message-ID: <CAMd06Xdgp3y36msuro8W+X9eLwXDR29KLADtTObN+41bRr78MA@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: x86: Clear hardware HLT state when userspace
- makes a vCPU not-halted
-To: Sean Christopherson <seanjc@google.com>
-Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Qinguang Chen <chenqinguang@kuaishou.com>, 
-	Zhiping Du <duzhiping@kuaishou.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179058435280.3145.10954316639683713234@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfXzM7B0PtVffQa
+ Yh7jW1rw+RILjkQupRUh1ttE2BpM0L6EQY1Q7i1EYjXZu6sa+gDlHqo6R2JSUH/EolNDbdezy31
+ LztJ2UCfhoWsLbs9vRhQcBOXceLo7gw3PQUDd1j7f1hkm+lUfHtfQAF/deSmwBWlBdNdwXvLB0F
+ Yv5JuLWTG4j/PtUNR87agPx05Caphzna0bFZvLENDENKTF0Mn7+Ug0bxzq1dz9K3+nGcA2hJj9N
+ St80dFbHnfJ4Sot3ZmRnau8UHmoyWyQft2dSOs9+AnheWiwJ2M8RJK5OkQm/4zESDbXgJhSu685
+ QVevkOrlG4MwteEl8it1mJhlyjIhML7Ikyn+cfGEEOqor33U6FtyPExwnIeGxX/kiI8jsBoygdx
+ Yuz0BYEqx/1qHKruhRMQAgu4AKfMSh7w4Chh7HcRVYDf150a6bt7Ag9ThFYffy9IXyS0ii3iSAX
+ pEcpT9XbWOg619ubhfg==
+X-Proofpoint-ORIG-GUID: IFEcM-ud-je2H5HW0O7piRlSkdFd_kDL
+X-Authority-Analysis: v=2.4 cv=e/ST2qp/ c=1 sm=1 tr=0 ts=6abb27ea cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22 a=VwQbUJbxAAAA:8
+ a=PuHq0AtQRq8k6O7Yp28A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=ZXulRonScM0A:10 a=lhd_8Stf4_Oa5sg58ivl:22
+X-Proofpoint-GUID: IFEcM-ud-je2H5HW0O7piRlSkdFd_kDL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfXy/ouKf0Dbm5D
+ OEdt/sRXIGIWXoqqwhC2T6b3g4S4Z5yuI0ux5++5RV6PGjDyF11sFgRDI47Vs2XEqz7XJsNUHZ2
+ hRhCZPn33kKqlffnDrnmFRqeWjGTxY4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_01,2026-09-21_02,2025-10-01_01
 
-> Anyways, unless someone cares enough to want to back up the claim that spurious
-> wakeups are ok, I'll just drop that line when applying.  I don't see any reason
-> to mention spurious wakes: the vCPU is clearly being moved out of HALTED state,
-> it's on userspace not to screw up (for this particular case; there are other live
-> migration issues that userspace can't solve).
+On 2026-09-28 at 14:02:32, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 2 · Medium: 1 · Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [High] The patch says it fixes nix_txsch_alloc() 'return[ing] success
+>   after allocating fewer Tx scheduler queues than requested'.
 
-You're right, I was conflating the software convention (every HLT is
-inside a loop) with
-an architectural guarantee.  The SDM and APM are clear on what
-actually wakes HLT,
-and neither mentions spurious wakeups.
+ACK
 
-Please go ahead and drop that line.  Thanks for catching it.
+pw-bot: changes-requested
