@@ -1,82 +1,89 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2860139060B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635FD3955DC
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790665644; cv=none; b=Nq7ajZ6R7cWIwbic2HCcgUPr1cFDufYhRaTfJ93Kdxgb2mYLGyGDd0CgVDTJwznXY9LZKhHV3JFrKCC9ITjwm5RVy7ySTWTMpSlbhosXfpMV5ArEsEKzTI2QMr7yJVmlm1QBCVSon+jfXW/tGnlekdaKSUrxNNbbQ/IVD4c7HCI=
+	t=1790665665; cv=none; b=uI19YqNjB4hzyAK54Cnll4RfkXhSE33+PWmEhwu1nDlKJqvQLoXqtc7Inw6ZvUv87JtUl9Rtl5dTDpynD+M+zAPE0sJAb/qYF7lvQRNpYoN2I94gAJCQXstDyMUBp+IOVb9NJs6HMTlmhsSQ7vb1ynTf60NT98WjBvqJhlnLdlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790665644; c=relaxed/simple;
-	bh=n2TenuQfS30jIvUa7/T0s//KY/39k2s4/cvb+SfW5ro=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2PdIP4PuEfYCJOz0MnzC1tZ+um57R81/UQyO10i91eJzq/OlwSlee3cMc1kfXZGFBAUhqT1YpKNypbfaA0kf53n5OP/64E8c70xXW/+16+WsOyPLBqAH42FTG6rfa1Tj9nwvTcj8bDTIavCT+NuaJU44mak8v971COLPny6IWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gr6lwTSi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790665665; c=relaxed/simple;
+	bh=sn9nVAuE9CIKUaNtjwjoRmbzxL+sDIi+Hu2Kva/kOxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FG+De6Wpf4YlYz20v9bqtC4ih7Nb9tE2+wDPZB9auysBUAYjqZmzFxXFIFxcVIbuUbA5/sOm1EfY12AB5zwxrpMir3fIdClOfKOsQOWZMSKwKKS7EppIUO2aqsUtp698+EPEFykNtc8pZBPyiPbleB7gwBhwkaCfnPAtx+QDfnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pRjAc/fC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MlAEZaJ3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gr6lwTSi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso22723255e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:07:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pRjAc/fC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MlAEZaJ3"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T475bd3390850
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc
+	9bPCyTtM=; b=pRjAc/fCbWl9lTmGOIchQ1JPrLJeF/yv+6SaNz0SnCa2Tje87Il
+	cdEk0OUDZJ7HxQ0GJ4EqhWnfoz00nesihJ44hcSno/yJfr2jUeyBuQaci6+vidJM
+	DJ2h+ZtKpppU5k3RdTOFpTGgyuxAVeZpeKF/CuSo/8I35Jyz6L51npwtV3Det6xn
+	3z6xP5hkdc0Wb1IYYcL5Lp8cgRPGeGe0XsEtDr9LSzgajINBKLFJ1UJw2Hsg+O7s
+	6aDPk41mEp+usCY6N1pV4jkNBiotG2dO2s6xwZQ6t+2Urcequs3+tB1gGBEa8ScK
+	N9l3BIgsP3ZNRxdbZIJWe5XVzkyINvQjAqA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h01vkhfjg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:07:43 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso459039eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790665641; x=1791270441; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790665662; x=1791270462; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
-        b=gr6lwTSi8HAgYQsODLsGe74Lj7tQgJWYBFFbvRGO++3sBw+TpvIFxluuMxVHBaUbaw
-         5kqc/A7o0WUw47/FNFM69Ejbb0qEOy+VZRfru4N2R3elYNTj570t0Cj1n8w0N4Wm8wAc
-         mbQjCGEhtO/Gxbra6Xm3c0tTtgyiNvfS1mKI+CNEaj1jUBgcezF1gFYzUX5BOKe3l3fj
-         4CXCEH2eRKg6qkAYojSH0WbkYvDBqTihH/fuOD7B4t3YDwRjo1Cd2QksZEhd16JXz9dW
-         OEnmnQNDMwT9Y+BTvmifV42hymoOgCS9mshXjEvHdRlAtxeqSsvX7XqL6bJJHkMx1+Yu
-         LHmA==
+        bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc9bPCyTtM=;
+        b=MlAEZaJ3ane8pc+vwixAY7XzqSoCStWezQQAK5D7tI4yVo6E5/dXQkrnpH2mAcHxAm
+         mzVCi9w93MyOybeIdA9CjgIkwOjbJthS6p94n/tyzgK7/rbblDH9my1HJVGO7rzwtUQd
+         cwDKRLF1UuumaJSD3lEtlqVy+jLwra9NOOuoGPPC7dNqtilYXOQY05do7NXzR7EJBPeH
+         FiXeC1tbzIKw+cY+Q5rvZTmuIHMu/D4uAuxH/dqZQIopwx0e8o+tpzc45uNOmnpPQQ5n
+         p7ppv9fNSougDE4Y4Dxrdr8JlGibNeVdZ9FGJ5HF7nEXHsclyeXX32KC1QFsx3wp9GQM
+         f7uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790665641; x=1791270441;
+        d=1e100.net; s=20260707; t=1790665662; x=1791270462;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
-        b=LCB4V3x0tD60X13dDA1UmPBXH6UFttKi+2jkrttJRkvHnNDfe8appjfULomBBkYI1n
-         xB1Ym6rbxYR22mZapt/0b3Nt4VJdI9P5Oal/FTA/QlnQHfZerjNo1PEcAwkoot8C+ulp
-         +zk4/XORQ5eXKLRG25BJbOL4S1eC5qFShKqw7WiQuSSEYi7v71A2U3cQV2qnWNB7fSig
-         j81ltBRQWnYz51pL8n8flh2Fk371IkqLOxrVuhwFPaMwwlv/V1DSZ2Ddk77OdGOMNwvK
-         VpvCiebp2CysDXUsToIiUny9FbWO9AM1Jbj8nv/uB3qllXDscWuIVpJgiesFOSDJTc/B
-         v2Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBxxZ9EzW7k7Pq615oV9itHhuG5k3EmOK4yNByof1thS5Ynip5gPo/D3obr05XyhxSOdMPH9N6pbjWBKwcE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n64G122mgXjkp6r41GdK9+7w6iHPt5zfoahx6m/6dKoBr5Z+Gy
-	nfvutzsK6WJo3grrbUWphzav5H8CjmEgohsrMqnxaNsaLtM6YKjI6RNeskbK/g==
-X-Gm-Gg: AYBFou3L3O1RZJrn0MPNDKaZOf6eToC6CzbxWwxp331brqaKJEWkpCD26lcmyJP9VaQ
-	mBxPe+iTxuMOvMVDI9TYeGLX4MSxz625sH13FNugNPcP9+SDDmVdcYthLs5BYvMTDZXr64Iwg+R
-	4yyLvqkteJN3oJS4L8NN65ufqjomPvlfxpSCj/fBdZpHbNsxdgeihbrPbqASkdKKcFFPf3ijofP
-	KR7ZwkOps02KVqzDZdrypWCZ3pC6UgjcB9KktpYZMXGK4jUCW84iGQUwx8wuRUkIp3G+oTLLfiA
-	UOvvWjCfD6EvQhWLfp8YqlpX+9tACsNYVms6hCPOgsn1hJ1CXa80g/0CnURWNfVtthJwEFnrDXx
-	yfCvw2r71y80g8Wta4FhvFGfyqmG74iJO1Y6Ks3JNYDPPgOyOVBt9Wqdtj74KkHD0iAE4pFKWUQ
-	bDAYmd9iLS+BrqE4LOc7HvqVzFqGUzYx0WZJlEC70Kxx8WMfxVLcFeZnHLzCU5BvHOqWatdHeE9
-	QZ5MeJEY39bvb06qBuaZij7Iru/HVK/4wPyYAvmK4ROzQewNpreFYPTpW4r4Wx5XtI=
-X-Received: by 2002:a05:600c:3556:b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-49fe6708a46mr262115795e9.31.1790665640767;
-        Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
-Received: from f3a6eae2255e.fritz.box (dynamic-002-214-017-137.2.214.pool.telefonica.de. [2.214.17.137])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfec770sm57919625e9.8.2026.09.29.00.07.19
+        bh=yRyTuafYCnAtMg41E5eJOVfsBaO0/MWamWc9bPCyTtM=;
+        b=dDgDgYBeJykDJ5Dpwx1BJu7syaCOwWcw+iA1PxqFRMON3mxEQ2SX3qfbyNLvMqfnOW
+         QMM6QC897INValt5MyskbDKFbM/vV2U34PT9NkzSh8jal5383qtPuk+8M7xvvL4IJ4n0
+         kBM8slFs9a2d258WmQQaVc1+xBSXRXyHyvOB68P/SJIFtrtKXmH4I/vI9MiNC5RyQSOI
+         OnqcxumSLeEF8+W2aHg8k2rWjN6e00nw6U40/rNGXNquRiQap0G0+LiKY2A4DnE2gU3n
+         oJbW8ywILoHLrPYMSUC/OXfLbFwreDxALZQRSrbuelMWr3U32WxVI0iPY4dQmudSy1Wl
+         yXug==
+X-Forwarded-Encrypted: i=1; AKwUvByXFOo7UxwelNgc4PU4wO6B+AiPUnff3iB+kMX4MOocJYZKFyjveU1yWkWqrceO6us0HmQuKgDAC4S2qNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nn7uuBjyFOjteGOHxrnjbaMuUZTAhxJKTDB2d0bgUsJzDqgU1S
+	cAq3aFA2z02iB8aQFBJ+wt508uaDowdIcDmwdDF8Wns38Ss+EEqEZvT0m/+MZDciZ1VPV3F1GUG
+	RHH/7OO1NFPUrOR4ZiYNNxXfdVyEixCGApEuyJKly/MYablsjLYsfkoUVauzdxfBbuwsYvn8rey
+	w=
+X-Gm-Gg: AYBFou3cekXC7kHgMg3rWnrU8abENZWNR/ejMdrh9Y0kiyzrp6GkuQnPAwggK/XJEQ/
+	l5MkO9mWXc70tLgOtmq3aX+TN9TLP3es6b3SUIubGNf74gI39ORH64iH1lylfapFd3uKOyFSrw6
+	xGgXmQjXj1TZ7NJ8N6JeHLLzueaJ64Jx9rQpQr75jJ54XWis7xhEtBehxaawwC9cmPE4fXOMHz7
+	BncXMW6pQ1aFXCv3vY6XLSh2KPNGSmoOyW1SPXvcLc1B/m0Gs+Ne64uzv7c3EYVzfIS2AthfkUf
+	XcJBRRo32Mnh/0YDS5w0/AIgDpG+RuNxr8AHDauF4a+7HM1+UqVmJtl46wFJ/pWAVY0pAlN/a3/
+	Z12B5uuRHp6mwevj6HSI5kZno5Wet8xulFUcceSMemHvOBCbKsw==
+X-Received: by 2002:a05:701b:2212:b0:149:ef22:2fa2 with SMTP id a92af1059eb24-149ef223168mr5577023c88.8.1790665662218;
+        Tue, 29 Sep 2026 00:07:42 -0700 (PDT)
+X-Received: by 2002:a05:701b:2212:b0:149:ef22:2fa2 with SMTP id a92af1059eb24-149ef223168mr5576993c88.8.1790665661419;
+        Tue, 29 Sep 2026 00:07:41 -0700 (PDT)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14a7c03ece2sm7426321c88.16.2026.09.29.00.07.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
-From: Abhin Parekadan Jose <abhinjoses@gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	David Airlie <airlied@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dongwon Kim <dongwon.kim@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com,
-	Abhin Parekadan Jose <abhinjoses@gmail.com>
-Subject: [PATCH] drm/virtio: Destroy obj_restore_lock on the final drm_dev_put()
-Date: Tue, 29 Sep 2026 07:07:14 +0000
-Message-ID: <20260929070714.169412-1-abhinjoses@gmail.com>
-X-Mailer: git-send-email 2.51.1
+        Tue, 29 Sep 2026 00:07:40 -0700 (PDT)
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: joro@8bytes.org, will@kernel.org
+Cc: robin.murphy@arm.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+        fenglin.wu@oss.qualcomm.com, peter.chen@oss.qualcomm.com
+Subject: [PATCH 1/1] iommu: Hold group references across bus_iommu_probe()
+Date: Tue, 29 Sep 2026 00:07:37 -0700
+Message-ID: <20260929070737.3798358-1-peter.chen@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,84 +91,180 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX3RWmMWxtWzl8
+ 8L3HAj6j+bQ04r9OJbeNrZ3MPZr/dafYwGhccOwUUeNd4S3UgNDdHzDeWp+vgk38fV9xmee4bE9
+ a1mAm0A0eGU6KtDRZoJy+NnpU5wPKQRroeFWYXq77XEQaNyjcrSB3MKgFYt3One7YDHCTh1+5Qn
+ P+LjBU46dohzsTYoaAlBSr4VjE0v3SPMFpNOWrFFTW0BDOaDcYysz7CbfI+VKRCepek7xobf+wC
+ Tdipc98pmT2vBRh1t0dsbV9eiARMKjts0f5dNZvrIfFrXzvlpF7UVjyBhJfuQJTB1Ulxm8g+9kH
+ CQTaXD+dobYRVcDwItaX29MbpFFPoJ9rpf9bZ0gCMD3S2n9NSX7DKIqTVbagVJ3tlrSVpE8xyGG
+ qjvdRkAf0k1lChBEWyXv9zmWgzPyxE7lkOE9A+HPdVNQyG3C9LM6Ux3hCewiBzp9Sq/DZuFW84d
+ y3WnMuY2PK0xJNhWOaQ==
+X-Proofpoint-GUID: pOHQVe2yuFTY1pIAGI4p4WM3qYoeq1N7
+X-Authority-Analysis: v=2.4 cv=VcVir1p9 c=1 sm=1 tr=0 ts=6abb63bf cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=5nmvm-2Xiqt-MVby-jsA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: pOHQVe2yuFTY1pIAGI4p4WM3qYoeq1N7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyOCBTYWx0ZWRfX9fckKHZ6bTVs
+ YcgFYnEU+q4G9hRpo+IfQeOtFgfN22kdd9O/ESgJo7D1EUzBJ4+b10KopR3yumbehJSanut1R8H
+ 5MKw3YRtz8J8y6NCqjm7LHpwPeQjlcs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290028
 
-virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
-deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
-objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
-alive, and the fbdev DRM client holds a drm_device reference. When the
-fd is finally closed, the buffer is freed and takes the destroyed lock:
+bus_iommu_probe() collects the groups that are linked through
+group->entry, but the list does not hold a reference on them. Only the
+member devices do. A device of such a group may be released while the
+bus walk is still in progress, for example by a BUS_NOTIFY_REMOVED_DEVICE
+for a platform device that is depopulated concurrently. If the last
+iommu_group_put() then frees the group while it is still linked on the
+list, the second loop of bus_iommu_probe() walks and unlinks freed
+memory.
 
-  fb_release()
-    drm_fbdev_shmem_fb_destroy()
-      drm_client_buffer_delete()
-        virtio_gpu_free_object()
-          virtio_gpu_remove_from_restore_list()
-            mutex_lock(&vgdev->obj_restore_lock)
+This is the "iommu_bus_notifier() being triggered during
+bus_iommu_probe()" case that commit da33e87bd2bf ("iommu: Handle yet
+another race around registration") left open. The sequence is like
+below:
+- Process 'A' creates the platform device 'T'.
+- Process 'B' (eg, arm_smmu_device_probe) walks the iommu bus, and
+  allocates new group ID 'X' for this device 'T'.
+- Process 'A' deletes the platform device 'T', and frees its iommu group.
+- Process 'B' finishes walking the iommu bus, and tries to get the iommu
+  group from the list, but that iommu group has been freed.
 
-  DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-  WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
+The kernel dump is like below:
+  list_del corruption. next->prev should be ffffff8064a984e8,
+                       but was 0000000000000000. (next=ffffff8064a9a6e8)
+  kernel BUG at lib/list_debug.c:67!
+  Call trace:
+   __list_del_entry_valid_or_report+0x148/0x14c (P)
+   iommu_device_register+0x1d8/0x268
+   arm_smmu_device_probe+0x588/0x624 [arm_smmu]
+   platform_probe+0x74/0xb8
+   ...
+   deferred_probe_work_func+0xa4/0xf4
 
-virtio_gpu_deinit() should only do hardware teardown in this case
-related virtio, its queues and others. Software state that GEM callbacks
-still use belongs in virtio_gpu_release(), which runs on the final
-drm_dev_put().
+where next points at ->entry (offset 232) of a freed kmalloc-512 object,
+the released iommu_group of the depopulated device. That was seen
+on an Android 6.18-based kernel, but the code involved is unchanged in
+mainline.
 
-There are two equivalent ways to tie the mutex lifetime to the
-drm_device:
+Take a group reference when a group is added to the list, and drop it
+once bus_iommu_probe() is done with the group. With the group kept
+alive, a group that has lost all of its devices in the meantime can
+simply be skipped: there is nothing left to attach a default domain to.
 
- 1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
-    virtio_gpu_release(). This is what this patch does. It is the
-    smallest change and keeps the teardown next to the rest of the
-    final-put software cleanup.
+Also drain the list on the error paths. Returning early used to leave
+the remaining groups linked to the dead on-stack list head, so
+list_empty(&group->entry) stays false for them and a later
+bus_iommu_probe() would never queue them for default domain setup again.
 
- 2) Initialise the lock with drmm_mutex_init() (checking its return
-    value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
-    managed release destroys it. This also covers the virtio_gpu_init()
-    error path, where release returns early because dev_private is
-    NULL. Skipping mutex_destroy() there is harmless, since it only
-    matters for mutex debugging.
-
-Either fix removes the WARN. Option 1 is sent as the smaller change,
-and option 2 can be done instead if preferred.
-
-Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
-and PROVE_LOCKING: open /dev/fb0, write 1 to
-/sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
-patch the WARN is gone, and rebinding brings back /dev/fb0 and
-/dev/dri/card0.
-
-Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
-Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-Assisted-by: LLM
-Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
+Fixes: 41df6dcc0a3f ("iommu: Keep a list of allocated groups in __iommu_probe_device()")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/iommu/iommu.c | 41 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a20..0ec755c35050 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	virtio_reset_device(vgdev->vdev);
- 	virtio_gpu_reclaim_vbufs(vgdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
--	mutex_destroy(&vgdev->obj_restore_lock);
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index b486b8bbd1fc..6965b89e76bb 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -682,10 +682,14 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
+ 		/*
+ 		 * With a group_list argument we defer the default_domain setup
+ 		 * to the caller by providing a de-duplicated list of groups
+-		 * that need further setup.
++		 * that need further setup. The list holds a reference on each
++		 * group, as its devices may be released before the caller
++		 * gets to it.
+ 		 */
+-		if (list_empty(&group->entry))
++		if (list_empty(&group->entry)) {
++			iommu_group_ref_get(group);
+ 			list_add_tail(&group->entry, group_list);
++		}
+ 	}
+ 
+ 	if (group->default_domain)
+@@ -1951,6 +1955,18 @@ static void iommu_group_do_probe_finalize(struct device *dev)
+ 		ops->probe_finalize(dev);
  }
  
- void virtio_gpu_release(struct drm_device *dev)
-@@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
- 
- 	if (vgdev->has_host_visible)
- 		drm_mm_takedown(&vgdev->host_visible_mm);
++static void iommu_group_list_put(struct list_head *group_list)
++{
++	struct iommu_group *group, *next;
 +
-+	mutex_destroy(&vgdev->obj_restore_lock);
++	list_for_each_entry_safe(group, next, group_list, entry) {
++		mutex_lock(&group->mutex);
++		list_del_init(&group->entry);
++		mutex_unlock(&group->mutex);
++		iommu_group_put(group);
++	}
++}
++
+ static int bus_iommu_probe(const struct bus_type *bus)
+ {
+ 	struct iommu_group *group, *next;
+@@ -1959,7 +1975,7 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 
+ 	ret = bus_for_each_dev(bus, NULL, &group_list, probe_iommu_group);
+ 	if (ret)
+-		return ret;
++		goto err_put_groups;
+ 
+ 	list_for_each_entry_safe(group, next, &group_list, entry) {
+ 		struct group_device *gdev;
+@@ -1969,6 +1985,16 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		/* Remove item from the list */
+ 		list_del_init(&group->entry);
+ 
++		/*
++		 * The bus notifier may have released every device of the group
++		 * since it was added to the list; there is nothing to set up.
++		 */
++		if (list_empty(&group->devices)) {
++			mutex_unlock(&group->mutex);
++			iommu_group_put(group);
++			continue;
++		}
++
+ 		/*
+ 		 * We go to the trouble of deferred default domain creation so
+ 		 * that the cross-group default domain type and the setup of the
+@@ -1977,7 +2003,8 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		ret = iommu_setup_default_domain(group, 0);
+ 		if (ret) {
+ 			mutex_unlock(&group->mutex);
+-			return ret;
++			iommu_group_put(group);
++			goto err_put_groups;
+ 		}
+ 		for_each_group_device(group, gdev)
+ 			iommu_setup_dma_ops(gdev->dev, group->default_domain);
+@@ -1991,9 +2018,15 @@ static int bus_iommu_probe(const struct bus_type *bus)
+ 		 */
+ 		for_each_group_device(group, gdev)
+ 			iommu_group_do_probe_finalize(gdev->dev);
++
++		iommu_group_put(group);
+ 	}
+ 
+ 	return 0;
++
++err_put_groups:
++	iommu_group_list_put(&group_list);
++	return ret;
  }
  
- int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+ /**
 -- 
-2.51.1
+2.43.0
 
