@@ -1,83 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF2552CCD1;
-	Tue, 29 Sep 2026 13:58:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172B7522699;
+	Tue, 29 Sep 2026 13:58:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690306; cv=none; b=RiR6wkSHobTXnSWaZBv2ag3yDv501rQ70Tcaz53T+U+/rpc6AtJXBKMWG5GXRv03NDFS2mkVR+mmLfH3HdO2oG2btSyfrQeyEVWdwxrV8PFSLoTL0aX1r4ZKWMHw5jDfdpwbMVEciP8d8TJbwKCBWy33H8l9MSfHVBxYwDAbCt8=
+	t=1790690311; cv=none; b=Bwg/oINTkgXLq2zELmpW6QlRbUFheTVUZWm4iHWj+3z8X18+BgwStLFrf6JByw6Nh5TBnV1LK18vgw3/6oW5LmdBr6NOQgK34+i8hWp5r4U5kHdIz6x8I6GTC6sAKzeodDoqGJNbVEq98mYkcgdGF8QVbnUyMhr2IeBEnTTN/+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690306; c=relaxed/simple;
-	bh=82Al3bLKviLulvYmqsyZFVFB86RfcW1kpgUfJzTRgmM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y91SC/rT0fLjj85YoB9tNxifdPBKy4q2Z9GGgvstcW5yg0OW+I5Fy1BanlLGJXolnemURqw8Hgab1HXc3ZmP8MRLhTF01EEUrt2coK+sRUTD5/8JBT6OvfhllKmAWZazIijHlounJSnAHF2wzzcBMBc07OGU2/nQ1UgUdyckZBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWpcPF7j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790690311; c=relaxed/simple;
+	bh=SOEvubbQMnOooXD/UcW88oGK5qu0rgnbA9Sct4nYulE=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=X0oCZ89U5PY8i7MyR/7S2pHlgVbKHjqwKWhKLTHPeQP/NYljXzCKzRn9uWTaVfmq2v54pXZrkK+KP2aF0DasE3kS6QeqLwlv5GViZpRClwHQvIIcsW0vna0B9nRL32U/WgAvBtemqxLzMqDJVaRxqllW197xgnAI2zHC6NdwPf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgRYrjZT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWpcPF7j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76AD01F00893;
-	Tue, 29 Sep 2026 13:58:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgRYrjZT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3061F000FF;
+	Tue, 29 Sep 2026 13:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790690305;
-	bh=NOA+b6mEHM0sTpPLnypkbzJb83RcP+f2mcfPVl+iRz0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hWpcPF7jtiTrS34MrATNDSDRaM+DDhIFOjp7fgwCeEtvNUhOkO035XM/40TyhdTFx
-	 pnWDQmOeaGeMNDGbJhC7E7MHb2jMH756cxoI0TBuQ1bmhiVMkslFgzvWAAO80CkMMG
-	 6eZu1lCYfasSKoS0pxCW/cRx0n0GRQA9vUWZ1s6oOJ+qz7CW0MwxzmdKFFl2o3aDKm
-	 iG20twHAdXwZsKi8Z4XqYgp0GRXhArQ3mm1iWbcn1LbLxtUFmgUsD02j+ei6IiXecO
-	 wKA4bGO5kgvfcoTHZ7VFr/PBUZCLkB1CjVSZANmeDBhx9BmTJLCsfawqogHOsGao7Z
-	 IQqoW66/SOpZg==
-Date: Tue, 29 Sep 2026 14:58:19 +0100
-From: Simon Horman <horms@kernel.org>
-To: Manish Awasthi <mawasthi@linux.microsoft.com>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
-	decui@microsoft.com, longli@microsoft.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, kotaranov@microsoft.com,
-	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
-	bpf@vger.kernel.org, nipun.gupta@amd.com, nikhil.agarwal@amd.com,
-	gargaditya@linux.microsoft.com, ernis@linux.microsoft.com,
-	kees@kernel.org, paulros@microsoft.com, mawasthi@microsoft.com
-Subject: Re: [PATCH net-next 0/4] net: mana: Add support for the CDX bus
-Message-ID: <20260929135819.GU13925@horms.kernel.org>
-References: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
+	s=k20260515; t=1790690309;
+	bh=OtECl8+vYMPnXskEA5uxBLNSGll9C58y1Bq34FNO+eg=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=SgRYrjZTvIw0+xwOcjvzqiB9d9fnVU2yeS703kX9dpf1qk3Ss0h9Fmj3K0+JEKFvv
+	 sTPm8tV6joZij1oeq62s0zs8iVK701ZJJZAkFZ/aIBM9s3UtaPbfrGwHkK6/eMpJVO
+	 1k9CZhwbre3jDVa/S26Dtbq7vcy9JXen4kF2u6y6QdmINPgMWTTxNaqUDhznMMnzcD
+	 PMjbZ+Soxz4Z2wbVgjyqOLfEgnSheS6Yg43GdRDuMbuhRDY9EIJSlCbkSOT1Wkfawj
+	 Ox2FH+VkdxCXS2ZuQCoIS4hMafq4pL4p1OOH/jt9oITWPMNfW5H9KmCfR7gSDwJC/Z
+	 t6FQXGqHi6bow==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B47383926663;
+	Tue, 29 Sep 2026 13:58:29 +0000 (UTC)
+Subject: Re: [GIT PULL] MM hotfixes for 7.3-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260928200625.8d739583d545932f905e36b7@linux-foundation.org>
+References: <20260928200625.8d739583d545932f905e36b7@linux-foundation.org>
+X-PR-Tracked-List-Id: <mm-commits.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260928200625.8d739583d545932f905e36b7@linux-foundation.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-27-19-12
+X-PR-Tracked-Commit-Id: 976d5e0ddac885b0219252f004f6c561c344df9d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 6f8319e3e9a44dd537d17f41565a8453c560a581
+Message-Id: <179069030829.508778.12503709141210678561.pr-tracker-bot@kernel.org>
+Date: Tue, 29 Sep 2026 13:58:28 +0000
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, mm-commits@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
 
-On Thu, Sep 24, 2026 at 05:30:50PM +0000, Manish Awasthi wrote:
-> This series adds CDX bus support to the MANA driver.
-> 
-> The shared GDMA and Ethernet code currently builds together with the PCI
-> transport. To add another bus without duplicating the driver or adding
-> configuration checks throughout the shared code, this series separates the
-> bus-specific operations and builds each transport independently.
-> 
-> Patch 1 introduces gdma_bus_ops and routes bus-specific interrupt, reset,
-> service, and setup operations through it.
-> 
-> Patch 2 moves the PCI-specific code from gdma_main.c into gdma_pci.c
-> without changing PCI behavior.
-> 
-> Patch 3 builds the shared code as gdma_core.ko and the PCI transport as
-> mana.ko. The PCI module keeps its existing name, device table, and
-> mana.eth/mana.rdma auxiliary-device identities.
-> 
-> Patch 4 adds the CDX transport as mana_cdx.ko for device ID 0x00C2.
-> 
-> Manish Awasthi (4):
->   net: mana: Introduce gdma_bus_ops for bus-specific operations
->   net: mana: Move PCI transport code into gdma_pci.c
->   net: mana: Build the PCI transport as a separate module
->   net: mana: Add support for CDX device ID 0x00C2
+The pull request you sent on Mon, 28 Sep 2026 20:06:25 -0700:
 
-For the series:
+> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-27-19-12
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/6f8319e3e9a44dd537d17f41565a8453c560a581
 
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
