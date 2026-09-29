@@ -1,127 +1,85 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD82A52E07F
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0584052CCD4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689611; cv=none; b=noQSJU767bahpwlmht5viDY6nHYoSKBaX93Bw8xZqkoVYm4WWQxmdtpteIw0iFXA5bpjtiYRP+jtrGBHn+KdZUAWBitHA2SxKpnT0+9e1hWp2waV468ARyAZUWEYYt6Z64jizm1E2iD4NTZIluAkNTAp+/4cNnJjnzYpSsQ5EZU=
+	t=1790689635; cv=none; b=kAzTRhsiUy88aLfFkA5jx3iN+pUE/Uyg6GYw9eLuC+Fdgw2ydJkdVYwqgmD2BWuWGBeqeXRrGYQa1GYIwv6ReyZpSRN4jzBhSHeqU944HAK2+GJLPbMG8JnLI4Rk3SWJjI+nkFzJO4aO5/XIpI0S6a+8/HjT82pBdTWvDrQDqCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689611; c=relaxed/simple;
-	bh=t2v5EBAm60/SpL/4Kgrze9O6NYflbFJ7yUWXn8gk/gk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tvMwdsTubUdr1QhCJPKH0LYV8kcItqhNB5VGxaMYkOsrGwyDu5KMCgpSlxSe66wNParlNFaI7E25pLYyqQQ0AxWgZ0D6sl0XbsfNCXzNMXEud/v5539RrEiOls1GwG8oQ6kpr3dcodmQzG0X0VmsLPkEvYn/6u94APjlb105BCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhuFgRMJ; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790689635; c=relaxed/simple;
+	bh=WrPfgETFw2Wn26KAsjIVoHMpa4pEd1Ar2QFOaJ6P6ow=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=UG/ZngDqDHLBJsExSgoWZRtA/7neyja8E2x8pINQR7RQTUyFFs1HgswQt/5Kovs3iy6qHOYd9f7vZO2k+Rb+tDpXqTjiozSaSKj9aklTUsrPdaOQWhE6dFZtJdAgsd8tQ/WMrXkh4qeELUCnu1jW3ndcr1vWypMKi9pePdq7rmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cZ5NYwX5; arc=none smtp.client-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhuFgRMJ"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso2124976a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:46:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790689609; x=1791294409; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VWDGuqjnTvGg5NH3Y73uLzFZTfCnb2e6NEIBzCLI7Cg=;
-        b=HhuFgRMJivirdLH3vJmAhlrL5Rrc8R4lmn+l5SEkKnC2KEGjnDSFB7S8u7g/1Iq0+F
-         ouH3PZK4/h6qYle4gK+MT3ZYMgDaGU/3yp6MjuE6n8c7VJ5pDiY/INUwaCQBmu8Oo5cn
-         sbLuHqvRLCtzXs84OQLzb48/NI+aqwTVttd7VWHATcHEJ5hu6wsOyZaRfZoWaNzRMT1r
-         TMKtX0/9oL/YqW9vmWUJc2G8Bea84lXWXgdOUGhPitEj7lMAYso6WP1GOj0SL123Kz4p
-         buVReSnCfOZjfhXKlmurJk5jJrqPC6jfBBWwcKvY+1H0GNctCzk3Wsl8PXPwPz0iC/0l
-         tQDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790689609; x=1791294409;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VWDGuqjnTvGg5NH3Y73uLzFZTfCnb2e6NEIBzCLI7Cg=;
-        b=VqSkZzh0wi6VTUTbUiYo1+l/GiHe2+iTC7pLl/KgLdXH0KwQ6P11a5SLkTPddo5hQr
-         aknQrySVC27re0d9smj+wo8kHUHKL4R1BbCbRIcaQLYyHPhmNsrX67afUjU/+qms9MeE
-         h50AdkoYZ9QBeRCP1pdJLxavke7oJbJipvnNO6sBAR6h0+qryTcELmUThu+fEGp6NXYB
-         Xy9lVXx/pwx7eJMQVny4ZIcpR4XnmeZZGIKRd813vSjuvA/8zWI+mdjBIN/4on06R3VY
-         D+tJaHOuaJKorVQUn4I3mZsHtmI7kXBmkyfCX8axFiZbUUUOXzbZHyNtiSVS1a2K81Yw
-         Jf/Q==
-X-Gm-Message-State: AFq9FYJCv6HpeYI4oI+fJ8lFVHi/OpylKDa9N1gsa8n7f8MyiWZEK6Iy
-	RsL9DdmjMfaYJN3FR8hWu9mB6nY3si5wfulkDfN2oQGDTCSWjMLq9eSIvQpVkPe+
-X-Gm-Gg: AYBFou2wuVbCnkVuXfMyL0I5L7qTyhH9opTvudK/K+KzhKvSI4HO7p9Q+l+eRN+B6HG
-	IMlkufpBbU6D36pcaH7eOtnjNvpbfihzkwZOgjmGaPSz5Ll90GHZHFBEzkkLpwH7yOeOKNvpSZf
-	YpLnwmPPPM8Gu2qVCUPkP2CFQdQg6PfUIuVz1MxGmTcZqe9DXAx7SF9Rws3VkL5hyTMOmMJQwku
-	fwE/1cZt0lkuh/rm5B7EmOVIblRtetRLQNZR+rZD+EppVVX+aGHisaAgHe5W7n7Cb6jM4rm0qnX
-	DTUnxRoVOG8x/Cv3QGdwvf866nJimr7713D9bm1BGfIje4VTGppDg+BFt7TeFTAc12rf4JywtFk
-	4VnS0b0+frbymKOqm+fa/EuZIQeB5kO1LYpXXjeuvIqFGR13sGAWhanhWN07ymmZJPUFoLM4P+8
-	QXr4kIXzdwRUWdaB076UP6Q1cZZ4m3OicdTSghc4NYxEW3xXqB+uGaXAsPMLPC/ewDBs3T5a+o4
-	05h4kacT7oK
-X-Received: by 2002:a17:90a:51c5:b0:3a0:ab20:9e97 with SMTP id 98e67ed59e1d1-3a0ab20a15bmr8684739a91.15.1790689608914;
-        Tue, 29 Sep 2026 06:46:48 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4b7890699sm276838a91.3.2026.09.29.06.46.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:46:48 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-To: linux-watchdog@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 8/8] watchdog: core: Update last_keepalive in watchdog_start()
-Date: Tue, 29 Sep 2026 06:46:35 -0700
-Message-ID: <20260929134635.2567137-9-linux@roeck-us.net>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260929134635.2567137-1-linux@roeck-us.net>
-References: <20260929134635.2567137-1-linux@roeck-us.net>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cZ5NYwX5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WrPfgETFw2Wn26KAsjIVoHMpa4pEd1Ar2QFOaJ6P6ow=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790689631; v=1; x=1791294431;
+ b=cZ5NYwX5Z3UHOpSBYiQw8SP7KPYmuhR+2dY4fPrmNvC+U/zjpyB9BOxH13V2ezAPL6v+PVAA
+ idDk7LCUVJJJDqMtUO8x+a8yW2DFEMLNyQ0lPDN8L62ki3SARCMvErVTVOd8kpONPj9OtPuGxPp
+ LmlaiSO6s9oh/bHnLx0ikh+c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3d76b2bad85621cf;
+	Tue, 29 Sep 2026 13:47:01 +0000
+X-Mizu-Trace-ID: 3d76b2bad85621cf
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <870cf576-a5b0-4390-ac8d-5ccfea2c82fe@linux.dev>
+Date: Tue, 29 Sep 2026 21:46:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v7 3/4] blk-iocost: add iocost_ioc_tick tracepoint for
+ per-period device summary
+To: Tejun Heo <tj@kernel.org>
+References: <20260924054549.2271705-1-cui.tao@linux.dev>
+ <20260924054549.2271705-4-cui.tao@linux.dev>
+ <4af70c48e8c7d1eac1425d368be92dcb@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <4af70c48e8c7d1eac1425d368be92dcb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When starting a watchdog whose hardware is already running,
-watchdog_start() calls __watchdog_ping() before marking the watchdog
-active, and fails to update wd_data->last_keepalive. As a result:
+Hello, Tejun.
 
-1. wd_data->last_keepalive remains 0, causing watchdog_get_timeleft() to
-   calculate the elapsed time since the epoch and return 0 time left.
-2. watchdog_update_worker() inside __watchdog_ping() evaluates
-   watchdog_need_worker() and watchdog_next_keepalive() while WDOG_ACTIVE
-   is still clear, using wd_data->open_deadline instead of
-   wd_data->last_keepalive. If open_deadline has expired, the background
-   keepalive timer is not armed; conversely, if the active watchdog does
-   not need a worker, the boot keepalive timer is not canceled.
+在 2026/9/29 08:42, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Thu, 24 Sep 2026 13:45:48 +0800, Tao Cui wrote:
+> 
+>> +	trace_iocost_ioc_tick(ioc, nr_active, usage_us_sum,
+>> +			      ioc->period_us, ioc->vtime_base_rate,
+>> +			      ioc->busy_level, ioc->running,
+>> +			      now.now - ioc->period_at);
+> 
+> These are still passed in. Can you pass only ioc, &now, nr_active and
+> usage_us_sum and read the rest from ioc in TP_fast_assign() like the
+> other iocost events do?
+> 
 
-Set WDOG_ACTIVE and wd_data->last_keepalive to started_at before calling
-__watchdog_ping(), and revert WDOG_ACTIVE and update the worker if
-__watchdog_ping() fails.
+Done.  The event now takes only ioc, &now, nr_active and
+usage_us_sum.  TP_fast_assign() reads period_us, vrate, busy_level
+and running from ioc directly, and derives the elapsed period for
+the usage percentage as now->now - ioc->period_at.
 
-Fixes: fbbe35dfcf94 ("watchdog: use __watchdog_ping in startup")
-Assisted-by: LLM
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/watchdog/watchdog_dev.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/watchdog/watchdog_dev.c b/drivers/watchdog/watchdog_dev.c
-index 24488c20539a..b9979f9957b8 100644
---- a/drivers/watchdog/watchdog_dev.c
-+++ b/drivers/watchdog/watchdog_dev.c
-@@ -264,10 +264,14 @@ static int watchdog_start(struct watchdog_device *wdd)
- 
- 	started_at = ktime_get();
- 	if (watchdog_hw_running(wdd) && wdd->ops->ping) {
-+		set_bit(WDOG_ACTIVE, &wdd->status);
-+		wd_data->last_keepalive = started_at;
- 		err = __watchdog_ping(wdd);
- 		if (err == 0) {
--			set_bit(WDOG_ACTIVE, &wdd->status);
- 			watchdog_hrtimer_pretimeout_start(wdd);
-+		} else {
-+			clear_bit(WDOG_ACTIVE, &wdd->status);
-+			watchdog_update_worker(wdd);
- 		}
- 	} else {
- 		err = wdd->ops->start(wdd);
--- 
-2.45.2
+Thanks.
+Tao> Thanks.
+> 
+> --
+> tejun
 
