@@ -1,298 +1,149 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1423851120F;
-	Tue, 29 Sep 2026 10:30:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC7345111AB;
+	Tue, 29 Sep 2026 10:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677841; cv=none; b=g8/5ckr8rW1U+S2yarmizb8kUeprSivl4IKmbh6WJBdb3vwz3iRQoD31FVuk95vJb+3Wchk1yhXx8eF2miWMT9dGxYUDwYi0eaX3jLSMrX53OYMJmmrj7OFEJvbgxzg7sip0V/PhFOVlXdOlLUcuNiE7jMRZLY3YfcHGOIVoilg=
+	t=1790677887; cv=none; b=I2ytEKQhi90G5Y6sa6+SbruUydPj28/YEo7Q7grx8ja40DCopSe6Tfd5vS/N7NML23usZtTVynmnTpdMXNWtxiW4QPK3Q1Hp8fHoyOuZt6d33XZj87eC0vXCnGtIiasCAZuinhrnHqU/uZ9yv80r/ZSvPyoKVR1TtJL1LpeK6BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677841; c=relaxed/simple;
-	bh=pgtgm8oCBfWgTizqvar+fay5aufquDRaH/ZtXkwXIuc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Wd8fSiGUYYmy/lhJLte4KJORqGmqqWSKA1QdanFhlSGf9KR5Ud9wFYbSEuiYdnPGpiPY3GIG5fozA/81pWt0Sj55rcHYF9uFvcwa5AkWWzScQLWLffKgVWvl1WudgeFk5oLHozVMZPaebbkmm+2adyG+rvxQzJT1id2LcFrnjLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fr1CgNRU; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1790677887; c=relaxed/simple;
+	bh=bbdhp9RZEsefco1R5gH5jLRUViZzbWUqmj9Bx9zoiTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gyoqFlf/eHOpVKEMcxQu33eVfzejP04XYgMncXd4UvlOdzjYM2jR0GM+KvruO7NV4eSKmGJp1pau/S8ToCzhoptsTGnHWI3pF3zAbSWnEG2c96RYbCv1caJgODgP/ScHedFOWiHPyByvXzeJcU0oBOesVxfWyqcER/EIxQqF3Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MLBHJe93; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fr1CgNRU"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MLBHJe93"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A47A1655;
-	Tue, 29 Sep 2026 03:30:20 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.52.74])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 998E73F86F;
-	Tue, 29 Sep 2026 03:30:18 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB946497;
+	Tue, 29 Sep 2026 03:30:46 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 271D63F86F;
+	Tue, 29 Sep 2026 03:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790677824; bh=pgtgm8oCBfWgTizqvar+fay5aufquDRaH/ZtXkwXIuc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Fr1CgNRUGUZkEfQAFZvYcBHrKgELp+wutD+eOOApcVbUso74X3BwSppTqAYhj+3bJ
-	 BX0tOAJXSIFSssRvJb1c0nE8OV4gxK9xUd9K/2PShbBB/FyQQ+tqTED/cn8NxBxSyE
-	 0jrokF6ivmP8SIK3YYmPj/mBDIxRrT9ASzY8dfzw=
-From: Christian Loehle <christian.loehle@arm.com>
-To: rafael@kernel.org
-Cc: zhenglifeng1@huawei.com,
-	zhongqiu.han@oss.qualcomm.com,
-	viresh.kumar@linaro.org,
-	linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Perry Yuan <perry.yuan@amd.com>,
-	"Gautham R . Shenoy" <gautham.shenoy@amd.com>,
-	Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
-	Shubhang Kaushik <sh@gentwo.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	jonathanh@nvidia.com,
-	zhanjie9@hisilicon.com,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH 3/3] cpufreq: Skip updates for unchanged resolved limits
-Date: Tue, 29 Sep 2026 11:29:57 +0100
-Message-Id: <20260929102957.2591657-4-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929102957.2591657-1-christian.loehle@arm.com>
-References: <20260929102957.2591657-1-christian.loehle@arm.com>
+	t=1790677850; bh=bbdhp9RZEsefco1R5gH5jLRUViZzbWUqmj9Bx9zoiTc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MLBHJe93XO2/suJRTcJpd3d4VEm0QBv3ll9AmKrC3PLu63rQA+ZjIfvlmGw0l4Fg/
+	 pn3iR6FRBOK0ZZVq/LUXYds0tfwqvFJSZjbEJg0Mtj/plMhkNfHCl4NB87iBvhgMYP
+	 n2YEYlSP+47rcFYeJ5VCkKHGP9+6+xkTR/GwyuXk=
+Date: Tue, 29 Sep 2026 11:30:36 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Will Deacon <will@kernel.org>, kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev, maz@kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Message-ID: <aruTTJiIheHigPSJ@arm.com>
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <arK3tsTV6EDhI-nt@willie-the-truck>
+ <arOyp8WUrYBAjrGH@arm.com>
+ <arP0IF0MjFUv36AP@willie-the-truck>
+ <49dcab27-1d03-4df2-b7cb-4df4eda6d909@arm.com>
+ <araqPCdcSnqZqPWz@arm.com>
+ <3934b4c9-6b1f-44fa-847e-4fb1e67a58e7@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3934b4c9-6b1f-44fa-847e-4fb1e67a58e7@arm.com>
 
-Commit 9801be8bef65 ("cpufreq: Avoid redundant target() calls for unchanged
-limits") introduced policy->update_limits to skip ->target() when both the
-frequency and effective limits are unchanged. schedutil still bypasses its
-frequency cache on every limit notification for CPUFREQ_NEED_UPDATE_LIMITS
-drivers, and fast switching never consumes the pending state.
+On Mon, Sep 28, 2026 at 11:38:01AM +0100, Suzuki K Poulose wrote:
+> On 25/09/2026 18:07, Catalin Marinas wrote:
+> > On Wed, Sep 23, 2026 at 05:04:06PM +0100, Suzuki K Poulose wrote:
+> > > On 23/09/2026 16:45, Will Deacon wrote:
+> > > > On Wed, Sep 23, 2026 at 12:06:15PM +0100, Catalin Marinas wrote:
+> > > > > On Tue, Sep 22, 2026 at 06:15:34PM +0100, Will Deacon wrote:
+> > > > > > On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
+> > > > > > > From: Steven Price <steven.price@arm.com>
+> > > > > > > 
+> > > > > > > If the host attempts to access granules that have been delegated for use
+> > > > > > > in a realm these accesses will be caught and will trigger a Granule
+> > > > > > > Protection Fault (GPF).
+> > > > > > > 
+> > > > > > > A fault during a page walk signals a bug in the kernel and is handled by
+> > > > > > > oopsing the kernel. A non-page walk fault could be caused by user space
+> > > > > > > having access to a page which has been delegated to the kernel and will
+> > > > > > > trigger a SIGBUS to allow debugging why user space is trying to access a
+> > > > > > > delegated page.
+> > > > > > > 
+> > > > > > > There is work in progress to unmap the guest_memfd backed private pages from the
+> > > > > > > linear map. Until we get that support, we could get spurious GPFs from within
+> > > > > > > the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
+> > > > > > > 
+> > > > > > > Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > > > > > Reviewed-by: Gavin Shan <gshan@redhat.com>
+> > > > > > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > > > > > Signed-off-by: Steven Price <steven.price@arm.com>
+> > > > > > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > > > > > ---
+> > > > > > > Changes since v17:
+> > > > > > >    * Pass untagged address to die_kernel_fault() - Sashiko
+> > > > > > >    * Explicitly check !user_mode() for fixups - Catalin
+> > > > > > >    * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+> > > > > > >    * Clarify the commit description about the upcoming work on
+> > > > > > >      unmapping guest_memfd backed pages from linear map
+> > > > > > > Changes since v16:
+> > > > > > >    * Update the commit description to indicate why we try to fixup GPFs
+> > > > > > > Changes since v10:
+> > > > > > >    * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+> > > > > > > Changes since v2:
+> > > > > > >    * Include missing "Granule Protection Fault at level -1"
+> > > > > > > ---
+> > > > > > >    arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
+> > > > > > >    1 file changed, 24 insertions(+), 6 deletions(-)
+> > > > > > 
+> > > > > > I still don't think we should do this, given that the plan is to unmap
+> > > > > > the memory from the linear map. If this thing fires, it's a kernel bug
+> > > > > > and it should be fatal.
+> > > > > 
+> > > > > If the linear unmapping gets merged first, I agree, no need to handle
+> > > > > these faults. I haven't followed that series, so no idea where it is at.
+> > > 
+> > > There doesn't seem to be much progress on that series. Brendan
+> > > volunteered to resurrect the series, taking over from Nikita [0].
+> > > But looks like Brendan is not working on this anymore. Will see
+> > > if someone is really planning to look at it.
+> > > 
+> > > [0] https://lore.kernel.org/all/DJJ35VLH2PE5.DFD8OYXEOH97@linux.dev
+> > 
+> > I just realised that this only solves part of the problem. Normal kernel
+> > allocations are delegated RMM metadata and they'll also trigger GPF
+> 
+> Other than Kdump, kernel shouldn't try to touch these metadata pages
+> unless there is a kernel bug ?
 
-Keep raw QoS/limit notifications triggering schedutil recomputation, but
-only let CPUFREQ_NEED_UPDATE_LIMITS force a same-frequency callback when
-resolved policy->{min,max} changes remain pending. Expose that test through
-a cpufreq-core helper.
+Hibernate but we need to reject this as well since there's no way you
+can save and restore the realm memory.
 
-Consume pending state before both slow and fast callbacks, including
-frequency changes, instead of clearing it only in the target == cur case.
-Use release/acquire ordering for the limits and restore pending state on
-failure, preserving concurrent updates and retries. Favor the maximum
-if lockless limit reads observe an inverted pair.
+> And the userspace wouldn't have a mapping for them anyways ?
 
-This applies to cppc-cpufreq and amd-pstate's frequency-based paths; the
-->adjust_perf() path is unchanged.
+That's the aim but proposed KVM/CCA support still allows non-gmem slots
+to end up delegated (I haven't checked the latest if addressed).
 
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- drivers/cpufreq/cpufreq.c        | 82 ++++++++++++++++++++++++++------
- include/linux/cpufreq.h          |  1 +
- kernel/sched/cpufreq_schedutil.c | 19 ++------
- 3 files changed, 72 insertions(+), 30 deletions(-)
+> > https://lore.kernel.org/all/a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com/
+> > 
+> > I think rmi_delegate_range() covers the non-kdump cases, both for
+> > metadata and realm memory, we could unmap the linear map there (map it
+> > back in rmi_undelegate_range()).
+> 
+> We could explore that option for the kernel allocations too.
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 44bda2f32fcf..9e932c2a986d 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -2058,6 +2058,21 @@ bool cpufreq_driver_test_flags(u16 flags)
- 	return !!(cpufreq_driver->flags & flags);
- }
- 
-+/**
-+ * cpufreq_driver_needs_limits_update - Check for a pending driver limit update.
-+ * @policy: CPU frequency policy to check.
-+ *
-+ * Return: Whether changed resolved limits require a driver callback.
-+ */
-+bool cpufreq_driver_needs_limits_update(struct cpufreq_policy *policy)
-+{
-+	if (!cpufreq_driver_test_flags(CPUFREQ_NEED_UPDATE_LIMITS))
-+		return false;
-+
-+	/* Pairs with cpufreq_set_update_limits(). */
-+	return smp_load_acquire(&policy->update_limits);
-+}
-+
- /**
-  * cpufreq_get_current_driver - Return the current driver's name.
-  *
-@@ -2183,6 +2198,30 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
-  *                              GOVERNORS                            *
-  *********************************************************************/
- 
-+static bool cpufreq_test_and_clear_update_limits(struct cpufreq_policy *policy)
-+{
-+	if (!cpufreq_driver_needs_limits_update(policy))
-+		return false;
-+
-+	return xchg(&policy->update_limits, false);
-+}
-+
-+static void cpufreq_set_update_limits(struct cpufreq_policy *policy)
-+{
-+	/* Publish the new limits before making their update pending. */
-+	smp_store_release(&policy->update_limits, true);
-+}
-+
-+static void cpufreq_read_policy_limits(struct cpufreq_policy *policy,
-+				       unsigned int *min, unsigned int *max)
-+{
-+	/* Lockless reads can mix limit updates; favor max if inverted. */
-+	*min = READ_ONCE(policy->min);
-+	*max = READ_ONCE(policy->max);
-+	if (unlikely(*min > *max))
-+		*min = *max;
-+}
-+
- /**
-  * cpufreq_driver_fast_switch - Carry out a fast CPU frequency switch.
-  * @policy: cpufreq policy to switch the frequency for.
-@@ -2209,14 +2248,20 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
- unsigned int cpufreq_driver_fast_switch(struct cpufreq_policy *policy,
- 					unsigned int target_freq)
- {
--	unsigned int freq;
-+	bool update_limits;
-+	unsigned int min, max, freq;
- 	int cpu;
- 
--	target_freq = clamp_val(target_freq, policy->min, policy->max);
-+	update_limits = cpufreq_test_and_clear_update_limits(policy);
-+	cpufreq_read_policy_limits(policy, &min, &max);
-+	target_freq = clamp_val(target_freq, min, max);
- 	freq = cpufreq_driver->fast_switch(policy, target_freq);
- 
--	if (!freq)
-+	if (!freq) {
-+		if (update_limits)
-+			cpufreq_set_update_limits(policy);
- 		return 0;
-+	}
- 
- 	policy->cur = freq;
- 	arch_set_freq_scale(policy->related_cpus, freq,
-@@ -2367,12 +2412,16 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 			    unsigned int relation)
- {
- 	unsigned int old_target_freq = target_freq;
-+	unsigned int min, max;
-+	bool update_limits;
-+	int ret;
- 
- 	if (cpufreq_disabled())
- 		return -ENODEV;
- 
--	target_freq = __resolve_freq(policy, target_freq, policy->min,
--				     policy->max, relation);
-+	update_limits = cpufreq_test_and_clear_update_limits(policy);
-+	cpufreq_read_policy_limits(policy, &min, &max);
-+	target_freq = __resolve_freq(policy, target_freq, min, max, relation);
- 
- 	pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u)\n",
- 		policy->cpu, policy->cur, target_freq, old_target_freq, relation);
-@@ -2384,11 +2433,8 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 	 * calls.
- 	 */
- 	if (target_freq == policy->cur) {
--		if (!(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS) ||
--		    !policy->update_limits)
-+		if (!update_limits)
- 			return 0;
--
--		policy->update_limits = false;
- 	}
- 
- 	if (cpufreq_driver->target) {
-@@ -2399,13 +2445,19 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 		if (!policy->efficiencies_available)
- 			relation &= ~CPUFREQ_RELATION_E;
- 
--		return cpufreq_driver->target(policy, target_freq, relation);
-+		ret = cpufreq_driver->target(policy, target_freq, relation);
-+	} else if (cpufreq_driver->target_index) {
-+		ret = __target_index(policy, policy->cached_resolved_idx);
-+	} else {
-+		if (update_limits)
-+			cpufreq_set_update_limits(policy);
-+		return -EINVAL;
- 	}
- 
--	if (!cpufreq_driver->target_index)
--		return -EINVAL;
-+	if (ret && update_limits)
-+		cpufreq_set_update_limits(policy);
- 
--	return __target_index(policy, policy->cached_resolved_idx);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
- 
-@@ -2681,7 +2733,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 			      CPUFREQ_RELATION_H);
- 	if (freq != policy->max) {
- 		WRITE_ONCE(policy->max, freq);
--		policy->update_limits = true;
-+		cpufreq_set_update_limits(policy);
- 	}
- 
- 	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
-@@ -2689,7 +2741,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 	freq = min(freq, policy->max);
- 	if (freq != policy->min) {
- 		WRITE_ONCE(policy->min, freq);
--		policy->update_limits = true;
-+		cpufreq_set_update_limits(policy);
- 	}
- 
- 	trace_cpu_frequency_limits(policy);
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index a0a7619d11fd..acd60c2b30f1 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -499,6 +499,7 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data);
- void cpufreq_unregister_driver(struct cpufreq_driver *driver_data);
- 
- bool cpufreq_driver_test_flags(u16 flags);
-+bool cpufreq_driver_needs_limits_update(struct cpufreq_policy *policy);
- const char *cpufreq_get_current_driver(void);
- void *cpufreq_get_driver_data(void);
- 
-diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index 49ccd6f1c185..43e448ee3c4c 100644
---- a/kernel/sched/cpufreq_schedutil.c
-+++ b/kernel/sched/cpufreq_schedutil.c
-@@ -123,22 +123,11 @@ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
- static bool sugov_update_next_freq(struct sugov_policy *sg_policy, u64 time,
- 				   unsigned int next_freq)
- {
--	if (sg_policy->need_freq_update) {
--		sg_policy->need_freq_update = false;
--		/*
--		 * The policy limits have changed, but if the return value of
--		 * cpufreq_driver_resolve_freq() after applying the new limits
--		 * is still equal to the previously selected frequency, the
--		 * driver callback need not be invoked unless the driver
--		 * specifically wants that to happen on every update of the
--		 * policy limits.
--		 */
--		if (sg_policy->next_freq == next_freq &&
--		    !cpufreq_driver_test_flags(CPUFREQ_NEED_UPDATE_LIMITS))
--			return false;
--	} else if (sg_policy->next_freq == next_freq) {
-+	sg_policy->need_freq_update = false;
-+
-+	if (sg_policy->next_freq == next_freq &&
-+	    !cpufreq_driver_needs_limits_update(sg_policy->policy))
- 		return false;
--	}
- 
- 	sg_policy->next_freq = next_freq;
- 	sg_policy->last_freq_update_time = time;
+I do wonder what we gain from unmapping. If architecturally we get a
+synchronous fault when accessing delegated pages, it's only marginally
+more code to do_gpf() (and we might need this function anyway for
+kdump) and we avoid linear map fragmentation. So, I think we just need
+to agree what's fatal and what can safely recover. We do need Alper's
+patch for kdump, otherwise we can't fix it up in do_gpf().
+
+-- 
+Catalin
