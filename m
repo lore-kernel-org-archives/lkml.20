@@ -1,200 +1,213 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013005.outbound.protection.outlook.com [40.107.159.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0EA5328A9;
-	Tue, 29 Sep 2026 14:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7E85326C2;
+	Tue, 29 Sep 2026 14:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790692290; cv=fail; b=aBwp5/P873l0FFIux64n5LIL0xjTa4Ws14WsF8DveAIrJcUSF3nQj9LXc/IPLhDuYJ5sIMKloWHMN0NGA0EodE7vp/BTLEmACOCzAiJyPDRHTt2zHPOwJP4FAvFfNARIuswrMzi6j73NUpSocIje2LNIARU9r49aO/zGbbqHLhI=
+	t=1790692313; cv=fail; b=qQ5A16afXOle6g7xLw3eptfnox9I+wsaUWCAs21bELvoXeGGfu9NeP+3F9Ao4MQ9xn+H7KbdoTpG96hpFptLyogfD66tKiiQmj6+8be+AJZ72qcbu2BLNbFfK9E5pQgf3eI2HmoOzoe4TR0nlXX5dc3BOaWlPuu1J8QEY8N7/Mg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790692290; c=relaxed/simple;
-	bh=Zoq4YlGaGFax50uipab7CuYdGDntIExZ3z/3IuCWi1w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bt3F7MWRrzryAh4NXt0gkFrSpL+11VOPwnhql3RIVrZEVujmd8XahEl2nBv+mURyNP5l0vkC1C8w3z9DFbOk3zFfvGo1mkrsLT1nwYpC7v+cyKluKFbBk5S/JVEcBqKcXneV4MCbuht828x9DlL7717nkqsQFi79h13DFErrELs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=GCPoaZwz; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=xqqN1VJv; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	s=arc-20240116; t=1790692313; c=relaxed/simple;
+	bh=BpHnvgcTNyFCL3bHKAsde/Jx4nHTTrrPiMYcjc6TaAA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sX/iHc90XlB+9cNnrr/xyh7ad0nA1b6In3thWRQss73ynwDGiao/les2L6ieLM1/SJxZ7RULIo+KsUxpN+JTP5oBViuvMoqFqessAsdqH27RPAogStcSYfupwMp9UHfv/Bp4hPUF3q81Tu6M2P6bxwOI9bb3meabBWNhRmXO7uA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vQ58vdF0; arc=fail smtp.client-ip=40.107.159.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="GCPoaZwz";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="xqqN1VJv"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TEDZ583443158;
-	Tue, 29 Sep 2026 09:30:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=kjECZh+XuKhw5ux+2I2w2UZ6SZEaQKbPqbbynDCpW/8=; b=
-	GCPoaZwzccBA5yPsTmbtHuBvm+90AsF7gYTXk93uqFt5pHuKlRbJbyUtXrrmYnrq
-	XvAdr+0t5xydNtVMnrPvrw3qRQ4u/24WRWdmi4GUCk3v/C3RnED3QsUHaBOYJtho
-	dW9oCqcdtIw8T2WB1FzhNYpEe7ZDmJu7EBnxWNDT0Lty+JDTBaKas4xqzscpLfca
-	3aaV4NpbqpzX0u8KhOWhjT6Gwd641+BXY7FA5SWCkAi1reZrzB1kzQf2XEjpZAeJ
-	nCD/H4ioZvJIGqaRof96npCrEYmFLYssMshp/N3nfmgoATF+y7WFFOUEMAHawOCH
-	AS6Ur5B3YVD3A+SsOptuRA==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020129.outbound.protection.outlook.com [52.101.85.129])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gxbf0kwxf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 09:30:47 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vQ58vdF0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JLFhTExxCPnM/qKXwK75xHQxL2xx/D8CRjFaMx89SaMoRRPX+vOA7niy3cqiqVCerIJWYfC2DVDGEc+diSD4wmc2TyZJVSz+HM8XSPs0kehxWOLL282adCGmKh1oiB+J6+nafgSOc7WLF8Oomvu6R1dqzIasxHbU3PnfuK58Z70SXFnzCScb7bT5xPE1uvzci21xEaBzuDPRhSqKZxsowD6BbHcaw1w2btsOTlMQXG/6eM36uPC1azbTXh89Parfuy2DJKB6axOx2qnYKEV5SCl39S+KaCiqDi3ZcxMcdfykQOxZcI0i1/pX5cVofnq81QCU73/M4ZNDarAjAw40Ng==
+ b=qu1V1KEOLsslRdrMNMo81Hx2aMDE4RF/q1n+FuugFgWyxEk9b+qHqhU4MqslyapQP0WyRJo1WTicoG94lqOD8mW6qVwmMt65en/Xr4Skm4RHCU+pDY+lrVYY+lT6sWcAMUrWPWjN7no/IBSk6FhdO3mxDeFc6LZW6LsL21sMLqXqvVmFbC+f+3FbXRwjwyxuEMJaNYb5l/KQpDV9q3T2eFFXfYyYoCyA4fbni/uaDpR7UcczHlYNwXB+6z9AD7vT9dgeYvu+dPW7ll8WIq23TA0fjrGhN0cGvfKcmdIGhAeUeC3PoHnky1mtBXkq2uT6hB5+LXlL0iPYIQ5IDo7a+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kjECZh+XuKhw5ux+2I2w2UZ6SZEaQKbPqbbynDCpW/8=;
- b=J8zFUdydCq9fPZ6FtOaDMmGcJ1PWfzR24hDAzCGosmrPiU9/sAJLYRKCMhMoFMOEnRXgROQfvCAv595RggA/oAN7YvWRt6vgfmuFi6oAxPuHvyf4Fujei/UGmZsBGNResiYzSWNQK6pVAAd62tvpxGET0xNsM6hetKaGaZwO62hI5r5BkM4nlER2P8sRUC/7WnTRKX333qw1e2MwPQlwJ/0FOcwqfNldNMGz8DgApqy51XGL4bkVeUedyrNE8Ubyb3l70g9MQ6+EJV3OQPJPpS9d4TKu9lkefWEQZhqkvi7FJxEePWFoz11zReiwMVWsKNRJJxwl32mIOIcZBt/z9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=aJWy1g0yPzG7SPIZMzcccBCIYf0abEhkkoV/iKi2iZ4=;
+ b=gM8reykjddKYPvfSDJGQiP7Mvs4zNj0qL716IYY4zbA7MnTI9BIv1RVkhjBSEnCMBeyqvxvAbL4dOLfXIGG3txJ1vYXySMZuaB43ph5dy0ogo0E/1EYvH4Sya864xCuuqC6faNTXBGqQekBzP/YcwKC8wdq2H+mWLRhUiT9xpQK6VSNibav/FLRptxCM4iRhKhzAdVBlPBUjh7kTbi+u8QV+PkQwVJhJOMVzTc+OVlq/KIzXALsQh3pkb5qUV/Jrh7A5VUuMmVONyEIHNAMYa9ZSQJYarteIapybF0MjpJ3WXs9FqgHuXFKiyEeRKB9E+MPvMgboUvHIP2kckT7y7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kjECZh+XuKhw5ux+2I2w2UZ6SZEaQKbPqbbynDCpW/8=;
- b=xqqN1VJv/4epPzvJwg0nmV6x6qnQAqfA3nvyV1lkd0HOXKA7MknUAun9nD/G3K/yGujArxt2cdIg2sFy8nExXY7o8k38gf6yIKAHI+KptB0yTdsfpf8oinXkp8juvACivOcqKfXE6k4487vWysuNnxoZValbwCgJ46wzM0/G3Z8=
-Received: from BN0PR04CA0066.namprd04.prod.outlook.com (2603:10b6:408:ea::11)
- by PH7PR19MB6529.namprd19.prod.outlook.com (2603:10b6:510:1f7::8) with
+ bh=aJWy1g0yPzG7SPIZMzcccBCIYf0abEhkkoV/iKi2iZ4=;
+ b=vQ58vdF0dDZr7u0LwbUVEEcDJxyRPyupbFdiqif13dlMhSh/dq8qkBXiC0E782l4LxTjLmDVuCqvJ9Z5vZZ6LR6O9VUH4X1p0AWgaFB4ZSwWKNYLeuE/yM7pvJVcgv3AJgwjmAPyDY7F3Yf5UjY1uYy74VhV13GPc9vol7SFGzKeIqwPLIL4aB0OLApU5BVzfUBWW059IotMaZQUOLVgeoyNXTt8bucfdwk/nUmPYKT782OgbuxsOR3VmYI2bKqHxqqINfk9hNN8JpZKm0WoWuQtdifWDFaFib7IdeN2FgRKHSdVcWcZBulxx5ce3Now3XDE9FbR5BrXRbx7u5SDsg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI2PR04MB10222.eurprd04.prod.outlook.com (2603:10a6:800:221::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 14:30:44 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:408:ea:cafe::21) by BN0PR04CA0066.outlook.office365.com
- (2603:10b6:408:ea::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
- 29 Sep 2026 14:30:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Tue, 29 Sep 2026 14:30:43 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id E53A640654B;
-	Tue, 29 Sep 2026 14:30:42 +0000 (UTC)
-Received: from [198.61.68.159] (LONNCK4V044.ad.cirrus.com [198.61.68.159])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 85C8A82254B;
-	Tue, 29 Sep 2026 14:30:42 +0000 (UTC)
-Message-ID: <764f8a2d-c949-4297-bb26-af0ba791f331@opensource.cirrus.com>
-Date: Tue, 29 Sep 2026 15:30:42 +0100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 14:31:42 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 14:31:42 +0000
+Date: Tue, 29 Sep 2026 09:31:32 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 07/11] media: imx8-isi: Select MSB-aligned RAW input
+ from pixel link on i.MX95
+Message-ID: <arvLxIDg9Z85BQL9@SMW015318>
+References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+ <20260929-isi_imx952-v4-7-e69f89c7c651@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-isi_imx952-v4-7-e69f89c7c651@oss.nxp.com>
+X-ClientProxiedBy: PH8P223CA0021.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Add support for the bass speakers of Lenovo Yoga Slim
- 7 Carbon 14ACN6
-To: Takashi Iwai <tiwai@suse.de>, Ilya Pavlukhin <i.pavluhin@ya.ru>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-        linux-acpi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260920092808.17234-1-i.pavluhin@ya.ru>
- <87a4p02xxs.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-In-Reply-To: <87a4p02xxs.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|PH7PR19MB6529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 940f30a9-eaf0-45fd-55c3-08df1e363eb6
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10222:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72c39d30-b234-49e8-99d9-08df1e366122
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|61400799027|7416014|82310400026|23010399003|36860700016|22082099003|16102099003|18002099003|56012099006|10067099003|11063799006|4143699003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|19092799006|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	IJLy+yoIe7f4MRd+Vja/1xXg9HdwOIMwoUQJTSnj5xDYDr205fjxAweHcMhdcagJxLX/2bnmAFVKS0maZ2vhZ4T3UM0fv+Cpa1JUQw9jz2eqzsPqljV4UQvx2KwgCm0nPTdROrXKvVWEGqm1rOD1Ng/tF+1zDIw2T82bY09/O4spmPyqWekSy1JpTUUjfk8BY0t7zBGzZpZleWrJUnl8oObcQvPDTIHoO+M/dzuVR1FObMIlUDcyuadH7NqN/ZIbkk115JB33mwL0YKH3+yomomnemyDobBgZMpPScOu8uvHtce4IwHuJ92KDukkgDszhDOONtwsNtFWgqJSJE0BJnPqf594LX54qVZOyhiEP4nuymK39PPmvTSwutnSb6kNc1u7XWutTicDaIR30C7tcoJHpeulUMSGa6zKCdmhnW0Inrh2rmnAAO0D8Ri3RzNN/saJbcrtyobzNE46OPlsBOkc9JHKOaDiBYUmhyNbv5pbIBAvUZx2h9p2i6VjBVp+PVLsSK4jMzrA61NIJTwa789cIdwcTu0P7YmD0riL+Wee9BA4iiybk3FwaYgBeL6/aT31L/dyU2QMCWzGuAy1r4D2ZxfqeTakDHBnKtVe9siXbth6BR7USeannSlmuuUKeCKWYq9Vll5HH04nrr2cJcOhHBpkPqzKFRJtkpJt4BBkXtg1JEK9RZ7dQ5xdo67XiU+NVPUkTExUJPIVaY9xwQ==
+	3AqIEAFFUsv0V1sOYH5+BB8KKjNxS2K4H2OlpSe0F0gSRX7laCEhOFk1+nV/8vqHfj+hYu6K4QdSBx9rndOuCARvvGbZwzINJDIEUJCgz87UhCe4QS02HVNZGAEnsDAuPDOteOJaDa4UtGY/BJvxAH/cB24tr5lI2s9d2uUT4AJuYvOr08W1o2nIW1s3m4DcZNRiGmO73oFmnlfUe0xTg7RkM8+xQGRWc7QBHfgY5c9VC5P5YId5IRwzU8B1Ydvz/Nic+YFjR52rRBEs87c8DMu315miaQGwYIbTdxj/hKXSjYDLWCjLsqpDupva2TrlDsAdwEX59HAib39CIKP6TYhpzxjN3qYSYHD70XXc1Tr0D7mh8ITxKuq93k49undFXEMW4TdoLlDJNB176wLgZpQ6PRIhxv34VO4P8ZNiW25akFMDqluAwWNrdsD8J4U9kZw3+6aBhXUE2m8qxWqqCU0xqvZRsHMR3GlqRzY76W2TUB/zP53/OQNW6fINQh2GUjNtapAi3ehwp2gt7SXYHBDXhZjWkABifZeKOmPZqNwNquHMlSi2jdrg6TLtgSJGNZ/4WCUsxBYiShzd2xQj5ikCxZshVSSl6V2CmrT+J46Q42dd0tT8V+Vwa3vrREHx82z8aY9012M5eeW79DGGu+Q4ACRSHH6RyU6/AXmxSt8=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(61400799027)(7416014)(82310400026)(23010399003)(36860700016)(22082099003)(16102099003)(18002099003)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(19092799006)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	qgH+i2HMdpxY8IoGPYJ999dDdFEygUtGjRX2/IdN8SVubkTeBj8sJUKU73JiZMn5XLoFM+jjRKqOhjYewON4tEWpYJ+ydrUIjab+Eu+Y56qjudQ6itjR3Y0SXLIsvSBJBJTvLekLnwHSSG/sXGmu7yWHapbSwls4g68kRIneNmbEPlnlj7abl3XAGEtuSRmQHQg5z8luaPKUztzMZhC0x0168VDDTYjFU8ToiV0Pf3a/H7RJ11kHgyqQJUaVbZ9PAhMDCetZG1XLTX8SwLpsWkME76uXJG9PAbhtXnPAWEKosti5IYSuBlGW+wFEOPFHotx9UX1ccLZ/QzPbfUXnUsixn1WaNiAX5hrV/hkCVdTwnMu2YZc9vf6D8VUIS1gAxuCxmzSbrcvbRWGnIlUq2KILhSjfQ3yPzcbSAFp+fwhjxMybbPvB0Yr6uBrFjhId
-X-Exchange-RoutingPolicyChecked:
-	Fi1fqE5l8GSQOD1roTphkgM49oO+alQ1cJkBmjGvyNKOztrfESiKnmlmlxp+iydgj3thE6hclszXrFoYM2uFFgZ7LwhvkM0ETuAeNWy6F3bPmiaxq073CH9VO4fJPQbEeG5gJj/VG3hfPxBUCl3yZUdavBy3yA6TvllfwpfwEKiYkLeewxx5fG5kxh5pWb+If5OP8j2Fy9CeeF1vcWnj/4tAnvpeULlAXlC0dlXF5CLEqni+kRtaNjN5FatZxGSK7J/5EYDtzHZiqBT7Y5E9+KMP4Ppho/habBaLIIOUTz0MUSMXgHUuUDnVUWULENJZFM36ncpPUxkvUP8RlDWdaQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:30:43.6969
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 940f30a9-eaf0-45fd-55c3-08df1e363eb6
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+	=?us-ascii?Q?QDagBuUDeAay/AXK/viECU1ytCF+q1kXVtAfnN36oWGeuExhWxlb9kJhxka3?=
+ =?us-ascii?Q?qjaHjJkFWHg2a9EgYfZ05ODvnnBO2QcXopSSZ37BLBiM6Mr3SnQcbjFHOtrD?=
+ =?us-ascii?Q?DVF77cHVTju5r3tKqx077fqa8ebnJGrgfblWl0SpstsE+amhojLSUueEmQv9?=
+ =?us-ascii?Q?oOdA50Zy5qqDxWXVqHJGbc5mc+BXRWdWJJMqFwYD8C7c+dFGsQOEPjjPS8Sn?=
+ =?us-ascii?Q?Kg2sZW/A/pEVBlzRP2+0A/FthdvfamA7DQBQn+q+LMVUlkNUDjfkbTZnZtoJ?=
+ =?us-ascii?Q?3O94TvkTX0uciRrmCGaoQdWbmfEonZwRWUW5qwzc389oNNyJLcP5FhvlxNW9?=
+ =?us-ascii?Q?LgCP4AF5iiLhEQZWw+O9bINeNYIAE/fJFbvsnpGJjvCx9jrjkrDhjd+Ck0Gd?=
+ =?us-ascii?Q?16pzueDMbLn7Y0spm8SAsBvnIWZzdNg5q3js/6rkgQRuxuzu+jzP5CgYvABu?=
+ =?us-ascii?Q?wlvMmT+Lz6sYM3xyWBLS+XiuXbwJ+dbXtC8eyPaW0SjzSIHfL0Fti5D0e3/U?=
+ =?us-ascii?Q?1mEwE724DD2rkDuXFj6MF0/Yk3aFx3UBDw/DFLHjMqnob2NjWW5HgtguYS0U?=
+ =?us-ascii?Q?2YWqkZSvjnFt3lZlQNxtWegMrH3l9NyydIC/U9aKCj/IrQz3coJD3jxCbRwd?=
+ =?us-ascii?Q?LZi+tc4FKsAtdgInRn65iPe08aIV+OzCw8qB8WkdRjlIAlVo4HEbn80zHy40?=
+ =?us-ascii?Q?YAO9NYVJN1arIGgXCq+73+vJJZBtdUtYj4eTmAl3IDTTmoySo46fuIOmz5kv?=
+ =?us-ascii?Q?nyu/oPNJcC2R462+KbTFUtmAN+PjZNmfERLx4VYdEylXOa/RkzwOGPsS2mSZ?=
+ =?us-ascii?Q?WLL+13LYYuUkal6ca6Vq79JMOIDBVl4LlCbQThNwO97oHiy9Wszw589QSf3y?=
+ =?us-ascii?Q?ER9I+Sqf7bOL7meCh4dApAh2cYm8tLJMRoCSQcNTXWaqmngHlodWoZ5Aj+yz?=
+ =?us-ascii?Q?1JPNyqCPjiRyuJb30fp2h6wKr7z+i6Qd6MzLp8HghBqFNcQ3QujMGaDFcPbl?=
+ =?us-ascii?Q?3huqmyuqYsIYXwCGFRjvPl2KU4Div9igH2v9HJqpuUUdoKQ6qjgV0U/d1bLx?=
+ =?us-ascii?Q?ClCKU0RkUcApxzKhxibeYKItDTvXi3guh/u0E1m56Ahvhmwudau+pfXeSE3H?=
+ =?us-ascii?Q?svhJtUoIH570o2wsA3uKHFMxGvj5xyIUL46PUE9EjgPYSplW5c/fmOleHJii?=
+ =?us-ascii?Q?y6x0Yj9GeYo9pI+DuQE3g33PSdOVQDH40MTg7l023lV21/2Xv+0VWyiOuSnL?=
+ =?us-ascii?Q?4y2DmUzn1KQFdzNL5xHtp7wVz53W7QKAZNpU9P6mCn38oudnx03Ntzcs6MNV?=
+ =?us-ascii?Q?ewSo1UcVUo9tXDRWsiupRDViBSNeSunqBVJTQ6MYmsycqJqn1KNR23Uv+TDg?=
+ =?us-ascii?Q?GzUPU9QhjsCeeHUWMF7JSJ+7bHS4khg9eNWwg99djD1y2clSaCRjEKB97HzI?=
+ =?us-ascii?Q?RUtyZhZ5gM2wtGt4vHn7gQLPGhv6+a4dCTe4H87QByzB/mwObH1JOKC8hfjY?=
+ =?us-ascii?Q?Jq2TxYpy433mmDtmkkuWPL3IITHFWAHITXph2y02+6q1xuClD1Ud2uuaGTQv?=
+ =?us-ascii?Q?oiND8KSJ/JaW3KNFcItWOtGyODVxMAJ40pq/yelyIprvnZbse91ptjUTK5jv?=
+ =?us-ascii?Q?tI9p3yQ7TBavfJg0x+cDKMgjFmwYS8WaRhhJ72Goce4kgrbkowxY6XFzIHaI?=
+ =?us-ascii?Q?fv4MJ0tv3JtqehJEzjjqcyZAOmcLWarj8AkpHBXgJRyRSI8YkPdbBkmgfTDv?=
+ =?us-ascii?Q?Bfo5pzp5T1l+0J5fX3PeJ4LWvc/61PqmO5MsOvcSAUbQgJm41l2U?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72c39d30-b234-49e8-99d9-08df1e366122
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF00004FBF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB6529
-X-Authority-Analysis: v=2.4 cv=GvLXaU1C c=1 sm=1 tr=0 ts=6abbcb97 cx=c_pps
- a=e+gafPXuV192R5FN4zVsvQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=VwQbUJbxAAAA:8 a=jsC0TDLJNKffdWQaGCsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: wYxuPvpR1xaN-7BIoZIDGllezDvn_nr8
-X-Proofpoint-ORIG-GUID: wYxuPvpR1xaN-7BIoZIDGllezDvn_nr8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA1NyBTYWx0ZWRfX26pr76hp0baM
- 6EFhJZDp4ZjKejkQgt5VROWbK7MVC18URq6pp5MZRtpZLQlD7106utz+nVIc3AhtZkkbMVTgI4T
- aUJtWxcEEbOn6R/YmxtG24hNWgZMlV4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA1NyBTYWx0ZWRfX/TEwbC7uNE1z
- 8IT2U6yxmGiiLKBYhztvGDf2lWNHtXK17FMOcnQAB/+g9X04p3pd/Mh0kD1Kik7UGNri6XxdRvk
- 0j6D5qqag1M6o2wb7O9gFoaWHxOombSYPRiSpFhIsst/R3/4ea1HBmgf1dj3aDYk2h1fP4Y1EU4
- YFDsBkIDeqssdIWPoTiKOF+wiOrzpwS214CsdLs1YSNt4dobN4ehxJ1CuDu9YcXjBsrndIM+eJd
- aj4HvPE94No4YEKcrHvPXTa3CxLmiFIMxH8ENZH6SXE+shhUTIhn9upF43BewiuD0roN4WCYtf+
- o3ACQ+OsUvNiPSVYtdIiH9eW/gh3//9xTWbu5v0hj9V5UuNL96gU7LhPy2KqTA/nzCSrDPOTG5C
- GZUZ8KtlRffMsRjFEtW3IRdCV4PpFoXadOxui+mP3yp49cXiYhed/PWFxiXNbXdT/hN0ZkOuEd1
- yq51Apl/MeGFsmBYJzw==
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:31:41.9585
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DQSB1eh3dOgwikxB8M8FFN6DaFSPHxpYo1CtJYFj9RUaub4tyZqbJMwKfR3RQgZdW1AfHp3K+E9YuMeHzWlZkzZZf8ANYfFpIelANKPY81ub4RZ0qBHmkYZis1V7Ggwi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10222
 
-On 29/09/2026 10:45, Takashi Iwai wrote:
-> On Sun, 20 Sep 2026 11:28:04 +0200,
-> Ilya Pavlukhin wrote:
->> The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0, Ryzen 5000) has four
->> speakers. The two tweeters are driven directly by the ALC287, the two
->> bass speakers by a pair of CS35L41 amplifiers on I2C. On Linux only
->> the tweeters work [1].
->>
->> The amplifiers are described by ACPI HID CLSA0102, without _DSD, in a
->> single node with both I2C addresses, the same way as CLSA0100/CLSA0101
->> on the Legion 7. Patches 1-3 add CLSA0102 next to them. The Windows
->> Cirrus driver configures CLSA0102 with an external speaker supply, so
->> external boost is used.
->>
->> Patch 4 adds the codec quirk. The ALC287 only clocks the I2S bus to the
->> amplifiers while pin 0x17 is enabled, and the BIOS marks that pin as
->> unconnected.
->>
->> Tested on a Yoga Slim 7 Carbon 14ACN6 (BIOS H5CN42WW) with all four
->> speakers playing. The DSP firmware (cs35l41-dsp1-spk-prot-17aa3856*)
->> is not in linux-firmware yet. For testing it was taken from the Lenovo
->> Windows driver package (tuning "Lenovo-S760-17AA383D"). Without it the
->> driver falls back to the default spk-prot firmware.
->>
->> [1] https://bugzilla.kernel.org/show_bug.cgi?id=215632
->>
->> Ilya Pavlukhin (4):
->>   ACPI: scan: Add CLSA0102 to the serial bus ignore list
->>   platform/x86: serial-multi-instantiate: Add CLSA0102
->>   ALSA: hda: cs35l41: Add support for CLSA0102
->>   ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 Carbon 14ACN6
-> I can take the series, but before that, I'd like hear a confirmation
-> from Cirrus people.
-
-Looks all OK to me.
-I'm going to send up firmware to linux-firmware for this laptop shortly.
-
-Thanks,
-
-Stefan
-
+On Tue, Sep 29, 2026 at 04:52:28PM +0800, Guoniu Zhou wrote:
+> The ISI receives RAW data from the Pixel Link, whose alignment is
+> determined by the SoC integration. Before i.MX93, the Pixel Link
+> provides LSB-aligned RAW data to the ISI. Starting with i.MX93, both
+> LSB and MSB alignment are supported and can be selected via
+> CHNL_CTRL_RAW_IN_MSB_ALIGN, with the default keeping LSB alignment
+> for backward compatibility. From i.MX95 onwards, the CSI formatter
+> replaces the gasket and only provides MSB-aligned RAW data.
 >
-> thanks,
+> Set CHNL_CTRL_RAW_IN_MSB_ALIGN on i.MX95 so the ISI selects RAW
+> samples from the high bits of the Pixel Link bus.
 >
-> Takashi
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v4:
+> - New patch
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c   | 20 ++++++++++++++++++++
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h |  1 +
+>  2 files changed, 21 insertions(+)
+>
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> index cc52a90c2477..b3f32b9796d5 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> @@ -303,6 +303,22 @@ static void mxc_isi_channel_set_panic_threshold(struct mxc_isi_pipe *pipe)
+>  	mxc_isi_write(pipe, CHNL_OUT_BUF_CTRL, val);
+>  }
+>
+> +/*
+> + * The ISI receives RAW data from the Pixel Link, whose alignment is
+> + * determined by the SoC integration. It originally selected RAW samples
+> + * from the low bits of the Pixel Link bus. Starting with i.MX93,
+> + * CHNL_CTRL_RAW_IN_MSB_ALIGN was introduced to allow the ISI to select
+> + * RAW samples from either the high or low bits, as both LSB and MSB
+> + * alignment can be selected in the gasket.
+> + *
+> + * On i.MX95, the CSI formatter provides MSB-aligned RAW data, so the ISI
+> + * must select RAW samples from the high bits of the Pixel Link bus.
+> + */
+> +static bool isi_raw_in_msb(const struct mxc_isi_plat_data *pdata)
+> +{
+> +	return pdata->model == MXC_ISI_IMX95;
+
+Can you add bool in plat_data to avoid check model? In case future other
+chip also use msb and complex check logic here.
+
+Frank
+
+> +}
+> +
+>  static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+>  					enum mxc_isi_input_id input,
+>  					unsigned int vc,
+> @@ -357,6 +373,10 @@ static void mxc_isi_channel_set_control(struct mxc_isi_pipe *pipe,
+>  			val |= CHNL_CTRL_VC_ID_1(vc >> 2);
+>  	}
+>
+> +	/* Select MSB-aligned RAW data from the Pixel Link when needed. */
+> +	if (isi_raw_in_msb(pipe->isi->pdata))
+> +		val |= CHNL_CTRL_RAW_IN_MSB_ALIGN;
+> +
+>  	mxc_isi_write(pipe, CHNL_CTRL, val);
+>
+>  	mutex_unlock(&pipe->lock);
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> index 5f66b7c9cd1c..35438abf3172 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> @@ -20,6 +20,7 @@
+>  #define CHNL_CTRL_CHAIN_BUF_NO_CHAIN				0
+>  #define CHNL_CTRL_CHAIN_BUF_2_CHAIN				1
+>  #define CHNL_CTRL_SW_RST					BIT(24)
+> +#define CHNL_CTRL_RAW_IN_MSB_ALIGN				BIT(22)	/* i.MX{91,93,95} */
+>  /*
+>   * CHNL_CTRL_BLANK_PXL: i.MX8{QM,QXP} only
+>   * CHNL_CTRL_VC_ID_1, CHNL_CTRL_VC_ID_1_MASK: i.MX95 only
+>
+> --
+> 2.34.1
+>
+>
