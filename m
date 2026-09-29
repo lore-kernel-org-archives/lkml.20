@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100B12E8DEB;
-	Tue, 29 Sep 2026 14:56:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F7D51DE01;
+	Tue, 29 Sep 2026 14:57:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790693834; cv=none; b=oNxObKVs6MWgKVs/qkKdUou3Vu6+gUouxunEiEolaKBOv4D4m9AHHA1DaBIopgVKwA5154PxntBeRfZemhFrVnhakDNImGKk1sS0PwJyqJ5a08mI2kUSmReEjN1A5e+hxAiFmzrfJEnFVohECUwD2C/O7S3T1X3B9sB4Cxi0ctE=
+	t=1790693854; cv=none; b=JqIjvH0D+yP/1xMSq+aj48eZuv+4IQt/4q+ZSPfwgDJICuYN2RVSDlEk44uQPtXjTRMxoXNoq29e4dffgSm9kgOK9Gmu1pY7eTQF45JZNA/Naa5hr544Q71wMxgmz4EBbRkEDN/nIbb8lBRmedqPEmCYTwwWkYoZjjjFuWj3jD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790693834; c=relaxed/simple;
-	bh=Mb/eWLB1hzxMamN2EaZvoHO/5kRqgqUoNzTGvIBJ/bQ=;
+	s=arc-20240116; t=1790693854; c=relaxed/simple;
+	bh=oGxVQoFHRztxIteZvcXsim6691bzBKxm2/431KDfBV0=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Hhru/E7RQRM+OVBwkjtJuzaFU+ZCMipwYOslOCXkKjXrjSXFJmZDDnATqYZiGpJVWWCY6QQePdJvvYv82r6n/8xCCmvZFXTdG6bNR2sh+Rid2QM4LxtVRyDuge04fDX6CaBJJiVYju3/CG86vXATw4VwJgsfNfkrQ4/nqMtiE/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrJ2DxZa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=XamDDLtmaHLTsgSAniGJ1gdqhGOnBovu1PSpm/KWW0BHF095xTyW+Hd0MHVn4hadz9CRbQohjyEu+CNKUL5VcrOpEynbmCwm8K8Bah8dCM4Vrar5aKxrTV3ubYNWEIgyYKB9NGGT8AxI1wluL7kd5Z9i0ICLZhb9XBp2hP3YYp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoWzZjTP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrJ2DxZa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056A31F00893;
-	Tue, 29 Sep 2026 14:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoWzZjTP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33351F00898;
+	Tue, 29 Sep 2026 14:57:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790693816;
-	bh=VfFU+43eV00HgURhccuIVtc5YQSWyFjP5EWQQctgOTI=;
+	s=k20260515; t=1790693826;
+	bh=0tVQrgQ+88nslv9N8wiRLc5XBM+MlEB0DNZcY68advo=;
 	h=Date:From:To:Cc:Subject;
-	b=hrJ2DxZaJAAh4OGyaSKX2PVX7ZrIpdRRMIzh/fIS05+3d5m84PwzDwkkLENiUJxFS
-	 xrGa1/vdLTmRqFsbAHLgeb4Fu/Ye5IC22Uq2elxOEzpn3N2IabB1+4JGzIkq64CVUZ
-	 jK//7eYpjijnp/PwOu7hdLEyqWUmK5NhOOeBskyqTgqkkRo7Z9AI/9F/JC7pd2bE9/
-	 Oh6wEeHzD/cOIzvS43aWGPdg2xStSzl7PDiE7EGpt98zt6y8VeUhfZDVO5GXk9tqXY
-	 4z1u2zQvDu/YrpFZ9AFyFV+4Fjo9otqXJkiPqIYkcJOUBrit/8E5C0GBztncs8vL4X
-	 8u90VA7KTsAsA==
-Date: Tue, 29 Sep 2026 15:56:51 +0100
+	b=XoWzZjTPp43B20D1S3UsBjh+F+CjxBTuJE0Xs0Ja1dekyqWFhmXswBHmuKDPemJ3u
+	 gxLQhxXhOaakFxNsDQAVVXYbI2JxQRJ2xTNwdcffYjz4S1V9q+qbYgROaYYzBj6cu4
+	 CzsPrV4hGM8Wj1xAbyeSpQer5l+2Urosll8xEyim1Zh6TYUeiP81y9kbPxLpWcJi48
+	 ds+TLLgDngIJZiEYzBPScKmXRnJqkHhZOJvtlFuLpVB4VQzgL9SoEatP8YK7WBq3bA
+	 XnQeoDxB2ZyrNnWLPDxQUuC78K0icZZxqSenDe+ZXwXs1bcjEc9JLpvu/GGcSqVbPq
+	 hLKF/7+VUMIwg==
+Date: Tue, 29 Sep 2026 15:57:02 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: Florent Revest <florent.revest@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the bpf-next tree with the bpf tree
-Message-ID: <arvRs4KdojDnW1O6@sirena.org.uk>
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Petar Stepanovic <pstepanovic@axiado.com>
+Subject: linux-next: manual merge of the gpio-brgl tree with the iio tree
+Message-ID: <arvRvrekUA3zEhYv@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,32 +44,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="U28t0JN67+uLvANc"
+	protocol="application/pgp-signature"; boundary="eVBgTxCms6nxkWSz"
 Content-Disposition: inline
 
 
---U28t0JN67+uLvANc
+--eVBgTxCms6nxkWSz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the bpf-next tree got a conflict in:
+Today's linux-next merge of the gpio-brgl tree got a conflict in:
 
-  arch/x86/net/bpf_jit_comp.c
+  MAINTAINERS
 
-between commit:
+between commits:
 
-  17637e1a581a2 ("bpf: Skip detached progs in trampoline images that are st=
-ill in use")
+  02f4bd272bf7b ("iio: adc: add Axiado SARADC driver")
+  a84f9870c16ba ("dt-bindings: iio: adc: add Axiado AX3000/AX3005 SARADC")
 
-=66rom the bpf tree and commit:
+=66rom the iio tree and commits:
 
-  29fcf9ce4bbdf ("bpf, x86: Use global buffer for trampoline size generatio=
-n")
+  a7787b818204d ("dt-bindings: gpio: add Axiado AX3005 SGPIO controller")
+  dd36a4b7f391e ("gpio: axiado: add AX3005 SGPIO controller support")
 
-=66rom the bpf-next tree.
+=66rom the gpio-brgl tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -80,58 +78,49 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --cc arch/x86/net/bpf_jit_comp.c
-index 6bca87457e872,6c7a0578760e7..0000000000000
---- a/arch/x86/net/bpf_jit_comp.c
-+++ b/arch/x86/net/bpf_jit_comp.c
-@@@ -3817,25 -4152,15 +4158,15 @@@ out
-  int arch_bpf_trampoline_size(const struct btf_func_model *m, u32 flags,
-  			     struct bpf_tramp_nodes *tnodes, void *func_addr)
-  {
- -	struct bpf_tramp_image im;
- +	struct bpf_tramp_image im =3D {};
-- 	void *image;
-- 	int ret;
+diff --cc MAINTAINERS
+index b6400ebe7d2dd,9aea4c3fd3aee..0000000000000
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@@ -4487,15 -4439,15 +4487,24 @@@ S:	Orpha
+  F:	Documentation/devicetree/bindings/sound/axentia,*
+  F:	sound/soc/atmel/tse850-pcm5142.c
  =20
-- 	/* Allocate a temporary buffer for __arch_prepare_bpf_trampoline().
-- 	 *
-- 	 * We cannot use kvmalloc here, because we need image to be in
-- 	 * module memory range.
-- 	 * Since it must be writable use execmem_alloc(EXECMEM_MODULE_DATA)
-- 	 * that returns writable memory in the module address space.
-- 	 */
-- 	image =3D execmem_alloc(EXECMEM_MODULE_DATA, PAGE_SIZE);
-- 	if (!image)
-+ 	if (!trampoline_size_image)
-  		return -ENOMEM;
- =20
-- 	ret =3D __arch_prepare_bpf_trampoline(&im, image, image + PAGE_SIZE, ima=
-ge,
-- 					    m, flags, tnodes, func_addr);
-- 	execmem_free(image);
-- 	return ret;
-+ 	return __arch_prepare_bpf_trampoline(&im, trampoline_size_image,
-+ 					     trampoline_size_image + PAGE_SIZE,
-+ 					     trampoline_size_image, m, flags,
-+ 					     tnodes, func_addr);
-  }
- =20
-  static int emit_bpf_dispatcher(u8 **pprog, int a, int b, s64 *progs, u8 *=
-image, u8 *buf)
+ +AXIADO SARADC DRIVER
+ +M:	Petar Stepanovic <pstepanovic@axiado.com>
+ +M:	Akhila Kavi <akavi@axiado.com>
+ +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+ +L:	linux-iio@vger.kernel.org
+ +S:	Maintained
+ +F:	Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
+ +F:	drivers/iio/adc/axiado_saradc.c
+ +
++ AXIADO SGPIO DRIVER
++ M:	Petar Stepanovic <pstepanovic@axiado.com>
++ M:	SriNavmani A <srinavmani@axiado.com>
++ M:	Prasad Bolisetty <pbolisetty@axiado.com>
++ L:	linux-gpio@vger.kernel.org
++ S:	Supported
++ F:	Documentation/devicetree/bindings/gpio/axiado,ax3005-sgpio.yaml
++ F:	drivers/gpio/gpio-axiado-sgpio.c
++=20
+  AXIS ARTPEC ARM64 SoC SUPPORT
+  M:	Jesper Nilsson <jesper.nilsson@axis.com>
+  M:	Lars Persson <lars.persson@axis.com>
 
---U28t0JN67+uLvANc
+--eVBgTxCms6nxkWSz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq70bIACgkQJNaLcl1U
-h9CIeAf/aTtse9gSc8Y06UHaIxa3EIIm1SYMyj0BImtt6DeoA592sdNNjPXKbgit
-DGg9Bas77yScTZ2GJv0eo/gTKOPrHzWj3nmmZC1xjJKEkmc332Z25TlzB1FTrvQn
-3V0eb4zInVbXJZQYFZ8HVtcjAMsneCFT/tIoyujTn20gouvZR13YWBcCyA/e5z1z
-l1YwuhBcOsZJdc4CjExcqc5PULNEOy+7fgFqhoQT8gtC5wjo+s3GsxLWj0f/55Z0
-sdTlwXiT/K6KBA3zE8cQNdIy9zHQUz4VKY4pj+MZ+M9Ma3xo/C0zPH6wQ7I/Vz3p
-xxo/0uS8kEDtEa0A2FMu0Y5b66Xrig==
-=pacq
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq70b0ACgkQJNaLcl1U
+h9D6ugf/eC41nXR1VqL0uJygwpGp48jk+/TT6w9T8NLm5Py54SY9Ry8LEpSGy+b5
+GrkJAlTwjjqVGBS4LmrHKySpOA8OTJzj/Eo/bTcw449cuFF27xu1/54UB8Ca0K6m
+G2S/Tp7OSr5VKSAH2nEabAh+eg+Vyv2CVMcgk2XvRARiQWKTqe6DGK2S4qBE4UkM
+xWGuzpAUSE/yD1EepAulPhwxP93cclgljl4nlMwzh3kpUGQX/KfSW8xYjilZ+5Yp
+r+PdKYhH40IgyUw9eoT+fKOZuYzZQmvZsJIo/xxD6cYyZIUlMMNY/w5QIFfILU7g
+VbNa3InCK1aUIXtDkS4iX9mENmgmjg==
+=CeRl
 -----END PGP SIGNATURE-----
 
---U28t0JN67+uLvANc--
+--eVBgTxCms6nxkWSz--
