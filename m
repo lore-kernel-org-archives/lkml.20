@@ -1,29 +1,29 @@
 Received: from mailgate02.uberspace.is (mailgate02.uberspace.is [185.26.156.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBF13D9DD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC833DA7C0
 	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 22:50:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.26.156.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790722241; cv=none; b=IQBK/F5RlgYCtQxFbHSG07lUyVarvkjtTWoLA5nj12EyE52WSVLq1pEYAGJaTwArcYSmyfCsd19y1Ro1tewa5jvawpdxRsxvV2TZ+esbwb6X34erwZs3DxivXbtaepRQYVcl8q5TX+PNEJKxZail742Q810o/frn8s2t82xwFMA=
+	t=1790722242; cv=none; b=QjYqI2KgmwWPUcE7DYBIPuUx3P5bK9HgQXQXtbcGAoVyg8nqqX/C7ZnaFWOdUXt91HrAdI2ueQlp7biBCsejWoalscDTV9xo1mVrYE6oavrSHiMfAmxn3XWZjjnrxdCghTy6mFcB7Dqq5rfk2+PuKF4gZzYFs3JzWxzPzBi06xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790722241; c=relaxed/simple;
-	bh=WLgMe1Exvuro8juDYcAbZqCnJhIpTT4cobJxqbLAES0=;
+	s=arc-20240116; t=1790722242; c=relaxed/simple;
+	bh=otyvp6XeZqbiznEBQM1Q0b+7Jp6rj2C5l78Rqypb1Vk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GCY3D4kAPN4VdbISYO2dm13MzrSeoeHbfr5FK3uFs+D1WNm5GYwoOz0W+LDKqb+YAVXhzyb5hITCqpxrHVxtfIvoHTkVTX9otmO5hnkqUFI5b81yrO6dU/TFxfmjD5tEz+BjbUpEed13J6LZTASuFYssghe+/5X7ZSRoQUSOQSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=taufderl.de; spf=pass smtp.mailfrom=taufderl.de; dkim=pass (4096-bit key) header.d=taufderl.de header.i=@taufderl.de header.b=PFKW279V; arc=none smtp.client-ip=185.26.156.114
+	 MIME-Version; b=uRFCwRg+Cp/H7PY1ynzpu/vibOT3Z6XTlOKVdcbrakxE230KHvDnGqVYfSt4yUSAYSjlpc++kG3oQtIkzK5KAzZp4vwBLutPKT9/PE14GY8WvN7vSmVyCJFHVac57DoFUvBc8FBusg4xpxWrAfsvB3+EzIWnN5Japf9JIBR6iTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=taufderl.de; spf=pass smtp.mailfrom=taufderl.de; dkim=pass (4096-bit key) header.d=taufderl.de header.i=@taufderl.de header.b=n8wW8hyQ; arc=none smtp.client-ip=185.26.156.114
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=taufderl.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=taufderl.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=taufderl.de header.i=@taufderl.de header.b="PFKW279V"
+	dkim=pass (4096-bit key) header.d=taufderl.de header.i=@taufderl.de header.b="n8wW8hyQ"
 Received: from christensen.uberspace.de (christensen.uberspace.de [185.26.156.203])
-	by mailgate02.uberspace.is (Postfix) with ESMTPS id 01DCB180628
+	by mailgate02.uberspace.is (Postfix) with ESMTPS id 57AF8180797
 	for <linux-kernel@vger.kernel.org>; Wed, 30 Sep 2026 00:41:27 +0200 (CEST)
-Received: (qmail 1063 invoked by uid 990); 29 Sep 2026 22:41:26 -0000
+Received: (qmail 1126 invoked by uid 990); 29 Sep 2026 22:41:27 -0000
 Authentication-Results: christensen.uberspace.de;
 	auth=pass (plain)
 Received: from unknown (HELO unknown) (::1)
-	by christensen.uberspace.de (Haraka/3.1.1) with ESMTPSA; Wed, 30 Sep 2026 00:41:26 +0200
+	by christensen.uberspace.de (Haraka/3.1.1) with ESMTPSA; Wed, 30 Sep 2026 00:41:27 +0200
 From: Tim auf der Landwehr <tadl-git@taufderl.de>
 To: Kristian Brox <isyourbrainfoss@proton.me>
 Cc: David Heidelberg <david@ixit.cz>,
@@ -31,9 +31,9 @@ Cc: David Heidelberg <david@ixit.cz>,
 	oe-linux-nfc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Tim auf der Landwehr <tadl-git@taufderl.de>
-Subject: [PATCH 0/3] nfc: st-nci: three ST21NFCD fixes found bringing v4 up on the Fairphone 4
-Date: Wed, 30 Sep 2026 00:41:22 +0200
-Message-ID: <20260929224125.3656680-1-tadl-git@taufderl.de>
+Subject: [PATCH 1/3] nfc: st-nci: map proprietary RF 0x90 to MIFARE
+Date: Wed, 30 Sep 2026 00:41:23 +0200
+Message-ID: <20260929224125.3656680-2-tadl-git@taufderl.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
 References: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
@@ -45,49 +45,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Bar: -
-X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.992462) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -1.592462
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.999906) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -1.599906
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
 	d=taufderl.de; s=uberspace;
 	h=from:to:cc:subject:date;
-	bh=WLgMe1Exvuro8juDYcAbZqCnJhIpTT4cobJxqbLAES0=;
-	b=PFKW279V6/THg2nwnoehDGEVR3FSlSXw/NAmfz+MKRQxNDfK0cXncPgXxIMlNJi+BVSP4by1PZ
-	uwEgBkaHxylXlZh/pl3naG0PYThAO129OVZGr65Endp/k9Wy14ixVVAMvX0sq0EuP1sSuxdtTKGF
-	4x5oxAVor20Uhmxd3VSCA8iejOKByZzVL1oKtjuC6QRCuibLZmCGPJFdfmIA7QdpJjsbu2D/sqqC
-	eXrqF5c/BekCtkLx85RJ9eodHuS1AAOyAQeY+pyXKvvW2Gydz12+gHPQD/xs9JxUsjbp6eIVsylF
-	Li4OQsy8Uw1+y6In0qMHnLuV6p4G2bJ/vMlJRYDew+zUnnACEsQxn+7Ev2eK2gOnQLlimrHmp44A
-	EirfQ1nGuzWYctAkwDUVBCD9uVRVZGt4Ex96EQSl+bdUU7W9fON5aMgfBFVCxcLtDJxs9pw/erJA
-	UUHhtKpmQ0zyeqxBD2SP5j6giyRmFYRnMUrajNfIrrCchVtSWxJQL34sB/qO1S8SUIl7qRMZMNSJ
-	VG/GOxcM1gQBjWqlwik57IBR0HW55sqKR97qvd72CbUvLB6CzMTw746VyOvyPR3wVa/Z9KSvO6st
-	7gE/t8z5YchCifBcVOsOZOqP+bgJCLOkZoDVV5vDJtL8QfVFnOrpi/kOqQnEVkPU5St7gsJ+KHeM
+	bh=otyvp6XeZqbiznEBQM1Q0b+7Jp6rj2C5l78Rqypb1Vk=;
+	b=n8wW8hyQBd+bgPae7MShpRrq3CE27/lNGT6ELbxVEQn9UHNqE9urNr2d0tZH3Bb1ZCBtCqrI15
+	ZmQKjkglfDkDE+X8EDdlLg47hG68XQ9R6Pkb+V3bGep7XRDYm/+YDuFD6CYQ8roHZ0SMQjfuq5ci
+	J7y04RSyJ0p3Rgb7DfsvcxOgfFUAYiBepBxaSHGGUfgR4xs02SSXZ7hcicY65XZRP/UoGJeWLyIb
+	WSM3+OLSK9XTB+Krt8+8FYyBWW2tMrZj4cTG7jz5DZIU5d7aECwXQxZ6nENugTBHE5cmukrNYxc3
+	o/0KDUBNAERJO03O8gXzWfKz5H6N9bb9gSgg0B8h50c93AnvocESNbcgP3gHDs0nplwROcqQL5bT
+	MLAbLPRUreZviM7XDJJDqc8Vf2HzUJ+9VNsY4A+DjmD62f6ZUS++1y2EdKK48mQCyYjwfaS2G3ML
+	Vh5JW/Zq0mW2iaGScPKrVIBSh9sOreIEmVMna3BIKvCW6tjK8joUrEBDWL1dnI1HONhgCUBXmxk8
+	INsC9QuwUmTpvbzuy7u0Abng32r3HNj4vH2mgcU9HMNYMXnk+V+Pg47M1N/EQ7tOwPzK/aTxo3rB
+	pYgcYxcvXjfkqY90TwCQfGUF9VuS7S6c1gwsJROZ/vPfPyYEOZ9JS7CTKI7YCQsyykMKWtI5eU5h
 	c=
 
-These are the three fixes from bringing your v4 st,st21nfcd series up on the
-Fairphone 4 (sm7225, Adreno). They apply on top of v4. Sending them here so you
-can fold whatever is useful into v5; z3ntu (Luca) asked me to sync them into your
-series (sm6350-mainline/linux#14).
+The ST21NFCD reports MIFARE Classic under the proprietary RF protocol
+number 0x90 (observed on a MIFARE Classic 4K). st_nci_get_rfprotocol only
+mapped 0x83 (ISO 15693), so nci_add_new_protocol dropped the tag with
+"the target found does not have the desired protocol" and userspace never
+saw the card.
 
-1. Map the proprietary RF protocol 0x90 to NFC_PROTO_MIFARE_MASK, or
-   nci_add_new_protocol drops a MIFARE Classic as unmappable.
-2. Restart the reference clock on power-up, scoped to the raw-NCI part. This is
-   the wedge Luca reported: after a poll enable/disable/enable the controller
-   stops answering NCI (DEV_UP CORE_RESET times out), and it only recovers when
-   the input clock is stopped and restarted, not on a reset pulse alone. On FP4
-   this took DEV_UP from 0/6 to 12/12 across cycles.
-3. Treat the idle 0x7e first read as no-data, or buf[2] is taken as a length and
-   the next real frame desyncs off the bus ("invalid frame len").
+Map 0x90 to NFC_PROTO_MIFARE_MASK. NFC_PROTO_MIFARE_MASK is already in the
+driver's supported-protocols set.
 
-All three checkpatch --strict clean; verified on an FP4 with the mic/NFC DTS.
+Signed-off-by: Tim auf der Landwehr <tadl-git@taufderl.de>
+---
+ drivers/nfc/st-nci/core.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-Tim auf der Landwehr (3):
-  nfc: st-nci: map proprietary RF 0x90 to MIFARE
-  nfc: st-nci: restart the reference clock on power-up
-  nfc: st-nci: treat the idle 0x7e read as no-data
-
- drivers/nfc/st-nci/core.c | 15 +++++++++++--
- drivers/nfc/st-nci/i2c.c  | 44 +++++++++++++++++++++++++++++++--------
- 2 files changed, 48 insertions(+), 11 deletions(-)
-
+diff --git a/drivers/nfc/st-nci/core.c b/drivers/nfc/st-nci/core.c
+index d7802434a..3ba49d696 100644
+--- a/drivers/nfc/st-nci/core.c
++++ b/drivers/nfc/st-nci/core.c
+@@ -15,6 +15,11 @@
+ #define DRIVER_DESC "NCI NFC driver for ST_NCI"
+ 
+ #define ST_NCI1_X_PROPRIETARY_ISO15693 0x83
++/* Proprietary RF protocol the controller reports for MIFARE Classic (observed:
++ * 0x90 on a MIFARE Classic 4K). Not an NFC Forum protocol, so it must be
++ * mapped here or nci_add_new_protocol drops the tag.
++ */
++#define ST_NCI1_X_PROPRIETARY_MIFARE 0x90
+ 
+ static int st_nci_init(struct nci_dev *ndev)
+ {
+@@ -76,8 +81,14 @@ static int st_nci_send(struct nci_dev *ndev, struct sk_buff *skb)
+ static __u32 st_nci_get_rfprotocol(struct nci_dev *ndev,
+ 					 __u8 rf_protocol)
+ {
+-	return rf_protocol == ST_NCI1_X_PROPRIETARY_ISO15693 ?
+-		NFC_PROTO_ISO15693_MASK : 0;
++	switch (rf_protocol) {
++	case ST_NCI1_X_PROPRIETARY_ISO15693:
++		return NFC_PROTO_ISO15693_MASK;
++	case ST_NCI1_X_PROPRIETARY_MIFARE:
++		return NFC_PROTO_MIFARE_MASK;
++	default:
++		return 0;
++	}
+ }
+ 
+ static int st_nci_prop_rsp_packet(struct nci_dev *ndev,
 -- 
 2.55.0
 
