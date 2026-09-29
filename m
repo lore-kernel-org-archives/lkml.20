@@ -1,128 +1,131 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4568539791
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E20538D8B;
+	Tue, 29 Sep 2026 16:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700779; cv=none; b=DYdtIoq5DLpqO3mv/hPr3aVdSukTJFOq3kbvKKnGU0UQm5DLwO54btH/VVAjkuF6NsHjdkvmXqYOZBiUar73pF/NVxEOu7F5Uwii1Jqcn/8l50nCdY6yeerWSSUADj5QtNqK2OkrWkUlRAimEYiFLuA39gCfnWs030dXkHmYKjo=
+	t=1790700854; cv=none; b=miEViok6Edb+orvrY0YZe/vqp2DpHmx5lk/g5Dcd4jxmFDI9uxWEIxSly8D4+tLfQLLjCUkD7J7BlpwqgQN/c7fFJfrEMqSFuE6sKi4AGdrHszr+wQmfwU/rJCUz3uqgcOyADFloGeBtzxqdsdcn9JeahBJOgTE0heQE2XbZidQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700779; c=relaxed/simple;
-	bh=qaFCsp8c7CGfKFzZ18kTQk2ARCzvSbrZ20wb3yYF6SM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=I8SRIl9H4Jq2CgCDoRmrmO5cydSAj6KPX96oKp6IoJW7X3tf33ISGAVXgX+zOYBSYaUb3Qc9QRsjrmvTCoU5JrnHWWwz2JXnkKbMSaUsuDc0ZsFnpEG9ypJOrlMzAAm5MH8SRgIUZvbFL+iOkiHh6yOpKSt3+wpN7GcgTHdKBtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dUcghjw9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=egRAHL+q; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790700854; c=relaxed/simple;
+	bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kaIVgrUiCMrJ/hkUYxlLIpiky10eazTsqnlzkbuediKV3jx0lImHsEXYkeZY6IUpEWmtMej+COolsKZUlBbwGRnIEtS83OAcc+T8U8VFlRUsg4HnZNq5JfnUhyi5v5E6u66KplZxiouSOf8cKmg+IAdfqk1P4nUVQATo2lK6sPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WU2Ik3Jv; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dUcghjw9";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="egRAHL+q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790700776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-	b=dUcghjw9gZVrWVqhnBexcq9veeCro3FTcgwcEutZxrnS+sips9AMeQZ915hQJkIHtf8SU/
-	gEnKbsBypd3YhJAE7QU7IDAKBnIc00o2yOpVWVlyGu9+ONKeAK0c9PsnwQXVTqCkIl9FTf
-	A/twVWewIOjCZ0fM6WIVxJPsuCKsI9g=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-110-qYti6g5PM9-P3PMEn3ot2A-1; Tue, 29 Sep 2026 12:52:55 -0400
-X-MC-Unique: qYti6g5PM9-P3PMEn3ot2A-1
-X-Mimecast-MFC-AGG-ID: qYti6g5PM9-P3PMEn3ot2A_1790700775
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9175cbd3beaso41519666d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:52:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790700775; x=1791305575; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-        b=egRAHL+qQ5CsChrxeHhQheTQlicf6Zg5ZZZ0h4csWN29n8Jl3FgT0q5I+5Q51oOimO
-         qCDCsJvFpt/iGoRiGOv31u+KmRrRxXVyamegl8jj3aD7X/hIf7hbjs7wI9gKaocBAd38
-         75bf1arsMHLrg9FEZkhg2PCidZVnb93XFAR8dxWuhTBfWaZEt25rhv8xo7ONYtqcNS67
-         AYn7sjQuMLbUaI8LYHvriFz866tzGfyjsX6Pk5T0e9BQhNi3EDxBJjh6gmUhgH9XgxQ7
-         nwcBAhoUo4n0rGN8BZ/AeP7WJyO16RauklOZMUtYpxa8hiU5vX8SI5BCohZ98/Bz7oxL
-         JuqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700775; x=1791305575;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-        b=Hn5U8Q4U9XZymKnC3CwezC6sTZwOKplo8MyyLXa4tpvrVeyOTzjodNHMPKtTe62+O4
-         0UmI8Kerpl1c6G5ghEALgqUGW87A4XvokJY5/0nD1DsJmROLNSTETXqyaP3Z6mbQpChD
-         DhwsGGbhUshZ6y4O5ESHVuTDcmncMqQnUb5u405Me1ENLF5P5lM0GSWski66F0IK4uF+
-         smlatHq5Yevwta4xIz/QAImbg2i7kVhi4YebnYuJ8x164Qgu7IZgOcVvCDy7FXJD5jtX
-         1/l6MWMTwzHgN0rsRtAHDEJsWf8P/zyyc/7JXwxNZZfeDSzVkbKVAaBJKdyw6Y5K+Cws
-         yx2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzfQd+OMgarkoWuMAM+kOLO1wSb4A9kY2jVtt9oA/OhiDWYV+cJD+2cQki050KmDM7MiGhkqyZbwymRSSs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKvn25+NFoAuKdaRZsjA6/qPT/sr6mkPZXM5D20PuLZE5rKN/d
-	psMPiq1d82HeB8Ek47YC+frWcebN+aRY8PY2BZVJTmhmCd99nN81MI1E2WYojc8OoOqkARzyftG
-	sidv9V3VV9abjHfx3rQ0Tq+VBw1ARXTij/iQZTd8TBMA7+DmWhc8EKJJafrxLI3yE5A==
-X-Gm-Gg: AYBFou0aCy71xWwE9trP/nbLl7W4VEhiMo71oAlC+xf6EK20XAfhEbrTNtFnDvYzy46
-	A0rPrY6jtV808o5Z+gVcRTMrdsVYSxceli9uaVKgSQm/VRbFW6wpmgE6p4riVi1UXOI4iPKbZ+q
-	EbGdpYr5D3Zn0Vd9ajo7qyEUyb8uvx1oV5sYlFgHYLDISSm5AobRDayuHMttImkZrmCyQxj2V3l
-	J6B5wGv5tnxftlZQrZBmNWiH0Y8kIfnWiZx6bpdB6/q4+ZVEorJfKmOrpkH2gjcaYD2U2s5eOxn
-	04FFoLMIxB4ux/YfEx+wgwgyiwHCHRp23HoiF1vZu9nfJWVBFesNGoFkdb1qO7Wzto7iy+Jg/2V
-	Xw/lO2989K5bFfZMbs1b5Agp6BYSNJfJGQXwXdjoTGFMDjYzB6EI=
-X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302167356d6.14.1790700774726;
-        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
-X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302166736d6.14.1790700774056;
-        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d343c11sm14454746d6.25.2026.09.29.09.52.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:52:53 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Tero Kristo <kristo@kernel.org>, Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-References: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: clock: ti,dm816-fapll-clock: Convert
- to DT schema
-Message-Id: <179070075682.199845.16100370158110486691.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:52:36 -0400
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WU2Ik3Jv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790700852; x=1822236852;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Ia2IVFDGm42HX7GPQhOizP29/fjvmxx66wIZ2fGy/Wc=;
+  b=WU2Ik3JvLkIYX+Mi3MwvAh+HnrGiNgHfapDRwdKCEDbckHl4e7rk1dOK
+   uDaEGUZLNTA8BYFVWPYoGUHcbNoSAzXSAoHQjsInvrVcCxVBQhxCPcb3N
+   Zx9z35t8k8UeG8afS2JEYcypHy/D8fwhgi8IyGsFUPU+Nj5a/GSyAc+Oz
+   a/O+ZneVQCYKgGwLI1x4opTFDLeT5tV4pnLpf9a81Aol+6938pN1es9Hx
+   aatWM7QnVA34GjT7wcCQAYVIOGTSLF2X+7A+3bx7GFZSotwYcFPP273sX
+   lWX74nP5iDYNroZwDqaTmI9OLvVNE3VvNCLKiJoUzeVRxvYsZBerD8CcP
+   g==;
+X-CSE-ConnectionGUID: TlaELfO5SRC7hTM0kuiwyA==
+X-CSE-MsgGUID: g8IRv7wiS36qe5Ir8MXLvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102802477"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="102802477"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:31 -0700
+X-CSE-ConnectionGUID: P8J40M06RMOC9+c1HacIFw==
+X-CSE-MsgGUID: DX4kZuz6Rz+E8yqSAG6ldA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="274633172"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.116]) ([10.125.111.116])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 09:53:30 -0700
+Message-ID: <7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
+Date: Tue, 29 Sep 2026 09:53:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+To: Guixiong Wei <weiguixiong@bytedance.com>, x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, "Chang S . Bae"
+ <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260929151013.81562-2-weiguixiong@bytedance.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260929151013.81562-2-weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=329; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=bJDs7mdWAsDC2TJlkeIHEoIE2dsMin2hdtYBCmAzCEU=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v3m0NebrBsm9mQ4Hl9y92DZzMu/iiz+4DlU0rzR9M
- 1FA12daXEcpC4MYF4OsmCLLklyjgojUVbb37miywMxhZQIZwsDFKQATuenP8M9CTMaqS9xVQDf2
- cnxPoWMZh/VbFoG9r95JzwtcvCnyym2G//7vCvlD08qexIVmN324cEI2b/GkzxeO7uRkE1lgW8F
- bzwQA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
+On 9/29/26 08:10, Guixiong Wei wrote:
+> Preserve the old fpstate pointer across fpstate_reset() and free it only
+> after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
+> This ordering prevents a context switch from saving FPU registers through
+> a freed fpstate pointer.
 
-On Sun, 06 Sep 2026 02:52:04 +0530, Bhargav Joshi wrote:
-> dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
+Are there any fpstate_reset() paths where this matters?
 
-Applied, thanks!
+I mean, the init task, obviously not. It doesn't have a dynamic fpstate.
+During exec() this reset happens while:
 
-[1/1] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
-      commit: 64461f89a37a788789a1ce22979e3c0695ae0497
+	bprm->mm = NULL;
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+among other things, so I really don't think it's even remotely in the
+context of getting context-switched to.
 
+For clone(), the destination task is also not in any condition to be
+context-switched to.
+
+So why defend against context switching? What am I missing?
