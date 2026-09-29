@@ -1,177 +1,169 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B9E3C8C62
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705022; cv=pass; b=UPbsXXyWFJ/B/PKLdUkC9e3wW1GRUacqxFhmGa0i0uyblgFGTAW2u4xgY4TkbOXGaRxQhUv3qAF5ELt4yxZh6o8auEn+IirCM6z78HRCk1xCasLTSq91nGxcmiasU2L1DUVPJnFK5ZIh7RGyAMAscMSraVp44fvgJLTugwrCQaQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705022; c=relaxed/simple;
-	bh=66NPz0C8eG0KHGSWeidBwsifxHr9iMvd7btjXL3I6t8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KS+KnZqUc3Ish0HP0nx/h5jS95kY7iDA39/jD+nmU6Bp7T0lJh29HGqnVrL1FmFi54T5S36QSO3d8APFTAaTeQjipyquEu33YJMVNdo9X7gTnhLcD4UPaqP7F4Lvvw+VdnfkDuVURQGFLLiyETwgmMXSJNtMYR1I1AjtB3ISNhM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HZ3eNak/; arc=pass smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEE0322B9F;
+	Tue, 29 Sep 2026 18:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790705191; cv=none; b=nHmPX90IMqVa9cEudbNnrU0biN1rOcMvLTQj29sgY67dcXj3YuZIqOhDK6DEUo6rlWg0hLG/pXrr4KbTihb8AINjNSmyoOLyyK7ztEkPWra10R/p4yVunHc2v3jfNjUdiRJfAM1GgPrFXcc1qILVbA36qpulbxph5Mg4SxJsJEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790705191; c=relaxed/simple;
+	bh=uPAjSR1QmXabbgzwP0YmtFC7QzRJncJcuvbYsjqMkuA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jBDh8drZLVk7EKRL3VFSBrcZM62/foC1zW0pSn5TGKyDexEW0vHrf3iwWe2+R5Au7AM0ONLIUZoUQj3cIrKp7J8rgEDWtCnkpY+PWex+zUONPrgs/sP/tW4KceeBsQtBmaC88tP394MEsMywO7sq1Ku12lWbiO4Ytspg4OCH+kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RlIpyMO1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HZ3eNak/"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2cd04e72f6so512203166b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:03:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790705019; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EjXQk4ur5e86Y42aQ3GwGFQbNp1qGLadJoRGWsKEDcFkTzD4PZFOhkiG5oTr6ElLdz
-         ue0e7XwJldPbyxAUrj6GLXwBg4c/zzauOQSw0qfcCPQVYOU3rWgfsxo/n4fEqK9FbuMC
-         v72JS7IFGRzDOopDf5eveR77Ks38V9/LOq7Yqz+beNJYzHg9rdxsxm4GMMCc4xy5h2kA
-         Btq5K4HQU29CcB1fVo8916LvI56lS/q0K0hgvafzgV8KY8gTxoJhxVYJsKDloiCrSAYV
-         TvtL2wdhrdnuQr4nP3RMCrXJ5HGI8Ypg6l/WuSgGfppsN/Gl64Scb7+Is49PkzJFFPus
-         1oNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Cx+hvzKqglq+4E86uBoiNqYHk0FJfTWAwibQaEI3f9A=;
-        fh=gccLXK9v1g4Q3Gwb9BLWgugPzDQu9DPPZ+xdCv7W8mQ=;
-        b=L0ivDizmVNAkiWw/6Dd3Q6/DkAdv/CUF2EVAOchQtUFl1PfN73Mx3n4JwOEdv+jbeH
-         LSMpBwXPSJvawTewqU6d/dnN9bl75E4EPRLAPt1Z5Tuj4GdkNXJY+mlRrzH8XV10tufm
-         rUEKYngpg9etKrd8+EfQGZ6opEj8s/g/cAJ077inBH3GPO4lYl48skLf6/iWZ5ANxU1y
-         e8KdFZOMgxFynHYdXtxoYSKYGnCzqo2UQ1iWiuWiL/zT0Bu9LwbhLaBawR8qlvIvwrZD
-         Vxc3G7aogIuzSH4QH4augHbl0qydVhEU2h0bcR9zUCvbfhaizfJ1uDcviAst0tvIfs+X
-         vdzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790705019; x=1791309819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cx+hvzKqglq+4E86uBoiNqYHk0FJfTWAwibQaEI3f9A=;
-        b=HZ3eNak/DKOJPows8YaJ8hUGPD74CpsdmBBhhS/pws2y7XTwxXcgim/XCd69/GDi2g
-         aW0y6pNYCYkIn3YgUS9NrTISuyvJyOALivXZHU3NCmtFvI2lx5g+r7lPzmiSjghQXmkt
-         yYLv9FqXEDRiW0ki0zT976ELXQP1A6c0eWD9bxTZ49f/MpXUBPL9I16Vlothp+nlRQKu
-         5JWYeyuI89Q73YA5HJY9wyKI5VfqVutemcGQg7sq1QcX/uSlqTquZkMmgh79MGYtdD5S
-         F4DZpcp1CyIaaqf2CobxZDrL5zLTYauYaUFUaXLRzH14TOawFXqnC6Uh8NGgwjsfODQ4
-         OIfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790705019; x=1791309819;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cx+hvzKqglq+4E86uBoiNqYHk0FJfTWAwibQaEI3f9A=;
-        b=cdt0De4c09OP/bY0IKD9FSVfHqW3Hg5CfOP/uA9E9rf8s1yI6AGRXtoj88W3F3q5Gm
-         iP7eNr5eXl7Ke/a1s+otwlTHkZPI7Hyp1vsAG0662AEeDgumuwd7/6FBjJ0tDsgwan3s
-         fNgMqAKUAmo7wG/TWuQaui3mduKOalpyUNUcyAQzpGSa3hVoQIlhQpoRcRZy34tpFg9E
-         F2Y4ObgJFmdKzpp8iy9jr/ZYsPdOBYYKJOgqLzbRDGfgvIFVvHJxsBuh0Z15wvPhSoIr
-         LayFYdOxNEG6BWlcHTwFDaViW6ir8o6mcnMM3Eigf1VRz7grGK2HEYSV/zrVH2TEpVri
-         AO5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxxYqjt2nCScoQxxRfGHzofpc9nBr85UQjCNVAeOq0N57Swn45UXxV44MEvMxsCoVFWhTE2ieqEIZAS3zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIG/vzq/dcV13EBPaOLV5UBcHpjRknw65EIQlLV4X8YeQpyLMG
-	vyFnQ4ImCL9uOA9jmuHdIiZlRx7OTPBHK5xFUHrvQT/1afEQMXOuV3zRz3nf6iGM4ux9K8Ygwxg
-	eo8wPdgAxkon3fLLiTMa/UAE0nAYw4V+aG48P4nmM
-X-Gm-Gg: AYBFou3r1+/YTQv32KUZ38qRIQr0jTuJpsi4/TGRjlpSVUq+aPQXaVnSfI/aUM1KtQf
-	rEwjyyvokWajjBqSgHj6nSt9ASFp1nITO7orF6b92AcNofcAnL/xXUlZ25PY04AgTIx6JcbFv9h
-	71XhsUZMeV5Z5tJSuRyHmsvZnO0K/M/M6KMOJPFz3qWbNEwauz1PNhIeXqkF4PJlwAfnYB9SXN/
-	WDB5xv6MMhY0I3Ow1/MwAta144qEd83qCdWQpIyEJYtuccQ570aaznHv8xlvcSF4mFfKF8MmnWr
-	kNPidGkun6Ezc6ay/e1oCz/WQ34dki1GrVI+0sNJgxEPtI3wZn7owtdl0Q==
-X-Received: by 2002:a17:907:c408:b0:c26:2eee:ffc7 with SMTP id
- a640c23a62f3a-c2e1588b329mr24041666b.35.1790705018647; Tue, 29 Sep 2026
- 11:03:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RlIpyMO1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394CC1F000FF;
+	Tue, 29 Sep 2026 18:06:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790705189;
+	bh=HAqrEQT9SKU1pZoXMIZa5VtYpeKc+tvfoD1qi7Sf1w4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RlIpyMO1CVFJpzhWkrlINLR0yRM7ozyX9jcRYfiQyx3zOJvBBSnHoLr0s6YM7NW7B
+	 ZYUfeZSt5zG3M0b+ymaLf+rIe7860+z0YQYZWF8DwyEoLL1umBnzHcQeD8GhtTU/Ji
+	 QNvoQe+vTxN6cr8BVKf7A/kN5PvU/h/V81EiBu83LqGPSQyibjsQD5fqoF4f/ihLHa
+	 8FvbAa1R0RdqcWGx7wqfi/NuexApmBGN/NvUcaglQ+CxV4cf/jBCEoTBvhwGX7Sgd+
+	 WLErOalzFAP/Ijjv7xkFGSwvCMYdrTfNRZ9XiCTMFN6SeFAOXHFjNIXZ19dARc8SdT
+	 Uv77hbXHRePqw==
+Date: Tue, 29 Sep 2026 11:06:27 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Alireza Haghdoost <haghdoost@uber.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/7] perf symbol: Reference counting, flat array
+ storage, and LRU shrinking
+Message-ID: <arv-I_QOi1pcfhvP@google.com>
+References: <20260928075237.3055101-1-irogers@google.com>
+ <CA+w=M=R7vMK9-YZufh1ZW7efsVh=vCVkeh2_4rPSAsN=SH8MuQ@mail.gmail.com>
+ <CAP-5=fUFWGxNSS+TW4iHqeWu+24-R2rq63oBX19VxkTXnqo+4A@mail.gmail.com>
+ <arrhc_7jvX_W2uXS@google.com>
+ <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924185316.2831077-7-hramamurthy@google.com>
- <179036256202.2160803.12978678207911420221@kernel.org> <286547c9-9f4a-4202-a615-b51d42850951@redhat.com>
-In-Reply-To: <286547c9-9f4a-4202-a615-b51d42850951@redhat.com>
-From: Joshua Washington <joshwash@google.com>
-Date: Tue, 29 Sep 2026 11:03:27 -0700
-X-Gm-Features: AclHuK8gnKhB4zG1JHYYcGdrp3cm0c0-oSpP2e81va5MA8TRCBQ1L_AaXhWMhjM
-Message-ID: <CALuQH+Um-hzm3UTsG35+c5AX6RuW2x=OLYq=GOpgK8fR4P7FMg@mail.gmail.com>
-Subject: Re: [PATCH net-next v8 06/12] gve: simplify reset logic
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev-bot+sashiko@kernel.org, hramamurthy@google.com, 
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
-	hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, 
-	jordanrhee@google.com, willemb@google.com, nktgrg@google.com, 
-	maolson@google.com, thostet@google.com, jacob.e.keller@intel.com, 
-	debarghyak@google.com, kees@kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, przemyslaw.kitszel@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fUuwXTN6kjDrSqygN-Dy3OFuWMH705_tsCXX=dbG747QA@mail.gmail.com>
 
-On Tue, Sep 29, 2026 at 2:27=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> On 9/25/26 20:56, netdev-bot+sashiko@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 7 potential
-> > issue(s) to consider.
+On Mon, Sep 28, 2026 at 03:04:59PM -0700, Ian Rogers wrote:
+> On Mon, Sep 28, 2026 at 2:51 PM Namhyung Kim <namhyung@kernel.org> wrote:
 > >
-> > Critical: 0 =C2=B7 High: 2 (1) =C2=B7 Medium: 2 (2) =C2=B7 Low: 3 (1)
+> > Hello,
 > >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
+> > On Mon, Sep 28, 2026 at 01:55:26PM -0700, Ian Rogers wrote:
+> > > On Mon, Sep 28, 2026 at 12:45 PM Alireza Haghdoost <haghdoost@uber.com> wrote:
+> > > >
+> > > > On Mon, Sep 28, 2026 at 12:52 AM Ian Rogers <irogers@google.com> wrote:
+> > > > >    annotations. Saves 48 bytes per struct symbol (two rb_nodes) and provides
+> > > > >    cache-friendly binary search (bsearch) and callback-based iteration.
+> > > >
+> > > > Hi Ian,
+> > > >
+> > > > Thanks for posting this and for Cc'ing me. I built it on edd8a9fe2eca0,
+> > > > the same base as the v3 series I sent last week, and compared it with
+> > > > v3 in eager mode (today's behavior) and with --lazy-load-symbols.
+> > > >
+> > > > All runs use perf script --no-inline --max-stack 127
+> > > > -F comm,tid,time,ip,sym,dso, with one warm-up and three runs; the
+> > > > median is shown below. Peak anon is the maximum RssAnon from
+> > > > /proc/PID/status, sampled every 10 ms.
+> > > >
+> > > > 1) Production: 120 s cgroup profile of a storage service on an 80-CPU
+> > > >    host (perf record -a -g -F 99 -G <cgroup>). 54k samples, 11 DSOs,
+> > > >    5% of lines [unknown].
+> > > >
+> > > >                   time     max RSS    peak anon
+> > > >    v3 eager      4.5 s    386 MiB     314 MiB
+> > > >    v3 lazy       3.7 s    151 MiB      80 MiB
+> > > >    this series  95.9 s    309 MiB     275 MiB
+> > > >
+> > > > 2) A sample fixture from my v3 cover letter, a worst case with 73% of
+> > > >    lines [unknown]:
+> > > >
+> > > >                   time     max RSS
+> > > >    v3 eager      3.2 s    334 MiB
+> > > >    v3 lazy       1.9 s    106 MiB
+> > > >    this series 205.3 s    449 MiB
+> > > >
+> > > > Most of the time goes to reloading. On the fixture, a profile shows it
+> > > > under map__find_symbol() -> dso__load() -> dso__load_sym(). After each
+> > > > shrink, the first miss in a shrunk DSO re-parses its whole symtab, and
+> > > > addresses that resolve to [unknown] miss every time.
+> > > >
+> > > > The peak is still set by dso__load(), since the whole symtab is
+> > > > materialized before a shrink can run. That is the main blocker for us
+> > > > running perf script at scale: we can't bound how much memory it will
+> > > > use, so we have to contain it with memory.max, and then the profiling
+> > > > job fails with an OOM kill instead of degrading.
+> > >
+> > > Hi Alireza, and thanks for the feedback! I'll see what can be done
+> > > about dso__load in v2.
 > >
-> > - [High] After a failed recovery, an unprivileged user can crash the
-> >    kernel with an ethtool query.
-> > - [High] When gve_recover() fails during a reset while the interface is
-> >    up (service-task reset, ethtool reset, flow-rule timeout, or=E2=80=
-=A6
-> > - [Medium] gve_teardown_control_plane_resources() (gve_main.c) now call=
-s
-> >    gve_teardown_clock().
-> > - [Medium] The commit message does not mention several user-visible
-> >    changes to error handling, and one of its design statements is not=
-=E2=80=A6
-> > - [Low] This patch removed gve_queues_mem_remove() from
-> >    gve_queues_start()'s error path.
-> > - [Low] The commit fixes a real unbounded recursive reset but has no
-> >    Fixes: tag.
-> > - [Low] Item 2 of the commit message describes the old bug this way:
-> >    gve_close() during gve_shutdown triggers a hardware reset and then=
-=E2=80=A6
-> Low prio remarks could be ignored and we prefer no fixes tag in net-next
-> patches, but the first 3 ones in the list look relevant and should be
-> addressed.
->
-> Also please note you are supposed to address clashiko comments proactivel=
-y.
->
-> /P
->
+> > Thanks for the patches and the analysis.
+> >
+> > I think many of this memory overhead come from the symbol string.
+> > Probably we don't use most of them.  Then would it be nice if we can
+> > lazy-load the strings?  Then it'd have an union of a pointer and a file
+> > offset for symbol strings.  The find-by-name API is used rarely for
+> > user DSOs and the kernel symbols should be fully loaded anyway.
+> >
+> > Without the string (and the priv part), now it has a fixed size so it
+> > should be saved in an array directly.  Probably we can add a limit there
+> > and print it with offset when it doesn't have the name.
+> >
+> > I'm a bit skeptical about the refcount approach here.  It may be hard to
+> > determine when it reclaims memory.  I guess the lazy-load strings with
+> > an array would give similar savings like Alireza's work.
+> 
+> Thanks Namhyung. Without reference counting we lack a good way to
+> discard symbols; we must either assume they always exist as in the
+> current code or implement reference counting. I don't see a way around
+> it. Alireza's patches introduced an "unknown" state for when a symbol
+> limit was hit, but I think that'd be frustrating in practice. We could
+> use it after trying to shrink memory use, in my opinion.
+> 
+> Fwiw, I never like switching the rbtree to an array. The issue is that
+> the rbtree has references that really should be managed by a reference
+> count. Doing that is a challenge in the current code and a sorted
+> array offers similar performance while simplifying the reference
+> counting.
 
-My apologies for not replying directly. Harshitha ultimately replied
-to the cover letter stating that we would be sending a v9 to address
-high/medium issues, so I thought that was sufficient.
+Once the symbol becomes small enough, we may not need to shrink memory.
+Alireze shows the lazy loading works fine and IIUC it maintains symbol
+index which is 24 bytes.  Without rbtree we can make it 32 bytes
+(also without the name string), then I think it'd be enough.
 
-In any case, I will add a response here for the planned fixes for v9:
+Thanks,
+Namhyung
 
-> - [High] After a failed recovery, an unprivileged user can crash the
->    kernel with an ethtool query.
-> - [High] When gve_recover() fails during a reset while the interface is
->    up (service-task reset, ethtool reset, flow-rule timeout, or=E2=80=A6
-
-These first two are a result of the change to teardown when recover
-fails. For that, we will avoid tearing down when only queue creation
-fails, and call device_detach when the control plane itself cannot be
-set up. This should prevent any ethtool IOCTLs from going through.
-
-> - [Medium] gve_teardown_control_plane_resources() (gve_main.c) now calls
->    gve_teardown_clock().
-
-gve_teardown_clock() will be called as part of
-gve_free_control_plane_resources() instead. Since it is only freeing
-memory, and is idempotent, this should be a safe change.
-
-For the commit message issue, the commit message will be updated to
-reflect the latest changes. This code has changed quite a lot since
-v1, but the commit messages has not seen many of those updates.
-
--- Josh
+> 
+> We load all symbols instead of lazily because we need the end of a
+> symbol, which we can only determine by processing the entire symbol
+> table as the end of one symbol is the start of the next. We generally
+> translate one address in a DSO into a symbol, so loading all symbols
+> is overkill. I think we can do better by loading only symbols within a
+> certain address window rather than loading all symbols in a DSO. We
+> can then expand this window as more symbols are needed. This at least
+> bounds the number of symbols but isn't quite lazy loading.
+> 
+> Alireza also made good points about how symbols not being found or
+> being shrunk leads to thrashing patterns. I think we can fix this by
+> maintaining extra state in the DSO. I'm working to add this into v2.
+> 
+> Thanks,
+> Ian
+> 
+> > Thanks,
+> > Namhyung
+> >
