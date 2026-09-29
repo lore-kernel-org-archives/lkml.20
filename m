@@ -1,140 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A07036A363
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB5C3AAF66;
+	Tue, 29 Sep 2026 06:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662695; cv=none; b=A8tomhZ6G0acgPXkTb3KvVeEbl7u6sJzMrO0LMXBs7GWqToNQqpsv8HIEPcokcujYWB7KEg2XkcPvg4DyWI6k57TDJfl39IyuW62PO5b6LP1TD9Jub4sXU7Gsj1vKNl3/rr24jZNehJf0Rzov8AJ03UOZ25J4YF7H0hqwYaZfag=
+	t=1790662730; cv=none; b=oY3RBxxZe2z30zBhk3IaBqCbW+tFXijRgAKKEGh424HAw9U6wzxouA7131XjRNFI1hm3o/nZrxD9bznRwuSgFrqwtI2bsfmriOWYseqYQxw0Fole224hDeN5AJAtkadB6NQYYs9WxHGYQiiNvJJJ5KsFimGBNCDJKQ83wkbMoTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662695; c=relaxed/simple;
-	bh=GMlEVS63972OevcqapphLPcbwyDMo2NrK3/oGN2AKzQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWRp0T9Fn+jZOCDXjUbnHOEC3ir2mc63TJpWjwbM4CksdU8foDXURd9cbO6yBu8T0p66u+5l0YZQ9cWGU7zlxzRoHFajv8K8TFX8N/3XiXcZ6cwcmcSBeXKxd16e6TIDKWJIWWG52gKac/y5FaGQcnHIu6fup1x3IdtgRf1+wWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nOHBzoc+; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790662730; c=relaxed/simple;
+	bh=BRobswp/10oszCohKMc/lT2MTBh4V1Ig8g9UaO4o62Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pfi7KVervpvgujekJcfrbPXt3VRIF0aMb1O0B9C0OrmAZWNJ+tei9Bklpcm4rJG7RTfIwt3TCsLqu5HcrfcpX9DyDhd5oZ93IQFbtyJ30WV4udiLxvTS5eh8q0jL5ePM6uTIeKSzX4eaZYzoNyVBjc87PiPRnlJ/UzLLoxTPdiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WUfSCm5Z; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nOHBzoc+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790662694; x=1822198694;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GMlEVS63972OevcqapphLPcbwyDMo2NrK3/oGN2AKzQ=;
-  b=nOHBzoc+hx0Fs4cfT7MR46koMlTgOmZA+rVu9pnHSDw1jP4bZOIkwaY4
-   36c3jsuG6oiYKYNrY+WIb9eT4G/PZ+yaWK+Yg0QbOddylZCG2rfsRmkmN
-   k8A3twzJsLLvm6Kfo38j09k2u9ZHW30IDmZNwsgR2DFu5/v65tcj4t+ID
-   Yz/LDRrnqt4aAaluFC9IBcr66Sny10OsKz5Bz1V+fTpkYo5N66Lcvtvo0
-   +wzFZfQCLPmqGygYrLIofSAxfr3dKTCaEDi0NLuUU8fRaCEZgIOkumtbh
-   90PtlWJr99FUJN9pKvC7n9MpQzzkH/YlhX3CQBcN6g65nFkvHYYYyY0/5
-   g==;
-X-CSE-ConnectionGUID: FrSqB3XDRm+tOOwYhrk1+A==
-X-CSE-MsgGUID: 1J9r68mLSTSp8/5VJo54LA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101537649"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="101537649"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 23:18:13 -0700
-X-CSE-ConnectionGUID: VC1uOa3NRiOvnA8f+1EgsA==
-X-CSE-MsgGUID: LNM0Ojk6SjqNpluYlpkz5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
-   d="scan'208";a="275302198"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 23:18:10 -0700
-Date: Tue, 29 Sep 2026 08:18:07 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Fan Wu <fanwu01@zju.edu.cn>, heikki.krogerus@linux.intel.com
-Cc: lucas.demarchi@intel.com, matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
-	airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/xe/i2c: cancel the client work on remove
-Message-ID: <artYHzEMGPu26x3r@black.igk.intel.com>
-References: <20260928013030.612592-1-fanwu01@zju.edu.cn>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WUfSCm5Z"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T46Fjx3076251;
+	Tue, 29 Sep 2026 06:18:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=gxwwGH
+	W4ohco8fUWvvnSOWi6ZbLEKy39PRTDGYvP9eY=; b=WUfSCm5ZBPEEVGpzTop0ZK
+	jHYLrGmBVGc60X9Vpp6/whAHOibosrw2eg3/f2oBdjWhYH0dflYQrHKOZ5QOZdQQ
+	fDyyYChEG9gDZ9zOdg0bifiAHNGoC5hWL50JN6DPF0Joa+kb+OxiOhyXF0lTN0CG
+	YsSZuxMPaQ87eNyheDddCTZqHDQh4i1E2ULVHzuyhLL7UvxSwi+TtPt5cPIdrxUZ
+	lO6IcZ0/RwaGjL49p1Y+QtF1KEn0YYWjRqBpaa8U4dkr8UGmGI3Qn9f/1FG0eVPP
+	GYWivTwu0TQguFS01XlFCn1OIeVDQP30N4CQ8Uk4jKaHNIXsF3T8wxIotFUoGDSQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j55ksb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 06:18:34 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68T4I45d1188915;
+	Tue, 29 Sep 2026 06:18:34 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsvhgf3s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 06:18:33 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68T6ITq955968178
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 06:18:29 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B288C20043;
+	Tue, 29 Sep 2026 06:18:29 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A8AC920040;
+	Tue, 29 Sep 2026 06:18:25 +0000 (GMT)
+Received: from [9.39.19.220] (unknown [9.39.19.220])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 06:18:25 +0000 (GMT)
+Message-ID: <57f589e4-b7cc-43d1-8d02-732d10118833@linux.ibm.com>
+Date: Tue, 29 Sep 2026 11:48:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928013030.612592-1-fanwu01@zju.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND PATCH 2/3] KVM: PPC: Book3S HV: Add preempt_disable()
+ around virtual-mode HPTE bit-lock users
+To: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org
+Cc: Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman
+ <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+References: <20260928122837.8782-1-amachhiw@linux.ibm.com>
+ <20260928122837.8782-3-amachhiw@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260928122837.8782-3-amachhiw@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAyNCBTYWx0ZWRfX42I98ld1xBiT
+ vcY5SI3mXT7NieF6LRXrO+LW8l9/xZbMcFORk/bebdDbwf7TuUddxX4c6a0UY4mGXDFbKBPuQn3
+ HbYeAtvkJWneCoi4SQCSBRZji3hYcW0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAyNCBTYWx0ZWRfX6+jvuXh4Gy8t
+ 0IwRg0Ro1iENk0ogQzrL7MmiggU5wNARi7TnlOnYOqz7JAf75JLoSUd9/FUvuFUjiRbgpgafkjg
+ fNF3iyZPsy4xW+aBdx/oie4C7BqqhpIcgGdnUBVkD0eYLxGgSA1IWRLpSssGk770ciXN1QDtqPy
+ ePOz0WKk+iSl2qjag8T1Km+S6i/Bhk+gSAI4vRYwK4SUAWRZX9WSZZC6VrhoolXvYIGoHzJgjVB
+ BgWhMNhBvdiDJGIBREhEjDb16ZupQYZxjjjBE9Z2T808/McRZTo9YsDDIM8QgRBzdLSYbQxxzI+
+ WQRnR8Trfxy9D/cfDE1M0Hw27pGo0Ca1IYeKvnDgGDrnm9qCzIWYBhw01pY+zew+I5fOfMEysd/
+ YubhVKS2Dd/yNXPdRy2Na+5S3551TqKT2tIbPhr/Sl5zAufy3OcFZCUYpR/qwQ5TVSqFkbiFIUD
+ 7YOEPaAI8UER+tvo87A==
+X-Proofpoint-GUID: 59RRqs0-XAtym-ija4o2oJ5tEqrHS25i
+X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abb583b cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=c92rfblmAAAA:8
+ a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=TyTmfrqmqWBwd8b7ElYA:9 a=QEXdDO2ut3YA:10
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: ZvCRJwPSFiwqoE5BYJ4DQ09r_vyx-q-l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290024
 
-+ Heikki to comment on this.
 
-On Mon, Sep 28, 2026 at 01:30:30AM +0000, Fan Wu wrote:
-> xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-> schedules i2c->work when the adapter is registered under the xe I2C
-> platform device, and xe_i2c_client_work() then instantiates the AMC
-> client device on that adapter.
+
+On 9/28/26 5:58 PM, Amit Machhiwal wrote:
+> kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
+> preemption disabled, because it can return with HPTE_V_HVLOCK still held
+> until the caller later unlocks the HPTE.  Existing virtual-mode callers
+> in book3s_64_mmu_hv.c already follow that rule.
 > 
-> xe_i2c_remove() tears down the AMC, unregisters the client devices,
-> the bus notifier and the adapter platform device, but it never drains
-> i2c->work. A work item that is still queued or running when the
-> adapter is unregistered dereferences i2c->adapter in
-> i2c_new_client_device() after platform_device_unregister() has
-> released the adapter. The work item is also embedded in the
-> devm-allocated struct xe_i2c, so a work item still queued after the
-> drm device devm unwind frees that allocation runs its callback on
-> freed memory.
+> Two virtual-mode call paths do not:
 > 
-> The bus notifier is the only thing that schedules this work, and it is
-> unregistered after the client devices. An instance that is still queued
-> when the teardown runs can therefore write
-> i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-> clearing the same array, and an AMC client it instantiates late is only
-> cleaned up by the adapter's own child sweep in i2c_del_adapter().
+> 1. kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
+>     data-side and instruction-side faults after guest exit, with
+>     preemption already enabled.  kvmppc_hpte_hv_fault() calls
+>     kvmppc_hv_find_lock_hpte() directly.
 > 
-> Move bus_unregister_notifier() in front of the client teardown loop
-> and cancel the work right after it, so no new instance can be
-> scheduled and a queued instance is drained before the client array is
-> touched. A running instance still finds a live adapter, since the
-> adapter is unregistered later.
+> 2. kvmppc_pseries_do_hcall() executes virtual-mode handlers for HPT
+>     hcalls via kvmppc_pseries_do_hpt_hcall() with preemption enabled.
+>     The handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
+>     H_PROTECT, and H_BULK_REMOVE spin on try_lock_hpte() or lock_rmap(),
+>     and H_ENTER also reaches kvmppc_do_h_enter(), which uses
+>     arch_spin_lock() on kvm->mmu_lock.  That raw lock choice is
+>     intentional because kvmppc_do_h_enter() is also used by real-mode
+>     callers, so the correct fix is to establish the proper preemption
+>     context at the virtual-mode caller boundary.
 > 
-> This issue was found by an in-house static analysis tool.
+> If a vCPU thread is preempted while holding HPTE_V_HVLOCK, any other
+> thread on the same CPU trying to acquire the same bit-lock can spin
+> indefinitely.  The same applies to lock_rmap() users and to the H_ENTER
+> path while holding the raw mmu_lock.
 > 
-> Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-> Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Fix this by adding preempt_disable()/preempt_enable() pairs around the
+> two kvmppc_hpte_hv_fault() call sites in kvmppc_handle_exit_hv(), and
+> around the kvmppc_pseries_do_hpt_hcall() invocation in
+> kvmppc_pseries_do_hcall().  Targeting only the HPT hcall helper avoids
+> wrapping non-HPT hcalls (such as H_RTAS, H_CONFER, H_REGISTER_VPA) that
+> perform page faults, blocking memory allocations, or context switches.
+> 
+> Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+> Cc: stable@vger.kernel.org # v5.14+
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 > ---
+>   arch/powerpc/kvm/book3s_hv.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
 > 
-> Changes in v3:
-> - rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
-> - discussion: Link: above points at the v2 thread
-> - unregister the bus notifier before the client teardown loop and
->   cancel the work before the loop as well: v2 cancelled the work only
->   after the loop, so an event arriving during the loop could still
->   schedule the work to race with the array teardown and leak a freshly
->   instantiated AMC client
->  drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> index f4f3819..b82caaf 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.c
-> +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> @@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
->  	xe_i2c_irq_reset(xe);
->  	xe_amc_exit(i2c);
->  
-> +	/* Stop the notifier from arming the client work before teardown. */
-> +	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> +	cancel_work_sync(&i2c->work);
-> +
->  	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
->  		i2c_unregister_device(i2c->client[i]);
->  		i2c->client[i] = NULL;
->  	}
->  
-> -	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
->  	xe_i2c_unregister_adapter(i2c);
->  	xe->i2c = NULL;
->  }
-> 
+> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> index aa51968e206a..52f72f30baf0 100644
+> --- a/arch/powerpc/kvm/book3s_hv.c
+> +++ b/arch/powerpc/kvm/book3s_hv.c
+> @@ -1212,9 +1212,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+>   	case H_CLEAR_REF:
+>   	case H_PROTECT:
+>   	case H_BULK_REMOVE:
+> +		preempt_disable();
+>   		idx = srcu_read_lock(&kvm->srcu);
+
+Please add a comment above kvmppc_pseries_do_hpt_hcall, saying preemption
+is disabled and one cannot make any blocking call.
+
+>   		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
+>   		srcu_read_unlock(&kvm->srcu, idx);
+> +		preempt_enable();
+>   		if (ret == H_TOO_HARD)
+>   			return RESUME_HOST;
+>   		break;
+> @@ -1834,8 +1836,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+>   		else
+>   			vsid = vcpu->arch.fault_gpa;
+>   
+> +		preempt_disable();
+>   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+>   				vsid, vcpu->arch.fault_dsisr, true);
+> +		preempt_enable();
+>   		if (err == 0) {
+>   			r = RESUME_GUEST;
+>   		} else if (err == -1 || err == -2) {
+> @@ -1881,8 +1885,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+>   		else
+>   			vsid = vcpu->arch.fault_gpa;
+>   
+> +		preempt_disable();
+>   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+>   				vsid, vcpu->arch.fault_dsisr, false);
+> +		preempt_enable();
+>   		if (err == 0) {
+>   			r = RESUME_GUEST;
+>   		} else if (err == -1) {
+
+Please check if below is possible case.
+
+https://sashiko.dev/#/patchset/20260928113704.48912-4-amachhiw%40linux.ibm.com
