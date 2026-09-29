@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F7813FEE;
-	Tue, 29 Sep 2026 22:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987B413FEE;
+	Tue, 29 Sep 2026 22:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790720130; cv=none; b=aFpo9E7SixRFgApTuMrpN+zy7vtGC2lNOUNjPH0dZHL6AMuD2Xq8RsUnkGEcl7zrpxQbY1aHJ1kiHSsti3+e2Oc83ZYVWUGNCEWMAvs9UueWdeQ2KCa0gA4AioXKAciRn++sQVAWHKfHM8xqhaJPSS+WOOgygbN3VcgafQ0BHwc=
+	t=1790720140; cv=none; b=j8kDvOcI+2j3RIFCR4Swb837lPw7/I/CBy7OoWmCLdDsvmtw0WVdv1nwEu75Q8WTdaFB5/hz5zpPlKz7+1A5vFkYSOEzs5b/YdSYPt4QzOGAzhja6ZfQSGjqEvHfnjgEb+nwIKm5bzc2TAg3EL8VpVftDauNhiQUkxMjZikTw1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790720130; c=relaxed/simple;
-	bh=8acDcPsK+cbX0KTWUhv/znMzZ0/v3H8paQdGuw8ifPs=;
+	s=arc-20240116; t=1790720140; c=relaxed/simple;
+	bh=H51gaas3B8mPCyMrG9LFGbv7zyWll3o+GBME8Mxy7Lk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UZuPsfCf7gbEjY9u0e/0xcs0GWK7mkIBQ2v8FCtjxoAwzTCr70ERY42FHe1wYU+b5l90lvja077OzaoZq/j9Dwrp5CAJOO6iclmb/xKdpPyCu3OjbWURxCH0ll6qzKQpY05jF+/cvsaEU5o1lDZkgGJJdGuMhKDnwfB3dlZxjr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e15oOwR1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=d2SpIXYhD6Grj9ho3YuayO3WdMSEkkBcSJ0bb1zVbM2qaKF5ZF4fEPzBG04587AbeOfwRF/FYtMtEyaGSsYtzIBpci49nXa4aZ0+83HF0WWQ3+ZxTrHEiEnoLKbYN2+qov58mEPZB78s26DxY/l8o5BBmzaLyQ9WMkwAWngZ534=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+yXq/aE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e15oOwR1"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 844381F000FF;
-	Tue, 29 Sep 2026 22:15:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+yXq/aE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8381F000FF;
+	Tue, 29 Sep 2026 22:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790720129;
-	bh=Y45OK83vPgyTTlhKLftcNgjZ3rLBQfIkwL1nh19Fpbk=;
+	s=k20260515; t=1790720139;
+	bh=30VbeHI26M0iDF3RNsG6n++4Iu8TSb4QWiYPs2BLDBM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e15oOwR1fNwRWJOBcPNeFTsfqHxcVeV0dzxrrcVRD0ftHWQNoTnQWCH4Rp2i9zSR8
-	 miNlMNVctW+71l/oMlNPMc2OHE5y1ovKydrtDWR28vH7U0Uvf5eINe9hnXQK238UIy
-	 LwdI8jFi8rd2wYF1+msq1z8TxtkusQ68OQRdqX69YXoMd4o7w1SmS24WdrILkVjz3r
-	 IAjeMpOuWeF2MnIT5wA38Hcr7w7C7gTg9Bzv+vvB1sI0sKHySoazA97s5isfLDmtf3
-	 JtAUZHscbCQcGhwIFp0+2iQrKBQ9GFjppfXZSoVXBoVn+4GH6E5qOYSw7lMVQ8a/+5
-	 l7UdvAktN0CVQ==
-Date: Wed, 30 Sep 2026 01:15:25 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Surendran Kanagaraj <surenkj@amazon.com>
-Cc: leitao@debian.org, graf@amazon.de, gunnarku@amazon.com, jgg@ziepe.ca,
-	joshlev@amazon.com, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nh-open-source@amazon.com,
-	peterhuewe@gmx.de
-Subject: Re: [PATCH 1/2] tpm: Add per-chip timeout for transient
- unavailability
-Message-ID: <arw4fd_uzHMFucTz@kernel.org>
-References: <arY2qHhjv97W7WvK@gmail.com>
- <20260928195020.27969-1-surenkj@amazon.com>
+	b=A+yXq/aEAKAKi8zYNvjkSHZi61BXBaN1KMAyk/swb1dHMQEpyMCwQmsjW2KDWmkXx
+	 bNHo6OTJw2OZ0Zkmx/CPKo372aa2pk7y+84DO0Nt0WeoKiKmm4DPVsIVrAiNOQFcVw
+	 ertVhn2mB3xVkgF7EMyFUGu6sYy857qkbikyuFKkb8g6+j/lWolYtmEGOteLqtBnBi
+	 +Mlj2HwasG7PyW1MxBSKgRMlrIy3B+MEP1YmeixppKx4FGzuI+qtVBaOI1uxK63gSC
+	 TvTEJZLzy1P1vC+4GeWF9hLtpLqKXitdDYUpOgbPzNm96PuNjLl+s8dw6IZbWVGLD0
+	 3nkI9YRy/aIpA==
+Date: Tue, 29 Sep 2026 15:15:37 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <arw4icuirVisRnir@thelio>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,46 +49,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928195020.27969-1-surenkj@amazon.com>
+In-Reply-To: <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 
-On Mon, Sep 28, 2026 at 07:50:20PM +0000, Surendran Kanagaraj wrote:
-> On Fri, Sep 25, 2026, Breno Leitao wrote:
-> > On Wed, Sep 23, 2026 at 02:28:33PM +0000, Surendran Kanagaraj wrote:
-> > > Devices that have different timeout requirements than the TPM2 spec
-> >
-> > Can you help us understand why this device doesn't follow the spec,
-> > and why the quirk belongs in the kernel rather than being fixed in
-> > the TPM2 itself?
-> >
-> > Is NitroTPM a virtual TPM? If so, could the virtualization software
-> > be fixed instead to follow the spec?
+On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
+> Document the Milk-V Meles board compatible with the TH1520 fallback.
 > 
-> Thanks for taking time to review my patches. Yes, its a vTPM. We are
-> also working on shortening the window on our side but its really hard
-> to keep it under the budget for all the cases. I also came across
-> a similar implementation in tpm_crb_ffa which retries a busy TPM based
-> on module param busy_timeout_ms. Should we adapt this param to crb in
-> general?
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
+> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> @@ -21,6 +21,10 @@ properties:
+>          items:
+>            - const: beagle,beaglev-ahead
+>            - const: thead,th1520
+> +      - description: Milk-V Meles single board computer
+> +        items:
+> +          - const: milkv,meles
+> +          - const: thead,th1520
+>        - description: Sipeed Lichee Pi 4A board for the Sipeed Lichee Module 4A
+>          items:
+>            - enum:
+> 
+> -- 
+> 2.47.3
+> 
 
-Module parameter is generally a bad way to resolve anything. I don't
-have knowledge actually why busy_timeout_ms needs to be a module in
-tpm_crb_ffa and it is not possible to resolve busy_timeout_ms at
-run-time.
-
-I think tpm_crb driver should simply patch chip->duration table and
-on TPM driver side we should start acquiring duration values by indexing
-that table.
-
-E.g., consider:
-
-	unsigned int delay_msec = TPM2_DURATION_SHORT;
-
-We want to instead:
-
-	unsigned int delay_msec = chip->duration[TPM_SHORT];
-
-I.e instead of adding new fields let's take better advantage of what we
-have. I think this issue tells that duration table is underused and
-these direct assignments from constants does not scale.
-
-Br, Jarkko
+Reviewed-by: Drew Fustini <fustini@kernel.org>
