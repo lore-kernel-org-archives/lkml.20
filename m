@@ -1,69 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-dy2-f15.google.com (mail-dy2-f15.google.com [74.125.229.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617FC51E42F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D4951E45E
 	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699305; cv=none; b=uiVo3EaiG3vCF7AB6mteFf1zvMR/lrKes5UnJf+G2VSz+IDKHQreGQ77EclQ9VgV7/Y9VXT7SY3muerhPduxi+YLqi30QoCzrTVClUyLDUNTYgb7un82V+cVhikt1AiRrx4rgxCTYwhsBTpryhi/7L9YgV/iQYna+YoUM5YGbTk=
+	t=1790699305; cv=none; b=DSL1fBbVo6VnnPj4Nrsc43x9cL9f7XGrYVMGRTtTmRuyBWG0ae8uGH0Q9gl/8OegEX96wVbEZfnXhp/UB2MxWUpeeq6ZrU92hzbWCQC0PxPZFnvaAnUioX+b5H4UFK78F+DqvTX2CJsQwwuuCFtVOZD0GgfnLPzGYvhg71gz3Ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790699305; c=relaxed/simple;
-	bh=xjNPYYVD4NJkISRiv4nk+t+tiwR6bKadykG+okrWRDY=;
+	bh=Jq2r1sgopAvM35am7tUBN0KJRVKbVZQQvJ8GCCw7fjQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TUdMnan5o/K1750CTufEm+yOoKENZBpqPunTsqMh7DDLkp6UMywcw7P8G37F1tPf5FiCiV6wHaeK7jbzn91wl+c3dvBstAJ6v0ixfDWkby0IDZfvRsl9JYrM0v7PsL41bweN6BzOdhy4RgcuQeh+IEmknC2Bq+NlKgzKFdnpYcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=U90Cx0JU; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=B+44jdJKjvhIEGKrIh+ypBS85M24skBTeaZE5LpntBbT0gBeeVj74on79g0rseX64Sd1suoBir12BTHI4QS725ziJuHCEThBs0U1Fzz1RVeEPwhV2MqABYXLAXPBouJCctxF5X63Bggm60D0MvNuE6vm5lqZE45O4ah3+1xq2+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=UDZxFcb1; arc=none smtp.client-ip=74.125.229.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="U90Cx0JU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so32998995e9.1
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="UDZxFcb1"
+Received: by mail-dy2-f15.google.com with SMTP id 5a478bee46e88-34b223602d7so686649eec.2
         for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:28:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1790699301; x=1791304101; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1790699303; x=1791304103; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W6O9uDDdkqX4ekXCbjPTdfdfIwrIVMuQ5XXW4ZXzbsk=;
-        b=U90Cx0JUaVC8LA/Vv7NNckkR4bLQq/WumHiTz+cxhKVxP8zgg/K05gPwIBgO3Reav6
-         RnjOstL7Ztid2+LvjMciM9STqjtyGcwXv/vFmGvfgfg6mc0QPTl9twIKNDCEz5jdnwcA
-         hjO7BpeCuqZrbdbaNQDHfemh+Qtg7XyhsLJyFMLSmuKC6KMxda0aFhJLV3c67zWgeRZF
-         6KcLu+6KuCZaQePFwkdzeLmlu6zJVdFCif0BgkDkglKIEM1nJABm/8mC148l6k6q/gPo
-         z2X17P6X48vxEZVTly3Ezl7VfEMERDDPlMcW4aNfxbKz7UR/lVGu8rqKSSjJ3EAuSIoR
-         My3Q==
+        bh=oIG5aezIvFLItLUQyFfjj+0bna6lrv+DBpzkqJ9qmNw=;
+        b=UDZxFcb10sz6H1SXb3zZdETplLEq5M5Zu7pyzN+PAil01BwDGWHTX8davG232sGI4l
+         X1Y0ABqi1QfWoXTM34kAAcybemdyqpMG9j/yfoPIAG7jRPfxhZ520iIE2m0x0OppbvFn
+         i8hBgs5v/9NRxnnyBBNtxBiUsitVgXvwjN8f4klA3JsD+4P0Hea7wJVV6npcnXkCaYlP
+         ymOFUlpGs7ojFoHAJkh1Vq067IUUJ87K8negZD8TFg9IcPJsXbE73yKtIBXEnXJPJIm4
+         vIdM80Dsf39r8QcURKfdVTAoOLDYB+N6BYSaW6bRvWqMDE7CsT1DjPDL3cMCPy06BLZm
+         HbjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699301; x=1791304101;
+        d=1e100.net; s=20260707; t=1790699303; x=1791304103;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=W6O9uDDdkqX4ekXCbjPTdfdfIwrIVMuQ5XXW4ZXzbsk=;
-        b=cczhPFcuvv/C4iImoA3Jpp/BNdTmB2WZnYOiPQjm2GxtlOwBwjdoo3QvHmru3o8xXy
-         lFcRv8dAi4p632ZTDsh3gzOadzfrlrG9uQvEqPJm0cgkeW3iMHwu8f7cG227lSwXxCqJ
-         tUmQ2SYZbvmxIeICPfvTq291llGGFFc4I9NItuU5nLQWY9YnEZr9Yns1HLC96hn4etTa
-         mqc+EDdyPVyP6i2XqwPx0GHEn3Kd2ELGLuSiVQV+QfiCyvXaHJYhzfVmqIe96p0vNTfM
-         MsWk7O2XEUirtJI2/UbEQs1cvS7q5vE2wyQnmAnaNcozoRxBaEKH+E4GGq4ybyUqk3YY
-         JIfg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2E3H2dwEiF+0ywCaDB7bhRu8jFrQGOQ4NasjZ50ve5baCFv+YLC0Sqe9IqCLoKq4HFB87FZ2j0IEoWWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX5KDkKblMR8qwZlzPjqNUSe6YD5hSvPBVWAAjmP/oV3WKCed4
-	yHO7mgG6bnC+Pcdt/+GTgdJJs4xTitgh8OdYALihRIGnc2LHKCnvxAdxL2Ey/ICyayE=
-X-Gm-Gg: AYBFou2j/vICTYmmbB+ItSO5kGjDKR77PuOz36+1L9mhLZMa5XcOPSKCAMCPXPozHJR
-	+zeu1/WHzR+ugSpQiAmOjYjnjx5tAu4/sx8NddBJc7slWJc/XLuYBvPPpbYAANMWFd//1AnSazP
-	WbeOFUHXKDpd19GwwGaL3qEN/mhPex44vVESiLeSX3Cnp/mQWGBclgTHirMmY4ZbbAptjQj+4B/
-	y52FT4CrFJ1SCEupOLGIIs+f8epER/Nno+bqIkzZMl7kSUcw4b+hsIF8WK/d3AyTWaUdmZKG5ve
-	D49kvnHUkRVxS9WNhbB5e7PG9fnrwqItvr6euQfdTcKT0kZ4QNw4yI6l1JSh6UKhCZ6C6l8/BEG
-	koNdKaaT0eAMmilJBNMiqznv/brgkSwHqqR6wdS+QITT/2BC+fzxL65bhX/zZ61mulvFn1tJwjW
-	itOE6D1e8ldPQmstennkhrGpdha2nj1K8TrjI6YMRuIcOquYmwe0L61bTSpuciZ3UHmTDx9R7JI
-	hJ8t7Sjaqu0
-X-Received: by 2002:a05:600c:a06:b0:49f:fd4c:cccd with SMTP id 5b1f17b1804b1-49ffd4ccdd5mr169628305e9.28.1790699301644;
-        Tue, 29 Sep 2026 09:28:21 -0700 (PDT)
+        bh=oIG5aezIvFLItLUQyFfjj+0bna6lrv+DBpzkqJ9qmNw=;
+        b=hfQGJmRt1cERAYJiffnEioF58tnWMdNXwHYUnXq8aSMdGxaMgFF9pCi3ktSaTKksMw
+         BW5wQq7ZxSG++UYT1+dOFQxlwmwYJctfyag/dMgVxM1puMoPDmeLaIzhOjRS5VO7njXZ
+         rm9MaBnZrUzq0Xn4Haj4JoU0cyO3ZCEZnqZe6DT0RvI+7X8oao/S7b3J+gLL94vibkRP
+         ffGk7LlpqcfgSIMiY6XIrIG6LNT80rMsZWEVrbjBJfH1Ydghha03YVtUCYRWoKL8OkuN
+         O8b69a0sSb0ohVc3M3d5Tq3gdrJuB4J/m2z2iwF7b0ZIkCPbbun/FgiYZ306rv1h6nAk
+         g7wA==
+X-Forwarded-Encrypted: i=1; AKwUvBweiZQNm1R0LdC6tfw0qzYVAbBaND5MWzPb8pVZx/t+lhIQKn+zLeYkl1QEfp7yjokwYKvwpm3RSh5obbM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEHvHO72pCrC/sDtnzCgFHGi4z/thnk7UcUZDPk/bu1djJhbza
+	zzQPsMgH7xwOmOaCJLxdJC+Wzz8ykemoy8g6fbdT6nuYAWOEDsfzabb1+IqyfC1RrLU=
+X-Gm-Gg: AYBFou0iUhzAlp0Jg1TrfJKXCkcv9UzjO15/WLXCbHiXeI84VXQpJDPlnWQsI/0woEm
+	BhYLrsERvA4BKZWI/KdUpB6fcBCH6RiIts5ZWr+aJRlA2syf+cTBU1izZRZfmhuCsxcqLvQFCn0
+	dr9xqrDHgDquULfrbN9l+KNVop7OqG7XRSsCmD5UZ8hbwBM7t/c2nYRv/vYzbn22IYgu2maosuA
+	wZNOZUgmNga0jP0dt9hrOKS7d3Q8+rczD06YPox1pWtffYsTSAz4M40uv9wYHMd3ExhKBW4Sfoc
+	AbGXGckEV3uzTIRsP1T1U3coToOSenGTyv3f/T6VQb9k9G2q62FBnX79jcH8Fr1YUDvAVTov/x/
+	ZCn8JvPhwHuC2tKdNwLlmSc6GTmul2+q0+ppuI1NQaxDAe9PFOjO8h73ao9sAr3lsS8ekgZO5Dt
+	0SbwjHpVvAtdPgtJAZDICWaQn3mI+G0wXGQAOsuX5q/+Pr08gnD6oHWIq3YwrFn8yYaYzyMy/pQ
+	A==
+X-Received: by 2002:a05:7301:dd97:b0:34c:1e2c:3499 with SMTP id 5a478bee46e88-34c1e2c34a9mr560429eec.28.1790699302512;
+        Tue, 29 Sep 2026 09:28:22 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:28:19 -0700 (PDT)
+        Tue, 29 Sep 2026 09:28:22 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Tue, 29 Sep 2026 09:28:16 -0700
-Subject: [PATCH 1/2] dt-bindings: eeprom: microchip,93lc46b: add Microchip
- 93LC86C
+Date: Tue, 29 Sep 2026 09:28:17 -0700
+Subject: [PATCH 2/2] misc: eeprom_93xx46: add Microchip 93LC86C
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-1-272791aac875@nexthop.ai>
+Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-2-272791aac875@nexthop.ai>
 References: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
 In-Reply-To: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -82,33 +81,74 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=768;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=2511;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=xjNPYYVD4NJkISRiv4nk+t+tiwR6bKadykG+okrWRDY=;
- b=QrWJS5LPCOlQ3GzSZb7Rj+lmyCJbhrFVXurWXAap2Vx26sCmrgo8ZPKPsgCESKGvXP9ktx6Y7
- A+swqJK2OOIBlH02Kep0UDLijBzb86esNO4RaCOm93DTYfQ84YpWh2n
+ bh=Jq2r1sgopAvM35am7tUBN0KJRVKbVZQQvJ8GCCw7fjQ=;
+ b=7fPpQaVsFczkgPOwj57Q4FirI7J0Qsl/mjZLq7G/m9KcY9O2EWHCK5jgVBXtJthb082MOucjZ
+ 0rj8WmbTQdSC2wIEMD5awKlH5fjnp+09KkdAhmDc87LhKSRifc5nB/S
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-The 93LC86C is the 16 Kbit member of the family.
+The 93LC86C is the 16 Kbit member of the family: 2048 bytes, so a
+10 bit word address in x16 and 11 bits in x8. Like the 93LC46B it
+clocks an extra cycle out after the address during a read, so it
+takes the same quirk.
 
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/misc/eeprom/eeprom_93xx46.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml b/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
-index 144e86ce5c0a..8e782b70386a 100644
---- a/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
-+++ b/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
-@@ -18,6 +18,7 @@ properties:
-       - atmel,at93c66
-       - eeprom-93xx46
-       - microchip,93lc46b
-+      - microchip,93lc86c
+diff --git a/drivers/misc/eeprom/eeprom_93xx46.c b/drivers/misc/eeprom/eeprom_93xx46.c
+index f9c3ab52c2f9..77fe1fb641aa 100644
+--- a/drivers/misc/eeprom/eeprom_93xx46.c
++++ b/drivers/misc/eeprom/eeprom_93xx46.c
+@@ -29,6 +29,7 @@ struct eeprom_93xx46_platform_data {
+ #define EE_SIZE1K	0x10		/* 1 kb of data, that is a 93xx46 */
+ #define EE_SIZE2K	0x20		/* 2 kb of data, that is a 93xx56 */
+ #define EE_SIZE4K	0x40		/* 4 kb of data, that is a 93xx66 */
++#define EE_SIZE16K	0x80		/* 16 kb of data, that is a 93xx86 */
  
-   data-size:
-     description: number of data bits per word
+ 	unsigned int	quirks;
+ /* Single word read transfers only; no sequential read. */
+@@ -77,6 +78,11 @@ static const struct eeprom_93xx46_devtype_data microchip_93lc46b_data = {
+ 	.quirks = EEPROM_93XX46_QUIRK_EXTRA_READ_CYCLE,
+ };
+ 
++static const struct eeprom_93xx46_devtype_data microchip_93lc86c_data = {
++	.flags = EE_SIZE16K,
++	.quirks = EEPROM_93XX46_QUIRK_EXTRA_READ_CYCLE,
++};
++
+ struct eeprom_93xx46_dev {
+ 	struct spi_device *spi;
+ 	struct eeprom_93xx46_platform_data *pdata;
+@@ -389,6 +395,7 @@ static const struct of_device_id eeprom_93xx46_of_table[] = {
+ 	{ .compatible = "atmel,at93c56", .data = &at93c56_data, },
+ 	{ .compatible = "atmel,at93c66", .data = &at93c66_data, },
+ 	{ .compatible = "microchip,93lc46b", .data = &microchip_93lc46b_data, },
++	{ .compatible = "microchip,93lc86c", .data = &microchip_93lc86c_data, },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, eeprom_93xx46_of_table);
+@@ -406,6 +413,8 @@ static const struct spi_device_id eeprom_93xx46_spi_ids[] = {
+ 	  .driver_data = (kernel_ulong_t)&at93c66_data, },
+ 	{ .name = "93lc46b",
+ 	  .driver_data = (kernel_ulong_t)&microchip_93lc46b_data, },
++	{ .name = "93lc86c",
++	  .driver_data = (kernel_ulong_t)&microchip_93lc86c_data, },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(spi, eeprom_93xx46_spi_ids);
+@@ -482,6 +491,8 @@ static int eeprom_93xx46_probe(struct spi_device *spi)
+ 		edev->size = 256;
+ 	else if (pd->flags & EE_SIZE4K)
+ 		edev->size = 512;
++	else if (pd->flags & EE_SIZE16K)
++		edev->size = 2048;
+ 	else {
+ 		dev_err(&spi->dev, "unspecified size\n");
+ 		return -EINVAL;
 
 -- 
 2.54.0
