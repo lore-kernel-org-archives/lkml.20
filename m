@@ -1,151 +1,134 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403B552ED2B;
-	Tue, 29 Sep 2026 14:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690441; cv=none; b=ol8tHGSdyUnbdQqs32qCh2NU/qO/Ucv+8XGsV4kVbgHy801sthZzyVGx4Qg6UdK7a4wtSrcY5GPDaXm7X/DIjLlok3TZ2E24GI3wjdLCjQcHU2gfroOb2HH3f+M0wbxWfXI1HArjn0yVSOCEzDHc4CZZqB3LjYFj+Uxe8/V7o7k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690441; c=relaxed/simple;
-	bh=kMTfXmN76tXHjg7lMHDG8E9G2SXwV63lnKr/zCIsIT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gb0OtYXP/a5kLdRT3nRhwstcOyRoSjzRcfpPPzs7FmzL4e+WhR872tKekJWB509PuWd0WFHlxI+ZnQD94vXKcgrtC53vLwjbaqQCYZL+g5nVX7aoy/IHqDQtwcq89bjLHuBH0GpVu+SviENiziIqywrbMIVXjFVh9vM6DbJun1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TkbjctR2; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8913C1D65
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790690445; cv=pass; b=QSzuMyf19xyfiKC63ClC6Cg519OGyTDD1jZdnrjaSpUzMf92IhUIbj+wENC982bqFgCTjB+A3Fxf92RhuU94/GXFqDxOrOuXl2jiMEkgoYZNelAyB5Qen5Cy1Vl8o2rIbdgZyZOMjFuNTyGbKVx65cx2Pb2o6K8aMscwaYKIhR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790690445; c=relaxed/simple;
+	bh=Wn1QoVgHTJ6cjt9lFMZsBajm92SE7QOLkOx8BbsowoA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pRuH/AcoapGJdPqd0XWgVdWAzFqUfdMyMMPTVDUelwNz02e2Cb/AIPjqkGNmYG+T1A7hk7wRZp9Q1/LpRe3fLqT7I3VcxCdQr9wU5Fr4xZPcHyGI0yWZkU5lMvPTC6PpMJ+2f1Gmjs9IHx21pNqF81FvRS5g3jgPQkCP1Gt+ST0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y0MKLwJY; arc=pass smtp.client-ip=74.125.229.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TkbjctR2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vj
-	bTBB8DwF7g9ji0l50jBGPJhPvM44ev2BgqTyu3dIY=; b=TkbjctR20LRlfwvrAB
-	KVBHS85+oqhRKGYSn1vgukFqgOhXrRCMw8Js2AzqwfwK8DgudcQbh2UZehvEH9iE
-	adHzmP5zg8OcuqWTOC6nnFrQbCMTz1M5VvCvHz/9kDzu2yifaE8WLFWUwn/tAu4L
-	RNepQx1NAcFFefcG2OhGy9/bk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3SLFPxLtqLmV_Bw--.47547S2;
-	Tue, 29 Sep 2026 21:59:48 +0800 (CST)
-From: Kaiqi Guo <chaoji_xinren@163.com>
-To: rust-for-linux@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Jesung Yang <y.j3ms.n@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Kaiqi Guo <chaoji_xinren@163.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v6 10/10] gpu: nova-core: use conversion derives for two register enums
-Date: Tue, 29 Sep 2026 21:58:55 +0800
-Message-ID: <20260929135855.36775-11-chaoji_xinren@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260929135855.36775-1-chaoji_xinren@163.com>
-References: <20260929135855.36775-1-chaoji_xinren@163.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y0MKLwJY"
+Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so2969980c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:00:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790690443; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dUZycvBZoK33JJtlS5+kuBmRaFlXy6SUwJXIpXtNke9Duz7Xwjnr5TujQQjsxHT/xN
+         lpEIgto4HRyf95E70MJySAPUv/XElQPrdGhh+AtjUhD297iFycI5w4dG8/DMHt4Bc6CO
+         vMVU51dQnzlU9JN6hRip0vq6AsDbSKYmvPDd15RVoDlFZOGHAXsfTWv7KMSi7/PndqUB
+         BgoHoJn9+AIflvQ2DLFyOP2ze46xf8pZo3xm3s6Y5JCdaugNQtAe4o//nXheN9WFLYY3
+         QdpO/Uyq+DsRMwd3NMFt/t7gB6UYz+IBU9mCT7cXJ0l63ZPCJ4vTJqZgBU1ikiC4xGQh
+         KtvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
+        fh=l8JUa0Ycfd0+j0Yie9NkYMDyd8mhKCQYqtvJEeGBaRM=;
+        b=l59TQhxADOpV57F2bJADo3n/Z8PbZ+CzDVSaw+JGwBfpdZo0bDBuke+q7pwDzJjnKj
+         wUpVeNARhGPd25QGr7mW+b8wDis9wjg5k78qsu4rCWjeiXW9YtR8gQD790L0fIQHTEa2
+         1yWvomvaqLRtbVFIiUAPpAwnKE88wyC1Cloc90bSg6fxFWA5xPVGi9xEOPjjdGoVBbwo
+         xhSjMkHRLSUbohoxFASjw6tAUt5RH80DKupANCsyFF2b4vA6r3mB7I9r11Q+kCEgrM+Z
+         7D2zY33g7oPZkm2xlkgP7Y+HP3E/bULO24IGSz+CbDp0zKuGB8d4rYmUxzBNfArR97C+
+         qZ5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790690443; x=1791295243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
+        b=Y0MKLwJYqgEO5rLhQU0l7Vf0foYZk0U5NPeEUJaFd4Usun4vfO5xbIWTOIQeUhBw8v
+         EJ5CL+zOiHo6vHGJcO9iNpjYwzhZq79anmIJYg3b/mFIyBBkSLKJb7H2zQ6l0oGSMP1F
+         Fxjb4RyCvQwsqt0VmYxtQLj9Yq0J85xPwdchbO2yYQ8nnAugUv6ZK65h0BVGX4dVjTIx
+         FRZkEdcWBhDcETv5RNuw/iPVvEtW5oJ3uXBHq56B+NAFXUsx0yDyze42BM3sCtm/2KGb
+         0dl9BDxta6ZlQqJm5Gg5giq4EkD1ANpBGEuKxIL+611BqIFvrbmJBn8hJcReZXKAMZ9o
+         Z0Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790690443; x=1791295243;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QU+DLzGOXpiAxMnq3rRvyxfpPq19yPNpjrIH/ZG4c7Y=;
+        b=jI2y2Nh83WchKJuiTRIigkQaw2SuBJlTVbHzN9UnxseyXzTc1vJrEAinKosMD6o1E7
+         LEiNGu+XuGyzNvVAS2I30Ou2bQBmn9Io48rYvedv+wbBiEAZ/Xm6GnjYjolh/H3xD4ei
+         LRG4GJO/JeeZldSE8IjAxSSsCcokUbECVaMMReg/eiivIv8daw2eRs9U1FMcG7RgK4Op
+         v4u9Jl25Ki5MGFxEtsfKpzw/kdWeATgJFouNQvlZg81MZ3gSV/rw2BA7Gd/y2B11DTnw
+         7NPaGNGMuG+kfcG+oADDhKpc84JClrgO3uizUXhljciLSCA4yZW10+kzS7X/kAuClYBZ
+         SaKg==
+X-Forwarded-Encrypted: i=1; AKwUvBy20nZ3G9W79X85SW6j30NCWBkjf9qur/amc/xBJQ8cNi3buleisCqeNInaYAKKA06/B5OQUdqMoWXVe9Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+kfMO+Uli7Yon/Dd3xLyMEEM+jsMBn61vk/FFhCLRYI8MTGxr
+	nU3BPIVlOKNFqPN1RGIobfbtVDErpV4DGRyvOULz3Fx1OX7ESIy2hHP+nTJ1db0vLUo1ZgErc0u
+	W+OI6klf+ezTRCztp1d2UrCemhJs85po2QB/SbLTI
+X-Gm-Gg: AYBFou3akR3HVi5ULKBw42YB4riZGdzUAvAv21hqXAWScET4PId4woP/bOUy2K6Wf7M
+	wjRLD5Z5gVH1950N/e6QhbLuSsrdZ9j+GFz4128T3pxMbb3DBqkBCBcnQ36Ux4aTXW9pYQQmJiy
+	bbutSd0Knee1Zk2H66AAWCo47nM8dXaOHfy/KiKh9zt/0hgpmqi4XETlYXNVNJS/Pp4Sg5ZLTbK
+	HfjbmdFQzvBewEC6Ck+aWf3gGwMs1QHIb0N8u2/Q200QGsuQGWcn5KgkQww7ke0zpmq32KXCoa/
+	e0t+IWvJagsKLavZDeNay7hE5BT2NwxN3QtoaoOdhbR4FjnCjmKjvTOf+jZeAa4VpURMo4G6sFc
+	RATK+G9pIGQ==
+X-Received: by 2002:a05:701b:4203:10b0:144:e246:a0b5 with SMTP id
+ a92af1059eb24-146d077bc5amr12816455c88.40.1790690441906; Tue, 29 Sep 2026
+ 07:00:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgB3SLFPxLtqLmV_Bw--.47547S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF48Wr13Xw47Wr47AFy5urg_yoW5Aw1rpF
-	45KrZ2kr17Zwn3Xa4xA3WUZFW3Cas3GFZ8uF47Jw1DursFyF10k3ykXrWFq34DG34IkrW2
-	gryvk345ua4UK37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXTm-UUUUU=
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4hXPS2q7xFWmOAAA3t
+References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com> <20260915160207.2952-2-dmytrokoziuk68@gmail.com>
+In-Reply-To: <20260915160207.2952-2-dmytrokoziuk68@gmail.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Tue, 29 Sep 2026 16:00:05 +0200
+X-Gm-Features: AclHuK-0nrksZ7YEGRoxYPzzxSAUz-0Dn6NeWJoWfkNhrjPIZe7YkKonvpSq2vA
+Message-ID: <CAG_fn=Wx-SPUH+wyTnihtjTKAp+4fF_H8LT-mbyj9kUCe1i1oQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mm: kmsan: fix ioremap error cleanup
+To: Dima Koziuk <dmytrokoziuk68@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Replace bounded_enum! for Architecture with TryFrom and Into using the
-shared convert helper. Keep the six discriminants, Bounded<u32, 6> input
-and output, and Error/EINVAL on invalid inputs.
+On Tue, Sep 15, 2026 at 9:02=E2=80=AFPM Dima Koziuk <dmytrokoziuk68@gmail.c=
+om> wrote:
+>
+> Looking further at kmsan_ioremap_page_range(), I found three cases where
+> error cleanup leaks metadata blocks. Fault-injection testing confirmed
+> all three:
+>
+> 1. If the first iteration fails, clean is zero and cleanup is skipped,
+>    leaking any allocations that succeeded in that iteration.
+>
+> 2. If shadow mapping succeeds but origin mapping fails, the shadow
+>    pointer has already been cleared. Removing its mapping loses the
+>    backing block.
+>
+> 3. On failures after completed iterations, cleanup removes the earlier
+>    metadata mappings without freeing their backing blocks.
+>
+> The cleanup needed here is the same as for iounmap, so it makes sense to
+> reuse kmsan_iounmap_pages(). Track the end of installed mappings with
+> mapped_end and advance it after each successful shadow mapping. This
+> includes the current shadow block if origin mapping subsequently fails,
+> while the PTE walk skips the missing origin mapping.
+>
+> Run cleanup whenever err is non-zero. Free allocations that have not been
+> mapped directly, and use the shared helper to unmap and free the installe=
+d
+> metadata, including blocks from completed iterations.
+>
+> Fixes: fdea03e12aa2 ("mm: kmsan: handle alloc failures in kmsan_ioremap_p=
+age_range()")
+> Signed-off-by: Dima Koziuk <dmytrokoziuk68@gmail.com>
+Reviewed-by: Alexander Potapenko <glider@google.com>
 
-Use From and Into for FalconCoreRevSubversion, which covers every value
-of Bounded<u32, 2>. Its existing infallible conversion and blanket
-TryFrom error type remain unchanged. Leave other register enums and
-Chipset conversion behavior in place.
-
-This exercises both fallible and exhaustive conversions in actual
-register field users without changing register accesses or GPU
-initialization logic.
-
-Link: https://lore.kernel.org/rust-for-linux/DHHJCEG8BC47.2VC6GLDRRZH1B@nvidia.com/
-Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
----
- drivers/gpu/nova-core/falcon.rs | 19 +++++++++----------
- drivers/gpu/nova-core/gpu.rs    | 22 ++++++++++------------
- 2 files changed, 19 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 65cb12d26e2b..15bbbda7df28 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -59,16 +59,15 @@ pub(crate) enum FalconCoreRev with TryFrom<Bounded<u32, 4>> {
-     }
- }
- 
--bounded_enum! {
--    /// Revision subversion number of a falcon core, used in the
--    /// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
--    #[derive(Debug, Copy, Clone)]
--    pub(crate) enum FalconCoreRevSubversion with From<Bounded<u32, 2>> {
--        Subversion0 = 0,
--        Subversion1 = 1,
--        Subversion2 = 2,
--        Subversion3 = 3,
--    }
-+/// Revision subversion number of a falcon core, used in the
-+/// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-+#[derive(Debug, Copy, Clone, kernel::macros::From, kernel::macros::Into)]
-+#[convert(Bounded<u32, 2>)]
-+pub(crate) enum FalconCoreRevSubversion {
-+    Subversion0 = 0,
-+    Subversion1 = 1,
-+    Subversion2 = 2,
-+    Subversion3 = 3,
- }
- 
- bounded_enum! {
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index fd1414004dd0..66249bb5b369 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -14,7 +14,6 @@
- };
- 
- use crate::{
--    bounded_enum,
-     driver::Bar0,
-     falcon::{
-         gsp::Gsp as GspFalcon,
-@@ -155,17 +154,16 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-     }
- }
- 
--bounded_enum! {
--    /// Enum representation of the GPU generation.
--    #[derive(fmt::Debug, Copy, Clone)]
--    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
--        Turing = 0x16,
--        Ampere = 0x17,
--        Hopper = 0x18,
--        Ada = 0x19,
--        BlackwellGB10x = 0x1a,
--        BlackwellGB20x = 0x1b,
--    }
-+/// Enum representation of the GPU generation.
-+#[derive(fmt::Debug, Copy, Clone, kernel::macros::TryFrom, kernel::macros::Into)]
-+#[convert(Bounded<u32, 6>)]
-+pub(crate) enum Architecture {
-+    Turing = 0x16,
-+    Ampere = 0x17,
-+    Hopper = 0x18,
-+    Ada = 0x19,
-+    BlackwellGB10x = 0x1a,
-+    BlackwellGB20x = 0x1b,
- }
- 
- #[derive(Clone, Copy)]
-
+Note that I'd rework patch 1/2 to use a non-checked version of
+vmalloc_to_page() (see the other email)
