@@ -1,113 +1,122 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FE925392A
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E6F3DDAED
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662189; cv=none; b=l1xAAspwG/uFoAWNXG2qv3CfVh943TiAOyp5wDAp7V5veGFiGdEU/TDMCh0gNsS7MPy8vtQfHLsMDo+2jGAfyuZtQrS7RZPJruzg9Oi5z9bKOtNVTqJ/qjEdaa3ZMUogDsq/lr5t7QgEEgp8aqOJ2Ywzl8trJygnky/5QBWXcm8=
+	t=1790662305; cv=none; b=qm1i6bc+nOi3J3Lka8056scQob0NnzcsxfftozBI40abrN1haaklcmcW7Ms2rDEZDgdfVLkFb8SSTUJ3vAhGudesx7bcWtwIQrgRpbnRp7weWPKza60O/fomaBXZivKuI8duN0lKBUv3CeZTjqEpXDJQ35ePizXpqTiqi0iQ6Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662189; c=relaxed/simple;
-	bh=kZWWt0EAbhwxvZLPqdZFstn76wKJyVJU2ugalDWAaRo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=OsKP9/YspwLJu5OVvAidjs30GdzA33L+ltam1BP/HqwgvP1hANmZrQWppN/jd+iHFHynLMj6Xz09W0dVn60xwBwAXqBpkRwNwNoztbU/NbLnjShpoX2KwLpaKRl6xPmlvK3e9GuBr3jmbXFk2c55iQxcthigPZK+/crsJOlH7vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nq1EemL+; arc=none smtp.client-ip=74.125.227.169
+	s=arc-20240116; t=1790662305; c=relaxed/simple;
+	bh=RGYHV4Zn+Dn9B6A5MIGzROsX1KFS/3JS0nwwmfoW1QU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qGLYXFSmiY2Ji4+EGBKxnBAlKHh+4DAn4snn8sAmfC8Xu10JAFkMcXLPwKxkb9d4YcD/oJIp7Nw8tO0flC9pDjwlk+4CAJilfTXxWLp/OIK2ogaqTjrinuThkJInpqCQmXb8P4txn0/ZF0UdMlmlapUmlh6RJI1uxV3fABImCSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T563v5G/; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nq1EemL+"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df9754484aso18443855ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:09:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T563v5G/"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so1592749a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 23:11:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790662187; x=1791266987; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kZWWt0EAbhwxvZLPqdZFstn76wKJyVJU2ugalDWAaRo=;
-        b=nq1EemL+ii657ovvniP7Iy68oWbN7pZB3bCGtzJ0RcttWCb2s5VcBCir8ZGzV4SldT
-         q0KYZET16lnI0SWrIENK1zk4kVMOLt4iNvFksEc6wOGQ0jb4mf67SCQqvccXWbdL/bxU
-         mSuXc2QRPiGrtNFPoybj1uHUCOS4c+STT9GWA5m1vlNNEzmDrnfBQ5NDcuXdcHBK+qri
-         lYcAYyYPdYNOyWr30i7ghwYgeoHOPTaaDqLUFEtv//reuaMtnpAUREanshTVZBqLgeJD
-         LWgYIvS/BE0iG80HC7YEXk4gBwOETCasDcIM1L2vRwJSEnZzApMFXOLG0vyKxSu0RksA
-         myoA==
+        d=gmail.com; s=20251104; t=1790662304; x=1791267104; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lCOnM4BG9opzc/4UWmCexloGpdYaWaFpKWwedqDPapw=;
+        b=T563v5G/+tAaVEfGh2VX/G9105H9pOYX0V82dmVdyagksFWtz2gSfWAxetGcMXU3kJ
+         QaoBVom/gGl1pNDBSNa/YArshE9r6rODvOm6pb9DxNG6o/CVBB1LTXkeUmbRYf0yT7j7
+         abID53wwP5UG15AzswoufaBt2/c3t6kGHsaA0R583ODi7lKM/IhXZMS+6p3A55s1VrfG
+         IgdzyF+wkruRmblWXGF2yrV7wmqySdinMV1noPUAAPQRODfnCk2tOIjt4SFrY0gR173g
+         5+EfWaf9EM2MB8h9X5GR1XMfiVunlhIS6FSmXYDYWR6OfrLyCBJhCxRykJbOqWe93N/a
+         BAdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790662187; x=1791266987;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kZWWt0EAbhwxvZLPqdZFstn76wKJyVJU2ugalDWAaRo=;
-        b=tXX8cDslSsZNDqOLIQp8GzskuATxUISiUtqybWo1Jzj1ZFsazitEcJbqdvJ7tiY4kl
-         w6bJaaPuuh0MNsjNTxuHuIkmwW/JqawlN5XjcB+QwJPd3j7M0u2d7viUpVuANytUIfIq
-         j+sxU6H6PYBexiJYQKWaTY8S1vx7ZOHe8QlSrd5gbXH/E3mCf77gJlEPbFdJdSke6koA
-         WbDfcgsL6XI03Sz0TWviZIBkYV3QA26rqikWc+7XCJfibkT1KzfQvoEGTPPkoSA2UYeZ
-         ebz/z72bI3U6YXwZ1sJrJuJZncPMdTGCtqaEdSsyVVtrA0zVJ89IRcPuRbURiBrgrh12
-         v9CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3y2HNvtGQ557hBZBRgSj9utTvmTT3noBKLePbEmtfWYG3HA6wQNr1GRS0pqp3rla2XPeBG7P0t3uttm4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2f6HWELI0uhPUYwdVHZ/wMHgq+lEJd0flgJ5id2td59ks6RhU
-	kVCqcfiInRHJH7oF3KAhqbSqIbjgR2vztbNQreZ0xqFgvLIbPZVMxd5I
-X-Gm-Gg: AYBFou2rtgrSOw6hcJto313o7ZOul2xf8zdwF3a5NXM7QIuV3YUdVsMNaUBqOt6cQ/a
-	yPMddkjX3sBUv/a+iIpG4n+L1SC40lPs77mq+37TTN/mS0g3x0Da1txaYHyIZk7qI2W/7tMXA/c
-	ye21lXQ1jAM3mDiZ9l1NoIuN+a7MvIboMdChhJz4OeNXvIjvKV8cZgXGQARaaAUCLfS2quTC4Er
-	RoCBLZlAZ5jD7SGvSww3UYlZvMLve2puzsDrckFr+JScQSxvKNQs2OftusqL7GWUN6J22e00PRH
-	05ga58SL08rMfiQlM7gwUoB6jC0WCLz+HpYruKcKXExkTYE3GE5HX2LlB2Wdfr/h8f4GNVPfm4i
-	nvuDL3fdtG0sU4IL1vVUORAfgYOTeG+ABDC86nYsl8sG/G/uvyySFok1fhOCFdWRSybgKMooggq
-	Kfm1OSZhIPoYjSWBP/vWnAHks+l8fMEjbHKYj7VF+jpj3FZezh3FsMPoxpgf1fTLNklxqQqF6AR
-	3q774LoKV1G9cR8uJEG+ARcvvL0AHMz3hg4oTJPdnoCjzW0IU3AP7TqJIQyOdmwBSuEl5lJLZXK
-	s58=
-X-Received: by 2002:a17:903:2f50:b0:2dd:c0ff:e72a with SMTP id d9443c01a7336-2df7dff64ffmr113965515ad.60.1790662187466;
-        Mon, 28 Sep 2026 23:09:47 -0700 (PDT)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142b00dsm50889685ad.49.2026.09.28.23.09.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 23:09:45 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 06:09:44 +0000
-Message-Id: <DLRKRNCH0N6U.2CRAUPOWA8P2D@gmail.com>
-Cc: <john.fastabend@gmail.com>, <andrii@kernel.org>, <eddyz87@gmail.com>,
- <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
- <ihor.solodrai@linux.dev>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>,
- <syzbot+fd7e415d891073b83e1f@syzkaller.appspotmail.com>
-Subject: Re: [PATCH bpf] bpf: Fix smp_processor_id() warning in
- rhtab_delete_elem()
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: =?utf-8?q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
- <daniel@iogearbox.net>
-In-Reply-To: <20260928173703.504474-1-omermetekaya0@gmail.com>
-References: <20260928173703.504474-1-omermetekaya0@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1790662304; x=1791267104;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lCOnM4BG9opzc/4UWmCexloGpdYaWaFpKWwedqDPapw=;
+        b=160QhdtpIRN4CrlTbFnne3vbj7x+1l0UkbFzSHVU8vVIEQoUADF2zqcewdTjySKzwB
+         LA7lvUhi1921fhtJZbgWy4q4g4afzOrdIBqJgh0gkr8asazsDiThoFFvN3/Js0OHePdZ
+         qEScr5RInNUPeCdri6kz2OAbevyRpFdCICCOH5LBQnnwSES83OvxTjNO+0kjVzxx7fOK
+         yi4WYVlylRVny4xpLOyJSq7pMiEgWrVoKCOXqDUy32bragXwm4ObTfHaNiU3INK8mP6R
+         EUxhsqtYx/kopsrVjoTGED5Ce1IdtA+zE5Ai7tvOEmBjYgPUfqCtM1ibys9S40xx8JF/
+         uF7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzN+UxHgbEyM/PxzhxZDy5pzWXGfPhZxkcG6motoQMZ/qS2Nv1qpSsC+Exv9tZtNHq9wp/LU4Vu3qb1v+o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKP7val17Bu6CEE2BZPeszvxpfgpF8XZIwREjCy3ERa9MJfuOh0
+	6iHFYiRxtu4M1xzI6A4bF/wdwhRK2Xxms2IARkn0QL80iIviF9JiiqTV
+X-Gm-Gg: AYBFou0wltSQ9HQBvCXPmt1lrBQES5guqCNTN/dN2J5YE2P3N0nlZFpX1Z8AJuQCPwa
+	RUkdGIk8wauOmkxmn/35l149J/Sj9FZu2aHdHFsd1SDcovl6T2D3TeNGxt3XE1Z0pwcKzKYpKWa
+	IsG1PaKCryHly4GVHuc0zQ5fTpkx7M0y8PU5tBWfNvazeSa1VHCcGsxZly3Y+mCrSiowJ1sZ93x
+	ax3kKDXrpW5R1oIK/JR+vAYFGvogGk44yb3Mp8mMA6FUPnzAA1mbR87j1AvtdWSISsOzgTK0e2Q
+	TtraruageLGdjuN9wH16giM2RIgqtjM1twJb29fnKPXDf8FVgVj17Y9JdyEiFprbTV62k3EJtj4
+	tpQhL2pOGYkolVZrag9QMjSnMYVRc7g7qXm8cngMkU/7hycEdPRmwieCkgNZQtXU+hay5kAUdcs
+	YXlOA8pHDyUjw6dDaFGbJx5Me1gqBsjqg4WFVNHcPqNfChJ+sFHaX0yE15MQaLL1e0XEvWFUUcv
+	QrHU07PlSP+qlYN9vOpSzUvz/hnH4hC0AG6UShNj6Wg2xYisLxDqdrMeL+XuyGJlMdTI5aWiYYl
+	O/N2tEOO1FVDyQ==
+X-Received: by 2002:a17:90b:4c4f:b0:3a0:bf0a:c9da with SMTP id 98e67ed59e1d1-3a0bf0ad1cbmr11373686a91.47.1790662303866;
+        Mon, 28 Sep 2026 23:11:43 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498726d63sm3280965a91.17.2026.09.28.23.11.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 23:11:42 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Darren Ye <darren.ye@mediatek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	cassiogabrielcontato@gmail.com,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 00/10] ASoC: mediatek: mt8196: Fix clock error handling
+Date: Tue, 29 Sep 2026 13:11:11 +0700
+Message-ID: <20260929061121.124001-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 08:31 PM Ömer Mete Kaya <omermetekaya0@gmail.com> wrote:
-> bpf_mem_cache_free_rcu() uses this_cpu_ptr() which requires preemption
-> to be disabled. In rhtab_delete_elem(), this call happens after
-> bpf_enable_instrumentation(), so preemption is re-enabled at that
-> point and this_cpu_ptr() triggers:
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-bpf_disable_instrumentation() doesn't disable preemption.
-It's migrate_disable() plus bpf_prog_active++.
+Hi all,
 
-bpf_mem_alloc relies on the callers to disable migration.
-See the comment above bpf_mem_alloc().
-All callers of rhtab_delete_elem() do that except
-__rhtab_map_lookup_and_delete_batch(). That's the bug.
+This series improves error handling in the MT8196 ASoC driver,
+mainly by checking and propagating errors from clock operations.
 
-bpf_disable_instrumentation() in rhtab_delete_elem() protects
-the bucket lock from NMI progs. rhtab_map_update_elem() calls
-bpf_mem_cache_alloc/free() outside of it too.
-Don't stretch it. Disable migration in the batch.
+Compile-tested only.
 
-> Fixes: 6905f8601298 ("bpf: Allow special fields in resizable hashtab")
+Best regards,
+Phuc
 
-Wrong tag. The batch came in
-commit 818e00848227 ("bpf: Implement iteration ops for resizable hashtab")
+bui duc phuc (10):
+  ASoC: mediatek: mt8196: fix APLL mux error handling
+  ASoC: mediatek: mt8196: fix APLL enable error handling
+  ASoC: mediatek: mt8196: fix MCK error handling
+  ASoC: mediatek: mt8196: fix register access clock error handling
+  ASoC: mediatek: mt8196: propagate main clock errors
+  ASoC: mediatek: mt8196: use dev_err_probe() in mt8196_init_clock()
+  ASoC: mediatek: mt8196: fix runtime resume error handling
+  ASoC: mediatek: mt8196: remove redundant error message
+  ASoC: mediatek: mt8196: propagate I2S clock errors
+  ASoC: mediatek: mt8196: propagate TDM clock errors
 
-pw-bot: cr
+ sound/soc/mediatek/mt8196/mt8196-afe-clk.c | 145 ++++++++++++++-------
+ sound/soc/mediatek/mt8196/mt8196-afe-pcm.c |  28 ++--
+ sound/soc/mediatek/mt8196/mt8196-dai-i2s.c |  17 ++-
+ sound/soc/mediatek/mt8196/mt8196-dai-tdm.c |  16 ++-
+ 4 files changed, 136 insertions(+), 70 deletions(-)
+
+-- 
+2.43.0
+
