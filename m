@@ -1,76 +1,55 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2693E1694
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A452F3C1D5E
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672441; cv=none; b=CeYOdBQAi59OFQQyjZRsZxPlWjT4ZK4JzB9f1Kpzg2CSFEbKtCHMBC8TaAvSb8QDzt5cwo+XKvpY78/uxWNeHr3tkntntozmuDbH04Xz7aWIA9jV8t6xpiFosbiDQCUzY94PjOUHJg7kWs6O3npUEQOpHcw8HhS49RuH1wpQY+A=
+	t=1790672455; cv=none; b=f9eLXKw4RpmdWTOaYayNv8niTxzSGt58Cu6lC7HabRS+4kqulRPQXq0J8TF0JLJ2EaJyYCmK1yKPrwV3HLem7AJNtqL4NzUYc9pTN1AVAZAZzu3FzP/8I0e64YwOSf3WygMlb98MBiEpKam97Gi6mnhfeS8vhE4NY5CWXHxH4/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672441; c=relaxed/simple;
-	bh=bQA5o9AqXzJwW4CulCIQr+JTNGnfWLy+R04SGuzJykY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fYMDoVXE07xWcFkBGcVt4MXfDL38QJ+Xco43UEhvZRDlcGYnTxsW5e0yCkxaR5PTXc6u6/6ZzYRC1utbWxnG/RiHl0noqhz9fEcC785ZwrIc+Od539MKDy9jMUgrVu8aOP0sfMxo0hYJ7zVwvN/yWPN+MEW5eoN831iKlCbbVwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xqd/CQBJ; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790672455; c=relaxed/simple;
+	bh=XqxrlL1PeFm7f3HhyjzmfZu6nSsKkuNbuQg38YPJ+sg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BMDHKmbu+zE7sDVunzYOOApDHFaFTL8Vf66qDQOdQDoOmwl/tJA9mE7cZPUaIUMuX9so+qA7ZOqDY0Uwn7I5q5bkLmq2OWIRwxQVEIGeYajNYThmx3FMXpCJYZ31TleuIWpA83a5jy1BMkxZ4q17j1TPgW+3Bx3ZlZf/uCvag8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AN53gpYr; arc=none smtp.client-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xqd/CQBJ"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso432601766b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:00:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790672438; x=1791277238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QEcK1L0L4Llql2vChYhSAW1uTFo7IcbEPKL8xbGwNtM=;
-        b=Xqd/CQBJIWkGWzIu67eMt/Xr1cLpBJ6tmpTYzUIWJWuRJwk5Z4cjnNHaFNKZuj136t
-         5SmFUIQdEbHxtuSiSpOvJzJn+Tbf9DuW/KimcrZukyXT1tRERPDctaLn/Gc3QhU4BzSQ
-         W73bodiyTMz0/v0o1BT+c68Z+Fq7N6rCra0l5zCjkSQ2tTqGRtmk5Nj/BSgGoEbtIews
-         nXlKLSZR2UO9AHuMMyJGFke6eh7RgCxNzO1RXt6cHtoPbeljpwfMreSoQBxJZg7+PQk+
-         FtOtol0bX01ia8CBeqE8nX17fJvVlfnJ3bRLlTfSAuxMEAuCDHDIjjJactIWI4+VTB7k
-         C5XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790672438; x=1791277238;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QEcK1L0L4Llql2vChYhSAW1uTFo7IcbEPKL8xbGwNtM=;
-        b=Y1PARL8jwLZUveHNJIAdzOMr0BmAh1qGCUo6nFVlhIdQlNMM9cvQHRF+hIBOuUb2Qo
-         Mrf2pLWbIGN4PuvSifbNw0lEGXU1qyZE21dnAjaG5kt9W6w122vFdK+gtc+PTnBsxrq7
-         tVuPamE9BqDGWAPG0LwhY1rlq46WcNfH6OsY8Yykp3+nzMmoH9RgF2AvTOWQCXVEXWOD
-         LlL6po3McgcUzCnUYl3pi+OKdEoGzcQiMMdbX1v/E9Lo3W+O6HAb5oROgMwP0KoLO2bX
-         n86AAGs3uKIfqfZ5H7FVwgLC50HTsKUCXA4r6I5C+O3DeMBt3DAXHUoyBZMinqLF3Dpd
-         FF8w==
-X-Gm-Message-State: AFuF++lb/2VghTV/ErLE/3ZE/KNsXlT+IPNbcGrFdlgVZ7LWOr5ryrc6
-	Uu6pEhAOna1+2VI2wno3vyy6w3VLVYNXEdw61tPeor+MpNtBZHvOksIhPx38ORmNo1Y=
-X-Gm-Gg: AYBFou2GWhL4Jkb+Pjb2kJOYhYpMcvGtEqSyc5KzsOsOoPCBE9Xjz73KU6jVsK2gSt1
-	ira1BeuYFF2LHdJ49/DRY5nS+HV8qCq3vYEyqOy2C/lPn2pfixSGAauXqFRJGxqaPFQnc/6Hfjb
-	PTygbIHU0lvef+jhAt6/KwEdJ8xP3iVyn2JqGtRiQRo7cIhqhCu2myVh0XnDrp0uaECXjMObztk
-	EUt6jPzioNGxu9kAuNghZAx1uNgM4Us0EJ5RKufWxaOB4bZmJTLsFVxR8sBOZIW+Js+8F3zTr1X
-	/7ou1taUCgdQ2jbQuLkxANpapaQywJdmcGdcVXFDSbrThiUgqrHnkI4nJqOBq5MhNaO5hxup9Qx
-	JNJE8SsZ2/Hu2YScyLYKryrUTHZX2OaJtjuunsYxFjLAJWuQ/uQyH9xs/Nq5YcVirBQ0aOMZLtP
-	zE9+ph0w9Svx6EtepRb2xNZomiIhvvu84Nnr/TPmFmYoiFdit1Y62PhO+KlnIM9ljPkHX+jX6DH
-	VQmDsaz1B/6oVbOIuUCTPExc8Vb8SnB+LKhxe9Ful7uAHqmELIwVEtzndaamhtR05XAkCOfolVh
-	QuzBhl/LOX5K1ic9eKbS+uzBOjvmFCRgb5A8sSPU0CXok0RslqhEEPCMNEb3a7OQU6Ch5OVUZt6
-	6y0w8rMNEGpknhaQ1nTOpQdk1h7kKaXBzQ6XJO5w=
-X-Received: by 2002:a17:907:d409:b0:c2a:6bee:77c9 with SMTP id a640c23a62f3a-c2ae97a1007mr896070366b.4.1790672437498;
-        Tue, 29 Sep 2026 02:00:37 -0700 (PDT)
-Received: from Ubuntu.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae77be187sm594314466b.46.2026.09.29.02.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:00:37 -0700 (PDT)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
-Subject: [PATCH] fat: validate dotdot buffers in VFAT and MSDOS rename and rollback
-Date: Tue, 29 Sep 2026 11:00:28 +0200
-Message-ID: <20260929090029.742579-1-krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
-References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AN53gpYr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XqxrlL1PeFm7f3HhyjzmfZu6nSsKkuNbuQg38YPJ+sg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790672451; v=1; x=1791277251;
+ b=AN53gpYrdXj1+501YrYDkRdXfYsB5tIwgugBvY9QeKF6Xka7EFUyFwswtPrf6WX/riGjqDWN
+ RDs154vU03d2Vwq1LxB+uv7SLvWJ9FkiYtFXWmpSH2CjOvL8Uz172AsTBfg9RXCWK+fVcnArNuU
+ X0Zie3cbIlcC3icLm+oQSWKQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b89483134b4c43d3;
+	Tue, 29 Sep 2026 09:00:36 +0000
+X-Mizu-Trace-ID: b89483134b4c43d3
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] KVM: arm64: Fix HCR_EL2 for non-protected VMs in pKVM
+Date: Tue, 29 Sep 2026 10:00:27 +0100
+Message-Id: <20260929090031.3829185-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,211 +58,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-During cross-directory rename operations with synchronous directory updates
-enabled in VFAT and MSDOS, updating the ".." directory entry writes the
-buffer via sync_dirty_buffer(). If this write fails due to an I/O error,
-the block layer clears the BH_Uptodate flag. When rename enters its error
-rollback path, it attempts to update the ".." directory entry again with
-the same buffer head, which calls mmb_mark_buffer_dirty() and triggers a
-"!buffer_uptodate(bh)" warning in mark_buffer_dirty().
+Hi folks,
 
-Fix this by introducing fat_update_dotdot_de() and
-fat_sync_update_dotdot_de() in fs/fat/dir.c, used by both VFAT and MSDOS
-cross-directory rename and rollback paths. The helpers lock the buffer head
-and check buffer_uptodate() before modifying the entry. If the buffer is
-not uptodate, unlock it and return -EIO, preventing mmb_mark_buffer_dirty()
-from being called on a non-uptodate buffer. fat_sync_update_dotdot_de()
-preserves the unconditional buffer sync in the MSDOS rename rollback path.
+Changes since v2 [1]:
+- Patch 1: apply the FGUs on a CPU without FEAT_FGT instead of moving
+  the check in handle_tlbi_el1() (Oliver [2]). Wei-Lin's Reviewed-by
+  dropped with the rewrite.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b0aebd03565f5774f7f8
-Link: https://syzkaller.appspot.com/ai_job?id=f915c371-eb83-48b9-af21-45cf1fd21ba0
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+In pKVM, EL2 sets a non-protected VM's HCR_EL2 in pkvm_vcpu_reset_hcr(),
+which misses the RW, TID5 and TTLBOS handling of vcpu_set_hcr(), and
+takes only TWI, TWE and VSE from the host. As a result, an AArch32 VM
+can't run, a VM can read GMID_EL1 or execute a TLBI OS its ID registers
+hide, and the host's TVM, VI and VF never reach it.
 
----
-diff --git a/fs/fat/dir.c b/fs/fat/dir.c
-index 35bdb6294..cee06e635 100644
---- a/fs/fat/dir.c
-+++ b/fs/fat/dir.c
-@@ -941,6 +941,40 @@ int fat_get_dotdot_entry(struct inode *dir, struct buffer_head **bh,
- }
- EXPORT_SYMBOL_GPL(fat_get_dotdot_entry);
- 
-+static int __fat_update_dotdot_de(struct inode *dir, struct inode *inode,
-+				  struct buffer_head *dotdot_bh,
-+				  struct msdos_dir_entry *dotdot_de,
-+				  bool force_sync)
-+{
-+	lock_buffer(dotdot_bh);
-+	if (!buffer_uptodate(dotdot_bh)) {
-+		unlock_buffer(dotdot_bh);
-+		return -EIO;
-+	}
-+	fat_set_start(dotdot_de, MSDOS_I(dir)->i_logstart);
-+	mmb_mark_buffer_dirty(dotdot_bh, &MSDOS_I(inode)->i_metadata_bhs);
-+	unlock_buffer(dotdot_bh);
-+	if (force_sync || IS_DIRSYNC(dir))
-+		return sync_dirty_buffer(dotdot_bh);
-+	return 0;
-+}
-+
-+int fat_update_dotdot_de(struct inode *dir, struct inode *inode,
-+			 struct buffer_head *dotdot_bh,
-+			 struct msdos_dir_entry *dotdot_de)
-+{
-+	return __fat_update_dotdot_de(dir, inode, dotdot_bh, dotdot_de, false);
-+}
-+EXPORT_SYMBOL_GPL(fat_update_dotdot_de);
-+
-+int fat_sync_update_dotdot_de(struct inode *dir, struct inode *inode,
-+			      struct buffer_head *dotdot_bh,
-+			      struct msdos_dir_entry *dotdot_de)
-+{
-+	return __fat_update_dotdot_de(dir, inode, dotdot_bh, dotdot_de, true);
-+}
-+EXPORT_SYMBOL_GPL(fat_sync_update_dotdot_de);
-+
- /* See if directory is empty */
- int fat_dir_empty(struct inode *dir)
- {
-diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-index 61338413d..d51d3c11e 100644
---- a/fs/fat/fat.h
-+++ b/fs/fat/fat.h
-@@ -339,6 +339,12 @@ extern int fat_scan_logstart(struct inode *dir, int i_logstart,
- 			     struct fat_slot_info *sinfo);
- extern int fat_get_dotdot_entry(struct inode *dir, struct buffer_head **bh,
- 				struct msdos_dir_entry **de);
-+extern int fat_update_dotdot_de(struct inode *dir, struct inode *inode,
-+				struct buffer_head *dotdot_bh,
-+				struct msdos_dir_entry *dotdot_de);
-+extern int fat_sync_update_dotdot_de(struct inode *dir, struct inode *inode,
-+				     struct buffer_head *dotdot_bh,
-+				     struct msdos_dir_entry *dotdot_de);
- extern int fat_alloc_new_dir(struct inode *dir, struct timespec64 *ts);
- extern int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
- 			   struct fat_slot_info *sinfo);
-diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
-index d46d1a385..31faaeae8 100644
---- a/fs/fat/namei_msdos.c
-+++ b/fs/fat/namei_msdos.c
-@@ -527,14 +527,10 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
- 	}
- 
- 	if (update_dotdot) {
--		fat_set_start(dotdot_de, MSDOS_I(new_dir)->i_logstart);
--		mmb_mark_buffer_dirty(dotdot_bh,
--				      &MSDOS_I(old_inode)->i_metadata_bhs);
--		if (IS_DIRSYNC(new_dir)) {
--			err = sync_dirty_buffer(dotdot_bh);
--			if (err)
--				goto error_dotdot;
--		}
-+		err = fat_update_dotdot_de(new_dir, old_inode, dotdot_bh,
-+					   dotdot_de);
-+		if (err)
-+			goto error_dotdot;
- 		drop_nlink(old_dir);
- 		if (!new_inode)
- 			inc_nlink(new_dir);
-@@ -565,12 +561,9 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
- 	/* data cluster is shared, serious corruption */
- 	corrupt = 1;
- 
--	if (update_dotdot) {
--		fat_set_start(dotdot_de, MSDOS_I(old_dir)->i_logstart);
--		mmb_mark_buffer_dirty(dotdot_bh,
--				      &MSDOS_I(old_inode)->i_metadata_bhs);
--		corrupt |= sync_dirty_buffer(dotdot_bh);
--	}
-+	if (update_dotdot)
-+		corrupt |= fat_sync_update_dotdot_de(old_dir, old_inode,
-+						     dotdot_bh, dotdot_de);
- error_inode:
- 	fat_detach(old_inode);
- 	fat_attach(old_inode, old_sinfo.i_pos);
-diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
-index da3e89c0b..56da78455 100644
---- a/fs/fat/namei_vfat.c
-+++ b/fs/fat/namei_vfat.c
-@@ -909,16 +909,6 @@ static int vfat_sync_ipos(struct inode *dir, struct inode *inode)
- 	return 0;
- }
- 
--static int vfat_update_dotdot_de(struct inode *dir, struct inode *inode,
--				 struct buffer_head *dotdot_bh,
--				 struct msdos_dir_entry *dotdot_de)
--{
--	fat_set_start(dotdot_de, MSDOS_I(dir)->i_logstart);
--	mmb_mark_buffer_dirty(dotdot_bh, &MSDOS_I(inode)->i_metadata_bhs);
--	if (IS_DIRSYNC(dir))
--		return sync_dirty_buffer(dotdot_bh);
--	return 0;
--}
- 
- static void vfat_update_dir_metadata(struct inode *dir, struct timespec64 *ts)
- {
-@@ -981,8 +971,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
- 		goto error_inode;
- 
- 	if (dotdot_de) {
--		err = vfat_update_dotdot_de(new_dir, old_inode, dotdot_bh,
--					    dotdot_de);
-+		err = fat_update_dotdot_de(new_dir, old_inode, dotdot_bh,
-+					   dotdot_de);
- 		if (err)
- 			goto error_dotdot;
- 		drop_nlink(old_dir);
-@@ -1014,8 +1004,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
- 	corrupt = 1;
- 
- 	if (dotdot_de) {
--		corrupt |= vfat_update_dotdot_de(old_dir, old_inode, dotdot_bh,
--						 dotdot_de);
-+		corrupt |= fat_update_dotdot_de(old_dir, old_inode, dotdot_bh,
-+						dotdot_de);
- 	}
- error_inode:
- 	fat_detach(old_inode);
-@@ -1103,14 +1093,14 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
- 
- 	/* update ".." directory entry info */
- 	if (old_dotdot_de) {
--		err = vfat_update_dotdot_de(new_dir, old_inode, old_dotdot_bh,
--					    old_dotdot_de);
-+		err = fat_update_dotdot_de(new_dir, old_inode, old_dotdot_bh,
-+					   old_dotdot_de);
- 		if (err)
- 			goto error_old_dotdot;
- 	}
- 	if (new_dotdot_de) {
--		err = vfat_update_dotdot_de(old_dir, new_inode, new_dotdot_bh,
--					    new_dotdot_de);
-+		err = fat_update_dotdot_de(old_dir, new_inode, new_dotdot_bh,
-+					   new_dotdot_de);
- 		if (err)
- 			goto error_new_dotdot;
- 	}
-@@ -1137,14 +1127,14 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
- 
- error_new_dotdot:
- 	if (new_dotdot_de) {
--		corrupt |= vfat_update_dotdot_de(new_dir, new_inode,
--						 new_dotdot_bh, new_dotdot_de);
-+		corrupt |= fat_update_dotdot_de(new_dir, new_inode,
-+						new_dotdot_bh, new_dotdot_de);
- 	}
- 
- error_old_dotdot:
- 	if (old_dotdot_de) {
--		corrupt |= vfat_update_dotdot_de(old_dir, old_inode,
--						 old_dotdot_bh, old_dotdot_de);
-+		corrupt |= fat_update_dotdot_de(old_dir, old_inode,
-+						old_dotdot_bh, old_dotdot_de);
- 	}
- 
- error_exchange:
+The second patch clears RW for an AArch32 vCPU. The third also takes
+from the host, for a non-protected VM, the bits the host varies with the
+VM's configuration or at runtime: VI, VF, TVM, TID2, TID4, TID5 and
+TTLBOS. The rest stay EL2's, and a protected VM still takes only TWI,
+TWE and VSE.
+
+The third patch depends on the first: once TTLBOS reaches the VM, a
+trapped TLBI OS from a non-nested guest on a CPU without FEAT_FGT hits
+a WARN in handle_tlbi_el1(), as it does without pKVM. The first makes
+the FGUs apply on such a CPU too, so the access is UNDEFINED before it
+reaches handle_tlbi_el1().
+
+The last patch adds a selftest that checks a feature hidden in an ID
+register is UNDEFINED in the guest. Its TLBI OS case fails in pKVM
+before the third patch.
+
+VSE still comes from the host as before. Syncing it back after delivery
+is a separate fix [3].
+
+Based on Linux 7.3-rc4 (93f51579e7df2).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20260928064643.3265087-1-fuad.tabba@linux.dev/
+[2] https://lore.kernel.org/all/arqeRSIoEwurSrya@kernel.org/
+[3] https://lore.kernel.org/all/20260921101030.1231605-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (4):
+  KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT
+  KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
+  KVM: arm64: Use the host's HCR_EL2 for non-protected VMs in pKVM
+  KVM: arm64: selftests: Check a feature hidden in an ID register is
+    UNDEF
+
+ arch/arm64/kvm/emulate-nested.c               |   3 -
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h        |   9 +
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c            |   7 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c                |  25 ++-
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/arm64/hidden_features.c     | 184 ++++++++++++++++++
+ 6 files changed, 214 insertions(+), 15 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/arm64/hidden_features.c
+
 
 base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.39.5
+
