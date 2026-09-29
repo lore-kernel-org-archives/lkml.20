@@ -1,303 +1,133 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75233525A70;
-	Tue, 29 Sep 2026 13:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790687734; cv=none; b=cGdDrGFjc7GWWwhsXfvOlF6N/c/jbg9ykcixW2BzG3lVNn4xh484jmYB/xyOcD12/z4mX65uJ/Wfri6tgqYmPJGzMVEhvpWyN9/yjlT7DB+0OhQGeJY6fPGeRKkdbI2if48d/bpDDAAmksjDKap8tGMhm8xumvY16qOwnqeZDs8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790687734; c=relaxed/simple;
-	bh=L6kc11JlA9Yfu8cgXA2FxIZpBrd+S7y5Gk1s9U9uBHo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RcCKjr3NbczBS+l+0llyu7TW45C2mJ+tIlXVMKa/P9XBoG9QweJkGZLxPmWC6LdazCBOt4OUtDRMkvDgfi9Nbb994zjRgerc1Nug2g4DDE1WMxaBa2bNQ+dYu10WCR6YH8OWvXrIYBqtghkGjjDcJZVlA0LLBxIApuvwR43icXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=qsoWTlEn; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mw5m8tJl; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A09527589
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790687741; cv=pass; b=ah8A6FV5SxSrVOUZIHJ/fuBlosAN1jfPsxYF7PYkfCTawvf5hUeMLmyW590W4yVxdTtcoWtiAZgsmJm2VLK4tpMTvtTM27ddQMXyCeezqex3ctIrGFmuGLclfBzFeBfLn+/vtS94XvJ3+bbaJAVTzGChYFtRY7wf6qmqMvhiEX4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790687741; c=relaxed/simple;
+	bh=T2NGlTdtIyg8Qo2LJnioguv0ZZ4l36GX+Rd94IJDCqc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iryCUrie9iwlCwTzU1om9ZIZPOxFnDeD+dlu2+MIpXMRvzCB7wO5+jad3MFS3hnfScXSV87wQ6nmgdCF1NLe/MmeeY/bB6X7PxQPlC2xYukY7+RSSS8I3ULhiOUXgvUZq+1PEmBHTSKH9jbT1KaERhg5QSRdoSaPUPxjpckKzTQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b0IETqRM; arc=pass smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="qsoWTlEn";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mw5m8tJl"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5335DEC0F91;
-	Tue, 29 Sep 2026 09:15:30 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 29 Sep 2026 09:15:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790687730; x=
-	1790774130; bh=/NRM+30LF3fSp2SYSiPK3zeAKDOCZTbBueBx+rIrKFw=; b=q
-	soWTlEniC7hPsRKBt6mX+toSvDFGq1kghjGlSAOZtE5TqYsZoQbd5yWASLtoSDzE
-	1zjt3wShcpzdmMzAimtuyieKKTjMyZxjvuGdlRi9FfF5LCkhf4795TRHOC7eezxq
-	VVoHqeLs5zbV/tqSeDKrOZnJoZvF9DGWWiu5pf/Hra3ppBVtnXXULS4czS3P8PW1
-	cuHqzf6hEzXuzcYhnR8LW1XFvP8y84za5FJoWYZFVhVS988iEKJ/Z+IeHJSQSJnc
-	QIFrGL+f/bLHINP7Nl9bqP7peFtZeis8mGCgdIAEsdeFzyT//n81vqMI9Q2yCT/C
-	lIuv2Ln23U/0xHPTcICdw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790687730; x=1790774130; bh=/
-	NRM+30LF3fSp2SYSiPK3zeAKDOCZTbBueBx+rIrKFw=; b=mw5m8tJltb4F0wBqv
-	CZLolez7HBTAxOkTvryYVFTqmYXHzmVPMp7aZsmnHWIbkhapsEUUrCOtcuXhecUT
-	HCV+Mu+WLaM33/rpb87E/gzAsG31d/Mt2MTc+jBxtvvp2OILZApXWpHFuPG0YR7T
-	Z+srA9shebt1KJaQyZOL9TBgkFipKrE4b8sKuloGHVzeYmQMkEh9i99uyeNqPoOj
-	afGvShmZXC40f0po7FBSghquGGjnZ+n+IXqJmHvyiYwJdjRoSVQD7zLqApUT5L/v
-	FlzaunI7BgpCGwiYLTJjXf4a94rqF4pvHsES2rhZZMW6iD3yh59dXzsNxiBBgAYf
-	5gGhw==
-X-ME-Sender: <xms:8rm7aqUtFeP9mfXehK-z0JCBwwuDlw174gtGSTMdjnTTDcbj3m8QCQ>
-    <xme:8rm7aoO06_bmjAtsjqQb4Nk44D3eaw6oSHbezAq8IInuaCXC88B228SbZyp3s25cc
-    GyyH4WkK9Df7r9usdr5U8tGBKSEnRrKOaJaWNi4EKGPEOfgp61p3PCy>
-X-ME-Received: <xmr:8rm7aidzD1DvRtqiJ0-6UBISidYFXXd6jnGZclS5D2EgHFuG-llREv6rgwI>
-X-ME-Proxy-Cause: dmFkZTGYccH7Ntb7J02Xj6JuS6MvJY1gl/a+neyh0zdr6nO/D8luWVmgZr3vVncFfxaOyz
-    sDayM6uE9Hs1eK+ME/un6msYT/H9GLEGqCUuaUC0DyOMSfCWuXDxjPjsdGPyoevruFuRE+
-    g2yJgkk5PdFa3SMVKZ6gjwNZL3TlLTTB/zh71tz7d1GIGv71iHICfh77uMSsSdxCueqjsF
-    W9a0jjllcDDBY3d85i1vta2YOFpbdbcbcx15YCW3q0go4uhoLMlvpNUCT8+kMmJ22Ad1HO
-    uVgBzj94RdAq0amic7bSBxVqTdtP3Nc9GZu2B+9nbtIeSv2ligKQDG9XD/qLIwJ7GU89iU
-    rTlPqWD3zOfPv6Z7yVwA7Mi6Q+NDWZ73FxELmWRK5x1pt6EeVosS4ehFeT0mODMVkxrpjv
-    RZdOQSz8z5ISUIAhJi9UEiiVFSaZKOCTFEPCGAaCNGYbN1KQm+If5qwoSxCFhcTLdvhu6O
-    ZyjeP7Xxli2rzre3xhHAW+AqfUeuWsilfZKDsnOT1TOevWBk/9n3OJvp6Johjx1tw2tvjS
-    nKSyiGsg7iVsUt/DBIAF0GDjI6bjRSm3BRdq/ITzNfyaawuG/MegNI71X+TbgxaCPVgfvt
-    xmLx+oOhbJps0TGcBuAzwmw89aKiPwn55vcWSkyox5eXw/buLihT4GPw2ctw
-X-ME-Proxy: <xmx:8rm7any4Drj1igL2P8dX5oQ2KuwWRqTKqewa_6iVZJ766AmJS1pXmw>
-    <xmx:8rm7ajiRTgB5o6-dHlz9g_0KUBlIX4bDG4UxNVGcN4Q56lOcAdpkiA>
-    <xmx:8rm7ak4Y3Sk5cMp0g1fJZJ5Os5vyGlZl9apUsA6VzO_teYC-jTE-Pg>
-    <xmx:8rm7agp-DdsPocYRLedTKjOQRfOiJls28rel3YvTvAWOqC1hyflsDg>
-    <xmx:8rm7au2LO1J5SCQw_dpBcdyiqrrpSZkQLp78tJEplgCAjSTsFEyxx31i>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 09:15:29 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH 2/4] selftests/mm: check sub-PMD ranges window by window in check_huge()
-Date: Tue, 29 Sep 2026 14:15:17 +0100
-Message-ID: <20260929131521.153079-3-kirill@shutemov.name>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929131521.153079-1-kirill@shutemov.name>
-References: <20260929131521.153079-1-kirill@shutemov.name>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b0IETqRM"
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4dc9e92a621so599932b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 06:15:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790687737; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C66gbXI4AEKYSAuP5WyVzcd04GGmJjA4Omv6xJDFRVMl2rzuRA8wTETvkgJ4yugmw8
+         chEPujugdwc8Apr1Cs/5Vod6UIgSfG17zgrRj1RTfyR3fVAdQXrFWxK/dMGMhmQW9/d8
+         2xVxImT0k8QT7tWqdhc2bQ9J6qBSb0PK3nCpi1bEabPr9yiLjaBLrC8gunVq3g4GxqiV
+         nFGbcCsh1dVpHLG4Zwz/yearlvZHXdQKWuPu0/JWhAXGPIVnlQs0rUsau60hxYIjt7Dt
+         iz58ESLganaVhTF3EP3cgFjRBIECmDclwFl4FvdyPaKPURUG5oEQOABsPoykTkGbzFpB
+         lGSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lTO9yBJ7Sd0NkFEBQ/8VjEUd1RTpjAiKlOI1jt7xIy8=;
+        fh=zSVpMgTAryAusuKxbUfLz+9Pc/2GS1CKAu7N8yaZ8rc=;
+        b=UQDDq9qZ+xoKupmE5VkHig+JvZLcfnA/8XH71xwzgctD2tmQtPV6f758/NfBOpDQ5J
+         TwwkQGCqeRs3y/BLA0YqPl8sMf0tC/l5N5WyOvCR1DfOWkpW2okTr0Qtbxd/6EpEHOzi
+         RUIYH6nfbzWZ/aIM0GppNDdEgIJxRkPzhfhXn/1+mobiM/KyLAgxqtcybgVkDqWZO0DV
+         fRs+KNyQlBjpmgD3p5almwz8YVPhmovld7T8hPVH7qOcErhfZnjCmoC0Lfw5y/FGJH+p
+         t6N2CcHHwZVI27tqX9zO9UXiqTOoJBF86z+rcj3tHpz08ra6nWLsvkiqE8M0w4sD4hEX
+         ZjQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790687737; x=1791292537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lTO9yBJ7Sd0NkFEBQ/8VjEUd1RTpjAiKlOI1jt7xIy8=;
+        b=b0IETqRMTvljeA5WJhWR0ckZi0bSphVRa94W0FBlgA/hjZckAv03THOOYdMhYVAEnD
+         IKsMpZvC4carVpTV6PQqoVcmngRRRI8mqPE6yf2IuvLG11PanH31PI57OR9r/hSZ9a2B
+         pPyI3dVdZxmVJ29lb0xajyxRV6/kKq0MPTGt10MBvUfR5Xsi6f3wULDYmRg/MDCKZrMe
+         hfJw7cllKdKeCH8tloON7JqCTX68wV2AQpVeb/KNBj9vCLgACbjP/D64JmcVCSMyK2l5
+         HT/C76UeMEKfj+pPmhqBk1nfTKGkwd/VNqAFyfw4wBtXHhja8Bjdj5gJg6PxiYjZTFc5
+         KSdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790687737; x=1791292537;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lTO9yBJ7Sd0NkFEBQ/8VjEUd1RTpjAiKlOI1jt7xIy8=;
+        b=UHR9yGM9qb+4GfwIM4N8HJKcfi9OrIB1t84fdqADG/y27AXHSvpqEwILomu4c5Q4eQ
+         Poeu630AA/fqUFsmghoRcIAMgO7NqffJhPuiWoKrVruZGyFUGN1pa2QXYi5+3K4vqiEa
+         dDfS+nzbYwRLmqdCXt9y4DeXIxrzgamUsB55AgIWzfWa+Dg66yjau/agNm/ti/p59V+6
+         3TLpbIswIHaE8TwOW+1CNlZTerP62vvdG4Go6OawKg6lzd4Cw7rCfAsXN6dVXsaxDCvV
+         LifSRFAmi5ml8R7GLCVkvR2chIqjp3TpEN8pogyqWBua30/Px3zc2xmih15ZuLVf3Cpb
+         jjRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiXjhDIpUU6keez/vvd+lH4gWyPwuHlW4oQt3mNGZxcxkYUkldrcW3kYIsvFOAxhM1qlJTT/PgroblIGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lECx9vlhq1pVQJTEzZB4k11WKBrnwBUY1aqkThnDQOKFSpD5bH
+	2kIICm9hf6qBfYIr1Kaf8NbvkXv9YrkWxE5XFAd8e94G1RcabGNuqckjVjohJtmGwq0XFgNqJNf
+	lHYfBVie31F/ZH3Qaa8kArzy4a2pFIEw=
+X-Gm-Gg: AYBFou1dVZuye6Feln97ULS5vDjB9ihyhA+xLFxnSKAZy2U7y5d1B+DCUZiB9oU9bOX
+	5dYAlE0U/Ej3Q0eVJ4+gg5SH4Vv381yJ5892Vkf6trYTBDPjQYir3qEtIFf9CtSR0TJHUMEIcsz
+	ZsUjAvQ77Q4frmVYiKmfm6qQS+GeaiSjj+q330DZI5FOM0G/QnT8n0QDhHf7LIwtpiLz9u0+ge5
+	z7ceQmjiaHYsUVE6HiCqL8mFlPesmNjk/+FirbzDaXxV8rK06XbIKOni1hgxu6C4tdyeEB5irWv
+	wO1yLhDcXEzq5JzIQHbiQTIVUS7wzzUKIG9v7Zir1X2nZ88DfcJ/D1EObv2yA4/gtSc=
+X-Received: by 2002:a05:6808:15a2:b0:4af:aaca:7be3 with SMTP id
+ 5614622812f47-4edd8a63ee6mr1681520b6e.12.1790687737021; Tue, 29 Sep 2026
+ 06:15:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260729114312.3947300-1-chou.cosmo@gmail.com>
+In-Reply-To: <20260729114312.3947300-1-chou.cosmo@gmail.com>
+From: Cosmo Chou <chou.cosmo@gmail.com>
+Date: Tue, 29 Sep 2026 21:15:09 +0800
+X-Gm-Features: AclHuK-j6stgU1xbuVvm_ryZxtRewkbdHTBcaeY6_Bm9ZHOE5XgHrwabKhmUtJA
+Message-ID: <CAOeEDyvbuRHXfeO989dvV06e=qoAYy_1xEgnicL=X44Q8YjuFA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] ARM: dts: aspeed: bletchley: Cleanups and second
+ source devices
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	cosmo.chou@quantatw.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Hi Andrew,
 
-For orders below PMD, check_huge() counts folios of the requested order
-in the range and compares the count with nr_hpages.  The count does not
-say where the folios are.  A folio mapped at the wrong alignment, or
-split across two windows, counts the same as one placed where khugepaged
-would put it.
+Gentle ping on this series. Patches 1-2 address the dt-check-style
+warnings you pointed out on v1, with no functional change. The
+sashiko-bot findings on patches 3-4 were driver issues already fixed
+in mainline and 6.18.y; I've replied inline with the commits.
 
-Count aligned windows backed by a single folio of that order instead.
-is_range_backed_by_order() already does it for one window.  Move it up
-and use it.  All callers pass PMD-aligned ranges, so the windows line
-up.  The PMD case is unchanged.
+Thanks,
+Cosmo
 
-This is preparation for using check_huge() for the collapse_order cases
-in khugepaged.c.
-
-Assisted-by: LLM
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- tools/testing/selftests/mm/vm_util.c | 131 +++++++++++++--------------
- 1 file changed, 61 insertions(+), 70 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index e284e378d806..0a4b85e29e14 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -17,7 +17,6 @@
- #define MAX_LINE_LENGTH 500
- #define PAGEMAP_PATH "/proc/self/pagemap"
- #define KPAGEFLAGS_PATH "/proc/kpageflags"
--#define MAX_NR_ORDERS 20
- 
- unsigned int __page_size;
- unsigned int __page_shift;
-@@ -397,34 +396,72 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
- 	return entry;
- }
- 
--static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
--		void *addr, size_t len, int nr_hpages,
--		uint64_t hpage_size)
-+/**
-+ * is_range_backed_by_order() - check that a range is backed by @order folios
-+ * @start: start of the range, a multiple of the folio size
-+ * @len: length of the range in bytes, a multiple of the folio size
-+ * @order: the folio order to check for
-+ * @pagemap_fd: open /proc/<pid>/pagemap of the range's owner
-+ * @kpageflags_fd: open /proc/kpageflags
-+ *
-+ * Every folio-sized, folio-aligned part of the range must map one folio of
-+ * @order, head to tail, with the head at the start of the part.  A part
-+ * backed by several smaller folios fails, and so does a folio mapped off
-+ * its natural alignment.
-+ *
-+ * Returns: true if the whole range is backed that way, false otherwise.
-+ */
-+bool is_range_backed_by_order(char *start, size_t len, int order,
-+			      int pagemap_fd, int kpageflags_fd)
- {
--	int order = 0, pagesize = getpagesize();
--	unsigned int nr_pages = hpage_size / pagesize;
--	int orders[MAX_NR_ORDERS], status;
--	bool ret = false;
-+	const unsigned long nr_pages = 1UL << order;
-+	const size_t folio_size = nr_pages * psize();
-+	char *vaddr;
- 
--	if (!nr_pages)
--		ksft_exit_fail_msg("invalid hugepage size\n");
-+	if ((uintptr_t)start % folio_size || len % folio_size)
-+		return false;
- 
--	order = 31 - __builtin_clz(nr_pages);
--	if (!order || order >= MAX_NR_ORDERS)
--		ksft_exit_fail_msg("invalid order\n");
-+	for (vaddr = start; vaddr < start + len; vaddr += folio_size) {
-+		const unsigned long pfn = pagemap_get_pfn(pagemap_fd, vaddr);
-+		unsigned long i;
- 
--	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
-+		/* Not present, or a tail page */
-+		if (pfn == -1UL || pfn % nr_pages)
-+			return false;
- 
--	status = gather_folio_orders(addr, len, pagemap_fd,
--			kpageflags_fd, orders, MAX_NR_ORDERS);
--	if (status)
--		goto out;
-+		for (i = 1; i < nr_pages; i++) {
-+			char *page = vaddr + i * psize();
- 
--	if (orders[order] == nr_hpages)
--		ret = true;
-+			if (pagemap_get_pfn(pagemap_fd, page) != pfn + i)
-+				return false;
-+		}
- 
--out:
--	return ret;
-+		if (!is_backed_by_folio(vaddr, order, pagemap_fd, kpageflags_fd))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * How many hpage_size-aligned windows of the range are one folio of that
-+ * size each, with the folio's head at the window start.  A folio mapped off
-+ * its alignment or split across two windows counts for neither.
-+ */
-+static int count_windows_at_order(char *start, size_t len, uint64_t hpage_size,
-+				  int pagemap_fd, int kpageflags_fd)
-+{
-+	const int order = sz2ord(hpage_size, psize());
-+	int nr_windows = 0;
-+	char *addr;
-+
-+	for (addr = start; addr + hpage_size <= start + len; addr += hpage_size) {
-+		if (is_range_backed_by_order(addr, hpage_size, order,
-+					     pagemap_fd, kpageflags_fd))
-+			nr_windows++;
-+	}
-+
-+	return nr_windows;
- }
- 
- enum check_huge_type {
-@@ -471,8 +508,8 @@ static bool __check_huge(void *addr, size_t len, int nr_hpages,
- 	kpageflags_fd = kpageflags_fd_get();
- 
- 	if (!check_pmd_mapping &&
--	    !check_large_folios(pagemap_fd, kpageflags_fd,
--				addr, len, nr_hpages, hpage_size))
-+	    nr_hpages != count_windows_at_order(start, len, hpage_size,
-+						pagemap_fd, kpageflags_fd))
- 		return false;
- 
- 	for (; start < end; start += scan_mapping_size) {
-@@ -608,52 +645,6 @@ bool is_backed_by_folio(char *vaddr, int order, int pagemap_fd,
- 	ksft_exit_fail_msg("Failed to get folio info\n");
- }
- 
--/**
-- * is_range_backed_by_order() - check that a range is backed by @order folios
-- * @start: start of the range, a multiple of the folio size
-- * @len: length of the range in bytes, a multiple of the folio size
-- * @order: the folio order to check for
-- * @pagemap_fd: open /proc/<pid>/pagemap of the range's owner
-- * @kpageflags_fd: open /proc/kpageflags
-- *
-- * Every folio-sized, folio-aligned part of the range must map one folio of
-- * @order, head to tail, with the head at the start of the part.  A part
-- * backed by several smaller folios fails, and so does a folio mapped off
-- * its natural alignment.
-- *
-- * Returns: true if the whole range is backed that way, false otherwise.
-- */
--bool is_range_backed_by_order(char *start, size_t len, int order,
--			      int pagemap_fd, int kpageflags_fd)
--{
--	const unsigned long nr_pages = 1UL << order;
--	const size_t folio_size = nr_pages * psize();
--	char *vaddr;
--
--	if ((uintptr_t)start % folio_size || len % folio_size)
--		return false;
--
--	for (vaddr = start; vaddr < start + len; vaddr += folio_size) {
--		const unsigned long pfn = pagemap_get_pfn(pagemap_fd, vaddr);
--		unsigned long i;
--
--		/* Not present, or a tail page */
--		if (pfn == -1UL || pfn % nr_pages)
--			return false;
--
--		for (i = 1; i < nr_pages; i++) {
--			char *page = vaddr + i * psize();
--
--			if (pagemap_get_pfn(pagemap_fd, page) != pfn + i)
--				return false;
--		}
--
--		if (!is_backed_by_folio(vaddr, order, pagemap_fd, kpageflags_fd))
--			return false;
--	}
--
--	return true;
--}
- 
- #define TRACEFS_ROOT "/sys/kernel/tracing"
- 
--- 
-2.54.0
-
+On Wed, Jul 29, 2026 at 7:43=E2=80=AFPM Cosmo Chou <chou.cosmo@gmail.com> w=
+rote:
+>
+> This series resolves dt-check-style warnings, sorts I2C nodes,
+> and adds second-source RTC/LED support for the Bletchley.
+>
+> Changes in v2:
+> - Added patch to sort I2C device nodes by address.
+> - Added patch to fix dt-check-style warnings.
+> - Carried over second-source RTC and LED controller patches from v1.
+>
+> Cosmo Chou (4):
+>   ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
+>   ARM: dts: aspeed: bletchley: Fix style warnings
+>   ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+>   ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
+>
+>  .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 1317 +++++++++++------
+>  1 file changed, 903 insertions(+), 414 deletions(-)
+>
+> --
+> 2.43.0
+>
