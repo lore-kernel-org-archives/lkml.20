@@ -1,171 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D3A38DC78;
-	Tue, 29 Sep 2026 23:48:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775253B6370;
+	Tue, 29 Sep 2026 23:50:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790725696; cv=none; b=s0H1SHj1rmGduMpKZOVfg7ZonrClKnIMeMCXHf1DgpZVk07FaPXoctD/V4V4/0vJ0ASwaRefmXjT13L533ajEe3hzltM2uqZbjwR1f+aCLTH8rZPlN3kGVN3WZxU0q3+sD0FLsyxFJDuJrDWCK18HewENRNbi+835+BmuRqcrrk=
+	t=1790725810; cv=none; b=p8uIhD1xAQN4kg6QPk3C81X4ju2gwieYOnhe1a+djDcSH9rHW+RCt58SydLtOlZXeKkYTzLOxkTkM9u9wgomLkTrfmpo7Epn/bE7TqTLJwtymFYltqb8ONgbYCfeWuIKX/y/woSxYz+X8I9PrKgCmGkEWVl2YdUUyCJiE3KMwc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790725696; c=relaxed/simple;
-	bh=IeLpjxVDA3GrnDgmvTeCyQjgNOUdg4es+X/2CCUKubU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g9bb/sYsMvtW0QHTihBDp+BR0u1EJeDa/s8EthtidHeqLJ44SWRbzgvRXiXCheLh+by1WhgCZSjk5lWZw+MR63xYjp6bnUDxPKwkcitKSB7KzDwPH9ZjnrCK+CDTgNIorCtBFV61uG7aC3YjxDHW0gSetbUtsgx3WW8foqJPN1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhzkGaRe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790725810; c=relaxed/simple;
+	bh=8w2HKW1hOCY/1LMK3e6/ZsRot11crplpjWA+dW+c0cM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=UEOd5khoysm27m7A7W9m5A/zHNMjkPhhLnKuLAHvxlxF16ykj3cWkZgNWHatWIqeBRg0MTgU/W/cAWrA/8DNHDgbt9aqc74gOcOoeRfNZcOgqPP6ccaS08gg6ja+vR3MGTLJLWdbwVriZBQnx27+RM2jxY6TEwSRu9lA+f+eLWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPIqWhSG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhzkGaRe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4E61F000FF;
-	Tue, 29 Sep 2026 23:48:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPIqWhSG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C411F000FF;
+	Tue, 29 Sep 2026 23:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790725694;
-	bh=gIqFVKJu6AToIPs1PJ0I4keo47YZu7KeaLmxN+BVCuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VhzkGaReqEEO2XgPU/r2WxwZs5SREUmfSQgiINcUoXIv8bBkXCl/itC0FnAJhcF8n
-	 Tz+4njQV8/Wgfcl43M937K7PtNuNSkcGEXjt3HUaVepxjLJcyrhqL2+36zcl7IyBHH
-	 jbsE8zfLCs6qhqBfgUTtJhqNRxkRwcsi184Gp+TemzUMEBuS628poVt66JzIIL4yry
-	 49uRU97VXmCzeR4F6TYSr2gMQFr2uHv8fjuk9UI29dF4bxd8hN+WyweFY7EjOE8Txh
-	 dAUolPFB7vgrvHbuKDJpZODJWAwXCrV7wIX0Q45KTU1L0jJ2Wr8fVUtoAdNoCM8sFE
-	 0quruYrLofanw==
-Date: Tue, 29 Sep 2026 16:48:12 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 3/5] perf report: Add --no-progress option
-Message-ID: <arxOPEU1bCePHzVx@google.com>
-References: <20260929212246.2532021-1-acme@kernel.org>
- <20260929212246.2532021-4-acme@kernel.org>
+	s=k20260515; t=1790725809;
+	bh=xxUwmjfHxdPkhVzSMNKGk/NalI7DwH719XPdmccjABc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=CPIqWhSGp0SiwyZQ2eEI3dQJgc5ebYaBrht90l5fxZ+UTQzXUJEeqL1DCrnkiIwGZ
+	 XWdqJcsZKqfploqJ1K3eZ5honEenojtiqtxhW8mnQzuxYxxwi646alzkegw9L4e/pB
+	 8ceVnMg5U2im3S3AL/8F5dT08QvQu8cMSkmnzCl4qn8165AcsL1FoR1PAX/c04lnzb
+	 GawtANFuCsjHLVqO9caH/TSZVT8UkfFW0rRPItCWjoYPxbqfDbIEA1WGC8Dk7PopL/
+	 YAyzzE9/lOTrQMitJKC8qq+5T7fNCafbMyN5jE4w+OBxJxMES265KF13+ySz3FJYfe
+	 M4ONOyKZhe0DA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15FC39D5FDD;
+	Tue, 29 Sep 2026 23:50:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929212246.2532021-4-acme@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] usb: atm: use request_firmware_direct() for firmware
+ probing
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179072580753.1169866.12044189359267660382.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Sep 2026 23:50:07 +0000
+References: <20260924050654.15347-1-valigurasm@gmail.com>
+In-Reply-To: <20260924050654.15347-1-valigurasm@gmail.com>
+To: Matvey Valigura <valigurasm@gmail.com>
+Cc: gregkh@linuxfoundation.org, 3chas3@gmail.com, duncan.sands@free.fr,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org,
+ syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com, stable@vger.kernel.org
 
-On Tue, Sep 29, 2026 at 11:22:44PM +0200, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> Add the counterpart of --progress: the TUI and GTK browsers present
-> progress of their own and there is no way to turn it off, while the
-> option just added allows asking for it when there is none.  Install the
-> no-op ui_progress ops, the ones already used until a backend sets
-> theirs, after setup_browser() installed them.  The phases are still
-> counted, nothing is shown for them, and --no-progress takes precedence
-> over --progress.
+Hello:
 
-Hmm.. I mean --progress already gives --no-progress for free.  We just
-need to handle that for TUI and GTK.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Thanks,
-Namhyung
+On Thu, 24 Sep 2026 08:06:54 +0300 you wrote:
+> When disconnecting a device while firmware is not present on the system,
+> usbatm_usb_disconnect() waits for the heavy_init thread to finish:
+>     wait_for_completion(&instance->thread_exited);
+> 
+> If CONFIG_FW_LOADER_USER_HELPER_FALLBACK is enabled, missing firmware
+> causes request_firmware() to fall back to sysfs/udevd. This creates a
+> circular dependency during disconnect:
+> 1. usb_disconnect() holds device_lock(&udev->dev).
+> 2. usbatm_usb_disconnect() waits for instance->thread to exit.
+> 3. instance->thread waits for request_firmware() sysfs fallback.
+> 4. udevd receives the firmware uevent and attempts to read sysfs
+>    attributes (e.g. serial), blocking on device_lock(&udev->dev).
+> 
+> [...]
 
-> 
-> Suggested-by: Namhyung Kim <namhyung@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/Documentation/perf-report.txt |  5 +++++
->  tools/perf/builtin-report.c              | 17 ++++++++++++++---
->  tools/perf/ui/progress.c                 |  6 ++++++
->  tools/perf/ui/progress.h                 |  2 ++
->  4 files changed, 27 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
-> index a7429a30ec28f903..bc0f2031b100f425 100644
-> --- a/tools/perf/Documentation/perf-report.txt
-> +++ b/tools/perf/Documentation/perf-report.txt
-> @@ -43,6 +43,11 @@ OPTIONS
->  	present progress information, or when --quiet is used, that asks
->  	for no messages at all.
->  
-> +--no-progress::
-> +	Do not show progress while processing the perf.data file.  It
-> +	also turns off the progress the TUI and GTK browsers present,
-> +	which is their own, and takes precedence over --progress.
-> +
->  -n::
->  --show-nr-samples::
->  	Show the number of samples for each symbol
-> diff --git a/tools/perf/builtin-report.c b/tools/perf/builtin-report.c
-> index 963808b561e547c3..8d23c077fab5f874 100644
-> --- a/tools/perf/builtin-report.c
-> +++ b/tools/perf/builtin-report.c
-> @@ -88,6 +88,7 @@ struct report {
->  #endif
->  	bool			use_stdio;
->  	bool			progress;
-> +	bool			no_progress;
->  	bool			show_full_info;
->  	bool			show_threads;
->  	bool			inverted_callchain;
-> @@ -1385,8 +1386,16 @@ int cmd_report(int argc, const char **argv)
->  		    "Use the stdio interface"),
->  	OPT_BOOLEAN(0, "weights", &symbol_conf.annotate_weight,
->  			"Show or hide weight columns in annotation. Default show if non-zero."),
-> -	OPT_BOOLEAN(0, "progress", &report.progress,
-> -		    "Show progress while processing the perf.data file"),
-> +	/*
-> +	 * Not auto negatable: parse-options turns --no-progress into the
-> +	 * negation of this option before it ever reaches the --no-progress
-> +	 * below, which is the one that also turns off the TUI and GTK progress.
-> +	 */
-> +	OPT_BOOLEAN_FLAG(0, "progress", &report.progress,
-> +			 "Show progress while processing the perf.data file",
-> +			 PARSE_OPT_NOAUTONEG),
-> +	OPT_BOOLEAN(0, "no-progress", &report.no_progress,
-> +		    "Do not show progress while processing the perf.data file"),
->  	OPT_BOOLEAN(0, "header", &report.header, "Show data header."),
->  	OPT_BOOLEAN(0, "header-only", &report.header_only,
->  		    "Show only data header."),
-> @@ -1798,7 +1807,9 @@ int cmd_report(int argc, const char **argv)
->  	 * processed so far for each processing phase.  --quiet asks for no
->  	 * messages at all, so it leaves the phases uncounted.
->  	 */
-> -	if (report.progress && !quiet && use_browser == 0)
-> +	if (report.no_progress)
-> +		ui_progress__noop_init();
-> +	else if (report.progress && !quiet && use_browser == 0)
->  		stdio_progress__init();
->  
->  	if (report.data_type && use_browser == 1) {
-> diff --git a/tools/perf/ui/progress.c b/tools/perf/ui/progress.c
-> index 99d60223c74b2957..362680989ace606a 100644
-> --- a/tools/perf/ui/progress.c
-> +++ b/tools/perf/ui/progress.c
-> @@ -13,6 +13,12 @@ static struct ui_progress_ops null_progress__ops =
->  
->  struct ui_progress_ops *ui_progress__ops = &null_progress__ops;
->  
-> +/* Everything counts but nothing is shown, the way it starts out. */
-> +void ui_progress__noop_init(void)
-> +{
-> +	ui_progress__ops = &null_progress__ops;
-> +}
-> +
->  void ui_progress__update(struct ui_progress *p, u64 adv)
->  {
->  	u64 last = p->curr;
-> diff --git a/tools/perf/ui/progress.h b/tools/perf/ui/progress.h
-> index 03f1a8bb260ba076..e8c4f9f768aaf12b 100644
-> --- a/tools/perf/ui/progress.h
-> +++ b/tools/perf/ui/progress.h
-> @@ -25,6 +25,8 @@ void ui_progress__update(struct ui_progress *p, u64 adv);
->  
->  void stdio_progress__init(void);
->  
-> +void ui_progress__noop_init(void);
-> +
->  struct ui_progress_ops {
->  	void (*init)(struct ui_progress *p);
->  	void (*update)(struct ui_progress *p);
-> -- 
-> 2.55.0
-> 
+Here is the summary with links:
+  - usb: atm: use request_firmware_direct() for firmware probing
+    https://git.kernel.org/netdev/net-next/c/f10883b37d9c
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
