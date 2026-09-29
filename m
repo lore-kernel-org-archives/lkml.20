@@ -1,120 +1,503 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB253033E1;
-	Tue, 29 Sep 2026 02:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BA431F99A
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 02:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790650391; cv=none; b=phHTPs4jKpqOC6xp3Zy9xuzkbgvu7T8rxkas1LU1MoXU0GkVLqQDFMKGin8eW89ucphMmsWTgP8i5x8t5jQww1thnDhzTnCBpKoqrkF700PO0gRTArZ3Gxt87PRv7ZW4eNDN4eUWRkTHd0DNO1ddAp+ROtntEaZXj6j6nEEKAQ4=
+	t=1790650437; cv=none; b=JvQg+XwqwWTbavYSVKrpWoc0ArtSaFfMmQ4ddlDmbQ9Fu5VUy8gbyk12mr0/NjBIwwkEM8BeNzAQSUQ22ctHlw7O1Gpi/BcLnvsLrDvIONqy9JHgqb9T6DhPVH318tBUqw+zfQXRzdTTjcV0C8C7A9crSnkx0EyeVHBQ3urAxg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790650391; c=relaxed/simple;
-	bh=m6FBb/3daGyfPUCOwjMWo3UJ3uj1mpF7RazDsMqsqKQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q+ab4u0Rn8f6VfnG29MgA7n6LB8Gc74/XyMNl9Gw9TwLsmQ+BY4FRoeSWkAIr/I+TlCCZCg3tfpcUn8W565PDwD6sN/Jp2/1jn8AUM31NWHTilWxKbzfOLAvAA7/f4u+EG4o02kupe1njKqPqyKssal/e4HtCp0plfaFA4zPDoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=EHFHkpEw; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1790650437; c=relaxed/simple;
+	bh=tSAvAPI18hswzMICKV2Us2PyuoGA805l9BxC2V5EcXw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=UDhiyBTPkZC0WXkCOtVpkLDHsov4rwcJ7JsAfeVWu5jwGou6NwnLwKafcvX6FWP48RkCRIjkoIq0pDb1pxkRNA8iEoCWx0/9+qj7C4oJJXtDk8UQjfigzQdQxHxIfOXnq3jz61uuFSH6tMID47FBw6mqsyYAiebwCRwRftNo+is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WqqUopKQ; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="EHFHkpEw"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T1XnKM4176283;
-	Mon, 28 Sep 2026 19:53:02 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=H
-	Y79B0ixUmKqRF5wtB9l7Q1drhYP9JZ+Gmxw+vu2LXI=; b=EHFHkpEwkAwHsftj4
-	wuWj4aj3DtzaGLWqdqTN2w0brEy68zhParlK9QrIqLnUAkpXCRP/SCCDZdifQn40
-	+9uoIJrFBcpPLjoU0WBuAhamsXBiKE4G1XpyGPK7F00jhaA8V4tdwSQxKWq72H93
-	ZA/NEWhC+jvZTMAdu7EiVUn+yIUKoNxoaZVmkyahalShdPbl33PCmBwqL8+4PrJo
-	t3WpbJkSu4zY5Q1gE30h5QrunTr0RpAhpfPS5ZomU5zUebPA9emNUOk0NQFLPDP3
-	313ZdbudsqSDIxCCaWYtdiMQAiqPHp2EMB27sKFHCBkBoNxZ2Tq67JHwrT+7B68r
-	U3Htg==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gyuet2h9m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 19:53:02 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 28 Sep 2026 19:53:01 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 28 Sep 2026 19:53:01 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id B79203F706F;
-	Mon, 28 Sep 2026 19:52:58 -0700 (PDT)
-Date: Tue, 29 Sep 2026 08:22:52 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>
-Subject: Re: [PATCH v2 net-next] octeontx2-af: Add couple of mailbox support.
-Message-ID: <arsoBMzzOiinjdGZ@rkannoth-OptiPlex-7090>
-References: <20260924024446.1851115-1-rkannoth@marvell.com>
- <179056446689.3145.6845627797649400561@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WqqUopKQ"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-342a0e1d8c4so1291047eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 19:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790650435; x=1791255235; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6RHmMrKykFd6mDTFMi4kCzmFGX5hlJMQ/bgB5m4Guxc=;
+        b=WqqUopKQ+w/Qd7op7TrZAo8/AbMBI4Q+DMJ9Yi9yWwJ2bznQRYCTRMIIOtKSoWXGy/
+         rXs1+iApe3txyepLTyIXqUzGEv3BFz25cTbv4fmsytHm2OcvfPL5xT9TE+CrSkGQwoDy
+         HejLE9Ufm6ZDX5MNnAojzYo78+0HImfO/WuUHPI/O0rSBOqA1DFWchWM9+WBbkj7MAzG
+         RoJ/28s5lLiFcyAeL+8/Frijki7Z9vFo8t8W8/DgfuTDyxmaO3ovBf/KWVPJVdVVI6jb
+         QltjJ/oglyYyZUSZ2hNjx8MPX2InQpK9E6VqFWEYv4szelXWieea89x83FV2TeKK887w
+         T8dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790650435; x=1791255235;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6RHmMrKykFd6mDTFMi4kCzmFGX5hlJMQ/bgB5m4Guxc=;
+        b=zILSngIg46AF5dixHiBJTbJvS5rXs5ZknSZiN4U9pIiQdwPdATlw1BC1E0oRP9Anp3
+         TkBBMOdGyH/X7hNcibkhwbTY6D5AU9yQyIuoh9H5xxswJACgjmWj2V7owR5q+RK1u0JP
+         oOhGzyDHBUC9e2yk3yTQZmeu5clUDItcVA1OQNT7qtkGLT2O+zPof1IUOFu3shgMYnlm
+         wtjrVlB+s/alhn7NqcZ95M+snyxq9xR+nOECR6/QlONvb1xc5Pf6CKYVYPt2NSjn0f9p
+         pdj/eFlVg4+q9AbXuTnFxtdhqmve9YMU/uOcX7mR+qf3VF5WmzTX1//h+8BGF7c0sPHj
+         PFjw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7i4oP/UD+h2v+hgPzQZB54+BMapNH7WsvfJXP3SP906qwi+3pc0DybvGl5TUxvYd/SQ89gR3ZPlz/WE4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpqRkaV4IDJz3sPxKdjK3pN4Ujz1SedVt30iPVYI8d1f/Xk4vb
+	wO/5ZHFrgVfc2cAb/YJNY8JHCvUn/qMDzhoKEYIkweYAOOFJpcafBhhDuBYO9W70AkMjnqzFO3A
+	eLEdcUPlmFw==
+X-Received: from dybhi48.prod.google.com ([2002:a05:7301:29b0:b0:33c:382b:2d9c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:7188:b0:34b:55a2:2664
+ with SMTP id 5a478bee46e88-34b55a233c5mr468865eec.37.1790650434400; Mon, 28
+ Sep 2026 19:53:54 -0700 (PDT)
+Date: Mon, 28 Sep 2026 19:53:45 -0700
+In-Reply-To: <20260929025345.88829-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179056446689.3145.6845627797649400561@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfX37O29vOlFAu6
- Frj42ZNHRR4RT8Ae5aoUtGZ+NN4soBSoynmqBTHe9X0dpgoacpMhvqPFP+RYGtCIpAVEJcsHCoz
- WAdcQYXMnUPz7kas632J1+SfaNVQ0/vNWZL8ZyGb9Gjp1/eIQofBWcJaVSd5Etq4V4vNBrZt2GD
- NDZFlLuxS2cjcpc86BNdkAObInyuZisHHsdlzTEgP12Npd7bUyQ1QmHtZRqINjAxE1i7vNa/bDT
- lLEJnKKdrR0lBmJxwUlObNzGUSTXEgeqhsvg4pk9BvDH8krrerjuSb9t6LpTmzX/DGlP/IgTIPh
- KzxI6Mk43rmLa1a3GkgueBuaiZKKl9toEEyoaHfMgbZK+RVFho1j0/wjor5nXt6QT0k2shUMk6a
- RtCZGsjvvO2KFPngnl3rJ/RTC02U9uLdJGeIJckrN8zd/dka2M4mJsQGWuvcnKjkIvtAbdjYe22
- 8kEPby+9yshMlgNSHWA==
-X-Proofpoint-GUID: KexnXrV0hHYW-89yOYmOngSIbwUwpCOY
-X-Authority-Analysis: v=2.4 cv=OcQNnRTY c=1 sm=1 tr=0 ts=6abb280e cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=qit2iCtTFQkLgVSMPQTB:22 a=VwQbUJbxAAAA:8
- a=6Z1x9eJ7lIRtT8jGVt8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=lhd_8Stf4_Oa5sg58ivl:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAxMSBTYWx0ZWRfX68enthSWWy1j
- g0hXw6XSPHf3+FZc1EwK67QKaY/HogHy1G8+gvU2WR6g1G+1RxKSRpQpBvzxA0kjcfcD6XmgIdk
- dvQ9bULtBBskEpwx7E5DtaM2NewYY0M=
-X-Proofpoint-ORIG-GUID: KexnXrV0hHYW-89yOYmOngSIbwUwpCOY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_01,2026-09-21_02,2025-10-01_01
+Mime-Version: 1.0
+References: <20260929011837.4157334-1-irogers@google.com> <20260929025345.88829-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260929025345.88829-2-irogers@google.com>
+Subject: [PATCH v3 2/2] perf test: Improve JUnit XML schema compliance and completeness
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
+	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-09-28 at 08:31:06, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
-> Thank you for your contribution! Sashiko AI review found 8 potential
-> issue(s) to consider.
->
-> Critical: 0 (1) · High: 1 (4) · Medium: 5 (1) · Low: 2
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
->
-> - [High] rvu_mbox_handler_nix_lf_alloc() now declares the locals `struct
->   qmem *rq_ctx, *sq_ctx, *cq_ctx;` without initializing them, and…
-> - [Medium] The patch rewrites nix_get_tx_link() (rvu_nix.c) and changes
->   what it returns for existing users, not only for the new…
-> - [Medium] IFACE_GET_INFO treats `pfvf->tx_chan_cnt != 0` as meaning the
->   interface has a live NIX LF, but the patch clears the channel fields…
-> - [Medium] In nix_interface_init(), `lbkid = 0; if (rvu->hw->lbk_links >
->   1) lbkid = ...; if (loop) lbkid = !lbkid;` sets lbkid=1 even when…
-> - [Medium] The new rvu_mbox_handler_npc_mcam_mul_stats() decodes the
->   counter selector as `cntr = regval & 0x1FF` before reading…
-> - [Medium] rvu_mbox_handler_nix_lf_free() now calls
->   nix_interface_clear_chan(), which sets rx_chan_base to 0.
-> - [Low] For the representor, nix_get_tx_link() now returns hw->cgx_links,
->   and IFACE_GET_INFO reports that value.
-> - [Low] nix_interface_init() writes pfvf->lbkid without holding
->   rsrc_lock, before nix_interface_set_chan().
+Improve the JUnit XML output generated by 'perf test -j' so that it
+validates cleanly against both the strict Apache Ant/Windy Road JUnit
+schema (JUnit.xsd) and the Jenkins xUnit/Maven Surefire schema
+(junit-10.xsd):
+- Add the required 'package', 'id', 'timestamp' (ISO 8601 UTC),
+  'hostname', and 'time' attributes to '<testsuite>'.
+- Emit '<properties>' (populated with uname sysname, release, version,
+  and machine when available) at the start of '<testsuite>' and
+  '<system-out/>' and '<system-err/>' at the end, matching the element
+  sequence required by JUnit.xsd.
+- Add the required 'type="failure"' attribute to '<failure>' elements
+  and emit self-closing tags for passing '<testcase>' elements and
+  '<failure>'/'<error>' elements with empty error output.
+- Escape apostrophes ('&apos;') and validate UTF-8 multi-byte sequences
+  against valid XML 1.0 codepoints in xml_escape().
+- Use the actual suite description and '%.2f' time format for user
+  override skipped tests ('-s'/'--skip').
+- Document '-j[<file>]'/'--junit[=<file>]' in perf-test.txt.
 
-ACK.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+v3: No changes.
 
-pw-bot: changes-requested
+v2: No changes.
+---
+ tools/perf/Documentation/perf-test.txt |   5 +
+ tools/perf/tests/builtin-test.c        | 309 +++++++++++++++++--------
+ 2 files changed, 212 insertions(+), 102 deletions(-)
+
+diff --git a/tools/perf/Documentation/perf-test.txt b/tools/perf/Documentation/perf-test.txt
+index 16d940e8d221..9b1f153ce881 100644
+--- a/tools/perf/Documentation/perf-test.txt
++++ b/tools/perf/Documentation/perf-test.txt
+@@ -55,6 +55,11 @@ OPTIONS
+ 	Do not fork child for each test, run all tests within single process, this
+ 	sets sequential mode and disables the per-test timeout.
+ 
++-j[<file>]::
++--junit[=<file>]::
++	Generate JUnit XML test report to the specified file, or 'test.xml' if
++	no file is specified.
++
+ --dso::
+ 	Specify a DSO for the "Symbols" test.
+ 
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index f6cbca0bc71d..7b831995fafc 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -28,6 +28,7 @@
+ #include <sys/stat.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
++#include <sys/utsname.h>
+ #include <sys/wait.h>
+ #include <unistd.h>
+ 
+@@ -466,23 +467,59 @@ static int __printf(2, 3) strbuf_addf_safe(struct strbuf *sb, const char *fmt, .
+ static char *xml_escape(const char *str)
+ {
+ 	struct strbuf buf = STRBUF_INIT;
+-	const char *p;
++	const unsigned char *p;
+ 	char *res;
+ 
+ 	if (!str)
+ 		return strdup("");
+ 
+-	for (p = str; *p; p++) {
+-		if (*p == '&')
+-			strbuf_addstr(&buf, "&amp;");
+-		else if (*p == '<')
+-			strbuf_addstr(&buf, "&lt;");
+-		else if (*p == '>')
+-			strbuf_addstr(&buf, "&gt;");
+-		else if (*p == '"')
+-			strbuf_addstr(&buf, "&quot;");
+-		else if ((unsigned char)*p >= 32 || *p == '\n' || *p == '\t')
+-			strbuf_addch(&buf, *p);
++	for (p = (const unsigned char *)str; *p; p++) {
++		unsigned char c = *p;
++		int err = 0;
++
++		if (c == '&') {
++			err = strbuf_addstr(&buf, "&amp;");
++		} else if (c == '<') {
++			err = strbuf_addstr(&buf, "&lt;");
++		} else if (c == '>') {
++			err = strbuf_addstr(&buf, "&gt;");
++		} else if (c == '"') {
++			err = strbuf_addstr(&buf, "&quot;");
++		} else if (c == '\'') {
++			err = strbuf_addstr(&buf, "&apos;");
++		} else if ((c >= 0x20 && c <= 0x7e) || c == '\n' || c == '\t') {
++			err = strbuf_addch(&buf, c);
++		} else if (c >= 0xc2 && c <= 0xdf && (p[1] & 0xc0) == 0x80) {
++			err = strbuf_add(&buf, p, 2);
++			p += 1;
++		} else if (c >= 0xe0 && c <= 0xef &&
++			   (p[1] & 0xc0) == 0x80 && (p[2] & 0xc0) == 0x80) {
++			unsigned int cp = ((c & 0x0f) << 12) |
++					  ((p[1] & 0x3f) << 6) |
++					  (p[2] & 0x3f);
++
++			if (cp >= 0x800 &&
++			    (cp < 0xd800 || (cp >= 0xe000 && cp <= 0xfffd))) {
++				err = strbuf_add(&buf, p, 3);
++				p += 2;
++			}
++		} else if (c >= 0xf0 && c <= 0xf4 &&
++			   (p[1] & 0xc0) == 0x80 && (p[2] & 0xc0) == 0x80 &&
++			   (p[3] & 0xc0) == 0x80) {
++			unsigned int cp = ((c & 0x07) << 18) |
++					  ((p[1] & 0x3f) << 12) |
++					  ((p[2] & 0x3f) << 6) |
++					  (p[3] & 0x3f);
++
++			if (cp >= 0x10000 && cp <= 0x10ffff) {
++				err = strbuf_add(&buf, p, 4);
++				p += 3;
++			}
++		}
++		if (err < 0) {
++			strbuf_release(&buf);
++			return NULL;
++		}
+ 	}
+ 	res = strbuf_detach(&buf, NULL);
+ 	return res ? res : strdup("");
+@@ -531,6 +568,68 @@ static int get_max_desc_width(int width)
+ 	return width > term_width ? term_width : width;
+ }
+ 
++static void append_junit_testcase(const char *classname, const char *testname,
++				  int result, const char *skip_msg,
++				  const char *err_output, double elapsed)
++{
++	char *escaped_err = xml_escape(err_output);
++	char *escaped_class = xml_escape(classname);
++	char *escaped_test = xml_escape(testname);
++
++	if (!escaped_err || !escaped_class || !escaped_test)
++		goto out;
++
++	if (result == TEST_OK) {
++		strbuf_addf(&junit_xml_buf,
++			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\"/>\n",
++			    escaped_class, escaped_test, elapsed);
++		goto out;
++	}
++
++	strbuf_addf(&junit_xml_buf,
++		    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
++		    escaped_class, escaped_test, elapsed);
++	if (result == TEST_TIMEOUT) {
++		if (err_output && *err_output) {
++			strbuf_addf(&junit_xml_buf,
++				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
++				    escaped_err);
++		} else {
++			strbuf_addstr(&junit_xml_buf,
++				      "      <error message=\"TIMEOUT\" type=\"timeout\"/>\n");
++		}
++	} else if (result != TEST_SKIP) {
++		if (err_output && *err_output) {
++			strbuf_addf(&junit_xml_buf,
++				    "      <failure message=\"FAILED\" type=\"failure\">\n%s\n      </failure>\n",
++				    escaped_err);
++		} else {
++			strbuf_addstr(&junit_xml_buf,
++				      "      <failure message=\"FAILED\" type=\"failure\"/>\n");
++		}
++	} else {
++		char *escaped_reason = xml_escape(skip_msg ? skip_msg : "Skip");
++
++		if (escaped_reason) {
++			if (err_output && *err_output) {
++				strbuf_addf(&junit_xml_buf,
++					    "      <skipped message=\"%s\">\n%s\n      </skipped>\n",
++					    escaped_reason, escaped_err);
++			} else {
++				strbuf_addf(&junit_xml_buf,
++					    "      <skipped message=\"%s\"/>\n",
++					    escaped_reason);
++			}
++			free(escaped_reason);
++		}
++	}
++	strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
++out:
++	free(escaped_err);
++	free(escaped_class);
++	free(escaped_test);
++}
++
+ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test_case,
+ 			     int result, int width, int running,
+ 			     const char *err_output, double elapsed)
+@@ -601,41 +700,9 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 	}
+ 
+ 	if (junit_filename && result != TEST_RUNNING) {
+-		const char *classname = t->desc;
+-		const char *testname = test_description(t, curr_test_case);
+-		char *escaped_err = xml_escape(err_output);
+-		char *escaped_class = xml_escape(classname);
+-		char *escaped_test = xml_escape(testname);
+-
+-		strbuf_addf(&junit_xml_buf,
+-			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
+-			    escaped_class, escaped_test, elapsed);
+-		if (result == TEST_TIMEOUT) {
+-			strbuf_addf(&junit_xml_buf,
+-				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
+-				    escaped_err);
+-		} else if (result != TEST_OK && result != TEST_SKIP) {
+-			strbuf_addf(&junit_xml_buf,
+-				    "      <failure message=\"FAILED\">\n%s\n      </failure>\n",
+-				    escaped_err);
+-		} else if (result == TEST_SKIP) {
+-			const char *reason = skip_reason(t, curr_test_case);
+-			char *escaped_reason = xml_escape(reason ? reason : "Skip");
+-
+-			if (err_output && *err_output) {
+-				strbuf_addf(&junit_xml_buf,
+-					    "      <skipped message=\"%s\">\n%s\n      </skipped>\n",
+-					    escaped_reason, escaped_err);
+-			} else {
+-				strbuf_addf(&junit_xml_buf, "      <skipped message=\"%s\"/>\n",
+-					    escaped_reason);
+-			}
+-			free(escaped_reason);
+-		}
+-		strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
+-		free(escaped_err);
+-		free(escaped_class);
+-		free(escaped_test);
++		append_junit_testcase(t->desc, test_description(t, curr_test_case),
++				      result, skip_reason(t, curr_test_case),
++				      err_output, elapsed);
+ 	}
+ 
+ 	return 0;
+@@ -1439,7 +1506,86 @@ static void cmd_test_sig_handler(int sig)
+ 	siglongjmp(cmd_test_jmp_buf, sig);
+ }
+ 
+-static void print_tests_summary(void)
++static void write_junit_xml(const struct timespec *start_time, time_t start_realtime)
++{
++	unsigned int total = summary_tests_passed + summary_subtests_passed +
++			     summary_tests_skipped + summary_tests_timed_out +
++			     summary_tests_failed;
++	struct timespec end_time;
++	double elapsed;
++	struct tm tm;
++	char timestamp[32];
++	struct utsname uts;
++	bool have_uts;
++	char *escaped_host;
++	FILE *fp;
++	int fd;
++
++	fd = open(junit_filename, O_CREAT | O_TRUNC | O_WRONLY | O_NOFOLLOW, 0644);
++	if (fd < 0) {
++		pr_err("Failed to open %s for writing junit XML output: %s\n",
++		       junit_filename, strerror(errno));
++		return;
++	}
++
++	fp = fdopen(fd, "w");
++	if (!fp) {
++		close(fd);
++		pr_err("Failed to associate stream with fd for %s: %s\n",
++		       junit_filename, strerror(errno));
++		return;
++	}
++
++	have_uts = uname(&uts) == 0;
++	escaped_host = xml_escape(have_uts && uts.nodename[0] ? uts.nodename : "localhost");
++
++	clock_gettime(CLOCK_MONOTONIC, &end_time);
++	elapsed = (end_time.tv_sec - start_time->tv_sec) +
++		  (end_time.tv_nsec - start_time->tv_nsec) / 1000000000.0;
++	if (!gmtime_r(&start_realtime, &tm) ||
++	    !strftime(timestamp, sizeof(timestamp), "%Y-%m-%dT%H:%M:%S", &tm))
++		snprintf(timestamp, sizeof(timestamp), "1970-01-01T00:00:00");
++
++	fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
++	fprintf(fp, "<testsuites>\n");
++	fprintf(fp,
++		"  <testsuite name=\"perf-tests\" package=\"perf-tests\" id=\"0\" timestamp=\"%s\" hostname=\"%s\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\" time=\"%.2f\">\n",
++		timestamp, escaped_host ?: "localhost", total, summary_tests_failed,
++		summary_tests_timed_out, summary_tests_skipped, elapsed);
++	free(escaped_host);
++	if (have_uts) {
++		char *sysname = xml_escape(uts.sysname);
++		char *release = xml_escape(uts.release);
++		char *version = xml_escape(uts.version);
++		char *machine = xml_escape(uts.machine);
++
++		fprintf(fp, "    <properties>\n");
++		if (sysname)
++			fprintf(fp, "      <property name=\"sysname\" value=\"%s\"/>\n", sysname);
++		if (release)
++			fprintf(fp, "      <property name=\"release\" value=\"%s\"/>\n", release);
++		if (version)
++			fprintf(fp, "      <property name=\"version\" value=\"%s\"/>\n", version);
++		if (machine)
++			fprintf(fp, "      <property name=\"machine\" value=\"%s\"/>\n", machine);
++		fprintf(fp, "    </properties>\n");
++		free(sysname);
++		free(release);
++		free(version);
++		free(machine);
++	} else {
++		fprintf(fp, "    <properties/>\n");
++	}
++	fprintf(fp, "%s", junit_xml_buf.buf);
++	fprintf(fp, "    <system-out/>\n");
++	fprintf(fp, "    <system-err/>\n");
++	fprintf(fp, "  </testsuite>\n");
++	fprintf(fp, "</testsuites>\n");
++	fclose(fp);
++	pr_info("Wrote junit XML output to %s\n", junit_filename);
++}
++
++static void print_tests_summary(const struct timespec *start_time, time_t start_realtime)
+ {
+ 	pr_info("\n=== Test Summary ===\n");
+ 	pr_info("Passed main tests : %u\n", summary_tests_passed);
+@@ -1462,42 +1608,9 @@ static void print_tests_summary(void)
+ 		color_fprintf(debug_file(), PERF_COLOR_GREEN, "Failed tests      : 0\n");
+ 	}
+ 
+-	if (junit_filename) {
+-		int fd;
+-		FILE *fp;
+-
+-		fd = open(junit_filename, O_CREAT | O_TRUNC | O_WRONLY | O_NOFOLLOW, 0644);
+-		if (fd >= 0) {
+-			fp = fdopen(fd, "w");
+-			if (fp) {
+-				unsigned int total = summary_tests_passed +
+-						     summary_subtests_passed +
+-						     summary_tests_skipped +
+-						     summary_tests_timed_out +
+-						     summary_tests_failed;
+-				fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+-				fprintf(fp, "<testsuites>\n");
+-				fprintf(fp,
+-					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\">\n",
+-					total,
+-					summary_tests_failed,
+-					summary_tests_timed_out,
+-					summary_tests_skipped);
+-				fprintf(fp, "%s", junit_xml_buf.buf);
+-				fprintf(fp, "  </testsuite>\n");
+-				fprintf(fp, "</testsuites>\n");
+-				fclose(fp);
+-				pr_info("Wrote junit XML output to %s\n", junit_filename);
+-			} else {
+-				close(fd);
+-				pr_err("Failed to associate stream with fd for %s: %s\n",
+-				       junit_filename, strerror(errno));
+-			}
+-		} else {
+-			pr_err("Failed to open %s for writing junit XML output: %s\n",
+-			       junit_filename, strerror(errno));
+-		}
+-	}
++	if (junit_filename)
++		write_junit_xml(start_time, start_realtime);
++
+ 	strbuf_release(&junit_xml_buf);
+ 	strbuf_release(&summary_timed_out_tests_buf);
+ 	strbuf_release(&summary_failed_tests_buf);
+@@ -1507,8 +1620,13 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 		      struct intlist *skiplist)
+ {
+ 	static int width = 0;
++	struct timespec suite_start_time;
++	time_t suite_start_realtime;
+ 	int err = 0;
+ 
++	clock_gettime(CLOCK_MONOTONIC, &suite_start_time);
++	suite_start_realtime = time(NULL);
++
+ 	for (struct test_suite **t = suites; *t; t++) {
+ 		int i, len = strlen(test_description(*t, -1));
+ 
+@@ -1612,23 +1730,10 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 						      " Skip (user override)\n");
+ 					summary_tests_skipped++;
+ 					if (junit_filename) {
+-						char *escaped_class =
+-							xml_escape((const char *)
+-								   test_description(*t, -1));
+-						char *escaped_test = xml_escape("override");
+-						char *escaped_reason =
+-							xml_escape("user override");
+-
+-						strbuf_addf(&junit_xml_buf,
+-							"    <testcase classname=\"%s\" name=\"%s\" time=\"0.000\">\n",
+-							escaped_class, escaped_test);
+-						strbuf_addf(&junit_xml_buf,
+-							"      <skipped message=\"%s\"/>\n",
+-							escaped_reason);
+-						strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
+-						free(escaped_reason);
+-						free(escaped_test);
+-						free(escaped_class);
++						const char *desc = test_description(*t, -1);
++
++						append_junit_testcase(desc, desc, TEST_SKIP,
++								      "user override", NULL, 0.0);
+ 					}
+ 				}
+ 				continue;
+@@ -1669,7 +1774,7 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 		setitimer(ITIMER_REAL, &timer, NULL);
+ 		signal(SIGALRM, SIG_DFL);
+ 	}
+-	print_tests_summary();
++	print_tests_summary(&suite_start_time, suite_start_realtime);
+ 	free(global_pfds);
+ 	free(global_pfd_indices);
+ 	global_pfds = NULL;
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
