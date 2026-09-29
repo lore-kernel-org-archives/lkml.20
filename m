@@ -1,185 +1,120 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp87.cstnet.cn [159.226.251.87])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DA18C1F;
-	Tue, 29 Sep 2026 06:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE33F3287;
+	Tue, 29 Sep 2026 06:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790662820; cv=none; b=ncTs5zFjROCmQmP2tByNzn3y3H5yMVLCDbnyPn5cgOx/X8olAHwbzcAcgHZDdYL9svr9Q3SGJwWGjtfhatUTChUNAfWCPXTea4rS1lRwjlw4sWkHigzm44QJFJ3pUD9HjITRxu21uaMm3zSPdKFJnoWVLk2qS3Mn/9KKEx07t7E=
+	t=1790662827; cv=none; b=kKAjxR4ZXYKiLLN/erDRfvnpFSYooedJXsSsiQ4wyHaQ7EoL/a9puyRUhmmIZ22VCRo7IYx6pgzpdT82PLVMirsfC1uMasLunReXfwrgRQ/3XjIfzVcLUx0qow3LfHhx3doDpOmuEAV106rxzF4sSHbdIMAmf7WJUXHdFQ5RfP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790662820; c=relaxed/simple;
-	bh=DiDjwLgUJ2Ga1RJ/uPunNLpMVJhlYSR0X/a/1aZUwzE=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=eb6ywL+mobBHALFDVDYgXZ0a0oDWp69yKsgQ/Ka7+GO7P+t1q25AJuFYtLQzCoBBRLzSx5lj52oxQKriqptgBnZjcvaOqAqJ2xj1qYCn8xDHahlpVuvJClzbTLG+LRU35DO1TfNXrPBDOSdZEPJeFqz30nK0Kh4yQPeyDhSZ8Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=KGs3PoTh; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="KGs3PoTh"
-Received: from smtpclient.apple (unknown [IPV6:240e:305:1b9d:c000:ac22:2543:5288:8f9b])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f7471ea5;
-	Tue, 29 Sep 2026 14:20:10 +0800 (GMT+08:00)
-From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1790662827; c=relaxed/simple;
+	bh=sPS10sa+ZcmkXBaq8HSQjC9VXsdOah9uJU4Rj32DyDc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=X3AlGwOhPKwoaZFY88cxMcPTfikAhqA97U8Xty4gFGYoqAPh0K9hzSWMkilgd0Wp9Ozx04yqN2ZfpPJ8kTotaOUac6EH8Je6Nm8g2O9SbjmXR+5UYQ1OEITj8/9tEsbFLwjkx1Cado2DKLcvpbvXdLws1/5X93jwmnFcn2S98J4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
+Received: from huanggaobin23$semi.ac.cn ( [159.226.228.11] ) by
+ ajax-webmail-APP-17 (Coremail) ; Tue, 29 Sep 2026 14:14:31 +0800
+ (GMT+08:00)
+Date: Tue, 29 Sep 2026 14:14:31 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6buE6auY5b2s?= <huanggaobin23@semi.ac.cn>
+To: "Alison Schofield" <alison.schofield@intel.com>
+Cc: linux-cxl@vger.kernel.org, "Davidlohr Bueso" <dave@stgolabs.net>, 
+	"Jonathan Cameron" <jic23@kernel.org>, 
+	"Dave Jiang" <dave.jiang@intel.com>, 
+	"Vishal Verma" <vishal.l.verma@intel.com>, 
+	"Dan Williams" <djbw@kernel.org>, "Li Ming" <ming.li@zohomail.com>, 
+	"Richard Cheng" <icheng@nvidia.com>, linux-kernel@vger.kernel.org, 
+	"Anisa Su" <anisa.su887@gmail.com>
+Subject: Re: Re: [PATCH v2] cxl/mbox: bound the Get Supported Logs entry
+ count by the payload
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
+ 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
+In-Reply-To: <aqx6rM90rFZEsTuB@aschofie-mobl2.lan>
+References: <20260917104603.2658529-1-huanggaobin23@semi.ac.cn>
+ <aqx6rM90rFZEsTuB@aschofie-mobl2.lan>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: [PATCH] smb: client: fix WARN_ON_ONCE() on malformed NFS reparse
- points
-Message-Id: <5B8D9C32-9B93-49DB-B817-B6921BC0737F@stu.pku.edu.cn>
-Date: Tue, 29 Sep 2026 14:19:59 +0800
-Cc: Ralph Boehme <slow@samba.org>,
- Steve French <stfrench@microsoft.com>,
- linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-To: Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-HM-Tid: 0aa0ebd21ad803a1kunmde6cf84d229a07
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGE9OVkxNHklOSB8fQ05IQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUhLTkFKGUIfQRhLS0tBGhhJSUFJTk9IQU5JQ0NBQx
-	1CGVlXWRYaDxIVHRRZQVlPS0hVSktISk5MTlVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=KGs3PoTh+CHd3oEK/for3YnbviNUM7TPswaFQYM4Of18QA/NwPkakAX/Xsel90JA5XvhswD/Y1HycOgsLMg2BGM0DL6nIHos5vpO5INtTTT5sIAC9GaKAb34to1aOnG9ltDZih7TvKRqKZ/GTMnRG0e+FtUqdpLaT1uLjiiSdN8=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=ybllncL2MRfyw/3gcGbfE8GCLH4Ev9bS9SqdG450J68=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0
+Message-ID: <3420eadb.2a145.1a0ebccf099.Coremail.huanggaobin23@semi.ac.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:qgCowACnUhFHV7tqSKISAA--.50663W
+X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiBwMFDGq7TSQcvgACsV
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-posix_reparse_to_fattr() re-checks fields taken straight from an
-on-the-wire reparse_nfs_data_buffer and hits WARN_ON_ONCE() when
-ReparseDataLength is too short or does not match the inode type, or
-when the NFS inode type is unknown.
-
-A malicious or buggy server can trigger any of the four warnings
-with a plain stat() on a single name: parse_reparse_nfs() reports
-the problem and rejects the buffer (-EIO or -EOPNOTSUPP), but
-reparse_info_to_fattr() still builds the inode attributes from the
-rejected buffer via cifs_open_info_to_fattr(), and
-posix_reparse_to_fattr() warns on the very same server-controlled
-data.  With panic_on_warn this takes the whole system down.
-
-parse_reparse_nfs() already logs each of these conditions, so fail
-quietly instead of warning, without changing the existing error and
-fallback behaviour.
-
-Triggered on v6.13+ with panic_on_warn=3D1 by stat()ing a name for
-which the server returns a CREATE response carrying
-SMB2_CREATE_FLAG_REPARSE_POINT and FILE_ATTRIBUTE_REPARSE_POINT and
-answers the following FSCTL_GET_REPARSE_POINT with an NFS reparse
-buffer holding an unknown inode type (e.g. 0xdeadbeef):
-
-  CIFS: VFS: parse_reparse_nfs: unhandled inode type: 0xdeadbeef
-  ------------[ cut here ]------------
-  WARNING: fs/smb/client/reparse.c:1267 at
-  cifs_reparse_point_to_fattr+0xd4e/0x1080
-  CPU: 0 UID: 0 PID: 896 Comm: stat Tainted: G  N  =
-7.3.0-rc4-00537-ga3ff15db6820
-  ...
-  Call Trace:
-   cifs_open_info_to_fattr+0xa87/0x1520
-   reparse_info_to_fattr+0x5d1/0xdc0
-   cifs_get_fattr+0xa1d/0x1910
-   cifs_get_inode_info+0xc0/0x310
-   cifs_lookup+0x3a8/0xbd0
-   ...
-   vfs_fstatat+0x77/0xe0
-   __do_sys_newfstatat+0x97/0x120
-
-Cc: stable@vger.kernel.org
-Fixes: 6a832bc8bbb223 ("fs/smb/client: Implement new SMB3 POSIX type")
-Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
----
-
-Hi Paulo, Namjae,
-
-found this while testing a CIFS client against a server under my
-control, so I'm sending the fix directly.  Some notes that did
-not belong in the commit message:
-
-Still present in mainline v7.3-rc5 as of 2026-09-29; the code
-shape first shipped in v6.13.  A numbered recipe for the trigger
-described in the commit message, on a v6.13+ client with
-panic_on_warn=3D1:
-
-  1. mount a CIFS share from a server you control;
-  2. answer the client's SMB2 CREATE for some name with
-     STATUS_SUCCESS, SMB2_CREATE_FLAG_REPARSEPOINT and
-     FILE_ATTRIBUTE_REPARSE_POINT;
-  3. answer the following FSCTL_GET_REPARSE_POINT with an NFS
-     (IO_REPARSE_TAG_NFS) reparse buffer whose InodeType is none
-     of the NFS_SPECFILE_* values, e.g. 0xdeadbeef;
-  4. stat() that name.
-
-Shrinking ReparseDataLength below sizeof(InodeType), or setting
-InodeType to NFS_SPECFILE_CHR/BLK with a wrong trailing length,
-reaches the other three warnings the same way.
-
-I verified the warning fires with the recipe above on
-7.3.0-rc4-00537-ga3ff15db6820 and never fires with the patch
-applied, while the parse-time messages still appear.
-
- fs/smb/client/reparse.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 3a27773186ae4..e6ed00bc114c5 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1232,25 +1232,26 @@ static bool posix_reparse_to_fattr(struct =
-cifs_sb_info *cifs_sb,
- 	if (buf =3D=3D NULL)
- 		return true;
-=20
-+	/*
-+	 * parse_reparse_nfs() has already validated this buffer and
-+	 * reported anything wrong with it, but reparse_info_to_fattr()
-+	 * still builds attributes from the rejected buffer, so fail
-+	 * quietly on server-controlled data instead of warning.
-+	 */
- 	if (le16_to_cpu(buf->ReparseDataLength) < =
-sizeof(buf->InodeType)) {
--		WARN_ON_ONCE(1);
- 		return false;
- 	}
-=20
- 	switch (le64_to_cpu(buf->InodeType)) {
- 	case NFS_SPECFILE_CHR:
--		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
-sizeof(buf->InodeType) + 8) {
--			WARN_ON_ONCE(1);
-+		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
-sizeof(buf->InodeType) + 8)
- 			return false;
--		}
- 		ftype =3D S_IFCHR;
- 		fattr->cf_rdev =3D reparse_mkdev(buf->DataBuffer);
- 		break;
- 	case NFS_SPECFILE_BLK:
--		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
-sizeof(buf->InodeType) + 8) {
--			WARN_ON_ONCE(1);
-+		if (le16_to_cpu(buf->ReparseDataLength) !=3D =
-sizeof(buf->InodeType) + 8)
- 			return false;
--		}
- 		ftype =3D S_IFBLK;
- 		fattr->cf_rdev =3D reparse_mkdev(buf->DataBuffer);
- 		break;
-@@ -1264,7 +1265,6 @@ static bool posix_reparse_to_fattr(struct =
-cifs_sb_info *cifs_sb,
- 		ftype =3D S_IFLNK;
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
- 		return false;
- 	}
- 	fattr->cf_mode =3D (fattr->cf_mode & ~S_IFMT) | ftype;
---=20
-2.43.0=
+SGkgQWxpc29uLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LCBhbmQgc29ycnkgZm9yIHRoZSBzbG93
+IHR1cm4tYXJvdW5kLgoKPiBBcmUgd2UgaW50ZW50aW9uYWxseSBib3VuZGluZyB0aGUgZW51bWVy
+YXRpb24gYW5kIGNvbnRpbnVpbmcgd2l0aCBhIHBhcnRpYWwKPiByZXNwb25zZSwgb3Igc2hvdWxk
+IHdlIGJlIHZhbGlkYXRpbmcgdGhlIGRldmljZSBzdXBwbGllZCBjb3VudCBhbmQgcmVqZWN0aW5n
+Cj4gYW4gaW5jb25zaXN0ZW50IHJlc3BvbnNlLCBhcyBnZXRfc3VwcG9ydGVkX2ZlYXR1cmVzIGRv
+ZXM/CgpWYWxpZGF0aW5nIGFuZCByZWplY3RpbmcsIGFuZCBSaWNoYXJkJ3MgcmV2aWV3IG9uIHRo
+aXMgdGhyZWFkIG1vdmVkIHRoZSBjaGVjawp0byB3aGVyZSBpdCBiZWxvbmdzLiAgVGhlcmUgaXMg
+bm8gcmVhc29uIHRvIHNhbHZhZ2UgdGhlIGVudHJpZXMgdGhhdCBmaXQ6CkNYTCByNC4wIFRhYmxl
+IDgtMjQ5IGRlZmluZXMgdGhlIGNvdW50IGFzIHRoZSBudW1iZXIgb2YgZW50cmllcyByZXR1cm5l
+ZCBpbgp0aGlzIHBheWxvYWQsIG5vdCBhIHJ1bm5pbmcgdG90YWwsIHNvIGEgY291bnQgdGhlIHBh
+eWxvYWQgY2Fubm90IGhvbGQgaXMgYQptYWxmb3JtZWQgcmVzcG9uc2UgcmF0aGVyIHRoYW4gYSBw
+YXJ0aWFsIGxpc3QuICB2MyB0aGVyZWZvcmUgdmFsaWRhdGVzIGluc2lkZQpjeGxfZ2V0X2dzbCgp
+LCB3aGljaCBpc3N1ZXMgdGhlIGNvbW1hbmQsIG93bnMgdGhlIGJ1ZmZlciBhbmQgY2FuIHJldHVy
+biB0aGUKZXJyb3IgaXRzZWxmOgoKCW1ib3hfY21kID0gKHN0cnVjdCBjeGxfbWJveF9jbWQpIHsK
+CQkub3Bjb2RlID0gQ1hMX01CT1hfT1BfR0VUX1NVUFBPUlRFRF9MT0dTLAoJCS5zaXplX291dCA9
+IGN4bF9tYm94LT5wYXlsb2FkX3NpemUsCgkJLnBheWxvYWRfb3V0ID0gcmV0LAoJCS8qIEF0IGxl
+YXN0IHRoZSBoZWFkZXIgbXVzdCBiZSB2YWxpZCAqLwoJCS5taW5fb3V0ID0gc3RydWN0X3NpemUo
+cmV0LCBlbnRyeSwgMCksCgl9OwoJcmMgPSBjeGxfaW50ZXJuYWxfc2VuZF9jbWQoY3hsX21ib3gs
+ICZtYm94X2NtZCk7CglpZiAocmMgPCAwKSB7CgkJa3ZmcmVlKHJldCk7CgkJcmV0dXJuIEVSUl9Q
+VFIocmMpOwoJfQoKCW1heF9lbnRyaWVzID0gKG1ib3hfY21kLnNpemVfb3V0IC0gc3RydWN0X3Np
+emUocmV0LCBlbnRyeSwgMCkpIC8KCQkgICAgICBzaXplb2YocmV0LT5lbnRyeVswXSk7CglpZiAo
+bGUxNl90b19jcHUocmV0LT5lbnRyaWVzKSA+IG1heF9lbnRyaWVzKSB7CgkJZGV2X2VycihtZHMt
+PmN4bGRzLmRldiwKCQkJIkdTTDogZGV2aWNlIGNsYWltZWQgJXUgZW50cmllcyBidXQgdGhlIHBh
+eWxvYWQgaG9sZHMgJXp1XG4iLAoJCQlsZTE2X3RvX2NwdShyZXQtPmVudHJpZXMpLCBtYXhfZW50
+cmllcyk7CgkJa3ZmcmVlKHJldCk7CgkJcmV0dXJuIEVSUl9QVFIoLUVJTyk7Cgl9CgpjeGxfZW51
+bWVyYXRlX2NtZHMoKSBpcyB1bmNoYW5nZWQgbm93LCBhbmQgbm8gY2FsbGVyIGNhbiBzZWUgYW4g
+ZW50cnkgd2l0aG91dAphIGNvdW50IGl0IGNhbiB0cnVzdC4gIFJhaXNpbmcgbWluX291dCB0byB0
+aGUgaGVhZGVyIGFsc28gbGV0cwpjeGxfaW50ZXJuYWxfc2VuZF9jbWQoKSByZWplY3QgYSByZXNw
+b25zZSB0b28gc2hvcnQgdG8gaG9sZCB0aGUgY291bnQsIHNvIHRoZQptYW51YWwgbGVuZ3RoIGNo
+ZWNrIC0tIGFuZCB0aGUgc3VidHJhY3Rpb24gaXQgaGFkIHRvIGd1YXJkIC0tIGFyZSBnb25lLgoK
+VGhhdCBhbHNvIG1ha2VzIHRoZSBsYXN0IHBhcmFncmFwaCBvZiB2MidzIGNvbW1pdCBtZXNzYWdl
+IHRydWUuICB2MiBjbGFpbWVkIHRvCmJlIHRoZSBjcm9zcy1jaGVjayBnZXRfc3VwcG9ydGVkX2Zl
+YXR1cmVzKCkgcGVyZm9ybXMsIGJ1dCBpdCBib3VuZGVkIHRoZSBsb29wCmFuZCBjYXJyaWVkIG9u
+LCB3aGljaCBpcyBub3Qgd2hhdCB0aGF0IGZ1bmN0aW9uIGRvZXMuICBUaGFuayB5b3UgZm9yIGNh
+dGNoaW5nCnRoZSBjb250cmFkaWN0aW9uLgoKT25lIGNvbnNlcXVlbmNlIHRvIGJlIGV4cGxpY2l0
+IGFib3V0OiBjeGxfZW51bWVyYXRlX2NtZHMoKSBpcyBjYWxsZWQgZnJvbQpjeGxfcGNpX3Byb2Jl
+KCksIHNvIGEgZGV2aWNlIHdob3NlIGNvdW50IGRvZXMgbm90IGZpdCB0aGUgcGF5bG9hZCBub3cg
+ZmFpbHMgdG8KcHJvYmUgaW5zdGVhZCBvZiBjb21pbmcgdXAgd2l0aCB0aGUgZW50cmllcyB0aGF0
+IGZpdC4gIFRoYXQgaXMgdGhlIGxvdWQgZmFpbHVyZQp5b3UgYm90aCBhc2tlZCBmb3IuCgo+IEkg
+ZG9uJ3QgdGhpbmsgdGhlIGNvbW1lbnQgaXMgbmVlZGVkLiBUaGUgY2hlY2sgYW5kIGVycm9yIG1l
+c3NhZ2UgbWFrZSB0aGUKPiByZXF1aXJlbWVudCBjbGVhci4gQXMgd3JpdHRlbiwgaXQgaXMgZ29v
+ZCBzZWxmLWRvY3VtZW50aW5nIGNvZGUgOikKClRoZSBjb21tZW50IGlzIGdvbmUuICBTbyBpcyB0
+aGUgb25lIG9uIHRoZSAqbGVuIGFzc2lnbm1lbnQgLS0gdGhhdCBhc3NpZ25tZW50CmlzIGdvbmUg
+dG9vLCBzaW5jZSBjeGxfZ2V0X2dzbCgpIG5vdyBkb2VzIHRoZSB2YWxpZGF0aW9uIGl0c2VsZi4K
+Cj4gTml0OiBDWEwgc3Vic3lzdGVtIGJlZ2lucyBzdWJqZWN0cyB3IHVwcGVyY2FzZQoKQ2FwaXRh
+bGl6ZWQ6ICJjeGwvbWJveDogQm91bmQgdGhlIEdldCBTdXBwb3J0ZWQgTG9ncyBlbnRyeSBjb3Vu
+dCBieSB0aGUKcGF5bG9hZCIuCgo+IEFsc28sIEkgZG9uJ3QgdGhpbmsgeW91IGNhbiBjbGFpbSBu
+byBleGlzdGluZyBoYXJkd2FyZSBpcyBhZmZlY3RlZC4KCkRyb3BwZWQgLS0gSSBjYW5ub3QgcnVs
+ZSB0aGF0IG91dCwgc28gdGhlIGNvbW1pdCBtZXNzYWdlIG9ubHkgc2F5cyB3aGF0IHRoZQpyZXNw
+b25zZSBtYXkgY29udGFpbiBhbmQgd2hhdCB0aGUgZHJpdmVyIGRvZXMgYWJvdXQgaXQuCgo+IE5v
+dGUgdGhhdCBvbmNlIHRoaXMgcGF0Y2ggaXMgYXBwbGllZCwgdGhlIHRleHQgYmVsb3cgdGhlIHNj
+aXNzb3JzIGxpbmVzCj4gZGlzYXBwZWFycyBhbmQgcmVmZXJlbmNpbmcgMS8yIGxvc2VzIG1lYW5p
+bmcuCgpUaGUgY2hhbmdlbG9nIG5vdyBkZXNjcmliZXMgdjIgLT4gdjMgb25seSwgYW5kIG5vdGhp
+bmcgZWxzZSByZWZlcnMgdG8gdGhlCmRyb3BwZWQgcGF0Y2guCgo+IAlUaGUgR2V0IFN1cHBvcnRl
+ZCBMb2dzIHJlc3BvbnNlIGluY2x1ZGVzIGEgZGV2aWNlIHN1cHBsaWVkIGVudHJ5IGNvdW50Lgo+
+IAkuLi4KPiAJUmVwcm9kdWNlZCB3aXRoIFFFTVUgbW9kaWZpZWQgdG8gcmV0dXJuIGFuIGluY29u
+c2lzdGVudCBlbnRyeSBjb3VudC4KPiAJS0FTQU4gcmVwb3J0ZWQgYW4gb3V0LW9mLWJvdW5kcyBy
+ZWFkIGluIGN4bF9lbnVtZXJhdGVfY21kcygpLgoKQWRvcHRlZC4gIFRoZSAxMDIvMTAzIHN3ZWVw
+IGFuZCB0aGUgYm91bmRhcnkgYXJpdGhtZXRpYyBhcmUgZ29uZTsgdGhlIHJlcHJvIGlzCm9uZSBz
+ZW50ZW5jZS4KCj4gU2Vjb25kZWQuIEVycm9yIG91dCBhcyBlYXJseSBhcyBpdCBpcyBjb252ZW5p
+ZW50IHRvIGRvIHZhbGlkYXRpb24uCj4gSGVyZSB0aGF0IGlzIGFzIEFsaXNvbiBzYXlzIGJlZm9y
+ZSB0aGUgbG9vcCBzdGFydHMuCgpEb25lLCBhcyBhYm92ZS4KCnNhc2hpa28gYWxzbyByZXBvcnRl
+ZCB0aGUgbGVhayBvbiB2MiwgYW5kIFJpY2hhcmQgcG9pbnRlZCBpdCBvdXQKaW5kZXBlbmRlbnRs
+eTsgdGhlIGVhcmx5IHJldHVybiBpdCBjb25jZXJuZWQgaXMgZ29uZSB3aXRoIHRoZSByZXN0cnVj
+dHVyZS4KCnYzOgpodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA5MjkwNjA2MTAuMzU0
+OTcxOC0xLWh1YW5nZ2FvYmluMjNAc2VtaS5hYy5jbi8KCkdhb2Jpbgo=
