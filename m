@@ -1,63 +1,63 @@
 Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CAD47989C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE43747F3A4
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:38:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671099; cv=none; b=dCofjSpGCmkPMcX0iWmapCI0BO73W6EvuF3cDPnUlO6yeSLTGYqjS3X5Z4AKGdWoM9Gu39aLTcixpRupNfnSjiU41L3WRD9NfRo39mJ0JB/L2xyTeD1EqT2SMhv6Nec+gqjZxJfPO0U1K3z6d869IpweaS77dc0Ta/QBey6sXjY=
+	t=1790671101; cv=none; b=U+/0V1TFVrXgtxByzOqFQOhAl/JIG0zWWjhzIlJccdtWEcr2TJY2mUM9//1AfemQqvXVTqk4EelmAKkHkowze7XpwQhr0yeB+cSn46azRaKGRN9vasyfdiy6FseH7TB0AmwPbqpBpkhYO2Z9idVLbieKxuFqWt/aj781QiKVtGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671099; c=relaxed/simple;
-	bh=y8V2hkGzlhdb/0KFjTahh6x/FG8XQrgc9cx9Thrw2Xo=;
+	s=arc-20240116; t=1790671101; c=relaxed/simple;
+	bh=L3fsKyGi5rpLNg8G/ROz7kxtpDKTfFUi8q+A7hQ20Dk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mdjwRJG+cK6MDTgA2ix2WjUg+6jMaev9oXmLOFsyOBHAyNBdsEIyO/eg7n2K2hTxRugujnB6n9KLmX+nQZwpF31U3kjnkb6oZGh4/Vtid3EHxjgiR1XJbc9pVT+eWYLw+vpOHW6g4hAdhgw+w2UI7RmVxTl1MxmDDLDGn+vTg7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e9VlfhHp; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=kn1bF4S+LcvJQpD4oPi8WTjQzD9YG74MvwA1UrComopevM4NxtraAjfGmvhTf/yAodd2ZtZLgbis6niQp9jHsSip8ptKG45U/jLAmfuXx/5qK+Lf+3m1jBJDerb7sHBhJ7TJ/uPivaxqEt3qwWPlQoLXyUCM0x5j+kngAw1I9Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfLf0uyW; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e9VlfhHp"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a494638445so598790a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfLf0uyW"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso2535029a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 01:38:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671096; x=1791275896; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790671098; x=1791275898; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HjSZP90MeKeabAnBLqvA1Hzeszd2ueVzqTRJsmZUKHU=;
-        b=e9VlfhHpCALpaO0McDf6gCRZI/bnhnwSqCjsT/H99GBfzzT+Gtg3YNl83C1FDAu98L
-         uqjeF5rB3iaM0i2JV+f9FtwN5BKhmaG0w3uUa514OFjOeZiR7I848poFg8jbFyx8r+2n
-         aOyclMt3CINMeYB7NA1S1NKM1OR0d7Ozk6as1mWmVtMThvr8BrNqwYkPjyeCbJhBFsaJ
-         l9HnEeI412/2FcQ/V0P5ph4sx09p6BazM2+2rGJG+mPI/4Klop0N6wpIMahgC2BNDWe3
-         zNlgOiW5yEduK7gxbcORu6vc0DHwhIkXDJTtnz8Rxf0hNK1zLzKf27YOsle/GqjVsJ+x
-         uIvA==
+        bh=7AEeGlWy9uXP/q/PPr93GfqgOECgNHQd0LWMUmr1tVw=;
+        b=DfLf0uyWUU5DYCLeqZXxmnCbBMN8XZfYhdj2XXgoLkQpaN4Rfk/3a8q/ujgZcpohtu
+         PFEUCIM0fb3bkSUmB7AhBX1GjpbPPElQvTEK5bL8nT/0wAXVTHgu+aWYZkwF/YPPCIoY
+         DP0k4STUBwTea3C1e1p/DYVWIAAjK11tjo61MmjGfoY39Rc56RdwpcapGVoqnDKuCjbn
+         +iSTkSTpAC4M+e3FLDeDpX2ufWNpoXo2N0IhlDD/KlAYxGOVdD+nOppzOdaQyKKJ6k4K
+         CKE3ql6ZRw4OTkSGnr50g9T7UH1DNEgm3IWtQg0Hmtu+I0emaNgHoC+4P2CptcMWdxbM
+         HcAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671096; x=1791275896;
+        d=1e100.net; s=20260707; t=1790671098; x=1791275898;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HjSZP90MeKeabAnBLqvA1Hzeszd2ueVzqTRJsmZUKHU=;
-        b=A8umsrqGTG+qBw9OJ0xf83Uj9Ab9a/u0QmIxqmPGuAaviQPoZ2Kfy6jJpalDTgN2oU
-         mFisgzyhdGp5gkx4Zzh8sD/jDxPUT1kVgQvA9AqYHdFLai/ril+RHtYpomHDgqGJRAlA
-         NNjneAJMe8MvOqzfHjGqCxtm2WGN4ejBR+mxDqTH1Cs3kFQGxSgTKyMn9cVoej58+r0G
-         OzoR57gop6u0Kw85RdcXLI+B8LtyJrLysFe8iPNN4eEzWWpm6KidoGms3G7yjGoZZMIw
-         tCftPYDs1KcEgv29fUNJvc1IwC6xeE37nD9+l7drKLxJSswMgNhuWRfsfYLUFi6gIG+U
-         l1Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwTMZKNdX+KtHJCSfW0K9y3HlCWPOEIa1srvDZSNOgQ8IhS9yM7Y2YdRytn7bZYDAXrNJEaq2WT8eIqG0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7gorpbbTA6DZA1q6dfyNxYe9kmZlZxJxGBUPDnILUcDsJWDx+
-	vIst85HGdtUqd4b2t1tsnxieM5OQxwJgmT1HQUlc/Mk7CGfNO9PFs3FY
-X-Gm-Gg: AYBFou1EvujZb63gxtJO9CEJy1/xjPd67eNvpleEOgbsIhOrnTQBZaAbb+AqAy0mTh4
-	MQ/xWRS0TwNmdPI4OzDddoTEAudM+tVlvUWEj1cEvSSR2ucFew0arh77S5fevhB73MsN42beikw
-	lN6OAnY51yXv2lnR0rpHv1kdXtQWYHpYyRdhw+QKO2iskiwAsA9VOx9CBfz4bA1jXG7+EQG8T1R
-	fD6HD6qAWI95VqWh4lf7JVq9ox5NHFpRd2j+UNwcsjD7U2K+FX5gS3m8tfYgkkLYSGBCbu3jKpN
-	eVLd98gCZRXnSok6kcsRCUlMrMbIrshhy07on/z5ssQaxz6JaTmGRRGQTQFHOqks/zjTZn28q62
-	6MKKbSTlJ0SOBS8NexdVEdowngHOQDE2IIGUNsdF3YmLEXQHITDTNA7CtNwTmFsoUK5XmYLL4Gh
-	bO9AMnabgXtnEVhq0OdFtch/Lfk8IWOsJGtfN6keLPi2VQbA8zyHz/DYW4a0roZ6jnSohM
-X-Received: by 2002:a17:90b:17c6:b0:3a0:516d:9f88 with SMTP id 98e67ed59e1d1-3a098761df2mr11251455a91.26.1790671095882;
-        Tue, 29 Sep 2026 01:38:15 -0700 (PDT)
+        bh=7AEeGlWy9uXP/q/PPr93GfqgOECgNHQd0LWMUmr1tVw=;
+        b=Wyoic4NaU0FqGS5160tIoWBWvK44DidshZygZNO5+WnZ1G3rPNLPYr+g1ETo0ds/rb
+         P6sho5HmJ1sm9nnQxReJDicdwkFGHDILyBaqWZQnIQO7qzpCe3c6A5nZX7oxIb2GzgoG
+         hy4fxG5f6402rgU9R1DcVjRHfsCOgqtZicwraPDWAtdmYr7deOw6NEX4iq3j8akhEZCF
+         5vKxZO8HHJJ7GIfRXBp3PEFxP2VgFendsZxwwue0Mk+7fSzSC7CcTjR/b5s0g/qYNOeC
+         YRghl+ORLxH2vZGaFzVRIxsDkZ5fP8MUUxyubaGBcMIWU6OBll2xipLvdSrWhMcoVfuB
+         584A==
+X-Forwarded-Encrypted: i=1; AKwUvBxIoCJmxW4cIew1QWPbToiZLwfhILsMlovLGYzifbX+wlxZdyIPb0257YjQmfBx1zMPKtQpj7FcIMLCOQA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMwQ0enRGAyofvpK7E5VQsYaThUeBYTKLKAmr0qowJ/U9GHTBe
+	bVB2sqzl4nDFHIKn4qoES8go1ZQqNA+uwdtPrn9rTjJEvBCoAT7ew0dM
+X-Gm-Gg: AYBFou0dHEppl+4DuOHVWmTKgCxIX0g7RFx1mibnYsSkQ6RGkUJStaEFYPRRYUKVyc4
+	jZ8EbGfu/81wgtEKnCOgd+mE6QJJ9Y8kchsJ8OQE+YgpbDZK9U4fJkym+F+nQRukKNmpmf2eS6o
+	UBRpDfj0uwW7SbDr12RdhBSMHre/eigQJXeu1elCApw16YWFwJq9JCpxX+DIRR5eLwzEuw/Qqs3
+	hzFkhPR7OQ3THLiTHuWQqDk5BRLzmZYy6b4Kt689ImBsUHdHiMFjnDehFvS9zVaD7IhWZofCQA4
+	vOqJ6u72ZBNlvbYOQNTIbX3+rd6jUnrAz9vYB+B5WO4YphzwGarvIWQTWiQNCs72m3979dirmbX
+	27swqA7waVPTT/lPlWDBHH5aCkh1+23fJUgUarnWHMfSPzO60+Wu9+IHPnmAWj5XS+dFCVeJPIB
+	GeAI4Ux7N3JHjxInsI8q6iDQH9Hz9MEXYOP0UOFRiv1e/dB17ctaCGqxwHnd1EISEBuLSp
+X-Received: by 2002:a17:90b:2251:b0:3a0:9640:8031 with SMTP id 98e67ed59e1d1-3a098d4364cmr12391254a91.8.1790671098293;
+        Tue, 29 Sep 2026 01:38:18 -0700 (PDT)
 Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2c9d06766sm5127845ad.54.2026.09.29.01.38.15
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7a3b8d70csm3751988a12.9.2026.09.29.01.38.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:38:15 -0700 (PDT)
+        Tue, 29 Sep 2026 01:38:17 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>,
 	Manivannan Sadhasivam <mani@kernel.org>,
@@ -97,9 +97,9 @@ Cc: linux-pci@vger.kernel.org,
 	spacemit@lists.linux.dev,
 	Yixun Lan <dlan@gentoo.org>,
 	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v7 3/6] PCI: spacemit-k1: Add device id update helper
-Date: Tue, 29 Sep 2026 16:37:49 +0800
-Message-ID: <20260929083755.458238-4-inochiama@gmail.com>
+Subject: [PATCH v7 4/6] dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
+Date: Tue, 29 Sep 2026 16:37:50 +0800
+Message-ID: <20260929083755.458238-5-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929083755.458238-1-inochiama@gmail.com>
 References: <20260929083755.458238-1-inochiama@gmail.com>
@@ -111,63 +111,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both K1 and K3 need to set vendor id and device id, add a helper function
-to simplify this.
+The IMSIC device on RISC-V based system does not require ID
+remapping for MSI. So this device only needs "msi-parent"
+property for IMSIC-based SoC, and the "msi-map" is not a
+necessary property.
+
+Add new condition for MSI handling on IMSIC based SoC.
 
 Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/pci/controller/dwc/pcie-spacemit-k1.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index 8c4f0b09fe24..ec59ccb710ec 100644
---- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-+++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -52,6 +52,7 @@ struct k1_pcie_device_data {
- 	const struct dw_pcie_ops *ops;
- 	int (*parse_port)(struct k1_pcie *k1);
- 	unsigned int max_phy_count;
-+	unsigned int device_id;
- };
- 
- struct k1_pcie {
-@@ -153,6 +154,16 @@ static void k1_pcie_disable_aspm_l1(struct k1_pcie *k1)
- 	dw_pcie_dbi_ro_wr_dis(pci);
- }
- 
-+static void k1_pcie_set_device_id(struct k1_pcie *k1)
-+{
-+	struct dw_pcie *pci = &k1->pci;
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
-+	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, k1->data->device_id);
-+	dw_pcie_dbi_ro_wr_dis(pci);
-+}
-+
- static int k1_pcie_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-@@ -168,10 +179,7 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
- 		return ret;
- 
- 	/* Set the PCI vendor and device ID */
--	dw_pcie_dbi_ro_wr_en(pci);
--	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
--	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K1);
--	dw_pcie_dbi_ro_wr_dis(pci);
-+	k1_pcie_set_device_id(k1);
- 
- 	/*
- 	 * Start by asserting fundamental reset (drive PERST# low).  The
-@@ -381,6 +389,7 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
- 	.ops		= &k1_pcie_ops,
- 	.parse_port	= k1_pcie_parse_port,
- 	.max_phy_count	= 1,
-+	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
- };
- 
- static const struct of_device_id k1_pcie_of_match_table[] = {
+diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+index b3216141881c..91bbbc8924f6 100644
+--- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+@@ -27,8 +27,11 @@ allOf:
+   - $ref: /schemas/pci/snps,dw-pcie-common.yaml#
+   - if:
+       not:
+-        required:
+-          - msi-map
++        anyOf:
++          - required:
++              - msi-map
++          - required:
++              - msi-parent
+     then:
+       properties:
+         interrupt-names:
 -- 
 2.55.0
 
