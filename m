@@ -1,154 +1,273 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404C73D955D
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 15:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790694308; cv=pass; b=jO+JNV9YOyRE3XKqD5+yJh8r6zeZcG5E9lv+aYAkpG1UNNWw4P+hdPvl5b6kpw/RPaPRROKx2c1EeM4hPf5cb2/5CTgFzaKl3o0jP6lHLgbqFJqIKRZM98ede4rXp/zNoeRvrlDl/wY/D/JVxihF+xwW/hAOSSJNeD8QIWNcFWk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790694308; c=relaxed/simple;
-	bh=RYV0Fke/zryIQypMo3pWYA4hmOw8U2yNCXU7He5u95Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cw2+wIrQ0sDCaPV5EJGUivFUNQvVPyiK4198a2U7tAZYuEq2U0mCaKv/PbF+wIgr7Q8dOs96DDX8jQ1pqwsuPByGT6odUFy3D0ust/t8QmYM3GSQuDF3n4ufva+quQjXyX5VpWY+l1i6wlax3G6/D2NsiYumLdvcTWAwxRMpATk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N3Mdx5Yk; arc=pass smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N3Mdx5Yk"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b36a8d5b5so1579853a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 08:05:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790694304; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ILsjtFQLtUU9oUDpfOQunuYVVqKLLxAActbVX+hEdF4uQ/5nTbxoDWaLmvqx/4/Y5R
-         SQyHP560VO9vqpR2Xh2q2ZnJ206MKeOMctxBrwwOJwDQgc849YV5KaJGQptZ0E1CDtMk
-         YoyyWNIf+Z2dQnylBfc87JTmrJX5MN4WEFrWdxexunR6ql38sHxHX8Zxwr6u9fQ/GlIC
-         ms8fzY9efGxGGZ1f3ft4cjcWSH6chB8O4R2v55AhyKYArmwpwpLBZxAJqEcgYuwgxBVp
-         SOYdlZelUpwn0GGpyEvQG2djxkV6nPYcgxEGvsG1P05EE1Apgw/Pn3MZIruRxScxToQC
-         y2RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
-        fh=riM5Zn1bkzv3WgMWIeJXhtOgvg4pA+MLEpM51Ygqelc=;
-        b=Ra7z4N18ycO3QbDMcOQc2ws+cl9th6WQCOnQiEyPQ+1Bb8Yt2OPMAXGAse9pqo3+Yc
-         /vJVuoZIqP+yTmPsR8ngd5mAEuiIKQVHSPCG1CDJGwSw0MGb5ND+qRihMbIBIO4EV4cW
-         2dUv7h1Q4h/HgIwlEYO82tlvXJil2tozPWmq5dlyOLkDgV/5XENMWKa0ZzUeD3A2h/Ik
-         iHcZHPbicRTQLXF8sxbxIqUA61UVx9kV2KjuThqlcomn1XvpabWHNSfztOqGR7f1AB1B
-         ddXGxHZJ+Up7LvHUNxm+OWivgrbqpJyCyUwLIcKmyPWXAD0JmrCHnmQML/NJz5zejcaj
-         sk4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790694304; x=1791299104; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
-        b=N3Mdx5Yk5e+O4SymkvAFpuNL3GaM0+aSdQkELk60n7ddOt+npYhklRR7jK7yyoUU4W
-         4HKXZYDExKE4wuAxCCRoemjM8s6zrgewf/m5irv6cHMOsCFxXmqtoHIAAVjSaeIwwUuT
-         XstAMnFp+L14Xi7msxZFuDWgzpLJFUCtCCmaJATdL4dHW0wgXsVxyD7RiTkvkdsnGg5d
-         hAqnsUigxu5/TK2c15Dw/S2KF/FEyNxq/0A6YtcZINuDdEw4aiWkg7lkn7W10Vf9c7cb
-         iA4Kz0SnDuPnCvz7+jcyc1hUsTpQWTvFJB8uEPm+eMVBrVcdnozJX1Tcj1G3zO6FSFmQ
-         /YNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790694304; x=1791299104;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SxYLhnOzmc+drgJLlfVKMnvEVhnHQOKOuWMtXRb1T4k=;
-        b=HOWAtIzsBgZK9zRy5UP8nUJUX/sfkIqBmmUh+CP3oTKVZu5l0T/gCV9DFaiH4izrU1
-         ZJ+ZxB9uMO2SC95TwsbVZxtcCzeHOaETzc9oj/3W0NSh97+/JJKWEVEjrXqItuzfqhaK
-         l2aWfgQt6GVeJju46rH4xEtcmt73vZGyv0EuAxEU6cIqUn6oeYfCEEx366dPigIs0qvg
-         T4jITqJSzBSn+YaI8Ac4679q4VaTpBahiZTN6DQjsD68ftVDYswldMD4pt/jhrjGbl1F
-         v0AvgKQptHJ+aN6jhH+EsHuBB8B5yDqURlNGcYLurRi7YvaLLuh7qE26fJ2y2e9A9PoA
-         xpNg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0Ssv/iR2ikdjHbTGV/qI+guL+ia90z1t4dcoBszGGK6xO3Ghl87R/d6NJD9+jrnSPChd4qgVE0gRN480=@vger.kernel.org
-X-Gm-Message-State: AFuF++ks4w09A4abUzsJgjStX6OFBL2ebCBaKGbcVs7vyBHeZwt53b4E
-	RZNu3Pk/ZWnQqkcKmC48f4jQlui/nkVGITGyYzaOdTcehl0t5Ep7OBSueGmnkht/a95cnm44Rd8
-	o6YWpo5co05HgPmErj0fAYJzKpqIFEDU=
-X-Gm-Gg: AYBFou1sfL028DZ00yD+QJ8HWUJDu+z8DF8OWUryE4CaXHxcfoU8BvrrE25z5P4Mc/7
-	BHmls+ByjdoGmKADxHCHPxDGr7rwNnn7rL5nIBOLvZBntYiKbhmy4G6iPEl81Se/Q9BmkPYwVhC
-	yy4y4toqn0KOssjVvh4dgGCerXqJvhIlcDhdgRm6wA+Go6PgvwKbc5r7YgeS0yDwKXl0ANUi1uy
-	Ah7ea03RVHvfJ4zNO2ZiV2SqtGtSY7VGVXn2DXZHFrsfHph2anltABQy7UXFp2JEOa6mVXh5DUZ
-	TSmpUqv3qVkzJxNKhbsUywbFDaWDDcWrp04F1m9orkYDPy7+onH3KOKpbInHHD+2VrBWzuTnRzw
-	trRE5KUI7YhzPTNJHcspH2D7W
-X-Received: by 2002:a05:6809:a:10b0:4d6:90f3:74af with SMTP id
- 5614622812f47-4dc66070a82mr7548908b6e.47.1790694304147; Tue, 29 Sep 2026
- 08:05:04 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC49C50254F;
+	Tue, 29 Sep 2026 15:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790694330; cv=none; b=Dvxvq8+cDQysmscnxnYP61TZbKjF6C+Fj9qiU0Vq1Y3FbUlH6jkvvxK5nISUoKjUNaZaRutir6M1nPA2u+5P/diFIHBCEGigm40jIisUQJP/O3bUfYDeuw7YIF/c1xws/7CsCYI0HLOSUP5r0D6uEFMl5FuwBDgDZFSj9Wd5FWo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790694330; c=relaxed/simple;
+	bh=WWqjJQEjkD0s7A4uSP2PjCi96i5sa4nI4z/Kd/L3/o4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iFthsBqukDxTuIBcI2zo9FUNLCVSUOXjJjv3MRL5VR8YpGIZaMpq5efcf3bNqEX9XWFbq9kinTcrezPnPON+apl747RImKuxyBu0LILy4tVWMz+I5n0Dei98X27qVHA8xR7jv8jMst/sL33lB6s4lCbIU3b4yNLRmNGdbCqkBOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
+	by APP-05 (Coremail) with SMTP id zQCowADHMTyP07tq9ZavCQ--.14155S2;
+	Tue, 29 Sep 2026 23:04:48 +0800 (CST)
+Message-ID: <dca5684318e5e54a8c21ef800067c2bd20b40d07.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 13/20] soc: starfive: Add jh7110-vout-subsystem driver
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Marek Szyprowski
+ <m.szyprowski@samsung.com>,  Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen	
+ <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Tue, 29 Sep 2026 23:04:46 +0800
+In-Reply-To: <20260915-jh7110-clean-send-v4-13-f0e4fd6f2cc8@samsung.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	 <CGME20260915153236eucas1p1712930425e569f894c870299f245e99f@eucas1p1.samsung.com>
+	 <20260915-jh7110-clean-send-v4-13-f0e4fd6f2cc8@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929115956.229610-1-chenyou910331@gmail.com>
- <CAOB9oOY2V68_qnv6DFyDJL2d=50zN_oQ6=6+Fs7=Ez+9TnuDmg@mail.gmail.com> <CAKspUh+rJ7qm7VKXTYcqqPxwNWnNJ09p3DAciwGXGzpBCOJ=NA@mail.gmail.com>
-In-Reply-To: <CAKspUh+rJ7qm7VKXTYcqqPxwNWnNJ09p3DAciwGXGzpBCOJ=NA@mail.gmail.com>
-From: Yizhou Tang <tangyeechou@gmail.com>
-Date: Tue, 29 Sep 2026 23:04:52 +0800
-X-Gm-Features: AclHuK_KzzfKzL4l-grenIAxx1Sm9JijVCMZ7ff6XE5coebowPrLv7qkSaiuoKk
-Message-ID: <CAOB9oOYdHd3kpnj4aQOnbubTsLLgjw4n9aFMcjQqL-3unNDLAw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/7] docs/zh_TW: remove duplicated maintainer contact information
-To: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, wy@wyuan.org, 
-	si.yanteng@linux.dev, srcres258@furdevs.cn, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andy Deng <theandy.deng@gmail.com>, 
-	Bailu Lin <bailu.lin@vivo.com>, Bernard Zhao <bernard@vivo.com>, Bryan Wu <bryan.wu@analog.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Chucheng Luo <luochucheng@vivo.com>, 
-	Dave Martin <Dave.Martin@arm.com>, Dave Young <hidave.darkstar@gmail.com>, 
-	Dongsheng Song <dongshneg.song@gmail.com>, "Eric W . Biederman" <ebiederm@xmission.com>, 
-	Eugene Teo <eugeneteo@kernel.sg>, Fu Wei <tekkamanninja@gmail.com>, Fu Wei <wefu@redhat.com>, 
-	gao chao <gaochao49@huawei.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hailong Liu <liu.hailong6@zte.com.cn>, Harry Wei <harryxiyou@gmail.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, Hu Haowen <2023002089@link.tyut.edu.cn>, 
-	Junhua Huang <huang.junhua@zte.com.cn>, Kangkai Yin <e12051@motorola.com>, 
-	Leigang Zang <zangleigang@hisilicon.com>, Li Yang <leoyang.li@nxp.com>, 
-	Li Zefan <lizf@cn.fujitsu.com>, Maggie Chen <chenqi@beyondsoft.com>, 
-	Nicolas Pitre <nico@fluxnic.net>, Punit Agrawal <punitagrawal@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	TripleX Chung <xxx.phy@gmail.com>, Wang Chen <wangchen@cn.fujitsu.com>, 
-	Wang Cong <xiyou.wangcong@gmail.com>, Wang Wenhu <wenhu.wang@vivo.com>, 
-	Wan Jiabing <wanjiabing@vivo.com>, wheelz <kernel.zeng@gmail.com>, 
-	Will Deacon <will@kernel.org>, Wu XiangCheng <bobwxc@email.cn>, 
-	Xiaochen Wang <wangxiaochen0@gmail.com>, Xudong Guan <xudong.guan@gmail.com>, 
-	xu xin <xu.xin16@zte.com.cn>, yaxinsn <yaxinsn@163.com>, Yinglin Luan <synmyth@gmail.com>, 
-	Zhang Le <r0bertz@gentoo.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:zQCowADHMTyP07tq9ZavCQ--.14155S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WrW3XFy7GFW7uFW7WrWDCFg_yoW7KF4rpF
+	4vyFy3CrW8Jr1fG3yFqa1jvFyrCw1Iva4j9r97X3W0vr1UCw12gwn2vryFgFnrJrWkCw17
+	tF1v93yfuFW8Kw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+	IIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+	cVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x07jm4E_UUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Tue, Sep 29, 2026 at 9:18=E2=80=AFPM =E8=91=89=E5=AE=B8=E4=BD=91 <chenyo=
-u910331@gmail.com> wrote:
->
-> On Tue, Sep 29, 2026 at 8:14 PM Yi Tang <tangyeechou@gmail.com> wrote:
-> > I have no objection to removing the duplicate contact information. I
-> > noticed that some translations in these commits were changed to
-> > traditional Chinese terminology, such as changing "=E7=A1=AC=E4=BB=B6" =
-to "=E7=A1=AC=E9=AB=94". I
-> > suggest submitting these changes as separate commits to make them
-> > easier for everyone to review.
->
-> Thanks for looking, Yi.
->
-> That change is not part of this series.  What you saw is in the
-> range-diff, which compares the v1 and v2 patches as text, context lines
-> included.  v1 was based on v7.2 and v2 on docs-next, where the zh_TW
-> process/ series has already landed; that series did the terminology
-> update in separate commits, e.g. 5f0178db86a3 ("docs/zh_TW: process:
-> localize terminology in embargoed-hardware-issues.rst").
->
-> So "=E7=A1=AC=E4=BB=B6" -> "=E7=A1=AC=E9=AB=94" only shows up as a change=
-d context line (note the
-> blank second column).  The v2 patches themselves change no wording;
-> they only delete the credit and contact lines.
+=E5=9C=A8 2026-09-15=E4=BA=8C=E7=9A=84 17:32 +0200=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> Nothing in the video output subsystem can reach its own registers
+> until
+> the NoC display bus clock and reset are up and PD_VOUT is powered,
+> and
+> those are shared by every device in the region. Leaving them to
+> whichever
+> consumer probes first works by accident and stops working as soon as
+> the
+> probe order changes.
+>=20
+> Add a driver for the subsystem node that takes the bus clock and
+> reset,
+> holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
+> populates its children. All three are released only once the last
+> child
+> is gone.
+>=20
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Hi Chen-Yu,
+```
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
 
-Thanks for your explanation. Please feel free to add:
+Thanks,
+Icenowy
 
-Acked-by: Tang Yizhou <tangyeechou@gmail.com>
+> ---
+> =C2=A0drivers/soc/starfive/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 +++++
+> =C2=A0drivers/soc/starfive/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/soc/starfive/jh7110-vout-subsystem.c | 82
+> ++++++++++++++++++++++++++++
+> =C2=A03 files changed, 98 insertions(+)
+>=20
+> diff --git a/drivers/soc/starfive/Kconfig
+> b/drivers/soc/starfive/Kconfig
+> index
+> e738638ab0f755fbbabca259264abb56f3b6101f..cf5e626b8a39a75768917eee188
+> a79256b36f1aa 100644
+> --- a/drivers/soc/starfive/Kconfig
+> +++ b/drivers/soc/starfive/Kconfig
+> @@ -6,6 +6,21 @@
+> =C2=A0if ARCH_STARFIVE || COMPILE_TEST
+> =C2=A0menu "Starfive SoC drivers"
+> =C2=A0
+> +config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
+> +	tristate "StarFive JH7110 video output subsystem driver"
+> +	depends on OF
+> +	select PM
+> +	help
+> +	=C2=A0 This option enables the parent driver for the StarFive
+> JH7110
+> +	=C2=A0 video output subsystem, which the documentation calls
+> dom_vout_top.
+> +
+> +	=C2=A0 The subsystem covers the DC8200 display controller, the
+> HDMI
+> +	=C2=A0 transmitter, the video output clock generator and the
+> video output
+> +	=C2=A0 system controller. They share one NoC port whose clock and
+> reset
+> +	=C2=A0 gate access to the whole register region, and the region
+> sits in
+> +	=C2=A0 the PD_VOUT power domain. This driver owns those resources
+> and
+> +	=C2=A0 holds them for as long as any of its children exist.
+> +
+> =C2=A0config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
+> =C2=A0	tristate "StarFive JH7110 HDMI subsystem driver"
+> =C2=A0	depends on OF
+> diff --git a/drivers/soc/starfive/Makefile
+> b/drivers/soc/starfive/Makefile
+> index
+> be89d8119212b7a7038817c2f0e8eac1984ada88..6c229020c1e563b37df43f6ac16
+> 65465a11333cc 100644
+> --- a/drivers/soc/starfive/Makefile
+> +++ b/drivers/soc/starfive/Makefile
+> @@ -1,2 +1,3 @@
+> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> =C2=A0obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) +=3D jh7110-hdmi-
+> subsystem.o
+> +obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) +=3D jh7110-vout-
+> subsystem.o
+> diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c
+> b/drivers/soc/starfive/jh7110-vout-subsystem.c
+> new file mode 100644
+> index
+> 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a29
+> 9b170ad1b7104
+> --- /dev/null
+> +++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
+> @@ -0,0 +1,82 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Driver for the StarFive JH7110 video output subsystem
+> + *
+> + * Copyright (c) 2025 Samsung Electronics Co., Ltd.
+> + * Author: Michal Wilczynski <m.wilczynski@samsung.com>
+> + *
+> + * The display hardware sits behind a single NoC port whose clock
+> and reset
+> + * gate access to every register in the region, inside the PD_VOUT
+> power
+> + * domain. Nothing below this node can reach its own registers until
+> all three
+> + * are up, so bring them up here and hold them for as long as any
+> child device
+> + * exists, rather than leaving them to whichever consumer happens to
+> probe
+> + * first.
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+> +
+> +static void jh7110_vout_subsys_pm_put(void *data)
+> +{
+> +	pm_runtime_put_sync(data);
+> +}
+> +
+> +static int jh7110_vout_subsys_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct reset_control *bus_rst;
+> +	struct clk *bus_clk;
+> +	int ret;
+> +
+> +	/*
+> +	 * Take a runtime PM reference for the lifetime of this
+> device. genpd
+> +	 * only keeps PD_VOUT powered while something actually holds
+> it, and
+> +	 * an unclocked or unpowered access to this region wedges
+> the bus.
+> +	 */
+> +	ret =3D devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to power on
+> PD_VOUT\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev,
+> jh7110_vout_subsys_pm_put, dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	bus_clk =3D devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(bus_clk))
+> +		return dev_err_probe(dev, PTR_ERR(bus_clk),
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to enable NoC bus
+> clock\n");
+> +
+> +	bus_rst =3D devm_reset_control_get_exclusive_deasserted(dev,
+> NULL);
+> +	if (IS_ERR(bus_rst))
+> +		return dev_err_probe(dev, PTR_ERR(bus_rst),
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to deassert NoC bus
+> reset\n");
+> +
+> +	return devm_of_platform_populate(dev);
+> +}
+> +
+> +static const struct of_device_id jh7110_vout_subsys_of_match[] =3D {
+> +	{ .compatible =3D "starfive,jh7110-vout-subsystem", },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
+> +
+> +static struct platform_driver jh7110_vout_subsys_driver =3D {
+> +	.probe =3D jh7110_vout_subsys_probe,
+> +	.driver =3D {
+> +		.name =3D "jh7110-vout-subsystem",
+> +		.of_match_table =3D jh7110_vout_subsys_of_match,
+> +	},
+> +};
+> +module_platform_driver(jh7110_vout_subsys_driver);
+> +
+> +MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
+> +MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
+> +MODULE_LICENSE("GPL");
 
->
-> Thanks,
-> Chen-Yu
