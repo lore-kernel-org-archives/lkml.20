@@ -1,139 +1,228 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AE73A5459
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700511; cv=none; b=tPv8COU6w+pwiJTWXHV4jTgWtXyCbcIEuacWYOLfT25Yfr9W36srOUNk1NAr2g4FrI8sW+gZ4qat75xiKsZ1poOV/UXuKvWP4oGYdyw35KoWsz3Sbbjs6hyLvXpvyLY67yqTD3FT+HetoPZPP74chkCXadvMpeheXkvoIjdoEjo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700511; c=relaxed/simple;
-	bh=gjzKEDoEc/+GLpE25sXuiGP4bdJDlHX/8bJR6oQseoU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tiLNk5b9Yp3Y2zxsqFwOaJiFloIQtKIJaCvZcSl2x0k2ryGxBpLbyrSxLuiKmJz5o2uldGNCv71W1IbEoerc+qLUAlD03uvTFLaIsvIwwMum7hwmjyF2f9FCnCPXheblJZIy53otygItuwr2rO7HBuxXXqhzTSDulm/WKxQey2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P398jUaj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HMOurltX; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6EF4EDCBD;
+	Tue, 29 Sep 2026 16:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790700521; cv=fail; b=JWB4Zqp2Aqr1hQ8pYX3zjwtoYXB3WPp24fi/TeNJaUszqFKiZLhmM5ZrcedzeRpkZutHnl0iBe9hK+z7r1hu4RPsd2COmrpyAzRo7wf2J/hTbCvSaM+01XHwyNmuPgjmBguZeaYFmEL4bNF4uWM2yIoP0XpXbfX1zac7caIfFto=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790700521; c=relaxed/simple;
+	bh=L1RbcKvRIlD8k2Tb87GuL3PsU2yl4fVWmZyHuIsD338=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:References:
+	 In-Reply-To:Content-Type; b=O0gjqcnCymFG4xqJDecByX9FA7IK6ajPN7eYQBKEbtTNGyKcDpDwTEx7HHbyRmGrk+J3p7odXl31zgGOba/rh2dSzgx6w6g0fMT7KsBKlcb9XfyvReRpvzr7inemDDRf9ixWz+BrXai/dN/32s5XIqj6HiabmrW7ZDY6l/P55yE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Diu/bvU/; arc=fail smtp.client-ip=52.101.66.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P398jUaj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HMOurltX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790700508;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h7fhQ9KGGUbPPoOeQdI2Gd4sk4/oPY6yvPOncKOrRvQ=;
-	b=P398jUaj/Kfjl/UZd5fDf2y5XOkyDoU8YkOYz0MT3MdXA+FIR5p7nbm+yFSUzXYSvgwKiA
-	pmOJsJT641PLAZIxD/Qb2H46z+UaST4W49VxgcDAYjhn795GggGc+Y5v0GZPE1J7rg7dLc
-	YG34jW7KGRZJo0yqENA8CN2I7NpXXF4=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-287--6nceI4APEeDye52cbj9Ww-1; Tue, 29 Sep 2026 12:48:27 -0400
-X-MC-Unique: -6nceI4APEeDye52cbj9Ww-1
-X-Mimecast-MFC-AGG-ID: -6nceI4APEeDye52cbj9Ww_1790700507
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-914447243f4so48977656d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790700507; x=1791305307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h7fhQ9KGGUbPPoOeQdI2Gd4sk4/oPY6yvPOncKOrRvQ=;
-        b=HMOurltXsOJYedqYy2XE57vGiMrC20OlOC83Zt6b5srtERwK3mpC6Xpgxd2+JHaeFd
-         yDMpIhnWZjuhRqqXdbROXN7rICAr6OvUvovYJfPIJhBMKmtLcLDx4CRcrcGF0izPd+Xw
-         CdQcLBgRbHguV5GzpTZuU8/cHNDPsv5fKCUxN2TgBwAmBYo+cZC90IJtnM1IrfBxva+Q
-         0M46B1q+yzz1sQxrz+qbO/BmQ9xSGIpDvG0IzutawEBwuz5nX48livdkXIRWP/NgOtK8
-         dqCz3rZJur6CKbnrTENg6p4HLqPT0NqqriTU87zo4hmtnfjQcQOZWXVHjQFbnO5e0/Hy
-         oI9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700507; x=1791305307;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h7fhQ9KGGUbPPoOeQdI2Gd4sk4/oPY6yvPOncKOrRvQ=;
-        b=nVAndaZYyaPVwp3YXidZ8uWJqpdfZi9DaeY7m2xSZPPZpf7qYSn0yTGf3f/A3upPtV
-         NBZCLAv1SlDs5+xtfyCgtedxX0tw5TB7G+ZmOZbw2+X0NqXvx6jeoKFbQfwm3SMq8N9L
-         fhPHqJOJaaAayR7DkD/h9zj28IMb0/x8swe3SIjB38jRdsplsxgpDJuDSIB9u8DgzXfD
-         oo9ukDCQe6lJV85REY/fzKBFpTAzuuFVC5sN3B6Nriwi6umNK33o45c7EmjspzWu8PCF
-         TUYfZyPenrHISA0e77APT/7AUkymuytfcC3ws5T6AyMsp5YQ8lqXODSuCFxIJKUdEqS1
-         e9aA==
-X-Gm-Message-State: AFuF++nHr0o7XstzXJBNEd0WnT0ETmOsAgYchro9vwsHEfkpHW1/+dNW
-	c2Xjifopdo2vkKdhFri9z/Kr3jpITXATg01tNKmBYGJ+NQwFpxdcDYgiqsbxVO2f0E4VfwafQHQ
-	qey0FeQ25gwCUsI+ct7HW2NtH/HRPI7YnkpqujUwpzQIrGM91cpLOrdUpCHiHYRtmjA==
-X-Gm-Gg: AYBFou2gTGLKvGpcI4IatA26hApvQ9Et7PDk7nnWsATyaEO7SE3wRkPx3voTUxVor7V
-	XW1N2DLoYeFYjeU0+u69GVT/kRZ3rj5u5qAaNoTAHNg7Ve9KdXME0ErG9blVOM/M1tns4CgJwfE
-	mEjJ3QJcPS7QCEdk/EwMrN/KhztLaxK6jJA6y/gg0iW0zlMNPNbHIpNHI1cw7a+A9I/c4RLT+9V
-	q7jwiVJxvSST9MZHvebqCK6Cuk4pxnV5mcWQxuW+vz8JZds/f/ES+s2FJL3/MZeQbSRxRO36GIb
-	IyiTE2w4dBQ2GODIvp6wzAMEIxwsoF5HquTZfdhbNOL711qY3vQ0Uq0P5Nb8O6/SGSiltiVMqkt
-	xyO59c1yGxvlTru3m4kFaE3Xh+hWnTFMfmb0GsHzEuiPrD7t+u+Q=
-X-Received: by 2002:a05:620a:700a:b0:93a:1b82:4962 with SMTP id af79cd13be357-93c9f90d39emr21401085a.47.1790700506663;
-        Tue, 29 Sep 2026 09:48:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:700a:b0:93a:1b82:4962 with SMTP id af79cd13be357-93c9f90d39emr21392085a.47.1790700505852;
-        Tue, 29 Sep 2026 09:48:25 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f54529asm10347985a.37.2026.09.29.09.48.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:48:24 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: linux-kernel@vger.kernel.org, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com, 
- Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Peng Fan <peng.fan@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Sebin Francis <sebin.francis@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
-References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
-Subject: Re: (subset) [PATCH v14 0/4] Support spread spectrum clocking for
- i.MX8M PLLs
-Message-Id: <179070048452.199845.10870046832708018931.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:48:04 -0400
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Diu/bvU/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=elgdYpTdat7HWmEscyvKJbOnHn03sxu7bocoWvnCiP0PeGnEAU2uQwLxxEdGvbtM0aOZ6O8YTbhoQXM+KiGRw2AgAUIGgivTxKTIHkD0vwJs7zGKJwpR3J6s3kzr/ZdhgFXuFCnrlXk72/C2SXOmB4lzIm5R1iaT+Tkri70Y40XD8e1K1M7GJaklKdd89szUKRHNzgeDkzp5g/tiieQYnBSXH8r2eMkAB77wPDANMnmjYz5qCn+rpFit5JHJBh0gIANm32p32Z25kPaMAgwUzz17zHDvdYCovbEAVRkx9qud9M+xm/D8nys8lYMZ05ZgFXgG8alQNPO1gR7M5IXAKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t8EcGFG35fUvCgI3SEmlpZItRnkF1dPhyJLO4GABlxk=;
+ b=LKVIxvzf4lxHWWH+UZpdMjBrs8QzjlIt608Bx0EBJLnRMCyiPQN/+5CnAUUBGerJo6N2ik9EkxHTH8UhOdAQMtOzdLUYe7/g2JNsV1J9A0LXmB/bgjDOvM2jhgqmppcfHXBXJcvHPoTN2bljgbjt5LqP6NsOHnfQLr8PrgLOCMq5Xu8xha8iG9GQfvs+tRLw6Pql67lAAI9sNbXWqzzeBu1Pt4GPA5oz1gssNvf+9kOuuVa32sQaDfoT0DMvxgQ6fSFEnMVsh8ngwEwaG0kD+jir8q1CwQ0OoqrR4ZdlVUOLyWk4w0+7NaLCNWk1+GpqdvOzEnBdxV71jdGtGNifDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=intel.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t8EcGFG35fUvCgI3SEmlpZItRnkF1dPhyJLO4GABlxk=;
+ b=Diu/bvU/6BbvJFjFsFnseqC4G8NB9Q+PJ3hZ8599RKP+1PT/86veLFZA/yDbAISXXOLQ2UkS8xE9UV3+3j/Ay9bE0dX7dU7of+macupNgGvEAlSbGk8DudjteH2Q9OAX6+4wHdpOV9b1iS5sjvQKwI6Dzui2bcin5SHR2UCr8q1LRn7yxM6qnPg97+wh6hxZeU4TQQz9mX7RA79bxWv4q9ZCiUi7N2pVZ5Cxw+QZqgo4sx/9/VIl5i8RNT1ref5AXafy5V0ce2a7xmiot8LzuI61MAwMfBzd02rWprAD6tiTBKPEHTQ3QTVQqdvHPLjfyHmGn3iwc+j/qVPEJyMMng==
+Received: from MI1P293CA0006.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:2::16) by
+ DB8PR10MB3291.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:11a::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Tue, 29 Sep 2026 16:48:31 +0000
+Received: from MI3PEPF00008485.eurprd02.prod.outlook.com
+ (2603:10a6:290:2:cafe::23) by MI1P293CA0006.outlook.office365.com
+ (2603:10a6:290:2::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
+ 29 Sep 2026 16:48:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF00008485.mail.protection.outlook.com (10.167.240.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 16:48:31 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 29 Sep
+ 2026 18:54:23 +0200
+Received: from [10.252.17.140] (10.252.17.140) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 29 Sep
+ 2026 18:48:29 +0200
+Message-ID: <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
+Date: Tue, 29 Sep 2026 18:48:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Marek Vasut <marex@nabladev.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Cheick Traore <cheick.traore-ext@st.com>, Olivier Moysan
+	<olivier.moysan@foss.st.com>
+References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+ <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
+ <arWPjx-JKt1IZCZl@ashevche-desk.local>
+Content-Language: en-US
+In-Reply-To: <arWPjx-JKt1IZCZl@ashevche-desk.local>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=705; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=SAHYf/h8Oe0K/ekB9Nro0D69org/h+4brL2o93Uibw4=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v75WObHBi99/6nvz91sfuy9/aBE213x2T6bCawPDb
- lVWxc/nOkpZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZjILQVGhi1pPpPUYzwFivpu
- 5+WFhLcrLrx2Yo2ZS3zjMwHTvjirboZ/GtcvfHvLK77mYvkzJi1D73jODRmTUlvF/1fM2lIoJ7G
- eBwA=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008485:EE_|DB8PR10MB3291:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd34c4bd-5e74-4e0e-8bcb-08df1e497e80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|4143699003|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WEU7xC9g/yLvCwYbqaMp8wfrMWeDQLe5VcSPqANHxwtoPXFVKOq6c38gcZXyp8wuSqW6K1BZwp5iWHIPE8mzb1t3wzw0+pHFNeHFOxn0gRy2epVMctFkQmu8b33ClhHreQ1rGUVZuo8poFOJXyFUGheR14gCiY9x6/w+/jwQjw1yYoSohfJdzVDgnjjkUvIsXPHzRlDxYS5LmU/YQPxxFe0af6mCpK38h2eVnvelkHi4k49lXTxS0hwi4k5Q5bTSybELawucv9A4oG/cnf4TuDpB6rQIWi1+UxPExB86J8XcX3TtRknb1wZ+NyB/r01RXK0F0420jFOv9N6IgvvQb+p5hFR2RUSnKpylmhp76UozJm84KCCz3rLhw98XgrT1DQSoRbT0POHarVvIG5S/6UfsQfeTaM7BRdC7CmTgeRpLxHSUqHrNc2Yph3PG0NIAAns0YWQAxQgfvsPW/gpz75LNDvR6oHyeQQ7UyJYwNtXM8RPBF0bPLucG5+FVFMo5PTAUW79AwzN656HSUUTKihtR/X4lER1XlWra7LOL4zGjyo0uSpoVGJTN5eL9CnWL1H1pYo+e89bigPr5iythY4iwNlev0V9dTUO6whGQuSr9RYPhSczfHeNOcn5rTwpWefpdoFpVNACW5wAvA9OhP8r85dHXH6ER2VqoQq///6JxTRu+ZYVlVJRVkXYk1spOkatyXjj83Gzfh+aTgW/1uw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(4143699003)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	y19eOb2BbZH5UEQiZkRbc+S55S+X7z8ayXfLuJolJxWPyAmA0Z46TMtP8xnFP5HmKO96OpIpJG9sn5oykxMjOVkO5hBHGEJzxbcD61PrZ9JNGJYfX1k/qrCO8q8TG43q+FSEliklBTdIMKuBvwUfQbLgSbR+Yv6M+UrWdymeytEAzRKyl97JwMtWzHGqxh5FksaLNY4DkKipF/pIMvVrVitdDANILH2St0XudoG6FeKihWzUYCpjT3QRhP/+0oFSrM5YekMXr3wWgDAMWUkbASopanHY9aUl+EOOtT6UNl2ljmdE4TglnZ6C0Rliol9gvCWG9QZqQbz8iJ1eaZ1OIJxZOxhYhs6b0RCWyijsf8h9Y2hmSo9DQ3ko+Ecyc2j95D0jHl2oVAiNQUXnwwy5sRYzKoF4yT9+bw98HwTrH3gqQLzxbZ8MBYMGFJGPaznh
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:48:31.2892
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd34c4bd-5e74-4e0e-8bcb-08df1e497e80
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF00008485.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3291
 
-
-On Fri, 04 Sep 2026 12:06:29 +0200, Dario Binacchi wrote:
-> Support spread spectrum clocking for i.MX8M PLLs
+On 9/24/26 23:01, Andy Shevchenko wrote:
+> On Wed, Sep 23, 2026 at 05:39:10PM +0200, Fabrice Gasnier wrote:
+>> Add support for ADC on STM32MP25 SoC. It has 3 ADCs, split into two blocks:
+>> - ADC1 & ADC2 are tightly coupled.
+>> - ADC3 is managed independently.
+>>
+>> Trigger list slightly changes between these blocks (ADC1 & ADC2). Other
+>> differences are found on channels interconnects (similar between ADC2
+>> and ADC3):
+>> - ADC1 is connected to 18 external channels + 2 internal channels
+>> - ADC2 is connected to 14 external channels + 6 internal channels
+>> - ADC3 is connected to 14 external channels + 6 internal channels
+>>
+>> Each ADC is a 12-bits successive approximation analog-to-digital converter,
+>> with up to 20 multiplexed channels that can be configured as single ended
+>> or differential. ADC resolution ranges from 6 to 12 bits.
+>>
+>> It introduces diversity regarding IRQs, clocks, software calibration
+>> procedure, internal voltage channels, sampling time (prescaler) and
+>> trigger list. Most of the architecture, and the driver engine remains
+>> similar. So, handle the differences w.r.t. other STM32 ADCs family with
+>> a dedicated compatible and compatible data.
 > 
-> The series adds support for spread spectrum clocking for i.MX8M{M,N,P}
-> PLLs (audio, video and DRAM). It has been tested for the video PLL on
-> boards using i.MX8MN and i.MX8MP.
+> ...
 > 
-> While at it, it validates the spread spectrum configuration in the clk
-> core before it reaches the providers, and fixes the i.MX SCMI OEM
-> extension, which converted the spread to the wrong unit.
+>>  		.compatible = "st,stm32mp13-adc-core",
+>>  		.data = (void *)&stm32mp13_adc_priv_cfg
+>>  	}, {
+>> -	},
+>> +		.compatible = "st,stm32mp25-adc-core",
+>> +		.data = (void *)&stm32mp25_adc_priv_cfg
+>> +	}, {
+>> +	}
 > 
-> [...]
+> Same issue and now it's a regression from maintenance perspective: you added an
+> unnedeed churn that has to be handled from now on... TL;DR: do add trailing
+> commas to the non-terminator entries and remove trailing commas in the
+> terminator entries.
 
-Applied, thanks!
+Hi Andy,
 
-[2/4] clk: validate spread spectrum configuration
-      commit: 109124b8ff43fb911d5b8790bb5e4c5684f72d88
+Do you wish I add a separate cleanup patch for existing match table ?
+This can also fit into 100 chars line now:
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+static const struct of_device_id stm32_adc_of_match[] = {
+	{ .compatible = "st,stm32f4-adc-core", .data = (void
+*)&stm32f4_adc_priv_cfg, },
+	{ .compatible = "st,stm32h7-adc-core", .data = (void
+*)&stm32h7_adc_priv_cfg, },
+	{ .compatible = "st,stm32mp1-adc-core",	.data = (void
+*)&stm32mp1_adc_priv_cfg, },
+	{ .compatible = "st,stm32mp13-adc-core", .data = (void
+*)&stm32mp13_adc_priv_cfg, },
+	{ }
+};
+
+> 
+>>  };
+> 
+> ...
+> 
+>> +	STM32_EXT23,
+>> +	STM32_EXT24,
+>> +	STM32_EXT25,
+>> +	STM32_EXT26,
+>> +	STM32_EXT27,
+>> +	STM32_EXT28
+> 
+> Same issue and so on...
+
+Ack,
+
+> 
+>>  };
+> 
+> ...
+> 
+> Are you doing patches with an assistance? LLMs might have a problem with the
+> style issues.
+
+My apologies, that was just me between the keyboard and the chair.
+
+> 
+> ...
+> 
+>> +retry:
+>> +	/* Clears or set CALADDOS (also clear old calibration data if any) */
+>> +	stm32_adc_writel(adc, STM32MP25_ADC_CALFACT,
+>> +			 FIELD_PREP(STM32MP25_CALFACT_CALADDOS, *add_offset));
+>> +
+>> +	ret = stm32mp25_adc_calib_get_average_data(indio_dev, &average);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* Add offset and retry single-ended calibration if the averaged data is zero */
+>> +	if (!average && !*add_offset) {
+>> +		*add_offset = true;
+>> +		goto retry;
+>> +	}
+> 
+> Refactor to avoid a label. It's possible to achieve.
+
+Ok, I'll refactor in v3.
+
+Thanks for reviewing,
+BR,
+Fabrice
 
