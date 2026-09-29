@@ -1,94 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB92F3E4107;
-	Tue, 29 Sep 2026 03:16:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BE341D62D
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 03:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651809; cv=none; b=Ea7K/HbkEWk+gL4vl/Xc+d2+5WpZS8WLUlacx2QMWEbx2tg6OA8RELzsCmhF5sFy0pq5FosUb8LidJXhl+Ui5vqkHTDXF3NoibPZx78sApOcC/hJEnYnXHoRy4ckn8VrzGglJIodFj9t4LXtVAO6hAaaZ4wFFKrrjuYoHB9pRss=
+	t=1790651861; cv=none; b=UNJuzLt04gCA1Ik372T7D0sQgKt62PHKJT5FT87YGIm9nF89q5MxfnBkehrC8ie5N2kAa//zA7cLsqKoEDnKcGJnY9IdvsVL1bzKoKsJQBayIIQis6jhP+pqr1rqtoaU+7e6Zx8erJRve+F2943lluaRugBe0otJkPkR8nhsVUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651809; c=relaxed/simple;
-	bh=dPaRNVeFrVdqbxnqW4DsJkjfx2dqfbMM+u9ze9IUXRU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VVrN7gpszeO2151RBs+AU3oI/DGn2yXX/GW/LoPhpz8yYnUdoZXojiToxUjlLkd6yex6vL/84jY/AOd0eV9Q403uJYKS/gd/vu3WTvVqdnHu/Ibwgc16204bf92tsJQGFwMxzkFv4XO5jtCzCqcK4j7o4IlXmSUTwVZeJONJ5ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBKUAUJG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651861; c=relaxed/simple;
+	bh=LHHCtf0dNurf9idze4IY9jf7pEvLps72QXqveJnsnYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E2HOQAl4fGPY9TB7OmuoPsidx6g4LDQ/U4Ybl18KTz3LPNUXszugtUlYo/lddd+LXOOWzvnaYfY2SBL9fPRXBEQoXQfLcsnf0BaKdV6aN2a8iCsgddZLW1hhCL69zXM10Ks02J8zPy4Zbv5rpD4oyB7EVE/SBLCpxb7b89wffAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=CoqhZOxO; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBKUAUJG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE0F1F000FF;
-	Tue, 29 Sep 2026 03:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651803;
-	bh=9UJfRKDrkHyBPWW0s0rB8/RfFadvwU5wvA/raQ8Y6Po=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NBKUAUJGDerB6JscuIuChOhwso4Xoj6RnQTHD62TCpWTixAAyNor2fQD3ZK6IZCPC
-	 a8wYC7PkyIRQjfuv0S2wpAIHvGpIP3UfJ0/dl+8cpKe0pNmxUk15AsBuSLVRhcfsYF
-	 jGkWH5fOTxGNjSbMjlykW7RN/F8pcwTQAJSsCPz7mxdgGi9LT/un+6mH75IHp5GxkF
-	 paSvgcDGvewkNpQM7ejgkfrwhD5N5xQLjXg4ErSl0Upz4ZI0uTFzNAmETnNeAxohiu
-	 NcLvQ25gojjQf1xKmJEqHxWgPLMIdfwb0JXE1ZUW9Cr82wl+VizbXJumDIxIxAcQKT
-	 KAOR7ylNqGd2g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	yijie.yang@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	abel.vesa@oss.qualcomm.com,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="CoqhZOxO"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144efd1ea76so2133467c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 28 Sep 2026 20:17:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790651853; x=1791256653; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FsP2Z39yDHYgidPq7LJCuoklm/2VErUU9c6HnTD+Pa0=;
+        b=CoqhZOxOVl+tRaN0GR4kieFz8maMrHQOSv+rWNdItAU0XQHzbAXDbhHrvVziKyFgj5
+         TQhKbP3jlFxWXx1klqBFTk/NQl85a31cdpAX8I+rE0gx7zq5wcsGAoSUqwodqnGMaWNm
+         04e9i5jQptuROrTB7c+Xpi+vNJB5v6oSIudldeD2+79dzMkPgSMckoXB3egGysvE7K5d
+         0C/F9fjUFqJEcG451ek37PIwrshZuBEbYJV5a9yBBNys/91yEZc7X8Wy1+777o5x3OBQ
+         2Dzihp2gxq5S/qqjWwjLsGpXhe5KpiFsCakDkXJqKlRbP2KVpnq2jNOgSoCjsaA2vvz0
+         AtPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790651853; x=1791256653;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FsP2Z39yDHYgidPq7LJCuoklm/2VErUU9c6HnTD+Pa0=;
+        b=RSBSa9m1EnE/an/rfLu5mBGcuLHz5ur7/kjaS3LMUWkVkA+Wvx/5a3fqj0hzXOEDxm
+         rwqrHsOd6oehBmmJXbucq4+kVcga2tc/uMQO6cA76QlHjrY9/W9SH4Alk44KINusGaAf
+         n0ZPNirK4H3gK9wZ7jf/4KjY07dgz/DeyPIrxoW3ML2SYfJGe2mfulU81+XZkkpjgvWX
+         LedFDHytj5BGX+BzvzHuGfYeAsRWGQiiC41XZyH4BhuJdHrjBNCRztAriL9ikYRl0K+m
+         Giwah8f9DpqJi/sO8Sar4+hgWcD3LRua5StQrxnnTwWVvcy1ftyUSl4KVucIo8zaIRWu
+         tuTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqyabSz8AVh+JAtGXZ9opj7rCJYxRpjMTTIWQqjiWRueiIuvyqgoGNAIPdzvQhQhkKwaksndBqqWld9PE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7Z+CByz9XEKAGLdLslZdmEhv6ODGoqjeGVBZXsxta9g2pdq6S
+	5nfyBlhX/zOxPEbXWG+7Eiu6g0C3JEkMHIeZo0JNB5Bb1plXUzJSsBHC75at7GWlXLw=
+X-Gm-Gg: AYBFou1Eg0Rbu5X8iR/9t8+dhE25nYxAIEYH74uZdMZcJR+NNCpZuknK1piG1YAZfxC
+	Aqosg1pw2xEA8PXXn8xmPtWFp1YlCECdpS+ke+B78UUDm0CRwsj6DUjQ6uq/GzN7BWaOrlSqPSQ
+	78ItDnurDyFEomf7ceEHsCf2wkLBGCYlbugx3pN4WlxUgN+JwVZrgJhVZHriYEk2v3VRA7RZoh9
+	yrSHpztTWAnXxGItRfVze8pzCr8/ihrZsCuV80StncdNmjp0P7L5cphbQau+tcYoQ63CzkMZPyV
+	+UqFmtRK3A8Vc4eAcZivSoIDxJDRPZBKjebDbeSekV2WZeY1DusLnXmjtCdXfTZwSeh3csvmz5o
+	Vb+Rs0Tl38ktgTyV7ulMHJXjl3K7lAhjD57TqIYTqrQeqXifZkcJleZWyHWvAgkbaL9PgjpmMsu
+	AwLtzSDPxnDW9Nl7/LeMpFf9xfcZp9ztgKl++P8wkK+P/ruoGy7k0SDzfQeJG11ONqSanpj+Wwn
+	RpjNRdb+FdI+SsJlu+b3g072n/MleW/GT4fiRk/wIwFj1ezb8A/U+ZuA26H+73HAPz7nB77iu9d
+	xnL6Yg==
+X-Received: by 2002:a05:701b:21c7:b0:143:46a6:b01f with SMTP id a92af1059eb24-146cfec8e21mr13180519c88.31.1790651852851;
+        Mon, 28 Sep 2026 20:17:32 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm31321186c88.13.2026.09.28.20.17.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 20:17:32 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Suraj Kandpal <suraj.kandpal@intel.com>,
+	Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	tingwei.zhang@oss.qualcomm.com,
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-	Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/2] Initial support for Advantech SOM-DB5830 board
-Date: Mon, 28 Sep 2026 22:15:27 -0500
-Message-ID: <179065170995.2673486.7594805451558800807.b4-ty@b4>
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Simona Vetter <simona@ffwll.ch>,
+	intel-xe@lists.freedesktop.org
+Subject: [PATCH 6.6.y] drm/i915/hdcp: Add encoder check in intel_hdcp_get_capability
+Date: Mon, 28 Sep 2026 23:17:26 -0400
+Message-ID: <20260929031728.88004-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260806-hamoa-come-v4-v4-0-706021d4bc8c@oss.qualcomm.com>
-References: <20260806-hamoa-come-v4-v4-0-706021d4bc8c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-On Thu, 06 Aug 2026 17:44:45 +0800, Yuanjie Yang wrote:
-> Board layout:
-> +--------------------------------------------------+
-> |               SoM (Advantech SOM-6820)           |
-> |                                                  |
-> |   +------------------------------------------+   |
-> |   |     SiP (IQ X7181 EVK SiP)               |   |
-> |   |                                          |   |
-> |   |   +----------------------------------+   |   |
-> |   |   |   SoC (X1E80100)                 |   |   |
-> |   |   +----------------------------------+   |   |
-> |   |                                          |   |
-> |   +------------------------------------------+   |
-> |                                                  |
-> +------------------------+-------------------------+
->                          |
->                          |  Plugs into
->                          v
-> +--------------------------------------------------+
-> |         Carrier Board (Advantech SOM-DB5830)     |
-> +--------------------------------------------------+
-> 
-> [...]
+[ Upstream commit 31b42af516afa1e184d1a9f9dd4096c54044269a ]
 
-Applied, thanks!
+Sometimes during hotplug scenario or suspend/resume scenario encoder is
+not always initialized when intel_hdcp_get_capability add
+a check to avoid kernel null pointer dereference.
 
-[1/2] dt-bindings: arm: qcom: Add Advantech SOM-DB5830
-      commit: 7be419ca859f1625f589063814b365f59761c732
-[2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
-      commit: 37f28aec2091c949a0e2ba76ad6b5eda34301e0a
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-2-suraj.kandpal@intel.com
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and drm i915 maintainers,
 
-Best regards,
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-53051. It rejects the HDCP capability query
+when hotplug or resume left the encoder unset.
+
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The code change is identical to upstream.
+
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2024-53051
+Upstream: 31b42af516afa1e184d1a9f9dd4096c54044269a
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index f377c4484e1857..f7987fb90bb1ac 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -142,11 +142,16 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
+ /* Is HDCP1.4 capable on Platform and Sink */
+ bool intel_hdcp_capable(struct intel_connector *connector)
+ {
+-	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
++	struct intel_digital_port *dig_port;
+ 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
+ 	bool capable = false;
+ 	u8 bksv[5];
+ 
++	if (!intel_attached_encoder(connector))
++		return capable;
++
++	dig_port = intel_attached_dig_port(connector);
++
+ 	if (!shim)
+ 		return capable;
+ 
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.39.5
+
