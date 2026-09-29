@@ -1,216 +1,159 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C97C4E9C13
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 13:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E5F3D1A81;
+	Tue, 29 Sep 2026 13:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790688556; cv=none; b=vAvcq/DWgrroD++E7g+CoicZP6vcz2xhBoVItpC7MkFbdRVYSNNj8iL2CkM+xvWuqyOMALRJuuQceScNxJD6N71r0B0/fs/SQlptaPPSbUnFbFDTQSrKNRuf0Z44YiSTfiXcc1BONIoHbmWwP+G9jb350egGeN0B+EMA9PBvBsE=
+	t=1790688589; cv=none; b=KHlcft8WZ0O2YZW0ORHY79yaCksEx1gXDwEHE5qJ2e/d9lttuPO+u3KydKzV9owxzPZN660ftYmKpYNdEovNC6WAceE6ew1KTUZBeqOIiz5BhEMuJ9AELaqT/9DG4MNJLMX0WBYZkVG9lbseWcgNVyB2ExkqPA3d9BX87MuSN4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790688556; c=relaxed/simple;
-	bh=b6dtydot1Y3sBNWDKv0mtPcqf7Msy3SOQlDk7dsZ8kQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=urwPxoKhgz/bN2Gs6f7RWkJa1pth//niNee5Qy0fEg/AHOzEdgYWmXCxbRbsFlkfRVyBIeHNsHtAw+aSYqGpOexLCIFqHeHSJm1IRexoqvy5tv6ug1qyWEfUjZHAGhwtxXgC5kyrS64E418E6FfD5K2xTCB4aatlqTG1or5/AnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KizNvOUt; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790688589; c=relaxed/simple;
+	bh=HZgwz1Y/hFhq9nA+gMPfaBNF/fd6YuO6C1EGtIBtQ5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cCExGU8acTsC1r2WI/MKeagjJW44/38KtsFCoJW8zOPq87lzBnhsX2aFgfh9iMyw4WRTwjcBeH7kwH7qLrUigdCT9SZvJ+IiAOmE5GryeC7TBw2ti+3qHtwO20iknr7A9TkecxklhijbYchPdELQJEE+2VWtk82yIpIAHPXSPno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fK7JE+5k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KizNvOUt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=24
-	UNBIhr4var2GRTsyPMGr9P6r96ICM0WyKu+yZVWMg=; b=KizNvOUtR/wqP/vUZA
-	aHtA6O6nSZsvslFVG+cWRxDrXa/QQ0jpgn2nzwyGq7+CffmOfZZYwTmmU9IQaGcQ
-	jfNW8FhX8cpEnE9xPvcgI4nKzl/wlmFUxd39l0Tf8AgclsJAWvhV3aZB0z6K8rNR
-	yFR0N6EoJ3DpdtYsfa7YlZ0ns=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgB3X630vLtq97U4CA--.7358S2;
-	Tue, 29 Sep 2026 21:28:22 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH v2] ocfs2: extend extent list validation in filecheck
-Date: Tue, 29 Sep 2026 21:28:18 +0800
-Message-Id: <20260929132818.259870-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fK7JE+5k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73511F000FF;
+	Tue, 29 Sep 2026 13:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790688587;
+	bh=tfN6V/0jpVSKj8us4BMTgHrYZ7PEZU7VE8KWI178lvU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fK7JE+5kuq0ZqZon40ZtxqT4EpnKQlLh7t1CJdAzoeIfvZejJE8bwT7vPe/MR554B
+	 bIsWpP8icPL5GBYilqRRS1vgu2VljQFBOnK8PTQ7GW8VcPFNgWqZgxjFByhk/8RyPZ
+	 PRMjk8+IOw0KSNRXGUMSWyheKevBZccQXCj6XO4jwLs6w2XgzWvXr2DOtmTINuCd7w
+	 uqPL7wrNhQgmfV6AyvdfS+wvPsDTW3rRcNcbvYagfR4RlRwXf96XixArGa70mqM8a6
+	 4ZtZui5Yhdl8U5AQfZrqI6GkGAiWJYwFLWRDPLbt6rIu462kbvxOPg9FZ5irJ7vTUK
+	 Jf832SwU2dFmg==
+Date: Tue, 29 Sep 2026 14:29:41 +0100
+From: Will Deacon <will@kernel.org>
+To: Koba Ko <kobak@nvidia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Rob Herring <robh@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Fenghua Yu <fenghuay@nvidia.com>, Tushar Dave <tdave@nvidia.com>,
+	Kai-Heng Feng <kaihengf@nvidia.com>, rupakr@nvidia.com,
+	mohammedk@nvidia.com
+Subject: Re: [RFC PATCH v2 1/3] arm64: add CPU prefetch and cache modulation
+ sysfs interface
+Message-ID: <aru9Rf7BzW3-vcm0@willie-the-truck>
+References: <20260825181701.3-1-kobak@nvidia.com>
+ <20260825181701.3-2-kobak@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgB3X630vLtq97U4CA--.7358S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GrWxZr4kZr4rJry5XFW7CFg_yoW7CFWxpF
-	1S9rn0gr48Ja4xu3s3t34rXr1fKF47Aa9rG393A3sxtFnIyF90kF1qqa42gF4FqrZ5Jr1a
-	9F4YgrsrC3WxAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piVbyAUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Bb1MGq7vPblTwAA3S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825181701.3-2-kobak@nvidia.com>
 
-Online filecheck validates general dinode fields but does not check the
-embedded extent list.  The normal inode read path requires l_count to be
-nonzero.  It also limits l_count to the number of records that fit in the
-inode and requires l_next_free_rec not to exceed l_count.
+On Wed, Aug 26, 2026 at 02:16:59AM +0800, Koba Ko wrote:
+> Performance characterization on arm64 systems sometimes needs a way to
+> inspect and bracket selected implementation-defined prefetch and cache
+> controls without exposing raw register contents. Add an RFC-only arm64
+> cpumod interface that presents a small set of named, range-checked
+> per-CPU sysfs attributes under each CPU device.
+> 
+> Establish the Kconfig and Makefile plumbing, CPU profile detection for
+> Grace and Vera from the target CPU's MIDR, register-field descriptors,
+> per-CPU kobject and attribute helpers, locking, and target-CPU read/write
+> callbacks. Common attributes are exposed for all supported profiles,
+> while Grace- and Vera-specific fields are exposed only for the matching
+> profile. Place the option at the end of the top-level Kernel Features
+> menu because these implementation controls are not tied to an Arm
+> architecture revision.
+> 
+> Per-CPU cpumod sysfs state follows the CPU lifecycle. Module
+> initialization populates subtrees for every online CPU while holding
+> cpus_read_lock(), so initial enumeration and CPU hotplug state
+> registration are serialized against concurrent topology changes. Offline
+> CPUs are intentionally skipped during initial setup because target-CPU
+> MIDR detection requires an IPI-capable online CPU; a later online callback
+> creates their subtree.
+> 
+> Profile detection reads MIDR through a synchronous callback on the CPU
+> owning the sysfs subtree and returns nonzero only when that dispatch
+> fails, so no IPI error can be hidden. After a successful read, retain
+> CPUMOD_PROFILE_UNKNOWN as the unsupported-profile sentinel. Subtree
+> creation skips that profile during both initial online enumeration and
+> later CPUHP online callbacks without blocking module load or CPU hotplug.
+> Object and sysfs setup failures remain fatal and are propagated.
+> 
+> Keep the dynamically allocated kobject state in a private per-CPU pointer
+> instead of the CPU device's generic driver-data slot. The online callback
+> is idempotent when that pointer already records a subtree. The offline
+> callback clears the private pointer before dropping the kobject reference,
+> allowing the release callback to retain ownership of the final free.
+> 
+> Register-backed controls are root-only read/write files. Reads
+> synchronously execute on the target CPU and return the live register field
+> value from that callback. Writes remain range-checked and continue to log
+> the target-CPU readback after the register update.
+> 
+> Register the dynamic CPUHP state with
+> cpuhp_setup_state_nocalls_cpuslocked(). The nocalls form avoids replaying
+> startup callbacks for CPUs already initialized by the explicit online
+> enumeration. On init failure, release the CPU read lock, destroy all
+> subtrees created so far, and return the error. Module exit removes the
+> CPUHP state with the matching nocalls helper and tears down all remaining
+> per-CPU state across possible CPUs.
+> 
+> Reviewed-by: Fenghua Yu <fenghuay@nvidia.com>
+> Reviewed-by: Tushar Dave <tdave@nvidia.com>
+> Reviewed-by: Kai-Heng Feng <kaihengf@nvidia.com>
+> Signed-off-by: Koba Ko <kobak@nvidia.com>
+> ---
+>  arch/arm64/Kconfig                      |  17 +
+>  arch/arm64/kernel/Makefile              |   1 +
+>  arch/arm64/kernel/arm_cpumod.c          | 458 ++++++++++++++++++++++++
+>  arch/arm64/kernel/arm_cpumod_internal.h |  93 +++++
+>  4 files changed, 569 insertions(+)
+>  create mode 100644 arch/arm64/kernel/arm_cpumod.c
+>  create mode 100644 arch/arm64/kernel/arm_cpumod_internal.h
+> 
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index b3afe0688919b..5e4ada4884b89 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -2417,6 +2417,23 @@ config ARM64_CONTPTE
+>  	  bit, for any mappings that meet the size and alignment requirements.
+>  	  This reduces TLB pressure and improves performance.
+>  
+> +config ARM64_CPUMOD
+> +	tristate "Arm CPU prefetch modulation sysfs controls"
+> +	help
+> +	  Expose selected CPU implementation control register fields through
+> +	  per-CPU sysfs attributes for performance characterization.
+> +
+> +	  The exposed controls allow hardware prefetch and cache-management
+> +	  policy fields to be inspected and adjusted on CPUs where firmware
+> +	  permits EL1 access to the relevant implementation control registers.
+> +	  Systems where firmware traps or blocks these writes cannot use this
+> +	  interface.
+> +
+> +	  This interface is intended for controlled performance evaluation and
+> +	  should not be enabled by default on production systems.
+> +
+> +	  If unsure, say N.
 
-Teach filecheck validation to check the same conditions.  Share predicate
-helpers with the normal inode validator.  Each path retains its own logging
-and return-code handling.  The repair path rejects an invalid l_count while
-continuing to clamp an invalid l_next_free_rec.
+We don't tend to support these sort of implementation-defined features
+as:
 
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
+   - They're generally not something we can virtualise
+   - The registers should not be accessible to the kernel in production
+   - It's not clear what other bits are exposed in the registers
+   - These sort of controls can't always be toggled while the memory system
+     is active
+   - We can't test them or maintain the zoo of interfaces we'd end up with
+     if we started merging them
 
-Notes:
-    Changes in v2:
-    - Treat the change as new filecheck functionality and drop the Fixes tag.
-    - Extract shared predicates from ocfs2_validate_inode_block() instead of
-      duplicating the extent-list checks.
-    - Drop enum ocfs2_extent_list_status.
+So exposing the registers directly to userspace doesn't feel like a
+particularly good idea to me.
 
- fs/ocfs2/inode.c | 92 +++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 68 insertions(+), 24 deletions(-)
-
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046..6b038554e373 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -249,6 +249,36 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
- 	return 1;
- }
- 
-+static int
-+ocfs2_dinode_has_invalid_extent_count(struct super_block *sb,
-+				      struct ocfs2_dinode *di)
-+{
-+	struct ocfs2_extent_list *el = &di->id2.i_list;
-+	u16 count;
-+
-+	if (!ocfs2_dinode_has_extents(di))
-+		return 0;
-+
-+	count = le16_to_cpu(el->l_count);
-+	/*
-+	 * The exact capacity depends on i_xattr_inline_size, another
-+	 * unvalidated on-disk field. Inline xattrs only shrink the
-+	 * list, so the no-xattr maximum is a safe upper bound that a
-+	 * valid l_count never exceeds.
-+	 */
-+	return !count || count > ocfs2_extent_recs_per_inode(sb);
-+}
-+
-+static int ocfs2_dinode_has_invalid_extent_index(struct ocfs2_dinode *di)
-+{
-+	struct ocfs2_extent_list *el = &di->id2.i_list;
-+
-+	if (!ocfs2_dinode_has_extents(di))
-+		return 0;
-+
-+	return le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count);
-+}
-+
- /*
-  * here's how inodes get read from disk:
-  * iget5_locked -> find_actor -> OCFS2_FIND_ACTOR
-@@ -1716,36 +1746,28 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
--	if (ocfs2_dinode_has_extents(di)) {
--		struct ocfs2_extent_list *el = &di->id2.i_list;
--		u16 count = le16_to_cpu(el->l_count);
--		u16 next_free = le16_to_cpu(el->l_next_free_rec);
-+	if (ocfs2_dinode_has_invalid_extent_count(sb, di)) {
-+		u16 count = le16_to_cpu(di->id2.i_list.l_count);
- 
--		if (count == 0) {
-+		if (!count)
- 			rc = ocfs2_error(sb,
- 					 "Invalid dinode %llu: extent list l_count is zero\n",
- 					 (unsigned long long)bh->b_blocknr);
--			goto bail;
--		}
--		/*
--		 * The exact capacity depends on i_xattr_inline_size, another
--		 * unvalidated on-disk field. Inline xattrs only shrink the
--		 * list, so the no-xattr maximum is a safe upper bound that a
--		 * valid l_count never exceeds.
--		 */
--		if (count > ocfs2_extent_recs_per_inode(sb)) {
-+		else
- 			rc = ocfs2_error(sb,
- 					 "Invalid dinode %llu: extent list l_count %u exceeds max %u\n",
- 					 (unsigned long long)bh->b_blocknr, count,
- 					 ocfs2_extent_recs_per_inode(sb));
--			goto bail;
--		}
--		if (next_free > count) {
--			rc = ocfs2_error(sb,
--					 "Invalid dinode %llu: extent list l_next_free_rec %u exceeds l_count %u\n",
--					 (unsigned long long)bh->b_blocknr, next_free, count);
--			goto bail;
--		}
-+		goto bail;
-+	}
-+
-+	if (ocfs2_dinode_has_invalid_extent_index(di)) {
-+		rc = ocfs2_error(sb,
-+				 "Invalid dinode %llu: extent list l_next_free_rec %u exceeds l_count %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(di->id2.i_list.l_next_free_rec),
-+				 le16_to_cpu(di->id2.i_list.l_count));
-+		goto bail;
- 	}
- 
- 	rc = 0;
-@@ -1835,6 +1857,26 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
-+	if (ocfs2_dinode_has_invalid_extent_count(sb, di)) {
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: extent list l_count %u is invalid (max %u)\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->id2.i_list.l_count),
-+		     ocfs2_extent_recs_per_inode(sb));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
-+	if (ocfs2_dinode_has_invalid_extent_index(di)) {
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: extent list l_next_free_rec %u exceeds l_count %u\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->id2.i_list.l_next_free_rec),
-+		     le16_to_cpu(di->id2.i_list.l_count));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
- 	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
- 		if (S_ISDIR(le16_to_cpu(di->i_mode)))
- 			mlog(ML_ERROR,
-@@ -1893,6 +1935,9 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
- 		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
- 	}
- 
-+	if (ocfs2_dinode_has_invalid_extent_count(sb, di))
-+		return -OCFS2_FILECHECK_ERR_INVALIDINO;
-+
- 	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
- 		di->i_blkno = cpu_to_le64(bh->b_blocknr);
- 		changed = 1;
-@@ -1912,8 +1957,7 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
- 		     le32_to_cpu(di->i_fs_generation));
- 	}
- 
--	if (ocfs2_dinode_has_extents(di) &&
--	    le16_to_cpu(di->id2.i_list.l_next_free_rec) > le16_to_cpu(di->id2.i_list.l_count)) {
-+	if (ocfs2_dinode_has_invalid_extent_index(di)) {
- 		di->id2.i_list.l_next_free_rec = di->id2.i_list.l_count;
- 		changed = 1;
- 		mlog(ML_ERROR,
--- 
-2.34.1
-
+Will
