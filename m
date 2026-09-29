@@ -1,160 +1,345 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7487C50E5A0
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CB55172E3;
+	Tue, 29 Sep 2026 12:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683745; cv=none; b=A3+SNB1JUqkXZTaQIKSvQySsaHdv80iagXqi6R/8m9YZqbgBoilH5au5fvw7a/4qcf6x9t/RJXCfyUxVwkK/Nz3B/6mvIBJnuTMYC1BjeoC65GpI0pxHAp7JL5ZWygTxNtj0aQmvbTgOTe1v1mu0Y7TpKJMK2/+fQs601paDsMc=
+	t=1790683752; cv=none; b=IIY1rClQIeTbzJeofzofMFSbKP01PXW5lmuw5ttj7W5S0E4RQTVveDAgTktWthz62/TRzOVu65FFIqHjhR29vPJQLkfxhXS29MP7z9M/NjfKzIduzkDd7sKihSUQcKgXRujgTJTbsNt+kJ4seFyR/iUPbr2567YOdJhQiLFzk/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683745; c=relaxed/simple;
-	bh=I3/amnDE8DoRLeuHm1MOHG2njV1/lhsxYl6Oo/VPG+g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fZzMT2KCpal4Q853EN80ys562aiWCahOTiRpls0ylpohP71LQu+qBitQGzGqbi1rTXKtsbXNQiJamny4MJADl5TFuul4KvpMm3Garil1uMNfqwAG2zxljIaUEUSwfb2sUkxa23iLg6FknnVSU8xpV4Ij9sTXN2aUjak2VUMNzvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EVaF3C3z; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790683752; c=relaxed/simple;
+	bh=fUEHF47M7WKRCHrthzZ0wgaJU0aCQTKdbRlyJ0WN10M=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bfHJyC+aNs58XgOpvDqtNgWHCgv6IEXnfh76S+OLe9JK3RRRWFe+GUDgDNIeC07PVT0/h3pcdWMMg76Kf4PrJcnQd4OC8zg0ytYKnChPrWEHc8FP1VVyH7ZfEu9zguxvAwWkAjttP8869KUfSRmqul21IImuTCzkcmZRHUtRcpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Mf8Js0ww; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EVaF3C3z"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso30427655e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 05:09:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790683743; x=1791288543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FUAtVhRUMkO8jJF0y7IPH5eFVAMi6R59O56ArlPTDhY=;
-        b=EVaF3C3zq4ugz8P540XKA3PqfGkI17WPhV8Znygc+vh0p2xfYA7+2bjtVfrr2r/yQJ
-         Ogpi8+l6rq9pEPPpjy7rpJ1cUzFjRGygqLmK81hOXcbFzxWmkTmRQhQgu89/XTQWCrO/
-         KQBtG5Zi67dBQpKMU2k6mQGXxdZgYIIbuMtxEdOQGseBZO0No8+3UxstxnsKPDqVWiXD
-         q91BeEhaW+6urnxGNHkHnsYk77fB4WqlGYbvM2kYnHbdIXcz91C65IPOLg1bwpWRZ1nh
-         XZW9Fq2FVnANWVvmaOTJv8nsY3FMck9yhOEbauDK53wZdSj086KpTPv59oHalGlH5fZe
-         LeMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790683743; x=1791288543;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FUAtVhRUMkO8jJF0y7IPH5eFVAMi6R59O56ArlPTDhY=;
-        b=ZmPycs5tzrW5XShsYG+mgp9D9Avvu72t+S8+FyPIJWQZ12muiWz7vfaTCMRoOPXEn0
-         Nbun+Ze1CNS0xpASS4IpM2n1fOSlydFMYwjXSv0n49AdqxJeAh3fl6aVLBol/vPTBYNv
-         32aDIAm5AO4iZMMkia53tOxYaLF1Wyf4nwh0wMkqNCS1xgmb0aOVI7jKLuI0C87AQkTF
-         HAD9B44F42X7lbEEEg4SlNCKlC2sSfGKSENTOmqawqcQDALYsi7HrqX5RCdqM/YCVMQf
-         edkfC/L4eSQTWbPMsT1QSrkUAGZ4Y0QBHSaQp5jNt3koOKDdqexTZXT7cq/SMudBsaU5
-         c4lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFmHqkAU28AkmLzKy/qHU3Ww3tauIcEDErNB8WR9mD9xHeb8aBlh8USlvWKWgFQZO/Y3MZjttm00z39Pc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lusjYKRnsp6VqJwlQM7cqUJgrjvmDyXSEP32f2GLcVUMXqjpxA
-	FdUVYhmGVgMyBiomCW+3oIO/qWPAk/jDKOP9ZKhM5Jgnyz9RnzsERoafaftyktdrINY=
-X-Gm-Gg: AYBFou2idysxtwuWSO9/EJcar9gHu02bN5MEuKzERfazmTlG0msiiEzaTkPcRBYYuWV
-	ke/XEpT6LIblIW7iGxqctagMTfOqibKuZUn5MazdrXJ2eQvJ9WBAaxD1GnpIVPX7hGp0P9P01W6
-	GGIzQ0br1830+bov/eb+7fAV08p+8NihQ+RKkZYnb4jKJx3x8bhbysypmNGIY/pWECY+ZeKdNfy
-	HWDgoMZPFXC4U/q0R5yhs9fvFVePof+cO0bsD0vH+g7KjwiNCg6J3zA7YCSSlF5nkTgLhGpp/3L
-	/zh4MnKO+mH3O6MaMtuwcSgDQzsLC/gzMZtUQr0O11w7yPcj/8jE/jIZJmpfa/zb5wPBVFmR6KI
-	kUkFItCUUOX6IcP60eV8XTIJW4yQfSkcTmM47niHUW9uIWsehvIJ6TgBKMkqqT7uAyWdBGDPPF8
-	SAmCmiNbOXozHwcbesakw/DG4fWUX+BPCGacYD+GCIV5RxTvP3zKqQlbwwZxIHo0CxV2gC088iP
-	rBUGnY=
-X-Received: by 2002:a05:600c:3b8b:b0:49d:39:90ba with SMTP id 5b1f17b1804b1-49fe66c301dmr320985865e9.3.1790683742607;
-        Tue, 29 Sep 2026 05:09:02 -0700 (PDT)
-Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d453badsm47404935e9.2.2026.09.29.05.09.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:09:02 -0700 (PDT)
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v5 16/16] printk: Try enable preferred consoles only when there are any
-Date: Tue, 29 Sep 2026 14:05:46 +0200
-Message-ID: <20260929120546.328616-17-pmladek@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929120546.328616-1-pmladek@suse.com>
-References: <20260929120546.328616-1-pmladek@suse.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Mf8Js0ww"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790683749; x=1822219749;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fUEHF47M7WKRCHrthzZ0wgaJU0aCQTKdbRlyJ0WN10M=;
+  b=Mf8Js0wwBY7WcKqSB4XUT2KvGtOnkx18zBQGno218jO8FP90C50uOGAX
+   nNfhU+hbdIW2ozDIMCSfNzi4MgcgWgf+2HWp+om9RLQIwlHGVEtNkffss
+   hCqKYmdj6BjUSrO7W4GVNLyhz4iWpcOO+aqsI/MsQgABR4GFDpwBzoNIh
+   /0TjA68BeIFik8Ac3IkCVQ4JefoHwOIoUOzqXCAU8qHXJ9dlvQVkXQcLM
+   BlR/gvnU0jAtG8JypN5QVo3KLuboPqX0qzsmAt+pJEEr2G0uJO3W1qpp7
+   Ehjcwz1PCX+HXYymu8O8TZQk9rtOPo8TE8JFYBDw24t73yaPbb5xv1TjF
+   A==;
+X-CSE-ConnectionGUID: m9FKC+SuTGSgQF4KR/WVAQ==
+X-CSE-MsgGUID: 1e1vtWY5TeqyxnmFszmc5w==
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="231424125"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 05:09:03 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Tue, 29 Sep 2026 05:09:02 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 29 Sep 2026 05:09:00 -0700
+Date: Tue, 29 Sep 2026 14:09:00 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Quentin Freimanis <quentin@q-lab.dev>
+CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
+ Cochran" <richardcochran@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: sparx5: start the domain 0 TOD counter on
+ non-PTP lan969x variants
+Message-ID: <20260929120900.zld2c3h4keqcnmcj@DEN-DL-M70577.microsemi.net>
+References: <20260928044955.29647-1-quentin@q-lab.dev>
+ <20260928151453.fzch356vrp3ergy7@DEN-DL-M70577>
+ <4e1ef527-e843-4f1b-9f7f-cf2400fa443e@q-lab.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <4e1ef527-e843-4f1b-9f7f-cf2400fa443e@q-lab.dev>
 
-try_enable_preferred_console() used to be always called because it
-had several hidden effects, namely:
+Hi Quentin,
 
-- returned success when a console was pre-enabled using CON_ENABLED
-  flag.
+> Hi Daniel, thanks for taking the time to reply.
+> 
+> On 9/28/26 8:14 AM, Daniel Machon wrote:
+> > Hi Quentin,
+> > 
+> > > Currently the base non-PTP capable lan969x variants don't forward any
+> > > ethernet frames. Testing showed that starting the domain 0 TOD counter
+> > > gets them working again.
+> > 
+> > Ack. Not initializing the TOD domains on certain variants is a problem.
+> > 
+> > However, TOD domains shouldn't affect basic forwarding. I tried it on my board
+> > with PTP forced off - no forwarding issues.
+> > 
+> > Certain TSN features do require TOD domains to be configured, though. How did
+> > you test this, and what exactly did you see fail?
+> 
+> Here is my test setup:
+> 
+> - a LAN9698-V/3KW purchased on digikey in October 2025.
+> 
+> - My SoM dtsi [1], board dts [2], schematics of the som [3] and
+> schematics of the carrier board [4].
+> 
+> - net/main commit a7bfaba4823e
+> 
+> - a minimal buildroot initramfs [5]
+> 
+> - eth10 in the test log is a 1g RGMII port connected to a RTL8211F PHY.
+> 
+> Note: I've snipped the output of some commands to save space.
+> 
+> Without this patch, right after a reboot:
+> 
+>     $ cat /proc/cmdline
+>     console=ttyAT0,115200 earlycon
+>     systemd.mask=systemd-networkd.service
+>     systemd.mask=systemd-networkd.socket
+> 
+>     $ uname -a
+>     Linux buildroot 7.3.0-rc4 #11 SMP PREEMPT Mon Sep 28 19:14:03 PDT
+> 2026 aarch64 GNU/Linux
+> 
+>     $ ip link set eth10 up
+> 
+>     $ ip addr add 10.0.0.45/24 dev eth10
+> 
+>     $ ping 10.0.0.1
+>     PING 10.0.0.1 (10.0.0.1): 56 data bytes
+>     --- 10.0.0.1 ping statistics ---
+>     9 packets transmitted, 0 packets received, 100% packet loss
+> 
+>     $ cat /proc/interrupts
+>                 CPU0
+>     20:          0  GIC-0  120 Level     sparx5-fdma
+> 
+>     $ ip -s link
+>     12: eth10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq
+> state UP mode DEFAULT group default qlen 1000
+>         link/ether 4e:b7:8e:61:37:1e brd ff:ff:ff:ff:ff:ff
+>         RX:  bytes packets errors dropped  missed   mcast
+>             53745     278      0       0       0     174
+>         TX:  bytes packets errors dropped carrier collsns
+>                 0       0      0       0       0       0
+>         altname enx4eb78e61371e
+> 
+> After a fresh boot with this patch:
+> 
+>     $ cat /proc/cmdline
+>     console=ttyAT0,115200 earlycon
+> systemd.mask=systemd-networkd.service systemd.mask=systemd-networkd.socket
+> 
+>     $ uname -a
+>     Linux buildroot 7.3.0-rc4 #10 SMP PREEMPT Sun Sep 27 21:23:12 PDT
+> 2026 aarch64 GNU/Linux
+> 
+>     $ ip link set eth10 up
+> 
+>     $ ip addr add 10.0.0.45/24 dev eth10
+> 
+>     $ ping 10.0.0.1
+>     PING 10.0.0.1 (10.0.0.1): 56 data bytes
+>     64 bytes from 10.0.0.1: seq=0 ttl=64 time=1.927 ms
+>     64 bytes from 10.0.0.1: seq=1 ttl=64 time=0.876 ms
+>     64 bytes from 10.0.0.1: seq=2 ttl=64 time=0.832 ms
+>     --- 10.0.0.1 ping statistics ---
+>     3 packets transmitted, 3 packets received, 0% packet loss
+>     round-trip min/avg/max = 0.832/1.211/1.927 ms
+> 
+>     $ cat /proc/interrupts
+>                 CPU0
+>     20:       2039  GIC-0  120 Level     sparx5-fdma
+> 
+>     $ ip -s link
+> 
+>     12: eth10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq
+> state UP mode DEFAULT group default qlen 1000
+>         link/ether a2:ef:53:a5:06:73 brd ff:ff:ff:ff:ff:ff
+>         RX:  bytes packets errors dropped  missed   mcast
+>             147075    1646      0      96       0      61
+>         TX:  bytes packets errors dropped carrier collsns
+>             75918     957      0       0       0       0
+> 
+> 
+> > 
+> > > 
+> > > Fix by moving the TOD counter start code into a helper and calling it in
+> > > sparx5_ptp_init(). Non-PTP capable lan969x parts now start the domain 0
+> > > counter, and PTP-capable parts start all three, as they used to. A similar
+> > > workaround that starts all three and registers the PHC clocks is
+> > > implemented in the vendor BSP 6.18 kernel [1].
+> > 
+> > What we do downstream, is to ensure that all domains and PHC's are configured
+> > and registered on all variants, with a very simple is_sparx5() check.
+> 
+> My reasoning for only enabling the first counter and not registering the
+> clocks is that the part does not have SPX5_FEATURE_PTP, so it should not
+> expose any PTP features to userspace.
+> 
 
-- enabled Braille consoles which were ignored by "preferred_dev_console"
-  because they were not associated with /dev/console.
+I acknowledge the problem, and I agree that the PHCs should not be registered.
+As for the solution, downstream we always start all three TOD domains, including
+on sparx5. If you take the same approach here, you don't need the new helper.
+Just move the existing TOD start sequence above the if (!sparx5->ptp) early
+return, so the counters are always started, while the PHC registration below it
+is still skipped on the non-PTP variants.
 
-- returned success when a console was enabled by default because
-  try_enable_default_console() did not return success.
+> > 
+> > > 
+> > > [1] https://github.com/microchip-ung/linux/tree/bsp-6.18-2026
+> > > 
+> > > Fixes: 207966787b71 ("net: sparx5: add feature support")
+> > > Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
+> > > ---
+> > > If anyone with access to documentation more detailed than the
+> > > register map knows WHY this clock needs to be running, I'd like to add
+> > > that to the commit message.
+> > 
+> > 
+> > > 
+> > >   .../ethernet/microchip/sparx5/sparx5_ptp.c    | 72 +++++++++++++------
+> > >   1 file changed, 49 insertions(+), 23 deletions(-)
+> > > 
+> > > diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > > index 5953e04ef14e..b436684ddae6 100644
+> > > --- a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > > +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+> > > @@ -573,6 +573,42 @@ static int sparx5_ptp_adjtime(struct ptp_clock_info *ptp, s64 delta)
+> > >          return 0;
+> > >   }
+> > > 
+> > > +static int sparx5_ptp_tod_start(struct sparx5 *sparx5, u8 phc_mask)
+> > > +{
+> > > +       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
+> > > +       int i;
+> > > +
+> > > +       if (phc_mask > GENMASK(SPARX5_PHC_COUNT - 1, 0))
+> > > +               return -EINVAL;
+> > > +
+> > > +       /* Disable master counters */
+> > > +       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
+> > > +
+> > > +       /* Configure the nominal TOD increment per clock cycle */
+> > > +       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(phc_mask),
+> > > +                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > +                sparx5, PTP_PTP_DOM_CFG);
+> > > +
+> > > +       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
+> > > +               if (!(phc_mask & BIT(i)))
+> > > +                       continue;
+> > > +
+> > > +               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
+> > > +                       PTP_CLK_PER_CFG(i, 0));
+> > > +               spx5_wr((u32)(tod_adj >> 32), sparx5,
+> > > +                       PTP_CLK_PER_CFG(i, 1));
+> > > +       }
+> > > +
+> > > +       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
+> > > +                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > +                sparx5, PTP_PTP_DOM_CFG);
+> > > +
+> > > +       /* Enable master counters */
+> > > +       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(phc_mask), sparx5, PTP_PTP_DOM_CFG);
+> > > +
+> > > +       return 0;
+> > > +}
+> > > +
+> > >   static struct ptp_clock_info sparx5_ptp_clock_info = {
+> > >          .owner          = THIS_MODULE,
+> > >          .name           = "sparx5 ptp",
+> > > @@ -605,7 +641,6 @@ static int sparx5_ptp_phc_init(struct sparx5 *sparx5,
+> > > 
+> > >   int sparx5_ptp_init(struct sparx5 *sparx5)
+> > >   {
+> > > -       u64 tod_adj = sparx5_ptp_get_nominal_value(sparx5);
+> > >          const struct sparx5_ops *ops = sparx5->data->ops;
+> > >          struct sparx5_port *port;
+> > >          int err, i;
+> > > @@ -622,8 +657,17 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+> > >                  sparx5->ptp = 1;
+> > >          }
+> > > 
+> > > -       if (!sparx5->ptp)
+> > > +       if (!sparx5->ptp) {
+> > > +               if (!is_sparx5(sparx5)) {
+> > > +                       /* the base, non-ptp-capable lan969x variants need the first tod counter
+> > 
+> > Nit: s/the/The
+> > 
+> > > +                        * running to forward frames.
+> > > +                        */
+> > > +                       err = sparx5_ptp_tod_start(sparx5, BIT(0));
+> > > +                       if (err)
+> > > +                               return err;
+> > > +               }
+> > >                  return 0;
+> > > +       }
+> > > 
+> > >          for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
+> > >                  err = sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
+> > > @@ -635,27 +679,9 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+> > >          spin_lock_init(&sparx5->ptp_ts_id_lock);
+> > >          mutex_init(&sparx5->ptp_lock);
+> > > 
+> > > -       /* Disable master counters */
+> > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
+> > > -
+> > > -       /* Configure the nominal TOD increment per clock cycle */
+> > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0x7),
+> > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > -                sparx5, PTP_PTP_DOM_CFG);
+> > > -
+> > > -       for (i = 0; i < SPARX5_PHC_COUNT; ++i) {
+> > > -               spx5_wr((u32)tod_adj & 0xFFFFFFFF, sparx5,
+> > > -                       PTP_CLK_PER_CFG(i, 0));
+> > > -               spx5_wr((u32)(tod_adj >> 32), sparx5,
+> > > -                       PTP_CLK_PER_CFG(i, 1));
+> > > -       }
+> > > -
+> > > -       spx5_rmw(PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS_SET(0),
+> > > -                PTP_PTP_DOM_CFG_PTP_CLKCFG_DIS,
+> > > -                sparx5, PTP_PTP_DOM_CFG);
+> > > -
+> > > -       /* Enable master counters */
+> > > -       spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0x7), sparx5, PTP_PTP_DOM_CFG);
+> > > +       err = sparx5_ptp_tod_start(sparx5, GENMASK(SPARX5_PHC_COUNT - 1, 0));
+> > > +       if (err)
+> > > +               return err;
+> > > 
+> > >          for (i = 0; i < sparx5->data->consts->n_ports; i++) {
+> > >                  port = sparx5->ports[i];
+> > > --
+> > > 2.55.0
+> > > 
+> > > 
+> > 
+> > /Daniel
+> 
+> [1]
+> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/board/qlab/openswitch-lan969x/dts/microchip/lan9698-openswitch.dtsi
+> [2]
+> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/board/qlab/openswitch-lan969x/dts/microchip/lan9698-openswitch-10x10g.dts
+> [3]
+> https://gitlab.com/qfreiman/openswitch-lan969x/-/blob/master/openswitch-lan969x.pdf
+> [4]
+> https://gitlab.com/qfreiman/openswitch-10x10g-carrier/-/blob/master/openswitch-10x10g-carrier.pdf
+> [5]
+> https://gitlab.com/qfreiman/buildroot-external-qlab/-/blob/master/configs/qlab_openswitch_lan969x_defconfig
+> 
+> - Quentin
+> 
 
-The first two hidden effects were removed in previous patches. The already
-fixed handling of pre-enabled consoles actually helps even the 3rd case.
-try_enable_default_console() sets CON_ENABLED flag on success and
-is later handled as pre-enabled.
-
-Prevent any future hidden effects and call try_enable_preferred_console()
-only when some console is preferred.
-
-No behavior change.
-
-Signed-off-by: Petr Mladek <pmladek@suse.com>
----
- kernel/printk/printk.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
-
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 1eb749da9e24..06c49042dd8f 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -4085,7 +4085,7 @@ static int try_enable_default_console(struct console *newcon)
- 
- static int try_enable_console(struct console *newcon)
- {
--	int err;
-+	int err = -ENOENT;
- 
- 	/*
- 	 * First, try to enable the console driver as a Braille console.
-@@ -4124,16 +4124,24 @@ static int try_enable_console(struct console *newcon)
- 			if (err != -ENOENT)
- 				return err;
- 		}
-+	} else {
-+		/* See if this console matches one we selected on the command line */
-+		err = try_enable_preferred_console(newcon, true);
-+		if (err != -ENOENT)
-+			return err;
-+
-+		/* If not, try to match against the platform default(s) */
-+		err = try_enable_preferred_console(newcon, false);
-+		if (err != -ENOENT)
-+			return err;
- 	}
- 
--	/* See if this console matches one we selected on the command line */
--	err = try_enable_preferred_console(newcon, true);
--	if (err != -ENOENT)
--		return err;
--
--	/* If not, try to match against the platform default(s) */
--	err = try_enable_preferred_console(newcon, false);
--	if (err != -ENOENT)
-+	/*
-+	 * Make sure that pre-enabled consoles won't get registered when
-+	 * something went wrong. This is just a paranoid check that all
-+	 * branches above returned on error.
-+	 */
-+	if (WARN_ON(err != -ENOENT))
- 		return err;
- 
- 	/*
--- 
-2.55.0
-
+/Daniel
