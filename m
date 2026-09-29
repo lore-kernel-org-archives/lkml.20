@@ -1,96 +1,116 @@
-Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768CB19D065;
-	Tue, 29 Sep 2026 00:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119282BE656
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 00:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790642989; cv=none; b=hEya3gEmGlGDg6i3Ay+z839ixTQ/oG5ZWM1OSfvTq2SvVge4h4GszULh1ZJHZ+/9CpPd50ogo0NXrEPwHcUCumFIE8tElKwQFKZDEE+GFpEIrDBTvJeE+p0iFzsXvCwpVstrWfuFCa9nx5hoxtJ1vEIkP8wOw66xgPk2ceQeFUs=
+	t=1790643120; cv=none; b=A40258CbzGWT418VWc/WMME7nueMYx5CxWtvFwwoSho/e7d3bi7tAsHfeeJNHyi8zTzgzow8zN5LDq3YnVErvF1KCtiirG7Z1TvuTR0L7UJLNFo5+SldpEjriLLqyEV5OB0+OzbI/nxXj9V7oEt9BU7yY1aaJ5lpCi3OBDEvlvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790642989; c=relaxed/simple;
-	bh=phHO8us2QASc5xZsc2sDVgZ211K6KVlDHNQDvnvnkMI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bxuhrvFQCHwJFRuJk9mv7EeHpEHordwwNV7qKGJXnrbqhnI4iNnhMnxkMLl1LrXYJegK7/CXEul+KqBDk/89Rpj4g8y/gimWGIGsRR6qrSIS3WBWLsMR9HK+vib14nQiJFIbeddHlB5ZK2DyIz4dKCHz+5C6WiAwQlihMhCoGaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08338112|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0415592-0.0117084-0.946732;FP=16925596808252007733|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=20;RT=20;SR=0;TI=SMTPD_---.jQhq37y_1790642973;
-Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jQhq37y_1790642973 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 29 Sep 2026 08:49:35 +0800
-Message-ID: <46319153-5dd8-42f4-bd3d-c01e122cf218@motor-comm.com>
-Date: Tue, 29 Sep 2026 08:49:32 +0800
+	s=arc-20240116; t=1790643120; c=relaxed/simple;
+	bh=dxfGKXsjt22oMjT3e9zqK9vh34ayPH6ktSFXgULNLw4=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=iioku5hLTwKhoVks7TIWOVk3XwlmJioIxnUymGSAGHBbvxgy669yQqMjV/EGq44srClwYu0Xy4cEzJmwiUWdYQPO06+W0Zyc8l0pwWayBpiXlTYELaOta1mgQCjkDPKn/c6+PpmQwTdswQYvt6z47vEFV25SCdKG9ihqSC/80HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MTeuINsu; arc=none smtp.client-ip=91.218.175.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MTeuINsu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dxfGKXsjt22oMjT3e9zqK9vh34ayPH6ktSFXgULNLw4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790643113; v=1; x=1791247913;
+ b=MTeuINsuF52A64HtkeS9XsiohdQs8roZkjQliWVTYzVthb9Z5/zgWrW2H02RF2MQiP6CwmDb
+ 7oGCZtKa9j0Y/8OVOZf/VaUmOqCA1IJ89H2hG4qZrO/hSOjHYIPpxocgcWkGr1jSXfM4G9ivC/9
+ 3zdEOrDEFUADlB7B/mOKXIBg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id d9a95586af9c48c9;
+	Tue, 29 Sep 2026 00:51:53 +0000
+X-Mizu-Trace-ID: d9a95586af9c48c9
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-To: Conor Dooley <conor@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-2-kyle.switch@motor-comm.com>
- <20260924-vowed-roulette-abda42cec444@spud>
- <24cdb178-7a94-487b-9f8a-42ba984e10bb@motor-comm.com>
- <20260928-valium-gents-cbf9a4fdbdcc@spud>
-Content-Language: en-US
-From: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <20260928-valium-gents-cbf9a4fdbdcc@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v2 0/6] mm: Unify device DAX and HugeTLB vmemmap
+ population paths
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <e36e8b24-81fc-45c7-8eb9-8b363e3d89be@kernel.org>
+Date: Tue, 29 Sep 2026 08:51:37 +0800
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <D999F950-DB51-477A-BECD-B68E8F414F81@linux.dev>
+References: <20260924075259.2013039-1-songmuchun@bytedance.com>
+ <607759bf-59f2-4ad6-b95b-e780ed2acba3@kernel.org>
+ <8385F749-0F72-494E-9CA2-2E433A066712@linux.dev>
+ <se2tjmpk.ritesh.list@gmail.com>
+ <e36e8b24-81fc-45c7-8eb9-8b363e3d89be@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
 
-On 9/29/26 00:25, Conor Dooley wrote:
-> On Mon, Sep 28, 2026 at 09:43:48AM +0800, Kyle Switch wrote:
->
->>>> +unevaluatedProperties: false
->>>> +
->>>> +examples:
->>>> +  - |
->>>> +    mdio {
->>>> +        #address-cells = <1>;
->>>> +        #size-cells = <0>;
->>>> +
->>>> +        ethernet-phy-package@9 {
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>> +            compatible = "motorcomm,yt8824-package";
->>>> +            reg = <9>;
->>>> +
->>>> +            phy-mode = "internal";
->>>> +
->>>> +            ethernet-phy@4 {
->>>> +                reg = <4>;
->>>> +            };
->>>> +
->>>> +            ethernet-phy@5 {
->>>> +                reg = <5>;
->>>> +            };
->>>> +
->>>> +            ethernet-phy@6 {
->>>> +                reg = <6>;
->>>> +            };
->>>> +
->>>> +            ethernet-phy@7 {
->>>> +                reg = <7>;
->>>> +            };
->>> Unless the addresses and numbers of phys are entirely unconstrained, I
->>> think you should add some pattern properties for them.
->> Ans: I'm somewhat confused on this point. What might the pattern properties
-> There's no need for this "ans" business, the quoting makes it clear
-> already.
-okay, thank you.
->>          you mentioned include? Could you provide more detail? thank you.
-> On second thoughts, there's some basic constraints already provided by
-> ethernet-phy-package for this. Probably don't need to anyhting specific.
->
-okay, based on your suggestions, the next version will be modified.
+
+> On Sep 29, 2026, at 03:03, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 9/28/26 19:43, Ritesh Harjani (IBM) wrote:
+>> Muchun Song <muchun.song@linux.dev> writes:
+>>=20
+>>>=20
+>>> If you're planning to review this series, I'd suggest waiting for my =
+rebased
+>>> version.
+>>>=20
+>>=20
+>> Hello Muchun,
+>>=20
+>> Thanks for taking care of powerpc side of the changes. Is it possible =
+to
+>> share your git/github tree somewhere? Sorry, but it's hard to follow
+>> which series is based on which and the overall multi-series is based =
+on
+>> which upstream tree. If you could share your updated tree somewhere -
+>> that would make my life simpler.
+>=20
+> Yes, that usually helps. And next time better clearly spell out the =
+current list
+> of series, where they currently are (mm-new, mm-unstable, on list etc) =
+and the
+> dependencies.
+>=20
+> I was a bit confused :)
+
+My bad. I will specify the exact branch dependency in a future version.
+Thanks for your suggestion.
+
+Muchun,
+Thanks.
+
+>=20
+> --=20
+> Cheers,
+>=20
+> David
+
+
