@@ -1,226 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020132.outbound.protection.outlook.com [52.101.195.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDB33D9025
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698069; cv=none; b=nq6pqHOikOJpAqqitDRCaFqbveRZww6C3atlGjZacZDKmCMXVB4ZwuW6mkeJGAT2omvpZ5TcX0K0I2P/ynHr6qIH2iWlsK7UDwSMhFEqsexx/CxvBeVM2mM1ubAcXxi2xLtz3tpTkT8jFsYu9TErMKHdi95hlxYKIcgQ/JIBces=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698069; c=relaxed/simple;
-	bh=UiPEbTTVeS4GTLOBWf0eweXZfag4iu80jpneHEBS5eE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P8/SvEtnFhcBdVoU74LStgetuevJY1oOxx4Uue89soMcQf16SCOO1bf0NgJcbOFs6sHlTv+4J/ebtugb4R3bCZojLFzF9Mi8eLmnLwh4LukLDwEL/ymKQ5rqBUdj743xQWCZhusZwyGnRfQaRCWUzY7sJD+sbGI05lBZ1gvU2Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l9MwBIBr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OKmwA0Ng; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2DC4ED1AF;
+	Tue, 29 Sep 2026 16:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.132
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790698070; cv=fail; b=eZh4EExlxkaK0TjxtXkJGT7jOHeYX6D+Flt3IZDgejMnjIiYCYSYlw0WFIhyn5YednQGd+5ZgbZoYhziHHSVsvhNxsyBDICcNN6cBE/MeUTb6lf5skb+7GP/Zw6pdln+QWQJCs7Bhfy/MsdCFMydYRnEg8Qvwp0Vl6V78x/d94k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790698070; c=relaxed/simple;
+	bh=NNHvMa1Tz2DFZmlNwkpnXggLzcIrlCKY+u8TlM3PfPs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=JVJUKZgo5IMpkhNYoOFNpvAOSWLknNQ/c7JArlu7Rwr0v9LqHQpqkreFixls7kPfzr1wbhg35xHDVwXbEuqvNgCOq6V8npCqQHFkNXTyHoRHXABbFHQ49vpEvgGxHjBmNws3kh34u/tEmGAK4fz7mudAmBq4hRtOWsAxFwA5YXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=I0Bs+KAT; arc=fail smtp.client-ip=52.101.195.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9MwBIBr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OKmwA0Ng"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TFUfUP708415
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:07:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Goj3XTA9GUEGFQR6FU85iMyT4vgBSSBhVAmRftd5OZY=; b=l9MwBIBrLxNSjUml
-	UWHdL3pCbDN4JwOorDTbn4SG4ZpI0s9C5X2dEYPNgBHq6exfw9f3kAWOMuw/CQHA
-	eZ4RhJW8Jx1d6xisXn6ndnq5wzeGRooHEjBGk54JLwsvUICjcvQnhBc8HmJa3Rj2
-	egw4XhReFYaYyyzcMrU7/1cRfEld/pkpOs66zAxo20GAm7i3a5tdLTGG6I9YxUe1
-	69sZtSZXb6XmeaIQJdXMsqx1CVKywZkFQUXcm/V2r9Oy9ndc+0+zZqri2XyKDiS9
-	gUq1zlf6XwdzPctqyPvmtbLNkhO45z4txNxrx14ckJLjsmkttFUjEnao7DyZaS/g
-	5vTcBA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0g1kr67j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:07:47 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3437d0cc8c7so3813216eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:07:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790698066; x=1791302866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Goj3XTA9GUEGFQR6FU85iMyT4vgBSSBhVAmRftd5OZY=;
-        b=OKmwA0NgOmQYrHNsphYUv4BDWFKNalli5EusQpLonzkOqCKQIiVedSRrZufSDc6eBF
-         5pU4iKhYdG0A/4sQSGPbofbhfvFPzZKxg+L+ooJF7ztv6CHq5TOPFdaQiJ5OUtLaU+2r
-         uK7Ax5b3owMEZGp6kQfV+RVwzyKS7ryiLRRCXL3UBEqY1+1pl8/Bpxz1gKgW+iXyCBxJ
-         nk6DiDXEgwn3+tVfGvmxfIR6vilxyq3sYhGUCqATlAfkkwhGQ51vr9e/ZOOgAuTE4rJR
-         WlNAH5R1SS+Ux5G6YfQlsckdEMrbFqkM2Cx0/PpIMVBu98qsndjh5dykWLV908TZpKch
-         4LLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698066; x=1791302866;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Goj3XTA9GUEGFQR6FU85iMyT4vgBSSBhVAmRftd5OZY=;
-        b=Z1q5A5svCXYuYJogitJJhaf+f+CeXlE53+Hmnf1HsR0gnsKoP4cMY8nZndHlYtnGCw
-         Mr2o94/Q1HlPkKe46i+OybGOHNGEX7vR2QnkBH9KH60FEPZ2DyZcIAOl9v+xUrH0bfB9
-         84N1CJPxsS01Ks5xwaxu+lz4sqFlQAvDx9rRwxUl6Qgd69DQSlCQKbmcuDzdNRmH2jlq
-         KtJE3DDHDAKn4EFgw88P2ra48ToCcPr8Ch8puk7d1BL+u06uv5DoXGvpoykMI+H6CVbY
-         zL/QVSkg2oZkbfNxN3T+XruNwJy0Zr2jXEjj2NZ7gdtnBmH8NmG5p40m8YIRBiETEj7a
-         xndA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtNleYrELY+7EdQZY/Tyh4w8jQY1EgWTyS7RTZeW2B/OgKZwzoPi/boIBbRS2RIRLZ/9OD2S86rg/GcK8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjYmU+BqKKf/TblSi7o/CE0zcPnyooGS/zpPXOahiAys6poE6x
-	f6j+PN+qb1psO9DLa7BiqCVaNE2xA1YhFkRvnVcP6JqgS6Q4Px9KqD9wJFfzgpaKSbo9bgpmlp0
-	+ccOl30S0GuJ2tD2xz8VDXAIIV83/NevAVYH2kEgzfuLiNJchT7cWOFpzbNR9XftC9/0=
-X-Gm-Gg: AYBFou3AWVYtrBqbYnynD1iGDwyPMiUYSw29hup6ZeSZgkFwZysi0T4K0njKMKGaRWT
-	l64qt3J8SgGE9j2Jbxzf5NOOqF3tpGVyZcKnkf3Ta9AlWpuyLL4zsrOK0b5Jr7GDZc7GiggVzxv
-	c9si6k5FTq1MbnQJxRKVaHn/BdfDFj6E2FU05zoNB8tz9lyLOZCh2v3VozRRVpffYOBVBWFCGPQ
-	c/iijH7Q03RQG6VAubjR7eaVpbryww3PekkDi92dE94UU+uoSGd8ByaDXJsouQpBDDlgLS7vWRU
-	AzK0EUtSLjO48BxE7Z9sXY+i9UqlAwsmt9+OBCtj4sjyICqz56mI1OxZ28Wet5x70dcc3Z7q1TA
-	L5+21sxIvJspaFuHwATuBGSXyVA==
-X-Received: by 2002:a05:7301:db11:b0:34b:7158:974d with SMTP id 5a478bee46e88-34b71589858mr2141826eec.27.1790698066008;
-        Tue, 29 Sep 2026 09:07:46 -0700 (PDT)
-X-Received: by 2002:a05:7301:db11:b0:34b:7158:974d with SMTP id 5a478bee46e88-34b71589858mr2141776eec.27.1790698065066;
-        Tue, 29 Sep 2026 09:07:45 -0700 (PDT)
-Received: from [192.168.1.6] ([183.83.136.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c38bea1bbsm351546eec.23.2026.09.29.09.07.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 09:07:44 -0700 (PDT)
-Message-ID: <1eeccb79-540f-4a84-987c-77dc2b05fd18@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 21:37:38 +0530
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="I0Bs+KAT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sHERDb70rVBgnq4fDDYyCxOtxAD265LWPIO4n7ktzVfUg3PEhUOMVO0k18uZeQb9RObuCiFghuEvPpimmSCJ06PKCWULszO8GfbWCox5kdIMnMqCsFXfOrItXFpwtMvJOi+4iRFNqAH5DCNjl9yW0ObJVU6SuxsvJLm+++QO/B3E6CEBJEUh0fqgUqchy3S/LA5Nn1IAzgDGZHmmMsQt94upjWkA6XdK/mJL7msXQn5cEWq1J8mUXjkm92e+lbsjo+bxied5pyamXS2dXVDpgCmwbEE+W23ZsohByhOxLNsnGoC14GWJATbewxMUoPHuh6bdb9tZ/kNiDO3LReS7oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xQWy8knEoKwak4VX2NrxuTb69omxvj60BURZtq89k5k=;
+ b=vD+UyZr3MJoHVGjlNffdiWIPbvdEaWfgfy32TPupPI0AKxV7W+k5CnqoyandRJaqmF66aBOvKblDv8PMgdyLAUGRUmnDrAfo/vSSpD7Pkkm8eNsazS3Tc7a7BQ5w9zNF97niez/ydLQVIihEgOC98nlnGNpUnUHtuo0aApZyRaLhBhVgSDYTCk4DnrU0GTY+zIkhmKKFP+Imb4v0SyJPXjRLQ8oy2Nw/iAE0CLqdvVmBFPxtQSEDVwE+uFcJDc41b9TLah1OwqKa1XcT0XHt6UlAR9oOfd58hRKkwWpHX7Gqij7tFUYWltj4UABK12c2mcka0rkBSdy373G8qT4CYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xQWy8knEoKwak4VX2NrxuTb69omxvj60BURZtq89k5k=;
+ b=I0Bs+KATZyOuTGxpWnYSbDsiprtSHRMZpC6HB2LfsvVFvYYP2yAApNFhTTQBfV2IwX/FXu9OzftYn1PWpPUmSDam5LzUgPBkNJglkLK2s2Np24ErHKUdGTxt0RKIBDIn4ia5Y8f/AMJR1m1xhGQhwH9mIxJhX9bP3X6TI38asC8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB7557.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d9::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
+ 2026 16:07:41 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 16:07:41 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 17:07:40 +0100
+Message-Id: <DLRXHGLDR2QQ.WZVRWGY995BT@garyguo.net>
+Cc: "Christian Brauner" <brauner@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Georgios Androutsopoulos"
+ <georgeandrout13@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Jan Kara"
+ <jack@suse.cz>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-fsdevel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Al Viro" <viro@ftp.linux.org.uk>
+Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
+ descriptor APIs
+From: "Gary Guo" <gary@garyguo.net>
+To: "Al Viro" <viro@zeniv.linux.org.uk>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
+ <arThye_219ruNbM2@google.com>
+ <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
+ <20260929044843.GA3909609@ZenIV> <DLRSQRUVOGT2.10ZY01VEJVHCE@garyguo.net>
+ <20260929135154.GB989762@ZenIV>
+In-Reply-To: <20260929135154.GB989762@ZenIV>
+X-ClientProxiedBy: LO4P265CA0108.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] media: iris: add support for vbv delay
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260927-iris_vbv_delay-v4-0-8ee2b7462e68@oss.qualcomm.com>
- <20260927-iris_vbv_delay-v4-2-8ee2b7462e68@oss.qualcomm.com>
- <jc4vctqyyrh7gvoxv7h7ioqnrv72t73trgesscx3xpd4xwpj2m@m6no5tnmet5s>
- <828e8a38-4d11-4126-8f77-04e05e1a94b9@oss.qualcomm.com>
- <CAO9ioeW_EabUpjDZa6w-60=CbDXVgGw0-N2t4Z5SpJPrrhcrtw@mail.gmail.com>
-Content-Language: en-US
-From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-In-Reply-To: <CAO9ioeW_EabUpjDZa6w-60=CbDXVgGw0-N2t4Z5SpJPrrhcrtw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: dtxI82Vw1I4EJ1nUwzhx1YxjXhgw-OGK
-X-Proofpoint-ORIG-GUID: dtxI82Vw1I4EJ1nUwzhx1YxjXhgw-OGK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NCBTYWx0ZWRfX09kuZ+z2IKUd
- MNyGJkzkOyT+ABk/G3v0bK1VIkwtXW6bP93lx4+gMZOu+AeZ8ZsMt7ZVK6VsQDMTjo3j56GrUiR
- E1Ajb3zWRYXl6N6gw2jSswEGsDHda2Q=
-X-Authority-Analysis: v=2.4 cv=Ysia1IYX c=1 sm=1 tr=0 ts=6abbe253 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=3QCVlsRjdi7GuuGcdgbjPA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=ziDTZQdal7qNKhkiiRgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NCBTYWx0ZWRfXzk+QauEZjGcK
- zsVaUI38o5tTUcK1NQYDen/ZuJXT+tEUx16js5vP1S/UJ2G7TDDwITM8sXCYbBZ8IyLZSAXAjBL
- web9Fe2aQpzOQ8WFSZfZL+GhI8aoftDfDeyltaZA05Zn6XVrjvBTalqwo3KLoDYiBvF+avcUNkd
- yxm9+XgrCD2jhsS5MuJDhxdsJmLJhc1RbhrgJq9hSAapY7+28pli7CeOZd+RyT1wo9xNocPVXbI
- SeSTHL1xAzUL6B7vX1OEhXuECsiE5euQ3a7XVJ5tfqHklwbDIy06DGpktgqMjXKKAquWX4Hrkuo
- PmIezjrr/evZ0uLQQVXO/3M1KMcxw5ltOIeRObf9cYhanXoxEFL7USUmDCbsTJ88Dcht1pGlTrf
- MYbVpwGKLPNzOpvuuZkzc3puN28/wrSt61qd1MdhtpONtxfUXoNFRIDAe5l3r+flNZIOpAw948A
- 3Pe+YEtRFVv7ZWl3NHg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290064
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 914d330b-46c4-4b91-b90e-08df1e43ca56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|376014|7416014|1800799024|23010399003|10067099003|56012099006|5023799004|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AgqVkwB/xkCuf9A7AA8a+p9hkwGbdbdOWD3ZjvFhX2KuqRPhOD5opUuKXkePtk91dRSxTJx/4uD2bSm4xzObPfFcG1QBPMKww+LwI3hoXkupwNIfexyfzzFp2tpy4y0hBmHWjmULHvjV/g6BlIDvjY1tenHGU5KkP8vtFTmcCeoIXg749RzLnwf2bB3RO851nCo++bxc9ZX93H1sjKpcTJ1TsObxVPsg8Vi6TKWQ9IcnwT/lYQ2Lwg1ZWhC2djUs0drv0Sp0oa/kmJT+e4NnLT77IFACsqRglJBGrMNz/xg+bsLWMcsIXfbDilObGcJ0D4lNJTMzSnlFVSnRofxXkhN42kWpdpLE+6woB6IXEUNTX/WCi0BRAHfBkax0C6Sc3m8DiFJ4ozL1NXuq3HQAeeujY64AjSn4poe5cxe1tCs6PFVLJgi1qfJYPUMyESQIMgc6rphMzXgjXh6YHi1rRJ2MUbIttj+XU2Ht9qT8eqIInZVaiYld01mL1TkrJ094zWWfr8SkpsyMV2KXI/8NVEcoOLBL0DHCzb4P5paGEh/no6r8Fg6cOH83BXaxaumE1yy9DO97WQj3c+jV5iGHR8p9pejtYDps9KivADLwr1WdOY3W9C//LNL0Et2nXVZgI4x4dD2HQDmKAftefPJ4mQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(376014)(7416014)(1800799024)(23010399003)(10067099003)(56012099006)(5023799004)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d0Fwclg5K1ZDUklHRmZOVnVrWlRoZlR2SWZqcGVyalBRbzgzZGtNQTNKeUgy?=
+ =?utf-8?B?alhuY0xwRHRFZWpRT2U3VzlDSE5HZmVFNFh1eEhnZUtzMGN2TTZ5eDY4bk5u?=
+ =?utf-8?B?eWJBLzFhUnUyRTFuck1qRksvWkRSV2ZrTXZ3WmVPNllzeVBMY3U5c0lsckhF?=
+ =?utf-8?B?SEFTUmV3clN3MEZCY1ZTbVZXYXhTc1luS0EvWXlJMFNWU2NsdVNtcEVPeUZS?=
+ =?utf-8?B?dlozQXBmUENTVGs2dDN3ZjJ1UHgzaGZvSURUM28xNFd1dXlPUm1yaDY3ZVhB?=
+ =?utf-8?B?S2JrMHJ6aW1TYXFVeUsybkZBMUJHdThUZDBDTTZoTDJUUFpTaUsxNFMrUEc2?=
+ =?utf-8?B?L3REcTFHR3EvN2xwdDIrWTFoOVppZVhOQVRCaWdyMEFodlNBL1oyVDErVU83?=
+ =?utf-8?B?Vm9UNUZEak96c0tNTEtGdnpRYlJ3SkNlNGYyNnNzTUZpWml5c0lJUTFlaXNR?=
+ =?utf-8?B?NUZidkNDMEUrTVIrVjQyOGczdjB3OXlxNC95YU52b2tBcTcrRit2azhNbnJv?=
+ =?utf-8?B?RGdiQS9qSjErWkk4RlA3aFlIeDVzY2VIc3RMVWpzVWYraTRSRndwOHJmWUpG?=
+ =?utf-8?B?ZllEUUpEWDZjaHlYc2N2eHhRTWZwYStqU0RabEI2Uk5yNmdSaHA2Ymd2dVpp?=
+ =?utf-8?B?S09GM3NvbGU1WjJZTG0xV3BtYko2eEVtTUhMWUJHYmgrODA2NmVaQUtxNFBC?=
+ =?utf-8?B?RmNzOTVMdncra0x1VFc1REQ4dFg4cHh3MVEzYXRRSkZGSTZqQWVnRFlHR3dB?=
+ =?utf-8?B?VVpyakU5QVd6a0FTWGlvaGlaN0FRcmkyVXRZWEcweFVVdVMvT3dMeXlVU2Er?=
+ =?utf-8?B?dWMyR1V2dEFRL0RzRkRiNzA1dkVCK1JFZjZUZXdBK0dvZFg2eVN2dHp1N2Iw?=
+ =?utf-8?B?ZFc2aEJhTklxajhpczNPS2FTZEhwd3Q0dHczbEVUakM4TXdJcGZuUU9UMXdI?=
+ =?utf-8?B?Ui9WR1NGS1Q1T2hHdU5Pa3YrQlhXUnVLNkRFNlJBOUMvZDE3bWk0cTdoTUpr?=
+ =?utf-8?B?V3RLS1lRWDZwN3EvL0VrQVNaK2ttTVJQVEIzQjNHOVovUjZDVUpOZmtxcEJn?=
+ =?utf-8?B?Tk9EdUxWNHpNa2RqNy9wRjJkYmZjcmtBZjlXTUhySUxqZHhCWjdmalJFcFZC?=
+ =?utf-8?B?L0NpMUZqK3diRVFjVHd1Vm5md0tVQXRrVUU5YXlXWkZhZDVjZHdubWlIS3N6?=
+ =?utf-8?B?ZVpwTjhKdEJ6R0JuZTRvek5ka0xUSHFKdjZDS1R4YzlpWlJwcXpFckJBcjhi?=
+ =?utf-8?B?bHhlb3Voa0RVZm1OTHVleUt1cUd2QkRyOUFoMVVPOUZqWVNtZkY1TncvdC9k?=
+ =?utf-8?B?ZGlPbGo3WS95bFdiemRBRjNRQjNMYXJxU1pyanhtQTBmQkgwOXMyZmVlMU1l?=
+ =?utf-8?B?dEt4b2U1RFhyNGhPTzVPVXg5dnZkTHowUFBqbTJLc0JqUWVYK3FrMGJBRXAr?=
+ =?utf-8?B?RzA3djU3czJKLzY3V2ZyVmdINHRWYlZVL0NsMWFndlQ3U2tadWhWQzMwOVZB?=
+ =?utf-8?B?RHZQVG44aFg1VGs1NExjTk1aTmRwSnFjYlZicHFUMEVUcWlsT1M1YTFER1E0?=
+ =?utf-8?B?M3VrUFR4RnI3NC9HR2dNR3dzK3FDQmNFZyttcDJuYVF4cVBJVEgzVG13VUls?=
+ =?utf-8?B?bTVpRWlTTWJBLyt5ZDVhNENRdUs0cUZxd2E3MFgvNjVxQ0FqajA4MWRYK2Zr?=
+ =?utf-8?B?T0UvSXpzd2FIT1ZmTkFNbE05N0dWV0ExdnUwNUdvVU92Wm9CT1BKeXNkaUdI?=
+ =?utf-8?B?SjlCMEZwcEN5UEQyOFdHVGNvd1VQWlV4ekIwZFM4eXFJUHlYOUtqOERUN0ZX?=
+ =?utf-8?B?ciszMngzQ1lSQVJLVXQ3RWtsSU1uM0NkVGVmT1Frb3dKTzZoRXhUK2UxSHhs?=
+ =?utf-8?B?b3RuMDQrMXcyY1E5dFV4aTZ6K0pBY3NQejBoZnRIT1dYTzdzZUNQZGhSY09Q?=
+ =?utf-8?B?RVFFSVR1Y0UrWkwwUExqS1NZRHNVcHdjOFBiSkcybmZBNzVQVXgvWE4yZSta?=
+ =?utf-8?B?L2VkOHAzbmFLcE44TFJkZWxCZ0NmUWlWMFFDQU1oazUzc0w3emJwTytMS2Vk?=
+ =?utf-8?B?T3AwemthZGMyVW9VeFl6eXk0U1RRTDBUQmtNSWoxQmtLcUFSQmVqQnRWZUgr?=
+ =?utf-8?B?VFdkZTkyMEVUYVJ2VEZHUjN6dU1sYVJIQUsxUlkxTFVBbWhRbnRVbjJPMGsx?=
+ =?utf-8?B?d2V1YW5ydEloL2FqT0ZuaW5xcU54N2NnWWdFWE94czhsYkJyUkoyQmZtRzI4?=
+ =?utf-8?B?cXdyMHZlb3dmSlV2WUR2dDFEMHlOS20rdnRyMnlVVEh0SU9Sb1FvK203bGlm?=
+ =?utf-8?B?d2lzT285WHR1cGpvLzBwUmRQOWV6NXNraVVYR2xKN3NXNHFzS2lOQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 914d330b-46c4-4b91-b90e-08df1e43ca56
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 16:07:41.6960
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b8Z9FgZkutqPFZSPemAo9PEiTmHoVcHDzsqFZC/ctkdFcMFn5BJOwPfnJNSelKJb1FKxNaCb/S5KZaLUn5K7jA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7557
 
+On Tue Sep 29, 2026 at 2:51 PM BST, Al Viro wrote:
+> On Tue, Sep 29, 2026 at 01:24:45PM +0100, Gary Guo wrote:
+>
+>> > 	In particular, ->release() mentioned upthread should not be allowed
+>> > to access _anything_ hanging off current, not just descriptor table.  =
+Note
+>> > that the last reference to an opened file might be sitting in an SCM_R=
+IGHTS
+>> > datagram pruned by AF_UNIX garbage collector; as far as the method is =
+concerned,
+>> > it might be called from random thread.
+>>=20
+>> This part is protected -- we mark FileDescriptionReservation as `!Send` =
+which
+>> prevents it being moved to another task. We also take care to make sure =
+that
+>> the task returned `current!()` is not allowed to be used outside the cur=
+rent
+>> task.
+>
+> Not the point - ->release() can't make any assumptions regarding which th=
+read
+> it will be run in.  current won't change under it, but there's nothing
+> useful you could want with it.  If it has non-NULL ->files (or ->mm, or..=
+.),
+> that reference will also remain stable, but any attempt to do anything wi=
+th
+> it would be a bug.
 
+What I am saying is that due to FileDescriptorReservation being `!Send`, it
+cannot make its way to ->release() from another thread. So
+FileDescriptorReservation::drop will guarantee that it is on the same task =
+that
+created it.
 
-On 9/29/2026 8:35 PM, Dmitry Baryshkov wrote:
-> On Tue, 29 Sept 2026 at 14:54, Sachin Kumar Garg
-> <sachin.garg@oss.qualcomm.com> wrote:
->>
->>
->>
->> On 9/27/2026 11:55 PM, Dmitry Baryshkov wrote:
->>> On Sun, Sep 27, 2026 at 09:27:46AM +0530, Sachin Kumar Garg wrote:
->>>> Add the VBV_DELAY instance capability for the HFI Gen2 encoder,
->>>> exposed to userspace via V4L2_CID_MPEG_VIDEO_VBV_DELAY and mapped to
->>>> HFI_PROP_VBV_DELAY through a new iris_set_vbv_delay(). The property
->>>> is only meaningful for CBR rate-control modes.
->>>>
->>>> Low VBV delay values (34-100 ms) require the encoder to run
->>>> with a single video pipe, so extend iris_set_pipe() to force
->>>> work_route to 1 whenever the configured VBV_DELAY falls in that
->>>> range.
->>>>
->>>> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->>>> Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
->>>> ---
->>>>    drivers/media/platform/qcom/iris/iris_ctrls.c      | 37 +++++++++++++++++++++-
->>>>    drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
->>>>    drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 12 ++++++-
->>>>    .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
->>>>    .../platform/qcom/iris/iris_platform_common.h      |  1 +
->>>>    5 files changed, 50 insertions(+), 2 deletions(-)
->>>>
->>>> @@ -541,8 +545,19 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
->>>>    int iris_set_pipe(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id)
->>>>    {
->>>>       const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
->>>> -    u32 work_route = inst->fw_caps[PIPE].value;
->>>> +    u32 work_route = inst->fw_caps[PIPE].max;
->>>
->>> Why is being set to the max value instead of using the .value?
->>>
->>
->> fw_caps[PIPE].min/.max/.value are all seeded from the same platform
->> constant (num_vpp_pipe) at init, so .max and .value were interchangeable
->> before this patch. This patch now writes the applied pipe count back
->> into .value (used elsewhere for power/cycle estimation), which makes
->> .value stateful. Since iris_set_pipe() is re-invoked on every resolution
->> change while streaming, seeding work_route from .value would let a
->> previous single-pipe override persist as the new baseline on the next
->> call, even after the VBV-delay/CBR condition no longer applies. Reading
->> from .max instead keeps the default pipe count stable and re-evaluates
->> the workaround fresh on every call.
-> 
-> With the .value being written, does it need a lock protection?
-> 
-No — inst->lock already serializes this. iris_set_pipe()'s write to 
-fw_caps[PIPE].value only happens inside start_streaming 
-(iris_venc/vdec_streamon_output(), both the iris_set_properties() cap 
-loop and the DRC re-apply path), and start_streaming takes inst->lock 
-before reaching either. The only reader outside that same call chain is 
-the power/clock-scaling code (iris_vpu3x_vpu4x_calculate_frequency()), 
-which is only invoked via iris_scale_power(), itself called from 
-start_streaming and buf_queue — both of which also hold inst->lock. So 
-writer and readers already can't run concurrently; adding a lock here 
-would just be redundant with the existing vb2-op locking, and no other 
-.set() callback in this file takes one either.
+The reproducer that Georgios posted on GitHub is some cleanup job being add=
+ed to
+task_work, which drops FileDescriptorReservation. And since exit_task_work(=
+)
+happens after exit_files(), put_unused_fd in that cleanup observe that
+current->files is NULL.
 
-Regards,
-Sachin>>
->> Regards,
->> Sachin>>        u32 hfi_id = inst->fw_caps[cap_id].hfi_id;
->>>> +    u32 vbv_delay;
->>>> +
->>>> +    if (inst->domain == ENCODER &&
->>>> +        inst->fw_caps[FRAME_RC_ENABLE].value &&
->>>> +        inst->fw_caps[BITRATE_MODE].value == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR) {
->>>> +            vbv_delay = inst->fw_caps[VBV_DELAY].value;
->>>> +            if (vbv_delay >= 34 && vbv_delay <= 100)
->>>> +                    work_route = 1;
->>>> +    }
->>>> +
->>>> +    inst->fw_caps[PIPE].value = work_route;
->>>>
->>>>       return hfi_ops->session_set_property(inst, hfi_id,
->>>>                                            HFI_HOST_FLAGS_NONE,
->>
-> 
-> 
+So it's not from random thread, it's from the current task. And I find that
+particular case of doing per-task cleanup not unrealistic.
 
+For fget/get_unused_fd_flags I already mentioned that I agree it's a bug, b=
+ut
+checking that statically would require codify the concept of syscall contex=
+t in
+a static analysis.
+
+Best,
+Gary
