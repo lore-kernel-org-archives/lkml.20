@@ -1,698 +1,220 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C61444CAF9;
-	Tue, 29 Sep 2026 08:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671327; cv=fail; b=Zw/JIV8CTpYxGSwK0xhYAhnn6/sigp6iaTcu1uwSJE32NuixNsRcJClzJzey1WO6mm8zi50LDoAaxjsU7V9sxFq1I1JNCLont6MhJpXSwI/ESt2E1fCOVzoE8GjIeA5f2wnitjehhN8Eg2r9SafqKn+OAqspMOczSsxpKXkGBA0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671327; c=relaxed/simple;
-	bh=GiBgMvDrCUmF7IiNULoqn6/30rKu2Z57X+3UfXJhMMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q6+OJBLDIDlS4aW6Ayk1qfLPN7lGG1SMTDLNVJYOcETM7nlfNvJuizuZXycjUE5YANAU9o6+sT7S7yVhDmVvMMOgbV0/cYoDoNv29aQr/Wk3KHhwIxVxYu25gytxp6t7Al6vLbTYZmEoXZpSD6v3cGPY7hYcOQE7/JxGifmpPMM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XimkH9gi; arc=fail smtp.client-ip=52.101.43.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839C23AE6FC;
+	Tue, 29 Sep 2026 08:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790671388; cv=none; b=DM2zC5Vn/1G/7whzWOm+7lrHAwpccdkxaF7lmbF1xFCZPPgiHqUk3ZEj4scPXyYgtpPd3TCHIqjOX694JbSluQXLijEiACktsm77+AoptulLWrFH+L7002P2ruy6sMPWfMvMQX5tPvIhUwr1NPGT3XazT7V53b86uywA5eDd3EY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790671388; c=relaxed/simple;
+	bh=KGTbGAjsl0/VfreTIskSskWJFhvsIGdUVyUCRDRa4yw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AXDKDaSGFfk3UjPEzX3cpNTcaD2P92q62ayO/eA3nLeAe2LTGaLqy9je90NHu3IkdSlzLj4GMBjuKBMGk61hTUpxS69WUdJs0bLacOYFYHd5z9kRHCJmU1vbLCJfAGIEPgRaBoJ4rSfOMeDrGoYcQ12uWpjuJc06jp8qWY/srxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGwxpnBE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XimkH9gi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KQoUj/B23DJunSWeK4mY2KrHyjHczQx7aZlMJtHQ/cI9miMVvZhNDIT8QiTyhcTUOlB5TaenHy9DtpfhhskmdPIr+7K/t/v1yKybcT54IqLGHqf7/7ZofgigHW3UlRZ473KNrHCGBsKDbjsM8NGYuBtlj63Z4gfKQ8wzEavI0+ZvtaaQ+P8/BBgDnEawGsWmr0GM6dChdBPLfr8x1GF5R4V3rdcnXqVVh97OHcp1f1gPbnAWj+lfCsyHpphK0e2DXjt7mtDJpqMRrFHpQyuJedxgciV0EQpA601uvhvuoFbVP+lseSxbdE1CHqD8u8Q3HOz24t63L6WonLpqHlHg7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6v2cP3bem3mPZfzGiuqFSexXdcTFZdB0skjBO47bghE=;
- b=Ryalk7t+SOiOoPp1ZYMGx5xMrOhvu14+ai/1vUDaAdNtmGzP5TqEFtv8V/FSxcxOsLv65zkjbP9bWqsB2X9VNK0kdAMQc/VBJscp3j5e/kBq02BilVoq+YbKZMsWIWzRV8hUdlDTIzqOsRhu40Z3GSL0jFxRCPg9unyqVUKQiHdOVnvE8ryoSh05ASOAdqHJKGgcTxetvsm596xFGVYqiPk0j6VBrTWf3Pv2+CYPHT16WAIz11WHwPQDySDXhBM5B+S3lIVi6sU5CoxB+KkXq1Osxyx9t4ADvfesK6H6XYPgL8p1Ii1SAGnYff11nYaVKHpzxUbUvBGAz9IEeiZY7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6v2cP3bem3mPZfzGiuqFSexXdcTFZdB0skjBO47bghE=;
- b=XimkH9giOuBi1VpVGMLOx1VVCQaG902z1gTGXdQfQ0SFAnr8FqPwMfMJqUZN4g/3p0W9eXcJPhxJgM83s7hSrwJjpncggFiEJyAR/VM25ndTYTBUnsDIEymWRsdPlbbjDwmeqYE6wWG9J72ocjyptzIcjTs1H/vp33TYi9fUIhGcXvbkqmf22KB9ExVFkSJBWtJ19qlHORfZuzuCNvMQzi/cbJGHyYkdT/nFUdVXHNXoKGoXK3BjcaKRimQQrgyHyApPGAf/RmFjU7DOuhxbkVjwpIQOdPeBAI7b3BmjJlST8SivM06HPxxQfojjpAadOqQshAKE09Pz4uNBN64xbQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by PH0PR12MB7816.namprd12.prod.outlook.com (2603:10b6:510:28c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 08:42:00 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 08:42:00 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	sched-ext@lists.linux.dev,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] selftests/sched_ext: Test scx_bpf_cgroup_nr_cpus()
-Date: Tue, 29 Sep 2026 10:37:40 +0200
-Message-ID: <20260929084124.626693-4-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929084124.626693-1-arighi@nvidia.com>
-References: <20260929084124.626693-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0106.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:23::21) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGwxpnBE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF371F00893;
+	Tue, 29 Sep 2026 08:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671387;
+	bh=L5o5nxIGaf1ad5zEI4GVn6mSMEnb1Lm3br5oDnecbdc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CGwxpnBELT2SBdYqTWoImYAwOQE6VH3Z/GK/BjARDqL1OwqOg0mgW0LKYZbEz6KG/
+	 SAEdW0C3XoQlNf/Suzav0R/znaJUw+Zx9A2mbHr2oOXegJenEJuYHoxqO8iDkDY1Z9
+	 1biQcQdcVJCtdUNP3yYInn6yCqUpVeK7z7C2EAovrzfdZBjcL/JFpIALGaFmJaradQ
+	 K2j9jnOfTmkKmmk84SVrHosCBrgboNIbijZzR8QL5Fqh44ddhSMmY5yz0y1urmxGHS
+	 6q7CoSukBqGFsgY4TVNW9UMehwhIHeIFxPbMVn2h2JoaMn82yQAVpHyoBvs8ilNbAC
+	 LQ/yguM0me+uQ==
+Message-ID: <73625017-b944-446b-95b6-6c586c304f35@kernel.org>
+Date: Tue, 29 Sep 2026 10:43:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH0PR12MB7816:EE_
-X-MS-Office365-Filtering-Correlation-Id: f83b8869-4eaa-434f-3441-08df1e058734
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|11063799006|3023799007|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	apRbu9Tu/4kQ5FWwZNE+r7uv5t8TZ8hYk6ixmlGq/DgCczyrrZLJ0NwU8vsm8yTKrcqJCIjjFwTujtnfp/xsiOnINaQ2f+75uDmx32kVbOHPy0pfSDSy30YKBoO0Eyygr5CyhWWnMn6TiomYSX85J38iMf4DNSYfYR5kfmq8UIGfbVW1t2DnF72e/ojqQD1xfAHVFdwRtE0VFCp4AVQVu75aQYccj8V+wFIrkQ4921ZilxlNZLU0iu7uPGjnRucR1zkh2CyH3GqcicgLAFKjbB/McWiKCoSACH4bhLl54CKDHWkkNFfcwS5HBpEBpFrQFWdJUQZD8tTYTt4HskOv4UE7NMVd3FW8f5Jb0mIub/ekktABir6aix0Xc+jzoYYYNNhtazUSdgDnAbT9bTEAllai7eUJFv5rowksCH8SdCOCT/iN+hXz8rK+UXEtJYTPTDeGJ0MeRUUaNZrTO6Cy398KC1CsEnpoeKYaEQhWSSp03R72Ho93eFDr8aU15uXwknXF2qemKeHzNjNXzrc78SPpa8kYgcSYtEa/CGu4uaGOufj273AxBsQAAsKdz9Y08Z6wAxR3XuhP4044iadAOE4Nvc0RbUVfpu73GkMObXJ4b0iidkC0oo1HPasCFXqLaNKt/f6jhjL8OglePYsmkpMnEDl/68BPvD8ss/BqhQE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(11063799006)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/vHTDlMZfOaLes90exLI+Xm1ZVrfwTwnGWSEx2t3A4ljASq4BHke/t7XWWen?=
- =?us-ascii?Q?S6jMad429Pt1h7NbO1SnSNcbwXgZ9/j1MI8wk3X/iPn+EpH1ou3FZ3HWlpYw?=
- =?us-ascii?Q?pUbLzmGffJgEWa4d/QTo51QtRf6H7C/bSRWZv28zAYsrSIsJ5sclXywsSdWs?=
- =?us-ascii?Q?LBZblKYORtSKSu9+zU1J/CH/S9KFiOKf/1YLW+WXicPTxOrJzY69LCnUa4dk?=
- =?us-ascii?Q?DQbH84f0Oe7qm2KaojjqeW6M1V7+BnBmnfbicIh1V2bheAtLI9i6opQ3Jx/N?=
- =?us-ascii?Q?z26mDixyswY9Hl1yhvcqi8SSMm8sQ+JYpYv2miTXbhWkbkrNfb3HBoaePUei?=
- =?us-ascii?Q?fuU4GjfRBNV3bVz04h2Sd0isZ7cDfXDBdLHgAZNOUOOCDPi6NA9ol9GQI5z8?=
- =?us-ascii?Q?nAleOtZmy831CnrUalmPDETpa9xHkhZTBvVCYx3yB0BybMv1BzYwBfw8UWCM?=
- =?us-ascii?Q?mdfmz911mX9juNuwrXbham4dVxs6NggIiiOMEK3QDrlVS2YLjGGMXDIEiXUY?=
- =?us-ascii?Q?unK9pVU2aItKaMfBDFAlNLil1DMIkyJgcd6RQZ6lfXgugZsSxSbjGWtzHtEd?=
- =?us-ascii?Q?0rNudT7AG5alWBmC1sYtR64E2FIDczKaLI6rXuCvhvXs4VhqAUbZ5f9CpS/x?=
- =?us-ascii?Q?Abqwc/w9QZBFn+TSqavu9VbezQ6Vj2jih/5L6pGOFdTCPZQ0UrrYwFhdcddp?=
- =?us-ascii?Q?KVUApmLH3/JaFlgaiRF1sGx+rF0kfOY1+DdLeA/D2D6TtK4LiE1QEJ9lv0H6?=
- =?us-ascii?Q?PPOvYYbuQUZRdxDbI4htB84HfGD7jPa/5ys0C2XI3bNMT2IQ5FtTAexhOPYE?=
- =?us-ascii?Q?fG0nmQx11iXMWH8MZR8qy5JK+VzQXh+GKGqzuODFaiLEj2shGHKydqCtDL1C?=
- =?us-ascii?Q?288XUz/TEysAuKijLTQ0L8yPMJL5XHErZ1L5L75cfT+lHGTpTXv8v1LEuuiV?=
- =?us-ascii?Q?SOpRg2BxSld+GPXQ3fOx2ItpyFweNF1HAjYqZ6OA42her0yZqzVfzB3A2hYT?=
- =?us-ascii?Q?PoLYnsi+hSQsdPYPWX6U6gh2RoTGOAO/56BBPo8tTuqlNw6K+88igz1IDF7D?=
- =?us-ascii?Q?ZF9yXYGTq6Jxl2IfTnpFafzc/dawyiJF4CgZJ5SmTt1/+OvezfmdYDE/OuGx?=
- =?us-ascii?Q?FzRWhUiGkw52dUcrnLsfomGkIsw172fVLGoOdj7JrILs1N692CSpqsSX/PVg?=
- =?us-ascii?Q?OGCSlrjp5kch4TV6X2rTSVghwtusxtXQM2hci22F6FPbhE4DLOQ91XBaQ389?=
- =?us-ascii?Q?B/ELhTutGLX9wSElB4yXNqgV+apjgERwmWjms9OtcOIjjqffj82YEQQ8l6x7?=
- =?us-ascii?Q?ohEN0Q3IncZbh2w5J9a+KWHcw0H2n9G3JAIUhKAFU+FPFV8t7muEE34I8WBs?=
- =?us-ascii?Q?rRgLgmvLqFUPrrgBYnpejaLMh9g8fYcJtstJiNMPHgNj1/wTfbragY6I61a8?=
- =?us-ascii?Q?E5J7DK2x1t1okspFY4NItz+5T1kO4nRqTJLFnLm5MKkmViBI9jRGUy0EoMoo?=
- =?us-ascii?Q?XDo7aNWi2dppGL/m+/CB7mDJNTt7CoELypVRoJz0vSblxBkbqVLVtJaJ+kcD?=
- =?us-ascii?Q?qv8Vq79uye1tCRy1Xo/5TQ4k2FZqLVgMlO7jC6ZFuNMTplFCEbukatVhvJQ0?=
- =?us-ascii?Q?a3jH0SdmUmTwC9YvboBj3Mb9Lf1pbO46Fthdom+LgxCxtXE86ctrSioIZwVt?=
- =?us-ascii?Q?Nx1Hg4328Q0yPhY3/XggNV9fkYYMZu7EHxI+V1SxvOGMHiq+iDstAmHgXqc9?=
- =?us-ascii?Q?in1pSiaUww=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f83b8869-4eaa-434f-3441-08df1e058734
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 08:42:00.7373
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 91TJZF+lMOQh3DGSClFHO5+vhcDd6/wL25mja8Nj/iLJ3oWBtzmuQVAyHTLyGR418SXj6QmCpBvNprtCG6mlbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7816
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/12] mm/sparse-vmemmap: introduce
+ CONFIG_VMEMMAP_OPTIMIZATION
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
+ <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Lance Yang <lance.yang@linux.dev>
+References: <20260927025441.741633-1-songmuchun@bytedance.com>
+ <20260927025441.741633-4-songmuchun@bytedance.com>
+ <d7a75c99-3021-495f-ae34-883d047370f3@kernel.org>
+ <D0B0A406-100C-437D-8AA8-D276E8DA8278@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <D0B0A406-100C-437D-8AA8-D276E8DA8278@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Verify that scx_bpf_cgroup_nr_cpus() reports the number of CPUs in a
-cgroup's effective cpuset.
+On 9/29/26 09:53, Muchun Song wrote:
+> 
+> 
+>> On Sep 29, 2026, at 15:11, David Hildenbrand (Arm) <david@kernel.org> wrote:
+>>
+>> On 9/27/26 04:54, Muchun Song wrote:
+>>> The section-based vmemmap optimization infrastructure is guarded by
+>>> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it can also be used by
+>>> ZONE_DEVICE users that set dev_pagemap::vmemmap_shift. Introduce
+>>> CONFIG_VMEMMAP_OPTIMIZATION as a common config for the shared
+>>> infrastructure.
+>>>
+>>> Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
+>>> ZONE_DEVICE when the architecture opts in to DAX vmemmap optimization,
+>>> and use it to guard the generic sparse-vmemmap state and helpers.
+>>>
+>>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>>> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>>> ---
+>>> v5:
+>>> - Move this patch after the shared tail-page factoring.
+>>> - Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX,
+>>>  covering all users of dev_pagemap::vmemmap_shift, reported by
+>>>  Sashiko.
+>>>
+>>> v4:
+>>> - Rename SPARSEMEM_VMEMMAP_OPTIMIZATION to VMEMMAP_OPTIMIZATION
+>>>  (suggested by Mike Rapoport)
+>>> - Collect Acked-by from Mike Rapoport
+>>>
+>>> v2:
+>>> - Fix SPARSEMEM_VMEMMAP_OPTIMIZATION being selected without SPARSEMEM_VMEMMAP
+>>>  reported by Sashiko.
+>>> - Add an explicit DEV_DAX dependency on ZONE_DEVICE
+>>> - Collect Acked-by from Qi Zheng
+>>> ---
+>>> arch/x86/entry/vdso/vdso32/fake_32bit_build.h |  2 +-
+>>> fs/Kconfig                                    |  1 +
+>>> include/linux/mm.h                            |  3 +++
+>>> include/linux/mmzone.h                        | 10 +++++-----
+>>> include/linux/page-flags.h                    |  5 ++---
+>>> mm/Kconfig                                    |  5 +++++
+>>> mm/sparse-vmemmap.c                           |  2 +-
+>>> mm/sparse.h                                   |  6 +++---
+>>> 8 files changed, 21 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>>> index bc3e549795c3..72a92cb9b53d 100644
+>>> --- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>>> +++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>>> @@ -11,7 +11,7 @@
+>>> #undef CONFIG_PGTABLE_LEVELS
+>>> #undef CONFIG_ILLEGAL_POINTER_VALUE
+>>> #undef CONFIG_SPARSEMEM_VMEMMAP
+>>> -#undef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>>> +#undef CONFIG_VMEMMAP_OPTIMIZATION
+>>> #undef CONFIG_NR_CPUS
+>>> #undef CONFIG_PARAVIRT_XXL
+>>>
+>>> diff --git a/fs/Kconfig b/fs/Kconfig
+>>> index d1c210c6508f..1454b7fe9641 100644
+>>> --- a/fs/Kconfig
+>>> +++ b/fs/Kconfig
+>>> @@ -278,6 +278,7 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>>> def_bool HUGETLB_PAGE
+>>> 	depends on ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
+>>> 	depends on SPARSEMEM_VMEMMAP
+>>> + 	select VMEMMAP_OPTIMIZATION
+>>
+>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Thanks.
+> 
+>>
+>> Is there a path to remove HUGETLB_PAGE_OPTIMIZE_VMEMMAP, and to merge
+>> ARCH_WANT_OPTIMIZE_DAX_VMEMMAP+ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP into a
+>> ARCH_SUPPORTS_VMEMMAP_OPTIMIZATION?
+> 
+> These are actually two completely different capabilities.
+> 
+> ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP requires the architecture
+> to support dynamic updates to vmemmap page tables, meaning a
+> PTE entry can be changed from one valid entry to another
+> valid entry. This does not meet the requirements on arm64,
+> because arm64 requires page table operations to satisfy BBM
+> (there is, of course, a series [1] attempting to do this).
+> 
+> However, for ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, the vmemmap page
+> tables do not involve dynamic updates, so the BBM requirement
+> can be satisfied. Therefore, arm64 can enable
+> ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, but cannot enable
+> ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP. To make the naming clearer,
+> I have another patch [2] that renames it for greater clarity.
 
-Create a cgroup-v2 subtree where a child owns a cpuset and a leaf
-inherits it. Sample the kfunc from a BPF_PROG_TYPE_SYSCALL program and
-compare it with cpuset.cpus.effective for the root, the cpuset owner and
-the inheriting leaf, without a scheduler attached. Attach a scheduler
-and verify the value observed from ops.cgroup_init(). Then restrict the
-child's cpuset to a non-contiguous and a single-CPU set, and finally
-disable cpuset below the parent so that both cgroups inherit the
-parent's cpuset.
+Ah, perfect. Too many patches floating around :)
 
-A disabled cpuset css stays attached to its cgroup until it is
-asynchronously offlined, so poll briefly for the last step. Skip the
-test when the required controllers or two CPUs are unavailable.
+I thought there is a patch set to avoid the BBM requirement on arm64 from James,
+though. So not sure if both things will always stay separate.
 
-Assisted-by: LLM
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
- tools/testing/selftests/sched_ext/Makefile    |   6 +-
- .../selftests/sched_ext/cgroup_nr_cpus.bpf.c  |  60 +++
- .../selftests/sched_ext/cgroup_nr_cpus.c      | 419 ++++++++++++++++++
- tools/testing/selftests/sched_ext/config      |   1 +
- 4 files changed, 484 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/cgroup_nr_cpus.c
+> 
+> As for ARCH_WANT_OPTIMIZE_DAX_VMEMMAP, I plan to remove it
+> entirely in the future, because architectures that do not support
+> it can simply choose to disable it, as can be seen in patch [3].
+> 
+> So in my plan, ultimately only one config will remain:
+> ARCH_SUPPORTS_VMEMMAP_REMAP.
+> 
+> I hope this clarifies the plan. Let me know what you think.
 
-diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
-index 286b510fd76e1..ff59c95b9b386 100644
---- a/tools/testing/selftests/sched_ext/Makefile
-+++ b/tools/testing/selftests/sched_ext/Makefile
-@@ -10,6 +10,7 @@ TEST_GEN_MODS_DIR := test_modules
- # override lib.mk's default rules
- OVERRIDE_TARGETS := 1
- include ../lib.mk
-+include ../cgroup/lib/libcgroup.mk
- 
- CURDIR := $(abspath .)
- REPOROOT := $(abspath ../../../..)
-@@ -154,7 +155,7 @@ $(INCLUDE_DIR)/%.bpf.skel.h: $(SCXOBJ_DIR)/%.bpf.o $(INCLUDE_DIR)/vmlinux.h $(BP
- 
- override define CLEAN
- 	rm -rf $(OUTPUT_DIR)
--	rm -f $(TEST_GEN_PROGS)
-+	rm -f $(TEST_GEN_PROGS) $(EXTRA_CLEAN)
- endef
- 
- # Every testcase takes all of the BPF progs are dependencies by default. This
-@@ -163,6 +164,7 @@ endef
- all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubst %.c,%.skel.h,$(prog)))
- 
- auto-test-targets :=			\
-+	cgroup_nr_cpus			\
- 	create_dsq			\
- 	dequeue				\
- 	dequeue_iter			\
-@@ -216,7 +218,7 @@ $(testcase-targets): $(SCXOBJ_DIR)/%.o: %.c $(SCXOBJ_DIR)/runner.o $(all_test_bp
- $(SCXOBJ_DIR)/util.o: util.c | $(SCXOBJ_DIR)
- 	$(CC) $(CFLAGS) -c $< -o $@
- 
--$(OUTPUT)/runner: $(SCXOBJ_DIR)/runner.o $(SCXOBJ_DIR)/util.o $(BPFOBJ) $(testcase-targets)
-+$(OUTPUT)/runner: $(SCXOBJ_DIR)/runner.o $(SCXOBJ_DIR)/util.o $(BPFOBJ) $(LIBCGROUP_O) $(testcase-targets)
- 	@echo "$(testcase-targets)"
- 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
- 
-diff --git a/tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c b/tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c
-new file mode 100644
-index 0000000000000..841c83abb41bb
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/cgroup_nr_cpus.bpf.c
-@@ -0,0 +1,60 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Validate scx_bpf_cgroup_nr_cpus() from both BPF_PROG_TYPE_SYSCALL and
-+ * struct_ops contexts.
-+ *
-+ * Copyright (c) 2026 NVIDIA Corporation.
-+ */
-+
-+#include <scx/common.bpf.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+UEI_DEFINE(uei);
-+
-+/* input to cgroup_nr_cpus_read() */
-+u64 query_cgid;
-+/* output of cgroup_nr_cpus_read(), -1 if @query_cgid couldn't be resolved */
-+s64 query_nr_cpus = -1;
-+
-+/* recorded by ops.cgroup_init() for @init_cgid */
-+u64 init_cgid;
-+s64 init_nr_cpus = -1;
-+
-+SEC("syscall")
-+int cgroup_nr_cpus_read(void *ctx)
-+{
-+	struct cgroup *cgrp;
-+
-+	query_nr_cpus = -1;
-+
-+	cgrp = bpf_cgroup_from_id(query_cgid);
-+	if (!cgrp)
-+		return -ENOENT;
-+
-+	query_nr_cpus = scx_bpf_cgroup_nr_cpus(cgrp);
-+	bpf_cgroup_release(cgrp);
-+
-+	return 0;
-+}
-+
-+s32 BPF_STRUCT_OPS(cgroup_nr_cpus_cgroup_init, struct cgroup *cgrp,
-+		   struct scx_cgroup_init_args *args)
-+{
-+	if (cgrp->kn->id == init_cgid)
-+		init_nr_cpus = scx_bpf_cgroup_nr_cpus(cgrp);
-+
-+	return 0;
-+}
-+
-+void BPF_STRUCT_OPS(cgroup_nr_cpus_exit, struct scx_exit_info *ei)
-+{
-+	UEI_RECORD(uei, ei);
-+}
-+
-+SEC(".struct_ops.link")
-+struct sched_ext_ops cgroup_nr_cpus_ops = {
-+	.cgroup_init		= (void *)cgroup_nr_cpus_cgroup_init,
-+	.exit			= (void *)cgroup_nr_cpus_exit,
-+	.name			= "cgroup_nr_cpus",
-+};
-diff --git a/tools/testing/selftests/sched_ext/cgroup_nr_cpus.c b/tools/testing/selftests/sched_ext/cgroup_nr_cpus.c
-new file mode 100644
-index 0000000000000..4973f70803532
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/cgroup_nr_cpus.c
-@@ -0,0 +1,419 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Verify that scx_bpf_cgroup_nr_cpus() reports the number of CPUs in a
-+ * cgroup's effective cpuset, including inherited and updated cpusets.
-+ *
-+ * Copyright (c) 2026 NVIDIA Corporation.
-+ */
-+
-+#define _GNU_SOURCE
-+#include <bpf/bpf.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <limits.h>
-+#include <linux/limits.h>
-+#include <scx/common.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+
-+#include "cgroup_nr_cpus.bpf.skel.h"
-+#include "cgroup_util.h"
-+#include "scx_test.h"
-+
-+/*
-+ * Hierarchy under the cgroup2 root, all with the cpu controller enabled so
-+ * that ops.cgroup_init() runs for each of them:
-+ *
-+ *   parent		cpuset enabled by the root, enables cpuset for its children
-+ *   parent/child	owns a cpuset
-+ *   parent/child/leaf	no cpuset of its own, inherits child's
-+ */
-+struct cgroup_nr_cpus_ctx {
-+	struct cgroup_nr_cpus *skel;
-+	struct bpf_link *link;
-+	char root[PATH_MAX];
-+	char parent[PATH_MAX];
-+	char child[PATH_MAX];
-+	char leaf[PATH_MAX];
-+	bool parent_created;
-+	bool child_created;
-+	bool leaf_created;
-+};
-+
-+static int join_path(char *dst, size_t dst_size, const char *parent, const char *name)
-+{
-+	int ret;
-+
-+	ret = snprintf(dst, dst_size, "%s/%s", parent, name);
-+	if (ret < 0 || (size_t)ret >= dst_size)
-+		return -ENAMETOOLONG;
-+	return 0;
-+}
-+
-+static u64 cgroup_id(const char *path)
-+{
-+	union {
-+		u64 id;
-+		unsigned char bytes[8];
-+	} id = {};
-+	struct file_handle *handle;
-+	int mount_id, ret;
-+
-+	handle = calloc(1, sizeof(*handle) + sizeof(id));
-+	if (!handle)
-+		return 0;
-+	handle->handle_bytes = sizeof(id);
-+	ret = name_to_handle_at(AT_FDCWD, path, handle, &mount_id, 0);
-+	if (!ret && handle->handle_bytes == sizeof(id))
-+		memcpy(id.bytes, handle->f_handle, sizeof(id));
-+	free(handle);
-+
-+	return ret ? 0 : id.id;
-+}
-+
-+/*
-+ * Parse a cpulist such as "0-3,8,10-11". Return the number of CPUs and the
-+ * lowest and highest CPU in @first and @last, or -errno on failure.
-+ */
-+static int parse_cpulist(const char *cpulist, u32 *first, u32 *last)
-+{
-+	const char *p = cpulist;
-+	u32 lowest = UINT_MAX, highest = 0;
-+	int count = 0;
-+
-+	while (*p && *p != '\n') {
-+		unsigned long start, end_cpu;
-+		char *end;
-+
-+		errno = 0;
-+		start = strtoul(p, &end, 10);
-+		if (errno || end == p || start > INT_MAX)
-+			return -EINVAL;
-+		end_cpu = start;
-+		p = end;
-+		if (*p == '-') {
-+			end_cpu = strtoul(p + 1, &end, 10);
-+			if (errno || end == p + 1 || end_cpu > INT_MAX || end_cpu < start)
-+				return -EINVAL;
-+			p = end;
-+		}
-+		if (end_cpu - start + 1 > (unsigned long)(INT_MAX - count))
-+			return -EOVERFLOW;
-+		if (start < lowest)
-+			lowest = start;
-+		if (end_cpu > highest)
-+			highest = end_cpu;
-+		count += end_cpu - start + 1;
-+		if (*p == ',')
-+			p++;
-+		else if (*p && *p != '\n')
-+			return -EINVAL;
-+	}
-+
-+	if (first)
-+		*first = lowest;
-+	if (last)
-+		*last = highest;
-+	return count;
-+}
-+
-+/*
-+ * Number of CPUs in @cgroup's cpuset.cpus.effective, or -errno.
-+ *
-+ * A sparse cpulist can exceed a page on large systems. cg_read() does a single
-+ * bounded read, so size the buffer for the worst case of NR_CPUS=8192 and
-+ * reject a read that fills it rather than parsing a truncated list.
-+ */
-+static int effective_nr_cpus(const char *cgroup, u32 *first, u32 *last)
-+{
-+	static char buf[65536];
-+
-+	if (cg_read(cgroup, "cpuset.cpus.effective", buf, sizeof(buf)))
-+		return -EIO;
-+	if (strlen(buf) >= sizeof(buf) - 1)
-+		return -EOVERFLOW;
-+	return parse_cpulist(buf, first, last);
-+}
-+
-+/* Run the SYSCALL program to sample scx_bpf_cgroup_nr_cpus() for @path. */
-+static int kfunc_nr_cpus(struct cgroup_nr_cpus_ctx *ctx, const char *path, s64 *nr_cpus)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, topts);
-+	u64 cgid;
-+	int err;
-+
-+	cgid = cgroup_id(path);
-+	if (!cgid) {
-+		SCX_ERR("Failed to read cgroup ID of %s", path);
-+		return -ENOENT;
-+	}
-+
-+	ctx->skel->bss->query_cgid = cgid;
-+	err = bpf_prog_test_run_opts(bpf_program__fd(ctx->skel->progs.cgroup_nr_cpus_read),
-+				     &topts);
-+	if (err || topts.retval) {
-+		SCX_ERR("BPF_PROG_RUN failed for %s (err=%d retval=%d)",
-+			path, err, (int)topts.retval);
-+		return err ?: -EIO;
-+	}
-+
-+	*nr_cpus = ctx->skel->data->query_nr_cpus;
-+	return 0;
-+}
-+
-+static bool check_nr_cpus(struct cgroup_nr_cpus_ctx *ctx, const char *path, int expected,
-+			  const char *what)
-+{
-+	s64 nr_cpus;
-+
-+	if (kfunc_nr_cpus(ctx, path, &nr_cpus))
-+		return false;
-+	if (nr_cpus != expected) {
-+		SCX_ERR("%s: expected %d CPUs, got %lld", what, expected,
-+			(long long)nr_cpus);
-+		return false;
-+	}
-+	return true;
-+}
-+
-+/*
-+ * Like check_nr_cpus() but tolerate a transient mismatch. A cpuset css being
-+ * disabled stays attached to its cgroup until it's asynchronously offlined, and
-+ * cpuset_num_cpus() keeps reporting its stale mask until then.
-+ */
-+static bool wait_nr_cpus(struct cgroup_nr_cpus_ctx *ctx, const char *path, int expected,
-+			 const char *what)
-+{
-+	s64 nr_cpus = -1;
-+	int i;
-+
-+	for (i = 0; i < 1000; i++) {
-+		if (kfunc_nr_cpus(ctx, path, &nr_cpus))
-+			return false;
-+		if (nr_cpus == expected)
-+			return true;
-+		usleep(1000);
-+	}
-+	SCX_ERR("%s: expected %d CPUs, got %lld", what, expected, (long long)nr_cpus);
-+	return false;
-+}
-+
-+static bool controller_enabled(const char *cgroup, const char *file, const char *controller)
-+{
-+	char buf[4096], *saveptr, *token;
-+
-+	if (cg_read(cgroup, file, buf, sizeof(buf)))
-+		return false;
-+	for (token = strtok_r(buf, "\n ", &saveptr); token;
-+	     token = strtok_r(NULL, "\n ", &saveptr))
-+		if (!strcmp(token, controller))
-+			return true;
-+	return false;
-+}
-+
-+static void cleanup_ctx(struct cgroup_nr_cpus_ctx *ctx)
-+{
-+	bpf_link__destroy(ctx->link);
-+	cgroup_nr_cpus__destroy(ctx->skel);
-+	if (ctx->leaf_created)
-+		cg_destroy(ctx->leaf);
-+	if (ctx->child_created)
-+		cg_destroy(ctx->child);
-+	if (ctx->parent_created)
-+		cg_destroy(ctx->parent);
-+}
-+
-+/*
-+ * Enable @controller in the root's subtree_control if needed. Like the cgroup
-+ * selftests, leave it enabled afterwards: the root is shared, and another
-+ * manager may start relying on the controller while the test runs.
-+ */
-+static enum scx_test_status enable_controller(const char *root, const char *controller)
-+{
-+	char value[32];
-+
-+	if (controller_enabled(root, "cgroup.subtree_control", controller))
-+		return SCX_TEST_PASS;
-+	if (!controller_enabled(root, "cgroup.controllers", controller))
-+		return SCX_TEST_SKIP;
-+
-+	snprintf(value, sizeof(value), "+%s", controller);
-+	if (cg_write(root, "cgroup.subtree_control", value))
-+		return SCX_TEST_SKIP;
-+	return SCX_TEST_PASS;
-+}
-+
-+static enum scx_test_status setup_cgroups(struct cgroup_nr_cpus_ctx *ctx)
-+{
-+	enum scx_test_status status;
-+	char name[64];
-+
-+	if (cg_find_unified_root(ctx->root, sizeof(ctx->root), NULL))
-+		return SCX_TEST_SKIP;
-+
-+	status = enable_controller(ctx->root, "cpu");
-+	if (status != SCX_TEST_PASS)
-+		return status;
-+	status = enable_controller(ctx->root, "cpuset");
-+	if (status != SCX_TEST_PASS)
-+		return status;
-+
-+	snprintf(name, sizeof(name), "scx_nr_cpus_%d", getpid());
-+	if (join_path(ctx->parent, sizeof(ctx->parent), ctx->root, name) ||
-+	    join_path(ctx->child, sizeof(ctx->child), ctx->parent, "child") ||
-+	    join_path(ctx->leaf, sizeof(ctx->leaf), ctx->child, "leaf")) {
-+		SCX_ERR("Cgroup path is too long");
-+		return SCX_TEST_FAIL;
-+	}
-+
-+	if (cg_create(ctx->parent)) {
-+		SCX_ERR("Failed to create cgroup %s", ctx->parent);
-+		return SCX_TEST_FAIL;
-+	}
-+	ctx->parent_created = true;
-+	if (cg_write(ctx->parent, "cgroup.subtree_control", "+cpu +cpuset")) {
-+		SCX_ERR("Failed to enable controllers in %s", ctx->parent);
-+		return SCX_TEST_FAIL;
-+	}
-+	if (cg_create(ctx->child)) {
-+		SCX_ERR("Failed to create cgroup %s", ctx->child);
-+		return SCX_TEST_FAIL;
-+	}
-+	ctx->child_created = true;
-+	if (cg_write(ctx->child, "cgroup.subtree_control", "+cpu")) {
-+		SCX_ERR("Failed to enable cpu in %s", ctx->child);
-+		return SCX_TEST_FAIL;
-+	}
-+	if (cg_create(ctx->leaf)) {
-+		SCX_ERR("Failed to create cgroup %s", ctx->leaf);
-+		return SCX_TEST_FAIL;
-+	}
-+	ctx->leaf_created = true;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static enum scx_test_status run(void *arg)
-+{
-+	struct cgroup_nr_cpus_ctx ctx = {};
-+	enum scx_test_status status;
-+	char value[32];
-+	u32 first, last;
-+	int nr_root, nr_child;
-+
-+	(void)arg;
-+
-+	/*
-+	 * SCX_ENUM_INIT() exits the process if vmlinux BTF can't be loaded, so
-+	 * run it before creating any cgroups that would then be left behind.
-+	 */
-+	ctx.skel = cgroup_nr_cpus__open();
-+	if (!ctx.skel) {
-+		SCX_ERR("Failed to open skel");
-+		return SCX_TEST_FAIL;
-+	}
-+	SCX_ENUM_INIT(ctx.skel);
-+
-+	status = setup_cgroups(&ctx);
-+	if (status != SCX_TEST_PASS)
-+		goto out;
-+	status = SCX_TEST_FAIL;
-+
-+	nr_root = effective_nr_cpus(ctx.root, NULL, NULL);
-+	nr_child = effective_nr_cpus(ctx.child, &first, &last);
-+	if (nr_root < 0 || nr_child < 0) {
-+		SCX_ERR("Failed to read effective cpusets");
-+		goto out;
-+	}
-+	/* The effective cpuset can be empty, e.g. under a partition root. */
-+	if (nr_child < 2) {
-+		status = SCX_TEST_SKIP;
-+		goto out;
-+	}
-+
-+	ctx.skel->bss->init_cgid = cgroup_id(ctx.leaf);
-+	if (!ctx.skel->bss->init_cgid) {
-+		SCX_ERR("Failed to read cgroup ID of %s", ctx.leaf);
-+		goto out;
-+	}
-+	if (cgroup_nr_cpus__load(ctx.skel)) {
-+		SCX_ERR("Failed to load skel");
-+		goto out;
-+	}
-+
-+	/* The kfunc must be callable without a scheduler attached. */
-+	if (!check_nr_cpus(&ctx, ctx.root, nr_root, "root") ||
-+	    !check_nr_cpus(&ctx, ctx.child, nr_child, "child") ||
-+	    !check_nr_cpus(&ctx, ctx.leaf, nr_child, "inherited leaf"))
-+		goto out;
-+
-+	/* ops.cgroup_init() runs for existing cgroups when attaching. */
-+	ctx.link = bpf_map__attach_struct_ops(ctx.skel->maps.cgroup_nr_cpus_ops);
-+	if (!ctx.link) {
-+		SCX_ERR("Failed to attach scheduler");
-+		goto out;
-+	}
-+	if (ctx.skel->data->init_nr_cpus != nr_child) {
-+		SCX_ERR("ops.cgroup_init(): expected %d CPUs, got %lld", nr_child,
-+			(long long)ctx.skel->data->init_nr_cpus);
-+		goto out;
-+	}
-+
-+	/* Non-contiguous cpuset, observed by the owner and by the inheritor. */
-+	if (nr_child > 2) {
-+		snprintf(value, sizeof(value), "%u,%u", first, last);
-+		if (cg_write(ctx.child, "cpuset.cpus", value)) {
-+			SCX_ERR("Failed to set cpuset.cpus=%s for %s", value, ctx.child);
-+			goto out;
-+		}
-+		if (!check_nr_cpus(&ctx, ctx.child, 2, "sparse child") ||
-+		    !check_nr_cpus(&ctx, ctx.leaf, 2, "sparse inherited leaf"))
-+			goto out;
-+	}
-+
-+	snprintf(value, sizeof(value), "%u", first);
-+	if (cg_write(ctx.child, "cpuset.cpus", value)) {
-+		SCX_ERR("Failed to set cpuset.cpus=%s for %s", value, ctx.child);
-+		goto out;
-+	}
-+	if (!check_nr_cpus(&ctx, ctx.child, 1, "single-CPU child") ||
-+	    !check_nr_cpus(&ctx, ctx.leaf, 1, "single-CPU inherited leaf"))
-+		goto out;
-+
-+	/*
-+	 * Disabling cpuset below @parent makes @child and @leaf inherit
-+	 * @parent's effective cpuset, which spans all of the root's CPUs.
-+	 */
-+	if (cg_write(ctx.parent, "cgroup.subtree_control", "-cpuset")) {
-+		SCX_ERR("Failed to disable cpuset in %s", ctx.parent);
-+		goto out;
-+	}
-+	nr_child = effective_nr_cpus(ctx.parent, NULL, NULL);
-+	if (nr_child < 0) {
-+		SCX_ERR("Failed to read effective cpuset of %s", ctx.parent);
-+		goto out;
-+	}
-+	if (!wait_nr_cpus(&ctx, ctx.child, nr_child, "child after cpuset disable") ||
-+	    !wait_nr_cpus(&ctx, ctx.leaf, nr_child, "leaf after cpuset disable"))
-+		goto out;
-+
-+	if (ctx.skel->data->uei.kind != EXIT_KIND(SCX_EXIT_NONE)) {
-+		SCX_ERR("Scheduler exited unexpectedly");
-+		goto out;
-+	}
-+
-+	status = SCX_TEST_PASS;
-+out:
-+	cleanup_ctx(&ctx);
-+	return status;
-+}
-+
-+struct scx_test cgroup_nr_cpus = {
-+	.name = "cgroup_nr_cpus",
-+	.description = "Verify scx_bpf_cgroup_nr_cpus() reports effective cpuset CPU counts",
-+	.run = run,
-+};
-+REGISTER_SCX_TEST(&cgroup_nr_cpus)
-diff --git a/tools/testing/selftests/sched_ext/config b/tools/testing/selftests/sched_ext/config
-index affa3cf33470a..8173f9170ffe8 100644
---- a/tools/testing/selftests/sched_ext/config
-+++ b/tools/testing/selftests/sched_ext/config
-@@ -1,6 +1,7 @@
- CONFIG_SCHED_CLASS_EXT=y
- CONFIG_CGROUPS=y
- CONFIG_CGROUP_SCHED=y
-+CONFIG_CPUSETS=y
- CONFIG_EXT_GROUP_SCHED=y
- CONFIG_BPF=y
- CONFIG_BPF_SYSCALL=y
+Yes, thanks.
+
 -- 
-2.55.0
+Cheers,
 
+David
