@@ -1,101 +1,123 @@
-Received: from mta60.mailii.org (mta60.mailii.org [78.129.155.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6F636167B
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 19:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.129.155.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AD74483B4;
+	Tue, 29 Sep 2026 19:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710081; cv=none; b=E1W8Ki872eoSCaSs/j8Ae0vrF9vMzhYnIfKwq78jh0tNBy9jzCpa4tlhohXo3FKSYeBg21uY/nCwCEHQ95jI/tabIJg5IR79ZSzp9yaX8loLH9cvaTgaEO18s9bBqQfSSdeRPlsD1OdsJOpP/QZ6v9XcpxW17VBYHKQrBc/NQFU=
+	t=1790710102; cv=none; b=MHrPtgr1NOApB+Zshl4YP1uhCtxXo4Y/gmb8LZi/RfdunwSOupjapitccNRcP42Dbo/3BXCLvYghKQ3LomaAae8WXPR9NPZBkWHiJw1E3mt/pWtPXYELAUeLwpSML4YZVReKgC25KVmn9plIpbKoJ+4IIVZlpqRe3hdjjfp6ABA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710081; c=relaxed/simple;
-	bh=A+oRRwQ10aiwtATv2WWoD/8rMmQLTGjw4bJpUhB89hQ=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=XoghvTLqOv4ezRQr4taYd/vj1yfJaVKoKC8goBk8RlzmnLkg++UQHJ6CePhXE1PPUoeat0PMterDEhk0nkmeUvIA6/HRQLNG3YDygVokJfNFRm2v0pFj6HXkFEOBLYtg/ppJSwgDooBYksQGUiuEycLZAT9wUpdmHeNY7iEiZUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net; spf=pass smtp.mailfrom=hajimohammadi.net; dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b=vXqg+XNv; arc=none smtp.client-ip=78.129.155.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hajimohammadi.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hajimohammadi.net
+	s=arc-20240116; t=1790710102; c=relaxed/simple;
+	bh=O0Omiyq/KcRHNIGn7ewYt7swzYz69/cx2EweUWG4Vkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwF7GHvzAH77XntEWTCrpN3Sd83H3L0t4OsufXUPA4fh+gxH2LjQSgnLE4Jb72m9XD0L9XFf46yLsMqwcpPhCSmmyGlxBFOjYIXpLQnd80yY+fAFm36XkDBMPBKstIYsnvZ9l94AK1RNckal+Z5+cTJ+v7ItrUF5Oq/IVetNQmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuegzX1U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=srs.mailii.net header.i=@srs.mailii.net header.b="vXqg+XNv"
-X-Mailin-Tag: 95.217.242.122
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=srs.mailii.net; s=mail;
-	h=to:cc:date:message-id:subject:mime-version:content-type:from:from;
-	bh=tUrjT9ZMIdMQTi3Ph678hgdcX/K1AT+tm++YHIQwXhw=;
-	b=vXqg+XNvuH1g7kJWQUpLMW3FhfFO0kgrTjoE/0kGjenuZv7YKRN2MgxfOfSWcCOxdKVKQU62v5C5s
-	 593NGCRW4wN8NWZJdRXB1rCBf6Cozv2mmjzY0OEPzLsMZK2+sNCTeoeQO7nnNSbslj/+KfGwCtg4rW
-	 /nObFzu2bY9k6bsU=
-Received: from linux1de.centraldnserver.com (static.122.242.217.95.clients.your-server.de [95.217.242.122])
-	by ukgw.mailii.org (Halon) with ESMTPSA
-	id bf1b5f40-bbed-11f1-ab49-005056a23964;
-	Tue, 29 Sep 2026 13:38:41 +0330 (+0330)
-Received: from [45.252.182.9] (port=52731 helo=smtpclient.apple)
-	by linux1de.centraldnserver.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <info@hajimohammadi.net>)
-	id 1xBUlE-000000005Ir-0nsA;
-	Tue, 29 Sep 2026 13:38:31 +0330
-From: Amirhossein Hajimohammadi <info@hajimohammadi.net>
-Content-Type: multipart/mixed;
-	boundary="Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuegzX1U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2AA1F000FF;
+	Tue, 29 Sep 2026 19:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790710100;
+	bh=WPq1lDMEISVN+4Wuw6T9MQdT1Hadq3U5RnwOvLWqtiI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NuegzX1UKYqn/UPWpQSpkyHmTr3d3g03TW7g+C5olyCVAouYMAlk6oBFelgupSEYt
+	 8VH+lhlaHXzsRENC+xixzvC9g3gG1JhjwQbpK1+PPlyLDOkVoDZwMw54PdnOTqHnq9
+	 23BqfIn1ooJac4iV67+OB+G++SPLudSAyWBQjfLTJto0vIz1jeglLhKYZIb2gJyYYD
+	 rCpDS1itH8K8mtMEfHh90+S1AxiFcCCGE1T1I5gfiawCG/Brf2LpyLUEoDvE/5lwTw
+	 mlyRMAtmt8JrRhyjPUQl6Wc3IdFvauM9SLa6oJlXsruUTfGpJ3LHiZFDp63CpPWnIq
+	 /EcVbqkJAeV3g==
+Date: Tue, 29 Sep 2026 21:28:11 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/4] net: qrtr: Assign unique node id for MHI endpoints
+Message-ID: <4dt7cguc4trc5i55ot3numuzz3nolbcpgtl4iztxw4a7b46v23@relb42cpotlz>
+References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
+ <20260922-qrtr-multi-ep-v3-2-c00831e88957@oss.qualcomm.com>
+ <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: [PATCH] staging: rtl8723bs: stop overreading monitor interface name
-Message-Id: <4E27F487-1146-4557-8A26-51F6E9E2E2C6@hajimohammadi.net>
-Date: Tue, 29 Sep 2026 13:38:19 +0330
-Cc: linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-X-YourOrg-MailScanner-Information: Please contact the ISP for more information
-X-YourOrg-MailScanner-ID: 1xBUlE-000000005Ir-0nsA
-X-YourOrg-MailScanner: Found to be clean
-X-YourOrg-MailScanner-SpamCheck: 
-X-YourOrg-MailScanner-From: info@hajimohammadi.net
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7aed969d-0868-4c9c-967e-7766dbba427e@oss.qualcomm.com>
 
+On Tue, Sep 29, 2026 at 10:15:52PM +0530, Deepak Kumar Singh wrote:
+> 
+> On 9/22/2026 7:11 PM, Manivannan Sadhasivam via B4 Relay wrote:
+> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > 
+> > Now that the QRTR driver allows using the unique node id for each device,
+> > which is different from the node id received from the remote node, compute
+> > a unique node id using a new API, qrtr_host_node_id().
+> > 
+> > This API takes the 'index' parameter and adds it to QRTR_NODE_HOST_BASE,
+> > whose value is outside of the node id range used by the remote nodes (0 to
+> > 0xffff).
+> > 
+> > Finally, call the new API from MHI endpoint driver by passing the MHI
+> > controller index as the parameter. The MHI controller index is unique for
+> > each controller, thereby for each MHI endpoint device.
+> > 
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > ---
+> >   MAINTAINERS        |  1 +
+> >   include/net/qrtr.h | 21 +++++++++++++++++++++
+> >   net/qrtr/mhi.c     |  4 +++-
+> >   3 files changed, 25 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index df8ab9b82402..9c8bb086be28 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -22511,6 +22511,7 @@ QUALCOMM IPC ROUTER (QRTR) DRIVER
+> >   M:	Manivannan Sadhasivam <mani@kernel.org>
+> >   L:	linux-arm-msm@vger.kernel.org
+> >   S:	Maintained
+> > +F:	include/net/qrtr.h
+> >   F:	include/trace/events/qrtr.h
+> >   F:	include/uapi/linux/qrtr.h
+> >   F:	net/qrtr/
+> > diff --git a/include/net/qrtr.h b/include/net/qrtr.h
+> > new file mode 100644
+> > index 000000000000..745d51b4a6ba
+> > --- /dev/null
+> > +++ b/include/net/qrtr.h
+> > @@ -0,0 +1,21 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +
+> > +#ifndef _NET_QRTR_H
+> > +#define _NET_QRTR_H
+> > +
+> > +#include <linux/types.h>
+> > +
+> > +/* The offset is chosen carefully to not collide with the node ids allocated by
+> > + * the remote nodes. All the remote nodes use node ids in range 0 to 0xffff.
+> > + */
+> > +#define QRTR_NODE_HOST_BASE 0x10000u
+> 
+> Can it be exposed with include/uapi/linux/qrtr.h also. There are user space clients like modem manager
+> which need to calculate modified node id to distinguish same service from multi modem over mhi.
+> This is same as wlan use case.
+> 
 
---Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain;
-	charset=us-ascii
+I'm OK with exposing the final nid to the userspace, but not just the offset and
+asking client to calculate the nid on its own.
 
-Patch attached as text/plain.
+Will implement this final nid ABI in next version.
 
---Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96
-Content-Disposition: attachment;
-	filename=0001-staging-rtl8723bs-stop-overreading-monitor-interface.patch
-Content-Type: application/octet-stream;
-	x-unix-mode=0644;
-	name="0001-staging-rtl8723bs-stop-overreading-monitor-interface.patch"
-Content-Transfer-Encoding: quoted-printable
+- Mani
 
-=46rom=203a4bea4cf2133cb8a8929be1655ce2a95d685d40=20Mon=20Sep=2017=20=
-00:00:00=202001=0AFrom:=20AmirHossein=20HajiMohammadi=20=
-<info@hajimohammadi.net>=0ADate:=20Tue,=2029=20Sep=202026=2013:05:58=20=
-+0330=0ASubject:=20[PATCH]=20staging:=20rtl8723bs:=20stop=20overreading=20=
-monitor=20interface=20name=0ATo:=20Greg=20Kroah-Hartman=20=
-<gregkh@linuxfoundation.org>=0ACc:=20linux-staging@lists.linux.dev,=0A=20=
-=20=20=20linux-kernel@vger.kernel.org=0A=0Acfg80211=20passes=20a=20=
-NUL-terminated=20interface=20name.=20memcpy()=20always=20reads=0A=
-IFNAMSIZ=20+=201=20bytes,=20even=20when=20the=20caller=20supplied=20a=20=
-shorter=20string.=0A=0AUse=20strscpy()=20to=20stop=20at=20the=20=
-terminator=20and=20bound=20the=20write=20to=20the=0Adestination=20=
-buffer.=0A=0ASigned-off-by:=20AmirHossein=20HajiMohammadi=20=
-<info@hajimohammadi.net>=0A---=0A=20=
-drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=20|=202=20+-=0A=201=20=
-file=20changed,=201=20insertion(+),=201=20deletion(-)=0A=0Adiff=20--git=20=
-a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=20=
-b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0Aindex=20=
-4416d0ec..8f503284=20100644=0A---=20=
-a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0A+++=20=
-b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c=0A@@=20-2158,7=20=
-+2158,7=20@@=20static=20int=20rtw_cfg80211_add_monitor_if(struct=20=
-adapter=20*padapter,=20char=20*name,=20str=0A=20=09=09goto=20out;=0A=20=0A=
-=20=09*ndev=20=3D=20pwdev_priv->pmon_ndev=20=3D=20mon_ndev;=0A-=09=
-memcpy(pwdev_priv->ifname_mon,=20name,=20IFNAMSIZ=20+=201);=0A+=09=
-strscpy(pwdev_priv->ifname_mon,=20name);=0A=20=0A=20out:=0A=20=09if=20=
-(ret=20&&=20mon_wdev)=20{=0A--=20=0A2.39.5=20(Apple=20Git-154)=0A=0A=
-
---Apple-Mail=_8F8C67E3-57DB-4FDF-A22C-48975AE89F96--
+-- 
+மணிவண்ணன் சதாசிவம்
