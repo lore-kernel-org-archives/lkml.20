@@ -1,38 +1,38 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5934B51AEC4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B982514759;
 	Tue, 29 Sep 2026 10:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678247; cv=none; b=o//MkxDxwLYTwdfI0koHGgHHNEgielxxH/qB4q/1dwMTSW2XFYSZi2Qqe74VJhwiX8AGkXwEqvmEMz8WwP8LL2H6Lf4LQYogzEklqiSZKqLz0Yl6iS+5Oxui5SezCivg8EPI2tXO3JCHW54gsksQcAXWdoXpaSvF9pYB3fV95kg=
+	t=1790678251; cv=none; b=cIC20sqkxotw5bMFIWHARI8175wzRn6iR+zFi7Lwj7SOxMK7fp6GQJOSjhcy0Im1e2b7a5/AiJanDinDlva5BKPXWmolB0VQMj39i6qr5/Z2hX+uReA8glPuQyGLJWXX1bVzMT4tsmt+XQFRb+ZdRdfqjiIdMoRqG20wdAhH/00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678247; c=relaxed/simple;
-	bh=prg2yyZtoyCOPNteSz6kycE67/+Tt9YkliRbdRWoXvY=;
+	s=arc-20240116; t=1790678251; c=relaxed/simple;
+	bh=+93hM5U8N4Bh0IDUYnxzYb9Do1DsoNnLJ8ItleNrIHA=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vEqsmw8zxpdP3KIRcXjN4bCzTyL8LmewaeN9XGzavmQQElUGTcbeVneUq+eyzK3ypaYhudrVLUCnOc1g4Ifi+O8cv8muKAlxWkSRP7L4JDsCnh/s26ka4SYIV16BT7n8ZPgizT2Mqk2OPnZbXKhmJ9o0sBdPMOk6rQPpdvm0P5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=d2jU1r6N; arc=none smtp.client-ip=113.46.200.222
+	 MIME-Version:Content-Type; b=hS0GznYBR1d8/axizIIRMJtby+Ak/hlkYv0D/+u+MR3spiXwubkbelkxkKM2SaNX6QwqxbVecs1xICIVOnzIrbYXM9NHHV8nYD2dzmgaa/9PmwPwA0XUDLVlcf57nd9C1DMK2Gsipj+SNBv80nTtX4JE69OqB6svjLaln67YBR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=jHcKaFYd; arc=none smtp.client-ip=113.46.200.220
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="d2jU1r6N"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="jHcKaFYd"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=+p67nF0vU9SDVoCbM28Chml69/EYcNQ7SwyEdJPNe5I=;
-	b=d2jU1r6NCztnjuRm18UqYqdywMMdUj5kzRV4m/hm+btKKdEXhuQ3pe2TFYmI32X61+RA8OoAz
-	8r9dEzsvIw8hWNwScuN92X1bFXbVKkaa/oTEHGniD7lepNuJxoTh6UbYOXziCs4LijQRxP2nnPz
-	pvmPjtGbX2f5rYfZVCUizb4=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hvDnY0R3MzLlTC;
-	Tue, 29 Sep 2026 18:24:49 +0800 (CST)
+	bh=rmDQUIphJFlzenQYZdfd1cedfjoPbRRqTeAYuNnfI9g=;
+	b=jHcKaFYd3fJjqJagj1xIeyMwSYMdsjiQcguDOLEzj0tl19WR/yJ0SXrGlUHW/mk7QCrW1VQ5Y
+	xhaW5hEMRLECEpNfTaYWKeUqXmhg7Gk055gVJ/LKSM/i0om/C+NYedzSlVAnEsdjPjk2XzmOqra
+	J22ubbEwFtuUahAF122EQHI=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hvDnl2v1Zz12LHh;
+	Tue, 29 Sep 2026 18:24:59 +0800 (CST)
 Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2E6F94056C;
-	Tue, 29 Sep 2026 18:36:58 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 183D240537;
+	Tue, 29 Sep 2026 18:37:02 +0800 (CST)
 Received: from huawei.com (10.50.163.32) by kwepemr100010.china.huawei.com
  (7.202.195.125) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 29 Sep
- 2026 18:36:57 +0800
+ 2026 18:37:01 +0800
 From: Tian Zheng <zhengtian10@huawei.com>
 To: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
@@ -47,9 +47,9 @@ CC: <yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>,
 	<mark.rutland@arm.com>, <seanjc@google.com>, <rdunlap@infradead.org>,
 	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
 	<skhan@linuxfoundation.org>
-Subject: [PATCH v5 02/15] KVM: arm64: Add KVM_PGTABLE_PROT_DIRTY
-Date: Tue, 29 Sep 2026 18:36:42 +0800
-Message-ID: <20260929103655.85107-3-zhengtian10@huawei.com>
+Subject: [PATCH v5 07/15] KVM: arm64: Add HDBSS per-vCPU buffer management
+Date: Tue, 29 Sep 2026 18:36:47 +0800
+Message-ID: <20260929103655.85107-8-zhengtian10@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20260929103655.85107-1-zhengtian10@huawei.com>
 References: <20260929103655.85107-1-zhengtian10@huawei.com>
@@ -64,258 +64,306 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemr100010.china.huawei.com (7.202.195.125)
 
-From: Leonardo Bras <leo.bras@arm.com>
+From: Eillon <yezhenyu2@huawei.com>
 
-Second step of changing the encoding for the Stage2 PTE descriptor,
-introduce the concept of dirty page, so we can have a writable but not
-dirty (WC) page, and a writable and dirty (WD) page.
+Each vCPU owns an HDBSS buffer, described by HDBSSBR_EL2 (base
+address and encoded size) and advanced by HDBSSPROD_EL2 as hardware
+appends entries. Tie the buffer lifetime to the vCPU: allocate at
+vCPU creation, free at destruction. The buffer is allocated zeroed,
+so a stale producer index can only ever observe invalid entries.
 
-With the write permission carried by DBM and the dirty state by
-S2AP[1], the descriptor encodes three states, which the rest of this
-series builds on and which are valid regardless of whether hardware
-dirty management (FEAT_HAFDBS) is enabled:
+Registers are programmed whenever the vCPU owns a buffer, regardless
+of whether HDBSS is enabled. The feature can be turned on
+mid-KVM_RUN, and hardware dirty-state updates write to
+HDBSSBR_EL2.BADDR without any fault, so the registers must already
+be in place by then. HDBSSPROD_EL2 is preserved across context
+switches and vCPU migration.
 
-  RO (DBM=0, S2AP[1]=0)  read-only, write -> permission fault
-  WC (DBM=1, S2AP[1]=0)  writable-clean: with HD=1 hardware promotes
-                         it to dirty on write with no fault, with
-                         HD=0 the write faults and software installs
-                         it dirty
-  WD (DBM=1, S2AP[1]=1)  writable-dirty, writes do not fault
+Two details: the buddy order is kept separate from the HDBSSBR_EL2.SZ
+encoding, since the two only coincide on 4KB pages; and kvm_share_hyp()
+is unwound in kvm_arch_vcpu_create() when the HDBSS allocation fails.
 
-When HD is clear, DBM is ignored and S2AP[1] alone controls write
-permission. A WC entry is therefore read-only, so writable pages must
-be mapped WD.
-
-On the fault paths, the two bits feed different consumers. The host
-folio is marked dirty whenever the mapping grants write permission.
-This is required by the kvm_release_faultin_page() contract: a WC
-mapping can be promoted to dirty by hardware without a VM exit, so
-releasing the folio clean could lose a guest write at reclaim.
-mark_page_dirty_in_slot(), which fills the dirty bitmap, is by
-contrast only called for mappings installed dirty - otherwise
-pre-copy would treat every writable page as dirty.
-
-Link: https://lore.kernel.org/all/20260901171558.2674031-3-leo.bras@arm.com/
-Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-[zhengtian: split the folio and dirty-bitmap accounts on the fault paths]
+Signed-off-by: Eillon <yezhenyu2@huawei.com>
 Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
 ---
- arch/arm64/include/asm/kvm_pgtable.h |  9 ++++---
- arch/arm64/kvm/hyp/pgtable.c         | 23 +++++++++++++-----
- arch/arm64/kvm/mmu.c                 | 36 ++++++++++++++++++++--------
- arch/arm64/kvm/ptdump.c              |  6 +++++
- 4 files changed, 55 insertions(+), 19 deletions(-)
+ arch/arm64/include/asm/kvm_dirty_bit.h | 28 +++++++++++++
+ arch/arm64/include/asm/kvm_host.h      | 13 ++++++
+ arch/arm64/include/asm/sysreg.h        |  9 +++++
+ arch/arm64/kvm/Makefile                |  1 +
+ arch/arm64/kvm/arm.c                   | 14 ++++++-
+ arch/arm64/kvm/dirty_bit.c             | 55 ++++++++++++++++++++++++++
+ arch/arm64/kvm/hyp/vhe/switch.c        | 17 ++++++++
+ arch/arm64/kvm/reset.c                 |  3 ++
+ 8 files changed, 138 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm64/include/asm/kvm_dirty_bit.h
+ create mode 100644 arch/arm64/kvm/dirty_bit.c
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 37baa86d6fd8..379031c74cbc 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -265,6 +265,7 @@ enum kvm_pgtable_stage2_flags {
-  * @KVM_PGTABLE_PROT_X:		Privileged and unprivileged execute permission.
-  * @KVM_PGTABLE_PROT_W:		Write permission.
-  * @KVM_PGTABLE_PROT_R:		Read permission.
-+ * @KVM_PGTABLE_PROT_DIRTY:	Dirty attribute.
-  * @KVM_PGTABLE_PROT_DEVICE:	Device attributes.
-  * @KVM_PGTABLE_PROT_NORMAL_NC:	Normal noncacheable attributes.
-  * @KVM_PGTABLE_PROT_SW0:	Software bit 0.
-@@ -279,9 +280,10 @@ enum kvm_pgtable_prot {
- 						  KVM_PGTABLE_PROT_UX,
- 	KVM_PGTABLE_PROT_W			= BIT(2),
- 	KVM_PGTABLE_PROT_R			= BIT(3),
-+	KVM_PGTABLE_PROT_DIRTY			= BIT(4),
+diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
+new file mode 100644
+index 000000000000..fe703f02626b
+--- /dev/null
++++ b/arch/arm64/include/asm/kvm_dirty_bit.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Per-vCPU buffer management for HDBSS-based dirty page tracking.
++ *
++ * Copyright (C) 2026 Huawei Technologies Co., Ltd
++ * Author: Tian Zheng <zhengtian10@huawei.com>
++ */
++
++#ifndef __ARM64_KVM_DIRTY_BIT_H__
++#define __ARM64_KVM_DIRTY_BIT_H__
++
++#include <asm/kvm_pgtable.h>
++#include <asm/sysreg.h>
++#include <linux/sizes.h>
++
++#define KVM_ARM_HDBSS_DEFAULT_SIZE  PAGE_SIZE
++#define KVM_ARM_HDBSS_MAX_SIZE      SZ_2M
++
++/* 0 means unconfigured, fall back to one page per vCPU. */
++static inline u32 kvm_hdbss_buffer_size(struct kvm *kvm)
++{
++	return kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
++}
++
++int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
++void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
++
++#endif /* __ARM64_KVM_DIRTY_BIT_H__ */
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 86a4d6e50934..c8fc29f3db75 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -425,6 +425,9 @@ struct kvm_arch {
+ 	 */
+ 	struct kvm_protected_vm pkvm;
 
--	KVM_PGTABLE_PROT_DEVICE			= BIT(4),
--	KVM_PGTABLE_PROT_NORMAL_NC		= BIT(5),
-+	KVM_PGTABLE_PROT_DEVICE			= BIT(5),
-+	KVM_PGTABLE_PROT_NORMAL_NC		= BIT(6),
-
- 	KVM_PGTABLE_PROT_SW0			= BIT(55),
- 	KVM_PGTABLE_PROT_SW1			= BIT(56),
-@@ -289,7 +291,8 @@ enum kvm_pgtable_prot {
- 	KVM_PGTABLE_PROT_SW3			= BIT(58),
++	/* HDBSS: per-VM buffer size in bytes (0 = not configured, use default) */
++	u32 hdbss_buffer_size;
++
+ #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+ 	/* Nested virtualization info */
+ 	struct dentry *debugfs_nv_dentry;
+@@ -844,6 +847,13 @@ struct vcpu_reset_state {
+ 	bool		reset;
  };
 
--#define KVM_PGTABLE_PROT_RW	(KVM_PGTABLE_PROT_R | KVM_PGTABLE_PROT_W)
-+#define KVM_PGTABLE_PROT_RW	(KVM_PGTABLE_PROT_R | KVM_PGTABLE_PROT_W | \
-+				 KVM_PGTABLE_PROT_DIRTY)
- #define KVM_PGTABLE_PROT_RWX	(KVM_PGTABLE_PROT_RW | KVM_PGTABLE_PROT_X)
-
- #define PKVM_HOST_MEM_PROT	KVM_PGTABLE_PROT_RWX
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index 50f4d3a74f77..357b06648418 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -731,8 +731,12 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
-
--	if (prot & KVM_PGTABLE_PROT_W)
--		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+	if (prot & KVM_PGTABLE_PROT_W) {
-+		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
++struct vcpu_hdbss_state {
++	struct page *hdbss_pg;		/* HDBSS buffer */
++	u64 hdbssbr_el2;		/* programmed into the CPU on load */
++	u64 hdbssprod_el2;		/* producer index, saved on put */
++	unsigned int buddy_order;	/* allocation order for __free_pages() */
++};
 +
-+		if (prot & KVM_PGTABLE_PROT_DIRTY)
-+			attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+	}
+ struct vncr_tlb;
 
- 	if (!kvm_lpa2_is_enabled())
- 		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
-@@ -753,9 +757,13 @@ enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+ struct kvm_vcpu_arch {
+@@ -951,6 +961,9 @@ struct kvm_vcpu_arch {
 
- 	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
- 		prot |= KVM_PGTABLE_PROT_R;
--	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
-+	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM) {
- 		prot |= KVM_PGTABLE_PROT_W;
-
-+		if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
-+			prot |= KVM_PGTABLE_PROT_DIRTY;
-+	}
+ 	/* Hyp-readable copy of kvm_vcpu::pid */
+ 	pid_t pid;
 +
- 	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
- 	case 0b00:
- 		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
-@@ -1288,7 +1296,6 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
- int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
- {
- 	return stage2_update_leaf_attrs(pgt, addr, size, 0,
--					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
- 					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
- 					NULL, NULL,
- 					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
-@@ -1368,8 +1375,12 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
++	/* HDBSS buffer state */
++	struct vcpu_hdbss_state hdbss;
+ };
 
--	if (prot & KVM_PGTABLE_PROT_W)
--		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+	if (prot & KVM_PGTABLE_PROT_W) {
-+		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+ /*
+diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+index 7aa08d59d494..7c71560b57e4 100644
+--- a/arch/arm64/include/asm/sysreg.h
++++ b/arch/arm64/include/asm/sysreg.h
+@@ -1039,6 +1039,15 @@
+
+ #define GCS_CAP(x)	((((unsigned long)x) & GCS_CAP_ADDR_MASK) | \
+ 					       GCS_CAP_VALID_TOKEN)
 +
-+		if (prot & KVM_PGTABLE_PROT_DIRTY)
-+			set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+	}
-
- 	if (prot & KVM_PGTABLE_PROT_X) {
- 		ret = stage2_set_xn_attr(prot, &xn);
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 2d44cd6a5aed..698a87e85a6d 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1221,7 +1221,9 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
- 	struct kvm_pgtable *pgt = mmu->pgt;
- 	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_DEVICE |
- 				     KVM_PGTABLE_PROT_R |
--				     (writable ? KVM_PGTABLE_PROT_W : 0);
-+				     (writable ?
-+				      (KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY) :
-+				      0);
-
- 	if (is_protected_kvm_enabled())
- 		return -EPERM;
-@@ -1587,7 +1589,7 @@ static enum kvm_pgtable_prot adjust_nested_fault_perms(struct kvm_s2_trans *nest
- 						       enum kvm_pgtable_prot prot)
- {
- 	if (!kvm_s2_trans_writable(nested))
--		prot &= ~KVM_PGTABLE_PROT_W;
-+		prot &= ~(KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY);
- 	if (!kvm_s2_trans_readable(nested))
- 		prot &= ~KVM_PGTABLE_PROT_R;
-
-@@ -1658,7 +1660,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
++/*
++ * Definitions for the HDBSS feature
++ */
++#define HDBSSBR_EL2(baddr, sz)	(((baddr) & HDBSSBR_EL2_BADDR_MASK) | \
++				 FIELD_PREP(HDBSSBR_EL2_SZ_MASK, sz))
++
++#define HDBSSPROD_IDX(prod)	FIELD_GET(HDBSSPROD_EL2_INDEX_MASK, prod)
++
+ /*
+  * Definitions for GICv5 instructions
+  */
+diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
+index 59612d2f277c..ec2749af64fa 100644
+--- a/arch/arm64/kvm/Makefile
++++ b/arch/arm64/kvm/Makefile
+@@ -18,6 +18,7 @@ kvm-y += arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
+ 	 guest.o debug.o reset.o sys_regs.o stacktrace.o \
+ 	 vgic-sys-reg-v3.o fpsimd.o pkvm.o \
+ 	 arch_timer.o trng.o vmid.o emulate-nested.o nested.o at.o \
++	 dirty_bit.o \
+ 	 vgic/vgic.o vgic/vgic-init.o \
+ 	 vgic/vgic-irqfd.o vgic/vgic-v2.o \
+ 	 vgic/vgic-v3.o vgic/vgic-v4.o \
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index d9ad765943d9..5ea4ac26995e 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -36,6 +36,7 @@
+ #include <asm/virt.h>
+ #include <asm/kvm_arm.h>
+ #include <asm/kvm_asm.h>
++#include <asm/kvm_dirty_bit.h>
+ #include <asm/kvm_emulate.h>
+ #include <asm/kvm_hyp.h>
+ #include <asm/kvm_mmu.h>
+@@ -580,10 +581,19 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
  	}
 
- 	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
--		prot |= KVM_PGTABLE_PROT_W;
-+		prot |= KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY;
+ 	err = kvm_share_hyp(vcpu, vcpu + 1);
+-	if (err)
++	if (err) {
+ 		kvm_vgic_vcpu_destroy(vcpu);
++		return err;
++	}
 
- 	if (s2fd->nested)
- 		prot = adjust_nested_fault_perms(s2fd->nested, prot);
-@@ -1690,10 +1692,17 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 	}
-
- out_unlock:
-+	/*
-+	 * Dirty the folio for any write-permitting mapping: hardware can
-+	 * promote a writable-clean entry to writable-dirty without a VM
-+	 * exit, so a clean release could lose a guest write at reclaim.
-+	 * The dirty bitmap is only marked for mappings installed dirty,
-+	 * or pre-copy would treat every writable page as dirty.
-+	 */
- 	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
- 	kvm_fault_unlock(kvm);
-
--	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
-+	if ((prot & KVM_PGTABLE_PROT_DIRTY) && !ret)
- 		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
-
- 	return ret != -EAGAIN ? ret : 0;
-@@ -1993,11 +2002,14 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
-
- 	*prot = KVM_PGTABLE_PROT_R;
-
--	if (s2vi->map_writable && (s2vi->device ||
--				   !memslot_is_logging(s2fd->memslot) ||
--				   kvm_is_write_fault(s2fd->vcpu)))
-+	if (s2vi->map_writable) {
- 		*prot |= KVM_PGTABLE_PROT_W;
-
-+		if (s2vi->device || !memslot_is_logging(s2fd->memslot) ||
-+		    kvm_is_write_fault(s2fd->vcpu))
-+			*prot |= KVM_PGTABLE_PROT_DIRTY;
+-	return err;
++	err = kvm_arm_vcpu_alloc_hdbss(vcpu);
++	if (err) {
++		kvm_unshare_hyp(vcpu, vcpu + 1);
++		kvm_vgic_vcpu_destroy(vcpu);
++		return err;
 +	}
 +
- 	if (s2fd->nested)
- 		*prot = adjust_nested_fault_perms(s2fd->nested, *prot);
++	return 0;
+ }
 
-@@ -2028,7 +2040,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
- 			    void *memcache)
+ void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
+diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
+new file mode 100644
+index 000000000000..f9aeb9f34ad0
+--- /dev/null
++++ b/arch/arm64/kvm/dirty_bit.c
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Per-vCPU HDBSS buffer management.
++ *
++ * Copyright (C) 2026 Huawei Technologies Co., Ltd
++ * Author: Tian Zheng <zhengtian10@huawei.com>
++ */
++
++#include <asm/kvm_dirty_bit.h>
++#include <asm/kvm_mmu.h>
++#include <asm/sysreg.h>
++#include <linux/gfp.h>
++#include <linux/kconfig.h>
++#include <linux/log2.h>
++#include <linux/mm.h>
++
++int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu)
++{
++	struct page *hdbss_pg;
++	u32 size;
++	unsigned int buddy_order;
++	u32 sz_encoded;
++
++	if (vcpu->arch.hdbss.hdbss_pg || !system_supports_hdbss())
++		return 0;
++
++	size = kvm_hdbss_buffer_size(vcpu->kvm);
++
++	buddy_order = get_order(size);
++	sz_encoded = ilog2(size) - 12;
++
++	hdbss_pg = alloc_pages(GFP_KERNEL_ACCOUNT | __GFP_ZERO, buddy_order);
++	if (!hdbss_pg)
++		return -ENOMEM;
++
++	vcpu->arch.hdbss = (struct vcpu_hdbss_state) {
++		.hdbss_pg = hdbss_pg,
++		.hdbssbr_el2 = HDBSSBR_EL2(page_to_phys(hdbss_pg), sz_encoded),
++		.hdbssprod_el2 = 0,
++		.buddy_order = buddy_order,
++	};
++
++	return 0;
++}
++
++void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu)
++{
++	if (!vcpu->arch.hdbss.hdbss_pg)
++		return;
++
++	__free_pages(vcpu->arch.hdbss.hdbss_pg, vcpu->arch.hdbss.buddy_order);
++
++	vcpu->arch.hdbss.hdbss_pg = NULL;
++	vcpu->arch.hdbss.hdbssbr_el2 = 0;
++}
+diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
+index 7875911c0506..922fc9260e11 100644
+--- a/arch/arm64/kvm/hyp/vhe/switch.c
++++ b/arch/arm64/kvm/hyp/vhe/switch.c
+@@ -19,6 +19,7 @@
+ #include <asm/cpufeature.h>
+ #include <asm/kprobes.h>
+ #include <asm/kvm_asm.h>
++#include <asm/kvm_dirty_bit.h>
+ #include <asm/kvm_emulate.h>
+ #include <asm/kvm_hyp.h>
+ #include <asm/kvm_mmu.h>
+@@ -219,6 +220,17 @@ static void __vcpu_put_deactivate_traps(struct kvm_vcpu *vcpu)
+ 	local_irq_restore(flags);
+ }
+
++static void __load_hdbss(struct kvm_vcpu *vcpu)
++{
++	if (!vcpu->arch.hdbss.hdbss_pg)
++		return;
++
++	write_sysreg_s(vcpu->arch.hdbss.hdbssbr_el2, SYS_HDBSSBR_EL2);
++	write_sysreg_s(vcpu->arch.hdbss.hdbssprod_el2, SYS_HDBSSPROD_EL2);
++
++	isb();
++}
++
+ void kvm_vcpu_load_vhe(struct kvm_vcpu *vcpu)
  {
- 	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
--	bool writable = prot & KVM_PGTABLE_PROT_W;
-+	bool dirty = prot & KVM_PGTABLE_PROT_DIRTY;
- 	struct kvm *kvm = s2fd->vcpu->kvm;
- 	struct kvm_pgtable *pgt;
- 	long perm_fault_granule;
-@@ -2091,7 +2103,11 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
- 	}
+ 	host_data_ptr(host_ctxt)->__hyp_running_vcpu = vcpu;
+@@ -226,10 +238,15 @@ void kvm_vcpu_load_vhe(struct kvm_vcpu *vcpu)
+ 	__vcpu_load_switch_sysregs(vcpu);
+ 	__vcpu_load_activate_traps(vcpu);
+ 	__load_stage2(vcpu->arch.hw_mmu);
++	__load_hdbss(vcpu);
+ }
 
- out_unlock:
--	kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
-+	/*
-+	 * Speculative folio dirtying: W, not DIRTY, per the contract
-+	 * documented in kvm_release_faultin_page().
-+	 */
-+	kvm_release_faultin_page(kvm, s2vi->page, !!ret, prot & KVM_PGTABLE_PROT_W);
- 	kvm_fault_unlock(kvm);
+ void kvm_vcpu_put_vhe(struct kvm_vcpu *vcpu)
+ {
++	/* Saved under the same ownership condition as __load_hdbss(). */
++	if (vcpu->arch.hdbss.hdbss_pg)
++		vcpu->arch.hdbss.hdbssprod_el2 = read_sysreg_s(SYS_HDBSSPROD_EL2);
++
+ 	__vcpu_put_deactivate_traps(vcpu);
+ 	__vcpu_put_switch_sysregs(vcpu);
 
- 	/*
-@@ -2099,7 +2115,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
- 	 * making sure we adjust the canonical IPA if the mapping size has
- 	 * been updated (via a THP upgrade, for example).
- 	 */
--	if (writable && !ret) {
-+	if (dirty && !ret) {
- 		phys_addr_t ipa = gfn_to_gpa(get_canonical_gfn(s2fd, s2vi));
- 		ipa &= ~(mapping_size - 1);
- 		mark_page_dirty_in_slot(kvm, s2fd->memslot, gpa_to_gfn(ipa));
-diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-index b0cb8d84a9e9..a1251e252b4f 100644
---- a/arch/arm64/kvm/ptdump.c
-+++ b/arch/arm64/kvm/ptdump.c
-@@ -45,6 +45,12 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
- 		.set	= "W",
- 		.clear	= " ",
- 	},
-+	{
-+		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
-+		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
-+		.set	= "D",
-+		.clear	= "C",
-+	},
- 	{
- 		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_XN,
- 		.val	= 0b00UL << __bf_shf(KVM_PTE_LEAF_ATTR_HI_S2_XN),
+diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
+index 10eb7249aa9e..05ebe304830e 100644
+--- a/arch/arm64/kvm/reset.c
++++ b/arch/arm64/kvm/reset.c
+@@ -25,6 +25,7 @@
+ #include <asm/ptrace.h>
+ #include <asm/kvm_arm.h>
+ #include <asm/kvm_asm.h>
++#include <asm/kvm_dirty_bit.h>
+ #include <asm/kvm_emulate.h>
+ #include <asm/kvm_mmu.h>
+ #include <asm/kvm_nested.h>
+@@ -149,6 +150,8 @@ void kvm_arm_vcpu_destroy(struct kvm_vcpu *vcpu)
+ 	free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
+ 	kfree(vcpu->arch.vncr_tlb);
+ 	kfree(vcpu->arch.ccsidr);
++
++	kvm_arm_vcpu_free_hdbss(vcpu);
+ }
+
+ static void kvm_vcpu_reset_sve(struct kvm_vcpu *vcpu)
 --
 2.43.0
 
