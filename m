@@ -1,63 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207B83AFD0E
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 20:49:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138EA3B0ADE;
+	Tue, 29 Sep 2026 20:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714992; cv=none; b=i/lPNdbqnMCx/RBiWjP5No0NVpopfBHedRxek4ZVKg3y505u3x3nk+MHpcxb0Bj7+UyJcLxvhPmR5P2A4sTYmYqTLYjkMSeNY8IDCdNlvTuBoqyoy4GIfD7va1lOzRboZ2XbmQhHXXpCu9NEys2Tmn0Lu3zUcmzefKHZR4FWZjQ=
+	t=1790715002; cv=none; b=AQADgU7CIHDMJQXJSfjKElECTmcdGOEXFnR5OutCvPaVALEtZE6uHspWb4uulRgKhgztikLb/pBzlyaop10BYjOXeWCjc7fzZRPqgWj4HhxWOW15U5bwTXAftCb29pYlBRiewmiY5DrJJWxZNUuwCJuNdMrMCV25bHFSt5mbxQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714992; c=relaxed/simple;
-	bh=xA10BMWc3zXmNV3fmXtoCJGZihM/x8a2jQFanuDiAlI=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=SXd7mWsc0zIHW7n/WAMB8sXo/43O5lNFbpuxkv8T0nFXTSurok3L/hRpK8PRLWWdVftyN+RpJNORBeHcJFUffJhlp8C/2h/TVGwI+jfaaeWbDmRmXNZOKyxfJTPnrVw3oN1p7hQeKky5kvL4kDcnIYpPwqB7bhUsOXb4S0K8F2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvgGtbCm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790715002; c=relaxed/simple;
+	bh=GljF+1NC/RXZTx9+3E8FrOBm82vK9TK0wXfADWR0Esk=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=LJJM3lhttGaz/zDqzow/eU9oB0Sb47ANSJ+cVbFDv1dw4Eqso9s8SRamjLe2UAUSB+g5ov2Xvv1tHsIqIN6qaKKNBpIg84HjFrG+nJHSuFNQiRMa/ULnaOjhcpx4AriSFplPtA9kmFcnbAXDgDOTYLvmm99jzblnm1O8uqevJlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mn2AyFYQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvgGtbCm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A8D1F000FF;
-	Tue, 29 Sep 2026 20:49:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mn2AyFYQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F5A1F000FF;
+	Tue, 29 Sep 2026 20:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790714991;
-	bh=1iOSNWKYRhkt3pH/BWmpiyn0/pgZfn49qCHlZfv04Hs=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=CvgGtbCmlne+dr0BaABZeoAVTIf+jpJF9Oveg73lvL+1W/Or0yk9v2sudbdulNS63
-	 qW7RpvV8T02Oa8cKM7ggOMUsp/kOAuEqZ63enYMnAH3ziVZoWB7+KPIdvpX1wBeICV
-	 TgSK3GtKwiaWo939DClU+gr3pLTriQgRZCm6MdjxfoC3qNzSbG3I2gr07mRgt+OOpL
-	 cMRDlHJ0laG5RT23SiMR5eux6cKaqLsQKcFjns9T/Gn1WaTIMLPs7B/mj/vqCRrC76
-	 eWyaoE3EnjQY2VhHtIte9zlw1cd2DTV8y/e6ZXbtupnL3EEhgDl5D2otgjeIWU1VX/
-	 ecx7IHClUjL6g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F172139D237E;
-	Tue, 29 Sep 2026 20:49:50 +0000 (UTC)
-Subject: Re: [GIT PULL] ARC updates for 7.3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <edb955af-9153-4db1-8a9e-3d729cb99753@kernel.org>
-References: <edb955af-9153-4db1-8a9e-3d729cb99753@kernel.org>
-X-PR-Tracked-List-Id: Linux on Synopsys ARC Processors <linux-snps-arc.lists.infradead.org>
-X-PR-Tracked-Message-Id: <edb955af-9153-4db1-8a9e-3d729cb99753@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc.git/ tags/arc-fixes-7.3
-X-PR-Tracked-Commit-Id: f050c3e61d2a1aaece3170d459e4ce5fa2486c12
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: b004c4b1c4180fc7f2326de4ac941d5edfe16076
-Message-Id: <179071498945.1114410.5170593329342914503.pr-tracker-bot@kernel.org>
-Date: Tue, 29 Sep 2026 20:49:49 +0000
-To: Vineet Gupta <vgupta@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, lkml <linux-kernel@vger.kernel.org>, arcml <linux-snps-arc@lists.infradead.org>, Bradley Morgan <brads@mainlining.org>, blaze <1466528493@qq.com>, Anthony Iliopoulos <ailiop@suse.com>, "Paul E. McKenney" <paulmck@kernel.org>
+	s=k20260515; t=1790715001;
+	bh=AOv7kS0HNWPjs/Q/hGDfbLcUNYkegrwvUSvy0nguU/E=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=Mn2AyFYQgQxhfZ7RD4Ya642yiIK8/2l2E3CQFZ0TSOL/LEpwRbPotUFT5i7aW44VN
+	 z+C12JVtubChjHGmVCPT95OXkm2OsPQqHnn3/piKqm+k+KAideiHehCs4RqHDL0tNj
+	 1ST0P0VyRbmWap0koRQ/yI21kOGxDr6EA1y1ycBRpRCIpy7a2jMzn/9C04WSYthCIF
+	 J1yDtyTqVawdYjRvbbN8mKVIjLN2gSY3fcSV5NW2x4EVDgZMxyXXKmlnrPt2EJAAd6
+	 ZGl/qpz2qkf67KftPj9Ngw1fsUuApS+EMC1UytzAT25Ye+emUoT/YXSh9C8r35hEQV
+	 G3jHYpOInq3pg==
+Date: Tue, 29 Sep 2026 15:49:57 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-clk@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ linux-gpio@vger.kernel.org, Frank Li <Frank.Li@nxp.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Lee Jones <lee@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-spi@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-serial@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, linux-i3c@lists.infradead.org, 
+ linux-i2c@vger.kernel.org
+To: Jisheng Zhang <jszhang@kernel.org>
+In-Reply-To: <20260929061417.20733-16-jszhang@kernel.org>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-16-jszhang@kernel.org>
+Message-Id: <179071488985.2683003.6376725914058156145.robh@kernel.org>
+Subject: Re: [PATCH 15/20] dt-bindings: clock: add Synaptics SL261X clock
 
-The pull request you sent on Tue, 29 Sep 2026 10:58:53 -0700:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc.git/ tags/arc-fixes-7.3
+On Tue, 29 Sep 2026 14:14:12 +0800, Jisheng Zhang wrote:
+> Add support for clocks, plls in Synaptics SL261X SoCs.
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  .../bindings/clock/syna,sl261x-clk.yaml       |  92 ++++++++++++
+>  include/dt-bindings/clock/syna,sl261x.h       | 131 ++++++++++++++++++
+>  2 files changed, 223 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml
+>  create mode 100644 include/dt-bindings/clock/syna,sl261x.h
+> 
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/b004c4b1c4180fc7f2326de4ac941d5edfe16076
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Thank you!
+yamllint warnings/errors:
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/clock/syna,sl261x-clk.example.dtb: syscon@f7e10000 (syscon): compatible: ['syscon', 'simple-mfd'] is too short
+	from schema $id: http://devicetree.org/schemas/mfd/syscon-common.yaml
+Documentation/devicetree/bindings/clock/syna,sl261x-clk.example.dtb: cpu-wrap@f7e30000 (syscon): compatible: ['syscon', 'simple-mfd'] is too short
+	from schema $id: http://devicetree.org/schemas/mfd/syscon-common.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260929061417.20733-16-jszhang@kernel.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
