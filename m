@@ -1,174 +1,142 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013027.outbound.protection.outlook.com [40.107.162.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622A31C3F0C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790691508; cv=none; b=W5WE7b22McfqXvVjtIRey11xtoCAiFf8c5t1Wa1VtSifSK1hYk/b61KATxWzJBqS4DqY1QRbegAB6dtXBDEizNRgq/eCqwXLpVwrR+jnav6kRZ4Id4Mqv7iaqzCYBqLPnTUuFtvY+q8P6nPt8+lAur4m3E47UqvZ0Xomw2ju2w0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790691508; c=relaxed/simple;
-	bh=5gvFEqbkiiTA7FQivxZyuIoOZ8BI2pX49LbcCYDPnVs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pmUkC/d1xuxrIfStlUE+spPp1LSZoUZixvFX+r9u4wKxYzonCJlouYctH5S1jVKYjOoimZ0oFwdi/w7siZ9Bo/TK6h/KIz10YbFI9bZJ3uVg0vu7qLS5wHeNshaurZ+1BlBOP2k9s6ET/HqplHT3C3x1iNQ0K58ev65FaypEQAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CBJ23xMd; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A1F1891A9
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 14:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790691515; cv=fail; b=HHaHsZjtVMiXNtQBBYva1V6/pZqqH4hReAg5FHHxvhNZs/tDrZxKK+sK9vr53IqDqf6Dti6Pk250D3L7ZhUNUxiusz/GHR+QXHHvgWeaT4Ow6CR7oSQyli8oOtspVf0nDfxT4Ni7wf3/Y0Gfpw8lnTk3gsEBlmk+E1hTZykGw+I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790691515; c=relaxed/simple;
+	bh=1oLRXoa1hMP5Y4VFn1oMCffokiZmLOiqy4zcTPYd12A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BA693I3A9rTpi2mkUjq2WPPa3R9orDzl++C0+nFjT8aKbywDeJjqxrkvhCvmKCm52cQ8zXOnc8tTzYkED6Q+i3tNCVzbyr0MopkBesMP3S8gF1/g7gDAYTO0uHqox3sBXAWARHvO/kUwCuLoGSivbXdviEJftuDM90NI/lIpgF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Y21YzqYM; arc=fail smtp.client-ip=40.107.162.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CBJ23xMd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790691506;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
-	b=CBJ23xMdQo8bc38di2tTw9U6gvu6mi584ndVh+mXCaiiK0xcyU4jDF+VHxVcvJbzrKqTaf
-	9VHuX2HCS3jLDLaOmJvsug99vfq5AlHF6W39xWkQcQ+JygYsy14DeOUPHGIfD7UtJwBVM6
-	X99fB5DhbRhPBAK5A7iZbuWHAxYg+nc=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-132-QdiBsB7aOMuLbJIHVD20Sg-1; Tue, 29 Sep 2026 10:18:24 -0400
-X-MC-Unique: QdiBsB7aOMuLbJIHVD20Sg-1
-X-Mimecast-MFC-AGG-ID: QdiBsB7aOMuLbJIHVD20Sg_1790691504
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c7d1c402dso322570585a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 07:18:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790691504; x=1791296304;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GbXDTdZnaMARV0PaqG68M0h00pQ3SsjxJmf4zOowgA4=;
-        b=AnQylUOXlSWhApm5onqqeun1yeql4/wOviyINdn/82lKVBI17qsheQzif/bi42GXbD
-         JLqXP0+b2raSILQ7DdqaXGHTWFFjSTWFX+y1GAgJlWPNw4AgOn82XrHIvOvlWaPVcBIA
-         h2b5p3S9nydvfC1dW2ff1mscotfoqO70OPePenrG2S0EUavJDJ3IQpGJVrlD77omxNZZ
-         vTRfwf2w5DRcUHWW1BtyJAWj4mnJbLL80fQFrnCiVJ2lpfVZQHVbQwTz3x3507NDzcPF
-         xQl/qgVpUlsv04NFMT3uqAbV5nGrD6Q4tVrDbsW8Hk9Xw0rvSrUaXiREE3pOFsy9rmsC
-         +AHA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/WMtoPHhz1DN5WjDgj1JDd/fWKXJhztJGuixjuo5zyhMRAASyUSbxFEZPf7pUyKdPtXs7Y038/n0gmxU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m105GhIEm/1+Qzj0nTBH/AaUDOKXlN4ityPw33k/vNOD8A3tf2
-	gFRFBmarz2nod5/2Avjn9szNa2kbSz1D1GFs8cH/zpKGduuF8ix7XFY929oIhtj7xX0BMh73Q4u
-	pRlLMqC7hhYmWHpwWXonGhYAxo3wUisnWmGAfo/3c+sAVKTE7cpTREuMM2MMDVDBNfA==
-X-Gm-Gg: AYBFou2bjahCfVhu+juJeV1tng0HNT4hdFMB9kueCIwsq6hItxtNpEfqW1j6TlwtqTf
-	Tcni+y/K03hMkQnKuTfV0ZDu1MFI+MhXCsSfJAHtz3g+PjLwYh6AJwZvYkEt04kWOakGASmnI8v
-	4KfWPIKlbJP4yJ1kgR48J+ZURB4+LovfFMruCuTPJgC/1jC7HpCtuX4fbZ1qhUOJFZGzkRnJ+Z3
-	ug+sxZnWvAPXz+J3ts4U9ksdAaNGPylosyPeu1G4HZ8t4hTcRwp2HEOs0QVnHT8JbylGR6y8N9b
-	kVIGno/g5VkBGwvQ6sFi0Gn/PcnViATVcZBk7TvBREfLaEhdEQf/zumni6EeW0rAfY1B1eLaNdu
-	QZAI=
-X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2664003085a.0.1790691503787;
-        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:404c:b0:939:31b5:4e08 with SMTP id af79cd13be357-93c439c33fbmr2663993785a.0.1790691503101;
-        Tue, 29 Sep 2026 07:18:23 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c813a4587sm400548285a.7.2026.09.29.07.18.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 07:18:22 -0700 (PDT)
-Message-ID: <cd4c16d1-d23e-4321-8f2a-6754294b74b1@redhat.com>
-Date: Tue, 29 Sep 2026 10:18:21 -0400
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Y21YzqYM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vGMrX5iBbXv/UvGpw93QVUTxYboSicS3pkxBuLq8moBy7U5iDLf7IB1TeHsMH+MuPA4c5MTfqNgBrfdsQZqrKtGU2yDXhxisgrbONU8IVw5MeBzTv3iDxUcw/QniruX+tdaS5CnrhVeDN/s0Ev+sUpzObWMlunp9Vh9fOk3OEN47D40AGtNSJ38NWoMQPWWKoLWz4CEetzQ6qHbm7T1sUzW2hGslxVchptZI1au8MKYuFEnCOxUqInxIbfBs2+5Qfhu7TX9gj6U4CuNLk8QXndpYth4tIwI5tbZvcycFtp1J8PKGqk9C45Te2pE7zUtzsVE3yG0Yavt3sWeQLXZWhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UMV1FfdRHsRoeMm2J6yXRtxaSHYboNQkQpa3FGg3n/s=;
+ b=FxjvTlO0WLbA+nmi8ZGMPdrog0UGACAlbXkOEXa+vf9DxEgKyXzDvwa6RH5Kjcg1tKK17Zx8C5zR9ImjwPnC6fXJXd4jHt5FvPKmMjYcUQM6EjqEzaLVlocvCtfmgkvxTSSk8AMiOGThHrUsszLyDxQ9UGmQf6AB8WcVlxqL+ejyjvueyg0DHoe+oFFswISX1zD+Ak0RwPVCyOhYDTBxFfSx98xSmq7UOZmqYS4CiTyof4HnCjzG9B0nY4hOVZjZhJIumrMSPOTabEp7pwZfXmMuNkzlOR//T8s+Tc3Bbq1V98UNi0ZfXqDjyQ0RaKHwrsUVgHD/JYsQgvREnPPXow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UMV1FfdRHsRoeMm2J6yXRtxaSHYboNQkQpa3FGg3n/s=;
+ b=Y21YzqYM0kr7SZs8UVpNZR4pYy4cyAZKYz6yKjqxAlX+d/NCkiHpFcIBUrHIzpDx3T6QI/cwTTObtGlolmO25Is3fvTrXGwvxmaFFswHTGZjpFiy5TokMTMPluZ4aKUWB84OHsMYn3lOMBf3BCHaxqHKJ26Nt9qTx1jjlq6LGGyMnEFTF3wsQezZ71b0WeKw302uTcuc2h2DLhSzfWURA/qvTOWQA9yTsNwNWthBoxL7Rs7cxumV2842vsmYbs6gPIs8TTYscXszL9u7/SYunKzSKoMDZXItS3DpB5D3jRNgdDDhalDkr6NbSIUlkeMux15ChtQ8C1EyOJhEl1UslQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by GV2PR04MB11190.eurprd04.prod.outlook.com
+ (2603:10a6:150:278::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 14:18:28 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 14:18:28 +0000
+Date: Tue, 29 Sep 2026 17:18:25 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: vjardin@free.fr
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: Re: [PATCH] bus: fsl-mc: drop the fwnode links of the dpmacs nodes
+Message-ID: <3a553y2sqfdojurk22sp2h26yhsfwlvu6i5kcrbvgwwz6pqb3r@tohay33gdzli>
+References: <20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-for-upstream-fsl-mc-dpmac-fwnode-links-v1-1-b8976244b38b@free.fr>
+X-ClientProxiedBy: AS4P195CA0039.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:65a::15) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6.18.y v2] selftests/mm: hugepage-mremap: fix mapping
- alignment
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: rppt@kernel.org, sayalip@linux.ibm.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260928130916.231112-1-luizcap@redhat.com>
- <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <2026-09-28-2-daily-reply-0006-re-hugepage-mremap-alignment-6-18-v3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|GV2PR04MB11190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36021e3c-3367-42f6-3ef5-08df1e34886a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|366016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003|15866825006|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	WM1XXSoGufQHC0Nj1JrM1DsuK5dHirK9Z2xOdEZnnk40Zw9Wns0KCbwbUwqDI1G5VTtLS6uOMj2syMhcs0rMqlGLAPodqzzM/olX/Fylc7ELKDyWcMy0bmejwY3wuG89YWZht9tj5r678Df2pIv+WZji9Bu2Kq98zXfdJag9KOm6/bOiGt+XeeWydlXrLSRiHRwVxpvDewGqA6MHnFy3zvw1/XE7KhP7YUbBYB5EXakFGWHu8a00N6YwQhFSfaFCNGhdOvaFO7t6QmYuZ5YJo0SnWD/W05R3L5qWc9sFwmVPjTh0wLaXtymFbAbHkV19DUS1vdwbUh4uHZBz0Cjh8Z6GVRi+bjWE87nfzNRI9LYAzFZIvuqfzCLqqP50WiRLULGEavSzjHrkGuY3Y0E42ncK0vNqXSBAoNfj1GtbVQl74HgjTeFM40PiW0vVBdPH6lIh5Eo1HQD3oJnZ5tqfwlgNqO6yQc81jTREwja0kBmjs7eb/vdB8qfq391MfxJB/PGZRBtZMZG5Gdvu8lLG3/O/9OG4bI0DkmCQLKgcL2C1mUNlQfNsb+vBB4kBCO6767PXL/liElnDxcscqtR59Z9QJVfUqDMlMBN2qGjRmpfcaWrdbe0m8SLlvUHsGLmdXkh59HKu/6VkUCOaIs8wOWjNrTQmpUZ3b9N+TsqURv7SijHaaqBp2xnIJrVVMfilvjtukkN7mGUOe+IyhHl+h6i+0zbzn07qdUz19YgWQX76EnkeyS+sYVghe+z2qkj6
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(15866825006)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TEjD4NxM/AJ1Z6zN/9Zt5+gbzc+dbbW8ea429SwfWgOSC9ckTxTMBAaCf2BA?=
+ =?us-ascii?Q?sdDnSypWLzYx/9YeQo0aDmuZstodVjfCge1Pg49JmYkaYf+20pWgPZxJAwOb?=
+ =?us-ascii?Q?hsHda6mjjds6BDNXRTfq0FfDsAd1+h5kV5iQmnoqBi3OqiDGZ9TQzwXIdzcd?=
+ =?us-ascii?Q?QcnRT1c9VoXpteZTT17bkkUGbmUqWD/TP9mhzqdwLdp1txZhBc5IHH7/YKMW?=
+ =?us-ascii?Q?IDht5KZjqqEjA07ekAFWrytnBsYtudqAPKmFz3xsJLDmt5DjsvQ/Ky36MDm6?=
+ =?us-ascii?Q?7X+cdP55vIXKyQdYeFk7q/fRVO/EOMHT/FtM+NWPhVo9nYBuzvReWGjcumLu?=
+ =?us-ascii?Q?A44YRBYcWJvkJE+5fYfr+Z1nD7MYpAHEuREiqcY7EM2/uhGojk8Cwp7Ev32j?=
+ =?us-ascii?Q?ypH35Kbsv0D4VV2/KAGleHtPnmomjw/zdnpYLPNYdW0/UZeutPiJttD3ikEi?=
+ =?us-ascii?Q?MTXrPXp5cfdZXxsqd89phmjPNZc8v1jNvbNonhYYaktNCyvbMGufD4hllLNo?=
+ =?us-ascii?Q?hUSOYrw+5zzKaq5roBc7S3A/DuaaAlv6b4/KHyozjqq6TnLNneT5DlmtWBMb?=
+ =?us-ascii?Q?/IT/1S/tWpKnQVRMepgsuFSGG+CYLhGP/N05I7AnfgeEs/Sf8T2iwNAmiWKm?=
+ =?us-ascii?Q?yv78boStbxTXZFgV2OxTfF9M78bA2P0WsnMNp8flo0g6L9he6IVOCEwxHKa8?=
+ =?us-ascii?Q?cJ7IN5/SsfKBR/6ob31caZMbN0ef6ys1HeyTkwxVQwG7zCuzVKU251bMGaXK?=
+ =?us-ascii?Q?QtbdwvloyNFFsX+Wido9qnQnUBYfo+AfEelsXGBmkWbnUpfzptcp30TDemHO?=
+ =?us-ascii?Q?ni2ckAKYisCyflyqcUvdaMcDwoI0IsO6iJSOYpX8bNQo4/HTO8a2yWdEUWuH?=
+ =?us-ascii?Q?4GxTxZ6nWmlomFN4X2tuq9DMre8xKmvbfR2PbQ/4CyKEp3UTxYU+Fn7xB99w?=
+ =?us-ascii?Q?/+jS39TF+vWC1ZMcRzxcLpUs1BFGQFvCP3rgYbxuod1EAcXq8ZxiMJZabld/?=
+ =?us-ascii?Q?/AkJGYZRhV8jgljqePHyvF0UTa5lriH9V5m3KfTUADmNnzCUNln7EZOWUE5A?=
+ =?us-ascii?Q?6yuhZvlhJATM4TtG+RLkvpNcEm8kdMmXEOm09ra1u3X4QvXp9tiQsXeXgnuu?=
+ =?us-ascii?Q?KM6gRYcP6fhztD9R8dOdnS/+w+QdKwAZmu2QMzW+Jw4TBq72e7cAyB6g0Z1m?=
+ =?us-ascii?Q?CnuJtMbUcMqRnuD20VgXuj6VJIX/WJ/6kAkU70j0Iipod9gRd5vGBnkB0pGj?=
+ =?us-ascii?Q?7VPs5ZVV1Z4WNjWgN11N5cr3XEKDz1FG/iQu/f/0Ltg9nVhjwObb8x3fW4TJ?=
+ =?us-ascii?Q?ZHvNJdJtp8rlWpbV6ZrCaoB1FU2TOcHqs1IUyyTEvpLRCuHoCFFvu1TTj4ur?=
+ =?us-ascii?Q?QMFXdgkGjO36KZxREdAWITzrMg3+coq2gF54oJwh7Z1LwxDNv/5PsFvEiGsy?=
+ =?us-ascii?Q?Vz7rcDZBwsFzdNDas8KycZExn6uP6JbYszm3drX52nld6SrH0W4XZoOc1Rtt?=
+ =?us-ascii?Q?Jph9px/IflcvtuWsANHBT2aHupPyRroBPAKores2xjT464iFMPsVnKqLjI0A?=
+ =?us-ascii?Q?fPbn0s+FEyOYClYOcmJbsQ19iUVh016RnItMjGMGOoYBVXJAKpIfFoLnAcrX?=
+ =?us-ascii?Q?eS/7I0Q5aEn39n+zQNsYMgolP71WiT4OXgefSeJA8JDDwSvr7YBQ++NXulbF?=
+ =?us-ascii?Q?lSYIKgH9chonZ1HDBn1ParPkoymDDjwr4xNrMjiIQVvPlhFr8JoPidwIRJbf?=
+ =?us-ascii?Q?R5tflJo8LQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36021e3c-3367-42f6-3ef5-08df1e34886a
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:18:28.6352
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: on5+itnv6JR7Y3ubA9drP5OS2foM5o6h/2IAje16i1YGTosK3pBw5rGSbcziw+5LLtCcy3qj5WjbbBcGpDhV3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11190
 
-
-
-On 9/28/26 6:39 PM, Sasha Levin wrote:
->> commit a914785f6349da754e1226420bf4e51961956769 upstream.
+On Mon, Sep 28, 2026 at 03:52:07PM +0200, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> a914785f6349 ("selftests/mm: hugetlb-mremap: add setup of HugeTLB pages") is
-> Mike's commit, but this patch has you as the author with only your
-> Signed-off-by. Could you send a v3 that keeps Mike as the author with his
-> Signed-off-by, followed by yours, or otherwise makes the provenance explicit?
+> A DPMAC node under dpmacs/ is never the fwnode of any device:
+>   the fsl-mc bus creates dpmac.N objects without one,
+>   then dpaa2-mac finds its node in dpmacs/ at connect time.
 > 
-> The same applies to the 6.12.y posting.
+> fw_devlink therefore attaches the supplier links of those nodes (phys, ...)
+> to the nearest ancestor device, the fsl-mc bus, as SYNC_STATE_ONLY proxies.
+> 
+> device_link_add() refuses such a link once the consumer has probed, and
+> fw_devlink logs the refusal as an error.
+> 
+> On an LX2160A board with 4x25G DPMACs for which phys = <&serdes_1 N>,
+> the Serdes PHY binds after the bus and then at every boot it shows:
+> 
+>   fsl_mc_bus 80c000000.fsl-mc: Failed to create device link (0x180) with supplier 1ea0000.phy for /soc/fsl-mc@80c000000/dpmacs/ethernet@3
+> 
+> once per port!
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
-My intent was to explain what was being fixed and why and, as it's a
-partial backport, I decided to author the change. But I'm keeping Mike's
-original changelog & authorship now, can you review it before I post?
-Note that the subject will change as a result.
-
-"""
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Mon, 11 May 2026 19:28:25 +0300
-Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
-
-commit a914785f6349da754e1226420bf4e51961956769 upstream.
-
-hugetlb-mremap test fails if there are no free huge pages prepared by a
-wrapper script.
-
-Add setup of HugeTLB pages to the test and make sure that the original
-settings are restored on the test exit.
-
-Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Luiz Capitulino <luizcap@redhat.com>
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Donet Tom <donettom@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam Howlett <liam@infradead.org>
-Cc: Li Wang <li.wang@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-[ Backport-notes: this is a partial backport containing only the aligning
-of 'length' to the hugepage size. The hugepage_settings.h include line and
-the hugetlb_setup_default() call are omitted. Without this fix, the
-uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
-default HugeTLB page size causing the test to fail with the error below as
-'length' is 10 MiB and not aligned to the HugeTLB page size.
-
-   # -------------------------
-   # running ./hugepage-mremap
-   # -------------------------
-   # TAP version 13
-   # 1..1
-   # # Map haddr: Returned address is 0x7eaa40000000
-   # # Map daddr: Returned address is 0x7daa40000000
-   # # Map vaddr: Returned address is 0x7faa40000000
-   # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
-   # # Planned tests != run tests (1 != 0)
-   # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-   # [FAIL]
-   not ok 1 hugepage-mremap # exit=1
-   # NOTE: These hugetlb tests provide minimal coverage.  Use
-   #       https://github.com/libhugetlbfs/libhugetlbfs.git for
-   #       hugetlb regression testing.
-   # SKIP ./uffd-wp-mremap
-]
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-"""
-
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Tested-by: Ioana Ciornei <ioana.ciornei@nxp.com> # LX2160ARDB
