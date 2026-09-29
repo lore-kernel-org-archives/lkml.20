@@ -1,213 +1,171 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A286A3D811C;
-	Tue, 29 Sep 2026 10:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695A6511E72
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 10:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677828; cv=none; b=Ada5Rwg1iV9fP39567AlTDQkkahWElm1zHRw2cD0QpPU4nOAfcH7LKz7F8fzUafzY9uz/VW2l2R/7btlNB0xuNaGvb41IpHuLxX47v4Rkrcgt4iOk3OyegW5oS85c4AIgd7V9sZm1x1GUvdxWxnb/CNfGDs9sgpIjBSSfcpmwEI=
+	t=1790677828; cv=none; b=CbzCf09nFhzxC5HPs+gbIeHBRapuYr0kPbcvBs6mT1eqi3ZVOy2CjxKELTmGK6cgyOslEkOSwAbGRZhBz68qLXgzuQHep12vC28svqNIcbKjXzlAzkIkVrUL39Wq0/brMnZzOcBhJRVIXCKLfNSQTyWp9dNGaJdrAuhyyn0B420=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790677828; c=relaxed/simple;
-	bh=3jvnpx6ciNS2cbKDocJORo//5TgXhSMCsijbl9aFnAE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EJ5XvFGYRWsB7GuUFiGYhe7Df/86C7NzxJy+742CzrcRGlQ/5ypFcvmdQygr3z81X7sPz1N9bgmSzANYOK10fSuUlOqS1yAMp1lzjbfbG+B9W2ix6kC44t4Bm90YFtqfNd5FiC676vQ4D/sRYYbI7oAfKPdMggMLOvdpsuYsqWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Lfz3Vj5z; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=DntTCIUQ0j7NgeaLTznwteean8OpyslV/Zs4s5i2tdw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=UP0FiAlUpNs2XoQKOVmai7ppOqsvgGk+y8Tbn34NUMSdBZEP4D8tbLZB3MYFjjyUojrpO86zbUHxh3tmdSQLgF9NgtTaRFVY9t4+PGAnhlV0iqkPiAY8+MGCrs48UXU5SxE4BOpKcfLvoTlRgrAhgVpUZfleCsj3DH6Luh35qII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=oQDMyzVG; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Lfz3Vj5z"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 86E36152B;
-	Tue, 29 Sep 2026 03:30:09 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.52.74])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 96D743F86F;
-	Tue, 29 Sep 2026 03:30:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790677812; bh=3jvnpx6ciNS2cbKDocJORo//5TgXhSMCsijbl9aFnAE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Lfz3Vj5zCxHxFsRYSeob/Q6ePM6eRq++uaBozDEi9CJTKKnYKT19/01wHyh6feyKb
-	 Brl28H+4FesiQvA+/ZvhSbCKkpg8wWwzIYiz6RO/g1WVSSlV8n/2DtD7pBeS3cB/tW
-	 FMBXFPIt6lEgVneZTqfxCGTh+UkFU7+CzMjOFouI=
-From: Christian Loehle <christian.loehle@arm.com>
-To: rafael@kernel.org
-Cc: zhenglifeng1@huawei.com,
-	zhongqiu.han@oss.qualcomm.com,
-	viresh.kumar@linaro.org,
-	linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Perry Yuan <perry.yuan@amd.com>,
-	"Gautham R . Shenoy" <gautham.shenoy@amd.com>,
-	Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
-	Shubhang Kaushik <sh@gentwo.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	jonathanh@nvidia.com,
-	zhanjie9@hisilicon.com,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH 1/3] cpufreq: Add a driver frequency resolution callback
-Date: Tue, 29 Sep 2026 11:29:55 +0100
-Message-Id: <20260929102957.2591657-2-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929102957.2591657-1-christian.loehle@arm.com>
-References: <20260929102957.2591657-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="oQDMyzVG"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=EkLqdPxdSLJ7raVGNPbHVI/2jD90kTakfFHeUisjhwo=;
+	b=oQDMyzVG0KUbNXrlQWQVUUgqlaxkHcIvP0UyRXSYha/jMxqpVXzhuX7JzocEF+KHQ8CFuZWfQ
+	RVkrmt5LsNqvHKSsgtLnndDZqHoZkw0pdq20Iamax3CgIsFWe1TahupnpVNy6Uctf2+KKGlgdsJ
+	lnasTD8Tzgck/G26vQR3kaw=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hvDdv3WJpz1T4dr;
+	Tue, 29 Sep 2026 18:18:11 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 924A140537;
+	Tue, 29 Sep 2026 18:30:11 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 29 Sep 2026 18:30:10 +0800
+Message-ID: <10e3784d-fcb0-4d61-b9e1-27a0ad5c9113@huawei.com>
+Date: Tue, 29 Sep 2026 18:30:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from
+ S2AP_W to DBM
+To: Leonardo Bras <leo.bras@arm.com>
+CC: Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>, Fuad
+ Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden
+	<seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+	<yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Raghavendra
+ Rao Ananta <rananta@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+ <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org>
+ <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org>
+ <aqp73SxO78o7LJTs@LeoBrasDK>
+ <eb629070-a02f-426a-92ee-b2c8f9e2aa9a@huawei.com>
+ <arE8EOPh1-NWtFIU@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <arE8EOPh1-NWtFIU@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-Without a frequency table, cpufreq treats the policy range as continuous
-even when the driver selects discrete performance levels. Governors can
-then issue different kHz requests for the same driver setting.
 
-Add ->resolve_freq() for table-less ->target() drivers to canonicalize
-requests within the supplied limits using CPUFREQ_RELATION_{L,H,C}.
-Document the callback and verification contracts so callers can safely
-cache resolved requests.
 
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- Documentation/admin-guide/pm/cpufreq.rst |  4 ++++
- Documentation/cpu-freq/cpu-drivers.rst   | 19 +++++++++++++++++++
- drivers/cpufreq/cpufreq.c                | 17 +++++++++++++++--
- include/linux/cpufreq.h                  | 10 ++++++++++
- 4 files changed, 48 insertions(+), 2 deletions(-)
+On 9/21/2026 10:15 PM, Leonardo Bras wrote:
+> On Fri, Sep 18, 2026 at 05:39:17PM +0800, Tian Zheng wrote:
+>>
+>>
+>> On 9/16/2026 7:22 PM, Leonardo Bras wrote:
+>>> On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
+>>>> On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
+>>>>>> Yes, the HW should ignore it. But we have also
+>>>>>> seen quite a few broken designs in this area...
+>>>>>>
+>>>>>
+>>>>> I lack experience on what bad thing could happen. So I will expand on what
+>>>>> I belive to understand up to here:
+>>>>>
+>>>>> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+>>>>> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+>>>>> - For HW pagetable walking, maybe some faulty implementation may rely on
+>>>>>     bit51 being RES0, and fault otherwise.
+>>>>>
+>>>>> If that's the case, then we would have to actually support both encodings,
+>>>>> and only enable the new one if HAFDBS is available in the system.
+>>>>>
+>>>>> I just wonder how high are the chances to have such a broken design,
+>>>>> or other broken designs did not come to my mind, and if we have to start
+>>>>> with that multiple-encoding option.
+>>>>
+>>>> FWIW, the host stage-1 already uses the DBM bit unconditionally,
+>>>> treating it as a software bit on implementations without HAFDBS.
+>>>> Although given the quality of any garden variety Arm MMU I understand
+>>>> where Marc is coming from.
+>>>>
+>>>> I don't think the HAFDBS enablement is complicated enough to be done in
+>>>> a separate series without any meaningful users, nor would I really be
+>>>> interested in taking it without, say, HDBSS.
+>>>>
+>>>> Can you please work with Tian to get a combined series out for this?
+>>>>
+>>>
+>>> Hi Oliver, thanks for reviewing!
+>>>
+>>> Sure, one of the reasons I sent like this is so Tian could use it as a base
+>>> for his next version.
+>>>
+>>>
+>>
+>> Hi Oliver, Leo,
+>>
+>> Works for us. I plan to send HDBSS v5 maybe next week with this series
+>> merged in. Both dirty-tracking consumers are already built on top of the
+>> DBM approach: dirty ring and dirty bitmap.
+>>
+>> Leo, with your blessing, I'd like to pick patches 1-4 into the HDBSS
+>> tree with your Signed-off-by preserved and mine added on top, plus some
+>> bug fixes on top of this RFC series.
+> 
+> Yeah, no problem on my side. I would just observe the maintainers' comments
+> on those before merging them.
+> 
 
-diff --git a/Documentation/admin-guide/pm/cpufreq.rst b/Documentation/admin-guide/pm/cpufreq.rst
-index 34baf20cc202..e634b87a62a8 100644
---- a/Documentation/admin-guide/pm/cpufreq.rst
-+++ b/Documentation/admin-guide/pm/cpufreq.rst
-@@ -144,6 +144,10 @@ that belong to the same policy (including both online and offline CPUs).  That
- mask is then used by the core to populate the policy pointers for all of the
- CPUs in it.
- 
-+A table-less driver whose discrete frequencies are derived at runtime can
-+instead provide a ``->resolve_freq()`` callback to map arbitrary requests to
-+deterministic, supported frequencies.
-+
- The next major initialization step for a new policy object is to attach a
- scaling governor to it (to begin with, that is the default scaling governor
- determined by the kernel command line or configuration, but it may be changed
-diff --git a/Documentation/cpu-freq/cpu-drivers.rst b/Documentation/cpu-freq/cpu-drivers.rst
-index 17c69f83691e..4f327760bc04 100644
---- a/Documentation/cpu-freq/cpu-drivers.rst
-+++ b/Documentation/cpu-freq/cpu-drivers.rst
-@@ -86,6 +86,9 @@ And optionally
-  .set_boost - A pointer to a per-policy function to enable/disable boost
-  frequencies.
- 
-+ .resolve_freq - A pointer to a frequency-resolution function for table-less
-+ drivers with discrete, runtime-derived frequencies.  See below.
-+
- 
- 1.2 Per-CPU Initialization
- --------------------------
-@@ -170,6 +173,22 @@ limits on their own. These shall use the ->setpolicy() callback.
- 1.5. target/target_index
- ------------------------
- 
-+Table-less ``->target()`` drivers may provide ``->resolve_freq()`` to map a
-+clamped target to a supported frequency within the supplied limits.
-+``CPUFREQ_RELATION_L`` selects the lowest frequency at or above the target,
-+H the highest at or below it, and C the closest, choosing higher on ties.
-+If no supported frequency is at or above the target, L returns the highest
-+supported frequency in the interval. If none is at or below the target,
-+H returns the lowest supported frequency in the interval.
-+``CPUFREQ_RELATION_E`` is stripped before the call.
-+
-+Equivalent requests must resolve to the same frequency, which the target
-+callbacks must map to one canonical driver request even if performance levels
-+share a kHz value. This lets callers cache resolved requests. ``->verify()``
-+must leave a supported frequency in every accepted limit interval.
-+The callback must not sleep: it may run in scheduler context.
-+Policies providing both a frequency table and this callback are rejected.
-+
- The target_index call has two arguments: ``struct cpufreq_policy *policy``,
- and ``unsigned int`` index (into the exposed frequency table).
- 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 54dde8419bdc..44bda2f32fcf 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -480,8 +480,12 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 
- 	target_freq = clamp_val(target_freq, min, max);
- 
--	if (!policy->freq_table)
-+	if (!policy->freq_table) {
-+		if (cpufreq_driver->resolve_freq)
-+			return cpufreq_driver->resolve_freq(policy, target_freq, min, max,
-+							    relation & ~CPUFREQ_RELATION_E);
- 		return target_freq;
-+	}
- 
- 	idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
- 	policy->cached_resolved_idx = idx;
-@@ -495,7 +499,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
-  * @policy: associated policy to interrogate
-  * @target_freq: target frequency to resolve.
-  *
-- * The target to driver frequency mapping is cached in the policy.
-+ * The frequency-table resolution path caches the mapping in the policy.
-+ *
-+ * Keep the policy active and exclude driver teardown; a policy reference
-+ * alone does not protect driver-private data.
-  *
-  * Return: Lowest driver-supported frequency greater than or equal to the
-  * given target_freq, subject to policy (min/max) and driver limitations.
-@@ -1445,6 +1452,11 @@ static int cpufreq_policy_online(struct cpufreq_policy *policy,
- 		 * If there is a problem with its frequency table, take it
- 		 * offline and drop it.
- 		 */
-+		if (policy->freq_table && cpufreq_driver->resolve_freq) {
-+			ret = -EINVAL;
-+			goto out_offline_policy;
-+		}
-+
- 		ret = cpufreq_table_validate_and_sort(policy);
- 		if (ret)
- 			goto out_offline_policy;
-@@ -2925,6 +2937,7 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data)
- 
- 	if (!driver_data || !driver_data->verify || !driver_data->init ||
- 	     (driver_data->target_index && driver_data->target) ||
-+	     (driver_data->resolve_freq && !driver_data->target) ||
- 	     (!!driver_data->setpolicy == (driver_data->target_index || driver_data->target)) ||
- 	     (!driver_data->get_intermediate != !driver_data->target_intermediate) ||
- 	     (!driver_data->online != !driver_data->offline) ||
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index d3d0d9d02aa4..a0a7619d11fd 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -364,6 +364,16 @@ struct cpufreq_driver {
- 	int		(*target)(struct cpufreq_policy *policy,
- 				  unsigned int target_freq,
- 				  unsigned int relation);	/* Deprecated */
-+	/*
-+	 * Optional for table-less ->target() drivers. Resolve a clamped request
-+	 * within the supplied limits using CPUFREQ_RELATION_{L,H,C}. Must not
-+	 * sleep. See Documentation/cpu-freq/cpu-drivers.rst for the contract.
-+	 */
-+	unsigned int	(*resolve_freq)(struct cpufreq_policy *policy,
-+					unsigned int target_freq,
-+					unsigned int min_freq,
-+					unsigned int max_freq,
-+					unsigned int relation);
- 	int		(*target_index)(struct cpufreq_policy *policy,
- 					unsigned int index);
- 	unsigned int	(*fast_switch)(struct cpufreq_policy *policy,
+All right, thanks.
+
+Tian
+
+>>
+>> For patch 5, I'd like to rework it into a derived hardware dirty mode
+>> that replaces both kvm_set_hafdbs() and our earlier HDBSS enable/disable
+>> hooks, so the whole thing lands as one series.
+>>
+> 
+> My intention when I wrote that patch was to add a base so you could add
+> HDBSS on kvm_arch_commit_memory_region() with new patch such as:
+> 
+> 	/* Disable HAFDBS when dirty-logging starts */
+> 	if (kvm_supports_hafdbs(kvm))
+> 		kvm_set_hafdbs(kvm, 0);
+> +	else
+> +		kvm_enable_hdbss(kvm);
+> ...
+> 
+> 	/* If dirty-logging was canceled, set HAFDBS back on */
+> 	if (kvm_supports_hafdbs(kvm) &&
+> 	    atomic_read(&kvm->nr_memslots_dirty_logging) == 0)
+> 		kvm_set_hafdbs(kvm, 1);
+> +	else
+> +		kvm_disable_hdbss(kvm);
+> 
+> 
+> That being said, I need to run tests to make sure the usage of HAFDBS
+> outside of dirty_tracking makes any sense in terms of performance, but if
+> that's not the case, it would be fine to rework it so it does not
+> enable/disable HAFDBS there.
+> 
+>> Performance looks good in both dirty ring and dirty bitmap scenarios so
+>> far.
+>>
+> 
+> Awesome!
+> 
+> Thanks!
+> Leo
+> 
+
