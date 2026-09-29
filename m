@@ -1,146 +1,125 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5912B55C31C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707677; cv=none; b=FpBnLH6N4NShfdSu6tIE6M2G8tVUxYoIz7L52r14IPkO1yLzVOSltvVN169q7eXDtfO0wlkbaAoClOVROLrbIjGtKaox9PRThcIX3j51Q+zHfilV4XrbdyFNUAlI7kek7cRK5rcgJg8HHskkL5xnHRpTsrLyZU9fQ29lyGg/Ako=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707677; c=relaxed/simple;
-	bh=B6qbOjmpqkp6AYfuznV5ZV/bRpzVIzhR8xXfGh/yrVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V0Yn8C8ClkDNQqy5DZTnfRZ3KzpJZhoJllVLLW5RbJEPM5njV6lqpm8c9dldctRsg7poqlPAsoddxcJGGogC/sylmeyuT09erT27cEY00uBi+IYnnjjpOcqQNzUVJ5y6jvXVb3w7MXd8hpdjYNhbwQP+kvHzS0FroxX4dRDEnkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TgK4zVAZ; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B6F51C052
+	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 18:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790707689; cv=pass; b=QSD0reuxmC0diCxnwX0XNgdY8DNtMf1dGUsuYY4M2wpCyxZy2SYwypbcR98bjOcSvpJzwHzlLp/r3KTfi90nCleIsDYCSPzzIxYqBbdmTmLeVg8kQx+gVQbTgAGiMhpJYJKQikF0+ahLm+1kstgPowz/W4QL96VwIuleDlc5Uh0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790707689; c=relaxed/simple;
+	bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UNrN5ndrf+TGWofPg1/zbgVeZnciz2Gc1nOW7enR+pKRVP6lTCPmGCAseAeQgKHxGqO3uFxi6cnjwO97fl8NJUcRCV3cBg6V914hAB43YiSF1dLENV7ljG+NiajGqyydJ3mbOAF6FT1kGWfC7UGgnMDY/fTWHWkhi0UmaK1us/g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sc2acfu8; arc=pass smtp.client-ip=74.125.229.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TgK4zVAZ"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3428f70d7e7so2667667eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:47:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sc2acfu8"
+Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-14a08c1a158so90649c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:48:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790707683; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jaUSeIvpiy8vhzPcwDQVMPZ2Jxuyy/XKH4dT5MyzlGOGFcFzb8EJYNrTMY4Kbu/3ha
+         nlGtZrSRWuoCahbtCPki4MHOjH+GijCu0fu0JJITZ/64M9bV9E0rG9AoUD4J9rnUGcy8
+         tZzYOCPxS6W4Dp7Y2ryxNq+Uuk7UqegdD/WPu0JIhl09aamD6m4xxF/W7FpCpF9D+nNa
+         TktREl9Ho/e0sNfhCAwH9FMzultSZWKXeJAoUwRUMcJiIsVDTqpsgRu5eHZ78g5rHO8M
+         6WKA0XB5SsCLpZr/fOP/BJxMI2QChSgK0eKvTFNj0KjgqZXTZHnjYuN1Ovpnv2z6dZLt
+         n0CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
+        fh=WAQdmsRKwyJDgAubgKBZUdejlAtBURuhOex5gap5/po=;
+        b=ddkp/InPxDoR77MNu3VSwzBueJuRTpSih2VFSxLUL6KkXDtdTZAeJVPKW9Owg2Hmb/
+         xecmayGyySwovrQAN9pwz8xaagTzzkx3RgmA1M4flA73PR8ZrCerzGgM503IzS1TqlYE
+         R2cRXacrXdm8mrE8JPNJq0iHcT4whTfmOhSM+m+FGc7tq2uz/GnqXEwJo8xnC7NizUKZ
+         hcTO8mUtLPB7BTXXVRTsOYUjDSt70wS3+LfaaAdCWXYOBOAPXyywfQNZY9nAl7yhrJ0a
+         7GuoT0wobSaZYlA5dFpaNxEgpyHiSGzlfP/4wDnW1KjwrULZUtZH1/w7mtcEmDO8qi6e
+         XjmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790707675; x=1791312475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oMvjcukblw/bh9bT1wLHMpW+zvI8pIG9ZcORGBXggM8=;
-        b=TgK4zVAZLm1AQn0qErY9WKihEfCrtbB+1ul2UT3Y2bPB3CP5Fb2TyUJWBO96z62z3z
-         g9db2U8YcbmHEfNrtx8uRbMNIJr+yAlcPDeiSZl37e2zi0t9/LBjsDfhXsY5jCLGXEjk
-         V9BMsZfKhwPWfWCqF1jocCysyCgzqYowBOuWo=
+        d=gmail.com; s=20251104; t=1790707683; x=1791312483; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
+        b=Sc2acfu8tFHnx7pa57ocImkdMp4errudOJVfi3LXzTYIvah8gO1s+XrvXFvKsVIfds
+         SBjOvXD9X/WBum4P4AxJFkzWGz7thy7WwY5rERcnvYk0ocIXox2zTCC91yEsOHhiBC++
+         xXIcDPkDB/EsZQtOBUjLGMfLjMbsrllTp5w3mHtgcbGJlIoZvsGpNhklTMVlu5PqHMIs
+         TzKLqM7F5HA5WTB7NeVVEQunDLsoY7pltvkyswTzvkZcy41pj8jsDo5Jmt2CEbVaKHJx
+         WrRTglZIjPqXd7dJBC0G3ASXkH6bZjAWZvJiaG99EPxkhalv70VGS6C85ymNM3oiGEUi
+         g7SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707675; x=1791312475;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oMvjcukblw/bh9bT1wLHMpW+zvI8pIG9ZcORGBXggM8=;
-        b=IGq2VUAxLoftxQLQ+IYztdW6iu582zj/5s7DBx6753Qj+f6H8qi9PQW/mOtLeEZvN0
-         BiWH4panWlWTvaMzMnIQF1hpi6De/sTq70FBDYZq+Sf4jw1AneizUZ3lRANJj/Gy2clA
-         XFC4JWTdq1N24T4tS/XficIqYNq/rEdGYyQCfd9QKe7h+E7elhpTBZ5nkESJ4Wqz4GGy
-         FMgIRGjqUCUAlQQT8fQwrWsH2BlDVgYh9a3bgCyHud4xvObTGckeXqFC/H/IRraMHw1F
-         4Do2DmdlSZWggkrSOU0nMqs7hBsTSLwJA6nJx811LNoD2FoWpchHp6WrMkhf4N3C8xxP
-         QDgg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4nnfhW0L0DbOndK0OfiiVJsxQ3JgGsCTYoW6QW2Kai/O37PvgYbQZfzv3L778Sph0fIOgLWwfprtDXqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITcLjyQqUhBiRmXiO7NU66tAw/pZqI8Ggf7lGq0uq7SGNGGnLT
-	E5Tv/Zm9Isic+s6jaXZsUP1PVJRo90sR9vwelTucgqQCBNzgJlyJXxKMxwrv9YcNwQ==
-X-Gm-Gg: AYBFou1aYu8Y4WBM8GeOfc/kdGKDsF2XnwWBffI+jGgRoSOXJp50uhlFfluI/0qvbwQ
-	bpNNjPJPGYy5CONKr1dZeu0IRJK+qtToPa1/ZpNzp0qZQIOpfCWgaKRVTcHc+PACjz51uZIt+pX
-	lnt8fsTjN0t3Wykfq0FIeDDd/5IEw9NqYsdDz726aGplN7MF1fi35AOWTYai3x1kQJt1jZnBEX9
-	YBhBdtZWMpfRConMJMOfTq60yJWhf3aC5lTE5jCJv2B6aTv1LVnf30TR53Dv2tX4HYqV7pgk6Sv
-	uoqbWU++d1f+mGRM2X9lLpxEjzBu2Z7B6me6tKb+ldr07I4o4r6xuo+aB9u0GgtvXfQBztGwF2O
-	ncMyQHi3nuZgyLzrLL/61mqOLuNhih681/SkmYTYuJJFRcd5rAYqtOiHxR22sDUzPHu+GsH7Mwb
-	oNaDXPzJlwNWrdstFMW52mnzlYuUShaIvCuRYKM4o/penlrYnlshwzYDuMLjo9U8nfojsmXTcLg
-	xztp7neGeO9K1IJvkWjZJz0LA2xjyaU6jX6
-X-Received: by 2002:a05:7300:ea04:b0:346:d145:d6ba with SMTP id 5a478bee46e88-34c6312e1a5mr249274eec.18.1790707675274;
-        Tue, 29 Sep 2026 11:47:55 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:5f5a:aa9:d06d:b4a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34c391d97a0sm995834eec.29.2026.09.29.11.47.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 11:47:54 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Len Brown <lenb@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Pavel Machek <pavel@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-pm@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 5/5] PM: runtime: Add test for pending-autosuspend + teardown
-Date: Tue, 29 Sep 2026 11:47:15 -0700
-Message-ID: <20260929114714.5.Ida7b3291919b265af858b31bd680f5ac9940a0ac@changeid>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260929184729.2346769-1-briannorris@chromium.org>
-References: <20260929184729.2346769-1-briannorris@chromium.org>
+        d=1e100.net; s=20260707; t=1790707683; x=1791312483;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
+        b=ejmKO7+iKcDHKko1XyXj6fI7ZCNDtnQOgCs1y+IRWACyiyrtjXLbvLEuhIiOkYL/TQ
+         5Rd+9Pc9gvi8ksGmvW17s9gyrMb1QsoYNzekBPnjXJISK6Glsitm5Iml7BuCExdocfKn
+         Xi6VM5mJPGfsP4nMXy9aa0CFmky2EhuUL+I1u780uHGXWnTWWLNKKPcnCmOWKvdqAsG9
+         FU+lrDt5DdkrTB1UQ6ZzIjJNpMCuBNh9BNVGfWY/A2yXM8P2LLMYm2iAWo25OzTlW0nW
+         2x9lFUObJsRj6Mh3q7dsLlDEk6WKjmP5PvdB7Wk1e4MSmpB/jU9qxQmKMypTI3qqOckR
+         X7vw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXTa+ijbvc90msWilIX0Mt+nlTLEwK/iN8mhl6AkmbEEpRvQy5ukENos8Z5rsL/oxcMUqajHnyVrnB2Lo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2lFs8QDw/CV5SHM4jXG9QVTOvWevg2Th4mF52USQnZ+uw+BF0
+	U7iVf6wuUs19npOOsVYDFQY+1ZKLhEo82pGWYSn6eBMXN8KNGKmqAGDMEvJOeasasl/asScLrL+
+	uTd9ZObu3htJ4PhDl1vSlxWXY+91b3Z0=
+X-Gm-Gg: AYBFou16IfTWV4PgI9z09aSfloGCl6jgsek8wszN6s6rv4IDHhOoQJgOozTGXADg/DU
+	9eaWEg8y3Cp+0hISem7ktfeJUVmyXYe9jF73qX6vrs+ITqw2T+PCMFFJ6ooCTMlEbR9OaQrNSa6
+	FStnDEq0h2nNBz8ygaAXK1pakDSOMWRVLoB4e8LG3AodkwnSQn9cMIGBjXEc2CgkZPVpqytlHkF
+	se5BDvKNLixiABG9R8G32gVR1PyeJUTQl5v/EM3x6Y+AMHumjfFlm+OvWOckwMNC5hivm2lsMmj
+	7DGRgK9KzVZ75BbxtTdRjGfTf99/nseWAo61cU+g3lkK1gx5HPzKwnaowAyF+ui6TUhJc6oRzV4
+	BjMAYp++zLvmS0PUV9WvFD5eqWqxEEKmMg/ksR9n6giFIK7aX1NtzsQ3IFy15gKdLWrFL5ml/Ms
+	Ksm6FKSzhOaw8Bjs3tV9VP00I1ImysFQPbk6SrYLkrzMlpxZKJ/Pk=
+X-Received: by 2002:a05:7300:d0ae:b0:34b:101f:cdaf with SMTP id
+ 5a478bee46e88-34c65a6e7f8mr375267eec.1.1790707683419; Tue, 29 Sep 2026
+ 11:48:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929135855.36775-1-chaoji_xinren@163.com> <20260929135855.36775-7-chaoji_xinren@163.com>
+In-Reply-To: <20260929135855.36775-7-chaoji_xinren@163.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 29 Sep 2026 20:47:51 +0200
+X-Gm-Features: AclHuK863ebGI2IXnXKyI5Z8WG1aeHKK_SaCRYSny_74NDfJ3eAdiAl5z7WrHIE
+Message-ID: <CANiq72=ciUBTJJ=SvdrGBpNp3GvzA_m5NGeWmuCgypkFA1i-LA@mail.gmail.com>
+Subject: Re: [PATCH v6 06/10] rust: macros: exercise the intended conversion
+ doctest failures
+To: Kaiqi Guo <chaoji_xinren@163.com>
+Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+	Jesung Yang <y.j3ms.n@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Danilo Krummrich <dakr@kernel.org>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Charalampos Mitrodimas <charmitro@posteo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a KUnit regression test for the behavior fixed by the previous patch
-("PM: runtime: Synchronous suspend when updating autosuspend"). Note
-that the old behavior was racy -- a pending RPM_REQ_AUTOSUSPEND *might*
-quiesce, but it wasn't guaranteed. Now the behavior should be non-racy.
+On Tue, Sep 29, 2026 at 3:59=E2=80=AFPM Kaiqi Guo <chaoji_xinren@163.com> w=
+rote:
+>
+> Suggested-by: Charalampos Mitrodimas <charmitro@posteo.net>
+>
+> Link: https://lore.kernel.org/rust-for-linux/m2qzr81jrd.fsf@ip-192-168-1-=
+196.ap-southeast-1.compute.internal/
 
-Example invocation:
+I have been seeing more and more lately these newlines between tags --
+is there perhaps a tutorial out there mentioning to do this or a
+script that ends up splitting them or similar?
 
-  $ ./tools/testing/kunit/kunit.py run --kconfig_add CONFIG_PM=y \
-      'pm_runtime*'
+It is especially strange in cases like this one, because the Link is
+for the Suggested-by, no? So logically they should be tied together
+(if the kernel allowed newlines to group tags to begin with).
 
-Signed-off-by: Brian Norris <briannorris@chromium.org>
----
+By the way, since I am here: it sounds like this could be split into
+different patches, although it is not a big deal.
 
- drivers/base/power/runtime-test.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Thanks!
 
-diff --git a/drivers/base/power/runtime-test.c b/drivers/base/power/runtime-test.c
-index 3487392e0afd..67d637550092 100644
---- a/drivers/base/power/runtime-test.c
-+++ b/drivers/base/power/runtime-test.c
-@@ -354,6 +354,32 @@ static void pm_runtime_autosuspend_rearm_test(struct kunit *test)
- 	dev_set_drvdata(dev, NULL);
- }
- 
-+static void pm_runtime_pending_teardown_test(struct kunit *test)
-+{
-+	struct device *dev = kunit_device_register(test, DEVICE_NAME);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	pm_runtime_enable(dev);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	KUNIT_EXPECT_TRUE(test, pm_runtime_suspended(dev));
-+
-+	KUNIT_EXPECT_EQ(test, 0, pm_runtime_get_sync(dev));
-+	KUNIT_EXPECT_TRUE(test, pm_runtime_active(dev));
-+
-+	/* Queue a RPM_REQ_AUTOSUSPEND (immediately, as autosuspend_delay is 0) */
-+	KUNIT_EXPECT_EQ(test, 0, pm_runtime_put_autosuspend(dev));
-+
-+	/*
-+	 * This is expected to quiesce a pending auto-suspend. See especially
-+	 * devm_pm_runtime_enable() -> pm_runtime_disable_action().
-+	 */
-+	pm_runtime_dont_use_autosuspend(dev);
-+
-+	KUNIT_EXPECT_TRUE(test, pm_runtime_suspended(dev));
-+}
-+
- static struct kunit_case pm_runtime_test_cases[] = {
- 	KUNIT_CASE(pm_runtime_depth_test),
- 	KUNIT_CASE(pm_runtime_already_suspended_test),
-@@ -363,6 +389,7 @@ static struct kunit_case pm_runtime_test_cases[] = {
- 	KUNIT_CASE(pm_runtime_probe_active_test),
- 	KUNIT_CASE(pm_runtime_supplier_suspend_test),
- 	KUNIT_CASE(pm_runtime_autosuspend_rearm_test),
-+	KUNIT_CASE(pm_runtime_pending_teardown_test),
- 	{}
- };
- 
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Cheers,
+Miguel
