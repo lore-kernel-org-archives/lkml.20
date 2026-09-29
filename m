@@ -1,172 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A64EC66A;
-	Tue, 29 Sep 2026 09:51:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EDC4E80CD;
+	Tue, 29 Sep 2026 09:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790675505; cv=none; b=ooIP6ZIxKNlP9YuzJw/7dydbBOBrMn6UGrkRw3blVUCZyy02OT85OMs8BB9jc2mq4H+8RNRJGYc2Mlvd5bMIluVJ4xZ+cpeACNtDVQYQMUU7HTHVfoLLdIgMDp8UqabZXqP8vWighV4ce1AsX8S0H9XXNHjTvoBZCDVP2ZGbUSw=
+	t=1790675596; cv=none; b=XzQci4j/cl6HpZXAKrX3gz3tgEv8Ab2GBvY9Pq8ZlZQxGrG7MBVQFqkfL5ODjM9mIbW4l4yVGo5WuIBlwyINbEsZhlrol0OTm8YiK1z9v3P94qFPojx6ffY12L1aCBGYj6eHZB3EZbmvr3LpFyLt7eUaljGSrp6F+d2xgYbw5R0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790675505; c=relaxed/simple;
-	bh=chsMDfWcCsf41LNrw8SxtL+jtZqNyI9Kl1R4xrsiCi4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gOmYn3GUyPuaoAfFn43qor7pBW0HRcgaT2RkGOINJ+chSm/kXJliRvREdVMdBfi0ZkDYZUoLxSbeA/anCXt1Y2uNwzalm2A7dL1u2/Nj5dlKjAecjJZ9Lo44TG1BU4eRl0S+B3T1zmOj8Q9lWG+/RUM5D8ZjdSqTYwl7WtTP4QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgMPglGg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790675596; c=relaxed/simple;
+	bh=PAjiuSr7PL6hMz7MSL0vi4gKrIrqTOCgAAdXyGLcVOA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ajyc8XYCLqm+bDOt3do4I7QhU8en3+HzxB5Y7a9cpx4vEIqWTexPKb/cUzNtGUDGAtcxcJv/XRWl3SpBaAEnVmUJdcXr6u6olctU9tU3lkUnB+NrFapDNoXjNYEqem1rNAWGftUAgu9h7juhKfB/ifnifxF8LuKtb9uwejWWDes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=IR6OyRhy; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RI2iC9Uy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ef8ORTcE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Jy6iYy8+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgMPglGg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2031F000FF;
-	Tue, 29 Sep 2026 09:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790675502;
-	bh=rjxi7vnicO9Bn6FaQImO+PHPnJ9/p8cEP6/V6gAY1qM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UgMPglGghdbup+cDyxbdbC+c/5zlJ7gUUKrC/CL2ux1p+ZSlTvBMb3mfeVNTSxJ4A
-	 ltE6GIfwe4Q1AJqmbxRnxG8Y8byNiQfcrO88rruj8gJCdiicAwQeA36Ws7CYflH+UY
-	 XtNXeEKFFCgKP+IxXckxpHZgZXBvKTeGrR81zlf0ZapbQbbfkA23yYWOHmTDQbqXly
-	 c4X698xvpvwu38JzGCTqHusJeiQ1ijevmDRt0hggZnmHLHD0QMpIjmf+RMkI6Oa1DI
-	 wjwr2GLkvCp0WXaHfQaCpPkgXG0cZ1Yd/P3ilUwPqyAVBjnxzA6c3cGUpiKI/O7wEl
-	 mozwuRzLb0tnQ==
-Message-ID: <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
-Date: Tue, 29 Sep 2026 11:51:33 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IR6OyRhy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RI2iC9Uy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ef8ORTcE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jy6iYy8+"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 820551F444;
+	Tue, 29 Sep 2026 09:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790675588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5QndERAeyHrOlKw2dyPW8c3xDWXtZf30X6T2Mz/d8oU=;
+	b=IR6OyRhy9njtgSWGu5dmBV5fq2a2iSY7zSpuCnAC4r1LDvrMzaF7HrsGWBC9yc7030Cmey
+	YXmlWgv3VqyPwuNf6kxvymlGhY+o3GG7NYNBT62HDXFxRifA5OUEMpQOyaq/Fld9DIfyDk
+	mCEsKPFAsFoM4TFKDJjgzKC0O/tdx+c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790675588;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5QndERAeyHrOlKw2dyPW8c3xDWXtZf30X6T2Mz/d8oU=;
+	b=RI2iC9Uyd+Kid4F1uCZuCevrwCYLsVo5HsM3K2NX+dg/JmeWGYDnMpfctjG7FyGif9graT
+	+6ofcNl6xgt105CA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ef8ORTcE;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Jy6iYy8+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790675584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5QndERAeyHrOlKw2dyPW8c3xDWXtZf30X6T2Mz/d8oU=;
+	b=ef8ORTcEBdUmzDfukXYj0Ra0pCYyGNwZY3AeOcAIG9jdfWU/pD8IBdQxlADdWGHW2yjS6A
+	USif8lF+XS4DV8rGdUqE4YbVrGT9WjOalCZ06HO8AR4WHsw6bsgl4+Gl/jJMvmgwsZ/1Tx
+	MYw0bRj5uKlZTEEFtZz8mpZtlsATiUg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790675584;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5QndERAeyHrOlKw2dyPW8c3xDWXtZf30X6T2Mz/d8oU=;
+	b=Jy6iYy8+AVNnk0GnA+0G2zcraJ5WdNWWhd1npGOvbUlB+jAegV9NL2JeFC1K2wDFiPXusW
+	ht7mubNR55etGoCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03EE2136E4;
+	Tue, 29 Sep 2026 09:53:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id P+SYMn+Ku2pSLQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Sep 2026 09:53:04 +0000
+Date: Tue, 29 Sep 2026 11:52:59 +0200
+Message-ID: <878q4k2xl0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?ISO-8859-2?Q?Povi=B9er?= <povik+lin@cutebit.org>,	Liam Girdwood
+ <lgirdwood@gmail.com>,	Mark Brown <broonie@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Sven Peter <sven@kernel.org>,	Janne Grunau
+ <j@jannau.net>,	Neal Gompa <neal@gompa.dev>,	David Rhodes
+ <david.rhodes@cirrus.com>,	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Ulf
+ Hansson <ulfh@kernel.org>,	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,	Lars-Peter Clausen
+ <lars@metafoo.de>,	Vinod Koul <vkoul@kernel.org>,	Matthias Brugger
+ <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Shenghao Ding
+ <shenghao-ding@ti.com>,	Kevin Lu <kevin-lu@ti.com>,	Baojun Xu
+ <baojun.xu@ti.com>,	Sen Wang <sen@ti.com>,	James Schulman
+ <james.schulman@cirrus.com>,	asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org,	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,	Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org,	Hector Martin <marcan@marcan.st>
+Subject: Re: [PATCH 08/28] ALSA: control: Add kcontrol callbacks for lock/unlock
+In-Reply-To: <20260920-macaudio-v1-8-741cc20a74e5@gmail.com>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+	<20260920-macaudio-v1-8-741cc20a74e5@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
- within
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
- <20260929-dramatic-ocelot-of-support-2aa377@quoll>
- <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 820551F444
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-1.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[35];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,marcan.st:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[cutebit.org,gmail.com,kernel.org,jannau.net,gompa.dev,cirrus.com,opensource.cirrus.com,perex.cz,suse.com,linaro.org,intel.com,metafoo.de,collabora.com,ti.com,lists.linux.dev,vger.kernel.org,lists.infradead.org,suse.de,marcan.st];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[lin,dt];
+	DKIM_TRACE(0.00)[suse.de:+];
+	R_RATELIMIT(0.00)[to_ip_from(RLs9qncch5cpanyka9neihc978)];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
+X-Spam-Score: -1.01
+X-Spam-Level: 
 
-On 29/09/2026 11:41, David Heidelberg wrote:
-> On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
->> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
->>> The reset was introduced with wrong polarity. Correct for the future
->>> compatibles and keep current with reverted logic.
->>>
->>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
->>> gpiod_toggle_active_low() on the deprecated compatible.
->>>
->>> Assisted-by: LLM
->>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
->>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>> ---
->>>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
->>>   1 file changed, 19 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>> index 5e1e997b83b36..99290913de69a 100644
->>> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>> @@ -20,16 +20,17 @@
->>>   #include "panel-samsung-dsi.h"
->>>   
->>>   struct s6e3ha8_desc {
->>>   	const struct drm_panel_funcs *funcs;
->>>   	const struct drm_display_mode *mode;
->>>   	unsigned long mode_flags;
->>>   	const struct regulator_bulk_data *supplies;
->>>   	unsigned int num_supplies;
->>> +	bool broken_reset_polarity;
->>>   };
->>>   
->>>   struct s6e3ha8 {
->>>   	struct drm_panel panel;
->>>   	struct mipi_dsi_device *dsi;
->>>   	const struct s6e3ha8_desc *desc;
->>>   	struct drm_dsc_config dsc;
->>>   	struct gpio_desc *reset_gpio;
->>> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
->>>   {
->>>   	struct s6e3ha8 *priv = to_s6e3ha8(panel);
->>>   
->>>   	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
->>>   }
->>>   
->>>   static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
->>>   {
->>> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>> -	usleep_range(5000, 6000);
->>>   	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>>   	usleep_range(5000, 6000);
->>>   	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>>   	usleep_range(5000, 6000);
->>> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>
->> This breaks all users and this usage of ABI was already released.
+On Sun, 20 Sep 2026 06:53:47 +0200,
+James Calligeros wrote:
 > 
-> See the gpiod_toggle_active_low() usage later in the patch which keep the logic 
-> for the original compatible as intended.
+> From: Hector Martin <marcan@marcan.st>
 > 
+> This allows drivers to implement policy around locking/unlocking
+> controls, such as enforcing that a group of controls may only be locked
+> by the same process/file, and taking actions when the controls
+> lock/unlock (such as granting special access on lock and resetting
+> values on unlock).
+> 
+> This is, in particular, useful to implement volume safety controls, such
+> that only a particular process (that locks controls and completes a
+> handshake) may increase volumes above a given safe limit. It also allows
+> the volume to be automatically lowered if that process dies (which will
+> trigger an implicit unlock).
+> 
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 
-OK, I went way too fast, that's correct part. But splitting fix is still
-just confusing. Backporting to stable is a different thing than fixing
-issues.
+This doesn't sound like a good approach to me, and this looks rather
+irrelevant with the purpose of the series.
 
-Best regards,
-Krzysztof
+
+thanks,
+
+Takashi
