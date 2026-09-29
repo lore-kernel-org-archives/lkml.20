@@ -1,214 +1,95 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CC534EF0D;
-	Tue, 29 Sep 2026 00:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC1934A3BF;
+	Tue, 29 Sep 2026 00:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790641689; cv=none; b=qxAuzJqk+VN6B5ajm/ncGsPu6Zac6muXGtqC5sO59DWqFdzd97d9HZnZ9j4mlQMdv9he5WX8RPMvyvK2FwwiJ8G7Yj6zkK9D0afomFa/rgcwLlkYY89b5Ckwn9FHOnUQi6qAHWMbuvqlRgmC86Tm/y5bqeJP8JbdwcukkSSTZ7Q=
+	t=1790641698; cv=none; b=JbrIGKm/aMSwHVNDxmkkSGJP3+5RfxbZH60+bqPY0v8AS9RQIKw+cVQlwqwJH9QKBr2ytK6jibb/Vm4NwIrRrXbY2Aaduy0gWzI3LijPNv41C+9DMiUBK4CG7bOSDADSKOkPXnKb7cSb8bs5vPEtR5ip4Esy/uKOk9S8wT0usOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790641689; c=relaxed/simple;
-	bh=5PVP3FAoXnjZK6gVKBD8/rWFbZ7exuS79R920BDmlBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XWoQtu8kyOprWutKvfduw9ENTu5iKgYWOtf297dWiYWUhYxbQxRHCmUfFkSSWk9+oYt7vB2XZhSxl+xB7IVR0KrO8kw+76LmAQsISE7LuNpcdvgiLjm6t7Arnef2CewjaGZiTazAltthQ0o+czeUiL/gxfNdEiGokniXc+3tuxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=l8Vakiia; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790641698; c=relaxed/simple;
+	bh=yx3Z/Z1i1CZ/Nq8EU+wafaIB9IzL0HnFkYtRVMPTDqU=;
+	h=Message-ID:From:Subject:Date:To:Cc; b=SsmEBa0MGI8fIgbDivOMpmgY1VHRR9fBueivHd5ATjCHetFt/zq1s/ddA4k3ch3SoPdbKgefiQrKy/+wAl2wGzfFUYKx88sP9B/Xk1Su7mW/+y+uyPDCVJsM1P2Ngu+EnydFZdaYcLMVUMMUJH8xn16AHlKZCimY8rF9IllSLT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=s2bW4S14; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="l8Vakiia"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CAC8FC3D;
-	Tue, 29 Sep 2026 02:26:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790641574;
-	bh=5PVP3FAoXnjZK6gVKBD8/rWFbZ7exuS79R920BDmlBo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l8Vakiia+AfpM3cpQedX9CfqURCJnn8EWmnkxMS1o7P0RcyNPOqRw9+bdDXPPawU5
-	 v3EsRo44C6QDfCa1koY+8776Edq7EdAoo8vUfJ+JYlMqY1rhiOhUKIUrsLHLzvfgfS
-	 DiSrdwzP2EwAQ8xZIY4PSgLH8rHSN7XAmPiGTo3k=
-Date: Tue, 29 Sep 2026 03:28:03 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Lachlan Michael <lachlan.michael@sony.com>
-Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-Message-ID: <20260929002803.GC171869@killaraus.ideasonboard.com>
-References: <20260828064843.65047-1-lachlan.michael@sony.com>
- <20260828064843.65047-2-lachlan.michael@sony.com>
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="s2bW4S14"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 003D2140011C;
+	Mon, 28 Sep 2026 20:28:14 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Mon, 28 Sep 2026 20:28:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790641694; x=1790728094; bh=xu3utU9VereBzGVmyv/XDg81Gfuj
+	SCUAkLOrSNL3D4I=; b=s2bW4S14m9t6NWC5RHARxkDy8i8i6hSMXT6U+mox5nhY
+	cIQjyvtrG4Ia47imS8JYsbYDFh/KeM2YaW/GylMdvtKnyIMXlu6J3ihFAQsS7QT1
+	BHDo0VmOzNvcl7fYYQ2SUD1c0joAoW+QRHrsVMCCL2Ccbjxx42v6XPjsvqvUGFtj
+	2InnYZzvxb50/kAKHU8oIS2Lou1U+YW8L/X/DQxyFg/oXUphUACk2zPshDK3oATl
+	ghYwA6h+UksChRTMixdhDDopK0grOaytshSNvmAIY8fxwMKrXj4nzeCY5geEVmUp
+	rC8ranpKhd7qNCZsxSBTeSm98ZALxd1V1VVBHpM0mA==
+X-ME-Sender: <xms:HQa7as6to9zI_98JVPQtF3M9R2XszAqGzZ8VMxJA4IMeEYbI54z3NQ>
+    <xme:HQa7ap4SeL7QSMSJgdH4q-jRo71BwqDL2ktiunPWRbLiEl5GkZy79uoD__FFUhc7S
+    tLEh3vdmd77zLrCyBOU7p91_zhq9L32JtMVEcqL5TIQSwGH5Kl5KPY>
+X-ME-Received: <xmr:HQa7atoxRar-YAV2d06vi_ZW-4-ceRYoOcG6nLUUNnUh3vr1vm4xZzxQWG9IFoGgxH2E0wsLOoVkuvNFBsmkuez0GKvxee9uvWY>
+X-ME-Proxy-Cause: dmFkZTFzQtIth2WkhrKI+6+E4UcGi5XWbtp7l6Qnn6zjZLbyXTa0rQ2Iwz4ZANn6XgA6pE
+    Yy8oMu49X8YEQgnHj8KX5JSvOLjYM1YH2mbz3ZOI7baZodjqs4vQiceyIg8mGPVINy22Uh
+    ArlGbesjAe5dgvuWAxt4ey4RiWX4Cpyy1G41sr7B8DuyDrFVeq5mmvC1P3kSw6MQ9aD3VF
+    R4t2qj6UA9VZElaIX3XxqycY464Cs9T1Aod9vrHzcxTIhfSDAtZTU0yKoVVlJ5/m9hsFK2
+    h3zF6X8XPA5iM37S0Ka5lAXOb+AA6GDczC+iQ/kR0tAlKrF4ekH7C0QKjotg/cLzDFb/rU
+    waro3ZhCwXEZfnftv8eBmP/hWunFYfY7wlV3NquKbh+NN5OX5iQldFhtD2hhoCvMWLTSim
+    xSfE/DqLw+eU/9xMyoP/5ifDtJeBEG6Ki3i/WXkHCHkdo1Us0KLy0ae1PTgEc6ZBb9rQKH
+    XIvfQQNBsNL+y/c3cnJF/M86y+NuEvSlZh13o7wQBNZU1qZAohrLVl4T6F6xxXyJJ85AYo
+    tIdnNeFNIue7YeNvKPP1IFlxRpEbZfTjX6Bdj3vBZJG7Ux5f9WSjiDPk3aQNgx37bSFtYL
+    +Cl7txoBoKE1ivaSOi8iPq3P5auJxlnWoxKgWSbRXEK6xV/LtWPROv0qQfJw
+X-ME-Proxy: <xmx:HQa7aiP2691__pk8TTTlgxRUTWIkztvuUZR4vvlmNL656rpblI1U6A>
+    <xmx:HQa7at0T_UV8XL-qActyUQfDWk9oemw7aB2nrwMIuRaBVeXU130qAg>
+    <xmx:HQa7apC44i8gs5CQQdkJq-mdzKKRCe4ldfcYolMJTBOgZ8qEfJju3w>
+    <xmx:HQa7aiIlmpuSeybgbn7f4NOEHTpdMPYvuj9APiNvoGZvyw-zMNAvOg>
+    <xmx:Hga7agp2kW_KSt2Ok6r7oJ_FWSGWGjqYZb9kMWSN64DRlwjg5VeWtiB3>
+Feedback-ID: i58a146ae:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 20:28:12 -0400 (EDT)
+Message-ID: <cover.1790641175.git.fthain@linux-m68k.org>
+From: Finn Thain <fthain@linux-m68k.org>
+Subject: [PATCH v2 0/3] block/swim: Minor fixes
+Date: Tue, 29 Sep 2026 10:19:35 +1000
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Joshua Thompson <funaho@jurai.org>,
+    Geert Uytterhoeven <geert@linux-m68k.org>,
+    Laurent Vivier <laurent@vivier.eu>,
+    Stan Johnson <userm57@yahoo.com>,
+    linux-block@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    linux-m68k@lists.linux-m68k.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828064843.65047-2-lachlan.michael@sony.com>
 
-Hi Lachlan,
+Two old bugs were reported to me by Stan Johnson while he was testing
+my recent patch series, "[PATCH v3] block/swim: Fixes and improvements".
+The following patches fix those bugs.
 
-Thank you for the patch.
+---
 
-On Fri, Aug 28, 2026 at 03:48:42PM +0900, Lachlan Michael wrote:
-> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
-> over 2 or 4 data lanes.
-> 
-> Add device tree bindings for the sensor.
-> 
-> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+Changed since v1:
+ - Patch 2/2 was split into two such that each patch alters one driver.
+ - 2/3 and 3/3 were revised as described in the commit log entries.
+ - Tested-by tags were added.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+---
 
-> ---
-> Changes in v3:
-> -  Adjust the binding description to match the actual hardware: the I2C
->    target address is selected by the SLAMODE pins, not fixed to 0x1A.
-> -  Add the standard video-interface schema reference so the endpoint and
->    remote-endpoint validation match the media DT conventions.
-> ---
->  .../bindings/media/i2c/sony,imx908.yaml       | 108 ++++++++++++++++++
->  MAINTAINERS                                   |   5 +
->  2 files changed, 113 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> new file mode 100644
-> index 000000000000..828db1175e2f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> @@ -0,0 +1,108 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright 2026 Sony Semiconductor Solutions
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/sony,imx908.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sony IMX908 CMOS Image Sensor
-> +
-> +maintainers:
-> +  - Lachlan Michael <Lachlan.Michael@sony.com>
-> +
-> +description:
-> +  Sony IMX908 diagonal 6.42 mm (Type 1/2.8) CMOS active pixel type
-> +  solid-state image sensor with a square pixel array and 8.39 M
-> +  (3856x2176) pixels, supporting MIPI CSI-2 output with
-> +  RAW10 and RAW12 formats, configured as either 2 or 4 data lanes.
-> +  The I2C target address is selected by the SLAMODE0 and SLAMODE1 pins.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sony,imx908
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: Input clock (24 MHz, 27 MHz, 37.125 MHz, 72 MHz or 74.25 MHz)
-> +    maxItems: 1
-> +
-> +  dvdd-supply:
-> +    description: Digital supply voltage (1.1V)
-> +
-> +  ovdd-supply:
-> +    description: Interface supply voltage (1.8V)
-> +
-> +  avdd-supply:
-> +    description: Analog supply voltage (3.3V)
-> +
-> +  reset-gpios:
-> +    description: Sensor reset (XCLR) GPIO. Active low.
-> +    maxItems: 1
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            oneOf:
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - dvdd-supply
-> +  - ovdd-supply
-> +  - avdd-supply
-> +  - port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +         camera@1a {
-> +            compatible = "sony,imx908";
-> +            reg = <0x1a>;
-> +            clocks = <&cdce913_cam0 0>;
-> +            dvdd-supply = <&cam_dvdd_1r1v>;
-> +            ovdd-supply = <&cam_ovdd_1r8v>;
-> +            avdd-supply = <&cam_avdd_3r3v>;
-> +            reset-gpios = <&tca6416_cam0 5 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                imx908_out: endpoint {
-> +                    data-lanes = <1 2 3 4>;
-> +                    link-frequencies = /bits/ 64 <720000000>;
-> +                    remote-endpoint = <&csi0_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 55b3c2d7a78a..bb7adcfd4767 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25538,6 +25538,11 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
->  F:	drivers/media/i2c/imx678.c
->  
-> +SONY IMX908 SENSOR DRIVER
-> +M:	Lachlan Michael <lachlan.michael@sony.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> +
->  SONY MEMORYSTICK SUBSYSTEM
->  M:	Maxim Levitsky <maximlevitsky@gmail.com>
->  M:	Alex Dubov <oakad@yahoo.com>
+Finn Thain (3):
+  swim: Return -EROFS when opened with BLK_OPEN_WRITE flag
+  swim: Fix FDEJECT ioctl for exclusive open
+  swim3: Fix FDEJECT ioctl for exclusive open
 
--- 
-Regards,
+ drivers/block/swim.c  | 10 ++++++----
+ drivers/block/swim3.c |  8 +++-----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-Laurent Pinchart
