@@ -1,119 +1,127 @@
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5B9511217
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8D8E5158B6;
+	Tue, 29 Sep 2026 11:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681873; cv=none; b=Zm8KyUrmRyD77UNf3PP9klswIQ7ED9KxPBc9vPwo7vTVyCBhyjQHYNvUI5ni+T664LI4vIzSDVylTKcSMUKBC+5T/ZBQzhO2Wh7jr02Qe6iCPfMtZrxNLErHqtLYUDKwWkcSBFocqUt9vTRQPug5GkaUt05Zo0E3/pEmcht0CqY=
+	t=1790681883; cv=none; b=Z0r38Yue/FUWauZDtZ3e0/5ujIi5wFmX8n9MKQKypW4/FeVGCtQa98+0qk8Q57K6msElv68jTUvUNt8pfocp22VGB4xMRw1Y5jIY4NDFgbLjGbYrNPHXXcE3ROO2Xb4ENvf4/WAX7PzT6w3geOqqNr2np56mwjmhPQJoVzPAzHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681873; c=relaxed/simple;
-	bh=ATzPLgJoa/6F43m2ErAHXBxPfR4mktO/NFP6DJgxMxk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m0Hntg3wjXnOkVkhDHErEiO20fhWlOuRgOMdPOgj9FYsdlcsklINnP4uVfCbABjLa8kesJrBX3E+1qJPA4TJQfAMhwGogJfo9sfn6hveZQ6A2VkEv8pUiMDz0SgXLoWf04Ev99QZQ90rd6gjqQBZO5RmmG6t7pwF+w/wLhyyGLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=o4jAFH3U; arc=none smtp.client-ip=139.138.37.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1790681883; c=relaxed/simple;
+	bh=tqjmlp+/lUnMUWbQnrX31y/+aHqlRJRtl0e4XiSbrZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I0ugvnN1OV3r1GQzXXTd9ecfGW9XyjjC5BXyKXZVZSyDmnjJ9vHbmPDDzDw1g4hGkdbEH4KDrchDVglcqZ8NJMKRl8ahvR4TickgOatWDoII0rF8h17XGrTDsnSVLNGiyy32FwLzjq7q33yAhTbJRdDCWYe/cmI1ETXEl7cWq0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=d0jXuIL/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="o4jAFH3U"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1790681872; x=1822217872;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=ATzPLgJoa/6F43m2ErAHXBxPfR4mktO/NFP6DJgxMxk=;
-  b=o4jAFH3Ux+R7lVvkcHGmCCcM+Dmw1LwJ5ILqWd7PDqVhLVhP2n6T1+94
-   jA9qRPDbzCiF9lotA/HSz8/+ZCafsFsMwE/TkFiJ1u3Wmi/s6J2o/6NH5
-   IUwgMi7eGoPBu8vaq2TCFPLayLj29OBPElcVlMRn11goXjeNyTy2H2Mdm
-   FphA6ILEypJr8jq6tNSbQm7COauJ360kDWsuAR9ZDtOk0x9JwpqXIZAc0
-   smBlrB9QQv7OOBWpd8Vq4THAa26GPEjbD4rqb6vn1DLOTXizbknTNTDFk
-   iy7kVbvXTsMVXfCWEWzR2GsoUh5okMDkGtIG36m5e0DUNKMKvitz3tPNt
-   A==;
-X-CSE-ConnectionGUID: WtdVGq+qRZG8sAnJkJFsRA==
-X-CSE-MsgGUID: /hKqEZyXQQWxrcymrFyixQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="234278441"
-X-IronPort-AV: E=Sophos;i="6.27,130,1786978800"; 
-   d="scan'208";a="234278441"
-Received: from gmgwnl01.global.fujitsu.com (HELO mgmgwnl01.global.fujitsu.com) ([52.143.17.124])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 20:36:40 +0900
-Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mgmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id D5A5C33FF
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:36:40 +0000 (UTC)
-Received: from az2nlsmom2.o.css.fujitsu.com (unknown [10.150.26.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 858FC1C00943
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 11:36:40 +0000 (UTC)
-Received: from [127.0.1.1] (unknown [10.124.178.20])
-	by az2nlsmom2.o.css.fujitsu.com (Postfix) with ESMTP id A21861800D7F;
-	Tue, 29 Sep 2026 11:36:36 +0000 (UTC)
-From: Kohei Enju <enju.kohei@fujitsu.com>
-Date: Tue, 29 Sep 2026 20:36:00 +0900
-Subject: [PATCH] arm64: rsi: Correct type of realm_config::hash_algo
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="d0jXuIL/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B629C1476;
+	Tue, 29 Sep 2026 04:37:56 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F40D33F85F;
+	Tue, 29 Sep 2026 04:37:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790681880; bh=tqjmlp+/lUnMUWbQnrX31y/+aHqlRJRtl0e4XiSbrZM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=d0jXuIL/6Emp4J/TGs+f2eNtHj6eC2hd23MA10VhpzQ3oX5codkrdBvd36sYXREKb
+	 wHYjOdCMGCYCRWksplqCqoSYQsrLey51qyF2LE0dbXjQNTmdPNX1v/AIb9N210rlcn
+	 If/6UsSAoT/YifI0XMo6LFEJ8PZGxXtnEcR2pmqw=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Josh Hilke <jrhilke@google.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/3] KVM: selftests: Add support for dirty-ring on dirty_log_perf_test
+Date: Tue, 29 Sep 2026 12:37:05 +0100
+Message-ID: <20260929113711.2064390-1-leo.bras@arm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-cca-b4-rsi-fix-hash_algo-type-rebase-v1-1-6932cf0aa605@fujitsu.com>
-X-B4-Tracking: v=1; b=H4sIAJ+iu2oC/yXN0QrCMAyF4VcZuTbQ1TmYryIiaRvXiGwjmbIx9
- u5Wvfzg8J8NjFXY4FxtoPwWk3EoqA8VxExDzyipGLzzret8hzEShgbVBO+yYCbLN3r2I87rxKg
- cyBj52NQxnVxqnYOSmpTL+Hdzuf5tr/DgOH/bsO8f76d9c4gAAAA=
-X-Change-ID: 20260929-cca-b4-rsi-fix-hash_algo-type-rebase-e341cd50d600
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Suzuki K Poulose <Suzuki.Poulose@arm.com>, 
- Sami Mujawar <sami.mujawar@arm.com>, Steven Price <steven.price@arm.com>, 
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, 
- Kohei Enju <enju.kohei@fujitsu.com>
-X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2850; i=leo.bras@arm.com; h=from:subject; bh=tqjmlp+/lUnMUWbQnrX31y/+aHqlRJRtl0e4XiSbrZM=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLJ2L5r+tcx4B/ODecnZDSUiZYXz+VLmZS2yP2O6QG+PX Mwpm5mLO0pZGMS4GGTFFFlkH81fxfN9SsaRKz8WwMxhZQIZwsDFKQATcf/DyPDdUOeawynG6om+ Utf2xdW85QvoL/7oMvNpq6dV5vYAJXWGP9ysr65NYnjHkxNU9/7jApHWin21KySMb6SldUw5rfN QgwUA
+X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
+Content-Transfer-Encoding: 8bit
 
-The RMM specification defines RsiHashAlgorithm as an 8-bit type, but
-realm_config::hash_algo is currently declared as unsigned long.
+Add support to dirty-ring on dirty_log_perf_test, so we can measure
+performance differences when we change / improve the mechanism.
 
-There are currently no upstream users of this field, so the mismatch
-does not cause an observable issue today. However, a proposed series
-adding support for Realm measurement registers uses this field and
-exposes a bug caused by the incorrect type.
+One big change in this set is that dirty-ring needs to be enabled 
+after the VM was created, but before any cpu is created, so for that,
+I made a few changes on memstress so it can actually take dirty-ring
+size as a parameter for VM creation. (Patch #1)
+I honestly don't think it's pretty, but I could not think on a
+better way of doing this without messing too much in the code.
 
-Change hash_algo to u8 to match the RMM specification while preserving
-the size and layout of struct realm_config.
+Also added some checks in dirty-ring enable, so an error message on
+ring size is more informative.
 
-Link: https://lore.kernel.org/all/20260413084957.327661-4-sami.mujawar@arm.com/
-Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
----
- include/linux/arm-smccc-rsi.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Please provide feedback :)
 
-diff --git a/include/linux/arm-smccc-rsi.h b/include/linux/arm-smccc-rsi.h
-index fddb77986f70..2fb6ec5e0298 100644
---- a/include/linux/arm-smccc-rsi.h
-+++ b/include/linux/arm-smccc-rsi.h
-@@ -128,7 +128,10 @@ struct realm_config {
- 	union {
- 		struct {
- 			unsigned long ipa_bits; /* Width of IPA in bits */
--			unsigned long hash_algo; /* Hash algorithm */
-+			union {
-+				u8 hash_algo; /* Hash algorithm */
-+				u8 pad_hash_algo[8];
-+			};
- 		};
- 		u8 pad[0x200];
- 	};
+Thanks!
+Leo
 
----
-base-commit: 6c360697fd4d17a53ed977a1341add3520a19269
-change-id: 20260929-cca-b4-rsi-fix-hash_algo-type-rebase-e341cd50d600
+Changes since RFCv4:
+- Series title 
+- Rebase on v7.3-rc5
+Link: https://lore.kernel.org/all/20260729161519.3778839-2-leo.bras@arm.com/
 
-Best regards,
---  
-Kohei Enju <enju.kohei@fujitsu.com>
+- Using acquire/release barriers to make sure there is no reorder between
+  incrementing iteration and summing the time spent on cleaning.
+- Improved ring-size checks, although not perfect due to reserved entries
+  affecting minimum size.
+- Do not allocate bitmaps for dirty-ring tests, as they are unused.
+- Improve help text
+- Make sure ret==0 before going back to vcpu_run in dirty-ring case
+Link: https://lore.kernel.org/all/20260708152232.2568907-1-leo.bras@arm.com/
+
+Changes since RFCv2:
+- Added mutex to make sure only a single vcpu is 
+  collecting/cleaning at a time. This gets us the ability to
+  test return values, and not account for kvm.slot_lock waiting time.
+- Stuff reported by Sashiko
+  - Return value always positive, so assert was pointless
+  - Concurrency inflating the time for dirty-ring cleaning
+Link: https://lore.kernel.org/all/20260629105950.1790259-1-leo.bras@arm.com/
+
+Changes since RFCv1:
+- Stuff reported by Sashiko
+  - Fixed elements / byte size wrapping issue
+  - Removed element count due to concurrency
+  - Testing exit_reason instead of ioctl return value
+  - Some nits
+Link: https://lore.kernel.org/all/20260624171656.1737580-1-leo.bras@arm.com/
+
+Leonardo Bras (3):
+  KVM: selftests: memstress: Add option to enable dirty-ring on VM
+    creation
+  KVM: selftests: Check dirty-ring size before enabling
+  KVM: selftests: dirty_log_perf_test: Add dirty-ring support
+
+ .../testing/selftests/kvm/include/memstress.h |   3 +-
+ .../selftests/kvm/access_tracking_perf_test.c |   2 +-
+ .../selftests/kvm/demand_paging_test.c        |   2 +-
+ .../selftests/kvm/dirty_log_perf_test.c       | 128 ++++++++++++++++--
+ tools/testing/selftests/kvm/lib/kvm_util.c    |  21 ++-
+ tools/testing/selftests/kvm/lib/memstress.c   |  34 ++++-
+ .../kvm/memslot_modification_stress_test.c    |   2 +-
+ .../kvm/x86/dirty_log_page_splitting_test.c   |   2 +-
+ 8 files changed, 167 insertions(+), 27 deletions(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
 
