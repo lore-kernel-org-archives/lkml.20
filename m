@@ -1,86 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF872309EF4;
-	Tue, 29 Sep 2026 09:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C5A74E9C1B;
+	Tue, 29 Sep 2026 09:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672561; cv=none; b=qDCOiYjiQXf28WkDBz7r8gd2pgPLQbSExD0zIfvcD/p6pIdQ85Eby0tNnruhyL6Y29svveyMBf9PHm/rEnTvCO9C9ls1GRF2D9DlTJIgIQVyN8UT9YlzDPP6CMXs3JAF/4yl+a88EHJbgC0bHdOnheM0CFE16mioZXdN++mS2u4=
+	t=1790672623; cv=none; b=D1bm/KDJW1yCJsmpiqICLU94OQmwU5X1U4vkoRYpvk/5HfvBRqPo5OIfS2aPG/QN3iA43AIAuf1DvuTbf1qJZxcJKJ7u7V1GkJ1LwL8KQY9aiEOtQUVkticdj9gFwPlWAw6Gnk5pDZ8ztjtryVPM/Wa8RBrA0TymK3Xkzyu7xbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672561; c=relaxed/simple;
-	bh=RUzRsx3QL78miai6eHvYulrUuKI+eSUs62y5Jn47i4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wwiaa0BK0dpUQCdBW366rrdkyJdVTOcgQDlc+jrW7z5fT3U1GrSJfv6617/amN0uowMGr+4GsqxS2T2jW5W8rE9fbzaj4ke/hIdJURciW8usktnL48o5/1EGm51EGA6Mgv6bTUgIMi1Ogzjlr4LbZIfbUDewTDsC6wpkYcX50fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gfyk+aiB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gfyk+aiB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91411F000FF;
-	Tue, 29 Sep 2026 09:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790672553;
-	bh=xvVwWEqR680twyayPe3TH6KsGKe6iAvE+JddMo7jNsA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gfyk+aiB/tUXxWzVt/78vN9Mj/8WM5U0mbddOsHB7T9Z2w2eIdFEU4w4ckD0q7yj4
-	 ijToOb9hsxaeeLUii7vciHwjM3MPCXMh9aRuznxD/z+PCO3/OPejlHnX6Jnux4W5TR
-	 E0AWQZkCR7TJamYUz8Q0YbVzzrUUQdUS07YFqeMt3dJbpYcQy5Do4FeOZ//lHyy4ft
-	 fIvHQQvlw39l/cK9Rnjuo+k4YPkNRUbT5iq6EUoN6qyY7DeabFil9HLYXuvXKgAMaV
-	 DCzkBky/gKYt/lNX+E2ZHkjjtHHiV35cAxGs0Lf6Pdh3AWoNSJzK7D5YyR50xBiEPk
-	 GU6Llhtpcj5sg==
-Date: Tue, 29 Sep 2026 09:02:30 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Marek Maslanka <mmaslanka@google.com>
-Cc: Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Radu Vele <raduvele@google.com>, chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Poll for role swap
- completion
-Message-ID: <art-pgdLHXiCm5l4@google.com>
-References: <20260923174420.2343724-1-mmaslanka@google.com>
+	s=arc-20240116; t=1790672623; c=relaxed/simple;
+	bh=XE0diPgi/S0dFf0Xr5cAfejhQRRFpZccGQeHnbrLWi8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cNiPn8X7oaT7bRfAbawRdk/TS4qkw/+PP1N/jJpLa1+fIyktPlluwFGO4uQLT8k1Wph44i217MD56zgvQV6IgAjwJY8R6aU/MuPkE7QyKxd/Ey6FNc9Mq40lKzUEeUu73QEnfvEnMyUxlD6A8Pk0HV53hvZ1B2uR/fJ9SpqyIDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.40.46.54])
+	by gateway (Coremail) with SMTP id _____8AxS_Dbfrtqk+cQAA--.49609S3;
+	Tue, 29 Sep 2026 17:03:23 +0800 (CST)
+Received: from [10.40.46.54] (unknown [10.40.46.54])
+	by front1 (Coremail) with SMTP id qMiowJDxRs3Yfrtq+XgmAA--.3044S2;
+	Tue, 29 Sep 2026 17:03:20 +0800 (CST)
+Message-ID: <7d47fb51-2f92-4565-92d5-be11181ef1ab@loongson.cn>
+Date: Tue, 29 Sep 2026 17:04:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923174420.2343724-1-mmaslanka@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] LoongArch: KVM: Return the actual error code in
+ kvm_pch_pic_create()
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>
+Cc: WANG Xuerui <kernel@xen0n.name>, Xianglai Li <lixianglai@loongson.cn>,
+ kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260929052712.470413-1-nagachaithanya9911@gmail.com>
+Content-Language: en-US
+From: Bibo Mao <maobibo@loongson.cn>
+In-Reply-To: <20260929052712.470413-1-nagachaithanya9911@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxRs3Yfrtq+XgmAA--.3044S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7WrW8Zw1ftr1xtw47KrWUKFX_yoW8AFW5pF
+	W8CFs0kF4kCr1xXa92v34DGFsxZrWxXFyIgF129FW5ArsxX3WSkr10krZIvF98K395Gr1S
+	qrsxGF90v3W7tacCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1CPfJUUUUU==
 
-On Wed, Sep 23, 2026 at 07:44:19PM +0200, Marek Maslanka wrote:
-> @@ -104,27 +127,41 @@ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_r
->  	if (ret < 0)
->  		return ret;
->  
-> -	switch (swap_type) {
-> -	case USB_PD_CTRL_SWAP_DATA:
-> -		role = resp.role & PD_CTRL_RESP_ROLE_DATA ? TYPEC_HOST : TYPEC_DEVICE;
-> -		if (role != target_role) {
-> -			dev_err(data->dev, "Data role swap failed despite EC returning success\n");
-> -			return -EIO;
-> +	/*
-> +	 * Depending on the EC USB-C stack (TCPMv2 vs PDC), EC_CMD_USB_PD_CONTROL
-> +	 * may either block until the swap completes or queue the request
-> +	 * asynchronously and return the pre-swap role. Poll until the target
-> +	 * role is reached while connected, or until the timeout expires.
-> +	 */
-> +	req.swap = USB_PD_CTRL_SWAP_NONE;
-> +	end = jiffies + msecs_to_jiffies(ROLE_SWAP_TIMEOUT_MS);
-> +	for (;;) {
-> +		if ((resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) &&
+Hi Chaithanya,
 
-Shouldn't PD_CTRL_RESP_ENABLED_CONNECTED remain set during the entire poll?
+Thanks for patch, there is similar version at:
+https://lore.kernel.org/lkml/20260927075240.3007947-6-cui.tao@linux.dev/
 
-> +		    cros_typec_resp_to_role(&resp, swap_type) == target_role)
-> +			break;
-> +
-> +		if (time_after_eq(jiffies, end)) {
-> +			if (!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED)) {
-> +				dev_err(data->dev, "Port disconnected during role swap\n");
-> +				return -ENOTCONN;
+Regards
+Bibo Mao
 
-Same here: if PD_CTRL_RESP_ENABLED_CONNECTED isn't set in the loop, should
-it return -ENOTCONN early (i.e., out of this if-block)?
+在 2026/9/29 13:27, Chaithanya Lagisetty 写道:
+> kvm_pch_pic_create() sets up the default IRQ routing and reports every
+> failure as -ENOMEM, discarding the error code it was given:
+> 
+> 	ret = kvm_setup_default_irq_routing(kvm);
+> 	if (ret)
+> 		return -ENOMEM;
+> 
+> kvm_setup_default_irq_routing() returns -ENOMEM only when its routing
+> entry array cannot be allocated. Otherwise it forwards the result of
+> kvm_set_irq_routing(), which also fails with -EINVAL when an entry is
+> rejected by setup_routing_entry(). Userspace creating a
+> KVM_DEV_TYPE_LOONGARCH_PCHPIC device can therefore receive -ENOMEM even
+> when IRQ routing setup actually failed with -EINVAL.
+> 
+> Return ret so the original error code reaches userspace. This matches
+> kvm_eiointc_create(), which already propagates the error code from the
+> helpers it calls.
+> 
+> Only compile-tested.
+> 
+> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
+> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+> ---
+>   arch/loongarch/kvm/intc/pch_pic.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+> index 2b63b0c2c7ce..7fee60ae01a5 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -444,7 +444,7 @@ static int kvm_pch_pic_create(struct kvm_device *dev, u32 type)
+>   
+>   	ret = kvm_setup_default_irq_routing(kvm);
+>   	if (ret)
+> -		return -ENOMEM;
+> +		return ret;
+>   
+>   	s = kzalloc_obj(struct loongarch_pch_pic);
+>   	if (!s)
+
