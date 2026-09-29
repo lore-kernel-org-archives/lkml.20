@@ -1,127 +1,105 @@
-Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CB9519E0C
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 12:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54B350E5AA;
+	Tue, 29 Sep 2026 12:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683755; cv=none; b=WPMrxuieTHwtscai3v5DQgbhP1WP77zln1lGIh4MoJ0PqpazxyKBMD38Oaso3ghVVOo+UNOzSQHvj2L/JEsayLoeb9yy5P0yKkdhbdbpz+AV0//bo9NMptVFH3isVCLmTgb+UFObJPTnTKcwAYwAjGjYuc7yOVIKpcrIIhgRsLk=
+	t=1790683806; cv=none; b=hEgd749UHhcJAkBVagpqEEplcvObgDn0jDa/Ddn7r3bmH/ORF23KlC0B5BvFVy+8L0gvc2tem3fgQqdNW3qdPRDrAuP3xZfxokEUFQT5AWpLsRXMtUB5GH0S+cHbAJsM/3gIk5wDoq2N8KePJiqkVdNm3sl9Hl2UIeSaxPtHtN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683755; c=relaxed/simple;
-	bh=gPpJc0gAwxmiHQ3k+AeGCthtBe3ZN02fkltHLrpKeF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uieJpVgyXhbrA4E32dkIp7Tye2SUwTfRFHYLAoyNDmzmtXa8fgclopLr37gOShkSWbJQbAbzJ8NPVcylHsfB2mxV8r7NwEZIPADNS6I6gRxK2lrCfKFEzPTscvwj293agc9c5fveU7NkunpHCF7vIZ6KIGg0RJzQJBkWprCR3n4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=NLcyDgKr; arc=none smtp.client-ip=185.136.64.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="NLcyDgKr"
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 202609291209056178ae77930002074b
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 29 Sep 2026 14:09:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=qIuGYyrz5VWG0njHuoFGuWt3RfQaVhMgb00911U1KSE=;
- b=NLcyDgKrHabO0A94fhKXWdLn/MFxseYkzaGSncih1bu6QL4xYPfPCnXK7DvxZIPgptZ7LQ
- M8tGNTBuNvTngCgm0Nhjz6z5VtUcnbUTGc5XAuin45C0SvNqdlCVLj8c9KQp382pTat5Jdew
- 3r/mblcTgiVRTbpYIZV/Xw/M4asq02d0Bb99g+toobWJFXE697FP1RW/Mi5jD4xyRnwrABJm
- lhKhMcUt8kdCRHO3SBn+7JH2+Xmi63+ZumuUZ7TJv7zj8eABzKJ1cDoT2B12w08efFstvTFk
- 6SUXP/1xLrG7AECRiqB1JCut2591ZL/4kJY1a6PcpOZD1eOZ+/bWv1WQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/4] leds: trigger: netdev: fix sysfs_update_group() races
-Date: Tue, 29 Sep 2026 14:08:50 +0200
-Message-ID: <20260929120902.2793138-1-alexander.sverdlin@siemens.com>
+	s=arc-20240116; t=1790683806; c=relaxed/simple;
+	bh=0TQIG6b0QhiYyhhVsn09ZaXE0tRmvWDczzbfnRItPCs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=iYH6/Lc8nmgvf/dFl5/YsQXRM71QXh8ZP6Exwm5OSzufUiKLjBG3GKMA+JpahV6nyEqmA+ffoKO8VdAY3uujf297UAv7V91w1JJX572vKNFwJ52fQX/tK+IeYwvwRb2+gH0wdANp35GRlevuv2tgiPam02HkSZ0cPrmfnkEp+fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Message-ID: <d3b99da7-bc64-4df8-94ab-25080474ee35@mainlining.org>
+Date: Tue, 29 Sep 2026 15:09:27 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+User-Agent: Mozilla Thunderbird
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Subject: Re: [PATCH v3 16/19] thermal: qcom: tsens: Add support for MSM8952
+ tsens
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-16-b96fd3fe298b@mainlining.org>
+ <4de27200-3598-47b7-b0af-8f7acd037618@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <4de27200-3598-47b7-b0af-8f7acd037618@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Hi Daniel,
 
-The netdev LED trigger refreshes the link_speed attribute group with
-sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
-device_name writes and, indirectly, trigger (de)activation) that share no
-common lock.  On a board that emits PHY link events while the trigger is
-being (re)armed during boot this is observed as a hard sysfs failure:
+On Tue, 29 Sep 2026 09:11:28 +0200, Daniel Lezcano wrote:
+> On 9/21/26 20:19, Muzaffer Kadir via B4 Relay wrote:
+>> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+>>
+>> Add MSM8952 support for tsens.
+>>
+>> Downstream does a lot of advanced things with calculations.
+>> But seems like using tsens-v1 directly works too.
+> 
+> Can you elaborate a bit the changelog please ?
+> 
+> Thanks
+> 
 
-  sysfs: cannot create duplicate filename '...green:lan/link_10'
-  ...
-  led_trigger_set
-  led_trigger_write
+MSM8952 has 11 sensors
+and 3200 default slope (according to downstream)
 
-The window between activate() and device_add_groups() in led_trigger_set()
-is narrow, so to reproduce it reliably I artificially widened it with the
-debug patch below:
+For tests, this is the table for readings:
+tsens sensor 0  1  2  3  4  5  6  7  8  9  10
+TWRP         32 31 29 28 28 31 30 30 30 32 30
+this patch   31 29 31 29 29 31 30 31 31 30 30
 
---- a/drivers/leds/led-triggers.c
-+++ b/drivers/leds/led-triggers.c
-@@ -12,6 +12,7 @@
- #include <linux/list.h>
- #include <linux/spinlock.h>
- #include <linux/device.h>
-+#include <linux/delay.h>
- #include <linux/timer.h>
- #include <linux/rwsem.h>
- #include <linux/leds.h>
-@@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
-                 if (ret)
-                         goto err_activate;
+Both are read from same device, one after the other,
+First upstream then TWRP.
+2 degree difference seems reasonable in my idea,
+as there is a reboot process happens in between reads and
+downstream has more power saving features than this port.
 
-+               msleep(5000);
-+
-                 ret = device_add_groups(led_cdev->dev, trig->groups);
-                 if (ret) {
-                         dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
+I don't know any way to independently measure temperature.
 
-With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
-delivered from the linkwatch workqueue reproduces the duplicate-filename
-splat every time.
+I reused offsets and slope from downstream.
 
-The whole series is LOCKDEP-verified.
+My commit message wasn't good, I will expand the
+commit message by v4.
 
-Changelog:
-v3:
-- introduced unset_device_name() as a counterpart of set_device_name()
-- guard() has been converted to either explicit mutex_lock()/mutex_unlock()
-  or scoped_guard()
-- rebased onto next-20260925
-v2:
-- addressed pre-existing issues found by Sashiko (patches 1&2)
-- reduced verbosity both in comments and in commit messages
-- patch 3 is a combined rework of patches 1&2 from v1
-- dropped sync from cancel_delayed_work() (worker now takes the lock)
-- https://lore.kernel.org/all/20260921093249.3481413-1-alexander.sverdlin@siemens.com/
-v1:
-- https://lore.kernel.org/all/20260914132356.807004-1-alexander.sverdlin@siemens.com/
-
-
-Alexander Sverdlin (4):
-  leds: trigger: netdev: Put netdev on activate error path
-  leds: trigger: netdev: Access net_dev under trigger_data->lock in the
-    worker
-  leds: trigger: netdev: Fix sysfs_update_group() races
-  leds: trigger: netdev: Serialize mode/interval stores with trigger
-    lock
-
- drivers/leds/trigger/ledtrig-netdev.c | 112 +++++++++++++++++++-------
- 1 file changed, 81 insertions(+), 31 deletions(-)
-
--- 
-2.55.0
-
+Best regards,
+Muzaffer Kadir
