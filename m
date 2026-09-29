@@ -1,108 +1,181 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.smtpout.orange.fr (smtp-78.smtpout.orange.fr [80.12.242.78])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AA8391E76
-	for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 16:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89AB4E9C1F;
+	Tue, 29 Sep 2026 16:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698369; cv=none; b=UemrzPdZZz/VTwo/1gCdbWtuArtjGHSOD3ybDsG7xPJjLS2UsKHUtbJgqDbZEBKZfF+Bn3hvInY1xIpTw+L+H84PD0VD+vlhwk0WT7ViOluaGqtVNzvetiUZp8WGaxFo7vRnvrmnKMFZZ4+ZML7nWr2nigdDX9i9Y2jV4c78HHg=
+	t=1790698439; cv=none; b=HgkeDUz3eKo+6uI6IEOT2xsv9mQUmkRP/zMrVy/gQYXULv0eXowV0DCDb23XVHy5MBFkHQMetEgW8fPlOb1zjEbjJezDE3HRbudMULN6H1w9tLG+zHXQ7IqumSJERSsz7+IFsTCbElBW4Ag15cAFaAiVIXzZvLJLJ+7qcWVDo4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698369; c=relaxed/simple;
-	bh=sDLvc2MZgyvTyY9gx2R0XQ0znRHniSDnRe9KAJVNqTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YhLhv1zBCKpkZuKLIQibAfee/rXX0eyKSlALNpqtPl8jXPFvIyEblV7RLO5p3I/ar47RB3L2CCKIZG/nhfRkZeZfqDp4n/eiIpYAkKoYVO7VnR+XXTUoilxovhDkFmrF37Z1xGF6AG+aYZ1SYhLOxb6VBDgtoloBTMbdNaYTvVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eDmb5P8L; arc=none smtp.client-ip=74.125.227.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790698439; c=relaxed/simple;
+	bh=SPsJ46zQ3cpUQvCQs2LGwEVPCihPlg7Yokg21P/WkrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
+	 In-Reply-To:Content-Type; b=YV1/jkVOoWFhZbDbDZ42ymFFjvKs639474O6KmfTtnYHMlAJ/ePWbpLNsdm8aVpPfX0MZ1q/PNsNPtJ0igc7mH89Oa5SNZA4jVJktbHPAszwTFG1oSFuFoM3sHxRMzd+pDurq99GbKdH0IOG5U5+N4aOvMQ7UhTO5JmWMRQKZYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=eORPkq/K; arc=none smtp.client-ip=80.12.242.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eDmb5P8L"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2df9c04eeb6so14523235ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 29 Sep 2026 09:12:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790698367; x=1791303167; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=csl4wCkk0Zl0u/F6Ga5a9qQkHfeB6A6F99MGL0l19h0=;
-        b=eDmb5P8LMbXaDFWOA/d479mpZT5xgA0Av5MHX/Eaqg9e0wfVjs2NaNtKfPuPY34zWA
-         2BOjj2RNPKoyoaBjR42+Fdf26aNiCZy+sol3Z9m4KkMAGMQtCY9c7KyE9lq8g0R5eGUp
-         0Kr0cDM8dunIvwLJUCcxinLimCA4gTqiZVJxJ2BKI8v3mXnyHmu9RSsh1EhBU3YcnISn
-         L83lzm+gcTkwxeSA+HI7nKw6CxU+WbODzxhdq+bYwpt8Jye2JXhRZ6KJlt02SXJhCO1E
-         iO4YP2z33vdEron46GJhxEjHJMme5GQo8/zTX4jHM6q3OTZDMWsCaOevmclTD1tqoM07
-         KvAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698367; x=1791303167;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=csl4wCkk0Zl0u/F6Ga5a9qQkHfeB6A6F99MGL0l19h0=;
-        b=H2wPfETNa+phD9PIGCvZOrlOVanc1nyjRpPBEhsKeCaZEriRD219PZ070V2crqcAux
-         GbYASJXh1/T5HywM/UJaQcv4JsNgAn6zfzzbdFCOzAPkU1DcbFQwqWBcjooyKXeWvexm
-         znu1Z+YcNk6p4Et9NVqemnZa8RpxwbJ27IOInloAvoZ4+Q/t6+0mP0erNIsw0/AsS5n1
-         YTwbElJEYLkcPuG1i+xbLz/1TTlbKcYgWh7wTMujA4psuK4DIqMI4moraGbq/p+DR+ca
-         lOEeTmQ0nkToHM1Fn0DEK5nehZ91bijCZTQioLJawpw1V+EoZJh8OfZIfymAkIVaOWU6
-         gjbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQiht1VQNyuOoo1nCqmZwz1S3//IeFNK8o0AgU6hD7fpxwiIpoWCMDeINjP7k4i0gXEpBtH+Y7QIHO/iw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4ACDwqvpwteSGHZa+MA+KAMdMGVpxp4Yiog0u3mro6B7nFfL0
-	sWBcF7PoeUqy5LyFEgV9sQ9HMdk/H18d7/DwLNSCSr0GNinxcrHbOIbs
-X-Gm-Gg: AYBFou0rIJLi11KtWHxzB0yIZmyBDEMKU6Kvn5o1rAkMzgHAOsSyb2+6TB1SXFvRj+q
-	3XIXrZBMFOIHqmGC355aCsYXnHCHUSPTJlK9AGlsUXFVL6As56kKPPHwI7lB4XztgqyXk6ZvBZb
-	tVrjfyEAeR1BQOZX2cU1EWH9PjBsKv48IIWMq7XyeRAzSRE0bnMQ8SYAoJSiWWj8ZoaJJC2ZIbp
-	XFSSZ3/70grxhs3r5W29PydOvxNMaDvb7DJXoQG8t0r2zZgmW+p4HPQnPx8747gz+V9E8wDc47Y
-	Q0yxaZOD/wix0dXdYIONdhHtZVrJwZ2+DaM9XElcARZhME6UGs/xzSpr7PqpKQyfz9+RncnKOKQ
-	1ZcNCOYd32SzBrg+VlgU05mhxC2LaZqdDkOqPpPo0VIoA8yWcoLwnbnnw5XB8FvEM4wIZRR5YER
-	O1OVLajIuFZQRBcjWq4KLNnTIKG1BRMLcYVC9eeiD1m6RbNWdo5Mgw5ndKIobezvE=
-X-Received: by 2002:a17:902:cec9:b0:2df:9305:8909 with SMTP id d9443c01a7336-2df930592e6mr107246915ad.17.1790698367157;
-        Tue, 29 Sep 2026 09:12:47 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:6::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2d8edc107sm3600445ad.4.2026.09.29.09.12.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:12:46 -0700 (PDT)
-Date: Tue, 29 Sep 2026 08:55:31 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, horms@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org, 
-	sdf@fomichev.me, bobbyeshleman@meta.com, almasrymina@google.com, 
-	kaiyuanz@google.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 3/3] net: devmem: decode DMA addresses for TX
-Message-ID: <arvfYIx_0z6lU_Lq@devvm7509.cco0.facebook.com>
-References: <20260925201522.254717-1-sdf@fomichev.me>
- <20260925201522.254717-4-sdf@fomichev.me>
- <85ddcc36-7e31-42d7-8e78-a3e456e13944@redhat.com>
- <97f2fdff-3954-4d53-aa55-156672658ee5@redhat.com>
+	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="eORPkq/K"
+Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e] ([10.65.86.61])
+	by smtp.orange.fr with ESMTP
+	id BaRhx92f8ikczBaRhxXw2o; Tue, 29 Sep 2026 18:12:45 +0200
+Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+ ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id BaRRx1oDtLJYiBaRSxYYGg; Tue, 29 Sep 2026 18:12:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1790698358;
+	bh=/CYIGon90Dpyxdyj2gt7ks36c8ww0+aJ1J2OviNXcD4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=eORPkq/KW8MQ+EAJSBy1x5irQF+H5qrTe5xccMDxElj9P2uXgSBHPxUwVpHTVCll6
+	 5SVS/MDDhsDAZGN4AAL0A+pqjb3JpY0oiJi4RmA5a2LsMfvbHjAfYgoydzIlArDdd3
+	 1gNGXNA6SYakaOVh4qsBVXhu7PPIDqHRVc+uJ/UQNcK+k5bW0OlHVkqB8NEKLzVQbj
+	 WrWFK64mS0JYUGD9+lH3bZ6lo+erqhiqIDJbsj/gkK48oHXui/eMVQUzABmKt1pdft
+	 A2BL3SeatpaJfbpiuXOHSGDlcAsarPXrMFwp14ziu6eev4OWwWLbbyK8angPUWfxcq
+	 OziQJNEFIbFpw==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Tue, 29 Sep 2026 18:12:38 +0200
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+Message-ID: <2620af49-ddd9-4df6-848a-d7c93e8a1c03@wanadoo.fr>
+Date: Tue, 29 Sep 2026 18:12:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <97f2fdff-3954-4d53-aa55-156672658ee5@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+To: Pavel Begunkov <asml.silence@gmail.com>
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <c33046bbadce5a2f14aa1874270ec2d10def58ef.1790602223.git.asml.silence@gmail.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+Cc: agk@redhat.com, akpm@linux-foundation.org, anuj20.g@samsung.com,
+ axboe@kernel.dk, bmarzins@redhat.com, brauner@kernel.org,
+ christian.koenig@amd.com, dm-devel@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, hch@lst.de, io-uring@vger.kernel.org,
+ jack@suse.cz, joshi.k@samsung.com, kbusch@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-nvme@lists.infradead.org,
+ matthew.brost@intel.com, mpatocka@redhat.com, nj.shetty@samsung.com,
+ phil.cayton@intel.com, sagi@grimberg.me, snitzer@kernel.org,
+ sumit.semwal@linaro.org, tushar.gohad@intel.com, viro@zeniv.linux.org.uk,
+ william.power@intel.com
+In-Reply-To: <c33046bbadce5a2f14aa1874270ec2d10def58ef.1790602223.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 09/29, Paolo Abeni wrote:
-> On 9/29/26 11:43, Paolo Abeni wrote:
-> > On 9/25/26 22:15, Stanislav Fomichev wrote:
-> > > On 32-bit architectures where dma_addr_t is wider than unsigned long,
-> > > page_pool_set_dma_addr_netmem() stores page-aligned DMA addresses shifted
-> > > by PAGE_SHIFT. The net_iov branch of __skb_frag_dma_map() adds byte offsets
-> > > to the encoded value, so the NIC is programmed with an invalid DMA address.
-> > > This can trigger an IOMMU fault or DMA from unintended memory.
-> > > 
-> > > Consolidate DMA address encoding, decoding, and representability checks in
-> > > netmem helpers. Use the common decoder from the page pool and net_iov TX
-> > > paths so both interpret stored addresses consistently.
-> > > 
-> > > Fixes: bd61848900bf ("net: devmem: Implement TX path")
-> > > Reviewed-by: Mina Almasry <almasrymina@google.com>
-> > > Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
-> > Fixes tag for net-next patches pointing to old code are highly discouraged.
-> > My understanding is that netem on 32 bits is mostly a theoretical thing,
-> > i.e. no actual usage.
-> > Would you be ok to strip the tag? No need to repost, just reply here.
-> Actually the above is more FYI than a real request. I'll apply the
-> series stripping the tag.
+Le 28/09/2026 à 15:32, Pavel Begunkov a écrit :
+> The goal is to be able to natively use dma-buf in the read-write / IO
+> path. This patch adds basic building blocks serving as a glue and API
+> between drivers and upper layer subsystems providing the uAPI. Later
+> patches implement it for NVMe raw block devices and expose it to the
+> user space via io_uring.
+> 
+> There are two main objects. struct dma_buf_io_ctx and struct
+> dma_buf_io_map. The ctx is used during initial registration and serves
+> as an interface between the upper layer user like io_uring and to the
+> importer subsystem / driver. The map represents the actual dma map
+> established for the target device[s] with dma_buf_map_attachment() and
+> stored in a device specific format. The context is created via a new
+> file operation ->init_dma_buf_io_ctx.
+> 
+> The ctx-map separation exists to support map invalidation (see
+> dma_buf_io_invalidate_mappings()). A ctx can create
+> multiple maps during its lifetime, but there can only be no more than
+> one (active) map attached to it. Invalidation drops the active map
+> if present, and the next map will only be attempted to be created
+> once there is a new request that wants to use the dma-buf IO ctx.
+> 
+> The primary task of the dma_buf_io_map object is to count requests
+> using it and to wait for their completion when we want to destroy the
+> DMA map.
+> 
+> [un]mapping and any work with dma addresses is delegated to the
+> importer driver via an ops table stored in the ctx, see struct
+> dma_buf_io_ops. Only the target driver / subsystem knows about devices
+> it wants to use the dma-buf with, especially in case of multi-device
+> filesystems or stacking in the future.
+> 
+> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+> ---
 
-Yes, agreed, this does not look like a real issue to me either. Thanks!
+Hi,
+a few nitpicks below, should it help
+
+
+> +static void dma_buf_io_kill_maps(struct dma_buf_io_ctx *ctx, bool final)
+> +{
+> +	struct dma_buf_io_map *map;
+> +
+> +	scoped_guard(mutex, &ctx->map_mutex) {
+
+guard() is enough. This saves indentation.
+
+> +		if (final)
+> +			ctx->maps_killed = true;
+> +
+> +		map = rcu_dereference_protected(ctx->map,
+> +					lockdep_is_held(&ctx->map_mutex));
+> +		if (!map)
+> +			return;
+> +		rcu_assign_pointer(ctx->map, NULL);
+> +		percpu_ref_kill(&map->refs);
+> +	}
+> +}
+
+...
+
+> +int dma_buf_io_ctx_create(struct file *file,
+> +			   struct dma_buf *dmabuf,
+> +			   enum dma_data_direction dir,
+> +			   struct dma_buf_io_ctx **out_ctx)
+> +{
+> +	struct dma_buf_io_ctx *ctx;
+> +	int ret;
+> +
+> +	if (!file->f_op->init_dma_buf_io_ctx)
+> +		return -EOPNOTSUPP;
+> +
+> +	ctx = kmalloc_obj(*ctx);
+
+kzalloc_obj() and save the memset() below
+
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +
+> +	memset(ctx, 0, sizeof(*ctx));
+> +	ctx->dir = dir;
+> +	ctx->dmabuf = dmabuf;
+> +	get_dma_buf(dmabuf);
+> +	mutex_init(&ctx->map_mutex);
+> +	mutex_init(&ctx->map_create_mutex);
+> +	atomic_set(&ctx->active_maps, 0);
+> +	atomic_set(&ctx->all_maps, 0);
+> +	refcount_set(&ctx->refs, 1);
+> +	init_waitqueue_head(&ctx->maps_wq);
+> +
+> +	ret = file->f_op->init_dma_buf_io_ctx(file, ctx);
+> +	if (ret) {
+> +		kfree(ctx);
+> +		dma_buf_put(dmabuf);
+> +		return ret;
+> +	}
+> +
+> +	if (WARN_ON_ONCE(!ctx->dev_ops ||
+> +			 !ctx->dev_ops->map ||
+> +			 !ctx->dev_ops->unmap ||
+> +			 !ctx->dev_ops->release))
+> +		return -EINVAL;
+> +
+> +	*out_ctx = ctx;
+> +	return 0;
+> +}
+...
+
+CJ
+
